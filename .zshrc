@@ -6,15 +6,15 @@ zdotdir=$HOME/.zsh
 fpath=( $HOME/src/zsh-completions $fpath)
 
 setopt autocd
-setopt auto_pushd		# pushd instead of cd
-setopt pushdtohome  # go home if no d specified
-setopt nohup				# don't kill bg processes
+setopt autopushd   # pushd instead of cd
+setopt pushdtohome # go home if no d specified
+setopt nohup       # don't kill bg processes
 setopt correct
 
 ##
 # command history
 # these exports only needed when there's a TTY
-setopt append_history
+setopt appendhistory
 export HISTFILE=~/.zsh_history
 export HISTSIZE=50000
 export SAVEHIST=50000

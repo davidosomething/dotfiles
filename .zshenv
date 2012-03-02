@@ -4,6 +4,8 @@ export EDITOR=vim
 export VISUAL='subl -w'
 export SVN_EDITOR=$EDITOR
 
+export COLORS=$(tput colors 2> /dev/null)
+
 #export JAVA_HOME=
 export ANT_HOME=/opt/local/share/java/apache-ant
 export MACPORTS_HOME=/opt/local
