@@ -51,7 +51,7 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
 # from https://gist.github.com/1454081
 [ "$do_ssh:l" = "y" ] && {
   mkdir ~/.ssh
-  [ ! -e "$HOME/.ssh/id_rsa.pub" ] && {
+  [ ! -e "~/.ssh/id_rsa.pub" ] && {
     echo "Generating ssh key..."
     read -p "Please enter the email you want to associate with your ssh key: " email
     ssh-keygen -t rsa -C "$email"
@@ -83,8 +83,13 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
 ##
 
 ##
+# grab dotfiles from this repo
+git clone --recursive git@github.com:davidosomething/dotfiles.git ~/.dotfiles
+# the clone will just fail if it's already cloned (e.g., didn't run through curl | zsh)
+
+##
 # set up zsh
-# @TODO should this go into ~/.zsh/install.sh?
+# @TODO should this go into ~/.zsh/install.sh? YES
 [ "$do_zsh:l" = "y" ] && {
   mv ~/.zsh ~/.zsh.old
   echo "Moved old ~/.zsh folder into ~/.zsh.old (just in case)"
@@ -98,7 +103,7 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
 }
 
 # set up vim
-# @TODO should this go into ~/.vim/install.sh?
+# @TODO should this go into ~/.vim/install.sh? YES
 [ "$do_vim:l" = "y" ] && {
   mv ~/.vim ~/.vim.old
   echo "Moved old ~/.vim folder into ~/.vim.old (just in case)"
