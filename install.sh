@@ -20,6 +20,7 @@ p="git";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi
 echo -n "Set up ssh keys [y/N]? ";                    read do_ssh;
 echo -n "Set up git and github [y/N]? ";              read do_git;
 [ "$do_git:l" != "y" ] && {
+  echo '[SKIPPING] Set up git, checking for existing .gitconfig with github token'
   if ! cat ~/.gitconfig >/dev/null 2>&1 | grep token; then
     echo '[MISSING] github token, git and github are required!'
     echo
