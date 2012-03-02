@@ -68,7 +68,8 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
     ssh-keygen -t rsa -C "$email"
     cat ~/.ssh/id_rsa.pub
     cat ~/.ssh/id_rsa.pub | pbcopy
-    echo "\nYour ssh public key is shown above and copied to the clipboard. Add it to Github. [enter] to proceed."
+    echo "\nYour ssh public key is shown above and copied to the clipboard."
+    echo "Add it to Github and press [enter] to proceed."
     read
   }
 }
