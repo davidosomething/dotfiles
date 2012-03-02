@@ -19,14 +19,16 @@ p="git";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi
 # @TODO check for --all argument
 echo -n "Set up ssh keys [y/N]? ";                    read do_ssh;
 echo -n "Set up git and github [y/N]? ";              read do_git;
-[ "$do_git:l" != "y" ] && {
+if [ "$do_git:l" != "y" ]; then
   echo '[SKIPPING] Set up git, checking for existing .gitconfig with github token'
-  if ! cat ~/.gitconfig >/dev/null 2>&1 | grep token; then
+  if ! cat ~/.gitconfig >/dev/null 2>&1 | grep token >/dev/null; then
     echo '[MISSING] github token, git and github are required!'
     echo
     exit;
+  else
+    echo '[FOUND] github already set up'
   fi
-}
+fi
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
