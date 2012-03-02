@@ -3,10 +3,10 @@
 
 ##
 # check dependencies
-p="zsh";        if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi # redundant??
-p="wget";       if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
-p="ssh-keygen"; if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
-p="git";        if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
+p="zsh";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";return 1;fi # redundant??
+p="wget";       if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";return 1;fi
+p="ssh-keygen"; if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";return 1;fi
+p="git";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";return 1;fi
 
 ##
 # what should we do?
@@ -14,7 +14,7 @@ p="git";        if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
 echo -n "Set up ssh keys [y/N]? ";                    read do_ssh;
 echo -n "Set up git and github [y/N]? ";              read do_git;
 [ "$do_git:l" != "y" ] && {
-  if ! cat ~/.gitconfig|grep token >/dev/null; then
+  if ! cat ~/.gitconfig|grep token >/dev/null 2>&1; then
     echo '[MISSING] github token, set up git!'
     return 1;
   fi
