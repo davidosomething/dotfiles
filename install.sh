@@ -63,12 +63,12 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
   mkdir ~/.ssh
   [ ! -e "~/.ssh/id_rsa.pub" ] && {
     echo "Generating ssh key..."
-    echo "Please enter your email to id your ssh key and git user:"
-    read email
+    echo "Please enter your email to id your ssh key and git user:";
+    echo -n "> "; read email
     ssh-keygen -t rsa -C "$email"
     cat ~/.ssh/id_rsa.pub
-    cat ~/.ssh/id_rsa.pub | pbcopy
-    echo "\nYour ssh public key is shown above and copied to the clipboard."
+    cat ~/.ssh/id_rsa.pub | pbcopy > /dev/null 2>&1
+    echo "\nYour ssh public key is shown above and copied to the clipboard on OSX."
     echo "Add it to Github and press [enter] to proceed."
     read
   }
@@ -79,9 +79,17 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
 # from https://gist.github.com/1454081
 [ "$do_git:l" = "y" ] && {
   echo "You can run this again if you mess up."
-  read -p "Please enter your full name: " fullname
-  read -p "Please enter your github username: " githubuser
-  read -p "Please enter your github api token: " githubtoken
+  echo "Please enter your full name:"
+  echo -n "> "; read fullname
+  echo "Please enter your github username:"
+  echo -n "> "; read githubuser
+  echo "Please enter your github api token:"
+  echo -n "> "; read githubtoken
+  # in case we skipped the email in the ssh section
+  if [ "$email" = "" ]; then
+    echo "Please enter your email:"
+    echo -n "> "; read email
+  fi
   [[ $fullname    != '' ]] && git config --global user.name "$fullname"
   [[ $email       != '' ]] && git config --global user.email "$email"
   [[ $githubuser  != '' ]] && git config --global github.user "$githubuser"
