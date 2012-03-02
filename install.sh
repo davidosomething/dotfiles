@@ -9,10 +9,10 @@ echo
 
 ##
 # check dependencies
-p="zsh";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";exit;fi # redundant??
-p="wget";       if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";exit;fi
-p="ssh-keygen"; if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";exit;fi
-p="git";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";exit;fi
+p="zsh";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi # redundant??
+p="wget";       if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi
+p="ssh-keygen"; if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi
+p="git";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi
 
 ##
 # what should we do?
@@ -21,11 +21,11 @@ echo -n "Set up ssh keys [y/N]? ";                    read do_ssh;
 echo -n "Set up git and github [y/N]? ";              read do_git;
 [ "$do_git:l" != "y" ] && {
   if ! cat ~/.gitconfig >/dev/null 2>&1 | grep token; then
-    echo '[MISSING] github token, set up git!'
-    die=1
+    echo '[MISSING] github token, git and github are required!'
+    echo
+    exit;
   fi
 }
-if [ $die == 1 ]; then exit; fi
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
