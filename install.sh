@@ -1,34 +1,29 @@
 #!/bin/zsh
 # using zsh as scripting lang, only runs if zsh is available
 
+##
 # set default shell to zshell
-echo -n "Switch to zsh [y/N]? "; read dothis; [ "$dothis" = Y ] && {
+echo -n "Switch to zsh [y/N]? "; read dothis; [ "$dothis" = "y" ] && {
   chsh -s `which zsh`
 }
 
-# set up zsh
-# @TODO should this go into ~/.zsh/install.sh?
-echo -n "Set up zsh [y/N]? "; read dothis; [ "$dothis" = Y ] && {
-  mv ~/.zsh ~/.zsh.old
-  echo "Moved old ~/.zsh folder into ~/.zsh.old (just in case)"
-  git clone --recursive git@github.com:davidosomething/dotfiles-zsh.git ~/.zsh && ~/.zsh/install.sh
-  /usr/bin/env zsh
-  source ~/.zshrc
-}
+##
+# check dependencies
+p="ssh-keygen"; if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
+p="wget";       if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
+p="git";        if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
+if ! cat ~/.gitconfig|grep token >/dev/null; then echo '[MISSING] github token'; fi
 
-# from https://gist.github.com/1454081
-# setup your ssh keys for github
-echo -n "Set up ssh keys [y/N]? "; read dothis; [ "$dothis" = Y ] && {
-  mkdir ~/.ssh
-  [ ! -e "$HOME/.ssh/id_rsa.pub" ] && {
-    echo "Generating ssh key..."
-    read -p "Please enter the email you want to associate with your ssh key: " email
-    ssh-keygen -t rsa -C "$email"
-  }
-}
+##
+# what should we do?
+# @TODO check for --all argument
+echo -n "Set up ssh keys [y/N]? ";                    read do_ssh;
+echo -n "Set up git and github [y/N]? ";              read do_git;
+echo -n "Set up zsh [y/N]? ";                         read do_zsh;
+echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
+echo -n "Set up vim [y/N]? ";                         read do_vim;
 
-# @TODO: check for make
-
+# @TODO: determine if osx
 # @TODO: check for macports
 #sudo port install ant-contrib
 #sudo port install apache-ant
@@ -43,12 +38,23 @@ echo -n "Set up ssh keys [y/N]? "; read dothis; [ "$dothis" = Y ] && {
 #sudo port install rsync
 #sudo port install wget
 
-echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read dothis; [ "$dothis" = Y ] && {
-  ln -s ~/.dotfiles/.cvsignore ~/.cvsignore
+##
+# set up ssh key pairs
+# from https://gist.github.com/1454081
+[ "$do_ssh:l" = "y" ] && {
+  mkdir ~/.ssh
+  [ ! -e "$HOME/.ssh/id_rsa.pub" ] && {
+    echo "Generating ssh key..."
+    read -p "Please enter the email you want to associate with your ssh key: " email
+    ssh-keygen -t rsa -C "$email"
+  }
 }
 
-# @TODO: check for git
-echo -n "Set up git [y/N]? "; read dothis; [ "$dothis" = Y ] && {
+##
+# setup your ssh keys for github
+# from https://gist.github.com/1454081
+[ "$do_git:l" = "y" ] && {
+  echo "You can run this again if you mess up."
   read -p "Please enter your full name: " fullname
   read -p "Please enter your github username: " githubuser
   read -p "Please enter your github api token: " githubtoken
@@ -60,9 +66,24 @@ echo -n "Set up git [y/N]? "; read dothis; [ "$dothis" = Y ] && {
   git config --global core.excludesfiles ~/.dotfiles/.cvsignore # use cvsignore (symlink)
 }
 
+##
+# set up zsh
+# @TODO should this go into ~/.zsh/install.sh?
+[ "$do_zsh:l" = "y" ] && {
+  mv ~/.zsh ~/.zsh.old
+  echo "Moved old ~/.zsh folder into ~/.zsh.old (just in case)"
+  git clone --recursive git@github.com:davidosomething/dotfiles-zsh.git ~/.zsh && ~/.zsh/install.sh
+  /usr/bin/env zsh
+  source ~/.zshrc
+}
+
+[ "$do_cvsignore:l" = "y" ] && {
+  ln -s ~/.dotfiles/.cvsignore ~/.cvsignore
+}
+
 # set up vim
 # @TODO should this go into ~/.vim/install.sh?
-echo -n "Set up vim [y/N]? "; read dothis; [ "$dothis" = Y ] && {
+[ "$do_vim:l" = "y" ] && {
   mv ~/.vim ~/.vim.old
   echo "Moved old ~/.vim folder into ~/.vim.old (just in case)"
   git clone --recursive git@github.com:davidosomething/dotfiles-vim ~/.vim && ~/.vim/install.sh
