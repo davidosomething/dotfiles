@@ -14,7 +14,7 @@ p="git";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";return 1;
 echo -n "Set up ssh keys [y/N]? ";                    read do_ssh;
 echo -n "Set up git and github [y/N]? ";              read do_git;
 [ "$do_git:l" != "y" ] && {
-  if ! cat ~/.gitconfig|grep token >/dev/null 2>&1; then
+  if ! cat ~/.gitconfig >/dev/null 2>&1 | grep token; then
     echo '[MISSING] github token, set up git!'
     return 1;
   fi
