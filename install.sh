@@ -63,7 +63,8 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
   mkdir ~/.ssh
   [ ! -e "~/.ssh/id_rsa.pub" ] && {
     echo "Generating ssh key..."
-    read -p "Please enter the email you want to associate with your ssh key: " email
+    echo -n "Please enter the email you want to associate with your ssh key: "
+    read email
     ssh-keygen -t rsa -C "$email"
     cat ~/.ssh/id_rsa.pub
     cat ~/.ssh/id_rsa.pub | pbcopy
