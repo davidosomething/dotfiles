@@ -25,7 +25,7 @@ echo -n "Set up git and github [y/N]? ";              read do_git;
     die=1
   fi
 }
-if $die == 1; then return 1; fi
+if [ $die == 1 ]; then return 1; fi
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
