@@ -1,6 +1,12 @@
 #!/bin/zsh
 # using zsh as scripting lang, only runs if zsh is available
 
+echo
+echo "+------------------------------------------------------------------------------+"
+echo "| davidosomething's dotfile installation                                       |"
+echo "+------------------------------------------------------------------------------+"
+echo
+
 ##
 # check dependencies
 p="zsh";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";return 1;fi # redundant??
@@ -16,9 +22,10 @@ echo -n "Set up git and github [y/N]? ";              read do_git;
 [ "$do_git:l" != "y" ] && {
   if ! cat ~/.gitconfig >/dev/null 2>&1 | grep token; then
     echo '[MISSING] github token, set up git!'
-    return 1;
+    die=1
   fi
 }
+if $die == 1; then return 1; fi
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
