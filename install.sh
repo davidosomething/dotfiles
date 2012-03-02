@@ -9,10 +9,10 @@ echo
 
 ##
 # check dependencies
-p="zsh";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";return 1;fi # redundant??
-p="wget";       if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";return 1;fi
-p="ssh-keygen"; if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";return 1;fi
-p="git";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";return 1;fi
+p="zsh";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";exit;fi # redundant??
+p="wget";       if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";exit;fi
+p="ssh-keygen"; if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";exit;fi
+p="git";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p";exit;fi
 
 ##
 # what should we do?
@@ -25,7 +25,7 @@ echo -n "Set up git and github [y/N]? ";              read do_git;
     die=1
   fi
 }
-if [ $die == 1 ]; then return 1; fi
+if [ $die == 1 ]; then exit; fi
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
