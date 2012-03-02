@@ -111,9 +111,13 @@ git clone --recursive git@github.com:davidosomething/dotfiles.git ~/.dotfiles
 # set up zsh
 # @TODO should this go into ~/.zsh/install.sh? YES
 [ "$do_zsh:l" = "y" ] && {
-  mv ~/.zsh ~/.zsh.old
-  echo "Moved old ~/.zsh folder into ~/.zsh.old (just in case)"
-  git clone --recursive git@github.com:davidosomething/dotfiles-zsh.git ~/.zsh && ~/.zsh/install.sh
+  mv $HOME/.zshrc $HOME/.dotfiles/.zshrc.old
+  mv $HOME/.zshenv $HOME/.dotfiles/.zshenv.old
+  echo "Your old zshrc and zshenv are now ~/.dotfiles/*.old"
+
+  ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
+  ln -s $HOME/.dotfiles/.zshenv $HOME/.zshenv
+  echo "Your new zshrc and zshenv are softlinks to .dotfiles/*"
   /usr/bin/env zsh
   source ~/.zshrc
 }
