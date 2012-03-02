@@ -12,13 +12,18 @@ echo -n "Switch to zsh [y/N]? "; read dothis; [ "$dothis" = "y" ] && {
 p="ssh-keygen"; if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
 p="wget";       if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
 p="git";        if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
-if ! cat ~/.gitconfig|grep token >/dev/null; then echo '[MISSING] github token'; fi
 
 ##
 # what should we do?
 # @TODO check for --all argument
 echo -n "Set up ssh keys [y/N]? ";                    read do_ssh;
 echo -n "Set up git and github [y/N]? ";              read do_git;
+[ "$do_git:l" != "y" ] && {
+  if ! cat ~/.gitconfig|grep token >/dev/null; then
+    echo '[MISSING] github token, set up git!'
+    return 1;
+  fi
+}
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
