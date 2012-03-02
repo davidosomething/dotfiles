@@ -2,15 +2,10 @@
 # using zsh as scripting lang, only runs if zsh is available
 
 ##
-# set default shell to zshell
-echo -n "Switch to zsh [y/N]? "; read dothis; [ "$dothis" = "y" ] && {
-  chsh -s `which zsh`
-}
-
-##
 # check dependencies
-p="ssh-keygen"; if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
+p="zsh";        if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi # redundant??
 p="wget";       if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
+p="ssh-keygen"; if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
 p="git";        if ! which $p >/dev/null;then echo "[MISSING] $p";return 1;fi
 
 ##
@@ -28,6 +23,14 @@ echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
 
+##
+# set default shell to zshell
+echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] && {
+  chsh -s `which zsh`
+}
+
+##
+# install shit
 # @TODO: determine if osx
 # @TODO: check for macports
 #sudo port install ant-contrib
@@ -52,6 +55,10 @@ echo -n "Set up vim [y/N]? ";                         read do_vim;
     echo "Generating ssh key..."
     read -p "Please enter the email you want to associate with your ssh key: " email
     ssh-keygen -t rsa -C "$email"
+    cat ~/.ssh/id_rsa.pub
+    cat ~/.ssh/id_rsa.pub | pbcopy
+    echo "\nYour ssh public key is shown above and copied to the clipboard. Add it to Github. [enter] to proceed."
+    read
   }
 }
 
@@ -70,6 +77,10 @@ echo -n "Set up vim [y/N]? ";                         read do_vim;
   git config --global color.ui auto
   git config --global core.excludesfiles ~/.dotfiles/.cvsignore # use cvsignore (symlink)
 }
+
+##
+# the following require git and github set up
+##
 
 ##
 # set up zsh
