@@ -5,11 +5,14 @@
 zdotdir=$HOME/.zsh
 fpath=( $HOME/src/zsh-completions $fpath)
 
-setopt autocd
-setopt autopushd   # pushd instead of cd
-setopt pushdtohome # go home if no d specified
-setopt nohup       # don't kill bg processes
-setopt correct
+setopt AUTO_CD
+setopt AUTO_PUSHD                     # pushd instead of cd
+setopt PUSHD_TO_HOME                  # go home if no d specified
+setopt PUSHD_SILENT                   # don't show stack after cd
+setopt CDABLE_VARS
+setopt NO_HUP                         # don't kill bg processes
+setopt AUTO_LIST                      # list completions
+setopt CORRECT
 
 ##
 # command history
@@ -21,6 +24,7 @@ export SAVEHIST=50000
 
 ##
 # aliases
+alias vi='vim'
 alias ls='ls -AFG'
 alias ll='ls -l'
 alias zshrc='subl ~/.zsh/.zshrc'
@@ -30,6 +34,7 @@ alias apache2ctl='sudo /opt/local/apache2/bin/apachectl'
 alias apacheconf='sudo vim /opt/local/apache2/conf/httpd.conf'
 alias apacheerrors='tail -n10 /opt/local/apache2/logs/error_log'
 alias vhosts='sudo vim /opt/local/apache2/conf/extra/httpd-vhosts.conf'
+alias wget='wget --no-check-certificate'
 
 ##
 # prompt
@@ -55,6 +60,9 @@ autoload -U compinit && compinit
 
 ##
 # zstyles
+# case-insensitive tab completion for filenames (useful on Mac OS X)
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' expand 'yes'
 
 ##
 # local
