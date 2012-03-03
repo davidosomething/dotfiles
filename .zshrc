@@ -61,6 +61,7 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
+bindkey -v                    # use vi mode even if EDITOR is emacs
 # prompt itself
 PROMPT='%F{green}%n%F{blue}@%F{green}%m%F{blue}:%F{yellow}%~
 %f%*%F{blue}${VIMODE}%F{magenta}${vcs_info_msg_0_}%# %f'
