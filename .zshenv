@@ -1,15 +1,15 @@
+##
+# zshenv is always sourced, even for bg jobs
+
 zdotdir=$HOME/.zsh
 
-export EDITOR=vim
-export VISUAL='subl -w'
-export SVN_EDITOR=$EDITOR
+export COLORS=$(tput colors 2>/dev/null)
 
-export COLORS=$(tput colors 2> /dev/null)
-
+export MACPORTS_HOME=/opt/local
 #export JAVA_HOME=
 export ANT_HOME=/opt/local/share/java/apache-ant
-export MACPORTS_HOME=/opt/local
 
-path=($path $HOME/bin)
-path=($path $ANT_HOME/bin)
-path=($path $MACPORTS_HOME/bin)
+# $path must be last to give new things precedence!
+path=( $MACPORTS_HOME/bin $MACPORTS_HOME/sbin $path )
+path=( $ANT_HOME/bin $path )
+path=( $HOME/bin $path )

@@ -2,8 +2,7 @@
 # Zsh options
 # only run on interactive/TTY
 
-zdotdir=$HOME/.zsh
-fpath=( $HOME/src/zsh-completions $fpath)
+fpath=( $HOME/src/zsh-completions $fpath )
 
 setopt AUTO_CD
 setopt AUTO_PUSHD                     # pushd instead of cd
@@ -22,18 +21,22 @@ export HISTFILE=~/.zsh_history
 export HISTSIZE=50000
 export SAVEHIST=50000
 
+# editing settings
+export EDITOR=vim
+
 ##
 # aliases
 alias vi='vim'
 alias ls='ls -AFG'
 alias ll='ls -l'
-alias zshrc='subl ~/.zsh/.zshrc'
+alias zshrc="$EDITOR ~/.zsh/.zshrc"
 alias reloadzshrc='source ~/.zshrc'
-alias hosts='sudo vim /etc/hosts'
+alias hosts="sudo $EDITOR /etc/hosts"
+alias phpini="sudo $EDITOR /opt/local/etc/php5/php.ini"
+alias apacheconf="sudo $EDITOR /opt/local/apache2/conf/httpd.conf"
 alias apache2ctl='sudo /opt/local/apache2/bin/apachectl'
-alias apacheconf='sudo vim /opt/local/apache2/conf/httpd.conf'
-alias apacheerrors='tail -n10 /opt/local/apache2/logs/error_log'
-alias vhosts='sudo vim /opt/local/apache2/conf/extra/httpd-vhosts.conf'
+alias vhosts="sudo $EDITOR /opt/local/apache2/conf/extra/httpd-vhosts.conf"
+alias apacheerrors='tail /opt/local/apache2/logs/error_log'
 alias wget='wget --no-check-certificate'
 
 ##
