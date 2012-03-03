@@ -50,9 +50,17 @@ zstyle ':vcs_info:*' stagedstr '+'			# display this when there are staged change
 zstyle ':vcs_info:*' formats '(%b%c%u)'
 zstyle ':vcs_info:*' actionformats '(%b%c%u)[%a]'
 precmd() { vcs_info }
+# show if in vi mode
+VIMODE='I';
+function zle-line-init zle-keymap-select {
+  VIMODE="${${KEYMAP/vicmd/N}/(main|viins)/I}"
+  zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 # prompt itself
 PROMPT='%F{green}%n%F{blue}@%F{green}%m%F{blue}:%F{yellow}%~
-%f%*%F{magenta}${vcs_info_msg_0_}%# %f'
+%f%*%F{blue}${VIMODE}%F{magenta}${vcs_info_msg_0_}%# %f'
 
 ##
 # key bindings
