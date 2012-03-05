@@ -1,0 +1,5 @@
+# local zshenv
+# for local paths mostly
+
+export APACHE_HOME="/opt/local/apache2"
+export PHP_INI="/opt/local/etc/php5/php.ini"

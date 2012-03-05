@@ -68,7 +68,8 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
     ssh-keygen -t rsa -C "$email"
     cat ~/.ssh/id_rsa.pub
     cat ~/.ssh/id_rsa.pub | pbcopy > /dev/null 2>&1
-    echo "\nYour ssh public key is shown above and copied to the clipboard on OSX."
+    echo
+    echo "Your ssh public key is shown above and copied to the clipboard on OSX."
     echo "Add it to Github and press [enter] to proceed."
     read
   }
@@ -104,20 +105,24 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
 
 ##
 # grab dotfiles from this repo
-git clone --recursive git@github.com:davidosomething/dotfiles.git ~/.dotfiles
-# the clone will just fail if it's already cloned (e.g., didn't run through curl | zsh)
+# also get zsh-completions from submodule
+if [ ! -d ~/.dotfiles ]; then
+  git clone --recursive git@github.com:davidosomething/dotfiles.git ~/.dotfiles
+fi
 
 ##
 # set up zsh
-# @TODO should this go into ~/.zsh/install.sh? YES
 [ "$do_zsh:l" = "y" ] && {
-  mv $HOME/.zshrc $HOME/.dotfiles/.zshrc.old
-  mv $HOME/.zshenv $HOME/.dotfiles/.zshenv.old
+  [ -f ~/.zshrc ] && { mv ~/.zshrc ~/.dotfiles/.zshrc.old }
+  [ -f ~/.zshenv ] && { mv ~/.zshenv ~/.dotfiles/.zshenv.old }
   echo "Your old zshrc and zshenv are now ~/.dotfiles/*.old"
 
-  ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
-  ln -s $HOME/.dotfiles/.zshenv $HOME/.zshenv
-  echo "Your new zshrc and zshenv are softlinks to .dotfiles/*"
+  ln -s ~/.dotfiles/.zshrc ~/.zshrc
+  ln -s ~/.dotfiles/.zshenv ~/.zshenv
+  echo "Your new zshrc and zshenv are symlinks to .dotfiles/*"
+  echo "Create .zshrc.local with any additional fpaths and .zshenv.local with correct paths!"
+  echo "There are a few stock configs in ~/.dotfiles/"
+
   /usr/bin/env zsh
   source ~/.zshrc
 }

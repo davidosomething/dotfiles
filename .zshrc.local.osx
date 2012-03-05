@@ -1,0 +1,4 @@
+# local zshrc
+
+# add my custom zsh completions
+fpath=( ~/.dotfiles/zsh-completions $fpath )

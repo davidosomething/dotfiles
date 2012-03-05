@@ -15,9 +15,8 @@ setopt CORRECT
 # command history
 # these exports only needed when there's a TTY
 setopt appendhistory
-export HISTFILE="~/.dotfiles/.zsh_history"
-export HISTSIZE=50000
-export SAVEHIST=50000
+export HISTSIZE=500
+export SAVEHIST=500
 
 # editing settings
 export EDITOR=vim
