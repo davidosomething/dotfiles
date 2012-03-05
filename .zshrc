@@ -1,8 +1,6 @@
 ####
-# Zsh options
+# zsh options
 # only run on interactive/TTY
-
-fpath=( $HOME/src/zsh-completions $fpath )
 
 setopt AUTO_CD
 setopt AUTO_PUSHD                     # pushd instead of cd
@@ -17,7 +15,7 @@ setopt CORRECT
 # command history
 # these exports only needed when there's a TTY
 setopt appendhistory
-export HISTFILE=~/.zsh_history
+export HISTFILE="~/.dotfiles/.zsh_history"
 export HISTSIZE=50000
 export SAVEHIST=50000
 
@@ -26,18 +24,19 @@ export EDITOR=vim
 
 ##
 # aliases
-alias vi='vim'
-alias ls='ls -AFG'
-alias ll='ls -l'
-alias zshrc="$EDITOR ~/.zsh/.zshrc"
-alias reloadzshrc='source ~/.zshrc'
+# some of these paths are set in .zshenv.local!
+alias vi="vim"
+alias ls="ls -AFG"
+alias ll="ls -l"
+alias zshrc="$EDITOR ~/.zshrc"
+alias reloadzshrc="source ~/.zshrc"
 alias hosts="sudo $EDITOR /etc/hosts"
-alias phpini="sudo $EDITOR /opt/local/etc/php5/php.ini"
-alias apacheconf="sudo $EDITOR /opt/local/apache2/conf/httpd.conf"
-alias apache2ctl='sudo /opt/local/apache2/bin/apachectl'
-alias vhosts="sudo $EDITOR /opt/local/apache2/conf/extra/httpd-vhosts.conf"
-alias apacheerrors='tail /opt/local/apache2/logs/error_log'
-alias wget='wget --no-check-certificate'
+alias phpini="sudo $EDITOR $PHP_INI"
+alias apacheconf="sudo $EDITOR $APACHE_HOME/conf/httpd.conf"
+alias vhosts="sudo $EDITOR $APACHE_HOME/conf/extra/httpd-vhosts.conf"
+alias apache2ctl="sudo $APACHE_HOME/bin/apachectl"
+alias apacheerrors="tail $APACHE_HOME/logs/error_log"
+alias wget="wget --no-check-certificate"
 
 ##
 # prompt

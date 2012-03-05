@@ -13,3 +13,7 @@ export ANT_HOME=/opt/local/share/java/apache-ant
 path=( $MACPORTS_HOME/bin $MACPORTS_HOME/sbin $path )
 path=( $ANT_HOME/bin $path )
 path=( $HOME/bin $path )
+
+##
+# local
+source ~/.zshenv.local >/dev/null 2>&1 # may or may not exist
