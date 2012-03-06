@@ -40,18 +40,18 @@ alias wget="wget --no-check-certificate"
 
 ##
 # prompt
+setopt prompt_subst                   # allow variables in prompt
 autoload -U colors && colors
 autoload -Uz vcs_info
-setopt prompt_subst # allow variables in prompt
+precmd() { vcs_info }
 # version control info in prompt
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' unstagedstr '*'		# display this when there are unstaged changes
-zstyle ':vcs_info:*' stagedstr '+'			# display this when there are staged changes
-zstyle ':vcs_info:*' formats '(%b%c%u)'
-zstyle ':vcs_info:*' actionformats '(%b%c%u)[%a]'
-precmd() { vcs_info }
+zstyle ':vcs_info:*' unstagedstr '*'  # display this when there are unstaged changes
+zstyle ':vcs_info:*' stagedstr '+'    # display this when there are staged changes
+zstyle ':vcs_info:*' formats '(%b%m%c%u)'
+zstyle ':vcs_info:*' actionformats '(%b%m%c%u)[%a]'
 # show if in vi mode
 VIMODE='I';
 function zle-line-init zle-keymap-select {
@@ -60,7 +60,7 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
-bindkey -v                    # use vi mode even if EDITOR is emacs
+bindkey -v                            # use vi mode even if EDITOR is emacs
 # prompt itself
 PROMPT='%F{green}%n%F{blue}@%F{green}%m%F{blue}:%F{yellow}%~
 %f%*%F{blue}${VIMODE}%F{magenta}${vcs_info_msg_0_}%# %f'
@@ -74,6 +74,10 @@ autoload -U compinit && compinit
 # case-insensitive tab completion for filenames (useful on Mac OS X)
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' expand 'yes'
+
+##
+# zsh-syntax-highlighting plugin
+source ~/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh >/dev/null 2>&1 # may or may not exist
 
 ##
 # local

@@ -108,6 +108,9 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
 # also get zsh-completions from submodule
 if [ ! -d ~/.dotfiles ]; then
   git clone --recursive git@github.com:davidosomething/dotfiles.git ~/.dotfiles
+  # just in case
+  git submodule init
+  git submodule update
 fi
 
 ##
