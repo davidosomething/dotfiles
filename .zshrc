@@ -25,6 +25,7 @@ export EDITOR=vim
 # aliases
 # some of these paths are set in .zshenv.local!
 alias vi="vim"
+alias dirs="dirs -v"                  # default to vert, use -l for list
 alias ls="ls -AFG"
 alias ll="ls -l"
 alias zshrc="$EDITOR ~/.zshrc"
