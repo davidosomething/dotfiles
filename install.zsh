@@ -134,13 +134,12 @@ fi
 }
 
 [ "$do_cvsignore:l" = "y" ] && {
-  ln -s ~/.dotfiles/.cvsignore ~/.cvsignore
+  ln -s ~/.dotfiles/.cvsignore ~/.cvsignore && echo '.cvsignore linked'
 }
 
 # set up vim
 # @TODO should this go into ~/.vim/install.sh? YES
 [ "$do_vim:l" = "y" ] && {
-  mv ~/.vim ~/.vim.old
-  echo "Moved old ~/.vim folder into ~/.vim.old (just in case)"
+  mv ~/.vim ~/.vim.old && echo "Moved old ~/.vim folder into ~/.vim.old (just in case)"
   git clone --recursive $GIT_HOST/dotfiles-vim ~/.vim && ~/.vim/install.sh
 }
