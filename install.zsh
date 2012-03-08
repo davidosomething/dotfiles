@@ -128,9 +128,6 @@ fi
   echo "Your new zshrc and zshenv are symlinks to .dotfiles/*"
   echo "Create .zshrc.local with any additional fpaths and .zshenv.local with correct paths!"
   echo "There are a few stock configs in ~/.dotfiles/"
-
-  /usr/bin/env zsh
-  source ~/.zshrc
 }
 
 [ "$do_cvsignore:l" = "y" ] && {
