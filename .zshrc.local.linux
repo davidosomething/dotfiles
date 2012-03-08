@@ -1,0 +1,4 @@
+# local zshrc for linux
+
+alias ls="ls -A"
+alias ll="ls -l"
