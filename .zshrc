@@ -63,7 +63,7 @@ zle -N zle-keymap-select
 bindkey -v                            # use vi mode even if EDITOR is emacs
 # prompt itself
 PROMPT_HOST='%F{green}%m'
-if [[ $SSH_CONNECTION != '' ]]; then PROMPT_HOST='%{white}%m'; fi
+if [[ $SSH_CONNECTION != '' ]]; then PROMPT_HOST='%F{white}%m'; fi
 PROMPT='%F{green}%n%F{blue}@${PROMPT_HOST}%F{blue}:%F{yellow}%~
 %f%*%F{blue}${VIMODE}%F{magenta}${vcs_info_msg_0_}%# %f'
 
