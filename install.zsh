@@ -19,12 +19,12 @@ p="git";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi
 # @TODO check for --all argument
 echo -n "Set up ssh keys [y/N]? ";                    read do_ssh;
 echo -n "Set up git and github [y/N]? ";              read do_git;
+GIT_DEV='true'
 if [ "$do_git:l" != "y" ]; then
   echo '[SKIPPING] Set up git, checking for existing .gitconfig with github token'
   if ! cat ~/.gitconfig >/dev/null 2>&1 | grep token >/dev/null; then
-    echo '[MISSING] github token, git and github are required!'
-    echo
-    exit;
+    echo '[MISSING] github token, disabling write access to repositories.'
+    GIT_DEV=''
   else
     echo '[FOUND] github already set up'
   fi
@@ -103,11 +103,14 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
 # the following require git and github set up
 ##
 
+GIT_HOST='git@github.com:davidosomething'
+[ "$GIT_DEV" = '' ] && { GIT_HOST='git://github.com/davidosomething' }
+
 ##
 # grab dotfiles from this repo
 # also get zsh-completions from submodule
 if [ ! -d ~/.dotfiles ]; then
-  git clone --recursive git@github.com:davidosomething/dotfiles.git ~/.dotfiles
+  git clone --recursive $GIT_HOST/dotfiles.git ~/.dotfiles
   # just in case
   git submodule init
   git submodule update
@@ -139,5 +142,5 @@ fi
 [ "$do_vim:l" = "y" ] && {
   mv ~/.vim ~/.vim.old
   echo "Moved old ~/.vim folder into ~/.vim.old (just in case)"
-  git clone --recursive git@github.com:davidosomething/dotfiles-vim ~/.vim && ~/.vim/install.sh
+  git clone --recursive $GIT_HOST/dotfiles-vim ~/.vim && ~/.vim/install.sh
 }
