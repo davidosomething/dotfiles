@@ -1,19 +1,28 @@
 ##
 # zshenv is always sourced, even for bg jobs
+# this file applies to all OS's
 
-zdotdir=$HOME/.zsh
+# specify new dotfiles folder
+zdotdir=$HOME/.dotfiles
 
+# provide COLORS to environment, used by vimrc
 export COLORS=$(tput colors 2>/dev/null)
 
-export MACPORTS_HOME=/opt/local
-#export JAVA_HOME=
-export ANT_HOME=/opt/local/share/java/apache-ant
-
-# $path must be last to give new things precedence!
-path=( $MACPORTS_HOME/bin $MACPORTS_HOME/sbin $path )
-path=( $ANT_HOME/bin $path )
-path=( $HOME/bin $path )
+# default required paths
+path=( /usr/local/bin $path )
 
 ##
 # local
+# source .zshenv.local.OS from here if you want defaults
 source ~/.zshenv.local >/dev/null 2>&1 # may or may not exist
+
+path=( $HOME/bin $path )
+
+# assume rbenv installed, needs precedence over other paths such as macports
+# since macvim +ruby adds macports ruby to path
+path=( $HOME/.rbenv/bin $path )
+# enable rbenv shims and autocomplete
+eval "$(rbenv init -)"
+
+# remove duplicate paths
+typeset -U path cdpath fpath manpath

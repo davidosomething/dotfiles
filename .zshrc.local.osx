@@ -1,8 +1,5 @@
-# local zshrc
+# local zshrc defaults for OSX
 
 # osx aliases since -G is an osx flag
 alias ls="ls -AFG"
 alias ll="ls -l"
-
-# add my custom zsh completions
-fpath=( ~/.dotfiles/zsh-completions $fpath )
