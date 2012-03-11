@@ -3,6 +3,7 @@
 # osx aliases since -G is an osx flag
 alias ls="ls -AFG"
 alias ll="ls -l"
+if [[ $SSH_CONNECTION != '' ]]; then alias mvim=vim; fi
 
 # add my custom zsh completions
 fpath=( ~/.dotfiles/zsh-completions $fpath )
