@@ -1,4 +1,4 @@
 # local zshrc for linux
 
-alias ls="ls -A"
+alias ls="ls -A --color=auto"
 alias ll="ls -l"

@@ -14,8 +14,17 @@ if [[ -x ~/.vim/update.sh ]]; then
   echo "+------------------------------------------------------------------------------+"
   echo "| Updating .vim folder and .vimrc                                              |"
   echo "+------------------------------------------------------------------------------+"
-  git pull          # update vim folder and vimrc itself
-  ~/.vim/update.sh  # update submodules
+  git pull                            # update vim folder and vimrc itself
+  ~/.vim/update.sh                    # update submodules
+fi
+
+if [[ -d ~/.rbenv ]]; then
+  cd ~/.rbenv
+  echo
+  echo "+------------------------------------------------------------------------------+"
+  echo "| Updating .rbenv                                                              |"
+  echo "+------------------------------------------------------------------------------+"
+  git pull
 fi
 
 echo
