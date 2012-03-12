@@ -2,6 +2,21 @@
 # zsh options
 # only run on interactive/TTY
 
+##
+# command history
+# these exports only needed when there's a TTY
+export HISTSIZE=500
+export SAVEHIST=500
+export HISTFILE=~/.dotfiles/.zhistory
+setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_SPACE
+setopt APPEND_HISTORY                 # append instead of overwrite file
+setopt SHARE_HISTORY                  # append after each new command instead
+                                      # of after shell closes, share between
+                                      # shells
+
+##
+# shell options
 setopt AUTO_CD
 setopt AUTO_PUSHD                     # pushd instead of cd
 setopt PUSHD_TO_HOME                  # go home if no d specified
@@ -12,18 +27,15 @@ setopt AUTO_LIST                      # list completions
 setopt CORRECT
 
 ##
-# command history
-# these exports only needed when there's a TTY
-setopt appendhistory
-export HISTSIZE=500
-export SAVEHIST=500
-
-# editing settings
-export EDITOR=vim
+# enable rbenv shims and autocomplete
+eval "$(rbenv init -)"
 
 ##
 # aliases
 # some of these paths are set in .zshenv.local!
+alias mv="nocorrect mv"       # no spelling correction on mv
+alias cp="nocorrect cp"
+alias mkdir="nocorrect mkdir"
 alias vi="vim"
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias zshrc="$EDITOR ~/.zshrc"
@@ -38,7 +50,7 @@ alias wget="wget --no-check-certificate"
 
 ##
 # prompt
-setopt prompt_subst                   # allow variables in prompt
+setopt PROMPT_SUBST                   # allow variables in prompt
 autoload -U colors && colors
 autoload -Uz vcs_info
 precmd() { vcs_info }

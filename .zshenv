@@ -1,28 +1,28 @@
-##
+####
 # zshenv is always sourced, even for bg jobs
 # this file applies to all OS's
 
-# specify new dotfiles folder
-zdotdir=$HOME/.dotfiles
+# environment vars available to scripts
+zdotdir=$HOME/.dotfiles               # specify new dotfiles folder
+export COLORS=$(tput colors 2>/dev/null) # provide COLORS to environment, used by vimrc
+export EDITOR=vim
 
-# provide COLORS to environment, used by vimrc
-export COLORS=$(tput colors 2>/dev/null)
-
-# default required paths
-path=( /usr/local/bin $path )
+##
+# paths, locals
+path=( /usr/local/bin $path )         # default required paths
 
 ##
 # local
 # source .zshenv.local.OS from here if you want defaults
 source ~/.zshenv.local >/dev/null 2>&1 # may or may not exist
 
+##
+# back to paths
 path=( $HOME/bin $path )
 
 # assume rbenv installed, needs precedence over other paths such as macports
 # since macvim +ruby adds macports ruby to path
 path=( $HOME/.rbenv/bin $path )
-# enable rbenv shims and autocomplete
-eval "$(rbenv init -)"
 
 # remove duplicate paths
 typeset -U path cdpath fpath manpath
