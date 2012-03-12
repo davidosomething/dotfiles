@@ -86,6 +86,8 @@ autoload -U compinit && compinit
 # case-insensitive tab completion for filenames (useful on Mac OS X)
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' expand 'yes'
+# don't autocomplete usernames/homedirs
+zstyle ':completion::complete:cd::' tag-order '! users' -
 
 ##
 # zsh-syntax-highlighting plugin
