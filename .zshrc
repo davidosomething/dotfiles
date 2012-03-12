@@ -28,7 +28,7 @@ setopt CORRECT
 
 ##
 # enable rbenv shims and autocomplete
-eval "$(rbenv init -)"
+eval "$(rbenv init -)" >/dev/null 2>&1
 
 ##
 # aliases
