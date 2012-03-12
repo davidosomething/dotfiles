@@ -32,6 +32,7 @@ fi
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
+echo -n "Set up pow [y/N]? ";                         read do_pow;
 
 ##
 # set default shell to zshell
@@ -140,3 +141,9 @@ fi
   mv ~/.vim ~/.vim.old && echo "Moved old ~/.vim folder into ~/.vim.old (just in case)"
   git clone --recursive $GIT_HOST/dotfiles-vim ~/.vim && ~/.vim/install.sh
 }
+
+[ "$do_pow:l" = "y" ] && {
+  mv ~/.powconfig ~/.powconfig.old && echo "Moved old ~/.powconfig into ~/.powconfig.old (just in case)"
+  ln -s ~/.dotfiles/.powconfig ~/.powconfig
+}
+
