@@ -13,10 +13,15 @@ p="zsh";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi
 p="wget";       if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi
 p="ssh-keygen"; if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi
 p="git";        if ! which $p >/dev/null 2>&1;then echo "[MISSING] $p\n";exit;fi
+echo "[SUCCESS] All dependencies found!"
 
 ##
 # what should we do?
 # @TODO check for --all argument
+echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
+echo -n "Symlink .tmux.conf [y/N]? ";                 read do_tmux;
+echo -n "Symlink .powconfig [y/N]? ";                 read do_pow;
+
 echo -n "Set up ssh keys [y/N]? ";                    read do_ssh;
 echo -n "Set up git and github [y/N]? ";              read do_git;
 GIT_DEV='true'
@@ -29,34 +34,19 @@ if [ "$do_git:l" != "y" ]; then
     echo '[FOUND] github already set up'
   fi
 fi
+
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
-echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read do_cvsignore;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
-echo -n "Set up pow [y/N]? ";                         read do_pow;
 
 ##
 # set default shell to zshell
-echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] && {
-  chsh -s `which zsh`
-}
+echo -n "Switch to zsh [y/N]? ";                      read do_switch_zsh;
 
-##
-# install shit
-# @TODO: determine if osx
-# @TODO: check for macports
-#sudo port install ant-contrib
-#sudo port install apache-ant
-#sudo port install apache2
-#sudo port install curl
-#sudo port install git-core +svn
-#sudo port install macvim
-#sudo port install openssh
-#sudo port install openssl
-#sudo port install php5
-#sudo port install php5-soap
-#sudo port install rsync
-#sudo port install wget
-
+echo
+echo "+---------------------------------+"
+echo "| begin install                   |"
+echo "+---------------------------------+"
+echo
 ##
 # set up ssh key pairs
 # from https://gist.github.com/1454081
@@ -100,9 +90,35 @@ echo -n "Switch to zsh [y/N]? "; read do_switch_zsh; [ "$do_switch_zsh" = "y" ] 
   git config --global core.excludesfiles ~/.dotfiles/.cvsignore # use cvsignore (symlink)
 }
 
+###############################################
+# symlink config files
+###############################################
+
 ##
+# set up cvsignore
+[ "$do_cvsignore:l" = "y" ] && {
+  [ -f ~/.cvsignore ] && { mv ~/.cvsignore ~/.cvsignore.old && echo "Moved old ~/.cvsignore folder into ~/.cvsignore.old" }
+  ln -s ~/.dotfiles/.cvsignore ~/.cvsignore && echo '.cvsignore linked'
+}
+
+##
+# set up tmux
+# @TODO should this go into ~/.vim/install.sh? YES
+[ "$do_tmux:l" = "y" ] && {
+  [ -f ~/.tmux.conf ] && { mv ~/.tmux.conf ~/.tmux.conf.old && echo "Moved old ~/.tmux.conf folder into ~/.tmux.conf.old" }
+  ln -s ~/.dotfiles/.tmux.conf ~/.tmux.conf
+}
+
+##
+# set up pow server
+[ "$do_pow:l" = "y" ] && {
+  [ -f ~/.powconfig ] && { mv ~/.powconfig ~/.powconfig.old && echo "Moved old ~/.powconfig into ~/.powconfig.old" }
+  ln -s ~/.dotfiles/.powconfig ~/.powconfig
+}
+
+###############################################
 # the following require git and github set up
-##
+###############################################
 
 GIT_HOST='git@github.com:davidosomething'
 [ "$GIT_DEV" = '' ] && { GIT_HOST='git://github.com/davidosomething' }
@@ -112,7 +128,7 @@ GIT_HOST='git@github.com:davidosomething'
 # also get zsh-completions from submodule
 if [ ! -d ~/.dotfiles ]; then
   git clone --recursive $GIT_HOST/dotfiles.git ~/.dotfiles
-  # just in case
+  # submodule init just in case
   cd ~/.dotfiles && git submodule init
   cd ~/.dotfiles && git submodule update
 fi
@@ -131,19 +147,17 @@ fi
   echo "There are a few stock configs in ~/.dotfiles/"
 }
 
-[ "$do_cvsignore:l" = "y" ] && {
-  ln -s ~/.dotfiles/.cvsignore ~/.cvsignore && echo '.cvsignore linked'
-}
-
+##
 # set up vim
 # @TODO should this go into ~/.vim/install.sh? YES
 [ "$do_vim:l" = "y" ] && {
-  mv ~/.vim ~/.vim.old && echo "Moved old ~/.vim folder into ~/.vim.old (just in case)"
+  [ -f ~/.vim ] && { mv ~/.vim ~/.vim.old && echo "Moved old ~/.vim folder into ~/.vim.old (just in case)" }
   git clone --recursive $GIT_HOST/dotfiles-vim ~/.vim && ~/.vim/install.sh
 }
 
-[ "$do_pow:l" = "y" ] && {
-  mv ~/.powconfig ~/.powconfig.old && echo "Moved old ~/.powconfig into ~/.powconfig.old (just in case)"
-  ln -s ~/.dotfiles/.powconfig ~/.powconfig
-}
+###############################################
+# change shell
+###############################################
+[ "$do_switch_zsh" = "y" ] && { chsh -s `which zsh` }
+
 
