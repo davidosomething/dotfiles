@@ -60,8 +60,8 @@ echo
     cat ~/.ssh/id_rsa.pub
     cat ~/.ssh/id_rsa.pub | pbcopy > /dev/null 2>&1
     echo
-    echo "Your ssh public key is shown above and copied to the clipboard on OSX."
-    echo "Add it to Github and press [enter] to proceed."
+    echo "[NOTICE] Your ssh public key is shown above and copied to the clipboard on OSX."
+    echo "[NOTICE] Add it to Github and press [enter] to proceed."
     read
   }
 }
@@ -88,6 +88,7 @@ echo
   [[ $githubtoken != '' ]] && git config --global github.token "$githubtoken"
   git config --global color.ui auto
   git config --global core.excludesfiles ~/.dotfiles/.cvsignore # use cvsignore (symlink)
+  echo '[DONE] git globals and github setup completed'
 }
 
 ###############################################
@@ -97,22 +98,22 @@ echo
 ##
 # set up cvsignore
 [ "$do_cvsignore:l" = "y" ] && {
-  [ -f ~/.cvsignore ] && { mv ~/.cvsignore ~/.cvsignore.old && echo "Moved old ~/.cvsignore folder into ~/.cvsignore.old" }
-  ln -s ~/.dotfiles/.cvsignore ~/.cvsignore && echo '.cvsignore linked'
+  [ -f ~/.cvsignore ] && { mv ~/.cvsignore ~/.cvsignore.old && echo "[BACKUP] Moved old ~/.cvsignore folder into ~/.cvsignore.old" }
+  ln -s ~/.dotfiles/.cvsignore ~/.cvsignore && echo '[DONE] .cvsignore symlinked'
 }
 
 ##
 # set up tmux
 # @TODO should this go into ~/.vim/install.sh? YES
 [ "$do_tmux:l" = "y" ] && {
-  [ -f ~/.tmux.conf ] && { mv ~/.tmux.conf ~/.tmux.conf.old && echo "Moved old ~/.tmux.conf folder into ~/.tmux.conf.old" }
-  ln -s ~/.dotfiles/.tmux.conf ~/.tmux.conf
+  [ -f ~/.tmux.conf ] && { mv ~/.tmux.conf ~/.tmux.conf.old && echo "[BACKUP] Moved old ~/.tmux.conf folder into ~/.tmux.conf.old" }
+  ln -s ~/.dotfiles/.tmux.conf ~/.tmux.conf && echo '[DONE] .tmux.conf symlinked'
 }
 
 ##
 # set up pow server
 [ "$do_pow:l" = "y" ] && {
-  [ -f ~/.powconfig ] && { mv ~/.powconfig ~/.powconfig.old && echo "Moved old ~/.powconfig into ~/.powconfig.old" }
+  [ -f ~/.powconfig ] && { mv ~/.powconfig ~/.powconfig.old && echo "[BACKUP] Moved old ~/.powconfig into ~/.powconfig.old" }
   ln -s ~/.dotfiles/.powconfig ~/.powconfig
 }
 
@@ -131,6 +132,7 @@ if [ ! -d ~/.dotfiles ]; then
   # submodule init just in case
   cd ~/.dotfiles && git submodule init
   cd ~/.dotfiles && git submodule update
+  echo '[DONE] cloned dotfiles repo'
 fi
 
 ##
@@ -138,26 +140,31 @@ fi
 [ "$do_zsh:l" = "y" ] && {
   [ -f ~/.zshrc ] && { mv ~/.zshrc ~/.dotfiles/.zshrc.old }
   [ -f ~/.zshenv ] && { mv ~/.zshenv ~/.dotfiles/.zshenv.old }
-  echo "Your old zshrc and zshenv are now ~/.dotfiles/*.old"
+  echo "[BACKUP] Your old zshrc and zshenv are now ~/.dotfiles/*.old"
 
   ln -s ~/.dotfiles/.zshrc ~/.zshrc
   ln -s ~/.dotfiles/.zshenv ~/.zshenv
-  echo "Your new zshrc and zshenv are symlinks to .dotfiles/*"
-  echo "Create .zshrc.local with any additional fpaths and .zshenv.local with correct paths!"
-  echo "There are a few stock configs in ~/.dotfiles/"
+  echo "[DONE] Your new zshrc and zshenv are symlinks to .dotfiles/*"
+  echo "[NOTICE] Create .zshrc.local with any additional fpaths and .zshenv.local with correct paths!"
+  echo "[NOTICE] There are a few stock configs in ~/.dotfiles/"
 }
 
 ##
 # set up vim
 # @TODO should this go into ~/.vim/install.sh? YES
 [ "$do_vim:l" = "y" ] && {
-  [ -f ~/.vim ] && { mv ~/.vim ~/.vim.old && echo "Moved old ~/.vim folder into ~/.vim.old (just in case)" }
+  [ -f ~/.vim ] && { mv ~/.vim ~/.vim.old && echo "[BACKUP] Moved old ~/.vim folder into ~/.vim.old (just in case)" }
   git clone --recursive $GIT_HOST/dotfiles-vim ~/.vim && ~/.vim/install.sh
+  echo '[DONE] vim setup complete'
 }
 
 ###############################################
 # change shell
 ###############################################
-[ "$do_switch_zsh" = "y" ] && { chsh -s `which zsh` }
+[ "$do_switch_zsh" = "y" ] && {
+  chsh -s `which zsh`
+  echo '[DONE] user default shell changed to zsh'
+  echo '[NOTICE] please restart your terminal session, or start a new zsh'
+}
 
 
