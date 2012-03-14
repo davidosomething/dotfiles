@@ -49,6 +49,7 @@ alias vhosts="sudo $EDITOR $APACHE_HOME/conf/extra/httpd-vhosts.conf"
 alias apache2ctl="sudo $APACHE_HOME/bin/apachectl"
 alias apacheerrors="tail $APACHE_HOME/logs/error_log"
 alias wget="wget --no-check-certificate"
+alias remux="if tmux has; then tmux attach; else tmux new; fi"
 
 ##
 # prompt
