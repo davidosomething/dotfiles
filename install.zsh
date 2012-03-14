@@ -164,6 +164,7 @@ fi
 [ "$do_switch_zsh" = "y" ] && {
   chsh -s `which zsh`
   echo '[DONE] user default shell changed to zsh'
+  echo "[NOTICE] using zsh at $(which zsh) -- fix your paths if this is wrong!"
   echo '[NOTICE] please restart your terminal session, or start a new zsh'
 }
 
