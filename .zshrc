@@ -27,12 +27,6 @@ setopt AUTO_LIST                      # list completions
 setopt CORRECT
 
 ##
-# enable rbenv shims and autocomplete
-if which rbenv >/dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
-
-##
 # aliases
 # some of these paths are set in .zshenv.local!
 alias mv="nocorrect mv"       # no spelling correction on mv
