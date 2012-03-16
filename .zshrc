@@ -7,7 +7,7 @@
 # these exports only needed when there's a TTY
 export HISTSIZE=500
 export SAVEHIST=500
-export HISTFILE=~/.dotfiles/.zhistory
+export HISTFILE="$ZDOTDIR/.zhistory"
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
 setopt APPEND_HISTORY                 # append instead of overwrite file
@@ -45,11 +45,13 @@ alias vhosts="sudo $EDITOR $APACHE_HOME/conf/extra/httpd-vhosts.conf"
 alias apache2ctl="sudo $APACHE_HOME/bin/apachectl"
 alias apacheerrors="tail $APACHE_HOME/logs/error_log"
 alias wget="wget --no-check-certificate"
-alias remux="if tmux has; then tmux attach; else tmux new $SHELL; fi"
 alias publicip="curl icanhazip.com"
+alias remux="if tmux has 2>/dev/null; then tmux attach; else tmux new $SHELL; fi"
+alias demux="tmux detach"
 
 ##
 # functions
+
 # colored path from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh
 path() {
   echo $PATH | tr ":" "\n" | \

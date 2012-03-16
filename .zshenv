@@ -2,9 +2,11 @@
 # zshenv is always sourced, even for bg jobs
 # this file applies to all OS's
 
+export ZDOTDIR="$HOME/.dotfiles"
 # environment vars available to scripts
-export COLORS=$(tput colors 2>/dev/null) # provide COLORS to environment, used by vimrc
-export EDITOR=vim
+# provide COLORS to environment, used by vimrc
+export COLORS="$(tput colors 2>/dev/null)" 
+export EDITOR="vim"
 
 ##
 # paths, locals
