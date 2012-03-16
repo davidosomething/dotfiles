@@ -29,6 +29,8 @@ setopt CORRECT
 ##
 # aliases
 # some of these paths are set in .zshenv.local!
+alias ..='cd ..'
+alias ....='cd ../..'
 alias mv="nocorrect mv"       # no spelling correction on mv
 alias cp="nocorrect cp"
 alias mkdir="nocorrect mkdir"
@@ -45,6 +47,19 @@ alias apacheerrors="tail $APACHE_HOME/logs/error_log"
 alias wget="wget --no-check-certificate"
 alias remux="if tmux has; then tmux attach; else tmux new $SHELL; fi"
 alias publicip="curl icanhazip.com"
+
+##
+# functions
+# colored path from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh
+path() {
+  echo $PATH | tr ":" "\n" | \
+    awk "{ sub(\"/usr\",   \"$fg_no_bold[green]/usr$reset_color\"); \
+           sub(\"/bin\",   \"$fg_no_bold[blue]/bin$reset_color\"); \
+           sub(\"/opt\",   \"$fg_no_bold[cyan]/opt$reset_color\"); \
+           sub(\"/sbin\",  \"$fg_no_bold[magenta]/sbin$reset_color\"); \
+           sub(\"/local\", \"$fg_no_bold[yellow]/local$reset_color\"); \
+           print }"
+}
 
 ##
 # prompt

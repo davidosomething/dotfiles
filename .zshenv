@@ -3,7 +3,6 @@
 # this file applies to all OS's
 
 # environment vars available to scripts
-zdotdir=$HOME/.dotfiles               # specify new dotfiles folder
 export COLORS=$(tput colors 2>/dev/null) # provide COLORS to environment, used by vimrc
 export EDITOR=vim
 
