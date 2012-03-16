@@ -46,6 +46,7 @@ alias apache2ctl="sudo $APACHE_HOME/bin/apachectl"
 alias apacheerrors="tail $APACHE_HOME/logs/error_log"
 alias wget="wget --no-check-certificate"
 alias publicip="curl icanhazip.com"
+alias localip="ipconfig getifaddr en1"
 alias remux="if tmux has 2>/dev/null; then tmux attach; else tmux new $SHELL; fi"
 alias demux="tmux detach"
 

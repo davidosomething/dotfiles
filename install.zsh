@@ -130,8 +130,7 @@ GIT_HOST='git@github.com:davidosomething'
 if [ ! -d ~/.dotfiles ]; then
   git clone --recursive $GIT_HOST/dotfiles.git ~/.dotfiles
   # submodule init just in case
-  cd ~/.dotfiles && git submodule init
-  cd ~/.dotfiles && git submodule update
+  cd ~/.dotfiles && git submodule update --init
   echo '[DONE] cloned dotfiles repo'
 fi
 

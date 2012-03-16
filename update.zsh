@@ -6,7 +6,7 @@ echo "| Updating zsh                                                            
 echo "+------------------------------------------------------------------------------+"
 cd ~/.dotfiles
 git pull
-git submodule update
+git submodule update --init
 
 if [[ -x ~/.vim/update.sh ]]; then
   cd ~/.vim
