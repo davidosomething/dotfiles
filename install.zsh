@@ -1,8 +1,9 @@
 #!/bin/zsh
 # using zsh as scripting lang, only runs if zsh is available
 
+echo "==== dotfile and environment setup by @davidosomething ===="
+
 function usage {
-  echo "== dotfile and environment setup by @davidosomething =="
   echo
   echo "usage:          ./install.sh options"
   echo
