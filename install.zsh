@@ -57,6 +57,7 @@ recommend "nmap"
 recommend "nodeenv"
 recommend "python"
 recommend "rbenv"
+recommend "rsync"
 recommend "tmux"
 recommend "vim"
 

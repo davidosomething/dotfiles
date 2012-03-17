@@ -1,22 +1,9 @@
 #!/bin/zsh
 
-echo
-echo "+------------------------------------------------------------------------------+"
-echo "| Updating dotfiles, zsh, and vim                                              |"
-echo "+------------------------------------------------------------------------------+"
-cd ~/.dotfiles
+echo "==== Updating dotfiles, zsh, and vim ===="
+pushd ~/.dotfiles
 git pull
 git submodule update --init --quiet
+popd
 
-if [[ -d ~/.rbenv ]]; then
-  cd ~/.rbenv
-  echo
-  echo "+------------------------------------------------------------------------------+"
-  echo "| Updating .rbenv                                                              |"
-  echo "+------------------------------------------------------------------------------+"
-  git pull
-fi
-
-echo
-echo "DONE!"
-echo
+echo "[SUCCESS] ALL DONE!!!!!!!!11"
