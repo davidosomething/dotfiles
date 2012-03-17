@@ -79,7 +79,7 @@ else
   echo "[SUCCESS] cool, you're using zsh"
 fi
 
-if [ ! -e "~/.ssh/id_rsa.pub" ]; then
+if [ ! -e ~/.ssh/id_rsa.pub ]; then
   # from https://gist.github.com/1454081
   echo
   echo "[NOTICE] no ssh keys found for this user on this machine, required"
