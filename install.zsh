@@ -99,7 +99,7 @@ echo
 # set up cvsignore
 [ "$do_cvsignore:l" = "y" ] && {
   [ -f ~/.cvsignore ] && { mv ~/.cvsignore ~/.cvsignore.old && echo "[BACKUP] Moved old ~/.cvsignore folder into ~/.cvsignore.old" }
-  ln -s ~/.dotfiles/.cvsignore ~/.cvsignore && echo '[DONE] .cvsignore symlinked'
+  ln -fs ~/.dotfiles/.cvsignore ~/.cvsignore && echo '[DONE] .cvsignore symlinked'
 }
 
 ##
@@ -107,14 +107,14 @@ echo
 # @TODO should this go into ~/.vim/install.sh? YES
 [ "$do_tmux:l" = "y" ] && {
   [ -f ~/.tmux.conf ] && { mv ~/.tmux.conf ~/.tmux.conf.old && echo "[BACKUP] Moved old ~/.tmux.conf folder into ~/.tmux.conf.old" }
-  ln -s ~/.dotfiles/.tmux.conf ~/.tmux.conf && echo '[DONE] .tmux.conf symlinked'
+  ln -fs ~/.dotfiles/.tmux.conf ~/.tmux.conf && echo '[DONE] .tmux.conf symlinked'
 }
 
 ##
 # set up pow server
 [ "$do_pow:l" = "y" ] && {
   [ -f ~/.powconfig ] && { mv ~/.powconfig ~/.powconfig.old && echo "[BACKUP] Moved old ~/.powconfig into ~/.powconfig.old" }
-  ln -s ~/.dotfiles/.powconfig ~/.powconfig
+  ln -fs ~/.dotfiles/.powconfig ~/.powconfig
 }
 
 ###############################################
@@ -129,10 +129,11 @@ GIT_HOST='git@github.com:davidosomething'
 # also get zsh-completions from submodule
 if [ ! -d ~/.dotfiles ]; then
   git clone --recursive $GIT_HOST/dotfiles.git ~/.dotfiles
-  # submodule init just in case
-  cd ~/.dotfiles && git submodule update --init
+  cd ~/.dotfiles
   echo '[DONE] cloned dotfiles repo'
 fi
+
+git submodule update --init --quiet
 
 ##
 # set up zsh
@@ -141,8 +142,8 @@ fi
   [ -f ~/.zshenv ] && { mv ~/.zshenv ~/.dotfiles/.zshenv.old }
   echo "[BACKUP] Your old zshrc and zshenv are now ~/.dotfiles/*.old"
 
-  ln -s ~/.dotfiles/.zshrc ~/.zshrc
-  ln -s ~/.dotfiles/.zshenv ~/.zshenv
+  ln -fs ~/.dotfiles/.zshrc ~/.zshrc
+  ln -fs ~/.dotfiles/.zshenv ~/.zshenv
   echo "[DONE] Your new zshrc and zshenv are symlinks to .dotfiles/*"
   echo "[NOTICE] Create .zshrc.local with any additional fpaths and .zshenv.local with correct paths!"
   echo "[NOTICE] There are a few stock configs in ~/.dotfiles/"
@@ -152,8 +153,21 @@ fi
 # set up vim
 # @TODO should this go into ~/.vim/install.sh? YES
 [ "$do_vim:l" = "y" ] && {
-  [ -f ~/.vim ] && { mv ~/.vim ~/.vim.old && echo "[BACKUP] Moved old ~/.vim folder into ~/.vim.old (just in case)" }
-  git clone --recursive $GIT_HOST/dotfiles-vim ~/.vim && ~/.vim/install.sh
+  [ -d ~/.vim ] && { mv ~/.vim ~/.vim.old && echo "[BACKUP] Moved old ~/.vim folder into ~/.vim.old (just in case)" }
+  ln -fs ~/.dotfiles/vim ~/.vim
+  echo "[DONE] Your ~/.vim folder is a symlink to ~/.dotfiles/vim"
+
+  # just in case
+  [ -f ~/.vimrc ] && { mv ~/.vimrc ~/.vimrc.old }
+  [ -f ~/.gvimrc ] && { mv ~/.gvimrc ~/.gvimrc.old }
+  echo "[BACKUP] Your old .?vimrc is now ~/.?vimrc.old"
+
+  # create softlink to (g)vimrc
+  ln -fs ~/.dotfiles/.vimrc ~/.vimrc
+  echo "[DONE] Your new .vimrc is a symlink to ~/.dotfiles/.vimrc"
+  ln -fs ~/.dotfiles/.gvimrc ~/.gvimrc
+  echo "[DONE] Your new .gvimrc is a symlink to ~/.dotfiles/.gvimrc"
+
   echo '[DONE] vim setup complete'
 }
 

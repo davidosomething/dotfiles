@@ -20,3 +20,11 @@ Notes
 * If using MacPorts, NEVER INSTALL MonoDevelop! It adds /usr/bin/pkg-config .
 Touching /usr/bin is filthy.
 * Don't forget to setup apache with pow and run the pow install script
+
+
+VIM dotfiles
+============
+
+See `bundle/` for what plugins are installed. Some notes on that:
+
+* vim-surround requires vim-repeat to do dot (.) repeating

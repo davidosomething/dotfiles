@@ -2,21 +2,11 @@
 
 echo
 echo "+------------------------------------------------------------------------------+"
-echo "| Updating zsh                                                                 |"
+echo "| Updating dotfiles, zsh, and vim                                              |"
 echo "+------------------------------------------------------------------------------+"
 cd ~/.dotfiles
 git pull
-git submodule update --init
-
-if [[ -x ~/.vim/update.sh ]]; then
-  cd ~/.vim
-  echo
-  echo "+------------------------------------------------------------------------------+"
-  echo "| Updating .vim folder and .vimrc                                              |"
-  echo "+------------------------------------------------------------------------------+"
-  git pull                            # update vim folder and vimrc itself
-  ~/.vim/update.sh                    # update submodules
-fi
+git submodule update --init --quiet
 
 if [[ -d ~/.rbenv ]]; then
   cd ~/.rbenv
