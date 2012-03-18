@@ -224,6 +224,10 @@ git submodule update --init --quiet
   [ -d ~/.vim ] && { mv ~/.vim ~/.vim.old && echo "[NOTICE] Moved old ~/.vim folder into ~/.vim.old (just in case)" }
   ln -fs ~/.dotfiles/vim ~/.vim && echo "[SUCCESS] Your ~/.vim folder is a symlink to ~/.dotfiles/vim"
 
+  mkdir -p ~/.dotfiles/vim/_temp
+  mkdir -p ~/.dotfiles/vim/_backup
+  echo "[SUCCESS] Created backup and temp folders for vim"
+
   # just in case
   [ -f ~/.vimrc ] && { mv ~/.vimrc ~/.vimrc.old }
   [ -f ~/.gvimrc ] && { mv ~/.gvimrc ~/.gvimrc.old }
