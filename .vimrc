@@ -230,6 +230,10 @@ command! -bang W w<bang>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin specific (and not from janus)
 call togglebg#map("<F12>")            " F12 to swap solarized palette
+let g:yankring_history_file = '.vim/.yankring-history'
+" We don't want to use Ctrl-p as the mapping because
+" it interferes with YankRing (paste, then hit ctrl-p)
+let g:ctrlp_map = '<C-t>'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype specific
