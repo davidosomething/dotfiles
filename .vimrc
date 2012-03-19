@@ -45,11 +45,14 @@ set showcmd                           " incomplete commands on
 set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
 set wildmode=list:longest             " Complete files like a shell.
-set wildignore+=*.o,*.out,*.obj,*.exe,*.dll,.git,*.rbc,*.class,.svn,*.gem " output, VCS
+" output, VCS
+set wildignore+=*.o,*.out,*.obj,*.exe,*.dll,.git,*.rbc,*.class,.svn,*.gem
 set wildignore+=*.gif,*.jpg,*.jpeg,*.png,*.psd,*.ico
-set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz " archives
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/* " bundler and SASS
-set wildignore+=*.swp,.lock,.DS_Store,._* " JUNK
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+" bundler and SASS
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+" JUNK
+set wildignore+=*.swp,.lock,.DS_Store,._*
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax
@@ -58,13 +61,15 @@ filetype plugin indent on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " file saving
+set autoread                          " reload files if they were edited elsewhere
 set fileformats=unix,mac,dos
 set fileformat=unix
 set encoding=utf-8
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " backups
-set backupdir=~/.vim/_backup//        " where to put backup files.
+set nobackup                          " hate those
+set backupdir=~/.vim/_backup//        " defunct now
 set directory=~/.vim/_temp//          " where to put swap files.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -209,6 +214,40 @@ else
   imap <C-9> <Esc>9gt
 endif
 
+" shortcuts for resizing splits
+" split wider
+nmap <leader>] <C-w>>
+" split narrower
+nmap <leader>[ <C-w><
+" split shorter
+nmap <leader>- <C-w>-
+" split taller
+nmap <leader>+ <C-w>+
+
+" swap splits with \mw (mark this one) and \pw (swap with this one)
+" http://stackoverflow.com/questions/2586984/how-can-i-swap-positions-of-two-open-files-in-splits-in-vim
+function! MarkWindowSwap()
+  let g:markedWinNum = winnr()
+endfunction
+
+function! DoWindowSwap()
+  "Mark destination
+  let curNum = winnr()
+  let curBuf = bufnr( "%" )
+  exe g:markedWinNum . "wincmd w"
+  "Switch to source and shuffle dest->source
+  let markedBuf = bufnr( "%" )
+  "Hide and open so that we aren't prompted and keep history
+  exe 'hide buf' curBuf
+  "Switch to dest and shuffle source->dest
+  exe curNum . "wincmd w"
+  "Hide and open so that we aren't prompted and keep history
+  exe 'hide buf' markedBuf 
+endfunction
+
+nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
+nmap <silent> <leader>pw :call DoWindowSwap()<CR>
+
 " Keep search pattern at the center of the screen.
 " http://vimbits.com/bits/92
 nnoremap <silent> n nzz
@@ -240,6 +279,8 @@ let g:ctrlp_map = '<C-t>'
 " Makefiles, Python use real tabs
 au FileType make   set noexpandtab
 au FileType python set noexpandtab
+" wrap textfiles at 80
+autocmd FileType text,txt setlocal textwidth=80
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Local config
