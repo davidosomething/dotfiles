@@ -111,6 +111,7 @@ echo -n "Set up gitconfig [y/N]? ";                   read do_gitconfig;
 echo -n "Set up github [y/N]? ";                      read do_github;
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
+echo -n "Set up bin [y/N]? ";                         read do_bin;
 
 echo
 echo "== processing git configuration =="
@@ -236,6 +237,17 @@ git submodule update --init --quiet
   # create softlink to (g)vimrc
   ln -fs ~/.dotfiles/.vimrc ~/.vimrc && echo "[SUCCESS] Your new .vimrc is a symlink to ~/.dotfiles/.vimrc"
   ln -fs ~/.dotfiles/.gvimrc ~/.gvimrc && echo "[SUCCESS] Your new .gvimrc is a symlink to ~/.dotfiles/.gvimrc"
+}
+
+[ "$do_bin:l" = "y" ] && {
+  echo
+  echo "== create ~/bin and symlink some scripts =="
+  [ ! -d ~/bin ] && { mkdir ~/bin && echo "[SUCCESS] Created local bin folder" }
+  for f in ~/.dotfiles/bin/*
+  do
+    BIN_NAME=$(basename $f)
+    [ ! -f ~/bin/$BIN_NAME ] && ln -fs $f ~/bin/$BIN_NAME && echo "[SUCCESS] ~/bin/$BIN_NAME symlinked"
+  done
 }
 
 echo
