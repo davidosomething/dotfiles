@@ -112,7 +112,10 @@ echo -n "Set up github [y/N]? ";                      read do_github;
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
 echo -n "Set up bin [y/N]? ";                         read do_bin;
+
+OS='linux'
 if [ "`uname`" = "Darwin" ]; then
+  OS='osx'
   echo -n "Set up OSX Defaults [y/N]? ";                read do_osx;
 fi
 
@@ -154,7 +157,7 @@ fi
   git config --global diff.tool vimdiff
 
   # set up browser for fugitive :Gbrowse
-  [ "`uname`" = "Darwin" ] && git config --global web.browser open
+  [ $OS = "osx" ] && git config --global web.browser open
 
   # a couple aliases
   git config --global alias.co checkout
@@ -226,6 +229,18 @@ git submodule update --init --quiet
     echo "[SUCCESS] Your new .zshrc and .zshenv are symlinks to ~/.dotfiles/.zsh*"
     echo "          Create .zshrc.local with any additional fpaths and .zshenv.local with"
     echo "          correct paths! There are a few stock configs in ~/.dotfiles/"
+  }
+
+  [ ! -f ~/.zshenv.local ] && {
+    echo "source ~/.dotfiles/.zshenv.local.$OS" >> ~/.zshenv.local
+    echo "[NOTICE] You didn't have a .zshenv.local file so one was created for"
+    echo "          you. It just sources ~/.dotfiles/.zshenv.local.$OS for now."
+  }
+
+  [ ! -f ~/.zshrc.local ] && {
+    echo "source ~/.dotfiles/.zshrc.local.$OS" >> ~/.zshrc.local
+    echo "[NOTICE] You didn't have a .zshrc.local file so one was created for"
+    echo "          you. It just sources ~/.dotfiles/.zshrc.local.$OS for now."
   }
 }
 
