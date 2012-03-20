@@ -112,6 +112,9 @@ echo -n "Set up github [y/N]? ";                      read do_github;
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
 echo -n "Set up bin [y/N]? ";                         read do_bin;
+if [ "`uname`" = "Darwin" ]; then
+  echo -n "Set up OSX Defaults [y/N]? ";                read do_osx;
+fi
 
 echo
 echo "== processing git configuration =="
@@ -255,6 +258,12 @@ git submodule update --init --quiet
     BIN_NAME=$(basename $f)
     [ ! -f ~/bin/$BIN_NAME ] && ln -fs $f ~/bin/$BIN_NAME && echo "[SUCCESS] ~/bin/$BIN_NAME symlinked"
   done
+}
+
+[ "$do_osx:l" = "y" ] && {
+  echo
+  echo "== set up OSX defaults =="
+  . ~/.dotfiles/.osx && echo "[SUCCESS] OSX defaults written"
 }
 
 echo
