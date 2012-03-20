@@ -110,5 +110,9 @@ zstyle ':completion::complete:cd::' tag-order '! users' -
 source ~/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh >/dev/null 2>&1 # may or may not exist
 
 ##
+# enable nvm
+[ -d ~/.nvm ] && . ~/.nvm/nvm.sh
+
+##
 # local
 source ~/.zshrc.local >/dev/null 2>&1 # may or may not exist

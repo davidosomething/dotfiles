@@ -110,6 +110,7 @@ echo -n "Symlink .powconfig [y/N]? ";                 read do_pow;
 echo -n "Set up gitconfig [y/N]? ";                   read do_gitconfig;
 echo -n "Set up github [y/N]? ";                      read do_github;
 echo -n "Set up zsh [y/N]? ";                         read do_zsh;
+echo -n "Set up nvm [y/N]? ";                         read do_nvm;
 echo -n "Set up vim [y/N]? ";                         read do_vim;
 echo -n "Set up bin [y/N]? ";                         read do_bin;
 
@@ -262,6 +263,12 @@ git submodule update --init --quiet
   # create softlink to (g)vimrc
   ln -fs ~/.dotfiles/.vimrc ~/.vimrc && echo "[SUCCESS] Your new .vimrc is a symlink to ~/.dotfiles/.vimrc"
   ln -fs ~/.dotfiles/.gvimrc ~/.gvimrc && echo "[SUCCESS] Your new .gvimrc is a symlink to ~/.dotfiles/.gvimrc"
+}
+
+[ "$do_nvm:l" = "y" ] && {
+  echo
+  echo "== symlink .nvm =="
+  ln -fs ~/.dotfiles/nvm ~/.nvm && echo "[SUCCESS] Your ~/.nvm folder is a symlink to ~/.dotfiles/nvm"
 }
 
 [ "$do_bin:l" = "y" ] && {
