@@ -9,7 +9,7 @@ Installation
 Run the install to set up a terminal and some programs exactly like mine.
 If you want a oneliner:
 ```
-curl -s -o davidosomething-dotfiles.zsh https://raw.github.com/davidosomething/dotfiles/master/install.zsh && ./davidosomething-dotfiles.zsh && rm davidosomething-dotfiles.zsh
+curl -s -o davidosomething-dotfiles.zsh https://raw.github.com/davidosomething/dotfiles/master/install.zsh && zsh ./davidosomething-dotfiles.zsh && rm davidosomething-dotfiles.zsh
 ```
 
 
