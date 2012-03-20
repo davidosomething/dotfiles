@@ -23,6 +23,11 @@ set scrolloff=3                       " show 2 lines of context
 set foldlevelstart=99                 " show all folds by default
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" syntax
+syntax on
+filetype plugin indent on
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " search
 set hlsearch
 set incsearch
@@ -53,11 +58,6 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 " JUNK
 set wildignore+=*.swp,.lock,.DS_Store,._*
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" syntax
-syntax on
-filetype plugin indent on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " file saving
@@ -242,7 +242,7 @@ function! DoWindowSwap()
   "Switch to dest and shuffle source->dest
   exe curNum . "wincmd w"
   "Hide and open so that we aren't prompted and keep history
-  exe 'hide buf' markedBuf 
+  exe 'hide buf' markedBuf
 endfunction
 
 nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
@@ -265,6 +265,8 @@ vnoremap <Space> za
 " fix typo !W to !w
 " https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
 command! -bang W w<bang>
+
+nmap <silent> <leader>rc :so $MYVIMRC<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin specific (and not from janus)
