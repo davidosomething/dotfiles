@@ -52,3 +52,21 @@
 [submodule "vim/bundle/ColorV"]
 	path = vim/bundle/ColorV
 	url = https://github.com/Rykka/ColorV.git
+[submodule "vim/bundle/vim-tmux"]
+	path = vim/bundle/vim-tmux
+	url = https://github.com/acustodioo/vim-tmux.git
+[submodule "vim/bundle/vim-sunday"]
+	path = vim/bundle/vim-sunday
+	url = https://github.com/nishigori/vim-sunday.git
+[submodule "vim/bundle/vim-haml"]
+	path = vim/bundle/vim-haml
+	url = https://github.com/tpope/vim-haml.git
+[submodule "vim/bundle/IndexedSearch"]
+	path = vim/bundle/IndexedSearch
+	url = https://github.com/vim-scripts/IndexedSearch.git
+[submodule "vim/bundle/vim-git"]
+	path = vim/bundle/vim-git
+	url = https://github.com/tpope/vim-git.git
+[submodule "vim/bundle/vim-javascript"]
+	path = vim/bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
