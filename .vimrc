@@ -276,6 +276,9 @@ let g:yankring_history_file = '.vim/.yankring-history'
 " it interferes with YankRing (paste, then hit ctrl-p)
 let g:ctrlp_map = '<C-t>'
 
+" colorV colors on CSS files
+let g:ColorV_prev_css = 1
+
 " run syntastic on file open
 let g:syntastic_check_on_open = 1
 
