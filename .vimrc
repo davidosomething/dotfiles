@@ -285,8 +285,9 @@ let g:syntastic_check_on_open = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype specific
 " Makefiles, Python use real tabs
-au FileType make   set noexpandtab
-au FileType python set noexpandtab
+au FileType gitconfig   set noexpandtab
+au FileType make        set noexpandtab
+au FileType python      set noexpandtab
 " wrap textfiles at 80
 autocmd FileType text,txt setlocal textwidth=80
 

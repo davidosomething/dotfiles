@@ -132,7 +132,7 @@ fi
 [ "$do_gitconfig:l" = "y" ] && {
   echo
   echo "== setting up git == "
-  echo "You can run this again if you mess up."
+  echo "You can run this again if you mess up. Leave blank to skip username/email fields."
   echo -n "Please enter your full name: "; read fullname
   # in case we skipped the email in the ssh section
   if [ "$email" = "" ]; then
@@ -145,10 +145,17 @@ fi
   git config --global color.ui auto
 
   # use cvsignore (symlink)
-  git config --global core.excludesfiles ~/.dotfiles/.cvsignore
+  git config --global core.excludesfile ~/.dotfiles/.cvsignore
 
   # vim as diff tool
   git config --global diff.tool vimdiff
+
+  # set up browser for fugitive :Gbrowse
+  [ "`uname`" = "Darwin" ] && git config --global web.browser open
+
+  # a couple aliases
+  git config --global alias.co checkout
+  git config --global alias.st status
 
   echo "[SUCCESS] global .gitconfig generated/updated!"
 }
