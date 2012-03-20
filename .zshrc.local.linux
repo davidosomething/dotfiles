@@ -2,3 +2,5 @@
 
 alias ls="ls -A --color=auto"
 alias ll="ls -l"
+
+alias mvim="gvim"
