@@ -8,6 +8,7 @@ Installation
 
 Run the install to set up a terminal and some programs exactly like mine.
 If you want a oneliner:
+
 ```
 curl -s -o davidosomething-dotfiles.zsh https://raw.github.com/davidosomething/dotfiles/master/install.zsh && zsh ./davidosomething-dotfiles.zsh && rm davidosomething-dotfiles.zsh
 ```
@@ -20,6 +21,15 @@ Notes
 * If using MacPorts, NEVER INSTALL MonoDevelop! It adds /usr/bin/pkg-config .
 Touching /usr/bin is filthy.
 * Don't forget to setup apache with pow and run the pow install script
+
+
+tmux
+====
+
+Included is a compiled binary of Chris Johnsen's reattach-to-user-namespace
+that makes tmux work with pbcopy and OSX clipboard copy and paste.
+Check out https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard for more or
+if you need to recompile.
 
 
 VIM dotfiles
