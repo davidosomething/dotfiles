@@ -84,4 +84,4 @@
 	url = https://github.com/vim-ruby/vim-ruby.git
 [submodule "nvm"]
 	path = nvm
-	url = https://github.com/walkah/nvm.git
+	url = https://github.com/creationix/nvm.git
