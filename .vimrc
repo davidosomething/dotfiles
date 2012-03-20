@@ -276,6 +276,9 @@ let g:yankring_history_file = '.vim/.yankring-history'
 " it interferes with YankRing (paste, then hit ctrl-p)
 let g:ctrlp_map = '<C-t>'
 
+" run syntastic on file open
+let g:syntastic_check_on_open = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype specific
 " Makefiles, Python use real tabs

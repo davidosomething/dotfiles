@@ -19,9 +19,6 @@
 [submodule "vim/bundle/supertab"]
 	path = vim/bundle/supertab
 	url = https://github.com/ervandew/supertab.git
-[submodule "vim/bundle/vim-css-color"]
-	path = vim/bundle/vim-css-color
-	url = https://github.com/ap/vim-css-color.git
 [submodule "vim/bundle/nerdcommenter"]
 	path = vim/bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
@@ -52,3 +49,6 @@
 [submodule "vim/bundle/kwbdi.vim"]
 	path = vim/bundle/kwbdi.vim
 	url = https://github.com/vim-scripts/kwbdi.vim.git
+[submodule "vim/bundle/ColorV"]
+	path = vim/bundle/ColorV
+	url = https://github.com/Rykka/ColorV.git
