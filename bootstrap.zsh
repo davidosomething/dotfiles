@@ -133,6 +133,7 @@ function dotfiles_setup_ssh_keys() {
 function dotfiles_determine_steps() {
   echo
   echo "== begin install =="
+  echo "Say no to everything to just run an update (next time use --update)"
   # @TODO check for --all argument
   echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read dotfiles_do_cvsignore;
   echo -n "Symlink .tmux.conf [y/N]? ";                 read dotfiles_do_tmux;
