@@ -16,7 +16,7 @@ $ curl -s -o davidosomething-dotfiles.zsh https://raw.github.com/davidosomething
 Once you've installed the .zshrc file, you get a "dotfiles" alias that will allow you to run commands. Try
 
 ```
-$ dotfiles --usage
+$ dotfiles --help
 ```
 
 
