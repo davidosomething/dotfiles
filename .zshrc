@@ -28,6 +28,7 @@ setopt CORRECT
 
 ##
 # aliases
+alias dotfiles="zsh ~/.dotfiles/bootstrap.zsh"
 # some of these paths are set in .zshenv.local!
 alias ..='cd ..'
 alias ....='cd ../..'

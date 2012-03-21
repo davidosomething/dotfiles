@@ -10,10 +10,15 @@ Run the install to set up a terminal and some programs exactly like mine.
 If you want a oneliner:
 
 ```
-curl -s -o davidosomething-dotfiles.zsh https://raw.github.com/davidosomething/dotfiles/master/bootstrap.zsh && zsh ./davidosomething-dotfiles.zsh && rm davidosomething-dotfiles.zsh
+$ curl -s -o davidosomething-dotfiles.zsh https://raw.github.com/davidosomething/dotfiles/master/bootstrap.zsh && zsh ./davidosomething-dotfiles.zsh && rm davidosomething-dotfiles.zsh
 ```
 
-Then run ~/.dotfiles/bootstrap.sh --install for installation instructions.
+Once you've installed the .zshrc file, you get a "dotfiles" alias that will allow you to run commands. Try
+
+```
+$ dotfiles --usage
+```
+
 
 Notes
 -----

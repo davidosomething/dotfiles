@@ -25,7 +25,7 @@ dotfiles_do_tmux="n"
 dotfiles_do_vim="n"
 dotfiles_do_zsh="n"
 
-# determine if you "--install"ed correctly
+# determine if you installed and are using the alias or are running using oneliner
 if [ "$0" = "dotfiles" ]; then
   dotfiles_scriptname="dotfiles"
 else
@@ -37,16 +37,6 @@ OS='linux'
 if [ "`uname`" = "Darwin" ]; then
   OS='osx'
 fi
-
-function dotfiles_install() {
-  echo "Add an alias in your .zshrc.local (preferably called 'dotfiles') that"
-  echo "executes this file. Here it is and already pbcopied to your clipboard:"
-  echo
-  echo "alias dotfiles=\"zsh ~/.dotfiles/bootstrap.zsh\""
-  echo "alias dotfiles=\"zsh ~/.dotfiles/bootstrap.zsh\"" | pbcopy
-  echo
-  exit 0
-}
 
 function dotfiles_check_dependencies() {
   echo
@@ -360,7 +350,6 @@ function dotfiles_usage() {
   echo "                        SKIPS ALL"
   echo "                        OVERRIDES ALL SKIPS"
   echo "                        ENABLES BACKUPS"
-  echo "  --install           symlink this script to ~/bin/dotfiles"
   echo "  --all               perform all install actions"
   echo "                        ASKS NO QUESTIONS"
   echo "                        OVERRIDES SETUPS"
@@ -389,8 +378,6 @@ while [ "$1" != "" ]; do
                           exit 0
                           ;;
     -d | --debug )        dotfiles_debug=1
-                          ;;
-    --install )           dotfiles_install
                           ;;
     --skip-dependency )   dotfiles_skip_check_dependency=1
                           ;;
