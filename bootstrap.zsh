@@ -259,6 +259,7 @@ function dotfiles_clone() {
   echo
   echo "== cloning dotfiles repo =="
   git clone --recursive $GITHUB_URL/dotfiles.git ~/.dotfiles && echo "[SUCCESS] cloned dotfiles repo"
+  git submodule update --init && echo "[SUCCESS] submodules updated"
 }
 
 function dotfiles_update() {
@@ -269,8 +270,10 @@ function dotfiles_update() {
 
 function dotfiles_submodule_update() {
   echo
-  echo "== updating and initializing submodules =="
-  cd ~/.dotfiles && git submodule update --init --quiet && echo "[SUCCESS] submodules updated"
+  echo "== updating dotfiles repo =="
+  cd ~/.dotfiles && {
+    git submodule foreach git pull origin master # pull the master for each submodule
+  } && echo "[SUCCESS] all submodules updated from master"
 }
 
 function dotfiles_symlink_zsh() {
