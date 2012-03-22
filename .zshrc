@@ -98,6 +98,16 @@ PROMPT='%F{green}%n%F{blue}@${PROMPT_HOST}%F{blue}:%F{yellow}%~
 # key bindings
 autoload -U compinit && compinit
 
+# cool ctrl-s twice to sudo run prev line
+# https://github.com/Rykka/dotfiles/blob/master/.zshrc
+sudo-command-line() {
+    [[ -z $BUFFER ]] && zle up-history
+    [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
+    zle end-of-line
+}
+zle -N sudo-command-line
+bindkey "^s^s" sudo-command-line
+
 ##
 # zstyles
 # case-insensitive tab completion for filenames (useful on Mac OS X)

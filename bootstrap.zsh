@@ -33,10 +33,12 @@ else
 fi
 
 # save OS name
-OS='linux'
-if [ "`uname`" = "Darwin" ]; then
-  OS='osx'
-fi
+case $OSTYPE in
+  darwin*)  dotfiles_local_suffix='osx'
+            ;;
+  linux*)   dotfiles_local_suffix='linux'
+            ;;
+esac
 
 function dotfiles_check_dependencies() {
   echo
@@ -134,7 +136,7 @@ function dotfiles_determine_steps() {
   echo -n "Set up vim [y/N]? ";                         read dotfiles_do_vim;
   echo -n "Set up bin [y/N]? ";                         read dotfiles_do_bin;
 
-  [ "$OS" = 'osx' ] && { echo -n "Set up OSX Defaults [y/N]? "; read dotfiles_do_osx; }
+  [ "$dotfiles_local_suffix" = 'osx' ] && { echo -n "Set up OSX Defaults [y/N]? "; read dotfiles_do_osx; }
 }
 
 function dotfiles_setup_git() {
@@ -159,7 +161,7 @@ function dotfiles_setup_git() {
   git config --global diff.tool vimdiff
 
   # set up browser for fugitive :Gbrowse
-  [ $OS = "osx" ] && git config --global web.browser open
+  [ "$dotfiles_local_suffix" = "osx" ] && git config --global web.browser open
 
   # a couple aliases
   git config --global alias.co checkout
@@ -280,15 +282,15 @@ function dotfiles_symlink_zsh() {
   }
 
   [ ! -f ~/.zshenv.local ] && {
-    echo "source ~/.dotfiles/.zshenv.local.$OS" >> ~/.zshenv.local
+    echo "source ~/.dotfiles/.zshenv.local.$dotfiles_local_suffix" >> ~/.zshenv.local
     echo "[NOTICE] You didn't have a .zshenv.local file so one was created for"
-    echo "          you. It just sources ~/.dotfiles/.zshenv.local.$OS for now."
+    echo "          you. It just sources ~/.dotfiles/.zshenv.local.$dotfiles_local_suffix for now."
   }
 
   [ ! -f ~/.zshrc.local ] && {
-    echo "source ~/.dotfiles/.zshrc.local.$OS" >> ~/.zshrc.local
+    echo "source ~/.dotfiles/.zshrc.local.$dotfiles_local_suffix" >> ~/.zshrc.local
     echo "[NOTICE] You didn't have a .zshrc.local file so one was created for"
-    echo "          you. It just sources ~/.dotfiles/.zshrc.local.$OS for now."
+    echo "          you. It just sources ~/.dotfiles/.zshrc.local.$dotfiles_local_suffix for now."
   }
 }
 
@@ -444,7 +446,7 @@ if [ "$dotfiles_do_all" = 1 ]; then
   dotfiles_do_cvsignore="y"
   dotfiles_do_github="y"
   dotfiles_do_gitconfig="y"
-  if [ "$OS" = "osx" ]; then
+  if [ "$dotfiles_local_suffix" = "osx" ]; then
     dotfiles_do_osx="y"
   fi
   dotfiles_do_pow="y"
@@ -469,7 +471,8 @@ if [ "$dotfiles_update_only" = 1 ]; then
 fi
 
 if [ "$dotfiles_debug" = 1 ]; then
-  echo "os: $OS"
+  echo "OSTYPE: $OSTYPE"
+  echo "os: $dotfiles_local_suffix"
   echo "dotfiles_debug: $dotfiles_debug"
   echo "dotfiles_do_bin: $dotfiles_do_bin"
   echo "dotfiles_do_cvsignore: $dotfiles_do_cvsignore"
