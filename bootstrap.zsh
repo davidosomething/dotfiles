@@ -259,21 +259,12 @@ function dotfiles_clone() {
   echo
   echo "== cloning dotfiles repo =="
   git clone --recursive $GITHUB_URL/dotfiles.git ~/.dotfiles && echo "[SUCCESS] cloned dotfiles repo"
-  git submodule update --init && echo "[SUCCESS] submodules updated"
 }
 
 function dotfiles_update() {
   echo
   echo "== updating dotfiles repo =="
-  cd ~/.dotfiles && git pull && echo "[SUCCESS] updated dotfiles repo"
-}
-
-function dotfiles_submodule_update() {
-  echo
-  echo "== updating dotfiles repo =="
-  cd ~/.dotfiles && {
-    git submodule foreach git pull origin master # pull the master for each submodule
-  } && echo "[SUCCESS] all submodules updated from master"
+  cd ~/.dotfiles && git pull --recurse-submodules && echo "[SUCCESS] updated dotfiles repo"
 }
 
 function dotfiles_symlink_zsh() {
@@ -542,7 +533,6 @@ fi
 if [ -d ~/.dotfiles ]; then
   echo "[NOTICE] folder ~/.dotfiles already exists, not cloning"
   dotfiles_update
-  dotfiles_submodule_update
 else
   if [ "$dotfiles_skip_check_git_writable" != 1 ]; then
     dotfiles_determine_github_write
