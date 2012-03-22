@@ -271,7 +271,12 @@ nmap <silent> <leader>rc :so $MYVIMRC<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin specific (and not from janus)
 call togglebg#map("<F12>")            " F12 to swap solarized palette
+
+" yankring settings
 let g:yankring_history_file = '.vim/.yankring-history'
+let g:yankring_manual_clipboard_check = 1
+
+" ctrl-p
 " We don't want to use Ctrl-p as the mapping because
 " it interferes with YankRing (paste, then hit ctrl-p)
 let g:ctrlp_map = '<C-t>'
