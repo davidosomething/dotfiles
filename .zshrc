@@ -97,6 +97,17 @@ PROMPT='%F{green}%n%F{blue}@${PROMPT_HOST}%F{blue}:%F{yellow}%~
 ##
 # key bindings
 autoload -U compinit && compinit
+# search through history starting with current buffer contents
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+# fix backspace
+bindkey '^?' backward-delete-char
+# fix up and down to end of line after history
+bindkey '\e[A'  history-search-backward  # Up
+bindkey '\e[B'  history-search-forward   # Down
+# option+ left and right should jump through words
+bindkey '\e\e[C' forward-word            # Right
+bindkey '\e\e[D' backward-word           # Left
 
 # cool ctrl-s twice to sudo run prev line
 # https://github.com/Rykka/dotfiles/blob/master/.zshrc
