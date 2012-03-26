@@ -49,9 +49,6 @@
 [submodule "vim/bundle/kwbdi.vim"]
 	path = vim/bundle/kwbdi.vim
 	url = https://github.com/vim-scripts/kwbdi.vim.git
-[submodule "vim/bundle/ColorV"]
-	path = vim/bundle/ColorV
-	url = https://github.com/Rykka/ColorV.git
 [submodule "vim/bundle/vim-tmux"]
 	path = vim/bundle/vim-tmux
 	url = https://github.com/acustodioo/vim-tmux.git
