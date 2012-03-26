@@ -107,13 +107,17 @@ function dotfiles_setup_ssh_keys() {
     echo "== setting up SSH keys =="
     mkdir ~/.ssh
     echo -n "Please enter your email to comment this SSH key: "; read email
-    ssh-keygen -t rsa -C "$email"
-    cat ~/.ssh/id_rsa.pub
-    cat ~/.ssh/id_rsa.pub | pbcopy > /dev/null 2>&1
-    echo "[SUCCESS] Your ssh public key is shown above and (copied to the clipboard on OSX)"
-    echo "          Add it to GitHub if this computer needs push permission."
-    echo "          When that's done, press [enter] to proceed."
-    read
+    if [ "$email" != "" ]; then
+      ssh-keygen -t rsa -C "$email"
+      cat ~/.ssh/id_rsa.pub
+      cat ~/.ssh/id_rsa.pub | pbcopy > /dev/null 2>&1
+      echo "[SUCCESS] Your ssh public key is shown above and (copied to the clipboard on OSX)"
+      echo "          Add it to GitHub if this computer needs push permission."
+      echo "          When that's done, press [enter] to proceed."
+      read
+    else
+      echo "[NOTICE] no email entered, skipping SSH key generation"
+    fi
   else
     echo
     echo "[SUCCESS] found SSH keys for this user"
