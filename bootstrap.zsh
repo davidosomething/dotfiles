@@ -243,11 +243,19 @@ function dotfiles_symlink_cvsignore() {
   ln -fns ~/.dotfiles/.cvsignore ~/.cvsignore && echo "[SUCCESS] .cvsignore symlinked"
 }
 
-function dotfiles_symlink_tmuxconf() {
+function dotfiles_create_tmuxconf() {
   echo
-  echo "== symlink .tmux.conf =="
+  echo "== create .tmux.conf =="
   dotfiles_backup ~/.tmux.conf
-  ln -fns ~/.dotfiles/.tmux.conf ~/.tmux.conf && echo "[SUCCESS] .tmux.conf symlinked"
+  [ ! -f ~/.tmux.conf ] && {
+    echo "source-file ~/.dotfiles/.tmux.conf" >> ~/.tmux.conf
+    echo "[NOTICE] You didn't have a .tmux.conf file so one was created for"
+    echo "          you. It sources ~/.dotfiles/.tmux.conf."
+    [ "$dotfiles_local_suffix" = "osx" ] && {
+      echo "source-file ~/.dotfiles/.tmux.conf.osx" >> ~/.tmux.conf
+      echo "[NOTICE] Your new ~/.tmux.conf file also sources ~/.dotfiles/.tmux.conf.osx"
+    }
+  }
 }
 
 function dotfiles_symlink_powconfig() {
@@ -552,7 +560,7 @@ fi
 [ "$dotfiles_do_vim:l"       = "y" ] && dotfiles_symlink_vim
 [ "$dotfiles_do_cvsignore:l" = "y" ] && dotfiles_symlink_cvsignore
 [ "$dotfiles_do_pow:l"       = "y" ] && dotfiles_symlink_powconfig
-[ "$dotfiles_do_tmux:l"      = "y" ] && dotfiles_symlink_tmuxconf
+[ "$dotfiles_do_tmux:l"      = "y" ] && dotfiles_create_tmuxconf
 # do this last since it modifies paths
 [ "$dotfiles_do_zsh:l"       = "y" ] && dotfiles_symlink_zsh
 
