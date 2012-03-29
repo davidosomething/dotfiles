@@ -29,7 +29,7 @@ dotfiles_do_zsh="n"
 if [ "$0" = "dotfiles" ]; then
   dotfiles_scriptname="dotfiles"
 else
-  dotfiles_scriptname="./bootstrap.sh"
+  dotfiles_scriptname="./bootstrap.zsh"
 fi
 
 # save OS name
