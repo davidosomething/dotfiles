@@ -1,3 +1,5 @@
+*.swp
+
 .zsh_history
 .zhistory
 .zcompdump

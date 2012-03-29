@@ -6,6 +6,13 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use Ack instead of Grep when available
+" https://github.com/thoughtbot/dotfiles/blob/master/vimrc
+if executable("ack")
+  set grepprg=ack\ -H\ --nogroup\ --nocolor
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " display
 set title                             " wintitle = filename - vim
 set titleold=""                       " restore title on exit
