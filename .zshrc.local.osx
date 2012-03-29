@@ -1,24 +1,11 @@
 # local zshrc defaults for OSX
 
-# fix ctrl-up/down for home/end
-if [[  ( $TERM_PROGRAM == iTerm.app ) || -n $SSH_CONNECTION ]];then
-  #### iTerm.app on OS X possible options
-  if [[ $TERM == "xterm" ]];then
-    bindkey '^[[7~'  beginning-of-line        				# Home
-    bindkey '^[[8~'  end-of-line              				# End
-  elif [[ $TERM == "vt100" ]];then
-    bindkey '^[Oq'  beginning-of-line         				# Home
-    bindkey '^[Op'  end-of-line               				# End
-  elif [[ $TERM == "linux" ]]; then
-    bindkey '^[[1~'  beginning-of-line        				# Home
-    bindkey '^[[4~'  end-of-line              				# End
-  elif [[ $TERM == "ansi" ]]; then
-    bindkey '^[[H'  beginning-of-line        				# Home
-    bindkey '^[[F'  end-of-line              				# End
-  else
-    true
-  fi
-fi
+bindkey '^[[H'  beginning-of-line
+bindkey '^[[F' end-of-line
+
+# VI mode keybindings
+bindkey -M vicmd '^[[H' beginning-of-line
+bindkey -M vicmd  '^[[F' end-of-line
 
 # osx aliases since -G is an osx flag
 alias ls="ls -AFG"

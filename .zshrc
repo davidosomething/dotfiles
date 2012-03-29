@@ -19,6 +19,7 @@ setopt SHARE_HISTORY                  # append after each new command instead
 # shell options
 setopt AUTO_CD
 setopt AUTO_PUSHD                     # pushd instead of cd
+setopt EXTENDED_GLOB                  # like ** for recursive dirs
 setopt PUSHD_TO_HOME                  # go home if no d specified
 setopt PUSHD_SILENT                   # don't show stack after cd
 setopt CDABLE_VARS
@@ -32,10 +33,11 @@ alias dotfiles="zsh ~/.dotfiles/bootstrap.zsh"
 # some of these paths are set in .zshenv.local!
 alias ..='cd ..'
 alias ....='cd ../..'
-alias mv="nocorrect mv"       # no spelling correction on mv
+alias mv="nocorrect mv"               # no spelling correction on mv
 alias cp="nocorrect cp"
 alias mkdir="nocorrect mkdir"
 alias vi="vim"
+alias vim="vim -p"                    # open in tabs by default
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias zshrc="$EDITOR ~/.zshrc"
 alias reloadzshrc="source ~/.zshrc"
@@ -102,6 +104,8 @@ bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 # fix backspace
 bindkey '^?' backward-delete-char
+# fix delete
+bindkey '^[[3~' delete-char
 # fix up and down to end of line after history
 bindkey '\e[A'  history-search-backward  # Up
 bindkey '\e[B'  history-search-forward   # Down
