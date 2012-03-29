@@ -150,7 +150,7 @@ function dotfiles_setup_git() {
   echo -n "Please enter your full name: "; read fullname
   # in case we skipped the email in the ssh section
   if [ "$email" = "" ]; then
-    echo -n "Please enter your email: "; read email
+    echo -n "Please enter your email: "; read email;
   fi
   [ "$fullname" != '' ] && git config --global user.name "$fullname"
   [ "$email"    != '' ] && git config --global user.email "$email"
