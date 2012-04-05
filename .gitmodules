@@ -85,3 +85,9 @@
 [submodule "vim/bundle/vim-css3-syntax"]
 	path = vim/bundle/vim-css3-syntax
 	url = https://github.com/hail2u/vim-css3-syntax.git
+[submodule "vim/bundle/AnsiEsc.vim"]
+	path = vim/bundle/AnsiEsc.vim
+	url = https://github.com/vim-scripts/AnsiEsc.vim.git
+[submodule "vim/bundle/neocomplcache"]
+	path = vim/bundle/neocomplcache
+	url = https://github.com/Shougo/neocomplcache.git
