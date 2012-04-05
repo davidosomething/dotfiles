@@ -70,7 +70,7 @@ function dotfiles_check_dependencies() {
   recommend "nmap"
   recommend "nodeenv"
   recommend "python"
-  recommend "rbenv"
+  recommend "rvm"
   recommend "rsync"
   recommend "tmux"
   recommend "vim"
@@ -287,8 +287,9 @@ function dotfiles_symlink_zsh() {
   dotfiles_backup ~/.zshrc
   dotfiles_backup ~/.zshenv
 
-  ln -fns ~/.dotfiles/.zshrc ~/.zshrc && ln -fns ~/.dotfiles/.zshenv ~/.zshenv && {
-    echo "[SUCCESS] Your new .zshrc and .zshenv are symlinks to ~/.dotfiles/.zsh*"
+  # @TODO: break this into three
+  ln -fns ~/.dotfiles/.zshrc ~/.zshrc && ln -fns ~/.dotfiles/.zshenv ~/.zshenv && ln-fns ~/.dotfiles/.zlogin ~/.zlogin && {
+    echo "[SUCCESS] Your new .zshrc, .zshenv, .zlogin are symlinks to ~/.dotfiles/.zsh*"
     echo "          Create .zshrc.local with any additional fpaths and .zshenv.local with"
     echo "          correct paths! There are a few stock configs in ~/.dotfiles/"
   }

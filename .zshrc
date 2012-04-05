@@ -53,28 +53,6 @@ alias remux="if tmux has 2>/dev/null; then tmux attach; else tmux new $SHELL; fi
 alias demux="tmux detach"
 
 ##
-# functions
-
-localip() {
-  local localip="`ipconfig getifaddr en0`"
-  if [[ "$localip" = "" ]]; then
-    localip="`ipconfig getifaddr en1`"
-  fi
-  echo $localip
-}
-
-# colored path from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh
-path() {
-  echo $PATH | tr ":" "\n" | \
-    awk "{ sub(\"/usr\",   \"$fg_no_bold[green]/usr$reset_color\"); \
-           sub(\"/bin\",   \"$fg_no_bold[blue]/bin$reset_color\"); \
-           sub(\"/opt\",   \"$fg_no_bold[cyan]/opt$reset_color\"); \
-           sub(\"/sbin\",  \"$fg_no_bold[magenta]/sbin$reset_color\"); \
-           sub(\"/local\", \"$fg_no_bold[yellow]/local$reset_color\"); \
-           print }"
-}
-
-##
 # prompt
 setopt PROMPT_SUBST                   # allow variables in prompt
 autoload -U colors && colors
@@ -119,16 +97,6 @@ bindkey '\e[B'  history-search-forward   # Down
 # option+ left and right should jump through words
 bindkey '\e\e[C' forward-word            # Right
 bindkey '\e\e[D' backward-word           # Left
-
-# cool ctrl-s twice to sudo run prev line
-# https://github.com/Rykka/dotfiles/blob/master/.zshrc
-sudo-command-line() {
-    [[ -z $BUFFER ]] && zle up-history
-    [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
-    zle end-of-line
-}
-zle -N sudo-command-line
-bindkey "^s^s" sudo-command-line
 
 ##
 # zstyles

@@ -21,14 +21,8 @@ source ~/.zshenv.local >/dev/null 2>&1 # may or may not exist
 # back to paths
 path=( $HOME/bin $path )
 
-# assume rbenv installed, needs precedence over other paths such as macports
-# since macvim +ruby adds macports ruby to path
-path=( $HOME/.rbenv/bin $path )
-# enable rbenv shims and autocomplete, modifies path so keep in .zshenv
-if which rbenv >/dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
-
+# Add RVM to PATH for scripting
+path=( $HOME/.rvm/bin $path )
 
 # remove duplicate paths
 typeset -U path cdpath fpath manpath
