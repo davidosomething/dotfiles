@@ -1,6 +1,6 @@
 #!/bin/zsh
 # using zsh as scripting lang, only runs if zsh is available
-#
+
 # variables:
 dotfiles_debug=0
 dotfiles_verbose=1
@@ -278,7 +278,7 @@ function dotfiles_clone() {
 function dotfiles_update() {
   echo
   echo "== updating dotfiles repo =="
-  cd ~/.dotfiles && git pull --recurse-submodules && echo "[SUCCESS] updated dotfiles repo"
+  cd ~/.dotfiles && git pull --recurse-submodules && git submodule update --init && echo "[SUCCESS] updated dotfiles repo"
 }
 
 function dotfiles_symlink_zsh() {
