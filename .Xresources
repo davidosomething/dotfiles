@@ -1,0 +1,39 @@
+! settings for X11 apps (xscreensaver,xterm, etc.)
+
+! xterm
+! --------------------------------------------------------------
+! terminal display
+xterm*geometry:         80x25
+xterm*cursorblink:      true
+! fonts
+xterm*renderFont:       true
+xterm*faceName:         Inconsolata
+xterm*faceSize:         18
+xterm*faceSize1:        12
+xterm*faceSize2:        14
+xterm*faceSize3:        16
+xterm*faceSize4:        18
+xterm*faceSize5:        20
+xterm*faceSize6:        24
+! encoded output
+xterm*dynamicColors:      true
+xterm*utf8:               2
+xterm*showMissingGlyphs:  true
+! encoded input
+xterm*eightBitInput:    true
+! scrollbar
+xterm*saveLines:        5000
+xterm*scrollBar:        on
+xterm*jumpScroll:       true
+xterm*multiScroll:      true
+xterm*rightScrollBar:   true
+
+! urxvt
+! --------------------------------------------------------------
+URxvt*termName:         screen-256color
+URxvt.scrollstyle:      plain
+URxvt.scrollBar_right:  true
+URxvt.font:             xft:DejaVu\ LGC\ Sans\ Mono:size=18
+
+! include solarized colorscheme
+#include "src/solarized/xresources-colors-solarized/Xresources"
