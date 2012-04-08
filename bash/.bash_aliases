@@ -7,8 +7,6 @@ alias dirs="dirs -v"                  # default to vert, use -l for list
 alias vi="vim"
 alias vim="vim -p"                    # open in tabs by default
 
-alias grep='grep --color=auto --exclude-dir=\.svn'
-
 alias hosts="sudo $EDITOR /etc/hosts"
 alias phpini="sudo $EDITOR $PHP_INI"
 alias apacheconf="sudo $EDITOR $APACHE_HOME/conf/httpd.conf"

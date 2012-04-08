@@ -1,8 +1,9 @@
 ####
+# ~/.dotfiles/.zshenv
 # zshenv is always sourced, even for bg jobs
 # this file applies to all OS's
 
-export ZDOTDIR="$HOME/.dotfiles"
+export ZDOTDIR="$HOME/.dotfiles/zsh"
 # environment vars available to scripts
 # provide COLORS to environment, used by vimrc
 export COLORS="$(tput colors 2>/dev/null)" 
@@ -13,8 +14,16 @@ export EDITOR="vim"
 path=( /usr/local/bin $path )         # default required paths
 
 ##
+# OS specific
+case "$OSTYPE" in
+  darwin*)  source $ZDOTDIR/.zshenv.local.osx
+            ;;
+  linux*)   source $ZDOTDIR/.zshenv.local.linux
+            ;;
+esac
+
+##
 # local
-# source .zshenv.local.OS from here if you want defaults
 source ~/.zshenv.local >/dev/null 2>&1 # may or may not exist
 
 ##

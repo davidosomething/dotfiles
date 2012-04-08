@@ -1,4 +1,5 @@
 ####
+# ~/.dotfiles/.zshrc
 # zsh options
 # only run on interactive/TTY
 
@@ -29,12 +30,12 @@ setopt CORRECT
 
 ##
 # functions
-source ~/.dotfiles/.zshfunctions
+source $ZDOTDIR/.zshfunctions
 
 ##
 # aliases
-source ~/.dotfiles/.bash_aliases      # sh independent aliases
-source ~/.dotfiles/.zshaliases
+source ~/.dotfiles/bash/.bash_aliases      # sh independent aliases
+source $ZDOTDIR/.zshaliases
 
 ##
 # prompt
@@ -92,7 +93,16 @@ zstyle ':completion::complete:cd::' tag-order '! users' -
 
 ##
 # zsh-syntax-highlighting plugin
-source ~/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh >/dev/null 2>&1 # may or may not exist
+source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh >/dev/null 2>&1 # may or may not exist
+
+##
+# os specific
+case "$OSTYPE" in
+  darwin*)  source $ZDOTDIR/.zshrc.local.osx
+            ;;
+  linux*)   source $ZDOTDIR/.zshrc.local.linux
+            ;;
+esac
 
 ##
 # local

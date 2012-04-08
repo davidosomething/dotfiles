@@ -288,37 +288,27 @@ function dotfiles_update() {
 function dotfiles_symlink_zsh() {
   echo
   echo "== symlink zsh dotfiles =="
-  dotfiles_backup ~/.zshrc
-  dotfiles_backup ~/.zshenv
-  dotfiles_backup ~/.zlogin
-
-  ln -fns ~/.dotfiles/.zshrc ~/.zshrc   && echo "[SUCCESS] Your .zshrc is a symlink to ~/.dotfiles/.zshrc"
-  ln -fns ~/.dotfiles/.zshenv ~/.zshenv && echo "[SUCCESS] Your .zshenv is a symlink to ~/.dotfiles/.zshenv"
-  ln-fns ~/.dotfiles/.zlogin ~/.zlogin  && echo "[SUCCESS] Your .zlogin is a symlink to ~/.dotfiles/.zlogin"
+  dotfiles_backup ~/.zshrc  && ln -fns ~/.dotfiles/zsh/.zshrc ~/.zshrc   && echo "[SUCCESS] Your .zshrc is a symlink to ~/.dotfiles/.zshrc"
+  dotfiles_backup ~/.zshenv && ln -fns ~/.dotfiles/zsh/.zshenv ~/.zshenv && echo "[SUCCESS] Your .zshenv is a symlink to ~/.dotfiles/.zshenv"
+  dotfiles_backup ~/.zlogin && ln -fns ~/.dotfiles/zsh/.zlogin ~/.zlogin && echo "[SUCCESS] Your .zlogin is a symlink to ~/.dotfiles/.zlogin"
 
   [ ! -f ~/.zshenv.local ] && {
     echo "source ~/.dotfiles/.zshenv.local.$dotfiles_local_suffix" >> ~/.zshenv.local
-    echo "[NOTICE] You didn't have a .zshenv.local file so one was created for"
-    echo "          you. It just sources ~/.dotfiles/.zshenv.local.$dotfiles_local_suffix for now."
+    echo "[NOTICE] You didn't have a .zshenv.local file so one was created for you."
   }
 
   [ ! -f ~/.zshrc.local ] && {
     echo "source ~/.dotfiles/.zshrc.local.$dotfiles_local_suffix" >> ~/.zshrc.local
-    echo "[NOTICE] You didn't have a .zshrc.local file so one was created for"
-    echo "          you. It just sources ~/.dotfiles/.zshrc.local.$dotfiles_local_suffix for now."
+    echo "[NOTICE] You didn't have a .zshrc.local file so one was created for you."
   }
 }
 
 function dotfiles_symlink_vim() {
   echo
   echo "== symlink .vim folder and vim dotfiles =="
-  dotfiles_backup ~/.vim
-  dotfiles_backup ~/.vimrc
-  dotfiles_backup ~/.gvimrc
-
-  ln -fns ~/.dotfiles/vim ~/.vim && echo "[SUCCESS] Your ~/.vim folder is a symlink to ~/.dotfiles/vim"
-  ln -fns ~/.dotfiles/.vimrc ~/.vimrc && echo "[SUCCESS] Your new .vimrc is a symlink to ~/.dotfiles/.vimrc"
-  ln -fns ~/.dotfiles/.gvimrc ~/.gvimrc && echo "[SUCCESS] Your new .gvimrc is a symlink to ~/.dotfiles/.gvimrc"
+  dotfiles_backup ~/.vim    && ln -fns ~/.dotfiles/vim ~/.vim             && echo "[SUCCESS] Your ~/.vim folder is a symlink to ~/.dotfiles/vim"
+  dotfiles_backup ~/.vimrc  && ln -fns ~/.dotfiles/vim/.vimrc ~/.vimrc    && echo "[SUCCESS] Your new .vimrc is a symlink to ~/.dotfiles/.vimrc"
+  dotfiles_backup ~/.gvimrc && ln -fns ~/.dotfiles/vim/.gvimrc ~/.gvimrc  && echo "[SUCCESS] Your new .gvimrc is a symlink to ~/.dotfiles/.gvimrc"
 
   mkdir -p ~/.dotfiles/vim/_temp
   mkdir -p ~/.dotfiles/vim/_backup
