@@ -331,6 +331,6 @@ autocmd FileType text,txt setlocal textwidth=80
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Local config
-if filereadable("~/.vimrc.local")
+if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
