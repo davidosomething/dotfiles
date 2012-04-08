@@ -278,7 +278,11 @@ function dotfiles_clone() {
 function dotfiles_update() {
   echo
   echo "== updating dotfiles repo =="
-  cd ~/.dotfiles && git pull --recurse-submodules && git submodule update --init && echo "[SUCCESS] updated dotfiles repo"
+  cd ~/.dotfiles && {
+    git pull
+    git submodule update --init
+    git pull --recurse-submodules
+  } && echo "[SUCCESS] updated dotfiles repo"
 }
 
 function dotfiles_symlink_zsh() {
@@ -286,13 +290,11 @@ function dotfiles_symlink_zsh() {
   echo "== symlink zsh dotfiles =="
   dotfiles_backup ~/.zshrc
   dotfiles_backup ~/.zshenv
+  dotfiles_backup ~/.zlogin
 
-  # @TODO: break this into three
-  ln -fns ~/.dotfiles/.zshrc ~/.zshrc && ln -fns ~/.dotfiles/.zshenv ~/.zshenv && ln-fns ~/.dotfiles/.zlogin ~/.zlogin && {
-    echo "[SUCCESS] Your new .zshrc, .zshenv, .zlogin are symlinks to ~/.dotfiles/.zsh*"
-    echo "          Create .zshrc.local with any additional fpaths and .zshenv.local with"
-    echo "          correct paths! There are a few stock configs in ~/.dotfiles/"
-  }
+  ln -fns ~/.dotfiles/.zshrc ~/.zshrc   && echo "[SUCCESS] Your .zshrc is a symlink to ~/.dotfiles/.zshrc"
+  ln -fns ~/.dotfiles/.zshenv ~/.zshenv && echo "[SUCCESS] Your .zshenv is a symlink to ~/.dotfiles/.zshenv"
+  ln-fns ~/.dotfiles/.zlogin ~/.zlogin  && echo "[SUCCESS] Your .zlogin is a symlink to ~/.dotfiles/.zlogin"
 
   [ ! -f ~/.zshenv.local ] && {
     echo "source ~/.dotfiles/.zshenv.local.$dotfiles_local_suffix" >> ~/.zshenv.local
