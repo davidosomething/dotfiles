@@ -15,15 +15,17 @@ setopt APPEND_HISTORY                 # append instead of overwrite file
 setopt SHARE_HISTORY                  # append after each new command instead
                                       # of after shell closes, share between
                                       # shells
+setopt HIST_VERIFY                    # verify when using history cmds/params
 
 ##
 # shell options
-setopt AUTO_CD
 setopt AUTO_PUSHD                     # pushd instead of cd
-setopt EXTENDED_GLOB                  # like ** for recursive dirs
+setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_TO_HOME                  # go home if no d specified
 setopt PUSHD_SILENT                   # don't show stack after cd
+setopt EXTENDED_GLOB                  # like ** for recursive dirs
 setopt CDABLE_VARS
+setopt NO_BEEP
 setopt NO_HUP                         # don't kill bg processes
 setopt AUTO_LIST                      # list completions
 setopt CORRECT
