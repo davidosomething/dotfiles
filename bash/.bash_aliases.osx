@@ -1,0 +1,10 @@
+# ~/.dotfiles/bash/.bash_aliases.osx
+
+# osx aliases since -G is an osx (and FreeBSD) flag
+alias ls="ls -AFG"
+alias ll="ls -l"
+
+# don't use mvim on ssh connections
+if [[ $SSH_CONNECTION != '' ]]; then alias mvim=vim; fi
+
+alias portup="sudo port selfupdate && sudo port upgrade outdated"

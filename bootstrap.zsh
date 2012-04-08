@@ -23,6 +23,7 @@ dotfiles_do_osx="n"
 dotfiles_do_pow="n"
 dotfiles_do_tmux="n"
 dotfiles_do_vim="n"
+dotfiles_do_bash="n"
 dotfiles_do_zsh="n"
 
 # determine if you installed and are using the alias or are running using oneliner
@@ -136,6 +137,7 @@ function dotfiles_determine_steps() {
   echo -n "Symlink .powconfig [y/N]? ";                 read dotfiles_do_pow;
   echo -n "Set up gitconfig [y/N]? ";                   read dotfiles_do_gitconfig;
   echo -n "Set up github [y/N]? ";                      read dotfiles_do_github;
+  echo -n "Set up bash [y/N]? ";                        read dotfiles_do_bash;
   echo -n "Set up zsh [y/N]? ";                         read dotfiles_do_zsh;
   echo -n "Set up vim [y/N]? ";                         read dotfiles_do_vim;
   echo -n "Set up bin [y/N]? ";                         read dotfiles_do_bin;
@@ -285,12 +287,19 @@ function dotfiles_update() {
   } && echo "[SUCCESS] updated dotfiles repo"
 }
 
+function dotfiles_symlink_bash() {
+  echo
+  echo "== symlink bash dotfiles =="
+  dotfiles_backup ~/.bashrc       && ln -fns ~/.dotfiles/bash/.bashrc ~/.bashrc             && echo "[SUCCESS] Your .bashrc is a symlink to ~/.dotfiles/bash/.bashrc"
+  dotfiles_backup ~/.bash_profile && ln -fns ~/.dotfiles/bash/.bash_profile ~/.bash_profile && echo "[SUCCESS] Your .zshenv is a symlink to ~/.dotfiles/bash/.bash_profile"
+}
+
 function dotfiles_symlink_zsh() {
   echo
   echo "== symlink zsh dotfiles =="
-  dotfiles_backup ~/.zshrc  && ln -fns ~/.dotfiles/zsh/.zshrc ~/.zshrc   && echo "[SUCCESS] Your .zshrc is a symlink to ~/.dotfiles/.zshrc"
-  dotfiles_backup ~/.zshenv && ln -fns ~/.dotfiles/zsh/.zshenv ~/.zshenv && echo "[SUCCESS] Your .zshenv is a symlink to ~/.dotfiles/.zshenv"
-  dotfiles_backup ~/.zlogin && ln -fns ~/.dotfiles/zsh/.zlogin ~/.zlogin && echo "[SUCCESS] Your .zlogin is a symlink to ~/.dotfiles/.zlogin"
+  dotfiles_backup ~/.zshrc  && ln -fns ~/.dotfiles/zsh/.zshrc ~/.zshrc   && echo "[SUCCESS] Your .zshrc is a symlink to ~/.dotfiles/zsh/.zshrc"
+  dotfiles_backup ~/.zshenv && ln -fns ~/.dotfiles/zsh/.zshenv ~/.zshenv && echo "[SUCCESS] Your .zshenv is a symlink to ~/.dotfiles/zsh/.zshenv"
+  dotfiles_backup ~/.zlogin && ln -fns ~/.dotfiles/zsh/.zlogin ~/.zlogin && echo "[SUCCESS] Your .zlogin is a symlink to ~/.dotfiles/zsh/.zlogin"
 
   [ ! -f ~/.zshenv.local ] && {
     echo "source ~/.dotfiles/.zshenv.local.$dotfiles_local_suffix" >> ~/.zshenv.local
@@ -362,7 +371,7 @@ function dotfiles_usage() {
   echo "setups:"
   echo "  By specifying a setup you will run only the ones specified."
   echo "  Valid setups to run include:"
-  echo "  bin, cvsignore, gitconfig, github, osx, pow, tmux, vim, zsh"
+  echo "  bash, bin, cvsignore, gitconfig, github, osx, pow, tmux, vim, zsh"
   echo
 }
 
@@ -398,6 +407,9 @@ while [ "$1" != "" ]; do
                           ;;
     --all )               dotfiles_do_all=1
                           # see conditional section for all below
+                          ;;
+    bash )                dotfiles_do_bash="y"
+                          dotfiles_do_ask=0
                           ;;
     bin )                 dotfiles_do_bin="y"
                           dotfiles_do_ask=0
@@ -447,6 +459,7 @@ fi
 
 # --all overrides all setups
 if [ "$dotfiles_do_all" = 1 ]; then
+  dotfiles_do_bash="y"
   dotfiles_do_bin="y"
   dotfiles_do_cvsignore="y"
   dotfiles_do_github="y"
@@ -463,6 +476,7 @@ fi
 
 # --all overrides all setups
 if [ "$dotfiles_update_only" = 1 ]; then
+  dotfiles_do_bash="n"
   dotfiles_do_bin="n"
   dotfiles_do_cvsignore="n"
   dotfiles_do_github="n"
@@ -479,6 +493,7 @@ if [ "$dotfiles_debug" = 1 ]; then
   echo "OSTYPE: $OSTYPE"
   echo "os: $dotfiles_local_suffix"
   echo "dotfiles_debug: $dotfiles_debug"
+  echo "dotfiles_do_bash: $dotfiles_do_bash"
   echo "dotfiles_do_bin: $dotfiles_do_bin"
   echo "dotfiles_do_cvsignore: $dotfiles_do_cvsignore"
   echo "dotfiles_do_github: $dotfiles_do_github"
@@ -555,6 +570,7 @@ fi
 [ "$dotfiles_do_pow:l"       = "y" ] && dotfiles_symlink_powconfig
 [ "$dotfiles_do_tmux:l"      = "y" ] && dotfiles_create_tmuxconf
 # do this last since it modifies paths
+[ "$dotfiles_do_bash:l"      = "y" ] && dotfiles_symlink_bash
 [ "$dotfiles_do_zsh:l"       = "y" ] && dotfiles_symlink_zsh
 
 [ "$dotfiles_do_osx:l" = "y" ] && dotfiles_setup_osx

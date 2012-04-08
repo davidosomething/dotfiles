@@ -1,4 +1,4 @@
-# ~/.dotfiles/.bashrc
+# ~/.dotfiles/bash/.bashrc
 # read on all shells and subshells
 
 ##
@@ -10,7 +10,16 @@ shopt -s nocaseglob
 shopt -s extglob
 shopt -s cdspell
 
-source ~/.dotfiles/.bash_aliases
+source ~/.dotfiles/bash/.bash_aliases
+##
+# os specific
+case "$OSTYPE" in
+  darwin*)  source ~/.dotfiles/bash/.bash_aliases.osx
+            ;;
+  linux*)   source ~/.dotfiles/bash/.bash_aliases.linux
+            ;;
+esac
+
 
 # prompt
 bash_prompt() {

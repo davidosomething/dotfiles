@@ -37,6 +37,12 @@ source $ZDOTDIR/.zshfunctions
 ##
 # aliases
 source ~/.dotfiles/bash/.bash_aliases      # sh independent aliases
+case "$OSTYPE" in
+  darwin*)  source ~/.dotfiles/bash/.bash_aliases.osx
+            ;;
+  linux*)   source ~/.dotfiles/bash/.bash_aliases.linux
+            ;;
+esac
 source $ZDOTDIR/.zshaliases
 
 ##
