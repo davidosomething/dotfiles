@@ -5,8 +5,6 @@
 
 export ZDOTDIR="$HOME/.dotfiles/zsh"
 # environment vars available to scripts
-# provide COLORS to environment, used by vimrc
-export COLORS="$(tput colors 2>/dev/null)" 
 export EDITOR="vim"
 
 ##

@@ -1,13 +1,7 @@
-# local zshrc defaults for OSX
+# ~/.dotfiles/zsh/.zshrc.local.osx
+# sourced by .zshrc
 
-bindkey '^[[H'  beginning-of-line
-bindkey '^[[F' end-of-line
-
-# VI mode keybindings
-bindkey -M vicmd '^[[H' beginning-of-line
-bindkey -M vicmd  '^[[F' end-of-line
-
-# osx aliases since -G is an osx flag
+# osx aliases since -G is an osx (and FreeBSD) flag
 alias ls="ls -AFG"
 alias ll="ls -l"
 
