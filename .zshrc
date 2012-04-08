@@ -28,29 +28,13 @@ setopt AUTO_LIST                      # list completions
 setopt CORRECT
 
 ##
+# functions
+source ~/.dotfiles/.zshfunctions
+
+##
 # aliases
-alias dotfiles="zsh ~/.dotfiles/bootstrap.zsh"
-# some of these paths are set in .zshenv.local!
-alias ..='cd ..'
-alias ....='cd ../..'
-alias mv="nocorrect mv"               # no spelling correction on mv
-alias cp="nocorrect cp"
-alias mkdir="nocorrect mkdir"
-alias vi="vim"
-alias vim="vim -p"                    # open in tabs by default
-alias dirs="dirs -v"                  # default to vert, use -l for list
-alias zshrc="$EDITOR ~/.zshrc"
-alias reloadzshrc="source ~/.zshrc"
-alias hosts="sudo $EDITOR /etc/hosts"
-alias phpini="sudo $EDITOR $PHP_INI"
-alias apacheconf="sudo $EDITOR $APACHE_HOME/conf/httpd.conf"
-alias vhosts="sudo $EDITOR $APACHE_HOME/conf/extra/httpd-vhosts.conf"
-alias apache2ctl="sudo $APACHE_HOME/bin/apachectl"
-alias apacheerrors="tail $APACHE_HOME/logs/error_log"
-alias wget="wget --no-check-certificate"
-alias publicip="curl icanhazip.com"
-alias remux="if tmux has 2>/dev/null; then tmux attach; else tmux new $SHELL; fi"
-alias demux="tmux detach"
+source ~/.dotfiles/.bash_aliases      # sh independent aliases
+source ~/.dotfiles/.zshaliases
 
 ##
 # prompt
