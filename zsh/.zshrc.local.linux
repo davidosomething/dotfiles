@@ -1,6 +1,2 @@
+# ~/.dotfiles/zsh/.zshrc.local.linux
 # local zshrc for linux
-
-alias ls="ls -A --color=auto"
-alias ll="ls -l"
-
-alias mvim="gvim"
