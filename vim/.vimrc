@@ -1,5 +1,3 @@
-set nocompatible                      " vi mode off
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin management
 runtime bundle/vim-pathogen/autoload/pathogen.vim
@@ -290,6 +288,8 @@ let g:ctrlp_map = '<C-t>'
 
 " run syntastic on file open
 let g:syntastic_check_on_open = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_enable_highlighting = 1
 
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1
