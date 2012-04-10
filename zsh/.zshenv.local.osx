@@ -10,9 +10,6 @@ export ANT_HOME="$MACPORTS_HOME/share/java/apache-ant"
 export APACHE_HOME="$MACPORTS_HOME/apache2"
 export PHP_INI="$MACPORTS_HOME/etc/php5/php.ini"
 
-# use default osx mysql
-path=( /usr/local/mysql/bin $path )
-
 path=( $MACPORTS_HOME/bin $MACPORTS_HOME/sbin $path )
 path=( $ANT_HOME/bin $path )
 
