@@ -290,6 +290,9 @@ let g:ctrlp_map = '<C-t>'
 let g:syntastic_check_on_open = 1
 let g:syntastic_enable_signs = 1
 let g:syntastic_enable_highlighting = 1
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'active_filetypes': [],
+                           \ 'passive_filetypes': ['html'] }
 
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1
