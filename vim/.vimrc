@@ -326,6 +326,8 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 au FileType gitconfig   set noexpandtab
 au FileType make        set noexpandtab
 au FileType python      set noexpandtab
+" stupid folding
+au FileType php         set foldlevel=99
 " wrap textfiles at 80
 autocmd FileType text,txt setlocal textwidth=80
 
