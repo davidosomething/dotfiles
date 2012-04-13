@@ -8,3 +8,7 @@ alias cp="nocorrect cp"
 alias mkdir="nocorrect mkdir"
 alias zshrc="$EDITOR ~/.zshrc"
 alias reloadzshrc="source ~/.zshrc"
+
+# wordpress aliases, rely on git being in project folder
+alias wpt="cdr; cd wp-content/themes"
+alias wpp="cdr; cd wp-content/plugins"
