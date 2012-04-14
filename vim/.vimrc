@@ -94,6 +94,7 @@ set listchars=tab:→\
 set listchars+=trail:·
 set listchars+=extends:»              " show cut off when nowrap
 set listchars+=precedes:«
+set nojoinspaces
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keyboard - most of this is straight from Janus
@@ -285,6 +286,8 @@ let g:yankring_manual_clipboard_check = 1
 " We don't want to use Ctrl-p as the mapping because
 " it interferes with YankRing (paste, then hit ctrl-p)
 let g:ctrlp_map = '<C-t>'
+let g:ctrlp_jump_to_buffer = 2        " Jump to tab AND buffer if already open
+let g:ctrlp_split_window = 1          " <CR> = New Tab
 
 " run syntastic on file open
 let g:syntastic_check_on_open = 1
@@ -293,6 +296,9 @@ let g:syntastic_enable_highlighting = 1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': ['html'] }
+
+" Rainbow Parenthesis
+nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1
