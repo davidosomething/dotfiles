@@ -10,13 +10,13 @@ shopt -s nocaseglob
 shopt -s extglob
 shopt -s cdspell
 
-source ~/.dotfiles/bash/.bash_aliases
+source $BASH_DOTFILES/.bash_aliases
 ##
 # os specific
 case "$OSTYPE" in
-  darwin*)  source ~/.dotfiles/bash/.bash_aliases.osx
+  darwin*)  source $BASH_DOTFILES/.bash_aliases.osx
             ;;
-  linux*)   source ~/.dotfiles/bash/.bash_aliases.linux
+  linux*)   source $BASH_DOTFILES/.bash_aliases.linux
             ;;
 esac
 
@@ -32,17 +32,23 @@ bash_prompt() {
   local P="\[\033[0;35m\]"
   local C="\[\033[0;36m\]"
   local W="\[\033[0;37m\]"
+  local PROMPT=""
 
   GIT_PS1_SHOWDIRTYSTATE=1
   #GIT_PS1_SHOWUNTRACKEDFILES=1
 
   # white if remote, green if local
-  if [ -z ${SSH_CONNECTION} ]; then
+  if [ -z "$SSH_CONNECTION" ]; then
     local HOST="$G\h"
   else
     local HOST="$W\h"
   fi
 
-  export PS1="$G\u$B@$HOST$C:$Y\w\n$Z\t$P"'$(__git_ps1 "(%s)")'"\$$Z "
+  if [ -z "$(__git_ps1)" ]; then
+    local GIT="'$(__git_ps1 "(%s)")'"
+  else
+    local GIT=""
+  fi
+  export PS1="$G\u$B@${HOST}$C:$Y\w\n$Z\t${P}${GIT}\$${Z} "
 }
 bash_prompt
