@@ -44,10 +44,10 @@ bash_prompt() {
     local HOST="$W\h"
   fi
 
-  if [ "`type __git_ps1`" = "__git_ps1 not found" ]; then
-    local GIT=""
-  else
+  if type __git_ps1 >/dev/null 2>&1; then
     local GIT="'$(__git_ps1 "(%s)")'"
+  else
+    local GIT=""
   fi
   export PS1="$G\u$B@${HOST}$C:$Y\w\n$Z\t${P}${GIT}\$${Z} "
 }
