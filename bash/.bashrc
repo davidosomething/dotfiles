@@ -15,8 +15,10 @@ source $BASH_DOTFILES/.bash_aliases
 # os specific
 case "$OSTYPE" in
   darwin*)  source $BASH_DOTFILES/.bash_aliases.osx
+            source $BASH_DOTFILES/.bashrc.osx
             ;;
   linux*)   source $BASH_DOTFILES/.bash_aliases.linux
+            source $BASH_DOTFILES/.bashrc.linux
             ;;
 esac
 

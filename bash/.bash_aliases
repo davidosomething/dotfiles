@@ -1,6 +1,8 @@
 # ~/.dotfiles/.bash_aliases
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
 
+alias _='sudo'
+
 # paths and dirs
 alias ..='cd ..'
 alias ....='cd ../..'
