@@ -220,22 +220,39 @@ else
   imap <C-9> <Esc>9gt
 endif
 
-" shortcuts for resizing splits
-" split wider
-nmap <leader>] <C-w>>
-" split narrower
-nmap <leader>[ <C-w><
-" split shorter
-nmap <leader>- <C-w>-
-" split taller
-nmap <leader>+ <C-w>+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Keep search pattern at the center of the screen.
+" http://vimbits.com/bits/92
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Space to toggle folds.
+" https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
+nnoremap <Space> za
+vnoremap <Space> za
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Reload vimrc
+nmap <silent> <leader>rc :so $MYVIMRC<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Split manipulation
+" resize vertical splits
+nmap <leader>] <C-w>>
+nmap <leader>[ <C-w><
+" resize horizontal splits
+nmap <leader>- <C-w>-
+nmap <leader>= <C-w>+
 " swap splits with \mw (mark this one) and \pw (swap with this one)
 " http://stackoverflow.com/questions/2586984/how-can-i-swap-positions-of-two-open-files-in-splits-in-vim
 function! MarkWindowSwap()
   let g:markedWinNum = winnr()
 endfunction
-
 function! DoWindowSwap()
   "Mark destination
   let curNum = winnr()
@@ -250,29 +267,13 @@ function! DoWindowSwap()
   "Hide and open so that we aren't prompted and keep history
   exe 'hide buf' markedBuf
 endfunction
-
 nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
 nmap <silent> <leader>pw :call DoWindowSwap()<CR>
 
-" Keep search pattern at the center of the screen.
-" http://vimbits.com/bits/92
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-nnoremap <silent> g# g#zz
-
-" Space to toggle folds.
-" https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
-nnoremap <Space> za
-vnoremap <Space> za
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fix typo !W to !w
 " https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
 command! -bang W w<bang>
-
-nmap <silent> <leader>rc :so $MYVIMRC<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin specific (and not from janus)
@@ -324,7 +325,6 @@ if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype specific
