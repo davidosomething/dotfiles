@@ -1,5 +1,7 @@
 # ~/.dotfiles/bash/.bashrc
 # read on all shells and subshells
+export DOTFILES=~/.dotfiles
+export BASH_DOTFILES="$DOTFILES/bash"
 
 ##
 # bash options
@@ -10,15 +12,15 @@ shopt -s nocaseglob
 shopt -s extglob
 shopt -s cdspell
 
-source $BASH_DOTFILES/.bash_aliases
+source "$BASH_DOTFILES/.bash_aliases"
 ##
 # os specific
 case "$OSTYPE" in
-  darwin*)  source $BASH_DOTFILES/.bash_aliases.osx
-            source $BASH_DOTFILES/.bashrc.osx
+  darwin*)  source "$BASH_DOTFILES/.bash_aliases.osx"
+            source "$BASH_DOTFILES/.bashrc.osx"
             ;;
-  linux*)   source $BASH_DOTFILES/.bash_aliases.linux
-            source $BASH_DOTFILES/.bashrc.linux
+  linux*)   source "$BASH_DOTFILES/.bash_aliases.linux"
+            source "$BASH_DOTFILES/.bashrc.linux"
             ;;
 esac
 
@@ -47,7 +49,7 @@ bash_prompt() {
   fi
 
   if type __git_ps1 >/dev/null 2>&1; then
-    local GIT="'$(__git_ps1 "(%s)")'"
+    local GIT="$(__git_ps1 "(%s)")"
   else
     local GIT=""
   fi
