@@ -273,7 +273,7 @@ function dotfiles_update() {
   cd ~/.dotfiles && {
     git pull
     git submodule update --init
-    git pull --recurse-submodules
+    git submodule foreach git pull -u origin master
   } && status "updated dotfiles repo"
 }
 
