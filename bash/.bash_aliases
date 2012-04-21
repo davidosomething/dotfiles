@@ -13,7 +13,7 @@ alias publicip="curl icanhazip.com"
 
 # default flags for programs
 alias vi="vim"
-alias vim="vim -p"                    # open in tabs by default
+alias vim="vim"                    # open in tabs by default
 alias wget="wget --no-check-certificate"
 alias rsync="rsync --exclude-from=$HOME/.cvsignore"
 
