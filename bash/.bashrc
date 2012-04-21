@@ -41,7 +41,14 @@ bash_prompt() {
   GIT_PS1_SHOWDIRTYSTATE=1
   #GIT_PS1_SHOWUNTRACKEDFILES=1
 
-  # white if remote, green if local
+  # USERNAME: white if root, green normal
+  if [ "$USER" = "root" ]; then
+    local USER="$W\u"
+  else
+    local USER="$G\u"
+  fi
+
+  # HOST: white if remote, green if local
   if [ -z "$SSH_CONNECTION" ]; then
     local HOST="$G\h"
   else
@@ -53,6 +60,6 @@ bash_prompt() {
   else
     local GIT=""
   fi
-  export PS1="$G\u$B@${HOST}$C:$Y\w\n$Z\t${P}${GIT}\$${Z} "
+  export PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}${GIT}\$${Z} "
 }
 bash_prompt

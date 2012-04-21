@@ -38,3 +38,10 @@ path() {
            print }"
 }
 
+# recursively chowns folders ug+rws, files ug+rw from current folder
+groupperms() {
+  echo "You're sure ${PWD} is the right place? Last chance to Ctrl-C."
+  read;
+  sudo chmod -R ug+rw
+  sudo find . -type d -exec chmod ug+rws {} \;
+}

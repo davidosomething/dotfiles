@@ -47,63 +47,11 @@ source $ZDOTDIR/.zshaliases
 
 ##
 # prompt
-setopt PROMPT_SUBST                   # allow variables in prompt
-autoload -U colors && colors
-autoload -Uz vcs_info
-precmd() { vcs_info }
-# version control info in prompt
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' get-revision true
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' unstagedstr '*'  # display this when there are unstaged changes
-zstyle ':vcs_info:*' stagedstr '+'    # display this when there are staged changes
-zstyle ':vcs_info:*' formats '(%b%m%c%u)'
-zstyle ':vcs_info:*' actionformats '(%b%m%c%u)[%a]'
-# show if in vi mode
-VIMODE='I';
-function zle-line-init zle-keymap-select {
-  VIMODE="${${KEYMAP/vicmd/N}/(main|viins)/I}"
-  zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
-bindkey -v                            # use vi mode even if EDITOR is emacs
-# prompt itself
-PROMPT_HOST='%F{green}%m'
-if [[ $SSH_CONNECTION != '' ]]; then PROMPT_HOST='%F{white}%m'; fi
-PROMPT='%F{green}%n%F{blue}@${PROMPT_HOST}%F{blue}:%F{yellow}%~
-%f%*%F{blue}${VIMODE}%F{magenta}${vcs_info_msg_0_}%# %f'
+source $ZDOTDIR/.zshprompt
 
 ##
 # key bindings
-# Doesn't matter what OS
-autoload -U compinit && compinit
-# search through history starting with current buffer contents
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
-# fix backspace
-bindkey '^?' backward-delete-char
-# fix delete
-bindkey '^[[3~' delete-char
-# fix up and down to end of line after history
-bindkey '\e[A'  history-search-backward  # Up
-bindkey '\e[B'  history-search-forward   # Down
-# option+ left and right should jump through words
-bindkey '\e\e[C' forward-word            # Right
-bindkey '\e\e[D' backward-word           # Left
-# ctrl-left/right word
-bindkey '^[[1;5C' forward-word
-bindkey '^[[1;5D' backward-word
-# home/end
-bindkey '^[[H' beginning-of-line
-bindkey '^[[1~' beginning-of-line
-bindkey '^[OH' beginning-of-line
-bindkey '^[[F' end-of-line
-bindkey '^[[4~' end-of-line
-bindkey '^[OF' end-of-line
-# VI mode allow home and end
-bindkey -M vicmd '^[[H' beginning-of-line
-bindkey -M vicmd '^[[F' end-of-line
+source $ZDOTDIR/.zshkeys
 
 ##
 # zstyles
