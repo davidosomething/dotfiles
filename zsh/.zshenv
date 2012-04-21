@@ -28,8 +28,7 @@ source ~/.zshenv.local >/dev/null 2>&1 # may or may not exist
 # back to paths
 path=( $HOME/bin $path )
 
-# Add RVM to PATH for scripting
-path=( $HOME/.rvm/bin $path )
-
 # remove duplicate paths
 typeset -U path cdpath fpath manpath
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

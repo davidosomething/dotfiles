@@ -42,6 +42,7 @@ path() {
 groupperms() {
   echo "You're sure ${PWD} is the right place? Last chance to Ctrl-C."
   read;
-  sudo chmod -R ug+rw
+  sudo chmod -R ug+rw .*              # the dotfiles
+  sudo chmod -R ug+rw *               # the files and folders
   sudo find . -type d -exec chmod ug+rws {} \;
 }
