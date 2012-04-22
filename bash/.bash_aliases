@@ -22,6 +22,15 @@ alias remux="if tmux has 2>/dev/null; then tmux attach; else tmux new $SHELL; fi
 alias demux="tmux detach"
 
 # quick edits
+alias vimrc="vim ~/.vimrc"
+alias gvimrc="vim ~/.gvimrc"
+alias aliases="vim ~/.dotfiles/bash/.bash_aliases"
+alias zshrc="vim ~/.zshrc"
+alias zshenv="vim ~/.zshenv"
+alias lzshrc="vim ~/.zshrc.local"
+alias lzshenv="vim ~/.zshenv.local"
+alias bashrc="vim ~/.bashrc"
+alias lbashrc="vim ~/.bashrc.local"
 alias hosts="vim /etc/hosts"
 alias phpini="vim $PHP_INI"
 alias apacheconf="vim $APACHE_HOME/conf/httpd.conf"
