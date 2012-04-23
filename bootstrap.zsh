@@ -41,9 +41,9 @@ fi
 
 # save OS name
 case $OSTYPE in
-  darwin*)  dotfiles_local_suffix='osx'
+  darwin*)  dotfiles_local_suffix="osx"
             ;;
-  linux*)   dotfiles_local_suffix='linux'
+  linux*)   dotfiles_local_suffix="linux"
             ;;
 esac
 
@@ -73,7 +73,7 @@ function dotfiles_check_dependencies() {
   recommend "ant"
   recommend "curl"
   recommend "nmap"
-  recommend "nodeenv"
+  # recommend "nodeenv"
   recommend "python"
   recommend "rvm"
   recommend "rsync"
@@ -92,9 +92,7 @@ function dotfiles_switch_shell() {
       echo "== changing shell =="
       chsh -s `which zsh` && status "user default shell changed to zsh"
       status  "using zsh at $(which zsh) -- fix your path if this is wrong!"
-      status_ "please restart your terminal session, or start a new zsh"
-      status_ "You will need to run this install script again"
-      exit 0
+      exec $(which zsh)
     }
   else
     status "cool, you're using zsh"
@@ -127,7 +125,7 @@ function dotfiles_setup_ssh_keys() {
 ##
 # function is skipped if you specify --all or any setup name
 function dotfiles_determine_steps() {
-  echo "== begin install =="
+  status "begin install"
   echo "Say no to everything to just run an update (next time use --update)"
   # @TODO check for --all argument
   echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read dotfiles_do_cvsignore;
@@ -266,16 +264,17 @@ function dotfiles_symlink_powconfig() {
 ###############################################
 
 function dotfiles_clone() {
-  echo "== cloning dotfiles repo =="
   git clone --recursive $GITHUB_URL/dotfiles.git ~/.dotfiles && status "cloned dotfiles repo"
 }
 
 function dotfiles_update() {
   echo "== updating dotfiles repo =="
-  cd ~/.dotfiles && {
-    git pull
-    git submodule update --init --recursive
-    git submodule foreach git pull origin master
+  cd ~/.dotfiles && git checkout master && {
+    status "Checked out master"
+    git pull && status "Pull from origin"
+    git submodule update --init --recursive && status "Updating/init submodules"
+    { git submodule foreach git pull origin master } && status "Pulling submodule changes"
+    git checkout @{-1} >/dev/null 2>&1    # go back to last branch or just fail
   } && status "updated dotfiles repo"
 }
 
