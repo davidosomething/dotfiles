@@ -27,6 +27,8 @@ set cursorline
 set scrolloff=3                       " show 2 lines of context
 set foldlevel=99                      " show all folds by default
 set foldlevelstart=99                 " show all folds by default
+set splitbelow
+set splitright
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax

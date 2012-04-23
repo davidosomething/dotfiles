@@ -193,6 +193,16 @@ nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
 nmap <silent> <leader>pw :call DoWindowSwap()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clean code function
+function! CleanCode()
+    %retab " Replace tabs with spaces
+    %s/\r/\r/eg " Turn DOS returns ^M into real returns
+    %s= *$==e " Delete end of line blanks
+    echo "Cleaned up this mess."
+endfunction
+nmap <leader>cc :call CleanCode()<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin keys
 
 " Rainbow Parenthesis
