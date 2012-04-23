@@ -274,8 +274,8 @@ function dotfiles_update() {
   echo "== updating dotfiles repo =="
   cd ~/.dotfiles && {
     git pull
-    git submodule update --init
-    git submodule foreach git pull -u origin master
+    git submodule update --init --recursive
+    git submodule foreach git pull origin master
   } && status "updated dotfiles repo"
 }
 
