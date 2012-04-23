@@ -338,6 +338,8 @@ function dotfiles_usage() {
   echo "options:"
   echo "  -h | --help         show usage (you're looking at it)"
   echo "  -v | --version      show version info"
+  echo "  -d | --debug        show debugging flags"
+  echo "  -V | --vim-plugins  list directories under vim/bundle/"
   echo "  --skip-dependency   don't check for dependencies"
   echo "  --skip-shell        don't check if zsh is the default shell"
   echo "  --skip-ssh          don't check for SSH keys"
@@ -375,6 +377,9 @@ while [ "$1" != "" ]; do
                           exit 0
                           ;;
     -d | --debug )        dotfiles_debug=1
+                          ;;
+    -V | --vim-plugins )  pushd ~/.dotfiles/vim/bundle && ls -d * && popd
+                          exit 0
                           ;;
     --skip-dependency )   dotfiles_skip_check_dependency=1
                           ;;
