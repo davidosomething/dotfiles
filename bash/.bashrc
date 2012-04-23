@@ -11,6 +11,7 @@ shopt -s histappend
 shopt -s nocaseglob
 shopt -s extglob
 shopt -s cdspell
+shopt -s cdable_vars
 
 source "$BASH_DOTFILES/.bash_aliases"
 ##

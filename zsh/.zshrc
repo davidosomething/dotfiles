@@ -76,4 +76,4 @@ esac
 
 ##
 # local
-source ~/.zshrc.local >/dev/null 2>&1 # may or may not exist
+[ -e ~/.zshrc.local ] && source ~/.zshrc.local

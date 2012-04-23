@@ -18,8 +18,7 @@ esac
 
 ##
 # local
-[ -e "~/.zshenv.local" ] && source ~/.zshenv.local
+[ -e ~/.zshenv.local ] && source ~/.zshenv.local
 
 # remove duplicate paths
 typeset -U path cdpath fpath manpath
-
