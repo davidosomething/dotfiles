@@ -27,6 +27,17 @@ nmap <leader>l mQviwu`Q
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>
 
+function! ChangeToVCSRoot()
+  let cph = expand('%:p:h', 1)
+  if match(cph, '\v^<.+>://') >= 0 | retu | en
+  for mkr in ['.git/', '.hg/', '.svn/', '.bzr/', '_darcs/', '.vimprojects']
+    let wd = call('find'.(mkr =~ '/$' ? 'dir' : 'file'), [mkr, cph.';'])
+    if wd != '' | let &acd = 0 | brea | en
+  endfo
+  exe 'lc!' fnameescape(wd == '' ? cph : substitute(wd, mkr.'$', '.', ''))
+endfunction
+nmap <silent> <leader>cdr :call ChangeToVCSRoot()<CR>
+
 " Create the directory containing the file in the buffer
 nmap <silent> <leader>md :!mkdir -p %:p:h<CR>
 
@@ -189,9 +200,9 @@ if exists(":RainbowParenthesesToggle")
   nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 endif
 
-let g:ctrlp_map = '<C-t>'
-
 if exists(":Tabularize")
+  nmap <Leader>a- :Tabularize /-<CR>
+  vmap <Leader>a- :Tabularize /-<CR>
   nmap <Leader>a= :Tabularize /=<CR>
   vmap <Leader>a= :Tabularize /=<CR>
   nmap <Leader>a: :Tabularize /:\zs<CR>

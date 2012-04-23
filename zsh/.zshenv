@@ -4,12 +4,8 @@
 # this file applies to all OS's
 
 export ZDOTDIR="$HOME/.dotfiles/zsh"
-# environment vars available to scripts
 export EDITOR="vim"
-
-##
-# paths, locals
-path=( /usr/local/bin $path )         # default required paths
+export PATH="$HOME/bin:$HOME/.rvm/bin:/usr/local/bin:$PATH"
 
 ##
 # OS specific
@@ -22,13 +18,8 @@ esac
 
 ##
 # local
-source ~/.zshenv.local >/dev/null 2>&1 # may or may not exist
-
-##
-# back to paths
-path=( $HOME/bin $path )
+[ -e "~/.zshenv.local" ] && source ~/.zshenv.local
 
 # remove duplicate paths
 typeset -U path cdpath fpath manpath
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

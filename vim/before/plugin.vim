@@ -12,8 +12,11 @@ let g:yankring_manual_clipboard_check = 1
 " ctrl-p
 " We don't want to use Ctrl-p as the mapping because
 " it interferes with YankRing (paste, then hit ctrl-p)
+let g:ctrlp_map = '<C-t>'
 let g:ctrlp_jump_to_buffer = 2        " Jump to tab AND buffer if already open
 let g:ctrlp_split_window = 1          " <CR> = New Tab
+let g:ctrlp_max_files = 2500
+let g:ctrlp_max_depth = 20
 
 " run syntastic on file open
 let g:syntastic_check_on_open = 1
@@ -36,12 +39,14 @@ let g:neocomplcache_auto_completion_start_length = 3
 " the one in rails.vim, otherwise this plugin will crap out
 let g:neocomplcache_force_overwrite_completefunc = 1
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+if has("autocmd")
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+endif
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}

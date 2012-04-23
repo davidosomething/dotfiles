@@ -25,7 +25,8 @@ set number
 set numberwidth=5
 set cursorline
 set scrolloff=3                       " show 2 lines of context
-set foldlevel=99                 " show all folds by default
+set foldlevel=99                      " show all folds by default
+set foldlevelstart=99                 " show all folds by default
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax
@@ -99,14 +100,22 @@ set nojoinspaces
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype specific
-" Makefiles, Python use real tabs
-au FileType gitconfig   set noexpandtab
-au FileType make        set noexpandtab
-au FileType python      set noexpandtab
-" stupid folding
-au FileType php         set foldlevel=99
-" wrap textfiles at 80
-autocmd FileType text,txt setlocal textwidth=80
+if has("autocmd")
+  " Makefiles, Python use real tabs
+  au FileType gitconfig   set noexpandtab
+  au FileType make        set noexpandtab
+  au FileType python      set noexpandtab
+  " stupid folding
+  au FileType php         set foldlevel=99 foldlevelstart=99
+  " Enable soft-wrapping for text files
+  autocmd FileType text,txt,markdown,html,xhtml,eruby setlocal wrap linebreak nolist textwidth=80
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" befores -- plugin settings and keybindings
+for f in split(glob('~/.dotfiles/vim/before/*.vim'), '\n')
+  exe 'source' f
+endfor
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Local config
