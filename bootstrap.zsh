@@ -165,6 +165,7 @@ function dotfiles_setup_git() {
   [ "$dotfiles_local_suffix" = "osx" ] && git config --global web.browser open
 
   # a couple aliases
+  git config --global alias.b     branch
   git config --global alias.co    checkout
   git config --global alias.dc    "diff --cached"
   git config --global alias.st    "status -bs"
