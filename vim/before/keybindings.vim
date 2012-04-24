@@ -146,6 +146,16 @@ else
   imap <C-9> <Esc>9gt
 endif
 
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use Ctrl-U/D for pg up and pg dn, maintains cursor position on screen
+" http://github.com/gf3/dotfiles/blob/fe8bba3711181728c670cad2d585705d8e68c5b7/.vimrc
+map <PageUp> <C-U>
+map <PageDown> <C-D>
+imap <PageUp> <C-O><C-U>
+imap <PageDown> <C-O><C-D>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keep search pattern at the center of the screen.
 " http://vimbits.com/bits/92

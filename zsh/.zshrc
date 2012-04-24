@@ -19,34 +19,35 @@ setopt HIST_VERIFY                    # verify when using history cmds/params
 
 ##
 # shell options
+setopt AUTO_LIST                      # list completions
 setopt AUTO_PUSHD                     # pushd instead of cd
-setopt PUSHD_IGNORE_DUPS
-setopt PUSHD_TO_HOME                  # go home if no d specified
-setopt PUSHD_SILENT                   # don't show stack after cd
-setopt EXTENDED_GLOB                  # like ** for recursive dirs
 setopt CDABLE_VARS
+setopt CORRECT
+setopt EXTENDED_GLOB                  # like ** for recursive dirs
 setopt NO_BEEP
 setopt NO_HUP                         # don't kill bg processes
-setopt AUTO_LIST                      # list completions
-setopt CORRECT
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT                   # don't show stack after cd
+setopt PUSHD_TO_HOME                  # go home if no d specified
 
 ##
 # functions
 source $ZDOTDIR/.zshfunctions
+source $ZDOTDIR/.zshfunctions
 
 ##
 # aliases
-source ~/.dotfiles/bash/.bash_aliases      # sh independent aliases
+source $DOTFILES/bash/.bash_aliases      # sh independent aliases
 case "$OSTYPE" in
-  darwin*)  source ~/.dotfiles/bash/.bash_aliases.osx
+  darwin*)  source $DOTFILES/bash/.bash_aliases.osx
             ;;
-  linux*)   source ~/.dotfiles/bash/.bash_aliases.linux
+  linux*)   source $DOTFILES/bash/.bash_aliases.linux
             ;;
 esac
 source $ZDOTDIR/.zshaliases
 
 ##
-# prompt
+# prompt and title
 source $ZDOTDIR/.zshprompt
 
 ##

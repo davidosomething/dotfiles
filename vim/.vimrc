@@ -29,6 +29,7 @@ set foldlevel=99                      " show all folds by default
 set foldlevelstart=99                 " show all folds by default
 set splitbelow
 set splitright
+set mouse=a
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax
@@ -76,9 +77,10 @@ set encoding=utf-8
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " backups
+set noswapfile                        " eff that
+set directory=~/.vim/_temp//          " where to put swap files.
 set nobackup                          " hate those
 set backupdir=~/.vim/_backup//        " defunct now
-set directory=~/.vim/_temp//          " where to put swap files.
 set hidden                            " remember undo after quitting
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

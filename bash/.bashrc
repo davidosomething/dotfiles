@@ -1,6 +1,8 @@
+####
 # ~/.dotfiles/bash/.bashrc
 # read on all shells and subshells
-export DOTFILES=~/.dotfiles
+
+export DOTFILES="$HOME/.dotfiles"
 export BASH_DOTFILES="$DOTFILES/bash"
 
 ##

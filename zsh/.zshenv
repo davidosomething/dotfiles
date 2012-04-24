@@ -3,9 +3,11 @@
 # zshenv is always sourced, even for bg jobs
 # this file applies to all OS's
 
-export ZDOTDIR="$HOME/.dotfiles/zsh"
-export EDITOR="vim"
+export DOTFILES="$HOME/.dotfiles"
+export ZDOTDIR="$ZDOTDIR/zsh"
 export PATH="$HOME/bin:$HOME/.rvm/bin:/usr/local/bin:$PATH"
+
+export EDITOR="vim"
 
 ##
 # OS specific
