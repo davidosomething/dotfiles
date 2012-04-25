@@ -4,7 +4,7 @@
 # this file applies to all OS's
 
 export DOTFILES="$HOME/.dotfiles"
-export ZDOTDIR="$ZDOTDIR/zsh"
+export ZDOTDIR="$DOTFILES/zsh"
 export PATH="$HOME/bin:$HOME/.rvm/bin:/usr/local/bin:$PATH"
 
 export EDITOR="vim"
