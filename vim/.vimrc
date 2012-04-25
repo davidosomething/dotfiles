@@ -1,4 +1,4 @@
-" 
+" ~/.dotfiles/vim/.vimrc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin management
 filetype off
@@ -57,6 +57,7 @@ Bundle 'vim-ruby/vim-ruby'
 " syntax (also end of vundle)
 syntax on
 filetype plugin indent on
+runtime macros/matchit.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " display
 set title                             " wintitle = filename - vim
