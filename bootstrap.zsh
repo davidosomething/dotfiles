@@ -275,7 +275,6 @@ function dotfiles_update() {
     git pull && status "Pulling latest dotfiles"
     git submodule update --init --recursive && status "Updating/init submodules"
     git checkout @{-1}                # go back to last branch or just fail
-    vim +BundleInstall +qall && status "Updated and installed vim plugins"
   } && status "Updated dotfiles repo"
 }
 
@@ -313,7 +312,12 @@ function dotfiles_symlink_vim() {
   [ ! -d ~/.vim/bundle/vundle ] && {
     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle && status "Installed vundle for vim"
   }
-  vim +BundleInstall +qall && status "Installed vim plugins"
+}
+
+function dotfiles_update_vim() {
+  [ -d ~/.vim/bundle/vundle ] && {
+    vim +BundleInstall +qall && status "Updated/Installed vim plugins"
+  }
 }
 
 function dotfiles_symlink_bin() {
@@ -548,6 +552,7 @@ if [ "$dotfiles_do_github:l" = "y" ]; then
 else
   status "Skipping github setup"
 fi
+
 if [ -d ~/.dotfiles ]; then
   status "folder ~/.dotfiles already exists, not cloning"
   dotfiles_update
@@ -559,14 +564,18 @@ else
 fi
 
 # vim and zsh use bin
-[ "$dotfiles_do_bin:l"       = "y" ] && dotfiles_symlink_bin
-[ "$dotfiles_do_vim:l"       = "y" ] && dotfiles_symlink_vim
+[ "$dotfiles_do_bin:l" = "y" ] && dotfiles_symlink_bin
+
 [ "$dotfiles_do_cvsignore:l" = "y" ] && dotfiles_symlink_cvsignore
-[ "$dotfiles_do_pow:l"       = "y" ] && dotfiles_symlink_powconfig
-[ "$dotfiles_do_tmux:l"      = "y" ] && dotfiles_create_tmuxconf
+[ "$dotfiles_do_pow:l"  = "y" ] && dotfiles_symlink_powconfig
+[ "$dotfiles_do_tmux:l" = "y" ] && dotfiles_create_tmuxconf
+
+[ "$dotfiles_do_vim:l" = "y" ] && dotfiles_symlink_vim
+[[ "$dotfiles_do_vim:l" = "y" || "$dotfiles_update_only" = "1" ]] && dotfiles_update_vim
+
 # do this last since it modifies paths
-[ "$dotfiles_do_bash:l"      = "y" ] && dotfiles_symlink_bash
-[ "$dotfiles_do_zsh:l"       = "y" ] && dotfiles_symlink_zsh
+[ "$dotfiles_do_bash:l" = "y" ] && dotfiles_symlink_bash
+[ "$dotfiles_do_zsh:l"  = "y" ] && dotfiles_symlink_zsh
 
 [ "$dotfiles_do_osx:l" = "y" ] && dotfiles_setup_osx
 
