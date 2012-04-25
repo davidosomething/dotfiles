@@ -238,14 +238,14 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function keys, also for plugins
-
+" Toggle clipboard history from YankRing
+nmap <F3> :YRShow<CR>
 " Toggle paste mode
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
-
-map <F2> :NERDTreeToggle<CR>
+" <F5> is solarized
+nmap <F6> :NERDTreeToggle<CR>
+nmap <F7> :BuffergatorToggle<CR>
 nmap <F8> :TagbarToggle<CR>
-
-" swap solarized palette
-call togglebg#map("<F12>")
+" <F9>
 
