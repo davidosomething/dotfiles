@@ -272,11 +272,10 @@ function dotfiles_update() {
   echo "== updating dotfiles repo =="
   cd ~/.dotfiles && git checkout master && {
     status "Checked out master"
-    git pull && status "Pull from origin"
+    git pull && status "Pulling latest dotfiles"
     git submodule update --init --recursive && status "Updating/init submodules"
-    { git submodule foreach git pull origin master } && status "Pulling submodule changes"
-    git checkout @{-1} >/dev/null 2>&1    # go back to last branch or just fail
-  } && status "updated dotfiles repo"
+    git checkout @{-1}                # go back to last branch or just fail
+  } && status "Updated dotfiles repo"
 }
 
 function dotfiles_symlink_bash() {
