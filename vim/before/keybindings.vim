@@ -208,10 +208,10 @@ nnoremap <silent> <leader>} :tabnext<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clean code function
 function! CleanCode()
-    %retab " Replace tabs with spaces
-    %s/\r/\r/eg " Turn DOS returns ^M into real returns
-    %s= *$==e " Delete end of line blanks
-    echo "Cleaned up this mess."
+  %retab " Replace tabs with spaces
+  %s/\r/\r/eg " Turn DOS returns ^M into real returns
+  %s= *$==e " Delete end of line blanks
+  echo "Cleaned up this mess."
 endfunction
 nmap <leader>cc :call CleanCode()<cr>
 
@@ -219,19 +219,21 @@ nmap <leader>cc :call CleanCode()<cr>
 " Plugin keys
 
 " Rainbow Parenthesis
-if exists(":RainbowParenthesesToggle")
-  nnoremap <leader>rp :RainbowParenthesesToggle<CR>
-endif
+nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 
-if exists(":Tabularize")
-  nmap <Leader>a- :Tabularize /-<CR>
-  vmap <Leader>a- :Tabularize /-<CR>
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
-  nmap <Leader>a, :Tabularize /,<CR>
-  vmap <Leader>a, :Tabularize /,<CR>
+" Tabular
+nmap <Leader>a- :Tabularize /-<CR>
+vmap <Leader>a- :Tabularize /-<CR>
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a, :Tabularize /,<CR>
+vmap <Leader>a, :Tabularize /,<CR>
+
+" vim-less - compile
+if has("autocmd")
+  au FileType less nnoremap <LocalLeader>lc :w <BAR> !lessc % > %:t:r.css<CR><space>
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

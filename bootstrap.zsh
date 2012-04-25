@@ -275,6 +275,7 @@ function dotfiles_update() {
     git pull && status "Pulling latest dotfiles"
     git submodule update --init --recursive && status "Updating/init submodules"
     git checkout @{-1}                # go back to last branch or just fail
+    vim +BundleInstall +qall && status "Updated and installed vim plugins"
   } && status "Updated dotfiles repo"
 }
 
@@ -307,9 +308,12 @@ function dotfiles_symlink_vim() {
   dotfiles_backup ~/.vimrc  && ln -fns ~/.dotfiles/vim/.vimrc ~/.vimrc    && status "Your new .vimrc is a symlink to ~/.dotfiles/.vimrc"
   dotfiles_backup ~/.gvimrc && ln -fns ~/.dotfiles/vim/.gvimrc ~/.gvimrc  && status "Your new .gvimrc is a symlink to ~/.dotfiles/.gvimrc"
 
-  mkdir -p ~/.dotfiles/vim/_temp
-  mkdir -p ~/.dotfiles/vim/_backup
-  status "Created backup and temp folders for vim"
+  mkdir -p ~/.dotfiles/vim/_temp && mkdir -p ~/.dotfiles/vim/_backup && status "Created backup and temp folders for vim"
+
+  [ ! -d ~/.vim/bundle/vundle ] && {
+    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle && status "Installed vundle for vim"
+  }
+  vim +BundleInstall +qall && status "Installed vim plugins"
 }
 
 function dotfiles_symlink_bin() {
