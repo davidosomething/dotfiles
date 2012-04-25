@@ -12,6 +12,14 @@ nmap <silent> <leader>rc :so $MYVIMRC<CR>
 map <Down> gj
 map <Up> gk
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use Ctrl-U/D for pg up and pg dn, maintains cursor position on screen
+" http://github.com/gf3/dotfiles/blob/fe8bba3711181728c670cad2d585705d8e68c5b7/.vimrc
+map <PageUp> <C-U>
+map <PageDown> <C-D>
+imap <PageUp> <C-O><C-U>
+imap <PageDown> <C-O><C-D>
+
 " use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
 " (it will prompt for sudo password when writing)
 cmap w!! %!sudo tee > /dev/null %
@@ -19,10 +27,6 @@ cmap w!! %!sudo tee > /dev/null %
 " fix typo !W to !w
 " https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
 command! -bang W w<bang>
-
-" upper/lower word
-nmap <leader>u mQviwU`Q
-nmap <leader>l mQviwu`Q
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>
@@ -40,6 +44,10 @@ nmap <silent> <leader>cdr :call ChangeToVCSRoot()<CR>
 
 " Create the directory containing the file in the buffer
 nmap <silent> <leader>md :!mkdir -p %:p:h<CR>
+
+" upper/lower word
+nmap <leader>u mQviwU`Q
+nmap <leader>l mQviwu`Q
 
 " Toggle hlsearch with <leader>hs
 nmap <leader>hs :set hlsearch! hlsearch?<CR>
@@ -146,16 +154,6 @@ else
   imap <C-9> <Esc>9gt
 endif
 
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use Ctrl-U/D for pg up and pg dn, maintains cursor position on screen
-" http://github.com/gf3/dotfiles/blob/fe8bba3711181728c670cad2d585705d8e68c5b7/.vimrc
-map <PageUp> <C-U>
-map <PageDown> <C-D>
-imap <PageUp> <C-O><C-U>
-imap <PageDown> <C-O><C-D>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keep search pattern at the center of the screen.
 " http://vimbits.com/bits/92
@@ -201,6 +199,11 @@ function! DoWindowSwap()
 endfunction
 nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
 nmap <silent> <leader>pw :call DoWindowSwap()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tabs
+nnoremap <silent> <leader>{ :tabprev<CR>
+nnoremap <silent> <leader>} :tabnext<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clean code function

@@ -1,14 +1,56 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin management
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+" My bundles -------------------------------------------------------------------
+" appearance
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'vim-scripts/IndexedSearch'
+Bundle 'vim-scripts/kwbdi.vim'
+" editing
+Bundle 'edsono/vim-matchit'
+Bundle 'ervandew/supertab'
+Bundle 'godlygeek/tabular'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'Shougo/neocomplcache'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-speeddating'
+Bundle 'michaeljsmith/vim-indent-object'
+Bundle 'nishigori/vim-sunday'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'vim-scripts/AnsiEsc.vim'
+Bundle 'vim-scripts/YankRing.vim'
+" menus and special features
+Bundle 'gmarik/sudo-gui.vim'
+Bundle 'jeetsukumaran/vim-buffergator'
+Bundle 'kien/ctrlp.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-fugitive'
+" syntax
+Bundle 'acustodioo/vim-tmux'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'itspriddle/vim-jquery'
+Bundle 'pangloss/vim-javascript'
+Bundle 'scrooloose/syntastic'
+Bundle 'skammer/vim-css-color'
+Bundle 'tpope/vim-git'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-rails'
+Bundle 'vim-ruby/vim-ruby'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use Ack instead of Grep when available
-" https://github.com/thoughtbot/dotfiles/blob/master/vimrc
-if executable("ack")
-  set grepprg=ack\ -H\ --nogroup\ --nocolor
-endif
+" syntax
+syntax on
+filetype plugin indent on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " display
@@ -30,11 +72,6 @@ set foldlevelstart=99                 " show all folds by default
 set splitbelow
 set splitright
 set mouse=a
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" syntax
-syntax on
-filetype plugin indent on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " search
@@ -101,6 +138,13 @@ set listchars+=trail:·
 set listchars+=extends:»              " show cut off when nowrap
 set listchars+=precedes:«
 set nojoinspaces
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use Ack instead of Grep when available
+" https://github.com/thoughtbot/dotfiles/blob/master/vimrc
+if executable("ack")
+  set grepprg=ack\ -H\ --nogroup\ --nocolor
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype specific
