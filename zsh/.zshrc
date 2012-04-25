@@ -32,7 +32,7 @@ setopt PUSHD_TO_HOME                  # go home if no d specified
 
 ##
 # functions
-source $ZDOTDIR/.zshfunctions
+source $DOTFILES/bash/.bash_functions
 source $ZDOTDIR/.zshfunctions
 
 ##
