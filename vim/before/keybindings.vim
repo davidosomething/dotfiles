@@ -231,21 +231,31 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a, :Tabularize /,<CR>
 vmap <Leader>a, :Tabularize /,<CR>
 
-" vim-less - compile
 if has("autocmd")
+  " vim-less - compile
   au FileType less nnoremap <LocalLeader>lc :w <BAR> !lessc % > %:t:r.css<CR><space>
+
+  au FileType php nnoremap <Leader>p :call PhpDocSingle()<CR>
+  au FileType php vnoremap <Leader>p :call PhpDocRange()<CR>
 endif
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function keys, also for plugins
+" Disable vim help
+imap <F1> <nop>
+nmap <F1> <nop>
+nmap <F1> :NERDTreeToggle<CR>
+nmap <F2> :BuffergatorToggle<CR>
 " Toggle clipboard history from YankRing
 nmap <F3> :YRShow<CR>
 " Toggle paste mode
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
-" <F5> is solarized
-nmap <F6> :NERDTreeToggle<CR>
-nmap <F7> :BuffergatorToggle<CR>
-nmap <F8> :TagbarToggle<CR>
+if (exists("togglebg"))
+  call togglebg#map("<F5>")
+endif
+nmap <F12> :TagbarToggle<CR>
 " <F9>
 
