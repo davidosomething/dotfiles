@@ -7,6 +7,7 @@ Installation
 ------------
 
 Run the bootstrap.zsh script to set up a terminal and some programs exactly like mine.
+
 If you want a oneliner:
 
 ```
@@ -22,10 +23,16 @@ $ dotfiles --help
 Notes
 -----
 
-* .zsh*.local.OS files should be sourced from your local, not symlinked
-* If using MacPorts, NEVER INSTALL MonoDevelop! It adds /usr/bin/pkg-config .
-Touching /usr/bin is filthy.
-* Don't forget to setup apache with pow and run the pow install script
+* Don't forget to setup apache manually
+
+### bin
+
+The ``` github-flavored-markdown.rb ``` script is for Marked.app
+
+### bash
+
+The aliases and functions here should work in ZSH as well, so they're sourced
+by the ZSH dotfiles.
 
 ### pow
 
@@ -38,11 +45,10 @@ that makes tmux work with pbcopy and OSX clipboard copy and paste.
 Check out https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard for more or
 if you need to recompile.
 
-
 ### vim
 
-See `vim/bundle/` for what plugins are installed. Some notes on that:
-
-* vim-surround requires vim-repeat to do dot (.) repeating
+Using vundler for vim.
 
 ### zsh
+
+Starts with bash config (vars, paths, aliases, functions) and adds its own.

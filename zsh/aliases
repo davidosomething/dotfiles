@@ -1,14 +1,13 @@
 # ~/.dotfiles/.zshalias
 # sourced by .zshrc
 
-alias dotfiles="zsh ~/.dotfiles/bootstrap.zsh"
+alias dotfiles="zsh $DOTFILES/bootstrap.zsh"
 # some of these paths are set in .zshenv.local!
-alias mv="nocorrect mv"               # no spelling correction on mv
 alias cp="nocorrect cp"
+alias mv="nocorrect mv"
+alias rm="nocorrect rm"
 alias mkdir="nocorrect mkdir"
 alias zshrc="$EDITOR ~/.zshrc"
-alias reload="exec zsh"               # replace cur proc with new zsh, so env
-                                      # will also be reloaded
 
 # wordpress aliases, rely on git being in project folder
 alias wpt="cdr; cd wp-content/themes"

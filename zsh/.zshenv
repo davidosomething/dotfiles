@@ -4,6 +4,7 @@
 # this file applies to all OS's
 
 source ~/.dotfiles/bash/vars
+source $BASH_DOTFILES/paths
 
 ##
 # OS specific

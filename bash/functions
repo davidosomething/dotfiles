@@ -1,18 +1,23 @@
 # https://github.com/jmcantrell/dotfiles-zsh/blob/master/zsh/conf.d/40-functions
+
+mcd() {
+  mkdir -p "$@" && cd "$@"
+}
+
 # Change directory to the nearest repo root
 cdr()
 {
-    local dir=${1:-$PWD}
-    if [[ -d $dir/.svn ]]; then
-        while [[ -d $dir/.. && -d $dir/../.svn ]]; do
-            dir+=/..
-        done
-    else
-        while [[ -d $dir && ! ( -d $dir/.git || -d $dir/.hg || -d $dir/.bzr ) ]]; do
-            dir+=/..
-        done
-    fi
-    [[ -d $dir ]] && cd "$dir"
+  local dir=${1:-$PWD}
+  if [[ -d $dir/.svn ]]; then
+      while [[ -d $dir/.. && -d $dir/../.svn ]]; do
+          dir+=/..
+      done
+  else
+      while [[ -d $dir && ! ( -d $dir/.git || -d $dir/.hg || -d $dir/.bzr ) ]]; do
+          dir+=/..
+      done
+  fi
+  [[ -d $dir ]] && cd "$dir"
 }
 
 # type localip to get ethernet or wireless ip

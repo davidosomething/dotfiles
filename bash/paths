@@ -1,4 +1,5 @@
 ####
 # ~/.dotfiles/bash/paths
 
-export PATH="$PATH:~/.rvm/bin"             # Add RVM to PATH for scripting
+# earlier takes precedence
+export PATH="~/.rvm/bin:/usr/local/sbin:$PATH"             # Add RVM to PATH for scripting

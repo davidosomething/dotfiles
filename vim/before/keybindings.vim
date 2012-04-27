@@ -213,7 +213,7 @@ function! CleanCode()
   %s= *$==e " Delete end of line blanks
   echo "Cleaned up this mess."
 endfunction
-nmap <leader>cc :call CleanCode()<cr>
+nmap <leader>ws :call CleanCode()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin keys

@@ -25,12 +25,15 @@ dotfiles_do_bin="n"
 dotfiles_do_cvsignore="n"
 dotfiles_do_gitconfig="n"
 dotfiles_do_github="n"
-dotfiles_do_osx="n"
 dotfiles_do_pow="n"
 dotfiles_do_tmux="n"
 dotfiles_do_vim="n"
 dotfiles_do_bash="n"
 dotfiles_do_zsh="n"
+# only ask for these on OSX
+dotfiles_do_homebrew="n"
+dotfiles_do_brew="n"
+dotfiles_do_osx="n"
 
 # determine if you installed and are using the alias or are running using oneliner
 if [ "$0" = "dotfiles" ]; then
@@ -47,6 +50,7 @@ case $OSTYPE in
             ;;
 esac
 
+# TODO check for XCode
 function dotfiles_check_dependencies() {
   echo "== checking for dependencies =="
   function require {
@@ -61,24 +65,6 @@ function dotfiles_check_dependencies() {
   require "wget"
   require "ssh-keygen"
   require "git"
-
-  echo "== checking for recommended utilities =="
-  function recommend {
-    if ! which $1 >/dev/null 2>&1; then
-      echo "[WARNING] missing $1, recommend you install it."
-    else
-      status "found $1"
-    fi
-  }
-  recommend "ant"
-  recommend "curl"
-  recommend "nmap"
-  # recommend "nodeenv"
-  recommend "python"
-  recommend "rvm"
-  recommend "rsync"
-  recommend "tmux"
-  recommend "vim"
 }
 
 function dotfiles_switch_shell() {
@@ -103,7 +89,6 @@ function dotfiles_setup_ssh_keys() {
   if [ ! -e ~/.ssh/id_rsa.pub ]; then
     # from https://gist.github.com/1454081
     status "no ssh keys found for this user on this machine, required"
-    echo "== setting up SSH keys =="
     mkdir ~/.ssh
     echo -n "Please enter your email to comment this SSH key: "; read email
     if [ "$email" != "" ]; then
@@ -137,8 +122,13 @@ function dotfiles_determine_steps() {
   echo -n "Set up zsh [y/N]? ";                         read dotfiles_do_zsh;
   echo -n "Set up vim [y/N]? ";                         read dotfiles_do_vim;
   echo -n "Set up bin [y/N]? ";                         read dotfiles_do_bin;
+  echo -n "Set up bin [y/N]? ";                         read dotfiles_do_bin;
 
-  [ "$dotfiles_local_suffix" = 'osx' ] && { echo -n "Set up OSX Defaults [y/N]? "; read dotfiles_do_osx; }
+  [ "$dotfiles_local_suffix" = 'osx' ] && {
+    echo -n "Install Homebrew [y/N]? ";               read dotfiles_do_homebrew;
+    echo -n "Brew recommended formulae [y/N]? ";      read dotfiles_do_brew;
+    echo -n "Set up OSX Defaults [y/N]? ";            read dotfiles_do_osx;
+  }
 }
 
 function dotfiles_setup_git() {
@@ -320,8 +310,9 @@ function dotfiles_update_vim() {
   }
 }
 
+# TODO don't symlink individually, add to path instead
 function dotfiles_symlink_bin() {
-  echo "== create ~/bin and symlink some scripts =="
+  status "Create ~/bin and symlink some scripts"
   [ ! -d ~/bin ] && { mkdir ~/bin && status "Created local bin folder" }
   for f in ~/.dotfiles/bin/*
   do
@@ -331,8 +322,71 @@ function dotfiles_symlink_bin() {
 }
 
 function dotfiles_setup_osx() {
-  echo "== set up OSX defaults =="
+  status "Set up OSX defaults"
   . ~/.dotfiles/.osx && status "OSX defaults written"
+}
+
+# TODO check for curl
+# See https://github.com/37signals/pow/wiki/Installation
+function dotfiles_install_pow() {
+  status "Installing pow"
+  curl get.pow.cx | sh
+}
+
+# TODO check for curl
+# See https://rvm.io/
+function dotfiles_install_rvm() {
+  status "Installing rvm"
+  curl -L get.rvm.io | bash -s stable
+}
+
+# See https://github.com/mxcl/homebrew/wiki/installation
+function dotfiles_install_homebrew() {
+  status "Installing homebrew"
+  /usr/bin/ruby -e "$(/usr/bin/curl -fksSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
+  # TODO check for homebrew
+  brew doctor
+}
+
+# TODO check for homebrew
+function dotfiles_brew_formulae() {
+  echo "== Brew Formulae =="
+  brew install ack
+  brew install git
+  brew install imagemagick
+  brew install imagesnap
+  brew install jsl
+  brew install jsmin
+  brew install macvim --custom-icons --with-cscope --override-system-vim --with-lua
+  brew install pngcrush
+  brew install tmux
+}
+
+function dotfiles_brew_phpmyadmin() {
+  brew install phpmyadmin
+}
+
+function dotfiles_brew_php() {
+  brew tap josegonzalez/php
+  brew install php --with-mssql --with-imap --with-mysql
+  brew install imagick-php
+}
+
+function dotfiles_brew_bash() {
+  brew install bash
+  brew install bash-completion
+}
+
+function dotfiles_brew_zsh() {
+  status "Brewing zsh"
+  brew install zsh
+}
+
+function dotfiles_brew_mysql() {
+  status "Brewing MySQL"
+  brew install mysql
+  mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+  mkdir -p ~/Library/LaunchAgents
 }
 
 ###############################################

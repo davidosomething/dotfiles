@@ -147,13 +147,15 @@ if has("autocmd")
   " Makefiles, Python use real tabs
   au FileType gitconfig   set noexpandtab
   au FileType make        set noexpandtab
-  au FileType python      set noexpandtab
   " stupid folding
   au FileType php         set foldlevel=99 foldlevelstart=99
+  au FileType python      set noexpandtab
   " Enable soft-wrapping for text files
   au FileType text,txt,markdown,html,xhtml,eruby setlocal wrap linebreak nolist textwidth=80
 
+  au BufRead,BufNewFile *.conf set filetype=conf
   au BufRead,BufNewFile *.scss set filetype=scss
+  au BufRead,BufNewFile *.dump set filetype=sql
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " befores -- plugin settings and keybindings

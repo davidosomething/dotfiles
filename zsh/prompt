@@ -20,11 +20,10 @@ zstyle ':vcs_info:*' actionformats '(%b%m%c%u)[%a]'
 
 # show if in vi mode
 VIMODE='I';
-function zle-line-init zle-keymap-select {
+function zle-keymap-select {
   VIMODE="${${KEYMAP/vicmd/N}/(main|viins)/I}"
   zle reset-prompt
 }
-zle -N zle-line-init
 zle -N zle-keymap-select
 bindkey -v                            # use vi mode even if EDITOR is emacs
 

@@ -1,21 +1,26 @@
 # ~/.dotfiles/.bash_aliases
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
 
-alias _='sudo'
+alias _="sudo"
+
+alias e="vim"
+alias vi="vim"
+alias untar="tar -zxvf "
+alias reload="exec $SHELL"
 
 # paths and dirs
 alias ..='cd ..'
 alias ....='cd ../..'
 alias dirs="dirs -v"                  # default to vert, use -l for list
+alias l="ls -l"
 
 # function-type aliases
 alias publicip="curl icanhazip.com"
 
 # default flags for programs
-alias vi="vim"
-alias vim="vim"                    # open in tabs by default
-alias wget="wget --no-check-certificate"
+alias df="df -h"
 alias rsync="rsync --exclude-from=$HOME/.cvsignore"
+alias wget="wget --no-check-certificate"
 
 # tmux
 alias remux="if tmux has 2>/dev/null; then tmux attach; else tmux new $SHELL; fi"
@@ -24,21 +29,21 @@ alias demux="tmux detach"
 # quick edits
 alias vimrc="vim ~/.vimrc"
 alias gvimrc="vim ~/.gvimrc"
-alias aliases="vim ~/.dotfiles/bash/.bash_aliases"
+alias bashrc="vim ~/.bashrc"
+alias lbashrc="vim ~/.bashrc.local"
+alias aliases="vim $BASH_DOTFILES/aliases"
 alias zshrc="vim ~/.zshrc"
 alias zshenv="vim ~/.zshenv"
 alias lzshrc="vim ~/.zshrc.local"
 alias lzshenv="vim ~/.zshenv.local"
-alias bashrc="vim ~/.bashrc"
-alias lbashrc="vim ~/.bashrc.local"
+alias zaliases="vim $ZDOTDIR/aliases"
 alias hosts="vim /etc/hosts"
 alias phpini="vim $PHP_INI"
-alias apacheconf="vim $APACHE_HOME/conf/httpd.conf"
-alias vhosts="vim $APACHE_HOME/conf/extra/httpd-vhosts.conf"
+alias apacheconf="vim $APACHE_CONF/httpd.conf"
+alias vhosts="vim $APACHE_CONF/extra/httpd-vhosts.conf"
 
-# apache
-alias apache2ctl="sudo $APACHE_HOME/bin/apachectl"
-alias apacheerrors="tail $APACHE_HOME/logs/error_log"
+# server
+alias rapache="sudo apachectl -k restart"
 
 ##
 # os specific
@@ -48,4 +53,3 @@ case "$OSTYPE" in
   linux*)   source "$BASH_DOTFILES/aliases-linux"
             ;;
 esac
-
