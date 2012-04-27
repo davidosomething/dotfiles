@@ -39,3 +39,13 @@ alias vhosts="vim $APACHE_HOME/conf/extra/httpd-vhosts.conf"
 # apache
 alias apache2ctl="sudo $APACHE_HOME/bin/apachectl"
 alias apacheerrors="tail $APACHE_HOME/logs/error_log"
+
+##
+# os specific
+case "$OSTYPE" in
+  darwin*)  source "$BASH_DOTFILES/aliases-osx"
+            ;;
+  linux*)   source "$BASH_DOTFILES/aliases-linux"
+            ;;
+esac
+

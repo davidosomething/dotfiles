@@ -2,9 +2,6 @@
 # ~/.dotfiles/bash/.bashrc
 # read on all shells and subshells
 
-export DOTFILES="$HOME/.dotfiles"
-export BASH_DOTFILES="$DOTFILES/bash"
-
 ##
 # bash options
 set -o notify
@@ -15,18 +12,20 @@ shopt -s extglob
 shopt -s cdspell
 shopt -s cdable_vars
 
-source "$BASH_DOTFILES/.bash_aliases"
+export DOTFILES="$HOME/.dotfiles"
+source "$BASH_DOTFILES/vars"
+source "$BASH_DOTFILES/paths"
+source "$BASH_DOTFILES/aliases"
+source "$BASH_DOTFILES/prompt"
+
 ##
 # os specific
 case "$OSTYPE" in
-  darwin*)  source "$BASH_DOTFILES/.bash_aliases.osx"
-            source "$BASH_DOTFILES/.bashrc.osx"
+  darwin*)  source "$BASH_DOTFILES/bashrc-osx"
             ;;
-  linux*)   source "$BASH_DOTFILES/.bash_aliases.linux"
-            source "$BASH_DOTFILES/.bashrc.linux"
+  linux*)   source "$BASH_DOTFILES/bashrc-linux"
             ;;
 esac
 
-source "$BASH_DOTFILES/.bash_prompt"
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# Load RVM into a shell session *as a function*
+[[ -s "~/.rvm/scripts/rvm" ]] && source "~/.rvm/scripts/rvm"

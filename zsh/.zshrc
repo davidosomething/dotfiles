@@ -6,8 +6,6 @@
 ##
 # command history
 # these exports only needed when there's a TTY
-export HISTSIZE=500
-export SAVEHIST=500
 export HISTFILE="$ZDOTDIR/.zhistory"
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
@@ -30,29 +28,12 @@ setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT                   # don't show stack after cd
 setopt PUSHD_TO_HOME                  # go home if no d specified
 
-##
-# functions
-source $DOTFILES/bash/.bash_functions
-source $ZDOTDIR/.zshfunctions
-
-##
-# aliases
-source $DOTFILES/bash/.bash_aliases      # sh independent aliases
-case "$OSTYPE" in
-  darwin*)  source $DOTFILES/bash/.bash_aliases.osx
-            ;;
-  linux*)   source $DOTFILES/bash/.bash_aliases.linux
-            ;;
-esac
-source $ZDOTDIR/.zshaliases
-
-##
-# prompt and title
-source $ZDOTDIR/.zshprompt
-
-##
-# key bindings
-source $ZDOTDIR/.zshkeys
+source $BASH_DOTFILES/aliases
+source $BASH_DOTFILES/functions
+source $ZDOTDIR/aliases
+source $ZDOTDIR/functions
+source $ZDOTDIR/keybindings
+source $ZDOTDIR/prompt
 
 ##
 # zstyles
@@ -64,14 +45,14 @@ zstyle ':completion::complete:cd::' tag-order '! users' -
 
 ##
 # zsh-syntax-highlighting plugin
-source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh >/dev/null 2>&1 # may or may not exist
+source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ##
 # os specific
 case "$OSTYPE" in
-  darwin*)  source $ZDOTDIR/.zshrc.local.osx
+  darwin*)  source $ZDOTDIR/zshrc-osx
             ;;
-  linux*)   source $ZDOTDIR/.zshrc.local.linux
+  linux*)   source $ZDOTDIR/zshrc-linux
             ;;
 esac
 

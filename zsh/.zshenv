@@ -3,20 +3,19 @@
 # zshenv is always sourced, even for bg jobs
 # this file applies to all OS's
 
-export DOTFILES="$HOME/.dotfiles"
-export ZDOTDIR="$DOTFILES/zsh"
-export PATH="$HOME/bin:$HOME/.rvm/bin:/usr/local/bin:$PATH"
-
-export EDITOR="vim"
+source ~/.dotfiles/bash/vars
 
 ##
 # OS specific
 case "$OSTYPE" in
-  darwin*)  source $ZDOTDIR/.zshenv.local.osx
+  darwin*)  source $ZDOTDIR/zshenv-osx
             ;;
-  linux*)   source $ZDOTDIR/.zshenv.local.linux
+  linux*)   source $ZDOTDIR/zshenv-linux
             ;;
 esac
+
+# add zsh completions from git subrepo
+fpath=( $DOTFILES/zsh-completions $fpath )
 
 ##
 # local

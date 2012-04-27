@@ -1,0 +1,4 @@
+####
+# ~/.dotfiles/bash/paths
+
+export PATH="$PATH:~/.rvm/bin"             # Add RVM to PATH for scripting
