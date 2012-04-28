@@ -230,12 +230,12 @@ function dotfiles_create_tmuxconf() {
   echo "== create .tmux.conf =="
   dotfiles_backup ~/.tmux.conf
   [ ! -f ~/.tmux.conf ] && {
-    echo "source-file ~/.dotfiles/.tmux.conf" >> ~/.tmux.conf
+    echo "source-file ~/.dotfiles/tmux/.tmux.conf" >> ~/.tmux.conf
     status  "You didn't have a .tmux.conf file so one was created for"
-    status_ "you. It sources ~/.dotfiles/.tmux.conf."
+    status_ "you. It sources ~/.dotfiles/tmux/.tmux.conf."
     [ "$dotfiles_local_suffix" = "osx" ] && {
-      echo "source-file ~/.dotfiles/.tmux.conf.osx" >> ~/.tmux.conf
-      status "Your new ~/.tmux.conf file also sources ~/.dotfiles/.tmux.conf.osx"
+      echo "source-file ~/.dotfiles/tmux/osx" >> ~/.tmux.conf
+      status "Your new ~/.tmux.conf file also includes ~/.dotfiles/tmux/osx"
     }
   }
 }
