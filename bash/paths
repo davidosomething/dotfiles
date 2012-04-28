@@ -2,4 +2,4 @@
 # ~/.dotfiles/bash/paths
 
 # earlier takes precedence
-export PATH="~/.rvm/bin:/usr/local/sbin:$PATH"             # Add RVM to PATH for scripting
+export PATH="~/.rvm/bin:/usr/local/sbin:~/.dotfiles/bin:$PATH"

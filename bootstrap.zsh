@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # using zsh as scripting lang, only runs if zsh is available
 
 # helpers from http://serverwizard.heroku.com/script/
@@ -21,7 +21,6 @@ dotfiles_skip_check_git_writable=0
 dotfiles_skip_backups=0
 dotfiles_skip_checks=0
 # the following are actions and take y/n instead of 1/0
-dotfiles_do_bin="n"
 dotfiles_do_cvsignore="n"
 dotfiles_do_gitconfig="n"
 dotfiles_do_github="n"
@@ -62,7 +61,6 @@ function dotfiles_check_dependencies() {
     fi
   }
   require "zsh"
-  require "wget"
   require "ssh-keygen"
   require "git"
 }
@@ -121,8 +119,6 @@ function dotfiles_determine_steps() {
   echo -n "Set up bash [y/N]? ";                        read dotfiles_do_bash;
   echo -n "Set up zsh [y/N]? ";                         read dotfiles_do_zsh;
   echo -n "Set up vim [y/N]? ";                         read dotfiles_do_vim;
-  echo -n "Set up bin [y/N]? ";                         read dotfiles_do_bin;
-  echo -n "Set up bin [y/N]? ";                         read dotfiles_do_bin;
 
   [ "$dotfiles_local_suffix" = 'osx' ] && {
     echo -n "Install Homebrew [y/N]? ";               read dotfiles_do_homebrew;
@@ -310,17 +306,6 @@ function dotfiles_update_vim() {
   }
 }
 
-# TODO don't symlink individually, add to path instead
-function dotfiles_symlink_bin() {
-  status "Create ~/bin and symlink some scripts"
-  [ ! -d ~/bin ] && { mkdir ~/bin && status "Created local bin folder" }
-  for f in ~/.dotfiles/bin/*
-  do
-    BIN_NAME=$(basename $f)
-    [ ! -f ~/bin/$BIN_NAME ] && ln -fns $f ~/bin/$BIN_NAME && status "~/bin/$BIN_NAME symlinked"
-  done
-}
-
 function dotfiles_setup_osx() {
   status "Set up OSX defaults"
   . ~/.dotfiles/.osx && status "OSX defaults written"
@@ -448,7 +433,7 @@ function dotfiles_usage() {
   echo "setups:"
   echo "  By specifying a setup you will run only the ones specified."
   echo "  Valid setups to run include:"
-  echo "  bash, bin, cvsignore, gitconfig, github, osx, pow, tmux, vim, zsh"
+  echo "  bash, cvsignore, gitconfig, github, osx, pow, tmux, vim, zsh"
   echo
 }
 
@@ -489,9 +474,6 @@ while [ "$1" != "" ]; do
                           # see conditional section for all below
                           ;;
     bash )                dotfiles_do_bash="y"
-                          dotfiles_do_ask=0
-                          ;;
-    bin )                 dotfiles_do_bin="y"
                           dotfiles_do_ask=0
                           ;;
     cvsignore )           dotfiles_do_cvsignore="y"
@@ -540,7 +522,6 @@ fi
 # --all overrides all setups
 if [ "$dotfiles_do_all" = 1 ]; then
   dotfiles_do_bash="y"
-  dotfiles_do_bin="y"
   dotfiles_do_cvsignore="y"
   dotfiles_do_github="y"
   dotfiles_do_gitconfig="y"
@@ -557,7 +538,6 @@ fi
 # --all overrides all setups
 if [ "$dotfiles_update_only" = 1 ]; then
   dotfiles_do_bash="n"
-  dotfiles_do_bin="n"
   dotfiles_do_cvsignore="n"
   dotfiles_do_github="n"
   dotfiles_do_gitconfig="n"
@@ -574,7 +554,6 @@ if [ "$dotfiles_debug" = 1 ]; then
   echo "os: $dotfiles_local_suffix"
   echo "dotfiles_debug: $dotfiles_debug"
   echo "dotfiles_do_bash: $dotfiles_do_bash"
-  echo "dotfiles_do_bin: $dotfiles_do_bin"
   echo "dotfiles_do_cvsignore: $dotfiles_do_cvsignore"
   echo "dotfiles_do_github: $dotfiles_do_github"
   echo "dotfiles_do_gitconfig: $dotfiles_do_gitconfig"
@@ -643,9 +622,6 @@ else
   fi
   dotfiles_clone
 fi
-
-# vim and zsh use bin
-[ "$dotfiles_do_bin:l" = "y" ] && dotfiles_symlink_bin
 
 [ "$dotfiles_do_cvsignore:l" = "y" ] && dotfiles_symlink_cvsignore
 [ "$dotfiles_do_pow:l"  = "y" ] && dotfiles_symlink_powconfig
