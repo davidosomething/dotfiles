@@ -341,6 +341,13 @@ function dotfiles_install_rvm() {
 }
 
 # See https://github.com/mxcl/homebrew/wiki/installation
+function dotfiles_update_homebrew() {
+  status "Updating homebrew"
+  brew update
+  brew upgrade
+}
+
+# See https://github.com/mxcl/homebrew/wiki/installation
 function dotfiles_install_homebrew() {
   status "Installing homebrew"
   /usr/bin/ruby -e "$(/usr/bin/curl -fksSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
@@ -350,7 +357,7 @@ function dotfiles_install_homebrew() {
 
 # TODO check for homebrew
 function dotfiles_brew_formulae() {
-  echo "== Brew Formulae =="
+  echo "== Brewing Formulae =="
   brew install ack
   brew install git
   brew install imagemagick
@@ -360,33 +367,53 @@ function dotfiles_brew_formulae() {
   brew install macvim --custom-icons --with-cscope --override-system-vim --with-lua
   brew install pngcrush
   brew install tmux
+
+  brew linkapps
 }
 
 function dotfiles_brew_phpmyadmin() {
   brew install phpmyadmin
+  pushd /usr/local/share/phpmyadmin
+    cp config.sample.inc.php config.inc.php
+  popd
+  status  "Installed phpmyadmin"
+  status  "You need to do the apache thing ('brew info phpmyadmin' for help),"
+  status_ "and add a blowfish secret value to"
+  status_ "/usr/local/share/phpmyadmin/config.inc.php"
 }
 
 function dotfiles_brew_php() {
   brew tap josegonzalez/php
   brew install php --with-mssql --with-imap --with-mysql
   brew install imagick-php
+  status  "Installed php and imagick-php. You need to enable it in the apache"
+  status_ "config file ('brew info php' for help)."
 }
 
 function dotfiles_brew_bash() {
   brew install bash
   brew install bash-completion
+  status "Installed bash and bash-completion"
 }
 
 function dotfiles_brew_zsh() {
-  status "Brewing zsh"
   brew install zsh
+  status "Installed zsh"
 }
 
 function dotfiles_brew_mysql() {
-  status "Brewing MySQL"
   brew install mysql
   mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+
   mkdir -p ~/Library/LaunchAgents
+
+  launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+
+  local installed_version="`mysql --version | awk '{print $5}' | sed s/,//`"
+  cp /usr/local/Cellar/mysql/$installed_version/homebrew.mxcl.mysql.plist ~/Library/LaunchAgents/
+
+  launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+  status "Installed MySQL and set up as a service."
 }
 
 ###############################################

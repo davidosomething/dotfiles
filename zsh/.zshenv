@@ -16,7 +16,7 @@ case "$OSTYPE" in
 esac
 
 # add zsh completions from git subrepo
-fpath=( $DOTFILES/zsh-completions $fpath )
+fpath=( $ZDOTDIR/zsh-completions $fpath )
 
 ##
 # local
