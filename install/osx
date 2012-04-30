@@ -1,7 +1,7 @@
 # subset of https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 
 # Disable dashboard
-defaults write com.apple.dashboard mcx-disabled -boolean NO
+defaults write com.apple.dashboard mcx-disabled -boolean YES
 
 # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
