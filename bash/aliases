@@ -20,7 +20,7 @@ alias publicip="curl icanhazip.com"
 # default flags for programs
 alias df="df -h"
 alias ln="ln -v"
-alias rsync="rsync --exclude-from=$HOME/.cvsignore"
+alias rsync="rsync -hP --exclude-from=$HOME/.cvsignore"
 alias wget="wget --no-check-certificate"
 
 # tmux

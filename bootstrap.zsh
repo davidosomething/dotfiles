@@ -308,7 +308,7 @@ function dotfiles_update_vim() {
 
 function dotfiles_setup_osx() {
   status "Set up OSX defaults"
-  . ~/.dotfiles/.osx && status "OSX defaults written"
+  . ~/.dotfiles/install/osx && status "OSX defaults written"
 }
 
 # TODO check for curl
