@@ -45,6 +45,7 @@ alias vhosts="vim $APACHE_CONF/extra/httpd-vhosts.conf"
 
 # server
 alias rapache="sudo apachectl -k restart"
+alias pyserve="python -m SimpleHTTPServer"
 
 ##
 # os specific
