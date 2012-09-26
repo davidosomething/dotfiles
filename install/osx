@@ -1,5 +1,8 @@
 # subset of https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 
+# enable text selection in quicklook
+defaults write com.apple.finder QLEnableTextSelection -bool true
+
 # Disable dashboard
 defaults write com.apple.dashboard mcx-disabled -boolean YES
 

@@ -1,8 +1,8 @@
 # ~/.dotfiles/.bash_aliases
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
 
+alias dotfiles="$DOTFILES/bootstrap.sh"
 alias _="sudo"
-
 alias e="vim"
 alias vi="vim"
 alias untar="tar -zxvf "
@@ -11,6 +11,7 @@ alias reload="exec $SHELL"
 # paths and dirs
 alias ..='cd ..'
 alias ....='cd ../..'
+alias cd..='cd ..'
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias l="ls -l"
 

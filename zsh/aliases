@@ -1,7 +1,6 @@
 # ~/.dotfiles/.zshalias
 # sourced by .zshrc
 
-alias dotfiles="zsh $DOTFILES/bootstrap.zsh"
 # some of these paths are set in .zshenv.local!
 alias cp="nocorrect cp"
 alias mv="nocorrect mv"

@@ -63,6 +63,15 @@ function dotfiles_check_dependencies() {
   require "zsh"
   require "ssh-keygen"
   require "git"
+
+  if ! which gcc >/dev/null 2>&1; then
+    err "missing gcc, please install before proceeding";
+    case $OSTYPE in
+      darwin*)  err_ "Install XCode from the App Store and then open it and install"
+                err_ "the Command Line Tools."
+                ;;
+    esac
+  fi
 }
 
 function dotfiles_switch_shell() {
@@ -383,6 +392,7 @@ function dotfiles_brew_bash() {
 
 function dotfiles_brew_zsh() {
   brew install zsh
+  # TODO add /usr/local/bin/zsh to /etc/shells
   status "Installed zsh"
 }
 

@@ -8,4 +8,3 @@ export HISTSIZE=500
 export SAVEHIST=500
 
 export EDITOR="vim"
-export PATH="$HOME/bin:$HOME/.rvm/bin:/usr/local/bin:$PATH"

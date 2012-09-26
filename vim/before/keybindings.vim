@@ -1,11 +1,11 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keyboard - most of this is straight from Janus
 " Map <Leader> to comma
-" let mapleader = ","
+let mapleader = ","
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Reload vimrc
-nmap <silent> <leader>rc :so $MYVIMRC<CR>
+nnoremap <silent> <leader>rc :so $MYVIMRC<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Map the arrow keys to be based on display lines, not physical lines
@@ -29,7 +29,7 @@ cmap w!! %!sudo tee > /dev/null %
 command! -bang W w<bang>
 
 " cd to the directory containing the file in the buffer
-nmap <silent> <leader>cd :lcd %:h<CR>
+nnoremap <silent> <leader>cd :lcd %:h<CR>
 
 function! ChangeToVCSRoot()
   let cph = expand('%:p:h', 1)
@@ -40,17 +40,17 @@ function! ChangeToVCSRoot()
   endfo
   exe 'lc!' fnameescape(wd == '' ? cph : substitute(wd, mkr.'$', '.', ''))
 endfunction
-nmap <silent> <leader>cdr :call ChangeToVCSRoot()<CR>
+nnoremap <silent> <leader>cdr :call ChangeToVCSRoot()<CR>
 
 " Create the directory containing the file in the buffer
-nmap <silent> <leader>md :!mkdir -p %:p:h<CR>
+nnoremap <silent> <leader>md :!mkdir -p %:p:h<CR>
 
 " upper/lower word
 nmap <leader>u mQviwU`Q
 nmap <leader>l mQviwu`Q
 
 " Toggle hlsearch with <leader>hs
-nmap <leader>hs :set hlsearch! hlsearch?<CR>
+nnoremap <leader>hs :set hlsearch! hlsearch?<CR>
 
 if has("gui_macvim") && has("gui_running")
   " Map command-[ and command-] to indenting or outdenting
@@ -172,9 +172,10 @@ vnoremap <Space> za
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Split manipulation
+nnoremap <leader>v :vsplit<cr>
 " resize vertical splits
-nmap <leader>] <C-w>>
-nmap <leader>[ <C-w><
+nmap <leader>_ <C-w>>
+nmap <leader>+ <C-w><
 " resize horizontal splits
 nmap <leader>- <C-w>-
 nmap <leader>= <C-w>+
@@ -197,11 +198,20 @@ function! DoWindowSwap()
   "Hide and open so that we aren't prompted and keep history
   exe 'hide buf' markedBuf
 endfunction
-nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
-nmap <silent> <leader>pw :call DoWindowSwap()<CR>
+nnoremap <silent> <leader>mw :call MarkWindowSwap()<CR>
+nnoremap <silent> <leader>pw :call DoWindowSwap()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Tabs
+" Switch Buffers
+nnoremap <silent> <leader>[ :bp<CR>
+nnoremap <silent> <leader>] :bn<CR>
+nnoremap <silent> <A-Up> :wincmd k<CR>
+nnoremap <silent> <A-Down> :wincmd j<CR>
+nnoremap <silent> <A-Left> :wincmd h<CR>
+nnoremap <silent> <A-Right> :wincmd l<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Switch Tabs
 nnoremap <silent> <leader>{ :tabprev<CR>
 nnoremap <silent> <leader>} :tabnext<CR>
 
@@ -213,7 +223,7 @@ function! CleanCode()
   %s= *$==e " Delete end of line blanks
   echo "Cleaned up this mess."
 endfunction
-nmap <leader>ws :call CleanCode()<cr>
+nnoremap <leader>ws :call CleanCode()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin keys
@@ -222,40 +232,36 @@ nmap <leader>ws :call CleanCode()<cr>
 nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 
 " Tabular
-nmap <Leader>a- :Tabularize /-<CR>
-vmap <Leader>a- :Tabularize /-<CR>
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
-nmap <Leader>a, :Tabularize /,<CR>
-vmap <Leader>a, :Tabularize /,<CR>
+nnoremap <Leader>a- :Tabularize /-<CR>
+vnoremap <Leader>a- :Tabularize /-<CR>
+nnoremap <Leader>a= :Tabularize /=<CR>
+vnoremap <Leader>a= :Tabularize /=<CR>
+nnoremap <Leader>a: :Tabularize /:\zs<CR>
+vnoremap <Leader>a: :Tabularize /:\zs<CR>
+nnoremap <Leader>a, :Tabularize /,<CR>
+vnoremap <Leader>a, :Tabularize /,<CR>
+nnoremap <Leader>af :Tabularize /=>/<CR>
+vnoremap <Leader>af :Tabularize /=>/<CR>
 
 if has("autocmd")
   " vim-less - compile
   au FileType less nnoremap <LocalLeader>lc :w <BAR> !lessc % > %:t:r.css<CR><space>
 
-  au FileType php nnoremap <Leader>p :call PhpDocSingle()<CR>
-  au FileType php vnoremap <Leader>p :call PhpDocRange()<CR>
+  au FileType php nnoremap <Leader>pd :call PhpDocSingle()<CR>
+  au FileType php vnoremap <Leader>pd :call PhpDocRange()<CR>
 endif
-
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function keys, also for plugins
 " Disable vim help
-imap <F1> <nop>
-nmap <F1> <nop>
-nmap <F1> :NERDTreeToggle<CR>
-nmap <F2> :BuffergatorToggle<CR>
-" Toggle clipboard history from YankRing
-nmap <F3> :YRShow<CR>
-" Toggle paste mode
-nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
-imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
+inoremap <F1> <nop>
+nnoremap <F1> :NERDTreeToggle<CR>
+nnoremap <F2> :BuffergatorToggle<CR>
+nnoremap <F3> :YRShow<CR>
+nnoremap <F5> :TagbarToggle<CR>
 if (exists("togglebg"))
-  call togglebg#map("<F5>")
+  call togglebg#map("<F11>")
 endif
-nmap <F12> :TagbarToggle<CR>
-" <F9>
-
+" Toggle paste mode
+nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
+inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
