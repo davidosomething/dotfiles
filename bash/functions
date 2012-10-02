@@ -42,3 +42,8 @@ groupperms() {
 members () {
   dscl . -list /Users | while read user; do printf "$user "; dsmemberutil checkmembership -U "$user" -G "$*"; done | grep "is a member" | cut -d " " -f 1;
 };
+
+gitexport() {
+  local to_dir = "${2:-./gitexport}"
+  rsync -a ${1:-./} $to_dir --exclude $to_dir --exclude .git
+}
