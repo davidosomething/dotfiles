@@ -24,5 +24,3 @@ fpath=( $ZDOTDIR/zsh-completions $fpath )
 
 # remove duplicate paths
 typeset -U path cdpath fpath manpath
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting (actually already there from bash paths, but it's ok)
