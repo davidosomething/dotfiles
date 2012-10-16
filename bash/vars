@@ -3,7 +3,6 @@
 
 export DOTFILES="$HOME/.dotfiles"
 export BASH_DOTFILES="$DOTFILES/bash"
-export ZDOTDIR="$DOTFILES/zsh"
 export HISTSIZE=500
 export SAVEHIST=500
 

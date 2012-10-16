@@ -3,4 +3,6 @@
 alias ls="ls -A --color=auto"
 alias ll="ls -l"
 
+alias vi="vim"
+alias e="gvim"
 alias mvim="gvim"

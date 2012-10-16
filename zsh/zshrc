@@ -6,7 +6,7 @@
 ##
 # command history
 # these exports only needed when there's a TTY
-export HISTFILE="$ZDOTDIR/.zhistory"
+export HISTFILE="$ZSH_DOTFILES/.zhistory"
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
 setopt APPEND_HISTORY                 # append instead of overwrite file
@@ -30,10 +30,10 @@ setopt PUSHD_TO_HOME                  # go home if no d specified
 
 source $BASH_DOTFILES/aliases
 source $BASH_DOTFILES/functions
-source $ZDOTDIR/aliases
-source $ZDOTDIR/functions
-source $ZDOTDIR/keybindings
-source $ZDOTDIR/prompt
+source $ZSH_DOTFILES/aliases
+source $ZSH_DOTFILES/functions
+source $ZSH_DOTFILES/keybindings
+source $ZSH_DOTFILES/prompt
 
 ##
 # zstyles
@@ -45,14 +45,15 @@ zstyle ':completion::complete:cd::' tag-order '! users' -
 
 ##
 # zsh-syntax-highlighting plugin
-source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH_DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $BASH_DOTFILES/rbenv
 
 ##
 # os specific
 case "$OSTYPE" in
-  darwin*)  source $ZDOTDIR/zshrc-osx
+  darwin*)  source $ZSH_DOTFILES/zshrc-osx
             ;;
-  linux*)   source $ZDOTDIR/zshrc-linux
+  linux*)   source $ZSH_DOTFILES/zshrc-linux
             ;;
 esac
 

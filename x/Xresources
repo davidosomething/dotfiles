@@ -33,7 +33,7 @@ xterm*rightScrollBar:   true
 URxvt*termName:         screen-256color
 URxvt.scrollstyle:      plain
 URxvt.scrollBar_right:  true
-URxvt.font:             xft:DejaVu\ LGC\ Sans\ Mono:size=18
+URxvt.font:             xft:Terminus:size=10:antialias=true
 
 ! include solarized colorscheme
 #include "src/solarized/xresources-colors-solarized/Xresources"

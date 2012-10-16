@@ -1,0 +1,32 @@
+####
+# ~/.dotfiles/bash/bashrc
+# read on all shells and subshells
+
+##
+# bash options
+set -o notify
+shopt -s checkwinsize                 # useful for tmux
+shopt -s histappend
+shopt -s nocaseglob
+shopt -s extglob
+shopt -s cdspell
+shopt -s cdable_vars
+
+source $HOME/.dotfiles/bash/vars
+source $BASH_DOTFILES/rbenv
+source $BASH_DOTFILES/paths
+source $BASH_DOTFILES/aliases
+source $BASH_DOTFILES/prompt
+
+##
+# os specific
+case "$OSTYPE" in
+  darwin*)  if [ -f "$BASH_DOTFILES/bashrc-osx" ]; then
+              source "$BASH_DOTFILES/bashrc-osx"
+            fi
+            ;;
+  linux*)   if [ -f "$BASH_DOTFILES/bashrc-linux" ]; then
+              source "$BASH_DOTFILES/bashrc-linux"
+            fi
+            ;;
+esac
