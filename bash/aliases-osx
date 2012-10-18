@@ -9,5 +9,9 @@ alias flushdns="dscacheutil -flushcache"
 
 # don't use mvim on ssh connections
 if [ "$SSH_CONNECTION" != "" ]; then
+  alias e="vim"
   alias mvim="vim"
+else
+  alias mvim="open -a MacVim"
+  alias e="mvim"
 fi
