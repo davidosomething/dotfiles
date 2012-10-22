@@ -3,4 +3,11 @@
 alias ls="ls -A --color=auto"
 alias ll="ls -l"
 
-alias mvim="gvim"
+# don't use gui vim on ssh connections
+if [ "$SSH_CONNECTION" != "" ]; then
+  alias e="vim"
+  alias mvim="vim"
+else
+  alias e="gvim"
+  alias mvim="gvim"
+fi

@@ -7,7 +7,7 @@ export ZDOTDIR="$DOTFILES/zsh"
 export HISTSIZE=500
 export SAVEHIST=500
 
-export EDITOR="vim"
+export EDITOR="vim -fnX"
 
 # -F exit if only one screen, -X noclearscreen
 export LESS=-erF
