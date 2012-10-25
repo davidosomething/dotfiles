@@ -6,7 +6,7 @@ My dotfiles for zsh and others things.
 Installation
 ------------
 
-Run the bootstrap.zsh script to set up a terminal and some programs exactly like mine.
+Run the bootstrap.sh script to set up a terminal and some programs exactly like mine.
 
 If you want a oneliner:
 
