@@ -1,4 +1,4 @@
-. $DOTFILES_BOOTSTRAP_FOLDER/helpers.sh
+$DOTFILES_BOOTSTRAP_FOLDER/helpers.sh
 
 echo "Assuming that sudo is already installed..."
 

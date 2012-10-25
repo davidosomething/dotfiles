@@ -21,7 +21,6 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-fugitive'
 Bundle 'vim-scripts/Rename2'
 " editing
-Bundle 'editorconfig/editorconfig-vim'
 Bundle 'edsono/vim-matchit'
 Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
@@ -133,9 +132,7 @@ set encoding=utf-8
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " backups
 set noswapfile                        " eff that
-set directory=~/.vim/temp/          " where to put swap files.
 set nobackup                          " hate those
-set backupdir=~/.vim/backup/        " defunct now
 set hidden                            " remember undo after quitting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use Ack instead of Grep when available

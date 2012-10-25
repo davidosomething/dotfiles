@@ -10,5 +10,5 @@ vim/.vimrc.old
 vim/.yankring-history_v2.txt
 vim/temp/*
 vim/backup/*
-vim/bundle/
+vim/bundle
 vim/bundle/*

@@ -7,10 +7,6 @@ symlink bash/bashrc         .bashrc
 symlink bash/bash_profile   .bash_profile
 symlink pow/.powconfig      .powconfig
 symlink tmux/tmux.conf      .tmux.conf
-symlink vim                 .vim
-symlink vim/vimrc           .vimrc
-symlink vim/gvimrc          .gvimrc
 symlink screen/screenrc     .screenrc
-symlink x/Xresources        .Xresources
 symlink zsh/zshenv          .zshenv
 symlink zsh/zshrc           .zshrc
