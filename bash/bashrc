@@ -15,8 +15,9 @@ shopt -s cdable_vars
 source $HOME/.dotfiles/bash/vars
 source $BASH_DOTFILES/rbenv
 source $BASH_DOTFILES/paths
-source $BASH_DOTFILES/aliases
+source $BASH_DOTFILES/completions
 source $BASH_DOTFILES/prompt
+source $BASH_DOTFILES/aliases
 
 ##
 # os specific
