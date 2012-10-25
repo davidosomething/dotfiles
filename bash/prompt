@@ -32,10 +32,9 @@ bash_prompt() {
   if type __git_ps1 >/dev/null 2>&1; then
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWUNTRACKEDFILES=1
-    local GIT="$(__git_ps1 "(%s)")"
+    export PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}\$(__git_ps1)\$${Z} "
   else
-    local GIT=""
+    export PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}\$${Z} "
   fi
-  export PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}${GIT}\$${Z} "
 }
 bash_prompt
