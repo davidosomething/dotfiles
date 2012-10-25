@@ -9,4 +9,4 @@ export SAVEHIST=500
 export EDITOR="vim"
 
 # -S nowrap, -F exit if only one screen, -X noclearscreen
-export LESS=-SFX
+export LESS=-FX
