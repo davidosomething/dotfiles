@@ -3,6 +3,7 @@ sudo pacman -S --needed \
   curl \
   git \
   openssh \
+  tmux \
   zsh \
 
 if ! which vim >/dev/null 2>&1; then
