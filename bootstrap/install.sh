@@ -10,6 +10,15 @@ cd $DOTFILES_BOOTSTRAP_FOLDER
 export DOTFILES_BOOTSTRAP_FOLDER=`pwd`
 export DOTFILES_FOLDER=`dirname $DOTFILES_BOOTSTRAP_FOLDER`
 
+# @TODO self-update? -- bash < <(curl -s https://github.com/ohrite/eyelet/raw/master/install)
+
+#
+# Make sure repo was cloned with submodules
+#
+pushd $DOTFILES_FOLDER
+git submodule update --init
+popd
+
 source $DOTFILES_BOOTSTRAP_FOLDER/helpers.sh
 source $DOTFILES_BOOTSTRAP_FOLDER/update.sh
 source $DOTFILES_BOOTSTRAP_FOLDER/rbenv.sh
