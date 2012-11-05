@@ -1,15 +1,11 @@
-installing "pacman required packages for packer"
-sudo pacman -S --needed base-devel fakeroot git
-
 # installing "packer AUR helper"
-# [[ -d "$HOME/src/packer" ]] || mkdir -p $HOME/src
+sudo pacman -Sy --needed packer
 
 installing "update repositories and packages"
-# sudo packer -Syu
-sudo pacman -Syu
+sudo packer -Syu
 
 installing "dependencies via pacman"
-sudo pacman -S --needed \
+sudo packer -S --needed \
   ack \
   curl \
   git \
@@ -19,4 +15,4 @@ sudo pacman -S --needed \
 
 # might have vim-gnome (gvim) installed instead, only install vim if not already
 installing "vim via pacman"
-[ ! which vim >/dev/null ] && sudo pacman -S --needed vim
+[ ! which vim >/dev/null ] && sudo packer -S --needed vim
