@@ -3,7 +3,6 @@
 
 alias dotfiles="$DOTFILES/bootstrap.sh"
 alias _="sudo"
-alias vi="vim"
 alias untar="tar -zxvf "
 alias reload="exec $SHELL"
 

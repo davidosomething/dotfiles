@@ -13,7 +13,6 @@ if [ "$SSH_CONNECTION" != "" ]; then
   alias gvim="vim"
   alias e="vim"
 else
-  alias mvim="open -a MacVim"
-  alias gvim="mvim"
   alias e="mvim"
+  alias gvim="mvim"
 fi
