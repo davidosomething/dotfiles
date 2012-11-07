@@ -12,9 +12,10 @@ shopt -s extglob
 shopt -s cdspell
 shopt -s cdable_vars
 
-source "~/.dotfiles/bash/vars"
+source "$HOME/.dotfiles/bash/vars"
 source "$BASH_DOTFILES/paths"
 source "$BASH_DOTFILES/aliases"
+source "$BASH_DOTFILES/functions"
 source "$BASH_DOTFILES/prompt"
 
 ##
