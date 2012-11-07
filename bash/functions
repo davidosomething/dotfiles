@@ -47,3 +47,12 @@ gitexport() {
   local to_dir = "${2:-./gitexport}"
   rsync -a ${1:-./} $to_dir --exclude $to_dir --exclude .git
 }
+
+##
+# os specific
+case "$OSTYPE" in
+  darwin*)  [ -f "$BASH_DOTFILES/functions-osx" ] && source "$BASH_DOTFILES/functions-osx"
+            ;;
+  linux*)   [ -f "$BASH_DOTFILES/functions-linux" ] && source "$BASH_DOTFILES/functions-linux"
+            ;;
+esac

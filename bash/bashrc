@@ -5,7 +5,7 @@
 ##
 # bash options
 set -o notify
-shopt -s checkwinsize                 # useful for tmux
+shopt -s checkwinsize # useful for tmux
 shopt -s histappend
 shopt -s nocaseglob
 shopt -s extglob
@@ -17,17 +17,14 @@ source $BASH_DOTFILES/rbenv
 source $BASH_DOTFILES/paths
 source $BASH_DOTFILES/completions
 source $BASH_DOTFILES/prompt
-source $BASH_DOTFILES/aliases
+source $BASH_DOTFILES/aliases # sources os specifics too
+source $BASH_DOTFILES/functions # sources os specifics too
 
 ##
 # os specific
 case "$OSTYPE" in
-  darwin*)  if [ -f "$BASH_DOTFILES/bashrc-osx" ]; then
-              source "$BASH_DOTFILES/bashrc-osx"
-            fi
+  darwin*)  [ -f "$BASH_DOTFILES/bashrc-osx" ] && source "$BASH_DOTFILES/bashrc-osx"
             ;;
-  linux*)   if [ -f "$BASH_DOTFILES/bashrc-linux" ]; then
-              source "$BASH_DOTFILES/bashrc-linux"
-            fi
+  linux*)   [ -f "$BASH_DOTFILES/bashrc-linux" ] && source "$BASH_DOTFILES/bashrc-linux"
             ;;
 esac

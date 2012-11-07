@@ -3,9 +3,9 @@
 # zshenv is always sourced, even for bg jobs
 # this file applies to all OS's
 
-source $HOME/.dotfiles/bash/vars
-source $DOTFILES/zsh/vars
-source $BASH_DOTFILES/paths
+source $HOME/.dotfiles/bash/vars  # base vars from bash
+source $ZSH_DOTFILES/vars         # override bash with zsh vars
+source $BASH_DOTFILES/paths       # common paths
 
 ##
 # OS specific

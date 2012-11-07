@@ -28,8 +28,8 @@ setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT                   # don't show stack after cd
 setopt PUSHD_TO_HOME                  # go home if no d specified
 
-source $BASH_DOTFILES/aliases
-source $BASH_DOTFILES/functions
+source $BASH_DOTFILES/aliases         # sources os specific ones too
+source $BASH_DOTFILES/functions       # sources os specific ones too
 source $ZSH_DOTFILES/aliases
 source $ZSH_DOTFILES/functions
 source $ZSH_DOTFILES/keybindings
