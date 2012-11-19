@@ -1,4 +1,7 @@
 #/usr/bin/env bash
+#
+# This is the main dotfiles installation script
+#
 
 set -e
 
@@ -55,13 +58,14 @@ source $DOTFILES_BOOTSTRAP_FOLDER/detectos.sh
 status "Performing actions for $DOTFILES_OS"
 if [ "$DOTFILES_DISTRO" != "" ]; then
   status_ "OS distro is $DOTFILES_DISTRO"
-  if [ -f $DOTFILES_BOOTSTRAP_FOLDER/$DOTFILES_DISTRO.sh ]; then
+  DOTFILES_OS_SCRIPT="$DOTFILES_BOOTSTRAP_FOLDER/$DOTFILES_OS/$DOTFILES_DISTRO.sh"
+  if [ -f $DOTFILES_OS_SCRIPT ]; then
     status "Installing dependencies for $DOTFILES_DISTRO"
-    source $DOTFILES_BOOTSTRAP_FOLDER/$DOTFILES_DISTRO.sh
+    source $DOTFILES_OS_SCRIPT
   fi
 fi
 
-status Dependencies should be installed at this point
+status "Dependencies should be installed at this point"
 
 #
 # setup vim and vundle
@@ -71,6 +75,4 @@ source $DOTFILES_BOOTSTRAP_FOLDER/vim.sh
 #
 # setup X11 if needed
 #
-if [ "$DISPLAY" != "" ]; then
-  source $DOTFILES_BOOTSTRAP_FOLDER/x11.sh
-fi
+[ "$DISPLAY" != "" ] && source $DOTFILES_BOOTSTRAP_FOLDER/x11.sh
