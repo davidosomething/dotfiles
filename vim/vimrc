@@ -19,6 +19,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-eunuch'
 Bundle 'vim-scripts/Rename2'
 " editing
 Bundle 'edsono/vim-matchit'

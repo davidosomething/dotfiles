@@ -8,5 +8,6 @@ export SAVEHIST=500
 
 export EDITOR="vim -fnX"
 
-# -X noclearscreen
-export LESS=-erFX
+# -F exit if only one screen, -X noclearscreen
+export LESS=-erF
+export GIT_PAGER="less -erFX"
