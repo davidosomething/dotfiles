@@ -11,3 +11,4 @@ export EDITOR="vim -fnX"
 
 # -F exit if only one screen, -X noclearscreen
 export LESS=-erF
+export GIT_PAGER="less -erFX"
