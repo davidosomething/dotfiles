@@ -28,6 +28,8 @@ setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT                   # don't show stack after cd
 setopt PUSHD_TO_HOME                  # go home if no d specified
 
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
 source $BASH_DOTFILES/aliases
 source $BASH_DOTFILES/functions
 source $ZDOTDIR/aliases

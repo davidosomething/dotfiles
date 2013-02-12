@@ -12,6 +12,8 @@ shopt -s extglob
 shopt -s cdspell
 shopt -s cdable_vars
 
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
 source "$HOME/.dotfiles/bash/vars"
 source "$BASH_DOTFILES/paths"
 source "$BASH_DOTFILES/aliases"
