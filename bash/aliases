@@ -27,22 +27,28 @@ alias remux="if tmux has 2>/dev/null; then tmux attach; else tmux new $SHELL; fi
 alias demux="tmux detach"
 
 # quick edits
-alias vimrc="vim ~/.vimrc"
-alias gvimrc="vim ~/.gvimrc"
-alias bashrc="vim ~/.bashrc"
-alias lbashrc="vim ~/.bashrc.local"
-alias aliases="vim $BASH_DOTFILES/aliases"
-alias zshrc="vim ~/.zshrc"
-alias zshenv="vim ~/.zshenv"
-alias lzshrc="vim ~/.zshrc.local"
-alias lzshenv="vim ~/.zshenv.local"
-alias zaliases="vim $ZDOTDIR/aliases"
-alias hosts="vim /etc/hosts"
-alias phpini="vim $PHP_INI"
-alias apacheconf="vim $APACHE_CONF/httpd.conf"
-alias vhosts="vim $APACHE_CONF/extra/httpd-vhosts.conf"
+alias paths="e $BASH_DOTFILES/paths"
+alias vimrc="e ~/.vimrc"
+alias gvimrc="e ~/.gvimrc"
+alias bashrc="e ~/.bashrc"
+alias lbashrc="e ~/.bashrc.local"
+alias aliases="e $BASH_DOTFILES/aliases"
+alias zshrc="e ~/.zshrc"
+alias zshenv="e ~/.zshenv"
+alias lzshrc="e ~/.zshrc.local"
+alias lzshenv="e ~/.zshenv.local"
+alias zaliases="e $ZDOTDIR/aliases"
+
+alias hosts="e /etc/hosts"
+
+# php
+alias phpini="e $PHP_INI"
+alias phpver="php -v | sed 1q | awk '{print \$2}'"
+alias phpminorver="phpver | awk -F=\".\" '{split(\$0,a,\".\"); print a[1]\"\.\"a[2]}'"
 
 # server
+alias vhosts="e $APACHE_CONF/extra/httpd-vhosts.conf"
+alias apacheconf="e $APACHE_CONF/httpd.conf"
 alias rapache="sudo apachectl -k restart"
 alias pyserve="python -m SimpleHTTPServer"
 

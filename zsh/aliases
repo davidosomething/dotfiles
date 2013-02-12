@@ -6,7 +6,7 @@ alias cp="nocorrect cp"
 alias mv="nocorrect mv"
 alias rm="nocorrect rm"
 alias mkdir="nocorrect mkdir"
-alias zshrc="$EDITOR ~/.zshrc"
+alias zshrc="e ~/.zshrc"
 
 # wordpress aliases, rely on git being in project folder
 alias wpt="cdr; cd wp-content/themes"
