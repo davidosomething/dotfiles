@@ -1,6 +1,11 @@
 ####
 # ~/.dotfiles/bash/paths
 
-# earlier takes precedence
 export NODE_PATH="/usr/local/lib/node_modules"
-export PATH="~/bin:~/.dotfiles/bin:/usr/local/share/npm/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+
+# earlier takes precedence
+PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+PATH="/usr/local/share/npm/bin:$PATH"
+PATH="$(brew --prefix josegonzalez/php/php54)/bin:$PATH"
+PATH="~/bin:~/.dotfiles/bin:$PATH"
+export PATH

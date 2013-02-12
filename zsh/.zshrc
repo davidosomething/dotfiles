@@ -44,6 +44,14 @@ zstyle ':completion:*' expand 'yes'
 zstyle ':completion::complete:cd::' tag-order '! users' -
 
 ##
+# load basic autocompletion
+autoload -U compinit && compinit
+
+##
+# add zsh completions from git subrepo
+fpath=( $ZDOTDIR/zsh-completions $fpath )
+
+##
 # zsh-syntax-highlighting plugin
 source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
