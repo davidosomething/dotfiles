@@ -48,6 +48,14 @@ gitexport() {
   rsync -a ${1:-./} $to_dir --exclude $to_dir --exclude .git
 }
 
+apacheconf() { e $APACHE_HTTPD_CONF }
+vhosts() { e $APACHE_HTTPD_VHOSTS }
+
+# update php version in apache config
+update_httpd_conf_phpver() {
+  sed "s/\/usr\/local\/Cellar\/php\([0-9]*\)\/\([\.0-9]*\)\//\/usr\/local\/Cellar\/php$PHPMINORVERNUM\/$PHPVER\//g" $APACHE_HTTPD_CONF >  $APACHE_HTTPD_CONF
+}
+
 ##
 # os specific
 case "$OSTYPE" in

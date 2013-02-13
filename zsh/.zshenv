@@ -3,8 +3,10 @@
 # zshenv is always sourced, even for bg jobs
 # this file applies to all OS's
 
-source ~/.dotfiles/bash/vars
-source $BASH_DOTFILES/paths
+# paths must be set first so the vars can use correct executables if they need
+# e.g. for $PHPVERSION we need to use PHP in brew path, not default path
+source $HOME/.dotfiles/bash/paths
+source $HOME/.dotfiles/bash/vars
 
 ##
 # OS specific

@@ -27,28 +27,27 @@ alias remux="if tmux has 2>/dev/null; then tmux attach; else tmux new $SHELL; fi
 alias demux="tmux detach"
 
 # quick edits
-alias paths="e $BASH_DOTFILES/paths"
-alias vimrc="e ~/.vimrc"
-alias gvimrc="e ~/.gvimrc"
-alias bashrc="e ~/.bashrc"
-alias lbashrc="e ~/.bashrc.local"
-alias aliases="e $BASH_DOTFILES/aliases"
-alias zshrc="e ~/.zshrc"
-alias zshenv="e ~/.zshenv"
-alias lzshrc="e ~/.zshrc.local"
-alias lzshenv="e ~/.zshenv.local"
-alias zaliases="e $ZDOTDIR/aliases"
+alias evars="e $BASH_DOTFILES/vars"
+alias epaths="e $BASH_DOTFILES/paths"
+alias ealiases="e $BASH_DOTFILES/aliases"
+alias efunctions="e $BASH_DOTFILES/functions"
+alias evimrc="e ~/.vimrc"
+alias egvimrc="e ~/.gvimrc"
+alias ebashrc="e ~/.bashrc"
+alias elbashrc="e ~/.bashrc.local"
+alias ezaliases="e $ZDOTDIR/aliases"
+alias ezshrc="e ~/.zshrc"
+alias ezshenv="e ~/.zshenv"
+alias elzshrc="e ~/.zshrc.local"
+alias elzshenv="e ~/.zshenv.local"
 
-alias hosts="e /etc/hosts"
+# probably don't need this with the ghost gem
+alias ehosts="e /etc/hosts"
 
 # php
-alias phpini="e $PHP_INI"
-alias phpver="php -v | sed 1q | awk '{print \$2}'"
-alias phpminorver="phpver | awk -F=\".\" '{split(\$0,a,\".\"); print a[1]\"\.\"a[2]}'"
+alias ephpini="e $PHP_INI"
 
 # server
-alias vhosts="e $APACHE_CONF/extra/httpd-vhosts.conf"
-alias apacheconf="e $APACHE_CONF/httpd.conf"
 alias rapache="sudo apachectl -k restart"
 alias pyserve="python -m SimpleHTTPServer"
 
