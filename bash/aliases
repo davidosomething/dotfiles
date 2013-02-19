@@ -51,6 +51,9 @@ alias ephpini="e $PHP_INI"
 alias rapache="sudo apachectl -k restart"
 alias pyserve="python -m SimpleHTTPServer"
 
+# apache
+alias apacheerrors="tail /var/log/apache2/error_log"
+
 ##
 # os specific
 case "$OSTYPE" in
