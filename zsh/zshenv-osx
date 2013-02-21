@@ -2,4 +2,3 @@
 # ~/.dotfiles/zsh/zshenv-osx
 
 export APACHE_CONF="/etc/apache2"
-export PHP_INI="/usr/local/etc/php/5.3/php.ini"
