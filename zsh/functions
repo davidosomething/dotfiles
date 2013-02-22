@@ -11,4 +11,3 @@ path() {
            sub(\"/local\", \"$fg_no_bold[yellow]/local$reset_color\"); \
            print }"
 }
-

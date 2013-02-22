@@ -3,9 +3,19 @@
 # zshenv is always sourced, even for bg jobs
 # this file applies to all OS's
 
-source $HOME/.dotfiles/bash/vars  # base vars from bash
+# this is where ZSH looks for .zsh* files
+export ZDOTDIR="$HOME/.zsh"
+
+##
+# paths must be set first so the vars can use correct executables if they need
+# e.g. for $PHPVERSION we need to use PHP in brew path, not default path
+source $HOME/.dotfiles/bash/paths
+source $HOME/.dotfiles/bash/vars
+
+##
+# these are to override BASH variables
+export ZSH_DOTFILES="$DOTFILES/zsh"
 source $ZSH_DOTFILES/vars         # override bash with zsh vars
-source $BASH_DOTFILES/paths       # common paths
 
 ##
 # OS specific
@@ -16,12 +26,14 @@ case "$OSTYPE" in
             ;;
 esac
 
+##
 # add zsh completions from git subrepo
 fpath=( $ZSH_DOTFILES/zsh-completions $fpath )
 
 ##
 # local
-[ -e $HOME/.zshenv.local ] && source $HOME/.zshenv.local
+[ -e $ZDOTDIR/.zshenv.local ] && source $ZDOTDIR/.zshenv.local
 
+##
 # remove duplicate paths
 typeset -U path cdpath fpath manpath

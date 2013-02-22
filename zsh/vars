@@ -1,2 +1,0 @@
-export ZDOTDIR="$HOME/"
-export ZSH_DOTFILES="$DOTFILES/zsh"

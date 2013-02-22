@@ -6,7 +6,7 @@
 ##
 # command history
 # these exports only needed when there's a TTY
-export HISTFILE="$ZSH_DOTFILES/.zhistory"
+export HISTFILE="$ZDOTDIR/.zhistory"
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
 setopt APPEND_HISTORY                 # append instead of overwrite file
@@ -51,7 +51,7 @@ autoload -U compinit && compinit
 
 ##
 # add zsh completions from git subrepo
-fpath=( $ZDOTDIR/zsh-completions $fpath )
+fpath=( $ZSH_DOTFILES/zsh-completions $fpath )
 
 ##
 # zsh-syntax-highlighting plugin
@@ -69,4 +69,4 @@ esac
 
 ##
 # local
-[ -e ~/.zshrc.local ] && source ~/.zshrc.local
+[ -e $ZDOTDIR/.zshrc.local ] && source $ZDOTDIR/.zshrc.local

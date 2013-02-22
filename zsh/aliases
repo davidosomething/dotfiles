@@ -1,13 +1,14 @@
-# ~/.dotfiles/.zshalias
-# sourced by .zshrc
+# sourced by zshrc
 
 # some of these paths are set in .zshenv.local!
 alias cp="nocorrect cp"
 alias mv="nocorrect mv"
 alias rm="nocorrect rm"
 alias mkdir="nocorrect mkdir"
-alias zshrc="e ~/.zshrc"
 
-# wordpress aliases, rely on git being in project folder
-alias wpt="cdr; cd wp-content/themes"
-alias wpp="cdr; cd wp-content/plugins"
+# editing zsh config files
+alias ezaliases="e $ZSH_DOTFILES/aliases"
+alias ezshrc="e $ZSH_DOTFILES/zshrc"
+alias ezshenv="e $ZSH_DOTFILES/zshenv"
+alias elzshrc="e $ZDOTDIR/.zshrc.local"
+alias elzshenv="e $ZDOTDIR/.zshenv.local"

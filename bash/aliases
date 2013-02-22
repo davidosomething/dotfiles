@@ -1,4 +1,4 @@
-# ~/.dotfiles/.bash_aliases
+# .dotfiles/bash/aliases
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
 
 alias dotfiles="$DOTFILES/bootstrap.sh"
@@ -35,11 +35,6 @@ alias evimrc="e ~/.vimrc"
 alias egvimrc="e ~/.gvimrc"
 alias ebashrc="e ~/.bashrc"
 alias elbashrc="e ~/.bashrc.local"
-alias ezaliases="e $ZDOTDIR/aliases"
-alias ezshrc="e ~/.zshrc"
-alias ezshenv="e ~/.zshenv"
-alias elzshrc="e ~/.zshrc.local"
-alias elzshenv="e ~/.zshenv.local"
 
 # probably don't need this with the ghost gem
 alias ehosts="e /etc/hosts"
