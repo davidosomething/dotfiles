@@ -15,9 +15,6 @@ bash_prompt() {
   local W="\[\033[0;37m\]"
   local PROMPT=""
 
-  GIT_PS1_SHOWDIRTYSTATE=1
-  #GIT_PS1_SHOWUNTRACKEDFILES=1
-
   # USERNAME: white if root, green normal
   if [ "$USER" = "root" ]; then
     local USER="$W\u"
@@ -33,10 +30,11 @@ bash_prompt() {
   fi
 
   if type __git_ps1 >/dev/null 2>&1; then
-    local GIT="$(__git_ps1 "(%s)")"
+    GIT_PS1_SHOWDIRTYSTATE=1
+    GIT_PS1_SHOWUNTRACKEDFILES=1
+    export PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}\$(__git_ps1)\$${Z} "
   else
-    local GIT=""
+    export PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}\$${Z} "
   fi
-  export PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}${GIT}\$${Z} "
 }
 bash_prompt

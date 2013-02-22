@@ -1,0 +1,27 @@
+####
+# ~/.dotfiles/.zshenv
+# zshenv is always sourced, even for bg jobs
+# this file applies to all OS's
+
+source $HOME/.dotfiles/bash/vars  # base vars from bash
+source $ZSH_DOTFILES/vars         # override bash with zsh vars
+source $BASH_DOTFILES/paths       # common paths
+
+##
+# OS specific
+case "$OSTYPE" in
+  darwin*)  source $ZSH_DOTFILES/zshenv-osx
+            ;;
+  linux*)   source $ZSH_DOTFILES/zshenv-linux
+            ;;
+esac
+
+# add zsh completions from git subrepo
+fpath=( $ZSH_DOTFILES/zsh-completions $fpath )
+
+##
+# local
+[ -e $HOME/.zshenv.local ] && source $HOME/.zshenv.local
+
+# remove duplicate paths
+typeset -U path cdpath fpath manpath

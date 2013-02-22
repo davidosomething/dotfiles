@@ -1,38 +1,17 @@
 #!/usr/bin/env bash
-# using zsh as scripting lang, only runs if zsh is available
 
-# helpers from http://serverwizard.heroku.com/script/
-status()     { echo -e "\033[0;34m==>\033[0;32m $*\033[0;m"; }
-status_()    { echo -e "\033[0;32m    $*\033[0;m"; }
-err()        { echo -e "\033[0;31m==> \033[0;33mERROR: \033[0;31m$*\033[0;m"; }
-err_()       { echo -e "\033[0;31m    $*\033[0;m"; }
+while getopts ":a" opt; do
+  case $opt in
+    a)
+      echo "-a was triggered!" >&2
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
 
-# variables:
-dotfiles_debug=0
-dotfiles_verbose=1
-dotfiles_do_all=0
-dotfiles_do_ask=1
-# don't skip anything by default
-dotfiles_skip_check_dependency=0
-dotfiles_skip_check_shell=0
-dotfiles_skip_check_ssh_keys=0
-dotfiles_skip_check_git_writable=0
-# don't create backups
-dotfiles_skip_backups=0
-dotfiles_skip_checks=0
-# the following are actions and take y/n instead of 1/0
-dotfiles_do_cvsignore="n"
-dotfiles_do_gitconfig="n"
-dotfiles_do_github="n"
-dotfiles_do_pow="n"
-dotfiles_do_tmux="n"
-dotfiles_do_vim="n"
-dotfiles_do_bash="n"
-dotfiles_do_zsh="n"
-# only ask for these on OSX
-dotfiles_do_homebrew="n"
-dotfiles_do_brew="n"
-dotfiles_do_osx="n"
+exit
 
 # determine if you installed and are using the alias or are running using oneliner
 if [ "$0" = "dotfiles" ]; then

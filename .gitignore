@@ -1,14 +1,17 @@
+# OSX crap
 .DS_Store
 *.swp
 
+# ZSH crap
 .zsh_history
 .zhistory
 .zcompdump
 
-vim/.netrwhist
-vim/.vimrc.old
-vim/.yankring-history_v2.txt
-vim/_temp/
-vim/_backup/
-vim/bundle/
+# VIM crap
+.netrwhist
+.vimrc.old
+.yankring-history_v2.txt
+vim/temp/*
+vim/backup/*
+vim/bundle
 vim/bundle/*

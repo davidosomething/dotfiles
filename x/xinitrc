@@ -1,0 +1,8 @@
+# .xinitrc is the oldest version, not sure if used anymore
+# .xsession is used by some dms
+# .xprofile is used by gdm
+
+xrdb ~/.Xresources
+if [ -d "$HOME/src/solarized" ]; then
+  xrdb -merge ~/src/solarized/xresources-colors-solarized/Xresources
+fi

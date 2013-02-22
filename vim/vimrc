@@ -67,7 +67,7 @@ set titleold=""                       " restore title on exit
 set t_Co=256
 set background=light
 colorscheme solarized
-if &term == 'linux'                   " not tty mode
+if &term == 'linux' && $COLORTERM != 'gnome-terminal' " not tty mode
   set t_Co=16
   colorscheme elflord
 endif
@@ -133,9 +133,7 @@ set encoding=utf-8
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " backups
 set noswapfile                        " eff that
-set directory=~/.vim/_temp//          " where to put swap files.
 set nobackup                          " hate those
-set backupdir=~/.vim/_backup//        " defunct now
 set hidden                            " remember undo after quitting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use Ack instead of Grep when available
