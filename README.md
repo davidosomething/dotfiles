@@ -6,28 +6,14 @@ My dotfiles for zsh and others things.
 Installation
 ------------
 
-Run the bootstrap.sh script to set up a terminal and some programs exactly like mine.
-
-If you want a oneliner:
-
-```
-$ curl -s -o davidosomething-dotfiles.zsh https://raw.github.com/davidosomething/dotfiles/master/bootstrap.zsh && zsh ./davidosomething-dotfiles.zsh && rm davidosomething-dotfiles.zsh
-```
-
-If you install the .zshrc and use zsh, you get the "dotfiles" alias. Run this to go through the step-by-step install again, or for more options use:
-
-```
-$ dotfiles --help
-```
+No more. Too complicated for now.
 
 Notes
 -----
 
-* Don't forget to setup apache manually
+Don't forget to setup apache manually for your OS
 
 ### bin
-
-The ``` github-flavored-markdown.rb ``` script is for Marked.app
 
 ### bash
 
@@ -36,7 +22,8 @@ by the ZSH dotfiles.
 
 ### pow
 
-The .powconfig file allows pow to work with apache.
+The POW gem is no longer used since I have to use Cisco VPN for some things and
+there are DNS conflicts.
 
 ### tmux
 
