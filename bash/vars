@@ -5,7 +5,7 @@
 # dotfile paths
 export DOTFILES="$HOME/.dotfiles"
 export BASH_DOTFILES="$DOTFILES/bash"
-export ZDOTDIR="$DOTFILES/zsh"
+export ZSH_DOTFILES="$DOTFILES/zsh"
 
 ################################################################################
 # Shell settings
