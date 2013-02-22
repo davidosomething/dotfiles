@@ -1,5 +1,7 @@
-# ~/.dotfiles/zsh/.zshrc.local.osx
+# .dotfiles/zsh/zshrc-osx
 # sourced by .zshrc
 
 # rbenv completions (can also add to bash, but it's not there)
-[ which rbenv > /dev/null ]  && eval "$(rbenv init -)"
+if which rbenv > /dev/null; then
+  eval "$(rbenv init -)"
+fi
