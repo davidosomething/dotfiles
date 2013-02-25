@@ -13,3 +13,5 @@ else
   alias e="gvim"
   alias mvim="gvim"
 fi
+
+alias open='xdg-open'
