@@ -1,3 +1,6 @@
+#!/usr/env/bin bash
+set -e
+
 # rbenv must be installed already
 # paths must be set already
 set -e

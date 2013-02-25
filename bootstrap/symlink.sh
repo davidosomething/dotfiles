@@ -1,3 +1,6 @@
+#!/usr/env/bin bash
+set -e
+
 function symlink {
   ln -fns $DOTFILES_FOLDER/$1 $HOME/$2 && status "$2 symlinked to $DOTFILES_FOLDER/$1"
 }

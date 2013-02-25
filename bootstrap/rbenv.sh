@@ -1,3 +1,6 @@
+#!/usr/env/bin bash
+set -e
+
 #
 # Install rbenv using script
 # Only used for linux -- osx should use brew install rbenv

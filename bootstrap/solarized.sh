@@ -1,3 +1,6 @@
+#!/usr/env/bin bash
+set -e
+
 if [ -d "$HOME/src/solarized" ]; then
   status "Updating solarized repo"
   pushd $HOME/src/solarized

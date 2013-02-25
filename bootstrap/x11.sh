@@ -1,3 +1,6 @@
+#!/usr/env/bin bash
+set -e
+
 status "Symlinking X11 dotfiles"
 symlink x/Xresources        .Xresources
 symlink x/xinitrc           .xinitrc

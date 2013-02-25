@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Helpers
 # http://serverwizard.heroku.com/script/rvm+git
 function status()     { echo -e "\033[0;34m==>\033[0;32m $*\033[0;m"; }
