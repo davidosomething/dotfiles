@@ -8,7 +8,13 @@ alias ll="ls -l"
 alias flushdns="dscacheutil -flushcache"
 
 # force reuse of existing mvim window
-alias mvim="$(brew --prefix)/bin/mvim --remote-tab"
+function mvim() {
+  if [ -n "$1" ]; then
+    $(brew --prefix)/bin/mvim --servername VIM --remote-tab-silent $@
+  else
+    open -a MacVim
+  fi
+}
 
 # don't use mvim on ssh connections
 if [ ! -z "$SSH_CONNECTION" ]; then

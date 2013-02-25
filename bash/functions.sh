@@ -37,7 +37,7 @@ localip() {
 # http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
 members() {
   dscl . -list /Users | while read user; do printf "$user "; dsmemberutil checkmembership -U "$user" -G "$*"; done | grep "is a member" | cut -d " " -f 1;
-};
+}
 
 ##
 # Export repo files to specified dir
@@ -48,11 +48,15 @@ gitexport() {
 
 ##
 # Edit apache conf, needs to be a function to interpolate that variable
-apacheconf() { e $APACHE_HTTPD_CONF }
+apacheconf() {
+  e $APACHE_HTTPD_CONF
+}
 
 ##
 # Edit apache virtual hosts, needs to be a function to interpolate that variable
-vhosts() { e $APACHE_HTTPD_VHOSTS }
+vhosts() {
+  e $APACHE_HTTPD_VHOSTS
+}
 
 ##
 # update php version in apache config

@@ -1,6 +1,3 @@
-# autojump from homebrew
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
-
 ##
 # open current repo's github page in browser
 function github() {
