@@ -1,6 +1,5 @@
 ##
-# .dotfiles/zsh/keybindings
-# sourced by .zshrc
+# .dotfiles/zsh/keybindings.zsh
 
 ##
 # key bindings

@@ -1,5 +1,5 @@
 ####
-# ~/.dotfiles/.zshrc
+# .dotfiles/zsh/zshrc.zsh
 # zsh options
 # only run on interactive/TTY
 
@@ -28,14 +28,12 @@ setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT                   # don't show stack after cd
 setopt PUSHD_TO_HOME                  # go home if no d specified
 
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
-
-source $BASH_DOTFILES/aliases         # sources os specific ones too
-source $BASH_DOTFILES/functions       # sources os specific ones too
-source $ZSH_DOTFILES/aliases
-source $ZSH_DOTFILES/functions
-source $ZSH_DOTFILES/keybindings
-source $ZSH_DOTFILES/prompt
+source $BASH_DOTFILES/aliases.sh      # sources os specific ones too
+source $BASH_DOTFILES/functions.sh    # sources os specific ones too
+source $ZSH_DOTFILES/aliases.zsh
+source $ZSH_DOTFILES/functions.zsh
+source $ZSH_DOTFILES/keybindings.zsh
+source $ZSH_DOTFILES/prompt.zsh
 
 ##
 # zstyles
@@ -56,14 +54,14 @@ fpath=( $ZSH_DOTFILES/zsh-completions $fpath )
 ##
 # zsh-syntax-highlighting plugin
 source $ZSH_DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $BASH_DOTFILES/rbenv
+source $BASH_DOTFILES/rbenv.sh
 
 ##
 # os specific
 case "$OSTYPE" in
-  darwin*)  source $ZSH_DOTFILES/zshrc-osx
+  darwin*)  source $ZSH_DOTFILES/zshrc-osx.zsh
             ;;
-  linux*)   source $ZSH_DOTFILES/zshrc-linux
+  linux*)   source $ZSH_DOTFILES/zshrc-linux.zsh
             ;;
 esac
 

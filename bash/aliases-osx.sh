@@ -1,5 +1,5 @@
 ####
-# ~/.dotfiles/bash/.bash_aliases.osx
+# .dotfiles/bash/aliases-osx.sh
 # Sourced by zsh as well
 
 # osx aliases since -G is an osx (and FreeBSD) flag

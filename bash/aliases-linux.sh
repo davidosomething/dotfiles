@@ -1,4 +1,5 @@
-# ~/.dotfiles/bash/.bash_aliases.linux
+##
+# .dotfiles/bash/aliases-linux.sh
 
 alias ls="ls -A --color=auto"
 alias ll="ls -l"

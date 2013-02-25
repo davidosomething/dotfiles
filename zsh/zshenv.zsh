@@ -9,20 +9,20 @@ export ZDOTDIR="$HOME/.zsh"
 ##
 # paths must be set first so the vars can use correct executables if they need
 # e.g. for $PHPVERSION we need to use PHP in brew path, not default path
-source $HOME/.dotfiles/bash/paths
-source $HOME/.dotfiles/bash/vars
+source $HOME/.dotfiles/bash/paths.sh
+source $HOME/.dotfiles/bash/vars.sh
 
 ##
 # these are to override BASH variables
 export ZSH_DOTFILES="$DOTFILES/zsh"
-source $ZSH_DOTFILES/vars         # override bash with zsh vars
+source $ZSH_DOTFILES/vars.zsh
 
 ##
 # OS specific
 case "$OSTYPE" in
-  darwin*)  source $ZSH_DOTFILES/zshenv-osx
+  darwin*)  source $ZSH_DOTFILES/zshenv-osx.zsh
             ;;
-  linux*)   source $ZSH_DOTFILES/zshenv-linux
+  linux*)   source $ZSH_DOTFILES/zshenv-linux.zsh
             ;;
 esac
 

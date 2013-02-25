@@ -1,6 +1,5 @@
 ##
-# .dotfiles/zsh/prompt
-# sourced by .zshrc
+# .dotfiles/zsh/prompt.zsh
 
 ##
 # prompt

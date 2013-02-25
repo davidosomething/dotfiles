@@ -1,4 +1,4 @@
-# .dotfiles/bash/aliases
+# dotfiles/bash/aliases.sh
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
 
 alias dotfiles="$DOTFILES/bootstrap.sh"
@@ -27,10 +27,10 @@ alias remux="if tmux has 2>/dev/null; then tmux attach; else tmux new $SHELL; fi
 alias demux="tmux detach"
 
 # quick edits
-alias evars="e $BASH_DOTFILES/vars"
-alias epaths="e $BASH_DOTFILES/paths"
-alias ealiases="e $BASH_DOTFILES/aliases"
-alias efunctions="e $BASH_DOTFILES/functions"
+alias evars="e $BASH_DOTFILES/vars.sh"
+alias epaths="e $BASH_DOTFILES/paths.sh"
+alias ealiases="e $BASH_DOTFILES/aliases.sh"
+alias efunctions="e $BASH_DOTFILES/functions.sh"
 alias evimrc="e ~/.vimrc"
 alias egvimrc="e ~/.gvimrc"
 alias ebashrc="e ~/.bashrc"
@@ -52,8 +52,8 @@ alias apacheerrors="tail /var/log/apache2/error_log"
 ##
 # os specific
 case "$OSTYPE" in
-  darwin*)  source "$BASH_DOTFILES/aliases-osx"
+  darwin*)  source "$BASH_DOTFILES/aliases-osx.sh"
             ;;
-  linux*)   source "$BASH_DOTFILES/aliases-linux"
+  linux*)   source "$BASH_DOTFILES/aliases-linux.sh"
             ;;
 esac
