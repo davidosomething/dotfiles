@@ -1,13 +1,8 @@
-#!/bin/bash
-
 # autojump from homebrew
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
-function mvim() {
-  [ ! -f $1 ] && touch $1
-  open -a MacVim $@
-}
-
+##
+# open current repo's github page in browser
 function github() {
   local github_url
 
