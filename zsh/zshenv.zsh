@@ -32,7 +32,7 @@ fpath=( $ZSH_DOTFILES/zsh-completions $fpath )
 
 ##
 # local
-[ -e $ZDOTDIR/.zshenv.local ] && source $ZDOTDIR/.zshenv.local
+[ -f $ZDOTDIR/.zshenv.local ] && source $ZDOTDIR/.zshenv.local
 
 ##
 # remove duplicate paths

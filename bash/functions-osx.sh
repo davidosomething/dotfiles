@@ -25,3 +25,14 @@ function github() {
   github_url="`echo $github_url | awk '{ print $2 }' | sed 's/git@github\.com:/http:\/\/github\.com\//g'`"
   open $github_url
 }
+
+##
+# force reuse of existing mvim window
+function mvim() {
+  if [ -n "$1" ]; then
+    $(brew --prefix)/bin/mvim --servername VIM --remote-tab-silent $@
+  else
+    open -a MacVim
+  fi
+}
+

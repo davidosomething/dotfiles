@@ -67,4 +67,4 @@ esac
 
 ##
 # local
-[ -e $ZDOTDIR/.zshrc.local ] && source $ZDOTDIR/.zshrc.local
+[ -f $ZDOTDIR/.zshrc.local ] && source $ZDOTDIR/.zshrc.local
