@@ -1,8 +1,8 @@
 ##
 # .dotfiles/bash/aliases-linux.sh
 
-alias ls="ls -A --color=auto"
-alias ll="ls -l"
+alias ls="ls --color=auto"
+alias ll="ls -Al"
 
 # don't use mvim on ssh connections and tty
 if [ "$SSH_CONNECTION" != "" ] || [ "$DISPLAY" == "" ]; then
