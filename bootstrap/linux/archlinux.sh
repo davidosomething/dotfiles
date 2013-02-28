@@ -15,4 +15,4 @@ sudo packer -S --needed \
 
 # might have vim-gnome (gvim) installed instead, only install vim if not already
 installing "vim via pacman"
-[ ! which vim >/dev/null ] && sudo packer -S --needed vim
+command -v vim >/dev/null 2>&1 && sudo packer -S --needed vim

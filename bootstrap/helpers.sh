@@ -12,9 +12,9 @@ function installing() { status "Installing \033[0;33m$1\033[0;32m..."; }
 function die()        { err "$*"; exit 256; }
 
 function require()    {
-  if [ ! which $1 >/dev/null ]; then
-    die "missing $1, please install before proceeding.";
-  else
+  if [ command -v $1 >/dev/null 2>&1 ]; then
     status "FOUND: $1"
+  else
+    die "missing $1, please install before proceeding.";
   fi
 }
