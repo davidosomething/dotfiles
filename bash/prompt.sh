@@ -1,5 +1,5 @@
 ##
-# ~/.dotfiles/bash/.bash_prompt
+# .dotfiles/bash/prompt.sh
 # sourced by .bashrc
 
 # prompt
@@ -13,28 +13,29 @@ bash_prompt() {
   local P="\[\033[0;35m\]"
   local C="\[\033[0;36m\]"
   local W="\[\033[0;37m\]"
-  local PROMPT=""
+  local USER="$G\u"
+  local HOST="$W\h"
 
   # USERNAME: white if root, green normal
   if [ "$USER" = "root" ]; then
-    local USER="$W\u"
-  else
-    local USER="$G\u"
+    USER="$W\u"
   fi
 
   # HOST: white if remote, green if local
   if [ -z "$SSH_CONNECTION" ]; then
-    local HOST="$G\h"
-  else
-    local HOST="$W\h"
+    HOST="$G\h"
   fi
 
   if type __git_ps1 >/dev/null 2>&1; then
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWUNTRACKEDFILES=1
-    export PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}\$(__git_ps1)\$${Z} "
+    PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}\$(__git_ps1)\$${Z} "
   else
-    export PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}\$${Z} "
+    PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}\$${Z} "
   fi
+
+  PS1="\[\033[G\]$PS1"
+
+  export PS1
 }
 bash_prompt
