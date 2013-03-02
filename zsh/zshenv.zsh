@@ -1,5 +1,5 @@
 ####
-# ~/.dotfiles/.zshenv
+# .dotfiles/zshenv.zsh
 # zshenv is always sourced, even for bg jobs
 # this file applies to all OS's
 
