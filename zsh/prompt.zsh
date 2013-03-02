@@ -19,7 +19,7 @@ zstyle ':vcs_info:*' actionformats '(%b%m%c%u)[%a]'
 
 # show if in vi mode
 VIMODE='I';
-function zle-keymap-select {
+zle-keymap-select() {
   VIMODE="${${KEYMAP/vicmd/N}/(main|viins)/I}"
   zle reset-prompt
 }
