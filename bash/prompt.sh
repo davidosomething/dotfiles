@@ -34,8 +34,6 @@ bash_prompt() {
     PS1="${USER}$B@${HOST}$C:$Y\w\n$Z\t${P}\$${Z} "
   fi
 
-  PS1="\[\033[G\]$PS1"
-
   export PS1
 }
 bash_prompt
