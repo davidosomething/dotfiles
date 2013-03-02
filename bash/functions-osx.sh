@@ -35,4 +35,3 @@ function mvim() {
     open -a MacVim
   fi
 }
-

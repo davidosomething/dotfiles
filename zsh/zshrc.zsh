@@ -32,6 +32,9 @@ source $BASH_DOTFILES/aliases.sh      # sources os specific ones too
 source $BASH_DOTFILES/functions.sh    # sources os specific ones too
 source $ZSH_DOTFILES/aliases.zsh
 source $ZSH_DOTFILES/functions.zsh
+
+[[ $+commands[rbenv] == 1 ]] && eval "$(rbenv init -)"
+
 source $ZSH_DOTFILES/keybindings.zsh
 source $ZSH_DOTFILES/prompt.zsh
 
@@ -54,7 +57,6 @@ fpath=( $ZSH_DOTFILES/zsh-completions $fpath )
 ##
 # zsh-syntax-highlighting plugin
 source $ZSH_DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $BASH_DOTFILES/rbenv.sh
 
 ##
 # os specific
@@ -67,4 +69,4 @@ esac
 
 ##
 # local
-[ -f $ZDOTDIR/.zshrc.local ] && source $ZDOTDIR/.zshrc.local
+[ -f "$ZDOTDIR/.zshrc.local" ] && source $ZDOTDIR/.zshrc.local

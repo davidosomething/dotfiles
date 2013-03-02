@@ -13,12 +13,14 @@ shopt -s cdspell
 shopt -s cdable_vars
 
 source $HOME/.dotfiles/bash/vars.sh
-source $BASH_DOTFILES/rbenv.sh
 source $BASH_DOTFILES/paths.sh
-source $BASH_DOTFILES/completions.sh
-source $BASH_DOTFILES/prompt.sh
 source $BASH_DOTFILES/aliases.sh # sources os specifics too
 source $BASH_DOTFILES/functions.sh # sources os specifics too
+
+[[ $+commands[rbenv] == 1 ]] && eval "$(rbenv init -)"
+
+source $BASH_DOTFILES/completions.sh
+source $BASH_DOTFILES/prompt.sh
 
 ##
 # os specific

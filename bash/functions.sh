@@ -27,7 +27,7 @@ cdr()
 # type localip to get ethernet or wireless ip
 localip() {
   local localip="`ipconfig getifaddr en0`"
-  if [[ "$localip" = "" ]]; then
+  if [ -z "$localip" ]; then
     localip="`ipconfig getifaddr en1`"
   fi
   echo $localip
