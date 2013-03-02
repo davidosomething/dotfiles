@@ -51,8 +51,12 @@ zstyle ':completion::complete:cd::' tag-order '! users' -
 autoload -U compinit && compinit
 
 ##
-# add zsh completions from git subrepo
-fpath=( $ZSH_DOTFILES/zsh-completions $fpath )
+# add zsh completions from homebrew/zsh-completions or git subrepo
+if [ -d "/usr/local/share/zsh-completions" ]; then
+  fpath=(/usr/local/share/zsh-completions $fpath)
+elif [ -d "$ZSH_DOTFILES/zsh-completions" ]; then
+  fpath=($ZSH_DOTFILES/zsh-completions $fpath)
+fi
 
 ##
 # zsh-syntax-highlighting plugin
