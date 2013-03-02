@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -e
 
 # http://wp.tutsplus.com/tutorials/plugins/publishing-wordpress-plug-ins-with-git/
 
