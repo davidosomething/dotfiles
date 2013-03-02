@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # on OSX:
@@ -9,7 +9,7 @@ set -e
 # echo /usr/local/bin/zsh | sudo tee -a /etc/shells
 
 # ASSUME PATH INCLUDES /usr/local/bin
-# chsh -s `which zsh`
+# chsh -s $(which zsh)
 
 # OTHERWISE
 # OSX: chsh -s /usr/local/bin/zsh

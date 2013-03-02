@@ -31,9 +31,9 @@ export NODE_PATH="/usr/local/lib/node_modules"
 ################################################################################
 # useful vars
 if [[ $+commands[php] == 1 ]]; then
-  export PHPVER="`php -v | sed 1q | awk '{print \$2}'`"
-  export PHPMINORVER="`echo $PHPVER | awk -F=\".\" '{split(\$0,a,\".\"); print a[1]\"\.\"a[2]}'`"
-  export PHPMINORVERNUM="`echo $PHPVER | awk -F=\".\" '{split(\$0,a,\".\"); print a[1]a[2]}'`"
+  export PHPVER=$( php -v | sed 1q | awk '{print $2}' )
+  export PHPMINORVER=$( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]"."a[2]}' )
+  export PHPMINORVERNUM=$( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]a[2]}' )
 fi
 
 ################################################################################
