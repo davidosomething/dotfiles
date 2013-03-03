@@ -18,6 +18,15 @@ export ZSH_DOTFILES="$DOTFILES/zsh"
 source $ZSH_DOTFILES/vars.zsh
 
 ##
+# tab completion paths
+fpath=(
+  $ZSH_DOTFILES/zsh-completions
+  /usr/local/share/zsh/site-functions
+  /usr/local/share/zsh-completions
+  $fpath
+)
+
+##
 # OS specific
 case "$OSTYPE" in
   darwin*)  source $ZSH_DOTFILES/zshenv-osx.zsh
@@ -27,13 +36,7 @@ case "$OSTYPE" in
 esac
 
 ##
-# add zsh completions from git subrepo
-fpath=( $ZSH_DOTFILES/zsh-completions $fpath )
-
-##
 # local
 [ -f "$ZDOTDIR/.zshenv.local" ] && source $ZDOTDIR/.zshenv.local
 
-##
-# remove duplicate paths
-typeset -U path cdpath fpath manpath
+typeset -U path fpath cdpath manpath

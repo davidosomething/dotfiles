@@ -17,9 +17,14 @@ source $BASH_DOTFILES/paths.sh
 source $BASH_DOTFILES/aliases.sh # sources os specifics too
 source $BASH_DOTFILES/functions.sh # sources os specifics too
 
-[[ $+commands[rbenv] == 1 ]] && eval "$(rbenv init -)"
+command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
 source $BASH_DOTFILES/completions.sh
+
+# git prompt for linux
+if [ -r /usr/share/git/git-prompt.sh ]; then
+  source /usr/share/git/git-prompt.sh
+fi
 source $BASH_DOTFILES/prompt.sh
 
 ##

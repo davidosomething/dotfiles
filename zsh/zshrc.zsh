@@ -27,13 +27,15 @@ setopt NO_HUP                         # don't kill bg processes
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT                   # don't show stack after cd
 setopt PUSHD_TO_HOME                  # go home if no d specified
+setopt COMPLETEALIASES                # autocomplete switches for aliases
 
-source $BASH_DOTFILES/aliases.sh      # sources os specific ones too
-source $BASH_DOTFILES/functions.sh    # sources os specific ones too
+
+source $BASH_DOTFILES/aliases.sh
+source $BASH_DOTFILES/functions.sh
 source $ZSH_DOTFILES/aliases.zsh
 source $ZSH_DOTFILES/functions.zsh
 
-[[ $+commands[rbenv] == 1 ]] && eval "$(rbenv init -)"
+command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
 source $ZSH_DOTFILES/keybindings.zsh
 source $ZSH_DOTFILES/prompt.zsh
@@ -46,17 +48,9 @@ zstyle ':completion:*' expand 'yes'
 # don't autocomplete usernames/homedirs
 zstyle ':completion::complete:cd::' tag-order '! users' -
 
-##
-# load basic autocompletion
-autoload -U compinit && compinit
-
-##
-# add zsh completions from homebrew/zsh-completions or git subrepo
-if [ -d "/usr/local/share/zsh-completions" ]; then
-  fpath=(/usr/local/share/zsh-completions $fpath)
-elif [ -d "$ZSH_DOTFILES/zsh-completions" ]; then
-  fpath=($ZSH_DOTFILES/zsh-completions $fpath)
-fi
+# load completion - the -U means look in fpath, -z means on first run
+autoload -Uz compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
 
 ##
 # zsh-syntax-highlighting plugin

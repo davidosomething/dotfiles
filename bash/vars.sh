@@ -30,11 +30,11 @@ export NODE_PATH="/usr/local/lib/node_modules"
 
 ################################################################################
 # useful vars
-if [[ $+commands[php] == 1 ]]; then
+command -v php >/dev/null 2>&1 && command -v awk >/dev/null 2>&1 && {
   export PHPVER=$( php -v | sed 1q | awk '{print $2}' )
   export PHPMINORVER=$( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]"."a[2]}' )
   export PHPMINORVERNUM=$( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]a[2]}' )
-fi
+}
 
 ################################################################################
 # useful file paths

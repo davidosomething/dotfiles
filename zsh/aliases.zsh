@@ -12,3 +12,5 @@ alias ezshrc="e $ZSH_DOTFILES/zshrc.zsh"
 alias ezshenv="e $ZSH_DOTFILES/zshenv.zsh"
 alias elzshrc="e $ZDOTDIR/.zshrc.local"
 alias elzshenv="e $ZDOTDIR/.zshenv.local"
+
+alias fixzcompletion="rm -f ~/.zcompdump; compinit"
