@@ -71,7 +71,7 @@ if &term == 'linux' && $COLORTERM != 'gnome-terminal' " not tty mode
   colorscheme elflord
 else
   set t_Co=256
-  !silent colorscheme solarized       " STFU if no solarized
+  silent! colorscheme solarized       " STFU if no solarized
 endif
 set number
 set numberwidth=5
