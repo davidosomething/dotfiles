@@ -65,12 +65,13 @@ runtime macros/matchit.vim
 " display
 set title                             " wintitle = filename - vim
 set titleold=""                       " restore title on exit
-set t_Co=256
 set background=light
-colorscheme solarized
 if &term == 'linux' && $COLORTERM != 'gnome-terminal' " not tty mode
   set t_Co=16
   colorscheme elflord
+else
+  set t_Co=256
+  !silent colorscheme solarized       " STFU if no solarized
 endif
 set number
 set numberwidth=5
