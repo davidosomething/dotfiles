@@ -22,6 +22,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-eunuch'
 Bundle 'vim-scripts/Rename2'
 " editing
+Bundle 'airblade/vim-gitgutter.git'
 Bundle 'edsono/vim-matchit'
 Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
@@ -39,6 +40,7 @@ Bundle 'vim-scripts/YankRing.vim'
 " syntax
 Bundle 'acustodioo/vim-tmux'
 Bundle 'cakebaker/scss-syntax.vim'
+Bundle 'davejlong/cf-utils.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'groenewege/vim-less'
 Bundle 'hail2u/vim-css3-syntax'
@@ -54,7 +56,6 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'davejlong/cf-utils.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax (also end of vundle)
