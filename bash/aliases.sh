@@ -19,7 +19,7 @@ alias publicip="curl icanhazip.com"
 # default flags for programs
 alias df="df -h"
 alias ln="ln -v"
-alias rsync="rsync -hP --exclude-from=$HOME/.cvsignore"
+alias rsync="rsync --human-readable --partial --progress --exclude-from=$HOME/.cvsignore"
 alias wget="wget --no-check-certificate"
 
 # tmux
@@ -31,10 +31,10 @@ alias evars="e $BASH_DOTFILES/vars.sh"
 alias epaths="e $BASH_DOTFILES/paths.sh"
 alias ealiases="e $BASH_DOTFILES/aliases.sh"
 alias efunctions="e $BASH_DOTFILES/functions.sh"
-alias evimrc="e ~/.vimrc"
-alias egvimrc="e ~/.gvimrc"
-alias ebashrc="e ~/.bashrc"
-alias elbashrc="e ~/.bashrc.local"
+alias evimrc="e $HOME/.vimrc"
+alias egvimrc="e $HOME/.gvimrc"
+alias ebashrc="e $HOME/.bashrc"
+alias elbashrc="e $HOME/.bashrc.local"
 
 # probably don't need this with the ghost gem
 alias ehosts="e /etc/hosts"

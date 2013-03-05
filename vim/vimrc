@@ -161,7 +161,7 @@ if has("autocmd")
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " befores -- plugin settings and keybindings
-for f in split(glob('~/.dotfiles/vim/before/*.vim'), '\n')
+for f in split(glob('~/.vim/before/*.vim'), '\n')
   exe 'source' f
 endfor
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

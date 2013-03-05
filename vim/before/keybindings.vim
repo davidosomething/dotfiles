@@ -20,10 +20,6 @@ map <PageDown> <C-D>
 imap <PageUp> <C-O><C-U>
 imap <PageDown> <C-O><C-D>
 
-" use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
-" (it will prompt for sudo password when writing)
-cmap w!! %!sudo tee > /dev/null %
-
 " fix typo !W to !w
 " https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
 command! -bang W w<bang>
