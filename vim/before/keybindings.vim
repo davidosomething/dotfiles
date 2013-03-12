@@ -247,6 +247,8 @@ if has("autocmd")
   au FileType php vnoremap <Leader>pd :call PhpDocRange()<CR>
 endif
 
+nnoremap _ :Switch<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function keys, also for plugins
 " Disable vim help

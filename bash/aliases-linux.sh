@@ -15,3 +15,5 @@ else
 fi
 
 alias open='xdg-open'
+
+alias a2r="sudo service apache2 restart"

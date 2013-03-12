@@ -16,3 +16,5 @@ else
   alias e="mvim"
   alias gvim="mvim"
 fi
+
+alias a2r="sudo apachectl -k restart"

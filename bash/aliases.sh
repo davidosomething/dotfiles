@@ -43,7 +43,6 @@ alias ehosts="e /etc/hosts"
 alias ephpini="e $PHP_INI"
 
 # server
-alias rapache="sudo apachectl -k restart"
 alias pyserve="python -m SimpleHTTPServer"
 
 # apache

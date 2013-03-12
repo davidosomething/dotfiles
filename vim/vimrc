@@ -1,4 +1,4 @@
-" ~/.dotfiles/vim/.vimrc
+" .dotfiles/vim/.vimrc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin management
 filetype off
@@ -22,7 +22,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-eunuch'
 Bundle 'vim-scripts/Rename2'
 " editing
-Bundle 'airblade/vim-gitgutter.git'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'AndrewRadev/switch.vim'
 Bundle 'edsono/vim-matchit'
 Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'

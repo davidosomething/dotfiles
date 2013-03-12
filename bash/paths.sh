@@ -10,9 +10,9 @@ PATH="/usr/local/share/npm/bin:$PATH"
 # Program specific paths
 
 # homebrew
-if [[ $+commands[brew] == 1 ]]; then
-  PATH="$(brew --prefix josegonzalez/php/php54)/bin:$PATH"
-fi
+command -v brew >/dev/null 2>&1 && {
+  PATH="$(brew --prefix josegonzalez/php/php54)/bin:${PATH}"
+}
 
 # rbenv
 if [ -d "${RBENV_ROOT}" ]; then
