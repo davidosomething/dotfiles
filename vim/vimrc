@@ -1,4 +1,9 @@
 " .dotfiles/vim/.vimrc
+
+if has("unix")
+  let s:uname = system("uname")
+endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin management
 filetype off
@@ -160,6 +165,11 @@ if has("autocmd")
   au BufRead,BufNewFile *.conf set filetype=conf
   au BufRead,BufNewFile *.scss set filetype=scss
   au BufRead,BufNewFile *.dump set filetype=sql
+
+  " crontab on OSX needs a tempfile
+  if s:uname == "Darwin\n"
+    au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+  endif
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " befores -- plugin settings and keybindings

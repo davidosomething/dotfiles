@@ -14,7 +14,7 @@ export SAVEHIST=500
 
 ################################################################################
 # program settings
-export EDITOR="vim -fnX"
+export EDITOR=vim
 
 # -F exit if only one screen, -X noclearscreen
 export LESS=-erF
