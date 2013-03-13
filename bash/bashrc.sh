@@ -2,6 +2,8 @@
 # dotfiles/bash/bashrc.sh
 # read on all shells and subshells
 
+[ -z "$PS1" ] && return
+
 ##
 # bash options
 set -o notify

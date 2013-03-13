@@ -1,4 +1,4 @@
-#!/usr/env/bin bash
+#!/usr/bin/env bash
 set -e
 
 # assumes the dotfiles repo was cloned with submodules, which includes vundle
