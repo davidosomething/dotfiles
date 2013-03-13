@@ -2,7 +2,9 @@
 set -e
 
 function symlink {
-  ln -fns $DOTFILES_FOLDER/$1 $HOME/$2 && status "$2 symlinked to $DOTFILES_FOLDER/$1"
+  local dotfile="$1"
+  local homefile="$2"
+  ln -fns $DOTFILES_FOLDER/$dotfile $HOME/$homefile && status "$homefile symlinked to $DOTFILES_FOLDER/$dotfile"
 }
 
 status "Symlinking dotfiles"
