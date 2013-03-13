@@ -1,12 +1,14 @@
 dotfiles
 ========
 
-My dotfiles for zsh and others things.
+My dotfiles for bash/zsh/vim and others things.
 
 Installation
 ------------
 
-No more. Too complicated for now.
+Clone RECURSIVELY (including submodules!!) to `~/.dotfiles` and run
+`symlink.sh` from the `bootstrap` folder. This only symlinks basic resource
+files.
 
 Notes
 -----
