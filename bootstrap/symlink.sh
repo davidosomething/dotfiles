@@ -11,7 +11,7 @@ set -e
 bootstrap_path=`dirname $0`
 cd $bootstrap_path/..
 dotfiles_path=`pwd`
-source $dotfiles_path/helpers.sh
+source $bootstrap_path/helpers.sh
 
 ##
 # symlinking helper function
