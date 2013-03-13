@@ -8,9 +8,9 @@ set -e
 ################################################################################
 # initialize script and dependencies
 # get this bootstrap folder
-bootstrap_path=`dirname $0`
-cd $bootstrap_path/..
-dotfiles_path=`pwd`
+cd "`dirname $0`"/..
+dotfiles_path="`pwd`"
+bootstrap_path="$dotfiles_path/bootstrap"
 source $bootstrap_path/helpers.sh
 
 ##
