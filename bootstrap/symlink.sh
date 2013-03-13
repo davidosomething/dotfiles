@@ -1,21 +1,37 @@
 #!/usr/bin/env bash
 set -e
 
-function symlink {
-  local dotfile="$1"
+################################################################################
+# Basic symlinks, safe to run on any system
+################################################################################
+
+################################################################################
+# initialize script and dependencies
+# get this bootstrap folder
+bootstrap_path=`dirname $0`
+cd $bootstrap_path/..
+dotfiles_path=`pwd`
+source $dotfiles_path/helpers.sh
+
+##
+# symlinking helper function
+dkosymlink() {
+  local dotfile="$dotfiles_path/$1"
   local homefile="$2"
-  ln -fns $DOTFILES_FOLDER/$dotfile $HOME/$homefile && status "$homefile symlinked to $DOTFILES_FOLDER/$dotfile"
+  dkosymlinking $homefile $dotfile && ln -fns $dotfile $HOME/$homefile
 }
 
-status "Symlinking dotfiles"
-symlink ack/ackrc             .ackrc
+################################################################################
+# Begin
+dkostatus "Symlinking dotfiles"
+dkosymlink ack/ackrc             .ackrc
 
-symlink tmux/tmux.conf        .tmux.conf
+dkosymlink tmux/tmux.conf        .tmux.conf
 
-symlink screen/screenrc       .screenrc
+dkosymlink screen/screenrc       .screenrc
 
-symlink bash/bashrc.sh        .bashrc
-symlink bash/bash_profile.sh  .bash_profile
+dkosymlink bash/bashrc.sh        .bashrc
+dkosymlink bash/bash_profile.sh  .bash_profile
 
-symlink zsh                   .zsh
-symlink zsh/zshenv.zsh        .zshenv
+dkosymlink zsh                   .zsh
+dkosymlink zsh/zshenv.zsh        .zshenv
