@@ -13,14 +13,6 @@ dotfiles_path="`pwd`"
 bootstrap_path="$dotfiles_path/bootstrap"
 source $bootstrap_path/helpers.sh
 
-##
-# symlinking helper function
-dkosymlink() {
-  local dotfile="$dotfiles_path/$1"
-  local homefile="$2"
-  dkosymlinking $homefile $dotfile && ln -fns $dotfile $HOME/$homefile
-}
-
 ################################################################################
 # Begin
 dkostatus "Symlinking dotfiles"

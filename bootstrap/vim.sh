@@ -1,11 +1,23 @@
 #!/usr/bin/env bash
 set -e
 
-# assumes the dotfiles repo was cloned with submodules, which includes vundle
-# in the .vim folder
-installing "vim dotfiles and .vim folder"
-symlink vim                 .vim
-symlink vim/vimrc           .vimrc
-symlink vim/gvimrc          .gvimrc
-installing "vim bundles"
+################################################################################
+# Vim symlinks, safe to run on any system
+################################################################################
+
+################################################################################
+# initialize script and dependencies
+# get this bootstrap folder
+cd "`dirname $0`"/..
+dotfiles_path="`pwd`"
+bootstrap_path="$dotfiles_path/bootstrap"
+source $bootstrap_path/helpers.sh
+
+################################################################################
+# Begin
+dkostatus "Symlinking vim dotfiles and .vim folder"
+dkosymlink vim                 .vim
+dkosymlink vim/vimrc           .vimrc
+dkosymlink vim/gvimrc          .gvimrc
+dkoinstalling "vim bundles"
 vim +BundleInstall +qall

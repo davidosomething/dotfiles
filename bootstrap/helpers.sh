@@ -20,3 +20,11 @@ function dkorequire()    {
     dkodie "missing $1, please install before proceeding.";
   fi
 }
+
+##
+# symlinking helper function
+dkosymlink() {
+  local dotfile="$dotfiles_path/$1"
+  local homefile="$2"
+  dkosymlinking $homefile $dotfile && ln -fns $dotfile $HOME/$homefile
+}
