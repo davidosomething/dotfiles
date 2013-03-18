@@ -14,6 +14,12 @@ bootstrap_path="$dotfiles_path/bootstrap"
 source $bootstrap_path/helpers.sh
 
 ################################################################################
+# Check if a vim folder already exists
+if [ -d "$HOME/.vim" ]; then
+  dkodie "The folder ~/.vim already exists, please move or rename it before proceeding."
+fi
+
+################################################################################
 # Begin
 dkostatus "Symlinking vim dotfiles and .vim folder"
 dkosymlink vim                 .vim
