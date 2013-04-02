@@ -14,7 +14,7 @@ function dkosymlinking() { dkostatus "Symlinking \033[0;35m$1\033[0;32m -> \033[
 function dkodie()        { dkoerr "$*"; exit 256; }
 
 function dkorequire()    {
-  if [ command -v $1 >/dev/null 2>&1 ]; then
+  if [ `command -v $1` ]; then
     dkostatus "FOUND: $1"
   else
     dkodie "missing $1, please install before proceeding.";

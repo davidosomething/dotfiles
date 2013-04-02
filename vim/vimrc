@@ -64,6 +64,10 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-ruby/vim-ruby'
+" OS specific bundles
+if s:uname == "Darwin\n"
+  Bundle 'henrik/vim-reveal-in-finder'
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax (also end of vundle)
