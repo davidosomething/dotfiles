@@ -41,6 +41,7 @@ alias ehosts="e /etc/hosts"
 
 # php
 alias ephpini="e $PHP_INI"
+alias art="php artisan"
 
 # server
 alias pyserve="python -m SimpleHTTPServer"
