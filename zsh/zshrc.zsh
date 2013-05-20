@@ -59,7 +59,6 @@ source $BASH_DOTFILES/aliases.sh
 source $BASH_DOTFILES/functions.sh
 source $ZSH_DOTFILES/aliases.zsh
 source $ZSH_DOTFILES/functions.zsh
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
 command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
