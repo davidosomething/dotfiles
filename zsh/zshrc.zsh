@@ -29,16 +29,19 @@ setopt PUSHD_SILENT                   # don't show stack after cd
 setopt PUSHD_TO_HOME                  # go home if no d specified
 setopt COMPLETEALIASES                # autocomplete switches for aliases
 
+##
+# tab completion paths
+fpath=(
+  $ZSH_DOTFILES/zsh-completions/src
+  $(brew --prefix)/share/zsh/site-functions
+  #  $(brew --prefix)/share/zsh-completions
+  $fpath
+)
+typeset -U fpath
 
-source $BASH_DOTFILES/aliases.sh
-source $BASH_DOTFILES/functions.sh
-source $ZSH_DOTFILES/aliases.zsh
-source $ZSH_DOTFILES/functions.zsh
-
-command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
-
-source $ZSH_DOTFILES/keybindings.zsh
-source $ZSH_DOTFILES/prompt.zsh
+# load completion - the -U means look in fpath, -z means on first run
+autoload -Uz compinit && compinit -i
+#autoload -Uz bashcompinit && bashcompinit
 
 ##
 # zstyles
@@ -48,13 +51,20 @@ zstyle ':completion:*' expand 'yes'
 # don't autocomplete usernames/homedirs
 zstyle ':completion::complete:cd::' tag-order '! users' -
 
-# load completion - the -U means look in fpath, -z means on first run
-autoload -Uz compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
-
 ##
 # zsh-syntax-highlighting plugin
 source $ZSH_DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source $BASH_DOTFILES/aliases.sh
+source $BASH_DOTFILES/functions.sh
+source $ZSH_DOTFILES/aliases.zsh
+source $ZSH_DOTFILES/functions.zsh
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
+command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+
+source $ZSH_DOTFILES/keybindings.zsh
+source $ZSH_DOTFILES/prompt.zsh
 
 ##
 # os specific
