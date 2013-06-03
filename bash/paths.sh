@@ -4,20 +4,25 @@
 # bottom to top precedence
 PATH="/usr/local/bin:$PATH"
 PATH="/usr/local/sbin:$PATH"
-PATH="/usr/local/share/npm/bin:$PATH"
 
 ################################################################################
 # Program specific paths
 
-# homebrew
+##
+# package managers
+# php54 through homebrew if brew command available
 command -v brew >/dev/null 2>&1 && {
   PATH="$(brew --prefix josegonzalez/php/php54)/bin:${PATH}"
 }
+# composer
+PATH="$HOME/.composer/bin:$PATH"
+# npm
+PATH="/usr/local/share/npm/bin:$PATH"
 
+##
+# envs
 # rbenv
-if [ -d "${RBENV_ROOT}" ]; then
-  PATH="${RBENV_ROOT}/bin:${PATH}"
-fi
+PATH="${RBENV_ROOT}/bin:${PATH}"
 
 ################################################################################
 PATH="$HOME/.dotfiles/bin:$PATH"

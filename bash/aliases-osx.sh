@@ -18,3 +18,7 @@ else
 fi
 
 alias a2r="sudo apachectl -k restart"
+
+# http://xkcd.com/530/
+alias stfu="osascript -e 'set volume output muted true'"
+alias pumpitup="osascript -e 'set volume 7'"
