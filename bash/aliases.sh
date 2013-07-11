@@ -37,7 +37,7 @@ alias ebashrc="e $HOME/.bashrc"
 alias elbashrc="e $HOME/.bashrc.local"
 
 # probably don't need this with the ghost gem
-alias ehosts="e /etc/hosts"
+alias ehosts="sudo vim /etc/hosts"
 
 # php
 alias ephpini="e $PHP_INI"

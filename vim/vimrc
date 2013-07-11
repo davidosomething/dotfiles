@@ -46,7 +46,7 @@ Bundle 'vim-scripts/AnsiEsc.vim'
 Bundle 'vim-scripts/YankRing.vim'
 " syntax
 Bundle 'acustodioo/vim-tmux'
-Bundle 'cakebaker/scss-syntax.vim'
+" Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'davejlong/cf-utils.vim'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'gregsexton/MatchTag'

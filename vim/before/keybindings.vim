@@ -251,14 +251,24 @@ nnoremap _ :Switch<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function keys, also for plugins
+
 " Disable vim help
 inoremap <F1> <nop>
+
 nnoremap <F1> :NERDTreeToggle<CR>
+
 nnoremap <F2> :BuffergatorToggle<CR>
-nnoremap <F3> :YRShow<CR>
-nnoremap <F5> :TagbarToggle<CR>
+
+" numbers.vim
+nnoremap <F3> :NumbersToggle<CR>
+
+nnoremap <F4> :TagbarToggle<CR>
+
+" YankRing
+nnoremap <F11> :YRShow<CR>
+
 if (exists("togglebg"))
-  call togglebg#map("<F11>")
+  call togglebg#map("<F10>")
 endif
 " Toggle paste mode
 nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
