@@ -29,41 +29,28 @@ setopt PUSHD_SILENT                   # don't show stack after cd
 setopt PUSHD_TO_HOME                  # go home if no d specified
 setopt COMPLETEALIASES                # autocomplete switches for aliases
 
-##
-# tab completion paths
-fpath=(
-  $ZSH_DOTFILES/zsh-completions/src
-  $(brew --prefix)/share/zsh/site-functions
-  #  $(brew --prefix)/share/zsh-completions
-  $fpath
-)
-typeset -U fpath
-
-# load completion - the -U means look in fpath, -z means on first run
-autoload -Uz compinit && compinit -i
-#autoload -Uz bashcompinit && bashcompinit
-
-##
-# zstyles
-# case-insensitive tab completion for filenames (useful on Mac OS X)
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-zstyle ':completion:*' expand 'yes'
-# don't autocomplete usernames/homedirs
-zstyle ':completion::complete:cd::' tag-order '! users' -
-
-##
-# zsh-syntax-highlighting plugin
-source $ZSH_DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 source $BASH_DOTFILES/aliases.sh
 source $BASH_DOTFILES/functions.sh
 source $ZSH_DOTFILES/aliases.zsh
 source $ZSH_DOTFILES/functions.zsh
-
 command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
 source $ZSH_DOTFILES/keybindings.zsh
 source $ZSH_DOTFILES/prompt.zsh
+
+##
+# completion
+#source $ZSH_DOTFILES/completions.zsh
+##
+# Bash completion compatibility
+autoload -Uz bashcompinit && bashcompinit
+# WP-CLI Bash completions
+source_if_exists $HOME/.wp-cli/vendor/wp-cli/wp-cli/utils/wp-completion.bash
+
+##
+# plugins
+# zsh-syntax-highlighting plugin
+source $ZSH_DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ##
 # os specific
@@ -76,4 +63,4 @@ esac
 
 ##
 # local
-[ -f "$ZDOTDIR/.zshrc.local" ] && source $ZDOTDIR/.zshrc.local
+source_if_exists $ZDOTDIR/.zshrc.local

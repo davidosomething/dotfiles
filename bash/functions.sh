@@ -1,5 +1,9 @@
-# https://github.com/jmcantrell/dotfiles-zsh/blob/master/zsh/conf.d/40-functions
+# source a file if it exists
+source_if_exists() {
+  [ -f $1 ] && source $1 && echo "Sourced $1"
+}
 
+# https://github.com/jmcantrell/dotfiles-zsh/blob/master/zsh/conf.d/40-functions
 ##
 # Make a new directory and CD into it
 mcd() {

@@ -20,11 +20,14 @@ PATH="$HOME/.composer/bin:$PATH"
 PATH="/usr/local/share/npm/bin:$PATH"
 
 ##
-# envs
+# bin
+# wp-cli
+PATH="$HOME/.wp-cli/bin:$PATH"
 # rbenv
 PATH="${RBENV_ROOT}/bin:${PATH}"
 
 ################################################################################
+# local
 PATH="$HOME/.dotfiles/bin:$PATH"
 PATH="$HOME/bin:$PATH"
 export PATH
