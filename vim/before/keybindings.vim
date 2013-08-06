@@ -264,8 +264,10 @@ nnoremap <F3> :NumbersToggle<CR>
 
 nnoremap <F4> :TagbarToggle<CR>
 
-" YankRing
-nnoremap <F11> :YRShow<CR>
+" YankStack
+let g:yankstack_map_keys = 0
+nmap <C-p> <Plug>yankstack_substitute_newer_paste
+nmap <C-P> <Plug>yankstack_substitute_older_paste
 
 if (exists("togglebg"))
   call togglebg#map("<F10>")

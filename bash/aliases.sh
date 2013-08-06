@@ -3,7 +3,6 @@
 
 alias dotfiles="$DOTFILES/bootstrap.sh"
 alias _="sudo"
-alias untar="tar -zxvf "
 alias reload="exec $SHELL"
 
 # paths and dirs
@@ -36,12 +35,12 @@ alias egvimrc="e $HOME/.gvimrc"
 alias ebashrc="e $HOME/.bashrc"
 alias elbashrc="e $HOME/.bashrc.local"
 
-# probably don't need this with the ghost gem
 alias ehosts="sudo vim /etc/hosts"
 
 # php
 alias ephpini="e $PHP_INI"
 alias art="php artisan"
+alias wpcliup="pushd ~/.wp-cli && php composer.phar update && popd"
 
 # server
 alias pyserve="python -m SimpleHTTPServer"
