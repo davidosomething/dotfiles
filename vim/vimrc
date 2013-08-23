@@ -29,9 +29,11 @@ NeoBundle 'vim-scripts/kwbdi.vim'
 NeoBundle 'int3/vim-extradite'
 NeoBundle 'jeetsukumaran/vim-buffergator'
 NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'majutsushi/tagbar'
+NeoBundleLazy 'majutsushi/tagbar',          {'autoload': {'commands': ['TagbarToggle']}, 'build': {'mac': 'brew install ctags'}}
 NeoBundle 'Rykka/lastbuf.vim'
-NeoBundle 'scrooloose/nerdtree'
+NeoBundleLazy 'scrooloose/nerdtree',        {'autoload': {'commands': ['NERDTreeToggle','NERDTree']}}
+
+" commands
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-eunuch'
 NeoBundle 'vim-scripts/Rename2'
@@ -43,7 +45,6 @@ NeoBundle 'edsono/vim-matchit'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'garbas/vim-snipmate'
 NeoBundle 'godlygeek/tabular'
-NeoBundle 'mikehaertl/pdv-standalone'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'tpope/vim-repeat'
@@ -53,33 +54,35 @@ NeoBundle 'michaeljsmith/vim-indent-object'
 NeoBundle 'nishigori/vim-sunday'
 NeoBundle 'paradigm/TextObjectify'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 " syntax highlighting and filetype specific
 NeoBundle 'acustodioo/vim-tmux'
-" Bundle 'cakebaker/scss-syntax.vim'
-NeoBundle 'davejlong/cf-utils.vim'
-NeoBundle 'digitaltoad/vim-jade'
+" NeoBundle 'cakebaker/scss-syntax.vim'
+NeoBundleLazy 'davejlong/cf-utils.vim',     {'autoload': {'filetypes': ['cfc', 'cfm']}}
+NeoBundleLazy 'digitaltoad/vim-jade',       {'autoload': {'filetypes': ['jade']}}
 NeoBundle 'gregsexton/MatchTag'
-NeoBundle 'groenewege/vim-less'
-NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundleLazy 'groenewege/vim-less',        {'autoload': {'filetypes': ['less']}}
+NeoBundleLazy 'hail2u/vim-css3-syntax',     {'autoload': {'filetypes': ['css']}}
 NeoBundle 'itspriddle/vim-jquery'
-NeoBundle 'juvenn/mustache.vim'
+NeoBundleLazy 'juvenn/mustache.vim',        {'autoload': {'filetypes': ['handlebars', 'mustache']}}
 NeoBundle 'leshill/vim-json'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'pangloss/vim-javascript'
+NeoBundleLazy 'mattn/emmet-vim',            {'autoload': {'filetypes': ['html','css','js','php']}}
+NeoBundleLazy 'mikehaertl/pdv-standalone',  {'autoload': {'filetypes': ['php', 'blade']}}
+NeoBundleLazy 'pangloss/vim-javascript',    {'autoload': {'filetypes': ['javascript']}}
 NeoBundle 'rodjek/vim-puppet'
-NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'skammer/vim-css-color'
-NeoBundle 'tpope/vim-git'
-NeoBundle 'tpope/vim-haml'
-NeoBundle 'tpope/vim-markdown'
+NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetypes': ['php', 'blade']}}
+NeoBundleLazy 'skammer/vim-css-color',      {'autoload': {'filetypes': ['html', 'css', 'less', 'sass', 'javascript', 'coffee', 'coffeescript']}}
+NeoBundleLazy 'tpope/vim-git',              {'autoload': {'filetypes': ['git']}}
+NeoBundleLazy 'tpope/vim-haml',             {'autoload': {'filetypes': ['haml']}}
+NeoBundleLazy 'tpope/vim-markdown',         {'autoload': {'filetypes': ['markdown', 'md', 'txt']}}
 NeoBundle 'tpope/vim-ragtag'
 NeoBundle 'tpope/vim-rails'
-NeoBundle 'vadv/vim-chef'
-NeoBundle 'vim-ruby/vim-ruby'
+NeoBundleLazy 'vadv/vim-chef',              {'autoload': {'filetypes': ['ruby', 'eruby']}}
+NeoBundleLazy 'vim-ruby/vim-ruby',          {'autoload': {'filetypes': ['ruby', 'eruby', 'haml']}}
 
 " OS specific bundles
 if s:uname == "Darwin\n"
