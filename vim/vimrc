@@ -7,68 +7,83 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin management
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-" appearance
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'vim-scripts/IndexedSearch'
-Bundle 'vim-scripts/kwbdi.vim'
+set rtp+=~/.vim/bundle/neobundle.vim/
+call neobundle#rc(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" plugin dependencies
+NeoBundle 'Shougo/vimproc'
+NeoBundle "MarcWeber/vim-addon-mw-utils"
+NeoBundle "tomtom/tlib_vim"
+"
+" ui
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'kien/rainbow_parentheses.vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'vim-scripts/IndexedSearch'
+NeoBundle 'vim-scripts/kwbdi.vim'
+
 " menus and special features
-Bundle 'int3/vim-extradite'
-Bundle 'jeetsukumaran/vim-buffergator'
-Bundle 'kien/ctrlp.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'Rykka/lastbuf.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-eunuch'
-Bundle 'vim-scripts/Rename2'
-" editing
-Bundle 'airblade/vim-gitgutter'
-Bundle 'AndrewRadev/switch.vim'
-Bundle 'edsono/vim-matchit'
-Bundle 'ervandew/supertab'
-Bundle 'godlygeek/tabular'
-Bundle 'mikehaertl/pdv-standalone'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'Shougo/neocomplcache'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-speeddating'
-Bundle 'maxbrunsfeld/vim-yankstack'
-Bundle 'michaeljsmith/vim-indent-object'
-Bundle 'nishigori/vim-sunday'
-Bundle 'paradigm/TextObjectify'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'vim-scripts/AnsiEsc.vim'
-" syntax
-Bundle 'acustodioo/vim-tmux'
+" snipmate depends on vim-addon-mw-utils and tlib_vim
+NeoBundle 'int3/vim-extradite'
+NeoBundle 'jeetsukumaran/vim-buffergator'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'Rykka/lastbuf.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-eunuch'
+NeoBundle 'vim-scripts/Rename2'
+
+" editing keys and commands
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'AndrewRadev/switch.vim'
+NeoBundle 'edsono/vim-matchit'
+NeoBundle 'ervandew/supertab'
+NeoBundle 'garbas/vim-snipmate'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'mikehaertl/pdv-standalone'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-speeddating'
+NeoBundle 'maxbrunsfeld/vim-yankstack'
+NeoBundle 'michaeljsmith/vim-indent-object'
+NeoBundle 'nishigori/vim-sunday'
+NeoBundle 'paradigm/TextObjectify'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'vim-scripts/AnsiEsc.vim'
+
+" syntax highlighting and filetype specific
+NeoBundle 'acustodioo/vim-tmux'
 " Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'davejlong/cf-utils.vim'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'gregsexton/MatchTag'
-Bundle 'groenewege/vim-less'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'itspriddle/vim-jquery'
-Bundle 'leshill/vim-json'
-Bundle 'pangloss/vim-javascript'
-Bundle 'rodjek/vim-puppet'
-Bundle 'scrooloose/syntastic'
-Bundle 'shawncplus/phpcomplete.vim'
-Bundle 'skammer/vim-css-color'
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-ragtag'
-Bundle 'tpope/vim-rails'
-Bundle 'vim-ruby/vim-ruby'
+NeoBundle 'davejlong/cf-utils.vim'
+NeoBundle 'digitaltoad/vim-jade'
+NeoBundle 'gregsexton/MatchTag'
+NeoBundle 'groenewege/vim-less'
+NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundle 'itspriddle/vim-jquery'
+NeoBundle 'juvenn/mustache.vim'
+NeoBundle 'leshill/vim-json'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'rodjek/vim-puppet'
+NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'skammer/vim-css-color'
+NeoBundle 'tpope/vim-git'
+NeoBundle 'tpope/vim-haml'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'tpope/vim-ragtag'
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'vadv/vim-chef'
+NeoBundle 'vim-ruby/vim-ruby'
+
 " OS specific bundles
 if s:uname == "Darwin\n"
-  Bundle 'henrik/vim-reveal-in-finder'
+  NeoBundle 'henrik/vim-reveal-in-finder'
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -76,6 +91,9 @@ endif
 syntax on
 filetype plugin indent on
 runtime macros/matchit.vim
+
+NeoBundleCheck
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " display
 set title                             " wintitle = filename - vim
@@ -155,15 +173,20 @@ set hidden                            " remember undo after quitting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype specific
 if has("autocmd")
+  ""
+  " Set editor configs
+  " @TODO use editorconfig plugin instead
   " Makefiles, Python use real tabs
   au FileType gitconfig   set noexpandtab
   au FileType make        set noexpandtab
-  " stupid folding
-  au FileType php         set foldlevel=99 foldlevelstart=99
   au FileType python      set noexpandtab
   " Enable soft-wrapping for text files
   au FileType text,txt,markdown,html,xhtml,eruby setlocal wrap linebreak nolist textwidth=80
 
+  ""
+  " Add syntax highlighting to these filetypes
+  " vim-chef support for ruby files (turned off eruby)
+  au FileType ruby set filetype=ruby.eruby.chef
   au BufRead,BufNewFile *.conf set filetype=conf
   au BufRead,BufNewFile *.scss set filetype=scss
   au BufRead,BufNewFile *.dump set filetype=sql
