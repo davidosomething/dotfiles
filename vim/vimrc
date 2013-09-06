@@ -15,7 +15,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc'
 NeoBundle "MarcWeber/vim-addon-mw-utils"
 NeoBundle "tomtom/tlib_vim"
-"
+
 " ui
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'itchyny/lightline.vim'
@@ -60,6 +60,7 @@ NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 " syntax highlighting and filetype specific
+NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'acustodioo/vim-tmux'
 " NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundleLazy 'davejlong/cf-utils.vim',     {'autoload': {'filetypes': ['cfc', 'cfm']}}
@@ -198,12 +199,22 @@ if has("autocmd")
   if s:uname == "Darwin\n"
     au BufEnter /private/tmp/crontab.* setl backupcopy=yes
   endif
+
+  " Enable omni completion.
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " befores -- plugin settings and keybindings
 for f in split(glob('~/.vim/before/*.vim'), '\n')
   exe 'source' f
 endfor
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Local config
 if filereadable($HOME . "/.vimrc.local")

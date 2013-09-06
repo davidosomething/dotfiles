@@ -198,18 +198,18 @@ nnoremap <silent> <leader>mw :call MarkWindowSwap()<CR>
 nnoremap <silent> <leader>pw :call DoWindowSwap()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Switch Buffers
-nnoremap <silent> <leader>[ :bp<CR>
-nnoremap <silent> <leader>] :bn<CR>
+" File navigation
+" Buffers
+map <C-J> :bnext<CR>
+map <C-K> :bprev<CR>
+" Splits
 nnoremap <silent> <A-Up> :wincmd k<CR>
 nnoremap <silent> <A-Down> :wincmd j<CR>
 nnoremap <silent> <A-Left> :wincmd h<CR>
 nnoremap <silent> <A-Right> :wincmd l<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Switch Tabs
-nnoremap <silent> <leader>{ :tabprev<CR>
-nnoremap <silent> <leader>} :tabnext<CR>
+" Tabs
+map <C-L> :tabn<CR>
+map <C-H> :tabp<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clean code function
@@ -259,19 +259,13 @@ nnoremap <F1> :NERDTreeToggle<CR>
 
 nnoremap <F2> :BuffergatorToggle<CR>
 
-" numbers.vim
-nnoremap <F3> :NumbersToggle<CR>
-
-nnoremap <F4> :TagbarToggle<CR>
+nnoremap <F3> :TagbarToggle<CR>
 
 " YankStack
 let g:yankstack_map_keys = 0
 nmap <C-p> <Plug>yankstack_substitute_newer_paste
 nmap <C-P> <Plug>yankstack_substitute_older_paste
 
-if (exists("togglebg"))
-  call togglebg#map("<F10>")
-endif
 " Toggle paste mode
 nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
 inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
