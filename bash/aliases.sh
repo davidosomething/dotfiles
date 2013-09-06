@@ -45,9 +45,6 @@ alias wpcliup="pushd ~/.wp-cli && php composer.phar self-update && php composer.
 # server
 alias pyserve="python -m SimpleHTTPServer"
 
-# apache
-alias a2errors ="tail /var/log/apache2/error_log"
-
 ##
 # os specific
 case "$OSTYPE" in
