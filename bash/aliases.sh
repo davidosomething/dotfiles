@@ -2,8 +2,8 @@
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
 
 alias dotfiles="$DOTFILES/bootstrap.sh"
-alias _="sudo"
 alias reload="exec $SHELL"
+alias _="sudo"
 
 # paths and dirs
 alias ..='cd ..'
@@ -46,7 +46,7 @@ alias wpcliup="pushd ~/.wp-cli && php composer.phar self-update && php composer.
 alias pyserve="python -m SimpleHTTPServer"
 
 # apache
-alias apacheerrors="tail /var/log/apache2/error_log"
+alias a2errors ="tail /var/log/apache2/error_log"
 
 ##
 # os specific
