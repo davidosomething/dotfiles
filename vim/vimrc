@@ -69,7 +69,7 @@ NeoBundle 'gregsexton/MatchTag'
 NeoBundleLazy 'groenewege/vim-less',        {'autoload': {'filetypes': ['less']}}
 NeoBundleLazy 'hail2u/vim-css3-syntax',     {'autoload': {'filetypes': ['css']}}
 NeoBundle 'itspriddle/vim-jquery'
-NeoBundleLazy 'juvenn/mustache.vim',        {'autoload': {'filetypes': ['handlebars', 'mustache']}}
+NeoBundleLazy 'juvenn/mustache.vim',        {'autoload': {'filetypes': ['handlebars', 'hbs', 'mustache']}}
 NeoBundle 'leshill/vim-json'
 NeoBundleLazy 'mattn/emmet-vim',            {'autoload': {'filetypes': ['html','css','js','php']}}
 NeoBundleLazy 'mikehaertl/pdv-standalone',  {'autoload': {'filetypes': ['php', 'blade']}}
@@ -194,6 +194,10 @@ if has("autocmd")
   au BufRead,BufNewFile *.conf set filetype=conf
   au BufRead,BufNewFile *.scss set filetype=scss
   au BufRead,BufNewFile *.dump set filetype=sql
+
+  ""
+  " HBS is a handlebars file
+  au BufRead,BufNewFile *.hbs set filetype=mustache
 
   " crontab on OSX needs a tempfile
   if s:uname == "Darwin\n"
