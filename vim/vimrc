@@ -6,8 +6,21 @@ endif
 ""
 " plugin management
 filetype off
-set rtp+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle/'))
+if v:version >= 704
+  let iCanHazBundle=1
+  let bundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
+  if !filereadable(bundle_readme)
+     echo "Installing Neobundle..."
+     if has("unix")
+        silent !mkdir -p ~/.vim/bundle
+        silent !git clone https://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
+      endif
+     let iCanHazBundle=0
+  endif
+  set rtp+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc()
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " plugin dependencies
@@ -89,7 +102,6 @@ if s:uname == "Darwin\n"
   NeoBundle 'henrik/vim-reveal-in-finder'
 endif
 
-""
 " syntax
 syntax on
 filetype plugin indent on
