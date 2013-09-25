@@ -1,10 +1,9 @@
-" .dotfiles/vim/.vimrc
-
+" determine env
 if has("unix")
   let s:uname = system("uname")
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""
 " plugin management
 filetype off
 set rtp+=~/.vim/bundle/neobundle.vim/
@@ -90,15 +89,17 @@ if s:uname == "Darwin\n"
   NeoBundle 'henrik/vim-reveal-in-finder'
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" syntax (also end of vundle)
+""
+" syntax
 syntax on
 filetype plugin indent on
 runtime macros/matchit.vim
 
+""
+" init neobundle
 NeoBundleCheck
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""
 " display
 set title                             " wintitle = filename - vim
 set titleold=""                       " restore title on exit
@@ -119,11 +120,11 @@ set foldlevelstart=99                 " show all folds by default
 set splitbelow
 set splitright
 set mouse=a
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " status line - most of this is handled by vim-powerline
 set laststatus=2
 set showcmd                           " incomplete commands on
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " whitespace
 set nowrap
 set tabstop=2
@@ -132,7 +133,9 @@ set softtabstop=2
 set expandtab
 set backspace=indent,eol,start        " bs anything
 set noeol
-"set smartindent -- using filetype indenting
+set nojoinspaces                      " J command doesn't add extra space
+"set smartindent -- using filetype indenting instead
+
 " Trailing whitespace
 set list
 set listchars=""                      " reset
@@ -140,8 +143,7 @@ set listchars=tab:→\
 set listchars+=trail:·
 set listchars+=extends:»              " show cut off when nowrap
 set listchars+=precedes:«
-set nojoinspaces
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " search
 set hlsearch
 set incsearch
@@ -150,7 +152,7 @@ set smartcase
 " fix regexes
 nnoremap / /\v
 vnoremap / /\v
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Wild and file globbing stuff
 set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
@@ -163,17 +165,22 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 " JUNK
 set wildignore+=*.swp,.lock,.DS_Store,._*
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " file saving
 set autoread                          " reload files if they were edited elsewhere
 set fileformats=unix,mac,dos
 set fileformat=unix
 set encoding=utf-8
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " backups
 set noswapfile                        " eff that
 set nobackup                          " hate those
 set hidden                            " remember undo after quitting
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clipboard
+set clipboard=unnamed
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype specific
 if has("autocmd")

@@ -197,21 +197,12 @@ endfunction
 nnoremap <silent> <leader>mw :call MarkWindowSwap()<CR>
 nnoremap <silent> <leader>pw :call DoWindowSwap()<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" File navigation
-" Buffers
-map <C-J> :bnext<CR>
-map <C-K> :bprev<CR>
 " Splits
-nnoremap <silent> <A-Up> :wincmd k<CR>
-nnoremap <silent> <A-Down> :wincmd j<CR>
-nnoremap <silent> <A-Left> :wincmd h<CR>
-nnoremap <silent> <A-Right> :wincmd l<CR>
-" Tabs
-map <C-L> :tabn<CR>
-map <C-H> :tabp<CR>
+nnoremap <silent> <C-k> :wincmd k<CR>
+nnoremap <silent> <C-j> :wincmd j<CR>
+nnoremap <silent> <C-h> :wincmd h<CR>
+nnoremap <silent> <C-l> :wincmd l<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clean code function
 function! CleanCode()
   %retab " Replace tabs with spaces
@@ -247,6 +238,7 @@ if has("autocmd")
   au FileType php vnoremap <Leader>pd :call PhpDocRange()<CR>
 endif
 
+" Switch.vim plugin underscore to toggle booleans
 nnoremap _ :Switch<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
