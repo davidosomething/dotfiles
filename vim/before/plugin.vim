@@ -2,6 +2,10 @@
 " plugin settings
 " See keybindings for plugin activation keybindings
 
+" Supertab reverse Tab behavior
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lightline
 
@@ -47,7 +51,8 @@ let g:neocomplcache_enable_underbar_completion   = 1
 let g:neocomplcache_max_list = 10
 " words less than 3 letters long aren't worth completing
 let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_auto_completion_start_length = 3
+" start filling in after 2 chars
+let g:neocomplcache_auto_completion_start_length = 2
 " This makes sure we use neocomplcache completefunc instead of
 " the one in rails.vim, otherwise this plugin will crap out
 let g:neocomplcache_force_overwrite_completefunc = 1

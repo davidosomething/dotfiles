@@ -17,7 +17,7 @@ else
   alias gvim="mvim"
 fi
 
-alias a2r="sudo apachectl -k restart"
+alias a2r="apachectl -t && sudo apachectl -e info -k restart"
 
 # http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"
