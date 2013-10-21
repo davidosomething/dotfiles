@@ -20,7 +20,7 @@ if v:version >= 704
   set rtp+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc()
+call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " plugin dependencies
@@ -103,8 +103,8 @@ if s:uname == "Darwin\n"
 endif
 
 " syntax
-syntax on
 filetype plugin indent on
+syntax on
 runtime macros/matchit.vim
 
 ""
@@ -189,8 +189,7 @@ set noswapfile                        " eff that
 set nobackup                          " hate those
 set hidden                            " remember undo after quitting
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Clipboard
+" clipboard -- use os clipboard
 set clipboard=unnamed
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -200,36 +199,36 @@ if has("autocmd")
   " Set editor configs
   " @TODO use editorconfig plugin instead
   " Makefiles, Python use real tabs
-  au FileType gitconfig   set noexpandtab
-  au FileType make        set noexpandtab
-  au FileType python      set noexpandtab
+  au FileType gitconfig   setlocal noexpandtab
+  au FileType make        setlocal noexpandtab
+  au FileType python      setlocal noexpandtab
   " Enable soft-wrapping for text files
   au FileType text,txt,markdown,html,xhtml,eruby setlocal wrap linebreak nolist textwidth=80
 
   ""
   " Add syntax highlighting to these filetypes
   " vim-chef support for ruby files (turned off eruby)
-  au FileType ruby set filetype=ruby.eruby.chef
-  au BufRead,BufNewFile *.conf set filetype=conf
-  au BufRead,BufNewFile *.scss set filetype=scss
-  au BufRead,BufNewFile *.dump set filetype=sql
+  au FileType ruby setlocal filetype=ruby.eruby.chef
+  au BufRead,BufNewFile *.conf setlocal filetype=conf
+  au BufRead,BufNewFile *.scss setlocal filetype=scss
+  au BufRead,BufNewFile *.dump setlocal filetype=sql
 
   ""
   " HBS is a handlebars file
-  au BufRead,BufNewFile *.hbs set filetype=mustache
+  au BufRead,BufNewFile *.hbs setlocal filetype=mustache
 
   " crontab on OSX needs a tempfile
   if s:uname == "Darwin\n"
-    au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+    au BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
   endif
 
   " Enable omni completion.
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+  au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+  au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+  au FileType python        setlocal omnifunc=pythoncomplete#Complete
+  au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+  au FileType ruby          setlocal omnifunc=rubycomplete#Complete
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -24,3 +24,5 @@ alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 
 alias sysup="sudo softwareupdate -i -a"
+
+alias brc="brew cask"
