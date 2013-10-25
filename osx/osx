@@ -1,22 +1,29 @@
-# subset of https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+# sources:
+# https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+# https://github.com/simonowendesign/dotfiles/blob/master/.osx
 
-# enable text selection in quicklook
-defaults write com.apple.finder QLEnableTextSelection -bool true
+sudo -v
+# Keep-alive: update existing `sudo` time stamp until `.osx` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Disable dashboard
-defaults write com.apple.dashboard mcx-disabled -boolean YES
-
-# Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
-defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
-
+################################################################################
+# monitor
 # Enable subpixel font rendering on non-Apple LCDs
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
+################################################################################
+# finder
 # Show all filename extensions in Finder
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
+# Finder: show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+
+# Show the ~/Library folder
+chflags nohidden ~/Library
 
 # Expand print panel by default
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
@@ -30,9 +37,48 @@ defaults write com.apple.screencapture disable-shadow -bool true
 # Show indicator lights for open applications in the Dock
 defaults write com.apple.dock show-process-indicators -bool true
 
+# Finder: show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+
+# Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# enable text selection in quicklook
+defaults write com.apple.finder QLEnableTextSelection -bool true
+
+# Automatically open a new Finder window when a volume is mounted
+defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
+defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
+defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
+
+################################################################################
+# desktop
+# Show item info near icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+
+# Show item info to the right of the icons on the desktop
+/usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom false" ~/Library/Preferences/com.apple.finder.plist
+
+# Disable dashboard
+defaults write com.apple.dashboard mcx-disabled -boolean YES
+
+################################################################################
+# terminal
+# Show all filename extensions
+defaults write com.apple.finder AppleShowAllExtensions -bool true
+
+################################################################################
+# keyboard
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+# Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+################################################################################
+# filesystem
 # Disable disk image verification
 defaults write com.apple.frameworks.diskimages skip-verify -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
@@ -41,17 +87,57 @@ defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
+################################################################################
+# safari
+# Enable the Develop menu and the Web Inspector in Safari
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+
 # Enable Safari’s debug menu
 defaults write com.apple.Safari IncludeDebugMenu -bool true
 
 # Add a context menu item for showing the Web Inspector in web views
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
-# Show the ~/Library folder
-chflags nohidden ~/Library
+###############################################################################
+# Twitter.app
+# Disable smart quotes as it’s annoying for code tweets
+defaults write com.twitter.twitter-mac AutomaticQuoteSubstitutionEnabled -bool false
 
-# Show all filename extensions
-defaults write com.apple.finder AppleShowAllExtensions -bool true
+# Show the app window when clicking the menu icon
+defaults write com.twitter.twitter-mac MenuItemBehavior -int 1
 
+# Enable the hidden ‘Develop’ menu
+defaults write com.twitter.twitter-mac ShowDevelopMenu -bool true
+
+# Open links in the background
+defaults write com.twitter.twitter-mac openLinksInBackground -bool true
+
+# Allow closing the ‘new tweet’ window by pressing `Esc`
+defaults write com.twitter.twitter-mac ESCClosesComposeWindow -bool true
+
+# Show full names rather than Twitter handles
+defaults write com.twitter.twitter-mac ShowFullNames -bool true
+
+# Hide the app in the background if it’s not the front-most window
+defaults write com.twitter.twitter-mac HideInBackground -bool true
+
+################################################################################
+# Menu bar: Set date and time format e.g. Sun 11 Aug 16:55
+defaults write com.apple.menuextra.clock DateFormat -string "E MMM d HH:mm"
+
+################################################################################
+# restart for changes
 # Kill affected applications
-for app in Safari Finder Dock Mail SystemUIServer; do killall "$app" >/dev/null 2>&1; done
+for app in \
+  Dashboard \
+  Dock \
+  Dock \
+  Finder \
+  Mail \
+  Safari \
+  SystemUIServer \
+  Terminal \
+  Twitter \
+  ; do killall "$app" >/dev/null 2>&1; done
