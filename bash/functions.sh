@@ -63,12 +63,6 @@ vhosts() {
 }
 
 ##
-# update php version in apache config
-update_httpd_conf_phpver() {
-  sed "s/\/usr\/local\/Cellar\/php\([0-9]*\)\/\([\.0-9]*\)\//\/usr\/local\/Cellar\/php$PHPMINORVERNUM\/$PHPVER\//g" $APACHE_HTTPD_CONF >  $APACHE_HTTPD_CONF
-}
-
-##
 # Get someone's SSH pubkeys from github
 get_github_ssh_key() {
   if [ -z "$1" ]; then
