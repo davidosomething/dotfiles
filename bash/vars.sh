@@ -29,14 +29,6 @@ export RBENV_ROOT="$HOME/.rbenv"
 export NODE_PATH="/usr/local/lib/node_modules"
 
 ################################################################################
-# useful vars
-command -v php >/dev/null 2>&1 && command -v awk >/dev/null 2>&1 && {
-  export PHPVER=$( php -v | sed 1q | awk '{print $2}' )
-  export PHPMINORVER=$( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]"."a[2]}' )
-  export PHPMINORVERNUM=$( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]a[2]}' )
-}
-
-################################################################################
 # useful file paths
 export APACHE_HTTPD_CONF="$APACHE_CONF/httpd.conf"
 export APACHE_HTTPD_VHOSTS="$APACHE_CONF/extra/httpd-vhosts.conf"
