@@ -27,6 +27,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc'
 NeoBundle "MarcWeber/vim-addon-mw-utils"
 NeoBundle "tomtom/tlib_vim"
+NeoBundle 'rizzatti/funcoo.vim'
 
 " ui
 NeoBundle 'altercation/vim-colors-solarized'
@@ -49,6 +50,7 @@ NeoBundleLazy 'scrooloose/nerdtree',        {'autoload': {'commands': ['NERDTree
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-eunuch'
 NeoBundle 'vim-scripts/Rename2'
+NeoBundle 'rizzatti/dash.vim'
 
 " editing keys and commands
 NeoBundle 'airblade/vim-gitgutter'
@@ -85,6 +87,7 @@ NeoBundleLazy 'juvenn/mustache.vim',        {'autoload': {'filetypes': ['handleb
 NeoBundle 'leshill/vim-json'
 NeoBundleLazy 'mattn/emmet-vim',            {'autoload': {'filetypes': ['html','css','js','php']}}
 NeoBundleLazy 'mikehaertl/pdv-standalone',  {'autoload': {'filetypes': ['php', 'blade']}}
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim',  {'autoload': {'filetypes': ['js']}}
 NeoBundleLazy 'pangloss/vim-javascript',    {'autoload': {'filetypes': ['javascript']}}
 NeoBundle 'rodjek/vim-puppet'
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetypes': ['php', 'blade']}}
