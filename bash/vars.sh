@@ -32,3 +32,12 @@ export NODE_PATH="/usr/local/lib/node_modules"
 # useful file paths
 export APACHE_HTTPD_CONF="$APACHE_CONF/httpd.conf"
 export APACHE_HTTPD_VHOSTS="$APACHE_CONF/extra/httpd-vhosts.conf"
+
+##
+# os specific
+case "$OSTYPE" in
+  darwin*)  [ -f "$BASH_DOTFILES/vars-osx.sh" ] && source "$BASH_DOTFILES/vars-osx.sh"
+            ;;
+  linux*)   [ -f "$BASH_DOTFILES/vars-linux.sh" ] && source "$BASH_DOTFILES/vars-linux.sh"
+            ;;
+esac
