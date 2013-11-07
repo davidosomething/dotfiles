@@ -1,6 +1,3 @@
-####
-# .dotfiles/bash/vars.sh
-
 ################################################################################
 # dotfile paths
 export DOTFILES="$HOME/.dotfiles"
