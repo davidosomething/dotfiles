@@ -1,15 +1,27 @@
 #!/usr/bin/env bash
+#
+# Symlink X11 settings
+
 set -e
 
-status "Symlinking X11 dotfiles"
-symlink x/Xresources        .Xresources
-symlink x/xinitrc           .xinitrc
-symlink x/xinitrc           .xsession
-symlink x/xinitrc           .xprofile
+################################################################################
+# initialize script and dependencies
+# get this bootstrap folder
+cd "$(dirname $0)"/..
+dotfiles_path="$(pwd)"
+bootstrap_path="$dotfiles_path/bootstrap"
+source $bootstrap_path/helpers.sh
 
-status "Merging Xresources"
+################################################################################
+dkostatus "Symlinking X11 dotfiles"
+dkosymlink x/Xresources        .Xresources
+dkosymlink x/xinitrc           .xinitrc
+dkosymlink x/xinitrc           .xsession
+dkosymlink x/xinitrc           .xprofile
+
+dkostatus "Merging Xresources"
 xrdb -merge $HOME/.Xresources
-if [ -d "$HOME/src/solarized" ]; then
-  status_ "and Solarized colors for terminal"
+if [[ -d "$HOME/src/solarized" ]]; then
+  dkostatus_ "and Solarized colors for terminal"
   xrdb -merge $HOME/src/solarized/xresources-colors-solarized/Xresources
 fi
