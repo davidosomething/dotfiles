@@ -3,7 +3,7 @@
 # Install wp-cli using script
 # OSX users should use brew
 
-set -e
+set -eu
 
 if [ ! which wp >/dev/null ]; then
   installing "wp-cli"

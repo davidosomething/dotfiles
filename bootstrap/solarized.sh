@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-set -e
+#
+# git clone solarized
+
+set -eu
 
 if [ -d "$HOME/src/solarized" ]; then
   status "Updating solarized repo"

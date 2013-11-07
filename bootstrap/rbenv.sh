@@ -2,7 +2,8 @@
 #
 # Install rbenv using script
 # Only used for linux -- osx should use brew install rbenv
-set -e
+
+set -eu
 
 ################################################################################
 # initialize script and dependencies

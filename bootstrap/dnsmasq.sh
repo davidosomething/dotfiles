@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
 # Symlink dnsmasq settings and resolvers for testing TLDs
-set -e
+
+set -eu
 
 ################################################################################
 # initialize script and dependencies

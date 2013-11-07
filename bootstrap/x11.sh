@@ -2,7 +2,7 @@
 #
 # Symlink X11 settings
 
-set -e
+set -eu
 
 ################################################################################
 # initialize script and dependencies

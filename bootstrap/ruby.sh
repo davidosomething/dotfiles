@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-set -e
+#
+# Install ruby using rbenv
+# @TODO Not working
+
+set -eu
 
 # rbenv must be installed already
 # paths must be set already

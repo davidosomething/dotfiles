@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 #
 # This is the main dotfiles installation script
-#
 
-set -e
+set -eu
 
 #
 # @TODO read flags and args

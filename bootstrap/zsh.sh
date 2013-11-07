@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-set -e
+
+set -eu
 
 # on OSX:
 # brew install zsh zsh-completions

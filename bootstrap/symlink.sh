@@ -2,7 +2,7 @@
 #
 # Basic symlinks, safe to run on any system
 
-set -e
+set -eu
 
 ################################################################################
 # initialize script and dependencies

@@ -3,7 +3,7 @@
 # detect OS
 # This step is skipped if OS flag was given
 
-set -e
+set -eu
 
 ################################################################################
 # initialize script and dependencies
