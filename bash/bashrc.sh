@@ -34,3 +34,7 @@ case "$OSTYPE" in
   linux*)   source "$BASH_DOTFILES/bashrc-linux.sh"
             ;;
 esac
+
+##
+# local
+source_if_exists $HOME/.bashrc.local

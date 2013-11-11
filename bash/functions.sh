@@ -90,6 +90,7 @@ members() {
 
 ##
 # PHP version numbers
+# @TODO use cut instead of splitting awk?
 phpver() {
   echo $( php -v | sed 1q | awk '{print $2}' )
 }
