@@ -1,14 +1,17 @@
-dotfiles
-========
+# dotfiles
 
-My dotfiles for bash/zsh/vim and others things.
+> My dotfiles for bash/zsh/vim and others things.
 
-Installation
-------------
+## Installation
 
-Clone RECURSIVELY (including submodules!!) to `~/.dotfiles` and run
-`symlink.sh` from the `bootstrap` folder. This only symlinks basic resource
-files.
+Clone RECURSIVELY (including submodules!!) to `~/.dotfiles`
+
+### Working bootstrap scripts
+
+* `symlink.sh`
+    * bash, zsh, ack, tmux, screen
+* `vim.sh`
+    * vim
 
 Notes
 -----
