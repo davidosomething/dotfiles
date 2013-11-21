@@ -1,0 +1,9 @@
+ack
+ctags
+curl
+git
+openssh-client
+vim
+vim-doc
+vim-scripts
+zsh

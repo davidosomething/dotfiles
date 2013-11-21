@@ -193,7 +193,11 @@ set nobackup                          " hate those
 set hidden                            " remember undo after quitting
 
 " clipboard -- use os clipboard
-set clipboard=unnamed
+if s:uname == "Darwin\n"
+  set clipboard=unnamed
+else
+  set clipboard=unnamedplus
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype specific
