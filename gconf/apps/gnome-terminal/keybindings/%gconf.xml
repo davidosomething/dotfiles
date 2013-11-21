@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="switch_to_tab_6" mtime="1385022045" type="string">
+		<stringvalue>&lt;Alt&gt;6</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_5" mtime="1385022047" type="string">
+		<stringvalue>&lt;Alt&gt;5</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_4" mtime="1385022049" type="string">
+		<stringvalue>&lt;Alt&gt;4</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_3" mtime="1385022051" type="string">
+		<stringvalue>&lt;Alt&gt;3</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_2" mtime="1385022055" type="string">
+		<stringvalue>&lt;Alt&gt;2</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_1" mtime="1385022056" type="string">
+		<stringvalue>&lt;Alt&gt;1</stringvalue>
+	</entry>
+	<entry name="new_window" mtime="1385022009" type="string">
+		<stringvalue>&lt;Super&gt;n</stringvalue>
+	</entry>
+	<entry name="reset" mtime="1385022002" type="string">
+		<stringvalue>&lt;Super&gt;r</stringvalue>
+	</entry>
+	<entry name="paste" mtime="1385021993" type="string">
+		<stringvalue>&lt;Super&gt;v</stringvalue>
+	</entry>
+	<entry name="copy" mtime="1385021991" type="string">
+		<stringvalue>&lt;Super&gt;c</stringvalue>
+	</entry>
+	<entry name="close_window" mtime="1385021972" type="string">
+		<stringvalue>&lt;Super&gt;q</stringvalue>
+	</entry>
+	<entry name="close_tab" mtime="1385022013" type="string">
+		<stringvalue>&lt;Super&gt;w</stringvalue>
+	</entry>
+	<entry name="new_tab" mtime="1385022007" type="string">
+		<stringvalue>&lt;Super&gt;t</stringvalue>
+	</entry>
+</gconf>
