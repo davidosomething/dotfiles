@@ -45,6 +45,9 @@ alias wpcliup="pushd ~/.wp-cli && php composer.phar self-update && php composer.
 # server
 alias pyserve="python -m SimpleHTTPServer"
 
+# vim
+alias vimup="vim -c ':NeoBundleUpdate' -c ':qa'"
+
 ##
 # os specific
 case "$OSTYPE" in

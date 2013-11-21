@@ -1,0 +1,15 @@
+set -eu
+
+echo "diskutil repairPermissions /  # fix file system permissions"
+echo "sysup                         # alias for osx software update"
+echo "brew doctor"
+echo "brew update"
+echo "brew upgrade"
+echo "brew cleanup"
+echo "gem update --system"
+echo "gem update"
+echo "gem clean"
+echo "npm update -g"
+echo "heroku update"
+echo "wpcliup                       # update wp-cli"
+echo "vimup"                        # alias that updates vim plugins"
