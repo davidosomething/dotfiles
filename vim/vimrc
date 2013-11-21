@@ -220,6 +220,8 @@ if has("autocmd")
   au BufRead,BufNewFile *.scss setlocal filetype=scss
   au BufRead,BufNewFile *.dump setlocal filetype=sql
 
+  au BufRead,BufNewFile *.cap setlocal filetype=ruby
+
   ""
   " HBS is a handlebars file
   au BufRead,BufNewFile *.hbs setlocal filetype=mustache
