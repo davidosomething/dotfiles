@@ -2,6 +2,8 @@ ack
 ctags
 curl
 git
+gnupg-agent
+keychain
 openssh-client
 vim
 vim-doc
