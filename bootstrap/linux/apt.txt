@@ -5,6 +5,10 @@ git
 gnupg-agent
 keychain
 openssh-client
+php-pear
+php5-cli
+php5-json
+php5-user-cache
 vim
 vim-doc
 vim-scripts
