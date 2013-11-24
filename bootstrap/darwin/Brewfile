@@ -1,0 +1,37 @@
+install ack
+install autojump
+install php54
+install php54-mcrypt
+install curl-ca-bundle
+install ctags-exuberant
+install dnsmasq
+install git
+install git-extras
+install irssi
+install jsonpp
+install macvim
+install mysql
+install nmap
+install node
+install rbenv
+install rbenv-gem-rehash
+install rbenv-default-gems
+install ruby-build
+install rsync
+install ssh-copy-id
+install the_silver_searcher
+install tree
+install zsh
+install zsh-completions
+
+tap josegonzalez/homebrew-php
+install composer
+install php55
+install php55-mcrypt
+install phpmyadmin
+
+tap homebrew/completions
+install vagrant-completion
+
+brew tap phinze/homebrew-cask
+install brew-cask

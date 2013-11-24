@@ -13,6 +13,11 @@ Clone RECURSIVELY (including submodules!!) to `~/.dotfiles`
 * `vim.sh`
     * vim
 
+### Homebrew
+
+`brew bundle` will execute all commands in a `Brewfile`. There's a `Brewfile` in
+the `bootstrap/darwin` folder.
+
 Notes
 -----
 
@@ -39,7 +44,7 @@ if you need to recompile.
 
 ### vim
 
-Using vundler for vim.
+Using NeoBundle for vim.
 
 ### zsh
 
