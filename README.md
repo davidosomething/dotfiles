@@ -15,8 +15,8 @@ Clone RECURSIVELY (including submodules!!) to `~/.dotfiles`
 
 ### Homebrew
 
-`brew bundle` will execute all commands in a `Brewfile`. There's a `Brewfile` in
-the `bootstrap/darwin` folder.
+`brew bundle` will execute all commands in a `Brewfile`. There's a `Brewfile`
+in the `osx` folder.
 
 Notes
 -----
