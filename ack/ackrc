@@ -1,5 +1,8 @@
 --smart-case
---type-add=css=.sass,.scss,.styl
+--sort-files
+--type-add=css=.less,.sass,.scss,.styl
+--type-set=sass=.sass,.scss
+--type-set=less=.less
 --type-add=html=.handlebars,.hbs
 --type-add=js=.bowerrc,.coffee,.jshintrc,.json
 --type-set=md=.markdown,.md
