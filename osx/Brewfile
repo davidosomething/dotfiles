@@ -9,10 +9,11 @@ install git
 install git-extras
 install irssi
 install jsonpp
-install macvim
+install macvim --override-system-vim
 install mysql
 install nmap
 install node
+install openssl
 install rbenv
 install rbenv-gem-rehash
 install rbenv-default-gems
@@ -24,6 +25,9 @@ install tree
 install zsh
 install zsh-completions
 
+# tap homebrew/dupes
+# install apple-gcc42
+
 tap josegonzalez/homebrew-php
 install composer
 install php55
@@ -33,5 +37,5 @@ install phpmyadmin
 tap homebrew/completions
 install vagrant-completion
 
-brew tap phinze/homebrew-cask
+tap phinze/homebrew-cask
 install brew-cask
