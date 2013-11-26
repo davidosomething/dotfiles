@@ -21,8 +21,6 @@ PATH="/usr/local/share/npm/bin:$PATH"
 
 ##
 # bin
-# wp-cli
-PATH="$HOME/.wp-cli/bin:$PATH"
 # rbenv
 PATH="${RBENV_ROOT}/bin:${PATH}"
 

@@ -6,6 +6,5 @@
 set -eu
 
 if [ ! which wp >/dev/null ]; then
-  installing "wp-cli"
   curl https://raw.github.com/wp-cli/wp-cli.github.com/master/installer.sh | bash
 fi
