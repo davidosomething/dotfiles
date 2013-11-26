@@ -27,6 +27,7 @@ install ssh-copy-id
 install the_silver_searcher
 install tree
 install wget
+install wp-cli
 install zsh
 install zsh-completions
 
