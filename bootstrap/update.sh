@@ -29,23 +29,22 @@ dkostatus "Jumping to dotfiles directory" && pushd $HOME/.dotfiles >> /dev/null
 dkostatus "Getting latest updates" && git stash && git pull --rebase --recurse-submodules && git stash apply
 dkostatus "Back to original directory" popd >> /dev/null
 
+dkostatus "You should run these commands as needed:"
 if [[ $OSTYPE = "linux-gnu" ]]; then
-
-  :
+  echo "wpcliup                       # update wp-cli"
 
 else
-  dkostatus "You should run these commands as needed:"
   echo "diskutil repairPermissions /  # fix file system permissions"
   echo "sysup                         # alias for osx software update"
   echo "brew doctor"
   echo "brew update"
   echo "brew upgrade"
   echo "brew cleanup"
-  echo "gem update --system"
-  echo "gem update"
-  echo "gem clean"
-  echo "npm update -g"
-  echo "heroku update"
-  echo "wpcliup                       # update wp-cli"
-  echo "vimup"                        # alias that updates vim plugins"
 fi
+
+echo "gem update --system"
+echo "gem update"
+echo "gem clean"
+echo "npm update -g"
+echo "heroku update"
+echo "vimup"                        # alias that updates vim plugins"

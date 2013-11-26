@@ -40,7 +40,6 @@ alias ehosts="sudo vim /etc/hosts"
 # php
 alias ephpini="e $PHP_INI"
 alias art="php artisan"
-alias wpcliup="pushd ~/.wp-cli && php composer.phar self-update && php composer.phar update --no-dev && popd"
 
 # server
 alias pyserve="python -m SimpleHTTPServer"

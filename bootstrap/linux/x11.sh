@@ -21,7 +21,10 @@ dkosymlink x/xinitrc           .xprofile
 
 dkostatus "Merging Xresources"
 xrdb -merge $HOME/.Xresources
-if [[ -d "$HOME/src/solarized" ]]; then
+
+if [[ -d "$dotfiles_path/solarized" ]]; then
   dkostatus_ "and Solarized colors for terminal"
-  xrdb -merge $HOME/src/solarized/xresources-colors-solarized/Xresources
+  xrdb -merge $dotfiles_path/solarized/xresources-colors-solarized/Xresources
+else
+  dkoerror_ "Your dotfiles repo is missing the solarized submodule. Skipping."
 fi
