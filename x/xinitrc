@@ -3,6 +3,6 @@
 # .xprofile is used by gdm
 
 xrdb ~/.Xresources
-if [ -d "$HOME/src/solarized" ]; then
-  xrdb -merge ~/src/solarized/xresources-colors-solarized/Xresources
+if [ -d "$dotfiles_path/solarized" ]; then
+  xrdb -merge "$dotfiles_path/solarized/xresources-colors-solarized/Xresources"
 fi
