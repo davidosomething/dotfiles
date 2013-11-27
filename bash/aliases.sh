@@ -40,6 +40,7 @@ alias ehosts="sudo vim /etc/hosts"
 # php
 alias ephpini="e $PHP_INI"
 alias art="php artisan"
+alias cunt="COMPOSER_CACHE_DIR=/dev/null composer update"
 
 # server
 alias pyserve="python -m SimpleHTTPServer"

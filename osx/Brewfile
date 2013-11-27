@@ -48,6 +48,8 @@ tap phinze/homebrew-cask
 install brew-cask
 cask install google-chrome
 cask install caffeine
+cask install keyremap4macbook
+cask install noejectdelay
 cask install transmit
 cask install vagrant
 cask install virtualbox
