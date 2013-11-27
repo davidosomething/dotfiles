@@ -23,4 +23,5 @@ dkostatus "Symlinking vim dotfiles and .vim folder"
 dkosymlink vim                 .vim
 dkosymlink vim/vimrc           .vimrc
 dkosymlink vim/gvimrc          .gvimrc
-dkoinstalling "vim bundles"
+dkoinstalling "vim bundles... you'll need to quit vim after neobundle and compilation"
+vim -c ':NeoBundleUpdate' -c ':qa'

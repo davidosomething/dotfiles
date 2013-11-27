@@ -53,22 +53,32 @@ NeoBundle 'vim-scripts/Rename2'
 NeoBundle 'rizzatti/dash.vim'
 
 " editing keys and commands
-NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'AndrewRadev/switch.vim'
+if has('python')
+  NeoBundle 'Valloric/YouCompleteMe', {
+    \ 'build' : {
+    \    'mac' : './install.sh --clang-completer --system-libclang',
+    \    'unix' : './install.sh --clang-completer --system-libclang'
+    \ },
+  \ }
+endif
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'edsono/vim-matchit'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'garbas/vim-snipmate'
 NeoBundle 'godlygeek/tabular'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-speeddating'
 NeoBundle 'maxbrunsfeld/vim-yankstack'
 NeoBundle 'michaeljsmith/vim-indent-object'
 NeoBundle 'nishigori/vim-sunday'
 NeoBundle 'paradigm/TextObjectify'
+NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
+if !has('python')
+  NeoBundle 'Shougo/neocomplcache' deprecated in favor of ycm
+endif
 NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-speeddating'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'vim-scripts/AnsiEsc.vim'
@@ -84,7 +94,8 @@ NeoBundleLazy 'groenewege/vim-less',        {'autoload': {'filetypes': ['less']}
 NeoBundleLazy 'hail2u/vim-css3-syntax',     {'autoload': {'filetypes': ['css']}}
 NeoBundle 'itspriddle/vim-jquery'
 NeoBundleLazy 'juvenn/mustache.vim',        {'autoload': {'filetypes': ['handlebars', 'hbs', 'mustache']}}
-NeoBundle 'leshill/vim-json'
+NeoBundle 'elzr/vim-json'
+"NeoBundle 'leshill/vim-json'
 NeoBundleLazy 'mattn/emmet-vim',            {'autoload': {'filetypes': ['html','css','js','php']}}
 NeoBundleLazy 'mikehaertl/pdv-standalone',  {'autoload': {'filetypes': ['php', 'blade']}}
 NeoBundleLazy 'othree/javascript-libraries-syntax.vim',  {'autoload': {'filetypes': ['js']}}
