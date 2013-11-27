@@ -42,7 +42,9 @@ NeoBundle 'vim-scripts/kwbdi.vim'
 NeoBundle 'int3/vim-extradite'
 NeoBundle 'jeetsukumaran/vim-buffergator'
 NeoBundle 'kien/ctrlp.vim'
-NeoBundleLazy 'majutsushi/tagbar',          {'autoload': {'commands': ['TagbarToggle']}, 'build': {'mac': 'brew install ctags'}}
+if executable("ctags")
+  NeoBundleLazy 'majutsushi/tagbar',        {'autoload': {'commands': ['TagbarToggle']}}
+endif
 NeoBundle 'Rykka/lastbuf.vim'
 NeoBundleLazy 'scrooloose/nerdtree',        {'autoload': {'commands': ['NERDTreeToggle','NERDTree']}}
 
@@ -57,9 +59,9 @@ NeoBundle 'AndrewRadev/switch.vim'
 if has('python')
   NeoBundle 'Valloric/YouCompleteMe', {
     \ 'build' : {
-    \    'mac' : './install.sh --clang-completer --system-libclang',
-    \    'unix' : './install.sh --clang-completer --system-libclang'
-    \ },
+    \   'mac' : './install.sh --clang-completer --system-libclang',
+    \   'unix' : './install.sh --clang-completer --system-libclang'
+    \ }
   \ }
 endif
 NeoBundle 'airblade/vim-gitgutter'

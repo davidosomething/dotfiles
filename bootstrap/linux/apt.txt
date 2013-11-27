@@ -3,6 +3,7 @@ build-essential
 cmake
 ctags
 curl
+exuberant-ctags
 git
 gnupg-agent
 keychain
