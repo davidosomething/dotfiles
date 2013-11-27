@@ -3,6 +3,7 @@ install ack
 install autojump
 install php54
 install php54-mcrypt
+install cmake
 install curl
 install curl-ca-bundle
 install ctags
