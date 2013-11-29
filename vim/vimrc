@@ -328,7 +328,8 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 " Tagbar
 let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
 if has("autocmd")
-  autocmd BufEnter * nested :TagbarOpen
+  autocmd FileType * nested :call tagbar#autoopen(0)
+  autocmd BufEnter * nested :call tagbar#autoopen(0)
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
