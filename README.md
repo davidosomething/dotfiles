@@ -12,14 +12,14 @@ Clone RECURSIVELY (including submodules!!) to `~/.dotfiles`
     * bash, zsh, ack, tmux, screen
 * `vim.sh`
     * vim
+* `linux/rbenv.sh`
 
 ### Homebrew
 
 `brew bundle` will execute all commands in a `Brewfile`. There's a `Brewfile`
 in the `osx` folder.
 
-Notes
------
+## Notes
 
 Don't forget to setup apache manually for your OS
 
@@ -27,13 +27,18 @@ Don't forget to setup apache manually for your OS
 
 ### bash
 
-The aliases and functions here should work in ZSH as well, so they're sourced
-by the ZSH dotfiles.
+The aliases and functions here should work in ZSH as well, so they're sourced by the ZSH dotfiles.
 
 ### pow
 
-The POW gem is no longer used since I have to use Cisco VPN for some things and
-there are DNS conflicts.
+The POW gem is no longer used since I have to use Cisco VPN for some things and there are DNS conflicts. 
+
+### rbenv
+
+On linux, rbenv should be installed from source. The apt repositories don't provide the latest versions of ruby. `bootstrap/linux/rbenv.sh` does this.
+
+There's a `rbenv/default-gems` file which specifies default gems to install
+when switching rubies. Symlink this to ~/.rbenv
 
 ### tmux
 
@@ -45,7 +50,8 @@ if you need to recompile.
 ### vim
 
 Using NeoBundle for vim.
+NeoBundle will build dependencies where needed, e.g. for YouCompleteMe, so some system build tools are needed.
 
 ### zsh
 
-Starts with bash config (vars, paths, aliases, functions) and adds its own.
+Augments the bash config (vars, paths, aliases, functions) and adds its own.

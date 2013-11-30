@@ -31,9 +31,12 @@ dkostatus "Back to original directory" popd >> /dev/null
 
 dkostatus "You should run these commands as needed:"
 if [[ $OSTYPE = "linux-gnu" ]]; then
+  echo "[linux only]"
   echo "wpcliup                       # update wp-cli"
+  echo "rbenv update                  # update rbenv and installed gems"
 
 else
+  echo "[osx only]"
   echo "diskutil repairPermissions /  # fix file system permissions"
   echo "sysup                         # alias for osx software update"
   echo "brew doctor"
@@ -42,6 +45,7 @@ else
   echo "brew cleanup"
 fi
 
+echo "[common]"
 echo "gem update --system"
 echo "gem update"
 echo "gem clean"
