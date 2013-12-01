@@ -1,9 +1,10 @@
+set nocompatible
+
 " determine env
 if has("unix")
   let s:uname = system("uname")
 endif
 
-""
 " plugin management
 filetype off
 if v:version >= 704
@@ -33,6 +34,7 @@ NeoBundle 'rizzatti/funcoo.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
+  nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vim-scripts/IndexedSearch'
 NeoBundle 'vim-scripts/kwbdi.vim'
@@ -41,12 +43,35 @@ NeoBundle 'vim-scripts/kwbdi.vim'
 " snipmate depends on vim-addon-mw-utils and tlib_vim
 NeoBundle 'int3/vim-extradite'
 NeoBundle 'jeetsukumaran/vim-buffergator'
+  nnoremap <F2> :BuffergatorToggle<CR>
 NeoBundle 'kien/ctrlp.vim'
+  " We don't want to use Ctrl-p as the mapping because
+  " it interferes with YankRing (paste, then hit ctrl-p)
+  let g:ctrlp_map            = '<C-t>'
+  let g:ctrlp_jump_to_buffer = 2        " Jump to tab AND buffer if already open
+  let g:ctrlp_split_window   = 1        " <CR> = New Tab
+  let g:ctrlp_max_depth      = 10
+  if executable('ag')
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+  endif
 if executable("ctags")
   NeoBundleLazy 'majutsushi/tagbar',        {'autoload': {'commands': ['TagbarClose', 'TagbarOpen','TagbarToggle']}}
+    let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
+    if has("autocmd")
+      au FileType * nested :call tagbar#autoopen(0)
+      au BufEnter * nested :call tagbar#autoopen(0)
+    endif
+    nnoremap <F3> :TagbarToggle<CR>
 endif
 NeoBundle 'Rykka/lastbuf.vim'
+
 NeoBundleLazy 'scrooloose/nerdtree',        {'autoload': {'commands': ['NERDTreeToggle','NERDTree']}}
+  let g:NERDTreeShowHidden = 1
+  nnoremap <F1> :NERDTreeToggle<CR>
 
 " commands
 NeoBundle 'tpope/vim-fugitive'
@@ -56,6 +81,9 @@ NeoBundle 'rizzatti/dash.vim'
 
 " editing keys and commands
 NeoBundle 'AndrewRadev/switch.vim'
+  " Switch.vim plugin underscore to toggle booleans
+  nnoremap _ :Switch<cr>
+
 if has('python')
   NeoBundle 'Valloric/YouCompleteMe', {
     \ 'build' : {
@@ -65,18 +93,78 @@ if has('python')
   \ }
 endif
 NeoBundle 'airblade/vim-gitgutter'
+  let g:gitgutter_enabled = 0
 NeoBundle 'edsono/vim-matchit'
 NeoBundle 'ervandew/supertab'
+  let g:SuperTabDefaultCompletionType = "context"
+  let g:SuperTabContextDefaultCompletionType = "<c-n>"
 NeoBundle 'garbas/vim-snipmate'
 NeoBundle 'godlygeek/tabular'
+  nnoremap <Leader>a- :Tabularize /-<CR>
+  vnoremap <Leader>a- :Tabularize /-<CR>
+  nnoremap <Leader>a= :Tabularize /=<CR>
+  vnoremap <Leader>a= :Tabularize /=<CR>
+  nnoremap <Leader>a: :Tabularize /:\zs<CR>
+  vnoremap <Leader>a: :Tabularize /:\zs<CR>
+  nnoremap <Leader>a, :Tabularize /,<CR>
+  vnoremap <Leader>a, :Tabularize /,<CR>
+  nnoremap <Leader>af :Tabularize /=>/<CR>
+  vnoremap <Leader>af :Tabularize /=>/<CR>
 NeoBundle 'maxbrunsfeld/vim-yankstack'
+  let g:yankstack_map_keys = 0
+  nmap <C-p> <Plug>yankstack_substitute_newer_paste
+  nmap <C-P> <Plug>yankstack_substitute_older_paste
 NeoBundle 'michaeljsmith/vim-indent-object'
 NeoBundle 'nishigori/vim-sunday'
 NeoBundle 'paradigm/TextObjectify'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
+  " run syntastic on file open
+  let g:syntastic_check_on_open       = 1
+  let g:syntastic_auto_loc_list       = 1
+  let g:syntastic_enable_signs        = 1
+  let g:syntastic_enable_highlighting = 1
+  if !exists("g:syntastic_mode_map")
+    let g:syntastic_mode_map = {}
+  endif
+  if !has_key(g:syntastic_mode_map, "mode")
+    let g:syntastic_mode_map['mode'] = 'active'
+  endif
+  if !has_key(g:syntastic_mode_map, "active_filetypes")
+    let g:syntastic_mode_map['active_filetypes'] = []
+  endif
+  if !has_key(g:syntastic_mode_map, "passive_filetypes")
+    let g:syntastic_mode_map['passive_filetypes'] = ['python', 'html']
+  endif
 if !has('python')
-  NeoBundle 'Shougo/neocomplcache' deprecated in favor of ycm
+  NeoBundle 'Shougo/neocomplcache'
+    let g:neocomplcache_enable_at_startup            = 1
+    let g:neocomplcache_enable_smart_case            = 1
+    let g:neocomplcache_enable_camel_case_completion = 1
+    let g:neocomplcache_enable_underbar_completion   = 1
+    " default # of completions is 100, that's crazy
+    let g:neocomplcache_max_list = 10
+    " words less than 3 letters long aren't worth completing
+    let g:neocomplcache_min_syntax_length = 3
+    " start filling in after 2 chars
+    let g:neocomplcache_auto_completion_start_length = 2
+    " This makes sure we use neocomplcache completefunc instead of
+    " the one in rails.vim, otherwise this plugin will crap out
+    let g:neocomplcache_force_overwrite_completefunc = 1
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+      let g:neocomplcache_omni_patterns = {}
+    endif
+    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+    if has("autocmd")
+      au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+      au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+      au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+      au FileType python        setlocal omnifunc=pythoncomplete#Complete
+      au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+      au FileType ruby          setlocal omnifunc=rubycomplete#Complete
+    endif
 endif
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-repeat'
@@ -93,6 +181,9 @@ NeoBundleLazy 'davejlong/cf-utils.vim',     {'autoload': {'filetypes': ['cfc', '
 NeoBundleLazy 'digitaltoad/vim-jade',       {'autoload': {'filetypes': ['jade']}}
 NeoBundle 'gregsexton/MatchTag'
 NeoBundleLazy 'groenewege/vim-less',        {'autoload': {'filetypes': ['less']}}
+  if has("autocmd")
+    au FileType less nnoremap <Leader>lc :w <BAR> !lessc % > %:t:r.css<CR><space>
+  endif
 NeoBundleLazy 'hail2u/vim-css3-syntax',     {'autoload': {'filetypes': ['css']}}
 NeoBundle 'itspriddle/vim-jquery'
 NeoBundleLazy 'juvenn/mustache.vim',        {'autoload': {'filetypes': ['handlebars', 'hbs', 'mustache']}}
@@ -100,6 +191,10 @@ NeoBundle 'elzr/vim-json'
 "NeoBundle 'leshill/vim-json'
 NeoBundleLazy 'mattn/emmet-vim',            {'autoload': {'filetypes': ['html','css','js','php']}}
 NeoBundleLazy 'mikehaertl/pdv-standalone',  {'autoload': {'filetypes': ['php', 'blade']}}
+  if has("autocmd")
+    au FileType php nnoremap <Leader>pd :call PhpDocSingle()<CR>
+    au FileType php vnoremap <Leader>pd :call PhpDocRange()<CR>
+  endif
 NeoBundleLazy 'othree/javascript-libraries-syntax.vim',  {'autoload': {'filetypes': ['js']}}
 NeoBundleLazy 'pangloss/vim-javascript',    {'autoload': {'filetypes': ['javascript']}}
 NeoBundle 'rodjek/vim-puppet'
@@ -182,6 +277,10 @@ set smartcase
 " fix regexes
 nnoremap / /\v
 vnoremap / /\v
+" The Silver Searcher
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
 
 " Wild and file globbing stuff
 set browsedir=buffer                  " browse files in same dir as open file
@@ -217,7 +316,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype specific
 if has("autocmd")
-  ""
   " Set editor configs
   " @TODO use editorconfig plugin instead
   " Makefiles, Python use real tabs
@@ -227,7 +325,6 @@ if has("autocmd")
   " Enable soft-wrapping for text files
   au FileType text,txt,markdown,html,xhtml,eruby setlocal wrap linebreak nolist textwidth=80
 
-  ""
   " Add syntax highlighting to these filetypes
   " vim-chef support for ruby files (turned off eruby)
   au FileType ruby setlocal filetype=ruby.eruby.chef
@@ -237,7 +334,6 @@ if has("autocmd")
 
   au BufRead,BufNewFile *.cap setlocal filetype=ruby
 
-  ""
   " HBS is a handlebars file
   au BufRead,BufNewFile *.hbs setlocal filetype=mustache
 
@@ -246,105 +342,6 @@ if has("autocmd")
     au BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
   endif
 
-  " Enable omni completion.
-  au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-  au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-  au FileType python        setlocal omnifunc=pythoncomplete#Complete
-  au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-  au FileType ruby          setlocal omnifunc=rubycomplete#Complete
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Command settings
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin settings
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ctrl-p
-" We don't want to use Ctrl-p as the mapping because
-" it interferes with YankRing (paste, then hit ctrl-p)
-let g:ctrlp_map            = '<C-t>'
-let g:ctrlp_jump_to_buffer = 2        " Jump to tab AND buffer if already open
-let g:ctrlp_split_window   = 1        " <CR> = New Tab
-let g:ctrlp_max_depth      = 10
-if executable('ag')
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" gitgutter off
-let g:gitgutter_enabled = 0
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Lightline
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTree
-let g:NERDTreeShowHidden = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neocomplcache
-let g:neocomplcache_enable_at_startup            = 1
-let g:neocomplcache_enable_smart_case            = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion   = 1
-" default # of completions is 100, that's crazy
-let g:neocomplcache_max_list = 10
-" words less than 3 letters long aren't worth completing
-let g:neocomplcache_min_syntax_length = 3
-" start filling in after 2 chars
-let g:neocomplcache_auto_completion_start_length = 2
-" This makes sure we use neocomplcache completefunc instead of
-" the one in rails.vim, otherwise this plugin will crap out
-let g:neocomplcache_force_overwrite_completefunc = 1
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" run syntastic on file open
-let g:syntastic_check_on_open       = 1
-let g:syntastic_auto_loc_list       = 1
-let g:syntastic_enable_signs        = 1
-let g:syntastic_enable_highlighting = 1
-if !exists("g:syntastic_mode_map")
-  let g:syntastic_mode_map = {}
-endif
-if !has_key(g:syntastic_mode_map, "mode")
-  let g:syntastic_mode_map['mode'] = 'active'
-endif
-if !has_key(g:syntastic_mode_map, "active_filetypes")
-  let g:syntastic_mode_map['active_filetypes'] = []
-endif
-if !has_key(g:syntastic_mode_map, "passive_filetypes")
-  let g:syntastic_mode_map['passive_filetypes'] = ['python', 'html']
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Supertab reverse Tab behavior
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Tagbar
-let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
-if has("autocmd")
-  autocmd FileType * nested :call tagbar#autoopen(0)
-  autocmd BufEnter * nested :call tagbar#autoopen(0)
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -352,16 +349,20 @@ endif
 " Map <Leader> to comma
 let mapleader = ","
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Reload vimrc
 nnoremap <silent> <leader>rc :so $MYVIMRC<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable vim help
+inoremap <F1> <nop>
+
+" Toggle paste mode
+nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
+inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
+
 " Map the arrow keys to be based on display lines, not physical lines
 map <Down> gj
 map <Up> gk
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use Ctrl-U/D for pg up and pg dn, maintains cursor position on screen
 " http://github.com/gf3/dotfiles/blob/fe8bba3711181728c670cad2d585705d8e68c5b7/.vimrc
 map <PageUp> <C-U>
@@ -499,7 +500,6 @@ else
   imap <C-9> <Esc>9gt
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keep search pattern at the center of the screen.
 " http://vimbits.com/bits/92
 nnoremap <silent> n nzz
@@ -509,7 +509,6 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Space to toggle folds.
 " https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
 nnoremap <Space> za
@@ -560,56 +559,6 @@ function! CleanCode()
   echo "Cleaned up this mess."
 endfunction
 nnoremap <leader>ws :call CleanCode()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin keys
-
-" Rainbow Parenthesis
-nnoremap <leader>rp :RainbowParenthesesToggle<CR>
-
-" Tabular
-nnoremap <Leader>a- :Tabularize /-<CR>
-vnoremap <Leader>a- :Tabularize /-<CR>
-nnoremap <Leader>a= :Tabularize /=<CR>
-vnoremap <Leader>a= :Tabularize /=<CR>
-nnoremap <Leader>a: :Tabularize /:\zs<CR>
-vnoremap <Leader>a: :Tabularize /:\zs<CR>
-nnoremap <Leader>a, :Tabularize /,<CR>
-vnoremap <Leader>a, :Tabularize /,<CR>
-nnoremap <Leader>af :Tabularize /=>/<CR>
-vnoremap <Leader>af :Tabularize /=>/<CR>
-
-if has("autocmd")
-  " vim-less - compile
-  au FileType less nnoremap <LocalLeader>lc :w <BAR> !lessc % > %:t:r.css<CR><space>
-
-  au FileType php nnoremap <Leader>pd :call PhpDocSingle()<CR>
-  au FileType php vnoremap <Leader>pd :call PhpDocRange()<CR>
-endif
-
-" Switch.vim plugin underscore to toggle booleans
-nnoremap _ :Switch<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Function keys, also for plugins
-
-" Disable vim help
-inoremap <F1> <nop>
-
-nnoremap <F1> :NERDTreeToggle<CR>
-
-nnoremap <F2> :BuffergatorToggle<CR>
-
-nnoremap <F3> :TagbarToggle<CR>
-
-" YankStack
-let g:yankstack_map_keys = 0
-nmap <C-p> <Plug>yankstack_substitute_newer_paste
-nmap <C-P> <Plug>yankstack_substitute_older_paste
-
-" Toggle paste mode
-nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
-inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Local config
