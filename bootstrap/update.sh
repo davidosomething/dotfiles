@@ -27,7 +27,7 @@ if [ $# -eq 0 ]; then
 
   # Update dotfiles
   dkostatus "Jumping to dotfiles directory" && pushd $HOME/.dotfiles >> /dev/null
-  dkostatus "Getting latest updates" && git stash && git pull --rebase --recurse-submodules && git stash apply
+  dkostatus "Getting latest updates" && git stash && git pull --rebase --recurse-submodules && git submodule update && git stash apply
   dkostatus "Back to original directory" popd >> /dev/null
 fi
 

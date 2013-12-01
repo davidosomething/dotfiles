@@ -206,6 +206,13 @@ NeoBundleLazy 'tpope/vim-markdown',         {'autoload': {'filetypes': ['markdow
 NeoBundle 'tpope/vim-ragtag'
 NeoBundle 'tpope/vim-rails'
 NeoBundleLazy 'vadv/vim-chef',              {'autoload': {'filetypes': ['ruby', 'eruby']}}
+NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
+  \ 'autoload': { 'filetypes': ['php'] },
+  \ 'build' :{
+  \    'mac' : 'make',
+  \    'unix' : 'make',
+  \    },
+  \ }
 NeoBundleLazy 'vim-ruby/vim-ruby',          {'autoload': {'filetypes': ['ruby', 'eruby', 'haml']}}
 
 " OS specific bundles
