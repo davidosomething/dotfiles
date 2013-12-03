@@ -27,9 +27,9 @@ if [[ $# -eq 0 ]]; then
   fi
 
   # Update dotfiles
-  dkostatus_ "  Jumping to dotfiles directory" && pushd $HOME/.dotfiles >> /dev/null
-  dkostatus_ "  Getting latest updates" && git pull --rebase --recurse-submodules && git submodule update
-  dkostatus_ "  Back to original directory" popd >> /dev/null
+  dkostatus_ "Jumping to dotfiles directory" && pushd $HOME/.dotfiles >> /dev/null
+  dkostatus_ "Getting latest updates" && git pull --rebase --recurse-submodules && git submodule update
+  dkostatus_ "Back to original directory" popd >> /dev/null
 fi
 
 dkostatus "You should run these commands as needed:"
