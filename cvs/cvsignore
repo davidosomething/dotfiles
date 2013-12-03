@@ -3,9 +3,28 @@
 # Named .cvsignore for legacy purposes (e.g. rsync reads this filename)
 
 ################################################################################
+# Compiled
+*.com
+*.dll
+*.exe
+*.o
+*.so
+
+################################################################################
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+################################################################################
 # OSX
-.DS_Store
 ._*
+.DS_Store
 .Spotlight-V100
 .Trashes
 
@@ -17,14 +36,15 @@ Desktop.ini
 ################################################################################
 # version control
 .git/
-/.hg/*
-*/.hg/*
+.hg/
 .svn/
+*.diff
+*.patch
 
 ################################################################################
 # editors
 *.swp
-/*.sublime-project
+*.sublime-project
 *.sublime-workspace
 *.tmproj
 *.tmproject
