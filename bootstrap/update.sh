@@ -22,7 +22,7 @@ function evil_git_num_untracked_files {
 if [ $# -eq 0 ]; then
   dkostatus "Updating dotfiles"
   # Make sure there are no untracked changes before updating dotfiles
-  if [[ $(evil_git_num_untracked_files) ]]; then
+  if [[ -n $(evil_git_num_untracked_files) ]]; then
     dkodie "You have unsaved changes in your ~/.dotfiles folder."
   fi
 
