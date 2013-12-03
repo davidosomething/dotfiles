@@ -16,18 +16,18 @@ popd >> /dev/null
 ##
 # Return number of untracked files in git
 function evil_git_num_untracked_files {
-  expr `git status --porcelain 2>/dev/null| grep "^??" | wc -l` 
+  expr `git status --porcelain 2>/dev/null| grep "^??" | wc -l`
 }
 
 if [ $# -eq 0 ]; then
   # Make sure there are no untracked changes before updating dotfiles
-  if [[ ! -n $(evil_git_num_untracked_files) ]]; then
+  if [[ $(evil_git_num_untracked_files) ]]; then
     dkodie "You have unsaved changes in your ~/.dotfiles folder."
   fi
 
   # Update dotfiles
   dkostatus "Jumping to dotfiles directory" && pushd $HOME/.dotfiles >> /dev/null
-  dkostatus "Getting latest updates" && git stash && git pull --rebase --recurse-submodules && git submodule update && git stash apply
+  dkostatus "Getting latest updates" && git pull --rebase --recurse-submodules && git submodule update
   dkostatus "Back to original directory" popd >> /dev/null
 fi
 
