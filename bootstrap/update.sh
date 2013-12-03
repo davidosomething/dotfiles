@@ -44,7 +44,8 @@ else
   echo "sysup                         # alias for osx software update"
 
   if [[ $has_args -eq 1 ]] && [[ "$1" = "brew" ]]; then
-    brew doctor && brew update && brew upgrade && brew cleanup
+    dkostatus "Updating homebrew"
+    brew update && brew upgrade && brew cleanup
 
   else
     echo "brew doctor"
@@ -57,6 +58,7 @@ fi
 echo "[common]"
 
 if [[ $has_args -eq 1 ]] && [[ "$1" = "gem" ]]; then
+  dkostatus "Updating gems"
   gem update --system && gem update && gem clean
 else
   echo "gem update --system"
