@@ -13,6 +13,9 @@ bootstrap_path="$dotfiles_path/bootstrap"
 source $bootstrap_path/helpers.sh
 popd >> /dev/null
 
+################################################################################
+# Begin
+has_args=0
 if [[ $# -eq 0 ]]; then
   dkostatus "Updating dotfiles"
   # Make sure there are no untracked changes before updating dotfiles
