@@ -20,15 +20,16 @@ function evil_git_num_untracked_files {
 }
 
 if [ $# -eq 0 ]; then
+  dkostatus "Updating dotfiles"
   # Make sure there are no untracked changes before updating dotfiles
   if [[ $(evil_git_num_untracked_files) ]]; then
     dkodie "You have unsaved changes in your ~/.dotfiles folder."
   fi
 
   # Update dotfiles
-  dkostatus "Jumping to dotfiles directory" && pushd $HOME/.dotfiles >> /dev/null
-  dkostatus "Getting latest updates" && git pull --rebase --recurse-submodules && git submodule update
-  dkostatus "Back to original directory" popd >> /dev/null
+  dkostatus_ "  Jumping to dotfiles directory" && pushd $HOME/.dotfiles >> /dev/null
+  dkostatus_ "  Getting latest updates" && git pull --rebase --recurse-submodules && git submodule update
+  dkostatus_ "  Back to original directory" popd >> /dev/null
 fi
 
 dkostatus "You should run these commands as needed:"
