@@ -46,7 +46,6 @@ else
   if [[ $has_args -eq 1 ]] && [[ "$1" = "brew" ]]; then
     dkostatus "Updating homebrew"
     brew update && brew upgrade && brew cleanup
-
   else
     echo "brew doctor"
     echo "brew update"
