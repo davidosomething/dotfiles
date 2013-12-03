@@ -25,6 +25,8 @@ if [[ $# -eq 0 ]]; then
   if [[ $updated_dotfiles -ne 0 ]]; then
     dkodie "You have unsaved changes in your ~/.dotfiles folder."
   fi
+else
+  has_args=1
 fi
 
 dkostatus "You should run these commands as needed:"
@@ -38,7 +40,7 @@ else
   echo "diskutil repairPermissions /  # fix file system permissions"
   echo "sysup                         # alias for osx software update"
 
-  if [[ "$1" = "brew" ]]; then
+  if [[ $has_args -eq 1 ]] && [[ "$1" = "brew" ]]; then
     brew doctor && brew update && brew upgrade && brew cleanup
 
   else
@@ -51,7 +53,7 @@ fi
 
 echo "[common]"
 
-if [[ "$1" = "gem" ]]; then
+if [[ $has_args -eq 1 ]] && [[ "$1" = "gem" ]]; then
   gem update --system && gem update && gem clean
 else
   echo "gem update --system"
