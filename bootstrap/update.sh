@@ -13,23 +13,18 @@ bootstrap_path="$dotfiles_path/bootstrap"
 source $bootstrap_path/helpers.sh
 popd >> /dev/null
 
-##
-# Return number of untracked files in git
-function evil_git_num_untracked_files {
-  expr `git status --porcelain 2>/dev/null| grep "^??" | wc -l`
-}
-
 if [[ $# -eq 0 ]]; then
   dkostatus "Updating dotfiles"
   # Make sure there are no untracked changes before updating dotfiles
-  if [[ "$(evil_git_num_untracked_files)" = "0" ]]; then
-    dkodie "You have unsaved changes in your ~/.dotfiles folder."
-  fi
 
   # Update dotfiles
   dkostatus_ "Jumping to dotfiles directory" && pushd $HOME/.dotfiles >> /dev/null
   dkostatus_ "Getting latest updates" && git pull --rebase --recurse-submodules && git submodule update
-  dkostatus_ "Back to original directory" popd >> /dev/null
+  updated_dotfiles=$?
+  dkostatus_ "Back to original directory" && popd >> /dev/null
+  if [[ $updated_dotfiles -ne 0 ]]; then
+    dkodie "You have unsaved changes in your ~/.dotfiles folder."
+  fi
 fi
 
 dkostatus "You should run these commands as needed:"
