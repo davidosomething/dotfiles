@@ -46,20 +46,33 @@ install vagrant-completion
 
 tap phinze/homebrew-cask
 install brew-cask
+cask install adium
 cask install alfred
+cask install android-file-transfer
+cask install bettertouchtool
+cask install bowtie
 cask install caffeine
+cask install cord
+cask install dash
 cask install dropbox
 cask install firefox
+cask install gitifier
 cask install google-chrome
 cask install google-drive
+cask install iterm2
+cask install jing
+cask install join-me
 cask install kaleidoscope
 cask install keyremap4macbook
+cask install lastfm
 cask install lastpass-universal
 cask install noejectdelay
 cask install nosleep
 cask install nvalt
 cask install skype
+cask install toggldesktop
 cask install transmit
 cask install vagrant
 cask install virtualbox
 cask install vlc
+cask install xquartz

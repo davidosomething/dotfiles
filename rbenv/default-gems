@@ -5,7 +5,7 @@ capistrano
 capistrano-composer
 chunky_png
 commander
-compass
+compass --pre
 fssm
 ghost
 highline
