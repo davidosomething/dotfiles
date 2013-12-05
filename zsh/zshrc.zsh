@@ -41,6 +41,7 @@ source $ZSH_DOTFILES/prompt.zsh
 ##
 # completion
 #source $ZSH_DOTFILES/completions.zsh
+zstyle ':completion:*' users
 ##
 # Bash completion compatibility
 autoload -Uz bashcompinit && bashcompinit

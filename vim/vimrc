@@ -24,6 +24,9 @@ endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+" Map <Leader> to comma
+let mapleader = ","
+
 " plugin dependencies
 NeoBundle 'Shougo/vimproc'
 NeoBundle "MarcWeber/vim-addon-mw-utils"
@@ -34,7 +37,7 @@ NeoBundle 'rizzatti/funcoo.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
-  nnoremap <leader>rp :RainbowParenthesesToggle<CR>
+  nnoremap <Leader>rp :RainbowParenthesesToggle<CR>
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vim-scripts/IndexedSearch'
 NeoBundle 'vim-scripts/kwbdi.vim'
@@ -100,16 +103,16 @@ NeoBundle 'ervandew/supertab'
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
 NeoBundle 'garbas/vim-snipmate'
 NeoBundle 'godlygeek/tabular'
-  nnoremap <Leader>a- :Tabularize /-<CR>
-  vnoremap <Leader>a- :Tabularize /-<CR>
-  nnoremap <Leader>a= :Tabularize /=<CR>
-  vnoremap <Leader>a= :Tabularize /=<CR>
-  nnoremap <Leader>a: :Tabularize /:\zs<CR>
-  vnoremap <Leader>a: :Tabularize /:\zs<CR>
-  nnoremap <Leader>a, :Tabularize /,<CR>
-  vnoremap <Leader>a, :Tabularize /,<CR>
-  nnoremap <Leader>af :Tabularize /=>/<CR>
-  vnoremap <Leader>af :Tabularize /=>/<CR>
+  nmap <Leader>a- :Tabularize /-<CR>
+  vmap <Leader>a- :Tabularize /-<CR>
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+  nmap <Leader>a, :Tabularize /,<CR>
+  vmap <Leader>a, :Tabularize /,<CR>
+  nmap <Leader>af :Tabularize /=>/<CR>
+  vmap <Leader>af :Tabularize /=>/<CR>
 NeoBundle 'maxbrunsfeld/vim-yankstack'
   let g:yankstack_map_keys = 0
   nmap <C-p> <Plug>yankstack_substitute_newer_paste
@@ -353,11 +356,9 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keyboard - most of this is straight from Janus
-" Map <Leader> to comma
-let mapleader = ","
 
 " Reload vimrc
-nnoremap <silent> <leader>rc :so $MYVIMRC<CR>
+nnoremap <silent> <Leader>rc :so $MYVIMRC<CR>
 
 " Disable vim help
 inoremap <F1> <nop>
@@ -382,7 +383,7 @@ imap <PageDown> <C-O><C-D>
 command! -bang W w<bang>
 
 " cd to the directory containing the file in the buffer
-nnoremap <silent> <leader>cd :lcd %:h<CR>
+nnoremap <silent> <Leader>cd :lcd %:h<CR>
 
 function! ChangeToVCSRoot()
   let cph = expand('%:p:h', 1)
@@ -393,17 +394,17 @@ function! ChangeToVCSRoot()
   endfo
   exe 'lc!' fnameescape(wd == '' ? cph : substitute(wd, mkr.'$', '.', ''))
 endfunction
-nnoremap <silent> <leader>cdr :call ChangeToVCSRoot()<CR>
+nnoremap <silent> <Leader>cdr :call ChangeToVCSRoot()<CR>
 
 " Create the directory containing the file in the buffer
-nnoremap <silent> <leader>md :!mkdir -p %:p:h<CR>
+nnoremap <silent> <Leader>md :!mkdir -p %:p:h<CR>
 
 " upper/lower word
-nmap <leader>u mQviwU`Q
-nmap <leader>l mQviwu`Q
+nmap <Leader>u mQviwU`Q
+nmap <Leader>l mQviwu`Q
 
-" Toggle hlsearch with <leader>hs
-nnoremap <leader>hs :set hlsearch! hlsearch?<CR>
+" Toggle hlsearch with <Leader>hs
+nnoremap <Leader>hs :set hlsearch! hlsearch?<CR>
 
 if has("gui_macvim") && has("gui_running")
   " Map command-[ and command-] to indenting or outdenting
@@ -523,13 +524,13 @@ vnoremap <Space> za
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Split manipulation
-nnoremap <leader>v :vsplit<cr>
+nnoremap <Leader>v :vsplit<cr>
 " resize vertical splits
-nmap <leader>_ <C-w>>
-nmap <leader>+ <C-w><
+nmap <Leader>_ <C-w>>
+nmap <Leader>+ <C-w><
 " resize horizontal splits
-nmap <leader>- <C-w>-
-nmap <leader>= <C-w>+
+nmap <Leader>- <C-w>-
+nmap <Leader>= <C-w>+
 " swap splits with \mw (mark this one) and \pw (swap with this one)
 " http://stackoverflow.com/questions/2586984/how-can-i-swap-positions-of-two-open-files-in-splits-in-vim
 function! MarkWindowSwap()
@@ -549,8 +550,8 @@ function! DoWindowSwap()
   "Hide and open so that we aren't prompted and keep history
   exe 'hide buf' markedBuf
 endfunction
-nnoremap <silent> <leader>mw :call MarkWindowSwap()<CR>
-nnoremap <silent> <leader>pw :call DoWindowSwap()<CR>
+nnoremap <silent> <Leader>mw :call MarkWindowSwap()<CR>
+nnoremap <silent> <Leader>pw :call DoWindowSwap()<CR>
 
 " Splits
 nnoremap <silent> <C-k> :wincmd k<CR>
@@ -565,7 +566,7 @@ function! CleanCode()
   %s= *$==e " Delete end of line blanks
   echo "Cleaned up this mess."
 endfunction
-nnoremap <leader>ws :call CleanCode()<cr>
+nnoremap <Leader>ws :call CleanCode()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Local config
