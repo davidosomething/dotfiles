@@ -6,17 +6,16 @@ apacheconf() {
 
 ##
 # Change directory to the nearest repo root
-cdr()
-{
+cdr() {
   local dir=${1:-$PWD}
   if [[ -d $dir/.svn ]]; then
-      while [[ -d $dir/.. && -d $dir/../.svn ]]; do
-          dir+=/..
-      done
+    while [[ -d $dir/.. && -d $dir/../.svn ]]; do
+      dir+=/..
+    done
   else
-      while [[ -d $dir && ! ( -d $dir/.git || -d $dir/.hg || -d $dir/.bzr ) ]]; do
-          dir+=/..
-      done
+    while [[ -d $dir && ! ( -d $dir/.git || -d $dir/.hg || -d $dir/.bzr ) ]]; do
+      dir+=/..
+    done
   fi
   [[ -d $dir ]] && cd "$dir"
 }
@@ -32,24 +31,24 @@ gitexport() {
 # extract most known archive types
 # http://alias.sh/extract-most-know-archives-one-command
 extract() {
-    if [ -f $1 ] ; then
-      case $1 in
-        *.tar.bz2)   tar xjf $1     ;;
-        *.tar.gz)    tar xzf $1     ;;
-        *.bz2)       bunzip2 $1     ;;
-        *.rar)       unrar e $1     ;;
-        *.gz)        gunzip $1      ;;
-        *.tar)       tar xf $1      ;;
-        *.tbz2)      tar xjf $1     ;;
-        *.tgz)       tar xzf $1     ;;
-        *.zip)       unzip $1       ;;
-        *.Z)         uncompress $1  ;;
-        *.7z)        7z x $1        ;;
-        *)     echo "'$1' cannot be extracted via extract()" ;;
-         esac
-     else
-         echo "'$1' is not a valid file"
-     fi
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1     ;;
+      *.tar.gz)    tar xzf $1     ;;
+      *.bz2)       bunzip2 $1     ;;
+      *.rar)       unrar e $1     ;;
+      *.gz)        gunzip $1      ;;
+      *.tar)       tar xf $1      ;;
+      *.tbz2)      tar xjf $1     ;;
+      *.tgz)       tar xzf $1     ;;
+      *.zip)       unzip $1       ;;
+      *.7z)        7z x $1        ;;
+      *.Z)         uncompress $1  ;;
+      *)     echo "'$1' cannot be extracted via extract()" ;;
+  esac
+else
+  echo "'$1' is not a valid file"
+fi
 }
 
 ##
@@ -101,6 +100,7 @@ phpminorvernum() {
   echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]a[2]}' )
 }
 
+##
 # source a file if it exists
 source_if_exists() {
   [ -f $1 ] && source $1 # && echo "Sourced $1"
@@ -108,7 +108,7 @@ source_if_exists() {
 
 ##
 # Edit apache virtual hosts, needs to be a function to interpolate that variable
-vhosts() {
+evhosts() {
   e $APACHE_HTTPD_VHOSTS
 }
 
@@ -116,7 +116,7 @@ vhosts() {
 # os specific
 case "$OSTYPE" in
   darwin*)  [ -f "$BASH_DOTFILES/functions-osx.sh" ] && source "$BASH_DOTFILES/functions-osx.sh"
-            ;;
+    ;;
   linux*)   [ -f "$BASH_DOTFILES/functions-linux.sh" ] && source "$BASH_DOTFILES/functions-linux.sh"
-            ;;
+    ;;
 esac
