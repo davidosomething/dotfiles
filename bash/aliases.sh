@@ -45,9 +45,6 @@ alias cunt="COMPOSER_CACHE_DIR=/dev/null composer update"
 # server
 alias pyserve="python -m SimpleHTTPServer"
 
-# vim
-alias vimup="vim -c ':NeoBundleUpdate' -c ':qa'"
-
 ##
 # os specific
 case "$OSTYPE" in

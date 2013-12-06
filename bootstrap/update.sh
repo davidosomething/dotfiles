@@ -65,6 +65,17 @@ else
   echo "gem clean"
 fi
 
-echo "npm update -g"
+if [[ $has_args -eq 1 ]] && [[ "$1" = "npm" ]]; then
+  dkostatus "Updating global npm modules"
+  npm update -g
+else
+  echo "npm update -g"
+fi
+
 echo "heroku update"
-echo "vimup"                        # alias that updates vim plugins"
+
+if [[ $has_args -eq 1 ]] && [[ "$1" = "vim" ]]; then
+  vim -c ':NeoBundleUpdate' -c ':qa'
+else
+  echo "vim -c ':NeoBundleUpdate' -c ':qa'"
+fi
