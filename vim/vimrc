@@ -35,6 +35,7 @@ NeoBundle 'rizzatti/funcoo.vim'
 
 " ui
 NeoBundle 'altercation/vim-colors-solarized'
+  call togglebg#map("<F5>")
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
   nnoremap <Leader>rp :RainbowParenthesesToggle<CR>
