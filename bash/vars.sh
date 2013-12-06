@@ -11,19 +11,21 @@ export SAVEHIST=500
 
 ################################################################################
 # program settings
-export EDITOR=vim
+export AUTOJUMP_IGNORE_CASE=1
 
-# -F exit if only one screen, -X noclearscreen
-export LESS=-erF
+export EDITOR=vim
 
 # git
 export GIT_PAGER="less -erFX"
 
-# rbenv
-export RBENV_ROOT="$HOME/.rbenv"
+# -F exit if only one screen, -X noclearscreen
+export LESS=-erF
 
 # node
 export NODE_PATH="/usr/local/lib/node_modules"
+
+# rbenv
+export RBENV_ROOT="$HOME/.rbenv"
 
 ################################################################################
 # useful file paths
