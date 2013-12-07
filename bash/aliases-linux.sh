@@ -19,9 +19,6 @@ fi
 # gui
 alias open='xdg-open'
 
-# updates
-alias wpcliup="pushd ~/.wp-cli && php composer.phar self-update && php composer.phar update --no-dev && popd"
-
 ################################################################################
 # dev
 alias composer="php $HOME/.composer/bin/composer.phar"

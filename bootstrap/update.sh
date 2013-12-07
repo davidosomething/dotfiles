@@ -17,6 +17,58 @@ popd >> /dev/null
 # Begin
 has_args=0
 if [[ $# -eq 0 ]]; then
+  dkousage "update [thing]"
+  dkousage_ "thing is one of:"
+  dkousage_ "  dotfiles"
+  dkousage_ "  gem"
+  dkousage_ "  heroku"
+  dkousage_ "  npm"
+  dkousage_ "  pip"
+  dkousage_ "  vim"
+  dkousage_ "  osx    # osx only"
+  dkousage_ "  brew   # osx only"
+  dkousage_ "  rbenv  # linux only"
+  dkousage_ "  wp-cli # linux only"
+  exit 1
+fi
+
+################################################################################
+# Linux only
+if [[ $OSTYPE = "linux-gnu" ]]; then
+  if [[ "$1" = "wp" ]]; then
+    dkostatus "Update wp-cli"
+    pushd ~/.wp-cli &&
+    php composer.phar self-update &&
+    php composer.phar update --no-dev &&
+    popd
+  fi
+
+  if [[ "$1" = "rbenv" ]]; then
+    dkostatus "Update rbenv"
+    rbenv update                  # update rbenv and installed gems
+  fi
+fi
+
+################################################################################
+# OSX only
+if [[ $OSTYPE = "darwin" ]]; then
+  if [[ "$1" = "osx" ]]; then
+    dkostatus "Repairing permissions"
+    diskutil repairPermissions /  # fix file system permissions
+
+    dkostatus "OSX system update"
+    sudo softwareupdate -i -a
+  fi
+
+  if [[ "$1" = "brew" ]]; then
+    dkostatus "Updating homebrew"
+    brew update && brew upgrade && brew cleanup
+  fi
+fi
+
+################################################################################
+# Common
+if [[ "$1" = "dotfiles" ]]; then
   dkostatus "Updating dotfiles"
   # Make sure there are no untracked changes before updating dotfiles
 
@@ -28,54 +80,28 @@ if [[ $# -eq 0 ]]; then
   if [[ $updated_dotfiles -ne 0 ]]; then
     dkodie "You have unsaved changes in your ~/.dotfiles folder."
   fi
-else
-  has_args=1
 fi
 
-dkostatus "You should run these commands as needed:"
-if [[ $OSTYPE = "linux-gnu" ]]; then
-  echo "[linux only]"
-  echo "wpcliup                       # update wp-cli"
-  echo "rbenv update                  # update rbenv and installed gems"
-
-else
-  echo "[osx only]"
-  echo "diskutil repairPermissions /  # fix file system permissions"
-  echo "sysup                         # alias for osx software update"
-
-  if [[ $has_args -eq 1 ]] && [[ "$1" = "brew" ]]; then
-    dkostatus "Updating homebrew"
-    brew update && brew upgrade && brew cleanup
-  else
-    echo "brew doctor"
-    echo "brew update"
-    echo "brew upgrade"
-    echo "brew cleanup"
-  fi
-fi
-
-echo "[common]"
-
-if [[ $has_args -eq 1 ]] && [[ "$1" = "gem" ]]; then
+if [[ "$1" = "gem" ]]; then
   dkostatus "Updating gems"
   gem update --system && gem update && gem clean
-else
-  echo "gem update --system"
-  echo "gem update"
-  echo "gem clean"
 fi
 
-if [[ $has_args -eq 1 ]] && [[ "$1" = "npm" ]]; then
+if [[ "$1" = "heroku" ]]; then
+  heroku update
+fi
+
+if [[ "$1" = "npm" ]]; then
   dkostatus "Updating global npm modules"
   npm update -g
-else
-  echo "npm update -g"
 fi
 
-echo "heroku update"
+if [[ "$1" = "pip" ]]; then
+  dkostatus "Updating pip"
+  sudo easy_install -U pip
+fi
 
-if [[ $has_args -eq 1 ]] && [[ "$1" = "vim" ]]; then
+if [[ "$1" = "vim" ]]; then
+  dkostatus "Updating vim bundles"
   vim -c ':NeoBundleUpdate' -c ':qa'
-else
-  echo "vim -c ':NeoBundleUpdate' -c ':qa'"
 fi

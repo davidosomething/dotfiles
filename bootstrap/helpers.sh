@@ -10,6 +10,10 @@ dkostatus()     { echo -e "\033[0;34m==>\033[0;32m $*\033[0;m"; }
 dkostatus_()    { echo -e "\033[0;32m    $*\033[0;m"; }
 dkoerr()        { echo -e "\033[0;31m==> \033[0;33mERROR: \033[0;31m$*\033[0;m" >&2; }
 dkoerr_()       { echo -e "\033[0;31m    $*\033[0;m" >&2; }
+
+dkousage()        { echo -e "\033[0;34m==> \033[0;34mUSAGE: \033[0;32m$*\033[0;m"; }
+dkousage_()       { echo -e "\033[0;29m    $*\033[0;m"; }
+
 dkoinstalling() { dkostatus "Installing \033[0;33m$1\033[0;32m..."; }
 dkosymlinking() { dkostatus "Symlinking \033[0;35m$1\033[0;32m -> \033[0;35m$2\033[0;32m "; }
 dkodie()        { dkoerr "$*"; exit 256; }
