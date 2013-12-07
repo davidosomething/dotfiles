@@ -76,3 +76,11 @@ cask install vagrant
 cask install virtualbox
 cask install vlc
 cask install xquartz
+
+# quicklook
+cask install betterzipql
+cask install qlcolorcode
+cask install qlimagesize
+cask install qlmarkdown
+cask install qlstephen
+
