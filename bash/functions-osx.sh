@@ -1,3 +1,6 @@
+##
+# creepy messages on afk
+# http://www.reddit.com/r/apple/comments/1s902t/type_this_into_your_terminal_to_have_funannoy/cdvcgsv
 afk() {
   words=('please help me' 'i am so alone' 'i am lonely' 'let me out' 'i must feed' 'it puts the lotion' 'my precious');
   while [ 1 = 1 ]; do
