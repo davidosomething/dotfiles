@@ -1,3 +1,11 @@
+afk() {
+  words=('please help me' 'i am so alone' 'i am lonely' 'let me out' 'i must feed' 'it puts the lotion' 'my precious');
+  while [ 1 = 1 ]; do
+    say "${words[$[ $[ RANDOM % ${#words[@]} ]]]}" -v Whisper -r 2
+    sleep 100
+  done
+}
+
 ##
 # open current repo's github page in browser
 github() {
