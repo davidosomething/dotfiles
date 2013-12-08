@@ -83,4 +83,6 @@ cask install qlcolorcode
 cask install qlimagesize
 cask install qlmarkdown
 cask install qlstephen
-
+cask install quicklook-csv
+cask install quicklook-json
+cask install webp-quicklook
