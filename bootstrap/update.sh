@@ -33,38 +33,39 @@ if [[ $# -eq 0 ]]; then
 fi
 
 ################################################################################
-# Linux only
-if [[ $OSTYPE = "linux-gnu" ]]; then
-  if [[ "$1" = "wp" ]]; then
-    dkostatus "Update wp-cli"
-    pushd ~/.wp-cli &&
-    php composer.phar self-update &&
-    php composer.phar update --no-dev &&
-    popd
-  fi
+case "$OSTYPE" in
+  linux*)
+    if [[ $OSTYPE = "linux-gnu" ]]; then
+      if [[ "$1" = "wp" ]]; then
+        dkostatus "Update wp-cli"
+        pushd ~/.wp-cli &&
+        php composer.phar self-update &&
+        php composer.phar update --no-dev &&
+        popd
+      fi
 
-  if [[ "$1" = "rbenv" ]]; then
-    dkostatus "Update rbenv"
-    rbenv update                  # update rbenv and installed gems
-  fi
-fi
+      if [[ "$1" = "rbenv" ]]; then
+        dkostatus "Update rbenv"
+        rbenv update                  # update rbenv and installed gems
+      fi
+    fi
+    ;;
 
-################################################################################
-# OSX only
-if [[ $OSTYPE = "darwin" ]]; then
-  if [[ "$1" = "osx" ]]; then
-    dkostatus "Repairing permissions"
-    diskutil repairPermissions /  # fix file system permissions
+  darwin*)
+    if [[ "$1" = "osx" ]]; then
+      dkostatus "Repairing permissions"
+      diskutil repairPermissions /  # fix file system permissions
 
-    dkostatus "OSX system update"
-    sudo softwareupdate -i -a
-  fi
+      dkostatus "OSX system update"
+      sudo softwareupdate -i -a
+    fi
 
-  if [[ "$1" = "brew" ]]; then
-    dkostatus "Updating homebrew"
-    brew update && brew upgrade && brew cleanup
-  fi
-fi
+    if [[ "$1" = "brew" ]]; then
+      dkostatus "Updating homebrew"
+      brew update && brew upgrade && brew cleanup
+    fi
+  ;;
+esac
 
 ################################################################################
 # Common
