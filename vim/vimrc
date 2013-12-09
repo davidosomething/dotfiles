@@ -7,102 +7,135 @@ endif
 
 " plugin management
 filetype off
-if v:version >= 704
-  let iCanHazBundle=1
-  let bundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
-  if !filereadable(bundle_readme)
-     echo "Installing Neobundle..."
-     if has("unix")
-        silent !mkdir -p ~/.vim/bundle
-        silent !git clone https://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
-      endif
-     let iCanHazBundle=0
-  endif
+if has("vim_starting")
+  set nocompatible
   set rtp+=~/.vim/bundle/neobundle.vim/
 endif
-
 call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Map <Leader> to comma
 let mapleader = ","
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin dependencies
-NeoBundle 'Shougo/vimproc'
-NeoBundle "MarcWeber/vim-addon-mw-utils"
-NeoBundle "tomtom/tlib_vim"
+NeoBundle 'Shougo/vimproc', {
+      \   'build': {
+      \     'windows': 'make -f make_mingw32.mak',
+      \     'cygwin':  'make -f make_cygwin.mak',
+      \     'mac':     'make -f make_mac.mak',
+      \     'unix':    'make -f make_unix.mak',
+      \   }
+      \ }
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
+NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'rizzatti/funcoo.vim'
+NeoBundleLazy 'kana/vim-operator-user', {
+      \   'autoload' : {
+      \     'functions' : 'operator#user#define'
+      \   }
+      \ }
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ui
 NeoBundle 'altercation/vim-colors-solarized'
   call togglebg#map("<F5>")
 NeoBundle 'itchyny/lightline.vim'
+  let g:lightline = {
+        \   'active': {
+        \     'left': [
+        \         [ 'mode', 'paste' ],
+        \         [ 'fugitive', 'readonly', 'filename', 'modified' ]
+        \     ]
+        \   },
+        \   'component': {
+        \     'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+        \     'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+        \     'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+        \   },
+        \   'component_visible_condition': {
+        \     'readonly': '(&filetype!="help"&& &readonly)',
+        \     'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+        \     'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+        \   },
+        \ }
 NeoBundle 'kien/rainbow_parentheses.vim'
-  nnoremap <Leader>rp :RainbowParenthesesToggle<CR>
+  nnoremap <F4> :RainbowParenthesesToggle<CR>
 NeoBundle 'nathanaelkane/vim-indent-guides'
+  nnoremap <F5> :IndentGuidesToggle<CR>
 NeoBundle 'vim-scripts/IndexedSearch'
 NeoBundle 'vim-scripts/kwbdi.vim'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " menus and special features
-" snipmate depends on vim-addon-mw-utils and tlib_vim
-NeoBundle 'int3/vim-extradite'
+if s:uname == "Darwin\n"
+  NeoBundle 'henrik/vim-reveal-in-finder'
+endif
 NeoBundle 'jeetsukumaran/vim-buffergator'
   nnoremap <F2> :BuffergatorToggle<CR>
-NeoBundle 'kien/ctrlp.vim'
+NeoBundleLazy 'kien/ctrlp.vim'
   " We don't want to use Ctrl-p as the mapping because
   " it interferes with YankRing (paste, then hit ctrl-p)
   let g:ctrlp_map            = '<C-t>'
   let g:ctrlp_jump_to_buffer = 2        " Jump to tab AND buffer if already open
   let g:ctrlp_split_window   = 1        " <CR> = New Tab
-  let g:ctrlp_max_depth      = 10
+  let g:ctrlp_max_depth      = 4
   if executable('ag')
     " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-    " ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
   endif
 if executable("ctags")
-  NeoBundleLazy 'majutsushi/tagbar',        {'autoload': {'commands': ['TagbarClose', 'TagbarOpen','TagbarToggle']}}
+  NeoBundle 'majutsushi/tagbar', {
+        \   'autoload': {
+        \     'commands': [ 'TagbarClose', 'TagbarOpen', 'TagbarToggle' ]
+        \   }
+        \ }
     let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
     if has("autocmd")
       au FileType * nested :call tagbar#autoopen(0)
       au BufEnter * nested :call tagbar#autoopen(0)
     endif
-    nnoremap <F3> :TagbarToggle<CR>
 endif
 NeoBundle 'Rykka/lastbuf.vim'
-
-NeoBundleLazy 'scrooloose/nerdtree',        {'autoload': {'commands': ['NERDTreeToggle','NERDTree']}}
+NeoBundleLazy 'scrooloose/nerdtree', {
+      \   'autoload': {
+      \     'commands': [ 'NERDTreeFind', 'NERDTreeToggle', 'NERDTree' ]
+      \   }
+      \ }
   let g:NERDTreeShowHidden = 1
   nnoremap <F1> :NERDTreeToggle<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " commands
+NeoBundle 'airblade/vim-gitgutter'
+  let g:gitgutter_enabled = 0
+  nnoremap <F3> :GitGutterToggle<CR>
+if has("gui_macvim")
+  NeoBundle 'rizzatti/dash.vim', {
+        \   'depends': 'rizzatti/funcoo.vim'
+        \ }
+endif
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-eunuch'
 NeoBundle 'vim-scripts/Rename2'
-NeoBundle 'rizzatti/dash.vim'
 
-" editing keys and commands
-NeoBundle 'AndrewRadev/switch.vim'
-  " Switch.vim plugin underscore to toggle booleans
-  nnoremap _ :Switch<cr>
-
-if has('python')
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" editing keys
+if has("python")
   NeoBundle 'Valloric/YouCompleteMe', {
-    \ 'build' : {
-    \   'mac' : './install.sh --clang-completer --system-libclang',
-    \   'unix' : './install.sh --clang-completer --system-libclang'
-    \ }
-  \ }
+      \   'build' : {
+      \     'mac' : './install.sh --clang-completer --system-libclang',
+      \     'unix' : './install.sh --clang-completer --system-libclang'
+      \   }
+      \ }
 endif
-NeoBundle 'airblade/vim-gitgutter'
-  let g:gitgutter_enabled = 0
 NeoBundle 'edsono/vim-matchit'
 NeoBundle 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
-NeoBundle 'garbas/vim-snipmate'
+NeoBundle 'garbas/vim-snipmate', {
+      \   'depends': [ 'MarcWeber/vim-addon-mw-utils', 'tomtom/tlib_vim' ]
+      \ }
 NeoBundle 'godlygeek/tabular'
   nmap <Leader>a- :Tabularize /-<CR>
   vmap <Leader>a- :Tabularize /-<CR>
@@ -122,25 +155,7 @@ NeoBundle 'michaeljsmith/vim-indent-object'
 NeoBundle 'nishigori/vim-sunday'
 NeoBundle 'paradigm/TextObjectify'
 NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'scrooloose/syntastic'
-  " run syntastic on file open
-  let g:syntastic_check_on_open       = 1
-  let g:syntastic_auto_loc_list       = 1
-  let g:syntastic_enable_signs        = 1
-  let g:syntastic_enable_highlighting = 1
-  if !exists("g:syntastic_mode_map")
-    let g:syntastic_mode_map = {}
-  endif
-  if !has_key(g:syntastic_mode_map, "mode")
-    let g:syntastic_mode_map['mode'] = 'active'
-  endif
-  if !has_key(g:syntastic_mode_map, "active_filetypes")
-    let g:syntastic_mode_map['active_filetypes'] = []
-  endif
-  if !has_key(g:syntastic_mode_map, "passive_filetypes")
-    let g:syntastic_mode_map['passive_filetypes'] = ['python', 'html']
-  endif
-if !has('python')
+if !has("python")
   NeoBundle 'Shougo/neocomplcache'
     let g:neocomplcache_enable_at_startup            = 1
     let g:neocomplcache_enable_smart_case            = 1
@@ -171,69 +186,131 @@ if !has('python')
     endif
 endif
 NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-repeat', {
+      \   'autoload': { 'mappings': '.' }
+      \ }
 NeoBundle 'tpope/vim-speeddating'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'tyru/operator-camelize.vim', {
+      \   'depends': 'vim-operator-user',
+      \   'autoload': {
+      \     'mappings': [
+      \       [ '<Plug>(operator-camelize-)' ]
+      \     ]
+      \   }
+      \ }
+      nmap <c-c> <Plug>(operator-camelize-toggle)
+NeoBundleLazy 'kana/vim-operator-replace', {
+      \   'depends': 'vim-operator-user',
+      \   'autoload': {
+      \     'mappings': [
+      \       [ 'nx', '<Plug>(operator-replace)' ],
+      \     ],
+      \   }
+      \ }
+      map _ <Plug>(operator-replace)
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax highlighting and filetype specific
-NeoBundle 'editorconfig/editorconfig-vim'
-NeoBundle 'acustodioo/vim-tmux'
+NeoBundleLazy 'acustodioo/vim-tmux'
 " NeoBundle 'cakebaker/scss-syntax.vim'
-NeoBundleLazy 'davejlong/cf-utils.vim',     {'autoload': {'filetypes': ['cfc', 'cfm']}}
-NeoBundleLazy 'digitaltoad/vim-jade',       {'autoload': {'filetypes': ['jade']}}
-NeoBundle 'gregsexton/MatchTag'
-NeoBundleLazy 'groenewege/vim-less',        {'autoload': {'filetypes': ['less']}}
+NeoBundleLazy 'davejlong/cf-utils.vim', {
+      \   'autoload': { 'filetypes': [ 'cfc', 'cfm' ] }
+      \ }
+NeoBundleLazy 'digitaltoad/vim-jade', {
+      \   'autoload': { 'filetypes': ['jade'] }
+      \ }
+if has("python")
+  NeoBundle 'editorconfig/editorconfig-vim'
+  let g:EditorConfig_core_mode = 'python_builtin'
+  let g:EditorConfig_python_files_dir = $DOTFILES . "/vim/bundle/editorconfig-vim/plugin/editorconfig-core-py"
+endif
+NeoBundleLazy 'gregsexton/MatchTag'
+NeoBundleLazy 'groenewege/vim-less', {
+      \   'autoload': {'filetypes': ['less']}
+      \ }
   if has("autocmd")
     au FileType less nnoremap <Leader>lc :w <BAR> !lessc % > %:t:r.css<CR><space>
   endif
-NeoBundleLazy 'hail2u/vim-css3-syntax',     {'autoload': {'filetypes': ['css']}}
-NeoBundle 'itspriddle/vim-jquery'
-NeoBundleLazy 'juvenn/mustache.vim',        {'autoload': {'filetypes': ['handlebars', 'hbs', 'mustache']}}
-NeoBundle 'elzr/vim-json'
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
+      \   'autoload': { 'filetypes': ['css'] }
+      \ }
+NeoBundleLazy 'itspriddle/vim-jquery'
+NeoBundleLazy 'juvenn/mustache.vim', {
+      \   'autoload': { 'filetypes': ['handlebars', 'hbs', 'mustache'] }
+      \ }
+NeoBundleLazy 'elzr/vim-json', {
+      \   'autoload': { 'filetypes': 'json' }
+      \ }
 "NeoBundle 'leshill/vim-json'
-NeoBundleLazy 'mattn/emmet-vim',            {'autoload': {'filetypes': ['html','css','js','php']}}
-NeoBundleLazy 'mikehaertl/pdv-standalone',  {'autoload': {'filetypes': ['php', 'blade']}}
+NeoBundle 'mattn/emmet-vim'
+NeoBundleLazy 'mikehaertl/pdv-standalone', {
+      \   'autoload': { 'filetypes': ['php', 'blade'] }
+      \ }
   if has("autocmd")
     au FileType php nnoremap <Leader>pd :call PhpDocSingle()<CR>
     au FileType php vnoremap <Leader>pd :call PhpDocRange()<CR>
   endif
-NeoBundleLazy 'othree/javascript-libraries-syntax.vim',  {'autoload': {'filetypes': ['js']}}
-NeoBundleLazy 'pangloss/vim-javascript',    {'autoload': {'filetypes': ['javascript']}}
-NeoBundle 'rodjek/vim-puppet'
-NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetypes': ['php', 'blade']}}
-NeoBundleLazy 'skammer/vim-css-color',      {'autoload': {'filetypes': ['html', 'css', 'less', 'sass', 'javascript', 'coffee', 'coffeescript']}}
-NeoBundleLazy 'tpope/vim-git',              {'autoload': {'filetypes': ['git']}}
-NeoBundleLazy 'tpope/vim-haml',             {'autoload': {'filetypes': ['haml']}}
-NeoBundleLazy 'tpope/vim-markdown',         {'autoload': {'filetypes': ['markdown', 'md', 'txt']}}
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {
+      \   'autoload': { 'filetypes': ['js'] }
+      \ }
+NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript']}}
+NeoBundleLazy 'rodjek/vim-puppet'
+NeoBundle 'scrooloose/syntastic'
+  " run syntastic on file open
+  let g:syntastic_check_on_open       = 1
+  let g:syntastic_auto_loc_list       = 1
+  let g:syntastic_enable_signs        = 1
+  let g:syntastic_enable_highlighting = 1
+  if !exists("g:syntastic_mode_map")
+    let g:syntastic_mode_map = {}
+  endif
+  if !has_key(g:syntastic_mode_map, "mode")
+    let g:syntastic_mode_map['mode'] = 'active'
+  endif
+  if !has_key(g:syntastic_mode_map, "active_filetypes")
+    let g:syntastic_mode_map['active_filetypes'] = []
+  endif
+  if !has_key(g:syntastic_mode_map, "passive_filetypes")
+    let g:syntastic_mode_map['passive_filetypes'] = ['python', 'html']
+  endif
+NeoBundleLazy 'shawncplus/phpcomplete.vim', {
+      \   'autoload': { 'filetypes': ['php', 'blade'] }
+      \ }
+NeoBundleLazy 'skammer/vim-css-color', {
+      \   'autoload': {
+      \     'filetypes': [ 'html', 'css', 'less', 'sass', 'javascript', 'coffee', 'coffeescript' ]
+      \   }
+      \ }
+NeoBundleLazy 'tpope/vim-git', {'autoload': {'filetypes': ['git']}}
+NeoBundleLazy 'tpope/vim-haml', {'autoload': {'filetypes': ['haml']}}
+NeoBundleLazy 'tpope/vim-markdown', {
+      \   'autoload': { 'filetypes': ['markdown', 'md', 'txt'] }
+      \ }
 NeoBundle 'tpope/vim-ragtag'
 NeoBundle 'tpope/vim-rails'
-NeoBundleLazy 'vadv/vim-chef',              {'autoload': {'filetypes': ['ruby', 'eruby']}}
+NeoBundleLazy 'vadv/vim-chef', {'autoload': {'filetypes': ['ruby', 'eruby']}}
 NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
-  \ 'autoload': { 'filetypes': ['php'] },
-  \ 'build' :{
-  \    'mac' : 'make',
-  \    'unix' : 'make',
-  \    },
-  \ }
-NeoBundleLazy 'vim-ruby/vim-ruby',          {'autoload': {'filetypes': ['ruby', 'eruby', 'haml']}}
+      \   'autoload': { 'filetypes': ['php'] },
+      \   'build': {
+      \     'mac': 'make',
+      \     'unix': 'make',
+      \    },
+      \ }
+NeoBundleLazy 'vim-ruby/vim-ruby', {
+      \   'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
+      \ }
 
-" OS specific bundles
-if s:uname == "Darwin\n"
-  NeoBundle 'henrik/vim-reveal-in-finder'
-endif
-
-" syntax
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" init
 filetype plugin indent on
 syntax on
 runtime macros/matchit.vim
-
-""
-" init neobundle
 NeoBundleCheck
 
-""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " display
 set title                             " wintitle = filename - vim
 set titleold=""                       " restore title on exit
@@ -298,12 +375,16 @@ set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
 set wildmode=list:longest             " Complete files like a shell.
 " output, VCS
-set wildignore+=*.o,*.out,*.obj,*.exe,*.dll,.git,*.rbc,*.class,.svn,*.gem
-set wildignore+=*.gif,*.jpg,*.jpeg,*.png,*.psd,*.ico
+set wildignore+=.hg,.git,.svn
+set wildignore+=log/**,tmp/**
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,*.gem
+set wildignore+=*.aux,*.out,*.toc
+set wildignore+=*.o,*.obj,*.exe,*.dll,.git,*.rbc,*.class,
+set wildignore+=*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
+set wildignore+=*.avi,*.m4a,*.mp3,*.oga,*.ogg,*.wav,*.webm
+set wildignore+=*.eot,*.otf,*.ttf,*.woff
+set wildignore+=*.doc,*.pdf
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
-" bundler and SASS
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
-" JUNK
 set wildignore+=*.swp,.lock,.DS_Store,._*
 
 " file saving
@@ -318,10 +399,10 @@ set nobackup                          " hate those
 set hidden                            " remember undo after quitting
 
 " clipboard -- use os clipboard
-if s:uname == "Darwin\n"
-  set clipboard=unnamed
+if has('unnamedplus')
+  set clipboard=unnamedplus  " Share X windows clipboard.
 else
-  set clipboard=unnamedplus
+  set clipboard=unnamed  " Share system clipboard.
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -357,9 +438,6 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keyboard - most of this is straight from Janus
-
-" Reload vimrc
-nnoremap <silent> <Leader>rc :so $MYVIMRC<CR>
 
 " Disable vim help
 inoremap <F1> <nop>
@@ -524,7 +602,7 @@ nnoremap <Space> za
 vnoremap <Space> za
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Split manipulation
+" My Tab and Split manipulation
 nnoremap <Leader>v :vsplit<cr>
 " resize vertical splits
 nmap <Leader>_ <C-w>>
@@ -532,7 +610,7 @@ nmap <Leader>+ <C-w><
 " resize horizontal splits
 nmap <Leader>- <C-w>-
 nmap <Leader>= <C-w>+
-" swap splits with \mw (mark this one) and \pw (swap with this one)
+" swap splits with ,mw (mark this one) and ,pw (swap with this one)
 " http://stackoverflow.com/questions/2586984/how-can-i-swap-positions-of-two-open-files-in-splits-in-vim
 function! MarkWindowSwap()
   let g:markedWinNum = winnr()
@@ -554,11 +632,17 @@ endfunction
 nnoremap <silent> <Leader>mw :call MarkWindowSwap()<CR>
 nnoremap <silent> <Leader>pw :call DoWindowSwap()<CR>
 
-" Splits
+" Navigate splits
 nnoremap <silent> <C-k> :wincmd k<CR>
 nnoremap <silent> <C-j> :wincmd j<CR>
 nnoremap <silent> <C-h> :wincmd h<CR>
 nnoremap <silent> <C-l> :wincmd l<CR>
+
+" Navigate tabs
+nnoremap <silent> <Leader>l :tabnext<CR>
+nnoremap <silent> <Leader>h :tabprevious<CR>
+nnoremap <silent> <Leader>j :tabfirst<CR>
+nnoremap <silent> <Leader>k :tablast<CR>
 
 " Clean code function
 function! CleanCode()
@@ -568,6 +652,9 @@ function! CleanCode()
   echo "Cleaned up this mess."
 endfunction
 nnoremap <Leader>ws :call CleanCode()<cr>
+
+" Stephen Hawking
+nnoremap <silent> <Leader>? :silent !say <cword><CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Local config

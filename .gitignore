@@ -41,10 +41,9 @@ tmtags
 
 ################################################################################
 # VIM crap
-vim/temp/*
-vim/backup/*
-vim/bundle
-vim/bundle/*
+vim/temp/
+vim/backup/
+vim/bundle/
 .netrwhist
 .vimrc.old
 .yankring-history_v2.txt
