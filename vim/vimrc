@@ -30,7 +30,7 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'MarcWeber/vim-addon-mw-utils'
 NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'rizzatti/funcoo.vim'
-NeoBundleLazy 'kana/vim-operator-user', {
+NeoBundle 'kana/vim-operator-user', {
       \   'autoload' : {
       \     'functions' : 'operator#user#define'
       \   }
@@ -59,10 +59,10 @@ NeoBundle 'itchyny/lightline.vim'
         \     'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
         \   },
         \ }
-NeoBundle 'kien/rainbow_parentheses.vim'
-  nnoremap <F4> :RainbowParenthesesToggle<CR>
+NeoBundle 'kien/tabman.vim'
+  nnoremap <F2> :TMToggle<CR>
 NeoBundle 'nathanaelkane/vim-indent-guides'
-  nnoremap <F5> :IndentGuidesToggle<CR>
+  nnoremap <F7> :IndentGuidesToggle<CR>
 NeoBundle 'vim-scripts/IndexedSearch'
 NeoBundle 'vim-scripts/kwbdi.vim'
 
@@ -72,7 +72,7 @@ if s:uname == "Darwin\n"
   NeoBundle 'henrik/vim-reveal-in-finder'
 endif
 NeoBundle 'jeetsukumaran/vim-buffergator'
-  nnoremap <F2> :BuffergatorToggle<CR>
+  nnoremap <F3> :BuffergatorToggle<CR>
 NeoBundleLazy 'kien/ctrlp.vim'
   " We don't want to use Ctrl-p as the mapping because
   " it interferes with YankRing (paste, then hit ctrl-p)
@@ -91,10 +91,7 @@ if executable("ctags")
         \   }
         \ }
     let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
-    if has("autocmd")
-      au FileType * nested :call tagbar#autoopen(0)
-      au BufEnter * nested :call tagbar#autoopen(0)
-    endif
+    nnoremap <F4> :TagbarToggle<CR>
 endif
 NeoBundle 'Rykka/lastbuf.vim'
 NeoBundleLazy 'scrooloose/nerdtree', {
@@ -107,9 +104,6 @@ NeoBundleLazy 'scrooloose/nerdtree', {
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " commands
-NeoBundle 'airblade/vim-gitgutter'
-  let g:gitgutter_enabled = 0
-  nnoremap <F3> :GitGutterToggle<CR>
 if has("gui_macvim")
   NeoBundle 'rizzatti/dash.vim', {
         \   'depends': 'rizzatti/funcoo.vim'
@@ -201,7 +195,7 @@ NeoBundle 'tyru/operator-camelize.vim', {
       \   }
       \ }
       nmap <c-c> <Plug>(operator-camelize-toggle)
-NeoBundleLazy 'kana/vim-operator-replace', {
+NeoBundle 'kana/vim-operator-replace', {
       \   'depends': 'vim-operator-user',
       \   'autoload': {
       \     'mappings': [
@@ -375,8 +369,7 @@ set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
 set wildmode=list:longest             " Complete files like a shell.
 " output, VCS
-set wildignore+=.hg,.git,.svn
-set wildignore+=log/**,tmp/**
+set wildignore+=.hg,.svn
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,*.gem
 set wildignore+=*.aux,*.out,*.toc
 set wildignore+=*.o,*.obj,*.exe,*.dll,.git,*.rbc,*.class,
