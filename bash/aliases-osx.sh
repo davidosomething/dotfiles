@@ -24,3 +24,5 @@ alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 
 alias brc="brew cask"
+
+alias mark="open -a Marked $1"
