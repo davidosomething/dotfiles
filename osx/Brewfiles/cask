@@ -8,8 +8,6 @@ cask install bowtie
 cask install caffeine
 cask install cord
 cask install dash
-cask install dropbox
-cask install firefox
 cask install fontprep
 cask install gitifier
 cask install google-chrome

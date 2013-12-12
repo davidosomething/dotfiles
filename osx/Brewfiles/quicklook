@@ -4,6 +4,7 @@ cask install betterzipql
 cask install qlcolorcode
 cask install qlimagesize
 cask install qlmarkdown
+cask install qlprettypatch
 cask install qlstephen
 cask install quicklook-csv
 cask install quicklook-json
