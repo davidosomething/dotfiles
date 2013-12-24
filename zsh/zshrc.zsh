@@ -33,7 +33,10 @@ source $BASH_DOTFILES/aliases.sh
 source $BASH_DOTFILES/functions.sh
 source $ZSH_DOTFILES/aliases.zsh
 source $ZSH_DOTFILES/functions.zsh
+
+# program aliases
 command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 
 source $ZSH_DOTFILES/keybindings.zsh
 source $ZSH_DOTFILES/prompt.zsh
