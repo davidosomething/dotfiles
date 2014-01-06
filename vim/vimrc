@@ -147,7 +147,7 @@ NeoBundle 'maxbrunsfeld/vim-yankstack'
   let g:yankstack_map_keys = 0
   nmap <C-p> <Plug>yankstack_substitute_newer_paste
   nmap <C-P> <Plug>yankstack_substitute_older_paste
-NeoBundle 'nishigori/vim-sunday'
+NeoBundle 'nishigori/increment-activator'
 NeoBundle 'scrooloose/nerdcommenter'
 if !has("python")
   NeoBundle 'Shougo/neocomplcache'
