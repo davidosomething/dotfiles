@@ -21,7 +21,6 @@ net-ssh-multi
 open4
 psych
 rake
-rbenv-gem-rehash
 rdoc
 rhc
 rubygems-update
