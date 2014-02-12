@@ -8,7 +8,7 @@
 --type-set=sass=.sass,.scss
 --type-set=less=.less
 
---type-add=html=.handlebars,.hbs,.html.erb,.html.slim,.html.haml,.mustache,.jst,.ejs
+--type-add=html=.ejs,.erb,.handlebars,.hbs,.html.erb,.html.slim,.html.haml,.jst,.mustache
 
 --type-add=js=.bowerrc,.coffee,.js.erb,.jshintrc,.json
 
@@ -16,7 +16,10 @@
 
 --type-add=vim=.vim,.snippets
 
---type-set=md=.markdown,.md
+--type-set=md=.markdown,.md,.mkd,.txt
 
+--ignore-dir=bower_components
 --ignore-dir=log
 --ignore-dir=tmp
+--ignore-dir=node_modules
+--ignore-dir=assets/components
