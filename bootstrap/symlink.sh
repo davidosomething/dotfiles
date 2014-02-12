@@ -18,6 +18,7 @@ dkosymlink ack/ackrc             .ackrc
 
 dkosymlink tmux/tmux.conf        .tmux.conf
 
+dkosymlink ruby/gemrc            .gemrc
 dkosymlink screen/screenrc       .screenrc
 
 dkosymlink bash/bashrc.sh        .bashrc
