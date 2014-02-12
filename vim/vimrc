@@ -223,11 +223,11 @@ NeoBundle 'paradigm/TextObjectify'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax highlighting and filetype specific
 NeoBundleLazy 'acustodioo/vim-tmux'
-NeoBundleLazy 'alampros/cf.vim', {
+NeoBundle 'alampros/cf.vim', {
       \   'autoload': { 'filetypes': [ 'cfc', 'cfm' ] }
       \ }
 " NeoBundle 'cakebaker/scss-syntax.vim'
-NeoBundleLazy 'davejlong/cf-utils.vim', {
+NeoBundle 'davejlong/cf-utils.vim', {
       \   'autoload': { 'filetypes': [ 'cfc', 'cfm' ] }
       \ }
 NeoBundleLazy 'digitaltoad/vim-jade', {

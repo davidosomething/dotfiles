@@ -6,6 +6,7 @@ capistrano-composer
 chunky_png
 commander
 compass --pre
+dandelion
 fssm
 ghost
 highline
@@ -15,6 +16,7 @@ io-console
 json
 minitest
 net-scp
+net-sftp
 net-ssh
 net-ssh-gateway
 net-ssh-multi

@@ -12,6 +12,11 @@ alias cd..='cd ..'
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias l="ls -l"
 
+# bin
+alias b="brew"
+alias g="git"
+alias u="update"
+
 # function-type aliases
 alias publicip="curl icanhazip.com"
 
