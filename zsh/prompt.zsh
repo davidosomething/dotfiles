@@ -25,15 +25,18 @@ zstyle ':vcs_info:*' actionformats '(%b%m%c%u)[%a]'
 bindkey -v
 
 # show if in vi mode
-zle-keymap-select() {
+function zle-line-init zle-keymap-select {
   vimode="${${KEYMAP/vicmd/N}/(main|viins)/I}"
   zle reset-prompt
 }
+zle -N zle-line-init
 zle -N zle-keymap-select
 
 # on end of cmd, back to ins mode
 function zle-line-finish {
   vim_mode='I'
+  zle reset-prompt
+  zle -R
 }
 zle -N zle-line-finish
 
