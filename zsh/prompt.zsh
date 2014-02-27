@@ -6,6 +6,7 @@
 setopt PROMPT_SUBST                   # allow variables in prompt
 autoload -U colors && colors
 
+##
 # version control in prompt
 autoload -Uz vcs_info
 precmd() { vcs_info }
@@ -17,22 +18,42 @@ zstyle ':vcs_info:*' stagedstr '+'    # display this when there are staged chang
 zstyle ':vcs_info:*' formats '(%b%m%c%u)'
 zstyle ':vcs_info:*' actionformats '(%b%m%c%u)[%a]'
 
+##
+# vi mode
+# http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
+# use vi mode even if EDITOR is emacs
+bindkey -v
+
 # show if in vi mode
-VIMODE='I';
 zle-keymap-select() {
-  VIMODE="${${KEYMAP/vicmd/N}/(main|viins)/I}"
+  vimode="${${KEYMAP/vicmd/N}/(main|viins)/I}"
   zle reset-prompt
 }
 zle -N zle-keymap-select
-bindkey -v                            # use vi mode even if EDITOR is emacs
 
+# on end of cmd, back to ins mode
+function zle-line-finish {
+  vim_mode='I'
+}
+zle -N zle-line-finish
+
+# default is ins mode
+vimode='I'
+
+# fix ctrl-c mode display
+function TRAPINT() {
+  vimode='I'
+  return $(( 128 + $1 ))
+}
+
+##
 # prompt itself
 PROMPT_USER='%F{green}%n'
 PROMPT_HOST='%F{green}%m'
 [ "$USER" = 'root' ] && PROMPT_USER='%F{white}%n'
 [ "$SSH_CONNECTION" != '' ] && PROMPT_HOST='%F{white}%m'
 PROMPT='${PROMPT_USER}%F{blue}@${PROMPT_HOST}%F{blue}:%F{yellow}%~
-%f%*%F{blue}${VIMODE}%F{magenta}${vcs_info_msg_0_}%# %f'
+%f%*%F{blue}${vimode}%F{magenta}${vcs_info_msg_0_}%# %f'
 
 
 ##
