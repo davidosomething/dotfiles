@@ -15,6 +15,7 @@ source $bootstrap_path/helpers.sh
 ################################################################################
 dkostatus "Symlinking dotfiles"
 dkosymlink ack/ackrc             .ackrc
+dkosymlink cvs/cvsignore         .cvsignore
 
 dkosymlink tmux/tmux.conf        .tmux.conf
 
