@@ -9,7 +9,6 @@ cask install bowtie
 cask install caffeine
 #cask install cord #not mavericks compatible
 cask install dash
-cask install flux
 cask install fontprep
 cask install gitifier
 cask install google-chrome
