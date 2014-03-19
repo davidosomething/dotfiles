@@ -61,6 +61,8 @@ NeoBundle 'itchyny/lightline.vim'
         \ }
 NeoBundle 'kien/tabman.vim'
   nnoremap <F2> :TMToggle<CR>
+NeoBundle 'kien/ctrlp.vim'
+  let g:ctrlp_map = '<c-t>'
 NeoBundle 'nathanaelkane/vim-indent-guides'
   nnoremap <F7> :IndentGuidesToggle<CR>
 NeoBundle 'vim-scripts/IndexedSearch'
@@ -90,25 +92,6 @@ NeoBundleLazy 'scrooloose/nerdtree', {
       \ }
   let g:NERDTreeShowHidden = 1
   nnoremap <F1> :NERDTreeToggle %<CR>
-NeoBundleLazy 'Shougo/unite.vim', {
-      \   'autoload' : {
-      \     'commands' : [
-      \       {'name' : 'Unite'},
-      \       'UniteWithBufferDir'
-      \     ]
-      \   },
-      \   'depends': 'Shougo/vimproc'
-      \ }
-  let g:unite_split_rule = "botright"
-  let g:unite_winheight = 10
-  call unite#filters#matcher_default#use(['matcher_fuzzy'])
-  autocmd FileType unite call s:unite_settings()
-  function! s:unite_settings()
-    " Play nice with supertab
-    let b:SuperTabDisabled=1
-  endfunction
-
-  nnoremap <C-t> :<C-u>Unite  -buffer-name=files -start-insert -keep-focus -no-quit  buffer tab file_rec/async:!<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " commands
