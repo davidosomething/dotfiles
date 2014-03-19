@@ -21,6 +21,10 @@ cdr() {
 }
 
 ##
+# up 2 to cd ../..
+up() { local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x; }
+
+##
 # Export repo files to specified dir
 gitexport() {
   local to_dir = "${2:-./gitexport}"
