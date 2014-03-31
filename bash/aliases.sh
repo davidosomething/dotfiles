@@ -21,6 +21,7 @@ alias u="update"
 alias publicip="curl icanhazip.com"
 
 # default flags for programs
+alias ag="ag -i"
 alias df="df -h"
 alias ln="ln -v"
 alias rsync="rsync --human-readable --partial --progress --exclude-from=$HOME/.cvsignore"

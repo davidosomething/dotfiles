@@ -23,6 +23,7 @@ cask install lastpass-universal
 cask install noejectdelay
 cask install nosleep
 cask install nvalt
+cask install remote-desktop-connection
 cask install scroll-reverser
 cask install sequel-pro
 cask install skype

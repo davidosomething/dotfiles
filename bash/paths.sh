@@ -9,20 +9,21 @@ PATH="/usr/local/sbin:$PATH"
 # Program specific paths
 
 ##
-# package managers
-# php54 through homebrew if brew command available
+# bin
+# php55 through homebrew if brew command available
 command -v brew >/dev/null 2>&1 && {
-  PATH="$(brew --prefix josegonzalez/php/php54)/bin:${PATH}"
+  PATH="$(brew --prefix josegonzalez/php/php55)/bin:${PATH}"
 }
+# rbenv
+PATH="${RBENV_ROOT}/bin:${PATH}"
+
+##
+# package managers
 # composer
 PATH="$HOME/.composer/bin:$PATH"
 # npm
 PATH="/usr/local/share/npm/bin:$PATH"
 
-##
-# bin
-# rbenv
-PATH="${RBENV_ROOT}/bin:${PATH}"
 
 ################################################################################
 # local

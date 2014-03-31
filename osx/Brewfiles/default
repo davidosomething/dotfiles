@@ -16,6 +16,7 @@ install irssi
 install jq
 install jsonpp
 install macvim --override-system-vim
+install multitail
 install mysql
 install nmap
 install node

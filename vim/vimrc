@@ -63,6 +63,13 @@ NeoBundle 'kien/tabman.vim'
   nnoremap <F2> :TMToggle<CR>
 NeoBundle 'kien/ctrlp.vim'
   let g:ctrlp_map = '<c-t>'
+NeoBundle 'mhinz/vim-hugefile'
+NeoBundle 'mhinz/vim-startify'
+  let g:startify_change_to_vcs_root = 1
+  let g:startify_custom_header = [
+  \ ' (╯°□°)╯ ┻━┻  ',
+  \ '',
+  \ ]
 NeoBundle 'nathanaelkane/vim-indent-guides'
   nnoremap <F7> :IndentGuidesToggle<CR>
 NeoBundle 'vim-scripts/IndexedSearch'
@@ -101,6 +108,8 @@ if has("gui_macvim")
         \   'depends': 'rizzatti/funcoo.vim'
         \ }
 endif
+NeoBundle 'Keithbsmiley/investigate.vim'
+  let g:investigate_use_dash=1
 NeoBundle 'rking/ag.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-eunuch'
@@ -281,9 +290,9 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
-NeoBundleLazy 'skammer/vim-css-color', {
+NeoBundleLazy 'ap/vim-css-color', {
       \   'autoload': {
-      \     'filetypes': [ 'html', 'css', 'less', 'sass', 'javascript', 'coffee', 'coffeescript' ]
+      \     'filetypes': [ 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
       \   }
       \ }
 NeoBundleLazy 'tpope/vim-git', {'autoload': {'filetypes': ['git']}}
