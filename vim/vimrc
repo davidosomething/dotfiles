@@ -39,7 +39,10 @@ NeoBundle 'kana/vim-operator-user', {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ui
 NeoBundle 'altercation/vim-colors-solarized'
-  call togglebg#map("<F5>")
+  if neobundle#tap('vim-colors-solarized')
+    call togglebg#map("<F5>")
+    call neobundle#untap()
+  endif
 NeoBundle 'itchyny/lightline.vim'
   let g:lightline = {
         \   'active': {
@@ -143,6 +146,7 @@ NeoBundle 'godlygeek/tabular'
   vmap <Leader>a, :Tabularize /,<CR>
   nmap <Leader>af :Tabularize /=>/<CR>
   vmap <Leader>af :Tabularize /=>/<CR>
+NeoBundle 'jaxbot/github-issues.vim'
 NeoBundle 'maxbrunsfeld/vim-yankstack'
   let g:yankstack_map_keys = 0
   nmap <C-p> <Plug>yankstack_substitute_newer_paste

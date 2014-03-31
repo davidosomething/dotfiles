@@ -2,4 +2,4 @@
 PATH="$HOME/.wp-cli/bin:$PATH"
 export PATH
 
-. /usr/share/autojump/autojump.sh
+source_if_exists /usr/share/autojump/autojump.sh
