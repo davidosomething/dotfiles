@@ -12,7 +12,7 @@ PATH="/usr/local/sbin:$PATH"
 # bin
 # php55 through homebrew if brew command available
 command -v brew >/dev/null 2>&1 && {
-  PATH="$(brew --prefix josegonzalez/php/php55)/bin:${PATH}"
+  PATH="$(brew --prefix php55)/bin:${PATH}"
 }
 # rbenv
 PATH="${RBENV_ROOT}/bin:${PATH}"

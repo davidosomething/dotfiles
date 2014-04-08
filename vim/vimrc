@@ -67,12 +67,6 @@ NeoBundle 'kien/tabman.vim'
 NeoBundle 'kien/ctrlp.vim'
   let g:ctrlp_map = '<c-t>'
 NeoBundle 'mhinz/vim-hugefile'
-NeoBundle 'mhinz/vim-startify'
-  let g:startify_change_to_vcs_root = 1
-  let g:startify_custom_header = [
-  \ ' (╯°□°)╯ ┻━┻  ',
-  \ '',
-  \ ]
 NeoBundle 'nathanaelkane/vim-indent-guides'
   nnoremap <F7> :IndentGuidesToggle<CR>
 NeoBundle 'vim-scripts/IndexedSearch'
@@ -94,7 +88,6 @@ if executable("ctags")
     let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
     nnoremap <F4> :TagbarToggle<CR>
 endif
-NeoBundle 'Rykka/lastbuf.vim'
 NeoBundleLazy 'scrooloose/nerdtree', {
       \   'autoload': {
       \     'commands': [ 'NERDTreeFind', 'NERDTreeToggle', 'NERDTree' ]
@@ -114,9 +107,7 @@ endif
 NeoBundle 'Keithbsmiley/investigate.vim'
   let g:investigate_use_dash=1
 NeoBundle 'rking/ag.vim'
-NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-eunuch'
-NeoBundle 'vim-scripts/Rename2'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " editing keys
@@ -132,9 +123,6 @@ NeoBundle 'edsono/vim-matchit'
 NeoBundle 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
-NeoBundle 'garbas/vim-snipmate', {
-      \   'depends': [ 'MarcWeber/vim-addon-mw-utils', 'tomtom/tlib_vim' ]
-      \ }
 NeoBundle 'godlygeek/tabular'
   nmap <Leader>a- :Tabularize /-<CR>
   vmap <Leader>a- :Tabularize /-<CR>
@@ -151,7 +139,7 @@ NeoBundle 'maxbrunsfeld/vim-yankstack'
   let g:yankstack_map_keys = 0
   nmap <C-p> <Plug>yankstack_substitute_newer_paste
   nmap <C-P> <Plug>yankstack_substitute_older_paste
-NeoBundle 'nishigori/increment-activator'
+NeoBundle 'nishigori/increment-activator'           " custom C-x C-a mappings
 NeoBundle 'scrooloose/nerdcommenter'
 if !has("python")
   NeoBundle 'Shougo/neocomplcache'
@@ -187,7 +175,7 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-repeat', {
       \   'autoload': { 'mappings': '.' }
       \ }
-NeoBundle 'tpope/vim-speeddating'
+NeoBundle 'tpope/vim-speeddating'               " fast increment datetimes
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'tyru/operator-camelize.vim', {
@@ -212,9 +200,6 @@ NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " text objects
-NeoBundle 'kana/vim-textobj-entire', {
-      \   'depends': 'vim-textobj-user',
-      \ }
 NeoBundle 'kana/vim-textobj-indent', {
       \   'depends': 'vim-textobj-user',
       \ }
@@ -227,13 +212,13 @@ NeoBundle 'paradigm/TextObjectify'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax highlighting and filetype specific
 NeoBundleLazy 'acustodioo/vim-tmux'
-NeoBundle 'alampros/cf.vim', {
-      \   'autoload': { 'filetypes': [ 'cfc', 'cfm' ] }
-      \ }
-" NeoBundle 'cakebaker/scss-syntax.vim'
-NeoBundle 'davejlong/cf-utils.vim', {
-      \   'autoload': { 'filetypes': [ 'cfc', 'cfm' ] }
-      \ }
+NeoBundleLazy 'alampros/cf.vim', {
+"      \   'autoload': { 'filetypes': [ 'cfc', 'cfm' ] }
+"      \ }
+"NeoBundle 'cakebaker/scss-syntax.vim'
+"NeoBundle 'davejlong/cf-utils.vim', {
+"      \   'autoload': { 'filetypes': [ 'cfc', 'cfm' ] }
+"      \ }
 NeoBundleLazy 'digitaltoad/vim-jade', {
       \   'autoload': { 'filetypes': ['jade'] }
       \ }
@@ -260,7 +245,7 @@ NeoBundleLazy 'elzr/vim-json', {
       \   'autoload': { 'filetypes': 'json' }
       \ }
 "NeoBundle 'leshill/vim-json'
-NeoBundle 'mattn/emmet-vim'
+"NeoBundle 'mattn/emmet-vim'
 NeoBundleLazy 'mikehaertl/pdv-standalone', {
       \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
@@ -271,7 +256,9 @@ NeoBundleLazy 'mikehaertl/pdv-standalone', {
 NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {
       \   'autoload': { 'filetypes': ['js'] }
       \ }
-NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript']}}
+NeoBundleLazy 'pangloss/vim-javascript', {
+      \   'autoload': { 'filetypes': ['javascript'] }
+      \ }
 NeoBundleLazy 'rodjek/vim-puppet'
 NeoBundle 'scrooloose/syntastic'
   " run syntastic on file open
@@ -305,7 +292,7 @@ NeoBundleLazy 'tpope/vim-markdown', {
       \   'autoload': { 'filetypes': ['markdown', 'md', 'txt'] }
       \ }
 NeoBundle 'tpope/vim-ragtag'
-NeoBundle 'tpope/vim-rails'
+NeoBundleLazy 'tpope/vim-rails', {'autoload': {'filetypes': [ 'ruby', 'eruby', 'haml' ]}}
 NeoBundleLazy 'vadv/vim-chef', {'autoload': {'filetypes': ['ruby', 'eruby']}}
 NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
       \   'autoload': { 'filetypes': ['php'] },
