@@ -24,6 +24,9 @@ PATH="$HOME/.composer/bin:$PATH"
 # npm
 PATH="/usr/local/share/npm/bin:$PATH"
 
+# go
+export GOPATH=$HOME/go
+PATH="$GOPATH/bin:$PATH"
 
 ################################################################################
 # local
