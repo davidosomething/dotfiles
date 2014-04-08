@@ -1,7 +1,8 @@
 # .dotfiles/zsh/zshrc-osx.zsh
 # sourced by .zshrc
 
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+export _Z_CMD=j
+source_if_exists `brew --prefix`/etc/profile.d/z.sh
 
 unalias run-help
 autoload run-help
