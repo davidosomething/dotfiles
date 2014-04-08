@@ -69,6 +69,7 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'mhinz/vim-hugefile'
 NeoBundle 'nathanaelkane/vim-indent-guides'
   nnoremap <F7> :IndentGuidesToggle<CR>
+NeoBundle 'tpope/vim-fugitive'          " used by lightline
 NeoBundle 'vim-scripts/IndexedSearch'
 NeoBundle 'vim-scripts/kwbdi.vim'
 
@@ -123,7 +124,7 @@ NeoBundle 'edsono/vim-matchit'
 NeoBundle 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
-NeoBundle 'godlygeek/tabular'
+NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   nmap <Leader>a- :Tabularize /-<CR>
   vmap <Leader>a- :Tabularize /-<CR>
   nmap <Leader>a= :Tabularize /=<CR>
@@ -210,56 +211,13 @@ NeoBundle 'lucapette/vim-textobj-underscore', {
 NeoBundle 'paradigm/TextObjectify'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" syntax highlighting and filetype specific
-NeoBundleLazy 'acustodioo/vim-tmux'
-NeoBundleLazy 'alampros/cf.vim', {
-      \   'autoload': { 'filetypes': [ 'cfc', 'cfm' ] }
-      \ }
-"NeoBundle 'cakebaker/scss-syntax.vim'
-"NeoBundle 'davejlong/cf-utils.vim', {
-"      \   'autoload': { 'filetypes': [ 'cfc', 'cfm' ] }
-"      \ }
-NeoBundleLazy 'digitaltoad/vim-jade', {
-      \   'autoload': { 'filetypes': ['jade'] }
-      \ }
+" syntax highlighting
 if has("python")
   NeoBundle 'editorconfig/editorconfig-vim'
   let g:EditorConfig_core_mode = 'python_builtin'
   let g:EditorConfig_python_files_dir = $DOTFILES . "/vim/bundle/editorconfig-vim/plugin/editorconfig-core-py"
 endif
 NeoBundleLazy 'gregsexton/MatchTag'
-NeoBundleLazy 'groenewege/vim-less', {
-      \   'autoload': {'filetypes': ['less']}
-      \ }
-  if has("autocmd")
-    au FileType less nnoremap <Leader>lc :w <BAR> !lessc % > %:t:r.css<CR><space>
-  endif
-NeoBundleLazy 'hail2u/vim-css3-syntax', {
-      \   'autoload': { 'filetypes': ['css'] }
-      \ }
-NeoBundleLazy 'itspriddle/vim-jquery'
-NeoBundleLazy 'juvenn/mustache.vim', {
-      \   'autoload': { 'filetypes': ['handlebars', 'hbs', 'mustache'] }
-      \ }
-NeoBundleLazy 'elzr/vim-json', {
-      \   'autoload': { 'filetypes': 'json' }
-      \ }
-"NeoBundle 'leshill/vim-json'
-"NeoBundle 'mattn/emmet-vim'
-NeoBundleLazy 'mikehaertl/pdv-standalone', {
-      \   'autoload': { 'filetypes': ['php', 'blade'] }
-      \ }
-  if has("autocmd")
-    au FileType php nnoremap <Leader>pd :call PhpDocSingle()<CR>
-    au FileType php vnoremap <Leader>pd :call PhpDocRange()<CR>
-  endif
-NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {
-      \   'autoload': { 'filetypes': ['js'] }
-      \ }
-NeoBundleLazy 'pangloss/vim-javascript', {
-      \   'autoload': { 'filetypes': ['javascript'] }
-      \ }
-NeoBundleLazy 'rodjek/vim-puppet'
 NeoBundle 'scrooloose/syntastic'
   " run syntastic on file open
   let g:syntastic_check_on_open       = 1
@@ -278,32 +236,84 @@ NeoBundle 'scrooloose/syntastic'
   if !has_key(g:syntastic_mode_map, "passive_filetypes")
     let g:syntastic_mode_map['passive_filetypes'] = ['python', 'html']
   endif
-NeoBundleLazy 'shawncplus/phpcomplete.vim', {
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Language specific
+
+""""""""""""""""""""""""""""""""""""""""
+" Chef
+NeoBundleLazy 'vadv/vim-chef', {'autoload': {'filetypes': ['ruby', 'eruby']}}
+
+""""""""""""""""""""""""""""""""""""""""
+" ColdFusion
+NeoBundleLazy 'alampros/cf.vim', {
+      \   'autoload': { 'filetypes': [ 'cfml' ] }
+      \ }
+NeoBundle 'davejlong/cf-utils.vim' " creates cfml filetype
+
+""""""""""""""""""""""""""""""""""""""""
+" HTML and generators
+NeoBundleLazy 'digitaltoad/vim-jade'    " creates jade filetype
+"NeoBundle 'mattn/emmet-vim'
+NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
+
+""""""""""""""""""""""""""""""""""""""""
+" JavaScript
+NeoBundleLazy 'itspriddle/vim-jquery'   " creates javascript syntax
+NeoBundle 'jelera/vim-javascript-syntax' " creates javascript syntax
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', { 'autoload': { 'filetypes': ['javascript'] } }
+NeoBundle 'pangloss/vim-javascript'     " creates javascript filetype
+
+""""""""""""""""""""""""""""""""""""""""
+" JSON
+NeoBundle 'elzr/vim-json'               " creates json filetype
+
+""""""""""""""""""""""""""""""""""""""""
+" Markdown
+NeoBundle 'tpope/vim-markdown'          " creates markdown filetype
+
+""""""""""""""""""""""""""""""""""""""""
+" Mustache.js
+NeoBundleLazy 'mustache/vim-mustache-handlebars', { 'autoload': { 'filetypes': ['mustache'] } }
+"NeoBundleLazy 'juvenn/mustache.vim', { 'autoload': { 'filetypes': ['handlebars', 'hbs', 'mustache'] } }
+
+""""""""""""""""""""""""""""""""""""""""
+" PHP
+NeoBundleLazy 'mikehaertl/pdv-standalone', {
       \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
-NeoBundleLazy 'ap/vim-css-color', {
-      \   'autoload': {
-      \     'filetypes': [ 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
-      \   }
-      \ }
-NeoBundleLazy 'tpope/vim-git', {'autoload': {'filetypes': ['git']}}
-NeoBundleLazy 'tpope/vim-haml', {'autoload': {'filetypes': ['haml']}}
-NeoBundleLazy 'tpope/vim-markdown', {
-      \   'autoload': { 'filetypes': ['markdown', 'md', 'txt'] }
-      \ }
-NeoBundle 'tpope/vim-ragtag'
-NeoBundleLazy 'tpope/vim-rails', {'autoload': {'filetypes': [ 'ruby', 'eruby', 'haml' ]}}
-NeoBundleLazy 'vadv/vim-chef', {'autoload': {'filetypes': ['ruby', 'eruby']}}
+  if has("autocmd")
+    au FileType php nnoremap <Leader>pd :call PhpDocSingle()<CR>
+    au FileType php vnoremap <Leader>pd :call PhpDocRange()<CR>
+  endif
+NeoBundleLazy 'shawncplus/phpcomplete.vim', { 'autoload': { 'filetypes': ['php', 'blade'] } }
 NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
-      \   'autoload': { 'filetypes': ['php'] },
+      \   'autoload': { 'filetypes': ['php', 'blade'] },
       \   'build': {
       \     'mac': 'make',
       \     'unix': 'make',
       \    },
       \ }
-NeoBundleLazy 'vim-ruby/vim-ruby', {
-      \   'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
+
+""""""""""""""""""""""""""""""""""""""""
+" Puppet
+NeoBundle 'rodjek/vim-puppet'
+
+""""""""""""""""""""""""""""""""""""""""
+" Ruby, rails
+NeoBundleLazy 'tpope/vim-rails', {'autoload': {'filetypes': [ 'ruby' ]}}
+NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
+
+""""""""""""""""""""""""""""""""""""""""
+" Stylesheet languages
+NeoBundleLazy 'ap/vim-css-color', {
+      \   'autoload': {
+      \     'filetypes': [ 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
+      \   }
       \ }
+"NeoBundle 'cakebaker/scss-syntax.vim'
+NeoBundle 'groenewege/vim-less'         " creates less filetype
+NeoBundleLazy 'hail2u/vim-css3-syntax', { 'autoload': { 'filetypes': ['css', 'sass', 'scss'] } }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " init
