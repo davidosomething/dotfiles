@@ -1,8 +1,6 @@
 # standard homebrew formula
 install ack
 install autojump
-install php54
-install php54-mcrypt
 install cmake
 install curl
 install curl-ca-bundle
@@ -25,23 +23,10 @@ install rbenv
 install rbenv-gem-rehash
 install rbenv-default-gems
 install ruby-build
-install rsync
+install ruby-install
 install ssh-copy-id
 install the_silver_searcher
 install tree
 install wget
-install wp-cli
 install zsh
 install zsh-completions
-
-# tap homebrew/dupes
-# install apple-gcc42
-
-tap josegonzalez/homebrew-php
-install composer
-install php55
-install php55-mcrypt
-install phpmyadmin
-
-tap homebrew/completions
-install vagrant-completion

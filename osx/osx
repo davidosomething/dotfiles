@@ -3,8 +3,12 @@
 # https://github.com/simonowendesign/dotfiles/blob/master/.osx
 
 sudo -v
+
 # Keep-alive: update existing `sudo` time stamp until `.osx` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# disable startup chime
+sudo nvram SystemAudioVolume=" "
 
 ################################################################################
 # monitor
@@ -13,6 +17,9 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
 ################################################################################
 # finder
+# Show the ~/Library folder
+chflags nohidden ~/Library
+
 # Show all filename extensions in Finder
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
@@ -21,12 +28,11 @@ defaults write com.apple.finder ShowStatusBar -bool true
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-
-# Show the ~/Library folder
-chflags nohidden ~/Library
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
 # Expand print panel by default
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
@@ -64,6 +70,10 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 # Disable dashboard
 defaults write com.apple.dashboard mcx-disabled -boolean YES
 
+# Don’t show Dashboard as a Space
+defaults write com.apple.dock dashboard-in-overlay -bool true
+
+
 ################################################################################
 # terminal
 # Show all filename extensions
@@ -87,6 +97,11 @@ defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
+# Automatically open a new Finder window when a volume is mounted
+defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
+defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
+defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
+
 ################################################################################
 # safari
 # Enable the Develop menu and the Web Inspector in Safari
@@ -99,6 +114,9 @@ defaults write com.apple.Safari IncludeDebugMenu -bool true
 
 # Add a context menu item for showing the Web Inspector in web views
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+
+# Prevent Safari from opening ‘safe’ files automatically after downloading
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 
 ###############################################################################
 # Twitter.app
@@ -122,6 +140,16 @@ defaults write com.twitter.twitter-mac ShowFullNames -bool true
 
 # Hide the app in the background if it’s not the front-most window
 defaults write com.twitter.twitter-mac HideInBackground -bool true
+
+################################################################################
+# QuickTime
+# Don't remember open files
+defaults write com.apple.QuickTimePlayerX NSQuitAlwaysKeepsWindows -bool false
+
+################################################################################
+# Preview
+# Don't remember open files
+defaults write com.apple.Preview NSQuitAlwaysKeepsWindows -bool false
 
 ################################################################################
 # Menu bar: Set date and time format e.g. Sun 11 Aug 16:55

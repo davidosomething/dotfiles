@@ -23,6 +23,7 @@ cask install kaleidoscope
 cask install keyremap4macbook
 cask install lastfm
 cask install lastpass-universal
+cask install launchrocket
 cask install noejectdelay
 cask install nosleep
 cask install nvalt
@@ -36,5 +37,6 @@ cask install tuxguitar
 cask install vagrant
 cask install virtualbox
 cask install vlc
+#cask install web-sharing
 cask install xquartz
 cask install xtrafinder
