@@ -15,13 +15,3 @@ else
   alias e="gvim"
   alias mvim="gvim"
 fi
-
-# gui
-alias open='xdg-open'
-
-################################################################################
-# dev
-alias composer="php $HOME/.composer/bin/composer.phar"
-# web
-alias a2r="sudo service apache2 restart"
-

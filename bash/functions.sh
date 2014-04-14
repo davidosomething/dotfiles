@@ -1,9 +1,30 @@
+################################################################################
+# dev
+art() { php artisan $@ }
+composer() { php $HOME/.composer/bin/composer.phar $@ }
+cunt() { COMPOSER_CACHE_DIR=/dev/null composer update }
+
 ##
-# Edit apache conf, needs to be a function to interpolate that variable
-apacheconf() {
-  e $APACHE_HTTPD_CONF
+# PHP version numbers
+# @TODO use cut instead of splitting awk?
+phpver() { echo $( php -v | sed 1q | awk '{print $2}' ) }
+phpminorver() { echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]"."a[2]}' ) }
+phpminorvernum() { echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]a[2]}' ) }
+eapache() { e $APACHE_HTTPD_CONF $@ }
+evhosts() { e $APACHE_HTTPD_VHOSTS $@ }
+
+################################################################################
+# tmux
+remux() {
+  if tmux has 2>/dev/null; then
+    tmux attach;
+  else
+    tmux new $SHELL;
+  fi
 }
 
+################################################################################
+# file traversal
 ##
 # Change directory to the nearest repo root
 cdr() {
@@ -20,10 +41,17 @@ cdr() {
   [[ -d $dir ]] && cd "$dir"
 }
 
+# https://github.com/jmcantrell/dotfiles-zsh/blob/master/zsh/conf.d/40-functions
+##
+# Make a new directory and CD into it
+mcd() { mkdir -p "$@" && cd "$@" }
+
 ##
 # up 2 to cd ../..
 up() { local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x; }
 
+################################################################################
+# Archiving
 ##
 # Export repo files to specified dir
 gitexport() {
@@ -55,6 +83,8 @@ else
 fi
 }
 
+################################################################################
+# Network tools
 ##
 # Get someone's SSH pubkeys from github
 get_github_ssh_key() {
@@ -78,43 +108,12 @@ localip() {
   echo $localip
 }
 
-# https://github.com/jmcantrell/dotfiles-zsh/blob/master/zsh/conf.d/40-functions
-##
-# Make a new directory and CD into it
-mcd() {
-  mkdir -p "$@" && cd "$@"
-}
-
-##
-# http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
-members() {
-  dscl . -list /Users | while read user; do printf "$user "; dsmemberutil checkmembership -U "$user" -G "$*"; done | grep "is a member" | cut -d " " -f 1;
-}
-
-##
-# PHP version numbers
-# @TODO use cut instead of splitting awk?
-phpver() {
-  echo $( php -v | sed 1q | awk '{print $2}' )
-}
-phpminorver() {
-  echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]"."a[2]}' )
-}
-phpminorvernum() {
-  echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]a[2]}' )
-}
-
 ##
 # source a file if it exists
 source_if_exists() {
   [ -f $1 ] && source $1 # && echo "Sourced $1"
 }
 
-##
-# Edit apache virtual hosts, needs to be a function to interpolate that variable
-evhosts() {
-  e $APACHE_HTTPD_VHOSTS
-}
 
 ##
 # os specific

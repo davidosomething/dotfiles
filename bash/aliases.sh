@@ -27,10 +27,6 @@ alias ln="ln -v"
 alias rsync="rsync --human-readable --partial --progress --exclude-from=$HOME/.cvsignore"
 alias wget="wget --no-check-certificate"
 
-# tmux
-alias remux="if tmux has 2>/dev/null; then tmux attach; else tmux new $SHELL; fi"
-alias demux="tmux detach"
-
 # quick edits
 alias evars="e $BASH_DOTFILES/vars.sh"
 alias epaths="e $BASH_DOTFILES/paths.sh"
@@ -42,11 +38,9 @@ alias ebashrc="e $BASH_DOTFILES/bashrc.sh"
 alias elbashrc="e $HOME/.bashrc.local"
 
 alias ehosts="sudo vim /etc/hosts"
+alias ephpini="e $PHP_INI"
 
 # php
-alias ephpini="e $PHP_INI"
-alias art="php artisan"
-alias cunt="COMPOSER_CACHE_DIR=/dev/null composer update"
 
 # server
 alias pyserve="python -m SimpleHTTPServer"

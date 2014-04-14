@@ -1,8 +1,8 @@
-#!/bin/bash
-#
-# Update dotfiles and provide instructions for updating the system
-
+#!/usr/bin/env bash
 set -eu
+################################################################################
+# Update dotfiles and provide instructions for updating the system
+################################################################################
 
 ################################################################################
 # initialize script and dependencies
