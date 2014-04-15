@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-#
-# Symlink dnsmasq settings and resolvers for testing TLDs
-
 set -eu
 
 ################################################################################
+# Symlink dnsmasq settings and resolvers for testing TLDs
+################################################################################
+
+##
 # initialize script and dependencies
 # get this bootstrap folder
 cd "$(dirname $0)"/..
@@ -14,7 +15,8 @@ source $bootstrap_path/helpers.sh
 
 dkorequireroot
 
-################################################################################
+##
+# begin
 dkorequire "dnsmasq"
 #dkostatus "Installing dnsmasq"
 #cp -fv /usr/local/opt/dnsmasq/*.plist /Library/LaunchDaemons
@@ -31,3 +33,5 @@ do
   dkosymlinking $b /etc/resolver/$b
   ln -sf $file /etc/resolver/$b
 done
+
+dkostatus "Done! [dnsmasq.sh]"

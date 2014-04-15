@@ -26,3 +26,5 @@ dkosymlink vim/gvimrc          .gvimrc
 
 dkostatus "Installing neobundle"
 curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
+
+dkostatus "Done! [vim.sh]"

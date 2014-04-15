@@ -15,3 +15,5 @@ set -eu
 # OTHERWISE
 # OSX: chsh -s /usr/local/bin/zsh
 # *NIX: chsh -s /bin/zsh
+
+dkostatus "Done! [zsh.sh]"
