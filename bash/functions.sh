@@ -1,17 +1,30 @@
 ################################################################################
 # dev
-art() { php artisan $@ }
-composer() { php $HOME/.composer/bin/composer.phar $@ }
-cunt() { COMPOSER_CACHE_DIR=/dev/null composer update }
+art() {
+  php artisan $@
+}
+cunt() {
+  COMPOSER_CACHE_DIR=/dev/null composer update
+}
 
 ##
 # PHP version numbers
 # @TODO use cut instead of splitting awk?
-phpver() { echo $( php -v | sed 1q | awk '{print $2}' ) }
-phpminorver() { echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]"."a[2]}' ) }
-phpminorvernum() { echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]a[2]}' ) }
-eapache() { e $APACHE_HTTPD_CONF $@ }
-evhosts() { e $APACHE_HTTPD_VHOSTS $@ }
+phpver() {
+  echo $( php -v | sed 1q | awk '{print $2}' )
+}
+phpminorver() {
+  echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]"."a[2]}' )
+}
+phpminorvernum() {
+  echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]a[2]}' )
+}
+eapache() {
+  e $APACHE_HTTPD_CONF $@
+}
+evhosts() {
+  e $APACHE_HTTPD_VHOSTS $@
+}
 
 ################################################################################
 # file traversal
@@ -33,7 +46,9 @@ cdr() {
 
 ##
 # up 2 to cd ../..
-up() { local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x; }
+up() {
+  local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x;
+}
 
 ################################################################################
 # Archiving
@@ -91,8 +106,8 @@ source_if_exists() {
 ##
 # os specific
 case "$OSTYPE" in
-  darwin*)  [ -f "$BASH_DOTFILES/functions-osx.sh" ] && source "$BASH_DOTFILES/functions-osx.sh"
+  darwin*)  source_if_exists "$BASH_DOTFILES/functions-osx.sh"
     ;;
-  linux*)   [ -f "$BASH_DOTFILES/functions-linux.sh" ] && source "$BASH_DOTFILES/functions-linux.sh"
+  linux*)   source_if_exists "$BASH_DOTFILES/functions-linux.sh"
     ;;
 esac

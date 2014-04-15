@@ -426,7 +426,7 @@ if has("autocmd")
   au FileType make        setlocal noexpandtab
   au FileType python      setlocal noexpandtab
   " Enable soft-wrapping for text files
-  au FileType text,txt,markdown,html,xhtml,eruby setlocal wrap linebreak nolist textwidth=80
+  au FileType text,txt,markdown setlocal wrap linebreak nolist textwidth=80
 
   " Add syntax highlighting to these filetypes
   " vim-chef support for ruby files (turned off eruby)
