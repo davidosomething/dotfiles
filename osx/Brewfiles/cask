@@ -34,9 +34,7 @@ cask install skype
 cask install toggldesktop
 cask install transmit
 cask install tuxguitar
-cask install vagrant
-cask install virtualbox
 cask install vlc
-#cask install web-sharing
+cask install web-sharing
 cask install xquartz
 cask install xtrafinder

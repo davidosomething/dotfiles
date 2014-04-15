@@ -1,0 +1,3 @@
+bundle vm
+install boot2docker
+install docker

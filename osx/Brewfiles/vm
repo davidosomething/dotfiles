@@ -1,0 +1,5 @@
+tap phinze/homebrew-cask
+install brew-cask
+
+cask install vagrant
+cask install virtualbox
