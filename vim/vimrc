@@ -87,7 +87,7 @@ NeoBundle 'jeetsukumaran/vim-buffergator'
 if executable("ctags")
   NeoBundle 'majutsushi/tagbar', {
         \   'autoload': {
-        \     'commands': [ 'TagbarClose', 'TagbarOpen', 'TagbarToggle' ]
+        \     'commands': [ 'Tagbar', 'TagbarClose', 'TagbarOpen', 'TagbarToggle' ]
         \   }
         \ }
     let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
@@ -302,7 +302,7 @@ NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
 
 """"""""""""""""""""""""""""""""""""""""
 " Puppet
-NeoBundle 'rodjek/vim-puppet'
+NeoBundle 'rodjek/vim-puppet'           " creates pp filetype
 
 """"""""""""""""""""""""""""""""""""""""
 " Ruby, rails
@@ -313,7 +313,7 @@ NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 " Stylesheet languages
 NeoBundleLazy 'ap/vim-css-color', {
       \   'autoload': {
-      \     'filetypes': [ 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
+      \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
       \   }
       \ }
 "NeoBundle 'cakebaker/scss-syntax.vim'
