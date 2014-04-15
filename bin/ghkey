@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -eu
+
+################################################################################
+# Get SSH Key from GitHub
+################################################################################
+
+if [ -z "$1" ]; then
+  echo "Missing username"
+  echo
+  echo "USAGE: ghkey GITHUB_USERNAME"
+else
+  curl https://github.com/$1.keys
+  echo
+fi

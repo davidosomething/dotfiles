@@ -14,16 +14,6 @@ eapache() { e $APACHE_HTTPD_CONF $@ }
 evhosts() { e $APACHE_HTTPD_VHOSTS $@ }
 
 ################################################################################
-# tmux
-remux() {
-  if tmux has 2>/dev/null; then
-    tmux attach;
-  else
-    tmux new $SHELL;
-  fi
-}
-
-################################################################################
 # file traversal
 ##
 # Change directory to the nearest repo root
@@ -40,11 +30,6 @@ cdr() {
   fi
   [[ -d $dir ]] && cd "$dir"
 }
-
-# https://github.com/jmcantrell/dotfiles-zsh/blob/master/zsh/conf.d/40-functions
-##
-# Make a new directory and CD into it
-mcd() { mkdir -p "$@" && cd "$@" }
 
 ##
 # up 2 to cd ../..
@@ -85,18 +70,6 @@ fi
 
 ################################################################################
 # Network tools
-##
-# Get someone's SSH pubkeys from github
-get_github_ssh_key() {
-  if [ -z "$1" ]; then
-    echo "Missing username"
-    echo
-    echo "USAGE: get_github_ssh_key GITHUB_USERNAME"
-  else
-    curl https://github.com/$1.keys
-    echo
-  fi
-}
 
 ##
 # type localip to get ethernet or wireless ip
