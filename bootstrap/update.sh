@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -eu
+
 ################################################################################
 # Update dotfiles and provide instructions for updating the system
 ################################################################################
@@ -25,6 +26,7 @@ if [[ $# -eq 0 ]]; then
   dkousage_ "  npm"
   dkousage_ "  pip"
   dkousage_ "  vim"
+  dkousage_ "  docker # osx only"
   dkousage_ "  osx    # osx only"
   dkousage_ "  brew   # osx only"
   dkousage_ "  rbenv  # linux only"
@@ -52,6 +54,18 @@ case "$OSTYPE" in
     ;;
 
   darwin*)
+    if [[ "$1" = "docker" ]]; then
+      dkostatus "Updating boot2docker"
+      brew update
+      brew upgrade docker
+      brew upgrade boot2docker
+      boot2docker stop
+      boot2docker delete
+      boot2docker download
+      boot2docker init
+      boot2docker up
+    fi
+
     if [[ "$1" = "osx" ]]; then
       dkostatus "Repairing permissions"
       diskutil repairPermissions /  # fix file system permissions
