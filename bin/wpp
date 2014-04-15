@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -eu
+
+################################################################################
+# Jump to WordPress plugin page
+################################################################################
+#
+# Usage: wpp [plugin-name]
+# Omitting the plugin-name will just open up the plugins landing page
+
+open http://wordpress.org/plugins/$@
