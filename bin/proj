@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -eu
+
+################################################################################
+# Project scaffold
+
+proj_usage() {
+  echo "USAGE: proj PROJECT_NAME"
+}
+
+if [ -z "$1" ]; then
+  echo "Error: Missing project name"
+  proj_usage
+else
+  mkdir -p $1/assets/psd
+  mkdir -p $1/assets/psd
+  mkdir -p $1/doc
+  mkdir -p $1/src
+  mkdir -p $1/www/log
+  mkdir -p $1/www/dump
+  mkdir -p $1/www/public
+  mkdir -p $1/www/shared
+  mkdir -p $1/www/uploads
+fi
