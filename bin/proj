@@ -14,11 +14,16 @@ if [ -z "$1" ]; then
 else
   mkdir -p $1/assets/psd
   mkdir -p $1/assets/psd
+  mkdir -p $1/backups
   mkdir -p $1/doc
+  mkdir -p $1/keys
+  mkdir -p $1/lib
   mkdir -p $1/src
   mkdir -p $1/www/log
   mkdir -p $1/www/dump
   mkdir -p $1/www/public
   mkdir -p $1/www/shared
   mkdir -p $1/www/uploads
+  touch $1/README.md
+  touch $1/TODO.md
 fi
