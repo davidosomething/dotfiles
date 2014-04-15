@@ -43,6 +43,7 @@ NeoBundle 'altercation/vim-colors-solarized'
   endif
 NeoBundle 'itchyny/lightline.vim'
   let g:lightline = {
+        \   'depends': 'rizzatti/funcoo.vim',
         \   'active': {
         \     'left': [
         \         [ 'mode', 'paste' ],
@@ -67,7 +68,12 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'mhinz/vim-hugefile'
 NeoBundle 'nathanaelkane/vim-indent-guides'
   nnoremap <F7> :IndentGuidesToggle<CR>
-NeoBundle 'tpope/vim-fugitive'          " used by lightline
+
+" used by lightline
+NeoBundleLazy 'tpope/vim-fugitive', {
+        \   'augroup': 'fugitive'
+        \ }
+
 NeoBundle 'vim-scripts/IndexedSearch'
 NeoBundle 'vim-scripts/kwbdi.vim'
 
@@ -88,6 +94,7 @@ if executable("ctags")
     nnoremap <F4> :TagbarToggle<CR>
 endif
 NeoBundleLazy 'scrooloose/nerdtree', {
+      \   'augroup': 'NERDTreeHijackNetrw',
       \   'autoload': {
       \     'commands': [ 'NERDTreeFind', 'NERDTreeToggle', 'NERDTree' ]
       \   }
@@ -133,7 +140,7 @@ NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   vmap <Leader>a, :Tabularize /,<CR>
   nmap <Leader>af :Tabularize /=>/<CR>
   vmap <Leader>af :Tabularize /=>/<CR>
-NeoBundle 'jaxbot/github-issues.vim'
+NeoBundleLazy 'jaxbot/github-issues.vim'
 NeoBundle 'maxbrunsfeld/vim-yankstack'
   let g:yankstack_map_keys = 0
   nmap <C-p> <Plug>yankstack_substitute_newer_paste
