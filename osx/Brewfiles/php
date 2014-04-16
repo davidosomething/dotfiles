@@ -1,7 +1,13 @@
 tap josegonzalez/homebrew-php
 install composer
 install php55
+install php55-imagick
 install php55-mcrypt
+install php55-memcache
 install php55-memcached
+install php55-mongo
+install php55-oauth
+install php55-tidy
+install php55-xdebug
 install phpmyadmin
 install wp-cli
