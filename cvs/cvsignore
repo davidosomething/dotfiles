@@ -43,16 +43,16 @@ Desktop.ini
 
 ################################################################################
 # editors
-*.swp
 *.sublime-project
 *.sublime-workspace
+*.swp
 *.tmproj
 *.tmproject
 tmtags
 
 ################################################################################
 # real junk, temp files
-.sass-cache
+.sass-cache/
 *~
 *.rbc
 
