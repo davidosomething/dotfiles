@@ -1,10 +1,20 @@
 set nocompatible
 
-" determine env
-if has("unix")
-  let s:uname = system("uname")
+" Environment detection a la https://github.com/bling/dotvim
+" detect OS
+let s:is_windows = has('win32') || has('win64')
+let s:is_cygwin = has('win32unix')
+let s:is_macvim = has('gui_macvim')
+
+let s:settings = {}
+let s:settings.autocomplete_method = 'neocomplcache'
+if has('lua')
+  let s:settings.autocomplete_method = 'neocomplete'
+elseif filereadable(expand("~/.vim/bundle/YouCompleteMe/python/ycm_core.*"))
+  let s:settings.autocomplete_method = 'ycm'
 endif
 
+" RTP and plugin management
 if has("vim_starting")
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -12,17 +22,14 @@ endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Map <Leader> to comma
-let mapleader = ","
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin dependencies
 NeoBundle 'Shougo/vimproc', {
       \   'build': {
-      \     'windows': 'make -f make_mingw32.mak',
-      \     'cygwin':  'make -f make_cygwin.mak',
       \     'mac':     'make -f make_mac.mak',
       \     'unix':    'make -f make_unix.mak',
+      \     'cygwin':  'make -f make_cygwin.mak',
+      \     'windows': 'make -f make_mingw32.mak',
       \   }
       \ }
 NeoBundle 'MarcWeber/vim-addon-mw-utils'
@@ -41,6 +48,7 @@ NeoBundle 'altercation/vim-colors-solarized'
     call togglebg#map("<F5>")
     call neobundle#untap()
   endif
+NeoBundle 'dockyard/vim-easydir'
 NeoBundle 'itchyny/lightline.vim'
   let g:lightline = {
         \   'depends': 'rizzatti/funcoo.vim',
@@ -79,7 +87,7 @@ NeoBundle 'vim-scripts/kwbdi.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " menus and special features
-if s:uname == "Darwin\n"
+if s:is_macvim
   NeoBundle 'henrik/vim-reveal-in-finder'
 endif
 NeoBundle 'jeetsukumaran/vim-buffergator'
@@ -103,56 +111,71 @@ NeoBundleLazy 'scrooloose/nerdtree', {
   nnoremap <F1> :NERDTreeToggle %<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" commands
-NeoBundle 'osyo-manga/vim-over'
-if has("gui_macvim")
-  NeoBundle 'rizzatti/dash.vim', {
-        \   'depends': 'rizzatti/funcoo.vim'
-        \ }
-endif
-NeoBundle 'Keithbsmiley/investigate.vim'
-  let g:investigate_use_dash=1
-NeoBundle 'rking/ag.vim'
-NeoBundle 'tpope/vim-eunuch'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" editing keys
-if has("python")
+" autocomplete
+NeoBundle 'honza/vim-snippets'
+if s:settings.autocomplete_method == 'ycm'
   NeoBundle 'Valloric/YouCompleteMe', {
-      \   'build' : {
-      \     'mac' : './install.sh --clang-completer --system-libclang',
-      \     'unix' : './install.sh --clang-completer --system-libclang'
-      \   }
-      \ }
+        \   'vim_version':'7.3.584',
+        \   'build' : {
+        \     'mac' : './install.sh --clang-completer --system-libclang',
+        \     'unix' : './install.sh --clang-completer --system-libclang'
+        \   }
+        \ }
+    let g:ycm_complete_in_comments_and_strings=1
+  NeoBundle 'SirVer/ultisnips'
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    let g:UltiSnipsSnippetsDir='~/.vim/snippets'
+else
+  NeoBundle 'Shougo/neosnippet-snippets'
+  NeoBundle 'Shougo/neosnippet.vim'
+    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+    let g:neosnippet#enable_snipmate_compatibility=1
+
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
+    smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 endif
-NeoBundle 'edsono/vim-matchit'
-NeoBundle 'ervandew/supertab'
-  let g:SuperTabDefaultCompletionType = "context"
-  let g:SuperTabContextDefaultCompletionType = "<c-n>"
-NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
-  nmap <Leader>a- :Tabularize /-<CR>
-  vmap <Leader>a- :Tabularize /-<CR>
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
-  nmap <Leader>a, :Tabularize /,<CR>
-  vmap <Leader>a, :Tabularize /,<CR>
-  nmap <Leader>af :Tabularize /=>/<CR>
-  vmap <Leader>af :Tabularize /=>/<CR>
-NeoBundleLazy 'jaxbot/github-issues.vim'
-NeoBundle 'maxbrunsfeld/vim-yankstack'
-  let g:yankstack_map_keys = 0
-  nmap <C-p> <Plug>yankstack_substitute_newer_paste
-  nmap <C-P> <Plug>yankstack_substitute_older_paste
-NeoBundle 'nishigori/increment-activator'           " custom C-x C-a mappings
-NeoBundle 'scrooloose/nerdcommenter'
-if !has("python")
-  NeoBundle 'Shougo/neocomplcache'
-    let g:neocomplcache_enable_at_startup            = 1
+if s:settings.autocomplete_method == 'neocomplete'
+  NeoBundle 'Shougo/neocomplete.vim', {
+        \   'vim_version':'7.3.885'
+        \ }
+    let g:neocomplete#enable_at_startup=1
+    let g:neocomplete#data_directory='~/.vim/.cache/neocomplete'
+endif
+if s:settings.autocomplete_method == 'neocomplcache'
+  NeoBundle 'Shougo/neocomplcache.vim'
+    let g:neocomplcache_enable_at_startup=1
     let g:neocomplcache_enable_smart_case            = 1
     let g:neocomplcache_enable_camel_case_completion = 1
     let g:neocomplcache_enable_underbar_completion   = 1
+    let g:neocomplcache_enable_fuzzy_completion=1
+    let g:neocomplcache_temporary_dir='~/.vim/.cache/neocomplcache'
+    " default # of completions is 100, that's crazy
+    let g:neocomplcache_max_list = 10
+    " words less than 3 letters long aren't worth completing
+    let g:neocomplcache_min_syntax_length = 3
+    " start filling in after 2 chars
+    let g:neocomplcache_auto_completion_start_length = 2
+    " This makes sure we use neocomplcache completefunc instead of
+    " the one in rails.vim, otherwise this plugin will crap out
+    let g:neocomplcache_force_overwrite_completefunc = 1
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+      let g:neocomplcache_omni_patterns = {}
+    endif
+    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+    if has("autocmd")
+      au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+      au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+      au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+      au FileType python        setlocal omnifunc=pythoncomplete#Complete
+      au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+      au FileType ruby          setlocal omnifunc=rubycomplete#Complete
+    endif
     " default # of completions is 100, that's crazy
     let g:neocomplcache_max_list = 10
     " words less than 3 letters long aren't worth completing
@@ -177,6 +200,44 @@ if !has("python")
       au FileType ruby          setlocal omnifunc=rubycomplete#Complete
     endif
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" commands
+NeoBundle 'osyo-manga/vim-over'
+if has("gui_macvim")
+  NeoBundle 'rizzatti/dash.vim', {
+        \   'depends': 'rizzatti/funcoo.vim'
+        \ }
+endif
+NeoBundle 'Keithbsmiley/investigate.vim'
+  let g:investigate_use_dash=1
+NeoBundle 'rking/ag.vim'
+NeoBundle 'tpope/vim-eunuch'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" editing keys
+NeoBundle 'edsono/vim-matchit'
+NeoBundle 'ervandew/supertab'
+  let g:SuperTabDefaultCompletionType = "context"
+  let g:SuperTabContextDefaultCompletionType = "<c-n>"
+NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
+  nmap <Leader>a- :Tabularize /-<CR>
+  vmap <Leader>a- :Tabularize /-<CR>
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+  nmap <Leader>a, :Tabularize /,<CR>
+  vmap <Leader>a, :Tabularize /,<CR>
+  nmap <Leader>af :Tabularize /=>/<CR>
+  vmap <Leader>af :Tabularize /=>/<CR>
+NeoBundleLazy 'jaxbot/github-issues.vim'
+NeoBundle 'maxbrunsfeld/vim-yankstack'
+  let g:yankstack_map_keys = 0
+  nmap <C-p> <Plug>yankstack_substitute_newer_paste
+  nmap <C-P> <Plug>yankstack_substitute_older_paste
+NeoBundle 'nishigori/increment-activator'           " custom C-x C-a mappings
+NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-repeat', {
       \   'autoload': { 'mappings': '.' }
@@ -241,6 +302,10 @@ NeoBundle 'scrooloose/syntastic'
   if !has_key(g:syntastic_mode_map, "passive_filetypes")
     let g:syntastic_mode_map['passive_filetypes'] = ['python', 'html']
   endif
+  let g:syntastic_error_symbol = '✗'
+  let g:syntastic_style_error_symbol = '✠'
+  let g:syntastic_warning_symbol = '∆'
+  let g:syntastic_style_warning_symbol = '≈'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Language specific
@@ -284,14 +349,22 @@ NeoBundleLazy 'mustache/vim-mustache-handlebars', { 'autoload': { 'filetypes': [
 
 """"""""""""""""""""""""""""""""""""""""
 " PHP
-NeoBundleLazy 'mikehaertl/pdv-standalone', {
+NeoBundleLazy 'tobyS/pdv', {
       \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
+  let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates"
   if has("autocmd")
-    au FileType php nnoremap <Leader>pd :call PhpDocSingle()<CR>
-    au FileType php vnoremap <Leader>pd :call PhpDocRange()<CR>
+    au FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+    au FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
   endif
-NeoBundleLazy 'shawncplus/phpcomplete.vim', { 'autoload': { 'filetypes': ['php', 'blade'] } }
+NeoBundleLazy 'shawncplus/phpcomplete.vim', {
+      \   'autoload': { 'filetypes': ['php', 'blade'] }
+      \ }
+NeoBundle 'StanAngeloff/php.vim'        " updated syntax
+NeoBundleLazy 'dsawardekar/wordpress.vim', {
+      \   'depends': 'shawncplus/phpcomplete.vim',
+      \   'autoload': { 'filetypes': ['php'] }
+      \ }
 NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] },
       \   'build': {
@@ -446,8 +519,11 @@ if has("autocmd")
   " HBS is a handlebars file
   au BufRead,BufNewFile *.hbs setlocal filetype=mustache
 
+  " JSON force JSON not javascript
+  au BufRead,BufNewFile *.json setlocal filetype=json
+
   " crontab on OSX needs a tempfile
-  if s:uname == "Darwin\n"
+  if s:is_macvim
     au BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
   endif
 
@@ -455,6 +531,9 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keyboard - most of this is straight from Janus
+
+" Map <Leader> to comma
+let mapleader = ","
 
 " Disable vim help
 inoremap <F1> <nop>
