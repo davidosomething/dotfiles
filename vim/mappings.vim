@@ -6,6 +6,7 @@ let mapleader = ","
 
 " Disable vim help
 inoremap <F1> <nop>
+nnoremap <F1> <nop>
 
 " Toggle paste mode
 nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>

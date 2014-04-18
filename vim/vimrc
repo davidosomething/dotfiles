@@ -18,6 +18,9 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " display
+set ttyfast
+set lazyredraw                        " don't update the display while
+                                      " executing macros
 if has('gui_running')
   set background=light
 else
@@ -37,8 +40,6 @@ set splitright
 set mouse=a
 
 " status line - most of this is handled by vim-powerline
-set lazyredraw                        " don't update the display while
-                                      " executing macros
 set laststatus=2
 set showcmd                           " incomplete commands on
 
@@ -52,8 +53,9 @@ set softtabstop=2
 set expandtab
 set backspace=indent,eol,start        " bs anything
 set noeol
-set nojoinspaces                      " J command doesn't add extra space
 "set smartindent -- using filetype indenting instead
+set nrformats-=octal                  " never use octal when <C-x> or <C-a>
+set nojoinspaces                      " J command doesn't add extra space
 
 " Trailing whitespace
 set list
@@ -103,6 +105,7 @@ set fileformat=unix
 " backups
 set noswapfile                        " eff that
 set nobackup                          " hate those
+set nowritebackup                     " hate those
 
 " buffer reuse
 set hidden                            " remember undo after quitting
@@ -111,10 +114,12 @@ set switchbuf=useopen                 " reveal already opened files from the
                                       " buffers
 
 " clipboard -- use os clipboard
-if has('unnamedplus')
-  set clipboard=unnamedplus  " Share X windows clipboard.
-else
+if has('clipboard')
   set clipboard=unnamed  " Share system clipboard.
+
+  if has('unnamedplus')
+    set clipboard+=unnamedplus  " Share X windows clipboard.
+  endif
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
