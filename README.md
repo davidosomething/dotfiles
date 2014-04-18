@@ -4,7 +4,19 @@
 
 ## Installation
 
-Clone RECURSIVELY (including submodules!!) to `~/.dotfiles`
+1. Clone and symlink:
+    ```
+    git clone --recurse-submodules https://github.com/davidosomething/dotfiles.git ~/.dotfiles
+    cd ~/.dotfiles/bootstrap
+    ./symlink.sh
+    ```
+2. Restart your shell
+3. Setup vim:
+    ```
+    cd ~/.dotfiles/bootstrap
+    ./vim.sh
+    u vim
+    ```
 
 ### Working bootstrap scripts
 
@@ -16,8 +28,8 @@ Clone RECURSIVELY (including submodules!!) to `~/.dotfiles`
 
 ### Homebrew
 
-`brew bundle` will execute all commands in a `Brewfile`. There's a `Brewfile`
-in the `osx` folder.
+`brew bundle` will execute all commands in a `Brewfile`. There are several
+Brewfiles in the `osx` folder.
 
 ## Notes
 

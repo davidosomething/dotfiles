@@ -356,8 +356,8 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundles
-if filereadable($HOME . "/.vim/bundles")
-  source ~/.vim/bundles
+if filereadable($HOME . "/.vim/plugins.vim")
+  source ~/.vim/plugins.vim
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -379,7 +379,7 @@ if has("autocmd")
   au FileType python      setlocal noexpandtab
 
   " Enable soft-wrapping for text files
-  au FileType text,txt,markdown setlocal wrap linebreak nolist textwidth=80
+  au FileType text setlocal wrap linebreak nolist textwidth=80
 
   " Force filetypes
   " vim-chef support for ruby files (turned off eruby)

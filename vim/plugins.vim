@@ -152,29 +152,6 @@ if g:settings.autocomplete_method == 'neocomplcache'
       au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
       au FileType ruby          setlocal omnifunc=rubycomplete#Complete
     endif
-    " default # of completions is 100, that's crazy
-    let g:neocomplcache_max_list = 10
-    " words less than 3 letters long aren't worth completing
-    let g:neocomplcache_min_syntax_length = 3
-    " start filling in after 2 chars
-    let g:neocomplcache_auto_completion_start_length = 2
-    " This makes sure we use neocomplcache completefunc instead of
-    " the one in rails.vim, otherwise this plugin will crap out
-    let g:neocomplcache_force_overwrite_completefunc = 1
-    " Enable heavy omni completion.
-    if !exists('g:neocomplcache_omni_patterns')
-      let g:neocomplcache_omni_patterns = {}
-    endif
-    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-    if has("autocmd")
-      au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-      au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-      au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-      au FileType python        setlocal omnifunc=pythoncomplete#Complete
-      au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-      au FileType ruby          setlocal omnifunc=rubycomplete#Complete
-    endif
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -305,15 +282,15 @@ NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 
 """"""""""""""""""""""""""""""""""""""""
 " JavaScript
-NeoBundleLazy 'itspriddle/vim-jquery'   " creates javascript syntax
-NeoBundle 'jelera/vim-javascript-syntax' " creates javascript syntax
+NeoBundle 'itspriddle/vim-jquery'       " creates javascript syntax
+NeoBundle 'jelera/vim-javascript-syntax' " also creates javascript syntax
 NeoBundleLazy 'othree/javascript-libraries-syntax.vim', { 'autoload': { 'filetypes': ['javascript'] } }
-NeoBundle 'pangloss/vim-javascript'     " creates javascript filetype
+NeoBundle 'pangloss/vim-javascript'     " also creates javascript filetype
 
 """"""""""""""""""""""""""""""""""""""""
 " JSON
 NeoBundle 'elzr/vim-json'               " creates json filetype
-  if neobundle#tap('vim-json')
+  if has("autocmd") && neobundle#tap('vim-json')
     " JSON force JSON not javascript
     au BufRead,BufNewFile *.json setlocal filetype=json
   endif
@@ -377,5 +354,3 @@ NeoBundleLazy 'ap/vim-css-color', {
 "NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'groenewege/vim-less'         " creates less filetype
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'autoload': { 'filetypes': ['css', 'sass', 'scss'] } }
-
-" vi:syntax=vim
