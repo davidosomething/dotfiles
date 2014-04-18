@@ -22,7 +22,7 @@ NeoBundle 'tomtom/tlib_vim'
 " ui
 NeoBundle 'altercation/vim-colors-solarized'
   if neobundle#tap('vim-colors-solarized')
-    colorscheme solarized               " STFU if no solarized
+    silent! colorscheme solarized               " STFU if no solarized
   endif
 NeoBundle 'dockyard/vim-easydir'
 NeoBundle 'itchyny/lightline.vim'

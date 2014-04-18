@@ -1,4 +1,6 @@
 set nocompatible
+set encoding=utf-8
+scriptencoding utf-8
 
 " Environment detection a la https://github.com/bling/dotvim
 " detect OS
@@ -97,7 +99,6 @@ set wildignore+=*.swp,.lock,.DS_Store,._*
                                       " elsewhere
 set fileformats=unix,mac,dos
 set fileformat=unix
-set encoding=utf-8
 
 " backups
 set noswapfile                        " eff that
