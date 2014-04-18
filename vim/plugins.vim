@@ -83,7 +83,10 @@ NeoBundleLazy 'scrooloose/nerdtree', {
       \     'commands': [ 'NERDTreeFind', 'NERDTreeToggle', 'NERDTree' ]
       \   }
       \ }
-  let g:NERDTreeShowHidden = 1
+
+  let NERDTreeShowHidden = 1
+  let NERDTreeHijackNetrw = 1
+  let NERDTreeMinimalUI=1
   nnoremap <F1> :NERDTreeToggle %<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
