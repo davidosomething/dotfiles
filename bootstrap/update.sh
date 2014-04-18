@@ -108,6 +108,7 @@ fi
 
 if [[ "$1" = "npm" ]]; then
   dkostatus "Updating global npm modules"
+  npm update npm -g
   npm update -g
 fi
 
