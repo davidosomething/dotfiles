@@ -198,9 +198,9 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-repeat', {
       \   'autoload': { 'mappings': '.' }
       \ }
-NeoBundle 'tpope/vim-speeddating'               " fast increment datetimes
+NeoBundle 'tpope/vim-speeddating'       " fast increment datetimes
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'tpope/vim-unimpaired'        " keyb shortcut for next quickfix, file
 NeoBundle 'tyru/operator-camelize.vim', {
       \   'depends': 'vim-operator-user',
       \   'autoload': {
@@ -326,10 +326,10 @@ NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
 NeoBundle 'StanAngeloff/php.vim'        " updated syntax
-"NeoBundleLazy 'dsawardekar/wordpress.vim', {
-"      \   'depends': 'shawncplus/phpcomplete.vim',
-"      \   'autoload': { 'filetypes': ['php'] }
-"      \ }
+NeoBundleLazy 'dsawardekar/wordpress.vim', {
+      \   'depends': [ 'shawncplus/phpcomplete.vim', 'kien/ctrlp.vim' ],
+      \   'autoload': { 'filetypes': ['php'] }
+      \ }
 NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] },
       \   'build': {
@@ -349,11 +349,12 @@ NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 
 """"""""""""""""""""""""""""""""""""""""
 " Stylesheet languages
-NeoBundleLazy 'ap/vim-css-color', {
-      \   'autoload': {
-      \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
-      \   }
-      \ }
+NeoBundleLazy 'gorodinskiy/vim-coloresque'
+"NeoBundleLazy 'ap/vim-css-color', {
+"      \   'autoload': {
+"      \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
+"      \   }
+"      \ }
 "NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'groenewege/vim-less'         " creates less filetype
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'autoload': { 'filetypes': ['css', 'sass', 'scss'] } }
