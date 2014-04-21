@@ -31,6 +31,7 @@ export RBENV_ROOT="$HOME/.rbenv"
 # useful file paths
 export APACHE_HTTPD_CONF="$APACHE_CONF/httpd.conf"
 export APACHE_HTTPD_VHOSTS="$APACHE_CONF/extra/httpd-vhosts.conf"
+export PHP_INI="$(php -r "echo php_ini_loaded_file();")"
 
 ##
 # os specific

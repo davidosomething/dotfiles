@@ -1,4 +1,4 @@
-##
+####
 # .dotfiles/bash/aliases-linux.sh
 
 # ls
@@ -7,11 +7,7 @@ alias ll="ls -Al"
 
 # vim
 # don't use mvim on ssh connections and tty
-if [ "$SSH_CONNECTION" != "" ] || [ "$DISPLAY" == "" ]; then
-  alias e="vim"
-  alias mvim="vim"
-  alias gvim="vim"
-else
+if [ -z "$SSH_CONNECTION" ] && [ "$DISPLAY" == "" ]; then
   alias e="gvim"
   alias mvim="gvim"
 fi

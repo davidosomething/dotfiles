@@ -10,6 +10,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # disable startup chime
 sudo nvram SystemAudioVolume=" "
 
+
 ################################################################################
 # monitor
 # Enable subpixel font rendering on non-Apple LCDs
@@ -19,6 +20,15 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 # finder
 # Show the ~/Library folder
 chflags nohidden ~/Library
+
+# allow quit
+defaults write com.apple.finder QuitMenuItem -bool true
+
+# Disable window animations and Get Info animations in Finder
+defaults write com.apple.finder DisableAllAnimations -bool true
+
+# turn off window animations opening and closing
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool falseP
 
 # Show all filename extensions in Finder
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
@@ -72,7 +82,6 @@ defaults write com.apple.dashboard mcx-disabled -boolean YES
 
 # Don’t show Dashboard as a Space
 defaults write com.apple.dock dashboard-in-overlay -bool true
-
 
 ################################################################################
 # terminal

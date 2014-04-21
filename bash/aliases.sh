@@ -28,6 +28,9 @@ alias rsync="rsync --human-readable --partial --progress --exclude-from=$HOME/.c
 alias wget="wget --no-check-certificate"
 
 # quick edits
+alias e="vim"
+alias mvim="vim"
+alias gvim="vim"
 alias evars="e $BASH_DOTFILES/vars.sh"
 alias epaths="e $BASH_DOTFILES/paths.sh"
 alias ealiases="e $BASH_DOTFILES/aliases.sh"
@@ -38,9 +41,6 @@ alias ebashrc="e $BASH_DOTFILES/bashrc.sh"
 alias elbashrc="e $HOME/.bashrc.local"
 
 alias ehosts="sudo vim /etc/hosts"
-alias ephpini="e $PHP_INI"
-
-# php
 
 # server
 alias pyserve="python -m SimpleHTTPServer"

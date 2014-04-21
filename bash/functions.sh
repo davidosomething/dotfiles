@@ -11,16 +11,16 @@ cunt() {
 # PHP version numbers
 # @TODO use cut instead of splitting awk?
 phpver() {
-  echo $( php -v | sed 1q | awk '{print $2}' )
+  php -r 'echo phpversion();'
 }
 phpminorver() {
-  echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]"."a[2]}' )
-}
-phpminorvernum() {
-  echo $( echo $PHPVER | awk -F="." '{split($0,a,"."); print a[1]a[2]}' )
+  php -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"
 }
 eapache() {
   e $APACHE_HTTPD_CONF $@
+}
+ephpini() {
+  e $PHP_INI $@
 }
 evhosts() {
   e $APACHE_HTTPD_VHOSTS $@

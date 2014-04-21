@@ -7,11 +7,7 @@ alias ls="ls -AFG"
 alias ll="ls -l"
 
 # don't use mvim on ssh connections
-if [ ! -z "$SSH_CONNECTION" ]; then
-  alias e="vim"
-  alias mvim="vim"
-  alias gvim="vim"
-else
+if [ -z "$SSH_CONNECTION" ]; then
   alias e="mvim"
   alias gvim="mvim"
 fi
