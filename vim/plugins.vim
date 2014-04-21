@@ -327,7 +327,11 @@ NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \ }
 NeoBundle 'StanAngeloff/php.vim'        " updated syntax
 NeoBundleLazy 'dsawardekar/wordpress.vim', {
-      \   'depends': [ 'shawncplus/phpcomplete.vim', 'kien/ctrlp.vim' ],
+      \   'depends': [
+      \     'kien/ctrlp.vim',
+      \     'shawncplus/phpcomplete.vim',
+      \     'SirVer/ultisnips'
+      \   ],
       \   'autoload': { 'filetypes': ['php'] }
       \ }
 NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
