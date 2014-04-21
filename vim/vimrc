@@ -123,10 +123,8 @@ if has('clipboard')
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load mappings
-if filereadable($HOME . "/.vim/mappings.vim")
-  source ~/.vim/mappings.vim
-endif
+" Map <Leader> to comma
+let mapleader = ","
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RTP and plugin management
@@ -135,6 +133,12 @@ if has("vim_starting")
 endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Load mappings
+if filereadable($HOME . "/.vim/mappings.vim")
+  source ~/.vim/mappings.vim
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Local config

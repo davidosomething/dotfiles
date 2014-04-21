@@ -1,9 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keyboard - most of this is straight from Janus
 
-" Map <Leader> to comma
-let mapleader = ","
-
 " Disable vim help
 inoremap <F1> <nop>
 nnoremap <F1> <nop>

@@ -105,7 +105,7 @@ if g:settings.autocomplete_method == 'ycm'
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
     let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-    let g:UltiSnipsSnippetsDir='~/.vim/snippets'
+    let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
 else
   NeoBundle 'Shougo/neosnippet-snippets'
   NeoBundle 'Shougo/neosnippet.vim'
