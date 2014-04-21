@@ -101,11 +101,11 @@ if g:settings.autocomplete_method == 'ycm'
         \   }
         \ }
     let g:ycm_complete_in_comments_and_strings=1
-  NeoBundle 'SirVer/ultisnips'
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-    let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
+"  NeoBundle 'SirVer/ultisnips'
+    "let g:UltiSnipsExpandTrigger="<tab>"
+    "let g:UltiSnipsJumpForwardTrigger="<tab>"
+    "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+"    let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
 else
   NeoBundle 'Shougo/neosnippet-snippets'
   NeoBundle 'Shougo/neosnippet.vim'
@@ -326,14 +326,16 @@ NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
 NeoBundle 'StanAngeloff/php.vim'        " updated syntax
+
+"      \     'SirVer/ultisnips'
 NeoBundleLazy 'dsawardekar/wordpress.vim', {
       \   'depends': [
       \     'kien/ctrlp.vim',
       \     'shawncplus/phpcomplete.vim',
-      \     'SirVer/ultisnips'
       \   ],
       \   'autoload': { 'filetypes': ['php'] }
       \ }
+
 NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] },
       \   'build': {
