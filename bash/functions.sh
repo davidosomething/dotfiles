@@ -27,7 +27,7 @@ evhosts() {
 }
 
 ################################################################################
-# file traversal
+# traversal
 ##
 # Change directory to the nearest repo root
 cdr() {
@@ -48,6 +48,21 @@ cdr() {
 # up 2 to cd ../..
 up() {
   local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x;
+}
+
+################################################################################
+# Determine size of a file or total size of a directory
+function fs() {
+  if du -b /dev/null > /dev/null 2>&1; then
+    local arg=-sbh
+  else
+    local arg=-sh
+  fi
+  if [[ -n "$@" ]]; then
+    du $arg -- "$@"
+  else
+    du $arg .[^.]* *
+  fi
 }
 
 ################################################################################

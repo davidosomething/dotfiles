@@ -3,6 +3,7 @@
 # Sourced by zsh as well
 
 # osx aliases since -G is an osx (and FreeBSD) flag
+alias o="open"
 alias ls="ls -AFG"
 alias ll="ls -l"
 

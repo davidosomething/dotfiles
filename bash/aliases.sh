@@ -1,7 +1,6 @@
 # dotfiles/bash/aliases.sh
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
 
-alias dotfiles="$DOTFILES/bootstrap.sh"
 alias reload="exec $SHELL"
 alias _="sudo"
 
