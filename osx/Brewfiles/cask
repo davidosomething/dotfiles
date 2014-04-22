@@ -1,16 +1,26 @@
 tap phinze/homebrew-cask
+update
+
 install brew-cask
 
 cask install adium
 cask install alfred
 cask install android-file-transfer
 cask install bettertouchtool
-cask install bowtie
+
+# menubar app to prevent display sleeping
 cask install caffeine
-#cask install cord #not mavericks compatible
+
+# developer docs
 cask install dash
+
+# better calendar for menubar
 cask install day-o
+
+# fontsquirrel offline
 cask install fontprep
+
+# monitor git repos in menubar
 cask install gitifier
 cask install google-chrome
 cask install google-drive
@@ -21,20 +31,42 @@ cask install jing
 cask install joinme
 cask install kaleidoscope
 cask install keyremap4macbook
-cask install lastfm
 cask install lastpass-universal
+
+# prefpane to manage homebrew plists like mysql
 cask install launchrocket
 cask install noejectdelay
+
+# menubar app to prevent sleep when close lid
 cask install nosleep
 cask install nvalt
-cask install remote-desktop-connection
+
+# don't use reverse scrolling on a mouse
 cask install scroll-reverser
 cask install sequel-pro
 cask install skype
 cask install toggldesktop
+cask install transmission
 cask install transmit
+
+# guitar tab reader
 cask install tuxguitar
 cask install vlc
+
+# web sharing pref pane to toggle system apache
 cask install web-sharing
 cask install xquartz
+
+# finder tabs and extra buttons, better than totalfinder
 cask install xtrafinder
+
+##
+# old
+
+# Remote Desktop Apps -- use Microsoft Remote Desktop from App Store
+#cask install cord #not mavericks compatible
+#cask install remote-desktop-connection
+
+# Music -- use Vox from App Store
+#cask install bowtie
+#cask install lastfm

@@ -1,5 +1,8 @@
 tap phinze/homebrew-cask
+update
+
 install brew-cask
+
 cask install betterzipql
 cask install qlcolorcode
 cask install qlimagesize

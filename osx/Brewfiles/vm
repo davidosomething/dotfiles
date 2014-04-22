@@ -1,4 +1,6 @@
 tap phinze/homebrew-cask
+update
+
 install brew-cask
 
 cask install vagrant

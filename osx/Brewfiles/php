@@ -1,4 +1,6 @@
 tap josegonzalez/homebrew-php
+update
+
 install composer
 install php55
 install php55-imagick

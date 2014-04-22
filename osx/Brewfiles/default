@@ -1,32 +1,61 @@
-# standard homebrew formula
+update
+
+##
+# compilers
+install cmake
+
+##
+# editing
+install ctags
+install macvim --override-system-vim
+
+##
+# filesystem
 install ack
 install autojump
-install cmake
-install curl
-install curl-ca-bundle
-install ctags
 install direnv
-install dnsmasq
+# alias rm to rmtrash
+install rmtrash
+install the_silver_searcher
+install tree
+
+##
+# git
 install git
 install git-extras
 install hub
-install irssi
+
+##
+# operations
+install nmap
+install ssh-copy-id
+
+##
+# pretty print and processor
+# query json
 install jq
 install jsonpp
-install macvim --override-system-vim
 install multitail
-install mysql
-install nmap
-install node
-install openssl
+
+##
+# ruby
 install rbenv
 install rbenv-gem-rehash
 install rbenv-default-gems
 install ruby-build
 install ruby-install
-install ssh-copy-id
-install the_silver_searcher
-install tree
-install wget
+
+##
+# shell
 install zsh
 install zsh-completions
+
+##
+# web
+install curl
+install curl-ca-bundle
+install dnsmasq
+install mysql
+install node
+install openssl
+install wget
