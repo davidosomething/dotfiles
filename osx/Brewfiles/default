@@ -1,8 +1,11 @@
 update
 
 ##
-# compilers
+# compilers, tools, and libs
+install automake
 install cmake
+install libtool
+install pkg-config
 
 ##
 # editing
