@@ -17,6 +17,9 @@ source $HOME/.dotfiles/bash/vars.sh
 export ZSH_DOTFILES="$DOTFILES/zsh"
 source $ZSH_DOTFILES/vars.zsh
 
+# History
+export HISTFILE="$ZDOTDIR/.zhistory"
+
 ##
 # OS specific
 case "$OSTYPE" in
