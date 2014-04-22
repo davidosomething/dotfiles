@@ -15,6 +15,7 @@ alias l="ls -l"
 alias b="brew"
 alias g="git"
 alias u="update"
+alias vb="VBoxManage"
 
 # function-type aliases
 alias publicip="curl icanhazip.com"
