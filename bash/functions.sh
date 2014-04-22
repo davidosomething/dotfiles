@@ -16,6 +16,28 @@ phpver() {
 phpminorver() {
   php -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"
 }
+
+
+##
+# editing
+e() {
+  case "$OSTYPE" in
+    darwin*)
+      if [ -n "$SSH_CONNECTION" ]; then
+        $(brew --prefix)/bin/mvim $@
+      else
+        open -t $@
+      fi
+      ;;
+    linux*)
+      if [ -n "$SSH_CONNECTION" ] || [ -z "$DISPLAY" ]; then
+        vim $@
+      else
+        gvim $@
+      fi
+      ;;
+  esac
+}
 eapache() {
   e $APACHE_HTTPD_CONF $@
 }

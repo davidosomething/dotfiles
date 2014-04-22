@@ -1,1 +1,4 @@
 /vim/bundle/*
+/zsh/zsh-completions/*
+/zsh/zsh-syntax-highlighting/*
+/solarized/*

@@ -15,16 +15,6 @@ flushdns() {
   sudo killall -HUP mDNSResponder
 }
 
-##
-# force reuse of existing mvim window
-mvim() {
-  if [ -n "$1" ]; then
-    $(brew --prefix)/bin/mvim --servername VIM --remote-tab-silent $@
-  else
-    open -a MacVim
-  fi
-}
-
 ################################################################################
 # OSX filesystem
 ##
