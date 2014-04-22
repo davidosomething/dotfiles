@@ -7,7 +7,7 @@ install cmake
 ##
 # editing
 install ctags
-install macvim --override-system-vim
+install macvim --custom-icons --override-system-vim --withlua --withpython3
 
 ##
 # filesystem
@@ -59,3 +59,7 @@ install mysql
 install node
 install openssl
 install wget
+
+##
+# links macvim, maybe others, to /Applications
+linkapps
