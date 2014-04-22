@@ -1,0 +1,4 @@
+.node-gyp/
+packages/
+storage/
+themes/
