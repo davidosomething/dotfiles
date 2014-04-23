@@ -1,3 +1,17 @@
+flatten() {
+  read "reply?Flatten folder: are you sure? [Yy] "
+  if [[ $reply =~ ^[Yy]$ ]]; then
+    mv ./*/* .
+  fi
+}
+
+prune() {
+  read "reply?Prune empty directories: are you sure? [Yy] "
+  if [[ $reply =~ ^[Yy]$ ]]; then
+    find . -type d -empty -delete
+  fi
+}
+
 ################################################################################
 # dev
 art() {
@@ -23,11 +37,7 @@ phpminorver() {
 e() {
   case "$OSTYPE" in
     darwin*)
-      if [ -n "$SSH_CONNECTION" ]; then
-        $(brew --prefix)/bin/mvim $@
-      else
-        open -t $@
-      fi
+      $(brew --prefix)/bin/mvim --servername VIM --remote-tab-silent $@
       ;;
     linux*)
       if [ -n "$SSH_CONNECTION" ] || [ -z "$DISPLAY" ]; then
