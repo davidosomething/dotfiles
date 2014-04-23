@@ -107,13 +107,20 @@ if g:settings.autocomplete_method == 'ycm'
     "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "    let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
 else
-  NeoBundle 'Shougo/neosnippet-snippets'
-  NeoBundle 'Shougo/neosnippet.vim'
-    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+  NeoBundle 'Shougo/neosnippet-snippets', {
+        \   'depends': 'Shougo/neosnippet.vim'
+        \ }
     let g:neosnippet#enable_snipmate_compatibility=1
 
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    " load honza vim-snippets and personal snippets from .vim/snippets
+    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+          \ "\<Plug>(neosnippet_expand_or_jump)"
+          \ : (pumvisible() ? "\<C-n>" : "\<TAB>")
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+          \ "\<Plug>(neosnippet_expand_or_jump)"
+          \ : "\<TAB>"
     imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
     smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 endif
@@ -122,7 +129,11 @@ if g:settings.autocomplete_method == 'neocomplete'
         \   'vim_version':'7.3.885'
         \ }
     let g:neocomplete#enable_at_startup=1
+    let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#data_directory='~/.vim/.cache/neocomplete'
+  NeoBundle 'Shougo/neosnippet.vim', {
+        \   'depends': 'Shougo/neocomplete.vim'
+        \ }
 endif
 if g:settings.autocomplete_method == 'neocomplcache'
   NeoBundle 'Shougo/neocomplcache.vim'
@@ -147,14 +158,9 @@ if g:settings.autocomplete_method == 'neocomplcache'
     endif
     let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-    if has("autocmd")
-      au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-      au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-      au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-      au FileType python        setlocal omnifunc=pythoncomplete#Complete
-      au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-      au FileType ruby          setlocal omnifunc=rubycomplete#Complete
-    endif
+  NeoBundle 'Shougo/neosnippet.vim', {
+        \   'depends': 'Shougo/neocomplcache.vim'
+        \ }
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

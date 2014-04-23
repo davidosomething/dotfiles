@@ -186,4 +186,13 @@ if has("autocmd")
   if g:is_macvim
     au BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
   endif
+
+  if g:settings.autocomplete_method != 'ycm'
+    au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+    au FileType python        setlocal omnifunc=pythoncomplete#Complete
+    au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+    au FileType ruby          setlocal omnifunc=rubycomplete#Complete
+  endif
 endif
