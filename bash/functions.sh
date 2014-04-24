@@ -37,7 +37,11 @@ phpminorver() {
 e() {
   case "$OSTYPE" in
     darwin*)
-      $(brew --prefix)/bin/mvim --servername VIM --remote-tab-silent $@
+      if [ -z $1 ]; then
+        $(brew --prefix)/bin/mvim --servername VIM
+      else
+        $(brew --prefix)/bin/mvim --servername VIM --remote-tab-silent $@
+      fi
       ;;
     linux*)
       if [ -n "$SSH_CONNECTION" ] || [ -z "$DISPLAY" ]; then

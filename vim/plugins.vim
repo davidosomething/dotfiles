@@ -173,6 +173,7 @@ if has("gui_macvim")
 endif
 NeoBundle 'Keithbsmiley/investigate.vim'
   let g:investigate_use_dash=1
+NeoBundle 'mileszs/ack.vim'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'tpope/vim-eunuch'
 
