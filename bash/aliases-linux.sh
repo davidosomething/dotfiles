@@ -2,5 +2,5 @@
 # .dotfiles/bash/aliases-linux.sh
 
 # ls
-alias ls="ls --color=auto"
-alias ll="ls -Al"
+alias ls="ls --color=auto -p"
+alias ll="ls -AFl"

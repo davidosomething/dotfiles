@@ -4,8 +4,7 @@
 
 # osx aliases since -G is an osx (and FreeBSD) flag
 alias o="open"
-alias ls="ls -AFG"
-alias ll="ls -l"
+alias ls="ls -G -p"
 
 # http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"

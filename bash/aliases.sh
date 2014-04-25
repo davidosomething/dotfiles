@@ -9,7 +9,8 @@ alias ..='cd ..'
 alias ....='cd ../..'
 alias cd..='cd ..'
 alias dirs="dirs -v"                  # default to vert, use -l for list
-alias l="ls -l"
+alias l="ls -AF"
+alias ll="l -l"
 
 # bin
 alias b="brew"
