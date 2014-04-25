@@ -9,21 +9,41 @@ nnoremap <F1> <nop>
 nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
 inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
 
+" Toggle hlsearch with <Leader>hs
+nnoremap <Leader>hs :set hlsearch! hlsearch?<CR>
+
+" Unfuck my screen
+" https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-444
+nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
+
+""
+" Scrolling
 " Map the arrow keys to be based on display lines, not physical lines
-map <Down> gj
-map <Up> gk
+vnoremap <Down> gj
+vnoremap <Up>   gk
 
-" Use Ctrl-U/D for pg up and pg dn, maintains cursor position on screen
-" http://github.com/gf3/dotfiles/blob/fe8bba3711181728c670cad2d585705d8e68c5b7/.vimrc
-map <PageUp> <C-U>
-map <PageDown> <C-D>
-imap <PageUp> <C-O><C-U>
-imap <PageDown> <C-O><C-D>
+" Replace PgUp and PgDn with Ctrl-U/D
+map   <PageUp>    <C-U>
+map   <PageDown>  <C-D>
+imap  <PageUp>    <C-O><C-U>
+imap  <PageDown>  <C-O><C-D>
 
-" fix typo !W to !w
-" https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
-command! -bang W w<bang>
+" Keep search pattern at the center of the screen.
+" http://vimbits.com/bits/92
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
 
+""
+" Commands
+" Remap :W to :w
+command W w
+
+""
+" Traversal / Filesystem
 " cd to the directory containing the file in the buffer
 nnoremap <silent> <Leader>cd :lcd %:h<CR>
 
@@ -41,12 +61,25 @@ nnoremap <silent> <Leader>cdr :call ChangeToVCSRoot()<CR>
 " Create the directory containing the file in the buffer
 nnoremap <silent> <Leader>md :!mkdir -p %:p:h<CR>
 
+""
+" Editing
+
+" Sort lines
+" https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
+nnoremap <leader>s vip:!sort<cr>
+vnoremap <leader>s :!sort<cr>
+
 " upper/lower word
 nmap <Leader>u mQviwU`Q
 nmap <Leader>l mQviwu`Q
 
-" Toggle hlsearch with <Leader>hs
-nnoremap <Leader>hs :set hlsearch! hlsearch?<CR>
+" Clean code function
+function! CleanCode()
+  %retab      " Replace tabs with spaces
+  %s/\r/\r/eg " Turn DOS returns ^M into real returns
+  %s= *$==e   " Delete end of line blanks
+endfunction
+nnoremap <Leader>ws :call CleanCode()<cr>
 
 if g:is_macvim && has("gui_running")
   " Map command-[ and command-] to indenting or outdenting
@@ -146,50 +179,15 @@ else
   imap <C-9> <Esc>9gt
 endif
 
-" Keep search pattern at the center of the screen.
-" http://vimbits.com/bits/92
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-nnoremap <silent> g# g#zz
-
 " Space to toggle folds.
 " https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
 nnoremap <Space> za
 vnoremap <Space> za
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" My Tab and Split manipulation
-nnoremap <Leader>v :vsplit<cr>
-" resize vertical splits
-nmap <Leader>_ <C-w>>
-nmap <Leader>+ <C-w><
-" resize horizontal splits
-nmap <Leader>- <C-w>-
-nmap <Leader>= <C-w>+
-" swap splits with ,mw (mark this one) and ,pw (swap with this one)
-" http://stackoverflow.com/questions/2586984/how-can-i-swap-positions-of-two-open-files-in-splits-in-vim
-function! MarkWindowSwap()
-  let g:markedWinNum = winnr()
-endfunction
-function! DoWindowSwap()
-  "Mark destination
-  let curNum = winnr()
-  let curBuf = bufnr( "%" )
-  exe g:markedWinNum . "wincmd w"
-  "Switch to source and shuffle dest->source
-  let markedBuf = bufnr( "%" )
-  "Hide and open so that we aren't prompted and keep history
-  exe 'hide buf' curBuf
-  "Switch to dest and shuffle source->dest
-  exe curNum . "wincmd w"
-  "Hide and open so that we aren't prompted and keep history
-  exe 'hide buf' markedBuf
-endfunction
-nnoremap <silent> <Leader>mw :call MarkWindowSwap()<CR>
-nnoremap <silent> <Leader>pw :call DoWindowSwap()<CR>
+""
+" Tab and Split manipulation
+
+nnoremap <Leader>v <C-w>v<cr>
 
 " Navigate splits
 nnoremap <silent> <C-k> :wincmd k<CR>
@@ -197,15 +195,16 @@ nnoremap <silent> <C-j> :wincmd j<CR>
 nnoremap <silent> <C-h> :wincmd h<CR>
 nnoremap <silent> <C-l> :wincmd l<CR>
 
+" Resize splits
+nnoremap <silent> <Left>  4<C-w><
+nnoremap <silent> <Down>  4<C-W>-
+nnoremap <silent> <Up>    4<C-W>+
+nnoremap <silent> <Right> 4<C-w>>
+inoremap <silent> <Left>  <Esc>4<C-w><
+inoremap <silent> <Down>  <Esc>4<C-W>-
+inoremap <silent> <Up>    <Esc>4<C-W>+
+inoremap <silent> <Right> <Esc>4<C-w>>
+
 " Navigate tabs
 nnoremap <silent> <Leader>[ :tabprevious<CR>
 nnoremap <silent> <Leader>] :tabnext<CR>
-
-" Clean code function
-function! CleanCode()
-  %retab " Replace tabs with spaces
-  %s/\r/\r/eg " Turn DOS returns ^M into real returns
-  %s= *$==e " Delete end of line blanks
-  echo "Cleaned up this mess."
-endfunction
-nnoremap <Leader>ws :call CleanCode()<cr>
