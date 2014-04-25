@@ -27,7 +27,6 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'dockyard/vim-easydir'
 NeoBundle 'itchyny/lightline.vim'
   let g:lightline = {
-        \   'depends': 'rizzatti/funcoo.vim',
         \   'active': {
         \     'left': [
         \         [ 'mode', 'paste' ],
@@ -44,6 +43,8 @@ NeoBundle 'itchyny/lightline.vim'
         \     'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
         \     'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
         \   },
+        \   'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+        \   'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
         \ }
 NeoBundle 'kien/tabman.vim'
   nnoremap <F2> :TMToggle<CR>
@@ -110,10 +111,10 @@ else
   NeoBundle 'Shougo/neosnippet-snippets', {
         \   'depends': 'Shougo/neosnippet.vim'
         \ }
-    let g:neosnippet#enable_snipmate_compatibility=1
+    let g:neosnippet#enable_snipmate_compatibility = 1
 
     " load honza vim-snippets and personal snippets from .vim/snippets
-    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+    let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
 
     imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
           \ "\<Plug>(neosnippet_expand_or_jump)"
@@ -184,6 +185,8 @@ NeoBundle 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
 NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
+  nmap <Leader>a& :Tabularize /&<CR>
+  vmap <Leader>a& :Tabularize /&<CR>
   nmap <Leader>a- :Tabularize /-<CR>
   vmap <Leader>a- :Tabularize /-<CR>
   nmap <Leader>a= :Tabularize /=<CR>
@@ -244,7 +247,7 @@ NeoBundle 'paradigm/TextObjectify'
 if has("python")
   NeoBundle 'editorconfig/editorconfig-vim'
   let g:EditorConfig_core_mode = 'python_builtin'
-  let g:EditorConfig_python_files_dir = $DOTFILES . "/vim/bundle/editorconfig-vim/plugin/editorconfig-core-py"
+  let g:EditorConfig_python_files_dir = "~/.vim/bundle/editorconfig-vim/plugin/editorconfig-core-py"
 endif
 NeoBundleLazy 'gregsexton/MatchTag'
 NeoBundle 'scrooloose/syntastic'
@@ -272,6 +275,17 @@ NeoBundle 'scrooloose/syntastic'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Language specific
+"
+""""""""""""""""""""""""""""""""""""""""
+" Multiple
+NeoBundleLazy 'maksimr/vim-jsbeautify', {
+      \   'autoload': { 'filetypes': [ 'javascript', 'html' , 'css' ] }
+      \ }
+  if has("autocmd") && neobundle#tap('vim-jsbeautify')
+    au Filetype javascript  vnoremap <buffer> <c-f> :call RangeJsBeautify()<cr>
+    au Filetype html        vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+    au Filetype css         vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+  endif
 
 """"""""""""""""""""""""""""""""""""""""
 " Chef
@@ -324,7 +338,7 @@ NeoBundleLazy 'tobyS/pdv', {
       \   'depends': 'tobyS/vmustache',
       \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
-  let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates"
+  let g:pdv_template_dir = "~/.vim/bundle/pdv/templates"
   if has("autocmd")
     au FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
     au FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>

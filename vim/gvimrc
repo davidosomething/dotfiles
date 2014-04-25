@@ -2,7 +2,7 @@ set guioptions-=m                     " hide file/edit/etc. menu
 set guioptions-=T                     " hide stupid button bar
 
 if has("gui_macvim")
-  set guifont=Inconsolata\ for\ Powerline
+  set guifont=Menlo\ for\ Powerline
   set antialias
   set backupcopy=yes                  " keep finder labels!
   set colorcolumn=80

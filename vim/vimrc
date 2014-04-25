@@ -136,19 +136,19 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load mappings
-if filereadable($HOME . "/.vim/mappings.vim")
+if filereadable(expand("~/.vim/mappings.vim"))
   source ~/.vim/mappings.vim
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Local config
-if filereadable($HOME . "/.vimrc.local")
+if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundles
-if filereadable($HOME . "/.vim/plugins.vim")
+if filereadable(expand("~/.vim/plugins.vim"))
   source ~/.vim/plugins.vim
 endif
 
@@ -168,7 +168,8 @@ if has("autocmd")
   au FileType gitconfig   setlocal noexpandtab
   au FileType make        setlocal noexpandtab
 
-  " make Python follow PEP8 for whitespace ( http://www.python.org/dev/peps/pep-0008/ )
+  " make Python follow PEP8 for whitespace
+  " http://www.python.org/dev/peps/pep-0008/
   au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
 
   " Enable soft-wrapping for text files
@@ -177,10 +178,10 @@ if has("autocmd")
   " Force filetypes
   " vim-chef support for ruby files (turned off eruby)
   au FileType ruby setlocal filetype=ruby.eruby.chef
-  au BufRead,BufNewFile *.cap setlocal filetype=ruby
-  au BufRead,BufNewFile *.conf setlocal filetype=conf
-  au BufRead,BufNewFile *.scss setlocal filetype=scss
-  au BufRead,BufNewFile *.dump setlocal filetype=sql
+  au BufRead,BufNewFile *.cap   setlocal filetype=ruby
+  au BufRead,BufNewFile *.conf  setlocal filetype=conf
+  au BufRead,BufNewFile *.scss  setlocal filetype=scss
+  au BufRead,BufNewFile *.dump  setlocal filetype=sql
 
   " crontab on OSX needs a tempfile
   if g:is_macvim

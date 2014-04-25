@@ -12,6 +12,11 @@ inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
 " Toggle hlsearch with <Leader>hs
 nnoremap <Leader>hs :set hlsearch! hlsearch?<CR>
 
+" Space to toggle folds.
+" https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
+nnoremap <Space> za
+vnoremap <Space> za
+
 " Unfuck my screen
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-444
 nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
@@ -66,12 +71,19 @@ nnoremap <silent> <Leader>md :!mkdir -p %:p:h<CR>
 
 " Sort lines
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
-nnoremap <leader>s vip:!sort<cr>
-vnoremap <leader>s :!sort<cr>
+nnoremap <Leader>s vip:!sort<cr>
+vnoremap <Leader>s :!sort<cr>
+
+" reselect visual block after indent
+vnoremap < <gv
+vnoremap > >gv
 
 " upper/lower word
 nmap <Leader>u mQviwU`Q
 nmap <Leader>l mQviwu`Q
+
+" join lines without space
+nnoremap <Leader>j VjgJ
 
 " Clean code function
 function! CleanCode()
@@ -178,11 +190,6 @@ else
   map  <C-9> 9gt
   imap <C-9> <Esc>9gt
 endif
-
-" Space to toggle folds.
-" https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
-nnoremap <Space> za
-vnoremap <Space> za
 
 ""
 " Tab and Split manipulation
