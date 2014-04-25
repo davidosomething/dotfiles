@@ -17,6 +17,6 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Local config
-if filereadable($HOME . "/.gvimrc.local")
+if filereadable(expand("~/.gvimrc.local"))
   source ~/.gvimrc.local
 endif

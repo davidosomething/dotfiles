@@ -123,10 +123,6 @@ if has('clipboard')
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Map <Leader> to comma
-let mapleader = ","
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RTP and plugin management
 if has("vim_starting")
   set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -134,34 +130,16 @@ endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load mappings
+""
+" Mappings
+" Map <Leader> to comma
+let mapleader = ","
 if filereadable(expand("~/.vim/mappings.vim"))
   source ~/.vim/mappings.vim
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Local config
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoBundles
-if filereadable(expand("~/.vim/plugins.vim"))
-  source ~/.vim/plugins.vim
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" init
-call neobundle#end()
-filetype plugin indent on
-syntax on
-runtime macros/matchit.vim
-NeoBundleCheck
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" filetype specific
+""
+" Autocommands
 if has("autocmd")
   " Set editor configs
   " use real tabs
@@ -180,8 +158,9 @@ if has("autocmd")
   au FileType ruby setlocal filetype=ruby.eruby.chef
   au BufRead,BufNewFile *.cap   setlocal filetype=ruby
   au BufRead,BufNewFile *.conf  setlocal filetype=conf
-  au BufRead,BufNewFile *.scss  setlocal filetype=scss
+  au BufRead,BufNewFile *.hbs   setlocal filetype=mustache
   au BufRead,BufNewFile *.dump  setlocal filetype=sql
+  au BufRead,BufNewFile *.scss  setlocal filetype=scss
 
   " crontab on OSX needs a tempfile
   if g:is_macvim
@@ -197,3 +176,24 @@ if has("autocmd")
     au FileType ruby          setlocal omnifunc=rubycomplete#Complete
   endif
 endif
+
+""
+" Local config
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
+
+""
+" NeoBundles
+if filereadable(expand("~/.vim/plugins.vim"))
+  source ~/.vim/plugins.vim
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" init
+call neobundle#end()
+filetype plugin indent on
+syntax on
+runtime macros/matchit.vim
+NeoBundleCheck
+

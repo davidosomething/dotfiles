@@ -9,6 +9,7 @@ compass --pre
 dandelion
 fssm
 ghost
+github-markup
 highline
 httpclient
 i18n
@@ -25,10 +26,13 @@ open4
 psych
 rake
 rdoc
+redcarpet
+redcloth
 rhc
 rubygems-update
 sass --pre
 sshkit
 term-ansicolor
 test-unit
+tilt
 tins
