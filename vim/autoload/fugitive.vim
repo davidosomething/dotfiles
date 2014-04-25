@@ -1,1 +1,1 @@
-../bundle/fugitive.vim/plugin/fugitive.vim
+../bundle/vim-fugitive/plugin/fugitive.vim
