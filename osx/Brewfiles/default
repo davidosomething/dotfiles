@@ -56,7 +56,6 @@ install zsh-completions
 ##
 # web
 install curl
-install curl-ca-bundle
 install dnsmasq
 install mysql
 install node

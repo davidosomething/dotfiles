@@ -4,7 +4,6 @@ update
 install brew-cask
 
 cask install adium
-cask install alfred
 cask install android-file-transfer
 cask install bettertouchtool
 
