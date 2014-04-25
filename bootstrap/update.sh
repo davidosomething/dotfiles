@@ -114,7 +114,8 @@ fi
 
 if [[ "$1" = "pip" ]]; then
   dkostatus "Updating pip"
-  sudo easy_install -U pip
+  pip install --upgrade setuptools
+  pip install --upgrade pip
 fi
 
 if [[ "$1" = "vim" ]]; then

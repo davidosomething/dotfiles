@@ -3,9 +3,13 @@
 
 ##
 # tab completion paths, top precedence
+command -v brew >/dev/null 2>&1 && {
+  fpath=(
+    $(brew --prefix)/share/zsh/site-functions
+    $(brew --prefix)/share/zsh-completions
+  )
+}
 fpath=(
-  $(brew --prefix)/share/zsh/site-functions
-  $(brew --prefix)/share/zsh-completions
   $ZSH_DOTFILES/zsh-completions/src
   $fpath
 )

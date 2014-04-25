@@ -1,3 +1,19 @@
+##
+# Unneeded
+#
+# Remote Desktop Apps -- use Microsoft Remote Desktop from App Store
+#cask install cord #not mavericks compatible
+#cask install remote-desktop-connection
+#
+# Music -- use Vox from App Store
+#cask install bowtie
+#cask install lastfm
+#
+#cask install minecraft
+
+
+##
+# Begin
 tap phinze/homebrew-cask
 update
 
@@ -10,8 +26,9 @@ cask install bettertouchtool
 # menubar app to prevent display sleeping
 cask install caffeine
 
-cask install charlse
+cask install charles
 cask install colorpicker-developer
+cask install colorpicker-skalacolor
 
 # developer docs
 cask install dash
@@ -44,7 +61,6 @@ cask install lastpass-universal
 
 # prefpane to manage homebrew plists like mysql
 cask install launchrocket
-cask install minecraft
 cask install noejectdelay
 
 # menubar app to prevent sleep when close lid
@@ -70,14 +86,3 @@ cask install xquartz
 
 # finder tabs and extra buttons, better than totalfinder
 cask install xtrafinder
-
-##
-# old
-
-# Remote Desktop Apps -- use Microsoft Remote Desktop from App Store
-#cask install cord #not mavericks compatible
-#cask install remote-desktop-connection
-
-# Music -- use Vox from App Store
-#cask install bowtie
-#cask install lastfm
