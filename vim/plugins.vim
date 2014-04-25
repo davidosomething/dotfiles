@@ -363,11 +363,11 @@ NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 """"""""""""""""""""""""""""""""""""""""
 " Stylesheet languages
 NeoBundleLazy 'gorodinskiy/vim-coloresque'
-"NeoBundleLazy 'ap/vim-css-color', {
-"      \   'autoload': {
-"      \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
-"      \   }
-"      \ }
+NeoBundleLazy 'ap/vim-css-color', {
+      \   'autoload': {
+      \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
+      \   }
+     \ }
 "NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'groenewege/vim-less'         " creates less filetype
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'autoload': { 'filetypes': ['css', 'sass', 'scss'] } }
