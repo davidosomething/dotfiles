@@ -1,3 +1,8 @@
+# REMOVED --
+# install autojump
+# install direnv
+#
+
 update
 
 ##
@@ -15,8 +20,6 @@ install macvim --custom-icons --override-system-vim --withlua --withpython3
 ##
 # filesystem
 install ack
-install autojump
-install direnv
 # alias rm to rmtrash
 install rmtrash
 install the_silver_searcher
@@ -50,6 +53,7 @@ install ruby-install
 
 ##
 # shell
+install bash-completion
 install zsh
 install zsh-completions
 

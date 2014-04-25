@@ -9,6 +9,9 @@ command -v brew >/dev/null 2>&1 && {
     $(brew --prefix)/share/zsh-completions
   )
 }
+
+##
+# top precedence! So my dotfiles zsh-completions override the previous brew
 fpath=(
   $ZSH_DOTFILES/zsh-completions/src
   $fpath
@@ -43,7 +46,6 @@ zstyle ':completion:*' expand 'yes'
 zstyle ':completion::complete:cd:*' tag-order '! users'
 
 # use /etc/hosts and known_hosts for hostname completion
-[[ -f /etc/ssh/ssh_known_hosts ]] && _global_ssh_hosts=(${${${${(f)"$(</etc/ssh/ssh_known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _global_ssh_hosts=()
 [[ -f ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
 [[ -f ~/.ssh/config ]] && _ssh_config=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p')) || _ssh_config=()
 [[ -f /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
