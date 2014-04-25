@@ -5,8 +5,11 @@ NeoBundle 'kana/vim-operator-user', {
       \     'functions' : 'operator#user#define'
       \   }
       \ }
+
 NeoBundle 'MarcWeber/vim-addon-mw-utils'
+
 NeoBundle 'rizzatti/funcoo.vim'
+
 NeoBundle 'Shougo/vimproc', {
       \   'build': {
       \     'mac':     'make -f make_mac.mak',
@@ -15,7 +18,9 @@ NeoBundle 'Shougo/vimproc', {
       \     'windows': 'make -f make_mingw32.mak',
       \   }
       \ }
+
 NeoBundle 'tobyS/vmustache'
+
 NeoBundle 'tomtom/tlib_vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -24,8 +29,12 @@ NeoBundle 'altercation/vim-colors-solarized'
   if neobundle#tap('vim-colors-solarized')
     silent! colorscheme solarized               " STFU if no solarized
   endif
+
 NeoBundle 'dockyard/vim-easydir'
-NeoBundle 'itchyny/lightline.vim'
+
+NeoBundle 'itchyny/lightline.vim', {
+      \   'depends': 'vim-fugitive'
+      \ }
   let g:lightline = {
         \   'active': {
         \     'left': [
@@ -46,20 +55,22 @@ NeoBundle 'itchyny/lightline.vim'
         \   'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
         \   'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
         \ }
+
 NeoBundle 'kien/tabman.vim'
   nnoremap <F2> :TMToggle<CR>
+
 NeoBundle 'kien/ctrlp.vim'
   let g:ctrlp_map = '<c-t>'
-NeoBundle 'mhinz/vim-hugefile'
+
+NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
+
 NeoBundle 'nathanaelkane/vim-indent-guides'
   nnoremap <F7> :IndentGuidesToggle<CR>
 
-" used by lightline
-NeoBundleLazy 'tpope/vim-fugitive', {
-        \   'augroup': 'fugitive'
-        \ }
+NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'vim-scripts/IndexedSearch'
+
 NeoBundle 'vim-scripts/kwbdi.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -93,6 +104,11 @@ NeoBundleLazy 'scrooloose/nerdtree', {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocomplete
 NeoBundle 'honza/vim-snippets'
+NeoBundle 'SirVer/ultisnips'
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<tab>"
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+  let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
 if g:settings.autocomplete_method == 'ycm'
   NeoBundle 'Valloric/YouCompleteMe', {
         \   'vim_version':'7.3.584',
@@ -102,28 +118,6 @@ if g:settings.autocomplete_method == 'ycm'
         \   }
         \ }
     let g:ycm_complete_in_comments_and_strings=1
-"  NeoBundle 'SirVer/ultisnips'
-    "let g:UltiSnipsExpandTrigger="<tab>"
-    "let g:UltiSnipsJumpForwardTrigger="<tab>"
-    "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-"    let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
-else
-  NeoBundle 'Shougo/neosnippet-snippets', {
-        \   'depends': 'Shougo/neosnippet.vim'
-        \ }
-    let g:neosnippet#enable_snipmate_compatibility = 1
-
-    " load honza vim-snippets and personal snippets from .vim/snippets
-    let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
-
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-          \ "\<Plug>(neosnippet_expand_or_jump)"
-          \ : (pumvisible() ? "\<C-n>" : "\<TAB>")
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-          \ "\<Plug>(neosnippet_expand_or_jump)"
-          \ : "\<TAB>"
-    imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
-    smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 endif
 if g:settings.autocomplete_method == 'neocomplete'
   NeoBundle 'Shougo/neocomplete.vim', {
@@ -132,9 +126,6 @@ if g:settings.autocomplete_method == 'neocomplete'
     let g:neocomplete#enable_at_startup=1
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#data_directory='~/.vim/.cache/neocomplete'
-  NeoBundle 'Shougo/neosnippet.vim', {
-        \   'depends': 'Shougo/neocomplete.vim'
-        \ }
 endif
 if g:settings.autocomplete_method == 'neocomplcache'
   NeoBundle 'Shougo/neocomplcache.vim'
@@ -159,9 +150,6 @@ if g:settings.autocomplete_method == 'neocomplcache'
     endif
     let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  NeoBundle 'Shougo/neosnippet.vim', {
-        \   'depends': 'Shougo/neocomplcache.vim'
-        \ }
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -181,9 +169,11 @@ NeoBundle 'tpope/vim-eunuch'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " editing keys
 NeoBundle 'edsono/vim-matchit'
+
 NeoBundle 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
 NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   nmap <Leader>a& :Tabularize /&<CR>
   vmap <Leader>a& :Tabularize /&<CR>
@@ -197,20 +187,28 @@ NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   vmap <Leader>a, :Tabularize /,<CR>
   nmap <Leader>af :Tabularize /=>/<CR>
   vmap <Leader>af :Tabularize /=>/<CR>
-NeoBundleLazy 'jaxbot/github-issues.vim'
+
 NeoBundle 'maxbrunsfeld/vim-yankstack'
   let g:yankstack_map_keys = 0
   nmap <C-p> <Plug>yankstack_substitute_newer_paste
   nmap <C-P> <Plug>yankstack_substitute_older_paste
+
 NeoBundle 'nishigori/increment-activator'           " custom C-x C-a mappings
+
 NeoBundle 'scrooloose/nerdcommenter'
+
 NeoBundle 'tpope/vim-endwise'
+
 NeoBundle 'tpope/vim-repeat', {
       \   'autoload': { 'mappings': '.' }
       \ }
+
 NeoBundle 'tpope/vim-speeddating'       " fast increment datetimes
+
 NeoBundle 'tpope/vim-surround'
+
 NeoBundle 'tpope/vim-unimpaired'        " keyb shortcut for next quickfix, file
+
 NeoBundle 'tyru/operator-camelize.vim', {
       \   'depends': 'vim-operator-user',
       \   'autoload': {
@@ -219,7 +217,8 @@ NeoBundle 'tyru/operator-camelize.vim', {
       \     ]
       \   }
       \ }
-      nmap <c-c> <Plug>(operator-camelize-toggle)
+      nmap <C-c> <Plug>(operator-camelize-toggle)
+
 NeoBundle 'kana/vim-operator-replace', {
       \   'depends': 'vim-operator-user',
       \   'autoload': {
@@ -229,6 +228,7 @@ NeoBundle 'kana/vim-operator-replace', {
       \   }
       \ }
       map _ <Plug>(operator-replace)
+
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -300,7 +300,7 @@ NeoBundle 'davejlong/cf-utils.vim' " creates cfml filetype
 
 """"""""""""""""""""""""""""""""""""""""
 " HTML and generators
-NeoBundleLazy 'digitaltoad/vim-jade'    " creates jade filetype
+NeoBundle 'digitaltoad/vim-jade'    " creates jade filetype
 "NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 
@@ -348,11 +348,11 @@ NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \ }
 NeoBundle 'StanAngeloff/php.vim'        " updated syntax
 
-"      \     'SirVer/ultisnips'
 NeoBundleLazy 'dsawardekar/wordpress.vim', {
       \   'depends': [
       \     'kien/ctrlp.vim',
       \     'shawncplus/phpcomplete.vim',
+      \     'SirVer/ultisnips',
       \   ],
       \   'autoload': { 'filetypes': ['php'] }
       \ }

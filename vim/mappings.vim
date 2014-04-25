@@ -79,8 +79,8 @@ vnoremap < <gv
 vnoremap > >gv
 
 " upper/lower word
-nmap <Leader>u mQviwU`Q
-nmap <Leader>l mQviwu`Q
+nnoremap <Leader>u mQviwU`Q
+nnoremap <Leader>l mQviwu`Q
 
 " join lines without space
 nnoremap <Leader>j VjgJ
@@ -194,6 +194,7 @@ endif
 ""
 " Tab and Split manipulation
 
+nnoremap <Leader>s <C-w>s<cr>
 nnoremap <Leader>v <C-w>v<cr>
 
 " Navigate splits
@@ -213,5 +214,5 @@ inoremap <silent> <Up>    <Esc>4<C-W>+
 inoremap <silent> <Right> <Esc>4<C-w>>
 
 " Navigate tabs
-nnoremap <silent> <Leader>[ :tabprevious<CR>
-nnoremap <silent> <Leader>] :tabnext<CR>
+nnoremap <silent> <S-Left> :tabprevious<CR>
+nnoremap <silent> <S-Right> :tabnext<CR>
