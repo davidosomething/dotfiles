@@ -1,36 +1,30 @@
 ####
 # .dotfiles/zshenv.zsh
 # zshenv is always sourced, even for bg jobs
-# this file applies to all OS's
 
-# this is where ZSH looks for .zsh* files
-export ZDOTDIR="$HOME/.zsh"
-
-##
-# paths must be set first so the vars can use correct executables if they need
-# e.g. for $PHPVERSION we need to use PHP in brew path, not default path
-source $HOME/.dotfiles/bash/paths.sh
-source $HOME/.dotfiles/bash/vars.sh
-
-##
-# these are to override BASH variables
-export ZSH_DOTFILES="$DOTFILES/zsh"
-source $ZSH_DOTFILES/vars.zsh
-
-# History
-export HISTFILE="$ZDOTDIR/.zhistory"
-
-##
-# OS specific
-case "$OSTYPE" in
-  darwin*)  source $ZSH_DOTFILES/zshenv-osx.zsh
-            ;;
-  linux*)   source $ZSH_DOTFILES/zshenv-linux.zsh
-            ;;
-esac
-
-##
-# local
-[ -f "$ZDOTDIR/.zshenv.local" ] && source $ZDOTDIR/.zshenv.local
-
+source $HOME/.dotfiles/shell/vars
+source $SHELL_DOTFILES/paths
 typeset -U path cdpath manpath
+
+source $SHELL_DOTFILES/aliases
+source $SHELL_DOTFILES/functions
+
+##
+# Autoload function paths, add tab completion paths, top precedence
+has_program brew && {
+  fpath=(
+    $(brew --prefix)/share/zsh/site-functions
+    $(brew --prefix)/share/zsh-completions
+    $fpath
+  )
+}
+
+##
+# top precedence! So my dotfiles zsh-completions override the previous brew
+fpath=(
+  $ZSH_DOTFILES/zsh-completions/src
+  $fpath
+)
+
+# remove duplicates in fpath array
+typeset -U fpath

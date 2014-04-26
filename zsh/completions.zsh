@@ -1,25 +1,4 @@
-##
-# completion zstyles
-
-##
-# tab completion paths, top precedence
-command -v brew >/dev/null 2>&1 && {
-  fpath=(
-    $(brew --prefix)/share/zsh/site-functions
-    $(brew --prefix)/share/zsh-completions
-  )
-}
-
-##
-# top precedence! So my dotfiles zsh-completions override the previous brew
-fpath=(
-  $ZSH_DOTFILES/zsh-completions/src
-  $fpath
-)
-
-# remove duplicates in fpath array
-typeset -U fpath
-
+# fpaths are set in zshenv
 # load completion - the -U means look in fpath, -z means on first run
 # -i means ignore security errors
 autoload -Uz compinit && compinit -i

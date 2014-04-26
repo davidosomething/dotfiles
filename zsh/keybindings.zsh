@@ -1,10 +1,9 @@
 ##
 # .dotfiles/zsh/keybindings.zsh
 
-##
-# key bindings
-# Doesn't matter what OS
-[ "$USER" != 'root' ] && { autoload -U compinit && compinit }
+# disable ^S and ^Q terminal freezing
+unsetopt flowcontrol
+
 # search through history starting with current buffer contents
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward

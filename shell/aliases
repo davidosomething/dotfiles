@@ -1,4 +1,3 @@
-# dotfiles/bash/aliases.sh
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
 
 alias reload="exec $SHELL"
@@ -15,6 +14,7 @@ alias ll="l -l"
 # bin
 alias b="brew"
 alias g="git"
+alias o="open"
 alias u="update"
 alias vb="VBoxManage"
 
@@ -29,25 +29,26 @@ alias rsync="rsync --human-readable --partial --progress --exclude-from=$HOME/.c
 alias wget="wget --no-check-certificate"
 
 # quick edits
-alias evars="e $BASH_DOTFILES/vars.sh"
+alias ealiases="e $DOTFILES/shell/aliases"
+alias efunctions="e $DOTFILES/shell/functions"
 alias epaths="e $BASH_DOTFILES/paths.sh"
-alias ealiases="e $BASH_DOTFILES/aliases.sh"
-alias efunctions="e $BASH_DOTFILES/functions.sh"
-alias evimrc="e $DOTFILES/vim/vimrc"
-alias egvimrc="e $DOTFILES/vim/gvimrc"
 alias ebashrc="e $BASH_DOTFILES/bashrc.sh"
 alias elbashrc="e $HOME/.bashrc.local"
-
 alias ehosts="sudo vim /etc/hosts"
 
 # server
 alias pyserve="python -m SimpleHTTPServer"
 
-##
 # os specific
 case "$OSTYPE" in
-  darwin*)  source "$BASH_DOTFILES/aliases-osx.sh"
-            ;;
-  linux*)   source "$BASH_DOTFILES/aliases-linux.sh"
-            ;;
+  darwin*)
+    alias ls="ls -G -p"
+
+    # Audio control - http://xkcd.com/530/
+    alias stfu="osascript -e 'set volume output muted true'"
+    alias pumpitup="osascript -e 'set volume 7'"
+    ;;
+  linux*)
+    alias ls="ls --color=auto -p"
+    ;;
 esac

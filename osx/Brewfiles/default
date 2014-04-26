@@ -45,7 +45,7 @@ install multitail
 
 ##
 # ruby
-install rbenv
+install rbenv --HEAD
 install rbenv-gem-rehash
 install rbenv-default-gems
 install ruby-build

@@ -1,4 +1,2 @@
-# .dotfiles/bash_profile.sh
-# read on login shells only (alternative to .bash_login)
-
+# NOT READ ON SSH, so use .bashrc exclusively!
 source $HOME/.bashrc

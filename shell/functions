@@ -1,22 +1,57 @@
+# vim:syntax=sh
+
+########################################
+# Scripting
+
+##
+# source a file if it exists
+source_if_exists() {
+  [ -f $1 ] && source $1 # && echo "Sourced $1"
+}
+
+##
+# silently determine existence of executable
+has_program() {
+  command -v $1 >/dev/null 2>&1
+}
+
+########################################
+# Directory cleanup
+
+##
+# flatten a dir
 flatten() {
-  read "reply?Flatten folder: are you sure? [Yy] "
+  if [ -n $1 ]; then
+    read "reply?Flatten folder: are you sure? [Yy] "
+  else
+    reply=Y
+  fi
+
   if [[ $reply =~ ^[Yy]$ ]]; then
     mv ./*/* .
   fi
 }
 
+##
+# delete empty subdirs
 prune() {
-  read "reply?Prune empty directories: are you sure? [Yy] "
+  if [ -n $1 ]; then
+    read "reply?Prune empty directories: are you sure? [Yy] "
+  else
+    reply=Y
+  fi
+
   if [[ $reply =~ ^[Yy]$ ]]; then
     find . -type d -empty -delete
   fi
 }
 
-################################################################################
+########################################
 # dev
 art() {
   php artisan $@
 }
+
 cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
 }
@@ -27,17 +62,17 @@ cunt() {
 phpver() {
   php -r 'echo phpversion();'
 }
+
 phpminorver() {
   php -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"
 }
-
 
 ##
 # editing
 e() {
   case "$OSTYPE" in
     darwin*)
-      if [ command -v brew >/dev/null 2>&1 ]; then
+      if has_program "brew"; then
         if [ -z $1 ]; then
           $(brew --prefix)/bin/mvim --servername VIM
         else
@@ -155,18 +190,3 @@ localip() {
   echo $localip
 }
 
-##
-# source a file if it exists
-source_if_exists() {
-  [ -f $1 ] && source $1 # && echo "Sourced $1"
-}
-
-
-##
-# os specific
-case "$OSTYPE" in
-  darwin*)  source_if_exists "$BASH_DOTFILES/functions-osx.sh"
-    ;;
-  linux*)   source_if_exists "$BASH_DOTFILES/functions-linux.sh"
-    ;;
-esac

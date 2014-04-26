@@ -2,6 +2,9 @@
 # .dotfiles/bash/prompt.sh
 # sourced by .bashrc
 
+# git prompt for linux
+source_if_exists "/usr/share/git/git-prompt.sh"
+
 # prompt
 bash_prompt() {
   local Z="\[\033[0m\]"

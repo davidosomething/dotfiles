@@ -1,3 +1,7 @@
+# vim: set syn=sh
+
+##
+# dev
 a2() {
   sudo service apache2 $@
 }
@@ -8,6 +12,7 @@ composer() {
   php $HOME/.composer/bin/composer.phar $@
 }
 
+##
 # gui
 open() {
   xdg-open $@
