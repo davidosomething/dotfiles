@@ -2,12 +2,12 @@
 # .dotfiles/zshenv.zsh
 # zshenv is always sourced, even for bg jobs
 
+source $HOME/.dotfiles/shell/functions
 source $HOME/.dotfiles/shell/vars
 source $SHELL_DOTFILES/paths
 typeset -U path cdpath manpath
 
 source $SHELL_DOTFILES/aliases
-source $SHELL_DOTFILES/functions
 
 ##
 # Autoload function paths, add tab completion paths, top precedence

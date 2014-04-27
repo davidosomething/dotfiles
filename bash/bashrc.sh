@@ -1,7 +1,7 @@
+source $HOME/.dotfiles/shell/functions
 source $HOME/.dotfiles/shell/vars
-source $DOTFILES/shell/paths
 source $DOTFILES/shell/aliases
-source $DOTFILES/shell/functions
+source $DOTFILES/shell/paths
 
 [ -z "$PS1" ] && return
 

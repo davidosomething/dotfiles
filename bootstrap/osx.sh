@@ -1,3 +1,8 @@
+# After brew rbenv
+rbenv install 2.1.1
+rbenv global 2.1.1
+
+# After homebrew PHP
 ln -sfv /usr/local/opt/php55/*.plist
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
 

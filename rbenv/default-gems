@@ -27,7 +27,7 @@ psych
 rake
 rdoc
 redcarpet
-redcloth
+RedCloth
 rhc
 rubygems-update
 sass --pre
