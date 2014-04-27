@@ -1,8 +1,9 @@
-tap josegonzalez/homebrew-php
+tap homebrew/homebrew-php
 update
 
-install composer
 install php55
+
+install composer
 install php55-imagick
 install php55-mcrypt
 install php55-memcache

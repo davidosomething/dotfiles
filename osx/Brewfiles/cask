@@ -15,6 +15,7 @@
 ##
 # Begin
 tap phinze/homebrew-cask
+
 update
 
 install brew-cask
@@ -35,6 +36,9 @@ cask install dash
 
 # better calendar for menubar
 cask install day-o
+
+# tv renaming
+cask install filebot
 
 # fontsquirrel offline
 cask install fontprep
@@ -78,7 +82,7 @@ cask install transmit
 # guitar tab reader
 cask install tuxguitar
 cask install vlc
-cask install vox
+cask install vox-preference-pane
 
 # web sharing pref pane to toggle system apache
 cask install web-sharing

@@ -1,7 +1,2 @@
-tap phinze/homebrew-cask
-update
-
-install brew-cask
-
 cask install alfred
 cask alfred link

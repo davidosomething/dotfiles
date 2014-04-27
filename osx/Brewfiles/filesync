@@ -1,7 +1,4 @@
-tap phinze/homebrew-cask
 update
-
-install brew-cask
 
 cask install box-sync
 cask install dropbox

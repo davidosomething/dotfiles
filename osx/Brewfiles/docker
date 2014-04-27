@@ -1,9 +1,4 @@
-tap homebrew/completions
-tap phinze/homebrew-cask
-
 update
-
-install brew-cask
 
 cask install virtualbox
 cask install vagrant
