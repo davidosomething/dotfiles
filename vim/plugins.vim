@@ -39,7 +39,7 @@ NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'altercation/vim-colors-solarized'
   if neobundle#tap('vim-colors-solarized')
     silent! colorscheme solarized               " STFU if no solarized
-    call togglebg#map("<F5>")
+    silent! call togglebg#map("<F5>")
   endif
 
 NeoBundle 'dockyard/vim-easydir'
@@ -130,11 +130,13 @@ NeoBundle 'tpope/vim-eunuch'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocomplete
 NeoBundle 'honza/vim-snippets'
-NeoBundle 'SirVer/ultisnips'
-  let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsJumpForwardTrigger="<tab>"
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-  let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
+if has("python")
+  NeoBundle 'SirVer/ultisnips'
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
+endif
 if g:settings.autocomplete_method == 'ycm'
   NeoBundle 'Valloric/YouCompleteMe', {
         \   'vim_version':'7.3.584',
@@ -364,7 +366,6 @@ NeoBundleLazy 'dsawardekar/wordpress.vim', {
       \   'depends': [
       \     'kien/ctrlp.vim',
       \     'shawncplus/phpcomplete.vim',
-      \     'SirVer/ultisnips',
       \   ],
       \   'autoload': { 'filetypes': ['php'] }
       \ }

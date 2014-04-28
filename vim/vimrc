@@ -26,6 +26,9 @@ if has('gui_running')
 else
   set background=dark
 endif
+if exists('&colorcolumn')
+  set colorcolumn=80
+endif
 set title                             " wintitle = filename - vim
 set titleold=""                       " restore title on exit
 set number
