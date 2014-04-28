@@ -47,7 +47,9 @@ export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
 
 ##
 # php
-export PHP_INI="$(php -r "echo php_ini_loaded_file();")"
+has_program "php" && {
+  export PHP_INI="$(php -r "echo php_ini_loaded_file();")"
+}
 
 ##
 # Python - needed for fontforge
