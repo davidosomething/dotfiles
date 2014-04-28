@@ -3,7 +3,7 @@
 # some of these paths are set in .zshenv.local!
 alias cp="nocorrect cp"
 alias mv="nocorrect mv"
-alias rm="nocorrect rmtrash"
+alias rm="nocorrect rm"
 alias mkdir="nocorrect mkdir"
 
 # editing zsh config files

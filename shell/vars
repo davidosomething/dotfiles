@@ -60,5 +60,11 @@ export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 export RBENV_ROOT="$HOME/.rbenv"
 
 ##
+# Ruby use brew openssl if available
+has_program "brew" && [[ -f $(brew --prefix)/opt/openssl ]] && {
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix)/opt/openssl"
+}
+
+##
 # z
 export _Z_CMD=j

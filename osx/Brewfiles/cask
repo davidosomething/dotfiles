@@ -40,6 +40,8 @@ cask install day-o
 # tv renaming
 cask install filebot
 
+cask install firefox
+
 # fontsquirrel offline
 cask install fontprep
 
