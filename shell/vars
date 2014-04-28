@@ -9,6 +9,29 @@ export ZSH_DOTFILES="$DOTFILES/zsh"
 export ZDOTDIR="$HOME/.zsh"
 
 ########################################
+# LP_OS detection, default to Linux
+# https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
+case $(uname) in
+    FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
+    DragonFly) export DOTFILES_OS="FreeBSD" ;;
+    OpenBSD)   export DOTFILES_OS="OpenBSD" ;;
+    Darwin)    export DOTFILES_OS="Darwin"  ;;
+    SunOS)     export DOTFILES_OS="SunOS"   ;;
+    *)         export DOTFILES_OS="Linux"   ;;
+esac
+[[ $DOTFILES_OS = "Darwin" ]] && {
+  case "$(sw_vers -productVersion)" in
+    10.7*) export DOTFILES_DISTRO="lion"          ;;
+    10.8*) export DOTFILES_DISTRO="mountainlion"  ;;
+    10.9*) export DOTFILES_DISTRO="mavericks"     ;;
+  esac
+}
+[[ $DOTFILES_OS = "Linux" ]] && {
+  [[ -f "/etc/debian_version" ]] && export DOTFILES_DISTRO="debian"
+  [[ -f "/etc/arch-release" ]]   && export DOTFILES_DISTRO="archlinux"
+}
+
+########################################
 # Shell settings
 export HISTSIZE=500
 export SAVEHIST=500
