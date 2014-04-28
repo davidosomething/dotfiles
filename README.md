@@ -4,14 +4,14 @@
 
 ## Installation
 
-1. Clone and symlink:
+* Clone with submodules, and symlink:
     ```
     git clone --recurse-submodules https://github.com/davidosomething/dotfiles.git ~/.dotfiles
     cd ~/.dotfiles/bootstrap
     ./symlink.sh
     ```
-2. Restart your shell
-3. Setup vim:
+* (OPTIONAL) Change and restart shell
+* Setup vim:
     ```
     cd ~/.dotfiles/bootstrap
     ./vim.sh
@@ -35,19 +35,15 @@ Brewfiles in the `osx` folder.
 
 Don't forget to setup apache manually for your OS
 
-### bin
-
-### bash
-
-The aliases and functions here should work in ZSH as well, so they're sourced by the ZSH dotfiles.
-
 ### pow
 
-The POW gem is no longer used since I have to use Cisco VPN for some things and there are DNS conflicts. 
+The POW gem is no longer used since I have to use Cisco VPN for some things and
+there are DNS conflicts.
 
 ### rbenv
 
-On linux, rbenv should be installed from source. The apt repositories don't provide the latest versions of ruby. `bootstrap/linux/rbenv.sh` does this.
+On linux, rbenv should be installed from source. The apt repositories don't
+provide the latest versions of ruby. `bootstrap/linux/rbenv.sh` does this.
 
 There's a `rbenv/default-gems` file which specifies default gems to install
 when switching rubies. Symlink this to ~/.rbenv
@@ -62,8 +58,5 @@ if you need to recompile.
 ### vim
 
 Using NeoBundle for vim.
-NeoBundle will build dependencies where needed, e.g. for YouCompleteMe, so some system build tools are needed.
-
-### zsh
-
-Augments the bash config (vars, paths, aliases, functions) and adds its own.
+NeoBundle will build dependencies where needed, e.g. for YouCompleteMe, so some
+system build tools are needed.
