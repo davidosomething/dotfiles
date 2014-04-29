@@ -90,11 +90,11 @@ phpminorver() {
 ##
 # editing
 e() {
-  if [[ $DOTFILES_OS = "Darwin" ]] && has_program "brew"; then
+  if [[ $DOTFILES_OS = "Darwin" ]] && $HAS_BREW; then
     if [ -z $1 ]; then
-      $(brew --prefix)/bin/mvim --servername VIM
+      $BREW_PREFIX/bin/mvim --servername VIM
     else
-      $(brew --prefix)/bin/mvim --servername VIM --remote-tab-silent $@
+      $BREW_PREFIX/bin/mvim --servername VIM --remote-tab-silent $@
     fi
   else
     if [ -n "$SSH_CONNECTION" ] || [ -z "$DISPLAY" ]; then

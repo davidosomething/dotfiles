@@ -1,7 +1,7 @@
 #####
 # only run on interactive/TTY
-source $SHELL_DOTFILES/aliases
-source $SHELL_DOTFILES/functions
+source $HOME/.dotfiles/shell/aliases
+source $HOME/.dotfiles/shell/functions
 
 export HISTFILE="$ZDOTDIR/.zhistory"
 source $ZSH_DOTFILES/options.zsh
@@ -14,12 +14,15 @@ source $ZSH_DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # program aliases
 has_program rbenv && eval "$(rbenv init -)"
 has_program hub   && eval "$(hub alias -s)"
-has_program brew && {
-  unalias run-help
-  autoload run-help
+$HAS_BREW && {
   HELPDIR="$(brew --prefix)/share/zsh/helpfiles"
 
   source_if_exists "`brew --prefix`/etc/profile.d/z.sh"
+}
+
+$HAS_BREW && {
+  unalias run-help
+  autoload run-help
 }
 
 ##

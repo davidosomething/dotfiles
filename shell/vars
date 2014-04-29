@@ -3,7 +3,6 @@
 ########################################
 # dotfile paths
 export DOTFILES="$HOME/.dotfiles"
-export SHELL_DOTFILES="$DOTFILES/shell"
 export BASH_DOTFILES="$DOTFILES/bash"
 export ZSH_DOTFILES="$DOTFILES/zsh"
 export ZDOTDIR="$HOME/.zsh"
@@ -52,6 +51,13 @@ has_program "apachectl" && {
 export DOCKER_HOST=tcp://localhost:4243
 
 ##
+# homebrew
+has_program "brew" && {
+  export HAS_BREW=true
+  export BREW_PREFIX="$(brew --prefix)"
+}
+
+##
 # Editor
 export EDITOR=vim
 
@@ -72,6 +78,7 @@ export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
 # php
 has_program "php" && {
   export PHP_INI="$(php -r "echo php_ini_loaded_file();")"
+  brew --prefix php55 >/dev/null 2>&1 && export BREW_PHP_PATH="$BREW_PHP_PATH/bin"
 }
 
 ##
@@ -84,8 +91,8 @@ export RBENV_ROOT="$HOME/.rbenv"
 
 ##
 # Ruby use brew openssl if available
-has_program "brew" && [[ -f $(brew --prefix)/opt/openssl ]] && {
-  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix)/opt/openssl"
+$HAS_BREW && [[ -f $BREW_PREFIX/opt/openssl ]] && {
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$BREW_PREFIX/opt/openssl"
 }
 
 ##

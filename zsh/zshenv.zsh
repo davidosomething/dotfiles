@@ -4,17 +4,17 @@
 
 source $HOME/.dotfiles/shell/functions
 source $HOME/.dotfiles/shell/vars
-source $SHELL_DOTFILES/paths
-typeset -U path cdpath manpath
+source $HOME/.dotfiles/shell/paths
+source $HOME/.dotfiles/shell/aliases
 
-source $SHELL_DOTFILES/aliases
+typeset -U path cdpath manpath
 
 ##
 # Autoload function paths, add tab completion paths, top precedence
-has_program brew && {
+$HAS_BREW && {
   fpath=(
-    $(brew --prefix)/share/zsh/site-functions
-    $(brew --prefix)/share/zsh-completions
+    $BREW_PREFIX/share/zsh/site-functions
+    $BREW_PREFIX/share/zsh-completions
     $fpath
   )
 }

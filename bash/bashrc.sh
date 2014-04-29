@@ -1,7 +1,7 @@
 source $HOME/.dotfiles/shell/functions
 source $HOME/.dotfiles/shell/vars
-source $DOTFILES/shell/aliases
-source $DOTFILES/shell/paths
+source $HOME/.dotfiles/shell/aliases
+source $HOME/.dotfiles/shell/paths
 
 [ -z "$PS1" ] && return
 
@@ -20,7 +20,7 @@ source $BASH_DOTFILES/prompt.sh
 # programs
 has_program rbenv && eval "$(rbenv init -)"
 has_program hub   && eval "$(hub alias -s)"
-has_program brew  && source_if_exists "$(brew --prefix)/etc/profile.d/z.sh"
+$HAS_BREW && source_if_exists "$BREW_PREFIX/etc/profile.d/z.sh"
 
 # local
 source_if_exists $HOME/.bashrc.local

@@ -1,32 +1,30 @@
-# bottom to top precedence
-PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+# vim:syn=sh
 
-##
+$HAS_BREW && PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:$PATH"
+
+########################################
 # bin
 
 # php55 through homebrew if brew command available
-brew --prefix php55 >/dev/null 2>&1 && {
-  brew_php_path="$(brew --prefix php55)/bin"
-  PATH="$brew_php_path:${PATH}"
-}
+[[ -n $BREW_PHP_PATH ]] && PATH="${BREW_PHP_PATH}:$PATH"
 
 # rbenv
 PATH="${RBENV_ROOT}/bin:${PATH}"
 
-##
+########################################
 # package managers
 
 # composer
-PATH="$HOME/.composer/bin:$PATH"
+PATH="${HOME}/.composer/bin:${PATH}"
 
 # npm
-PATH="/usr/local/share/npm/bin:$PATH"
+PATH="${BREW_PREFIX}/share/npm/bin:{$PATH}"
 
 # go
 export GOPATH=$HOME/go
 PATH="$GOPATH/bin:$PATH"
 
-################################################################################
+########################################
 # local
 PATH="$HOME/bin:$DOTFILES/bin:$PATH"
 export PATH
