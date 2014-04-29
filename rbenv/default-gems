@@ -36,3 +36,4 @@ term-ansicolor
 test-unit
 tilt
 tins
+travis-lint

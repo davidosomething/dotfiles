@@ -67,5 +67,10 @@ install openssl
 install wget
 
 ##
+# image/video
+install ffmpeg
+install gifsicle
+
+##
 # links macvim, maybe others, to /Applications
 linkapps
