@@ -38,6 +38,11 @@ export SAVEHIST=500
 ########################################
 # program settings
 
+# Shell programs
+export EDITOR="vim"
+export LESS="-R"
+export PAGER="less"
+
 ##
 # apache
 has_program "apachectl" && {
@@ -58,17 +63,9 @@ has_program "brew" && {
 }
 
 ##
-# Editor
-export EDITOR=vim
-
-##
 # git
-export GIT_PAGER="less -erFX"
+export GIT_PAGER="$PAGER -eFX"
 
-##
-# less
-# -F exit if only one screen, -X noclearscreen
-export LESS=-erF
 
 ##
 # node
