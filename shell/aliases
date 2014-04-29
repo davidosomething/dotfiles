@@ -21,6 +21,9 @@ alias vb="VBoxManage"
 # function-type aliases
 alias publicip="curl icanhazip.com"
 
+# copy with progress and backup instead of overwrite
+alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
+
 # default flags for programs
 alias ag="ag -i"
 alias df="df -h"
