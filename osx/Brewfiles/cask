@@ -56,6 +56,9 @@ cask install google-chrome
 # grooveshark downloader
 cask install groovesquid
 
+# growl CLI. Requires growl from the App Store
+cask install growlnotify
+
 cask install imagealpha
 cask install imageoptim
 cask install iterm2
@@ -67,6 +70,9 @@ cask install lastpass-universal
 
 # prefpane to manage homebrew plists like mysql
 cask install launchrocket
+
+cask install marked
+
 cask install noejectdelay
 
 # menubar app to prevent sleep when close lid

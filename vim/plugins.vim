@@ -341,6 +341,15 @@ NeoBundle 'elzr/vim-json'               " creates json filetype
 """"""""""""""""""""""""""""""""""""""""
 " Markdown
 NeoBundle 'tpope/vim-markdown'          " creates markdown filetype
+NeoBundle 'jtratner/vim-flavored-markdown', {
+      \   'depends': 'tpope/vim-markdown'
+      \ }
+  if has("autocmd")
+    augroup markdown
+        au!
+        au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+    augroup END
+  endif
 
 """"""""""""""""""""""""""""""""""""""""
 " Mustache.js and Handlebars
