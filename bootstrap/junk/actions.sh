@@ -28,49 +28,6 @@ case $OSTYPE in
             ;;
 esac
 
-# TODO check for XCode
-function dotfiles_check_dependencies() {
-  echo "== checking for dependencies =="
-  function require {
-    if ! which $1 >/dev/null 2>&1; then
-      err "missing $1, please install before proceeding.";
-      exit 1
-    else
-      status "found $1"
-    fi
-  }
-  require "zsh"
-  require "ssh-keygen"
-  require "git"
-
-  if ! which gcc >/dev/null 2>&1; then
-    err "missing gcc, please install before proceeding";
-    case $OSTYPE in
-      darwin*)  err_ "Install XCode from the App Store and then open it and install"
-                err_ "the Command Line Tools."
-                ;;
-    esac
-  fi
-}
-
-function dotfiles_switch_shell() {
-  if ! which $SHELL |grep zsh >/dev/null 2>&1; then
-    status "You aren't using ZSH. ZSH is awesome."
-    echo -n "Switch to zsh [y/N]? ";                      read dotfiles_do_switch_zsh;
-    ###############################################
-    # change shell
-    ###############################################
-    [ "$dotfiles_do_switch_zsh" = "y" ] && {
-      echo "== changing shell =="
-      chsh -s `which zsh` && status "user default shell changed to zsh"
-      status  "using zsh at $(which zsh) -- fix your path if this is wrong!"
-      exec $(which zsh)
-    }
-  else
-    status "cool, you're using zsh"
-  fi
-}
-
 function dotfiles_setup_ssh_keys() {
   if [ ! -e ~/.ssh/id_rsa.pub ]; then
     # from https://gist.github.com/1454081
@@ -91,28 +48,6 @@ function dotfiles_setup_ssh_keys() {
   else
     status "found SSH keys for this user"
   fi
-}
-
-##
-# function is skipped if you specify --all or any setup name
-function dotfiles_determine_steps() {
-  status "begin install"
-  echo "Say no to everything to just run an update (next time use --update)"
-  # @TODO check for --all argument
-  echo -n "Symlink .cvsignore (used by rsync) [y/N]? "; read dotfiles_do_cvsignore;
-  echo -n "Symlink .tmux.conf [y/N]? ";                 read dotfiles_do_tmux;
-  echo -n "Symlink .powconfig [y/N]? ";                 read dotfiles_do_pow;
-  echo -n "Set up gitconfig [y/N]? ";                   read dotfiles_do_gitconfig;
-  echo -n "Set up github [y/N]? ";                      read dotfiles_do_github;
-  echo -n "Set up bash [y/N]? ";                        read dotfiles_do_bash;
-  echo -n "Set up zsh [y/N]? ";                         read dotfiles_do_zsh;
-  echo -n "Set up vim [y/N]? ";                         read dotfiles_do_vim;
-
-  [ "$dotfiles_local_suffix" = 'osx' ] && {
-    echo -n "Install Homebrew [y/N]? ";               read dotfiles_do_homebrew;
-    echo -n "Brew recommended formulae [y/N]? ";      read dotfiles_do_brew;
-    echo -n "Set up OSX Defaults [y/N]? ";            read dotfiles_do_osx;
-  }
 }
 
 function dotfiles_setup_git() {
@@ -175,174 +110,8 @@ function dotfiles_determine_github_write() {
 }
 
 ###############################################
-# create backups if needed
-# takes a file as an argument, not a string!
-###############################################
-
-function dotfiles_backup() {
-  local backup_filename=$(basename $1)
-  local backup_filepath="~/.dotfiles.old/$backup_filename"
-
-  if [ "$dotfiles_skip_backups" = 1 ]; then
-    if [ "$dotfiles_verbose" = 1 ]; then
-      status "skipping backup of $1"
-    fi
-    return
-  fi
-
-  if [ ! -e $1 ]; then
-    if [ "$dotfiles_verbose" = 1 ]; then
-      status "$1 doesn't exist, no backup needed"
-    fi
-    return
-  fi
-
-  if [ ! -L $1 ]; then
-    mv $1 $backup_filepath && status "Moved $1 to $backup_filepath"
-  else
-    status "Your old $backup_filename was a symlink, safely overwriting it"
-  fi
-}
-
-###############################################
-# symlink config files
-###############################################
-
-function dotfiles_symlink_cvsignore() {
-  echo "== symlink .cvsignore =="
-  dotfiles_backup ~/.cvsignore
-  ln -fns ~/.dotfiles/.cvsignore ~/.cvsignore && status ".cvsignore symlinked"
-}
-
-function dotfiles_create_tmuxconf() {
-  echo "== create .tmux.conf =="
-  dotfiles_backup ~/.tmux.conf
-  [ ! -f ~/.tmux.conf ] && {
-    echo "source-file ~/.dotfiles/tmux/.tmux.conf" >> ~/.tmux.conf
-    status  "You didn't have a .tmux.conf file so one was created for"
-    status_ "you. It sources ~/.dotfiles/tmux/.tmux.conf."
-    [ "$dotfiles_local_suffix" = "osx" ] && {
-      echo "source-file ~/.dotfiles/tmux/osx" >> ~/.tmux.conf
-      status "Your new ~/.tmux.conf file also includes ~/.dotfiles/tmux/osx"
-    }
-  }
-}
-
-function dotfiles_symlink_powconfig() {
-  echo "== symlink .powconfig =="
-  dotfiles_backup ~/.powconfig
-  ln -fns ~/.dotfiles/.powconfig ~/.powconfig && status ".powconfig symlinked"
-}
-
-###############################################
 # the following require git and github set up
 ###############################################
-
-function dotfiles_clone() {
-  git clone --recursive $GITHUB_URL/dotfiles.git ~/.dotfiles && status "cloned dotfiles repo"
-}
-
-function dotfiles_update() {
-  echo "== updating dotfiles repo =="
-  cd ~/.dotfiles && git checkout master && {
-    status "Checked out master"
-    git pull && status "Pulling latest dotfiles"
-    git submodule update --init --recursive && status "Updating/init submodules"
-    git checkout @{-1}                # go back to last branch or just fail
-  } && status "Updated dotfiles repo"
-}
-
-function dotfiles_symlink_bash() {
-  echo "== symlink bash dotfiles =="
-  dotfiles_backup ~/.bashrc       && ln -fns ~/.dotfiles/bash/.bashrc ~/.bashrc             && status "Your .bashrc is a symlink to ~/.dotfiles/bash/.bashrc"
-  dotfiles_backup ~/.bash_profile && ln -fns ~/.dotfiles/bash/.bash_profile ~/.bash_profile && status "Your .zshenv is a symlink to ~/.dotfiles/bash/.bash_profile"
-}
-
-function dotfiles_symlink_zsh() {
-  echo "== symlink zsh dotfiles =="
-  dotfiles_backup ~/.zshrc  && ln -fns ~/.dotfiles/zsh/.zshrc ~/.zshrc   && status "Your .zshrc is a symlink to ~/.dotfiles/zsh/.zshrc"
-  dotfiles_backup ~/.zshenv && ln -fns ~/.dotfiles/zsh/.zshenv ~/.zshenv && status "Your .zshenv is a symlink to ~/.dotfiles/zsh/.zshenv"
-  dotfiles_backup ~/.zlogin && ln -fns ~/.dotfiles/zsh/.zlogin ~/.zlogin && status "Your .zlogin is a symlink to ~/.dotfiles/zsh/.zlogin"
-
-  [ ! -f ~/.zshenv.local ] && {
-    echo "source ~/.dotfiles/.zshenv.local.$dotfiles_local_suffix" >> ~/.zshenv.local
-    status "You didn't have a .zshenv.local file so one was created for you."
-  }
-
-  [ ! -f ~/.zshrc.local ] && {
-    echo "source ~/.dotfiles/.zshrc.local.$dotfiles_local_suffix" >> ~/.zshrc.local
-    status "You didn't have a .zshrc.local file so one was created for you."
-  }
-}
-
-function dotfiles_symlink_vim() {
-  echo "== symlink .vim folder and vim dotfiles =="
-  dotfiles_backup ~/.vim    && ln -fns ~/.dotfiles/vim ~/.vim             && status "Your ~/.vim folder is a symlink to ~/.dotfiles/vim"
-  dotfiles_backup ~/.vimrc  && ln -fns ~/.dotfiles/vim/.vimrc ~/.vimrc    && status "Your new .vimrc is a symlink to ~/.dotfiles/.vimrc"
-  dotfiles_backup ~/.gvimrc && ln -fns ~/.dotfiles/vim/.gvimrc ~/.gvimrc  && status "Your new .gvimrc is a symlink to ~/.dotfiles/.gvimrc"
-
-  mkdir -p ~/.dotfiles/vim/_temp && mkdir -p ~/.dotfiles/vim/_backup && status "Created backup and temp folders for vim"
-
-  [ ! -d ~/.vim/bundle/vundle ] && {
-    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle && status "Installed vundle for vim"
-  }
-}
-
-function dotfiles_update_vim() {
-  [ -d ~/.vim/bundle/vundle ] && {
-    vim +BundleInstall +qall && status "Updated/Installed vim plugins"
-  }
-}
-
-function dotfiles_setup_osx() {
-  status "Set up OSX defaults"
-  . ~/.dotfiles/install/osx && status "OSX defaults written"
-}
-
-# TODO check for curl
-# See https://github.com/37signals/pow/wiki/Installation
-function dotfiles_install_pow() {
-  status "Installing pow"
-  curl get.pow.cx | sh
-}
-
-# TODO check for curl
-# See https://rvm.io/
-function dotfiles_install_rvm() {
-  status "Installing rvm"
-  curl -L get.rvm.io | bash -s stable
-}
-
-# See https://github.com/mxcl/homebrew/wiki/installation
-function dotfiles_update_homebrew() {
-  status "Updating homebrew"
-  brew update
-  brew upgrade
-}
-
-# See https://github.com/mxcl/homebrew/wiki/installation
-function dotfiles_install_homebrew() {
-  status "Installing homebrew"
-  /usr/bin/ruby -e "$(/usr/bin/curl -fksSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
-  # TODO check for homebrew
-  brew doctor
-}
-
-# TODO check for homebrew
-function dotfiles_brew_formulae() {
-  echo "== Brewing Formulae =="
-  brew install ack
-  brew install git
-  brew install imagemagick
-  brew install imagesnap
-  brew install jsl
-  brew install jsmin
-  brew install macvim --custom-icons --with-cscope --override-system-vim --with-lua
-  brew install pngcrush
-  brew install tmux
-
-  brew linkapps
-}
 
 function dotfiles_brew_phpmyadmin() {
   brew install phpmyadmin
@@ -353,26 +122,6 @@ function dotfiles_brew_phpmyadmin() {
   status  "You need to do the apache thing ('brew info phpmyadmin' for help),"
   status_ "and add a blowfish secret value to"
   status_ "/usr/local/share/phpmyadmin/config.inc.php"
-}
-
-function dotfiles_brew_php() {
-  brew tap josegonzalez/php
-  brew install php --with-mssql --with-imap --with-mysql
-  brew install imagick-php
-  status  "Installed php and imagick-php. You need to enable it in the apache"
-  status_ "config file ('brew info php' for help)."
-}
-
-function dotfiles_brew_bash() {
-  brew install bash
-  brew install bash-completion
-  status "Installed bash and bash-completion"
-}
-
-function dotfiles_brew_zsh() {
-  brew install zsh
-  # TODO add /usr/local/bin/zsh to /etc/shells
-  status "Installed zsh"
 }
 
 function dotfiles_brew_mysql() {
