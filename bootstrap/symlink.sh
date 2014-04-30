@@ -3,6 +3,7 @@ set -eu
 
 ################################################################################
 # Basic symlinks, safe to run on any system
+################################################################################
 
 ##
 # initialize script and dependencies
@@ -25,7 +26,6 @@ dkosymlink tmux/tmux.conf        .tmux.conf
 # symlink shells
 dkosymlink bash/bashrc.sh        .bashrc
 dkosymlink bash/bash_profile.sh  .bash_profile
-dkosymlink zsh                   .zsh
 dkosymlink zsh/zshenv.zsh        .zshenv
 
 dkostatus "Done! [symlink.sh]"
