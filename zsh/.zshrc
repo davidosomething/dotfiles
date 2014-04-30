@@ -4,20 +4,23 @@ source $HOME/.dotfiles/shell/aliases
 source $HOME/.dotfiles/shell/functions
 
 export HISTFILE="$ZDOTDIR/.zhistory"
-source $ZSH_DOTFILES/options.zsh
-source $ZSH_DOTFILES/aliases.zsh
-source $ZSH_DOTFILES/keybindings.zsh
-source $ZSH_DOTFILES/completions.zsh
-source $ZSH_DOTFILES/prompt.zsh
-source $ZSH_DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZDOTDIR/options.zsh
+source $ZDOTDIR/aliases.zsh
+source $ZDOTDIR/keybindings.zsh
+
+source $ZDOTDIR/completions.zsh
+source $DOTFILES/npm/completion
+
+source $ZDOTDIR/prompt.zsh
+source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # program aliases
 has_program rbenv && eval "$(rbenv init -)"
 has_program hub   && eval "$(hub alias -s)"
 $HAS_BREW && {
-  HELPDIR="$(brew --prefix)/share/zsh/helpfiles"
+  HELPDIR="$BREW_PREFIX/share/zsh/helpfiles"
 
-  source_if_exists "`brew --prefix`/etc/profile.d/z.sh"
+  source_if_exists "$BREW_PREFIX/etc/profile.d/z.sh"
 }
 
 $HAS_BREW && {

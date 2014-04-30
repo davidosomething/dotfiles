@@ -7,9 +7,9 @@ alias rm="nocorrect rm"
 alias mkdir="nocorrect mkdir"
 
 # editing zsh config files
-alias ezaliases="e $ZSH_DOTFILES/aliases.zsh"
-alias ezshrc="e $ZSH_DOTFILES/zshrc.zsh"
-alias ezshenv="e $ZSH_DOTFILES/zshenv.zsh"
+alias ezaliases="e $ZDOTDIR/aliases.zsh"
+alias ezshrc="e $ZDOTDIR/zshrc.zsh"
+alias ezshenv="e $ZDOTDIR/zshenv.zsh"
 alias elzshrc="e $ZDOTDIR/.zshrc.local"
 alias elzshenv="e $ZDOTDIR/.zshenv.local"
 

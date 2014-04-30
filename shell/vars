@@ -4,8 +4,7 @@
 # dotfile paths
 export DOTFILES="$HOME/.dotfiles"
 export BASH_DOTFILES="$DOTFILES/bash"
-export ZSH_DOTFILES="$DOTFILES/zsh"
-export ZDOTDIR="$HOME/.zsh"
+export ZDOTDIR="$DOTFILES/zsh"
 
 ########################################
 # LP_OS detection, default to Linux

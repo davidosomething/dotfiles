@@ -22,7 +22,7 @@ $HAS_BREW && {
 ##
 # top precedence! So my dotfiles zsh-completions override the previous brew
 fpath=(
-  $ZSH_DOTFILES/zsh-completions/src
+  $ZDOTDIR/zsh-completions/src
   $fpath
 )
 
