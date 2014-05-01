@@ -71,6 +71,9 @@ NeoBundle 'kien/ctrlp.vim'
   let g:ctrlp_map = '<F1>'
   let g:ctrlp_match_window = 'order:ttb,min:10'
   let g:ctrlp_max_depth = 16
+  let g:ctrlp_mru_files = 1             " Enable MRU
+  let g:ctrlp_jump_to_buffer = 2        " Jump to tab AND buffer if already open
+  let g:ctrlp_split_window = 1          " <CR> = New Tab
   " The Silver Searcher
   if executable('ag')
     " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore

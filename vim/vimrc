@@ -1,5 +1,5 @@
 set nocompatible
-set encoding=utf-8
+set encoding=utf-8 nobomb
 scriptencoding utf-8
 
 " Environment detection a la https://github.com/bling/dotvim
@@ -30,17 +30,34 @@ if exists('&colorcolumn')
   set colorcolumn=80
 endif
 set title                             " wintitle = filename - vim
-set titleold=""                       " restore title on exit
 set number
 set numberwidth=5
 set cursorline
 set scrolloff=3                       " show 2 lines of context
+
+" folds
 set foldcolumn=2
 set foldlevel=99                      " show all folds by default
 set foldlevelstart=99                 " show all folds by default
+
+" splits
 set splitbelow
 set splitright
+
+" input
+set formatoptions=
+set formatoptions+=c                  " Format comments
+set formatoptions+=r                  " Continue comments by default
+set formatoptions+=o                  " continue comment using o or O
+set formatoptions+=q                  " continue comments with gq
+set formatoptions+=n                  " Recognize numbered lists
+set formatoptions+=2                  " Use indent from 2nd line of a paragraph
+set formatoptions+=l                  " Don't break lines that are already long
+set formatoptions+=1                  " Break before 1-letter words
+set nrformats-=octal                  " never use octal when <C-x> or <C-a>
+set nojoinspaces                      " J command doesn't add extra space
 set mouse=a
+set ttymouse=xterm
 
 " status line - most of this is handled by vim-powerline
 set laststatus=2
@@ -57,8 +74,6 @@ set expandtab
 set backspace=indent,eol,start        " bs anything
 set noeol
 "set smartindent -- using filetype indenting instead
-set nrformats-=octal                  " never use octal when <C-x> or <C-a>
-set nojoinspaces                      " J command doesn't add extra space
 
 " Trailing whitespace
 set list
@@ -68,11 +83,14 @@ set listchars+=trail:·
 set listchars+=extends:»              " show cut off when nowrap
 set listchars+=precedes:«
 
+" diffing
+set diffopt=filler                    " blank lines to keep sides aligned
+set diffopt+=iwhite                   " Ignore whitespace changes
+
 " search
 set hlsearch
 set incsearch
-" Searches wrap around the end of the file.
-set wrapscan
+set wrapscan                          " Searches wrap around end of the file.
 set ignorecase
 set smartcase
 " fix regexes
