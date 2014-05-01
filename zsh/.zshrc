@@ -1,17 +1,11 @@
 #####
 # only run on interactive/TTY
-source $HOME/.dotfiles/shell/aliases
-source $HOME/.dotfiles/shell/functions
-
 export HISTFILE="$ZDOTDIR/.zhistory"
-source $ZDOTDIR/options.zsh
-source $ZDOTDIR/aliases.zsh
-source $ZDOTDIR/keybindings.zsh
 
-source $ZDOTDIR/completions.zsh
-source $DOTFILES/npm/completion
+for script in "options" "aliases" "keybindings" "completions" "prompt"; do
+  source $ZDOTDIR/${script}.zsh
+done
 
-source $ZDOTDIR/prompt.zsh
 source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # program aliases

@@ -1,7 +1,6 @@
-source $HOME/.dotfiles/shell/functions
-source $HOME/.dotfiles/shell/vars
-source $HOME/.dotfiles/shell/aliases
-source $HOME/.dotfiles/shell/paths
+for script in "functions" "vars" "aliases" "paths"; do
+  source $HOME/.dotfiles/shell/${script}
+done
 
 [ -z "$PS1" ] && return
 
@@ -14,8 +13,9 @@ shopt -s extglob
 shopt -s cdspell
 shopt -s cdable_vars
 
-source $BASH_DOTFILES/completions.sh
-source $BASH_DOTFILES/prompt.sh
+for script in "completions" "prompt"; do
+  source $BASH_DOTFILES/${script}.bash
+done
 
 # program aliases
 has_program hub   && eval "$(hub alias -s)"

@@ -2,11 +2,11 @@
 # .dotfiles/zshenv.zsh
 # zshenv is always sourced, even for bg jobs
 
-source $HOME/.dotfiles/shell/functions
-source $HOME/.dotfiles/shell/vars
-source $HOME/.dotfiles/shell/paths
-source $HOME/.dotfiles/shell/aliases
+for script in "functions" "vars" "aliases" "paths"; do
+  source $HOME/.dotfiles/shell/${script}
+done
 
+# remove duplicates in path arrays
 typeset -U path cdpath manpath
 
 ##

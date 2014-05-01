@@ -24,8 +24,8 @@ dkosymlink tmux/tmux.conf        .tmux.conf
 
 ##
 # symlink shells
-dkosymlink bash/bashrc.sh        .bashrc
-dkosymlink bash/bash_profile.sh  .bash_profile
-dkosymlink zsh/zshenv.zsh        .zshenv
+dkosymlink bash/.bashrc         .bashrc
+dkosymlink bash/.bash_profile   .bash_profile
+dkosymlink zsh/.zshenv          .zshenv
 
 dkostatus "Done! [symlink.sh]"

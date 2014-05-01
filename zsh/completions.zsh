@@ -43,3 +43,7 @@ zstyle ':completion:*' users ''
 
 # show descriptions for options
 zstyle ':completion:*' verbose yes
+
+# additional completions
+has_program npm   && source $DOTFILES/npm/completion
+has_program grunt && eval "$(grunt --completion=zsh)"

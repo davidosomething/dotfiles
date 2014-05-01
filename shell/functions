@@ -92,9 +92,9 @@ phpminorver() {
 e() {
   if [[ $DOTFILES_OS = "Darwin" ]] && $HAS_BREW; then
     if [ -z $1 ]; then
-      $BREW_PREFIX/bin/mvim
+      open -a MacVim.app
     else
-      $BREW_PREFIX/bin/mvim --remote-tab-silent $@
+      $BREW_PREFIX/bin/mvim --servername VIM --remote-tab-silent $@
     fi
   else
     if [ -n "$SSH_CONNECTION" ] || [ -z "$DISPLAY" ]; then
