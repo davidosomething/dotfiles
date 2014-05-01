@@ -361,7 +361,7 @@ NeoBundleLazy 'tobyS/pdv', {
       \   'depends': 'tobyS/vmustache',
       \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
-  let g:pdv_template_dir = "~/.vim/bundle/pdv/templates"
+  let g:pdv_template_dir = expand("~/.vim/bundle/pdv/templates")
   if has("autocmd")
     au FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
     au FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>

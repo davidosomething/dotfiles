@@ -17,9 +17,9 @@ shopt -s cdable_vars
 source $BASH_DOTFILES/completions.sh
 source $BASH_DOTFILES/prompt.sh
 
-# programs
-has_program rbenv && eval "$(rbenv init -)"
+# program aliases
 has_program hub   && eval "$(hub alias -s)"
+has_program rbenv && eval "$(rbenv init -)"
 $HAS_BREW && source_if_exists "$BREW_PREFIX/etc/profile.d/z.sh"
 
 # local
