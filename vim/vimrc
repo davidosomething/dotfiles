@@ -7,6 +7,7 @@ scriptencoding utf-8
 let g:is_windows = has('win32') || has('win64')
 let g:is_cygwin = has('win32unix')
 let g:is_macvim = has('gui_macvim')
+let g:is_term = (&term =~ "xterm") || (&term =~ "screen")
 
 let g:settings = {}
 let g:settings.autocomplete_method = 'neocomplcache'
@@ -24,6 +25,9 @@ set lazyredraw                        " don't update the display while
 if has('gui_running')
   set background=light
 else
+  if g:is_term
+    set t_Co=16
+  endif
   set background=dark
 endif
 if exists('&colorcolumn')
