@@ -1,8 +1,0 @@
-# .xinitrc is the oldest version, not sure if used anymore
-# .xsession is used by some dms
-# .xprofile is used by gdm
-
-xrdb ~/.Xresources
-if [ -d "$dotfiles_path/solarized" ]; then
-  xrdb -merge "$dotfiles_path/solarized/xresources-colors-solarized/Xresources"
-fi
