@@ -100,7 +100,15 @@ e() {
     if [ -n "$SSH_CONNECTION" ] || [ -z "$DISPLAY" ]; then
       vim $@
     else
-      gvim $@
+      if [ -z $1 ]; then
+        if [ -n "$(gvim --serverlist)" ]; then
+          gvim --servername VIM --remote-send "<Esc>:tabnew<CR>"
+        else
+          gvim
+        fi
+      else
+        gvim --servername VIM --remote-tab-silent $@
+      fi
     fi
   fi
 }
