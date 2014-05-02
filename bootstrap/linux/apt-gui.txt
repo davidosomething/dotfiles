@@ -1,3 +1,8 @@
 clipit
+
+# for gnome-terminal solarized
+dconf-cli
+
+gnome-terminal
 synaptic
 vim-gtk

@@ -14,4 +14,5 @@ source $bootstrap_path/helpers.sh
 
 ################################################################################
 dkostatus "Symlinking X11 dotfiles"
-dkosymlink x/.xinitrc .xinitrc
+#dkosymlink x/.xinitrc .xinitrc
+dkosymlink x/.xprofile .xprofile
