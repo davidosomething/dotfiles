@@ -7,5 +7,3 @@ xrdb ~/.dotfiles/x/.Xresources
 if [ -d ~/.dotfiles/solarized ]; then
   xrdb -merge ~/.dotfiles/solarized/xresources/solarized
 fi
-
-xmodmap ~/.dotfiles/x/.Xmodmap
