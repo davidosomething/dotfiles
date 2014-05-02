@@ -17,4 +17,5 @@ silversearcher-ag
 vim
 vim-doc
 vim-scripts
+xclip
 zsh
