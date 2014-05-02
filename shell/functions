@@ -102,12 +102,13 @@ e() {
     else
       if [ -z $1 ]; then
         if [ -n "$(gvim --serverlist)" ]; then
-          gvim --servername VIM --remote-send "<Esc>:tabnew<CR>"
+          gvim --servername GVIM --remote-expr "foreground()"
+          gvim --servername GVIM --remote-send "<Esc>:tabnew<CR>"
         else
           gvim
         fi
       else
-        gvim --servername VIM --remote-tab-silent $@
+        gvim --servername GVIM --remote-tab-silent $@
       fi
     fi
   fi
