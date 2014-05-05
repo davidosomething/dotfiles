@@ -211,3 +211,12 @@ localip() {
   fi
   echo $localip
 }
+
+########################################
+# Linux
+# Cleanup Open With Applications
+cleanopenwith() {
+  # remove wine apps
+  rm -r ~/.local/share/applications/wine*
+  sed -i '/wine/d' ~/.local/share/applications/mimeinfo.cache
+}
