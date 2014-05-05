@@ -168,19 +168,9 @@ if g:settings.autocomplete_method == 'neocomplcache'
     let g:neocomplcache_temporary_dir='~/.vim/.cache/neocomplcache'
     " default # of completions is 100, that's crazy
     let g:neocomplcache_max_list = 10
-    " words less than 3 letters long aren't worth completing
-    let g:neocomplcache_min_syntax_length = 3
-    " start filling in after 2 chars
-    let g:neocomplcache_auto_completion_start_length = 2
     " This makes sure we use neocomplcache completefunc instead of
     " the one in rails.vim, otherwise this plugin will crap out
     let g:neocomplcache_force_overwrite_completefunc = 1
-    " Enable heavy omni completion.
-    if !exists('g:neocomplcache_omni_patterns')
-      let g:neocomplcache_omni_patterns = {}
-    endif
-    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -332,6 +322,12 @@ NeoBundle 'itspriddle/vim-jquery'       " creates javascript syntax
 NeoBundle 'jelera/vim-javascript-syntax' " also creates javascript syntax
 NeoBundleLazy 'othree/javascript-libraries-syntax.vim', { 'autoload': { 'filetypes': ['javascript'] } }
 NeoBundle 'pangloss/vim-javascript'     " also creates javascript filetype
+NeoBundle 'heavenshell/vim-jsdoc'
+  let g:jsdoc_default_mapping = 0
+  if has("autocmd")
+    au FileType javascript nnoremap <Leader>pd :JsDoc<CR>
+    au FileType javascript vnoremap <Leader>pd :JsDoc<CR>
+  endif
 
 """"""""""""""""""""""""""""""""""""""""
 " JSON
