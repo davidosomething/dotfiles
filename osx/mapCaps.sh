@@ -1,0 +1,1 @@
+/usr/bin/defaults -currentHost write -g "com.apple.keyboard.modifiermapping.1452-544-0" -array "<dict><key>HIDKeyboardModifierMappingDst</key><integer>2</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>"
