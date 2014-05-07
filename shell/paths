@@ -6,7 +6,7 @@ $HAS_BREW && PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:$PATH"
 # bin
 
 # php55 through homebrew if brew command available
-[[ -n $BREW_PHP_PATH ]] && PATH="${BREW_PHP_PATH}:$PATH"
+[[ -n "$BREW_PHP_PATH" ]] && PATH="${BREW_PHP_PATH}:$PATH"
 
 # rbenv
 PATH="${RBENV_ROOT}/bin:${PATH}"
@@ -21,7 +21,7 @@ PATH="${HOME}/.composer/bin:${PATH}"
 PATH="${BREW_PREFIX}/share/npm/bin:{$PATH}"
 
 # go
-export GOPATH=$HOME/go
+export GOPATH="$HOME/go"
 PATH="$GOPATH/bin:$PATH"
 
 ########################################
