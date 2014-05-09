@@ -5,6 +5,12 @@ brc() {
 }
 
 ########################################
+# Linux
+flushfonts() {
+  fc-cache -f -v
+}
+
+########################################
 # OSX filesystem
 ##
 # http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
