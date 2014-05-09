@@ -226,3 +226,11 @@ cleanopenwith() {
   rm -r ~/.local/share/applications/wine*
   sed -i '/wine/d' ~/.local/share/applications/mimeinfo.cache
 }
+
+o() {
+  if [[ $DOTFILES_OS = "Darwin" ]]; then
+    open $@
+  else
+    xdg-open $@
+  fi
+}

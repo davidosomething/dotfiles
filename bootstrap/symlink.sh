@@ -18,6 +18,7 @@ source $bootstrap_path/helpers.sh
 dkostatus "Symlinking dotfiles"
 dkosymlink ack/ackrc             .ackrc
 dkosymlink cvs/cvsignore         .cvsignore
+dkosymlink shell/inputrc         .inputrc
 dkosymlink ruby/gemrc            .gemrc
 dkosymlink screen/screenrc       .screenrc
 dkosymlink tmux/tmux.conf        .tmux.conf
