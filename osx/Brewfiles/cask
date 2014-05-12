@@ -89,6 +89,7 @@ cask install transmit
 
 # guitar tab reader
 cask install tuxguitar
+cask install vagrant-manager
 cask install vlc
 cask install vox-preference-pane
 
