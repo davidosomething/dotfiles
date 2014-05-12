@@ -120,13 +120,10 @@ e() {
   fi
 }
 eapache() {
-  e $APACHE_HTTPD_CONF $@
+  e "${APACHE_HTTPD_ROOT}/${APACHE_HTTPD_CONF}" $@
 }
 ephpini() {
   e $PHP_INI $@
-}
-evhosts() {
-  e $APACHE_HTTPD_VHOSTS $@
 }
 
 ########################################

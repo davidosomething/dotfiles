@@ -48,9 +48,10 @@ export PAGER="less"
 ##
 # apache
 has_program "apachectl" && {
-  export APACHE_HOME="/etc/apache2"
-  export APACHE_HTTPD_CONF="$(apachectl -V | awk '/ -D SERVER_CONFIG_FILE/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
-  export APACHE_HTTPD_VHOSTS="$APACHE_HOME/extra/httpd-vhosts.conf"
+  if apachectl -t >/dev/null 2>&1; then
+    export APACHE_HTTPD_ROOT="$(apachectl -V | awk '/ -D HTTPD_ROOT/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
+    export APACHE_HTTPD_CONF="$(apachectl -V | awk '/ -D SERVER_CONFIG_FILE/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
+  fi
 }
 
 ##

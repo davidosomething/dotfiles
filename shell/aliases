@@ -12,7 +12,7 @@ alias l="ls -AF"
 alias ll="l -l"
 
 # bin
-alias a="sudo apt-get"
+alias a="sudo aptitude -F \"%p %d %v\""
 alias b="brew"
 alias f="find"
 alias g="git"
