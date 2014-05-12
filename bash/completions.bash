@@ -1,5 +1,7 @@
 ################################################################################
 # bash completion
+set completion-ignore-case on
+
 source_if_exists /etc/bash_completion
 source_if_exists /usr/share/bash-completion/bash_completion
 

@@ -5,6 +5,12 @@ brc() {
 }
 
 ########################################
+# Linux
+flushfonts() {
+  fc-cache -f -v
+}
+
+########################################
 # OSX filesystem
 ##
 # http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
@@ -219,4 +225,12 @@ cleanopenwith() {
   # remove wine apps
   rm -r ~/.local/share/applications/wine*
   sed -i '/wine/d' ~/.local/share/applications/mimeinfo.cache
+}
+
+o() {
+  if [[ $DOTFILES_OS = "Darwin" ]]; then
+    open $@
+  else
+    xdg-open $@
+  fi
 }
