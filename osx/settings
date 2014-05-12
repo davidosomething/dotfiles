@@ -13,6 +13,9 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # disable startup chime
 sudo nvram SystemAudioVolume=" "
 
+# disable power button sleep, hold down for power off menu
+defaults write com.apple.loginwindow PowerButtonSleepsSystem -bool no
+
 ################################################################################
 # monitor
 # Enable subpixel font rendering on non-Apple LCDs
