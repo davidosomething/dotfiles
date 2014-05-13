@@ -32,10 +32,10 @@ mercurial
 subversion
 
 imagemagick
-openssh-client
 
 # os
 keychain
+openssh-client
 zsh
 
 # libs
@@ -55,5 +55,7 @@ vim vim-doc vim-scripts
 apache2-mpm-worker libapache2-mod-fastcgi php5-fpm php-apc php5-gd
 php5 php5-cli php5-json php5-user-cache
 # should remove php5_module
+nodejs npm
 
+# network
 dnsmasq
