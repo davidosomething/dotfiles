@@ -71,7 +71,10 @@ a2() {
 }
 
 a2r() {
-  apachectl -t && sudo apachectl -e info -k restart
+  apachectl -t && {
+    [[ $DOTFILES_OS = "Darwin" ]] && sudo apachectl -e info -k restart
+    [[ $DOTFILES_OS = "Linux" ]]  && sudo service apache2 reload
+  }
 }
 
 art() {
@@ -132,6 +135,7 @@ ephpini() {
 # Change directory to the nearest repo root
 cdr() {
   local dir=${1:-$PWD}
+  has_program "realpath" && dir="`realpath ${dir}`"
   if [[ -d $dir/.svn ]]; then
     while [[ -d $dir/.. && -d $dir/../.svn ]]; do
       dir+=/..

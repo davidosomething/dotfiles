@@ -6,3 +6,4 @@ dconf-cli
 gnome-terminal
 synaptic
 vim-gtk
+xclip
