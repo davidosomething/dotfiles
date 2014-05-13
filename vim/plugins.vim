@@ -19,8 +19,6 @@ NeoBundle 'kana/vim-operator-user', {
 
 NeoBundle 'MarcWeber/vim-addon-mw-utils'
 
-NeoBundle 'rizzatti/funcoo.vim'
-
 NeoBundle 'Shougo/vimproc', {
       \   'build': {
       \     'mac':     'make -f make_mac.mak',
@@ -111,13 +109,6 @@ NeoBundle 'osyo-manga/vim-over'
 " commands
 if g:is_macvim
   NeoBundle 'henrik/vim-reveal-in-finder'
-endif
-
-if has("gui_macvim")
-  NeoBundle 'rizzatti/dash.vim', {
-        \   'depends': 'rizzatti/funcoo.vim'
-        \ }
-    nmap <silent> <leader>d <Plug>DashSearch
 endif
 
 NeoBundle 'Keithbsmiley/investigate.vim'
