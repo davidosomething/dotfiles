@@ -112,8 +112,10 @@ if g:is_macvim
 endif
 
 NeoBundle 'Keithbsmiley/investigate.vim'
+nnoremap <leader>K :call investigate#Investigate()<CR>
+if g:is_macvim
   let g:investigate_use_dash=1
-  nnoremap <leader>K :call investigate#Investigate()<CR>
+endif
 
 NeoBundle 'mileszs/ack.vim'
 

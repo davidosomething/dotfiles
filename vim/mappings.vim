@@ -48,6 +48,12 @@ nnoremap <silent> g# g#zz
 command W w
 
 ""
+" zeal lookup
+if g:is_term
+  nnoremap <leader>K :!zeal --query "<cword>"&<CR><CR>
+endif
+
+""
 " Traversal / Filesystem
 " cd to the directory containing the file in the buffer
 nnoremap <silent> <Leader>cd :lcd %:h<CR>
