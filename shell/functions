@@ -135,7 +135,16 @@ ephpini() {
 # Change directory to the nearest repo root
 cdr() {
   local dir=${1:-$PWD}
-  has_program "realpath" && dir="`realpath ${dir}`"
+
+  # resolve symlinks
+  if has_program "realpath"; then
+    dir="`realpath ${dir}`"
+  elif [ $DOTFILES_OS = "Darwin" ]; then
+    dir="`readlink ${dir}`"
+  else
+    dir="`readlink -f ${dir}`"
+  fi
+
   if [[ -d $dir/.svn ]]; then
     while [[ -d $dir/.. && -d $dir/../.svn ]]; do
       dir+=/..
