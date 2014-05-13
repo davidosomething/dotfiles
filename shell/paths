@@ -21,6 +21,7 @@ PATH="$HOME/.composer/bin:$PATH"
 [[ -d "$BREW_PREFIX" ]] && PATH="$BREW_PREFIX/share/npm/bin:$PATH"
 [[ -d "$NPM_PACKAGES" ]] && {
   PATH="$NPM_PACKAGES/bin:$PATH"
+  unset MANPATH
   export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 }
 

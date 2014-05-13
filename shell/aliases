@@ -14,6 +14,8 @@ alias ll="l -l"
 # bin
 alias a="sudo aptitude -F \"%p %d %v\""
 alias b="brew"
+alias composer="composer.phar"
+alias c="composer.phar"
 alias f="find"
 alias g="git"
 alias p="php"
