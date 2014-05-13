@@ -73,6 +73,7 @@ export GIT_PAGER="$PAGER -eFX"
 ##
 # node
 export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
+export NPM_PACKAGES="$HOME/.npm-packages"
 
 ##
 # php

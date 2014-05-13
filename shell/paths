@@ -6,7 +6,7 @@ $HAS_BREW && PATH="$BREW_PREFIX/bin:$BREW_PREFIX/sbin:$PATH"
 # bin
 
 # php55 through homebrew if brew command available
-[[ -n "$BREW_PHP_PATH" ]] && PATH="$BREW_PHP_PATH:$PATH"
+[[ -d "$BREW_PHP_PATH" ]] && PATH="$BREW_PHP_PATH:$PATH"
 
 # rbenv
 PATH="$RBENV_ROOT/bin:$PATH"
@@ -18,7 +18,11 @@ PATH="$RBENV_ROOT/bin:$PATH"
 PATH="$HOME/.composer/bin:$PATH"
 
 # npm
-PATH="$BREW_PREFIX/share/npm/bin:$PATH"
+[[ -d "$BREW_PREFIX" ]] && PATH="$BREW_PREFIX/share/npm/bin:$PATH"
+[[ -d "$NPM_PACKAGES" ]] && {
+  PATH="$NPM_PACKAGES/bin:$PATH"
+  export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+}
 
 # go
 export GOPATH="$HOME/go"
@@ -28,3 +32,7 @@ PATH="$GOPATH/bin:$PATH"
 # local
 PATH="$HOME/bin:$DOTFILES/bin:$PATH"
 export PATH
+
+
+########################################
+# Man pages

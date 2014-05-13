@@ -71,10 +71,8 @@ a2() {
 }
 
 a2r() {
-  apachectl -t && {
-    [[ $DOTFILES_OS = "Darwin" ]] && sudo apachectl -e info -k restart
-    [[ $DOTFILES_OS = "Linux" ]]  && sudo service apache2 reload
-  }
+  [[ $DOTFILES_OS = "Darwin" ]] && sudo apachectl -e info -k restart
+  [[ $DOTFILES_OS = "Linux" ]]  && sudo service apache2 reload
 }
 
 art() {
