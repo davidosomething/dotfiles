@@ -18,9 +18,11 @@ alias composer="composer.phar"
 alias c="composer.phar"
 alias f="find"
 alias g="git"
+alias n="npm"
 alias p="php"
 alias py="python"
 alias u="update"
+alias v="vagrant"
 alias vb="VBoxManage"
 
 # function-type aliases
