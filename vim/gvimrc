@@ -11,6 +11,9 @@ if has("gui_macvim")
   if has("autocmd")
     au filetype ghmarkdown,markdown nnoremap <buffer><leader>m :silent !open -a Marked '%:p'<cr>
   endif
+else
+  set guifont=Menlo\ for\ Powerline\ 9
+  set lines=48
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
