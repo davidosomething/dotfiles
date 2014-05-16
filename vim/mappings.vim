@@ -200,9 +200,6 @@ endif
 ""
 " Tab and Split manipulation
 
-nnoremap <Leader>s <C-w>s<cr>
-nnoremap <Leader>v <C-w>v<cr>
-
 " Navigate splits
 nnoremap <silent> <C-k> :wincmd k<CR>
 nnoremap <silent> <C-j> :wincmd j<CR>
