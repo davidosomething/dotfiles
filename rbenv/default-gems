@@ -8,6 +8,7 @@ commander
 compass --pre
 dandelion
 fssm
+gemoji
 ghost
 github-markup
 highline
@@ -24,6 +25,7 @@ net-ssh-gateway
 net-ssh-multi
 open4
 psych
+puppet-lint
 rake
 rdoc
 redcarpet
@@ -31,6 +33,7 @@ RedCloth
 rhc
 rubygems-update
 sass --pre
+scss-lint
 sshkit
 term-ansicolor
 test-unit
