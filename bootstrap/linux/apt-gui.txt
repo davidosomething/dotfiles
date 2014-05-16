@@ -3,7 +3,9 @@ clipit
 # for gnome-terminal solarized
 dconf-cli
 
+filezilla
 gnome-terminal
+pidgin
 synaptic
 vim-gtk
 xclip
