@@ -3,7 +3,9 @@ clipit
 # for gnome-terminal solarized
 dconf-cli
 
-filezilla
+# separate ppa
+#filezilla
+
 gnome-terminal
 pidgin
 synaptic

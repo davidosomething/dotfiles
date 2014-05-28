@@ -147,9 +147,13 @@ if g:settings.autocomplete_method == 'neocomplete'
   NeoBundle 'Shougo/neocomplete.vim', {
         \   'vim_version':'7.3.885'
         \ }
-    let g:neocomplete#enable_at_startup=1
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#data_directory='~/.vim/.cache/neocomplete'
+    let g:neocomplete#enable_at_startup            = 1
+    let g:neocomplete#enable_smart_case            = 1
+    let g:neocomplete#enable_camel_case_completion = 1
+    let g:neocomplete#enable_underbar_completion   = 1
+    let g:neocomplete#enable_fuzzy_completion      = 1
+    let g:neocomplete#force_overwrite_completefunc = 1
+    let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
 endif
 if g:settings.autocomplete_method == 'neocomplcache'
   NeoBundle 'Shougo/neocomplcache.vim'
@@ -157,13 +161,9 @@ if g:settings.autocomplete_method == 'neocomplcache'
     let g:neocomplcache_enable_smart_case             = 1
     let g:neocomplcache_enable_camel_case_completion  = 1
     let g:neocomplcache_enable_underbar_completion    = 1
-    let g:neocomplcache_enable_fuzzy_completion=1
-    let g:neocomplcache_temporary_dir='~/.vim/.cache/neocomplcache'
-    " default # of completions is 100, that's crazy
-    let g:neocomplcache_max_list = 10
-    " This makes sure we use neocomplcache completefunc instead of
-    " the one in rails.vim, otherwise this plugin will crap out
-    let g:neocomplcache_force_overwrite_completefunc = 1
+    let g:neocomplcache_enable_fuzzy_completion       = 1
+    let g:neocomplcache_force_overwrite_completefunc  = 1
+    let g:neocomplcache_temporary_dir = '~/.vim/.cache/neocomplcache'
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -267,7 +267,7 @@ NeoBundle 'scrooloose/syntastic'
     let g:syntastic_mode_map['active_filetypes'] = []
   endif
   if !has_key(g:syntastic_mode_map, "passive_filetypes")
-    let g:syntastic_mode_map['passive_filetypes'] = ['python', 'html']
+    let g:syntastic_mode_map['passive_filetypes'] = ['html', 'javascript']
   endif
   let g:syntastic_error_symbol         = '✗'
   let g:syntastic_style_error_symbol   = '✠'
