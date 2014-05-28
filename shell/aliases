@@ -8,8 +8,9 @@ alias ..='cd ..'
 alias ....='cd ../..'
 alias cd..='cd ..'
 alias dirs="dirs -v"                  # default to vert, use -l for list
-alias l="ls -AF"
-alias ll="l -l"
+alias l="ls -F"
+alias la="ls -AF"
+alias ll="ls -lF"
 
 # bin
 alias a="sudo aptitude -F \"%p %d %v\""
