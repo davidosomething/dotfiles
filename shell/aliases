@@ -8,7 +8,7 @@ alias ..='cd ..'
 alias ....='cd ../..'
 alias cd..='cd ..'
 alias dirs="dirs -v"                  # default to vert, use -l for list
-alias l="ls -F"
+alias l="ls -AFl"
 alias la="ls -AF"
 alias ll="ls -lF"
 
