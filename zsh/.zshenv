@@ -2,7 +2,7 @@
 # .dotfiles/zshenv.zsh
 # zshenv is always sourced, even for bg jobs
 
-for script in "functions" "vars" "aliases" "paths"; do
+for script in "functions" "vars" "aliases" "paths" "keyring"; do
   source $HOME/.dotfiles/shell/${script}
 done
 

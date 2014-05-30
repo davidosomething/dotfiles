@@ -2,7 +2,7 @@
 # only run on interactive/TTY
 export HISTFILE="$ZDOTDIR/.zhistory"
 
-for script in "options" "aliases" "keybindings" "completions" "prompt"; do
+for script in "options" "aliases" "keybindings" "completions" "prompt" "keyring"; do
   source $ZDOTDIR/${script}.zsh
 done
 
