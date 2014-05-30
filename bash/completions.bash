@@ -12,4 +12,4 @@ source_if_exists $HOME/.wp-cli/vendor/wp-cli/wp-cli/utils/wp-completion.bash
 has_program grunt && eval "$(grunt --completion=bash)"
 
 # homebrew's bash-completion package sources the rest of bash_completion.d
-$HAS_BREW && source_if_exists "$BREW_PREFIX/etc/bash_completion"
+[ -n $HAS_BREW ] && source_if_exists "$BREW_PREFIX/etc/bash_completion"
