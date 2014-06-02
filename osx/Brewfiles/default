@@ -25,6 +25,7 @@ install ack
 install rmtrash
 install the_silver_searcher
 install tree
+install z
 
 ##
 # git
@@ -71,6 +72,7 @@ install wget
 # image/video
 install ffmpeg
 install gifsicle
+
 
 ##
 # links macvim, maybe others, to /Applications
