@@ -63,6 +63,7 @@ export DOCKER_HOST=tcp://localhost:4243
 has_program "brew" && {
   export HAS_BREW=true
   export BREW_PREFIX="$(brew --prefix)"
+  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 }
 
 ##

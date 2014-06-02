@@ -1,4 +1,4 @@
-#vi:syn=zsh
+#!/usr/bin/env bash
 set -eu
 
 # sources:
@@ -212,3 +212,5 @@ for app in \
   Terminal \
   Twitter \
   ; do killall "$app" >/dev/null 2>&1; done
+
+#vi:syn=zsh
