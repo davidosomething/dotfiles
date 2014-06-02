@@ -22,6 +22,8 @@ else
   source_if_exists "$DOTFILES/z/z.sh"
 fi
 
+source_if_exists /usr/local/share/chruby/chruby.sh
+
 ##
 # local
-source_if_exists $ZDOTDIR/.zshrc.local
+source_if_exists ~/.zshrc.local

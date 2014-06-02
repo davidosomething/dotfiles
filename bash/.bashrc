@@ -25,6 +25,7 @@ if [[ -n $HAS_BREW ]]; then
 else
   source_if_exists "$DOTFILES/z/z.sh"
 fi
+
 source_if_exists /usr/local/share/chruby/chruby.sh
 
 # local
