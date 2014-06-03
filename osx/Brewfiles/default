@@ -47,11 +47,9 @@ install multitail
 
 ##
 # ruby
-install rbenv --HEAD
-install rbenv-gem-rehash
-install rbenv-default-gems
-install ruby-build
-install ruby-install
+# see boostrap/osx/ruby.sh
+#install chruby
+#install ruby-install
 
 ##
 # shell
@@ -64,7 +62,10 @@ install zsh-completions
 install curl
 install dnsmasq
 install mysql
-install node
+
+# see bootstrap/osx/node.sh
+#install node
+
 install openssl
 install wget
 
