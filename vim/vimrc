@@ -175,6 +175,9 @@ if has("autocmd")
   " http://www.python.org/dev/peps/pep-0008/
   au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
 
+  " 4space for gitconfig
+  au FileType gitconfig setlocal softtabstop=4 tabstop=4 shiftwidth=4
+
   " Enable soft-wrapping for text files
   au FileType text setlocal wrap linebreak nolist textwidth=80
 

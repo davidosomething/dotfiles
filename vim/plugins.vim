@@ -267,7 +267,7 @@ NeoBundle 'scrooloose/syntastic'
     let g:syntastic_mode_map['active_filetypes'] = []
   endif
   if !has_key(g:syntastic_mode_map, "passive_filetypes")
-    let g:syntastic_mode_map['passive_filetypes'] = ['html', 'javascript']
+    let g:syntastic_mode_map['passive_filetypes'] = ['html']
   endif
   let g:syntastic_error_symbol         = '✗'
   let g:syntastic_style_error_symbol   = '✠'
@@ -291,6 +291,10 @@ NeoBundleLazy 'maksimr/vim-jsbeautify', {
 """"""""""""""""""""""""""""""""""""""""
 " Chef
 NeoBundleLazy 'vadv/vim-chef', {'autoload': {'filetypes': ['ruby', 'eruby']}}
+
+""""""""""""""""""""""""""""""""""""""""
+" CoffeeScript
+NeoBundle 'kchmck/vim-coffee-script'
 
 """"""""""""""""""""""""""""""""""""""""
 " ColdFusion

@@ -1,0 +1,49 @@
+[alias]
+	aa = add --all .
+	amend = commit --amend
+	b = branch
+	ca = commit --amend
+	cfg = "! $EDITOR ~/.gitconfig"
+	ci = commit
+	cm = commit -m
+	co = checkout
+	count = shortlog -sn
+	dc = diff --cached
+	forget = rm -r --cached
+	graph = log --graph --oneline --decorate --all
+	l = log --graph --abbrev-commit --date=relative
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	ll = log --pretty=oneline --abbrev-commit --max-count=15
+	pr = pull --rebase
+	st = status -bs
+	which = rev-parse --abbrev-ref HEAD
+	t = tag
+	pullall = "! f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
+[branch]
+	autosetuprebase = always
+[color]
+	branch = auto
+	diff = auto
+	grep = auto
+	interactive = auto
+	status = auto
+	ui = auto
+	pager = true
+[core]
+	compression = -1
+	excludesfile = ~/.cvsignore
+	sharedRepository = 0664
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+[pager]
+	status = true
+[push]
+	default = simple
+[rerere]
+	enabled = 1
+[web]
+	browser = open
+[include]
+	path = ~/.gitconfig.local

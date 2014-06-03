@@ -13,12 +13,6 @@ install libtool
 install pkg-config
 
 ##
-# editing
-install ctags
-install python3
-install macvim --custom-icons --override-system-vim --withlua --withpython3
-
-##
 # filesystem
 install ack
 # alias rm to rmtrash

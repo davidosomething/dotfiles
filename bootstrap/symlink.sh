@@ -16,17 +16,18 @@ source $bootstrap_path/helpers.sh
 ##
 # begin
 dkostatus "Symlinking dotfiles"
-dkosymlink ack/ackrc             .ackrc
-dkosymlink cvs/cvsignore         .cvsignore
-dkosymlink shell/inputrc         .inputrc
-dkosymlink ruby/gemrc            .gemrc
-dkosymlink screen/screenrc       .screenrc
-dkosymlink tmux/tmux.conf        .tmux.conf
+dkosymlink ack/.ackrc.symlink         .ackrc
+dkosymlink cvs/.cvsignore.symlink     .cvsignore
+dkosymlink git/.gitconfig.symlink     .gitconfig
+dkosymlink shell/.inputrc.symlink     .inputrc
+dkosymlink ruby/.gemrc.symlink        .gemrc
+dkosymlink screen/.screenrc.symlink   .screenrc
+dkosymlink tmux/.tmux.conf.symlink    .tmux.conf
 
 ##
 # symlink shells
-dkosymlink bash/.bashrc         .bashrc
-dkosymlink bash/.bash_profile   .bash_profile
-dkosymlink zsh/.zshenv          .zshenv
+dkosymlink bash/.bashrc.symlink         .bashrc
+dkosymlink bash/.bash_profile.symlink   .bash_profile
+dkosymlink zsh/.zshenv.symlink          .zshenv
 
 dkostatus "Done! [symlink.sh]"
