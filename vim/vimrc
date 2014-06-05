@@ -68,6 +68,7 @@ set laststatus=2
 set showcmd                           " incomplete commands on
 
 " whitespace
+set binary noeol                      " binary mode required for noeol
 set nowrap
 set tabstop=2
 set shiftwidth=2
@@ -76,7 +77,6 @@ set shiftround                        " use multiple of shiftwidth when
 set softtabstop=2
 set expandtab
 set backspace=indent,eol,start        " bs anything
-set noeol
 "set smartindent -- using filetype indenting instead
 
 " Trailing whitespace
@@ -166,6 +166,15 @@ endif
 ""
 " Autocommands
 if has("autocmd")
+  " Force filetypes
+  " vim-chef support for ruby files (turned off eruby)
+  au FileType ruby setlocal filetype=ruby.eruby.chef
+  au BufRead,BufNewFile *.cap   setlocal filetype=ruby
+  au BufRead,BufNewFile *.conf  setlocal filetype=conf
+  au BufRead,BufNewFile *.hbs   setlocal filetype=mustache
+  au BufRead,BufNewFile *.dump  setlocal filetype=sql
+  au BufRead,BufNewFile *.scss  setlocal filetype=scss
+
   " Set editor configs
   " use real tabs
   au FileType gitconfig   setlocal noexpandtab
@@ -180,15 +189,6 @@ if has("autocmd")
 
   " Enable soft-wrapping for text files
   au FileType text setlocal wrap linebreak nolist textwidth=80
-
-  " Force filetypes
-  " vim-chef support for ruby files (turned off eruby)
-  au FileType ruby setlocal filetype=ruby.eruby.chef
-  au BufRead,BufNewFile *.cap   setlocal filetype=ruby
-  au BufRead,BufNewFile *.conf  setlocal filetype=conf
-  au BufRead,BufNewFile *.hbs   setlocal filetype=mustache
-  au BufRead,BufNewFile *.dump  setlocal filetype=sql
-  au BufRead,BufNewFile *.scss  setlocal filetype=scss
 
   " crontab on OSX needs a tempfile
   if g:is_macvim
