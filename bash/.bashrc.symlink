@@ -18,8 +18,6 @@ for script in "completions" "prompt"; do
 done
 
 # program aliases
-has_program hub   && eval "$(hub alias -s)"
-has_program rbenv && eval "$(rbenv init -)"
 if [[ -n $HAS_BREW ]]; then
   source_if_exists "$BREW_PREFIX/etc/profile.d/z.sh"
 else

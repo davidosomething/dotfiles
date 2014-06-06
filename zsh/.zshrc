@@ -2,15 +2,11 @@
 # only run on interactive/TTY
 export HISTFILE="$ZDOTDIR/.zhistory"
 
-for script in "options" "aliases" "keybindings" "completions" "prompt"; do
+for script in "options" "aliases" "keybindings" "completions" "prompt" "zsh-syntax-highlighting/zsh-syntax-highlighting"; do
   source $ZDOTDIR/${script}.zsh
 done
 
-source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # program aliases
-has_program hub   && eval "$(hub alias -s)"
-has_program rbenv && eval "$(rbenv init -)"
 if [[ -n $HAS_BREW ]]; then
   source_if_exists "$BREW_PREFIX/etc/profile.d/z.sh"
 

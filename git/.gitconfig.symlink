@@ -1,24 +1,25 @@
 [alias]
-	aa = add --all .
-	amend = commit --amend
-	b = branch
-	ca = commit --amend
-	cfg = "! $EDITOR ~/.gitconfig"
-	ci = commit
-	cm = commit -m
-	co = checkout
-	count = shortlog -sn
-	dc = diff --cached
-	forget = rm -r --cached
-	graph = log --graph --oneline --decorate --all
-	l = log --graph --abbrev-commit --date=relative
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	ll = log --pretty=oneline --abbrev-commit --max-count=15
-	pr = pull --rebase
-	st = status -bs
-	which = rev-parse --abbrev-ref HEAD
-	t = tag
+	a		= add
+	aa		= add .
+	amend	= commit --amend
+	b		= branch
+	ca		= commit --amend
+	cfg		= "! $EDITOR ~/.gitconfig"
+	ci		= commit
+	cm		= commit -m
+	co		= checkout
+	dc		= diff --cached
+	forget	= rm -r --cached
+	graph	= log --graph --oneline --decorate --all
+	l		= log --graph --abbrev-commit --date=relative
+	lg		= log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	ll		= log --pretty=oneline --abbrev-commit --max-count=15
+	pr		= pull --rebase
 	pullall = "! f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
+	s		= status
+	st		= status -bs
+	t		= tag
+	which	= rev-parse --abbrev-ref HEAD
 [branch]
 	autosetuprebase = always
 [color]
