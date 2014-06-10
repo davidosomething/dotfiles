@@ -352,7 +352,7 @@ NeoBundle 'jtratner/vim-flavored-markdown', {
 
 """"""""""""""""""""""""""""""""""""""""
 " Mustache.js and Handlebars
-NeoBundleLazy 'mustache/vim-mustache-handlebars' " creates mustache filetype
+NeoBundle 'mustache/vim-mustache-handlebars' " creates mustache filetype
 
 """"""""""""""""""""""""""""""""""""""""
 " PHP
