@@ -1,23 +1,25 @@
 [alias]
 	a		= add
 	aa		= add .
-	amend	= commit --amend
 	b		= branch
 	ca		= commit --amend
 	cfg		= "! $EDITOR ~/.gitconfig"
+	changed = diff HEAD..master
+	cb		= checkout -b
 	ci		= commit
 	cm		= commit -m
 	co		= checkout
 	dc		= diff --cached
 	forget	= rm -r --cached
-	graph	= log --graph --oneline --decorate --all
-	l		= log --graph --abbrev-commit --date=relative
-	lg		= log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	ll		= log --pretty=oneline --abbrev-commit --max-count=15
+	l		= log --abbrev-commit
+	lg		= log --abbrev-commit --graph --decorate
+	lb		= log --abbrev-commit --graph --oneline --decorate --all
+	ll		= log --abbrev-commit --pretty=oneline --max-count=15
 	pr		= pull --rebase
 	pullall = "! f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
-	s		= status
-	st		= status -bs
+	rb		= rebase
+	s		= status -bs
+	st		= status
 	t		= tag
 	which	= rev-parse --abbrev-ref HEAD
 [branch]
