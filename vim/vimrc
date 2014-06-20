@@ -22,6 +22,8 @@ endif
 set ttyfast
 set lazyredraw                        " don't update the display while
                                       " executing macros
+set synmaxcol=256                     " don't syntax highlight long lines
+
 if has('gui_running')
   set background=light
 else

@@ -267,7 +267,7 @@ NeoBundle 'scrooloose/syntastic'
     let g:syntastic_mode_map['active_filetypes'] = []
   endif
   if !has_key(g:syntastic_mode_map, "passive_filetypes")
-    let g:syntastic_mode_map['passive_filetypes'] = ['html']
+    let g:syntastic_mode_map['passive_filetypes'] = [ 'html' ]
   endif
   let g:syntastic_error_symbol         = '✗'
   let g:syntastic_style_error_symbol   = '✠'
@@ -280,17 +280,6 @@ NeoBundle 'scrooloose/syntastic'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Language specific
 "
-""""""""""""""""""""""""""""""""""""""""
-" Multiple
-NeoBundleLazy 'maksimr/vim-jsbeautify', {
-      \   'autoload': { 'filetypes': [ 'javascript', 'html' , 'css' ] }
-      \ }
-  if has("autocmd") && neobundle#tap('vim-jsbeautify')
-    au Filetype javascript  vnoremap <buffer> <c-f> :call RangeJsBeautify()<cr>
-    au Filetype html        vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-    au Filetype css         vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
-  endif
-
 """"""""""""""""""""""""""""""""""""""""
 " Chef
 NeoBundleLazy 'vadv/vim-chef', {'autoload': {'filetypes': ['ruby', 'eruby']}}
