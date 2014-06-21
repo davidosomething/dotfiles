@@ -104,6 +104,7 @@ if executable("ctags")
 endif
 
 NeoBundle 'osyo-manga/vim-over'
+  nnoremap <c-s> :OverCommandLine<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " commands
@@ -302,7 +303,6 @@ NeoBundle 'tpope/vim-git'           " creates gitconfig, gitcommit, gitrebase
 """"""""""""""""""""""""""""""""""""""""
 " HTML and generators
 NeoBundle 'digitaltoad/vim-jade'    " creates jade filetype
-NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 
 """"""""""""""""""""""""""""""""""""""""
