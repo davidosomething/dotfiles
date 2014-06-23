@@ -104,6 +104,7 @@ if executable("ctags")
 endif
 
 NeoBundle 'osyo-manga/vim-over'
+  nnoremap <c-s> :OverCommandLine<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " commands
@@ -147,6 +148,8 @@ if g:settings.autocomplete_method == 'neocomplete'
   NeoBundle 'Shougo/neocomplete.vim', {
         \   'vim_version':'7.3.885'
         \ }
+
+    let g:acp_enableAtStartup = 0
     let g:neocomplete#enable_at_startup            = 1
     let g:neocomplete#enable_smart_case            = 1
     let g:neocomplete#enable_camel_case_completion = 1
@@ -154,9 +157,17 @@ if g:settings.autocomplete_method == 'neocomplete'
     let g:neocomplete#enable_fuzzy_completion      = 1
     let g:neocomplete#force_overwrite_completefunc = 1
     let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
+
+    " from the github page: <CR> cancels completion and inserts newline
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return neocomplete#close_popup() . "\<CR>"
+    endfunction
+
 endif
 if g:settings.autocomplete_method == 'neocomplcache'
   NeoBundle 'Shougo/neocomplcache.vim'
+    let g:acp_enableAtStartup = 0
     let g:neocomplcache_enable_at_startup             = 1
     let g:neocomplcache_enable_smart_case             = 1
     let g:neocomplcache_enable_camel_case_completion  = 1
@@ -164,6 +175,14 @@ if g:settings.autocomplete_method == 'neocomplcache'
     let g:neocomplcache_enable_fuzzy_completion       = 1
     let g:neocomplcache_force_overwrite_completefunc  = 1
     let g:neocomplcache_temporary_dir = '~/.vim/.cache/neocomplcache'
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+      let g:neocomplcache_omni_patterns = {}
+    endif
+    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -302,7 +321,6 @@ NeoBundle 'tpope/vim-git'           " creates gitconfig, gitcommit, gitrebase
 """"""""""""""""""""""""""""""""""""""""
 " HTML and generators
 NeoBundle 'digitaltoad/vim-jade'    " creates jade filetype
-NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 
 """"""""""""""""""""""""""""""""""""""""
@@ -359,13 +377,13 @@ NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \ }
 NeoBundle 'StanAngeloff/php.vim'        " updated syntax
 
-"NeoBundleLazy 'dsawardekar/wordpress.vim', {
-      "\   'depends': [
-      "\     'kien/ctrlp.vim',
-      "\     'shawncplus/phpcomplete.vim',
-      "\   ],
-      "\   'autoload': { 'filetypes': ['php'] }
-"      \ }
+NeoBundleLazy 'dsawardekar/wordpress.vim', {
+      \   'depends': [
+      \     'kien/ctrlp.vim',
+      \     'shawncplus/phpcomplete.vim',
+      \   ],
+      \   'autoload': { 'filetypes': ['php'] }
+      \ }
 
 if executable("ctags")
   NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {

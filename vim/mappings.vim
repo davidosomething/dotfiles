@@ -200,12 +200,6 @@ endif
 ""
 " Tab and Split manipulation
 
-" Navigate splits
-nnoremap <silent> <C-k> :wincmd k<CR>
-nnoremap <silent> <C-j> :wincmd j<CR>
-nnoremap <silent> <C-h> :wincmd h<CR>
-nnoremap <silent> <C-l> :wincmd l<CR>
-
 " Resize splits
 nnoremap <silent> <Left>  4<C-w><
 nnoremap <silent> <Down>  4<C-W>-
@@ -219,3 +213,5 @@ inoremap <silent> <Right> <Esc>4<C-w>>
 " Navigate tabs
 nnoremap <silent> <S-Left> :tabprevious<CR>
 nnoremap <silent> <S-Right> :tabnext<CR>
+inoremap <silent> <S-Left> :tabprevious<CR>
+inoremap <silent> <S-Right> :tabnext<CR>
