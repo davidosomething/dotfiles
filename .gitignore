@@ -3,3 +3,5 @@
 .zsh_history
 .zhistory
 .zcompdump
+
+*.log
