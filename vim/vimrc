@@ -183,6 +183,9 @@ if has("autocmd")
   au FileType gitconfig   setlocal noexpandtab
   au FileType make        setlocal noexpandtab
 
+  " force 2sp for js
+  au FileType javascript setlocal softtabstop=2 tabstop=2 shiftwidth=2
+
   " make Python follow PEP8 for whitespace
   " http://www.python.org/dev/peps/pep-0008/
   au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
