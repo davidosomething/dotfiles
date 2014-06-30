@@ -11,6 +11,10 @@
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin dependencies
+
+" editorconfig-vim uses this
+NeoBundle 'vim-scripts/PreserveNoEOL'
+
 NeoBundle 'kana/vim-operator-user', {
       \   'autoload' : {
       \     'functions' : 'operator#user#define'
@@ -92,7 +96,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 
 NeoBundle 'tpope/vim-fugitive'
 
-NeoBundle 'vim-scripts/bufkill.vim'
+NeoBundle 'vim-scripts/bufkill.vim'     " :bd keeps window open
 
 NeoBundle 'vim-scripts/IndexedSearch'
 
@@ -215,7 +219,7 @@ NeoBundle 'maxbrunsfeld/vim-yankstack'
 
 NeoBundle 'nishigori/increment-activator' " custom C-x C-a mappings
 
-NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'tomtom/tcomment_vim'
 
 NeoBundle 'tpope/vim-endwise'
 
@@ -226,26 +230,6 @@ NeoBundle 'tpope/vim-speeddating'       " fast increment datetimes
 NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'tpope/vim-unimpaired'        " keyb shortcut for next quickfix, file
-
-NeoBundle 'tyru/operator-camelize.vim', {
-      \   'depends': 'vim-operator-user',
-      \   'autoload': {
-      \     'mappings': [
-      \       [ '<Plug>(operator-camelize-)' ]
-      \     ]
-      \   }
-      \ }
-      nmap <C-c> <Plug>(operator-camelize-toggle)
-
-NeoBundle 'kana/vim-operator-replace', {
-      \   'depends': 'vim-operator-user',
-      \   'autoload': {
-      \     'mappings': [
-      \       [ 'nx', '<Plug>(operator-replace)' ],
-      \     ],
-      \   }
-      \ }
-      map _ <Plug>(operator-replace)
 
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
@@ -305,7 +289,7 @@ NeoBundleLazy 'vadv/vim-chef', {'autoload': {'filetypes': ['ruby', 'eruby']}}
 
 """"""""""""""""""""""""""""""""""""""""
 " CoffeeScript
-NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'kchmck/vim-coffee-script' " creates coffee ft
 
 """"""""""""""""""""""""""""""""""""""""
 " ColdFusion
@@ -377,13 +361,13 @@ NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \ }
 NeoBundle 'StanAngeloff/php.vim'        " updated syntax
 
-NeoBundleLazy 'dsawardekar/wordpress.vim', {
-      \   'depends': [
-      \     'kien/ctrlp.vim',
-      \     'shawncplus/phpcomplete.vim',
-      \   ],
-      \   'autoload': { 'filetypes': ['php'] }
-      \ }
+"NeoBundleLazy 'dsawardekar/wordpress.vim', {
+      "\   'depends': [
+      "\     'kien/ctrlp.vim',
+      "\     'shawncplus/phpcomplete.vim',
+      "\   ],
+      "\   'autoload': { 'filetypes': ['php'] }
+      "\ }
 
 if executable("ctags")
   NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
