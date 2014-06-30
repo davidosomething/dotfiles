@@ -74,7 +74,12 @@ case "$OSTYPE" in
 
     if [[ "$1" = "brew" ]]; then
       dkostatus "Updating homebrew"
-      brew update && brew upgrade && brew cleanup
+      brew update
+      if [[ `brew outdated | grep node` ]]; then
+        brew upgrade node --without-npm
+      fi
+      brew upgrade
+      brew cleanup
     fi
   ;;
 esac

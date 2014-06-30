@@ -171,11 +171,12 @@ if has("autocmd")
   " Force filetypes
   " vim-chef support for ruby files (turned off eruby)
   au FileType ruby setlocal filetype=ruby.eruby.chef
-  au BufRead,BufNewFile *.cap   setlocal filetype=ruby
-  au BufRead,BufNewFile *.conf  setlocal filetype=conf
-  au BufRead,BufNewFile *.hbs   setlocal filetype=mustache
-  au BufRead,BufNewFile *.dump  setlocal filetype=sql
-  au BufRead,BufNewFile *.scss  setlocal filetype=scss
+  au BufRead,BufNewFile *.cap       setlocal filetype=ruby
+  au BufRead,BufNewFile *.conf      setlocal filetype=conf
+  au BufRead,BufNewFile *.hbs       setlocal filetype=mustache
+  au BufRead,BufNewFile *.jshintrc  setlocal filetype=json
+  au BufRead,BufNewFile *.dump      setlocal filetype=sql
+  au BufRead,BufNewFile *.scss      setlocal filetype=scss
 
   " Set editor configs
   " use real tabs
