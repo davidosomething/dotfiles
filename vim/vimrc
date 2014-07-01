@@ -212,6 +212,10 @@ if has("autocmd")
 endif
 
 ""
+" Abbreviations :)
+ab lod: ಠ_ಠ
+
+""
 " Local config
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
@@ -230,4 +234,3 @@ filetype plugin indent on
 syntax on
 runtime macros/matchit.vim
 NeoBundleCheck
-
