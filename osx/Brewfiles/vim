@@ -1,0 +1,2 @@
+macvim --custom-icons --override-system-vim --with-cscope --with-lua --with-python3
+linkapps

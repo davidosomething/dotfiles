@@ -13,8 +13,6 @@ let g:settings = {}
 let g:settings.autocomplete_method = 'neocomplcache'
 if has('lua')
   let g:settings.autocomplete_method = 'neocomplete'
-elseif filereadable(expand("~/.vim/bundle/YouCompleteMe/python/ycm_core.*"))
-  let g:settings.autocomplete_method = 'ycm'
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -201,14 +199,12 @@ if has("autocmd")
     au BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
   endif
 
-  if g:settings.autocomplete_method != 'ycm'
-    au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-    au FileType python        setlocal omnifunc=pythoncomplete#Complete
-    au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-    au FileType ruby          setlocal omnifunc=rubycomplete#Complete
-  endif
+  au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+  au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+  au FileType python        setlocal omnifunc=pythoncomplete#Complete
+  au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+  au FileType ruby          setlocal omnifunc=rubycomplete#Complete
 endif
 
 ""
@@ -216,15 +212,15 @@ endif
 ab lod: ಠ_ಠ
 
 ""
-" Local config
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
-
-""
 " NeoBundles
 if filereadable(expand("~/.vim/plugins.vim"))
   source ~/.vim/plugins.vim
+endif
+
+""
+" Local config
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

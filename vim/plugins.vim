@@ -44,7 +44,7 @@ NeoBundle 'altercation/vim-colors-solarized'
     silent! call togglebg#map("<F5>")
   endif
 
-NeoBundle 'dockyard/vim-easydir'
+NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
 NeoBundle 'itchyny/lightline.vim', {
       \   'depends': 'vim-fugitive'
@@ -130,24 +130,6 @@ NeoBundle 'tpope/vim-eunuch'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocomplete
-NeoBundle 'honza/vim-snippets'
-if has("python")
-  NeoBundle 'SirVer/ultisnips'
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-    let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
-endif
-if g:settings.autocomplete_method == 'ycm'
-  NeoBundle 'Valloric/YouCompleteMe', {
-        \   'vim_version':'7.3.584',
-        \   'build' : {
-        \     'mac' : './install.sh --clang-completer --system-libclang',
-        \     'unix' : './install.sh --clang-completer --system-libclang'
-        \   }
-        \ }
-    let g:ycm_complete_in_comments_and_strings=1
-endif
 if g:settings.autocomplete_method == 'neocomplete'
   NeoBundle 'Shougo/neocomplete.vim', {
         \   'vim_version':'7.3.885'
