@@ -25,6 +25,8 @@
 	t		= tag
 	um		= branch --no-merged
 	which	= rev-parse --abbrev-ref HEAD
+	root = !pwd
+	root = !pwd -P
 [branch]
 	autosetuprebase = always
 [color]
