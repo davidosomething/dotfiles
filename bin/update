@@ -75,9 +75,7 @@ case "$OSTYPE" in
     if [[ "$1" = "brew" ]]; then
       dkostatus "Updating homebrew"
       brew update
-      if [[ `brew outdated | grep node` ]]; then
-        brew upgrade node --without-npm
-      fi
+      [ $(brew outdated | grep node) ] && brew upgrade node --without-npm
       brew upgrade
       brew cleanup
     fi
@@ -125,6 +123,7 @@ if [[ "$1" = "vim" ]]; then
   dkostatus "Updating vim bundles"
   vim -N -u ~/.vimrc -c "try | \
     NeoBundleClean! | \
+    NeoBundleCheck! | \
     NeoBundleUpdate! | \
     NeoBundleUpdatesLog $* | \
     finally | qall! | endtry" -U NONE -i NONE -V1 -e -s
