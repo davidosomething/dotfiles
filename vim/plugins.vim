@@ -211,8 +211,6 @@ NeoBundle 'tpope/vim-speeddating'       " fast increment datetimes
 
 NeoBundle 'tpope/vim-surround'
 
-NeoBundle 'tpope/vim-unimpaired'        " keyb shortcut for next quickfix, file
-
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -272,6 +270,8 @@ NeoBundleLazy 'vadv/vim-chef', {'autoload': {'filetypes': ['ruby', 'eruby']}}
 """"""""""""""""""""""""""""""""""""""""
 " CoffeeScript
 NeoBundle 'kchmck/vim-coffee-script' " creates coffee ft
+  let coffee_compile_vert = 1
+  let coffee_watch_vert = 1
 
 """"""""""""""""""""""""""""""""""""""""
 " ColdFusion
