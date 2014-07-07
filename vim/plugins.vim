@@ -231,8 +231,6 @@ NeoBundle 'paradigm/TextObjectify'
 " syntax highlighting
 if has("python")
   NeoBundle 'editorconfig/editorconfig-vim'
-  let g:EditorConfig_core_mode = 'python_builtin'
-  let g:EditorConfig_python_files_dir = "~/.vim/bundle/editorconfig-vim/plugin/editorconfig-core-py"
 endif
 
 NeoBundleLazy 'gregsexton/MatchTag'
