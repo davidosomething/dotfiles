@@ -1,4 +1,5 @@
-"
+scriptencoding UTF-8
+
 " Don't need:
 " - jeetsukumaran/vim-buffergator - CtrlP has a buffer mode
 " - kien/tabman.vim - CtrlP does the same thing
@@ -35,6 +36,8 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'tobyS/vmustache'
 
 NeoBundle 'tomtom/tlib_vim'
+
+NeoBundle 'ynkdir/vim-vimlparser'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ui
@@ -270,8 +273,8 @@ NeoBundleLazy 'vadv/vim-chef', {'autoload': {'filetypes': ['ruby', 'eruby']}}
 """"""""""""""""""""""""""""""""""""""""
 " CoffeeScript
 NeoBundle 'kchmck/vim-coffee-script' " creates coffee ft
-  let coffee_compile_vert = 1
-  let coffee_watch_vert = 1
+  let g:coffee_compile_vert = 1
+  let g:coffee_watch_vert = 1
 
 """"""""""""""""""""""""""""""""""""""""
 " ColdFusion
@@ -378,7 +381,13 @@ NeoBundleLazy 'ap/vim-css-color', {
       \   'autoload': {
       \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
       \   }
-     \ }
+      \ }
 NeoBundle 'cakebaker/scss-syntax.vim'   " creates scss.css
 NeoBundle 'groenewege/vim-less'         " creates less filetype
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'autoload': { 'filetypes': ['css', 'sass', 'scss'] } }
+
+""""""""""""""""""""""""""""""""""""""""
+" VimL
+NeoBundle 'syngan/vim-vimlint', {
+      \   'depends' : 'ynkdir/vim-vimlparser'
+      \ }

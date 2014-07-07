@@ -46,10 +46,14 @@ install multitail
 #install ruby-install
 
 ##
-# shell
+# shells
 install bash-completion
 install zsh
 install zsh-completions
+
+##
+# shell scripting
+install shellcheck
 
 ##
 # web

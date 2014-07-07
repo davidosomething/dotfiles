@@ -1,6 +1,7 @@
+scriptencoding utf-8
+
 set nocompatible
 set encoding=utf-8 nobomb
-scriptencoding utf-8
 
 " Environment detection a la https://github.com/bling/dotvim
 " detect OS
@@ -158,7 +159,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 ""
 " Mappings
 " Map <Leader> to comma
-let mapleader = ","
+let g:mapleader = ","
 if filereadable(expand("~/.vim/mappings.vim"))
   source ~/.vim/mappings.vim
 endif
