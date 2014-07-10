@@ -71,14 +71,15 @@ set showcmd                           " incomplete commands on
 " whitespace
 set binary noeol                      " binary mode required for noeol
 set nowrap
+set autoindent
+set preserveindent                    " stay indented when press enter
+set expandtab                         " spaces instead of tabs
 set tabstop=2
 set shiftwidth=2
 set shiftround                        " use multiple of shiftwidth when
                                       " indenting with '<' and '>'
-set softtabstop=2
-set expandtab
+set softtabstop=2                     " tabs look like 2 spaces
 set backspace=indent,eol,start        " bs anything
-"set smartindent -- using filetype indenting instead
 
 " Trailing whitespace
 set list
@@ -92,7 +93,8 @@ set listchars+=precedes:«
 set diffopt=filler                    " blank lines to keep sides aligned
 set diffopt+=iwhite                   " Ignore whitespace changes
 
-" search
+" match and search
+set showmatch                         " hl matching parens
 set hlsearch
 set incsearch
 set wrapscan                          " Searches wrap around end of the file.

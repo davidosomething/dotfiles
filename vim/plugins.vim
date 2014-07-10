@@ -131,6 +131,8 @@ NeoBundle 'rking/ag.vim'
 
 NeoBundle 'tpope/vim-eunuch'
 
+NeoBundle 'tpope/vim-unimpaired'        " used for line bubbling commands on osx
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocomplete
 if g:settings.autocomplete_method == 'neocomplete'
@@ -257,6 +259,10 @@ NeoBundle 'scrooloose/syntastic'
   let g:syntastic_style_error_symbol   = '✠'
   let g:syntastic_warning_symbol       = '∆'
   let g:syntastic_style_warning_symbol = '≈'
+
+  " ignore angular attrs
+  let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+
   " Navigate errors
   nnoremap <silent> <S-Up> :lprev<CR>
   nnoremap <silent> <S-Down> :lnext<CR>
@@ -279,22 +285,24 @@ NeoBundle 'kchmck/vim-coffee-script' " creates coffee ft
 NeoBundleLazy 'alampros/cf.vim', {
       \   'autoload': { 'filetypes': [ 'cfml' ] }
       \ }
-NeoBundle 'davejlong/cf-utils.vim' " creates cfml filetype
+NeoBundle 'davejlong/cf-utils.vim'      " creates cfml filetype
 
 """"""""""""""""""""""""""""""""""""""""
 " Git
-NeoBundle 'tpope/vim-git'           " creates gitconfig, gitcommit, gitrebase
+NeoBundle 'tpope/vim-git'               " creates gitconfig, gitcommit, rebase
 
 """"""""""""""""""""""""""""""""""""""""
 " HTML and generators
-NeoBundle 'digitaltoad/vim-jade'    " creates jade filetype
+NeoBundle 'digitaltoad/vim-jade'        " creates jade filetype
 NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 
 """"""""""""""""""""""""""""""""""""""""
 " JavaScript
 NeoBundle 'itspriddle/vim-jquery'       " creates javascript syntax
 NeoBundle 'jelera/vim-javascript-syntax' " also creates javascript syntax
-NeoBundleLazy 'othree/javascript-libraries-syntax.vim', { 'autoload': { 'filetypes': ['javascript'] } }
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {
+      \   'autoload': { 'filetypes': ['javascript'] }
+      \ }
 NeoBundle 'pangloss/vim-javascript'     " also creates javascript filetype
 NeoBundle 'heavenshell/vim-jsdoc'
   let g:jsdoc_default_mapping = 0
@@ -319,6 +327,7 @@ NeoBundle 'jtratner/vim-flavored-markdown', {
       \ }
   if has("autocmd")
     augroup markdown
+        " remove other autocmds for markdown first
         au!
         au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
     augroup END
@@ -377,7 +386,7 @@ NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 "NeoBundleLazy 'gorodinskiy/vim-coloresque', {
 NeoBundleLazy 'ap/vim-css-color', {
       \   'autoload': {
-      \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee', 'coffeescript' ]
+      \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee' ]
       \   }
       \ }
 NeoBundle 'cakebaker/scss-syntax.vim'   " creates scss.css
