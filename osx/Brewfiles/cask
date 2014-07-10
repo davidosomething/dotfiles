@@ -65,7 +65,10 @@ cask install iterm2
 cask install jing
 cask install joinme
 cask install kaleidoscope
-cask install keyremap4macbook
+
+# don't think i'm remapping any keys other than caps
+#cask install karabiner
+
 cask install lastpass-universal
 
 # prefpane to manage homebrew plists like mysql
