@@ -300,9 +300,10 @@ NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 " JavaScript
 NeoBundle 'itspriddle/vim-jquery'       " creates javascript syntax
 NeoBundle 'jelera/vim-javascript-syntax' " also creates javascript syntax
-NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {
-      \   'autoload': { 'filetypes': ['javascript'] }
-      \ }
+
+NeoBundle 'othree/javascript-libraries-syntax.vim'
+  let g:used_javascript_libs = 'jquery,underscore,backbone'
+
 NeoBundle 'pangloss/vim-javascript'     " also creates javascript filetype
 NeoBundle 'heavenshell/vim-jsdoc'
   let g:jsdoc_default_mapping = 0
