@@ -1,3 +1,5 @@
+imap jj <Esc>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keyboard - most of this is straight from Janus
 
