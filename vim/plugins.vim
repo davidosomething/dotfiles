@@ -127,6 +127,12 @@ endif
 
 NeoBundle 'mileszs/ack.vim'
 
+NeoBundle 'mrtazz/simplenote.vim'
+  let g:SimplenoteVertical=1
+  if filereadable(expand("~/.simplenoterc"))
+    source ~/.simplenoterc
+  endif
+
 NeoBundle 'rking/ag.vim'
 
 NeoBundle 'tpope/vim-eunuch'
