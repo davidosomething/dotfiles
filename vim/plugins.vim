@@ -404,6 +404,10 @@ NeoBundle 'groenewege/vim-less'         " creates less filetype
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'autoload': { 'filetypes': ['css', 'sass', 'scss'] } }
 
 """"""""""""""""""""""""""""""""""""""""
+" Twig
+NeoBundle 'evidens/vim-twig'            " creates twig
+
+""""""""""""""""""""""""""""""""""""""""
 " VimL
 NeoBundle 'syngan/vim-vimlint', {
       \   'depends' : 'ynkdir/vim-vimlparser'
