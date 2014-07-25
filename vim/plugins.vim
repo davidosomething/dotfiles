@@ -71,8 +71,11 @@ NeoBundle 'itchyny/lightline.vim', {
         \   'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
         \ }
 
+NeoBundle 'tacahiroy/ctrlp-funky'
+  nnoremap <F8> :CtrlPFunky<Cr>
 
 NeoBundle 'kien/ctrlp.vim'
+  let g:ctrlp_extensions = ['funky']
   let g:ctrlp_map = '<F1>'
   let g:ctrlp_match_window = 'order:ttb,min:10'
   let g:ctrlp_max_depth = 16
