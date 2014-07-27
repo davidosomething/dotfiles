@@ -28,6 +28,7 @@ xmlto
 
 # vcs
 git
+hub
 mercurial
 subversion
 
@@ -38,23 +39,8 @@ keychain
 openssh-client
 zsh
 
-# libs
-libffi-dev
-libgc-dev
-libgmp3-dev
-libltdl-dev
-libssl-dev
-libunistring-dev
-ncurses-dev
-python-dev
-zlib1g-dev
-
 vim vim-doc vim-scripts
 
-# dev
-apache2-mpm-worker libapache2-mod-fastcgi php5-fpm php-apc php5-gd
-php5 php5-cli php5-json php5-user-cache
-# should remove php5_module
 nodejs npm
 
 # network
