@@ -15,7 +15,7 @@ PATH="$RBENV_ROOT/bin:$PATH"
 # package managers
 
 # composer
-PATH="$HOME/.composer/bin:$PATH"
+PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # npm
 [[ -d "$BREW_PREFIX" ]] && PATH="$BREW_PREFIX/share/npm/bin:$PATH"
