@@ -12,6 +12,7 @@ alias dirs="dirs -v"                  # default to vert, use -l for list
 alias l="ls -AFl"
 alias la="ls -AF"
 alias ll="ls -lF"
+alias tree="tree -C"
 
 # bin
 alias a="sudo aptitude -F \"%p %d %v\""
