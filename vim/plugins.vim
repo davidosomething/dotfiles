@@ -208,10 +208,7 @@ NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   nmap <leader>a, :Tabularize /,\zs/l0l1<CR>
   vmap <leader>a, :Tabularize /,\zs/l0l1<CR>
 
-NeoBundle 'maxbrunsfeld/vim-yankstack'
-  let g:yankstack_map_keys = 0
-  nmap <C-p> <Plug>yankstack_substitute_newer_paste
-  nmap <C-P> <Plug>yankstack_substitute_older_paste
+NeoBundle 'svermeulen/vim-easyclip'
 
 NeoBundle 'nishigori/increment-activator' " custom C-x C-a mappings
 
