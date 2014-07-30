@@ -5,6 +5,7 @@ if has("gui_macvim")
   set guifont=Menlo\ for\ Powerline
   set antialias
   set backupcopy=yes                  " keep finder labels!
+  set background=light
 
   " only applies to buffers containing a markdown file
   " open current doc as Markdown in Marked.app

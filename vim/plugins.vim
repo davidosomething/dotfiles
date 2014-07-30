@@ -269,10 +269,6 @@ NeoBundle 'scrooloose/syntastic'
   " ignore angular attrs
   let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
-  " Navigate errors
-  nnoremap <silent> <S-Up> :lprev<CR>
-  nnoremap <silent> <S-Down> :lnext<CR>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Language specific
 "

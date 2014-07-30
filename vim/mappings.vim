@@ -11,9 +11,6 @@ nnoremap <F1> <nop>
 nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
 inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
 
-" Toggle hlsearch with <Leader>hs
-nnoremap <Leader>hs :set hlsearch! hlsearch?<CR>
-
 " Space to toggle folds.
 " https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
 nnoremap <Space> za
