@@ -1,5 +1,3 @@
-# vim:syntax=sh
-
 brc() {
   brew cask $@
 }
@@ -239,6 +237,8 @@ o() {
   if [[ $DOTFILES_OS = "Darwin" ]]; then
     open $@
   else
-    xdg-open $@
+    xdg-open $@ >/dev/null 2>&1 &
   fi
 }
+
+# vim: set ft=sh :

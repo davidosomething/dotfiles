@@ -38,7 +38,7 @@ set title                             " wintitle = filename - vim
 set number
 set numberwidth=5
 set cursorline
-set scrolloff=3                       " show 2 lines of context
+set scrolloff=8                       " show 2 lines of context
 
 " folds
 set foldcolumn=2
@@ -136,9 +136,26 @@ set fileformats=unix,mac,dos
 set fileformat=unix
 
 " backups
-set noswapfile                        " eff that
-set nobackup                          " hate those
-set nowritebackup                     " hate those
+set noswapfile                        " useless
+" Make Vim able to edit crontab files again.
+set backupskip=/tmp/*,/private/tmp/*"
+" double slash means create dir structure to mirror file's path
+set undodir=~/.vim/.undo//
+set backupdir=~/.vim/.backup//
+set directory=~/.vim/.swp//
+set writebackup
+set backup
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
 
 " buffer reuse
 set hidden                            " remember undo after quitting

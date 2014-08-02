@@ -1,5 +1,3 @@
-# vim: set syn=sh
-
 ##
 # dev
 a2() {
@@ -12,8 +10,4 @@ composer() {
   php $HOME/.composer/bin/composer.phar $@
 }
 
-##
-# gui
-open() {
-  xdg-open $@
-}
+# vim: set ft=sh
