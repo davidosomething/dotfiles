@@ -1,0 +1,13 @@
+_dotfiles_shell_loader() {
+  for script in "functions" "vars" "aliases" "paths" "keyring"; do
+    source $HOME/.dotfiles/shell/${script}
+  done
+}
+
+current_shell="$( ps | grep `echo $$` | awk '{ print $4 }' )"
+if [ "$DOTFILES_SHELL_LOADER" != "$current_shell" ]; then
+  _dotfiles_shell_loader
+  export DOTFILES_SHELL_LOADER=$current_shell
+fi
+
+# vim: set ft=sh:

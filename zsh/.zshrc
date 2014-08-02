@@ -1,3 +1,5 @@
+source $HOME/.dotfiles/shell/loader
+
 #####
 # only run on interactive/TTY
 export HISTFILE="$ZDOTDIR/.zhistory"

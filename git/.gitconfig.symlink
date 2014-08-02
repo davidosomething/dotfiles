@@ -9,6 +9,7 @@
 	ci		= commit
 	cm		= commit -m
 	co		= checkout
+	ct		= checkout -t
 	dc		= diff --cached
 	done	= branch --merged
 	forget	= rm -r --cached

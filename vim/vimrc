@@ -237,5 +237,6 @@ endif
 " init
 call neobundle#end()
 filetype plugin indent on
+set modeline
 syntax on
 runtime macros/matchit.vim

@@ -1,6 +1,4 @@
-for script in "functions" "vars" "aliases" "paths" "keyring"; do
-  source $HOME/.dotfiles/shell/${script}
-done
+source $HOME/.dotfiles/shell/loader
 
 [ -z "$PS1" ] && return
 
