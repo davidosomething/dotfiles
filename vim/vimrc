@@ -143,7 +143,6 @@ set backupskip=/tmp/*,/private/tmp/*"
 set undodir=~/.vim/.undo//
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swp//
-set writebackup
 set backup
 
 " Make those folders automatically if they don't already exist.
