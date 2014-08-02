@@ -162,6 +162,7 @@ set switchbuf=useopen                 " reveal already opened files from the
                                       " quickfix window instead of opening new
                                       " buffers
 
+" easyclim handles this now
 " clipboard -- use os clipboard
 "if has('clipboard')
   "set clipboard=unnamed  " Share system clipboard.

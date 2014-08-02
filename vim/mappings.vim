@@ -1,3 +1,14 @@
+" quickfix and location list
+" same as unimpaired []ql
+nnoremap <Up> :lprevious<CR>
+inoremap <Up> <Esc>:lprevious<CR>
+nnoremap <Down> :lnext<CR>
+inoremap <Down> <Esc>:lnext<CR>
+nnoremap <Left> :cprevious<CR>
+inoremap <Left> <Esc>:cprevious<CR>
+nnoremap <Right> :cnext<CR>
+inoremap <Right> <Esc>:cnext<CR>
+
 imap jj <Esc>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -210,20 +221,26 @@ endif
 " Tab and Split manipulation
 
 " Resize splits
-nnoremap <silent> <Left>  4<C-w><
-nnoremap <silent> <Down>  4<C-W>-
-nnoremap <silent> <Up>    4<C-W>+
-nnoremap <silent> <Right> 4<C-w>>
-inoremap <silent> <Left>  <Esc>4<C-w><
-inoremap <silent> <Down>  <Esc>4<C-W>-
-inoremap <silent> <Up>    <Esc>4<C-W>+
-inoremap <silent> <Right> <Esc>4<C-w>>
+nnoremap <silent> <S-Left>  4<C-w><
+nnoremap <silent> <S-Down>  4<C-W>-
+nnoremap <silent> <S-Up>    4<C-W>+
+nnoremap <silent> <S-Right> 4<C-w>>
+inoremap <silent> <S-Left>  <Esc>4<C-w><
+inoremap <silent> <S-Down>  <Esc>4<C-W>-
+inoremap <silent> <S-Up>    <Esc>4<C-W>+
+inoremap <silent> <S-Right> <Esc>4<C-w>>
+
+" Navigate splits
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
 
 " Navigate tabs
-nnoremap <silent> <S-Left> :tabprevious<CR>
-nnoremap <silent> <S-Right> :tabnext<CR>
-inoremap <silent> <S-Left> :tabprevious<CR>
-inoremap <silent> <S-Right> :tabnext<CR>
+nnoremap <silent> <C-Left> :tabprevious<CR>
+nnoremap <silent> <C-Right> :tabnext<CR>
+inoremap <silent> <C-Left> :tabprevious<CR>
+inoremap <silent> <C-Right> :tabnext<CR>
 
 " Highlight Word
 " https://bitbucket.org/sjl/dotfiles
