@@ -100,7 +100,7 @@ fi
 
 if [[ "$1" = "gem" ]]; then
   dkostatus "Updating gems"
-  gem update --system && gem update && gem clean
+  gem update --system && gem update
 fi
 
 if [[ "$1" = "heroku" ]]; then
