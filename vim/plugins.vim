@@ -102,7 +102,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 
 NeoBundle 'tpope/vim-fugitive'
 
-NeoBundle 'vim-scripts/bufkill.vim'     " :bd keeps window open
+NeoBundle 'dbarsam/vim-bufkill'     " :bd keeps window open
 
 NeoBundle 'vim-scripts/IndexedSearch'
 
@@ -354,6 +354,17 @@ NeoBundleLazy 'tobyS/pdv', {
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
+  " mapping conflict with vim-rails, change <C-]> to <C-)>
+  let g:phpcomplete_enhance_jump_to_definition=0
+  if neobundle#tap('phpcomplete.vim')
+    if !hasmapto('<Plug>PHPJump')
+      map! <silent> <buffer> <unique> <C-)> <Plug>PHPJump
+      map! <silent> <buffer> <unique> <C-W><C-)> <Plug>PHPJumpW
+    endif
+    nnoremap <silent> <buffer> <Plug>PHPJump :<C-u>call phpcomplete#JumpToDefinition('normal')<CR>
+    nnoremap <silent> <buffer> <Plug>PHPJumpW :<C-u>call phpcomplete#JumpToDefinition('split')<CR>
+  endif
+
 NeoBundle 'StanAngeloff/php.vim'        " updated syntax
 
 "NeoBundleLazy 'dsawardekar/wordpress.vim', {
