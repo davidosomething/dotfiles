@@ -13,22 +13,24 @@ flushfonts() {
 ##
 # http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
 members() {
-  dscl . -list /Users | while read user; do printf "$user "; dsmemberutil checkmembership -U "$user" -G "$*"; done | grep "is a member" | cut -d " " -f 1;
+  dscl . -list /Users | while read user; do
+    printf "%s " "$user"
+    dsmemberutil checkmembership -U "$user" -G "$*"
+  done | grep "is a member" | cut -d " " -f 1;
 }
 
 ########################################
 # Scripting
-
 ##
 # source a file if it exists
 source_if_exists() {
-  [ -f $1 ] && source $1 # && echo "Sourced $1"
+  [ -f "$1" ] && source "$1" # && echo "Sourced $1"
 }
 
 ##
 # silently determine existence of executable
 has_program() {
-  command -v $1 >/dev/null 2>&1
+  command -v "$1" >/dev/null 2>&1
 }
 
 ########################################
@@ -37,7 +39,7 @@ has_program() {
 ##
 # flatten a dir
 flatten() {
-  if [ -n $1 ]; then
+  if [[ -n $1 ]]; then
     read "reply?Flatten folder: are you sure? [Yy] "
   else
     reply=Y
@@ -51,7 +53,7 @@ flatten() {
 ##
 # delete empty subdirs
 prune() {
-  if [ -n $1 ]; then
+  if [[ -n $1 ]]; then
     read "reply?Prune empty directories: are you sure? [Yy] "
   else
     reply=Y
@@ -65,7 +67,7 @@ prune() {
 ########################################
 # dev
 a2() {
-  apachectl $@
+  apachectl "$@"
 }
 
 a2r() {
@@ -74,7 +76,7 @@ a2r() {
 }
 
 art() {
-  php artisan $@
+  php artisan "$@"
 }
 
 cunt() {
@@ -96,16 +98,16 @@ phpminorver() {
 # editing
 e() {
   if [[ $DOTFILES_OS = "Darwin" ]] && [[ -n $HAS_BREW ]]; then
-    if [ -z $1 ]; then
+    if [ -z "$1" ]; then
       open -a MacVim.app
     else
-      $BREW_PREFIX/bin/mvim --servername VIM --remote-tab-silent $@
+      "$BREW_PREFIX"/bin/mvim --servername VIM --remote-tab-silent "$@"
     fi
   else
     if [ -n "$SSH_CONNECTION" ] || [ -z "$DISPLAY" ]; then
       vim $@
     else
-      if [ -z $1 ]; then
+      if [ -z "$1" ]; then
         if [ -n "$(gvim --serverlist)" ]; then
           gvim --servername GVIM --remote-expr "foreground()"
           gvim --servername GVIM --remote-send "<Esc>:tabnew<CR>"
@@ -119,39 +121,15 @@ e() {
   fi
 }
 eapache() {
-  e "${APACHE_HTTPD_ROOT}/${APACHE_HTTPD_CONF}" $@
+  e "${APACHE_HTTPD_ROOT}/${APACHE_HTTPD_CONF}"
 }
 ephpini() {
-  e $PHP_INI $@
+  e "$PHP_INI"
 }
 
 ########################################
 # traversal
 ##
-# Change directory to the nearest repo root
-cdr() {
-  local dir=${1:-$PWD}
-
-  # resolve symlinks
-  if has_program "realpath"; then
-    dir="`realpath ${dir}`"
-  elif [ $DOTFILES_OS = "Darwin" ]; then
-    dir="`readlink ${dir}`"
-  else
-    dir="`readlink -f ${dir}`"
-  fi
-
-  if [[ -d $dir/.svn ]]; then
-    while [[ -d $dir/.. && -d $dir/../.svn ]]; do
-      dir+=/..
-    done
-  else
-    while [[ -d $dir && ! ( -d $dir/.git || -d $dir/.hg || -d $dir/.bzr ) ]]; do
-      dir+=/..
-    done
-  fi
-  [[ -d $dir ]] && cd "$dir"
-}
 
 ##
 # up 2 to cd ../..
@@ -179,27 +157,27 @@ function fs() {
 ##
 # Export repo files to specified dir
 gitexport() {
-  local to_dir = "${2:-./gitexport}"
-  rsync -a ${1:-./} $to_dir --exclude $to_dir --exclude .git
+  local to_dir="${2:-./gitexport}"
+  rsync -a ${1:-./} "$to_dir" --exclude "$to_dir" --exclude .git
 }
 
 ##
 # extract most known archive types
 # http://alias.sh/extract-most-know-archives-one-command
 extract() {
-  if [ -f $1 ] ; then
+  if [ -f "$1" ] ; then
     case $1 in
-      *.tar.bz2)   tar xjf $1     ;;
-      *.tar.gz)    tar xzf $1     ;;
-      *.bz2)       bunzip2 $1     ;;
-      *.rar)       unrar e $1     ;;
-      *.gz)        gunzip $1      ;;
-      *.tar)       tar xf $1      ;;
-      *.tbz2)      tar xjf $1     ;;
-      *.tgz)       tar xzf $1     ;;
-      *.zip)       unzip $1       ;;
-      *.7z)        7z x $1        ;;
-      *.Z)         uncompress $1  ;;
+      *.tar.bz2)   tar xjf "$1"     ;;
+      *.tar.gz)    tar xzf "$1"     ;;
+      *.bz2)       bunzip2 "$1"     ;;
+      *.rar)       unrar e "$1"     ;;
+      *.gz)        gunzip "$1"      ;;
+      *.tar)       tar xf "$1"      ;;
+      *.tbz2)      tar xjf "$1"     ;;
+      *.tgz)       tar xzf "$1"     ;;
+      *.zip)       unzip "$1"       ;;
+      *.7z)        7z x "$1"        ;;
+      *.Z)         uncompress "$1"  ;;
       *)     echo "'$1' cannot be extracted via extract()" ;;
   esac
 else
@@ -221,7 +199,7 @@ localip() {
   if [ -z "$localip" ]; then
     localip=$(ipconfig getifaddr en1)
   fi
-  echo $localip
+  echo "$localip"
 }
 
 ########################################
@@ -235,9 +213,9 @@ cleanopenwith() {
 
 o() {
   if [[ $DOTFILES_OS = "Darwin" ]]; then
-    open $@
+    open "$@"
   else
-    xdg-open $@ >/dev/null 2>&1 &
+    xdg-open "$@" >/dev/null 2>&1 &
   fi
 }
 
