@@ -35,6 +35,13 @@ Brewfiles in the `osx` folder.
 
 Don't forget to setup apache manually for your OS
 
+### node-gyp
+
+On arch use python 2 when installing node-gyp:
+```
+npm config set python /usr/bin/python2.7 -g
+```
+
 ### pow
 
 The POW gem is no longer used since I have to use Cisco VPN for some things and
