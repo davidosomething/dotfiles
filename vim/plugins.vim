@@ -209,6 +209,8 @@ NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   vmap <leader>a, :Tabularize /,\zs/l0l1<CR>
 
 NeoBundle 'svermeulen/vim-easyclip'
+  " vim just uses system clipboard
+  let g:EasyClipDoSystemSync=0
 
 NeoBundle 'nishigori/increment-activator' " custom C-x C-a mappings
 

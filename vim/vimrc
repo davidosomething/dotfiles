@@ -21,7 +21,7 @@ endif
 set ttyfast
 set lazyredraw                        " don't update the display while
                                       " executing macros
-set synmaxcol=256                     " don't syntax highlight long lines
+set synmaxcol=512                     " don't syntax highlight long lines
 
 if has('gui_running')
   set background=light
@@ -162,15 +162,16 @@ set switchbuf=useopen                 " reveal already opened files from the
                                       " quickfix window instead of opening new
                                       " buffers
 
-" easyclim handles this now
+" easyclip handles this too, but this is more reliable since it does it in as
+" a command after exit/enter vim
 " clipboard -- use os clipboard
-"if has('clipboard')
-  "set clipboard=unnamed  " Share system clipboard.
+if has('clipboard')
+  set clipboard=unnamed  " Share system clipboard.
 
-  "if has('unnamedplus')
-    "set clipboard+=unnamedplus  " Share X windows clipboard.
-  "endif
-"endif
+  if has('unnamedplus')
+    set clipboard+=unnamedplus  " Share X windows clipboard.
+  endif
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RTP and plugin management
