@@ -49,6 +49,8 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
+NeoBundle 'dbarsam/vim-bufkill'     " :bd keeps window open
+
 NeoBundle 'itchyny/lightline.vim', {
       \   'depends': 'vim-fugitive'
       \ }
@@ -71,10 +73,7 @@ NeoBundle 'itchyny/lightline.vim', {
         \   'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
         \ }
 
-NeoBundle 'tacahiroy/ctrlp-funky'
-  nnoremap <F8> :CtrlPFunky<Cr>
-
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_extensions = ['funky']
   let g:ctrlp_map = '<F1>'
   let g:ctrlp_match_window = 'order:ttb,min:10'
@@ -100,9 +99,12 @@ NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
 NeoBundle 'nathanaelkane/vim-indent-guides'
   nnoremap <F7> :IndentGuidesToggle<CR>
 
-NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'Rykka/clickable.vim'
 
-NeoBundle 'dbarsam/vim-bufkill'     " :bd keeps window open
+NeoBundle 'tacahiroy/ctrlp-funky'
+  nnoremap <F8> :CtrlPFunky<Cr>
+
+NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'vim-scripts/IndexedSearch'
 
