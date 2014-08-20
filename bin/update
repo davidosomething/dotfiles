@@ -8,15 +8,14 @@ set -eu
 ################################################################################
 # initialize script and dependencies
 # get this bootstrap folder
-pushd "$(dirname $0)"/.. >> /dev/null
+pushd "$(dirname "$0")/.." >> /dev/null
 dotfiles_path="$(pwd)"
 bootstrap_path="$dotfiles_path/bootstrap"
-source $bootstrap_path/helpers.sh
+source "$bootstrap_path"/helpers.sh
 popd >> /dev/null
 
 ################################################################################
 # Begin
-has_args=0
 if [[ $# -eq 0 ]]; then
   dkousage "update [thing]"
   dkousage_ "thing is one of:"
@@ -75,7 +74,7 @@ case "$OSTYPE" in
     if [[ "$1" = "brew" ]]; then
       dkostatus "Updating homebrew"
       brew update
-      [ $(brew outdated | grep node) ] && brew upgrade node --without-npm
+      [ "$(brew outdated | grep node)" ] && brew upgrade node --without-npm
       brew upgrade
       brew cleanup
     fi
@@ -89,7 +88,7 @@ if [[ "$1" = "dotfiles" ]]; then
   # Make sure there are no untracked changes before updating dotfiles
 
   # Update dotfiles
-  dkostatus_ "Jumping to dotfiles directory" && pushd $HOME/.dotfiles >> /dev/null
+  dkostatus_ "Jumping to dotfiles directory" && pushd "$HOME/.dotfiles" >> /dev/null
   dkostatus_ "Getting latest updates" && git pull --rebase --recurse-submodules && git submodule update
   updated_dotfiles=$?
   dkostatus_ "Back to original directory" && popd >> /dev/null

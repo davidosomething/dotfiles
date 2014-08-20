@@ -99,7 +99,11 @@ NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
 NeoBundle 'nathanaelkane/vim-indent-guides'
   nnoremap <F7> :IndentGuidesToggle<CR>
 
-NeoBundle 'Rykka/clickable.vim'
+" Don't want for now until I can turn off the highlighting
+" NeoBundle 'Rykka/clickable.vim', {
+"       \   'depends': 'vimproc',
+"       \ }
+"   let g:clickable_browser = 'chrome'
 
 NeoBundle 'tacahiroy/ctrlp-funky'
   nnoremap <F8> :CtrlPFunky<Cr>
