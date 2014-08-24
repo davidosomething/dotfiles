@@ -245,7 +245,7 @@ NeoBundle 'paradigm/TextObjectify'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax highlighting
-if has("python")
+if has("python") || has("python3")
   NeoBundle 'editorconfig/editorconfig-vim'
 endif
 

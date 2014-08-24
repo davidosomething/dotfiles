@@ -2,6 +2,8 @@ scriptencoding utf-8
 
 set nocompatible
 set encoding=utf-8 nobomb
+set exrc                              " per directory vimrc
+set secure                            " no unsafe local vimrc commands
 
 " Environment detection a la https://github.com/bling/dotvim
 " detect OS
