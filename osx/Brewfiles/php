@@ -12,6 +12,8 @@ install php55-mongo
 install php55-oauth
 install php55-tidy
 install php55-xdebug
+install phpcpd
+install phpmd
 install phpmyadmin
 install phpunit
 install wp-cli
