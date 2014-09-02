@@ -424,3 +424,7 @@ NeoBundle 'evidens/vim-twig'            " creates twig
 NeoBundle 'syngan/vim-vimlint', {
       \   'depends' : 'ynkdir/vim-vimlparser'
       \ }
+
+""""""""""""""""""""""""""""""""""""""""
+" YAML
+NeoBundle 'ingydotnet/yaml-vim'
