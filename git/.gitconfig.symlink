@@ -2,16 +2,20 @@
 	a		= add
 	aa		= add .
 	b		= branch
+	be		= branch --edit-description
 	ca		= commit --amend
 	cfg		= "! $EDITOR ~/.gitconfig"
 	changed = diff HEAD..master
 	cb		= checkout -b
 	ci		= commit
+	cl		= changelog --list
 	cm		= commit -m
 	co		= checkout
 	ct		= checkout -t
+	d		= diff
 	dc		= diff --cached
 	done	= branch --merged
+	finda	= "!grepalias() { git config --global --get-regexp alias | grep -i \"$1\" | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; grepalias"
 	forget	= rm -r --cached
 	l		= log --abbrev-commit
 	lg		= log --abbrev-commit --graph --decorate
@@ -28,8 +32,6 @@
 	which	= rev-parse --abbrev-ref HEAD
 	root = !pwd
 	root = !pwd -P
-[branch]
-	autosetuprebase = always
 [color]
 	branch = auto
 	diff = auto
@@ -42,6 +44,7 @@
 	compression = -1
 	excludesfile = ~/.cvsignore
 	sharedRepository = 0664
+	pager = less -x4
 [difftool]
 	prompt = false
 [mailmap]
