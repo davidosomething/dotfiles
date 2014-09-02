@@ -134,7 +134,11 @@ ephpini() {
 ##
 # up 2 to cd ../..
 up() {
-  local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x;
+  local x=''
+  for i in $(seq ${1:-1}); do
+    x="$x../"
+  done
+  cd $x
 }
 
 ########################################
@@ -200,6 +204,15 @@ localip() {
     localip=$(ipconfig getifaddr en1)
   fi
   echo "$localip"
+}
+
+mykey() {
+  cat ~/.ssh/id_rsa.pub
+  if has_program pbcopy; then
+    pbcopy < ~/.ssh/id_rsa.pub
+  elif has_program xclip; then
+    xclip -sel clip < ~/.ssh/id_rsa.pub
+  fi
 }
 
 ########################################
