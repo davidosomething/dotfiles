@@ -25,6 +25,7 @@ if [[ $# -eq 0 ]]; then
   dkousage_ "  npm"
   dkousage_ "  pip"
   dkousage_ "  vim"
+  dkousage_ "  arch   # arch only"
   dkousage_ "  docker # osx only"
   dkousage_ "  osx    # osx only"
   dkousage_ "  brew   # osx only"
@@ -36,6 +37,11 @@ fi
 ################################################################################
 case "$OSTYPE" in
   linux*)
+    if [[ "$1" = "arch" ]]; then
+      dkostatus "ArchLinux system update"
+      pacaur -Syu
+    fi
+
     if [[ "$1" = "wp" ]]; then
       dkostatus "Update wp-cli"
       pushd ~/.wp-cli &&
