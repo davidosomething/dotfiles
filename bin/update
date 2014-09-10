@@ -22,7 +22,7 @@ if [[ $# -eq 0 ]]; then
   dkousage_ "  dotfiles"
   dkousage_ "  gem"
   dkousage_ "  heroku"
-  dkousage_ "  npm"
+  dkousage_ "  npm [--force]"
   dkousage_ "  pip"
   dkousage_ "  vim"
   dkousage_ "  arch   # arch only"
@@ -113,8 +113,14 @@ if [[ "$1" = "heroku" ]]; then
 fi
 
 if [[ "$1" = "npm" ]]; then
+  if [[ $# -eq 2 && "$2" = "--force" ]]; then
+    dkostatus "Reinstalling npm"
+    curl https://www.npmjs.org/install.sh | sh
+  else
+    dkostatus "Updating npm itself"
+    npm update npm -g
+  fi
   dkostatus "Updating global npm modules"
-  npm update npm -g
   npm update -g
 fi
 
