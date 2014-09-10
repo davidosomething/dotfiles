@@ -1,5 +1,5 @@
 brc() {
-  brew cask $@
+  brew cask "${@}"
 }
 
 ########################################
@@ -105,7 +105,7 @@ e() {
     fi
   else
     if [ -n "$SSH_CONNECTION" ] || [ -z "$DISPLAY" ]; then
-      vim $@
+      vim "$@"
     else
       if [ -z "$1" ]; then
         if [ -n "$(gvim --serverlist)" ]; then
@@ -115,7 +115,7 @@ e() {
           gvim
         fi
       else
-        gvim --servername GVIM --remote-tab-silent $@
+        gvim --servername GVIM --remote-tab-silent "$@"
       fi
     fi
   fi
@@ -135,10 +135,10 @@ ephpini() {
 # up 2 to cd ../..
 up() {
   local x=''
-  for i in $(seq ${1:-1}); do
+  for i in $(seq "${1:-1}"); do
     x="$x../"
   done
-  cd $x
+  cd "$x"
 }
 
 ########################################
@@ -150,9 +150,9 @@ function fs() {
     local arg=-sh
   fi
   if [[ -n "$@" ]]; then
-    du $arg -- "$@"
+    du "$arg" -- "$@"
   else
-    du $arg .[^.]* *
+    du "$arg" .[^.]* ./*
   fi
 }
 
@@ -162,7 +162,7 @@ function fs() {
 # Export repo files to specified dir
 gitexport() {
   local to_dir="${2:-./gitexport}"
-  rsync -a ${1:-./} "$to_dir" --exclude "$to_dir" --exclude .git
+  rsync -a "${1:-./}" "$to_dir" --exclude "$to_dir" --exclude .git
 }
 
 ##
