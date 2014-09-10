@@ -1,12 +1,13 @@
 source "$HOME/.dotfiles/shell/loader"
 
-#####
 # only run on interactive/TTY
 export HISTFILE="$ZDOTDIR/.zhistory"
 
-for script in "options" "aliases" "keybindings" "completions" "prompt" "zsh-syntax-highlighting/zsh-syntax-highlighting"; do
-  source "$ZDOTDIR/${script}.zsh"
-done
+# env programs
+source_if_exists "$HOME/.nvm/nvm.sh"
+
+source_if_exists /usr/local/share/chruby/chruby.sh
+has_program chruby && chruby ruby-2.1.2
 
 # program aliases
 if [[ -n $HAS_BREW ]]; then
@@ -20,7 +21,10 @@ else
   source_if_exists "$DOTFILES/z/z.sh"
 fi
 
-source_if_exists /usr/local/share/chruby/chruby.sh
+for script in "options" "aliases" "keybindings" "completions" "prompt" "zsh-syntax-highlighting/zsh-syntax-highlighting"; do
+  source "$ZDOTDIR/${script}.zsh"
+done
+
 
 ##
 # local
