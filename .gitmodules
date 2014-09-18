@@ -13,3 +13,6 @@
 [submodule "z"]
 	path = z
 	url = https://github.com/rupa/z.git
+[submodule "base16-gnome-terminal"]
+	path = base16-gnome-terminal
+	url = https://github.com/chriskempson/base16-gnome-terminal.git
