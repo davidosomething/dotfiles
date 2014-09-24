@@ -40,12 +40,22 @@ NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'ynkdir/vim-vimlparser'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ui
+" colorschemes
 NeoBundle 'altercation/vim-colors-solarized'
   if neobundle#tap('vim-colors-solarized')
-    silent! colorscheme solarized               " STFU if no solarized
-    silent! call togglebg#map("<F5>")
+    if has('gui_running')
+      silent! colorscheme solarized               " STFU if no solarized
+      silent! call togglebg#map("<F5>")
+    endif
   endif
+
+NeoBundle 'chriskempson/base16-vim'
+  if !has('gui_running')
+    silent! colorscheme base16-tomorrow               " STFU if no solarized
+  endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ui
 
 NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
