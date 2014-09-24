@@ -239,8 +239,8 @@ nmap <silent> <A-Right> :wincmd l<CR>
 " Navigate tabs
 nnoremap <silent> <C-Left> :tabprevious<CR>
 nnoremap <silent> <C-Right> :tabnext<CR>
-inoremap <silent> <C-Left> :tabprevious<CR>
-inoremap <silent> <C-Right> :tabnext<CR>
+inoremap <silent> <C-Left> <Esc>:tabprevious<CR>
+inoremap <silent> <C-Right> <Esc>:tabnext<CR>
 
 " Highlight Word
 " https://bitbucket.org/sjl/dotfiles
