@@ -49,11 +49,6 @@ NeoBundle 'altercation/vim-colors-solarized'
     endif
   endif
 
-NeoBundle 'chriskempson/base16-vim'
-  if !has('gui_running')
-    silent! colorscheme base16-tomorrow               " STFU if no solarized
-  endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ui
 

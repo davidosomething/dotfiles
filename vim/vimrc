@@ -33,6 +33,7 @@ else
     set t_Co=16
   endif
   set background=dark
+  silent! colorscheme zellner
 endif
 if exists('&colorcolumn')
   set colorcolumn=80
