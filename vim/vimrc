@@ -18,6 +18,8 @@ if has('lua')
   let g:settings.autocomplete_method = 'neocomplete'
 endif
 
+set visualbell                        " no beeps
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " display
 set ttyfast
