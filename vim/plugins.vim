@@ -239,6 +239,8 @@ NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
+NeoBundle 'vim-scripts/Smart-Tabs'      " tab for indent space for inner space
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " text objects
 NeoBundle 'kana/vim-textobj-indent', {
