@@ -1,5 +1,6 @@
 # vim:syn=sh
 
+PATH="/usr/local/bin:$PATH"
 $HAS_BREW && PATH="$BREW_PREFIX/bin:$BREW_PREFIX/sbin:$PATH"
 
 ########################################
