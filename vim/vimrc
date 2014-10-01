@@ -18,6 +18,8 @@ if has('lua')
   let g:settings.autocomplete_method = 'neocomplete'
 endif
 
+set visualbell                        " no beeps
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " display
 set ttyfast
@@ -28,10 +30,12 @@ set synmaxcol=512                     " don't syntax highlight long lines
 if has('gui_running')
   set background=light
 else
+  set t_Co=256
   if g:is_term
     set t_Co=16
   endif
   set background=dark
+  silent! colorscheme zellner
 endif
 if exists('&colorcolumn')
   set colorcolumn=80

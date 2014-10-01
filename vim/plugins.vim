@@ -40,12 +40,17 @@ NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'ynkdir/vim-vimlparser'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ui
+" colorschemes
 NeoBundle 'altercation/vim-colors-solarized'
   if neobundle#tap('vim-colors-solarized')
-    silent! colorscheme solarized               " STFU if no solarized
-    silent! call togglebg#map("<F5>")
+    if has('gui_running')
+      silent! colorscheme solarized               " STFU if no solarized
+      silent! call togglebg#map("<F5>")
+    endif
   endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ui
 
 NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
@@ -73,31 +78,33 @@ NeoBundle 'itchyny/lightline.vim', {
         \   'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
         \ }
 
-NeoBundle 'ctrlpvim/ctrlp.vim'
-  let g:ctrlp_extensions = ['funky']
-  let g:ctrlp_map = '<F1>'
-  let g:ctrlp_match_window = 'order:ttb,min:10'
-  let g:ctrlp_max_depth = 16
-  let g:ctrlp_mru_files = 1             " Enable MRU
-  let g:ctrlp_jump_to_buffer = 2        " Jump to tab AND buffer if already open
-  let g:ctrlp_split_window = 1          " <CR> = New Tab
-  " The Silver Searcher
-  if executable('ag')
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-    " ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
-  endif
-  inoremap <F2> <Esc>:CtrlPBuffer<CR>
-  nnoremap <F2> :CtrlPBuffer<CR>
-  inoremap <F3> <Esc>:CtrlPMixed<CR>
-  nnoremap <F3> :CtrlPMixed<CR>
+" NeoBundle 'ctrlpvim/ctrlp.vim'
+"   let g:ctrlp_extensions = ['funky']
+"   let g:ctrlp_map = '<F1>'
+"   let g:ctrlp_match_window = 'order:ttb,min:10'
+"   let g:ctrlp_max_depth = 16
+"   let g:ctrlp_mru_files = 1             " Enable MRU
+"   let g:ctrlp_jump_to_buffer = 2        " Jump to tab AND buffer if already open
+"   let g:ctrlp_split_window = 1          " <CR> = New Tab
+"   " The Silver Searcher
+"   if executable('ag')
+"     " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+"     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"
+"     " ag is fast enough that CtrlP doesn't need to cache
+"     let g:ctrlp_use_caching = 0
+"   endif
+"   inoremap <F2> <Esc>:CtrlPBuffer<CR>
+"   nnoremap <F2> :CtrlPBuffer<CR>
+"   inoremap <F3> <Esc>:CtrlPMixed<CR>
+"   nnoremap <F3> :CtrlPMixed<CR>
 
 NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
 
 NeoBundle 'nathanaelkane/vim-indent-guides'
   nnoremap <F7> :IndentGuidesToggle<CR>
+  let g:indent_guides_guide_size = 1
+  let g:indent_guides_start_level = 2
 
 " Don't want for now until I can turn off the highlighting
 " NeoBundle 'Rykka/clickable.vim', {
@@ -105,44 +112,44 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 "       \ }
 "   let g:clickable_browser = 'chrome'
 
-NeoBundle 'tacahiroy/ctrlp-funky'
-  nnoremap <F8> :CtrlPFunky<Cr>
+" NeoBundle 'tacahiroy/ctrlp-funky'
+"   nnoremap <F8> :CtrlPFunky<Cr>
 
-NeoBundle 'tpope/vim-fugitive'
+" NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'vim-scripts/IndexedSearch'
 
-if executable("ctags")
-  NeoBundle 'majutsushi/tagbar'
-    let g:tagbar_compact = 1
-    let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
-    nnoremap <F4> :TagbarToggle<CR>
-endif
+" if executable("ctags")
+"   NeoBundle 'majutsushi/tagbar'
+"     let g:tagbar_compact = 1
+"     let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
+"     nnoremap <F4> :TagbarToggle<CR>
+" endif
 
-NeoBundle 'osyo-manga/vim-over'
-  nnoremap <c-s> :OverCommandLine<CR>
+" NeoBundle 'osyo-manga/vim-over'
+"   nnoremap <c-s> :OverCommandLine<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " commands
-if g:is_macvim
-  NeoBundle 'henrik/vim-reveal-in-finder'
-endif
+" if g:is_macvim
+"   NeoBundle 'henrik/vim-reveal-in-finder'
+" endif
 
-NeoBundle 'Keithbsmiley/investigate.vim'
-nnoremap <leader>K :call investigate#Investigate()<CR>
-if g:is_macvim
-  let g:investigate_use_dash=1
-endif
+" NeoBundle 'Keithbsmiley/investigate.vim'
+" nnoremap <leader>K :call investigate#Investigate()<CR>
+" if g:is_macvim
+"   let g:investigate_use_dash=1
+" endif
 
-NeoBundle 'mileszs/ack.vim'
+" NeoBundle 'mileszs/ack.vim'
 
-NeoBundle 'mrtazz/simplenote.vim'
-  let g:SimplenoteVertical=1
-  if filereadable(expand("~/.simplenoterc"))
-    source ~/.simplenoterc
-  endif
+" NeoBundle 'mrtazz/simplenote.vim'
+"   let g:SimplenoteVertical=1
+"   if filereadable(expand("~/.simplenoterc"))
+"     source ~/.simplenoterc
+"   endif
 
-NeoBundle 'rking/ag.vim'
+" NeoBundle 'rking/ag.vim'
 
 NeoBundle 'tpope/vim-eunuch'
 
@@ -232,6 +239,8 @@ NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
+NeoBundle 'vim-scripts/Smart-Tabs'      " tab for indent space for inner space
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " text objects
 NeoBundle 'kana/vim-textobj-indent', {
@@ -276,6 +285,9 @@ NeoBundle 'scrooloose/syntastic'
 
   " ignore angular attrs
   let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+
+  let g:syntastic_php_checkers = ['php', 'phpmd' ]
+  let g:syntastic_coffeescript_checkers = ['coffee', 'coffeelint']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Language specific

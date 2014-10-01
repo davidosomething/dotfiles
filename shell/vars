@@ -41,7 +41,7 @@ export SAVEHIST=500
 # program settings
 
 # Shell programs
-export EDITOR="gvim --nofork"
+export EDITOR="vim --nofork"
 export LESS="-R"
 export PAGER="less"
 
