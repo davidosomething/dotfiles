@@ -224,6 +224,8 @@ NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
 NeoBundle 'svermeulen/vim-easyclip'
   " vim just uses system clipboard
   let g:EasyClipDoSystemSync=0
+  " remap s/S to paste register
+  let g:EasyClipUseSubstituteDefaults=1
 
 NeoBundle 'nishigori/increment-activator' " custom C-x C-a mappings
 
@@ -239,7 +241,8 @@ NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
-NeoBundle 'vim-scripts/Smart-Tabs'      " tab for indent space for inner space
+NeoBundle 'vim-scripts/IndentTab'       " tab for indent space for inner space
+  let g:IndentTab_IsSuperTab = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " text objects
