@@ -1,6 +1,7 @@
 scriptencoding UTF-8
 
 " Don't need:
+" - CtrlP - I just don't use it...
 " - jeetsukumaran/vim-buffergator - CtrlP has a buffer mode
 " - kien/tabman.vim - CtrlP does the same thing
 " - matthias-guenther/hammer.vim - rbenv shell sys didn't work to install
@@ -200,8 +201,6 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " editing keys
-NeoBundle 'edsono/vim-matchit'
-
 NeoBundle 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
@@ -261,7 +260,10 @@ if has("python") || has("python3")
   NeoBundle 'editorconfig/editorconfig-vim'
 endif
 
-NeoBundleLazy 'gregsexton/MatchTag'
+" highlight matching html tag
+NeoBundleLazy 'gregsexton/MatchTag', {
+      \   'autoload': { 'filetypes': ['html', 'mustache', 'php', 'rb'] }
+      \ }
 
 NeoBundle 'scrooloose/syntastic'
   " run syntastic on file open
