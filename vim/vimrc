@@ -1,5 +1,7 @@
 scriptencoding utf-8
 
+if !1 | finish | endif
+
 set nocompatible
 set encoding=utf-8 nobomb
 set exrc                              " per directory vimrc
@@ -18,10 +20,17 @@ if has('lua')
   let g:settings.autocomplete_method = 'neocomplete'
 endif
 
-set visualbell                        " no beeps
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RTP and plugin management
+if has("vim_starting")
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " display
+set visualbell                        " no beeps
 set ttyfast
 set lazyredraw                        " don't update the display while
                                       " executing macros
@@ -178,14 +187,6 @@ if has('clipboard')
     set clipboard+=unnamedplus  " Share X windows clipboard.
   endif
 endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RTP and plugin management
-if has("vim_starting")
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-call neobundle#rc(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
 
 ""
 " Mappings

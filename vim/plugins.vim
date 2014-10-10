@@ -10,7 +10,7 @@ scriptencoding UTF-8
 " - shougo/unite.vim - CtrlP has WordPress.vim integration
 " - vim-command-w - doesn't work
 " - vim-scripts/kwbdi.vim - Bufkill is newer, maybe use vim-command-w?
-"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin dependencies
 
@@ -43,12 +43,6 @@ NeoBundle 'ynkdir/vim-vimlparser'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorschemes
 NeoBundle 'altercation/vim-colors-solarized'
-  if neobundle#tap('vim-colors-solarized')
-    if has('gui_running')
-      silent! colorscheme solarized               " STFU if no solarized
-      silent! call togglebg#map("<F5>")
-    endif
-  endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ui
