@@ -126,10 +126,6 @@ NeoBundle 'vim-scripts/IndexedSearch'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " commands
-" if g:is_macvim
-"   NeoBundle 'henrik/vim-reveal-in-finder'
-" endif
-
 " NeoBundle 'Keithbsmiley/investigate.vim'
 " nnoremap <leader>K :call investigate#Investigate()<CR>
 " if g:is_macvim
@@ -137,12 +133,6 @@ NeoBundle 'vim-scripts/IndexedSearch'
 " endif
 
 " NeoBundle 'mileszs/ack.vim'
-
-" NeoBundle 'mrtazz/simplenote.vim'
-"   let g:SimplenoteVertical=1
-"   if filereadable(expand("~/.simplenoterc"))
-"     source ~/.simplenoterc
-"   endif
 
 " NeoBundle 'rking/ag.vim'
 
@@ -213,6 +203,8 @@ NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   vmap <leader>a: :Tabularize /:\zs/l0l1<CR>
   nmap <leader>a, :Tabularize /,\zs/l0l1<CR>
   vmap <leader>a, :Tabularize /,\zs/l0l1<CR>
+
+NeoBundle 'gorkunov/smartpairs.vim'
 
 NeoBundle 'svermeulen/vim-easyclip'
   " vim just uses system clipboard

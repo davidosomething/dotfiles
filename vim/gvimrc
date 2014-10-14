@@ -1,27 +1,24 @@
 set guioptions-=m                     " hide file/edit/etc. menu
 set guioptions-=T                     " hide stupid button bar
 
+set guifont=Fira\ Mono\ for\ Powerline\ 10
+
 " Note that this needs to be done AFTER call neobundle#end()
-set background=dark
+set background=light
 silent! colorscheme solarized               " STFU if no solarized
 silent! call togglebg#map("<F5>")
 
 if has("gui_macvim")
+  set antialias
   set guifont=Fira\ Mono\ for\ Powerline:h10
   " set guifont=Menlo\ for\ Powerline
-  set antialias
   set backupcopy=yes                  " keep finder labels!
-  set background=light
 
   " only applies to buffers containing a markdown file
   " open current doc as Markdown in Marked.app
   if has("autocmd")
     au filetype ghmarkdown,markdown nnoremap <buffer><leader>m :silent !open -a Marked '%:p'<cr>
   endif
-else
-  set guifont=Fira\ Mono\ for\ Powerline\ 10
-  set guifont=Menlo\ for\ Powerline\ 9
-  set lines=48
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
