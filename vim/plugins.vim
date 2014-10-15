@@ -204,7 +204,8 @@ NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   nmap <leader>a, :Tabularize /,\zs/l0l1<CR>
   vmap <leader>a, :Tabularize /,\zs/l0l1<CR>
 
-NeoBundle 'gorkunov/smartpairs.vim'
+" conflicts with easyclip M mapping
+"NeoBundle 'gorkunov/smartpairs.vim'
 
 NeoBundle 'svermeulen/vim-easyclip'
   " vim just uses system clipboard
