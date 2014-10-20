@@ -278,8 +278,9 @@ NeoBundle 'scrooloose/syntastic'
   " ignore angular attrs
   let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
-  let g:syntastic_php_checkers = ['php', 'phpmd' ]
   let g:syntastic_coffeescript_checkers = ['coffee', 'coffeelint']
+  let g:syntastic_php_checkers = ['php', 'phpmd' ]
+  let g:syntastic_shell_checkers = ['bashate', 'shellcheck' ]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Language specific
