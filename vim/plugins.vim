@@ -110,7 +110,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 " NeoBundle 'tacahiroy/ctrlp-funky'
 "   nnoremap <F8> :CtrlPFunky<Cr>
 
-" NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'vim-scripts/IndexedSearch'
 
