@@ -2,7 +2,7 @@
 # .dotfiles/zshenv.zsh
 # zshenv is always sourced, even for bg jobs
 
-source $HOME/.dotfiles/shell/loader
+source "$HOME/.dotfiles/shell/loader"
 
 # remove duplicates in path arrays
 typeset -U path cdpath manpath
