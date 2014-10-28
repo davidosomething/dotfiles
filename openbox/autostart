@@ -2,6 +2,9 @@
 # These things are run when an Openbox X Session is started.
 #
 
+# Compositing
+compton -b
+
 # Background Image
 feh --bg-scale $HOME/Dropbox/Public/blue-lego.png &
 
