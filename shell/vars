@@ -1,14 +1,12 @@
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
-########################################
-# dotfile paths
+# dotfile paths ----------------------------------------------------------------
 export DOTFILES="$HOME/.dotfiles"
 export BASH_DOTFILES="$DOTFILES/bash"
 export ZDOTDIR="$DOTFILES/zsh"
 
-########################################
-# LP_OS detection, default to Linux
+# LP_OS detection, default to Linux --------------------------------------------
 # https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
 case $(uname) in
     FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
@@ -30,20 +28,24 @@ esac
   [[ -f "/etc/arch-release" ]]   && export DOTFILES_DISTRO="archlinux"
 }
 
-########################################
-# Shell settings
-export HISTSIZE=500
-export SAVEHIST=500
+# Shell settings ---------------------------------------------------------------
+export SAVEHIST=1000
+export HISTSIZE=1000
+export HISTFILESIZE="$HISTSIZE";
+export HISTCONTROL=ignoredups;
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
-########################################
-# program settings
-
-# Shell programs
+# program settings -------------------------------------------------------------
 export EDITOR="vim --nofork"
-export LESS="-R"
 export PAGER="less"
+export LESS="-R"
+# Highlight section titles in manual pages
+export LESS_TERMCAP_md="${yellow}";
+# Don't clear the screen after quitting a manual page
+export MANPAGER="less -X";
+# Always enable colored `grep` output
+export GREP_OPTIONS="--color=auto";
 
-##
 # apache
 has_program "apachectl" && {
   if apachectl -t >/dev/null 2>&1; then
@@ -52,44 +54,29 @@ has_program "apachectl" && {
   fi
 }
 
-##
 # boot2docker
 export DOCKER_HOST=tcp://localhost:4243
 
-##
 # homebrew
 has_program "brew" && {
   export HAS_BREW=true
   export BREW_PREFIX="$(brew --prefix)"
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+  # Ruby use brew openssl if available
+  [[ -f $BREW_PREFIX/opt/openssl ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$BREW_PREFIX/opt/openssl"
 }
 
-##
 # git
 export GIT_PAGER="$PAGER -eFX"
 
 
-##
 # node
 export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
 export NPM_PACKAGES="$HOME/.npm-packages"
 
-##
-# php
-has_program "php" && {
-  export PHP_INI="$(php -r "echo php_ini_loaded_file();")"
-  brew --prefix php54 >/dev/null 2>&1 && export BREW_PHP_PATH="$BREW_PHP_PATH/bin"
-}
-
-##
 # Python - needed for fontforge
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
-
-##
-# Ruby use brew openssl if available
-$HAS_BREW && [[ -f $BREW_PREFIX/opt/openssl ]] && {
-  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$BREW_PREFIX/opt/openssl"
-}
 
 ##
 # z

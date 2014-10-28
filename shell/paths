@@ -3,17 +3,7 @@
 PATH="/usr/local/bin:$PATH"
 $HAS_BREW && PATH="$BREW_PREFIX/bin:$BREW_PREFIX/sbin:$PATH"
 
-########################################
-# bin
-
-# php55 through homebrew if brew command available
-[[ -d "$BREW_PHP_PATH" ]] && PATH="$BREW_PHP_PATH:$PATH"
-
-# rbenv
-PATH="$RBENV_ROOT/bin:$PATH"
-
-########################################
-# package managers
+# package managers -------------------------------------------------------------
 
 # composer
 PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -30,11 +20,7 @@ PATH="$HOME/.composer/vendor/bin:$PATH"
 export GOPATH="$HOME/go"
 PATH="$GOPATH/bin:$PATH"
 
-########################################
-# local
+# local ------------------------------------------------------------------------
 PATH="$HOME/bin:$DOTFILES/bin:$PATH"
 export PATH
 
-
-########################################
-# Man pages

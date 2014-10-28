@@ -124,7 +124,7 @@ eapache() {
   e "${APACHE_HTTPD_ROOT}/${APACHE_HTTPD_CONF}"
 }
 ephpini() {
-  e "$PHP_INI"
+  e "$(php -r "echo php_ini_loaded_file();")"
 }
 
 ########################################
