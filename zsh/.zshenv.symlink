@@ -1,12 +1,12 @@
+# OUTPUT FORBIDDEN
 # zshenv is always sourced, even for bg jobs
-echo "Sourced .zshenv"
 
 source "$HOME/.dotfiles/shell/loader"
 
+# Paths ------------------------------------------------------------------------
 # remove duplicates in path arrays
 typeset -U path cdpath manpath
 
-##
 # Autoload function paths, add tab completion paths, top precedence
 $HAS_BREW && {
   fpath=(
@@ -16,7 +16,6 @@ $HAS_BREW && {
   )
 }
 
-##
 # top precedence! So my dotfiles zsh-completions override the previous brew
 fpath=(
   "$ZDOTDIR/zsh-completions/src"
@@ -25,4 +24,7 @@ fpath=(
 
 # remove duplicates in fpath array
 typeset -U fpath
+
+# Vars -------------------------------------------------------------------------
+export HISTFILE="$ZDOTDIR/.zhistory"
 

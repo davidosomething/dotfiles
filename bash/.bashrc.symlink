@@ -1,5 +1,7 @@
 echo "Sourced .bashrc"
-source "$HOME/.dotfiles/shell/loader"
+
+[ -z "$DOTFILES_SHELL_LOADER" ] && source "$HOME/.dotfiles/shell/loader"
+source "$HOME/.dotfiles/shell/aliases"
 
 [ -z "$PS1" ] && return
 

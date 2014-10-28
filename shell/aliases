@@ -1,4 +1,5 @@
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
+# NOT run by loader
 
 alias reload="exec $SHELL"
 alias _="sudo"

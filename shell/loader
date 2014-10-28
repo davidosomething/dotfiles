@@ -1,5 +1,8 @@
+# loader for login shells
+# DOES NOT LOAD aliases
+
 _dotfiles_shell_loader() {
-  for script in "functions" "vars" "aliases" "paths"; do
+  for script in "functions" "vars" "paths"; do
     local filename="$HOME/.dotfiles/shell/${script}"
     echo "Sourcing ${filename}..." && source "${filename}"
   done

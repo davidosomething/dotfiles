@@ -232,4 +232,4 @@ o() {
   fi
 }
 
-# vim: set ft=sh :
+# vim:syn=sh
