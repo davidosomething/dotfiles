@@ -6,6 +6,11 @@ set completion-ignore-case on
 # Immediately add a trailing slash when autocompleting symlinks to directories
 set mark-symlinked-directories on
 
+# Make TAB cycle through possible completions
+# "\t": menu-complete
+# Make SHIFT-TAB reverse cycle through possible completions
+# "\e[Z": "\e-1\C-i"
+
 # Use the text that has already been typed as the prefix for searching through
 # commands (i.e. more intelligent Up/Down behavior)
 "\e[B": history-search-forward
@@ -34,3 +39,4 @@ set skip-completed-text on
 set input-meta on
 set output-meta on
 set convert-meta off
+

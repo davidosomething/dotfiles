@@ -3,6 +3,7 @@
 
 alias reload="exec $SHELL"
 alias _="sudo"
+alias sudo="sudo " # allow sudo to use aliases
 
 # paths and dirs
 alias ..='cd ..'
