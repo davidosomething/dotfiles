@@ -1,3 +1,4 @@
+echo "Sourced .bashrc"
 source "$HOME/.dotfiles/shell/loader"
 
 [ -z "$PS1" ] && return
@@ -11,8 +12,7 @@ shopt -s extglob
 shopt -s cdspell
 shopt -s cdable_vars
 
-source_if_exists /usr/local/share/chruby/chruby.sh
-
+source_if_exists "$BREW_PREFIX/share/chruby/chruby.sh"
 source_if_exists "$DOTFILES/z/z.sh"
 
 for script in "completions" "prompt"; do

@@ -1,0 +1,21 @@
+#
+# These things are run when an Openbox X Session is started.
+#
+
+# Keymaps
+xmodmap "$HOME/src/davidosomething-config/potatoW510/.Xmodmap" &
+
+# Start Thinkpad OSD daemon
+if [ -x /usr/bin/tpb ] &&  [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
+  /usr/bin/tpb -d
+fi
+
+# Compositing
+compton -b &
+
+# Background Image
+feh --bg-scale $HOME/Dropbox/Public/blue-lego.png &
+
+# Tint Panel
+tint2 &
+

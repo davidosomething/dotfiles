@@ -12,7 +12,7 @@ set secure                            " no unsafe local vimrc commands
 let g:is_windows = has('win32') || has('win64')
 let g:is_cygwin = has('win32unix')
 let g:is_macvim = has('gui_macvim')
-let g:is_term = (&term =~ "xterm") || (&term =~ "screen")
+let g:is_term = (&term =~ "xterm") || (&term =~ "screen") || (&term =~ "linux") || (&term =~ "fbterm")
 
 let g:settings = {}
 let g:settings.autocomplete_method = 'neocomplcache'

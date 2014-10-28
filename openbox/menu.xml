@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+	<menu id="apps-accessories-menu" label="Accessories">
+		<item label="Calculator">
+			<action name="Execute">
+				<command>gnome-calculator</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Character Map">
+			<action name="Execute">
+				<command>gnome-character-map</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-term-menu" label="Terminals">
+		<item label="Gnome Terminal">
+			<action name="Execute">
+				<command>gnome-terminal</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Xterm">
+			<action name="Execute">
+				<command>xterm</command>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-net-menu" label="Internet">
+		<item label="Google Chrome">
+			<action name="Execute">
+				<execute>/bin/google-chrome-stable</execute>
+			</action>
+		</item>
+		<item label="Firefox">
+			<action name="Execute">
+				<command>firefox</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+					<wmclass>Firefox</wmclass>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Pidgin Instant Messenger">
+			<action name="Execute">
+				<command>pidgin</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-fileman-menu" label="File Managers">
+		<item label="Nautilus">
+			<action name="Execute">
+				<command>nautilus --no-desktop --browser</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-graphics-menu" label="Graphics">
+		<item label="Gimp">
+			<action name="Execute">
+				<command>gimp</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Dia Diagram Editor">
+			<action name="Execute">
+				<command>dia</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Inkscape">
+			<action name="Execute">
+				<command>inkscape</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+	</menu>
+	<menu id="system-menu" label="System">
+		<item label="Openbox Menu Editor">
+			<action name="Execute">
+				<execute>obmenu</execute>
+			</action>
+		</item>
+		<item label="Openbox Configuration Manager">
+			<action name="Execute">
+				<command>obconf</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Gnome Control Center">
+			<action name="Execute">
+				<command>gnome-control-center</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="KDE Control Center">
+			<action name="Execute">
+				<command>kcontrol</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Xfce Settings">
+			<action name="Execute">
+				<command>xfce-setting-show</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Manage Cups Printers">
+			<action name="Execute">
+				<command>xdg-open http://localhost:631/</command>
+				<startupnotify>
+					<enabled>no</enabled>
+					<icon>cups</icon>
+				</startupnotify>
+			</action>
+		</item>
+		<separator/>
+		<item label="Reconfigure Openbox">
+			<action name="Reconfigure"/>
+		</item>
+	</menu>
+	<menu id="root-menu" label="Openbox 3">
+		<separator label="Applications"/>
+		<menu id="apps-accessories-menu"/>
+		<menu id="apps-editors-menu"/>
+		<menu id="apps-graphics-menu"/>
+		<menu id="apps-net-menu"/>
+		<menu id="apps-office-menu"/>
+		<menu id="apps-multimedia-menu"/>
+		<menu id="apps-term-menu"/>
+		<menu id="apps-fileman-menu"/>
+		<separator label="System"/>
+		<menu id="system-menu"/>
+		<separator/>
+		<item label="Log Out">
+			<action name="Exit">
+				<prompt>yes</prompt>
+			</action>
+		</item>
+	</menu>
+</openbox_menu>
