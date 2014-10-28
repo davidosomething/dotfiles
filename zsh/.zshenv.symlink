@@ -1,6 +1,5 @@
-####
-# .dotfiles/zshenv.zsh
 # zshenv is always sourced, even for bg jobs
+echo "Sourced .zshenv"
 
 source "$HOME/.dotfiles/shell/loader"
 
@@ -26,3 +25,4 @@ fpath=(
 
 # remove duplicates in fpath array
 typeset -U fpath
+

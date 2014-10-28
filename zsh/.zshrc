@@ -1,19 +1,21 @@
 echo "Sourced .zshrc"
-source "$HOME/.dotfiles/shell/loader"
+
+# just in case we're not in a login shell
+[ -z "$DOTFILES_SHELL_LOADER" ] && source "$HOME/.dotfiles/shell/loader"
 
 # only run on interactive/TTY
 export HISTFILE="$ZDOTDIR/.zhistory"
 
 # env programs
 source_if_exists "$HOME/.nvm/nvm.sh"
-
-source_if_exists "$DOTFILES/z/z.sh"
-
 source_if_exists "$BREW_PREFIX/share/chruby/chruby.sh"
 has_program chruby && chruby ruby-2.1.2
 
+# bin
+source_if_exists "$DOTFILES/z/z.sh"
+
 # program aliases
-if [[ -n $HAS_BREW ]]; then
+if [[ -n "$HAS_BREW" ]]; then
   # use homebrew bundled zsh helpfiles for online help
   export HELPDIR="$BREW_PREFIX/share/zsh/helpfiles"
   unalias run-help

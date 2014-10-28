@@ -5,7 +5,7 @@ _dotfiles_shell_loader() {
   done
 }
 
-current_shell="$( ps | grep `echo $$` | awk '{ print $4 }' )"
+current_shell="$( ps | grep $$ | awk '{ print $4 }' )"
 if [ "$DOTFILES_SHELL_LOADER" != "$current_shell" ]; then
   _dotfiles_shell_loader
   export DOTFILES_SHELL_LOADER=$current_shell
