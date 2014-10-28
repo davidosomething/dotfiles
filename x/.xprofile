@@ -1,9 +1,0 @@
-# This is the one that does stuff
-# Only sourced by GDM, KDM, LightDM, LXDM
-
-xrdb ~/.dotfiles/x/.Xresources
-
-# leave this condition in case forgot to clone submodules
-if [ -d ~/.dotfiles/solarized ]; then
-  xrdb -merge ~/.dotfiles/solarized/xresources/solarized
-fi
