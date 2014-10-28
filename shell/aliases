@@ -57,14 +57,14 @@ alias pyserve="python -m SimpleHTTPServer"
 # os specific
 case "$OSTYPE" in
   darwin*)
-    alias ls="ls -G -p"
+    alias ls="ls -G -p --time-style=\"+%Y%m%d\""
 
     # Audio control - http://xkcd.com/530/
     alias stfu="osascript -e 'set volume output muted true'"
     alias pumpitup="osascript -e 'set volume 7'"
     ;;
   linux*)
-    alias ls="ls --color=auto -p"
+    alias ls="ls --color=auto -p --time-style=\"+%Y%m%d\""
     alias open="o"
     ;;
 esac

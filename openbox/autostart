@@ -1,0 +1,10 @@
+#
+# These things are run when an Openbox X Session is started.
+#
+
+# Background Image
+feh --bg-scale $HOME/Dropbox/Public/blue-lego.png &
+
+# Tint Panel
+tint2 &
+

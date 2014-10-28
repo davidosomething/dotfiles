@@ -1,6 +1,228 @@
-remove Lock       = Caps_Lock
-remove Control    = Control_R
-keysym Control_R  = Caps_Lock
-keysym Caps_Lock  = Control_L
-add Control       = Control_L
-add Lock          = Caps_Lock
+!
+! This is an `xmodmap' input file for 
+!   PC 101 key, thin Delete, tall Enter (XFree86; US) keyboards.
+! Automatically generated on Tue Oct 28 03:03:23 2014 by davidosomething with
+! XKeyCaps 2.46; Copyright (c) 1999 Jamie Zawinski <jwz@jwz.org>.
+! http://www.jwz.org/xkeycaps/
+!
+! This file makes the following changes:
+!
+! The "Esc" key generates Escape, NoSymbol, and Escape
+! The "F1" key generates F1, F1, F1, F1, F1, F1, and XF86Switch_VT_1
+! The "F2" key generates F2, F2, F2, F2, F2, F2, and XF86Switch_VT_2
+! The "F3" key generates F3, F3, F3, F3, F3, F3, and XF86Switch_VT_3
+! The "F4" key generates F4, F4, F4, F4, F4, F4, and XF86Switch_VT_4
+! The "F5" key generates F5, F5, F5, F5, F5, F5, and XF86Switch_VT_5
+! The "F6" key generates F6, F6, F6, F6, F6, F6, and XF86Switch_VT_6
+! The "F7" key generates F7, F7, F7, F7, F7, F7, and XF86Switch_VT_7
+! The "F8" key generates F8, F8, F8, F8, F8, F8, and XF86Switch_VT_8
+! The "F9" key generates F9, F9, F9, F9, F9, F9, and XF86Switch_VT_9
+! The "F10" key generates F10, F10, F10, F10, F10, F10, and XF86Switch_VT_10
+! The "F11" key generates F11, F11, F11, F11, F11, F11, and XF86Switch_VT_11
+! The "F12" key generates F12, F12, F12, F12, F12, F12, and XF86Switch_VT_12
+! The "Print Screen" key generates Up, NoSymbol, and Up
+! The "Scroll Lock" key generates Scroll_Lock, NoSymbol, and Scroll_Lock, and has no modifiers
+! The "Pause" key generates Home, NoSymbol, and Home
+! The "~ `" key generates grave, asciitilde, grave, and asciitilde
+! The "! 1" key generates 1, exclam, 1, and exclam
+! The "@ 2" key generates 2, at, 2, and at
+! The "# 3" key generates 3, numbersign, 3, and numbersign
+! The "$ 4" key generates 4, dollar, 4, and dollar
+! The "% 5" key generates 5, percent, 5, and percent
+! The "^ 6" key generates 6, asciicircum, 6, and asciicircum
+! The "& 7" key generates 7, ampersand, 7, and ampersand
+! The "* 8" key generates 8, asterisk, 8, and asterisk
+! The "( 9" key generates 9, parenleft, 9, and parenleft
+! The ") 0" key generates 0, parenright, 0, and parenright
+! The "_ -" key generates minus, underscore, minus, and underscore
+! The "+ =" key generates equal, plus, equal, and plus
+! The "| \" key generates backslash, bar, backslash, and bar
+! The "Back space" key generates BackSpace, BackSpace, BackSpace, and BackSpace
+! The "Insert" key generates KP_Divide, KP_Divide, KP_Divide, KP_Divide, KP_Divide, KP_Divide, and XF86Ungrab
+! The "Home" key generates NoSymbol
+! The "Page Up" key generates Hiragana, NoSymbol, and Hiragana
+! The "Num Lock" key generates Num_Lock, NoSymbol, and Num_Lock
+! The "/" key generates Prior, NoSymbol, and Prior
+! The "*" key generates KP_Multiply, KP_Multiply, KP_Multiply, KP_Multiply, KP_Multiply, KP_Multiply, and XF86ClearGrab
+! The "-" key generates KP_Subtract, KP_Subtract, KP_Subtract, KP_Subtract, KP_Subtract, KP_Subtract, and XF86Prev_VMode
+! The "Tab" key generates Tab, ISO_Left_Tab, Tab, and ISO_Left_Tab
+! The "Q" key generates q, Q, q, and Q
+! The "W" key generates w, W, w, and W
+! The "E" key generates e, E, e, and E
+! The "R" key generates r, R, r, and R
+! The "T" key generates t, T, t, and T
+! The "Y" key generates y, Y, y, and Y
+! The "U" key generates u, U, u, and U
+! The "I" key generates i, I, i, and I
+! The "O" key generates o, O, o, and O
+! The "P" key generates p, P, p, and P
+! The "{ [" key generates bracketleft, braceleft, bracketleft, and braceleft
+! The "} ]" key generates bracketright, braceright, bracketright, and braceright
+! The "Enter" key generates Return, NoSymbol, and Return
+! The "Delete" key generates Print, Sys_Req, Print, and Sys_Req
+! The "End" key generates NoSymbol
+! The "Page Down" key generates Control_R, NoSymbol, and Control_R, and the Control modifier
+! The "7 Home" key generates KP_Home, KP_7, KP_Home, and KP_7
+! The "8 UpArrow" key generates KP_Up, KP_8, KP_Up, and KP_8
+! The "9 Pg Up" key generates KP_Prior, KP_9, KP_Prior, and KP_9
+! The "+" key generates KP_Add, KP_Add, KP_Add, KP_Add, KP_Add, KP_Add, and XF86Next_VMode
+! The "Caps Lock" key generates Control_L, NoSymbol, and Control_L, and the Control modifier
+! The "A" key generates a, A, a, and A
+! The "S" key generates s, S, s, and S
+! The "D" key generates d, D, d, and D
+! The "F" key generates f, F, f, and F
+! The "G" key generates g, G, g, and G
+! The "H" key generates h, H, h, and H
+! The "J" key generates j, J, j, and J
+! The "K" key generates k, K, k, and K
+! The "L" key generates l, L, l, and L
+! The ": ;" key generates semicolon, colon, semicolon, and colon
+! The "" '" key generates apostrophe, quotedbl, apostrophe, and quotedbl
+! The "4 LeftArrow" key generates KP_Left, KP_4, KP_Left, and KP_4
+! The "5" key generates KP_Begin, KP_5, KP_Begin, and KP_5
+! The "6 RightArrow" key generates KP_Right, KP_6, KP_Right, and KP_6
+! The "Shift" key generates Shift_L, NoSymbol, and Shift_L
+! The "Z" key generates z, Z, z, and Z
+! The "X" key generates x, X, x, and X
+! The "C" key generates c, C, c, and C
+! The "V" key generates v, V, v, and V
+! The "B" key generates b, B, b, and B
+! The "N" key generates n, N, n, and N
+! The "M" key generates m, M, m, and M
+! The "< ," key generates comma, less, comma, and less
+! The "> ." key generates period, greater, period, and greater
+! The "? /" key generates slash, question, slash, and question
+! The "Shift" key generates Shift_R, NoSymbol, and Shift_R
+! The "UpArrow" key generates Katakana, NoSymbol, and Katakana
+! The "1 End" key generates KP_End, KP_1, KP_End, and KP_1
+! The "2 DownArrow" key generates KP_Down, KP_2, KP_Down, and KP_2
+! The "3 Pg Dn" key generates KP_Next, KP_3, KP_Next, and KP_3
+! The "Enter" key generates Alt_R, Meta_R, Alt_R, and Meta_R, and the Mod1 modifier
+! The "Ctrl" key generates Control_L, NoSymbol, and Control_L
+! The "Alt" key generates Alt_L, Meta_L, Alt_L, and Meta_L
+! The "space" key generates space, NoSymbol, and space
+! The "Alt" key generates Left, NoSymbol, and Left, and has no modifiers
+! The "Ctrl" key generates Linefeed, NoSymbol, and Linefeed, and has no modifiers
+! The "LeftArrow" key generates Henkan_Mode, NoSymbol, and Henkan_Mode
+! The "DownArrow" key generates KP_Enter, NoSymbol, and KP_Enter
+! The "RightArrow" key generates Muhenkan, NoSymbol, and Muhenkan
+! The "0 Ins" key generates KP_Insert, KP_0, KP_Insert, and KP_0
+! The ". Del" key generates KP_Delete, KP_Decimal, KP_Delete, and KP_Decimal
+
+keycode 0x09 =	Escape		NoSymbol	Escape
+keycode 0x43 =	F1		F1		F1		F1		F1		F1		XF86Switch_VT_1
+keycode 0x44 =	F2		F2		F2		F2		F2		F2		XF86Switch_VT_2
+keycode 0x45 =	F3		F3		F3		F3		F3		F3		XF86Switch_VT_3
+keycode 0x46 =	F4		F4		F4		F4		F4		F4		XF86Switch_VT_4
+keycode 0x47 =	F5		F5		F5		F5		F5		F5		XF86Switch_VT_5
+keycode 0x48 =	F6		F6		F6		F6		F6		F6		XF86Switch_VT_6
+keycode 0x49 =	F7		F7		F7		F7		F7		F7		XF86Switch_VT_7
+keycode 0x4A =	F8		F8		F8		F8		F8		F8		XF86Switch_VT_8
+keycode 0x4B =	F9		F9		F9		F9		F9		F9		XF86Switch_VT_9
+keycode 0x4C =	F10		F10		F10		F10		F10		F10		XF86Switch_VT_10
+keycode 0x5F =	F11		F11		F11		F11		F11		F11		XF86Switch_VT_11
+keycode 0x60 =	F12		F12		F12		F12		F12		F12		XF86Switch_VT_12
+keycode 0x6F =	Up		NoSymbol	Up
+keycode 0x4E =	Scroll_Lock	NoSymbol	Scroll_Lock
+keycode 0x6E =	Home		NoSymbol	Home
+keycode 0x31 =	grave		asciitilde	grave		asciitilde
+keycode 0x0A =	1		exclam		1		exclam
+keycode 0x0B =	2		at		2		at
+keycode 0x0C =	3		numbersign	3		numbersign
+keycode 0x0D =	4		dollar		4		dollar
+keycode 0x0E =	5		percent		5		percent
+keycode 0x0F =	6		asciicircum	6		asciicircum
+keycode 0x10 =	7		ampersand	7		ampersand
+keycode 0x11 =	8		asterisk	8		asterisk
+keycode 0x12 =	9		parenleft	9		parenleft
+keycode 0x13 =	0		parenright	0		parenright
+keycode 0x14 =	minus		underscore	minus		underscore
+keycode 0x15 =	equal		plus		equal		plus
+keycode 0x33 =	backslash	bar		backslash	bar
+keycode 0x16 =	BackSpace	BackSpace	BackSpace	BackSpace
+keycode 0x6A =	KP_Divide	KP_Divide	KP_Divide	KP_Divide	KP_Divide	KP_Divide	XF86Ungrab
+keycode 0x61 =	NoSymbol
+keycode 0x63 =	Hiragana	NoSymbol	Hiragana
+keycode 0x4D =	Num_Lock	NoSymbol	Num_Lock
+keycode 0x70 =	Prior		NoSymbol	Prior
+keycode 0x3F =	KP_Multiply	KP_Multiply	KP_Multiply	KP_Multiply	KP_Multiply	KP_Multiply	XF86ClearGrab
+keycode 0x52 =	KP_Subtract	KP_Subtract	KP_Subtract	KP_Subtract	KP_Subtract	KP_Subtract	XF86Prev_VMode
+keycode 0x17 =	Tab		ISO_Left_Tab	Tab		ISO_Left_Tab
+keycode 0x18 =	q		Q		q		Q
+keycode 0x19 =	w		W		w		W
+keycode 0x1A =	e		E		e		E
+keycode 0x1B =	r		R		r		R
+keycode 0x1C =	t		T		t		T
+keycode 0x1D =	y		Y		y		Y
+keycode 0x1E =	u		U		u		U
+keycode 0x1F =	i		I		i		I
+keycode 0x20 =	o		O		o		O
+keycode 0x21 =	p		P		p		P
+keycode 0x22 =	bracketleft	braceleft	bracketleft	braceleft
+keycode 0x23 =	bracketright	braceright	bracketright	braceright
+keycode 0x24 =	Return		NoSymbol	Return
+keycode 0x6B =	Print		Sys_Req		Print		Sys_Req
+keycode 0x67 =	NoSymbol
+keycode 0x69 =	Control_R	NoSymbol	Control_R
+keycode 0x4F =	KP_Home		KP_7		KP_Home		KP_7
+keycode 0x50 =	KP_Up		KP_8		KP_Up		KP_8
+keycode 0x51 =	KP_Prior	KP_9		KP_Prior	KP_9
+keycode 0x56 =	KP_Add		KP_Add		KP_Add		KP_Add		KP_Add		KP_Add		XF86Next_VMode
+keycode 0x42 =	Control_L	NoSymbol	Control_L
+keycode 0x26 =	a		A		a		A
+keycode 0x27 =	s		S		s		S
+keycode 0x28 =	d		D		d		D
+keycode 0x29 =	f		F		f		F
+keycode 0x2A =	g		G		g		G
+keycode 0x2B =	h		H		h		H
+keycode 0x2C =	j		J		j		J
+keycode 0x2D =	k		K		k		K
+keycode 0x2E =	l		L		l		L
+keycode 0x2F =	semicolon	colon		semicolon	colon
+keycode 0x30 =	apostrophe	quotedbl	apostrophe	quotedbl
+keycode 0x53 =	KP_Left		KP_4		KP_Left		KP_4
+keycode 0x54 =	KP_Begin	KP_5		KP_Begin	KP_5
+keycode 0x55 =	KP_Right	KP_6		KP_Right	KP_6
+keycode 0x32 =	Shift_L		NoSymbol	Shift_L
+keycode 0x34 =	z		Z		z		Z
+keycode 0x35 =	x		X		x		X
+keycode 0x36 =	c		C		c		C
+keycode 0x37 =	v		V		v		V
+keycode 0x38 =	b		B		b		B
+keycode 0x39 =	n		N		n		N
+keycode 0x3A =	m		M		m		M
+keycode 0x3B =	comma		less		comma		less
+keycode 0x3C =	period		greater		period		greater
+keycode 0x3D =	slash		question	slash		question
+keycode 0x3E =	Shift_R		NoSymbol	Shift_R
+keycode 0x62 =	Katakana	NoSymbol	Katakana
+keycode 0x57 =	KP_End		KP_1		KP_End		KP_1
+keycode 0x58 =	KP_Down		KP_2		KP_Down		KP_2
+keycode 0x59 =	KP_Next		KP_3		KP_Next		KP_3
+keycode 0x6C =	Alt_R		Meta_R		Alt_R		Meta_R
+keycode 0x25 =	Control_L	NoSymbol	Control_L
+keycode 0x40 =	Alt_L		Meta_L		Alt_L		Meta_L
+keycode 0x41 =	space		NoSymbol	space
+keycode 0x71 =	Left		NoSymbol	Left
+keycode 0x6D =	Linefeed	NoSymbol	Linefeed
+keycode 0x64 =	Henkan_Mode	NoSymbol	Henkan_Mode
+keycode 0x68 =	KP_Enter	NoSymbol	KP_Enter
+keycode 0x66 =	Muhenkan	NoSymbol	Muhenkan
+keycode 0x5A =	KP_Insert	KP_0		KP_Insert	KP_0
+keycode 0x5B =	KP_Delete	KP_Decimal	KP_Delete	KP_Decimal
+
+clear Shift
+clear Lock
+clear Control
+clear Mod1
+clear Mod2
+clear Mod3
+clear Mod4
+clear Mod5
+
+add    Shift   = Shift_L Shift_R
+add    Control = Control_L Control_L Control_R
+add    Mod1    = Alt_L Alt_R 0x00CD
+add    Mod2    = Num_Lock
+add    Mod4    = Super_L Super_R 0x00CE 0x00CF
+add    Mod5    = ISO_Level3_Shift Mode_switch

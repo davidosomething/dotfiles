@@ -1,3 +1,4 @@
+echo "Sourced .zshrc"
 source "$HOME/.dotfiles/shell/loader"
 
 # only run on interactive/TTY

@@ -1,4 +1,5 @@
-source $HOME/.dotfiles/shell/loader
+echo "Sourced .bashrc"
+source "$HOME/.dotfiles/shell/loader"
 
 [ -z "$PS1" ] && return
 
@@ -12,7 +13,7 @@ shopt -s cdspell
 shopt -s cdable_vars
 
 for script in "completions" "prompt"; do
-  source $BASH_DOTFILES/${script}.bash
+  source "$BASH_DOTFILES/${script}.bash"
 done
 
 # program aliases
@@ -25,4 +26,5 @@ fi
 source_if_exists /usr/local/share/chruby/chruby.sh
 
 # local
-source_if_exists $HOME/.bashrc.local
+source_if_exists "$HOME/.bashrc.local"
+
