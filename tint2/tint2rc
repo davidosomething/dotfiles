@@ -8,7 +8,7 @@
 # ID 1
 rounded = 12
 border_width = 1
-background_color = #000000 48
+background_color = #000000 47
 border_color = #444444 100
 
 # ID 2
@@ -69,7 +69,7 @@ font_shadow = 0
 
 # System Tray
 systray = 1
-systray_padding = 0 0 0
+systray_padding = 8 8 4
 systray_sort = ascending
 systray_background_id = 0
 systray_icon_size = 0
@@ -82,7 +82,7 @@ time2_format = %a %Y-%m-%d
 time2_font = Fira Sans 8
 clock_font_color = #FFFFFF 100
 clock_tooltip = 
-clock_padding = 0 0
+clock_padding = 8 0
 clock_background_id = 0
 
 # Tooltips
@@ -101,7 +101,7 @@ mouse_scroll_up = none
 mouse_scroll_down = none
 
 # Battery
-battery = 1
+battery = 0
 battery_low_status = 20
 battery_low_cmd = notify-send "battery low"
 battery_hide = 90

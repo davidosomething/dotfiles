@@ -18,4 +18,9 @@ feh --bg-scale $HOME/Dropbox/Public/blue-lego.png &
 
 # Tint Panel
 tint2 &
+batterymon &
+# Volume applet
+volti &
 
+# Launcher
+kupfer &

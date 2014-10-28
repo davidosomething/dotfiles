@@ -48,6 +48,11 @@
 				</startupnotify>
 			</action>
 		</item>
+		<item label="Skype">
+			<action name="Execute">
+				<execute>/bin/skype</execute>
+			</action>
+		</item>
 		<item label="Pidgin Instant Messenger">
 			<action name="Execute">
 				<command>pidgin</command>
@@ -146,18 +151,12 @@
 		</item>
 	</menu>
 	<menu id="root-menu" label="Openbox 3">
-		<separator label="Applications"/>
 		<menu id="apps-accessories-menu"/>
-		<menu id="apps-editors-menu"/>
 		<menu id="apps-graphics-menu"/>
 		<menu id="apps-net-menu"/>
-		<menu id="apps-office-menu"/>
-		<menu id="apps-multimedia-menu"/>
 		<menu id="apps-term-menu"/>
 		<menu id="apps-fileman-menu"/>
-		<separator label="System"/>
 		<menu id="system-menu"/>
-		<separator/>
 		<item label="Log Out">
 			<action name="Exit">
 				<prompt>yes</prompt>
