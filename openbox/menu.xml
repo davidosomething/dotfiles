@@ -17,32 +17,8 @@
 				</startupnotify>
 			</action>
 		</item>
-		<item label="Ark File Archiver">
-			<action name="Execute">
-				<command>ark</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-	</menu>
-	<menu id="apps-editors-menu" label="Editors">
-		<item label="GVim">
-			<action name="Execute">
-				<command>gvim</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-					<wmclass>GVim</wmclass>
-				</startupnotify>
-			</action>
-		</item>
 	</menu>
 	<menu id="apps-term-menu" label="Terminals">
-		<item label="Rxvt Unicode">
-			<action name="Execute">
-				<command>urxvt</command>
-			</action>
-		</item>
 		<item label="Gnome Terminal">
 			<action name="Execute">
 				<command>gnome-terminal</command>
@@ -118,6 +94,11 @@
 		</item>
 	</menu>
 	<menu id="system-menu" label="System">
+		<item label="Openbox Menu Editor">
+			<action name="Execute">
+				<execute>obmenu</execute>
+			</action>
+		</item>
 		<item label="Openbox Configuration Manager">
 			<action name="Execute">
 				<command>obconf</command>
