@@ -24,7 +24,6 @@
     * bash, zsh, ack, tmux, screen
 * `vim.sh`
     * vim
-* `linux/rbenv.sh`
 
 ### Homebrew
 
@@ -32,8 +31,6 @@
 Brewfiles in the `osx` folder.
 
 ## Notes
-
-Don't forget to setup apache manually for your OS
 
 ### node-gyp
 
@@ -46,14 +43,6 @@ npm config set python /usr/bin/python2.7 -g
 
 The POW gem is no longer used since I have to use Cisco VPN for some things and
 there are DNS conflicts.
-
-### rbenv
-
-On linux, rbenv should be installed from source. The apt repositories don't
-provide the latest versions of ruby. `bootstrap/linux/rbenv.sh` does this.
-
-There's a `rbenv/default-gems` file which specifies default gems to install
-when switching rubies. Symlink this to ~/.rbenv
 
 ### tmux
 
