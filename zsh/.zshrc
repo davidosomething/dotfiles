@@ -1,7 +1,6 @@
 # zshrc - only run on interactive/TTY
 
-# just in case we're not in a login shell
-[ -z "$DOTFILES_SHELL_LOADER" ] && source "$HOME/.dotfiles/shell/loader"
+source "$HOME/.dotfiles/shell/loader"
 source "$HOME/.dotfiles/shell/aliases"
 
 # env programs

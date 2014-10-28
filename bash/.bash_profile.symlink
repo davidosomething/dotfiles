@@ -5,6 +5,6 @@
 # http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html
 #
 
-[ -f ~/.bashrc ] && source "$HOME/.bashrc"
+[ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
 eval "$(gh alias -s)"
 

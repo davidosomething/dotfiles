@@ -1,25 +1,14 @@
-echo "Sourced .bashrc"
-
-[ -z "$DOTFILES_SHELL_LOADER" ] && source "$HOME/.dotfiles/shell/loader"
-source "$HOME/.dotfiles/shell/aliases"
-
 [ -z "$PS1" ] && return
 
-# bash options
-set -o notify
-shopt -s checkwinsize # useful for tmux
-shopt -s histappend
-shopt -s nocaseglob
-shopt -s extglob
-shopt -s cdspell
-shopt -s cdable_vars
+source "$HOME/.dotfiles/shell/loader"
+source "$HOME/.dotfiles/shell/aliases"
+
+for script in "options" "completions" "prompt"; do
+  source "$BASH_DOTFILES/${script}.bash"
+done
 
 source_if_exists "$BREW_PREFIX/share/chruby/chruby.sh"
 source_if_exists "$DOTFILES/z/z.sh"
-
-for script in "completions" "prompt"; do
-  source "$BASH_DOTFILES/${script}.bash"
-done
 
 # local
 source_if_exists "$HOME/.bashrc.local"
