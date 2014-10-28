@@ -1,10 +1,11 @@
 # loader for login shells
-# DOES NOT LOAD aliases
+# OUTPUT FORBIDDEN
+# DOES NOT LOAD aliases since the shell may not be interactive
 
 _dotfiles_shell_loader() {
   for script in "functions" "vars" "paths"; do
     local filename="$HOME/.dotfiles/shell/${script}"
-    echo "Sourcing ${filename}..." && source "${filename}"
+    source "${filename}"
   done
 }
 
