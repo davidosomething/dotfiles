@@ -1,12 +1,8 @@
-##
-# .dotfiles/bash/prompt.sh
-# sourced by .bashrc
-
 # git prompt for linux
 source_if_exists "/usr/share/git/git-prompt.sh"
 
 # prompt
-bash_prompt() {
+_bash_prompt() {
   local Z="\[\033[0m\]"
   local K="\[\033[0;30m\]"
   local R="\[\033[0;31m\]"
@@ -20,14 +16,10 @@ bash_prompt() {
   local HOST="$W\h"
 
   # USERNAME: white if root, green normal
-  if [ "$USER" = "root" ]; then
-    USER="$W\u"
-  fi
+  [ "$USER" = "root" ] && USER="$W\u"
 
   # HOST: white if remote, green if local
-  if [ -z "$SSH_CONNECTION" ]; then
-    HOST="$G\h"
-  fi
+  [ -z "$SSH_CONNECTION" ] && HOST="$G\h"
 
   if type __git_ps1 >/dev/null 2>&1; then
     GIT_PS1_SHOWDIRTYSTATE=1
@@ -39,4 +31,6 @@ bash_prompt() {
 
   export PS1
 }
-bash_prompt
+
+_bash_prompt
+
