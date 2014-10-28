@@ -6,5 +6,4 @@
 #
 
 [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
-eval "$(gh alias -s)"
 
