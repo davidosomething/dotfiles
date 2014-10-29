@@ -8,7 +8,7 @@
 # ID 1
 rounded = 0
 border_width = 0
-background_color = #000000 23
+background_color = #000000 22
 border_color = #444444 100
 
 # ID 2
@@ -20,19 +20,19 @@ border_color = #FFFFFF 100
 # ID 3
 rounded = 0
 border_width = 0
-background_color = #FFFFFF 9
+background_color = #FFFFFF 8
 border_color = #FFFFFF 100
 
 # ID 4
 rounded = 0
 border_width = 0
-background_color = #FFFD00 6
+background_color = #FFFD00 5
 border_color = #FFFFFF 100
 
 # Panel
 panel_monitor = all
 panel_position = top center horizontal
-panel_size = 1920 36
+panel_size = 1920 32
 panel_margin = 0 0
 panel_padding = 0 0 0
 panel_dock = 0
@@ -59,7 +59,7 @@ task_icon = 1
 task_text = 1
 task_centered = 0
 task_maximum_size = 200 32
-task_padding = 4 8
+task_padding = 4 4
 task_background_id = 0
 task_active_background_id = 3
 task_urgent_background_id = 4
@@ -88,12 +88,9 @@ systray_icon_size = 0
 systray_icon_asb = 100 0 0
 
 # Clock
-time1_format = %H:%M:%S %p
+time1_format = %a %Y-%m-%d %H:%M:%S %p
 time1_font = Fira Sans 8
-time2_format = %a %Y-%m-%d
-time2_font = Fira Sans 8
 clock_font_color = #FFFFFF 100
-clock_tooltip = 
 clock_padding = 8 0
 clock_background_id = 0
 
