@@ -299,17 +299,20 @@
     </keybind>
     <keybind key="W-t">
       <action name="Execute">
-        <command>gnome-terminal</command>
+        <command>gnome-terminal --hide-menubar</command>
       </action>
     </keybind>
     <keybind key="W-x">
       <action name="Execute">
         <startupnotify>
           <enabled>true</enabled>
-          <name>oblogut</name>
+          <name>oblogout</name>
         </startupnotify>
         <command>oblogout</command>
       </action>
+    </keybind>
+    <keybind key="W-F11">
+      <action name="Reconfigure" />
     </keybind>
 
     <!-- vim style window resizing -->
