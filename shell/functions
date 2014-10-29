@@ -21,13 +21,12 @@ members() {
 
 ########################################
 # Scripting
-##
+
 # source a file if it exists
 source_if_exists() {
   [ -f "$1" ] && source "$1" # && echo "Sourced $1"
 }
 
-##
 # silently determine existence of executable
 has_program() {
   command -v "$1" >/dev/null 2>&1
@@ -97,11 +96,11 @@ phpminorver() {
 ##
 # editing
 e() {
-  if [[ $DOTFILES_OS = "Darwin" ]] && [[ -n $HAS_BREW ]]; then
+  if [ "$DOTFILES_OS" == "Darwin" ] && [ -n "$HAS_BREW" ]; then
     if [ -z "$1" ]; then
       open -a MacVim.app
     else
-      "$BREW_PREFIX"/bin/mvim --servername VIM --remote-tab-silent "$@"
+      "$BREW_PREFIX/bin/mvim" --servername VIM --remote-tab-silent "$@"
     fi
   else
     if [ -n "$SSH_CONNECTION" ] || [ -z "$DISPLAY" ]; then
