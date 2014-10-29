@@ -19,3 +19,9 @@
 [submodule "base16-iterm2"]
 	path = base16-iterm2
 	url = https://github.com/chriskempson/base16-iterm2.git
+[submodule "zsh/zsh-history-substring-search"]
+	path = zsh/zsh-history-substring-search
+	url = https://github.com/zsh-users/zsh-history-substring-search.git
+[submodule "zsh/zsh-autosuggestions"]
+	path = zsh/zsh-autosuggestions
+	url = https://github.com/tarruda/zsh-autosuggestions

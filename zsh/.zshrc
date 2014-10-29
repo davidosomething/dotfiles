@@ -19,7 +19,18 @@ fi
 # bin
 source_if_exists "$DOTFILES/z/z.sh"
 
-for script in "options" "aliases" "keybindings" "completions" "prompt" "zsh-syntax-highlighting/zsh-syntax-highlighting"; do
+scripts=(
+  "options"
+  "aliases"
+  "keybindings"
+  "completions"
+  "prompt"
+  "zsh-syntax-highlighting/zsh-syntax-highlighting"
+  "zsh-history-substring-search/zsh-history-substring-search"
+  "zsh-autosuggestions/autosuggestions"
+  "after"
+)
+for script in $scripts; do
   source "$ZDOTDIR/${script}.zsh"
 done
 
