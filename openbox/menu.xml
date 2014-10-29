@@ -157,6 +157,11 @@
 		<menu id="apps-term-menu"/>
 		<menu id="apps-fileman-menu"/>
 		<menu id="system-menu"/>
+		<item label="Power">
+			<action name="Execute">
+				<execute>oblogout</execute>
+			</action>
+		</item>
 		<item label="Log Out">
 			<action name="Exit">
 				<prompt>yes</prompt>

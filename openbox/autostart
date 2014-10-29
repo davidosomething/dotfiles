@@ -1,4 +1,7 @@
 # These things are run when an Openbox X Session is started.
+#
+# Check ~/.config/autostart/ and /etc/xdg/autostart/ for other places programs
+# might be starting from
 
 # Keymaps
 xmodmap "$HOME/src/davidosomething-config/potatoW510/.Xmodmap" &
@@ -12,22 +15,23 @@ fi
 compton -b &
 
 # Background Image
-feh --bg-scale $HOME/Dropbox/Public/blue-lego.png &
+(sleep 1s && feh --bg-scale $HOME/Dropbox/Public/blue-lego.png) &
 
 # Launcher
 # Can start on its own but I turned it off
-kupfer &
+#kupfer &
+(sleep 1s && synapse --startup) &
 
 # Dock
 # Can start on its own but I turned it off
-docky &
+(sleep 1s && docky) &
 
 # Tint Panel
-tint2 -c $HOME/.config/tint2/tint2rc &
+(sleep 1s && tint2 -c $HOME/.config/tint2/tint2rc) &
 
 # Thinkpad specific battery icon using tp_smapi
-# Starts on its own
+# Starts on its own from /etc/xdg/autostart
 #tp-battery-icon &
 
 # Volume applet
-volti &
+(sleep 1s && volti) &
