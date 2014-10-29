@@ -96,6 +96,10 @@ NeoBundle 'itchyny/lightline.vim', {
 
 NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
 
+NeoBundle 'neilagabriel/vim-geeknote'
+  noremap <F8> :Geeknote<cr>
+  let g:GeeknoteExplorerWidth=28
+
 NeoBundle 'mrtazz/simplenote.vim'
   let g:SimplenoteVertical=1
   let g:SimplenoteListHeight=28
