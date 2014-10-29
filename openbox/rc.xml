@@ -312,46 +312,50 @@
         <direction>down</direction>
       </action>
     </keybind>
-
-    <keybind key="W-c">   <action name="Execute"><command>google-chrome-stable</command></action></keybind>
-    <keybind key="W-t">   <action name="Execute"><command>gnome-terminal</command></action></keybind>
-    <keybind key="W-x">
-    <action name="Execute">
-      <startupnotify>
-      <enabled>true</enabled>
-        <name>oblogut</name>
-      </startupnotify>
-      <command>oblogout</command>
-    </action>
+    <keybind key="W-c">
+      <action name="Execute">
+        <command>google-chrome-stable</command>
+      </action>
     </keybind>
-
+    <keybind key="W-t">
+      <action name="Execute">
+        <command>gnome-terminal</command>
+      </action>
+    </keybind>
+    <keybind key="W-x">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>oblogut</name>
+        </startupnotify>
+        <command>oblogout</command>
+      </action>
+    </keybind>
     <keybind key="XF86AudioRaiseVolume">
-        <action name="Execute">
-            <command>amixer set Master 5%+ unmute</command>
-        </action>
+      <action name="Execute">
+        <command>amixer set Master 5%+ unmute</command>
+      </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
-        <action name="Execute">
-            <command>amixer set Master 5%- unmute</command>
-        </action>
+      <action name="Execute">
+        <command>amixer set Master 5%- unmute</command>
+      </action>
     </keybind>
     <keybind key="XF86AudioMute">
-        <action name="Execute">
-            <command>amixer set Master toggle</command>
-        </action>
+      <action name="Execute">
+        <command>amixer set Master toggle</command>
+      </action>
     </keybind>
-
     <keybind key="XF86MonBrightnessUp">
-        <action name="Execute">
-          <command>xbacklight +10</command>
-        </action>
+      <action name="Execute">
+        <command>xbacklight +10</command>
+      </action>
     </keybind>
     <keybind key="XF86MonBrightnessDown">
-        <action name="Execute">
-          <command>xbacklight -10</command>
-        </action>
+      <action name="Execute">
+        <command>xbacklight -10</command>
+      </action>
     </keybind>
-
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
@@ -428,14 +432,14 @@
         <action xmlns="http://openbox.org/3.4/rc" name="ToggleMaximize"/>
       </mousebind>
       <mousebind button="Up" action="Click">
-          <action name= "Execute" >
+        <action name="Execute">
           <execute>transset-df -p .05 --inc  </execute>
-          </action>
+        </action>
       </mousebind>
       <mousebind button="Down" action="Click">
-          <action name= "Execute" >
+        <action name="Execute">
           <execute>transset-df -p .05 --dec </execute>
-          </action>
+        </action>
       </mousebind>
     </context>
     <context name="Titlebar Top Right Bottom Left TLCorner TRCorner BRCorner BLCorner">

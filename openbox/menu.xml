@@ -1,39 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
-	<menu id="apps-accessories-menu" label="Accessories">
-		<item label="Calculator">
+	<menu id="system-menu" label="System">
+		<item label="lxapearance">
 			<action name="Execute">
-				<command>gnome-calculator</command>
+				<execute>/bin/lxappearance</execute>
+			</action>
+		</item>
+		<separator/>
+		<item label="Openbox Menu Editor">
+			<action name="Execute">
+				<execute>obmenu</execute>
+			</action>
+		</item>
+		<item label="Openbox Configuration Manager">
+			<action name="Execute">
+				<command>obconf</command>
 				<startupnotify>
 					<enabled>yes</enabled>
 				</startupnotify>
 			</action>
 		</item>
-		<item label="Character Map">
-			<action name="Execute">
-				<command>gnome-character-map</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
+		<item label="Reconfigure Openbox">
+			<action name="Reconfigure"/>
 		</item>
 	</menu>
-	<menu id="apps-term-menu" label="Terminals">
-		<item label="Gnome Terminal">
-			<action name="Execute">
-				<command>gnome-terminal</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-		<item label="Xterm">
-			<action name="Execute">
-				<command>xterm</command>
-			</action>
-		</item>
-	</menu>
-	<menu id="apps-net-menu" label="Internet">
+	<menu id="root-menu" label="Openbox 3">
 		<item label="Google Chrome">
 			<action name="Execute">
 				<execute>/bin/google-chrome-stable</execute>
@@ -48,6 +39,7 @@
 				</startupnotify>
 			</action>
 		</item>
+		<separator/>
 		<item label="Skype">
 			<action name="Execute">
 				<execute>/bin/skype</execute>
@@ -61,110 +53,27 @@
 				</startupnotify>
 			</action>
 		</item>
-	</menu>
-	<menu id="apps-fileman-menu" label="File Managers">
+		<separator/>
+		<item label="Gnome Terminal">
+			<action name="Execute">
+				<execute>/bin/gnome-terminal --hide-menubar</execute>
+			</action>
+		</item>
 		<item label="Nautilus">
 			<action name="Execute">
-				<command>nautilus --no-desktop --browser</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-	</menu>
-	<menu id="apps-graphics-menu" label="Graphics">
-		<item label="Gimp">
-			<action name="Execute">
-				<command>gimp</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-		<item label="Dia Diagram Editor">
-			<action name="Execute">
-				<command>dia</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-		<item label="Inkscape">
-			<action name="Execute">
-				<command>inkscape</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-	</menu>
-	<menu id="system-menu" label="System">
-		<item label="Openbox Menu Editor">
-			<action name="Execute">
-				<execute>obmenu</execute>
-			</action>
-		</item>
-		<item label="Openbox Configuration Manager">
-			<action name="Execute">
-				<command>obconf</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-		<item label="Gnome Control Center">
-			<action name="Execute">
-				<command>gnome-control-center</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-		<item label="KDE Control Center">
-			<action name="Execute">
-				<command>kcontrol</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-		<item label="Xfce Settings">
-			<action name="Execute">
-				<command>xfce-setting-show</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-		<item label="Manage Cups Printers">
-			<action name="Execute">
-				<command>xdg-open http://localhost:631/</command>
-				<startupnotify>
-					<enabled>no</enabled>
-					<icon>cups</icon>
-				</startupnotify>
+				<execute>/bin/nautilus</execute>
 			</action>
 		</item>
 		<separator/>
-		<item label="Reconfigure Openbox">
-			<action name="Reconfigure"/>
-		</item>
-	</menu>
-	<menu id="root-menu" label="Openbox 3">
-		<menu id="apps-accessories-menu"/>
-		<menu id="apps-graphics-menu"/>
-		<menu id="apps-net-menu"/>
-		<menu id="apps-term-menu"/>
-		<menu id="apps-fileman-menu"/>
 		<menu id="system-menu"/>
-		<item label="Power">
-			<action name="Execute">
-				<execute>oblogout</execute>
-			</action>
-		</item>
 		<item label="Log Out">
 			<action name="Exit">
 				<prompt>yes</prompt>
+			</action>
+		</item>
+		<item label="Power">
+			<action name="Execute">
+				<execute>oblogout</execute>
 			</action>
 		</item>
 	</menu>

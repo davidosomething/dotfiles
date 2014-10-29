@@ -11,23 +11,23 @@ if [ -x /usr/bin/tpb ] &&  [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
   /usr/bin/tpb -d &
 fi
 
+# Background Image
+feh --bg-scale $HOME/Dropbox/Public/blue-lego.png &
+
 # Compositing
 compton -b &
-
-# Background Image
-(sleep 1s && feh --bg-scale $HOME/Dropbox/Public/blue-lego.png) &
 
 # Launcher
 # Can start on its own but I turned it off
 #kupfer &
-(sleep 1s && synapse --startup) &
+synapse --startup &
 
 # Dock
 # Can start on its own but I turned it off
-(sleep 1s && docky) &
+docky &
 
 # Tint Panel
-(sleep 1s && tint2 -c $HOME/.config/tint2/tint2rc) &
+tint2 -c $HOME/.config/tint2/tint2rc &
 
 # Thinkpad specific battery icon using tp_smapi
 # Starts on its own from /etc/xdg/autostart
@@ -35,3 +35,8 @@ compton -b &
 
 # Volume applet
 (sleep 1s && volti) &
+
+# Apps
+(sleep 1s && gnome-terminal --hide-menubar) &
+(sleep 1s && google-chrome-stable) &
+
