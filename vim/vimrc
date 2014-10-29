@@ -40,7 +40,7 @@ if has('gui_running')
   set background=light
 else
   set t_Co=256
-  if g:is_term
+  if g:is_term && &term != "xterm"
     set t_Co=16
   endif
   set background=dark

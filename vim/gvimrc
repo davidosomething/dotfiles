@@ -1,6 +1,7 @@
+set lines=42 columns=120
+
 set guioptions-=m                     " hide file/edit/etc. menu
 set guioptions-=T                     " hide stupid button bar
-
 set guifont=Fira\ Mono\ for\ Powerline\ 10
 
 " Note that this needs to be done AFTER call neobundle#end()
