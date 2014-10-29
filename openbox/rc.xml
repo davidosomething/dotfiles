@@ -291,27 +291,7 @@
         </finalactions>
       </action>
     </keybind>
-    <!-- Keybindings for window switching with the arrow keys -->
-    <keybind key="W-S-Right">
-      <action name="DirectionalCycleWindows">
-        <direction>right</direction>
-      </action>
-    </keybind>
-    <keybind key="W-S-Left">
-      <action name="DirectionalCycleWindows">
-        <direction>left</direction>
-      </action>
-    </keybind>
-    <keybind key="W-S-Up">
-      <action name="DirectionalCycleWindows">
-        <direction>up</direction>
-      </action>
-    </keybind>
-    <keybind key="W-S-Down">
-      <action name="DirectionalCycleWindows">
-        <direction>down</direction>
-      </action>
-    </keybind>
+
     <keybind key="W-c">
       <action name="Execute">
         <command>google-chrome-stable</command>
@@ -331,6 +311,29 @@
         <command>oblogout</command>
       </action>
     </keybind>
+
+    <!-- vim style window resizing -->
+    <keybind key="W-h"><action name="ResizeRelative"><left>25</left></action></keybind>
+    <keybind key="W-S-h"><action name="ResizeRelative"><left>-25</left></action></keybind>
+    <keybind key="W-j"><action name="ResizeRelative"><bottom>25</bottom></action></keybind>
+    <keybind key="W-S-j"><action name="ResizeRelative"><bottom>-25</bottom></action></keybind>
+    <keybind key="W-k"><action name="ResizeRelative"><top>25</top></action></keybind>
+    <keybind key="W-S-k"><action name="ResizeRelative"><top>-25</top></action></keybind>
+    <keybind key="W-l"><action name="ResizeRelative"><right>25</right></action></keybind>
+    <keybind key="W-S-l"><action name="ResizeRelative"><right>-25</right></action></keybind>
+
+    <!-- window moving -->
+    <keybind key="W-Left"><action name="MoveRelative"><x>-25</x></action></keybind>
+    <keybind key="W-Down"><action name="MoveRelative"><y>25</y></action></keybind>
+    <keybind key="W-Up"><action name="MoveRelative"><y>-25</y></action></keybind>
+    <keybind key="W-Right"><action name="MoveRelative"><x>25</x></action></keybind>
+
+    <!-- Windows style window snapping -->
+    <keybind key="W-S-Left"><action name="MoveResizeTo"><x>10</x></action></keybind>
+    <keybind key="W-S-Down"><action name="MoveResizeTo"><y>-10</y></action></keybind>
+    <keybind key="W-S-Up"><action name="MoveResizeTo"><y>10</y></action></keybind>
+    <keybind key="W-S-Right"><action name="MoveResizeTo"><x>-10</x></action></keybind>
+
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
         <command>amixer set Master 5%+ unmute</command>
@@ -388,11 +391,6 @@
       <mousebind button="A-Right" action="Drag">
         <action name="Resize"/>
       </mousebind>
-      <mousebind button="A-Middle" action="Press">
-        <action name="Lower"/>
-        <action name="FocusToBottom"/>
-        <action name="Unfocus"/>
-      </mousebind>
       <mousebind button="A-Up" action="Click">
         <action name="GoToDesktop">
           <to>previous</to>
@@ -441,17 +439,24 @@
           <execute>transset-df -p .05 --dec </execute>
         </action>
       </mousebind>
+      <mousebind button="Middle" action="Press">
+        <action name="If">
+          <focused>yes</focused>
+          <then>
+            <action name="ToggleAlwaysOnTop"/>
+          </then>
+          <else>
+            <action name="Unfocus"/>
+            <action name="SendToLayer"><layer>normal</layer></action>
+          </else>
+        </action>
+      </mousebind>
     </context>
     <context name="Titlebar Top Right Bottom Left TLCorner TRCorner BRCorner BLCorner">
       <mousebind button="Left" action="Press">
         <action name="Focus"/>
         <action name="Raise"/>
         <action name="Unshade"/>
-      </mousebind>
-      <mousebind button="Middle" action="Press">
-        <action name="Lower"/>
-        <action name="FocusToBottom"/>
-        <action name="Unfocus"/>
       </mousebind>
       <mousebind button="Right" action="Press">
         <action name="Focus"/>
