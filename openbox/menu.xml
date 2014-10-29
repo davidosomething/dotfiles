@@ -51,6 +51,11 @@
 				<execute>/bin/skype</execute>
 			</action>
 		</item>
+		<item label="LINE Messenger">
+			<action name="Execute">
+				<execute>env WINEPREFIX=/home/davidosomething/.config/wine wine &quot;C:\Program Files\Naver\LINE\Line.exe&quot;</execute>
+			</action>
+		</item>
 		<item label="Pidgin Instant Messenger">
 			<action name="Execute">
 				<command>pidgin</command>
