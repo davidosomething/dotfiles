@@ -96,7 +96,7 @@ phpminorver() {
 ##
 # editing
 e() {
-  if [ "$DOTFILES_OS" == "Darwin" ] && [ -n "$HAS_BREW" ]; then
+  if [ "$DOTFILES_OS" = "Darwin" ] && [ -n "$HAS_BREW" ]; then
     if [ -z "$1" ]; then
       open -a MacVim.app
     else
