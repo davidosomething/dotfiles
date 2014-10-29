@@ -15,6 +15,7 @@ source_if_exists "$HOME/.travis/travis.sh"
 # homebrew's bash-completion package sources the rest of bash_completion.d
 source_if_exists "$BREW_PREFIX/etc/bash_completion"
 
+source_if_exists "$NVM_DIR/bash_completion"
 
 # following are from
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_profile

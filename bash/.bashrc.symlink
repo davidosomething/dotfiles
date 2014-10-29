@@ -8,6 +8,7 @@ for script in "options" "completions" "prompt"; do
 done
 
 source_if_exists "$BREW_PREFIX/share/chruby/chruby.sh"
+source_if_exists "$NVM_DIR/nvm.sh"
 source_if_exists "$DOTFILES/z/z.sh"
 
 # local
