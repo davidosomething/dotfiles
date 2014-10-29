@@ -34,6 +34,8 @@ alias vbm="VBoxManage"
 
 # function-type aliases
 alias publicip="curl icanhazip.com"
+# really clear the scrollback
+alias tpr="tput reset"
 
 # copy with progress and backup instead of overwrite
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"

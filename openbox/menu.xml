@@ -60,6 +60,12 @@
 			</action>
 		</item>
 		<separator/>
+		<item label="Adobe Photoshop CS6">
+			<action name="Execute">
+				<execute>env WINEPREFIX=/home/davidosomething/.config/wine wine &quot;C:\Program Files\Adobe\Adobe Photoshop CS6\Photoshop.exe&quot;</execute>
+			</action>
+		</item>
+		<separator/>
 		<item label="Gnome Terminal">
 			<action name="Execute">
 				<execute>/bin/gnome-terminal --hide-menubar</execute>
