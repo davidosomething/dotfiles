@@ -6,9 +6,9 @@
 
 # Background definitions
 # ID 1
-rounded = 12
-border_width = 1
-background_color = #000000 47
+rounded = 0
+border_width = 0
+background_color = #000000 24
 border_color = #444444 100
 
 # ID 2
@@ -19,10 +19,10 @@ border_color = #FFFFFF 100
 
 # Panel
 panel_monitor = all
-panel_position = bottom center horizontal
-panel_size = 1888 40
-panel_margin = 0 8
-panel_padding = 8 0 0
+panel_position = top center horizontal
+panel_size = 1920 36
+panel_margin = 0 0
+panel_padding = 0 0 0
 panel_dock = 0
 wm_menu = 0
 panel_layer = bottom
@@ -37,7 +37,7 @@ strut_policy = none
 
 # Taskbar
 taskbar_mode = single_desktop
-taskbar_padding = 8 8 16
+taskbar_padding = 4 4 16
 taskbar_background_id = 0
 #taskbar_active_background_id = 0
 
@@ -47,7 +47,7 @@ task_icon = 1
 task_text = 1
 task_centered = 1
 task_maximum_size = 200 32
-task_padding = 0 0
+task_padding = 4 8
 task_background_id = 0
 task_active_background_id = 0
 task_urgent_background_id = 0
@@ -70,7 +70,7 @@ font_shadow = 0
 # System Tray
 systray = 1
 systray_padding = 8 8 4
-systray_sort = ascending
+systray_sort = left2right
 systray_background_id = 0
 systray_icon_size = 0
 systray_icon_asb = 100 0 0
@@ -90,7 +90,7 @@ tooltip = 1
 tooltip_padding = 8 8
 tooltip_show_timeout = 0
 tooltip_hide_timeout = 0
-tooltip_background_id = 0
+tooltip_background_id = 2
 tooltip_font = Fira Sans 8
 tooltip_font_color = #FFFFFF 100
 

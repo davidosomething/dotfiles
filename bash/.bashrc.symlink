@@ -7,7 +7,7 @@ for script in "options" "completions" "prompt"; do
   source "$BASH_DOTFILES/${script}.bash"
 done
 
-source_if_exists "$BREW_PREFIX/share/chruby/chruby.sh"
+source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
 source_if_exists "$NVM_DIR/nvm.sh"
 source_if_exists "$DOTFILES/z/z.sh"
 

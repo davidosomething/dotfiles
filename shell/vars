@@ -57,11 +57,16 @@ has_program "apachectl" && {
 # boot2docker
 export DOCKER_HOST=tcp://localhost:4243
 
+# chruby
+# overridden in homebrew section if has brew
+export CHRUBY_PREFIX="/usr"
+
 # homebrew
 has_program "brew" && {
   export HAS_BREW=true
   export BREW_PREFIX="$(brew --prefix)"
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+  export CHRUBY_PREFIX="$BREW_PREFIX"
 
   # Ruby use brew openssl if available
   [[ -f $BREW_PREFIX/opt/openssl ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$BREW_PREFIX/opt/openssl"
@@ -70,7 +75,6 @@ has_program "brew" && {
 # git
 export GIT_PAGER="$PAGER -eFX"
 
-
 # node
 export NVM_DIR="$HOME/.nvm"
 export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
@@ -78,6 +82,10 @@ export NPM_PACKAGES="$HOME/.npm-packages"
 
 # Python - needed for fontforge
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+
+# Wine
+export WINEPREFIX=$HOME/.config/wine/
+export WINEARCH=win32
 
 ##
 # z

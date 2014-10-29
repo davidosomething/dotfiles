@@ -5,7 +5,7 @@ source "$HOME/.dotfiles/shell/aliases"
 
 # env programs
 source_if_exists "$HOME/.nvm/nvm.sh"
-source_if_exists "$BREW_PREFIX/share/chruby/chruby.sh"
+source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
 has_program chruby && chruby ruby-2.1.2
 
 # helpfiles
