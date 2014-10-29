@@ -8,7 +8,7 @@
 # ID 1
 rounded = 0
 border_width = 0
-background_color = #000000 21
+background_color = #000000 20
 border_color = #444444 100
 
 # ID 2
@@ -20,13 +20,13 @@ border_color = #FFFFFF 100
 # ID 3
 rounded = 0
 border_width = 0
-background_color = #FFFFFF 7
+background_color = #FFFFFF 9
 border_color = #FFFFFF 100
 
 # ID 4
 rounded = 0
 border_width = 0
-background_color = #FFFD00 4
+background_color = #FFFD00 2
 border_color = #FFFFFF 100
 
 # Panel
@@ -49,7 +49,7 @@ strut_policy = none
 
 # Taskbar
 taskbar_mode = single_desktop
-taskbar_padding = 4 4 16
+taskbar_padding = 8 4 8
 taskbar_background_id = 0
 #taskbar_active_background_id = 0
 

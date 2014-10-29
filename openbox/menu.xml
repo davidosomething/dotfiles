@@ -7,6 +7,12 @@
 			</action>
 		</item>
 		<separator/>
+		<item label="tintwizard">
+			<action name="Execute">
+				<execute>tintwizard</execute>
+			</action>
+		</item>
+		<separator/>
 		<item label="Openbox Menu Editor">
 			<action name="Execute">
 				<execute>obmenu</execute>
