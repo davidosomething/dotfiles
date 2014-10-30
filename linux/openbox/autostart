@@ -1,0 +1,32 @@
+# These things are run when an Openbox X Session is started.
+#
+# Check ~/.config/autostart/ and /etc/xdg/autostart/ for other places programs
+# might be starting from
+
+# Source the .xsession file if started openbox session directly
+# Which runs /usr/bin/openbox-session
+# without sourcing .xsession
+[ "$XDG_SESSION_DESKTOP" = "openbox" ] && [ -f "$HOME/.xsession" ] && {
+  source "$HOME/.xsession"
+}
+
+# Background Image
+feh --bg-scale $HOME/Dropbox/Public/blue-lego.png &
+
+# Compositing
+compton -b &
+
+# Dock
+# Can start on its own but I turned it off
+docky &
+
+# Tint Panel
+tint2 -c "$HOME/.config/tint2/tint2rc" && {
+  # Thinkpad specific battery icon using tp_smapi
+  # Starts on its own from /etc/xdg/autostart
+  #tp-battery-icon &
+
+  # Volume applet
+  volti
+} &
+

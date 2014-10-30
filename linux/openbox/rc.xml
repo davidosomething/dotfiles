@@ -292,7 +292,7 @@
       </action>
     </keybind>
 
-    <keybind key="W-c">
+    <keybind key="W-b">
       <action name="Execute">
         <command>google-chrome-stable</command>
       </action>

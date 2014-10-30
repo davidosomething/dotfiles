@@ -3,11 +3,6 @@
 source "$HOME/.dotfiles/shell/loader"
 source "$HOME/.dotfiles/shell/aliases"
 
-# env programs
-source_if_exists "$HOME/.nvm/nvm.sh"
-source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
-has_program chruby && chruby ruby-2.1.2
-
 # helpfiles
 if [[ -n "$HAS_BREW" ]]; then
   # use homebrew bundled zsh helpfiles for online help
@@ -16,7 +11,9 @@ if [[ -n "$HAS_BREW" ]]; then
   autoload run-help
 fi
 
-# bin
+# env programs
+source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
+source_if_exists "$NVM_DIR/nvm.sh"
 source_if_exists "$DOTFILES/z/z.sh"
 
 scripts=(

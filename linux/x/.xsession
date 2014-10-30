@@ -1,0 +1,24 @@
+# .xsession
+# Run on all X Sessions, regardless of DE used
+
+# Keymaps
+xmodmap "$HOME/src/davidosomething-config/potatoW510/.Xmodmap" &
+
+# Start Thinkpad OSD daemon
+if [ -x /usr/bin/tpb ] &&  [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
+  /usr/bin/tpb -d &
+fi
+
+# Launcher
+# Can start on its own but I turned it off
+#kupfer &
+(sleep 1s && synapse --startup) &
+
+# Clipboard manager
+# Started in /etc/xdg/autostart
+#(sleep 1s && parcellite -d) &
+
+# Apps
+(sleep 2s && gnome-terminal --hide-menubar) &
+(sleep 2s && google-chrome-stable) &
+

@@ -33,4 +33,5 @@ dkostatus "Done! [vim.sh]"
 
 dkostatus   "If you're on linux and using gnome-terminal, install the solarized"
 dkostatus_  "colorscheme for it (see readme). It can be found in the submodule:"
-dkostatus_  "~/.dotfiles/gnome-terminal-colors-solarized"
+dkostatus_  "~/.dotfiles/linux/gnome-terminal-colors-solarized"
+
