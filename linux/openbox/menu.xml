@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
 	<menu id="system-menu" label="System">
+		<item label="Gnome Control Center">
+			<action name="Execute">
+				<execute>gnome-control-center</execute>
+			</action>
+		</item>
 		<item label="lxapearance">
 			<action name="Execute">
 				<execute>/bin/lxappearance</execute>
@@ -31,9 +36,9 @@
 		</item>
 	</menu>
 	<menu id="root-menu" label="Openbox 3">
-		<item label="Google Chrome">
+		<item label="Chromium">
 			<action name="Execute">
-				<execute>/bin/google-chrome-stable</execute>
+				<execute>chromium</execute>
 			</action>
 		</item>
 		<item label="Firefox">

@@ -21,5 +21,5 @@ fi
 
 # Apps
 (sleep 1s && gnome-terminal --hide-menubar) &
-(sleep 1s && google-chrome-stable) &
+(sleep 1s && chromium) &
 
