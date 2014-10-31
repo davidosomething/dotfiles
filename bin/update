@@ -23,13 +23,13 @@ if [[ $# -eq 0 ]]; then
   dkousage_ "  gem"
   dkousage_ "  heroku"
   dkousage_ "  npm [--force]"
+  dkousage_ "  php    # phpenv"
   dkousage_ "  pip"
   dkousage_ "  vim"
   dkousage_ "  arch   # arch only"
   dkousage_ "  docker # osx only"
   dkousage_ "  osx    # osx only"
   dkousage_ "  brew   # osx only"
-  dkousage_ "  rbenv  # linux only"
   dkousage_ "  wp-cli # linux only"
   exit 1
 fi
@@ -39,7 +39,15 @@ case "$OSTYPE" in
   linux*)
     if [[ "$1" = "arch" ]]; then
       dkostatus "ArchLinux system update"
-      pacaur -Syu
+      if command -v yaourt >/dev/null; then
+        yaourt -Syua
+      elif command -v pacaur >/dev/null; then
+        pacaur -Syu
+      elif command -v aura >/dev/null; then
+        aura -Syua
+      else
+        pacman -Syu
+      fi
     fi
 
     if [[ "$1" = "wp" ]]; then
@@ -48,11 +56,6 @@ case "$OSTYPE" in
       php composer.phar self-update &&
       php composer.phar update --no-dev &&
       popd
-    fi
-
-    if [[ "$1" = "rbenv" ]]; then
-      dkostatus "Update rbenv"
-      rbenv update                  # update rbenv and installed gems
     fi
     ;;
 
@@ -122,6 +125,12 @@ if [[ "$1" = "npm" ]]; then
   fi
   dkostatus "Updating global npm modules"
   npm update -g
+fi
+
+if [ "$1" = "php" ] && [ -d "$HOME/.phpenv" ]; then
+  dkostatus "Updating phpenv"
+  pushd "$HOME/.phpenv" >/dev/null && git pull && popd >/dev/null
+  phpenv rehash
 fi
 
 if [[ "$1" = "pip" ]]; then
