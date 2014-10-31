@@ -2,7 +2,8 @@
 # Run on all X Sessions, regardless of DE used
 
 # Keymaps
-xmodmap "$HOME/src/davidosomething-config/potatoW510/.Xmodmap" &
+# GDM reads .Xmodmap -- don't do this, stalls everything for a few secs
+#xmodmap "$HOME/src/davidosomething-config/potatoW510/.Xmodmap" &
 
 # Start Thinkpad OSD daemon
 if [ -x /usr/bin/tpb ] &&  [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
@@ -19,6 +20,6 @@ fi
 #(sleep 1s && parcellite -d) &
 
 # Apps
-(sleep 2s && gnome-terminal --hide-menubar) &
-(sleep 2s && google-chrome-stable) &
+(sleep 1s && gnome-terminal --hide-menubar) &
+(sleep 1s && google-chrome-stable) &
 

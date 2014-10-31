@@ -21,12 +21,11 @@ compton -b &
 docky &
 
 # Tint Panel
-tint2 -c "$HOME/.config/tint2/tint2rc" && {
-  # Thinkpad specific battery icon using tp_smapi
-  # Starts on its own from /etc/xdg/autostart
-  #tp-battery-icon &
+tint2 -c "$HOME/.config/tint2/tint2rc"
+# Thinkpad specific battery icon using tp_smapi
+# Starts on its own from /etc/xdg/autostart
+#tp-battery-icon &
 
-  # Volume applet
-  volti
-} &
+# Volume applet
+volti &
 
