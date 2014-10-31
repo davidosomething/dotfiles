@@ -4,7 +4,7 @@ source "$HOME/.dotfiles/shell/loader"
 source "$HOME/.dotfiles/shell/aliases"
 
 # helpfiles
-if [[ -n "$HAS_BREW" ]]; then
+if [ -n "$HAS_BREW" ]; then
   # use homebrew bundled zsh helpfiles for online help
   export HELPDIR="$BREW_PREFIX/share/zsh/helpfiles"
   unalias run-help
@@ -33,3 +33,4 @@ done
 
 # local
 source_if_exists "$HOME/.zshrc.local"
+
