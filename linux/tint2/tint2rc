@@ -20,13 +20,13 @@ border_color = #FFFFFF 100
 # ID 3
 rounded = 0
 border_width = 0
-background_color = #FFFFFF 9
+background_color = #FFFFFF 8
 border_color = #FFFFFF 100
 
 # ID 4
 rounded = 0
 border_width = 0
-background_color = #FFFD00 2
+background_color = #FFFD00 1
 border_color = #FFFFFF 100
 
 # Panel

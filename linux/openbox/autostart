@@ -27,5 +27,5 @@ tint2 -c "$HOME/.config/tint2/tint2rc" &
 #tp-battery-icon &
 
 # Volume applet
-volti &
+pnmixer &
 
