@@ -29,3 +29,5 @@ tint2 -c "$HOME/.config/tint2/tint2rc" &
 # Volume applet
 pnmixer &
 
+gpaste applet &
+

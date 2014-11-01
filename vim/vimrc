@@ -190,8 +190,9 @@ endif
 
 ""
 " Mappings
-" Map <Leader> to comma
-let g:mapleader = ","
+" Map <Leader> to \
+" no longer using comma so I can reverse repeat fFtT searches
+let g:mapleader = "\\"
 if filereadable(expand("~/.vim/mappings.vim"))
   source ~/.vim/mappings.vim
 endif
