@@ -17,7 +17,7 @@
 	path = linux/base16-gnome-terminal
 	url = https://github.com/chriskempson/base16-gnome-terminal.git
 [submodule "base16-iterm2"]
-	path = base16-iterm2
+	path = osx/base16-iterm2
 	url = https://github.com/chriskempson/base16-iterm2.git
 [submodule "zsh/zsh-history-substring-search"]
 	path = zsh/zsh-history-substring-search

@@ -3,12 +3,13 @@
 # DOES NOT LOAD aliases since the shell may not be interactive
 
 _dotfiles_shell_loader() {
-  for script in "functions" "vars" "paths"; do
+  for script in "vars" "paths"; do
     local filename="$HOME/.dotfiles/shell/${script}"
     source "${filename}"
   done
 }
 
+source "$HOME/.dotfiles/shell/functions"
 current_shell="$( ps | grep $$ | awk '{ print $4 }' )"
 if [ "$DOTFILES_SHELL_LOADER" != "$current_shell" ]; then
   _dotfiles_shell_loader
