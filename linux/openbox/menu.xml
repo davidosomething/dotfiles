@@ -81,9 +81,9 @@
 				<execute>/bin/gnome-terminal --hide-menubar</execute>
 			</action>
 		</item>
-		<item label="Nautilus">
+		<item label="Thunar">
 			<action name="Execute">
-				<execute>/bin/nautilus</execute>
+				<execute>/bin/thunar</execute>
 			</action>
 		</item>
 		<separator/>
