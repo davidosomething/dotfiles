@@ -20,6 +20,7 @@ fi
 #(sleep 1s && parcellite -d) &
 
 # Apps
+# Start thunar daemon so it opens faster
+thunar --daemon &
 (sleep 1s && gnome-terminal --hide-menubar) &
 (sleep 1s && chromium) &
-
