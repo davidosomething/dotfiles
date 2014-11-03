@@ -9,7 +9,7 @@ autoload -U colors && colors
 ##
 # version control in prompt
 autoload -Uz vcs_info
-precmd() { vcs_info }
+precmd() { vcs_info; }
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' check-for-changes true

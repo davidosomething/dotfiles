@@ -1,9 +1,5 @@
 # sourced by zshrc
 
-fuck() {
-  sudo $(fc -ln -1)
-}
-
 # some of these paths are set in .zshenv.local!
 alias cp="nocorrect cp"
 alias mv="nocorrect mv"

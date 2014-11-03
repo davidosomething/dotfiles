@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
+	<menu id="graphics" label="Graphics">
+		<item label="Adobe Photoshop CS6">
+			<action name="Execute">
+				<execute>env WINEPREFIX=/home/davidosomething/.config/wine wine &quot;C:\Program Files\Adobe\Adobe Photoshop CS6\Photoshop.exe&quot;</execute>
+			</action>
+		</item>
+		<item label="GIMP Image Editor">
+			<action name="Execute">
+				<execute>/bin/gimp</execute>
+			</action>
+		</item>
+		<item label="Krita">
+			<action name="Execute">
+				<execute>/bin/krita</execute>
+			</action>
+		</item>
+		<item label="Xournal">
+			<action name="Execute">
+				<execute>/bin/xournal</execute>
+			</action>
+		</item>
+	</menu>
+	<menu id="messaging" label="Messaging">
+		<item label="Hipchat">
+			<action name="Execute">
+				<execute>/bin/hipchat</execute>
+			</action>
+		</item>
+		<item label="LINE Messenger">
+			<action name="Execute">
+				<execute>env WINEPREFIX=/home/davidosomething/.config/wine wine &quot;C:\Program Files\Naver\LINE\Line.exe&quot;</execute>
+			</action>
+		</item>
+		<item label="Skype">
+			<action name="Execute">
+				<execute>/bin/skype</execute>
+			</action>
+		</item>
+	</menu>
 	<menu id="system-menu" label="System">
 		<item label="Gnome Control Center">
 			<action name="Execute">
@@ -50,29 +89,16 @@
 				</startupnotify>
 			</action>
 		</item>
-		<separator/>
-		<item label="Skype">
+		<item label="Transmission">
 			<action name="Execute">
-				<execute>/bin/skype</execute>
+				<execute>/bin/transmission-gtk</execute>
 			</action>
 		</item>
-		<item label="LINE Messenger">
+		<menu id="messaging"/>
+		<menu id="graphics"/>
+		<item label="NixNote2">
 			<action name="Execute">
-				<execute>env WINEPREFIX=/home/davidosomething/.config/wine wine &quot;C:\Program Files\Naver\LINE\Line.exe&quot;</execute>
-			</action>
-		</item>
-		<item label="Pidgin Instant Messenger">
-			<action name="Execute">
-				<command>pidgin</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
-			</action>
-		</item>
-		<separator/>
-		<item label="Adobe Photoshop CS6">
-			<action name="Execute">
-				<execute>env WINEPREFIX=/home/davidosomething/.config/wine wine &quot;C:\Program Files\Adobe\Adobe Photoshop CS6\Photoshop.exe&quot;</execute>
+				<execute>/bin/nixnote2</execute>
 			</action>
 		</item>
 		<separator/>
