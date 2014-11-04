@@ -9,7 +9,10 @@ _dotfiles_shell_loader() {
   done
 }
 
+# always load functions
 source "$HOME/.dotfiles/shell/functions"
+
+# maybe load rest of scripts
 current_shell="$( ps | grep $$ | awk '{ print $4 }' )"
 if [ "$DOTFILES_SHELL_LOADER" != "$current_shell" ]; then
   _dotfiles_shell_loader
@@ -22,4 +25,4 @@ case "$TERM" in
 		;;
 esac
 
-# vim: set ft=sh:
+# vim: set ft=sh :

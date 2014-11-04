@@ -2,14 +2,11 @@
 # NOT run by loader
 
 alias reload="exec $SHELL"
-alias _="sudo"
-alias sudo="sudo " # allow sudo to use aliases
 
 # paths and dirs
-alias ..='cd ..'
-alias ....='cd ../..'
-alias cd..='cd ..'
-alias gr='git rev-parse && cd "$(git rev-parse --show-cdup)"'
+alias ..="cd .."
+alias ....="cd ../.."
+alias cd..="cd .."
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias l="ls -AFl"
 alias la="ls -AF"
@@ -17,7 +14,6 @@ alias ll="ls -AFl"
 alias tree="tree -C"
 
 # bin
-alias a="sudo aptitude -F \"%p %d %v\""
 alias b="brew"
 alias c="composer"
 alias f="find"
@@ -81,5 +77,10 @@ case "$OSTYPE" in
       alias pac="sudo pacman"
       alias thu="thunar"
     }
+    [ "$DOTFILES_DISTRO" = "debian" ] && {
+      alias a="sudo aptitude -F \"%p %d %v\""
+    }
     ;;
 esac
+
+# vim: set ft=sh :

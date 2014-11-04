@@ -81,14 +81,13 @@ export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
 export NPM_PACKAGES="$HOME/.npm-packages"
 
 # Python - needed for fontforge
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 # Wine
-export WINEPREFIX=$HOME/.config/wine/
+export WINEPREFIX="$HOME/.config/wine/"
 export WINEARCH=win32
 
-##
 # z
 export _Z_CMD=j
 
-# vim:syn=sh
+# vim: set ft=sh :
