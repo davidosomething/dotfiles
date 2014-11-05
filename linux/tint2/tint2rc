@@ -20,13 +20,13 @@ border_color = #FFFFFF 100
 # ID 3
 rounded = 0
 border_width = 0
-background_color = #FFFFFF 8
+background_color = #FFFFFF 7
 border_color = #FFFFFF 100
 
 # ID 4
 rounded = 0
 border_width = 0
-background_color = #FFFD00 1
+background_color = #FFFD00 0
 border_color = #FFFFFF 100
 
 # Panel
@@ -88,7 +88,7 @@ systray_icon_size = 0
 systray_icon_asb = 100 0 0
 
 # Clock
-time1_format = %a %Y-%m-%d %H:%M:%S %p
+time1_format = %a %Y-%m-%d %l:%M:%S %p
 time1_font = Fira Sans 8
 clock_font_color = #FFFFFF 100
 clock_padding = 8 0

@@ -33,3 +33,6 @@ gpaste applet &
 
 indicator-virtualbox &
 
+# Dash
+
+conky -d &
