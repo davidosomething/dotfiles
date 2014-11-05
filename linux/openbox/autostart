@@ -11,7 +11,7 @@
 }
 
 # Background Image
-feh --bg-scale $HOME/Dropbox/Public/blue-lego.png &
+feh --bg-scale $HOME/Dropbox/Public/03338_emptiness_1920x1080.jpg
 
 # Compositing
 compton -b &
@@ -30,4 +30,6 @@ tint2 -c "$HOME/.config/tint2/tint2rc" &
 pnmixer &
 
 gpaste applet &
+
+indicator-virtualbox &
 
