@@ -424,6 +424,13 @@
         <x>-10</x>
       </action>
     </keybind>
+
+    <keybind key="XF86TouchpadToggle">
+      <action name="Execute">
+        <command>touchpadtoggle</command>
+      </action>
+    </keybind>
+
     <!-- <keybind key="XF86AudioRaiseVolume"> -->
     <!--   <action name="Execute"> -->
     <!--     <command>amixer set Master 5%+ unmute</command> -->

@@ -4,3 +4,8 @@ chromium
 chromium-pepper-flash
 synapse
 pnmixer
+touchpadtoggle
+
+openbox-git
+compton-git
+
