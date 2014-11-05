@@ -179,7 +179,7 @@ o() {
   if [ "$DOTFILES_OS" = "Darwin" ]; then
     open "$@"
   else
-    xdg-open "$@" >/dev/null 2>&1 &
+    xdg-open "$@" &>/dev/null
   fi
 }
 

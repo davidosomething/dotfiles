@@ -3,15 +3,22 @@
 # Check ~/.config/autostart/ and /etc/xdg/autostart/ for other places programs
 # might be starting from
 
+# gnome compatibility
+export GNOME_DESKTOP_SESSION_ID="openbox"
+
 # Source the .xsession file if started openbox session directly
 # Which runs /usr/bin/openbox-session
 # without sourcing .xsession
 [ "$XDG_SESSION_DESKTOP" = "openbox" ] && [ -f "$HOME/.xsession" ] && {
-  source "$HOME/.xsession"
+  "$HOME/.xsession" &
 }
 
 # Background Image
-feh --bg-scale $HOME/Dropbox/Public/03338_emptiness_1920x1080.jpg
+if [ -f "$HOME/.fehbg" ]; then
+  "$HOME/.fehbg" &
+else
+  feh --bg-scale $HOME/Dropbox/Public/03338_emptiness_1920x1080.jpg &
+fi
 
 # Compositing
 compton -b &
@@ -29,10 +36,10 @@ tint2 -c "$HOME/.config/tint2/tint2rc" &
 # Volume applet
 pnmixer &
 
-gpaste applet &
-
 indicator-virtualbox &
 
 # Dash
 
 conky -d &
+
+# vim: set ft=sh :

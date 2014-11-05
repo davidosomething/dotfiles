@@ -29,6 +29,9 @@ esac
 }
 
 # Shell settings ---------------------------------------------------------------
+# xdg-user-dirs
+[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs ] && source ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs
+
 export SAVEHIST=1000
 export HISTSIZE=1000
 export HISTFILESIZE="$HISTSIZE";
