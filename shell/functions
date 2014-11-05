@@ -1,26 +1,4 @@
-brc() {
-  brew cask "${@}"
-}
-
-########################################
-# Linux
-flushfonts() {
-  fc-cache -f -v
-}
-
-########################################
-# OSX filesystem
-##
-# http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
-members() {
-  dscl . -list /Users | while read user; do
-    printf "%s " "$user"
-    dsmemberutil checkmembership -U "$user" -G "$*"
-  done | grep "is a member" | cut -d " " -f 1;
-}
-
-########################################
-# Scripting
+# Scripting --------------------------------------------------------------------
 
 # source a file if it exists
 source_if_exists() {
@@ -32,10 +10,30 @@ has_program() {
   command -v "$1" >/dev/null 2>&1
 }
 
-########################################
-# Directory cleanup
+# OSX --------------------------------------------------------------------------
 
-##
+brc() {
+  brew cask "${@}"
+}
+
+# list members for a group
+# http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
+members() {
+  dscl . -list /Users | while read user; do
+    printf "%s " "$user"
+    dsmemberutil checkmembership -U "$user" -G "$*"
+  done | grep "is a member" | cut -d " " -f 1;
+}
+
+# linux ------------------------------------------------------------------------
+
+# flush linux font cache
+flushfonts() {
+  fc-cache -f -v
+}
+
+# Directory --------------------------------------------------------------------
+
 # flatten a dir
 flatten() {
   if [[ -n $1 ]]; then
@@ -49,7 +47,6 @@ flatten() {
   fi
 }
 
-##
 # delete empty subdirs
 prune() {
   if [[ -n $1 ]]; then
@@ -63,7 +60,6 @@ prune() {
   fi
 }
 
-########################################
 # dev
 a2() {
   apachectl "$@"
@@ -71,7 +67,7 @@ a2() {
 
 a2r() {
   [[ $DOTFILES_OS = "Darwin" ]] && sudo apachectl -e info -k restart
-  [[ $DOTFILES_OS = "Linux" ]]  && sudo service apache2 reload
+  [[ $DOTFILES_DISTRO = "debian" ]]  && sudo service apache2 reload
 }
 
 art() {
@@ -82,7 +78,6 @@ cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
 }
 
-##
 # PHP version numbers
 # @TODO use cut instead of splitting awk?
 phpver() {
@@ -93,34 +88,6 @@ phpminorver() {
   php -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"
 }
 
-##
-# editing
-e() {
-  if [ "$DOTFILES_OS" = "Darwin" ] && [ -n "$HAS_BREW" ]; then
-    # no filename provided, create new Macvim
-    if [ -z "$1" ]; then
-      open -a MacVim.app
-    else
-      "$BREW_PREFIX/bin/mvim" --servername VIM --remote-tab-silent "$@"
-    fi
-  else
-    # ssh'ed or no X
-    if [ -n "$SSH_CONNECTION" ] || [ -z "$DISPLAY" ]; then
-      vim "$@"
-    else
-      if [ -z "$1" ]; then
-        if [ -n "$(gvim --serverlist)" ]; then
-          gvim --servername GVIM --remote-expr "foreground()"
-          gvim --servername GVIM --remote-send "<Esc>:tabnew<CR>"
-        else
-          gvim --servername GVIM
-        fi
-      else
-        gvim --servername GVIM --remote-tab-silent "$@"
-      fi
-    fi
-  fi
-}
 eapache() {
   e "${APACHE_HTTPD_ROOT}/${APACHE_HTTPD_CONF}"
 }
@@ -130,9 +97,17 @@ ephpini() {
 
 ########################################
 # traversal
-##
 
-##
+# display paths, one on each line
+paths() {
+  echo "$PATH" | tr ':' '\n'
+}
+
+# Go to git root
+gr() {
+  git rev-parse && cd "$(git rev-parse --show-cdup)"
+}
+
 # up 2 to cd ../..
 up() {
   local x=''
@@ -159,7 +134,7 @@ function fs() {
 
 ########################################
 # Archiving
-##
+
 # Export repo files to specified dir
 gitexport() {
   local to_dir="${2:-./gitexport}"
@@ -173,7 +148,6 @@ flushdns() {
   sudo killall -HUP mDNSResponder
 }
 
-##
 # type localip to get ethernet or wireless ip
 localip() {
   local localip=$(ipconfig getifaddr en0)
@@ -184,11 +158,11 @@ localip() {
 }
 
 mykey() {
-  cat ~/.ssh/id_rsa.pub
+  cat "$HOME/.ssh/id_rsa.pub"
   if has_program pbcopy; then
-    pbcopy < ~/.ssh/id_rsa.pub
+    pbcopy < "$HOME/.ssh/id_rsa.pub"
   elif has_program xclip; then
-    xclip -sel clip < ~/.ssh/id_rsa.pub
+    xclip -sel clip < "$HOME/.ssh/id_rsa.pub"
   fi
 }
 
@@ -197,16 +171,16 @@ mykey() {
 # Cleanup Open With Applications
 cleanopenwith() {
   # remove wine apps
-  rm -r ~/.local/share/applications/wine*
-  sed -i '/wine/d' ~/.local/share/applications/mimeinfo.cache
+  rm -r "$HOME/.local/share/applications/wine*"
+  sed -i '/wine/d' "$HOME/.local/share/applications/mimeinfo.cache"
 }
 
 o() {
-  if [[ $DOTFILES_OS = "Darwin" ]]; then
+  if [ "$DOTFILES_OS" = "Darwin" ]; then
     open "$@"
   else
     xdg-open "$@" >/dev/null 2>&1 &
   fi
 }
 
-# vim:syn=sh
+# vim: set ft=sh :

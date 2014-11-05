@@ -1,0 +1,18 @@
+main() {
+  # ssh'ed or no X
+  [ -n "$SSH_CONNECTION" ] && return vim "$@"
+  [ "$DOTFILES_OS" == "Linux" ] && [ -z "$DISPLAY" ] && return vim "$@"
+
+  local use_remote=""
+  if [ -n "$(gvim --serverlist)" ]; then
+    use_remote="--remote-silent"
+    # bring vim to foreground
+    gvim --servername GVIM --remote-expr "foreground()"
+  fi
+  # open files in vim using remote server if has
+  gvim --servername GVIM $use_remote "$@"
+}
+
+main "$@"
+
+# vim: set ft=sh :

@@ -1,7 +1,12 @@
-# vim:syn=sh
+# 1.  don't bother checking for path existence since system will skip
+#     automatically
+# 2.  don't use BREW_PREFIX since we always want /usr/local/ paths
 
+# Bottom supercedes top
+
+# local binaries
+PATH="/usr/local/sbin:$PATH"
 PATH="/usr/local/bin:$PATH"
-$HAS_BREW && PATH="$BREW_PREFIX/bin:$BREW_PREFIX/sbin:$PATH"
 
 # package managers -------------------------------------------------------------
 
@@ -9,8 +14,10 @@ $HAS_BREW && PATH="$BREW_PREFIX/bin:$BREW_PREFIX/sbin:$PATH"
 PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # npm
-[[ -d "$BREW_PREFIX" ]] && PATH="$BREW_PREFIX/share/npm/bin:$PATH"
-[[ -d "$NPM_PACKAGES" ]] && {
+# brew npm
+PATH="$BREW_PREFIX/share/npm/bin:$PATH"
+# home packages
+[ -d "$NPM_PACKAGES" ] && {
   PATH="$NPM_PACKAGES/bin:$PATH"
   unset MANPATH
   export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
@@ -21,6 +28,8 @@ export GOPATH="$HOME/go"
 PATH="$GOPATH/bin:$PATH"
 
 # local ------------------------------------------------------------------------
-PATH="$HOME/bin:$DOTFILES/bin:$PATH"
+PATH="$DOTFILES/bin:$PATH"
+PATH="$HOME/bin:$PATH"
 export PATH
 
+# vim: set ft=sh :
