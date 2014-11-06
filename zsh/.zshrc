@@ -23,8 +23,8 @@ scripts=(
   "completions"
   "prompt"
   "zsh-syntax-highlighting/zsh-syntax-highlighting"
-  "zsh-history-substring-search/zsh-history-substring-search"
-  "zsh-autosuggestions/autosuggestions"
+  # "zsh-history-substring-search/zsh-history-substring-search"
+  # "zsh-autosuggestions/autosuggestions"
   "after"
 )
 for script in $scripts; do
