@@ -48,3 +48,4 @@ zstyle ':completion:*' verbose yes
 has_program npm   && source "$DOTFILES/npm/completion"
 has_program grunt && eval "$(grunt --completion=zsh)"
 has_program grunt || echo 'no grunt'
+

@@ -30,3 +30,4 @@ bindkey '^[OF' end-of-line
 # VI mode allow home and end
 bindkey -M vicmd '^[[H' beginning-of-line
 bindkey -M vicmd '^[[F' end-of-line
+
