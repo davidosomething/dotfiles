@@ -19,9 +19,16 @@ fi
 # Started in /etc/xdg/autostart
 #(sleep 1s && parcellite -d) &
 
+# Volume applet
+pnmixer &
+
+indicator-virtualbox &
+
 # Apps
 # Start thunar daemon so it opens faster
 shutter --min_at_startup &
 thunar --daemon &
 (sleep 1s && gnome-terminal --hide-menubar) &
 (sleep 1s && chromium) &
+
+# vim: set ft=sh :
