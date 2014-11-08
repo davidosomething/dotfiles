@@ -14,7 +14,7 @@ else
 fi
 
 # Compositing
-compton -b &
+compton -b --config "$HOME/.compton.conf" &
 
 # Dock
 # Can start on its own but I turned it off

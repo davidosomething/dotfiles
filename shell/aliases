@@ -2,6 +2,7 @@
 # NOT run by loader
 
 alias reload='exec $SHELL'
+alias testnotification="notify-send 'Hello world!' 'This is an example notification.' --icon=dialog-information"
 
 # paths and dirs
 alias ..="cd .."
