@@ -1,7 +1,7 @@
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
 # NOT run by loader
 
-alias reload="exec $SHELL"
+alias reload='exec $SHELL'
 
 # paths and dirs
 alias ..="cd .."
@@ -34,7 +34,7 @@ alias vbm="VBoxManage"
 alias publicip="curl icanhazip.com"
 # really clear the scrollback
 alias tpr="tput reset"
-alias mine="sudo chown -R $USER"
+alias mine='sudo chown -R $USER'
 
 # copy with progress and backup instead of overwrite
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
@@ -43,15 +43,15 @@ alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 alias ag="ag -i"
 alias df="df -h"
 alias ln="ln -v"
-alias rsync="rsync --human-readable --partial --progress --exclude-from=$HOME/.cvsignore"
+alias rsync='rsync --human-readable --partial --progress --exclude-from=$HOME/.cvsignore'
 alias wget="wget --no-check-certificate"
 
 # quick edits
-alias ealiases="e $DOTFILES/shell/aliases"
-alias efunctions="e $DOTFILES/shell/functions"
-alias epaths="e $BASH_DOTFILES/paths.sh"
-alias ebashrc="e $BASH_DOTFILES/bashrc.sh"
-alias elbashrc="e $HOME/.bashrc.local"
+alias ealiases='e $DOTFILES/shell/aliases'
+alias efunctions='e $DOTFILES/shell/functions'
+alias epaths='e $BASH_DOTFILES/paths.sh'
+alias ebashrc='e $BASH_DOTFILES/bashrc.sh'
+alias elbashrc='e $HOME/.bashrc.local'
 alias ehosts="sudo vim /etc/hosts"
 
 # server

@@ -18,7 +18,7 @@ compton -b &
 
 # Dock
 # Can start on its own but I turned it off
-docky &
+docky --nvidia &
 
 # Tint Panel
 tint2 -c "$HOME/.config/tint2/tint2rc" &
