@@ -429,21 +429,32 @@
         <command>touchpadtoggle</command>
       </action>
     </keybind>
-    <!-- <keybind key="XF86AudioRaiseVolume"> -->
-    <!--   <action name="Execute"> -->
-    <!--     <command>amixer set Master 5%+ unmute</command> -->
-    <!--   </action> -->
-    <!-- </keybind> -->
-    <!-- <keybind key="XF86AudioLowerVolume"> -->
-    <!--   <action name="Execute"> -->
-    <!--     <command>amixer set Master 5%&#45; unmute</command> -->
-    <!--   </action> -->
-    <!-- </keybind> -->
-    <!-- <keybind key="XF86AudioMute"> -->
-    <!--   <action name="Execute"> -->
-    <!--     <command>amixer set Master toggle</command> -->
-    <!--   </action> -->
-    <!-- </keybind> -->
+
+    <!-- volume change with pop -->
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute"><command>amixer set Master 10%+ unmute</command></action>
+      <action name="Execute"><command>paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga</command></action>
+    </keybind>
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute"><command>amixer set Master 10%- unmute</command></action>
+      <action name="Execute"><command>paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga</command></action>
+    </keybind>
+    <keybind key="XF86AudioMute">
+      <action name="Execute"><command>amixer set Master toggle</command></action>
+      <action name="Execute"><command>paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga</command></action>
+    </keybind>
+
+    <!-- silent volume change -->
+    <keybind key="S-XF86AudioRaiseVolume">
+      <action name="Execute"><command>amixer set Master 10%+ unmute</command></action>
+    </keybind>
+    <keybind key="S-XF86AudioLowerVolume">
+      <action name="Execute"><command>amixer set Master 10%- unmute</command></action>
+    </keybind>
+    <keybind key="S-XF86AudioMute">
+      <action name="Execute"><command>amixer set Master toggle</command></action>
+    </keybind>
+
     <!-- <keybind key="XF86MonBrightnessUp"> -->
     <!--   <action name="Execute"> -->
     <!--     <command>xbacklight +10</command> -->
