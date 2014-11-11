@@ -11,23 +11,21 @@ if [ -x /usr/bin/tpb ] &&  [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
 fi
 
 # Launcher
-# Can start on its own but I turned it off
-#kupfer &
-(sleep 1s && synapse --startup) &
+#(sleep 1s && synapse --startup) &
 
 # Clipboard manager
 # Started in /etc/xdg/autostart
 #(sleep 1s && parcellite -d) &
 
 # Volume applet
-pnmixer &
+(sleep 2s && pnmixer) &
 
-indicator-virtualbox &
+(sleep 2s && indicator-virtualbox) &
 
 # Apps
 # Start thunar daemon so it opens faster
-shutter --min_at_startup &
 thunar --daemon &
+(sleep 2s && shutter --min_at_startup) &
 (sleep 1s && gnome-terminal --hide-menubar) &
 (sleep 1s && chromium) &
 

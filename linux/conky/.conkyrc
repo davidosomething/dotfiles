@@ -1,67 +1,89 @@
-alignment top_left
-background yes
-border_width 0
-default_color ffffff
+# conky configuration
+
+##############################################
+# Settings
+##############################################
+# hardware settings
 double_buffer yes
-draw_outline no
-draw_graph_borders no
-draw_borders no
-draw_shades no
-gap_x 5
-gap_y 37
-maximum_width 140
-minimum_size 1600
 no_buffers yes
-uppercase yes
-override_utf8_locale yes
+
+# placement
+alignment top_left
+gap_x 12
+gap_y 40
+
+# dimensions
+minimum_size 200 200
+maximum_width 240
+
+# window
 own_window yes
-own_window_title conky
-own_window_transparent no
+own_window_transparent yes
+own_window_type desktop
 own_window_argb_visual yes
 own_window_argb_value 0
-own_window_type normal
-own_window_hints undecorated,below,skip_taskbar
-own_window_class conky
-text_buffer_size 8000
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# updating
+update_interval 1.0
 total_run_times 0
-update_interval 1
+
+# painting
+background no
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# colors
+default_color ffffff
+default_shade_color 000000
+default_outline_color 828282
+
+# text output
 use_xft yes
-xftalpha 1.0
-xftfont Fira Mono:pixelsize=9
+xftfont Fira Mono:size=8
+xftalpha 1
+cpu_avg_samples 2
+uppercase no
 short_units yes
+override_utf8_locale no
 
-lua_draw_hook_post main_bars
-
+##############################################
+#  Output
+##############################################
 TEXT
-${color 77aacc}${font snap:pixelsize=9}SYSTEM ${color 1c1c1c}${stippled_hr 2}${color aaccee}${font PF Tempesta Five Condensed:pixelsize=8}
+${color 88bbee}SYSTEM ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
+Kernel:      $alignr${kernel} ${machine}
+Host:        $alignr$nodename
+Uptime:      $alignr$uptime
+Load:        $alignr${loadavg}
+Temperature: $alignr${acpitemp} F
 
-KERNEL: ${kernel}
+${color aaccdd}Disk usage:  $alignr${fs_used /}/${fs_size /}
+${color aaccdd}/Root: $alignc${fs_used /} / ${fs_size /}$alignr ${fs_used_perc /}%
+${color 1c1c1c}${fs_bar /}
+${color aaccdd}/Home: $alignc${fs_used /home} / ${fs_size /home}$alignr ${fs_used_perc /home}%
+${color 1c1c1c}${fs_bar /home}
 
-HOST: ${nodename}
+${color aaccdd}CPU usage: $alignr${cpu cpu0}%
+${color aaccdd}CPU 1: ${cpu cpu1}% ${color 1c1c1c}${cpubar cpu1}
+${color aaccdd}CPU 2: ${cpu cpu2}% ${color 1c1c1c}${cpubar cpu2}
+${color aaccdd}CPU 3: ${cpu cpu3}% ${color 1c1c1c}${cpubar cpu3}
+${color aaccdd}CPU 4: ${cpu cpu4}% ${color 1c1c1c}${cpubar cpu4}
 
-UPTIME: ${uptime}
+${color aaccdd}RAM   $alignc $mem / $memmax $alignr $memperc%
+${color 1c1c1c}$membar
 
-ARCHITECTURE: ${machine}
-
-LOAD: ${loadavg}
-
-
-${color 77aacc}${font snap:pixelsize=9}CPU / MEMORY ${color 1c1c1c}${stippled_hr 2}${color aaccee}
-
-${font PF Tempesta Five Condensed:pixelsize=8}CPU: ${cpu cpu0}%
-
-Ram: ${mem}/${memmax}
-${font Edges:pixelsize=9}${memperc}%${font micro:pixelsize=8}${goto 25} ${color 3f506b}${membar 3,65}${color aaccee}
-
-
-${color 77aacc}${font snap:pixelsize=9}Disk ${color 1c1c1c}${stippled_hr 2}${color aaccee}${font PF Tempesta Five Condensed:pixelsize=8}
-
-/Root:  ${fs_used /}/${fs_size /}
-${font Edges:pixelsize=9}${fs_used_perc /}%${color 3f506b} ${fs_bar 3,70 /}${font PF Tempesta Five Condensed:pixelsize=8}${color aaccee}
-
-/Home: ${fs_used /home}/${fs_free /home}
-${font Edges:pixelsize=9}${fs_used_perc /home}%${color 3f506b} ${fs_bar 3,70 /home}${font PF Tempesta Five Condensed:pixelsize=8}${color aaccee}
-
-/Swap: ${swap}/${swapmax}
-${font Edges:pixelsize=9}${fs_used_perc /home}% ${color 3f506b}${swapbar 3,70}
+${color 88bbee}TOP ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
+${top_mem name 1}${alignr}${top mem 1} %
+${top_mem name 2}${alignr}${top mem 2} %
+${top_mem name 3}${alignr}${top mem 3} %
+${top_mem name 4}${alignr}${top mem 4} %
+${top_mem name 5}${alignr}${top mem 5} %
+${top_mem name 6}${alignr}${top mem 6} %
+${top_mem name 7}${alignr}${top mem 7} %
+${top_mem name 8}${alignr}${top mem 8} %
+${top_mem name 9}${alignr}${top mem 9} %
+${top_mem name 10}${alignr}${top mem 10} %
 

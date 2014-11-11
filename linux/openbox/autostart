@@ -14,20 +14,20 @@ else
 fi
 
 # Compositing
-compton -b --config "$HOME/.compton.conf" &
+compton -b --config "$HOME/.config/compton.conf" &
 
 # Dock
 # Can start on its own but I turned it off
 docky --nvidia &
 
 # Tint Panel
-tint2 -c "$HOME/.config/tint2/tint2rc" &
+(sleep 1s && tint2 -c "$HOME/.config/tint2/tint2rc") &
 # Thinkpad specific battery icon using tp_smapi
 # Starts on its own from /etc/xdg/autostart
 #tp-battery-icon &
 
 # Dash
-conky -d &
+(sleep 1s && conky -d) &
 
 # Source the .xsession file if started openbox session directly
 # Which runs /usr/bin/openbox-session

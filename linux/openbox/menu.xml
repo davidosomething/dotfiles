@@ -45,6 +45,11 @@
 				<execute>/bin/lxappearance</execute>
 			</action>
 		</item>
+		<item label="gdm3setup">
+			<action name="Execute">
+				<execute>gksu gdm3setup</execute>
+			</action>
+		</item>
 		<separator/>
 		<item label="tintwizard">
 			<action name="Execute">
@@ -82,6 +87,11 @@
 					<enabled>yes</enabled>
 					<wmclass>Firefox</wmclass>
 				</startupnotify>
+			</action>
+		</item>
+		<item label="Filezilla">
+			<action name="Execute">
+				<execute>/usr/bin/filezilla</execute>
 			</action>
 		</item>
 		<item label="Transmission">
