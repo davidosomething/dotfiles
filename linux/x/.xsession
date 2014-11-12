@@ -25,7 +25,6 @@ fi
 # Apps
 # Start thunar daemon so it opens faster
 thunar --daemon &
-(sleep 2s && shutter --min_at_startup) &
 (sleep 1s && gnome-terminal --hide-menubar) &
 (sleep 1s && chromium) &
 
