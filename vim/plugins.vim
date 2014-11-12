@@ -100,14 +100,6 @@ NeoBundle 'neilagabriel/vim-geeknote'
   noremap <F8> :Geeknote<cr>
   let g:GeeknoteExplorerWidth=28
 
-NeoBundle 'mrtazz/simplenote.vim'
-  let g:SimplenoteVertical=1
-  let g:SimplenoteListHeight=28
-  let g:SimplenoteFiletype="markdown"
-  if filereadable(expand("~/.simplenoterc"))
-    source ~/.simplenoterc
-  endif
-
 NeoBundle 'nathanaelkane/vim-indent-guides'
   nnoremap <F7> :IndentGuidesToggle<CR>
   let g:indent_guides_guide_size = 1

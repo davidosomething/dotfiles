@@ -4,7 +4,7 @@
 <openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
   <resistance>
     <strength>10</strength>
-    <screen_edge_strength>20</screen_edge_strength>
+    <screen_edge_strength>10</screen_edge_strength>
   </resistance>
   <focus>
     <focusNew>yes</focusNew>
@@ -129,7 +129,7 @@
   </desktops>
   <resize>
     <drawContents>yes</drawContents>
-    <popupShow>Nonpixel</popupShow>
+    <popupShow>Always</popupShow>
     <!-- 'Always', 'Never', or 'Nonpixel' (xterms and such) -->
     <popupPosition>Center</popupPosition>
     <!-- 'Center', 'Top', or 'Fixed' -->
@@ -429,32 +429,47 @@
         <command>touchpadtoggle</command>
       </action>
     </keybind>
-
     <!-- volume change with pop -->
     <keybind key="XF86AudioRaiseVolume">
-      <action name="Execute"><command>amixer set Master 10%+ unmute</command></action>
-      <action name="Execute"><command>paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga</command></action>
+      <action name="Execute">
+        <command>amixer set Master 10%+ unmute</command>
+      </action>
+      <action name="Execute">
+        <command>paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga</command>
+      </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
-      <action name="Execute"><command>amixer set Master 10%- unmute</command></action>
-      <action name="Execute"><command>paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga</command></action>
+      <action name="Execute">
+        <command>amixer set Master 10%- unmute</command>
+      </action>
+      <action name="Execute">
+        <command>paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga</command>
+      </action>
     </keybind>
     <keybind key="XF86AudioMute">
-      <action name="Execute"><command>amixer set Master toggle</command></action>
-      <action name="Execute"><command>paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga</command></action>
+      <action name="Execute">
+        <command>amixer set Master toggle</command>
+      </action>
+      <action name="Execute">
+        <command>paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga</command>
+      </action>
     </keybind>
-
     <!-- silent volume change -->
     <keybind key="S-XF86AudioRaiseVolume">
-      <action name="Execute"><command>amixer set Master 10%+ unmute</command></action>
+      <action name="Execute">
+        <command>amixer set Master 10%+ unmute</command>
+      </action>
     </keybind>
     <keybind key="S-XF86AudioLowerVolume">
-      <action name="Execute"><command>amixer set Master 10%- unmute</command></action>
+      <action name="Execute">
+        <command>amixer set Master 10%- unmute</command>
+      </action>
     </keybind>
     <keybind key="S-XF86AudioMute">
-      <action name="Execute"><command>amixer set Master toggle</command></action>
+      <action name="Execute">
+        <command>amixer set Master toggle</command>
+      </action>
     </keybind>
-
     <!-- <keybind key="XF86MonBrightnessUp"> -->
     <!--   <action name="Execute"> -->
     <!--     <command>xbacklight +10</command> -->
