@@ -1,3 +1,5 @@
+# openbox autostart
+#
 # These things are run when an Openbox X Session is started.
 #
 # Check ~/.config/autostart/ and /etc/xdg/autostart/ for other places programs
@@ -5,6 +7,7 @@
 
 # gnome compatibility
 export GNOME_DESKTOP_SESSION_ID="openbox"
+[ "$DESKTOP_SESSION" = "openbox" ]
 
 # Background Image
 if [ -f "$HOME/.fehbg" ]; then
@@ -29,11 +32,32 @@ docky --nvidia &
 # Dash
 (sleep 1s && conky -d) &
 
-# Source the .xsession file if started openbox session directly
-# Which runs /usr/bin/openbox-session
-# without sourcing .xsession
-if [ "$XDG_SESSION_DESKTOP" = "openbox" ] && [ -f "$HOME/.xsession" ]; then
-  "$HOME/.xsession" &
+# Keymaps
+# GDM reads .Xmodmap -- don't do this, stalls everything for a few secs
+#xmodmap "$HOME/src/davidosomething-config/potatoW510/.Xmodmap" &
+
+# Start Thinkpad OSD daemon
+if [ -x /usr/bin/tpb ] &&  [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
+  /usr/bin/tpb -d &
 fi
+
+# Launcher
+# using xdg autostart
+#(sleep 1s && synapse --startup) &
+
+# Clipboard manager
+# using xdg autostart
+#(sleep 1s && parcellite -d) &
+
+# Volume applet
+(sleep 2s && pnmixer) &
+
+(sleep 2s && indicator-virtualbox) &
+
+# Apps
+# Start thunar daemon so it opens faster
+thunar --daemon &
+(sleep 1s && gnome-terminal --hide-menubar) &
+(sleep 1s && chromium) &
 
 # vim: set ft=sh :
