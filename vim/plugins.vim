@@ -192,6 +192,7 @@ endif
 NeoBundle 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
+  let g:SuperTabNoCompleteAfter = [ '^', '\s', '#', '\/\/', '\*' ]
 
 NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   nmap <Leader>a& :Tabularize /&<CR>
@@ -324,6 +325,8 @@ NeoBundle 'othree/javascript-libraries-syntax.vim'
   let g:used_javascript_libs = 'jquery,underscore,backbone'
 
 NeoBundle 'pangloss/vim-javascript'     " also creates javascript filetype
+  let g:javascript_enable_domhtmlcss=1
+
 NeoBundle 'heavenshell/vim-jsdoc'
   let g:jsdoc_default_mapping = 0
   if has("autocmd")
