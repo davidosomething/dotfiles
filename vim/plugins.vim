@@ -10,6 +10,7 @@ scriptencoding UTF-8
 " - shougo/unite.vim - CtrlP has WordPress.vim integration
 " - vim-command-w - doesn't work
 " - vim-scripts/kwbdi.vim - Bufkill is newer, maybe use vim-command-w?
+" - vim-scripts/IndentTab - Smart-Tabs actually works.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin dependencies
@@ -192,7 +193,6 @@ endif
 NeoBundle 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
-  let g:SuperTabNoCompleteAfter = [ '^', '\s', '#', '\/\/', '\*' ]
 
 NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   nmap <Leader>a& :Tabularize /&<CR>
@@ -232,8 +232,7 @@ NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
-NeoBundle 'vim-scripts/IndentTab'       " tab for indent space for inner space
-  let g:IndentTab_IsSuperTab = 1
+NeoBundle 'vim-scripts/Smart-Tabs'      " tab for indent space for inner space
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " text objects
