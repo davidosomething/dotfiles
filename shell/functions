@@ -1,6 +1,11 @@
 #!/bin/bash
 # Scripting --------------------------------------------------------------------
 
+current_shell() {
+  ps -p $$ | awk 'NR==2 { print $4 }'
+}
+
+
 # source a file if it exists
 source_if_exists() {
   [ -f "$1" ] && source "$1" # && echo "Sourced $1"
