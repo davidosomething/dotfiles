@@ -94,6 +94,7 @@ set expandtab                         " spaces instead of tabs
 set tabstop=2
 set shiftwidth=2
 set shiftround                        " use multiple of shiftwidth when
+set smarttab
                                       " indenting with '<' and '>'
 set softtabstop=2                     " tabs look like 2 spaces
 set backspace=indent,eol,start        " bs anything

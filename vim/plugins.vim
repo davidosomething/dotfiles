@@ -10,7 +10,6 @@ scriptencoding UTF-8
 " - shougo/unite.vim - CtrlP has WordPress.vim integration
 " - vim-command-w - doesn't work
 " - vim-scripts/kwbdi.vim - Bufkill is newer, maybe use vim-command-w?
-" - vim-scripts/IndentTab - Smart-Tabs actually works.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin dependencies
@@ -147,6 +146,8 @@ NeoBundle 'tpope/vim-unimpaired'        " used for line bubbling commands on osx
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocomplete
+" neocomplete probably used on osx
+"
 if g:settings.autocomplete_method == 'neocomplete'
   NeoBundle 'Shougo/neocomplete.vim', {
         \   'vim_version':'7.3.885'
@@ -159,6 +160,7 @@ if g:settings.autocomplete_method == 'neocomplete'
     let g:neocomplete#enable_underbar_completion   = 1
     let g:neocomplete#enable_fuzzy_completion      = 1
     let g:neocomplete#force_overwrite_completefunc = 1
+    let g:neocomplete#enable_refresh_always        = 1
     let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
 
     " from the github page: <CR> cancels completion and inserts newline
@@ -167,6 +169,11 @@ if g:settings.autocomplete_method == 'neocomplete'
       return neocomplete#close_popup() . "\<CR>"
     endfunction
 
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplete#close_popup()
+    inoremap <expr><C-e>  neocomplete#cancel_popup()
 endif
 if g:settings.autocomplete_method == 'neocomplcache'
   NeoBundle 'Shougo/neocomplcache.vim'
@@ -186,13 +193,24 @@ if g:settings.autocomplete_method == 'neocomplcache'
     let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
     let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplcache#close_popup()
+    inoremap <expr><C-e>  neocomplcache#cancel_popup()
 endif
+
+  " for both neocomplete and neocomplcache
+    " select completion using tab
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " editing keys
-NeoBundle 'ervandew/supertab'
-  let g:SuperTabDefaultCompletionType = "context"
-  let g:SuperTabContextDefaultCompletionType = "<c-n>"
+" NeoBundle 'ervandew/supertab'
+"   let g:SuperTabDefaultCompletionType = "context"
+"   let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
   nmap <Leader>a& :Tabularize /&<CR>
@@ -232,7 +250,8 @@ NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
-NeoBundle 'vim-scripts/Smart-Tabs'      " tab for indent space for inner space
+"NeoBundle 'vim-scripts/Smart-Tabs'
+"NeoBundle 'vim-scripts/IndentTab'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " text objects
