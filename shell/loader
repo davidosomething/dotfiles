@@ -1,3 +1,4 @@
+#!/bin/bash
 # loader for login shells
 # OUTPUT FORBIDDEN
 # DOES NOT LOAD aliases since the shell may not be interactive

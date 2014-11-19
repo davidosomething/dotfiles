@@ -1,3 +1,4 @@
+#!/bin/bash
 # sourced by both .zshrc and .bashrc, so keep it bash compatible
 # NOT run by loader
 
@@ -20,6 +21,7 @@ alias c="composer"
 alias f="find"
 alias g="git"
 alias g-="git co -"
+alias gdm="git diff master"
 alias gp="git push"
 alias n="npm"
 alias pac="pacaur"

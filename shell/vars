@@ -1,3 +1,4 @@
+#!/bin/bash
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
@@ -30,7 +31,7 @@ esac
 
 # Shell settings ---------------------------------------------------------------
 # xdg-user-dirs
-[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs ] && source ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs"
 
 export SAVEHIST=1000
 export HISTSIZE=1000
