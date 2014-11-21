@@ -1,3 +1,4 @@
+#!/bin/bash
 # .xprofile
 #
 # (startx -> .xinitrc) or DM
@@ -10,5 +11,7 @@
 export GCONFTOOL="/bin/gconftool-2"
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 export JAVA_FONTS=/usr/share/fonts/TTF
+
+xbindkeys &
 
 # vim: set ft=sh :
