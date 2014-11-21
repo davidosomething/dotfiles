@@ -291,51 +291,14 @@
         </finalactions>
       </action>
     </keybind>
-    <keybind key="W-1">
-      <action name="Execute">
-        <command>shutter -f -e</command>
-      </action>
-    </keybind>
-    <keybind key="W-2">
-      <action name="Execute">
-        <command>shutter -w -e</command>
-      </action>
-    </keybind>
     <keybind key="W-b">
       <action name="Execute">
-        <command>google-chrome-stable</command>
+        <command>chromium</command>
       </action>
     </keybind>
     <keybind key="W-t">
       <action name="Execute">
         <command>gnome-terminal --hide-menubar</command>
-      </action>
-    </keybind>
-    <!-- OSX style copy Super-c -->
-    <keybind key="W-c">
-      <action name="Execute">
-        <command>xdotool key XF86Copy</command>
-      </action>
-    </keybind>
-    <!-- OSX style cut Super-x -->
-    <keybind key="W-x">
-      <action name="Execute">
-        <command>xdotool key XF86Cut</command>
-      </action>
-    </keybind>
-    <!-- OSX style paste Super-v via middle-click-->
-    <keybind key="W-v">
-      <action name="Execute">
-        <command>xdotool getwindowfocus key --window %1 click 2</command>
-      </action>
-    </keybind>
-    <keybind key="W-q">
-      <action name="Execute">
-        <startupnotify>
-          <enabled>true</enabled>
-          <name>oblogout</name>
-        </startupnotify>
-        <command>oblogout</command>
       </action>
     </keybind>
     <keybind key="W-F11">
@@ -422,11 +385,6 @@
     <keybind key="W-S-Right">
       <action name="MoveResizeTo">
         <x>-10</x>
-      </action>
-    </keybind>
-    <keybind key="XF86TouchpadToggle">
-      <action name="Execute">
-        <command>touchpadtoggle</command>
       </action>
     </keybind>
     <!-- volume change with pop -->
