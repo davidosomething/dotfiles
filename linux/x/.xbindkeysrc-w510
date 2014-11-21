@@ -42,13 +42,13 @@
 
 #OSX Cut
 "xdotool key XF86Cut"
-    m:0x40 + c:145
-    Mod4 + XF86Cut 
+    m:0x40 + c:53
+    Mod4 + x 
 
 #OSX Copy
 "xdotool key XF86Copy"
-    m:0x40 + c:141
-    Mod4 + XF86Copy 
+    m:0x40 + c:54
+    Mod4 + c 
 
 #OSX Paste
 "xdotool getwindowfocus key --window %1 click 2"
@@ -67,7 +67,7 @@
 
 #Toggle Touchpad
 "w510-touchpadtoggle"
-    m:0x0 + c:151
+    m:0x0 + c:199
     XF86TouchpadToggle 
 
 #
