@@ -1,3 +1,4 @@
+#!/bin/bash
 # .xinitrc / .xsession
 # .xsession applies to XDM only -- useless for GDM/startx
 #

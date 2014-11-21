@@ -2,9 +2,10 @@ gpaste
 nvidia-340xx
 chromium
 chromium-pepper-flash
+dunst
 synapse
 pnmixer
-touchpadtoggle
+xbindkeys
 
 openbox-git
 compton-git
