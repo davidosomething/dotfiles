@@ -12,6 +12,8 @@ export GCONFTOOL="/bin/gconftool-2"
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 export JAVA_FONTS=/usr/share/fonts/TTF
 
+export STEAMAPPS="$HOME/.steam/steam/SteamApps"
+
 xbindkeys &
 
 # vim: set ft=sh :

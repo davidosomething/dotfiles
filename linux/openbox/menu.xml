@@ -99,13 +99,14 @@
 				<execute>/bin/transmission-gtk</execute>
 			</action>
 		</item>
-		<menu id="messaging"/>
-		<menu id="graphics"/>
 		<item label="NixNote2">
 			<action name="Execute">
 				<execute>/bin/nixnote2</execute>
 			</action>
 		</item>
+		<menu id="messaging"/>
+		<menu id="graphics"/>
+		<menu execute="~/.dotfiles/linux/openbox/pipe/steamapps.sh" id="pipe-steamapps" label="Steam"/>
 		<separator/>
 		<item label="Gnome Terminal">
 			<action name="Execute">
