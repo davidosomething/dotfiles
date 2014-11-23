@@ -1,37 +1,38 @@
 [alias]
-  a     = add
-  aa    = add .
-  b     = branch
-  be    = branch --edit-description
-  ca    = commit --amend
-  cfg   = "! $EDITOR ~/.gitconfig"
+  a       = add
+  aa      = add .
+  b       = branch
+  be      = branch --edit-description
+  ca      = commit --amend
+  cfg     = "! $EDITOR ~/.gitconfig"
   changed = diff HEAD..master
-  cb    = checkout -b
-  ci    = commit
-  cl    = changelog --list
-  cm    = commit -m
-  co    = checkout
-  ct    = checkout -t
-  d     = diff
-  dc    = diff --cached
-  done  = branch --merged
-  finda = "!grepalias() { git config --global --get-regexp alias | grep -i \"$1\" | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; grepalias"
+  cb      = checkout -b
+  ci      = commit
+  cl      = changelog --list
+  cm      = commit -m
+  co      = checkout
+  ct      = checkout -t
+  d       = diff
+  dc      = diff --cached
+  done    = branch --merged
+  finda   = "!grepalias() { git config --global --get-regexp alias | grep -i \"$1\" | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; grepalias"
   forget  = rm -r --cached
-  l     = log --abbrev-commit
-  lg    = log --abbrev-commit --graph --decorate
-  lb    = log --abbrev-commit --graph --oneline --decorate --all
-  ll    = log --abbrev-commit --pretty=oneline --max-count=15
-  m     = merge
-  names = diff HEAD..master --name-only
-  pr    = pull --rebase
+  g       = grep --break --heading --line-number
+  l       = log --abbrev-commit
+  lg      = log --abbrev-commit --graph --decorate
+  lb      = log --abbrev-commit --graph --oneline --decorate --all
+  ll      = log --abbrev-commit --pretty=oneline --max-count=15
+  m       = merge
+  names   = diff HEAD..master --name-only
+  pr      = pull --rebase
   pullall = "! f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
-  rb    = rebase
-  s     = status -bs
-  st    = status
-  t     = tag
-  um    = branch --no-merged
-  which = rev-parse --abbrev-ref HEAD
-  root  = !pwd -P
+  rb      = rebase
+  s       = status -bs
+  st      = status
+  t       = tag
+  um      = branch --no-merged
+  which   = rev-parse --abbrev-ref HEAD
+  root    = !pwd -P
 [color]
   branch      = auto
   diff        = auto
