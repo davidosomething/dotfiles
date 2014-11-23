@@ -6,6 +6,8 @@
 #     -> /usr/share/xsessions .desktop file
 #
 
+export BROWSER=chromium
+
 # moved here so it is available for all X, not needed in tty
 # https://wiki.archlinux.org/index.php/Java_Runtime_Environment_Fonts
 export GCONFTOOL="/bin/gconftool-2"
