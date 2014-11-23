@@ -56,8 +56,8 @@ TEXT
 ${color 88bbee}SYSTEM ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
 Kernel:      $alignr${kernel} ${machine}
 Host:        $alignr$nodename
-Ethernet:    $alignr${addr wlan0}
-WiFi:        $alignr${addr wlp3s0}
+${if_up wlan0}${wireless_essid wlan0}:$alignr${addr wlan0}
+${endif}${if_up wlp3s0}${wireless_essid wlp3s0}:$alignr${addr wlp3s0}${endif}
 Uptime:      $alignr$uptime
 Load:        $alignr${loadavg}
 Temperature: $alignr${acpitemp} F
