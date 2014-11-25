@@ -13,3 +13,6 @@ source_if_exists "$DOTFILES/z/z.sh"
 
 # local
 source_if_exists "$HOME/.bashrc.local"
+
+# added by travis gem
+[ -f /home/davidosomething/.travis/travis.sh ] && source /home/davidosomething/.travis/travis.sh
