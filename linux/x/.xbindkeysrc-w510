@@ -71,22 +71,22 @@
     XF86TouchpadToggle 
 
 #Volume Up
-"linux-audio-volume +"
+"/home/davidosomething/.dotfiles/bin/linux-audio-volume +"
     m:0x0 + c:123
     XF86AudioRaiseVolume 
 
 #Volume Down
-"linux-audio-volume -"
+"/home/davidosomething/.dotfiles/bin/linux-audio-volume -"
     m:0x0 + c:122
     XF86AudioLowerVolume 
 
 #Silent Volume Up
-"linux-audio-volume s+"
+"/home/davidosomething/.dotfiles/bin/linux-audio-volume s+"
     m:0x1 + c:123
     Shift + XF86AudioRaiseVolume 
 
 #Silent Volume Down
-"linux-audio-volume s-"
+"/home/davidosomething/.dotfiles/bin/linux-audio-volume s-"
     m:0x1 + c:122
     Shift + XF86AudioLowerVolume 
 

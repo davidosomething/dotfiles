@@ -35,6 +35,9 @@ docky --nvidia &
 # Keymaps
 # GDM reads .Xmodmap -- don't do this, stalls everything for a few secs
 #xmodmap "$HOME/src/davidosomething-config/potatoW510/.Xmodmap" &
+if ! pgrep xbindkeys; then
+  xbindkeys &
+fi
 
 # Start Thinkpad OSD daemon
 if [ -x /usr/bin/tpb ] &&  [ -w /dev/nvram ] && [ -r /dev/nvram ]; then

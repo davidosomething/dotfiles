@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
+	<menu id="games" label="Games">
+		<menu execute="~/.dotfiles/linux/openbox/pipe/steamapps.sh" id="pipe-steamapps" label="Steam Apps"/>
+		<item label="Minecraft">
+			<action name="Execute">
+				<execute>minecraft</execute>
+			</action>
+		</item>
+	</menu>
 	<menu id="graphics" label="Graphics">
 		<item label="Adobe Photoshop CS6">
 			<action name="Execute">
@@ -105,8 +113,8 @@
 			</action>
 		</item>
 		<menu id="messaging"/>
+		<menu id="games"/>
 		<menu id="graphics"/>
-		<menu execute="~/.dotfiles/linux/openbox/pipe/steamapps.sh" id="pipe-steamapps" label="Steam"/>
 		<separator/>
 		<item label="Gnome Terminal">
 			<action name="Execute">

@@ -16,6 +16,6 @@ export JAVA_FONTS=/usr/share/fonts/TTF
 
 export STEAMAPPS="$HOME/.steam/steam/SteamApps"
 
-xbindkeys &
+xbindkeys -f "$HOME/.xbindkeysrc" &
 
 # vim: set ft=sh :
