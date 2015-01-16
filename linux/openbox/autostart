@@ -19,10 +19,6 @@ fi
 # Compositing
 compton -b --config "$HOME/.config/compton.conf" &
 
-# Dock
-# Can start on its own but I turned it off
-docky --nvidia &
-
 # Tint Panel
 (sleep 1s && tint2 -c "$HOME/.config/tint2/tint2rc") &
 # Thinkpad specific battery icon using tp_smapi
