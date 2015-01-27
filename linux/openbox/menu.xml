@@ -33,6 +33,11 @@
 		</item>
 	</menu>
 	<menu id="messaging" label="Messaging">
+		<item label="HexChat">
+			<action name="Execute">
+				<execute>hexchat</execute>
+			</action>
+		</item>
 		<item label="Hipchat">
 			<action name="Execute">
 				<execute>/bin/hipchat</execute>

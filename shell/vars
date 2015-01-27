@@ -63,6 +63,10 @@ export DOCKER_HOST=tcp://localhost:4243
 # overridden in homebrew section if has brew
 export CHRUBY_PREFIX="/usr"
 
+# go
+# used in shell/paths
+export GOPATH="$HOME/go"
+
 # homebrew
 has_program "brew" && {
   export HAS_BREW=true
