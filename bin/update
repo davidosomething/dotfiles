@@ -121,6 +121,7 @@ if [[ "$1" = "npm" ]]; then
     npm install -g npm@latest
   else
     dkostatus "Updating npm itself"
+    npm update -g npm
   fi
   dkostatus "Updating global npm modules"
   npm update -g
