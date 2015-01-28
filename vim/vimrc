@@ -181,13 +181,13 @@ set switchbuf=useopen                 " reveal already opened files from the
 " easyclip handles this too, but this is more reliable since it does it in as
 " a command after exit/enter vim
 " clipboard -- use os clipboard
-if has('clipboard')
-  set clipboard=unnamed  " Share system clipboard.
-
-  if has('unnamedplus')
-    set clipboard+=unnamedplus  " Share X windows clipboard.
-  endif
-endif
+" if has('clipboard')
+"   set clipboard=unnamed  " Share system clipboard.
+"
+"   if has('unnamedplus')
+"     set clipboard+=unnamedplus  " Share X windows clipboard.
+"   endif
+" endif
 
 ""
 " Mappings
@@ -209,7 +209,6 @@ if has("autocmd")
   au BufRead,BufNewFile *.conf      setlocal filetype=conf
   au BufRead,BufNewFile *.jshintrc  setlocal filetype=json
   au BufRead,BufNewFile *.dump      setlocal filetype=sql
-  au BufRead,BufNewFile *.scss      setlocal filetype=scss
 
   " Set editor configs
   " use real tabs
