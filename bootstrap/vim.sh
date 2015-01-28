@@ -7,10 +7,10 @@ set -eu
 ################################################################################
 # initialize script and dependencies
 # get this bootstrap folder
-cd "$(dirname $0)"/..
+cd "$(dirname "$0")"/..
 dotfiles_path="$(pwd)"
 bootstrap_path="$dotfiles_path/bootstrap"
-source $bootstrap_path/helpers.sh
+source "$bootstrap_path/helpers.sh"
 
 dkorequire "curl"
 
@@ -23,8 +23,6 @@ fi
 ################################################################################
 dkostatus "Symlinking vim dotfiles and .vim folder"
 dkosymlink vim                 .vim
-dkosymlink vim/vimrc           .vimrc
-dkosymlink vim/gvimrc          .gvimrc
 
 dkostatus "Installing neobundle"
 curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
@@ -33,5 +31,5 @@ dkostatus "Done! [vim.sh]"
 
 dkostatus   "If you're on linux and using gnome-terminal, install the solarized"
 dkostatus_  "colorscheme for it (see readme). It can be found in the submodule:"
-dkostatus_  "~/.dotfiles/linux/gnome-terminal-colors-solarized"
+dkostatus_  "$HOME/.dotfiles/linux/gnome-terminal-colors-solarized"
 
