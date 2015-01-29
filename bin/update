@@ -141,7 +141,7 @@ fi
 
 if [[ "$1" = "vim" ]]; then
   dkostatus "Updating vim bundles"
-  vim -N -u ~/.vimrc -c "try | \
+  vim -N -u "$HOME/.vim/vimrc" -c "try | \
     NeoBundleClean! | \
     NeoBundleCheck | \
     NeoBundleUpdate! | \
