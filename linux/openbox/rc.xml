@@ -148,18 +148,18 @@
      Many programs reserve space automatically, but you can use this in other
      cases. -->
   <margins>
-    <top>40</top>
-    <bottom>64</bottom>
-    <left>10</left>
-    <right>10</right>
+    <top>0</top>
+    <bottom>0</bottom>
+    <left>0</left>
+    <right>0</right>
   </margins>
   <dock>
-    <position>Bottom</position>
+    <position>Top</position>
     <!-- (Top|Bottom)(Left|Right|)|Top|Bottom|Left|Right|Floating -->
     <floatingX>0</floatingX>
     <floatingY>0</floatingY>
     <noStrut>no</noStrut>
-    <stacking>Above</stacking>
+    <stacking>Below</stacking>
     <!-- 'Above', 'Normal', or 'Below' -->
     <direction>Horizontal</direction>
     <!-- 'Vertical' or 'Horizontal' -->

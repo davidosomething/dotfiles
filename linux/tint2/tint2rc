@@ -20,7 +20,7 @@ border_color = #FFFFFF 100
 # ID 3
 rounded = 0
 border_width = 0
-background_color = #FFFFFF 7
+background_color = #FFFFFF 6
 border_color = #FFFFFF 100
 
 # ID 4
@@ -36,15 +36,15 @@ panel_size = 1920 32
 panel_margin = 0 0
 panel_padding = 0 0 0
 panel_dock = 0
-wm_menu = 0
+wm_menu = 1
 panel_layer = bottom
 panel_background_id = 1
 
 # Panel Autohide
 autohide = 0
 autohide_show_timeout = 0.0
-autohide_hide_timeout = 0.0
-autohide_height = 0
+autohide_hide_timeout = 1.0
+autohide_height = 8
 strut_policy = none
 
 # Taskbar
