@@ -8,20 +8,20 @@
 # ID 1
 rounded = 0
 border_width = 0
-background_color = #000000 20
+background_color = #000000 8
 border_color = #444444 100
 
 # ID 2
 rounded = 0
 border_width = 0
-background_color = #000000 100
+background_color = #FFFFFF 2
 border_color = #FFFFFF 100
 
 # ID 3
 rounded = 0
-border_width = 0
-background_color = #FFFFFF 6
-border_color = #FFFFFF 100
+border_width = 1
+background_color = #000000 15
+border_color = #FFFFFF 14
 
 # ID 4
 rounded = 0
@@ -60,20 +60,20 @@ task_text = 1
 task_centered = 0
 task_maximum_size = 200 32
 task_padding = 4 4
-task_background_id = 0
+task_background_id = 2
 task_active_background_id = 3
 task_urgent_background_id = 4
-task_iconified_background_id = 0
+task_iconified_background_id = 2
 
 # Task Icons
-task_icon_asb = 100 0 0
+task_icon_asb = 50 0 0
 task_active_icon_asb = 100 0 0
 task_urgent_icon_asb = 100 0 0
 task_iconified_icon_asb = 100 0 0
 
 # Fonts
 task_font = Fira Sans 8
-task_font_color = #FFFFFF 100
+task_font_color = #FFFFFF 60
 task_active_font_color = #FFFFFF 100
 task_urgent_font_color = #FFFFFF 100
 task_iconified_font_color = #FFFFFF 100
@@ -81,10 +81,10 @@ font_shadow = 0
 
 # System Tray
 systray = 1
-systray_padding = 8 8 4
+systray_padding = 8 0 4
 systray_sort = left2right
 systray_background_id = 0
-systray_icon_size = 0
+systray_icon_size = 16
 systray_icon_asb = 100 0 0
 
 # Clock
