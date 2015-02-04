@@ -1,4 +1,4 @@
-set lines=55 columns=170
+set lines=55 columns=140
 
 set guioptions-=m                     " hide file/edit/etc. menu
 set guioptions-=T                     " hide stupid button bar

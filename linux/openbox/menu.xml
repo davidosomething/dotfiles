@@ -81,12 +81,6 @@
 			</action>
 		</item>
 		<separator/>
-		<item label="tintwizard">
-			<action name="Execute">
-				<execute>tintwizard</execute>
-			</action>
-		</item>
-		<separator/>
 		<item label="Openbox Menu Editor">
 			<action name="Execute">
 				<execute>obmenu</execute>
@@ -102,6 +96,11 @@
 		</item>
 		<item label="Reconfigure Openbox">
 			<action name="Reconfigure"/>
+		</item>
+		<item label="tintwizard">
+			<action name="Execute">
+				<execute>tintwizard</execute>
+			</action>
 		</item>
 	</menu>
 	<menu id="root-menu" label="Openbox 3">

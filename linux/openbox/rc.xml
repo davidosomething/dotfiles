@@ -836,5 +836,14 @@
 
   # end of the example
 -->
+
+  <!-- open gvim windows right half of screen -->
+  <application name="gvim">
+    <position force="yes">
+      <x>-24</x>
+      <y>24</y>
+    </position>
+  </application>
+
   </applications>
 </openbox_config>
