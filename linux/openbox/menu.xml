@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
 	<menu id="network" label="Network">
+		<item label="FileZilla">
+			<action name="Execute">
+				<execute>/usr/bin/filezilla</execute>
+			</action>
+		</item>
+		<item label="Transmission">
+			<action name="Execute">
+				<execute>/bin/transmission-gtk</execute>
+			</action>
+		</item>
 		<item label="Synology Assistant">
 			<action name="Execute">
 				<execute>SynologyAssistant</execute>
@@ -107,16 +117,6 @@
 					<enabled>yes</enabled>
 					<wmclass>Firefox</wmclass>
 				</startupnotify>
-			</action>
-		</item>
-		<item label="Filezilla">
-			<action name="Execute">
-				<execute>/usr/bin/filezilla</execute>
-			</action>
-		</item>
-		<item label="Transmission">
-			<action name="Execute">
-				<execute>/bin/transmission-gtk</execute>
 			</action>
 		</item>
 		<item label="NixNote2">

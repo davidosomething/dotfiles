@@ -8,20 +8,20 @@
 # ID 1
 rounded = 0
 border_width = 0
-background_color = #000000 8
+background_color = #000000 7
 border_color = #444444 100
 
 # ID 2
 rounded = 0
 border_width = 0
-background_color = #FFFFFF 2
+background_color = #FFFFFF 1
 border_color = #FFFFFF 100
 
 # ID 3
 rounded = 0
 border_width = 1
-background_color = #000000 15
-border_color = #FFFFFF 14
+background_color = #000000 14
+border_color = #FFFFFF 13
 
 # ID 4
 rounded = 0
@@ -35,7 +35,7 @@ panel_position = top center horizontal
 panel_size = 1920 32
 panel_margin = 0 0
 panel_padding = 0 0 0
-panel_dock = 0
+panel_dock = 1
 wm_menu = 1
 panel_layer = bottom
 panel_background_id = 1
@@ -45,7 +45,7 @@ autohide = 0
 autohide_show_timeout = 0.0
 autohide_hide_timeout = 1.0
 autohide_height = 8
-strut_policy = none
+strut_policy = follow_size
 
 # Taskbar
 taskbar_mode = single_desktop
