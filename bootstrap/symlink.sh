@@ -19,6 +19,7 @@ dkostatus "Symlinking dotfiles"
 dkosymlink ack/.ackrc.symlink         .ackrc
 dkosymlink cvs/.cvsignore.symlink     .cvsignore
 dkosymlink git/.gitconfig.symlink     .gitconfig
+dkosymlink subversion/config.symlink  .subversion/config
 dkosymlink shell/.inputrc.symlink     .inputrc
 dkosymlink ruby/.gemrc.symlink        .gemrc
 dkosymlink screen/.screenrc.symlink   .screenrc
