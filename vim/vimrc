@@ -54,6 +54,7 @@ set number
 set numberwidth=5
 set cursorline
 set scrolloff=8                       " show 2 lines of context
+set sidescrolloff=16
 
 " folds
 set foldcolumn=2
