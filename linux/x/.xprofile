@@ -16,6 +16,7 @@ export JAVA_FONTS=/usr/share/fonts/TTF
 
 export STEAMAPPS="$HOME/.steam/steam/SteamApps"
 
+# no xmodmap - GDM reads it
 xbindkeys -f "$HOME/.xbindkeysrc" &
 
 # vim: set ft=sh :
