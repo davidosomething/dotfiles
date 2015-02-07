@@ -50,17 +50,27 @@
 		</item>
 		<item label="Hipchat">
 			<action name="Execute">
-				<execute>/bin/hipchat</execute>
+				<execute>hipchat</execute>
 			</action>
 		</item>
 		<item label="LINE Messenger">
 			<action name="Execute">
-				<execute>env WINEPREFIX=/home/davidosomething/.config/wine wine &quot;C:\Program Files\Naver\LINE\Line.exe&quot;</execute>
+				<execute>env WINEPREFIX=&quot;$HOME/.config/wine&quot; wine &quot;C:\Program Files\Naver\LINE\Line.exe&quot;</execute>
+			</action>
+		</item>
+		<item label="Pidgin">
+			<action name="Execute">
+				<execute>pidgin</execute>
+			</action>
+		</item>
+		<item label="Slack">
+			<action name="Execute">
+				<execute>chromium --app=https://timeinc.slack.com/messages/javascript/</execute>
 			</action>
 		</item>
 		<item label="Skype">
 			<action name="Execute">
-				<execute>/bin/skype</execute>
+				<execute>skype</execute>
 			</action>
 		</item>
 	</menu>
