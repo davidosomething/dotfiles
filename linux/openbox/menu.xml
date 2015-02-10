@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
-	<menu id="network" label="Network">
-		<item label="FileZilla">
-			<action name="Execute">
-				<execute>/usr/bin/filezilla</execute>
-			</action>
-		</item>
-		<item label="Transmission">
-			<action name="Execute">
-				<execute>/bin/transmission-gtk</execute>
-			</action>
-		</item>
-		<item label="Synology Assistant">
-			<action name="Execute">
-				<execute>SynologyAssistant</execute>
-			</action>
-		</item>
-	</menu>
 	<menu id="games" label="Games">
 		<menu execute="~/.dotfiles/linux/openbox/pipe/steamapps.sh" id="pipe-steamapps" label="Steam Apps"/>
 		<item label="Minecraft">
@@ -71,6 +54,28 @@
 		<item label="Skype">
 			<action name="Execute">
 				<execute>skype</execute>
+			</action>
+		</item>
+	</menu>
+	<menu id="network" label="Network">
+		<item label="FileZilla">
+			<action name="Execute">
+				<execute>/usr/bin/filezilla</execute>
+			</action>
+		</item>
+		<item label="Remmina">
+			<action name="Execute">
+				<execute>remmina</execute>
+			</action>
+		</item>
+		<item label="Synology Assistant">
+			<action name="Execute">
+				<execute>SynologyAssistant</execute>
+			</action>
+		</item>
+		<item label="Transmission">
+			<action name="Execute">
+				<execute>/bin/transmission-gtk</execute>
 			</action>
 		</item>
 	</menu>
