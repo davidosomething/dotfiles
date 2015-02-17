@@ -1,5 +1,0 @@
-if tmux has 2>/dev/null; then
-  tmux attach;
-else
-  tmux new $SHELL;
-fi

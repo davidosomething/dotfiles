@@ -171,7 +171,7 @@ function dotfiles_usage() {
   echo "setups:"
   echo "  By specifying a setup you will run only the ones specified."
   echo "  Valid setups to run include:"
-  echo "  bash, cvsignore, gitconfig, github, osx, pow, tmux, vim, zsh"
+  echo "  bash, cvsignore, gitconfig, github, osx, pow, vim, zsh"
   echo
 }
 
@@ -229,9 +229,6 @@ while [ "$1" != "" ]; do
     pow )                 dotfiles_do_pow="y"
                           dotfiles_do_ask=0
                           ;;
-    tmux )                dotfiles_do_tmux="y"
-                          dotfiles_do_ask=0
-                          ;;
     vim )                 dotfiles_do_vim="y"
                           dotfiles_do_ask=0
                           ;;
@@ -267,7 +264,6 @@ if [ "$dotfiles_do_all" = 1 ]; then
     dotfiles_do_osx="y"
   fi
   dotfiles_do_pow="y"
-  dotfiles_do_tmux="y"
   dotfiles_do_vim="y"
   dotfiles_do_zsh="y"
   dotfiles_do_ask=0
@@ -281,7 +277,6 @@ if [ "$dotfiles_update_only" = 1 ]; then
   dotfiles_do_gitconfig="n"
   dotfiles_do_osx="n"
   dotfiles_do_pow="n"
-  dotfiles_do_tmux="n"
   dotfiles_do_vim="n"
   dotfiles_do_zsh="n"
   dotfiles_do_ask=0
@@ -297,7 +292,6 @@ if [ "$dotfiles_debug" = 1 ]; then
   echo "dotfiles_do_gitconfig: $dotfiles_do_gitconfig"
   echo "dotfiles_do_osx: $dotfiles_do_osx"
   echo "dotfiles_do_pow: $dotfiles_do_pow"
-  echo "dotfiles_do_tmux: $dotfiles_do_tmux"
   echo "dotfiles_do_vim: $dotfiles_do_vim"
   echo "dotfiles_do_zsh: $dotfiles_do_zsh"
   echo "dotfiles_do_ask: $dotfiles_do_ask"
@@ -363,7 +357,6 @@ fi
 
 [ "$dotfiles_do_cvsignore:l" = "y" ] && dotfiles_symlink_cvsignore
 [ "$dotfiles_do_pow:l"  = "y" ] && dotfiles_symlink_powconfig
-[ "$dotfiles_do_tmux:l" = "y" ] && dotfiles_create_tmuxconf
 
 [ "$dotfiles_do_vim:l" = "y" ] && dotfiles_symlink_vim
 [[ "$dotfiles_do_vim:l" = "y" || "$dotfiles_update_only" = "1" ]] && dotfiles_update_vim

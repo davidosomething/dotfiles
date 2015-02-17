@@ -23,7 +23,6 @@ dkosymlink subversion/config.symlink  .subversion/config
 dkosymlink shell/.inputrc.symlink     .inputrc
 dkosymlink ruby/.gemrc.symlink        .gemrc
 dkosymlink screen/.screenrc.symlink   .screenrc
-dkosymlink tmux/.tmux.conf.symlink    .tmux.conf
 
 ##
 # symlink shells

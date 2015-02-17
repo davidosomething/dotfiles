@@ -21,7 +21,7 @@
 ### Working bootstrap scripts
 
 * `symlink.sh`
-    * bash, zsh, ack, tmux, screen
+    * bash, zsh, ack, screen
 * `vim.sh`
     * vim
 
@@ -44,15 +44,13 @@ npm config set python /usr/bin/python2.7 -g
 The POW gem is no longer used since I have to use Cisco VPN for some things and
 there are DNS conflicts.
 
-### tmux
-
-Included is a compiled binary of Chris Johnsen's reattach-to-user-namespace
-that makes tmux work with pbcopy and OSX clipboard copy and paste.
-Check out https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard for more or
-if you need to recompile.
-
 ### vim
 
-Using NeoBundle for vim.
-NeoBundle will build dependencies where needed, e.g. for YouCompleteMe, so some
+Using NeoBundle for vim. NeoBundle will build dependencies where needed, some
 system build tools are needed.
+
+## Not included but I usually use
+
+* Adium theme: http://www.adiumxtras.com/index.php?a=xtras&xtra_id=7014
+
+
