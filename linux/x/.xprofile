@@ -8,9 +8,6 @@
 
 export BROWSER=chromium
 
-# for me only -- i always use gnome-terminal
-export TERM="xterm-256color"
-
 # moved here so it is available for all X, not needed in tty
 # https://wiki.archlinux.org/index.php/Java_Runtime_Environment_Fonts
 export GCONFTOOL="/bin/gconftool-2"
