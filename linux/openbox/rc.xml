@@ -845,5 +845,13 @@
     </position>
   </application>
 
+  <!-- open gvim windows right half of screen -->
+  <application name="gnome-terminal-server">
+    <position force="yes">
+      <x>24</x>
+      <y>-24</y>
+    </position>
+  </application>
+
   </applications>
 </openbox_config>
