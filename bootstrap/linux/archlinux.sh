@@ -10,7 +10,6 @@ sudo packer -S --needed \
   curl \
   git \
   openssh \
-  tmux \
   zsh
 
 # might have vim-gnome (gvim) installed instead, only install vim if not already
