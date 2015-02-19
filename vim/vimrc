@@ -1,7 +1,5 @@
 scriptencoding utf-8
 
-if !1 | finish | endif
-
 set nocompatible
 set encoding=utf-8 nobomb
 set exrc                              " per directory vimrc

@@ -18,6 +18,26 @@ imap jj <Esc>
 inoremap <F1> <nop>
 nnoremap <F1> <nop>
 
+" Toggle display lines movement mode
+let b:movementmode = "linewise"
+function! ToggleMovementMode()
+  if exists("b:movementmode") && b:movementmode == "linewise"
+    let b:movementmode = "display"
+    nnoremap j gj
+    nnoremap k gk
+    echo 'Moving by display lines'
+  elseif exists("b:movementmode") && b:movementmode == "display"
+    let b:movementmode = "linewise"
+    silent! nunmap j
+    silent! nunmap k
+    echo 'Moving by line numbers'
+  endif
+endfunction
+nnoremap <Leader>ws :call CleanCode()<cr>
+nnoremap <silent> <F11> :call ToggleMovementMode()<cr>
+inoremap <silent> <F11> <ESC>:call ToggleMovementMode()<cr>
+" visual defaults to display movement
+
 " Toggle paste mode
 nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
 inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
@@ -66,12 +86,7 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 " Commands
 " Remap :W to :w
 command W w
-
-""
-" zeal lookup
-if g:is_term
-  nnoremap <leader>K :!zeal --query "<cword>"&<CR><CR>
-endif
+command Q q
 
 ""
 " Traversal / Filesystem
@@ -97,8 +112,8 @@ nnoremap <silent> <Leader>md :!mkdir -p %:p:h<CR>
 
 " Sort lines
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
-nnoremap <Leader>s vip:!sort<cr>
-vnoremap <Leader>s :!sort<cr>
+nnoremap <Leader>ss vip:!sort<cr>
+vnoremap <Leader>ss :!sort<cr>
 
 " reselect visual block after indent
 vnoremap < <gv
@@ -242,52 +257,7 @@ nnoremap <silent> <C-Right> :tabnext<CR>
 inoremap <silent> <C-Left> <Esc>:tabprevious<CR>
 inoremap <silent> <C-Right> <Esc>:tabnext<CR>
 
-" Highlight Word
-" https://bitbucket.org/sjl/dotfiles
-"
-" This mini-plugin provides a few mappings for highlighting words temporarily.
-"
-" Sometimes you're looking at a hairy piece of code and would like a certain
-" word or two to stand out temporarily.  You can search for it, but that only
-" gives you one color of highlighting.  Now you can use <leader>N where N is
-" a number from 1-6 to highlight the current word in a specific color.
+" insert date, e.g. 2015-02-19
+nnoremap <leader>dd "=strftime("%Y-%m-%d")<CR>P
+inoremap <leader>dd <C-R>=strftime("%Y-%m-%d")<CR>
 
-function! HiInterestingWord(n)
-    " Save our location.
-    normal! mz
-
-    " Yank the current word into the z register.
-    normal! "zyiw
-
-    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
-    let mid = 86750 + a:n
-
-    " Clear existing matches, but don't worry if they don't exist.
-    silent! call matchdelete(mid)
-
-    " Construct a literal pattern that has to match at boundaries.
-    let pat = '\V\<' . escape(@z, '\') . '\>'
-
-    " Actually match the words.
-    call matchadd("InterestingWord" . a:n, pat, 1, mid)
-
-    " Move back to our original location.
-    normal! `z
-endfunction
-
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
-
-hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
-hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
-hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
-hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
-hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
-hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
-
-nnoremap <leader>d "=strftime("%Y-%m-%d")<CR>P
-inoremap <leader>d <C-R>=strftime("%Y-%m-%d")<CR>
