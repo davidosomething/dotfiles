@@ -10,6 +10,7 @@ scriptencoding UTF-8
 " - shougo/unite.vim - CtrlP has WordPress.vim integration
 " - vim-command-w - doesn't work
 " - vim-scripts/kwbdi.vim - Bufkill is newer, maybe use vim-command-w?
+" - techlivezheng/vim-plugin-minibufexpl - don't like the double status line
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin dependencies
@@ -47,31 +48,59 @@ NeoBundle 'altercation/vim-colors-solarized'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ui
 
+NeoBundle 'bling/vim-airline', {
+      \   'depends': 'vim-fugitive'
+      \ }
+  let g:airline_powerline_fonts = 1
+  let g:airline_theme= "bubblegum"
+
+  if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+  let g:airline_symbols.linenr = ''
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.readonly = ''
+
+  " list tabs/buffers at top
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#show_tabs = 0
+  let g:airline#extensions#tabline#show_tab_nr = 0
+
+  " disable extensions for speed
+  let g:airline#extensions#tagbar#enabled = 0
+  let g:airline#extensions#csv#enabled = 0
+  let g:airline#extensions#hunks#enabled = 0
+  let g:airline#extensions#virtualenv#enabled = 0
+  let g:airline#extensions#eclim#enabled = 0
+  let g:airline#extensions#whitespace#enabled = 0
+  let g:airline#extensions#nrrwrgn#enabled = 0
+  let g:airline#extensions#capslock#enabled = 0
+  let g:airline#extensions#windowswap#enabled = 0
+
 NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
 NeoBundle 'dbarsam/vim-bufkill'     " :bd keeps window open
 
-NeoBundle 'itchyny/lightline.vim', {
-      \   'depends': 'vim-fugitive'
-      \ }
-  let g:lightline = {
-        \   'active': {
-        \     'left': [
-        \         [ 'mode', 'paste' ],
-        \         [ 'fugitive', 'readonly', 'filename', 'modified' ]
-        \     ]
-        \   },
-        \   'component': {
-        \     'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-        \     'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
-        \   },
-        \   'component_visible_condition': {
-        \     'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-        \     'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-        \   },
-        \   'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-        \   'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
-        \ }
+" NeoBundle 'itchyny/lightline.vim', {
+"       \   'depends': 'vim-fugitive'
+"       \ }
+"   let g:lightline = {
+"         \   'active': {
+"         \     'left': [
+"         \         [ 'mode', 'paste' ],  [ 'fugitive', 'readonly', 'filename', 'modified' ],
+"         \     ],
+"         \   },
+"         \   'component': {
+"         \     'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+"         \     'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+"         \   },
+"         \   'component_visible_condition': {
+"         \     'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+"         \     'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+"         \   },
+"         \   'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+"         \   'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
+"         \ }
 
 " NeoBundle 'ctrlpvim/ctrlp.vim'
 "   let g:ctrlp_extensions = ['funky']
