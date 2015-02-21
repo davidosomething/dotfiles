@@ -49,8 +49,12 @@ there are DNS conflicts.
 Using NeoBundle for vim. NeoBundle will build dependencies where needed, some
 system build tools are needed.
 
+### nm-applet permissions
+
+Ensure policykit allows users in the network access:
+https://bbs.archlinux.org/viewtopic.php?id=136202
+
 ## Not included but I usually use
 
 * Adium theme: http://www.adiumxtras.com/index.php?a=xtras&xtra_id=7014
-
 

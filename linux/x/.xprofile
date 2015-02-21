@@ -10,13 +10,20 @@ export BROWSER=chromium
 
 # moved here so it is available for all X, not needed in tty
 # https://wiki.archlinux.org/index.php/Java_Runtime_Environment_Fonts
+# Added this specifically for the minecraft launcher
 export GCONFTOOL="/bin/gconftool-2"
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 export JAVA_FONTS=/usr/share/fonts/TTF
 
 export STEAMAPPS="$HOME/.steam/steam/SteamApps"
 
+# gnome polkit authentication (so nm-applet can create connections)
+[[ -x "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" ]] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
 # no xmodmap - GDM reads it
-xbindkeys -f "$HOME/.xbindkeysrc" &
+
+# bind media keys if system has an xbindkeysrc
+# mine is kept in a separate repo per machine
+[[ -f "$HOME/.xbindkeysrc" ]] && xbindkeys -f "$HOME/.xbindkeysrc" &
 
 # vim: set ft=sh :

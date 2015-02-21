@@ -25,6 +25,13 @@
 			</action>
 		</item>
 	</menu>
+	<menu id="media" label="Media">
+		<item label="Popcorn Time">
+			<action name="Execute">
+				<execute>popcorntime</execute>
+			</action>
+		</item>
+	</menu>
 	<menu id="messaging" label="Messaging">
 		<item label="HexChat">
 			<action name="Execute">
@@ -138,6 +145,7 @@
 				<execute>/bin/nixnote2</execute>
 			</action>
 		</item>
+		<menu id="media"/>
 		<menu id="messaging"/>
 		<menu id="games"/>
 		<menu id="graphics"/>
