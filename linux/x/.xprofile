@@ -18,7 +18,7 @@ export JAVA_FONTS=/usr/share/fonts/TTF
 export STEAMAPPS="$HOME/.steam/steam/SteamApps"
 
 # gnome polkit authentication (so nm-applet can create connections)
-[[ -x "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" ]] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+#[[ -x "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" ]] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # no xmodmap - GDM reads it
 

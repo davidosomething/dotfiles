@@ -49,10 +49,10 @@ there are DNS conflicts.
 Using NeoBundle for vim. NeoBundle will build dependencies where needed, some
 system build tools are needed.
 
-### nm-applet permissions
+### nm-applet permissions on arch
 
-Ensure policykit allows users in the network access:
-https://bbs.archlinux.org/viewtopic.php?id=136202
+Ensure policykit allows users in the network access, option 3 here:
+https://wiki.archlinux.org/index.php/NetworkManager#Set_up_PolicyKit_permissions
 
 ## Not included but I usually use
 
