@@ -20,6 +20,12 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RTP and plugin management
+" Ensure neobundle exists
+if empty(glob('~/.vim/bundle/neobundle.vim'))
+  silent !curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
+  autocmd VimEnter * NeoBundleUpdate
+endif
+
 if has("vim_starting")
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
