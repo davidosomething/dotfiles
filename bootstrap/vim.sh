@@ -24,12 +24,5 @@ fi
 dkostatus "Symlinking vim dotfiles and .vim folder"
 dkosymlink vim                 .vim
 
-dkostatus "Installing neobundle"
-curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
-
 dkostatus "Done! [vim.sh]"
-
-dkostatus   "If you're on linux and using gnome-terminal, install the solarized"
-dkostatus_  "colorscheme for it (see readme). It can be found in the submodule:"
-dkostatus_  "$HOME/.dotfiles/linux/gnome-terminal-colors-solarized"
 
