@@ -1,17 +1,5 @@
 scriptencoding UTF-8
 
-" Don't need:
-" - CtrlP - I just don't use it...
-" - jeetsukumaran/vim-buffergator - CtrlP has a buffer mode
-" - kien/tabman.vim - CtrlP does the same thing
-" - matthias-guenther/hammer.vim - rbenv shell sys didn't work to install
-" - scrooloose/nerdtree - go full on CtrlP
-" - shougo/neosnippet.vim - use UltiSnips for WordPress.vim integration
-" - shougo/unite.vim - CtrlP has WordPress.vim integration
-" - vim-command-w - doesn't work
-" - vim-scripts/kwbdi.vim - Bufkill is newer, maybe use vim-command-w?
-" - techlivezheng/vim-plugin-minibufexpl - don't like the double status line
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin dependencies
 
