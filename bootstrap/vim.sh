@@ -12,8 +12,6 @@ dotfiles_path="$(pwd)"
 bootstrap_path="$dotfiles_path/bootstrap"
 source "$bootstrap_path/helpers.sh"
 
-dkorequire "curl"
-
 ################################################################################
 # Check if a vim folder already exists
 if [[ -d "$HOME/.vim" ]]; then
