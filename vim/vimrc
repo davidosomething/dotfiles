@@ -21,9 +21,11 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RTP and plugin management
 " Ensure neobundle exists
+let g:is_first_neobundle = 0
 if empty(glob('~/.vim/bundle/neobundle.vim'))
   silent !curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
   autocmd VimEnter * NeoBundleUpdate
+  let g:is_first_neobundle = 1
 endif
 
 if has("vim_starting")
@@ -31,6 +33,18 @@ if has("vim_starting")
 endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
+
+if g:is_first_neobundle
+  NeoBundle 'Shougo/vimproc', {
+      \   'build': {
+      \     'mac':     'make -f make_mac.mak',
+      \     'unix':    'make -f make_unix.mak',
+      \     'cygwin':  'make -f make_cygwin.mak',
+      \     'windows': 'make -f make_mingw32.mak',
+      \   }
+      \ }
+  NeoBundleInstall 'vimproc'
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " display

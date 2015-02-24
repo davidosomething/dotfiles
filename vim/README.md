@@ -5,6 +5,11 @@ Keep `(g)vimrc` (no dot in filename) in `.vim` -- vim knows to look in there.
 ## Plugins I intentionally don't use
 - ctrlpvim/ctrlp.vim
     - I always just `ag` from a terminal or open an exact filename in vim
+    - Extras
+      ```
+      " NeoBundle 'tacahiroy/ctrlp-funky'
+      "   nnoremap <F8> :CtrlPFunky<Cr>
+      ```
 - jeetsukumaran/vim-buffergator
     - Using vim-airline to show buffers all the time, unimpaired switches
     - alternatively, CtrlP has a buffer mode if I wanted it
@@ -23,4 +28,51 @@ Keep `(g)vimrc` (no dot in filename) in `.vim` -- vim knows to look in there.
     - don't like the double status line
 - vim-scripts/kwbdi.vim
     - Bufkill is newer
+
+```
+" Don't want for now until I can turn off the highlighting:
+" NeoBundle 'Rykka/clickable.vim', {
+"       \   'depends': 'vimproc',
+"       \ }
+"   let g:clickable_browser = 'chrome'
+```
+
+```
+NeoBundle 'ervandew/supertab'
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
+```
+
+```
+" conflicts with easyclip M mapping
+"NeoBundle 'gorkunov/smartpairs.vim'
+```
+
+
+```
+" if executable("ctags")
+"   NeoBundle 'majutsushi/tagbar'
+"     let g:tagbar_compact = 1
+"     let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
+"     nnoremap <F4> :TagbarToggle<CR>
+" endif
+
+" NeoBundle 'osyo-manga/vim-over'
+"   nnoremap <c-s> :OverCommandLine<CR>
+```
+
+```
+" NeoBundle 'Keithbsmiley/investigate.vim'
+" nnoremap <leader>K :call investigate#Investigate()<CR>
+" if g:is_macvim
+"   let g:investigate_use_dash=1
+" endif
+
+" NeoBundle 'mileszs/ack.vim'
+```
+
+```
+"NeoBundle 'vim-scripts/Smart-Tabs'
+"NeoBundle 'vim-scripts/IndentTab'
+```
 
