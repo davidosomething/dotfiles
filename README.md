@@ -49,6 +49,8 @@ there are DNS conflicts.
 Using NeoBundle for vim. NeoBundle will build dependencies where needed, some
 system build tools are needed.
 
+See [vim/README.md](https://github.com/davidosomething/dotfiles/blob/master/vim/README.md)
+
 ### nm-applet permissions on arch
 
 Ensure policykit allows users in the network access, option 3 here:
