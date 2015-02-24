@@ -1,4 +1,4 @@
-[ -z "$PS1" ] && return
+#!/usr/bin/env bash
 
 source "$HOME/.dotfiles/shell/loader"
 source "$HOME/.dotfiles/shell/aliases"
