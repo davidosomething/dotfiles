@@ -38,11 +38,6 @@
 				<execute>hexchat</execute>
 			</action>
 		</item>
-		<item label="Hipchat">
-			<action name="Execute">
-				<execute>hipchat</execute>
-			</action>
-		</item>
 		<item label="LINE Messenger">
 			<action name="Execute">
 				<execute>env WINEPREFIX=&quot;$HOME/.config/wine&quot; wine &quot;C:\Program Files\Naver\LINE\Line.exe&quot;</execute>
@@ -61,6 +56,12 @@
 		<item label="Skype">
 			<action name="Execute">
 				<execute>skype</execute>
+			</action>
+		</item>
+		<separator/>
+		<item label="Hipchat">
+			<action name="Execute">
+				<execute>hipchat</execute>
 			</action>
 		</item>
 	</menu>
