@@ -12,12 +12,6 @@ let g:is_cygwin = has('win32unix')
 let g:is_macvim = has('gui_macvim')
 let g:is_term = (&term =~ 'xterm\|screen\|buildin_gui\|fbterm\|linux')
 
-let g:settings = {}
-let g:settings.autocomplete_method = 'neocomplcache'
-if has('lua')
-  let g:settings.autocomplete_method = 'neocomplete'
-endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RTP and plugin management
 " Ensure neobundle exists
@@ -91,6 +85,11 @@ set formatoptions+=n                  " Recognize numbered lists
 set formatoptions+=2                  " Use indent from 2nd line of a paragraph
 set formatoptions+=l                  " Don't break lines that are already long
 set formatoptions+=1                  " Break before 1-letter words
+" Vim 7.4 only: no // comment when joining commented lines
+if v:version >= 704
+  set formatoptions+=j
+endif
+
 set nrformats-=octal                  " never use octal when <C-x> or <C-a>
 set nojoinspaces                      " J command doesn't add extra space
 set mouse=a

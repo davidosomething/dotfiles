@@ -83,6 +83,13 @@ NeoBundle 'tpope/vim-fugitive'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " commands
+NeoBundle 'haya14busa/incsearch.vim'    " incremental search highlighting
+  if neobundle#tap('incsearch.vim')
+    map /  <Plug>(incsearch-forward)
+    map ?  <Plug>(incsearch-backward)
+    map g/ <Plug>(incsearch-stay)
+  endif
+
 NeoBundle 'rking/ag.vim'
 
 NeoBundle 'tpope/vim-eunuch'
@@ -92,62 +99,62 @@ NeoBundle 'tpope/vim-unimpaired'        " used for line bubbling commands on osx
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocomplete
 " neocomplete probably used on osx
-if g:settings.autocomplete_method == 'neocomplete'
-  NeoBundle 'Shougo/neocomplete.vim', {
-        \   'vim_version':'7.3.885'
-        \ }
-  if neobundle#tap('neocomplete')
-    let g:acp_enableAtStartup = 0
-    let g:neocomplete#enable_at_startup            = 1
-    let g:neocomplete#enable_smart_case            = 1
-    let g:neocomplete#enable_camel_case_completion = 1
-    let g:neocomplete#enable_underbar_completion   = 1
-    let g:neocomplete#enable_fuzzy_completion      = 1
-    let g:neocomplete#force_overwrite_completefunc = 1
-    let g:neocomplete#enable_refresh_always        = 1
-    let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
+NeoBundle 'Shougo/neocomplete.vim', {
+      \   'disabled':     !has('lua'),
+      \   'vim_version':  '7.3.885'
+      \ }
+if neobundle#tap('neocomplete.vim')
+  let g:acp_enableAtStartup = 0
+  let g:neocomplete#enable_at_startup            = 1
+  let g:neocomplete#enable_smart_case            = 1
+  let g:neocomplete#enable_camel_case_completion = 1
+  let g:neocomplete#enable_underbar_completion   = 1
+  let g:neocomplete#enable_fuzzy_completion      = 1
+  let g:neocomplete#force_overwrite_completefunc = 1
+  let g:neocomplete#enable_refresh_always        = 1
+  let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
 
-    " from the github page: <CR> cancels completion and inserts newline
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return neocomplete#close_popup() . "\<CR>"
-    endfunction
+  " from the github page: <CR> cancels completion and inserts newline
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function()
+    return neocomplete#close_popup() . "\<CR>"
+  endfunction
 
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplete#close_popup()
-    inoremap <expr><C-e>  neocomplete#cancel_popup()
-    call neobundle#untap()
-  endif
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplete#close_popup()
+  inoremap <expr><C-e>  neocomplete#cancel_popup()
+  call neobundle#untap()
 endif
-if g:settings.autocomplete_method == 'neocomplcache'
-  NeoBundle 'Shougo/neocomplcache.vim'
-  if neobundle#tap('neocomplcache')
-    let g:acp_enableAtStartup = 0
-    let g:neocomplcache_enable_at_startup             = 1
-    let g:neocomplcache_enable_smart_case             = 1
-    let g:neocomplcache_enable_camel_case_completion  = 1
-    let g:neocomplcache_enable_underbar_completion    = 1
-    let g:neocomplcache_enable_fuzzy_completion       = 1
-    let g:neocomplcache_force_overwrite_completefunc  = 1
-    let g:neocomplcache_temporary_dir = '~/.vim/.cache/neocomplcache'
 
-    " Enable heavy omni completion.
-    if !exists('g:neocomplcache_omni_patterns')
-      let g:neocomplcache_omni_patterns = {}
-    endif
-    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+NeoBundle 'Shougo/neocomplcache.vim', {
+      \   'disabled':     has('lua') && v:version >= 703,
+      \ }
+if neobundle#tap('neocomplcache.vim')
+  let g:acp_enableAtStartup = 0
+  let g:neocomplcache_enable_at_startup             = 1
+  let g:neocomplcache_enable_smart_case             = 1
+  let g:neocomplcache_enable_camel_case_completion  = 1
+  let g:neocomplcache_enable_underbar_completion    = 1
+  let g:neocomplcache_enable_fuzzy_completion       = 1
+  let g:neocomplcache_force_overwrite_completefunc  = 1
+  let g:neocomplcache_temporary_dir = '~/.vim/.cache/neocomplcache'
 
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplcache#close_popup()
-    inoremap <expr><C-e>  neocomplcache#cancel_popup()
-    call neobundle#untap()
+  " Enable heavy omni completion.
+  if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
   endif
+  let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+  let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+  let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplcache#close_popup()
+  inoremap <expr><C-e>  neocomplcache#cancel_popup()
+  call neobundle#untap()
 endif
 
   " for both neocomplete and neocomplcache
@@ -285,7 +292,7 @@ NeoBundle 'itspriddle/vim-jquery'       " creates javascript syntax
 NeoBundle 'jelera/vim-javascript-syntax' " also creates javascript syntax
 
 NeoBundle 'othree/javascript-libraries-syntax.vim'
-if neobundle#tap('javascript-libraries-syntax')
+if neobundle#tap('javascript-libraries-syntax.vim')
   let g:used_javascript_libs = 'jquery,underscore,backbone'
   call neobundle#untap()
 endif
@@ -352,17 +359,15 @@ endif
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
-if neobundle#tap('phpcomplete')
+if neobundle#tap('phpcomplete.vim')
   " mapping conflict with vim-rails, change <C-]> to <C-)>
   let g:phpcomplete_enhance_jump_to_definition=0
-  if neobundle#tap('phpcomplete.vim')
-    if !hasmapto('<Plug>PHPJump')
-      map! <silent> <buffer> <unique> <C-)> <Plug>PHPJump
-      map! <silent> <buffer> <unique> <C-W><C-)> <Plug>PHPJumpW
-    endif
-    nnoremap <silent> <buffer> <Plug>PHPJump :<C-u>call phpcomplete#JumpToDefinition('normal')<CR>
-    nnoremap <silent> <buffer> <Plug>PHPJumpW :<C-u>call phpcomplete#JumpToDefinition('split')<CR>
+  if !hasmapto('<Plug>PHPJump')
+    map! <silent> <buffer> <unique> <C-)> <Plug>PHPJump
+    map! <silent> <buffer> <unique> <C-W><C-)> <Plug>PHPJumpW
   endif
+  nnoremap <silent> <buffer> <Plug>PHPJump :<C-u>call phpcomplete#JumpToDefinition('normal')<CR>
+  nnoremap <silent> <buffer> <Plug>PHPJumpW :<C-u>call phpcomplete#JumpToDefinition('split')<CR>
   call neobundle#untap()
 endif
 
@@ -376,15 +381,14 @@ NeoBundle 'StanAngeloff/php.vim'        " updated syntax
       "\   'autoload': { 'filetypes': ['php'] }
       "\ }
 
-if executable("ctags")
-  NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
-        \   'autoload': { 'filetypes': ['php', 'blade'] },
-        \   'build': {
-        \     'mac': 'make',
-        \     'unix': 'make',
-        \    },
-        \ }
-endif
+NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
+      \   'disabled': !executable("ctags"),
+      \   'autoload': { 'filetypes': ['php', 'blade'] },
+      \   'build': {
+      \     'mac': 'make',
+      \     'unix': 'make',
+      \    },
+      \ }
 
 " Puppet """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'rodjek/vim-puppet'           " creates pp filetype

@@ -2,7 +2,37 @@
 
 Keep `(g)vimrc` (no dot in filename) in `.vim` -- vim knows to look in there.
 
+## Under consideration
+
+'osyo-manga/vim-anzu' instead of 'haya14busa/incsearch.vim'
+
+### tern for vim
+
+Provides intellisense-like autocompletion for JS in vim
+
+```
+" marijnh/tern_for_vim {{{
+if neobundle#tap('tern_for_vim')
+  " Config {{{
+  call neobundle#config({
+  \   'build' : {
+  \     'others' : 'npm install'
+  \   },
+  \   'autoload' : {
+  \       'functions' : ['tern#Complete', 'tern#Enable'],
+  \       'filetypes' : ['javascript']
+  \     },
+  \   'commands' : ['TernDef', 'TernDoc', 'TernType',
+  \                 'TernRefs', 'TernRename'],
+  \ })
+  " }}}
+  call neobundle#untap()
+endif
+" }}}autocmdFT javascript setlocal omnifunc=tern#Complete
+```
+
 ## Plugins I intentionally don't use
+
 - ctrlpvim/ctrlp.vim
     - I always just `ag` from a terminal or open an exact filename in vim
     - Extras
