@@ -44,6 +44,7 @@
   pager       = true
 [core]
   compression = -1
+  editor = "vim -f"
   excludesfile = ~/.cvsignore
   sharedRepository = 0664
   pager = less -x4

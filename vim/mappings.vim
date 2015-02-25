@@ -96,6 +96,7 @@ nnoremap <silent> <Leader>cd :lcd %:h<CR>
 function! ChangeToVCSRoot()
   let cph = expand('%:p:h', 1)
   if match(cph, '\v^<.+>://') >= 0 | retu | en
+  let wd = ''
   for mkr in ['.git/', '.hg/', '.svn/', '.bzr/', '_darcs/', '.vimprojects']
     let wd = call('find'.(mkr =~ '/$' ? 'dir' : 'file'), [mkr, cph.';'])
     if wd != '' | let &acd = 0 | brea | en
