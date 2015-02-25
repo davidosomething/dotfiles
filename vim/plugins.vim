@@ -67,7 +67,7 @@ endif
 
 NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
-NeoBundle 'dbarsam/vim-bufkill'     " :bd keeps window open
+NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
 
 NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
 
@@ -80,8 +80,6 @@ if neobundle#tap('vim-indent-guides')
 endif
 
 NeoBundle 'tpope/vim-fugitive'
-
-NeoBundle 'vim-scripts/IndexedSearch'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " commands

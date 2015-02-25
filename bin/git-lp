@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+_lastprs() {
+  git log --pretty=format:'%s' "$(git describe --tags --abbrev=0)..HEAD" | grep 'pull request.*'
+}
+
+_lastprs
+

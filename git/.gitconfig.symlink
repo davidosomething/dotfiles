@@ -4,7 +4,7 @@
   b       = branch
   be      = branch --edit-description
   ca      = commit --amend
-  cfg     = "! $EDITOR ~/.gitconfig"
+  cfg     = "!$VISUAL ~/.gitconfig"
   changed = diff HEAD..master
   cb      = checkout -b
   ci      = commit
@@ -19,13 +19,14 @@
   forget  = rm -r --cached
   g       = grep --break --heading --line-number
   l       = log --abbrev-commit
+  lasttag = describe --tags --abbrev=0
   lg      = log --abbrev-commit --graph --decorate
   lb      = log --abbrev-commit --graph --oneline --decorate --all
   ll      = log --abbrev-commit --pretty=oneline --max-count=15
   m       = merge
   names   = diff HEAD..master --name-only
   pr      = pull --rebase
-  pullall = "! f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
+  pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
   rb      = rebase
   s       = status -bs
   st      = status
