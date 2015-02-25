@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
 
+# List pull requests since last tag
+
 _lastprs() {
-  git log --pretty=format:'%s' "$(git describe --tags --abbrev=0)..HEAD" | grep 'pull request.*'
+  local has_tags="$(git tag)"
+
+  if [ -z "$has_tags" ]; then
+    echo "No tags found."
+    exit 0
+  fi
+
+  local last_tag="$(git describe --tags --abbrev=0)"
+  local search="pull request.*"
+  git log --pretty=format:'%s' "${last_tag}..HEAD" | grep "${search}"
 }
 
 _lastprs
