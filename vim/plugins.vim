@@ -459,13 +459,13 @@ NeoBundleLazy 'tpope/vim-rails', {'autoload': {'filetypes': [ 'ruby' ]}}
 NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 
 " Stylesheet languages """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Not sure what color plugin to use yet
-"NeoBundleLazy 'gorodinskiy/vim-coloresque', {
+
 NeoBundleLazy 'ap/vim-css-color', {
       \   'autoload': {
       \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee' ]
       \   }
       \ }
+
 NeoBundle 'cakebaker/scss-syntax.vim'   " creates scss.css
 NeoBundle 'groenewege/vim-less'         " creates less filetype
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'autoload': { 'filetypes': ['css', 'sass', 'scss'] } }

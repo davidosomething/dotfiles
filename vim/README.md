@@ -15,6 +15,12 @@ for getting various linter support in syntastic.
 'xolox/vim-easytags' generates a _tags_ file automatically (unlike tagbar which
 only generates on the fly)
 
+### Alternate CSS colorizing plugins
+`
+NeoBundleLazy 'gorodinskiy/vim-coloresque', {
+NeoBundle 'chrisbra/Colorizer', {
+`
+
 ### tern for vim
 
 Provides intellisense-like autocompletion for JS in vim

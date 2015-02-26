@@ -12,7 +12,7 @@ nnoremap <Right> :cnext<CR>
 inoremap <Right> <Esc>:cnext<CR>
 
 " close buffer with ctrl-d and auto close loc list first
-nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
+nnoremap <Leader>bd :lclose<CR>:bdelete<CR>
 cabbrev <silent> bd lclose\|bdelete
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
