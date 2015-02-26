@@ -1,10 +1,6 @@
 scriptencoding UTF-8
 
 " plugin dependencies """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundle 'kana/vim-operator-user', {
-      \   'autoload' : { 'functions' : 'operator#user#define' },
-      \ }
-
 NeoBundle 'Shougo/vimproc', {
       \   'build': {
       \     'mac':     'make -f make_mac.mak',

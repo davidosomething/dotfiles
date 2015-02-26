@@ -60,6 +60,13 @@ endif
 ## Plugins I intentionally don't use
 
 ```
+library for vim-operator-replace
+NeoBundle 'kana/vim-operator-user', {
+      \   'autoload' : { 'functions' : 'operator#user#define' },
+      \ }
+```
+
+```
 snipmate uses this
 NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'MarcWeber/vim-addon-mw-utils'
