@@ -1,15 +1,9 @@
 scriptencoding UTF-8
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin dependencies
-
+" plugin dependencies """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'kana/vim-operator-user', {
-      \   'autoload' : {
-      \     'functions' : 'operator#user#define'
-      \   }
+      \   'autoload' : { 'functions' : 'operator#user#define' },
       \ }
-
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
 
 NeoBundle 'Shougo/vimproc', {
       \   'build': {
@@ -20,19 +14,16 @@ NeoBundle 'Shougo/vimproc', {
       \   }
       \ }
 
-NeoBundle 'tobyS/vmustache'
-
-NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'tobyS/vmustache' " for pdv
 
 " filesystem """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 NeoBundle 'vim-scripts/PreserveNoEOL'
 
 " ui """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundle 'bling/vim-airline', {
-      \   'depends': 'tpope/vim-fugitive'
+      \   'depends': 'tpope/vim-fugitive',
       \ }
 if neobundle#tap('vim-airline')
   function! neobundle#tapped.hooks.on_source(bundle)
@@ -190,7 +181,9 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " editing keys
-NeoBundle 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
+NeoBundle 'godlygeek/tabular', {
+      \   'autoload': { 'commands': 'Tabularize' },
+      \ }
 if neobundle#tap('tabular')
   function! neobundle#tapped.hooks.on_source(bundle)
     nmap <Leader>a& :Tabularize /&<CR>
@@ -258,7 +251,7 @@ NeoBundle 'editorconfig/editorconfig-vim', {
 
 " highlight matching html tag
 NeoBundleLazy 'gregsexton/MatchTag', {
-      \   'autoload': { 'filetypes': ['html', 'mustache', 'php', 'rb'] }
+      \   'autoload': { 'filetypes': ['html', 'mustache', 'php', 'rb'] },
       \ }
 
 NeoBundle 'scrooloose/syntastic'
@@ -304,7 +297,9 @@ endif
 " Language specific
 "
 " Chef """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundleLazy 'vadv/vim-chef', {'autoload': {'filetypes': ['ruby', 'eruby']}}
+NeoBundleLazy 'vadv/vim-chef', {
+      \   'autoload': { 'filetypes': ['ruby', 'eruby'] },
+      \ }
 
 " CoffeeScript """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'kchmck/vim-coffee-script'  " creates coffee ft
@@ -323,7 +318,7 @@ endif
 
 " ColdFusion """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundleLazy 'alampros/cf.vim', {
-      \   'autoload': { 'filetypes': [ 'cfml' ] }
+      \   'autoload': { 'filetypes': ['cfml'] },
       \ }
 NeoBundle 'davejlong/cf-utils.vim'      " creates cfml filetype
 
@@ -406,8 +401,8 @@ NeoBundle 'mustache/vim-mustache-handlebars' " creates mustache filetype
 
 " PHP """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundleLazy 'tobyS/pdv', {
+      \   'autoload': { 'filetypes': ['php', 'blade'] },
       \   'depends': 'tobyS/vmustache',
-      \   'autoload': { 'filetypes': ['php', 'blade'] }
       \ }
 if neobundle#tap('pdv')
   function! neobundle#tapped.hooks.on_source(bundle)
@@ -421,7 +416,7 @@ if neobundle#tap('pdv')
 endif
 
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {
-      \   'autoload': { 'filetypes': ['php', 'blade'] }
+      \   'autoload': { 'filetypes': ['php', 'blade'] },
       \ }
 if neobundle#tap('phpcomplete.vim')
   function! neobundle#tapped.hooks.on_source(bundle)
@@ -439,14 +434,6 @@ endif
 
 NeoBundle 'StanAngeloff/php.vim'        " updated syntax
 
-"NeoBundleLazy 'dsawardekar/wordpress.vim', {
-      "\   'depends': [
-      "\     'kien/ctrlp.vim',
-      "\     'shawncplus/phpcomplete.vim',
-      "\   ],
-      "\   'autoload': { 'filetypes': ['php'] }
-      "\ }
-
 NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] },
       \   'build': {
@@ -461,27 +448,30 @@ NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
 NeoBundle 'rodjek/vim-puppet'           " creates pp filetype
 
 " Ruby, rails """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundleLazy 'tpope/vim-rails', {'autoload': {'filetypes': [ 'ruby' ]}}
+NeoBundleLazy 'tpope/vim-rails', {
+      \   'autoload': { 'filetypes': ['ruby'] }
+      \   }
 NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 
 " Stylesheet languages """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 NeoBundleLazy 'ap/vim-css-color', {
       \   'autoload': {
       \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee' ]
-      \   }
+      \   },
       \ }
 
 NeoBundle 'cakebaker/scss-syntax.vim'   " creates scss.css
 NeoBundle 'groenewege/vim-less'         " creates less filetype
-NeoBundleLazy 'hail2u/vim-css3-syntax', { 'autoload': { 'filetypes': ['css', 'sass', 'scss'] } }
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
+      \   'autoload': { 'filetypes': ['css', 'sass', 'scss'] },
+      \ }
 
 " Twig """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'evidens/vim-twig'            " creates twig
 
 " VimL """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'syngan/vim-vimlint', {
-      \   'depends' : 'ynkdir/vim-vimlparser'
+      \   'depends' : 'ynkdir/vim-vimlparser',
       \ }
 
 NeoBundle 'ynkdir/vim-vimlparser'

@@ -15,6 +15,17 @@ for getting various linter support in syntastic.
 'xolox/vim-easytags' generates a _tags_ file automatically (unlike tagbar which
 only generates on the fly)
 
+```
+Don't need this for now
+"NeoBundleLazy 'dsawardekar/wordpress.vim', {
+      "\   'depends': [
+      "\     'kien/ctrlp.vim',
+      "\     'shawncplus/phpcomplete.vim',
+      "\   ],
+      "\   'autoload': { 'filetypes': ['php'] }
+      "\ }
+```
+
 ### Alternate CSS colorizing plugins
 `
 NeoBundleLazy 'gorodinskiy/vim-coloresque', {
@@ -47,6 +58,12 @@ endif
 ```
 
 ## Plugins I intentionally don't use
+
+```
+snipmate uses this
+NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
+```
 
 - ctrlpvim/ctrlp.vim
     - I always just `ag` from a terminal or open an exact filename in vim
