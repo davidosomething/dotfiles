@@ -46,7 +46,7 @@ if neobundle#tap('vim-airline')
     let g:airline_symbols.paste = 'ρ'
     let g:airline_symbols.readonly = ''
 
-    " list tabs/buffers at top
+    " list buffers ONLY at top
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#show_tabs = 0
     let g:airline#extensions#tabline#show_tab_nr = 0
@@ -70,14 +70,19 @@ NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 "NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
 
 " auto tag generation via exuberant-ctags -- no tags file created
-NeoBundle 'majutsushi/tagbar', {
+NeoBundleLazy 'majutsushi/tagbar', {
+      \   'autoload' : {'commands': [ 'TagbarToggle' ] }}
       \   'disabled': !executable("ctags"),
       \ }
 if neobundle#tap('tagbar')
   function! neobundle#tapped.hooks.on_source(bundle)
+    let g:tagbar_autoclose = 1            " close after jumping
+    let g:tagbar_autofocus = 1
     let g:tagbar_compact = 1
     let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
     nmap <F8> :TagbarToggle<CR>
+    imap <F8> <Esc>:TagbarToggle<CR>
+    vmap <F8> <Esc>:TagbarToggle<CR>
   endfunction
 endif
 

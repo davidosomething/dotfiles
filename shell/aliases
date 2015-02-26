@@ -59,6 +59,10 @@ alias epaths='e $BASH_DOTFILES/paths.sh'
 alias ebashrc='e $BASH_DOTFILES/bashrc.sh'
 alias elbashrc='e $HOME/.bashrc.local'
 alias ehosts="sudo vim /etc/hosts"
+alias evg="e ~/.vim/gvimrc"
+alias evm="e ~/.vim/mappings.vim"
+alias evp="e ~/.vim/plugins.vim"
+alias evr="e ~/.vim/vimrc"
 
 # server
 alias pyserve="python -m SimpleHTTPServer"
