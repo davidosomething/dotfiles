@@ -4,26 +4,29 @@
 
 ## Installation
 
-* Clone with submodules, and symlink:
-    ```
-    git clone --recurse-submodules https://github.com/davidosomething/dotfiles.git ~/.dotfiles
-    cd ~/.dotfiles/bootstrap
-    ./symlink.sh
-    ```
-* (OPTIONAL) Change and restart shell
-* Setup vim:
-    ```
-    cd ~/.dotfiles/bootstrap
-    ./vim.sh
-    u vim
-    ```
+- Clone with submodules, and symlink:
+```
+git clone --recurse-submodules https://github.com/davidosomething/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles/bootstrap
+./symlink.sh
+```
+
+- (OPTIONAL) Change default shell to zsh and restart now
+
+- Setup vim:
+```
+cd ~/.dotfiles/bootstrap
+./vim.sh
+u vim
+```
 
 ### Working bootstrap scripts
 
-* `symlink.sh`
-    * bash, zsh, ack, screen
-* `vim.sh`
-    * vim
+- `symlink.sh`
+    - bash, zsh, ack, screen
+
+- `vim.sh`
+    - vim
 
 ### Homebrew
 
