@@ -355,8 +355,8 @@ if neobundle#tap('vim-jsdoc')
   function! neobundle#tapped.hooks.on_source(bundle)
     let g:jsdoc_default_mapping = 0
     if has("autocmd")
-      au FileType javascript nnoremap <Leader>pd :JsDoc<CR>
-      au FileType javascript vnoremap <Leader>pd :JsDoc<CR>
+      au vimrc FileType javascript nnoremap <Leader>pd :JsDoc<CR>
+      au vimrc FileType javascript vnoremap <Leader>pd :JsDoc<CR>
     endif
   endfunction
   call neobundle#untap()
@@ -368,7 +368,7 @@ if neobundle#tap('vim-json')
   function! neobundle#tapped.hooks.on_source(bundle)
     if has("autocmd")
       " JSON force JSON not javascript
-      au BufRead,BufNewFile *.json setlocal filetype=json
+      au vimrc BufRead,BufNewFile *.json setlocal filetype=json
     endif
   endfunction
   call neobundle#untap()
@@ -386,8 +386,8 @@ if neobundle#tap('pdv')
   function! neobundle#tapped.hooks.on_source(bundle)
     let g:pdv_template_dir = expand("~/.vim/bundle/pdv/templates")
     if has("autocmd")
-      au FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
-      au FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+      au vimrc FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+      au vimrc FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
     endif
   endfunction
   call neobundle#untap()

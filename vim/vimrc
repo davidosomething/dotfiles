@@ -1,7 +1,8 @@
+" set encoding BEFORE scriptencoding
+set encoding=utf-8 nobomb
 scriptencoding utf-8
 
 set nocompatible
-set encoding=utf-8 nobomb
 set exrc                              " per directory vimrc
 set secure                            " no unsafe local vimrc commands
 
@@ -232,47 +233,51 @@ let g:markdown_fenced_languages = [
 " Autocommands
 if has("autocmd")
   augroup QFix
-      autocmd!
-      autocmd FileType qf setlocal nobuflisted
+    autocmd!
+    autocmd FileType qf setlocal nobuflisted
+  augroup END
+
+  augroup vimrc
+    autocmd!
   augroup END
 
   " Force filetypes
-  au BufRead,BufNewFile *.bowerrc   setlocal filetype=json
-  au BufRead,BufNewFile *.cap       setlocal filetype=ruby
-  au BufRead,BufNewFile *.conf      setlocal filetype=conf
-  au BufRead,BufNewFile *.jshintrc  setlocal filetype=json
-  au BufRead,BufNewFile *.dump      setlocal filetype=sql
+  au vimrc BufRead,BufNewFile *.bowerrc   setlocal filetype=json
+  au vimrc BufRead,BufNewFile *.cap       setlocal filetype=ruby
+  au vimrc BufRead,BufNewFile *.conf      setlocal filetype=conf
+  au vimrc BufRead,BufNewFile *.jshintrc  setlocal filetype=json
+  au vimrc BufRead,BufNewFile *.dump      setlocal filetype=sql
   " md is normally modula2 -- force it to always be markdown
-  au BufRead,BufNewFile *.md        setlocal filetype=markdown
+  au vimrc BufRead,BufNewFile *.md        setlocal filetype=markdown
   " vim-chef support for ruby files (turned off eruby)
-  au FileType ruby setlocal filetype=ruby.eruby.chef
+  au vimrc FileType ruby setlocal filetype=ruby.eruby.chef
 
   " Set editor configs
   " use real tabs
-  au FileType gitconfig   setlocal noexpandtab
-  au FileType make        setlocal noexpandtab
+  au vimrc FileType gitconfig   setlocal noexpandtab
+  au vimrc FileType make        setlocal noexpandtab
 
   " force 2sp for js
-  au FileType javascript  setlocal softtabstop=2 tabstop=2 shiftwidth=2
+  au vimrc FileType javascript  setlocal softtabstop=2 tabstop=2 shiftwidth=2
 
   " make Python follow PEP8 for whitespace
   " http://www.python.org/dev/peps/pep-0008/
-  au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
+  au vimrc FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
 
   " Enable soft-wrapping for text files
-  au FileType text setlocal wrap linebreak nolist textwidth=80
+  au vimrc FileType text setlocal wrap linebreak nolist textwidth=80
 
   " crontab on OSX needs a tempfile
   if g:is_macvim
-    au BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
+    au vimrc BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
   endif
 
-  au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-  au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-  au FileType python        setlocal omnifunc=pythoncomplete#Complete
-  au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-  au FileType ruby          setlocal omnifunc=rubycomplete#Complete
+  au vimrc FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+  au vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  au vimrc FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+  au vimrc FileType python        setlocal omnifunc=pythoncomplete#Complete
+  au vimrc FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+  au vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
 endif
 
 ""
