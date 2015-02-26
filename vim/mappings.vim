@@ -1,19 +1,20 @@
 imap jj <Esc>
+cmap jj <Esc>
 
 " quickfix and location list
 " same as unimpaired []ql
-nnoremap <Up> :lprevious<CR>
-inoremap <Up> <Esc>:lprevious<CR>
-nnoremap <Down> :lnext<CR>
-inoremap <Down> <Esc>:lnext<CR>
-nnoremap <Left> :cprevious<CR>
-inoremap <Left> <Esc>:cprevious<CR>
-nnoremap <Right> :cnext<CR>
-inoremap <Right> <Esc>:cnext<CR>
+nnoremap <Up>     :lprevious<CR>
+inoremap <Up>     <Esc>:lprevious<CR>
+nnoremap <Down>   :lnext<CR>
+inoremap <Down>   <Esc>:lnext<CR>
+nnoremap <Left>   :cprevious<CR>
+inoremap <Left>   <Esc>:cprevious<CR>
+nnoremap <Right>  :cnext<CR>
+inoremap <Right>  <Esc>:cnext<CR>
 
-" close buffer with ctrl-d and auto close loc list first
+" close buffer with space-bd and auto close loc list first
 nnoremap <Leader>bd :lclose<CR>:bdelete<CR>
-cabbrev <silent> bd lclose\|bdelete
+cabbrev <silent>bd lclose\|bdelete
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keyboard - most of this is straight from Janus

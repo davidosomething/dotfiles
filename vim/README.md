@@ -81,6 +81,29 @@ autocmdFT javascript setlocal omnifunc=tern#Complete
 ## Plugins I intentionally don't use
 
 ```
+no longer needed, bundled vim-markdown in 7.4 supports everything now
+NeoBundle 'jtratner/vim-flavored-markdown'
+if neobundle#tap('vim-flavored-markdown')
+  function! neobundle#tapped.hooks.on_source(bundle)
+    if has("autocmd")
+      augroup markdown
+          " remove other autocmds for markdown first
+          au!
+          au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+      augroup END
+    endif
+  endfunction
+  call neobundle#untap()
+endif
+```
+
+```
+Comes bundled with vim7.4 now
+"NeoBundle 'tpope/vim-markdown'          " creates markdown filetype
+```
+
+
+```
 library for vim-operator-replace
 NeoBundle 'kana/vim-operator-user', {
       \   'autoload' : { 'functions' : 'operator#user#define' },

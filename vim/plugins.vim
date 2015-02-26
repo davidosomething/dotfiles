@@ -170,10 +170,12 @@ if neobundle#tap('neocomplcache.vim')
   call neobundle#untap()
 endif
 
-  " for both neocomplete and neocomplcache
-    " select completion using tab
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" for both neocomplete and neocomplcache
+if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocomplete.vim')
+  " select completion using tab
+  inoremap <expr><Tab>      pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <expr><S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " editing keys
@@ -367,24 +369,6 @@ if neobundle#tap('vim-json')
     if has("autocmd")
       " JSON force JSON not javascript
       au BufRead,BufNewFile *.json setlocal filetype=json
-    endif
-  endfunction
-  call neobundle#untap()
-endif
-
-" Markdown """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundle 'tpope/vim-markdown'          " creates markdown filetype
-NeoBundle 'jtratner/vim-flavored-markdown', {
-      \   'depends': 'tpope/vim-markdown'
-      \ }
-if neobundle#tap('vim-json')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    if has("autocmd")
-      augroup markdown
-          " remove other autocmds for markdown first
-          au!
-          au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
-      augroup END
     endif
   endfunction
   call neobundle#untap()

@@ -215,16 +215,37 @@ if filereadable(expand("~/.vim/mappings.vim"))
 endif
 
 ""
+" variable to highlight markdown fenced code properly -- uses tpope's
+" vim-markdown plugin (which is bundled with vim7.4 now)
+let g:markdown_fenced_languages = [
+      \ 'coffee',
+      \ 'css',
+      \ 'erb=eruby',
+      \ 'javascript', 'js=javascript', 'json=javascript',
+      \ 'ruby',
+      \ 'sass',
+      \ 'xml',
+      \ 'html'
+      \ ]
+
+""
 " Autocommands
 if has("autocmd")
+  augroup QFix
+      autocmd!
+      autocmd FileType qf setlocal nobuflisted
+  augroup END
+
   " Force filetypes
-  " vim-chef support for ruby files (turned off eruby)
-  au FileType ruby setlocal filetype=ruby.eruby.chef
   au BufRead,BufNewFile *.bowerrc   setlocal filetype=json
   au BufRead,BufNewFile *.cap       setlocal filetype=ruby
   au BufRead,BufNewFile *.conf      setlocal filetype=conf
   au BufRead,BufNewFile *.jshintrc  setlocal filetype=json
   au BufRead,BufNewFile *.dump      setlocal filetype=sql
+  " md is normally modula2 -- force it to always be markdown
+  au BufRead,BufNewFile *.md        setlocal filetype=markdown
+  " vim-chef support for ruby files (turned off eruby)
+  au FileType ruby setlocal filetype=ruby.eruby.chef
 
   " Set editor configs
   " use real tabs
@@ -232,14 +253,11 @@ if has("autocmd")
   au FileType make        setlocal noexpandtab
 
   " force 2sp for js
-  au FileType javascript setlocal softtabstop=2 tabstop=2 shiftwidth=2
+  au FileType javascript  setlocal softtabstop=2 tabstop=2 shiftwidth=2
 
   " make Python follow PEP8 for whitespace
   " http://www.python.org/dev/peps/pep-0008/
   au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
-
-  " 4space for gitconfig
-  au FileType gitconfig setlocal softtabstop=4 tabstop=4 shiftwidth=4
 
   " Enable soft-wrapping for text files
   au FileType text setlocal wrap linebreak nolist textwidth=80
