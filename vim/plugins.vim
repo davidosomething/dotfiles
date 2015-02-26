@@ -32,7 +32,7 @@ NeoBundle 'vim-scripts/PreserveNoEOL'
 NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundle 'bling/vim-airline', {
-      \   'depends': 'vim-fugitive'
+      \   'depends': 'tpope/vim-fugitive'
       \ }
 if neobundle#tap('vim-airline')
   function! neobundle#tapped.hooks.on_source(bundle)
@@ -67,7 +67,7 @@ endif
 
 NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
-NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
+"NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
 
 " auto tag generation via exuberant-ctags -- no tags file created
 NeoBundle 'majutsushi/tagbar', {
@@ -116,7 +116,7 @@ NeoBundle 'tpope/vim-unimpaired'        " used for line bubbling commands on osx
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocomplete
-" neocomplete probably used on osx
+" neocomplete probably used on osx and on my arch
 NeoBundleLazy 'Shougo/neocomplete.vim', {
       \   'autoload':     { 'insert': 1, },
       \   'disabled':     !has('lua'),
@@ -234,18 +234,21 @@ NeoBundle 'vim-scripts/AnsiEsc.vim'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " text objects
 NeoBundle 'kana/vim-textobj-indent', {
-      \   'depends': 'vim-textobj-user',
+      \   'depends': 'kana/vim-textobj-user',
       \ }
-NeoBundle 'kana/vim-textobj-user'
+
+NeoBundle 'kana/vim-textobj-user'             " framework
+
 NeoBundle 'lucapette/vim-textobj-underscore', {
-      \   'depends': 'vim-textobj-user',
+      \   'depends': 'kana/vim-textobj-user',
       \ }
+
 NeoBundle 'paradigm/TextObjectify'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax highlighting
 NeoBundle 'editorconfig/editorconfig-vim', {
-      \   'depends': 'vim-scripts/PreserveNoEOL'
+      \   'depends': 'vim-scripts/PreserveNoEOL',
       \   'disabled': !(has("python") || has("python3")),
       \ }
 
@@ -257,11 +260,14 @@ NeoBundleLazy 'gregsexton/MatchTag', {
 NeoBundle 'scrooloose/syntastic'
 if neobundle#tap('syntastic')
   function! neobundle#tapped.hooks.on_source(bundle)
-    " run syntastic on file open
-    let g:syntastic_check_on_open       = 1
-    let g:syntastic_auto_loc_list       = 1
-    let g:syntastic_enable_signs        = 1
-    let g:syntastic_enable_highlighting = 1
+    let g:syntastic_aggregate_errors         = 1
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list            = 1
+    let g:syntastic_check_on_open            = 1
+    let g:syntastic_check_on_wq              = 1
+    let g:syntastic_enable_signs             = 1
+    let g:syntastic_enable_highlighting      = 1
+
     if !exists("g:syntastic_mode_map")
       let g:syntastic_mode_map = {}
     endif
@@ -274,6 +280,7 @@ if neobundle#tap('syntastic')
     if !has_key(g:syntastic_mode_map, "passive_filetypes")
       let g:syntastic_mode_map['passive_filetypes'] = [ 'html', 'php' ]
     endif
+
     let g:syntastic_error_symbol         = '✗'
     let g:syntastic_style_error_symbol   = '✠'
     let g:syntastic_warning_symbol       = '∆'
@@ -283,8 +290,8 @@ if neobundle#tap('syntastic')
     let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
     let g:syntastic_coffeescript_checkers = ['coffee', 'coffeelint']
-    let g:syntastic_php_checkers = ['php', 'phpmd' ]
-    let g:syntastic_shell_checkers = ['bashate', 'shellcheck' ]
+    let g:syntastic_php_checkers = ['php', 'phpmd']
+    let g:syntastic_shell_checkers = ['bashate', 'shellcheck']
   endfunction
   call neobundle#untap()
 endif

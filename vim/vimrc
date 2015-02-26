@@ -7,8 +7,9 @@ set secure                            " no unsafe local vimrc commands
 
 " Environment detection a la https://github.com/bling/dotvim
 " detect OS
-let g:is_windows = has('win32') || has('win64')
+let g:is_windows = has('win32') || has('win64') || has('win32unix')
 let g:is_cygwin = has('win32unix')
+let g:is_mav = has('mac')
 let g:is_macvim = has('gui_macvim')
 let g:is_term = (&term =~ 'xterm\|screen\|buildin_gui\|fbterm\|linux')
 

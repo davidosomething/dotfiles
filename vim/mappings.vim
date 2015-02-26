@@ -1,3 +1,5 @@
+imap jj <Esc>
+
 " quickfix and location list
 " same as unimpaired []ql
 nnoremap <Up> :lprevious<CR>
@@ -9,7 +11,9 @@ inoremap <Left> <Esc>:cprevious<CR>
 nnoremap <Right> :cnext<CR>
 inoremap <Right> <Esc>:cnext<CR>
 
-imap jj <Esc>
+" close buffer with ctrl-d and auto close loc list first
+nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
+cabbrev <silent> bd lclose\|bdelete
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keyboard - most of this is straight from Janus
