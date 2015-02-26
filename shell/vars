@@ -41,7 +41,7 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
 # program settings -------------------------------------------------------------
 export EDITOR="vim --nofork"
-export VISUAL="e"
+export VISUAL="gvim --nofork"
 export PAGER="less"
 export LESS="-R"
 # Highlight section titles in manual pages
