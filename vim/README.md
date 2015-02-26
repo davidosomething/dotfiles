@@ -35,6 +35,7 @@ NeoBundle 'chrisbra/Colorizer', {
 ### tern for vim
 
 Provides intellisense-like autocompletion for JS in vim
+Doesn't work all the time...
 
 ```
 " marijnh/tern_for_vim {{{
@@ -54,8 +55,28 @@ if neobundle#tap('tern_for_vim')
   " }}}
   call neobundle#untap()
 endif
-" }}}autocmdFT javascript setlocal omnifunc=tern#Complete
+" }}}
+autocmdFT javascript setlocal omnifunc=tern#Complete
+
+" autocomplete/typehints engine, also used by tagbar
+" NeoBundle 'marijnh/tern_for_vim', {
+"       \   'autoload': { 'filetypes': ['javascript'] },
+"       \   'build': {
+"       \     'mac':     'npm install',
+"       \     'unix':    'npm install',
+"       \     'cygwin':  'npm install',
+"       \     'windows': 'npm install',
+"       \   }
+"       \ }
+" if neobundle#tap('tern_for_vim')
+"   function! neobundle#tapped.hooks.on_source(bundle)
+"     " let g:tern_show_signature_in_pum = 'on_move'
+"     " let g:tern_show_argument_hints = 1
+"   endfunction
+"   call neobundle#untap()
+" endif
 ```
+
 
 ## Plugins I intentionally don't use
 

@@ -332,11 +332,6 @@ NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 NeoBundle 'itspriddle/vim-jquery'         " creates javascript syntax
 NeoBundle 'jelera/vim-javascript-syntax'  " also creates javascript syntax
 
-" autocomplete/typehints engine, also used by tagbar
-NeoBundleLazy 'marijnh/tern_for_vim', {
-      \   'autoload': { 'filetypes': ['javascript'] },
-      \ }
-
 NeoBundle 'othree/javascript-libraries-syntax.vim'
 if neobundle#tap('javascript-libraries-syntax.vim')
   function! neobundle#tapped.hooks.on_source(bundle)
