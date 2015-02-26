@@ -70,8 +70,7 @@ NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 "NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
 
 " auto tag generation via exuberant-ctags -- no tags file created
-NeoBundleLazy 'majutsushi/tagbar', {
-      \   'autoload' : {'commands': [ 'TagbarToggle' ] }}
+NeoBundle 'majutsushi/tagbar', {
       \   'disabled': !executable("ctags"),
       \ }
 if neobundle#tap('tagbar')
@@ -339,8 +338,10 @@ NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 NeoBundle 'itspriddle/vim-jquery'         " creates javascript syntax
 NeoBundle 'jelera/vim-javascript-syntax'  " also creates javascript syntax
 
-NeoBundle 'marijnh/tern_for_vim'          " autocomplete/typehints engine, also
-                                          " used by tagbar
+" autocomplete/typehints engine, also used by tagbar
+NeoBundleLazy 'marijnh/tern_for_vim', {
+      \   'autoload': { 'filetypes': ['javascript'] },
+      \ }
 
 NeoBundle 'othree/javascript-libraries-syntax.vim'
 if neobundle#tap('javascript-libraries-syntax.vim')
