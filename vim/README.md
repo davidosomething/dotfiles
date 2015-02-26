@@ -2,9 +2,18 @@
 
 Keep `(g)vimrc` (no dot in filename) in `.vim` -- vim knows to look in there.
 
+See [https://github.com/majutsushi/tagbar/wiki](https://github.com/majutsushi/tagbar/wiki)
+for getting ctag support in various languages for tagbar.
+
+See [https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers](https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers)
+for getting various linter support in syntastic.
+
 ## Under consideration
 
 'osyo-manga/vim-anzu' instead of 'haya14busa/incsearch.vim'
+
+'xolox/vim-easytags' generates a _tags_ file automatically (unlike tagbar which
+only generates on the fly)
 
 ### tern for vim
 
@@ -80,13 +89,6 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 
 ```
-" if executable("ctags")
-"   NeoBundle 'majutsushi/tagbar'
-"     let g:tagbar_compact = 1
-"     let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
-"     nnoremap <F4> :TagbarToggle<CR>
-" endif
-
 " NeoBundle 'osyo-manga/vim-over'
 "   nnoremap <c-s> :OverCommandLine<CR>
 ```
