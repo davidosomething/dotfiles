@@ -447,13 +447,6 @@ NeoBundleLazy 'hail2u/vim-css3-syntax', {
 " Twig """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'evidens/vim-twig'            " creates twig
 
-" VimL """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundle 'syngan/vim-vimlint', {
-      \   'depends' : 'ynkdir/vim-vimlparser',
-      \ }
-
-NeoBundle 'ynkdir/vim-vimlparser'
-
 " YAML """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'ingydotnet/yaml-vim'
 
