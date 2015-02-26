@@ -50,6 +50,7 @@ alias df="df -h"
 alias grep="grep --color=auto"
 alias ln="ln -v"
 alias rsync='rsync --human-readable --partial --progress --exclude-from=$HOME/.cvsignore'
+alias se="sudo -e"
 alias wget="wget --no-check-certificate"
 
 # quick edits
