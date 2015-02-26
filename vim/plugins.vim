@@ -1,6 +1,6 @@
 scriptencoding UTF-8
 
-" plugin dependencies """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" plugin dependencies ----------------------------------------------------------
 NeoBundle 'Shougo/vimproc', {
       \   'build': {
       \     'mac':     'make -f make_mac.mak',
@@ -12,43 +12,41 @@ NeoBundle 'Shougo/vimproc', {
 
 NeoBundle 'tobyS/vmustache' " for pdv
 
-" filesystem """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" filesystem -------------------------------------------------------------------
 NeoBundle 'vim-scripts/PreserveNoEOL'
 
-" ui """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ui ---------------------------------------------------------------------------
 NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundle 'bling/vim-airline', {
       \   'depends': 'tpope/vim-fugitive',
       \ }
 if neobundle#tap('vim-airline')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:airline_powerline_fonts = 1
-    let g:airline_theme= "bubblegum"
+  let g:airline_powerline_fonts = 1
+  let g:airline_theme = "bubblegum"
 
-    if !exists('g:airline_symbols')
-      let g:airline_symbols = {}
-    endif
-    let g:airline_symbols.linenr = ''
-    let g:airline_symbols.paste = 'ρ'
-    let g:airline_symbols.readonly = ''
+  if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+  let g:airline_symbols.linenr = ''
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.readonly = ''
 
-    " list buffers ONLY at top
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#show_tabs = 0
-    let g:airline#extensions#tabline#show_tab_nr = 0
+  " list buffers ONLY at top
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#show_tabs = 0
+  let g:airline#extensions#tabline#show_tab_nr = 0
 
-    " disable extensions for speed
-    let g:airline#extensions#tagbar#enabled     = 0
-    let g:airline#extensions#csv#enabled        = 0
-    let g:airline#extensions#hunks#enabled      = 0
-    let g:airline#extensions#virtualenv#enabled = 0
-    let g:airline#extensions#eclim#enabled      = 0
-    let g:airline#extensions#whitespace#enabled = 0
-    let g:airline#extensions#nrrwrgn#enabled    = 0
-    let g:airline#extensions#capslock#enabled   = 0
-    let g:airline#extensions#windowswap#enabled = 0
-  endfunction
+  " disable extensions for speed
+  let g:airline#extensions#tagbar#enabled     = 0
+  let g:airline#extensions#csv#enabled        = 0
+  let g:airline#extensions#hunks#enabled      = 0
+  let g:airline#extensions#virtualenv#enabled = 0
+  let g:airline#extensions#eclim#enabled      = 0
+  let g:airline#extensions#whitespace#enabled = 0
+  let g:airline#extensions#nrrwrgn#enabled    = 0
+  let g:airline#extensions#capslock#enabled   = 0
+  let g:airline#extensions#windowswap#enabled = 0
   call neobundle#untap()
 endif
 
@@ -66,29 +64,25 @@ if neobundle#tap('tagbar')
   imap <F8> <Esc>:TagbarToggle<CR>
   vmap <F8> <Esc>:TagbarToggle<CR>
 
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:tagbar_autoclose = 1            " close after jumping
-    let g:tagbar_autofocus = 1
-    let g:tagbar_compact = 1
-    let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
-  endfunction
+  let g:tagbar_autoclose = 1            " close after jumping
+  let g:tagbar_autofocus = 1
+  let g:tagbar_compact = 1
+  let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
 endif
 
 NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
 
 NeoBundle 'nathanaelkane/vim-indent-guides'
 if neobundle#tap('vim-indent-guides')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    nnoremap <F7> :IndentGuidesToggle<CR>
-    let g:indent_guides_guide_size = 1
-    let g:indent_guides_start_level = 2
-  endfunction
+  nnoremap <F7> :IndentGuidesToggle<CR>
+  let g:indent_guides_guide_size = 1
+  let g:indent_guides_start_level = 2
   call neobundle#untap()
 endif
 
 NeoBundle 'tpope/vim-fugitive'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ------------------------------------------------------------------------------
 " commands
 NeoBundle 'haya14busa/incsearch.vim', {
       \   'autoload': { 'mappings': '<Plug>(incsearch-', },
@@ -105,7 +99,7 @@ NeoBundle 'tpope/vim-eunuch'
 
 NeoBundle 'tpope/vim-unimpaired'        " used for line bubbling commands on osx
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ------------------------------------------------------------------------------
 " autocomplete
 " neocomplete probably used on osx and on my arch
 NeoBundleLazy 'Shougo/neocomplete.vim', {
@@ -114,17 +108,17 @@ NeoBundleLazy 'Shougo/neocomplete.vim', {
       \   'vim_version':  '7.3.885'
       \ }
 if neobundle#tap('neocomplete.vim')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:acp_enableAtStartup = 0
-    let g:neocomplete#enable_at_startup            = 1
-    let g:neocomplete#enable_smart_case            = 1
-    let g:neocomplete#enable_camel_case_completion = 1
-    let g:neocomplete#enable_underbar_completion   = 1
-    let g:neocomplete#enable_fuzzy_completion      = 1
-    let g:neocomplete#force_overwrite_completefunc = 1
-    let g:neocomplete#enable_refresh_always        = 1
-    let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
+  let g:acp_enableAtStartup = 0
+  let g:neocomplete#enable_at_startup            = 1
+  let g:neocomplete#enable_smart_case            = 1
+  let g:neocomplete#enable_camel_case_completion = 1
+  let g:neocomplete#enable_underbar_completion   = 1
+  let g:neocomplete#enable_fuzzy_completion      = 1
+  let g:neocomplete#force_overwrite_completefunc = 1
+  let g:neocomplete#enable_refresh_always        = 1
+  let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
 
+  function! neobundle#tapped.hooks.on_source(bundle)
     " from the github page: <CR> cancels completion and inserts newline
     inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
@@ -143,24 +137,24 @@ NeoBundle 'Shougo/neocomplcache.vim', {
       \   'disabled':     has('lua') && v:version >= 703,
       \ }
 if neobundle#tap('neocomplcache.vim')
+  let g:acp_enableAtStartup = 0
+  let g:neocomplcache_enable_at_startup             = 1
+  let g:neocomplcache_enable_smart_case             = 1
+  let g:neocomplcache_enable_camel_case_completion  = 1
+  let g:neocomplcache_enable_underbar_completion    = 1
+  let g:neocomplcache_enable_fuzzy_completion       = 1
+  let g:neocomplcache_force_overwrite_completefunc  = 1
+  let g:neocomplcache_temporary_dir = '~/.vim/.cache/neocomplcache'
+
+  " Enable heavy omni completion.
+  if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+  endif
+  let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+  let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+  let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
   function! neobundle#tapped.hooks.on_source(bundle)
-    let g:acp_enableAtStartup = 0
-    let g:neocomplcache_enable_at_startup             = 1
-    let g:neocomplcache_enable_smart_case             = 1
-    let g:neocomplcache_enable_camel_case_completion  = 1
-    let g:neocomplcache_enable_underbar_completion    = 1
-    let g:neocomplcache_enable_fuzzy_completion       = 1
-    let g:neocomplcache_force_overwrite_completefunc  = 1
-    let g:neocomplcache_temporary_dir = '~/.vim/.cache/neocomplcache'
-
-    " Enable heavy omni completion.
-    if !exists('g:neocomplcache_omni_patterns')
-      let g:neocomplcache_omni_patterns = {}
-    endif
-    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
     " <C-h>, <BS>: close popup and delete backword char.
     inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
@@ -177,7 +171,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
   inoremap <expr><S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ------------------------------------------------------------------------------
 " editing keys
 NeoBundle 'godlygeek/tabular', {
       \   'autoload': { 'commands': 'Tabularize' },
@@ -201,12 +195,10 @@ endif
 
 NeoBundle 'svermeulen/vim-easyclip'
 if neobundle#tap('vim-easyclip')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    " vim just uses system clipboard
-    let g:EasyClipDoSystemSync = 0
-    " remap s/S to paste register
-    let g:EasyClipUseSubstituteDefaults = 1
-  endfunction
+  " vim just uses system clipboard
+  let g:EasyClipDoSystemSync = 0
+  " remap s/S to paste register
+  let g:EasyClipUseSubstituteDefaults = 1
   call neobundle#untap()
 endif
 
@@ -224,7 +216,7 @@ NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ------------------------------------------------------------------------------
 " text objects
 NeoBundle 'kana/vim-textobj-indent', {
       \   'depends': 'kana/vim-textobj-user',
@@ -238,7 +230,7 @@ NeoBundle 'lucapette/vim-textobj-underscore', {
 
 NeoBundle 'paradigm/TextObjectify'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ------------------------------------------------------------------------------
 " syntax highlighting
 NeoBundle 'editorconfig/editorconfig-vim', {
       \   'depends': 'vim-scripts/PreserveNoEOL',
@@ -252,52 +244,50 @@ NeoBundleLazy 'gregsexton/MatchTag', {
 
 NeoBundle 'scrooloose/syntastic'
 if neobundle#tap('syntastic')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:syntastic_aggregate_errors         = 1
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list            = 1
-    let g:syntastic_check_on_open            = 1
-    let g:syntastic_check_on_wq              = 1
-    let g:syntastic_enable_signs             = 1
-    let g:syntastic_enable_highlighting      = 1
+  let g:syntastic_aggregate_errors         = 1
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list            = 1
+  let g:syntastic_check_on_open            = 1
+  let g:syntastic_check_on_wq              = 1
+  let g:syntastic_enable_signs             = 1
+  let g:syntastic_enable_highlighting      = 1
 
-    if !exists("g:syntastic_mode_map")
-      let g:syntastic_mode_map = {}
-    endif
-    if !has_key(g:syntastic_mode_map, "mode")
-      let g:syntastic_mode_map['mode'] = 'active'
-    endif
-    if !has_key(g:syntastic_mode_map, "active_filetypes")
-      let g:syntastic_mode_map['active_filetypes'] = []
-    endif
-    if !has_key(g:syntastic_mode_map, "passive_filetypes")
-      let g:syntastic_mode_map['passive_filetypes'] = [ 'html', 'php' ]
-    endif
+  if !exists("g:syntastic_mode_map")
+    let g:syntastic_mode_map = {}
+  endif
+  if !has_key(g:syntastic_mode_map, "mode")
+    let g:syntastic_mode_map['mode'] = 'active'
+  endif
+  if !has_key(g:syntastic_mode_map, "active_filetypes")
+    let g:syntastic_mode_map['active_filetypes'] = []
+  endif
+  if !has_key(g:syntastic_mode_map, "passive_filetypes")
+    let g:syntastic_mode_map['passive_filetypes'] = [ 'html', 'php' ]
+  endif
 
-    let g:syntastic_error_symbol         = '✗'
-    let g:syntastic_style_error_symbol   = '✠'
-    let g:syntastic_warning_symbol       = '∆'
-    let g:syntastic_style_warning_symbol = '≈'
+  let g:syntastic_error_symbol         = '✗'
+  let g:syntastic_style_error_symbol   = '✠'
+  let g:syntastic_warning_symbol       = '∆'
+  let g:syntastic_style_warning_symbol = '≈'
 
-    " ignore angular attrs
-    let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+  " ignore angular attrs
+  let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
-    let g:syntastic_coffeescript_checkers = ['coffee', 'coffeelint']
-    let g:syntastic_php_checkers = ['php', 'phpmd']
-    let g:syntastic_shell_checkers = ['bashate', 'shellcheck']
-  endfunction
+  let g:syntastic_coffeescript_checkers = ['coffee', 'coffeelint']
+  let g:syntastic_php_checkers = ['php', 'phpmd']
+  let g:syntastic_shell_checkers = ['bashate', 'shellcheck']
   call neobundle#untap()
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ------------------------------------------------------------------------------
 " Language specific
 "
-" Chef """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Chef -------------------------------------------------------------------------
 NeoBundleLazy 'vadv/vim-chef', {
       \   'autoload': { 'filetypes': ['ruby', 'eruby'] },
       \ }
 
-" CoffeeScript """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CoffeeScript -----------------------------------------------------------------
 NeoBundle 'kchmck/vim-coffee-script'  " creates coffee ft
 
 " tagbar ctags for coffee
@@ -307,89 +297,79 @@ NeoBundleLazy 'lukaszkorecki/CoffeeTags', {
       \   'disabled': !executable("coffeetags"),
       \ }
 if neobundle#tap('vim-coffee-script')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:coffee_compile_vert = 1
-    let g:coffee_watch_vert = 1
-  endfunction
+  let g:coffee_compile_vert = 1
+  let g:coffee_watch_vert = 1
   call neobundle#untap()
 endif
 
-" ColdFusion """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ColdFusion -------------------------------------------------------------------
 NeoBundleLazy 'alampros/cf.vim', {
       \   'autoload': { 'filetypes': ['cfml'] },
       \ }
 NeoBundle 'davejlong/cf-utils.vim'      " creates cfml filetype
 
-" Git """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Git --------------------------------------------------------------------------
 NeoBundle 'tpope/vim-git'               " creates gitconfig, gitcommit, rebase
 
-" HTML and generators """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" HTML and generators ----------------------------------------------------------
 NeoBundleLazy 'othree/html5.vim', {
       \   'autoload': { 'filetypes': ['html', 'css'] },
       \ }
 NeoBundle 'digitaltoad/vim-jade'        " creates jade filetype
 NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 
-" JavaScript """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" JavaScript -------------------------------------------------------------------
 NeoBundle 'itspriddle/vim-jquery'         " creates javascript syntax
 NeoBundle 'jelera/vim-javascript-syntax'  " also creates javascript syntax
 
 NeoBundle 'othree/javascript-libraries-syntax.vim'
 if neobundle#tap('javascript-libraries-syntax.vim')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:used_javascript_libs = 'jquery,underscore,backbone'
-  endfunction
+  let g:used_javascript_libs = 'jquery,underscore,backbone'
   call neobundle#untap()
 endif
 
 NeoBundle 'pangloss/vim-javascript'     " also creates javascript filetype
 if neobundle#tap('vim-javascript')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:javascript_enable_domhtmlcss=1
-  endfunction
+  let g:javascript_enable_domhtmlcss=1
   call neobundle#untap()
 endif
 
-NeoBundle 'heavenshell/vim-jsdoc'
+NeoBundleLazy 'heavenshell/vim-jsdoc', {
+      \   'autoload': { 'commands': ['Jsdoc'] },
+      \ }
 if neobundle#tap('vim-jsdoc')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:jsdoc_default_mapping = 0
-    if has("autocmd")
-      au vimrc FileType javascript nnoremap <Leader>pd :JsDoc<CR>
-      au vimrc FileType javascript vnoremap <Leader>pd :JsDoc<CR>
-    endif
-  endfunction
+  let g:jsdoc_default_mapping = 0
+  if has("autocmd")
+    au vimrc FileType javascript nnoremap <Leader>pd :JsDoc<CR>
+    au vimrc FileType javascript vnoremap <Leader>pd :JsDoc<CR>
+  endif
   call neobundle#untap()
 endif
 
-" JSON """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" JSON -------------------------------------------------------------------------
 NeoBundle 'elzr/vim-json'               " creates json filetype
 if neobundle#tap('vim-json')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    if has("autocmd")
-      " JSON force JSON not javascript
-      au vimrc BufRead,BufNewFile *.json setlocal filetype=json
-    endif
-  endfunction
+  if has("autocmd")
+    " JSON force JSON not javascript
+    au vimrc BufRead,BufNewFile *.json setlocal filetype=json
+  endif
   call neobundle#untap()
 endif
 
-" Mustache.js and Handlebars """""""""""""""""""""""""""""""""""""""""""""""""""
+" Mustache.js and Handlebars ---------------------------------------------------
 NeoBundle 'mustache/vim-mustache-handlebars' " creates mustache filetype
 
-" PHP """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PHP --------------------------------------------------------------------------
 NeoBundleLazy 'tobyS/pdv', {
       \   'autoload': { 'filetypes': ['php', 'blade'] },
       \   'depends': 'tobyS/vmustache',
       \ }
 if neobundle#tap('pdv')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:pdv_template_dir = expand("~/.vim/bundle/pdv/templates")
-    if has("autocmd")
-      au vimrc FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
-      au vimrc FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
-    endif
-  endfunction
+  let g:pdv_template_dir = expand("~/.vim/bundle/pdv/templates")
+  if has("autocmd")
+    au vimrc FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+    au vimrc FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+  endif
   call neobundle#untap()
 endif
 
@@ -397,16 +377,9 @@ NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] },
       \ }
 if neobundle#tap('phpcomplete.vim')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    " mapping conflict with vim-rails, change <C-]> to <C-)>
-    let g:phpcomplete_enhance_jump_to_definition=0
-    if !hasmapto('<Plug>PHPJump')
-      map! <silent> <buffer> <unique> <C-)> <Plug>PHPJump
-      map! <silent> <buffer> <unique> <C-W><C-)> <Plug>PHPJumpW
-    endif
-    nnoremap <silent> <buffer> <Plug>PHPJump :<C-u>call phpcomplete#JumpToDefinition('normal')<CR>
-    nnoremap <silent> <buffer> <Plug>PHPJumpW :<C-u>call phpcomplete#JumpToDefinition('split')<CR>
-  endfunction
+  " mapping conflict with vim-rails, change <C-]> to <C-)>
+  let g:phpcomplete_enhance_jump_to_definition = 0
+  let g:phpcomplete_parse_docblock_comments = 1
   call neobundle#untap()
 endif
 
@@ -422,16 +395,16 @@ NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
       \   'disabled': !executable("ctags"),
       \ }
 
-" Puppet """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Puppet -----------------------------------------------------------------------
 NeoBundle 'rodjek/vim-puppet'           " creates pp filetype
 
-" Ruby, rails """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ruby, rails ------------------------------------------------------------------
 NeoBundleLazy 'tpope/vim-rails', {
       \   'autoload': { 'filetypes': ['ruby'] }
       \   }
 NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 
-" Stylesheet languages """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Stylesheet languages ---------------------------------------------------------
 NeoBundleLazy 'ap/vim-css-color', {
       \   'autoload': {
       \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee' ]
@@ -444,9 +417,9 @@ NeoBundleLazy 'hail2u/vim-css3-syntax', {
       \   'autoload': { 'filetypes': ['css', 'sass', 'scss'] },
       \ }
 
-" Twig """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Twig -------------------------------------------------------------------------
 NeoBundle 'evidens/vim-twig'            " creates twig
 
-" YAML """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" YAML -------------------------------------------------------------------------
 NeoBundle 'ingydotnet/yaml-vim'
 
