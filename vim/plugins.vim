@@ -1,5 +1,3 @@
-scriptencoding UTF-8
-
 " plugin dependencies ----------------------------------------------------------
 NeoBundle 'Shougo/vimproc', {
       \   'build': {

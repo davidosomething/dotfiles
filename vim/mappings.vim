@@ -1,6 +1,9 @@
 imap jj <Esc>
 cmap jj <Esc>
 
+" Tab in normal mode will quick-switch to prev buffer
+nnoremap <Tab> :b#<CR>
+
 " quickfix and location list
 " same as unimpaired []ql
 nnoremap <Up>     :lprevious<CR>
