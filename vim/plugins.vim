@@ -39,14 +39,14 @@ if neobundle#tap('vim-airline')
     let g:airline#extensions#tabline#show_tab_nr = 0
 
     " disable extensions for speed
-    let g:airline#extensions#tagbar#enabled = 0
-    let g:airline#extensions#csv#enabled = 0
-    let g:airline#extensions#hunks#enabled = 0
+    let g:airline#extensions#tagbar#enabled     = 0
+    let g:airline#extensions#csv#enabled        = 0
+    let g:airline#extensions#hunks#enabled      = 0
     let g:airline#extensions#virtualenv#enabled = 0
-    let g:airline#extensions#eclim#enabled = 0
+    let g:airline#extensions#eclim#enabled      = 0
     let g:airline#extensions#whitespace#enabled = 0
-    let g:airline#extensions#nrrwrgn#enabled = 0
-    let g:airline#extensions#capslock#enabled = 0
+    let g:airline#extensions#nrrwrgn#enabled    = 0
+    let g:airline#extensions#capslock#enabled   = 0
     let g:airline#extensions#windowswap#enabled = 0
   endfunction
   call neobundle#untap()
@@ -57,18 +57,20 @@ NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 "NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
 
 " auto tag generation via exuberant-ctags -- no tags file created
-NeoBundle 'majutsushi/tagbar', {
+NeoBundleLazy 'majutsushi/tagbar', {
+      \   'autoload': { 'commands': 'TagbarToggle' },
       \   'disabled': !executable("ctags"),
       \ }
 if neobundle#tap('tagbar')
+  nmap <F8> :TagbarToggle<CR>
+  imap <F8> <Esc>:TagbarToggle<CR>
+  vmap <F8> <Esc>:TagbarToggle<CR>
+
   function! neobundle#tapped.hooks.on_source(bundle)
     let g:tagbar_autoclose = 1            " close after jumping
     let g:tagbar_autofocus = 1
     let g:tagbar_compact = 1
     let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
-    nmap <F8> :TagbarToggle<CR>
-    imap <F8> <Esc>:TagbarToggle<CR>
-    vmap <F8> <Esc>:TagbarToggle<CR>
   endfunction
 endif
 
@@ -92,11 +94,9 @@ NeoBundle 'haya14busa/incsearch.vim', {
       \   'autoload': { 'mappings': '<Plug>(incsearch-', },
       \ }
 if neobundle#tap('incsearch.vim')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    map /  <Plug>(incsearch-forward)
-    map ?  <Plug>(incsearch-backward)
-    map g/ <Plug>(incsearch-stay)
-  endfunction
+  map /  <Plug>(incsearch-forward)
+  map ?  <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
 endif
 
 NeoBundle 'rking/ag.vim'
@@ -183,21 +183,19 @@ NeoBundle 'godlygeek/tabular', {
       \   'autoload': { 'commands': 'Tabularize' },
       \ }
 if neobundle#tap('tabular')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    nmap <Leader>a& :Tabularize /&<CR>
-    vmap <Leader>a& :Tabularize /&<CR>
-    nmap <Leader>a- :Tabularize /-<CR>
-    vmap <Leader>a- :Tabularize /-<CR>
-    nmap <Leader>a= :Tabularize /=<CR>
-    vmap <Leader>a= :Tabularize /=<CR>
-    nmap <Leader>af :Tabularize /=>/<CR>
-    vmap <Leader>af :Tabularize /=>/<CR>
-    " align the following without moving them
-    nmap <leader>a: :Tabularize /:\zs/l0l1<CR>
-    vmap <leader>a: :Tabularize /:\zs/l0l1<CR>
-    nmap <leader>a, :Tabularize /,\zs/l0l1<CR>
-    vmap <leader>a, :Tabularize /,\zs/l0l1<CR>
-  endfunction
+  nmap <Leader>a& :Tabularize /&<CR>
+  vmap <Leader>a& :Tabularize /&<CR>
+  nmap <Leader>a- :Tabularize /-<CR>
+  vmap <Leader>a- :Tabularize /-<CR>
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>af :Tabularize /=>/<CR>
+  vmap <Leader>af :Tabularize /=>/<CR>
+  " align the following without moving them
+  nmap <leader>a: :Tabularize /:\zs/l0l1<CR>
+  vmap <leader>a: :Tabularize /:\zs/l0l1<CR>
+  nmap <leader>a, :Tabularize /,\zs/l0l1<CR>
+  vmap <leader>a, :Tabularize /,\zs/l0l1<CR>
   call neobundle#untap()
 endif
 
@@ -303,7 +301,9 @@ NeoBundleLazy 'vadv/vim-chef', {
 NeoBundle 'kchmck/vim-coffee-script'  " creates coffee ft
 
 " tagbar ctags for coffee
-NeoBundle 'lukaszkorecki/CoffeeTags', {
+NeoBundleLazy 'lukaszkorecki/CoffeeTags', {
+      \   'autoload': { 'filetypes': ['coffee'] },
+      \   'depends' : 'majutsushi/tagbar',
       \   'disabled': !executable("coffeetags"),
       \ }
 if neobundle#tap('vim-coffee-script')
