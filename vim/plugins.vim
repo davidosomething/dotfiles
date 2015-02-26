@@ -322,6 +322,9 @@ NeoBundle 'davejlong/cf-utils.vim'      " creates cfml filetype
 NeoBundle 'tpope/vim-git'               " creates gitconfig, gitcommit, rebase
 
 " HTML and generators """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundleLazy 'othree/html5.vim', {
+      \   'autoload': { 'filetypes': ['html', 'css'] },
+      \ }
 NeoBundle 'digitaltoad/vim-jade'        " creates jade filetype
 NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 
