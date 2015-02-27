@@ -1,30 +1,10 @@
-imap jj <Esc>
-cmap jj <Esc>
-
-" Tab in normal mode will quick-switch to prev buffer
-nnoremap <Tab> :b#<CR>
-
-" quickfix and location list
-" same as unimpaired []ql
-nnoremap <Up>     :lprevious<CR>
-inoremap <Up>     <Esc>:lprevious<CR>
-nnoremap <Down>   :lnext<CR>
-inoremap <Down>   <Esc>:lnext<CR>
-nnoremap <Left>   :cprevious<CR>
-inoremap <Left>   <Esc>:cprevious<CR>
-nnoremap <Right>  :cnext<CR>
-inoremap <Right>  <Esc>:cnext<CR>
-
-" close buffer with space-bd and auto close loc list first
-nnoremap <Leader>bd :lclose<CR>:bdelete<CR>
-cabbrev <silent>bd lclose\|bdelete
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" keyboard - most of this is straight from Janus
-
 " Disable vim help
 inoremap <F1> <nop>
 nnoremap <F1> <nop>
+
+" mode toggling ----------------------------------------------------------------
+imap jj <Esc>
+cmap jj <Esc>
 
 " Toggle display lines movement mode
 let b:movementmode = "linewise"
@@ -41,26 +21,19 @@ function! ToggleMovementMode()
     echo 'Moving by line numbers'
   endif
 endfunction
-nnoremap <Leader>ws :call CleanCode()<cr>
-nnoremap <silent> <F11> :call ToggleMovementMode()<cr>
-inoremap <silent> <F11> <ESC>:call ToggleMovementMode()<cr>
-" visual defaults to display movement
+nnoremap <silent> <F11> :call ToggleMovementMode()<CR>
+inoremap <silent> <F11> <ESC>:call ToggleMovementMode()<CR>
+" see Scrolling and movement section visual always uses gj gk
 
 " Toggle paste mode
 nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
 inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
 
-" Space to toggle folds.
-" https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
-nnoremap <Space> za
-vnoremap <Space> za
-
 " Unfuck my screen
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-444
-nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
+nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
 
-""
-" Scrolling
+" Scrolling and movement -------------------------------------------------------
 " Map the arrow keys to be based on display lines, not physical lines
 vnoremap <Down> gj
 vnoremap <Up>   gk
@@ -88,18 +61,18 @@ nnoremap <silent> g# g#zz
 
 " Don't move on *
 " From https://bitbucket.org/sjl/dotfiles/
-nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+nnoremap <silent> * :let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>
 
-""
-" Commands
+" Commands ---------------------------------------------------------------------
 " Remap :W to :w
 command W w
 command Q q
 
-""
-" Traversal / Filesystem
 " cd to the directory containing the file in the buffer
 nnoremap <silent> <Leader>cd :lcd %:h<CR>
+
+" Create the directory containing the file in the buffer
+nnoremap <silent> <Leader>md :!mkdir -p %:p:h<CR>
 
 function! ChangeToVCSRoot()
   let cph = expand('%:p:h', 1)
@@ -113,16 +86,14 @@ function! ChangeToVCSRoot()
 endfunction
 nnoremap <silent> <Leader>cdr :call ChangeToVCSRoot()<CR>
 
-" Create the directory containing the file in the buffer
-nnoremap <silent> <Leader>md :!mkdir -p %:p:h<CR>
-
-""
-" Editing
+" Editing ----------------------------------------------------------------------
+" insert date, e.g. 2015-02-19
+nnoremap <Leader>d "=strftime("%Y-%m-%d")<CR>P
 
 " Sort lines
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
-nnoremap <Leader>ss vip:!sort<cr>
-vnoremap <Leader>ss :!sort<cr>
+nnoremap <Leader>ss vip:!sort<CR>
+vnoremap <Leader>ss :!sort<CR>
 
 " reselect visual block after indent
 vnoremap < <gv
@@ -141,7 +112,7 @@ function! CleanCode()
   %s/\r/\r/eg " Turn DOS returns ^M into real returns
   %s= *$==e   " Delete end of line blanks
 endfunction
-nnoremap <Leader>ws :call CleanCode()<cr>
+nnoremap <Leader>ws :call CleanCode()<CR>
 
 if g:is_macvim && has("gui_running")
   " Map command-[ and command-] to indenting or outdenting
@@ -169,28 +140,6 @@ if g:is_macvim && has("gui_running")
   vmap <D-Down> ]egv
   vmap <D-k> [egv
   vmap <D-j> ]egv
-
-  " Map Command-# to switch tabs
-  map  <D-0> 0gt
-  imap <D-0> <Esc>0gt
-  map  <D-1> 1gt
-  imap <D-1> <Esc>1gt
-  map  <D-2> 2gt
-  imap <D-2> <Esc>2gt
-  map  <D-3> 3gt
-  imap <D-3> <Esc>3gt
-  map  <D-4> 4gt
-  imap <D-4> <Esc>4gt
-  map  <D-5> 5gt
-  imap <D-5> <Esc>5gt
-  map  <D-6> 6gt
-  imap <D-6> <Esc>6gt
-  map  <D-7> 7gt
-  imap <D-7> <Esc>7gt
-  map  <D-8> 8gt
-  imap <D-8> <Esc>8gt
-  map  <D-9> 9gt
-  imap <D-9> <Esc>9gt
 else
   " Map command-[ and command-] to indenting or outdenting
   " while keeping the original selection in visual mode
@@ -217,7 +166,31 @@ else
   vmap <C-Down> ]egv
   vmap <C-k> [egv
   vmap <C-j> ]egv
+endif
 
+" Tab manip --------------------------------------------------------------------
+" Navigate tabs
+nnoremap <silent> <C-Left> :tabprevious<CR>
+nnoremap <silent> <C-Right> :tabnext<CR>
+inoremap <silent> <C-Left> <Esc>:tabprevious<CR>
+inoremap <silent> <C-Right> <Esc>:tabnext<CR>
+
+" <C-9> is last tab like chrome - more than 4 tabs? you fucked up
+if g:is_macvim && has("gui_running")
+  " Map Command-# to switch tabs
+  map  <D-0> 0gt
+  imap <D-0> <Esc>0gt
+  map  <D-1> 1gt
+  imap <D-1> <Esc>1gt
+  map  <D-2> 2gt
+  imap <D-2> <Esc>2gt
+  map  <D-3> 3gt
+  imap <D-3> <Esc>3gt
+  map  <D-4> 4gt
+  imap <D-4> <Esc>4gt
+  map  <D-9> :tablast<CR>
+  imap <D-9> <Esc>:tablast<CR>
+else
   " Map Control-# to switch tabs
   map  <C-0> 0gt
   imap <C-0> <Esc>0gt
@@ -229,22 +202,20 @@ else
   imap <C-3> <Esc>3gt
   map  <C-4> 4gt
   imap <C-4> <Esc>4gt
-  map  <C-5> 5gt
-  imap <C-5> <Esc>5gt
-  map  <C-6> 6gt
-  imap <C-6> <Esc>6gt
-  map  <C-7> 7gt
-  imap <C-7> <Esc>7gt
-  map  <C-8> 8gt
-  imap <C-8> <Esc>8gt
-  map  <C-9> 9gt
-  imap <C-9> <Esc>9gt
+  map  <C-9> :tablast<CR>
+  imap <C-9> <Esc>:tablast<CR>
 endif
 
-""
-" Tab and Split manipulation
+" Buffer manip -----------------------------------------------------------------
+" Tab in normal mode will quick-switch to prev buffer
+nnoremap <Tab> :b#<CR>
 
-" Resize splits
+" close buffer with space-bd and auto close loc list first
+nnoremap <Leader>bd :lclose<CR>:bdelete<CR>
+cabbrev <silent>bd lclose\|bdelete
+
+" Split manip ------------------------------------------------------------------
+" Resize
 nnoremap <silent> <S-Left>  4<C-w><
 nnoremap <silent> <S-Down>  4<C-W>-
 nnoremap <silent> <S-Up>    4<C-W>+
@@ -254,19 +225,20 @@ inoremap <silent> <S-Down>  <Esc>4<C-W>-
 inoremap <silent> <S-Up>    <Esc>4<C-W>+
 inoremap <silent> <S-Right> <Esc>4<C-w>>
 
-" Navigate splits
+" Navigate
 nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
-" Navigate tabs
-nnoremap <silent> <C-Left> :tabprevious<CR>
-nnoremap <silent> <C-Right> :tabnext<CR>
-inoremap <silent> <C-Left> <Esc>:tabprevious<CR>
-inoremap <silent> <C-Right> <Esc>:tabnext<CR>
-
-" insert date, e.g. 2015-02-19
-nnoremap <leader>dd "=strftime("%Y-%m-%d")<CR>P
-inoremap <leader>dd <C-R>=strftime("%Y-%m-%d")<CR>
+" quickfix and location list ---------------------------------------------------
+" same as unimpaired []ql
+nnoremap <Up>     :lprevious<CR>
+inoremap <Up>     <Esc>:lprevious<CR>
+nnoremap <Down>   :lnext<CR>
+inoremap <Down>   <Esc>:lnext<CR>
+nnoremap <Left>   :cprevious<CR>
+inoremap <Left>   <Esc>:cprevious<CR>
+nnoremap <Right>  :cnext<CR>
+inoremap <Right>  <Esc>:cnext<CR>
 
