@@ -82,13 +82,22 @@ NeoBundle 'tpope/vim-fugitive'
 
 " ------------------------------------------------------------------------------
 " commands
-NeoBundle 'haya14busa/incsearch.vim', {
+NeoBundleLazy 'haya14busa/incsearch.vim', {
       \   'autoload': { 'mappings': '<Plug>(incsearch-', },
       \ }
 if neobundle#tap('incsearch.vim')
   map /  <Plug>(incsearch-forward)
   map ?  <Plug>(incsearch-backward)
   map g/ <Plug>(incsearch-stay)
+endif
+
+NeoBundleLazy 'osyo-manga/vim-over', {
+      \   'autoload': { 'commands': [ 'OverCommandLine' ] },
+      \ }
+if neobundle#tap('vim-over')
+  nmap <F3> :OverCommandLine<CR>
+  imap <F3> <Esc>:OverCommandLine<CR>
+  vmap <F3> <Esc>:OverCommandLine<CR>
 endif
 
 NeoBundle 'rking/ag.vim'
@@ -171,7 +180,7 @@ endif
 
 " ------------------------------------------------------------------------------
 " editing keys
-NeoBundle 'godlygeek/tabular', {
+NeoBundleLazy 'godlygeek/tabular', {
       \   'autoload': { 'commands': 'Tabularize' },
       \ }
 if neobundle#tap('tabular')
