@@ -89,6 +89,15 @@ NeoBundle 'now/vim-quit-if-only-quickfix-buffer-left'
 
 NeoBundle 'tpope/vim-fugitive'
 
+NeoBundle 'xolox/vim-easytags', {
+      \   'depends' : 'xolox/vim-misc',
+      \   'disabled': !executable("ctags"),
+      \ }
+
+NeoBundle 'xolox/vim-misc', {
+      \   'disabled': !executable("ctags"),
+      \ }
+
 " ------------------------------------------------------------------------------
 " commands
 NeoBundleLazy 'haya14busa/incsearch.vim', {
