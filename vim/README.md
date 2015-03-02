@@ -81,6 +81,12 @@ autocmdFT javascript setlocal omnifunc=tern#Complete
 ## Plugins I intentionally don't use
 
 ```
+" i don't do rails enough to make this worthwhile
+" don't lazy load -- see https://github.com/Shougo/neobundle.vim/issues/114
+NeoBundle 'tpope/vim-rails'
+```
+
+```
 no longer needed, bundled vim-markdown in 7.4 supports everything now
 NeoBundle 'jtratner/vim-flavored-markdown'
 if neobundle#tap('vim-flavored-markdown')

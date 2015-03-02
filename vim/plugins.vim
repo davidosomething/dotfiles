@@ -10,9 +10,6 @@ NeoBundle 'Shougo/vimproc', {
 
 NeoBundle 'tobyS/vmustache' " for pdv
 
-" filesystem -------------------------------------------------------------------
-NeoBundle 'vim-scripts/PreserveNoEOL'
-
 " ui ---------------------------------------------------------------------------
 NeoBundle 'altercation/vim-colors-solarized'
 
@@ -302,6 +299,8 @@ if neobundle#tap('syntastic')
   call neobundle#untap()
 endif
 
+NeoBundle 'vim-scripts/PreserveNoEOL'
+
 " ------------------------------------------------------------------------------
 " Language specific
 "
@@ -310,60 +309,24 @@ NeoBundleLazy 'vadv/vim-chef', {
       \   'autoload': { 'filetypes': ['ruby', 'eruby'] },
       \ }
 
-" CoffeeScript -----------------------------------------------------------------
-NeoBundle 'kchmck/vim-coffee-script'  " creates coffee ft
-
-" tagbar ctags for coffee
-NeoBundleLazy 'lukaszkorecki/CoffeeTags', {
-      \   'autoload': { 'filetypes': ['coffee'] },
-      \   'depends' : 'majutsushi/tagbar',
-      \   'disabled': !executable("coffeetags"),
-      \ }
-if neobundle#tap('vim-coffee-script')
-  let g:coffee_compile_vert = 1
-  let g:coffee_watch_vert = 1
-  call neobundle#untap()
-endif
-
-" ColdFusion -------------------------------------------------------------------
-NeoBundleLazy 'alampros/cf.vim', {
-      \   'autoload': { 'filetypes': ['cfml'] },
-      \ }
-NeoBundle 'davejlong/cf-utils.vim'      " creates cfml filetype
-
 " Git --------------------------------------------------------------------------
 NeoBundle 'tpope/vim-git'               " creates gitconfig, gitcommit, rebase
 
 " HTML and generators ----------------------------------------------------------
 NeoBundleLazy 'othree/html5.vim', {
-      \   'autoload': { 'filetypes': ['html', 'css'] },
+      \   'autoload': { 'filetypes': ['css', 'html', 'php'] },
       \ }
-NeoBundle 'digitaltoad/vim-jade'        " creates jade filetype
+
+NeoBundleLazy 'digitaltoad/vim-jade', { 'autoload': { 'filetypes': ['jade'] } }
+
 NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 
-" JavaScript -------------------------------------------------------------------
-NeoBundle 'itspriddle/vim-jquery'         " creates javascript syntax
-NeoBundle 'jelera/vim-javascript-syntax'  " also creates javascript syntax
-
-NeoBundle 'othree/javascript-libraries-syntax.vim'
-if neobundle#tap('javascript-libraries-syntax.vim')
-  let g:used_javascript_libs = 'jquery,underscore,backbone'
-  call neobundle#untap()
-endif
-
-" react/JSX syn highlighting for .jsx
-NeoBundle 'mxw/vim-jsx', {
-      \   'depends': 'vim-javascript',
-      \ }
-
-NeoBundle 'pangloss/vim-javascript'     " also creates javascript filetype
-if neobundle#tap('vim-javascript')
-  let g:javascript_enable_domhtmlcss=1
-  call neobundle#untap()
-endif
-
+" JavaScript / CoffeeScript ----------------------------------------------------
 NeoBundleLazy 'heavenshell/vim-jsdoc', {
-      \   'autoload': { 'commands': ['Jsdoc'] },
+      \   'autoload': {
+      \     'filetypes': ['html', 'javascript', 'php'],
+      \     'commands': ['JsDoc'],
+      \   }
       \ }
 if neobundle#tap('vim-jsdoc')
   let g:jsdoc_default_mapping = 0
@@ -374,9 +337,47 @@ if neobundle#tap('vim-jsdoc')
   call neobundle#untap()
 endif
 
+NeoBundleLazy 'itspriddle/vim-jquery', {
+      \   'autoload': { 'filetypes': ['html', 'javascript', 'php'] }
+      \ }
+
+NeoBundleLazy 'jelera/vim-javascript-syntax', {
+      \   'autoload': { 'filetypes': ['html', 'javascript', 'php'] }
+      \ }
+
+" can't lazy this, provides coffee ft
+NeoBundle 'kchmck/vim-coffee-script'
+if neobundle#tap('vim-coffee-script')
+  let g:coffee_compile_vert = 1
+  let g:coffee_watch_vert = 1
+  call neobundle#untap()
+endif
+
+" tagbar ctags for coffee
+NeoBundle 'lukaszkorecki/CoffeeTags', {
+      \   'depends' : 'majutsushi/tagbar',
+      \   'disabled': !executable("coffeetags"),
+      \ }
+
+" react/JSX syn highlighting for .jsx
+NeoBundleLazy 'mxw/vim-jsx', { 'depends': 'vim-javascript' }
+
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {
+      \   'autoload': { 'filetypes': ['javascript', 'coffee'] }
+      \ }
+
+NeoBundleLazy 'pangloss/vim-javascript', {
+      \   'autoload': { 'filetypes': ['html', 'javascript', 'php'] }
+      \ }
+if neobundle#tap('vim-javascript')
+  let g:javascript_enable_domhtmlcss=1
+  call neobundle#untap()
+endif
+
 " JSON -------------------------------------------------------------------------
-NeoBundle 'elzr/vim-json'               " creates json filetype
+NeoBundleLazy 'elzr/vim-json', { 'autoload': { 'filetypes': ['json'] } }
 if neobundle#tap('vim-json')
+  let g:vim_json_syntax_conceal = 0
   if has("autocmd")
     " JSON force JSON not javascript
     au vimrc BufRead,BufNewFile *.json setlocal filetype=json
@@ -385,7 +386,9 @@ if neobundle#tap('vim-json')
 endif
 
 " Mustache.js and Handlebars ---------------------------------------------------
-NeoBundle 'mustache/vim-mustache-handlebars' " creates mustache filetype
+NeoBundleLazy 'mustache/vim-mustache-handlebars', {
+      \   'autoload' : { 'filetypes': ['html', 'mustache', 'hbs'] },
+      \ }
 
 " PHP --------------------------------------------------------------------------
 NeoBundleLazy 'tobyS/pdv', {
@@ -427,23 +430,26 @@ NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
 NeoBundle 'rodjek/vim-puppet'           " creates pp filetype
 
 " Ruby, rails ------------------------------------------------------------------
-NeoBundleLazy 'tpope/vim-rails', {
-      \   'autoload': { 'filetypes': ['ruby'] }
-      \   }
 NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 
 " Stylesheet languages ---------------------------------------------------------
-NeoBundleLazy 'ap/vim-css-color', {
-      \   'autoload': {
-      \     'filetypes': [ 'php', 'html', 'css', 'less', 'scss', 'sass', 'javascript', 'coffee' ]
-      \   },
-      \ }
+NeoBundle 'ap/vim-css-color'
 
 NeoBundle 'cakebaker/scss-syntax.vim'   " creates scss.css
+
 NeoBundle 'groenewege/vim-less'         " creates less filetype
+
 NeoBundleLazy 'hail2u/vim-css3-syntax', {
-      \   'autoload': { 'filetypes': ['css', 'sass', 'scss'] },
+      \   'autoload': { 'filetypes': ['css', 'scss'] },
       \ }
+if neobundle#tap('vim-css3-syntax')
+  if has("autocmd")
+    augroup VimCSS3Syntax
+      autocmd!
+      autocmd FileType css setlocal iskeyword+=-
+    augroup END
+  endif
+endif
 
 " Twig -------------------------------------------------------------------------
 NeoBundle 'evidens/vim-twig'            " creates twig
