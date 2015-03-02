@@ -74,18 +74,6 @@ nnoremap <silent> <Leader>cd :lcd %:h<CR>
 " Create the directory containing the file in the buffer
 nnoremap <silent> <Leader>md :!mkdir -p %:p:h<CR>
 
-function! ChangeToVCSRoot()
-  let cph = expand('%:p:h', 1)
-  if match(cph, '\v^<.+>://') >= 0 | retu | en
-  let wd = ''
-  for s:mkr in ['.git/', '.hg/', '.svn/', '.bzr/', '_darcs/', '.vimprojects']
-    let wd = call('find'.(s:mkr =~ '/$' ? 'dir' : 'file'), [s:mkr, cph.';'])
-    if wd != '' | let &acd = 0 | brea | en
-  endfo
-  exe 'lc!' fnameescape(wd == '' ? cph : substitute(wd, s:mkr.'$', '.', ''))
-endfunction
-nnoremap <silent> <Leader>cdr :call ChangeToVCSRoot()<CR>
-
 " Editing ----------------------------------------------------------------------
 " insert date, e.g. 2015-02-19
 nnoremap <Leader>d "=strftime("%Y-%m-%d")<CR>P
