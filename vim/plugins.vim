@@ -351,7 +351,8 @@ if neobundle#tap('javascript-libraries-syntax.vim')
   call neobundle#untap()
 endif
 
-NeoBundle 'mxw/vim-jsx', {              " react/JSX syn highlighting for .jsx
+" react/JSX syn highlighting for .jsx
+NeoBundle 'mxw/vim-jsx', {
       \   'depends': 'vim-javascript',
       \ }
 
