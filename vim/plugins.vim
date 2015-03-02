@@ -85,6 +85,8 @@ if neobundle#tap('vim-indent-guides')
   call neobundle#untap()
 endif
 
+NeoBundle 'now/vim-quit-if-only-quickfix-buffer-left'
+
 NeoBundle 'tpope/vim-fugitive'
 
 " ------------------------------------------------------------------------------
@@ -106,7 +108,7 @@ if neobundle#tap('vim-over')
   vmap <Esc> <Esc>:OverCommandLine<CR>
 endif
 
-NeoBundle 'rking/ag.vim'
+NeoBundleLazy 'rking/ag.vim', { 'autoload': { 'commands': 'Ag' } }
 
 NeoBundle 'tpope/vim-eunuch'
 
@@ -186,9 +188,7 @@ endif
 
 " ------------------------------------------------------------------------------
 " editing keys
-NeoBundleLazy 'godlygeek/tabular', {
-      \   'autoload': { 'commands': 'Tabularize' },
-      \ }
+NeoBundleLazy 'godlygeek/tabular', { 'autoload': { 'commands': 'Tabularize' } }
 if neobundle#tap('tabular')
   nmap <Leader>a& :Tabularize /&<CR>
   vmap <Leader>a& :Tabularize /&<CR>
@@ -231,17 +231,27 @@ NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 " ------------------------------------------------------------------------------
 " text objects
-NeoBundle 'kana/vim-textobj-indent', {
-      \   'depends': 'kana/vim-textobj-user',
-      \ }
-
 NeoBundle 'kana/vim-textobj-user'             " framework
 
+" provide ai and ii for indent blocks
+NeoBundle 'kana/vim-textobj-indent', { 'depends': 'kana/vim-textobj-user' }
+
+" provide al and il for current line
+NeoBundle 'kana/vim-textobj-line', { 'depends': 'kana/vim-textobj-user' }
+
+" provide a_ and i_ for underscores
 NeoBundle 'lucapette/vim-textobj-underscore', {
       \   'depends': 'kana/vim-textobj-user',
       \ }
 
+" provide al and il for current line
+NeoBundle 'mattn/vim-textobj-url', { 'depends': 'kana/vim-textobj-user' }
+
+" provide {, ", ', [, <, various other block objects
 NeoBundle 'paradigm/TextObjectify'
+
+" provide a- and i-
+NeoBundle 'RyanMcG/vim-textobj-dash', { 'depends': 'kana/vim-textobj-user' }
 
 " ------------------------------------------------------------------------------
 " syntax highlighting
@@ -340,6 +350,10 @@ if neobundle#tap('javascript-libraries-syntax.vim')
   let g:used_javascript_libs = 'jquery,underscore,backbone'
   call neobundle#untap()
 endif
+
+NeoBundle 'mxw/vim-jsx', {              " react/JSX syn highlighting for .jsx
+      \   'depends': 'vim-javascript',
+      \ }
 
 NeoBundle 'pangloss/vim-javascript'     " also creates javascript filetype
 if neobundle#tap('vim-javascript')
