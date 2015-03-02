@@ -1,3 +1,6 @@
+" Notes:
+" - If it provides a new filetype (like vim-coffee-script), don't lazy
+
 " plugin dependencies ----------------------------------------------------------
 NeoBundle 'Shougo/vimproc', {
       \   'build': {
@@ -304,11 +307,6 @@ NeoBundle 'vim-scripts/PreserveNoEOL'
 " ------------------------------------------------------------------------------
 " Language specific
 "
-" Chef -------------------------------------------------------------------------
-NeoBundleLazy 'vadv/vim-chef', {
-      \   'autoload': { 'filetypes': ['ruby', 'eruby'] },
-      \ }
-
 " Git --------------------------------------------------------------------------
 NeoBundle 'tpope/vim-git'               " creates gitconfig, gitcommit, rebase
 
@@ -414,7 +412,10 @@ if neobundle#tap('phpcomplete.vim')
   call neobundle#untap()
 endif
 
-NeoBundle 'StanAngeloff/php.vim'        " updated syntax
+" provides updated syntax
+NeoBundleLazy 'StanAngeloff/php.vim', {
+      \   'autoload': { 'filetypes': ['php', 'blade'] },
+      \ }
 
 NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] },
@@ -426,10 +427,13 @@ NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
       \   'disabled': !executable("ctags"),
       \ }
 
-" Puppet -----------------------------------------------------------------------
+" Ruby, rails, chef, puppet ----------------------------------------------------
 NeoBundle 'rodjek/vim-puppet'           " creates pp filetype
 
-" Ruby, rails ------------------------------------------------------------------
+NeoBundleLazy 'vadv/vim-chef', {
+      \   'autoload': { 'filetypes': ['ruby', 'eruby'] },
+      \ }
+
 NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 
 " Stylesheet languages ---------------------------------------------------------
