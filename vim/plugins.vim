@@ -113,8 +113,8 @@ NeoBundleLazy 'osyo-manga/vim-over', {
       \   'autoload': { 'commands': [ 'OverCommandLine' ] },
       \ }
 if neobundle#tap('vim-over')
-  nmap <Esc> :OverCommandLine<CR>
-  vmap <Esc> <Esc>:OverCommandLine<CR>
+  nmap <F3> :OverCommandLine<CR>
+  vmap <F3> <Esc>:OverCommandLine<CR>
 endif
 
 NeoBundleLazy 'rking/ag.vim', { 'autoload': { 'commands': 'Ag' } }
