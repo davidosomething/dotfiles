@@ -14,8 +14,7 @@ let g:is_mav = has('mac')
 let g:is_macvim = has('gui_macvim')
 let g:is_term = (&term =~ 'xterm\|screen\|buildin_gui\|fbterm\|linux')
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RTP and plugin management
+" RTP and plugin management ----------------------------------------------------
 " Ensure neobundle exists
 let g:is_first_neobundle = 0
 if empty(glob('~/.vim/bundle/neobundle.vim'))
@@ -42,8 +41,7 @@ if g:is_first_neobundle
   NeoBundleInstall 'vimproc'
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" display
+" Display ----------------------------------------------------------------------
 set visualbell                        " no beeps
 set ttyfast
 set lazyredraw                        " don't update the display while
@@ -65,6 +63,10 @@ set numberwidth=5
 set cursorline
 set scrolloff=8                       " show 2 lines of context
 set sidescrolloff=16
+
+" status line - most of this is handled by vim-powerline
+set laststatus=2
+set showcmd                           " incomplete commands on
 
 " folds
 set foldcolumn=2
@@ -91,15 +93,13 @@ set formatoptions+=1                  " Break before 1-letter words
 if v:version >= 704
   set formatoptions+=j
 endif
-
 set nrformats-=octal                  " never use octal when <C-x> or <C-a>
 set nojoinspaces                      " J command doesn't add extra space
 set mouse=a
 set ttymouse=xterm
 
-" status line - most of this is handled by vim-powerline
-set laststatus=2
-set showcmd                           " incomplete commands on
+" custom autocomplete dictionary
+set dictionary+=$VIMFILES/dict/mine.dict
 
 " whitespace
 set binary noeol                      " binary mode required for noeol
@@ -176,16 +176,15 @@ set undodir=~/.vim/.undo//
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swp//
 set backup
-
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
+  call mkdir(expand(&undodir), "p")
 endif
 if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), "p")
+  call mkdir(expand(&backupdir), "p")
 endif
 if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
+  call mkdir(expand(&directory), "p")
 endif
 
 " buffer reuse
@@ -199,14 +198,12 @@ set switchbuf=useopen                 " reveal already opened files from the
 " clipboard -- use os clipboard
 if has('clipboard')
   set clipboard=unnamed  " Share system clipboard.
-
   if has('unnamedplus')
     set clipboard+=unnamedplus  " Share X windows clipboard.
   endif
 endif
 
-""
-" Mappings
+" Mappings ---------------------------------------------------------------------
 " Map <Leader> to \
 " no longer using comma so I can reverse repeat fFtT searches
 " no longer using \ so I can type escaped chars :/
@@ -215,7 +212,6 @@ if filereadable(expand("~/.vim/mappings.vim"))
   source ~/.vim/mappings.vim
 endif
 
-""
 " variable to highlight markdown fenced code properly -- uses tpope's
 " vim-markdown plugin (which is bundled with vim7.4 now)
 let g:markdown_fenced_languages = [
@@ -229,8 +225,7 @@ let g:markdown_fenced_languages = [
       \ 'html'
       \ ]
 
-""
-" Autocommands
+" Autocommands -----------------------------------------------------------------
 if has("autocmd")
   augroup QFix
     autocmd!
@@ -277,26 +272,22 @@ if has("autocmd")
   endif
 endif
 
-""
-" Abbreviations :)
+" Abbreviations :) -------------------------------------------------------------
 ab lod: ಠ_ಠ
 ab flip: (ﾉಥ益ಥ）ﾉ︵┻━┻
 ab yuno: ლ(ಠ益ಠლ)
 
-""
-" NeoBundles
+" NeoBundles -------------------------------------------------------------------
 if filereadable(expand("~/.vim/plugins.vim"))
   source ~/.vim/plugins.vim
 endif
 
-""
-" Local config
+" Local config -----------------------------------------------------------------
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" init
+" Init -------------------------------------------------------------------------
 call neobundle#end()
 
 " From tpope/vim-sensible
