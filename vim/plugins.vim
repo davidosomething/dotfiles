@@ -161,12 +161,6 @@ if neobundle#tap('neocomplete.vim')
   let g:neocomplete#force_overwrite_completefunc = 1
   let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
 
-  " Define keyword.
-  if !exists('g:neocomplete#keyword_patterns')
-      let g:neocomplete#keyword_patterns = {}
-  endif
-  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
   " completion sources
   let g:neocomplete#sources#syntax#min_keyword_length = 2
 

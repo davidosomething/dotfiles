@@ -237,20 +237,22 @@ if has("autocmd")
   augroup END
 
   " Force filetypes
-  au vimrc BufRead,BufNewFile *.bowerrc   setlocal filetype=json
-  au vimrc BufRead,BufNewFile *.cap       setlocal filetype=ruby
-  au vimrc BufRead,BufNewFile *.conf      setlocal filetype=conf
-  au vimrc BufRead,BufNewFile *.jshintrc  setlocal filetype=json
-  au vimrc BufRead,BufNewFile *.dump      setlocal filetype=sql
+  au vimrc BufRead,BufNewFile *.bowerrc       setlocal filetype=json
+  au vimrc BufRead,BufNewFile *.cap           setlocal filetype=ruby
+  au vimrc BufRead,BufNewFile *.conf          setlocal filetype=conf
+  au vimrc BufRead,BufNewFile *.editorconfig  setlocal filetype=json
+  au vimrc BufRead,BufNewFile *.jshintrc      setlocal filetype=json
+  au vimrc BufRead,BufNewFile *.dump          setlocal filetype=sql
   " md is normally modula2 -- force it to always be markdown
-  au vimrc BufRead,BufNewFile *.md        setlocal filetype=markdown
+  au vimrc BufRead,BufNewFile *.md            setlocal filetype=markdown
   " vim-chef support for ruby files (turned off eruby)
-  au vimrc FileType ruby                  setlocal filetype=ruby.eruby.chef
+  " this is a composite filetype -- it gets all the properties of each
+  au vimrc FileType ruby                      setlocal filetype=ruby.eruby.chef
 
   " Set editor configs
   " use real tabs
-  au vimrc FileType gitconfig             setlocal noexpandtab
-  au vimrc FileType make                  setlocal noexpandtab
+  au vimrc FileType gitconfig   setlocal noexpandtab
+  au vimrc FileType make        setlocal noexpandtab
 
   " force 2sp for js
   au vimrc FileType coffee,javascript
