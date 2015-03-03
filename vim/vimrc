@@ -250,34 +250,31 @@ if has("autocmd")
   " md is normally modula2 -- force it to always be markdown
   au vimrc BufRead,BufNewFile *.md        setlocal filetype=markdown
   " vim-chef support for ruby files (turned off eruby)
-  au vimrc FileType ruby setlocal filetype=ruby.eruby.chef
+  au vimrc FileType ruby                  setlocal filetype=ruby.eruby.chef
 
   " Set editor configs
   " use real tabs
-  au vimrc FileType gitconfig   setlocal noexpandtab
-  au vimrc FileType make        setlocal noexpandtab
+  au vimrc FileType gitconfig             setlocal noexpandtab
+  au vimrc FileType make                  setlocal noexpandtab
 
   " force 2sp for js
-  au vimrc FileType javascript  setlocal softtabstop=2 tabstop=2 shiftwidth=2
+  au vimrc FileType coffee,javascript
+        \ setlocal softtabstop=2 tabstop=2 shiftwidth=2 iskeyword+=_,$,@,%,#
 
   " make Python follow PEP8 for whitespace
   " http://www.python.org/dev/peps/pep-0008/
-  au vimrc FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
+  au vimrc FileType python
+        \ setlocal softtabstop=4 tabstop=4 shiftwidth=4
 
   " Enable soft-wrapping for text files
-  au vimrc FileType text setlocal wrap linebreak nolist textwidth=80
+  au vimrc FileType text,markdown
+        \ setlocal wrap linebreak nolist textwidth=80
 
   " crontab on OSX needs a tempfile
   if g:is_macvim
-    au vimrc BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
+    au vimrc BufEnter /private/tmp/crontab.*
+          \ setlocal backupcopy=yes
   endif
-
-  au vimrc FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-  au vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  au vimrc FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-  au vimrc FileType python        setlocal omnifunc=pythoncomplete#Complete
-  au vimrc FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-  au vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
 endif
 
 ""

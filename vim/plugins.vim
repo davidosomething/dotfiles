@@ -128,6 +128,23 @@ NeoBundle 'tpope/vim-unimpaired'        " used for line bubbling commands on osx
 
 " ------------------------------------------------------------------------------
 " autocomplete
+
+" detect filetype under cursor, e.g. inline JS and CSS in a PHP doc
+NeoBundle 'Shougo/context_filetype.vim'
+
+" Works with neocomplete --
+" show function signatures in bottom of command line instead of in scratch
+" buffer
+NeoBundle 'Shougo/echodoc', '', 'default'
+call neobundle#config('echodoc', {
+      \   'lazy': 1,
+      \   'autoload': { 'insert': 1, },
+      \ })
+if neobundle#tap('echodoc')
+  set cmdheight=2
+  let g:echodoc_enable_at_startup = 1
+endif
+
 " neocomplete probably used on osx and on my arch
 NeoBundleLazy 'Shougo/neocomplete.vim', {
       \   'autoload':     { 'insert': 1, },
@@ -135,15 +152,22 @@ NeoBundleLazy 'Shougo/neocomplete.vim', {
       \   'vim_version':  '7.3.885'
       \ }
 if neobundle#tap('neocomplete.vim')
-  let g:acp_enableAtStartup = 0
   let g:neocomplete#enable_at_startup            = 1
   let g:neocomplete#enable_smart_case            = 1
   let g:neocomplete#enable_camel_case_completion = 1
   let g:neocomplete#enable_underbar_completion   = 1
   let g:neocomplete#enable_fuzzy_completion      = 1
-  let g:neocomplete#force_overwrite_completefunc = 1
   let g:neocomplete#enable_refresh_always        = 1
+  let g:neocomplete#force_overwrite_completefunc = 1
   let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
+
+  " enable heavy completion
+  if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+  endif
+  " from neocomplete docs -- phpcomplete.vim integration
+  let g:neocomplete#sources#omni#input_patterns.php =
+    \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
   function! neobundle#tapped.hooks.on_source(bundle)
     " from the github page: <CR> cancels completion and inserts newline
@@ -164,7 +188,6 @@ NeoBundle 'Shougo/neocomplcache.vim', {
       \   'disabled':     has('lua') && v:version >= 703,
       \ }
 if neobundle#tap('neocomplcache.vim')
-  let g:acp_enableAtStartup = 0
   let g:neocomplcache_enable_at_startup             = 1
   let g:neocomplcache_enable_smart_case             = 1
   let g:neocomplcache_enable_camel_case_completion  = 1
@@ -193,9 +216,23 @@ endif
 
 " for both neocomplete and neocomplcache
 if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocomplete.vim')
+  " Disable AutoComplPop.
+  let g:acp_enableAtStartup = 0
+
+  " don't open scratch preview
+  set completeopt-=preview
+
   " select completion using tab
   inoremap <expr><Tab>      pumvisible() ? "\<C-n>" : "\<TAB>"
   inoremap <expr><S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+  " completion
+  au vimrc FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+  au vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  au vimrc FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+  au vimrc FileType python        setlocal omnifunc=pythoncomplete#Complete
+  au vimrc FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+  au vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
 endif
 
 " ------------------------------------------------------------------------------
