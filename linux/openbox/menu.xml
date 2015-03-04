@@ -58,6 +58,11 @@
 				<execute>chromium --app=https://timeinc.slack.com/messages/javascript/</execute>
 			</action>
 		</item>
+		<item label="Mumble">
+			<action name="Execute">
+				<execute>mumble</execute>
+			</action>
+		</item>
 		<item label="Skype">
 			<action name="Execute">
 				<execute>skype</execute>
