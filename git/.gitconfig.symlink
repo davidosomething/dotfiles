@@ -63,8 +63,9 @@
 [web]
   browser = open
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true
 
 [url "git@github.com:"]
   insteadOf = "gh:"
