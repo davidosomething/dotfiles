@@ -89,13 +89,13 @@ NeoBundle 'now/vim-quit-if-only-quickfix-buffer-left'
 
 NeoBundle 'tpope/vim-fugitive'
 
-NeoBundle 'xolox/vim-easytags', {
-      \   'depends' : 'xolox/vim-misc',
-      \   'disabled': !executable("ctags"),
-      \ }
-if neobundle#tap('incsearch.vim')
-  let g:easytags_file = '~/.vim/tags'
-endif
+" NeoBundle 'xolox/vim-easytags', {
+"       \   'depends' : 'xolox/vim-misc',
+"       \   'disabled': !executable("ctags"),
+"       \ }
+" if neobundle#tap('incsearch.vim')
+"   let g:easytags_file = '~/.vim/tags'
+" endif
 
 NeoBundle 'xolox/vim-misc', {
       \   'disabled': !executable("ctags"),
@@ -135,15 +135,15 @@ NeoBundle 'Shougo/context_filetype.vim'
 " Works with neocomplete --
 " show function signatures in bottom of command line instead of in scratch
 " buffer
-NeoBundle 'Shougo/echodoc', '', 'default'
-call neobundle#config('echodoc', {
-      \   'lazy': 1,
-      \   'autoload': { 'insert': 1, },
-      \ })
-if neobundle#tap('echodoc')
-  set cmdheight=2
-  let g:echodoc_enable_at_startup = 1
-endif
+" NeoBundle 'Shougo/echodoc', '', 'default'
+" call neobundle#config('echodoc', {
+"       \   'lazy': 1,
+"       \   'autoload': { 'insert': 1, },
+"       \ })
+" if neobundle#tap('echodoc')
+"   set cmdheight=2
+"   let g:echodoc_enable_at_startup = 1
+" endif
 
 " neocomplete probably used on osx and on my arch
 NeoBundleLazy 'Shougo/neocomplete.vim', {
@@ -162,12 +162,17 @@ if neobundle#tap('neocomplete.vim')
   let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
 
   " completion sources
-  let g:neocomplete#sources#syntax#min_keyword_length = 2
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
 
   " enable heavy completion
   if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
   endif
+
+  " CRASH HEAVY OMNICOMPLETE
+  let g:neocomplete#sources#omni#input_patterns.ruby = ''
+  let g:neocomplete#sources#omni#input_patterns.python = ''
+
   " from neocomplete docs -- phpcomplete.vim integration
   let g:neocomplete#sources#omni#input_patterns.php =
     \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
@@ -209,8 +214,8 @@ if neobundle#tap('neocomplcache.vim')
 
   function! neobundle#tapped.hooks.on_source(bundle)
     " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
     inoremap <expr><C-y>  neocomplcache#close_popup()
     inoremap <expr><C-e>  neocomplcache#cancel_popup()
   endfunction
@@ -337,7 +342,7 @@ if neobundle#tap('syntastic')
     let g:syntastic_mode_map['active_filetypes'] = []
   endif
   if !has_key(g:syntastic_mode_map, "passive_filetypes")
-    let g:syntastic_mode_map['passive_filetypes'] = [ 'html', 'php' ]
+    let g:syntastic_mode_map['passive_filetypes'] = [ 'html', 'php', ]
   endif
 
   let g:syntastic_error_symbol         = '✗'
@@ -350,6 +355,7 @@ if neobundle#tap('syntastic')
 
   let g:syntastic_coffeescript_checkers = ['coffee', 'coffeelint']
   let g:syntastic_php_checkers = ['php', 'phpmd']
+  let g:syntastic_python_checkers = ['flake8']
   let g:syntastic_shell_checkers = ['bashate', 'shellcheck']
   call neobundle#untap()
 endif

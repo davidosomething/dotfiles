@@ -25,6 +25,11 @@ compton -b --config "$HOME/.config/compton.conf" &
 # Starts on its own from /etc/xdg/autostart
 #tp-battery-icon &
 
+[[ -x "$HOME/src/indicator-audio-input/indicator-audio-input.py" ]] && \
+  (sleep 1s && pushd "$HOME/src/indicator-audio-input" && \
+  python2 "indicator-audio-input.py" && \
+  popd) &
+
 # Dash
 (sleep 1s && conky -d) &
 
