@@ -8,20 +8,20 @@
 # ID 1
 rounded = 0
 border_width = 0
-background_color = #000000 7
+background_color = #000000 5
 border_color = #444444 100
 
 # ID 2
 rounded = 0
 border_width = 0
-background_color = #FFFFFF 1
+background_color = #FFFFFF 0
 border_color = #FFFFFF 100
 
 # ID 3
 rounded = 0
 border_width = 1
-background_color = #000000 14
-border_color = #FFFFFF 13
+background_color = #000000 12
+border_color = #FFFFFF 11
 
 # ID 4
 rounded = 0
@@ -38,7 +38,7 @@ panel_padding = 0 0 0
 panel_dock = 1
 wm_menu = 1
 panel_layer = bottom
-panel_background_id = 1
+panel_background_id = 0
 
 # Panel Autohide
 autohide = 0
@@ -93,13 +93,14 @@ time1_font = Fira Sans 8
 clock_font_color = #FFFFFF 100
 clock_padding = 8 0
 clock_background_id = 0
+clock_lclick_command = xdg-open http://sunrise.am
 
 # Tooltips
 tooltip = 1
-tooltip_padding = 8 8
-tooltip_show_timeout = 0
+tooltip_padding = 8 4
+tooltip_show_timeout = 0.2
 tooltip_hide_timeout = 0
-tooltip_background_id = 2
+tooltip_background_id = 3
 tooltip_font = Fira Sans 8
 tooltip_font_color = #FFFFFF 100
 
@@ -113,11 +114,11 @@ mouse_scroll_down = none
 battery = 0
 battery_low_status = 20
 battery_low_cmd = notify-send "battery low"
-battery_hide = 90
+battery_hide = 0
 bat1_font = Fira Sans 8
 bat2_font = Fira Sans 8
 battery_font_color = #FFFFFF 100
 battery_padding = 0 0
-battery_background_id = 0
+battery_background_id = 3
 
 # End of config
