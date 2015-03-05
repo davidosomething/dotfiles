@@ -1,0 +1,34 @@
+[global_config]
+  title_transmit_bg_color = "#cf6a4c"
+  title_inactive_bg_color = "#5f5a60"
+  focus = system
+
+[keybindings]
+
+[profiles]
+  [[default]]
+    antialias = True
+    allow_bold = True
+    background_color = "#1e1e1e"
+    cursor_color = "#a7a7a7"
+    font = "Fira Mono for Powerline 10"
+    foreground_color = "#a7a7a7"
+    palette = "#1e1e1e:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#a7a7a7:#5f5a60:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#ffffff"
+    scrollback_infinite = True
+    show_titlebar = False
+    use_system_font = False
+    xterm = "xterm-256color"
+
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+      size = 960, 480
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = Default
+
+[plugins]
+
