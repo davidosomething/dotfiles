@@ -154,11 +154,8 @@ NeoBundleLazy 'Shougo/neocomplete.vim', {
 if neobundle#tap('neocomplete.vim')
   let g:neocomplete#enable_at_startup            = 1
   let g:neocomplete#enable_smart_case            = 1
-  let g:neocomplete#enable_camel_case_completion = 1
-  let g:neocomplete#enable_underbar_completion   = 1
-  let g:neocomplete#enable_fuzzy_completion      = 1
-  let g:neocomplete#enable_refresh_always        = 1
-  let g:neocomplete#force_overwrite_completefunc = 1
+  let g:neocomplete#enable_camel_case            = 1
+  let g:neocomplete#enable_fuzzy_completion      = 0
   let g:neocomplete#data_directory = '~/.vim/.cache/neocomplete'
 
   " completion sources
@@ -331,6 +328,7 @@ if neobundle#tap('syntastic')
   let g:syntastic_check_on_wq              = 1
   let g:syntastic_enable_signs             = 1
   let g:syntastic_enable_highlighting      = 1
+  let g:syntastic_loc_list_height          = 3
 
   if !exists("g:syntastic_mode_map")
     let g:syntastic_mode_map = {}
