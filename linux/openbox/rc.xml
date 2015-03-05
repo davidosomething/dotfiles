@@ -298,7 +298,7 @@
     </keybind>
     <keybind key="W-t">
       <action name="Execute">
-        <command>gnome-terminal --hide-menubar</command>
+        <command>terminator</command>
       </action>
     </keybind>
     <keybind key="W-F11">

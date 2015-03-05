@@ -7,15 +7,9 @@
 [submodule "solarized"]
 	path = solarized
 	url = https://github.com/altercation/solarized.git
-[submodule "gnome-terminal-colors-solarized"]
-	path = linux/gnome-terminal-colors-solarized
-	url = https://github.com/sigurdga/gnome-terminal-colors-solarized.git
 [submodule "z"]
 	path = z
 	url = https://github.com/rupa/z.git
-[submodule "base16-gnome-terminal"]
-	path = linux/base16-gnome-terminal
-	url = https://github.com/chriskempson/base16-gnome-terminal.git
 [submodule "base16-iterm2"]
 	path = osx/base16-iterm2
 	url = https://github.com/chriskempson/base16-iterm2.git

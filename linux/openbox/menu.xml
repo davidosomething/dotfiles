@@ -168,9 +168,9 @@
 		<menu id="graphics"/>
 		<menu id="network"/>
 		<separator/>
-		<item label="Gnome Terminal">
+		<item label="Terminator">
 			<action name="Execute">
-				<execute>/bin/gnome-terminal --hide-menubar</execute>
+				<execute>terminator</execute>
 			</action>
 		</item>
 		<item label="Thunar">
