@@ -1,6 +1,8 @@
+# shellcheck disable=SC2148
+
 # openbox autostart
 #
-# These things are run when an Openbox X Session is started.
+# These things are run when openbox is started
 #
 # Check ~/.config/autostart/ and /etc/xdg/autostart/ for other places programs
 # might be starting from
@@ -61,6 +63,7 @@ fi
 # Apps
 # Start thunar daemon so it opens faster
 thunar --daemon &
+(sleep 1s && redshift) &
 (sleep 1s && terminator) &
 (sleep 1s && chromium) &
 
