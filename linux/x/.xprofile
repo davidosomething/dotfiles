@@ -11,7 +11,13 @@ export BROWSER=chromium
 # moved here so it is available for all X, not needed in tty
 # https://wiki.archlinux.org/index.php/Java_Runtime_Environment_Fonts
 # Added this specifically for the minecraft launcher
+
+# GTK theme
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
 export GCONFTOOL="/bin/gconftool-2"
+
+# java settings - mostly for minecraft launcher
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 export JAVA_FONTS=/usr/share/fonts/TTF
 
