@@ -3,11 +3,23 @@ inoremap <F1> <nop>
 nnoremap <F1> <nop>
 
 " mode toggling ----------------------------------------------------------------
+" visual line mode with space space
 nmap <Leader><Leader> V
+
 imap jj <Esc>
 cmap jj <Esc>
 
-" Toggle display lines movement mode
+" Toggle paste mode
+nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
+inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
+
+" Unfuck my screen
+" https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-444
+nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
+
+" Scrolling and movement -------------------------------------------------------
+
+" Toggle display lines movement mode for normal mode
 let b:movementmode = "linewise"
 function! ToggleMovementMode()
   if exists("b:movementmode") && b:movementmode == "linewise"
@@ -24,17 +36,7 @@ function! ToggleMovementMode()
 endfunction
 nnoremap <silent> <F11> :call ToggleMovementMode()<CR>
 inoremap <silent> <F11> <ESC>:call ToggleMovementMode()<CR>
-" see Scrolling and movement section visual always uses gj gk
 
-" Toggle paste mode
-nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
-inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
-
-" Unfuck my screen
-" https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-444
-nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
-
-" Scrolling and movement -------------------------------------------------------
 " Map the arrow keys to be based on display lines, not physical lines
 vnoremap <Down> gj
 vnoremap <Up>   gk
@@ -72,21 +74,14 @@ command Q q
 " cd to the directory containing the file in the buffer
 nnoremap <silent> <Leader>cd :lcd %:h<CR>
 
-" Create the directory containing the file in the buffer
-nnoremap <silent> <Leader>md :!mkdir -p %:p:h<CR>
-
 " Editing ----------------------------------------------------------------------
 " insert date, e.g. 2015-02-19
 nnoremap <Leader>d "=strftime("%Y-%m-%d")<CR>P
 
 " Sort lines
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
-nnoremap <Leader>ss vip:!sort<CR>
-vnoremap <Leader>ss :!sort<CR>
-
-" reselect visual block after indent
-vnoremap < <gv
-vnoremap > >gv
+nnoremap <Leader>s vip:!sort<CR>
+vnoremap <Leader>s :!sort<CR>
 
 " upper/lower word
 nnoremap <Leader>u mQviwU`Q
@@ -102,6 +97,10 @@ function! CleanCode()
   %s= *$==e   " Delete end of line blanks
 endfunction
 nnoremap <Leader>ws :call CleanCode()<CR>
+
+" reselect visual block after indent
+vnoremap < <gv
+vnoremap > >gv
 
 if g:is_macvim && has("gui_running")
   " Map command-[ and command-] to indenting or outdenting
@@ -144,7 +143,7 @@ else
   imap <A-]> <Esc>>>i
   imap <A-[> <Esc><<i
 
-  " Bubble single lines
+  " Bubble single lines - REQUIRES tim pope's unimpaired
   nmap <C-Up> [e
   nmap <C-Down> ]e
   nmap <C-k> [e
@@ -199,21 +198,21 @@ endif
 " Tab in normal mode will quick-switch to  buffer
 nnoremap <BS> :b#<CR>
 
-" Backspace in normal mode will switch between qf and prev split
-function! SwitchToQuickfix()
-  if &buftype == "quickfix"
-    wincmd w
-  else
-    copen
-  endif
-endfunction
-nnoremap <silent><Tab> :call SwitchToQuickfix()<CR>
-
 " close buffer with space-bd and auto close loc list first
 nnoremap <Leader>bd :lclose<CR>:bdelete<CR>
 cabbrev <silent>bd lclose\|bdelete
 
 " Split manip ------------------------------------------------------------------
+" Backspace in normal mode will switch between loclist and prev split
+function! SwitchToLocationList()
+  if &buftype == "quickfix"
+    wincmd w
+  else
+    lwindow
+  endif
+endfunction
+nnoremap <silent><Tab> :call SwitchToLocationList()<CR>
+
 " Resize
 nnoremap <silent> <S-Left>  4<C-w><
 nnoremap <silent> <S-Down>  4<C-W>-
@@ -231,13 +230,13 @@ nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
 " quickfix and location list ---------------------------------------------------
-" same as unimpaired []ql
-nnoremap <Up>     :lprevious<CR>
-inoremap <Up>     <Esc>:lprevious<CR>
-nnoremap <Down>   :lnext<CR>
-inoremap <Down>   <Esc>:lnext<CR>
-nnoremap <Left>   :cprevious<CR>
-inoremap <Left>   <Esc>:cprevious<CR>
-nnoremap <Right>  :cnext<CR>
-inoremap <Right>  <Esc>:cnext<CR>
+" same as unimpaired []ql -- lets find something better...
+" nnoremap <Up>     :lprevious<CR>
+" inoremap <Up>     <Esc>:lprevious<CR>
+" nnoremap <Down>   :lnext<CR>
+" inoremap <Down>   <Esc>:lnext<CR>
+" nnoremap <Left>   :cprevious<CR>
+" inoremap <Left>   <Esc>:cprevious<CR>
+" nnoremap <Right>  :cnext<CR>
+" inoremap <Right>  <Esc>:cnext<CR>
 
