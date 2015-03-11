@@ -55,9 +55,8 @@ else
   set background=dark
   silent! colorscheme zellner
 endif
-if exists('&colorcolumn')
-  set colorcolumn=80
-endif
+set colorcolumn=80
+set cursorcolumn                      " useful for coffee
 set title                             " wintitle = filename - vim
 set number
 set numberwidth=5
