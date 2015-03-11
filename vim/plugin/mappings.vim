@@ -196,8 +196,18 @@ else
 endif
 
 " Buffer manip -----------------------------------------------------------------
-" Tab in normal mode will quick-switch to prev buffer
-nnoremap <Tab> :b#<CR>
+" Tab in normal mode will quick-switch to  buffer
+nnoremap <BS> :b#<CR>
+
+" Backspace in normal mode will switch between qf and prev split
+function! SwitchToQuickfix()
+  if &buftype == "quickfix"
+    wincmd w
+  else
+    copen
+  endif
+endfunction
+nnoremap <silent><Tab> :call SwitchToQuickfix()<CR>
 
 " close buffer with space-bd and auto close loc list first
 nnoremap <Leader>bd :lclose<CR>:bdelete<CR>
