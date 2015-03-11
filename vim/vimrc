@@ -12,7 +12,8 @@ let g:is_windows = has('win32') || has('win64') || has('win32unix')
 let g:is_cygwin = has('win32unix')
 let g:is_mav = has('mac')
 let g:is_macvim = has('gui_macvim')
-let g:is_term = (&term =~ 'xterm\|screen\|buildin_gui\|fbterm\|linux')
+" =~# is case sensitive, =-? is insensitive
+let g:is_term = (&term =~# 'xterm\|screen\|buildin_gui\|fbterm\|linux')
 
 " RTP and plugin management ----------------------------------------------------
 " Ensure neobundle exists
@@ -204,10 +205,10 @@ if has('clipboard')
 endif
 
 " Mappings ---------------------------------------------------------------------
-" Map <Leader> to \
+" Map <Leader> to Space
 " no longer using comma so I can reverse repeat fFtT searches
 " no longer using \ so I can type escaped chars :/
-let g:mapleader = "\<Space>"
+let mapleader = "\<Space>"
 if filereadable(expand("~/.vim/mappings.vim"))
   source ~/.vim/mappings.vim
 endif

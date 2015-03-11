@@ -3,6 +3,7 @@ inoremap <F1> <nop>
 nnoremap <F1> <nop>
 
 " mode toggling ----------------------------------------------------------------
+nmap <Leader><Leader> V
 imap jj <Esc>
 cmap jj <Esc>
 
