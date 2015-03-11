@@ -209,9 +209,6 @@ endif
 " no longer using comma so I can reverse repeat fFtT searches
 " no longer using \ so I can type escaped chars :/
 let mapleader = "\<Space>"
-if filereadable(expand("~/.vim/mappings.vim"))
-  source ~/.vim/mappings.vim
-endif
 
 " variable to highlight markdown fenced code properly -- uses tpope's
 " vim-markdown plugin (which is bundled with vim7.4 now)
@@ -226,43 +223,18 @@ let g:markdown_fenced_languages = [
       \ 'xml',
       \ ]
 
+" see plugin/mappings.vim for more autoloaded settings
+
 " Autocommands -----------------------------------------------------------------
 if has("autocmd")
-  augroup QFix
-    autocmd!
-    autocmd FileType qf setlocal nobuflisted
-  augroup END
-
   augroup vimrc
     autocmd!
   augroup END
 
-  " Force filetypes
-  au vimrc BufRead,BufNewFile *.bowerrc       setlocal filetype=json
-  au vimrc BufRead,BufNewFile *.cap           setlocal filetype=ruby
-  au vimrc BufRead,BufNewFile *.conf          setlocal filetype=conf
-  au vimrc BufRead,BufNewFile *.editorconfig  setlocal filetype=json
-  au vimrc BufRead,BufNewFile *.jshintrc      setlocal filetype=json
-  au vimrc BufRead,BufNewFile *.dump          setlocal filetype=sql
-  " md is normally modula2 -- force it to always be markdown
-  au vimrc BufRead,BufNewFile *.md            setlocal filetype=markdown
-  " vim-chef support for ruby files (turned off eruby)
-  " this is a composite filetype -- it gets all the properties of each
-  au vimrc FileType ruby                      setlocal filetype=ruby.eruby.chef
-
   " Set editor configs
-  " use real tabs
-  au vimrc FileType gitconfig   setlocal noexpandtab
-  au vimrc FileType make        setlocal noexpandtab
-
   " force 2sp for js
   au vimrc FileType coffee,javascript
         \ setlocal softtabstop=2 tabstop=2 shiftwidth=2 iskeyword+=_,$,@,%,#
-
-  " make Python follow PEP8 for whitespace
-  " http://www.python.org/dev/peps/pep-0008/
-  au vimrc FileType python
-        \ setlocal softtabstop=4 tabstop=4 shiftwidth=4
 
   " Enable soft-wrapping for text files
   au vimrc FileType text,markdown
@@ -273,24 +245,12 @@ if has("autocmd")
     au vimrc BufEnter /private/tmp/crontab.*
           \ setlocal backupcopy=yes
   endif
-endif
 
-" Abbreviations :) -------------------------------------------------------------
-ab lod: ಠ_ಠ
-ab flip: (ﾉಥ益ಥ）ﾉ︵┻━┻
-ab yuno: ლ(ಠ益ಠლ)
+  " see after/ftplugin/*.vim for more filetype specific stuff
+endif
 
 " NeoBundles -------------------------------------------------------------------
-if filereadable(expand("~/.vim/plugins.vim"))
-  source ~/.vim/plugins.vim
-endif
-
-" Local config -----------------------------------------------------------------
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
-
-" Init -------------------------------------------------------------------------
+source ~/.vim/neobundle.vim
 call neobundle#end()
 
 " From tpope/vim-sensible
@@ -299,6 +259,7 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
+" load ftplugins
 filetype plugin indent on
 set modeline
 
