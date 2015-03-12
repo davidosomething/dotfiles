@@ -87,6 +87,13 @@ endif
 
 NeoBundle 'now/vim-quit-if-only-quickfix-buffer-left'
 
+NeoBundleLazy 'sjl/gundo.vim', {
+      \   'autoload': { 'commands': [ 'GundoToggle' ] },
+      \ }
+if neobundle#tap('gundo.vim')
+  nnoremap <F2> :GundoToggle<CR>
+endif
+
 NeoBundle 'tpope/vim-fugitive'
 
 " NeoBundle 'xolox/vim-easytags', {
