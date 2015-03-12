@@ -78,6 +78,27 @@ nnoremap <silent> <Leader>cd :lcd %:h<CR>
 " insert date, e.g. 2015-02-19
 nnoremap <Leader>d "=strftime("%Y-%m-%d")<CR>P
 
+" insert line fill to textwidth
+" http://stackoverflow.com/a/3400528/230473
+function! FillLine( str )
+  " set tw to the desired total length
+  let tw = &textwidth
+  if tw==0 | let tw = 80 | endif
+  " strip trailing spaces first
+  .s/[[:space:]]*$//
+  " calculate total number of 'str's to insert
+  let reps = (tw - col("$")) / len(a:str)
+  " insert them, if there's room, removing trailing spaces (though forcing
+  " there to be one)
+  if reps > 0
+    .s/$/\=(' '.repeat(a:str, reps))/
+  endif
+endfunction
+inoremap <Leader>f- :call FillLine('-')
+inoremap <Leader>f= :call FillLine('=')
+inoremap <Leader>f# :call FillLine('#')
+inoremap <Leader>f* :call FillLine('*')
+
 " Sort lines
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
 nnoremap <Leader>s vip:!sort<CR>

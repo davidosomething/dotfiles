@@ -5,6 +5,7 @@ set guioptions-=T                     " hide stupid button bar
 set guifont=Fira\ Mono\ for\ Powerline\ 10
 
 " Note that this needs to be done AFTER call neobundle#end()
+set background=light
 silent! colorscheme solarized               " STFU if no solarized
 silent! call togglebg#map("<F5>")
 
