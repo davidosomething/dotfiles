@@ -49,14 +49,14 @@ set lazyredraw                        " don't update the display while
                                       " executing macros
 set synmaxcol=512                     " don't syntax highlight long lines
 
-if has('gui_running')
-  set background=light
-else
-  set background=dark
-  silent! colorscheme zellner
+if !has('gui_running')
+  if $COLORTERM == "gnome-terminal"
+    set t_Co=256
+  endif
+  colorscheme pablo
 endif
+
 set colorcolumn=80
-set cursorcolumn                      " useful for coffee
 set title                             " wintitle = filename - vim
 set number
 set numberwidth=5
