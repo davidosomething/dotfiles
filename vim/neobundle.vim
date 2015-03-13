@@ -63,6 +63,9 @@ NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 NeoBundle 'ludovicchabant/vim-gutentags', {
       \   'disabled': !executable("ctags"),
       \ }
+if neobundle#tap('vim-gutentags')
+  let g:gutentags_cache_dir = expand("~/.vim/.tags/")
+endif
 
 " auto tag generation via exuberant-ctags -- no tags file created
 NeoBundleLazy 'majutsushi/tagbar', {

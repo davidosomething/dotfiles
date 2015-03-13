@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-# adapted from http://ztatlock.blogspot.com/2009/01/volume-control-with-amixer-and-osdcat.html
+
+# Linux Audio Volume
+#
+# Adapted from http://ztatlock.blogspot.com/2009/01/volume-control-with-amixer-and-osdcat.html
+# Used by /linux/x11/.xbindkeysrc-w510
+#
 
 CHANNEL=Master
 

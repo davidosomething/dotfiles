@@ -1,6 +1,7 @@
+/.backup/
 /.cache/
-/backup/
+/.swp/
+/.tags/
+/.undo/
 /bundle/
-/temp/
 .netrwhist
-.yankring-history_v2.txt
