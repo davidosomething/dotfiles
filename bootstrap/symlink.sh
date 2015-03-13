@@ -17,6 +17,7 @@ source "$bootstrap_path/helpers.sh"
 # begin
 dkostatus "Symlinking dotfiles"
 dkosymlink ack/.ackrc.symlink         .ackrc
+dkosymlink ctags/.ctags.symlink       .ctags
 dkosymlink cvs/.cvsignore.symlink     .cvsignore
 dkosymlink git/.gitconfig.symlink     .gitconfig
 dkosymlink subversion/config.symlink  .subversion/config
