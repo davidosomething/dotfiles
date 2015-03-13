@@ -59,6 +59,11 @@ NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
 "NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
 
+" Auto generate tags
+NeoBundle 'ludovicchabant/vim-gutentags', {
+      \   'disabled': !executable("ctags"),
+      \ }
+
 " auto tag generation via exuberant-ctags -- no tags file created
 NeoBundleLazy 'majutsushi/tagbar', {
       \   'autoload': { 'commands': 'TagbarToggle' },
@@ -95,18 +100,6 @@ if neobundle#tap('gundo.vim')
 endif
 
 NeoBundle 'tpope/vim-fugitive'
-
-" NeoBundle 'xolox/vim-easytags', {
-"       \   'depends' : 'xolox/vim-misc',
-"       \   'disabled': !executable("ctags"),
-"       \ }
-" if neobundle#tap('incsearch.vim')
-"   let g:easytags_file = '~/.vim/tags'
-" endif
-
-NeoBundle 'xolox/vim-misc', {
-      \   'disabled': !executable("ctags"),
-      \ }
 
 " ------------------------------------------------------------------------------
 " commands
@@ -419,6 +412,21 @@ NeoBundle 'lukaszkorecki/CoffeeTags', {
       \   'depends' : 'majutsushi/tagbar',
       \   'disabled': !executable("coffeetags"),
       \ }
+if neobundle#tap('CoffeeTags')
+  " let g:tagbar_type_coffee = {
+  "       \   'ctagsbin': 'coffeetags',
+  "       \   'ctagsargs': '',
+  "       \   'kinds': [
+  "       \     'f:functions',
+  "       \     'o:object',
+  "       \   ],
+  "       \   'sro': ".",
+  "       \   'kind2scope' : {
+  "       \     'f': 'object',
+  "       \     'o': 'object',
+  "       \   }
+  "       \ }
+endif
 
 " react/JSX syn highlighting for .jsx
 NeoBundleLazy 'mxw/vim-jsx', { 'depends': 'vim-javascript' }

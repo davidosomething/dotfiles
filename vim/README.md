@@ -80,6 +80,21 @@ autocmdFT javascript setlocal omnifunc=tern#Complete
 
 ## Plugins I intentionally don't use
 
+Using gutentags instead of easytags
+```
+" NeoBundle 'xolox/vim-easytags', {
+"       \   'depends' : 'xolox/vim-misc',
+"       \   'disabled': !executable("ctags"),
+"       \ }
+" if neobundle#tap('incsearch.vim')
+"   let g:easytags_file = '~/.vim/tags'
+" endif
+"
+" NeoBundle 'xolox/vim-misc', {
+"       \   'disabled': !executable("ctags"),
+"       \ }
+```
+
 ```
 " i don't do rails enough to make this worthwhile
 " don't lazy load -- see https://github.com/Shougo/neobundle.vim/issues/114
