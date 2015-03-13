@@ -290,6 +290,11 @@ NeoBundle 'vim-scripts/AnsiEsc.vim'
 " text objects
 NeoBundle 'kana/vim-textobj-user'             " framework
 
+" provide iv av for camel and snake case segments auto-determined
+NeoBundle 'Julian/vim-textobj-variable-segment', {
+      \   'depends': 'kana/vim-textobj-user'
+      \ }
+
 " provide ai and ii for indent blocks
 NeoBundle 'kana/vim-textobj-indent', { 'depends': 'kana/vim-textobj-user' }
 
