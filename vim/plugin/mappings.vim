@@ -94,10 +94,10 @@ function! FillLine( str )
     .s/$/\=(' '.repeat(a:str, reps))/
   endif
 endfunction
-inoremap <Leader>f- :call FillLine('-')
-inoremap <Leader>f= :call FillLine('=')
-inoremap <Leader>f# :call FillLine('#')
-inoremap <Leader>f* :call FillLine('*')
+inoremap <Leader>f- <Esc>:call FillLine('-')<CR>
+inoremap <Leader>f= <Esc>:call FillLine('=')<CR>
+inoremap <Leader>f# <Esc>:call FillLine('#')<CR>
+inoremap <Leader>f* <Esc>:call FillLine('*')<CR>
 
 " Sort lines
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
