@@ -66,7 +66,7 @@ NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
 " Auto generate tags
 " The bitbucket remote is updated more frequently
-NeoBundle 'bitbucket:ludovicchabant/vim-gutentags.git', {
+NeoBundle 'bitbucket:ludovicchabant/vim-gutentags', {
       \   'disabled': !executable("ctags"),
       \ }
 if neobundle#tap('vim-gutentags')
@@ -271,10 +271,11 @@ endif
 
 NeoBundle 'svermeulen/vim-easyclip'
 if neobundle#tap('vim-easyclip')
-  " vim just uses system clipboard
-  let g:EasyClipDoSystemSync = 0
   " remap s/S to paste register
   let g:EasyClipUseSubstituteDefaults = 1
+  " save yanks in a file and persist
+  let g:EasyClipShareYanks = 1
+  let g:EasyClipShareYanksDirectory = "$HOME/.vim"
   call neobundle#untap()
 endif
 
