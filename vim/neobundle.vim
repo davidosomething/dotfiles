@@ -60,7 +60,8 @@ NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 "NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
 
 " Auto generate tags
-NeoBundle 'ludovicchabant/vim-gutentags', {
+" The bitbucket remote is updated more frequently
+NeoBundle 'bitbucket:ludovicchabant/vim-gutentags.git', {
       \   'disabled': !executable("ctags"),
       \ }
 if neobundle#tap('vim-gutentags')
