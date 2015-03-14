@@ -26,6 +26,7 @@ if neobundle#tap('vim-airline')
   if !exists('g:airline_symbols')
     let g:airline_symbols = {}
   endif
+  " line number symbol
   let g:airline_symbols.linenr = ''
   let g:airline_symbols.paste = 'ρ'
   let g:airline_symbols.readonly = ''
@@ -35,8 +36,12 @@ if neobundle#tap('vim-airline')
 
   " list buffers ONLY at top
   let g:airline#extensions#tabline#enabled = 1
+  " never show tabs
   let g:airline#extensions#tabline#show_tabs = 0
-  let g:airline#extensions#tabline#show_tab_nr = 0
+  " don't need to indicate whether showing buffers or tabs
+  let g:airline#extensions#tabline#show_tab_type = 0
+  " show superscript buffer numbers (buffer_nr_show is off)
+  let g:airline#extensions#tabline#buffer_idx_mode = 1
 
   " disable extensions for speed
   let g:airline#extensions#bufferline#enabled = 0
