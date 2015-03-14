@@ -1,33 +1,19 @@
-# Terminator config
-# ConfigObj syntax
-
 [global_config]
-  # grab colors from base16-builder generated output
   title_transmit_bg_color = "#cf6a4c"
-  title_inactive_bg_color = "#5f5a60"
   focus = system
-
+  title_inactive_bg_color = "#5f5a60"
 [keybindings]
-
 [profiles]
   [[default]]
-    # terminal settings
-    show_titlebar = False
-    scrollback_infinite = True
-    xterm = "xterm-256color"
-
-    # font
+    palette = "#1e1e1e:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#a7a7a7:#5f5a60:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#ffffff"
+    background_image = None
     use_system_font = False
-    font = "Fira Mono for Powerline 10"
-    antialias = True
-    allow_bold = True
-
-    # grab colors from base16-builder generated output
-    background_color = "#1e1e1e"
     cursor_color = "#a7a7a7"
     foreground_color = "#a7a7a7"
-    palette = "#1e1e1e:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#a7a7a7:#5f5a60:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#ffffff"
-
+    show_titlebar = False
+    font = Fira Mono for Powerline 10
+    background_color = "#1e1e1e"
+    scrollback_infinite = True
 [layouts]
   [[default]]
     [[[window0]]]
@@ -38,7 +24,4 @@
       type = Terminal
       parent = window0
       profile = Default
-
 [plugins]
-
-# vim: set ft=config :

@@ -61,9 +61,12 @@ fi
 (sleep 2s && indicator-virtualbox) &
 
 # Apps
+
+# redshift-gtk starts itself
+#(sleep 1s && redshift-gtk) &
+
 # Start thunar daemon so it opens faster
 thunar --daemon &
-(sleep 1s && redshift) &
 (sleep 1s && terminator) &
 (sleep 1s && chromium) &
 
