@@ -224,6 +224,9 @@ let g:markdown_fenced_languages = [
       \ 'xml',
       \ ]
 
+" netrw
+let g:netrw_liststyle = 3
+
 " see plugin/mappings.vim for more autoloaded settings
 
 " Autocommands -----------------------------------------------------------------
