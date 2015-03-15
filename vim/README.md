@@ -80,6 +80,20 @@ autocmdFT javascript setlocal omnifunc=tern#Complete
 
 ## Plugins I intentionally don't use
 
+ctags stuff just never works out right.
+```
+"NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
+
+" Auto generate tags
+" The bitbucket remote is updated more frequently
+" NeoBundle 'bitbucket:ludovicchabant/vim-gutentags', {
+"       \   'disabled': !executable("ctags"),
+"       \ }
+" if neobundle#tap('vim-gutentags')
+"   let g:gutentags_cache_dir = "~/.vim/.tags"
+" endif
+```
+
 Using gutentags instead of easytags
 ```
 " NeoBundle 'xolox/vim-easytags', {

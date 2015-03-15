@@ -216,23 +216,16 @@ else
 endif
 
 " Buffer manip -----------------------------------------------------------------
-" Tab in normal mode will quick-switch to  buffer
-nnoremap <BS> :b#<CR>
-
 " close buffer with space-bd and auto close loc list first
 nnoremap <Leader>bd :lclose<CR>:bdelete<CR>
 cabbrev <silent>bd lclose\|bdelete
 
 " Split manip ------------------------------------------------------------------
-" Backspace in normal mode will switch between loclist and prev split
-function! SwitchToLocationList()
-  if &buftype == "quickfix"
-    wincmd w
-  else
-    lwindow
-  endif
-endfunction
-nnoremap <silent><Tab> :call SwitchToLocationList()<CR>
+" Navigate with alt+arrow
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
 
 " Resize
 nnoremap <silent> <S-Left>  4<C-w><
@@ -243,21 +236,4 @@ inoremap <silent> <S-Left>  <Esc>4<C-w><
 inoremap <silent> <S-Down>  <Esc>4<C-W>-
 inoremap <silent> <S-Up>    <Esc>4<C-W>+
 inoremap <silent> <S-Right> <Esc>4<C-w>>
-
-" Navigate
-nmap <silent> <A-Up> :wincmd k<CR>
-nmap <silent> <A-Down> :wincmd j<CR>
-nmap <silent> <A-Left> :wincmd h<CR>
-nmap <silent> <A-Right> :wincmd l<CR>
-
-" quickfix and location list ---------------------------------------------------
-" same as unimpaired []ql -- lets find something better...
-" nnoremap <Up>     :lprevious<CR>
-" inoremap <Up>     <Esc>:lprevious<CR>
-" nnoremap <Down>   :lnext<CR>
-" inoremap <Down>   <Esc>:lnext<CR>
-" nnoremap <Left>   :cprevious<CR>
-" inoremap <Left>   <Esc>:cprevious<CR>
-" nnoremap <Right>  :cnext<CR>
-" inoremap <Right>  <Esc>:cnext<CR>
 

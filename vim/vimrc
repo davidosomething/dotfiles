@@ -225,6 +225,9 @@ let g:markdown_fenced_languages = [
       \ ]
 
 " netrw
+" disable netrw
+let g:loaded_netrwPlugin = 1
+" netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
 
 " see plugin/mappings.vim for more autoloaded settings

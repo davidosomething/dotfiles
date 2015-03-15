@@ -62,17 +62,6 @@ endif
 
 NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
-"NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
-
-" Auto generate tags
-" The bitbucket remote is updated more frequently
-NeoBundle 'bitbucket:ludovicchabant/vim-gutentags', {
-      \   'disabled': !executable("ctags"),
-      \ }
-if neobundle#tap('vim-gutentags')
-  let g:gutentags_cache_dir = expand("~/.vim/.tags/")
-endif
-
 " auto tag generation via exuberant-ctags -- no tags file created
 NeoBundleLazy 'majutsushi/tagbar', {
       \   'autoload': { 'commands': 'TagbarToggle' },
@@ -100,6 +89,21 @@ if neobundle#tap('vim-indent-guides')
 endif
 
 NeoBundle 'now/vim-quit-if-only-quickfix-buffer-left'
+
+NeoBundle 'Shougo/unite.vim'
+
+NeoBundleLazy 'Shougo/vimfiler.vim', {
+      \   'autoload': { 'commands': ['VimFiler'] },
+      \   'depends': 'Shougo/unite.vim',
+      \ }
+if neobundle#tap('vimfiler.vim')
+  let g:vimfiler_as_default_explorer = 1
+  let g:vimfiler_tree_leaf_icon = ' '
+  let g:vimfiler_tree_opened_icon = '▾'
+  let g:vimfiler_tree_closed_icon = '▸'
+  let g:vimfiler_file_icon = '-'
+  let g:vimfiler_marked_file_icon = '*'
+endif
 
 NeoBundleLazy 'sjl/gundo.vim', {
       \   'autoload': { 'commands': [ 'GundoToggle' ] },
