@@ -1,7 +1,9 @@
 [global_config]
+  enabled_plugins = TerminalShot, APTURLHandler, LaunchpadCodeURLHandler, LaunchpadBugURLHandler
   title_transmit_bg_color = "#cf6a4c"
-  focus = system
   title_inactive_bg_color = "#5f5a60"
+  focus = system
+  sticky = True
 [keybindings]
 [profiles]
   [[default]]
@@ -10,6 +12,7 @@
     use_system_font = False
     cursor_color = "#a7a7a7"
     foreground_color = "#a7a7a7"
+    scroll_on_output = False
     show_titlebar = False
     font = Fira Mono for Powerline 10
     background_color = "#1e1e1e"
