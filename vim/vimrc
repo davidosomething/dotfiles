@@ -2,7 +2,10 @@
 set encoding=utf-8 nobomb
 scriptencoding utf-8
 
+" http://www.reddit.com/r/vim/comments/2z2fg0/need_some_inspiration_for_your_vimrc/cpf8zho
+" no nocompatible!
 set nocompatible
+
 set exrc                              " per directory vimrc
 set secure                            " no unsafe local vimrc commands
 
@@ -225,7 +228,7 @@ let g:markdown_fenced_languages = [
       \ ]
 
 " netrw
-" disable netrw
+" disable netrw in favor of vimfiler -- netrw sucks!
 let g:loaded_netrwPlugin = 1
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3

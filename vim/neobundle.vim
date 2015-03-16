@@ -1,4 +1,7 @@
-" Notes:
+scriptencoding utf-8
+" add scriptencoding explicitly on this plugin file since it uses funky chars
+
+" Rules to adhere to:
 " - If it provides a new filetype (like vim-coffee-script), don't lazy
 
 " plugin dependencies ----------------------------------------------------------
