@@ -435,6 +435,7 @@ NeoBundle 'lukaszkorecki/CoffeeTags', {
       \   'disabled': !executable("coffeetags"),
       \ }
 if neobundle#tap('CoffeeTags')
+  let g:CoffeeAutoTagFile="$HOME/.vim/.tags/tags"
   " let g:tagbar_type_coffee = {
   "       \   'ctagsbin': 'coffeetags',
   "       \   'ctagsargs': '',
