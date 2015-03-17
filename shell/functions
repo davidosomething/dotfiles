@@ -46,6 +46,17 @@ addcert() {
   fi
 }
 
+joingroup() {
+  if [[ -n $1 ]]; then
+    # add self to group
+    sudo gpasswd -a "$USER" "$1"
+    # ensure current env recognizes it without re-logging in
+    newgrp "$1"
+  else
+    echo "USAGE: joingroup GROUP"
+  fi
+}
+
 # Directory --------------------------------------------------------------------
 
 # flatten a dir
@@ -124,7 +135,9 @@ gr() {
 
 # up 2 to cd ../..
 up() {
-  local x=''
+  local i
+  local x
+  # shellcheck disable=SC2034
   for i in $(seq "${1:-1}"); do
     x="$x../"
   done
@@ -134,11 +147,13 @@ up() {
 ########################################
 # Determine size of a file or total size of a directory
 function fs() {
+  local arg
   if du -b /dev/null > /dev/null 2>&1; then
-    local arg=-sbh
+    arg=-sbh
   else
-    local arg=-sh
+    arg=-sh
   fi
+
   if [[ -n "$@" ]]; then
     du "$arg" -- "$@"
   else
@@ -151,7 +166,8 @@ function fs() {
 
 # Export repo files to specified dir
 gitexport() {
-  local to_dir="${2:-./gitexport}"
+  local to_dir
+  to_dir="${2:-./gitexport}"
   rsync -a "${1:-./}" "$to_dir" --exclude "$to_dir" --exclude .git
 }
 
@@ -164,9 +180,14 @@ flushdns() {
 
 # type localip to get ethernet or wireless ip
 localip() {
-  local localip=$(ipconfig getifaddr en0)
-  if [ -z "$localip" ]; then
-    localip=$(ipconfig getifaddr en1)
+  local localip
+  if has_program ipconfig; then
+    localip=$(ipconfig getifaddr en0)
+    if [ -z "$localip" ]; then
+      localip=$(ipconfig getifaddr en1)
+    fi
+  elif has_program ip; then
+    localip=$(ip addr | grep "inet 192")
   fi
   echo "$localip"
 }
