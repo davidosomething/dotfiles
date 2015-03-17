@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -eu
+
+# silently determine existence of executable
+has_program() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+# type localip to get ethernet or wireless ip
+_localip() {
+  local localip
+
+  if has_program ifconfig; then
+    ifconfig | grep "inet " | grep -v "127.0.0.1"
+
+  elif has_program ip; then
+    ip addr | grep "inet 192"
+
+  elif has_program ipconfig; then
+    localip=$(ipconfig getifaddr en0)
+    if [ -z "$localip" ]; then
+      localip=$(ipconfig getifaddr en1)
+    fi
+    echo "$localip"
+
+  fi
+}
+
+_localip

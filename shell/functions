@@ -178,20 +178,6 @@ flushdns() {
   sudo killall -HUP mDNSResponder
 }
 
-# type localip to get ethernet or wireless ip
-localip() {
-  local localip
-  if has_program ipconfig; then
-    localip=$(ipconfig getifaddr en0)
-    if [ -z "$localip" ]; then
-      localip=$(ipconfig getifaddr en1)
-    fi
-  elif has_program ip; then
-    localip=$(ip addr | grep "inet 192")
-  fi
-  echo "$localip"
-}
-
 mykey() {
   cat "$HOME/.ssh/id_rsa.pub"
   if has_program pbcopy; then
