@@ -555,3 +555,4 @@ NeoBundle 'evidens/vim-twig'            " creates twig
 " YAML -------------------------------------------------------------------------
 NeoBundle 'ingydotnet/yaml-vim'
 
+" vim: set ft=vim :
