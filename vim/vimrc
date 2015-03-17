@@ -1,6 +1,6 @@
-" set encoding BEFORE scriptencoding
 set encoding=utf-8 nobomb
 scriptencoding utf-8
+" note: set encoding BEFORE scriptencoding
 
 " http://www.reddit.com/r/vim/comments/2z2fg0/need_some_inspiration_for_your_vimrc/cpf8zho
 " no nocompatible!
@@ -277,3 +277,4 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
+" vim: set ft=vim :
