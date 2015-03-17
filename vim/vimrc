@@ -169,8 +169,8 @@ set wildignore+=*.swp,.lock,.DS_Store,._*
                                       " elsewhere
 set fileformats=unix,mac,dos
 set fileformat=unix
-set tags=./tags,./TAGS,tags,TAGS
-set tags+=~/.vim/.tags/tags
+"set tags=./tags,./TAGS,tags,TAGS
+set tags=~/.vim/.tags/tags
 
 " backups
 set noswapfile                        " useless
