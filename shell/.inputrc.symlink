@@ -2,6 +2,7 @@
 "\e[1;5C": forward-word
 
 set completion-ignore-case on
+set completion-prefix-display-length 2
 
 # Immediately add a trailing slash when autocompleting symlinks to directories
 set mark-symlinked-directories on
@@ -16,13 +17,15 @@ set mark-symlinked-directories on
 "\e[B": history-search-forward
 "\e[A": history-search-backward
 
-# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+# Do not autocomplete hidden files unless the pattern explicitly begins with
+# a dot
 set match-hidden-files off
 
 # Show all autocomplete results at once
 set page-completions off
 
-# If there are more than 200 possible completions for a word, ask to show them all
+# If there are more than 200 possible completions for a word, ask to show them
+# all
 set completion-query-items 200
 
 # Show extra file information when completing, like `ls -F` does
