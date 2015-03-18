@@ -5,6 +5,7 @@
 ## Installation
 
 - Clone with submodules, and symlink:
+
 ```
 git clone --recurse-submodules https://github.com/davidosomething/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles/bootstrap
@@ -14,6 +15,7 @@ cd ~/.dotfiles/bootstrap
 - (OPTIONAL) Change default shell to zsh and restart now
 
 - Setup vim:
+
 ```
 cd ~/.dotfiles/bootstrap
 ./vim.sh
@@ -23,10 +25,10 @@ u vim
 ### Working bootstrap scripts
 
 - `symlink.sh`
-    - bash, zsh, ack, screen
+  - bash, zsh, ack, screen
 
 - `vim.sh`
-    - vim
+  - vim
 
 ### Homebrew
 
@@ -38,6 +40,7 @@ Brewfiles in the `osx` folder.
 ### node-gyp
 
 On arch use python 2 when installing node-gyp:
+
 ```
 npm config set python /usr/bin/python2.7 -g
 ```
@@ -61,5 +64,5 @@ https://wiki.archlinux.org/index.php/NetworkManager#Set_up_PolicyKit_permissions
 
 ## Not included but I usually use
 
-* Adium theme: http://www.adiumxtras.com/index.php?a=xtras&xtra_id=7014
+- Adium theme: http://www.adiumxtras.com/index.php?a=xtras&xtra_id=7014
 

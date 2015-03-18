@@ -20,10 +20,14 @@ dkosymlink ack/.ackrc.symlink         .ackrc
 dkosymlink ctags/.ctags.symlink       .ctags
 dkosymlink cvs/.cvsignore.symlink     .cvsignore
 dkosymlink git/.gitconfig.symlink     .gitconfig
-dkosymlink subversion/config.symlink  .subversion/config
-dkosymlink shell/.inputrc.symlink     .inputrc
+dkosymlink mdl/.mdlrc.symlink         .mdlrc
 dkosymlink ruby/.gemrc.symlink        .gemrc
-dkosymlink screen/.screenrc.symlink   .screenrc
+dkosymlink shell/.inputrc.symlink     .inputrc
+dkosymlink subversion/config.symlink  .subversion/config
+
+# I use screen anymore
+#dkosymlink screen/.screenrc.symlink   .screenrc
+
 
 ##
 # symlink shells
