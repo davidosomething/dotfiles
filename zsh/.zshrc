@@ -16,6 +16,9 @@ source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
 source_if_exists "$NVM_DIR/nvm.sh"
 source_if_exists "$DOTFILES/z/z.sh"
 
+# commands
+has_program "hub" && eval "$(hub alias -s)"
+
 scripts=(
   "options"
   "aliases"

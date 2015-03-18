@@ -401,6 +401,7 @@ if neobundle#tap('syntastic')
   let g:syntastic_php_checkers = ['php', 'phpmd']
   let g:syntastic_python_checkers = ['flake8']
   let g:syntastic_shell_checkers = ['bashate', 'shellcheck']
+  let g:syntastic_zsh_checkers = ['zsh']
   call neobundle#untap()
 endif
 

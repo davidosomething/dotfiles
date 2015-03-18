@@ -11,13 +11,13 @@ has_program() {
 _localip() {
   local localip
 
-  if has_program ifconfig; then
+  if has_program "ifconfig"; then
     ifconfig | grep "inet " | grep -v "127.0.0.1"
 
-  elif has_program ip; then
+  elif has_program "ip"; then
     ip addr | grep "inet 192"
 
-  elif has_program ipconfig; then
+  elif has_program "ipconfig"; then
     localip=$(ipconfig getifaddr en0)
     if [ -z "$localip" ]; then
       localip=$(ipconfig getifaddr en1)
