@@ -217,7 +217,7 @@ let mapleader = "\<Space>"
 " variable to highlight markdown fenced code properly -- uses tpope's
 " vim-markdown plugin (which is bundled with vim7.4 now)
 let g:markdown_fenced_languages = [
-      \ 'coffee',
+      \ 'coffee', 'CoffeeScript=coffee',
       \ 'css',
       \ 'erb=eruby',
       \ 'html',
