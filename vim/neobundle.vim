@@ -115,7 +115,15 @@ if neobundle#tap('gundo.vim')
   nnoremap <F2> :GundoToggle<CR>
 endif
 
-NeoBundle 'suan/vim-instant-markdown'
+NeoBundle 'suan/vim-instant-markdown', {
+      \   'build': {
+      \     'mac':     'npm install -g instant-markdown-d',
+      \     'unix':    'npm install -g instant-markdown-d',
+      \     'cygwin':  'npm install -g instant-markdown-d',
+      \     'windows': 'npm install -g instant-markdown-d',
+      \   }
+      \ }
+
 if neobundle#tap('gundo.vim')
   let g:instant_markdown_autostart = 0
   let g:instant_markdown_slow = 1
