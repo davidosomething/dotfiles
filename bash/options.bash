@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 set -o notify
 shopt -s checkwinsize     # update $LINES and $COLUMNS
 shopt -s cmdhist          # save multi-line commands in one
