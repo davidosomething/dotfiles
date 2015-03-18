@@ -1,15 +1,9 @@
 set lines=55 columns=140
-
 set guioptions-=m                     " hide file/edit/etc. menu
 set guioptions-=T                     " hide stupid button bar
-set guifont=Fira\ Mono\ for\ Powerline\ 10
 
-" Note that this needs to be done AFTER call neobundle#end()
-set background=light
-silent! colorscheme solarized               " STFU if no solarized
-silent! call togglebg#map("<F5>")
-
-if has("gui_macvim")
+" MacVim ---------------------------------------------------------------------
+if g:is_macvim
   set antialias
   set guifont=Fira\ Mono\ for\ Powerline:h10
   " set guifont=Menlo\ for\ Powerline
@@ -18,12 +12,13 @@ if has("gui_macvim")
   " only applies to buffers containing a markdown file
   " open current doc as Markdown in Marked.app
   if has("autocmd")
-    au filetype ghmarkdown,markdown nnoremap <buffer><leader>m :silent !open -a "Marked 2" '%:p'<cr>
+    au vimrc filetype markdown
+          \ nnoremap <buffer><leader>m :silent !open -a "Marked 2" '%:p'<cr>
   endif
+
+" GVIM -----------------------------------------------------------------------
+else
+  set guifont=Fira\ Mono\ for\ Powerline\ 10
+
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Local config
-if filereadable(expand("~/.gvimrc.local"))
-  source ~/.gvimrc.local
-endif

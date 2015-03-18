@@ -17,7 +17,17 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'tobyS/vmustache' " for pdv
 
 " ui ---------------------------------------------------------------------------
-NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized', {
+      \   'disabled': !(has("gui") || has("gui_macvim")),
+      \ }
+if neobundle#tap('vim-colors-solarized')
+  function! neobundle#tapped.hooks.on_source(bundle)
+    set background=light
+    silent! colorscheme solarized               " STFU if no solarized
+    silent! call togglebg#map("<F5>")
+  endfunction
+  call neobundle#untap()
+endif
 
 NeoBundle 'bling/vim-airline', {
       \   'depends': 'tpope/vim-fugitive',
