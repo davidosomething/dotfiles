@@ -8,7 +8,7 @@
 # ID 1
 rounded = 0
 border_width = 0
-background_color = #000000 5
+background_color = #000000 4
 border_color = #444444 100
 
 # ID 2
@@ -20,8 +20,8 @@ border_color = #FFFFFF 100
 # ID 3
 rounded = 0
 border_width = 1
-background_color = #000000 12
-border_color = #FFFFFF 11
+background_color = #000000 11
+border_color = #FFFFFF 10
 
 # ID 4
 rounded = 0
@@ -58,7 +58,7 @@ urgent_nb_of_blink = 7
 task_icon = 1
 task_text = 1
 task_centered = 0
-task_maximum_size = 200 32
+task_maximum_size = 320 32
 task_padding = 4 4
 task_background_id = 2
 task_active_background_id = 3
@@ -66,14 +66,14 @@ task_urgent_background_id = 4
 task_iconified_background_id = 2
 
 # Task Icons
-task_icon_asb = 50 0 0
+task_icon_asb = 20 -100 -50
 task_active_icon_asb = 100 0 0
 task_urgent_icon_asb = 100 0 0
 task_iconified_icon_asb = 100 0 0
 
 # Fonts
 task_font = Fira Sans 8
-task_font_color = #FFFFFF 60
+task_font_color = #FFFFFF 39
 task_active_font_color = #FFFFFF 100
 task_urgent_font_color = #FFFFFF 100
 task_iconified_font_color = #FFFFFF 100
