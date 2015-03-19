@@ -836,7 +836,6 @@
 
   # end of the example
 -->
-
     <!-- open gvim windows right half of screen -->
     <application name="gvim">
       <position force="yes">
@@ -844,7 +843,6 @@
         <y>24</y>
       </position>
     </application>
-
     <!-- open terminal windows bottom left screen -->
     <application name="gnome-terminal-server">
       <position force="yes">
@@ -852,13 +850,11 @@
         <y>-48</y>
       </position>
     </application>
-
     <application name="terminator">
       <position force="yes">
         <x>24</x>
         <y>-48</y>
       </position>
     </application>
-
   </applications>
 </openbox_config>
