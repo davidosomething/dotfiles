@@ -139,10 +139,10 @@
     dmenu = /usr/bin/dmenu -p dunst:
 
     # Browser for opening urls in context menu.
-    browser = /usr/bin/chromium -new-tab
+    browser = /usr/bin/chromium
 
     # Align icons left/right/off
-    icon_position = off
+    icon_position = left
 
     # Paths to default icons.
     icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
@@ -159,15 +159,15 @@
     # Xev might be helpful to find names for keys.
 
     # Close notification.
-    close = ctrl+space
-
-    # Close all notifications.
-    close_all = ctrl+shift+space
-
-    # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1".
-    history = ctrl+grave
+    close = mod4+grave
+
+    # Close all notifications.
+    close_all = mod4+shift+grave
+
+    # Redisplay last message(s).
+    history = mod4+m
 
     # Context menu.
     context = ctrl+shift+period
@@ -180,7 +180,7 @@
     timeout = 10
 
 [urgency_normal]
-    background = "#183547"
+    background = "#182537"
     foreground = "#ffffff"
     timeout = 10
 
