@@ -556,7 +556,7 @@ NeoBundleLazy 'vadv/vim-chef', {
 NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 
 " Stylesheet languages ---------------------------------------------------------
-NeoBundle 'ap/vim-css-color'
+NeoBundle 'Rykka/colorv.vim'
 
 NeoBundle 'cakebaker/scss-syntax.vim'   " creates scss.css
 
