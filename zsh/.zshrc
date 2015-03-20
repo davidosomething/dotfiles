@@ -24,6 +24,7 @@ scripts=(
   "aliases"
   "keybindings"
   "completions"
+  "title"
   "prompt"
   "zsh-syntax-highlighting/zsh-syntax-highlighting"
   # "zsh-history-substring-search/zsh-history-substring-search"
