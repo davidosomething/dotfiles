@@ -103,6 +103,11 @@
 				<execute>gnome-control-center</execute>
 			</action>
 		</item>
+		<item label="Gnome Tweak Tool">
+			<action name="Execute">
+				<execute>gnome-tweak-tool</execute>
+			</action>
+		</item>
 		<item label="lxapearance">
 			<action name="Execute">
 				<execute>/bin/lxappearance</execute>
