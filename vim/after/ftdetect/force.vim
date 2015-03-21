@@ -15,5 +15,6 @@ augroup ForceFiletypes
   au BufRead,BufNewFile *.jshintrc        setlocal filetype=json
   " md is normally modula2 -- force it to always be markdown
   au BufRead,BufNewFile *.md              setlocal filetype=markdown
+  au BufRead,BufNewFile *.rules           setlocal filetype=javascript
   au BufRead,BufNewFile *.txt             setlocal filetype=markdown
 augroup END

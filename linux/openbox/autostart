@@ -32,7 +32,9 @@ compton -b --config "$HOME/.config/compton.conf" &
   python2 "indicator-audio-input.py" && \
   popd) &
 
-# Dash
+(sleep 1s && udiskie --tray) &
+
+# Conky
 (sleep 1s && conky -d) &
 
 # Keymaps
@@ -66,7 +68,7 @@ fi
 #(sleep 1s && redshift-gtk) &
 
 # Start thunar daemon so it opens faster
-thunar --daemon &
+#thunar --daemon &
 (sleep 1s && terminator) &
 (sleep 1s && chromium) &
 
