@@ -348,6 +348,13 @@
       </action>
     </keybind>
     <!-- window moving -->
+    <keybind key="W-S-c">
+      <action name="MoveResizeTo">
+        <x>center</x>
+        <y>center</y>
+        <monitor>1</monitor>
+      </action>
+    </keybind>
     <keybind key="W-Left">
       <action name="MoveRelative">
         <x>-25</x>
