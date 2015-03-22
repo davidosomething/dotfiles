@@ -17,6 +17,7 @@ if ! pgrep xbindkeys; then
   xbindkeys &
 fi
 
+# Only for openbox since others might use gnome-settings-daemon or something
 # Background Image
 if [ -f "$HOME/.fehbg" ]; then
   "$HOME/.fehbg" &
