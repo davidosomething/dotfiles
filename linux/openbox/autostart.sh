@@ -1,41 +1,11 @@
-# shellcheck disable=SC2148
+#!/usr/bin/env bash
 
-# openbox autostart
+# openbox autostart.sh
 #
-# These things are run when openbox is started
+# environment -> autostart.sh
 #
 # Check ~/.config/autostart/ and /etc/xdg/autostart/ for other places programs
 # might be starting from
-
-# gnome compatibility
-export GNOME_DESKTOP_SESSION_ID="openbox"
-[ "$DESKTOP_SESSION" = "openbox" ]
-
-# Background Image
-if [ -f "$HOME/.fehbg" ]; then
-  "$HOME/.fehbg" &
-else
-  feh --bg-scale "$HOME/Dropbox/Public/03338_emptiness_1920x1080.jpg" &
-fi
-
-# Compositing
-compton -b --config "$HOME/.config/compton.conf" &
-
-# Tint Panel
-(sleep 1s && tint2 -c "$HOME/.config/tint2/tint2rc") &
-# Thinkpad specific battery icon using tp_smapi
-# Starts on its own from /etc/xdg/autostart
-#tp-battery-icon &
-
-[[ -x "$HOME/src/indicator-audio-input/indicator-audio-input.py" ]] && \
-  (sleep 1s && pushd "$HOME/src/indicator-audio-input" && \
-  python2 "indicator-audio-input.py" && \
-  popd) &
-
-(sleep 1s && udiskie --tray) &
-
-# Conky
-(sleep 1s && conky -d) &
 
 # Keymaps
 # GDM reads .Xmodmap -- don't do this, stalls everything for a few secs
@@ -44,8 +14,33 @@ if ! pgrep xbindkeys; then
   xbindkeys &
 fi
 
+# Background Image
+if [ -f "$HOME/.fehbg" ]; then
+  "$HOME/.fehbg" &
+else
+  feh --bg-scale "$HOME/Dropbox/Public/03338_emptiness_1920x1080.jpg" &
+fi
+
+# Tint Panel
+(sleep 1s && tint2 -c "$HOME/.config/tint2/tint2rc") &
+# Thinkpad specific battery icon using tp_smapi
+# Starts on its own from /etc/xdg/autostart
+#tp-battery-icon &
+
+# My microphone status indicator
+[[ -x "$HOME/src/indicator-audio-input/indicator-audio-input.py" ]] && \
+  (sleep 1s && pushd "$HOME/src/indicator-audio-input" && \
+  python2 "indicator-audio-input.py" && \
+  popd) &
+
+# USB disk mounting indicator
+(sleep 1s && udiskie --tray) &
+
+# Conky
+(sleep 1s && conky -d) &
+
 # Start Thinkpad OSD daemon
-if [ -x /usr/bin/tpb ] &&  [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
+if [ -x /usr/bin/tpb ] && [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
   /usr/bin/tpb -d &
 fi
 
@@ -60,6 +55,7 @@ fi
 # Volume applet
 (sleep 2s && pnmixer) &
 
+# Virtualbox applet
 (sleep 2s && indicator-virtualbox) &
 
 # Apps
