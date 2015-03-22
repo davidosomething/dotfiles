@@ -62,16 +62,6 @@ See [vim/README.md](https://github.com/davidosomething/dotfiles/blob/master/vim/
 Ensure policykit allows users in the network access, option 3 here:
 https://wiki.archlinux.org/index.php/NetworkManager#Set_up_PolicyKit_permissions
 
-### ssh-agent/gnome-keyring-daemon
-
-https://wiki.archlinux.org/index.php/GNOME_Keyring#Disable_keyring_daemon
-Use `ssh-agent` in `shell/` instead of `gnome-keyring-daemon` for ssh to ensure
-we have auto-authentication outside of X.
-
-```
-sudo ln -sf /dev/null /etc/xdg/autostart/gnome-keyring-ssh.desktop
-```
-
 ## Not included but I usually use
 
 - Adium theme: http://www.adiumxtras.com/index.php?a=xtras&xtra_id=7014
