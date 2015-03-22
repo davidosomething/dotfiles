@@ -1,30 +1,30 @@
-# prompt_git
+# _prompt_git
 #
 # from paul irish
 # https://github.com/paulirish/dotfiles/blob/master/.bash_prompt
 #
-prompt_git() {
-  # this is >5x faster than mathias's. has to be for working in Chromium & Blink.
+_prompt_git() {
+  local branch_name
+  local dirty_symbol
+  local git_status
 
+  # this is >5x faster than mathias's. has to be for working in Chromium & Blink.
   # check if we're in a git repo. (fast)
   git rev-parse --is-inside-work-tree &>/dev/null || return
 
   # check for what branch we're on. (fast)
   # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
   # Otherwise, just give up.
-  branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+  branch_name="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
       git rev-parse --short HEAD 2> /dev/null || \
       echo '(unknown)')";
 
   # check if it's dirty (slow)
   #   technique via github.com/git/git/blob/355d4e173/contrib/completion/git-prompt.sh#L472-L475
-  dirty=$(git diff --no-ext-diff --quiet --ignore-submodules --exit-code || echo -e "*")
-
+  dirty_symbol=$(git diff --no-ext-diff --quiet --ignore-submodules --exit-code || echo -e "*")
 
   [ -n "${s}" ] && s=" [${s}]";
-  echo -e "${1}${branchName}${2}$dirty";
-
-  return
+  echo -e "${1}${branch_name}${2}${dirty_symbol}"
 }
 
 # prompt
@@ -52,7 +52,7 @@ _bash_prompt() {
 
   PS1="${USER}$B@${HOST}$C:${DIR}\n"
   PS1+="${CURTIME}"
-  PS1+="${P}(\$(prompt_git))"   # git repository details
+  PS1+="${P}(\$(_prompt_git))"   # git repository details
   PS1+="${Z} "
   export PS1
 }
