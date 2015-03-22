@@ -7,6 +7,9 @@
 # Check ~/.config/autostart/ and /etc/xdg/autostart/ for other places programs
 # might be starting from
 
+
+export DKOSOURCE="$DKOSOURCE -> ob autostart"
+
 # Keymaps
 # GDM reads .Xmodmap -- don't do this, stalls everything for a few secs
 #xmodmap "$HOME/src/davidosomething-config/potatoW510/.Xmodmap" &

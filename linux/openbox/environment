@@ -3,18 +3,8 @@
 # environment -> autostart.sh
 #
 
-export GNOME_DESKTOP_SESSION_ID="openbox"
+export DKOSOURCE="$DKOSOURCE -> ob environment"
 
-# Gnome Keyring
-# Fix bug where:
-#   1. login gnome-keyring-daemon instance starts
-#   2. logout
-#   3. login again gnome-keyring-daemon another instance starts
-if [ -n "$DESKTOP_SESSION" ]; then
-  eval "$(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)" &
-else
-  eval "$(gnome-keyring-daemon --replace --components=pkcs11,secrets,ssh,gpg)" &
-fi
-export SSH_AUTH_SOCK
+export GNOME_DESKTOP_SESSION_ID="openbox"
 
 # vim: set ft=sh :
