@@ -31,6 +31,8 @@ eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
 
 # Compositing
+# Only use for openbox
+# Consider moving out if using different compositor for other DEs
 compton -b --config "$HOME/.config/compton.conf" &
 
 # gnome polkit authentication (so nm-applet can create connections)
