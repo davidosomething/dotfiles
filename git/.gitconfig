@@ -1,84 +1,88 @@
 [alias]
-  a       = add
-  aa      = add .
-  b       = branch
-  be      = branch --edit-description
-  ca      = commit --amend
-  cfg     = "!$VISUAL ~/.gitconfig"
-  changed = diff HEAD..master
-  cb      = checkout -b
-  ci      = commit
-  cl      = changelog --list
-  cm      = commit -m
-  co      = checkout
-  ct      = checkout -t
-  d       = diff
-  dc      = diff --cached
-  done    = branch --merged
-  finda   = "!grepalias() { git config --global --get-regexp alias | grep -i \"$1\" | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; grepalias"
-  forget  = rm -r --cached
-  g       = grep --break --heading --line-number
-  l       = log --abbrev-commit
-  lasttag = describe --tags --abbrev=0
-  lg      = log --abbrev-commit --graph --decorate
-  lb      = log --abbrev-commit --graph --oneline --decorate --all
-  ll      = log --abbrev-commit --pretty=oneline --max-count=15
-  m       = merge
-  names   = diff HEAD..master --name-only
-  pr      = pull --rebase
-  pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
-  rb      = rebase
-  s       = status -bs
-  st      = status
-  t       = tag
-  um      = branch --no-merged
-  which   = rev-parse --abbrev-ref HEAD
-  root    = !pwd -P
+	a       = add
+	aa      = add .
+	b       = branch
+	be      = branch --edit-description
+	ca      = commit --amend
+	cfg     = "!$VISUAL $GIT_CONFIG"
+	changed = diff HEAD..master
+	cb      = checkout -b
+	ci      = commit
+	cl      = changelog --list
+	cm      = commit -m
+	co      = checkout
+	ct      = checkout -t
+	d       = diff
+	dc      = diff --cached
+	done    = branch --merged
+	finda   = "!grepalias() { git config --global --get-regexp alias | grep -i \"$1\" | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; grepalias"
+	forget  = rm -r --cached
+	g       = grep --break --heading --line-number
+	l       = log --abbrev-commit
+	lasttag = describe --tags --abbrev=0
+	lg      = log --abbrev-commit --graph --decorate
+	lb      = log --abbrev-commit --graph --oneline --decorate --all
+	ll      = log --abbrev-commit --pretty=oneline --max-count=15
+	m       = merge
+	names   = diff HEAD..master --name-only
+	pr      = pull --rebase
+	pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
+	rb      = rebase
+	s       = status -bs
+	st      = status
+	t       = tag
+	um      = branch --no-merged
+	which   = rev-parse --abbrev-ref HEAD
+	root    = !pwd -P
 [color]
-  branch      = auto
-  diff        = auto
-  grep        = auto
-  interactive = auto
-  status      = auto
-  ui          = auto
-  pager       = true
+	branch      = auto
+	diff        = auto
+	grep        = auto
+	interactive = auto
+	status      = auto
+	ui          = auto
+	pager       = true
 [core]
-  compression = -1
-  editor = "vim -f"
-  excludesfile = ~/.dotfiles/git/.gitignore
-  sharedRepository = 0664
-  pager = less -x4
+	compression = -1
+	editor = "vim -f"
+	excludesfile = ~/.dotfiles/git/.gitignore
+	sharedRepository = 0664
+	pager = less -x4
 [difftool]
-  prompt = false
+	prompt = false
 [mergetool]
-  prompt = false
+	prompt = false
 [pager]
-  status = true
+	status = true
 [push]
-  default = simple
+	default = simple
 [rerere]
-  enabled = 1
+	enabled = 1
 [web]
-  browser = open
+	browser = open
 [filter "media"]
 	clean = git media clean %f
 	smudge = git media smudge %f
 	required = true
 
 [url "git@github.com:"]
-  insteadOf = "gh:"
-  pushInsteadOf = "github:"
-  pushInsteadOf = "git://github.com/"
+	insteadOf = "gh:"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
+
 [url "git://github.com/"]
-  insteadOf = "github:"
+	insteadOf = "github:"
+
 [url "git@gist.github.com:"]
-  insteadOf = "gst:"
-  pushInsteadOf = "gist:"
-  pushInsteadOf = "git://gist.github.com/"
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
+
 [url "git://gist.github.com/"]
-  insteadOf = "gist:"
+	insteadOf = "gist:"
+
 [url "git@heroku.com:"]
-  insteadOf = "heroku:"
+	insteadOf = "heroku:"
 
 [include]
-  path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
