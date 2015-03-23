@@ -86,6 +86,7 @@ case "$OSTYPE" in
       brew outdated | grep -q node && brew upgrade node --without-npm
       brew upgrade
       brew cleanup
+      brew prune
     fi
   ;;
 esac
