@@ -1,0 +1,50 @@
+<?xml encoding="UTF-8" version="1.0"?>
+<actions>
+<action>
+	<icon>gloobus-preview</icon>
+	<name>Gloobus Preview</name>
+	<unique-id>1414990946084852-3</unique-id>
+	<command>/bin/gloobus-preview %f</command>
+	<description>Open in Gloobus Preview</description>
+	<patterns>*</patterns>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<unique-id>1414907800624638-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Example for a custom action</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>edit-copy</icon>
+	<name>Copy path to clipboard</name>
+	<unique-id>1427099163202475-2</unique-id>
+	<command>echo -n %F | xclip -i -selection c</command>
+	<description>Copy path to clipboard</description>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>meld</icon>
+	<name>Compare in meld</name>
+	<unique-id>1427099351014766-4</unique-id>
+	<command>meld %F</command>
+	<description>Compare files or folders in meld</description>
+	<patterns>*</patterns>
+	<directories/>
+	<text-files/>
+</action>
+</actions>

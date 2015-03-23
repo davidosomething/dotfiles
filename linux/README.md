@@ -1,4 +1,8 @@
-# Boot order
+# Linux setup
+
+For openbox, thunar
+
+## Boot order
 
 ```
 gdm
@@ -27,4 +31,9 @@ startx
     /etc/xdg/autostart/*
     openbox
 ```
+
+## Thunar
+
+- Extra hidden settings in `thunar.sh`
+- User custom actions in `thunar/uca.xml`
 
