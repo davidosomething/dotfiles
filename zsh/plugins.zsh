@@ -1,3 +1,7 @@
+# zsh plugins
+
+source "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
 # requires "zsh-history-substring-search/zsh-history-substring-search"
 # bind UP and DOWN arrow keys
 # [ -f "$ZDOTDIR/zsh-history-substring-search/zsh-history-substring-search.zsh" ] && {

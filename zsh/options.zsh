@@ -1,5 +1,4 @@
-##
-# SHELL OPTIONS
+# zsh options
 # Changing Directories
 setopt AUTO_PUSHD                     # pushd instead of cd
 setopt PUSHD_IGNORE_DUPS

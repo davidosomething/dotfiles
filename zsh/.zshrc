@@ -4,12 +4,12 @@ source "$HOME/.dotfiles/shell/loader"
 source "$HOME/.dotfiles/shell/aliases"
 
 # helpfiles
-if [ -n "$HAS_BREW" ]; then
+has_program "brew" && {
   # use homebrew bundled zsh helpfiles for online help
   export HELPDIR="$BREW_PREFIX/share/zsh/helpfiles"
   unalias run-help
   autoload run-help
-fi
+}
 
 # env programs
 source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
@@ -26,10 +26,7 @@ scripts=(
   "completions"
   "title"
   "prompt"
-  "zsh-syntax-highlighting/zsh-syntax-highlighting"
-  # "zsh-history-substring-search/zsh-history-substring-search"
-  # "zsh-autosuggestions/autosuggestions"
-  "after"
+  "plugins"
 )
 for script in $scripts; do
   source "$ZDOTDIR/${script}.zsh"

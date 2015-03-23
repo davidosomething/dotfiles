@@ -1,4 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# Shell variables
+# Run from loader
+#
+# Some things from env are here since OSX doesn't start new env for each term
+# and we may need to reset the values
+
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
@@ -59,7 +66,7 @@ has_program "apachectl" && {
 }
 
 # boot2docker
-export DOCKER_HOST=tcp://localhost:4243
+export DOCKER_HOST="tcp://localhost:4243"
 
 # chruby
 # overridden in homebrew section if has brew
@@ -71,13 +78,12 @@ export GOPATH="$HOME/go"
 
 # homebrew
 has_program "brew" && {
-  export HAS_BREW=true
   export BREW_PREFIX="$(brew --prefix)"
-  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
   export CHRUBY_PREFIX="$BREW_PREFIX"
+  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
   # Ruby use brew openssl if available
-  [[ -f $BREW_PREFIX/opt/openssl ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$BREW_PREFIX/opt/openssl"
+  [[ -f "$BREW_PREFIX/opt/openssl" ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$BREW_PREFIX/opt/openssl"
 }
 
 # git
@@ -85,6 +91,8 @@ export GIT_PAGER="$PAGER -eFX"
 
 # node
 export NVM_DIR="$HOME/.nvm"
+# consider using NODE_PATH="$(npm root -g):$NODE_PATH" so nvm specific
+# node_path is also checked
 export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
 export NPM_PACKAGES="$HOME/.npm-packages"
 

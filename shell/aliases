@@ -1,8 +1,9 @@
-#!/bin/bash
-# sourced by both .zshrc and .bashrc, so keep it bash compatible
-# NOT run by loader
+#!/usr/bin/env bash
 
-alias reload='exec $SHELL'
+# Shell aliases
+# Not run by loader
+# Sourced by both .zshrc and .bashrc, so keep it bash compatible
+
 alias testnotification="notify-send 'Hello world!' 'This is an example notification.' --icon=dialog-information"
 
 # paths and dirs
@@ -67,9 +68,6 @@ alias evg="e ~/.vim/gvimrc"
 alias evm="e ~/.vim/plugin/mappings.vim"
 alias evp="e ~/.vim/neobundle.vim"
 alias evr="e ~/.vim/vimrc"
-
-# server
-alias pyserve="python -m SimpleHTTPServer"
 
 # os specific
 case "$OSTYPE" in

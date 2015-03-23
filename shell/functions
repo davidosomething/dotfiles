@@ -1,13 +1,11 @@
-#!/bin/bash
-# Scripting --------------------------------------------------------------------
+#!/usr/bin/env bash
 
+# Shell functions
+# Run from loader
+
+# Scripting --------------------------------------------------------------------
 current_shell() {
   ps -p $$ | awk 'NR==2 { print $4 }'
-}
-
-# source a file if it exists
-source_if_exists() {
-  [ -f "$1" ] && source "$1" # && echo "Sourced $1"
 }
 
 # silently determine existence of executable
@@ -15,52 +13,24 @@ has_program() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# OSX --------------------------------------------------------------------------
-
-brc() {
-  brew cask "${@}"
-}
-
-# list members for a group
-# http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
-members() {
-  dscl . -list /Users | while read user; do
-    printf "%s " "$user"
-    dsmemberutil checkmembership -U "$user" -G "$*"
-  done | grep "is a member" | cut -d " " -f 1;
-}
-
-# linux ------------------------------------------------------------------------
-
-# flush linux font cache
-flushfonts() {
-  fc-cache -f -v
-}
-
-addcert() {
-  if [[ -n $1 ]] && [[ -n $2 ]]; then
-    certutil -d "sql:$HOME/.pki/nssdb" -A -t TC -n "$1" -i "$2"
+# open or xdg-open
+o() {
+  if [ "$DOTFILES_OS" = "Darwin" ]; then
+    open "$@"
   else
-    echo "Provide a nickname as arg1 and certfile.pem as arg2"
+    xdg-open "$@" &>/dev/null
   fi
 }
 
-joingroup() {
-  if [[ -n $1 ]]; then
-    # add self to group
-    sudo gpasswd -a "$USER" "$1"
-    # ensure current env recognizes it without re-logging in
-    newgrp "$1"
-  else
-    echo "USAGE: joingroup GROUP"
-  fi
+# source a file if it exists
+source_if_exists() {
+  [ -f "$1" ] && source "$1" # && echo "Sourced $1"
 }
 
 # Directory --------------------------------------------------------------------
-
 # flatten a dir
 flatten() {
-  if [[ -n $1 ]]; then
+  if [[ -n "$1" ]]; then
     read "reply?Flatten folder: are you sure? [Yy] "
   else
     reply=Y
@@ -84,7 +54,7 @@ prune() {
   fi
 }
 
-# dev
+# dev --------------------------------------------------------------------------
 a2() {
   apachectl "$@"
 }
@@ -112,6 +82,20 @@ phpminorver() {
   php -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"
 }
 
+# start up an http server on :8000
+pyserve() {
+  case "$(python --version 2>&1)" in
+      *" 3."*)  xterm "python3 -m http.server"
+                ;;
+      *)        xterm "python -m SimpleHTTPServer"
+                ;;
+  esac
+}
+
+lopen() {
+  o "http://localhost:8000/$1"
+}
+
 eapache() {
   e "${APACHE_HTTPD_ROOT}/${APACHE_HTTPD_CONF}"
 }
@@ -119,9 +103,7 @@ ephpini() {
   e "$(php -r "echo php_ini_loaded_file();")"
 }
 
-########################################
-# traversal
-
+# traversal --------------------------------------------------------------------
 # display paths, one on each line
 paths() {
   echo "$PATH" | tr ':' '\n'
@@ -143,7 +125,6 @@ up() {
   cd "$x"
 }
 
-########################################
 # Determine size of a file or total size of a directory
 function fs() {
   local arg
@@ -160,9 +141,7 @@ function fs() {
   fi
 }
 
-########################################
-# Archiving
-
+# Archiving --------------------------------------------------------------------
 # Export repo files to specified dir
 gitexport() {
   local to_dir
@@ -170,8 +149,7 @@ gitexport() {
   rsync -a "${1:-./}" "$to_dir" --exclude "$to_dir" --exclude .git
 }
 
-########################################
-# Network tools
+# Network tools ----------------------------------------------------------------
 flushdns() {
   dscacheutil -flushcache
   sudo killall -HUP mDNSResponder
@@ -186,8 +164,29 @@ mykey() {
   fi
 }
 
-########################################
-# Linux
+# OSX --------------------------------------------------------------------------
+brc() {
+  brew cask "${@}"
+}
+
+# list members for a group
+# http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
+members() {
+  dscl . -list /Users | while read user; do
+    printf "%s " "$user"
+    dsmemberutil checkmembership -U "$user" -G "$*"
+  done | grep "is a member" | cut -d " " -f 1;
+}
+
+# linux ------------------------------------------------------------------------
+addcert() {
+  if [[ -n $1 ]] && [[ -n $2 ]]; then
+    certutil -d "sql:$HOME/.pki/nssdb" -A -t TC -n "$1" -i "$2"
+  else
+    echo "Provide a nickname as arg1 and certfile.pem as arg2"
+  fi
+}
+
 # Cleanup Open With Applications
 cleanopenwith() {
   # remove wine apps
@@ -195,11 +194,19 @@ cleanopenwith() {
   sed -i '/wine/d' "$HOME/.local/share/applications/mimeinfo.cache"
 }
 
-o() {
-  if [ "$DOTFILES_OS" = "Darwin" ]; then
-    open "$@"
+# flush linux font cache
+flushfonts() {
+  fc-cache -f -v
+}
+
+joingroup() {
+  if [[ -n $1 ]]; then
+    # add self to group
+    sudo gpasswd -a "$USER" "$1"
+    # ensure current env recognizes it without re-logging in
+    newgrp "$1"
   else
-    xdg-open "$@" &>/dev/null
+    echo "USAGE: joingroup GROUP"
   fi
 }
 

@@ -1,30 +1,17 @@
-#!/bin/bash
-# loader for login shells
-# OUTPUT FORBIDDEN
-# DOES NOT LOAD aliases since the shell may not be interactive
+#!/usr/bin/env bash
 
-_dotfiles_shell_loader() {
-  for script in "vars" "paths"; do
-    local filename="$HOME/.dotfiles/shell/${script}"
-    source "${filename}"
-  done
+# Shell loader
+# Run by .zshenv, .zshrc, and .bashrc
+# OUTPUT FORBIDDEN since may run in non-interactive mode (via .zshenv)
+
+_dko_loader() {
+  source "$HOME/.dotfiles/shell/functions"
+  source "$HOME/.dotfiles/shell/vars"
+  source "$HOME/.dotfiles/shell/paths"
+  export DKO_LOADER="true"
 }
 
-# always load functions
-source "$HOME/.dotfiles/shell/functions"
-
-# maybe load rest of scripts
-# $$ is pid of current shell
-# NR==2 second line, $4 fourth column
-if [ "$DOTFILES_SHELL_LOADER" != "$(current_shell)" ]; then
-  _dotfiles_shell_loader
-  export DOTFILES_SHELL_LOADER="$(current_shell)"
+if [ -z "$DKO_LOADER" ]; then
+  _dko_loader
 fi
 
-case "$TERM" in
-	linux)
-		[ -n "$FBTERM" ] && export TERM="fbterm"
-		;;
-esac
-
-# vim: set ft=sh :

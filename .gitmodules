@@ -2,7 +2,7 @@
 	path = zsh/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
 [submodule "zsh/zsh-syntax-highlighting"]
-	path = zsh/zsh-syntax-highlighting
+	path = zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "solarized"]
 	path = solarized
@@ -14,8 +14,8 @@
 	path = osx/base16-iterm2
 	url = https://github.com/chriskempson/base16-iterm2.git
 [submodule "zsh/zsh-history-substring-search"]
-	path = zsh/zsh-history-substring-search
+	path = zsh/plugins/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search.git
 [submodule "zsh/zsh-autosuggestions"]
-	path = zsh/zsh-autosuggestions
+	path = zsh/plugins/zsh-autosuggestions
 	url = https://github.com/tarruda/zsh-autosuggestions

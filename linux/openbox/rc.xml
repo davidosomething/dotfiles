@@ -865,7 +865,6 @@
         <y>-48</y>
       </position>
     </application>
-
     <application name="insync">
       <position force="yes">
         <x>center</x>
