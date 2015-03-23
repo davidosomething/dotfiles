@@ -4,7 +4,7 @@
 	b       = branch
 	be      = branch --edit-description
 	ca      = commit --amend
-	cfg     = "!$VISUAL $GIT_CONFIG"
+	cfg     = "!$VISUAL ~/.gitconfig"
 	changed = diff HEAD..master
 	cb      = checkout -b
 	ci      = commit
@@ -34,6 +34,7 @@
 	um      = branch --no-merged
 	which   = rev-parse --abbrev-ref HEAD
 	root    = !pwd -P
+
 [color]
 	branch      = auto
 	diff        = auto
@@ -42,24 +43,32 @@
 	status      = auto
 	ui          = auto
 	pager       = true
+
 [core]
 	compression = -1
 	editor = "vim -f"
-	excludesfile = ~/.dotfiles/git/.gitignore
+	excludesfile = "~/.dotfiles/git/.gitignore"
 	sharedRepository = 0664
 	pager = less -x4
+
 [difftool]
 	prompt = false
+
 [mergetool]
 	prompt = false
+
 [pager]
 	status = true
+
 [push]
 	default = simple
+
 [rerere]
 	enabled = 1
+
 [web]
 	browser = open
+
 [filter "media"]
 	clean = git media clean %f
 	smudge = git media smudge %f
@@ -85,4 +94,5 @@
 	insteadOf = "heroku:"
 
 [include]
-	path = ~/.gitconfig.local
+	path = "~/.gitconfig.local"
+

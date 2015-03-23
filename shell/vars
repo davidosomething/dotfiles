@@ -90,7 +90,6 @@ has_program "brew" && {
 }
 
 # git
-export GIT_CONFIG="$DOTFILES/git/.gitconfig"
 export GIT_PAGER="$PAGER -eFX"
 
 # less
