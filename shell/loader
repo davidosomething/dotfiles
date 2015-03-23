@@ -4,14 +4,7 @@
 # Run by .zshenv, .zshrc, and .bashrc
 # OUTPUT FORBIDDEN since may run in non-interactive mode (via .zshenv)
 
-_dko_loader() {
-  source "$HOME/.dotfiles/shell/functions"
-  source "$HOME/.dotfiles/shell/vars"
-  source "$HOME/.dotfiles/shell/paths"
-  export DKO_LOADER="true"
-}
-
-if [ -z "$DKO_LOADER" ]; then
-  _dko_loader
-fi
+source "$HOME/.dotfiles/shell/functions"
+source "$HOME/.dotfiles/shell/vars"
+source "$HOME/.dotfiles/shell/paths"
 

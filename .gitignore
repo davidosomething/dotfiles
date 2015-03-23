@@ -1,4 +1,8 @@
 /atom/compile-cache
+
+# BASH crap
+.bash_history
+
 # ZSH crap
 .zsh_history
 .zhistory
