@@ -172,6 +172,9 @@ set fileformat=unix
 "set tags=./tags,./TAGS,tags,TAGS
 set tags=~/.vim/.tags/tags
 
+" info file
+set viminfo+=n~/.vim/.viminfo
+
 " backups
 set noswapfile                        " useless
 " Make Vim able to edit crontab files again.

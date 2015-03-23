@@ -557,6 +557,11 @@ NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 
 " Stylesheet languages ---------------------------------------------------------
 NeoBundle 'Rykka/colorv.vim'
+if neobundle#tap('colorv.vim')
+  let g:colorv_preview_ftype  = "coffee,css,html,javascript,less,php,sass,scss"
+  let g:colorv_cache_file     = "$HOME/.vim/.cache/.colorv_cache_file"
+  let g:colorv_cache_fav      = "$HOME/.vim/.cache/.colorv_cache_fav"
+endif
 
 NeoBundle 'cakebaker/scss-syntax.vim'   " creates scss.css
 
