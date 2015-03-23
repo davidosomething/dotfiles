@@ -1,11 +1,9 @@
 /atom/compile-cache
 
-# BASH crap
 .bash_history
-
-# ZSH crap
-.zsh_history
+.lesshst
 .zhistory
 .zcompdump
+.zsh_history
 
 *.log
