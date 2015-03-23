@@ -11,8 +11,6 @@ source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
 source_if_exists "$NVM_DIR/nvm.sh"
 source_if_exists "$DOTFILES/z/z.sh"
 
-# local
+source "$HOME/.dotfiles/shell/after"
 source_if_exists "$HOME/.bashrc.local"
 
-# added by travis gem
-[ -f /home/davidosomething/.travis/travis.sh ] && source /home/davidosomething/.travis/travis.sh

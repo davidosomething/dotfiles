@@ -32,6 +32,6 @@ for script in $scripts; do
   source "$ZDOTDIR/${script}.zsh"
 done
 
-# local
+source "$HOME/.dotfiles/shell/after"
 source_if_exists "$HOME/.zshrc.local"
 

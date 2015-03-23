@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# Shell - after commands
+# Run before .zshrc.local .bashrc.local
+
+# start at ~ for each terminator tab
+if [ -n "$TERMINATOR_UUID" ]; then
+  cd
+fi
+
