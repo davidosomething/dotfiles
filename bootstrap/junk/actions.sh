@@ -64,9 +64,6 @@ function dotfiles_setup_git() {
   # auto color all the things!
   git config --global color.ui auto
 
-  # use cvsignore (symlink)
-  git config --global core.excludesfile ~/.dotfiles/.cvsignore
-
   # vim as diff tool
   git config --global diff.tool vimdiff
 
@@ -171,7 +168,7 @@ function dotfiles_usage() {
   echo "setups:"
   echo "  By specifying a setup you will run only the ones specified."
   echo "  Valid setups to run include:"
-  echo "  bash, cvsignore, gitconfig, github, osx, pow, vim, zsh"
+  echo "  bash, gitconfig, github, osx, pow, vim, zsh"
   echo
 }
 
@@ -214,9 +211,6 @@ while [ "$1" != "" ]; do
     bash )                dotfiles_do_bash="y"
                           dotfiles_do_ask=0
                           ;;
-    cvsignore )           dotfiles_do_cvsignore="y"
-                          dotfiles_do_ask=0
-                          ;;
     gitconfig )           dotfiles_do_gitconfig="y"
                           dotfiles_do_ask=0
                           ;;
@@ -257,7 +251,6 @@ fi
 # --all overrides all setups
 if [ "$dotfiles_do_all" = 1 ]; then
   dotfiles_do_bash="y"
-  dotfiles_do_cvsignore="y"
   dotfiles_do_github="y"
   dotfiles_do_gitconfig="y"
   if [ "$dotfiles_local_suffix" = "osx" ]; then
@@ -272,7 +265,6 @@ fi
 # --all overrides all setups
 if [ "$dotfiles_update_only" = 1 ]; then
   dotfiles_do_bash="n"
-  dotfiles_do_cvsignore="n"
   dotfiles_do_github="n"
   dotfiles_do_gitconfig="n"
   dotfiles_do_osx="n"
@@ -287,7 +279,6 @@ if [ "$dotfiles_debug" = 1 ]; then
   echo "os: $dotfiles_local_suffix"
   echo "dotfiles_debug: $dotfiles_debug"
   echo "dotfiles_do_bash: $dotfiles_do_bash"
-  echo "dotfiles_do_cvsignore: $dotfiles_do_cvsignore"
   echo "dotfiles_do_github: $dotfiles_do_github"
   echo "dotfiles_do_gitconfig: $dotfiles_do_gitconfig"
   echo "dotfiles_do_osx: $dotfiles_do_osx"
@@ -355,7 +346,6 @@ else
   dotfiles_clone
 fi
 
-[ "$dotfiles_do_cvsignore:l" = "y" ] && dotfiles_symlink_cvsignore
 [ "$dotfiles_do_pow:l"  = "y" ] && dotfiles_symlink_powconfig
 
 [ "$dotfiles_do_vim:l" = "y" ] && dotfiles_symlink_vim

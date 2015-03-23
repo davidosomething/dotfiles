@@ -45,13 +45,11 @@
 [core]
   compression = -1
   editor = "vim -f"
-  excludesfile = ~/.cvsignore
+  excludesfile = ~/.dotfiles/git/.gitignore
   sharedRepository = 0664
   pager = less -x4
 [difftool]
   prompt = false
-[mailmap]
-  file = ~/.mailmap
 [mergetool]
   prompt = false
 [pager]

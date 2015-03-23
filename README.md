@@ -2,6 +2,13 @@
 
 > My dotfiles for bash/zsh/vim and others things.
 
+## About
+
+- OSX and ArchLinux compatible
+- XDG compliance
+- ZSH and BASH compatible
+- Try to move as much out of `$HOME` as possible
+
 ## Installation
 
 - Clone with submodules, and symlink:

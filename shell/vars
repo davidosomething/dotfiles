@@ -40,6 +40,8 @@ esac
 # xdg-user-dirs
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs"
 
+export INPUTRC="$DOTFILES/shell/.inputrc"
+
 export SAVEHIST=1000
 export HISTSIZE=1000
 export HISTFILESIZE="$HISTSIZE";
@@ -47,13 +49,15 @@ export HISTCONTROL=ignoredups;
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
 # program settings -------------------------------------------------------------
+# for rsync and cvs
+export ACKRC="$DOTFILES/ack/.ackrc"
+export CVSIGNORE="$DOTFILES/git/.gitignore"
 export EDITOR="vim --nofork"
 export VISUAL="gvim --nofork"
 export PAGER="less"
-# Highlight section titles in manual pages
-export LESS_TERMCAP_md="${yellow}";
 # Don't clear the screen after quitting a manual page
 export MANPAGER="less -X";
+export SCREENRC="$DOTFILES/screen/.screenrc"
 
 # apache
 [[ -f /etc/apache2/envvars ]] && source /etc/apache2/envvars
@@ -86,11 +90,14 @@ has_program "brew" && {
 }
 
 # git
+export GIT_CONFIG="$DOTFILES/git/.gitconfig"
 export GIT_PAGER="$PAGER -eFX"
 
 # less
 export LESS="-R"
 export LESSHST="$DOTFILES/less/.lesshst"
+# Highlight section titles in manual pages
+export LESS_TERMCAP_md="${yellow}";
 
 # node
 export NVM_DIR="$HOME/.nvm"
