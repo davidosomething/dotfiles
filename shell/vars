@@ -50,7 +50,6 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 export EDITOR="vim --nofork"
 export VISUAL="gvim --nofork"
 export PAGER="less"
-export LESS="-R"
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="${yellow}";
 # Don't clear the screen after quitting a manual page
@@ -88,6 +87,10 @@ has_program "brew" && {
 
 # git
 export GIT_PAGER="$PAGER -eFX"
+
+# less
+export LESS="-R"
+export LESSHST="$DOTFILES/less/.lesshst"
 
 # node
 export NVM_DIR="$HOME/.nvm"
