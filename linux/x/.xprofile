@@ -25,6 +25,10 @@ export JAVA_FONTS=/usr/share/fonts/TTF
 
 export STEAMAPPS="$HOME/.steam/steam/SteamApps"
 
+# Wine
+export WINEPREFIX="$HOME/.config/wine/"
+export WINEARCH=win32
+
 # Gnome Keyring
 # shellcheck disable=SC2046
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
