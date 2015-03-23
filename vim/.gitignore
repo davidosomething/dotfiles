@@ -4,6 +4,8 @@
 /.tags/
 /.undo/
 /bundle/
+.colorv_cache_fav
+.colorv_cache_file
 .easyclip
 .netrwhist
 .viminfo
