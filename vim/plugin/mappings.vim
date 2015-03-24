@@ -3,8 +3,9 @@ inoremap <F1> <nop>
 nnoremap <F1> <nop>
 
 " mode toggling ----------------------------------------------------------------
-" visual line mode with space space
-nmap <Leader><Leader> V
+" toggle visual/normal mode
+nnoremap <Leader><Leader> V
+vnoremap <Leader><Leader> <Esc>
 
 imap jj <Esc>
 cmap jj <Esc>
@@ -49,20 +50,13 @@ imap  <PageDown>  <C-O><C-D>
 
 " Easier to type, and I never use the default behavior.
 " From https://bitbucket.org/sjl/dotfiles/
+" default is first line on screen
 noremap H ^
+" default is last line on screen
 noremap L $
 vnoremap L g_
 
-" Keep search pattern at the center of the screen.
-" http://vimbits.com/bits/92
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-nnoremap <silent> g# g#zz
-
-" Don't move on *
+" Don't move on * (it automatically goes to next match)
 " From https://bitbucket.org/sjl/dotfiles/
 nnoremap <silent> * :let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>
 

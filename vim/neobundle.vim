@@ -29,9 +29,7 @@ if neobundle#tap('vim-colors-solarized') && has('gui_running')
   call neobundle#untap()
 endif
 
-NeoBundle 'bling/vim-airline', {
-      \   'depends': 'tpope/vim-fugitive',
-      \ }
+NeoBundle 'bling/vim-airline'
 if neobundle#tap('vim-airline')
   let g:airline_powerline_fonts = 1
   let g:airline_theme = "bubblegum"
@@ -143,13 +141,23 @@ NeoBundle 'tpope/vim-fugitive'
 
 " ------------------------------------------------------------------------------
 " commands
-NeoBundleLazy 'haya14busa/incsearch.vim', {
-      \   'autoload': { 'mappings': '<Plug>(incsearch-', },
-      \ }
+NeoBundle 'haya14busa/incsearch.vim'
 if neobundle#tap('incsearch.vim')
   map /  <Plug>(incsearch-forward)
   map ?  <Plug>(incsearch-backward)
   map g/ <Plug>(incsearch-stay)
+endif
+
+NeoBundleLazy 'osyo-manga/vim-anzu', {
+      \   'autoload': { 'mappings': [ '<Plug>' ], }
+      \ }
+if neobundle#tap('vim-anzu')
+  nmap n <Plug>(anzu-n-with-echo)
+  nmap N <Plug>(anzu-N-with-echo)
+  nmap * <Plug>(anzu-star-with-echo)
+  nmap # <Plug>(anzu-sharp-with-echo)
+  " show anzu
+  let g:airline#extensions#anzu#enabled = 1
 endif
 
 NeoBundleLazy 'osyo-manga/vim-over', {
