@@ -51,6 +51,17 @@
 	sharedRepository = 0664
 	pager = less -x4
 
+[filter "media"]
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true
+
+[push]
+	default = simple
+
+[rerere]
+	enabled = 1
+
 [difftool]
 	prompt = false
 
@@ -60,19 +71,14 @@
 [pager]
 	status = true
 
-[push]
-	default = simple
-
-[rerere]
-	enabled = 1
+[gui]
+	fontui = -family \"Fira Sans\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"Fira Mono for Powerline\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
+	commitmsgwidth = 80
+	diffcontext = 10
 
 [web]
 	browser = open
-
-[filter "media"]
-	clean = git media clean %f
-	smudge = git media smudge %f
-	required = true
 
 [url "git@github.com:"]
 	insteadOf = "gh:"
