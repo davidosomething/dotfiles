@@ -45,7 +45,7 @@
 		</item>
 		<item label="LINE Messenger">
 			<action name="Execute">
-				<execute>env WINEPREFIX=&quot;$HOME/.config/wine&quot; wine &quot;C:\Program Files\Naver\LINE\Line.exe&quot;</execute>
+				<execute>wine &quot;C:\Program Files\Naver\LINE\Line.exe&quot;</execute>
 			</action>
 		</item>
 		<item label="Pidgin">
