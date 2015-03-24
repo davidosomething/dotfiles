@@ -10,7 +10,5 @@ export DKOSOURCE="$DKOSOURCE -> shell loader"
 # definitions. We want these get sourced again if you start a subshell.
 source "$HOME/.dotfiles/shell/functions"
 source "$HOME/.dotfiles/shell/vars"
-
-# TODO: path gets duplicated in subshell
 source "$HOME/.dotfiles/shell/paths"
 
