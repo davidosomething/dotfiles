@@ -3,7 +3,7 @@ set guioptions-=m                     " hide file/edit/etc. menu
 set guioptions-=T                     " hide stupid button bar
 
 " MacVim ---------------------------------------------------------------------
-if g:is_macvim
+if has('gui_macvim')
   set antialias
   set guifont=Fira\ Mono\ for\ Powerline:h10
   " set guifont=Menlo\ for\ Powerline

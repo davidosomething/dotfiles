@@ -1,4 +1,9 @@
-# zshrc - only run on interactive/TTY
+# .zshrc
+# sourced only on interactive/TTY
+# sourced on login after zprofile
+# sourced when you type zsh
+
+export DKOSOURCE="$DKOSOURCE -> zshrc"
 
 source "$HOME/.dotfiles/shell/loader"
 source "$HOME/.dotfiles/shell/aliases"
@@ -10,14 +15,6 @@ has_program "brew" && {
   unalias run-help
   autoload run-help
 }
-
-# env programs
-source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
-source_if_exists "$NVM_DIR/nvm.sh"
-source_if_exists "$DOTFILES/z/z.sh"
-
-# commands
-has_program "hub" && eval "$(hub alias -s)"
 
 scripts=(
   "options"

@@ -5,5 +5,7 @@
 # http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html
 #
 
+export DKOSOURCE="$DKOSOURCE -> bash_profile"
+
 [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
 

@@ -1,6 +1,8 @@
 # sourced in login shells only
 # sourced before .zshrc
 
+export DKOSOURCE="$DKOSOURCE -> zprofile"
+
 # create and use "/tmp/$XDG_RUNTIME_DIR"
 if [ -z "${XDG_RUNTIME_DIR}" ]; then
   export XDG_RUNTIME_DIR="/tmp/${UID}-runtime-dir"

@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 
+export DKOSOURCE="$DKOSOURCE -> .bashrc"
+
 source "$HOME/.dotfiles/shell/loader"
 source "$HOME/.dotfiles/shell/aliases"
 
 for script in "options" "completions" "prompt"; do
   source "$BASH_DOTFILES/${script}.bash"
 done
-
-source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
-source_if_exists "$NVM_DIR/nvm.sh"
-source_if_exists "$DOTFILES/z/z.sh"
 
 source "$HOME/.dotfiles/shell/after"
 source_if_exists "$HOME/.bashrc.local"

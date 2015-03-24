@@ -1,35 +1,44 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 # 1.  don't bother checking for path existence since system will skip
 #     automatically
 # 2.  don't use BREW_PREFIX since we always want /usr/local/ paths
 
+# Looks at leftmost first
 # Bottom supercedes top
 
-# local binaries
-PATH="/usr/local/sbin:$PATH"
-PATH="/usr/local/bin:$PATH"
+_add_my_paths() {
+  # system
+  # TODO maybe use this
+  # PATH="$(command -p getconf PATH)"
+  my_path="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 
-# package managers -------------------------------------------------------------
+  # package managers -------------------------------------------------------------
 
-# composer
-PATH="$HOME/.composer/vendor/bin:$PATH"
+  # composer
+  my_path="$HOME/.composer/vendor/bin:$my_path"
 
-# npm
-# brew npm
-PATH="$BREW_PREFIX/share/npm/bin:$PATH"
-# home packages
-[ -d "$NPM_PACKAGES" ] && {
-  PATH="$NPM_PACKAGES/bin:$PATH"
-  unset MANPATH
-  export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+  # npm binaries from npm installed via homebrew
+  [ -d "$BREW_PREFIX/share/npm/bin" ] && {
+    my_path="$BREW_PREFIX/share/npm/bin:$my_path"
+  }
+
+  # npm binaries from npm in home
+  [ -d "$NPM_PACKAGES" ] && {
+    my_path="$NPM_PACKAGES/bin:$my_path"
+    unset MANPATH
+    export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+  }
+
+  # go
+  my_path="$GOPATH/bin:$my_path"
+
+  # local ------------------------------------------------------------------------
+  my_path="$DOTFILES/bin:$my_path"
+  my_path="$HOME/bin:$my_path"
+
+  export PATH="$my_path"
 }
 
-# go
-PATH="$GOPATH/bin:$PATH"
+_add_my_paths
 
-# local ------------------------------------------------------------------------
-PATH="$DOTFILES/bin:$PATH"
-PATH="$HOME/bin:$PATH"
-export PATH
-
-# vim: set ft=sh :

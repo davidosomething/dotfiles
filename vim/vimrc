@@ -13,8 +13,7 @@ set secure                            " no unsafe local vimrc commands
 " detect OS
 let g:is_windows = has('win32') || has('win64') || has('win32unix')
 let g:is_cygwin = has('win32unix')
-let g:is_mav = has('mac')
-let g:is_macvim = has('gui_macvim')
+let g:is_mac = has('mac')
 " =~# is case sensitive, =-? is insensitive
 let g:is_term = (&term =~# 'xterm\|screen\|buildin_gui\|fbterm\|linux')
 
@@ -254,7 +253,7 @@ if has("autocmd")
         \ setlocal wrap linebreak nolist textwidth=80
 
   " crontab on OSX needs a tempfile
-  if g:is_macvim
+  if g:is_mac
     au vimrc BufEnter /private/tmp/crontab.*
           \ setlocal backupcopy=yes
   endif

@@ -5,6 +5,10 @@ For openbox, thunar
 ## Boot order
 
 ```
+init
+  getty
+    gdm OR $SHELL
+
 gdm
   /etc/gdm/Xsession
     /etc/.profile

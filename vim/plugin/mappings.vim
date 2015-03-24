@@ -121,7 +121,7 @@ nnoremap <Leader>ws :call CleanCode()<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-if g:is_macvim && has("gui_running")
+if has('gui_macvim') && has("gui_running")
   " Map command-[ and command-] to indenting or outdenting
   " while keeping the original selection in visual mode
   vmap <D-]> >gv
@@ -183,7 +183,7 @@ inoremap <silent> <C-Left> <Esc>:tabprevious<CR>
 inoremap <silent> <C-Right> <Esc>:tabnext<CR>
 
 " <C-9> is last tab like chrome - more than 4 tabs? you fucked up
-if g:is_macvim && has("gui_running")
+if has('gui_macvim') && has("gui_running")
   " Map Command-# to switch tabs
   map  <D-0> 0gt
   imap <D-0> <Esc>0gt

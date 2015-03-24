@@ -4,7 +4,13 @@
 # Run by .zshenv, .zshrc, and .bashrc
 # OUTPUT FORBIDDEN since may run in non-interactive mode (via .zshenv)
 
+export DKOSOURCE="$DKOSOURCE -> shell loader"
+
+# There are no conditions to source these, straight up replace their
+# definitions. We want these get sourced again if you start a subshell.
 source "$HOME/.dotfiles/shell/functions"
 source "$HOME/.dotfiles/shell/vars"
+
+# TODO: path gets duplicated in subshell
 source "$HOME/.dotfiles/shell/paths"
 
