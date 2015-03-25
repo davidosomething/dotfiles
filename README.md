@@ -44,6 +44,18 @@ Brewfiles in the `osx` folder.
 
 ## Notes
 
+### Source order
+
+`echo $DKOSOURCE` to see how files are loaded. It should reflect what's in
+`linux/README.md` for openbox. That is:
+
+```
+ -> .xprofile -> ob environment -> ob autostart -> zshenv -> shell loader -> zshrc -> shell loader -> shell after
+```
+
+For OSX, shells are all login shells so there's probably a `.bash_profile` or
+`.zprofile` in there somewhere.
+
 ### node-gyp
 
 On arch use python 2 when installing node-gyp:
