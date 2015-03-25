@@ -68,8 +68,9 @@ fi
 #(sleep 1s && redshift-gtk) &
 
 # Start thunar daemon so it opens faster
+# Removed it doesn't run as user
 #thunar --daemon &
+
 (sleep 1s && terminator) &
-(sleep 1s && chromium) &
 
 # vim: set ft=sh :
