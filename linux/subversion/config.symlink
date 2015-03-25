@@ -5,7 +5,7 @@
 
 ### Section for authentication and authorization customizations.
 [auth]
-password-stores = gnome-keyring
+password-stores = gpg-agent,gnome-keyring
 
 ### Set password stores used by Subversion. They should be
 ### delimited by spaces or commas. The order of values determines
