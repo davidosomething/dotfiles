@@ -28,10 +28,12 @@ _term_title() {
     screen*|ansi*)
       preexec_functions+=_ansi_processname
       precmd_functions+=_ansi_title
+      _ansi_title
       ;;
     xterm*)
       preexec_functions+=_xterm_processname
       precmd_functions+=_xterm_title
+      _xterm_title
       ;;
   esac
 }
