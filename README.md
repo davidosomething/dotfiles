@@ -44,6 +44,11 @@ Brewfiles in the `osx` folder.
 
 ## Notes
 
+### Node
+
+Install via nvm, installed via `bootstrap/node.sh` instead of using package
+manager.
+
 ### Source order
 
 `echo $DKOSOURCE` to see how files are loaded. It should reflect what's in

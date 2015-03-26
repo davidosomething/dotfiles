@@ -83,7 +83,7 @@ case "$OSTYPE" in
     if [[ "$1" = "brew" ]]; then
       dkostatus "Updating homebrew"
       brew update
-      brew outdated | grep -q node && brew upgrade node --without-npm
+      brew outdated
       brew upgrade
       brew cleanup
       brew prune
@@ -117,13 +117,8 @@ if [[ "$1" = "heroku" ]]; then
 fi
 
 if [[ "$1" = "npm" ]]; then
-  if [[ $# -eq 2 && "$2" = "--force" ]]; then
-    dkostatus "Reinstalling npm"
-    npm install -g npm@latest
-  else
-    dkostatus "Updating npm itself"
-    npm update -g npm
-  fi
+  dkostatus "Updating npm via reinstall latest"
+  npm install -g npm@latest
   dkostatus "Updating global npm modules"
   npm update -g
 fi

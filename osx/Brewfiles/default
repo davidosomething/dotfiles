@@ -61,8 +61,7 @@ install curl
 install dnsmasq
 install mysql
 
-# see bootstrap/osx/node.sh
-#install node
+# see osx/install-node.sh
 
 install openssl
 install wget

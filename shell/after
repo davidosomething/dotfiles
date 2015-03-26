@@ -5,11 +5,9 @@
 
 export DKOSOURCE="$DKOSOURCE -> shell after"
 
-# env programs
+# commands
 source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
 source_if_exists "$NVM_DIR/nvm.sh"
-
-# commands
 source_if_exists "$DOTFILES/z/z.sh"
 has_program "hub" && eval "$(hub alias -s)"
 
