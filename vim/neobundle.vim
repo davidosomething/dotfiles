@@ -21,6 +21,9 @@ NeoBundle 'altercation/vim-colors-solarized', {
       \   'disabled': !(has("gui") || has("gui_macvim")),
       \ }
 if neobundle#tap('vim-colors-solarized') && has('gui_running')
+  " turn off gross italics -- fira sans happens to use ligatures too
+  let g:solarized_italic = 0
+
   function! neobundle#tapped.hooks.on_source(bundle)
     set background=light
     silent! colorscheme solarized               " STFU if no solarized
