@@ -26,7 +26,7 @@ scripts=(
   "plugins"
 )
 for script in $scripts; do
-  source "$ZDOTDIR/${script}.zsh"
+  source "$ZDOTDIR/$script.zsh"
 done
 
 source "$HOME/.dotfiles/shell/after"

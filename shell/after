@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Shell - after commands
 # Run before .zshrc.local .bashrc.local
@@ -7,9 +7,19 @@ export DKOSOURCE="$DKOSOURCE -> shell after"
 
 # commands
 source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
+has_program "hub" && eval "$(hub alias -s)"
 source_if_exists "$NVM_DIR/nvm.sh"
 source_if_exists "$DOTFILES/z/z.sh"
-has_program "hub" && eval "$(hub alias -s)"
+
+# additional completions
+has_program "npm"   && eval "$(npm completion)"
+has_program "grunt" && {
+  if [ -n "$ZSH_VERSION" ]; then
+    eval "$(grunt --completion=zsh)"
+  else
+    eval "$(grunt --completion=bash)"
+  fi
+}
 
 # start at ~ for each terminator tab
 if [ -n "$TERMINATOR_UUID" ]; then
