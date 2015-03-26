@@ -91,9 +91,10 @@ systray_icon_asb = 100 0 0
 
 #--------------------------------
 # Launcher
+launcher_icon_theme = circle-flat-icons
 launcher_padding = 0 0 0
 launcher_background_id = 0
-launcher_icon_size = 0
+launcher_icon_size = 16
 
 #--------------------------------
 # Clock

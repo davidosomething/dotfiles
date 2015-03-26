@@ -141,11 +141,6 @@
 		<item label="Reconfigure Openbox">
 			<action name="Reconfigure"/>
 		</item>
-		<item label="tintwizard">
-			<action name="Execute">
-				<execute>tintwizard</execute>
-			</action>
-		</item>
 	</menu>
 	<menu id="root-menu" label="Openbox 3">
 		<item label="Chromium">

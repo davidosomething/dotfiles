@@ -26,7 +26,7 @@ else
 fi
 
 # Tint Panel
-(sleep 1s && tint2 -c "$HOME/.config/tint2/tint2rc") &
+(sleep 2s && tint2 -c "$DOTFILES/linux/tint2/tint2rc") &
 # Thinkpad specific battery icon using tp_smapi
 # Starts on its own from /etc/xdg/autostart
 #tp-battery-icon &
