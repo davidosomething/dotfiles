@@ -64,14 +64,14 @@ export SCREENRC="$DOTFILES/screen/.screenrc"
 # -R raw control chars (default)
 # -X don't clear screen on quit
 # -e LESS option to quit at EOF
-export LESS="-eFNRX"
+export LESS="-eFRX"
 export LESSHST="$DOTFILES/less/.lesshst"
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="${yellow}"
 
 export PAGER="less"
 export MANPAGER="$PAGER"
-export GIT_PAGER="$PAGER"
+export GIT_PAGER="$PAGER -N"
 
 # others ----------------------------------------
 
