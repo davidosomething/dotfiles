@@ -1,4 +1,3 @@
-##
 # .dotfiles/zsh/keybindings.zsh
 
 # disable ^S and ^Q terminal freezing

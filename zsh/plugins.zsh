@@ -1,6 +1,15 @@
 # zsh plugins
 
-source "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+_load_plugins() {
+  local plugins_dir
+  plugins_dir="$ZDOTDIR/plugins"
+
+  source_if_exists "${plugins_dir}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+  source_if_exists "${plugins_dir}/opp/opp.zsh"
+  source "${plugins_dir}/opp/opp/*.zsh"
+}
+
+_load_plugins
 
 # requires "zsh-history-substring-search/zsh-history-substring-search"
 # bind UP and DOWN arrow keys
