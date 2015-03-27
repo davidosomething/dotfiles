@@ -5,13 +5,15 @@ autoload -U colors && colors
 # version control in prompt
 autoload -Uz vcs_info
 precmd() { vcs_info; }
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' get-revision true
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' unstagedstr '*'  # display this when there are unstaged changes
-zstyle ':vcs_info:*' stagedstr '+'    # display this when there are staged changes
-zstyle ':vcs_info:*' formats '(%b%m%c%u)'
-zstyle ':vcs_info:*' actionformats '(%b%m%c%u)[%a]'
+zstyle ':vcs_info:*' enable bzr git svn
+zstyle ':vcs_info:git*' get-revision true
+zstyle ':vcs_info:git*' check-for-changes true
+zstyle ':vcs_info:git*' unstagedstr '*'  # display this when there are unstaged changes
+zstyle ':vcs_info:git*' stagedstr '+'    # display this when there are staged changes
+zstyle ':vcs_info:git*' formats '(%b%m%c%u)'
+zstyle ':vcs_info:git*' actionformats '(%b%m%c%u)[%a]'
+zstyle ':vcs_info:(svn|bzr):*' branchformat 'r%r'
+zstyle ':vcs_info:(svn|bzr):*' formats '%b'
 
 # vi mode
 # http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
