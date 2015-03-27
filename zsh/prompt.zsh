@@ -43,10 +43,39 @@ function TRAPINT() {
   return $(( 128 + $1 ))
 }
 
-# prompt itself
-PROMPT_USER='%F{green}%n'
-PROMPT_HOST='%F{green}%m'
-[ "$USER" = 'root' ] && PROMPT_USER='%F{white}%n'
-[ "$SSH_CONNECTION" != '' ] && PROMPT_HOST='%F{white}%m'
-PROMPT='${PROMPT_USER}%F{blue}@${PROMPT_HOST}%F{blue}:%F{yellow}%~
-%f%*%F{blue}${vimode}%F{magenta}${vcs_info_msg_0_}%# %f'
+_set_prompt() {
+  # logname»username (e.g. david»root)
+  PROMPT='%F{green}$(logname)'
+  [ "$USER" != "$(logname)" ] && PROMPT+="%F{blue}»%F{white}%n"
+
+  PROMPT+='%F{blue}@'
+
+  # host
+  prompt_host='%F{green}%m'
+  [ "$SSH_CONNECTION" != '' ] && prompt_host='%F{white}%m'
+  PROMPT+='${prompt_host}'
+
+  PROMPT+='%F{blue}:'
+
+  # path
+  PROMPT+='%F{yellow}%~'
+
+  PROMPT+=$'\n'
+
+  # time
+  PROMPT+='%f%*'
+
+  # mode
+  PROMPT+='%F{blue}${vimode}'
+
+  # version control
+  PROMPT+='%F{magenta}${vcs_info_msg_0_}'
+
+  # root or normal
+  PROMPT+='%#'
+
+  PROMPT+=' %f'
+}
+
+_set_prompt
+

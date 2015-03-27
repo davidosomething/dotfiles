@@ -71,7 +71,7 @@ export LESS_TERMCAP_md="${yellow}"
 
 export PAGER="less"
 export MANPAGER="$PAGER"
-export GIT_PAGER="$PAGER -N"
+export GIT_PAGER="$PAGER"
 
 # others ----------------------------------------
 

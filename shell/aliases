@@ -53,6 +53,8 @@ alias df="df -h"
 # Always enable colored `grep` output
 alias grep="grep --color=auto"
 alias ln="ln -v"
+# better than sudo su -- use current shell instead
+alias root="sudo -s"
 alias rsync='rsync --human-readable --partial --progress'
 alias se="sudo -e"
 alias wget="wget --no-check-certificate"
