@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 npm install -g coffee-script
 npm install -g coffeelint
 npm install -g david

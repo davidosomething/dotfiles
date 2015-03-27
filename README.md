@@ -29,13 +29,26 @@ cd ~/.dotfiles/bootstrap
 u vim
 ```
 
-### Working bootstrap scripts
+### Working scripts
+
+- `node.sh`
+  - installs nvm, node stable, sets default to latest stable
 
 - `symlink.sh`
   - bash, zsh, ack, screen
 
 - `vim.sh`
   - vim
+
+- `npm/install.sh`
+  - install default packages
+
+- `osx/install.sh`
+  - symlink `.hushlogin`
+
+- `ruby/install-default-gems.sh`
+
+- `
 
 ### Homebrew
 

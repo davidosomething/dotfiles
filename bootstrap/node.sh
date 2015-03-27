@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 git clone https://github.com/creationix/nvm.git ~/.nvm
 
 # checkout latest tag
