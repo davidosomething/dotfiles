@@ -31,7 +31,7 @@ finda   = "!grepalias() { git config --global --get-regexp alias | grep -i \"$1\
 forget  = rm -r --cached
 g       = grep --break --heading --line-number
 get     = config --get
-l       = log --abbrev-commit
+l       = log --abbrev-commit --oneline --max-count=15
 lasttag = describe --tags --abbrev=0
 lg      = log --abbrev-commit --graph --decorate
 
@@ -39,7 +39,7 @@ lg      = log --abbrev-commit --graph --decorate
 lb      = log --abbrev-commit --graph --oneline --decorate --all
 
 # latest 15 with hash and oneline
-ll      = log --abbrev-commit --oneline --max-count=15
+ll      = log --abbrev-commit
 
 m       = merge
 mod     = diff master --name-only

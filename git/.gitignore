@@ -38,6 +38,7 @@ Desktop.ini
 *.patch
 
 # editors ----------------------------------------------------------------------
+*.orig
 *.sublime-project
 *.sublime-workspace
 *.swp
