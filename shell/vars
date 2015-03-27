@@ -54,10 +54,26 @@ export ACKRC="$DOTFILES/ack/.ackrc"
 export CVSIGNORE="$DOTFILES/git/.gitignore"
 export EDITOR="vim --nofork"
 export VISUAL="gvim --nofork"
-export PAGER="less"
 # Don't clear the screen after quitting a manual page
-export MANPAGER="less -X";
 export SCREENRC="$DOTFILES/screen/.screenrc"
+
+# pager ----------------------------------------
+# less
+# -F quit if one screen (default)
+# -N line numbers
+# -R raw control chars (default)
+# -X don't clear screen on quit
+# -e LESS option to quit at EOF
+export LESS="-eFNRX"
+export LESSHST="$DOTFILES/less/.lesshst"
+# Highlight section titles in manual pages
+export LESS_TERMCAP_md="${yellow}"
+
+export PAGER="less"
+export MANPAGER="$PAGER"
+export GIT_PAGER="$PAGER"
+
+# others ----------------------------------------
 
 # apache
 [[ -f /etc/apache2/envvars ]] && source /etc/apache2/envvars
@@ -88,15 +104,6 @@ has_program "brew" && {
   # Ruby use brew openssl if available
   [[ -f "$BREW_PREFIX/opt/openssl" ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$BREW_PREFIX/opt/openssl"
 }
-
-# git
-export GIT_PAGER="$PAGER -eFX"
-
-# less
-export LESS="-R"
-export LESSHST="$DOTFILES/less/.lesshst"
-# Highlight section titles in manual pages
-export LESS_TERMCAP_md="${yellow}";
 
 # node
 export NVM_DIR="$HOME/.nvm"

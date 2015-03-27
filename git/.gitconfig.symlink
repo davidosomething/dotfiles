@@ -67,12 +67,15 @@ compression = -1
 # editor = "vim -f" ; removed so git will use env EDITOR or VISUAL
 excludesfile = "~/.dotfiles/git/.gitignore"
 sharedRepository = 0664
-pager = less -x4
+# pager = less -x4 ; removed so git will use the env GIT_PAGER
 
 [filter "media"]
 clean = git media clean %f
 smudge = git media smudge %f
 required = true
+
+[mailmap]
+file = "~/.mailmap"
 
 [push]
 default = simple
