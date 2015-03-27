@@ -5,8 +5,8 @@ _load_plugins() {
   plugins_dir="$ZDOTDIR/plugins"
 
   source_if_exists "${plugins_dir}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-  source_if_exists "${plugins_dir}/opp/opp.zsh"
-  source "${plugins_dir}/opp/opp/*.zsh"
+  source_if_exists "${plugins_dir}/opp.zsh/opp.zsh"
+  source ${plugins_dir}/opp.zsh/opp/*.zsh
 }
 
 _load_plugins

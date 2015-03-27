@@ -17,14 +17,14 @@ zstyle ':vcs_info:*' actionformats '(%b%m%c%u)[%a]'
 # http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
 # use vi mode even if EDITOR is emacs
 bindkey -v
+vimode='I'
 
 # show if in vi mode
 function zle-line-init zle-keymap-select {
   vimode="${${KEYMAP/vicmd/N}/(main|viins)/I}"
   zle reset-prompt
+  zle -R
 }
-zle -N zle-line-init
-zle -N zle-keymap-select
 
 # on end of cmd, back to ins mode
 function zle-line-finish {
@@ -32,15 +32,20 @@ function zle-line-finish {
   zle reset-prompt
   zle -R
 }
+
+zle -N zle-line-init
+zle -N zle-keymap-select
 zle -N zle-line-finish
 
-# default is ins mode
-vimode='I'
-
 # fix ctrl-c mode display
-function TRAPINT() {
+TRAPINT() {
   vimode='I'
   return $(( 128 + $1 ))
+}
+
+# Ensure that the prompt is redrawn when the terminal size changes.
+TRAPWINCH() {
+  zle && { zle reset-prompt; zle -R }
 }
 
 _set_prompt() {
