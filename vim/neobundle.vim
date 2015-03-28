@@ -171,7 +171,24 @@ if neobundle#tap('vim-over')
   vmap <F3> <Esc>:OverCommandLine<CR>
 endif
 
-NeoBundleLazy 'rking/ag.vim', { 'autoload': { 'commands': 'Ag' } }
+NeoBundleLazy 'rking/ag.vim', {
+      \   'autoload': { 'commands': 'Ag' }
+      \   'disabled': !executable("ag"),
+      \ }
+if neobundle#tap('ag.vim')
+  let g:ag_highlight=1
+
+  "https://github.com/gf3/dotfiles/blob/master/.vimrc#L564
+  " Have the silver searcher ignore all the same things as wilgignore
+  let b:ag_command = 'ag %s -i --nocolor --nogroup'
+
+  for i in split(&wildignore, ",")
+    let i = substitute(i, '\*/\(.*\)/\*', '\1', 'g')
+    let b:ag_command = b:ag_command . ' --ignore "' . substitute(i, '\*/\(.*\)/\*', '\1', 'g') . '"'
+  endfor
+
+  let b:ag_command = b:ag_command . ' --hidden -g ""'
+endif
 
 NeoBundle 'tpope/vim-eunuch'
 
