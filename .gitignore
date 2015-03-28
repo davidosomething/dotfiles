@@ -1,4 +1,6 @@
 /atom/compile-cache
+/z/.z
+/z/.z.*
 
 .bash_history
 .lesshst
