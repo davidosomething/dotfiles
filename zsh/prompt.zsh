@@ -13,7 +13,7 @@ zstyle ':vcs_info:git*' stagedstr '+'    # display this when there are staged ch
 zstyle ':vcs_info:git*' formats '(%b%m%c%u)'
 zstyle ':vcs_info:git*' actionformats '(%b%m%c%u)[%a]'
 zstyle ':vcs_info:(svn|bzr):*' branchformat 'r%r'
-zstyle ':vcs_info:(svn|bzr):*' formats '%b'
+zstyle ':vcs_info:(svn|bzr):*' formats '(%b)'
 
 # vi mode
 # http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
