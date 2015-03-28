@@ -90,6 +90,7 @@ if neobundle#tap('tagbar')
   let g:tagbar_autofocus = 1
   let g:tagbar_compact = 1
   let g:tagbar_show_linenumbers = 1     " Show absolute line numbers
+  call neobundle#untap()
 endif
 
 NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
@@ -104,7 +105,51 @@ endif
 
 NeoBundle 'now/vim-quit-if-only-quickfix-buffer-left'
 
-NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite.vim', {
+      \   'depends': 'Shougo/vimproc',
+      \ }
+if neobundle#tap('unite.vim')
+  if executable('ag')
+    let s:ag_opts =
+          \ ' --nocolor --nogroup --numbers' .
+          \ ' --follow --smart-case --hidden'
+
+    " Ignore wildignores too
+    " https://github.com/gf3/dotfiles/blob/master/.vimrc#L564
+    for i in split(&wildignore, ",")
+      let i = substitute(i, '\*/\(.*\)/\*', '\1', 'g')
+      let s:ag_opts = s:ag_opts .
+            \ ' --ignore "' . substitute(i, '\*/\(.*\)/\*', '\1', 'g') . '"'
+    endfor
+
+    let g:unite_source_rec_async_command = 'ag' .
+          \ s:ag_opts .
+          \ ' -g ""'
+
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = s:ag_opts
+    let g:unite_source_grep_recursive_opt = ''
+  endif
+
+  function! neobundle#tapped.hooks.on_source(bundle)
+    call unite#custom#profile('default', 'context', {
+          \   'silent':             1,
+          \   'direction':          'botright',
+          \   'winheight':          8,
+          \   'short_source_names': 1,
+          \   'start_insert':       0,
+          \ })
+
+    nnoremap <F1> :Unite file_rec/async:!<cr>
+    inoremap <F1> <Esc>:Unite file_rec/async:!<cr>
+    vnoremap <F1> <Esc>:Unite file_rec/async:!<cr>
+
+    nnoremap <F2> :Unite grep:!<cr>
+    inoremap <F2> <Esc>:Unite grep:!<cr>
+    vnoremap <F2> <Esc>:Unite grep:!<cr>
+  endfunction
+  call neobundle#untap()
+endif
 
 NeoBundleLazy 'Shougo/vimfiler.vim', {
       \   'autoload': { 'commands': ['VimFiler'] },
@@ -117,13 +162,15 @@ if neobundle#tap('vimfiler.vim')
   let g:vimfiler_tree_closed_icon = '▸'
   let g:vimfiler_file_icon = '-'
   let g:vimfiler_marked_file_icon = '*'
+  call neobundle#untap()
 endif
 
 NeoBundleLazy 'sjl/gundo.vim', {
       \   'autoload': { 'commands': [ 'GundoToggle' ] },
       \ }
 if neobundle#tap('gundo.vim')
-  nnoremap <F2> :GundoToggle<CR>
+  nnoremap <F11> :GundoToggle<CR>
+  call neobundle#untap()
 endif
 
 NeoBundle 'suan/vim-instant-markdown', {
@@ -138,6 +185,7 @@ NeoBundle 'suan/vim-instant-markdown', {
 if neobundle#tap('gundo.vim')
   let g:instant_markdown_autostart = 0
   let g:instant_markdown_slow = 1
+  call neobundle#untap()
 endif
 
 NeoBundle 'tpope/vim-fugitive'
@@ -149,6 +197,7 @@ if neobundle#tap('incsearch.vim')
   map /  <Plug>(incsearch-forward)
   map ?  <Plug>(incsearch-backward)
   map g/ <Plug>(incsearch-stay)
+  call neobundle#untap()
 endif
 
 NeoBundleLazy 'osyo-manga/vim-anzu', {
@@ -161,6 +210,7 @@ if neobundle#tap('vim-anzu')
   nmap # <Plug>(anzu-sharp-with-echo)
   " show anzu
   let g:airline#extensions#anzu#enabled = 1
+  call neobundle#untap()
 endif
 
 NeoBundleLazy 'osyo-manga/vim-over', {
@@ -169,25 +219,7 @@ NeoBundleLazy 'osyo-manga/vim-over', {
 if neobundle#tap('vim-over')
   nmap <F3> :OverCommandLine<CR>
   vmap <F3> <Esc>:OverCommandLine<CR>
-endif
-
-NeoBundleLazy 'rking/ag.vim', {
-      \   'autoload': { 'commands': 'Ag' }
-      \   'disabled': !executable("ag"),
-      \ }
-if neobundle#tap('ag.vim')
-  let g:ag_highlight=1
-
-  "https://github.com/gf3/dotfiles/blob/master/.vimrc#L564
-  " Have the silver searcher ignore all the same things as wilgignore
-  let b:ag_command = 'ag %s -i --nocolor --nogroup'
-
-  for i in split(&wildignore, ",")
-    let i = substitute(i, '\*/\(.*\)/\*', '\1', 'g')
-    let b:ag_command = b:ag_command . ' --ignore "' . substitute(i, '\*/\(.*\)/\*', '\1', 'g') . '"'
-  endfor
-
-  let b:ag_command = b:ag_command . ' --hidden -g ""'
+  call neobundle#untap()
 endif
 
 NeoBundle 'tpope/vim-eunuch'
@@ -211,6 +243,7 @@ NeoBundle 'Shougo/context_filetype.vim'
 " if neobundle#tap('echodoc')
 "   set cmdheight=2
 "   let g:echodoc_enable_at_startup = 1
+"   call neobundle#untap()
 " endif
 
 " neocomplete probably used on osx and on my arch
@@ -502,6 +535,7 @@ if neobundle#tap('CoffeeTags')
   "       \     'o': 'object',
   "       \   }
   "       \ }
+  call neobundle#untap()
 endif
 
 " react/JSX syn highlighting for .jsx
@@ -589,6 +623,7 @@ if neobundle#tap('colorv.vim')
   let g:colorv_preview_ftype  = "coffee,css,html,javascript,less,php,sass,scss"
   let g:colorv_cache_fav      = expand("~/.vim/.colorv_cache_fav")
   let g:colorv_cache_file     = expand("~/.vim/.colorv_cache_file")
+  call neobundle#untap()
 endif
 
 NeoBundle 'cakebaker/scss-syntax.vim'   " creates scss.css
@@ -605,6 +640,7 @@ if neobundle#tap('vim-css3-syntax')
       autocmd FileType css setlocal iskeyword+=-
     augroup END
   endif
+  call neobundle#untap()
 endif
 
 " Twig -------------------------------------------------------------------------

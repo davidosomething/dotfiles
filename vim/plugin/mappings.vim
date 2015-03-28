@@ -1,7 +1,3 @@
-" Disable vim help
-inoremap <F1> <nop>
-nnoremap <F1> <nop>
-
 " mode toggling ----------------------------------------------------------------
 " toggle visual/normal mode
 nnoremap <Leader><Leader> V

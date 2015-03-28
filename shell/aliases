@@ -48,7 +48,6 @@ alias today="date +%Y-%m-%d"
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 
 # default flags for programs
-alias ag="ag -i"
 alias df="df -h"
 # Always enable colored `grep` output
 alias grep="grep --color=auto"
