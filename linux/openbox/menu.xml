@@ -178,6 +178,7 @@
 				<execute>/bin/thunar</execute>
 			</action>
 		</item>
+		<menu execute="/home/davidosomething/.dotfiles/linux/openbox/pipe/thunar-bookmarks.pl" id="pipe-places" label="Places"/>
 		<separator/>
 		<menu id="system-menu"/>
 		<item label="Log Out">
