@@ -114,5 +114,6 @@ export NPM_PACKAGES="$HOME/.npm-packages"
 
 # z
 export _Z_CMD=j
+export _Z_DATA="$DOTFILES/z/.z"
 
 # vim: set ft=sh :
