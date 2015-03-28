@@ -25,7 +25,6 @@ vimode='I'
 function zle-line-init zle-keymap-select {
   vimode="${${KEYMAP/vicmd/N}/(main|viins)/I}"
   zle reset-prompt
-  zle -R
 }
 
 # on end of cmd, back to ins mode
@@ -50,38 +49,24 @@ TRAPWINCH() {
   zle && { zle reset-prompt; zle -R }
 }
 
+_prompt_user() {
+  local prompt_user
+  prompt_user="%F{green}$(logname)"
+  [ "$USER" != "$(logname)" ] && prompt_user="${prompt_user}%F{blue}»%F{white}%n"
+  echo $prompt_user
+}
+
 _set_prompt() {
   # logname»username (e.g. david»root)
-  PROMPT='%F{green}$(logname)'
-  [ "$USER" != "$(logname)" ] && PROMPT+="%F{blue}»%F{white}%n"
-
-  PROMPT+='%F{blue}@'
-
-  # host
+  prompt_user='%F{green}%n'
   prompt_host='%F{green}%m'
+  [ "$USER" = 'root' ] && prompt_user='%F{white}%n'
   [ "$SSH_CONNECTION" != '' ] && prompt_host='%F{white}%m'
-  PROMPT+='${prompt_host}'
 
-  PROMPT+='%F{blue}:'
-
-  # path
-  PROMPT+='%F{yellow}%~'
-
-  PROMPT+=$'\n'
-
-  # time
-  PROMPT+='%f%*'
-
-  # mode
-  PROMPT+='%F{blue}${vimode}'
-
-  # version control
+  PROMPT='${prompt_user}%F{blue}@${prompt_host}%F{blue}:%F{yellow}%~'$'\n'
+  PROMPT+='%f%*%F{blue}${vimode}'
   PROMPT+='%F{magenta}${vcs_info_msg_0_}'
-
-  # root or normal
-  PROMPT+='%#'
-
-  PROMPT+=' %f'
+  PROMPT+='%#%f '
 }
 
 _set_prompt
