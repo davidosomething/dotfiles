@@ -66,8 +66,6 @@ export SCREENRC="$DOTFILES/screen/.screenrc"
 # -e LESS option to quit at EOF
 export LESS="-eFRX"
 export LESSHST="$DOTFILES/less/.lesshst"
-# Highlight section titles in manual pages
-export LESS_TERMCAP_md="${yellow}"
 
 export PAGER="less"
 export MANPAGER="$PAGER"
@@ -79,8 +77,10 @@ export GIT_PAGER="$PAGER"
 [[ -f /etc/apache2/envvars ]] && source /etc/apache2/envvars
 has_program "apachectl" && {
   if apachectl -t >/dev/null 2>&1; then
-    export APACHE_HTTPD_ROOT="$(apachectl -V | awk '/ -D HTTPD_ROOT/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
-    export APACHE_HTTPD_CONF="$(apachectl -V | awk '/ -D SERVER_CONFIG_FILE/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
+    APACHE_HTTPD_ROOT="$(apachectl -V | awk '/ -D HTTPD_ROOT/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
+    APACHE_HTTPD_CONF="$(apachectl -V | awk '/ -D SERVER_CONFIG_FILE/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
+    export APACHE_HTTPD_ROOT
+    export APACHE_HTTPD_CONF
   fi
 }
 
@@ -97,7 +97,8 @@ export GOPATH="$HOME/go"
 
 # homebrew
 has_program "brew" && {
-  export BREW_PREFIX="$(brew --prefix)"
+  BREW_PREFIX="$(brew --prefix)"
+  export BREW_PREFIX
   export CHRUBY_PREFIX="$BREW_PREFIX"
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
@@ -114,6 +115,6 @@ export NPM_PACKAGES="$HOME/.npm-packages"
 
 # z
 export _Z_CMD=j
-export _Z_DATA="$DOTFILES/z/.z"
+#export _Z_DATA="$DOTFILES/z/.z"
 
 # vim: set ft=sh :

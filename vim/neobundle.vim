@@ -229,9 +229,6 @@ NeoBundle 'tpope/vim-unimpaired'        " used for line bubbling commands on osx
 " ------------------------------------------------------------------------------
 " autocomplete
 
-" detect filetype under cursor, e.g. inline JS and CSS in a PHP doc
-NeoBundle 'Shougo/context_filetype.vim'
-
 " Works with neocomplete --
 " show function signatures in bottom of command line instead of in scratch
 " buffer
@@ -492,6 +489,7 @@ NeoBundleLazy 'heavenshell/vim-jsdoc', {
       \ }
 if neobundle#tap('vim-jsdoc')
   let g:jsdoc_default_mapping = 0
+  let g:jsdoc_underscore_private = 1
   if has("autocmd")
     au vimrc FileType javascript nnoremap <Leader>pd :JsDoc<CR>
     au vimrc FileType javascript vnoremap <Leader>pd :JsDoc<CR>

@@ -5,8 +5,8 @@
 
 export DKOSOURCE="$DKOSOURCE -> zshrc"
 
-source "$HOME/.dotfiles/shell/loader"
-source "$HOME/.dotfiles/shell/aliases"
+source "$DOTFILES/shell/loader"
+source "$DOTFILES/shell/aliases"
 
 # helpfiles
 has_program "brew" && {
@@ -29,6 +29,6 @@ for script in $scripts; do
   source "$ZDOTDIR/$script.zsh"
 done
 
-source "$HOME/.dotfiles/shell/after"
+source "$DOTFILES/shell/after"
 source_if_exists "$HOME/.zshrc.local"
 

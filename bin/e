@@ -43,14 +43,18 @@ _e() {
       shift
     done
 
+    if [ "$files" != "" ]; then
+      args="$args --remote-silent"
+    fi
+
     # shellcheck disable=SC2086
     # remote silent will FG the vim server
-    $executable $args -- $files
+    $executable $args $files
 
   # no args, just foregroud existing server
   elif $executable --serverlist | grep GVIM >/dev/null 2>&1; then
     # shellcheck disable=SC2086
-    $executable $args --remote-send ":call foreground()<CR>"
+    $executable $args --remote-send ":<Silent>call foreground()<CR>"
 
   # no args, NEW SERVER
   else
