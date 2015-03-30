@@ -10,6 +10,7 @@
 _e() {
   local executable
   local servername
+  local has_server
   local args
   local files
 
@@ -38,31 +39,26 @@ _e() {
       if [[ "$1" == --* ]]; then
         args="$args $1"
       else
-        files="$files $1"
+        [ ! -d "$1" ] && files="$files $1"
       fi
       shift
     done
-
-    if [ "$files" != "" ]; then
-      args="$args --remote-silent"
-    fi
-
-    # shellcheck disable=SC2086
-    # remote silent will FG the vim server
-    $executable $args $files
-
-  # no args, just foregroud existing server
-  elif $executable --serverlist | grep GVIM >/dev/null 2>&1; then
-    # shellcheck disable=SC2086
-    $executable $args --remote-send ":<Silent>call foreground()<CR>"
-
-  # no args, NEW SERVER
-  else
-    # shellcheck disable=SC2086
-    $executable $args
   fi
 
-  exit 0
+  has_server=$( { $executable --serverlist | grep -n1 $servername; } 2>&1 )
+
+  # reuse server
+  if [ "$has_server" != "" ]; then
+    if [ "$files" = "" ]; then
+      # shellcheck disable=SC2089
+      args="$args --remote-send \":call foreground()<CR>\""
+    else
+      args="$args --remote-silent"
+    fi
+  fi
+
+  # shellcheck disable=SC2086,SC2090
+  $executable $args $files
 }
 
 _e "${@}"
