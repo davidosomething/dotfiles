@@ -163,9 +163,9 @@ if neobundle#tap('vimfiler.vim')
   let g:vimfiler_file_icon = '-'
   let g:vimfiler_marked_file_icon = '*'
 
-  nnoremap <C-[> :VimFilerExplorer<CR>
-  inoremap <C-[> <Esc>:VimFilerExplorer<CR>
-  vnoremap <C-[> <Esc>:VimFilerExplorer<CR>
+  nnoremap <F10> :VimFilerExplorer<CR>
+  inoremap <F10> <Esc>:VimFilerExplorer<CR>
+  vnoremap <F10> <Esc>:VimFilerExplorer<CR>
   call neobundle#untap()
 endif
 
