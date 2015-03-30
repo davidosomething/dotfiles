@@ -5,6 +5,8 @@
 # Adapted from http://ztatlock.blogspot.com/2009/01/volume-control-with-amixer-and-osdcat.html
 # Used by /linux/x11/.xbindkeysrc-w510
 #
+# Author 2015 David O'Trakoun <me@davidosomething.com>
+#
 
 CHANNEL=Master
 

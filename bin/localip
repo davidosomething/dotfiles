@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Get local ip
+#
+# Copyright (c) 2015 David O'Trakoun <me@davidosomething.com>
+#
+
 set -eu
 
 # silently determine existence of executable

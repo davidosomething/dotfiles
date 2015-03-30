@@ -19,21 +19,26 @@
 #   -F|--filter=mine,stale
 #
 
+set -eu
+
 _check_in_repository() {
   git rev-parse --git-dir > /dev/null 2>&1
 }
 
 _filter_mine() {
-  local git_user=$(git config --get user.name)
+  local git_user
+  git_user=$(git config --get user.name)
 
   # use eval to not parse the fmt string
-  local my_remotes=$(echo "$1" | grep -i "^$git_user")
+  local my_remotes
+  my_remotes=$(echo "$1" | grep -i "^$git_user")
   echo "$my_remotes" | awk -F'\t' '{ print $2 }'
 }
 
 # @TODO
 _filter_stales() {
-  local raw_stales=$(git remote prune --dry-run origin)
+  local raw_stales
+  raw_stales=$(git remote prune --dry-run origin)
   echo "$raw_stales"
 }
 
@@ -53,10 +58,12 @@ _main() {
     printf "%s\t%s\n" "$a" "$b"
   '
 
-  local cmd_everyones_remotes=$(
+  local cmd_everyones_remotes
+  cmd_everyones_remotes=$(
     git for-each-ref --shell --format="$fmt" refs/remotes/origin
   )
-  local everyones_remotes=$(eval "$cmd_everyones_remotes")
+  local everyones_remotes
+  everyones_remotes=$(eval "$cmd_everyones_remotes")
 
   _filter_mine "$everyones_remotes"
 }

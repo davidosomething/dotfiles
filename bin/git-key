@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
+
+# Get SSH Key from GitHub
+#
+# Copyright (c) 2015 David O'Trakoun <me@davidosomething.com>
+#
+
 set -eu
 
-################################################################################
-# Get SSH Key from GitHub
-################################################################################
 _git_key() {
-  local gituser=${1:-$(git config --get github.user)}
+  local gituser
+  gituser=${1:-$(git config --get github.user)}
   curl "https://github.com/${gituser}.keys"
 }
 

@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-set -e
+# e
+#
+# Automatically determine whether to use vim or gvim and use a single instance
+#
+# Copyright (c) 2015 David O'Trakoun <me@davidosomething.com>
+#
 
 _e() {
   local executable
