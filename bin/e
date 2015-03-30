@@ -9,8 +9,9 @@
 
 _e() {
   local executable
-  local servername
   local has_server
+  local server
+  local servername
   local args
   local files
 
@@ -32,13 +33,13 @@ _e() {
 
   # arg parsing ----------------------------------------------------------------
 
-  args="--servername $servername"
   if [ $# -ne 0 ]; then
     files=""
     while [ "$1" != "" ]; do
       if [[ "$1" == --* ]]; then
         args="$args $1"
       else
+        [[ "$1" == *"COMMIT_EDITMSG" ]] && servername="GIT"
         files="$files $1"
       fi
       shift
@@ -46,6 +47,7 @@ _e() {
   fi
 
   has_server=$( { $executable --serverlist | grep -n1 $servername; } 2>&1 )
+  server="--servername $servername"
 
   # reuse server
   if [ "$has_server" != "" ]; then
@@ -58,7 +60,7 @@ _e() {
   fi
 
   # shellcheck disable=SC2086,SC2090
-  $executable $args $files
+  $executable $server $args $files
 }
 
 _e "${@}"
