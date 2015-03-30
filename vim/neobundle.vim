@@ -447,7 +447,7 @@ if neobundle#tap('syntastic')
     let g:syntastic_mode_map['active_filetypes'] = []
   endif
   if !has_key(g:syntastic_mode_map, "passive_filetypes")
-    let g:syntastic_mode_map['passive_filetypes'] = [ 'html', 'php', ]
+    let g:syntastic_mode_map['passive_filetypes'] = [ 'html', ]
   endif
 
   let g:syntastic_error_symbol         = '✗'
@@ -459,7 +459,7 @@ if neobundle#tap('syntastic')
   let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
   let g:syntastic_coffeescript_checkers = ['coffee', 'coffeelint']
-  let g:syntastic_php_checkers = ['php', 'phpmd']
+  let g:syntastic_php_checkers = ['php', 'phplint', 'phpmd']
   let g:syntastic_python_checkers = ['flake8']
   let g:syntastic_shell_checkers = ['bashate', 'shellcheck']
   let g:syntastic_zsh_checkers = ['zsh']
