@@ -32,11 +32,11 @@ _e() {
     args="--servername $servername"
     files=""
     while [ "$1" != "" ]; do
-      case $1 in
-        --echo )        echo_command=1 ;;
-        -f | --nofork ) args="--nofork $args" ;;
-        *)              files="$1 $files" ;;
-      esac
+      if [[ "$1" == --* ]]; then
+        args="$1 $args"
+      else
+        files="$1 $files"
+      fi
       shift
     done
 
