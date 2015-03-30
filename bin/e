@@ -3,28 +3,63 @@
 set -e
 
 _e() {
+  local executable
+  local servername
+  local echo_command
+  local args
+  local files
 
-  # VIM ---------------------------------------------------------------------
+  # which executable -----------------------------------------------------------
+  # In SSH
+  if [[ -n "$SSH_CONNECTION" ]]; then
+    executable="vim"
+    servername="VIM"
 
-  # ssh'ed or no X
-  [[ -n "$SSH_CONNECTION" ]] && return vim "${@}"
-  [[ "$DOTFILES_OS" == "Linux" ]] && [[ -z "$DISPLAY" ]] && return vim "${@}"
-
-  # GVIM ---------------------------------------------------------------------
-
-  # HAS FILENAMES
-  if [ $# -ne 0 ]; then
-    # remote silent will FG the vim server
-    gvim --servername GVIM --remote-silent "${@}"
-
-  # NO FILENAMES
-  # bring gvim server to FG if has an existing instance and no files
-  elif gvim --serverlist | grep GVIM >/dev/null 2>&1; then
-    gvim --servername GVIM --remote-send ":call foreground()<CR>"
+  # Linux without X11
+  elif [[ "$DOTFILES_OS" == "Linux" ]] && [[ -z "$DISPLAY" ]]; then
+    executable="vim"
+    servername="VIM"
 
   else
-    gvim --servername GVIM
+    executable="gvim"
+    servername="GVIM"
+  fi
 
+  # arg parsing ----------------------------------------------------------------
+
+  if [ $# -ne 0 ]; then
+    echo_command=0
+    args="--servername $servername"
+    files=""
+    while [ "$1" != "" ]; do
+      case $1 in
+        --echo )        echo_command=1 ;;
+        -f | --nofork ) args="--nofork $args" ;;
+        *)              files="$1 $files" ;;
+      esac
+      shift
+    done
+
+    if [ "$echo_command" = 1 ]; then
+      echo "$executable $args -- $files"
+    else
+      # shellcheck disable=SC2086
+      # remote silent will FG the vim server
+      $executable $args -- $files
+    fi
+
+  # NO FILENAMES, EXISTING SERVER
+  # bring gvim server to FG if has an existing instance and no files
+  elif $executable --serverlist | grep GVIM >/dev/null 2>&1; then
+    echo "$executable $args --remote-send \":call foreground()<CR>\""
+    # shellcheck disable=SC2086
+    $executable $args --remote-send ":call foreground()<CR>"
+
+  # NO FILENAMES, NEW SERVER
+  else
+    echo "$executable $args"
+    # shellcheck disable=SC2086
+    $executable $args
   fi
 
   exit 0
