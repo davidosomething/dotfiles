@@ -5,7 +5,6 @@ set -e
 _e() {
   local executable
   local servername
-  local echo_command
   local args
   local files
 
@@ -27,37 +26,29 @@ _e() {
 
   # arg parsing ----------------------------------------------------------------
 
+  args="--servername $servername"
   if [ $# -ne 0 ]; then
-    echo_command=0
-    args="--servername $servername"
     files=""
     while [ "$1" != "" ]; do
       if [[ "$1" == --* ]]; then
-        args="$1 $args"
+        args="$args $1"
       else
-        files="$1 $files"
+        files="$files $1"
       fi
       shift
     done
 
-    if [ "$echo_command" = 1 ]; then
-      echo "$executable $args -- $files"
-    else
-      # shellcheck disable=SC2086
-      # remote silent will FG the vim server
-      $executable $args -- $files
-    fi
+    # shellcheck disable=SC2086
+    # remote silent will FG the vim server
+    $executable $args -- $files
 
-  # NO FILENAMES, EXISTING SERVER
-  # bring gvim server to FG if has an existing instance and no files
+  # no args, just foregroud existing server
   elif $executable --serverlist | grep GVIM >/dev/null 2>&1; then
-    echo "$executable $args --remote-send \":call foreground()<CR>\""
     # shellcheck disable=SC2086
     $executable $args --remote-send ":call foreground()<CR>"
 
-  # NO FILENAMES, NEW SERVER
+  # no args, NEW SERVER
   else
-    echo "$executable $args"
     # shellcheck disable=SC2086
     $executable $args
   fi
