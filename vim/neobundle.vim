@@ -151,8 +151,8 @@ if neobundle#tap('unite.vim')
   call neobundle#untap()
 endif
 
-NeoBundleLazy 'Shougo/vimfiler.vim', {
-      \   'autoload': { 'commands': ['VimFiler'] },
+" Don't lazy vimfiler so it can handler opening dirs from terminal
+NeoBundle 'Shougo/vimfiler.vim', {
       \   'depends': 'Shougo/unite.vim',
       \ }
 if neobundle#tap('vimfiler.vim')
