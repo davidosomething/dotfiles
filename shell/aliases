@@ -44,9 +44,6 @@ alias mine='sudo chown -R $USER'
 alias xkbreset="setxkbmap -layout us && xmodmap ~/.Xmodmap"
 alias today="date +%Y-%m-%d"
 
-# copy with progress and backup instead of overwrite
-alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
-
 # default flags for programs
 alias df="df -h"
 # Always enable colored `grep` output
