@@ -140,13 +140,13 @@ if neobundle#tap('unite.vim')
           \   'start_insert':       0,
           \ })
 
-    nnoremap <F1> :Unite file_rec/async:!<cr>
-    inoremap <F1> <Esc>:Unite file_rec/async:!<cr>
-    vnoremap <F1> <Esc>:Unite file_rec/async:!<cr>
+    nnoremap <F1> :Unite file_rec/async:!<CR>
+    inoremap <F1> <Esc>:Unite file_rec/async:!<CR>
+    vnoremap <F1> <Esc>:Unite file_rec/async:!<CR>
 
-    nnoremap <F2> :Unite grep:!<cr>
-    inoremap <F2> <Esc>:Unite grep:!<cr>
-    vnoremap <F2> <Esc>:Unite grep:!<cr>
+    nnoremap <F2> :Unite grep:!<CR>
+    inoremap <F2> <Esc>:Unite grep:!<CR>
+    vnoremap <F2> <Esc>:Unite grep:!<CR>
   endfunction
   call neobundle#untap()
 endif
@@ -162,6 +162,10 @@ if neobundle#tap('vimfiler.vim')
   let g:vimfiler_tree_closed_icon = '▸'
   let g:vimfiler_file_icon = '-'
   let g:vimfiler_marked_file_icon = '*'
+
+  nnoremap <C-[> :VimFilerExplorer<CR>
+  inoremap <C-[> <Esc>:VimFilerExplorer<CR>
+  vnoremap <C-[> <Esc>:VimFilerExplorer<CR>
   call neobundle#untap()
 endif
 

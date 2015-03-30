@@ -3,6 +3,7 @@
 # e
 #
 # Automatically determine whether to use vim or gvim and use a single instance
+# Git commit messages will use a separate vim server called GIT
 #
 # Copyright (c) 2015 David O'Trakoun <me@davidosomething.com>
 #
