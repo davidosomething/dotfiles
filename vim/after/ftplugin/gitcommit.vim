@@ -7,7 +7,7 @@
 if v:servername == "GIT"
   if has('gui_running')
     set lines=44 columns=88
-    setlocal nonumber
+    set nonumber
     if has('gui_macvim')
       set guifont=Fira\ Mono\ for\ Powerline:h10
 
@@ -17,6 +17,14 @@ if v:servername == "GIT"
     endif
   endif
 
-  startinsert
+  " augroup gitmerge
+  "   autocmd!
+  " augroup END
+
+  augroup gitcommit
+    autocmd!
+    au BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,}MSG
+          \ startinsert
+  augroup END
 endif
 

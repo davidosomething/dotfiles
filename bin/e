@@ -40,6 +40,7 @@ _e() {
       if [[ "$1" == --* ]]; then
         args="$args $1"
       else
+        [[ "$1" == *"MERGE_MSG" ]] && servername="GIT"
         [[ "$1" == *"COMMIT_EDITMSG" ]] && servername="GIT"
         files="$files $1"
       fi
