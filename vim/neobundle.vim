@@ -19,6 +19,7 @@ NeoBundle 'tobyS/vmustache' " for pdv
 " ui ---------------------------------------------------------------------------
 NeoBundle 'altercation/vim-colors-solarized', {
       \   'disabled': !(has("gui") || has("gui_macvim")),
+      \   'gui': 1,
       \ }
 if neobundle#tap('vim-colors-solarized') && has('gui_running')
   " turn off gross italics -- fira sans happens to use ligatures too
@@ -183,7 +184,8 @@ NeoBundle 'suan/vim-instant-markdown', {
       \     'unix':    'npm install -g instant-markdown-d',
       \     'cygwin':  'npm install -g instant-markdown-d',
       \     'windows': 'npm install -g instant-markdown-d',
-      \   }
+      \   },
+      \   'gui': 1,
       \ }
 
 if neobundle#tap('gundo.vim')
@@ -475,6 +477,13 @@ NeoBundle 'vim-scripts/PreserveNoEOL'
 " Git --------------------------------------------------------------------------
 NeoBundle 'tpope/vim-git'               " creates gitconfig, gitcommit, rebase
 
+NeoBundle 'rhysd/committia.vim'
+if neobundle#tap('committia.vim')
+  let g:committia_open_only_vim_starting = 1
+  let g:committia_use_singlecolumn = 'always'
+  call neobundle#untap()
+endif
+
 " HTML and generators ----------------------------------------------------------
 NeoBundleLazy 'othree/html5.vim', {
       \   'autoload': { 'filetypes': ['css', 'html', 'php'] },
@@ -620,7 +629,9 @@ NeoBundleLazy 'vadv/vim-chef', {
 NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 
 " Stylesheet languages ---------------------------------------------------------
-NeoBundle 'Rykka/colorv.vim'
+NeoBundle 'Rykka/colorv.vim', {
+      \   'gui': 1,
+      \ }
 if neobundle#tap('colorv.vim')
   let g:colorv_preview_ftype  = "coffee,css,html,javascript,less,php,sass,scss"
   let g:colorv_cache_fav      = expand("~/.vim/.colorv_cache_fav")

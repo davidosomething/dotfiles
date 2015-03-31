@@ -6,12 +6,13 @@
 
 if v:servername == "GIT"
   if has('gui_running')
-    set lines=24 columns=88
+    set lines=44 columns=88
+    setlocal nonumber
     if has('gui_macvim')
-      set guifont=Fira\ Mono\ for\ Powerline:h14
+      set guifont=Fira\ Mono\ for\ Powerline:h10
 
     else
-      set guifont=Fira\ Mono\ for\ Powerline\ 14
+      set guifont=Fira\ Mono\ for\ Powerline\ 10
 
     endif
   endif
