@@ -58,6 +58,12 @@ _e() {
     else
       args="$args --remote-silent"
     fi
+
+  # new server
+  else
+    if [ "$files" = "" ]; then
+      args="$args +VimFilerCurrentDir"
+    fi
   fi
 
   # shellcheck disable=SC2086,SC2090
