@@ -306,6 +306,20 @@
         <command>~/.dotfiles/bin/ob-reconfigure</command>
       </action>
     </keybind>
+
+    <!-- Shutter screenshot -->
+    <keybind key="W-S-1">
+      <action name="Execute">
+        <command>shutter -f</command>
+      </action>
+    </keybind>
+
+    <keybind key="W-S-2">
+      <action name="Execute">
+        <command>shutter -s</command>
+      </action>
+    </keybind>
+
     <!-- vim style window resizing -->
     <keybind key="W-h">
       <action name="ResizeRelative">
