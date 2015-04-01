@@ -1,30 +1,30 @@
 #!/usr/bin/env bash
 
-# git-my v0.1
+# git-my v0.3.0
 #
-# Lists (stale) (branches|tags) in the remote named (origin) (where you were
-# the last committer)
+# Lists a user's remote branches and shows if it was merged
+# and/or available locally
 #
 # Copyright (c) 2015 David O'Trakoun <me@davidosomething.com>
 #
 # Usage:
 #   git my
 #
-# Options:
-#   @todo NOT IMPLEMENTED
-#   -U|--username="gitconfig user.name"
-#   -R|--remote=origin
-#   -T|--tags
-#   -B|--branches
-#   -F|--filter=mine,stale
-#
 
 set -eu
 
+# _check_in_repository
+#
+# Exits with error if not a git repository
+#
 _check_in_repository() {
   git rev-parse --git-dir > /dev/null 2>&1
 }
 
+# _get_local_branches
+#
+# Proper way to get a porcelain list of local branches for shell script use
+#
 _get_local_branches() {
   local fmt
   local cmd_get_local_branches
@@ -43,6 +43,12 @@ _get_local_branches() {
   eval "$cmd_get_local_branches"
 }
 
+# _get_everyones_remotes
+#
+# Get porcelain list of all remote branches
+#
+# @TODO support remote_name (currently origin)
+#
 _get_everyones_remotes() {
   local fmt
   local cmd_everyones_remotes
@@ -66,23 +72,28 @@ _get_everyones_remotes() {
 
 # _get_merged_remote_branches
 #
-# @TODO support param branches
+# @TODO support param remote_branche (currently origin/master)
 #
 # @output names of remote branches that are merged into origin/master
 _get_merged_remote_branches() {
+  local remote_name
+  local remote_refname
   local merged_remote_branches
   local stripped_branchnames
+
+  remote_name="origin"
+  remote_refname="master"
 
   merged_remote_branches=$( \
     git branch --no-color \
       --remotes \
-      --merged origin/master \
+      --merged $remote_name/$remote_refname \
     )
 
   # remove "origin/"
   # shellcheck disable=SC2001
   stripped_branchnames=$( \
-    echo "$merged_remote_branches" | sed 's/^\s*origin\///g' \
+    echo "$merged_remote_branches" | sed "s/^\s*$remote_name\///g" \
     )
 
   echo "$stripped_branchnames"
@@ -107,13 +118,6 @@ _filter_mine() {
   echo "$my_remotes" | awk -F'\t' '{ print $2 }'
 }
 
-# @TODO
-_filter_stales() {
-  local raw_stales
-  raw_stales=$(git remote prune --dry-run origin)
-  echo "$raw_stales"
-}
-
 # _decorate_merged
 #
 # @TODO support param branch to check against
@@ -121,34 +125,37 @@ _filter_stales() {
 # @param branchnames to check if merged into against
 # @output branchnames with [merged]
 _decorate_merged() {
-
   local merged_remote_branches
   local decorated
 
   merged_remote_branches=$(_get_merged_remote_branches)
   local_branches=$(_get_local_branches)
 
-  decorated=$'  local copy?  in master?  branch name\n'
+  # heading
+  decorated=$( printf '%12s %12s %s' \
+      "local copy?" "in master? " "branch name"
+  )
+  decorated+=$'\n'
+
+  # body
   for branchname in $1
   do
-    local has_local
-    local is_merged
+    local local_text="..........."
+    local merged_text='............'
 
-    is_merged=''
-    echo "$merged_remote_branches" | grep -q "$branchname" && \
-      is_merged='[merged]'
-
-    has_local=''
     echo "$local_branches" | grep -q "$branchname" && \
-      has_local='[local]'
+      local_text="..[local].."
 
-    decorated+=$(printf '  %11s  %10s  %s' \
-      "$has_local" "$is_merged" "$branchname"
+    echo "$merged_remote_branches" | grep -q "$branchname" && \
+      merged_text="..[merged].."
+
+    decorated+=$(printf "%12s.%12s %s" \
+      "$local_text" "$merged_text" "$branchname"
     )
     decorated+=$'\n'
   done
 
-  echo "$decorated" #| column --table --output-separator " | " --separator "\t"
+  echo "$decorated"
 }
 
 _main() {
@@ -156,15 +163,20 @@ _main() {
   local my_remotes
   local output
   local git_user
+  local git_remote
+  local heading
 
   git_user=$(git config --get user.name)
+  git_remote=$(git config --get remote.origin.url)
+  heading="$git_user's remote branches in $git_remote"
+
   everyones_remotes=$(_get_everyones_remotes)
   my_remotes=$(_filter_mine "$git_user" "$everyones_remotes")
   output=$(_decorate_merged "$my_remotes")
 
-  printf '%80s\n' | tr ' ' -
-  echo " Remote branches for $git_user"
-  printf '%80s\n' | tr ' ' -
+  printf '+%78s+\n' | tr ' ' -
+  printf '| %-76s |\n' "$heading"
+  printf '+%78s+\n' | tr ' ' -
   echo "$output"
 }
 
