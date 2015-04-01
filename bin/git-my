@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# git-my v0.3.0
+# git-my v0.4.0
 #
 # Lists a user's remote branches and shows if it was merged
 # and/or available locally
@@ -53,18 +53,21 @@ _get_everyones_remotes() {
   local fmt
   local cmd_everyones_remotes
 
+  local remote_name
+  remote_name=${1:-"origin"}
+
   # user.name<TAB>branch.name
   # the TAB is used as a delimiter to awk with
   # shellcheck disable=SC2016
   fmt='
     a=%(authorname)
     r=%(refname)
-    refname_without_prefix=${r#refs/remotes/origin/}
+    refname_without_prefix=${r#refs/remotes/$remote_name/}
     printf "%s\t%s\n" "$a" "$refname_without_prefix"
   '
 
   cmd_everyones_remotes=$(
-    git for-each-ref --shell --format="$fmt" refs/remotes/origin
+    git for-each-ref --shell --format="$fmt" "refs/remotes/$remote_name"
   )
 
   eval "$cmd_everyones_remotes"
@@ -72,22 +75,26 @@ _get_everyones_remotes() {
 
 # _get_merged_remote_branches
 #
-# @TODO support param remote_branche (currently origin/master)
-#
-# @output names of remote branches that are merged into origin/master
+# @param string optional remote to list merged branches of. Defaults to
+#        "origin/master"
+# @output names of remote branches that are merged into given branch
 _get_merged_remote_branches() {
+  local remote
   local remote_name
-  local remote_refname
+  #local remote_refname
   local merged_remote_branches
   local stripped_branchnames
 
-  remote_name="origin"
-  remote_refname="master"
+  remote=${1:-"origin/master"}
+  # trim from end of string until / for the remote name
+  remote_name=${remote%/*}
+  # trim from beginning of string until / for the remote refname
+  #remote_refname=${remote#*/}
 
   merged_remote_branches=$( \
     git branch --no-color \
       --remotes \
-      --merged $remote_name/$remote_refname \
+      --merged "$remote" \
     )
 
   # remove "origin/"
@@ -120,36 +127,30 @@ _filter_mine() {
 
 # _decorate_merged
 #
-# @TODO support param branch to check against
-#
-# @param branchnames to check if merged into against
-# @output branchnames with [merged]
+# @param string my_branches list of remote branch names owned by me
+# @param string local_branches list of local branch names
+# @param string merged_remote_branches list of all remote branch names merged
+#        into another branch
+# @output table of branch names and status
 _decorate_merged() {
-  local merged_remote_branches
+  local my_branches=$1
+  local local_branches=$2
+  local merged_remote_branches=$3
   local decorated
 
-  merged_remote_branches=$(_get_merged_remote_branches)
-  local_branches=$(_get_local_branches)
-
-  # heading
-  decorated=$( printf '%12s %12s %s' \
-      "local copy?" "in master? " "branch name"
-  )
-  decorated+=$'\n'
-
   # body
-  for branchname in $1
+  for branchname in $my_branches
   do
-    local local_text="..........."
-    local merged_text='............'
+    local local_text='............'
+    local merged_text='..........'
 
     echo "$local_branches" | grep -q "$branchname" && \
-      local_text="..[local].."
+      local_text='.....[local]'
 
     echo "$merged_remote_branches" | grep -q "$branchname" && \
-      merged_text="..[merged].."
+      merged_text='..[merged]'
 
-    decorated+=$(printf "%12s.%12s %s" \
+    decorated+=$(printf "  %12s..%10s. %s" \
       "$local_text" "$merged_text" "$branchname"
     )
     decorated+=$'\n'
@@ -158,26 +159,51 @@ _decorate_merged() {
   echo "$decorated"
 }
 
-_main() {
-  local everyones_remotes
-  local my_remotes
-  local output
-  local git_user
-  local git_remote
+_heading() {
+  local git_user=$1
+  local git_remote=$2
+  local remote_ref=$3
   local heading
+  local table_heading
 
-  git_user=$(git config --get user.name)
-  git_remote=$(git config --get remote.origin.url)
+  table_heading=$( printf '%12s  %10s  %s' \
+      "local copy?" "in $remote_ref?" "branch name"
+  )
   heading="$git_user's remote branches in $git_remote"
-
-  everyones_remotes=$(_get_everyones_remotes)
-  my_remotes=$(_filter_mine "$git_user" "$everyones_remotes")
-  output=$(_decorate_merged "$my_remotes")
 
   printf '+%78s+\n' | tr ' ' -
   printf '| %-76s |\n' "$heading"
   printf '+%78s+\n' | tr ' ' -
-  echo "$output"
+  echo
+  printf '  %-76s  \n' "$table_heading"
+}
+
+
+_main() {
+  local decorated
+  local everyones_remotes
+  local git_remote
+  local git_user
+  local local_branches
+  local merged_remote_branches
+  local my_remotes
+
+  local remote=${1:-"origin/master"}
+
+  # trim from end of string until / for the remote name
+  local remote_name=${remote%/*}
+  # trim from beginning of string until / for the remote refname
+  local remote_ref=${remote#*/}
+
+  git_user=$(git config --get user.name)
+  git_remote=$(git config --get "remote.${remote_name}.url")
+  everyones_remotes=$(_get_everyones_remotes "$remote_name")
+  my_remotes=$(_filter_mine "$git_user" "$everyones_remotes")
+  merged_remote_branches=$(_get_merged_remote_branches "$remote_name/$remote_ref")
+  local_branches=$(_get_local_branches)
+
+  _heading "$git_user" "$git_remote" "$remote_ref"
+  _decorate_merged "$my_remotes" "$local_branches" "$merged_remote_branches"
 }
 
 if ! _check_in_repository ; then
@@ -185,5 +211,5 @@ if ! _check_in_repository ; then
   exit 1
 fi
 
-_main
+_main "$@"
 

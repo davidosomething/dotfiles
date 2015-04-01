@@ -661,11 +661,17 @@ if neobundle#tap('vim-css3-syntax')
   if has("autocmd")
     augroup VimCSS3Syntax
       autocmd!
+      " fix highlighting problems on: vertical-align, box-shadow, and others
       autocmd FileType css setlocal iskeyword+=-
     augroup END
   endif
   call neobundle#untap()
 endif
+
+" Better @media syntax highlighting
+NeoBundle 'JulesWang/css.vim', {
+      \   'autoload': { 'filetypes': ['css', 'scss'] },
+      \ }
 
 " Twig -------------------------------------------------------------------------
 NeoBundle 'evidens/vim-twig'            " creates twig
