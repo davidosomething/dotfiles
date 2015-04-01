@@ -486,7 +486,7 @@ endif
 
 " HTML and generators ----------------------------------------------------------
 NeoBundleLazy 'othree/html5.vim', {
-      \   'autoload': { 'filetypes': ['css', 'html', 'php'] },
+      \   'autoload': { 'filetypes': ['html', 'php'] },
       \ }
 
 NeoBundleLazy 'digitaltoad/vim-jade', { 'autoload': { 'filetypes': ['jade'] } }
@@ -510,11 +510,8 @@ if neobundle#tap('vim-jsdoc')
   call neobundle#untap()
 endif
 
+" syntax highlighting for jQuery
 NeoBundleLazy 'itspriddle/vim-jquery', {
-      \   'autoload': { 'filetypes': ['html', 'javascript', 'php'] }
-      \ }
-
-NeoBundleLazy 'jelera/vim-javascript-syntax', {
       \   'autoload': { 'filetypes': ['html', 'javascript', 'php'] }
       \ }
 
@@ -554,6 +551,20 @@ NeoBundleLazy 'mxw/vim-jsx', { 'depends': 'vim-javascript' }
 
 NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {
       \   'autoload': { 'filetypes': ['javascript', 'coffee'] }
+      \ }
+
+" Parameter completion
+NeoBundleLazy 'othree/jspc.vim', {
+      \   'autoload': { 'filetypes': ['javascript', 'coffee'] }
+      \ }
+
+" explicitly compatible with
+"   vim-javascript-syntax
+"   vim-javascript-libraries-syntax
+"   vim-jsx
+" replaces 'jelera/vim-javascript-syntax', {
+NeoBundleLazy 'othree/yajs.vim', {
+      \   'autoload': { 'filetypes': ['html', 'javascript', 'php'] }
       \ }
 
 NeoBundleLazy 'pangloss/vim-javascript', {
