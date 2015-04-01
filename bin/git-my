@@ -25,13 +25,85 @@ _check_in_repository() {
   git rev-parse --git-dir > /dev/null 2>&1
 }
 
+_get_local_branches() {
+  local fmt
+  local cmd_get_local_branches
+
+  # shellcheck disable=SC2016
+  fmt='
+    r=%(refname)
+    refname_without_prefix=${r#refs/heads/}
+    printf "%s\t%s\n" "$refname_without_prefix"
+  '
+
+  cmd_get_local_branches=$(
+    git for-each-ref --shell --format="$fmt" refs/heads
+  )
+
+  eval "$cmd_get_local_branches"
+}
+
+_get_everyones_remotes() {
+  local fmt
+  local cmd_everyones_remotes
+
+  # user.name<TAB>branch.name
+  # the TAB is used as a delimiter to awk with
+  # shellcheck disable=SC2016
+  fmt='
+    a=%(authorname)
+    r=%(refname)
+    refname_without_prefix=${r#refs/remotes/origin/}
+    printf "%s\t%s\n" "$a" "$refname_without_prefix"
+  '
+
+  cmd_everyones_remotes=$(
+    git for-each-ref --shell --format="$fmt" refs/remotes/origin
+  )
+
+  eval "$cmd_everyones_remotes"
+}
+
+# _get_merged_remote_branches
+#
+# @TODO support param branches
+#
+# @output names of remote branches that are merged into origin/master
+_get_merged_remote_branches() {
+  local merged_remote_branches
+  local stripped_branchnames
+
+  merged_remote_branches=$( \
+    git branch --no-color \
+      --remotes \
+      --merged origin/master \
+    )
+
+  # remove "origin/"
+  # shellcheck disable=SC2001
+  stripped_branchnames=$( \
+    echo "$merged_remote_branches" | sed 's/^\s*origin\///g' \
+    )
+
+  echo "$stripped_branchnames"
+}
+
+# _filter_mine
+#
+# @param git_user
+# @param branchnames
+# @output branchnames owned by current git user
 _filter_mine() {
   local git_user
-  git_user=$(git config --get user.name)
+  local branchnames
+  git_user=$1
+  branchnames=$2
 
   # use eval to not parse the fmt string
   local my_remotes
-  my_remotes=$(echo "$1" | grep -i "^$git_user")
+  my_remotes=$(echo "$branchnames" | grep -i "^$git_user")
+
+  # output only the branchname
   echo "$my_remotes" | awk -F'\t' '{ print $2 }'
 }
 
@@ -42,31 +114,64 @@ _filter_stales() {
   echo "$raw_stales"
 }
 
-_main() {
-  if ! _check_in_repository ; then
-    echo "This is not a git repository."
-    exit 1
-  fi
+# _decorate_merged
+#
+# @TODO support param branch to check against
+#
+# @param branchnames to check if merged into against
+# @output branchnames with [merged]
+_decorate_merged() {
 
-  # user.name<TAB>branch.name
-  # the TAB is used as a delimiter to awk with
-  # shellcheck disable=SC2016
-  local fmt='
-    a=%(authorname)
-    r=%(refname)
-    b=${r#refs/remotes/origin/}
-    printf "%s\t%s\n" "$a" "$b"
-  '
+  local merged_remote_branches
+  local decorated
 
-  local cmd_everyones_remotes
-  cmd_everyones_remotes=$(
-    git for-each-ref --shell --format="$fmt" refs/remotes/origin
-  )
-  local everyones_remotes
-  everyones_remotes=$(eval "$cmd_everyones_remotes")
+  merged_remote_branches=$(_get_merged_remote_branches)
+  local_branches=$(_get_local_branches)
 
-  _filter_mine "$everyones_remotes"
+  decorated=$'  local copy?  in master?  branch name\n'
+  for branchname in $1
+  do
+    local has_local
+    local is_merged
+
+    is_merged=''
+    echo "$merged_remote_branches" | grep -q "$branchname" && \
+      is_merged='[merged]'
+
+    has_local=''
+    echo "$local_branches" | grep -q "$branchname" && \
+      has_local='[local]'
+
+    decorated+=$(printf '  %11s  %10s  %s' \
+      "$has_local" "$is_merged" "$branchname"
+    )
+    decorated+=$'\n'
+  done
+
+  echo "$decorated" #| column --table --output-separator " | " --separator "\t"
 }
+
+_main() {
+  local everyones_remotes
+  local my_remotes
+  local output
+  local git_user
+
+  git_user=$(git config --get user.name)
+  everyones_remotes=$(_get_everyones_remotes)
+  my_remotes=$(_filter_mine "$git_user" "$everyones_remotes")
+  output=$(_decorate_merged "$my_remotes")
+
+  printf '%80s\n' | tr ' ' -
+  echo " Remote branches for $git_user"
+  printf '%80s\n' | tr ' ' -
+  echo "$output"
+}
+
+if ! _check_in_repository ; then
+  echo "This is not a git repository."
+  exit 1
+fi
 
 _main
 
