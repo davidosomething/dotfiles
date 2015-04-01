@@ -16,6 +16,10 @@ has_program "brew" && {
   autoload run-help
 }
 
+# load autojump before autoload compinit
+source_if_exists "$HOME/.autojump/etc/profile.d/autojump.sh"
+
+# load all zsh specific scripts
 scripts=(
   "options"
   "aliases"
