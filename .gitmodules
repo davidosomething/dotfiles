@@ -22,3 +22,6 @@
 [submodule "zsh/plugins/opp.zsh"]
 	path = zsh/plugins/opp.zsh
 	url = git@github.com:hchbaw/opp.zsh.git
+[submodule "shell/autojump"]
+	path = shell/autojump
+	url = git://github.com/joelthelion/autojump.git

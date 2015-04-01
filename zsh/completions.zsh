@@ -1,6 +1,7 @@
 # fpaths are set in zshenv
 # load completion - the -U means look in fpath, -z means on first run
 # -i means ignore security errors
+source_if_exists "$HOME/.autojump/etc/profile.d/autojump.sh"
 autoload -Uz compinit && compinit -i
 
 # in Bold, specify what type the completion is, e.g. a file or an alias or a cmd

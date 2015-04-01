@@ -7,7 +7,6 @@ export DKOSOURCE="$DKOSOURCE -> shell after"
 source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
 has_program "hub" && eval "$(hub alias -s)"
 source_if_exists "$NVM_DIR/nvm.sh"
-source_if_exists "$DOTFILES/z/z.sh"
 
 # additional completions
 has_program "npm"   && eval "$(npm completion)"
