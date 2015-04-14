@@ -8,12 +8,14 @@
 # Bottom supercedes top
 
 _add_my_paths() {
-  # system
-  # TODO maybe use this
-  # PATH="$(command -p getconf PATH)"
-  my_path="/usr/bin:/bin:/usr/sbin:/sbin"
+  # inherit system defaults and from
+  # /etc/profile (which sources /etc/profile.d)
+  my_path="$(command -p getconf PATH)"
 
-  # package managers -------------------------------------------------------------
+  # reorder defaults?
+  #my_path="/usr/bin:/bin:/usr/sbin:/sbin:$my_path"
+
+  # package managers -----------------------------------------------------------
 
   # homebrew compatible
   my_path="/usr/local/sbin:$my_path"
@@ -31,13 +33,14 @@ _add_my_paths() {
   [ -d "$NPM_PACKAGES" ] && {
     my_path="$NPM_PACKAGES/bin:$my_path"
     unset MANPATH
-    export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+    MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+    export MANPATH
   }
 
   # go
   my_path="$GOPATH/bin:$my_path"
 
-  # local ------------------------------------------------------------------------
+  # local ----------------------------------------------------------------------
   my_path="$DOTFILES/bin:$my_path"
   my_path="$HOME/bin:$my_path"
 
