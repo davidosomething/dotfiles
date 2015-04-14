@@ -99,9 +99,6 @@ prompt = false
 [pager]
 status = true
 
-[web]
-browser = open
-
 # URL aliases ------------------------------------------------------------------
 [url "git@github.com:"]
 insteadOf = "gh:"
