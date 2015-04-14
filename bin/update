@@ -40,7 +40,7 @@ case "$OSTYPE" in
     if [[ "$1" = "arch" ]]; then
       dkostatus "ArchLinux system update"
       if command -v yaourt >/dev/null; then
-        yaourt -Syua
+        yaourt -Syua --devel
       elif command -v pacaur >/dev/null; then
         pacaur -Syu
       elif command -v aura >/dev/null; then
