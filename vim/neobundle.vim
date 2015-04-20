@@ -386,8 +386,6 @@ NeoBundle 'tpope/vim-speeddating'       " fast increment datetimes
 
 NeoBundle 'tpope/vim-surround'
 
-NeoBundle 'vim-scripts/AnsiEsc.vim'
-
 " ------------------------------------------------------------------------------
 " text objects
 NeoBundle 'kana/vim-textobj-user'             " framework
