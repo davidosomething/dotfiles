@@ -34,5 +34,8 @@ for script in $scripts; do
 done
 
 source "$DOTFILES/shell/after"
+
+source_if_exists "$HOME/.fzf.zsh"
+
 source_if_exists "$HOME/.zshrc.local"
 

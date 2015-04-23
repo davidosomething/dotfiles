@@ -10,5 +10,7 @@ for script in "options" "completions" "prompt"; do
 done
 
 source "$HOME/.dotfiles/shell/after"
-source_if_exists "$HOME/.bashrc.local"
 
+source_if_exists "$HOME/.fzf.bash"
+
+source_if_exists "$HOME/.bashrc.local"
