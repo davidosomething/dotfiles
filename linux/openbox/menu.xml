@@ -108,6 +108,11 @@
 				<execute>/bin/lxappearance</execute>
 			</action>
 		</item>
+		<item label="nVidia Settings">
+			<action name="Execute">
+				<execute>nvidia-settings</execute>
+			</action>
+		</item>
 		<item label="gdm3setup">
 			<action name="Execute">
 				<execute>gksu gdm3setup</execute>

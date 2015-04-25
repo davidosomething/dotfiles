@@ -36,6 +36,10 @@ startx
     openbox
 ```
 
+## GDM
+
+- Give access to X server `xhost +SI:localuser:gdm`
+
 ## Thunar
 
 - Extra hidden settings in `thunar.sh`
