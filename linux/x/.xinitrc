@@ -1,10 +1,10 @@
 #!/bin/bash
 # .xinitrc / .xsession
-# .xsession applies to XDM only -- useless for GDM/startx
+# (.xsession applies to XDM only -- useless for GDM/startx)
 #
 # Probably don't need to add anything here -- add to .xprofile instead
 #
-# startx -> .xinitrc -> .xprofile
+# startx ONLY -> .xinitrc -> .xprofile
 
 export DKOSOURCE="$DKOSOURCE -> .xinitrc"
 
@@ -25,8 +25,12 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 # Begin custom -----------------------------------------------------------------
+
+# In default X, use left_ptr instead of X cursor
+xsetroot -cursor_name left_ptr
+
 # Make sure this is before the 'exec' command or it won't be sourced.
-[ -f ~/.xprofile ] && ~/.xprofile
+[ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
 
 _start_session() {
   session=${1:-openbox}

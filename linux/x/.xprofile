@@ -37,8 +37,15 @@ export SSH_AUTH_SOCK
 # gnome polkit authentication (so nm-applet can create connections)
 #[[ -x "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" ]] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
+# If using nvidia, execute some stuff that supposedly improves performance
+# https://wiki.archlinux.org/index.php/Nvidia#GUI:_nvidia-settings
+# shellcheck disable=SC2046,SC2143
+if [ $(lsmod | grep nvidia &> /dev/null) ]; then
+    nvidia-settings -a InitialPixmapPlacement=2
+fi
+
 # bind media keys if system has an xbindkeysrc
 # mine is kept in a separate repo per machine
-[[ -f "$HOME/.xbindkeysrc" ]] && xbindkeys -f "$HOME/.xbindkeysrc" &
+[[ -f "$HOME/.xbindkeysrc" ]] && xbindkeys -f "$HOME/.xbindkeysrc"
 
 # vim: set ft=sh :
