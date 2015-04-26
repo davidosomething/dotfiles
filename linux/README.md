@@ -36,6 +36,10 @@ startx
     openbox
 ```
 
+## gnome-keyring on boot
+
+Use PAM AND xinitrc instructions from arch wiki.
+
 ## GDM
 
 - Give access to X server `xhost +SI:localuser:gdm`

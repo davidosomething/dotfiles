@@ -36,6 +36,7 @@ alias v="vagrant"
 alias vag="vagrant"
 alias vb="VBoxManage"
 alias vbm="VBoxManage"
+alias startx="startx > $HOME/startx.log 2>&1"
 
 # function-type aliases
 alias publicip="curl icanhazip.com"
