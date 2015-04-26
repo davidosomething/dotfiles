@@ -10,6 +10,11 @@
 
 export DKOSOURCE="$DKOSOURCE -> ob autostart"
 
+# Compositing
+# Only use for openbox
+# Consider moving out if using different compositor for other DEs
+compton -b --config "$HOME/.config/compton.conf" &
+
 # Keymaps
 # GDM reads .Xmodmap -- don't do this, stalls everything for a few secs
 #xmodmap "$HOME/src/davidosomething-config/potatoW510/.Xmodmap" &

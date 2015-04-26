@@ -34,11 +34,6 @@ export WINEARCH=win32
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
 
-# Compositing
-# Only use for openbox
-# Consider moving out if using different compositor for other DEs
-compton -b --config "$HOME/.config/compton.conf" &
-
 # gnome polkit authentication (so nm-applet can create connections)
 #[[ -x "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" ]] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
