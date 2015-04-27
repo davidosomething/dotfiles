@@ -31,7 +31,8 @@ else
 fi
 
 # Conky
-conky -d &
+# moved to .config/autostart/conky.desktop
+#conky -d &
 
 # Tint Panel
 (sleep 2s && tint2) &
@@ -76,6 +77,7 @@ fi
 # Removed it doesn't run as user
 #thunar --daemon &
 
-terminator &
+# moved to .config/autostart/terminator.desktop
+#terminator &
 
 # vim: set ft=sh :

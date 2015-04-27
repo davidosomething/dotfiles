@@ -26,6 +26,10 @@ fi
 
 # Begin custom -----------------------------------------------------------------
 
+# xdg-user-dirs-gtk-update will update gtk app user dirs -- run after
+# xdg-user-dirs are set (done in /etc/X11/xinit/xinitrc.d/xdg-user-dirs)
+xdg-user-dirs-gtk-update &
+
 # In default X, use left_ptr instead of X cursor
 xsetroot -cursor_name left_ptr
 
