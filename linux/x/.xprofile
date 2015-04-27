@@ -31,8 +31,8 @@ export WINEARCH=win32
 
 # Gnome Keyring
 # shellcheck disable=SC2046
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-export SSH_AUTH_SOCK
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
 
 # gnome polkit authentication (so nm-applet can create connections)
 #[[ -x "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" ]] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
