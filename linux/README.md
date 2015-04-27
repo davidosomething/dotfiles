@@ -4,28 +4,42 @@ For openbox, thunar
 
 ## Boot order
 
+### 1
+
 ```
 init
   getty
     gdm OR $SHELL
+```
 
+### 2: gdm
+
+```
 gdm
   /etc/gdm/Xsession
     /etc/.profile
     $HOME/.profile
     $HOME/.xprofile
     /etc/X11/xinit/xinitrc.d/*
-    HOME/.xsession
-  /usr/bin/openbox-session
+    $HOME/.xsession
+    SESSION FILE
+```
 
+### 2: startx
+
+```
 startx
   determine which xinitrc
   xinit passed xinitrc
     $HOME/.xinitrc OR /etc/X11/xinit/xinitrc
       /etc/X11/xinit/xinitrc.d/*
       $HOME/.xprofile
-      /usr/bin/openbox-session
+      SESSION FILE
+```
 
+### 3: session file - openbox
+
+```
 /usr/bin/openbox-session
   /etc/xdg/openbox/environment
   $HOME/.config/openbox/environment
