@@ -151,6 +151,7 @@ endif
 set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
 set wildmode=list:longest             " Complete files like a shell.
+set wildignorecase
 " output, VCS
 set wildignore+=.git,.hg,.svn
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,*.gem
