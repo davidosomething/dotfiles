@@ -20,7 +20,7 @@ fi
 # Compositing
 # Only use for openbox
 # Consider moving out if using different compositor for other DEs
-compton -b --config "$HOME/.config/compton.conf" &
+compton -b --config "$HOME/.config/compton.conf"
 
 # Only for openbox since others might use gnome-settings-daemon or something
 # Background Image
@@ -35,7 +35,7 @@ fi
 #conky -d &
 
 # Tint Panel
-(sleep 2s && tint2) &
+(sleep 2s && tint2 > /dev/null 2>&1) &
 # Thinkpad specific battery icon using tp_smapi
 # Starts on its own from /etc/xdg/autostart
 #tp-battery-icon &
