@@ -23,7 +23,7 @@ _e() {
   use_server=true
   server=""
 
-  if [[ -n "$DISPLAY" ]]; then
+  if [[ -n "$DISPLAY" ]] || [[ "$DOTFILES_OS" == "Darwin" ]]; then
     executable="gvim"
     servername="GVIM"
   fi

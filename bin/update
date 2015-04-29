@@ -85,7 +85,7 @@ case "$OSTYPE" in
       dkostatus "Updating homebrew"
       brew update
       brew outdated
-      brew upgrade
+      brew upgrade --all
       brew cleanup
       brew prune
     fi
