@@ -10,6 +10,7 @@
 
 _e() {
   local executable
+  local use_server
   local has_server
   local server
   local servername
@@ -17,19 +18,24 @@ _e() {
   local files
 
   # which executable -----------------------------------------------------------
-  # In SSH
-  if [[ -n "$SSH_CONNECTION" ]]; then
-    executable="vim"
-    servername="VIM"
+  executable="vim"
+  servername="VIM"
+  use_server=true
+  server=""
 
-  # Linux without X11
-  elif [[ "$DOTFILES_OS" == "Linux" ]] && [[ -z "$DISPLAY" ]]; then
-    executable="vim"
-    servername="VIM"
-
-  else
+  if [[ -n "$DISPLAY" ]]; then
     executable="gvim"
     servername="GVIM"
+  fi
+
+  # In SSH
+  if [[ -n "$SSH_CONNECTION" ]]; then
+    use_server=false
+  fi
+
+  # Linux without X11
+  if [[ "$DOTFILES_OS" == "Linux" ]] && [[ -z "$DISPLAY" ]]; then
+    use_server=false
   fi
 
   # arg parsing ----------------------------------------------------------------
@@ -48,25 +54,30 @@ _e() {
     done
   fi
 
-  has_server=$( { $executable --serverlist | grep -n1 $servername; } 2>&1 )
-  server="--servername $servername"
+  # server use -----------------------------------------------------------------
 
-  # reuse server
-  if [ "$has_server" != "" ]; then
-    if [ "$files" = "" ]; then
-      # shellcheck disable=SC2089
-      args="$args --remote-send \":call foreground()<CR>\""
+  if [ "$use_server" = true ]; then
+    has_server=$( { $executable --serverlist | grep -n1 $servername; } 2>&1 )
+    server="--servername $servername"
+
+    # reuse server
+    if [ "$has_server" != "" ]; then
+      if [ "$files" = "" ]; then
+        # shellcheck disable=SC2089
+        args="$args --remote-send \":call foreground()<CR>\""
+      else
+        args="$args --remote-silent"
+      fi
+
+    # new server
     else
-      args="$args --remote-silent"
-    fi
-
-  # new server
-  else
-    if [ "$files" = "" ]; then
-      args="$args +VimFilerCurrentDir"
+      if [ "$files" = "" ]; then
+        args="$args +VimFilerCurrentDir"
+      fi
     fi
   fi
 
+  # execute --------------------------------------------------------------------
   # shellcheck disable=SC2086,SC2090
   $executable $server $args $files
 }
