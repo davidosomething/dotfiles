@@ -48,4 +48,4 @@ fi
 # mine is kept in a separate repo per machine
 [[ -f "$HOME/.xbindkeysrc" ]] && xbindkeys -f "$HOME/.xbindkeysrc"
 
-# vim: set ft=sh :
+# vim: syntax=sh :

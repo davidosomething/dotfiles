@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-################################################################################
 # Basic symlinks, safe to run on any system
-################################################################################
 
 # initialize script and dependencies -------------------------------------------
 # get this bootstrap folder
@@ -27,7 +25,6 @@ case "$OSTYPE" in
     dkosymlink linux/subversion/config.symlink  .subversion/config
     ;;
 esac
-
 
 # symlink shells ---------------------------------------------------------------
 dkosymlink bash/.bashrc.symlink         .bashrc

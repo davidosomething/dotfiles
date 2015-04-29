@@ -48,7 +48,8 @@ u vim
 
 - `ruby/install-default-gems.sh`
 
-- `
+- `linux/x11.sh`
+  - symlink `.xbindkeysrc`, `.xinitrc`, `.xprofile`
 
 ### Homebrew
 
