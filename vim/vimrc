@@ -283,4 +283,4 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-" vim: set ft=vim :
+" vim: syntax=vim :

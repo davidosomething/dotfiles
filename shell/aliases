@@ -95,4 +95,4 @@ case "$OSTYPE" in
     ;;
 esac
 
-# vim: set ft=sh :
+# vim: syntax=sh :

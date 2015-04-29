@@ -23,4 +23,4 @@ if [ -n "$TERMINATOR_UUID" ]; then
   cd
 fi
 
-# vim: set ft=sh :
+# vim: syntax=sh :

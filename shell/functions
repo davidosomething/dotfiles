@@ -210,4 +210,4 @@ joingroup() {
   fi
 }
 
-# vim: set ft=sh :
+# vim: syntax=sh :

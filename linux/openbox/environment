@@ -7,4 +7,4 @@ export DKOSOURCE="$DKOSOURCE -> ob environment"
 
 export GNOME_DESKTOP_SESSION_ID="openbox"
 
-# vim: set ft=sh :
+# vim: syntax=sh :

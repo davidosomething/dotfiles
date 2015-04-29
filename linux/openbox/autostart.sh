@@ -68,6 +68,10 @@ fi
 # Virtualbox applet
 (sleep 3s && indicator-virtualbox) &
 
+# nVidia Dock applet
+(sleep 3s && nvdock) &
+
+
 # Apps
 
 # redshift-gtk starts itself
@@ -80,4 +84,4 @@ fi
 # moved to .config/autostart/terminator.desktop
 #terminator &
 
-# vim: set ft=sh :
+# vim: syntax=sh :
