@@ -179,6 +179,12 @@ if neobundle#tap('unite.vim')
     inoremap <F11> <Esc>:<C-u>Unite history/yank<CR>
     vnoremap <F11> <Esc>:<C-u>Unite history/yank<CR>
 
+    " ========================================
+    " Command Palette
+    nnoremap <C-y> :<C-u>Unite -start-insert command<CR>
+    inoremap <C-y> <Esc>:<C-u>Unite -start-insert command<CR>
+    vnoremap <C-y> <Esc>:<C-u>Unite -start-insert command<CR>
+
   endfunction
   call neobundle#untap()
 endif
