@@ -6,16 +6,10 @@ scriptencoding utf-8
 " no nocompatible!
 set nocompatible
 
-set exrc                              " per directory vimrc
-set secure                            " no unsafe local vimrc commands
+" just use modelines instead of this
+"set exrc                              " per directory vimrc
 
-" Environment detection a la https://github.com/bling/dotvim
-" detect OS
-let g:is_windows = has('win32') || has('win64') || has('win32unix')
-let g:is_cygwin = has('win32unix')
-let g:is_mac = has('mac')
-" =~# is case sensitive, =-? is insensitive
-let g:is_term = (&term =~# 'xterm\|screen\|builtin_gui\|fbterm\|linux')
+set secure                            " no unsafe local vimrc commands
 
 " RTP and plugin management ----------------------------------------------------
 " Ensure neobundle exists
@@ -207,7 +201,7 @@ set switchbuf=useopen                 " reveal already opened files from the
 " easyclip handles this too, but this is more reliable since it does it in as
 " a command after exit/enter vim
 " clipboard -- use os clipboard
-if (exists("$DISPLAY") || g:is_mac) && has('clipboard')
+if (exists("$DISPLAY") || has('mac')) && has('clipboard')
   set clipboard=unnamed  " Share system clipboard.
   if has('unnamedplus')
     set clipboard+=unnamedplus  " Share X windows clipboard.
@@ -257,7 +251,7 @@ if has("autocmd")
         \ setlocal wrap linebreak nolist textwidth=80
 
   " crontab on OSX needs a tempfile
-  if g:is_mac
+  if has('mac')
     au vimrc BufEnter /private/tmp/crontab.*
           \ setlocal backupcopy=yes
   endif
