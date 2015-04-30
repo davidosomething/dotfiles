@@ -23,6 +23,7 @@ co      = checkout
 ct      = checkout -t
 d       = diff
 dc      = diff --cached
+dm      = diff master
 done    = branch --merged
 
 # show alias definition by name, e.g. `git finda changed`
@@ -46,6 +47,7 @@ mod     = diff master --name-only
 pr      = pull --rebase
 pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
 rb      = rebase
+rso     = remote show origin
 s       = status -bs
 st      = status
 t       = tag
@@ -123,4 +125,4 @@ insteadOf = "heroku:"
 [include]
 path = "~/.gitconfig.local"
 
-# vim: set syn=gitconfig :
+# vim: syntax=gitconfig expandtab :

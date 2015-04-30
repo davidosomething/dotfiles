@@ -240,6 +240,18 @@ NeoBundle 'tpope/vim-fugitive'
 " commands
 NeoBundle 'gelguy/Cmd2.vim'
 if neobundle#tap('Cmd2.vim')
+  " Update speed, default: 20
+  let g:Cmd2_loop_sleep = 10
+
+  " Require at least 3 chars typed
+  let g:Cmd2__suggest_min_length = 3
+
+  " Only take suggests on tab
+  let g:Cmd2__suggest_enter_suggest = 0
+
+  " Cancel completion on <Esc> (instead of cancelling entire command)
+  let g:Cmd2__suggest_esc_menu = 1
+
   nmap : :<F8>
   cmap <F8> <Plug>(Cmd2Suggest)
 endif
@@ -692,7 +704,7 @@ NeoBundle 'Rykka/colorv.vim', {
       \   'gui': 1,
       \ }
 if neobundle#tap('colorv.vim')
-  let g:colorv_preview_ftype  = "coffee,css,html,javascript,less,php,sass,scss"
+  let g:colorv_preview_ftype  = "css,html,less,sass,scss"
   let g:colorv_cache_fav      = expand("~/.vim/.colorv_cache_fav")
   let g:colorv_cache_file     = expand("~/.vim/.colorv_cache_file")
   call neobundle#untap()
