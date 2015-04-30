@@ -144,6 +144,5 @@ if [[ "$1" = "vim" ]]; then
     NeoBundleUpdate | \
     NeoBundleUpdatesLog $* | \
     finally | qall! | endtry" -U NONE -i NONE -V1 -e -s
-  dkostatus "Done, see ~/.dotfiles/logs/neobundle.log"
 fi
 
