@@ -79,6 +79,9 @@ endif
 
 NeoBundle 'dockyard/vim-easydir'        " creates dir if new file in new dir
 
+" show registers in tem split if use \" or <C-R>
+NeoBundle 'junegunn/vim-peekaboo'
+
 " auto tag generation via exuberant-ctags -- no tags file created
 NeoBundleLazy 'majutsushi/tagbar', {
       \   'autoload': { 'commands': 'TagbarToggle' },
