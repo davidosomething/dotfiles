@@ -235,11 +235,18 @@ NeoBundle 'tpope/vim-fugitive'
 
 " ------------------------------------------------------------------------------
 " commands
+NeoBundle 'gelguy/Cmd2.vim'
+if neobundle#tap('Cmd2.vim')
+  nmap : :<F8>
+  cmap <F8> <Plug>(Cmd2Suggest)
+endif
+
 NeoBundle 'haya14busa/incsearch.vim'
 if neobundle#tap('incsearch.vim')
-  map /  <Plug>(incsearch-forward)
-  map ?  <Plug>(incsearch-backward)
-  map g/ <Plug>(incsearch-stay)
+  map /   <Plug>(incsearch-forward)
+  map ?   <Plug>(incsearch-backward)
+  map g/  <Plug>(incsearch-stay)
+
   call neobundle#untap()
 endif
 
@@ -247,10 +254,10 @@ NeoBundleLazy 'osyo-manga/vim-anzu', {
       \   'autoload': { 'mappings': [ '<Plug>' ], }
       \ }
 if neobundle#tap('vim-anzu')
-  nmap n <Plug>(anzu-n-with-echo)
-  nmap N <Plug>(anzu-N-with-echo)
-  nmap * <Plug>(anzu-star-with-echo)
-  nmap # <Plug>(anzu-sharp-with-echo)
+  nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+  nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+  nmap * <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
+  nmap # <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
   " show anzu
   let g:airline#extensions#anzu#enabled = 1
   call neobundle#untap()
