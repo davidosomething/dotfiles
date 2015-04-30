@@ -18,6 +18,8 @@ alias tree="tree -C"
 
 # bin
 alias b="brew"
+alias bun="bundle"
+alias be="bundle exec"
 alias c="composer"
 alias f="find"
 alias g="git"
@@ -36,7 +38,7 @@ alias v="vagrant"
 alias vag="vagrant"
 alias vb="VBoxManage"
 alias vbm="VBoxManage"
-alias startx="startx > $HOME/startx.log 2>&1"
+alias startx="startx > ~/.dotfiles/logs/startx.log 2>&1"
 
 # function-type aliases
 alias publicip="curl icanhazip.com"
@@ -52,10 +54,12 @@ alias df="df -h"
 alias grep="grep --color=auto"
 alias ln="ln -v"
 # better than sudo su -- use current shell instead
-alias root="sudo -s"
 alias rsync='rsync --human-readable --partial --progress'
-alias se="sudo -e"
 alias wget="wget --no-check-certificate"
+
+# sudo ops
+alias root="sudo -s"
+alias se="sudo -e"
 
 # quick edits
 alias ealiases='e $DOTFILES/shell/aliases'

@@ -207,7 +207,7 @@ set switchbuf=useopen                 " reveal already opened files from the
 " easyclip handles this too, but this is more reliable since it does it in as
 " a command after exit/enter vim
 " clipboard -- use os clipboard
-if exists("$DISPLAY") && has('clipboard')
+if (exists("$DISPLAY") || g:is_mac) && has('clipboard')
   set clipboard=unnamed  " Share system clipboard.
   if has('unnamedplus')
     set clipboard+=unnamedplus  " Share X windows clipboard.
@@ -269,8 +269,12 @@ endif
 source ~/.vim/neobundle.vim
 call neobundle#end()
 
-" From tpope/vim-sensible
-" Load matchit.vim, but only if the user hasn't installed a newer version.
+" From tpope/vim-sensible: load matchit.vim, but only if the user hasn't
+" installed a newer version.
+"
+" For macvim it is found here:
+" /Applications/MacVim.app/Contents/Resources/vim/runtime/macros/matchit.vim
+"
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif

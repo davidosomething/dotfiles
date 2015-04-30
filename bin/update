@@ -1,21 +1,20 @@
 #!/usr/bin/env bash
 set -eu
 
-################################################################################
 # Update dotfiles and provide instructions for updating the system
-################################################################################
+#
 
 ################################################################################
 # initialize script and dependencies
 # get this bootstrap folder
 pushd "$(dirname "$0")/.." >> /dev/null
 dotfiles_path="$(pwd)"
+logs_path="$dotfiles_path/logs"
 bootstrap_path="$dotfiles_path/bootstrap"
 source "$bootstrap_path"/helpers.sh
 popd >> /dev/null
 
-################################################################################
-# Begin
+# Usage ------------------------------------------------------------------------
 if [[ $# -eq 0 ]]; then
   dkousage "update [thing]"
   dkousage_ "thing is one of:"
@@ -34,20 +33,20 @@ if [[ $# -eq 0 ]]; then
   exit 1
 fi
 
-################################################################################
+# Begin OS Specific ------------------------------------------------------------
 case "$OSTYPE" in
   linux*)
     if [[ "$1" = "arch" ]]; then
       dkostatus "ArchLinux system update"
       if command -v yaourt >/dev/null; then
         yaourt --sync --refresh     # -Sy         -- get new file list
-        yaourt -Syua
+        yaourt -Syua 2>&1 | tee "$logs_path/yaourt.log"
       elif command -v pacaur >/dev/null; then
-        pacaur -Syu
+        pacaur -Syu 2>&1 | tee "$logs_path/pacaur.log"
       elif command -v aura >/dev/null; then
-        aura -Syua
+        aura -Syua 2>&1 | tee "$logs_path/aura"
       else
-        pacman -Syu
+        pacman -Syu 2>&1 | tee "$logs_path/pacman.log"
       fi
     fi
 
@@ -84,23 +83,25 @@ case "$OSTYPE" in
     if [[ "$1" = "brew" ]]; then
       dkostatus "Updating homebrew"
       brew update
+      dkostatus "Outdated versions"
       brew outdated
-      brew upgrade --all
+      brew upgrade --all 2>&1 | tee "$logs_path/brew-upgrade.log"
       brew cleanup
       brew prune
     fi
   ;;
 esac
 
-################################################################################
-# Common
+# Common -----------------------------------------------------------------------
 if [[ "$1" = "dotfiles" ]]; then
   dkostatus "Updating dotfiles"
   # Make sure there are no untracked changes before updating dotfiles
 
   # Update dotfiles
   dkostatus_ "Getting latest updates"
-  cd "$HOME/.dotfiles" && git pull --rebase --recurse-submodules && git submodule update --init
+  cd "$HOME/.dotfiles" && \
+    git pull --rebase --recurse-submodules && \
+    git submodule update --init
   updated_dotfiles=$?
   if [[ $updated_dotfiles -ne 0 ]]; then
     dkodie "You have unsaved changes in your ~/.dotfiles folder."
@@ -140,8 +141,9 @@ if [[ "$1" = "vim" ]]; then
   vim -N -u "$HOME/.vim/vimrc" -c "try | \
     NeoBundleClean! | \
     NeoBundleCheck | \
-    NeoBundleUpdate! | \
+    NeoBundleUpdate | \
     NeoBundleUpdatesLog $* | \
     finally | qall! | endtry" -U NONE -i NONE -V1 -e -s
+  dkostatus "Done, see ~/.dotfiles/logs/neobundle.log"
 fi
 

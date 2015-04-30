@@ -22,10 +22,12 @@ NeoBundle 'altercation/vim-colors-solarized', {
       \   'gui': 1,
       \ }
 if neobundle#tap('vim-colors-solarized') && has('gui_running')
+  let g:neobundle#log_filename = expand('~/.dotfiles/logs/neobundle.log')
+
   " turn off gross italics -- fira sans happens to use ligatures too
   let g:solarized_italic = 0
 
-  function! neobundle#tapped.hooks.on_source(bundle)
+  function! neobundle#hooks.on_source(bundle)
     set background=light
     silent! colorscheme solarized               " STFU if no solarized
     silent! call togglebg#map("<F5>")
@@ -106,16 +108,8 @@ endif
 
 NeoBundle 'now/vim-quit-if-only-quickfix-buffer-left'
 
+" Most recently used files for unite.vim -- config is in unite.vim
 NeoBundle 'Shougo/neomru.vim'
-if neobundle#tap('unite.vim')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    call unite#custom#source(
-          \ 'neomru/file', 'matchers',
-          \ ['matcher_project_files', 'matcher_fuzzy']
-          \ )
-  endfunction
-  call neobundle#untap()
-endif
 
 NeoBundle 'Shougo/unite.vim', {
       \   'depends': [ 'Shougo/vimproc', 'Shougo/neomru.vim' ],
@@ -148,7 +142,12 @@ if neobundle#tap('unite.vim')
     let g:unite_source_grep_recursive_opt = ''
   endif
 
-  function! neobundle#tapped.hooks.on_source(bundle)
+  function! neobundle#hooks.on_source(bundle)
+    call unite#custom#source(
+          \ 'neomru/file', 'matchers',
+          \ ['matcher_project_files', 'matcher_fuzzy']
+          \ )
+
     call unite#custom#profile('default', 'context', {
           \   'silent':             1,
           \   'direction':          'botright',
@@ -310,7 +309,7 @@ if neobundle#tap('neocomplete.vim')
   let g:neocomplete#sources#omni#input_patterns.php =
     \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
-  function! neobundle#tapped.hooks.on_source(bundle)
+  function! neobundle#hooks.on_source(bundle)
     " from the github page: <CR> cancels completion and inserts newline
     inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
@@ -345,7 +344,7 @@ if neobundle#tap('neocomplcache.vim')
   let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
   let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-  function! neobundle#tapped.hooks.on_source(bundle)
+  function! neobundle#hooks.on_source(bundle)
     " <C-h>, <BS>: close popup and delete backword char.
     inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
     inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
