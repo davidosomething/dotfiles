@@ -106,8 +106,19 @@ endif
 
 NeoBundle 'now/vim-quit-if-only-quickfix-buffer-left'
 
+NeoBundle 'Shougo/neomru.vim'
+if neobundle#tap('unite.vim')
+  function! neobundle#tapped.hooks.on_source(bundle)
+    call unite#custom#source(
+          \ 'neomru/file', 'matchers',
+          \ ['matcher_project_files', 'matcher_fuzzy']
+          \ )
+  endfunction
+  call neobundle#untap()
+endif
+
 NeoBundle 'Shougo/unite.vim', {
-      \   'depends': 'Shougo/vimproc',
+      \   'depends': [ 'Shougo/vimproc', 'Shougo/neomru.vim' ],
       \ }
 if neobundle#tap('unite.vim')
   if executable('ag')
@@ -138,16 +149,23 @@ if neobundle#tap('unite.vim')
           \   'direction':          'botright',
           \   'winheight':          8,
           \   'short_source_names': 1,
-          \   'start_insert':       0,
+          \   'start_insert':       1,
           \ })
 
+    " command-t/ctrlp replacement
     nnoremap <F1> :Unite file_rec/async:!<CR>
     inoremap <F1> <Esc>:Unite file_rec/async:!<CR>
     vnoremap <F1> <Esc>:Unite file_rec/async:!<CR>
 
-    nnoremap <F2> :Unite grep:!<CR>
-    inoremap <F2> <Esc>:Unite grep:!<CR>
-    vnoremap <F2> <Esc>:Unite grep:!<CR>
+    " recently used
+    nnoremap <F2> :Unite neomru/file<CR>
+    inoremap <F2> <Esc>:Unite neomru/file<CR>
+    vnoremap <F2> <Esc>:Unite neomru/file<CR>
+
+    " find in files
+    nnoremap <F3> :Unite grep:!<CR>
+    inoremap <F3> <Esc>:Unite grep:!<CR>
+    vnoremap <F3> <Esc>:Unite grep:!<CR>
   endfunction
   call neobundle#untap()
 endif
@@ -223,8 +241,8 @@ NeoBundleLazy 'osyo-manga/vim-over', {
       \   'autoload': { 'commands': [ 'OverCommandLine' ] },
       \ }
 if neobundle#tap('vim-over')
-  nmap <F3> :OverCommandLine<CR>
-  vmap <F3> <Esc>:OverCommandLine<CR>
+  nmap <F4> :OverCommandLine<CR>
+  vmap <F4> <Esc>:OverCommandLine<CR>
   call neobundle#untap()
 endif
 
