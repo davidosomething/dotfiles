@@ -83,9 +83,9 @@ NeoBundleLazy 'majutsushi/tagbar', {
       \   'disabled': !executable("ctags"),
       \ }
 if neobundle#tap('tagbar')
-  nmap <F8> :TagbarToggle<CR>
-  imap <F8> <Esc>:TagbarToggle<CR>
-  vmap <F8> <Esc>:TagbarToggle<CR>
+  nmap <F10> :TagbarToggle<CR>
+  imap <F10> <Esc>:TagbarToggle<CR>
+  vmap <F10> <Esc>:TagbarToggle<CR>
 
   let g:tagbar_autoclose = 1            " close after jumping
   let g:tagbar_autofocus = 1
@@ -121,6 +121,11 @@ NeoBundle 'Shougo/unite.vim', {
       \   'depends': [ 'Shougo/vimproc', 'Shougo/neomru.vim' ],
       \ }
 if neobundle#tap('unite.vim')
+
+  " track yanks
+  let g:unite_source_history_yank_enable = 1
+
+  " use ag for file_rec/async and unite grep
   if executable('ag')
     let s:ag_opts =
           \ ' --nocolor --nogroup --numbers' .
@@ -149,23 +154,32 @@ if neobundle#tap('unite.vim')
           \   'direction':          'botright',
           \   'winheight':          8,
           \   'short_source_names': 1,
-          \   'start_insert':       1,
           \ })
 
+    " ========================================
     " command-t/ctrlp replacement
-    nnoremap <F1> :Unite file_rec/async:!<CR>
-    inoremap <F1> <Esc>:Unite file_rec/async:!<CR>
-    vnoremap <F1> <Esc>:Unite file_rec/async:!<CR>
+    nnoremap <F1> :<C-u>Unite -start-insert file_rec/async:!<CR>
+    inoremap <F1> <Esc>:<C-u>Unite -start-insert file_rec/async:!<CR>
+    vnoremap <F1> <Esc>:<C-u>Unite -start-insert file_rec/async:!<CR>
 
+    " ========================================
     " recently used
-    nnoremap <F2> :Unite neomru/file<CR>
-    inoremap <F2> <Esc>:Unite neomru/file<CR>
-    vnoremap <F2> <Esc>:Unite neomru/file<CR>
+    nnoremap <F2> :<C-u>Unite -start-insert neomru/file<CR>
+    inoremap <F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
+    vnoremap <F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
 
-    " find in files
-    nnoremap <F3> :Unite grep:!<CR>
-    inoremap <F3> <Esc>:Unite grep:!<CR>
-    vnoremap <F3> <Esc>:Unite grep:!<CR>
+    " ========================================
+    " find in files (ag.vim/ack.vim replacement)
+    nnoremap <F3> :<C-u>Unite grep:!<CR>
+    inoremap <F3> <Esc>:<C-u>Unite grep:!<CR>
+    vnoremap <F3> <Esc>:<C-u>Unite grep:!<CR>
+
+    " ========================================
+    " find in yank history
+    nnoremap <F11> :<C-u>Unite history/yank<CR>
+    inoremap <F11> <Esc>:<C-u>Unite history/yank<CR>
+    vnoremap <F11> <Esc>:<C-u>Unite history/yank<CR>
+
   endfunction
   call neobundle#untap()
 endif
@@ -182,9 +196,9 @@ if neobundle#tap('vimfiler.vim')
   let g:vimfiler_file_icon = '-'
   let g:vimfiler_marked_file_icon = '*'
 
-  nnoremap <F10> :VimFilerExplorer<CR>
-  inoremap <F10> <Esc>:VimFilerExplorer<CR>
-  vnoremap <F10> <Esc>:VimFilerExplorer<CR>
+  nnoremap <F9> :VimFilerExplorer<CR>
+  inoremap <F9> <Esc>:VimFilerExplorer<CR>
+  vnoremap <F9> <Esc>:VimFilerExplorer<CR>
   call neobundle#untap()
 endif
 
@@ -561,6 +575,9 @@ if neobundle#tap('CoffeeTags')
   "       \ }
   call neobundle#untap()
 endif
+
+" react/JSX syn highlighting for .cjsx
+NeoBundle 'mtscout6/vim-cjsx'
 
 " react/JSX syn highlighting for .jsx
 NeoBundleLazy 'mxw/vim-jsx', { 'depends': 'vim-javascript' }
