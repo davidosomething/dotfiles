@@ -103,7 +103,8 @@ NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
 
 NeoBundle 'nathanaelkane/vim-indent-guides'
 if neobundle#tap('vim-indent-guides')
-  nnoremap <F7> :IndentGuidesToggle<CR>
+  nnoremap <silent> <F6> :IndentGuidesToggle<CR>
+  inoremap <silent> <F6> <ESC>:IndentGuidesToggle<CR>i
   let g:indent_guides_guide_size = 1
   let g:indent_guides_start_level = 2
   call neobundle#untap()
@@ -146,17 +147,57 @@ if neobundle#tap('unite.vim')
   endif
 
   function! neobundle#hooks.on_source(bundle)
-    call unite#custom#source(
-          \ 'neomru/file', 'matchers',
-          \ ['matcher_project_files', 'matcher_fuzzy']
-          \ )
-
+    " ========================================
+    " open in bottom pane like ctrl-p
     call unite#custom#profile('default', 'context', {
           \   'silent':             1,
           \   'direction':          'botright',
-          \   'winheight':          8,
+          \   'winheight':          12,
           \   'short_source_names': 1,
           \ })
+
+    " ========================================
+    " always use fuzzy match (e.g. type abc to match app/book/collection)
+    call unite#filters#matcher_default#use(
+          \   ['matcher_project_files', 'matcher_fuzzy']
+          \ )
+
+    " ========================================
+    " display relative paths in file search
+    " using stock filter
+    " https://github.com/Shougo/unite.vim/blob/master/autoload/unite/filters/converter_relative_word.vim
+    call unite#custom#source(
+          \   'file_rec,file_rec/async,neomru/file', 'converters',
+          \   ['converter_relative_word']
+          \ )
+
+    " @TODO custom converter for grep ag output
+
+    " ========================================
+    " Unite buffer keybindings
+    function! s:unite_my_settings()
+      " never go to unite normal mode
+      " for unite buffers, exit immediately on <Esc>
+      " " https://github.com/Shougo/unite.vim/issues/693#issuecomment-67889305
+      imap <buffer> <Esc>          <Plug>(unite_exit)
+      nmap <buffer> <Esc>          <Plug>(unite_exit)
+
+      " also exit on unite-bound function keys, so you can toggle open and
+      " close with same key
+      imap <buffer> <F1>           <Plug>(unite_exit)
+      nmap <buffer> <F1>           <Plug>(unite_exit)
+      imap <buffer> <F2>           <Plug>(unite_exit)
+      nmap <buffer> <F2>           <Plug>(unite_exit)
+      imap <buffer> <F3>           <Plug>(unite_exit)
+      nmap <buffer> <F3>           <Plug>(unite_exit)
+      imap <buffer> <F11>          <Plug>(unite_exit)
+      nmap <buffer> <F11>          <Plug>(unite_exit)
+
+      " never use unite actions on TAB
+      iunmap <buffer> <Tab>
+      nunmap <buffer> <Tab>
+    endfunction
+    autocmd FileType unite call s:unite_my_settings()
 
     " ========================================
     " command-t/ctrlp replacement
@@ -253,8 +294,13 @@ if neobundle#tap('Cmd2.vim')
   let g:Cmd2__suggest_esc_menu = 1
 
   function! neobundle#hooks.on_source(bundle)
-    nmap : :<F8>
+    " always use Cmd2
+    "nmap : :<F8>
+    nmap <F8> :<F8>
+
+    " Press F8 in cmdmode to use Cmd2
     cmap <F8> <Plug>(Cmd2Suggest)
+
   endfunction
 
   call neobundle#untap()
@@ -286,8 +332,8 @@ NeoBundleLazy 'osyo-manga/vim-over', {
       \   'autoload': { 'commands': [ 'OverCommandLine' ] },
       \ }
 if neobundle#tap('vim-over')
-  nmap <F4> :OverCommandLine<CR>
-  vmap <F4> <Esc>:OverCommandLine<CR>
+  nmap <F7> :OverCommandLine<CR>
+  vmap <F7> <Esc>:OverCommandLine<CR>
   call neobundle#untap()
 endif
 
