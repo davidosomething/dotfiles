@@ -40,13 +40,13 @@ case "$OSTYPE" in
       dkostatus "ArchLinux system update"
       if command -v yaourt >/dev/null; then
         yaourt --sync --refresh     # -Sy         -- get new file list
-        yaourt -Syua 2>&1 | tee "$logs_path/yaourt.log"
+        yaourt -Syua
       elif command -v pacaur >/dev/null; then
-        pacaur -Syu 2>&1 | tee "$logs_path/pacaur.log"
+        pacaur -Syu
       elif command -v aura >/dev/null; then
-        aura -Syua 2>&1 | tee "$logs_path/aura"
+        aura -Syua
       else
-        pacman -Syu 2>&1 | tee "$logs_path/pacman.log"
+        pacman -Syu
       fi
     fi
 
