@@ -145,6 +145,7 @@ if [[ "$1" = "vim" ]]; then
     NeoBundleCheck | \
     NeoBundleUpdate | \
     NeoBundleUpdatesLog $* | \
+    message | \
     finally | qall! | endtry" -U NONE -i NONE -V1 -e -s
 fi
 
