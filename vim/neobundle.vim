@@ -268,14 +268,18 @@ NeoBundle 'suan/vim-instant-markdown', {
       \   },
       \   'gui': 1,
       \ }
-
-if neobundle#tap('gundo.vim')
+if neobundle#tap('vim-instant-markdown')
   let g:instant_markdown_autostart = 0
   let g:instant_markdown_slow = 1
   call neobundle#untap()
 endif
 
 NeoBundle 'tpope/vim-fugitive'
+
+NeoBundleLazy 'tyru/restart.vim', {
+      \   'autoload': { 'commands': 'Restart' },
+      \   'gui': 1
+      \ }
 
 " ------------------------------------------------------------------------------
 " commands

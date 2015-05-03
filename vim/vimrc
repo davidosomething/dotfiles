@@ -263,6 +263,11 @@ endif
 source ~/.vim/neobundle.vim
 call neobundle#end()
 
+if !has('vim_starting')
+  " Call on_source hook when reloading .vimrc.
+  call neobundle#call_hook('on_source')
+endif
+
 " From tpope/vim-sensible: load matchit.vim, but only if the user hasn't
 " installed a newer version.
 "
