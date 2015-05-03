@@ -8,6 +8,7 @@ source "$HOME/.dotfiles/shell/aliases"
 for script in "options" "completions" "prompt"; do
   source "$BASH_DOTFILES/${script}.bash"
 done
+unset script
 
 source "$HOME/.dotfiles/shell/after"
 

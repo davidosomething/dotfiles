@@ -32,6 +32,7 @@ scripts=(
 for script in $scripts; do
   source "$ZDOTDIR/$script.zsh"
 done
+unset script
 
 source "$DOTFILES/shell/after"
 
