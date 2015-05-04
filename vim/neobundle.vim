@@ -171,8 +171,6 @@ if neobundle#tap('unite.vim')
           \   ['converter_relative_word']
           \ )
 
-    " @TODO custom converter for grep ag output
-
     " ========================================
     " Unite buffer keybindings
     function! s:unite_my_settings()

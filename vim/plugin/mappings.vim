@@ -32,7 +32,6 @@ function! ToggleMovementMode()
   endif
 endfunction
 nnoremap <silent> \| :call ToggleMovementMode()<CR>
-inoremap <silent> \| <ESC>:call ToggleMovementMode()<CR>
 
 " Map the arrow keys to be based on display lines, not physical lines
 vnoremap <Down> gj
