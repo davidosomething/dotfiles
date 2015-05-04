@@ -11,10 +11,12 @@ alias ..="cd .."
 alias ....="cd ../.."
 alias cd..="cd .."
 alias dirs="dirs -v"                  # default to vert, use -l for list
-alias l="ls -AFl"
-alias la="ls -AF"
-alias ll="ls -AFl"
 alias tree="tree -C"
+
+# ls aliases
+alias l="ls   --almost-all --classify -l"
+alias la="ls  --almost-all --classify"
+alias ll="ls  --almost-all --classify -1 -l"
 
 # bin
 alias b="brew"
@@ -87,7 +89,7 @@ case "$OSTYPE" in
   linux*)
 
     [ "$DOTFILES_DISTRO" != "busybox" ] && {
-      alias ls="ls --color=auto -p --time-style=\"+%Y%m%d\""
+      alias ls="ls --color=auto --time-style=\"+%Y%m%d\""
     }
 
     alias open="o"
