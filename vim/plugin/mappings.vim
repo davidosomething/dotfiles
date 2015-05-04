@@ -31,7 +31,7 @@ function! ToggleMovementMode()
     echo 'Moving by line numbers'
   endif
 endfunction
-nnoremap <silent> \| :call ToggleMovementMode()<CR>
+nnoremap <silent> <Leader>t :call ToggleMovementMode()<CR>
 
 " Map the arrow keys to be based on display lines, not physical lines
 vnoremap <Down> gj
