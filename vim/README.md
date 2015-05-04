@@ -8,9 +8,32 @@ for getting ctag support in various languages for tagbar.
 See [https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers](https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers)
 for getting various linter support in syntastic.
 
-## Under consideration
+## Keys
 
-'osyo-manga/vim-anzu' instead of 'haya14busa/incsearch.vim'
+- `<F1>` unite fuzzy search files
+- `<F2>` unite fuzzy search most recently used files
+- `<F3>` unite grep via ag
+
+- `<F5>` toggle solarized bg
+- `<F6>` toggle indent guides
+- `<F7>` OverCommandLine for subst
+- `<F8>` Cmd2 for command auto suggestions/completions
+
+- `<F9>` left pane: vimfiler
+- `<F10>` right pane: tagbar
+- `<F11>` unite yank history
+- `<F12>` toggle paste mode
+
+- `<A-dir>` Move around splits
+- `<S-dir>` Resize splits
+- `<C-left/right>` tabn/tabp
+
+- `<C-up/down>` swap lines
+
+See `vim/plugins/mappings.vim` for the leader key bindings and more.
+See `vim/neobundle.vim` for plugin specific bindings.
+
+## Under consideration
 
 'xolox/vim-easytags' generates a _tags_ file automatically (unlike tagbar which
 only generates on the fly)
@@ -27,10 +50,11 @@ Don't need this for now
 ```
 
 ### Alternate CSS colorizing plugins
-`
+
+```
 NeoBundleLazy 'gorodinskiy/vim-coloresque', {
 NeoBundle 'chrisbra/Colorizer', {
-`
+```
 
 ### tern for vim
 
@@ -77,10 +101,10 @@ autocmdFT javascript setlocal omnifunc=tern#Complete
 " endif
 ```
 
-
 ## Plugins I intentionally don't use
 
 ctags stuff just never works out right.
+
 ```
 "NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
 
@@ -95,6 +119,7 @@ ctags stuff just never works out right.
 ```
 
 Using gutentags instead of easytags
+
 ```
 " NeoBundle 'xolox/vim-easytags', {
 "       \   'depends' : 'xolox/vim-misc',
@@ -137,7 +162,6 @@ Comes bundled with vim7.4 now
 "NeoBundle 'tpope/vim-markdown'          " creates markdown filetype
 ```
 
-
 ```
 library for vim-operator-replace
 NeoBundle 'kana/vim-operator-user', {
@@ -152,30 +176,30 @@ NeoBundle 'MarcWeber/vim-addon-mw-utils'
 ```
 
 - ctrlpvim/ctrlp.vim
-    - I always just `ag` from a terminal or open an exact filename in vim
-    - Extras
-      ```
-      " NeoBundle 'tacahiroy/ctrlp-funky'
-      "   nnoremap <F8> :CtrlPFunky<Cr>
-      ```
+  - I always just `ag` from a terminal or open an exact filename in vim
+  - Extras
+
+    ```
+    " NeoBundle 'tacahiroy/ctrlp-funky'
+    "   nnoremap <F8> :CtrlPFunky<Cr>
+    ```
+
 - jeetsukumaran/vim-buffergator
-    - Using vim-airline to show buffers all the time, unimpaired switches
-    - alternatively, CtrlP has a buffer mode if I wanted it
+  - Using vim-airline to show buffers all the time, unimpaired switches
+  - alternatively, CtrlP has a buffer mode if I wanted it
 - kien/tabman.vim
-    - vim-airline could show tabs, custom mappings to switch
-    - alternatively, CtrlP does the same thing if I wanted it
+  - vim-airline could show tabs, custom mappings to switch
+  - alternatively, CtrlP does the same thing if I wanted it
 - nathanaelkane/vim-command-w
-    - doesn't work, macvim specific
-- scrooloose/nerdtree
+  - doesn't work, macvim specific
+- scrooloose/nerdtree - VimFiler is better
 - shougo/neosnippet.vim
-    - UltiSnips has WordPress.vim integration
-- shougo/unite.vim
-    - CtrlP has auto WordPress.vim integration
+  - UltiSnips has WordPress.vim integration
 - techlivezheng/vim-plugin-minibufexpl
-    - vim-airline does this
-    - don't like the double status line
+  - vim-airline does this
+  - don't like the double status line
 - vim-scripts/kwbdi.vim
-    - Bufkill is newer
+  - Bufkill is newer
 
 ```
 " Don't want for now until I can turn off the highlighting:
@@ -194,12 +218,6 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 ```
 " conflicts with easyclip M mapping
 "NeoBundle 'gorkunov/smartpairs.vim'
-```
-
-
-```
-" NeoBundle 'osyo-manga/vim-over'
-"   nnoremap <c-s> :OverCommandLine<CR>
 ```
 
 ```
