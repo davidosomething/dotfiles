@@ -12,6 +12,7 @@ NeoBundle 'Shougo/vimproc', {
       \     'cygwin':  'make -f make_cygwin.mak',
       \     'windows': 'make -f make_mingw32.mak',
       \   }
+      \   'disabled':  ($DOTFILES_DISTRO != "busybox")
       \ }
 
 NeoBundle 'tobyS/vmustache' " for pdv
