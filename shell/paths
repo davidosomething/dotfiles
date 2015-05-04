@@ -10,7 +10,12 @@
 _add_my_paths() {
   # inherit system defaults and from
   # /etc/profile (which sources /etc/profile.d)
-  my_path="$(command -p getconf PATH)"
+  [ -x "/bin/getconf" ] && my_path="$(command -p getconf PATH)"
+  [ ! -x "/bin/getconf" ] && {
+    ORIG_PATH="$PATH"
+    export ORIG_PATH
+    my_path="$ORIG_PATH"
+  }
 
   # reorder defaults?
   #my_path="/usr/bin:/bin:/usr/sbin:/sbin:$my_path"
