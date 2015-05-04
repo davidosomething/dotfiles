@@ -1,10 +1,6 @@
-#!/usr/bin/env bash
-
 # Shell aliases
 # Not run by loader
 # Sourced by both .zshrc and .bashrc, so keep it bash compatible
-
-alias testnotification="notify-send 'Hello world!' 'This is an example notification.' --icon=dialog-information"
 
 # paths and dirs
 alias ..="cd .."
@@ -13,54 +9,42 @@ alias cd..="cd .."
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias tree="tree -C"
 
-# ls aliases
-
 # bin
 alias b="brew"
-alias bun="bundle"
 alias be="bundle exec"
+alias bun="bundle"
 alias c="composer"
+alias df="df -h"
 alias dog='pygmentize -O style=monokai -f console256 -g'
-alias e="vopen"
 alias f="find"
-alias g="git"
 alias g-="git co -"
+alias g="git"
 alias gb="git browse"
+alias grep="grep --color=auto"
+alias ln="ln -v"
 alias n="npm"
-alias pac="pacaur"
 alias p="php"
-alias py="python"
+alias publicip="curl icanhazip.com"
 alias py2="python2"
 alias py3="python3"
+alias py="python"
+alias rsync='rsync --human-readable --partial --progress'
+alias today="date +%Y-%m-%d"
+alias tpr="tput reset"                # really clear the scrollback
 alias u="update"
-alias v="vagrant"
 alias vag="vagrant"
 alias vb="VBoxManage"
 alias vbm="VBoxManage"
-alias startx="startx > ~/.dotfiles/logs/startx.log 2>&1"
-
-# function-type aliases
-alias publicip="curl icanhazip.com"
-# really clear the scrollback
-alias tpr="tput reset"
-alias mine='sudo chown -R $USER'
-alias xkbreset="setxkbmap -layout us && xmodmap ~/.Xmodmap"
-alias today="date +%Y-%m-%d"
-
-# default flags for programs
-alias df="df -h"
-# Always enable colored `grep` output
-alias grep="grep --color=auto"
-alias ln="ln -v"
-# better than sudo su -- use current shell instead
-alias rsync='rsync --human-readable --partial --progress'
 alias wget="wget --no-check-certificate"
 
 # sudo ops
+alias mine='sudo chown -R $USER'
 alias root="sudo -s"
 alias se="sudo -e"
 
-# quick edits
+# editor
+alias e="v"
+alias v="vopen"
 alias edot='e $DOTFILES'
 alias eshell='e $DOTFILES/shell'
 alias ehosts="se /etc/hosts"
@@ -108,7 +92,15 @@ case "$OSTYPE" in
     alias pumpitup="osascript -e 'set volume 7'"
     ;;
   linux*)
-    alias open="o"
+    alias open="o"                    # use open() function in shell/functions
+    alias startx="startx > ~/.dotfiles/logs/startx.log 2>&1"
+
+    alias testnotification="notify-send \
+      'Hello world!' \
+      'This is an example notification.' \
+      --icon=dialog-information"
+
+    alias xkbreset="setxkbmap -layout us && xmodmap ~/.Xmodmap"
 
     case "$DOTFILES_DISTRO" in
       busybox)
