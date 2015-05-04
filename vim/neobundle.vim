@@ -123,11 +123,15 @@ if neobundle#tap('unite.vim')
   " track yanks
   let g:unite_source_history_yank_enable = 1
 
+  " candidates
+  let g:unite_source_grep_max_candidates = 300
+
   " use ag for file_rec/async and unite grep
   if executable('ag')
     let s:ag_opts =
-          \ ' --nocolor --nogroup --numbers' .
-          \ ' --follow --smart-case --hidden'
+          \ ' --vimgrep'
+          " \ ' --nocolor --nogroup --numbers' .
+          " \ ' --follow --smart-case --hidden'
 
     " Ignore wildignores too
     " https://github.com/gf3/dotfiles/blob/master/.vimrc#L564
@@ -150,10 +154,11 @@ if neobundle#tap('unite.vim')
     " ========================================
     " open in bottom pane like ctrl-p
     call unite#custom#profile('default', 'context', {
-          \   'silent':             1,
           \   'direction':          'botright',
-          \   'winheight':          12,
+          \   'max_candidates':     300,
           \   'short_source_names': 1,
+          \   'silent':             1,
+          \   'winheight':          12,
           \ })
 
     " ========================================
