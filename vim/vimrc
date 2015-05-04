@@ -26,18 +26,6 @@ endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-if g:is_first_neobundle
-  NeoBundle 'Shougo/vimproc', {
-      \   'build': {
-      \     'mac':     'make -f make_mac.mak',
-      \     'unix':    'make -f make_unix.mak',
-      \     'cygwin':  'make -f make_cygwin.mak',
-      \     'windows': 'make -f make_mingw32.mak',
-      \   }
-      \ }
-  NeoBundleInstall 'vimproc'
-endif
-
 " Display ----------------------------------------------------------------------
 set visualbell                        " no beeps
 set ttyfast
