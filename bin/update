@@ -132,10 +132,18 @@ if [ "$1" = "php" ] && [ -d "$HOME/.phpenv" ]; then
   phpenv rehash
 fi
 
+_upgrade_pip() {
+  local pip_command=$1
+  dkostatus "Updating $pip_command"
+  if has_program "$pip_command"; then
+    $pip_command install --upgrade setuptools
+    $pip_command install --upgrade "$pip_command"
+  fi
+}
+
 if [[ "$1" = "pip" ]]; then
-  dkostatus "Updating pip"
-  pip install --upgrade setuptools
-  pip install --upgrade pip
+  _upgrade_pip "pip"
+  _upgrade_pip "pip3"
 fi
 
 if [[ "$1" = "vim" ]]; then

@@ -20,6 +20,7 @@ alias b="brew"
 alias bun="bundle"
 alias be="bundle exec"
 alias c="composer"
+alias dog='pygmentize -O style=monokai -f console256 -g'
 alias e="vopen"
 alias f="find"
 alias g="git"

@@ -4,6 +4,13 @@
 
 set -eu
 
+################################################################################
+# initialize script and dependencies
+# get this bootstrap folder
+pushd "$(dirname "$0")/.." >> /dev/null
+dotfiles_path="$(pwd)"
+popd >> /dev/null
+
 # http://serverwizard.heroku.com/script/rvm+git
 # added error output to stderr
 dkostatus()     { echo -e "\033[0;34m==>\033[0;32m $*\033[0;m"; }
@@ -29,7 +36,7 @@ dkorequireroot() {
 ##
 # require executable
 dkorequire()    {
-  if [[ $(command -v $1) ]]; then
+  if [[ $(command -v "$1") ]]; then
     dkostatus "FOUND: $1"
   else
     dkodie "missing $1, please install before proceeding.";
@@ -41,6 +48,11 @@ dkorequire()    {
 dkosymlink() {
   local dotfile="$dotfiles_path/$1"
   local homefile="$2"
-  dkosymlinking $homefile $dotfile && ln -fns $dotfile $HOME/$homefile
+  dkosymlinking "$homefile" "$dotfile" && ln -fns "$dotfile" "$HOME/$homefile"
+}
+
+# silently determine existence of executable
+has_program() {
+  command -v "$1" >/dev/null 2>&1
 }
 
