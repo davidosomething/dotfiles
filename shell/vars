@@ -54,8 +54,8 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 # for rsync and cvs
 export ACKRC="$DOTFILES/ack/.ackrc"
 export CVSIGNORE="$DOTFILES/git/.gitignore"
-export EDITOR="e --nofork"
-export VISUAL="e --nofork"
+export EDITOR="vopen --nofork"
+export VISUAL="vopen --nofork"
 # Don't clear the screen after quitting a manual page
 export SCREENRC="$DOTFILES/screen/.screenrc"
 
