@@ -85,18 +85,23 @@ case "$OSTYPE" in
     alias pumpitup="osascript -e 'set volume 7'"
     ;;
   linux*)
-    [ -z "$DOTFILES_DISTRO" ] && {
+
+    [ "$DOTFILES_DISTRO" != "busybox" ] && {
       alias ls="ls --color=auto -p --time-style=\"+%Y%m%d\""
     }
+
     alias open="o"
+
     [ "$DOTFILES_DISTRO" = "archlinux" ] && {
       alias y="yaourt"
       alias pac="sudo pacman"
       alias thu="thunar"
     }
+
     [ "$DOTFILES_DISTRO" = "debian" ] && {
       alias a="sudo aptitude -F \"%p %d %v\""
     }
+
     ;;
 esac
 
