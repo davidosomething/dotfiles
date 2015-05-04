@@ -248,7 +248,9 @@ if has("autocmd")
 endif
 
 " NeoBundles -------------------------------------------------------------------
-source ~/.vim/neobundle.vim
+if $DOTFILES_DISTRO != "busybox"
+  source ~/.vim/neobundle.vim
+endif
 call neobundle#end()
 
 if !has('vim_starting')
