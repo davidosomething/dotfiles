@@ -14,9 +14,6 @@ alias dirs="dirs -v"                  # default to vert, use -l for list
 alias tree="tree -C"
 
 # ls aliases
-alias l="ls   --almost-all --classify -l"
-alias la="ls  --almost-all --classify"
-alias ll="ls  --almost-all --classify -1 -l"
 
 # bin
 alias b="brew"
@@ -63,22 +60,45 @@ alias root="sudo -s"
 alias se="sudo -e"
 
 # quick edits
-alias ealiases='e $DOTFILES/shell/aliases'
-alias efunctions='e $DOTFILES/shell/functions'
-alias epaths='e $BASH_DOTFILES/paths.sh'
-alias ebashrc='e $BASH_DOTFILES/bashrc.sh'
-alias elbashrc='e $HOME/.bashrc.local'
-alias ehosts="sudo vim /etc/hosts"
-alias evg="e ~/.vim/gvimrc"
-alias evm="e ~/.vim/plugin/mappings.vim"
-alias evp="e ~/.vim/neobundle.vim"
-alias evr="e ~/.vim/vimrc"
+alias edot='e $DOTFILES'
+alias eshell='e $DOTFILES/shell'
+alias ehosts="se /etc/hosts"
+alias evm='e $VIM/plugin/mappings.vim'
+alias evp='e $VIM/neobundle.vim'
+alias evr='e $VIM/vimrc'
+
+_alias_ls() {
+  local oneline="-1"
+  local almost_all="--almost-all"
+  local classify="--classify"
+  local colorized="--color=auto"
+  local long="-l"
+  local timestyle=""
+
+  if [ "$DOTFILES_OS" = "Darwin" ]; then
+    almost_all="-A"
+    classify="-F"
+    colorized="-G"
+  fi
+
+  if [ "$DOTFILES_OS" = "Linux" ] && [ "$DOTFILES_DISTRO" != "busybox" ]; then
+    timestyle="--time-style=\"+%Y%m%d\""
+  fi
+
+  # shellcheck disable=SC2139
+  alias ls="ls $colorized $classify $timestyle"
+  # shellcheck disable=SC2139
+  alias la="ls $almost_all"
+  # shellcheck disable=SC2139
+  alias l="ls $almost_all $oneline"
+  # shellcheck disable=SC2139
+  alias ll="l $long"
+}
+_alias_ls
 
 # os specific
 case "$OSTYPE" in
   darwin*)
-    alias ls="ls -G -p"
-
     # clear xattrs
     alias xc="xattr -c *"
 
@@ -87,23 +107,20 @@ case "$OSTYPE" in
     alias pumpitup="osascript -e 'set volume 7'"
     ;;
   linux*)
-
-    [ "$DOTFILES_DISTRO" != "busybox" ] && {
-      alias ls="ls --color=auto --time-style=\"+%Y%m%d\""
-    }
-
     alias open="o"
 
-    [ "$DOTFILES_DISTRO" = "archlinux" ] && {
-      alias y="yaourt"
-      alias pac="sudo pacman"
-      alias thu="thunar"
-    }
-
-    [ "$DOTFILES_DISTRO" = "debian" ] && {
-      alias a="sudo aptitude -F \"%p %d %v\""
-    }
-
+    case "$DOTFILES_DISTRO" in
+      busybox)
+        ;;
+      archlinux)
+        alias y="yaourt"
+        alias pac="sudo pacman"
+        alias thu="thunar"
+        ;;
+      debian)
+        alias a="sudo aptitude -F \"%p %d %v\""
+        ;;
+    esac
     ;;
 esac
 

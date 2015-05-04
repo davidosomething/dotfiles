@@ -13,6 +13,7 @@ export LANG="en_US"
 export DOTFILES="$HOME/.dotfiles"
 export BASH_DOTFILES="$DOTFILES/bash"
 export ZDOTDIR="$DOTFILES/zsh"
+export VIM="$DOTFILES/vim"
 
 # LP_OS detection, default to Linux --------------------------------------------
 # https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
