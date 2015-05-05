@@ -33,10 +33,19 @@ if [[ $# -eq 0 ]]; then
   exit 1
 fi
 
-# Begin OS Specific ------------------------------------------------------------
-case "$OSTYPE" in
-  linux*)
-    if [[ "$1" = "arch" ]]; then
+# Command functions ------------------------------------------------------------
+_upgrade_pip() {
+  local pip_command=$1
+  dkostatus "Updating $pip_command"
+  if has_program "$pip_command"; then
+    $pip_command install --upgrade setuptools
+    $pip_command install --upgrade "$pip_command"
+  fi
+}
+
+_update_linux() {
+  case "$1" in
+    arch)
       dkostatus "ArchLinux system update"
       if command -v yaourt >/dev/null; then
         yaourt --sync --refresh     # -Sy         -- get new file list
@@ -48,39 +57,21 @@ case "$OSTYPE" in
       else
         pacman -Syu
       fi
-    fi
+      ;;
 
-    if [[ "$1" = "wp" ]]; then
+    wp)
       dkostatus "Update wp-cli"
       pushd ~/.wp-cli &&
       php composer.phar self-update &&
       php composer.phar update --no-dev &&
       popd
-    fi
-    ;;
+      ;;
+  esac
+}
 
-  darwin*)
-    if [[ "$1" = "docker" ]]; then
-      dkostatus "Updating boot2docker"
-      brew update
-      brew upgrade docker
-      brew upgrade boot2docker
-      boot2docker stop
-      boot2docker delete
-      boot2docker download
-      boot2docker init
-      boot2docker up
-    fi
-
-    if [[ "$1" = "osx" ]]; then
-      dkostatus "Repairing permissions"
-      diskutil repairPermissions /  # fix file system permissions
-
-      dkostatus "OSX system update"
-      sudo softwareupdate -i -a
-    fi
-
-    if [[ "$1" = "brew" ]]; then
+_update_darwin() {
+  case "$1" in
+    brew)
       dkostatus "Updating homebrew"
       brew update
       dkostatus "List of outdated packages"
@@ -90,9 +81,35 @@ case "$OSTYPE" in
       dkostatus "Cleanup old versions and prune dead symlinks"
       brew cleanup
       brew prune
-    fi
-  ;;
-esac
+      ;;
+
+    docker)
+      dkostatus "Updating boot2docker"
+      brew update
+      brew upgrade docker
+      brew upgrade boot2docker
+      boot2docker stop
+      boot2docker delete
+      boot2docker download
+      boot2docker init
+      boot2docker up
+      ;;
+
+    osx)
+      dkostatus "Repairing permissions"
+      diskutil repairPermissions /  # fix file system permissions
+
+      dkostatus "OSX system update"
+      sudo softwareupdate -i -a
+      ;;
+
+    pip)
+      _upgrade_pip "pip"
+      _upgrade_pip "pip2"
+      _upgrade_pip "pip3"
+      ;;
+  esac
+}
 
 # Common -----------------------------------------------------------------------
 if [[ "$1" = "dotfiles" ]]; then
@@ -132,20 +149,6 @@ if [ "$1" = "php" ] && [ -d "$HOME/.phpenv" ]; then
   phpenv rehash
 fi
 
-_upgrade_pip() {
-  local pip_command=$1
-  dkostatus "Updating $pip_command"
-  if has_program "$pip_command"; then
-    $pip_command install --upgrade setuptools
-    $pip_command install --upgrade "$pip_command"
-  fi
-}
-
-if [[ "$1" = "pip" ]]; then
-  _upgrade_pip "pip"
-  _upgrade_pip "pip3"
-fi
-
 if [[ "$1" = "vim" ]]; then
   dkostatus "Updating vim bundles"
   vim -N -u "$HOME/.vim/vimrc" -c "try | \
@@ -156,4 +159,10 @@ if [[ "$1" = "vim" ]]; then
     message | \
     finally | qall! | endtry" -U NONE -i NONE -V1 -e -s
 fi
+
+# Begin OS Specific ------------------------------------------------------------
+case "$OSTYPE" in
+  linux*)   _update_linux "$1"  ;;
+  darwin*)  _update_darwin "$1" ;;
+esac
 
