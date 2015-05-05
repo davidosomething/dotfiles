@@ -188,6 +188,7 @@ nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
+nmap <A-x> :close<CR>
 
 " Resize
 nnoremap <silent> <S-Left>  4<C-w><

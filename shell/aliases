@@ -48,15 +48,20 @@ alias v="vopen"
 alias edot='e $DOTFILES'
 alias eshell='e $DOTFILES/shell'
 alias ehosts="se /etc/hosts"
-alias evm='e $VIM/plugin/mappings.vim'
-alias evp='e $VIM/neobundle.vim'
-alias evr='e $VIM/vimrc'
+alias eoba='e $DOTFILES/linux/openbox/autostart.sh'
+alias eobe='e $DOTFILES/linux/openbox/environment'
+alias eobm='e $DOTFILES/linux/openbox/menu.xml'
+alias eobr='e $DOTFILES/linux/openbox/rc.xml'
+alias evm='e $VIM_DOTFILES/plugin/mappings.vim'
+alias evp='e $VIM_DOTFILES/neobundle.vim'
+alias evr='e $VIM_DOTFILES/vimrc'
 
 _alias_ls() {
   local oneline="-1"
   local almost_all="--almost-all"
   local classify="--classify"
   local colorized="--color=auto"
+  local groupdirs="--group-directories-first"
   local long="-l"
   local timestyle=""
 
@@ -64,6 +69,7 @@ _alias_ls() {
     almost_all="-A"
     classify="-F"
     colorized="-G"
+    groupdirs=""
   fi
 
   if [ "$DOTFILES_OS" = "Linux" ] && [ "$DOTFILES_DISTRO" != "busybox" ]; then
@@ -71,7 +77,7 @@ _alias_ls() {
   fi
 
   # shellcheck disable=SC2139
-  alias ls="ls $colorized $classify $timestyle"
+  alias ls="ls $colorized $classify $groupdirs $timestyle"
   # shellcheck disable=SC2139
   alias la="ls $almost_all"
   # shellcheck disable=SC2139
