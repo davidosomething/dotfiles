@@ -111,9 +111,9 @@ _alias_linux() {
 
 _alias_arch() {
   if command -v pacaur >/dev/null; then
-    alias b="yaourt"
-  elif command -v yaourt >/dev/null; then
     alias b="pacaur"
+  elif command -v yaourt >/dev/null; then
+    alias b="yaourt"
   fi
 
   alias thu="thunar"
