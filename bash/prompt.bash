@@ -1,7 +1,11 @@
+#!/usr/bin/env bash
+
+# prompt.bash
+
 # _prompt_git
 #
 # from paul irish
-# https://github.com/paulirish/dotfiles/blob/master/.bash_prompt
+# @see https://github.com/paulirish/dotfiles/blob/master/.bash_prompt
 #
 _prompt_git() {
   local branch_name
@@ -27,7 +31,8 @@ _prompt_git() {
   echo -e "${1}${branch_name}${2}${dirty_symbol}"
 }
 
-# prompt
+# _bash_prompt
+#
 _bash_prompt() {
   local Z="\[\033[0m\]"
   #local K="\[\033[0;30m\]"

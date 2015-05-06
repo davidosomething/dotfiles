@@ -1,9 +1,10 @@
-# .bash_profile
+#!/usr/bin/env bash
+
+# .bash_profile.symlink
 #
 # Login shells only -- use .bashrc exclusively
 # Except OSX which always starts a login shell.
-# http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html
-#
+# @see http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html
 
 export DKOSOURCE="$DKOSOURCE -> bash_profile"
 

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set completion-ignore-case on
 
 source_if_exists /etc/bash_completion
