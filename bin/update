@@ -47,11 +47,12 @@ _update_linux() {
   case "$1" in
     arch)
       dkostatus "ArchLinux system update"
-      if command -v yaourt >/dev/null; then
+      if command -v pacaur >/dev/null; then
+        pacaur -Syu                 # update system
+        pacaur --update     # update aur
+      elif command -v yaourt >/dev/null; then
         yaourt --sync --refresh     # -Sy         -- get new file list
         yaourt -Syua
-      elif command -v pacaur >/dev/null; then
-        pacaur -Syu
       elif command -v aura >/dev/null; then
         aura -Syua
       else

@@ -44,6 +44,9 @@ _vopen() {
     files=""
     while [ "$1" != "" ]; do
       if [[ "$1" == --* ]]; then
+        if [[ "$1" == "--nofork" ]]; then
+          use_server=false
+        fi
         args="$args $1"
       else
         [[ "$1" == *"MERGE_MSG" ]] && servername="GIT"

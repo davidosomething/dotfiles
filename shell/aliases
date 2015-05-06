@@ -10,7 +10,6 @@ alias dirs="dirs -v"                  # default to vert, use -l for list
 alias tree="tree -C"
 
 # bin
-alias b="brew"
 alias be="bundle exec"
 alias bun="bundle"
 alias c="composer"
@@ -23,7 +22,6 @@ alias gb="git browse"
 alias grep="grep --color=auto"
 alias ln="ln -v"
 alias n="npm"
-alias p="php"
 alias publicip="curl icanhazip.com"
 alias py2="python2"
 alias py3="python3"
@@ -88,40 +86,53 @@ _alias_ls() {
 }
 _alias_ls
 
+_alias_darwin() {
+  alias b="brew"
+
+  # clear xattrs
+  alias xc="xattr -c *"
+
+  # Audio control - http://xkcd.com/530/
+  alias stfu="osascript -e 'set volume output muted true'"
+  alias pumpitup="osascript -e 'set volume 7'"
+}
+
+_alias_linux() {
+  alias open="o"                    # use open() function in shell/functions
+  alias startx="startx > ~/.dotfiles/logs/startx.log 2>&1"
+
+  alias testnotification="notify-send \
+    'Hello world!' \
+    'This is an example notification.' \
+    --icon=dialog-information"
+
+  alias xkbreset="setxkbmap -layout us && xmodmap ~/.Xmodmap"
+}
+
+_alias_arch() {
+  if command -v pacaur >/dev/null; then
+    alias b="yaourt"
+  elif command -v yaourt >/dev/null; then
+    alias b="pacaur"
+  fi
+
+  alias thu="thunar"
+}
+
+_alias_deb() {
+  alias a="sudo aptitude -F \"%p %d %v\""
+}
+
 # os specific
 case "$OSTYPE" in
-  darwin*)
-    # clear xattrs
-    alias xc="xattr -c *"
-
-    # Audio control - http://xkcd.com/530/
-    alias stfu="osascript -e 'set volume output muted true'"
-    alias pumpitup="osascript -e 'set volume 7'"
-    ;;
-  linux*)
-    alias open="o"                    # use open() function in shell/functions
-    alias startx="startx > ~/.dotfiles/logs/startx.log 2>&1"
-
-    alias testnotification="notify-send \
-      'Hello world!' \
-      'This is an example notification.' \
-      --icon=dialog-information"
-
-    alias xkbreset="setxkbmap -layout us && xmodmap ~/.Xmodmap"
-
+  darwin*)  _alias_darwin ;;
+  linux*)   _alias_linux
     case "$DOTFILES_DISTRO" in
-      busybox)
-        ;;
-      archlinux)
-        alias y="yaourt"
-        alias pac="sudo pacman"
-        alias thu="thunar"
-        ;;
-      debian)
-        alias a="sudo aptitude -F \"%p %d %v\""
-        ;;
+      busybox)                  ;;
+      archlinux)  _alias_arch   ;;
+      debian)     _alias_deb    ;;
     esac
     ;;
 esac
 
-# vim: syntax=sh :
+# vim: syn=sh :
