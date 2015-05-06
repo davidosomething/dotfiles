@@ -49,7 +49,6 @@ _update_linux() {
       dkostatus "ArchLinux system update"
       if command -v pacaur >/dev/null; then
         pacaur -Syu                 # update system
-        pacaur --update     # update aur
       elif command -v yaourt >/dev/null; then
         yaourt --sync --refresh     # -Sy         -- get new file list
         yaourt -Syua
