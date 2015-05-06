@@ -1,24 +1,23 @@
 #!/usr/bin/env bash
 
-# 1.  don't bother checking for path existence since system will skip
-#     automatically
-# 2.  don't use BREW_PREFIX since we always want /usr/local/ paths
-
-# Looks at leftmost first, stops if finds
-# Bottom supercedes top
-
+# _add_my_paths
+#
 _add_my_paths() {
+  # Store default system path --------------------------------------------------
+  # Probably created via /etc/profile and /etc/profile.d/*
   if [[ -z "$DKO_SYSTEM_PATH" ]]; then
     DKO_SYSTEM_PATH="$PATH"
     export DKO_SYSTEM_PATH
   fi
 
-  # inherit system defaults and from
-  # /etc/profile (which sources /etc/profile.d)
-  my_path="$DKO_SYSTEM_PATH"
-
-  # system paths order for homebrew compatibility
-  # my_path="/usr/local/bin:/usr/local/sbin:$my_path"
+  # Begin my_path composition --------------------------------------------------
+  # On BSD system, e.g. Darwin -- path_helper is called, reads /etc/paths
+  # Move local bin to front for homebrew compatibility
+  if [ -x /usr/libexec/path_helper ]; then
+    my_path="/usr/local/bin:/usr/local/sbin:$DKO_SYSTEM_PATH"
+  else
+    my_path="$DKO_SYSTEM_PATH"
+  fi
 
   # package managers -----------------------------------------------------------
 
@@ -42,9 +41,7 @@ _add_my_paths() {
   }
 
   # local ----------------------------------------------------------------------
-  my_path="$DOTFILES/bin:$my_path"
-  my_path="$HOME/bin:$my_path"
-
+  my_path="$HOME/bin:$DOTFILES/bin:$my_path"
   export PATH="$my_path"
 }
 
