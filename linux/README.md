@@ -17,7 +17,7 @@ init
 ```
 gdm
   /etc/gdm/Xsession
-    /etc/.profile
+    /etc/profile
     $HOME/.profile
     $HOME/.xprofile
     /etc/X11/xinit/xinitrc.d/*
@@ -49,6 +49,11 @@ startx
     /etc/xdg/autostart/*
     openbox
 ```
+
+## personal keyserver
+
+Enable `keyserver-options auto-key-retrieve` in `~/.gnupg/gpg.conf`
+Required for `cower`
 
 ## gnome-keyring on boot
 

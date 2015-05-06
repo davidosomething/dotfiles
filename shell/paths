@@ -4,30 +4,29 @@
 #     automatically
 # 2.  don't use BREW_PREFIX since we always want /usr/local/ paths
 
-# Looks at leftmost first
+# Looks at leftmost first, stops if finds
 # Bottom supercedes top
 
 _add_my_paths() {
+  if [[ -z "$DKO_SYSTEM_PATH" ]]; then
+    DKO_SYSTEM_PATH="$PATH"
+    export DKO_SYSTEM_PATH
+  fi
+
   # inherit system defaults and from
   # /etc/profile (which sources /etc/profile.d)
-  [ -x "/bin/getconf" ] && my_path="$(command -p getconf PATH)"
-  [ ! -x "/bin/getconf" ] && {
-    ORIG_PATH="$PATH"
-    export ORIG_PATH
-    my_path="$ORIG_PATH"
-  }
+  my_path="$DKO_SYSTEM_PATH"
 
-  # reorder defaults?
-  #my_path="/usr/bin:/bin:/usr/sbin:/sbin:$my_path"
+  # system paths order for homebrew compatibility
+  # my_path="/usr/local/bin:/usr/local/sbin:$my_path"
 
   # package managers -----------------------------------------------------------
 
-  # homebrew compatible
-  my_path="/usr/local/sbin:$my_path"
-  my_path="/usr/local/bin:$my_path"
-
   # composer
   my_path="$HOME/.composer/vendor/bin:$my_path"
+
+  # go
+  my_path="$GOPATH/bin:$my_path"
 
   # npm binaries from npm installed via homebrew
   [ -d "$BREW_PREFIX/share/npm/bin" ] && {
@@ -41,9 +40,6 @@ _add_my_paths() {
     MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
     export MANPATH
   }
-
-  # go
-  my_path="$GOPATH/bin:$my_path"
 
   # local ----------------------------------------------------------------------
   my_path="$DOTFILES/bin:$my_path"
