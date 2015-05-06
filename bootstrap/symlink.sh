@@ -12,6 +12,7 @@ source "$bootstrap_path/helpers.sh"
 
 # begin ------------------------------------------------------------------------
 dkostatus "Symlinking dotfiles"
+dkosymlink shell/.inputrc             .inputrc
 dkosymlink ctags/.ctags.symlink       .ctags
 dkosymlink git/.gitconfig.symlink     .gitconfig
 dkosymlink mdl/.mdlrc.symlink         .mdlrc
