@@ -56,8 +56,6 @@ export ACKRC="$DOTFILES/ack/.ackrc"
 export CVSIGNORE="$DOTFILES/git/.gitignore"
 export EDITOR="vopen --nofork"
 export VISUAL="vopen --nofork"
-# Don't clear the screen after quitting a manual page
-export SCREENRC="$DOTFILES/screen/.screenrc"
 
 # pager ----------------------------------------
 # less
