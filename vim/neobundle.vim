@@ -107,8 +107,8 @@ NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
 
 NeoBundle 'nathanaelkane/vim-indent-guides'
 if neobundle#tap('vim-indent-guides')
-  nnoremap <silent> <F6> :IndentGuidesToggle<CR>
-  inoremap <silent> <F6> <ESC>:IndentGuidesToggle<CR>i
+  nnoremap <silent><F6> :IndentGuidesToggle<CR>
+  inoremap <silent><F6> <ESC>:IndentGuidesToggle<CR>i
   let g:indent_guides_guide_size = 1
   let g:indent_guides_start_level = 2
   call neobundle#untap()
@@ -400,7 +400,7 @@ if neobundle#tap('neocomplete.vim')
 
   function! neobundle#hooks.on_source(bundle)
     " from the github page: <CR> cancels completion and inserts newline
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
       return neocomplete#close_popup() . "\<CR>"
     endfunction
