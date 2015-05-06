@@ -1,3 +1,5 @@
+# tint2rc
+
 # Backgrounds ------------------------------------------------------------------
 #1
 rounded = 0
@@ -68,10 +70,10 @@ task_font_color = #ffffff 48
 task_active_font_color = #ffffff 100
 task_urgent_font_color = #ffffff 100
 task_iconified_font_color = #ffffff 100
-task_icon_asb = 20 -50 0
-task_active_icon_asb = 100 0 0
-task_urgent_icon_asb = 100 0 0
-task_iconified_icon_asb = 100 0 0
+# task_icon_asb = 20 -50 0
+# task_active_icon_asb = 100 0 0
+# task_urgent_icon_asb = 100 0 0
+# task_iconified_icon_asb = 100 0 0
 task_background_id = 2
 task_active_background_id = 3
 task_urgent_background_id = 4
@@ -82,7 +84,7 @@ systray_padding = 8 0 4
 systray_background_id = 1
 systray_sort = left2right
 systray_icon_size = 16
-systray_icon_asb = 100 0 0
+# systray_icon_asb = 100 0 0
 
 # Launcher ---------------------------------------------------------------------
 launcher_icon_theme = circle-flat-icons
@@ -123,3 +125,5 @@ tooltip_background_id = 3
 tooltip_font_color = #ffffff 100
 tooltip_font = Fira Sans 8
 
+# close enough
+# vim: syn=coffee :
