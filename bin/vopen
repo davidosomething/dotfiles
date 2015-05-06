@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# vopen
+# vopen v0.0.2
 #
 # Automatically determine whether to use vim or gvim and use a single instance
 # Git commit messages will use a separate vim server called GIT
