@@ -76,7 +76,7 @@ dog() {
   if [[ -n $1 ]]; then
     local filename="$1"
     if [ -f "$1" ]; then
-      if [ -x /usr/bin/pygmentize ]; then
+      if has_program "pygmentize"; then
         pygmentize -O style=monokai -f console256 -g "$filename"
       else
         cat "$filename"
