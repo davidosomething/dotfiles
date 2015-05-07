@@ -2,7 +2,7 @@
 #
 # Helper functions should be sourced by all of the other bootstrapping scripts
 
-set -eu
+set -e
 
 # http://serverwizard.heroku.com/script/rvm+git
 # added error output to stderr
