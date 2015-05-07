@@ -18,7 +18,7 @@
 	url = https://github.com/tarruda/zsh-autosuggestions
 [submodule "zsh/plugins/opp.zsh"]
 	path = zsh/plugins/opp.zsh
-	url = git@github.com:hchbaw/opp.zsh.git
+	url = https://github.com/hchbaw/opp.zsh
 [submodule "shell/autojump"]
 	path = shell/autojump
-	url = git://github.com/joelthelion/autojump.git
+	url = https://github.com/joelthelion/autojump
