@@ -66,11 +66,14 @@ _alias_ls() {
   local long="-l"
   local timestyle=""
 
+  if ! ls $groupdirs >/dev/null 2>&1; then
+    groupdirs=""
+  fi
+
   if [ "$DOTFILES_OS" = "Darwin" ]; then
     almost_all="-A"
     classify="-F"
     colorized="-G"
-    groupdirs=""
   fi
 
   if [ "$DOTFILES_OS" = "Linux" ] && [ "$DOTFILES_DISTRO" != "busybox" ]; then
