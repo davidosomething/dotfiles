@@ -4,11 +4,6 @@
 
 set -eu
 
-# initialize script and dependencies -------------------------------------------
-# get this bootstrap folder
-cd "$(dirname "$0")"/..
-dotfiles_path="$(pwd)"
-
 # http://serverwizard.heroku.com/script/rvm+git
 # added error output to stderr
 dkostatus()     { echo -e "\033[0;34m==>\033[0;32m $*\033[0;m"; }
@@ -44,7 +39,7 @@ dkorequire()    {
 ##
 # symlinking helper function
 dkosymlink() {
-  local dotfile="$dotfiles_path/$1"
+  local dotfile="$DOTFILES/$1"
   local homefile="$2"
   dkosymlinking "$homefile" "$dotfile" && ln -fns "$dotfile" "$HOME/$homefile"
 }
