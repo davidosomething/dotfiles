@@ -1,19 +1,38 @@
-#!/usr/bin/env zsh
-set -eu
-autoload -U colors && colors
-
-# colored path from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh
-
+# _path
+#
+# adapted from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh
+#
 _path() {
-  local the_path="${1:-$PATH}"
-  echo $the_path | tr ":" "\n" | \
-    awk "{ sub(\"/usr\",   \"$fg_no_bold[green]/usr$reset_color\"); \
-          sub(\"/bin\",   \"$fg_no_bold[blue]/bin$reset_color\"); \
-          sub(\"/opt\",   \"$fg_no_bold[cyan]/opt$reset_color\"); \
-          sub(\"/sbin\",  \"$fg_no_bold[magenta]/sbin$reset_color\"); \
-          sub(\"/local\", \"$fg_no_bold[yellow]/local$reset_color\"); \
-          print }"
+  local the_path
+  if [ $# -eq 0 ]; then
+    the_path=$PATH
+  else
+    the_path=$1
+  fi
+
+  echo $the_path | tr ":" "\n"
 }
 
-_path $@
+_colorize() {
+  local Z="\033[0m"
+  local K="\033[0;30m"
+  local R="\033[0;31m"
+  local G="\033[0;32m"
+  local Y="\033[0;33m"
+  local B="\033[0;34m"
+  local P="\033[0;35m"
+  local C="\033[0;36m"
+  local W="\033[0;37m"
+
+  awk "{ sub(\"/usr\",   \"$G/usr$Z\"); \
+    sub(\"/bin\",   \"$B/bin$Z\"); \
+    sub(\"/sbin\",  \"$P/sbin$Z\"); \
+    sub(\"/local\", \"$Y/local$Z\"); \
+    sub(\"/opt\",   \"$C/opt$Z\"); \
+    sub(\"/Users\", \"$R/Users$Z\"); \
+    sub(\"/home\",  \"$R/home$Z\"); \
+    print }"
+}
+
+_path $@ | _colorize
 

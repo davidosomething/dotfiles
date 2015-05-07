@@ -117,11 +117,6 @@ ephpini() {
 }
 
 # traversal --------------------------------------------------------------------
-# display paths, one on each line
-paths() {
-  echo "$PATH" | tr ':' '\n'
-}
-
 # Go to git root
 gr() {
   git rev-parse && cd "$(git rev-parse --show-cdup)"
