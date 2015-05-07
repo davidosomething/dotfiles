@@ -1,6 +1,28 @@
-# Linux setup
+# Linux specific dotfiles
+
+Some stuff in `x/` can also be used for XQuartz on OSX
+
+## Installation
 
 For openbox, thunar
+
+### personal keyserver
+
+Enable `keyserver-options auto-key-retrieve` in `~/.gnupg/gpg.conf`
+Required for `cower`
+
+### gnome-keyring on boot
+
+Use PAM AND xinitrc instructions from arch wiki.
+
+### GDM
+
+- Give access to X server `xhost +SI:localuser:gdm`
+
+### Thunar
+
+- Extra hidden settings in `thunar.sh`
+- User custom actions in `thunar/uca.xml`
 
 ## Boot order
 
@@ -49,22 +71,4 @@ startx
     /etc/xdg/autostart/*
     openbox
 ```
-
-## personal keyserver
-
-Enable `keyserver-options auto-key-retrieve` in `~/.gnupg/gpg.conf`
-Required for `cower`
-
-## gnome-keyring on boot
-
-Use PAM AND xinitrc instructions from arch wiki.
-
-## GDM
-
-- Give access to X server `xhost +SI:localuser:gdm`
-
-## Thunar
-
-- Extra hidden settings in `thunar.sh`
-- User custom actions in `thunar/uca.xml`
 

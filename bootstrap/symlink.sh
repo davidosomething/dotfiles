@@ -28,6 +28,8 @@ case "$OSTYPE" in
     ;;
 esac
 
+dkosymlink linux/x/.Xresources          .Xresources
+
 # symlink shells ---------------------------------------------------------------
 dkosymlink bash/.bashrc.symlink         .bashrc
 dkosymlink bash/.bash_profile.symlink   .bash_profile
