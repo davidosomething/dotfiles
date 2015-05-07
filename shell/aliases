@@ -14,7 +14,9 @@ alias be="bundle exec"
 alias bun="bundle"
 alias c="composer"
 alias df="df -h"
-alias dog='pygmentize -O style=monokai -f console256 -g'
+alias dog='cat'
+[ -x /usr/bin/pygmentize ] && \
+  alias dog='pygmentize -O style=monokai -f console256 -g'
 alias f="find"
 alias g-="git co -"
 alias g="git"
