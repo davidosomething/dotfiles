@@ -17,6 +17,8 @@
     font = Fira Mono for Powerline 10
     background_color = "#1e1e1e"
     scrollback_infinite = True
+    xterm = "xterm-256color"
+
 [layouts]
   [[default]]
     [[[window0]]]
