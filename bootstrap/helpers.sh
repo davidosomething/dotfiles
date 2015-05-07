@@ -4,12 +4,10 @@
 
 set -eu
 
-################################################################################
-# initialize script and dependencies
+# initialize script and dependencies -------------------------------------------
 # get this bootstrap folder
-pushd "$(dirname "$0")/.." >> /dev/null
+cd "$(dirname "$0")"/..
 dotfiles_path="$(pwd)"
-popd >> /dev/null
 
 # http://serverwizard.heroku.com/script/rvm+git
 # added error output to stderr
