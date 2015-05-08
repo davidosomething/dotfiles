@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
 
-set -eu
-
-npm install -g coffee-script
-npm install -g coffeelint
-npm install -g david
-npm install -g grunt-cli
-npm install -g instant-markdown-d
-npm install -g jscpd
-npm install -g jsctags
-npm install -g jshint
-npm install -g jsonlint
-npm install -g karma-cli
+# loop through packages.txt file and install each one
+while read package; do npm install --global "$package"; done < packages.txt
 

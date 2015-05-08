@@ -1,0 +1,11 @@
+coffee-script
+coffeelint
+david
+git-open
+grunt-cli
+instant-markdown-d
+jscpd
+jsctags
+jshint
+jsonlint
+karma-cli
