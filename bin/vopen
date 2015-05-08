@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# vopen v0.0.2
+# vopen v0.0.3
 #
 # Automatically determine whether to use vim or gvim and use a single instance
 # Git commit messages will use a separate vim server called GIT
@@ -39,28 +39,44 @@ _vopen() {
   fi
 
   # arg parsing ----------------------------------------------------------------
-
-  if [ $# -ne 0 ]; then
-    files=""
-    while [ "$1" != "" ]; do
-      if [[ "$1" == --* ]]; then
-        if [[ "$1" == "--nofork" ]]; then
-          use_server=false
-        fi
+  args=""
+  while [[ "$#" -gt 0 ]] && [[ ."$1" = .--* ]]; do
+    case "$1" in
+      "--")                   # file separator
+        break                 # break out of while loop, continue to files
+        ;;
+      "--nofork")             # never use server if nofork
+        use_server=false
+        args="$args --nofork"
+        ;;
+      "--servername")         # custom servername
+        shift                 # get next arg
+        servername="$1"
+        ;;
+      "--"*)                  # take any other args as they are
         args="$args $1"
-      else
-        [[ "$1" == *"MERGE_MSG" ]] && servername="GIT"
-        [[ "$1" == *"COMMIT_EDITMSG" ]] && servername="GIT"
-        files="$files $1"
-      fi
-      shift
-    done
-  fi
+        ;;
+    esac
+    shift
+  done
+
+  # file parsing ---------------------------------------------------------------
+  # If there are still args after the above...
+  files=""
+  while [[ "$#" -gt 0 ]]; do
+    files="$files $1"
+    case "$1" in
+      *"MERGE_MSG"|*"COMMIT_EDITMSG")
+        use_server=false
+        ;;
+    esac
+    shift
+  done
 
   # server use -----------------------------------------------------------------
 
   if [ "$use_server" = true ]; then
-    has_server=$( { $executable --serverlist | grep -n1 $servername; } 2>&1 )
+    has_server=$( { $executable --serverlist | grep -n1 "$servername"; } 2>&1 )
     server="--servername $servername"
 
     # reuse server
