@@ -103,11 +103,6 @@
 				<execute>gnome-tweak-tool</execute>
 			</action>
 		</item>
-		<item label="lxapearance">
-			<action name="Execute">
-				<execute>/bin/lxappearance</execute>
-			</action>
-		</item>
 		<item label="nVidia Settings">
 			<action name="Execute">
 				<execute>nvidia-settings</execute>
