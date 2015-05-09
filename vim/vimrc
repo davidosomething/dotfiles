@@ -12,6 +12,8 @@ set nocompatible
 set secure                            " no unsafe local vimrc commands
 
 " RTP and plugin management ----------------------------------------------------
+let g:neobundle#log_filename = expand('~/.dotfiles/logs/neobundle.log')
+
 " Ensure neobundle exists
 let g:is_first_neobundle = 0
 if empty(glob('~/.vim/bundle/neobundle.vim'))

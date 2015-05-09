@@ -21,13 +21,8 @@ endif
 NeoBundle 'tobyS/vmustache' " for pdv
 
 " ui ---------------------------------------------------------------------------
-NeoBundle 'altercation/vim-colors-solarized', {
-      \   'disabled': !(has("gui") || has("gui_macvim")),
-      \   'gui': 1,
-      \ }
-if neobundle#tap('vim-colors-solarized') && has('gui_running')
-  let g:neobundle#log_filename = expand('~/.dotfiles/logs/neobundle.log')
-
+NeoBundle 'altercation/vim-colors-solarized', { 'gui': 1 }
+if neobundle#tap('vim-colors-solarized')
   " turn off gross italics -- fira sans happens to use ligatures too
   let g:solarized_italic = 0
 
