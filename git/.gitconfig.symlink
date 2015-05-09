@@ -46,6 +46,7 @@ m       = merge
 mod     = diff master --name-only
 pr      = pull --rebase
 pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
+rehard  = reset --hard
 rb      = rebase
 rso     = remote show origin
 s       = status -bs
