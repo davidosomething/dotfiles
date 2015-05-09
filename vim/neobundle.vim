@@ -107,10 +107,10 @@ NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
 
 NeoBundle 'nathanaelkane/vim-indent-guides'
 if neobundle#tap('vim-indent-guides')
-  nnoremap <silent><F6> :IndentGuidesToggle<CR>
-  inoremap <silent><F6> <ESC>:IndentGuidesToggle<CR>i
-  let g:indent_guides_guide_size = 1
-  let g:indent_guides_start_level = 2
+  let g:indent_guides_color_change_percent = 2
+
+  nmap <silent><F6> <Plug>IndentGuidesToggle
+  inoremap <silent><F6> <Esc>:IndentGuidesToggle<CR>a
   call neobundle#untap()
 endif
 
