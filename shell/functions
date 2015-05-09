@@ -168,7 +168,7 @@ mykey() {
   if has_program "pbcopy"; then
     pbcopy < "$HOME/.ssh/id_rsa.pub"
   elif has_program "xclip"; then
-    xclip -sel clip < "$HOME/.ssh/id_rsa.pub"
+    xclip "$HOME/.ssh/id_rsa.pub"
   fi
 }
 
