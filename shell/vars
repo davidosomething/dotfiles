@@ -17,7 +17,7 @@ export VIM_DOTFILES="$DOTFILES/vim"
 
 # LP_OS detection, default to Linux --------------------------------------------
 # https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
-case $(uname) in
+case $(uname -s) in
     FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
     DragonFly) export DOTFILES_OS="FreeBSD" ;;
     OpenBSD)   export DOTFILES_OS="OpenBSD" ;;
