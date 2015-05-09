@@ -110,10 +110,10 @@ lopen() {
 }
 
 eapache() {
-  e "${APACHE_HTTPD_ROOT}/${APACHE_HTTPD_CONF}"
+  eval "$EDITOR" "${APACHE_HTTPD_ROOT}/${APACHE_HTTPD_CONF}"
 }
 ephpini() {
-  e "$(php -r "echo php_ini_loaded_file();")"
+  eval "$EDITOR" "$(php -r "echo php_ini_loaded_file();")"
 }
 
 # traversal --------------------------------------------------------------------
@@ -134,7 +134,7 @@ up() {
 }
 
 # Determine size of a file or total size of a directory
-function fs() {
+fs() {
   local arg
   if du -b /dev/null > /dev/null 2>&1; then
     arg=-sbh
