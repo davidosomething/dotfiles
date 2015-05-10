@@ -4,7 +4,7 @@
 #   -> .xprofile
 #     -> /usr/share/xsessions .desktop file (runs before WM/DE, e.g. openbox)
 
-export DKOSOURCE="$DKOSOURCE -> .xprofile"
+export DKO_SOURCE="$DKO_SOURCE -> .xprofile"
 
 export BROWSER=chromium
 

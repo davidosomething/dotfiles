@@ -3,7 +3,7 @@
 # sourced on login after zprofile
 # sourced when you type zsh
 
-export DKOSOURCE="$DKOSOURCE -> zshrc"
+export DKO_SOURCE="$DKO_SOURCE -> zshrc"
 
 [ "$DKO_LOADER" != true ] && source "$DOTFILES/shell/loader"
 source "$DOTFILES/shell/aliases"
