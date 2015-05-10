@@ -45,6 +45,7 @@ alias v="vopen"
 alias edot='e $DOTFILES'
 alias eshell='e $DOTFILES/shell'
 alias ea='e $DOTFILES/shell/aliases'
+alias ebr='e $BASH_DOTFILES/.bashrc.symlink'
 alias ef='e $DOTFILES/shell/functions'
 alias ep='e $DOTFILES/shell/paths'
 alias ehosts="se /etc/hosts"
@@ -56,6 +57,8 @@ alias etint='e $DOTFILES/linux/tint2/tint2rc'
 alias evm='e $VIM_DOTFILES/plugin/mappings.vim'
 alias evp='e $VIM_DOTFILES/neobundle.vim'
 alias evr='e $VIM_DOTFILES/vimrc'
+alias eze='e $ZDOTDIR/.zshenv.symlink'
+alias ezr='e $ZDOTDIR/.zshrc'
 
 _alias_ls() {
   local almost_all="--almost-all"

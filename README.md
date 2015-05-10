@@ -65,7 +65,7 @@ manager.
 
 ### Source order
 
-`echo $DKOSOURCE` to see how files are loaded. It should reflect what's in
+`echo $DKO_SOURCE` to see how files are loaded. It should reflect what's in
 `linux/README.md` for openbox. That is:
 
 ```

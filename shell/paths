@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+# Shell paths
+# Sourced in bash and zsh by loader
 
 # _add_my_paths
 #
@@ -47,3 +48,4 @@ _add_my_paths() {
 
 _add_my_paths
 
+# vim: syn=sh

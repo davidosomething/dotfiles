@@ -2,7 +2,6 @@
 # zshenv is always sourced, even for bg jobs
 
 export DKOSOURCE="$DKOSOURCE -> zshenv"
-
 source "$HOME/.dotfiles/shell/loader"
 
 # Paths ------------------------------------------------------------------------

@@ -3,8 +3,8 @@
 # environment -> autostart.sh
 #
 
-export DKOSOURCE="$DKOSOURCE -> ob environment"
+export DKO_SOURCE="$DKO_SOURCE -> ob environment"
 
 export GNOME_DESKTOP_SESSION_ID="openbox"
 
-# vim: syntax=sh :
+# vim: syn=sh :

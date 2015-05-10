@@ -5,7 +5,7 @@
 
 export DKOSOURCE="$DKOSOURCE -> zshrc"
 
-source "$DOTFILES/shell/loader"
+[ "$DKO_LOADER" != true ] && source "$DOTFILES/shell/loader"
 source "$DOTFILES/shell/aliases"
 
 # helpfiles

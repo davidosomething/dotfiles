@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # .xprofile
 #
 # (startx -> .xinitrc) or DM
@@ -48,4 +46,4 @@ fi
 # mine is kept in a separate repo per machine
 [[ -f "$HOME/.xbindkeysrc" ]] && xbindkeys -f "$HOME/.xbindkeysrc"
 
-# vim: syntax=sh :
+# vim: syn=sh :

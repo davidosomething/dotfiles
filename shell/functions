@@ -1,7 +1,5 @@
-#!/usr/bin/env bash
-
 # Shell functions
-# Run from loader
+# Sourced in bash and zsh by loader
 
 # Scripting --------------------------------------------------------------------
 current_shell() {
@@ -218,4 +216,4 @@ joingroup() {
   fi
 }
 
-# vim: syntax=sh :
+# vim: syn=sh :

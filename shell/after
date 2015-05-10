@@ -1,7 +1,7 @@
 # Shell - after commands
 # Run before .zshrc.local .bashrc.local
 
-export DKOSOURCE="$DKOSOURCE -> shell after"
+export DKO_SOURCE="$DKO_SOURCE -> shell after"
 
 # commands
 source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
@@ -23,4 +23,4 @@ if [ -n "$TERMINATOR_UUID" ]; then
   cd
 fi
 
-# vim: syntax=sh :
+# vim: syn=sh :

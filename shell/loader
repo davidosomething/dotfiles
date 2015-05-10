@@ -1,10 +1,9 @@
-#!/usr/bin/env bash
-
 # Shell loader
-# Run by .zshenv, .zshrc, and .bashrc
+# Sourced in bash and zsh
 # OUTPUT FORBIDDEN since may run in non-interactive mode (via .zshenv)
 
-export DKOSOURCE="$DKOSOURCE -> shell loader"
+export DKO_SOURCE="$DKO_SOURCE -> shell loader"
+export DKO_LOADER=true
 
 # There are no conditions to source these, straight up replace their
 # definitions. We want these get sourced again if you start a subshell.
@@ -12,3 +11,4 @@ source "$HOME/.dotfiles/shell/functions"
 source "$HOME/.dotfiles/shell/vars"
 source "$HOME/.dotfiles/shell/paths"
 
+# vim: syn=sh :
