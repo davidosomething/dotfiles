@@ -3,7 +3,7 @@
 # OUTPUT FORBIDDEN since may run in non-interactive mode (via .zshenv)
 
 export DKO_SOURCE="$DKO_SOURCE -> shell loader"
-export DKO_LOADER=true
+export DKO_LOADER=$$
 
 # There are no conditions to source these, straight up replace their
 # definitions. We want these get sourced again if you start a subshell.

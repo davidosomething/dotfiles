@@ -1,4 +1,3 @@
-#!/bin/bash
 # .xinitrc / .xsession
 # (.xsession applies to XDM only -- useless for GDM/startx)
 #
@@ -6,7 +5,7 @@
 #
 # startx ONLY -> .xinitrc -> .xprofile
 
-export DKOSOURCE="$DKOSOURCE -> .xinitrc"
+export DKO_SOURCE="$DKO_SOURCE -> .xinitrc"
 
 # Copied from /etc/X11/xinitrc -------------------------------------------------
 userresources=$HOME/.Xresources
@@ -59,4 +58,4 @@ _start_session() {
 
 _start_session "$@"
 
-# vim: set ft=sh :
+# vim: syn=sh :

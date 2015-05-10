@@ -72,3 +72,21 @@ startx
     openbox
 ```
 
+### 3/4: terminal
+
+#### zsh
+
+```
+.zshenv
+  loader
+    functions
+    vars
+    paths
+  .zshrc
+    aliases
+    after
+    .zshrc.local
+```
+
+#### bash
+

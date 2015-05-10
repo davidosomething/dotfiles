@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-export DKOSOURCE="$DKOSOURCE -> .bashrc"
+export DKO_SOURCE="$DKO_SOURCE -> .bashrc"
 
-[ "$DKO_LOADER" != true ] && source "$DOTFILES/shell/loader"
+[ "$DKO_LOADER" != "$BASHPID" ] && source "$DOTFILES/shell/loader"
 source "$HOME/.dotfiles/shell/aliases"
 for script in "options" "completions" "prompt"; do
   source "$BASH_DOTFILES/${script}.bash"
