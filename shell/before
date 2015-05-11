@@ -4,6 +4,8 @@
 # Run on both bash and zsh, in interactive shells
 # Runs right after loader, runs every new shell/subshell
 
+export DKO_SOURCE="$DKO_SOURCE -> shell before"
+
 # Load env programs
 source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
 source_if_exists "$NVM_DIR/nvm.sh"
