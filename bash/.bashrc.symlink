@@ -1,6 +1,6 @@
 # .bashrc
 
-[ "$DKO_LOADER" != "$BASHPID" ] && source "$DOTFILES/shell/loader"
+[ "$DKO_LOADER" != $$ ] && source "$DOTFILES/shell/loader"
 source "$HOME/.dotfiles/shell/before"
 
 export DKO_SOURCE="$DKO_SOURCE -> .bashrc"

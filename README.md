@@ -69,11 +69,14 @@ manager.
 `linux/README.md` for openbox. That is:
 
 ```
- -> .xprofile -> ob environment -> ob autostart -> zshenv -> shell loader -> zshrc -> shell loader -> shell after
+ -> .xprofile -> ob environment -> ob autostart -> zshenv -> shell loader -> shell before -> zshrc -> shell after
 ```
 
-For OSX, shells are all login shells so there's probably a `.bash_profile` or
-`.zprofile` in there somewhere.
+Here's OSX with zsh (remember, OSX is always a login shell):
+
+```
+ -> zshenv -> shell loader -> zprofile -> shell before -> zshrc -> shell after
+```
 
 ### node-gyp
 
@@ -94,11 +97,6 @@ Using NeoBundle for vim. NeoBundle will build dependencies where needed, some
 system build tools are needed.
 
 See [vim/README.md](https://github.com/davidosomething/dotfiles/blob/master/vim/README.md)
-
-### nm-applet permissions on arch
-
-Ensure policykit allows users in the network access, option 3 here:
-https://wiki.archlinux.org/index.php/NetworkManager#Set_up_PolicyKit_permissions
 
 ## Not included but I usually use
 

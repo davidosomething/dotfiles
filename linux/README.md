@@ -6,6 +6,11 @@ Some stuff in `x/` can also be used for XQuartz on OSX
 
 For openbox, thunar
 
+### nm-applet permissions on arch
+
+Ensure policykit allows users in the network access, option 3 here:
+https://wiki.archlinux.org/index.php/NetworkManager#Set_up_PolicyKit_permissions
+
 ### personal keyserver
 
 Enable `keyserver-options auto-key-retrieve` in `~/.gnupg/gpg.conf`
@@ -83,10 +88,22 @@ startx
     vars
     paths
   .zshrc
-    aliases
+    before
+      aliases
     after
     .zshrc.local
 ```
 
 #### bash
 
+```
+.bashrc
+  loader
+    functions
+    vars
+    paths
+  before
+    aliases
+  after
+  .zshrc.local
+```
