@@ -1,7 +1,7 @@
 # sourced in login shells only
 # sourced before .zshrc
 
-export DKOSOURCE="$DKOSOURCE -> zprofile"
+export DKO_SOURCE="$DKO_SOURCE -> zprofile"
 
 # create and use "/tmp/$XDG_RUNTIME_DIR"
 if [ -z "${XDG_RUNTIME_DIR}" ]; then
