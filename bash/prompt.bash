@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # prompt.bash
 
 # _prompt_git
@@ -10,7 +8,6 @@
 _prompt_git() {
   local branch_name
   local dirty_symbol
-  local git_status
 
   # this is >5x faster than mathias's. has to be for working in Chromium & Blink.
   # check if we're in a git repo. (fast)
@@ -19,9 +16,11 @@ _prompt_git() {
   # check for what branch we're on. (fast)
   # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
   # Otherwise, just give up.
-  branch_name="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
-      git rev-parse --short HEAD 2> /dev/null || \
-      echo '(unknown)')";
+  branch_name="$(\
+    git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+    git rev-parse --short HEAD 2> /dev/null || \
+    echo '(unknown)' \
+    )";
 
   # check if it's dirty (slow)
   #   technique via github.com/git/git/blob/355d4e173/contrib/completion/git-prompt.sh#L472-L475
@@ -64,3 +63,4 @@ _bash_prompt() {
 
 _bash_prompt
 
+# vim: syn=sh :

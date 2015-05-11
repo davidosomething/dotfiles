@@ -1,14 +1,16 @@
-#!/usr/bin/env bash
-
 export DKO_SOURCE="$DKO_SOURCE -> .bashrc"
 
 [ "$DKO_LOADER" != "$BASHPID" ] && source "$DOTFILES/shell/loader"
-source "$HOME/.dotfiles/shell/aliases"
+source "$HOME/.dotfiles/shell/before"
+
+# BASH shell specific
 for script in "options" "completions" "prompt"; do
   source "$BASH_DOTFILES/${script}.bash"
 done
 unset script
+
 source "$HOME/.dotfiles/shell/after"
 source_if_exists "$HOME/.fzf.bash"
 source_if_exists "$HOME/.bashrc.local"
 
+# vim: syn=sh :

@@ -6,7 +6,8 @@
 export DKO_SOURCE="$DKO_SOURCE -> zshrc"
 
 [ "$DKO_LOADER" != $$ ] && source "$DOTFILES/shell/loader"
-source "$DOTFILES/shell/aliases"
+
+source "$DOTFILES/shell/before"
 
 # helpfiles
 has_program "brew" && {

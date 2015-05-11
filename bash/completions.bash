@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 set completion-ignore-case on
 
 source_if_exists /etc/bash_completion
@@ -7,9 +5,6 @@ source_if_exists /usr/share/bash-completion/bash_completion
 
 # WP-CLI Bash completions
 source_if_exists "$HOME/.wp-cli/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
-
-# grunt
-has_program "grunt" && eval "$(grunt --completion=bash)"
 
 # travis
 source_if_exists "$HOME/.travis/travis.sh"
@@ -30,3 +25,4 @@ fi;
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh;
 
+# vim: syn=sh :
