@@ -3,11 +3,10 @@
 # sourced on login after zprofile
 # sourced when you type zsh
 
-export DKO_SOURCE="$DKO_SOURCE -> zshrc"
-
 [ "$DKO_LOADER" != $$ ] && source "$DOTFILES/shell/loader"
-
 source "$DOTFILES/shell/before"
+
+export DKO_SOURCE="$DKO_SOURCE -> zshrc"
 
 # helpfiles
 has_program "brew" && {

@@ -1,7 +1,9 @@
-export DKO_SOURCE="$DKO_SOURCE -> .bashrc"
+# .bashrc
 
 [ "$DKO_LOADER" != "$BASHPID" ] && source "$DOTFILES/shell/loader"
 source "$HOME/.dotfiles/shell/before"
+
+export DKO_SOURCE="$DKO_SOURCE -> .bashrc"
 
 # BASH shell specific
 for script in "options" "completions" "prompt"; do
