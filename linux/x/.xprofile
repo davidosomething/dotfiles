@@ -13,6 +13,7 @@ export BROWSER=chromium
 # Added this specifically for the minecraft launcher
 
 # my nvidia card doesn't support wayland, ensure x11 used
+export GDK_BACKEND=x11
 export CLUTTER_BACKEND=x11
 
 # GTK theme
