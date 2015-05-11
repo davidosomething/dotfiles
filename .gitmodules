@@ -1,5 +1,5 @@
 [submodule "zsh/zsh-completions"]
-	path = zsh/zsh-completions
+	path = zsh/plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
 [submodule "zsh/zsh-syntax-highlighting"]
 	path = zsh/plugins/zsh-syntax-highlighting

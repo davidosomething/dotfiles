@@ -9,17 +9,17 @@ source "$HOME/.dotfiles/shell/loader"
 typeset -U path cdpath manpath
 
 # Autoload function paths, add tab completion paths, top precedence
-$HAS_BREW && {
+has_program "brew" && {
   fpath=(
-    $BREW_PREFIX/share/zsh/site-functions
-    $BREW_PREFIX/share/zsh-completions
+    "$BREW_PREFIX/share/zsh/site-functions"
+    "$BREW_PREFIX/share/zsh-completions"
     $fpath
   )
 }
 
 # top precedence! So my dotfiles zsh-completions override the previous brew
 fpath=(
-  "$ZDOTDIR/zsh-completions/src"
+  "$ZDOTDIR/plugins/zsh-completions/src"
   $fpath
 )
 

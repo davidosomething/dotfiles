@@ -1,16 +1,31 @@
 # _path
 #
 # adapted from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh
-#
-_path() {
+
+_parse_args() {
   local the_path
-  if [ $# -eq 0 ]; then
+
+  # concat array with semicolon to support array paths like fpath
+  if [ "$1" = "-a" ]; then
+    the_path=$(echo "${*:2}" | tr " " ":")
+
+  # use path
+  elif [ $# -eq 0 ]; then
     the_path=$PATH
+
+  # use var in $1
   else
     the_path=$1
+
   fi
 
-  echo $the_path | tr ":" "\n"
+  # return
+  echo $the_path
+}
+
+_path() {
+  # split, also split over ; for joined array in zsh
+  echo $1 | tr ":" "\n" | tr " " "\n"
 }
 
 _colorize() {
@@ -34,5 +49,6 @@ _colorize() {
     print }"
 }
 
-_path $@ | _colorize
+_path $(_parse_args $@) | _colorize
 
+# vim: syn=sh :
