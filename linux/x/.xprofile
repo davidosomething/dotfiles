@@ -12,6 +12,9 @@ export BROWSER=chromium
 # https://wiki.archlinux.org/index.php/Java_Runtime_Environment_Fonts
 # Added this specifically for the minecraft launcher
 
+# my nvidia card doesn't support wayland, ensure x11 used
+export CLUTTER_BACKEND=x11
+
 # GTK theme
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
