@@ -1,6 +1,7 @@
 coffee-script
 coffeelint
 david
+git-bc
 git-open
 grunt-cli
 instant-markdown-d
