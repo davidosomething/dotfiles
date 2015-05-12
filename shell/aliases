@@ -11,6 +11,7 @@ alias tree="tree -C"
 
 # bin
 alias be="bundle exec"
+alias bfy="browserify"
 alias bun="bundle"
 alias c="composer"
 alias df="df -h"

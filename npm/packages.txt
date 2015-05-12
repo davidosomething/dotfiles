@@ -1,4 +1,6 @@
+browserify
 coffee-script
+coffeeify
 coffeelint
 david
 git-bc
