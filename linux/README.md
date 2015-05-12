@@ -29,6 +29,20 @@ Use PAM AND xinitrc instructions from arch wiki.
 - Extra hidden settings in `thunar.sh`
 - User custom actions in `thunar/uca.xml`
 
+### VirtualBox
+
+- Add arch packages
+  - virtualbox
+  - virtualbox-host-modules
+  - net-tools
+  - vagrant
+  - nss-mdns
+  - avahi
+    - start and enable avahi-dnsconfd service
+- Enable vboxdrv, vboxnetadp, and vboxnetflt kernel modules
+- Add user to vboxusers
+- Add mdns to hosts line in /etc/nsswitch.conf
+
 ## Boot order
 
 ### 1
