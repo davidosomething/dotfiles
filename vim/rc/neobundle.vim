@@ -98,9 +98,9 @@ NeoBundleLazy 'majutsushi/tagbar', {
       \   'disabled': !executable("ctags"),
       \ }
 if neobundle#tap('tagbar')
-  nmap <F10> :TagbarToggle<CR>
-  imap <F10> <Esc>:TagbarToggle<CR>
-  vmap <F10> <Esc>:TagbarToggle<CR>
+  nmap <silent><F10> :TagbarToggle<CR>
+  imap <silent><F10> <Esc>:TagbarToggle<CR>
+  vmap <silent><F10> <Esc>:TagbarToggle<CR>
 
   let g:tagbar_autoclose = 1            " close after jumping
   let g:tagbar_autofocus = 1
@@ -214,27 +214,27 @@ if neobundle#tap('unite.vim')
 
     " ========================================
     " command-t/ctrlp replacement
-    nnoremap <F1> :<C-u>Unite -start-insert file_rec/async:!<CR>
-    inoremap <F1> <Esc>:<C-u>Unite -start-insert file_rec/async:!<CR>
-    vnoremap <F1> <Esc>:<C-u>Unite -start-insert file_rec/async:!<CR>
+    nnoremap <silent><F1> :<C-u>Unite -start-insert file_rec/async:!<CR>
+    inoremap <silent><F1> <Esc>:<C-u>Unite -start-insert file_rec/async:!<CR>
+    vnoremap <silent><F1> <Esc>:<C-u>Unite -start-insert file_rec/async:!<CR>
 
     " ========================================
     " recently used
-    nnoremap <F2> :<C-u>Unite -start-insert neomru/file<CR>
-    inoremap <F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
-    vnoremap <F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
+    nnoremap <silent><F2> :<C-u>Unite -start-insert neomru/file<CR>
+    inoremap <silent><F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
+    vnoremap <silent><F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
 
     " ========================================
     " find in files (ag.vim/ack.vim replacement)
-    nnoremap <F3> :<C-u>Unite grep:!<CR>
-    inoremap <F3> <Esc>:<C-u>Unite grep:!<CR>
-    vnoremap <F3> <Esc>:<C-u>Unite grep:!<CR>
+    nnoremap <silent><F3> :<C-u>Unite grep:!<CR>
+    inoremap <silent><F3> <Esc>:<C-u>Unite grep:!<CR>
+    vnoremap <silent><F3> <Esc>:<C-u>Unite grep:!<CR>
 
     " ========================================
     " find in yank history
-    nnoremap <F11> :<C-u>Unite history/yank<CR>
-    inoremap <F11> <Esc>:<C-u>Unite history/yank<CR>
-    vnoremap <F11> <Esc>:<C-u>Unite history/yank<CR>
+    nnoremap <silent><F11> :<C-u>Unite history/yank<CR>
+    inoremap <silent><F11> <Esc>:<C-u>Unite history/yank<CR>
+    vnoremap <silent><F11> <Esc>:<C-u>Unite history/yank<CR>
 
     " ========================================
     " Command Palette
@@ -258,9 +258,9 @@ if neobundle#tap('vimfiler.vim')
   let g:vimfiler_file_icon = '-'
   let g:vimfiler_marked_file_icon = '*'
 
-  nnoremap <F9> :VimFilerExplorer<CR>
-  inoremap <F9> <Esc>:VimFilerExplorer<CR>
-  vnoremap <F9> <Esc>:VimFilerExplorer<CR>
+  nnoremap <silent><F9> :VimFilerExplorer<CR>
+  inoremap <silent><F9> <Esc>:VimFilerExplorer<CR>
+  vnoremap <silent><F9> <Esc>:VimFilerExplorer<CR>
   call neobundle#untap()
 endif
 
@@ -349,8 +349,8 @@ NeoBundleLazy 'osyo-manga/vim-over', {
       \   'autoload': { 'commands': [ 'OverCommandLine' ] },
       \ }
 if neobundle#tap('vim-over')
-  nmap <F7> :OverCommandLine<CR>
-  vmap <F7> <Esc>:OverCommandLine<CR>
+  nmap <silent><F7> :OverCommandLine<CR>
+  vmap <silent><F7> <Esc>:OverCommandLine<CR>
   call neobundle#untap()
 endif
 
