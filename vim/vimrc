@@ -159,8 +159,10 @@ set wildignore+=*.swp,.lock,.DS_Store,._*
                                       " elsewhere
 set fileformats=unix,mac,dos
 set fileformat=unix
+
+" gutentags handles this
 "set tags=./tags,./TAGS,tags,TAGS
-set tags=~/.vim/.tags/tags
+"set tags=~/.vim/.tags/tags
 
 " info file
 set viminfo+=n~/.vim/.viminfo
@@ -255,4 +257,7 @@ endif
 " leave this down here since it trims local settings
 set secure                            " no unsafe local vimrc commands
 
+if filereadable(glob("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
 " vim: syntax=vim :
