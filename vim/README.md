@@ -35,9 +35,6 @@ See `vim/neobundle.vim` for plugin specific bindings.
 
 ## Under consideration
 
-'xolox/vim-easytags' generates a _tags_ file automatically (unlike tagbar which
-only generates on the fly)
-
 ```
 Don't need this for now
 "NeoBundleLazy 'dsawardekar/wordpress.vim', {
@@ -51,8 +48,15 @@ Don't need this for now
 
 ### Alternate CSS colorizing plugins
 
+- vim-coloresque
+
+ ```
+NeoBundleLazy 'gorodinskiy/vim-coloresque'
 ```
-NeoBundleLazy 'gorodinskiy/vim-coloresque', {
+
+- Colorizer
+
+ ```
 NeoBundle 'chrisbra/Colorizer', {
 ```
 
@@ -103,45 +107,57 @@ autocmdFT javascript setlocal omnifunc=tern#Complete
 
 ## Plugins I intentionally don't use
 
-ctags stuff just never works out right.
+- 'xolox/vim-easytags' generates a _tags_ file automatically (unlike tagbar which
+only generates on the fly)
 
+ ```
+NeoBundle 'xolox/vim-easytags', {
+      \   'depends' : 'xolox/vim-misc',
+      \   'disabled': !executable("ctags"),
+      \ }
+if neobundle#tap('vim-easytags')
+  let g:easytags_file = '~/.vim/.tags/tags'
+endif
+
+NeoBundle 'xolox/vim-misc', {
+      \   'disabled': !executable("ctags"),
+      \ }
 ```
+
+- echodoc -- works with neocomplete to show function signatures in bottom of
+  command line instead of in scratch buffer. Useful but don't really want it
+  popping up all the time. It's like tern
+
+ ```
+" NeoBundle 'Shougo/echodoc', '', 'default'
+" call neobundle#config('echodoc', {
+"       \   'lazy': 1,
+"       \   'autoload': { 'insert': 1, },
+"       \ })
+" if neobundle#tap('echodoc')
+"   set cmdheight=2
+"   let g:echodoc_enable_at_startup = 1
+"   call neobundle#untap()
+" endif
+```
+
+- vim-bufkill to keep splits open after bd
+
+ ```
 "NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
-
-" Auto generate tags
-" The bitbucket remote is updated more frequently
-" NeoBundle 'bitbucket:ludovicchabant/vim-gutentags', {
-"       \   'disabled': !executable("ctags"),
-"       \ }
-" if neobundle#tap('vim-gutentags')
-"   let g:gutentags_cache_dir = "~/.vim/.tags"
-" endif
 ```
 
-Using gutentags instead of easytags
+- vim-rails - i don't do rails enough to make this worthwhile
 
-```
-" NeoBundle 'xolox/vim-easytags', {
-"       \   'depends' : 'xolox/vim-misc',
-"       \   'disabled': !executable("ctags"),
-"       \ }
-" if neobundle#tap('incsearch.vim')
-"   let g:easytags_file = '~/.vim/tags'
-" endif
-"
-" NeoBundle 'xolox/vim-misc', {
-"       \   'disabled': !executable("ctags"),
-"       \ }
-```
-
-```
-" i don't do rails enough to make this worthwhile
+ ```
 " don't lazy load -- see https://github.com/Shougo/neobundle.vim/issues/114
 NeoBundle 'tpope/vim-rails'
 ```
 
-```
-no longer needed, bundled vim-markdown in 7.4 supports everything now
+- vim-flavored-markdown and vim-markdown -- no longer needed, bundled
+  vim-markdown in 7.4 supports everything now
+
+ ```
 NeoBundle 'jtratner/vim-flavored-markdown'
 if neobundle#tap('vim-flavored-markdown')
   function! neobundle#tapped.hooks.on_source(bundle)
@@ -155,82 +171,40 @@ if neobundle#tap('vim-flavored-markdown')
   endfunction
   call neobundle#untap()
 endif
-```
 
-```
-Comes bundled with vim7.4 now
 "NeoBundle 'tpope/vim-markdown'          " creates markdown filetype
 ```
 
-```
-library for vim-operator-replace
-NeoBundle 'kana/vim-operator-user', {
-      \   'autoload' : { 'functions' : 'operator#user#define' },
-      \ }
-```
+- clickable links - Don't want for now until I can turn off the highlighting:
 
-```
-snipmate uses this
-NeoBundle 'tomtom/tlib_vim'
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-```
-
-- ctrlpvim/ctrlp.vim
-  - I always just `ag` from a terminal or open an exact filename in vim
-  - Extras
-
-    ```
-    " NeoBundle 'tacahiroy/ctrlp-funky'
-    "   nnoremap <F8> :CtrlPFunky<Cr>
-    ```
-
-- jeetsukumaran/vim-buffergator
-  - Using vim-airline to show buffers all the time, unimpaired switches
-  - alternatively, CtrlP has a buffer mode if I wanted it
-- kien/tabman.vim
-  - vim-airline could show tabs, custom mappings to switch
-  - alternatively, CtrlP does the same thing if I wanted it
-- nathanaelkane/vim-command-w
-  - doesn't work, macvim specific
-- scrooloose/nerdtree - VimFiler is better
-- shougo/neosnippet.vim
-  - UltiSnips has WordPress.vim integration
-- techlivezheng/vim-plugin-minibufexpl
-  - vim-airline does this
-  - don't like the double status line
-- vim-scripts/kwbdi.vim
-  - Bufkill is newer
-
-```
-" Don't want for now until I can turn off the highlighting:
+ ```
 " NeoBundle 'Rykka/clickable.vim', {
 "       \   'depends': 'vimproc',
 "       \ }
 "   let g:clickable_browser = 'chrome'
 ```
 
-```
+- supertab -- not needed, bound PUM via neocomplete keys
+
+ ```
 NeoBundle 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 ```
 
-```
-" conflicts with easyclip M mapping
-"NeoBundle 'gorkunov/smartpairs.vim'
-```
+- investigate
 
-```
+ ```
 " NeoBundle 'Keithbsmiley/investigate.vim'
 " nnoremap <leader>K :call investigate#Investigate()<CR>
 " if g:is_macvim
 "   let g:investigate_use_dash=1
 " endif
-
-" NeoBundle 'mileszs/ack.vim'
 ```
 
-```
+- tab settings
+
+ ```
 "NeoBundle 'vim-scripts/Smart-Tabs'
 "NeoBundle 'vim-scripts/IndentTab'
 ```

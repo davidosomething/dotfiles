@@ -358,22 +358,17 @@ NeoBundle 'tpope/vim-eunuch'
 
 NeoBundle 'tpope/vim-unimpaired'        " used for line bubbling commands on osx
 
+" Auto generate tags
+" The bitbucket remote is updated more frequently
+NeoBundle 'bitbucket:ludovicchabant/vim-gutentags', {
+      \   'disabled': !executable("ctags"),
+      \ }
+if neobundle#tap('vim-gutentags')
+  let g:gutentags_cache_dir = "~/.vim/.tags"
+endif
+
 " ------------------------------------------------------------------------------
 " autocomplete
-
-" Works with neocomplete --
-" show function signatures in bottom of command line instead of in scratch
-" buffer
-" NeoBundle 'Shougo/echodoc', '', 'default'
-" call neobundle#config('echodoc', {
-"       \   'lazy': 1,
-"       \   'autoload': { 'insert': 1, },
-"       \ })
-" if neobundle#tap('echodoc')
-"   set cmdheight=2
-"   let g:echodoc_enable_at_startup = 1
-"   call neobundle#untap()
-" endif
 
 " neocomplete probably used on osx and on my arch
 NeoBundleLazy 'Shougo/neocomplete.vim', {
@@ -488,6 +483,15 @@ if neobundle#tap('tabular')
   nmap <leader>a, :Tabularize /,\zs/l0l1<CR>
   vmap <leader>a, :Tabularize /,\zs/l0l1<CR>
   call neobundle#untap()
+endif
+
+" viv, v, v to expand surround selection
+NeoBundle 'gorkunov/smartpairs.vim'
+if neobundle#tap('smartpairs.vim')
+  " disable default mappings m and M since they conflict with easypairs
+  " ubermode is enough
+  let g:smartpairs_nextpairs_key_i = ''
+  let g:smartpairs_nextpairs_key_a = ''
 endif
 
 NeoBundle 'svermeulen/vim-easyclip'
