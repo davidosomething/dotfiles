@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# vopen v0.0.3
+# vopen v0.0.5
 #
 # Automatically determine whether to use vim or gvim and use a single instance
 # Git commit messages will use a separate vim server called GIT
@@ -9,33 +9,31 @@
 #
 
 _vopen() {
+  local gui=false
   local executable
-  local use_server
-  local has_server
-  local server
-  local servername
+  local use_server="false"
+  local has_server=false
+  local server=""
+  local servername="VIM"
   local args
   local files
+  local _vopen_editor="${VOPEN_EDITOR:-vim}"
+  local _vopen_visual="${VOPEN_VISUAL:-gvim}"
 
   # which executable -----------------------------------------------------------
-  executable="vim"
-  servername="VIM"
-  use_server=true
-  server=""
 
-  if [[ -n "$DISPLAY" ]] || [[ "$DOTFILES_OS" == "Darwin" ]]; then
-    executable="gvim"
+  # Has framebuffer or is OSX
+  if [[ -n "$DISPLAY" ]] || [[ $OSTYPE == darwin* ]]; then
+    gui=true
     servername="GVIM"
+    use_server=${VOPEN_ALLOW_SERVER:-true}
   fi
 
-  # In SSH
-  if [[ -n "$SSH_CONNECTION" ]]; then
-    use_server=false
-  fi
-
-  # Linux without X11
-  if [[ "$DOTFILES_OS" == "Linux" ]] && [[ -z "$DISPLAY" ]]; then
-    use_server=false
+  # Override editor if env var provides, otherwise use vim/gvim
+  if [ "$gui" = true ]; then
+    executable="$_vopen_visual"
+  else
+    executable="$_vopen_editor"
   fi
 
   # arg parsing ----------------------------------------------------------------
@@ -98,7 +96,7 @@ _vopen() {
 
   # execute --------------------------------------------------------------------
   # shellcheck disable=SC2086,SC2090
-  $executable $server $args $files
+  eval $executable $server $args $files
 }
 
 _vopen "${@}"

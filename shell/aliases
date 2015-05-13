@@ -100,6 +100,9 @@ _alias_ls
 _alias_darwin() {
   alias b="brew"
 
+  # electron apps can't focus if started using Electron symlink
+  alias elec="/Applications/Electron.app/Contents/MacOS/Electron"
+
   # clear xattrs
   alias xc="xattr -c *"
 
