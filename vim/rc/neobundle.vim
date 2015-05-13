@@ -4,7 +4,7 @@ let g:neobundle#log_filename = expand('~/.dotfiles/logs/neobundle.log')
 let g:is_first_neobundle = 0
 if empty(glob('~/.vim/bundle/neobundle.vim'))
   silent !curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
-  autocmd VimEnter * NeoBundleUpdate
+  autocmd vimrc VimEnter * NeoBundleUpdate
   let g:is_first_neobundle = 1
 endif
 
@@ -210,7 +210,7 @@ if neobundle#tap('unite.vim')
       iunmap <buffer> <Tab>
       nunmap <buffer> <Tab>
     endfunction
-    autocmd FileType unite call s:unite_my_settings()
+    autocmd vimrc FileType unite call s:unite_my_settings()
 
     " ========================================
     " command-t/ctrlp replacement
@@ -631,10 +631,8 @@ NeoBundleLazy 'heavenshell/vim-jsdoc', {
 if neobundle#tap('vim-jsdoc')
   let g:jsdoc_default_mapping = 0
   let g:jsdoc_underscore_private = 1
-  if has("autocmd")
-    au vimrc FileType javascript nnoremap <Leader>pd :JsDoc<CR>
-    au vimrc FileType javascript vnoremap <Leader>pd :JsDoc<CR>
-  endif
+  autocmd vimrc FileType javascript nnoremap <Leader>pd :JsDoc<CR>
+  autocmd vimrc FileType javascript vnoremap <Leader>pd :JsDoc<CR>
   call neobundle#untap()
 endif
 
@@ -710,10 +708,6 @@ endif
 NeoBundleLazy 'elzr/vim-json', { 'autoload': { 'filetypes': ['json'] } }
 if neobundle#tap('vim-json')
   let g:vim_json_syntax_conceal = 0
-  if has("autocmd")
-    " JSON force JSON not javascript
-    au vimrc BufRead,BufNewFile *.json setlocal filetype=json
-  endif
   call neobundle#untap()
 endif
 
@@ -729,10 +723,8 @@ NeoBundleLazy 'tobyS/pdv', {
       \ }
 if neobundle#tap('pdv')
   let g:pdv_template_dir = expand("~/.vim/bundle/pdv/templates")
-  if has("autocmd")
-    au vimrc FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
-    au vimrc FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
-  endif
+  autocmd vimrc FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+  autocmd vimrc FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
   call neobundle#untap()
 endif
 
@@ -782,6 +774,10 @@ if neobundle#tap('colorv.vim')
 endif
 
 NeoBundle 'cakebaker/scss-syntax.vim'   " creates scss.css
+if neobundle#tap('vim-css3-syntax')
+  autocmd vimrc FileType scss setlocal iskeyword+=-
+  call neobundle#untap()
+endif
 
 NeoBundle 'groenewege/vim-less'         " creates less filetype
 
@@ -789,13 +785,8 @@ NeoBundleLazy 'hail2u/vim-css3-syntax', {
       \   'autoload': { 'filetypes': ['css', 'scss'] },
       \ }
 if neobundle#tap('vim-css3-syntax')
-  if has("autocmd")
-    augroup VimCSS3Syntax
-      autocmd!
-      " fix highlighting problems on: vertical-align, box-shadow, and others
-      autocmd FileType css setlocal iskeyword+=-
-    augroup END
-  endif
+  " fix highlighting problems on: vertical-align, box-shadow, and others
+  autocmd vimrc FileType css setlocal iskeyword+=-
   call neobundle#untap()
 endif
 

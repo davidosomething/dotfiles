@@ -10,10 +10,11 @@ if has("autocmd")
   augroup vimrc
     autocmd!
   augroup END
-endif
 
-if $DOTFILES_DISTRO != "busybox"
-  source ~/.vim/rc/neobundle.vim
+  " Only load plugins on vim 7.3+ with autocmd
+  if $DOTFILES_DISTRO != "busybox"
+    source ~/.vim/rc/neobundle.vim
+  endif
 endif
 
 " From tpope/vim-sensible: load matchit.vim, but only if the user hasn't
