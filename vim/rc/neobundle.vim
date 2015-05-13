@@ -366,6 +366,7 @@ NeoBundle 'bitbucket:ludovicchabant/vim-gutentags', {
       \ }
 if neobundle#tap('vim-gutentags')
   let g:gutentags_cache_dir = expand("$VIM_DOTFILES/.tags")
+  call neobundle#untap()
 endif
 
 " ------------------------------------------------------------------------------
@@ -493,6 +494,7 @@ if neobundle#tap('smartpairs.vim')
   " ubermode is enough
   let g:smartpairs_nextpairs_key_i = ''
   let g:smartpairs_nextpairs_key_a = ''
+  call neobundle#untap()
 endif
 
 NeoBundle 'svermeulen/vim-easyclip'
@@ -766,9 +768,7 @@ NeoBundleLazy 'vadv/vim-chef', {
 NeoBundle 'vim-ruby/vim-ruby'           " creates ruby filetype
 
 " Stylesheet languages ---------------------------------------------------------
-NeoBundle 'Rykka/colorv.vim', {
-      \   'gui': 1,
-      \ }
+NeoBundle 'Rykka/colorv.vim', { 'gui': 1 }
 if neobundle#tap('colorv.vim')
   let g:colorv_preview_ftype  = "css,html,less,sass,scss"
   let g:colorv_cache_fav      = expand("$VIM_DOTFILES/.colorv_cache_fav")
