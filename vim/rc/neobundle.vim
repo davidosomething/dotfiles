@@ -364,7 +364,7 @@ NeoBundle 'bitbucket:ludovicchabant/vim-gutentags', {
       \   'disabled': !executable("ctags"),
       \ }
 if neobundle#tap('vim-gutentags')
-  let g:gutentags_cache_dir = "~/.vim/.tags"
+  let g:gutentags_cache_dir = expand("~/.vim/.tags")
 endif
 
 " ------------------------------------------------------------------------------
