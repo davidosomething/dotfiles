@@ -1,77 +1,55 @@
 # REMOVED --
 # install autojump
 # install direnv
-#
 
 update
 
-##
-# compilers, tools, and libs
+# compilers, tools, and libs ---------------------------------------------------
 install automake
 install cmake
 install libtool
 install pkg-config
 
-##
-# filesystem
+# filesystem -------------------------------------------------------------------
 install ack
-# alias rm to rmtrash
-install rmtrash
 install the_silver_searcher
 install tree
-install z
 
-##
-# git
+# git --------------------------------------------------------------------------
 install git
 install git-extras
 install hub
 
-##
-# operations
+# operations -------------------------------------------------------------------
 install nmap
 install ssh-copy-id
 
-##
-# pretty print and processor
-# query json
-install jq
+# pretty print and processor ---------------------------------------------------
+install jq                   # query json
 install jsonpp
 install multitail
 
-##
-# ruby
+# ruby -------------------------------------------------------------------------
 # see boostrap/osx/ruby.sh
-#install chruby
-#install ruby-install
 
-##
-# shells
+# shell ------------------------------------------------------------------------
+install shellcheck
 install bash-completion
 install zsh
-install zsh-completions
+#install zsh-completions -- using antigen instead
 
-##
-# shell scripting
-install shellcheck
-
-##
-# web
+# web --------------------------------------------------------------------------
 install curl
 install dnsmasq
 install mysql
-
-# see osx/install-node.sh
-
 install openssl
 install wget
 
-##
-# image/video
+# see osx/install-node.sh
+
+# image/video ------------------------------------------------------------------
 install ffmpeg
 install gifsicle
 
-
-##
-# links to /Applications
+# links to /Applications -------------------------------------------------------
 linkapps
