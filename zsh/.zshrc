@@ -25,7 +25,6 @@ antigen apply
 # local
 # load autojump before autoload compinit
 source_if_exists "$HOME/.autojump/etc/profile.d/autojump.sh"
-source_if_exists "$HOME/.fzf.zsh"
 
 # load all zsh specific scripts ------------------------------------------------
 scripts=(
@@ -39,5 +38,6 @@ scripts=(
 for script in $scripts; do; source "$ZDOTDIR/$script.zsh"; done; unset script
 
 source "$DOTFILES/shell/after"
+source_if_exists "$HOME/.fzf.zsh"
 source_if_exists "$HOME/.zshrc.local"
 
