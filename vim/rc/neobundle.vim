@@ -226,9 +226,9 @@ if neobundle#tap('unite.vim')
 
     " ========================================
     " find in files (ag.vim/ack.vim replacement)
-    nnoremap <silent><F3> :<C-u>Unite grep:!<CR>
-    inoremap <silent><F3> <Esc>:<C-u>Unite grep:!<CR>
-    vnoremap <silent><F3> <Esc>:<C-u>Unite grep:!<CR>
+    nnoremap <silent><F3> :<C-u>Unite grep:.<CR>
+    inoremap <silent><F3> <Esc>:<C-u>Unite grep:.<CR>
+    vnoremap <silent><F3> <Esc>:<C-u>Unite grep:.<CR>
 
     " ========================================
     " find in yank history
