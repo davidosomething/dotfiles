@@ -11,6 +11,7 @@ endif
 if has("vim_starting")
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
+
 call neobundle#begin(expand('$VIM_DOTFILES/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -549,7 +550,7 @@ NeoBundle 'RyanMcG/vim-textobj-dash', { 'depends': 'kana/vim-textobj-user' }
 " syntax highlighting
 NeoBundle 'editorconfig/editorconfig-vim', {
       \   'depends': 'vim-scripts/PreserveNoEOL',
-      \   'disabled': !(has("python") || has("python3")),
+      \   'disabled': v:progname == 'nvim' || !(has("python") || has("python3")),
       \ }
 
 " highlight matching html tag
@@ -597,7 +598,9 @@ if neobundle#tap('syntastic')
   call neobundle#untap()
 endif
 
-NeoBundle 'vim-scripts/PreserveNoEOL'
+NeoBundle 'vim-scripts/PreserveNoEOL', {
+      \   'disabled': v:progname == 'nvim' || !(has("python") || has("python3")),
+      \ }
 
 " ------------------------------------------------------------------------------
 " Language specific
@@ -652,7 +655,7 @@ endif
 " tagbar ctags for coffee
 NeoBundle 'lukaszkorecki/CoffeeTags', {
       \   'depends' : 'majutsushi/tagbar',
-      \   'disabled': !executable("coffeetags"),
+      \   'disabled': !has('ruby') || !executable("coffeetags"),
       \ }
 if neobundle#tap('CoffeeTags')
   let g:CoffeeAutoTagFile="$HOME/.vim/.tags/tags"
