@@ -9,6 +9,8 @@ if exists("did_load_filetypes")
   finish
 endif
 
+" only useful for filetypes that can be detected by filename
+" it is option C in the docs
 augroup filetypedetect
   autocmd BufRead,BufNewFile *.bowerrc         setfiletype json
   autocmd BufRead,BufNewFile *.cap             setfiletype ruby
