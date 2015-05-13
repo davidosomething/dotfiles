@@ -2,11 +2,11 @@
 "
 " see *ftdetect* in vim filetype help
 " http://vimdoc.sourceforge.net/htmldoc/filetype.html
-" Runs on "filetype on"
+" Runs on filetype on
 "
 
 if exists("did_load_filetypes")
-  finish
+ finish
 endif
 
 " only useful for filetypes that can be detected by filename

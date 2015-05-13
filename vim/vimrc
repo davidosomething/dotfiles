@@ -5,7 +5,6 @@ scriptencoding utf-8
 " http://www.reddit.com/r/vim/comments/2z2fg0/need_some_inspiration_for_your_vimrc/cpf8zho
 " no nocompatible!
 set nocompatible
-set secure                            " no unsafe local vimrc commands
 
 if has("autocmd")
   augroup vimrc
@@ -30,12 +29,12 @@ endif
 " load ~/.vim/filetype.vim, ftplugin, ftindent
 filetype plugin indent on
 
-set modeline
-
 " syntax highlighting
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
+
+set modeline
 
 " Display ----------------------------------------------------------------------
 set visualbell                        " no beeps
@@ -97,7 +96,6 @@ set ttymouse=xterm
 set dictionary+=$VIMFILES/dict/mine.dict
 
 " whitespace
-set binary noeol                      " binary mode required for noeol
 set nowrap
 set autoindent
 set preserveindent                    " stay indented when press enter
@@ -251,5 +249,8 @@ if has("autocmd")
 
   " see after/ftplugin/*.vim for more filetype specific stuff
 endif
+
+" leave this down here since it trims local settings
+set secure                            " no unsafe local vimrc commands
 
 " vim: syntax=vim :
