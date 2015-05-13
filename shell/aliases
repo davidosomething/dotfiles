@@ -1,4 +1,4 @@
-# Shell aliases
+# shell/aliases
 # Not run by loader
 # Sourced by both .zshrc and .bashrc, so keep it bash compatible
 
@@ -56,8 +56,9 @@ alias eobe='e $DOTFILES/linux/openbox/environment'
 alias eobm='e $DOTFILES/linux/openbox/menu.xml'
 alias eobr='e $DOTFILES/linux/openbox/rc.xml'
 alias etint='e $DOTFILES/linux/tint2/tint2rc'
+alias evf='e $VIM_DOTFILES/filetype.vim'
 alias evm='e $VIM_DOTFILES/plugin/mappings.vim'
-alias evp='e $VIM_DOTFILES/neobundle.vim'
+alias evp='e $VIM_DOTFILES/rc/neobundle.vim'
 alias evr='e $VIM_DOTFILES/vimrc'
 alias eze='e $ZDOTDIR/.zshenv.symlink'
 alias ezr='e $ZDOTDIR/.zshrc'

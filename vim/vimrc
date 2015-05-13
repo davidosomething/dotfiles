@@ -5,28 +5,37 @@ scriptencoding utf-8
 " http://www.reddit.com/r/vim/comments/2z2fg0/need_some_inspiration_for_your_vimrc/cpf8zho
 " no nocompatible!
 set nocompatible
-
-" just use modelines instead of this
-"set exrc                              " per directory vimrc
-
 set secure                            " no unsafe local vimrc commands
 
-" RTP and plugin management ----------------------------------------------------
-let g:neobundle#log_filename = expand('~/.dotfiles/logs/neobundle.log')
-
-" Ensure neobundle exists
-let g:is_first_neobundle = 0
-if empty(glob('~/.vim/bundle/neobundle.vim'))
-  silent !curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
-  autocmd VimEnter * NeoBundleUpdate
-  let g:is_first_neobundle = 1
+if has("autocmd")
+  augroup vimrc
+    autocmd!
+  augroup END
 endif
 
-if has("vim_starting")
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+if $DOTFILES_DISTRO != "busybox"
+  source ~/.vim/rc/neobundle.vim
 endif
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+
+" From tpope/vim-sensible: load matchit.vim, but only if the user hasn't
+" installed a newer version.
+"
+" For macvim it is found here:
+" /Applications/MacVim.app/Contents/Resources/vim/runtime/macros/matchit.vim
+"
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
+" load ~/.vim/filetype.vim, ftplugin, ftindent
+filetype plugin indent on
+
+set modeline
+
+" syntax highlighting
+if has('syntax') && !exists('g:syntax_on')
+  syntax enable
+endif
 
 " Display ----------------------------------------------------------------------
 set visualbell                        " no beeps
@@ -188,8 +197,6 @@ set switchbuf=useopen                 " reveal already opened files from the
                                       " quickfix window instead of opening new
                                       " buffers
 
-" easyclip handles this too, but this is more reliable since it does it in as
-" a command after exit/enter vim
 " clipboard -- use os clipboard
 if (exists("$DISPLAY") || has('mac')) && has('clipboard')
   set clipboard=unnamed  " Share system clipboard.
@@ -197,12 +204,6 @@ if (exists("$DISPLAY") || has('mac')) && has('clipboard')
     set clipboard+=unnamedplus  " Share X windows clipboard.
   endif
 endif
-
-" Mappings ---------------------------------------------------------------------
-" Map <Leader> to Space
-" no longer using comma so I can reverse repeat fFtT searches
-" no longer using \ so I can type escaped chars :/
-let mapleader = "\<Space>"
 
 " variable to highlight markdown fenced code properly -- uses tpope's
 " vim-markdown plugin (which is bundled with vim7.4 now)
@@ -223,59 +224,32 @@ let g:loaded_netrwPlugin = 1
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
 
+" Mappings ---------------------------------------------------------------------
+" Map <Leader> to Space
+" no longer using comma so I can reverse repeat fFtT searches
+" no longer using \ so I can type escaped chars :/
+let mapleader = "\<Space>"
+
 " see plugin/mappings.vim for more autoloaded settings
 
 " Autocommands -----------------------------------------------------------------
 if has("autocmd")
-  augroup vimrc
-    autocmd!
-  augroup END
-
   " Set editor configs
   " force 2sp for js
-  au vimrc FileType coffee,javascript
-        \ setlocal softtabstop=2 tabstop=2 shiftwidth=2 iskeyword+=_,$,@,%,#
+  autocmd vimrc FileType coffee,javascript
+        \ setlocal softtabstop=2 tabstop=2 shiftwidth=2
 
   " Enable soft-wrapping for text files
-  au vimrc FileType text,markdown
+  autocmd vimrc FileType text,markdown
         \ setlocal wrap linebreak nolist textwidth=80
 
   " crontab on OSX needs a tempfile
   if has('mac')
-    au vimrc BufEnter /private/tmp/crontab.*
+    autocmd vimrc BufEnter /private/tmp/crontab.*
           \ setlocal backupcopy=yes
   endif
 
   " see after/ftplugin/*.vim for more filetype specific stuff
-endif
-
-" NeoBundles -------------------------------------------------------------------
-if $DOTFILES_DISTRO != "busybox"
-  source ~/.vim/neobundle.vim
-endif
-call neobundle#end()
-
-if !has('vim_starting')
-  " Call on_source hook when reloading .vimrc.
-  call neobundle#call_hook('on_source')
-endif
-
-" From tpope/vim-sensible: load matchit.vim, but only if the user hasn't
-" installed a newer version.
-"
-" For macvim it is found here:
-" /Applications/MacVim.app/Contents/Resources/vim/runtime/macros/matchit.vim
-"
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-  runtime! macros/matchit.vim
-endif
-
-" load ftplugins
-filetype plugin indent on
-set modeline
-
-if has('syntax') && !exists('g:syntax_on')
-  syntax enable
 endif
 
 " vim: syntax=vim :

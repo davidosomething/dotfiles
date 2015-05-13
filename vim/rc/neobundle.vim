@@ -1,8 +1,19 @@
-scriptencoding utf-8
-" add scriptencoding explicitly on this plugin file since it uses funky chars
+let g:neobundle#log_filename = expand('~/.dotfiles/logs/neobundle.log')
 
-" Rules to adhere to:
-" - If it provides a new filetype (like vim-coffee-script), don't lazy
+" Ensure neobundle exists
+let g:is_first_neobundle = 0
+if empty(glob('~/.vim/bundle/neobundle.vim'))
+  silent !curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
+  autocmd VimEnter * NeoBundleUpdate
+  let g:is_first_neobundle = 1
+endif
+
+if has("vim_starting")
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " plugin dependencies ----------------------------------------------------------
 NeoBundle 'Shougo/vimproc', {
@@ -795,4 +806,9 @@ NeoBundle 'evidens/vim-twig'            " creates twig
 " YAML -------------------------------------------------------------------------
 NeoBundle 'ingydotnet/yaml-vim'
 
-" vim: syntax=vim :
+call neobundle#end()
+
+if !has('vim_starting')
+  " Call on_source hook when reloading .vimrc.
+  call neobundle#call_hook('on_source')
+endif
