@@ -17,9 +17,12 @@ has_program "brew" && {
 }
 
 # plugins ----------------------------------------------------------------------
-source "$ZDOTDIR/antigen.zsh"
+# antigen
+source "$ZDOTDIR/antigen/antigen.zsh"
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions src
+antigen apply
+# local
 # load autojump before autoload compinit
 source_if_exists "$HOME/.autojump/etc/profile.d/autojump.sh"
 source_if_exists "$HOME/.fzf.zsh"

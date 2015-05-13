@@ -4,3 +4,6 @@
 [submodule "shell/autojump"]
 	path = shell/autojump
 	url = https://github.com/joelthelion/autojump
+[submodule "zsh/antigen"]
+	path = zsh/antigen
+	url = https://github.com/zsh-users/antigen.git
