@@ -1,4 +1,4 @@
-let g:neobundle#log_filename = expand('~/.dotfiles/logs/neobundle.log')
+let g:neobundle#log_filename = expand('$DOTFILES/logs/neobundle.log')
 
 " Ensure neobundle exists
 let g:is_first_neobundle = 0
@@ -11,7 +11,7 @@ endif
 if has("vim_starting")
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-call neobundle#begin(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('$VIM_DOTFILES/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -364,7 +364,7 @@ NeoBundle 'bitbucket:ludovicchabant/vim-gutentags', {
       \   'disabled': !executable("ctags"),
       \ }
 if neobundle#tap('vim-gutentags')
-  let g:gutentags_cache_dir = expand("~/.vim/.tags")
+  let g:gutentags_cache_dir = expand("$VIM_DOTFILES/.tags")
 endif
 
 " ------------------------------------------------------------------------------
@@ -722,7 +722,7 @@ NeoBundleLazy 'tobyS/pdv', {
       \   'depends': 'tobyS/vmustache',
       \ }
 if neobundle#tap('pdv')
-  let g:pdv_template_dir = expand("~/.vim/bundle/pdv/templates")
+  let g:pdv_template_dir = expand("$VIM_DOTFILES/bundle/pdv/templates")
   autocmd vimrc FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
   autocmd vimrc FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
   call neobundle#untap()
@@ -768,8 +768,8 @@ NeoBundle 'Rykka/colorv.vim', {
       \ }
 if neobundle#tap('colorv.vim')
   let g:colorv_preview_ftype  = "css,html,less,sass,scss"
-  let g:colorv_cache_fav      = expand("~/.vim/.colorv_cache_fav")
-  let g:colorv_cache_file     = expand("~/.vim/.colorv_cache_file")
+  let g:colorv_cache_fav      = expand("$VIM_DOTFILES/.colorv_cache_fav")
+  let g:colorv_cache_file     = expand("$VIM_DOTFILES/.colorv_cache_file")
   call neobundle#untap()
 endif
 

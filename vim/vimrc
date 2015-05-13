@@ -13,7 +13,7 @@ if has("autocmd")
 
   " Only load plugins on vim 7.3+ with autocmd
   if $DOTFILES_DISTRO != "busybox"
-    source ~/.vim/rc/neobundle.vim
+    source $VIM_DOTFILES/rc/neobundle.vim
   endif
 endif
 
@@ -91,9 +91,6 @@ set nojoinspaces                      " J command doesn't add extra space
 set mouse=a
 set ttymouse=xterm
 
-" custom autocomplete dictionary
-set dictionary+=$VIMFILES/dict/mine.dict
-
 " whitespace
 set nowrap
 set autoindent
@@ -165,7 +162,7 @@ set fileformat=unix
 "set tags=~/.vim/.tags/tags
 
 " info file
-set viminfo+=n~/.vim/.viminfo
+set viminfo+=n$VIM_DOTFILES/.viminfo
 
 " backups
 set noswapfile                        " useless
@@ -175,9 +172,9 @@ set backupskip=/tmp/*,/private/tmp/*"
 set undofile
 set undolevels=500
 set undoreload=500
-set undodir=~/.vim/.undo//
-set backupdir=~/.vim/.backup//
-set directory=~/.vim/.swp//
+set undodir=$VIM_DOTFILES/.undo//
+set backupdir=$VIM_DOTFILES/.backup//
+set directory=$VIM_DOTFILES/.swp//
 set backup
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
@@ -257,7 +254,7 @@ endif
 " leave this down here since it trims local settings
 set secure                            " no unsafe local vimrc commands
 
-if filereadable(glob("~/.vimrc.local"))
-    source ~/.vimrc.local
+if filereadable(glob("$HOME/.vimrc.local"))
+    source $HOME/.vimrc.local
 endif
 " vim: syntax=vim :
