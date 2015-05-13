@@ -34,6 +34,10 @@ for script in $scripts; do
 done
 unset script
 
+source "$ZDOTDIR/antigen.zsh"
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions src
+
 source "$DOTFILES/shell/after"
 
 source_if_exists "$HOME/.fzf.zsh"

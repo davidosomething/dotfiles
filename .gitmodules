@@ -1,24 +1,9 @@
-[submodule "zsh/zsh-completions"]
-	path = zsh/plugins/zsh-completions
-	url = https://github.com/zsh-users/zsh-completions.git
-[submodule "zsh/zsh-syntax-highlighting"]
-	path = zsh/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "z"]
 	path = z
 	url = https://github.com/rupa/z.git
 [submodule "base16-iterm2"]
 	path = osx/base16-iterm2
 	url = https://github.com/chriskempson/base16-iterm2.git
-[submodule "zsh/zsh-history-substring-search"]
-	path = zsh/plugins/zsh-history-substring-search
-	url = https://github.com/zsh-users/zsh-history-substring-search.git
-[submodule "zsh/zsh-autosuggestions"]
-	path = zsh/plugins/zsh-autosuggestions
-	url = https://github.com/tarruda/zsh-autosuggestions
-[submodule "zsh/plugins/opp.zsh"]
-	path = zsh/plugins/opp.zsh
-	url = https://github.com/hchbaw/opp.zsh
 [submodule "shell/autojump"]
 	path = shell/autojump
 	url = https://github.com/joelthelion/autojump
