@@ -44,12 +44,11 @@ alias se="sudo -e"
 # editor
 alias e="v"
 alias v="vopen"
-alias edot='e $DOTFILES'
-alias eshell='e $DOTFILES/shell'
-alias ea='e $DOTFILES/shell/aliases'
+alias esa='e $DOTFILES/shell/aliases'
+alias esf='e $DOTFILES/shell/functions'
+alias esp='e $DOTFILES/shell/paths'
+alias esv='e $DOTFILES/shell/vars'
 alias ebr='e $BASH_DOTFILES/.bashrc.symlink'
-alias ef='e $DOTFILES/shell/functions'
-alias ep='e $DOTFILES/shell/paths'
 alias ehosts="se /etc/hosts"
 alias eoba='e $DOTFILES/linux/openbox/autostart.sh'
 alias eobe='e $DOTFILES/linux/openbox/environment'

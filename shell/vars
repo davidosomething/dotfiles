@@ -112,7 +112,7 @@ export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
 export NPM_PACKAGES="$HOME/.npm-packages"
 
 # vopen
-export VOPEN_DEFAULT_COMMAND="+VimFilerCurrentDir"
+export VOPEN_DEFAULT_COMMAND=""
 
 # z
 export _Z_CMD=j
