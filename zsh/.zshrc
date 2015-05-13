@@ -16,10 +16,15 @@ has_program "brew" && {
   autoload run-help
 }
 
+# plugins ----------------------------------------------------------------------
+source "$ZDOTDIR/antigen.zsh"
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions src
 # load autojump before autoload compinit
 source_if_exists "$HOME/.autojump/etc/profile.d/autojump.sh"
+source_if_exists "$HOME/.fzf.zsh"
 
-# load all zsh specific scripts
+# load all zsh specific scripts ------------------------------------------------
 scripts=(
   "options"
   "aliases"
@@ -28,18 +33,8 @@ scripts=(
   "title"
   "prompt"
 )
-for script in $scripts; do
-  source "$ZDOTDIR/$script.zsh"
-done
-unset script
-
-source "$ZDOTDIR/antigen.zsh"
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions src
+for script in $scripts; do; source "$ZDOTDIR/$script.zsh"; done; unset script
 
 source "$DOTFILES/shell/after"
-
-source_if_exists "$HOME/.fzf.zsh"
-
 source_if_exists "$HOME/.zshrc.local"
 
