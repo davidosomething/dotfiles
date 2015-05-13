@@ -27,7 +27,6 @@ scripts=(
   "completions"
   "title"
   "prompt"
-  "plugins"
 )
 for script in $scripts; do
   source "$ZDOTDIR/$script.zsh"
