@@ -71,8 +71,6 @@ set foldlevelstart=99                 " show all folds by default
 " splits
 set splitbelow
 set splitright
-" Resize splits when the window is resized
-au VimResized * :wincmd =
 
 " input
 set formatoptions=
@@ -233,6 +231,9 @@ let mapleader = "\<Space>"
 
 " Autocommands -----------------------------------------------------------------
 if has("autocmd")
+  " Resize splits when the window is resized
+  autocmd vimrc VimResized * :wincmd =
+
   " Set editor configs
   " force 2sp for js
   autocmd vimrc FileType coffee,javascript
