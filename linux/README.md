@@ -101,11 +101,12 @@ startx
     functions
     vars
     paths
-  .zshrc
-    before
-      aliases
-    after
-    .zshrc.local
+.zprofile (login shells - e.g. osx - only)
+.zshrc
+  before
+    aliases
+  after
+  .zshrc.local
 ```
 
 #### bash
