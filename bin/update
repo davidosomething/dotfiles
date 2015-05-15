@@ -4,8 +4,7 @@ set -eu
 # Update dotfiles and provide instructions for updating the system
 #
 
-################################################################################
-# initialize script and dependencies
+# initialize script and dependencies -------------------------------------------
 # get this bootstrap folder
 pushd "$(dirname "$0")/.." >> /dev/null
 dotfiles_path="$(pwd)"
@@ -19,6 +18,7 @@ if [[ $# -eq 0 ]]; then
   dkousage "update [thing]"
   dkousage_ "thing is one of:"
   dkousage_ "  dotfiles"
+  dkousage_ "  fzf"
   dkousage_ "  gem"
   dkousage_ "  heroku"
   dkousage_ "  npm"
@@ -34,7 +34,11 @@ if [[ $# -eq 0 ]]; then
 fi
 
 # Command functions ------------------------------------------------------------
-_upgrade_pip() {
+_update_fzf() {
+  cd ~/.fzf && git pull && ./install
+}
+
+_update_pip() {
   local pip_command=$1
   dkostatus "Updating $pip_command"
   if has_program "$pip_command"; then
@@ -104,9 +108,9 @@ _update_darwin() {
       ;;
 
     pip)
-      _upgrade_pip "pip"
-      _upgrade_pip "pip2"
-      _upgrade_pip "pip3"
+      _update_pip "pip"
+      _update_pip "pip2"
+      _update_pip "pip3"
       ;;
   esac
 }
@@ -125,6 +129,11 @@ if [[ "$1" = "dotfiles" ]]; then
   if [[ $updated_dotfiles -ne 0 ]]; then
     dkodie "You have unsaved changes in your ~/.dotfiles folder."
   fi
+fi
+
+if [[ "$1" = "fzf" ]]; then
+  dkostatus "Updating fzf"
+  _update_fzf
 fi
 
 if [[ "$1" = "gem" ]]; then
