@@ -3,6 +3,7 @@ coffee-script
 coffeeify
 coffeelint
 david
+flow-bin
 git-bc
 git-open
 grunt-cli
