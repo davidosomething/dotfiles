@@ -89,6 +89,10 @@ export DOCKER_HOST="tcp://localhost:4243"
 # overridden in homebrew section if has brew
 export CHRUBY_PREFIX="/usr"
 
+# fzf
+# ** is globbing completion in  zsh, use tickticktab instead
+export FZF_COMPLETION_TRIGGER='``'
+
 # go
 # used in shell/paths
 export GOPATH="$HOME/go"
