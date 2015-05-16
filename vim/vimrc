@@ -6,6 +6,12 @@ scriptencoding utf-8
 " no nocompatible!
 set nocompatible
 
+" Map <Leader> to Space
+" no longer using comma so I can reverse repeat fFtT searches
+" no longer using \ so I can type escaped chars :/
+" needs to be before bundle so plugins map correctly
+let mapleader = "\<Space>"
+
 if has("autocmd")
   augroup vimrc
     autocmd!
@@ -219,14 +225,6 @@ let g:markdown_fenced_languages = [
 let g:loaded_netrwPlugin = 1
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
-
-" Mappings ---------------------------------------------------------------------
-" Map <Leader> to Space
-" no longer using comma so I can reverse repeat fFtT searches
-" no longer using \ so I can type escaped chars :/
-let mapleader = "\<Space>"
-
-" see plugin/mappings.vim for more autoloaded settings
 
 " Autocommands -----------------------------------------------------------------
 if has("autocmd")

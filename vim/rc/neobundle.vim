@@ -627,13 +627,14 @@ NeoBundleLazy 'digitaltoad/vim-jade', { 'autoload': { 'filetypes': ['jade'] } }
 NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 
 " JavaScript / CoffeeScript ----------------------------------------------------
-NeoBundleLazy 'facebook/vim-flow', {
-      \   'autoload': { 'filetypes': 'javascript' },
-      \   'build': {
-      \     'mac': 'npm install -g flow-bin',
-      \     'unix': 'npm install -g flow-bin'
-      \   }
-      \ }
+" NeoBundleLazy 'facebook/vim-flow', {
+"       \   'autoload': { 'filetypes': 'javascript' },
+"       \   'build': {
+"       \     'mac': 'npm install -g flow-bin',
+"       \     'unix': 'npm install -g flow-bin'
+"       \   }
+"       \ }
+
 NeoBundleLazy 'heavenshell/vim-jsdoc', {
       \   'autoload': {
       \     'filetypes': ['html', 'javascript', 'php'],
