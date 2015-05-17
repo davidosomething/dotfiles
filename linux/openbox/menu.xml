@@ -21,9 +21,9 @@
 		</item>
 	</menu>
 	<menu id="media" label="Media">
-		<item label="castawesome">
+		<item label="Open Broadcaster Software">
 			<action name="Execute">
-				<execute>castawesome</execute>
+				<execute>obs</execute>
 			</action>
 		</item>
 		<item label="Popcorn Time">
