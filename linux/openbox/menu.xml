@@ -48,9 +48,9 @@
 				<execute>pidgin</execute>
 			</action>
 		</item>
-		<item label="Slack">
+		<item label="ScudCloud">
 			<action name="Execute">
-				<execute>chromium --app=https://timeinc.slack.com/messages/javascript/</execute>
+				<execute>scudcloud</execute>
 			</action>
 		</item>
 		<item label="Mumble">

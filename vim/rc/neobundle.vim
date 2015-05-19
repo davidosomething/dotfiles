@@ -471,18 +471,13 @@ endif
 " editing keys
 NeoBundleLazy 'godlygeek/tabular', { 'autoload': { 'commands': 'Tabularize' } }
 if neobundle#tap('tabular')
-  nmap <Leader>a& :Tabularize /&<CR>
+  vmap <Leader>a"  :Tabularize /"<CR>
   vmap <Leader>a& :Tabularize /&<CR>
-  nmap <Leader>a- :Tabularize /-<CR>
   vmap <Leader>a- :Tabularize /-<CR>
-  nmap <Leader>a= :Tabularize /=<CR>
   vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>af :Tabularize /=>/<CR>
   vmap <Leader>af :Tabularize /=>/<CR>
   " align the following without moving them
-  nmap <leader>a: :Tabularize /:\zs/l0l1<CR>
   vmap <leader>a: :Tabularize /:\zs/l0l1<CR>
-  nmap <leader>a, :Tabularize /,\zs/l0l1<CR>
   vmap <leader>a, :Tabularize /,\zs/l0l1<CR>
   call neobundle#untap()
 endif
@@ -494,6 +489,15 @@ if neobundle#tap('smartpairs.vim')
   " ubermode is enough
   let g:smartpairs_nextpairs_key_i = ''
   let g:smartpairs_nextpairs_key_a = ''
+  call neobundle#untap()
+endif
+
+NeoBundle 'lfilho/cosco.vim'
+if neobundle#tap('cosco.vim')
+  autocmd FileType javascript,css,php
+        \ nnoremap <silent>;; :call cosco#commaOrSemiColon()<CR>
+  autocmd FileType javascript,css,php
+        \ inoremap <silent>;; <C-O>:call cosco#commaOrSemiColon()<CR>
   call neobundle#untap()
 endif
 
