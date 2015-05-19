@@ -3,7 +3,7 @@
 # sourced on login after zprofile
 # sourced when you type zsh
 
-[ "$DKO_LOADER" != $$ ] && source "$DOTFILES/shell/loader"
+[ "$DKO_LOADER" != $$ ] && source "$HOME/.dotfiles/shell/loader"
 source "$DOTFILES/shell/before"
 
 export DKO_SOURCE="$DKO_SOURCE -> zshrc"

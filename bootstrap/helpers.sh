@@ -39,7 +39,8 @@ dkorequire()    {
 ##
 # symlinking helper function
 dkosymlink() {
-  local dotfile="$DOTFILES/$1"
+  local dotfiles_dir="$HOME/.dotfiles"
+  local dotfile="$dotfiles_dir/$1"
   local homefile="$2"
   dkosymlinking "$homefile" "$dotfile" && ln -fns "$dotfile" "$HOME/$homefile"
 }
