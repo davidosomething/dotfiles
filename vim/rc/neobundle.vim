@@ -318,9 +318,7 @@ if neobundle#tap('Cmd2.vim')
 
     " Press F8 in cmdmode to use Cmd2
     cmap <F8> <Plug>(Cmd2Suggest)
-
   endfunction
-
   call neobundle#untap()
 endif
 
@@ -329,7 +327,6 @@ if neobundle#tap('incsearch.vim')
   map /   <Plug>(incsearch-forward)
   map ?   <Plug>(incsearch-backward)
   map g/  <Plug>(incsearch-stay)
-
   call neobundle#untap()
 endif
 

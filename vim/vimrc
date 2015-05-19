@@ -132,9 +132,7 @@ set incsearch
 set wrapscan                          " Searches wrap around end of the file.
 set ignorecase
 set smartcase
-" fix regexes
-nnoremap / /\v
-vnoremap / /\v
+
 " The Silver Searcher
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
