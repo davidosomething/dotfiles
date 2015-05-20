@@ -6,14 +6,11 @@ set -eu
 
 # initialize script and dependencies -------------------------------------------
 # get this bootstrap folder
-pushd "$(dirname "$0")/.." >> /dev/null
+cd "$(dirname "$0")/.."
 dotfiles_path="$(pwd)"
 logs_path="$dotfiles_path/logs"
 bootstrap_path="$dotfiles_path/bootstrap"
-source "$bootstrap_path"/helpers.sh
-popd >> /dev/null
-
-git submodule update --init
+source "$bootstrap_path/helpers.sh"
 
 # Usage ------------------------------------------------------------------------
 if [[ $# -eq 0 ]]; then
@@ -37,11 +34,11 @@ fi
 
 # Command functions ------------------------------------------------------------
 _update_fzf() {
-  cd ~/.fzf && git pull && ./install
+  cd "$HOME/.fzf" && git pull && ./install
 }
 
 _update_pip() {
-  local pip_command=$1
+  local pip_command=${1:-pip}
   dkostatus "Updating $pip_command"
   if has_program "$pip_command"; then
     $pip_command install --upgrade setuptools
@@ -67,7 +64,7 @@ _update_linux() {
 
     wp)
       dkostatus "Update wp-cli"
-      pushd ~/.wp-cli &&
+      pushd "$HOME/.wp-cli" &&
       php composer.phar self-update &&
       php composer.phar update --no-dev &&
       popd
