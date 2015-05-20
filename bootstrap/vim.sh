@@ -22,5 +22,7 @@ fi
 dkostatus "Symlinking vim dotfiles and .vim folder"
 dkosymlink vim                 .vim
 
+curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
+
 dkostatus "Done! [vim.sh]"
 

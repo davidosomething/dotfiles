@@ -13,6 +13,8 @@ bootstrap_path="$dotfiles_path/bootstrap"
 source "$bootstrap_path"/helpers.sh
 popd >> /dev/null
 
+git submodule update --init
+
 # Usage ------------------------------------------------------------------------
 if [[ $# -eq 0 ]]; then
   dkousage "update [thing]"
