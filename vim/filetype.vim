@@ -24,3 +24,4 @@ augroup filetypedetect
   autocmd BufRead,BufNewFile *.txt             setfiletype markdown
 augroup END
 
+autocmd BufRead,BufNewFile *.php             setlocal filetype=php
