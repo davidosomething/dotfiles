@@ -6,7 +6,7 @@
 .bash_history
 .lesshst
 .zhistory
-.zcompdump
+.zcompdump*
 .zsh_history
 
 *.log
