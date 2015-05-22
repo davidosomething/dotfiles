@@ -435,6 +435,9 @@
         <height>49%</height>
       </action>
     </keybind>
+    <keybind key="W-u">
+      <action name="ToggleDecorations" />
+    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
