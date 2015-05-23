@@ -33,6 +33,11 @@
 		</item>
 	</menu>
 	<menu id="messaging" label="Messaging">
+		<item label="Hangouts">
+			<action name="Execute">
+				<execute>/usr/bin/chromium --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl</execute>
+			</action>
+		</item>
 		<item label="HexChat">
 			<action name="Execute">
 				<execute>hexchat</execute>
