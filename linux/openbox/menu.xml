@@ -19,6 +19,11 @@
 				<execute>minecraft</execute>
 			</action>
 		</item>
+		<item label="FeedTheBeast">
+			<action name="Execute">
+				<execute>feedthebeast</execute>
+			</action>
+		</item>
 	</menu>
 	<menu id="graphics" label="Graphics">
 		<item label="Adobe Photoshop CS6">
