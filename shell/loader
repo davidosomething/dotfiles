@@ -9,6 +9,13 @@ export DKO_LOADER=$$
 # definitions. We want these get sourced again if you start a subshell.
 source "$HOME/.dotfiles/shell/functions"
 source "$HOME/.dotfiles/shell/vars"
+
+# These set path
+source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
+source_if_exists "$NVM_DIR/nvm.sh"
+has_program "hub" && eval "$(hub alias -s)"
+
+# My path overrides
 source "$HOME/.dotfiles/shell/paths"
 
 # vim: syn=sh :

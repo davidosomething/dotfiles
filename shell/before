@@ -6,11 +6,6 @@
 
 export DKO_SOURCE="$DKO_SOURCE -> shell before"
 
-# Load env programs
-source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
-source_if_exists "$NVM_DIR/nvm.sh"
-has_program "hub" && eval "$(hub alias -s)"
-
 # Reset aliases for shell
 source "$HOME/.dotfiles/shell/aliases"
 
