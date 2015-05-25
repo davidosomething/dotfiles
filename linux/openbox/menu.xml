@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
+	<menu id="browsers" label="Browsers">
+		<item label="Firefox">
+			<action name="Execute">
+				<execute></execute>
+			</action>
+		</item>
+		<item label="Chromium (debug)">
+			<action name="Execute">
+				<execute>chromium --enable-precise-memory-info</execute>
+			</action>
+		</item>
+	</menu>
 	<menu id="games" label="Games">
 		<menu execute="~/.dotfiles/linux/openbox/pipe/steamapps.sh" id="pipe-steamapps" label="Steam Apps"/>
 		<item label="Minecraft">
@@ -148,25 +160,12 @@
 				<execute>chromium</execute>
 			</action>
 		</item>
-		<item label="Chromium (debug)">
-			<action name="Execute">
-				<execute>chromium --enable-precise-memory-info</execute>
-			</action>
-		</item>
-		<item label="Firefox">
-			<action name="Execute">
-				<command>firefox</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-					<wmclass>Firefox</wmclass>
-				</startupnotify>
-			</action>
-		</item>
 		<item label="NixNote2">
 			<action name="Execute">
 				<execute>/bin/nixnote2</execute>
 			</action>
 		</item>
+		<menu id="browsers"/>
 		<menu id="media"/>
 		<menu id="messaging"/>
 		<menu id="games"/>
