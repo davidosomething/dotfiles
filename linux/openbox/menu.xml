@@ -148,6 +148,11 @@
 				<execute>chromium</execute>
 			</action>
 		</item>
+		<item label="Chromium (debug)">
+			<action name="Execute">
+				<execute>chromium --enable-precise-memory-info</execute>
+			</action>
+		</item>
 		<item label="Firefox">
 			<action name="Execute">
 				<command>firefox</command>
