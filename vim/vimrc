@@ -162,7 +162,7 @@ set fileformats=unix,mac,dos
 set fileformat=unix
 
 " info file
-set viminfo+=n$VIM_DOTFILES/.viminfo
+execute "set viminfo+=n" . expand("$VIM_DOTFILES/.viminfo")
 
 " backups
 set noswapfile                        " useless
