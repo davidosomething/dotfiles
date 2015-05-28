@@ -5,17 +5,22 @@
 export DKO_SOURCE="$DKO_SOURCE -> shell loader"
 export DKO_LOADER=$$
 
+# Store default system path --------------------------------------------------
+# Probably created via /etc/profile and /etc/profile.d/*
+if [[ -z "$DKO_SYSTEM_PATH" ]]; then
+  DKO_SYSTEM_PATH="$PATH"
+  export DKO_SYSTEM_PATH
+fi
+
 # There are no conditions to source these, straight up replace their
 # definitions. We want these get sourced again if you start a subshell.
 source "$HOME/.dotfiles/shell/functions"
 source "$HOME/.dotfiles/shell/vars"
+source "$HOME/.dotfiles/shell/paths"
 
-# These set path
+# These add to path
 source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
 source_if_exists "$NVM_DIR/nvm.sh"
 has_program "hub" && eval "$(hub alias -s)"
-
-# My path overrides
-source "$HOME/.dotfiles/shell/paths"
 
 # vim: syn=sh :

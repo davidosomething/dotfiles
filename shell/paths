@@ -3,14 +3,9 @@
 
 # _add_my_paths
 #
+# Depends on loader setting DKO_SYSTEM_PATH
+#
 _add_my_paths() {
-  # Store default system path --------------------------------------------------
-  # Probably created via /etc/profile and /etc/profile.d/*
-  if [[ -z "$DKO_SYSTEM_PATH" ]]; then
-    DKO_SYSTEM_PATH="$PATH"
-    export DKO_SYSTEM_PATH
-  fi
-
   # Begin my_path composition --------------------------------------------------
   # On BSD system, e.g. Darwin -- path_helper is called, reads /etc/paths
   # Move local bin to front for homebrew compatibility
@@ -29,11 +24,14 @@ _add_my_paths() {
   my_path="$GOPATH/bin:$my_path"
 
   # npm binaries from npm installed via homebrew
+  # These should not exist -- npm should have been installed separately
+  # along with the nvm provided node
   [ -d "$BREW_PREFIX/share/npm/bin" ] && {
     my_path="$BREW_PREFIX/share/npm/bin:$my_path"
   }
 
   # npm binaries from npm in home
+  # This is where my npm bins probably are
   [ -d "$NPM_PACKAGES" ] && {
     my_path="$NPM_PACKAGES/bin:$my_path"
     unset MANPATH
