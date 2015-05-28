@@ -161,10 +161,6 @@ set wildignore+=*.swp,.lock,.DS_Store,._*
 set fileformats=unix,mac,dos
 set fileformat=unix
 
-" gutentags handles this
-"set tags=./tags,./TAGS,tags,TAGS
-"set tags=~/.vim/.tags/tags
-
 " info file
 set viminfo+=n$VIM_DOTFILES/.viminfo
 
