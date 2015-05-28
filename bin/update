@@ -19,6 +19,7 @@ if [[ $# -eq 0 ]]; then
   dkousage_ "  dotfiles"
   dkousage_ "  fzf"
   dkousage_ "  gem"
+  dkousage_ "  go"
   dkousage_ "  heroku"
   dkousage_ "  npm"
   dkousage_ "  php    # phpenv"
@@ -138,6 +139,11 @@ fi
 if [[ "$1" = "gem" ]]; then
   dkostatus "Updating gems"
   gem update --system && gem update
+fi
+
+if [[ "$1" = "go" ]]; then
+  dkostatus "Updating go packages"
+  go get -u all
 fi
 
 if [[ "$1" = "heroku" ]]; then
