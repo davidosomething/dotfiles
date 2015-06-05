@@ -3,7 +3,7 @@
 	<menu id="browsers" label="Browsers">
 		<item label="Firefox">
 			<action name="Execute">
-				<execute></execute>
+				<execute>firefox</execute>
 			</action>
 		</item>
 		<item label="Chromium (debug)">
