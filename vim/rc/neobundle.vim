@@ -561,6 +561,8 @@ NeoBundleLazy 'gregsexton/MatchTag', {
       \   'autoload': { 'filetypes': ['html', 'mustache', 'php', 'rb'] },
       \ }
 
+NeoBundle 'rhysd/conflict-marker.vim'
+
 NeoBundle 'scrooloose/syntastic'
 if neobundle#tap('syntastic')
   let g:syntastic_aggregate_errors         = 1
