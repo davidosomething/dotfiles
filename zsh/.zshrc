@@ -20,6 +20,7 @@ has_program "brew" && {
 # antigen
 source "$ZDOTDIR/antigen/antigen.zsh"
 antigen bundle golang
+antigen bundle rimraf/k
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions src
 antigen apply
