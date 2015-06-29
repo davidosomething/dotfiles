@@ -29,6 +29,11 @@
 				<execute>atlauncher</execute>
 			</action>
 		</item>
+		<item label="MultiMC">
+			<action name="Execute">
+				<execute>multimc5</execute>
+			</action>
+		</item>
 		<item label="Technic Launcher">
 			<action name="Execute">
 				<execute>technic-launcher</execute>
