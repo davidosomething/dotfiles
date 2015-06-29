@@ -24,6 +24,16 @@
 				<execute>feedthebeast</execute>
 			</action>
 		</item>
+		<item label="ATLauncher">
+			<action name="Execute">
+				<execute>atlauncher</execute>
+			</action>
+		</item>
+		<item label="Technic Launcher">
+			<action name="Execute">
+				<execute>technic-launcher</execute>
+			</action>
+		</item>
 	</menu>
 	<menu id="graphics" label="Graphics">
 		<item label="Adobe Photoshop CS6">
