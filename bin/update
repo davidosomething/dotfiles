@@ -90,13 +90,8 @@ _update_darwin() {
     docker)
       dkostatus "Updating boot2docker"
       brew update
-      brew upgrade docker
-      brew upgrade boot2docker
       boot2docker stop
-      boot2docker delete
-      boot2docker download
-      boot2docker init
-      boot2docker up
+      boot2docker upgrade
       ;;
 
     osx)
