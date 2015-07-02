@@ -41,7 +41,7 @@
 	</menu>
 	<menu id="games" label="Games">
 		<menu execute="~/.dotfiles/linux/openbox/pipe/steamapps.sh" id="pipe-steamapps" label="Steam Apps"/>
-		<menu id="graphics"/>
+		<menu id="minecraft"/>
 	</menu>
 	<menu id="graphics" label="Graphics">
 		<item label="Adobe Photoshop CS6">
