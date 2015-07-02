@@ -12,11 +12,10 @@
 			</action>
 		</item>
 	</menu>
-	<menu id="games" label="Games">
-		<menu execute="~/.dotfiles/linux/openbox/pipe/steamapps.sh" id="pipe-steamapps" label="Steam Apps"/>
-		<item label="Minecraft">
+	<menu id="minecraft" label="Minecraft">
+		<item label="ATLauncher">
 			<action name="Execute">
-				<execute>minecraft</execute>
+				<execute>atlauncher</execute>
 			</action>
 		</item>
 		<item label="FeedTheBeast">
@@ -24,9 +23,9 @@
 				<execute>feedthebeast</execute>
 			</action>
 		</item>
-		<item label="ATLauncher">
+		<item label="Minecraft">
 			<action name="Execute">
-				<execute>atlauncher</execute>
+				<execute>minecraft</execute>
 			</action>
 		</item>
 		<item label="MultiMC">
@@ -40,6 +39,10 @@
 			</action>
 		</item>
 	</menu>
+	<menu id="games" label="Games">
+		<menu execute="~/.dotfiles/linux/openbox/pipe/steamapps.sh" id="pipe-steamapps" label="Steam Apps"/>
+		<menu id="graphics"/>
+	</menu>
 	<menu id="graphics" label="Graphics">
 		<item label="Adobe Photoshop CS6">
 			<action name="Execute">
@@ -49,6 +52,16 @@
 		<item label="Xournal">
 			<action name="Execute">
 				<execute>/bin/xournal</execute>
+			</action>
+		</item>
+		<item label="gscan2pdf">
+			<action name="Execute">
+				<execute>gscan2pdf</execute>
+			</action>
+		</item>
+		<item label="Simple Scan">
+			<action name="Execute">
+				<execute>simple-scan</execute>
 			</action>
 		</item>
 	</menu>
