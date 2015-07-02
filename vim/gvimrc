@@ -22,3 +22,6 @@ else
 
 endif
 
+if filereadable(glob("$HOME/.gvimrc.local"))
+    source $HOME/.gvimrc.local
+endif

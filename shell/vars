@@ -82,8 +82,9 @@ has_program "apachectl" && {
   fi
 }
 
-# boot2docker
-export DOCKER_HOST="tcp://localhost:4243"
+# chphp
+# overridden in homebrew section if has brew
+export CHPHP_PREFIX="/usr"
 
 # chruby
 # overridden in homebrew section if has brew
@@ -101,6 +102,7 @@ export GOPATH="$HOME/go"
 has_program "brew" && {
   BREW_PREFIX="$(brew --prefix)"
   export BREW_PREFIX
+  export CHPHP_PREFIX="$BREW_PREFIX"
   export CHRUBY_PREFIX="$BREW_PREFIX"
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 

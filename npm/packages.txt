@@ -1,3 +1,4 @@
+bower
 browserify
 coffee-script
 coffeeify

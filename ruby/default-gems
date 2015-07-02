@@ -5,8 +5,7 @@ capistrano-composer
 chunky_png
 CoffeeTags
 commander
-compass --pre
-compass-csscss
+compass
 csscss
 dandelion
 ffi
@@ -35,7 +34,7 @@ redcarpet
 RedCloth
 rhc
 rubygems-update
-sass --pre
+sass
 sass-json-vars
 sassy-maps
 scss_lint
