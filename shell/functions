@@ -108,10 +108,10 @@ lopen() {
 }
 
 eapache() {
-  eval "$EDITOR" "${APACHE_HTTPD_ROOT}/${APACHE_HTTPD_CONF}"
+  sudo -e "${APACHE_HTTPD_CONF}"
 }
 ephpini() {
-  eval "$EDITOR" "$(php -r "echo php_ini_loaded_file();")"
+  sudo -e "$(php -r "echo php_ini_loaded_file();")"
 }
 
 # traversal --------------------------------------------------------------------
