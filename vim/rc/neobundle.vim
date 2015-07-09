@@ -629,8 +629,6 @@ NeoBundleLazy 'digitaltoad/vim-jade', { 'autoload': { 'filetypes': ['jade'] } }
 
 NeoBundle 'tpope/vim-haml'              " creates haml, sass, scss filetypes
 
-NeoBundle 'vim-scripts/HTML-AutoCloseTag'
-
 " JavaScript / CoffeeScript ----------------------------------------------------
 " NeoBundleLazy 'facebook/vim-flow', {
 "       \   'autoload': { 'filetypes': 'javascript' },
