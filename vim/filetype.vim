@@ -17,6 +17,7 @@ augroup filetypedetect
   autocmd BufRead,BufNewFile *.conf            setfiletype conf
   autocmd BufRead,BufNewFile *.dump            setfiletype sql
   autocmd BufRead,BufNewFile *.editorconfig    setfiletype json
+  autocmd BufRead,BufNewFile *.eslintrc        setfiletype json
   autocmd BufRead,BufNewFile *.jshintrc        setfiletype json
   " md is normally modula2 -- force it to always be markdown
   autocmd BufRead,BufNewFile *.md              setfiletype markdown
