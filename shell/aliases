@@ -44,7 +44,7 @@ alias root="sudo -s"
 alias se="sudo -e"
 
 # editor
-alias e="v"
+alias e="vopen"
 alias v="vopen"
 alias esa='e $DOTFILES/shell/aliases'
 alias esf='e $DOTFILES/shell/functions'
