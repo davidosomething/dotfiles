@@ -23,6 +23,9 @@ _add_my_paths() {
   # go
   my_path="$GOPATH/bin:$my_path"
 
+  # luarocks
+  my_path="$HOME/.luarocks/bin:$my_path"
+
   # npm binaries from npm installed via homebrew
   # These should not exist -- npm should have been installed separately
   # along with the nvm provided node
