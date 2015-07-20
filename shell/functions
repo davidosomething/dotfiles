@@ -83,24 +83,25 @@ dog() {
   fi
 }
 
-# find and edit Gruntfile in project
-#
-egrunt() {
-  egr "Gruntfile.js" >/dev/null 2>&1 || \
-  egr "Gruntfile.coffee" >/dev/null 2>&1 || \
-  {>&2 echo "Gruntfile not found" && return 1}
-}
 
-# find and edit file from git root
-#
-egr() {
-  local filename="${1:-README.md}"
-  local git_root="./"
+# echo git root if in a git repo, otherwise echo pwd
+git_root_or_pwd() {
+  local git_root="."
 
   # check for git root
   if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     git_root="$(git rev-parse --show-toplevel)"
   fi
+
+  echo ${git_root}
+}
+
+
+# find and edit file from git root
+#
+egr() {
+  local filename="${1:-README.md}"
+  local git_root=$(git_root_or_pwd)
 
   # edit gruntfile in git root or local dir if exists
   if [ -f "${git_root}/${filename}" ]; then
@@ -111,6 +112,22 @@ egr() {
   fi
 }
 
+
+# find and edit Gruntfile in project
+#
+egrunt() {
+  egr "Gruntfile.js" >/dev/null 2>&1 || \
+  egr "Gruntfile.coffee" >/dev/null 2>&1 || \
+  {>&2 echo "Gruntfile not found" && return 1}
+}
+
+
+# find and edit file from git root
+#
+luacheckrc() {
+  local git_root=$(git_root_or_pwd)
+  echo "${git_root}/.luacheckrc"
+}
 
 # PHP version numbers
 # @TODO use cut instead of splitting awk?
