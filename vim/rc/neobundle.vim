@@ -598,7 +598,7 @@ if neobundle#tap('syntastic')
   let g:syntastic_coffeescript_checkers = ['coffee', 'coffeelint']
   let g:syntastic_javascript_checkers   = ['jshint', 'eslint']
   let g:syntastic_lua_checkers          = [ 'luac', 'luacheck' ]
-  let g:syntastic_lua_luacheck_args     = '--no-unused-args --config $(luacheckrc)'
+  let g:syntastic_lua_luacheck_args     = '--config' . system("luacheckrc")
   let g:syntastic_php_checkers          = ['php', 'phplint', 'phpmd']
   let g:syntastic_python_checkers       = ['flake8']
   let g:syntastic_shell_checkers        = ['bashate', 'shellcheck']

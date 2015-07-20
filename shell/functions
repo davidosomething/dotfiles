@@ -122,13 +122,6 @@ egrunt() {
 }
 
 
-# find and edit file from git root
-#
-luacheckrc() {
-  local git_root=$(git_root_or_pwd)
-  echo "${git_root}/.luacheckrc"
-}
-
 # PHP version numbers
 # @TODO use cut instead of splitting awk?
 phpver() {

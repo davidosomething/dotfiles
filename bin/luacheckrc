@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+_main() {
+  local git_root="."
+
+  # check for git root
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    git_root="$(git rev-parse --show-toplevel)"
+  fi
+
+  echo "${git_root}/.luacheckrc"
+}
+
+_main
