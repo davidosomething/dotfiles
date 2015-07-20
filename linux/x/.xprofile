@@ -21,8 +21,11 @@ export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 export GCONFTOOL="/bin/gconftool-2"
 
+# QT theme
+export QT_STYLE_OVERRIDE=gtk
+
 # java settings - mostly for minecraft launcher
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
+export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.systemlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 export JAVA_FONTS=/usr/share/fonts/TTF
 
 export STEAMAPPS="$HOME/.steam/steam/SteamApps"
