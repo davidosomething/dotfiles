@@ -44,7 +44,9 @@ endif
 set modeline
 
 " Display ----------------------------------------------------------------------
-set visualbell                        " no beeps
+
+" no beeps or flashes
+set visualbell t_vb=
 set ttyfast
 set lazyredraw                        " don't update the display while
                                       " executing macros
