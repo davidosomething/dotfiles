@@ -599,7 +599,7 @@ if neobundle#tap('syntastic')
   let g:syntastic_javascript_checkers   = ['jshint', 'eslint']
   let g:syntastic_lua_checkers          = [ 'luac', 'luacheck' ]
   "let g:syntastic_lua_luacheck_args     = '--config ' . system("luacheckrc")
-  let g:syntastic_php_checkers          = ['php', 'phplint', 'phpmd']
+  let g:syntastic_php_checkers          = ['php', 'phpcs', 'phplint', 'phpmd']
   let g:syntastic_python_checkers       = ['flake8']
   let g:syntastic_shell_checkers        = ['bashate', 'shellcheck']
   let g:syntastic_zsh_checkers          = ['zsh']
@@ -736,16 +736,7 @@ NeoBundleLazy 'mustache/vim-mustache-handlebars', {
       \ }
 
 " PHP --------------------------------------------------------------------------
-NeoBundleLazy 'tobyS/pdv', {
-      \   'autoload': { 'filetypes': ['php', 'blade'] },
-      \   'depends': 'tobyS/vmustache',
-      \ }
-if neobundle#tap('pdv')
-  let g:pdv_template_dir = expand("$VIM_DOTFILES/bundle/pdv/templates")
-  autocmd vimrc FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
-  autocmd vimrc FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
-  call neobundle#untap()
-endif
+"NeoBundle 'dsawardekar/wordpress.vim'
 
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] },
@@ -761,6 +752,17 @@ endif
 NeoBundleLazy 'StanAngeloff/php.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] },
       \ }
+
+NeoBundleLazy 'tobyS/pdv', {
+      \   'autoload': { 'filetypes': ['php', 'blade'] },
+      \   'depends': 'tobyS/vmustache',
+      \ }
+if neobundle#tap('pdv')
+  let g:pdv_template_dir = expand("$VIM_DOTFILES/bundle/pdv/templates")
+  autocmd vimrc FileType php nnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+  autocmd vimrc FileType php vnoremap <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+  call neobundle#untap()
+endif
 
 NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
       \   'autoload': { 'filetypes': ['php', 'blade'] },
