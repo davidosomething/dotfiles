@@ -110,7 +110,7 @@ if neobundle#tap('tagbar')
   call neobundle#untap()
 endif
 
-NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
+"NeoBundle 'mhinz/vim-hugefile'          " disable vim features for large files
 
 NeoBundle 'nathanaelkane/vim-indent-guides'
 if neobundle#tap('vim-indent-guides')
@@ -369,6 +369,8 @@ NeoBundle 'tpope/vim-unimpaired'        " used for line bubbling commands on osx
 " ------------------------------------------------------------------------------
 " autocomplete
 
+NeoBundle 'honza/vim-snippets'
+
 " neocomplete probably used on osx and on my arch
 NeoBundleLazy 'Shougo/neocomplete.vim', {
       \   'autoload':     { 'insert': 1, },
@@ -463,6 +465,25 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
   au vimrc FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
   au vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
 endif
+
+NeoBundle 'Shougo/neosnippet'
+if neobundle#tap('neosnippet')
+
+  " Plugin key-mappings.
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+  " For conceal markers.
+  if has('conceal')
+    set conceallevel=2 concealcursor=niv
+  endif
+
+
+  call neobundle#untap()
+endif
+
+NeoBundle 'Shougo/neosnippet-snippets'
 
 " ------------------------------------------------------------------------------
 " editing keys
