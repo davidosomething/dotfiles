@@ -63,8 +63,8 @@ cask install jing
 cask install joinme
 cask install kaleidoscope
 
-# don't think i'm remapping any keys other than caps
-#cask install karabiner
+# formerly keyremap4macbook
+cask install karabiner
 
 cask install lastpass-universal
 
