@@ -33,6 +33,10 @@ endif
 NeoBundle 'tobyS/vmustache' " for pdv
 
 " ui ---------------------------------------------------------------------------
+
+" ensure help always opens in new tab
+NeoBundle 'airblade/vim-helptab'
+
 NeoBundle 'altercation/vim-colors-solarized', { 'gui': 1 }
 if neobundle#tap('vim-colors-solarized')
   " turn off gross italics -- fira sans happens to use ligatures too
