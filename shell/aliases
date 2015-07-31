@@ -71,6 +71,7 @@ _alias_ls() {
   local colorized="--color=auto"
   local groupdirs="--group-directories-first"
   local long="-l"
+  local single_column="-1"
   local timestyle=""
 
   if ! ls $groupdirs >/dev/null 2>&1; then
@@ -92,7 +93,7 @@ _alias_ls() {
   # shellcheck disable=SC2139
   alias la="ls $almost_all"
   # shellcheck disable=SC2139
-  alias l="ls $almost_all"
+  alias l="ls $single_column $almost_all"
   # shellcheck disable=SC2139
   alias ll="l $long"
 }
