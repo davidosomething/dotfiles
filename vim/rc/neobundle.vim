@@ -760,6 +760,8 @@ NeoBundleLazy 'mustache/vim-mustache-handlebars', {
       \   'autoload' : { 'filetypes': ['html', 'mustache', 'hbs'] },
       \ }
 
+NeoBundle 'moskytw/nginx-contrib-vim'
+
 " PHP --------------------------------------------------------------------------
 "NeoBundle 'dsawardekar/wordpress.vim'
 
