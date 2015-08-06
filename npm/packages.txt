@@ -1,9 +1,11 @@
 bower
 browserify
+casperjs
 coffee-script
 coffeeify
 coffeelint
 david
+eslint
 flow-bin
 git-bc
 git-open
@@ -12,5 +14,11 @@ instant-markdown-d
 jscpd
 jsctags
 jshint
+jsinspect
 jsonlint
 karma-cli
+mocha
+npm
+phantomjs
+retire
+uglifyjs
