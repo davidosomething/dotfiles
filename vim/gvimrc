@@ -5,7 +5,7 @@ set guioptions-=T                     " hide stupid button bar
 " MacVim ---------------------------------------------------------------------
 if has('gui_macvim')
   set antialias
-  set guifont=Fira\ Code:h10
+  set guifont=Fira\ Mono\ for\ Powerline:h10
   " set guifont=Menlo\ for\ Powerline
   set backupcopy=yes                  " keep finder labels!
 
@@ -18,7 +18,7 @@ if has('gui_macvim')
 
 " GVIM -----------------------------------------------------------------------
 else
-  set guifont=Fira\ Code\ 10
+  set guifont=Fira\ Mono\ For\ Powerline\ 10
 
 endif
 
