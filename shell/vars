@@ -73,14 +73,6 @@ export GIT_PAGER="$PAGER"
 
 # apache
 [[ -f /etc/apache2/envvars ]] && source /etc/apache2/envvars
-has_program "apachectl" && {
-  if apachectl -t >/dev/null 2>&1; then
-    APACHE_HTTPD_ROOT="$(apachectl -V | awk '/ -D HTTPD_ROOT/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
-    APACHE_HTTPD_CONF="$(apachectl -V | awk '/ -D SERVER_CONFIG_FILE/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
-    export APACHE_HTTPD_ROOT
-    export APACHE_HTTPD_CONF
-  fi
-}
 
 # chphp
 # overridden in homebrew section if has brew
