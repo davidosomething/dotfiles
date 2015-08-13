@@ -193,9 +193,9 @@
 				<execute>chromium</execute>
 			</action>
 		</item>
-		<item label="NixNote2">
+		<item label="Evernote Web">
 			<action name="Execute">
-				<execute>/bin/nixnote2</execute>
+				<execute>/usr/bin/chromium --profile-directory=Default --app-id=lbfehkoinhhcknnbdgnnmjhiladcgbol</execute>
 			</action>
 		</item>
 		<menu id="browsers"/>
