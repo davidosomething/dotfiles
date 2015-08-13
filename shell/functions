@@ -147,6 +147,12 @@ lopen() {
 }
 
 eapache() {
+  has_program "apachectl" && {
+    if apachectl -t >/dev/null 2>&1; then
+      # apache_httpd_root="$(apachectl -V | awk '/ -D HTTPD_ROOT/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
+      apache_httpd_conf="$(apachectl -V | awk '/ -D SERVER_CONFIG_FILE/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
+    fi
+  }
   sudo -e "${APACHE_HTTPD_CONF}"
 }
 ephpini() {
