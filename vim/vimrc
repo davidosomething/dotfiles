@@ -19,7 +19,7 @@ if has("autocmd")
 
   " Only load plugins on vim 7.3+ with autocmd
   if $DOTFILES_DISTRO != "busybox"
-    source $VIM_DOTFILES/rc/neobundle.vim
+    source $VIM_DOTFILES/rc/plug.vim
   endif
 endif
 
@@ -33,13 +33,13 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
-" load ~/.vim/filetype.vim, ftplugin, ftindent
-filetype plugin indent on
-
-" syntax highlighting
-if has('syntax') && !exists('g:syntax_on')
-  syntax enable
-endif
+" The following is commented out -- run by plug#end() now:
+  " load ~/.vim/filetype.vim, ftplugin, ftindent
+  "filetype plugin indent on
+  " syntax highlighting
+  " if has('syntax') && !exists('g:syntax_on')
+  "   syntax enable
+  " endif
 
 set modeline
 
