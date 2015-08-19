@@ -33,7 +33,7 @@ let g:syntastic_javascript_checkers   = ['eslint']
 let g:syntastic_lua_checkers          = [ 'luac', 'luacheck' ]
 "let g:syntastic_lua_luacheck_args     = '--config ' . system("luacheckrc")
 let g:syntastic_php_checkers          = ['php', 'phpcs', 'phplint', 'phpmd']
-let g:syntastic_python_checkers       = ['flake8']
+let g:syntastic_python_checkers       = ['prospector', 'python']
 let g:syntastic_shell_checkers        = ['bashate', 'shellcheck']
 let g:syntastic_zsh_checkers          = ['zsh']
 
