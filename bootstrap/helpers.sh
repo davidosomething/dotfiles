@@ -18,6 +18,11 @@ dkoinstalling() { dkostatus "Installing \033[0;33m$1\033[0;32m..."; }
 dkosymlinking() { dkostatus "Symlinking \033[0;35m$1\033[0;32m -> \033[0;35m$2\033[0;32m "; }
 dkodie()        { dkoerr "$*"; exit 256; }
 
+# pipe into this to indent
+dkoindent() {
+  sed 's/^/    /'
+}
+
 ##
 # require root
 dkorequireroot() {

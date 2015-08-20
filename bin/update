@@ -26,7 +26,6 @@ if [[ $# -eq 0 ]]; then
   dkousage_ "  pip"
   dkousage_ "  vim"
   dkousage_ "  arch   # arch only"
-  dkousage_ "  docker # osx only"
   dkousage_ "  osx    # osx only"
   dkousage_ "  brew   # osx only"
   dkousage_ "  wp-cli # linux only"
@@ -42,8 +41,8 @@ _update_pip() {
   local pip_command=${1:-pip}
   dkostatus "Updating $pip_command"
   if has_program "$pip_command"; then
-    $pip_command install --upgrade setuptools
-    $pip_command install --upgrade "$pip_command"
+    $pip_command install --upgrade setuptools | dkoindent
+    $pip_command install --upgrade "$pip_command" | dkoindent
   fi
 }
 
@@ -52,22 +51,24 @@ _update_linux() {
     arch)
       dkostatus "ArchLinux system update"
       if command -v pacaur >/dev/null; then
-        pacaur -Syu                 # update system
+        # update system
+        pacaur -Syu | dkoindent
       elif command -v yaourt >/dev/null; then
-        yaourt --sync --refresh     # -Sy         -- get new file list
-        yaourt -Syua
+        # -Sy         -- get new file list
+        yaourt --sync --refresh | dkoindent
+        yaourt -Syua | dkoindent
       elif command -v aura >/dev/null; then
-        aura -Syua
+        aura -Syua | dkoindent
       else
-        pacman -Syu
+        pacman -Syu | dkoindent
       fi
       ;;
 
     wp)
       dkostatus "Update wp-cli"
       pushd "$HOME/.wp-cli" &&
-      php composer.phar self-update &&
-      php composer.phar update --no-dev &&
+      php composer.phar self-update | dkoindent &&
+      php composer.phar update --no-dev | dkoindent &&
       popd
       ;;
   esac
@@ -77,35 +78,27 @@ _update_darwin() {
   case "$1" in
     brew)
       dkostatus "Updating homebrew"
-      brew update
+      brew update | dkoindent
       dkostatus "List of outdated packages"
-      brew outdated
+      brew outdated | dkoindent
       dkostatus "Upgrade packages"
       brew upgrade --all 2>&1 | tee "$logs_path/brew-upgrade.log"
       dkostatus "Cleanup old versions and prune dead symlinks"
-      brew cleanup
-      brew prune
-      ;;
-
-    docker)
-      dkostatus "Updating boot2docker"
-      brew update
-      boot2docker stop
-      boot2docker upgrade
+      brew cleanup | dkoindent
+      brew prune | dkoindent
       ;;
 
     osx)
       dkostatus "Repairing permissions"
-      diskutil repairPermissions /  # fix file system permissions
+      # fix file system permissions
+      diskutil repairPermissions / | dkoindent
 
       dkostatus "OSX system update"
-      sudo softwareupdate -i -a
+      sudo softwareupdate -i -a | dkoindent
       ;;
 
     pip)
       _update_pip "pip"
-      _update_pip "pip2"
-      _update_pip "pip3"
       ;;
   esac
 }
@@ -118,8 +111,8 @@ if [[ "$1" = "dotfiles" ]]; then
   # Update dotfiles
   dkostatus_ "Getting latest updates"
   cd "$HOME/.dotfiles" && \
-    git pull --rebase --recurse-submodules && \
-    git submodule update --init
+    git pull --rebase --recurse-submodules | dkoindent && \
+    git submodule update --init | dkoindent
   updated_dotfiles=$?
   if [[ $updated_dotfiles -ne 0 ]]; then
     dkodie "You have unsaved changes in your ~/.dotfiles folder."
@@ -133,29 +126,29 @@ fi
 
 if [[ "$1" = "gem" ]]; then
   dkostatus "Updating gems"
-  gem update --system && gem update
+  gem update --system | dkoindent && gem update | dkoindent
 fi
 
 if [[ "$1" = "go" ]]; then
   dkostatus "Updating go packages"
-  go get -u all
+  go get -u all | dkoindent
 fi
 
 if [[ "$1" = "heroku" ]]; then
-  heroku update
+  heroku update | dkoindent
 fi
 
 if [[ "$1" = "npm" ]]; then
   dkostatus "Updating npm via reinstall latest"
-  npm install -g npm@latest
+  npm install -g npm@latest | dkoindent
   dkostatus "Updating global npm modules"
-  npm update -g
+  npm update -g | dkoindent
 fi
 
 if [ "$1" = "php" ] && [ -d "$HOME/.phpenv" ]; then
   dkostatus "Updating phpenv"
-  pushd "$HOME/.phpenv" >/dev/null && git pull && popd >/dev/null
-  phpenv rehash
+  pushd "$HOME/.phpenv" >/dev/null && git pull | dkoindent && popd >/dev/null
+  phpenv rehash | dkoindent
 fi
 
 if [[ "$1" = "vim" ]]; then
