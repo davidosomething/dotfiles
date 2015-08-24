@@ -43,6 +43,7 @@ lb      = log --abbrev-commit --graph --oneline --decorate --all
 ll      = log --abbrev-commit
 
 m       = merge
+master  = checkout master
 mod     = diff master --name-only
 pr      = pull --rebase
 pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
