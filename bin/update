@@ -78,7 +78,7 @@ _update_darwin() {
   case "$1" in
     brew)
       dkostatus "Updating homebrew"
-      brew update | dkoindent
+      brew update
       dkostatus "List of outdated packages"
       brew outdated | dkoindent
       dkostatus "Upgrade packages"
