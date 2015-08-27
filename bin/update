@@ -52,15 +52,15 @@ _update_linux() {
       dkostatus "ArchLinux system update"
       if command -v pacaur >/dev/null; then
         # update system
-        pacaur -Syu | dkoindent
+        pacaur -Syu
       elif command -v yaourt >/dev/null; then
         # -Sy         -- get new file list
-        yaourt --sync --refresh | dkoindent
-        yaourt -Syua | dkoindent
+        yaourt --sync --refresh
+        yaourt -Syua
       elif command -v aura >/dev/null; then
-        aura -Syua | dkoindent
+        aura -Syua
       else
-        pacman -Syu | dkoindent
+        pacman -Syu
       fi
       ;;
 
