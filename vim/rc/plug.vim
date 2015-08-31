@@ -5,7 +5,6 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'Shougo/vimproc.vim',                { 'do': 'make' }
 Plug 'airblade/vim-helptab'
 Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
@@ -25,7 +24,7 @@ Plug 'now/vim-quit-if-only-quickfix-buffer-left'
 
 " Most recently used files for unite.vim -- config is in unite.vim
 Plug 'Shougo/neomru.vim'
-Plug 'Shougo/vimproc'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
       \| Plug 'Shougo/neomru.vim'
       \| Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite.vim'
