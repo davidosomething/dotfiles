@@ -1,0 +1,15 @@
+# Purpose (one line), e.g.:
+# Performance improvements by refactoring XYZ...
+
+# Feature additions, e.g.:
+#- ADDED: New tracking module
+
+# Feature removals, e.g.:
+#- REMOVED: Old tracking module
+
+# Logic/architectural changes, e.g.:
+#- CHANGED: Unwrap loop
+
+# Fixes, e.g.:
+#- FIXED: Missing variable declaration
+
