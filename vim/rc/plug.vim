@@ -235,6 +235,7 @@ source $VIM_DOTFILES/rc/cosco.vim
 source $VIM_DOTFILES/rc/gundo.vim
 source $VIM_DOTFILES/rc/incsearch.vim
 source $VIM_DOTFILES/rc/neocomplete.vim
+source $VIM_DOTFILES/rc/neosnippet.vim
 source $VIM_DOTFILES/rc/pdv.vim
 source $VIM_DOTFILES/rc/phpcomplete.vim
 source $VIM_DOTFILES/rc/scss-syntax.vim
