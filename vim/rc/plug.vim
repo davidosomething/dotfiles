@@ -5,6 +5,10 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" Whitespace
+Plug 'vim-scripts/PreserveNoEOL'
+      \| Plug 'editorconfig/editorconfig-vim'
+
 Plug 'airblade/vim-helptab'
 Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
@@ -17,17 +21,17 @@ Plug 'junegunn/vim-peekaboo'
 
 " auto tag generation via exuberant-ctags -- no tags file created
 Plug 'majutsushi/tagbar',                 { 'on': [ 'TagbarToggle' ] }
+      \| Plug 'lukaszkorecki/CoffeeTags'
+      \| Plug 'vim-php/tagbar-phpctags.vim', { 'for': ['php', 'blade'], 'do': 'make' }
 
 Plug 'nathanaelkane/vim-indent-guides'
 
 Plug 'now/vim-quit-if-only-quickfix-buffer-left'
 
 " Most recently used files for unite.vim -- config is in unite.vim
-Plug 'Shougo/neomru.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
       \| Plug 'Shougo/neomru.vim'
       \| Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite.vim'
       \| Plug 'Shougo/vimfiler.vim'
 
 Plug 'sjl/gundo.vim',                     { 'on': [ 'GundoToggle' ] }
@@ -87,29 +91,23 @@ Plug 'tpope/vim-surround'
 " text objects
 
 " provide iv av for camel and snake case segments auto-determined
-Plug 'kana/vim-textobj-user' | Plug 'Julian/vim-textobj-variable-segment'
-
 " provide ai and ii for indent blocks
-Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-indent'
-
 " provide al and il for current line
-Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line'
-
 " provide a_ and i_ for underscores
-Plug 'kana/vim-textobj-user' | Plug 'lucapette/vim-textobj-underscore'
-
-" provide al and il for current line
-Plug 'kana/vim-textobj-user' | Plug 'mattn/vim-textobj-url'
+" provide a- and i-
+Plug 'kana/vim-textobj-user'
+      \| Plug 'Julian/vim-textobj-variable-segment'
+      \| Plug 'kana/vim-textobj-indent'
+      \| Plug 'kana/vim-textobj-line'
+      \| Plug 'lucapette/vim-textobj-underscore'
+      \| Plug 'mattn/vim-textobj-url'
+      \| Plug 'RyanMcG/vim-textobj-dash'
 
 " provide {, ", ', [, <, various other block objects
 Plug 'paradigm/TextObjectify'
 
-" provide a- and i-
-Plug 'kana/vim-textobj-user' | Plug 'RyanMcG/vim-textobj-dash'
-
 " ------------------------------------------------------------------------------
-" syntax highlighting
-Plug 'vim-scripts/PreserveNoEOL' | Plug 'editorconfig/editorconfig-vim'
+" syntax highlighting, spacing
 
 " highlight matching html tag
 Plug 'gregsexton/MatchTag',               { 'for': ['html', 'mustache', 'php', 'rb', 'xml'] }
@@ -117,8 +115,6 @@ Plug 'gregsexton/MatchTag',               { 'for': ['html', 'mustache', 'php', '
 Plug 'rhysd/conflict-marker.vim'
 
 Plug 'scrooloose/syntastic'
-
-Plug 'vim-scripts/PreserveNoEOL'
 
 " ------------------------------------------------------------------------------
 " Language specific
@@ -134,7 +130,8 @@ Plug 'othree/html5.vim',                  { 'for': ['html', 'php'] }
 
 Plug 'digitaltoad/vim-jade',              { 'for': ['jade'] }
 
-Plug 'tpope/vim-haml'              " creates haml, sass, scss filetypes
+" creates haml, sass, scss filetypes
+Plug 'tpope/vim-haml'
 
 " JavaScript / CoffeeScript ----------------------------------------------------
 Plug 'heavenshell/vim-jsdoc', {
@@ -143,19 +140,13 @@ Plug 'heavenshell/vim-jsdoc', {
       \ }
 
 " syntax highlighting for jQuery
-Plug 'itspriddle/vim-jquery',             { 'for': ['html', 'javascript', 'php'] }
+"Plug 'itspriddle/vim-jquery',             { 'for': ['html', 'javascript', 'php'] }
 
-" can't lazy this, provides coffee ft
+" provides coffee ft
 Plug 'kchmck/vim-coffee-script'
-
-" tagbar ctags for coffee
-Plug 'majutsushi/tagbar' | Plug 'lukaszkorecki/CoffeeTags'
 
 " react/JSX syn highlighting for .cjsx
 Plug 'mtscout6/vim-cjsx'
-
-" react/JSX syn highlighting for .jsx
-Plug 'vim-javascript' | Plug 'mxw/vim-jsx'
 
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'coffee'] }
 
@@ -163,13 +154,14 @@ Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'coffee']
 Plug 'othree/jspc.vim',                   { 'for': ['javascript', 'coffee'] }
 
 " explicitly compatible with
-"   vim-javascript-syntax
-"   vim-javascript-libraries-syntax
-"   vim-jsx
+"   othree/javascript-libraries-syntax.vim - jQuery,backbone,etc.
+"   mxw/vim-jsx - react/JSX syn highlighting for .jsx
 " replaces 'jelera/vim-javascript-syntax', {
-Plug 'othree/yajs.vim',                   { 'for': ['html', 'javascript', 'php'] }
-
+" indenting/highlighting
 Plug 'pangloss/vim-javascript',           { 'for': ['html', 'javascript', 'php'] }
+      \| Plug 'othree/yajs.vim',
+      \| Plug 'mxw/vim-jsx'
+
 
 " JSON -------------------------------------------------------------------------
 Plug 'elzr/vim-json',                     { 'for': ['json'] }
@@ -187,12 +179,8 @@ Plug 'shawncplus/phpcomplete.vim',        { 'for': ['php', 'blade'] }
 " provides updated syntax
 Plug 'StanAngeloff/php.vim',              { 'for': ['php', 'blade'] }
 
-Plug 'tobyS/vmustache' | Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
-
-Plug 'majutsushi/tagbar' | Plug 'vim-php/tagbar-phpctags.vim', {
-      \   'for': ['php', 'blade'],
-      \   'do': 'make',
-      \ }
+Plug 'tobyS/vmustache'
+      \| Plug 'tobyS/pdv',              { 'for': ['php', 'blade'] }
 
 " Ruby, rails, chef, puppet ----------------------------------------------------
 " creates pp filetype
@@ -256,7 +244,7 @@ source $VIM_DOTFILES/rc/vim-css3-syntax.vim
 source $VIM_DOTFILES/rc/vim-easyclip.vim
 source $VIM_DOTFILES/rc/vim-indent-guides.vim
 source $VIM_DOTFILES/rc/vim-instant-markdown.vim
-source $VIM_DOTFILES/rc/vim-javascript.vim
+"source $VIM_DOTFILES/rc/vim-javascript.vim
 source $VIM_DOTFILES/rc/vim-jsdoc.vim
 source $VIM_DOTFILES/rc/vim-json.vim
 source $VIM_DOTFILES/rc/vim-over.vim
