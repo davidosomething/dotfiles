@@ -226,6 +226,7 @@ Plug 'ingydotnet/yaml-vim'
 
 call plug#end()
 
+" Manually to preserve source order
 source $VIM_DOTFILES/rc/Cmd2.vim
 source $VIM_DOTFILES/rc/CoffeeTags.vim
 source $VIM_DOTFILES/rc/airline.vim
@@ -234,6 +235,7 @@ source $VIM_DOTFILES/rc/committia.vim
 source $VIM_DOTFILES/rc/cosco.vim
 source $VIM_DOTFILES/rc/gundo.vim
 source $VIM_DOTFILES/rc/incsearch.vim
+source $VIM_DOTFILES/rc/javascript-libraries-syntax.vim
 source $VIM_DOTFILES/rc/neocomplete.vim
 source $VIM_DOTFILES/rc/neosnippet.vim
 source $VIM_DOTFILES/rc/pdv.vim
