@@ -18,7 +18,8 @@ if has('gui_macvim')
 
 " GVIM -----------------------------------------------------------------------
 else
-  set guifont=Fira\ Mono\ For\ Powerline\ 10
+  set guifont=Fira\ Mono\ For\ Powerline\ 8
+  "set guifont=M+\ 1m\ for\ Powerline 
 
 endif
 
