@@ -198,6 +198,9 @@ Plug 'majutsushi/tagbar' | Plug 'vim-php/tagbar-phpctags.vim', {
 " creates pp filetype
 Plug 'rodjek/vim-puppet'
 
+" highlighting for Gemfile
+Plug 'tpope/vim-bundler'
+
 Plug 'vadv/vim-chef',                     { 'for': ['ruby', 'eruby'] }
 
 " creates ruby filetype

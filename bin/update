@@ -157,7 +157,7 @@ if [[ "$1" = "vim" ]]; then
     PlugUpgrade 1 |\
     PlugClean! |\
     PlugUpdate |\
-    finally | qall! | endtry" -U NONE -i NONE -V1 -e -s
+    finally | qall! | endtry" -U NONE -i NONE
 
   # old neobundle version:
   #   NeoBundleClean! |\
