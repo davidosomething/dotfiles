@@ -148,20 +148,17 @@ Plug 'kchmck/vim-coffee-script'
 " react/JSX syn highlighting for .cjsx
 Plug 'mtscout6/vim-cjsx'
 
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'coffee'] }
-
-" Parameter completion
-Plug 'othree/jspc.vim',                   { 'for': ['javascript', 'coffee'] }
-
 " explicitly compatible with
 "   othree/javascript-libraries-syntax.vim - jQuery,backbone,etc.
 "   mxw/vim-jsx - react/JSX syn highlighting for .jsx
 " replaces 'jelera/vim-javascript-syntax', {
 " indenting/highlighting
-Plug 'pangloss/vim-javascript',           { 'for': ['html', 'javascript', 'php'] }
-      \| Plug 'othree/yajs.vim',
+"Plug 'pangloss/vim-javascript',           { 'for': ['html', 'javascript', 'php'] }
+Plug 'othree/yajs.vim',
       \| Plug 'mxw/vim-jsx'
-
+      \| Plug 'othree/javascript-libraries-syntax.vim'
+      \| Plug 'othree/jspc.vim'
+      \| Plug 'marijnh/tern_for_vim',              { 'for': ['javascript'], 'do': 'npm install' }
 
 " JSON -------------------------------------------------------------------------
 Plug 'elzr/vim-json',                     { 'for': ['json'] }
