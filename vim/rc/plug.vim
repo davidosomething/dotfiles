@@ -21,7 +21,7 @@ Plug 'junegunn/vim-peekaboo'
 
 " auto tag generation via exuberant-ctags -- no tags file created
 Plug 'majutsushi/tagbar',                 { 'on': [ 'TagbarToggle' ] }
-      \| Plug 'lukaszkorecki/CoffeeTags'
+      \| Plug 'lukaszkorecki/CoffeeTags', { 'for': ['coffee'] }
       \| Plug 'vim-php/tagbar-phpctags.vim', { 'for': ['php', 'blade'], 'do': 'make' }
 
 Plug 'nathanaelkane/vim-indent-guides'
@@ -36,7 +36,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 Plug 'sjl/gundo.vim',                     { 'on': [ 'GundoToggle' ] }
 
-Plug 'suan/vim-instant-markdown',         { 'do': 'npm install -g instant-markdown-d' }
+Plug 'suan/vim-instant-markdown',         { 'for': ['markdown'], 'do': 'npm install -g instant-markdown-d' }
 
 Plug 'tpope/vim-fugitive'
 
@@ -68,6 +68,8 @@ Plug 'godlygeek/tabular',                 { 'on': [ 'Tabularize' ] }
 
 " viv, v, v to expand surround selection
 Plug 'gorkunov/smartpairs.vim'
+
+Plug 'rhysd/conflict-marker.vim'
 
 Plug 'lfilho/cosco.vim'
 
@@ -111,8 +113,6 @@ Plug 'paradigm/TextObjectify'
 
 " highlight matching html tag
 Plug 'gregsexton/MatchTag',               { 'for': ['html', 'mustache', 'php', 'rb', 'xml'] }
-
-Plug 'rhysd/conflict-marker.vim'
 
 Plug 'scrooloose/syntastic'
 
@@ -166,6 +166,7 @@ Plug 'elzr/vim-json',                     { 'for': ['json'] }
 " Mustache.js and Handlebars ---------------------------------------------------
 Plug 'mustache/vim-mustache-handlebars',  { 'for': ['html', 'mustache', 'hbs'] }
 
+" Nginx ------------------------------------------------------------------------
 Plug 'moskytw/nginx-contrib-vim'
 
 " PHP --------------------------------------------------------------------------
