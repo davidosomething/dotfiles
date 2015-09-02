@@ -125,8 +125,10 @@ if [[ "$1" = "fzf" ]]; then
 fi
 
 if [[ "$1" = "gem" ]]; then
+  dkostatus "Updating RubyGems itself"
+  gem update --system | dkoindent
   dkostatus "Updating gems"
-  gem update --system | dkoindent && gem update | dkoindent
+  gem update | dkoindent
 fi
 
 if [[ "$1" = "go" ]]; then
