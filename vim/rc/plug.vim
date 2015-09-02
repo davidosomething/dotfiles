@@ -171,10 +171,9 @@ Plug 'moskytw/nginx-contrib-vim'
 " PHP --------------------------------------------------------------------------
 "Plug 'dsawardekar/wordpress.vim'
 
-Plug 'shawncplus/phpcomplete.vim',        { 'for': ['php', 'blade'] }
-
 " provides updated syntax
 Plug 'StanAngeloff/php.vim',              { 'for': ['php', 'blade'] }
+      \| Plug 'shawncplus/phpcomplete.vim',        { 'for': ['php', 'blade'] }
 
 Plug 'tobyS/vmustache'
       \| Plug 'tobyS/pdv',              { 'for': ['php', 'blade'] }
