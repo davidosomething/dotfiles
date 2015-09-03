@@ -11,6 +11,9 @@ For openbox, thunar
 Ensure policykit allows users in the network access, option 3 here:
 https://wiki.archlinux.org/index.php/NetworkManager#Set_up_PolicyKit_permissions
 
+Also set static DHCP Client Name/ID:
+https://wiki.archlinux.org/index.php/NetworkManager#Hostname_problems
+
 ### personal keyserver
 
 Enable `keyserver-options auto-key-retrieve` in `~/.gnupg/gpg.conf`

@@ -240,8 +240,6 @@ addcert() {
 
 # Cleanup Open With Applications
 cleanopenwith() {
-  # remove wine apps
-  rm -r "$HOME/.local/share/applications/wine*"
   sed -i '/wine/d' "$HOME/.local/share/applications/mimeinfo.cache"
 }
 
