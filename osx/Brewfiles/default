@@ -26,6 +26,7 @@ install nmap
 install ssh-copy-id
 
 # pretty print and processor ---------------------------------------------------
+install icdiff
 install jq                   # query json
 install jsonpp
 install multitail
