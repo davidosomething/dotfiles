@@ -1,7 +1,7 @@
 autocmd vimrc FileType coffee,javascript,typescript call tern#Enable()
 autocmd vimrc FileType coffee,javascript,typescript setlocal omnifunc=tern#Complete
 
-" tern config
+" tern config ================================================================
 let g:tern_show_argument_hints = 'on_hold'
 let g:tern_show_signature_in_pum = 1
 
