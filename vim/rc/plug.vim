@@ -175,11 +175,11 @@ Plug 'mustache/vim-mustache-handlebars',  { 'for': ['html', 'mustache', 'hbs'] }
 Plug 'moskytw/nginx-contrib-vim'
 
 " PHP --------------------------------------------------------------------------
-"Plug 'dsawardekar/wordpress.vim'
 
 " provides updated syntax
 Plug 'StanAngeloff/php.vim',              { 'for': ['php', 'blade'] }
-      \| Plug 'shawncplus/phpcomplete.vim'
+      \| Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
+      \| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
 Plug 'tobyS/vmustache'
       \| Plug 'tobyS/pdv',              { 'for': ['php', 'blade'] }
