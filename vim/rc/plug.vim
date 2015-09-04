@@ -56,7 +56,9 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 
 " neocomplete probably used on osx and on my arch
+" only load tern when neocomplete loads and on JS
 Plug 'Shougo/neocomplete.vim'
+      \| Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'typescript'], 'do': 'npm install' }
 
 Plug 'Shougo/neosnippet'
       \| Plug 'honza/vim-snippets'
@@ -158,7 +160,6 @@ Plug 'othree/yajs.vim',
       \| Plug 'mxw/vim-jsx'
       \| Plug 'othree/javascript-libraries-syntax.vim'
       \| Plug 'othree/jspc.vim'
-      \| Plug 'marijnh/tern_for_vim',              { 'for': ['javascript'], 'do': 'npm install' }
 
 " JSON -------------------------------------------------------------------------
 Plug 'elzr/vim-json',                     { 'for': ['json'] }
@@ -234,6 +235,7 @@ source $VIM_DOTFILES/rc/solarized.vim
 source $VIM_DOTFILES/rc/syntastic.vim
 source $VIM_DOTFILES/rc/tabular.vim
 source $VIM_DOTFILES/rc/tagbar.vim
+source $VIM_DOTFILES/rc/tern_for_vim.vim
 source $VIM_DOTFILES/rc/unite.vim
 source $VIM_DOTFILES/rc/vim-anzu.vim
 source $VIM_DOTFILES/rc/vim-coffee-script.vim
@@ -241,7 +243,6 @@ source $VIM_DOTFILES/rc/vim-css3-syntax.vim
 source $VIM_DOTFILES/rc/vim-easyclip.vim
 source $VIM_DOTFILES/rc/vim-indent-guides.vim
 source $VIM_DOTFILES/rc/vim-instant-markdown.vim
-"source $VIM_DOTFILES/rc/vim-javascript.vim
 source $VIM_DOTFILES/rc/vim-jsdoc.vim
 source $VIM_DOTFILES/rc/vim-json.vim
 source $VIM_DOTFILES/rc/vim-over.vim

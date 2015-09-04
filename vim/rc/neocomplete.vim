@@ -20,6 +20,14 @@ let g:neocomplete#sources#omni#input_patterns.python = ''
 let g:neocomplete#sources#omni#input_patterns.php =
   \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
+let g:neocomplete#sources#omni#input_patterns.typescript = '[^. \t]\.\%(\h\w*\)\?'
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+" Use omnifunc for javascript completion since we have tern
+"let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+
 " from the github page: <CR> cancels completion and inserts newline
 inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
@@ -33,9 +41,6 @@ endfunction
 
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-
-" don't open scratch preview
-set completeopt-=preview
 
 " select completion using tab
 inoremap <expr><Tab>      pumvisible() ? "\<C-n>" : "\<TAB>"
