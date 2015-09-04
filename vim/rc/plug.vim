@@ -179,7 +179,7 @@ Plug 'moskytw/nginx-contrib-vim'
 
 " provides updated syntax
 Plug 'StanAngeloff/php.vim',              { 'for': ['php', 'blade'] }
-      \| Plug 'shawncplus/phpcomplete.vim',        { 'for': ['php', 'blade'] }
+      \| Plug 'shawncplus/phpcomplete.vim'
 
 Plug 'tobyS/vmustache'
       \| Plug 'tobyS/pdv',              { 'for': ['php', 'blade'] }

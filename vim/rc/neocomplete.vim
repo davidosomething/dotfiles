@@ -17,10 +17,13 @@ let g:neocomplete#sources#omni#input_patterns.ruby = ''
 let g:neocomplete#sources#omni#input_patterns.python = ''
 
 " from neocomplete docs -- phpcomplete.vim integration
+" word head ignored so can restart completion
+" @see <https://github.com/Shougo/neocomplete.vim/issues/33#issuecomment-20732229>
 let g:neocomplete#sources#omni#input_patterns.php =
-  \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+      \ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
-let g:neocomplete#sources#omni#input_patterns.typescript = '[^. \t]\.\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.typescript =
+      \ '[^. \t]\.\%(\h\w*\)\?'
 
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
@@ -46,10 +49,17 @@ let g:acp_enableAtStartup = 0
 inoremap <expr><Tab>      pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" re-open completion with c-space
+" @see <https://github.com/Shougo/neocomplete.vim/issues/33#issuecomment-20732569>
+inoremap <expr><C-Space>        neocomplete#start_manual_complete('omni')
+
 " completion
 au vimrc FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 au vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 au vimrc FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+" built-in, also phpcomplete-extended provides support
+" @see <https://github.com/shawncplus/phpcomplete.vim/issues/55#issuecomment-72163856>
+"au vimrc FileType php setlocal omnifunc=phpcomplete#CompletePHP
 au vimrc FileType python        setlocal omnifunc=pythoncomplete#Complete
 au vimrc FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 au vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
