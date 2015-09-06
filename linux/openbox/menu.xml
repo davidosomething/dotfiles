@@ -90,7 +90,7 @@
 		</item>
 		<item label="LINE Messenger">
 			<action name="Execute">
-				<execute>wine &quot;C:\Program Files\Naver\LINE\Line.exe&quot;</execute>
+				<execute>/usr/bin/chromium --profile-directory=Default --app-id=menkifleemblimdogmoihpfopnplikde</execute>
 			</action>
 		</item>
 		<item label="Pidgin">
