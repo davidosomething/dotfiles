@@ -1,5 +1,5 @@
-autocmd vimrc FileType coffee,javascript,typescript call tern#Enable()
-autocmd vimrc FileType coffee,javascript,typescript setlocal omnifunc=tern#Complete
+"autocmd vimrc FileType coffee,javascript,typescript call tern#Enable()
+"autocmd vimrc FileType coffee,javascript,typescript setlocal omnifunc=tern#Complete
 
 " tern config ================================================================
 let g:tern_show_argument_hints = 'on_hold'
@@ -17,6 +17,8 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
+" See vice setup for stuff to steal
+" @see <https://github.com/zeekay/vice-neocompletion/blob/master/autoload/vice/neocomplete.vim>
 " JavaScript -----------------------------------------------------------------
 let g:neocomplete#sources#omni#functions.javascript = 'tern#Complete'
 let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
@@ -27,4 +29,3 @@ let g:neocomplete#sources#omni#input_patterns.coffee = '\h\w*\|[^. \t]\.\w*'
 
 " TypeScript -----------------------------------------------------------------
 let g:neocomplete#sources#omni#functions.typescript = 'tern#Complete'
-

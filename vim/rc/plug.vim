@@ -60,9 +60,12 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 
 " neocomplete probably used on osx and on my arch
-" only load tern when neocomplete loads and on JS
 Plug 'Shougo/neocomplete.vim'
-      \| Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'typescript'], 'do': 'npm install' }
+
+let g:dko_use_tern_completion = 0
+if g:dko_use_tern_completion
+  Plug 'marijnh/tern_for_vim',            { 'for': ['javascript', 'typescript'], 'do': 'npm install' }
+endif
 
 Plug 'Shougo/neosnippet'
       \| Plug 'honza/vim-snippets'
@@ -156,14 +159,16 @@ Plug 'mtscout6/vim-cjsx'
 
 " explicitly compatible with
 "   othree/javascript-libraries-syntax.vim - jQuery,backbone,etc.
-"   mxw/vim-jsx - react/JSX syn highlighting for .jsx
 " replaces 'jelera/vim-javascript-syntax', {
 " indenting/highlighting
 "Plug 'pangloss/vim-javascript',           { 'for': ['html', 'javascript', 'php'] }
-Plug 'othree/yajs.vim',
-      \| Plug 'mxw/vim-jsx'
-      \| Plug 'othree/javascript-libraries-syntax.vim'
-      \| Plug 'othree/jspc.vim'
+Plug 'othree/yajs.vim', { 'for': ['html', 'javascript', 'php'] }
+" Plug 'othree/jspc.vim', { 'for': ['html', 'javascript', 'php'] }
+" Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['html', 'javascript', 'php'] }
+
+" mxw/vim-jsx - react/JSX syn highlighting for .jsx
+" requires a javascript syntax plugin first (e.g. yajs or vim-javascript)
+Plug 'mxw/vim-jsx'
 
 " JSON -------------------------------------------------------------------------
 Plug 'elzr/vim-json',                     { 'for': ['json'] }
@@ -181,8 +186,8 @@ Plug 'StanAngeloff/php.vim',              { 'for': ['php', 'blade'] }
       \| Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
       \| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
-Plug 'tobyS/vmustache'
-      \| Plug 'tobyS/pdv',              { 'for': ['php', 'blade'] }
+Plug 'tobyS/vmustache',                   { 'for': ['php', 'blade'] }
+      \| Plug 'tobyS/pdv',                { 'for': ['php', 'blade'] }
 
 " Ruby, rails, chef, puppet ----------------------------------------------------
 " creates pp filetype
@@ -239,7 +244,9 @@ source $VIM_DOTFILES/rc/solarized.vim
 source $VIM_DOTFILES/rc/syntastic.vim
 source $VIM_DOTFILES/rc/tabular.vim
 source $VIM_DOTFILES/rc/tagbar.vim
-source $VIM_DOTFILES/rc/tern_for_vim.vim
+if g:dko_use_tern_completion
+  source $VIM_DOTFILES/rc/tern_for_vim.vim
+endif
 source $VIM_DOTFILES/rc/unite.vim
 source $VIM_DOTFILES/rc/vim-anzu.vim
 source $VIM_DOTFILES/rc/vim-coffee-script.vim
