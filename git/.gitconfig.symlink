@@ -7,54 +7,62 @@
 
 [alias]
 a       = add
-aa      = add .
 b       = branch
-be      = branch --edit-description
-ca      = commit --amend
-cfg     = config --global --edit
-cb      = checkout -b
 ci      = commit
+co      = checkout
+d       = diff
+m       = merge
+rb      = rebase
+st      = status
+t       = tag
 
-# uses git-extras changelog
+aa      = add .
+
+be      = branch --edit-description
+done    = branch --merged
+um      = branch --no-merged
+
 cl      = changelog --list
 
-cm      = commit -m
-co      = checkout
+cb      = checkout -b
 ct      = checkout -t
-d       = diff
+master  = checkout master
+
+ca      = commit --amend
+cm      = commit -m
+
+get     = config --get
+cfg     = config --global --edit
+
+lasttag = describe --tags --abbrev=0
+
 dc      = diff --cached
 dm      = diff master
-done    = branch --merged
+mod     = diff master --name-only
 
 # show alias definition by name, e.g. `git finda changed`
 finda   = "!grepalias() { git config --global --get-regexp alias | grep -i \"$1\" | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; grepalias"
 
-forget  = rm -r --cached
 g       = grep --break --heading --line-number
-get     = config --get
-l       = log --abbrev-commit --oneline --max-count=15
-lasttag = describe --tags --abbrev=0
-lg      = log --abbrev-commit --graph --decorate
 
-# hash and oneline with graph
-lb      = log --abbrev-commit --graph --oneline --decorate --all
+l       = log --abbrev-commit --oneline
+ll      = log --abbrev-commit --oneline --decorate --all
+lb      = log --abbrev-commit --oneline --decorate --all --graph
+lg      = log --abbrev-commit           --decorate --all --graph
 
-# latest 15 with hash and oneline
-ll      = log --abbrev-commit
-
-m       = merge
 mma     = merge master
-master  = checkout master
-mod     = diff master --name-only
+
 pr      = pull --rebase
 pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
-rehard  = reset --hard
-rb      = rebase
+
 rso     = remote show origin
+
+rehard  = reset --hard
+
+forget  = rm -r --cached
+
 s       = status -bs
-st      = status
-t       = tag
-um      = branch --no-merged
+
 root    = !pwd -P
 
 [color]
@@ -67,6 +75,9 @@ ui          = auto
 pager       = true
 
 # Repo settings ----------------------------------------------------------------
+[commit]
+template = /Users/david/.dotfiles/git/commit-template
+
 [core]
 compression = -1
 # editor = "vim -f" ; removed so git will use env EDITOR or VISUAL
@@ -134,5 +145,3 @@ insteadOf = "heroku:"
 path = "~/.gitconfig.local"
 
 # vim: syntax=gitconfig expandtab :
-[commit]
-	template = /Users/david/.dotfiles/git/commit-template
