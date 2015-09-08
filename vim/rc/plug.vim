@@ -20,7 +20,7 @@ Plug 'bling/vim-airline'
 " creates dir if new file in new dir
 Plug 'dockyard/vim-easydir'
 
-" show registers in tem split if use \" or <C-R>
+" show registers in split if use \" or <C-R>
 Plug 'junegunn/vim-peekaboo'
 
 " auto tag generation via exuberant-ctags -- no tags file created
