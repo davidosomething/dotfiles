@@ -5,59 +5,85 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 
-let g:plug_window = 'new'
-
 call plug#begin('~/.vim/plugged')
 
-" Whitespace
-Plug 'vim-scripts/PreserveNoEOL'
-      \| Plug 'editorconfig/editorconfig-vim'
+" ----------------------------------------------------------------------------
+" Appearance/tab/split mgmt --------------------------------------------------
+" ----------------------------------------------------------------------------
 
-Plug 'airblade/vim-helptab'
-Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
 
-" creates dir if new file in new dir
-Plug 'dockyard/vim-easydir'
+" Open help in new tab
+Plug 'airblade/vim-helptab'
+
+Plug 'now/vim-quit-if-only-quickfix-buffer-left'
+
+" ----------------------------------------------------------------------------
+" UI -------------------------------------------------------------------------
+" ----------------------------------------------------------------------------
+
+" highlight partial matches as you type in search mode
+Plug 'haya14busa/incsearch.vim'
 
 " show registers in split if use \" or <C-R>
 Plug 'junegunn/vim-peekaboo'
 
-" auto tag generation via exuberant-ctags -- no tags file created
-Plug 'majutsushi/tagbar',                 { 'on': [ 'TagbarToggle' ] }
-      \| Plug 'lukaszkorecki/CoffeeTags', { 'for': ['coffee'] }
-      \| Plug 'vim-php/tagbar-phpctags.vim', { 'for': ['php', 'blade'], 'do': 'make' }
+" Show (#/total results) when searching for a term
+Plug 'osyo-manga/vim-anzu'
 
-Plug 'nathanaelkane/vim-indent-guides'
+" ----------------------------------------------------------------------------
+" File system ----------------------------------------------------------------
+" ----------------------------------------------------------------------------
 
-Plug 'now/vim-quit-if-only-quickfix-buffer-left'
+" creates dir if new file in new dir
+Plug 'dockyard/vim-easydir'
 
+" ----------------------------------------------------------------------------
+" Commands -------------------------------------------------------------------
+" ----------------------------------------------------------------------------
+
+Plug 'suan/vim-instant-markdown',         { 'on': ['InstantMarkdownPreview'], 'for': ['markdown'], 'do': 'npm install -g instant-markdown-d' }
+
+" Mostly for :Gblame
+Plug 'tpope/vim-fugitive'
+
+" <F1> fuzzy find
+" <F2> recently used
+" <F3> grep
+" <F9> file browser
 " Most recently used files for unite.vim -- config is in unite.vim
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
       \| Plug 'Shougo/neomru.vim'
       \| Plug 'Shougo/unite.vim'
       \| Plug 'Shougo/vimfiler.vim'
 
-Plug 'sjl/gundo.vim',                     { 'on': [ 'GundoToggle' ] }
+" <F5> toggle color
+Plug 'altercation/vim-colors-solarized'
 
-Plug 'suan/vim-instant-markdown',         { 'for': ['markdown'], 'do': 'npm install -g instant-markdown-d' }
+" <F6>
+Plug 'nathanaelkane/vim-indent-guides',   { 'on': ['<Plug>IndentGuidesToggle'] }
 
-Plug 'tpope/vim-fugitive'
+" <F7> - command mode with instant results when doing subst %s
+Plug 'osyo-manga/vim-over',               { 'on': ['OverCommandLine'] }
 
-Plug 'tyru/restart.vim',                  { 'on': [ 'Restart' ] }
-
+" <F8> - command mode with tab-completion and suggestions for commands
 Plug 'gelguy/Cmd2.vim'
 
-Plug 'haya14busa/incsearch.vim'
+" <F10> tagbar
+" auto tag generation via exuberant-ctags -- no tags file created
+Plug 'majutsushi/tagbar',                 { 'on': ['TagbarToggle'] }
+      \| Plug 'lukaszkorecki/CoffeeTags', { 'for': ['coffee'] }
+      \| Plug 'vim-php/tagbar-phpctags.vim', { 'for': ['php', 'blade'], 'do': 'make' }
 
-Plug 'osyo-manga/vim-anzu'
+" <F11>
+Plug 'sjl/gundo.vim',                     { 'on': ['GundoToggle'] }
 
-Plug 'osyo-manga/vim-over',               { 'on': [ 'OverCommandLine' ] }
-
+" Add file manip commands like Remove, Move, Rename, SudoWrite
 Plug 'tpope/vim-eunuch'
 
-" used for line bubbling commands on osx
-Plug 'tpope/vim-unimpaired'
+" ----------------------------------------------------------------------------
+" Completion -----------------------------------------------------------------
+" ----------------------------------------------------------------------------
 
 " neocomplete probably used on osx and on my arch
 Plug 'Shougo/neocomplete.vim'
@@ -71,15 +97,18 @@ Plug 'Shougo/neosnippet'
       \| Plug 'honza/vim-snippets'
       \| Plug 'Shougo/neosnippet-snippets'
 
-" ------------------------------------------------------------------------------
-" editing keys
-Plug 'godlygeek/tabular',                 { 'on': [ 'Tabularize' ] }
+" ----------------------------------------------------------------------------
+" Editing keys ---------------------------------------------------------------
+" ----------------------------------------------------------------------------
+
+Plug 'godlygeek/tabular',                 { 'on': ['Tabularize'] }
 
 " viv, v, v to expand surround selection
 Plug 'gorkunov/smartpairs.vim'
 
 Plug 'rhysd/conflict-marker.vim'
 
+" ;; or ,, to auto-insert comma or semicolon at end of current line as needed
 Plug 'lfilho/cosco.vim'
 
 Plug 'svermeulen/vim-easyclip'
@@ -89,8 +118,6 @@ Plug 'nishigori/increment-activator'
 
 Plug 'tomtom/tcomment_vim'
 
-Plug 'tpope/vim-endwise'
-
 Plug 'tpope/vim-repeat'
 
 " fast increment datetimes
@@ -98,8 +125,8 @@ Plug 'tpope/vim-speeddating'
 
 Plug 'tpope/vim-surround'
 
-" ------------------------------------------------------------------------------
-" text objects
+" used for line bubbling commands on osx
+Plug 'tpope/vim-unimpaired'
 
 " provide iv av for camel and snake case segments auto-determined
 " provide ai and ii for indent blocks
@@ -117,36 +144,44 @@ Plug 'kana/vim-textobj-user'
 " provide {, ", ', [, <, various other block objects
 Plug 'paradigm/TextObjectify'
 
-" ------------------------------------------------------------------------------
-" syntax highlighting, spacing
+" ----------------------------------------------------------------------------
+" Syntax highlighting, spacing -----------------------------------------------
+" ----------------------------------------------------------------------------
+
+Plug 'vim-scripts/PreserveNoEOL'
+      \| Plug 'editorconfig/editorconfig-vim'
 
 " highlight matching html tag
 Plug 'gregsexton/MatchTag',               { 'for': ['html', 'mustache', 'php', 'rb', 'xml'] }
 
 Plug 'scrooloose/syntastic'
 
-" ------------------------------------------------------------------------------
-" Language specific
-"
-" Git --------------------------------------------------------------------------
+" ----------------------------------------------------------------------------
+" Language -------------------------------------------------------------------
+" ----------------------------------------------------------------------------
+
+" special end syntax for various langs
+Plug 'tpope/vim-endwise'
+
+" Git ------------------------------------------------------------------------
+
 " creates gitconfig, gitcommit, rebase
 Plug 'tpope/vim-git'
 
+" show multipanes when editing a COMMIT_EDITMSG
 Plug 'rhysd/committia.vim'
 
-" HTML and generators ----------------------------------------------------------
+" HTML and generators --------------------------------------------------------
+
 Plug 'othree/html5.vim',                  { 'for': ['html', 'php'] }
 
-Plug 'digitaltoad/vim-jade',              { 'for': ['jade'] }
+Plug 'digitaltoad/vim-jade'
 
-" creates haml, sass, scss filetypes
 Plug 'tpope/vim-haml'
 
-" JavaScript / CoffeeScript ----------------------------------------------------
-Plug 'heavenshell/vim-jsdoc', {
-      \   'for':  ['html', 'javascript', 'php'],
-      \   'on':   ['JsDoc'],
-      \ }
+" JavaScript / CoffeeScript --------------------------------------------------
+
+Plug 'heavenshell/vim-jsdoc',             { 'for':  ['html', 'javascript', 'php'], 'on': ['JsDoc'], }
 
 " syntax highlighting for jQuery
 "Plug 'itspriddle/vim-jquery',             { 'for': ['html', 'javascript', 'php'] }
@@ -157,39 +192,46 @@ Plug 'kchmck/vim-coffee-script'
 " react/JSX syn highlighting for .cjsx
 Plug 'mtscout6/vim-cjsx'
 
-" explicitly compatible with
-"   othree/javascript-libraries-syntax.vim - jQuery,backbone,etc.
-" replaces 'jelera/vim-javascript-syntax', {
-" indenting/highlighting
-"Plug 'pangloss/vim-javascript',           { 'for': ['html', 'javascript', 'php'] }
+" indenting/highlighting, replaces 'jelera/vim-javascript-syntax', {
+"Plug 'pangloss/vim-javascript', { 'for': ['html', 'javascript', 'php'] }
 Plug 'othree/yajs.vim', { 'for': ['html', 'javascript', 'php'] }
-" Plug 'othree/jspc.vim', { 'for': ['html', 'javascript', 'php'] }
-" Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['html', 'javascript', 'php'] }
+
+"Plug 'othree/jspc.vim', { 'for': ['html', 'javascript', 'php'] }
+
+" extends syntax for with jQuery,backbone,etc.
+"Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['html', 'javascript', 'php'] }
 
 " mxw/vim-jsx - react/JSX syn highlighting for .jsx
 " requires a javascript syntax plugin first (e.g. yajs or vim-javascript)
 Plug 'mxw/vim-jsx'
 
-" JSON -------------------------------------------------------------------------
+" JSON -----------------------------------------------------------------------
+
 Plug 'elzr/vim-json',                     { 'for': ['json'] }
 
-" Mustache.js and Handlebars ---------------------------------------------------
+" Mustache.js and Handlebars -------------------------------------------------
+
 Plug 'mustache/vim-mustache-handlebars',  { 'for': ['html', 'mustache', 'hbs'] }
 
-" Nginx ------------------------------------------------------------------------
+" Nginx ----------------------------------------------------------------------
+
 Plug 'moskytw/nginx-contrib-vim'
 
-" PHP --------------------------------------------------------------------------
+" PHP ------------------------------------------------------------------------
+
+" creates twig ft
+Plug 'evidens/vim-twig'
 
 " provides updated syntax
 Plug 'StanAngeloff/php.vim',              { 'for': ['php', 'blade'] }
       \| Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
-      \| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
+      "\| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
 Plug 'tobyS/vmustache',                   { 'for': ['php', 'blade'] }
       \| Plug 'tobyS/pdv',                { 'for': ['php', 'blade'] }
 
-" Ruby, rails, chef, puppet ----------------------------------------------------
+" Ruby, rails, chef, puppet --------------------------------------------------
+
 " creates pp filetype
 Plug 'rodjek/vim-puppet'
 
@@ -201,30 +243,33 @@ Plug 'vadv/vim-chef',                     { 'for': ['ruby', 'eruby'] }
 " creates ruby filetype
 Plug 'vim-ruby/vim-ruby'
 
-" Stylesheet languages ---------------------------------------------------------
+" Stylesheet languages -------------------------------------------------------
 Plug 'Rykka/colorv.vim'
-
-" creates scss.css
-Plug 'cakebaker/scss-syntax.vim'
 
 " creates less filetype
 Plug 'groenewege/vim-less'
 
+" extends vim's css highlighting
 Plug 'hail2u/vim-css3-syntax',            { 'for': ['css', 'scss'] }
 
-" Better @media syntax highlighting
+" css.vim provides @media syntax highlighting where hail2u doesn't
 Plug 'JulesWang/css.vim',                 { 'for': ['css', 'scss'] }
+      \| Plug 'cakebaker/scss-syntax.vim'
 
-" Twig -------------------------------------------------------------------------
-" creates twig ft
-Plug 'evidens/vim-twig'
+" YAML -----------------------------------------------------------------------
 
-" YAML -------------------------------------------------------------------------
 Plug 'ingydotnet/yaml-vim'
 
+" ----------------------------------------------------------------------------
+" End of plugins -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 call plug#end()
 
-" Manually to preserve source order
+" ----------------------------------------------------------------------------
+" Plugin configs -------------------------------------------------------------
+" ----------------------------------------------------------------------------
+
+" Source manually to preserve source order
 source $VIM_DOTFILES/rc/Cmd2.vim
 source $VIM_DOTFILES/rc/CoffeeTags.vim
 source $VIM_DOTFILES/rc/airline.vim
