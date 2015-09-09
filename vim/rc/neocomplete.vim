@@ -54,12 +54,12 @@ inoremap <expr><S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr><C-Space>        neocomplete#start_manual_complete('omni')
 
 " completion
-au vimrc FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-au vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-au vimrc FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd vimrc FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+autocmd vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd vimrc FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
 " built-in, also phpcomplete-extended provides support
 " @see <https://github.com/shawncplus/phpcomplete.vim/issues/55#issuecomment-72163856>
-"au vimrc FileType php setlocal omnifunc=phpcomplete#CompletePHP
-au vimrc FileType python        setlocal omnifunc=pythoncomplete#Complete
-au vimrc FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-au vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
+"autocmd vimrc FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd vimrc FileType python        setlocal omnifunc=pythoncomplete#Complete
+autocmd vimrc FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
