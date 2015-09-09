@@ -6,8 +6,12 @@ let g:Cmd2__suggest_min_length = 0
 let g:Cmd2__suggest_enter_suggest = 0
 " Cancel completion on <Esc> (instead of cancelling entire command)
 let g:Cmd2__suggest_esc_menu = 1
-" always use Cmd2
+
+" always use Cmd2?
 "nmap : :<F8>
+
+" Map <F8> to cmd2, intentional nmap so we don't fill in with <F8>
 nmap <F8> :<F8>
+
 " Press F8 in cmdmode to use Cmd2
 cmap <F8> <Plug>(Cmd2Suggest)
