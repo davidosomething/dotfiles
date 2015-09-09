@@ -33,76 +33,11 @@ for getting various linter support in syntastic.
 See `vim/plugins/mappings.vim` for the leader key bindings and more.
 See `vim/neobundle.vim` for plugin specific bindings.
 
-## Under consideration
-
-```
-Don't need this for now
-"NeoBundleLazy 'dsawardekar/wordpress.vim', {
-      "\   'depends': [
-      "\     'kien/ctrlp.vim',
-      "\     'shawncplus/phpcomplete.vim',
-      "\   ],
-      "\   'autoload': { 'filetypes': ['php'] }
-      "\ }
-```
-
 ### Alternate CSS colorizing plugins
 
-- vim-coloresque
-
- ```
+```
 NeoBundleLazy 'gorodinskiy/vim-coloresque'
-```
-
-- Colorizer
-
- ```
-NeoBundle 'chrisbra/Colorizer', {
-```
-
-### tern for vim
-
-Provides intellisense-like autocompletion for JS in vim
-Doesn't work all the time...
-
-```
-" marijnh/tern_for_vim {{{
-if neobundle#tap('tern_for_vim')
-  " Config {{{
-  call neobundle#config({
-  \   'build' : {
-  \     'others' : 'npm install'
-  \   },
-  \   'autoload' : {
-  \       'functions' : ['tern#Complete', 'tern#Enable'],
-  \       'filetypes' : ['javascript']
-  \     },
-  \   'commands' : ['TernDef', 'TernDoc', 'TernType',
-  \                 'TernRefs', 'TernRename'],
-  \ })
-  " }}}
-  call neobundle#untap()
-endif
-" }}}
-autocmdFT javascript setlocal omnifunc=tern#Complete
-
-" autocomplete/typehints engine, also used by tagbar
-" NeoBundle 'marijnh/tern_for_vim', {
-"       \   'autoload': { 'filetypes': ['javascript'] },
-"       \   'build': {
-"       \     'mac':     'npm install',
-"       \     'unix':    'npm install',
-"       \     'cygwin':  'npm install',
-"       \     'windows': 'npm install',
-"       \   }
-"       \ }
-" if neobundle#tap('tern_for_vim')
-"   function! neobundle#tapped.hooks.on_source(bundle)
-"     " let g:tern_show_signature_in_pum = 'on_move'
-"     " let g:tern_show_argument_hints = 1
-"   endfunction
-"   call neobundle#untap()
-" endif
+NeoBundle 'chrisbra/Colorizer'
 ```
 
 ## Plugins I intentionally don't use
@@ -143,10 +78,6 @@ NeoBundle 'xolox/vim-misc', {
 
 - vim-bufkill to keep splits open after bd
 
- ```
-"NeoBundle 'dbarsam/vim-bufkill'         " :bd keeps window open
-```
-
 - vim-rails - i don't do rails enough to make this worthwhile
 
  ```
@@ -159,19 +90,6 @@ NeoBundle 'tpope/vim-rails'
 
  ```
 NeoBundle 'jtratner/vim-flavored-markdown'
-if neobundle#tap('vim-flavored-markdown')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    if has("autocmd")
-      augroup markdown
-          " remove other autocmds for markdown first
-          au!
-          au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
-      augroup END
-    endif
-  endfunction
-  call neobundle#untap()
-endif
-
 "NeoBundle 'tpope/vim-markdown'          " creates markdown filetype
 ```
 
@@ -185,22 +103,6 @@ endif
 ```
 
 - supertab -- not needed, bound PUM via neocomplete keys
-
- ```
-NeoBundle 'ervandew/supertab'
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
-```
-
-- investigate
-
- ```
-" NeoBundle 'Keithbsmiley/investigate.vim'
-" nnoremap <leader>K :call investigate#Investigate()<CR>
-" if g:is_macvim
-"   let g:investigate_use_dash=1
-" endif
-```
 
 - tab settings
 
