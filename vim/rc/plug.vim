@@ -85,9 +85,10 @@ Plug 'tpope/vim-eunuch'
 " Completion -----------------------------------------------------------------
 " ----------------------------------------------------------------------------
 
-" neocomplete probably used on osx and on my arch
-Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/neco-syntax'
+if has('lua')
+  Plug 'Shougo/neocomplete.vim'
+  Plug 'Shougo/neco-syntax'
+endif
 
 let g:dko_use_tern_completion = 0
 if g:dko_use_tern_completion
