@@ -98,7 +98,9 @@ endif
 set nrformats-=octal                  " never use octal when <C-x> or <C-a>
 set nojoinspaces                      " J command doesn't add extra space
 set mouse=a
-set ttymouse=xterm
+if !has('nvim')
+  set ttymouse=xterm
+endif
 
 " whitespace
 set nowrap

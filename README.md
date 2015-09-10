@@ -7,6 +7,7 @@
 - OSX and ArchLinux compatible
 - XDG compliance
 - ZSH and BASH compatible
+- VIM and NeoVim config
 - Try to move as much out of `$HOME` as possible
 
 ## Installation
@@ -21,24 +22,13 @@ cd ~/.dotfiles/bootstrap
 
 - (OPTIONAL) Change default shell to zsh and restart now
 
-- Setup vim:
-
-```
-cd ~/.dotfiles/bootstrap
-./vim.sh
-u vim
-```
-
 ### Working scripts
 
 - `node.sh`
   - installs nvm, node stable, sets default to latest stable
 
 - `symlink.sh`
-  - bash, zsh, ack, screen
-
-- `vim.sh`
-  - vim
+  - bash, zsh, ack, screen, (n)vim
 
 - `npm/install.sh`
   - install default packages

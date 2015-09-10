@@ -87,6 +87,7 @@ Plug 'tpope/vim-eunuch'
 
 " neocomplete probably used on osx and on my arch
 Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neco-syntax'
 
 let g:dko_use_tern_completion = 0
 if g:dko_use_tern_completion

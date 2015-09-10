@@ -19,6 +19,9 @@ dkosymlink git/.gitconfig.symlink     .gitconfig
 dkosymlink mdl/.mdlrc.symlink         .mdlrc
 dkosymlink ruby/.gemrc.symlink        .gemrc
 
+dkosymlink vim  .vim
+dkosymlink vim  .nvim
+
 mkdir -p "$HOME/.subversion"
 case "$OSTYPE" in
   darwin*)
