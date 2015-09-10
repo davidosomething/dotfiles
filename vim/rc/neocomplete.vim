@@ -16,12 +16,6 @@ endif
 let g:neocomplete#sources#omni#input_patterns.ruby = ''
 let g:neocomplete#sources#omni#input_patterns.python = ''
 
-" from neocomplete docs -- phpcomplete.vim integration
-" word head ignored so can restart completion
-" @see <https://github.com/Shougo/neocomplete.vim/issues/33#issuecomment-20732229>
-let g:neocomplete#sources#omni#input_patterns.php =
-      \ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-
 let g:neocomplete#sources#omni#input_patterns.typescript =
       \ '[^. \t]\.\%(\h\w*\)\?'
 
