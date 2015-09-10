@@ -10,6 +10,13 @@ alias cdd="cd ~/.dotfiles"
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias tree="tree -C"
 
+# git
+alias g="git"
+alias g-="git co -"
+alias gb="git browse"
+alias gl="git l"
+alias gpo="git push origin"
+
 # bin
 alias be="bundle exec"
 alias bfy="browserify"
@@ -17,10 +24,6 @@ alias bun="bundle"
 alias c="composer"
 alias df="df -h"
 alias f="find"
-alias g-="git co -"
-alias g="git"
-alias gb="git browse"
-alias gpo="git push origin"
 alias grep="grep --color=auto"
 alias gw="grunt watch"
 alias ln="ln -v"
