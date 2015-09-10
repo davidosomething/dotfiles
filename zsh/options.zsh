@@ -23,16 +23,23 @@ setopt HIST_VERIFY                    # verify when using history cmds/params
 
 # Input/Output
 setopt ALIASES                        # autocomplete switches for aliases
+setopt AUTO_PARAM_SLASH               # append slash if autocompleting a dir
 setopt CORRECT
 
 # Job Control
 setopt CHECK_JOBS                     # prompt before exiting shell with bg job
+setopt LONGLISTJOBS                   # display PID when suspending processes as well
 setopt NO_HUP                         # don't kill bg processes
 
 # Prompting
+
 # Scripts and Functions
+
 # Shell Emulation
+setopt INTERACTIVE_COMMENTS           # allow comments in shell
+
 # Shell State
+
 # Zle
 setopt NO_BEEP
 setopt VI
