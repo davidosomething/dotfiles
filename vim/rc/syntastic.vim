@@ -17,7 +17,7 @@ if !has_key(g:syntastic_mode_map, "active_filetypes")
   let g:syntastic_mode_map['active_filetypes'] = []
 endif
 if !has_key(g:syntastic_mode_map, "passive_filetypes")
-  let g:syntastic_mode_map['passive_filetypes'] = [ 'html', 'php' ]
+  let g:syntastic_mode_map['passive_filetypes'] = [ 'html', 'markdown', 'php' ]
 endif
 
 let g:syntastic_error_symbol         = '✗'
