@@ -213,7 +213,8 @@ Plug 'elzr/vim-json',                     { 'for': ['json'] }
 
 " Mustache.js and Handlebars -------------------------------------------------
 
-Plug 'mustache/vim-mustache-handlebars',  { 'for': ['html', 'mustache', 'hbs'] }
+" Creates html.handlebars and other fts and sets syn
+Plug 'mustache/vim-mustache-handlebars'
 
 " Nginx ----------------------------------------------------------------------
 
