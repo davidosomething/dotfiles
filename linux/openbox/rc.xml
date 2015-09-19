@@ -309,12 +309,12 @@
     <!-- Shutter screenshot -->
     <keybind key="W-S-1">
       <action name="Execute">
-        <command>shutter -f</command>
+        <command>gnome-screenshot</command>
       </action>
     </keybind>
     <keybind key="W-S-2">
       <action name="Execute">
-        <command>shutter -s</command>
+        <command>gnome-screenshor -a</command>
       </action>
     </keybind>
     <!-- vim style window resizing -->
