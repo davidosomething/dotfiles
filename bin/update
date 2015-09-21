@@ -132,8 +132,10 @@ if [[ "$1" = "gem" ]]; then
 fi
 
 if [[ "$1" = "go" ]]; then
-  dkostatus "Updating go packages"
-  go get -u all | dkoindent
+  if has_program "go"; then
+    dkostatus "Updating go packages"
+    go get -u all | dkoindent
+  fi
 fi
 
 if [[ "$1" = "heroku" ]]; then
