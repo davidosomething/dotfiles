@@ -144,9 +144,9 @@ fi
 
 if [[ "$1" = "npm" ]]; then
   dkostatus "Updating npm via reinstall latest"
-  npm install -g npm@latest | dkoindent
+  npm install -g npm@latest
   dkostatus "Updating global npm modules"
-  npm update -g | dkoindent
+  npm update -g
 fi
 
 if [ "$1" = "php" ] && [ -d "$HOME/.phpenv" ]; then
