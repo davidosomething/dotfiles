@@ -11,6 +11,8 @@ call plug#begin('~/.vim/plugged')
 " Appearance/tab/split mgmt --------------------------------------------------
 " ----------------------------------------------------------------------------
 
+Plug 'chriskempson/base16-vim'
+
 Plug 'bling/vim-airline'
 
 " Open help in new tab
@@ -276,6 +278,7 @@ call plug#end()
 source $VIM_DOTFILES/rc/Cmd2.vim
 source $VIM_DOTFILES/rc/CoffeeTags.vim
 source $VIM_DOTFILES/rc/airline.vim
+source $VIM_DOTFILES/rc/base16-vim.vim
 source $VIM_DOTFILES/rc/colorv.vim
 source $VIM_DOTFILES/rc/committia.vim
 source $VIM_DOTFILES/rc/cosco.vim
