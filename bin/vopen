@@ -62,7 +62,7 @@ _vopen() {
   # If there are still args after the above...
   files=""
   while [[ "$#" -gt 0 ]]; do
-    files="$files $1"
+    files="$files \"$1\""
     case "$1" in
       *"MERGE_MSG"|*"COMMIT_EDITMSG")
         use_server=false
@@ -99,5 +99,5 @@ _vopen() {
   eval $executable $server $args $files
 }
 
-_vopen "${@}"
+_vopen "$@"
 
