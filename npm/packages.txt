@@ -21,5 +21,7 @@ mocha
 npm
 package-json-validator
 phantomjs
+pygmentize
 retire
+sass-lint
 uglifyjs

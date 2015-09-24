@@ -33,12 +33,12 @@ _add_my_paths() {
     my_path="$BREW_PREFIX/share/npm/bin:$my_path"
   }
 
-  # npm binaries from npm in home
-  # This is where my npm bins probably are
+  # npm binaries from npm in home ----------------------------------------------
+  # This is where my system node npm bins are
+  # But NVM bins will be in their node prefix
   if [ ! -d "$NPM_PACKAGES" ]; then
     mkdir -p $NPM_PACKAGES
   fi
-
   my_path="$NPM_PACKAGES/bin:$my_path"
   unset MANPATH
   MANPATH="$NPM_PACKAGES/share/man:$(manpath)"

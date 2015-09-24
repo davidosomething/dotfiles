@@ -24,9 +24,6 @@ cd ~/.dotfiles/bootstrap
 
 ### Working scripts
 
-- `node.sh`
-  - installs nvm, node stable, sets default to latest stable
-
 - `symlink.sh`
   - bash, zsh, ack, screen, (n)vim
 
@@ -50,8 +47,8 @@ Brewfiles in the `osx` folder.
 
 ### Node
 
-Install via nvm, installed via `bootstrap/node.sh` instead of using package
-manager.
+Install via nvm, installed via `bin/update npm`, which uses latest git tag
+instead of using your system package manager.
 
 ### Source order
 

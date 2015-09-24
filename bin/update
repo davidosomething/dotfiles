@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-set -eu
+
+set -e
 
 # Update dotfiles and provide instructions for updating the system
 #
@@ -22,6 +23,7 @@ if [[ $# -eq 0 ]]; then
   dkousage_ "  go"
   dkousage_ "  heroku"
   dkousage_ "  npm"
+  dkousage_ "  nvm"
   dkousage_ "  php    # phpenv"
   dkousage_ "  pip"
   dkousage_ "  vim"
@@ -147,6 +149,28 @@ if [[ "$1" = "npm" ]]; then
   npm install -g npm@latest
   dkostatus "Updating global npm modules"
   npm update -g
+fi
+
+if [[ "$1" = "nvm" ]]; then
+  if [ ! -d ~/.nvm ]; then
+    dkostatus "Installing nvm"
+    git clone https://github.com/creationix/nvm.git ~/.nvm
+  fi
+
+  dkostatus "Updating nvm"
+  cd ~/.nvm
+  git checkout master
+  git fetch --tags
+  git checkout "$(git describe --abbrev=0 --tags)"
+
+  NVM_DIR="$HOME/.nvm"
+  source "$NVM_DIR/nvm.sh"
+
+  dkostatus "Switching to latest node stable"
+  # install stable node and use as default
+  nvm install stable --reinstall-packages-from=node
+  nvm use stable
+  nvm alias default stable
 fi
 
 if [ "$1" = "php" ] && [ -d "$HOME/.phpenv" ]; then
