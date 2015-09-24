@@ -13,6 +13,16 @@ unset script
 
 source "$HOME/.dotfiles/shell/after"
 source_if_exists "$HOME/.fzf.bash"
+
+case "$OSTYPE" in
+  darwin*)
+    [[ -s "$BREW_PREFIX/etc/profile.d/autojump.sh" ]] && \
+    . "$BREW_PREFIX/etc/profile.d/autojump.sh"
+    ;;
+  linux*)
+    ;;
+esac
+
 source_if_exists "$HOME/.bashrc.local"
 
 # vim: syn=sh :
