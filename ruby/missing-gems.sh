@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # loop through default-gems file and output if not installed
 while read gemname; do
