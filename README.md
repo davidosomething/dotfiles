@@ -14,7 +14,7 @@
 
 - Clone with submodules, and symlink:
 
-```
+```shell
 git clone --recurse-submodules https://github.com/davidosomething/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles/bootstrap
 ./symlink.sh
@@ -55,21 +55,19 @@ instead of using your system package manager.
 `echo $DKO_SOURCE` to see how files are loaded. It should reflect what's in
 `linux/README.md` for openbox. That is:
 
-```
- -> .xprofile -> ob environment -> ob autostart -> zshenv -> shell loader -> shell before -> zshrc -> shell after
-```
+    -> .xprofile -> ob environment -> ob autostart
+    -> zshenv -> shell loader -> shell before -> zshrc -> shell after
 
 Here's OSX with zsh (remember, OSX is always a login shell):
 
-```
- -> zshenv -> shell loader -> zprofile -> shell before -> zshrc -> shell after
-```
+    -> zshenv -> shell loader -> zprofile -> shell before
+    -> zshrc -> shell after
 
 ### node-gyp
 
 On arch use python 2 when installing node-gyp:
 
-```
+```shell
 npm config set python /usr/bin/python2.7 -g
 ```
 
