@@ -1,6 +1,6 @@
 bower
 browserify
-casperjs
+casperjs@1.1.0-beta3
 coffee-script
 coffeeify
 coffeelint
@@ -18,7 +18,6 @@ jsinspect
 jsonlint
 karma-cli
 mocha
-npm
 package-json-validator
 phantomjs
 pygmentize

@@ -145,13 +145,13 @@ if [[ "$1" = "heroku" ]]; then
 fi
 
 if [[ "$1" = "npm" ]]; then
-  dkostatus "Updating npm via reinstall latest"
-  npm install -g npm@latest
   dkostatus "Updating global npm modules"
   npm update -g
 fi
 
 if [[ "$1" = "nvm" ]]; then
+  nvm_node_version="v0.12"
+
   if [ ! -d ~/.nvm ]; then
     dkostatus "Installing nvm"
     git clone https://github.com/creationix/nvm.git ~/.nvm
@@ -166,11 +166,11 @@ if [[ "$1" = "nvm" ]]; then
   NVM_DIR="$HOME/.nvm"
   source "$NVM_DIR/nvm.sh"
 
-  dkostatus "Switching to latest node stable"
+  dkostatus "Installing and using node version ${nvm_node_version}"
   # install stable node and use as default
-  nvm install stable --reinstall-packages-from=node
-  nvm use stable
-  nvm alias default stable
+  nvm install "${nvm_node_version}" --reinstall-packages-from=node
+  nvm use "${nvm_node_version}"
+  nvm alias default "${nvm_node_version}"
 fi
 
 if [ "$1" = "php" ] && [ -d "$HOME/.phpenv" ]; then
