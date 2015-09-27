@@ -1,3 +1,6 @@
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+
 let g:neocomplete#enable_at_startup            = 1
 let g:neocomplete#enable_smart_case            = 1
 let g:neocomplete#enable_camel_case            = 1
@@ -28,16 +31,14 @@ endif
 " from the github page: <CR> cancels completion and inserts newline
 inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
+  return pumvisible() ? "\<C-y>" : "\<CR>"
+  "return "\<C-y>\<CR>"
 endfunction
 
 " These are in neocomplete#mappings#define_default_mappings()
 " <C-h>, <BS>: close popup and delete backword char.
 " inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 " inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
 
 " select completion using tab
 inoremap <expr><Tab>      pumvisible() ? "\<C-n>" : "\<TAB>"

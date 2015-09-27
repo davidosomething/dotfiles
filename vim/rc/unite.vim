@@ -103,7 +103,7 @@ vnoremap <silent><F11> <Esc>:<C-u>Unite history/yank<CR>
 
 " ========================================
 " Command Palette
-nnoremap <C-y> :<C-u>Unite -start-insert command<CR>
-inoremap <C-y> <Esc>:<C-u>Unite -start-insert command<CR>
-vnoremap <C-y> <Esc>:<C-u>Unite -start-insert command<CR>
+" nnoremap <C-e> :<C-u>Unite -start-insert command<CR>
+" inoremap <C-e> <Esc>:<C-u>Unite -start-insert command<CR>
+" vnoremap <C-e> <Esc>:<C-u>Unite -start-insert command<CR>
 
