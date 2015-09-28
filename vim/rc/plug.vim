@@ -88,7 +88,7 @@ Plug 'tpope/vim-eunuch'
 " ----------------------------------------------------------------------------
 
 if has('lua')
-  Plug 'Shougo/neocomplete.vim'
+  Plug 'Shougo/neocomplete.vim', 'ver.2.1'
   Plug 'Shougo/neco-syntax'
 endif
 

@@ -31,7 +31,11 @@ endif
 " from the github page: <CR> cancels completion and inserts newline
 inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  return pumvisible() ? "\<C-y>" : "\<CR>"
+  " v2.1
+  return neocomplete#close_popup() . "\<CR>"
+
+  " v next
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
   "return "\<C-y>\<CR>"
 endfunction
 
