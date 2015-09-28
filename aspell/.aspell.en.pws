@@ -21,6 +21,7 @@ cli
 config
 css
 dfp
+dropdown
 elasticsearch
 enqueue
 faq
@@ -28,6 +29,7 @@ gif
 github
 gitmodules
 googletag
+hbs
 html
 http
 init
@@ -35,6 +37,7 @@ javascript
 js
 jscpd
 json
+leaderboard
 login
 loglevel
 md
@@ -43,6 +46,7 @@ monolog
 nav
 nda
 php
+pinterest
 png
 posttype
 psr
@@ -59,6 +63,7 @@ taboola
 tealium
 txt
 udo
+WindowManager
 WordPress
 wp
 www
