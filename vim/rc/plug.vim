@@ -227,6 +227,9 @@ Plug 'moskytw/nginx-contrib-vim'
 " creates twig ft
 Plug 'evidens/vim-twig'
 
+Plug 'tobyS/vmustache'
+      \| Plug 'tobyS/pdv'
+
 " provides updated syntax
 Plug 'StanAngeloff/php.vim',              { 'for': ['php', 'blade'] }
       \| Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
@@ -285,6 +288,7 @@ source $VIM_DOTFILES/rc/javascript-libraries-syntax.vim
 source $VIM_DOTFILES/rc/neocomplete.vim
 source $VIM_DOTFILES/rc/neosnippet.vim
 source $VIM_DOTFILES/rc/phpcomplete.vim
+source $VIM_DOTFILES/rc/pdv.vim
 source $VIM_DOTFILES/rc/scss-syntax.vim
 source $VIM_DOTFILES/rc/smartpairs.vim
 source $VIM_DOTFILES/rc/solarized.vim
