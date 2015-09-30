@@ -11,15 +11,6 @@ has_program() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# open or xdg-open
-o() {
-  if [ "$DOTFILES_OS" = "Darwin" ]; then
-    open "$@"
-  else
-    xdg-open "$@" &>/dev/null
-  fi
-}
-
 # source a file if it exists
 source_if_exists() {
   [ -f "$1" ] && source "$1" # && echo "Sourced $1"
@@ -53,74 +44,9 @@ prune() {
 }
 
 # dev --------------------------------------------------------------------------
-a2() {
-  apachectl "$@"
-}
-
-a2r() {
-  [[ $DOTFILES_OS = "Darwin" ]] && sudo apachectl -e info -k restart
-  [[ $DOTFILES_DISTRO = "debian" ]]  && sudo service apache2 reload
-}
-
-art() {
-  php artisan "$@"
-}
-
 cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
 }
-
-dog() {
-  if [[ -n $1 ]]; then
-    local filename="$1"
-    if [ -f "$1" ]; then
-      if has_program "pygmentize"; then
-        pygmentize -O style=monokai -f console256 -g "$filename"
-      else
-        cat "$filename"
-      fi
-    fi
-  fi
-}
-
-
-# echo git root if in a git repo, otherwise echo pwd
-git_root_or_pwd() {
-  local git_root="."
-
-  # check for git root
-  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    git_root="$(git rev-parse --show-toplevel)"
-  fi
-
-  echo ${git_root}
-}
-
-
-# find and edit file from git root
-#
-egr() {
-  local filename="${1:-README.md}"
-  local git_root=$(git_root_or_pwd)
-
-  # edit gruntfile in git root or local dir if exists
-  if [ -f "${git_root}/${filename}" ]; then
-    vopen "${git_root}/${filename}"
-  else
-    >&2 echo "No file to edit."
-    return 1
-  fi
-}
-
-
-# find and edit Gruntfile in project
-#
-egrunt() {
-  egr "Gruntfile.js" >/dev/null 2>&1 || \
-  egr "Gruntfile.coffee" >/dev/null 2>&1 || \
-  {>&2 echo "Gruntfile not found" && return 1}
-}
-
 
 # PHP version numbers
 # @TODO use cut instead of splitting awk?
@@ -140,23 +66,6 @@ pyserve() {
       *)        xterm "python -m SimpleHTTPServer"
                 ;;
   esac
-}
-
-lopen() {
-  o "http://localhost:8000/$1"
-}
-
-eapache() {
-  if apachectl -t >/dev/null 2>&1; then
-    # apache_httpd_root="$(apachectl -V | awk '/ -D HTTPD_ROOT/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
-    apache_httpd_conf="$(apachectl -V | awk '/ -D SERVER_CONFIG_FILE/ { print $2 }' | cut -d "=" -f2 | sed 's/\"//g')"
-    sudo -e "${apache_httpd_conf}"
-  else
-    echo "Couldn't determine path to HTTPD conf file, check apachectl -t"
-  fi
-}
-ephpini() {
-  sudo -e "$(php -r "echo php_ini_loaded_file();")"
 }
 
 # traversal --------------------------------------------------------------------
@@ -230,33 +139,9 @@ members() {
 }
 
 # linux ------------------------------------------------------------------------
-addcert() {
-  if [[ -n $1 ]] && [[ -n $2 ]]; then
-    certutil -d "sql:$HOME/.pki/nssdb" -A -t TC -n "$1" -i "$2"
-  else
-    echo "Provide a nickname as arg1 and certfile.pem as arg2"
-  fi
-}
-
-# Cleanup Open With Applications
-cleanopenwith() {
-  sed -i '/wine/d' "$HOME/.local/share/applications/mimeinfo.cache"
-}
-
 # flush linux font cache
 flushfonts() {
   fc-cache -f -v
-}
-
-joingroup() {
-  if [[ -n $1 ]]; then
-    # add self to group
-    sudo gpasswd -a "$USER" "$1"
-    # ensure current env recognizes it without re-logging in
-    newgrp "$1"
-  else
-    echo "USAGE: joingroup GROUP"
-  fi
 }
 
 # vim: syn=sh :

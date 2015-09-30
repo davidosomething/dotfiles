@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -e
+
+_dog() {
+  local filename="$1"
+  local dog_cmd
+
+  # use mdless if markdown file and has that command
+  if [ "${filename: -3}" == ".md" ] && command -v "mdless" >/dev/null 2>&1; then
+    dog_cmd="mdless"
+  fi
+
+  # use pygmentize or cat
+  if [ -z "$dog_cmd" ]; then
+    if command -v "pygmentize" >/dev/null 2>&1; then
+      dog_cmd="pygmentize -O style=monokai -f console256 -g"
+    else
+      dog_cmd="cat"
+    fi
+  fi
+
+  eval "$dog_cmd \"$filename\""
+}
+
+if [ -n "$1" ] && [ -f "$1" ]; then
+  _dog "$1"
+fi

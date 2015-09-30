@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+phpini="$(php -r "echo php_ini_loaded_file();")"
+if [ -w "${phpini}" ]; then
+  eval "${EDITOR} ${phpini}"
+else
+  sudo -e "${phpini}"
+fi

@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-_main() {
+# echo git root if in a git repo, otherwise echo pwd
+
+set -e
+
+_maybe_git_root() {
   local git_root="."
 
   # check for git root
@@ -8,7 +12,7 @@ _main() {
     git_root="$(git rev-parse --show-toplevel)"
   fi
 
-  echo "${git_root}/.luacheckrc"
+  echo ${git_root}
 }
 
-_main
+_maybe_git_root

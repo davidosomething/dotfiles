@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ -n $1 ]]; then
+  # add self to group
+  sudo gpasswd -a "$USER" "$1"
+  # ensure current env recognizes it without re-logging in
+  newgrp "$1"
+else
+  echo "USAGE: joingroup GROUP"
+fi

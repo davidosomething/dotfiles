@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+
+# find and edit file from git root
+#
+_egr() {
+  local filename="${1:-README.md}"
+  local git_root
+  git_root=$(maybe_git_root)
+
+  # edit gruntfile in git root or local dir if exists
+  if [ -f "${git_root}/${filename}" ]; then
+    eval "${EDITOR} \"${git_root}/${filename}\""
+  else
+    echo "No file to edit."
+    return 1
+  fi
+}
+
+_egr "$1"
+

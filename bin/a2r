@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ "$DOTFILES_OS" = "Darwin" ]; then
+  if [ "$(which apachectl)" = "/usr/sbin/apachectl" ]; then
+    sudo apachectl -e info -k restart
+  fi
+fi
+
+if [ "$DOTFILES_DISTRO" = "debian" ]; then
+  sudo service apache2 reload
+fi
