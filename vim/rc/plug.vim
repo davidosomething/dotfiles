@@ -185,7 +185,7 @@ Plug 'tpope/vim-haml'
 
 " JavaScript / CoffeeScript --------------------------------------------------
 
-Plug 'heavenshell/vim-jsdoc',             { 'for':  ['html', 'javascript', 'php'], 'on': ['JsDoc'], }
+Plug 'heavenshell/vim-jsdoc'
 
 " syntax highlighting for jQuery
 "Plug 'itspriddle/vim-jquery',             { 'for': ['html', 'javascript', 'php'] }
@@ -231,9 +231,6 @@ Plug 'evidens/vim-twig'
 Plug 'StanAngeloff/php.vim',              { 'for': ['php', 'blade'] }
       \| Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
       "\| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
-
-Plug 'tobyS/vmustache',                   { 'for': ['php', 'blade'] }
-      \| Plug 'tobyS/pdv',                { 'for': ['php', 'blade'] }
 
 " Ruby, rails, chef, puppet --------------------------------------------------
 
@@ -287,7 +284,6 @@ source $VIM_DOTFILES/rc/incsearch.vim
 source $VIM_DOTFILES/rc/javascript-libraries-syntax.vim
 source $VIM_DOTFILES/rc/neocomplete.vim
 source $VIM_DOTFILES/rc/neosnippet.vim
-source $VIM_DOTFILES/rc/pdv.vim
 source $VIM_DOTFILES/rc/phpcomplete.vim
 source $VIM_DOTFILES/rc/scss-syntax.vim
 source $VIM_DOTFILES/rc/smartpairs.vim
