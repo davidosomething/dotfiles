@@ -15,11 +15,10 @@ brew install ctags ctags-exuberant
 # https://github.com/Homebrew/homebrew/blob/master/Library/Formula/macvim.rb
 
 brew install \
-  --build-from-source \
-  --custom-icons \
-  --override-system-vim \
+  --with-custom-icons \
   --with-lua \
   --with-python \
+  --with-override-system-vim \
   macvim
 
 brew linkapps macvim
