@@ -44,9 +44,9 @@ export INPUTRC="$DOTFILES/shell/.inputrc"
 
 export SAVEHIST=1000
 export HISTSIZE=1000
-export HISTFILESIZE="$HISTSIZE";
-export HISTCONTROL=ignoredups;
-export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
+export HISTFILESIZE="$HISTSIZE"
+export HISTCONTROL=ignoredups
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
 # program settings -------------------------------------------------------------
 # for rsync and cvs
@@ -72,7 +72,7 @@ export GIT_PAGER="$PAGER"
 # others ----------------------------------------
 
 # apache
-[[ -f /etc/apache2/envvars ]] && source /etc/apache2/envvars
+source_if_exists /etc/apache2/envvars
 
 # chphp
 # overridden in homebrew section if has brew
@@ -90,7 +90,30 @@ export FZF_COMPLETION_TRIGGER='``'
 # used in shell/paths
 export GOPATH="$HOME/go"
 
+# node
+export NVM_DIR="$HOME/.nvm"
+# consider using NODE_PATH="$(npm root -g):$NODE_PATH" so nvm specific
+# node_path is also checked
+export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
+export NPM_PACKAGES="$HOME/.npm-packages"
+
+# python
+osx_python_path="/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
+[[ -d "${osx_python_path}" ]] && {
+  export PYTHONPATH="${osx_python_path}:${PYTHONPATH}"
+}
+
+# shellcheck
+export SHELLCHECK_OPTS='--shell=bash --exclude=SC1090 --exclude=SC2148'
+
+# z
+export _Z_CMD=j
+#export _Z_DATA="$DOTFILES/z/.z"
+
+# ------------------------------------------------------------------------------
 # homebrew
+# Overrides other settings
+# ------------------------------------------------------------------------------
 has_program "brew" && {
   BREW_PREFIX="$(brew --prefix)"
   export BREW_PREFIX
@@ -100,23 +123,12 @@ has_program "brew" && {
 
   # Ruby use brew openssl if available
   [[ -f "$BREW_PREFIX/opt/openssl" ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$BREW_PREFIX/opt/openssl"
+
+  # python
+  brew_python_path="$BREW_PREFIX/lib/python2.7/site-packages"
+  [[ -d "$brew_python_path" ]] && {
+    export PYTHONPATH="${brew_python_path}:${PYTHONPATH}"
+  }
 }
-
-# node
-export NVM_DIR="$HOME/.nvm"
-# consider using NODE_PATH="$(npm root -g):$NODE_PATH" so nvm specific
-# node_path is also checked
-export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
-export NPM_PACKAGES="$HOME/.npm-packages"
-
-# shellcheck
-export SHELLCHECK_OPTS='--shell=bash --exclude=SC1090 --exclude=SC2148'
-
-# vopen
-export VOPEN_DEFAULT_COMMAND=""
-
-# z
-export _Z_CMD=j
-#export _Z_DATA="$DOTFILES/z/.z"
 
 # vim: syn=sh :
