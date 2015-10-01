@@ -124,6 +124,10 @@ afk
 
 > For w510 enable/disable touchpad
 
+## wifi-passwords
+
+> Get current wifi password in plaintext
+
 ## wpp
 
 > Open wordpress plugin homepage
