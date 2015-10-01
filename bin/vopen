@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# vopen v0.0.5
+# vopen v0.0.7
 #
 # Automatically determine whether to use vim or gvim and use a single instance
 # Git commit messages will use a separate vim server called GIT
@@ -46,6 +46,9 @@ _vopen() {
       "--nofork")             # never use server if nofork
         use_server=false
         args="$args --nofork"
+        ;;
+      "--noserver")           # don't use server at all, useful for sudoeditor
+        use_server=false
         ;;
       "--servername")         # custom servername
         shift                 # get next arg
