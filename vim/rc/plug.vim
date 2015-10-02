@@ -227,8 +227,8 @@ Plug 'moskytw/nginx-contrib-vim'
 " creates twig ft
 Plug 'evidens/vim-twig'
 
-Plug 'tobyS/vmustache'
-      \| Plug 'tobyS/pdv'
+Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
+      \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
 
 " provides updated syntax
 Plug 'StanAngeloff/php.vim',              { 'for': ['php', 'blade'] }

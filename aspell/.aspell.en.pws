@@ -10,6 +10,7 @@ NullLogger
 PutTest
 README
 Symfony
+ajax
 analytics
 api
 auth
@@ -18,6 +19,7 @@ bg
 casper
 classmap
 cli
+CommonJS
 config
 css
 dfp
