@@ -1,4 +1,5 @@
 [global_config]
+  dbus = True
   enabled_plugins = TerminalShot, APTURLHandler, LaunchpadCodeURLHandler, LaunchpadBugURLHandler
   focus = system
   sticky = True

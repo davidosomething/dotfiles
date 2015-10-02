@@ -18,8 +18,8 @@ maximum_width 240
 
 # window
 own_window yes
+own_window_type conky
 own_window_transparent yes
-own_window_type desktop
 own_window_argb_visual yes
 own_window_argb_value 0
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
@@ -42,7 +42,7 @@ default_outline_color 828282
 
 # text output
 use_xft yes
-xftfont Fira Mono:size=8
+xftfont Fira Mono for Powerline:size=8
 xftalpha 1
 cpu_avg_samples 2
 uppercase no
@@ -55,25 +55,37 @@ override_utf8_locale no
 TEXT
 ${color 88bbee}SYSTEM ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
 Kernel:      $alignr${kernel} ${machine}
-Host:        $alignr$nodename
-${if_up wlan0}${wireless_essid wlan0}:$alignr${addr wlan0}
-${endif}${if_up wlp3s0}${wireless_essid wlp3s0}:$alignr${addr wlp3s0}${endif}
-Uptime:      $alignr$uptime
+Hostname:    $alignr${nodename}
+User:        $alignr${USER}
+Session:     $alignr${DESKTOP_SESSION}
+
+${color 88bbee}HARDWARE ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
+Uptime:      $alignr${uptime}
 Load:        $alignr${loadavg}
 Temperature: $alignr${acpitemp} F
 
+${color 88bbee}NETWORK ${color 1c1c1c}${stippled_hr 2}${color aaccdd}${if_up wlan0}
+SSID:        $alignr${wireless_essid wlan0}
+LAN IP:      $alignr${addr wlan0}${endif}${if_up wlp3s0}
+SSID:        $alignr${wireless_essid wlp3s0}
+LAN IP:      $alignr${addr wlp3s0}${endif}
+WAN IP:      $alignr${execi 3600 dig +short myip.opendns.com @resolver1.opendns.com}
+
+${color 88bbee}DISK ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
 ${color aaccdd}Disk usage:  $alignr${fs_used /}/${fs_size /}
 ${color aaccdd}/Root: $alignc${fs_used /} / ${fs_size /}$alignr ${fs_used_perc /}%
 ${color 1c1c1c}${fs_bar /}
 ${color aaccdd}/Home: $alignc${fs_used /home} / ${fs_size /home}$alignr ${fs_used_perc /home}%
 ${color 1c1c1c}${fs_bar /home}
 
+${color 88bbee}CPU ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
 ${color aaccdd}CPU usage: $alignr${cpu cpu0}%
 ${color aaccdd}CPU 1: ${cpu cpu1}% ${color 1c1c1c}${cpubar cpu1}
 ${color aaccdd}CPU 2: ${cpu cpu2}% ${color 1c1c1c}${cpubar cpu2}
 ${color aaccdd}CPU 3: ${cpu cpu3}% ${color 1c1c1c}${cpubar cpu3}
 ${color aaccdd}CPU 4: ${cpu cpu4}% ${color 1c1c1c}${cpubar cpu4}
 
+${color 88bbee}MEMORY ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
 ${color aaccdd}RAM   $alignc $mem / $memmax $alignr $memperc%
 ${color 1c1c1c}$membar
 
