@@ -14,7 +14,7 @@ _vopen() {
   local use_server="false"
   local has_server=false
   local server=""
-  local servername="VIM"
+  local servername="VIM-VOPEN"
   local args
   local files
   local _vopen_editor="${VOPEN_EDITOR:-vim}"
@@ -25,7 +25,7 @@ _vopen() {
   # Has framebuffer or is OSX
   if [[ -n "$DISPLAY" ]] || [[ $OSTYPE == darwin* ]]; then
     gui=true
-    servername="GVIM"
+    servername="GVIM-VOPEN"
     use_server=${VOPEN_ALLOW_SERVER:-true}
   fi
 

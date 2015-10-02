@@ -52,8 +52,8 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # for rsync and cvs
 export ACKRC="$DOTFILES/ack/.ackrc"
 export CVSIGNORE="$DOTFILES/git/.gitignore"
-export EDITOR="vopen --nofork"
-export VISUAL="vopen --nofork"
+export EDITOR="$DOTFILES/bin/vopen-nofork"
+export VISUAL="$DOTFILES/bin/vopen-nofork"
 
 # pager ----------------------------------------
 # less
