@@ -14,8 +14,8 @@ fi
 
 # There are no conditions to source these, straight up replace their
 # definitions. We want these get sourced again if you start a subshell.
-source "$HOME/.dotfiles/shell/functions"
-source "$HOME/.dotfiles/shell/vars"
+source "$HOME/.dotfiles/shell/functions" # provides source_if_exists, has_program
+source "$HOME/.dotfiles/shell/vars"      # provides $NPM_PACKAGES
 source "$HOME/.dotfiles/shell/paths"
 
 # These add to path

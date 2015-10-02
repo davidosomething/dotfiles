@@ -9,10 +9,11 @@ _add_my_paths() {
   # Begin my_path composition --------------------------------------------------
   # On BSD system, e.g. Darwin -- path_helper is called, reads /etc/paths
   # Move local bin to front for homebrew compatibility
-  if [ -x /usr/libexec/path_helper ]; then
-    my_path="/usr/local/bin:/usr/local/sbin:$DKO_SYSTEM_PATH"
-  else
+  #if [ -x /usr/libexec/path_helper ]; then
+  if [[ $DKO_SYSTEM_PATH == *"/usr/local/bin"* ]]; then
     my_path="$DKO_SYSTEM_PATH"
+  else
+    my_path="/usr/local/bin:/usr/local/sbin:$DKO_SYSTEM_PATH"
   fi
 
   # package managers -----------------------------------------------------------
@@ -37,7 +38,7 @@ _add_my_paths() {
   # This is where my system node npm bins are
   # But NVM bins will be in their node prefix
   if [ ! -d "$NPM_PACKAGES" ]; then
-    mkdir -p $NPM_PACKAGES
+    mkdir -p "$NPM_PACKAGES"
   fi
   my_path="$NPM_PACKAGES/bin:$my_path"
   unset MANPATH

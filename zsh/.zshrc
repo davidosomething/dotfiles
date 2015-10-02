@@ -18,13 +18,14 @@ has_program "brew" && {
 
 # plugins ----------------------------------------------------------------------
 # antigen
-source "$ZDOTDIR/antigen/antigen.zsh"
-antigen bundle autojump
-antigen bundle golang
-antigen bundle rimraf/k
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions src
-antigen apply
+source_if_exists "$ZDOTDIR/antigen/antigen.zsh" && {
+  antigen bundle autojump
+  antigen bundle golang
+  antigen bundle rimraf/k
+  antigen bundle zsh-users/zsh-syntax-highlighting
+  antigen bundle zsh-users/zsh-completions src
+  antigen apply
+}
 
 # load all zsh specific scripts ------------------------------------------------
 scripts=(
