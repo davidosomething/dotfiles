@@ -54,6 +54,7 @@ export ACKRC="$DOTFILES/ack/.ackrc"
 export CVSIGNORE="$DOTFILES/git/.gitignore"
 export EDITOR="$DOTFILES/bin/vopen-nofork"
 export VISUAL="$DOTFILES/bin/vopen-nofork"
+export wiki_browser="chromium"
 
 # pager ----------------------------------------
 # less
