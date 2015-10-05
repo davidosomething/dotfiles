@@ -138,6 +138,11 @@ members() {
   done | grep "is a member" | cut -d " " -f 1;
 }
 
+# short version of what's provided by oh-my-zsh/xcode
+ios() {
+  open "$(xcode-select -p)/Applications/Simulator.app"
+}
+
 # linux ------------------------------------------------------------------------
 # flush linux font cache
 flushfonts() {
