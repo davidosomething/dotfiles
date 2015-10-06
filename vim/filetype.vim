@@ -19,10 +19,7 @@ augroup filetypedetect
   autocmd BufRead,BufNewFile *.editorconfig    setfiletype json
   autocmd BufRead,BufNewFile *.eslintrc        setfiletype json
   autocmd BufRead,BufNewFile *.jshintrc        setfiletype json
-  " md is normally modula2 -- force it to always be markdown
-  autocmd BufRead,BufNewFile *.md              setfiletype markdown
   autocmd BufRead,BufNewFile *.rules           setfiletype javascript
-  autocmd BufRead,BufNewFile *.txt             setfiletype markdown
 augroup END
 
 autocmd BufRead,BufNewFile *.php             setlocal filetype=php

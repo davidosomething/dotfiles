@@ -170,6 +170,7 @@ Plug 'tpope/vim-endwise'
 " Git ------------------------------------------------------------------------
 
 " creates gitconfig, gitcommit, rebase
+" vim 7.4-77 ships with 2013 version, this is newer
 Plug 'tpope/vim-git'
 
 " show multipanes when editing a COMMIT_EDITMSG
@@ -212,6 +213,12 @@ Plug 'mxw/vim-jsx'
 " JSON -----------------------------------------------------------------------
 
 Plug 'elzr/vim-json',                     { 'for': ['json'] }
+
+" Markdown -------------------------------------------------------------------
+
+" Override vim included markdown ft* and syntax
+" The git repo has a newer syntax file than the one that ships with vim
+Plug 'tpope/vim-markdown'
 
 " Mustache.js and Handlebars -------------------------------------------------
 
