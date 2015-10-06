@@ -35,6 +35,7 @@ hbs
 href
 html
 http
+iframe
 img
 init
 javascript
@@ -50,6 +51,7 @@ mixins
 monolog
 nav
 nda
+nsfw
 php
 pinterest
 png
