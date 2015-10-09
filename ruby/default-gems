@@ -14,6 +14,7 @@ gemoji
 ghost
 github-markup
 highline
+htmlentities
 httpclient
 i18n
 json
