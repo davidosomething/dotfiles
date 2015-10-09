@@ -16,7 +16,10 @@ has_program() {
 _localip() {
   local localip
 
-  if has_program "ifconfig"; then
+  if has_program "hostname"; then
+    hostname -i
+
+  elif has_program "ifconfig"; then
     ifconfig | grep "inet " | grep -v "127.0.0.1"
 
   elif has_program "ip"; then
