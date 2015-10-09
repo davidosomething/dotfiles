@@ -6,7 +6,6 @@ coffeeify
 coffeelint
 david
 eslint
-flow-bin
 git-bc
 git-open
 grunt-cli
@@ -20,7 +19,6 @@ karma-cli
 mocha
 package-json-validator
 phantomjs@1.9.11
-pygmentize
 retire
 sass-lint
 uglifyjs
