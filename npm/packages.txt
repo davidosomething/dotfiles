@@ -1,8 +1,6 @@
 bower
-browserify
 casperjs@1.1.0-beta3
 coffee-script
-coffeeify
 coffeelint
 david
 eslint
@@ -21,4 +19,3 @@ package-json-validator
 phantomjs@1.9.11
 retire
 sass-lint
-uglifyjs

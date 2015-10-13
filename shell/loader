@@ -21,7 +21,7 @@ source "$HOME/.dotfiles/shell/paths"
 # These add to path
 source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
 source_if_exists "$CHPHP_PREFIX/share/chphp/chphp.sh"
-source_if_exists "$NVM_DIR/nvm.sh"
+source "$HOME/.dotfiles/shell/node"
 has_program "hub" && eval "$(hub alias -s)"
 
 # vim: syn=sh :

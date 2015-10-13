@@ -91,12 +91,7 @@ export FZF_COMPLETION_TRIGGER='``'
 # used in shell/paths
 export GOPATH="$HOME/go"
 
-# node
-export NVM_DIR="$HOME/.nvm"
-# consider using NODE_PATH="$(npm root -g):$NODE_PATH" so nvm specific
-# node_path is also checked
-export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
-export NPM_PACKAGES="$HOME/.npm-packages"
+# node moved to shell/node
 
 # python
 osx_python_path="/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
