@@ -46,8 +46,14 @@ endfunction
 " inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
 " select completion using tab
-inoremap <expr><Tab>      pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:IndentTab_IsSuperTab = 1
+inoremap <expr><Tab>   pumvisible()
+      \ ? "\<C-n>"
+      \ : IndentTab#Tab()
+"\<TAB>"
+inoremap <expr><S-Tab> pumvisible()
+      \ ? "\<C-p>"
+      \ : "\<S-Tab>"
 
 " re-open completion with c-space
 " @see <https://github.com/Shougo/neocomplete.vim/issues/33#issuecomment-20732569>

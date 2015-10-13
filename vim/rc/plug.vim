@@ -152,6 +152,7 @@ Plug 'paradigm/TextObjectify'
 " Syntax highlighting, spacing -----------------------------------------------
 " ----------------------------------------------------------------------------
 
+" :/ use my own settings
 Plug 'vim-scripts/PreserveNoEOL'
       \| Plug 'editorconfig/editorconfig-vim'
 
@@ -159,6 +160,8 @@ Plug 'vim-scripts/PreserveNoEOL'
 Plug 'gregsexton/MatchTag',               { 'for': ['html', 'mustache', 'php', 'rb', 'xml'] }
 
 Plug 'scrooloose/syntastic'
+
+Plug 'vim-scripts/ingo-library' | Plug 'vim-scripts/IndentTab'
 
 " ----------------------------------------------------------------------------
 " Language -------------------------------------------------------------------
@@ -289,6 +292,7 @@ source $VIM_DOTFILES/rc/base16-vim.vim
 source $VIM_DOTFILES/rc/colorv.vim
 source $VIM_DOTFILES/rc/committia.vim
 source $VIM_DOTFILES/rc/cosco.vim
+source $VIM_DOTFILES/rc/editorconfig.vim
 source $VIM_DOTFILES/rc/gundo.vim
 source $VIM_DOTFILES/rc/incsearch.vim
 source $VIM_DOTFILES/rc/javascript-libraries-syntax.vim
