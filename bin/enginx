@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+_enginx() {
+  local nginx_conf
+  nginx_conf="$(nginx -t 2>&1 | awk 'NR==1{ print $5 }')"
+  sudo -e "$nginx_conf"
+}
+
+_enginx

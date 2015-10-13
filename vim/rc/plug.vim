@@ -44,7 +44,7 @@ Plug 'dockyard/vim-easydir'
 " Commands -------------------------------------------------------------------
 " ----------------------------------------------------------------------------
 
-Plug 'suan/vim-instant-markdown',         { 'on': ['InstantMarkdownPreview'], 'for': ['markdown'], 'do': 'npm install -g instant-markdown-d' }
+"Plug 'suan/vim-instant-markdown',         { 'on': ['InstantMarkdownPreview'], 'for': ['markdown'], 'do': 'npm install -g instant-markdown-d' }
 
 " Mostly for :Gblame
 Plug 'tpope/vim-fugitive'
