@@ -7,6 +7,9 @@ export DKO_LOADER=$$
 
 # Store default system path --------------------------------------------------
 # Probably created via /etc/profile and /etc/profile.d/*
+# On OSX/BSD path_helper is run in /etc/profile, which generates paths using
+# /etc/paths and /etc/paths.d/* and defines the initial $PATH
+# Something like "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
 if [[ -z "$DKO_SYSTEM_PATH" ]]; then
   DKO_SYSTEM_PATH="$PATH"
   export DKO_SYSTEM_PATH

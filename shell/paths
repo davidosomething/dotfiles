@@ -1,5 +1,6 @@
 # Shell paths
 # Sourced in bash and zsh by loader
+# chruby, chphp, node are run after this
 
 # _add_my_paths
 #
@@ -10,11 +11,10 @@ _add_my_paths() {
   # On BSD system, e.g. Darwin -- path_helper is called, reads /etc/paths
   # Move local bin to front for homebrew compatibility
   #if [ -x /usr/libexec/path_helper ]; then
-  if [[ $DKO_SYSTEM_PATH == *"/usr/local/bin"* ]]; then
-    my_path="$DKO_SYSTEM_PATH"
-  else
-    my_path="/usr/local/bin:/usr/local/sbin:$DKO_SYSTEM_PATH"
-  fi
+  my_path="$DKO_SYSTEM_PATH"
+
+  # enforce local bin and sbin order
+  my_path="/usr/local/bin:/usr/local/sbin:$DKO_SYSTEM_PATH"
 
   # package managers -----------------------------------------------------------
 
