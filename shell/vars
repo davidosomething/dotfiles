@@ -93,18 +93,11 @@ export GOPATH="$HOME/go"
 
 # node moved to shell/node
 
-# python
-osx_python_path="/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
-[[ -d "${osx_python_path}" ]] && {
-  export PYTHONPATH="${osx_python_path}:${PYTHONPATH}"
-}
+# python moved to shell/python
+source "$DOTFILES/shell/python"
 
 # shellcheck
-export SHELLCHECK_OPTS='--shell=bash --exclude=SC1090 --exclude=SC2148'
-
-# z
-export _Z_CMD=j
-#export _Z_DATA="$DOTFILES/z/.z"
+export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC2148"
 
 # ------------------------------------------------------------------------------
 # homebrew

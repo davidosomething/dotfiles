@@ -1,0 +1,14 @@
+# Default to python2 for nvm compatibility
+[[ $DOTFILES_DISTRO = "archlinux" ]] && {
+  export PYTHON="python2"
+}
+
+[[ $DOTFILES_OS = "Darwin" ]] && {
+  # python
+  osx_python_path="/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
+  [[ -d "${osx_python_path}" ]] && {
+    export PYTHONPATH="${osx_python_path}:${PYTHONPATH}"
+  }
+}
+
+# vim: syn=sh :
