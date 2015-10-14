@@ -56,6 +56,9 @@ export CVSIGNORE="$DOTFILES/git/.gitignore"
 export EDITOR="$DOTFILES/bin/vopen-nofork"
 export VISUAL="$DOTFILES/bin/vopen-nofork"
 
+# my bin specific --------------------------------------------------------------
+export EGR_EDITOR="$DOTFILES/bin/vopen"
+
 # ARCH specific ----------------------------------------------------------------
 # for pacdiff
 export DIFFPROG="$DOTFILES/bin/vopen-nofork"

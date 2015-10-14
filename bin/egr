@@ -2,16 +2,27 @@
 
 set -e
 
+_maybe_git_root() {
+  local git_root="."
+
+  # check for git root
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    git_root="$(git rev-parse --show-toplevel)"
+  fi
+
+  echo "${git_root}"
+}
+
 # find and edit file from git root
 #
 _egr() {
   local filename="${1:-README.md}"
   local git_root
-  git_root=$(maybe_git_root)
+  git_root=$(_maybe_git_root)
 
   # edit gruntfile in git root or local dir if exists
   if [ -f "${git_root}/${filename}" ]; then
-    eval "${EDITOR} \"${git_root}/${filename}\""
+    eval "${EGR_EDITOR:-$EDITOR} \"${git_root}/${filename}\""
   else
     echo "No file to edit."
     return 1
