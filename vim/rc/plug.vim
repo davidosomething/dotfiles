@@ -259,7 +259,7 @@ Plug 'vadv/vim-chef',                     { 'for': ['ruby', 'eruby'] }
 Plug 'vim-ruby/vim-ruby'
 
 " Stylesheet languages -------------------------------------------------------
-Plug 'Rykka/colorv.vim'
+"Plug 'Rykka/colorv.vim'
 
 " creates less filetype
 Plug 'groenewege/vim-less'
