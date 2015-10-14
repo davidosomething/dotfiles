@@ -26,7 +26,7 @@ if !has_key(g:syntastic_mode_map, "passive_filetypes")
 endif
 
 let g:syntastic_ignore_files = [
-      \ '\m\.min\.js$'
+      \ '\m\.min\.js$',
       \ '\m\.min\.css$'
       \ ]
 
