@@ -52,11 +52,13 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # for rsync and cvs
 export ACKRC="$DOTFILES/ack/.ackrc"
 export CVSIGNORE="$DOTFILES/git/.gitignore"
-# for pacdiff
-export DIFFPROG="$DOTFILES/bin/vopen-nofork"
 # editor
 export EDITOR="$DOTFILES/bin/vopen-nofork"
 export VISUAL="$DOTFILES/bin/vopen-nofork"
+
+# ARCH specific ----------------------------------------------------------------
+# for pacdiff
+export DIFFPROG="$DOTFILES/bin/vopen-nofork"
 # for arch wiki lite
 export wiki_browser="chromium"
 

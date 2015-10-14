@@ -68,8 +68,8 @@ ${color 88bbee}NETWORK ${color 1c1c1c}${stippled_hr 2}${color aaccdd}${if_up wla
 SSID:        $alignr${wireless_essid wlan0}
 LAN IP:      $alignr${addr wlan0}${endif}${if_up wlp3s0}
 SSID:        $alignr${wireless_essid wlp3s0}
-LAN IP:      $alignr${addr wlp3s0}${endif}
-WAN IP:      $alignr${execi 3600 dig +short myip.opendns.com @resolver1.opendns.com}
+LAN IP:      $alignr${addr wlp3s0}
+WAN IP:      $alignr${execi 3600 dig +short myip.opendns.com @resolver1.opendns.com}${endif}
 
 ${color 88bbee}DISK ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
 ${color aaccdd}Disk usage:  $alignr${fs_used /}/${fs_size /}
