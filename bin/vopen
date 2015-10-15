@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# vopen v0.0.9
+# vopen v0.0.10
 #
 # Automatically determine whether to use vim or gvim and use a single instance
 # Git commit messages will use a separate vim server called GIT
@@ -13,8 +13,9 @@ set -eu
 _vopen() {
   local gui=false
   local executable
-  local use_server="false"
+  local use_server=false
   local has_server=false
+  local can_fork=true
   local server=""
   local servername="VIM-VOPEN"
   local args
@@ -40,6 +41,7 @@ _vopen() {
 
   if [ "$executable" = "nvim" ]; then
     use_server=false
+    can_fork=false
   fi
 
   # arg parsing ----------------------------------------------------------------
@@ -51,7 +53,9 @@ _vopen() {
         ;;
       "--nofork")             # never use server if nofork
         use_server=false
-        args="$args --nofork"
+        if [ "$can_fork" = "true" ]; then
+          args="$args --nofork"
+        fi
         ;;
       "--noserver")           # don't use server at all, useful for sudoeditor
         use_server=false
