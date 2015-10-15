@@ -1,8 +1,0 @@
-update
-
-cask install virtualbox
-cask install vagrant
-
-install vagrant-completion
-install boot2docker
-install docker
