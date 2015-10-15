@@ -117,6 +117,10 @@ source "$DOTFILES/shell/python"
 # shellcheck
 export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC2148"
 
+# vopen
+export VOPEN_EDITOR="nvim"
+export VOPEN_VISUAL="nvim"
+
 # ------------------------------------------------------------------------------
 # homebrew
 # Overrides other settings

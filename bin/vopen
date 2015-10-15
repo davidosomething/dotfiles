@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# vopen v0.0.7
+# vopen v0.0.8
 #
 # Automatically determine whether to use vim or gvim and use a single instance
 # Git commit messages will use a separate vim server called GIT
@@ -69,6 +69,9 @@ _vopen() {
     case "$1" in
       *"MERGE_MSG"|*"COMMIT_EDITMSG")
         use_server=false
+        ;;
+      "/etc/sudoers")
+        echo "$0"
         ;;
     esac
     shift
