@@ -239,7 +239,7 @@ Plug 'moskytw/nginx-contrib-vim'
 " PHP ------------------------------------------------------------------------
 
 " official indent plugin for vim, later version than what it comes with
-Plug '2072/PHP-Indenting-for-VIm'
+Plug '2072/PHP-Indenting-for-VIm', { 'for': ['php', 'blade'] }
 
 " creates twig ft
 Plug 'evidens/vim-twig'
@@ -318,6 +318,12 @@ if g:dko_use_tern_completion
   source $VIM_DOTFILES/rc/tern_for_vim.vim
 endif
 
+" PHP plugins ----------------------------------------------------------------
+source $VIM_DOTFILES/rc/PHP-Indenting-for-VIm.vim
+source $VIM_DOTFILES/rc/php.vim
+source $VIM_DOTFILES/rc/phpcomplete.vim
+source $VIM_DOTFILES/rc/pdv.vim
+
 " Rest -----------------------------------------------------------------------
 source $VIM_DOTFILES/rc/Cmd2.vim
 source $VIM_DOTFILES/rc/CoffeeTags.vim
@@ -330,8 +336,6 @@ source $VIM_DOTFILES/rc/gundo.vim
 source $VIM_DOTFILES/rc/incsearch.vim
 source $VIM_DOTFILES/rc/javascript-libraries-syntax.vim
 source $VIM_DOTFILES/rc/neosnippet.vim
-source $VIM_DOTFILES/rc/phpcomplete.vim
-source $VIM_DOTFILES/rc/pdv.vim
 source $VIM_DOTFILES/rc/scss-syntax.vim
 source $VIM_DOTFILES/rc/smartpairs.vim
 source $VIM_DOTFILES/rc/syntastic.vim
