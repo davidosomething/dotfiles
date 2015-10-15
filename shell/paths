@@ -46,7 +46,7 @@ _add_my_paths() {
   fi
 
   # local ----------------------------------------------------------------------
-  my_path="$HOME/bin:$DOTFILES/bin:$my_path"
+  my_path="$HOME/bin/neovim/bin:$HOME/bin:$DOTFILES/bin:$my_path"
   export PATH="$my_path"
 }
 
