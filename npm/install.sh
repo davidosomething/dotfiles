@@ -2,6 +2,6 @@
 
 # loop through packages.txt file and install each one
 while read package; do
-  npm install -g "$package"
+  npm install --force -g "$package"
 done < packages.txt
 

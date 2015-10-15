@@ -234,6 +234,9 @@ Plug 'moskytw/nginx-contrib-vim'
 
 " PHP ------------------------------------------------------------------------
 
+" official indent plugin for vim, later version than what it comes with
+Plug '2072/PHP-Indenting-for-VIm'
+
 " creates twig ft
 Plug 'evidens/vim-twig'
 

@@ -16,6 +16,5 @@ jsonlint
 karma-cli
 mocha
 package-json-validator
-phantomjs@1.9.11
 retire
 sass-lint
