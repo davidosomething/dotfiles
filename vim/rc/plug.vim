@@ -290,12 +290,38 @@ call plug#end()
 " ----------------------------------------------------------------------------
 " Plugin configs -------------------------------------------------------------
 " ----------------------------------------------------------------------------
-
 " Source manually to preserve source order
+
+" Colorscheme selection ------------------------------------------------------
+if g:has_true_color || has('gui_running') " neovim or gvim
+  " Note that frankier/neovim-colors-solarized-truecolor-only is used for nvim
+
+  " turn off gross italics -- fira sans happens to use ligatures too
+  let g:solarized_italic = 0
+
+  call togglebg#map("<F5>")
+  colorscheme solarized
+  set background=light
+
+else " terminal vim
+  silent! colorscheme base16-tomorrow
+  set background=dark
+
+endif
+
+" Completion engine selection ------------------------------------------------
+if !has('nvim') && has('lua')
+  source $VIM_DOTFILES/rc/neocomplete.vim
+endif
+
+if g:dko_use_tern_completion
+  source $VIM_DOTFILES/rc/tern_for_vim.vim
+endif
+
+" Rest -----------------------------------------------------------------------
 source $VIM_DOTFILES/rc/Cmd2.vim
 source $VIM_DOTFILES/rc/CoffeeTags.vim
 source $VIM_DOTFILES/rc/airline.vim
-source $VIM_DOTFILES/rc/base16-vim.vim
 source $VIM_DOTFILES/rc/colorv.vim
 source $VIM_DOTFILES/rc/committia.vim
 source $VIM_DOTFILES/rc/cosco.vim
@@ -303,23 +329,14 @@ source $VIM_DOTFILES/rc/editorconfig.vim
 source $VIM_DOTFILES/rc/gundo.vim
 source $VIM_DOTFILES/rc/incsearch.vim
 source $VIM_DOTFILES/rc/javascript-libraries-syntax.vim
-if !has('nvim') && has('lua')
-  source $VIM_DOTFILES/rc/neocomplete.vim
-endif
 source $VIM_DOTFILES/rc/neosnippet.vim
 source $VIM_DOTFILES/rc/phpcomplete.vim
 source $VIM_DOTFILES/rc/pdv.vim
 source $VIM_DOTFILES/rc/scss-syntax.vim
 source $VIM_DOTFILES/rc/smartpairs.vim
-if g:has_true_color || has('gui_running')
-  source $VIM_DOTFILES/rc/solarized.vim
-endif
 source $VIM_DOTFILES/rc/syntastic.vim
 source $VIM_DOTFILES/rc/tabular.vim
 source $VIM_DOTFILES/rc/tagbar.vim
-if g:dko_use_tern_completion
-  source $VIM_DOTFILES/rc/tern_for_vim.vim
-endif
 source $VIM_DOTFILES/rc/unite.vim
 source $VIM_DOTFILES/rc/vim-anzu.vim
 source $VIM_DOTFILES/rc/vim-coffee-script.vim
