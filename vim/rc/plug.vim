@@ -60,7 +60,11 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
       \| Plug 'Shougo/vimfiler.vim'
 
 " <F5> toggle color
-Plug 'altercation/vim-colors-solarized'
+if has('nvim') && g:has_true_color
+  Plug 'frankier/neovim-colors-solarized-truecolor-only'
+elseif has('gui_running')
+  Plug 'altercation/vim-colors-solarized'
+endif
 
 " <F6>
 Plug 'nathanaelkane/vim-indent-guides',   { 'on': ['<Plug>IndentGuidesToggle'] }
@@ -87,7 +91,7 @@ Plug 'tpope/vim-eunuch'
 " Completion -----------------------------------------------------------------
 " ----------------------------------------------------------------------------
 
-if has('lua')
+if !has('nvim') && has('lua')
   Plug 'Shougo/neocomplete.vim' ", 'ver.2.1'
   Plug 'Shougo/neco-syntax'
 endif
@@ -299,13 +303,17 @@ source $VIM_DOTFILES/rc/editorconfig.vim
 source $VIM_DOTFILES/rc/gundo.vim
 source $VIM_DOTFILES/rc/incsearch.vim
 source $VIM_DOTFILES/rc/javascript-libraries-syntax.vim
-source $VIM_DOTFILES/rc/neocomplete.vim
+if !has('nvim') && has('lua')
+  source $VIM_DOTFILES/rc/neocomplete.vim
+endif
 source $VIM_DOTFILES/rc/neosnippet.vim
 source $VIM_DOTFILES/rc/phpcomplete.vim
 source $VIM_DOTFILES/rc/pdv.vim
 source $VIM_DOTFILES/rc/scss-syntax.vim
 source $VIM_DOTFILES/rc/smartpairs.vim
-source $VIM_DOTFILES/rc/solarized.vim
+if g:has_true_color || has('gui_running')
+  source $VIM_DOTFILES/rc/solarized.vim
+endif
 source $VIM_DOTFILES/rc/syntastic.vim
 source $VIM_DOTFILES/rc/tabular.vim
 source $VIM_DOTFILES/rc/tagbar.vim

@@ -3,14 +3,13 @@ scriptencoding utf-8
 " note: set encoding BEFORE scriptencoding
 
 " http://www.reddit.com/r/vim/comments/2z2fg0/need_some_inspiration_for_your_vimrc/cpf8zho
-" no nocompatible!
+" no nocompatible! so we can source the vimrc again if updated
 if &compatible | set nocompatible | endif
 
-" set this early so plugins can override
-if !has('gui_running')
-  if $COLORTERM == "gnome-terminal"
-    set t_Co=256
-  endif
+let g:has_true_color = exists("$ITERM_BETA") && has('nvim')
+if !g:has_true_color
+  if $COLORTERM == "gnome-terminal" | set t_Co=256 | endif
+  " set this early so plugins can override
   colorscheme pablo
 endif
 
@@ -20,15 +19,12 @@ endif
 " needs to be before bundle so plugins map correctly
 let mapleader = "\<Space>"
 
+" Only load plugins on vim 7.3+ with autocmd
 if has("autocmd")
   augroup vimrc
     autocmd!
   augroup END
-
-  " Only load plugins on vim 7.3+ with autocmd
-  if $DOTFILES_DISTRO != "busybox"
-    source $VIM_DOTFILES/rc/plug.vim
-  endif
+  if $DOTFILES_DISTRO != "busybox" | source $VIM_DOTFILES/rc/plug.vim | endif
 endif
 
 " From tpope/vim-sensible: load matchit.vim, but only if the user hasn't
@@ -93,15 +89,11 @@ set formatoptions+=2                  " Use indent from 2nd line of a paragraph
 set formatoptions+=l                  " Don't break lines that are already long
 set formatoptions+=1                  " Break before 1-letter words
 " Vim 7.4 only: no // comment when joining commented lines
-if v:version >= 704
-  set formatoptions+=j
-endif
+if v:version >= 704 | set formatoptions+=j | endif
 set nrformats-=octal                  " never use octal when <C-x> or <C-a>
 set nojoinspaces                      " J command doesn't add extra space
 set mouse=a
-if !has('nvim')
-  set ttymouse=xterm
-endif
+if !has('nvim') | set ttymouse=xterm | endif
 
 " whitespace
 set nowrap
@@ -141,9 +133,7 @@ set ignorecase
 set smartcase
 
 " The Silver Searcher
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
+if executable('ag') | set grepprg=ag\ --nogroup\ --nocolor | endif
 
 " Wild and file globbing stuff
 set browsedir=buffer                  " browse files in same dir as open file
@@ -184,15 +174,9 @@ set backupdir=$VIM_DOTFILES/.backup//
 set directory=$VIM_DOTFILES/.swp//
 set backup
 " Make those folders automatically if they don't already exist.
-if !isdirectory(expand(&undodir))
-  call mkdir(expand(&undodir), "p")
-endif
-if !isdirectory(expand(&backupdir))
-  call mkdir(expand(&backupdir), "p")
-endif
-if !isdirectory(expand(&directory))
-  call mkdir(expand(&directory), "p")
-endif
+if !isdirectory(expand(&undodir))   | call mkdir(expand(&undodir), "p")   | endif
+if !isdirectory(expand(&backupdir)) | call mkdir(expand(&backupdir), "p") | endif
+if !isdirectory(expand(&directory)) | call mkdir(expand(&directory), "p") | endif
 
 " buffer reuse
 set hidden                            " remember undo after quitting
@@ -203,9 +187,8 @@ set switchbuf=useopen                 " reveal already opened files from the
 " clipboard -- use os clipboard
 if (exists("$DISPLAY") || has('mac')) && has('clipboard')
   set clipboard=unnamed  " Share system clipboard.
-  if has('unnamedplus')
-    set clipboard+=unnamedplus  " Share X windows clipboard.
-  endif
+  " Share X windows clipboard.
+  if has('unnamedplus') | set clipboard+=unnamedplus | endif
 endif
 
 " variable to highlight markdown fenced code properly -- uses tpope's
@@ -247,7 +230,6 @@ endif
 " leave this down here since it trims local settings
 set secure                            " no unsafe local vimrc commands
 
-if filereadable(glob("$HOME/.vimrc.local"))
-    source $HOME/.vimrc.local
-endif
+if filereadable(glob("$HOME/.vimrc.local")) | source $HOME/.vimrc.local | endif
+
 " vim: syntax=vim :

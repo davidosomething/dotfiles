@@ -1,9 +1,8 @@
-if has('gui_running')
-  " turn off gross italics -- fira sans happens to use ligatures too
-  let g:solarized_italic = 0
-  set background=light
+" Note that frankier/neovim-colors-solarized-truecolor-only is used for nvim
 
-  " STFU if no solarized
-  silent! colorscheme solarized
-  silent! call togglebg#map("<F5>")
-endif
+" turn off gross italics -- fira sans happens to use ligatures too
+let g:solarized_italic = 0
+
+call togglebg#map("<F5>")
+colorscheme solarized
+set background=light

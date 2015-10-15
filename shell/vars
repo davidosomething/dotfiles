@@ -100,6 +100,15 @@ export FZF_COMPLETION_TRIGGER='``'
 # used in shell/paths
 export GOPATH="$HOME/go"
 
+# iterm and neovim
+[[ "$DOTFILES_OS" == "Darwin" ]] && [[ "$TERM_PROGRAM" == "iTerm.app" ]] && {
+  export ITERM_VERSION="$(osascript -e 'version of app "iTerm"')"
+  if [[ "$(printf "$ITERM_VERSION\n2.9" | sort | tail -n1)" == "$ITERM_VERSION" ]]; then
+    export ITERM_BETA=1
+    export NVIM_TUI_ENABLE_TRUE_COLOR=1
+  fi
+}
+
 # node moved to shell/node
 
 # python moved to shell/python
