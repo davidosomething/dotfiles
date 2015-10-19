@@ -91,20 +91,29 @@ set formatoptions+=1                  " Break before 1-letter words
 " Vim 7.4 only: no // comment when joining commented lines
 if v:version >= 704 | set formatoptions+=j | endif
 set nrformats-=octal                  " never use octal when <C-x> or <C-a>
-set nojoinspaces                      " J command doesn't add extra space
 set mouse=a
 if !has('nvim') | set ttymouse=xterm | endif
 
-" whitespace
+" whitespace -----------------------------------------------------------------
 set nowrap
+set nojoinspaces                      " J command doesn't add extra space
+
+" indenting newlines
 set autoindent
-set preserveindent                    " stay indented when press enter
+set smartindent
+set copyindent                        " indent exactly as previous line
+set nopreserveindent                  " stay indented when press enter
+                                      " fixes tab-space in block comments for
+                                      " phpdoc/jsdoc
+
+" tabbing
 set tabstop=4                         " real tabs render 4 wide
 set expandtab                         " default to spaces instead of tabs
 set shiftwidth=2                      " softtabs are 2 spaces for expandtab
 set shiftround                        " use multiple of shiftwidth when
                                       " indenting with '<' and '>'
-set softtabstop=2                     " tabs look like 2 spaces, also alignment
+set softtabstop=-2                    " negative means use same as shiftwidth
+                                      " tabs look like 2 spaces, also alignment
                                       " tabs are two spaces for Indent-Tab
 set smarttab
 set backspace=indent,eol,start        " bs anything
@@ -120,11 +129,11 @@ set listchars+=precedes:«
 set fillchars=diff:⣿,vert:│
 set fillchars=diff:⣿,vert:\|
 
-" diffing
+" diffing --------------------------------------------------------------------
 set diffopt=filler                    " blank lines to keep sides aligned
 set diffopt+=iwhite                   " Ignore whitespace changes
 
-" match and search
+" match and search -----------------------------------------------------------
 set showmatch                         " hl matching parens
 set hlsearch
 set incsearch
