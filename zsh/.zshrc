@@ -20,6 +20,7 @@ has_program "brew" && {
 # antigen
 source_if_exists "$ZDOTDIR/antigen/antigen.zsh" && {
   antigen bundle autojump
+  antigen bundle colored-man-pages
   antigen bundle golang
   antigen bundle rimraf/k
   antigen bundle zsh-users/zsh-syntax-highlighting
