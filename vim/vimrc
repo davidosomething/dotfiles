@@ -209,11 +209,6 @@ if has("autocmd")
   " Resize splits when the window is resized
   autocmd vimrc VimResized * :wincmd =
 
-  " Set editor configs
-  " force 2sp for js
-  " autocmd vimrc FileType coffee,javascript
-  "       \ setlocal softtabstop=2 tabstop=2 shiftwidth=2
-
   " Enable soft-wrapping for text files
   autocmd vimrc FileType text,markdown
         \ setlocal wrap linebreak nolist textwidth=80

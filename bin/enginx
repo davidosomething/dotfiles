@@ -7,9 +7,15 @@
 
 _enginx() {
   local nginx_conf
-  nginx_conf="$(sudo nginx -t 2>&1 | grep "configuration file" | head -n1 | sed -r 's/.*file (\S+) .*/\1/')"
-  echo "Editing ${nginx_conf}..."
-  sudo -e "$nginx_conf"
+
+  nginx_conf="$(sudo nginx -t 2>&1 | grep -Eom1 "configuration file (\S*) " | awk 'END { print $NF }')"
+  if [ -f "$nginx_conf" ]; then
+    echo "Editing ${nginx_conf}..."
+    sudo -e "$nginx_conf"
+  else
+    echo "No nginx.conf file found"
+    exit 1
+  fi
 }
 
 _enginx
