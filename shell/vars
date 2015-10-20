@@ -38,7 +38,10 @@ esac
 
 # Shell settings ---------------------------------------------------------------
 # xdg-user-dirs
-source_if_exists "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+source_if_exists "$XDG_CONFIG_HOME/user-dirs.dirs"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
 
 export INPUTRC="$DOTFILES/shell/.inputrc"
 
@@ -82,7 +85,7 @@ export GIT_PAGER="$PAGER"
 # others ----------------------------------------
 
 # antigen
-export ADOTDIR="$HOME/.config/.antigen"
+export ADOTDIR="$XDG_CONFIG_HOME/.antigen"
 
 # apache
 source_if_exists /etc/apache2/envvars
@@ -99,6 +102,9 @@ export CHRUBY_PREFIX="/usr"
 # ** is globbing completion in  zsh, use tickticktab instead
 export FZF_COMPLETION_TRIGGER='``'
 
+# gtk2
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/.gtkrc-2.0"
+
 # go
 # used in shell/paths
 export GOPATH="$HOME/go"
@@ -114,8 +120,15 @@ export GOPATH="$HOME/go"
 
 # node moved to shell/node
 
+# nvidia on linux
+export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME/nv"
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+
 # python moved to shell/python
 source "$DOTFILES/shell/python"
+
+# readline
+export INPUTRC="$DOTFILES/shell/.inputrc"
 
 # shellcheck
 export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC2148"
@@ -123,6 +136,9 @@ export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC2148"
 # vopen
 # export VOPEN_EDITOR="nvim"
 # export VOPEN_VISUAL="nvim"
+
+# X11
+export XINITRC="$DOTFILES/linux/x/.xinitrc"
 
 # ------------------------------------------------------------------------------
 # homebrew
