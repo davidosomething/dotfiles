@@ -1,5 +1,7 @@
 # node
-export NVM_DIR="$HOME/.nvm"
+
+# custom NVM_DIR so we don't pollute home
+export NVM_DIR="$HOME/.config/.nvm"
 
 if [ -d "$NVM_DIR" ]; then
   source_if_exists "$NVM_DIR/nvm.sh"
