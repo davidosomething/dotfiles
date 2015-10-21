@@ -198,12 +198,15 @@ Plug 'heavenshell/vim-jsdoc'
 " provides coffee ft
 Plug 'kchmck/vim-coffee-script'
 
+" gf for going to node_modules files
+Plug 'moll/vim-node'
+
 " react/JSX syn highlighting for .cjsx
 Plug 'mtscout6/vim-cjsx'
 
 " indenting/highlighting, replaces 'jelera/vim-javascript-syntax', {
-"Plug 'pangloss/vim-javascript', { 'for': ['html', 'javascript', 'php'] }
-Plug 'othree/yajs.vim', { 'for': ['html', 'javascript', 'php'] }
+Plug 'othree/yajs.vim', { 'for': ['javascript'] }
+      \| Plug 'gavocanov/vim-js-indent', { 'for': ['javascript'] }
 
 "Plug 'othree/jspc.vim', { 'for': ['html', 'javascript', 'php'] }
 
