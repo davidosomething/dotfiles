@@ -127,6 +127,9 @@ export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 # python moved to shell/python
 source "$DOTFILES/shell/python"
 
+# R
+export R_ENVIRON_USER="$DOTFILES/r/.Renviron"
+
 # readline
 export INPUTRC="$DOTFILES/shell/.inputrc"
 
