@@ -73,7 +73,7 @@ Plug 'nathanaelkane/vim-indent-guides',   { 'on': ['<Plug>IndentGuidesToggle'] }
 Plug 'osyo-manga/vim-over',               { 'on': ['OverCommandLine'] }
 
 " <F8> - command mode with tab-completion and suggestions for commands
-Plug 'gelguy/Cmd2.vim'
+Plug 'gelguy/Cmd2.vim',                   { 'on': ['<Plug>(Cmd2Suggest)'] }
 
 " <F10> tagbar
 " auto tag generation via exuberant-ctags -- no tags file created
@@ -142,12 +142,9 @@ Plug 'tpope/vim-unimpaired'
 " provide a_ and i_ for underscores
 " provide a- and i-
 Plug 'kana/vim-textobj-user'
-      \| Plug 'Julian/vim-textobj-variable-segment'
       \| Plug 'kana/vim-textobj-indent'
       \| Plug 'kana/vim-textobj-line'
-      \| Plug 'lucapette/vim-textobj-underscore'
       \| Plug 'mattn/vim-textobj-url'
-      \| Plug 'RyanMcG/vim-textobj-dash'
 
 " provide {, ", ', [, <, various other block objects
 Plug 'paradigm/TextObjectify'
