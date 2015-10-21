@@ -39,11 +39,10 @@ esac
 # Shell settings ---------------------------------------------------------------
 # xdg-user-dirs
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+# the user dirs aren't defined on OSX
 source_if_exists "$XDG_CONFIG_HOME/user-dirs.dirs"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
-
-export INPUTRC="$DOTFILES/shell/.inputrc"
 
 export SAVEHIST=1000
 export HISTSIZE=1000
