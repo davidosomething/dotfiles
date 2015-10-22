@@ -120,11 +120,6 @@ if [[ "$1" = "dotfiles" ]]; then
     dkodie "You have unsaved changes in your ~/.dotfiles folder."
     exit 1
   fi
-
-  dkostatus "Updating antigen"
-  if [ -n "$ZSH_VERSION" ] && [ -d "$ADOTDIR" ]; then
-    antigen update
-  fi
 fi
 
 if [[ "$1" = "fzf" ]]; then
