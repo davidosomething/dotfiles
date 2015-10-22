@@ -119,6 +119,10 @@ if [[ "$1" = "dotfiles" ]]; then
   if [[ $updated_dotfiles -ne 0 ]]; then
     dkodie "You have unsaved changes in your ~/.dotfiles folder."
   fi
+
+  if [ -n "$ZSH_VERSION" ] && has_program "antigen"; then
+    antigen update
+  fi
 fi
 
 if [[ "$1" = "fzf" ]]; then
