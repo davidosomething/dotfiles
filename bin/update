@@ -122,7 +122,7 @@ if [[ "$1" = "dotfiles" ]]; then
   fi
 
   dkostatus "Updating antigen"
-  if [ -n "$ZSH_VERSION" ] && has_program "antigen"; then
+  if [ -n "$ZSH_VERSION" ] && [ -d "$ADOTDIR" ]; then
     antigen update
   fi
 fi
