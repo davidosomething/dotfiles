@@ -11,6 +11,7 @@ b       = branch
 ci      = commit
 co      = checkout
 d       = diff
+i       = ink
 m       = merge
 rb      = rebase
 st      = status
