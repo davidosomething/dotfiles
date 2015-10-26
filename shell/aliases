@@ -6,7 +6,7 @@
 alias ..="cd .."
 alias ....="cd ../.."
 alias cd..="cd .."
-alias cdd="cd ~/.dotfiles"
+alias cdd="cd $DOTFILES"
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias tree="tree -C"
 
@@ -124,7 +124,7 @@ _alias_darwin() {
 
 _alias_linux() {
   alias open="o"                    # use open() function in shell/functions
-  alias startx="startx > ~/.dotfiles/logs/startx.log 2>&1"
+  alias startx="startx > $DOTFILES/logs/startx.log 2>&1"
 
   alias testnotification="notify-send \
     'Hello world!' \
