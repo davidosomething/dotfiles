@@ -98,6 +98,9 @@ export CHPHP_PREFIX="/usr"
 # overridden in homebrew section if has brew
 export CHRUBY_PREFIX="/usr"
 
+# docker
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/.docker"
+
 # fzf
 # ** is globbing completion in  zsh, use tickticktab instead
 export FZF_COMPLETION_TRIGGER='``'
