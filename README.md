@@ -78,9 +78,6 @@ there are DNS conflicts.
 
 ### vim
 
-Using NeoBundle for vim. NeoBundle will build dependencies where needed, some
-system build tools are needed.
-
 See [vim/README.md](https://github.com/davidosomething/dotfiles/blob/master/vim/README.md)
 
 ## Not included but I usually use
