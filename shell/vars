@@ -75,7 +75,8 @@ export wiki_browser="chromium"
 # -X don't clear screen on quit
 # -e LESS option to quit at EOF
 export LESS="-eFRX"
-export LESSHST="$DOTFILES/less/.lesshst"
+# disable less history
+export LESSHISTFILE=-
 
 export PAGER="less"
 export MANPAGER="$PAGER"
@@ -135,6 +136,8 @@ export INPUTRC="$DOTFILES/shell/.inputrc"
 
 # shellcheck
 export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC2148"
+
+export TRAVIS_CONFIG_PATH="$XDG_CONFIG_HOME/travis"
 
 # vopen
 # export VOPEN_EDITOR="nvim"
