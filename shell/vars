@@ -137,7 +137,11 @@ export INPUTRC="$DOTFILES/shell/.inputrc"
 # shellcheck
 export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC2148"
 
+# travis cli
 export TRAVIS_CONFIG_PATH="$XDG_CONFIG_HOME/travis"
+
+# vagrant
+export VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant"
 
 # vopen
 # export VOPEN_EDITOR="nvim"
