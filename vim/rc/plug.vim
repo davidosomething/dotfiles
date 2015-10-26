@@ -205,10 +205,12 @@ Plug 'moll/vim-node'
 Plug 'mtscout6/vim-cjsx'
 
 " indenting/highlighting, replaces 'jelera/vim-javascript-syntax', {
-Plug 'othree/yajs.vim', { 'for': ['javascript'] }
-      \| Plug 'gavocanov/vim-js-indent', { 'for': ['javascript'] }
+Plug 'othree/yajs.vim'
+      \| Plug 'gavocanov/vim-js-indent'
 
-"Plug 'othree/jspc.vim', { 'for': ['html', 'javascript', 'php'] }
+Plug 'othree/jsdoc-syntax.vim'
+
+Plug 'othree/jspc.vim', { 'for': ['html', 'javascript', 'php'] }
 
 " extends syntax for with jQuery,backbone,etc.
 "Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['html', 'javascript', 'php'] }

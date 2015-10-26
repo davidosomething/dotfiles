@@ -35,6 +35,7 @@ let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]
 
 let g:syntastic_coffeescript_checkers = ['coffee', 'coffeelint']
 let g:syntastic_javascript_checkers   = ['eslint']
+let g:syntastic_javascript_eslint_args = '--no-ignore'
 let g:syntastic_lua_checkers          = ['luac', 'luacheck']
 "let g:syntastic_lua_luacheck_args     = '--config ' . system("luacheckrc")
 let g:syntastic_php_checkers          = ['php', 'phpcs', 'phplint', 'phpmd']
