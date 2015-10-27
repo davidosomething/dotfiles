@@ -6,7 +6,9 @@ let g:unite_source_grep_max_candidates = 300
 if executable('ag')
   let s:ag_opts =
         \ ' --vimgrep'
-        " \ ' --nocolor --nogroup --numbers' .
+        " vimgrep does everything
+        " \ ' --nocolor --nogroup' .
+        " \ ' --numbers' .
         " \ ' --follow --smart-case --hidden'
 
   " Ignore wildignores too
@@ -94,9 +96,10 @@ vnoremap <silent><F3> <Esc>:<C-u>Unite grep:.<CR>
 
 " ========================================
 " find in yank history
-nnoremap <silent><F11> :<C-u>Unite history/yank<CR>
-inoremap <silent><F11> <Esc>:<C-u>Unite history/yank<CR>
-vnoremap <silent><F11> <Esc>:<C-u>Unite history/yank<CR>
+" shougo moved this to neoyank.vim and I never used it so bye
+" nnoremap <silent><F11> :<C-u>Unite history/yank<CR>
+" inoremap <silent><F11> <Esc>:<C-u>Unite history/yank<CR>
+" vnoremap <silent><F11> <Esc>:<C-u>Unite history/yank<CR>
 
 " ========================================
 " Command Palette
