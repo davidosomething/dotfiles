@@ -36,7 +36,7 @@ fi
 
 # Command functions ------------------------------------------------------------
 _update_fzf() {
-  cd "$HOME/.fzf" && git pull && ./install
+  cd "$HOME/.fzf" && git pull --stat && ./install
 }
 
 _update_pip() {
@@ -113,7 +113,7 @@ if [[ "$1" = "dotfiles" ]]; then
   # Update dotfiles
   dkostatus_ "Getting latest updates"
   cd "$HOME/.dotfiles" && \
-    git pull --rebase --recurse-submodules | dkoindent && \
+    git pull --stat --rebase --recurse-submodules | dkoindent && \
     git submodule update --init | dkoindent
   updated_dotfiles=$?
   if [[ $updated_dotfiles -ne 0 ]]; then
@@ -176,7 +176,7 @@ fi
 
 if [ "$1" = "php" ] && [ -d "$HOME/.phpenv" ]; then
   dkostatus "Updating phpenv"
-  pushd "$HOME/.phpenv" >/dev/null && git pull | dkoindent && popd >/dev/null
+  pushd "$HOME/.phpenv" >/dev/null && git pull --stat | dkoindent && popd >/dev/null
   phpenv rehash | dkoindent
 fi
 
