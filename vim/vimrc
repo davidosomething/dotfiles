@@ -47,6 +47,9 @@ endif
 
 set modeline
 
+" For chruby
+set shell=$SHELL
+
 " Display ----------------------------------------------------------------------
 
 " no beeps or flashes
