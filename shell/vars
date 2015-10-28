@@ -66,6 +66,8 @@ export EGR_EDITOR="$DOTFILES/bin/vopen"
 export DIFFPROG="$DOTFILES/bin/vopen-nofork"
 # for arch wiki lite
 export wiki_browser="chromium"
+# hardware accel for nvidia
+export LIBVA_DRIVER_NAME="vdpau"
 
 # pager ----------------------------------------
 # less
