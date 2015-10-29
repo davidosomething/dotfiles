@@ -40,6 +40,8 @@ Plug 'osyo-manga/vim-anzu'
 " creates dir if new file in new dir
 Plug 'dockyard/vim-easydir'
 
+Plug 'ludovicchabant/vim-gutentags'
+
 " ----------------------------------------------------------------------------
 " Commands -------------------------------------------------------------------
 " ----------------------------------------------------------------------------
@@ -348,6 +350,7 @@ source $VIM_DOTFILES/rc/vim-anzu.vim
 source $VIM_DOTFILES/rc/vim-coffee-script.vim
 source $VIM_DOTFILES/rc/vim-css3-syntax.vim
 source $VIM_DOTFILES/rc/vim-easyclip.vim
+source $VIM_DOTFILES/rc/vim-gutentags.vim
 source $VIM_DOTFILES/rc/vim-indent-guides.vim
 source $VIM_DOTFILES/rc/vim-instant-markdown.vim
 source $VIM_DOTFILES/rc/vim-jsdoc.vim
