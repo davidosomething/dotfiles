@@ -21,6 +21,7 @@ has_program "brew" && {
 source_if_exists "$ZDOTDIR/antigen/antigen.zsh" && {
   antigen bundle autojump
   antigen bundle colored-man-pages
+  antigen bundle git-extras
   antigen bundle golang
   antigen bundle rimraf/k
   antigen bundle zsh-users/zsh-syntax-highlighting
@@ -31,13 +32,30 @@ source_if_exists "$ZDOTDIR/antigen/antigen.zsh" && {
 # load all zsh specific scripts ------------------------------------------------
 scripts=(
   "options"
-  "aliases"
   "keybindings"
   "completions"
   "title"
   "prompt"
 )
 for script in $scripts; do; source "$ZDOTDIR/$script.zsh"; done; unset script
+
+alias cp="nocorrect cp"
+alias mv="nocorrect mv"
+alias rm="nocorrect rm"
+alias mkdir="nocorrect mkdir"
+
+# zsh_reload
+zsh_reload() {
+  local cache=$ZSH_CACHE_DIR
+  autoload -U compinit zrecompile
+  compinit -d "$cache/zcomp-$HOST"
+
+  for f in $ZDOTDIR/.zshrc "$cache/zcomp-$HOST"; do
+    zrecompile -p $f && command rm -f $f.zwc.old
+  done
+
+  source $ZDOTDIR/.zshrc
+}
 
 source "$DOTFILES/shell/after"
 source_if_exists "$HOME/.fzf.zsh"

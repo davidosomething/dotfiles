@@ -4,6 +4,9 @@
 export DKO_SOURCE="$DKO_SOURCE -> zshenv"
 source "$HOME/.dotfiles/shell/loader"
 
+ZSH_CACHE_DIR="$XDG_CACHE_HOME/zshcache"
+export ZSH_CACHE_DIR
+
 # Paths ------------------------------------------------------------------------
 # remove duplicates in path arrays
 typeset -U path cdpath manpath
@@ -16,12 +19,6 @@ has_program "brew" && {
     $fpath
   )
 }
-
-# top precedence! So my dotfiles zsh-completions override the previous brew
-fpath=(
-  "$ZDOTDIR/plugins/zsh-completions/src"
-  $fpath
-)
 
 # remove duplicates in fpath array
 typeset -U fpath

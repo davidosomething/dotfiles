@@ -45,7 +45,6 @@ alias vag="vagrant"
 alias vb="VBoxManage"
 alias vbm="VBoxManage"
 alias wget="wget --no-check-certificate"
-alias zcd="rm -f $ZDOTDIR/.zcompdump; compinit"
 
 # sudo ops
 alias mine='sudo chown -R $USER'
