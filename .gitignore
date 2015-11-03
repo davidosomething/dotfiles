@@ -8,5 +8,6 @@
 .zhistory
 .zcompdump*
 .zsh_history
+.zshrc.zwc
 
 *.log
