@@ -7,7 +7,6 @@ eslint
 git-bc
 git-open
 grunt-cli
-instant-markdown-d
 jscpd
 jsctags
 jshint
@@ -15,6 +14,7 @@ jsinspect
 jsonlint
 karma-cli
 mocha
+npm-check-updates
 package-json-validator
 retire
 sass-lint
