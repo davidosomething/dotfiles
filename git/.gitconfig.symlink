@@ -77,7 +77,7 @@ pager       = true
 
 # Repo settings ----------------------------------------------------------------
 [commit]
-template = /Users/david/.dotfiles/git/commit-template
+template = "~/.dotfiles/git/commit-template"
 
 [core]
 compression = -1
