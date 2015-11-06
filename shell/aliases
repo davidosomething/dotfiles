@@ -140,7 +140,8 @@ _alias_arch() {
     alias b="yaourt"
   fi
 
-  alias thu="thunar"
+  alias rphp="sudo systemctl restart php-fpm.service"
+  alias rnginx="sudo systemctl restart nginx.service"
 }
 
 _alias_deb() {
