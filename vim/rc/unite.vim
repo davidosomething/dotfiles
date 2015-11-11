@@ -71,7 +71,7 @@ call unite#filters#matcher_default#use(
 " using stock filter
 " https://github.com/Shougo/unite.vim/blob/master/autoload/unite/filters/converter_relative_word.vim
 call unite#custom#source(
-      \   'file_rec,file_rec/async,neomru/file', 'converters',
+      \   'file_rec,file_rec/async,file_rec/neovim,neomru/file', 'converters',
       \   ['converter_relative_word']
       \ )
 
