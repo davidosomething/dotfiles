@@ -137,24 +137,37 @@ if has("autocmd")
     " Completion
     " ========================================================================
 
+    let g:dko_has_completion = 0
+    let g:dko_use_deoplete = 0
     let g:dko_use_neocomplete = 0
+    let g:dko_use_tern_completion = 0
+
     if !has('nvim') && has('lua')
+      let g:dko_has_completion = 1
       let g:dko_use_neocomplete = 1
       Plug 'Shougo/neocomplete.vim' ", 'ver.2.1'
+    endif
+
+    if has('nvim') && has('python3')
+      let g:dko_has_completion = 1
+      let g:dko_use_deoplete = 1
+      Plug 'Shougo/deoplete.nvim'
+    endif
+
+    if g:dko_has_completion
       Plug 'Shougo/neco-syntax'
-    endif
 
-    let g:dko_use_tern_completion = 0
-    if g:dko_use_tern_completion
-      Plug 'marijnh/tern_for_vim', {
-            \   'for': ['javascript', 'typescript'],
-            \   'do': 'npm install'
-            \ }
-    endif
+      if g:dko_use_tern_completion
+        Plug 'marijnh/tern_for_vim', {
+              \   'for': ['javascript', 'typescript'],
+              \   'do': 'npm install'
+              \ }
+      endif
 
-    Plug 'Shougo/neosnippet'
-          \| Plug 'honza/vim-snippets'
-          \| Plug 'Shougo/neosnippet-snippets'
+      Plug 'Shougo/neosnippet'
+            \| Plug 'honza/vim-snippets'
+            \| Plug 'Shougo/neosnippet-snippets'
+    endif
 
     " ========================================================================
     " Editing keys

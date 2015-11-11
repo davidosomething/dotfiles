@@ -170,10 +170,17 @@ has_program "brew" && {
   [[ -f "$BREW_PREFIX/opt/openssl" ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$BREW_PREFIX/opt/openssl"
 
   # python
-  brew_python_path="$BREW_PREFIX/lib/python2.7/site-packages"
-  [[ -d "$brew_python_path" ]] && {
-    export PYTHONPATH="${brew_python_path}:${PYTHONPATH}"
-  }
+  unset PYTHONPATH
+
+  # brew_python_path="$BREW_PREFIX/lib/python2.7/site-packages"
+  # [[ -d "$brew_python_path" ]] && {
+  #   export PYTHONPATH="${brew_python_path}:${PYTHONPATH}"
+  # }
+  #
+  # brew_python3_path="$BREW_PREFIX/lib/python3.5/site-packages"
+  # [[ -d "$brew_python3_path" ]] && {
+  #   export PYTHONPATH="${brew_python3_path}:${PYTHONPATH}"
+  # }
 }
 
 # vim: syn=sh :

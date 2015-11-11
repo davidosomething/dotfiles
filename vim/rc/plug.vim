@@ -22,6 +22,7 @@ endif
 
 " Completion engine selection ------------------------------------------------
 if g:dko_use_neocomplete | source $VIM_DOTFILES/rc/neocomplete.vim | endif
+if g:dko_use_deoplete | source $VIM_DOTFILES/rc/deoplete.vim | endif
 if g:dko_use_tern_completion | source $VIM_DOTFILES/rc/tern_for_vim.vim | endif
 
 " PHP plugins ----------------------------------------------------------------
