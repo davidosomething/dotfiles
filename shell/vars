@@ -63,7 +63,7 @@ export EGR_EDITOR="$DOTFILES/bin/vopen"
 
 # ARCH specific ----------------------------------------------------------------
 # for pacdiff
-export DIFFPROG="$DOTFILES/bin/vopen-nofork"
+export DIFFPROG="$DOTFILES/bin/vopen-nofork -d"
 # for arch wiki lite
 export wiki_browser="chromium"
 # hardware accel for nvidia
