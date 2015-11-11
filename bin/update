@@ -44,7 +44,7 @@ _update_pip() {
   dkostatus "Updating $pip_command"
   if has_program "$pip_command"; then
     $pip_command install --upgrade setuptools | dkoindent
-    $pip_command install --upgrade "$pip_command" | dkoindent
+    $pip_command install --upgrade pip | dkoindent
   fi
 }
 
@@ -101,6 +101,8 @@ _update_darwin() {
 
     pip)
       _update_pip "pip"
+      _update_pip "pip2"
+      _update_pip "pip3"
       ;;
   esac
 }
