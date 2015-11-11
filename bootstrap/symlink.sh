@@ -20,7 +20,7 @@ dkosymlink mdl/.mdlrc.symlink         .mdlrc
 dkosymlink ruby/.gemrc.symlink        .gemrc
 
 dkosymlink vim  .vim
-dkosymlink vim  .nvim
+dkosymlink vim  .config/nvim
 
 mkdir -p "$HOME/.subversion"
 case "$OSTYPE" in
