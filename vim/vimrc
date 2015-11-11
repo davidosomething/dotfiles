@@ -6,6 +6,9 @@ scriptencoding utf-8
 " no nocompatible! so we can source the vimrc again if updated
 if &compatible | set nocompatible | endif
 
+" ============================================================================
+" Default colors
+" ============================================================================
 let g:has_true_color = exists("$ITERM_BETA") && has('nvim')
 if !g:has_true_color
   if $COLORTERM == "gnome-terminal" | set t_Co=256 | endif
@@ -13,7 +16,9 @@ if !g:has_true_color
   colorscheme pablo
 endif
 
+" ============================================================================
 " Map <Leader> to Space
+" ============================================================================
 " no longer using comma so I can reverse repeat fFtT searches
 " no longer using \ so I can type escaped chars :/
 " needs to be before bundle so plugins map correctly
@@ -27,12 +32,13 @@ if has("autocmd")
   if $DOTFILES_DISTRO != "busybox" | source $VIM_DOTFILES/rc/plug.vim | endif
 endif
 
+" ============================================================================
+" Matchit
+" ============================================================================
 " From tpope/vim-sensible: load matchit.vim, but only if the user hasn't
 " installed a newer version.
-"
 " For macvim it is found here:
 " /Applications/MacVim.app/Contents/Resources/vim/runtime/macros/matchit.vim
-"
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
@@ -47,16 +53,22 @@ endif
 
 set modeline
 
+" ============================================================================
 " For chruby
+" ============================================================================
 set shell=$SHELL
 
-" Display ----------------------------------------------------------------------
+" ============================================================================
+" Display
+" ============================================================================
 
 " no beeps or flashes
 set visualbell t_vb=
 set ttyfast
-set lazyredraw                        " don't update the display while
-                                      " executing macros
+
+" don't update the display while executing macros
+set lazyredraw
+
 set synmaxcol=512                     " don't syntax highlight long lines
 
 set colorcolumn=80
@@ -68,20 +80,28 @@ set scrolloff=8                       " show 2 lines of context
 set sidescrolloff=16
 set completeopt-=preview              " don't open scratch preview
 
+" ----------------------------------------------------------------------------
 " status line - most of this is handled by vim-powerline
+" ----------------------------------------------------------------------------
 set laststatus=2
 set showcmd                           " incomplete commands on
 
-" folds
+" ----------------------------------------------------------------------------
+" code folding
+" ----------------------------------------------------------------------------
 set foldcolumn=2
 set foldlevel=99                      " show all folds by default
 set foldlevelstart=99                 " show all folds by default
 
+" ----------------------------------------------------------------------------
 " splits
+" ----------------------------------------------------------------------------
 set splitbelow
 set splitright
 
+" ============================================================================
 " input
+" ============================================================================
 set formatoptions=
 set formatoptions+=c                  " Format comments
 set formatoptions+=r                  " Continue comments by default
@@ -97,11 +117,15 @@ set nrformats-=octal                  " never use octal when <C-x> or <C-a>
 set mouse=a
 if !has('nvim') | set ttymouse=xterm | endif
 
-" whitespace -----------------------------------------------------------------
+" ============================================================================
+" whitespace
+" ============================================================================
 set nowrap
 set nojoinspaces                      " J command doesn't add extra space
 
+" ----------------------------------------------------------------------------
 " indenting newlines
+" ----------------------------------------------------------------------------
 set autoindent
 set smartindent
 set copyindent                        " indent exactly as previous line
@@ -109,19 +133,27 @@ set nopreserveindent                  " stay indented when press enter
                                       " fixes tab-space in block comments for
                                       " phpdoc/jsdoc
 
+" ----------------------------------------------------------------------------
 " tabbing
+" ----------------------------------------------------------------------------
 set tabstop=4                         " real tabs render 4 wide
 set expandtab                         " default to spaces instead of tabs
 set shiftwidth=2                      " softtabs are 2 spaces for expandtab
-set shiftround                        " use multiple of shiftwidth when
-                                      " indenting with '<' and '>'
-set softtabstop=-2                    " negative means use same as shiftwidth
-                                      " tabs look like 2 spaces, also alignment
-                                      " tabs are two spaces for Indent-Tab
+
+" use multiple of shiftwidth when indenting with '<' and '>'
+set shiftround
+
+" negative means use same as shiftwidth
+" tabs look like 2 spaces, also alignment
+" tabs are two spaces for Indent-Tab
+set softtabstop=-2
+
 set smarttab
 set backspace=indent,eol,start        " bs anything
 
+" ----------------------------------------------------------------------------
 " Trailing whitespace
+" ----------------------------------------------------------------------------
 set list
 set listchars=""                      " reset
 set listchars=tab:→\ 
@@ -132,11 +164,15 @@ set listchars+=precedes:«
 set fillchars=diff:⣿,vert:│
 set fillchars=diff:⣿,vert:\|
 
-" diffing --------------------------------------------------------------------
+" ============================================================================
+" diffing
+" ============================================================================
 set diffopt=filler                    " blank lines to keep sides aligned
 set diffopt+=iwhite                   " Ignore whitespace changes
 
-" match and search -----------------------------------------------------------
+" ============================================================================
+" match and search
+" ============================================================================
 set showmatch                         " hl matching parens
 set hlsearch
 set incsearch
@@ -147,7 +183,9 @@ set smartcase
 " The Silver Searcher
 if executable('ag') | set grepprg=ag\ --nogroup\ --nocolor | endif
 
+" ============================================================================
 " Wild and file globbing stuff
+" ============================================================================
 set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
 set wildmode=list:longest             " Complete files like a shell.
@@ -164,7 +202,9 @@ set wildignore+=*.doc,*.pdf
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore+=*.swp,.lock,.DS_Store,._*
 
+" ============================================================================
 " file saving
+" ============================================================================
 "set autoread                         " reload files if they were edited
                                       " elsewhere
 set fileformats=unix,mac,dos
@@ -190,19 +230,26 @@ if !isdirectory(expand(&undodir))   | call mkdir(expand(&undodir), "p")   | endi
 if !isdirectory(expand(&backupdir)) | call mkdir(expand(&backupdir), "p") | endif
 if !isdirectory(expand(&directory)) | call mkdir(expand(&directory), "p") | endif
 
+" ============================================================================
 " buffer reuse
+" ============================================================================
 set hidden                            " remember undo after quitting
 set switchbuf=useopen                 " reveal already opened files from the
                                       " quickfix window instead of opening new
                                       " buffers
 
+" ============================================================================
 " clipboard -- use os clipboard
+" ============================================================================
 if (exists("$DISPLAY") || has('mac')) && has('clipboard')
   set clipboard=unnamed  " Share system clipboard.
   " Share X windows clipboard.
   if has('unnamedplus') | set clipboard+=unnamedplus | endif
 endif
 
+" ============================================================================
+" syntax
+" ============================================================================
 " variable to highlight markdown fenced code properly -- uses tpope's
 " vim-markdown plugin (which is bundled with vim7.4 now)
 let g:markdown_fenced_languages = [
@@ -216,7 +263,9 @@ let g:markdown_fenced_languages = [
       \ 'xml',
       \ ]
 
-" Autocommands -----------------------------------------------------------------
+" ============================================================================
+" Autocommands
+" ============================================================================
 if has("autocmd")
   " Resize splits when the window is resized
   autocmd vimrc VimResized * :wincmd =
