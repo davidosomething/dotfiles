@@ -46,8 +46,6 @@ Plug 'ludovicchabant/vim-gutentags'
 " Commands -------------------------------------------------------------------
 " ----------------------------------------------------------------------------
 
-"Plug 'suan/vim-instant-markdown',         { 'on': ['InstantMarkdownPreview'], 'for': ['markdown'], 'do': 'npm install -g instant-markdown-d' }
-
 " Mostly for :Gblame
 Plug 'tpope/vim-fugitive'
 
@@ -112,9 +110,6 @@ Plug 'Shougo/neosnippet'
 " ----------------------------------------------------------------------------
 
 Plug 'godlygeek/tabular',                 { 'on': ['Tabularize'] }
-
-" viv, v, v to expand surround selection
-Plug 'gorkunov/smartpairs.vim'
 
 Plug 'rhysd/conflict-marker.vim'
 
@@ -193,9 +188,6 @@ Plug 'tpope/vim-haml'
 " JavaScript / CoffeeScript --------------------------------------------------
 
 Plug 'heavenshell/vim-jsdoc'
-
-" syntax highlighting for jQuery
-"Plug 'itspriddle/vim-jquery',             { 'for': ['html', 'javascript', 'php'] }
 
 " provides coffee ft
 Plug 'kchmck/vim-coffee-script'
