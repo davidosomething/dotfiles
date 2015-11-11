@@ -4,6 +4,7 @@
 /.tags/
 /.undo/
 /bundle/
+/nplugged/
 /plugged/
 .colorv_cache_fav
 .colorv_cache_file
