@@ -71,6 +71,10 @@ On arch use python 2 when installing node-gyp:
 npm config set python /usr/bin/python2.7 -g
 ```
 
+### python
+
+Just remember to never `sudo pip` anything
+
 ### pow
 
 The POW gem is no longer used since I have to use Cisco VPN for some things and
