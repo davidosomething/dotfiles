@@ -204,10 +204,10 @@ Plug 'othree/yajs.vim'
 
 Plug 'othree/jsdoc-syntax.vim'
 
-Plug 'othree/jspc.vim', { 'for': ['html', 'javascript', 'php'] }
+Plug 'othree/jspc.vim'
 
 " extends syntax for with jQuery,backbone,etc.
-"Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['html', 'javascript', 'php'] }
+Plug 'othree/javascript-libraries-syntax.vim'
 
 " mxw/vim-jsx - react/JSX syn highlighting for .jsx
 " requires a javascript syntax plugin first (e.g. yajs or vim-javascript)
