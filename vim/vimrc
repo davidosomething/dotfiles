@@ -46,7 +46,12 @@ if has("autocmd")
       autocmd VimEnter * PlugInstall | source $MYVIMRC
     endif
 
-    call plug#begin('~/.vim/plugged')
+    let g:dko_plugdir = '/plugged'
+    if has('nvim')
+      let g:dko_plugdir = '/nplugged'
+    endif
+
+    call plug#begin($VIM_DOTFILES . g:dko_plugdir)
 
     " ========================================================================
     " Appearance/tab/split mgmt
