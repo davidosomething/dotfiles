@@ -71,7 +71,11 @@ if has("autocmd")
     " ========================================================================
 
     " highlight partial matches as you type in search mode
-    Plug 'haya14busa/incsearch.vim'
+    let g:dko_use_incsearch = 0
+    if !has('nvim')
+      let g:dko_use_incsearch = 1
+      Plug 'haya14busa/incsearch.vim'
+    endif
 
     " show registers in split if use \" or <C-R>
     Plug 'junegunn/vim-peekaboo'
@@ -555,7 +559,9 @@ set fileformats=unix,mac,dos
 set fileformat=unix
 
 " info file
-execute "set viminfo+=n" . expand("$VIM_DOTFILES/.viminfo")
+if !has('nvim')
+  execute "set viminfo+=n" . expand("$VIM_DOTFILES/.viminfo")
+endif
 
 " backups
 set noswapfile                        " useless

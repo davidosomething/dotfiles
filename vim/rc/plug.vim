@@ -21,13 +21,8 @@ else " terminal vim
 endif
 
 " Completion engine selection ------------------------------------------------
-if g:dko_use_neocomplete
-  source $VIM_DOTFILES/rc/neocomplete.vim
-endif
-
-if g:dko_use_tern_completion
-  source $VIM_DOTFILES/rc/tern_for_vim.vim
-endif
+if g:dko_use_neocomplete | source $VIM_DOTFILES/rc/neocomplete.vim | endif
+if g:dko_use_tern_completion | source $VIM_DOTFILES/rc/tern_for_vim.vim | endif
 
 " PHP plugins ----------------------------------------------------------------
 source $VIM_DOTFILES/rc/PHP-Indenting-for-VIm.vim
@@ -43,7 +38,7 @@ source $VIM_DOTFILES/rc/committia.vim
 source $VIM_DOTFILES/rc/cosco.vim
 source $VIM_DOTFILES/rc/editorconfig.vim
 source $VIM_DOTFILES/rc/gundo.vim
-source $VIM_DOTFILES/rc/incsearch.vim
+if g:dko_use_incsearch | source $VIM_DOTFILES/rc/incsearch.vim | endif
 source $VIM_DOTFILES/rc/javascript-libraries-syntax.vim
 source $VIM_DOTFILES/rc/neosnippet.vim
 source $VIM_DOTFILES/rc/scss-syntax.vim
