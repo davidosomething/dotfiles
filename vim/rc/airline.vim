@@ -35,3 +35,4 @@ let g:airline#extensions#tmuxline#enabled   = 0
 let g:airline#extensions#virtualenv#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#windowswap#enabled = 0
+
