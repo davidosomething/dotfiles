@@ -12,7 +12,7 @@ let g:dko_vim_dir = fnamemodify(expand("$MYVIMRC"), ":p:h")
 " Default colors
 " ============================================================================
 
-let g:has_true_color = exists("$ITERM_BETA") && has('nvim')
+let g:has_true_color = has('nvim') && exists("$ITERM_BETA")
 if !g:has_true_color
   if $COLORTERM == "gnome-terminal" | set t_Co=256 | endif
   " set this early so plugins can override
