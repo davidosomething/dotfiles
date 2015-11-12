@@ -30,8 +30,7 @@ for getting various linter support in syntastic.
 
 - `<C-up/down>` swap lines
 
-See `vim/plugins/mappings.vim` for the leader key bindings and more.
-See `vim/neobundle.vim` for plugin specific bindings.
+See `plugin/mappings.vim` for the leader key bindings and more.
 
 ### Alternate CSS colorizing plugins
 
