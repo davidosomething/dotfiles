@@ -7,6 +7,9 @@ scriptencoding utf-8
 if &compatible | set nocompatible | endif
 
 
+let g:dko_vim_dir = fnamemodify(expand("$MYVIMRC"), ":p:h")
+
+
 " ============================================================================
 " Default colors
 " ============================================================================
@@ -51,7 +54,7 @@ if has("autocmd")
       let g:dko_plugdir = '/nplugged'
     endif
 
-    call plug#begin($VIM_DOTFILES . g:dko_plugdir)
+    call plug#begin(g:dko_vim_dir . g:dko_plugdir)
 
     " ========================================================================
     " Appearance/tab/split mgmt
@@ -370,7 +373,7 @@ if has("autocmd")
     Plug 'ingydotnet/yaml-vim'
 
     call plug#end()
-    source $VIM_DOTFILES/rc/plug.vim
+    execute "source " . g:dko_vim_dir . "/rc/plug.vim"
   endif
 endif
 
@@ -577,7 +580,7 @@ set fileformat=unix
 
 " info file
 if !has('nvim')
-  execute "set viminfo+=n" . expand("$VIM_DOTFILES/.viminfo")
+  execute "set viminfo+=n" . expand(g:dko_vim_dir . "/.viminfo")
 endif
 
 " backups
@@ -588,9 +591,9 @@ set backupskip=/tmp/*,/private/tmp/*"
 set undofile
 set undolevels=500
 set undoreload=500
-set undodir=$VIM_DOTFILES/.undo//
-set backupdir=$VIM_DOTFILES/.backup//
-set directory=$VIM_DOTFILES/.swp//
+execute "set undodir=" . g:dko_vim_dir . "/.undo//"
+execute "set backupdir=" . g:dko_vim_dir . "/.backup//"
+execute "set directory=" . g:dko_vim_dir . "/.swp//"
 set backup
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))   | call mkdir(expand(&undodir), "p")   | endif

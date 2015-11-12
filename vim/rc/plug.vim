@@ -20,41 +20,43 @@ else " terminal vim
 
 endif
 
+let g:dko_rc_dir = g:dko_vim_dir . "/rc/"
+
 " Completion engine selection ------------------------------------------------
-if g:dko_use_neocomplete | source $VIM_DOTFILES/rc/neocomplete.vim | endif
-if g:dko_use_deoplete | source $VIM_DOTFILES/rc/deoplete.vim | endif
-if g:dko_use_tern_completion | source $VIM_DOTFILES/rc/tern_for_vim.vim | endif
+if g:dko_use_neocomplete | exec "source " . g:dko_rc_dir . "neocomplete.vim" | endif
+if g:dko_use_deoplete | exec "source " . g:dko_rc_dir . "deoplete.vim" | endif
+if g:dko_use_tern_completion | exec "source " . g:dko_rc_dir . "tern_for_vim.vim" | endif
 
 " PHP plugins ----------------------------------------------------------------
-source $VIM_DOTFILES/rc/PHP-Indenting-for-VIm.vim
-source $VIM_DOTFILES/rc/php.vim
-source $VIM_DOTFILES/rc/phpcomplete.vim
-source $VIM_DOTFILES/rc/pdv.vim
+exec "source " . g:dko_rc_dir . "PHP-Indenting-for-VIm.vim"
+exec "source " . g:dko_rc_dir . "php.vim"
+exec "source " . g:dko_rc_dir . "phpcomplete.vim"
+exec "source " . g:dko_rc_dir . "pdv.vim"
 
 " Rest -----------------------------------------------------------------------
-source $VIM_DOTFILES/rc/Cmd2.vim
-source $VIM_DOTFILES/rc/airline.vim
-source $VIM_DOTFILES/rc/colorv.vim
-source $VIM_DOTFILES/rc/committia.vim
-source $VIM_DOTFILES/rc/cosco.vim
-source $VIM_DOTFILES/rc/editorconfig.vim
-source $VIM_DOTFILES/rc/gundo.vim
-if g:dko_use_incsearch | source $VIM_DOTFILES/rc/incsearch.vim | endif
-source $VIM_DOTFILES/rc/javascript-libraries-syntax.vim
-source $VIM_DOTFILES/rc/neosnippet.vim
-source $VIM_DOTFILES/rc/scss-syntax.vim
-source $VIM_DOTFILES/rc/smartpairs.vim
-source $VIM_DOTFILES/rc/syntastic.vim
-source $VIM_DOTFILES/rc/tabular.vim
-source $VIM_DOTFILES/rc/unite.vim
-source $VIM_DOTFILES/rc/vim-anzu.vim
-source $VIM_DOTFILES/rc/vim-coffee-script.vim
-source $VIM_DOTFILES/rc/vim-css3-syntax.vim
-source $VIM_DOTFILES/rc/vim-easyclip.vim
-source $VIM_DOTFILES/rc/vim-gutentags.vim
-source $VIM_DOTFILES/rc/vim-indent-guides.vim
-source $VIM_DOTFILES/rc/vim-instant-markdown.vim
-source $VIM_DOTFILES/rc/vim-jsdoc.vim
-source $VIM_DOTFILES/rc/vim-json.vim
-source $VIM_DOTFILES/rc/vim-over.vim
-source $VIM_DOTFILES/rc/vimfiler.vim
+exec "source " . g:dko_rc_dir . "Cmd2.vim"
+exec "source " . g:dko_rc_dir . "airline.vim"
+exec "source " . g:dko_rc_dir . "colorv.vim"
+exec "source " . g:dko_rc_dir . "committia.vim"
+exec "source " . g:dko_rc_dir . "cosco.vim"
+exec "source " . g:dko_rc_dir . "editorconfig.vim"
+exec "source " . g:dko_rc_dir . "gundo.vim"
+if g:dko_use_incsearch | exec "source " . g:dko_rc_dir . "incsearch.vim" | endif
+exec "source " . g:dko_rc_dir . "javascript-libraries-syntax.vim"
+exec "source " . g:dko_rc_dir . "neosnippet.vim"
+exec "source " . g:dko_rc_dir . "scss-syntax.vim"
+exec "source " . g:dko_rc_dir . "smartpairs.vim"
+exec "source " . g:dko_rc_dir . "syntastic.vim"
+exec "source " . g:dko_rc_dir . "tabular.vim"
+exec "source " . g:dko_rc_dir . "unite.vim"
+exec "source " . g:dko_rc_dir . "vim-anzu.vim"
+exec "source " . g:dko_rc_dir . "vim-coffee-script.vim"
+exec "source " . g:dko_rc_dir . "vim-css3-syntax.vim"
+exec "source " . g:dko_rc_dir . "vim-easyclip.vim"
+exec "source " . g:dko_rc_dir . "vim-gutentags.vim"
+exec "source " . g:dko_rc_dir . "vim-indent-guides.vim"
+exec "source " . g:dko_rc_dir . "vim-instant-markdown.vim"
+exec "source " . g:dko_rc_dir . "vim-jsdoc.vim"
+exec "source " . g:dko_rc_dir . "vim-json.vim"
+exec "source " . g:dko_rc_dir . "vim-over.vim"
+exec "source " . g:dko_rc_dir . "vimfiler.vim"

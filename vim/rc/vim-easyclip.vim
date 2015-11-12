@@ -2,4 +2,4 @@
 let g:EasyClipUseSubstituteDefaults = 0
 " save yanks in a file and persist
 let g:EasyClipShareYanks = 1
-let g:EasyClipShareYanksDirectory = "$VIM_DOTFILES"
+let g:EasyClipShareYanksDirectory = g:dko_vim_dir
