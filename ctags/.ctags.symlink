@@ -1,3 +1,5 @@
+--recurse=yes
+
 --exclude=.sass-cache
 
 --exclude=.git
@@ -6,9 +8,7 @@
 
 --exclude=bower_components
 --exclude=bundle
---exclude=min
---exclude=node_modules
---exclude=vendor
+--exclude=log
 
 --exclude=jquery.\*.js
 --exclude=jquery-\*.js
