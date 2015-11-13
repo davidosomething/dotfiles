@@ -6,9 +6,7 @@ scriptencoding utf-8
 " no nocompatible! so we can source the vimrc again if updated
 if &compatible | set nocompatible | endif
 
-
 let g:dko_vim_dir = fnamemodify(expand("$MYVIMRC"), ":p:h")
-
 
 " ============================================================================
 " Default colors
@@ -20,7 +18,6 @@ if !g:has_true_color
   " set this early so plugins can override
   colorscheme pablo
 endif
-
 
 " ============================================================================
 " Map <Leader> to Space
@@ -36,6 +33,7 @@ let mapleader = "\<Space>"
 " ============================================================================
 
 " Only load plugins on vim 7.3+ with autocmd
+
 if has("autocmd")
   augroup vimrc
     autocmd!
@@ -57,20 +55,17 @@ if has("autocmd")
     call plug#begin(g:dko_vim_dir . g:dko_plugdir)
 
     " ========================================================================
-    " Appearance/tab/split mgmt
+    " Plug: Appearance/tab/split mgmt
     " ========================================================================
 
     Plug 'chriskempson/base16-vim'
 
     Plug 'bling/vim-airline'
 
-    " Open help in new tab
-    Plug 'airblade/vim-helptab'
-
     Plug 'now/vim-quit-if-only-quickfix-buffer-left'
 
     " ========================================================================
-    " UI
+    " Plug: UI
     " ========================================================================
 
     " highlight partial matches as you type in search mode
@@ -87,7 +82,7 @@ if has("autocmd")
     Plug 'osyo-manga/vim-anzu'
 
     " ========================================================================
-    " File system
+    " Plug: File system
     " ========================================================================
 
     " creates dir if new file in new dir
@@ -99,7 +94,7 @@ if has("autocmd")
     Plug 'Shougo/neoinclude.vim'
 
     " ========================================================================
-    " Commands
+    " Plug: Commands
     " ========================================================================
 
     " Mostly for :Gblame
@@ -109,19 +104,21 @@ if has("autocmd")
     " <F2> recently used (neomru)
     " <F3> grep
     " <F9> file browser (vimfiler)
-    " <F10> tag browser (unite-outline)
+    " <F10> outline mode browser (unite-outline)
     " Most recently used files for unite.vim -- config is in unite.vim
     Plug 'Shougo/vimproc.vim', { 'do': 'make' }
           \| Plug 'Shougo/neomru.vim'
           \| Plug 'Shougo/unite.vim'
-          \| Plug 'tsukkee/unite-tag'
           \| Plug 'Shougo/unite-outline'
           \| Plug 'Shougo/vimfiler.vim'
 
+    let g:dko_use_solarized = 0
     " <F5> toggle color
     if has('nvim') && g:has_true_color
+      let g:dko_use_solarized = 1
       Plug 'frankier/neovim-colors-solarized-truecolor-only'
     elseif has('gui_running')
+      let g:dko_use_solarized = 1
       Plug 'altercation/vim-colors-solarized'
     endif
 
@@ -131,9 +128,6 @@ if has("autocmd")
     " <F7> - command mode with instant results when doing subst %s
     Plug 'osyo-manga/vim-over',               { 'on': ['OverCommandLine'] }
 
-    " <F8> - command mode with tab-completion and suggestions for commands
-    Plug 'gelguy/Cmd2.vim',                   { 'on': ['<Plug>(Cmd2Suggest)'] }
-
     " <F11>
     Plug 'sjl/gundo.vim',                     { 'on': ['GundoToggle'] }
 
@@ -141,7 +135,7 @@ if has("autocmd")
     Plug 'tpope/vim-eunuch'
 
     " ========================================================================
-    " Completion
+    " Plug: Completion
     " ========================================================================
 
     let g:dko_has_completion = 0
@@ -177,7 +171,7 @@ if has("autocmd")
     endif
 
     " ========================================================================
-    " Editing keys
+    " Plug: Editing keys
     " ========================================================================
 
     Plug 'godlygeek/tabular',                 { 'on': ['Tabularize'] }
@@ -218,7 +212,7 @@ if has("autocmd")
     Plug 'paradigm/TextObjectify'
 
     " ========================================================================
-    " Syntax highlighting, spacing
+    " Plug: Syntax, spacing
     " ========================================================================
 
     " :/ use my own settings
@@ -233,7 +227,7 @@ if has("autocmd")
     Plug 'vim-scripts/ingo-library' | Plug 'vim-scripts/IndentTab'
 
     " ========================================================================
-    " Language
+    " Plug: Language
     " ========================================================================
 
     " special end syntax for various langs
@@ -354,7 +348,7 @@ if has("autocmd")
     " Language: Stylesheets
     " ========================================================================
 
-    "Plug 'Rykka/colorv.vim'
+    Plug 'Rykka/colorv.vim'
 
     " creates less filetype
     Plug 'groenewege/vim-less'
@@ -373,10 +367,105 @@ if has("autocmd")
     Plug 'ingydotnet/yaml-vim'
 
     call plug#end()
-    execute "source " . g:dko_vim_dir . "/rc/plug.vim"
+
+    " ========================================================================
+    " Plugin configs
+    " ========================================================================
+
+    " Note:
+    " Source manually to preserve source order
+
+    function s:LoadRc(filename)
+      let l:dko_rc_dir = g:dko_vim_dir . "/rc/"
+      execute "source " . l:dko_rc_dir . a:filename
+    endfunction
+
+    " ========================================================================
+    " Config: Colorscheme
+    " ========================================================================
+
+    if g:dko_use_solarized
+      " turn off gross italics -- fira sans happens to use ligatures too
+      let g:solarized_italic = 0
+
+      call togglebg#map("<F5>")
+      colorscheme solarized
+      set background=light
+
+    else " terminal vim
+      silent! colorscheme base16-tomorrow
+      set background=dark
+
+    endif
+
+    " ========================================================================
+    " Config: Completion engine
+    " ========================================================================
+
+    if g:dko_use_neocomplete | call s:LoadRc("neocomplete.vim") | endif
+    if g:dko_use_deoplete | call s:LoadRc("deoplete.vim") | endif
+    if g:dko_use_tern_completion | call s:LoadRc("tern_for_vim.vim") | endif
+    call s:LoadRc("neosnippet.vim")
+
+    " ========================================================================
+    " Config: CSS
+    " ========================================================================
+
+    call s:LoadRc("colorv.vim")
+    call s:LoadRc("scss-syntax.vim")
+    call s:LoadRc("vim-css3-syntax.vim")
+
+    " ========================================================================
+    " Config: Git
+    " ========================================================================
+
+    call s:LoadRc("committia.vim")
+
+    " ========================================================================
+    " Config: PHP
+    " ========================================================================
+
+    call s:LoadRc("PHP-Indenting-for-VIm.vim")
+    call s:LoadRc("php.vim")
+    call s:LoadRc("phpcomplete.vim")
+    call s:LoadRc("pdv.vim")
+
+    " ========================================================================
+    " Config: JavaScript
+    " ========================================================================
+
+    call s:LoadRc("javascript-libraries-syntax.vim")
+    call s:LoadRc("vim-coffee-script.vim")
+    call s:LoadRc("vim-jsdoc.vim")
+
+    " ========================================================================
+    " Config: Unite
+    " ========================================================================
+
+    call s:LoadRc("unite.vim")
+    call s:LoadRc("vimfiler.vim")
+
+    " ========================================================================
+    " Config: Others
+    " ========================================================================
+
+    call s:LoadRc("airline.vim")
+    call s:LoadRc("cosco.vim")
+    call s:LoadRc("editorconfig.vim")
+    call s:LoadRc("gundo.vim")
+    if g:dko_use_incsearch | call s:LoadRc("incsearch.vim") | endif
+    call s:LoadRc("smartpairs.vim")
+    call s:LoadRc("syntastic.vim")
+    call s:LoadRc("tabular.vim")
+    call s:LoadRc("vim-anzu.vim")
+    call s:LoadRc("vim-easyclip.vim")
+    call s:LoadRc("vim-gutentags.vim")
+    call s:LoadRc("vim-indent-guides.vim")
+    call s:LoadRc("vim-json.vim")
+    call s:LoadRc("vim-over.vim")
+
   endif
 endif
-
 
 " ============================================================================
 " Matchit
@@ -400,13 +489,11 @@ endif
 
 set modeline
 
-
 " ============================================================================
 " For chruby
 " ============================================================================
 
 set shell=$SHELL
-
 
 " ============================================================================
 " Display
@@ -452,7 +539,6 @@ set foldlevelstart=99                 " show all folds by default
 set splitbelow
 set splitright
 
-
 " ============================================================================
 " Input
 " ============================================================================
@@ -472,7 +558,6 @@ set nrformats-=octal                  " never use octal when <C-x> or <C-a>
 set mouse=a
 if !has('nvim') | set ttymouse=xterm | endif
 
-
 " ============================================================================
 " Whitespace
 " ============================================================================
@@ -487,9 +572,10 @@ set nojoinspaces                      " J command doesn't add extra space
 set autoindent
 set smartindent
 set copyindent                        " indent exactly as previous line
-set nopreserveindent                  " stay indented when press enter
-                                      " fixes tab-space in block comments for
-                                      " phpdoc/jsdoc
+
+" Stay indented when press enter. Fixes tab-space in block comments for
+" phpdoc/jsdoc
+set nopreserveindent
 
 " ============================================================================
 " Tabbing
@@ -524,14 +610,12 @@ set listchars+=precedes:«
 set fillchars=diff:⣿,vert:│
 set fillchars=diff:⣿,vert:\|
 
-
 " ============================================================================
 " Diffing
 " ============================================================================
 
 set diffopt=filler                    " blank lines to keep sides aligned
 set diffopt+=iwhite                   " Ignore whitespace changes
-
 
 " ============================================================================
 " Match and search
@@ -546,7 +630,6 @@ set smartcase
 
 " The Silver Searcher
 if executable('ag') | set grepprg=ag\ --nogroup\ --nocolor | endif
-
 
 " ============================================================================
 " Wild and file globbing stuff
@@ -567,7 +650,6 @@ set wildignore+=*.eot,*.otf,*.ttf,*.woff
 set wildignore+=*.doc,*.pdf
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore+=*.swp,.lock,.DS_Store,._*
-
 
 " ============================================================================
 " File saving
@@ -596,10 +678,9 @@ execute "set backupdir=" . g:dko_vim_dir . "/.backup//"
 execute "set directory=" . g:dko_vim_dir . "/.swp//"
 set backup
 " Make those folders automatically if they don't already exist.
-if !isdirectory(expand(&undodir))   | call mkdir(expand(&undodir), "p")   | endif
-if !isdirectory(expand(&backupdir)) | call mkdir(expand(&backupdir), "p") | endif
-if !isdirectory(expand(&directory)) | call mkdir(expand(&directory), "p") | endif
-
+" if !isdirectory(expand(&undodir))   | call mkdir(expand(&undodir), "p")   | endif
+" if !isdirectory(expand(&backupdir)) | call mkdir(expand(&backupdir), "p") | endif
+" if !isdirectory(expand(&directory)) | call mkdir(expand(&directory), "p") | endif
 
 " ============================================================================
 " Buffer reuse
@@ -610,7 +691,6 @@ set switchbuf=useopen                 " reveal already opened files from the
                                       " quickfix window instead of opening new
                                       " buffers
 
-
 " ============================================================================
 " Clipboard -- use os clipboard
 " ============================================================================
@@ -620,7 +700,6 @@ if (exists("$DISPLAY") || has('mac')) && has('clipboard')
   " Share X windows clipboard.
   if has('unnamedplus') | set clipboard+=unnamedplus | endif
 endif
-
 
 " ============================================================================
 " Syntax
@@ -638,7 +717,6 @@ let g:markdown_fenced_languages = [
       \ 'sass',
       \ 'xml',
       \ ]
-
 
 " ============================================================================
 " Autocommands
