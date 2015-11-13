@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " netrw
 " disable netrw in favor of vimfiler -- netrw sucks!
 let g:loaded_netrwPlugin = 1

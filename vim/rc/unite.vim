@@ -12,10 +12,10 @@ if executable('ag')
 
   " Ignore wildignores too
   " https://github.com/gf3/dotfiles/blob/master/.vimrc#L564
-  for i in split(&wildignore, ",")
-    let i = substitute(i, '\*/\(.*\)/\*', '\1', 'g')
+  for s:i in split(&wildignore, ",")
+    let s:i = substitute(s:i, '\*/\(.*\)/\*', '\1', 'g')
     let s:ag_opts = s:ag_opts .
-          \ ' --ignore "' . substitute(i, '\*/\(.*\)/\*', '\1', 'g') . '"'
+          \ ' --ignore "' . substitute(s:i, '\*/\(.*\)/\*', '\1', 'g') . '"'
   endfor
 
   let g:unite_source_rec_async_command  = [ 'ag', s:ag_opts, '-g ""' ]

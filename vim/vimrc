@@ -26,7 +26,7 @@ endif
 " no longer using comma so I can reverse repeat fFtT searches
 " no longer using \ so I can type escaped chars :/
 " needs to be before bundle so plugins map correctly
-let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
 
 " ============================================================================
 " vim-plug
@@ -34,424 +34,431 @@ let mapleader = "\<Space>"
 
 " Only load plugins on vim 7.3+ with autocmd
 
-if has("autocmd")
+if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   augroup vimrc
     autocmd!
   augroup END
 
-  if $DOTFILES_DISTRO != "busybox"
-    " Load vim-plug
-    if empty(glob('~/.vim/autoload/plug.vim'))
-      silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-      autocmd VimEnter * PlugInstall | source $MYVIMRC
+  " Load vim-plug
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
+  endif
+
+  let g:dko_plugdir = '/plugged'
+  if has('nvim') | let g:dko_plugdir = '/nplugged' | endif
+
+  call plug#begin(g:dko_vim_dir . g:dko_plugdir)
+
+  " ========================================================================
+  " Plug: Appearance/tab/split mgmt
+  " ========================================================================
+
+  Plug 'chriskempson/base16-vim'
+
+  Plug 'bling/vim-airline'
+
+  Plug 'now/vim-quit-if-only-quickfix-buffer-left'
+
+  " ========================================================================
+  " Plug: UI
+  " ========================================================================
+
+  " highlight partial matches as you type in search mode
+  let g:dko_use_incsearch = !has('nvim')
+  if g:dko_use_incsearch | Plug 'haya14busa/incsearch.vim'
+  endif
+
+  " show registers in split if use \" or <C-R>
+  Plug 'junegunn/vim-peekaboo'
+
+  " Show (#/total results) when searching for a term
+  Plug 'osyo-manga/vim-anzu'
+
+  " ========================================================================
+  " Plug: File system
+  " ========================================================================
+
+  " creates dir if new file in new dir
+  Plug 'dockyard/vim-easydir'
+
+  Plug 'ludovicchabant/vim-gutentags'
+
+  " for neocomplete/deoplete/unite-tag to recurse into includes
+  Plug 'Shougo/neoinclude.vim'
+
+  " ========================================================================
+  " Plug: Commands
+  " ========================================================================
+
+  " Mostly for :Gblame
+  Plug 'tpope/vim-fugitive'
+
+  " <F1> fuzzy find
+  " <F2> recently used (neomru)
+  " <F3> grep
+  " <F8> command palette
+  " <F9> file browser (vimfiler)
+  " <F10> outline mode browser (unite-outline)
+  " Most recently used files for unite.vim -- config is in unite.vim
+  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+        \| Plug 'Shougo/neomru.vim'
+        \| Plug 'Shougo/unite.vim'
+        \| Plug 'Shougo/unite-outline'
+        \| Plug 'Shougo/vimfiler.vim'
+
+  let g:dko_use_solarized = 0
+  " <F5> toggle color
+  if has('nvim') && g:has_true_color
+    let g:dko_use_solarized = 1
+    Plug 'frankier/neovim-colors-solarized-truecolor-only'
+  elseif has('gui_running')
+    let g:dko_use_solarized = 1
+    Plug 'altercation/vim-colors-solarized'
+  endif
+
+  " <F6>
+  Plug 'nathanaelkane/vim-indent-guides', { 'on': ['<Plug>IndentGuidesToggle'] }
+
+  " <F7> - command mode with instant results when doing subst %s
+  Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
+
+  " <F11>
+  Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
+
+  " Add file manip commands like Remove, Move, Rename, SudoWrite
+  Plug 'tpope/vim-eunuch'
+
+  " ========================================================================
+  " Plug: Completion
+  " ========================================================================
+
+  let g:dko_use_tern_completion = 0
+  let g:dko_use_deoplete        = has('nvim') && has('python3')
+  let g:dko_use_neocomplete     = !has('nvim') && has('lua')
+  let g:dko_has_completion      = g:dko_use_neocomplete || g:dko_use_deoplete
+
+  if      g:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
+  elseif  g:dko_use_deoplete    | Plug 'Shougo/deoplete.nvim'
+  endif
+
+  if g:dko_has_completion
+    Plug 'Shougo/neco-syntax'
+
+    if g:dko_use_tern_completion
+      Plug 'marijnh/tern_for_vim', {
+            \   'for': ['javascript', 'typescript'],
+            \   'do': 'npm install'
+            \ }
     endif
 
-    let g:dko_plugdir = '/plugged'
-    if has('nvim') | let g:dko_plugdir = '/nplugged' | endif
+    Plug 'Shougo/neosnippet'
+          \| Plug 'honza/vim-snippets'
+          \| Plug 'Shougo/neosnippet-snippets'
+  endif
 
-    call plug#begin(g:dko_vim_dir . g:dko_plugdir)
+  " ========================================================================
+  " Plug: Editing keys
+  " ========================================================================
 
-    " ========================================================================
-    " Plug: Appearance/tab/split mgmt
-    " ========================================================================
+  Plug 'godlygeek/tabular', { 'on': ['Tabularize'] }
 
-    Plug 'chriskempson/base16-vim'
+  Plug 'rhysd/conflict-marker.vim'
 
-    Plug 'bling/vim-airline'
+  " ;; or ,, to auto-insert comma or semicolon at end of current line as needed
+  Plug 'lfilho/cosco.vim'
 
-    Plug 'now/vim-quit-if-only-quickfix-buffer-left'
+  Plug 'svermeulen/vim-easyclip'
 
-    " ========================================================================
-    " Plug: UI
-    " ========================================================================
+  " custom C-x C-a mappings
+  Plug 'nishigori/increment-activator'
 
-    " highlight partial matches as you type in search mode
-    let g:dko_use_incsearch = !has('nvim')
-    if g:dko_use_incsearch | Plug 'haya14busa/incsearch.vim' | endif
+  Plug 'tomtom/tcomment_vim'
 
-    " show registers in split if use \" or <C-R>
-    Plug 'junegunn/vim-peekaboo'
+  Plug 'tpope/vim-repeat'
 
-    " Show (#/total results) when searching for a term
-    Plug 'osyo-manga/vim-anzu'
+  " fast increment datetimes
+  Plug 'tpope/vim-speeddating'
 
-    " ========================================================================
-    " Plug: File system
-    " ========================================================================
+  Plug 'tpope/vim-surround'
 
-    " creates dir if new file in new dir
-    Plug 'dockyard/vim-easydir'
+  " used for line bubbling commands on osx
+  Plug 'tpope/vim-unimpaired'
 
-    Plug 'ludovicchabant/vim-gutentags'
+  " provide iv av for camel and snake case segments auto-determined
+  " provide ai and ii for indent blocks
+  " provide al and il for current line
+  " provide a_ and i_ for underscores
+  " provide a- and i-
+  Plug 'kana/vim-textobj-user'
+        \| Plug 'kana/vim-textobj-indent'
+        \| Plug 'kana/vim-textobj-line'
+        \| Plug 'mattn/vim-textobj-url'
 
-    " for neocomplete/deoplete/unite-tag to recurse into includes
-    Plug 'Shougo/neoinclude.vim'
+  " provide {, ", ', [, <, various other block objects
+  Plug 'paradigm/TextObjectify'
 
-    " ========================================================================
-    " Plug: Commands
-    " ========================================================================
+  " ========================================================================
+  " Plug: Syntax, spacing
+  " ========================================================================
 
-    " Mostly for :Gblame
-    Plug 'tpope/vim-fugitive'
+  Plug 'vim-scripts/PreserveNoEOL'
+        \| Plug 'editorconfig/editorconfig-vim'
 
-    " <F1> fuzzy find
-    " <F2> recently used (neomru)
-    " <F3> grep
-    " <F8> command palette
-    " <F9> file browser (vimfiler)
-    " <F10> outline mode browser (unite-outline)
-    " Most recently used files for unite.vim -- config is in unite.vim
-    Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-          \| Plug 'Shougo/neomru.vim'
-          \| Plug 'Shougo/unite.vim'
-          \| Plug 'Shougo/unite-outline'
-          \| Plug 'Shougo/vimfiler.vim'
+  " highlight matching html tag
+  Plug 'gregsexton/MatchTag'
 
-    let g:dko_use_solarized = 0
-    " <F5> toggle color
-    if has('nvim') && g:has_true_color
-      let g:dko_use_solarized = 1
-      Plug 'frankier/neovim-colors-solarized-truecolor-only'
-    elseif has('gui_running')
-      let g:dko_use_solarized = 1
-      Plug 'altercation/vim-colors-solarized'
-    endif
+  Plug 'scrooloose/syntastic'
 
-    " <F6>
-    Plug 'nathanaelkane/vim-indent-guides', { 'on': ['<Plug>IndentGuidesToggle'] }
+  Plug 'vim-scripts/ingo-library'
+        \| Plug 'vim-scripts/IndentTab'
 
-    " <F7> - command mode with instant results when doing subst %s
-    Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
+  " ========================================================================
+  " Plug: Language
+  " ========================================================================
 
-    " <F11>
-    Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
+  " special end syntax for various langs
+  Plug 'tpope/vim-endwise'
 
-    " Add file manip commands like Remove, Move, Rename, SudoWrite
-    Plug 'tpope/vim-eunuch'
+  " ========================================================================
+  " Language: Git
+  " ========================================================================
 
-    " ========================================================================
-    " Plug: Completion
-    " ========================================================================
+  " creates gitconfig, gitcommit, rebase
+  " vim 7.4-77 ships with 2013 version, this is newer
+  Plug 'tpope/vim-git'
 
-    let g:dko_use_tern_completion = 0
-    let g:dko_use_deoplete        = has('nvim') && has('python3')
-    let g:dko_use_neocomplete     = !has('nvim') && has('lua')
-    let g:dko_has_completion      = g:dko_use_neocomplete || g:dko_use_deoplete
+  " show multipanes when editing a COMMIT_EDITMSG
+  Plug 'rhysd/committia.vim'
 
-    if g:dko_use_neocomplete  | Plug 'Shougo/neocomplete.vim' | endif
-    if g:dko_use_deoplete     | Plug 'Shougo/deoplete.nvim'   | endif
+  " ========================================================================
+  " Language: HTML and generators
+  " ========================================================================
 
-    if g:dko_has_completion
-      Plug 'Shougo/neco-syntax'
+  Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
 
-      if g:dko_use_tern_completion
-        Plug 'marijnh/tern_for_vim', {
-              \   'for': ['javascript', 'typescript'],
-              \   'do': 'npm install'
-              \ }
-      endif
+  Plug 'digitaltoad/vim-jade'
 
-      Plug 'Shougo/neosnippet'
-            \| Plug 'honza/vim-snippets'
-            \| Plug 'Shougo/neosnippet-snippets'
-    endif
+  Plug 'tpope/vim-haml'
 
-    " ========================================================================
-    " Plug: Editing keys
-    " ========================================================================
+  " ========================================================================
+  " Language: JavaScript / CoffeeScript
+  " ========================================================================
 
-    Plug 'godlygeek/tabular', { 'on': ['Tabularize'] }
+  Plug 'heavenshell/vim-jsdoc'
 
-    Plug 'rhysd/conflict-marker.vim'
+  " provides coffee ft
+  Plug 'kchmck/vim-coffee-script'
 
-    " ;; or ,, to auto-insert comma or semicolon at end of current line as needed
-    Plug 'lfilho/cosco.vim'
+  " gf for going to node_modules files
+  Plug 'moll/vim-node'
 
-    Plug 'svermeulen/vim-easyclip'
+  " react/JSX syn highlighting for .cjsx
+  Plug 'mtscout6/vim-cjsx'
 
-    " custom C-x C-a mappings
-    Plug 'nishigori/increment-activator'
+  " indenting/highlighting, replaces 'jelera/vim-javascript-syntax', {
+  Plug 'othree/yajs.vim'
+        \| Plug 'gavocanov/vim-js-indent'
 
-    Plug 'tomtom/tcomment_vim'
+  Plug 'othree/jsdoc-syntax.vim'
 
-    Plug 'tpope/vim-repeat'
+  Plug 'othree/jspc.vim'
 
-    " fast increment datetimes
-    Plug 'tpope/vim-speeddating'
+  " extends syntax for with jQuery,backbone,etc.
+  Plug 'othree/javascript-libraries-syntax.vim'
 
-    Plug 'tpope/vim-surround'
+  " mxw/vim-jsx - react/JSX syn highlighting for .jsx
+  " requires a javascript syntax plugin first (e.g. yajs or vim-javascript)
+  Plug 'mxw/vim-jsx'
 
-    " used for line bubbling commands on osx
-    Plug 'tpope/vim-unimpaired'
+  " ========================================================================
+  " Language: JSON
+  " ========================================================================
 
-    " provide iv av for camel and snake case segments auto-determined
-    " provide ai and ii for indent blocks
-    " provide al and il for current line
-    " provide a_ and i_ for underscores
-    " provide a- and i-
-    Plug 'kana/vim-textobj-user'
-          \| Plug 'kana/vim-textobj-indent'
-          \| Plug 'kana/vim-textobj-line'
-          \| Plug 'mattn/vim-textobj-url'
+  Plug 'elzr/vim-json', { 'for': ['json'] }
 
-    " provide {, ", ', [, <, various other block objects
-    Plug 'paradigm/TextObjectify'
+  " ========================================================================
+  " Language: Markdown
+  " ========================================================================
 
-    " ========================================================================
-    " Plug: Syntax, spacing
-    " ========================================================================
+  " Override vim included markdown ft* and syntax
+  " The git repo has a newer syntax file than the one that ships with vim
+  Plug 'tpope/vim-markdown'
 
-    Plug 'vim-scripts/PreserveNoEOL'
-          \| Plug 'editorconfig/editorconfig-vim'
+  " ========================================================================
+  " Language: Mustache.js and Handlebars
+  " ========================================================================
 
-    " highlight matching html tag
-    Plug 'gregsexton/MatchTag'
+  " Creates html.handlebars and other fts and sets syn
+  Plug 'mustache/vim-mustache-handlebars'
 
-    Plug 'scrooloose/syntastic'
+  " ========================================================================
+  " Language: Nginx
+  " ========================================================================
 
-    Plug 'vim-scripts/ingo-library'
-          \| Plug 'vim-scripts/IndentTab'
+  Plug 'moskytw/nginx-contrib-vim'
 
-    " ========================================================================
-    " Plug: Language
-    " ========================================================================
+  " ========================================================================
+  " Language: PHP
+  " ========================================================================
 
-    " special end syntax for various langs
-    Plug 'tpope/vim-endwise'
+  " official indent plugin for vim, later version than what it comes with
+  Plug '2072/PHP-Indenting-for-VIm', { 'for': ['php', 'blade'] }
 
-    " ========================================================================
-    " Language: Git
-    " ========================================================================
+  " creates twig ft
+  Plug 'evidens/vim-twig'
 
-    " creates gitconfig, gitcommit, rebase
-    " vim 7.4-77 ships with 2013 version, this is newer
-    Plug 'tpope/vim-git'
+  Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
+        \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
 
-    " show multipanes when editing a COMMIT_EDITMSG
-    Plug 'rhysd/committia.vim'
+  " provides updated syntax
+  Plug 'StanAngeloff/php.vim', { 'for': ['php', 'blade'] }
+        \| Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
+        "\| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
-    " ========================================================================
-    " Language: HTML and generators
-    " ========================================================================
+  " ========================================================================
+  " Language: Ruby, rails, chef, puppet
+  " ========================================================================
 
-    Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
+  " creates pp filetype
+  Plug 'rodjek/vim-puppet'
 
-    Plug 'digitaltoad/vim-jade'
+  " highlighting for Gemfile
+  Plug 'tpope/vim-bundler'
 
-    Plug 'tpope/vim-haml'
+  Plug 'vadv/vim-chef', { 'for': ['ruby', 'eruby'] }
 
-    " ========================================================================
-    " Language: JavaScript / CoffeeScript
-    " ========================================================================
+  " creates ruby filetype
+  Plug 'vim-ruby/vim-ruby'
 
-    Plug 'heavenshell/vim-jsdoc'
+  " ========================================================================
+  " Language: Stylesheets
+  " ========================================================================
 
-    " provides coffee ft
-    Plug 'kchmck/vim-coffee-script'
+  Plug 'Rykka/colorv.vim'
 
-    " gf for going to node_modules files
-    Plug 'moll/vim-node'
+  " creates less filetype
+  Plug 'groenewege/vim-less'
 
-    " react/JSX syn highlighting for .cjsx
-    Plug 'mtscout6/vim-cjsx'
+  " extends vim's css highlighting
+  Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss'] }
 
-    " indenting/highlighting, replaces 'jelera/vim-javascript-syntax', {
-    Plug 'othree/yajs.vim'
-          \| Plug 'gavocanov/vim-js-indent'
+  " css.vim provides @media syntax highlighting where hail2u doesn't
+  Plug 'JulesWang/css.vim', { 'for': ['css', 'scss'] }
+        \| Plug 'cakebaker/scss-syntax.vim'
 
-    Plug 'othree/jsdoc-syntax.vim'
+  " ========================================================================
+  " Language: VimL
+  " ========================================================================
 
-    Plug 'othree/jspc.vim'
+  Plug 'syngan/vim-vimlint'
+        \| Plug 'ynkdir/vim-vimlparser'
 
-    " extends syntax for with jQuery,backbone,etc.
-    Plug 'othree/javascript-libraries-syntax.vim'
+  " ========================================================================
+  " Language: YAML
+  " ========================================================================
 
-    " mxw/vim-jsx - react/JSX syn highlighting for .jsx
-    " requires a javascript syntax plugin first (e.g. yajs or vim-javascript)
-    Plug 'mxw/vim-jsx'
+  Plug 'ingydotnet/yaml-vim'
 
-    " ========================================================================
-    " Language: JSON
-    " ========================================================================
+  call plug#end()
 
-    Plug 'elzr/vim-json', { 'for': ['json'] }
+  " ========================================================================
+  " Plugin configs
+  " ========================================================================
 
-    " ========================================================================
-    " Language: Markdown
-    " ========================================================================
+  " Note:
+  " Source manually to preserve source order
 
-    " Override vim included markdown ft* and syntax
-    " The git repo has a newer syntax file than the one that ships with vim
-    Plug 'tpope/vim-markdown'
+  let s:dko_rc_dir = g:dko_vim_dir . "/rc/"
+  function s:LoadRc(filename)
+    execute "source " . s:dko_rc_dir . a:filename
+  endfunction
 
-    " ========================================================================
-    " Language: Mustache.js and Handlebars
-    " ========================================================================
+  " ========================================================================
+  " Config: Colorscheme
+  " ========================================================================
 
-    " Creates html.handlebars and other fts and sets syn
-    Plug 'mustache/vim-mustache-handlebars'
+  if g:dko_use_solarized
+    " turn off gross italics -- fira sans happens to use ligatures too
+    let g:solarized_italic = 0
 
-    " ========================================================================
-    " Language: Nginx
-    " ========================================================================
+    call togglebg#map("<F5>")
+    colorscheme solarized
+    set background=light
 
-    Plug 'moskytw/nginx-contrib-vim'
-
-    " ========================================================================
-    " Language: PHP
-    " ========================================================================
-
-    " official indent plugin for vim, later version than what it comes with
-    Plug '2072/PHP-Indenting-for-VIm', { 'for': ['php', 'blade'] }
-
-    " creates twig ft
-    Plug 'evidens/vim-twig'
-
-    Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
-          \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
-
-    " provides updated syntax
-    Plug 'StanAngeloff/php.vim', { 'for': ['php', 'blade'] }
-          \| Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
-          "\| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
-
-    " ========================================================================
-    " Language: Ruby, rails, chef, puppet
-    " ========================================================================
-
-    " creates pp filetype
-    Plug 'rodjek/vim-puppet'
-
-    " highlighting for Gemfile
-    Plug 'tpope/vim-bundler'
-
-    Plug 'vadv/vim-chef', { 'for': ['ruby', 'eruby'] }
-
-    " creates ruby filetype
-    Plug 'vim-ruby/vim-ruby'
-
-    " ========================================================================
-    " Language: Stylesheets
-    " ========================================================================
-
-    Plug 'Rykka/colorv.vim'
-
-    " creates less filetype
-    Plug 'groenewege/vim-less'
-
-    " extends vim's css highlighting
-    Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss'] }
-
-    " css.vim provides @media syntax highlighting where hail2u doesn't
-    Plug 'JulesWang/css.vim', { 'for': ['css', 'scss'] }
-          \| Plug 'cakebaker/scss-syntax.vim'
-
-    " ========================================================================
-    " Language: YAML
-    " ========================================================================
-
-    Plug 'ingydotnet/yaml-vim'
-
-    call plug#end()
-
-    " ========================================================================
-    " Plugin configs
-    " ========================================================================
-
-    " Note:
-    " Source manually to preserve source order
-
-    let s:dko_rc_dir = g:dko_vim_dir . "/rc/"
-    function s:LoadRc(filename)
-      execute "source " . s:dko_rc_dir . a:filename
-    endfunction
-
-    " ========================================================================
-    " Config: Colorscheme
-    " ========================================================================
-
-    if g:dko_use_solarized
-      " turn off gross italics -- fira sans happens to use ligatures too
-      let g:solarized_italic = 0
-
-      call togglebg#map("<F5>")
-      colorscheme solarized
-      set background=light
-
-    else " terminal vim
-      silent! colorscheme base16-tomorrow
-      set background=dark
-
-    endif
-
-    " ========================================================================
-    " Config: Completion engine
-    " ========================================================================
-
-    if g:dko_use_neocomplete      | call s:LoadRc("neocomplete.vim")  | endif
-    if g:dko_use_deoplete         | call s:LoadRc("deoplete.vim")     | endif
-    if g:dko_use_tern_completion  | call s:LoadRc("tern_for_vim.vim") | endif
-    if g:dko_has_completion       | call s:LoadRc("neosnippet.vim")   | endif
-
-    " ========================================================================
-    " Config: CSS
-    " ========================================================================
-
-    call s:LoadRc("colorv.vim")
-    call s:LoadRc("scss-syntax.vim")
-    call s:LoadRc("vim-css3-syntax.vim")
-
-    " ========================================================================
-    " Config: Git
-    " ========================================================================
-
-    call s:LoadRc("committia.vim")
-
-    " ========================================================================
-    " Config: PHP
-    " ========================================================================
-
-    call s:LoadRc("PHP-Indenting-for-VIm.vim")
-    call s:LoadRc("php.vim")
-    call s:LoadRc("phpcomplete.vim")
-    call s:LoadRc("pdv.vim")
-
-    " ========================================================================
-    " Config: JavaScript
-    " ========================================================================
-
-    call s:LoadRc("javascript-libraries-syntax.vim")
-    call s:LoadRc("vim-coffee-script.vim")
-    call s:LoadRc("vim-jsdoc.vim")
-
-    " ========================================================================
-    " Config: Unite
-    " ========================================================================
-
-    call s:LoadRc("unite.vim")
-    call s:LoadRc("vimfiler.vim")
-
-    " ========================================================================
-    " Config: Others
-    " ========================================================================
-
-    call s:LoadRc("airline.vim")
-    call s:LoadRc("cosco.vim")
-    call s:LoadRc("editorconfig.vim")
-    call s:LoadRc("gundo.vim")
-    if g:dko_use_incsearch | call s:LoadRc("incsearch.vim") | endif
-    call s:LoadRc("smartpairs.vim")
-    call s:LoadRc("syntastic.vim")
-    call s:LoadRc("tabular.vim")
-    call s:LoadRc("vim-anzu.vim")
-    call s:LoadRc("vim-easyclip.vim")
-    call s:LoadRc("vim-gutentags.vim")
-    call s:LoadRc("vim-indent-guides.vim")
-    call s:LoadRc("vim-json.vim")
-    call s:LoadRc("vim-over.vim")
+  else " terminal vim
+    silent! colorscheme base16-tomorrow
+    set background=dark
 
   endif
+
+  " ========================================================================
+  " Config: Completion engine
+  " ========================================================================
+
+  if g:dko_use_neocomplete      | call s:LoadRc("neocomplete.vim")  | endif
+  if g:dko_use_deoplete         | call s:LoadRc("deoplete.vim")     | endif
+  if g:dko_use_tern_completion  | call s:LoadRc("tern_for_vim.vim") | endif
+  if g:dko_has_completion       | call s:LoadRc("neosnippet.vim")   | endif
+
+  " ========================================================================
+  " Config: CSS
+  " ========================================================================
+
+  call s:LoadRc("colorv.vim")
+  call s:LoadRc("scss-syntax.vim")
+  call s:LoadRc("vim-css3-syntax.vim")
+
+  " ========================================================================
+  " Config: Git
+  " ========================================================================
+
+  call s:LoadRc("committia.vim")
+
+  " ========================================================================
+  " Config: PHP
+  " ========================================================================
+
+  call s:LoadRc("PHP-Indenting-for-VIm.vim")
+  call s:LoadRc("php.vim")
+  call s:LoadRc("phpcomplete.vim")
+  call s:LoadRc("pdv.vim")
+
+  " ========================================================================
+  " Config: JavaScript
+  " ========================================================================
+
+  call s:LoadRc("javascript-libraries-syntax.vim")
+  call s:LoadRc("vim-coffee-script.vim")
+  call s:LoadRc("vim-jsdoc.vim")
+
+  " ========================================================================
+  " Config: Unite
+  " ========================================================================
+
+  call s:LoadRc("unite.vim")
+  call s:LoadRc("vimfiler.vim")
+
+  " ========================================================================
+  " Config: Others
+  " ========================================================================
+
+  call s:LoadRc("airline.vim")
+  call s:LoadRc("cosco.vim")
+  call s:LoadRc("editorconfig.vim")
+  call s:LoadRc("gundo.vim")
+  if g:dko_use_incsearch | call s:LoadRc("incsearch.vim") | endif
+  call s:LoadRc("smartpairs.vim")
+  call s:LoadRc("syntastic.vim")
+  call s:LoadRc("tabular.vim")
+  call s:LoadRc("vim-anzu.vim")
+  call s:LoadRc("vim-easyclip.vim")
+  call s:LoadRc("vim-gutentags.vim")
+  call s:LoadRc("vim-indent-guides.vim")
+  call s:LoadRc("vim-json.vim")
+  call s:LoadRc("vim-over.vim")
+
 endif
 
 " ============================================================================
@@ -730,4 +737,6 @@ endif
 " leave this down here since it trims local settings
 set secure                            " no unsafe local vimrc commands
 
-if filereadable(glob("$HOME/.vimrc.local")) | source $HOME/.vimrc.local | endif
+if filereadable(glob("$HOME/.vimrc.local"))
+  source $HOME/.vimrc.local
+endif

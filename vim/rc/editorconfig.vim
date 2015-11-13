@@ -18,7 +18,7 @@
 " ?>
 " ```
 
-function! EcSofttabstop(config)
+function! EcSofttabstop()
   set softtabstop=2
 endfunction
 call editorconfig#AddNewHook(function('EcSofttabstop'))
