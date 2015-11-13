@@ -48,9 +48,7 @@ if has("autocmd")
     endif
 
     let g:dko_plugdir = '/plugged'
-    if has('nvim')
-      let g:dko_plugdir = '/nplugged'
-    endif
+    if has('nvim') | let g:dko_plugdir = '/nplugged' | endif
 
     call plug#begin(g:dko_vim_dir . g:dko_plugdir)
 
@@ -69,11 +67,8 @@ if has("autocmd")
     " ========================================================================
 
     " highlight partial matches as you type in search mode
-    let g:dko_use_incsearch = 0
-    if !has('nvim')
-      let g:dko_use_incsearch = 1
-      Plug 'haya14busa/incsearch.vim'
-    endif
+    let g:dko_use_incsearch = !has('nvim')
+    if g:dko_use_incsearch | Plug 'haya14busa/incsearch.vim' | endif
 
     " show registers in split if use \" or <C-R>
     Plug 'junegunn/vim-peekaboo'
@@ -103,6 +98,7 @@ if has("autocmd")
     " <F1> fuzzy find
     " <F2> recently used (neomru)
     " <F3> grep
+    " <F8> command palette
     " <F9> file browser (vimfiler)
     " <F10> outline mode browser (unite-outline)
     " Most recently used files for unite.vim -- config is in unite.vim
@@ -123,13 +119,13 @@ if has("autocmd")
     endif
 
     " <F6>
-    Plug 'nathanaelkane/vim-indent-guides',   { 'on': ['<Plug>IndentGuidesToggle'] }
+    Plug 'nathanaelkane/vim-indent-guides', { 'on': ['<Plug>IndentGuidesToggle'] }
 
     " <F7> - command mode with instant results when doing subst %s
-    Plug 'osyo-manga/vim-over',               { 'on': ['OverCommandLine'] }
+    Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
 
     " <F11>
-    Plug 'sjl/gundo.vim',                     { 'on': ['GundoToggle'] }
+    Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
 
     " Add file manip commands like Remove, Move, Rename, SudoWrite
     Plug 'tpope/vim-eunuch'
@@ -138,22 +134,13 @@ if has("autocmd")
     " Plug: Completion
     " ========================================================================
 
-    let g:dko_has_completion = 0
-    let g:dko_use_deoplete = 0
-    let g:dko_use_neocomplete = 0
     let g:dko_use_tern_completion = 0
+    let g:dko_use_deoplete        = has('nvim') && has('python3')
+    let g:dko_use_neocomplete     = !has('nvim') && has('lua')
+    let g:dko_has_completion      = g:dko_use_neocomplete || g:dko_use_deoplete
 
-    if !has('nvim') && has('lua')
-      let g:dko_has_completion = 1
-      let g:dko_use_neocomplete = 1
-      Plug 'Shougo/neocomplete.vim' ", 'ver.2.1'
-    endif
-
-    if has('nvim') && has('python3')
-      let g:dko_has_completion = 1
-      let g:dko_use_deoplete = 1
-      Plug 'Shougo/deoplete.nvim'
-    endif
+    if g:dko_use_neocomplete  | Plug 'Shougo/neocomplete.vim' | endif
+    if g:dko_use_deoplete     | Plug 'Shougo/deoplete.nvim'   | endif
 
     if g:dko_has_completion
       Plug 'Shougo/neco-syntax'
@@ -174,7 +161,7 @@ if has("autocmd")
     " Plug: Editing keys
     " ========================================================================
 
-    Plug 'godlygeek/tabular',                 { 'on': ['Tabularize'] }
+    Plug 'godlygeek/tabular', { 'on': ['Tabularize'] }
 
     Plug 'rhysd/conflict-marker.vim'
 
@@ -215,16 +202,16 @@ if has("autocmd")
     " Plug: Syntax, spacing
     " ========================================================================
 
-    " :/ use my own settings
     Plug 'vim-scripts/PreserveNoEOL'
           \| Plug 'editorconfig/editorconfig-vim'
 
     " highlight matching html tag
-    Plug 'gregsexton/MatchTag',               { 'for': ['html', 'mustache', 'php', 'rb', 'xml'] }
+    Plug 'gregsexton/MatchTag'
 
     Plug 'scrooloose/syntastic'
 
-    Plug 'vim-scripts/ingo-library' | Plug 'vim-scripts/IndentTab'
+    Plug 'vim-scripts/ingo-library'
+          \| Plug 'vim-scripts/IndentTab'
 
     " ========================================================================
     " Plug: Language
@@ -248,7 +235,7 @@ if has("autocmd")
     " Language: HTML and generators
     " ========================================================================
 
-    Plug 'othree/html5.vim',                  { 'for': ['html', 'php'] }
+    Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
 
     Plug 'digitaltoad/vim-jade'
 
@@ -288,7 +275,7 @@ if has("autocmd")
     " Language: JSON
     " ========================================================================
 
-    Plug 'elzr/vim-json',                     { 'for': ['json'] }
+    Plug 'elzr/vim-json', { 'for': ['json'] }
 
     " ========================================================================
     " Language: Markdown
@@ -325,7 +312,7 @@ if has("autocmd")
           \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
 
     " provides updated syntax
-    Plug 'StanAngeloff/php.vim',              { 'for': ['php', 'blade'] }
+    Plug 'StanAngeloff/php.vim', { 'for': ['php', 'blade'] }
           \| Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
           "\| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
@@ -339,7 +326,7 @@ if has("autocmd")
     " highlighting for Gemfile
     Plug 'tpope/vim-bundler'
 
-    Plug 'vadv/vim-chef',                     { 'for': ['ruby', 'eruby'] }
+    Plug 'vadv/vim-chef', { 'for': ['ruby', 'eruby'] }
 
     " creates ruby filetype
     Plug 'vim-ruby/vim-ruby'
@@ -354,10 +341,10 @@ if has("autocmd")
     Plug 'groenewege/vim-less'
 
     " extends vim's css highlighting
-    Plug 'hail2u/vim-css3-syntax',            { 'for': ['css', 'scss'] }
+    Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss'] }
 
     " css.vim provides @media syntax highlighting where hail2u doesn't
-    Plug 'JulesWang/css.vim',                 { 'for': ['css', 'scss'] }
+    Plug 'JulesWang/css.vim', { 'for': ['css', 'scss'] }
           \| Plug 'cakebaker/scss-syntax.vim'
 
     " ========================================================================
@@ -375,9 +362,9 @@ if has("autocmd")
     " Note:
     " Source manually to preserve source order
 
+    let s:dko_rc_dir = g:dko_vim_dir . "/rc/"
     function s:LoadRc(filename)
-      let l:dko_rc_dir = g:dko_vim_dir . "/rc/"
-      execute "source " . l:dko_rc_dir . a:filename
+      execute "source " . s:dko_rc_dir . a:filename
     endfunction
 
     " ========================================================================
@@ -402,10 +389,10 @@ if has("autocmd")
     " Config: Completion engine
     " ========================================================================
 
-    if g:dko_use_neocomplete | call s:LoadRc("neocomplete.vim") | endif
-    if g:dko_use_deoplete | call s:LoadRc("deoplete.vim") | endif
-    if g:dko_use_tern_completion | call s:LoadRc("tern_for_vim.vim") | endif
-    call s:LoadRc("neosnippet.vim")
+    if g:dko_use_neocomplete      | call s:LoadRc("neocomplete.vim")  | endif
+    if g:dko_use_deoplete         | call s:LoadRc("deoplete.vim")     | endif
+    if g:dko_use_tern_completion  | call s:LoadRc("tern_for_vim.vim") | endif
+    if g:dko_has_completion       | call s:LoadRc("neosnippet.vim")   | endif
 
     " ========================================================================
     " Config: CSS
@@ -518,7 +505,7 @@ set sidescrolloff=16
 set completeopt-=preview              " don't open scratch preview
 
 " ============================================================================
-" Status line - most of this is handled by vim-powerline
+" Status line - most of this is handled by vim-airline
 " ============================================================================
 
 set laststatus=2
@@ -578,7 +565,7 @@ set copyindent                        " indent exactly as previous line
 set nopreserveindent
 
 " ============================================================================
-" Tabbing
+" Tabbing - overridden by editorconfig, IndentTab, after/ftplugin
 " ============================================================================
 
 set tabstop=4                         " real tabs render 4 wide
@@ -687,9 +674,10 @@ set backup
 " ============================================================================
 
 set hidden                            " remember undo after quitting
-set switchbuf=useopen                 " reveal already opened files from the
-                                      " quickfix window instead of opening new
-                                      " buffers
+
+" reveal already opened files from the quickfix window instead of opening new
+" buffers
+set switchbuf=useopen
 
 " ============================================================================
 " Clipboard -- use os clipboard
@@ -743,5 +731,3 @@ endif
 set secure                            " no unsafe local vimrc commands
 
 if filereadable(glob("$HOME/.vimrc.local")) | source $HOME/.vimrc.local | endif
-
-" vim: syntax=vim :
