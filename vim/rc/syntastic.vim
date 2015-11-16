@@ -12,9 +12,9 @@ let g:syntastic_loc_list_height          = 3
 " Screws up deleting quotes and typing
 let g:syntastic_nested_autocommands      = 1
 
-let g:syntastic_error_symbol         = '✗'
-let g:syntastic_style_error_symbol   = '✠'
-let g:syntastic_warning_symbol       = '∆'
+let g:syntastic_error_symbol         = 'X'
+let g:syntastic_style_error_symbol   = 'x'
+let g:syntastic_warning_symbol       = '!'
 let g:syntastic_style_warning_symbol = '≈'
 
 let g:syntastic_ignore_files = [

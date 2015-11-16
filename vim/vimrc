@@ -83,10 +83,7 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   " creates dir if new file in new dir
   Plug 'dockyard/vim-easydir'
 
-  Plug 'ludovicchabant/vim-gutentags'
-
-  " for neocomplete/deoplete/unite-tag to recurse into includes
-  Plug 'Shougo/neoinclude.vim'
+  "Plug 'ludovicchabant/vim-gutentags'
 
   " ========================================================================
   " Plug: Commands
@@ -134,7 +131,7 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   " Plug: Completion
   " ========================================================================
 
-  let g:dko_use_tern_completion = 0
+  let g:dko_use_tern_completion = 1
   let g:dko_use_deoplete        = has('nvim') && has('python3')
   let g:dko_use_neocomplete     = !has('nvim') && has('lua')
   let g:dko_has_completion      = g:dko_use_neocomplete || g:dko_use_deoplete
@@ -457,7 +454,7 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   call s:LoadRc("tabular.vim")
   call s:LoadRc("vim-anzu.vim")
   call s:LoadRc("vim-easyclip.vim")
-  call s:LoadRc("vim-gutentags.vim")
+  "call s:LoadRc("vim-gutentags.vim")
   call s:LoadRc("vim-indent-guides.vim")
   call s:LoadRc("vim-json.vim")
   call s:LoadRc("vim-over.vim")
