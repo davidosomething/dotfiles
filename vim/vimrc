@@ -563,31 +563,42 @@ set nojoinspaces                      " J command doesn't add extra space
 " Indenting newlines
 " ============================================================================
 
-set autoindent
-set smartindent
-set copyindent                        " indent exactly as previous line
+set autoindent                        " indent when creating newline
+set smartindent                       " add an indent level inside braces
 
-" Stay indented when press enter. Fixes tab-space in block comments for
-" phpdoc/jsdoc
-set nopreserveindent
+" for autoindent, use same spaces/tabs mix as previous line, even if
+" tabs/spaces are mixed. Helps for docblock, where the block comments have a
+" space after the indent to align asterisks
+set copyindent
+
+" Try not to change the indent structure on "<<" and ">>" commands. I.e. keep
+" block comments aligned with space if there is a space there.
+set preserveindent
 
 " ============================================================================
 " Tabbing - overridden by editorconfig, IndentTab, after/ftplugin
 " ============================================================================
 
-set tabstop=4                         " real tabs render 4 wide
 set expandtab                         " default to spaces instead of tabs
 set shiftwidth=2                      " softtabs are 2 spaces for expandtab
 
-" use multiple of shiftwidth when indenting with '<' and '>'
-set shiftround
-
-" negative means use same as shiftwidth
-" tabs look like 2 spaces, also alignment
-" tabs are two spaces for Indent-Tab
+" Alignment tabs are two spaces, and never tabs. Negative means use same as
+" shiftwidth (so the 2 actually doesn't matter).
+" Works with IndentTab.
 set softtabstop=-2
 
+" real tabs render 4 wide. Applicable to HTML, PHP, anything using real tabs.
+" I.e., not applicable to JS.
+set tabstop=4
+
+" use multiple of shiftwidth when shifting indent levels.
+" this is OFF so block comments don't get fudged when using ">>" and "<<"
+set noshiftround
+
+" When on, a <Tab> in front of a line inserts blanks according to
+" 'shiftwidth'.  'tabstop' or 'softtabstop' is used in other places.  A
 set smarttab
+
 set backspace=indent,eol,start        " bs anything
 
 " ============================================================================
