@@ -742,6 +742,10 @@ if has("autocmd")
           \ setlocal backupcopy=yes
   endif
 
+  " No EOL character on files -- specifically for WP VIP PHP
+  autocmd vimrc BufRead,BufNewFile */wp-content/themes/vip/*
+        \ setlocal noeol binary fileformat=dos
+
   " see after/ftplugin/*.vim for more filetype specific stuff
 endif
 
