@@ -209,6 +209,9 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
 
+  " add gS to smart split lines like comma lists and html tags
+  Plug 'AndrewRadev/splitjoin.vim'
+
   Plug 'scrooloose/syntastic'
 
   Plug 'vim-scripts/ingo-library'
