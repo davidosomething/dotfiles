@@ -1,13 +1,15 @@
 scriptencoding utf-8
 
 let g:syntastic_aggregate_errors         = 1
-"let g:syntastic_always_populate_loc_list = 1
+
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list            = 1
+
 let g:syntastic_check_on_open            = 1
 let g:syntastic_check_on_wq              = 0
 let g:syntastic_enable_signs             = 1
 let g:syntastic_enable_highlighting      = 1
-let g:syntastic_loc_list_height          = 3
+let g:syntastic_loc_list_height          = g:dko_loc_list_height
 
 " Screws up deleting quotes and typing
 let g:syntastic_nested_autocommands      = 1

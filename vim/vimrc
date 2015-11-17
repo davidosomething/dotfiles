@@ -7,6 +7,7 @@ scriptencoding utf-8
 if &compatible | set nocompatible | endif
 
 let g:dko_vim_dir = fnamemodify(expand("$MYVIMRC"), ":p:h")
+let g:dko_loc_list_height = 3
 
 " ============================================================================
 " Default colors
