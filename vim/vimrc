@@ -336,7 +336,7 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   " Language: Stylesheets
   " ========================================================================
 
-  Plug 'Rykka/colorv.vim'
+  "Plug 'Rykka/colorv.vim'
 
   " creates less filetype
   Plug 'groenewege/vim-less'

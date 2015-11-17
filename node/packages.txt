@@ -7,11 +7,13 @@ eslint
 git-bc
 git-open
 grunt-cli
+gulp-cli
 jscpd
 jsctags
 jshint
 jsinspect
 jsonlint
+jspm
 karma-cli
 mocha
 npm-check-updates
