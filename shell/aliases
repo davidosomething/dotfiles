@@ -20,6 +20,7 @@ alias gl="git l"
 alias gpo="git push origin"
 
 # bin
+alias a="atom"
 alias be="bundle exec"
 alias bfy="browserify"
 alias bun="bundle"
