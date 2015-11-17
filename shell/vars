@@ -92,6 +92,9 @@ export ADOTDIR="$XDG_CONFIG_HOME/.antigen"
 # apache
 source_if_exists /etc/apache2/envvars
 
+# atom editor
+export ATOM_HOME="$XDG_CONFIG_HOME/atom"
+
 # chphp
 # overridden in homebrew section if has brew
 export CHPHP_PREFIX="/usr"

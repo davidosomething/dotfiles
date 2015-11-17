@@ -12,12 +12,12 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 " enable heavy completion
 if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
+  let g:neocomplete#sources#omni#input_patterns = {
+        \   'php':    '',
+        \   'python': '',
+        \   'ruby':   '',
+        \ }
 endif
-
-" CRASH HEAVY OMNICOMPLETE
-let g:neocomplete#sources#omni#input_patterns.ruby = ''
-let g:neocomplete#sources#omni#input_patterns.python = ''
 
 let g:neocomplete#sources#omni#input_patterns.typescript =
       \ '[^. \t]\.\%(\h\w*\)\?'

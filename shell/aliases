@@ -20,10 +20,12 @@ alias gl="git l"
 alias gpo="git push origin"
 
 # bin
+alias a="atom"
 alias be="bundle exec"
 alias bfy="browserify"
 alias bun="bundle"
 alias c="composer"
+alias cap="bundle exec cap"
 alias df="df -h"
 alias f="find"
 alias grep="grep --color=auto"

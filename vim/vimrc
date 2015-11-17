@@ -7,6 +7,7 @@ scriptencoding utf-8
 if &compatible | set nocompatible | endif
 
 let g:dko_vim_dir = fnamemodify(expand("$MYVIMRC"), ":p:h")
+let g:dko_loc_list_height = 3
 
 " ============================================================================
 " Default colors
@@ -14,7 +15,7 @@ let g:dko_vim_dir = fnamemodify(expand("$MYVIMRC"), ":p:h")
 
 let g:dko_has_true_color = exists("$ITERM_BETA")
 if !g:dko_has_true_color
-  if $COLORTERM == "gnome-terminal" | set t_Co=256 | endif
+  if $COLORTERM == 'gnome-terminal' | set t_Co=256 | endif
   " set this early so plugins can override
   colorscheme pablo
 endif
@@ -34,7 +35,7 @@ let g:mapleader = "\<Space>"
 
 " Only load plugins on vim 7.3+ with autocmd
 
-if $DOTFILES_DISTRO != "busybox" && has("autocmd")
+if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   augroup vimrc
     autocmd!
   augroup END
@@ -131,13 +132,16 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   " Plug: Completion
   " ========================================================================
 
+  let g:dko_use_completion      = 1
   let g:dko_use_tern_completion = 1
   let g:dko_use_deoplete        = has('nvim') && has('python3')
   let g:dko_use_neocomplete     = !has('nvim') && has('lua')
-  let g:dko_has_completion      = g:dko_use_neocomplete || g:dko_use_deoplete
+  let g:dko_has_completion      = g:dko_use_completion && (g:dko_use_neocomplete || g:dko_use_deoplete)
 
-  if      g:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
-  elseif  g:dko_use_deoplete    | Plug 'Shougo/deoplete.nvim'
+  if g:dko_use_completion
+    if      g:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
+    elseif  g:dko_use_deoplete    | Plug 'Shougo/deoplete.nvim'
+    endif
   endif
 
   if g:dko_has_completion
@@ -266,7 +270,7 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   Plug 'othree/jspc.vim'
 
   " extends syntax for with jQuery,backbone,etc.
-  Plug 'othree/javascript-libraries-syntax.vim'
+  "Plug 'othree/javascript-libraries-syntax.vim'
 
   " mxw/vim-jsx - react/JSX syn highlighting for .jsx
   " requires a javascript syntax plugin first (e.g. yajs or vim-javascript)
@@ -336,7 +340,7 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   " Language: Stylesheets
   " ========================================================================
 
-  "Plug 'Rykka/colorv.vim'
+  Plug 'ap/vim-css-color'
 
   " creates less filetype
   Plug 'groenewege/vim-less'
@@ -370,9 +374,9 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   " Note:
   " Source manually to preserve source order
 
-  let s:dko_rc_dir = g:dko_vim_dir . "/rc/"
+  let s:dko_rc_dir = g:dko_vim_dir . '/rc/'
   function s:LoadRc(filename)
-    execute "source " . s:dko_rc_dir . a:filename
+    execute 'source ' . s:dko_rc_dir . a:filename
   endfunction
 
   " ========================================================================
@@ -383,7 +387,7 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
     " turn off gross italics -- fira sans happens to use ligatures too
     let g:solarized_italic = 0
 
-    call togglebg#map("<F5>")
+    call togglebg#map('<F5>')
     colorscheme solarized
     set background=light
 
@@ -397,67 +401,67 @@ if $DOTFILES_DISTRO != "busybox" && has("autocmd")
   " Config: Completion engine
   " ========================================================================
 
-  if g:dko_use_neocomplete      | call s:LoadRc("neocomplete.vim")  | endif
-  if g:dko_use_deoplete         | call s:LoadRc("deoplete.vim")     | endif
-  if g:dko_use_tern_completion  | call s:LoadRc("tern_for_vim.vim") | endif
-  if g:dko_has_completion       | call s:LoadRc("neosnippet.vim")   | endif
+  if g:dko_use_neocomplete      | call s:LoadRc('neocomplete.vim')  | endif
+  if g:dko_use_deoplete         | call s:LoadRc('deoplete.vim')     | endif
+  if g:dko_use_tern_completion  | call s:LoadRc('tern_for_vim.vim') | endif
+  if g:dko_has_completion       | call s:LoadRc('neosnippet.vim')   | endif
 
   " ========================================================================
   " Config: CSS
   " ========================================================================
 
-  call s:LoadRc("colorv.vim")
-  call s:LoadRc("scss-syntax.vim")
-  call s:LoadRc("vim-css3-syntax.vim")
+  call s:LoadRc('colorv.vim')
+  call s:LoadRc('scss-syntax.vim')
+  call s:LoadRc('vim-css3-syntax.vim')
 
   " ========================================================================
   " Config: Git
   " ========================================================================
 
-  call s:LoadRc("committia.vim")
+  call s:LoadRc('committia.vim')
 
   " ========================================================================
   " Config: PHP
   " ========================================================================
 
-  call s:LoadRc("PHP-Indenting-for-VIm.vim")
-  call s:LoadRc("php.vim")
-  call s:LoadRc("phpcomplete.vim")
-  call s:LoadRc("pdv.vim")
+  call s:LoadRc('PHP-Indenting-for-VIm.vim')
+  call s:LoadRc('php.vim')
+  call s:LoadRc('phpcomplete.vim')
+  call s:LoadRc('pdv.vim')
 
   " ========================================================================
   " Config: JavaScript
   " ========================================================================
 
-  call s:LoadRc("javascript-libraries-syntax.vim")
-  call s:LoadRc("vim-coffee-script.vim")
-  call s:LoadRc("vim-jsdoc.vim")
+  call s:LoadRc('javascript-libraries-syntax.vim')
+  call s:LoadRc('vim-coffee-script.vim')
+  call s:LoadRc('vim-jsdoc.vim')
 
   " ========================================================================
   " Config: Unite
   " ========================================================================
 
-  call s:LoadRc("unite.vim")
-  call s:LoadRc("vimfiler.vim")
+  call s:LoadRc('unite.vim')
+  call s:LoadRc('vimfiler.vim')
 
   " ========================================================================
   " Config: Others
   " ========================================================================
 
-  call s:LoadRc("airline.vim")
-  call s:LoadRc("cosco.vim")
-  call s:LoadRc("editorconfig.vim")
-  call s:LoadRc("gundo.vim")
-  if g:dko_use_incsearch | call s:LoadRc("incsearch.vim") | endif
-  call s:LoadRc("smartpairs.vim")
-  call s:LoadRc("syntastic.vim")
-  call s:LoadRc("tabular.vim")
-  call s:LoadRc("vim-anzu.vim")
-  call s:LoadRc("vim-easyclip.vim")
-  "call s:LoadRc("vim-gutentags.vim")
-  call s:LoadRc("vim-indent-guides.vim")
-  call s:LoadRc("vim-json.vim")
-  call s:LoadRc("vim-over.vim")
+  call s:LoadRc('airline.vim')
+  call s:LoadRc('cosco.vim')
+  call s:LoadRc('editorconfig.vim')
+  call s:LoadRc('gundo.vim')
+  if g:dko_use_incsearch | call s:LoadRc('incsearch.vim') | endif
+  call s:LoadRc('smartpairs.vim')
+  call s:LoadRc('syntastic.vim')
+  call s:LoadRc('tabular.vim')
+  call s:LoadRc('vim-anzu.vim')
+  call s:LoadRc('vim-easyclip.vim')
+  "call s:LoadRc('vim-gutentags.vim')
+  call s:LoadRc('vim-indent-guides.vim')
+  call s:LoadRc('vim-json.vim')
+  call s:LoadRc('vim-over.vim')
 
 endif
 
@@ -667,7 +671,7 @@ set fileformat=unix
 
 " info file
 if !has('nvim')
-  execute "set viminfo+=n" . expand(g:dko_vim_dir . "/.viminfo")
+  execute 'set viminfo+=n' . expand(g:dko_vim_dir . '/.viminfo')
 endif
 
 " backups
@@ -678,9 +682,9 @@ set backupskip=/tmp/*,/private/tmp/*"
 set undofile
 set undolevels=500
 set undoreload=500
-execute "set undodir=" . g:dko_vim_dir . "/.undo//"
-execute "set backupdir=" . g:dko_vim_dir . "/.backup//"
-execute "set directory=" . g:dko_vim_dir . "/.swp//"
+execute 'set undodir=' . g:dko_vim_dir . '/.undo//'
+execute 'set backupdir=' . g:dko_vim_dir . '/.backup//'
+execute 'set directory=' . g:dko_vim_dir . '/.swp//'
 set backup
 " Make those folders automatically if they don't already exist.
 " if !isdirectory(expand(&undodir))   | call mkdir(expand(&undodir), "p")   | endif
@@ -728,7 +732,7 @@ let g:markdown_fenced_languages = [
 " Autocommands
 " ============================================================================
 
-if has("autocmd")
+if has('autocmd')
   " Resize splits when the window is resized
   autocmd vimrc VimResized * :wincmd =
 
