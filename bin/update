@@ -184,7 +184,7 @@ fi
 
 if [[ "$1" = "vim" ]]; then
   dkostatus "Updating vim bundles"
-  vim -N -u "$HOME/.vim/vimrc" -c "try |\
+  vim -N -c "try |\
     PlugUpgrade 1 |\
     PlugClean! |\
     PlugUpdate |\
