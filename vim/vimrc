@@ -131,13 +131,16 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " Plug: Completion
   " ========================================================================
 
+  let g:dko_use_completion      = 1
   let g:dko_use_tern_completion = 1
   let g:dko_use_deoplete        = has('nvim') && has('python3')
   let g:dko_use_neocomplete     = !has('nvim') && has('lua')
-  let g:dko_has_completion      = g:dko_use_neocomplete || g:dko_use_deoplete
+  let g:dko_has_completion      = g:dko_use_completion && (g:dko_use_neocomplete || g:dko_use_deoplete)
 
-  if      g:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
-  elseif  g:dko_use_deoplete    | Plug 'Shougo/deoplete.nvim'
+  if g:dko_use_completion
+    if      g:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
+    elseif  g:dko_use_deoplete    | Plug 'Shougo/deoplete.nvim'
+    endif
   endif
 
   if g:dko_has_completion
