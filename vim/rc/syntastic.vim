@@ -12,9 +12,6 @@ let g:syntastic_check_on_wq              = 0
 let g:syntastic_enable_signs             = 1
 let g:syntastic_enable_highlighting      = 1
 
-" Screws up deleting quotes and typing
-let g:syntastic_nested_autocommands      = 1
-
 let g:syntastic_error_symbol         = 'X'
 let g:syntastic_style_error_symbol   = 'x'
 let g:syntastic_warning_symbol       = '!'
