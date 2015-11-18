@@ -7,6 +7,7 @@ alias ..="cd .."
 alias ....="cd ../.."
 alias cd..="cd .."
 alias cdd="cd $DOTFILES"
+alias cdv="cd $VIM_DOTFILES"
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias tree="tree -C"
 
