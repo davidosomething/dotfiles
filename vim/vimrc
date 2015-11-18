@@ -212,15 +212,16 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " used for line bubbling commands on osx
   Plug 'tpope/vim-unimpaired'
 
-  " provide iv av for camel and snake case segments auto-determined
   " provide ai and ii for indent blocks
   " provide al and il for current line
   " provide a_ and i_ for underscores
   " provide a- and i-
+  " provide a= and i= for conflicts
   Plug 'kana/vim-textobj-user'
         \| Plug 'kana/vim-textobj-indent'
         \| Plug 'kana/vim-textobj-line'
         \| Plug 'mattn/vim-textobj-url'
+        \| Plug 'rhysd/vim-textobj-conflict'
 
   " provide {, ", ', [, <, various other block objects
   Plug 'paradigm/TextObjectify'
