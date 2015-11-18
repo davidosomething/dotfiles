@@ -17,52 +17,65 @@ autocmd vimrc FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
 
 " ============================================================================
+" IndentTab
+" ============================================================================
+
+" select completion using tab
+let g:IndentTab_IsSuperTab = g:dko_use_indenttab
+
+" ============================================================================
 " Neosnippet
 " ============================================================================
 
 " Snippets userdir
 let g:neosnippet#snippets_directory = g:dko_vim_dir . '/snippets'
 
-imap <C-k>        <Plug>(neosnippet_expand_or_jump)
-smap <C-k>        <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>        <Plug>(neosnippet_expand_target)
-smap <expr><Tab>  neosnippet#expandable_or_jumpable()
-      \ ? "\<Plug>(neosnippet_expand_or_jump)"
+imap  <C-k>   <Plug>(neosnippet_jump_or_expand)
+smap  <C-k>   <Plug>(neosnippet_jump_or_expand)
+xmap  <C-k>   <Plug>(neosnippet_expand_target)
+
+" Select mode
+smap  <expr><Tab>  neosnippet#expandable_or_jumpable()
+      \ ? "\<Plug>(neosnippet_jump_or_expand)"
       \ : "\<Tab>"
 
 " ============================================================================
-" Shougo completion
+" <CR> setup for pum
 " ============================================================================
 
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-
-" from the github page: <CR> cancels completion and inserts newline
-function! s:my_cr_function()
-  " v2.1
-  "return deoplete#close_popup() . "\<CR>"
-
-  " v next
+function! s:DKO_CR()
+  " Close popup and enter a real <CR>
   return (pumvisible() ? "\<C-y>" : "") . "\<CR>"
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-  "return "\<C-y>\<CR>"
 endfunction
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+inoremap <silent> <CR> <C-r>=<SID>DKO_CR()<CR>
 
 " ============================================================================
-" Shougo + IndentTab interaction
+" <Tab> setup for neosnippet + IndentTab + pum completion
 " ============================================================================
-if g:dko_use_indenttab
-  " select completion using tab
-  let g:IndentTab_IsSuperTab = 1
-  inoremap <expr><Tab>   pumvisible()
-        \ ? "\<C-n>"
-        \ : IndentTab#Tab()
-  "\<TAB>"
-  inoremap <expr><S-Tab> pumvisible()
-        \ ? "\<C-p>"
-        \ : "\<S-Tab>"
-endif
+
+function! s:DKO_NextFieldOrTab()
+  " Next autocomplete result
+  if pumvisible()
+    return "\<C-n>"
+
+  " In a neosnippet, jump to field
+  elseif neosnippet#expandable_or_jumpable()
+    return "\<Plug>(neosnippet_jump_or_expand)"
+
+  " Insert a real tab using IndentTab
+  elseif g:dko_use_indenttab
+    return IndentTab#Tab()
+
+  endif
+
+  " Insert a real tab
+  return "\<Tab>"
+endfunction
+imap  <expr><Tab>     <SID>DKO_NextFieldOrTab()
+
+imap  <expr><S-Tab>   pumvisible()
+      \ ? "\<C-p>"
+      \ : "\<C-d>"
 
 " ============================================================================
 " Neocomplete

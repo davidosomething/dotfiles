@@ -104,6 +104,9 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " Mostly for :Gblame
   Plug 'tpope/vim-fugitive'
 
+  " gK to lookup
+  Plug 'keith/investigate.vim'
+
   " <F1> fuzzy find
   " <F2> recently used (neomru)
   " <F3> grep
@@ -128,7 +131,7 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   endif
 
   " <F6>
-  Plug 'nathanaelkane/vim-indent-guides', { 'on': ['<Plug>IndentGuidesToggle'] }
+  Plug 'nathanaelkane/vim-indent-guides'
 
   " <F7> - command mode with instant results when doing subst %s
   Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
