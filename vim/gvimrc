@@ -6,7 +6,7 @@ set guioptions-=T                     " hide stupid button bar
 " MacVim / VimRefined
 " ============================================================================
 
-if has('gui_macvim') || has("gui_vimr")
+if has('gui_macvim') || has('gui_vimr')
   set antialias
   set guifont=Fira\ Mono\ for\ Powerline:h10
   set backupcopy=yes                  " keep finder labels!
@@ -31,7 +31,7 @@ endif
 " VimRefined
 " ============================================================================
 
-if has("gui_vimr")
+if has('gui_vimr')
   set guifont=Fira\ Mono\ for\ Powerline:h14
 endif
 

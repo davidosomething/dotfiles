@@ -1,11 +1,12 @@
-" filetype.vim
+" after/filetype.vim
 "
 " see *ftdetect* in vim filetype help
 " http://vimdoc.sourceforge.net/htmldoc/filetype.html
 " Runs on filetype on
 "
 
-if exists("did_load_filetypes") | finish | endif
+if exists('g:did_load_filetypes_userafter') | finish | endif
+let g:did_load_filetypes_userafter = 1
 
 " only useful for filetypes that can be detected by filename
 " it is option C in the docs

@@ -61,7 +61,6 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   let g:dko_use_neocomplete     = !has('nvim') && has('lua')
   let g:dko_has_completion      = g:dko_use_completion && (g:dko_use_neocomplete || g:dko_use_deoplete)
 
-
   call plug#begin(g:dko_vim_dir . g:dko_plugdir)
 
   " ========================================================================
@@ -312,7 +311,7 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   Plug 'moskytw/nginx-contrib-vim'
 
   " ========================================================================
-  " Language: PHP
+  " Language: PHP, twig
   " ========================================================================
 
   " official indent plugin for vim, later version than what it comes with
@@ -379,8 +378,7 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " Plugin configs
   " ========================================================================
 
-  " Note:
-  " Source manually to preserve source order
+  " Note: Source manually to preserve source order
 
   let s:dko_rc_dir = g:dko_vim_dir . '/rc/'
   function s:LoadRc(filename)
@@ -429,18 +427,14 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " Config: PHP
   " ========================================================================
 
-  call s:LoadRc('PHP-Indenting-for-VIm.vim')
   call s:LoadRc('php.vim')
-  call s:LoadRc('phpcomplete.vim')
-  call s:LoadRc('pdv.vim')
 
   " ========================================================================
   " Config: JavaScript
   " ========================================================================
 
-  call s:LoadRc('javascript-libraries-syntax.vim')
+  call s:LoadRc('javascript.vim')
   call s:LoadRc('vim-coffee-script.vim')
-  call s:LoadRc('vim-jsdoc.vim')
 
   " ========================================================================
   " Config: Unite
