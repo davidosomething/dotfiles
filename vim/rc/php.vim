@@ -2,7 +2,10 @@
 " PHP-Indenting-for-VIm.vim
 " ============================================================================
 
-let g:PHP_outdentphpescape = 0
+" The plugin expects this var to be set before it loads and doesn't read it
+" again afterwards, so we update it again for the buffer
+autocmd vimrc FileType php
+      \ let b:PHP_outdentphpescape = 0
 
 " ============================================================================
 " StanAngeloff/php.vim
@@ -22,8 +25,6 @@ augroup END
 " phpcomplete.vim
 " ============================================================================
 
-" mapping conflict with vim-rails, change <C-]> to <C-)>
-let g:phpcomplete_enhance_jump_to_definition = 0
 let g:phpcomplete_parse_docblock_comments = 1
 
 " ============================================================================
