@@ -88,10 +88,6 @@ if g:dko_use_neocomplete
 
   let g:neocomplete#sources#omni#input_patterns.typescript =
         \ '[^. \t]\.\%(\h\w*\)\?'
-
-  " re-open completion with c-space
-  " @see <https://github.com/Shougo/neocomplete.vim/issues/33#issuecomment-20732569>
-  inoremap <expr><C-Space>        neocomplete#start_manual_complete('omni')
 endif
 
 " ============================================================================
@@ -102,16 +98,12 @@ if g:dko_use_deoplete
   let g:deoplete#enable_at_startup            = 1
   let g:deoplete#auto_completion_start_length = 3
 
-  if !exists('g:neocomplete#sources#omni#input_patterns')
+  if !exists('g:deoplete#omni#input_patterns')
     let g:deoplete#omni#input_patterns = {}
   endif
 
-  let g:deoplete#sources#omni#input_patterns.typescript =
+  let g:deoplete#omni#input_patterns.typescript =
         \ '[^. \t]\.\%(\h\w*\)\?'
-
-  " re-open completion with c-space
-  " @see <https://github.com/Shougo/deoplete.vim/issues/33#issuecomment-20732569>
-  inoremap <expr><C-Space>        deoplete#start_manual_complete('omni')
 endif
 
 " ============================================================================
