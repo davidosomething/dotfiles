@@ -198,14 +198,14 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " ;; or ,, to auto-insert comma or semicolon at end of current line as needed
   Plug 'lfilho/cosco.vim'
 
-  Plug 'svermeulen/vim-easyclip'
-
   " custom C-x C-a mappings
   Plug 'nishigori/increment-activator'
 
   Plug 'tomtom/tcomment_vim'
 
+  " easyclip requires repeat
   Plug 'tpope/vim-repeat'
+        \| Plug 'svermeulen/vim-easyclip'
 
   " fast increment datetimes
   Plug 'tpope/vim-speeddating'
