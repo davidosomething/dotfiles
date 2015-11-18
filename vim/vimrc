@@ -50,6 +50,18 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   let g:dko_plugdir = '/plugged'
   if has('nvim') | let g:dko_plugdir = '/nplugged' | endif
 
+  " ==========================================================================
+  " What to load
+  " ==========================================================================
+
+  let g:dko_use_indenttab       = 1
+  let g:dko_use_completion      = 1
+  let g:dko_use_tern_completion = 1
+  let g:dko_use_deoplete        = has('nvim') && has('python3')
+  let g:dko_use_neocomplete     = !has('nvim') && has('lua')
+  let g:dko_has_completion      = g:dko_use_completion && (g:dko_use_neocomplete || g:dko_use_deoplete)
+
+
   call plug#begin(g:dko_vim_dir . g:dko_plugdir)
 
   " ========================================================================
@@ -129,14 +141,28 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   Plug 'tpope/vim-eunuch'
 
   " ========================================================================
-  " Plug: Completion
+  " Plug: Input, syntax, spacing
   " ========================================================================
 
-  let g:dko_use_completion      = 1
-  let g:dko_use_tern_completion = 1
-  let g:dko_use_deoplete        = has('nvim') && has('python3')
-  let g:dko_use_neocomplete     = !has('nvim') && has('lua')
-  let g:dko_has_completion      = g:dko_use_completion && (g:dko_use_neocomplete || g:dko_use_deoplete)
+  Plug 'vim-scripts/PreserveNoEOL'
+        \| Plug 'editorconfig/editorconfig-vim'
+
+  " highlight matching html tag
+  Plug 'gregsexton/MatchTag'
+
+  " add gS to smart split lines like comma lists and html tags
+  Plug 'AndrewRadev/splitjoin.vim'
+
+  Plug 'scrooloose/syntastic'
+
+  if g:dko_use_indenttab
+    Plug 'vim-scripts/ingo-library'
+          \| Plug 'vim-scripts/IndentTab'
+  endif
+
+  " ========================================================================
+  " Plug: Completion
+  " ========================================================================
 
   if g:dko_use_completion
     if      g:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
@@ -199,24 +225,6 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
 
   " provide {, ", ', [, <, various other block objects
   Plug 'paradigm/TextObjectify'
-
-  " ========================================================================
-  " Plug: Syntax, spacing
-  " ========================================================================
-
-  Plug 'vim-scripts/PreserveNoEOL'
-        \| Plug 'editorconfig/editorconfig-vim'
-
-  " highlight matching html tag
-  Plug 'gregsexton/MatchTag'
-
-  " add gS to smart split lines like comma lists and html tags
-  Plug 'AndrewRadev/splitjoin.vim'
-
-  Plug 'scrooloose/syntastic'
-
-  Plug 'vim-scripts/ingo-library'
-        \| Plug 'vim-scripts/IndentTab'
 
   " ========================================================================
   " Plug: Language
@@ -401,10 +409,7 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " Config: Completion engine
   " ========================================================================
 
-  if g:dko_use_neocomplete      | call s:LoadRc('neocomplete.vim')  | endif
-  if g:dko_use_deoplete         | call s:LoadRc('deoplete.vim')     | endif
-  if g:dko_use_tern_completion  | call s:LoadRc('tern_for_vim.vim') | endif
-  if g:dko_has_completion       | call s:LoadRc('neosnippet.vim')   | endif
+  if g:dko_has_completion | call s:LoadRc('completion.vim') | endif
 
   " ========================================================================
   " Config: CSS
