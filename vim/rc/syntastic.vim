@@ -24,7 +24,7 @@ let g:syntastic_ignore_files = [
 
 let g:syntastic_mode_map = {
       \   'mode': 'active',
-      \   'passive_filetypes': [ 'html' ],
+      \   'passive_filetypes': [ ],
       \ }
 
 " ignore angular attrs
