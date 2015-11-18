@@ -4,6 +4,6 @@ let g:indent_guides_color_change_percent = 2
 nmap <silent> <F6> <Plug>IndentGuidesToggle
 imap <silent> <F6> <Esc>:IndentGuidesToggle<CR>a
 
-autocmd vimrc   BufEnter *.php,*.html   IndentGuidesEnable
-autocmd vimrc   BufLeave *.php,*.html   IndentGuidesDisable
+autocmd vimrc   BufEnter  *.hbs,*.html,*.mustache,*.php   IndentGuidesEnable
+autocmd vimrc   BufLeave  *.hbs,*.html,*.mustache,*.php   IndentGuidesDisable
 
