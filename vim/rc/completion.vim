@@ -20,6 +20,9 @@ autocmd vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
 " Neosnippet
 " ============================================================================
 
+" Snippets userdir
+let g:neosnippet#snippets_directory = g:dko_vim_dir . '/snippets'
+
 imap <C-k>        <Plug>(neosnippet_expand_or_jump)
 smap <C-k>        <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>        <Plug>(neosnippet_expand_target)

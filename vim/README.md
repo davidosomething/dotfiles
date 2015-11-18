@@ -1,14 +1,11 @@
-# vim config
+# (g/n)vim config
 
 Keep `(g)vimrc` (no dot in filename) in `.vim` -- vim knows to look in there.
-
-See [https://github.com/majutsushi/tagbar/wiki](https://github.com/majutsushi/tagbar/wiki)
-for getting ctag support in various languages for tagbar.
 
 See [https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers](https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers)
 for getting various linter support in syntastic.
 
-## Keys
+## Function Keys
 
 - `<F1>` unite fuzzy search files
 - `<F2>` unite fuzzy search most recently used files
@@ -23,11 +20,6 @@ for getting various linter support in syntastic.
 - `<F11>` --
 - `<F12>` toggle paste mode
 
-- `<A-dir>` Move around splits
-- `<S-dir>` Resize splits
-- `<C-left/right>` tabn/tabp
-
-- `<C-up/down>` swap lines
-
-See `plugin/mappings.vim` for the leader key bindings and more.
+See `after/plugin/mappings.vim` for custom bindings.
+See `rc/*.vim` for the plugin key bindings.
 
