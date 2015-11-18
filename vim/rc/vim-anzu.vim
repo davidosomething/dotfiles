@@ -10,5 +10,8 @@ else
   nmap # <Plug>(anzu-sharp-with-echo)
 endif
 
+" clear status
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+
 " show anzu
 let g:airline#extensions#anzu#enabled = 1

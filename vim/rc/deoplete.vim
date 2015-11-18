@@ -29,7 +29,7 @@ endif
 "let g:deoplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 
 " from the github page: <CR> cancels completion and inserts newline
-inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   " v2.1
   "return deoplete#close_popup() . "\<CR>"

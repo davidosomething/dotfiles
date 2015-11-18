@@ -1,9 +1,8 @@
-autocmd FileType javascript,css,php
-      \ nnoremap <silent>;; :call cosco#commaOrSemiColon()<CR>
-autocmd FileType javascript,css,php
-      \ inoremap <silent>;; <C-O>:call cosco#commaOrSemiColon()<CR>
+function! s:DKO_Cosco_Bindings()
+  nnoremap <silent> ;; :call cosco#commaOrSemiColon()<CR>
+  inoremap <silent> ;; <C-O>:call cosco#commaOrSemiColon()<CR>
+  nnoremap <silent> ,, :call cosco#commaOrSemiColon()<CR>
+  inoremap <silent> ,, <C-O>:call cosco#commaOrSemiColon()<CR>
+endfunction
 
-autocmd FileType javascript,css,php
-      \ nnoremap <silent>,, :call cosco#commaOrSemiColon()<CR>
-autocmd FileType javascript,css,php
-      \ inoremap <silent>,, <C-O>:call cosco#commaOrSemiColon()<CR>
+autocmd vimrc FileType javascript,css,php call s:DKO_Cosco_Bindings()
