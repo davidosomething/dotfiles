@@ -2,4 +2,5 @@
 /solarized/
 /vim/.*
 /vim/bundle
+/vim/plugged
 /zsh/zsh-*
