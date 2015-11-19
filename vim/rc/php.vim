@@ -11,15 +11,13 @@ autocmd vimrc FileType php
 " StanAngeloff/php.vim
 " ============================================================================
 
+" Syntax highlighting in phpdoc blocks
 function! g:PhpSyntaxOverride()
   hi! def link phpDocTags  phpDefine
   hi! def link phpDocParam phpType
 endfunction
-
-augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call g:PhpSyntaxOverride()
-augroup END
+autocmd vimrc FileType php
+      \ call g:PhpSyntaxOverride()
 
 " ============================================================================
 " phpcomplete.vim
