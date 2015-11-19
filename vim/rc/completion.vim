@@ -64,7 +64,8 @@ function! s:DKO_NextFieldOrTab()
 
   " Insert a real tab using IndentTab
   elseif g:dko_use_indenttab
-    return IndentTab#Tab()
+    return IndentTab#SuperTabIntegration#GetExpr()
+    "IndentTab#Tab()
 
   endif
 

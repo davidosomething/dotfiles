@@ -207,7 +207,6 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   Plug 'tpope/vim-repeat'
         \| Plug 'svermeulen/vim-easyclip'
         \| Plug 'davidosomething/EasyClipRing.vim'
-        "\| Plug '~/projects/EasyClipRing.vim'
 
   " fast increment datetimes
   Plug 'tpope/vim-speeddating'
