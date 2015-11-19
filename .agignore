@@ -1,7 +1,8 @@
-/fonts/
-/solarized/
-/vim/.*
-/vim/bundle
-/vim/nplugged
-/vim/plugged
-/zsh/zsh-*
+fonts/
+solarized/
+vim/.*
+vim/bundle
+vim/nplugged
+vim/plugged
+zsh/zsh-*
+zsh/antigen
