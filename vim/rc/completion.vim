@@ -21,7 +21,7 @@ autocmd vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
 " ============================================================================
 
 " select completion using tab
-let g:IndentTab_IsSuperTab = g:dko_use_indenttab
+let g:IndentTab_IsSuperTab = exists('g:plugs["IndentTab"]')
 
 " ============================================================================
 " Neosnippet
@@ -63,7 +63,7 @@ function! s:DKO_NextFieldOrTab()
     return "\<Plug>(neosnippet_jump_or_expand)"
 
   " Insert a real tab using IndentTab
-  elseif g:dko_use_indenttab
+  elseif exists('g:plugs["IndentTab"]')
     return IndentTab#SuperTabIntegration#GetExpr()
     "IndentTab#Tab()
 
@@ -82,7 +82,7 @@ imap  <expr><S-Tab>   pumvisible()
 " Neocomplete
 " ============================================================================
 
-if g:dko_use_neocomplete
+if exists('g:plugs["neocomplete.vim"]')
   let g:neocomplete#enable_at_startup            = 1
   let g:neocomplete#enable_smart_case            = 1
   let g:neocomplete#enable_camel_case            = 1
@@ -108,7 +108,7 @@ endif
 " Deoplete
 " ============================================================================
 
-if g:dko_use_deoplete
+if exists('g:plugs["deoplete.nvim"]')
   let g:deoplete#enable_at_startup            = 1
   let g:deoplete#auto_completion_start_length = 3
 
@@ -123,7 +123,7 @@ endif
 " ============================================================================
 " tern
 " ============================================================================
-if g:dko_use_tern_completion
+if exists('g:plugs["tern_for_vim"]')
 
   autocmd vimrc FileType javascript setl omnifunc=tern#Complete
 
@@ -133,7 +133,7 @@ if g:dko_use_tern_completion
   " ============================================================================
   " neocomplete tern integration
   " ============================================================================
-  if g:dko_use_neocomplete
+  if exists('g:plugs["neocomplete.vim"]')
     " See vice setup for stuff to steal
     " @see <https://github.com/zeekay/vice-neocompletion/blob/master/autoload/vice/neocomplete.vim>
 

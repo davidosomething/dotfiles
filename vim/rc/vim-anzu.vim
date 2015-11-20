@@ -1,4 +1,4 @@
-if g:dko_use_incsearch
+if exists('g:plugs["incsearch.vim"]')
   nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
   nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
   nmap * <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
@@ -14,6 +14,6 @@ endif
 nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 " show anzu
-if g:dko_use_airline
+if exists('g:plugs["vim-airline"]')
   let g:airline#extensions#anzu#enabled = 1
 endif

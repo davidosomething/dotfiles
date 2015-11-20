@@ -74,11 +74,10 @@ if g:dko_use_plugins
 
   let g:dko_use_gutentags       = 0
   let g:dko_use_indenttab       = 1
-  let g:dko_use_completion      = 1
   let g:dko_use_tern_completion = 1
   let g:dko_use_deoplete        = has('nvim') && has('python3')
   let g:dko_use_neocomplete     = !has('nvim') && has('lua')
-  let g:dko_has_completion      = g:dko_use_completion && (g:dko_use_neocomplete || g:dko_use_deoplete)
+  let g:dko_has_completion      = 0
 
   call plug#begin(g:dko_vim_dir . g:dko_plugdir)
 
@@ -186,14 +185,18 @@ if g:dko_use_plugins
   " Plug: Completion
   " ========================================================================
 
-  if g:dko_use_completion
-    if      g:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
-    elseif  g:dko_use_deoplete    | Plug 'Shougo/deoplete.nvim'
-    endif
+  if      g:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
+  elseif  g:dko_use_deoplete    | Plug 'Shougo/deoplete.nvim'
   endif
 
+  let g:dko_has_completion =
+        \ exists("g:plugs['neocomplete.vim']")
+        \ || exists("g:plugs['deoplete.nvim']")
+
   if g:dko_has_completion
+    "This makes markdown slow
     "Plug 'Shougo/neco-syntax'
+
     Plug 'Shougo/neco-vim', { 'for': ['vim'] }
 
     if g:dko_use_tern_completion
