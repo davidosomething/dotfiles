@@ -14,4 +14,4 @@ endif
 nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 " show anzu
-let g:airline#extensions#anzu#enabled = 1
+let g:airline#extensions#anzu#enabled = g:dko_use_airline

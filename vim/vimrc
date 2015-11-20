@@ -36,16 +36,22 @@ endif
 let g:mapleader = "\<Space>"
 
 " ============================================================================
+" My autocmd block
+" ============================================================================
+if has('autocmd')
+  augroup vimrc
+    autocmd!
+  augroup END
+endif
+
+" ============================================================================
 " vim-plug
 " ============================================================================
 
 " Only load plugins on vim 7.3+ with autocmd
 
-if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
-  augroup vimrc
-    autocmd!
-  augroup END
-
+let g:dko_use_plugins = $DOTFILES_DISTRO != 'busybox' && has('autocmd')
+if g:dko_use_plugins
   " Load vim-plug
   if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -80,9 +86,9 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " Plug: Appearance/tab/split mgmt
   " ========================================================================
 
-  Plug 'chriskempson/base16-vim'
-
-  Plug 'bling/vim-airline'
+  let g:dko_use_airline = 1
+  if g:dko_use_airline | Plug 'bling/vim-airline'
+  endif
 
   Plug 'now/vim-quit-if-only-quickfix-buffer-left'
 
@@ -112,7 +118,7 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   endif
 
   " ========================================================================
-  " Plug: Commands
+  " Plug: Commands + Colorscheme
   " ========================================================================
 
   " Mostly for :Gblame
@@ -187,7 +193,8 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   endif
 
   if g:dko_has_completion
-    Plug 'Shougo/neco-syntax'
+    "Plug 'Shougo/neco-syntax'
+    Plug 'Shougo/neco-vim', { 'for': ['vim'] }
 
     if g:dko_use_tern_completion
       Plug 'marijnh/tern_for_vim', {
@@ -411,11 +418,6 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
     call togglebg#map('<F5>')
     colorscheme solarized
     set background=light
-
-  else " terminal vim
-    silent! colorscheme base16-tomorrow
-    set background=dark
-
   endif
 
   " ========================================================================
@@ -562,9 +564,9 @@ set splitright
 " ============================================================================
 
 set formatoptions=
-set formatoptions+=c                  " Format comments
+set formatoptions+=c                  " Auto-wrap comments using textwidth
 set formatoptions+=r                  " Continue comments by default
-set formatoptions+=o                  " continue comment using o or O
+set formatoptions-=o                  " do not continue comment using o or O
 set formatoptions+=q                  " continue comments with gq
 set formatoptions+=n                  " Recognize numbered lists
 set formatoptions+=2                  " Use indent from 2nd line of a paragraph
@@ -738,9 +740,7 @@ endif
 " variable to highlight markdown fenced code properly -- uses tpope's
 " vim-markdown plugin (which is bundled with vim7.4 now)
 let g:markdown_fenced_languages = [
-      \ 'coffee', 'CoffeeScript=coffee',
       \ 'css',
-      \ 'erb=eruby',
       \ 'html',
       \ 'javascript', 'js=javascript', 'json=javascript',
       \ 'ruby',
@@ -755,10 +755,6 @@ let g:markdown_fenced_languages = [
 if has('autocmd')
   " Resize splits when the window is resized
   autocmd vimrc VimResized * :wincmd =
-
-  " Enable soft-wrapping for text files
-  autocmd vimrc FileType text,markdown
-        \ setlocal wrap linebreak nolist textwidth=80
 
   " crontab on OSX needs a tempfile
   if has('mac')
