@@ -18,15 +18,18 @@ if executable('ag')
           \ ' --ignore "' . substitute(s:i, '\*/\(.*\)/\*', '\1', 'g') . '"'
   endfor
 
+  " This setting reverted so just providing --vimgrep no longer works
+  " https://github.com/Shougo/unite.vim/issues/986#issuecomment-133950231
   let g:unite_source_rec_async_command  = [ 'ag',
         \ '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '' ]
+
   let g:unite_source_grep_command       = 'ag'
   let g:unite_source_grep_default_opts  = s:ag_opts
   let g:unite_source_grep_recursive_opt = ''
 endif
 
 " ============================================================================
-" Split profile - default - open in bottom pane like ctrl-p
+" Split profile: default - open in bottom pane like ctrl-p
 " ============================================================================
 call unite#custom#profile('default', 'context', {
       \   'direction':          'botright',
@@ -39,7 +42,7 @@ call unite#custom#profile('default', 'context', {
       \ })
 
 " ============================================================================
-" Split profile - unite-outline - open in right pane like tagbar
+" Split profile: unite-outline - open in right pane like tagbar
 " ============================================================================
 
 call unite#custom#profile('source/outline', 'context', {
@@ -53,7 +56,7 @@ call unite#custom#profile('source/outline', 'context', {
       \ })
 
 " ============================================================================
-" Matcher settings - always fuzzy (e.g. type abc to match app/book/collection)
+" Matcher settings: always fuzzy (e.g. type abc to match app/book/collection)
 " ============================================================================
 
 call unite#filters#matcher_default#use(
@@ -61,7 +64,7 @@ call unite#filters#matcher_default#use(
       \ )
 
 " ============================================================================
-" Display settings - display relative paths in file search
+" Display settings: display relative paths in file search
 " ============================================================================
 
 " using stock filter
@@ -101,7 +104,7 @@ endfunction
 autocmd vimrc FileType unite call s:unite_my_settings()
 
 " ============================================================================
-" Keybinding - command-t/ctrlp replacement
+" Keybinding: command-t/ctrlp replacement
 " ============================================================================
 
 nnoremap <silent> <F1> :<C-u>Unite -start-insert file_rec/async:!<CR>
@@ -109,7 +112,7 @@ inoremap <silent> <F1> <Esc>:<C-u>Unite -start-insert file_rec/async:!<CR>
 vnoremap <silent> <F1> <Esc>:<C-u>Unite -start-insert file_rec/async:!<CR>
 
 " ============================================================================
-" Keybinding - recently used
+" Keybinding: recently used
 " ============================================================================
 
 nnoremap <silent> <F2> :<C-u>Unite -start-insert neomru/file<CR>
@@ -117,7 +120,7 @@ inoremap <silent> <F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
 vnoremap <silent> <F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
 
 " ============================================================================
-" Keybinding - find in files (ag.vim/ack.vim replacement)
+" Keybinding: find in files (ag.vim/ack.vim replacement)
 " ============================================================================
 
 nnoremap <silent> <F3> :<C-u>Unite grep:.<CR>
@@ -125,7 +128,7 @@ inoremap <silent> <F3> <Esc>:<C-u>Unite grep:.<CR>
 vnoremap <silent> <F3> <Esc>:<C-u>Unite grep:.<CR>
 
 " ============================================================================
-" Keybinding - Command Palette
+" Keybinding: Command Palette
 " ============================================================================
 
 nnoremap <silent> <F8> :<C-u>Unite -start-insert command<CR>
@@ -133,7 +136,7 @@ inoremap <silent> <F8> <Esc>:<C-u>Unite -start-insert command<CR>
 vnoremap <silent> <F8> <Esc>:<C-u>Unite -start-insert command<CR>
 
 " ============================================================================
-" Keybinding - outline
+" Keybinding: outline
 " ============================================================================
 
 nnoremap <silent> <F10> :<C-u>Unite outline<CR>
@@ -141,7 +144,7 @@ inoremap <silent> <F10> <Esc>:<C-u>Unite outline<CR>
 vnoremap <silent> <F10> <Esc>:<C-u>Unite outline<CR>
 
 " ============================================================================
-" Keybinding - find in yank history
+" Keybinding: find in yank history
 " ============================================================================
 
 " shougo moved this to neoyank.vim and I never used it so bye

@@ -47,6 +47,12 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
     autocmd VimEnter * PlugInstall | source $MYVIMRC
   endif
 
+  " Utility function for loading from /rc/
+  let s:dko_rc_dir = g:dko_vim_dir . '/rc/'
+  function s:LoadRc(filename)
+    execute 'source ' . s:dko_rc_dir . a:filename
+  endfunction
+
   let g:dko_plugdir = '/plugged'
   if has('nvim') | let g:dko_plugdir = '/nplugged' | endif
 
@@ -54,6 +60,7 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " What to load
   " ==========================================================================
 
+  let g:dko_use_gutentags       = 0
   let g:dko_use_indenttab       = 1
   let g:dko_use_completion      = 1
   let g:dko_use_tern_completion = 1
@@ -95,7 +102,8 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " creates dir if new file in new dir
   Plug 'dockyard/vim-easydir'
 
-  "Plug 'ludovicchabant/vim-gutentags'
+  if g:dko_use_gutentags | Plug 'ludovicchabant/vim-gutentags'
+  endif
 
   " ========================================================================
   " Plug: Commands
@@ -193,6 +201,7 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
 
   Plug 'godlygeek/tabular', { 'on': ['Tabularize'] }
 
+  " [x and ]x to jump to conflict markers
   Plug 'rhysd/conflict-marker.vim'
 
   " ;; or ,, to auto-insert comma or semicolon at end of current line as needed
@@ -368,8 +377,8 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " Language: VimL
   " ========================================================================
 
-  Plug 'syngan/vim-vimlint'
-        \| Plug 'ynkdir/vim-vimlparser'
+  Plug 'ynkdir/vim-vimlparser'
+        \| Plug 'syngan/vim-vimlint'
 
   " ========================================================================
   " Language: YAML
@@ -384,11 +393,6 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   " ========================================================================
 
   " Note: Source manually to preserve source order
-
-  let s:dko_rc_dir = g:dko_vim_dir . '/rc/'
-  function s:LoadRc(filename)
-    execute 'source ' . s:dko_rc_dir . a:filename
-  endfunction
 
   " ========================================================================
   " Config: Colorscheme
@@ -415,7 +419,20 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   if g:dko_has_completion | call s:LoadRc('completion.vim') | endif
 
   " ========================================================================
-  " Config: CSS
+  " Config: GITCOMMIT mode
+  " ========================================================================
+
+  call s:LoadRc('committia.vim')
+
+  " ========================================================================
+  " Config: Commands: Unite
+  " ========================================================================
+
+  call s:LoadRc('unite.vim')
+  call s:LoadRc('vimfiler.vim')
+
+  " ========================================================================
+  " Config: Language: CSS
   " ========================================================================
 
   call s:LoadRc('colorv.vim')
@@ -423,30 +440,23 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   call s:LoadRc('vim-css3-syntax.vim')
 
   " ========================================================================
-  " Config: Git
-  " ========================================================================
-
-  call s:LoadRc('committia.vim')
-
-  " ========================================================================
-  " Config: PHP
+  " Config: Language: PHP
   " ========================================================================
 
   call s:LoadRc('php.vim')
 
   " ========================================================================
-  " Config: JavaScript
+  " Config: Language: JavaScript
   " ========================================================================
 
   call s:LoadRc('javascript.vim')
   call s:LoadRc('vim-coffee-script.vim')
 
   " ========================================================================
-  " Config: Unite
+  " Config: Language: VimL
   " ========================================================================
 
-  call s:LoadRc('unite.vim')
-  call s:LoadRc('vimfiler.vim')
+  call s:LoadRc('vim-vimlint.vim')
 
   " ========================================================================
   " Config: Others
@@ -462,7 +472,7 @@ if $DOTFILES_DISTRO != 'busybox' && has('autocmd')
   call s:LoadRc('tabular.vim')
   call s:LoadRc('vim-anzu.vim')
   call s:LoadRc('vim-easyclip.vim')
-  "call s:LoadRc('vim-gutentags.vim')
+  if g:dko_use_gutentags | call s:LoadRc('vim-gutentags.vim') | endif
   call s:LoadRc('vim-indent-guides.vim')
   call s:LoadRc('vim-json.vim')
   call s:LoadRc('vim-over.vim')
