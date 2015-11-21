@@ -4,9 +4,6 @@
 [submodule "zsh/antigen"]
 	path = zsh/antigen
 	url = https://github.com/zsh-users/antigen.git
-[submodule "fonts/powerline"]
-	path = fonts/powerline
-	url = git@github.com:powerline/fonts.git
-[submodule "fonts/mplus"]
-	path = fonts/mplus
-	url = git@github.com:larzconwell/m1-powerline-font.git
+[submodule "fonts/nerd-fonts"]
+	path = fonts/nerd-fonts
+	url = git@github.com:ryanoasis/nerd-fonts.git
