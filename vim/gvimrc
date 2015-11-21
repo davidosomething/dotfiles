@@ -6,9 +6,9 @@ set guioptions-=T                     " hide stupid button bar
 " MacVim / VimRefined
 " ============================================================================
 
-if has('gui_macvim') || has('gui_vimr')
+if has('gui_macvim')
   set antialias
-  set guifont=Fira\ Mono\ for\ Powerline:h10
+  set guifont=Fura\ Mono\ for\ Powerline:h10
   set backupcopy=yes                  " keep finder labels!
 
   " only applies to buffers containing a markdown file
@@ -23,16 +23,8 @@ if has('gui_macvim') || has('gui_vimr')
 " ============================================================================
 
 else
-  set guifont=Fira\ Mono\ For\ Powerline\ 8
+  set guifont=Fura\ Mono\ For\ Powerline\ 10
 
-endif
-
-" ============================================================================
-" VimRefined
-" ============================================================================
-
-if has('gui_vimr')
-  set guifont=Fira\ Mono\ for\ Powerline:h14
 endif
 
 " ============================================================================
