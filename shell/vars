@@ -87,7 +87,7 @@ export GIT_PAGER="$PAGER"
 # others ----------------------------------------
 
 # antigen
-export ADOTDIR="$XDG_CONFIG_HOME/.antigen"
+export ADOTDIR="$XDG_CONFIG_HOME/antigen"
 
 # apache
 source_if_exists /etc/apache2/envvars
