@@ -23,7 +23,7 @@ if has('gui_macvim')
 " ============================================================================
 
 else
-  set guifont=Fura\ Mono\ For\ Powerline\ 10
+  set guifont=Fura\ Mono\ For\ Powerline\ 9
 
 endif
 
