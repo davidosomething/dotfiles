@@ -93,3 +93,10 @@ let g:syntastic_python_checkers        = ['prospector', 'python']
 let g:syntastic_shell_checkers         = ['bashate', 'shellcheck']
 let g:syntastic_zsh_checkers           = ['zsh']
 
+" ============================================================================
+" Checker: VimL
+" ============================================================================
+
+" Syntastic checks if they're installed so don't need to check here.
+let g:syntastic_vim_checkers           = ['vimlint', 'vint']
+

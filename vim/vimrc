@@ -72,11 +72,15 @@ if g:dko_use_plugins
   " What to load
   " ==========================================================================
 
+  let g:dko_use_incsearch       = !has('nvim')
+  let g:dko_use_deoplete        = has('nvim') && has('python3')
+  let g:dko_use_neocomplete     = !has('nvim') && has('lua')
+
+  " These get modified later
+  let g:dko_use_airline         = 1
   let g:dko_use_gutentags       = 0
   let g:dko_use_indenttab       = 1
   let g:dko_use_tern_completion = 1
-  let g:dko_use_deoplete        = has('nvim') && has('python3')
-  let g:dko_use_neocomplete     = !has('nvim') && has('lua')
   let g:dko_has_completion      = 0
 
   call plug#begin(g:dko_vim_dir . g:dko_plugdir)
@@ -85,7 +89,6 @@ if g:dko_use_plugins
   " Plug: Appearance/tab/split mgmt
   " ========================================================================
 
-  let g:dko_use_airline = 1
   if g:dko_use_airline | Plug 'bling/vim-airline'
   endif
 
@@ -124,13 +127,10 @@ if g:dko_use_plugins
         \| Plug 'Shougo/unite-outline'
         \| Plug 'Shougo/vimfiler.vim'
 
-  let g:dko_use_solarized = 0
   " <F5> toggle color
   if has('nvim') && g:dko_has_true_color
-    let g:dko_use_solarized = 1
     Plug 'frankier/neovim-colors-solarized-truecolor-only'
   elseif has('gui_running')
-    let g:dko_use_solarized = 1
     Plug 'altercation/vim-colors-solarized'
   endif
 
@@ -381,6 +381,11 @@ if g:dko_use_plugins
   Plug 'ynkdir/vim-vimlparser'
         \| Plug 'syngan/vim-vimlint'
 
+  if executable('vint')
+    Plug 'Kuniwak/vint'
+          \| Plug 'todesking/vint-syntastic'
+  endif
+
   " ========================================================================
   " Language: YAML
   " ========================================================================
@@ -392,7 +397,6 @@ if g:dko_use_plugins
   " ========================================================================
 
   " highlight partial matches as you type in search mode
-  let g:dko_use_incsearch = !has('nvim')
   if g:dko_use_incsearch | Plug 'haya14busa/incsearch.vim'
   endif
 
@@ -416,7 +420,8 @@ if g:dko_use_plugins
   " Config: Colorscheme
   " ========================================================================
 
-  if g:dko_use_solarized
+  if exists("g:plugs['vim-colors-solarized']")
+        \ || exists("g:plugs['neovim-colors-solarized-truecolor-only']")
     " turn off gross italics -- fira sans happens to use ligatures too
     let g:solarized_italic = 0
 
