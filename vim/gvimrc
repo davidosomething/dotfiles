@@ -8,7 +8,7 @@ set guioptions-=T                     " hide stupid button bar
 
 if has('gui_macvim')
   set antialias
-  set guifont=Fura\ Mono\ for\ Powerline:h10
+  set guifont=Fura\ Mono\ For\ Powerline:h12
   set backupcopy=yes                  " keep finder labels!
 
   " only applies to buffers containing a markdown file

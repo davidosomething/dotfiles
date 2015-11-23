@@ -126,6 +126,7 @@ if g:dko_use_plugins
         \| Plug 'Shougo/unite.vim'
         \| Plug 'Shougo/unite-outline'
         \| Plug 'Shougo/vimfiler.vim'
+        \| Plug 'ujihisa/unite-font'
 
   " <F5> toggle color
   if has('nvim') && g:dko_has_true_color
@@ -406,8 +407,6 @@ if g:dko_use_plugins
   " Show (#/total results) when searching for a term
   Plug 'osyo-manga/vim-anzu'
 
-  Plug 'ryanoasis/vim-devicons'
-
   call plug#end()
 
   " ========================================================================
@@ -489,7 +488,6 @@ if g:dko_use_plugins
   call s:LoadRc('syntastic.vim')
   call s:LoadRc('tabular.vim')
   call s:LoadRc('vim-anzu.vim')
-  call s:LoadRc('vim-devicons.vim')
   call s:LoadRc('vim-easyclip.vim')
   if g:dko_use_gutentags | call s:LoadRc('vim-gutentags.vim') | endif
   call s:LoadRc('vim-indent-guides.vim')

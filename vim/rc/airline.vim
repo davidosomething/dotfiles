@@ -41,3 +41,10 @@ let g:airline#extensions#windowswap#enabled = 0
 autocmd vimrc FileType *
       \ unlet! g:airline#extensions#whitespace#checks
 
+if exists("g:plugs['vim-devicons']")
+  function! airline#extensions#tabline#formatters#webdevicons#format(bufnr, buffers)
+    " Call original formatter.
+    let originalFormatter = airline#extensions#tabline#formatters#{g:_webdevicons_airline_orig_formatter}#format(a:bufnr, a:buffers)
+    return WebDevIconsGetFileTypeSymbol(bufname(a:bufnr)) . originalFormatter
+  endfunction
+endif
