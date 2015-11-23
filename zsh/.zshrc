@@ -60,4 +60,3 @@ zsh_reload() {
 source "$DOTFILES/shell/after"
 source_if_exists "$HOME/.fzf.zsh"
 source_if_exists "$HOME/.zshrc.local"
-

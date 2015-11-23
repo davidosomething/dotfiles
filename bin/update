@@ -155,18 +155,17 @@ fi
 if [[ "$1" = "nvm" ]]; then
   nvm_node_version="v0.12"
 
-  if [ ! -d ~/.nvm ]; then
+  if [ ! -d "$NVM_DIR" ]; then
     dkostatus "Installing nvm"
-    git clone https://github.com/creationix/nvm.git ~/.nvm
+    git clone https://github.com/creationix/nvm.git "$NVM_DIR"
   fi
 
   dkostatus "Updating nvm"
-  cd ~/.nvm
+  cd "$NVM_DIR"
   git checkout master
   git fetch --tags
   git checkout "$(git describe --abbrev=0 --tags)"
 
-  NVM_DIR="$HOME/.nvm"
   source "$NVM_DIR/nvm.sh"
 
   dkostatus "Installing and using node version ${nvm_node_version}"

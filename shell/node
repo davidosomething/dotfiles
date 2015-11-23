@@ -1,7 +1,7 @@
 # node
 
 # custom NVM_DIR so we don't pollute home
-export NVM_DIR="$XDG_CONFIG_HOME/.nvm"
+export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 
 if [ -d "$NVM_DIR" ]; then
   source_if_exists "$NVM_DIR/nvm.sh"
