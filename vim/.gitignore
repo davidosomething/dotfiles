@@ -10,6 +10,7 @@
 .colorv_cache_file
 .easyclip
 .netrwhist
+.nviminfo
 .viminfo
 nvimrc
 plug.vim.old

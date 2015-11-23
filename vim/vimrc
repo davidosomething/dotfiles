@@ -703,6 +703,8 @@ set fileformat=unix
 " info file
 if !has('nvim')
   execute 'set viminfo+=n' . expand(g:dko_vim_dir . '/.viminfo')
+else
+  execute 'set viminfo+=n' . expand(g:dko_nvim_dir . '/.nviminfo')
 endif
 
 " swap - useless
