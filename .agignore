@@ -6,3 +6,5 @@ vim/nplugged
 vim/plugged
 zsh/zsh-*
 zsh/antigen
+
+vim/autoload/plug.vim

@@ -36,7 +36,7 @@ endif
 let g:mapleader = "\<Space>"
 
 " ============================================================================
-" My autocmd block
+" My autocmd block - Clear vimrc group's autocmds if reloading
 " ============================================================================
 if has('autocmd')
   augroup vimrc
@@ -56,7 +56,7 @@ if g:dko_use_plugins
   if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
       \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall | source $MYVIMRC
+    autocmd vimrc VimEnter * PlugInstall | source $MYVIMRC
   endif
 
   " Utility function for loading from /rc/
@@ -705,18 +705,28 @@ if !has('nvim')
   execute 'set viminfo+=n' . expand(g:dko_vim_dir . '/.viminfo')
 endif
 
+" swap - useless
+set noswapfile
+
 " backups
-set noswapfile                        " useless
+set backupskip=/tmp/*
 " Make Vim able to edit crontab files again.
-set backupskip=/tmp/*,/private/tmp/*"
+if has('autocmd')
+  set backupskip+=,/private/tmp/*"
+  if has('mac')
+    autocmd vimrc BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
+  endif
+endif
+execute 'set backupdir=' . g:dko_vim_dir . '/.backup//'
+set backup
+
+" undo files
 " double slash means create dir structure to mirror file's path
 set undofile
 set undolevels=500
 set undoreload=500
 execute 'set undodir=' . g:dko_vim_dir . '/.undo//'
-execute 'set backupdir=' . g:dko_vim_dir . '/.backup//'
 execute 'set directory=' . g:dko_vim_dir . '/.swp//'
-set backup
 " Make those folders automatically if they don't already exist.
 " if !isdirectory(expand(&undodir))   | call mkdir(expand(&undodir), "p")   | endif
 " if !isdirectory(expand(&backupdir)) | call mkdir(expand(&backupdir), "p") | endif
@@ -764,12 +774,6 @@ let g:markdown_fenced_languages = [
 if has('autocmd')
   " Resize splits when the window is resized
   autocmd vimrc VimResized * :wincmd =
-
-  " crontab on OSX needs a tempfile
-  if has('mac')
-    autocmd vimrc BufEnter /private/tmp/crontab.*
-          \ setlocal backupcopy=yes
-  endif
 
   " No EOL character on files -- specifically for WP VIP PHP
   autocmd vimrc BufRead,BufNewFile */wp-content/themes/vip/*

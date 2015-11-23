@@ -29,8 +29,10 @@ let g:phpcomplete_parse_docblock_comments = 1
 " pdv.vim
 " ============================================================================
 
-let g:pdv_template_dir = expand(g:dko_vim_dir . g:dko_plugdir . '/pdv/templates')
+let g:pdv_template_dir =
+      \ expand(g:dko_vim_dir . g:dko_plugdir . '/pdv/templates')
 
 autocmd vimrc FileType php
-      \ nnoremap <buffer> <silent> <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+      \ nnoremap <buffer> <silent>
+      \   <Leader>pd :call pdv#DocumentCurrentLine()<CR>
 

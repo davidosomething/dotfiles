@@ -2,19 +2,21 @@
 " Omni-completion by filetype
 " ============================================================================
 
-autocmd vimrc FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-autocmd vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+augroup vimrc
+  autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 
-" may be later overridden for tern
-autocmd vimrc FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+  " may be later overridden for tern
+  autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
 
-" built-in, also phpcomplete-extended provides support
-" @see <https://github.com/shawncplus/phpcomplete.vim/issues/55#issuecomment-72163856>
-"autocmd vimrc FileType php setlocal omnifunc=phpcomplete#CompletePHP
+  " built-in, also phpcomplete-extended provides support
+  " @see <https://github.com/shawncplus/phpcomplete.vim/issues/55#issuecomment-72163856>
+  "autocmd vimrc FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
-autocmd vimrc FileType python        setlocal omnifunc=pythoncomplete#Complete
-autocmd vimrc FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd vimrc FileType ruby          setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+augroup end
 
 " ============================================================================
 " IndentTab
@@ -87,7 +89,8 @@ if exists('g:plugs["neocomplete.vim"]')
   let g:neocomplete#enable_smart_case            = 1
   let g:neocomplete#enable_camel_case            = 1
   let g:neocomplete#enable_fuzzy_completion      = 0
-  let g:neocomplete#data_directory = expand(g:dko_vim_dir . '/.cache/neocomplete')
+  let g:neocomplete#data_directory =
+        \ expand(g:dko_vim_dir . '/.cache/neocomplete')
 
   " completion sources
   let g:neocomplete#sources#syntax#min_keyword_length = 3
@@ -139,11 +142,13 @@ if exists('g:plugs["tern_for_vim"]')
 
     " JavaScript -----------------------------------------------------------------
     let g:neocomplete#sources#omni#functions.javascript = 'tern#Complete'
-    let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+    let g:neocomplete#sources#omni#input_patterns.javascript =
+          \ '\h\w*\|[^. \t]\.\w*'
 
     " CoffeeScript ---------------------------------------------------------------
     let g:neocomplete#sources#omni#functions.coffee = 'tern#Complete'
-    let g:neocomplete#sources#omni#input_patterns.coffee = '\h\w*\|[^. \t]\.\w*'
+    let g:neocomplete#sources#omni#input_patterns.coffee =
+          \ '\h\w*\|[^. \t]\.\w*'
 
     " TypeScript -----------------------------------------------------------------
     let g:neocomplete#sources#omni#functions.typescript = 'tern#Complete'
