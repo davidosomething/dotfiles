@@ -1,3 +1,4 @@
 bashate
+neovim
 prospector
 Pygments
