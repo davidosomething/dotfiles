@@ -11,6 +11,16 @@ bootstrap_path="$dotfiles_path/bootstrap"
 source "$bootstrap_path/helpers.sh"
 
 
+_clean_bash_history() {
+  if [ -f "$HOME/.bash_history" ]; then
+    dkostatus_ "Moved to and removed $BASH_DOTFILES/.bash_history"
+    mv "$HOME/.bash_history" "$BASH_DOTFILES/"
+  else
+    dkostatus_ "OK"
+  fi
+}
+
+
 _clean_nvm() {
   if [ "$NVM_DIR" != "$XDG_CONFIG_HOME/nvm" ]; then
     dkoerr "NVM_DIR not set properly. Should be $XDG_CONFIG_HOME/nvm"
@@ -40,6 +50,9 @@ _clean_nvm() {
 
 
 # begin ------------------------------------------------------------------------
+dkostatus "Cleaning .bash_history"
+_clean_bash_history
+
 dkostatus "Cleaning NVM dir"
 _clean_nvm
 
