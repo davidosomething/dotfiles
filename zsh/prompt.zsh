@@ -89,7 +89,8 @@ _set_prompt() {
   PROMPT+='${vcs_info_msg_0_}'
   PROMPT+='%F{blue}%#%f '
 
-  RPROMPT='%F{blue}$(virtualenv_prompt_info)'
+  # RPROMPT='%F{red}n$(nvm_ls current)'
+  # RPROMPT+='%F{blue}p$(virtualenv_prompt_info)'
 }
 
 _set_prompt

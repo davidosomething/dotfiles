@@ -4,8 +4,7 @@
 export DKO_SOURCE="$DKO_SOURCE -> zshenv"
 source "$HOME/.dotfiles/shell/loader"
 
-ZSH_CACHE_DIR="$XDG_CACHE_HOME/zshcache"
-export ZSH_CACHE_DIR
+export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zshcache"
 
 # Paths ------------------------------------------------------------------------
 # remove duplicates in path arrays

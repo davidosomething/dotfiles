@@ -1,8 +1,3 @@
-# # Default to python2 for nvm compatibility
-# [[ $DOTFILES_DISTRO = "archlinux" ]] && {
-#   export PYTHON="python2"
-# }
-
 # ==============================================================================
 # VirtualEnv setup
 # ==============================================================================
@@ -28,23 +23,9 @@ virtualenv_info() {
 }
 
 # Auto-init default virtualenv
-dko_virtualenv_wrapper="$(which virtualenvwrapper_lazy.sh)"
-if [ -n "$dko_virtualenv_wrapper" ]; then
-  source "$dko_virtualenv_wrapper"
-else
-  source_if_exists /usr/bin/virtualenvwrapper_lazy.sh \
-  || source_if_exists /usr/bin/virtualenvwrapper.sh
-fi
-
-
-# PYTHONPATH is unnecessary since I don't use custom python libs
-# and have both 2 and 3 installed
-# [[ $DOTFILES_OS = "Darwin" ]] && {
-#   # python
-#   osx_python_path="/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
-#   [[ -d "${osx_python_path}" ]] && {
-#     export PYTHONPATH="${osx_python_path}:${PYTHONPATH}"
-#   }
-# }
+# dko_virtualenv_wrapper="$(which virtualenvwrapper_lazy.sh)"
+# source_if_exists "$dko_virtualenv_wrapper" \
+# || source_if_exists /usr/bin/virtualenvwrapper_lazy.sh \
+# || source_if_exists /usr/bin/virtualenvwrapper.sh
 
 # vim: syn=sh :
