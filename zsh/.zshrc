@@ -23,7 +23,6 @@ source_if_exists "$ZDOTDIR/antigen/antigen.zsh" && {
   antigen bundle colored-man-pages
   antigen bundle git-extras
   antigen bundle golang
-  antigen bundle rimraf/k
   antigen bundle tonyseek/oh-my-zsh-virtualenv-prompt
   antigen bundle zsh-users/zsh-syntax-highlighting
   antigen bundle zsh-users/zsh-completions src

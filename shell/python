@@ -23,8 +23,8 @@ virtualenv_info() {
 }
 
 # Auto-init default virtualenv
-# dko_virtualenv_wrapper="$(which virtualenvwrapper_lazy.sh)"
-# source_if_exists "$dko_virtualenv_wrapper" \
+dko_virtualenv_wrapper="$(which virtualenvwrapper_lazy.sh)"
+source_if_exists "$dko_virtualenv_wrapper"
 # || source_if_exists /usr/bin/virtualenvwrapper_lazy.sh \
 # || source_if_exists /usr/bin/virtualenvwrapper.sh
 
