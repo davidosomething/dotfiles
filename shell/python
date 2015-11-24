@@ -7,6 +7,9 @@
 # VirtualEnv setup
 # ==============================================================================
 
+# Safety -- only allow pip installs in a virtualenv
+export PIP_REQUIRE_VIRTUALENV=true
+
 # Default virtualenv
 export WORKON_HOME="$HOME/.local/virtualenv"
 
@@ -25,7 +28,13 @@ virtualenv_info() {
 }
 
 # Auto-init default virtualenv
-source_if_exists /usr/bin/virtualenvwrapper.sh
+dko_virtualenv_wrapper="$(which virtualenvwrapper_lazy.sh)"
+if [ -n "$dko_virtualenv_wrapper" ]; then
+  source "$dko_virtualenv_wrapper"
+else
+  source_if_exists /usr/bin/virtualenvwrapper_lazy.sh \
+  || source_if_exists /usr/bin/virtualenvwrapper.sh
+fi
 
 
 # PYTHONPATH is unnecessary since I don't use custom python libs
