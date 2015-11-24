@@ -1,7 +1,32 @@
-# Default to python2 for nvm compatibility
-[[ $DOTFILES_DISTRO = "archlinux" ]] && {
-  export PYTHON="python2"
+# # Default to python2 for nvm compatibility
+# [[ $DOTFILES_DISTRO = "archlinux" ]] && {
+#   export PYTHON="python2"
+# }
+
+# ==============================================================================
+# VirtualEnv setup
+# ==============================================================================
+
+# Default virtualenv
+export WORKON_HOME="$HOME/.local/virtualenv"
+
+# Disable auto-add virtualenv name to prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+# Assign global var to virtualenv name
+virtualenv_info() {
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+      # Strip out the path and just leave the env name
+      venv="${VIRTUAL_ENV##*/}"
+  else
+      venv=''
+  fi
+  [[ -n "$venv" ]] && echo "$venv"
 }
+
+# Auto-init default virtualenv
+source_if_exists /usr/bin/virtualenvwrapper.sh
+
 
 # PYTHONPATH is unnecessary since I don't use custom python libs
 # and have both 2 and 3 installed

@@ -83,10 +83,13 @@ _set_prompt() {
   [ "$USER" = 'root' ] && prompt_user='%F{white}%n'
   [ "$SSH_CONNECTION" != '' ] && prompt_host='%F{white}%m'
 
-  PROMPT='${prompt_user}%F{blue}@${prompt_host}%F{blue}:%F{yellow}%~'$'\n'
+  PROMPT='${prompt_user}%F{blue}@${prompt_host}%F{blue}:'
+  PROMPT+='%F{yellow}%~'$'\n'
   PROMPT+='%f%*%F{blue}${vimode}'
   PROMPT+='${vcs_info_msg_0_}'
   PROMPT+='%F{blue}%#%f '
+
+  RPROMPT='%F{blue}$(virtualenv_prompt_info)'
 }
 
 _set_prompt
