@@ -87,6 +87,28 @@ let g:syntastic_php_checkers           = ['php', 'phpcs', 'phplint', 'phpmd']
 let g:syntastic_python_checkers        = ['prospector', 'python']
 
 " ============================================================================
+" Checker: scss_lint
+" ============================================================================
+
+let s:dko_scsslint_config = expand("$DOTFILES/scss-lint/.scss-lint.yml")
+if !empty(glob(s:dko_scsslint_config))
+  let g:syntastic_scss_scss_lint_args = "--config=" . s:dko_scsslint_config
+endif
+
+function! g:DKO_scsslint_root()
+  if !empty('g:syntastic_scss_scss_lint_args')
+    unlet g:syntax_scss_scss_lint_args
+  endif
+
+  let l:root = systemlist('git rev-parse --show-toplevel')[0]
+  if !empty(glob(expand(l:root . '/.scss-lint.yml')))
+    let g:syntastic_scss_scss_lint_args = '--config ' . l:root
+  endif
+
+  SyntasticCheck
+endfunction
+
+" ============================================================================
 " Checker: Shell
 " ============================================================================
 
