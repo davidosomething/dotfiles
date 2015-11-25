@@ -31,7 +31,6 @@ alias df="df -h"
 alias f="find"
 alias grep="grep --color=auto"
 alias gw="grunt watch"
-alias irssi='irssi --home=$XDG_CONFIG_HOME/irssi'
 alias ln="ln -v"
 alias n="npm"
 alias o="dko-open"
