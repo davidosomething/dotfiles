@@ -5,17 +5,16 @@ export DKO_SOURCE="$DKO_SOURCE -> shell after"
 
 # additional completions
 has_program "npm"   && eval "$(npm completion)"
-has_program "grunt" && {
-  if [ -n "$ZSH_VERSION" ]; then
-    eval "$(grunt --completion=zsh)"
-  else
-    eval "$(grunt --completion=bash)"
-  fi
-}
+
+# has_program "grunt" && {
+#   if [ -n "$ZSH_VERSION" ]; then
+#     eval "$(grunt --completion=zsh)"
+#   else
+#     eval "$(grunt --completion=bash)"
+#   fi
+# }
 
 # start at ~ for each terminator tab
-if [ -n "$TERMINATOR_UUID" ]; then
-  cd
-fi
+[ -n "$TERMINATOR_UUID" ] && cd
 
 # vim: syn=sh :
