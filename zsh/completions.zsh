@@ -1,7 +1,9 @@
 # fpaths are set in zshenv
 # load completion - the -U means look in fpath, -z means on first run
 # -i means ignore security errors
-autoload -Uz compinit && compinit -i
+#autoload -Uz compinit && compinit -i
+# Commented out since this script is sourced before antigen now and antigen
+# will do this
 
 # in Bold, specify what type the completion is, e.g. a file or an alias or a cmd
 zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
@@ -10,7 +12,9 @@ zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
 zstyle ':completion:*' group-name ''
 
 # colorful completion
-zstyle ':completion:*' list-colors ''
+#zstyle ':completion:*' list-colors ''
+# Updated to respect LS_COLORS
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}  
 
 zstyle ':completion:*' list-dirs-first yes
 

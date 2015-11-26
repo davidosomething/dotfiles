@@ -8,16 +8,32 @@ source "$DOTFILES/shell/before"
 
 export DKO_SOURCE="$DKO_SOURCE -> zshrc"
 
-# helpfiles
-has_program "brew" && {
-  # use homebrew bundled zsh helpfiles for online help
-  export HELPDIR="$BREW_PREFIX/share/zsh/helpfiles"
-  unalias run-help
-  autoload run-help
-}
+# ==============================================================================
+# my zsh settings
+# ==============================================================================
 
-# plugins ----------------------------------------------------------------------
+scripts=(
+  "options"
+  "keybindings"
+  "completions"
+  "title"
+  "prompt"
+)
+for script in $scripts; do; source "$ZDOTDIR/$script.zsh"; done; unset script
+
+# ==============================================================================
+# nocorrect
+# ==============================================================================
+
+alias cp="nocorrect cp"
+alias mv="nocorrect mv"
+alias rm="nocorrect rm"
+alias mkdir="nocorrect mkdir"
+
+# ==============================================================================
 # antigen
+# ==============================================================================
+
 source_if_exists "$ZDOTDIR/antigen/antigen.zsh" && {
   antigen bundle autojump
   antigen bundle colored-man-pages
@@ -29,22 +45,27 @@ source_if_exists "$ZDOTDIR/antigen/antigen.zsh" && {
   antigen apply
 }
 
-# load all zsh specific scripts ------------------------------------------------
-scripts=(
-  "options"
-  "keybindings"
-  "completions"
-  "title"
-  "prompt"
-)
-for script in $scripts; do; source "$ZDOTDIR/$script.zsh"; done; unset script
+# ==============================================================================
+# fzf
+# ==============================================================================
 
-alias cp="nocorrect cp"
-alias mv="nocorrect mv"
-alias rm="nocorrect rm"
-alias mkdir="nocorrect mkdir"
+source_if_exists "$HOME/.fzf.zsh"
 
+# ==============================================================================
+# prefer homebrew zsh's helpfiles
+# ==============================================================================
+
+[ -d "$BREW_PREFIX/share/zsh/helpfiles" ] && {
+  # use homebrew bundled zsh helpfiles for online help
+  export HELPDIR="$BREW_PREFIX/share/zsh/helpfiles"
+  unalias run-help
+  autoload run-help
+}
+
+# ==============================================================================
 # zsh_reload
+# ==============================================================================
+
 zsh_reload() {
   local cache=$ZSH_CACHE_DIR
   autoload -U compinit zrecompile
@@ -57,6 +78,9 @@ zsh_reload() {
   source $ZDOTDIR/.zshrc
 }
 
+# ==============================================================================
+# post
+# ==============================================================================
+
 source "$DOTFILES/shell/after"
-source_if_exists "$HOME/.fzf.zsh"
 source_if_exists "$HOME/.zshrc.local"
