@@ -5,16 +5,13 @@
 # Commented out since this script is sourced before antigen now and antigen
 # will do this
 
-# in Bold, specify what type the completion is, e.g. a file or an alias or a cmd
-zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
-
 # group all by the description above
 zstyle ':completion:*' group-name ''
 
 # colorful completion
 #zstyle ':completion:*' list-colors ''
 # Updated to respect LS_COLORS
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}  
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 zstyle ':completion:*' list-dirs-first yes
 
@@ -27,6 +24,9 @@ zstyle ':completion:*' expand 'yes'
 
 # don't autocomplete homedirs
 zstyle ':completion::complete:cd:*' tag-order '! users'
+
+# in Bold, specify what type the completion is, e.g. a file or an alias or a cmd
+zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
 
 # use /etc/hosts and known_hosts for hostname completion
 [[ -f ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
@@ -47,6 +47,10 @@ zstyle ':completion:*' users ''
 
 # show descriptions for options
 zstyle ':completion:*' verbose yes
+
+# Use caching for commands that would like a cache.
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${ZDOTDIR}/.zcache"
 
 # if has_program "lunchy" && [ "$DOTFILES_OS" = "Darwin" ]; then
 #   LUNCHY_DIR=$(dirname "$(which lunchy)")/../extras
