@@ -2,6 +2,7 @@ logs
 z/.z
 z/.z.*
 
+zsh/.zcache
 zsh/antibody
 
 .bash_history

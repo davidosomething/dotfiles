@@ -66,8 +66,6 @@ export EGR_EDITOR="$DOTFILES/bin/vopen"
 export DIFFPROG="$DOTFILES/bin/vopen-nofork -d"
 # for arch wiki lite
 export wiki_browser="chromium"
-# hardware accel for nvidia
-export LIBVA_DRIVER_NAME="vdpau"
 
 # pager ----------------------------------------
 # less
@@ -99,10 +97,6 @@ export ATOM_HOME="$XDG_CONFIG_HOME/atom"
 # overridden in homebrew section if has brew
 export CHPHP_PREFIX="/usr"
 
-# chruby
-# overridden in homebrew section if has brew
-export CHRUBY_PREFIX="/usr"
-
 # docker
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/.docker"
 
@@ -131,6 +125,8 @@ export GOPATH="$HOME/go"
 # nvidia on linux
 export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+# hardware accel for nvidia on arch
+export LIBVA_DRIVER_NAME="vdpau"
 
 # python moved to shell/python
 source "$DOTFILES/shell/python"
@@ -141,6 +137,9 @@ export R_LIBS_USER="$HOME/.local/lib/R/library/"
 
 # readline
 export INPUTRC="$DOTFILES/shell/.inputrc"
+
+# overridden in homebrew section if has brew
+export CHRUBY_PREFIX="/usr"
 
 # shellcheck
 export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC2148"
@@ -156,6 +155,7 @@ export VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant"
 # export VOPEN_VISUAL="nvim"
 
 # X11
+export XAUTHORITY="$XDG_RUNTIME_DIR/X11/xauthority"
 export XINITRC="$DOTFILES/linux/x/.xinitrc"
 
 # ------------------------------------------------------------------------------
