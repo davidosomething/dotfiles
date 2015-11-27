@@ -5,9 +5,10 @@ servers = (
   {
     address = "chat.freenode.net";
     chatnet = "Freenode";
-    port = "6667";
-    use_ssl = "no";
-    ssl_verify = "no";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_verify = "yes";
+    ssl_capath = "/etc/ssl/certs";
     autoconnect = "yes";
   },
   {
@@ -383,5 +384,6 @@ settings = {
     nick = "davidosomething";
   };
   "fe-text" = { actlist_sort = "refnum"; };
+  "irc/core" = { alternate_nick = "davidoghosting"; };
 };
 ignores = ( { level = "JOINS PARTS QUITS"; } );
