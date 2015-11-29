@@ -54,39 +54,41 @@ override_utf8_locale no
 ##############################################
 TEXT
 ${color 88bbee}SYSTEM ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
-Kernel:      $alignr${kernel} ${machine}
-Hostname:    $alignr${nodename}
-User:        $alignr${USER}
-Session:     $alignr${DESKTOP_SESSION}
+Kernel:      ${alignr}${kernel} ${machine}
+Hostname:    ${alignr}${nodename}
+User:        ${alignr}${USER}
+Session:     ${alignr}${DESKTOP_SESSION}
 
 ${color 88bbee}HARDWARE ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
-Uptime:      $alignr${uptime}
-Load:        $alignr${loadavg}
-Temperature: $alignr${acpitemp} F
+Uptime:      ${alignr}${uptime}
+Load:        ${alignr}${loadavg}
+Temperature: ${alignr}${acpitemp} F
 
 ${color 88bbee}NETWORK ${color 1c1c1c}${stippled_hr 2}${color aaccdd}${if_up wlan0}
-SSID:        $alignr${wireless_essid wlan0}
-LAN IP:      $alignr${addr wlan0}${endif}${if_up wlp3s0}
-SSID:        $alignr${wireless_essid wlp3s0}
-LAN IP:      $alignr${addr wlp3s0}
-WAN IP:      $alignr${execi 3600 dig +short myip.opendns.com @resolver1.opendns.com}${endif}
+Interface:   ${alignr}wlan0
+SSID:        ${alignr}${wireless_essid wlan0}
+LAN IP:      ${alignr}${addr wlan0}${endif}${if_up wlp3s0}
+Interface:   ${alignr}wlp3s0
+SSID:        ${alignr}${wireless_essid wlp3s0}
+LAN IP:      ${alignr}${addr wlp3s0}
+WAN IP:      ${alignr}${execi 3600 dig +short myip.opendns.com @resolver1.opendns.com}${endif}
 
 ${color 88bbee}DISK ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
-${color aaccdd}Disk usage:  $alignr${fs_used /}/${fs_size /}
-${color aaccdd}/Root: $alignc${fs_used /} / ${fs_size /}$alignr ${fs_used_perc /}%
+${color aaccdd}Disk usage:  ${alignr}${fs_used /}/${fs_size /}
+${color aaccdd}/Root: ${alignc}${fs_used /} / ${fs_size /}${alignr} ${fs_used_perc /}%
 ${color 1c1c1c}${fs_bar /}
-${color aaccdd}/Home: $alignc${fs_used /home} / ${fs_size /home}$alignr ${fs_used_perc /home}%
+${color aaccdd}/Home: ${alignc}${fs_used /home} / ${fs_size /home}${alignr} ${fs_used_perc /home}%
 ${color 1c1c1c}${fs_bar /home}
 
 ${color 88bbee}CPU ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
-${color aaccdd}CPU usage: $alignr${cpu cpu0}%
+${color aaccdd}CPU usage: ${alignr}${cpu cpu0}%
 ${color aaccdd}CPU 1: ${cpu cpu1}% ${color 1c1c1c}${cpubar cpu1}
 ${color aaccdd}CPU 2: ${cpu cpu2}% ${color 1c1c1c}${cpubar cpu2}
 ${color aaccdd}CPU 3: ${cpu cpu3}% ${color 1c1c1c}${cpubar cpu3}
 ${color aaccdd}CPU 4: ${cpu cpu4}% ${color 1c1c1c}${cpubar cpu4}
 
 ${color 88bbee}MEMORY ${color 1c1c1c}${stippled_hr 2}${color aaccdd}
-${color aaccdd}RAM   $alignc $mem / $memmax $alignr $memperc%
+${color aaccdd}RAM   ${alignc}$mem / $memmax ${alignr} $memperc%
 ${color 1c1c1c}$membar
 
 ${color 88bbee}TOP ${color 1c1c1c}${stippled_hr 2}${color aaccdd}

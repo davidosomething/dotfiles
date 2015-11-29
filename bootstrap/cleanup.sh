@@ -42,11 +42,22 @@ _clean_nvm() {
   if [ -d "$XDG_CONFIG_HOME/.nvm" ]; then
     mv "$XDG_CONFIG_HOME/.nvm/*" "$NVM_DIR"
     rm -rf "$XDG_CONFIG_HOME/.nvm"
-    dkostatus_ "Moved to and removed $XDG_CONFIG_HOME/.nvm"
+    dkostatus_ "Moved $XDG_CONFIG_HOME/.nvm"
   else
     dkostatus_ "OK"
   fi
 }
+
+
+_clean_pylint() {
+  if [ -d "$HOME/.pylint" ]; then
+    dkostatus_ "Moved $XDG_CONFIG_HOME/pylint"
+    mv "$HOME/.pylint.d" "$XDG_CONFIG_HOME/pylint"
+  else
+    dkostatus_ "OK"
+  fi
+}
+
 
 
 # begin ------------------------------------------------------------------------
@@ -55,4 +66,7 @@ _clean_bash_history
 
 dkostatus "Cleaning NVM dir"
 _clean_nvm
+
+dkostatus "Cleaning pylint dir"
+_clean_pylint
 
