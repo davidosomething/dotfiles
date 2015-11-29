@@ -1,10 +1,17 @@
 # Shell - after commands
 # Run before .zshrc.local .bashrc.local
 
-export DKO_SOURCE="$DKO_SOURCE -> shell after"
+export DKO_SOURCE="$DKO_SOURCE -> shell/after"
 
-# additional completions
+# ==============================================================================
+# NPM completion
+# ==============================================================================
+
 has_program "npm"   && eval "$(npm completion)"
+
+# ==============================================================================
+# Grunt completion
+# ==============================================================================
 
 # has_program "grunt" && {
 #   if [ -n "$ZSH_VERSION" ]; then
@@ -13,6 +20,33 @@ has_program "npm"   && eval "$(npm completion)"
 #     eval "$(grunt --completion=bash)"
 #   fi
 # }
+
+# ==============================================================================
+# hub -> git alias
+# ==============================================================================
+
+has_program "hub" && eval "$(hub alias -s)"
+
+# ==============================================================================
+# Node, PHP, Ruby
+# ==============================================================================
+
+# These add to path
+source_if_exists "$CHPHP_PREFIX/share/chphp/chphp.sh"
+source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
+source "$DOTFILES/shell/node"
+
+# ==============================================================================
+# Z
+# ==============================================================================
+
+export _Z_CMD="j"
+export _Z_DATA="$HOME/.local/z"
+source $DOTFILES/shell/z/z.sh
+
+# ==============================================================================
+# Terminator
+# ==============================================================================
 
 # start at ~ for each terminator tab
 [ -n "$TERMINATOR_UUID" ] && cd

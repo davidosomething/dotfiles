@@ -1,18 +1,16 @@
 # shell before
-
+#
 # Sourced by .bashrc and .zshrc
 # Run on both bash and zsh, in interactive shells
-# Runs right after loader, runs every new shell/subshell
+#
 
-export DKO_SOURCE="$DKO_SOURCE -> shell before"
+export DKO_SOURCE="$DKO_SOURCE -> shell/before {"
 
-# These add to path
-source_if_exists "$CHPHP_PREFIX/share/chphp/chphp.sh"
-source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
-source "$HOME/.dotfiles/shell/node"
-has_program "hub" && eval "$(hub alias -s)"
+source "$DOTFILES/shell/path"
+source "$DOTFILES/shell/os"
+source "$DOTFILES/shell/functions" # source_if_exists, has_program
+source "$DOTFILES/shell/python"
+source "$DOTFILES/shell/aliases"
 
-# Reset aliases for shell
-source "$HOME/.dotfiles/shell/aliases"
-
+export DKO_SOURCE="$DKO_SOURCE }"
 # vim: syn=sh :

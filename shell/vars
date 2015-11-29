@@ -7,60 +7,24 @@
 # and we may need to reset the values
 #
 
-# Already sourced vars?
-[ -z "$DKO_VARS" ] && return
-export DKO_VARS=1
+export DKO_SOURCE="$DKO_SOURCE -> shell/vars {"
 
-export DKO_SOURCE="$DKO_SOURCE -> shell/vars"
+source "$HOME/.dotfiles/shell/xdg"
 
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
 # ==============================================================================
-# dotfile paths
+# Dotfile paths
 # ==============================================================================
 
 export DOTFILES="$HOME/.dotfiles"
 export BASH_DOTFILES="$DOTFILES/bash"
-export ZDOTDIR="$DOTFILES/zsh"
 export VIM_DOTFILES="$DOTFILES/vim"
 
 # ==============================================================================
-# LP_OS detection, default to Linux
+# History
 # ==============================================================================
-
-# https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
-case $(uname -s) in
-    FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
-    DragonFly) export DOTFILES_OS="FreeBSD" ;;
-    OpenBSD)   export DOTFILES_OS="OpenBSD" ;;
-    Darwin)    export DOTFILES_OS="Darwin"  ;;
-    SunOS)     export DOTFILES_OS="SunOS"   ;;
-    *)         export DOTFILES_OS="Linux"   ;;
-esac
-[[ $DOTFILES_OS = "Darwin" ]] && {
-  case "$(sw_vers -productVersion)" in
-    10.7*) export DOTFILES_DISTRO="lion"          ;;
-    10.8*) export DOTFILES_DISTRO="mountainlion"  ;;
-    10.9*) export DOTFILES_DISTRO="mavericks"     ;;
-  esac
-}
-[[ $DOTFILES_OS = "Linux" ]] && {
-  [[ -f "/etc/debian_version" ]] && export DOTFILES_DISTRO="debian"
-  [[ -f "/etc/arch-release" ]]   && export DOTFILES_DISTRO="archlinux"
-  [[ -x "/bin/busybox" ]]        && export DOTFILES_DISTRO="busybox"
-}
-
-# ==============================================================================
-# Shell settings
-# ==============================================================================
-
-# xdg-user-dirs
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-# the user dirs aren't defined on OSX
-[[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]] && source "$XDG_CONFIG_HOME/user-dirs.dirs"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
 
 export SAVEHIST=1000
 export HISTSIZE=1000
@@ -68,7 +32,10 @@ export HISTFILESIZE="$HISTSIZE"
 export HISTCONTROL=ignoredups
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
-# program settings -------------------------------------------------------------
+# ==============================================================================
+# program settings
+# ==============================================================================
+
 # for rsync and cvs
 export ACKRC="$DOTFILES/ack/.ackrc"
 export CVSIGNORE="$DOTFILES/git/.gitignore"
@@ -141,8 +108,7 @@ export JAVA_FONTS=/usr/share/fonts/TTF
 
 # node moved to shell/node, loaded for shells only in shell/before
 
-# python moved to shell/python
-source "$DOTFILES/shell/python"
+# python moved to shell/node, loaded for shells only in shell/before
 
 # R
 export R_ENVIRON_USER="$DOTFILES/r/.Renviron"
@@ -185,4 +151,6 @@ command -v "brew" >/dev/null 2>&1 && {
   unset PYTHONPATH
 }
 
+
+export DKO_SOURCE="$DKO_SOURCE }"
 # vim: syn=sh :

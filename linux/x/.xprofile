@@ -8,10 +8,13 @@
 #     -> /usr/share/xsessions .desktop file (runs before WM/DE, e.g. openbox)
 #
 
-# Load vars early
-[ -z "$DKO_VARS" ] && [ -f "$HOME/.dotfiles/shell/vars" ] && source "$HOME/.dotfiles/shell/vars"
+export DKO_SOURCE="$DKO_SOURCE -> .xprofile {"
 
-export DKO_SOURCE="$DKO_SOURCE -> .xprofile"
+source "$HOME/.dotfiles/shell/vars"
+
+# ==============================================================================
+# Shell
+# ==============================================================================
 
 export BROWSER=chromium
 
@@ -19,7 +22,6 @@ export BROWSER=chromium
 # X11
 # ==============================================================================
 
-export XAUTHORITY="$XDG_RUNTIME_DIR/X11/xauthority"
 export XINITRC="$DOTFILES/linux/x/.xinitrc"
 
 # X11 xbindkeys -- no longer used, gnome's key settings are fine
@@ -77,7 +79,10 @@ export STEAMAPPS="$HOME/.steam/steam/SteamApps"
 # ==============================================================================
 # Wine
 # ==============================================================================
-export WINEPREFIX="$HOME/.config/wine"
+export WINEPREFIX="$XDG_CONFIG_HOME/wine"
 export WINEARCH=win32
+
+
+export DKO_SOURCE="$DKO_SOURCE }"
 
 # vim: syn=sh :

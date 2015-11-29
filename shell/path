@@ -2,11 +2,25 @@
 # Sourced in bash and zsh by loader
 # chruby, chphp, node are run after this
 
+export DKO_SOURCE="$DKO_SOURCE -> shell/path"
+
+# ==============================================================================
+# Store default system path
+# ==============================================================================
+
+# Probably created via /etc/profile and /etc/profile.d/*
+#
+# On OSX/BSD path_helper is run in /etc/profile, which generates paths using
+# /etc/paths and /etc/paths.d/* and defines the initial $PATH
+# Something like "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
+#
+# On arch, via /etc/profile, default path is:
+# /usr/local/sbin:/usr/local/bin:/usr/bin
+export DKO_SYSTEM_PATH="$PATH:$DKO_SYSTEM_PATH"
+
 # _add_my_paths
 #
-# Depends on loader setting DKO_SYSTEM_PATH
-#
-_add_my_paths() {
+dko_add_paths() {
   # Begin my_path composition --------------------------------------------------
   # On BSD system, e.g. Darwin -- path_helper is called, reads /etc/paths
   # Move local bin to front for homebrew compatibility
@@ -47,9 +61,9 @@ _add_my_paths() {
 
   # local ----------------------------------------------------------------------
   my_path="$HOME/bin/neovim/bin:$HOME/bin:$DOTFILES/bin:$my_path"
-  export PATH="$my_path"
+  echo "$my_path"
 }
 
-_add_my_paths
+export PATH="$(dko_add_paths)"
 
 # vim: syn=sh

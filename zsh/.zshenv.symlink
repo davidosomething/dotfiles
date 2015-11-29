@@ -1,27 +1,9 @@
+# .zshenv
+#
 # OUTPUT FORBIDDEN
 # zshenv is always sourced, even for bg jobs
+#
 
-export DKO_SOURCE="$DKO_SOURCE -> zshenv"
-source "$HOME/.dotfiles/shell/loader"
-
-export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zshcache"
-
-# Paths ------------------------------------------------------------------------
-# remove duplicates in path arrays
-typeset -U path cdpath manpath
-
-# Autoload function paths, add tab completion paths, top precedence
-has_program "brew" && {
-  fpath=(
-    "$BREW_PREFIX/share/zsh/site-functions"
-    "$BREW_PREFIX/share/zsh-completions"
-    $fpath
-  )
-}
-
-# remove duplicates in fpath array
-typeset -U fpath
-
-# Vars -------------------------------------------------------------------------
-export HISTFILE="$ZDOTDIR/.zhistory"
+export DKO_SOURCE="$DKO_SOURCE -> zshenv (set zdotdir)"
+export ZDOTDIR="$HOME/.dotfiles/zsh"
 

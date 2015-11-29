@@ -1,28 +1,33 @@
 # .bashrc
 
-[ "$DKO_LOADER" != $$ ] && source "$HOME/.dotfiles/shell/loader"
-source "$HOME/.dotfiles/shell/before"
+# ==============================================================================
+# Before
+# ==============================================================================
 
-export DKO_SOURCE="$DKO_SOURCE -> .bashrc"
+export DKO_SOURCE="$DKO_SOURCE -> .bashrc {"
+source "$HOME/.dotfiles/shell/vars"
+source "$DOTFILES/shell/before"
 
-# BASH shell specific
-for script in "options" "completions" "prompt"; do
-  source "$BASH_DOTFILES/${script}.bash"
-done
-unset script
+# ==============================================================================
+# Plugins
+# ==============================================================================
 
-source "$HOME/.dotfiles/shell/after"
 source_if_exists "$HOME/.fzf.bash"
 
-case "$OSTYPE" in
-  darwin*)
-    [[ -s "$BREW_PREFIX/etc/profile.d/autojump.sh" ]] && \
-    . "$BREW_PREFIX/etc/profile.d/autojump.sh"
-    ;;
-  linux*)
-    ;;
-esac
+# ==============================================================================
+# Main
+# ==============================================================================
 
+source "$BASH_DOTFILES/options.bash"
+source "$BASH_DOTFILES/completions.bash"
+source "$BASH_DOTFILES/prompt.bash"
+
+# ==============================================================================
+# After
+# ==============================================================================
+
+source "$DOTFILES/shell/after"
 source_if_exists "$HOME/.bashrc.local"
 
+export DKO_SOURCE="$DKO_SOURCE }"
 # vim: syn=sh :

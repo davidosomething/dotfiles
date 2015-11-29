@@ -5,8 +5,6 @@
 # @see http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html
 
 export DKO_SOURCE="$DKO_SOURCE -> .bash_profile"
-
-source "$HOME/.dotfiles/shell/loader"
 [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
 
 # vim: syn=sh :
