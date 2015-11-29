@@ -1,19 +1,34 @@
 # Shell variables
-# Run from loader
+#
+# Run from xprofile or loader, whichever exists first (xprofile is not in osx)
+# xprofile may override things.
 #
 # Some things from env are here since OSX doesn't start new env for each term
 # and we may need to reset the values
+#
+
+# Already sourced vars?
+[ -z "$DKO_VARS" ] && return
+export DKO_VARS=1
+
+export DKO_SOURCE="$DKO_SOURCE -> shell/vars"
 
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
-# dotfile paths ----------------------------------------------------------------
+# ==============================================================================
+# dotfile paths
+# ==============================================================================
+
 export DOTFILES="$HOME/.dotfiles"
 export BASH_DOTFILES="$DOTFILES/bash"
 export ZDOTDIR="$DOTFILES/zsh"
 export VIM_DOTFILES="$DOTFILES/vim"
 
-# LP_OS detection, default to Linux --------------------------------------------
+# ==============================================================================
+# LP_OS detection, default to Linux
+# ==============================================================================
+
 # https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
 case $(uname -s) in
     FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
@@ -36,11 +51,14 @@ esac
   [[ -x "/bin/busybox" ]]        && export DOTFILES_DISTRO="busybox"
 }
 
-# Shell settings ---------------------------------------------------------------
+# ==============================================================================
+# Shell settings
+# ==============================================================================
+
 # xdg-user-dirs
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 # the user dirs aren't defined on OSX
-source_if_exists "$XDG_CONFIG_HOME/user-dirs.dirs"
+[[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]] && source "$XDG_CONFIG_HOME/user-dirs.dirs"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 
@@ -88,7 +106,7 @@ export GIT_PAGER="$PAGER"
 export ADOTDIR="$XDG_CONFIG_HOME/antigen"
 
 # apache
-source_if_exists /etc/apache2/envvars
+[[ -f "/etc/apache2/envvars" ]] && source "/etc/apache2/envvars"
 
 # atom editor
 export ATOM_HOME="$XDG_CONFIG_HOME/atom"
@@ -104,15 +122,12 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME/.docker"
 # ** is globbing completion in  zsh, use tickticktab instead
 export FZF_COMPLETION_TRIGGER='``'
 
-# gtk2
-export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/.gtkrc-2.0"
-
 # go
 # used in shell/paths
 export GOPATH="$HOME/go"
 
 # iterm and neovim
-[[ "$DOTFILES_OS" == "Darwin" ]] && [[ "$TERM_PROGRAM" == "iTerm.app" ]] && {
+[[ "$TERM_PROGRAM" == "iTerm.app" ]] && {
   export ITERM_VERSION="$(osascript -e 'version of app "iTerm"')"
   if [[ "$(printf "$ITERM_VERSION\n2.9" | sort | tail -n1)" == "$ITERM_VERSION" ]]; then
     export ITERM_BETA=1
@@ -120,13 +135,11 @@ export GOPATH="$HOME/go"
   fi
 }
 
-# node moved to shell/node
+# java settings - mostly for minecraft launcher
+export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.systemlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+export JAVA_FONTS=/usr/share/fonts/TTF
 
-# nvidia on linux
-export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME/nv"
-export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
-# hardware accel for nvidia on arch
-export LIBVA_DRIVER_NAME="vdpau"
+# node moved to shell/node, loaded for shells only in shell/before
 
 # python moved to shell/python
 source "$DOTFILES/shell/python"
@@ -154,15 +167,11 @@ export VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant"
 # export VOPEN_EDITOR="nvim"
 # export VOPEN_VISUAL="nvim"
 
-# X11
-export XAUTHORITY="$XDG_RUNTIME_DIR/X11/xauthority"
-export XINITRC="$DOTFILES/linux/x/.xinitrc"
-
 # ------------------------------------------------------------------------------
 # homebrew
 # Overrides other settings
 # ------------------------------------------------------------------------------
-has_program "brew" && {
+command -v "brew" >/dev/null 2>&1 && {
   BREW_PREFIX="$(brew --prefix)"
   export BREW_PREFIX
   export CHPHP_PREFIX="$BREW_PREFIX"
@@ -174,16 +183,6 @@ has_program "brew" && {
 
   # python
   unset PYTHONPATH
-
-  # brew_python_path="$BREW_PREFIX/lib/python2.7/site-packages"
-  # [[ -d "$brew_python_path" ]] && {
-  #   export PYTHONPATH="${brew_python_path}:${PYTHONPATH}"
-  # }
-  #
-  # brew_python3_path="$BREW_PREFIX/lib/python3.5/site-packages"
-  # [[ -d "$brew_python3_path" ]] && {
-  #   export PYTHONPATH="${brew_python3_path}:${PYTHONPATH}"
-  # }
 }
 
 # vim: syn=sh :

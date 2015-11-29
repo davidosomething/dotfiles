@@ -1,56 +1,83 @@
 # .xprofile
 #
+# Environment variables for X Desktop
+#
+# Source order:
 # (startx -> .xinitrc) or DM
-#   -> .xprofile
+#   -> .xprofile -> [env]
 #     -> /usr/share/xsessions .desktop file (runs before WM/DE, e.g. openbox)
+#
+
+# Load vars early
+[ -z "$DKO_VARS" ] && [ -f "$HOME/.dotfiles/shell/vars" ] && source "$HOME/.dotfiles/shell/vars"
 
 export DKO_SOURCE="$DKO_SOURCE -> .xprofile"
 
 export BROWSER=chromium
 
-# moved here so it is available for all X, not needed in tty
-# https://wiki.archlinux.org/index.php/Java_Runtime_Environment_Fonts
-# Added this specifically for the minecraft launcher
+# ==============================================================================
+# X11
+# ==============================================================================
 
-# my nvidia card doesn't support wayland, ensure x11 used
-export GDK_BACKEND=x11
-export CLUTTER_BACKEND=x11
+export XAUTHORITY="$XDG_RUNTIME_DIR/X11/xauthority"
+export XINITRC="$DOTFILES/linux/x/.xinitrc"
 
-# GTK theme
-export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+# X11 xbindkeys -- no longer used, gnome's key settings are fine
+# bind media keys if system has an xbindkeysrc
+# mine is kept in a separate repo per machine
+#[[ -f "$DOTFILES/linux/x/.xbindkeysrc" ]] && xbindkeys -f "$DOTFILES/linux/x/.xbindkeysrc"
 
+# ==============================================================================
+# X11 - NVidia specific
+# ==============================================================================
+
+if [ $(lsmod | grep nvidia &> /dev/null) ]; then
+  # Change cache paths
+  export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME/nv"
+  export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+
+  # hardware accel for nvidia on arch
+  export LIBVA_DRIVER_NAME="vdpau"
+
+  # my nvidia card doesn't support wayland, ensure x11 used
+  export GDK_BACKEND=x11
+  export CLUTTER_BACKEND=x11
+
+  # If using nvidia, execute some stuff that supposedly improves performance
+  # https://wiki.archlinux.org/index.php/Nvidia#GUI:_nvidia-settings
+  nvidia-settings -a InitialPixmapPlacement=2
+fi
+
+# ==============================================================================
+# GTK
+# ==============================================================================
+
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/.gtkrc-2.0"
 export GCONFTOOL="/bin/gconftool-2"
 
-# QT theme
-export QT_STYLE_OVERRIDE=gtk
+# ==============================================================================
+# Gnome
+# ==============================================================================
 
-# java settings - mostly for minecraft launcher
-export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.systemlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
-export JAVA_FONTS=/usr/share/fonts/TTF
-
-export STEAMAPPS="$HOME/.steam/steam/SteamApps"
-
-# Wine
-export WINEPREFIX="$HOME/.config/wine"
-export WINEARCH=win32
-
-# Gnome Keyring
+# Keyring
 # shellcheck disable=SC2046
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
 export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
 
-# gnome polkit authentication (so nm-applet can create connections)
-#[[ -x "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" ]] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# ==============================================================================
+# QT
+# ==============================================================================
+export QT_STYLE_OVERRIDE=gtk
 
-# If using nvidia, execute some stuff that supposedly improves performance
-# https://wiki.archlinux.org/index.php/Nvidia#GUI:_nvidia-settings
-# shellcheck disable=SC2046,SC2143
-if [ $(lsmod | grep nvidia &> /dev/null) ]; then
-    nvidia-settings -a InitialPixmapPlacement=2
-fi
+# ==============================================================================
+# Steam
+# ==============================================================================
+export STEAMAPPS="$HOME/.steam/steam/SteamApps"
 
-# bind media keys if system has an xbindkeysrc
-# mine is kept in a separate repo per machine
-[[ -f "$HOME/.xbindkeysrc" ]] && xbindkeys -f "$HOME/.xbindkeysrc"
+# ==============================================================================
+# Wine
+# ==============================================================================
+export WINEPREFIX="$HOME/.config/wine"
+export WINEARCH=win32
 
 # vim: syn=sh :

@@ -6,6 +6,12 @@
 
 export DKO_SOURCE="$DKO_SOURCE -> shell before"
 
+# These add to path
+source_if_exists "$CHPHP_PREFIX/share/chphp/chphp.sh"
+source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
+source "$HOME/.dotfiles/shell/node"
+has_program "hub" && eval "$(hub alias -s)"
+
 # Reset aliases for shell
 source "$HOME/.dotfiles/shell/aliases"
 
