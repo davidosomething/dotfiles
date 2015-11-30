@@ -111,6 +111,9 @@ _alias_ls
 
 _alias_darwin() {
   alias b="brew"
+  alias bi="b install"
+  alias bq="b list"
+  alias bs="b search"
 
   # electron apps can't focus if started using Electron symlink
   alias elec="/Applications/Electron.app/Contents/MacOS/Electron"
@@ -141,7 +144,6 @@ _alias_arch() {
   elif command -v yaourt >/dev/null; then
     alias b="yaourt"
   fi
-
   alias bi="b -S"
   alias bq="b -Qs"
   alias bs="b -Ss"
