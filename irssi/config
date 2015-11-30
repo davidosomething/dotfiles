@@ -122,7 +122,11 @@ channels = (
   { name = "silc"; chatnet = "SILC"; autojoin = "No"; },
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#javascript"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#zsh"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#git"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#linux"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
