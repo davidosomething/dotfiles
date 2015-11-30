@@ -60,7 +60,9 @@ dko_add_paths() {
   fi
 
   # local ----------------------------------------------------------------------
-  my_path="$HOME/bin/neovim/bin:$HOME/bin:$DOTFILES/bin:$my_path"
+  my_path="$HOME/.local/bin::$my_path"
+  my_path="$DOTFILES/bin:$my_path"
+  my_path="$HOME/bin/neovim/bin:$my_path"
   echo "$my_path"
 }
 
