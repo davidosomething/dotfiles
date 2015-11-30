@@ -142,6 +142,10 @@ _alias_arch() {
     alias b="yaourt"
   fi
 
+  alias bi="b -S"
+  alias bq="b -Qs"
+  alias bs="b -Ss"
+
   alias rphp="sudo systemctl restart php-fpm.service"
   alias rnginx="sudo systemctl restart nginx.service"
 }
