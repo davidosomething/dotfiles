@@ -9,7 +9,7 @@
 
 export DKO_SOURCE="$DKO_SOURCE -> shell/vars {"
 
-source "$HOME/.dotfiles/shell/xdg"
+source "${HOME}/.dotfiles/shell/xdg"
 
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
@@ -18,9 +18,9 @@ export LANG="en_US"
 # Dotfile paths
 # ==============================================================================
 
-export DOTFILES="$HOME/.dotfiles"
-export BASH_DOTFILES="$DOTFILES/bash"
-export VIM_DOTFILES="$DOTFILES/vim"
+export DOTFILES="${HOME}/.dotfiles"
+export BASH_DOTFILES="${DOTFILES}/bash"
+export VIM_DOTFILES="${DOTFILES}/vim"
 
 # ==============================================================================
 # History
@@ -37,18 +37,18 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # ==============================================================================
 
 # for rsync and cvs
-export ACKRC="$DOTFILES/ack/.ackrc"
-export CVSIGNORE="$DOTFILES/git/.gitignore"
+export ACKRC="${DOTFILES}/ack/.ackrc"
+export CVSIGNORE="${DOTFILES}/git/.gitignore"
 # editor
-export EDITOR="$DOTFILES/bin/vopen-nofork"
-export VISUAL="$DOTFILES/bin/vopen-nofork"
+export EDITOR="${DOTFILES}/bin/vopen-nofork"
+export VISUAL="${DOTFILES}/bin/vopen-nofork"
 
 # my bin specific --------------------------------------------------------------
-export EGR_EDITOR="$DOTFILES/bin/vopen"
+export EGR_EDITOR="${DOTFILES}/bin/vopen"
 
 # ARCH specific ----------------------------------------------------------------
 # for pacdiff
-export DIFFPROG="$DOTFILES/bin/vopen-nofork -d"
+export DIFFPROG="${DOTFILES}/bin/vopen-nofork -d"
 # for arch wiki lite
 export wiki_browser="chromium"
 
@@ -70,20 +70,20 @@ export GIT_PAGER="$PAGER"
 # others ----------------------------------------
 
 # antigen
-export ADOTDIR="$XDG_CONFIG_HOME/antigen"
+export ADOTDIR="${XDG_CONFIG_HOME}/antigen"
 
 # apache
 [[ -f "/etc/apache2/envvars" ]] && source "/etc/apache2/envvars"
 
 # atom editor
-export ATOM_HOME="$XDG_CONFIG_HOME/atom"
+export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
 
 # chphp
 # overridden in homebrew section if has brew
 export CHPHP_PREFIX="/usr"
 
 # docker
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/.docker"
+export DOCKER_CONFIG="${XDG_CONFIG_HOME}/.docker"
 
 # fzf
 # ** is globbing completion in  zsh, use tickticktab instead
@@ -91,7 +91,7 @@ export FZF_COMPLETION_TRIGGER='``'
 
 # go
 # used in shell/paths
-export GOPATH="$HOME/go"
+export GOPATH="${HOME}/go"
 
 # iterm and neovim
 [[ "$TERM_PROGRAM" == "iTerm.app" ]] && {
@@ -111,11 +111,11 @@ export JAVA_FONTS=/usr/share/fonts/TTF
 # python moved to shell/node, loaded for shells only in shell/before
 
 # R
-export R_ENVIRON_USER="$DOTFILES/r/.Renviron"
-export R_LIBS_USER="$HOME/.local/lib/R/library/"
+export R_ENVIRON_USER="${DOTFILES}/r/.Renviron"
+export R_LIBS_USER="${HOME}/.local/lib/R/library/"
 
 # readline
-export INPUTRC="$DOTFILES/shell/.inputrc"
+export INPUTRC="${DOTFILES}/shell/.inputrc"
 
 # overridden in homebrew section if has brew
 export CHRUBY_PREFIX="/usr"
@@ -124,14 +124,17 @@ export CHRUBY_PREFIX="/usr"
 export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC2148"
 
 # travis cli
-export TRAVIS_CONFIG_PATH="$XDG_CONFIG_HOME/travis"
+export TRAVIS_CONFIG_PATH="${XDG_CONFIG_HOME}/travis"
 
 # vagrant
-export VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant"
+export VAGRANT_HOME="${XDG_CONFIG_HOME}/vagrant"
 
 # vopen
 # export VOPEN_EDITOR="nvim"
 # export VOPEN_VISUAL="nvim"
+
+# X11 - for starting via xinit or startx
+export XINITRC="${XDG_CONFIG_HOME}/X11/xinitrc"
 
 # ------------------------------------------------------------------------------
 # homebrew
@@ -140,12 +143,12 @@ export VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant"
 command -v "brew" >/dev/null 2>&1 && {
   BREW_PREFIX="$(brew --prefix)"
   export BREW_PREFIX
-  export CHPHP_PREFIX="$BREW_PREFIX"
-  export CHRUBY_PREFIX="$BREW_PREFIX"
+  export CHPHP_PREFIX="${BREW_PREFIX}"
+  export CHRUBY_PREFIX="${BREW_PREFIX}"
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
   # Ruby use brew openssl if available
-  [[ -f "$BREW_PREFIX/opt/openssl" ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$BREW_PREFIX/opt/openssl"
+  [[ -f "${BREW_PREFIX}/opt/openssl" ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${BREW_PREFIX}/opt/openssl"
 
   # python
   unset PYTHONPATH

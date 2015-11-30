@@ -23,6 +23,7 @@ export BROWSER=chromium
 # ==============================================================================
 
 export XINITRC="$DOTFILES/linux/x/.xinitrc"
+[[ -n "$XDG_RUNTIME_DIR" ]] && export ICEAUTHORITY="$XDG_RUNTIME_DIR/X11/iceauthority"
 
 # X11 xbindkeys -- no longer used, gnome's key settings are fine
 # bind media keys if system has an xbindkeysrc
@@ -56,6 +57,12 @@ fi
 
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/.gtkrc-2.0"
 export GCONFTOOL="/bin/gconftool-2"
+
+# ==============================================================================
+# GIMP
+# ==============================================================================
+
+export GIMP2_DIRECTORY="${XDG_CONFIG_HOME}/gimp"
 
 # ==============================================================================
 # Gnome
