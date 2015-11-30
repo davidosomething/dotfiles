@@ -13,16 +13,21 @@ source "$bootstrap_path/helpers.sh"
 # begin ------------------------------------------------------------------------
 dkostatus "Symlinking dotfiles"
 dkosymlink aspell/.aspell.en.pws      .aspell.en.pws
-dkosymlink shell/.inputrc.symlink     .inputrc
 dkosymlink ctags/.ctags.symlink       .ctags
-dkosymlink git/.gitconfig.symlink     .config/git/config
 dkosymlink mdl/.mdlrc.symlink         .mdlrc
 dkosymlink ruby/.gemrc.symlink        .gemrc
 
+# XDG-compatible
+dkosymlink git/.gitconfig.symlink     .config/git/config
+dkosymlink shell/.inputrc.symlink     .config/readline/inputrc
+
+# irssi
+dkosymlink irssi  .irssi
+
+# (n)vim
 dkosymlink vim  .vim
 dkosymlink vim  .config/nvim
 
-mkdir -p "$HOME/.subversion"
 case "$OSTYPE" in
   darwin*)
     dkosymlink subversion/config.symlink  .subversion/config

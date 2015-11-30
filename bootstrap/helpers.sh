@@ -47,7 +47,10 @@ dkosymlink() {
   local dotfiles_dir="$HOME/.dotfiles"
   local dotfile="$dotfiles_dir/$1"
   local homefile="$2"
-  dkosymlinking "$homefile" "$dotfile" && ln -fns "$dotfile" "$HOME/$homefile"
+  local homefilepath="${HOME}/${homefile}"
+
+  mkdir -p "$(dirname "$homefilepath")"
+  dkosymlinking "$homefile" "$dotfile" && ln -fns "$dotfile" "$homefilepath"
 }
 
 # silently determine existence of executable
