@@ -5,7 +5,7 @@ servers = (
   {
     address = "chat.freenode.net";
     chatnet = "Freenode";
-    port = "6667";
+    port = "8000";
     autoconnect = "yes";
   },
   {
