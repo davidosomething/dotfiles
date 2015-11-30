@@ -42,7 +42,7 @@ source "$DOTFILES/shell/node"
 
 export _Z_CMD="j"
 export _Z_DATA="$HOME/.local/z"
-source $DOTFILES/shell/z/z.sh
+source_if_exists "$DOTFILES/shell/z/z.sh"
 
 # ==============================================================================
 # Terminator
