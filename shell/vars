@@ -134,7 +134,7 @@ export VAGRANT_HOME="${XDG_CONFIG_HOME}/vagrant"
 # export VOPEN_VISUAL="nvim"
 
 # X11 - for starting via xinit or startx
-export XINITRC="${XDG_CONFIG_HOME}/X11/xinitrc"
+export XINITRC="${DOTFILES}/linux/x/.xinitrc"
 
 # ------------------------------------------------------------------------------
 # homebrew
