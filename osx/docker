@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-boot2docker init
-boot2docker up
-export DOCKER_HOST=tcp://localhost:4243
