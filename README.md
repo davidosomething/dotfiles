@@ -16,39 +16,36 @@
 
 ```shell
 git clone --recurse-submodules https://github.com/davidosomething/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles/bootstrap
-./symlink.sh
+~/.dotfiles/bootstrap/symlink.sh
 ```
 
 - (OPTIONAL) Change default shell to zsh and restart now
+- (OPTIONAL) Run the other scripts in the next section
 
-### Working scripts
+### Working scripts in bootstrap/
+
+These will assist in installing things
+
+- `cleanup.sh`
+  - Moves some things into their XDG Base Directory suppored dirs
 
 - `symlink.sh`
   - bash, zsh, ack, screen, (n)vim
 
 - `npm/install.sh`
+  - requires you set up nvm and install node first
   - install default packages
+
+- `ruby/install-default-gems.sh`
+  - requires you set up chruby and install a ruby first
 
 - `osx/install.sh`
   - symlink `.hushlogin`
 
-- `ruby/install-default-gems.sh`
-
 - `linux/x11.sh`
   - symlink `.xbindkeysrc`, `.xinitrc`, `.xprofile`
 
-### Homebrew
-
-`brew bundle` will execute all commands in a `Brewfile`. There are several
-Brewfiles in the `osx` folder.
-
 ## Notes
-
-### Node
-
-Install via nvm, installed via `bin/update npm`, which uses latest git tag
-instead of using your system package manager.
 
 ### Source order
 
@@ -60,10 +57,20 @@ instead of using your system package manager.
 
 Here's OSX with zsh (remember, OSX is always a login shell):
 
-    -> zshenv -> shell loader -> zprofile -> shell before
-    -> zshrc -> shell after
+    -> zshenv (set zdotdir) -> zprofile (empty) -> zshrc {
+        -> shell/vars { -> shell/xdg }
+        -> shell/before {
+            -> shell/path
+            -> shell/z
+        }
+    } -> shell/after -> .zshrc.local
 
-### node-gyp
+### node
+
+Install via nvm, installed via `bin/update npm`, which uses latest git tag
+instead of using your system package manager.
+
+#### node-gyp
 
 On arch use python 2 when installing node-gyp:
 
@@ -73,18 +80,10 @@ npm config set python /usr/bin/python2.7 -g
 
 ### python
 
-Just remember to never `sudo pip` anything
-
-### pow
-
-The POW gem is no longer used since I have to use Cisco VPN for some things and
-there are DNS conflicts.
+Just remember to never `sudo pip` anything. Set up a virtualenv and pip install
+the `python/requirements.txt` file.
 
 ### vim
 
 See [vim/README.md](https://github.com/davidosomething/dotfiles/blob/master/vim/README.md)
-
-## Not included but I usually use
-
-- Adium theme: http://www.adiumxtras.com/index.php?a=xtras&xtra_id=7014
 

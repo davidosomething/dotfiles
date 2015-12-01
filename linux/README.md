@@ -4,7 +4,20 @@ Some stuff in `x/` can also be used for XQuartz on OSX
 
 ## Installation
 
-For openbox, thunar
+For openbox, thunar:
+
+```shell
+ln -sf ~/.dotfiles/linux/.gtkrc-2.0 ~/.gtkrc-2.0
+ln -sf ~/.dotfiles/linux/x/.xprofile ~/.xprofile
+ln -sf ~/.dotfiles/linux/x/.xinitrc ~/.xsession
+ln -sf ~/.dotfiles/linux/x/.xinitrc ~/.xinitrc
+ln -sf ~/.dotfiles/linux/tint2/tint2rc ~/.config/tint2/tint2rc
+ln -sf ~/.dotfiles/linux/gtk-3.0/settings.ini ~/.config/gtk-3.0/settings.ini
+ln -sf ~/.dotfiles/linux/openbox/rc.xml ~/.config/openbox/rc.xml
+ln -sf ~/.dotfiles/linux/openbox/menu.xml ~/.config/openbox/menu.xml
+ln -sf ~/.dotfiles/linux/openbox/autostart ~/.config/openbox/autostart
+ln -sf ~/.dotfiles/linux/nautilus/accels ~/.config/nautilus/accels
+```
 
 ### nm-applet permissions on arch
 
@@ -94,34 +107,3 @@ startx
     openbox
 ```
 
-### 3/4: terminal
-
-#### zsh
-
-```
-.zshenv
-  loader
-    functions
-    vars
-    paths
-.zprofile (login shells - e.g. osx - only)
-.zshrc
-  before
-    aliases
-  after
-  .zshrc.local
-```
-
-#### bash
-
-```
-.bashrc
-  loader
-    functions
-    vars
-    paths
-  before
-    aliases
-  after
-  .zshrc.local
-```

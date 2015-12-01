@@ -113,4 +113,3 @@ export HISTFILE="$ZDOTDIR/.zhistory"
 
 source "$DOTFILES/shell/after"
 source_if_exists "$HOME/.zshrc.local"
-export DKO_SOURCE="$DKO_SOURCE }"
