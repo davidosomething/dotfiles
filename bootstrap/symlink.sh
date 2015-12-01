@@ -34,10 +34,10 @@ case "$OSTYPE" in
     ;;
   linux*)
     dkosymlink linux/subversion/config.symlink  .subversion/config
+    dkosymlink linux/x/.Xresources              .Xresources
     ;;
 esac
 
-dkosymlink linux/x/.Xresources          .Xresources
 
 # symlink shells ---------------------------------------------------------------
 dkosymlink bash/.bashrc.symlink         .bashrc

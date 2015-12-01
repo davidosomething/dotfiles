@@ -87,6 +87,7 @@ _update_darwin() {
       brew upgrade --all 2>&1 | tee "$logs_path/brew-upgrade.log"
       dkostatus "Cleanup old versions and prune dead symlinks"
       brew cleanup | dkoindent
+      brew cask cleanup | dkoindent
       brew prune | dkoindent
       ;;
 
