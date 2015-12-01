@@ -4,24 +4,6 @@
 export DKO_SOURCE="$DKO_SOURCE -> shell/after"
 
 # ==============================================================================
-# NPM completion
-# ==============================================================================
-
-eval "$(npm completion 2>/dev/null)"
-
-# ==============================================================================
-# Grunt completion
-# ==============================================================================
-
-# has_program "grunt" && {
-#   if [ -n "$ZSH_VERSION" ]; then
-#     eval "$(grunt --completion=zsh)"
-#   else
-#     eval "$(grunt --completion=bash)"
-#   fi
-# }
-
-# ==============================================================================
 # hub -> git alias
 # ==============================================================================
 
@@ -34,6 +16,7 @@ has_program "hub" && eval "$(hub alias -s)"
 # These add to path
 source_if_exists "$CHPHP_PREFIX/share/chphp/chphp.sh"
 source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
+# This also adds completions based on global nvm->npm packages
 source "$DOTFILES/shell/node"
 
 # ==============================================================================

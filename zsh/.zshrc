@@ -18,13 +18,16 @@ source "$DOTFILES/shell/before"
 # ==============================================================================
 
 source_if_exists "$ZDOTDIR/antigen/antigen.zsh" && {
-  antigen bundle autojump
-  antigen bundle colored-man-pages
-  antigen bundle git-extras
-  antigen bundle golang
-  antigen bundle tonyseek/oh-my-zsh-virtualenv-prompt
-  antigen bundle zsh-users/zsh-syntax-highlighting
-  antigen bundle zsh-users/zsh-completions src
+  antigen bundles <<EOBUNDLES
+  autojump
+  colored-man-pages
+  git-extras
+  golang
+  tonyseek/oh-my-zsh-virtualenv-prompt
+  yonchu/grunt-zsh-completion
+  zsh-users/zsh-syntax-highlighting
+  zsh-users/zsh-completions src
+EOBUNDLES
   antigen apply
 }
 
