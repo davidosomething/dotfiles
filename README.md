@@ -1,16 +1,14 @@
-# dotfiles
+<img src="bootstrap/dotfiles-logo.svg" width="200" alt="dotfiles">
 
-> My dotfiles for bash/zsh/vim and others things.
-
-## About
+My dotfiles. https://github.com/davidosomething/dotfiles
 
 - OSX and ArchLinux compatible
 - XDG compliance
-- ZSH and BASH compatible
-- VIM and NeoVim config
-- Try to move as much out of `$HOME` as possible
+- ZSH and BASH configs
+- VIM and neovim configs (planning to split repo, though)
+- Dev setup for lua, markdown, node, php, python, r, ruby, shell
 
-## Installation
+# Installation
 
 - Clone with submodules, and symlink:
 
@@ -22,14 +20,17 @@ git clone --recurse-submodules https://github.com/davidosomething/dotfiles.git ~
 - (OPTIONAL) Change default shell to zsh and restart now
 - (OPTIONAL) Run the other scripts in the next section
 
-### Working scripts in bootstrap/
+## Working scripts
 
 These will assist in installing things
 
-- `cleanup.sh`
+- `bin/update`
+  - Update various things. Aliased to `u`. Run `u` for usage.
+
+- `bootstrap/cleanup.sh`
   - Moves some things into their XDG Base Directory suppored dirs
 
-- `symlink.sh`
+- `bootstrap/symlink.sh`
   - bash, zsh, ack, screen, (n)vim
 
 - `npm/install.sh`
@@ -46,6 +47,24 @@ These will assist in installing things
   - symlink `.xbindkeysrc`, `.xinitrc`, `.xprofile`
 
 ## Notes
+
+### bin/
+
+There's a readme in `bin/` describing things.
+
+### fonts/
+
+Install these manually, either into `$XDG_DATA_HOME/fonts` or `~/Library/Fonts`
+
+### Not included
+
+You might want from your system package manager:
+
+- chruby
+- nvm
+- php/composer/wp-cli
+- python/pip
+- virtualenv
 
 ### Source order
 
@@ -86,4 +105,8 @@ the `python/requirements.txt` file.
 ### vim
 
 See [vim/README.md](https://github.com/davidosomething/dotfiles/blob/master/vim/README.md)
+
+---
+
+> Logo from [jglovier/dotfiles-logo](https://github.com/jglovier/dotfiles-logo)
 
