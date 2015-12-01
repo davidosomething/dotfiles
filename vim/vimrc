@@ -761,12 +761,9 @@ endif
 " variable to highlight markdown fenced code properly -- uses tpope's
 " vim-markdown plugin (which is bundled with vim7.4 now)
 let g:markdown_fenced_languages = [
-      \ 'css',
       \ 'html',
       \ 'javascript', 'js=javascript', 'json=javascript',
-      \ 'ruby',
       \ 'sass',
-      \ 'xml',
       \ ]
 
 " ============================================================================

@@ -7,7 +7,7 @@ export DKO_SOURCE="$DKO_SOURCE -> shell/after"
 # NPM completion
 # ==============================================================================
 
-has_program "npm"   && eval "$(npm completion)"
+eval "$(npm completion 2>/dev/null)"
 
 # ==============================================================================
 # Grunt completion
