@@ -61,11 +61,11 @@ Install these manually, either into `$XDG_DATA_HOME/fonts` or `~/Library/Fonts`
 
 You might want from your system package manager:
 
-- chruby
-- nvm
+- chruby + ruby-install + a version of ruby
+- nvm + a version of node + npm
 - php/composer/wp-cli
 - python/pip
-- virtualenv
+- virtualenv + a version of python
 
 ### Source order
 
