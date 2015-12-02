@@ -38,7 +38,7 @@ rubygems-update
 sass
 sass-json-vars
 sassy-maps
-scss-lint
+scss_lint
 sshkit
 term-ansicolor
 travis
