@@ -82,6 +82,9 @@ export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
 # overridden in homebrew section if has brew
 export CHPHP_PREFIX="/usr"
 
+# ctags
+export CTAGS="$(cat "${DOTFILES}/shell/ctags")"
+
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/.docker"
 
