@@ -85,6 +85,12 @@ if g:dko_use_plugins
 
   call plug#begin(g:dko_vim_dir . g:dko_plugdir)
 
+  " Notes on adding plugins:
+  " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
+  " - Use 'for' if the plugin has an `autoload/` dir, otherwise it provides
+  "   no benefit (`ftplugin/`, `syntax/` and `indent/` are already only loaded
+  "   based on the filetype matching the script name).
+
   " ========================================================================
   " Plug: Appearance/tab/split mgmt
   " ========================================================================
@@ -186,10 +192,7 @@ if g:dko_use_plugins
     Plug 'Shougo/neco-vim', { 'for': ['vim'] }
 
     if g:dko_use_tern_completion
-      Plug 'marijnh/tern_for_vim', {
-            \   'for': ['javascript', 'typescript'],
-            \   'do': 'npm install'
-            \ }
+      Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
     endif
 
     Plug 'Shougo/neosnippet'
@@ -263,15 +266,17 @@ if g:dko_use_plugins
   " Language: HTML and generators
   " ========================================================================
 
-  Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
+  Plug 'othree/html5.vim'
 
   Plug 'digitaltoad/vim-jade'
 
   Plug 'tpope/vim-haml'
 
   " ========================================================================
-  " Language: JavaScript / CoffeeScript
+  " Language: JavaScript / CoffeeScript / JSON
   " ========================================================================
+
+  Plug 'elzr/vim-json'
 
   Plug 'heavenshell/vim-jsdoc'
 
@@ -282,11 +287,14 @@ if g:dko_use_plugins
   Plug 'moll/vim-node'
 
   " react/JSX syn highlighting for .cjsx
-  Plug 'mtscout6/vim-cjsx'
+  " If you're using coffee+react instead of es6+react, quit your job.
+  "Plug 'mtscout6/vim-cjsx'
 
-  " indenting/highlighting, replaces 'jelera/vim-javascript-syntax', {
+  " indenting/highlighting, replaces 'jelera/vim-javascript-syntax'
+  " mxw/vim-jsx - react/JSX syn highlighting for .jsx and requires yajs first
   Plug 'othree/yajs.vim'
         \| Plug 'gavocanov/vim-js-indent'
+        \| Plug 'mxw/vim-jsx'
 
   Plug 'othree/jsdoc-syntax.vim'
 
@@ -294,16 +302,6 @@ if g:dko_use_plugins
 
   " extends syntax for with jQuery,backbone,etc.
   Plug 'othree/javascript-libraries-syntax.vim'
-
-  " mxw/vim-jsx - react/JSX syn highlighting for .jsx
-  " requires a javascript syntax plugin first (e.g. yajs or vim-javascript)
-  Plug 'mxw/vim-jsx'
-
-  " ========================================================================
-  " Language: JSON
-  " ========================================================================
-
-  Plug 'elzr/vim-json', { 'for': ['json'] }
 
   " ========================================================================
   " Language: Markdown
@@ -331,7 +329,7 @@ if g:dko_use_plugins
   " ========================================================================
 
   " official indent plugin for vim, later version than what it comes with
-  Plug '2072/PHP-Indenting-for-VIm', { 'for': ['php', 'blade'] }
+  Plug '2072/PHP-Indenting-for-VIm'
 
   " creates twig ft
   Plug 'evidens/vim-twig'
@@ -340,12 +338,12 @@ if g:dko_use_plugins
         \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
 
   " provides updated syntax
-  Plug 'StanAngeloff/php.vim', { 'for': ['php', 'blade'] }
+  Plug 'StanAngeloff/php.vim'
         \| Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
         "\| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
   " ========================================================================
-  " Language: Ruby, rails, chef, puppet
+  " Language: Ruby, rails, puppet
   " ========================================================================
 
   " creates pp filetype
@@ -353,8 +351,6 @@ if g:dko_use_plugins
 
   " highlighting for Gemfile
   Plug 'tpope/vim-bundler'
-
-  Plug 'vadv/vim-chef', { 'for': ['ruby', 'eruby'] }
 
   " creates ruby filetype
   Plug 'vim-ruby/vim-ruby'
@@ -369,10 +365,10 @@ if g:dko_use_plugins
   Plug 'groenewege/vim-less'
 
   " extends vim's css highlighting
-  Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss'] }
+  Plug 'hail2u/vim-css3-syntax'
 
   " css.vim provides @media syntax highlighting where hail2u doesn't
-  Plug 'JulesWang/css.vim', { 'for': ['css', 'scss'] }
+  Plug 'JulesWang/css.vim'
         \| Plug 'cakebaker/scss-syntax.vim'
 
   " ========================================================================
