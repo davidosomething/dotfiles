@@ -337,10 +337,10 @@ if g:dko_use_plugins
   Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
         \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
 
-  " provides updated syntax
-  Plug 'StanAngeloff/php.vim'
-        \| Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
+  Plug 'shawncplus/phpcomplete.vim'
         "\| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
+
+  Plug 'StanAngeloff/php.vim'
 
   " ========================================================================
   " Language: Ruby, rails, puppet
