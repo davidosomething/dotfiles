@@ -45,12 +45,22 @@ if has('autocmd')
 endif
 
 " ============================================================================
-" vim-plug
+" Plugins
 " ============================================================================
 
 " Only load plugins on vim 7.3+ with autocmd
-
 let g:dko_use_plugins = $DOTFILES_DISTRO != 'busybox' && has('autocmd')
+
+" ============================================================================
+" netrw
+" ============================================================================
+let g:loaded_netrwPlugin = !g:dko_use_plugins
+" netrw in details format when no vimfiler
+let g:netrw_liststyle = 3
+
+" ============================================================================
+" vim-plug
+" ============================================================================
 if g:dko_use_plugins
   " Load vim-plug
   if empty(glob('~/.vim/autoload/plug.vim'))
@@ -186,8 +196,8 @@ if g:dko_use_plugins
         \ || exists("g:plugs['deoplete.nvim']")
 
   if g:dko_has_completion
-    "This makes markdown slow
-    "Plug 'Shougo/neco-syntax'
+    "Full syntax completion - super slow
+    "Plug 'Shougo/neco-syntax', { 'for': ['scss'] }
 
     Plug 'Shougo/neco-vim', { 'for': ['vim'] }
 
@@ -364,11 +374,11 @@ if g:dko_use_plugins
   " creates less filetype
   Plug 'groenewege/vim-less'
 
-  " extends vim's css highlighting
-  Plug 'hail2u/vim-css3-syntax'
-
   " css.vim provides @media syntax highlighting where hail2u doesn't
+  " JulesWang/css.vim is the active repo for the css.vim bundled with vim
+  " hail2u extends vim's css highlighting
   Plug 'JulesWang/css.vim'
+        \| Plug 'hail2u/vim-css3-syntax'
         \| Plug 'cakebaker/scss-syntax.vim'
 
   " ========================================================================
@@ -448,7 +458,7 @@ if g:dko_use_plugins
   " Config: Language: CSS
   " ========================================================================
 
-  call s:LoadRc('colorv.vim')
+  "call s:LoadRc('colorv.vim')
   call s:LoadRc('scss-syntax.vim')
   call s:LoadRc('vim-css3-syntax.vim')
 
