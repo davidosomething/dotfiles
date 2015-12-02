@@ -1,17 +1,27 @@
-/.backup/
-/.cache/
-/.swp/
-/.tags/
-/.undo/
-/bundle/
-/nplugged/
-/plugged/
+# plugin
+bundle/
+nplugged/
+plugged/
+
+# cache
+.backup/
+.cache/
+.swp/
+.undo/
 .colorv_cache_fav
 .colorv_cache_file
 .easyclip
 .netrwhist
 .nviminfo
 .viminfo
-nvimrc
+
+# backup
 plug.vim.old
+
+# generated secrets
+.tags/
 tags
+
+# local
+.gvimrc.local
+.vimrc.local

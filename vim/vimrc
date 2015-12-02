@@ -777,8 +777,9 @@ endif
 " Syntax
 " ============================================================================
 
-" variable to highlight markdown fenced code properly -- uses tpope's
+" Variable to highlight markdown fenced code properly -- uses tpope's
 " vim-markdown plugin (which is bundled with vim7.4 now)
+" There are more syntaxes, but checking for them makes editing md very slow
 let g:markdown_fenced_languages = [
       \ 'html',
       \ 'javascript', 'js=javascript', 'json=javascript',
@@ -803,6 +804,6 @@ endif
 " leave this down here since it trims local settings
 set secure                            " no unsafe local vimrc commands
 
-if filereadable(glob("$HOME/.vimrc.local"))
-  source $HOME/.vimrc.local
+if filereadable(glob(g:dko_vim_dir . '/.vimrc.local'))
+  execute 'source ' . g:dko_vim_dir . '/.vimrc.local'
 endif

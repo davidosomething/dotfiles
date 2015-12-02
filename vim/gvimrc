@@ -31,6 +31,6 @@ endif
 " local
 " ============================================================================
 
-if filereadable(glob("$HOME/.gvimrc.local"))
-    source $HOME/.gvimrc.local
+if filereadable(glob(g:dko_vim_dir . '/.gvimrc.local'))
+  execute 'source ' . g:dko_vim_dir . '/.gvimrc.local'
 endif
