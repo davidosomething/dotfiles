@@ -7,6 +7,13 @@
 if exists("b:did_ftplugin") | finish | endif
 let b:did_ftplugin = 1
 
+setlocal spell
+
+
+" ============================================================================
+" vopen + committia mode
+" ============================================================================
+
 if v:servername == "GIT"
   if has('gui_running')
     setlocal lines=44 columns=88
