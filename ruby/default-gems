@@ -17,7 +17,6 @@ htmlentities
 httpclient
 i18n
 json
-lunchy
 mdl
 mdless
 net-scp
@@ -33,7 +32,6 @@ rake
 rdoc
 redcarpet
 RedCloth
-rhc
 rubygems-update
 sass
 sass-json-vars
