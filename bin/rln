@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+# rln
+#
+# Rename symlink's original file and re-symlink
+#
+
+
+_usage() {
+  cat <<SAUSAGE
+USAGE: rln target_file newname_for_source
+
+The target_file should be a symlink (soft link).
+The source can be a file or directory.
+The source for that target_file will be renamed.
+The target_file's source_file (see LN(1)) will be force updated.
+
+SAUSAGE
+}
+
+
+_rln() {
+  local target_file="$1"
+  local newname_for_source="$2"
+
+  local original_source
+  local original_dir
+  original_source=$(readlink "$target_file")
+  # normalize path to ./ prefixed if in same folder
+  original_source="$(dirname "$original_source")/$(basename "$original_source")"
+  original_dir=$(dirname "$original_source")
+
+  local new_source
+  new_source="${original_dir}/${newname_for_source}"
+
+  echo "old source: $original_source"
+  echo "new source: $new_source"
+
+  if [[ "$(basename "$original_source")" == "$(basename "$new_source")" ]]; then
+    echo "WARNING: new source \"${new_source}\""
+    echo "         and original source \"${original_source}\""
+    echo "         already have the same name. Skipping."
+  elif [ -e "$new_source" ]; then
+    echo "WARNING: new source \"${new_source}\" exists. Please remove it first. Skipping."
+  else
+    mv "$original_source" "$new_source" \
+    && ln -sf "$new_source" "$target_file" \
+    && echo "SUCCESS"
+  fi
+}
+
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+  _usage;
+elif ! test -L "$1"; then
+  echo "ERROR: Invalid target_file $1"
+  exit 1
+else
+  _rln "$1" "$2"
+fi
+
