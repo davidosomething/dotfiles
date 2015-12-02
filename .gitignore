@@ -1,18 +1,21 @@
-logs
+# secrets
+local/
+logs/
 
+# symlink
 irssi/config
 
+# deprecated
 z/.z
 z/.z.*
-
-zsh/.zcache
 zsh/antibody
 
+# cache + logs
 .bash_history
 .lesshst
-.zhistory
+.zcache
 .zcompdump*
+.zhistory
 .zsh_history
 .zshrc.zwc
-
 *.log
