@@ -57,6 +57,11 @@ There's a readme in `bin/` describing things.
 
 Install these manually, either into `$XDG_DATA_HOME/fonts` or `~/Library/Fonts`
 
+### local/
+
+Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here and
+they will automatically be sourced LAST by the default scripts.
+
 ### Not included
 
 You might want from your system package manager:
