@@ -1,3 +1,5 @@
+# bin/
+
 ## a2r
 
 > Restart apache2
@@ -106,6 +108,10 @@ afk
 ## path
 
 > Pretty list path env
+
+## rln
+
+> Rename a symlink's source file and update the symlink
 
 ## termcolors
 
