@@ -112,4 +112,4 @@ export HISTFILE="$ZDOTDIR/.zhistory"
 # ==============================================================================
 
 source "$DOTFILES/shell/after"
-source_if_exists "$HOME/.zshrc.local"
+source_if_exists "$DOTFILES/local/zshrc"

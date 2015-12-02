@@ -140,6 +140,6 @@ insteadOf = "heroku:"
 
 # Local ------------------------------------------------------------------------
 [include]
-path = "~/.gitconfig.local"
+path = "~/.dotfiles/local/gitconfig"
 
 # vim: syntax=gitconfig expandtab :

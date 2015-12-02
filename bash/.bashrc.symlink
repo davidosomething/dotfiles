@@ -27,7 +27,7 @@ source "$BASH_DOTFILES/prompt.bash"
 # ==============================================================================
 
 source "$DOTFILES/shell/after"
-source_if_exists "$HOME/.bashrc.local"
+source_if_exists "$DOTFILES/local/bashrc"
 
 export DKO_SOURCE="$DKO_SOURCE }"
 # vim: syn=sh :
