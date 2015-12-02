@@ -1,5 +1,6 @@
 --recurse=yes
 
+--exclude=.DS_Store
 --exclude=.sass-cache
 
 --exclude=.git
@@ -7,31 +8,39 @@
 --exclude=.hg
 
 --exclude=bower_components
---exclude=bundle
---exclude=log
+--exclude=bundle/
+--exclude=docs/
 
---exclude=jquery.\*.js
---exclude=jquery-\*.js
+--exclude=jquery.*.js
+--exclude=jquery-*.js
 
---exclude=\*.map
---exclude=\*.min.\*
+--exclude=*.md
+--exclude=*.doc*
+--exclude=*.rtf
+--exclude=*.txt
 
---exclude=\*.json
---exclude=\*.md
---exclude=\*.sql
+--exclude=*.map
+--exclude=*.min.*
+--exclude=*-min.*
 
---exclude=\*.tar.\*
+--exclude=*.json
+--exclude=*.md
+--exclude=*.sql
 
---exclude=\*.bak
---exclude=\*.swp
+--exclude=*.tar.*
 
---exclude=\*.class
---exclude=\*.csproj
---exclude=\*.csproj.user
---exclude=\*.dll
---exclude=\*.pdb
---exclude=\*.pyc
---exclude=\*.sln
+--exclude=*.log
+--exclude=*.bak
+--exclude=*.swp
+
+--exclude=*.class
+--exclude=*.csproj
+--exclude=*.csproj.user
+--exclude=*.dll
+--exclude=*.jar
+--exclude=*.pdb
+--exclude=*.pyc
+--exclude=*.sln
 
 --exclude=tags
---exclude=cscope.\*
+--exclude=cscope.*
