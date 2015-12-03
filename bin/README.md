@@ -22,6 +22,10 @@ afk
 
 > `open` or `xdg-open`
 
+## dko-sourced
+
+> Pretty print the `$DKO_SOURCE` env variable to see what was sourced
+
 ## dog
 
 > `mdless`, `pygmentize`, or `cat` a stream

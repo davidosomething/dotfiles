@@ -74,21 +74,8 @@ You might want from your system package manager:
 
 ### Source order
 
-`echo $DKO_SOURCE` to see how files are loaded. It should reflect what's in
-`linux/README.md` for openbox. That is:
-
-    -> .xprofile -> ob environment -> ob autostart
-    -> zshenv -> shell loader -> shell before -> zshrc -> shell after
-
-Here's OSX with zsh (remember, OSX is always a login shell):
-
-    -> zshenv (set zdotdir) -> zprofile (empty) -> zshrc {
-        -> shell/vars { -> shell/xdg }
-        -> shell/before {
-            -> shell/path
-            -> shell/z
-        }
-    } -> shell/after -> .zshrc.local
+If you have node already, run `dko-sourced` (`bin/dko-sourced`) or just
+`echo $DKO_SOURCE` to see what files are loaded.
 
 ### node
 
