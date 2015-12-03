@@ -664,6 +664,13 @@ set diffopt=filler                    " blank lines to keep sides aligned
 set diffopt+=iwhite                   " Ignore whitespace changes
 
 " ============================================================================
+" Spellcheck
+" ============================================================================
+
+" Add symlinked aspell from dotfiles as default spellfile
+execute 'set spellfile=' . expand(g:dko_vim_dir . '/aspell.utf-8.add')
+
+" ============================================================================
 " Match and search
 " ============================================================================
 

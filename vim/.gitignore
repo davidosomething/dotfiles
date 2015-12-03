@@ -22,6 +22,9 @@ plug.vim.old
 .tags/
 tags
 
+# dotfiles linked spellfile
+aspell.utf-8.add
+
 # local
 .gvimrc.local
 .vimrc.local
