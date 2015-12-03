@@ -1,7 +1,8 @@
 # Shell - after commands
 # Run before .zshrc.local .bashrc.local
 
-export DKO_SOURCE="$DKO_SOURCE -> shell/after"
+export DKO_SOURCE="$DKO_SOURCE -> shell/after {"
+
 
 # ==============================================================================
 # hub -> git alias
@@ -9,15 +10,17 @@ export DKO_SOURCE="$DKO_SOURCE -> shell/after"
 
 has_program "hub" && eval "$(hub alias -s)"
 
+
 # ==============================================================================
 # Node, PHP, Ruby
 # ==============================================================================
 
 # These add to path
-source_if_exists "$CHPHP_PREFIX/share/chphp/chphp.sh"
-source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh"
+source_if_exists "$CHPHP_PREFIX/share/chphp/chphp.sh" && export DKO_SOURCE="$DKO_SOURCE -> chphp"
+source_if_exists "$CHRUBY_PREFIX/share/chruby/chruby.sh" && export DKO_SOURCE="$DKO_SOURCE -> chruby"
 # This also adds completions based on global nvm->npm packages
 source "$DOTFILES/shell/node"
+
 
 # ==============================================================================
 # Terminator
@@ -25,5 +28,8 @@ source "$DOTFILES/shell/node"
 
 # start at ~ for each terminator tab
 [ -n "$TERMINATOR_UUID" ] && cd
+
+
+export DKO_SOURCE="$DKO_SOURCE }"
 
 # vim: syn=sh :

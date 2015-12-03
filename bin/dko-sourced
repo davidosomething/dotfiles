@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+var sources = process.env['DKO_SOURCE'].split('->').slice(1);
+
+var level = 0;
+sources.forEach(function (s) {
+  sl = s.split('{');
+  sl.forEach(function (l) {
+    l = l.trim();
+    if (!l) {
+      level += 1;
+      return;
+    }
+    sc = l.split('}');
+    sc.forEach(function (c) {
+      c = c.trim();
+      if (!c) {
+        level -= 1;
+        return;
+      }
+      for (var i = 0; i < level; i++) {
+        process.stdout.write('  ');
+      }
+      process.stdout.write(c + '\n');
+    });
+  });
+});
+

@@ -2,6 +2,8 @@
 # LP_OS detection, default to Linux
 # ==============================================================================
 
+export DKO_SOURCE="$DKO_SOURCE -> shell/os"
+
 # https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
 case $(uname -s) in
     FreeBSD)   export DOTFILES_OS="FreeBSD" ;;

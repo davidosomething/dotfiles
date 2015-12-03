@@ -10,14 +10,14 @@
 # ==============================================================================
 
 export DKO_SOURCE="$DKO_SOURCE -> zshrc {"
-source "$HOME/.dotfiles/shell/vars"
-source "$DOTFILES/shell/before"
+source "${HOME}/.dotfiles/shell/vars"
+source "${DOTFILES}/shell/before"
 
 # ==============================================================================
 # Antigen
 # ==============================================================================
 
-source_if_exists "$ZDOTDIR/antigen/antigen.zsh" && {
+source_if_exists "${ZDOTDIR}/antigen/antigen.zsh" && {
   antigen bundles <<EOBUNDLES
   autojump
   colored-man-pages
@@ -35,7 +35,7 @@ EOBUNDLES
 # fzf
 # ==============================================================================
 
-source_if_exists "$HOME/.fzf.zsh"
+source_if_exists "${HOME}/.fzf.zsh" && export DKO_SOURCE="$DKO_SOURCE -> fzf"
 
 # ==============================================================================
 # zsh_reload
@@ -44,13 +44,13 @@ source_if_exists "$HOME/.fzf.zsh"
 zsh_reload() {
   local cache=$ZSH_CACHE_DIR
   autoload -U compinit zrecompile
-  compinit -d "$cache/zcomp-$HOST"
+  compinit -d "${cache}/zcomp-${HOST}"
 
-  for f in "$ZDOTDIR/.zshrc" "$cache/zcomp-$HOST"; do
+  for f in "${ZDOTDIR}/.zshrc" "${cache}/zcomp-${HOST}"; do
     zrecompile -p $f && command rm -f $f.zwc.old
   done
 
-  source "$ZDOTDIR/.zshrc"
+  source "${ZDOTDIR}/.zshrc"
 }
 
 # ==============================================================================
@@ -64,7 +64,9 @@ scripts=(
   "title"
   "prompt"
 )
-for script in $scripts; do; source "$ZDOTDIR/$script.zsh"; done; unset script
+for script in $scripts; do;
+  source "${ZDOTDIR}/${script}.zsh" && export DKO_SOURCE="$DKO_SOURCE -> ${script}.zsh"
+done; unset script
 
 # ==============================================================================
 # nocorrect aliases
@@ -79,7 +81,7 @@ alias mkdir="nocorrect mkdir"
 # Paths
 # ==============================================================================
 
-export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zshcache"
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
 
 # remove duplicates in path arrays
 typeset -U path cdpath manpath
@@ -87,22 +89,22 @@ typeset -U path cdpath manpath
 # Autoload function paths, add tab completion paths, top precedence
 # Doesn't matter if no BREW_PREFIX
 fpath=(
-  "$BREW_PREFIX/share/zsh/site-functions"
-  "$BREW_PREFIX/share/zsh-completions"
+  "${BREW_PREFIX}/share/zsh/site-functions"
+  "${BREW_PREFIX}/share/zsh-completions"
   $fpath
 )
 # remove duplicates in fpath array
 typeset -U fpath
 
-export HISTFILE="$ZDOTDIR/.zhistory"
+export HISTFILE="${ZDOTDIR}/.zhistory"
 
 # ==============================================================================
 # Prefer homebrew zsh's helpfiles
 # ==============================================================================
 
-[ -d "$BREW_PREFIX/share/zsh/helpfiles" ] && {
+[ -d "${BREW_PREFIX}/share/zsh/helpfiles" ] && {
   # use homebrew bundled zsh helpfiles for online help
-  export HELPDIR="$BREW_PREFIX/share/zsh/helpfiles"
+  export HELPDIR="${BREW_PREFIX}/share/zsh/helpfiles"
   unalias run-help
   autoload run-help
 }
@@ -111,5 +113,5 @@ export HISTFILE="$ZDOTDIR/.zhistory"
 # After
 # ==============================================================================
 
-source "$DOTFILES/shell/after"
-source_if_exists "$DOTFILES/local/zshrc"
+source "${DOTFILES}/shell/after"
+source_if_exists "${DOTFILES}/local/zshrc"

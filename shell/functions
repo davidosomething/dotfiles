@@ -1,6 +1,8 @@
 # Shell functions
 # Sourced in bash and zsh by loader
 
+export DKO_SOURCE="$DKO_SOURCE -> shell/functions"
+
 # Scripting --------------------------------------------------------------------
 current_shell() {
   ps -p $$ | awk 'NR==2 { print $4 }'

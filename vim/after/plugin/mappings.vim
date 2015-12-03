@@ -152,6 +152,9 @@ nnoremap <silent> <C-Right>      :wincmd l<CR>
 inoremap <silent> <C-Right> <Esc>:wincmd l<CR>
 nmap <A-x> :close<CR>
 
+" Cycle with tab in normal mode
+nmap <Tab> <C-w>w
+
 " Resize
 nnoremap <silent> <S-Left>  4<C-w><
 nnoremap <silent> <S-Down>  4<C-W>-
