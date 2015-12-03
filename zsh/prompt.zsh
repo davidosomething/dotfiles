@@ -1,10 +1,15 @@
-# prompt
+# prompt.zsh
+
 setopt PROMPT_SUBST                   # allow variables in prompt
+
 autoload -U colors && colors
 
-# enable version control in prompt
+
+# ------------------------------------------------------------------------------
+# version control info
+# ------------------------------------------------------------------------------
+
 autoload -Uz vcs_info
-precmd() { vcs_info; }
 zstyle ':vcs_info:*'            enable            bzr git hg svn
 
 # bzr/svn prompt
@@ -35,7 +40,11 @@ function +vi-gitmergemessage() {
   fi
 }
 
+
+# ------------------------------------------------------------------------------
 # vi mode
+# ------------------------------------------------------------------------------
+
 # http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
 # use vi mode even if EDITOR is emacs
 bindkey -v
@@ -69,28 +78,54 @@ TRAPWINCH() {
   zle && { zle reset-prompt; zle -R }
 }
 
-_prompt_user() {
-  local prompt_user
-  prompt_user="%F{green}$(logname)"
-  [ "$USER" != "$(logname)" ] && prompt_user="${prompt_user}%F{blue}»%F{white}%n"
-  echo $prompt_user
+
+# ------------------------------------------------------------------------------
+# precmd - set field values before display
+# ------------------------------------------------------------------------------
+
+precmd() {
+  vcs_info;
 }
 
+
+# ------------------------------------------------------------------------------
+# prompt main
+# ------------------------------------------------------------------------------
+
 _set_prompt() {
+  # ----------------------------------------------------------------------------
+  # Left side
+  # ----------------------------------------------------------------------------
+
   # logname»username (e.g. david»root)
   prompt_user='%F{green}%n'
   prompt_host='%F{green}%m'
   [ "$USER" = 'root' ] && prompt_user='%F{white}%n'
   [ "$SSH_CONNECTION" != '' ] && prompt_host='%F{white}%m'
 
-  PROMPT='${prompt_user}%F{blue}@${prompt_host}%F{blue}:'
-  PROMPT+='%F{yellow}%~'$'\n'
-  PROMPT+='%f%*%F{blue}${vimode}'
-  PROMPT+='${vcs_info_msg_0_}'
-  PROMPT+='%F{blue}%#%f '
+  PS1='${prompt_user}%F{blue}@${prompt_host}%F{blue}:'
+  PS1+='%F{yellow}%~'
+  PS1+=$'\n'
+  PS1+='%f%*'
+  PS1+='%F{blue}${vimode}'
+  PS1+='${vcs_info_msg_0_}'
+  PS1+='%F{blue}%#%f '
 
-  # RPROMPT='%F{red}n$(nvm_ls current)'
-  # RPROMPT+='%F{blue}p$(virtualenv_prompt_info)'
+  # ----------------------------------------------------------------------------
+  # Left side - continuation mode
+  # ----------------------------------------------------------------------------
+
+  PS2='%F{green}%_…%f '
+
+  # ----------------------------------------------------------------------------
+  # Right side
+  # ----------------------------------------------------------------------------
+
+  # Exit status in green/red
+  #RPS1='%(?.%F{green}ok.%F{red}%?)'
+
+  # RPS1='%F{red}n$(nvm_ls current)'
+  # RPS1+='%F{blue}p$(virtualenv_prompt_info)'
 }
 
 _set_prompt
