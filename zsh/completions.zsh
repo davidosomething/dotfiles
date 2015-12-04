@@ -28,20 +28,6 @@ zstyle ':completion::complete:cd:*' tag-order '! users'
 # in Bold, specify what type the completion is, e.g. a file or an alias or a cmd
 zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
 
-# use /etc/hosts and known_hosts for hostname completion
-[[ -f ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
-[[ -f ~/.ssh/config ]] && _ssh_config=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p')) || _ssh_config=()
-[[ -f /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
-hosts=(
-  "$_ssh_config[@]"
-  "$_global_ssh_hosts[@]"
-  "$_ssh_hosts[@]"
-  "$_etc_hosts[@]"
-  "$HOST"
-  localhost
-)
-zstyle ':completion:*:hosts' hosts $hosts
-
 # don't complete usernames
 zstyle ':completion:*' users ''
 
@@ -52,9 +38,3 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "${ZDOTDIR}/.zcache"
 
-# if has_program "lunchy" && [ "$DOTFILES_OS" = "Darwin" ]; then
-#   LUNCHY_DIR=$(dirname "$(which lunchy)")/../extras
-#   if [ -f $LUNCHY_DIR/lunchy-completion.zsh ]; then
-#     . $LUNCHY_DIR/lunchy-completion.zsh
-#   fi
-# fi
