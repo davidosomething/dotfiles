@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# vopen v0.1.0
+# vopen v0.1.1
 #
 # Automatically determine whether to use vim or gvim and use a single instance
 # Git commit messages will use a separate vim server called GIT
@@ -94,7 +94,6 @@ _vopen() {
     # reuse server
     if [ "$has_server" != "" ]; then
       if [ "$files" = "" ]; then
-        # shellcheck disable=SC2089
         args="$args --remote-send \":call foreground()<CR>\""
       else
         args="$args --remote-silent"
@@ -109,8 +108,7 @@ _vopen() {
   fi
 
   # execute --------------------------------------------------------------------
-  # shellcheck disable=SC2086,SC2090
-  eval $executable $server $args $files
+  eval "$executable $server $args $files"
 }
 
 _vopen "$@"
