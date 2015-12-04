@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# git-my v0.4.0
+# git-my v1.1.0
 #
 # Lists a user's remote branches and shows if it was merged
 # and/or available locally
@@ -29,12 +29,11 @@ _get_local_branches() {
   local fmt
   local cmd_get_local_branches
 
-  # shellcheck disable=SC2016
-  fmt='
+  fmt="
     r=%(refname)
-    refname_without_prefix=${r#refs/heads/}
-    printf "%s\t%s\n" "$refname_without_prefix"
-  '
+    refname_without_prefix=\${r#refs/heads/}
+    printf \"%s\\t%s\\n\" \"\$refname_without_prefix\"
+  "
 
   cmd_get_local_branches=$(
     git for-each-ref --shell --format="$fmt" refs/heads
@@ -58,13 +57,12 @@ _get_everyones_remotes() {
 
   # user.name<TAB>branch.name
   # the TAB is used as a delimiter to awk with
-  # shellcheck disable=SC2016
-  fmt='
+  fmt="
     a=%(authorname)
     r=%(refname)
-    refname_without_prefix=${r#refs/remotes/$remote_name/}
-    printf "%s\t%s\n" "$a" "$refname_without_prefix"
-  '
+    refname_without_prefix=\${r#refs/remotes/\${remote_name}/}
+    printf \"%s\\t%s\\n\" \"\$a\" \"\$refname_without_prefix\"
+  "
 
   cmd_everyones_remotes=$(
     git for-each-ref --shell --format="$fmt" "refs/remotes/$remote_name"
@@ -98,7 +96,6 @@ _get_merged_remote_branches() {
     )
 
   # remove "origin/"
-  # shellcheck disable=SC2001
   stripped_branchnames=$( \
     echo "$merged_remote_branches" | sed "s/^\s*$remote_name\///g" \
     )
@@ -125,9 +122,27 @@ _filter_mine() {
   echo "$my_remotes" | grep -v "HEAD" | awk -F'\t' '{ print $2 }'
 }
 
+# _merge_lists
+#
+# Convert two lists to bash arrays, merge them, sort them
+#
+# @param list1
+# @param list2
 _merge_lists() {
-  # shellcheck disable=SC2086
-  echo $1 $2 | tr ' ' '\n' | sort -u
+  local l1
+  local l2
+  l1=$(echo "$1" | awk '{$1=$1};1')
+  l2=$(echo "$2" | awk '{$1=$1};1')
+
+  readarray -t a1 <<< "$l1"
+  readarray -t a2 <<< "$l2"
+
+  local merged
+  merged=( "${a1[@]}" "${a2[@]}" )
+
+  local intersect
+  readarray -t intersect < <(printf '%s\n' "${merged[@]}" | sort -u)
+  echo "${intersect[@]}"
 }
 
 # _decorate_merged
@@ -138,7 +153,9 @@ _merge_lists() {
 #        into another branch
 # @output table of branch names and status
 _decorate_merged() {
-  local my_branches=$1
+  local my_branches
+  readarray -t my_branches <<< "$(echo "$1" | tr ' ' '\n' )"
+
   local local_branches=$2
   local merged_remote_branches=$3
 
@@ -156,8 +173,9 @@ _decorate_merged() {
 
   # body
   local zebra=0
-  for branchname in $my_branches
-  do
+  local last=$((${#my_branches[@]} - 1))
+  for i in "${!my_branches[@]}"; do
+    local branchname="${my_branches[$i]}"
     local decorated=''
     local is_local=' '
     local is_tracked=' '
@@ -166,7 +184,7 @@ _decorate_merged() {
     echo "$local_branches" | grep -q "$branchname" && \
       is_local='✓'
 
-    if git rev-parse --symbolic-full-name "$branchname"@{u} >/dev/null 2>&1; then
+    if git rev-parse --symbolic-full-name "$branchname@{u}" >/dev/null 2>&1; then
       is_tracked='✓'
     fi
 
@@ -174,24 +192,27 @@ _decorate_merged() {
       is_merged='✓'
 
     if [ "$branchname" == "$(git symbolic-ref --short HEAD)" ]; then
-      branchname="${magenta}${branchname}${normal}"
+      branchname="${magenta}${branchname}"
     else
       branchname="${branchname}"
     fi
 
     decorated=$(printf "   %s  |      %s  |     %s    %s" \
-      "$is_local" "$is_tracked" "$is_merged" "$branchname")
+       "$is_local" "$is_tracked" "$is_merged" "$branchname")
 
     if [ $zebra = 0 ]; then
+      echo -en ${normal}
       printf "\e[48;5;0m%s %s\n" "$decorated" "$clreol"
       zebra=1
     else
-      printf "\e[48;5;236m%s %s\n" "$decorated" "$clreol"
+      echo -en ${normal}
+      printf "\e[48;5;236m%s %s" "$decorated" "$clreol"
+      if [[ "$i" != "$last" ]]; then printf "\n"; fi
       zebra=0
     fi
   done
 
-  printf "\e[48;5;0m"
+  printf "\e[48;5;0m\n"
 }
 
 _main() {
