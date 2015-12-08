@@ -258,8 +258,8 @@ if g:dko_use_plugins
   " Plug: Language
   " ========================================================================
 
-  " autoclose brackets
-  Plug 'rstacruz/vim-closer'
+  " BROKEN autoclose brackets
+  "Plug 'rstacruz/vim-closer'
 
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'

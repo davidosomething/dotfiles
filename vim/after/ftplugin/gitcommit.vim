@@ -4,11 +4,7 @@
 " Only runs in a vim server named GIT (probably opened via my "e" script)
 "
 
-if exists("b:did_ftplugin") | finish | endif
-let b:did_ftplugin = 1
-
 setlocal spell
-
 
 " ============================================================================
 " vopen + committia mode

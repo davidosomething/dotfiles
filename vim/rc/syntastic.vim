@@ -31,6 +31,8 @@ let g:syntastic_ignore_files = [
 " ============================================================================
 
 let s:dko_ignore_html_tidy = [
+      \   '<fb:',
+      \   'discarding unexpected </fb:',
       \   ' proprietary attribute "ng-',
       \   ' proprietary attribute "itemprop',
       \   ' proprietary attribute "itemscope',
