@@ -5,7 +5,10 @@ set -e
 # Update dotfiles and provide instructions for updating the system
 #
 
-# initialize script and dependencies -------------------------------------------
+# ------------------------------------------------------------------------------
+# initialize script and dependencies
+# ------------------------------------------------------------------------------
+
 # get this bootstrap folder
 cd "$(dirname "$0")/.."
 dotfiles_path="$(pwd)"
@@ -13,7 +16,10 @@ logs_path="$dotfiles_path/logs"
 bootstrap_path="$dotfiles_path/bootstrap"
 source "$bootstrap_path/helpers.sh"
 
-# Usage ------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Usage
+# ------------------------------------------------------------------------------
+
 if [[ $# -eq 0 ]]; then
   dkousage "update [thing]"
   dkousage_ "thing is one of:"
@@ -22,11 +28,10 @@ if [[ $# -eq 0 ]]; then
   dkousage_ "  gem"
   dkousage_ "  go"
   dkousage_ "  heroku"
-  dkousage_ "  npm"
+  dkousage_ "  npm    # global packages"
+  dkousage_ "  node   # via nvm"
   dkousage_ "  nvm"
-  dkousage_ "  php    # phpenv"
   dkousage_ "  pip"
-  dkousage_ "  vim"
   dkousage_ "  arch   # arch only"
   dkousage_ "  osx    # osx only"
   dkousage_ "  brew   # osx only"
@@ -34,19 +39,145 @@ if [[ $# -eq 0 ]]; then
   exit 1
 fi
 
-# Command functions ------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Command functions
+# ------------------------------------------------------------------------------
+
+_update_brew() {
+  local is_python_rebuild=0
+  local outdated=""
+
+  dkostatus "Updating homebrew"
+  brew update
+
+  dkostatus "List of outdated packages"
+  outdated="$(brew outdated)"
+
+  # handle python3 and macvim
+  is_python_rebuild=$(grep "python3" <<< "$outdated")
+
+  dkostatus "Upgrade packages"
+  brew upgrade --all 2>&1 | tee "$logs_path/brew-upgrade.log"
+
+  if [ -n "$is_python_rebuild" ]; then
+    dkostatus_ "Linking python3 apps"
+    brew linkapps python3
+
+    dkostatus "Python3 was upgraded"
+    dkostatus_ "Updating pip and setuptools"
+    pip3 install --upgrade pip setuptools
+
+    dkostatus_ "Rebuilding macvim for new python3"
+    brew reinstall \
+      --with-custom-icons \
+      --with-lua \
+      --with-python3 \
+      --with-override-system-vim \
+      macvim
+    dkostatus_ "Linking new macvim.app"
+    brew linkapps macvim
+  fi
+
+  dkostatus "Cleanup old versions and prune dead symlinks"
+  brew cleanup      | dkoindent
+  brew cask cleanup | dkoindent
+  brew prune        | dkoindent
+}
+
+
+_update_dotfiles() {
+  local updated_dotfiles
+
+  dkostatus "Updating dotfiles"
+  # Make sure there are no untracked changes before updating dotfiles
+
+  # Update dotfiles
+  dkostatus_ "Getting latest updates"
+  cd "$HOME/.dotfiles" && \
+    git pull --stat --rebase --recurse-submodules | dkoindent && \
+    git submodule update --init | dkoindent
+  updated_dotfiles=$?
+  if [[ $updated_dotfiles -ne 0 ]]; then
+    dkodie "You have unsaved changes in your ~/.dotfiles folder."
+    exit 1
+  fi
+}
+
+
 _update_fzf() {
+  dkostatus "Updating fzf"
   cd "$HOME/.fzf" && git pull --stat && ./install
 }
+
+
+_update_node() {
+  local desired_node="v0.12"
+  local desired_node_minor
+  local previous_node
+
+  source "${NVM_DIR}/nvm.sh"
+  desired_node_minor="$(nvm version-remote "$desired_node")"
+  previous_node="$(nvm current)"
+
+  dkostatus "Previous node version was $previous_node"
+  if [ "$desired_node_minor" != "$previous_node" ]; then
+    dkostatus "Installing and using new node $desired_node_minor"
+    nvm install             "$desired_node"
+    nvm use                 "$desired_node"
+    nvm alias   default     "$desired_node"
+    nvm reinstall-packages  "$previous_node"
+  else
+    dkostatus_ "Node version is already up-to-date."
+  fi
+
+  exec "$SHELL"
+}
+
+
+_update_npm() {
+  dkostatus "Updating global npm modules"
+  npm update -g
+}
+
+
+_update_nvm() {
+  local previous_nvm
+  local latest_nvm
+
+  if [ ! -d "$NVM_DIR" ]; then
+    dkostatus "Installing nvm"
+    git clone https://github.com/creationix/nvm.git "$NVM_DIR"
+  fi
+
+  dkostatus "Updating nvm"
+  cd "$NVM_DIR"
+  previous_nvm="$(git describe --abbrev=0 --tags)"
+
+  git checkout master
+  git pull
+  git fetch --tags
+  latest_nvm="$(git describe --abbrev=0 --tags)"
+  git checkout "$latest_nvm"
+
+  if [ "$previous_nvm" != "$latest_nvm" ]; then
+    dkostatus "Restart your shell to start using nvm $latest_nvm"
+  else
+    dkostatus "Already using latest nvm $latest_nvm"
+  fi
+
+  exec "$SHELL"
+}
+
 
 _update_pip() {
   local pip_command=${1:-pip}
   dkostatus "Updating $pip_command"
   if has_program "$pip_command"; then
     $pip_command install --upgrade setuptools | dkoindent
-    $pip_command install --upgrade pip | dkoindent
+    $pip_command install --upgrade pip        | dkoindent
   fi
 }
+
 
 _update_linux() {
   case "$1" in
@@ -76,19 +207,11 @@ _update_linux() {
   esac
 }
 
+
 _update_darwin() {
   case "$1" in
     brew)
-      dkostatus "Updating homebrew"
-      brew update
-      dkostatus "List of outdated packages"
-      brew outdated | dkoindent
-      dkostatus "Upgrade packages"
-      brew upgrade --all 2>&1 | tee "$logs_path/brew-upgrade.log"
-      dkostatus "Cleanup old versions and prune dead symlinks"
-      brew cleanup | dkoindent
-      brew cask cleanup | dkoindent
-      brew prune | dkoindent
+      _update_brew
       ;;
 
     osx)
@@ -108,27 +231,17 @@ _update_darwin() {
   esac
 }
 
-# Common -----------------------------------------------------------------------
-if [[ "$1" = "dotfiles" ]]; then
-  dkostatus "Updating dotfiles"
-  # Make sure there are no untracked changes before updating dotfiles
 
-  # Update dotfiles
-  dkostatus_ "Getting latest updates"
-  cd "$HOME/.dotfiles" && \
-    git pull --stat --rebase --recurse-submodules | dkoindent && \
-    git submodule update --init | dkoindent
-  updated_dotfiles=$?
-  if [[ $updated_dotfiles -ne 0 ]]; then
-    dkodie "You have unsaved changes in your ~/.dotfiles folder."
-    exit 1
-  fi
-fi
+# ------------------------------------------------------------------------------
+# Common to all OS
+# ------------------------------------------------------------------------------
 
-if [[ "$1" = "fzf" ]]; then
-  dkostatus "Updating fzf"
-  _update_fzf
-fi
+
+if [[ "$1" = "dotfiles" ]]; then _update_dotfiles; fi
+
+
+if [[ "$1" = "fzf" ]]; then _update_fzf; fi
+
 
 if [[ "$1" = "gem" ]]; then
   dkostatus "Updating RubyGems itself"
@@ -137,6 +250,7 @@ if [[ "$1" = "gem" ]]; then
   gem update | dkoindent
 fi
 
+
 if [[ "$1" = "go" ]]; then
   if has_program "go"; then
     dkostatus "Updating go packages"
@@ -144,60 +258,19 @@ if [[ "$1" = "go" ]]; then
   fi
 fi
 
+
 if [[ "$1" = "heroku" ]]; then
-  heroku update | dkoindent
-fi
-
-if [[ "$1" = "npm" ]]; then
-  dkostatus "Updating global npm modules"
-  npm update -g
-fi
-
-if [[ "$1" = "nvm" ]]; then
-  nvm_node_version="v0.12"
-
-  if [ ! -d "$NVM_DIR" ]; then
-    dkostatus "Installing nvm"
-    git clone https://github.com/creationix/nvm.git "$NVM_DIR"
+  if has_program "heroku"; then
+    dkostatus "Updating heroku"
+    heroku update | dkoindent
   fi
-
-  dkostatus "Updating nvm"
-  cd "$NVM_DIR"
-  git checkout master
-  git fetch --tags
-  git checkout "$(git describe --abbrev=0 --tags)"
-
-  source "$NVM_DIR/nvm.sh"
-
-  dkostatus "Installing and using node version ${nvm_node_version}"
-  # install stable node and use as default
-  nvm install "${nvm_node_version}" --reinstall-packages-from=node
-  nvm use "${nvm_node_version}"
-  nvm alias default "${nvm_node_version}"
 fi
 
-if [ "$1" = "php" ] && [ -d "$HOME/.phpenv" ]; then
-  dkostatus "Updating phpenv"
-  pushd "$HOME/.phpenv" >/dev/null && git pull --stat | dkoindent && popd >/dev/null
-  phpenv rehash | dkoindent
-fi
 
-if [[ "$1" = "vim" ]]; then
-  dkostatus "Updating vim bundles"
-  vim -N -c "try |\
-    PlugUpgrade 1 |\
-    PlugClean! |\
-    PlugUpdate |\
-    finally | qall! | endtry" -U NONE -i NONE
+if [[ "$1" = "node" ]]; then _update_node; fi
+if [[ "$1" = "npm" ]];  then _update_npm; fi
+if [[ "$1" = "nvm" ]];  then _update_nvm; fi
 
-  # old neobundle version:
-  #   NeoBundleClean! |\
-  #   NeoBundleCheck |\
-  #   NeoBundleUpdate |\
-  #   NeoBundleUpdatesLog $* |\
-  #   message |\
-  #   finally | qall! | endtry" -U NONE -i NONE -V1 -e -s
-fi
 
 # Begin OS Specific ------------------------------------------------------------
 case "$OSTYPE" in
