@@ -13,7 +13,7 @@ export PYLINTHOME="$XDG_CONFIG_HOME/pylint"
 # ==============================================================================
 
 # Safety -- only allow pip installs in a virtualenv
-export PIP_REQUIRE_VIRTUALENV=true
+#export PIP_REQUIRE_VIRTUALENV=true
 
 # Default virtualenv
 export WORKON_HOME="$HOME/.local/virtualenv"
