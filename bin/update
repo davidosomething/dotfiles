@@ -10,11 +10,11 @@ set -e
 # ------------------------------------------------------------------------------
 
 # get this bootstrap folder
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/.." || exit 1
 dotfiles_path="$(pwd)"
-logs_path="$dotfiles_path/logs"
-bootstrap_path="$dotfiles_path/bootstrap"
-source "$bootstrap_path/helpers.sh"
+logs_path="${dotfiles_path}/logs"
+bootstrap_path="${dotfiles_path}/bootstrap"
+source "${bootstrap_path}/helpers.sh"
 
 # ------------------------------------------------------------------------------
 # Usage
@@ -86,27 +86,16 @@ _update_brew() {
 
 
 _update_dotfiles() {
-  local updated_dotfiles
-
   dkostatus "Updating dotfiles"
-  # Make sure there are no untracked changes before updating dotfiles
-
-  # Update dotfiles
-  dkostatus_ "Getting latest updates"
   cd "$HOME/.dotfiles" && \
-    git pull --stat --rebase --recurse-submodules | dkoindent && \
-    git submodule update --init | dkoindent
-  updated_dotfiles=$?
-  if [[ $updated_dotfiles -ne 0 ]]; then
-    dkodie "You have unsaved changes in your ~/.dotfiles folder."
-    exit 1
-  fi
+    git pull --rebase --recurse-submodules && \
+    git submodule update --init
 }
 
 
 _update_fzf() {
   dkostatus "Updating fzf"
-  cd "$HOME/.fzf" && git pull --stat && ./install
+  cd "$HOME/.fzf" && git pull && ./install
 }
 
 
