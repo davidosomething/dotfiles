@@ -5,6 +5,9 @@
 "
 
 setlocal spell
+setlocal wrap
+setlocal linebreak
+setlocal textwidth=80
 
 " ============================================================================
 " vopen + committia mode

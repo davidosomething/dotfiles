@@ -6,140 +6,141 @@
 #
 
 [alias]
-a       = add
-b       = branch
-ci      = commit
-co      = checkout
-d       = diff
-i       = ink
-m       = merge
-rb      = rebase
-st      = status
-t       = tag
+	a       = add
+	b       = branch
+	ci      = commit
+	co      = checkout
+	d       = diff
+	i       = ink
+	m       = merge
+	rb      = rebase
+	st      = status
+	t       = tag
 
-aa      = add .
+	aa      = add .
 
-be      = branch --edit-description
-done    = branch --merged
-um      = branch --no-merged
+	be      = branch --edit-description
+	done    = branch --merged
+	um      = branch --no-merged
 
-cl      = changelog --list
+	cl      = changelog --list
 
-cb      = checkout -b
-ct      = checkout -t
-master  = checkout master
+	cb      = checkout -b
+	ct      = checkout -t
+	master  = checkout master
 
-ca      = commit --amend
-cm      = commit -m
+	ca      = commit --amend
+	cm      = commit -m
 
-get     = config --get
-cfg     = config --global --edit
+	get     = config --get
+	cfg     = config --global --edit
 
-lasttag = describe --tags --abbrev=0
+	lasttag = describe --tags --abbrev=0
 
-dc      = diff --cached
-dm      = diff master
-mod     = diff master --name-only
+	dc      = diff --cached
+	dm      = diff master
+	mod     = diff master --name-only
 
 # show alias definition by name, e.g. `git finda changed`
-finda   = "!grepalias() { git config --global --get-regexp alias | grep -i \"$1\" | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; grepalias"
+	finda   = "!grepalias() { git config --global --get-regexp alias | grep -i \"$1\" | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; grepalias"
 
-g       = grep --break --heading --line-number
+	g       = grep --break --heading --line-number
 
-l       = log --abbrev-commit --oneline
-ll      = log --abbrev-commit --oneline --decorate --all
-lb      = log --abbrev-commit --oneline --decorate --all --graph
-lg      = log --abbrev-commit           --decorate --all --graph
+	l       = log --abbrev-commit --oneline
+	ll      = log --abbrev-commit --oneline --decorate --all
+	lb      = log --abbrev-commit --oneline --decorate --all --graph
+	lg      = log --abbrev-commit           --decorate --all --graph
 
-mma     = merge master
+	mma     = merge master
 
-pr      = pull --rebase
-pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
+	pr      = pull --rebase
+	pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
 
-rso     = remote show origin
+	rso     = remote show origin
 
-rehard  = reset --hard
+	rehard  = reset --hard
 
-forget  = rm -r --cached
+	forget  = rm -r --cached
 
-s       = status -bs
+	s       = status -bs
 
-root    = !pwd -P
+	root    = !pwd -P
 
 [color]
-branch      = auto
-diff        = auto
-grep        = auto
-interactive = auto
-status      = auto
-ui          = auto
-pager       = true
+	branch      = auto
+	diff        = auto
+	grep        = auto
+	interactive = auto
+	status      = auto
+	ui          = auto
+	pager       = true
 
 # Repo settings ----------------------------------------------------------------
 [commit]
-template = "~/.dotfiles/git/commit-template"
+	template = "~/.dotfiles/git/commit-template"
 
 [core]
-compression = -1
+	compression = -1
 # editor = "vim -f" ; removed so git will use env EDITOR or VISUAL
-excludesfile = "~/.dotfiles/git/.gitignore"
-sharedRepository = 0664
+	excludesfile = "~/.dotfiles/git/.gitignore"
+	sharedRepository = 0664
+	commentchar = ";"
 # pager = less -x4 ; removed so git will use the env GIT_PAGER
 
 [filter "media"]
-clean = git media clean %f
-smudge = git media smudge %f
-required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true
 
 [filter "lfs"]
-clean = git-lfs clean %f
-smudge = git-lfs smudge %f
-required = true
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
 
 [push]
-default = simple
+	default = simple
 
 [rerere]
-enabled = 1
+	enabled = 1
 
 # Programs ---------------------------------------------------------------------
 [gui]
-fontui = -family \"Fira Sans\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
-fontdiff = -family \"Fira Mono for Powerline\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
-commitmsgwidth = 80
-diffcontext = 10
+	fontui = -family \"Fira Sans\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"Fira Mono for Powerline\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
+	commitmsgwidth = 80
+	diffcontext = 10
 
 [difftool]
-prompt = false
+	prompt = false
 
 [mergetool]
-prompt = false
+	prompt = false
 
 [pager]
-status = true
+	status = true
 
 # URL aliases ------------------------------------------------------------------
 [url "git@github.com:"]
-insteadOf = "gh:"
-pushInsteadOf = "github:"
-pushInsteadOf = "git://github.com/"
+	insteadOf = "gh:"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
 
 [url "git://github.com/"]
-insteadOf = "github:"
+	insteadOf = "github:"
 
 [url "git@gist.github.com:"]
-insteadOf = "gst:"
-pushInsteadOf = "gist:"
-pushInsteadOf = "git://gist.github.com/"
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
 
 [url "git://gist.github.com/"]
-insteadOf = "gist:"
+	insteadOf = "gist:"
 
 [url "git@heroku.com:"]
-insteadOf = "heroku:"
+	insteadOf = "heroku:"
 
 # Local ------------------------------------------------------------------------
 [include]
-path = "~/.dotfiles/local/gitconfig"
+	path = "~/.dotfiles/local/gitconfig"
 
-# vim: syntax=gitconfig expandtab :
+# vim: syntax=gitconfig :

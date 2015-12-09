@@ -1,15 +1,13 @@
-# Purpose (one line), e.g.:
-# Performance improvements by refactoring XYZ...
+; Purpose (50 char max), e.g.: -----------------|
+; Performance improvements by refactoring XYZ...
 
-# Feature additions, e.g.:
-#- ADDED: New tracking module
+; Long description ...
 
-# Feature removals, e.g.:
-#- REMOVED: Old tracking module
+#### Changelog ####
 
-# Logic/architectural changes, e.g.:
-#- CHANGED: Unwrap loop
+;- ADDED:   New tracking module
+;- CHANGED: Unwrap loop
+;- FIXED:   Missing variable declaration
+;- REMOVED: Old tracking module
 
-# Fixes, e.g.:
-#- FIXED: Missing variable declaration
-
+; vim: ft=gitcommit :

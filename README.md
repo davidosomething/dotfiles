@@ -57,6 +57,13 @@ There's a readme in `bin/` describing things.
 
 Install these manually, either into `$XDG_DATA_HOME/fonts` or `~/Library/Fonts`
 
+### git/
+
+The comment character was changed from `#` to `;` so I can use Markdown in my
+commit messages without trimming the headers as comments.  
+This is also reflected in a custom vim highlighting syntax in
+`vim/after/syntax/gitcommit.vim`.
+
 ### local/
 
 Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here and
