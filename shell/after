@@ -30,6 +30,12 @@ source "${DOTFILES}/shell/node"
 [ -n "$TERMINATOR_UUID" ] && cd
 
 
+# ==============================================================================
+# Auto-manpath
+# ==============================================================================
+
+unset MANPATH
+
 export DKO_SOURCE="$DKO_SOURCE }"
 
 # vim: syn=sh :
