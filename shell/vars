@@ -91,7 +91,7 @@ export COMPOSER_BIN_DIR="${COMPOSER_VENDOR_DIR}/bin"
 export CTAGS="$(cat "${DOTFILES}/shell/ctags")"
 
 # docker
-export DOCKER_CONFIG="${XDG_CONFIG_HOME}/.docker"
+export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
 # fzf
 # ** is globbing completion in  zsh, use tickticktab instead
