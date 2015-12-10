@@ -158,8 +158,12 @@ if g:dko_use_plugins
   " Plug: Input, syntax, spacing
   " ========================================================================
 
-  Plug 'vim-scripts/PreserveNoEOL'
-        \| Plug 'editorconfig/editorconfig-vim'
+  " @vimlint(EVL108, 1)
+  if has('patch-7.4.785') && !has('fixedendofline')
+    Plug 'vim-scripts/PreserveNoEOL'
+  endif
+  " Requires PreserveNoEOL or +fixedendofline
+  Plug 'editorconfig/editorconfig-vim'
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
