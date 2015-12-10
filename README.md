@@ -84,6 +84,13 @@ You might want from your system package manager:
 If you have node already, run `dko-sourced` (`bin/dko-sourced`) or just
 `echo $DKO_SOURCE` to see what files are loaded.
 
+For X apps (no terminal) the value is probably:
+
+    /etc/profile
+    .xprofile
+      shell/vars
+        shell/xdg
+
 ### node
 
 Install via nvm, installed via `bin/update npm`, which uses latest git tag

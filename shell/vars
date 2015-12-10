@@ -88,7 +88,7 @@ export COMPOSER_VENDOR_DIR="${COMPOSER_HOME}/vendor"
 export COMPOSER_BIN_DIR="${COMPOSER_VENDOR_DIR}/bin"
 
 # ctags -- instead of ~/.ctags, just read options into the env var
-export CTAGS="$(cat "${DOTFILES}/shell/ctags")"
+export CTAGS="$(cat "${DOTFILES}/shell/ctags" | tr "\n" " ")"
 
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
