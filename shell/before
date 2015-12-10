@@ -6,11 +6,11 @@
 
 export DKO_SOURCE="$DKO_SOURCE -> shell/before {"
 
-source "$DOTFILES/shell/path"
-source "$DOTFILES/shell/os"
-source "$DOTFILES/shell/functions" # source_if_exists, has_program
-source "$DOTFILES/shell/python"
-source "$DOTFILES/shell/aliases"
+source "${DOTFILES}/shell/path"
+source "${DOTFILES}/shell/os"
+source "${DOTFILES}/shell/functions" # source_if_exists, has_program
+source "${DOTFILES}/shell/python"
+source "${DOTFILES}/shell/aliases"
 
 # ==============================================================================
 # rupa/z
@@ -18,12 +18,12 @@ source "$DOTFILES/shell/aliases"
 
 # Needs to be in shell/before since it doesn't extend zsh $precmd_functions
 # nicely
-if [ -f "$DOTFILES/shell/z/z.sh" ]; then
+if [ -f "${DOTFILES}/shell/z/z.sh" ]; then
   export DKO_SOURCE="$DKO_SOURCE -> shell/z"
   export _Z_CMD="j"
-  export _Z_DATA="$HOME/.local/z"
+  export _Z_DATA="${HOME}/.local/z"
   [ ! -f "$_Z_DATA" ] && touch "$_Z_DATA"
-  source "$DOTFILES/shell/z/z.sh"
+  source "${DOTFILES}/shell/z/z.sh"
 fi
 
 export DKO_SOURCE="$DKO_SOURCE }"

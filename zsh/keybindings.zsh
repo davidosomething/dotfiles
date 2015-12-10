@@ -1,4 +1,4 @@
-# .dotfiles/zsh/keybindings.zsh
+# keybindings.zsh
 
 # disable ^S and ^Q terminal freezing
 unsetopt flowcontrol

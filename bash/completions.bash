@@ -4,15 +4,15 @@ source_if_exists /etc/bash_completion
 source_if_exists /usr/share/bash-completion/bash_completion
 
 # WP-CLI Bash completions
-source_if_exists "$HOME/.wp-cli/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
+source_if_exists "${HOME}/.wp-cli/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
 
 # travis
-source_if_exists "$HOME/.travis/travis.sh"
+source_if_exists "${TRAVIS_CONFIG_PATH}/.travis/travis.sh"
 
 # homebrew's bash-completion package sources the rest of bash_completion.d
-source_if_exists "$BREW_PREFIX/etc/bash_completion"
+source_if_exists "${BREW_PREFIX}/etc/bash_completion"
 
-source_if_exists "$NVM_DIR/bash_completion"
+source_if_exists "${NVM_DIR}/bash_completion"
 
 # following are from
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_profile
@@ -20,17 +20,4 @@ source_if_exists "$NVM_DIR/bash_completion"
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
   complete -o default -o nospace -F _git g;
-fi;
-
-# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh;
-
-# lunchy gem completion
-# if [ "$DOTFILES_OS" = "Darwin" ]; then
-#   LUNCHY_DIR=$(dirname `gem which lunchy`)/../extras
-#   if [ -f $LUNCHY_DIR/lunchy-completion.bash ]; then
-#     . $LUNCHY_DIR/lunchy-completion.bash
-#   fi
-# fi
-
-# vim: syn=sh :
+fi

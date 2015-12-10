@@ -5,7 +5,7 @@
 export DKO_SOURCE="$DKO_SOURCE -> shell/os"
 
 # https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
-case $(uname -s) in
+case "$(uname -s)" in
     FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
     DragonFly) export DOTFILES_OS="FreeBSD" ;;
     OpenBSD)   export DOTFILES_OS="OpenBSD" ;;
@@ -13,14 +13,14 @@ case $(uname -s) in
     SunOS)     export DOTFILES_OS="SunOS"   ;;
     *)         export DOTFILES_OS="Linux"   ;;
 esac
-[[ $DOTFILES_OS = "Darwin" ]] && {
+[[ "$DOTFILES_OS" = "Darwin" ]] && {
   case "$(sw_vers -productVersion)" in
     10.7*) export DOTFILES_DISTRO="lion"          ;;
     10.8*) export DOTFILES_DISTRO="mountainlion"  ;;
     10.9*) export DOTFILES_DISTRO="mavericks"     ;;
   esac
 }
-[[ $DOTFILES_OS = "Linux" ]] && {
+[[ "$DOTFILES_OS" = "Linux" ]] && {
   [[ -f "/etc/debian_version" ]] && export DOTFILES_DISTRO="debian"
   [[ -f "/etc/arch-release" ]]   && export DOTFILES_DISTRO="archlinux"
   [[ -x "/bin/busybox" ]]        && export DOTFILES_DISTRO="busybox"

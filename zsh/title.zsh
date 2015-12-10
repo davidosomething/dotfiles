@@ -1,4 +1,7 @@
+# title.zsh
+#
 # Set title of terminal emulator
+#
 
 # print -P means use same escape chars as PROMPT
 # %n          expands to $USERNAME
@@ -39,3 +42,4 @@ _term_title() {
 }
 
 _term_title
+

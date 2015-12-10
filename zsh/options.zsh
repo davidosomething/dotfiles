@@ -1,4 +1,5 @@
-# zsh options
+# options.zsh
+
 # Changing Directories
 setopt AUTO_PUSHD                     # pushd instead of cd
 setopt PUSHD_IGNORE_DUPS
@@ -43,3 +44,4 @@ setopt INTERACTIVE_COMMENTS           # allow comments in shell
 # Zle
 setopt NO_BEEP
 setopt VI
+

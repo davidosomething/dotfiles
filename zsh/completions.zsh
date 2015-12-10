@@ -1,3 +1,5 @@
+# completions.zsh
+#
 # fpaths are set in zshenv
 # load completion - the -U means look in fpath, -z means on first run
 # -i means ignore security errors
@@ -48,6 +50,7 @@ autoload -U +X bashcompinit && bashcompinit
 # WP-CLI
 # ------------------------------------------------------------------------------
 # bash completion for the `wp` command
+# see wp-cli source or oh-my-zsh's variation
 
 _wp_complete() {
 	local cur=${COMP_WORDS[COMP_CWORD]}
@@ -66,3 +69,4 @@ _wp_complete() {
 	fi
 }
 complete -o nospace -F _wp_complete wp
+

@@ -7,18 +7,18 @@ export DKO_SOURCE="$DKO_SOURCE -> shell/node"
 # ==============================================================================
 
 # custom NVM_DIR so we don't pollute home
-export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 
 # using nvm?
 if [ -d "$NVM_DIR" ]; then
-  source_if_exists "$NVM_DIR/nvm.sh"
+  source_if_exists "${NVM_DIR}/nvm.sh"
 
 # using system node
 else
   # consider using NODE_PATH="$(npm root -g):$NODE_PATH" so nvm specific
   # node_path is also checked
-  export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
-  export NPM_PACKAGES="$HOME/.npm-packages"
+  export NODE_PATH="/usr/local/lib/node_modules:${NODE_PATH}"
+  export NPM_PACKAGES="${HOME}/.npm-packages"
 fi
 
 # ==============================================================================

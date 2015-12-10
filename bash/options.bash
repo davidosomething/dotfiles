@@ -9,6 +9,4 @@ shopt -s cdspell                    # autocorrect dir names
 shopt -s cdable_vars
 shopt -s no_empty_cmd_completion    # don't try to complete empty lines
 
-export HISTFILE="$BASH_DOTFILES/.bash_history"
-
-# vim: syn=sh :
+export HISTFILE="${BASH_DOTFILES}/.bash_history"

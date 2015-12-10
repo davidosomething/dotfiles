@@ -62,5 +62,3 @@ _bash_prompt() {
 }
 
 _bash_prompt
-
-# vim: syn=sh :

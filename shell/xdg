@@ -6,9 +6,12 @@
 export DKO_SOURCE="$DKO_SOURCE -> shell/xdg"
 
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
 # the user dirs aren't defined on OSX
-[[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]] && source "$XDG_CONFIG_HOME/user-dirs.dirs"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
+[[ -f "${XDG_CONFIG_HOME}/user-dirs.dirs" ]] && source "${XDG_CONFIG_HOME}/user-dirs.dirs"
+
+export XDG_CACHE_HOME="${HOME}/.cache"
+
+export XDG_DATA_HOME="${HOME}/.local/share"
 
 # vim: syn=sh :
