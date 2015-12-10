@@ -5,7 +5,7 @@
 " Undo that, and keep softtabstop at 2
 " This way in PHP you can use mixed:
 " - real tabs (one at a time with TAB) for indenting at beginning
-" - spaces (two at a time with TAB) for alignment in middle of line
+" - spaces (2 at a time with TAB) for alignment in middle of line
 "
 " e.g.
 "
@@ -18,9 +18,7 @@
 " ?>
 " ```
 
-if exists('editorconfig#AddNewHook')
-  function! EcSofttabstop(config)
-    set softtabstop=2
-  endfunction
-  call editorconfig#AddNewHook(function('EcSofttabstop'))
-endif
+function! EcSofttabstop(config)
+  set softtabstop=2
+endfunction
+call editorconfig#AddNewHook(function('EcSofttabstop'))

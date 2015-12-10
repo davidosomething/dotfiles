@@ -624,7 +624,6 @@ set shiftwidth=2                      " softtabs are 2 spaces for expandtab
 
 " Alignment tabs are two spaces, and never tabs. Negative means use same as
 " shiftwidth (so the 2 actually doesn't matter).
-" Works with IndentTab.
 set softtabstop=-2
 
 " real tabs render 4 wide. Applicable to HTML, PHP, anything using real tabs.
@@ -659,7 +658,8 @@ set fillchars=diff:⣿,vert:\|
 " Diffing
 " ============================================================================
 
-set diffopt=filler                    " blank lines to keep sides aligned
+set diffopt=vertical                  " Use in vertical diff mode
+set diffopt+=filler                   " blank lines to keep sides aligned
 set diffopt+=iwhite                   " Ignore whitespace changes
 
 " ============================================================================
