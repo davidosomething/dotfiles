@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 brew update
 
 brew cask install betterzipql
@@ -9,3 +11,4 @@ brew cask install qlstephen
 brew cask install quicklook-csv
 brew cask install quicklook-json
 brew cask install webpquicklook
+

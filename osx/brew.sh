@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 brew update
 
 # compilers, tools, and libs ---------------------------------------------------
@@ -32,3 +34,4 @@ brew dnsmasq openssl
 
 # links to /Applications -------------------------------------------------------
 brew linkapps
+

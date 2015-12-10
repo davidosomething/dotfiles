@@ -31,9 +31,6 @@ brew cask install kaleidoscope
 # formerly keyremap4macbook
 brew cask install karabiner
 
-# prefpane to manage homebrew plists like mysql
-brew cask install launchrocket
-
 brew cask install marked
 
 # don't use reverse scrolling on a mouse
@@ -46,3 +43,4 @@ brew cask install vagrant-manager
 brew cask install vlc
 
 brew cask install xquartz
+
