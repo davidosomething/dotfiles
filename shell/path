@@ -33,7 +33,7 @@ dko_add_paths() {
   # package managers -----------------------------------------------------------
 
   # composer
-  my_path="${HOME}/.composer/vendor/bin:${my_path}"
+  my_path="${COMPOSER_HOME}/vendor/bin:${my_path}"
 
   # go
   my_path="${GOPATH}/bin:${my_path}"

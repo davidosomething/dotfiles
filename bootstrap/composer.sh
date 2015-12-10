@@ -6,12 +6,11 @@ set -e
 
 # initialize script and dependencies -------------------------------------------
 # get this bootstrap folder
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/.." || exit 1
 dotfiles_path="$(pwd)"
-logs_path="$dotfiles_path/logs"
-bootstrap_path="$dotfiles_path/bootstrap"
+bootstrap_path="${dotfiles_path}/bootstrap"
 
-source "$bootstrap_path/helpers.sh"
+source "${bootstrap_path}/helpers.sh"
 
 
 _install_composer() {
@@ -26,8 +25,9 @@ _install_composer() {
 
   else
 
-    mkdir -p $HOME/.composer/bin
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=$HOME/.composer/bin
+    export COMPOSER_HOME="${XDG_CONFIG_HOME}/composer"
+    mkdir -p "${COMPOSER_HOME}/bin"
+    curl -sS https://getcomposer.org/installer | php -- --install-dir="${COMPOSER_HOME}/bin"
 
   fi
 }
@@ -40,7 +40,7 @@ _after_install() {
 
 
 _update() {
-  composer_user=$(stat -c %U $(which composer))
+  composer_user="$(stat -c %U "$(which composer)")"
   if [ "$composer_user" = "root" ]; then
     sudo composer selfupdate
   else
