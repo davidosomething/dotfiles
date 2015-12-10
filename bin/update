@@ -93,6 +93,14 @@ _update_dotfiles() {
 }
 
 
+_update_secret() {
+  dkostatus "Updating secret"
+  cd "${HOME}/.secret" && \
+    git pull --rebase --recurse-submodules && \
+    git submodule update --init
+}
+
+
 _update_fzf() {
   dkostatus "Updating fzf"
   cd "${HOME}/.fzf" && git pull && ./install
@@ -168,6 +176,10 @@ _update_pip() {
 }
 
 
+# ------------------------------------------------------------------------------
+# OS Specific
+# ------------------------------------------------------------------------------
+
 _update_linux() {
   case "$1" in
     arch)
@@ -222,12 +234,11 @@ _update_darwin() {
 
 
 # ------------------------------------------------------------------------------
-# Common to all OS
+# Main
 # ------------------------------------------------------------------------------
 
-
 if [[ "$1" = "dotfiles" ]]; then _update_dotfiles; fi
-
+if [[ "$1" = "secret" ]]; then _update_secret; fi
 
 if [[ "$1" = "fzf" ]]; then _update_fzf; fi
 
