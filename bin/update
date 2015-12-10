@@ -57,7 +57,7 @@ _update_brew() {
   is_python_rebuild=$(grep "python3" <<< "$outdated")
 
   dkostatus "Upgrade packages"
-  brew upgrade --all 2>&1 | tee "$logs_path/brew-upgrade.log"
+  brew upgrade --all 2>&1 | tee "${logs_path}/brew-upgrade.log"
 
   if [ -n "$is_python_rebuild" ]; then
     dkostatus_ "Linking python3 apps"
@@ -87,7 +87,7 @@ _update_brew() {
 
 _update_dotfiles() {
   dkostatus "Updating dotfiles"
-  cd "$HOME/.dotfiles" && \
+  cd "$DOTFILES" && \
     git pull --rebase --recurse-submodules && \
     git submodule update --init
 }
@@ -95,7 +95,7 @@ _update_dotfiles() {
 
 _update_fzf() {
   dkostatus "Updating fzf"
-  cd "$HOME/.fzf" && git pull && ./install
+  cd "${HOME}/.fzf" && git pull && ./install
 }
 
 
@@ -188,7 +188,7 @@ _update_linux() {
 
     wp)
       dkostatus "Update wp-cli"
-      pushd "$HOME/.wp-cli" &&
+      pushd "${WP_CLI_CONFIG_PATH}" &&
       php composer.phar self-update | dkoindent &&
       php composer.phar update --no-dev | dkoindent &&
       popd

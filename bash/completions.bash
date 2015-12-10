@@ -4,7 +4,7 @@ source_if_exists /etc/bash_completion
 source_if_exists /usr/share/bash-completion/bash_completion
 
 # WP-CLI Bash completions
-source_if_exists "${HOME}/.wp-cli/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
+source_if_exists "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
 
 # travis
 source_if_exists "${TRAVIS_CONFIG_PATH}/.travis/travis.sh"
