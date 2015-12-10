@@ -102,15 +102,6 @@ if g:dko_use_plugins
   "   based on the filetype matching the script name).
 
   " ========================================================================
-  " Plug: Appearance/tab/split mgmt
-  " ========================================================================
-
-  if g:dko_use_airline | Plug 'bling/vim-airline'
-  endif
-
-  Plug 'now/vim-quit-if-only-quickfix-buffer-left'
-
-  " ========================================================================
   " Plug: File system
   " ========================================================================
 
@@ -158,7 +149,7 @@ if g:dko_use_plugins
   Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
 
   " <F11>
-  Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
+  Plug 'sjl/gundo.vim'
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   Plug 'tpope/vim-eunuch'
@@ -415,6 +406,11 @@ if g:dko_use_plugins
 
   " Show (#/total results) when searching for a term
   Plug 'osyo-manga/vim-anzu'
+
+  if g:dko_use_airline | Plug 'bling/vim-airline'
+  endif
+
+  Plug 'now/vim-quit-if-only-quickfix-buffer-left'
 
   call plug#end()
 
