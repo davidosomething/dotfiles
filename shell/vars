@@ -84,6 +84,8 @@ export CHPHP_PREFIX="/usr"
 
 # composer
 export COMPOSER_HOME="${XDG_CONFIG_HOME}/composer"
+export COMPOSER_VENDOR_DIR="${COMPOSER_HOME}/vendor"
+export COMPOSER_BIN_DIR="${COMPOSER_VENDOR_DIR}/bin"
 
 # ctags -- instead of ~/.ctags, just read options into the env var
 export CTAGS="$(cat "${DOTFILES}/shell/ctags")"

@@ -11,6 +11,15 @@ bootstrap_path="$dotfiles_path/bootstrap"
 source "$bootstrap_path/helpers.sh"
 
 
+_clean_composer() {
+  if [ -f "$HOME/.composer" ]; then
+    dkostatus_ "Moved .composer"
+    mv "$HOME/.composer" "$XDG_CONFIG_HOME/composer"
+  else
+    dkostatus_ "OK"
+  fi
+}
+
 _clean_gimp() {
   if [ -d "$HOME/.gimp-2.8" ]; then
     dkostatus_ "Moved .gimp-2.8"
