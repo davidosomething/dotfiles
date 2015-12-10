@@ -9,8 +9,6 @@
 
 export DKO_SOURCE="$DKO_SOURCE -> shell/vars {"
 
-source "${HOME}/.dotfiles/shell/xdg"
-
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
@@ -21,6 +19,8 @@ export LANG="en_US"
 export DOTFILES="${HOME}/.dotfiles"
 export BASH_DOTFILES="${DOTFILES}/bash"
 export VIM_DOTFILES="${DOTFILES}/vim"
+
+source "${DOTFILES}/shell/xdg"
 
 # ==============================================================================
 # History
