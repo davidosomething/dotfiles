@@ -16,7 +16,11 @@ export DKO_SOURCE="$DKO_SOURCE -> shell/path"
 #
 # On arch, via /etc/profile, default path is:
 # /usr/local/sbin:/usr/local/bin:/usr/bin
-export DKO_SYSTEM_PATH="${PATH}:${DKO_SYSTEM_PATH}"
+if [ -n "$DKO_SYSTEM_PATH" ]; then
+  export DKO_SYSTEM_PATH="${PATH}:${DKO_SYSTEM_PATH}"
+else
+  export DKO_SYSTEM_PATH="${PATH}"
+fi
 
 # _add_my_paths
 #
@@ -59,7 +63,6 @@ dko_add_paths() {
   # local ----------------------------------------------------------------------
   my_path="${HOME}/.local/bin:${my_path}"
   my_path="${DOTFILES}/bin:${my_path}"
-  my_path="${HOME}/bin/neovim/bin:${my_path}"
   echo "${my_path}"
 }
 
