@@ -54,8 +54,6 @@ dko_add_paths() {
   if [ -n "$NPM_PACKAGES" ]; then
     [ ! -d "$NPM_PACKAGES" ] && mkdir -p "$NPM_PACKAGES"
     my_path="${NPM_PACKAGES}/bin:${my_path}"
-    unset MANPATH
-    export MANPATH="${NPM_PACKAGES}/share/man:$(manpath)"
   fi
 
   # local ----------------------------------------------------------------------
