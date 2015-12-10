@@ -19,13 +19,6 @@ augroup vimrc
 augroup end
 
 " ============================================================================
-" IndentTab
-" ============================================================================
-
-" select completion using tab
-let g:IndentTab_IsSuperTab = exists('g:plugs["IndentTab"]')
-
-" ============================================================================
 " Neosnippet
 " ============================================================================
 
@@ -55,6 +48,8 @@ inoremap <silent> <CR> <C-r>=<SID>DKO_CR()<CR>
 " <Tab> setup for neosnippet + IndentTab + pum completion
 " ============================================================================
 
+" This does the work of IndentTab#SuperTabIntegration#GetExpr() with the other
+" plugins in consideration
 function! s:DKO_NextFieldOrTab()
   " Next autocomplete result
   if pumvisible()
@@ -66,17 +61,18 @@ function! s:DKO_NextFieldOrTab()
 
   " Insert a real tab using IndentTab
   elseif exists('g:plugs["IndentTab"]')
-    return IndentTab#SuperTabIntegration#GetExpr()
-    "IndentTab#Tab()
+    return IndentTab#Tab()
 
   endif
 
-  " Insert a real tab
+  " Insert a real tab -- only if there's no IndentTab
   return "\<Tab>"
 endfunction
-imap  <expr><Tab>     <SID>DKO_NextFieldOrTab()
 
-imap  <expr><S-Tab>   pumvisible()
+" make sure to use noremap here or else indenttab fails
+inoremap  <expr><Tab>     <SID>DKO_NextFieldOrTab()
+
+inoremap  <expr><S-Tab>   pumvisible()
       \ ? "\<C-p>"
       \ : "\<C-d>"
 
