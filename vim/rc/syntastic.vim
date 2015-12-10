@@ -1,5 +1,13 @@
 scriptencoding utf-8
 
+" ============================================================================
+" Syntastic config
+" ============================================================================
+
+augroup dkosyntastic
+  autocmd!
+augroup END
+
 " Checking
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq   = 0
@@ -30,7 +38,7 @@ let g:syntastic_ignore_files = [
 " Checker: HTML, Handlebars
 " ============================================================================
 
-let s:dko_ignore_html_tidy = [
+let g:syntastic_html_tidy_ignore_errors = [
       \   '<fb:',
       \   'discarding unexpected </fb:',
       \   ' proprietary attribute "ng-',
@@ -39,26 +47,11 @@ let s:dko_ignore_html_tidy = [
       \ ]
 
 " Ignore handlebars stuff in tidy
-let s:dko_ignore_html_tidy_handlebars = [
+let g:syntastic_html_tidy_ignore_errors = g:syntastic_html_tidy_ignore_errors
+      \ + [
       \   " allowed in <head> elements",
       \   "{{",
       \ ]
-
-function! s:DKO_SyntasticHtml()
-  let g:syntastic_html_tidy_ignore_errors = s:dko_ignore_html_tidy
-endfunction
-
-function! s:DKO_SyntasticHandlebars()
-  let g:syntastic_html_tidy_ignore_errors = s:dko_ignore_html_tidy
-        \ + s:dko_ignore_html_tidy_handlebars
-endfunction
-
-augroup vimrc
-  autocmd BufEnter,BufReadPost,BufWritePost *.html
-        \ :call s:DKO_SyntasticHtml()
-  autocmd BufEnter,BufReadPost,BufWritePost *.hbs
-        \ :call s:DKO_SyntasticHandlebars()
-augroup end
 
 " ============================================================================
 " Checker: JS, Coffee
@@ -73,20 +66,29 @@ let g:syntastic_javascript_eslint_args = '--no-ignore'
 " Checker: Lua
 " ============================================================================
 
-let g:syntastic_lua_checkers           = ['luac', 'luacheck']
+let g:syntastic_lua_checkers = ['luac', 'luacheck']
 "let g:syntastic_lua_luacheck_args     = '--config ' . system("luacheckrc")
 "
 " ============================================================================
 " Checker: PHP
 " ============================================================================
 
-let g:syntastic_php_checkers           = ['php', 'phpcs', 'phplint', 'phpmd']
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phplint', 'phpmd']
+
+" Set phpmd ruleset for current buffer
+function! s:DKO_FindPhpmdRuleset()
+  let l:ruleset = dkoproject#GetProjectConfigFile('ruleset.xml')
+  if !empty(l:ruleset)
+    let b:syntastic_php_phpmd_post_args = l:ruleset
+  endif
+endfunction
+autocmd dkosyntastic BufReadPost *.php call s:DKO_FindPhpmdRuleset()
 
 " ============================================================================
 " Checker: Python
 " ============================================================================
 
-let g:syntastic_python_checkers        = ['prospector', 'python']
+let g:syntastic_python_checkers = ['prospector', 'python']
 
 " ============================================================================
 " Checker: scss_lint
@@ -97,30 +99,26 @@ if !empty(glob(s:dko_scsslint_config))
   let g:syntastic_scss_scss_lint_args = "--config=" . s:dko_scsslint_config
 endif
 
-function! g:DKO_scsslint_root()
-  if !empty('g:syntastic_scss_scss_lint_args')
-    unlet g:syntax_scss_scss_lint_args
+" Set scss_lint config for current buffer
+function! s:DKO_FindScsslintConfig()
+  let l:config = dkoproject#GetProjectConfigFile('.scss-lint.yml')
+  if !empty(l:config)
+    let b:syntastic_scss_scss_lint_args = l:config
   endif
-
-  let l:root = systemlist('git rev-parse --show-toplevel')[0]
-  if !empty(glob(expand(l:root . '/.scss-lint.yml')))
-    let g:syntastic_scss_scss_lint_args = '--config ' . l:root
-  endif
-
-  SyntasticCheck
 endfunction
+autocmd dkosyntastic BufReadPost *.scss call s:DKO_FindScsslintConfig()
 
 " ============================================================================
 " Checker: Shell
 " ============================================================================
 
-let g:syntastic_shell_checkers         = ['bashate', 'shellcheck']
-let g:syntastic_zsh_checkers           = ['zsh']
+let g:syntastic_shell_checkers = ['bashate', 'shellcheck']
+let g:syntastic_zsh_checkers   = ['zsh']
 
 " ============================================================================
 " Checker: VimL
 " ============================================================================
 
 " Syntastic checks if they're installed so don't need to check here.
-let g:syntastic_vim_checkers           = ['vimlint', 'vint']
+let g:syntastic_vim_checkers = ['vimlint', 'vint']
 
