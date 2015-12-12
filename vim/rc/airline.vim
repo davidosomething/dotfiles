@@ -1,4 +1,5 @@
 scriptencoding utf-8
+if !exists("g:plugs['vim-airline']") | finish | endif
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme = "bubblegum"

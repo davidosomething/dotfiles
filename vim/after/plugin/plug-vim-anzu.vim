@@ -1,3 +1,5 @@
+if !exists('g:plugs["vim-anzu"]') | finish | endif
+
 if exists('g:plugs["incsearch.vim"]')
   nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
   nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)

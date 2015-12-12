@@ -57,23 +57,18 @@ let g:dko_use_plugins = $DOTFILES_DISTRO != 'busybox' && has('autocmd')
 let g:loaded_netrwPlugin = !g:dko_use_plugins
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
+let g:netrw_home = expand(g:dko_vim_dir . '/.cache')
 
 " ============================================================================
 " vim-plug
 " ============================================================================
 if g:dko_use_plugins
   " Load vim-plug
-  if empty(glob('~/.vim/autoload/plug.vim'))
+  if empty(glob(expand(g:dko_vim_dir . '/autoload/plug.vim')))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
       \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd vimrc VimEnter * PlugInstall | source $MYVIMRC
   endif
-
-  " Utility function for loading from /rc/
-  let s:dko_rc_dir = g:dko_vim_dir . '/rc/'
-  function s:LoadRc(filename)
-    execute 'source ' . s:dko_rc_dir . a:filename
-  endfunction
 
   let g:dko_plugdir = '/plugged'
   if has('nvim') | let g:dko_plugdir = '/nplugged' | endif
@@ -147,9 +142,6 @@ if g:dko_use_plugins
 
   " <F7> - command mode with instant results when doing subst %s
   Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
-
-  " <F11>
-  Plug 'sjl/gundo.vim'
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   Plug 'tpope/vim-eunuch'
@@ -252,9 +244,6 @@ if g:dko_use_plugins
   " ========================================================================
   " Plug: Language
   " ========================================================================
-
-  " BROKEN autoclose brackets
-  "Plug 'rstacruz/vim-closer'
 
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
@@ -419,89 +408,14 @@ if g:dko_use_plugins
   call plug#end()
 
   " ========================================================================
-  " Plugin configs
+  " Configs
   " ========================================================================
 
-  " Note: Source manually to preserve source order
+  " Must be loaded alongside plugins, not after/
+  execute 'source ' . glob(expand(g:dko_vim_dir . '/rc/airline.vim'))
+  execute 'source ' . glob(expand(g:dko_vim_dir . '/rc/easyclip.vim'))
 
-  " ========================================================================
-  " Config: Colorscheme
-  " ========================================================================
-
-  if exists("g:plugs['vim-colors-solarized']")
-        \ || exists("g:plugs['neovim-colors-solarized-truecolor-only']")
-    " turn off gross italics -- fira sans happens to use ligatures too
-    let g:solarized_italic = 0
-
-    call togglebg#map('<F5>')
-    colorscheme solarized
-    set background=light
-  endif
-
-  " ========================================================================
-  " Config: Completion engine
-  " ========================================================================
-
-  if g:dko_has_completion | call s:LoadRc('completion.vim') | endif
-
-  " ========================================================================
-  " Config: GITCOMMIT mode
-  " ========================================================================
-
-  call s:LoadRc('committia.vim')
-
-  " ========================================================================
-  " Config: Commands: Unite
-  " ========================================================================
-
-  call s:LoadRc('unite.vim')
-  call s:LoadRc('vimfiler.vim')
-
-  " ========================================================================
-  " Config: Language: CSS
-  " ========================================================================
-
-  "call s:LoadRc('colorv.vim')
-  call s:LoadRc('scss-syntax.vim')
-  call s:LoadRc('vim-css3-syntax.vim')
-
-  " ========================================================================
-  " Config: Language: PHP
-  " ========================================================================
-
-  call s:LoadRc('php.vim')
-
-  " ========================================================================
-  " Config: Language: JavaScript
-  " ========================================================================
-
-  call s:LoadRc('javascript.vim')
-  call s:LoadRc('vim-coffee-script.vim')
-
-  " ========================================================================
-  " Config: Language: VimL
-  " ========================================================================
-
-  call s:LoadRc('vim-vimlint.vim')
-
-  " ========================================================================
-  " Config: Others
-  " ========================================================================
-
-  call s:LoadRc('airline.vim')
-  call s:LoadRc('cosco.vim')
-  call s:LoadRc('editorconfig.vim')
-  call s:LoadRc('gundo.vim')
-  if g:dko_use_incsearch | call s:LoadRc('incsearch.vim') | endif
-  call s:LoadRc('smartpairs.vim')
-  call s:LoadRc('syntastic.vim')
-  call s:LoadRc('tabular.vim')
-  call s:LoadRc('vim-anzu.vim')
-  call s:LoadRc('vim-easyclip.vim')
-  if g:dko_use_gutentags | call s:LoadRc('vim-gutentags.vim') | endif
-  call s:LoadRc('vim-indent-guides.vim')
-  call s:LoadRc('vim-json.vim')
-  call s:LoadRc('vim-over.vim')
+  " Rest are split into ftplugin/*.vim and plugin/plug-*.vim as needed
 
 endif
 
@@ -671,7 +585,7 @@ set diffopt+=iwhite                   " Ignore whitespace changes
 " ============================================================================
 
 " Add symlinked aspell from dotfiles as default spellfile
-execute 'set spellfile=' . expand(g:dko_vim_dir . '/aspell.utf-8.add')
+execute 'set spellfile=' . glob(expand(g:dko_vim_dir . '/aspell.utf-8.add'))
 
 " ============================================================================
 " Match and search
@@ -718,9 +632,9 @@ set fileformat=unix
 
 " info file
 if !has('nvim')
-  execute 'set viminfo+=n' . expand(g:dko_vim_dir . '/.viminfo')
+  execute 'set viminfo+=n' . expand(g:dko_vim_dir . '/.cache/.viminfo')
 else
-  execute 'set viminfo+=n' . expand(g:dko_nvim_dir . '/.nviminfo')
+  execute 'set viminfo+=n' . expand(g:dko_nvim_dir . '/.cache/.nviminfo')
 endif
 
 " From https://github.com/swizzard/dotfiles/blob/master/.vimrc
@@ -814,6 +728,6 @@ endif
 " leave this down here since it trims local settings
 set secure                            " no unsafe local vimrc commands
 
-if filereadable(glob(g:dko_vim_dir . '/.vimrc.local'))
+if glob(g:dko_vim_dir . '/.vimrc.local')
   execute 'source ' . g:dko_vim_dir . '/.vimrc.local'
 endif

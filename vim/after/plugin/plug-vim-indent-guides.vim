@@ -1,3 +1,5 @@
+if !exists('g:plugs["vim-indent-guides"]') | finish | endif
+
 let g:indent_guides_color_change_percent = 2
 
 " Must be recursive maps

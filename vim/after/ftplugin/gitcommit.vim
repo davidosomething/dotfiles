@@ -15,13 +15,9 @@ setlocal textwidth=80
 
 if v:servername == "GIT"
   if has('gui_running')
-    setlocal lines=44 columns=88
-    setlocal nonumber
-    if has('gui_macvim')
-      setlocal guifont=Fira\ Mono\ for\ Powerline:h10
-    else
-      setlocal guifont=Fira\ Mono\ for\ Powerline\ 10
-    endif
+    " Non-local -- for the entire GIT clientserver
+    set lines=44 columns=88
+    set nonumber
   endif
 
   " augroup gitmerge

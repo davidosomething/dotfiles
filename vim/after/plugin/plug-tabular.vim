@@ -1,3 +1,5 @@
+if !exists("g:plugs['tabular']") | finish | endif
+
 vnoremap <Leader>a"   :Tabularize /"<CR>
 vnoremap <Leader>a&   :Tabularize /&<CR>
 vnoremap <Leader>a-   :Tabularize /-<CR>

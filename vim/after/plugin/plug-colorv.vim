@@ -1,3 +1,5 @@
+if !exists('g:plugs["colorv.vim"]') | finish | endif
+
 let g:colorv_no_global_map  = 1
 let g:colorv_preview_ftype  = "css,html,less,sass,scss"
 let g:colorv_cache_fav      = expand(g:dko_vim_dir . "/.colorv_cache_fav")

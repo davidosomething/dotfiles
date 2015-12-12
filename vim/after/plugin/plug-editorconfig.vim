@@ -1,3 +1,5 @@
+if !exists("g:plugs['editorconfig-vim']") | finish | endif
+
 " This works with vim-scripts/IndentTab
 "
 " softtabstop is for pressing tab within the line for alignment
