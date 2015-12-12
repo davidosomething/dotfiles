@@ -84,7 +84,7 @@ if exists('g:plugs["neocomplete.vim"]')
   let g:neocomplete#enable_camel_case            = 1
   let g:neocomplete#enable_fuzzy_completion      = 0
   let g:neocomplete#data_directory =
-        \ expand(g:dko_vim_dir . '/.cache/neocomplete')
+        \ expand(g:dko_vim_dir . '/.tmp/neocomplete')
 
   " completion sources
   let g:neocomplete#sources#syntax#min_keyword_length = 3

@@ -8,6 +8,7 @@ plug/
 .backup/
 .cache/
 .swp/
+.tmp/
 .undo/
 .colorv_cache_fav
 .colorv_cache_file

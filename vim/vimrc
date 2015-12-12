@@ -57,7 +57,7 @@ let g:dko_use_plugins = $DOTFILES_DISTRO != 'busybox' && has('autocmd')
 let g:loaded_netrwPlugin = !g:dko_use_plugins
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
-let g:netrw_home = expand(g:dko_vim_dir . '/.cache')
+let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')
 
 " ============================================================================
 " vim-plug
@@ -443,7 +443,19 @@ endif
   "   syntax enable
   " endif
 
+" ============================================================================
+" Modeline overrides
+" ============================================================================
+
 set modeline
+
+" ============================================================================
+" Faster response
+" ============================================================================
+
+set notimeout
+set ttimeout
+set ttimeoutlen=10
 
 " ============================================================================
 " For chruby
@@ -636,9 +648,9 @@ set fileformat=unix
 
 " info file
 if !has('nvim')
-  execute 'set viminfo+=n' . expand(g:dko_vim_dir . '/.cache/.viminfo')
+  execute 'set viminfo+=n' . expand(g:dko_vim_dir . '/.tmp/cache/.viminfo')
 else
-  execute 'set viminfo+=n' . expand(g:dko_nvim_dir . '/.cache/.nviminfo')
+  execute 'set viminfo+=n' . expand(g:dko_nvim_dir . '/.tmp/cache/.nviminfo')
 endif
 
 " From https://github.com/swizzard/dotfiles/blob/master/.vimrc
@@ -666,7 +678,7 @@ if has('autocmd')
     autocmd vimrc BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
   endif
 endif
-execute 'set backupdir=' . g:dko_vim_dir . '/.backup//'
+execute 'set backupdir=' . g:dko_vim_dir . '/.tmp/backup//'
 set backup
 
 " undo files
@@ -674,12 +686,8 @@ set backup
 set undofile
 set undolevels=500
 set undoreload=500
-execute 'set undodir=' . g:dko_vim_dir . '/.undo//'
-execute 'set directory=' . g:dko_vim_dir . '/.swp//'
-" Make those folders automatically if they don't already exist.
-" if !isdirectory(expand(&undodir))   | call mkdir(expand(&undodir), "p")   | endif
-" if !isdirectory(expand(&backupdir)) | call mkdir(expand(&backupdir), "p") | endif
-" if !isdirectory(expand(&directory)) | call mkdir(expand(&directory), "p") | endif
+execute 'set undodir=' . g:dko_vim_dir . '/.tmp/undo//'
+execute 'set directory=' . g:dko_vim_dir . '/.tmp/swap//'
 
 " ============================================================================
 " Buffer reuse
