@@ -248,6 +248,9 @@ if g:dko_use_plugins
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
 
+  " Autocomplete braces
+  Plug 'cohama/lexima.vim'
+
   " ========================================================================
   " Language: Git
   " ========================================================================
@@ -413,6 +416,7 @@ if g:dko_use_plugins
 
   " Must be loaded alongside plugins, not after/
   execute 'source ' . glob(expand(g:dko_vim_dir . '/rc/airline.vim'))
+  execute 'source ' . glob(expand(g:dko_vim_dir . '/rc/completion.vim'))
   execute 'source ' . glob(expand(g:dko_vim_dir . '/rc/easyclip.vim'))
 
   " Rest are split into ftplugin/*.vim and plugin/plug-*.vim as needed

@@ -47,7 +47,7 @@ endfunction
 inoremap <silent> <CR> <C-r>=<SID>DKO_CR()<CR>
 
 " ============================================================================
-" <Tab> setup for neosnippet + IndentTab + pum completion
+" <Tab> setup for IndentTab + pum completion
 " ============================================================================
 
 " This does the work of IndentTab#SuperTabIntegration#GetExpr() with the other
@@ -56,10 +56,6 @@ function! s:DKO_NextFieldOrTab()
   " Next autocomplete result
   if pumvisible()
     return "\<C-n>"
-
-  " In a neosnippet, jump to field
-  elseif neosnippet#expandable_or_jumpable()
-    return "\<Plug>(neosnippet_jump_or_expand)"
 
   " Insert a real tab using IndentTab
   elseif exists('g:plugs["IndentTab"]')
@@ -71,10 +67,10 @@ function! s:DKO_NextFieldOrTab()
   return "\<Tab>"
 endfunction
 
-" make sure to use noremap here or else indenttab fails
+" IndentTab requires noremap!
 inoremap  <expr><Tab>     <SID>DKO_NextFieldOrTab()
 
-inoremap  <expr><S-Tab>   pumvisible()
+imap      <expr><S-Tab>   pumvisible()
       \ ? "\<C-p>"
       \ : "\<C-d>"
 
