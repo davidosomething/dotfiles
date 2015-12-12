@@ -70,8 +70,8 @@ if g:dko_use_plugins
     autocmd vimrc VimEnter * PlugInstall | source $MYVIMRC
   endif
 
-  let g:dko_plugdir = '/plugged'
-  if has('nvim') | let g:dko_plugdir = '/nplugged' | endif
+  let g:dko_plugdir = '/plug/vim'
+  if has('nvim') | let g:dko_plugdir = '/plug/nvim' | endif
 
   " ==========================================================================
   " What to load
