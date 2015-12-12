@@ -8,3 +8,4 @@ augroup restoreposition
         \| execute "normal! g`\""
         \| endif
 augroup END
+
