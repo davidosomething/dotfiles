@@ -5,7 +5,50 @@ Keep `(g)vimrc` (no dot in filename) in `.vim` -- vim knows to look in there.
 See [https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers](https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers)
 for getting various linter support in syntastic.
 
-## Function Keys
+## Paths
+
+The default `runtimepath` has been modified from what vim comes with since I
+find it to be insane to have system configs override user configs.
+
+The `~/.dotfiles/vim` and `~/.dotfiles/vim/after` paths now come after system
+config paths. See the runtimepath path section in `vimrc` for more comments.
+
+### before/
+
+This is a vim runtimepath that will load after the user and system runtimepaths
+but before the vim-plug ones. So `before/plugin/xyz.vim` will load before
+`plug/vim/pluginname/plugin/name.vim`.
+
+Use this for settings that must be set before a plugin is loaded. The global
+variable `g:plugs`, which is a dictionary of plugin names and settings from
+vim-plug, is available to before since it is created in the main `vimrc` file
+by the `Plug` calls.
+
+My default settings are in `before/plugin/mine.vim`, which guarantees that
+they will override the system defaults but plugins can, in turn, override them.
+
+### after/
+
+This is a vim runtimepath that will load after the system runtimepath but
+before the vim-plug one. So `after/plugin/xyz.vim` will load after
+`plug/vim/pluginname/plugin/name.vim`.
+
+Use this for settings that should override or extend system or plugin settings.
+This will take precedence over everything but local vimrc files.
+
+### local vimrc
+
+All local settings are loaded LAST (after system/user/plugin/after)
+They are expected to be in `~/.secret/vim/(g)vimrc.vim`.
+
+## Plugin settings
+
+Settings for various plugins have been interspersed into `before/plugin`,
+`after/ftplugin` and `after/plugin/plug-*.vim` as needed. There is generally
+a wrapper around them that checks for `exists('g:plugs["plugin"])` so that is
+an easy way to grep for them.
+
+### Function Keys
 
 - `<F1>` unite fuzzy search files
 - `<F2>` unite fuzzy search most recently used files
@@ -20,6 +63,5 @@ for getting various linter support in syntastic.
 - `<F11>` --
 - `<F12>` toggle paste mode
 
-See `after/plugin/mappings.vim` for custom bindings.
-See `rc/*.vim` for the plugin key bindings.
+See `after/plugin/mappings.vim` for non-plugin mappings.
 
