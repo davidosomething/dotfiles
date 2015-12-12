@@ -21,7 +21,7 @@ nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
 " ============================================================================
 " Commands
 " ============================================================================
-command Q q
+command! Q q
 
 " cd to the directory containing the file in the buffer
 nnoremap <silent> <Leader>cd :lcd %:h<CR>
