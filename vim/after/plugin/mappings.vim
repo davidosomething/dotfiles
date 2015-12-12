@@ -6,6 +6,7 @@
 nnoremap <Leader><Leader> V
 vnoremap <Leader><Leader> <Esc>
 
+" Back to normal mode
 imap jj <Esc>
 cmap jj <Esc>
 
@@ -39,7 +40,11 @@ noremap H ^
 noremap L $
 vnoremap L g_
 
-" Don't move on * (it automatically goes to next match)
+" ============================================================================
+" Search
+" ============================================================================
+
+" Don't move on */# (it automatically goes to next match)
 " From https://bitbucket.org/sjl/dotfiles/
 nnoremap <silent> *
       \ :let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>
@@ -58,6 +63,15 @@ nnoremap <silent> <Leader>cd :lcd %:h<CR>
 
 " insert date, e.g. 2015-02-19
 nnoremap <Leader>d "=strftime("%Y-%m-%d")<CR>P
+
+" insert file dir
+inoremap <Leader>fd <C-R>=expand('%:h')<CR>
+
+" insert file name
+inoremap <Leader>fn <C-R>=expand('%:t')<CR>
+
+" insert full filepath
+inoremap <Leader>fp <C-R>=expand('%:p:h')<CR>
 
 " Sort lines
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
@@ -134,8 +148,8 @@ endif
 " ============================================================================
 
 " close buffer with space-bd and auto close loc list first
-nnoremap <Leader>bd :lclose<CR>:bdelete<CR>
-cabbrev <silent>bd lclose\|bdelete
+nnoremap  <Leader>bd :lclose<CR>:bdelete<CR>
+cabbrev   <silent>bd lclose\|bdelete
 
 " ============================================================================
 " Split manip
@@ -153,7 +167,7 @@ inoremap <silent> <C-Right> <Esc>:wincmd l<CR>
 nmap <A-x> :close<CR>
 
 " Cycle with tab in normal mode
-nmap <Tab> <C-w>w
+nnoremap <Tab> <C-w>w
 
 " Resize
 nnoremap <silent> <S-Left>  4<C-w><
