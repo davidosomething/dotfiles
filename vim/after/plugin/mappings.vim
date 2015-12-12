@@ -1,5 +1,5 @@
 " ============================================================================
-" mode toggling
+" Mode toggling
 " ============================================================================
 
 " toggle visual/normal mode
@@ -19,26 +19,12 @@ inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
 nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
 
 " ============================================================================
-" Scrolling and movement
+" Commands
 " ============================================================================
+command Q q
 
-" Map the arrow keys to be based on display lines, not physical lines
-vnoremap <Down> gj
-vnoremap <Up>   gk
-
-" Replace PgUp and PgDn with Ctrl-U/D
-map   <PageUp>    <C-U>
-map   <PageDown>  <C-D>
-imap  <PageUp>    <C-O><C-U>
-imap  <PageDown>  <C-O><C-D>
-
-" Easier to type, and I never use the default behavior.
-" From https://bitbucket.org/sjl/dotfiles/
-" default is first line on screen
-noremap H ^
-" default is last line on screen
-noremap L $
-vnoremap L g_
+" cd to the directory containing the file in the buffer
+nnoremap <silent> <Leader>cd :lcd %:h<CR>
 
 " ============================================================================
 " Search
@@ -48,14 +34,6 @@ vnoremap L g_
 " From https://bitbucket.org/sjl/dotfiles/
 nnoremap <silent> *
       \ :let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>
-
-" ============================================================================
-" Commands
-" ============================================================================
-command Q q
-
-" cd to the directory containing the file in the buffer
-nnoremap <silent> <Leader>cd :lcd %:h<CR>
 
 " ============================================================================
 " Editing
@@ -142,40 +120,4 @@ else
   vmap <C-k> [egv
   vmap <C-j> ]egv
 endif
-
-" ============================================================================
-" Buffer manip
-" ============================================================================
-
-" close buffer with space-bd and auto close loc list first
-nnoremap  <Leader>bd :lclose<CR>:bdelete<CR>
-cabbrev   <silent>bd lclose\|bdelete
-
-" ============================================================================
-" Split manip
-" ============================================================================
-
-" Navigate with ctrl+arrow
-nnoremap <silent> <C-Left>       :wincmd h<CR>
-inoremap <silent> <C-Left>  <Esc>:wincmd h<CR>
-nnoremap <silent> <C-Down>       :wincmd j<CR>
-inoremap <silent> <C-Down>  <Esc>:wincmd j<CR>
-nnoremap <silent> <C-Up>         :wincmd k<CR>
-inoremap <silent> <C-Up>    <Esc>:wincmd k<CR>
-nnoremap <silent> <C-Right>      :wincmd l<CR>
-inoremap <silent> <C-Right> <Esc>:wincmd l<CR>
-nmap <A-x> :close<CR>
-
-" Cycle with tab in normal mode
-nnoremap <Tab> <C-w>w
-
-" Resize
-nnoremap <silent> <S-Left>  4<C-w><
-nnoremap <silent> <S-Down>  4<C-W>-
-nnoremap <silent> <S-Up>    4<C-W>+
-nnoremap <silent> <S-Right> 4<C-w>>
-inoremap <silent> <S-Left>  <Esc>4<C-w><
-inoremap <silent> <S-Down>  <Esc>4<C-W>-
-inoremap <silent> <S-Up>    <Esc>4<C-W>+
-inoremap <silent> <S-Right> <Esc>4<C-w>>
 
