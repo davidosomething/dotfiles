@@ -1,6 +1,38 @@
 if !g:dko_has_completion | finish | endif
 
 " ============================================================================
+" Special keys in PUM
+" ============================================================================
+
+" This does the work of IndentTab#SuperTabIntegration#GetExpr() with the other
+" plugins in consideration
+function! s:DKO_NextFieldOrTab()
+  " Advance and select autocomplete result
+  if pumvisible()
+    return "\<C-n>"
+
+  " Insert a real tab using IndentTab
+  elseif exists('g:plugs["IndentTab"]')
+    return IndentTab#Tab()
+
+  endif
+
+  " Insert a real tab -- only if there's no IndentTab
+  return "\<Tab>"
+endfunction
+
+" Tab advances selection or inserts tab
+" IndentTab requires noremap!
+inoremap  <silent><expr>  <Tab>     <SID>DKO_NextFieldOrTab()
+
+" S-Tab goes reverses selection or untabs
+imap      <silent><expr>  <S-Tab>   pumvisible() ? '<C-p>' : '<C-d>'
+
+" CR accepts selection AND enter a real <CR>
+" https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1559
+inoremap  <silent><expr>  <CR>      (pumvisible() ? '<C-y>' : '') . '<CR>'
+
+" ============================================================================
 " Omni-completion by filetype
 " ============================================================================
 
@@ -16,63 +48,23 @@ augroup vimrc
   "autocmd vimrc FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
   autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 augroup end
 
 " ============================================================================
 " Neosnippet
 " ============================================================================
 
-" Snippets userdir
-let g:neosnippet#snippets_directory = g:dko_vim_dir . '/snippets'
+if exists('g:plugs["neosnippet"]')
+  " Snippets userdir
+  let g:neosnippet#snippets_directory = g:dko_vim_dir . '/snippets'
 
-imap  <C-k>   <Plug>(neosnippet_jump_or_expand)
-smap  <C-k>   <Plug>(neosnippet_jump_or_expand)
-xmap  <C-k>   <Plug>(neosnippet_expand_target)
-
-" Select mode
-smap  <expr><Tab>  neosnippet#expandable_or_jumpable()
-      \ ? "\<Plug>(neosnippet_jump_or_expand)"
-      \ : "\<Tab>"
-
-" ============================================================================
-" <CR> setup for pum
-" ============================================================================
-
-function! s:DKO_CR()
-  " Close popup and enter a real <CR>
-  return (pumvisible() ? "\<C-y>" : "") . "\<CR>"
-endfunction
-inoremap <silent> <CR> <C-r>=<SID>DKO_CR()<CR>
-
-" ============================================================================
-" <Tab> setup for IndentTab + pum completion
-" ============================================================================
-
-" This does the work of IndentTab#SuperTabIntegration#GetExpr() with the other
-" plugins in consideration
-function! s:DKO_NextFieldOrTab()
-  " Next autocomplete result
-  if pumvisible()
-    return "\<C-n>"
-
-  " Insert a real tab using IndentTab
-  elseif exists('g:plugs["IndentTab"]')
-    return IndentTab#Tab()
-
-  endif
-
-  " Insert a real tab -- only if there's no IndentTab
-  return "\<Tab>"
-endfunction
-
-" IndentTab requires noremap!
-inoremap  <expr><Tab>     <SID>DKO_NextFieldOrTab()
-
-imap      <expr><S-Tab>   pumvisible()
-      \ ? "\<C-p>"
-      \ : "\<C-d>"
+  " C-k is the only acceptable neosnippet advance key
+  imap  <C-k>   <Plug>(neosnippet_jump_or_expand)
+  smap  <C-k>   <Plug>(neosnippet_jump_or_expand)
+  xmap  <C-k>   <Plug>(neosnippet_expand_target)
+endif
 
 " ============================================================================
 " Neocomplete
