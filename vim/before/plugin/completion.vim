@@ -6,6 +6,7 @@ if !g:dko_has_completion | finish | endif
 
 " This does the work of IndentTab#SuperTabIntegration#GetExpr() with the other
 " plugins in consideration
+" Tab advances selection or inserts tab
 function! s:DKO_NextFieldOrTab()
   " Advance and select autocomplete result
   if pumvisible()
@@ -20,17 +21,22 @@ function! s:DKO_NextFieldOrTab()
   " Insert a real tab -- only if there's no IndentTab
   return "\<Tab>"
 endfunction
-
-" Tab advances selection or inserts tab
 " IndentTab requires noremap!
 inoremap  <silent><expr>  <Tab>     <SID>DKO_NextFieldOrTab()
 
 " S-Tab goes reverses selection or untabs
-imap      <silent><expr>  <S-Tab>   pumvisible() ? '<C-p>' : '<C-d>'
+function! s:DKO_AcceptAndCr()
+  return pumvisible() ? "\<C-p>" : "\<C-d>"
+endfunction
+imap      <silent><expr>  <S-Tab>   <SID>DKO_ReverseOrUntab()
 
 " CR accepts selection AND enter a real <CR>
+function! s:DKO_AcceptAndCr()
+  return pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+endfunction
+
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1559
-inoremap  <silent><expr>  <CR>      (pumvisible() ? '<C-y>' : '') . '<CR>'
+inoremap  <silent><expr>  <CR>      <SID>DKO_AcceptAndCr()
 
 " ============================================================================
 " Omni-completion by filetype
