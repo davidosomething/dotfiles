@@ -250,9 +250,6 @@ if g:dko_use_plugins
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
 
-  " Autocomplete braces
-  Plug 'cohama/lexima.vim'
-
   " ========================================================================
   " Language: Git
   " ========================================================================
