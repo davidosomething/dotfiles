@@ -1,3 +1,4 @@
-#!/bin/bash
-git blame --line-porcelain $@ | curl --data-binary @- http://git-punish.io/create
+#!/usr/bin/env bash
+
+git blame --line-porcelain "$@" | curl --data-binary @- http://git-punish.io/create
 echo

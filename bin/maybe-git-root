@@ -12,7 +12,7 @@ _maybe_git_root() {
     git_root="$(git rev-parse --show-toplevel)"
   fi
 
-  echo ${git_root}
+  echo "${git_root}"
 }
 
 _maybe_git_root
