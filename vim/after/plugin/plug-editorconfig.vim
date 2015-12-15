@@ -24,6 +24,7 @@ function! EcSofttabstop(config)
   set softtabstop=2
 endfunction
 
-if exists("editorconfig#AddNewHook")
+if exists("*editorconfig#AddNewHook")
   call editorconfig#AddNewHook(function('EcSofttabstop'))
 endif
+

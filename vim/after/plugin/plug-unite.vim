@@ -1,5 +1,5 @@
 if !exists("g:plugs['unite.vim']") | finish | endif
-if !exists("unite#custom#profile") | finish | endif
+if !exists("*unite#custom#profile") | finish | endif
 
 " candidates
 let g:unite_source_grep_max_candidates = 300

@@ -9,13 +9,13 @@
 " - vim-anzu for showing number of matches with airline integration
 " - vim-over for a new search/replace command mode
 
-if exists("g:plugs['incsearch.vim']") && exists("incsearch#go")
+if exists("g:plugs['incsearch.vim']") && exists("*incsearch#go")
   map /   <Plug>(incsearch-forward)
   map ?   <Plug>(incsearch-backward)
   map g/  <Plug>(incsearch-stay)
 endif
 
-if exists('g:plugs["vim-anzu"]')
+if exists('g:plugs["vim-anzu"]') && exists("*anzu#jump")
   if exists('g:plugs["incsearch.vim"]')
     nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
     nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
