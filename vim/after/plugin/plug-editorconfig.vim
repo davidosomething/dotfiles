@@ -23,4 +23,7 @@ if !exists("g:plugs['editorconfig-vim']") | finish | endif
 function! EcSofttabstop(config)
   set softtabstop=2
 endfunction
-call editorconfig#AddNewHook(function('EcSofttabstop'))
+
+if exists("editorconfig#AddNewHook")
+  call editorconfig#AddNewHook(function('EcSofttabstop'))
+endif

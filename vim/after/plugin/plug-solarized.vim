@@ -6,6 +6,8 @@ endif
 " turn off gross italics -- fira sans happens to use ligatures too
 let g:solarized_italic = 0
 
-call togglebg#map('<F5>')
-colorscheme solarized
-set background=light
+if exists("togglebg#map")
+  call togglebg#map('<F5>')
+  colorscheme solarized
+  set background=light
+endif
