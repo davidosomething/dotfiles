@@ -27,7 +27,6 @@ dkosymlink irssi                                .irssi
 # (n)vim
 dkosymlink vim                                  .vim
 dkosymlink vim                                  .config/nvim
-dkosymlink aspell/.aspell.en.pws.symlink        .vim/aspell.utf-8.add
 
 case "$OSTYPE" in
   darwin*)

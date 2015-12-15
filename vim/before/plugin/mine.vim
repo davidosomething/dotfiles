@@ -162,7 +162,7 @@ set diffopt+=iwhite                   " Ignore whitespace changes
 " ============================================================================
 
 " Add symlinked aspell from dotfiles as default spellfile
-execute 'set spellfile=' . glob(expand(g:dko_vim_dir . '/aspell.utf-8.add'))
+execute 'set spellfile=' . glob(expand(g:dko_vim_dir . '/en.utf-8.add'))
 
 " ============================================================================
 " Match and search

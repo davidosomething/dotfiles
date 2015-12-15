@@ -60,6 +60,7 @@ nav
 nda
 nsfw
 permalink
+permalinks
 php
 pinterest
 png
@@ -77,6 +78,7 @@ svg
 symfony
 taboola
 tealium
+templating
 txt
 udo
 WindowManager
@@ -84,3 +86,4 @@ WordPress
 wp
 www
 xml
+templating
