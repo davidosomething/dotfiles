@@ -4,10 +4,10 @@ scriptencoding utf-8
 " My abbreviations and autocorrect
 " ============================================================================
 
-iab :lod: ಠ_ಠ
-iab :flip: (ﾉಥ益ಥ）ﾉ︵┻━┻
-iab :yuno: ლ(ಠ益ಠლ)
+inoreabbrev :lod: ಠ_ಠ
+inoreabbrev :flip: (ﾉಥ益ಥ）ﾉ︵┻━┻
+inoreabbrev :yuno: ლ(ಠ益ಠლ)
 
-iab targetted targeted
-iab targetting targeting
+inoreabbrev targetted targeted
+inoreabbrev targetting targeting
 
