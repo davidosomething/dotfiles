@@ -11,7 +11,7 @@ function! s:restoreposition()
   endif
 endfunction
 
-augroup restoreposition
+augroup dkorestoreposition
   autocmd!
   autocmd BufReadPost * call s:restoreposition()
 augroup END

@@ -1,5 +1,4 @@
 scriptencoding utf-8
-" add scriptencoding explicitly on this plugin file since it uses funky chars
 
 " ============================================================================
 " My abbreviations and autocorrect
