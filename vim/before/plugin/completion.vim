@@ -25,7 +25,7 @@ endfunction
 inoremap  <silent><expr>  <Tab>     <SID>DKO_NextFieldOrTab()
 
 " S-Tab goes reverses selection or untabs
-function! s:DKO_AcceptAndCr()
+function! s:DKO_ReverseOrUntab()
   return pumvisible() ? "\<C-p>" : "\<C-d>"
 endfunction
 imap      <silent><expr>  <S-Tab>   <SID>DKO_ReverseOrUntab()
