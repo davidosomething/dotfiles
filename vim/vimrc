@@ -294,13 +294,12 @@ if g:dko_use_plugins
   Plug 'othree/yajs.vim'
         \| Plug 'gavocanov/vim-js-indent'
         \| Plug 'mxw/vim-jsx'
-
-  Plug 'othree/jsdoc-syntax.vim'
-
   Plug 'othree/jspc.vim'
 
   " extends syntax for with jQuery,backbone,etc.
   Plug 'othree/javascript-libraries-syntax.vim'
+
+  "Plug 'othree/jsdoc-syntax.vim'
 
   " ========================================================================
   " Language: Markdown
