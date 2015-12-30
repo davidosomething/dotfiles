@@ -29,6 +29,7 @@ augroup filetypedetect
 
   autocmd BufRead,BufNewFile *.dump            setfiletype sql
 
+  autocmd BufRead,BufNewFile *.babelrc         setfiletype json
   autocmd BufRead,BufNewFile *.bowerrc         setfiletype json
   autocmd BufRead,BufNewFile *.editorconfig    setfiletype json
   autocmd BufRead,BufNewFile *.eslintrc        setfiletype json
