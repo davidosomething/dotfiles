@@ -99,6 +99,12 @@ if g:dko_use_plugins
   "   based on the filetype matching the script name).
 
   " ========================================================================
+  " Plug: Debugging
+  " ========================================================================
+
+  "Plug 'gerw/vim-HiLinkTrace'
+
+  " ========================================================================
   " Plug: File system
   " ========================================================================
 
@@ -299,6 +305,7 @@ if g:dko_use_plugins
   " extends syntax for with jQuery,backbone,etc.
   Plug 'othree/javascript-libraries-syntax.vim'
 
+  " Temp broken
   "Plug 'othree/jsdoc-syntax.vim'
 
   " ========================================================================
