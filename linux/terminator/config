@@ -1,6 +1,6 @@
 [global_config]
   dbus = True
-  enabled_plugins = TerminalShot, APTURLHandler, LaunchpadCodeURLHandler, LaunchpadBugURLHandler
+  enabled_plugins = TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   focus = system
   sticky = True
   suppress_multiple_term_dialog = True
@@ -23,10 +23,12 @@
     background_color = "#1e1e1e"
     background_image = None
     cursor_color = "#a7a7a7"
+    custom_command = cd $HOME; $SHELL
     font = Fira Mono for Powerline 10
     foreground_color = "#a7a7a7"
     palette = "#1e1e1e:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#a7a7a7:#5f5a60:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#ffffff"
     scroll_on_output = False
     scrollback_infinite = True
     show_titlebar = False
+    use_custom_command = True
     use_system_font = False

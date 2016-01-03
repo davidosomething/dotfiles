@@ -300,12 +300,12 @@ if g:dko_use_plugins
   "Plug 'pangloss/vim-javascript'
   "Plug 'jelera/vim-javascript-syntax'
   Plug 'othree/yajs.vim'
-        \| Plug 'gavocanov/vim-js-indent'
-        \| Plug 'mxw/vim-jsx'
-  Plug 'othree/jspc.vim'
+        "\| Plug 'mxw/vim-jsx'
+        "\| Plug 'gavocanov/vim-js-indent'
+  "Plug 'othree/jspc.vim'
 
   " extends syntax for with jQuery,backbone,etc.
-  Plug 'othree/javascript-libraries-syntax.vim'
+  "Plug 'othree/javascript-libraries-syntax.vim'
 
   " Temp broken
   "Plug 'othree/jsdoc-syntax.vim'
@@ -449,11 +449,12 @@ execute "set runtimepath-=$HOME/.vim/after"
 execute "set runtimepath-=$XDG_CONFIG_HOME/nvim"
 execute "set runtimepath-=$XDG_CONFIG_HOME/nvim/after"
 
-" Save vim-plug runtimepaths
+" Save the remaining runtimepaths, which are only vim-plug ones
 let g:dko_plugins_rtp=&runtimepath
 
 " Start runtimepath with system runtimepath
 execute "set runtimepath=$VIM/vimfiles,$VIMRUNTIME"
+execute "set runtimepath+=$VIM/vimfiles/after"
 
 " Append my runtimepaths (not the same as default user, these use specific
 " dko_vim_dir path)
@@ -464,7 +465,6 @@ execute "set runtimepath+=" . g:dko_vim_dir . "/before"
 execute "set runtimepath+=" . g:dko_plugins_rtp
 
 " Append after: system, then mine, so mine is the last
-execute "set runtimepath+=$VIM/vimfiles/after"
 execute "set runtimepath+=" . g:dko_vim_dir . "/after"
 execute "set runtimepath+=$HOME/.secret/vim/"
 
