@@ -1,5 +1,8 @@
 " after/syntax/markdown.vim
 
-" Ignore frontmatter
-syntax match Comment /\%^---\_.\{-}---$/
+" Highlight YAML frontmatter, include spellcheck
+unlet b:current_syntax
+syntax include @Yaml syntax/yaml.vim
+syntax region yamlFrontmatter start="\%^---$" end="^---\s*$" keepend contains=@Yaml,@Spell
+let b:current_syntax='markdown'
 
