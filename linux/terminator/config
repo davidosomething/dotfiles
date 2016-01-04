@@ -4,6 +4,7 @@
   focus = system
   sticky = True
   suppress_multiple_term_dialog = True
+  title_font = Fura Mono for Powerline 10
   title_inactive_bg_color = "#5f5a60"
   title_transmit_bg_color = "#cf6a4c"
 [keybindings]
