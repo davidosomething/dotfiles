@@ -11,3 +11,19 @@ inoreabbrev :yuno: ლ(ಠ益ಠლ)
 inoreabbrev targetted targeted
 inoreabbrev targetting targeting
 
+" ============================================================================
+" Not-quite-abbreviations
+" ============================================================================
+
+" insert date, e.g. 2015-02-19
+inoremap <Leader>:d "=strftime("%Y-%m-%d")<CR>P
+
+" insert file dir
+inoremap <Leader>:fd <C-R>=expand('%:h')<CR>
+
+" insert file name
+inoremap <Leader>:fn <C-R>=expand('%:t')<CR>
+
+" insert full filepath
+inoremap <Leader>:fp <C-R>=expand('%:p:h')<CR>
+

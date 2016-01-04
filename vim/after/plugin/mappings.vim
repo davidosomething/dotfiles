@@ -39,18 +39,6 @@ nnoremap <silent> *
 " Editing
 " ============================================================================
 
-" insert date, e.g. 2015-02-19
-nnoremap <Leader>d "=strftime("%Y-%m-%d")<CR>P
-
-" insert file dir
-inoremap <Leader>fd <C-R>=expand('%:h')<CR>
-
-" insert file name
-inoremap <Leader>fn <C-R>=expand('%:t')<CR>
-
-" insert full filepath
-inoremap <Leader>fp <C-R>=expand('%:p:h')<CR>
-
 " Sort lines
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
 nnoremap <Leader>s vip:!sort<CR>
