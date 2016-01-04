@@ -245,6 +245,8 @@ if [[ "$1" = "fzf" ]]; then _update_fzf; fi
 
 
 if [[ "$1" = "gem" ]]; then
+  dkostatus "Cleanup old gems"
+  gem clean
   dkostatus "Updating RubyGems itself"
   gem update --system | dkoindent
   dkostatus "Updating gems"
