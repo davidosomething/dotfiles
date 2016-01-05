@@ -17,7 +17,6 @@ alias tree="tree -C"
 alias g="git"
 alias g-="git co -"
 alias gb="git branch --verbose"
-alias gf="git diff --name-only | uniq | xargs $EDITOR"
 alias gi="git ink"
 alias gg="git grep --line-number --break --heading"
 alias gl="git l"
@@ -61,6 +60,7 @@ alias se="sudo -e"
 # editor
 alias e="vopen"
 alias v="vopen"
+alias em="git diff --name-only | uniq | xargs $EDITOR"
 alias esa='e $DOTFILES/shell/aliases'
 alias esf='e $DOTFILES/shell/functions'
 alias esp='e $DOTFILES/shell/paths'
