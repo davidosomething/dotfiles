@@ -275,7 +275,7 @@ if g:dko_use_plugins
 
   Plug 'digitaltoad/vim-jade'
 
-  Plug 'tpope/vim-haml'
+  "Plug 'tpope/vim-haml'
 
   " ========================================================================
   " Language: JavaScript / CoffeeScript / JSON
