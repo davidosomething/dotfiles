@@ -307,8 +307,7 @@ if g:dko_use_plugins
   " extends syntax for with jQuery,backbone,etc.
   "Plug 'othree/javascript-libraries-syntax.vim'
 
-  " Temp broken
-  "Plug 'othree/jsdoc-syntax.vim'
+  Plug 'othree/jsdoc-syntax.vim'
 
   " ========================================================================
   " Language: Markdown
