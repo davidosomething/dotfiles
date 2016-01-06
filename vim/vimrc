@@ -441,6 +441,7 @@ endif
 execute "set runtimepath-=$VIM/vimfiles"
 execute "set runtimepath-=$VIMRUNTIME"
 execute "set runtimepath-=$VIM/vimfiles/after"
+execute "set runtimepath-=$VIMRUNTIME/after"
 
 " Remove default user runtimepaths
 execute "set runtimepath-=$HOME/.vim"
@@ -452,28 +453,24 @@ execute "set runtimepath-=$XDG_CONFIG_HOME/nvim/after"
 let g:dko_plugins_rtp=&runtimepath
 
 " Start runtimepath with system runtimepath
-execute "set runtimepath=$VIM/vimfiles,$VIMRUNTIME"
+execute "set runtimepath=$VIM/vimfiles"
+execute "set runtimepath+=$VIMRUNTIME"
+" Note after is here -- vim-plug after and my after will override it
 execute "set runtimepath+=$VIM/vimfiles/after"
 
-" Append my runtimepaths (not the same as default user, these use specific
-" dko_vim_dir path)
+" Append my runtimepaths to override system (not the same as default user,
+" these use specific dko_vim_dir path)
+" see `plugin/mine.vim` for my vim settings
 execute "set runtimepath+=" . g:dko_vim_dir
-execute "set runtimepath+=" . g:dko_vim_dir . "/before"
 
 " Append vim-plug runtimepaths
 execute "set runtimepath+=" . g:dko_plugins_rtp
 
 " Append after: system, then mine, so mine is the last
 execute "set runtimepath+=" . g:dko_vim_dir . "/after"
+
+" Local overrides last
 execute "set runtimepath+=$HOME/.secret/vim/"
-
-" ============================================================================
-" SEE before/plugin/mine.vim for my options
-" ============================================================================
-
-" ============================================================================
-" local
-" ============================================================================
 
 runtime! vimrc.vim
 
