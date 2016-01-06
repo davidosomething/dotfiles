@@ -14,7 +14,7 @@ if has('gui_macvim')
   " only applies to buffers containing a markdown file
   " open current doc as Markdown in Marked.app
   if has("autocmd")
-    autocmd vimrc filetype markdown
+    autocmd vimrc filetype markdown.pandoc
           \ nnoremap <buffer><leader>m :silent !open -a "Marked 2" '%:p'<cr>
   endif
 
