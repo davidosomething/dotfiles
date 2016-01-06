@@ -471,7 +471,7 @@ execute "set runtimepath+=" . g:dko_plugins_rtp
 execute "set runtimepath+=" . g:dko_vim_dir . "/after"
 
 " Local overrides last
-execute "set runtimepath+=$HOME/.secret/vim/"
+execute "set runtimepath+=$HOME/.secret/vim"
 
 runtime! vimrc.vim
 
