@@ -69,7 +69,15 @@ let g:syntastic_javascript_eslint_args = '--no-ignore'
 
 let g:syntastic_lua_checkers = ['luac', 'luacheck']
 "let g:syntastic_lua_luacheck_args     = '--config ' . system("luacheckrc")
-"
+
+" ============================================================================
+" Checker: Markdown
+" ============================================================================
+
+let g:syntastic_markdown_mdl_quiet_messages = {
+      \   'regex': "No link definition for link ID '\[ x\]'",
+      \ }
+
 " ============================================================================
 " Checker: PHP
 " ============================================================================

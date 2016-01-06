@@ -315,7 +315,8 @@ if g:dko_use_plugins
 
   " Override vim included markdown ft* and syntax
   " The git repo has a newer syntax file than the one that ships with vim
-  Plug 'tpope/vim-markdown'
+  "Plug 'tpope/vim-markdown'
+  Plug 'vim-pandoc/vim-pandoc-syntax'
 
   " ========================================================================
   " Language: Mustache.js and Handlebars
