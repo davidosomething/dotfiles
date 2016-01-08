@@ -8,13 +8,14 @@ brew install coreutils findutils moreutils
 brew install libtool
 brew install pkg-config
 
+# general ----------------------------------------------------------------------
+brew install aspell
+
 # filesystem -------------------------------------------------------------------
 brew install ack
+brew install findutils
 brew install the_silver_searcher
 brew install tree
-
-# git --------------------------------------------------------------------------
-brew install git git-extras hub
 
 # operations -------------------------------------------------------------------
 brew install nmap
@@ -25,12 +26,25 @@ brew install multitail
 brew install icdiff
 brew install jq jsonpp
 
+# programming ------------------------------------------------------------------
+brew install cloc
+brew install lua
+brew install mono
+brew install tidy-html5
+
 # shell ------------------------------------------------------------------------
-brew install shellcheck bash-completion zsh
+brew install bash bash-completion
+brew install shellcheck
+brew install zsh
+
+# vcs --------------------------------------------------------------------------
+brew install git git-extras hub
+brew install mercurial
 
 # web --------------------------------------------------------------------------
 brew install curl wget
-brew dnsmasq openssl
+brew install dnsmasq
+brew install openssl
 
 # links to /Applications -------------------------------------------------------
 brew linkapps

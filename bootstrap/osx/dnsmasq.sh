@@ -8,10 +8,10 @@ set -eu
 ##
 # initialize script and dependencies
 # get this bootstrap folder
-cd "$(dirname $0)"/..
+cd "$(dirname "$0")/.." || exit 1
 dotfiles_path="$(pwd)"
 bootstrap_path="$dotfiles_path/bootstrap"
-source $bootstrap_path/helpers.sh
+source "${bootstrap_path}/helpers.sh"
 
 dkorequireroot
 
@@ -24,14 +24,14 @@ dkorequire "dnsmasq"
 #launchctl load /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
 
 dkosymlinking "dnsmasq.conf" "/usr/local/etc/dnsmasq.conf"
-ln -sf $dotfiles_path/dnsmasq/dnsmasq.conf /usr/local/etc/dnsmasq.conf
+ln -sf "${dotfiles_path}/dnsmasq/dnsmasq.conf" /usr/local/etc/dnsmasq.conf
 
 mkdir -p /etc/resolver
 for file in $dotfiles_path/dnsmasq/resolver/*
 do
-  b="$(basename $file)"
-  dkosymlinking $b /etc/resolver/$b
-  ln -sf $file /etc/resolver/$b
+  b="$(basename "$file")"
+  dkosymlinking "$b" "/etc/resolver/$b"
+  ln -sf "$file" "/etc/resolver/$b"
 done
 
 dkostatus "Done! [dnsmasq.sh]"
