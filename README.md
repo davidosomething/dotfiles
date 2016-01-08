@@ -26,26 +26,35 @@ git clone --recurse-submodules https://github.com/davidosomething/dotfiles.git ~
 These will assist in installing things
 
 - `bin/update`
-  - Update various things. Aliased to `u`. Run `u` for usage.
+    - Update various things. Aliased to `u`. Run `u` for usage.
 
 - `bootstrap/cleanup.sh`
-  - Moves some things into their XDG Base Directory suppored dirs
+    - Moves some things into their XDG Base Directory suppored dirs
 
 - `bootstrap/symlink.sh`
-  - bash, zsh, ack, screen, (n)vim
+    - bash, zsh, ack, screen, (n)vim
 
 - `npm/install.sh`
-  - requires you set up nvm and install node first
-  - install default packages
+    - requires you set up nvm and install node first
+    - install default packages
 
 - `ruby/install-default-gems.sh`
   - requires you set up chruby and install a ruby first
 
-- `osx/install.sh`
-  - symlink `.hushlogin`
+- `bootstrap/osx/*.sh`
+    - `install.sh` - symlink `.hushlogin`
+    - `alfred.sh` - Install alfred via brew cask -- requires cask.sh first
+    - `brew.sh` - Install common brews
+    - `cask.sh` - Install common casks
+    - `dnsmasq.sh` - Install and setup dnsmasq for .dev domains (optional)
+    - `macvim.sh` - Install macvim via brew
+    - `php.sh` - Install php56 via brew
+    - `python.sh` - Install python3 via brew
+    - `quicklook.sh` - Install quicklook plugins via brew cask
+    - `ruby.sh` - Install chruby, ruby-install via brew, install latest ruby
 
 - `linux/x11.sh`
-  - symlink `.xbindkeysrc`, `.xinitrc`, `.xprofile`
+    - symlink `.xbindkeysrc`, `.xinitrc`, `.xprofile`
 
 ## Notes
 
