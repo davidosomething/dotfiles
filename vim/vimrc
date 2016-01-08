@@ -102,7 +102,9 @@ if g:dko_use_plugins
   " Plug: Debugging
   " ========================================================================
 
-  "Plug 'gerw/vim-HiLinkTrace'
+  if $VIM_HILINKTRACE == '1'
+    Plug 'gerw/vim-HiLinkTrace'
+  endif
 
   " ========================================================================
   " Plug: File system
@@ -283,31 +285,63 @@ if g:dko_use_plugins
 
   Plug 'elzr/vim-json'
 
-  Plug 'heavenshell/vim-jsdoc'
-
   " provides coffee ft
   Plug 'kchmck/vim-coffee-script'
-
-  " gf for going to node_modules files
-  Plug 'moll/vim-node'
 
   " react/JSX syn highlighting for .cjsx
   " If you're using coffee+react instead of es6+react, quit your job.
   "Plug 'mtscout6/vim-cjsx'
 
-  " indenting/highlighting, replaces 'jelera/vim-javascript-syntax'
-  " mxw/vim-jsx - react/JSX syn highlighting for .jsx and requires yajs first
-  "Plug 'pangloss/vim-javascript'
-  "Plug 'jelera/vim-javascript-syntax'
-  Plug 'othree/yajs.vim'
-        \| Plug 'mxw/vim-jsx'
-        "\| Plug 'gavocanov/vim-js-indent'
-  Plug 'othree/jspc.vim'
+  " ----------------------------------------
+  " Syntax
+  " ----------------------------------------
+
+  " Options
+  " 'jelera/vim-javascript-syntax' " Jelera: No indent file
+  " 'pangloss/vim-javascript'      " pangloss' is probably the oldest, lot of
+                                   " contributors but not up-to-date
+                                   " Includes indent settings
+  " 'othree/yajs.vim'              " othree has the latest support
+  "                                " no indent file, fork of jelera
+  let g:dko_js_syntax = 'othree/yajs.vim'
+
+  " The "for" is required so the syntax registers on filetype, otherwise
+  " yajs has trouble overriding the default js syntax due to runtime order
+  Plug g:dko_js_syntax, { 'for': 'javascript' }
+
+  " ----------------------------------------
+  " Syntax Addons
+  " ----------------------------------------
+
+  if exists("g:plugs['yajs.vim']")
+    Plug 'gavocanov/vim-js-indent'                " Indent from pangloss
+    "Plug 'jiangmiao/simple-javascript-indenter'  " Alternative js indent
+  endif
 
   " extends syntax for with jQuery,backbone,etc.
   Plug 'othree/javascript-libraries-syntax.vim'
 
-  "Plug 'othree/jsdoc-syntax.vim'
+  " yajs includes this
+  if !exists("g:plugs['yajs.vim']")
+    Plug 'othree/jsdoc-syntax.vim'
+  endif
+
+  " After syntax, ftplugin, indent for JSX
+  Plug 'mxw/vim-jsx'
+
+  " ----------------------------------------
+  " Features
+  " ----------------------------------------
+
+  " Parameter completion
+  Plug 'othree/jspc.vim'
+
+  " <leader>pd on function to insert jsdoc above
+  Plug 'heavenshell/vim-jsdoc'
+
+  " gf for going to node_modules files
+  Plug 'moll/vim-node'
+
 
   " ========================================================================
   " Language: Markdown
@@ -335,19 +369,22 @@ if g:dko_use_plugins
   " Language: PHP, twig
   " ========================================================================
 
-  " official indent plugin for vim, later version than what it comes with
-  Plug '2072/PHP-Indenting-for-VIm'
-
   " creates twig ft
   Plug 'evidens/vim-twig'
 
-  Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
-        \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
+  " Syntax
+  Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 
-  Plug 'shawncplus/phpcomplete.vim'
+  " Official indent plugin for vim, later version than what it comes with
+  Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
+
+  " Completion
+  Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
         "\| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
-  Plug 'StanAngeloff/php.vim'
+  " Snippet
+  Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
+        \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
 
   " ========================================================================
   " Language: Ruby, rails, puppet

@@ -1,5 +1,6 @@
 " after/ftplugin/markdown.vim
 
+setlocal nomodeline
 setlocal spell
 setlocal wrap
 setlocal linebreak
