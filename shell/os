@@ -14,10 +14,11 @@ case "$(uname -s)" in
     *)         export DOTFILES_OS="Linux"   ;;
 esac
 [[ "$DOTFILES_OS" = "Darwin" ]] && {
+  export DOTFILES_DISTRO="osx"
   case "$(sw_vers -productVersion)" in
-    10.7*) export DOTFILES_DISTRO="lion"          ;;
-    10.8*) export DOTFILES_DISTRO="mountainlion"  ;;
-    10.9*) export DOTFILES_DISTRO="mavericks"     ;;
+    10.7*) export DOTFILES_OSV="lion"          ;;
+    10.8*) export DOTFILES_OSV="mountainlion"  ;;
+    10.9*) export DOTFILES_OSV="mavericks"     ;;
   esac
 }
 [[ "$DOTFILES_OS" = "Linux" ]] && {
