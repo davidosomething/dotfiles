@@ -501,6 +501,7 @@ endif
 " E.g. the archlinux distribution includes the line `set history=50` in
 " /usr/share/vim/vimfiles/archlinux.vim which loaded by /etc/vimrc. That file
 " is always loaded after the user vimrc which makes it annoying to override.
+" COMMENT IT OUT from /etc/vimrc despite it saying not to!
 
 " Remove system runtimepaths
 execute "set runtimepath-=$VIM/vimfiles"
