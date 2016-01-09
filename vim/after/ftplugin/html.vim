@@ -1,4 +1,4 @@
-" handlebars
+" html
 
 setlocal nowrap
 setlocal noexpandtab
