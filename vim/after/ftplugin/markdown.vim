@@ -10,3 +10,6 @@ if exists("g:plugs['vim-pandoc-syntax']")
   let g:pandoc#syntax#conceal#use = 0
 endif
 
+" Always start in display movement mode for markdown
+call movemode#setByDisplay()
+

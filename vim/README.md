@@ -2,8 +2,15 @@
 
 Keep `(g)vimrc` (no dot in filename) in `.vim` -- vim knows to look in there.
 
-See [https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers](https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers)
-for getting various linter support in syntastic.
+See https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers for getting
+various linter support in syntastic.
+
+## Setup
+
+Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on ArchLinux!
+
+After starting vim with this setup, vim-plug will install itself. Run
+`:PlugInstall` from within vim, and then restart vim.
 
 ## Paths
 
@@ -21,8 +28,8 @@ but before the vim-plug ones. So `before/plugin/xyz.vim` will load before
 
 Use this for settings that must be set before a plugin is loaded. The global
 variable `g:plugs`, which is a dictionary of plugin names and settings from
-vim-plug, is available to before since it is created in the main `vimrc` file
-by the `Plug` calls.
+vim-plug, is available to before since it is created in the main `vimrc` file by
+the `Plug` calls.
 
 My default settings are in `before/plugin/mine.vim`, which guarantees that
 they will override the system defaults but plugins can, in turn, override them.
@@ -38,13 +45,17 @@ This will take precedence over everything but local vimrc files.
 
 ### local vimrc
 
-All local settings are loaded LAST (after system/user/plugin/after)
-They are expected to be in `~/.secret/vim/(g)vimrc.vim`.
+All local settings are loaded LAST (after all of the system, user, plugin, and
+`*/after` runtimes).
+
+They are expected to be in `~/.secret/vim/` and follow the standard vim
+directory layout (`plugin/`, `syntax/`, `indent/`, etc.). A base (g)vimrc file
+there is probably enough.
 
 ## Plugin settings
 
-Settings for various plugins have been interspersed into `before/plugin`,
-`after/ftplugin` and `after/plugin/plug-*.vim` as needed. There is generally
+Settings for various plugins have been interspersed into `plugin/`,
+`after/plugin/plug-*.vim`, and `after/ftplugin/` as needed. There is generally
 a wrapper around them that checks for `exists('g:plugs["plugin"])` so that is
 an easy way to grep for them.
 
