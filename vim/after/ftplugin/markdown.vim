@@ -5,11 +5,16 @@
 setlocal nomodeline
 setlocal spell
 setlocal nocopyindent
-setlocal wrap
+setlocal nowrap
 setlocal expandtab
-setlocal linebreak
-setlocal textwidth=80
+setlocal nolinebreak
+setlocal textwidth=0
 
 " Always start in display movement mode for markdown
 call movemode#setByDisplay()
+
+augroup markdown
+  autocmd filetype markdown.pandoc
+        \ nnoremap <silent><buffer> <Leader>m :InstantMarkdownPreview<CR>
+augroup end
 
