@@ -85,3 +85,6 @@ lodash
 IntelliSense
 IDEs
 autocompletion
+Linting
+linters
+async
