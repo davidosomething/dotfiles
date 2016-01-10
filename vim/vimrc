@@ -535,5 +535,6 @@ execute "set runtimepath+=" . g:dko_vim_dir . "/after"
 " Local overrides last
 execute "set runtimepath+=$HOME/.secret/vim"
 
+" Loads vimrc.vim from the .secret/vim runtimepath (and wherever else)
 runtime! vimrc.vim
 
