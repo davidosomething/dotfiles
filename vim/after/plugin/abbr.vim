@@ -16,7 +16,7 @@ inoreabbrev targetting targeting
 " ============================================================================
 
 " insert date, e.g. 2015-02-19
-inoremap <Leader>:d "=strftime("%Y-%m-%d")<CR>P
+inoremap <Leader>:d <Esc>"=strftime("%Y-%m-%d")<CR>Pa
 
 " insert file dir
 inoremap <Leader>:fd <C-R>=expand('%:h')<CR>

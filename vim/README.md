@@ -20,10 +20,10 @@ find it to be insane to have system configs override user configs.
 The `~/.dotfiles/vim` and `~/.dotfiles/vim/after` paths now come after system
 config paths. See the runtimepath path section in `vimrc` for more comments.
 
-### before/
+### /
 
 This is a vim runtimepath that will load after the user and system runtimepaths
-but before the vim-plug ones. So `before/plugin/xyz.vim` will load before
+but before the vim-plug ones. So `plugin/xyz.vim` will load before
 `plug/vim/pluginname/plugin/name.vim`.
 
 Use this for settings that must be set before a plugin is loaded. The global
@@ -31,7 +31,7 @@ variable `g:plugs`, which is a dictionary of plugin names and settings from
 vim-plug, is available to before since it is created in the main `vimrc` file by
 the `Plug` calls.
 
-My default settings are in `before/plugin/mine.vim`, which guarantees that
+My default settings are in `plugin/mine.vim`, which guarantees that
 they will override the system defaults but plugins can, in turn, override them.
 
 ### after/

@@ -391,3 +391,6 @@ settings = {
   "irc/core" = { alternate_nick = "davidoghosting"; };
 };
 ignores = ( { level = "JOINS PARTS QUITS"; } );
+keyboard = ( 
+  { key = "meta-[M"; id = "command"; data = "mouse_xterm "; }
+);

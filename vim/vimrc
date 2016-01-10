@@ -337,11 +337,6 @@ if g:dko_use_plugins
   " extends syntax for with jQuery,backbone,etc.
   Plug 'othree/javascript-libraries-syntax.vim'
 
-  " yajs includes this
-  if !exists("g:plugs['yajs.vim']")
-    Plug 'othree/jsdoc-syntax.vim'
-  endif
-
   " After syntax, ftplugin, indent for JSX
   Plug 'mxw/vim-jsx'
 
@@ -367,6 +362,8 @@ if g:dko_use_plugins
   " The git repo has a newer syntax file than the one that ships with vim
   "Plug 'tpope/vim-markdown'
   Plug 'vim-pandoc/vim-pandoc-syntax'
+
+  Plug 'suan/vim-instant-markdown'
 
   " ========================================================================
   " Language: Nginx
