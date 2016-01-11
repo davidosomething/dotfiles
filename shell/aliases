@@ -61,7 +61,7 @@ alias se="sudo -e"
 # editor
 alias e="vopen"
 alias v="vopen"
-alias em="git diff --name-only | uniq | xargs $EDITOR"
+alias em="git diff --name-only | uniq | xargs vopen"
 alias esa='e $DOTFILES/shell/aliases'
 alias esf='e $DOTFILES/shell/functions'
 alias esp='e $DOTFILES/shell/paths'
