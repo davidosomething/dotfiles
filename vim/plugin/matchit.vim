@@ -6,7 +6,7 @@
 " installed a newer version.
 " For macvim it is found here:
 " /Applications/MacVim.app/Contents/Resources/vim/runtime/macros/matchit.vim
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+if !exists('g:loaded_matchit')
   runtime! macros/matchit.vim
 endif
 
