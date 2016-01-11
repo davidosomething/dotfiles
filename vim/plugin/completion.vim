@@ -42,11 +42,14 @@ inoremap  <silent><expr>  <CR>      <SID>DKO_AcceptAndCr()
 " Omni-completion by filetype
 " ============================================================================
 
-augroup vimrc
+" We keep this here and not in filetype related sections since some files,
+" like HTML, Markdown, and PHP, have mixed languages in them.
+" These are the default omnifuncs. Neocomplete may use something entirely
+" different if there are other sources available (e.g. TernJS for JavaScript)
+augroup dkoomnifuncs
+  autocmd!
   autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-
-  " may be later overridden for tern
   autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
 
   " built-in, also phpcomplete-extended provides support
@@ -80,20 +83,64 @@ if exists('g:plugs["neocomplete.vim"]')
   let g:neocomplete#enable_at_startup            = 1
   let g:neocomplete#enable_smart_case            = 1
   let g:neocomplete#enable_camel_case            = 1
-  let g:neocomplete#enable_fuzzy_completion      = 0
   let g:neocomplete#data_directory =
         \ expand(g:dko_vim_dir . '/.tmp/neocomplete')
 
-  " completion sources
+  " Match by string head instead of fuzzy
+  let g:neocomplete#enable_fuzzy_completion      = 0
+  call neocomplete#custom#source('_', 'matchers', [
+        \   'matcher_head',
+        \   'matcher_length',
+        \ ])
+
+  " --------------------------------------------------------------------------
+  " Completion sources
+  " --------------------------------------------------------------------------
+
   let g:neocomplete#sources#syntax#min_keyword_length = 3
 
+  " Custom source references
+  if !exists('g:neocomplete#sources#vim#complete_functions')
+    let g:neocomplete#sources#vim#complete_functions = {}
+  endif
+
+  " omnifunc to use by language
   if !exists('g:neocomplete#sources#omni#functions')
     let g:neocomplete#sources#omni#functions = {}
   endif
 
+  " Regex to match typed chars on by language
   if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
   endif
+
+  " --------------------------------------------------------------------------
+  " JavaScript
+  " --------------------------------------------------------------------------
+
+  let g:neocomplete#sources#omni#functions.javascript = [
+        \   'javascriptcomplete#CompleteJS',
+        \ ]
+  let g:neocomplete#sources#omni#input_patterns.javascript =
+        \ '\h\w*\|[^. \t]\.\w*'
+
+  " --------------------------------------------------------------------------
+  " CoffeeScript
+  " --------------------------------------------------------------------------
+
+  let g:neocomplete#sources#omni#functions.coffee = [
+        \   'javascriptcomplete#CompleteJS',
+        \ ]
+  let g:neocomplete#sources#omni#input_patterns.coffee =
+        \ '\h\w*\|[^. \t]\.\w*'
+
+  " --------------------------------------------------------------------------
+  " TypeScript
+  " --------------------------------------------------------------------------
+
+  " @TODO clausreinke/typescript-tools
+  " @TODO Quramy/tsuquyomi
+  let g:neocomplete#sources#omni#functions.typescript = []
 
   let g:neocomplete#sources#omni#input_patterns.typescript =
         \ '[^. \t]\.\%(\h\w*\)\?'
@@ -116,34 +163,51 @@ if exists('g:plugs["deoplete.nvim"]')
 endif
 
 " ============================================================================
+" vim-better-javascript-completion
+" ============================================================================
+
+if exists('g:plugs["vim-better-javascript-completion"]')
+
+  " ============================================================================
+  " neocomplete 1995eaton integration
+  " ============================================================================
+
+  if exists('g:plugs["neocomplete.vim"]')
+    call insert(g:neocomplete#sources#omni#functions.javascript, 'js#CompleteJS')
+  endif
+
+endif
+
+" ============================================================================
 " tern
 " ============================================================================
+
 if exists('g:plugs["tern_for_vim"]')
 
-  autocmd vimrc FileType javascript setl omnifunc=tern#Complete
+  " Change default javascript completion to use just TernJS
+  "autocmd vimrc FileType javascript setl omnifunc=tern#Complete
 
   let g:tern_show_argument_hints = 'on_hold'
   let g:tern_show_signature_in_pum = 1
 
+  augroup dkotern
+    autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+  augroup END
+
   " ============================================================================
   " neocomplete tern integration
   " ============================================================================
+
   if exists('g:plugs["neocomplete.vim"]')
     " See vice setup for stuff to steal
     " @see <https://github.com/zeekay/vice-neocompletion/blob/master/autoload/vice/neocomplete.vim>
 
-    " JavaScript -----------------------------------------------------------------
-    let g:neocomplete#sources#omni#functions.javascript = 'tern#Complete'
-    let g:neocomplete#sources#omni#input_patterns.javascript =
-          \ '\h\w*\|[^. \t]\.\w*'
+    " " Prepend tern to sources list for each lang
+    call insert(g:neocomplete#sources#omni#functions.javascript,  'tern#Complete')
+    call insert(g:neocomplete#sources#omni#functions.javascript,  'tern#Complete')
+    call insert(g:neocomplete#sources#omni#functions.coffee,      'tern#Complete')
+    call insert(g:neocomplete#sources#omni#functions.typescript,  'tern#Complete')
 
-    " CoffeeScript ---------------------------------------------------------------
-    let g:neocomplete#sources#omni#functions.coffee = 'tern#Complete'
-    let g:neocomplete#sources#omni#input_patterns.coffee =
-          \ '\h\w*\|[^. \t]\.\w*'
-
-    " TypeScript -----------------------------------------------------------------
-    let g:neocomplete#sources#omni#functions.typescript = 'tern#Complete'
   endif
 endif
 

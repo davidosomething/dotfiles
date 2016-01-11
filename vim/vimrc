@@ -87,7 +87,7 @@ if g:dko_use_plugins
   let g:dko_use_airline         = 1
   let g:dko_use_gutentags       = 0
   let g:dko_use_indenttab       = 1
-  let g:dko_use_tern_completion = 1
+  let g:dko_use_tern_completion = 1 && (has('python') || has('python3'))
   let g:dko_has_completion      = 0
 
   call plug#begin(g:dko_vim_dir . g:dko_plugdir)
@@ -199,7 +199,13 @@ if g:dko_use_plugins
     "Full syntax completion - super slow
     "Plug 'Shougo/neco-syntax', { 'for': ['scss'] }
 
+    " Mixed-filetype completion for Shougo complete, e.g. highlight JS within
+    " Markdown fenced code blocks.
+    Plug 'Shougo/context_filetype.vim'
+
     Plug 'Shougo/neco-vim', { 'for': ['vim'] }
+
+    Plug '1995eaton/vim-better-javascript-completion'
 
     if g:dko_use_tern_completion
       Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }

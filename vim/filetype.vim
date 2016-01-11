@@ -4,6 +4,9 @@
 " http://vimdoc.sourceforge.net/htmldoc/filetype.html
 " Runs on filetype on
 "
+" This needs to be first -- don't move into after/ or else some manually
+" defined ftplugins won't load
+"
 
 if exists('g:did_load_filetypes_user') | finish | endif
 let g:did_load_filetypes_user = 1
