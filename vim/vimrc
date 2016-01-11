@@ -473,6 +473,7 @@ if g:dko_use_plugins
   Plug 'osyo-manga/vim-anzu'
 
   if g:dko_use_airline | Plug 'bling/vim-airline'
+  else | Plug 'ap/vim-buftabline'
   endif
 
   Plug 'now/vim-quit-if-only-quickfix-buffer-left'

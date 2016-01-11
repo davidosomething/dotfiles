@@ -14,7 +14,7 @@ let g:vimfiler_ignore_pattern = [
       \ ]
 
 " ============================================================================
-" Symbol setup -- vim-devicons will override
+" Symbol setup
 " ============================================================================
 
 let g:vimfiler_tree_leaf_icon     = ' '
@@ -29,11 +29,7 @@ let g:vimfiler_readonly_file_icon = ''
 " ============================================================================
 
 function! s:DKO_VimFilerExplorer()
-  if exists("g:plugs['vim-devicons']")
-    VimFilerExplorer -parent -explorer-columns=devicons
-  else
-    VimFilerExplorer -parent -explorer-columns=type
-  endif
+  VimFilerExplorer -parent -explorer-columns=type
 endfunction
 
 nnoremap <silent> <F9>  :call <SID>DKO_VimFilerExplorer()<CR>
