@@ -24,6 +24,48 @@ if exists("g:plugs['vim-jsdoc']")
 
   let g:jsdoc_enable_es6 = 1
 
+
+  " Add param type when documenting args
+  " key is regex to match param name
+  " The match is done via matchstr() (so magic mode is on -- escape ?)
+  let g:jsdoc_custom_args_regex_only = 1
+  let g:jsdoc_custom_args_hook = {
+        \   '^\$': {
+        \     'type': '{jQuery}'
+        \   },
+        \   'callback|cb|done': {
+        \     'type': '{Function}',
+        \     'description': 'Callback function'
+        \   },
+        \   'data': {
+        \     'type': '{Object}'
+        \   },
+        \   'description|message|title|url': {
+        \     'type': '{String}'
+        \   },
+        \   '^e$': {
+        \     'type': '{Event}'
+        \   },
+        \   'el$': {
+        \     'type': '{Element}'
+        \   },
+        \   'err$': {
+        \     'type': '{ErrorEvent}'
+        \   },
+        \   'handler$': {
+        \     'type': '{Function}'
+        \   },
+        \   '^i$': {
+        \     'type': '{Number}'
+        \   },
+        \   '^_\?is': {
+        \     'type': '{Boolean}'
+        \   },
+        \   'options$': {
+        \     'type': '{Object}'
+        \   },
+        \ }
+
   " This needs to be recursive map
   nmap <buffer> <silent> <Leader>pd <Plug>(jsdoc)
 endif
