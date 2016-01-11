@@ -1,5 +1,7 @@
 if !exists("g:plugs['editorconfig-vim']") | finish | endif
 
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
 " This works with vim-scripts/IndentTab
 "
 " softtabstop is for pressing tab within the line for alignment
