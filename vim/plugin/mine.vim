@@ -67,6 +67,7 @@ set foldlevelstart=99                 " show all folds by default
 
 set splitbelow
 set splitright
+set fillchars=vert:\|                " Vertical separator for splits
 
 " ============================================================================
 " Input
@@ -100,6 +101,7 @@ set nojoinspaces                      " J command doesn't add extra space
 
 set autoindent                        " indent when creating newline
 set smartindent                       " add an indent level inside braces
+set cindent                           " testing cindent...
 
 " for autoindent, use same spaces/tabs mix as previous line, even if
 " tabs/spaces are mixed. Helps for docblock, where the block comments have a
@@ -146,8 +148,8 @@ set listchars+=trail:·
 set listchars+=extends:»              " show cut off when nowrap
 set listchars+=precedes:«
 
-set fillchars=diff:⣿,vert:│
-set fillchars=diff:⣿,vert:\|
+" Note this is += since fillchars was defined in splits
+set fillchars+=diff:⣿
 
 " ============================================================================
 " Diffing
