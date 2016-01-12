@@ -7,6 +7,10 @@ set guioptions-=T                     " hide stupid button bar
 " ============================================================================
 
 if has('gui_macvim')
+  " Refer to macvim's default gvimrc, e.g.
+  " /usr/local/Cellar/macvim/7.4-89/MacVim.app/Contents/Resources/vim/gvimrc
+  let g:macvim_skip_colorscheme = 1
+
   set antialias
   set guifont=Fura\ Mono\ For\ Powerline:h12
   set backupcopy=yes                  " keep finder labels!
