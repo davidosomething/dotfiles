@@ -28,19 +28,20 @@ augroup filetypedetect
 
   " other files --------------------------------------------------------------
 
-  autocmd BufRead,BufNewFile,BufFilePre *.cap             setfiletype ruby
+  autocmd BufRead,BufNewFile,BufFilePre *.cap           setfiletype ruby
 
-  autocmd BufRead,BufNewFile,BufFilePre *.dump            setfiletype sql
+  autocmd BufRead,BufNewFile,BufFilePre *.dump          setfiletype sql
 
-  autocmd BufRead,BufNewFile,BufFilePre *.babelrc         setfiletype json
-  autocmd BufRead,BufNewFile,BufFilePre *.bowerrc         setfiletype json
-  autocmd BufRead,BufNewFile,BufFilePre *.editorconfig    setfiletype json
-  autocmd BufRead,BufNewFile,BufFilePre *.eslintrc        setfiletype json
-  autocmd BufRead,BufNewFile,BufFilePre *.jshintrc        setfiletype json
+  autocmd BufRead,BufNewFile,BufFilePre .babelrc        setfiletype json
+  autocmd BufRead,BufNewFile,BufFilePre .bowerrc        setfiletype json
+  autocmd BufRead,BufNewFile,BufFilePre .editorconfig   setfiletype json
+  autocmd BufRead,BufNewFile,BufFilePre .eslintrc       setfiletype json
+  autocmd BufRead,BufNewFile,BufFilePre .jscsrc         setfiletype json
+  autocmd BufRead,BufNewFile,BufFilePre .jshintrc       setfiletype json
 
-  autocmd BufRead,BufNewFile,BufFilePre *.md              setfiletype markdown.pandoc
+  autocmd BufRead,BufNewFile,BufFilePre *.md            setfiletype markdown.pandoc
 
   " polkit rules files
-  autocmd BufRead,BufNewFile,BufFilePre *.rules           setfiletype javascript
+  autocmd BufRead,BufNewFile,BufFilePre *.rules         setfiletype javascript
 
 augroup END
