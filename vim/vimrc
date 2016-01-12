@@ -373,7 +373,9 @@ if g:dko_use_plugins
   "Plug 'tpope/vim-markdown'
   Plug 'vim-pandoc/vim-pandoc-syntax'
 
-  Plug 'suan/vim-instant-markdown'
+  Plug 'suan/vim-instant-markdown', {
+        \   'do': 'npm install -g instant-markdown-d'
+        \ }
 
   " ========================================================================
   " Language: Nginx
