@@ -103,6 +103,7 @@ let g:syntastic_python_checkers = ['prospector', 'python']
 " Checker: scss_lint
 " ============================================================================
 
+let g:syntastic_scss_checkers = ['sass', 'scss_lint', 'stylelint']
 let s:dko_scsslint_config = expand("$DOTFILES/scss-lint/.scss-lint.yml")
 if !empty(glob(s:dko_scsslint_config))
   let g:syntastic_scss_scss_lint_args = "--config=" . s:dko_scsslint_config
