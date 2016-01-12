@@ -88,3 +88,5 @@ autocompletion
 Linting
 linters
 async
+whitespace
+autocommand
