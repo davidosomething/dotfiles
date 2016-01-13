@@ -51,38 +51,41 @@ _update_brew() {
   dkostatus "Updating homebrew"
   brew update
 
-  dkostatus "List of outdated packages"
   outdated="$(brew outdated)"
+  if [ -z "$outdated" ]; then
+    dkostatus "All packages up-to-date"
+  else
 
-  # handle python3 and macvim
-  is_python_rebuild=$(grep "python3" <<< "$outdated")
+    # handle python3 and macvim
+    is_python_rebuild=$(grep "python3" <<< "$outdated")
 
-  dkostatus "Upgrade packages"
-  brew upgrade --all 2>&1 | tee "${logs_path}/brew-upgrade.log"
+    dkostatus "Upgrade packages"
+    brew upgrade --all 2>&1 | tee "${logs_path}/brew-upgrade.log"
 
-  if [ -n "$is_python_rebuild" ]; then
-    dkostatus_ "Linking python3 apps"
-    brew linkapps python3
+    if [ -n "$is_python_rebuild" ]; then
+      dkostatus_ "Linking python3 apps"
+      brew linkapps python3
 
-    dkostatus "Python3 was upgraded"
-    dkostatus_ "Updating pip and setuptools"
-    pip3 install --upgrade pip setuptools
+      dkostatus "Python3 was upgraded"
+      dkostatus_ "Updating pip and setuptools"
+      pip3 install --upgrade pip setuptools
 
-    dkostatus_ "Rebuilding macvim for new python3"
-    brew reinstall \
-      --with-custom-icons \
-      --with-lua \
-      --with-python3 \
-      --with-override-system-vim \
-      macvim
-    dkostatus_ "Linking new macvim.app"
-    brew linkapps macvim
+      dkostatus_ "Rebuilding macvim for new python3"
+      brew reinstall \
+        --with-custom-icons \
+        --with-lua \
+        --with-python3 \
+        --with-override-system-vim \
+        macvim
+      dkostatus_ "Linking new macvim.app"
+      brew linkapps macvim
+    fi
   fi
 
   dkostatus "Cleanup old versions and prune dead symlinks"
-  brew cleanup      | dkoindent
-  brew cask cleanup | dkoindent
-  brew prune        | dkoindent
+  brew cleanup
+  brew cask cleanup
+  brew prune
 }
 
 
@@ -171,8 +174,8 @@ _update_pip() {
   local pip_command=${1:-pip}
   dkostatus "Updating $pip_command"
   if has_program "$pip_command"; then
-    $pip_command install --upgrade setuptools | dkoindent
-    $pip_command install --upgrade pip        | dkoindent
+    $pip_command install --upgrade setuptools 2>&1 | dkoindent
+    $pip_command install --upgrade pip        2>&1 | dkoindent
   fi
 }
 
@@ -202,8 +205,8 @@ _update_linux() {
     wp)
       dkostatus "Update wp-cli"
       pushd "${WP_CLI_CONFIG_PATH}" &&
-      php composer.phar self-update | dkoindent &&
-      php composer.phar update --no-dev | dkoindent &&
+      php composer.phar self-update     2>&1 | dkoindent &&
+      php composer.phar update --no-dev 2>&1 | dkoindent &&
       popd
       ;;
   esac
@@ -219,10 +222,10 @@ _update_darwin() {
     osx)
       dkostatus "Repairing permissions"
       # fix file system permissions
-      diskutil repairPermissions / | dkoindent
+      diskutil repairPermissions /  2>&1 | dkoindent
 
       dkostatus "OSX system update"
-      sudo softwareupdate -i -a | dkoindent
+      sudo softwareupdate -i -a  2>&1 | dkoindent
       ;;
 
     pip)
@@ -248,16 +251,16 @@ if [[ "$1" = "gem" ]]; then
   dkostatus "Cleanup old gems"
   gem clean
   dkostatus "Updating RubyGems itself"
-  gem update --system | dkoindent
+  gem update --system  2>&1 | dkoindent
   dkostatus "Updating gems"
-  gem update | dkoindent
+  gem update  2>&1 | dkoindent
 fi
 
 
 if [[ "$1" = "go" ]]; then
   if has_program "go"; then
     dkostatus "Updating go packages"
-    go get -u all | dkoindent
+    go get -u all  2>&1 | dkoindent
   fi
 fi
 
@@ -265,7 +268,7 @@ fi
 if [[ "$1" = "heroku" ]]; then
   if has_program "heroku"; then
     dkostatus "Updating heroku"
-    heroku update | dkoindent
+    heroku update  2>&1 | dkoindent
   fi
 fi
 

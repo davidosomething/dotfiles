@@ -324,7 +324,9 @@ if g:dko_use_plugins
 
   " The "for" is required so the syntax registers on filetype, otherwise
   " yajs has trouble overriding the default js syntax due to runtime order
-  Plug g:dko_js_syntax, { 'for': 'javascript' }
+  if exists("g:dko_js_syntax") && exists("g:plugs['yajs.vim']")
+    Plug g:dko_js_syntax, { 'for': 'javascript' }
+  endif
 
   " ----------------------------------------
   " Syntax Addons
@@ -336,7 +338,9 @@ if g:dko_use_plugins
   "'jason0x43/vim-js-indent'                " Use HTML's indenter with
                                             " TypeScript support
   let g:dko_js_indent = 'gavocanov/vim-js-indent'
-  if exists("g:plugs['yajs.vim']")
+  "let g:dko_js_indent = 'jiangmiao/simple-javascript-indenter'
+  "let g:dko_js_indent = 'jason0x43/vim-js-indent'
+  if exists("g:dko_js_indent") && exists("g:plugs['yajs.vim']")
     Plug g:dko_js_indent, { 'for': 'javascript' }
   endif
 
