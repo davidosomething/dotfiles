@@ -2,58 +2,83 @@
 " Mode toggling
 " ============================================================================
 
-" toggle visual/normal mode
+" ----------------------------------------------------------------------------
+" Toggle visual/normal mode with space-space
+" ----------------------------------------------------------------------------
+
 nnoremap <Leader><Leader> V
 vnoremap <Leader><Leader> <Esc>
 
+" ----------------------------------------------------------------------------
 " Back to normal mode
+" ----------------------------------------------------------------------------
+
 imap jj <Esc>
 cmap jj <Esc>
 
+" ----------------------------------------------------------------------------
 " Toggle paste mode
-nnoremap <silent> <F12> :set invpaste<CR>:set paste?<CR>
-inoremap <silent> <F12> <ESC>:set invpaste<CR>:set paste?<CR>
+" ----------------------------------------------------------------------------
 
+nnoremap <silent> <F12> :silent set invpaste<CR>:silent set paste?<CR>
+inoremap <silent> <F12> <ESC>:silent set invpaste<CR>:silent set paste?<CR>
+
+" ----------------------------------------------------------------------------
 " Unfuck my screen
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-444
+" ----------------------------------------------------------------------------
+
 nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
 
 " ============================================================================
 " Commands
 " ============================================================================
+
 command! Q q
 
-" cd to the directory containing the file in the buffer
+" ----------------------------------------------------------------------------
+" cd to current buffer
+" ----------------------------------------------------------------------------
+
 nnoremap <silent> <Leader>cd :lcd %:h<CR>
-
-" ============================================================================
-" Search
-" ============================================================================
-
-" Don't move on */# (it automatically goes to next match)
-" From https://bitbucket.org/sjl/dotfiles/
-nnoremap <silent> *
-      \ :let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>
 
 " ============================================================================
 " Editing
 " ============================================================================
 
+" ----------------------------------------------------------------------------
 " Sort lines
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
+" ----------------------------------------------------------------------------
+
+" Auto select paragraph (bounded by blank lines) and sort
 nnoremap <Leader>s vip:!sort<CR>
+" Sort selection
 vnoremap <Leader>s :!sort<CR>
 
-" upper/lower word
+" ----------------------------------------------------------------------------
+" Uppercase / lowercase word
+" ----------------------------------------------------------------------------
+
 nnoremap <Leader>u mQviwU`Q
 nnoremap <Leader>l mQviwu`Q
 
-" join lines without space
+" ----------------------------------------------------------------------------
+" Join lines without space
+" ----------------------------------------------------------------------------
+
 nnoremap <Leader>j VjgJ
 
-" reselect visual block after indent
+" ----------------------------------------------------------------------------
+" Reselect visual block after indent
+" ----------------------------------------------------------------------------
+
 vnoremap < <gv
 vnoremap > >gv
+
+" ----------------------------------------------------------------------------
+" Bubble and indent mappings from janus vim distribution
+" ----------------------------------------------------------------------------
 
 if has('gui_macvim') && has("gui_running")
   " Map command-[ and command-] to indenting or outdenting

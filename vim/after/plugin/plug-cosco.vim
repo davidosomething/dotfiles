@@ -8,3 +8,4 @@ function! s:DKO_Cosco_Bindings()
 endfunction
 
 autocmd vimrc FileType javascript,css,php call s:DKO_Cosco_Bindings()
+

@@ -13,27 +13,7 @@ let g:airline_symbols.paste    = 'ρ'
 let g:airline_symbols.readonly = ''
 
 " ============================================================================
-" QuickFix extension
-" ============================================================================
-
-let g:airline#extensions#quickfix#quickfix_text = 'QF'
-let g:airline#extensions#quickfix#location_text = 'LL'
-
-" ============================================================================
-" Tabline extension
-" ============================================================================
-
-" list buffers ONLY at top
-let g:airline#extensions#tabline#enabled = 1
-" never show tabs
-let g:airline#extensions#tabline#show_tabs = 0
-" don't need to indicate whether showing buffers or tabs
-let g:airline#extensions#tabline#show_tab_type = 1
-" show superscript buffer numbers (buffer_nr_show is off)
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-
-" ============================================================================
-" Disable extensions for speed
+" Extensions
 " ============================================================================
 
 let g:airline#extensions#bufferline#enabled = 0
@@ -54,4 +34,32 @@ let g:airline#extensions#windowswap#enabled = 0
 
 autocmd vimrc FileType *
       \ unlet! g:airline#extensions#whitespace#checks
+
+" ----------------------------------------------------------------------------
+" Extension: anzu
+" ----------------------------------------------------------------------------
+
+if exists("g:plugs['vim-anzu']")
+  let g:airline#extensions#anzu#enabled = 1
+endif
+
+" ----------------------------------------------------------------------------
+" Extension: Tabline
+" ----------------------------------------------------------------------------
+
+" list buffers ONLY at top
+let g:airline#extensions#tabline#enabled = 1
+" never show tabs
+let g:airline#extensions#tabline#show_tabs = 0
+" don't need to indicate whether showing buffers or tabs
+let g:airline#extensions#tabline#show_tab_type = 1
+" show superscript buffer numbers (buffer_nr_show is off)
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+" ----------------------------------------------------------------------------
+" Extension: QuickFix
+" ----------------------------------------------------------------------------
+
+let g:airline#extensions#quickfix#quickfix_text = 'QF'
+let g:airline#extensions#quickfix#location_text = 'LL'
 

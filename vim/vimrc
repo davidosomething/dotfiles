@@ -477,6 +477,9 @@ if g:dko_use_plugins
   " Plug: UI -- load last!
   " ========================================================================
 
+  " <Plug> to not move on * search function
+  Plug 'haya14busa/vim-asterisk'
+
   " highlight partial matches as you type in search mode
   if g:dko_use_incsearch | Plug 'haya14busa/incsearch.vim'
   endif
@@ -487,7 +490,7 @@ if g:dko_use_plugins
   " Show (#/total results) when searching for a term
   Plug 'osyo-manga/vim-anzu'
 
-  if g:dko_use_airline | Plug 'bling/vim-airline'
+  if g:dko_use_airline | Plug 'vim-airline/vim-airline'
   else | Plug 'ap/vim-buftabline'
   endif
 

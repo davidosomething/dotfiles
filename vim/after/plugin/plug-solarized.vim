@@ -14,3 +14,4 @@ catch
 endtry
 
 set background=light
+

@@ -4,3 +4,4 @@ let g:pandoc#syntax#codeblocks#embeds#langs = [
       \   "javascript",
       \   "bash=sh"
       \ ]
+

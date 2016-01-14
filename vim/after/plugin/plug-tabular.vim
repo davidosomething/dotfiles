@@ -8,3 +8,4 @@ vnoremap <Leader>af   :Tabularize /=>/<CR>
 " align the following without moving them
 vnoremap <leader>a:   :Tabularize /:\zs/l0l1<CR>
 vnoremap <leader>a,   :Tabularize /,\zs/l0l1<CR>
+

@@ -15,10 +15,10 @@ imap  <PageDown>  <C-O><C-D>
 " Easier to type, and I never use the default behavior.
 " From https://bitbucket.org/sjl/dotfiles/
 " default is first line on screen
-noremap H ^
+noremap   H   ^
 " default is last line on screen
-noremap L $
-vnoremap L g_
+noremap   L   $
+vnoremap  L   g_
 
 " ============================================================================
 " Toggle display lines movement mode for normal mode
