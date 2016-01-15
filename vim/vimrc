@@ -144,11 +144,9 @@ set wildignore+=*.swp,.lock,.DS_Store,._*
 set fileformats=unix,mac,dos
 set fileformat=unix
 
-" info file
+" info file -- nvim uses shada in $XDG_DATA_HOME so that's cool.
 if !has('nvim')
   execute 'set viminfo+=n' . expand(g:dko_vim_dir . '/.tmp/cache/.viminfo')
-else
-  execute 'set viminfo+=n' . expand(g:dko_nvim_dir . '/.tmp/cache/.nviminfo')
 endif
 
 " From https://github.com/swizzard/dotfiles/blob/master/.vimrc
