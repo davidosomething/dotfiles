@@ -162,11 +162,10 @@ _update_nvm() {
 
   if [ "$previous_nvm" != "$latest_nvm" ]; then
     dkostatus "Restart your shell to start using nvm $latest_nvm"
+    exec "$SHELL"
   else
     dkostatus "Already using latest nvm $latest_nvm"
   fi
-
-  exec "$SHELL"
 }
 
 
