@@ -8,6 +8,7 @@ git-bc
 git-open
 grunt-cli
 gulp-cli
+handlebars
 jscpd
 jsctags
 jshint
