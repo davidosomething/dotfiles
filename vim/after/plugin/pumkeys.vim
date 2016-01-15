@@ -3,7 +3,7 @@
 " ============================================================================
 
 " Select from PUM or insert tabs or alignment spaces
-function! s:DKO_NextFieldOrTab()
+function! s:DKO_Tab()
   " Advance and select autocomplete result
   if pumvisible()
     return "\<C-n>"
@@ -25,21 +25,21 @@ endfunction
 
 
 " S-Tab goes reverses selection or untabs
-function! s:DKO_ReverseOrUntab()
+function! s:DKO_STab()
   return pumvisible() ? "\<C-p>" : "\<C-d>"
 endfunction
 
 
-" <CR> accepts selection AND enter a real <CR>
+" <CR> accepts selection OR enter a real <CR>
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1559
-function! s:DKO_AcceptAndCr()
-  return pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+function! s:DKO_Cr()
+  return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
 
 
 " <Esc> Original behavior is to leave whatever was selected and back to normal
 " This changes it to cancel selection and goes to normal mode
-function! s:DKO_RejectOrEsc()
+function! s:DKO_Esc()
   return pumvisible() ? "\<C-e>\<Esc>" : "\<Esc>"
 endfunction
 
@@ -48,8 +48,8 @@ endfunction
 " ----------------------------------------------------------------------------
 
 " requires noremap if returns original key
-inoremap  <silent><expr>  <Tab>     <SID>DKO_NextFieldOrTab()
-imap      <silent><expr>  <S-Tab>   <SID>DKO_ReverseOrUntab()
-inoremap  <silent><expr>  <CR>      <SID>DKO_AcceptAndCr()
-inoremap  <silent><expr>  <Esc>     <SID>DKO_RejectOrEsc()
+inoremap  <silent><expr>  <Tab>     <SID>DKO_Tab()
+imap      <silent><expr>  <S-Tab>   <SID>DKO_STab()
+inoremap  <silent><expr>  <CR>      <SID>DKO_Cr()
+inoremap  <silent><expr>  <Esc>     <SID>DKO_Esc()
 
