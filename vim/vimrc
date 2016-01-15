@@ -280,7 +280,7 @@ set copyindent
 set preserveindent
 
 " ----------------------------------------------------------------------------
-" Tabbing - overridden by editorconfig, IndentTab, after/ftplugin
+" Tabbing - overridden by editorconfig, after/ftplugin
 " ----------------------------------------------------------------------------
 
 set expandtab                         " default to spaces instead of tabs
@@ -387,11 +387,11 @@ if g:dko_use_plugins
   let g:dko_use_incsearch       = !has('nvim')
   let g:dko_use_deoplete        = has('nvim') && has('python3')
   let g:dko_use_neocomplete     = !has('nvim') && has('lua')
+  let g:dko_use_neosnippet      = 0
 
   " These get modified later
   let g:dko_use_airline         = 1
   let g:dko_use_gutentags       = 0
-  let g:dko_use_indenttab       = 1
   let g:dko_use_tern_completion = 1 && (has('python') || has('python3'))
   let g:dko_has_completion      = 0
 
@@ -483,11 +483,6 @@ if g:dko_use_plugins
 
   Plug 'scrooloose/syntastic'
 
-  if g:dko_use_indenttab
-    Plug 'vim-scripts/ingo-library'
-          \| Plug 'vim-scripts/IndentTab'
-  endif
-
   " ========================================================================
   " Plug: Completion
   " ========================================================================
@@ -516,9 +511,11 @@ if g:dko_use_plugins
       Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
     endif
 
-    Plug 'Shougo/neosnippet'
-          \| Plug 'honza/vim-snippets'
-          \| Plug 'Shougo/neosnippet-snippets'
+    if g:dko_use_neosnippet
+      Plug 'Shougo/neosnippet'
+            \| Plug 'honza/vim-snippets'
+            \| Plug 'Shougo/neosnippet-snippets'
+    endif
   endif
 
   " ========================================================================
@@ -591,6 +588,8 @@ if g:dko_use_plugins
 
   "Plug 'tpope/vim-haml'
 
+  " APPLIES TO HTML (and therefore mustache/hbs) too
+  " Closing tags, % match support
   Plug 'othree/xml.vim'
 
   Plug 'digitaltoad/vim-jade'
