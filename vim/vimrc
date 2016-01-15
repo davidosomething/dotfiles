@@ -482,6 +482,7 @@ if g:dko_use_plugins
   Plug 'AndrewRadev/splitjoin.vim'
 
   Plug 'scrooloose/syntastic'
+        \| Plug 'davidosomething/syntastic-hbstidy'
 
   " ========================================================================
   " Plug: Completion

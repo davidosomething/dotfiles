@@ -30,13 +30,6 @@ function! s:DKO_STab()
 endfunction
 
 
-" <CR> accepts selection OR enter a real <CR>
-" https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1559
-function! s:DKO_Cr()
-  return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-
-
 " <Esc> Original behavior is to leave whatever was selected and back to normal
 " This changes it to cancel selection and goes to normal mode
 function! s:DKO_Esc()
@@ -50,6 +43,5 @@ endfunction
 " requires noremap if returns original key
 inoremap  <silent><expr>  <Tab>     <SID>DKO_Tab()
 imap      <silent><expr>  <S-Tab>   <SID>DKO_STab()
-inoremap  <silent><expr>  <CR>      <SID>DKO_Cr()
 inoremap  <silent><expr>  <Esc>     <SID>DKO_Esc()
 

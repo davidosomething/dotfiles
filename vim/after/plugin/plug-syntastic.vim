@@ -17,6 +17,12 @@ let g:syntastic_mode_map = {
       \   'passive_filetypes': [ ],
       \ }
 
+" Map some filetypes, e.g. turn off html checkers on handlebars (I'm using my
+" hbstidy instead of html tidy)
+let g:syntastic_filetype_map = {
+      \   'html.handlebars': 'handlebars',
+      \ }
+
 " Display
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list            = 1
@@ -38,6 +44,8 @@ let g:syntastic_ignore_files = [
 " ============================================================================
 " Checker: HTML, Handlebars
 " ============================================================================
+
+let g:syntastic_handlebars_checkers  = ['handlebars', 'hbstidy']
 
 let g:syntastic_html_tidy_ignore_errors = [
       \   '<fb:',
