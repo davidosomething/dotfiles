@@ -50,6 +50,14 @@ cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
 }
 
+em() {
+  local my_pwd="$PWD"
+  local gr="$(git root)"
+  pushd "$gr"
+  git diff --name-only | uniq | xargs vopen
+  if [ "$PWD" != "$my_pwd" ]; then popd; fi
+}
+
 # PHP version numbers
 # @TODO use cut instead of splitting awk?
 phpver() {
