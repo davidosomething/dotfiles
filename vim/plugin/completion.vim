@@ -158,9 +158,9 @@ if exists('g:plugs["jspc.vim"]')
     " jspc.vim wraps the default omnicomplete, so we'll have duplicates if we
     " have both in our neocomplete sources.
     " Remove last item, which is 'javascriptcomplete#CompleteJS'
-    call remove(g:neocomplete#sources#omni#functions.javascript, -1)
+    "call remove(g:neocomplete#sources#omni#functions.javascript, -1)
     " Prepend to sources
-    call insert(g:neocomplete#sources#omni#functions.javascript, 'jspc#omni')
+    "call insert(g:neocomplete#sources#omni#functions.javascript, 'jspc#omni')
   endif
 
 endif

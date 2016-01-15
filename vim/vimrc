@@ -663,7 +663,7 @@ if g:dko_use_plugins
   " ----------------------------------------
 
   " Parameter completion
-  Plug 'othree/jspc.vim'
+  "Plug 'othree/jspc.vim'
 
   " <leader>pd on function to insert jsdoc above
   "Plug 'heavenshell/vim-jsdoc'

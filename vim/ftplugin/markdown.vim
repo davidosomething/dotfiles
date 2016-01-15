@@ -2,7 +2,6 @@
 
 setlocal nosmartindent
 setlocal nocindent
-setlocal formatoptions+=w             " whitespace at EOL means continue para
 
 if exists("g:plugs['vim-pandoc-syntax']")
   let g:pandoc#syntax#conceal#use = 0
