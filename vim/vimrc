@@ -704,8 +704,9 @@ if g:dko_use_plugins
 
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 
-  " Official indent plugin for vim, later version than what it comes with
-  Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
+  " Fix indent of HTML in all PHP files -- basically adds indent/html.vim
+  " when outside of PHP block.
+  Plug 'captbaritone/better-indent-support-for-php-with-html'
 
   " ----------------------------------------
   " Features

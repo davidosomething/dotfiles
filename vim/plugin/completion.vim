@@ -49,6 +49,7 @@ if exists('g:plugs["neocomplete.vim"]')
         \ expand(g:dko_vim_dir . '/.tmp/neocomplete')
 
   let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_auto_close_preview = 0
   let g:neocomplete#enable_smart_case = 1
   let g:neocomplete#enable_camel_case = 1
 
@@ -65,6 +66,10 @@ if exists('g:plugs["neocomplete.vim"]')
 
   let g:neocomplete#sources#syntax#min_keyword_length = 3
 
+  if !exists('g:neocomplete#sources')
+    let g:neocomplete#sources = {}
+  endif
+
   " Custom source references
   if !exists('g:neocomplete#sources#vim#complete_functions')
     let g:neocomplete#sources#vim#complete_functions = {}
@@ -79,6 +84,10 @@ if exists('g:plugs["neocomplete.vim"]')
   if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
   endif
+
+  " --------------------------------------------------------------------------
+  " Default
+  " --------------------------------------------------------------------------
 
   " --------------------------------------------------------------------------
   " JavaScript
@@ -110,6 +119,14 @@ if exists('g:plugs["neocomplete.vim"]')
 
   let g:neocomplete#sources#omni#input_patterns.typescript =
         \ '[^. \t]\.\%(\h\w*\)\?'
+
+  " --------------------------------------------------------------------------
+  " PHP
+  " --------------------------------------------------------------------------
+
+  let g:neocomplete#sources#omni#input_patterns.php =
+  \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
 endif
 
 " ============================================================================

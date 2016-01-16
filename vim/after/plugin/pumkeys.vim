@@ -36,6 +36,25 @@ function! s:DKO_Esc()
   return pumvisible() ? "\<C-e>\<Esc>" : "\<Esc>"
 endfunction
 
+function! s:DKO_CR()
+
+  " if completing
+  "   selected:     Accept, close popup.
+  "   not selected: Close popup.
+  " not completing
+  "   <CR>
+
+  if exists("g:plugs['neocomplete.vim']")
+    return pumvisible() ? "\<C-y>\<C-e>" . neocomplete#cancel_popup() : "\<CR>"
+  endif
+
+  if exists("g:plugs['deoplete.nvim']")
+    return pumvisible() ? "\<C-y>\<C-e>" . deoplete#cancel_popup() : "\<CR>"
+  endif
+
+  return "\<CR>"
+endfunction
+
 " ----------------------------------------------------------------------------
 " Mappings
 " ----------------------------------------------------------------------------
@@ -44,4 +63,5 @@ endfunction
 inoremap  <silent><expr>  <Tab>     <SID>DKO_Tab()
 imap      <silent><expr>  <S-Tab>   <SID>DKO_STab()
 inoremap  <silent><expr>  <Esc>     <SID>DKO_Esc()
+inoremap  <silent><expr>  <CR>      <SID>DKO_CR()
 
