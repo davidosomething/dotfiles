@@ -10,6 +10,7 @@ grunt-cli
 gulp-cli
 handlebars
 jscpd
+jscs
 jsctags
 jshint
 jsinspect

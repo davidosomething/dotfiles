@@ -69,7 +69,7 @@ let g:syntastic_html_tidy_ignore_errors = g:syntastic_html_tidy_ignore_errors
 
 let g:syntastic_coffeescript_checkers  = ['coffee', 'coffeelint']
 
-let g:syntastic_javascript_checkers    = ['eslint']
+let g:syntastic_javascript_checkers    = ['eslint', 'jscs']
 let g:syntastic_javascript_eslint_args = '--no-ignore'
 
 " ============================================================================
