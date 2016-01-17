@@ -78,6 +78,9 @@ if exists("g:plugs['vim-jsdoc']")
         \   '^_\?is': {
         \     'type': '{Boolean}'
         \   },
+        \   '^on': {
+        \     'type': '{Function}'
+        \   },
         \   'options$': {
         \     'type': '{Object}'
         \   },
