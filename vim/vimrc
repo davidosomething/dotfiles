@@ -834,23 +834,25 @@ let g:dko_plugins_rtp=&runtimepath
 " Start runtimepath with system runtimepath
 execute "set runtimepath=$VIM/vimfiles"
 execute "set runtimepath+=$VIMRUNTIME"
-" Note after is here -- vim-plug after and my after will override it
+" Note system' after/ is here -- vim-plug after and my after will override it
 execute "set runtimepath+=$VIM/vimfiles/after"
 
 " Append my runtimepaths to override system (not the same as default user,
 " these use specific dko_vim_dir path)
-" see `plugin/mine.vim` for my vim settings
 execute "set runtimepath+=" . g:dko_vim_dir
 
-" Append vim-plug runtimepaths
+" Append vim-plug runtimepaths (including their after/ paths)
 execute "set runtimepath+=" . g:dko_plugins_rtp
 
-" Append after: system, then mine, so mine is the last
+" Append my after/ so mine is the last after/
 execute "set runtimepath+=" . g:dko_vim_dir . "/after"
 
 " Local overrides last
 execute "set runtimepath+=$HOME/.secret/vim"
 
-" Loads vimrc.vim from the .secret/vim runtimepath (and wherever else)
+" Loads vimrc.vim from the ~/.secret/vim runtimepath (and wherever else it
+" exists).
+" The filename vimrc.vim only exists in ~/.secret/vim AFAIK, but might have to
+" change it if I find out otherwise...
 runtime! vimrc.vim
 
