@@ -397,9 +397,6 @@ if g:dko_use_plugins
 
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
-  " - Use 'for' if the plugin has an `autoload/` dir, otherwise it provides
-  "   no benefit (`ftplugin/`, `syntax/` and `indent/` are already only loaded
-  "   based on the filetype matching the script name).
 
   " ========================================================================
   " Plug: Debugging
