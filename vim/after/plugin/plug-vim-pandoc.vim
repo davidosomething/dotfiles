@@ -1,8 +1,11 @@
 if !exists("g:plugs['tabular']") | finish | endif
 
 let g:pandoc#syntax#codeblocks#embeds#langs = [
-      \   "javascript",
-      \   "bash=sh",
-      \   "viml=vim",
+      \   'bash=sh',
+      \   'handlebars=mustache',
+      \   'html',
+      \   'javascript',
+      \   'php',
+      \   'vim',
       \ ]
 
