@@ -14,21 +14,73 @@ source "${HOME}/.dotfiles/shell/vars"
 source "${DOTFILES}/shell/before"
 
 # ==============================================================================
-# Antigen
+# ZSH vars
 # ==============================================================================
 
-source_if_exists "${ZDOTDIR}/antigen/antigen.zsh" && {
-  antigen bundles <<EOBUNDLES
-  autojump
-  colored-man-pages
-  git-extras
-  golang
-  tonyseek/oh-my-zsh-virtualenv-prompt
-  yonchu/grunt-zsh-completion
-  zsh-users/zsh-syntax-highlighting
-  zsh-users/zsh-completions src
-EOBUNDLES
-  antigen apply
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
+export HISTFILE="${ZDOTDIR}/.zhistory"
+
+# ==============================================================================
+# zplug
+# ==============================================================================
+
+# install zplug if needed
+[[ -e ~/.local/share/zplug/zplug ]] || {
+  curl -fLo "${XDG_DATA_HOME}/zplug/zplug" --create-dirs https://git.io/zplug \
+    && source "${XDG_DATA_HOME}/zplug/zplug" \
+    && zplug update --self
+}
+
+source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
+
+  # ----------------------------------------
+  # Bin
+  # ----------------------------------------
+
+  zplug "b4b4r07/zplug"
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/autojump"
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/colored-man-pages"
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/git-extras"
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/golang"
+  zplug "tonyseek/oh-my-zsh-virtualenv-prompt"
+
+  # ----------------------------------------
+  # Mine
+  # ----------------------------------------
+
+  scripts=(
+    "options"
+    "keybindings"
+    "title"
+    "prompt"
+  )
+  for script in $scripts; do;
+    zplug "${ZDOTDIR}", from:local, of:"${script}.zsh" \
+      && export DKO_SOURCE="$DKO_SOURCE -> ${script}.zsh"
+  done; unset script
+
+  # ----------------------------------------
+  # Completions and enable compinit
+  # ----------------------------------------
+
+  zplug "akoenig/gulp.plugin.zsh"
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/nvm/_*"
+  zplug "yonchu/grunt-zsh-completion"
+  zplug "zsh-users/zsh-completions", of:"src/_*"
+  zplug "${ZDOTDIR}", from:local, of:"completions.zsh"
+
+  # ----------------------------------------
+  # LAST, after compinit, enforced by nice
+  # ----------------------------------------
+
+  zplug "zsh-users/zsh-syntax-highlighting",  nice:10
+
+  # ----------------------------------------
+  # Load
+  # ----------------------------------------
+
+  if ! zplug check; then zplug install; fi
+  zplug load
 }
 
 # ==============================================================================
@@ -54,21 +106,6 @@ zsh_reload() {
 }
 
 # ==============================================================================
-# Main
-# ==============================================================================
-
-scripts=(
-  "options"
-  "keybindings"
-  "completions"
-  "title"
-  "prompt"
-)
-for script in $scripts; do;
-  source "${ZDOTDIR}/${script}.zsh" && export DKO_SOURCE="$DKO_SOURCE -> ${script}.zsh"
-done; unset script
-
-# ==============================================================================
 # nocorrect aliases
 # ==============================================================================
 
@@ -80,8 +117,6 @@ alias mkdir="nocorrect mkdir"
 # ==============================================================================
 # Paths
 # ==============================================================================
-
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
 
 # remove duplicates in path arrays
 typeset -U path cdpath manpath
@@ -95,8 +130,6 @@ fpath=(
 )
 # remove duplicates in fpath array
 typeset -U fpath
-
-export HISTFILE="${ZDOTDIR}/.zhistory"
 
 # ==============================================================================
 # Prefer homebrew zsh's helpfiles

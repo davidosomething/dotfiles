@@ -1,11 +1,6 @@
 # completions.zsh
 #
 # fpaths are set in zshenv
-# load completion - the -U means look in fpath, -z means on first run
-# -i means ignore security errors
-#autoload -Uz compinit && compinit -i
-# Commented out since this script is sourced before antigen now and antigen
-# will do this
 
 # group all by the description above
 zstyle ':completion:*' group-name ''
@@ -40,15 +35,20 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "${ZDOTDIR}/.zcache"
 
+# ==============================================================================
+# Load completion
+# ==============================================================================
 
-# ------------------------------------------------------------------------------
-# BASH Compatible completion
-# ------------------------------------------------------------------------------
 autoload -U +X bashcompinit && bashcompinit
 
-# ------------------------------------------------------------------------------
+# load completion - the -U means look in fpath, -z means on first run
+# -i means ignore security errors
+autoload -Uz compinit && compinit -i
+
+# ==============================================================================
 # WP-CLI
-# ------------------------------------------------------------------------------
+# ==============================================================================
+
 # bash completion for the `wp` command
 # see wp-cli source or oh-my-zsh's variation
 

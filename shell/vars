@@ -69,9 +69,6 @@ export GIT_PAGER="$PAGER"
 
 # others ----------------------------------------
 
-# antigen
-export ADOTDIR="${XDG_CONFIG_HOME}/antigen"
-
 # apache
 [[ -f "/etc/apache2/envvars" ]] && source "/etc/apache2/envvars"
 
@@ -149,6 +146,9 @@ export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
 
 # X11 - for starting via xinit or startx
 export XINITRC="${DOTFILES}/linux/x/.xinitrc"
+
+# zplug
+export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
 
 # ------------------------------------------------------------------------------
 # homebrew
