@@ -31,25 +31,27 @@ endfunction
 
 
 " <Esc> Original behavior is to leave whatever was selected and back to normal
-" This changes it to cancel selection and goes to normal mode
+" This changes it to CANCEL selection and go to normal mode
 function! s:DKO_Esc()
   return pumvisible() ? "\<C-e>\<Esc>" : "\<Esc>"
 endfunction
 
+" if completing
+"   selected:     Accept, and GO TO NORMAL MODE (I would have used <TAB>
+"                 to accept and stay in insert mode, or <S-CR> to actually
+"                 insert a new line
+"   not selected: Close popup.
+" not completing
+"   <CR>
 function! s:DKO_CR()
-
-  " if completing
-  "   selected:     Accept, close popup.
-  "   not selected: Close popup.
-  " not completing
-  "   <CR>
-
   if exists("g:plugs['neocomplete.vim']")
-    return pumvisible() ? "\<C-y>\<C-e>" . neocomplete#cancel_popup() : "\<CR>"
+    return pumvisible() ? "\<C-y>\<C-e>\<Esc>" : "\<CR>"
+    "return pumvisible() ? "\<C-y>\<C-e>" . neocomplete#cancel_popup() : "\<CR>"
   endif
 
   if exists("g:plugs['deoplete.nvim']")
-    return pumvisible() ? "\<C-y>\<C-e>" . deoplete#cancel_popup() : "\<CR>"
+    return pumvisible() ? "\<C-y>\<C-e>\<Esc>" : "\<CR>"
+    "return pumvisible() ? "\<C-y>\<C-e>" . deoplete#cancel_popup() : "\<CR>"
   endif
 
   return "\<CR>"
