@@ -9,6 +9,7 @@ git-open
 grunt-cli
 gulp-cli
 handlebars
+js-beautify
 jscpd
 jscs
 jsctags
