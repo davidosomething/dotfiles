@@ -1,4 +1,15 @@
-" javascript
+" ftplugin/javascript
+"
+" Settings for plugins that need to be available before plug loads
+"
+
+" matchit
+" from https://github.com/romainl/dotvim/blob/efb9257da7b0d1c6e5d9cfb1e7331040fd90b6c1/bundle/lang-javascript/after/ftplugin/javascript.vim#L10
+let b:match_words = '\<function\>:\<return\>,'
+  \ . '\<do\>:\<while\>,'
+  \ . '\<switch\>:\<case\>:\<default\>,'
+  \ . '\<if\>:\<else\>,'
+  \ . '\<try\>:\<catch\>:\<finally\>'
 
 " ============================================================================
 " javascript-libraries-syntax
@@ -33,7 +44,7 @@ if exists("g:plugs['vim-jsdoc']")
         \   '^\$': {
         \     'type': '{jQuery}'
         \   },
-        \   'callback|cb|done': {
+        \   'callback|cb|done$': {
         \     'type': '{Function}',
         \     'description': 'Callback function'
         \   },
@@ -43,7 +54,10 @@ if exists("g:plugs['vim-jsdoc']")
         \   'description|message|title|url': {
         \     'type': '{String}'
         \   },
-        \   '^e$': {
+        \   'messages': {
+        \     'type': '{String[]}'
+        \   },
+        \   '^e|evt|event$': {
         \     'type': '{Event}'
         \   },
         \   'el$': {
@@ -55,6 +69,9 @@ if exists("g:plugs['vim-jsdoc']")
         \   'handler$': {
         \     'type': '{Function}'
         \   },
+        \   'handlers$': {
+        \     'type': '{Function[]}'
+        \   },
         \   '^i$': {
         \     'type': '{Number}'
         \   },
@@ -63,6 +80,9 @@ if exists("g:plugs['vim-jsdoc']")
         \   },
         \   'options$': {
         \     'type': '{Object}'
+        \   },
+        \   'promise$': {
+        \     'type': '{Promise}'
         \   },
         \ }
 
