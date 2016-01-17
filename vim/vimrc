@@ -6,6 +6,7 @@ scriptencoding utf-8
 " no nocompatible! so we can source the vimrc again if updated
 if &compatible | set nocompatible | endif
 
+" let g:dko_original_rtp = &runtimepath
 let g:dko_vim_dir = fnamemodify(resolve(expand("$MYVIMRC")), ":p:h")
 
 " ============================================================================
@@ -797,7 +798,14 @@ if g:dko_use_plugins
 
   Plug 'now/vim-quit-if-only-quickfix-buffer-left'
 
+
+  " append vim-plug rtps and ft/syn enable
   call plug#end()
+
+else
+  filetype indent plugin on
+  syntax enable
+
 endif
 
 " ============================================================================
@@ -826,20 +834,20 @@ execute "set runtimepath-=$XDG_CONFIG_HOME/nvim"
 execute "set runtimepath-=$XDG_CONFIG_HOME/nvim/after"
 
 " Save the remaining runtimepaths, which are only vim-plug ones
-let g:dko_plugins_rtp=&runtimepath
+let g:dko_rtp_plugins = &runtimepath
+
+let g:dko_rtp_system =
+      \ "$VIM/vimfiles,"
+      \ . "$VIMRUNTIME,"
+      \ . "$VIM/vimfiles/after"
+
+let g:dko_rtp_before = g:dko_rtp_system . ',' . g:dko_vim_dir
 
 " Start runtimepath with system runtimepath
-execute "set runtimepath=$VIM/vimfiles"
-execute "set runtimepath+=$VIMRUNTIME"
-" Note system' after/ is here -- vim-plug after and my after will override it
-execute "set runtimepath+=$VIM/vimfiles/after"
-
-" Append my runtimepaths to override system (not the same as default user,
-" these use specific dko_vim_dir path)
-execute "set runtimepath+=" . g:dko_vim_dir
+execute "set runtimepath^=" . g:dko_rtp_before
 
 " Append vim-plug runtimepaths (including their after/ paths)
-execute "set runtimepath+=" . g:dko_plugins_rtp
+execute "set runtimepath+=" . g:dko_rtp_plugins
 
 " Append my after/ so mine is the last after/
 execute "set runtimepath+=" . g:dko_vim_dir . "/after"
