@@ -266,7 +266,7 @@ set nojoinspaces                      " J command doesn't add extra space
 
 set autoindent                        " indent when creating newline
 set smartindent                       " add an indent level inside braces
-set cindent                           " testing cindent...
+set nocindent                         " testing cindent...
 
 " for autoindent, use same spaces/tabs mix as previous line, even if
 " tabs/spaces are mixed. Helps for docblock, where the block comments have a
@@ -470,7 +470,7 @@ if g:dko_use_plugins
   if has('patch-7.4.785') && !has('fixedendofline')
     Plug 'vim-scripts/PreserveNoEOL'
   endif
-  " Requires PreserveNoEOL or +fixedendofline
+  " Python plugin, requires PreserveNoEOL or +fixedendofline
   Plug 'editorconfig/editorconfig-vim'
 
   " highlight matching html tag
@@ -767,9 +767,8 @@ if g:dko_use_plugins
   Plug 'ynkdir/vim-vimlparser'
         \| Plug 'syngan/vim-vimlint'
 
-  if executable('vint')
-    Plug 'Kuniwak/vint'
-          \| Plug 'todesking/vint-syntastic'
+  " Python plugin, probably not using it
+  if executable('vint') | Plug 'todesking/vint-syntastic'
   endif
 
   " ========================================================================
@@ -790,7 +789,7 @@ if g:dko_use_plugins
   endif
 
   " show registers in split if use \" or <C-R>
-  Plug 'junegunn/vim-peekaboo'
+  "Plug 'junegunn/vim-peekaboo'
 
   " Show (#/total results) when searching for a term
   Plug 'osyo-manga/vim-anzu'
