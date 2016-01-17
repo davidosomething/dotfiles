@@ -28,7 +28,6 @@ let g:airline#extensions#syntastic#enabled  = 0
 let g:airline#extensions#taboo#enabled      = 0
 let g:airline#extensions#tagbar#enabled     = 0
 let g:airline#extensions#tmuxline#enabled   = 0
-let g:airline#extensions#virtualenv#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#windowswap#enabled = 0
 
@@ -44,6 +43,13 @@ if exists("g:plugs['vim-anzu']")
 endif
 
 " ----------------------------------------------------------------------------
+" Extension: QuickFix
+" ----------------------------------------------------------------------------
+
+let g:airline#extensions#quickfix#quickfix_text = 'QF'
+let g:airline#extensions#quickfix#location_text = 'LL'
+
+" ----------------------------------------------------------------------------
 " Extension: Tabline
 " ----------------------------------------------------------------------------
 
@@ -57,9 +63,7 @@ let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 " ----------------------------------------------------------------------------
-" Extension: QuickFix
+" Extension: vim-virtualenv
 " ----------------------------------------------------------------------------
 
-let g:airline#extensions#quickfix#quickfix_text = 'QF'
-let g:airline#extensions#quickfix#location_text = 'LL'
-
+let g:airline#extensions#virtualenv#enabled = 1
