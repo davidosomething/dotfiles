@@ -31,27 +31,24 @@ endfunction
 
 
 " <Esc> Original behavior is to leave whatever was selected and back to normal
-" This changes it to CANCEL selection and go to normal mode
+" If PUM open, cancel selection and continue typing in insert mode
 function! s:DKO_Esc()
   return pumvisible() ? "\<C-e>\<Esc>" : "\<Esc>"
 endfunction
 
+
+" <CR> Original behavior depends on completion plugin -- see neocomplete docs.
 " if completing
-"   selected:     Accept, and GO TO NORMAL MODE (I would have used <TAB>
-"                 to accept and stay in insert mode, or <S-CR> to actually
-"                 insert a new line
+"   selected:     Accept, and continue insertion (<S-CR> to actually insert
+"                 a new line)
 "   not selected: Close popup.
 " not completing
 "   <CR>
 function! s:DKO_CR()
-  if exists("g:plugs['neocomplete.vim']")
-    return pumvisible() ? "\<C-y>\<C-e>\<Esc>" : "\<CR>"
-    "return pumvisible() ? "\<C-y>\<C-e>" . neocomplete#cancel_popup() : "\<CR>"
-  endif
-
-  if exists("g:plugs['deoplete.nvim']")
-    return pumvisible() ? "\<C-y>\<C-e>\<Esc>" : "\<CR>"
-    "return pumvisible() ? "\<C-y>\<C-e>" . deoplete#cancel_popup() : "\<CR>"
+  if pumvisible()
+    if exists("g:plugs['neocomplete.vim']")
+      return "\<C-y>" . neocomplete#cancel_popup()
+    endif
   endif
 
   return "\<CR>"
@@ -64,6 +61,6 @@ endfunction
 " requires noremap if returns original key
 inoremap  <silent><expr>  <Tab>     <SID>DKO_Tab()
 imap      <silent><expr>  <S-Tab>   <SID>DKO_STab()
-inoremap  <silent><expr>  <Esc>     <SID>DKO_Esc()
-inoremap  <silent><expr>  <CR>      <SID>DKO_CR()
+" inoremap  <silent><expr>  <Esc>     <SID>DKO_Esc()
+" inoremap  <silent><expr>  <CR>      <SID>DKO_CR()
 

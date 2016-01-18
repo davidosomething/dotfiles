@@ -44,20 +44,20 @@ if exists("g:plugs['vim-jsdoc']")
         \   '^\$': {
         \     'type': '{jQuery}'
         \   },
-        \   'callback|cb|done$': {
+        \   'callback\|cb\|done$': {
         \     'type': '{Function}',
         \     'description': 'Callback function'
         \   },
         \   'data': {
         \     'type': '{Object}'
         \   },
-        \   'description|message|title|url': {
+        \   'description\|message\|title\|url': {
         \     'type': '{String}'
         \   },
         \   'messages': {
         \     'type': '{String[]}'
         \   },
-        \   '^e|evt|event$': {
+        \   '^e\|evt\|event$': {
         \     'type': '{Event}'
         \   },
         \   'el$': {

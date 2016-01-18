@@ -4,6 +4,7 @@ coffee-script
 coffeelint
 david
 eslint
+eslint-plugin-jsdoc
 git-bc
 git-open
 grunt-cli
