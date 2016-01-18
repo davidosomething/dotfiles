@@ -20,7 +20,7 @@ function! s:DKO_Tab()
   let sts = (&sts <= 0) ? &sw : &sts
   let sp = (virtcol('.') % sts)
   if sp == 0 | let sp = sts | endif
-  return strpart("                  ", 0, 1 + sts - sp)
+  return repeat(' ', 1 + sts - sp)
 endfunction
 
 
