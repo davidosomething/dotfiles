@@ -140,13 +140,17 @@ _set_prompt() {
   # Exit status in green/red
   #RPS1='%(?.%F{green}ok.%F{red}%?)'
 
+  # pyenv python version
+  RPS1+='%F{black}[py:$(pyenv version-name)]'
+
+  # VirtualEnv python version
+  # RPS1+='%F{black}[py:$(virtualenv_prompt_info)]'
+
+  # chruby Ruby version
   RPS1+='%F{black}[$(chruby |grep \* |tr -d "* ")]'
 
   # NVM node version
   RPS1+='%F{black}[node:$(nvm_ls current)]'
-
-  # VirtualEnv python version
-  # RPS1+='%F{black}[py:$(virtualenv_prompt_info)]'
 
   # Back to actual prompt position
   RPS1+="%{${go_down}%}"

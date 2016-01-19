@@ -9,8 +9,22 @@ export DKO_SOURCE="$DKO_SOURCE -> shell/python"
 export PYLINTHOME="${XDG_CONFIG_HOME}/pylint"
 
 # ==============================================================================
-# VirtualEnv setup
+# pyenv for multiple Python binaries
 # ==============================================================================
+
+export PYENV_ROOT="${HOME}/.local/pyenv"
+
+# Not using this for consistency (pyvenv is only for py3.3+), since some py2
+# things are still around.
+#export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+
+# Pyenv init in shell/after
+
+# ==============================================================================
+# VirtualEnv for python package isolation
+# ==============================================================================
+
+# VirtualEnvWrapper is still in play for easier mgmt of py2 virtualenvs
 
 # Safety -- only allow pip installs in a virtualenv
 #export PIP_REQUIRE_VIRTUALENV=true
