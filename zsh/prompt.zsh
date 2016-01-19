@@ -147,7 +147,7 @@ _set_prompt() {
   # RPS1+='%F{black}[py:$(virtualenv_prompt_info)]'
 
   # chruby Ruby version
-  RPS1+='%F{black}[$(chruby |grep \* |tr -d "* ")]'
+  RPS1+='%F{black}[rb:$(echo $RUBY_VERSION)]'
 
   # NVM node version
   RPS1+='%F{black}[node:$(nvm_ls current)]'
