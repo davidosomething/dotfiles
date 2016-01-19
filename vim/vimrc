@@ -674,6 +674,7 @@ if g:dko_use_plugins
   "Plug 'heavenshell/vim-jsdoc'
   " USING MY FORK INSTEAD
   Plug 'davidosomething/vim-jsdoc'
+  "Plug '~/projects/vim-jsdoc'
 
   " gf for going to node_modules files
   Plug 'moll/vim-node'
