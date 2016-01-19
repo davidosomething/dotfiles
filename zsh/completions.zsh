@@ -2,6 +2,8 @@
 #
 # fpaths are set in zshenv
 
+export DKO_SOURCE="$DKO_SOURCE -> completions.zsh"
+
 # group all by the description above
 zstyle ':completion:*' group-name ''
 

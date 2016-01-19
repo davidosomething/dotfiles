@@ -1,5 +1,7 @@
 # keybindings.zsh
 
+export DKO_SOURCE="$DKO_SOURCE -> keybindings.zsh"
+
 # disable ^S and ^Q terminal freezing
 unsetopt flowcontrol
 

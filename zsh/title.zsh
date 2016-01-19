@@ -3,6 +3,8 @@
 # Set title of terminal emulator
 #
 
+export DKO_SOURCE="$DKO_SOURCE -> title.zsh"
+
 # print -P means use same escape chars as PROMPT
 # %n          expands to $USERNAME
 # %m          expands to hostname up to first '.'

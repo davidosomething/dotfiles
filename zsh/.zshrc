@@ -38,42 +38,32 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
   # ----------------------------------------
 
   zplug "b4b4r07/zplug"
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/autojump"
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/colored-man-pages"
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/git-extras"
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/golang"
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/autojump/*.zsh"
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/colored-man-pages/*.zsh"
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/git-extras/*.zsh"
   zplug "tonyseek/oh-my-zsh-virtualenv-prompt"
 
   # ----------------------------------------
-  # Mine
-  # ----------------------------------------
-
-  scripts=(
-    "options"
-    "keybindings"
-    "title"
-    "prompt"
-  )
-  for script in $scripts; do;
-    zplug "${ZDOTDIR}", from:local, of:"${script}.zsh" \
-      && export DKO_SOURCE="$DKO_SOURCE -> ${script}.zsh"
-  done; unset script
-
-  # ----------------------------------------
-  # Completions and enable compinit
+  # Completions
   # ----------------------------------------
 
   zplug "akoenig/gulp.plugin.zsh"
   zplug "robbyrussell/oh-my-zsh", of:"plugins/nvm/_*"
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/golang/*.zsh"
+  zplug "zsh-users/zsh-completions"
   zplug "yonchu/grunt-zsh-completion"
-  zplug "zsh-users/zsh-completions", of:"src/_*"
-  zplug "${ZDOTDIR}", from:local, of:"completions.zsh"
+
+  # ----------------------------------------
+  # Mine, inits completion
+  # ----------------------------------------
+
+  zplug "${ZDOTDIR}", from:local
 
   # ----------------------------------------
   # LAST, after compinit, enforced by nice
   # ----------------------------------------
 
-  zplug "zsh-users/zsh-syntax-highlighting",  nice:10
+  zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
   # ----------------------------------------
   # Load

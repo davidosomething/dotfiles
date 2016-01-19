@@ -1,5 +1,7 @@
 # options.zsh
 
+export DKO_SOURCE="$DKO_SOURCE -> options.zsh"
+
 # Changing Directories
 setopt AUTO_PUSHD                     # pushd instead of cd
 setopt PUSHD_IGNORE_DUPS

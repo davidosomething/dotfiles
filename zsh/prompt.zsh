@@ -92,6 +92,16 @@ precmd() {
 # prompt main
 # ------------------------------------------------------------------------------
 
+current_ruby() {
+    local _ruby
+    _ruby="$(chruby |grep \* |tr -d '* ')"
+    if [[ $(chruby |grep -c \*) -eq 1 ]]; then
+        echo ${_ruby}
+    else
+        echo "system"
+    fi
+}
+
 _set_prompt() {
   # ----------------------------------------------------------------------------
   # Left side
@@ -109,7 +119,7 @@ _set_prompt() {
   PS1+='%f%*'
   PS1+='%F{blue}${vimode}'
   PS1+='${vcs_info_msg_0_}'
-  PS1+='%F{blue}%#%f '
+  PS1+='%F{yellow}%#%f '
 
   # ----------------------------------------------------------------------------
   # Left side - continuation mode
@@ -121,11 +131,25 @@ _set_prompt() {
   # Right side
   # ----------------------------------------------------------------------------
 
+  # see Cursor Control at http://www.termsys.demon.co.uk/vtansi.htm
+  local go_up=$'\e[1A'
+  local go_down=$'\e[1B'
+
+  RPS1="%{${go_up}%}"
+
   # Exit status in green/red
   #RPS1='%(?.%F{green}ok.%F{red}%?)'
 
-  # RPS1='%F{red}n$(nvm_ls current)'
-  # RPS1+='%F{blue}p$(virtualenv_prompt_info)'
+  RPS1+='%F{black}[$(chruby |grep \* |tr -d "* ")]'
+
+  # NVM node version
+  RPS1+='%F{black}[node:$(nvm_ls current)]'
+
+  # VirtualEnv python version
+  # RPS1+='%F{black}[py:$(virtualenv_prompt_info)]'
+
+  # Back to actual prompt position
+  RPS1+="%{${go_down}%}"
 }
 
 _set_prompt
