@@ -20,6 +20,8 @@ source "${DOTFILES}/shell/before"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
 export HISTFILE="${ZDOTDIR}/.zhistory"
 
+export ZSH_BOOKMARKS="${HOME}/.secret/.zshbookmarks"
+
 # ==============================================================================
 # zplug
 # ==============================================================================
@@ -42,6 +44,7 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
   zplug "robbyrussell/oh-my-zsh", of:"plugins/colored-man-pages/*.zsh"
   zplug "robbyrussell/oh-my-zsh", of:"plugins/git-extras/*.zsh"
   zplug "tonyseek/oh-my-zsh-virtualenv-prompt"
+  zplug "davidosomething/cdbk"
 
   # ----------------------------------------
   # Completions
