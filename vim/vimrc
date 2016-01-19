@@ -387,12 +387,12 @@ if g:dko_use_plugins
   let g:dko_use_deoplete        = has('nvim') && has('python3')
   let g:dko_use_neocomplete     = !has('nvim') && has('lua')
   let g:dko_use_neosnippet      = 0
-
-  " These get modified later
-  let g:dko_use_airline         = 1
-  let g:dko_use_gutentags       = 0
   let g:dko_use_tern_completion = 1 && (has('python') || has('python3'))
   let g:dko_has_completion      = 0
+
+  let g:dko_use_airline   = 1
+  let g:dko_use_gutentags = 1
+  let g:dko_use_colorv    = 0
 
   call plug#begin(g:dko_vim_dir . g:dko_plugdir)
 
@@ -759,7 +759,9 @@ if g:dko_use_plugins
   " Features
   " ----------------------------------------
 
-  Plug 'ap/vim-css-color'
+  if g:dko_use_colorv | Plug 'Rykka/colorv.vim'
+  else                | Plug 'ap/vim-css-color'
+  endif
 
   " Omnicompletion
   Plug 'othree/csscomplete.vim'
