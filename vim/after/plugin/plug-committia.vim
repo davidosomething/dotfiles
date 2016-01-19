@@ -6,5 +6,6 @@ let g:committia_use_singlecolumn       = 'always'
 let g:committia_hooks = {}
 function! g:committia_hooks.edit_open(info)
   setlocal spell
+  setlocal complete+=kspell
 endfunction
 

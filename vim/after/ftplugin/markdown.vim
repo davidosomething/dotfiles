@@ -8,7 +8,6 @@
 "
 
 setlocal nomodeline
-setlocal spell
 setlocal nocopyindent
 setlocal nowrap
 setlocal expandtab
@@ -16,6 +15,9 @@ setlocal nolinebreak
 setlocal textwidth=0
 setlocal nosmartindent
 setlocal nocindent
+
+setlocal spell
+setlocal complete+=kspell
 
 " Always start in display movement mode for markdown
 call movemode#setByDisplay()

@@ -565,9 +565,6 @@ if g:dko_use_plugins
   " provide {, ", ', [, <, various other block objects
   Plug 'paradigm/TextObjectify'
 
-  " use different programs for gq formatting
-  Plug 'Chiel92/vim-autoformat'
-
   " ========================================================================
   " Plug: Language
   " ========================================================================
