@@ -35,7 +35,7 @@ let s:default_config_paths = [
 " @return string root path
 function dkoproject#GetProjectRoot()
   let l:root = systemlist('git rev-parse --show-toplevel')[0]
-  if l:root == 'fatal: Not a git repository (or any of the parent directories): .git'
+  if l:root ==? 'fatal: Not a git repository (or any of the parent directories): .git'
     return ''
   endif
   return l:root

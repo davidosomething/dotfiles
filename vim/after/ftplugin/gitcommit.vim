@@ -19,7 +19,7 @@ setlocal formatoptions+=croq
 " vopen + committia mode
 " ============================================================================
 
-if v:servername == "GIT"
+if v:servername ==? 'GIT'
   if has('gui_running')
     " Non-local -- for the entire GIT clientserver
     set lines=44 columns=88

@@ -17,8 +17,8 @@ endfunction
 function! movemode#toggle()
   if !exists('b:movementmode') | let b:movementmode = 'linewise'
   endif
-  if b:movementmode     == 'linewise' | call movemode#setByDisplay()
-  elseif b:movementmode == 'display'  | call movemode#setByLine()
+  if b:movementmode     ==? 'linewise' | call movemode#setByDisplay()
+  elseif b:movementmode ==? 'display'  | call movemode#setByLine()
   endif
 endfunction
 

@@ -1,5 +1,5 @@
 if !exists("g:plugs['unite.vim']") | finish | endif
-if !exists("*unite#custom#profile") | finish | endif
+if !exists('*unite#custom#profile') | finish | endif
 
 " candidates
 let g:unite_source_grep_max_candidates = 300
@@ -15,7 +15,7 @@ if executable('ag')
 
   " Ignore wildignores too
   " https://github.com/gf3/dotfiles/blob/master/.vimrc#L564
-  for s:i in split(&wildignore, ",")
+  for s:i in split(&wildignore, ',')
     let s:i = substitute(s:i, '\*/\(.*\)/\*', '\1', 'g')
     let s:ag_opts = s:ag_opts .
           \ ' --ignore "' . substitute(s:i, '\*/\(.*\)/\*', '\1', 'g') . '"'
