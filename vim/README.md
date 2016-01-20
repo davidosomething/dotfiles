@@ -24,15 +24,12 @@ config paths. See the runtimepath path section in `vimrc` for more comments.
 
 This is a vim runtimepath that will load after the user and system runtimepaths
 but before the vim-plug ones. So `plugin/xyz.vim` will load before
-`plug/vim/pluginname/plugin/name.vim`.
+`plug/vim/pluginname/plugin/name.vim`. Neovim plugins will be in `plug/nvim/`.
 
 Use this for settings that must be set before a plugin is loaded. The global
 variable `g:plugs`, which is a dictionary of plugin names and settings from
 vim-plug, is available to before since it is created in the main `vimrc` file by
 the `Plug` calls.
-
-My default settings are in `plugin/mine.vim`, which guarantees that
-they will override the system defaults but plugins can, in turn, override them.
 
 ### after/
 
@@ -74,5 +71,6 @@ an easy way to grep for them.
 - `<F11>` --
 - `<F12>` toggle paste mode
 
-See `after/plugin/mappings.vim` for non-plugin mappings.
+See `plugin/mappings.vim` for mappings not associated to vim-plug-managed
+plugins.
 
