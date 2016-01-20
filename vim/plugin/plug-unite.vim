@@ -147,6 +147,8 @@ function! s:unite_keybindings()
   nmap <buffer> <F2>           <Plug>(unite_all_exit)
   imap <buffer> <F3>           <Plug>(unite_all_exit)
   nmap <buffer> <F3>           <Plug>(unite_all_exit)
+  imap <buffer> <F4>           <Plug>(unite_all_exit)
+  nmap <buffer> <F4>           <Plug>(unite_all_exit)
   imap <buffer> <F8>           <Plug>(unite_all_exit)
   nmap <buffer> <F8>           <Plug>(unite_all_exit)
   imap <buffer> <F10>          <Plug>(unite_all_exit)
@@ -189,6 +191,14 @@ function! s:unite_mappings()
   nnoremap <silent> <F3> :<C-u>Unite grep:.<CR>
   inoremap <silent> <F3> <Esc>:<C-u>UniteWithProjectDir grep:.<CR>
   vnoremap <silent> <F3> <Esc>:<C-u>UniteWithProjectDir grep:.<CR>
+
+  " ============================================================================
+  " Keybinding: buffers
+  " ============================================================================
+
+  nnoremap <silent> <F4> :<C-u>Unite buffer<CR>
+  inoremap <silent> <F4> <Esc>:<C-u>Unite buffer<CR>
+  vnoremap <silent> <F4> <Esc>:<C-u>Unite buffer<CR>
 
   " ============================================================================
   " Keybinding: Command Palette

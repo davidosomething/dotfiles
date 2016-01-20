@@ -74,7 +74,7 @@ way to find them.
 - `<F1>` unite fuzzy search files
 - `<F2>` unite fuzzy search most recently used files
 - `<F3>` unite grep via ag
-- `<F4>` --
+- `<F4>` unite buffers
 - `<F5>` toggle solarized bg
 - `<F6>` toggle indent guides
 - `<F7>` OverCommandLine for subst
