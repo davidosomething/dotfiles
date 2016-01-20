@@ -26,3 +26,5 @@ package-json-validator
 retire
 sass-lint
 surge
+yo
+generator-hubot

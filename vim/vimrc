@@ -54,12 +54,9 @@ endif
 " Default colors
 " ------------------------------------
 
-let s:dko_has_true_color = exists('$ITERM_BETA')
-if !s:dko_has_true_color
-  if $COLORTERM ==# 'gnome-terminal' | set t_Co=256 | endif
-  " set this early so plugins can override
-  colorscheme pablo
-endif
+if $COLORTERM ==# 'gnome-terminal' | set t_Co=256 | endif
+" set this early so plugins can override
+colorscheme pablo
 
 " no beeps or flashes
 set visualbell t_vb=
@@ -448,6 +445,7 @@ if s:dko_use_plugins
 
   " <F5> toggle color
   Plug 'altercation/vim-colors-solarized'
+  Plug 'chriskempson/base16-vim'
 
   " <F6>
   Plug 'nathanaelkane/vim-indent-guides'
