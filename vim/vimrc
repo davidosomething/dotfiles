@@ -442,11 +442,7 @@ if s:dko_use_plugins
         "\| Plug 'ujihisa/unite-font'
 
   " <F5> toggle color
-  "if has('nvim')
-    "Plug 'frankier/neovim-colors-solarized-truecolor-only'
-  "elseif has('gui_running')
   Plug 'altercation/vim-colors-solarized'
-  "endif
 
   " <F6>
   Plug 'nathanaelkane/vim-indent-guides'
