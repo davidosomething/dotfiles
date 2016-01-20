@@ -9,8 +9,17 @@ export DKO_SOURCE="$DKO_SOURCE -> shell/before {"
 source "${DOTFILES}/shell/path"
 source "${DOTFILES}/shell/os"
 source "${DOTFILES}/shell/functions" # source_if_exists, has_program
-source "${DOTFILES}/shell/python"
 source "${DOTFILES}/shell/aliases"
+
+# ==============================================================================
+# env management -- Node, PHP, Python, Ruby - These add to path
+# ==============================================================================
+
+source "${DOTFILES}/shell/python" && export DKO_SOURCE="$DKO_SOURCE -> shell/python"
+source_if_exists "${CHPHP_PREFIX}/share/chphp/chphp.sh" && export DKO_SOURCE="$DKO_SOURCE -> chphp"
+source_if_exists "${CHRUBY_PREFIX}/share/chruby/chruby.sh" && export DKO_SOURCE="$DKO_SOURCE -> chruby"
+# This also adds completions based on global nvm->npm packages
+source "${DOTFILES}/shell/node" && export DKO_SOURCE="$DKO_SOURCE -> shell/node"
 
 # ==============================================================================
 # rupa/z

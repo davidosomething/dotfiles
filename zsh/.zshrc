@@ -51,8 +51,8 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
   # ----------------------------------------
 
   zplug "akoenig/gulp.plugin.zsh"
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/nvm/_*"
   zplug "robbyrussell/oh-my-zsh", of:"plugins/golang/*.zsh"
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/nvm/_*"
   zplug "zsh-users/zsh-completions"
   zplug "yonchu/grunt-zsh-completion"
 

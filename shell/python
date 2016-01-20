@@ -18,7 +18,11 @@ export PYENV_ROOT="${HOME}/.local/pyenv"
 # things are still around.
 #export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
-# Pyenv init in shell/after
+has_program "pyenv" && {
+  eval "$(pyenv init -)"
+  # pyenv init doesn't add this one... is it needed?
+  export PATH="$PYENV_ROOT/bin:$PATH"
+}
 
 # ==============================================================================
 # VirtualEnv for python package isolation
@@ -51,5 +55,12 @@ dko_virtualenv_wrapper="$(which virtualenvwrapper_lazy.sh)"
 source_if_exists "$dko_virtualenv_wrapper"
 # || source_if_exists /usr/bin/virtualenvwrapper_lazy.sh \
 # || source_if_exists /usr/bin/virtualenvwrapper.sh
+
+# ==============================================================================
+# pip
+# ==============================================================================
+
+#has_program "pip" && [ -n "$ZSH_VERSION" ] && eval $(pip completion --zsh)
+#has_program "pip" && [ -n "$BASH" ] && eval $(pip completion --bash)
 
 # vim: syn=sh :
