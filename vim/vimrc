@@ -222,6 +222,11 @@ set listchars+=trail:·
 set listchars+=extends:»              " show cut off when nowrap
 set listchars+=precedes:«
 
+" maybe...
+" if has('patch-7.4.785')
+"   set fixendofline
+" endif
+
 " ----------------------------------------------------------------------------
 " Diffing
 " ----------------------------------------------------------------------------
@@ -459,11 +464,8 @@ if s:dko_use_plugins
 
   let s:dko_use_editorconfig = 1
   if s:dko_use_editorconfig
-    " @vimlint(EVL108, 1)
-    if has('patch-7.4.785') && !has('fixedendofline')
-      Plug 'vim-scripts/PreserveNoEOL'
+    if !has('patch-7.4.785') | Plug 'vim-scripts/PreserveNoEOL'
     endif
-
     let s:dko_supports_editorconfig = exists('g:plugs["PreserveNoEOL"]') || (has('patch-7.4.785') && has('fixedendofline'))
     if s:dko_supports_editorconfig && (has('python') || has('python3'))
       Plug 'editorconfig/editorconfig-vim'
