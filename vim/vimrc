@@ -2,12 +2,8 @@ set encoding=utf-8 nobomb
 scriptencoding utf-8
 " note: set encoding BEFORE scriptencoding
 
-" http://www.reddit.com/r/vim/comments/2z2fg0/need_some_inspiration_for_your_vimrc/cpf8zho
-" no nocompatible! so we can source the vimrc again if updated
-if &compatible | set nocompatible | endif
-
 " let g:dko_original_rtp = &runtimepath
-let g:dko_vim_dir = fnamemodify(resolve(expand("$MYVIMRC")), ":p:h")
+let g:dko_vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 " ============================================================================
 " Settings vars
@@ -44,7 +40,7 @@ set shell=$SHELL
 " Clipboard -- use os clipboard
 " ------------------------------------
 
-if (exists("$DISPLAY") || has('mac')) && has('clipboard')
+if (exists('$DISPLAY') || has('mac')) && has('clipboard')
   set clipboard=unnamed  " Share system clipboard.
   " Share X windows clipboard.
   if has('unnamedplus') | set clipboard+=unnamedplus | endif
@@ -58,9 +54,9 @@ endif
 " Default colors
 " ------------------------------------
 
-let g:dko_has_true_color = exists("$ITERM_BETA")
-if !g:dko_has_true_color
-  if $COLORTERM == 'gnome-terminal' | set t_Co=256 | endif
+let s:dko_has_true_color = exists('$ITERM_BETA')
+if !s:dko_has_true_color
+  if $COLORTERM ==# 'gnome-terminal' | set t_Co=256 | endif
   " set this early so plugins can override
   colorscheme pablo
 endif
@@ -353,12 +349,16 @@ set secure                            " no unsafe local vimrc commands
 " ============================================================================
 
 " Only load plugins on vim 7.3+ with autocmd
-let g:dko_use_plugins = $DOTFILES_DISTRO != 'busybox' && has('autocmd')
+let s:dko_use_plugins = 1 && $DOTFILES_DISTRO !=# 'busybox' && has('autocmd')
+
+" This is used by plugin/completion.vim so is a g:
+let g:dko_has_completion = 0
 
 " ============================================================================
 " Plugins: netrw
 " ============================================================================
-let g:loaded_netrwPlugin = !g:dko_use_plugins
+
+let g:loaded_netrwPlugin = !s:dko_use_plugins
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
 let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')
@@ -368,7 +368,7 @@ let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')
 " ============================================================================
 
 " Add plugin dirs to the runtimepath
-if g:dko_use_plugins
+if s:dko_use_plugins
   " Load vim-plug
   if empty(glob(expand(g:dko_vim_dir . '/autoload/plug.vim')))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -383,16 +383,15 @@ if g:dko_use_plugins
   " What to load
   " ==========================================================================
 
-  let g:dko_use_incsearch       = !has('nvim')
-  let g:dko_use_deoplete        = has('nvim') && has('python3')
-  let g:dko_use_neocomplete     = !has('nvim') && has('lua')
-  let g:dko_use_neosnippet      = 0
-  let g:dko_use_tern_completion = 1 && (has('python') || has('python3'))
-  let g:dko_has_completion      = 0
+  let s:dko_use_incsearch       = !has('nvim')
+  let s:dko_use_deoplete        = has('nvim') && has('python3')
+  let s:dko_use_neocomplete     = !has('nvim') && has('lua')
+  let s:dko_use_neosnippet      = 0
+  let s:dko_use_tern_completion = 1 && (has('python') || has('python3'))
 
-  let g:dko_use_airline   = 1
-  let g:dko_use_gutentags = 1
-  let g:dko_use_colorv    = 0
+  let s:dko_use_airline   = 1
+  let s:dko_use_gutentags = 1
+  let s:dko_use_colorv    = 1
 
   call plug#begin(g:dko_vim_dir . g:dko_plugdir)
 
@@ -406,21 +405,13 @@ if g:dko_use_plugins
   Plug 'jmcantrell/vim-virtualenv'
 
   " ========================================================================
-  " Plug: Debugging
-  " ========================================================================
-
-  if $VIM_HILINKTRACE == '1'
-    Plug 'gerw/vim-HiLinkTrace'
-  endif
-
-  " ========================================================================
   " Plug: File system
   " ========================================================================
 
   " creates dir if new file in new dir
   Plug 'dockyard/vim-easydir'
 
-  if g:dko_use_gutentags | Plug 'ludovicchabant/vim-gutentags'
+  if s:dko_use_gutentags | Plug 'ludovicchabant/vim-gutentags'
   endif
 
   " ========================================================================
@@ -448,7 +439,7 @@ if g:dko_use_plugins
         \| Plug 'Shougo/unite.vim'
         \| Plug 'Shougo/unite-outline'
         \| Plug 'Shougo/vimfiler.vim'
-        \| Plug 'ujihisa/unite-font'
+        "\| Plug 'ujihisa/unite-font'
 
   " <F5> toggle color
   "if has('nvim')
@@ -470,12 +461,18 @@ if g:dko_use_plugins
   " Plug: Input, syntax, spacing
   " ========================================================================
 
-  " @vimlint(EVL108, 1)
-  if has('patch-7.4.785') && !has('fixedendofline')
-    Plug 'vim-scripts/PreserveNoEOL'
+  let s:dko_use_editorconfig = 1
+  if s:dko_use_editorconfig
+    " @vimlint(EVL108, 1)
+    if has('patch-7.4.785') && !has('fixedendofline')
+      Plug 'vim-scripts/PreserveNoEOL'
+    endif
+
+    let s:dko_supports_editorconfig = exists('g:plugs["PreserveNoEOL"]') || (has('patch-7.4.785') && has('fixedendofline'))
+    if s:dko_supports_editorconfig && (has('python') || has('python3'))
+      Plug 'editorconfig/editorconfig-vim'
+    endif
   endif
-  " Python plugin, requires PreserveNoEOL or +fixedendofline
-  Plug 'editorconfig/editorconfig-vim'
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
@@ -490,8 +487,8 @@ if g:dko_use_plugins
   " Plug: Completion
   " ========================================================================
 
-  if      g:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
-  elseif  g:dko_use_deoplete    | Plug 'Shougo/deoplete.nvim'
+  if      s:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
+  elseif  s:dko_use_deoplete    | Plug 'Shougo/deoplete.nvim'
   endif
 
   let g:dko_has_completion =
@@ -510,11 +507,11 @@ if g:dko_use_plugins
 
     Plug '1995eaton/vim-better-javascript-completion'
 
-    if g:dko_use_tern_completion
+    if s:dko_use_tern_completion
       Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
     endif
 
-    if g:dko_use_neosnippet
+    if s:dko_use_neosnippet
       Plug 'Shougo/neosnippet'
             \| Plug 'honza/vim-snippets'
             \| Plug 'Shougo/neosnippet-snippets'
@@ -665,7 +662,7 @@ if g:dko_use_plugins
   " ----------------------------------------
 
   " Parameter completion
-  "Plug 'othree/jspc.vim'
+  Plug 'othree/jspc.vim'
 
   " <leader>pd on function to insert jsdoc above
   "Plug 'heavenshell/vim-jsdoc'
@@ -759,7 +756,7 @@ if g:dko_use_plugins
   " Features
   " ----------------------------------------
 
-  if g:dko_use_colorv | Plug 'Rykka/colorv.vim'
+  if s:dko_use_colorv | Plug 'Rykka/colorv.vim'
   else                | Plug 'ap/vim-css-color'
   endif
 
@@ -770,8 +767,9 @@ if g:dko_use_plugins
   " Language: VimL
   " ========================================================================
 
-  Plug 'ynkdir/vim-vimlparser'
-        \| Plug 'syngan/vim-vimlint'
+  " SLOW
+  " Plug 'ynkdir/vim-vimlparser', { 'for': ['vim'] }
+  "       \| Plug 'syngan/vim-vimlint', { 'for': ['vim'] }
 
   " Python plugin, probably not using it
   if executable('vint') | Plug 'todesking/vint-syntastic'
@@ -791,7 +789,7 @@ if g:dko_use_plugins
   Plug 'haya14busa/vim-asterisk'
 
   " highlight partial matches as you type in search mode
-  if g:dko_use_incsearch | Plug 'haya14busa/incsearch.vim'
+  if s:dko_use_incsearch | Plug 'haya14busa/incsearch.vim'
   endif
 
   " show registers in split if use \" or <C-R>
@@ -800,12 +798,11 @@ if g:dko_use_plugins
   " Show (#/total results) when searching for a term
   Plug 'osyo-manga/vim-anzu'
 
-  if g:dko_use_airline | Plug 'vim-airline/vim-airline'
+  if s:dko_use_airline | Plug 'vim-airline/vim-airline'
   else | Plug 'ap/vim-buftabline'
   endif
 
   Plug 'now/vim-quit-if-only-quickfix-buffer-left'
-
 
   " append vim-plug rtps and ft/syn enable
   call plug#end()
@@ -830,38 +827,38 @@ endif
 " COMMENT IT OUT from /etc/vimrc despite it saying not to!
 
 " Remove system runtimepaths
-execute "set runtimepath-=$VIM/vimfiles"
-execute "set runtimepath-=$VIMRUNTIME"
-execute "set runtimepath-=$VIM/vimfiles/after"
-execute "set runtimepath-=$VIMRUNTIME/after"
+execute 'set runtimepath-=$VIM/vimfiles'
+execute 'set runtimepath-=$VIMRUNTIME'
+execute 'set runtimepath-=$VIM/vimfiles/after'
+execute 'set runtimepath-=$VIMRUNTIME/after'
 
 " Remove default user runtimepaths
-execute "set runtimepath-=$HOME/.vim"
-execute "set runtimepath-=$HOME/.vim/after"
-execute "set runtimepath-=$XDG_CONFIG_HOME/nvim"
-execute "set runtimepath-=$XDG_CONFIG_HOME/nvim/after"
+execute 'set runtimepath-=$HOME/.vim'
+execute 'set runtimepath-=$HOME/.vim/after'
+execute 'set runtimepath-=$XDG_CONFIG_HOME/nvim'
+execute 'set runtimepath-=$XDG_CONFIG_HOME/nvim/after'
 
 " Save the remaining runtimepaths, which are only vim-plug ones
 let g:dko_rtp_plugins = &runtimepath
 
 let g:dko_rtp_system =
-      \ "$VIM/vimfiles,"
-      \ . "$VIMRUNTIME,"
-      \ . "$VIM/vimfiles/after"
+      \ '$VIM/vimfiles,'
+      \ . '$VIMRUNTIME,'
+      \ . '$VIM/vimfiles/after'
 
 let g:dko_rtp_before = g:dko_rtp_system . ',' . g:dko_vim_dir
 
 " Start runtimepath with system runtimepath
-execute "set runtimepath^=" . g:dko_rtp_before
+execute 'set runtimepath^=' . g:dko_rtp_before
 
 " Append vim-plug runtimepaths (including their after/ paths)
-execute "set runtimepath+=" . g:dko_rtp_plugins
+execute 'set runtimepath+=' . g:dko_rtp_plugins
 
 " Append my after/ so mine is the last after/
-execute "set runtimepath+=" . g:dko_vim_dir . "/after"
+execute 'set runtimepath+=' . g:dko_vim_dir . '/after'
 
 " Local overrides last
-execute "set runtimepath+=$HOME/.secret/vim"
+execute 'set runtimepath+=$HOME/.secret/vim'
 
 " Loads vimrc.vim from the ~/.secret/vim runtimepath (and wherever else it
 " exists).

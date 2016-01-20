@@ -5,8 +5,8 @@ let g:solarized_italic  = 0
 let g:solarized_menu    = 0
 
 try
-  call togglebg#map('<F5>')
   colorscheme solarized
+  call togglebg#map('<F5>')
 catch
 endtry
 
