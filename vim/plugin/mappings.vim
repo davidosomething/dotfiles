@@ -80,7 +80,7 @@ vnoremap > >gv
 " Bubble and indent mappings from janus vim distribution
 " ----------------------------------------------------------------------------
 
-if has('gui_macvim') && has("gui_running")
+if has('gui_macvim') && has('gui_running')
   " Map command-[ and command-] to indenting or outdenting
   " while keeping the original selection in visual mode
   vmap <D-]> >gv

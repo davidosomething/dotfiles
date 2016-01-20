@@ -11,16 +11,16 @@ function! s:DKO_Tab()
 
   " If characters all the way back to start of line were all whitespace,
   " insert whatever expandtab setting is set to do.
-  if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
+  if strpart(getline('.'), 0, col('.') - 1) =~? '^\s*$'
     return "\<Tab>"
   endif
 
   " Insert alignment spaces
   " Calc how many spaces, support for negative sts
-  let sts = (&sts <= 0) ? &sw : &sts
-  let sp = (virtcol('.') % sts)
-  if sp == 0 | let sp = sts | endif
-  return repeat(' ', 1 + sts - sp)
+  let l:sts = (&sts <= 0) ? &sw : &sts
+  let l:sp = (virtcol('.') % l:sts)
+  if l:sp == 0 | let l:sp = l:sts | endif
+  return repeat(' ', 1 + l:sts - l:sp)
 endfunction
 
 

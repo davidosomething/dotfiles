@@ -59,8 +59,8 @@ let g:syntastic_html_tidy_ignore_errors = [
 " Ignore handlebars stuff in tidy
 let g:syntastic_html_tidy_ignore_errors = g:syntastic_html_tidy_ignore_errors
       \ + [
-      \   " allowed in <head> elements",
-      \   "{{",
+      \   ' allowed in <head> elements',
+      \   '{{',
       \ ]
 
 " ============================================================================
@@ -113,9 +113,9 @@ let g:syntastic_python_checkers = ['prospector', 'python']
 " ============================================================================
 
 let g:syntastic_scss_checkers = ['sass', 'scss_lint', 'stylelint']
-let s:dko_scsslint_config = expand("$DOTFILES/scss-lint/.scss-lint.yml")
+let s:dko_scsslint_config = expand('$DOTFILES/scss-lint/.scss-lint.yml')
 if !empty(glob(s:dko_scsslint_config))
-  let g:syntastic_scss_scss_lint_args = "--config=" . s:dko_scsslint_config
+  let g:syntastic_scss_scss_lint_args = '--config=' . s:dko_scsslint_config
 endif
 
 " Set scss_lint config for current buffer

@@ -3,20 +3,20 @@
 " ============================================================================
 
 " http://stackoverflow.com/a/3400528/230473
-function! g:DKO_Rule( str )
+function! g:DKO_Rule(str)
   " set tw to the desired total length
-  let tw = &textwidth
-  if tw == 0 | let tw = 80 | endif
+  let l:tw = &textwidth
+  if l:tw == 0 | let l:tw = 80 | endif
 
   " strip trailing spaces first
   .s/[[:space:]]*$//
 
   " calculate total number of 'str's to insert
-  let reps = (tw - col("$")) / len(a:str)
+  let l:reps = (l:tw - col('$')) / len(a:str)
 
   " insert them, if there's room, removing trailing spaces (though forcing
   " there to be one)
-  if reps > 0
+  if l:reps > 0
     .s/$/\=(' '.repeat(a:str, reps))/
   endif
 endfunction
