@@ -139,5 +139,17 @@ let g:syntastic_zsh_checkers   = ['zsh']
 " ============================================================================
 
 " Syntastic checks if they're installed so don't need to check here.
-let g:syntastic_vim_checkers = ['vimlint', 'vint']
+let g:syntastic_vim_checkers = ['vint']
+
+if exists("g:plugs['vim-vimlint']")
+  call add(g:syntastic_vim_checkers, 'vimlint')
+
+  if !exists('g:vimlint#config')
+    let g:vimlint#config = {}
+  endif
+
+  let g:vimlint#config.EVL103 = 1
+
+  let g:syntastic_vimlint_options = g:vimlint#config
+endif
 
