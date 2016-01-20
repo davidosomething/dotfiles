@@ -7,6 +7,7 @@ eslint
 eslint-plugin-jsdoc
 git-bc
 git-open
+greenkeeper
 grunt-cli
 gulp-cli
 handlebars
@@ -24,3 +25,4 @@ npm-check-updates
 package-json-validator
 retire
 sass-lint
+surge
