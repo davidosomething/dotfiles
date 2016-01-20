@@ -4,6 +4,10 @@
 " Those need to be available before calling.
 "
 
+" ============================================================================
+" unite settings
+" ============================================================================
+
 if !exists("g:plugs['unite.vim']") | finish | endif
 
 " candidates
@@ -36,10 +40,65 @@ if executable('ag')
   let g:unite_source_grep_recursive_opt = ''
 endif
 
-function! s:unite_settings()
-  " ========================================================================
+" ============================================================================
+" neomru settings
+" ============================================================================
+
+if exists("g:plugs['neomru.vim']")
+  " Update cache every 5 minutes
+  let g:neomru#update_interval = 300
+
+  " Fewer files in mru
+  let g:neomru#file_mru_limit = 200
+
+  " A
+  " Don't list directories
+  let g:neomru#directory_mru_limit = 0
+endif
+
+" ============================================================================
+" unite profiles
+" ============================================================================
+
+function! s:unite_profiles()
+
+  " ----------------------------------------------------------------------
+  " Default matcher settings
+  " ----------------------------------------------------------------------
+
+  " Always fuzzy (e.g. abc matches app/book/collection)
+  call unite#filters#matcher_default#use([
+        \   'matcher_fuzzy',
+        \   'matcher_hide_current_file',
+        \ ])
+
+  " ----------------------------------------------------------------------
+  " Default sorter settings
+  " ----------------------------------------------------------------------
+
+  " Rank matches (slower) but more accurate finding
+  let s:default_sorter = 'sorter_rank'
+  if has('python') || has('python3')
+    let s:default_sorter = 'sorter_selecta'
+  endif
+  call unite#filters#sorter_default#use(s:default_sorter)
+
+  " ----------------------------------------------------------------------
+  " File source settings
+  " ----------------------------------------------------------------------
+
+  " In file search, display relative paths (since we do UniteWithProjectDir)
+  " https://github.com/Shougo/unite.vim/blob/master/autoload/unite/filters/converter_relative_word.vim
+  call unite#custom#source(
+        \   'file_rec,file_rec/async,file_rec/neovim',
+        \   'converters',
+        \   ['converter_relative_word']
+        \ )
+
+  " ----------------------------------------------------------------------
   " Split profile: default - open in bottom pane like ctrl-p
-  " ========================================================================
+  " ----------------------------------------------------------------------
+
   call unite#custom#profile('default', 'context', {
         \   'direction':          'botright',
         \   'max_candidates':     300,
@@ -50,9 +109,9 @@ function! s:unite_settings()
         \   'winheight':          12,
         \ })
 
-  " ========================================================================
+  " ----------------------------------------------------------------------
   " Split profile: unite-outline - open in right pane like tagbar
-  " ========================================================================
+  " ----------------------------------------------------------------------
 
   call unite#custom#profile('source/outline', 'context', {
         \   'auto-highlight':     '1',
@@ -64,63 +123,36 @@ function! s:unite_settings()
         \   'winwidth':           48,
         \ })
 
-  " ========================================================================
-  " Matcher settings: always fuzzy (e.g. type abc to match app/book/collection)
-  " ========================================================================
-
-  call unite#filters#matcher_default#use(
-        \   ['matcher_project_files', 'matcher_fuzzy']
-        \ )
-
-  " ========================================================================
-  " Display settings: display relative paths in file search
-  " ========================================================================
-
-  " using stock filter
-  " https://github.com/Shougo/unite.vim/blob/master/autoload/unite/filters/converter_relative_word.vim
-  call unite#custom#source(
-        \   'file_rec,file_rec/async,file_rec/neovim',
-        \   'converters',
-        \   ['converter_relative_word']
-        \ )
-
-  call unite#custom#source(
-        \   'neomru/file',
-        \   'matchers',
-        \   ['matcher_fuzzy']
-        \ )
 endfunction
 
 augroup dkounite
   autocmd!
-  autocmd VimEnter * call s:unite_settings()
+  autocmd VimEnter * call s:unite_profiles()
 augroup END
 
+" ============================================================================
+" Unite buffer keybindings
+" ============================================================================
 
-" ============================================================================
-" Buffer keybindings
-" ============================================================================
 function! s:unite_keybindings()
-  " never go to unite normal mode
-  " for unite buffers, exit immediately on <Esc>
+  " for unite buffers, exit immediately on <Esc> in normal
   " " https://github.com/Shougo/unite.vim/issues/693#issuecomment-67889305
-  imap <buffer> <Esc>          <Plug>(unite_exit)
-  nmap <buffer> <Esc>          <Plug>(unite_exit)
+  nmap <buffer> <Esc>          <Plug>(unite_all_exit)
 
   " also exit on unite-bound function keys, so you can toggle open and
   " close with same key
-  imap <buffer> <F1>           <Plug>(unite_exit)
-  nmap <buffer> <F1>           <Plug>(unite_exit)
-  imap <buffer> <F2>           <Plug>(unite_exit)
-  nmap <buffer> <F2>           <Plug>(unite_exit)
-  imap <buffer> <F3>           <Plug>(unite_exit)
-  nmap <buffer> <F3>           <Plug>(unite_exit)
-  imap <buffer> <F8>           <Plug>(unite_exit)
-  nmap <buffer> <F8>           <Plug>(unite_exit)
-  imap <buffer> <F10>          <Plug>(unite_exit)
-  nmap <buffer> <F10>          <Plug>(unite_exit)
-  imap <buffer> <F11>          <Plug>(unite_exit)
-  nmap <buffer> <F11>          <Plug>(unite_exit)
+  imap <buffer> <F1>           <Plug>(unite_all_exit)
+  nmap <buffer> <F1>           <Plug>(unite_all_exit)
+  imap <buffer> <F2>           <Plug>(unite_all_exit)
+  nmap <buffer> <F2>           <Plug>(unite_all_exit)
+  imap <buffer> <F3>           <Plug>(unite_all_exit)
+  nmap <buffer> <F3>           <Plug>(unite_all_exit)
+  imap <buffer> <F8>           <Plug>(unite_all_exit)
+  nmap <buffer> <F8>           <Plug>(unite_all_exit)
+  imap <buffer> <F10>          <Plug>(unite_all_exit)
+  nmap <buffer> <F10>          <Plug>(unite_all_exit)
+  imap <buffer> <F11>          <Plug>(unite_all_exit)
+  nmap <buffer> <F11>          <Plug>(unite_all_exit)
 
   " never use unite actions on TAB
   iunmap <buffer> <Tab>
@@ -128,6 +160,10 @@ function! s:unite_keybindings()
 endfunction
 
 autocmd dkounite FileType unite call s:unite_keybindings()
+
+" ============================================================================
+" Global keys to open unite
+" ============================================================================
 
 function! s:unite_mappings()
   " ============================================================================
@@ -151,8 +187,8 @@ function! s:unite_mappings()
   " ============================================================================
 
   nnoremap <silent> <F3> :<C-u>Unite grep:.<CR>
-  inoremap <silent> <F3> <Esc>:<C-u>Unite grep:.<CR>
-  vnoremap <silent> <F3> <Esc>:<C-u>Unite grep:.<CR>
+  inoremap <silent> <F3> <Esc>:<C-u>UniteWithProjectDir grep:.<CR>
+  vnoremap <silent> <F3> <Esc>:<C-u>UniteWithProjectDir grep:.<CR>
 
   " ============================================================================
   " Keybinding: Command Palette
