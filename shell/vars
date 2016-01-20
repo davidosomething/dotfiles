@@ -75,14 +75,7 @@ export GIT_PAGER="$PAGER"
 # atom editor
 export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
 
-# chphp
-# overridden in homebrew section if has brew
-export CHPHP_PREFIX="/usr"
-
-# composer
-export COMPOSER_HOME="${XDG_CONFIG_HOME}/composer"
-export COMPOSER_VENDOR_DIR="${COMPOSER_HOME}/vendor"
-export COMPOSER_BIN_DIR="${COMPOSER_VENDOR_DIR}/bin"
+# composer moved to shell/php
 
 # ctags -- instead of ~/.ctags, just read options into the env var
 export CTAGS="$(cat "${DOTFILES}/shell/ctags" | tr "\n" " ")"
@@ -91,7 +84,7 @@ export CTAGS="$(cat "${DOTFILES}/shell/ctags" | tr "\n" " ")"
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
 # fzf
-# ** is globbing completion in  zsh, use tickticktab instead
+# ** is globbing completion in zsh, use tickticktab instead
 export FZF_COMPLETION_TRIGGER='``'
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
@@ -115,9 +108,11 @@ export GOPATH="${HOME}/go"
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.systemlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 export JAVA_FONTS=/usr/share/fonts/TTF
 
-# node moved to shell/node, loaded for shells only in shell/before
+# node moved to shell/node loaded in shell/before
 
-# python moved to shell/node, loaded for shells only in shell/before
+# php moved to shell/php loaded in shell/before
+
+# python moved to shell/python loaded in shell/before
 
 # R
 export R_ENVIRON_USER="${DOTFILES}/r/.Renviron"
@@ -126,8 +121,7 @@ export R_LIBS_USER="${HOME}/.local/lib/R/library/"
 # readline
 export INPUTRC="${DOTFILES}/shell/.inputrc"
 
-# overridden in homebrew section if has brew
-export CHRUBY_PREFIX="/usr"
+# ruby moved to shell/ruby loaded in shell/before
 
 # shellcheck
 export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC2148"
@@ -155,17 +149,8 @@ export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
 # Overrides other settings
 # ------------------------------------------------------------------------------
 command -v "brew" >/dev/null 2>&1 && {
-  BREW_PREFIX="$(brew --prefix)"
-  export BREW_PREFIX
-  export CHPHP_PREFIX="${BREW_PREFIX}"
-  export CHRUBY_PREFIX="${BREW_PREFIX}"
+  export BREW_PREFIX="$(brew --prefix)"
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
-  # Ruby use brew openssl if available
-  [[ -f "${BREW_PREFIX}/opt/openssl" ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${BREW_PREFIX}/opt/openssl"
-
-  # python
-  unset PYTHONPATH
 }
 
 

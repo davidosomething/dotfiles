@@ -1,0 +1,20 @@
+# shell/php
+
+export DKO_SOURCE="$DKO_SOURCE -> shell/php"
+
+# ==============================================================================
+# chphp
+# ==============================================================================
+
+export CHPHP_PREFIX="${BREW_PREFIX:-/usr}"
+source_if_exists "${CHPHP_PREFIX}/share/chphp/chphp.sh"
+
+# ==============================================================================
+# composer
+# ==============================================================================
+
+export COMPOSER_HOME="${XDG_CONFIG_HOME}/composer"
+export COMPOSER_VENDOR_DIR="${COMPOSER_HOME}/vendor"
+export COMPOSER_BIN_DIR="${COMPOSER_VENDOR_DIR}/bin"
+
+# vim: syn=sh :

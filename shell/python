@@ -2,6 +2,9 @@
 
 export DKO_SOURCE="$DKO_SOURCE -> shell/python"
 
+# Let python guess where to `import` packages, or use pip instead
+unset PYTHONPATH
+
 # ==============================================================================
 # Pylint
 # ==============================================================================

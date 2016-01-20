@@ -1,4 +1,4 @@
-# node
+# shell/node
 
 export DKO_SOURCE="$DKO_SOURCE -> shell/node"
 
@@ -37,7 +37,7 @@ eval "$(npm completion 2>/dev/null)"
 # Grunt completion
 # ==============================================================================
 
-# Superceded by antigen
+# ZSH one loaded by plugin
 #[ -n "$ZSH_VERSION" ] && eval "$(grunt --completion=zsh)"
 [ -n "$BASH" ] && eval "$(grunt --completion=bash)"
 
