@@ -39,7 +39,7 @@ These will assist in installing things
     - install default packages
 
 - `ruby/install-default-gems.sh`
-  - requires you set up chruby and install a ruby first
+    - requires you set up chruby and install a ruby first
 
 - `bootstrap/osx/*.sh`
     - `install.sh` - symlink `.hushlogin`
