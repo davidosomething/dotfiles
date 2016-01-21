@@ -100,6 +100,7 @@ let g:mapleader = "\<Space>"
 
 set laststatus=2
 set showcmd                           " incomplete commands on
+set noshowmode                        " don't show -- INSERT -- in cmdline
 
 " ----------------------------------------------------------------------------
 " Wild and file globbing stuff in command mode
