@@ -385,7 +385,7 @@ if s:dko_use_plugins
 
   let s:dko_use_airline   = 1
   let s:dko_use_gutentags = 1
-  let s:dko_use_colorv    = 1
+  let s:dko_use_colorv    = 1 && (has('python') || has('python3'))
 
   call plug#begin(g:dko_vim_dir . g:dko_plugdir)
 
@@ -397,6 +397,7 @@ if s:dko_use_plugins
   " ========================================================================
 
   Plug 'jmcantrell/vim-virtualenv'
+  Plug 'lambdalisue/vim-pyenv'
 
   " ========================================================================
   " Plug: File system
