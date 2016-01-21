@@ -20,14 +20,44 @@ source "${DOTFILES}/shell/before"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
 export HISTFILE="${ZDOTDIR}/.zhistory"
 
+# bookmarks plugin
 export ZSH_BOOKMARKS="${HOME}/.secret/.zshbookmarks"
+
+# ==============================================================================
+# Paths
+# ==============================================================================
+
+# remove duplicates in path arrays
+typeset -U path cdpath manpath
+
+# Autoload function paths, add tab completion paths, top precedence
+[ -d "${BREW_PREFIX}" ] && {
+  fpath=(
+    "${BREW_PREFIX}/share/zsh/site-functions"
+    "${BREW_PREFIX}/share/zsh-completions"
+    $fpath
+  )
+  # remove duplicates in fpath array
+  typeset -U fpath
+
+  # ----------------------------------------
+  # Prefer homebrew zsh's helpfiles
+  # ----------------------------------------
+
+  [ -d "${BREW_PREFIX}/share/zsh/helpfiles" ] && {
+    # use homebrew bundled zsh helpfiles for online help
+    export HELPDIR="${BREW_PREFIX}/share/zsh/helpfiles"
+    unalias run-help
+    autoload run-help
+  }
+}
 
 # ==============================================================================
 # zplug
 # ==============================================================================
 
 # install zplug if needed
-[[ -e ~/.local/share/zplug/zplug ]] || {
+[[ -d "${XDG_DATA_HOME}/zplug" ]] || {
   curl -fLo "${XDG_DATA_HOME}/zplug/zplug" --create-dirs https://git.io/zplug \
     && source "${XDG_DATA_HOME}/zplug/zplug" \
     && zplug update --self
@@ -39,8 +69,6 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
   # Bin
   # ----------------------------------------
 
-  zplug "b4b4r07/zplug"
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/autojump/*.zsh"
   zplug "robbyrussell/oh-my-zsh", of:"plugins/colored-man-pages/*.zsh"
   zplug "robbyrussell/oh-my-zsh", of:"plugins/git-extras/*.zsh"
   zplug "tonyseek/oh-my-zsh-virtualenv-prompt"
@@ -51,13 +79,16 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
   # ----------------------------------------
 
   zplug "akoenig/gulp.plugin.zsh"
+
+  # Broken
+  #zplug "robbyrussell/oh-my-zsh", of:"plugins/gem/_*"
+
   zplug "robbyrussell/oh-my-zsh", of:"plugins/golang/*.zsh"
   zplug "robbyrussell/oh-my-zsh", of:"plugins/nvm/_*"
   zplug "zsh-users/zsh-completions"
-  zplug "yonchu/grunt-zsh-completion"
 
   # ----------------------------------------
-  # Mine, inits completion
+  # Mine
   # ----------------------------------------
 
   zplug "${ZDOTDIR}", from:local
@@ -66,13 +97,13 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
   # LAST, after compinit, enforced by nice
   # ----------------------------------------
 
-  zplug "zsh-users/zsh-syntax-highlighting", nice:10
+  zplug "zsh-users/zsh-syntax-highlighting", nice:19
 
   # ----------------------------------------
   # Load
   # ----------------------------------------
 
-  if ! zplug check; then zplug install; fi
+  zplug check --verbose || zplug install
   zplug load
 }
 
@@ -83,22 +114,6 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
 source_if_exists "${HOME}/.fzf.zsh" && export DKO_SOURCE="$DKO_SOURCE -> fzf"
 
 # ==============================================================================
-# zsh_reload
-# ==============================================================================
-
-zsh_reload() {
-  local cache=$ZSH_CACHE_DIR
-  autoload -U compinit zrecompile
-  compinit -d "${cache}/zcomp-${HOST}"
-
-  for f in "${ZDOTDIR}/.zshrc" "${cache}/zcomp-${HOST}"; do
-    zrecompile -p $f && command rm -f $f.zwc.old
-  done
-
-  source "${ZDOTDIR}/.zshrc"
-}
-
-# ==============================================================================
 # nocorrect aliases
 # ==============================================================================
 
@@ -106,34 +121,6 @@ alias cp="nocorrect cp"
 alias mv="nocorrect mv"
 alias rm="nocorrect rm"
 alias mkdir="nocorrect mkdir"
-
-# ==============================================================================
-# Paths
-# ==============================================================================
-
-# remove duplicates in path arrays
-typeset -U path cdpath manpath
-
-# Autoload function paths, add tab completion paths, top precedence
-# Doesn't matter if no BREW_PREFIX
-fpath=(
-  "${BREW_PREFIX}/share/zsh/site-functions"
-  "${BREW_PREFIX}/share/zsh-completions"
-  $fpath
-)
-# remove duplicates in fpath array
-typeset -U fpath
-
-# ==============================================================================
-# Prefer homebrew zsh's helpfiles
-# ==============================================================================
-
-[ -d "${BREW_PREFIX}/share/zsh/helpfiles" ] && {
-  # use homebrew bundled zsh helpfiles for online help
-  export HELPDIR="${BREW_PREFIX}/share/zsh/helpfiles"
-  unalias run-help
-  autoload run-help
-}
 
 # ==============================================================================
 # After

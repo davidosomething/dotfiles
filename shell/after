@@ -21,6 +21,12 @@ source_if_exists "${TRAVIS_CONFIG_PATH}/travis.sh"
 
 unset MANPATH
 
+# ==============================================================================
+# Late sourcing of aliases since they don't expand variables
+# ==============================================================================
+
+source "${DOTFILES}/shell/aliases"
+
 export DKO_SOURCE="$DKO_SOURCE }"
 
 # vim: syn=sh :

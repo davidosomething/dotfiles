@@ -33,42 +33,8 @@ zstyle ':completion:*' users ''
 # show descriptions for options
 zstyle ':completion:*' verbose yes
 
+# REMOVED: Attempted cache invalidation causes more problems than it solves.
 # Use caching for commands that would like a cache.
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "${ZDOTDIR}/.zcache"
-
-# ==============================================================================
-# Load completion
-# ==============================================================================
-
-autoload -U +X bashcompinit && bashcompinit
-
-# load completion - the -U means look in fpath, -z means on first run
-# -i means ignore security errors
-autoload -Uz compinit && compinit -i
-
-# ==============================================================================
-# WP-CLI
-# ==============================================================================
-
-# bash completion for the `wp` command
-# see wp-cli source or oh-my-zsh's variation
-
-_wp_complete() {
-	local cur=${COMP_WORDS[COMP_CWORD]}
-
-	IFS=$'\n';  # want to preserve spaces at the end
-	local opts="$(wp cli completions --line="$COMP_LINE" --point="$COMP_POINT")"
-
-	if [[ "$opts" =~ \<file\>\s* ]]
-	then
-		COMPREPLY=( $(compgen -f -- $cur) )
-	elif [[ $opts = "" ]]
-	then
-		COMPREPLY=( $(compgen -f -- $cur) )
-	else
-		COMPREPLY=( ${opts[*]} )
-	fi
-}
-complete -o nospace -F _wp_complete wp
+# zstyle ':completion:*' use-cache on
+# zstyle ':completion:*' cache-path "${ZDOTDIR}/.zcache"
 
