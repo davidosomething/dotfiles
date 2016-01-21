@@ -45,41 +45,42 @@ fi
 # ------------------------------------------------------------------------------
 
 _update_brew() {
-  local is_python_rebuild=0
+  local is_python_rebuild=""
   local outdated=""
 
   dkostatus "Updating homebrew"
   brew update
 
-  outdated="$(brew outdated)"
+  outdated="$(brew outdated --quiet)"
+
   if [ -z "$outdated" ]; then
     dkostatus "All packages up-to-date"
   else
-
-    # handle python3 and macvim
-    is_python_rebuild=$(grep "python3" <<< "$outdated")
-
     dkostatus "Upgrade packages"
-    brew upgrade --all 2>&1 | tee "${logs_path}/brew-upgrade.log"
+    brew upgrade --all --cleanup
 
-    if [ -n "$is_python_rebuild" ]; then
-      dkostatus_ "Linking python3 apps"
-      brew linkapps python3
+    # @TODO this isn't working
+    is_python_rebuild="$(echo "$outdated" | grep "python3")"
+  fi
 
-      dkostatus "Python3 was upgraded"
-      dkostatus_ "Updating pip and setuptools"
-      pip3 install --upgrade pip setuptools
+  # handle python3 and macvim
+  if [ -n "$is_python_rebuild" ]; then
+    dkostatus_ "Linking python3 apps"
+    brew linkapps python3
 
-      dkostatus_ "Rebuilding macvim for new python3"
-      brew reinstall \
-        --with-custom-icons \
-        --with-lua \
-        --with-python3 \
-        --with-override-system-vim \
-        macvim
-      dkostatus_ "Linking new macvim.app"
-      brew linkapps macvim
-    fi
+    dkostatus "Python3 was upgraded"
+    dkostatus_ "Updating pip and setuptools"
+    pip3 install --upgrade pip setuptools
+
+    dkostatus_ "Rebuilding macvim for new python3"
+    brew reinstall \
+      --with-custom-icons \
+      --with-lua \
+      --with-python3 \
+      --with-override-system-vim \
+      macvim
+    dkostatus_ "Linking new macvim.app"
+    brew linkapps macvim
   fi
 
   dkostatus "Cleanup old versions and prune dead symlinks"
