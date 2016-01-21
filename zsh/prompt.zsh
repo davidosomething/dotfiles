@@ -2,8 +2,8 @@
 
 setopt PROMPT_SUBST                   # allow variables in prompt
 
-autoload -U colors && colors
-
+# Done by zplug:
+# autoload -U colors && colors
 
 # ------------------------------------------------------------------------------
 # version control info

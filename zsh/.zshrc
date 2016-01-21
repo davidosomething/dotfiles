@@ -30,8 +30,9 @@ export ZSH_BOOKMARKS="${HOME}/.secret/.zshbookmarks"
 # remove duplicates in path arrays
 typeset -U path cdpath manpath
 
-# Autoload function paths, add tab completion paths, top precedence
 [ -d "${BREW_PREFIX}" ] && {
+
+  # Autoload function paths, add tab completion paths, top precedence
   fpath=(
     "${BREW_PREFIX}/share/zsh/site-functions"
     "${BREW_PREFIX}/share/zsh-completions"
@@ -55,6 +56,12 @@ typeset -U path cdpath manpath
 # ==============================================================================
 # zplug
 # ==============================================================================
+
+# Make sure fpaths are defined before or within zplug -- it calls compinit
+# in between loading plugins and nice plugins.
+#
+# It also autoloads colors and compinit.
+#
 
 # install zplug if needed
 [[ -d "${XDG_DATA_HOME}/zplug" ]] || {
