@@ -16,9 +16,11 @@ esac
 [[ "$DOTFILES_OS" = "Darwin" ]] && {
   export DOTFILES_DISTRO="osx"
   case "$(sw_vers -productVersion)" in
-    10.7*) export DOTFILES_OSV="lion"          ;;
-    10.8*) export DOTFILES_OSV="mountainlion"  ;;
-    10.9*) export DOTFILES_OSV="mavericks"     ;;
+    10.7.*)   export DOTFILES_OSV="lion"          ;;
+    10.8.*)   export DOTFILES_OSV="mountainlion"  ;;
+    10.9.*)   export DOTFILES_OSV="mavericks"     ;;
+    10.10.*)  export DOTFILES_OSV="yosemite"      ;;
+    10.11.*)  export DOTFILES_OSV="elcapitan"     ;;
   esac
 }
 [[ "$DOTFILES_OS" = "Linux" ]] && {
