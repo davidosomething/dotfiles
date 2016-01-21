@@ -452,12 +452,13 @@ if s:dko_use_plugins
   " Plug: Input, syntax, spacing
   " ========================================================================
 
-  let s:dko_use_editorconfig = 1 && (has('python') || has('python3'))
-  if s:dko_use_editorconfig
-    if !has('patch-7.4.785') | Plug 'vim-scripts/PreserveNoEOL'
-    endif
-    Plug 'editorconfig/editorconfig-vim'
-  endif
+  " let s:dko_use_editorconfig = 1 && (has('python') || has('python3'))
+  " if s:dko_use_editorconfig
+  "   if !has('patch-7.4.785') | Plug 'vim-scripts/PreserveNoEOL'
+  "   endif
+  "   Plug 'editorconfig/editorconfig-vim'
+  " endif
+  Plug 'sgur/vim-editorconfig'
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
