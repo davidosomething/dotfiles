@@ -398,7 +398,9 @@ if s:dko_use_plugins
   " ========================================================================
 
   Plug 'jmcantrell/vim-virtualenv'
-  Plug 'lambdalisue/vim-pyenv'
+
+  if !has('mac') | Plug 'lambdalisue/vim-pyenv'
+  endif
 
   " ========================================================================
   " Plug: File system

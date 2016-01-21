@@ -23,6 +23,11 @@ export HISTFILE="${ZDOTDIR}/.zhistory"
 # bookmarks plugin
 export ZSH_BOOKMARKS="${HOME}/.secret/.zshbookmarks"
 
+# knu/z
+export _Z_CMD="j"
+export _Z_DATA="${HOME}/.local/z"
+[ ! -f "$_Z_DATA" ] && touch "$_Z_DATA"
+
 # ==============================================================================
 # Paths
 # ==============================================================================
@@ -104,6 +109,7 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
   # LAST, after compinit, enforced by nice
   # ----------------------------------------
 
+  zplug "knu/z", of:z.sh, nice:10
   zplug "zsh-users/zsh-syntax-highlighting", nice:19
 
   # ----------------------------------------

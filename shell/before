@@ -20,19 +20,5 @@ source "${DOTFILES}/shell/php"
 source "${DOTFILES}/shell/python"
 source "${DOTFILES}/shell/ruby"
 
-# ==============================================================================
-# rupa/z
-# ==============================================================================
-
-# Needs to be in shell/before since it doesn't extend zsh $precmd_functions
-# nicely
-if [ -f "${DOTFILES}/shell/z/z.sh" ]; then
-  export DKO_SOURCE="$DKO_SOURCE -> shell/z"
-  export _Z_CMD="j"
-  export _Z_DATA="${HOME}/.local/z"
-  [ ! -f "$_Z_DATA" ] && touch "$_Z_DATA"
-  source "${DOTFILES}/shell/z/z.sh"
-fi
-
 export DKO_SOURCE="$DKO_SOURCE }"
 # vim: syn=sh :
