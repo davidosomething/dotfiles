@@ -4,6 +4,3 @@
 [submodule "fonts/nerd-fonts"]
 	path = fonts/nerd-fonts
 	url = git@github.com:ryanoasis/nerd-fonts.git
-[submodule "shell/z"]
-	path = shell/z
-	url = git://github.com/rupa/z.git
