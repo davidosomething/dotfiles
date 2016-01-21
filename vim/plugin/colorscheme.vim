@@ -15,5 +15,9 @@ elseif exists("g:plugs['base16-vim']")
   colorscheme base16-tomorrow
   set background=dark
 
+else
+
+  colorscheme pablo
+
 endif
 

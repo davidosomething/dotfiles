@@ -50,14 +50,6 @@ endif
 " Display
 " ----------------------------------------------------------------------------
 
-" ------------------------------------
-" Default colors
-" ------------------------------------
-
-if $COLORTERM ==# 'gnome-terminal' | set t_Co=256 | endif
-" set this early so plugins can override
-colorscheme pablo
-
 " no beeps or flashes
 set visualbell t_vb=
 set ttyfast

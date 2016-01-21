@@ -3,6 +3,9 @@ if !exists("g:plugs['vim-airline']") | finish | endif
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'bubblegum'
+if exists("g:plugs['base16-vim']")
+  let g:airline_theme = 'base16'
+endif
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
