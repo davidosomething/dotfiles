@@ -32,10 +32,10 @@ augroup filetypedetect
   autocmd BufRead,BufNewFile,BufFilePre *.cap           setfiletype ruby
 
   autocmd BufRead,BufNewFile,BufFilePre *.dump          setfiletype sql
+  autocmd BufRead,BufNewFile,BufFilePre .editorconfig   setfiletype dosini
 
   autocmd BufRead,BufNewFile,BufFilePre .babelrc        setfiletype json
   autocmd BufRead,BufNewFile,BufFilePre .bowerrc        setfiletype json
-  autocmd BufRead,BufNewFile,BufFilePre .editorconfig   setfiletype json
   autocmd BufRead,BufNewFile,BufFilePre .eslintrc       setfiletype json
   autocmd BufRead,BufNewFile,BufFilePre .jscsrc         setfiletype json
   autocmd BufRead,BufNewFile,BufFilePre .jshintrc       setfiletype json
