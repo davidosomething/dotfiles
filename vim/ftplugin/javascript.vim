@@ -80,7 +80,7 @@ if exists("g:plugs['vim-jsdoc']")
         \     'type': '{Element}'
         \   },
         \   '\(err\|error\)$': {
-        \     'type': '{ErrorEvent}'
+        \     'type': '{Error}'
         \   },
         \   'handler$': {
         \     'type': '{Function}'
