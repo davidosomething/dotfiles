@@ -12,6 +12,18 @@ let b:match_words = '\<function\>:\<return\>,'
   \ . '\<try\>:\<catch\>:\<finally\>'
 
 " ============================================================================
+" syntastic: jscs if has .jscsrc
+" ============================================================================
+
+if exists("g:plugs['syntastic']")
+  let b:dko_jscsrc = dkoproject#GetProjectConfigFile('.jscsrc')
+  if (!empty(b:dko_jscsrc))
+    let b:syntastic_checkers = g:syntastic_javascript_checkers + ['jscs']
+    let b:syntastic_javascript_jscs_post_args = '-c ' . b:dko_jscsrc
+  endif
+endif
+
+" ============================================================================
 " javascript-libraries-syntax
 " ============================================================================
 if exists("g:plugs['javascript-libraries-syntax.vim']")
@@ -96,3 +108,4 @@ if exists("g:plugs['vim-jsdoc']")
   " This needs to be recursive map
   nmap <buffer> <silent> <Leader>pd <Plug>(jsdoc)
 endif
+

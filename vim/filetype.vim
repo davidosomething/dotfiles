@@ -41,7 +41,6 @@ augroup filetypedetect
   autocmd BufRead,BufNewFile,BufFilePre .jshintrc       setfiletype json
 
   autocmd BufRead,BufNewFile,BufFilePre *.md            setfiletype markdown.pandoc
-  autocmd BufRead,BufNewFile,BufFilePre *.txt           setfiletype markdown.pandoc
 
   " polkit rules files
   autocmd BufRead,BufNewFile,BufFilePre *.rules         setfiletype javascript
