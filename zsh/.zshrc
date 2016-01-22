@@ -69,7 +69,8 @@ typeset -U path cdpath manpath
 #
 
 # install zplug if needed
-[[ -d "${XDG_DATA_HOME}/zplug" ]] || {
+[[ -f "${XDG_DATA_HOME}/zplug/zplug" ]] || {
+  echo "==> Installing zplug"
   curl -fLo "${XDG_DATA_HOME}/zplug/zplug" --create-dirs https://git.io/zplug \
     && source "${XDG_DATA_HOME}/zplug/zplug" \
     && zplug update --self
