@@ -1,4 +1,4 @@
-" php
+" after/ftplugin/php.vim
 
 " ============================================================================
 " StanAngeloff/php.vim
@@ -19,6 +19,6 @@ if exists("g:plugs['pdv']")
   let g:pdv_template_dir =
         \ expand(g:dko_vim_dir . g:dko_plugdir . '/pdv/templates')
 
-  nnoremap <buffer> <silent> <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+  nnoremap <silent><buffer> <Leader>pd :call pdv#DocumentCurrentLine()<CR>
 endif
 

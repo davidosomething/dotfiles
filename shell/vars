@@ -78,7 +78,8 @@ export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
 # composer moved to shell/php
 
 # ctags -- instead of ~/.ctags, just read options into the env var
-export CTAGS="$(cat "${DOTFILES}/shell/ctags" | tr "\n" " ")"
+CTAGS="$(tr "\n" " " < "${DOTFILES}/shell/ctags")"
+export CTAGS
 
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
@@ -97,8 +98,9 @@ export GOPATH="${HOME}/go"
 
 # iterm and neovim
 [[ "$TERM_PROGRAM" == "iTerm.app" ]] && {
-  export ITERM_VERSION="$(osascript -e 'version of app "iTerm"')"
-  if [[ "$(printf "$ITERM_VERSION\n2.9" | sort | tail -n1)" == "$ITERM_VERSION" ]]; then
+  ITERM_VERSION="$(osascript -e 'version of app "iTerm"')"
+  export ITERM_VERSION
+  if [[ "$(printf "%s\n2.9" "$ITERM_VERSION" | sort | tail -n1)" == "$ITERM_VERSION" ]]; then
     export ITERM_BETA=1
     export NVIM_TUI_ENABLE_TRUE_COLOR=1
   fi
@@ -123,7 +125,7 @@ export INPUTRC="${DOTFILES}/shell/.inputrc"
 
 # ruby moved to shell/ruby loaded in shell/before
 
-# shellcheck
+# for shellcheck
 export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC2148"
 
 # travis cli
@@ -149,10 +151,12 @@ export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
 # Overrides other settings
 # ------------------------------------------------------------------------------
 command -v "brew" >/dev/null 2>&1 && {
-  export BREW_PREFIX="$(brew --prefix)"
+  BREW_PREFIX="$(brew --prefix)"
+  export BREW_PREFIX
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 }
 
 
 export DKO_SOURCE="$DKO_SOURCE }"
-# vim: syn=sh :
+
+# vim: ft=sh :

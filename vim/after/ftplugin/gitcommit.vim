@@ -1,8 +1,12 @@
-" gitcommit
+" after/ftplugin/gitcommit.vim
 "
 " Nice big git commit message window
 " Only runs in a vim server named GIT (probably opened via my "e" script)
 "
+
+augroup dko_gitcommit
+  autocmd!
+augroup end
 
 setlocal wrap
 setlocal linebreak
@@ -26,14 +30,8 @@ if v:servername ==? 'GIT'
     set nonumber
   endif
 
-  " augroup gitmerge
-  "   autocmd!
-  " augroup END
-
-  augroup gitcommit
-    autocmd!
-    au BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,}MSG
-          \ startinsert
-  augroup END
+  autocmd dko_gitcommit
+        \ BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,}MSG
+        \ startinsert
 endif
 

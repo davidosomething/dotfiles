@@ -27,4 +27,4 @@ fi
 
 source_if_exists "${HOME}/.avn/bin/avn.sh"
 
-# vim: syn=sh :
+# vim: ft=sh :

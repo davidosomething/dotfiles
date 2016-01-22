@@ -66,4 +66,4 @@ source_if_exists "$dko_virtualenv_wrapper"
 #has_program "pip" && [ -n "$ZSH_VERSION" ] && eval $(pip completion --zsh)
 #has_program "pip" && [ -n "$BASH" ] && eval $(pip completion --bash)
 
-# vim: syn=sh :
+# vim: ft=sh :

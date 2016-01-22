@@ -66,6 +66,7 @@ dko_add_paths() {
   echo "${my_path}"
 }
 
-export PATH="$(dko_add_paths)"
+PATH="$(dko_add_paths)"
+export PATH
 
-# vim: syn=sh
+# vim: ft=sh :

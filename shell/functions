@@ -52,7 +52,8 @@ cunt() {
 
 em() {
   local my_pwd="$PWD"
-  local gr="$(git root)"
+  local gr
+  gr="$(git root)"
   pushd "$gr"
   git diff --name-only | uniq | xargs vopen
   if [ "$PWD" != "$my_pwd" ]; then popd; fi
@@ -81,7 +82,7 @@ pyserve() {
 # traversal --------------------------------------------------------------------
 # Go to git root
 gr() {
-  git rev-parse && cd "$(git rev-parse --show-cdup)"
+  git rev-parse && cd "$(git rev-parse --show-cdup)" || return 1
 }
 
 # up 2 to cd ../..
@@ -92,7 +93,7 @@ up() {
   for i in $(seq "${1:-1}"); do
     x="$x../"
   done
-  cd "$x"
+  cd "$x" || return 1
 }
 
 # Determine size of a file or total size of a directory
@@ -159,4 +160,4 @@ flushfonts() {
   fc-cache -f -v
 }
 
-# vim: syn=sh :
+# vim: ft=sh :

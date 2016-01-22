@@ -143,4 +143,4 @@
 [include]
 	path = "~/.dotfiles/local/gitconfig"
 
-# vim: syntax=gitconfig :
+# vim: ft=gitconfig :

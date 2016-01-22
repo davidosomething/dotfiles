@@ -8,8 +8,8 @@ export DKO_SOURCE="$DKO_SOURCE -> shell/aliases"
 alias ..="cd .."
 alias ....="cd ../.."
 alias cd..="cd .."
-alias cdd="cd $DOTFILES"
-alias cdv="cd $VIM_DOTFILES"
+alias cdd="cd \${DOTFILES}"
+alias cdv="cd \${VIM_DOTFILES}"
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias tree="tree -C"
 
@@ -24,7 +24,7 @@ alias gpo="git push origin"
 
 # bin
 alias a="atom"
-alias ag="ag --path-to-agignore=${DOTFILES}/ag/agignore"
+alias ag="ag --path-to-agignore=\${DOTFILES}/ag/agignore"
 alias be="bundle exec"
 alias bfy="browserify"
 alias bun="bundle"
@@ -35,7 +35,7 @@ alias df="df -h"
 alias f="find"
 alias grep="grep --color=auto"
 alias gw="grunt watch"
-alias irssi="irssi --config ${DOTFILES}/irssi/config-${DOTFILES_DISTRO}"
+alias irssi="irssi --config \${DOTFILES}/irssi/config-\${DOTFILES_DISTRO}"
 alias ln="ln -v"
 alias n="npm"
 alias nude="nvm use default"
@@ -134,7 +134,7 @@ _alias_darwin() {
 
 _alias_linux() {
   alias open="o"                    # use open() function in shell/functions
-  alias startx="startx > ${DOTFILES}/logs/startx.log 2>&1"
+  alias startx="startx > \${DOTFILES}/logs/startx.log 2>&1"
 
   alias testnotification="notify-send \
     'Hello world!' \
@@ -174,4 +174,4 @@ case "$OSTYPE" in
     ;;
 esac
 
-# vim: syn=sh :
+# vim: ft=sh :

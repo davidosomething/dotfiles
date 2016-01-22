@@ -17,4 +17,4 @@ export COMPOSER_HOME="${XDG_CONFIG_HOME}/composer"
 export COMPOSER_VENDOR_DIR="${COMPOSER_HOME}/vendor"
 export COMPOSER_BIN_DIR="${COMPOSER_VENDOR_DIR}/bin"
 
-# vim: syn=sh :
+# vim: ft=sh :

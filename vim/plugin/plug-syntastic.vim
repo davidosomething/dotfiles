@@ -10,7 +10,7 @@ augroup dkosyntastic
 augroup END
 
 " Checking
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq   = 0
 let g:syntastic_mode_map = {
       \   'mode': 'active',
@@ -28,6 +28,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list            = 1
 let g:syntastic_loc_list_height          = g:dko_loc_list_height
 let g:syntastic_aggregate_errors         = 1
+let g:syntastic_enable_balloons          = 0
 
 " Signs
 let g:syntastic_enable_signs         = 1
@@ -131,8 +132,8 @@ autocmd dkosyntastic BufReadPost *.scss call s:DKO_FindScsslintConfig()
 " Checker: Shell
 " ============================================================================
 
-let g:syntastic_shell_checkers = ['bashate', 'shellcheck']
-let g:syntastic_zsh_checkers   = ['zsh']
+let g:syntastic_sh_checkers = ['bashate', 'shellcheck']
+let g:syntastic_zsh_checkers = g:syntastic_sh_checkers + ['zsh']
 
 " ============================================================================
 " Checker: VimL

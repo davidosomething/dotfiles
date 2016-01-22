@@ -1,7 +1,6 @@
-# shell before
+# shell/before
 #
-# Sourced by .bashrc and .zshrc
-# Run on both bash and zsh, in interactive shells
+# Sourced by .bashrc and .zshrc (interactive shells)
 #
 
 export DKO_SOURCE="$DKO_SOURCE -> shell/before {"
@@ -21,4 +20,5 @@ source "${DOTFILES}/shell/python"
 source "${DOTFILES}/shell/ruby"
 
 export DKO_SOURCE="$DKO_SOURCE }"
-# vim: syn=sh :
+
+# vim: ft=sh :

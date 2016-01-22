@@ -14,4 +14,4 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 
 export XDG_DATA_HOME="${HOME}/.local/share"
 
-# vim: syn=sh :
+# vim: ft=sh :

@@ -29,4 +29,4 @@ esac
   [[ -x "/bin/busybox" ]]        && export DOTFILES_DISTRO="busybox"
 }
 
-# vim: syn=sh :
+# vim: ft=sh :

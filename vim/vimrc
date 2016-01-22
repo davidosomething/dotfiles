@@ -26,6 +26,8 @@ endif
 " May be overridden by **/plugins, after/plugins and **/ftplugins
 " ============================================================================
 
+set modeline
+
 " ----------------------------------------------------------------------------
 " OS Related
 " ----------------------------------------------------------------------------
@@ -528,7 +530,7 @@ if s:dko_use_plugins
   " easyclip requires repeat
   Plug 'tpope/vim-repeat'
         \| Plug 'svermeulen/vim-easyclip'
-        \| Plug 'davidosomething/EasyClipRing.vim'
+        "\| Plug 'davidosomething/EasyClipRing.vim'
 
   " fast increment datetimes
   Plug 'tpope/vim-speeddating'

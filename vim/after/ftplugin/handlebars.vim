@@ -1,4 +1,4 @@
-" handlebars
+" after/ftplugin/handlebars.vim
 
 setlocal nowrap
 setlocal noexpandtab

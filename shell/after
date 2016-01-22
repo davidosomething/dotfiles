@@ -1,5 +1,7 @@
-# Shell - after commands
-# Run before .zshrc.local .bashrc.local
+# shell/after
+#
+# Runs before .zshrc.local .bashrc.local
+#
 
 export DKO_SOURCE="$DKO_SOURCE -> shell/after {"
 
@@ -43,4 +45,4 @@ source "${DOTFILES}/shell/aliases"
 
 export DKO_SOURCE="$DKO_SOURCE }"
 
-# vim: syn=sh :
+# vim: ft=sh :
