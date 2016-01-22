@@ -137,24 +137,17 @@ augroup END
 function! s:unite_keybindings()
   " for unite buffers, exit immediately on <Esc> in normal
   " " https://github.com/Shougo/unite.vim/issues/693#issuecomment-67889305
-  nmap <buffer> <Esc>          <Plug>(unite_all_exit)
+  nmap <buffer>   <Esc>   <Plug>(unite_all_exit)
 
   " also exit on unite-bound function keys, so you can toggle open and
   " close with same key
-  imap <buffer> <F1>           <Plug>(unite_all_exit)
-  nmap <buffer> <F1>           <Plug>(unite_all_exit)
-  imap <buffer> <F2>           <Plug>(unite_all_exit)
-  nmap <buffer> <F2>           <Plug>(unite_all_exit)
-  imap <buffer> <F3>           <Plug>(unite_all_exit)
-  nmap <buffer> <F3>           <Plug>(unite_all_exit)
-  imap <buffer> <F4>           <Plug>(unite_all_exit)
-  nmap <buffer> <F4>           <Plug>(unite_all_exit)
-  imap <buffer> <F8>           <Plug>(unite_all_exit)
-  nmap <buffer> <F8>           <Plug>(unite_all_exit)
-  imap <buffer> <F10>          <Plug>(unite_all_exit)
-  nmap <buffer> <F10>          <Plug>(unite_all_exit)
-  imap <buffer> <F11>          <Plug>(unite_all_exit)
-  nmap <buffer> <F11>          <Plug>(unite_all_exit)
+  for l:fk in ['<F1>', '<F2>', '<F3>', '<F4>', '<F8>', '<F10>', '<F11>']
+    execute 'imap <buffer> ' . l:fk . ' '
+          \ . '<Plug>(unite_insert_leave)'
+          \ . '<Plug>(unite_cursor_bottom)'
+          \ . '<Plug>(unite_all_exit)'
+    execute 'nmap <buffer> ' . l:fk . ' <Plug>(unite_all_exit)'
+  endfor
 
   " never use unite actions on TAB
   iunmap <buffer> <Tab>
