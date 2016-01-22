@@ -87,3 +87,12 @@ way to find them.
 See `plugin/mappings.vim` for mappings not associated to vim-plug-managed
 plugins.
 
+## Junk defaults and unmapped keys
+
+Plan to map these at some point
+
+- n <C-b> -- back one screen (page)
+- n <C-f> -- fore one screen (page)
+- n <C-g> -- status
+- n <C-s>
+

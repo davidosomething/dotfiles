@@ -16,6 +16,9 @@ let g:airline_symbols.linenr   = ''
 let g:airline_symbols.paste    = 'ρ'
 let g:airline_symbols.readonly = ''
 
+" Strip percentage and other junk from last section of airline
+let g:airline_section_z = airline#section#create([ ' %l:%v' ])
+
 " ============================================================================
 " Extensions
 " ============================================================================
@@ -34,6 +37,7 @@ let g:airline#extensions#tagbar#enabled     = 0
 let g:airline#extensions#tmuxline#enabled   = 0
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#windowswap#enabled = 0
+let g:airline#extensions#wordcount#enabled  = 0
 
 autocmd vimrc FileType *
       \ unlet! g:airline#extensions#whitespace#checks
