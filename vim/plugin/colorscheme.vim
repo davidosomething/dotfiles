@@ -17,9 +17,10 @@ else " terminal vim
 
   if &t_Co == 256
     if exists("g:plugs['gruvbox']")
+      let g:gruvbox_contrast_dark = "hard"
       colorscheme gruvbox
     elseif exists("g:plugs['seoul256.vim']")
-      let g:seoul256_background=234
+      let g:seoul256_background = 234
       colorscheme seoul256
     endif
   else
