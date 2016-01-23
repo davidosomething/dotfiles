@@ -1,16 +1,19 @@
-! xterm ----------------------------------------------------------------------
+! ==============================================================================
+! Source base16-twilight
+! https://github.com/chriskempson/base16-xresources
+! ==============================================================================
 
-xterm*VT100.geometry:     90x25
-xterm*faceName:           Fira Mono for Powerline:style=Regular:size=10
-!xterm*font:              -*-dina-medium-r-*-*-16-*-*-*-*-*-*-*
-xterm*dynamicColors:      true
-xterm*utf8:               2
-xterm*eightBitInput:      true
-xterm*saveLines:          512
-xterm*scrollKey:          true
-xterm*scrollTtyOutput:    false
-xterm*scrollBar:          true
-xterm*rightScrollBar:     true
-xterm*jumpScroll:         true
-xterm*multiScroll:        true
-xterm*toolBar:            false
+#include ".dotfiles/linux/x/base16-twilight.dark.256.xresources"
+
+! ==============================================================================
+! Source urxvt.xresources
+! ==============================================================================
+
+#include ".dotfiles/linux/x/urxvt.xresources"
+
+! ==============================================================================
+! Source local urxvt.xresources
+! ==============================================================================
+
+#include ".dotfiles/local/urxvt.xresources"
+

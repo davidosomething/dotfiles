@@ -52,12 +52,15 @@ endif
 " Display
 " ----------------------------------------------------------------------------
 
-" no beeps or flashes
-set visualbell t_vb=
-set ttyfast
+set title                             " wintitle = filename - vim
+
+" this is already set by modern terminal
+"set ttyfast
+
 set lazyredraw                        " macros don't update display
 
-set title                             " wintitle = filename - vim
+" no beeps or flashes
+set visualbell t_vb=
 
 set number
 set numberwidth=5
@@ -444,12 +447,11 @@ if s:dko_use_plugins
         "\| Plug 'ujihisa/unite-font'
 
   " <F5> toggle color
-  if has('nvim')
-    Plug 'mhartington/oceanic-next'
-  else
-    Plug 'altercation/vim-colors-solarized'
-    Plug 'chriskempson/base16-vim'
+  if has('nvim') | Plug 'mhartington/oceanic-next'
   endif
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'chriskempson/base16-vim'
+  Plug 'junegunn/seoul256.vim'
 
   " <F6>
   Plug 'nathanaelkane/vim-indent-guides'

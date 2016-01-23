@@ -2,11 +2,7 @@ scriptencoding utf-8
 if !exists("g:plugs['vim-airline']") | finish | endif
 
 let g:airline_powerline_fonts = 1
-if has('gui_running') && exists("g:plugs['vim-colors-solarized']")
-  let g:airline_theme = 'bubblegum'
-elseif exists("g:plugs['base16-vim']")
-  let g:airline_theme = 'base16'
-endif
+let g:airline_theme = 'bubblegum'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}

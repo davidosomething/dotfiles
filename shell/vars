@@ -145,6 +145,7 @@ export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
 
 # X11 - for starting via xinit or startx
 export XINITRC="${DOTFILES}/linux/x/.xinitrc"
+export XAPPLRESDIR="${DOTFILES}/linux/x"
 
 # zplug
 export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"

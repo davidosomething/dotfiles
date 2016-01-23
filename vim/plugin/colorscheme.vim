@@ -15,14 +15,18 @@ elseif has('gui_running') && exists("g:plugs['vim-colors-solarized']")
   call togglebg#map('<F5>')
   set background=light
 
-elseif exists("g:plugs['base16-vim']")
-
-  colorscheme base16-tomorrow
-  set background=dark
-
 else
 
-  colorscheme pablo
+  " terminal vim
+
+  if &t_Co == 256 && exists("g:plugs['seoul256.vim']")
+    let g:seoul256_background=234
+    colorscheme seoul256
+  else
+    colorscheme delek
+  endif
+
+  set background=dark
 
 endif
 

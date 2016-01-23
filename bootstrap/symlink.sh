@@ -33,6 +33,7 @@ case "$OSTYPE" in
     dkosymlink subversion/config.symlink        .subversion/config
     ;;
   linux*)
+    dkosymlink linux/locale.conf                .config/locale.conf
     dkosymlink linux/subversion/config.symlink  .subversion/config
     dkosymlink linux/x/.Xresources              .Xresources
     ;;
