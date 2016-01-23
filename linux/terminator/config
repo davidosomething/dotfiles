@@ -33,3 +33,4 @@
     show_titlebar = False
     use_custom_command = True
     use_system_font = False
+  [[nocolor]]

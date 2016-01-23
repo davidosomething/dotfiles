@@ -12,6 +12,9 @@ export DKO_SOURCE="$DKO_SOURCE -> shell/vars {"
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
+[[ $COLORTERM = gnome-terminal && ! $TERM = screen-256color ]] && \
+  export TERM="xterm-256color"
+
 # ==============================================================================
 # Dotfile paths
 # ==============================================================================
