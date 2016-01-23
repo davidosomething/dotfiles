@@ -15,10 +15,11 @@ let b:match_words = '\<function\>:\<return\>,'
 " syntastic: jscs if has .jscsrc
 " ============================================================================
 
+" @TODO disabled for now
 if exists("g:plugs['syntastic']")
   let b:dko_jscsrc = dkoproject#GetProjectConfigFile('.jscsrc')
   if (!empty(b:dko_jscsrc))
-    let b:syntastic_checkers = g:syntastic_javascript_checkers + ['jscs']
+    "let b:syntastic_checkers = g:syntastic_javascript_checkers + ['jscs']
     let b:syntastic_javascript_jscs_post_args = '-c ' . b:dko_jscsrc
   endif
 endif
@@ -57,24 +58,11 @@ if exists("g:plugs['vim-jsdoc']")
   " The match is done via matchstr() (so magic mode is on -- escape ?)
   let g:jsdoc_custom_args_regex_only = 1
   let g:jsdoc_custom_args_hook = {
-        \   '^\$': {
-        \     'type': '{jQuery}'
+        \   '^_\?is': {
+        \     'type': '{Boolean}'
         \   },
-        \   '\(callback\|cb\|done\)$': {
-        \     'type': '{Function}',
-        \     'description': 'Callback function'
-        \   },
-        \   'data': {
-        \     'type': '{Object}'
-        \   },
-        \   '\(description\|message\|title\|url\)': {
-        \     'type': '{String}'
-        \   },
-        \   'messages': {
-        \     'type': '{String[]}'
-        \   },
-        \   '^\(e\|evt\|event\)$': {
-        \     'type': '{Event}'
+        \   'date$': {
+        \     'type': '{Date}'
         \   },
         \   'el$': {
         \     'type': '{Element}'
@@ -82,26 +70,45 @@ if exists("g:plugs['vim-jsdoc']")
         \   '\(err\|error\)$': {
         \     'type': '{Error}'
         \   },
+        \   '^\(e\|evt\|event\)$': {
+        \     'type': '{Event}'
+        \   },
+        \   '\(callback\|cb\|done\)$': {
+        \     'description': 'Callback function',
+        \     'type': '{Function}',
+        \   },
         \   'handler$': {
+        \     'description': 'Event handler',
+        \     'type': '{Function}'
+        \   },
+        \   '^on': {
+        \     'description': 'Event handler',
         \     'type': '{Function}'
         \   },
         \   'handlers$': {
+        \     'description': 'Event handlers',
         \     'type': '{Function[]}'
+        \   },
+        \   '^\$': {
+        \     'type': '{jQuery}'
         \   },
         \   '^i$': {
         \     'type': '{Number}'
         \   },
-        \   '^_\?is': {
-        \     'type': '{Boolean}'
-        \   },
-        \   '^on': {
-        \     'type': '{Function}'
-        \   },
-        \   'options$': {
+        \   '\(data\|options\)$': {
         \     'type': '{Object}'
         \   },
         \   'promise$': {
         \     'type': '{Promise}'
+        \   },
+        \   'regex': {
+        \     'type': '{RegExp}'
+        \   },
+        \   '\(description\|message\|title\|url\)': {
+        \     'type': '{String}'
+        \   },
+        \   'messages': {
+        \     'type': '{String[]}'
         \   },
         \ }
 

@@ -15,8 +15,8 @@ if exists('g:loaded_dkoproject')
 endif
 let g:loaded_dkoproject = 1
 
-let s:cpo_save = &cpo
-set cpo&vim
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 
 " ============================================================================
 " Default Settings
@@ -31,9 +31,10 @@ let s:default_config_paths = [
 
 " ============================================================================
 " Find git root of current file, set to buffer var
-"
+" ============================================================================
+
 " @return string root path
-function dkoproject#GetProjectRoot()
+function dkoproject#GetProjectRoot() abort
   let l:root = systemlist('git rev-parse --show-toplevel')[0]
   if l:root ==? 'fatal: Not a git repository (or any of the parent directories): .git'
     return ''
@@ -44,9 +45,10 @@ endfunction
 
 " ============================================================================
 " Get array of config paths for a project
-"
+" ============================================================================
+
 " @return array of string config paths relative to git root
-function! dkoproject#GetConfigPaths()
+function! dkoproject#GetConfigPaths() abort
   if exists('b:dkoproject_config_paths')
     return b:dkoproject_config_paths
   elseif exists('g:dkoproject_config_paths')
@@ -58,9 +60,10 @@ endfunction
 
 " ============================================================================
 " Get config file full path
-"
+" ============================================================================
+
 " @return string full path to config file
-function! dkoproject#GetProjectConfigFile(filename)
+function! dkoproject#GetProjectConfigFile(filename) abort
   if empty(dkoproject#GetProjectRoot())
     return ''
   endif
@@ -83,6 +86,33 @@ function! dkoproject#GetProjectConfigFile(filename)
 endfunction
 
 
-let &cpo = s:cpo_save
+" ============================================================================
+" Get JS linters based on rc file presence
+" ============================================================================
+
+" @return list of linter names
+function! dkoproject#JsLinters() abort
+  if exists('b:dko_js_linters')
+    return b:dko_js_linters
+  endif
+
+  let b:dko_js_linters = ['eslint']
+
+  " Can definitely DRY this up...
+  let l:jshintrc = dkoproject#GetProjectConfigFile('.jshintrc')
+  if !empty(l:jshintrc)
+    let b:dko_js_linters += ['jshint']
+  endif
+
+  let l:jscsrc = dkoproject#GetProjectConfigFile('.jscsrc')
+  if !empty(l:jscsrc)
+    "let b:dko_js_linters += ['jscs']
+  endif
+
+  return b:dko_js_linters
+endfunction
+
+
+let &cpoptions = s:cpo_save
 unlet s:cpo_save
 

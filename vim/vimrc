@@ -377,15 +377,17 @@ if s:dko_use_plugins
   if has('nvim') | let g:dko_plugdir = '/plug/nvim' | endif
 
   " ==========================================================================
-  " What to load
+  " What to load - set first number to turn on/off
   " ==========================================================================
 
-  let s:dko_use_incsearch       = !has('nvim')
-  let s:dko_use_deoplete        = has('nvim') && has('python3')
-  let s:dko_use_neocomplete     = !has('nvim') && has('lua')
+  let s:dko_use_incsearch       = 1 && !has('nvim')
+  let s:dko_use_deoplete        = 1 && has('nvim') && has('python3')
+  let s:dko_use_neocomplete     = 1 && !has('nvim') && has('lua')
   let s:dko_use_neosnippet      = 0
   let s:dko_use_tern_completion = 1 && (has('python') || has('python3'))
 
+  let s:dko_use_neomake   = 0
+  let s:dko_use_syntastic = 1 && !s:dko_use_neomake
   let s:dko_use_airline   = 1
   let s:dko_use_gutentags = 1
   let s:dko_use_colorv    = 1 && (has('python') || has('python3'))
@@ -472,8 +474,13 @@ if s:dko_use_plugins
   " add gS to smart split lines like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
 
-  Plug 'scrooloose/syntastic'
-        \| Plug 'davidosomething/syntastic-hbstidy'
+  if s:dko_use_neomake | Plug 'benekastah/neomake'
+  endif
+
+  if s:dko_use_syntastic
+    Plug 'scrooloose/syntastic'
+          \| Plug 'davidosomething/syntastic-hbstidy'
+  endif
 
   " ========================================================================
   " Plug: Completion
@@ -488,7 +495,7 @@ if s:dko_use_plugins
         \ || exists("g:plugs['deoplete.nvim']")
 
   if g:dko_has_completion
-    "Full syntax completion - super slow
+    "Full syntax completion - super slow, like syntaxcomplete
     "Plug 'Shougo/neco-syntax', { 'for': ['scss'] }
 
     " Mixed-filetype completion for Shougo complete, e.g. highlight JS within
@@ -764,7 +771,8 @@ if s:dko_use_plugins
   "       \| Plug 'syngan/vim-vimlint', { 'for': ['vim'] }
 
   " Python plugin, probably not using it
-  if executable('vint') | Plug 'todesking/vint-syntastic'
+  if s:dko_use_syntastic && executable('vint')
+    Plug 'todesking/vint-syntastic'
   endif
 
   " ========================================================================
