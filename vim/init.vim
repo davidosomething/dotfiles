@@ -1,6 +1,8 @@
 " neovim init
 
-let g:dko_nvim_dir = fnamemodify(resolve(expand("$MYVIMRC")), ":p:h")
+let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+
+set t_Co=256
 
 " disable python2
 let g:loaded_python_provider = 1

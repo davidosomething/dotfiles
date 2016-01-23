@@ -444,8 +444,12 @@ if s:dko_use_plugins
         "\| Plug 'ujihisa/unite-font'
 
   " <F5> toggle color
-  Plug 'altercation/vim-colors-solarized'
-  Plug 'chriskempson/base16-vim'
+  if has('nvim')
+    Plug 'mhartington/oceanic-next'
+  else
+    Plug 'altercation/vim-colors-solarized'
+    Plug 'chriskempson/base16-vim'
+  endif
 
   " <F6>
   Plug 'nathanaelkane/vim-indent-guides'

@@ -1,6 +1,11 @@
 " plugin/colorscheme.vim
 
-if has('gui_running') && exists("g:plugs['vim-colors-solarized']")
+if has('nvim') && exists("g:plugs['oceanic-next']")
+
+  colorscheme OceanicNext
+  set background=dark
+
+elseif has('gui_running') && exists("g:plugs['vim-colors-solarized']")
 
   " turn off gross italics -- fira sans happens to use ligatures too
   let g:solarized_italic  = 0
