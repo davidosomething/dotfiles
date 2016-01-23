@@ -92,10 +92,11 @@ _update_brew() {
 
 _update_dotfiles() {
   dkostatus "Updating dotfiles"
-  cd "$DOTFILES" && \
-    git pull --rebase --recurse-submodules && \
+  cd "$DOTFILES" || exit 1
+  git pull --rebase --recurse-submodules && {
     git submodule update --init
-  [[ -n "$ZPLUG_VERSION" ]] && zplug update
+    [[ -n "$ZPLUG_VERSION" ]] && zplug update
+  }
 }
 
 
