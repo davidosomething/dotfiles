@@ -401,6 +401,17 @@ if s:dko_use_plugins
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
 
   " ========================================================================
+  " Plug: Colorscheme
+  " ========================================================================
+
+  if has('nvim') | Plug 'mhartington/oceanic-next'
+  endif
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'chriskempson/base16-vim'
+  Plug 'junegunn/seoul256.vim'
+  Plug 'morhetz/gruvbox'
+
+  " ========================================================================
   " Plug: Python virtualenv support
   " ========================================================================
 
@@ -420,7 +431,7 @@ if s:dko_use_plugins
   endif
 
   " ========================================================================
-  " Plug: Commands + Colorscheme
+  " Plug: Commands
   " ========================================================================
 
   " Mostly for :Gblame
@@ -445,13 +456,6 @@ if s:dko_use_plugins
         \| Plug 'Shougo/unite-outline'
         \| Plug 'Shougo/vimfiler.vim'
         "\| Plug 'ujihisa/unite-font'
-
-  " <F5> toggle color
-  if has('nvim') | Plug 'mhartington/oceanic-next'
-  endif
-  Plug 'altercation/vim-colors-solarized'
-  Plug 'chriskempson/base16-vim'
-  Plug 'junegunn/seoul256.vim'
 
   " <F6>
   Plug 'nathanaelkane/vim-indent-guides'
