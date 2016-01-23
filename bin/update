@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 # Update dotfiles and provide instructions for updating the system
 #
 
