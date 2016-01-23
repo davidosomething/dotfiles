@@ -95,6 +95,7 @@ _update_dotfiles() {
   cd "$DOTFILES" && \
     git pull --rebase --recurse-submodules && \
     git submodule update --init
+  [[ -n "$ZPLUG_VERSION" ]] && zplug update
 }
 
 
