@@ -15,7 +15,6 @@ dkostatus "Symlinking dotfiles"
 dkosymlink vim/spell/en.utf-8.add               .aspell.en.pws
 dkosymlink ctags/.ctags.symlink                 .ctags
 dkosymlink mdl/.mdlrc.symlink                   .mdlrc
-dkosymlink ruby/.gemrc.symlink                  .gemrc
 
 # XDG-compatible
 dkosymlink git/.gitconfig.symlink               .config/git/config

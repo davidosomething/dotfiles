@@ -2,6 +2,8 @@
 
 export DKO_SOURCE="$DKO_SOURCE -> shell/ruby"
 
+export GEMRC="${DOTFILES}/ruby/gemrc"
+
 # Ruby use brew openssl if available
 [[ -f "${BREW_PREFIX}/opt/openssl" ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${BREW_PREFIX}/opt/openssl"
 
