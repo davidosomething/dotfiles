@@ -143,6 +143,10 @@ export VAGRANT_HOME="${XDG_CONFIG_HOME}/vagrant"
 # export VOPEN_EDITOR="nvim"
 # export VOPEN_VISUAL="nvim"
 
+# weechat
+export WEECHAT_HOME="${DOTFILES}/weechat"
+
+# wp cli
 export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
 
 # X11 - for starting via xinit or startx
