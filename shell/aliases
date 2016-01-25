@@ -86,7 +86,7 @@ alias eze='e $ZDOTDIR/.zshenv.symlink'
 alias ezr='e $ZDOTDIR/.zshrc'
 
 _alias_ls() {
-  local almost_all="--almost-all"
+  local almost_all="-A" # switchted from --almost-all for old bash support
   local classify="-F" # switched from --classify for old bash support
   local colorized="--color=auto"
   local groupdirs="--group-directories-first"
