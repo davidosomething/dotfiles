@@ -262,8 +262,6 @@ set nojoinspaces                      " J command doesn't add extra space
 " ----------------------------------------------------------------------------
 
 set autoindent                        " indent when creating newline
-set smartindent                       " add an indent level inside braces
-set nocindent                         " testing cindent...
 
 " for autoindent, use same spaces/tabs mix as previous line, even if
 " tabs/spaces are mixed. Helps for docblock, where the block comments have a
@@ -273,6 +271,14 @@ set copyindent
 " Try not to change the indent structure on "<<" and ">>" commands. I.e. keep
 " block comments aligned with space if there is a space there.
 set preserveindent
+
+" Smart detect when in braces and parens. Has annoying side effect that it
+" won't indent lines beginning with '#'. Relying on syntax indentexpr instead.
+set nosmartindent
+
+" Global setting. I don't edit C-style code all the time so don't default to
+" C-style indenting.
+set nocindent
 
 " ----------------------------------------------------------------------------
 " Tabbing - overridden by editorconfig, after/ftplugin
