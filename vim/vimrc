@@ -395,8 +395,10 @@ if s:dko_use_plugins
   let s:dko_use_neosnippet      = 0
   let s:dko_use_tern_completion = 1 && (has('python') || has('python3'))
 
-  let s:dko_use_neomake   = 0
+  let s:dko_use_neomake   = 0 && has('nvim')
   let s:dko_use_syntastic = 1 && !s:dko_use_neomake
+  let s:dko_use_watchdogs = 0 && !s:dko_use_neomake
+
   let s:dko_use_airline   = 1
   let s:dko_use_gutentags = 1
   let s:dko_use_colorv    = 1 && (has('python') || has('python3'))
@@ -405,6 +407,12 @@ if s:dko_use_plugins
 
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
+
+  " ==========================================================================
+  " Plug: Async processes
+  " ==========================================================================
+
+  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
   " ========================================================================
   " Plug: Colorscheme
@@ -457,12 +465,13 @@ if s:dko_use_plugins
   " <F9> file browser (vimfiler)
   " <F10> outline mode browser (unite-outline)
   " Most recently used files for unite.vim -- config is in unite.vim
-  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-        \| Plug 'Shougo/neomru.vim'
-        \| Plug 'Shougo/unite.vim'
-        \| Plug 'Shougo/unite-outline'
-        \| Plug 'Shougo/vimfiler.vim'
-        "\| Plug 'ujihisa/unite-font'
+  if exists("g:plugs['vimproc.vim']")
+    Plug 'Shougo/neomru.vim'
+          \| Plug 'Shougo/unite.vim'
+          \| Plug 'Shougo/unite-outline'
+          \| Plug 'Shougo/vimfiler.vim'
+          "\| Plug 'ujihisa/unite-font'
+  endif
 
   " <F6>
   Plug 'nathanaelkane/vim-indent-guides'
@@ -497,6 +506,19 @@ if s:dko_use_plugins
   if s:dko_use_syntastic
     Plug 'scrooloose/syntastic'
           \| Plug 'davidosomething/syntastic-hbstidy'
+  endif
+
+  if s:dko_use_watchdogs && exists("g:plugs['vimproc.vim']")
+    " vim-quickrun    - run async process
+    " shabadou.vim    - hooks for quickrun
+    " vim-watchdogs   - quickrun linters sync
+    " vim-hier        - highlight qf errors
+    " quickfixstatus  - easy output to qf
+    Plug 'thinca/vim-quickrun'
+          \| Plug 'osyo-manga/shabadou.vim'
+          \| Plug 'osyo-manga/vim-watchdogs'
+          "\| Plug 'cohama/vim-hier'
+          "\| Plug 'dannyob/quickfixstatus'
   endif
 
   " ========================================================================
