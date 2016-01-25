@@ -87,7 +87,7 @@ alias ezr='e $ZDOTDIR/.zshrc'
 
 _alias_ls() {
   local almost_all="--almost-all"
-  local classify="--classify"
+  local classify="-F" # switched from --classify for old bash support
   local colorized="--color=auto"
   local groupdirs="--group-directories-first"
   local long="-l"
