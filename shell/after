@@ -10,8 +10,10 @@ export DKO_SOURCE="$DKO_SOURCE -> shell/after {"
 # ==============================================================================
 
 # ZSH one loaded by plugin
-[ -n "$ZSH_VERSION" ] && eval "$(grunt --completion=zsh)"
-[ -n "$BASH" ] && eval "$(grunt --completion=bash)"
+has_program "grunt" && {
+  [ -n "$ZSH_VERSION" ] && eval "$(grunt --completion=zsh)"
+  [ -n "$BASH" ] && eval "$(grunt --completion=bash)"
+}
 
 # ==============================================================================
 # hub -> git alias
