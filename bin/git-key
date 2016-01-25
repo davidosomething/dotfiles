@@ -9,7 +9,7 @@ set -eu
 
 _git_key() {
   local gituser
-  gituser=${1:-$(git config --get github.user)}
+  gituser="${1:-$(git config --get github.user)}"
   curl "https://github.com/${gituser}.keys"
 }
 
