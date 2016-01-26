@@ -598,12 +598,14 @@ if s:dko_use_plugins
   " provide a= and i= for conflicts
   Plug 'kana/vim-textobj-user'
         \| Plug 'kana/vim-textobj-entire'
-        \| Plug 'kana/vim-textobj-function'
         \| Plug 'kana/vim-textobj-indent'
         \| Plug 'kana/vim-textobj-line'
         \| Plug 'akiyan/vim-textobj-php'
         \| Plug 'mattn/vim-textobj-url'
         \| Plug 'rhysd/vim-textobj-conflict'
+        \| Plug 'kana/vim-textobj-function'
+        \| Plug 'thinca/vim-textobj-function-javascript'
+        \| Plug 'kentaro/vim-textobj-function-php'
 
   " ========================================================================
   " Plug: Language
