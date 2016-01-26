@@ -10,7 +10,7 @@ if s:use_solarized
   let g:solarized_italic  = 0
   let g:solarized_menu    = 0
 
-  colorscheme solarized
+  silent! colorscheme solarized
   set background=light
 
 else " terminal vim
@@ -19,16 +19,16 @@ else " terminal vim
     if exists("g:plugs['vim-hybrid']")
       " let g:hybrid_custom_term_colors = 1
       " let g:hybrid_reduced_contrast   = 1
-      colorscheme hybrid
+      silent! colorscheme hybrid
     elseif exists("g:plugs['gruvbox']")
       let g:gruvbox_contrast_dark      = 'hard'
       let g:gruvbox_contrast_light     = 'hard'
       let g:gruvbox_italicize_comments = 0
       let g:gruvbox_invert_selection   = 0
-      colorscheme gruvbox
+      silent! colorscheme gruvbox
     elseif exists("g:plugs['seoul256.vim']")
       let g:seoul256_background = 234
-      colorscheme seoul256
+      silent! colorscheme seoul256
     endif
   else
     colorscheme delek
