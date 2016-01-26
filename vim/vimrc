@@ -382,8 +382,13 @@ if s:dko_use_plugins
     autocmd vimrc VimEnter * PlugInstall | source $MYVIMRC
   endif
 
-  let g:dko_plugdir = '/plug/vim'
-  if has('nvim') | let g:dko_plugdir = '/plug/nvim' | endif
+  " ==========================================================================
+  " Which plugin set to use?
+  " ==========================================================================
+
+  let s:dko_plug_dir = '/plug/vim'
+  if has('nvim') | let s:dko_plug_dir = '/plug/nvim' | endif
+  let g:dko_plug_absdir = g:dko_vim_dir . s:dko_plug_dir
 
   " ==========================================================================
   " What to load - set first number to turn on/off
@@ -403,7 +408,7 @@ if s:dko_use_plugins
   let s:dko_use_gutentags = 1
   let s:dko_use_colorv    = 1 && (has('python') || has('python3'))
 
-  call plug#begin(g:dko_vim_dir . g:dko_plugdir)
+  call plug#begin(g:dko_plug_absdir)
 
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
@@ -421,7 +426,7 @@ if s:dko_use_plugins
   if has('nvim') | Plug 'mhartington/oceanic-next'
   endif
   Plug 'altercation/vim-colors-solarized'
-  Plug 'chriskempson/base16-vim'
+  "Plug 'chriskempson/base16-vim'
   Plug 'junegunn/seoul256.vim'
   Plug 'morhetz/gruvbox'
   Plug 'w0ng/vim-hybrid'

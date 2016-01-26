@@ -17,7 +17,7 @@ endif
 " ============================================================================
 if exists("g:plugs['pdv']")
   let g:pdv_template_dir =
-        \ expand(g:dko_vim_dir . g:dko_plugdir . '/pdv/templates')
+        \ expand(g:dko_plug_absdir . '/pdv/templates')
 
   nnoremap <silent><buffer> <Leader>pd :call pdv#DocumentCurrentLine()<CR>
 endif
