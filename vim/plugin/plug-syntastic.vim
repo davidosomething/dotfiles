@@ -24,8 +24,8 @@ let g:syntastic_filetype_map = {
       \ }
 
 " Display
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list            = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list            = 0
 let g:syntastic_loc_list_height          = g:dko_loc_list_height
 let g:syntastic_aggregate_errors         = 1
 let g:syntastic_enable_balloons          = 0
