@@ -471,10 +471,10 @@ if s:dko_use_plugins
   " <F10> outline mode browser (unite-outline)
   " Most recently used files for unite.vim -- config is in unite.vim
   if exists("g:plugs['vimproc.vim']")
-    Plug 'Shougo/neomru.vim'
-          \| Plug 'Shougo/unite.vim'
-          \| Plug 'Shougo/unite-outline'
+    Plug 'Shougo/unite.vim'
+          \| Plug 'Shougo/neomru.vim'
           \| Plug 'Shougo/vimfiler.vim'
+          \| Plug 'Shougo/unite-outline'
           "\| Plug 'ujihisa/unite-font'
   endif
 
