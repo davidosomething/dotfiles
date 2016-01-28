@@ -59,6 +59,10 @@ em() {
   if [ "$PWD" != "$my_pwd" ]; then popd; fi
 }
 
+evp() {
+  vopen "$VIM_DOTFILES/plugin/$1"
+}
+
 # PHP version numbers
 # @TODO use cut instead of splitting awk?
 phpver() {

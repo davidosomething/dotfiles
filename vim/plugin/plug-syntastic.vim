@@ -33,8 +33,8 @@ let g:syntastic_enable_balloons          = 0
 " Signs
 let g:syntastic_enable_signs         = 1
 let g:syntastic_error_symbol         = '☠'
-let g:syntastic_style_error_symbol   = '☓'
-let g:syntastic_warning_symbol       = '⚠'
+let g:syntastic_style_error_symbol   = '☠'
+let g:syntastic_warning_symbol       = '⚑'
 let g:syntastic_style_warning_symbol = '⚑'
 
 let g:syntastic_ignore_files = [
