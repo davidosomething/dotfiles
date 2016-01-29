@@ -497,9 +497,9 @@ if s:dko_use_plugins
   "   endif
   "   Plug 'editorconfig/editorconfig-vim'
   " endif
-  "Plug 'sgur/vim-editorconfig'
-  " Using my fork since I fixed some things...
-  Plug 'davidosomething/vim-editorconfig', { 'branch': 'lint-skip-comments' }
+  Plug 'sgur/vim-editorconfig'
+  " my fork ...
+  "Plug 'davidosomething/vim-editorconfig', { 'branch': 'lint-skip-comments' }
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
@@ -588,22 +588,24 @@ if s:dko_use_plugins
   " fast increment datetimes
   Plug 'tpope/vim-speeddating'
 
+  " Probably switch to operator-surround soon...
   Plug 'tpope/vim-surround'
 
   " used for line bubbling commands on osx
   Plug 'tpope/vim-unimpaired'
 
-  " provide ai and ii for indent blocks
-  " provide al and il for current line
-  " provide a_ and i_ for underscores
-  " provide a- and i-
-  " provide a= and i= for conflicts
+  " i/a= and i= for conflicts marked blocks
+  " i/ab for any block type (parens, braces, quotes, ltgt)
+  " i/ai for indent level
+  " i/al for current line
+  " i/af for function (c, java, js, php, vim only)
   Plug 'kana/vim-textobj-user'
         \| Plug 'kana/vim-textobj-entire'
         \| Plug 'kana/vim-textobj-indent'
         \| Plug 'kana/vim-textobj-line'
         \| Plug 'akiyan/vim-textobj-php'
         \| Plug 'mattn/vim-textobj-url'
+        \| Plug 'rhysd/vim-textobj-anyblock'
         \| Plug 'rhysd/vim-textobj-conflict'
         \| Plug 'kana/vim-textobj-function'
         \| Plug 'thinca/vim-textobj-function-javascript'
