@@ -35,6 +35,8 @@ if has('gui_macvim')
 else
   set guifont=Fura\ Mono\ For\ Powerline\ 9
 
+  cnoremap <S-Insert> <MiddleMouse>
+
 endif
 
 " ============================================================================

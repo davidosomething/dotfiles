@@ -497,7 +497,9 @@ if s:dko_use_plugins
   "   endif
   "   Plug 'editorconfig/editorconfig-vim'
   " endif
-  Plug 'sgur/vim-editorconfig'
+  "Plug 'sgur/vim-editorconfig'
+  " Using my fork since I fixed some things...
+  Plug 'davidosomething/vim-editorconfig', { 'branch': 'lint-skip-comments' }
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
