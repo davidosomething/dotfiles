@@ -75,15 +75,13 @@
     background_image = None
     cursor_color = "#a7a7a7"
     custom_command = cd $HOME; $SHELL
-    exit_action = hold
     font = Fira Mono for Powerline 10
     foreground_color = "#a7a7a7"
-    login_shell = True
     palette = "#1e1e1e:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#a7a7a7:#5f5a60:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#ffffff"
     scrollback_infinite = True
     scrollbar_position = hidden
     show_titlebar = False
-    update_records = False
+    use_custom_command = True
     use_system_font = False
   [[nocolor]]
     background_image = None
