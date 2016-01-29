@@ -12,6 +12,7 @@ ffi
 gem-browse
 gemoji
 github-markup
+global
 highline
 htmlentities
 httpclient
