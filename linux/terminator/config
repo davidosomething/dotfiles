@@ -1,18 +1,68 @@
 [global_config]
-  dbus = True
-  enabled_plugins = TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  broadcast_default = off
+  enabled_plugins = TerminalShot,
   focus = system
+  geometry_hinting = True
+  handle_size = 1
+  inactive_color_offset = 0.6
   sticky = True
   suppress_multiple_term_dialog = True
   title_font = Fura Mono for Powerline 10
-  title_inactive_bg_color = "#5f5a60"
-  title_transmit_bg_color = "#cf6a4c"
+  title_hide_sizetext = True
+  title_inactive_bg_color = "#141414"
+  title_inactive_fg_color = "#b8b8b8"
+  title_transmit_bg_color = "#404040"
+  title_transmit_fg_color = "#cccccc"
 [keybindings]
+  broadcast_all = None
+  broadcast_group = None
+  broadcast_off = None
+  close_window = None
+  copy = None
+  cycle_next = None
+  cycle_prev = None
+  edit_tab_title = None
+  edit_terminal_title = None
+  edit_window_title = None
+  go_down = <Primary><Super>Down
+  go_left = <Primary><Super>Left
+  go_next = None
+  go_prev = None
+  go_right = <Primary><Super>Right
+  go_up = <Primary><Super>Up
+  group_all = None
+  group_tab = None
+  help = None
+  hide_window = None
+  insert_number = None
+  insert_padded = None
+  layout_launcher = None
+  move_tab_left = None
+  move_tab_right = None
+  new_terminator = None
+  new_window = None
+  paste = None
+  reset = None
+  reset_clear = None
+  resize_down = <Shift><Super>Down
+  resize_left = <Shift><Super>Left
+  resize_right = <Shift><Super>Right
+  resize_up = <Shift><Super>Up
+  rotate_ccw = None
+  rotate_cw = None
+  scaled_zoom = None
+  search = None
+  split_horiz = <Primary><Super>s
+  split_vert = <Primary><Super>v
+  toggle_scrollbar = None
+  toggle_zoom = None
+  ungroup_all = None
+  ungroup_tab = None
 [layouts]
   [[default]]
     [[[child1]]]
       parent = window0
-      profile = Default
+      profile = default
       type = Terminal
     [[[window0]]]
       parent = ""
@@ -25,12 +75,15 @@
     background_image = None
     cursor_color = "#a7a7a7"
     custom_command = cd $HOME; $SHELL
+    exit_action = hold
     font = Fira Mono for Powerline 10
     foreground_color = "#a7a7a7"
+    login_shell = True
     palette = "#1e1e1e:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#a7a7a7:#5f5a60:#cf6a4c:#8f9d6a:#f9ee98:#7587a6:#9b859d:#afc4db:#ffffff"
-    scroll_on_output = False
     scrollback_infinite = True
+    scrollbar_position = hidden
     show_titlebar = False
-    use_custom_command = True
+    update_records = False
     use_system_font = False
   [[nocolor]]
+    background_image = None
