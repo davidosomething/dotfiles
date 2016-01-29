@@ -71,17 +71,19 @@ way to find them.
 
 ### Function Keys
 
-- `<F1>` unite fuzzy search files
-- `<F2>` unite fuzzy search most recently used files
-- `<F3>` unite grep via ag
-- `<F4>` unite buffers
-- `<F5>` --
-- `<F6>` toggle indent guides
-- `<F7>` OverCommandLine for subst
+Unite keys are arranged by search context from big to small
+
+- `<F1>` unite fuzzy search files (filesystem)
+- `<F2>` unite fuzzy search most recently used files (limited filesystem)
+- `<F3>` unite grep via ag (project)
+- `<F4>` unite buffers (current vim)
+- `<F5>` unite outline (current buffer)
+- `<F6>` unite gtags for queried word (project)
+- `<F7>` unite gtags for word under cursor (project)
 - `<F8>` unite command palette
-- `<F9>` left pane: vimfiler
-- `<F10>` unite outline
-- `<F11>` --
+- `<F9>` toggle indent guides
+- `<F10>` left pane: vimfiler
+- `<F11>` OverCommandLine for subst
 - `<F12>` toggle paste mode
 
 See `plugin/mappings.vim` for mappings not associated to vim-plug-managed

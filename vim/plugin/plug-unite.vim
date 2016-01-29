@@ -4,11 +4,47 @@
 " Those need to be available before calling.
 "
 
+if !exists("g:plugs['unite.vim']") | finish | endif
+
+augroup dkounite
+  autocmd!
+augroup END
+
+" ============================================================================
+" Extension: neomru settings
+" ============================================================================
+
+if exists("g:plugs['neomru.vim']")
+  " Update cache every 5 minutes
+  let g:neomru#update_interval = 300
+
+  " Fewer files in mru
+  let g:neomru#file_mru_limit = 200
+
+  " A
+  " Don't list directories
+  let g:neomru#directory_mru_limit = 0
+endif
+
+" ============================================================================
+" Extension: unite-gtags
+" ============================================================================
+
+function! s:set_gtags_root()
+  if empty(dkoproject#GetProjectRoot())
+    return
+  endif
+  let $GTAGSROOT = dkoproject#GetProjectRoot()
+  let $GTAGSDBPATH = dkoproject#GetProjectRoot() . '/.git'
+endfunction
+
+if exists("g:plugs['unite-gtags']")
+  autocmd dkounite BufNew,BufEnter * call s:set_gtags_root()
+endif
+
 " ============================================================================
 " unite settings
 " ============================================================================
-
-if !exists("g:plugs['unite.vim']") | finish | endif
 
 " candidates
 let g:unite_source_grep_max_candidates = 300
@@ -38,22 +74,6 @@ if executable('ag')
   let g:unite_source_grep_command       = 'ag'
   let g:unite_source_grep_default_opts  = s:ag_opts
   let g:unite_source_grep_recursive_opt = ''
-endif
-
-" ============================================================================
-" neomru settings
-" ============================================================================
-
-if exists("g:plugs['neomru.vim']")
-  " Update cache every 5 minutes
-  let g:neomru#update_interval = 300
-
-  " Fewer files in mru
-  let g:neomru#file_mru_limit = 200
-
-  " A
-  " Don't list directories
-  let g:neomru#directory_mru_limit = 0
 endif
 
 " ============================================================================
@@ -125,10 +145,7 @@ function! s:unite_profiles()
 
 endfunction
 
-augroup dkounite
-  autocmd!
-  autocmd VimEnter * call s:unite_profiles()
-augroup END
+autocmd dkounite VimEnter * call s:unite_profiles()
 
 " ============================================================================
 " Unite buffer keybindings
@@ -141,7 +158,7 @@ function! s:unite_keybindings()
 
   " also exit on unite-bound function keys, so you can toggle open and
   " close with same key
-  for l:fk in ['<F1>', '<F2>', '<F3>', '<F4>', '<F8>', '<F10>', '<F11>']
+  for l:fk in [ '<F1>', '<F2>', '<F3>', '<F4>', '<F5>', '<F8>' ]
     execute 'imap <buffer> ' . l:fk . ' '
           \ . '<Plug>(unite_insert_leave)'
           \ . '<Plug>(unite_cursor_bottom)'
@@ -170,18 +187,20 @@ function! s:unite_mappings()
   vnoremap <silent> <F1> <Esc>:<C-u>Unite -start-insert file_rec/async:!<CR>
 
   " ============================================================================
-  " Keybinding: recently used
+  " Keybinding: neomru - recently used
   " ============================================================================
 
-  nnoremap <silent> <F2> :<C-u>Unite -start-insert neomru/file<CR>
-  inoremap <silent> <F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
-  vnoremap <silent> <F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
+  if exists("g:plugs['neomru.vim']")
+    nnoremap <silent> <F2> :<C-u>Unite -start-insert neomru/file<CR>
+    inoremap <silent> <F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
+    vnoremap <silent> <F2> <Esc>:<C-u>Unite -start-insert neomru/file<CR>
+  endif
 
   " ============================================================================
   " Keybinding: find in files (ag.vim/ack.vim replacement)
   " ============================================================================
 
-  nnoremap <silent> <F3> :<C-u>Unite grep:.<CR>
+  nnoremap <silent> <F3> :<C-u>UniteWithProjectDir grep:.<CR>
   inoremap <silent> <F3> <Esc>:<C-u>UniteWithProjectDir grep:.<CR>
   vnoremap <silent> <F3> <Esc>:<C-u>UniteWithProjectDir grep:.<CR>
 
@@ -194,20 +213,44 @@ function! s:unite_mappings()
   vnoremap <silent> <F4> <Esc>:<C-u>Unite buffer<CR>
 
   " ============================================================================
+  " Keybinding: outline
+  " ============================================================================
+
+  nnoremap <silent> <F5> :<C-u>Unite outline<CR>
+  inoremap <silent> <F5> <Esc>:<C-u>Unite outline<CR>
+  vnoremap <silent> <F5> <Esc>:<C-u>Unite outline<CR>
+
+  " ============================================================================
+  " Keybinding: gtags
+  " ============================================================================
+
+  if exists("g:plugs['unite-gtags']")
+
+    " ----------------------------------------
+    " Keybinding: gtags grep pattern
+    " ----------------------------------------
+
+    nnoremap <silent> <F6> :<C-u>Unite gtags/grep<CR>
+    inoremap <silent> <F6> <Esc>:<C-u>Unite gtags/grep<CR>
+    vnoremap <silent> <F6> <Esc>:<C-u>Unite gtags/grep<CR>
+
+    " ----------------------------------------
+    " Keybinding: gtags defs+refs for cursor
+    " ----------------------------------------
+
+    nnoremap <silent> <F7> :<C-u>Unite gtags/context<CR>
+    inoremap <silent> <F7> <Esc>:<C-u>Unite gtags/context<CR>
+    vnoremap <silent> <F7> <Esc>:<C-u>Unite gtags/context<CR>
+
+  endif
+
+  " ============================================================================
   " Keybinding: Command Palette
   " ============================================================================
 
   nnoremap <silent> <F8> :<C-u>Unite -start-insert command<CR>
   inoremap <silent> <F8> <Esc>:<C-u>Unite -start-insert command<CR>
   vnoremap <silent> <F8> <Esc>:<C-u>Unite -start-insert command<CR>
-
-  " ============================================================================
-  " Keybinding: outline
-  " ============================================================================
-
-  nnoremap <silent> <F10> :<C-u>Unite outline<CR>
-  inoremap <silent> <F10> <Esc>:<C-u>Unite outline<CR>
-  vnoremap <silent> <F10> <Esc>:<C-u>Unite outline<CR>
 
   " ============================================================================
   " Keybinding: find in yank history

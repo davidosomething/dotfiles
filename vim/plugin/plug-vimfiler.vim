@@ -32,7 +32,7 @@ function! s:DKO_VimFilerExplorer()
   VimFilerExplorer -parent -explorer-columns=type
 endfunction
 
-nnoremap <silent> <F9>  :call <SID>DKO_VimFilerExplorer()<CR>
-inoremap <silent> <F9>  <Esc>:call <SID>DKO_VimFilerExplorer()<CR>
-vnoremap <silent> <F9>  <Esc>:call <SID>DKO_VimFilerExplorer()<CR>
+nnoremap <silent> <F10>  :call <SID>DKO_VimFilerExplorer()<CR>
+inoremap <silent> <F10>  <Esc>:call <SID>DKO_VimFilerExplorer()<CR>
+vnoremap <silent> <F10>  <Esc>:call <SID>DKO_VimFilerExplorer()<CR>
 

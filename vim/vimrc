@@ -463,25 +463,19 @@ if s:dko_use_plugins
   " gK to lookup
   Plug 'keith/investigate.vim'
 
-  " <F1> fuzzy find
-  " <F2> recently used (neomru)
-  " <F3> grep
-  " <F8> command palette
-  " <F9> file browser (vimfiler)
-  " <F10> outline mode browser (unite-outline)
   " Most recently used files for unite.vim -- config is in unite.vim
   if exists("g:plugs['vimproc.vim']")
     Plug 'Shougo/unite.vim'
           \| Plug 'Shougo/neomru.vim'
-          \| Plug 'Shougo/vimfiler.vim'
           \| Plug 'Shougo/unite-outline'
+          "\| Plug 'Shougo/vimfiler.vim'
+          "\| Plug 'hewes/unite-gtags'
           "\| Plug 'ujihisa/unite-font'
+          "\| Plug 'ujihisa/unite-colorscheme'
   endif
 
-  " <F6>
   Plug 'nathanaelkane/vim-indent-guides'
 
-  " <F7> - command mode with instant results when doing subst %s
   Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite

@@ -156,7 +156,7 @@ if exists('g:plugs["vim-better-javascript-completion"]')
 
   if exists('g:plugs["neocomplete.vim"]')
     " Prepend to sources
-    call insert(g:neocomplete#sources#omni#functions.javascript, 'js#CompleteJS')
+    "call insert(g:neocomplete#sources#omni#functions.javascript, 'js#CompleteJS')
   endif
 
 endif

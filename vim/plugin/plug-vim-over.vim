@@ -7,7 +7,7 @@ let g:over_command_line_key_mappings = {
       \   "\<F7>": "\<Esc>",
       \ }
 
-inoremap <silent> <F7>   <Esc>:OverCommandLine<CR>
-nnoremap <silent> <F7>   :OverCommandLine<CR>
-vnoremap <silent> <F7>   <Esc>:OverCommandLine<CR>
+inoremap <silent> <F11>   <Esc>:OverCommandLine<CR>
+nnoremap <silent> <F11>   :OverCommandLine<CR>
+vnoremap <silent> <F11>   <Esc>:OverCommandLine<CR>
 
