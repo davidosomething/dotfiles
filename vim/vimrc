@@ -185,6 +185,12 @@ execute 'set directory=' . g:dko_vim_dir . '/.tmp/swap//'
 execute 'set spellfile=' . glob(expand(g:dko_vim_dir . '/en.utf-8.add'))
 
 " ----------------------------------------------------------------------------
+" Completion -- see also plugins/completion.vim
+" ----------------------------------------------------------------------------
+
+set omnifunc=syntaxcomplete#Complete
+
+" ----------------------------------------------------------------------------
 " Splits and buffers
 " ----------------------------------------------------------------------------
 
@@ -395,8 +401,9 @@ if s:dko_use_plugins
   " ==========================================================================
 
   let s:dko_use_incsearch       = 1 && !has('nvim')
+
   let s:dko_use_deoplete        = 1 && has('nvim') && has('python3')
-  let s:dko_use_neocomplete     = 1 && !has('nvim') && has('lua')
+  let s:dko_use_neocomplete     = 1 && has('lua')
   let s:dko_use_neosnippet      = 0
   let s:dko_use_tern_completion = 1 && (has('python') || has('python3'))
 
@@ -919,4 +926,3 @@ execute 'set runtimepath+=$HOME/.secret/vim'
 " The filename vimrc.vim only exists in ~/.secret/vim AFAIK, but might have to
 " change it if I find out otherwise...
 runtime! vimrc.vim
-
