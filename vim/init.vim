@@ -5,10 +5,9 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 set t_Co=256
 
 " disable python2
-let g:loaded_python_provider = 1
-
+"let g:loaded_python_provider = 1
 " set python3
-let g:python3_host_prog = '/usr/local/bin/python3'
+"let g:python3_host_prog = '~/.local/pyenv/shims/python'
 
 try
   " Neovim-qt Guifont command
