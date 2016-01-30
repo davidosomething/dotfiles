@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# vopen v1.0.0
+# vopen v1.0.1
 #
 # Automatically determine whether to use vim or gvim and use a single instance
 # Git commit messages will use a separate vim server called GIT
@@ -26,7 +26,7 @@ _vopen() {
 
   # which executable -----------------------------------------------------------
 
-  if command -v "$_vopen_visual"; then
+  if command -v "$_vopen_visual" >/dev/null 2>&1; then
     has_gui=true
   fi
 
