@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# vopen v0.1.1
+# vopen v1.0.0
 #
 # Automatically determine whether to use vim or gvim and use a single instance
 # Git commit messages will use a separate vim server called GIT
@@ -9,37 +9,50 @@
 #
 
 _vopen() {
-  local gui=false
-  local executable
-  local use_server=false
-  local has_server=false
-  local can_fork=true
-  local server=""
-  local servername="VIM-VOPEN"
-  local args
-  local files
   local _vopen_editor="${VOPEN_EDITOR:-vim}"
   local _vopen_visual="${VOPEN_VISUAL:-gvim}"
+  local has_gui=false
+  local use_gui=true
+  local has_server=false
+  local use_server="${VOPEN_USE_SERVER:-true}"
+  local server_exists=''
+  local has_fork=true
+  local servername="VOPEN"
+
+  local executable
+  local args
+  local server_arg=""
+  local files
 
   # which executable -----------------------------------------------------------
 
-  # Has framebuffer or is OSX
-  if [[ -n "$DISPLAY" ]] || [[ $OSTYPE == darwin* ]]; then
-    gui=true
-    servername="GVIM-VOPEN"
-    use_server=${VOPEN_ALLOW_SERVER:-true}
+  if command -v "$_vopen_visual"; then
+    has_gui=true
+  fi
+
+  if [ -z "$DISPLAY" ] || [[ $OSTYPE == darwin* ]]; then
+    has_gui=false
+  fi
+
+  if [ "$has_gui" = "false" ] || [ "$VOPEN_USE_GUI" = "false" ]; then
+    use_gui=false
   fi
 
   # Override editor if env var provides, otherwise use vim/gvim
-  if [ "$gui" = true ]; then
+  if [ "$use_gui" = true ] && [ "$has_gui" = true ]; then
     executable="$_vopen_visual"
   else
     executable="$_vopen_editor"
   fi
 
-  if [ "$executable" = "nvim" ]; then
+  if [[ "$executable" = *"vim" ]]; then
+    has_server=true
+  fi
+
+  if [[ "$executable" == *"nvim"* ]] || [ "$executable" = "nyaovim" ] ; then
+    has_server=false
     use_server=false
-    can_fork=false
+    has_fork=false
   fi
 
   # arg parsing ----------------------------------------------------------------
@@ -51,7 +64,7 @@ _vopen() {
         ;;
       "--nofork")             # never use server if nofork
         use_server=false
-        if [ "$can_fork" = "true" ]; then
+        if [ "$has_fork" = "true" ]; then
           args="$args --nofork"
         fi
         ;;
@@ -87,12 +100,12 @@ _vopen() {
 
   # server use -----------------------------------------------------------------
 
-  if [ "$use_server" = true ]; then
-    has_server=$( { $executable --serverlist | grep -n1 "$servername"; } 2>&1 )
-    server="--servername $servername"
+  if [ -n "$servername" ] && [ "$has_server" = true ] && [ "$use_server" = true ]; then
+    server_exists=$( $executable --serverlist | grep -n1 "$servername" 2>/dev/null )
+    server_arg="--servername $servername"
 
     # reuse server
-    if [ "$has_server" != "" ]; then
+    if [ "$server_exists" != "" ]; then
       if [ "$files" = "" ]; then
         args="$args --remote-send \":call foreground()<CR>\""
       else
@@ -108,7 +121,7 @@ _vopen() {
   fi
 
   # execute --------------------------------------------------------------------
-  eval "$executable $server $args $files"
+  eval "$executable $server_arg $args $files"
 }
 
 _vopen "$@"

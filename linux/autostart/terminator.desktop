@@ -138,7 +138,7 @@ Comment[vi]=Mở nhiều terminal trong cùng cửa sổ
 Comment[zh_CN]=一个窗口里多个终端
 Comment[zh_TW]=一視窗內含多個終端機
 TryExec=terminator
-Exec=terminator --geometry=640x480-50-50
+Exec=terminator --geometry=720x640-50-50
 Icon=terminator
 Type=Application
 Categories=GNOME;GTK;Utility;TerminalEmulator;System;
@@ -147,6 +147,6 @@ X-Ubuntu-Gettext-Domain=terminator
 X-Ayatana-Desktop-Shortcuts=NewWindow;
 [NewWindow Shortcut Group]
 Name=New Terminator Window
-Exec=terminator --geometry=640x480-50-50
+Exec=terminator --geometry=720x640-50-50
 TargetEnvironment=Unity
 

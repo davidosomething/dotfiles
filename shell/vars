@@ -91,7 +91,7 @@ export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
 # fzf
 # ** is globbing completion in zsh, use tickticktab instead
-export FZF_COMPLETION_TRIGGER='``'
+export FZF_COMPLETION_TRIGGER="\`\`"
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
@@ -140,8 +140,10 @@ export TRAVIS_CONFIG_PATH="${XDG_CONFIG_HOME}/travis"
 export VAGRANT_HOME="${XDG_CONFIG_HOME}/vagrant"
 
 # vopen
-# export VOPEN_EDITOR="nvim"
-# export VOPEN_VISUAL="nvim"
+export VOPEN_EDITOR="nvim"
+export VOPEN_VISUAL="gvim"
+export VOPEN_USE_GUI=false
+export VOPEN_USE_SERVER=true
 
 # weechat
 export WEECHAT_HOME="${DOTFILES}/weechat"
