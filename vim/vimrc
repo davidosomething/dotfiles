@@ -409,7 +409,6 @@ if s:dko_use_plugins
 
   let s:dko_use_neomake   = 0 && has('nvim')
   let s:dko_use_syntastic = 1 && !s:dko_use_neomake
-  let s:dko_use_watchdogs = 0 && !s:dko_use_neomake
 
   let s:dko_use_airline   = 1
   let s:dko_use_gutentags = 1
@@ -430,13 +429,8 @@ if s:dko_use_plugins
   " Plug: Colorscheme
   " ========================================================================
 
-  if has('nvim') | Plug 'mhartington/oceanic-next'
-  endif
   Plug 'altercation/vim-colors-solarized'
-  "Plug 'chriskempson/base16-vim'
-  Plug 'junegunn/seoul256.vim'
   Plug 'morhetz/gruvbox'
-  Plug 'w0ng/vim-hybrid'
 
   " ========================================================================
   " Plug: Python virtualenv support
@@ -470,7 +464,6 @@ if s:dko_use_plugins
   " gK to lookup
   Plug 'keith/investigate.vim'
 
-  " Most recently used files for unite.vim -- config is in unite.vim
   if exists("g:plugs['vimproc.vim']")
     Plug 'Shougo/unite.vim'
           \| Plug 'Shougo/neomru.vim'
@@ -514,19 +507,6 @@ if s:dko_use_plugins
   if s:dko_use_syntastic
     Plug 'scrooloose/syntastic'
           \| Plug 'davidosomething/syntastic-hbstidy'
-  endif
-
-  if s:dko_use_watchdogs && exists("g:plugs['vimproc.vim']")
-    " vim-quickrun    - run async process
-    " shabadou.vim    - hooks for quickrun
-    " vim-watchdogs   - quickrun linters sync
-    " vim-hier        - highlight qf errors
-    " quickfixstatus  - easy output to qf
-    Plug 'thinca/vim-quickrun'
-          \| Plug 'osyo-manga/shabadou.vim'
-          \| Plug 'osyo-manga/vim-watchdogs'
-          "\| Plug 'cohama/vim-hier'
-          "\| Plug 'dannyob/quickfixstatus'
   endif
 
   " ========================================================================
