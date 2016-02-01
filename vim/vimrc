@@ -404,7 +404,7 @@ if s:dko_use_plugins
 
   let s:dko_use_deoplete        = 1 && has('nvim') && has('python3')
   let s:dko_use_neocomplete     = 1 && has('lua')
-  let s:dko_use_neosnippet      = 0
+  let s:dko_use_neosnippet      = 1
   let s:dko_use_tern_completion = 1 && (has('python') || has('python3'))
 
   let s:dko_use_neomake   = 0 && has('nvim')
@@ -529,6 +529,10 @@ if s:dko_use_plugins
     " Markdown fenced code blocks.
     Plug 'Shougo/context_filetype.vim'
 
+    " Include completion
+    Plug 'Shougo/neoinclude.vim'
+
+    " Vim completion
     Plug 'Shougo/neco-vim', { 'for': ['vim'] }
 
     Plug '1995eaton/vim-better-javascript-completion'
