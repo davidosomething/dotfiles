@@ -225,8 +225,10 @@ if exists('g:plugs["deoplete.nvim"]')
   " ----------------------------------------
 
   " deoplete
-  " let g:deoplete#omni#input#patterns = {}
-  " let g:deoplete#omni#input#patterns.sh = '\w+\.'
+  let g:deoplete#omni#input#patterns = {}
+  for [s:ft, s:regexes] in items(s:oip)
+    let g:deoplete#omni#input#patterns[s:ft] = s:regexes
+  endfor
 
   " forced standard omni-completion
   " let g:deoplete#omni_patterns.sh = '\w+\.'
