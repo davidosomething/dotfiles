@@ -55,6 +55,7 @@ alias u="update"
 alias vag="vagrant"
 alias vb="VBoxManage"
 alias vbm="VBoxManage"
+alias weechat="weechat -d \${DOTFILES}/weechat"
 alias wget="wget --no-check-certificate"
 
 # sudo ops
