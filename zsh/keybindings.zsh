@@ -1,10 +1,11 @@
-# keybindings.zsh
+# zsh/keybindings.zsh
 
 export DKO_SOURCE="$DKO_SOURCE -> keybindings.zsh"
 
 # disable ^S and ^Q terminal freezing
 unsetopt flowcontrol
 
+# These keys should also be set in shell/.inputrc
 # search through history starting with current buffer contents
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
