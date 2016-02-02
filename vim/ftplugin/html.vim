@@ -14,6 +14,6 @@ let g:html_indent_autotags = 'html,head,body'
 
 if exists("g:plugs['html5.vim']")
   " see https://github.com/othree/html5.vim/blob/master/indent/html.vim#L23
-  let g:html_exclude_tags = ['html', 'head', 'style', 'script', 'body']
+  let g:html_exclude_tags = 'html,head,style,script,body'
 endif
 

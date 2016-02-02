@@ -131,7 +131,7 @@ endif
 function! s:DKO_FindScsslintConfig()
   let l:config = dkoproject#GetProjectConfigFile('.scss-lint.yml')
   if !empty(l:config)
-    let b:syntastic_scss_scss_lint_args = l:config
+    let b:syntastic_scss_scss_lint_args = '--config=' . l:config
   endif
 endfunction
 autocmd dkosyntastic BufReadPost *.scss call s:DKO_FindScsslintConfig()
