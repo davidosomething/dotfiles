@@ -20,7 +20,9 @@ bindkey '\e\e[C' forward-word            # Right
 bindkey '\e\e[D' backward-word           # Left
 # ctrl-left/right word
 bindkey '^[[1;5C' forward-word
+bindkey '\e[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
+bindkey '\e[1;5D' backward-word
 # home/end
 bindkey '^[[H' beginning-of-line
 bindkey '^[[1~' beginning-of-line
