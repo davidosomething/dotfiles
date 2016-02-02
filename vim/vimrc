@@ -858,55 +858,9 @@ else
 
 endif
 
-" ============================================================================
-" Fix runtimepath
-" ============================================================================
-
-" VIM is very unusual that it loads system preferences AFTER user preferences
-" so users have a very hard time overriding system prefs (unless they use
-" after/ exclusively and the system after/ is empty).
-"
-" E.g. the archlinux distribution includes the line `set history=50` in
-" /usr/share/vim/vimfiles/archlinux.vim which loaded by /etc/vimrc. That file
-" is always loaded after the user vimrc which makes it annoying to override.
-" COMMENT IT OUT from /etc/vimrc despite it saying not to!
-
-" Remove system runtimepaths
-execute 'set runtimepath-=$VIM/vimfiles'
-execute 'set runtimepath-=$VIMRUNTIME'
-execute 'set runtimepath-=$VIM/vimfiles/after'
-execute 'set runtimepath-=$VIMRUNTIME/after'
-
-" Remove default user runtimepaths
-execute 'set runtimepath-=$HOME/.vim'
-execute 'set runtimepath-=$HOME/.vim/after'
-execute 'set runtimepath-=$XDG_CONFIG_HOME/nvim'
-execute 'set runtimepath-=$XDG_CONFIG_HOME/nvim/after'
-
-" Save the remaining runtimepaths, which are only vim-plug ones
-let g:dko_rtp_plugins = &runtimepath
-
-let g:dko_rtp_system =
-      \ '$VIM/vimfiles,'
-      \ . '$VIMRUNTIME,'
-      \ . '$VIM/vimfiles/after'
-
-let g:dko_rtp_before = g:dko_rtp_system . ',' . g:dko_vim_dir
-
-" Start runtimepath with system runtimepath
-execute 'set runtimepath^=' . g:dko_rtp_before
-
-" Append vim-plug runtimepaths (including their after/ paths)
-execute 'set runtimepath+=' . g:dko_rtp_plugins
-
-" Append my after/ so mine is the last after/
-execute 'set runtimepath+=' . g:dko_vim_dir . '/after'
-
-" Local overrides last
-execute 'set runtimepath+=$HOME/.secret/vim'
-
 " Loads vimrc.vim from the ~/.secret/vim runtimepath (and wherever else it
 " exists).
 " The filename vimrc.vim only exists in ~/.secret/vim AFAIK, but might have to
 " change it if I find out otherwise...
+set runtimepath+=$HOME/.secret/vim
 runtime! vimrc.vim
