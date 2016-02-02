@@ -10,12 +10,18 @@ augroup dkosyntastic
 augroup END
 
 " Checking
-let g:syntastic_check_on_open = 1
+
+" Check when filetype changed instead of on open (still happens on initial ft
+" detection)
+let g:syntastic_check_on_open = 0
+autocmd dkosyntastic FileType * SyntasticCheck
+
 let g:syntastic_check_on_wq   = 0
 let g:syntastic_mode_map = {
       \   'mode': 'active',
       \   'passive_filetypes': [ ],
       \ }
+
 
 " Map some filetypes, e.g. turn off html checkers on handlebars (I'm using my
 " hbstidy instead of html tidy)

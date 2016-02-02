@@ -47,4 +47,4 @@ source "${DOTFILES}/shell/aliases"
 
 export DKO_SOURCE="$DKO_SOURCE }"
 
-# vim: ft=sh :
+# vim: ft=zsh :

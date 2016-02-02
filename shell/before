@@ -15,10 +15,9 @@ source "${DOTFILES}/shell/functions" # source_if_exists, has_program
 
 # This also adds completions based on global nvm->npm packages
 source "${DOTFILES}/shell/node"
-source "${DOTFILES}/shell/php"
 source "${DOTFILES}/shell/python"
 source "${DOTFILES}/shell/ruby"
 
 export DKO_SOURCE="$DKO_SOURCE }"
 
-# vim: ft=sh :
+# vim: ft=zsh :

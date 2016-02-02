@@ -36,38 +36,24 @@ dko_add_paths() {
 
   # package managers -----------------------------------------------------------
 
-  # composer
-  my_path="${COMPOSER_HOME}/vendor/bin:${my_path}"
-
   # go
   my_path="${GOPATH}/bin:${my_path}"
 
   # luarocks
   my_path="${HOME}/.luarocks/bin:${my_path}"
 
-  # npm binaries from npm installed via homebrew
-  # These should not exist -- npm should have been installed separately
-  # along with the nvm provided node
-  [ -d "${BREW_PREFIX}/share/npm/bin" ] && {
-    my_path="${BREW_PREFIX}/share/npm/bin:${my_path}"
-  }
-
-  # npm binaries from npm in home ----------------------------------------------
-  # This is where my system node npm bins are
-  # But NVM bins will be in their node prefix
-  if [ -n "$NPM_PACKAGES" ]; then
-    [ ! -d "$NPM_PACKAGES" ] && mkdir -p "$NPM_PACKAGES"
-    my_path="${NPM_PACKAGES}/bin:${my_path}"
-  fi
-
   # local ----------------------------------------------------------------------
+
   my_path="${DOTFILES}/bin:${my_path}"
   my_path="${DOTFILES}/local/bin:${my_path}"
+
+  [ ! -d "${HOME}/.local" ] && mkdir "${HOME}/.local"
   my_path="${HOME}/.local/bin:${my_path}"
+
   echo "${my_path}"
 }
 
 PATH="$(dko_add_paths)"
 export PATH
 
-# vim: ft=sh :
+# vim: ft=zsh :

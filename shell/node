@@ -19,6 +19,12 @@ else
   # node_path is also checked
   export NODE_PATH="/usr/local/lib/node_modules:${NODE_PATH}"
   export NPM_PACKAGES="${HOME}/.npm-packages"
+
+  # npm binaries from npm in home ----------------------------------------------
+  # This is where my system node npm bins are
+  # But NVM bins will be in their node prefix
+  [ ! -d "$NPM_PACKAGES" ] && mkdir -p "$NPM_PACKAGES"
+  export PATH="${NPM_PACKAGES}/bin:${PATH}"
 fi
 
 # ==============================================================================
