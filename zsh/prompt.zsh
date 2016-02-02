@@ -47,7 +47,6 @@ function +vi-gitmergemessage() {
 
 # http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
 # use vi mode even if EDITOR is emacs
-bindkey -v
 vimode='I'
 
 # show if in vi mode
