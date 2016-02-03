@@ -40,6 +40,7 @@
   layout_launcher = None
   move_tab_left = None
   move_tab_right = None
+  new_tab = <Primary><Super>t
   new_terminator = None
   new_window = None
   paste = None
