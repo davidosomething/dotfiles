@@ -36,7 +36,6 @@ export _Z_DATA="${HOME}/.local/z"
 typeset -U path cdpath manpath
 
 [ -d "${BREW_PREFIX}" ] && {
-
   # Autoload function paths, add tab completion paths, top precedence
   fpath=(
     "${BREW_PREFIX}/share/zsh/site-functions"
