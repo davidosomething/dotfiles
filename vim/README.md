@@ -3,34 +3,25 @@
 Keep `(g)vimrc` (no dot in filename) in `.vim` -- vim knows to look in there.
 
 See https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers for getting
-various linter support in
-[syntastic](https://github.com/scrooloose/syntastic/).
+various linter support in [syntastic].
 
 ## Standards
 
 Adhere to [vint](https://github.com/Kuniwak/vint) linting rules as much as
 possible. Not using [vim-lint](https://github.com/syngan/vim-vimlint) for now
-because it is slow to load.
+because it is slow to load (syntastic is synchronous).
 
 Always try to keep as much in the main runtime as possible, using `after/`
-sparingly.
+sparingly (mostly for `setlocal` ftplugin settings).
 
 ## Setup
 
 Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on ArchLinux!
 
-After starting vim with this setup,
-[vim-plug](https://github.com/junegunn/vim-plug) will install itself. Run
+After starting vim with this setup, [vim-plug] will install itself. Run
 `:PlugInstall` from within vim, and then restart vim.
 
 ## Paths
-
-The default `&runtimepath` has been modified from what vim comes with since I
-find it to be insane to have system configs override user configs. See the end
-of the `vimrc` file.
-
-The `~/.dotfiles/vim` and `~/.dotfiles/vim/after` paths now come after system
-config paths. See the runtimepath path section in `vimrc` for more comments.
 
 ### /
 
@@ -86,15 +77,21 @@ Unite keys are arranged by search context from big to small
 - `<F11>` OverCommandLine for subst
 - `<F12>` toggle paste mode
 
-See `plugin/mappings.vim` for mappings not associated to vim-plug-managed
-plugins.
+See `plugin/mappings.vim` (and other plugin/* files) for mappings not
+associated to vim-plug-managed plugins.
 
 ## Junk defaults and unmapped keys
 
 Plan to map these at some point
 
+- n S     -- substitute line (and continue in insert mode -- so useless)
 - n <C-b> -- back one screen (page)
 - n <C-f> -- fore one screen (page)
 - n <C-g> -- status
 - n <C-s>
+- n zh/l  -- useless wrap mode scroll
 
+
+
+[syntastic]: https://github.com/scrooloose/syntastic/
+[vim-plug]: https://github.com/junegunn/vim-plug

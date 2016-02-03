@@ -13,12 +13,12 @@ My dotfiles. https://github.com/davidosomething/dotfiles
 
 - Clone with submodules, and symlink:
 
-```shell
+```bash
 git clone --recurse-submodules https://github.com/davidosomething/dotfiles.git ~/.dotfiles
 ~/.dotfiles/bootstrap/symlink.sh
 ```
 
-- (OPTIONAL) Change default shell to zsh and restart now
+- (OPTIONAL) Change default shell to zsh and restart now (zplug will install)
 - (OPTIONAL) Run the other scripts in the next section
 
 ## Working scripts
@@ -53,14 +53,14 @@ These will assist in installing things
     - `quicklook.sh` - Install quicklook plugins via brew cask
     - `ruby.sh` - Install chruby, ruby-install via brew, install latest ruby
 
-- `linux/x11.sh`
-    - symlink `.xbindkeysrc`, `.xinitrc`, `.xprofile`
+- `bootstrap/x11.sh`
+    - symlink `.xbindkeysrc`, `.xprofile`
 
 ## Notes
 
 ### bin/
 
-There's a readme in `bin/` describing things.
+There's a [readme](bin/README.md) in `bin/` describing things.
 
 ### fonts/
 
@@ -83,14 +83,13 @@ they will automatically be sourced LAST by the default scripts.
 You might want from your system package manager:
 
 - chruby + ruby-install + a version of ruby
-- nvm + a version of node + npm
+- nvm/node/npm
 - php/composer/wp-cli
-- python/pip
-- virtualenv + a version of python
+- pyenv/virtualenv/python/pip
 
 ### Source order
 
-If you have node already, run `dko-sourced` (`bin/dko-sourced`) or just
+If you have node already, run `dko-sourced` ([bin/dko-sourced]()) or just
 `echo $DKO_SOURCE` to see what files are loaded.
 
 For X apps (no terminal) the value is probably:
@@ -100,27 +99,14 @@ For X apps (no terminal) the value is probably:
       shell/vars
         shell/xdg
 
-### node
-
-Install via nvm, installed via `bin/update npm`, which uses latest git tag
-instead of using your system package manager.
-
-#### node-gyp
-
-On arch use python 2 when installing node-gyp:
-
-```shell
-npm config set python /usr/bin/python2.7 -g
-```
-
 ### python
 
-Just remember to never `sudo pip` anything. Set up a virtualenv and pip install
-the `python/requirements.txt` file.
+Just remember to never `sudo pip` anything. Set up a phpenv and pip install
+the [python/requirements.txt]() file.
 
 ### vim
 
-See [vim/README.md](https://github.com/davidosomething/dotfiles/blob/master/vim/README.md)
+See [vim/README.md]()
 
 ---
 
