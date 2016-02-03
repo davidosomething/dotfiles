@@ -17,6 +17,7 @@
   broadcast_all = None
   broadcast_group = None
   broadcast_off = None
+  close_term = <Primary><Super>w
   close_window = None
   copy = None
   cycle_next = None
