@@ -70,11 +70,30 @@ nnoremap <Leader>l mQviwu`Q
 nnoremap <Leader>j VjgJ
 
 " ----------------------------------------------------------------------------
+" Clean up whitespace
+" ----------------------------------------------------------------------------
+
+nnoremap <Leader>ws :call g:CleanCode()<CR>
+
+" ----------------------------------------------------------------------------
 " Reselect visual block after indent
 " ----------------------------------------------------------------------------
 
 vnoremap < <gv
 vnoremap > >gv
+
+" ----------------------------------------------------------------------------
+" Horizontal rule
+" ----------------------------------------------------------------------------
+
+inoremap <Leader>f- <Esc>:call dkorule#char('-')<CR>
+inoremap <Leader>f= <Esc>:call dkorule#char('=')<CR>
+inoremap <Leader>f# <Esc>:call dkorule#char('#')<CR>
+inoremap <Leader>f* <Esc>:call dkorule#char('*')<CR>
+nnoremap <Leader>f- :call dkorule#char('-')<CR>
+nnoremap <Leader>f= :call dkorule#char('=')<CR>
+nnoremap <Leader>f# :call dkorule#char('#')<CR>
+nnoremap <Leader>f* :call dkorule#char('*')<CR>
 
 " ----------------------------------------------------------------------------
 " Bubble and indent mappings from janus vim distribution
