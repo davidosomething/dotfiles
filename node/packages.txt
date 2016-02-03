@@ -1,5 +1,4 @@
 bower
-casperjs@1.1.0-beta3
 coffee-script
 coffeelint
 david
