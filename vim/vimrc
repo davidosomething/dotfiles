@@ -834,6 +834,9 @@ if s:dko_use_plugins
   " Plug: UI -- load last!
   " ========================================================================
 
+  " :GitGutterToggle
+  Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle'] }
+
   " <Plug> to not move on * search function
   Plug 'haya14busa/vim-asterisk'
 
