@@ -43,9 +43,13 @@ set shell=$SHELL
 " ------------------------------------
 
 if (exists('$DISPLAY') || has('mac')) && has('clipboard')
-  set clipboard=unnamed  " Share system clipboard.
+  set clipboard=unnamed  " Use clipboard register
+
   " Share X windows clipboard.
-  if has('unnamedplus') | set clipboard+=unnamedplus | endif
+  " Neovim doesn't provide has('unnamedplus') yet, but does interface
+  " xclip/xsel to copy into primary. This setting is already enabled in nvim
+  " by default, but just to be explicit and vim compatible, I've set here too.
+  if has('nvim') || has('unnamedplus') | set clipboard+=unnamedplus | endif
 endif
 
 " ----------------------------------------------------------------------------
