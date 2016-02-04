@@ -1,0 +1,244 @@
+#!/usr/bin/env bash
+
+# git-ink
+
+semver="1.0.1"
+scriptname="$(basename "$0")"
+
+yellow=$(tput setaf 3)
+#orange=$(tput setaf 9)
+red=$(tput setaf 1)
+magenta=$(tput setaf 5)
+#violet=$(tput setaf 13)
+#cyan=$(tput setaf 6)
+green=$(tput setaf 2)
+normal=$(tput sgr0)
+
+
+_current_branchname() {
+  git symbolic-ref --short HEAD
+}
+
+
+_get_branches() {
+  git for-each-ref \
+    --format="%(refname:short) %(committerdate:short)" \
+    refs/heads
+}
+
+
+_sync_meta() {
+  #@TODO
+  # read from .git/config
+  # get meta values for each branch
+  # clear from .git/config
+  # write to .gitbranch
+  exit
+}
+
+
+_gitconfig() {
+  local ink_metafile=""
+  _has_gitbranch && ink_metafile=".gitbranch"
+
+  if [ -n "$ink_metafile" ]; then
+    git config -f "$ink_metafile" "$@"
+  else
+    git config --local "$@"
+  fi
+}
+
+
+_has_gitbranch() {
+  [ -f ".gitbranch" ]
+}
+
+
+_replace_description() {
+  local new_description
+  new_description="$( printf "%b" "${2}\r\n" )"
+  _gitconfig "branch.${1}.description" "${new_description}"
+}
+
+
+# @param branchname
+# @param new description
+_set_description() {
+  local old_description
+  local new_description
+  old_description="$(_get_description "${1}")"
+  new_description="$( printf '%b' "${2}\r\n\n${old_description}" )"
+  _gitconfig "branch.${1}.description" "${new_description}"
+}
+
+
+# @param branchname to get unformatted description of
+_get_description() {
+  _gitconfig --get "branch.${1}.description"
+}
+
+
+# output indented branch description
+# with literal newlines (otherwise will diplay all on one line)
+# @param branchname to show description of
+_output_branch_description() {
+  local original_IFS=${IFS}
+  local newlines_IFS=$'\n'
+  IFS="${newlines_IFS}"
+  for line in $(_get_description "${branchname}"); do
+    IFS="${original_IFS}"
+    printf "%4s%s\n" " " "${line}"
+    IFS="${newlines_IFS}"
+  done
+  IFS="${original_IFS}"
+}
+
+
+_output_line() {
+  local lsymbol=$1
+  local lslength=$2
+  local lbranch=$3
+  local ldate=$4
+
+  echo -n "${lsymbol} ${lbranch}${normal} $(printf ".%.0s" {1..60})" | head -c $((68 - lslength))
+  echo -n " ${ldate}"
+}
+
+
+_ink() {
+  # header
+  echo "${yellow}? BRANCH NAME $(printf " %.0s" {1..34}) LAST COMMIT"
+
+  _get_branches | while read -r branchname branchdate; do
+    if [ -n "$target_branchname" ] && [ "$target_branchname" != "$branchname" ]; then
+      continue
+    fi
+
+    tags="$(_gitconfig --get "branch.${branchname}.tags")"
+
+    branch_color=$normal
+    status_color=$normal
+    status_symbol="•"
+    symbol_length=0
+
+    if [ "$branchname" == "$(_current_branchname)" ]; then
+      branch_color=$magenta
+      current_commit="$(git rev-parse HEAD)"
+      branch_commit="$(git rev-parse "$branchname")"
+
+      # fix utf-8 symbol length for padding
+      symbol_length=2
+      if [ "$current_commit" == "$branch_commit" ]; then
+        status_symbol="✓"
+        status_color=$green
+      else
+        status_color=$red
+        status_symbol="✗"
+      fi
+    fi
+
+    output_symbol="${status_color}${status_symbol}"
+    output_branchname="${branch_color}${branchname}"
+
+    _output_line \
+      "$output_symbol" \
+      "$symbol_length" \
+      "$output_branchname" \
+      "$branchdate"
+
+    #@TODO support --no-color
+    #@TODO support --format=config for standard _gitconfig output
+    #@TODO support --one-line
+
+    if [ -n "$tags" ]; then
+      printf " - %s" "${tags}"
+    fi
+
+    echo
+
+    _output_branch_description "${branchname}"
+
+  done
+}
+
+
+_version() {
+  echo "$scriptname $semver"
+}
+
+
+_help() {
+  echo
+  echo "target branch defaults to the current branch"
+  echo "-b BRANCH_NAME    -- set target branch"
+  echo "-g                -- get description for target branch"
+  echo "-r DESCRIPTION    -- replace description for branch"
+  echo "                     ANYTHING after -r will be considered part of the description"
+  echo "-s DESCRIPTION    -- set description for target branch"
+  echo "                     PREPENDS to the previous description"
+  echo "                     ANYTHING after -s will be considered part of the description"
+  echo "-h                -- show help"
+  echo "-v                -- version info"
+}
+
+
+_main() {
+  local action
+  local target_branchname
+  local new_description
+
+  while getopts ":b:r:s:vgh" opt; do
+    case "$opt" in
+
+      b) # set target branchname
+        target_branchname="$OPTARG"
+        ;;
+
+      g) # output branch description
+        action="get_description"
+        ;;
+
+      r) # replace branch description
+        action="replace_description"
+        new_description="$OPTARG"
+        ;;
+
+      s) # set branch description
+        action="set_description"
+        new_description="$OPTARG"
+        ;;
+
+      h) _version; _help; exit ;;
+
+      v) _version; exit ;;
+
+      :) # missing args on any flag
+        echo "ERROR: Option -$OPTARG requires an argument." >&2
+        _help
+        exit 1
+        ;;
+
+    esac
+  done
+
+  if [ -n "$action" ]; then
+    target_branchname=${target_branchname:-$(_current_branchname)}
+  fi
+
+  if [ "$action" == "get_description" ]; then
+    _get_description "$target_branchname"
+    exit $?
+  elif [ "$action" == "set_description" ]; then
+    _set_description "${target_branchname}" "${new_description}"
+    exit $?
+  elif [ "$action" == "replace_description" ]; then
+    _replace_description "${target_branchname}" "${new_description}"
+    exit $?
+  fi
+
+  # default action
+  _ink
+}
+
+
+_main "$@"

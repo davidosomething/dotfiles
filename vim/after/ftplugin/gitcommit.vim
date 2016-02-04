@@ -4,9 +4,7 @@
 " Only runs in a vim server named GIT (probably opened via my "e" script)
 "
 
-augroup dko_gitcommit
-  autocmd!
-augroup end
+setlocal nonumber
 
 setlocal wrap
 setlocal linebreak
@@ -18,20 +16,4 @@ setlocal complete+=kspell
 setlocal textwidth=80
 setlocal tabstop=4
 setlocal formatoptions+=croq
-
-" ============================================================================
-" vopen + committia mode
-" ============================================================================
-
-if v:servername ==? 'GIT'
-  if has('gui_running')
-    " Non-local -- for the entire GIT clientserver
-    set lines=44 columns=88
-    set nonumber
-  endif
-
-  autocmd dko_gitcommit
-        \ BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,}MSG
-        \ startinsert
-endif
 
