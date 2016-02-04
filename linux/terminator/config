@@ -25,10 +25,11 @@
   edit_tab_title = None
   edit_terminal_title = None
   edit_window_title = None
+  full_screen = <Primary><Super>f
   go_down = <Primary><Super>Down
   go_left = <Primary><Super>Left
-  go_next = None
-  go_prev = None
+  go_next = <Primary><Super>Tab
+  go_prev = <Primary><Shift><Super>Tab
   go_right = <Primary><Super>Right
   go_up = <Primary><Super>Up
   group_all = None

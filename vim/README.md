@@ -80,6 +80,14 @@ Unite keys are arranged by search context from big to small
 See `plugin/mappings.vim` (and other plugin/* files) for mappings not
 associated to vim-plug-managed plugins.
 
+### Super-non-standard keys
+
+- EasyClip changes behavior of pretty much all register operations (`[y]ank`,
+  `[d]elete`, `[s]ubstitute`, etc.). Prefer `[y]ank` or explicitly `[m]ove`.
+- `[s]ubstitute` has been remapped to vim-operator-surround.
+- A bunch of `c` mappings are now operators that toggle camelcase (e.g., `cc`
+  which was previously equivalent to `C`). See `plugin/operator.vim`
+
 ## Junk defaults and unmapped keys
 
 Plan to map these at some point
