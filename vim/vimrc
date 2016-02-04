@@ -581,6 +581,7 @@ if s:dko_use_plugins
   " REMAPS 's' to surround operator
   Plug 'kana/vim-operator-user'
         \| Plug 'rhysd/vim-operator-surround'
+        \| Plug 'tyru/operator-camelize.vim'
 
   " i/a= and i= for conflicts marked blocks
   " i/ab for any block type (parens, braces, quotes, ltgt)
