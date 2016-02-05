@@ -70,9 +70,6 @@ set numberwidth=5
 set scrolloff=8                       " show 2 lines of context
 set sidescrolloff=16
 
-set completeopt-=preview              " don't open scratch preview
-set completeopt+=menu,menuone         " show PUM, even for one thing
-
 set colorcolumn=80
 set cursorline
 
@@ -192,6 +189,9 @@ execute 'set spellfile=' . glob(expand(g:dko_vim_dir . '/en.utf-8.add'))
 " ----------------------------------------------------------------------------
 
 set omnifunc=syntaxcomplete#Complete
+set complete-=i,t                     " don't complete includes and tags
+set completeopt-=preview              " don't open scratch preview
+set completeopt+=menu,menuone         " show PUM, even for one thing
 
 " ----------------------------------------------------------------------------
 " Splits and buffers
