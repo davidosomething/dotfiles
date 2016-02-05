@@ -50,7 +50,6 @@ endif
 let s:oip = {
       \   'coffee':     '\h\w*\|[^. \t]\.\w*',
       \   'perl':       '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?',
-      \   'typescript': '[^. \t]\.\%(\h\w*\)\?',
       \ }
 " javascript
 " default: https://github.com/Shougo/neocomplete.vim/blame/34b42e76be30c0f365110ea036c8490b38fcb13e/autoload/neocomplete/sources/omni.vim
@@ -81,6 +80,9 @@ let s:fip = {}
 " python with davidhalter/jedi-vim -- not used but correct
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1617
 " let s:fip.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+" typescript with Quramy/tsuquyomi -- not used but correct
+" let s:fip.typescript = '[^. \t]\.\%(\h\w*\)\?'
+" let s:fip.typescript = '\h\w*\|[^. \t]\.\w*' -- maybe more relaxed
 
 " Omnifunc groups, a list of omnifuncs to use all at once instead of just what
 " is set for the buffer
@@ -125,7 +127,9 @@ if 1 && exists('g:plugs["tern_for_vim"]')
   let g:tern_show_signature_in_pum = 1
 
   augroup dkotern
-    autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+    autocmd FileType javascript nnoremap <silent><buffer> gb :TernDef<CR>
+    " This supercedes the setting in dkoomnifuncs augroup
+    autocmd FileType javascript setlocal omnifunc=tern#Complete
   augroup END
 
   " insert instead of add
@@ -203,15 +207,8 @@ if exists('g:plugs["deoplete.nvim"]')
         \ ])
 
   " ----------------------------------------
-  " Source setup
-  " ----------------------------------------
-
-  " let g:deoplete#sources = {}
-  " let g:deoplete#sources._ = [ 'omni', 'buffer' ]
-
-  " ----------------------------------------
-  " Omnifunc sources
-  " Unlike neocomplete, deoplete only supports one omnifunction
+  " Assign omnifunc for deoplete by filetype
+  " Unlike neocomplete, deoplete only supports one omnifunction at a time
   " ----------------------------------------
 
   let g:deoplete#omni#functions = {}
@@ -224,7 +221,6 @@ if exists('g:plugs["deoplete.nvim"]')
   " see https://github.com/Shougo/deoplete.nvim/blob/master/autoload/deoplete/init.vim
   " ----------------------------------------
 
-  " deoplete
   let g:deoplete#omni#input#patterns = {}
   for [s:ft, s:regexes] in items(s:oip)
     let g:deoplete#omni#input#patterns[s:ft] = s:regexes
