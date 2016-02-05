@@ -47,7 +47,11 @@ if (exists('$DISPLAY') || has('mac')) && has('clipboard')
 
   " Share X windows clipboard. NOT ON NEOVIM -- neovim automatically uses
   " system clipboard when xclip/xsel/pbcopy are available.
-  if !has('nvim') && has('unnamedplus') | set clipboard+=unnamedplus | endif
+  if has('nvim') && !has('mac')
+    set clipboard=unnamedplus
+  elseif has('unnamedplus')
+    set clipboard+=unnamedplus
+  endif
 endif
 
 " ----------------------------------------------------------------------------
