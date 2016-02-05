@@ -110,9 +110,10 @@ let g:mapleader = "\<Space>"
 set laststatus=2
 set showcmd                           " incomplete commands on
 set noshowmode                        " don't show -- INSERT -- in cmdline
-
-" The following are not used if vim-airline is on
-
+" statusline contents, not used if vim-airline is on.
+set ruler                             " fallback to this if statusline not set
+" 'statusline' overrides 'ruler', and 'rulerformat'
+set statusline=%!dko#statusline()
 
 " ----------------------------------------------------------------------------
 " Wild and file globbing stuff in command mode
@@ -776,10 +777,13 @@ if s:dko_use_plugins
   " This is the upstream for the phpcomplete.vim in the $VIMRUNTIME
 
   " 'm2mdas/phpcomplete-extended' - fast via vimproc
+  " 'mkusher/padawan.php'         - server based completion
+  " 'phpvim/phpcd.vim'            - server based completion
   " 'shawncplus/phpcomplete.vim'  - slow as fuck, included in VIMRUNTIME.
   "                                 this is upstream. Manual <c-x><c-o> to use
+  Plug 'mkusher/padawan.php', { 'do': 'composer global require mkusher/padawan', 'for': 'php' }
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-  Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
+  "Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
   " Snippet

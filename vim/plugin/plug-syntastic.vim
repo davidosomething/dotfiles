@@ -23,7 +23,7 @@ let g:syntastic_mode_map = {
 " Check when filetype init/changed (still happens on initial ft detection)
 autocmd dkosyntastic FileType * SyntasticCheck
 
-nnoremap <silent> S :Errors<CR>
+nnoremap <silent> S :Errors<CR>:lfirst<CR>
 
 " ----------------------------------------------------------------------------
 " Display results
@@ -114,16 +114,7 @@ let g:syntastic_markdown_mdl_quiet_messages = {
 " Checker: PHP
 " ============================================================================
 
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phplint', 'phpmd']
-
-" Set phpmd ruleset for current buffer
-function! s:DKO_FindPhpmdRuleset()
-  let l:ruleset = dkoproject#GetProjectConfigFile('ruleset.xml')
-  if !empty(l:ruleset)
-    let b:syntastic_php_phpmd_post_args = l:ruleset
-  endif
-endfunction
-autocmd dkosyntastic BufReadPost *.php call s:DKO_FindPhpmdRuleset()
+let g:syntastic_php_checkers = ['php', 'phplint', 'phpmd', 'phpcs']
 
 " ============================================================================
 " Checker: Python
@@ -142,13 +133,13 @@ if !empty(glob(s:dko_scsslint_config))
 endif
 
 " Set scss_lint config for current buffer
-function! s:DKO_FindScsslintConfig()
+function! s:FindScsslintConfig()
   let l:config = dkoproject#GetProjectConfigFile('.scss-lint.yml')
   if !empty(l:config)
     let b:syntastic_scss_scss_lint_args = '--config=' . l:config
   endif
 endfunction
-autocmd dkosyntastic BufReadPost *.scss call s:DKO_FindScsslintConfig()
+autocmd dkosyntastic BufReadPost *.scss call s:FindScsslintConfig()
 
 " ============================================================================
 " Checker: Shell

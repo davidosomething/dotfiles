@@ -35,6 +35,10 @@ let s:default_config_paths = [
 
 " @return string root path
 function! dkoproject#GetProjectRoot() abort
+  if !filereadable(expand('%'))
+    return ''
+  endif
+
   if exists('b:dkoproject_root')
     return b:dkoproject_root
   endif
