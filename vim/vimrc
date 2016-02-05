@@ -71,6 +71,7 @@ set scrolloff=8                       " show 2 lines of context
 set sidescrolloff=16
 
 set completeopt-=preview              " don't open scratch preview
+set completeopt+=menu,menuone         " show PUM, even for one thing
 
 set colorcolumn=80
 set cursorline
@@ -407,6 +408,7 @@ if s:dko_use_plugins
   let s:dko_use_deoplete        = 1 && has('nvim') && has('python3')
   let s:dko_use_neocomplete     = 1 && has('lua')
   let s:dko_use_neosnippet      = 1
+
   let s:dko_use_tern_completion = 1 && (has('python') || has('python3'))
 
   let s:dko_use_neomake   = 0 && has('nvim')
@@ -537,10 +539,10 @@ if s:dko_use_plugins
     " Vim completion
     Plug 'Shougo/neco-vim', { 'for': ['vim'] }
 
-    Plug '1995eaton/vim-better-javascript-completion'
-
     if s:dko_use_tern_completion
       Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+    else
+      Plug '1995eaton/vim-better-javascript-completion'
     endif
 
     if s:dko_use_neosnippet
@@ -670,9 +672,7 @@ if s:dko_use_plugins
 
   " The "for" is required so the syntax registers on filetype, otherwise
   " yajs has trouble overriding the default js syntax due to runtime order
-  if exists('g:dko_js_syntax')
-    Plug g:dko_js_syntax, { 'for': 'javascript' }
-  endif
+  Plug g:dko_js_syntax, { 'for': 'javascript' }
 
   " ----------------------------------------
   " Syntax Addons
@@ -686,7 +686,7 @@ if s:dko_use_plugins
   let g:dko_js_indent = 'gavocanov/vim-js-indent'
   "let g:dko_js_indent = 'jiangmiao/simple-javascript-indenter'
   "let g:dko_js_indent = 'jason0x43/vim-js-indent'
-  if exists('g:dko_js_indent') && exists("g:plugs['yajs.vim']")
+  if exists("g:plugs['yajs.vim']")
     Plug g:dko_js_indent, { 'for': 'javascript' }
   endif
 
@@ -756,8 +756,14 @@ if s:dko_use_plugins
   " ----------------------------------------
 
   " Completion
+  " This is the upstream for the phpcomplete.vim in the $VIMRUNTIME
+
+  " 'm2mdas/phpcomplete-extended' - fast via vimproc
+  " 'shawncplus/phpcomplete.vim'  - slow as fuck, included in VIMRUNTIME.
+  "                                 this is upstream. Manual <c-x><c-o> to use
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-        "\| Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
+  Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
+  "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
   " Snippet
   Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
