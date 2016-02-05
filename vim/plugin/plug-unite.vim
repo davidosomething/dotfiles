@@ -251,15 +251,6 @@ function! s:unite_mappings()
   nnoremap <silent> <F8> :<C-u>Unite -start-insert command<CR>
   inoremap <silent> <F8> <Esc>:<C-u>Unite -start-insert command<CR>
   vnoremap <silent> <F8> <Esc>:<C-u>Unite -start-insert command<CR>
-
-  " ============================================================================
-  " Keybinding: find in yank history
-  " ============================================================================
-
-  " shougo moved this to neoyank.vim and I never used it so bye
-  " nnoremap <silent> <F11> :<C-u>Unite history/yank<CR>
-  " inoremap <silent> <F11> <Esc>:<C-u>Unite history/yank<CR>
-  " vnoremap <silent> <F11> <Esc>:<C-u>Unite history/yank<CR>
 endfunction
 
 autocmd dkounite VimEnter * call s:unite_mappings()

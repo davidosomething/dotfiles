@@ -104,12 +104,15 @@ set ttimeoutlen=10
 let g:mapleader = "\<Space>"
 
 " ----------------------------------------------------------------------------
-" Status line - most of this is handled by vim-airline
+" Status line
 " ----------------------------------------------------------------------------
 
 set laststatus=2
 set showcmd                           " incomplete commands on
 set noshowmode                        " don't show -- INSERT -- in cmdline
+
+" The following are not used if vim-airline is on
+
 
 " ----------------------------------------------------------------------------
 " Wild and file globbing stuff in command mode
@@ -418,7 +421,7 @@ if s:dko_use_plugins
   let s:dko_use_neomake   = 0 && has('nvim')
   let s:dko_use_syntastic = 1 && !s:dko_use_neomake
 
-  let s:dko_use_airline   = 1
+  let s:dko_use_airline   = 0
   let s:dko_use_gutentags = 1
   let s:dko_use_colorv    = 1 && (has('python') || has('python3'))
 
@@ -476,6 +479,7 @@ if s:dko_use_plugins
     Plug 'Shougo/unite.vim'
           \| Plug 'Shougo/neomru.vim'
           \| Plug 'Shougo/unite-outline'
+          "\| Plug 'osyo-manga/unite-quickfix'
           "\| Plug 'Shougo/vimfiler.vim'
           "\| Plug 'hewes/unite-gtags'
           "\| Plug 'ujihisa/unite-font'
@@ -514,7 +518,6 @@ if s:dko_use_plugins
 
   if s:dko_use_syntastic
     Plug 'scrooloose/syntastic'
-          \| Plug 'davidosomething/syntastic-hbstidy'
   endif
 
   " ========================================================================
@@ -539,15 +542,6 @@ if s:dko_use_plugins
 
     " Include completion
     Plug 'Shougo/neoinclude.vim'
-
-    " Vim completion
-    Plug 'Shougo/neco-vim', { 'for': ['vim'] }
-
-    if s:dko_use_tern_completion
-      Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-    else
-      Plug '1995eaton/vim-better-javascript-completion'
-    endif
 
     if s:dko_use_neosnippet
       Plug 'Shougo/neosnippet'
@@ -625,7 +619,7 @@ if s:dko_use_plugins
   " vim 7.4-77 ships with 2013 version, this is newer
   Plug 'tpope/vim-git'
 
-  " show multipanes when editing a COMMIT_EDITMSG
+  " show diff in own split when editing a COMMIT_EDITMSG
   Plug 'rhysd/committia.vim'
 
   " ========================================================================
@@ -640,10 +634,14 @@ if s:dko_use_plugins
   " Closing tags, % match support
   Plug 'othree/xml.vim'
 
-  Plug 'digitaltoad/vim-jade'
+  "Plug 'digitaltoad/vim-jade'
 
   " Creates html.handlebars and other fts and sets syn
   Plug 'mustache/vim-mustache-handlebars'
+
+  if s:dko_use_syntastic
+    Plug 'davidosomething/syntastic-hbstidy'
+  endif
 
   " ========================================================================
   " Language: JavaScript / CoffeeScript / JSON
@@ -655,7 +653,7 @@ if s:dko_use_plugins
   Plug 'kchmck/vim-coffee-script'
 
   " TypeScript
-  Plug 'leafgarland/typescript-vim'
+  "Plug 'leafgarland/typescript-vim'
 
   " react/JSX syn highlighting for .cjsx
   " If you're using coffee+react instead of es6+react, quit your job.
@@ -707,9 +705,6 @@ if s:dko_use_plugins
   " Features
   " ----------------------------------------
 
-  " Parameter completion
-  Plug 'othree/jspc.vim'
-
   " <leader>pd on function to insert jsdoc above
   "Plug 'heavenshell/vim-jsdoc'
   " USING MY FORK INSTEAD
@@ -719,6 +714,21 @@ if s:dko_use_plugins
   " gf for going to node_modules files
   Plug 'moll/vim-node'
 
+  " ----------------------------------------
+  " Completion
+  " ----------------------------------------
+
+  if g:dko_has_completion
+    if s:dko_use_tern_completion
+      Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+    else
+      " Syntax completion
+      Plug '1995eaton/vim-better-javascript-completion'
+      " Parameter completion
+      Plug 'othree/jspc.vim'
+    endif
+  endif
+
   " ========================================================================
   " Language: Markdown
   " ========================================================================
@@ -726,6 +736,8 @@ if s:dko_use_plugins
   " Override vim included markdown ft* and syntax
   " The git repo has a newer syntax file than the one that ships with vim
   "Plug 'tpope/vim-markdown'
+
+  " Use pandoc for markdown syntax
   Plug 'vim-pandoc/vim-pandoc-syntax'
 
   Plug 'suan/vim-instant-markdown', {
@@ -747,7 +759,7 @@ if s:dko_use_plugins
   " ----------------------------------------
 
   " creates twig ft
-  Plug 'evidens/vim-twig'
+  "Plug 'evidens/vim-twig'
 
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 
@@ -778,7 +790,7 @@ if s:dko_use_plugins
   " ========================================================================
 
   " creates pp filetype
-  Plug 'rodjek/vim-puppet'
+  "Plug 'rodjek/vim-puppet'
 
   " highlighting for Gemfile
   Plug 'tpope/vim-bundler'
@@ -795,7 +807,7 @@ if s:dko_use_plugins
   " ----------------------------------------
 
   " creates less filetype
-  Plug 'groenewege/vim-less'
+  "Plug 'groenewege/vim-less'
 
   " css.vim provides @media syntax highlighting where hail2u doesn't
   " JulesWang/css.vim is the active repo for the css.vim bundled with vim
@@ -832,6 +844,11 @@ if s:dko_use_plugins
     Plug 'todesking/vint-syntastic'
   endif
 
+  if g:dko_has_completion
+    " Vim completion
+    Plug 'Shougo/neco-vim', { 'for': ['vim'] }
+  endif
+
   " ========================================================================
   " Language: YAML
   " ========================================================================
@@ -859,7 +876,10 @@ if s:dko_use_plugins
   Plug 'osyo-manga/vim-anzu'
 
   if s:dko_use_airline | Plug 'vim-airline/vim-airline'
-  else | Plug 'ap/vim-buftabline'
+  else
+    "Plug 'ap/vim-buftabline'
+    Plug 'davidosomething/vim-buftabline', { 'branch': 'indicator-readonly' }
+    "Plug '~/projects/vim-buftabline'
   endif
 
   Plug 'now/vim-quit-if-only-quickfix-buffer-left'

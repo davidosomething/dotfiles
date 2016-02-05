@@ -87,13 +87,14 @@ associated to vim-plug-managed plugins.
 - `[s]ubstitute` has been remapped to vim-operator-surround.
 - A bunch of `c` mappings are now operators that toggle camelcase (e.g., `cc`
   which was previously equivalent to `C`). See `plugin/operator.vim`
-- normal `<C-g>` -- gitgutter toggle (previously status)
+- normal `<C-g>` -- gitgutter toggle (originally file status)
+- normal `S` -- Syntastic check and :Errors (originally substitute line and
+  continue in insert mode)
 
 ## Junk defaults and unmapped keys
 
 Plan to map these at some point
 
-- n S     -- substitute line (and continue in insert mode -- so useless)
 - n <C-b> -- back one screen (page)
 - n <C-f> -- fore one screen (page)
 - n <C-s>

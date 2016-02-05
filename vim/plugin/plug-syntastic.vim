@@ -1,27 +1,33 @@
 scriptencoding utf-8
 if !exists("g:plugs['syntastic']") | finish | endif
 
-" ============================================================================
-" Syntastic config
-" ============================================================================
-
 augroup dkosyntastic
   autocmd!
 augroup END
 
-" Checking
+" ============================================================================
+" Syntastic config
+" ============================================================================
 
-" Check when filetype changed instead of on open (still happens on initial ft
-" detection)
+" ----------------------------------------------------------------------------
+" When to check
+" ----------------------------------------------------------------------------
+
 let g:syntastic_check_on_open = 0
-autocmd dkosyntastic FileType * SyntasticCheck
-
 let g:syntastic_check_on_wq   = 0
 let g:syntastic_mode_map = {
       \   'mode': 'active',
       \   'passive_filetypes': [ ],
       \ }
 
+" Check when filetype init/changed (still happens on initial ft detection)
+autocmd dkosyntastic FileType * SyntasticCheck
+
+nnoremap <silent> S :Errors<CR>
+
+" ----------------------------------------------------------------------------
+" How to check
+" ----------------------------------------------------------------------------
 
 " Map some filetypes, e.g. turn off html checkers on handlebars (I'm using my
 " hbstidy instead of html tidy)
@@ -29,9 +35,12 @@ let g:syntastic_filetype_map = {
       \   'html.handlebars': 'handlebars',
       \ }
 
-" Display
+" ----------------------------------------------------------------------------
+" Display results
+" ----------------------------------------------------------------------------
+
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list            = 0
+let g:syntastic_auto_loc_list            = 2 " autoclose only
 let g:syntastic_loc_list_height          = g:dko_loc_list_height
 let g:syntastic_aggregate_errors         = 1
 let g:syntastic_enable_balloons          = 0
@@ -88,7 +97,6 @@ let g:syntastic_javascript_eslint_quiet_messages = {
 " ============================================================================
 
 let g:syntastic_lua_checkers = ['luac', 'luacheck']
-"let g:syntastic_lua_luacheck_args     = '--config ' . system("luacheckrc")
 
 " ============================================================================
 " Checker: Markdown
