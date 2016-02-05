@@ -78,7 +78,8 @@ export GIT_PAGER="$PAGER"
 # atom editor
 export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
 
-# composer moved to shell/php
+# composer
+export COMPOSER_HOME="${XDG_CONFIG_HOME}/composer"
 
 # ctags -- instead of ~/.ctags, just read options into the env var
 CTAGS="$(tr "\n" " " < "${DOTFILES}/shell/ctags")"
