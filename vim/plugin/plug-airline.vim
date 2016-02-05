@@ -4,10 +4,8 @@ if !exists("g:plugs['vim-airline']") | finish | endif
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'bubblegum'
 
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
 " line number symbol
+call dko#init_object('g:airline_symbols')
 let g:airline_symbols.linenr   = ''
 let g:airline_symbols.paste    = 'ρ'
 let g:airline_symbols.readonly = ''

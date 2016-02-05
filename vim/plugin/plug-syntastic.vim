@@ -155,10 +155,7 @@ let g:syntastic_vim_checkers = ['vint']
 if exists("g:plugs['vim-vimlint']")
   call add(g:syntastic_vim_checkers, 'vimlint')
 
-  if !exists('g:vimlint#config')
-    let g:vimlint#config = {}
-  endif
-
+  call dko#init_object('g:vimlint#config')
   let g:vimlint#config.EVL103 = 1
 
   let g:syntastic_vimlint_options = g:vimlint#config

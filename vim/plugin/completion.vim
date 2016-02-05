@@ -7,10 +7,11 @@ if !g:dko_has_completion | finish | endif
 " Default bundled omni-completion for each filetype
 " ============================================================================
 
+" Global is using syntaxcomplete
 " We keep this here and not in filetype related sections since some files,
 " like HTML, Markdown, and PHP, have mixed languages in them.
-" These are the default omnifuncs. Neocomplete may use something entirely
-" different if there are other sources available (e.g. TernJS for JavaScript)
+" These set the default omnifuncs. Completion engine will use something
+" different if there are other sources available (e.g. TernJS for JavaScript).
 augroup dkoomnifuncs
   autocmd!
   autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
@@ -42,60 +43,84 @@ endif
 
 " ============================================================================
 " Neocomplete / Deoplete shared
+" @TODO DRY this up ...
 " ============================================================================
 
-" Omni input patterns: when defined for a filetype, typing something that
-" matches this pattern will trigger omnifunc.
+" ----------------------------------------------------------------------------
+" Omni input patterns
+" ----------------------------------------------------------------------------
+"
+" When defined for a filetype, typing something that matches this pattern will
+" trigger omnifunc through the completion engine.
 " neocomplete dict: g:neocomplete#sources#omni#input_patterns
-let s:oip = {
-      \   'coffee':     '\h\w*\|[^. \t]\.\w*',
-      \   'perl':       '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?',
-      \ }
-" javascript
+"   - String or list of vim regex
+" deoplete dict:    g:deoplete#omni#input_patterns
+"   - String or list of Py3 regex
+let s:oip = {}
+
+" coffee
+"let s:oip.coffee = '\h\w*\|[^. \t]\.\w*'
+
+" javascript (superseded by s:fip when tern is available)
 " default: https://github.com/Shougo/neocomplete.vim/blame/34b42e76be30c0f365110ea036c8490b38fcb13e/autoload/neocomplete/sources/omni.vim
 let s:oip.javascript = '\h\w*\|[^. \t]\.\w*'
+
 " lua with xolox/vim-lua-ftplugin -- not used but correct
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1705
 " let s:oip.lua = '\w\+[.:]\|require\s*(\?["'']\w*'
+
+" perl
+let s:oip.perl   = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
 " php with phpcomplete.vim support
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1731
 let s:oip.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-" force using omnifunc (jedi) -- not used
-" let s:oip.python = ''
-" force using omnifunc (rsense) -- not used
-" let s:oip.ruby = ''
 
-" Forced omni input patterns: when defined for a filetype, call the omnifunc
-" directly (feedkeys <C-X><C-O>) instead of delegating to completion plugin.
+" ----------------------------------------------------------------------------
+" Forced omni input patterns
+" ----------------------------------------------------------------------------
+
+" When defined for a filetype, call the omnifunc directly (feedkeys
+" <C-X><C-O>) instead of delegating to completion plugin. See each plugin
+" section for settings.
 " neocomplete dict: g:neocomplete#force_omni_input_patterns
+" deoplete dict:    g:deoplete#omni_patterns
+" - string vim regex
 let s:fip = {}
+
 " c-type with clang_complete -- not used but correct
 " let s:fip.c =       '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?',
 " let s:fip.cpp =     '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?',
 " let s:fip.objc =    '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
 " let s:fip.objcpp =  '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+
 " ruby with Shougo/neocomplete-rsense -- not used but correct
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1605
 " let s:fip.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
 " python with davidhalter/jedi-vim -- not used but correct
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1617
 " let s:fip.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+
 " typescript with Quramy/tsuquyomi -- not used but correct
 " let s:fip.typescript = '[^. \t]\.\%(\h\w*\)\?'
 " let s:fip.typescript = '\h\w*\|[^. \t]\.\w*' -- maybe more relaxed
 
-" Omnifunc groups, a list of omnifuncs to use all at once instead of just what
-" is set for the buffer
+" ----------------------------------------------------------------------------
+" Omnifunc for each filetype
+" ----------------------------------------------------------------------------
+
+" When triggering a completion within an engine, use these omnifuncs
 " deoplete    g:deoplete#omni#functions
 " neocomplete g:neocomplete#sources#omni#functions
-" Continued in jspc and tern...
-let s:omnifuncs = {
-      \   'javascript': [ 'javascriptcomplete#CompleteJS' ],
-      \   'sh':         [ 'syntaxcomplete#Complete' ],
-      \ }
+" - list of omnifunc function names
+let s:omnifuncs = {}
+
+" JavaScript (probably superseded by tern)
+let s:omnifuncs.javascript = [ 'javascriptcomplete#CompleteJS' ]
 
 " ============================================================================
-" jspc.vim
+" Completion Plugin: jspc.vim
 " ============================================================================
 
 if 1 && exists('g:plugs["jspc.vim"]')
@@ -108,7 +133,7 @@ if 1 && exists('g:plugs["jspc.vim"]')
 endif
 
 " ============================================================================
-" vim-better-javascript-completion
+" Completion Plugin: vim-better-javascript-completion
 " ============================================================================
 
 if 1 && exists('g:plugs["vim-better-javascript-completion"]')
@@ -118,7 +143,7 @@ if 1 && exists('g:plugs["vim-better-javascript-completion"]')
 endif
 
 " ============================================================================
-" tern
+" Completion Plugin: tern
 " This overrides all other JS completions
 " ============================================================================
 
@@ -128,15 +153,14 @@ if 1 && exists('g:plugs["tern_for_vim"]')
 
   augroup dkotern
     autocmd FileType javascript nnoremap <silent><buffer> gb :TernDef<CR>
-    " This supercedes the setting in dkoomnifuncs augroup
     autocmd FileType javascript setlocal omnifunc=tern#Complete
   augroup END
 
-  " insert instead of add
-  call insert(s:omnifuncs.javascript, 'tern#Complete')
   " force using omnicompletion (tern in this case)
-  " Override all other completions by forcing omni completion?
-  "let s:fip.javascript = '[^. \t]\.\w*'
+  silent! unlet s:oip.javascript
+  " pretty much match anything | match whitespace and then anything
+  let s:fip.javascript = '\h\w*\|[^. \t]\.\w*'
+  let s:omnifuncs.javascript = 'tern#Complete'
 endif
 
 " ============================================================================
@@ -161,37 +185,22 @@ if exists('g:plugs["neocomplete.vim"]')
         \   'matcher_length',
         \ ])
 
-  " triggers that start neocomplete omni-completion
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
-  for [s:ft, s:regexes] in items(s:oip)
-    let g:neocomplete#sources#omni#input_patterns[s:ft] = s:regexes
-  endfor
-
-  " triggers that forced standard omni-completion 
-  if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-  endif
-  for [s:ft, s:regexes] in items(s:fip)
-    let g:neocomplete#force_omni_input_patterns[s:ft] = s:regexes
-  endfor
-
   " --------------------------------------------------------------------------
-  " Sources
+  " Sources for engine-based omni-completion
   " --------------------------------------------------------------------------
 
-  " if !exists('g:neocomplete#sources')
-  "   let g:neocomplete#sources = {}
-  " endif
-  "let g:neocomplete#sources._ = [ 'omni', 'buffer' ]
+  call dko#init_object('g:neocomplete#sources#omni#functions')
+  call extend(g:neocomplete#sources#omni#functions, s:omnifuncs)
 
-  if !exists('g:neocomplete#sources#omni#functions')
-    let g:neocomplete#sources#omni#functions = {}
-  endif
-  for [s:ft, s:funclist] in items(s:omnifuncs)
-    let g:neocomplete#sources#omni#functions[s:ft] = s:funclist
-  endfor
+  " --------------------------------------------------------------------------
+  " Input patterns
+  " --------------------------------------------------------------------------
+
+  call dko#init_object('g:neocomplete#sources#omni#input_patterns')
+  call extend(g:neocomplete#sources#omni#input_patterns, s:oip)
+
+  call dko#init_object('g:neocomplete#force_omni_input_patterns')
+  call extend(g:neocomplete#force_omni_input_patterns, s:fip)
 endif
 
 " ============================================================================
@@ -206,36 +215,24 @@ if exists('g:plugs["deoplete.nvim"]')
         \   'matcher_length',
         \ ])
 
-  " ----------------------------------------
-  " Assign omnifunc for deoplete by filetype
+  " --------------------------------------------------------------------------
+  " Sources for engine based omni-completion
   " Unlike neocomplete, deoplete only supports one omnifunction at a time
-  " ----------------------------------------
+  " --------------------------------------------------------------------------
 
-  let g:deoplete#omni#functions = {}
+  call dko#init_object('g:deoplete#omni#functions')
+  " Not extending -- deoplete only supports one omnifunc
   for [s:ft, s:funclist] in items(s:omnifuncs)
     let g:deoplete#omni#functions[s:ft] = s:funclist[0]
   endfor
 
-  " ----------------------------------------
-  " Input pattern
-  " see https://github.com/Shougo/deoplete.nvim/blob/master/autoload/deoplete/init.vim
-  " ----------------------------------------
+  " --------------------------------------------------------------------------
+  " Input patterns
+  " --------------------------------------------------------------------------
 
-  let g:deoplete#omni#input#patterns = {}
-  for [s:ft, s:regexes] in items(s:oip)
-    let g:deoplete#omni#input#patterns[s:ft] = s:regexes
-  endfor
+  call dko#init_object('g:deoplete#omni#input#patterns')
+  call extend(g:deoplete#omni#input#patterns, s:oip)
 
-  " forced standard omni-completion
-  " let g:deoplete#omni_patterns.sh = '\w+\.'
-  " let g:deoplete#omni_patterns.xml  = '<[^>]*'
-  " let g:deoplete#omni_patterns = {}
-  " let g:deoplete#omni_patterns.html = '<[^>]*'
-  " let g:deoplete#omni_patterns.md   = '<[^>]*'
-  " let g:deoplete#omni_patterns.python = '\w+\.'
-  " let g:deoplete#omni_patterns.php =
-  "       \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-  " let g:deoplete#omni_patterns.python = ['[^. *\t]\.\h\w*\','\h\w*::']
-  " let g:deoplete#omni_patterns.python3 = ['[^. *\t]\.\h\w*\','\h\w*::']
-
+  call dko#init_object('g:deoplete#omni_patterns')
+  call extend(g:deoplete#omni_patterns, s:fip)
 endif
