@@ -26,18 +26,12 @@ autocmd dkosyntastic FileType * SyntasticCheck
 nnoremap <silent> S :Errors<CR>
 
 " ----------------------------------------------------------------------------
-" How to check
-" ----------------------------------------------------------------------------
-
-" Map some filetypes, e.g. turn off html checkers on handlebars (I'm using my
-" hbstidy instead of html tidy)
-let g:syntastic_filetype_map = {
-      \   'html.handlebars': 'handlebars',
-      \ }
-
-" ----------------------------------------------------------------------------
 " Display results
 " ----------------------------------------------------------------------------
+
+if !exists("g:plugs['vim-airline']")
+  let g:syntastic_stl_format='%E{E:%e}%W{W:%w}'
+endif
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list            = 2 " autoclose only
@@ -51,6 +45,16 @@ let g:syntastic_error_symbol         = '☠'
 let g:syntastic_style_error_symbol   = '☠'
 let g:syntastic_warning_symbol       = '⚑'
 let g:syntastic_style_warning_symbol = '⚑'
+
+" ----------------------------------------------------------------------------
+" How to check
+" ----------------------------------------------------------------------------
+
+" Map some filetypes, e.g. turn off html checkers on handlebars (I'm using my
+" hbstidy instead of html tidy)
+let g:syntastic_filetype_map = {
+      \   'html.handlebars': 'handlebars',
+      \ }
 
 let g:syntastic_ignore_files = [
       \ '\m\.min\.js$',
