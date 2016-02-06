@@ -12,14 +12,29 @@ function! dko#statusline() abort
   " mode
   let l:contents .= '[%{mode()}] '
 
+  " --------------------------------------------------------------------------
+  " File info
+  " --------------------------------------------------------------------------
+
+  if exists("g:plugs['vim-fugitive']")
+    let l:contents .= '[%{fugitive#head()}] '
+  endif
+
   " [help][Quickfix/Location List][Preview][&ft]
   let l:contents .= '%h%q%w%y '
 
   " truncated filename
   let l:contents .= '%<%f '
 
-  " RIGHT ALIGN
+  " --------------------------------------------------------------------------
+  " Right side
+  " --------------------------------------------------------------------------
+
   let l:contents .= '%='
+
+  if exists("g:plugs['vim-anzu']")
+    let l:contents .= '%{anzu#search_status()}'
+  endif
 
   " Syntastic
   if exists("g:plugs['syntastic']")
