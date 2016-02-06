@@ -6,12 +6,9 @@ function! dko#init_object(var) abort
   let {a:var} = exists(a:var) ? {a:var} : {}
 endfunction
 
-function! dko#status_branch() abort
-  if !empty(fugitive#head()) && &buflisted
-    return '%#DiffAdd# %{fugitive#head()} %*'
-  endif
-  return ''
-endfunction
+" ============================================================================
+" Status line
+" ============================================================================
 
 function! dko#status_mode() abort
   let l:modecolor = '%*'
@@ -23,7 +20,8 @@ function! dko#status_mode() abort
   return  l:modecolor . ' %{mode()} %*'
 endfunction
 
-function! dko#statusline() abort
+" a:winnr when called from autocmd in plugin/statusline.vim
+function! dko#statusline(winnr) abort
   let l:contents = ''
 
   " mode
@@ -34,12 +32,14 @@ function! dko#statusline() abort
   " File info
   " --------------------------------------------------------------------------
 
-  if exists("g:plugs['vim-fugitive']")
-    let l:contents .= dko#status_branch()
+  if exists("g:plugs['vim-fugitive']") && a:winnr == winnr()
+    let l:contents .= !empty(fugitive#head())
+          \ ? '%#DiffAdd# %{fugitive#head()} %*'
+          \ : ''
   endif
 
   " [&ft]
-  let l:contents .= !empty(&ft) && &buflisted ? ' %y' : ''
+  let l:contents .= !empty(&ft) ? ' %y' : ''
 
   " truncated filename
   let l:contents .= ' %<%f '
@@ -50,7 +50,7 @@ function! dko#statusline() abort
 
   let l:contents .= '%='
 
-  if exists("g:plugs['vim-anzu']")
+  if exists("g:plugs['vim-anzu']") && a:winnr == winnr()
     let l:contents .= !empty(anzu#search_status())
           \ ? '%*%#SignColumn#' . ' %{anzu#search_status()} ' . '%*'
           \ : ''
@@ -63,7 +63,7 @@ function! dko#statusline() abort
   let l:contents .= '%h%q%w'
 
   " Syntastic
-  if exists("g:plugs['syntastic']")
+  if exists("g:plugs['syntastic']") && a:winnr == winnr()
     let l:contents .= !empty(SyntasticStatuslineFlag())
           \ ? '%#SyntasticErrorSign#' . ' %{SyntasticStatuslineFlag()} ' . '%*'
           \ : ''

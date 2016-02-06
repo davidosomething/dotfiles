@@ -117,7 +117,7 @@ set noshowmode                        " don't show -- INSERT -- in cmdline
 " statusline contents, not used if vim-airline is on.
 set ruler                             " fallback to this if statusline not set
 " 'statusline' overrides 'ruler', and 'rulerformat'
-set statusline=%!dko#statusline()
+set statusline=%!dko#statusline(1)
 
 " ----------------------------------------------------------------------------
 " Wild and file globbing stuff in command mode
