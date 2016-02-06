@@ -11,6 +11,8 @@ let g:dko_vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 " Used by anything that needs to change/use loc list (e.g. syntastic)
 let g:dko_loc_list_height = 10
+" Use my own statusline instead of airline?
+let g:dko_use_statusline = 1
 
 " ============================================================================
 " My autocmd block - Clear vimrc group's autocmds if reloading
@@ -425,7 +427,7 @@ if s:dko_use_plugins
   let s:dko_use_neomake   = 0 && has('nvim')
   let s:dko_use_syntastic = 1 && !s:dko_use_neomake
 
-  let s:dko_use_airline   = 0
+  let s:dko_use_airline   = !g:dko_use_statusline
   let s:dko_use_gutentags = 1
   let s:dko_use_colorv    = 1 && (has('python') || has('python3'))
 
