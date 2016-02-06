@@ -42,6 +42,8 @@ set shell=$SHELL
 " Clipboard -- use os clipboard
 " ------------------------------------
 
+set pastetoggle=<F12>
+
 if (exists('$DISPLAY') || has('mac')) && has('clipboard')
   set clipboard=unnamed  " Use clipboard register
 
@@ -451,7 +453,8 @@ if s:dko_use_plugins
 
   Plug 'jmcantrell/vim-virtualenv'
 
-  if !has('mac') && executable('pyenv') | Plug 'lambdalisue/vim-pyenv'
+  if !has('mac') && executable('pyenv')
+    Plug 'lambdalisue/vim-pyenv'
   endif
 
   " ========================================================================

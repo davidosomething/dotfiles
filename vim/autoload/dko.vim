@@ -6,11 +6,18 @@ function! dko#init_object(var) abort
   let {a:var} = exists(a:var) ? {a:var} : {}
 endfunction
 
+function! dko#pasteflag() abort
+  if &paste
+    return 'p'
+  endif
+  return ''
+endfunction
+
 function! dko#statusline() abort
   let l:contents = ' '
 
   " mode
-  let l:contents .= '[%{mode()}] '
+  let l:contents .= '[%{mode()}%{dko#pasteflag()}] '
 
   " --------------------------------------------------------------------------
   " File info
