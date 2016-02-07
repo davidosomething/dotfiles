@@ -25,9 +25,9 @@ function! s:DKO_StarSearch()
   " Show count of matches
   if exists("g:plugs['vim-anzu']")
     if exists("g:plugs['vim-asterisk']")
-      let l:ops = l:ops . "\<Plug>(anzu-update-search-status-with-echo)"
+      let l:ops = l:ops . "\<Plug>(anzu-update-search-status)"
     else
-      let l:ops = l:ops . "\<Plug>(anzu-star-with-echo)"
+      let l:ops = l:ops . "\<Plug>(anzu-star)"
     endif
   endif
 
@@ -49,13 +49,13 @@ if exists("g:plugs['vim-anzu']")
   let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
 
   if exists("g:plugs['incsearch.vim']")
-    nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
-    nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
-    nmap # <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
+    nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n)
+    nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N)
+    nmap # <Plug>(incsearch-nohl)<Plug>(anzu-sharp)
   else
-    nmap n <Plug>(anzu-n-with-echo)
-    nmap N <Plug>(anzu-N-with-echo)
-    nmap # <Plug>(anzu-sharp-with-echo)
+    nmap n <Plug>(anzu-n)
+    nmap N <Plug>(anzu-N)
+    nmap # <Plug>(anzu-sharp)
   endif
 endif
 

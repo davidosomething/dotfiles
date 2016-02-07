@@ -45,13 +45,13 @@ function! dkostatus#Output(winnr) abort
 
   if exists("g:plugs['vim-anzu']") && a:winnr == winnr()
     let l:contents .= !empty(anzu#search_status())
-          \ ? '%*%#WildMenu#' . ' %{anzu#search_status()} ' . '%*'
+          \ ? '%*%#MatchParen#' . ' %{anzu#search_status()} ' . '%*'
           \ : ''
   endif
 
   " [&ft]
   let l:contents .= !empty(&ft) && a:winnr == winnr()
-        \ ? &ft . ' '
+        \ ? ' ' . &ft . ' '
         \ : ''
 
   " ruler (10 char long, so can accommodate 99999)
