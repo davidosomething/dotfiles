@@ -9,6 +9,8 @@ My dotfiles. https://github.com/davidosomething/dotfiles
 - VIM and neovim configs (planning to split repo, though)
 - Dev setup for lua, markdown, node, php, python, r, ruby, shell
 
+![terminal screenshot](meta/terminal.png)
+
 # Installation
 
 - Clone with submodules, and symlink:
