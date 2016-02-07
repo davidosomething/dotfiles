@@ -83,6 +83,25 @@ set cursorline
 
 set synmaxcol=512                     " don't syntax highlight long lines
 
+" ------------------------------------
+" Tab line
+" ------------------------------------
+
+set showtabline=0                     " never show tabline
+
+" ------------------------------------
+" Status line
+" ------------------------------------
+
+set laststatus=2
+set showcmd                           " incomplete commands on
+set noshowmode                        " don't show -- INSERT -- in cmdline
+
+if g:dko_use_statusline
+  set statusline=%!dkostatus#Output(1)
+endif
+
+
 " ----------------------------------------------------------------------------
 " Input
 " ----------------------------------------------------------------------------
@@ -106,18 +125,6 @@ set ttimeoutlen=10
 " no longer using \ so I can type escaped chars :/
 " needs to be before bundle so plugins map correctly
 let g:mapleader = "\<Space>"
-
-" ----------------------------------------------------------------------------
-" Status line
-" ----------------------------------------------------------------------------
-
-set laststatus=2
-set showcmd                           " incomplete commands on
-set noshowmode                        " don't show -- INSERT -- in cmdline
-" statusline contents, not used if vim-airline is on.
-set ruler                             " fallback to this if statusline not set
-" 'statusline' overrides 'ruler', and 'rulerformat'
-set statusline=%!dko#statusline(1)
 
 " ----------------------------------------------------------------------------
 " Wild and file globbing stuff in command mode
@@ -422,14 +429,16 @@ if s:dko_use_plugins
   let s:dko_use_neocomplete     = 1 && has('lua')
   let s:dko_use_neosnippet      = 1
 
-  let s:dko_use_tern_completion = 1 && (has('python') || has('python3'))
+  let s:dko_use_tern_completion = 0 && (has('python') || has('python3'))
 
   let s:dko_use_neomake   = 0 && has('nvim')
   let s:dko_use_syntastic = 1 && !s:dko_use_neomake
 
   let s:dko_use_airline    = 1 && !g:dko_use_statusline
   let s:dko_use_buftabline = 0 && !g:dko_use_airline
+
   let s:dko_use_gutentags = 1
+
   let s:dko_use_colorv    = 1 && (has('python') || has('python3'))
 
   call plug#begin(g:dko_plug_absdir)
@@ -727,7 +736,7 @@ if s:dko_use_plugins
   " ----------------------------------------
 
   if g:dko_has_completion
-    if s:dko_use_tern_completion
+    if s:dko_use_tern_completion && executable('npm')
       Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
     else
       " Syntax completion
@@ -748,9 +757,11 @@ if s:dko_use_plugins
   " Use pandoc for markdown syntax
   Plug 'vim-pandoc/vim-pandoc-syntax'
 
-  Plug 'suan/vim-instant-markdown', {
-        \   'do': 'npm install -g instant-markdown-d'
-        \ }
+  if executable('npm')
+    Plug 'suan/vim-instant-markdown', {
+          \   'do': 'npm install -g instant-markdown-d'
+          \ }
+  endif
 
   " ========================================================================
   " Language: Nginx
@@ -787,7 +798,12 @@ if s:dko_use_plugins
   " 'phpvim/phpcd.vim'            - server based completion
   " 'shawncplus/phpcomplete.vim'  - slow as fuck, included in VIMRUNTIME.
   "                                 this is upstream. Manual <c-x><c-o> to use
-  Plug 'mkusher/padawan.php', { 'do': 'composer global require mkusher/padawan', 'for': 'php' }
+  if has('nvim') && executable('composer')
+    Plug 'mkusher/padawan.php', {
+          \   'do': 'composer global require mkusher/padawan',
+          \   'for': 'php',
+          \ }
+  endif
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
   "Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
@@ -831,8 +847,10 @@ if s:dko_use_plugins
   " Features
   " ----------------------------------------
 
+  " Hex (et al) color highlighting
   if s:dko_use_colorv | Plug 'Rykka/colorv.vim'
-  else                | Plug 'ap/vim-css-color'
+  else                | Plug 'chrisbra/Colorizer'
+  "else                | Plug 'ap/vim-css-color'
   endif
 
   " Omnicompletion

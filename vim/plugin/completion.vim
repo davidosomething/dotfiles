@@ -103,8 +103,7 @@ endif
 " ============================================================================
 
 if 1 && exists('g:plugs["vim-better-javascript-completion"]')
-  " insert instead of add, will prefer this over javascript#CompleteJS (but
-  " not over Tern, which is also prepended)
+  " insert instead of add, this is preferred completion omnifunc (except tern)
   call insert(s:omnifuncs.javascript, 'js#CompleteJS')
 endif
 
@@ -144,7 +143,6 @@ if 1 && s:use_phpcomplete && exists("g:plugs['phpcomplete-extended']")
   call insert(s:omnifuncs.php, 'phpcomplete_extended#CompletePHP' )
 endif
 
-
 " ============================================================================
 " Neocomplete
 " ============================================================================
@@ -171,7 +169,7 @@ if exists('g:plugs["neocomplete.vim"]')
   " Sources for engine-based omni-completion (ignored if match s:fip)
   " --------------------------------------------------------------------------
 
-  call dko#init_object('g:neocomplete#sources#omni#functions')
+  call dko#InitObject('g:neocomplete#sources#omni#functions')
   call extend(g:neocomplete#sources#omni#functions, s:omnifuncs)
 
   " --------------------------------------------------------------------------
@@ -179,7 +177,7 @@ if exists('g:plugs["neocomplete.vim"]')
   " --------------------------------------------------------------------------
 
   " Patterns that bypass to &omnifunc
-  call dko#init_object('g:neocomplete#force_omni_input_patterns')
+  call dko#InitObject('g:neocomplete#force_omni_input_patterns')
   call extend(g:neocomplete#force_omni_input_patterns, s:fip)
 
   " Completion engine input patterns
@@ -207,7 +205,7 @@ if exists('g:plugs["neocomplete.vim"]')
           \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
   endif
 
-  call dko#init_object('g:neocomplete#sources#omni#input_patterns')
+  call dko#InitObject('g:neocomplete#sources#omni#input_patterns')
   call extend(g:neocomplete#sources#omni#input_patterns, s:neo_patterns)
 endif
 
@@ -228,7 +226,7 @@ if exists('g:plugs["deoplete.nvim"]')
   " Unlike neocomplete, deoplete only supports one omnifunction at a time
   " --------------------------------------------------------------------------
 
-  call dko#init_object('g:deoplete#omni#functions')
+  call dko#InitObject('g:deoplete#omni#functions')
   " Not extending, instead pluck first item from list since deoplete only
   " supports one omnifunc
   call extend(g:deoplete#omni#functions, map(copy(s:omnifuncs), 'v:val[0]'))
@@ -238,7 +236,7 @@ if exists('g:plugs["deoplete.nvim"]')
   " --------------------------------------------------------------------------
 
   " Patterns that bypass to &omnifunc
-  call dko#init_object('g:deoplete#omni_patterns')
+  call dko#InitObject('g:deoplete#omni_patterns')
   call extend(g:deoplete#omni_patterns, s:fip)
 
   " Completion engine input patterns
@@ -252,7 +250,7 @@ if exists('g:plugs["deoplete.nvim"]')
   "         \   '[a-zA-Z_]\::\w*',
   "         \ ]
   " endif
-  call dko#init_object('g:deoplete#omni#input#patterns')
+  call dko#InitObject('g:deoplete#omni#input#patterns')
   call extend(g:deoplete#omni#input#patterns, s:deo_patterns)
 
 endif

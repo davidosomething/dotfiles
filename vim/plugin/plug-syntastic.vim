@@ -17,13 +17,11 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq   = 0
 let g:syntastic_mode_map = {
       \   'mode': 'active',
-      \   'passive_filetypes': [ ],
+      \   'passive_filetypes': [],
       \ }
 
 " Check when filetype init/changed (still happens on initial ft detection)
 autocmd dkosyntastic FileType * SyntasticCheck
-
-nnoremap <silent> S :Errors<CR>:lfirst<CR>
 
 " ----------------------------------------------------------------------------
 " Display results
@@ -158,7 +156,7 @@ let g:syntastic_vim_checkers = ['vint']
 if exists("g:plugs['vim-vimlint']")
   call add(g:syntastic_vim_checkers, 'vimlint')
 
-  call dko#init_object('g:vimlint#config')
+  call dko#InitObject('g:vimlint#config')
   let g:vimlint#config.EVL103 = 1
 
   let g:syntastic_vimlint_options = g:vimlint#config

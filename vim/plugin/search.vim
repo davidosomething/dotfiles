@@ -45,6 +45,9 @@ if exists("g:plugs['incsearch.vim']")
 endif
 
 if exists("g:plugs['vim-anzu']")
+  " Support other search modes like `gd`
+  let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
+
   if exists("g:plugs['incsearch.vim']")
     nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
     nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)

@@ -5,7 +5,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'bubblegum'
 
 " line number symbol
-call dko#init_object('g:airline_symbols')
+call dko#InitObject('g:airline_symbols')
 let g:airline_symbols.linenr   = ''
 let g:airline_symbols.paste    = 'ρ'
 let g:airline_symbols.readonly = ''
