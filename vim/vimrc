@@ -498,10 +498,11 @@ if s:dko_use_plugins
           \| Plug 'Shougo/vimfiler.vim'
           \| Plug 'Shougo/neomru.vim'
           \| Plug 'Shougo/unite-outline'
-          "\| Plug 'osyo-manga/unite-quickfix'
+          \| Plug 'tsukkee/unite-tag'
+
+          "BROKEN
           "\| Plug 'hewes/unite-gtags'
-          "\| Plug 'ujihisa/unite-font'
-          "\| Plug 'ujihisa/unite-colorscheme'
+          "\| Plug 'osyo-manga/unite-quickfix'
   endif
 
   Plug 'nathanaelkane/vim-indent-guides'

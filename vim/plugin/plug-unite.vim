@@ -221,10 +221,28 @@ function! s:unite_mappings()
   vnoremap <silent> <F5> <Esc>:<C-u>Unite outline<CR>
 
   " ============================================================================
-  " Keybinding: gtags
+  " Keybinding: tags
   " ============================================================================
 
-  if exists("g:plugs['unite-gtags']")
+  if exists("g:plugs['unite-tag']")
+
+    " ----------------------------------------
+    " Keybinding: gtags grep pattern
+    " ----------------------------------------
+
+    nnoremap <silent> <F6> :<C-u>Unite -start-insert tag<CR>
+    inoremap <silent> <F6> <Esc>:<C-u>Unite -start-insert tag<CR>
+    vnoremap <silent> <F6> <Esc>:<C-u>Unite -start-insert tag<CR>
+
+    " ----------------------------------------
+    " Keybinding: gtags defs+refs for cursor
+    " ----------------------------------------
+
+    nnoremap <silent> <F7> :<C-u>Unite tag/include<CR>
+    inoremap <silent> <F7> <Esc>:<C-u>Unite tag/include<CR>
+    vnoremap <silent> <F7> <Esc>:<C-u>Unite tag/include<CR>
+
+  elseif exists("g:plugs['unite-gtags']")
 
     " ----------------------------------------
     " Keybinding: gtags grep pattern
