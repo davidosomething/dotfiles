@@ -44,7 +44,7 @@ function! dkostatus#Output(winnr) abort
 
   if exists("g:plugs['vim-anzu']") && a:winnr == winnr()
     let l:contents .= !empty(anzu#search_status())
-          \ ? '%*%#SignColumn#' . ' %{anzu#search_status()} ' . '%*'
+          \ ? '%*%#WildMenu#' . ' %{anzu#search_status()} ' . '%*'
           \ : ''
   endif
 
