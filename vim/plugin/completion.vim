@@ -114,7 +114,7 @@ endif
 " ============================================================================
 
 if 1 && exists('g:plugs["tern_for_vim"]')
-  let g:tern_show_argument_hints = 'on_hold'
+  "let g:tern_show_argument_hints = 'on_hold'
   let g:tern_show_signature_in_pum = 1
 
   augroup dkoomnifuncs
@@ -124,7 +124,8 @@ if 1 && exists('g:plugs["tern_for_vim"]')
 
   " force using omnicompletion (tern in this case)
   " pretty much match anything | match whitespace and then anything
-  let s:fip.javascript = '\h\w*\|[^. \t]\.\w*'
+  "let s:fip.javascript = '\h\w*\|[^. \t]\.\w*'
+  let s:fip.javascript = '[^. \t]\.\w*'
 endif
 
 " ============================================================================

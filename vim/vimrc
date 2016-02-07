@@ -194,7 +194,7 @@ execute 'set directory=' . g:dko_vim_dir . '/.tmp/swap//'
 " ----------------------------------------------------------------------------
 
 " Add symlinked aspell from dotfiles as default spellfile
-execute 'set spellfile=' . glob(expand(g:dko_vim_dir . '/en.utf-8.add'))
+"execute 'set spellfile=' . glob(expand(g:dko_vim_dir . '/en.utf-8.add'))
 
 " ----------------------------------------------------------------------------
 " Completion -- see also plugins/completion.vim
@@ -427,7 +427,8 @@ if s:dko_use_plugins
   let s:dko_use_neomake   = 0 && has('nvim')
   let s:dko_use_syntastic = 1 && !s:dko_use_neomake
 
-  let s:dko_use_airline   = !g:dko_use_statusline
+  let s:dko_use_airline    = 1 && !g:dko_use_statusline
+  let s:dko_use_buftabline = 0 && !g:dko_use_airline
   let s:dko_use_gutentags = 1
   let s:dko_use_colorv    = 1 && (has('python') || has('python3'))
 
@@ -484,10 +485,10 @@ if s:dko_use_plugins
 
   if exists("g:plugs['vimproc.vim']")
     Plug 'Shougo/unite.vim'
+          \| Plug 'Shougo/vimfiler.vim'
           \| Plug 'Shougo/neomru.vim'
           \| Plug 'Shougo/unite-outline'
           "\| Plug 'osyo-manga/unite-quickfix'
-          "\| Plug 'Shougo/vimfiler.vim'
           "\| Plug 'hewes/unite-gtags'
           "\| Plug 'ujihisa/unite-font'
           "\| Plug 'ujihisa/unite-colorscheme'
@@ -886,7 +887,7 @@ if s:dko_use_plugins
   Plug 'osyo-manga/vim-anzu'
 
   if s:dko_use_airline | Plug 'vim-airline/vim-airline'
-  else
+  elseif s:dko_use_buftabline
     "Plug 'ap/vim-buftabline'
     Plug 'davidosomething/vim-buftabline', { 'branch': 'indicator-readonly' }
     "Plug '~/projects/vim-buftabline'
