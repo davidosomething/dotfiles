@@ -141,7 +141,7 @@ export VAGRANT_HOME="${XDG_CONFIG_HOME}/vagrant"
 # vopen
 export VOPEN_EDITOR="nvim"
 export VOPEN_VISUAL="gvim"
-export VOPEN_USE_GUI=false
+export VOPEN_USE_GUI=true
 export VOPEN_USE_SERVER=true
 
 # weechat
