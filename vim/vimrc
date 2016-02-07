@@ -393,7 +393,8 @@ let g:dko_has_completion = 0
 " Plugins: netrw
 " ============================================================================
 
-let g:loaded_netrwPlugin = !s:dko_use_plugins
+" disable entirely?
+"let g:loaded_netrwPlugin = 0 && !s:dko_use_plugins
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
 let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')

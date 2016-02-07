@@ -6,7 +6,7 @@ My dotfiles. https://github.com/davidosomething/dotfiles
 - OSX and ArchLinux compatible
 - XDG compliance
 - ZSH and BASH configs
-- VIM and neovim configs (planning to split repo, though)
+- VIM and Neovim configs (planning to split repo, though)
 - Dev setup for lua, markdown, node, php, python, r, ruby, shell
 
 ![terminal screenshot](meta/terminal.png)
@@ -31,7 +31,7 @@ These will assist in installing things
     - Update various things. Aliased to `u`. Run `u` for usage.
 
 - `bootstrap/cleanup.sh`
-    - Moves some things into their XDG Base Directory suppored dirs
+    - Moves some things into their XDG Base Directory supported directories
 
 - `bootstrap/symlink.sh`
     - bash, zsh, ack, screen, (n)vim

@@ -8,14 +8,8 @@
 "
 
 setlocal nomodeline
-setlocal nocopyindent
-setlocal nowrap
 setlocal expandtab
-setlocal nolinebreak
 setlocal textwidth=0
-setlocal nosmartindent
-setlocal nocindent
-
 setlocal spell
 setlocal complete+=kspell
 

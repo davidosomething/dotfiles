@@ -5,10 +5,8 @@
 "
 
 setlocal nonumber
-
 setlocal wrap
 setlocal linebreak
-
 setlocal spell
 setlocal complete+=kspell
 
@@ -16,4 +14,7 @@ setlocal complete+=kspell
 setlocal textwidth=80
 setlocal tabstop=4
 setlocal formatoptions+=croq
+
+" Always start in display movement mode for markdown
+call movemode#setByDisplay()
 
