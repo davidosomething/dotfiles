@@ -3,9 +3,9 @@
 " ============================================================================
 
 function! dkostatus#Mode() abort
-  let l:modecolor = '%*'
+  let l:modecolor = '%#DiffAdd#'
   if mode() ==# 'i'
-    let l:modecolor = '%#PmenuSel#'
+    let l:modecolor = '%#DiffChange#'
   elseif mode() ==# 'v'
     let l:modecolor = '%#Cursor#'
   endif
@@ -20,6 +20,9 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= dkostatus#Mode()
   let l:contents .= !empty(&paste) ? '%#DiffText# p %*' : ''
 
+  " [help][Quickfix/Location List][Preview]
+  "let l:contents .= '%h%q%w'
+
   " --------------------------------------------------------------------------
   " File info
   " --------------------------------------------------------------------------
@@ -29,9 +32,6 @@ function! dkostatus#Output(winnr) abort
           \ ? '%#DiffAdd# %{fugitive#head()} %*'
           \ : ''
   endif
-
-  " [&ft]
-  let l:contents .= !empty(&ft) ? ' %y' : ''
 
   " truncated filename
   let l:contents .= ' %<%f '
@@ -48,11 +48,13 @@ function! dkostatus#Output(winnr) abort
           \ : ''
   endif
 
-  " ruler (10 char long, so can accommodate 9999x99999)
-  let l:contents .= '%10.(%l:%c%) '
+  " [&ft]
+  let l:contents .= !empty(&ft) && a:winnr == winnr()
+        \ ? &ft . ' '
+        \ : ''
 
-  " [help][Quickfix/Location List][Preview]
-  let l:contents .= '%h%q%w'
+  " ruler (10 char long, so can accommodate 99999)
+  let l:contents .= '%#VertSplit#' . '%5.(%c%) ' . '%*'
 
   " Syntastic
   if exists("g:plugs['syntastic']") && a:winnr == winnr()
