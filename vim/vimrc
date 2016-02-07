@@ -590,8 +590,6 @@ if s:dko_use_plugins
   " used for line bubbling commands on osx
   " buffer switch, lnext/prev, etc.
   Plug 'tpope/vim-unimpaired'
-  " override unimpaired's [x and ]x to jump to conflict markers
-  Plug 'rhysd/conflict-marker.vim'
 
   " REMAPS 's' to surround operator
   Plug 'kana/vim-operator-user'
