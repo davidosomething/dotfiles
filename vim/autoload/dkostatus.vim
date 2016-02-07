@@ -27,7 +27,8 @@ function! dkostatus#Output(winnr) abort
   " File info
   " --------------------------------------------------------------------------
 
-  if exists("g:plugs['vim-fugitive']") && a:winnr == winnr()
+  " DISABLED
+  if 0 && exists("g:plugs['vim-fugitive']") && a:winnr == winnr()
     let l:contents .= !empty(fugitive#head())
           \ ? '%#DiffAdd# %{fugitive#head()} %*'
           \ : ''
