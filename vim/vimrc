@@ -320,16 +320,16 @@ set shiftwidth=2                      " softtabs are 2 spaces for expandtab
 " shiftwidth (so the 2 actually doesn't matter).
 set softtabstop=-2
 
-" real tabs render 4 wide. Applicable to HTML, PHP, anything using real tabs.
+" real tabs render width. Applicable to HTML, PHP, anything using real tabs.
 " I.e., not applicable to JS.
-set tabstop=4
+set tabstop=2
 
 " use multiple of shiftwidth when shifting indent levels.
 " this is OFF so block comments don't get fudged when using ">>" and "<<"
 set noshiftround
 
 " When on, a <Tab> in front of a line inserts blanks according to
-" 'shiftwidth'.  'tabstop' or 'softtabstop' is used in other places.  A
+" 'shiftwidth'. 'tabstop' or 'softtabstop' is used in other places.
 set smarttab
 
 set backspace=indent,eol,start        " bs anything
