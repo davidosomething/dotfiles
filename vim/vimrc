@@ -132,7 +132,7 @@ let g:mapleader = "\<Space>"
 
 set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
-set wildmode=list:longest             " Complete files like a shell.
+set wildmode=longest:full,full        " Complete files using a menu
 set wildignorecase
 " output, VCS
 set wildignore+=.git,.hg,.svn
@@ -487,7 +487,9 @@ if s:dko_use_plugins
   " ========================================================================
 
   " Mostly for :Gblame
-  Plug 'tpope/vim-fugitive'
+  "Plug 'tpope/vim-fugitive'
+  " the blame in vim-gita is hawt :3
+  Plug 'lambdalisue/vim-gita'
 
   " Mostly for :Scriptnames and zS
   Plug 'tpope/vim-scriptease'

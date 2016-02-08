@@ -90,11 +90,15 @@ function! dkostatus#Output(winnr) abort
 
   let l:contents .= '%='
 
-  " pwd
-  let l:contents .= '%#Folded# %<%{pathshorten(getcwd())} %*'
+  " pwd - don't show in blame
+  if getbufvar(l:bufnr, '&ft') !~# 'gita-'
+    let l:contents .= '%#Folded# %<%{pathshorten(getcwd())} %*'
+  endif
 
-  " ruler (10 char long, so can accommodate 99999)
-  let l:contents .= '%#VertSplit#' . ' %5.(%c%) ' . '%*'
+  " ruler (10 char long, so can accommodate 99999) - only show in active
+  if a:winnr == winnr()
+    let l:contents .= '%#VertSplit#' . ' %5.(%c%) ' . '%*'
+  endif
 
   return l:contents
 endfunction
