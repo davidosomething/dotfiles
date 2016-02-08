@@ -1,15 +1,27 @@
+scriptencoding utf-8
+
 " ============================================================================
 " Status line
 " ============================================================================
 
 function! dkostatus#Mode() abort
   let l:modecolor = '%#DiffAdd#'
-  if mode() ==# 'i'
+  let l:modeflag = mode()
+  if l:modeflag ==# 'i'
     let l:modecolor = '%#DiffChange#'
-  elseif mode() ==# 'v'
+  elseif l:modeflag ==# 'R'
+    let l:modecolor = '%#DiffDelete#'
+  elseif l:modeflag =~? 'v'
     let l:modecolor = '%#Cursor#'
+  elseif l:modeflag ==? "\<C-v>"
+    let l:modecolor = '%#Cursor#'
+    let l:modeflag = 'B'
   endif
-  return  l:modecolor . ' %{mode()} %*'
+  return  l:modecolor . ' ' . l:modeflag . ' %*'
+endfunction
+
+function! dkostatus#readonly() abort
+  return &readonly ? '%#Error# 🔒 %*' : ''
 endfunction
 
 " a:winnr when called from autocmd in plugin/statusline.vim
@@ -35,6 +47,7 @@ function! dkostatus#Output(winnr) abort
   endif
 
   " truncated filename
+  let l:contents .= dkostatus#readonly()
   let l:contents .= ' %<%f '
 
   " --------------------------------------------------------------------------
