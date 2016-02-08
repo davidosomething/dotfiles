@@ -20,53 +20,69 @@ function! dkostatus#Mode() abort
   return  l:modecolor . ' ' . l:modeflag . ' %*'
 endfunction
 
-function! dkostatus#readonly() abort
-  return &readonly ? '%#Error# 🔒 %*' : ''
+function! dkostatus#Readonly(bufnr) abort
+  return getbufvar(a:bufnr, '&readonly') ? '%#Error# 🔒 %*' : ''
 endfunction
 
-function! dkostatus#modified() abort
-  return &modified ? '%#WildMenu# ⚒ %*' : ''
+function! dkostatus#Modified(bufnr) abort
+  return getbufvar(a:bufnr, '&modified') ? '%#WildMenu# ⚒ %*' : ''
+endfunction
+
+function! dkostatus#Filetype(bufnr) abort
+  let l:ft = getbufvar(a:bufnr, '&filetype')
+  return !empty(l:ft)
+        \ ? '%#StatusLineNC# ' . l:ft . ' %*'
+        \ : ''
 endfunction
 
 " a:winnr when called from autocmd in plugin/statusline.vim
 function! dkostatus#Output(winnr) abort
+  let l:bufnr = winbufnr(a:winnr)
+
   let l:contents = ''
 
-  " mode
+  " --------------------------------------------------------------------------
+  " Mode
+  " --------------------------------------------------------------------------
+
   let l:contents .= dkostatus#Mode()
+
   let l:contents .= !empty(&paste) ? '%#DiffText# p %*' : ''
+
+  " --------------------------------------------------------------------------
+  " Buffer Info
+  " --------------------------------------------------------------------------
 
   " [help][Quickfix/Location List][Preview]
   "let l:contents .= '%h%q%w'
 
-  " --------------------------------------------------------------------------
-  " File info
-  " --------------------------------------------------------------------------
-
-  " DISABLED
+  " DISABLED branch only in current window
   if 0 && exists("g:plugs['vim-fugitive']") && a:winnr == winnr()
     let l:contents .= !empty(fugitive#head())
           \ ? '%#DiffAdd# %{fugitive#head()} %*'
           \ : ''
   endif
 
-  " Syntastic
+  " Syntastic only in current window
   if exists("g:plugs['syntastic']") && a:winnr == winnr()
     let l:contents .= !empty(SyntasticStatuslineFlag())
           \ ? '%#SyntasticErrorSign#' . ' %{SyntasticStatuslineFlag()} ' . '%*'
           \ : ''
   endif
 
-  let l:contents .= dkostatus#readonly()
-  let l:contents .= dkostatus#modified()
+  let l:contents .= dkostatus#Readonly(l:bufnr)
+  let l:contents .= dkostatus#Modified(l:bufnr)
+  let l:contents .= dkostatus#Filetype(l:bufnr)
 
-  " &ft
-  let l:contents .= !empty(&ft) && a:winnr == winnr()
-        \ ? '%#StatusLineNC# ' . &ft . ' %*'
-        \ : ''
-
-  " fname 
+  " fname
   let l:contents .= ' %<%f %*'
+
+  " anzu only in current window
+  if exists("g:plugs['vim-anzu']") && a:winnr == winnr()
+    let l:contents .= !empty(anzu#search_status())
+          \ ? '%*%#Visual#' . ' %{anzu#search_status()} ' . '%*'
+          \ : ''
+  endif
 
   " --------------------------------------------------------------------------
   " Right side
@@ -74,14 +90,8 @@ function! dkostatus#Output(winnr) abort
 
   let l:contents .= '%='
 
-  if exists("g:plugs['vim-anzu']") && a:winnr == winnr()
-    let l:contents .= !empty(anzu#search_status())
-          \ ? '%*%#MatchParen#' . ' %{anzu#search_status()} ' . '%*'
-          \ : ''
-  endif
-
   " pwd
-  let l:contents .= ' %<%{getcwd()} %*'
+  let l:contents .= '%#Folded# %<%{pathshorten(getcwd())} %*'
 
   " ruler (10 char long, so can accommodate 99999)
   let l:contents .= '%#VertSplit#' . ' %5.(%c%) ' . '%*'
