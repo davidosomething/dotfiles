@@ -8,7 +8,7 @@ function! dkostatus#Mode() abort
   let l:modecolor = '%#DiffAdd#'
   let l:modeflag = mode()
   if l:modeflag ==# 'i'
-    let l:modecolor = '%#DiffChange#'
+    let l:modecolor = '%#PmenuSel#'
   elseif l:modeflag ==# 'R'
     let l:modecolor = '%#DiffDelete#'
   elseif l:modeflag =~? 'v'
@@ -25,7 +25,7 @@ function! dkostatus#readonly() abort
 endfunction
 
 function! dkostatus#modified() abort
-  return &modified ? '%#Visual# ⚒ %*' : ''
+  return &modified ? '%#WildMenu# ⚒ %*' : ''
 endfunction
 
 " a:winnr when called from autocmd in plugin/statusline.vim
@@ -50,10 +50,23 @@ function! dkostatus#Output(winnr) abort
           \ : ''
   endif
 
-  " truncated filename
+  " Syntastic
+  if exists("g:plugs['syntastic']") && a:winnr == winnr()
+    let l:contents .= !empty(SyntasticStatuslineFlag())
+          \ ? '%#SyntasticErrorSign#' . ' %{SyntasticStatuslineFlag()} ' . '%*'
+          \ : ''
+  endif
+
   let l:contents .= dkostatus#readonly()
   let l:contents .= dkostatus#modified()
-  let l:contents .= ' %<%f '
+
+  " &ft
+  let l:contents .= !empty(&ft) && a:winnr == winnr()
+        \ ? '%#StatusLineNC# ' . &ft . ' %*'
+        \ : ''
+
+  " fname 
+  let l:contents .= ' %<%f %*'
 
   " --------------------------------------------------------------------------
   " Right side
@@ -67,20 +80,11 @@ function! dkostatus#Output(winnr) abort
           \ : ''
   endif
 
-  " [&ft]
-  let l:contents .= !empty(&ft) && a:winnr == winnr()
-        \ ? ' ' . &ft . ' '
-        \ : ''
+  " pwd
+  let l:contents .= ' %<%{getcwd()} %*'
 
   " ruler (10 char long, so can accommodate 99999)
-  let l:contents .= '%#VertSplit#' . '%5.(%c%) ' . '%*'
-
-  " Syntastic
-  if exists("g:plugs['syntastic']") && a:winnr == winnr()
-    let l:contents .= !empty(SyntasticStatuslineFlag())
-          \ ? '%#SyntasticErrorSign#' . ' %{SyntasticStatuslineFlag()} ' . '%*'
-          \ : ''
-  endif
+  let l:contents .= '%#VertSplit#' . ' %5.(%c%) ' . '%*'
 
   return l:contents
 endfunction
