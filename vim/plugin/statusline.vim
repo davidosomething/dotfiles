@@ -8,7 +8,7 @@ function! s:RefreshStatus()
   endfor
 endfunction
 
-augroup status
+augroup dkostatus
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
 augroup END

@@ -1,12 +1,7 @@
 " plugin/help.vim
 " Help buffer
 
-augroup dkohelp
-  autocmd!
-  autocmd BufWinEnter * if &buftype == 'help' | call s:mappings() | endif
-augroup END
-
-function! s:mappings()
+function! s:Mappings()
   nnoremap <buffer> q :close<CR>
   nnoremap <buffer> Q :close<CR>
   nnoremap <buffer> <Leader>v :wincmd L <BAR> vertical resize 82<CR>
@@ -26,3 +21,9 @@ function! s:mappings()
   nnoremap <buffer> u <Nop>
   nnoremap <buffer> x <Nop>
 endfunction
+
+augroup dkohelp
+  autocmd!
+  autocmd BufWinEnter * if &buftype == 'help' | call s:Mappings() | endif
+augroup END
+
