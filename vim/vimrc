@@ -378,9 +378,6 @@ if has('autocmd')
   " see after/ftplugin/*.vim for more filetype specific stuff
 endif
 
-" leave this down here since it trims local settings
-set secure                            " no unsafe local vimrc commands
-
 " ============================================================================
 " Plugins
 " ============================================================================
@@ -392,11 +389,22 @@ let s:dko_use_plugins = 1 && $DOTFILES_DISTRO !=# 'busybox' && has('autocmd')
 let g:dko_has_completion = 0
 
 " ============================================================================
+" Plugins: Disable distributed plugins
+" ============================================================================
+
+let g:loaded_2html_plugin = 1
+let g:loaded_getscriptPlugin = 1
+let g:loaded_gzip = 1
+let g:loaded_LogiPat = 1
+let g:loaded_tarPlugin = 1
+let g:loaded_zipPlugin = 1
+
+" ============================================================================
 " Plugins: netrw
 " ============================================================================
 
-" disable entirely?
-"let g:loaded_netrwPlugin = 0 && !s:dko_use_plugins
+" disable entirely -- re-enable if you need auto-spellfile download
+let g:loaded_netrwPlugin = 0
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
 let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')
@@ -932,3 +940,12 @@ endif
 " change it if I find out otherwise...
 set runtimepath+=$HOME/.secret/vim
 runtime! vimrc.vim
+
+" ============================================================================
+" Security
+" ============================================================================
+
+" Disallow unsafe local vimrc commands
+" Leave down here since it trims local settings
+set secure
+
