@@ -24,6 +24,10 @@ function! dkostatus#readonly() abort
   return &readonly ? '%#Error# 🔒 %*' : ''
 endfunction
 
+function! dkostatus#modified() abort
+  return &modified ? '%#Visual# ⚒ %*' : ''
+endfunction
+
 " a:winnr when called from autocmd in plugin/statusline.vim
 function! dkostatus#Output(winnr) abort
   let l:contents = ''
@@ -48,6 +52,7 @@ function! dkostatus#Output(winnr) abort
 
   " truncated filename
   let l:contents .= dkostatus#readonly()
+  let l:contents .= dkostatus#modified()
   let l:contents .= ' %<%f '
 
   " --------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 scriptencoding utf-8
+
 if !exists("g:plugs['syntastic']") | finish | endif
 
 augroup dkosyntastic
@@ -28,7 +29,7 @@ autocmd dkosyntastic FileType * SyntasticCheck
 " ----------------------------------------------------------------------------
 
 if !exists("g:plugs['vim-airline']")
-  let g:syntastic_stl_format='%E{E:%e}%W{W:%w}'
+  let g:syntastic_stl_format='%E{✇ %e}%B{ }%W{⚠ %w}'
 endif
 
 let g:syntastic_always_populate_loc_list = 1
