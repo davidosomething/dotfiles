@@ -118,6 +118,9 @@ defaults write com.apple.dock dashboard-in-overlay -bool true
 # Show all filename extensions
 defaults write com.apple.finder AppleShowAllExtensions -bool true
 
+# NO FUCKING EMOJI
+defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
+
 ################################################################################
 # keyboard
 # Disable auto-correct
