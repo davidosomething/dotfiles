@@ -2,6 +2,9 @@
 " Buffer manip
 " ============================================================================
 
+" Prev buffer with <BS> in normal
+nnoremap <BS> <C-^>
+
 " close buffer with space-bd and auto close loc list first
 nnoremap  <Leader>bd :lclose<CR>:bdelete<CR>
 cabbrev   <silent>bd lclose\|bdelete
