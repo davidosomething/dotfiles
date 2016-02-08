@@ -69,8 +69,8 @@ Unite keys are arranged by search context from big to small
 - `<F3>` unite grep via ag (project)
 - `<F4>` unite buffers (current vim)
 - `<F5>` unite outline (current buffer)
-- `<F6>` unite gtags for queried word (project)
-- `<F7>` unite gtags for word under cursor (project)
+- `<F6>` unite tag/gtags for queried word (project)
+- `<F7>` unite tag/gtags for word under cursor (project)
 - `<F8>` unite command palette
 - `<F9>` toggle indent guides
 - `<F10>` left pane: vimfiler

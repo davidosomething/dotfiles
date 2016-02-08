@@ -88,3 +88,4 @@
     use_system_font = False
   [[nocolor]]
     background_image = None
+    cursor_color = "#aaaaaa"
