@@ -346,7 +346,9 @@ set ignorecase
 set smartcase
 
 " The Silver Searcher
-if executable('ag') | set grepprg=ag\ --nogroup\ --nocolor | endif
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
 
 " ----------------------------------------------------------------------------
 " Syntax

@@ -16,9 +16,6 @@ if exists('g:plugs["vim-easyclip"]')
   let g:EasyClipShareYanks = 1
   let g:EasyClipShareYanksDirectory = glob(expand(g:dko_vim_dir . '/.tmp/cache'))
 
-  imap <c-v> <plug>EasyClipInsertModePaste
-  cmap <c-v> <plug>EasyClipCommandModePaste
-
   " ======================================================================
   " EasyClipRing
   " ======================================================================

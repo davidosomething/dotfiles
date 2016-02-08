@@ -1,10 +1,8 @@
+certs/
 fonts/
-solarized/
-vim/.*
-vim/bundle
-vim/nplugged
-vim/plugged
-zsh/zsh-*
-zsh/antigen
-
+logs/
+osx/base16-iterm2/
+osx/karabiner/
+vim/plug/
+vim/.tmp/
 vim/autoload/plug.vim

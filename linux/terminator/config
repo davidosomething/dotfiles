@@ -19,7 +19,7 @@
   broadcast_off = None
   close_term = <Primary><Super>w
   close_window = None
-  copy = None
+  copy = <Super>c
   cycle_next = None
   cycle_prev = None
   edit_tab_title = None
@@ -44,7 +44,7 @@
   new_tab = <Primary><Super>t
   new_terminator = None
   new_window = None
-  paste = None
+  paste = <Super>v
   reset = None
   reset_clear = None
   resize_down = <Shift><Super>Down
