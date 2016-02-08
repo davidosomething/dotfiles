@@ -21,11 +21,7 @@ function! dkostatus#Mode() abort
 endfunction
 
 function! dkostatus#Readonly(bufnr) abort
-  return getbufvar(a:bufnr, '&readonly') ? '%#Error# 🔒 %*' : ''
-endfunction
-
-function! dkostatus#Modified(bufnr) abort
-  return getbufvar(a:bufnr, '&modified') ? '%#WildMenu# ⚒ %*' : ''
+  return getbufvar(a:bufnr, '&readonly') ? '%#Error# ᴙ %*' : ''
 endfunction
 
 function! dkostatus#Filetype(bufnr) abort
@@ -45,7 +41,9 @@ function! dkostatus#Output(winnr) abort
   " Mode
   " --------------------------------------------------------------------------
 
-  let l:contents .= dkostatus#Mode()
+  let l:contents .= getbufvar(l:bufnr, '&ft') !~# 'gita-'
+        \ ? dkostatus#Mode()
+        \ : ''
 
   let l:contents .= !empty(&paste) ? '%#DiffText# p %*' : ''
 
@@ -71,11 +69,12 @@ function! dkostatus#Output(winnr) abort
   endif
 
   let l:contents .= dkostatus#Readonly(l:bufnr)
-  let l:contents .= dkostatus#Modified(l:bufnr)
   let l:contents .= dkostatus#Filetype(l:bufnr)
 
   " fname
-  let l:contents .= ' %<%f %*'
+  let l:contents .= ' %<%f '
+  let l:contents .= getbufvar(l:bufnr, '&modified') ? '%#PmenuThumb#+' : ' '
+  let l:contents .= '%* '
 
   " anzu only in current window
   if exists("g:plugs['vim-anzu']") && a:winnr == winnr()
@@ -96,7 +95,7 @@ function! dkostatus#Output(winnr) abort
   endif
 
   " ruler (10 char long, so can accommodate 99999) - only show in active
-  if a:winnr == winnr()
+  if a:winnr == winnr() && getbufvar(l:bufnr, '&ft') !~# 'gita-'
     let l:contents .= '%#VertSplit#' . ' %5.(%c%) ' . '%*'
   endif
 
