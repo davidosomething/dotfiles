@@ -86,7 +86,8 @@ pyserve() {
 # traversal --------------------------------------------------------------------
 # Go to git root
 gr() {
-  git rev-parse && cd "$(git rev-parse --show-cdup)" || return 1
+  git rev-parse || return 1
+  cd "$(git rev-parse --show-cdup)" || return 1
 }
 
 # up 2 to cd ../..
