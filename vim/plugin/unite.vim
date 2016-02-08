@@ -144,9 +144,23 @@ function! s:BindUniteBufferKeys()
   " " https://github.com/Shougo/unite.vim/issues/693#issuecomment-67889305
   nmap <buffer>   <Esc>   <Plug>(unite_all_exit)
 
-  " also exit on unite-bound function keys, so you can toggle open and
-  " close with same key
-  for l:fk in [ '<F1>', '<F2>', '<F3>', '<F4>', '<F5>', '<F6>', '<F7>', '<F8>' ]
+  " Fix xterm function key codes in Unite's pseudo-insert mode
+  nmap <buffer><special> <Esc>OP    <F1>
+  nmap <buffer><special> <Esc>OQ    <F2>
+  nmap <buffer><special> <Esc>OR    <F3>
+  nmap <buffer><special> <Esc>OS    <F4>
+  nmap <buffer><special> <Esc>[16~  <F5>
+  nmap <buffer><special> <Esc>[17~  <F6>
+  nmap <buffer><special> <Esc>[18~  <F7>
+  nmap <buffer><special> <Esc>[19~  <F8>
+  nmap <buffer><special> <Esc>[20~  <F9>
+  nmap <buffer><special> <Esc>[21~  <F10>
+  nmap <buffer><special> <Esc>[23~  <F11>
+  nmap <buffer><special> <Esc>[24~  <F12>
+
+  " also exit with function keys, so you can toggle with same key
+  for l:fnum in range(1, 12)
+    let l:fk = '<F' . l:fnum . '>'
     execute 'imap <buffer><special> ' . l:fk . ' '
           \ . '<Plug>(unite_insert_leave)'
           \ . '<Plug>(unite_cursor_bottom)'
