@@ -106,7 +106,9 @@ _update_secret() {
 
 _update_fzf() {
   dkostatus "Updating fzf"
-  cd "${HOME}/.fzf" && git pull && ./install
+  cd "${HOME}/.fzf" || exit 1
+  git pull
+  ./install --key-bindings --completion --no-update-rc
 }
 
 
@@ -150,7 +152,7 @@ _update_nvm() {
   fi
 
   dkostatus "Updating nvm"
-  cd "$NVM_DIR"
+  cd "$NVM_DIR" || exit 1
   previous_nvm="$(git describe --abbrev=0 --tags)"
 
   git checkout master
