@@ -3,8 +3,9 @@
 " Vars that need to be set early
 "
 
-" PHP indent settings for distributed $VIMRUNTIME/indent/php.vim
-let g:PHP_outdentphpescape = 0
+" PHP indent settings for distributed $VIMRUNTIME/indent/php.vim and 2072/
+let g:PHP_default_indenting = 0
+let g:PHP_outdentphpescape  = 0
 
 " ============================================================================
 " syntastic: jscs if has .jscsrc
