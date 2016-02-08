@@ -88,8 +88,6 @@ associated to vim-plug-managed plugins.
 - A bunch of `c` mappings are now operators that toggle camelcase (e.g., `cc`
   which was previously equivalent to `C`). See `plugin/operator.vim`
 - normal `<C-g>` -- gitgutter toggle (originally file status)
-- normal `S` -- Syntastic check and :Errors (originally substitute line and
-  continue in insert mode)
 
 ## Junk defaults and unmapped keys
 
