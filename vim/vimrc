@@ -11,17 +11,13 @@ let g:dko_vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 " Used by anything that needs to change/use loc list (e.g. syntastic)
 let g:dko_loc_list_height = 10
-" Use my own statusline instead of airline?
-let g:dko_use_statusline = 1
 
 " ============================================================================
 " My autocmd block - Clear vimrc group's autocmds if reloading
 " ============================================================================
-if has('autocmd')
-  augroup vimrc
-    autocmd!
-  augroup END
-endif
+augroup vimrc
+  autocmd!
+augroup END
 
 " ============================================================================
 " My defaults
@@ -96,11 +92,8 @@ set showtabline=0                     " never show tabline
 set laststatus=2
 set showcmd                           " incomplete commands on
 set noshowmode                        " don't show -- INSERT -- in cmdline
-
-if g:dko_use_statusline
-  set statusline=%!dkostatus#Output(1)
-endif
-
+set statusline=%!dkostatus#Output(1)
+autocmd vimrc VimEnter,WinEnter,BufWinEnter * call dkostatus#Refresh()
 
 " ----------------------------------------------------------------------------
 " Input
@@ -164,13 +157,10 @@ endif
 " Don't keep .viminfo information for files in temporary directories or shared
 " memory filesystems; this is because they're used as scratch spaces for tools
 " like sudoedit(8) and pass(1) and hence could present a security problem
-if has('viminfo') && has('autocmd')
-  augroup viminfoskip
-    autocmd!
-    silent! autocmd BufNewFile,BufReadPre
-        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-        \ setlocal viminfo=
-  augroup END
+if has('viminfo')
+  silent! autocmd vimrc BufNewFile,BufReadPre
+      \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+      \ setlocal viminfo=
 endif
 
 " swap - useless
@@ -179,11 +169,9 @@ set noswapfile
 " backups
 set backupskip=/tmp/*
 " Make Vim able to edit crontab files again.
-if has('autocmd')
-  set backupskip+=,/private/tmp/*"
-  if has('mac')
-    autocmd vimrc BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
-  endif
+set backupskip+=,/private/tmp/*"
+if has('mac')
+  autocmd vimrc BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
 endif
 execute 'set backupdir=' . g:dko_vim_dir . '/.tmp/backup//'
 set backup
@@ -367,23 +355,21 @@ let g:markdown_fenced_languages = [
 " Autocommands
 " ----------------------------------------------------------------------------
 
-if has('autocmd')
-  " Resize splits when the window is resized
-  autocmd vimrc VimResized * :wincmd =
+" Resize splits when the window is resized
+autocmd vimrc VimResized * :wincmd =
 
-  " No EOL character on files -- specifically for WP VIP PHP
-  autocmd vimrc BufRead,BufNewFile */wp-content/themes/vip/*
-        \ setlocal noeol binary fileformat=dos
+" No EOL character on files -- specifically for WP VIP PHP
+autocmd vimrc BufRead,BufNewFile */wp-content/themes/vip/*
+      \ setlocal noeol binary fileformat=dos
 
-  " see after/ftplugin/*.vim for more filetype specific stuff
-endif
+" see after/ftplugin/*.vim for more filetype specific stuff
 
 " ============================================================================
 " Plugins
 " ============================================================================
 
 " Only load plugins on vim 7.3+ with autocmd
-let s:dko_use_plugins = 1 && $DOTFILES_DISTRO !=# 'busybox' && has('autocmd')
+let s:dko_use_plugins = 1 && $DOTFILES_DISTRO !=# 'busybox'
 
 " This is used by plugin/completion.vim so is a g:
 let g:dko_has_completion = 0
@@ -444,9 +430,6 @@ if s:dko_use_plugins
 
   let s:dko_use_neomake   = 0 && has('nvim')
   let s:dko_use_syntastic = 1 && !s:dko_use_neomake
-
-  let s:dko_use_airline    = 1 && !g:dko_use_statusline
-  let s:dko_use_buftabline = 0 && !g:dko_use_airline
 
   let s:dko_use_gutentags = 1
 
@@ -595,9 +578,9 @@ if s:dko_use_plugins
 
   Plug 'tomtom/tcomment_vim'
 
-  " easyclip requires repeat
-  " REMAPS all register keys (y,d,s,c,etc.) and use 'm' instead
   Plug 'tpope/vim-repeat'
+        \  " easyclip requires repeat, REMAPS all register keys (y,d,s,c,etc.)
+        \  " and use 'm' instead
         \| Plug 'svermeulen/vim-easyclip'
         "\| Plug 'davidosomething/EasyClipRing.vim'
 
@@ -610,22 +593,25 @@ if s:dko_use_plugins
         \| Plug 'rhysd/vim-operator-surround'
         \| Plug 'tyru/operator-camelize.vim'
 
-  " i/a= and i= for conflicts marked blocks
-  " i/ab for any block type (parens, braces, quotes, ltgt)
-  " i/ai for indent level
-  " i/al for current line
-  " i/af for function (c, java, js, php, vim only)
   Plug 'kana/vim-textobj-user'
+        \  " i/ae for entire file
         \| Plug 'kana/vim-textobj-entire'
+        \  " i/ai for indent level
         \| Plug 'kana/vim-textobj-indent'
+        \  " i/al for current line
         \| Plug 'kana/vim-textobj-line'
+        \  " i/ap for <?php ?>
         \| Plug 'akiyan/vim-textobj-php'
+        \  " i/au for url
         \| Plug 'mattn/vim-textobj-url'
+        \  " i/ab for any block type (parens, braces, quotes, ltgt)
         \| Plug 'rhysd/vim-textobj-anyblock'
+        \  " i/a= and i= for conflicts marked blocks
         \| Plug 'rhysd/vim-textobj-conflict'
+        \  " i/af for function (c, java, js, php, vim only)
         \| Plug 'kana/vim-textobj-function'
-        \| Plug 'thinca/vim-textobj-function-javascript'
-        \| Plug 'kentaro/vim-textobj-function-php'
+        \   | Plug 'thinca/vim-textobj-function-javascript'
+        \   | Plug 'kentaro/vim-textobj-function-php'
 
   " ========================================================================
   " Plug: Language
@@ -794,9 +780,10 @@ if s:dko_use_plugins
 
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 
-  " Fix indent of HTML in all PHP files -- basically adds indent/html.vim
-  " when outside of PHP block.
-  Plug 'captbaritone/better-indent-support-for-php-with-html'
+  Plug '2072/PHP-Indenting-for-VIm'
+        \  " Fix indent of HTML in all PHP files -- basically adds
+        \  " indent/html.vim when outside of PHP block.
+        \| Plug 'captbaritone/better-indent-support-for-php-with-html'
 
   " ----------------------------------------
   " Features
@@ -850,8 +837,8 @@ if s:dko_use_plugins
 
   " css.vim provides @media syntax highlighting where hail2u doesn't
   " JulesWang/css.vim is the active repo for the css.vim bundled with vim
-  " hail2u extends vim's css highlighting
   Plug 'JulesWang/css.vim'
+        \  " hail2u extends vim's css highlighting
         \| Plug 'hail2u/vim-css3-syntax'
         \| Plug 'cakebaker/scss-syntax.vim'
 
@@ -915,13 +902,6 @@ if s:dko_use_plugins
 
   " Show (#/total results) when searching for a term
   Plug 'osyo-manga/vim-anzu'
-
-  if s:dko_use_airline | Plug 'vim-airline/vim-airline'
-  elseif s:dko_use_buftabline
-    "Plug 'ap/vim-buftabline'
-    Plug 'davidosomething/vim-buftabline', { 'branch': 'indicator-readonly' }
-    "Plug '~/projects/vim-buftabline'
-  endif
 
   Plug 'now/vim-quit-if-only-quickfix-buffer-left'
 

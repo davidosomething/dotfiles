@@ -4,6 +4,12 @@ scriptencoding utf-8
 " Status line
 " ============================================================================
 
+function! dkostatus#Refresh() abort
+  for l:winnr in range(1, winnr('$'))
+    call setwinvar(l:winnr, '&statusline', '%!dkostatus#Output(' . l:winnr . ')')
+  endfor
+endfunction
+
 function! dkostatus#Mode() abort
   let l:modecolor = '%#DiffAdd#'
   let l:modeflag = mode()
