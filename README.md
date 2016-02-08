@@ -91,8 +91,9 @@ You might want from your system package manager:
 
 ### Source order
 
-If you have node already, run `dko-sourced` ([bin/dko-sourced]()) or just
-`echo $DKO_SOURCE` to see what files are loaded.
+If you have node already, run `dko-sourced`
+([bin/dko-sourced](bin/dko-sourced)) or just `echo $DKO_SOURCE` to see what
+files are loaded.
 
 For X apps (no terminal) the value is probably:
 
@@ -104,11 +105,11 @@ For X apps (no terminal) the value is probably:
 ### python
 
 Just remember to never `sudo pip` anything. Set up a phpenv and pip install
-the [python/requirements.txt]() file.
+the [python/requirements.txt](python/requirements.txt) file.
 
 ### vim
 
-See [vim/README.md]()
+See [vim/README.md](vim/README.md)
 
 ---
 
