@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+# .dotfiles/bootstrap/helpers.sh
 #
 # Helper functions should be sourced by all of the other bootstrapping scripts
-
-set -e
+# Should be sourced only!
+#
 
 # http://serverwizard.heroku.com/script/rvm+git
 # added error output to stderr

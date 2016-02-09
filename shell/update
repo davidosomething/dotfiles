@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
-
-# bin/update
+# .dotfiles/shell/update
+#
 # Update dotfiles and provide instructions for updating the system
+# THIS FILE IS SOURCED
 #
 
 # ==============================================================================
@@ -9,82 +9,85 @@
 # ==============================================================================
 
 # get this bootstrap folder
-cd "$(dirname "$0")/.." || exit 1
-readonly dotfiles_path="$(pwd)"
-readonly logs_path="${dotfiles_path}/logs"
-readonly bootstrap_path="${dotfiles_path}/bootstrap"
+bootstrap_path="${DOTFILES}/bootstrap"
 source "${bootstrap_path}/helpers.sh"
+
 
 # ==============================================================================
 # Command functions
 # ==============================================================================
 
-_usage() {
-  dkousage  "update [thing]"
-  dkousage_ "thing is one of:"
-  dkousage_ "  dotfiles"
-  dkousage_ "  fzf"
-  dkousage_ "  gem"
-  dkousage_ "  go"
-  dkousage_ "  heroku"
-  dkousage_ "  npm    # global packages"
-  dkousage_ "  node   # via nvm"
-  dkousage_ "  nvm"
-  dkousage_ "  pip"
-  dkousage_ "  arch   # arch only"
-  dkousage_ "  osx    # osx only"
-  dkousage_ "  brew   # osx only"
-  dkousage_ "  wp-cli # linux only"
+__dotfiles_usage() {
+  dkousage  "update <command>"
+  echo "
+  reload     -- reload this script if it was modified
+  dotfiles   -- update ${DOTFILES}
+  fzf
+  gem        -- update rubygems and global gems for current ruby
+  go
+  heroku
+  npm        -- global packages
+  node       -- install latest node via nvm
+  nvm        -- update nvm installation
+  pip        -- update all versions of pip (OS dependent)
+  arch       -- arch packages
+  osx        -- repair osx permissions and check software updates
+  brew       -- osx homebrew packages
+"
 }
 
-_update_dotfiles() {
+__dotfiles_reload() {
+  source "${DOTFILES}/shell/update"
+}
+
+__dotfiles_update_dotfiles() {
   dkostatus "Updating dotfiles"
-  cd "$DOTFILES" || dkodie "No \$DOTFILES directory"
-  { git pull --rebase --recurse-submodules && git submodule update --init; } \
-    || dkodie "Error updating dotfiles."
+  cd "$DOTFILES" || { dkoerr "No \$DOTFILES directory" && return 1; }
+  git pull --rebase || { dkoerr "Error updating dotfiles." && return 1; }
+  __dotfiles_reload
   [ -n "$ZSH_VERSION" ] && dkostatus "Done, don't forget to zplug update"
 }
 
-_update_secret() {
+__dotfiles_update_secret() {
   dkostatus "Updating secret"
-  cd "${HOME}/.secret" || dkodie "No ~/.secret directory"
+  cd "${HOME}/.secret" || { dkoerr "No ~/.secret directory" && return 1; }
   git pull --rebase --recurse-submodules && \
   git submodule update --init
-  exit $?
+  return $?
 }
 
-_update_fzf() {
+__dotfiles_update_fzf() {
   dkostatus "Updating fzf"
-  cd "${HOME}/.fzf" || dkodie "Could not cd to ~/.fzf"
-  git pull || dkodie "Could not update ~/.fzf"
+  cd "${HOME}/.fzf" || { dkoerr "Could not cd to ~/.fzf" && return 1; }
+  git pull || { dkoerr "Could not update ~/.fzf" && return 1; }
   ./install --key-bindings --completion --no-update-rc
-  exit $?
+  return $?
 }
 
-_update_gems() {
-  has_program "gem" || dkodie "rubygems is not installed"
+__dotfiles_update_gems() {
+  has_program "gem" || { dkoerr "rubygems is not installed" && return 1; }
   dkostatus "Updating RubyGems itself"
-  gem update --system  || dkodie "Could not update system gems"
+  gem update --system  || { dkoerr "Could not update system gems" && return 1; }
   dkostatus "Updating gems"
   gem update
-  exit $?
+  return $?
 }
 
-_update_go() {
-  has_program "go" || dkodie "go is not installed"
+__dotfiles_update_go() {
+  has_program "go" || { dkoerr "go is not installed" && return 1; }
   dkostatus "Updating go packages"
   go get -u all
-  exit $?
+  return $?
 }
 
-_update_heroku() {
-  has_program "heroku" || dkodie "heroku is not installed"
+__dotfiles_update_heroku() {
+  has_program "heroku" || { dkoerr "heroku is not installed" && return 1; }
   dkostatus "Updating heroku"
   heroku update
-  exit $?
+  return $?
 }
 
-_update_node() {
+__dotfiles_update_node() {
   local desired_node="v0.12"
   local desired_node_minor
   local previous_node
@@ -103,16 +106,16 @@ _update_node() {
   else
     dkostatus_ "Node version is already up-to-date."
   fi
-  exit $?
+  return $?
 }
 
-_update_npm() {
+__dotfiles_update_npm() {
   dkostatus "Updating global npm modules"
   npm update -g
-  exit $?
+  return $?
 }
 
-_update_nvm() {
+__dotfiles_update_nvm() {
   local previous_nvm
   local latest_nvm
 
@@ -122,21 +125,21 @@ _update_nvm() {
   fi
 
   dkostatus "Updating nvm"
-  cd "$NVM_DIR"  || dkodie "Could not cd to \$NVM_DIR"
+  cd "$NVM_DIR"  || { dkoerr "Could not cd to \$NVM_DIR" && return 1; }
 
   previous_nvm="$(git describe --abbrev=0 --tags)"
-  git pull origin master || dkodie "Could not update nvm"
+  git pull origin master || { dkoerr "Could not update nvm" && return 1; }
   latest_nvm="$(git describe --abbrev=0 --tags)"
-  git checkout "$latest_nvm" || dkodie "Could not update nvm"
+  git checkout "$latest_nvm" || { dkoerr "Could not update nvm" && return 1; }
 
   if [ "$previous_nvm" != "$latest_nvm" ]; then
     dkostatus "Restart your shell to start using nvm $latest_nvm"
   fi
   dkostatus "Already using latest nvm $latest_nvm"
-  exit 0
+  return 0
 }
 
-_update_pip() {
+__dotfiles_update_pip() {
   local pip_command=${1:-pip}
   dkostatus "Updating $pip_command"
   if has_program "$pip_command"; then
@@ -150,21 +153,21 @@ _update_pip() {
 # OS-specific commands
 # ------------------------------------------------------------------------------
 
-_update_linux() {
+__dotfiles_update_linux() {
   case "$1" in
-    arch) _update_arch      ;;
-    pip)  _update_pip "pip" ;;
+    arch) __dotfiles_update_arch      ;;
+    pip)  __dotfiles_update_pip "pip" ;;
   esac
 }
 
-_update_darwin() {
+__dotfiles_update_darwin() {
   case "$1" in
-    brew) _update_brew  ;;
-    osx)  _update_osx   ;;
+    brew) __dotfiles_update_brew  ;;
+    osx)  __dotfiles_update_osx   ;;
     pip)
-      _update_pip "pip"
-      _update_pip "pip2"
-      _update_pip "pip3"
+      __dotfiles_update_pip "pip"
+      __dotfiles_update_pip "pip2"
+      __dotfiles_update_pip "pip3"
       ;;
   esac
 }
@@ -173,7 +176,7 @@ _update_darwin() {
 # OS: Arch Linux
 # ------------------------------------------------------------------------------
 
-_update_arch() {
+__dotfiles_update_arch() {
   dkostatus "Arch Linux system update"
   if has_program "pacaur"; then
     # update system
@@ -187,24 +190,24 @@ _update_arch() {
   else
     pacman -Syu
   fi
-  exit $?
+  return $?
 }
 
 # ------------------------------------------------------------------------------
 # OS: OSX
 # ------------------------------------------------------------------------------
 
-_update_osx() {
+__dotfiles_update_osx() {
   # fix file system permissions
   dkostatus "Repairing permissions"
   diskutil repairPermissions / || dkoerr "Error repairing permissions"
 
   dkostatus "OSX system update"
-  sudo softwareupdate -i -a || dkodie "Error updating software permissions"
-  exit $?
+  sudo softwareupdate -i -a || { dkoerr "Error updating software permissions" && return 1; }
+  return $?
 }
 
-_update_brew() {
+__dotfiles_update_brew() {
   local is_python_rebuild=""
   local outdated=""
 
@@ -225,61 +228,60 @@ _update_brew() {
 
   # handle python3 and macvim
   if [ -n "$is_python_rebuild" ]; then
-    _update_python3 && _update_macvim
+    __dotfiles_update_python3 && __dotfiles_update_macvim
   fi
 
   dkostatus "Cleanup old versions and prune dead symlinks"
   brew cleanup
   brew cask cleanup
   brew prune
-  exit 0
+  return 0
 }
 
-_update_python3() {
+__dotfiles_update_python3() {
   dkostatus_ "Linking python3 apps"
-  brew linkapps python3 || dkodie "Error linking python3"
+  brew linkapps python3 || { dkoerr "Error linking python3" && return 1; }
   dkostatus "Python3 was upgraded"
   dkostatus_ "Updating pip and setuptools"
-  pip3 install --upgrade pip setuptools || dkodie "Error updating setuptools"
+  pip3 install --upgrade pip setuptools || { dkoerr "Error updating setuptools" && return 1; }
 }
 
-_update_macvim() {
+__dotfiles_update_macvim() {
   dkostatus_ "Rebuilding macvim for new python3"
   brew reinstall macvim \
     --with-custom-icons --with-override-system-vim \
     --with-lua          --with-python3 \
-    || dkodie "Error reinstalling macvim"
+    || { dkoerr "Error reinstalling macvim" && return 1; }
   dkostatus_ "Linking new macvim.app"
   brew linkapps macvim
-  exit $?
+  return $?
 }
 
 # ==============================================================================
 # Main
 # ==============================================================================
 
-_main() {
+__dotfiles_main() {
   if [[ $# -eq 0 ]]; then
-    _usage
-    exit 1
+    __dotfiles_usage
+    return 1
   fi
 
   case $1 in
-    dotfiles) _update_dotfiles  ;;
-    secret)   _update_secret    ;;
-    fzf)      _update_fzf       ;;
-    gem)      _update_gems      ;;
-    go)       _update_go        ;;
-    heroku)   _update_heroku    ;;
-    node)     _update_node      ;;
-    npm)      _update_npm       ;;
-    nvm)      _update_nvm       ;;
+    reload)   __dotfiles_reload           ;;
+    dotfiles) __dotfiles_update_dotfiles  ;;
+    secret)   __dotfiles_update_secret    ;;
+    fzf)      __dotfiles_update_fzf       ;;
+    gem)      __dotfiles_update_gems      ;;
+    go)       __dotfiles_update_go        ;;
+    heroku)   __dotfiles_update_heroku    ;;
+    node)     __dotfiles_update_node      ;;
+    npm)      __dotfiles_update_npm       ;;
+    nvm)      __dotfiles_update_nvm       ;;
   esac
 
   case "$OSTYPE" in
-    linux*)   _update_linux   "$1" ;;
-    darwin*)  _update_darwin  "$1" ;;
+    linux*)   __dotfiles_update_linux   "$1" ;;
+    darwin*)  __dotfiles_update_darwin  "$1" ;;
   esac
 }
-
-_main "$@"

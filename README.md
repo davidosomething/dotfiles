@@ -53,8 +53,6 @@ scripts.
 These will assist in installing things. Best to have the Environment set up
 first.
 
-- `bin/update`
-    - Update various things. Aliased to `u`. Run `u` for usage.
 - `bootstrap/cleanup.sh`
     - Moves some things into their XDG Base Directory supported directories
 - `bootstrap/symlink.sh`
@@ -74,6 +72,11 @@ first.
     - `quicklook.sh` - Install quicklook plugins via brew cask
 - `bootstrap/x11.sh`
     - symlink `.xbindkeysrc`, `.xprofile`
+
+## Updating
+
+The sourced `__dotfiles_main()` function is available as the alias `u`.
+Use `u` without arguments for usage.
 
 ## Notes
 
