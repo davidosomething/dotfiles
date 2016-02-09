@@ -6,7 +6,6 @@ eslint
 eslint-plugin-jsdoc
 fkill-cli
 git-bc
-git-open
 greenkeeper
 grunt-cli
 gulp-cli

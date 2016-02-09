@@ -44,7 +44,8 @@ function! dkoproject#GetProjectRoot() abort
   endif
 
   cd! %:p:h
-  let l:root  = systemlist('git rev-parse --show-toplevel')[0]
+  let l:result = systemlist('git rev-parse --show-toplevel')
+  let l:root = empty(l:result) ? '' : l:result[0]
   cd! -
   if l:root ==? 'fatal: Not a git repository (or any of the parent directories): .git'
     return ''
