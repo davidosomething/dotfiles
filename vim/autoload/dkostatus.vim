@@ -4,6 +4,39 @@ scriptencoding utf-8
 " Status line
 " ============================================================================
 
+" a:winnr from dkostatus#Refresh() or 0 on set statusline
+function! dkostatus#Output(winnr) abort
+  let s:winnr = a:winnr
+  let s:bufnr = winbufnr(a:winnr)
+
+  let l:contents = ''
+
+  " ==========================================================================
+  " Left side
+  " ==========================================================================
+
+  let l:contents .= dkostatus#Mode()
+  let l:contents .= dkostatus#Paste()
+  "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
+  let l:contents .= dkostatus#Syntastic()
+  let l:contents .= dkostatus#Readonly()
+  let l:contents .= dkostatus#Filetype()
+  let l:contents .= dkostatus#Filename()
+  let l:contents .= dkostatus#Anzu()
+
+  " ==========================================================================
+  " Right side
+  " ==========================================================================
+
+  let l:contents .= '%='
+  let l:contents .= dkostatus#ShortPath()
+  let l:contents .= dkostatus#GitaBranch()
+  let l:contents .= dkostatus#Ruler()
+
+  return l:contents
+endfunction
+
+" Called by autocmd in vimrc
 function! dkostatus#Refresh() abort
   for l:winnr in range(1, winnr('$'))
     call setwinvar(l:winnr, '&statusline', '%!dkostatus#Output(' . l:winnr . ')')
@@ -11,6 +44,11 @@ function! dkostatus#Refresh() abort
 endfunction
 
 function! dkostatus#Mode() abort
+  " blacklist
+  if getbufvar(s:bufnr, '&ft') =~# 'gita-'
+    return ''
+  endif
+
   let l:modecolor = '%#DiffAdd#'
   let l:modeflag = mode()
   if l:modeflag ==# 'i'
@@ -26,84 +64,77 @@ function! dkostatus#Mode() abort
   return  l:modecolor . ' ' . l:modeflag . ' %*'
 endfunction
 
-function! dkostatus#Readonly(bufnr) abort
-  return getbufvar(a:bufnr, '&readonly') ? '%#Error# ᴙ %*' : ''
+function! dkostatus#Paste() abort
+  return s:winnr != winnr()
+        \ || empty(&paste)
+        \ ? ''
+        \ : '%#DiffText# p %*'
 endfunction
 
-function! dkostatus#Filetype(bufnr) abort
-  let l:ft = getbufvar(a:bufnr, '&filetype')
-  return !empty(l:ft)
-        \ ? '%#StatusLineNC# ' . l:ft . ' %*'
-        \ : ''
+function! dkostatus#Syntastic() abort
+  return s:winnr != winnr()
+        \ || !exists('*SyntasticStatuslineFlag')
+        \ || empty(SyntasticStatuslineFlag())
+        \ ? ''
+        \ : '%#SyntasticErrorSign# %{SyntasticStatuslineFlag()} %*'
 endfunction
 
-" a:winnr when called from autocmd in plugin/statusline.vim
-function! dkostatus#Output(winnr) abort
-  let l:bufnr = winbufnr(a:winnr)
+function! dkostatus#Readonly() abort
+  return getbufvar(s:bufnr, '&readonly') ? '%#Error# ᴙ %*' : ''
+endfunction
 
-  let l:contents = ''
+function! dkostatus#Filetype() abort
+  let l:ft = getbufvar(s:bufnr, '&filetype')
+  return empty(l:ft)
+        \ ? ''
+        \ : '%#StatusLineNC# ' . l:ft . ' %*'
+endfunction
 
-  " --------------------------------------------------------------------------
-  " Mode
-  " --------------------------------------------------------------------------
-
-  let l:contents .= getbufvar(l:bufnr, '&ft') !~# 'gita-'
-        \ ? dkostatus#Mode()
-        \ : ''
-
-  let l:contents .= !empty(&paste) ? '%#DiffText# p %*' : ''
-
-  " --------------------------------------------------------------------------
-  " Buffer Info
-  " --------------------------------------------------------------------------
-
-  " [help][Quickfix/Location List][Preview]
-  "let l:contents .= '%h%q%w'
-
-  " DISABLED branch only in current window
-  if 0 && exists("g:plugs['vim-fugitive']") && a:winnr == winnr()
-    let l:contents .= !empty(fugitive#head())
-          \ ? '%#DiffAdd# %{fugitive#head()} %*'
-          \ : ''
-  endif
-
-  " Syntastic only in current window
-  if exists("g:plugs['syntastic']") && a:winnr == winnr()
-    let l:contents .= !empty(SyntasticStatuslineFlag())
-          \ ? '%#SyntasticErrorSign#' . ' %{SyntasticStatuslineFlag()} ' . '%*'
-          \ : ''
-  endif
-
-  let l:contents .= dkostatus#Readonly(l:bufnr)
-  let l:contents .= dkostatus#Filetype(l:bufnr)
-
-  " filename fname
-  let l:contents .= ' %<%f' . (isdirectory(expand('%p')) ? '/ ' : '')
-  let l:contents .= getbufvar(l:bufnr, '&modified') ? '%#PmenuThumb#+' : ' '
+function! dkostatus#Filename() abort
+  let l:contents = ' '
+  let l:contents .= '%<%f' . (isdirectory(expand('%p')) ? '/ ' : '')
+  let l:contents .= getbufvar(s:bufnr, '&modified') ? '%#PmenuThumb#+' : ''
   let l:contents .= '%* '
-
-  " anzu only in current window
-  if exists("g:plugs['vim-anzu']") && a:winnr == winnr()
-    let l:contents .= !empty(anzu#search_status())
-          \ ? '%*%#Visual#' . ' %{anzu#search_status()} ' . '%*'
-          \ : ''
-  endif
-
-  " --------------------------------------------------------------------------
-  " Right side
-  " --------------------------------------------------------------------------
-
-  let l:contents .= '%='
-
-  " pwd - don't show in blame
-  if getbufvar(l:bufnr, '&ft') !~# 'gita-'
-    let l:contents .= '%#Folded# %<%{pathshorten(getcwd())} %*'
-  endif
-
-  " ruler (10 char long, so can accommodate 99999) - only show in active
-  if a:winnr == winnr() && getbufvar(l:bufnr, '&ft') !~# 'gita-'
-    let l:contents .= '%#VertSplit#' . ' %5.(%c%) ' . '%*'
-  endif
-
   return l:contents
 endfunction
+
+function! dkostatus#Anzu() abort
+  if s:winnr != winnr() || !exists('*anzu#search_status')
+    return ''
+  endif
+  let l:anzu = anzu#search_status()
+  return empty(l:anzu)
+        \ ? ''
+        \ : '%#Visual# %{anzu#search_status()} %*'
+endfunction
+
+function! dkostatus#ShortPath() abort
+  " blacklist
+  if getbufvar(s:bufnr, '&ft') =~# 'gita-'
+    return ''
+  endif
+  return '%#Folded# %<%{pathshorten(getcwd())} %*'
+endfunction
+
+function! dkostatus#GitaBranch() abort
+function! dkostatus#Syntastic() abort
+  return s:winnr != winnr()
+        \ || !exists('*SyntasticStatuslineFlag')
+        \ || empty(SyntasticStatuslineFlag())
+        \ ? ''
+        \ : '%#SyntasticErrorSign# %{SyntasticStatuslineFlag()} %*'
+endfunction
+
+  if s:winnr != winnr() || !exists('*gita#statusline#format')
+    return ''
+  endif
+  return '%#DiffAdd# ' . gita#statusline#format('%lb') . '%*'
+endfunction
+
+function! dkostatus#Ruler() abort
+  if s:winnr != winnr() || getbufvar(s:bufnr, '&ft') =~# 'gita-'
+    return ''
+  endif
+  return '%#VertSplit# %5.(%c%) %*'
+endfunction
+
