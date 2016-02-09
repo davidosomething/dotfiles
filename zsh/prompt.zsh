@@ -2,14 +2,10 @@
 
 setopt PROMPT_SUBST                   # allow variables in prompt
 
-# Done by zplug:
-# autoload -U colors && colors
-
 # ------------------------------------------------------------------------------
 # version control info
 # ------------------------------------------------------------------------------
 
-autoload -Uz vcs_info
 zstyle ':vcs_info:*'            enable            bzr git hg svn
 
 # bzr/svn prompt

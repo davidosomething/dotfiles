@@ -32,13 +32,15 @@ brew install lua
 brew install mono
 brew install tidy-html5
 
-# shell ------------------------------------------------------------------------
-brew install bash bash-completion
+# shells -----------------------------------------------------------------------
+brew install bash install bash-completion
 brew install shellcheck
 brew install zsh
 
 # vcs --------------------------------------------------------------------------
-brew install git git-extras hub
+# git completions provided by zsh
+brew install git --without-completions
+brew git-extras hub
 brew install mercurial
 
 # web --------------------------------------------------------------------------

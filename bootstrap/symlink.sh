@@ -12,7 +12,6 @@ source "${bootstrap_path}/helpers.sh"
 
 # begin ------------------------------------------------------------------------
 dkostatus "Symlinking dotfiles"
-dkosymlink vim/spell/en.utf-8.add               .aspell.en.pws
 dkosymlink mdl/.mdlrc.symlink                   .mdlrc
 
 # XDG-compatible
