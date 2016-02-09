@@ -45,7 +45,7 @@ endfunction
 
 function! dkostatus#Mode() abort
   " blacklist
-  if getbufvar(s:bufnr, '&ft') =~# 'gita-'
+  if s:winnr != winnr() || getbufvar(s:bufnr, '&ft') =~# 'gita-'
     return ''
   endif
 
@@ -68,19 +68,19 @@ function! dkostatus#Paste() abort
   return s:winnr != winnr()
         \ || empty(&paste)
         \ ? ''
-        \ : '%#DiffText# p %*'
+        \ : '%#DiffText# ᴘ %*'
 endfunction
 
 function! dkostatus#Syntastic() abort
   return s:winnr != winnr()
-        \ || !exists('*SyntasticStatuslineFlag')
+        \ || !exists('g:plugs["syntastic"]')
         \ || empty(SyntasticStatuslineFlag())
         \ ? ''
         \ : '%#SyntasticErrorSign# %{SyntasticStatuslineFlag()} %*'
 endfunction
 
 function! dkostatus#Readonly() abort
-  return getbufvar(s:bufnr, '&readonly') ? '%#Error# ᴙ %*' : ''
+  return getbufvar(s:bufnr, '&readonly') ? '%#Error# ʀ %*' : ''
 endfunction
 
 function! dkostatus#Filetype() abort
@@ -99,7 +99,7 @@ function! dkostatus#Filename() abort
 endfunction
 
 function! dkostatus#Anzu() abort
-  if s:winnr != winnr() || !exists('*anzu#search_status')
+  if s:winnr != winnr() || !exists('g:plugs["vim-anzu"]')
     return ''
   endif
   let l:anzu = anzu#search_status()
@@ -117,18 +117,10 @@ function! dkostatus#ShortPath() abort
 endfunction
 
 function! dkostatus#GitaBranch() abort
-function! dkostatus#Syntastic() abort
-  return s:winnr != winnr()
-        \ || !exists('*SyntasticStatuslineFlag')
-        \ || empty(SyntasticStatuslineFlag())
-        \ ? ''
-        \ : '%#SyntasticErrorSign# %{SyntasticStatuslineFlag()} %*'
-endfunction
-
-  if s:winnr != winnr() || !exists('*gita#statusline#format')
+  if s:winnr != winnr() || !exists('g:plugs["vim-gita"]')
     return ''
   endif
-  return '%#DiffAdd# ' . gita#statusline#format('%lb') . '%*'
+  return '%#DiffAdd# ' . gita#statusline#format('%lb') . ' %*'
 endfunction
 
 function! dkostatus#Ruler() abort
