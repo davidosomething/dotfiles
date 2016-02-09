@@ -77,8 +77,8 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= dkostatus#Readonly(l:bufnr)
   let l:contents .= dkostatus#Filetype(l:bufnr)
 
-  " fname
-  let l:contents .= ' %<%f '
+  " filename fname
+  let l:contents .= ' %<%f' . (isdirectory(expand('%p')) ? '/ ' : '')
   let l:contents .= getbufvar(l:bufnr, '&modified') ? '%#PmenuThumb#+' : ' '
   let l:contents .= '%* '
 

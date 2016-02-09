@@ -4,9 +4,9 @@
 # Update dotfiles and provide instructions for updating the system
 #
 
-# ------------------------------------------------------------------------------
+# ==============================================================================
 # initialize script and dependencies
-# ------------------------------------------------------------------------------
+# ==============================================================================
 
 # get this bootstrap folder
 cd "$(dirname "$0")/.." || exit 1
@@ -15,13 +15,12 @@ readonly logs_path="${dotfiles_path}/logs"
 readonly bootstrap_path="${dotfiles_path}/bootstrap"
 source "${bootstrap_path}/helpers.sh"
 
+# ==============================================================================
+# Command functions
+# ==============================================================================
 
-# ------------------------------------------------------------------------------
-# Usage
-# ------------------------------------------------------------------------------
-
-if [[ $# -eq 0 ]]; then
-  dkousage "update [thing]"
+_usage() {
+  dkousage  "update [thing]"
   dkousage_ "thing is one of:"
   dkousage_ "  dotfiles"
   dkousage_ "  fzf"
@@ -36,12 +35,174 @@ if [[ $# -eq 0 ]]; then
   dkousage_ "  osx    # osx only"
   dkousage_ "  brew   # osx only"
   dkousage_ "  wp-cli # linux only"
-  exit 1
-fi
+}
+
+_update_dotfiles() {
+  dkostatus "Updating dotfiles"
+  cd "$DOTFILES" || dkodie "No \$DOTFILES directory"
+  git pull --rebase --recurse-submodules && git submodule update --init
+  [ -z $? ] || exit 1
+  [ -n "$ZSH_NAME" ] && dkostatus "Done, don't forget to zplug update"
+}
+
+_update_secret() {
+  dkostatus "Updating secret"
+  cd "${HOME}/.secret" || dkodie "No ~/.secret directory"
+  git pull --rebase --recurse-submodules && \
+  git submodule update --init
+  exit $?
+}
+
+_update_fzf() {
+  dkostatus "Updating fzf"
+  cd "${HOME}/.fzf" || exit 1
+  git pull || exit 1
+  ./install --key-bindings --completion --no-update-rc
+  exit $?
+}
+
+_update_gems() {
+  has_program "gem" || dkodie "rubygems is not installed"
+  dkostatus "Updating RubyGems itself"
+  gem update --system  || exit 1
+  dkostatus "Updating gems"
+  gem update
+  exit $?
+}
+
+_update_go() {
+  has_program "go" || dkodie "go is not installed"
+  dkostatus "Updating go packages"
+  go get -u all
+  exit $?
+}
+
+_update_heroku() {
+  has_program "heroku" || dkodie "heroku is not installed"
+  dkostatus "Updating heroku"
+  heroku update
+  exit $?
+}
+
+_update_node() {
+  local desired_node="v0.12"
+  local desired_node_minor
+  local previous_node
+
+  source "${NVM_DIR}/nvm.sh"
+  desired_node_minor="$(nvm version-remote "$desired_node")"
+  previous_node="$(nvm current)"
+
+  dkostatus "Previous node version was $previous_node"
+  if [ "$desired_node_minor" != "$previous_node" ]; then
+    dkostatus "Installing and using new node $desired_node_minor"
+    nvm install             "$desired_node"
+    nvm use                 "$desired_node"
+    nvm alias default       "$desired_node"
+    nvm reinstall-packages  "$previous_node"
+  else
+    dkostatus_ "Node version is already up-to-date."
+  fi
+  exit $?
+}
+
+_update_npm() {
+  dkostatus "Updating global npm modules"
+  npm update -g
+  exit $?
+}
+
+_update_nvm() {
+  local previous_nvm
+  local latest_nvm
+
+  if [ ! -d "$NVM_DIR" ]; then
+    dkostatus "Installing nvm"
+    git clone https://github.com/creationix/nvm.git "$NVM_DIR"
+  fi
+
+  dkostatus "Updating nvm"
+  cd "$NVM_DIR" || exit 1
+
+  previous_nvm="$(git describe --abbrev=0 --tags)"
+  git pull origin master || exit 1
+  latest_nvm="$(git describe --abbrev=0 --tags)"
+  git checkout "$latest_nvm" || exit 1
+
+  if [ "$previous_nvm" != "$latest_nvm" ]; then
+    dkostatus "Restart your shell to start using nvm $latest_nvm"
+  fi
+  dkostatus "Already using latest nvm $latest_nvm"
+  exit 0
+}
+
+_update_pip() {
+  local pip_command=${1:-pip}
+  dkostatus "Updating $pip_command"
+  if has_program "$pip_command"; then
+    $pip_command install --upgrade setuptools || return 1
+    $pip_command install --upgrade pip        || return 1
+  fi
+  return 0
+}
 
 # ------------------------------------------------------------------------------
-# Command functions
+# OS-specific commands
 # ------------------------------------------------------------------------------
+
+_update_linux() {
+  case "$1" in
+    arch) _update_arch      ;;
+    pip)  _update_pip "pip" ;;
+  esac
+}
+
+_update_darwin() {
+  case "$1" in
+    brew) _update_brew  ;;
+    osx)  _update_osx   ;;
+    pip)
+      _update_pip "pip"
+      _update_pip "pip2"
+      _update_pip "pip3"
+      ;;
+  esac
+}
+
+# ------------------------------------------------------------------------------
+# OS: Arch Linux
+# ------------------------------------------------------------------------------
+
+_update_arch() {
+  dkostatus "Arch Linux system update"
+  if has_program "pacaur"; then
+    # update system
+    pacaur -Syu
+  elif has_program "yaourt"; then
+    # -Sy         -- get new file list
+    yaourt --sync --refresh
+    yaourt -Syua
+  elif has_program "aura"; then
+    aura -Syua
+  else
+    pacman -Syu
+  fi
+  exit $?
+}
+
+# ------------------------------------------------------------------------------
+# OS: OSX
+# ------------------------------------------------------------------------------
+
+_update_osx() {
+  # fix file system permissions
+  dkostatus "Repairing permissions"
+  diskutil repairPermissions / || exit 1
+
+  dkostatus "OSX system update"
+  sudo softwareupdate -i -a
+  exit $?
+}
 
 _update_brew() {
   local is_python_rebuild=""
@@ -64,221 +225,60 @@ _update_brew() {
 
   # handle python3 and macvim
   if [ -n "$is_python_rebuild" ]; then
-    dkostatus_ "Linking python3 apps"
-    brew linkapps python3
-
-    dkostatus "Python3 was upgraded"
-    dkostatus_ "Updating pip and setuptools"
-    pip3 install --upgrade pip setuptools
-
-    dkostatus_ "Rebuilding macvim for new python3"
-    brew reinstall \
-      --with-custom-icons \
-      --with-lua \
-      --with-python3 \
-      --with-override-system-vim \
-      macvim
-    dkostatus_ "Linking new macvim.app"
-    brew linkapps macvim
+    _update_python3 && _update_macvim
   fi
 
   dkostatus "Cleanup old versions and prune dead symlinks"
   brew cleanup
   brew cask cleanup
   brew prune
+  exit 0
 }
 
-
-_update_dotfiles() {
-  dkostatus "Updating dotfiles"
-  cd "$DOTFILES" || exit 1
-  git pull --rebase --recurse-submodules && git submodule update --init
+_update_python3() {
+  dkostatus_ "Linking python3 apps"
+  brew linkapps python3 || exit 1
+  dkostatus "Python3 was upgraded"
+  dkostatus_ "Updating pip and setuptools"
+  pip3 install --upgrade pip setuptools || exit 1
 }
 
-
-_update_secret() {
-  dkostatus "Updating secret"
-  cd "${HOME}/.secret" && \
-    git pull --rebase --recurse-submodules && \
-    git submodule update --init
+_update_macvim() {
+  dkostatus_ "Rebuilding macvim for new python3"
+  brew reinstall macvim \
+    --with-custom-icons --with-override-system-vim \
+    --with-lua          --with-python3 \
+    || exit 1
+  dkostatus_ "Linking new macvim.app"
+  brew linkapps macvim || exit 1
 }
 
-
-_update_fzf() {
-  dkostatus "Updating fzf"
-  cd "${HOME}/.fzf" || exit 1
-  git pull
-  ./install --key-bindings --completion --no-update-rc
-}
-
-
-_update_node() {
-  local desired_node="v0.12"
-  local desired_node_minor
-  local previous_node
-
-  source "${NVM_DIR}/nvm.sh"
-  desired_node_minor="$(nvm version-remote "$desired_node")"
-  previous_node="$(nvm current)"
-
-  dkostatus "Previous node version was $previous_node"
-  if [ "$desired_node_minor" != "$previous_node" ]; then
-    dkostatus "Installing and using new node $desired_node_minor"
-    nvm install             "$desired_node"
-    nvm use                 "$desired_node"
-    nvm alias   default     "$desired_node"
-    nvm reinstall-packages  "$previous_node"
-  else
-    dkostatus_ "Node version is already up-to-date."
-  fi
-
-  exec "$SHELL"
-}
-
-
-_update_npm() {
-  dkostatus "Updating global npm modules"
-  npm update -g
-}
-
-
-_update_nvm() {
-  local previous_nvm
-  local latest_nvm
-
-  if [ ! -d "$NVM_DIR" ]; then
-    dkostatus "Installing nvm"
-    git clone https://github.com/creationix/nvm.git "$NVM_DIR"
-  fi
-
-  dkostatus "Updating nvm"
-  cd "$NVM_DIR" || exit 1
-  previous_nvm="$(git describe --abbrev=0 --tags)"
-
-  git checkout master
-  git pull
-  git fetch --tags
-  latest_nvm="$(git describe --abbrev=0 --tags)"
-  git checkout "$latest_nvm"
-
-  if [ "$previous_nvm" != "$latest_nvm" ]; then
-    dkostatus "Restart your shell to start using nvm $latest_nvm"
-    exec "$SHELL"
-  else
-    dkostatus "Already using latest nvm $latest_nvm"
-  fi
-}
-
-
-_update_pip() {
-  local pip_command=${1:-pip}
-  dkostatus "Updating $pip_command"
-  if has_program "$pip_command"; then
-    $pip_command install --upgrade setuptools 2>&1 | dkoindent
-    $pip_command install --upgrade pip        2>&1 | dkoindent
-  fi
-}
-
-
-# ------------------------------------------------------------------------------
-# OS Specific
-# ------------------------------------------------------------------------------
-
-_update_linux() {
-  case "$1" in
-    arch)
-      dkostatus "Arch Linux system update"
-      if command -v pacaur >/dev/null; then
-        # update system
-        pacaur -Syu
-      elif command -v yaourt >/dev/null; then
-        # -Sy         -- get new file list
-        yaourt --sync --refresh
-        yaourt -Syua
-      elif command -v aura >/dev/null; then
-        aura -Syua
-      else
-        pacman -Syu
-      fi
-      ;;
-
-    wp)
-      dkostatus "Update wp-cli"
-      pushd "${WP_CLI_CONFIG_PATH}" &&
-      php composer.phar self-update     2>&1 | dkoindent &&
-      php composer.phar update --no-dev 2>&1 | dkoindent &&
-      popd
-      ;;
-  esac
-}
-
-
-_update_darwin() {
-  case "$1" in
-    brew)
-      _update_brew
-      ;;
-
-    osx)
-      dkostatus "Repairing permissions"
-      # fix file system permissions
-      diskutil repairPermissions /  2>&1 | dkoindent
-
-      dkostatus "OSX system update"
-      sudo softwareupdate -i -a  2>&1 | dkoindent
-      ;;
-
-    pip)
-      _update_pip "pip"
-      _update_pip "pip2"
-      _update_pip "pip3"
-      ;;
-  esac
-}
-
-
-# ------------------------------------------------------------------------------
+# ==============================================================================
 # Main
-# ------------------------------------------------------------------------------
+# ==============================================================================
 
-if [[ "$1" = "dotfiles" ]]; then _update_dotfiles; fi
-if [[ "$1" = "secret" ]]; then _update_secret; fi
-
-if [[ "$1" = "fzf" ]]; then _update_fzf; fi
-
-
-if [[ "$1" = "gem" ]]; then
-  dkostatus "Updating RubyGems itself"
-  gem update --system  2>&1 | dkoindent
-  dkostatus "Updating gems"
-  gem update  2>&1 | dkoindent
-fi
-
-
-if [[ "$1" = "go" ]]; then
-  if has_program "go"; then
-    dkostatus "Updating go packages"
-    go get -u all  2>&1 | dkoindent
+_main() {
+  if [[ $# -eq 0 ]]; then
+    _usage
+    exit 1
   fi
-fi
 
+  case $1 in
+    dotfiles) _update_dotfiles  ;;
+    secret)   _update_secret    ;;
+    fzf)      _update_fzf       ;;
+    gem)      _update_gems      ;;
+    go)       _update_go        ;;
+    heroku)   _update_heroku    ;;
+    node)     _update_node      ;;
+    npm)      _update_npm       ;;
+    nvm)      _update_nvm       ;;
+  esac
 
-if [[ "$1" = "heroku" ]]; then
-  if has_program "heroku"; then
-    dkostatus "Updating heroku"
-    heroku update  2>&1 | dkoindent
-  fi
-fi
+  case "$OSTYPE" in
+    linux*)   _update_linux   "$1" ;;
+    darwin*)  _update_darwin  "$1" ;;
+  esac
+}
 
-
-if [[ "$1" = "node" ]]; then _update_node; fi
-if [[ "$1" = "npm" ]];  then _update_npm; fi
-if [[ "$1" = "nvm" ]];  then _update_nvm; fi
-
-
-# Begin OS Specific ------------------------------------------------------------
-case "$OSTYPE" in
-  linux*)   _update_linux "$1"  ;;
-  darwin*)  _update_darwin "$1" ;;
-esac
-
+_main "$@"
