@@ -1,7 +1,6 @@
 ajax
 analytics
 api
-ArchLinux
 async
 auth
 autocomplete
@@ -198,3 +197,4 @@ pyenv
 virtualenv
 apps
 phpenv
+ftplugin

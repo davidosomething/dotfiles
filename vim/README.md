@@ -1,6 +1,6 @@
 # (g/n)vim config
 
-Keep `(g)vimrc` (no dot in filename) in `.vim` -- vim knows to look in there.
+Keep `(g)vimrc` (no dot in filename) in `.vim` -- Vim knows to look in there.
 
 See https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers for getting
 various linter support in [syntastic].
@@ -16,16 +16,16 @@ sparingly (mostly for `setlocal` ftplugin settings).
 
 ## Setup
 
-Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on ArchLinux!
+Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux!
 
-After starting vim with this setup, [vim-plug] will install itself. Run
-`:PlugInstall` from within vim, and then restart vim.
+After starting Vim with this setup, [vim-plug] will install itself. Run
+`:PlugInstall` from within Vim, and then restart Vim.
 
 ## Paths
 
 ### /
 
-This is a vim runtimepath that will load after the user and system runtimepaths
+This is a Vim runtimepath that will load after the user and system runtimepaths
 but before the vim-plug ones. So `plugin/xyz.vim` will load before
 `plug/vim/pluginname/plugin/name.vim`. Neovim plugins will be in `plug/nvim/`.
 
@@ -49,7 +49,7 @@ This will take precedence over everything but local vimrc files.
 All local settings are loaded LAST (after all of the system, user, plugin, and
 `*/after` runtimes).
 
-They are expected to be in `~/.secret/vim/` and follow the standard vim
+They are expected to be in `~/.secret/vim/` and follow the standard Vim
 directory layout (`plugin/`, `syntax/`, `indent/`, etc.). A base (g)vimrc file
 there is probably enough.
 
@@ -67,7 +67,7 @@ Unite keys are arranged by search context from big to small
 - `<F1>` unite fuzzy search files (filesystem)
 - `<F2>` unite fuzzy search most recently used files (limited filesystem)
 - `<F3>` unite grep via ag (project)
-- `<F4>` unite buffers (current vim)
+- `<F4>` unite buffers (current instance)
 - `<F5>` unite outline (current buffer)
 - `<F6>` unite tag/gtags for queried word (project)
 - `<F7>` unite tag/gtags for word under cursor (project)

@@ -1,4 +1,4 @@
-# ArchLinux
+# Arch Linux
 
 ## Hosts File
 

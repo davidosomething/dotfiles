@@ -18,7 +18,7 @@ plug/
 .viminfo
 
 # backup
-plug.vim.old
+autoload/plug.vim*
 
 # generated secrets
 .tags/

@@ -215,7 +215,7 @@ endif
 
 if exists('g:plugs["deoplete.nvim"]')
   let g:deoplete#enable_at_startup = 1
-  let g:deoplete#auto_completion_start_length = 1
+  let g:deoplete#auto_completion_start_length = 2
   call deoplete#custom#set('_', 'matchers', [
         \   'matcher_head',
         \   'matcher_length',

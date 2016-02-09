@@ -187,7 +187,7 @@ _update_pip() {
 _update_linux() {
   case "$1" in
     arch)
-      dkostatus "ArchLinux system update"
+      dkostatus "Arch Linux system update"
       if command -v pacaur >/dev/null; then
         # update system
         pacaur -Syu
