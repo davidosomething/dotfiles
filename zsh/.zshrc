@@ -153,7 +153,7 @@ alias mkdir="nocorrect mkdir"
 # ==============================================================================
 
 # check that we're in the shell and not in something like vim terminal
-if [ "$0" == "-zsh" ]; then
+if [[ "$0" == "-zsh" ]]; then
   # group all by the description above
   zstyle ':completion:*' group-name ''
 
