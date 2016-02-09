@@ -196,7 +196,6 @@ execute 'set directory=' . g:dko_vim_dir . '/.tmp/swap//'
 " Completion -- see also plugins/completion.vim
 " ----------------------------------------------------------------------------
 
-set omnifunc=syntaxcomplete#Complete
 set complete-=i                       " don't complete includes
 set complete-=t                       " don't complete tags
 set completeopt-=preview              " don't open scratch preview
