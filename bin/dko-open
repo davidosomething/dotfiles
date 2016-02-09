@@ -3,6 +3,6 @@
 if [ "$DOTFILES_OS" = "Darwin" ]; then
   open "$@"
 else
-  xdg-open "$@" &>/dev/null
+  xdg-open "$@" >/dev/null
 fi
 
