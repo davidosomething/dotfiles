@@ -1,29 +1,26 @@
 # (g/n)vim config
 
+> Don't use what you don't understand.
+
+## Installation
+
+Best used with rest of dotfiles. Should self-install plugins via curl and
+[vim-plug] on first load.
+
 Keep `(g)vimrc` (no dot in filename) in `.vim` -- Vim knows to look in there.
 
-See https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers for getting
+See [Syntax-Checkers] in the [syntastic] wiki for getting
 various linter support in [syntastic].
 
-## Standards
-
-Adhere to [vint](https://github.com/Kuniwak/vint) linting rules as much as
-possible. Not using [vim-lint](https://github.com/syngan/vim-vimlint) for now
-because it is slow to load (syntastic is synchronous).
-
-Always try to keep as much in the main runtime as possible, using `after/`
-sparingly (mostly for `setlocal` ftplugin settings).
-
-## Setup
+### Arch Linux
 
 Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux!
 
-After starting Vim with this setup, [vim-plug] will install itself. Run
-`:PlugInstall` from within Vim, and then restart Vim.
+## Usage
 
-## Paths
+### Paths
 
-### /
+#### / (dotfiles/vim root)
 
 This is a Vim runtimepath that will load after the user and system runtimepaths
 but before the vim-plug ones. So `plugin/xyz.vim` will load before
@@ -35,7 +32,7 @@ variable `g:plugs`, which is a dictionary of plugin names and settings from
 vim-plug, is available to before since it is created in the main `vimrc` file
 by the `Plug` calls.
 
-### after/
+#### after/
 
 This is a runtimepath that will load after the system runtimepath but before
 the vim-plug one. So `after/plugin/xyz.vim` will load after
@@ -46,21 +43,21 @@ This will take precedence over everything but local vimrc files.
 
 ### local vimrc
 
+Local `vimrc`s are expected to be in `~/.secret/vim/` and follow the standard
+Vim directory layout (`plugin/`, `syntax/`, `indent/`, etc.). A base (g)vimrc
+file there is probably enough.
+
 All local settings are loaded LAST (after all of the system, user, plugin, and
 `*/after` runtimes).
 
-They are expected to be in `~/.secret/vim/` and follow the standard Vim
-directory layout (`plugin/`, `syntax/`, `indent/`, etc.). A base (g)vimrc file
-there is probably enough.
-
-## Plugin settings
+### Plugin settings
 
 Settings for various plugins have been interspersed into `plugin/`, and a few
 in `after/ftplugin/` as needed. There is generally a wrapper around them that
 checks for `exists('g:plugs["plugin"])` so grepping for `g:plugs` is an easy
 way to find them.
 
-### Function Keys
+#### Function Keys
 
 Unite keys are arranged by search context from big to small
 
@@ -80,7 +77,7 @@ Unite keys are arranged by search context from big to small
 See `plugin/mappings.vim` (and other plugin/* files) for mappings not
 associated to vim-plug-managed plugins.
 
-### Super-non-standard keys
+#### Super-non-standard keys
 
 - EasyClip changes behavior of pretty much all register operations (`[y]ank`,
   `[d]elete`, `[s]ubstitute`, etc.). Prefer `[y]ank` or explicitly `[m]ove`.
@@ -89,7 +86,7 @@ associated to vim-plug-managed plugins.
   which was previously equivalent to `C`). See `plugin/operator.vim`
 - normal `<C-g>` -- gitgutter toggle (originally file status)
 
-## Junk defaults and unmapped keys
+### Junk defaults and unmapped keys
 
 Plan to map these at some point
 
@@ -98,7 +95,24 @@ Plan to map these at some point
 - n <C-s>
 - n zh/l  -- useless wrap mode scroll
 
+## My Vim conventions
+
+Adhere to [vint](https://github.com/Kuniwak/vint) linting rules as much as
+possible. Not using [vim-lint](https://github.com/syngan/vim-vimlint) for now
+because it is slow to load (syntastic is synchronous).
+
+Always try to keep as much in the main runtime as possible, using `after/`
+sparingly (mostly for `setlocal` ftplugin settings).
+
+### VimL Coding
+
+- `s:FunctionName`
+- `l:local_variable`
+- `dkoautocommandgroup`
 
 
+
+[Syntax-Checkers]: https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers
 [syntastic]: https://github.com/scrooloose/syntastic/
 [vim-plug]: https://github.com/junegunn/vim-plug
+
