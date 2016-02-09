@@ -13,6 +13,6 @@ augroup dkoindentguides
 augroup END
 
 " Must be recursive maps
-nmap <F9> <Plug>IndentGuidesToggle
-imap <F9> <Esc>:IndentGuidesToggle<CR>a
+nmap <F11> <Plug>IndentGuidesToggle
+imap <F11> <Esc>:IndentGuidesToggle<CR>a
 

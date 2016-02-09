@@ -69,21 +69,22 @@ way to find them.
 
 #### Function Keys
 
-Unite keys are arranged by search context from big to small
+Unite keys are arranged by search context from small (current buf) to big
+(filesystem). I use the `<F4>` for MRU the most.
 
-| Key     | Desc |
-| :------ | :--- |
-| `<F1>`  | unite fuzzy search files (filesystem) |
-| `<F2>`  | unite fuzzy search most recently used files (limited filesystem) |
-| `<F3>`  | unite grep via ag (from PWD) |
-| `<F4>`  | unite outline (current buffer) |
-| `<F5>`  | unite buffers (current instance) |
-| `<F6>`  | unite tag/gtags for queried word (project) |
-| `<F7>`  | unite tag/gtags for word under cursor (project) |
-| `<F8>`  | unite command palette |
-| `<F9>`  | toggle indent guides |
-| `<F10>` | left pane: vimfiler |
-| `<F11>` | OverCommandLine for subst |
+|     Key | Desc |
+| ------: | :--- |
+| `<F1>`  | left pane: vimfiler |
+| `<F2>`  | right pane: unite outline (current buffer) |
+| `<F3>`  | unite buffers (current instance) |
+| `<F4>`  | unite most recently used files (limited filesystem) |
+| `<F5>`  | unite fuzzy search files (filesystem) |
+| `<F6>`  | unite grep via ag (from PWD) |
+| `<F7>`  | unite tag/gtags for queried word (project) |
+| `<F8>`  | unite tag/gtags for word under cursor (project) |
+| `<F9>`  | unite command palette |
+| `<F10>` | OverCommandLine for subst |
+| `<F11>` | toggle indent guides |
 | `<F12>` | toggle paste mode |
 
 See `plugin/mappings.vim` (and other plugin/* files) for mappings not
