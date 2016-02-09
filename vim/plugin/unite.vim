@@ -174,10 +174,10 @@ function! s:BindFunctionKeys()
     call s:BindFunction('<F2>', 'Unite -start-insert neomru/file')
   endif
   call s:BindFunction('<F3>', 'UniteWithProjectDir grep:.')
-  call s:BindFunction('<F4>', 'Unite -start-insert buffer')
   if exists("g:plugs['unite-outline']")
-    call s:BindFunction('<F5>', 'Unite outline')
+    call s:BindFunction('<F4>', 'Unite outline')
   endif
+  call s:BindFunction('<F5>', 'Unite -start-insert buffer')
   if exists("g:plugs['unite-tag']")
     call s:BindFunction('<F6>', 'Unite -start-insert tag')
     call s:BindFunction('<F7>', 'Unite tag/include')

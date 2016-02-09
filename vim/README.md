@@ -57,34 +57,37 @@ in `after/ftplugin/` as needed. There is generally a wrapper around them that
 checks for `exists('g:plugs["plugin"])` so grepping for `g:plugs` is an easy
 way to find them.
 
+#### Super-non-standard keys
+
+- EasyClip changes behavior of pretty much all register operations (`[y]ank`,
+  `[d]elete`, `[s]ubstitute`, etc.). Prefer `[y]ank` or explicitly `[m]ove` to
+  populate registers.
+- `[s]ubstitute` has been remapped to vim-operator-surround
+- A bunch of `c` mappings are now operators that toggle camelcase (e.g., `cc`
+  which was previously equivalent to `C`). See `plugin/operator.vim`
+- normal `<C-g>` -- gitgutter toggle (originally file status)
+
 #### Function Keys
 
 Unite keys are arranged by search context from big to small
 
-- `<F1>` unite fuzzy search files (filesystem)
-- `<F2>` unite fuzzy search most recently used files (limited filesystem)
-- `<F3>` unite grep via ag (project)
-- `<F4>` unite buffers (current instance)
-- `<F5>` unite outline (current buffer)
-- `<F6>` unite tag/gtags for queried word (project)
-- `<F7>` unite tag/gtags for word under cursor (project)
-- `<F8>` unite command palette
-- `<F9>` toggle indent guides
-- `<F10>` left pane: vimfiler
-- `<F11>` OverCommandLine for subst
-- `<F12>` toggle paste mode
+| Key     | Desc |
+| :------ | :--- |
+| `<F1>`  | unite fuzzy search files (filesystem) |
+| `<F2>`  | unite fuzzy search most recently used files (limited filesystem) |
+| `<F3>`  | unite grep via ag (from PWD) |
+| `<F4>`  | unite outline (current buffer) |
+| `<F5>`  | unite buffers (current instance) |
+| `<F6>`  | unite tag/gtags for queried word (project) |
+| `<F7>`  | unite tag/gtags for word under cursor (project) |
+| `<F8>`  | unite command palette |
+| `<F9>`  | toggle indent guides |
+| `<F10>` | left pane: vimfiler |
+| `<F11>` | OverCommandLine for subst |
+| `<F12>` | toggle paste mode |
 
 See `plugin/mappings.vim` (and other plugin/* files) for mappings not
 associated to vim-plug-managed plugins.
-
-#### Super-non-standard keys
-
-- EasyClip changes behavior of pretty much all register operations (`[y]ank`,
-  `[d]elete`, `[s]ubstitute`, etc.). Prefer `[y]ank` or explicitly `[m]ove`.
-- `[s]ubstitute` has been remapped to vim-operator-surround.
-- A bunch of `c` mappings are now operators that toggle camelcase (e.g., `cc`
-  which was previously equivalent to `C`). See `plugin/operator.vim`
-- normal `<C-g>` -- gitgutter toggle (originally file status)
 
 ### Junk defaults and unmapped keys
 
