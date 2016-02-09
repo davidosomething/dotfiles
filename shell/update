@@ -8,10 +8,9 @@
 # initialize script and dependencies
 # ==============================================================================
 
-# get this bootstrap folder
+# get bootstrap folder
 bootstrap_path="${DOTFILES}/bootstrap"
 source "${bootstrap_path}/helpers.sh"
-
 
 # ==============================================================================
 # Command functions
