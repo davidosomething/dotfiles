@@ -127,6 +127,6 @@ function! dkostatus#Ruler() abort
   if s:winnr != winnr() || getbufvar(s:bufnr, '&ft') =~# 'gita-'
     return ''
   endif
-  return '%#VertSplit# %5.(%c%) %*'
+  return '%#StatusLineNC# %5.(%c%) %*'
 endfunction
 
