@@ -30,7 +30,7 @@ function! dkostatus#Output(winnr) abort
 
   let l:contents .= '%='
   let l:contents .= dkostatus#ShortPath()
-  let l:contents .= dkostatus#GitaBranch()
+  "let l:contents .= dkostatus#GitaBranch()
   let l:contents .= dkostatus#Ruler()
 
   return l:contents
@@ -92,7 +92,8 @@ endfunction
 
 function! dkostatus#Filename() abort
   let l:contents = ' '
-  let l:contents .= '%<%f' . (isdirectory(expand('%p')) ? '/ ' : '')
+  let l:contents .= winwidth(0) > 40 ? '%<%f' : '%t'
+  let l:contents .= (isdirectory(expand('%p')) ? '/ ' : '')
   let l:contents .= getbufvar(s:bufnr, '&modified') ? '%#PmenuThumb#+' : ''
   let l:contents .= '%* '
   return l:contents
@@ -110,17 +111,22 @@ endfunction
 
 function! dkostatus#ShortPath() abort
   " blacklist
-  if getbufvar(s:bufnr, '&ft') =~# 'gita-'
+  if winwidth(0) < 80 || getbufvar(s:bufnr, '&ft') =~# 'gita-'
     return ''
   endif
   return '%#Folded# %<%{pathshorten(getcwd())} %*'
 endfunction
 
 function! dkostatus#GitaBranch() abort
-  if s:winnr != winnr() || !exists('g:plugs["vim-gita"]')
+  if winwidth(0) < 80
+        \ || s:winnr != winnr()
+        \ || !exists('g:plugs["vim-gita"]')
     return ''
   endif
-  return '%#DiffAdd# ' . gita#statusline#format('%lb') . ' %*'
+  let l:branch = gita#statusline#format('%lb')
+  return empty(l:branch)
+        \ ? '' 
+        \ : '%#DiffAdd# ' . l:branch . ' %*'
 endfunction
 
 function! dkostatus#Ruler() abort

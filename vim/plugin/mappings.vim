@@ -1,18 +1,36 @@
-" ----------------------------------------------------------------------------
+" ============================================================================
 " Commands
-" ----------------------------------------------------------------------------
+" ============================================================================
 
 command! Q q
 
-" ----------------------------------------------------------------------------
-" Allow [[ open,  [] close, back/forward to curly brace in any column
-" see :h section
-" ----------------------------------------------------------------------------
+" ============================================================================
+" Scrolling and movement
+" ============================================================================
 
-map [[ ?{<CR>w99[{
-map [] k$][%?}<CR>
-"map ][ /}<CR>b99]}
-"map ]] j0[[%/{<CR>
+" Map the arrow keys to be based on display lines, not physical lines
+vnoremap <Down> gj
+vnoremap <Up>   gk
+
+" Replace PgUp and PgDn with Ctrl-U/D
+map   <special> <PageUp>    <C-U>
+map   <special> <PageDown>  <C-D>
+imap  <special> <PageUp>    <C-O><C-U>
+imap  <special> <PageDown>  <C-O><C-D>
+
+" Easier to type, and I never use the default behavior.
+" From https://bitbucket.org/sjl/dotfiles/
+" default is first line on screen
+noremap   H   ^
+" default is last line on screen
+noremap   L   $
+vnoremap  L   g_
+
+nnoremap <silent><special> <Leader>t :<C-u>call dkomovemode#toggle()<CR>
+
+" ============================================================================
+" Mode and env
+" ============================================================================
 
 " ----------------------------------------------------------------------------
 " Toggle visual/normal mode with space-space
@@ -46,11 +64,21 @@ nnoremap <silent> <Leader>cd :lcd %:h<CR>
 " ============================================================================
 
 " ----------------------------------------------------------------------------
+" Allow [[ open,  [] close, back/forward to curly brace in any column
+" see :h section
+" ----------------------------------------------------------------------------
+
+map     [[  ?{<CR>w99[{
+map     []  k$][%?}<CR>
+"map    ][  /}<CR>b99]}
+"map    ]]  j0[[%/{<CR>
+
+" ----------------------------------------------------------------------------
 " Reselect visual block after indent
 " ----------------------------------------------------------------------------
 
-vnoremap < <gv
-vnoremap > >gv
+vnoremap  <   <gv
+vnoremap  >   >gv
 
 " ----------------------------------------------------------------------------
 " Sort lines
@@ -59,13 +87,13 @@ vnoremap > >gv
 
 if exists("g:plugs['vim-textobj-indent']")
   " Auto select indent-level and sort
-  nnoremap <Leader>s vii:!sort<CR>
+  nnoremap <special> <Leader>s vii:!sort<CR>
 else
   " Auto select paragraph (bounded by blank lines) and sort
-  nnoremap <Leader>s vip:!sort<CR>
+  nnoremap <special> <Leader>s vip:!sort<CR>
 endif
 " Sort selection
-vnoremap <Leader>s :!sort<CR>
+vnoremap <special> <Leader>s :!sort<CR>
 
 " ----------------------------------------------------------------------------
 " Uppercase / lowercase word
@@ -84,20 +112,20 @@ nnoremap <Leader>j VjgJ
 " Clean up whitespace
 " ----------------------------------------------------------------------------
 
-nnoremap <Leader>ws :call dkowhitespace#clean()<CR>
+nnoremap <special> <Leader>ws :<C-u>call dkowhitespace#clean()<CR>
 
 " ----------------------------------------------------------------------------
 " Horizontal rule
 " ----------------------------------------------------------------------------
 
-inoremap <Leader>f- <Esc>:call dkorule#char('-')<CR>
-inoremap <Leader>f= <Esc>:call dkorule#char('=')<CR>
-inoremap <Leader>f# <Esc>:call dkorule#char('#')<CR>
-inoremap <Leader>f* <Esc>:call dkorule#char('*')<CR>
-nnoremap <Leader>f- :call dkorule#char('-')<CR>
-nnoremap <Leader>f= :call dkorule#char('=')<CR>
-nnoremap <Leader>f# :call dkorule#char('#')<CR>
-nnoremap <Leader>f* :call dkorule#char('*')<CR>
+inoremap <special> <Leader>f- <Esc>:<C-u>call dkorule#char('-')<CR>
+inoremap <special> <Leader>f= <Esc>:<C-u>call dkorule#char('=')<CR>
+inoremap <special> <Leader>f# <Esc>:<C-u>call dkorule#char('#')<CR>
+inoremap <special> <Leader>f* <Esc>:<C-u>call dkorule#char('*')<CR>
+nnoremap <special> <Leader>f- :<C-u>call dkorule#char('-')<CR>
+nnoremap <special> <Leader>f= :<C-u>call dkorule#char('=')<CR>
+nnoremap <special> <Leader>f# :<C-u>call dkorule#char('#')<CR>
+nnoremap <special> <Leader>f* :<C-u>call dkorule#char('*')<CR>
 
 " ----------------------------------------------------------------------------
 " Bubble and indent mappings from janus vim distribution

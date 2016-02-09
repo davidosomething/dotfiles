@@ -16,5 +16,5 @@ setlocal tabstop=4
 setlocal formatoptions+=croq
 
 " Always start in display movement mode for markdown
-call movemode#setByDisplay()
+call dkomovemode#setByDisplay()
 
