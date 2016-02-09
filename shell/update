@@ -16,6 +16,10 @@ source "${bootstrap_path}/helpers.sh"
 # Command functions
 # ==============================================================================
 
+# ------------------------------------------------------------------------------
+# Meta
+# ------------------------------------------------------------------------------
+
 __dotfiles_usage() {
   dkousage  "update <command>"
   echo "
@@ -54,6 +58,10 @@ __dotfiles_update_secret() {
   git submodule update --init
   return $?
 }
+
+# ------------------------------------------------------------------------------
+# Externals
+# ------------------------------------------------------------------------------
 
 __dotfiles_update_fzf() {
   dkostatus "Updating fzf"
@@ -284,3 +292,4 @@ __dotfiles_main() {
     darwin*)  __dotfiles_update_darwin  "$1" ;;
   esac
 }
+
