@@ -61,6 +61,9 @@
   toggle_zoom = None
   ungroup_all = None
   ungroup_tab = None
+  zoom_in = <Primary><Super>equal
+  zoom_normal = <Primary><Super>0
+  zoom_out = <Primary><Super>minus
 [layouts]
   [[default]]
     [[[child1]]]
@@ -75,7 +78,6 @@
 [profiles]
   [[default]]
     background_color = "#1e1e1e"
-    background_image = None
     cursor_color = "#a7a7a7"
     custom_command = cd $HOME; $SHELL
     font = Fira Mono for Powerline 10
@@ -87,5 +89,4 @@
     use_custom_command = True
     use_system_font = False
   [[nocolor]]
-    background_image = None
     cursor_color = "#aaaaaa"
