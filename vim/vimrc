@@ -72,7 +72,8 @@ set visualbell t_vb=
 set number
 set numberwidth=5
 
-set scrolloff=8                       " show 2 lines of context
+" show context around current cursor position
+set scrolloff=8
 set sidescrolloff=16
 
 set colorcolumn=80
@@ -234,6 +235,7 @@ set listchars=tab:→\
 set listchars+=trail:·
 set listchars+=extends:»              " show cut off when nowrap
 set listchars+=precedes:«
+set listchars+=nbsp:⣿
 
 " maybe...
 " if has('patch-7.4.785')
