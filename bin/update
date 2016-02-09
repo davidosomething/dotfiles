@@ -40,9 +40,9 @@ _usage() {
 _update_dotfiles() {
   dkostatus "Updating dotfiles"
   cd "$DOTFILES" || dkodie "No \$DOTFILES directory"
-  git pull --rebase --recurse-submodules && git submodule update --init
-  [ -z $? ] || exit 1
-  [ -n "$ZSH_NAME" ] && dkostatus "Done, don't forget to zplug update"
+  { git pull --rebase --recurse-submodules && git submodule update --init; } \
+    || dkodie "Error updating dotfiles."
+  [ -n "$ZSH_VERSION" ] && dkostatus "Done, don't forget to zplug update"
 }
 
 _update_secret() {
@@ -55,8 +55,8 @@ _update_secret() {
 
 _update_fzf() {
   dkostatus "Updating fzf"
-  cd "${HOME}/.fzf" || exit 1
-  git pull || exit 1
+  cd "${HOME}/.fzf" || dkodie "Could not cd to ~/.fzf"
+  git pull || dkodie "Could not update ~/.fzf"
   ./install --key-bindings --completion --no-update-rc
   exit $?
 }
@@ -64,7 +64,7 @@ _update_fzf() {
 _update_gems() {
   has_program "gem" || dkodie "rubygems is not installed"
   dkostatus "Updating RubyGems itself"
-  gem update --system  || exit 1
+  gem update --system  || dkodie "Could not update system gems"
   dkostatus "Updating gems"
   gem update
   exit $?
@@ -122,12 +122,12 @@ _update_nvm() {
   fi
 
   dkostatus "Updating nvm"
-  cd "$NVM_DIR" || exit 1
+  cd "$NVM_DIR"  || dkodie "Could not cd to \$NVM_DIR"
 
   previous_nvm="$(git describe --abbrev=0 --tags)"
-  git pull origin master || exit 1
+  git pull origin master || dkodie "Could not update nvm"
   latest_nvm="$(git describe --abbrev=0 --tags)"
-  git checkout "$latest_nvm" || exit 1
+  git checkout "$latest_nvm" || dkodie "Could not update nvm"
 
   if [ "$previous_nvm" != "$latest_nvm" ]; then
     dkostatus "Restart your shell to start using nvm $latest_nvm"
@@ -197,10 +197,10 @@ _update_arch() {
 _update_osx() {
   # fix file system permissions
   dkostatus "Repairing permissions"
-  diskutil repairPermissions / || exit 1
+  diskutil repairPermissions / || dkoerr "Error repairing permissions"
 
   dkostatus "OSX system update"
-  sudo softwareupdate -i -a
+  sudo softwareupdate -i -a || dkodie "Error updating software permissions"
   exit $?
 }
 
@@ -237,10 +237,10 @@ _update_brew() {
 
 _update_python3() {
   dkostatus_ "Linking python3 apps"
-  brew linkapps python3 || exit 1
+  brew linkapps python3 || dkodie "Error linking python3"
   dkostatus "Python3 was upgraded"
   dkostatus_ "Updating pip and setuptools"
-  pip3 install --upgrade pip setuptools || exit 1
+  pip3 install --upgrade pip setuptools || dkodie "Error updating setuptools"
 }
 
 _update_macvim() {
@@ -248,9 +248,10 @@ _update_macvim() {
   brew reinstall macvim \
     --with-custom-icons --with-override-system-vim \
     --with-lua          --with-python3 \
-    || exit 1
+    || dkodie "Error reinstalling macvim"
   dkostatus_ "Linking new macvim.app"
-  brew linkapps macvim || exit 1
+  brew linkapps macvim
+  exit $?
 }
 
 # ==============================================================================
