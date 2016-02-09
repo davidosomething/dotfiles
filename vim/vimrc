@@ -329,7 +329,8 @@ set backspace=indent,eol,start        " bs anything
 " Match and search
 " ----------------------------------------------------------------------------
 
-set noshowmatch                       " don't briefly jump to matching paren
+set matchtime=1                       " tenths of a sec
+set showmatch                         " briefly jump to matching paren?
 set hlsearch
 set incsearch
 set wrapscan                          " Searches wrap around end of the file.
