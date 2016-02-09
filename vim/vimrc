@@ -15,6 +15,7 @@ let g:dko_loc_list_height = 10
 " ============================================================================
 " My autocmd block - Clear vimrc group's autocmds if reloading
 " ============================================================================
+
 augroup vimrc
   autocmd!
 augroup END
@@ -196,7 +197,8 @@ execute 'set directory=' . g:dko_vim_dir . '/.tmp/swap//'
 " ----------------------------------------------------------------------------
 
 set omnifunc=syntaxcomplete#Complete
-set complete-=i,t                     " don't complete includes and tags
+set complete-=i                       " don't complete includes
+set complete-=t                       " don't complete tags
 set completeopt-=preview              " don't open scratch preview
 set completeopt+=menu,menuone         " show PUM, even for one thing
 
@@ -368,7 +370,6 @@ autocmd vimrc BufRead,BufNewFile */wp-content/themes/vip/*
 " Plugins
 " ============================================================================
 
-" Only load plugins on vim 7.3+ with autocmd
 let s:dko_use_plugins = 1 && $DOTFILES_DISTRO !=# 'busybox'
 
 " This is used by plugin/completion.vim so is a g:
@@ -384,13 +385,13 @@ let g:loaded_gzip = 1
 let g:loaded_LogiPat = 1
 let g:loaded_tarPlugin = 1
 let g:loaded_zipPlugin = 1
+" re-enable this one if you need auto-spellfile download
+let g:loaded_netrwPlugin = 0
 
 " ============================================================================
 " Plugins: netrw
 " ============================================================================
 
-" disable entirely -- re-enable if you need auto-spellfile download
-let g:loaded_netrwPlugin = 0
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
 let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')
@@ -480,7 +481,7 @@ if s:dko_use_plugins
   " Mostly for :Gblame
   "Plug 'tpope/vim-fugitive'
   " the blame in vim-gita is hawt :3
-  Plug 'lambdalisue/vim-gita'
+  Plug 'lambdalisue/vim-gita', { 'on': [ 'Gita' ] }
 
   " Mostly for :Scriptnames and zS
   Plug 'tpope/vim-scriptease'
@@ -500,7 +501,7 @@ if s:dko_use_plugins
           "\| Plug 'osyo-manga/unite-quickfix'
   endif
 
-  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'nathanaelkane/vim-indent-guides', { 'on': [ 'IndentGuidesToggle' ] }
 
   Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
 
@@ -530,8 +531,7 @@ if s:dko_use_plugins
   if s:dko_use_neomake | Plug 'benekastah/neomake'
   endif
 
-  if s:dko_use_syntastic
-    Plug 'scrooloose/syntastic'
+  if s:dko_use_syntastic | Plug 'scrooloose/syntastic'
   endif
 
   " ========================================================================
@@ -654,8 +654,7 @@ if s:dko_use_plugins
   " Creates html.handlebars and other fts and sets syn
   Plug 'mustache/vim-mustache-handlebars'
 
-  if s:dko_use_syntastic
-    Plug 'davidosomething/syntastic-hbstidy'
+  if s:dko_use_syntastic | Plug 'davidosomething/syntastic-hbstidy'
   endif
 
   " ========================================================================
@@ -726,7 +725,8 @@ if s:dko_use_plugins
   Plug 'davidosomething/vim-jsdoc'
   "Plug '~/projects/vim-jsdoc'
 
-  " gf for going to node_modules files
+  " detect extensionless node scripts (executables) via shebang
+  " and add gf for going to node_modules files
   Plug 'moll/vim-node'
 
   " ----------------------------------------
@@ -778,8 +778,10 @@ if s:dko_use_plugins
   " creates twig ft
   "Plug 'evidens/vim-twig'
 
+  " Syntax
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 
+  " Indent
   " Fix indent of HTML in all PHP files -- basically adds
   " indent/html.vim when outside of PHP block.
   Plug '2072/PHP-Indenting-for-VIm'
@@ -863,18 +865,17 @@ if s:dko_use_plugins
   Plug 'kana/vim-gf-user', { 'for': ['vim'] }
         \| Plug 'sgur/vim-gf-autoload', { 'for': ['vim'] }
 
-  " SLOW
+  " Lint: SLOW viml plugin
   " Plug 'ynkdir/vim-vimlparser', { 'for': ['vim'] }
   "       \| Plug 'syngan/vim-vimlint', { 'for': ['vim'] }
 
-  " Python plugin, probably not using it
+  " Lint: Python plugin
   if s:dko_use_syntastic && executable('vint')
     Plug 'todesking/vint-syntastic'
   endif
 
-  if g:dko_has_completion
-    " Vim completion
-    Plug 'Shougo/neco-vim', { 'for': ['vim'] }
+  " Completion
+  if g:dko_has_completion | Plug 'Shougo/neco-vim', { 'for': ['vim'] }
   endif
 
   " ========================================================================
