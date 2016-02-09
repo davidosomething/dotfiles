@@ -64,7 +64,7 @@ set title                             " wintitle = filename - vim
 " this is already set by modern terminal
 "set ttyfast
 
-set nolazyredraw                      " macros don't update display
+set lazyredraw                        " macros don't update display
 
 " no beeps or flashes
 set visualbell t_vb=
