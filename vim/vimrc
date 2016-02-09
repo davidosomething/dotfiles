@@ -501,9 +501,9 @@ if s:dko_use_plugins
           "\| Plug 'osyo-manga/unite-quickfix'
   endif
 
-  Plug 'nathanaelkane/vim-indent-guides', { 'on': [ 'IndentGuidesToggle' ] }
+  Plug 'nathanaelkane/vim-indent-guides'
 
-  Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
+  Plug 'osyo-manga/vim-over'
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   Plug 'tpope/vim-eunuch'
