@@ -32,14 +32,14 @@ let s:default_config_paths = [
 " Find git root of current file, set to buffer var
 " @param {string} [file]
 " @return {string} project git root path or empty string
-function! dkoproject#GetProjectRoot(file) abort
+function! dkoproject#GetProjectRoot(...) abort
   if exists('b:dkoproject_root')
     return b:dkoproject_root
   endif
 
-  if empty(a:file)
+  if empty(a:0)
     " path for given file
-    let l:path = expand(fnamemodify(a:file, ':p:h'))
+    let l:path = expand(fnamemodify(a:0, ':p:h'))
   elseif filereadable(expand('%'))
     " path for current file
     let l:path = expand('%:p:h')
