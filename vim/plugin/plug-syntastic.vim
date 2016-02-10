@@ -81,7 +81,7 @@ let g:syntastic_html_tidy_ignore_errors = g:syntastic_html_tidy_ignore_errors
       \ ]
 
 " ============================================================================
-" Checker: JS, Coffee
+" Syntax: JS, Coffee
 " ============================================================================
 
 let g:syntastic_coffeescript_checkers  = ['coffee', 'coffeelint']
@@ -94,13 +94,13 @@ let g:syntastic_javascript_eslint_quiet_messages = {
       \ }
 
 " ============================================================================
-" Checker: Lua
+" Syntax: Lua
 " ============================================================================
 
 let g:syntastic_lua_checkers = ['luac', 'luacheck']
 
 " ============================================================================
-" Checker: Markdown
+" Syntax: Markdown
 " ============================================================================
 
 let g:syntastic_markdown_mdl_quiet_messages = {
@@ -108,22 +108,51 @@ let g:syntastic_markdown_mdl_quiet_messages = {
       \ }
 
 " ============================================================================
-" Checker: PHP
+" Syntax: PHP
 " ============================================================================
 
 let g:syntastic_php_checkers = ['php', 'phplint', 'phpmd', 'phpcs']
 
+" ----------------------------------------------------------------------------
+" Checker: phpmd
+" ----------------------------------------------------------------------------
+
+function! s:FindPhpmdRuleset()
+  let l:ruleset = dkoproject#GetProjectConfigFile('ruleset.xml')
+  if !empty(l:ruleset)
+    let b:syntastic_php_phpmd_post_args = l:ruleset
+  endif
+endfunction
+autocmd dkosyntastic FileType php call s:FindPhpmdRuleset()
+
+" ----------------------------------------------------------------------------
+" Checker: phpcs
+" ----------------------------------------------------------------------------
+
+function! s:FindPhpcsStandard()
+  " WordPress VIP?
+  if match(expand('%:p'), 'wp-\|plugins\|themes') > -1
+    let b:syntastic_php_phpcs_args = '--standard=WordPress-VIP'
+  endif
+endfunction
+autocmd dkosyntastic FileType php call s:FindPhpcsStandard()
+
 " ============================================================================
-" Checker: Python
+" Syntax: Python
 " ============================================================================
 
 let g:syntastic_python_checkers = ['prospector', 'python']
 
 " ============================================================================
-" Checker: scss_lint
+" Syntax: scss
 " ============================================================================
 
 let g:syntastic_scss_checkers = ['sass', 'scss_lint', 'stylelint']
+
+" ----------------------------------------------------------------------------
+" Checker: scss_lint
+" ----------------------------------------------------------------------------
+
 let s:dko_scsslint_config = expand('$DOTFILES/scss-lint/.scss-lint.yml')
 if !empty(glob(s:dko_scsslint_config))
   let g:syntastic_scss_scss_lint_args = '--config=' . s:dko_scsslint_config
@@ -139,18 +168,22 @@ endfunction
 autocmd dkosyntastic FileType scss call s:FindScsslintConfig()
 
 " ============================================================================
-" Checker: Shell
+" Syntax: Shell
 " ============================================================================
 
 let g:syntastic_sh_checkers = [ 'bashate', 'sh', 'shellcheck' ]
 let g:syntastic_zsh_checkers = [ 'zsh' ]
 
 " ============================================================================
-" Checker: VimL
+" Syntax: VimL
 " ============================================================================
 
 " Syntastic checks if they're installed so don't need to check here.
 let g:syntastic_vim_checkers = [ 'vint' ]
+
+" ----------------------------------------------------------------------------
+" Checker: vimlint
+" ----------------------------------------------------------------------------
 
 if exists("g:plugs['vim-vimlint']")
   call add(g:syntastic_vim_checkers, 'vimlint')

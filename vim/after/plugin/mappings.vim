@@ -193,10 +193,11 @@ nnoremap  <Leader>ws  :<C-u>call dkowhitespace#clean()<CR>
 " Horizontal rule
 " ----------------------------------------------------------------------------
 
-nnoremap  <silent>  <Leader>f-  :<C-u>call dkorule#char('-')<CR>
-nnoremap  <silent>  <Leader>f=  :<C-u>call dkorule#char('=')<CR>
-nnoremap  <silent>  <Leader>f#  :<C-u>call dkorule#char('#')<CR>
-nnoremap  <silent>  <Leader>f*  :<C-u>call dkorule#char('*')<CR>
+call dkorule#map('_')
+call dkorule#map('-')
+call dkorule#map('=')
+call dkorule#map('#')
+call dkorule#map('*')
 
 " ----------------------------------------------------------------------------
 " Bubble and indent mappings  - REQUIRES tim pope's unimpaired

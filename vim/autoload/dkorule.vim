@@ -1,19 +1,19 @@
+" autoload/dkorule.vim
+
+" Generate a line of a:char from current cursor to end of textwidth
 " http://stackoverflow.com/a/3400528/230473
-function! dkorule#char(str) abort
-  " set tw to the desired total length
-  let l:tw = &textwidth
-  if l:tw == 0 | let l:tw = 80 | endif
-
-  " strip trailing spaces first
-  .s/[[:space:]]*$//
-
-  " calculate total number of 'str's to insert
-  let l:reps = (l:tw - col('$')) / len(a:str)
-
-  " insert them, if there's room, removing trailing spaces (though forcing
-  " there to be one)
+function! dkorule#char(char) abort
+  let l:tw = getbufvar('%', '&textwidth', 78)
+  let l:reps = l:tw - (col('$') - 1)
   if l:reps > 0
-    .s/$/\=(' '.repeat(a:str, reps))/
+    execute 'normal! ' . l:reps . 'A' . a:char
   endif
+endfunction
+
+" Map key
+function! dkorule#map(char) abort
+  let l:key = '<Leader>f' . a:char
+  execute 'nnoremap <silent> ' . l:key . ' :<C-u>call dkorule#char("' . a:char . '")<CR>'
+  execute 'imap ' . l:key . ' <C-o>' . l:key
 endfunction
 

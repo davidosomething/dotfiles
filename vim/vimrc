@@ -368,6 +368,11 @@ let g:markdown_fenced_languages = [
       \ 'sass',
       \ ]
 
+" Needs to be in vimrc (or ftdetect) since syntax runs before ftplugin
+" PHP indent settings for distributed $VIMRUNTIME/indent/php.vim and 2072/
+let g:PHP_default_indenting = 0
+let g:PHP_outdentphpescape  = 0
+
 " ----------------------------------------------------------------------------
 " Autocommands
 " ----------------------------------------------------------------------------
