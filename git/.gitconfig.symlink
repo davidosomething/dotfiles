@@ -87,6 +87,9 @@
 	commentchar = ";"
 # pager = less -x4 ; removed so git will use the env GIT_PAGER
 
+[diff]
+	renames = true
+
 [filter "media"]
 	clean = git media clean %f
 	smudge = git media smudge %f
