@@ -1,9 +1,10 @@
+" vimrc
 set encoding=utf-8 nobomb
 scriptencoding utf-8
 " note: set encoding BEFORE scriptencoding
 
-" let g:dko_original_rtp = &runtimepath
-let g:dko_vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+let g:dko_rtp_original = &runtimepath
+let g:dko_vim_dir      = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 " ============================================================================
 " Settings vars
@@ -43,7 +44,7 @@ set shell=$SHELL
 
 set pastetoggle=<F12>
 
-if (exists('$DISPLAY') || has('mac')) && has('clipboard')
+if has('clipboard')
   set clipboard=unnamed  " Use clipboard register
 
   " Share X windows clipboard. NOT ON NEOVIM -- neovim automatically uses
@@ -95,7 +96,7 @@ set laststatus=2
 set showcmd                           " incomplete commands on
 set noshowmode                        " don't show -- INSERT -- in cmdline
 set statusline=%!dkostatus#Output(1)
-autocmd vimrc VimEnter,WinEnter,BufWinEnter * call dkostatus#Refresh()
+autocmd vimrc VimEnter,WinEnter,BufWinEnter   *   call dkostatus#Refresh()
 
 " ----------------------------------------------------------------------------
 " Input
@@ -173,7 +174,7 @@ set backupskip=/tmp/*
 " Make Vim able to edit crontab files again.
 set backupskip+=,/private/tmp/*"
 if has('mac')
-  autocmd vimrc BufEnter /private/tmp/crontab.* setlocal backupcopy=yes
+  autocmd vimrc   BufEnter  /private/tmp/crontab.*  setlocal backupcopy=yes
 endif
 execute 'set backupdir=' . g:dko_vim_dir . '/.tmp/backup//'
 set backup
@@ -371,14 +372,18 @@ let g:markdown_fenced_languages = [
 " Autocommands
 " ----------------------------------------------------------------------------
 
-" Resize splits when the window is resized
-autocmd vimrc VimResized * :wincmd =
+augroup vimrc
+  " Resize splits when the window is resized
+  autocmd VimResized  *   wincmd =
 
-" No EOL character on files -- specifically for WP VIP PHP
-autocmd vimrc BufRead,BufNewFile */wp-content/themes/vip/*
-      \ setlocal noeol binary fileformat=dos
+  " No EOL character on files -- specifically for WP VIP PHP
+  autocmd BufNewFile,BufRead  */wp-content/themes/vip/*
+        \ setlocal noeol binary fileformat=dos
 
-" see after/ftplugin/*.vim for more filetype specific stuff
+  " DKO set project root by gitroot
+  autocmd BufNewFile,BufRead  *
+        \ call dkoproject#GetProjectRoot()
+augroup END
 
 " ============================================================================
 " Plugins
@@ -420,7 +425,7 @@ if s:dko_use_plugins
   if empty(glob(expand(g:dko_vim_dir . '/autoload/plug.vim')))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
       \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd vimrc VimEnter * PlugInstall | source $MYVIMRC
+    autocmd vimrc   VimEnter  *  PlugInstall | source $MYVIMRC
   endif
 
   " ==========================================================================

@@ -28,39 +28,52 @@ let s:default_config_paths = [
       \   'config/',
       \ ]
 
-
 " ============================================================================
 " Find git root of current file, set to buffer var
-" ============================================================================
-
-" @return string root path
-function! dkoproject#GetProjectRoot() abort
-  if !filereadable(expand('%'))
-    return ''
-  endif
-
+" @param {string} [file]
+" @return {string} project git root path or empty string
+function! dkoproject#GetProjectRoot(file) abort
   if exists('b:dkoproject_root')
     return b:dkoproject_root
   endif
 
-  cd! %:p:h
+  if empty(a:file)
+    " path for given file
+    let l:path = expand(fnamemodify(a:file, ':p:h'))
+  elseif filereadable(expand('%'))
+    " path for current file
+    let l:path = expand('%:p:h')
+  endif
+
+  " Determine if git root exists (empty string on error)
+  execute 'lcd! ' . l:path
   let l:result = systemlist('git rev-parse --show-toplevel')
+  lcd! -
+
+  " No git root?
   let l:root = empty(l:result) ? '' : l:result[0]
-  cd! -
-  if l:root ==? 'fatal: Not a git repository (or any of the parent directories): .git'
+  if !isdirectory(l:root)
     return ''
   endif
 
+  " Found git root
   let b:dkoproject_root = l:root
   return l:root
 endfunction
 
+" ============================================================================
+" For all windows, change path to project root
+function! dkoproject#CdProjectRoot() abort
+  if empty(dkoproject#GetProjectRoot())
+    echoerr 'Not a git project'
+    return
+  endif
+  execute 'cd! ' . dkoproject#GetProjectRoot()
+endfunction
 
 " ============================================================================
 " Get array of config paths for a project
-" ============================================================================
-
-" @return array of string config paths relative to git root
+" @return {String[]} config paths relative to git root
 function! dkoproject#GetConfigPaths() abort
   if exists('b:dkoproject_config_paths')
     return b:dkoproject_config_paths
@@ -70,12 +83,9 @@ function! dkoproject#GetConfigPaths() abort
   return s:default_config_paths
 endfunction
 
-
 " ============================================================================
-" Get config file full path
-" ============================================================================
-
-" @return string full path to config file
+" Get config file full path, looks in b:dkoproject_root
+" @return {String} full path to config file
 function! dkoproject#GetProjectConfigFile(filename) abort
   if empty(dkoproject#GetProjectRoot())
     return ''
@@ -98,12 +108,9 @@ function! dkoproject#GetProjectConfigFile(filename) abort
   return ''
 endfunction
 
-
 " ============================================================================
 " Get JS linters based on rc file presence
-" ============================================================================
-
-" @return list of linter names
+" @return {String[]} list of linter names
 function! dkoproject#JsLinters() abort
   if exists('b:dko_js_linters')
     return b:dko_js_linters
@@ -125,6 +132,7 @@ function! dkoproject#JsLinters() abort
   return b:dko_js_linters
 endfunction
 
+" ============================================================================
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

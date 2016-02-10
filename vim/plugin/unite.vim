@@ -1,4 +1,5 @@
 " plugin/unite.vim
+scriptencoding utf-8
 if !exists("g:plugs['unite.vim']") | finish | endif
 
 augroup dkounite
@@ -106,6 +107,7 @@ function! s:UniteProfiles()
         \   'direction':          'botright',
         \   'max_candidates':     300,
         \   'no_empty':           1,
+        \   'prompt':             '» ',
         \   'short_source_names': 1,
         \   'silent':             1,
         \   'toggle':             1,

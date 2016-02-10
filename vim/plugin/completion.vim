@@ -11,8 +11,6 @@ if !g:dko_has_completion | finish | endif
 " ============================================================================
 
 " Global is using syntaxcomplete
-" We keep this here and not in filetype related sections since some files,
-" like HTML, Markdown, and PHP, have mixed languages in them.
 " These set the default omnifuncs. Completion engine will use something
 " different if there are other sources available (e.g. TernJS for JavaScript).
 augroup dkoomnifuncs

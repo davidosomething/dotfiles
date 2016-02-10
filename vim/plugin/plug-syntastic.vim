@@ -145,15 +145,15 @@ autocmd dkosyntastic BufReadPost *.scss call s:FindScsslintConfig()
 " Checker: Shell
 " ============================================================================
 
-let g:syntastic_sh_checkers = ['bashate', 'shellcheck']
-let g:syntastic_zsh_checkers = g:syntastic_sh_checkers + ['zsh']
+let g:syntastic_sh_checkers = [ 'bashate', 'sh', 'shellcheck' ]
+let g:syntastic_zsh_checkers = [ 'zsh' ]
 
 " ============================================================================
 " Checker: VimL
 " ============================================================================
 
 " Syntastic checks if they're installed so don't need to check here.
-let g:syntastic_vim_checkers = ['vint']
+let g:syntastic_vim_checkers = [ 'vint' ]
 
 if exists("g:plugs['vim-vimlint']")
   call add(g:syntastic_vim_checkers, 'vimlint')

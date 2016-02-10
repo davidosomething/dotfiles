@@ -36,11 +36,11 @@ function! dkostatus#Output(winnr) abort
   return l:contents
 endfunction
 
-" Called by autocmd in vimrc
+" Called by autocmd in vimrc, refresh statusline in each window
 function! dkostatus#Refresh() abort
-  for l:winnr in range(1, winnr('$'))
-    call setwinvar(l:winnr, '&statusline', '%!dkostatus#Output(' . l:winnr . ')')
-  endfor
+  for l:winnr in range(1, winnr('$')) | call setwinvar(
+        \ l:winnr, '&statusline', '%!dkostatus#Output(' . l:winnr . ')'
+        \ ) | endfor
 endfunction
 
 function! dkostatus#Mode() abort

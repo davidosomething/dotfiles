@@ -14,47 +14,40 @@ command! Q q
 nnoremap  <special> <BS> <C-^>
 
 " close buffer with space-bd and auto close loc list first
-nnoremap  <silent>  <Leader>bd :lclose<CR>:bdelete<CR>
+nnoremap  <unique><silent>  <Leader>bd :lclose<CR>:bdelete<CR>
 
 " ============================================================================
 " Split manip
 " ============================================================================
 
-" Navigate with ctrl+arrow
-nnoremap <silent><special> <C-Left>       :<C-u>wincmd h<CR>
-inoremap <silent><special> <C-Left>  <Esc>:<C-u>wincmd h<CR>
-nnoremap <silent><special> <C-Down>       :<C-u>wincmd j<CR>
-inoremap <silent><special> <C-Down>  <Esc>:<C-u>wincmd j<CR>
-nnoremap <silent><special> <C-Up>         :<C-u>wincmd k<CR>
-inoremap <silent><special> <C-Up>    <Esc>:<C-u>wincmd k<CR>
-nnoremap <silent><special> <C-Right>      :<C-u>wincmd l<CR>
-inoremap <silent><special> <C-Right> <Esc>:<C-u>wincmd l<CR>
+" Navigate with ctrl+arrow (insert mode leaves user in normal)
+nnoremap  <special>   <C-Left>    <C-w>h
+nnoremap  <special>   <C-Down>    <C-w>j
+nnoremap  <special>   <C-Up>      <C-w>k
+nnoremap  <special>   <C-Right>   <C-w>l
 
 " Cycle with tab in normal mode
-nnoremap <special><Tab> <C-w>w
-nnoremap <special><S-Tab> <C-w>W
+nnoremap  <special>   <Tab>       <C-w>w
+nnoremap  <special>   <S-Tab>     <C-w>W
 
-" Resize
-nnoremap  <special> <S-Left>  4<C-w><
-imap      <special> <S-Left>  <C-o><S-Left>
-
-nnoremap  <special> <S-Down>  4<C-W>-
-imap      <special> <S-Down>  <C-o><S-Down>
-
-nnoremap  <special> <S-Up>    4<C-W>+
-imap      <special> <S-Up>    <C-o><S-Up>
-
-nnoremap  <special> <S-Right> 4<C-w>>
-imap      <special> <S-Right> <C-o><S-Right>
+" Resize (can take a count, eg. 2<S-Left>)
+nnoremap  <special>   <S-Left>    <C-w><
+imap      <special>   <S-Left>    <C-o><S-Left>
+nnoremap  <special>   <S-Down>    <C-W>-
+imap      <special>   <S-Down>    <C-o><S-Down>
+nnoremap  <special>   <S-Up>      <C-W>+
+imap      <special>   <S-Up>      <C-o><S-Up>
+nnoremap  <special>   <S-Right>   <C-w>>
+imap      <special>   <S-Right>   <C-o><S-Right>
 
 " ============================================================================
 " Scrolling and movement
 " ============================================================================
 
 " Map the arrow keys to be based on display lines, not physical lines
-vnoremap  <special>   <Down>      gj
-vnoremap  <special>   <Up>        gk
-nnoremap  <special>   <Leader>mm  :<C-u>call dkomovemode#toggle()<CR>
+vnoremap          <special>   <Down>      gj
+vnoremap          <special>   <Up>        gk
+nnoremap  <unique><special>   <Leader>mm  :<C-u>call dkomovemode#toggle()<CR>
 
 " Replace PgUp and PgDn with Ctrl-U/D
 map   <special> <PageUp>    <C-U>
@@ -78,8 +71,8 @@ vnoremap  L   g_
 " Toggle visual/normal mode with space-space
 " ----------------------------------------------------------------------------
 
-nnoremap <Leader><Leader> V
-vnoremap <Leader><Leader> <Esc>
+nnoremap <unique><Leader><Leader> V
+vnoremap <unique><Leader><Leader> <Esc>
 
 " ----------------------------------------------------------------------------
 " Back to normal mode
@@ -96,10 +89,16 @@ cmap jj <Esc>
 nnoremap U :<C-u>syntax sync fromstart<CR>:redraw!<CR>
 
 " ----------------------------------------------------------------------------
-" cd to current buffer
+" cd
 " ----------------------------------------------------------------------------
 
-nnoremap <silent> <Leader>cd :<C-u>lcd %:h<CR>
+" to current buffer path
+nnoremap <unique><silent>   <Leader>cd
+      \ :<C-u>lcd %:h<CR>
+
+" to current buffer's git root
+nnoremap <unique><silent>   <Leader>cr
+      \ :<C-u>call dkoproject#CdProjectRoot()<CR>
 
 " ============================================================================
 " Editing
@@ -129,41 +128,41 @@ vnoremap  >   >gv
 
 if exists("g:plugs['vim-textobj-indent']")
   " Auto select indent-level and sort
-  nnoremap <Leader>s vii:!sort<CR>
+  nnoremap <unique><Leader>s vii:!sort<CR>
 else
   " Auto select paragraph (bounded by blank lines) and sort
-  nnoremap <Leader>s vip:!sort<CR>
+  nnoremap <unique><Leader>s vip:!sort<CR>
 endif
 " Sort selection (no clear since in visual)
-vnoremap <Leader>s :!sort<CR>
+vnoremap <unique><Leader>s :!sort<CR>
 
 " ----------------------------------------------------------------------------
 " Uppercase / lowercase word
 " ----------------------------------------------------------------------------
 
-nnoremap <Leader>u mQviwU`Q
-nnoremap <Leader>l mQviwu`Q
+nnoremap <unique><Leader>u mQviwU`Q
+nnoremap <unique><Leader>l mQviwu`Q
 
 " ----------------------------------------------------------------------------
 " Join lines without space (and go to first char line that was merged up)
 " ----------------------------------------------------------------------------
 
-nnoremap <Leader>j VjgJl
+nnoremap <unique><Leader>j VjgJl
 
 " ----------------------------------------------------------------------------
 " Clean up whitespace
 " ----------------------------------------------------------------------------
 
-nnoremap <Leader>ws :<C-u>call dkowhitespace#clean()<CR>
+nnoremap <unique><Leader>ws :<C-u>call dkowhitespace#clean()<CR>
 
 " ----------------------------------------------------------------------------
 " Horizontal rule
 " ----------------------------------------------------------------------------
 
-nnoremap  <silent>  <Leader>f-  :<C-u>call dkorule#char('-')<CR>
-nnoremap  <silent>  <Leader>f=  :<C-u>call dkorule#char('=')<CR>
-nnoremap  <silent>  <Leader>f#  :<C-u>call dkorule#char('#')<CR>
-nnoremap  <silent>  <Leader>f*  :<C-u>call dkorule#char('*')<CR>
+nnoremap  <unique><silent>  <Leader>f-  :<C-u>call dkorule#char('-')<CR>
+nnoremap  <unique><silent>  <Leader>f=  :<C-u>call dkorule#char('=')<CR>
+nnoremap  <unique><silent>  <Leader>f#  :<C-u>call dkorule#char('#')<CR>
+nnoremap  <unique><silent>  <Leader>f*  :<C-u>call dkorule#char('*')<CR>
 
 " ----------------------------------------------------------------------------
 " Bubble and indent mappings  - REQUIRES tim pope's unimpaired

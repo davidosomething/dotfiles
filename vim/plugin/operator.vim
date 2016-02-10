@@ -3,9 +3,8 @@
 if !exists("g:plugs['vim-operator-user']") | finish | endif
 
 if exists("g:plugs['vim-operator-surround']")
-
-  " completely unmap s
-  silent! unmap s
+  " disable [s]ubstitute
+  map s <Nop>
 
   " operators
   map   sa    <Plug>(operator-surround-append)
@@ -19,20 +18,21 @@ if exists("g:plugs['vim-operator-surround']")
   map   s}    <Plug>(operator-surround-append)iW)
   map   s]    <Plug>(operator-surround-append)iW]
   map   s>    <Plug>(operator-surround-append)iW>
+
+  " accept block char on anyblock
   if exists("g:plugs['vim-textobj-anyblock']")
     nmap  saa   <Plug>(operator-surround-append)<Plug>(textobj-anyblock-a)
     nmap  sdd   <Plug>(operator-surround-delete)<Plug>(textobj-anyblock-a)
     nmap  srr   <Plug>(operator-surround-replace)<Plug>(textobj-anyblock-a)
   endif
-
 endif
 
 if exists("g:plugs['operator-camelize.vim']")
   " operators
-  map   <Leader>c   <Plug>(operator-camelize-toggle)
+  map   <unique><Leader>c   <Plug>(operator-camelize-toggle)
 
   " commands, not operators
-  map   cb          <Plug>(operator-camelize-toggle)<Plug>(textobj-anyblock-a)
-  map   cc          <Plug>(operator-camelize-toggle)iWB
+  map   ccb          <Plug>(operator-camelize-toggle)<Plug>(textobj-anyblock-a)
+  map   ccc          <Plug>(operator-camelize-toggle)iWB
 endif
 

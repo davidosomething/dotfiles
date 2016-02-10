@@ -2,8 +2,8 @@
 " Help buffer
 
 function! s:Mappings()
-  nnoremap <silent><buffer>   q           :<C-u>close<CR>
-  nnoremap <silent><buffer>   Q           :<C-u>close<CR>
+  nnoremap <silent><buffer>   q   :<C-u>close<CR>
+  nnoremap <silent><buffer>   Q   :<C-u>close<CR>
   nnoremap <silent><buffer>   <Leader>v
         \ :<C-u>wincmd L <BAR> vertical resize 82<CR>
 
@@ -29,8 +29,6 @@ endfunction
 augroup dkohelp
   autocmd!
   autocmd BufWinEnter *
-        \   if &buftype == 'help'
-        \|    call s:Mappings()
-        \|  endif
+        \   if &buftype == 'help' | call s:Mappings() |  endif
 augroup END
 
