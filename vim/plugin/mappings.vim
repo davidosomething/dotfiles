@@ -34,14 +34,17 @@ inoremap <silent><special> <C-Right> <Esc>:<C-u>wincmd l<CR>
 nnoremap <special><Tab> <C-w>w
 
 " Resize
-nnoremap <special> <S-Left>  4<C-w><
-nnoremap <special> <S-Down>  4<C-W>-
-nnoremap <special> <S-Up>    4<C-W>+
-nnoremap <special> <S-Right> 4<C-w>>
-inoremap <special> <S-Left>  <Esc>4<C-w><
-inoremap <special> <S-Down>  <Esc>4<C-W>-
-inoremap <special> <S-Up>    <Esc>4<C-W>+
-inoremap <special> <S-Right> <Esc>4<C-w>>
+nnoremap  <special> <S-Left>  4<C-w><
+imap      <special> <S-Left>  <C-o><S-Left>
+
+nnoremap  <special> <S-Down>  4<C-W>-
+imap      <special> <S-Down>  <C-o><S-Down>
+
+nnoremap  <special> <S-Up>    4<C-W>+
+imap      <special> <S-Up>    <C-o><S-Up>
+
+nnoremap  <special> <S-Right> 4<C-w>>
+imap      <special> <S-Right> <C-o><S-Right>
 
 " ============================================================================
 " Scrolling and movement
@@ -54,9 +57,9 @@ nnoremap  <special>   <Leader>mm  :<C-u>call dkomovemode#toggle()<CR>
 
 " Replace PgUp and PgDn with Ctrl-U/D
 map   <special> <PageUp>    <C-U>
+imap  <special> <PageUp>    <Esc><C-U>
 map   <special> <PageDown>  <C-D>
-imap  <special> <PageUp>    <C-O><C-U>
-imap  <special> <PageDown>  <C-O><C-D>
+imap  <special> <PageDown>  <Esc><C-D>
 
 " Easier to type, and I never use the default behavior.
 " From https://bitbucket.org/sjl/dotfiles/
@@ -141,10 +144,10 @@ nnoremap <Leader>u mQviwU`Q
 nnoremap <Leader>l mQviwu`Q
 
 " ----------------------------------------------------------------------------
-" Join lines without space
+" Join lines without space (and go to first char line that was merged up)
 " ----------------------------------------------------------------------------
 
-nnoremap <Leader>j VjgJ
+nnoremap <Leader>j VjgJl
 
 " ----------------------------------------------------------------------------
 " Clean up whitespace
@@ -156,14 +159,10 @@ nnoremap <Leader>ws :<C-u>call dkowhitespace#clean()<CR>
 " Horizontal rule
 " ----------------------------------------------------------------------------
 
-inoremap <silent> <Leader>f- <Esc>:<C-u>call dkorule#char('-')<CR>
-inoremap <silent> <Leader>f= <Esc>:<C-u>call dkorule#char('=')<CR>
-inoremap <silent> <Leader>f# <Esc>:<C-u>call dkorule#char('#')<CR>
-inoremap <silent> <Leader>f* <Esc>:<C-u>call dkorule#char('*')<CR>
-nnoremap <silent> <Leader>f- :<C-u>call dkorule#char('-')<CR>
-nnoremap <silent> <Leader>f= :<C-u>call dkorule#char('=')<CR>
-nnoremap <silent> <Leader>f# :<C-u>call dkorule#char('#')<CR>
-nnoremap <silent> <Leader>f* :<C-u>call dkorule#char('*')<CR>
+nnoremap  <silent>  <Leader>f-  :<C-u>call dkorule#char('-')<CR>
+nnoremap  <silent>  <Leader>f=  :<C-u>call dkorule#char('=')<CR>
+nnoremap  <silent>  <Leader>f#  :<C-u>call dkorule#char('#')<CR>
+nnoremap  <silent>  <Leader>f*  :<C-u>call dkorule#char('*')<CR>
 
 " ----------------------------------------------------------------------------
 " Bubble and indent mappings  - REQUIRES tim pope's unimpaired

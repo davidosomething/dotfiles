@@ -12,7 +12,6 @@ augroup dkoindentguides
 augroup END
 
 " Must be recursive maps
-nmap  <special>   <F11>   <Plug>IndentGuidesToggle
-" keep cursor position
-imap  <special>   <F11>   <Esc>:<C-u>IndentGuidesToggle<CR>a
+nmap  <silent><special>   <F11>   <Plug>IndentGuidesToggle
+imap  <silent><special>   <F11>   <C-o><F11>
 

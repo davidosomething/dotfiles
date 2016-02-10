@@ -4,9 +4,7 @@ if !exists("g:plugs['cosco.vim']") | finish | endif
 
 function! s:DKO_Cosco_Bindings()
   nnoremap <buffer> ;; :<C-u>call cosco#commaOrSemiColon()<CR>
-  inoremap <buffer> ;; <C-O>:<C-u>call cosco#commaOrSemiColon()<CR>
-  nnoremap <buffer> ,, :call cosco#commaOrSemiColon()<CR>
-  inoremap <buffer> ,, <C-O>:<C-u>call cosco#commaOrSemiColon()<CR>
+  nnoremap <buffer> ,, :<C-u>call cosco#commaOrSemiColon()<CR>
 endfunction
 
 augroup dkocosco

@@ -7,5 +7,5 @@ let g:gitgutter_enabled = 0
 
 let g:gitgutter_sign_modified = 'Δ'
 
-nmap <special> <C-g> :<C-u>GitGutterToggle<CR>
+nmap <silent><special> <C-g> :<C-u>GitGutterToggle<CR>
 

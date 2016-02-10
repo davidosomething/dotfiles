@@ -2,12 +2,16 @@
 " Help buffer
 
 function! s:Mappings()
-  nnoremap <buffer> q :<C-u>close<CR>
-  nnoremap <buffer> Q :<C-u>close<CR>
-  nnoremap <buffer> <Leader>v :<C-u>wincmd L <BAR> vertical resize 82<CR>
+  nnoremap <silent><buffer>   q           :<C-u>close<CR>
+  nnoremap <silent><buffer>   Q           :<C-u>close<CR>
+  nnoremap <silent><buffer>   <Leader>v
+        \ :<C-u>wincmd L <BAR> vertical resize 82<CR>
 
+  " Help navigation
+  nnoremap <buffer><nowait> < <C-o>
   " opposite of <C-o>
   nnoremap <buffer> o <C-]>
+  nnoremap <buffer><nowait> > <C-]>
 
   " STFU
   nnoremap <buffer> a <Nop>
@@ -24,6 +28,9 @@ endfunction
 
 augroup dkohelp
   autocmd!
-  autocmd BufWinEnter * if &buftype == 'help' | call s:Mappings() | endif
+  autocmd BufWinEnter *
+        \   if &buftype == 'help'
+        \|    call s:Mappings()
+        \|  endif
 augroup END
 
