@@ -29,7 +29,7 @@ endif
 
 if exists("g:plugs['operator-camelize.vim']")
   " operators
-  map   <unique><Leader>c   <Plug>(operator-camelize-toggle)
+  map   <unique>  <Leader>c   <Plug>(operator-camelize-toggle)
 
   " commands, not operators
   map   ccb          <Plug>(operator-camelize-toggle)<Plug>(textobj-anyblock-a)

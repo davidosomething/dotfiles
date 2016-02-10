@@ -219,6 +219,7 @@ __dotfiles_update_brew() {
   local outdated=""
 
   dkostatus "Updating homebrew"
+  cd "$DOTFILES" || { dkoerr "Can't enter \$DOTFILES to run brew in clean environment" && return 1; }
   brew update
 
   outdated="$(brew outdated --quiet)"

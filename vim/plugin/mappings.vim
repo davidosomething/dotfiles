@@ -71,8 +71,8 @@ vnoremap  L   g_
 " Toggle visual/normal mode with space-space
 " ----------------------------------------------------------------------------
 
-nnoremap <unique><Leader><Leader> V
-vnoremap <unique><Leader><Leader> <Esc>
+nnoremap  <unique>  <Leader><Leader>  V
+vnoremap  <unique>  <Leader><Leader>  <Esc>
 
 " ----------------------------------------------------------------------------
 " Back to normal mode
@@ -128,32 +128,32 @@ vnoremap  >   >gv
 
 if exists("g:plugs['vim-textobj-indent']")
   " Auto select indent-level and sort
-  nnoremap <unique><Leader>s vii:!sort<CR>
+  nnoremap  <unique>  <Leader>s   vii:!sort<CR>
 else
   " Auto select paragraph (bounded by blank lines) and sort
-  nnoremap <unique><Leader>s vip:!sort<CR>
+  nnoremap  <unique>  <Leader>s   vip:!sort<CR>
 endif
 " Sort selection (no clear since in visual)
-vnoremap <unique><Leader>s :!sort<CR>
+vnoremap  <unique>  <Leader>s   :!sort<CR>
 
 " ----------------------------------------------------------------------------
 " Uppercase / lowercase word
 " ----------------------------------------------------------------------------
 
-nnoremap <unique><Leader>u mQviwU`Q
-nnoremap <unique><Leader>l mQviwu`Q
+nnoremap  <unique>  <Leader>u   mQviwU`Q
+nnoremap  <unique>  <Leader>l   mQviwu`Q
 
 " ----------------------------------------------------------------------------
 " Join lines without space (and go to first char line that was merged up)
 " ----------------------------------------------------------------------------
 
-nnoremap <unique><Leader>j VjgJl
+nnoremap  <unique>  <Leader>j   VjgJl
 
 " ----------------------------------------------------------------------------
 " Clean up whitespace
 " ----------------------------------------------------------------------------
 
-nnoremap <unique><Leader>ws :<C-u>call dkowhitespace#clean()<CR>
+nnoremap  <unique>  <Leader>ws  :<C-u>call dkowhitespace#clean()<CR>
 
 " ----------------------------------------------------------------------------
 " Horizontal rule

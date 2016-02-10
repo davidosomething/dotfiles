@@ -12,8 +12,8 @@ endfunction
 function! dkomovemode#setByDisplay() abort
   let b:movementmode = 'display'
   echo 'Move by display lines'
-  nnoremap <unique><buffer> j gj
-  nnoremap <unique><buffer> k gk
+  nnoremap <buffer> j gj
+  nnoremap <buffer> k gk
 endfunction
 
 function! dkomovemode#toggle() abort
