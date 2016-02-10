@@ -32,6 +32,7 @@ inoremap <silent><special> <C-Right> <Esc>:<C-u>wincmd l<CR>
 
 " Cycle with tab in normal mode
 nnoremap <special><Tab> <C-w>w
+nnoremap <special><S-Tab> <C-w>W
 
 " Resize
 nnoremap  <special> <S-Left>  4<C-w><
