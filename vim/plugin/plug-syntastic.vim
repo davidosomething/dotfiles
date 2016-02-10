@@ -22,9 +22,6 @@ let g:syntastic_mode_map = {
       \   'passive_filetypes': [],
       \ }
 
-" Check when filetype init/changed (still happens on initial ft detection)
-autocmd dkosyntastic FileType * SyntasticCheck
-
 " ----------------------------------------------------------------------------
 " Display results
 " ----------------------------------------------------------------------------
@@ -139,7 +136,7 @@ function! s:FindScsslintConfig()
     let b:syntastic_scss_scss_lint_args = '--config=' . l:config
   endif
 endfunction
-autocmd dkosyntastic BufReadPost *.scss call s:FindScsslintConfig()
+autocmd dkosyntastic FileType scss call s:FindScsslintConfig()
 
 " ============================================================================
 " Checker: Shell
@@ -163,4 +160,11 @@ if exists("g:plugs['vim-vimlint']")
 
   let g:syntastic_vimlint_options = g:vimlint#config
 endif
+
+" ============================================================================
+" Execution
+" ============================================================================
+
+" Check when filetype init/changed (still happens on initial ft detection)
+autocmd dkosyntastic FileType * SyntasticCheck
 
