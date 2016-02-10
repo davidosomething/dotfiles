@@ -14,5 +14,5 @@ augroup END
 
 " Must be recursive maps
 nmap <F11> <Plug>IndentGuidesToggle
-imap <F11> <Esc>:IndentGuidesToggle<CR>a
+imap <F11> <Esc>:<C-u>IndentGuidesToggle<CR>a
 

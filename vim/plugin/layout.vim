@@ -14,14 +14,14 @@ cabbrev   <silent>bd lclose\|bdelete
 " ============================================================================
 
 " Navigate with ctrl+arrow
-nnoremap <silent> <C-Left>       :wincmd h<CR>
-inoremap <silent> <C-Left>  <Esc>:wincmd h<CR>
-nnoremap <silent> <C-Down>       :wincmd j<CR>
-inoremap <silent> <C-Down>  <Esc>:wincmd j<CR>
-nnoremap <silent> <C-Up>         :wincmd k<CR>
-inoremap <silent> <C-Up>    <Esc>:wincmd k<CR>
-nnoremap <silent> <C-Right>      :wincmd l<CR>
-inoremap <silent> <C-Right> <Esc>:wincmd l<CR>
+nnoremap <silent> <C-Left>       :<C-u>wincmd h<CR>
+inoremap <silent> <C-Left>  <Esc>:<C-u>wincmd h<CR>
+nnoremap <silent> <C-Down>       :<C-u>wincmd j<CR>
+inoremap <silent> <C-Down>  <Esc>:<C-u>wincmd j<CR>
+nnoremap <silent> <C-Up>         :<C-u>wincmd k<CR>
+inoremap <silent> <C-Up>    <Esc>:<C-u>wincmd k<CR>
+nnoremap <silent> <C-Right>      :<C-u>wincmd l<CR>
+inoremap <silent> <C-Right> <Esc>:<C-u>wincmd l<CR>
 nmap <A-x> :close<CR>
 
 " Cycle with tab in normal mode

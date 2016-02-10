@@ -19,6 +19,6 @@ if exists("g:plugs['pdv']")
   let g:pdv_template_dir =
         \ expand(g:dko_plug_absdir . '/pdv/templates')
 
-  nnoremap <silent><buffer> <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+  nnoremap <silent><buffer> <Leader>pd :<C-u>call pdv#DocumentCurrentLine()<CR>
 endif
 

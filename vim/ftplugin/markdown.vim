@@ -12,6 +12,6 @@ endif
 
 if exists("g:plugs['vim-instant-markdown']")
   let g:instant_markdown_autostart = 0
-  nnoremap <silent><buffer> <Leader>m :InstantMarkdownPreview<CR>
+  nnoremap <silent><buffer> <Leader>m :<C-u>InstantMarkdownPreview<CR>
 endif
 

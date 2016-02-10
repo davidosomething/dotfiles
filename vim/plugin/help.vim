@@ -2,9 +2,9 @@
 " Help buffer
 
 function! s:Mappings()
-  nnoremap <buffer> q :close<CR>
-  nnoremap <buffer> Q :close<CR>
-  nnoremap <buffer> <Leader>v :wincmd L <BAR> vertical resize 82<CR>
+  nnoremap <buffer> q :<C-u>close<CR>
+  nnoremap <buffer> Q :<C-u>close<CR>
+  nnoremap <buffer> <Leader>v :<C-u>wincmd L <BAR> vertical resize 82<CR>
 
   " opposite of <C-o>
   nnoremap <buffer> o <C-]>

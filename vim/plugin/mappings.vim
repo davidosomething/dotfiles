@@ -51,13 +51,13 @@ cmap jj <Esc>
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-444
 " ----------------------------------------------------------------------------
 
-nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
+nnoremap U :<C-u>syntax sync fromstart<CR>:redraw!<CR>
 
 " ----------------------------------------------------------------------------
 " cd to current buffer
 " ----------------------------------------------------------------------------
 
-nnoremap <silent> <Leader>cd :lcd %:h<CR>
+nnoremap <silent> <Leader>cd :<C-u>lcd %:h<CR>
 
 " ============================================================================
 " Editing
@@ -92,7 +92,7 @@ else
   " Auto select paragraph (bounded by blank lines) and sort
   nnoremap <special> <Leader>s vip:!sort<CR>
 endif
-" Sort selection
+" Sort selection (no clear since in visual)
 vnoremap <special> <Leader>s :!sort<CR>
 
 " ----------------------------------------------------------------------------
@@ -128,60 +128,14 @@ nnoremap <special> <Leader>f# :<C-u>call dkorule#char('#')<CR>
 nnoremap <special> <Leader>f* :<C-u>call dkorule#char('*')<CR>
 
 " ----------------------------------------------------------------------------
-" Bubble and indent mappings from janus vim distribution
+" Bubble and indent mappings  - REQUIRES tim pope's unimpaired
 " ----------------------------------------------------------------------------
 
-if has('gui_macvim') && has('gui_running')
-  " Map command-[ and command-] to indenting or outdenting
-  " while keeping the original selection in visual mode
-  vmap <D-]> >gv
-  vmap <D-[> <gv
+" Bubble single lines
+nmap <C-k> [e
+nmap <C-j> ]e
 
-  nmap <D-]> >>
-  nmap <D-[> <<
-
-  omap <D-]> >>
-  omap <D-[> <<
-
-  imap <D-]> <Esc>>>i
-  imap <D-[> <Esc><<i
-
-  " Bubble single lines - REQUIRES tim pope's unimpaired
-  nmap <D-Up> [e
-  nmap <D-Down> ]e
-  nmap <D-k> [e
-  nmap <D-j> ]e
-
-  " Bubble multiple lines
-  vmap <D-Up> [egv
-  vmap <D-Down> ]egv
-  vmap <D-k> [egv
-  vmap <D-j> ]egv
-else
-  " Map command-[ and command-] to indenting or outdenting
-  " while keeping the original selection in visual mode
-  vmap <A-]> >gv
-  vmap <A-[> <gv
-
-  nmap <A-]> >>
-  nmap <A-[> <<
-
-  omap <A-]> >>
-  omap <A-[> <<
-
-  imap <A-]> <Esc>>>i
-  imap <A-[> <Esc><<i
-
-  " Bubble single lines - REQUIRES tim pope's unimpaired
-  nmap <C-Up> [e
-  nmap <C-Down> ]e
-  nmap <C-k> [e
-  nmap <C-j> ]e
-
-  " Bubble multiple lines
-  vmap <C-Up> [egv
-  vmap <C-Down> ]egv
-  vmap <C-k> [egv
-  vmap <C-j> ]egv
-endif
+" Bubble multiple lines
+vmap <C-k> [egv
+vmap <C-j> ]egv
 
