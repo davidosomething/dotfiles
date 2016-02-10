@@ -21,14 +21,14 @@ nnoremap  <silent>  <Leader>bd :lclose<CR>:bdelete<CR>
 " ============================================================================
 
 " Navigate with ctrl+arrow
-nnoremap <special> <C-Left>       :<C-u>wincmd h<CR>
-inoremap <special> <C-Left>  <Esc>:<C-u>wincmd h<CR>
-nnoremap <special> <C-Down>       :<C-u>wincmd j<CR>
-inoremap <special> <C-Down>  <Esc>:<C-u>wincmd j<CR>
-nnoremap <special> <C-Up>         :<C-u>wincmd k<CR>
-inoremap <special> <C-Up>    <Esc>:<C-u>wincmd k<CR>
-nnoremap <special> <C-Right>      :<C-u>wincmd l<CR>
-inoremap <special> <C-Right> <Esc>:<C-u>wincmd l<CR>
+nnoremap <silent><special> <C-Left>       :<C-u>wincmd h<CR>
+inoremap <silent><special> <C-Left>  <Esc>:<C-u>wincmd h<CR>
+nnoremap <silent><special> <C-Down>       :<C-u>wincmd j<CR>
+inoremap <silent><special> <C-Down>  <Esc>:<C-u>wincmd j<CR>
+nnoremap <silent><special> <C-Up>         :<C-u>wincmd k<CR>
+inoremap <silent><special> <C-Up>    <Esc>:<C-u>wincmd k<CR>
+nnoremap <silent><special> <C-Right>      :<C-u>wincmd l<CR>
+inoremap <silent><special> <C-Right> <Esc>:<C-u>wincmd l<CR>
 
 " Cycle with tab in normal mode
 nnoremap <special><Tab> <C-w>w
@@ -95,7 +95,7 @@ nnoremap U :<C-u>syntax sync fromstart<CR>:redraw!<CR>
 " cd to current buffer
 " ----------------------------------------------------------------------------
 
-nnoremap <Leader>cd :<C-u>lcd %:h<CR>
+nnoremap <silent> <Leader>cd :<C-u>lcd %:h<CR>
 
 " ============================================================================
 " Editing
@@ -156,14 +156,14 @@ nnoremap <Leader>ws :<C-u>call dkowhitespace#clean()<CR>
 " Horizontal rule
 " ----------------------------------------------------------------------------
 
-inoremap <Leader>f- <Esc>:<C-u>call dkorule#char('-')<CR>
-inoremap <Leader>f= <Esc>:<C-u>call dkorule#char('=')<CR>
-inoremap <Leader>f# <Esc>:<C-u>call dkorule#char('#')<CR>
-inoremap <Leader>f* <Esc>:<C-u>call dkorule#char('*')<CR>
-nnoremap <Leader>f- :<C-u>call dkorule#char('-')<CR>
-nnoremap <Leader>f= :<C-u>call dkorule#char('=')<CR>
-nnoremap <Leader>f# :<C-u>call dkorule#char('#')<CR>
-nnoremap <Leader>f* :<C-u>call dkorule#char('*')<CR>
+inoremap <silent> <Leader>f- <Esc>:<C-u>call dkorule#char('-')<CR>
+inoremap <silent> <Leader>f= <Esc>:<C-u>call dkorule#char('=')<CR>
+inoremap <silent> <Leader>f# <Esc>:<C-u>call dkorule#char('#')<CR>
+inoremap <silent> <Leader>f* <Esc>:<C-u>call dkorule#char('*')<CR>
+nnoremap <silent> <Leader>f- :<C-u>call dkorule#char('-')<CR>
+nnoremap <silent> <Leader>f= :<C-u>call dkorule#char('=')<CR>
+nnoremap <silent> <Leader>f# :<C-u>call dkorule#char('#')<CR>
+nnoremap <silent> <Leader>f* :<C-u>call dkorule#char('*')<CR>
 
 " ----------------------------------------------------------------------------
 " Bubble and indent mappings  - REQUIRES tim pope's unimpaired
