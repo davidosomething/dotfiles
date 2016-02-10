@@ -16,33 +16,23 @@ let g:did_load_filetypes_user = 1
 " it is option C in the docs
 augroup filetypedetect
 
-  " conf files ---------------------------------------------------------------
-  " autocmd BufRead,BufNewFile *.conf
-  "       \ setfiletype conf
+  autocmd BufNewFile,BufRead,BufFilePost *.cap    setfiletype ruby
 
-  " nginx conf files have their own plugin syntax nginx
-  " First au is for sudoediting temp files
-  autocmd BufRead,BufNewFile *nginx*.conf
-        \ setfiletype nginx
-  autocmd BufRead,BufNewFile /etc/nginx/**/*.conf
-        \ setfiletype nginx
+  autocmd BufNewFile,BufRead,BufFilePost *.dump   setfiletype sql
 
-  " other files --------------------------------------------------------------
+  autocmd BufNewFile,BufRead,BufFilePost *.md   setfiletype markdown.pandoc
 
-  autocmd BufRead,BufNewFile,BufFilePre *.cap           setfiletype ruby
+  autocmd BufNewFile,BufRead,BufFilePost .babelrc   setfiletype json
+  autocmd BufNewFile,BufRead,BufFilePost .bowerrc   setfiletype json
+  autocmd BufNewFile,BufRead,BufFilePost .eslintrc  setfiletype json
+  autocmd BufNewFile,BufRead,BufFilePost .jscsrc    setfiletype json
+  autocmd BufNewFile,BufRead,BufFilePost .jshintrc  setfiletype json
 
-  autocmd BufRead,BufNewFile,BufFilePre *.dump          setfiletype sql
-  autocmd BufRead,BufNewFile,BufFilePre .editorconfig   setfiletype dosini
-
-  autocmd BufRead,BufNewFile,BufFilePre .babelrc        setfiletype json
-  autocmd BufRead,BufNewFile,BufFilePre .bowerrc        setfiletype json
-  autocmd BufRead,BufNewFile,BufFilePre .eslintrc       setfiletype json
-  autocmd BufRead,BufNewFile,BufFilePre .jscsrc         setfiletype json
-  autocmd BufRead,BufNewFile,BufFilePre .jshintrc       setfiletype json
-
-  autocmd BufRead,BufNewFile,BufFilePre *.md            setfiletype markdown.pandoc
+  autocmd BufRead,BufNewFile,BufFilePost */nginx/*.conf   setfiletype nginx
+  autocmd BufRead,BufNewFile,BufFilePost /*/nginx/*.conf  setfiletype nginx
 
   " polkit rules files
-  autocmd BufRead,BufNewFile,BufFilePre *.rules         setfiletype javascript
+  autocmd BufNewFile,BufRead,BufFilePost *.rules  setfiletype javascript
 
 augroup END
+
