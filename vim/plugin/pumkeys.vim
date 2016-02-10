@@ -1,3 +1,5 @@
+" plugin/pumkeys.vim
+
 " ============================================================================
 " PUM key handling
 " ============================================================================
@@ -34,6 +36,6 @@ endfunction
 " ----------------------------------------------------------------------------
 
 " requires noremap if returns original key
-inoremap  <silent><expr>  <Tab>     <SID>DKO_Tab()
-imap      <silent><expr>  <S-Tab>   <SID>DKO_STab()
+inoremap  <silent><special><expr>  <Tab>     <SID>DKO_Tab()
+imap      <silent><special><expr>  <S-Tab>   <SID>DKO_STab()
 

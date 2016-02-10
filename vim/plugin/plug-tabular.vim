@@ -1,3 +1,4 @@
+" plugin/plug-tabular.vim
 if !exists("g:plugs['tabular']") | finish | endif
 
 vnoremap <Leader>a"   :Tabularize /"<CR>

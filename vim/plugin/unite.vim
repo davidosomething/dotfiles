@@ -1,9 +1,4 @@
-" after/plugin/plug-unite.vim
-"
-" This is an after plugin since it calls the unite# autoloaded functions.
-" Those need to be available before calling.
-"
-
+" plugin/unite.vim
 if !exists("g:plugs['unite.vim']") | finish | endif
 
 augroup dkounite
@@ -15,9 +10,9 @@ augroup END
 " ============================================================================
 
 if exists("g:plugs['neomru.vim']")
-  let g:neomru#update_interval = 300    " Update cache every 5 minutes
-  let g:neomru#file_mru_limit = 200     " Fewer files in mru
-  let g:neomru#directory_mru_limit = 0  " Don't list directories
+  let g:neomru#update_interval      = 300     " Update cache every 5 minutes
+  let g:neomru#file_mru_limit       = 200     " Fewer files in mru
+  let g:neomru#directory_mru_limit  = 0       " Don't list directories
 endif
 
 " ============================================================================
@@ -28,8 +23,8 @@ function! s:SetGtagsRoot()
   if empty(dkoproject#GetProjectRoot())
     return
   endif
-  let $GTAGSROOT = dkoproject#GetProjectRoot()
-  let $GTAGSDBPATH = dkoproject#GetProjectRoot() . '/.git'
+  let $GTAGSROOT    = dkoproject#GetProjectRoot()
+  let $GTAGSDBPATH  = dkoproject#GetProjectRoot() . '/.git'
 endfunction
 
 if exists("g:plugs['unite-gtags']")

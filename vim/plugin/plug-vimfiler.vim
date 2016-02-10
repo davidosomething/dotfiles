@@ -1,3 +1,4 @@
+" plugin/plug-vimfiler.vim
 scriptencoding utf-8
 if !exists("g:plugs['vimfiler.vim']") | finish | endif
 

@@ -1,3 +1,4 @@
+" plugin/plug-syntastic.vim
 scriptencoding utf-8
 
 if !exists("g:plugs['syntastic']") | finish | endif

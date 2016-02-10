@@ -1,5 +1,8 @@
+" plugin/completion.vim
+"
 " See vice setup for stuff to steal
 " @see <https://github.com/zeekay/vice-neocompletion/blob/master/autoload/vice/neocomplete.vim>
+"
 
 if !g:dko_has_completion | finish | endif
 
@@ -32,9 +35,9 @@ if exists('g:plugs["neosnippet"]')
   let g:neosnippet#snippets_directory = g:dko_vim_dir . '/snippets'
 
   " C-k is the only acceptable neosnippet advance key
-  imap  <C-k>   <Plug>(neosnippet_jump_or_expand)
-  smap  <C-k>   <Plug>(neosnippet_jump_or_expand)
-  xmap  <C-k>   <Plug>(neosnippet_expand_target)
+  imap  <special> <C-k>   <Plug>(neosnippet_jump_or_expand)
+  smap  <special> <C-k>   <Plug>(neosnippet_jump_or_expand)
+  xmap  <special> <C-k>   <Plug>(neosnippet_expand_target)
 endif
 
 " ============================================================================
@@ -117,7 +120,7 @@ if 1 && exists('g:plugs["tern_for_vim"]')
   let g:tern_show_signature_in_pum = 1
 
   augroup dkoomnifuncs
-    autocmd FileType javascript nnoremap <silent><buffer> gb :TernDef<CR>
+    autocmd FileType javascript nnoremap <buffer> gb :TernDef<CR>
     autocmd FileType javascript setlocal omnifunc=tern#Complete
   augroup END
 
@@ -254,3 +257,4 @@ if exists('g:plugs["deoplete.nvim"]')
   call extend(g:deoplete#omni#input#patterns, s:deo_patterns)
 
 endif
+

@@ -113,6 +113,6 @@ if exists("g:plugs['vim-jsdoc']")
         \ }
 
   " This needs to be recursive map
-  nmap <silent><buffer> <Leader>pd <Plug>(jsdoc)
+  nmap  <buffer>  <Leader>pd  <Plug>(jsdoc)
 endif
 

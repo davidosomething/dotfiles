@@ -343,6 +343,18 @@ if executable('ag')
 endif
 
 " ----------------------------------------------------------------------------
+" Special highlights
+" ----------------------------------------------------------------------------
+
+" misspellings
+match ErrorMsg 'targett'
+match ErrorMsg 'plugn'
+
+" https://bitbucket.org/sjl/dotfiles/src/83aac563abc9d0116894ac61db2c63c9a05f72be/vim/vimrc?at=default&fileviewer=file-view-default#vimrc-233
+" Highlight VCS conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" ----------------------------------------------------------------------------
 " Syntax
 " ----------------------------------------------------------------------------
 
@@ -614,6 +626,8 @@ if s:dko_use_plugins
         \| Plug 'kana/vim-textobj-function'
         \| Plug 'thinca/vim-textobj-function-javascript'
         \| Plug 'kentaro/vim-textobj-function-php'
+
+  Plug 'vim-scripts/matchit.zip'
 
   " ========================================================================
   " Plug: Language

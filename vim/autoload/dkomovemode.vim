@@ -4,14 +4,16 @@
 
 function! dkomovemode#setByLine() abort
   let b:movementmode = 'linewise'
+  echo 'Move by linebroken lines'
   silent! nunmap <buffer> j
   silent! nunmap <buffer> k
 endfunction
 
 function! dkomovemode#setByDisplay() abort
   let b:movementmode = 'display'
-  nnoremap <buffer> j gj
-  nnoremap <buffer> k gk
+  echo 'Move by display lines'
+  nnoremap <unique><buffer> j gj
+  nnoremap <unique><buffer> k gk
 endfunction
 
 function! dkomovemode#toggle() abort

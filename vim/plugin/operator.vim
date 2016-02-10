@@ -1,5 +1,7 @@
 " plugin/operator.vim
 
+if !exists("g:plugs['vim-operator-user']") | finish | endif
+
 if exists("g:plugs['vim-operator-surround']")
 
   " completely unmap s

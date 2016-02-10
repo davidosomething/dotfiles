@@ -1,3 +1,4 @@
+" plugin/plug-neomake.vim
 scriptencoding utf-8
 if !exists("g:plugs['neomake']") | finish | endif
 

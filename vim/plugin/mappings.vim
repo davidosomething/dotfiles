@@ -1,3 +1,5 @@
+" plugin/mappings.vim
+
 " ============================================================================
 " Commands
 " ============================================================================
@@ -5,12 +7,50 @@
 command! Q q
 
 " ============================================================================
+" Buffer manip
+" ============================================================================
+
+" Prev buffer with <BS> in normal
+nnoremap  <special> <BS> <C-^>
+
+" close buffer with space-bd and auto close loc list first
+nnoremap  <silent>  <Leader>bd :lclose<CR>:bdelete<CR>
+
+" ============================================================================
+" Split manip
+" ============================================================================
+
+" Navigate with ctrl+arrow
+nnoremap <special> <C-Left>       :<C-u>wincmd h<CR>
+inoremap <special> <C-Left>  <Esc>:<C-u>wincmd h<CR>
+nnoremap <special> <C-Down>       :<C-u>wincmd j<CR>
+inoremap <special> <C-Down>  <Esc>:<C-u>wincmd j<CR>
+nnoremap <special> <C-Up>         :<C-u>wincmd k<CR>
+inoremap <special> <C-Up>    <Esc>:<C-u>wincmd k<CR>
+nnoremap <special> <C-Right>      :<C-u>wincmd l<CR>
+inoremap <special> <C-Right> <Esc>:<C-u>wincmd l<CR>
+
+" Cycle with tab in normal mode
+nnoremap <special><Tab> <C-w>w
+
+" Resize
+nnoremap <special> <S-Left>  4<C-w><
+nnoremap <special> <S-Down>  4<C-W>-
+nnoremap <special> <S-Up>    4<C-W>+
+nnoremap <special> <S-Right> 4<C-w>>
+inoremap <special> <S-Left>  <Esc>4<C-w><
+inoremap <special> <S-Down>  <Esc>4<C-W>-
+inoremap <special> <S-Up>    <Esc>4<C-W>+
+inoremap <special> <S-Right> <Esc>4<C-w>>
+
+" ============================================================================
 " Scrolling and movement
 " ============================================================================
 
 " Map the arrow keys to be based on display lines, not physical lines
-vnoremap <Down> gj
-vnoremap <Up>   gk
+vnoremap  <special>   <Down>      gj
+vnoremap  <special>   <Up>        gk
+nnoremap  <special>   <Leader>mm  :<C-u>call dkomovemode#toggle()<CR>
 
 " Replace PgUp and PgDn with Ctrl-U/D
 map   <special> <PageUp>    <C-U>
@@ -25,8 +65,6 @@ noremap   H   ^
 " default is last line on screen
 noremap   L   $
 vnoremap  L   g_
-
-nnoremap <silent><special> <Leader>t :<C-u>call dkomovemode#toggle()<CR>
 
 " ============================================================================
 " Mode and env
@@ -57,7 +95,7 @@ nnoremap U :<C-u>syntax sync fromstart<CR>:redraw!<CR>
 " cd to current buffer
 " ----------------------------------------------------------------------------
 
-nnoremap <silent> <Leader>cd :<C-u>lcd %:h<CR>
+nnoremap <Leader>cd :<C-u>lcd %:h<CR>
 
 " ============================================================================
 " Editing
@@ -87,13 +125,13 @@ vnoremap  >   >gv
 
 if exists("g:plugs['vim-textobj-indent']")
   " Auto select indent-level and sort
-  nnoremap <special> <Leader>s vii:!sort<CR>
+  nnoremap <Leader>s vii:!sort<CR>
 else
   " Auto select paragraph (bounded by blank lines) and sort
-  nnoremap <special> <Leader>s vip:!sort<CR>
+  nnoremap <Leader>s vip:!sort<CR>
 endif
 " Sort selection (no clear since in visual)
-vnoremap <special> <Leader>s :!sort<CR>
+vnoremap <Leader>s :!sort<CR>
 
 " ----------------------------------------------------------------------------
 " Uppercase / lowercase word
@@ -112,30 +150,30 @@ nnoremap <Leader>j VjgJ
 " Clean up whitespace
 " ----------------------------------------------------------------------------
 
-nnoremap <special> <Leader>ws :<C-u>call dkowhitespace#clean()<CR>
+nnoremap <Leader>ws :<C-u>call dkowhitespace#clean()<CR>
 
 " ----------------------------------------------------------------------------
 " Horizontal rule
 " ----------------------------------------------------------------------------
 
-inoremap <special> <Leader>f- <Esc>:<C-u>call dkorule#char('-')<CR>
-inoremap <special> <Leader>f= <Esc>:<C-u>call dkorule#char('=')<CR>
-inoremap <special> <Leader>f# <Esc>:<C-u>call dkorule#char('#')<CR>
-inoremap <special> <Leader>f* <Esc>:<C-u>call dkorule#char('*')<CR>
-nnoremap <special> <Leader>f- :<C-u>call dkorule#char('-')<CR>
-nnoremap <special> <Leader>f= :<C-u>call dkorule#char('=')<CR>
-nnoremap <special> <Leader>f# :<C-u>call dkorule#char('#')<CR>
-nnoremap <special> <Leader>f* :<C-u>call dkorule#char('*')<CR>
+inoremap <Leader>f- <Esc>:<C-u>call dkorule#char('-')<CR>
+inoremap <Leader>f= <Esc>:<C-u>call dkorule#char('=')<CR>
+inoremap <Leader>f# <Esc>:<C-u>call dkorule#char('#')<CR>
+inoremap <Leader>f* <Esc>:<C-u>call dkorule#char('*')<CR>
+nnoremap <Leader>f- :<C-u>call dkorule#char('-')<CR>
+nnoremap <Leader>f= :<C-u>call dkorule#char('=')<CR>
+nnoremap <Leader>f# :<C-u>call dkorule#char('#')<CR>
+nnoremap <Leader>f* :<C-u>call dkorule#char('*')<CR>
 
 " ----------------------------------------------------------------------------
 " Bubble and indent mappings  - REQUIRES tim pope's unimpaired
 " ----------------------------------------------------------------------------
 
 " Bubble single lines
-nmap <C-k> [e
-nmap <C-j> ]e
+nmap <special> <C-k> [e
+nmap <special> <C-j> ]e
 
 " Bubble multiple lines
-vmap <C-k> [egv
-vmap <C-j> ]egv
+vmap <special> <C-k> [egv
+vmap <special> <C-j> ]egv
 

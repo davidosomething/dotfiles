@@ -1,3 +1,5 @@
+" plugin/search.vim
+
 " - vim-anzu        show number of matches, with airline integration
 " - vim-asterisk    don't move on first search with *
 " - incsearch.vim   highlighting all matches
@@ -35,7 +37,7 @@ function! s:DKO_StarSearch()
 endfunction
 
 if !empty(s:DKO_StarSearch())
-  map <expr> * <SID>DKO_StarSearch()
+  map   <expr>  *   <SID>DKO_StarSearch()
 endif
 
 if exists("g:plugs['incsearch.vim']")

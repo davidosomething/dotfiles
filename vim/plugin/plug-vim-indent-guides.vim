@@ -1,6 +1,5 @@
 " plugin/plug-vim-indent-guides.vim
-
-if !exists('g:plugs["vim-indent-guides"]') | finish | endif
+if !exists("g:plugs['vim-indent-guides']") | finish | endif
 
 let g:indent_guides_color_change_percent = 3
 
@@ -13,6 +12,7 @@ augroup dkoindentguides
 augroup END
 
 " Must be recursive maps
-nmap <F11> <Plug>IndentGuidesToggle
-imap <F11> <Esc>:<C-u>IndentGuidesToggle<CR>a
+nmap  <special>   <F11>   <Plug>IndentGuidesToggle
+" keep cursor position
+imap  <special>   <F11>   <Esc>:<C-u>IndentGuidesToggle<CR>a
 
