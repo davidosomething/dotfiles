@@ -28,5 +28,5 @@ let g:vimfiler_readonly_file_icon = ''
 " Shortcut
 " ============================================================================
 
-call dko#BindFunction('<F1>', 'VimFilerExplorer -parent -explorer-columns=type')
+execute dko#BindFunction('<F1>', 'VimFilerExplorer -parent -explorer-columns=type')
 

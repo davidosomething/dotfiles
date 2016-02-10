@@ -163,22 +163,22 @@ autocmd dkounite FileType unite call s:BindUniteBufferKeys()
 
 function! s:BindFunctionKeys()
   if exists("g:plugs['unite-outline']")
-    call dko#BindFunction('<F2>', 'Unite outline')
+    execute dko#BindFunction('<F2>', 'Unite outline')
   endif
-  call dko#BindFunction('<F3>', 'Unite -start-insert buffer')
+  execute dko#BindFunction('<F3>', 'Unite -start-insert buffer')
   if exists("g:plugs['neomru.vim']")
-    call dko#BindFunction('<F4>', 'Unite -start-insert neomru/file')
+    execute dko#BindFunction('<F4>', 'Unite -start-insert neomru/file')
   endif
-  call dko#BindFunction('<F5>', 'Unite -start-insert file_rec/async:!')
-  call dko#BindFunction('<F6>', 'UniteWithProjectDir grep:.')
+  execute dko#BindFunction('<F5>', 'Unite -start-insert file_rec/async:!')
+  execute dko#BindFunction('<F6>', 'UniteWithProjectDir grep:.')
   if exists("g:plugs['unite-tag']")
-    call dko#BindFunction('<F7>', 'Unite -start-insert tag')
-    call dko#BindFunction('<F8>', 'Unite tag/include')
+    execute dko#BindFunction('<F7>', 'Unite -start-insert tag')
+    execute dko#BindFunction('<F8>', 'Unite tag/include')
   elseif exists("g:plugs['unite-gtags']")
-    call dko#BindFunction('<F7>', 'Unite gtags/grep')
-    call dko#BindFunction('<F8>', 'Unite gtags/context')
+    execute dko#BindFunction('<F7>', 'Unite gtags/grep')
+    execute dko#BindFunction('<F8>', 'Unite gtags/context')
   endif
-  call dko#BindFunction('<F9>', 'Unite -start-insert command')
+  execute dko#BindFunction('<F9>', 'Unite -start-insert command')
 endfunction
 
 autocmd dkounite VimEnter * call s:BindFunctionKeys()

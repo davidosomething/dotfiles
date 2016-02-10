@@ -19,5 +19,5 @@ let g:over_command_line_key_mappings = {
       \   "\<F12>": "\<Esc>",
       \ }
 
-call dko#BindFunction('<F10>', 'OverCommandLine')
+execute dko#BindFunction('<F10>', 'OverCommandLine')
 
