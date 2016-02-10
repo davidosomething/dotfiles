@@ -3,6 +3,7 @@ bundle/
 nplugged/
 plugged/
 plug/
+vendor/
 
 # cache
 .backup/

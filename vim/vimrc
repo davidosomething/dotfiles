@@ -432,8 +432,8 @@ if s:dko_use_plugins
   " Which plugin set to use?
   " ==========================================================================
 
-  let s:dko_plug_dir = '/plug/vim'
-  if has('nvim') | let s:dko_plug_dir = '/plug/nvim' | endif
+  let s:dko_plug_dir = '/vendor/vim'
+  if has('nvim') | let s:dko_plug_dir = '/vendor/nvim' | endif
   let g:dko_plug_absdir = g:dko_vim_dir . s:dko_plug_dir
 
   " ==========================================================================
