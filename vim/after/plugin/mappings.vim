@@ -4,6 +4,9 @@
 " after/plugin.
 "
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 " ============================================================================
 " Commands
 " ============================================================================
@@ -207,3 +210,5 @@ nmap <special> <C-j> ]e
 vmap <special> <C-k> [egv
 vmap <special> <C-j> ]egv
 
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

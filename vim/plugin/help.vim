@@ -1,6 +1,9 @@
 " plugin/help.vim
 " Help buffer
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 function! s:Mappings()
   nnoremap <silent><buffer>   q   :<C-u>close<CR>
   nnoremap <silent><buffer>   Q   :<C-u>close<CR>
@@ -32,3 +35,5 @@ augroup dkohelp
         \   if &buftype == 'help' | call s:Mappings() |  endif
 augroup END
 
+let &cpoptions = s:cpo_save
+unlet s:cpo_save
