@@ -46,7 +46,7 @@
   new_window = None
   paste = <Super>v
   reset = None
-  reset_clear = None
+  reset_clear = <Super>r
   resize_down = <Shift><Super>Down
   resize_left = <Shift><Super>Left
   resize_right = <Shift><Super>Right
