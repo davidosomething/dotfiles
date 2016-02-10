@@ -584,9 +584,6 @@ if s:dko_use_plugins
 
   Plug 'godlygeek/tabular', { 'on': ['Tabularize'] }
 
-  " ;; or ,, to auto-insert comma or semicolon at end of current line as needed
-  Plug 'lfilho/cosco.vim'
-
   " custom C-x C-a mappings, see plugin/plug-increment-activator.vim
   Plug 'nishigori/increment-activator'
 
