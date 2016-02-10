@@ -23,7 +23,7 @@ let g:vimfiler_tree_opened_icon   = '▾'
 let g:vimfiler_tree_closed_icon   = '▸'
 let g:vimfiler_file_icon          = '-'
 let g:vimfiler_marked_file_icon   = '*'
-let g:vimfiler_readonly_file_icon = ''
+let g:vimfiler_readonly_file_icon = 'ʀ'
 
 " ============================================================================
 " Shortcut
