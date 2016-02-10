@@ -1,10 +1,40 @@
-" plugin/mappings.vim
+" after/plugin/mappings.vim
+"
+" There are some overrides here for unimpaired and other plugins so this is an
+" after/plugin.
+"
 
 " ============================================================================
 " Commands
 " ============================================================================
 
 command! Q q
+
+" ============================================================================
+" Unimpaired overrides
+" ============================================================================
+
+" go to last error instead of bitching
+function! s:LocationPrevious()
+  try
+    lprev
+  catch /^Vim\%((\a\+)\)\=:E553/
+    llast
+  endtry
+endfunction
+nnoremap  <silent>  <Plug>unimpairedLPrevious
+      \ :<C-u>call <SID>LocationPrevious()<CR>
+
+" go to first error instead of bitching
+function! s:LocationNext()
+  try
+    lnext
+  catch /^Vim\%((\a\+)\)\=:E553/
+    lfirst
+  endtry
+endfunction
+nnoremap  <silent>  <Plug>unimpairedLNext
+      \ :<C-u>call <SID>LocationNext()<CR>
 
 " ============================================================================
 " Buffer manip
@@ -14,7 +44,7 @@ command! Q q
 nnoremap  <special> <BS> <C-^>
 
 " close buffer with space-bd and auto close loc list first
-nnoremap  <unique><silent>  <Leader>bd :lclose<CR>:bdelete<CR>
+nnoremap  <silent>  <Leader>bd  :lclose<CR>:bdelete<CR>
 
 " ============================================================================
 " Split manip
@@ -41,29 +71,6 @@ nnoremap  <special>   <S-Right>   <C-w>>
 imap      <special>   <S-Right>   <C-o><S-Right>
 
 " ============================================================================
-" Scrolling and movement
-" ============================================================================
-
-" Map the arrow keys to be based on display lines, not physical lines
-vnoremap          <special>   <Down>      gj
-vnoremap          <special>   <Up>        gk
-nnoremap  <unique><special>   <Leader>mm  :<C-u>call dkomovemode#toggle()<CR>
-
-" Replace PgUp and PgDn with Ctrl-U/D
-map   <special> <PageUp>    <C-U>
-imap  <special> <PageUp>    <Esc><C-U>
-map   <special> <PageDown>  <C-D>
-imap  <special> <PageDown>  <Esc><C-D>
-
-" Easier to type, and I never use the default behavior.
-" From https://bitbucket.org/sjl/dotfiles/
-" default is first line on screen
-noremap   H   ^
-" default is last line on screen
-noremap   L   $
-vnoremap  L   g_
-
-" ============================================================================
 " Mode and env
 " ============================================================================
 
@@ -71,8 +78,8 @@ vnoremap  L   g_
 " Toggle visual/normal mode with space-space
 " ----------------------------------------------------------------------------
 
-nnoremap  <unique>  <Leader><Leader>  V
-vnoremap  <unique>  <Leader><Leader>  <Esc>
+nnoremap  <Leader><Leader>  V
+vnoremap  <Leader><Leader>  <Esc>
 
 " ----------------------------------------------------------------------------
 " Back to normal mode
@@ -93,16 +100,40 @@ nnoremap U :<C-u>syntax sync fromstart<CR>:redraw!<CR>
 " ----------------------------------------------------------------------------
 
 " to current buffer path
-nnoremap <unique><silent>   <Leader>cd
+nnoremap <silent>   <Leader>cd
       \ :<C-u>lcd %:h<CR>
 
 " to current buffer's git root
-nnoremap <unique><silent>   <Leader>cr
+nnoremap <silent>   <Leader>cr
       \ :<C-u>call dkoproject#CdProjectRoot()<CR>
 
 " ============================================================================
 " Editing
 " ============================================================================
+
+" ----------------------------------------------------------------------------
+" Scrolling and movement
+" ----------------------------------------------------------------------------
+
+" Map the arrow keys to be based on display lines, not physical lines
+vnoremap  <special>   <Down>      gj
+vnoremap  <special>   <Up>        gk
+nnoremap  <special>   <Leader>mm  :<C-u>call dkomovemode#toggle()<CR>
+
+" Replace PgUp and PgDn with Ctrl-U/D
+map   <special> <PageUp>    <C-U>
+map   <special> <PageDown>  <C-D>
+" same in insert mode, but stay in insert mode
+imap  <special> <PageUp>    <C-o><PageUp>
+imap  <special> <PageDown>  <C-o><PageDown>
+
+" Start/EOL
+" Easier to type, and I never use the default behavior.
+" From https://bitbucket.org/sjl/dotfiles/
+" default is {count}from top line in visible window
+noremap   H   ^
+" default is {count}from last line in visible window
+noremap   L   g_
 
 " ----------------------------------------------------------------------------
 " Allow [[ open,  [] close, back/forward to curly brace in any column
@@ -122,47 +153,47 @@ vnoremap  <   <gv
 vnoremap  >   >gv
 
 " ----------------------------------------------------------------------------
-" Sort lines
+" Sort lines (use unix sort)
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
 " ----------------------------------------------------------------------------
 
 if exists("g:plugs['vim-textobj-indent']")
   " Auto select indent-level and sort
-  nnoremap  <unique>  <Leader>s   vii:!sort<CR>
+  nnoremap  <Leader>s   vii:!sort<CR>
 else
   " Auto select paragraph (bounded by blank lines) and sort
-  nnoremap  <unique>  <Leader>s   vip:!sort<CR>
+  nnoremap  <Leader>s   vip:!sort<CR>
 endif
 " Sort selection (no clear since in visual)
-vnoremap  <unique>  <Leader>s   :!sort<CR>
+vnoremap  <Leader>s   :!sort<CR>
 
 " ----------------------------------------------------------------------------
 " Uppercase / lowercase word
 " ----------------------------------------------------------------------------
 
-nnoremap  <unique>  <Leader>u   mQviwU`Q
-nnoremap  <unique>  <Leader>l   mQviwu`Q
+nnoremap  <Leader>l   mQviwu`Q
+nnoremap  <Leader>u   mQviwU`Q
 
 " ----------------------------------------------------------------------------
 " Join lines without space (and go to first char line that was merged up)
 " ----------------------------------------------------------------------------
 
-nnoremap  <unique>  <Leader>j   VjgJl
+nnoremap  <Leader>j   VjgJl
 
 " ----------------------------------------------------------------------------
 " Clean up whitespace
 " ----------------------------------------------------------------------------
 
-nnoremap  <unique>  <Leader>ws  :<C-u>call dkowhitespace#clean()<CR>
+nnoremap  <Leader>ws  :<C-u>call dkowhitespace#clean()<CR>
 
 " ----------------------------------------------------------------------------
 " Horizontal rule
 " ----------------------------------------------------------------------------
 
-nnoremap  <unique><silent>  <Leader>f-  :<C-u>call dkorule#char('-')<CR>
-nnoremap  <unique><silent>  <Leader>f=  :<C-u>call dkorule#char('=')<CR>
-nnoremap  <unique><silent>  <Leader>f#  :<C-u>call dkorule#char('#')<CR>
-nnoremap  <unique><silent>  <Leader>f*  :<C-u>call dkorule#char('*')<CR>
+nnoremap  <silent>  <Leader>f-  :<C-u>call dkorule#char('-')<CR>
+nnoremap  <silent>  <Leader>f=  :<C-u>call dkorule#char('=')<CR>
+nnoremap  <silent>  <Leader>f#  :<C-u>call dkorule#char('#')<CR>
+nnoremap  <silent>  <Leader>f*  :<C-u>call dkorule#char('*')<CR>
 
 " ----------------------------------------------------------------------------
 " Bubble and indent mappings  - REQUIRES tim pope's unimpaired
