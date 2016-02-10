@@ -33,9 +33,7 @@ autoload -Uz vcs_info
 # Paths
 # ==============================================================================
 
-# remove duplicates in path arrays
-typeset -U path cdpath manpath
-
+# Completion paths
 # fpath must be before compinit
 [ -d "${BREW_PREFIX}" ] && {
   # Autoload function paths, add tab completion paths, top precedence
@@ -44,8 +42,6 @@ typeset -U path cdpath manpath
     "${BREW_PREFIX}/share/zsh-completions"
     $fpath
   )
-  # remove duplicates in fpath array
-  typeset -U fpath
 
   # ----------------------------------------
   # Prefer homebrew zsh's helpfiles
@@ -58,6 +54,9 @@ typeset -U path cdpath manpath
     autoload run-help
   }
 }
+
+# dedupe paths
+typeset -gU cdpath path fpath manpath
 
 # ==============================================================================
 # Plugin settings
