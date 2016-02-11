@@ -3,3 +3,4 @@ editorconfig
 neovim
 prospector
 Pygments
+vim-vint
