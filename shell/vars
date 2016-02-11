@@ -107,6 +107,7 @@ export GOPATH="${HOME}/go"
     export NVIM_TUI_ENABLE_TRUE_COLOR=1
   fi
 }
+export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
 
 # java settings - mostly for minecraft launcher
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.systemlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"

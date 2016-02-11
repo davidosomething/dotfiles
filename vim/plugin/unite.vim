@@ -150,7 +150,11 @@ function! s:BindFunctionKeys()
   if exists("g:plugs['neomru.vim']")
     execute dko#BindFunction('<F4>', 'Unite -start-insert neomru/file')
   endif
-  execute dko#BindFunction('<F5>', 'Unite -start-insert file_rec/async:!')
+  if has('nvim')
+    execute dko#BindFunction('<F5>', 'Unite -start-insert file_rec/neovim:!')
+  else
+    execute dko#BindFunction('<F5>', 'Unite -start-insert file_rec/async:!')
+  endif
   execute dko#BindFunction('<F6>', 'UniteWithProjectDir grep:.')
   if exists("g:plugs['unite-tag']")
     execute dko#BindFunction('<F7>', 'Unite -start-insert tag')

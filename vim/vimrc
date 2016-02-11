@@ -528,9 +528,6 @@ if s:dko_use_plugins
   if s:dko_use_gutentags | Plug 'ludovicchabant/vim-gutentags'
   endif
 
-  " Include completion and tagging
-  Plug 'Shougo/neoinclude.vim'
-
   " ========================================================================
   " Plug: Commands
   " ========================================================================
@@ -606,6 +603,9 @@ if s:dko_use_plugins
     " Mixed-filetype completion for Shougo complete, e.g. highlight JS within
     " Markdown fenced code blocks.
     Plug 'Shougo/context_filetype.vim'
+
+    " Include completion
+    Plug 'Shougo/neoinclude.vim'
 
     if s:dko_use_neosnippet
       Plug 'Shougo/neosnippet'
