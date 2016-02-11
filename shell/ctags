@@ -1,42 +1,8 @@
---recurse=yes
---exclude=.DS_Store
---exclude=.bundle
---exclude=.git
---exclude=.svn
---exclude=.hg
---exclude=.sass-cache
---exclude=.vagrant
---exclude=bower_components/
---exclude=bundle/
---exclude=docs/
---exclude=log/
---exclude=tmp/
---exclude=vendor/
---exclude=wp/
---exclude=jquery*.js
---exclude=*-min.*
---exclude=*.bak
---exclude=*.class
---exclude=*.csproj
---exclude=*.csproj.user
---exclude=*.dll
---exclude=*.doc*
---exclude=*.jar
---exclude=*.json
---exclude=*.log
---exclude=*.map
---exclude=*.md
---exclude=*.min.*
---exclude=*.pdb
---exclude=*.pyc
---exclude=*.rtf
---exclude=*.sln
---exclude=*.sql
---exclude=*.swp
---exclude=*.tar.*
---exclude=*.txt
---exclude=*.zip
---exclude=tags
---exclude=cscope.*
+# ctags
+# instead of ~/.ctags, read options into env var
+# Re-source to update
 
---langmap=php:.engine.inc.module.theme.install.php --PHP-kinds=+cf-v
+CTAGS="$(tr "\n" " " < "${DOTFILES}/ctags/ctags")"
+export CTAGS
+
+# vim: ft=sh :

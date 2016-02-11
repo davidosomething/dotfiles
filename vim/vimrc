@@ -93,7 +93,7 @@ set showtabline=0                     " never show tabline
 " ------------------------------------
 
 set laststatus=2
-set showcmd                           " incomplete commands on
+set noshowcmd                         " show incomplete commands (SLOW so off)
 set noshowmode                        " don't show -- INSERT -- in cmdline
 set statusline=%!dkostatus#Output(1)
 autocmd vimrc VimEnter,WinEnter,BufWinEnter   *   call dkostatus#Refresh()

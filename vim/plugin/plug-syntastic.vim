@@ -93,6 +93,15 @@ let g:syntastic_javascript_eslint_quiet_messages = {
       \   'regex': 'File ignored because of your .eslintignore file.',
       \ }
 
+function! s:UseLocalEslint() abort
+  let l:eslint_binary = dkoproject#GetProjectRoot()
+        \ . '/node_modules/.bin/eslint'
+  if !empty(glob(l:eslint_binary))
+    let b:syntastic_javascript_eslint_exec = l:eslint_binary
+  endif
+endfunction
+autocmd dkosyntastic FileType javascript call s:UseLocalEslint()
+
 " ============================================================================
 " Syntax: Lua
 " ============================================================================

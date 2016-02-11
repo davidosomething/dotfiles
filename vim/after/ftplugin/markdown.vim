@@ -14,5 +14,5 @@ setlocal spell
 setlocal complete+=kspell
 
 " Always start in display movement mode for markdown
-call dkomovemode#setByDisplay()
+silent! call dkomovemode#setByDisplay()
 

@@ -33,17 +33,24 @@ let s:default_config_paths = [
 " @param {string} [file]
 " @return {string} project git root path or empty string
 function! dkoproject#GetProjectRoot(...) abort
+  "echomsg 'Finding root'
   if exists('b:dkoproject_root')
+    "echomsg 'Cached ' . b:dkoproject_root
     return b:dkoproject_root
   endif
 
-  if empty(a:0)
+  if !empty(a:0)
     " path for given file
+    "echomsg 'Using file provided in arg ' . a:0
     let l:path = expand(fnamemodify(a:0, ':p:h'))
   elseif filereadable(expand('%'))
+    "echomsg 'Using opened file ' . expand('%')
     " path for current file
     let l:path = expand('%:p:h')
+  else
+    let l:path = getcwd()
   endif
+  "echomsg 'Got filepath: ' . l:path
 
   " Determine if git root exists (empty string on error)
   execute 'lcd! ' . l:path

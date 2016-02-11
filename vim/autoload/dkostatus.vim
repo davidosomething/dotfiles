@@ -30,7 +30,8 @@ function! dkostatus#Output(winnr) abort
 
   let l:contents .= '%='
   let l:contents .= dkostatus#ShortPath()
-  "let l:contents .= dkostatus#GitaBranch()
+  let l:contents .= dkostatus#GitaBranch()
+  let l:contents .= dkostatus#GutentagsStatus()
   let l:contents .= dkostatus#Ruler()
 
   return l:contents
@@ -127,6 +128,15 @@ function! dkostatus#GitaBranch() abort
   return empty(l:branch)
         \ ? '' 
         \ : '%#DiffAdd# ' . l:branch . ' %*'
+endfunction
+
+function! dkostatus#GutentagsStatus() abort
+  if winwidth(0) < 80
+        \ || s:winnr != winnr()
+        \ || !exists("g:plugs['vim-gutentags']")
+    return ''
+  endif
+  return '%#SignColumn#%{gutentags#statusline(" ᴛᴀɢ ")}%*'
 endfunction
 
 function! dkostatus#Ruler() abort

@@ -24,6 +24,7 @@ export BASH_DOTFILES="${DOTFILES}/bash"
 export VIM_DOTFILES="${DOTFILES}/vim"
 
 source "${DOTFILES}/shell/xdg"
+source "${DOTFILES}/shell/ctags"
 
 # ==============================================================================
 # History
@@ -81,10 +82,6 @@ export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
 # composer
 export COMPOSER_HOME="${XDG_CONFIG_HOME}/composer"
 export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
-
-# ctags -- instead of ~/.ctags, just read options into the env var
-CTAGS="$(tr "\n" " " < "${DOTFILES}/shell/ctags")"
-export CTAGS
 
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
