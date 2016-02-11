@@ -11,7 +11,9 @@ setlocal nomodeline
 setlocal expandtab
 setlocal textwidth=0
 setlocal spell
-setlocal complete+=kspell
+
+" too slow
+"setlocal complete+=kspell
 
 " Always start in display movement mode for markdown
 silent! call dkomovemode#setByDisplay()
