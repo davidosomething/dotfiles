@@ -1,4 +1,6 @@
 build/
 compass-css/
 dist/
+node_modules/
+vendor/
 \*.map
