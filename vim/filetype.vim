@@ -20,6 +20,10 @@ augroup filetypedetect
 
   autocmd BufNewFile,BufRead,BufFilePost *.dump   setfiletype sql
 
+  " git branch description (opened via `git branch --edit-description`)
+  autocmd BufNewFile,BufRead,BufFilePost BRANCH_DESCRIPTION
+        \ setfiletype gitbranchdescription.markdown.pandoc
+
   autocmd BufNewFile,BufRead,BufFilePost *.md   setfiletype markdown.pandoc
 
   autocmd BufNewFile,BufRead,BufFilePost .babelrc   setfiletype json
