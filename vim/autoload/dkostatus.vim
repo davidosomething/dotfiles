@@ -30,7 +30,8 @@ function! dkostatus#Output(winnr) abort
 
   let l:contents .= '%='
   let l:contents .= dkostatus#ShortPath()
-  let l:contents .= dkostatus#GitaBranch()
+  " too slow
+  "let l:contents .= dkostatus#GitaBranch()
   let l:contents .= dkostatus#GutentagsStatus()
   let l:contents .= dkostatus#Ruler()
 

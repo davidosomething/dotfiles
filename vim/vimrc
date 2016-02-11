@@ -684,6 +684,7 @@ if s:dko_use_plugins
   " ========================================================================
 
   " creates gitconfig, gitcommit, rebase
+  " provides :DiffGitCached in gitcommit file type
   " vim 7.4-77 ships with 2013 version, this is newer
   Plug 'tpope/vim-git'
 
