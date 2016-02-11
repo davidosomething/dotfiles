@@ -357,7 +357,12 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " ----------------------------------------------------------------------------
 " Syntax
+" Needs to be in vimrc (or ftdetect) since syntax runs before ftplugin
 " ----------------------------------------------------------------------------
+
+" ----------------------------------------
+" Filetype: markdown
+" ----------------------------------------
 
 " Variable to highlight markdown fenced code properly -- uses tpope's
 " vim-markdown plugin (which is bundled with vim7.4 now)
@@ -368,10 +373,35 @@ let g:markdown_fenced_languages = [
       \ 'sass',
       \ ]
 
-" Needs to be in vimrc (or ftdetect) since syntax runs before ftplugin
-" PHP indent settings for distributed $VIMRUNTIME/indent/php.vim and 2072/
+" ----------------------------------------
+" Filetype: php
+" ----------------------------------------
+
+" $VIMRUNTIME/indent/php.vim and 2072/
 let g:PHP_default_indenting = 0
 let g:PHP_outdentphpescape  = 0
+
+" ----------------------------------------
+" Filetype: python
+" ----------------------------------------
+
+" $VIMRUNTIME/syntax/python.vim
+let python_highlight_all = 1
+
+" ----------------------------------------
+" Filetype: sh
+" ----------------------------------------
+
+" $VIMRUNTIME/syntax/sh.vim - always assume bash
+let g:is_bash = 1
+
+" ----------------------------------------
+" Filetype: vim
+" ----------------------------------------
+
+" $VIMRUNTIME/syntax/vim.vim
+" disable mzscheme, tcl highlighting
+let g:vimsyn_embed = 'lpPr'
 
 " ----------------------------------------------------------------------------
 " Autocommands
