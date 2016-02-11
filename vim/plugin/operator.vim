@@ -21,9 +21,9 @@ if exists("g:plugs['vim-operator-surround']")
 
   " accept block char on anyblock
   if exists("g:plugs['vim-textobj-anyblock']")
-    nmap  saa   <Plug>(operator-surround-append)<Plug>(textobj-anyblock-a)
-    nmap  sdd   <Plug>(operator-surround-delete)<Plug>(textobj-anyblock-a)
-    nmap  srr   <Plug>(operator-surround-replace)<Plug>(textobj-anyblock-a)
+    nmap  say   <Plug>(operator-surround-append)<Plug>(textobj-anyblock-a)
+    nmap  sdy   <Plug>(operator-surround-delete)<Plug>(textobj-anyblock-a)
+    nmap  sry   <Plug>(operator-surround-replace)<Plug>(textobj-anyblock-a)
   endif
 endif
 

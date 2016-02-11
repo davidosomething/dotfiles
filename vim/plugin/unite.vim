@@ -17,22 +17,6 @@ if exists("g:plugs['neomru.vim']")
 endif
 
 " ============================================================================
-" Extension: unite-gtags
-" ============================================================================
-
-function! s:SetGtagsRoot()
-  if empty(dkoproject#GetProjectRoot())
-    return
-  endif
-  let $GTAGSROOT    = dkoproject#GetProjectRoot()
-  let $GTAGSDBPATH  = dkoproject#GetProjectRoot() . '/.git'
-endfunction
-
-if exists("g:plugs['unite-gtags']")
-  autocmd dkounite BufNew,BufEnter * call s:SetGtagsRoot()
-endif
-
-" ============================================================================
 " unite settings
 " ============================================================================
 
@@ -170,12 +154,8 @@ function! s:BindFunctionKeys()
   execute dko#BindFunction('<F6>', 'UniteWithProjectDir grep:.')
   if exists("g:plugs['unite-tag']")
     execute dko#BindFunction('<F7>', 'Unite -start-insert tag')
-    execute dko#BindFunction('<F8>', 'Unite tag/include')
-  elseif exists("g:plugs['unite-gtags']")
-    execute dko#BindFunction('<F7>', 'Unite gtags/grep')
-    execute dko#BindFunction('<F8>', 'Unite gtags/context')
   endif
-  execute dko#BindFunction('<F9>', 'Unite -start-insert command')
+  execute dko#BindFunction('<F8>', 'Unite -start-insert command')
 endfunction
 
 autocmd dkounite VimEnter * call s:BindFunctionKeys()

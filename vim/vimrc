@@ -528,6 +528,9 @@ if s:dko_use_plugins
   if s:dko_use_gutentags | Plug 'ludovicchabant/vim-gutentags'
   endif
 
+  " Include completion and tagging
+  Plug 'Shougo/neoinclude.vim'
+
   " ========================================================================
   " Plug: Commands
   " ========================================================================
@@ -549,10 +552,6 @@ if s:dko_use_plugins
           \| Plug 'Shougo/neomru.vim'
           \| Plug 'Shougo/unite-outline'
           \| Plug 'tsukkee/unite-tag'
-
-          "BROKEN
-          "\| Plug 'hewes/unite-gtags'
-          "\| Plug 'osyo-manga/unite-quickfix'
   endif
 
   Plug 'nathanaelkane/vim-indent-guides'
@@ -608,9 +607,6 @@ if s:dko_use_plugins
     " Markdown fenced code blocks.
     Plug 'Shougo/context_filetype.vim'
 
-    " Include completion
-    Plug 'Shougo/neoinclude.vim'
-
     if s:dko_use_neosnippet
       Plug 'Shougo/neosnippet'
             \| Plug 'honza/vim-snippets'
@@ -644,14 +640,14 @@ if s:dko_use_plugins
         \| Plug 'rhysd/vim-operator-surround'
         \| Plug 'tyru/operator-camelize.vim'
 
-  " i/ae for entire file
-  " i/ai for indent level
-  " i/al for current line
-  " i/ap for <?php ?>
-  " i/au for url
-  " i/ab for any block type (parens, braces, quotes, ltgt)
-  " i/a= and i= for conflicts marked blocks
-  " i/af for function (c, java, js, php, vim only)
+  " e for entire file
+  " i for indent level
+  " l for current line
+  " p for <?php ?>
+  " u for url
+  " b for any block type (parens, braces, quotes, ltgt)
+  " = and i= for conflicts marked blocks
+  " f for function (c, java, js, php, vim only)
   Plug 'kana/vim-textobj-user'
         \| Plug 'kana/vim-textobj-entire'
         \| Plug 'kana/vim-textobj-indent'

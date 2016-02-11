@@ -80,8 +80,8 @@ Unite keys are arranged by search context from small (current buf) to big
 | `<F4>`  | unite most recently used files (limited filesystem) |
 | `<F5>`  | unite fuzzy search files (filesystem) |
 | `<F6>`  | unite grep via ag (from PWD) |
-| `<F7>`  | unite tag/gtags for queried word (project) |
-| `<F8>`  | unite tag/gtags for word under cursor (project) |
+| `<F7>`  | unite tag selector (tagged files in project) |
+| `<F8>`  | |
 | `<F9>`  | unite command palette |
 | `<F10>` | OverCommandLine for subst |
 | `<F11>` | toggle indent guides |
