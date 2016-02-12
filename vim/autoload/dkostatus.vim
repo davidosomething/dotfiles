@@ -4,6 +4,14 @@ scriptencoding utf-8
 " Status line
 " ============================================================================
 
+" Called by autocmd in vimrc, refresh statusline in each window
+function! dkostatus#Refresh() abort
+  for l:winnr in range(1, winnr('$'))
+    let l:fn = '%!dkostatus#Output(' . l:winnr . ')'
+    call setwinvar(l:winnr, '&statusline', l:fn)
+  endfor
+endfunction
+
 " a:winnr from dkostatus#Refresh() or 0 on set statusline
 function! dkostatus#Output(winnr) abort
   let s:winnr = a:winnr
@@ -36,13 +44,6 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= dkostatus#Ruler()
 
   return l:contents
-endfunction
-
-" Called by autocmd in vimrc, refresh statusline in each window
-function! dkostatus#Refresh() abort
-  for l:winnr in range(1, winnr('$')) | call setwinvar(
-        \ l:winnr, '&statusline', '%!dkostatus#Output(' . l:winnr . ')'
-        \ ) | endfor
 endfunction
 
 function! dkostatus#Mode() abort

@@ -86,17 +86,23 @@ set synmaxcol=512                     " don't syntax highlight long lines
 " Tab line
 " ------------------------------------
 
-set showtabline=0                     " never show tabline
+set showtabline=2                     " always show tabline
+set tabline=%!dkotabline#Output()
 
 " ------------------------------------
 " Status line
 " ------------------------------------
 
-set laststatus=2
+set laststatus=2                      " always show all statuslines
+" initial statusline in case you type before VimEnter
+set statusline=%!dkostatus#Output(1)
+
+" ------------------------------------
+" Command line
+" ------------------------------------
+
 set noshowcmd                         " show incomplete commands (SLOW so off)
 set noshowmode                        " don't show -- INSERT -- in cmdline
-set statusline=%!dkostatus#Output(1)
-autocmd vimrc VimEnter,WinEnter,BufWinEnter   *   call dkostatus#Refresh()
 
 " ----------------------------------------------------------------------------
 " Input
@@ -420,6 +426,11 @@ augroup vimrc
         \ call dkoproject#GetProjectRoot()
 augroup END
 
+augroup dkogui
+  autocmd VimEnter,WinEnter,BufWinEnter   *   call dkostatus#Refresh()
+  autocmd VimEnter,WinEnter,BufWinEnter,CursorMoved   *   call dkotabline#Refresh()
+augroup END
+
 " ============================================================================
 " Plugins
 " ============================================================================
@@ -583,6 +594,9 @@ if s:dko_use_plugins
 
   if s:dko_use_syntastic | Plug 'scrooloose/syntastic'
   endif
+
+  "Plug 'tyru/current-func-info.vim'
+  Plug 'davidosomething/current-func-info.vim', { 'branch': 'javascript' }
 
   " ========================================================================
   " Plug: Completion
