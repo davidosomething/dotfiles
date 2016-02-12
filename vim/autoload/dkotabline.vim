@@ -26,12 +26,12 @@ endfunction
 
 " Show function signature using various plugins
 function! dkotabline#FunctionSignature() abort
-  if !exists('g:loaded_cfi')
-    return ''
+  if exists('g:loaded_cfi')
+    let l:function = cfi#format('%s', '')
+    if !empty(l:function)
+      return l:function
+    endif
   endif
 
-  let l:function = cfi#format('%s', '')
-  return !empty(l:function)
-        \ ? l:function
-        \ : ''
+  return ''
 endfunction

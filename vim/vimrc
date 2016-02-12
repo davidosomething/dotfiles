@@ -599,6 +599,9 @@ if s:dko_use_plugins
   Plug 'davidosomething/current-func-info.vim', { 'branch': 'javascript' }
   "Plug '~/projects/current-func-info.vim'
 
+  " @TODO integrate into tabline
+  "Plug 'majutsushi/tagbar'
+
   " ========================================================================
   " Plug: Completion
   " ========================================================================
