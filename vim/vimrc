@@ -601,6 +601,7 @@ if s:dko_use_plugins
 
   " @TODO integrate into tabline
   "Plug 'majutsushi/tagbar'
+  Plug 'jeetsukumaran/vim-gazetteer'
 
   " ========================================================================
   " Plug: Completion
