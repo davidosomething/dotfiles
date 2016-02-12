@@ -11,4 +11,8 @@ Generation was disabled for languages I don't use.
 
 https://github.com/kana/config/blob/master/dotfiles/dot.ctags
 
+## fields
 
+Also includes the function signature using `--fields=+lS`
+
+Maybe check out mbbill/echofunc or integrate into tyru/current-func-info.vim

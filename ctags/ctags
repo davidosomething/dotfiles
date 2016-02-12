@@ -49,5 +49,6 @@
 
 --regex-vim=/^function\!?[ \t]*([a-zA-Z0-9_:.#]+)/\1/f,function definitions/
 
+--fields=+lS
 --tag-relative=yes
 --recurse=yes
