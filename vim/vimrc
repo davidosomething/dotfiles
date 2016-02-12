@@ -386,7 +386,7 @@ let g:PHP_outdentphpescape  = 0
 " ----------------------------------------
 
 " $VIMRUNTIME/syntax/python.vim
-let python_highlight_all = 1
+let g:python_highlight_all = 1
 
 " ----------------------------------------
 " Filetype: sh
