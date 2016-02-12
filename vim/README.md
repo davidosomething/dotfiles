@@ -98,9 +98,9 @@ Unite keys are arranged by search context from small (current buf) to big
 | `<F5>`  | unite fuzzy search files (filesystem) |
 | `<F6>`  | unite grep via ag (from PWD) |
 | `<F7>`  | unite tag selector (tagged files in project) |
-| `<F8>`  | |
-| `<F9>`  | unite command palette |
-| `<F10>` | OverCommandLine for subst |
+| `<F8>`  | unite command palette |
+| `<F9>`  | OverCommandLine for subst |
+| `<F10>` | toggle tabline |
 | `<F11>` | toggle indent guides |
 | `<F12>` | toggle paste mode |
 

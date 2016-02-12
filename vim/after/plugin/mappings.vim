@@ -13,6 +13,8 @@ set cpoptions&vim
 
 command! Q q
 
+execute dko#BindFunction('<F10>', 'call dkotabline#Toggle()')
+
 " ============================================================================
 " Unimpaired overrides
 " ============================================================================

@@ -5,6 +5,11 @@ scriptencoding utf-8
 " ============================================================================
 
 " Called by autocmd in vimrc on cursormoved and other win events
+function! dkotabline#Toggle() abort
+  execute 'set showtabline=' . (&showtabline ? 0 : 2)
+endfunction
+
+" Called by autocmd in vimrc on cursormoved and other win events
 function! dkotabline#Refresh() abort
   call setwinvar(winnr(), '&tabline', '%!dkotabline#Output()')
 endfunction
