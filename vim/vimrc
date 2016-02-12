@@ -86,7 +86,7 @@ set synmaxcol=512                     " don't syntax highlight long lines
 " Tab line
 " ------------------------------------
 
-set showtabline=2                     " always show tabline
+set showtabline=0                     " start OFF, toggle =2 to show tabline
 set tabline=%!dkotabline#Output()
 
 " ------------------------------------
