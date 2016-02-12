@@ -597,6 +597,7 @@ if s:dko_use_plugins
 
   "Plug 'tyru/current-func-info.vim'
   Plug 'davidosomething/current-func-info.vim', { 'branch': 'javascript' }
+  "Plug '~/projects/current-func-info.vim'
 
   " ========================================================================
   " Plug: Completion

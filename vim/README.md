@@ -2,6 +2,22 @@
 
 > Don't use what you don't understand.
 
+## Features
+
+![vim screenshot](https://cdn.rawgit.com/davidosomething/dotfiles/master/meta/vim.png)
+> Screenshot in terminal vim with a function signature in tabline
+
+- Custom statusline with minimal junk, showing short cwd - much faster than
+  airline
+- Tagline is being used to show function signature (PHP, Python, Ruby, and
+  a few others supported via [tyru/current-func-info.vim], and I added regexes
+  for JavaScript/es6)
+- Unite for everything (mru, fuzzy finder, ctags)
+- Syntastic + local use of eslint, custom detection of .eslint, .scss-lint,
+  etc.
+- Lots more but you shouldn't you any of it unless you really know what you're
+  doing.
+
 ## Installation
 
 Best used with rest of dotfiles. Should self-install plugins via curl and
@@ -119,4 +135,5 @@ sparingly (mostly for `setlocal` ftplugin settings).
 [Syntax-Checkers]: https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers
 [syntastic]: https://github.com/scrooloose/syntastic/
 [vim-plug]: https://github.com/junegunn/vim-plug
+[tyru/current-func-info.vim]: https://github.com/tyru/current-func-info.vim
 
