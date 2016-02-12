@@ -21,7 +21,7 @@ endfunction
 
 " Show function signature using various plugins
 function! dkotabline#FunctionSignature() abort
-  if !exists('g:plugs["current-func-info.vim"]')
+  if !exists('g:loaded_cfi')
     return ''
   endif
 
