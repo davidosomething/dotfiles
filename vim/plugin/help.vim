@@ -4,10 +4,19 @@
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
+function! s:Close()
+  if winnr('$') > 1
+    :close
+  else
+    :bprevious
+  endif
+endfunction
+
 function! s:Mappings()
-  nnoremap <silent><buffer>   q   :<C-u>close<CR>
-  nnoremap <silent><buffer>   Q   :<C-u>close<CR>
-  nnoremap <silent><buffer>   <Leader>v
+  nnoremap  <silent><buffer>   q   :<C-u>call <SID>Close()<CR>
+  nmap      <silent><buffer>   Q   q
+
+  nnoremap  <silent><buffer>   <Leader>v
         \ :<C-u>wincmd L <BAR> vertical resize 82<CR>
 
   " Help navigation
