@@ -24,7 +24,6 @@ export BASH_DOTFILES="${DOTFILES}/bash"
 export VIM_DOTFILES="${DOTFILES}/vim"
 
 source "${DOTFILES}/shell/xdg"
-source "${DOTFILES}/shell/ctags"
 
 # ==============================================================================
 # History

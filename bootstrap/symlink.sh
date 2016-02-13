@@ -12,6 +12,11 @@ source "${bootstrap_path}/helpers.sh"
 
 # begin ------------------------------------------------------------------------
 dkostatus "Symlinking dotfiles"
+
+# ctags
+dkosymlink ctags/ctags                          .ctags
+
+# markdownlint
 dkosymlink mdl/.mdlrc.symlink                   .mdlrc
 
 # XDG-compatible

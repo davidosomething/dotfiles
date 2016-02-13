@@ -1,8 +1,0 @@
-# ctags
-# instead of ~/.ctags, read options into env var
-# Re-source to update
-
-CTAGS="$(tr "\n" " " < "${DOTFILES}/ctags/ctags")"
-export CTAGS
-
-# vim: ft=sh :

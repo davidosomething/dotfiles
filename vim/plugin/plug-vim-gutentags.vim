@@ -14,3 +14,8 @@ if filereadable(glob('$DOTFILES/ctags/ctags'))
   let g:gutentags_ctags_executable = 'ctags --options="$DOTFILES/ctags/ctags"'
 endif
 
+augroup dkogutentags
+  autocmd!
+  autocmd User GutentagsUpdated redraw!
+augroup END
+

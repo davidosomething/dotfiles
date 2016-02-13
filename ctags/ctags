@@ -50,13 +50,6 @@
 --langmap=php:.engine.inc.module.theme.install.php --PHP-kinds=+cf-v
 
 
---langdef=markdown
---langmap=markdown:.mkd
---regex-markdown=/^#[ \t]+(.*)/\1/h,Heading_L1/
---regex-markdown=/^##[ \t]+(.*)/\1/i,Heading_L2/
---regex-markdown=/^###[ \t]+(.*)/\1/k,Heading_L3/
-
-
 --fields=afiklmnsSzt
 --tag-relative=yes
 --recurse=yes

@@ -426,9 +426,14 @@ augroup vimrc
         \ call dkoproject#GetProjectRoot()
 augroup END
 
-augroup dkogui
-  autocmd VimEnter,WinEnter,BufWinEnter   *   call dkostatus#Refresh()
+augroup dkotabline
+  autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter,CursorMoved   *   call dkotabline#Refresh()
+augroup END
+
+augroup dkostatusline
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter   *   call dkostatus#Refresh()
 augroup END
 
 " ============================================================================
@@ -536,7 +541,9 @@ if s:dko_use_plugins
   " creates dir if new file in new dir
   Plug 'dockyard/vim-easydir'
 
-  if s:dko_use_gutentags | Plug 'ludovicchabant/vim-gutentags'
+  if s:dko_use_gutentags
+    "Plug 'ludovicchabant/vim-gutentags'
+    Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
   endif
 
   " ========================================================================
