@@ -4,7 +4,8 @@ if !exists("g:plugs['vim-operator-user']") | finish | endif
 
 if exists("g:plugs['vim-operator-surround']")
   " disable [s]ubstitute
-  map s <Nop>
+  imap  s   <Nop>
+  map   s   <Nop>
 
   " operators
   map   sa    <Plug>(operator-surround-append)

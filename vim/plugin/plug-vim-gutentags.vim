@@ -9,6 +9,8 @@ let g:gutentags_enabled                  = 0
 let g:gutentags_define_advanced_commands = 1
 let g:gutentags_resolve_symlinks         = 1
 
-" do I need this?
-"let g:gutentags_ctags_executable = 'ctags --options="$DOTFILES/ctags/ctags"'
+" Use this in lieu of project local .gutctags
+if filereadable(glob('$DOTFILES/ctags/ctags'))
+  let g:gutentags_ctags_executable = 'ctags --options="$DOTFILES/ctags/ctags"'
+endif
 

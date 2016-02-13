@@ -24,7 +24,8 @@ __dotfiles_usage() {
   dkousage  "update <command>"
   echo "
   reload     -- reload this script if it was modified
-  dotfiles   -- update ${DOTFILES}
+  ctags      -- re-source ${DOTFILES}/shell/ctags
+  dotfiles   -- update dotfiles (git)
   fzf
   gem        -- update rubygems and global gems for current ruby
   go
@@ -41,6 +42,10 @@ __dotfiles_usage() {
 
 __dotfiles_reload() {
   source "${DOTFILES}/shell/update"
+}
+
+__dotfiles_ctags() {
+  source "${DOTFILES}/shell/ctags"
 }
 
 __dotfiles_update_dotfiles() {
@@ -277,6 +282,7 @@ __dotfiles_main() {
 
   case $1 in
     reload)   __dotfiles_reload           ;;
+    ctags)    __dotfiles_ctags            ;;
     dotfiles) __dotfiles_update_dotfiles  ;;
     secret)   __dotfiles_update_secret    ;;
     fzf)      __dotfiles_update_fzf       ;;
