@@ -10,6 +10,12 @@ endif
 
 if exists("g:plugs['vim-instant-markdown']")
   let g:instant_markdown_autostart = 0
-  nnoremap <silent><buffer> <Leader>m :<C-u>InstantMarkdownPreview<CR>
+  nnoremap  <silent><buffer>  <Leader>m
+        \ :<C-u>InstantMarkdownPreview<CR>
+endif
+
+if has('gui_macvim')
+  nnoremap  <silent><buffer>  <Leader>m
+        \ :<C-u>silent !open -a "Marked 2" '%:p'<CR>
 endif
 

@@ -15,16 +15,11 @@ if has('gui_macvim')
   set guifont=Fura\ Mono\ For\ Powerline:h12
   set backupcopy=yes                  " keep finder labels!
 
-  " only applies to buffers containing a markdown file
-  " open current doc as Markdown in Marked.app
-  autocmd vimrc filetype markdown.pandoc
-        \ nnoremap <buffer><leader>m :silent !open -a "Marked 2" '%:p'<cr>
-
   " CMD-mappings, esp so macvim doesn't screw up if I accidentally use the
   " system copy/paste
-  nnoremap <D-a> ggVG
-  nnoremap <D-v> p
-  vnoremap <D-c> y
+  nnoremap  <special>   <D-a>   ggVG
+  nnoremap  <special>   <D-v>   p
+  vnoremap  <special>   <D-c>   y
 
 " ============================================================================
 " GVIM
