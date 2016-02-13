@@ -2,6 +2,9 @@
 scriptencoding utf-8
 if !exists("g:plugs['unite.vim']") | finish | endif
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 augroup dkounite
   autocmd!
 augroup END
@@ -163,4 +166,7 @@ function! s:BindFunctionKeys()
 endfunction
 
 autocmd dkounite VimEnter * call s:BindFunctionKeys()
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 

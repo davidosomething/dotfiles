@@ -2,6 +2,9 @@
 
 if !exists("g:plugs['vim-operator-user']") | finish | endif
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 if exists("g:plugs['vim-operator-surround']")
   " disable [s]ubstitute
   map   s   <Nop>
@@ -36,3 +39,5 @@ if exists("g:plugs['operator-camelize.vim']")
   map   ccc          <Plug>(operator-camelize-toggle)iWB
 endif
 
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

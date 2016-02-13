@@ -1,6 +1,9 @@
 " plugin/plug-vim-indent-guides.vim
 if !exists("g:plugs['vim-indent-guides']") | finish | endif
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 let g:indent_guides_color_change_percent = 3
 
 " The autocmd hooks are run after plugins loaded so okay to reference them in
@@ -14,4 +17,7 @@ augroup END
 " Must be recursive maps
 nmap  <unique><silent><special>   <F11>   <Plug>IndentGuidesToggle
 imap  <unique><silent><special>   <F11>   <C-o><F11>
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 
