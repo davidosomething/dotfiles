@@ -7,12 +7,13 @@ Generation was disabled for languages I don't use.
 
 ### References
 
-## regex-vim
+# JavaScript
 
-https://github.com/kana/config/blob/master/dotfiles/dot.ctags
+The langdef and regexe are from:
+http://github.com/majutuhi/tagbar/wiki#exuberant-ctag-vanilla
 
-## fields
+# Markdown
 
-Also includes the function signature using `--fields=+lS`
+The langdef and regexe are from:
+https://github.com/majutsushi/tagbar/wiki#markdown
 
-Maybe check out mbbill/echofunc or integrate into tyru/current-func-info.vim

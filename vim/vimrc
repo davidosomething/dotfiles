@@ -599,6 +599,7 @@ if s:dko_use_plugins
   Plug 'davidosomething/current-func-info.vim', { 'branch': 'javascript' }
   "Plug '~/projects/current-func-info.vim'
 
+  " ctags on-the-fly processing
   " @TODO integrate into tabline
   "Plug 'majutsushi/tagbar'
   Plug 'jeetsukumaran/vim-gazetteer'
