@@ -6,6 +6,9 @@
 
 if !g:dko_has_completion | finish | endif
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 " ============================================================================
 " Default bundled omni-completion for each filetype
 " ============================================================================
@@ -256,3 +259,5 @@ if exists('g:plugs["deoplete.nvim"]')
 
 endif
 
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

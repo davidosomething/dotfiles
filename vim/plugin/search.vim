@@ -1,5 +1,8 @@
 " plugin/search.vim
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 " - vim-anzu        show number of matches, with airline integration
 " - vim-asterisk    don't move on first search with *
 " - incsearch.vim   highlighting all matches
@@ -61,3 +64,5 @@ if exists("g:plugs['vim-anzu']")
   endif
 endif
 
+let &cpoptions = s:cpo_save
+unlet s:cpo_save
