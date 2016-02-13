@@ -595,8 +595,8 @@ if s:dko_use_plugins
   if s:dko_use_syntastic | Plug 'scrooloose/syntastic'
   endif
 
-  "Plug 'tyru/current-func-info.vim'
-  Plug 'davidosomething/current-func-info.vim', { 'branch': 'javascript' }
+  Plug 'tyru/current-func-info.vim'
+  "Plug 'davidosomething/current-func-info.vim', { 'branch': 'javascript' }
   "Plug '~/projects/current-func-info.vim'
 
   " ctags on-the-fly processing
