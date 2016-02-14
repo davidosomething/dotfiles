@@ -1,6 +1,6 @@
 <img alt="dotfiles" width="200" src="https://cdn.rawgit.com/davidosomething/dotfiles/master/bootstrap/dotfiles-logo.png">
 
-My dotfiles. https://github.com/davidosomething/dotfiles
+My dotfiles. [https://github.com/davidosomething/dotfiles](https://github.com/davidosomething/dotfiles)
 
 - OSX and Arch Linux compatible
 - XDG compliance wherever possible to keep `$HOME` clean
