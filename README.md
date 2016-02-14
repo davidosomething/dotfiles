@@ -112,7 +112,7 @@ For X apps (no terminal) the value is probably:
       shell/vars
         shell/xdg
 
----  
+---
 
 _Credits_
 
