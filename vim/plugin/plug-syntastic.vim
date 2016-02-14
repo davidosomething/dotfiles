@@ -51,6 +51,7 @@ let g:syntastic_style_warning_symbol = '⚑'
 " hbstidy instead of html tidy)
 let g:syntastic_filetype_map = {
       \   'html.handlebars': 'handlebars',
+      \   'markdown.pandoc': 'markdown',
       \ }
 
 let g:syntastic_ignore_files = [
@@ -112,9 +113,32 @@ let g:syntastic_lua_checkers = ['luac', 'luacheck']
 " Syntax: Markdown
 " ============================================================================
 
+if executable('markdownlint')
+  let g:syntastic_markdown_checkers = ['markdownlint']
+else
+  let g:syntastic_markdown_checkers = ['mdl']
+endif
+
 let g:syntastic_markdown_mdl_quiet_messages = {
       \   'regex': "No link definition for link ID '\[ x\]'",
       \ }
+
+let g:syntastic_markdown_markdownlint_quiet_messages = {
+      \   'regex': "No link definition for link ID '\[ x\]'",
+      \ }
+
+" Use npm package markdownlint-cli instead of mdl gem
+function! s:UseMarkdownLint() abort
+  let l:markdownlint_binary = dkoproject#GetProjectRoot()
+        \ . '/node_modules/.bin/markdownlint'
+  if !empty(glob(l:markdownlint_binary))
+    " Use local markdownlint-cli npm package
+    let b:syntastic_checkers = ['markdownlint']
+    let b:syntastic_markdown_markdownlint_exec = l:markdownlint_binary
+  endif
+endfunction
+autocmd dkosyntastic FileType markdown.pandoc call s:UseMarkdownLint()
+
 
 " ============================================================================
 " Syntax: PHP
