@@ -19,6 +19,7 @@ jsinspect
 jsonlint
 jspm
 karma-cli
+markdownlint-cli
 mocha
 npm-check-updates
 package-json-validator
