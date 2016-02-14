@@ -9,3 +9,5 @@ vendor/
 *min.*
 *.crt
 *.svg
+LICENSE*
+COPYING*
