@@ -133,18 +133,16 @@ function! s:UseMarkdownLint() abort
     endif
   endif
 
+  " Use project local or global markdownlintrc if available
+  " Otherwise clear the args since they contain '--warnings' from mdl args
   if !empty(b:syntastic_markdown_mdl_exec)
     let l:ruleset = dkoproject#GetProjectConfigFile('.markdownlintrc')
-    if !empty(l:ruleset)
-      let b:syntastic_markdown_mdl_args = '--config ' . l:ruleset
-    else
-      let s:global_markdownlintrc =
-            \ glob(expand('$DOTFILES/markdownlint/config.json'))
-      if !empty(s:global_markdownlintrc)
-        let b:syntastic_markdown_mdl_args = '--config '
-              \. s:global_markdownlintrc
-      endif
+    if empty(l:ruleset)
+      let l:ruleset = glob(expand('$DOTFILES/markdownlint/config.json'))
     endif
+    let b:syntastic_markdown_mdl_args = empty(l:ruleset)
+          \ ? ''
+          \ : '--config ' . l:ruleset
   endif
 endfunction
 autocmd dkosyntastic FileType markdown.pandoc call s:UseMarkdownLint()
