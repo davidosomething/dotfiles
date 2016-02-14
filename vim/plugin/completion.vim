@@ -127,7 +127,8 @@ endif
 " ============================================================================
 
 if g:dko_use_tern_completion
-  let g:tern_show_argument_hints = 'on_hold'
+  " Use tabline instead (<F10>)
+  "let g:tern_show_argument_hints = 'on_hold'
   let g:tern_show_signature_in_pum = 1
 
   augroup dkoomnifuncs
