@@ -135,8 +135,8 @@ function! s:BindUniteBufferKeys()
   endfor
 
   " never use unite actions on TAB
-  unmap   <buffer>  <Tab>
-  iunmap  <buffer>  <Tab>
+  unmap   <buffer><special>  <Tab>
+  iunmap  <buffer><special>  <Tab>
 endfunction
 
 autocmd dkounite FileType unite call s:BindUniteBufferKeys()

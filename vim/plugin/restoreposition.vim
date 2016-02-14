@@ -4,7 +4,7 @@
 " From vim help docs on last-position-jump
 " ============================================================================
 
-" http://stackoverflow.com/questions/6496778/vim-run-autocmd-on-all-filetypes-except
+" @see {@link http://stackoverflow.com/questions/6496778/vim-run-autocmd-on-all-filetypes-except}
 let s:excluded_ft = [ 'gitbranchdescription', 'gitcommit' ]
 
 function! s:RestorePosition()

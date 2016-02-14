@@ -10,21 +10,33 @@ let s:cpo_save = &cpoptions
 set cpoptions&vim
 
 " ============================================================================
+" Options
+" ============================================================================
+
+let s:use_phpcomplete = 0
+
+" ============================================================================
 " Default bundled omni-completion for each filetype
 " ============================================================================
 
-" Global is using syntaxcomplete
 " These set the default omnifuncs. Completion engine will use something
 " different if there are other sources available (e.g. TernJS for JavaScript).
 augroup dkoomnifuncs
   autocmd!
-  autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
-  autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-  autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType css
+        \ setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown
+        \ setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript
+        \ setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType php
+        \ setlocal omnifunc=phpcomplete#CompletePHP
+  autocmd FileType python
+        \ setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType ruby
+        \ setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType xml
+        \ setlocal omnifunc=xmlcomplete#CompleteTags
 augroup end
 
 " ============================================================================
@@ -44,8 +56,6 @@ endif
 " ============================================================================
 " Neocomplete / Deoplete
 " ============================================================================
-
-let s:use_phpcomplete = 0
 
 " When defined for a filetype, call the omnifunc directly (feedkeys
 " <C-X><C-O>) instead of delegating to completion plugin. See each plugin
@@ -116,12 +126,12 @@ endif
 " This overrides all other JS completions
 " ============================================================================
 
-if 1 && exists('g:plugs["tern_for_vim"]')
-  "let g:tern_show_argument_hints = 'on_hold'
+if g:dko_use_tern_completion
+  let g:tern_show_argument_hints = 'on_hold'
   let g:tern_show_signature_in_pum = 1
 
   augroup dkoomnifuncs
-    autocmd FileType javascript nnoremap <buffer> gb :TernDef<CR>
+    autocmd FileType javascript nnoremap <silent><buffer> gb :<C-u>TernDef<CR>
     autocmd FileType javascript setlocal omnifunc=tern#Complete
   augroup END
 
@@ -131,20 +141,21 @@ if 1 && exists('g:plugs["tern_for_vim"]')
   let s:fip.javascript = '[^. \t]\.\w*'
 endif
 
-" ============================================================================
-" Completion Plugin: phpcomplete.vim
-" ============================================================================
+if 1 && s:use_phpcomplete
+  " ============================================================================
+  " Completion Plugin: phpcomplete.vim
+  " don't need to check exists since an older one comes with vimruntime
+  " ============================================================================
 
-if 1 && s:use_phpcomplete && exists("g:plugs['phpcomplete.vim']")
   let g:phpcomplete_parse_docblock_comments = 1
-endif
 
-" ============================================================================
-" Completion Plugin: phpcomplete-extended
-" ============================================================================
+  " ============================================================================
+  " Completion Plugin: phpcomplete-extended
+  " ============================================================================
 
-if 1 && s:use_phpcomplete && exists("g:plugs['phpcomplete-extended']")
-  call insert(s:omnifuncs.php, 'phpcomplete_extended#CompletePHP' )
+  if 1 && exists("g:plugs['phpcomplete-extended']")
+    call insert(s:omnifuncs.php, 'phpcomplete_extended#CompletePHP' )
+  endif
 endif
 
 " ============================================================================

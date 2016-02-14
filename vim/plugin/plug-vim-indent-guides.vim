@@ -15,8 +15,8 @@ augroup dkoindentguides
 augroup END
 
 " Must be recursive maps
-nmap  <unique><silent><special>   <F11>   <Plug>IndentGuidesToggle
-imap  <unique><silent><special>   <F11>   <C-o><F11>
+nmap  <silent><special>   <F11>   <Plug>IndentGuidesToggle
+imap  <silent><special>   <F11>   <C-o><F11>
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
