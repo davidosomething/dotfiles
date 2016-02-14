@@ -20,6 +20,17 @@ is first.
 - Add user to vboxusers
 - Add mdns to hosts line in /etc/nsswitch.conf
 
+## pacman.conf
+
+Enable the following options:
+
+- UseSyslog
+- Color
+- TotalDownload
+- CheckSpace
+- VerbosePkgLists
+- ILoveCandy
+
 ## Boot order
 
 ### 1
