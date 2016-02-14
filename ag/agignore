@@ -3,4 +3,9 @@ compass-css/
 dist/
 node_modules/
 vendor/
-\*.map
+*.csv
+*.lock
+*.map
+*min.*
+*.crt
+*.svg
