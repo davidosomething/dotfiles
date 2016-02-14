@@ -113,17 +113,9 @@ let g:syntastic_lua_checkers = ['luac', 'luacheck']
 " Syntax: Markdown
 " ============================================================================
 
-if executable('markdownlint')
-  let g:syntastic_markdown_checkers = ['markdownlint']
-else
-  let g:syntastic_markdown_checkers = ['mdl']
-endif
+let g:syntastic_markdown_checkers = ['mdl']
 
 let g:syntastic_markdown_mdl_quiet_messages = {
-      \   'regex': "No link definition for link ID '\[ x\]'",
-      \ }
-
-let g:syntastic_markdown_markdownlint_quiet_messages = {
       \   'regex': "No link definition for link ID '\[ x\]'",
       \ }
 
@@ -133,19 +125,25 @@ function! s:UseMarkdownLint() abort
         \ . '/node_modules/.bin/markdownlint'
   if !empty(glob(l:markdownlint_binary))
     " Use local markdownlint-cli npm package
-    let b:syntastic_checkers = ['markdownlint']
-    let b:syntastic_markdown_markdownlint_exec = l:markdownlint_binary
+    let b:syntastic_markdown_mdl_exec = l:markdownlint_binary
+  else
+    if executable('markdownlint')
+      " Use global markdownlint-cli npm package
+      let b:syntastic_markdown_mdl_exec = 'markdownlint'
+    endif
   endif
 
-  let l:ruleset = dkoproject#GetProjectConfigFile('.markdownlintrc')
-  if !empty(l:ruleset)
-    let b:syntastic_markdown_markdownlint_args = '--config ' . l:ruleset
-  else
-    let s:global_markdownlintrc =
-          \ glob(expand('$DOTFILES/markdownlint/config.json'))
-    if !empty(s:global_markdownlintrc)
-      let b:syntastic_markdown_markdownlint_args = '--config '
-            \. s:global_markdownlintrc
+  if !empty(b:syntastic_markdown_mdl_exec)
+    let l:ruleset = dkoproject#GetProjectConfigFile('.markdownlintrc')
+    if !empty(l:ruleset)
+      let b:syntastic_markdown_mdl_args = '--config ' . l:ruleset
+    else
+      let s:global_markdownlintrc =
+            \ glob(expand('$DOTFILES/markdownlint/config.json'))
+      if !empty(s:global_markdownlintrc)
+        let b:syntastic_markdown_mdl_args = '--config '
+              \. s:global_markdownlintrc
+      endif
     endif
   endif
 endfunction
