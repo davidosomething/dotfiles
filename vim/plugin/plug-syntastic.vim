@@ -136,6 +136,18 @@ function! s:UseMarkdownLint() abort
     let b:syntastic_checkers = ['markdownlint']
     let b:syntastic_markdown_markdownlint_exec = l:markdownlint_binary
   endif
+
+  let l:ruleset = dkoproject#GetProjectConfigFile('.markdownlintrc')
+  if !empty(l:ruleset)
+    let b:syntastic_markdown_markdownlint_args = '--config ' . l:ruleset
+  else
+    let s:global_markdownlintrc =
+          \ glob(expand('$DOTFILES/markdownlint/config.json'))
+    if !empty(s:global_markdownlintrc)
+      let b:syntastic_markdown_markdownlint_args = '--config '
+            \. s:global_markdownlintrc
+    endif
+  endif
 endfunction
 autocmd dkosyntastic FileType markdown.pandoc call s:UseMarkdownLint()
 
