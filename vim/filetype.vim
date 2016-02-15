@@ -15,6 +15,7 @@ let g:did_load_filetypes_user = 1
 function! s:SetJSONorYAML()
   if getline(1) ==# '{'
     setfiletype json
+    return
   endif
   setfiletype yaml
 endfunction
