@@ -12,6 +12,13 @@
 if exists('g:did_load_filetypes_user') | finish | endif
 let g:did_load_filetypes_user = 1
 
+function! s:SetJSONorYAML()
+  if getline(1) ==# '{'
+    setfiletype json
+  endif
+  setfiletype yaml
+endfunction
+
 " only useful for filetypes that can be detected by filename
 " it is option C in the docs
 augroup filetypedetect
@@ -28,9 +35,10 @@ augroup filetypedetect
 
   autocmd BufNewFile,BufRead,BufFilePost .babelrc   setfiletype json
   autocmd BufNewFile,BufRead,BufFilePost .bowerrc   setfiletype json
-  autocmd BufNewFile,BufRead,BufFilePost .eslintrc  setfiletype json
   autocmd BufNewFile,BufRead,BufFilePost .jscsrc    setfiletype json
   autocmd BufNewFile,BufRead,BufFilePost .jshintrc  setfiletype json
+
+  autocmd BufNewFile,BufRead,BufFilePost .eslintrc  call s:SetJSONorYAML()
 
   autocmd BufRead,BufNewFile,BufFilePost */nginx/*.conf   setfiletype nginx
   autocmd BufRead,BufNewFile,BufFilePost /*/nginx/*.conf  setfiletype nginx
