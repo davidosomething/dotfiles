@@ -357,8 +357,8 @@ endif
 match ErrorMsg 'targett'
 match ErrorMsg 'plugn'
 
-" https://bitbucket.org/sjl/dotfiles/src/83aac563abc9d0116894ac61db2c63c9a05f72be/vim/vimrc?at=default&fileviewer=file-view-default#vimrc-233
 " Highlight VCS conflict markers
+" @see {@link https://bitbucket.org/sjl/dotfiles/src/83aac563abc9d0116894ac61db2c63c9a05f72be/vim/vimrc?at=default&fileviewer=file-view-default#vimrc-233}
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " ----------------------------------------------------------------------------
@@ -528,6 +528,7 @@ if s:dko_use_plugins
 
   Plug 'altercation/vim-colors-solarized'
   Plug 'morhetz/gruvbox'
+  "Plug 'AlessandroYorba/Sierra'
 
   " ========================================================================
   " Plug: Python virtualenv support

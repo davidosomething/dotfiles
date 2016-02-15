@@ -15,14 +15,20 @@ if s:use_solarized
 
 else " terminal vim
 
-  if &t_Co == 256
+  if &t_Co != 256
+    silent! colorscheme delek
+  endif
+
+  if exists('g:plugs["gruvbox"]')
     let g:gruvbox_contrast_dark      = 'hard'
     let g:gruvbox_contrast_light     = 'hard'
+    let g:gruvbox_italic = 1
     let g:gruvbox_italicize_comments = 0
     let g:gruvbox_invert_selection   = 0
     silent! colorscheme gruvbox
-  else
-    silent! colorscheme delek
+  elseif exists('g:plugs["Sierra"]')
+    let g:sierra_Midnight = 1
+    silent! colorscheme sierra
   endif
 
   set background=dark
