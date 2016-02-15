@@ -5,11 +5,8 @@
 " ============================================================================
 if exists("g:plugs['php.vim']")
   " Syntax highlighting in phpdoc blocks
-  function! g:PhpSyntaxOverride()
-    hi! def link phpDocTags  phpDefine
-    hi! def link phpDocParam phpType
-  endfunction
-  call g:PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
 endif
 
 " ============================================================================
