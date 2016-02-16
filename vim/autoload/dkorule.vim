@@ -4,6 +4,7 @@
 " http://stackoverflow.com/a/3400528/230473
 function! dkorule#char(char) abort
   let l:tw = getbufvar('%', '&textwidth', 78)
+  let l:tw = l:tw ? l:tw : 78
   let l:reps = l:tw - (col('$') - 1)
   if l:reps > 0
     execute 'normal! ' . l:reps . 'A' . a:char
@@ -12,8 +13,8 @@ endfunction
 
 " Map key
 function! dkorule#map(char) abort
-  let l:key = '<Leader>f' . a:char
-  execute 'nnoremap <silent> ' . l:key . ' :<C-u>call dkorule#char("' . a:char . '")<CR>'
-  execute 'imap ' . l:key . ' <C-o>' . l:key
+  let l:command = ':<C-u>call dkorule#char("' . a:char . '")<CR>'
+  execute 'nnoremap <silent><special> <Leader>f' . a:char . ' ' . l:command
+  execute 'inoremap <silent><special> <Leader>f' . a:char . ' <C-o>' . l:command
 endfunction
 
