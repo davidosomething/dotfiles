@@ -135,14 +135,19 @@ __dotfiles_update_nvm() {
   cd "$NVM_DIR"  || { dkoerr "Could not cd to \$NVM_DIR" && return 1; }
 
   previous_nvm="$(git describe --abbrev=0 --tags)"
-  git pull origin master || { dkoerr "Could not update nvm" && return 1; }
+  { git checkout master && git pull; } || {
+    dkoerr "Could not update nvm"
+    cd - || return 1
+    return 1;
+  }
   latest_nvm="$(git describe --abbrev=0 --tags)"
-  git checkout "$latest_nvm" || { dkoerr "Could not update nvm" && return 1; }
-
-  if [ "$previous_nvm" != "$latest_nvm" ]; then
-    dkostatus "Restart your shell to start using nvm $latest_nvm"
-  fi
-  dkostatus "Already using latest nvm $latest_nvm"
+  git checkout "$latest_nvm" || {
+    dkoerr "Could not update nvm"
+    cd - || return 1
+    return 1
+  }
+  [ "$previous_nvm" != "$latest_nvm" ] && source "$NVM_DIR/nvm.sh"
+  cd - || return 1
   return 0
 }
 
