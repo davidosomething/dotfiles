@@ -1,7 +1,6 @@
 bower
 coffee-script
 coffeelint
-david
 eslint
 eslint-plugin-jsdoc
 fkill-cli
