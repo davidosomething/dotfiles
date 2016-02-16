@@ -1,8 +1,4 @@
 bundler
-capistrano
-capistrano-cloudflare
-capistrano-composer
-chunky_png
 CoffeeTags
 commander
 compass
@@ -10,7 +6,6 @@ csscss
 dandelion
 ffi
 gem-browse
-gemoji
 github-markup
 global
 highline
@@ -18,7 +13,6 @@ htmlentities
 httpclient
 i18n
 json
-mdl
 mdless
 net-scp
 net-sftp
