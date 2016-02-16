@@ -507,8 +507,9 @@ if s:dko_use_plugins
   " global, used in plugin/completion.vim
   let g:dko_use_tern_completion = 1 && executable('npm')
 
-  let s:dko_use_neomake   = 0 && has('nvim')
-  let s:dko_use_syntastic = 1 && !s:dko_use_neomake
+  " neomake has like 60+ open issues that need to be resolved
+  let s:dko_use_neomake   = 0
+  let s:dko_use_syntastic = 1
 
   let s:dko_use_gutentags = 1
 
@@ -605,9 +606,9 @@ if s:dko_use_plugins
   " add gS to smart split lines like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
 
+  " Linters
   if s:dko_use_neomake | Plug 'benekastah/neomake'
   endif
-
   if s:dko_use_syntastic | Plug 'scrooloose/syntastic'
   endif
 
@@ -957,7 +958,7 @@ if s:dko_use_plugins
   "       \| Plug 'syngan/vim-vimlint', { 'for': ['vim'] }
 
   " Lint: Python plugin
-  if s:dko_use_syntastic && executable('vint')
+  if executable('vint')
     Plug 'todesking/vint-syntastic'
   endif
 
