@@ -433,13 +433,15 @@ augroup END
 
 augroup dkotabline
   autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter,CursorMoved   *
+  autocmd BufWinEnter,Colorscheme,CursorMoved,Filetype,SessionLoadPost,WinEnter
+        \ *
         \ call dkotabline#Refresh()
 augroup END
 
 augroup dkostatusline
   autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter   *
+  autocmd BufWinEnter,Colorscheme,Filetype,SessionLoadPost,WinEnter
+        \ *
         \ call dkostatus#Refresh()
 augroup END
 
