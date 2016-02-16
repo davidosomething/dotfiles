@@ -2,7 +2,7 @@
 
 set -e
 
-_dog() {
+__dog() {
   local filename="$1"
   local dog_cmd
 
@@ -23,6 +23,4 @@ _dog() {
   eval "$dog_cmd \"$filename\""
 }
 
-if [ -n "$1" ] && [ -f "$1" ]; then
-  _dog "$1"
-fi
+[ -n "$1" ] && [ -f "$1" ] && __dog "$1"

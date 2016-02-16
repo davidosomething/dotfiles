@@ -218,7 +218,7 @@ set completeopt+=menu,menuone         " show PUM, even for one thing
 
 set splitbelow
 set splitright
-set fillchars=vert:\|                " Vertical separator for splits
+set fillchars=vert:│                  " Vertical sep for splits (unicode bar)
 
 set hidden                            " remember undo after quitting
 
