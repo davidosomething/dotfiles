@@ -95,7 +95,7 @@ __dotfiles_update_heroku() {
 }
 
 __dotfiles_update_node() {
-  local desired_node="v0.12"
+  local desired_node="v4"
   local desired_node_minor
   local previous_node
 
