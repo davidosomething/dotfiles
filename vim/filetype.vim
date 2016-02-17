@@ -12,6 +12,7 @@
 if exists('g:did_load_filetypes_user') | finish | endif
 let g:did_load_filetypes_user = 1
 
+" For files that might be JSON or YAML, read first line and use that
 function! s:SetJSONorYAML()
   if getline(1) ==# '{'
     setfiletype json
@@ -24,28 +25,38 @@ endfunction
 " it is option C in the docs
 augroup filetypedetect
 
-  autocmd BufNewFile,BufRead,BufFilePost *.cap    setfiletype ruby
+  autocmd BufNewFile,BufRead
+        \ *.cap
+        \ setfiletype ruby
 
-  autocmd BufNewFile,BufRead,BufFilePost *.dump   setfiletype sql
+  autocmd BufNewFile,BufRead
+        \ *.dump
+        \ setfiletype sql
 
   " git branch description (opened via `git branch --edit-description`)
-  autocmd BufNewFile,BufRead,BufFilePost BRANCH_DESCRIPTION
+  autocmd BufNewFile,BufRead
+        \ BRANCH_DESCRIPTION
         \ setfiletype gitbranchdescription.markdown.pandoc
 
-  autocmd BufNewFile,BufRead,BufFilePost *.md   setfiletype markdown.pandoc
+  autocmd BufNewFile,BufRead *.md
+        \ setfiletype markdown.pandoc
 
-  autocmd BufNewFile,BufRead,BufFilePost .babelrc   setfiletype json
-  autocmd BufNewFile,BufRead,BufFilePost .bowerrc   setfiletype json
-  autocmd BufNewFile,BufRead,BufFilePost .jscsrc    setfiletype json
-  autocmd BufNewFile,BufRead,BufFilePost .jshintrc  setfiletype json
+  autocmd BufNewFile,BufRead
+        \ .babelrc,.bowerrc,.jscsrc,.jshintrc
+        \ setfiletype json
 
-  autocmd BufNewFile,BufRead,BufFilePost .eslintrc  call s:SetJSONorYAML()
+  autocmd BufNewFile,BufRead
+        \ .eslintrc,.stylelintrc
+        \ call s:SetJSONorYAML()
 
-  autocmd BufRead,BufNewFile,BufFilePost */nginx/*.conf   setfiletype nginx
-  autocmd BufRead,BufNewFile,BufFilePost /*/nginx/*.conf  setfiletype nginx
+  autocmd BufRead,BufNewFile
+        \ */nginx*.conf,/*/nginx*.conf
+        \ setfiletype nginx
 
   " polkit rules files
-  autocmd BufNewFile,BufRead,BufFilePost *.rules  setfiletype javascript
+  autocmd BufNewFile,BufRead
+        \ *.rules
+        \ setfiletype javascript
 
 augroup END
 
