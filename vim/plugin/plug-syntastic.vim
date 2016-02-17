@@ -171,6 +171,8 @@ autocmd dkosyntastic FileType php call dkoproject#AssignConfigPath(
 " Checker: phpcs
 " ----------------------------------------------------------------------------
 
+let g:syntastic_php_phpcs_quiet_messages = { 'regex': 'Yoda' }
+
 function! s:FindPhpcsStandard()
   " WordPress VIP?
   if match(expand('%:p'), 'wp-\|plugins\|themes') > -1

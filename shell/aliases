@@ -127,6 +127,11 @@ _alias_darwin() {
   alias bq="b list"
   alias bs="b search"
 
+  # @TODO accept version
+  alias rphp="brew services restart php56"
+  # sudo since we run nginx on port 80 so needs admin
+  alias rnginx="sudo brew services restart nginx"
+
   # electron apps can't focus if started using Electron symlink
   alias elec="/Applications/Electron.app/Contents/MacOS/Electron"
 
