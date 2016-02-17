@@ -23,8 +23,8 @@ execute dko#BindFunction('<F10>', 'call dkotabline#Toggle()')
 function! s:LocationPrevious()
   try
     lprev
-  catch /^Vim\%((\a\+)\)\=:E553/
-    llast
+  catch /.*/
+    silent! llast
   endtry
 endfunction
 nnoremap  <silent>  <Plug>unimpairedLPrevious
@@ -34,8 +34,8 @@ nnoremap  <silent>  <Plug>unimpairedLPrevious
 function! s:LocationNext()
   try
     lnext
-  catch /^Vim\%((\a\+)\)\=:E553/
-    lfirst
+  catch /.*/
+    silent! lfirst
   endtry
 endfunction
 nnoremap  <silent>  <Plug>unimpairedLNext
