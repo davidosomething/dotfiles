@@ -87,21 +87,23 @@ let g:syntastic_html_tidy_ignore_errors = g:syntastic_html_tidy_ignore_errors
 
 let g:syntastic_coffeescript_checkers  = ['coffee', 'coffeelint']
 
-" See ftplugin/javascript.vim, jscs enabled per-buffer if project has .jscsrc
-let g:syntastic_javascript_checkers    = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint']
 
 let g:syntastic_javascript_eslint_quiet_messages = {
       \   'regex': 'File ignored because of your .eslintignore file.',
       \ }
 
-function! s:UseLocalEslint() abort
-  let l:eslint_binary = dkoproject#GetProjectRoot()
-        \ . '/node_modules/.bin/eslint'
-  if !empty(glob(l:eslint_binary))
-    let b:syntastic_javascript_eslint_exec = l:eslint_binary
-  endif
-endfunction
-autocmd dkosyntastic FileType javascript call s:UseLocalEslint()
+autocmd dkosyntastic FileType javascript call dkoproject#AssignConfigPath(
+      \ 'node_modules/.bin/eslint',
+      \ 'b:syntastic_javascript_eslint_exec')
+
+" syntastic: jscs if has .jscsrc
+" @TODO disabled for now
+let b:dko_jscsrc = dkoproject#GetProjectConfigFile('.jscsrc')
+if (!empty(b:dko_jscsrc))
+  "let b:syntastic_checkers = g:syntastic_javascript_checkers + ['jscs']
+  let b:syntastic_javascript_jscs_post_args = '-c ' . b:dko_jscsrc
+endif
 
 " ============================================================================
 " Syntax: Lua
@@ -119,18 +121,20 @@ let g:syntastic_markdown_mdl_quiet_messages = {
       \   'regex': "No link definition for link ID '\[ x\]'",
       \ }
 
-" Use npm package markdownlint-cli instead of mdl gem
+" ----------------------------------------------------------------------------
+" Checker: markdownlint
+" ----------------------------------------------------------------------------
+
+" Use local markdownlint if available
+autocmd dkosyntastic FileType markdown.pandoc call dkoproject#AssignConfigPath(
+      \ 'node_modules/.bin/markdownlint',
+      \ 'b:syntastic_markdown_mdl_exec')
+
+" Use global markdownlint-cli npm package if not already set to local one
+" Then pick what markdownlintrc to use
 function! s:UseMarkdownLint() abort
-  let l:markdownlint_binary = dkoproject#GetProjectRoot()
-        \ . '/node_modules/.bin/markdownlint'
-  if !empty(glob(l:markdownlint_binary))
-    " Use local markdownlint-cli npm package
-    let b:syntastic_markdown_mdl_exec = l:markdownlint_binary
-  else
-    if executable('markdownlint')
-      " Use global markdownlint-cli npm package
-      let b:syntastic_markdown_mdl_exec = 'markdownlint'
-    endif
+  if !exists('b:syntastic_markdown_mdl_exec') && executable('markdownlint')
+    let b:syntastic_markdown_mdl_exec = 'markdownlint'
   endif
 
   " Use project local or global markdownlintrc if available
@@ -158,13 +162,10 @@ let g:syntastic_php_checkers = ['php', 'phplint', 'phpmd', 'phpcs']
 " Checker: phpmd
 " ----------------------------------------------------------------------------
 
-function! s:FindPhpmdRuleset()
-  let l:ruleset = dkoproject#GetProjectConfigFile('ruleset.xml')
-  if !empty(l:ruleset)
-    let b:syntastic_php_phpmd_post_args = l:ruleset
-  endif
-endfunction
-autocmd dkosyntastic FileType php call s:FindPhpmdRuleset()
+" Find local ruleset.xml
+autocmd dkosyntastic FileType php call dkoproject#AssignConfigPath(
+      \ 'ruleset.xml',
+      \ 'b:syntastic_php_phpmd_post_args')
 
 " ----------------------------------------------------------------------------
 " Checker: phpcs
@@ -188,7 +189,7 @@ let g:syntastic_python_checkers = ['prospector', 'python']
 " Syntax: scss
 " ============================================================================
 
-let g:syntastic_scss_checkers = ['sass', 'scss_lint', 'stylelint']
+let g:syntastic_scss_checkers = [ 'sass' ]
 
 " ----------------------------------------------------------------------------
 " Checker: scss_lint
@@ -207,6 +208,55 @@ function! s:FindScsslintConfig()
   endif
 endfunction
 autocmd dkosyntastic FileType scss call s:FindScsslintConfig()
+
+" ----------------------------------------------------------------------------
+" Checker: sass_lint
+" ----------------------------------------------------------------------------
+
+" Use local ruleset.xml
+autocmd dkosyntastic FileType scss call dkoproject#AssignConfigPath(
+      \ 'node_modules/.bin/sass-lint',
+      \ 'b:syntastic_scss_sass_lint_exec')
+
+function! s:SasslintFallback()
+  if !exists('b:syntastic_scss_sass_lint_exec') && executable('sass-lint')
+    let b:syntastic_scss_sass_lint_exec = 'sass-lint'
+  endif
+endfunction
+autocmd dkosyntastic FileType scss call s:SasslintFallback()
+
+" Set sass_lint config for current buffer
+function! s:FindSasslintConfig()
+  let l:config = dkoproject#GetProjectConfigFile('.sass-lint.yml')
+  if !empty(l:config)
+    let b:syntastic_scss_sass_lint_args = '--config=' . l:config
+  endif
+endfunction
+autocmd dkosyntastic FileType scss call s:FindSasslintConfig()
+
+" ----------------------------------------------------------------------------
+" Checker assignment
+" ----------------------------------------------------------------------------
+
+function! s:AddScssCheckers()
+  let b:syntastic_checkers = ['sass']
+
+  " Found .scss-lint.yml
+  if exists('b:syntastic_scss_scss_lint_args')
+    let b:syntastic_checkers += ['scss_lint']
+  endif
+
+  " Found sass-lint node package
+  if exists('b:syntastic_scss_sass_lint_exec')
+    let b:syntastic_checkers += ['sass_lint']
+  endif
+
+  " Found stylelint node package
+  if exists('b:syntastic_scss_stylelint_lint_exec')
+    let b:syntastic_checkers += ['stylelint']
+  endif
+endfunction
+autocmd dkosyntastic FileType scss call s:AddScssCheckers()
 
 " ============================================================================
 " Syntax: Shell

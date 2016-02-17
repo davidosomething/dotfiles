@@ -962,7 +962,7 @@ if s:dko_use_plugins
   "       \| Plug 'syngan/vim-vimlint', { 'for': ['vim'] }
 
   " Lint: Python plugin
-  if executable('vint')
+  if s:dko_use_syntastic && executable('vint')
     Plug 'todesking/vint-syntastic'
   endif
 

@@ -116,6 +116,19 @@ function! dkoproject#GetProjectConfigFile(filename) abort
 endfunction
 
 " ============================================================================
+" Assign project config path to a var
+" @param {String} file relative path
+" @param {String} var
+function! dkoproject#AssignConfigPath(file, var) abort
+  let l:file = dkoproject#GetProjectConfigFile(a:file)
+  if !empty(glob(l:file))
+    let {a:var} = l:file
+  else
+    unlet! {a:var}
+  endif
+endfunction
+
+" ============================================================================
 " Get JS linters based on rc file presence
 " @return {String[]} list of linter names
 function! dkoproject#JsLinters() abort
