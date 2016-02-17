@@ -226,6 +226,8 @@ set hidden                            " remember undo after quitting
 " buffers
 set switchbuf=useopen
 
+set nostartofline                     " don't jump to col1 on switch buffer
+
 " ----------------------------------------------------------------------------
 " Code folding
 " ----------------------------------------------------------------------------

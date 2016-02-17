@@ -112,6 +112,10 @@ nnoremap <silent>   <Leader>cd
 nnoremap <silent>   <Leader>cr
       \ :<C-u>call dkoproject#CdProjectRoot()<CR>
 
+" up a level
+nnoremap <silent>   <Leader>..
+      \ :<C-u>lcd ..<CR>
+
 " ============================================================================
 " Editing
 " ============================================================================
