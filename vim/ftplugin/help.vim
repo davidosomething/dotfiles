@@ -4,6 +4,9 @@
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
+" Use vim :help when you press K over a word
+setlocal keywordprg=:help
+
 function! s:Close()
   if winnr('$') > 1
     :close
