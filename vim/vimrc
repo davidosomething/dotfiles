@@ -137,7 +137,7 @@ let g:mapleader = "\<Space>"
 
 set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
-set wildmode=list:full,full           " Complete files using a menu AND list
+set wildmode=list:longest,full        " Complete files using a menu AND list
 set wildignorecase
 " output, VCS
 set wildignore+=.git,.hg,.svn
