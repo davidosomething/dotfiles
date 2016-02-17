@@ -29,7 +29,6 @@ __dotfiles_usage() {
   gem        -- update rubygems and global gems for current ruby
   go
   heroku
-  npm        -- global packages
   node       -- install latest node via nvm
   nvm        -- update nvm installation
   pip        -- update all versions of pip (OS dependent)
@@ -56,7 +55,6 @@ __dotfiles_update_secret() {
   cd "${HOME}/.secret" || { dkoerr "No ~/.secret directory" && return 1; }
   git pull --rebase --recurse-submodules && \
   git submodule update --init
-  return $?
 }
 
 # ------------------------------------------------------------------------------
@@ -68,7 +66,6 @@ __dotfiles_update_fzf() {
   cd "${HOME}/.fzf" || { dkoerr "Could not cd to ~/.fzf" && return 1; }
   git pull || { dkoerr "Could not update ~/.fzf" && return 1; }
   ./install --key-bindings --completion --no-update-rc
-  return $?
 }
 
 __dotfiles_update_gems() {
@@ -77,21 +74,20 @@ __dotfiles_update_gems() {
   gem update --system  || { dkoerr "Could not update system gems" && return 1; }
   dkostatus "Updating gems"
   gem update
-  return $?
+  rehash
 }
 
 __dotfiles_update_go() {
   has_program "go" || { dkoerr "go is not installed" && return 1; }
   dkostatus "Updating go packages"
   go get -u all
-  return $?
+  rehash
 }
 
 __dotfiles_update_heroku() {
   has_program "heroku" || { dkoerr "heroku is not installed" && return 1; }
   dkostatus "Updating heroku"
   heroku update
-  return $?
 }
 
 __dotfiles_update_node() {
@@ -109,17 +105,12 @@ __dotfiles_update_node() {
     nvm install             "$desired_node"
     nvm use                 "$desired_node"
     nvm alias default       "$desired_node"
+    npm install --global npm@latest
     nvm reinstall-packages  "$previous_node"
+    rehash
   else
     dkostatus_ "Node version is already up-to-date."
   fi
-  return $?
-}
-
-__dotfiles_update_npm() {
-  dkostatus "Updating global npm modules"
-  npm update -g
-  return $?
 }
 
 __dotfiles_update_nvm() {
@@ -148,7 +139,6 @@ __dotfiles_update_nvm() {
   }
   [ "$previous_nvm" != "$latest_nvm" ] && source "$NVM_DIR/nvm.sh"
   cd - || return 1
-  return 0
 }
 
 __dotfiles_update_pip() {
@@ -158,7 +148,6 @@ __dotfiles_update_pip() {
     $pip_command install --upgrade setuptools || return 1
     $pip_command install --upgrade pip        || return 1
   fi
-  return 0
 }
 
 # ------------------------------------------------------------------------------
@@ -202,7 +191,6 @@ __dotfiles_update_arch() {
   else
     pacman -Syu
   fi
-  return $?
 }
 
 # ------------------------------------------------------------------------------
@@ -216,7 +204,6 @@ __dotfiles_update_osx() {
 
   dkostatus "OSX system update"
   sudo softwareupdate -i -a || { dkoerr "Error updating software permissions" && return 1; }
-  return $?
 }
 
 __dotfiles_update_brew() {
@@ -248,7 +235,7 @@ __dotfiles_update_brew() {
   brew cleanup
   brew cask cleanup
   brew prune
-  return 0
+  rehash
 }
 
 __dotfiles_update_python3() {
@@ -267,7 +254,6 @@ __dotfiles_update_macvim() {
     || { dkoerr "Error reinstalling macvim" && return 1; }
   dkostatus_ "Linking new macvim.app"
   brew linkapps macvim
-  return $?
 }
 
 # ==============================================================================
@@ -289,7 +275,6 @@ __dotfiles_main() {
     go)       __dotfiles_update_go        ;;
     heroku)   __dotfiles_update_heroku    ;;
     node)     __dotfiles_update_node      ;;
-    npm)      __dotfiles_update_npm       ;;
     nvm)      __dotfiles_update_nvm       ;;
   esac
 
