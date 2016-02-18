@@ -10,6 +10,7 @@
 # alone).
 # Setting $XENVIRONMENT is an option, but the -I flag here is more useful.
 # This also lets me keep .Xresources out of ~/
-xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
+has_program "xrdb" && \
+  xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
 
 # vim: ft=sh :

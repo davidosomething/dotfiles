@@ -60,7 +60,7 @@ URxvt*scrollTtyKeypress:              1
 ! URxvt*pointerBlank:                   boolean
 
 ! this is the base16 twilight dark background color
-URxvt*background:                     [99]#1e1e1e
+!URxvt*background:                     [99]#1e1e1e
 
 ! URxvt*foreground:                     color
 ! URxvt*color0:                         color
@@ -96,7 +96,7 @@ URxvt*background:                     [99]#1e1e1e
 ! URxvt*iconFile:                       file
 
 ! use xft font (real fonts)
-URxvt*font:                           xft:Fira Mono:pixelsize=11:antialias=True:autohint=True
+URxvt*font:                           xft:Fira Mono:pixelsize=11
 ! URxvt*font:                           xft:DejaVu Sans Mono:pixelsize=11
 ! URxvt*font:                           xft:Fira Mono for Powerline:pixelsize=12:antialias=False:autohint=True
 ! URxvt*font:                           xft:Fira Mono:pixelsize=11:antialias=False:autohint=True

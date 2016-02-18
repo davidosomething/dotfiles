@@ -151,7 +151,7 @@ _set_prompt() {
   # RPS1+='[py:$(has_program "virtualenv" && virtualenv_prompt_info 2>&1)]'
 
   # chruby Ruby version
-  RPS1+='$(has_program "chruby" && echo "[rb:$(echo $RUBY_VERSION 2>&1)]")'
+  RPS1+='$(has_program "chruby" && echo "[rb:$RUBY_VERSION]")'
 
   # Back to actual prompt position
   RPS1+="%{${go_down}%}"

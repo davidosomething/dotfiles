@@ -35,7 +35,7 @@ _term_title() {
       precmd_functions+=_ansi_title
       _ansi_title
       ;;
-    xterm*)
+    rxvt*|xterm*)
       preexec_functions+=_xterm_processname
       precmd_functions+=_xterm_title
       _xterm_title
