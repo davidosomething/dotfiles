@@ -97,7 +97,8 @@ current_ruby() {
     fi
 }
 
-_set_prompt() {
+# This function is available to the shell if need to reset
+dkoprompt() {
   # ----------------------------------------------------------------------------
   # Left side
   # ----------------------------------------------------------------------------
@@ -142,20 +143,20 @@ _set_prompt() {
   RPS1+='%F{blue}'
 
   # NVM node version
-  RPS1+='$(has_program "nvm" && echo "[node:$(has_program "nvm" && nvm_ls current 2>&1)]")'
+  has_program "nvm" && RPS1+='[node:$(nvm_ls current 2>&1)]'
 
   # pyenv python version
-  RPS1+='$(has_program "pyenv" && echo "[py:$(pyenv version-name)]")'
+  has_program "pyenv" && RPS1+='[py:$(pyenv version-name 2>&1)]'
 
   # VirtualEnv python version
-  # RPS1+='[py:$(has_program "virtualenv" && virtualenv_prompt_info 2>&1)]'
+  # has_program "virtualenv" && RPS1+='[py:$(virtualenv_prompt_info 2>&1)]'
 
   # chruby Ruby version
-  RPS1+='$(has_program "chruby" && echo "[rb:$RUBY_VERSION]")'
+  has_program "chruby" && RPS1+='[rb:${RUBY_VERSION:-system}]'
 
   # Back to actual prompt position
   RPS1+="%{${go_down}%}"
 }
 
-_set_prompt
+dkoprompt
 
