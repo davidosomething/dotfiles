@@ -34,12 +34,14 @@ URxvt*scrollBar_right:                1
 ! URxvt*thickness:                      number
 
 ! scroll with output?
-URxvt*scrollTtyOutput:                0
+URxvt*scrollTtyOutput:                false
 
 ! back to bottom on keypress
-URxvt*scrollTtyKeypress:              1
+URxvt*scrollTtyKeypress:              true
 
-! URxvt*scrollWithBuffer:               boolean
+! scroll in relation to buffer
+URxvt*scrollWithBuffer:               true
+
 ! URxvt*inheritPixmap:                  boolean
 ! URxvt*transparent:                    boolean
 ! URxvt*tintColor:                      color
@@ -96,7 +98,7 @@ URxvt*scrollTtyKeypress:              1
 ! URxvt*iconFile:                       file
 
 ! use xft font (real fonts)
-URxvt*font:                           xft:Fira Mono:pixelsize=11
+URxvt*font:                           xft:Fira Mono:pixelsize=11:antialias=true:autohint=True
 ! URxvt*font:                           xft:DejaVu Sans Mono:pixelsize=11
 ! URxvt*font:                           xft:Fira Mono for Powerline:pixelsize=12:antialias=False:autohint=True
 ! URxvt*font:                           xft:Fira Mono:pixelsize=11:antialias=False:autohint=True
