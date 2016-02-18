@@ -17,11 +17,11 @@ dkostatus "Symlinking dotfiles"
 dkosymlink ctags/ctags                          .ctags
 
 # markdownlint
-dkosymlink mdl/.mdlrc.symlink                   .mdlrc
+dkosymlink mdl/.mdlrc                           .mdlrc
 
 # XDG-compatible
-dkosymlink git/.gitconfig.symlink               .config/git/config
-dkosymlink shell/.inputrc.symlink               .config/readline/inputrc
+dkosymlink git/.gitconfig                       .config/git/config
+dkosymlink shell/.inputrc                       .config/readline/inputrc
 
 # irssi
 dkosymlink irssi                                .irssi
@@ -32,19 +32,19 @@ dkosymlink vim                                  .config/nvim
 
 case "$OSTYPE" in
   darwin*)
-    dkosymlink subversion/config.symlink        .subversion/config
+    dkosymlink subversion/config                .subversion/config
     ;;
   linux*)
     dkosymlink linux/locale.conf                .config/locale.conf
-    dkosymlink linux/subversion/config.symlink  .subversion/config
+    dkosymlink linux/subversion/config          .subversion/config
     dkosymlink linux/x/.Xresources              .Xresources
     ;;
 esac
 
 
 # symlink shells ---------------------------------------------------------------
-dkosymlink bash/.bashrc.symlink                 .bashrc
-dkosymlink bash/.bash_profile.symlink           .bash_profile
-dkosymlink zsh/.zshenv.symlink                  .zshenv
+dkosymlink bash/.bashrc                         .bashrc
+dkosymlink bash/.bash_profile                   .bash_profile
+dkosymlink zsh/.zshenv                          .zshenv
 
 dkostatus "Done! [symlink.sh]"

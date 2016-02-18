@@ -6,6 +6,7 @@ plug/
 vendor/
 
 # cache
+*.*~
 .backup/
 .cache/
 .swp/
