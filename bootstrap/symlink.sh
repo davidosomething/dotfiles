@@ -35,7 +35,6 @@ case "$OSTYPE" in
     dkosymlink subversion/config                .subversion/config
     ;;
   linux*)
-    dkosymlink linux/locale.conf                .config/locale.conf
     dkosymlink linux/subversion/config          .subversion/config
     ;;
 esac
