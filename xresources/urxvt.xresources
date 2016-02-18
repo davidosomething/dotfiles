@@ -12,7 +12,7 @@
 ! ==============================================================================
 
 ! window size, default is 80x24
-URxvt*geometry:                       120x52+1000-50
+URxvt*geometry:                       160x52+960-50
 
 ! start in home -- see symlinked ~/.dotfiles/local/urxvt.xresources
 ! URxvt*chdir:                          string
