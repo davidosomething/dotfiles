@@ -1,6 +1,14 @@
 scriptencoding utf-8
 
 " ============================================================================
+" Utility
+" ============================================================================
+
+function! dkostatus#IsNonFile() abort
+  return getbufvar(s:bufnr, '&buftype') =~# '\v(help|nofile|terminal)'
+endfunction
+
+" ============================================================================
 " Status line
 " ============================================================================
 
@@ -48,7 +56,7 @@ endfunction
 
 function! dkostatus#Mode() abort
   " blacklist
-  if s:winnr != winnr() || getbufvar(s:bufnr, '&ft') =~# 'gita-'
+  if s:winnr != winnr()
     return ''
   endif
 
@@ -114,7 +122,7 @@ endfunction
 
 function! dkostatus#ShortPath() abort
   " blacklist
-  if winwidth(0) < 80 || getbufvar(s:bufnr, '&ft') =~# 'gita-'
+  if winwidth(0) < 80 || dkostatus#IsNonFile()
     return ''
   endif
   return '%#Folded# %<%{pathshorten(getcwd())} %*'
@@ -142,7 +150,7 @@ function! dkostatus#GutentagsStatus() abort
 endfunction
 
 function! dkostatus#Ruler() abort
-  if s:winnr != winnr() || getbufvar(s:bufnr, '&ft') =~# 'gita-'
+  if s:winnr != winnr() || dkostatus#IsNonFile()
     return ''
   endif
   return '%#StatusLineNC# %5.(%c%) %*'
