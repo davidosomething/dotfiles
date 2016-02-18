@@ -68,9 +68,9 @@ __dotfiles_update_fzf() {
   cd "${HOME}/.fzf" || { dkoerr "Could not cd to ~/.fzf" && return 1; }
   git pull || { dkoerr "Could not update ~/.fzf" && return 1; }
   ./install --key-bindings --completion --no-update-rc
-  local status=$?
+  local return_status=$?
   cd - || return 1
-  return $status
+  return $return_status
 }
 
 __dotfiles_update_gems() {
