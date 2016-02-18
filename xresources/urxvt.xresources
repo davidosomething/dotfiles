@@ -86,7 +86,10 @@ URxvt*scrollWithBuffer:               true
 ! URxvt*colorUL:                        color
 ! URxvt*colorRV:                        color
 ! URxvt*underlineColor:                 color
-! URxvt*scrollColor:                    color
+
+! scrollbar just a little lighter than base16 twilight background
+URxvt*scrollColor:                    #2f2f2f
+
 ! URxvt*troughColor:                    color
 ! URxvt*highlightColor:                 color
 ! URxvt*highlightTextColor:             color
@@ -98,7 +101,7 @@ URxvt*scrollWithBuffer:               true
 ! URxvt*iconFile:                       file
 
 ! use xft font (real fonts)
-URxvt*font:                           xft:Fira Mono:pixelsize=11:antialias=true:autohint=True
+URxvt*font:                           xft:Fira Mono:pixelsize=11
 ! URxvt*font:                           xft:DejaVu Sans Mono:pixelsize=11
 ! URxvt*font:                           xft:Fira Mono for Powerline:pixelsize=12:antialias=False:autohint=True
 ! URxvt*font:                           xft:Fira Mono:pixelsize=11:antialias=False:autohint=True
