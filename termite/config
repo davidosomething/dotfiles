@@ -14,6 +14,7 @@ dynamic_title           = true
 font = Monospace 9
 font = DejaVu Sans Mono 9
 font = Fira Mono 10
+font = Fira Mono For Powerline 10
 
 fullscreen              = false
 geometry                = 144x56+800-50
