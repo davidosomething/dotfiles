@@ -58,7 +58,10 @@ URxvt*scrollTtyKeypress:              1
 ! URxvt*cursorUnderline:                boolean
 ! URxvt*cursorBlink:                    boolean
 ! URxvt*pointerBlank:                   boolean
+
+! this is the base16 twilight dark background color
 URxvt*background:                     [99]#1e1e1e
+
 ! URxvt*foreground:                     color
 ! URxvt*color0:                         color
 ! URxvt*color1:                         color
@@ -93,7 +96,11 @@ URxvt*background:                     [99]#1e1e1e
 ! URxvt*iconFile:                       file
 
 ! use xft font (real fonts)
-URxvt*font:                           xft:Fira Mono for Powerline:pixelsize=11:antialias=False:autohint=True
+URxvt*font:                           xft:Fira Mono:pixelsize=11:antialias=True:autohint=True
+! URxvt*font:                           xft:DejaVu Sans Mono:pixelsize=11
+! URxvt*font:                           xft:Fira Mono for Powerline:pixelsize=12:antialias=False:autohint=True
+! URxvt*font:                           xft:Fira Mono:pixelsize=11:antialias=False:autohint=True
+! URxvt*font:                           xft:Fira Mono for Powerline:pixelsize=12
 ! URxvt*boldFont:                       xft:Fira Code:pixelsize=11
 ! URxvt*italicFont:                     xft:Fira Mono for Powerline:pixelsize=11
 ! URxvt*boldItalicFont:                 xft:Fira Mono for Powerline:pixelsize=11
@@ -101,7 +108,7 @@ URxvt*font:                           xft:Fira Mono for Powerline:pixelsize=11:a
 ! URxvt*intensityStyles:                boolean
 ! URxvt*inputMethod:                    name
 ! URxvt*preeditType:                    style
-! URxvt*imLocale:                       string
+ URxvt*imLocale:                      en_US.UTF-8
 ! URxvt*imFont:                         fontname
 ! URxvt*title:                          string
 ! URxvt*iconName:                       string
@@ -120,7 +127,9 @@ URxvt*internalBorder:                 12
 ! URxvt*borderLess:                     boolean
 
 ! Typography
-! URxvt*lineSpace:                      number
+
+! line height
+URxvt*lineSpace:                      2
 
 ! compact one pixel of letter spacing, default is pretty wide
 URxvt*letterSpace:                    -1
