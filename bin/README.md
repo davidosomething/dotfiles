@@ -42,8 +42,6 @@ afk
 
 > Find and edit a Gruntfile.{js,coffee}
 
-## emojish
-
 ## ephp
 
 > Edit the php.ini file
