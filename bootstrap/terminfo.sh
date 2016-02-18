@@ -12,9 +12,6 @@ source "${bootstrap_path}/helpers.sh"
 
 # begin ------------------------------------------------------------------------
 dkostatus "Copying terminfo files"
-readonly local_terminfo_dir="${HOME}/.terminfo"
-mkdir -p "$local_terminfo_dir"
-rsync -a --include '*/' --include '*' \
-  "${dotfiles_path}/" \
-  "$local_terminfo_dir/"
+dkosymlink  terminfo              .terminfo
+tic -x "${dotfiles_path}/termite/termite.terminfo"
 
