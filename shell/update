@@ -48,6 +48,7 @@ __dotfiles_update_dotfiles() {
   git pull --rebase || { dkoerr "Error updating dotfiles." && return 1; }
   __dotfiles_reload
   [ -n "$ZSH_VERSION" ] && dkostatus "Done, don't forget to zplug update"
+  cd - || return 1
 }
 
 __dotfiles_update_secret() {
@@ -55,6 +56,7 @@ __dotfiles_update_secret() {
   cd "${HOME}/.secret" || { dkoerr "No ~/.secret directory" && return 1; }
   git pull --rebase --recurse-submodules && \
   git submodule update --init
+  cd - || return 1
 }
 
 # ------------------------------------------------------------------------------
