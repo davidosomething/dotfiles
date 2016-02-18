@@ -37,7 +37,6 @@ case "$OSTYPE" in
   linux*)
     dkosymlink linux/locale.conf                .config/locale.conf
     dkosymlink linux/subversion/config          .subversion/config
-    dkosymlink linux/x/.Xresources              .Xresources
     ;;
 esac
 

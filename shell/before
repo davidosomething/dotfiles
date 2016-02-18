@@ -1,6 +1,7 @@
 # shell/before
 #
 # Sourced by .bashrc and .zshrc (interactive shells)
+# Depends on shell/vars
 #
 
 export DKO_SOURCE="$DKO_SOURCE -> shell/before {"
@@ -9,6 +10,7 @@ source "${DOTFILES}/shell/path"
 source "${DOTFILES}/shell/os"
 source "${DOTFILES}/shell/functions"  # source_if_exists, has_program
 source "${DOTFILES}/shell/update"     # update dotfiles
+source "${DOTFILES}/shell/x11"
 
 # ==============================================================================
 # env management -- Node, PHP, Python, Ruby - These add to path

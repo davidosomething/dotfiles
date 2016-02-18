@@ -1,0 +1,14 @@
+# shell/x11
+#
+# X11 Settings
+#
+
+# ============================================================================
+# Merge .Xresources
+# On ArchLinux, GDM sources the user .Xresources with `-nocpp` so none of the
+# includes are processed. Do a real load here (and leave /etc/gdm/Xsession
+# alone).
+# This also lets me keep .Xresources out of ~/
+xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
+
+# vim: ft=sh :

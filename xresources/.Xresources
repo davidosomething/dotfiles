@@ -1,19 +1,24 @@
+! Xresources main file
+!
+! Loaded by shell/x11 with -I$DOTFILES so all paths are relative to there.
+!
+
 ! ==============================================================================
 ! Source base16-twilight
 ! https://github.com/chriskempson/base16-xresources
 ! ==============================================================================
 
-#include ".dotfiles/linux/x/base16-twilight.dark.256.xresources"
+#include "xresources/base16-twilight.dark.256.xresources"
 
 ! ==============================================================================
 ! Source urxvt.xresources
 ! ==============================================================================
 
-#include ".dotfiles/linux/x/urxvt.xresources"
+#include "xresources/urxvt.xresources"
 
 ! ==============================================================================
 ! Source local urxvt.xresources
 ! ==============================================================================
 
-#include ".dotfiles/local/urxvt.xresources"
+#include "local/urxvt.xresources"
 
