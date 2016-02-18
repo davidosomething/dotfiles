@@ -13,6 +13,6 @@ source "${bootstrap_path}/helpers.sh"
 # begin ------------------------------------------------------------------------
 dkostatus "Symlinking X11 dotfiles"
 # this probably isn't sourced by your session
-dkosymlink linux/x/.xbindkeysrc .xbindkeysrc
-dkosymlink linux/x/.xprofile    .xprofile
+dkosymlink linux/.xbindkeysrc .xbindkeysrc
+dkosymlink linux/.xprofile    .xprofile
 
