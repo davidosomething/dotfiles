@@ -62,6 +62,12 @@ __clean_inputrc() {
   fi
 }
 
+__clean_mdlrc() {
+  if [ -f "${HOME}/.mdlrc" ]; then
+    rm "$HOME/.mdlrc"
+  fi
+}
+
 __clean_nvm() {
   if [ "$NVM_DIR" != "$XDG_CONFIG_HOME/nvm" ]; then
     dkoerr "NVM_DIR not set properly. Should be $XDG_CONFIG_HOME/nvm"
@@ -119,6 +125,9 @@ dkostatus "Cleaning fonts" \
   && dkostatus_ "OK"
 dkostatus "Cleaning inputrc" \
   && __clean_inputrc \
+  && dkostatus_ "OK"
+dkostatus "Cleaning mdlrc" \
+  && __clean_mdlrc \
   && dkostatus_ "OK"
 dkostatus "Cleaning NVM dir" \
   && __clean_nvm \
