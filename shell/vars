@@ -12,8 +12,11 @@ export DKO_SOURCE="$DKO_SOURCE -> shell/vars {"
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
-[[ $COLORTERM = gnome-terminal && ! $TERM = screen-256color ]] && \
-  export TERM="xterm-256color"
+# if [[ "$TERM" != "screen-256color" ]]; then
+#   if [[ "$COLORTERM" = "gnome-terminal" ]] || [[ "$TERM" = "xterm-"* ]]; then
+#     export TERM="xterm-256color"
+#   fi
+# fi
 
 # ==============================================================================
 # Dotfile paths
@@ -148,6 +151,13 @@ export WEECHAT_HOME="${DOTFILES}/weechat"
 
 # wp cli
 export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
+
+# terminal emulators
+# alternatively `tic -x xterm-termite.terminfo`
+# path format, but trailing colon may cause problems
+# see `man terminfo`, `man tic`, `man ncurses5-config`
+[ -n "$TERMINFO_DIRS" ] && export TERMINFO_DIRS="${DOTFILES}/terminfo:${TERMINFO_DIRS}"
+[ -z "$TERMINFO_DIRS" ] && export TERMINFO_DIRS="${DOTFILES}/terminfo"
 
 # X11 - for starting via xinit or startx
 export XINITRC="${DOTFILES}/linux/x/.xinitrc"
