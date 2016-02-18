@@ -39,6 +39,7 @@ alias irc="ssh dsmchroot -t -- /bin/sh -c 'tmux has-session && exec tmux attach 
 #alias irssi="weechat"
 alias irssi="irssi --home \${DOTFILES}/irssi --config \${DOTFILES}/irssi/config-\${DOTFILES_DISTRO}"
 alias ln="ln -v"
+alias mdl="mdl --config \${DOTFILES}/mdl/.mdlrc"
 alias n="npm"
 alias nude="nvm use default"
 alias o="dko-open"
