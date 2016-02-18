@@ -9,7 +9,7 @@ My dotfiles. [https://github.com/davidosomething/dotfiles](https://github.com/da
 - RC files for lua, markdown, node, php, python, r, ruby, shell
 
 ![terminal screenshot](https://cdn.rawgit.com/davidosomething/dotfiles/master/meta/terminal.png)
-> Screenshot of the prompt from Terminator in Arch Linux
+> Screenshot of the zsh prompt running in Terminator on Arch Linux
 
 ## Installation
 
@@ -30,8 +30,8 @@ git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
 - Change default shell to zsh (ensure listed in `/etc/shells`) and
   restart shell (zplug will self-install)
 
-- See OS specific notes in [osx/README.md](osx/README.md) and
-  [linux/arch.md](linux/arch.md)
+- See OS specific notes in [osx/README.md](osx/README.md) and for linux
+  [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 
 #### Dev environment setup
 
@@ -114,10 +114,11 @@ For X apps (no terminal) the value is probably:
 
 ---
 
-_Credits_
+#### Credits
 
-> _Logo from [jglovier/dotfiles-logo](https://github.com/jglovier/dotfiles-logo)_
+> _Logo from [jglovier/dotfiles-logo]_
 
 
 [Fira (Fura) Mono for Powerline]: https://github.com/powerline/fonts
+[jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
 
