@@ -117,6 +117,13 @@ let g:syntastic_lua_checkers = ['luac', 'luacheck']
 
 let g:syntastic_markdown_checkers = ['mdl']
 
+let s:mdlrc = dkoproject#GetProjectConfigFile('.mdlrc')
+if empty(s:mdlrc)
+  let s:mdlrc = glob(expand('$DOTFILES/mdl/.mdlrc'))
+endif
+let g:syntastic_markdown_mdl_args = empty(s:mdlrc)
+      \ ? ''
+      \ : '--config ' . s:mdlrc
 let g:syntastic_markdown_mdl_quiet_messages = {
       \   'regex': "No link definition for link ID '\[ x\]'",
       \ }

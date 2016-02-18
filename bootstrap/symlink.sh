@@ -16,9 +16,6 @@ dkostatus "Symlinking dotfiles"
 # ctags
 dkosymlink ctags/ctags                          .ctags
 
-# markdownlint
-dkosymlink mdl/.mdlrc                           .mdlrc
-
 # XDG-compatible
 dkosymlink git/.gitconfig                       .config/git/config
 dkosymlink shell/.inputrc                       .config/readline/inputrc
