@@ -12,7 +12,7 @@
 ! ==============================================================================
 
 ! window size, default is 80x24
-URxvt*geometry:                       160x52+960-50
+URxvt*geometry:                       144x52+800-50
 
 ! start in home -- see symlinked ~/.dotfiles/local/urxvt.xresources
 ! URxvt*chdir:                          string
@@ -115,7 +115,7 @@ URxvt*depth:                          32
 ! URxvt*externalBorder:                 number
 
 ! some nice padding
-URxvt*internalBorder:                 8
+URxvt*internalBorder:                 12
 
 ! URxvt*borderLess:                     boolean
 
@@ -197,6 +197,8 @@ URxvt*keysym.Control-Right:           \033[1;5C
 
 URxvt.perl-ext-common:  default,matcher
 URxvt*matcher.button:   1
+! disable url underline
+urxvt.matcher.rend.0:   -Uline
 URxvt*url-launcher:     xdg-open
 
 ! vim: ft=xdefaults :
