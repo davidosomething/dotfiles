@@ -12,7 +12,7 @@
 ! ==============================================================================
 
 ! window size, default is 80x24
-URxvt*geometry:                       120x32+1000-50
+URxvt*geometry:                       120x52+1000-50
 
 ! start in home -- see symlinked ~/.dotfiles/local/urxvt.xresources
 ! URxvt*chdir:                          string
@@ -58,7 +58,7 @@ URxvt*scrollTtyKeypress:              1
 ! URxvt*cursorUnderline:                boolean
 ! URxvt*cursorBlink:                    boolean
 ! URxvt*pointerBlank:                   boolean
-! URxvt*background:                     color
+URxvt*background:                     [98]#1e1e1e
 ! URxvt*foreground:                     color
 ! URxvt*color0:                         color
 ! URxvt*color1:                         color
@@ -115,7 +115,7 @@ URxvt*depth:                          32
 ! URxvt*externalBorder:                 number
 
 ! some nice padding
-URxvt*internalBorder:                 4
+URxvt*internalBorder:                 8
 
 ! URxvt*borderLess:                     boolean
 
