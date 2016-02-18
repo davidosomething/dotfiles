@@ -12,6 +12,6 @@ source "${bootstrap_path}/helpers.sh"
 
 # begin ------------------------------------------------------------------------
 dkostatus "Copying terminfo files"
-dkosymlink  terminfo              .terminfo
-tic -x "${dotfiles_path}/termite/termite.terminfo"
+mkdir -p "${HOME}/.terminfo/r"
+cp  "${dotfiles_path}/terminfo/r/*"  "${HOME}/.terminfo/r/"
 
