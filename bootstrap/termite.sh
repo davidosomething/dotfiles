@@ -13,3 +13,6 @@ source "${bootstrap_path}/helpers.sh"
 # begin ------------------------------------------------------------------------
 dkostatus "Symlinking termite config"
 dkosymlink termite/config       .config/termite/config
+
+dkostatus "Installing terminfo"
+tic -x "${dotfiles_path}/termite/termite.terminfo"
