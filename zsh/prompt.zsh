@@ -114,7 +114,8 @@ _set_prompt() {
   PS1+='%f%*'
   PS1+='%F{blue}${vimode}'
   PS1+='${vcs_info_msg_0_}'
-  PS1+='%F{yellow}%#%f '
+  PS1+='%F{yellow}%#%f'
+  PS1+=$'\ '
 
   # ----------------------------------------------------------------------------
   # Left side - continuation mode
