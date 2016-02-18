@@ -58,7 +58,7 @@ URxvt*scrollTtyKeypress:              1
 ! URxvt*cursorUnderline:                boolean
 ! URxvt*cursorBlink:                    boolean
 ! URxvt*pointerBlank:                   boolean
-URxvt*background:                     [98]#1e1e1e
+URxvt*background:                     [99]#1e1e1e
 ! URxvt*foreground:                     color
 ! URxvt*color0:                         color
 ! URxvt*color1:                         color
