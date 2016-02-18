@@ -4,8 +4,9 @@
 - See [Openbox](openbox.md) - I switched to gnome3 though, maybe out-of-date
 
 Except for the dotfiles in this directory, the other paths should be symlinked
-into `$XDG_CONFIG_HOME`. Only `locale.conf` in this path is symlinked to
-`$XDG_CONFIG_HOME/locale.conf`
+into `$XDG_CONFIG_HOME`. Only `locale.conf` in this path is COPIED to
+`$XDG_CONFIG_HOME/locale.conf` since `/etc/profile.d/locale.sh` checks that
+it is a regular file (non-symlink) before sourcing.
 
 ## gsettings.sh
 
