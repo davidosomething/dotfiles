@@ -11,8 +11,9 @@ dynamic_title           = true
 # filter_unmatched_urls
 
 # fallback and desired fonts
-font                    = DejaVu Sans Mono 9
-font                    = Fira Mono 10
+font = Monospace 9
+font = DejaVu Sans Mono 9
+font = Fira Mono 10
 
 fullscreen              = false
 geometry                = 144x56+800-50
