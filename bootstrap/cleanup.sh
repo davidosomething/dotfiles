@@ -16,126 +16,119 @@ source "${bootstrap_path}/helpers.sh"
 # Cleanup functions
 # ============================================================================
 
-__clean_composer() {
-  if [ -f "$HOME/.composer" ]; then
-    dkostatus_ "Moved .composer"
-    mv "$HOME/.composer" "$XDG_CONFIG_HOME/composer"
+# ----------------------------------------------------------------------------
+# Move entire dir or file somewhere else
+# ----------------------------------------------------------------------------
+
+__move() {
+  dkostatus "Move ${1} to ${2}"
+
+  if [ ! -d "$1" ] && [ ! -f "$1" ] && [ ! -h "$1" ]; then
+    dkostatus_ "OK, didn't find ${1}"
+    return 0
+  fi
+
+  if [ -d "$2" ] || [ -f "$2" ] || [ -h "$2" ]; then
+    dkoerr  "Not moving ${1} to ${2}, destination already exists."
+    dkoerr_ "Please resolve conflict manually."
+    return 1
+  fi
+
+  local dest_parent
+  dest_parent="$(dirname "${2}")"
+  if [ ! -d "$dest_parent" ]; then
+    mkdir -p "$dest_parent" \
+      && dkostatus_ "Created parent directory ${dest_parent}"
+  fi
+
+  mv "$1" "$2" && dkostatus_ "Moved ${1} to ${2}"
+}
+
+# ----------------------------------------------------------------------------
+# Move contents of one dir into another
+# ----------------------------------------------------------------------------
+
+__merge_dir() {
+  dkostatus "Merge ${1} into ${2}"
+
+  if [ ! -d "$1" ]; then
+    dkostatus_ "OK, didn't find ${1}"
+    return 0
+  fi
+
+  if [ ! -d "$2" ]; then
+    mkdir -p "$2" \
+      && dkostatus_ "Created dest directory ${2}"
+  fi
+
+  mv "${1}/*"   "$2" && dkostatus_ "Moved contents of ${1} into ${2}"
+  mv "${1}/.*"  "$2" && dkostatus_ "Moved .contents in ${1} into ${2}"
+  rmdir "$1" && dkostatus_ "Removed ${1}"
+}
+
+# ----------------------------------------------------------------------------
+# Remove file or dir completely with confirmation
+# ----------------------------------------------------------------------------
+
+__remove() {
+  dkostatus "Remove ${1}"
+
+  if [ -f "$1" ] || [ -h "$1" ]; then
+    rm -i   "$1" && dkostatus_ "Removed file ${1}"
+  elif [ -d "$1" ]; then
+    rm -ir  "$1" && dkostatus_ "Removed directory ${1}"
+  else
+    dkostatus_ "OK, didn't find ${1}"
   fi
 }
 
-__clean_gimp() {
-  if [ -d "$HOME/.gimp-2.8" ]; then
-    dkostatus_ "Moved .gimp-2.8"
-    mkdir -p "$XDG_CONFIG_HOME/GIMP"
-    mv "$HOME/.gimp-2.8" "$XDG_CONFIG_HOME/GIMP/2.8"
-    rmdir "$HOME/.gimp-2.8"
-  fi
-}
-
-__clean_gitconfig() {
-  if [ -f "$HOME/.gitconfig" ]; then
-    dkostatus_ "Moved .gitconfig"
-    mv "$HOME/.gitconfig" "$XDG_CONFIG_HOME/git/config"
-  fi
-}
-
-__clean_fonts() {
-  if [ -d "$HOME/.fonts" ]; then
-    dkostatus_ "Moved .fonts"
-    mv "$HOME/.fonts/*" "$XDG_DATA_HOME/fonts"
-    rmdir "$HOME/.fonts"
-  fi
-}
-
-__clean_bash_history() {
-  if [ -f "$HOME/.bash_history" ]; then
-    dkostatus_ "Moved to and removed $BASH_DOTFILES/.bash_history"
-    mv "$HOME/.bash_history" "$BASH_DOTFILES/"
-  fi
-}
-
-__clean_inputrc() {
-  if [ -f "$HOME/.inputrc" ]; then
-    dkostatus_ "Moved .inputrc"
-    mkdir -p "$XDG_CONFIG_HOME/readline"
-    mv "$HOME/.inputrc" "$XDG_CONFIG_HOME/readline/inputrc"
-  fi
-}
-
-__clean_mdlrc() {
-  if [ -f "${HOME}/.mdlrc" ]; then
-    rm "$HOME/.mdlrc"
-  fi
-}
+# ----------------------------------------------------------------------------
+# Logic for NVM
+# ----------------------------------------------------------------------------
 
 __clean_nvm() {
-  if [ "$NVM_DIR" != "$XDG_CONFIG_HOME/nvm" ]; then
-    dkoerr "NVM_DIR not set properly. Should be $XDG_CONFIG_HOME/nvm"
-    return
+  dkostatus "Move invalid NVM paths"
+
+  if [ "${NVM_DIR}" != "${XDG_CONFIG_HOME}/nvm" ]; then
+    dkoerr "NVM_DIR not set properly. Should be ${XDG_CONFIG_HOME}/nvm"
+    return 1
   fi
 
-  mkdir -p "$NVM_DIR"
+  mkdir -p "${NVM_DIR}"
 
-  dkostatus "Checking for $HOME/.nvm ..."
-  if [ -d "$HOME/.nvm" ]; then
-    dkostatus_ "Moved $HOME/.nvm"
-    mv "$HOME/.nvm/*" "$NVM_DIR"
-    rm -rf "$HOME/.nvm"
-    dkostatus_ "Moved to and removed $HOME/.nvm"
-  fi
+  # Move if wrong place
+  __move "${XDG_CONFIG_HOME}/.nvm" "$NVM_DIR"
 
-  dkostatus "Checking for $XDG_CONFIG_HOME/.nvm ..."
-  if [ -d "$XDG_CONFIG_HOME/.nvm" ]; then
-    dkostatus_ "Moved $XDG_CONFIG_HOME/.nvm"
-    mv "$XDG_CONFIG_HOME/.nvm/*" "$NVM_DIR"
-    rm -rf "$XDG_CONFIG_HOME/.nvm"
-    dkostatus_ "Moved $XDG_CONFIG_HOME/.nvm"
-  fi
+  # Move if wrong name
+  __move "${HOME}/.nvm" "$NVM_DIR"
 }
 
+# ============================================================================
+# main
+# ============================================================================
 
-__clean_pulse() {
-  if [ -f "$HOME/.pulse-cookie" ]; then
-    rm "$HOME/.pulse-cookie"
-  fi
-}
+__move      "${HOME}/.bash_history"   "${BASH_DOTFILES}/.bash_history"
+__move      "${HOME}/.composer"       "${XDG_CONFIG_HOME}/composer"
+__move      "${HOME}/.gimp-2.8"       "${XDG_CONFIG_HOME}/GIMP/2.8"
+__move      "${HOME}/.inputrc"        "${XDG_CONFIG_HOME}/readline/inputrc"
+# PYLINTHOME is set
+__move      "${HOME}/.pylint.d"       "${XDG_CONFIG_HOME}/pylint"
+__merge_dir "${HOME}/.fonts"          "${XDG_DATA_HOME}/fonts"
+# HISTFILE is set
+# INPUTRC is set
 
+# Removes
+# alias points home
+__remove "${HOME}/.irssi"
+# alias points to dotfile
+__remove "${HOME}/.mdlrc"
+# should be in XDG
+__remove "${HOME}/.pulse-cookie"
+# should be symlinked in XDG
+__remove "${HOME}/.gitconfig"
+# should be symlinked in XDG
+__remove "${HOME}/.gitignore"
 
-__clean_pylint() {
-  if [ -d "$HOME/.pylint" ]; then
-    dkostatus_ "Moved $XDG_CONFIG_HOME/pylint"
-    mv "$HOME/.pylint.d" "$XDG_CONFIG_HOME/pylint"
-  fi
-}
-
-
-
-# begin ------------------------------------------------------------------------
-dkostatus "Cleaning .bash_history" \
-  && __clean_bash_history \
-  && dkostatus_ "OK"
-dkostatus "Cleaning gimp" \
-  && __clean_gimp \
-  && dkostatus_ "OK"
-dkostatus "Cleaning gitconfig" \
-  && __clean_gitconfig \
-  && dkostatus_ "OK"
-dkostatus "Cleaning fonts" \
-  && __clean_fonts \
-  && dkostatus_ "OK"
-dkostatus "Cleaning inputrc" \
-  && __clean_inputrc \
-  && dkostatus_ "OK"
-dkostatus "Cleaning mdlrc" \
-  && __clean_mdlrc \
-  && dkostatus_ "OK"
-dkostatus "Cleaning NVM dir" \
-  && __clean_nvm \
-  && dkostatus_ "OK"
-dkostatus "Cleaning pulse" \
-  && __clean_pulse \
-  && dkostatus_ "OK"
-dkostatus "Cleaning pylint dir" \
-  && __clean_pylint \
-  && dkostatus_ "OK"
+# NVM
+__clean_nvm
 

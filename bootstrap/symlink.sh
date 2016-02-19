@@ -17,11 +17,9 @@ dkostatus "Symlinking dotfiles"
 dkosymlink ctags/ctags                          .ctags
 
 # XDG-compatible
-dkosymlink git/.gitconfig                       .config/git/config
+dkosymlink git/gitconfig                        .config/git/config
+dkosymlink git/gitignore                        .config/git/ignore
 dkosymlink shell/.inputrc                       .config/readline/inputrc
-
-# irssi
-dkosymlink irssi                                .irssi
 
 # (n)vim
 dkosymlink vim                                  .vim

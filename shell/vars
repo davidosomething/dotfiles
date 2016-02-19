@@ -116,6 +116,9 @@ export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.systemlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 export JAVA_FONTS=/usr/share/fonts/TTF
 
+# mysql
+export MYSQL_HISTFILE="${XDG_CACHE_HOME}/mysql_histfile"
+
 # node moved to shell/node loaded in shell/before
 
 # php moved to shell/php loaded in shell/before

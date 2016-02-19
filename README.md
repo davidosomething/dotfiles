@@ -4,6 +4,9 @@ My dotfiles. [https://github.com/davidosomething/dotfiles](https://github.com/da
 
 - OSX and Arch Linux compatible
 - XDG compliance wherever possible to keep `$HOME` clean
+    - See [Archlinux wiki for XDG Base Directory Support]
+    - See [Debian DotFilesList]
+    - See [grawity's dotfile notes] and [environ notes]
 - ZSH and BASH configs
 - VIM and Neovim configs
 - RC files for lua, markdown, node, php, python, r, ruby, shell
@@ -119,6 +122,11 @@ For X apps (no terminal) the value is probably:
 > _Logo from [jglovier/dotfiles-logo]_
 
 
+
+[Archlinux wiki for XDG Base Directory Support]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
+[grawity's dotfile notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
+[environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
+[Debian DotFilesList]: https://wiki.debian.org/DotFilesList
 [Fira (Fura) Mono for Powerline]: https://github.com/powerline/fonts
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
 

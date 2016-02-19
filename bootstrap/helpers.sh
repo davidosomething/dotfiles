@@ -18,6 +18,11 @@ dkoinstalling() { dkostatus "Installing \033[0;33m$1\033[0;32m..."; }
 dkosymlinking() { dkostatus "Symlinking \033[0;35m$1\033[0;32m -> \033[0;35m$2\033[0;32m "; }
 dkodie()        { dkoerr "$*"; exit 256; }
 
+# silently determine existence of executable
+has_program() {
+  command -v "$1" >/dev/null 2>&1
+}
+
 # pipe into this to indent
 dkoindent() {
   sed 's/^/    /'
@@ -33,28 +38,24 @@ dkorequireroot() {
 
 ##
 # require executable
-dkorequire()    {
-  if [[ $(command -v "$1") ]]; then
+dkorequire() {
+  if has_program "$1"; then
     dkostatus "FOUND: $1"
   else
-    dkodie "missing $1, please install before proceeding.";
+    dkoerr "MISSING: $1"
+    dkodie "Please install before proceeding.";
   fi
 }
 
 ##
 # symlinking helper function
 dkosymlink() {
-  local dotfiles_dir="$HOME/.dotfiles"
-  local dotfile="$dotfiles_dir/$1"
+  local dotfiles_dir="${HOME}/.dotfiles"
+  local dotfile="${dotfiles_dir}/${1}"
   local homefile="$2"
   local homefilepath="${HOME}/${homefile}"
 
   mkdir -p "$(dirname "$homefilepath")"
   dkosymlinking "$homefile" "$dotfile" && ln -fns "$dotfile" "$homefilepath"
-}
-
-# silently determine existence of executable
-has_program() {
-  command -v "$1" >/dev/null 2>&1
 }
 
