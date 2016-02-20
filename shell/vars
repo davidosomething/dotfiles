@@ -82,6 +82,11 @@ export GIT_PAGER="$PAGER"
 # atom editor
 export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
 
+# bazaar
+export BZRPATH="${XDG_CONFIG_HOME}/bazaar"
+export BZR_PLUGIN_PATH="${XDG_DATA_HOME}/bazaar"
+export BZR_HOME="${XDG_CACHE_HOME}/bazaar"
+
 # composer
 export COMPOSER_HOME="${XDG_CONFIG_HOME}/composer"
 export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"

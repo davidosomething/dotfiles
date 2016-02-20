@@ -15,12 +15,12 @@ if exists("g:plugs['vim-operator-surround']")
   map   sr    <Plug>(operator-surround-replace)
 
   " commands, not operators
-  map   s'    <Plug>(operator-surround-append)iW'
-  map   s"    <Plug>(operator-surround-append)iW"
-  map   s)    <Plug>(operator-surround-append)iW)
-  map   s}    <Plug>(operator-surround-append)iW)
-  map   s]    <Plug>(operator-surround-append)iW]
-  map   s>    <Plug>(operator-surround-append)iW>
+  nmap   s'    <Plug>(operator-surround-append)iW'
+  nmap   s"    <Plug>(operator-surround-append)iW"
+  nmap   s)    <Plug>(operator-surround-append)iW)
+  nmap   s}    <Plug>(operator-surround-append)iW)
+  nmap   s]    <Plug>(operator-surround-append)iW]
+  nmap   s>    <Plug>(operator-surround-append)iW>
 
   " accept block char on anyblock
   if exists("g:plugs['vim-textobj-anyblock']")

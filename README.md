@@ -27,6 +27,10 @@ git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
 
 #### Recommended steps
 
+- Create XDG child directories (run `bootstrap/xdg.sh`). The base directories
+  are probably already initialized by
+  `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
+
 - Install and use [Fira (Fura) Mono for Powerline] font (install
   to `$XDG_DATA_HOME/fonts` on \*nix)
 
