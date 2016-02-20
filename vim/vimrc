@@ -730,7 +730,7 @@ if s:dko_use_plugins
   Plug 'rhysd/committia.vim'
 
   " ========================================================================
-  " Language: HTML, XML, and generators: mustache, handlebars, jade
+  " Language: HTML, XML, and generators: mustache, handlebars
   " ========================================================================
 
   Plug 'othree/html5.vim'
@@ -740,8 +740,6 @@ if s:dko_use_plugins
   " APPLIES TO HTML (and therefore mustache/hbs) too
   " Closing tags, % match support
   Plug 'othree/xml.vim'
-
-  "Plug 'digitaltoad/vim-jade'
 
   " Creates html.handlebars and other fts and sets syn
   Plug 'mustache/vim-mustache-handlebars'
