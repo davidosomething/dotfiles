@@ -536,7 +536,6 @@ if s:dko_use_plugins
 
   Plug 'altercation/vim-colors-solarized'
   Plug 'morhetz/gruvbox'
-  "Plug 'AlessandroYorba/Sierra'
 
   " ========================================================================
   " Plug: Python virtualenv support
