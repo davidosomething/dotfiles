@@ -20,6 +20,7 @@ alias gb="git branch --verbose"
 alias gi="git ink"
 alias gg="git grep --line-number --break --heading"
 alias gl="git l"
+alias gp="git push"
 alias gpo="git push origin"
 
 # bin
