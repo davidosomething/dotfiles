@@ -1,3 +1,7 @@
+# managed
+!tmux/plugins/tpm
+tmux/plugins/*
+
 # secrets
 local/
 logs/

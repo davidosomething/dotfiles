@@ -947,6 +947,12 @@ if s:dko_use_plugins
   Plug 'othree/csscomplete.vim'
 
   " ========================================================================
+  " Language: .tmux.conf
+  " ========================================================================
+
+  Plug 'tmux-plugins/vim-tmux'
+
+  " ========================================================================
   " Language: VimL
   " ========================================================================
 
@@ -994,6 +1000,8 @@ if s:dko_use_plugins
   Plug 'osyo-manga/vim-anzu'
 
   Plug 'now/vim-quit-if-only-quickfix-buffer-left'
+
+  Plug 'tmux-plugins/vim-tmux-focus-events'
 
   " append vim-plug rtps and ft/syn enable
   call plug#end()
