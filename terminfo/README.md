@@ -14,3 +14,5 @@ Or run the bootstrap script related to the terminal emulator (e.g.
 - r/rxvt-unicode is for rxvt
 - s/screen-it is a modified version of the screen terminfo with italics support
     - see [http://superuser.com/questions/536125/opening-vim-in-tmux-ive-got-fonts-in-bold](http://superuser.com/questions/536125/opening-vim-in-tmux-ive-got-fonts-in-bold)
+- t/tmux-256color tmux terminfo with italics support
+    - see [https://github.com/tmux/tmux/blob/master/FAQ#L355](https://github.com/tmux/tmux/blob/master/FAQ#L355)

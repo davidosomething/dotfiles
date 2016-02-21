@@ -77,6 +77,8 @@ first.
     - `install.sh` - symlink `.hushlogin`
     - `macvim.sh` - Install macvim via brew
     - `quicklook.sh` - Install quicklook plugins via brew cask
+- `bootstrap/rxvt.sh`, `bootstrap/tmux.sh`
+    - copy terminfo files for user to `~/.terminfo/*`
 - `bootstrap/x11.sh`
     - symlink `.xbindkeysrc`, `.xprofile`
 
