@@ -13,5 +13,5 @@ source "${bootstrap_path}/helpers.sh"
 # begin ------------------------------------------------------------------------
 dkostatus "Copying terminfo files"
 mkdir -p "${HOME}/.terminfo/r"
-cp  "${dotfiles_path}/terminfo/r/*"  "${HOME}/.terminfo/r/"
+cp  "$dotfiles_path/terminfo/r"/*  "${HOME}/.terminfo/r/"
 
