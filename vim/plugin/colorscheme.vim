@@ -6,7 +6,7 @@
 
 " Vim correctly detects t_Co for $TERM ending in -256color but for screen/tmux
 " terminals (I might use the "screen-it" terminfo for italics).
-if &term =~? 'screen-'
+if &term ==? 'screen-it'
   set t_Co=256
 endif
 
