@@ -11,6 +11,8 @@ readonly bootstrap_path="${dotfiles_path}/bootstrap"
 source "${bootstrap_path}/helpers.sh"
 
 # begin ------------------------------------------------------------------------
-dkostatus "Symlinking termite config"
-mv "${XDG_CONFIG_HOME}/gtk-3.0" "${XDG_CONFIG_HOME}/gtk-3.0.old"
-dkosymlink linux/gtk-3.0       .config/gtk-3.0
+dkostatus "COPYING ~/.config/gtk-3.0"
+if [ -d "${XDG_CONFIG_HOME}/gtk-3.0" ]; then
+  mv "${XDG_CONFIG_HOME}/gtk-3.0" "${XDG_CONFIG_HOME}/gtk-3.0.old"
+fi
+cp  -R  "${dotfiles_path}/linux/gtk-3.0"  "${XDG_CONFIG_HOME}/"
