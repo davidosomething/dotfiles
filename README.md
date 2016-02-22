@@ -11,7 +11,7 @@ My dotfiles. [https://github.com/davidosomething/dotfiles](https://github.com/da
 - VIM and Neovim configs
 - RC files for lua, markdown, node, php, python, r, ruby, shell
 
-![terminal screenshot](https://cdn.rawgit.com/davidosomething/dotfiles/master/meta/terminal.png)
+![terminal screenshot](https://cdn.rawgit.com/davidosomething/dotfiles/2016-02-22/meta/terminal.png)
 > Screenshot of the zsh prompt in tmux in termite on Arch Linux
 
 ## Installation
