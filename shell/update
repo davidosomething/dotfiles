@@ -23,18 +23,28 @@ source "${bootstrap_path}/helpers.sh"
 __dotfiles_usage() {
   dkousage  "update <command>"
   echo "
-  reload     -- reload this script if it was modified
-  dotfiles   -- update dotfiles (git)
-  fzf
-  gem        -- update rubygems and global gems for current ruby
-  go
-  heroku
-  node       -- install latest node via nvm
-  nvm        -- update nvm installation
-  pip        -- update all versions of pip (OS dependent)
-  arch       -- arch packages
-  osx        -- repair osx permissions and check software updates
-  brew       -- osx homebrew packages
+  Utility Commands
+    dotfiles    -- update dotfiles (git pull)
+    reload      -- reload this script if it was modified
+    secret      -- update ~/.secret (git pull)
+
+  Shell Tools
+    fzf         -- update fzf with flags to not update rc scripts
+    node        -- install latest node via nvm
+    nvm         -- update nvm installation
+
+  Packages
+    gem         -- update rubygems and global gems for current ruby
+    go          -- golang
+    heroku      -- heroku toolbelt
+    pip         -- update all versions of pip (OS dependent)
+
+  Arch Linux
+    arch        -- update arch packages
+
+  OSX
+    brew        -- osx homebrew packages
+    osx         -- repair osx permissions and check software updates
 "
 }
 
@@ -45,7 +55,11 @@ __dotfiles_reload() {
 __dotfiles_update_dotfiles() {
   dkostatus "Updating dotfiles"
   cd "$DOTFILES" || { dkoerr "No \$DOTFILES directory" && return 1; }
-  git pull --rebase || { dkoerr "Error updating dotfiles." && return 1; }
+  git pull --rebase || { dkoerr "Error updating dotfiles" && return 1; }
+  dkostatus "Updating dotfiles submodules"
+  git submodule update --init || {
+    dkoerr "Error updating dotfiles submodules" && return 1
+  }
   __dotfiles_reload
   [ -n "$ZSH_VERSION" ] && dkostatus "Done, don't forget to zplug update"
   cd - || return 1
