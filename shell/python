@@ -1,6 +1,9 @@
-# python
+# shell/python
+#
+# uses vars from shell/vars and functions from shell/functions
+#
 
-export DKO_SOURCE="$DKO_SOURCE -> shell/python"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/python"
 
 # Let python guess where to `import` packages, or use pip instead
 unset PYTHONPATH
@@ -24,7 +27,7 @@ export PYENV_ROOT="${HOME}/.local/pyenv"
 has_program "pyenv" && {
   eval "$(pyenv init -)"
   # pyenv init doesn't add this one... is it needed?
-  export PATH="$PYENV_ROOT/bin:$PATH"
+  export PATH="${PYENV_ROOT}/bin:${PATH}"
 }
 
 # ==============================================================================
@@ -63,7 +66,12 @@ source_if_exists "$dko_virtualenv_wrapper"
 # pip
 # ==============================================================================
 
-#has_program "pip" && [ -n "$ZSH_VERSION" ] && eval $(pip completion --zsh)
-#has_program "pip" && [ -n "$BASH" ] && eval $(pip completion --bash)
+has_program "pip" && {
+  if [ -n "$ZSH_VERSION" ]; then
+    eval "$(pip completion --zsh)"
+  elif [ -n "$BASH" ]; then
+    eval "$(pip completion --bash)"
+  fi
+}
 
 # vim: ft=sh :

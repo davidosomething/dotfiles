@@ -1,4 +1,4 @@
-# .xprofile
+# linux/.xprofile
 #
 # Environment variables for X Desktop
 #
@@ -8,88 +8,41 @@
 #     -> /usr/share/xsessions .desktop file (runs before WM/DE, e.g. openbox)
 #
 
-export DKO_SOURCE="$DKO_SOURCE -> .xprofile {"
-
-source "$HOME/.dotfiles/shell/vars"
-
-# ==============================================================================
-# Shell
-# ==============================================================================
+export DKO_SOURCE="${DKO_SOURCE} -> .xprofile {"
+source "${HOME}/.dotfiles/shell/vars"
 
 export BROWSER=chromium
 
-# ==============================================================================
-# X11
-# ==============================================================================
-
-#[[ -n "$XDG_RUNTIME_DIR" ]] && export ICEAUTHORITY="$XDG_RUNTIME_DIR/X11/iceauthority"
+# [[ -n "$XDG_RUNTIME_DIR" ]] && \
+#   export ICEAUTHORITY="$XDG_RUNTIME_DIR/X11/iceauthority"
 
 # X11 xbindkeys -- no longer used, gnome's key settings are fine
 # bind media keys if system has an xbindkeysrc
 # mine is kept in a separate repo per machine
-#[[ -f "$DOTFILES/linux/x/.xbindkeysrc" ]] && xbindkeys -f "$DOTFILES/linux/x/.xbindkeysrc"
+# [[ -f "$DOTFILES/linux/.xbindkeysrc" ]] && \
+#   xbindkeys -f "$DOTFILES/linux/.xbindkeysrc"
 
-# ==============================================================================
-# X11 - NVidia specific
-# ==============================================================================
-
-if [ $(lsmod | grep nvidia &> /dev/null) ]; then
-  # Moved to /etc/x11/xinit/xinitrc.d/30-xdg
-  # Change cache paths
-  # export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME/nv"
-  # export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
-
-  # hardware accel for nvidia on arch
-  #export LIBVA_DRIVER_NAME="vdpau"
-
-  # my nvidia card doesn't support wayland, ensure x11 used
-  #export GDK_BACKEND=x11
-  #export CLUTTER_BACKEND=x11
-
-  # If using nvidia, execute some stuff that supposedly improves performance
-  # https://wiki.archlinux.org/index.php/Nvidia#GUI:_nvidia-settings
-  nvidia-settings -a InitialPixmapPlacement=2
-fi
-
-# ==============================================================================
 # GTK
-# ==============================================================================
-
-export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/.gtkrc-2.0"
+export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/.gtkrc-2.0"
 export GCONFTOOL="/bin/gconftool-2"
 
-# ==============================================================================
 # GIMP
-# ==============================================================================
-
 export GIMP2_DIRECTORY="${XDG_CONFIG_HOME}/gimp"
 
-# ==============================================================================
-# Gnome
-# ==============================================================================
-
-# Keyring
+# GNOME Keyring
 # shellcheck disable=SC2046
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
 export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
 
-# ==============================================================================
 # QT
-# ==============================================================================
 export QT_STYLE_OVERRIDE=gtk
 
-# ==============================================================================
 # Steam
-# ==============================================================================
-export STEAMAPPS="$HOME/.steam/steam/SteamApps"
+export STEAMAPPS="${HOME}/.steam/steam/SteamApps"
 
-# ==============================================================================
 # Wine
-# ==============================================================================
-export WINEPREFIX="$XDG_CONFIG_HOME/wine"
+export WINEPREFIX="${XDG_CONFIG_HOME}/wine"
 export WINEARCH=win32
 
-
-export DKO_SOURCE="$DKO_SOURCE }"
-
-# vim: syn=sh :
+export DKO_SOURCE="${DKO_SOURCE} }"
+# vim: ft=sh :

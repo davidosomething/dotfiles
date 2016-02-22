@@ -9,16 +9,8 @@
 # Before
 # ============================================================================
 
-export DKO_SOURCE="$DKO_SOURCE -> zshrc {"
-source "${HOME}/.dotfiles/shell/vars"
+export DKO_SOURCE="${DKO_SOURCE} -> zshrc {"
 source "${DOTFILES}/shell/before"
-
-# ============================================================================
-# ZSH vars
-# ============================================================================
-
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
-export HISTFILE="${ZDOTDIR}/.zhistory"
 
 # ============================================================================
 # Paths
@@ -88,7 +80,8 @@ export _Z_DATA="${HOME}/.local/z"
     && zplug update --self
 }
 
-source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
+source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && \
+  export DKO_SOURCE="${DKO_SOURCE} -> zplug {" && {
 
   # ----------------------------------------
   # Mine
@@ -149,14 +142,14 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && {
   # ----------------------------------------
 
   zplug check --verbose || zplug install
-  zplug load
+  zplug load && export DKO_SOURCE="${DKO_SOURCE} }"
 }
 
 # ============================================================================
 # fzf
 # ============================================================================
 
-source_if_exists "${HOME}/.fzf.zsh" && export DKO_SOURCE="$DKO_SOURCE -> fzf"
+source_if_exists "${HOME}/.fzf.zsh" && export DKO_SOURCE="${DKO_SOURCE} -> fzf"
 
 # ============================================================================
 # nocorrect aliases
@@ -215,4 +208,4 @@ fi
 
 source "${DOTFILES}/shell/after"
 source_if_exists "${DOTFILES}/local/zshrc"
-export DKO_SOURCE="$DKO_SOURCE }"
+export DKO_SOURCE="${DKO_SOURCE} }"

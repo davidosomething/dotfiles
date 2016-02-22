@@ -1,16 +1,17 @@
 # shell/before
 #
 # Sourced by .bashrc and .zshrc (interactive shells)
-# Depends on shell/vars
+# stuff here is used by .zshrc and .bashrc (so unlike vars, this is updated on
+# every TTY and not loaded once in env/profile)
+# Depends on shell/vars (which should have been loaded into env by login shell)
 #
 
-export DKO_SOURCE="$DKO_SOURCE -> shell/before {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/before {"
 
-source "${DOTFILES}/shell/path"
-source "${DOTFILES}/shell/os"
-source "${DOTFILES}/shell/functions"  # source_if_exists, has_program
+source "${DOTFILES}/shell/functions"  # useful functions
 source "${DOTFILES}/shell/update"     # update dotfiles
-source "${DOTFILES}/shell/x11"
+source "${DOTFILES}/shell/x11"        # xrdb merge
+source "${DOTFILES}/shell/aliases"    # aliases
 
 # ==============================================================================
 # env management -- Node, PHP, Python, Ruby - These add to path
@@ -21,6 +22,6 @@ source "${DOTFILES}/shell/node"
 source "${DOTFILES}/shell/python"
 source "${DOTFILES}/shell/ruby"
 
-export DKO_SOURCE="$DKO_SOURCE }"
+export DKO_SOURCE="${DKO_SOURCE} }"
 
 # vim: ft=zsh :

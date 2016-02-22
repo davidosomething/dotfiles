@@ -1,6 +1,6 @@
 # shell/node
 
-export DKO_SOURCE="$DKO_SOURCE -> shell/node"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/node {"
 
 # ==============================================================================
 # nvm
@@ -11,7 +11,8 @@ export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 
 # using nvm?
 if [ -d "$NVM_DIR" ]; then
-  source_if_exists "${NVM_DIR}/nvm.sh"
+  source_if_exists "${NVM_DIR}/nvm.sh" && \
+    export DKO_SOURCE="${DKO_SOURCE} -> nvm"
 
 # using system node
 else
@@ -31,6 +32,8 @@ fi
 # avn
 # ==============================================================================
 
-source_if_exists "${HOME}/.avn/bin/avn.sh"
+source_if_exists "${HOME}/.avn/bin/avn.sh" && \
+  export DKO_SOURCE="${DKO_SOURCE} -> avn"
 
+export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :

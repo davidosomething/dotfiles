@@ -1,9 +1,9 @@
 # shell/after
 #
-# Runs before .zshrc.local .bashrc.local
+# Runs before local/* .zshrc and .bashrc
 #
 
-export DKO_SOURCE="$DKO_SOURCE -> shell/after {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/after {"
 
 # ==============================================================================
 # Grunt completion
@@ -25,7 +25,8 @@ has_program "grunt" && {
 # travis completion
 # ==============================================================================
 
-source_if_exists "${TRAVIS_CONFIG_PATH}/travis.sh"
+source_if_exists "${TRAVIS_CONFIG_PATH}/travis.sh" && \
+  export DKO_SOURCE="${DKO_SOURCE} -> travis"
 
 # ==============================================================================
 # Auto-manpath
@@ -33,12 +34,5 @@ source_if_exists "${TRAVIS_CONFIG_PATH}/travis.sh"
 
 unset MANPATH
 
-# ==============================================================================
-# Late sourcing of aliases since they don't expand variables
-# ==============================================================================
-
-source "${DOTFILES}/shell/aliases"
-
-export DKO_SOURCE="$DKO_SOURCE }"
-
+export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=zsh :

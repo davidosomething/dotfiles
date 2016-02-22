@@ -1,15 +1,21 @@
 # shell/ruby
+#
+# Uses vars from shell/vars and shell/os
+#
 
-export DKO_SOURCE="$DKO_SOURCE -> shell/ruby"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/ruby {"
 
 export GEMRC="${DOTFILES}/ruby/gemrc"
 
 # Ruby use brew openssl if available
-[[ -f "${BREW_PREFIX}/opt/openssl" ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${BREW_PREFIX}/opt/openssl"
+[[ -f "${BREW_PREFIX}/opt/openssl" ]] && \
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${BREW_PREFIX}/opt/openssl"
 
 # auto bundle exec to use gems in current ruby
 # see https://github.com/rvm/rubygems-bundler#note-for-rubygems--220
-export RUBYGEMS_GEMDEPS="-"
+# disabled -- screws up global gem use (e.g. `brew` when you're in a dir with
+# a Gemfile)
+#export RUBYGEMS_GEMDEPS="-"
 
 # ==============================================================================
 # chruby
@@ -18,7 +24,9 @@ export RUBYGEMS_GEMDEPS="-"
 export CHRUBY_PREFIX="${BREW_PREFIX:-/usr}"
 
 # chruby and auto-switcher for .ruby-version
-source_if_exists "${CHRUBY_PREFIX}/share/chruby/chruby.sh" && export DKO_SOURCE="$DKO_SOURCE -> chruby"
+source_if_exists "${CHRUBY_PREFIX}/share/chruby/chruby.sh" && \
+  export DKO_SOURCE="${DKO_SOURCE} -> chruby"
 source_if_exists "${CHRUBY_PREFIX}/share/chruby/auto.sh"
 
+export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :

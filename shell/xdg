@@ -4,7 +4,7 @@
 # sourced by shell/vars
 #
 
-export DKO_SOURCE="$DKO_SOURCE -> shell/xdg"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/xdg"
 
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 

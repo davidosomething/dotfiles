@@ -282,8 +282,6 @@ let g:syntastic_zsh_checkers = [ 'zsh' ]
 " disabled 'checkbashisms', don't like them
 "let g:syntastic_sh_checkbashisms_args_after = '--posix'
 
-let g:syntastic_sh_shellcheck_args = '--color=never --exclude=1091'
-
 " ============================================================================
 " Syntax: VimL
 " ============================================================================

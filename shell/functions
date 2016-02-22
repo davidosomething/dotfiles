@@ -1,9 +1,12 @@
 # Shell functions
 # Sourced in bash and zsh by loader
 
-export DKO_SOURCE="$DKO_SOURCE -> shell/functions"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/functions"
 
-# Scripting --------------------------------------------------------------------
+# ============================================================================
+# Scripting
+# ============================================================================
+
 current_shell() {
   ps -p $$ | awk 'NR==2 { print $4 }'
 }
@@ -18,11 +21,14 @@ source_if_exists() {
   [ -f "$1" ] && source "$1" # && echo "Sourced $1"
 }
 
-# Directory --------------------------------------------------------------------
+# ============================================================================
+# Directory
+# ============================================================================
+
 # flatten a dir
 flatten() {
   if [[ -n "$1" ]]; then
-    read "reply?Flatten folder: are you sure? [Yy] "
+    read -r "reply?Flatten folder: are you sure? [Yy] "
   else
     reply=Y
   fi
@@ -35,7 +41,7 @@ flatten() {
 # delete empty subdirs
 prune() {
   if [[ -n $1 ]]; then
-    read "reply?Prune empty directories: are you sure? [Yy] "
+    read -r "reply?Prune empty directories: are you sure? [Yy] "
   else
     reply=Y
   fi
@@ -45,45 +51,6 @@ prune() {
   fi
 }
 
-# dev --------------------------------------------------------------------------
-cunt() {
-  COMPOSER_CACHE_DIR=/dev/null composer update
-}
-
-em() {
-  local my_pwd="$PWD"
-  local gr
-  gr="$(git root)"
-  pushd "$gr"
-  git diff --name-only | uniq | xargs vopen
-  if [ "$PWD" != "$my_pwd" ]; then popd; fi
-}
-
-evp() {
-  vopen "$VIM_DOTFILES/plugin/$1"
-}
-
-# PHP version numbers
-# @TODO use cut instead of splitting awk?
-phpver() {
-  php -r 'echo phpversion();'
-}
-
-phpminorver() {
-  php -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"
-}
-
-# start up an http server on :8000
-pyserve() {
-  case "$(python --version 2>&1)" in
-      *" 3."*)  xterm "python3 -m http.server"
-                ;;
-      *)        xterm "python -m SimpleHTTPServer"
-                ;;
-  esac
-}
-
-# traversal --------------------------------------------------------------------
 # Go to git root
 gr() {
   git rev-parse || return 1
@@ -117,7 +84,54 @@ fs() {
   fi
 }
 
-# Archiving --------------------------------------------------------------------
+# ============================================================================
+# dev
+# ============================================================================
+
+# Update composer packages without cache
+cunt() {
+  COMPOSER_CACHE_DIR=/dev/null composer update
+}
+
+# Edit files modified in git repo
+em() {
+  local my_pwd="$PWD"
+  local gr
+  gr="$(git root)"
+  pushd "$gr"
+  git diff --name-only | uniq | xargs vopen
+  if [ "$PWD" != "$my_pwd" ]; then popd; fi
+}
+
+# Edit a vim plugin
+evp() {
+  vopen "$VIM_DOTFILES/plugin/$1"
+}
+
+# PHP version numbers
+# @TODO use cut instead of splitting awk?
+phpver() {
+  php -r 'echo phpversion();'
+}
+
+phpminorver() {
+  php -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"
+}
+
+# start up an http server on :8000
+pyserve() {
+  case "$(python --version 2>&1)" in
+      *" 3."*)  xterm "python3 -m http.server"
+                ;;
+      *)        xterm "python -m SimpleHTTPServer"
+                ;;
+  esac
+}
+
+# ============================================================================
+# Archiving
+# ============================================================================
+
 # Export repo files to specified dir
 gitexport() {
   local to_dir
@@ -125,11 +139,9 @@ gitexport() {
   rsync -a "${1:-./}" "$to_dir" --exclude "$to_dir" --exclude .git
 }
 
-# Network tools ----------------------------------------------------------------
-flushdns() {
-  dscacheutil -flushcache
-  sudo killall -HUP mDNSResponder
-}
+# ============================================================================
+# Network tools
+# ============================================================================
 
 mykey() {
   cat "$HOME/.ssh/id_rsa.pub"
@@ -140,7 +152,15 @@ mykey() {
   fi
 }
 
-# OSX --------------------------------------------------------------------------
+# ============================================================================
+# OSX
+# ============================================================================
+
+flushdns() {
+  dscacheutil -flushcache
+  sudo killall -HUP mDNSResponder
+}
+
 brc() {
   brew cask "${@}"
 }
@@ -148,7 +168,7 @@ brc() {
 # list members for a group
 # http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
 members() {
-  dscl . -list /Users | while read user; do
+  dscl . -list /Users | while read -r user; do
     printf "%s " "$user"
     dsmemberutil checkmembership -U "$user" -G "$*"
   done | grep "is a member" | cut -d " " -f 1;
@@ -159,7 +179,10 @@ ios() {
   open "$(xcode-select -p)/Applications/Simulator.app"
 }
 
-# linux ------------------------------------------------------------------------
+# ============================================================================
+# linux
+# ============================================================================
+
 # flush linux font cache
 flushfonts() {
   fc-cache -f -v
