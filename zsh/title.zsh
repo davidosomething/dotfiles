@@ -29,18 +29,19 @@ _xterm_title() {
 }
 
 _term_title() {
-  case "${TERM}" in
-    screen*|ansi*)
-      preexec_functions+=_ansi_processname
-      precmd_functions+=_ansi_title
-      _ansi_title
-      ;;
-    rxvt*|xterm*)
-      preexec_functions+=_xterm_processname
-      precmd_functions+=_xterm_title
-      _xterm_title
-      ;;
-  esac
+  if [ -n "$TMUX" ]; then
+    preexec_functions+=_ansi_processname
+    precmd_functions+=_ansi_title
+    _ansi_title
+  else
+    case "${TERM}" in
+      rxvt*|xterm*)
+        preexec_functions+=_xterm_processname
+        precmd_functions+=_xterm_title
+        _xterm_title
+        ;;
+    esac
+  fi
 }
 
 _term_title
