@@ -35,6 +35,7 @@ brew install tidy-html5
 # shells -----------------------------------------------------------------------
 brew install bash install bash-completion
 brew install shellcheck
+brew install tmux
 brew install zsh
 
 # vcs --------------------------------------------------------------------------
