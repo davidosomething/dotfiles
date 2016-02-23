@@ -6,9 +6,7 @@
 # and we may need to reset the values
 #
 
-[ -n "$DKO_VARS_LOADED" ] && return
 export DKO_SOURCE="${DKO_SOURCE} -> shell/vars {"
-export DKO_VARS_LOADED=1
 
 # ============================================================================
 # Locale
@@ -26,10 +24,8 @@ export BASH_DOTFILES="${DOTFILES}/bash"
 export VIM_DOTFILES="${DOTFILES}/vim"
 export ZDOTDIR="${DOTFILES}/zsh"
 
-source "${DOTFILES}/shell/xdg"          # set xdg dirs in env
-
 # ============================================================================
-# History
+# History -- except HISTFILE location is set by shell rc file
 # ============================================================================
 
 export SAVEHIST=1000

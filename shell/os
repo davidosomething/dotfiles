@@ -64,7 +64,7 @@ esac
   # Arch Linux
   # ----------------------------------------------------------------------
 
-  [[ -f "/etc/arch-release" ]]   && {
+  [[ -f "/etc/arch-release" ]] && {
     export DOTFILES_DISTRO="archlinux"
 
     # for pacdiff
