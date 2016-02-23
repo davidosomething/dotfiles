@@ -6,7 +6,13 @@
 # and we may need to reset the values
 #
 
+[ -n "$DKO_VARS_LOADED" ] && return
 export DKO_SOURCE="${DKO_SOURCE} -> shell/vars {"
+export DKO_VARS_LOADED=1
+
+# ============================================================================
+# Locale
+# ============================================================================
 
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
@@ -96,17 +102,6 @@ export FZF_DEFAULT_COMMAND='
 # used in shell/paths
 export GOPATH="${HOME}/go"
 
-# iterm and neovim
-[[ "$TERM_PROGRAM" == "iTerm.app" ]] && {
-  ITERM_VERSION="$(osascript -e 'version of app "iTerm"')"
-  export ITERM_VERSION
-  if [[ "$(printf "%s\n2.9" "$ITERM_VERSION" | sort | tail -n1)" == "$ITERM_VERSION" ]]; then
-    export ITERM_BETA=1
-    export NVIM_TUI_ENABLE_TRUE_COLOR=1
-  fi
-}
-export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
-
 # java settings - mostly for minecraft launcher
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.systemlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 export JAVA_FONTS="/usr/share/fonts/TTF"
@@ -129,6 +124,10 @@ export MANPAGER="$PAGER"
 export MYSQL_HISTFILE="${XDG_CACHE_HOME}/mysql_histfile"
 
 # node moved to shell/node loaded in shell/before
+
+# neovim
+export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 # php moved to shell/php loaded in shell/before
 

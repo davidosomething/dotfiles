@@ -3,12 +3,12 @@
 # Environment variables for X Desktop
 #
 # Source order:
-# (startx -> .xinitrc) or DM
+# (startx -> .xinitrc) or DM (including GDM)
 #   -> .xprofile -> [env]
 #     -> /usr/share/xsessions .desktop file (runs before WM/DE, e.g. openbox)
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> .xprofile {"
+export DKO_SOURCE="${DKO_SOURCE} -> linux/.xprofile {"
 source "${HOME}/.dotfiles/shell/vars"
 
 export BROWSER=chromium
