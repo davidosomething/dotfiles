@@ -9,13 +9,13 @@ is first.
 ## VirtualBox in Arch
 
 - Add arch packages
-  - virtualbox
-  - virtualbox-host-modules
-  - net-tools
-  - vagrant
-  - nss-mdns
-  - avahi
-    - start and enable avahi-dnsconfd service
+    - virtualbox
+    - virtualbox-host-modules
+    - net-tools
+    - vagrant
+    - nss-mdns
+    - avahi
+        - start and enable avahi-dnsconfd service
 - Enable vboxdrv, vboxnetadp, and vboxnetflt kernel modules
 - Add user to vboxusers
 - Add mdns to hosts line in /etc/nsswitch.conf
@@ -35,7 +35,7 @@ Enable the following options:
 
 ### 1
 
-```
+```markdown
 uefi/bootloader
   getty (where the startup messages appear)
     gdm OR $SHELL (tty)
@@ -43,7 +43,7 @@ uefi/bootloader
 
 ### 2: gdm
 
-```
+```markdown
 gdm
   /etc/gdm/Xsession
     /etc/profile
@@ -57,7 +57,7 @@ gdm
 
 ### 2: startx
 
-```
+```markdown
 startx
   determine which xinitrc
   xinit passed xinitrc

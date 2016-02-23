@@ -1,6 +1,6 @@
 <img alt="dotfiles" width="200" src="https://cdn.rawgit.com/davidosomething/dotfiles/master/meta/dotfiles-logo.png">
 
-My dotfiles. [https://github.com/davidosomething/dotfiles](https://github.com/davidosomething/dotfiles)
+My dotfiles. <https://github.com/davidosomething/dotfiles>
 
 - OSX and Arch Linux compatible
 - XDG compliance wherever possible to keep `$HOME` clean
@@ -11,7 +11,7 @@ My dotfiles. [https://github.com/davidosomething/dotfiles](https://github.com/da
 - VIM and Neovim configs
 - RC files for lua, markdown, node, php, python, r, ruby, shell
 
-![terminal screenshot](https://cdn.rawgit.com/davidosomething/dotfiles/2016-02-22/meta/terminal.png)
+![terminal screenshot][screenshot]
 > Screenshot of the zsh prompt in tmux in termite on Arch Linux
 
 ## Installation
@@ -127,8 +127,7 @@ For X apps (no terminal) the value is probably:
 
 > _Logo from [jglovier/dotfiles-logo]_
 
-
-
+[screenshot]: https://cdn.rawgit.com/davidosomething/dotfiles/2016-02-22/meta/terminal.png
 [Archlinux wiki for XDG Base Directory Support]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
 [grawity's dotfile notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes

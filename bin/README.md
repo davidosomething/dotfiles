@@ -18,6 +18,11 @@
 afk
 ```
 
+## colortest
+
+256color test script from
+[base16-shell](https://github.com/chriskempson/base16-shell)
+
 ## dko-open
 
 > `open` or `xdg-open`
@@ -65,7 +70,7 @@ afk
 ## git-my
 
 > Lists a user's remote branches and shows if it was merged and/or available
-> locally (https://github.com/davidosomething/git-my)
+> locally <https://github.com/davidosomething/git-my>
 
 ## git-open
 
@@ -126,7 +131,7 @@ afk
 ## vopen
 
 > Open files in a single vim/gvim server
-> (https://github.com/davidosomething/vopen/)
+> <https://github.com/davidosomething/vopen/>
 
 ## w510-touchpadtoggle
 
