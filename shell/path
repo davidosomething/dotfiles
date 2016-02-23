@@ -1,8 +1,10 @@
-# Shell paths
+# shell/path
+#
 # Sourced in bash and zsh by loader
 # pyenv, chruby, chphp, nvm pathing is done in shell/after
+#
 
-export DKO_SOURCE="$DKO_SOURCE -> shell/path"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/path"
 
 # ==============================================================================
 # Store default system path
@@ -53,7 +55,7 @@ dko_add_paths() {
   my_path="${DOTFILES}/bin:${my_path}"
   my_path="${DOTFILES}/local/bin:${my_path}"
 
-  [ ! -d "${HOME}/.local" ] && mkdir "${HOME}/.local"
+  [ ! -d "${HOME}/.local/bin" ] && mkdir -p "${HOME}/.local/bin"
   my_path="${HOME}/.local/bin:${my_path}"
 
   echo "${my_path}"
@@ -62,4 +64,4 @@ dko_add_paths() {
 PATH="$(dko_add_paths)"
 export PATH
 
-# vim: ft=zsh :
+# vim: ft=sh :
