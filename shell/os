@@ -9,10 +9,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/os"
 # @see https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
 case "$(uname -s)" in
     FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
-    DragonFly) export DOTFILES_OS="FreeBSD" ;;
     OpenBSD)   export DOTFILES_OS="OpenBSD" ;;
     Darwin)    export DOTFILES_OS="Darwin"  ;;
-    SunOS)     export DOTFILES_OS="SunOS"   ;;
     *)         export DOTFILES_OS="Linux"   ;;
 esac
 
@@ -22,33 +20,14 @@ esac
 
 [[ "$DOTFILES_OS" = "Darwin" ]] && {
   export DOTFILES_DISTRO="osx"
-  case "$(sw_vers -productVersion)" in
-    10.7.*)   export DOTFILES_OSV="lion"          ;;
-    10.8.*)   export DOTFILES_OSV="mountainlion"  ;;
-    10.9.*)   export DOTFILES_OSV="mavericks"     ;;
-    10.10.*)  export DOTFILES_OSV="yosemite"      ;;
-    10.11.*)  export DOTFILES_OSV="elcapitan"     ;;
-  esac
 
   # ----------------------------------------------------------------------
   # homebrew
 
-  command -v "brew" >/dev/null 2>&1 && {
+  command -v 'brew' >/dev/null 2>&1 && {
     BREW_PREFIX="$(brew --prefix)"
     export BREW_PREFIX
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-  }
-
-  # ----------------------------------------------------------------------
-  # iTerm
-  # ----------------------------------------------------------------------
-
-  [[ "$TERM_PROGRAM" == "iTerm.app" ]] && {
-    ITERM_VERSION="$(osascript -e 'version of app "iTerm"')"
-    export ITERM_VERSION
-    if [[ "$(printf "%s\n2.9" "$ITERM_VERSION" | sort | tail -n1)" == "$ITERM_VERSION" ]]; then
-      export ITERM_BETA=1
-    fi
   }
 }
 
