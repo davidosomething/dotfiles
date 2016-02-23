@@ -7,6 +7,8 @@
 #
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/vars {"
+# Sourced only once, may have been sourced in linux/.xprofile already
+source "${HOME}/.dotfiles/shell/xdg"
 
 # ============================================================================
 # Locale
