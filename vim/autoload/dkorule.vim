@@ -6,11 +6,21 @@ function! dkorule#char(char) abort
   if !strlen(a:char) | return | endif
   let l:tw = getbufvar('%', '&textwidth', 78)
   let l:tw = l:tw ? l:tw : 78
-  let l:available = l:tw - (col('$') - 1)
+  let l:lastcol = col('$')
+  let l:available = l:tw - (l:lastcol - 2)
   let l:available = l:available > 0 ? l:available : 0
-  let l:reps = float2nr(floor(l:available / strlen(a:char)))
-  if !l:reps | return | endif
-  execute 'normal! ' . l:reps . 'A' . a:char
+  let l:reps = float2nr(floor(l:available / strlen(a:char))) - 1
+
+  " Insert a space if the line is dirty and doesn't already end with
+  " whitespace
+  let l:is_end_space = match(getline('.')[l:lastcol - 2], '[ \t]') != -1
+  if l:lastcol > 1 && !l:is_end_space
+    execute 'normal! A '
+    let l:reps -= 1
+  endif
+
+  if l:reps <= 0 | return | endif
+  execute 'normal! ' . l:reps . 'A' . a:char . "\<ESC>"
 endfunction
 
 " Map key
