@@ -1,7 +1,8 @@
 # shell/os
 #
 # os detection, default to Linux
-# Sourced by shell/vars
+# Sourced by shell/before since path needs to be set first (for brew in
+# particular)
 #
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/os"
@@ -24,7 +25,8 @@ esac
   # ----------------------------------------------------------------------
   # homebrew
 
-  command -v 'brew' >/dev/null 2>&1 && {
+
+  command -v "brew" >/dev/null 2>&1 && {
     BREW_PREFIX="$(brew --prefix)"
     export BREW_PREFIX
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"

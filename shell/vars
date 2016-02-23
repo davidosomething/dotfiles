@@ -168,11 +168,6 @@ export XAPPLRESDIR="${DOTFILES}/linux"
 # zplug
 export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
 
-# ============================================================================
-# Complex vars
-# ============================================================================
-
-source "${DOTFILES}/shell/os"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :

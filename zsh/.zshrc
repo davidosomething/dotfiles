@@ -18,11 +18,11 @@ source "${DOTFILES}/shell/before"
 
 # Completion paths
 # fpath must be before compinit
-[ -d "${BREW_PREFIX}" ] && {
+if [ -d "${BREW_PREFIX}" ]; then
   # Autoload function paths, add tab completion paths, top precedence
   fpath=(
-    "${BREW_PREFIX}/share/zsh/site-functions"
     "${BREW_PREFIX}/share/zsh-completions"
+    "${BREW_PREFIX}/share/zsh/site-functions"
     $fpath
   )
 
@@ -36,7 +36,7 @@ source "${DOTFILES}/shell/before"
     unalias run-help
     autoload run-help
   }
-}
+fi
 
 # dedupe paths
 typeset -gU cdpath path fpath manpath
@@ -131,6 +131,17 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && \
   # LAST, after compinit, enforced by nice
   # ----------------------------------------
 
+  # homebrew
+  # note regular brew completion is broken:
+  # @see https://github.com/Homebrew/homebrew/issues/49066
+  #
+  # fix by symlinking
+  #     ln -s $(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh $(brew --prefix)/share/zsh/site-functions/_brew
+  #
+  # These addons need to be nice, otherwise won't override _brew
+  zplug "vasyharan/zsh-brew-services", if:"[[ $OSTYPE == *darwin* ]]", nice:10
+  zplug "robbyrussell/oh-my-zsh", of:"plugins/brew-cask/*.zsh", if:"[[ $OSTYPE == *darwin* ]]", nice:10
+
   # fork of rupa/z with better completion
   zplug "knu/z", of:z.sh, nice:10
 
@@ -207,5 +218,7 @@ fi
 # ============================================================================
 
 source "${DOTFILES}/shell/after"
+
 source_if_exists "${DOTFILES}/local/zshrc"
+
 export DKO_SOURCE="${DKO_SOURCE} }"
