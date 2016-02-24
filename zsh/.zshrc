@@ -101,8 +101,9 @@ typeset -gU cdpath path fpath manpath
 # color complist
 zmodload -i zsh/complist
 
-autoload -Uz colors; colors
-autoload -Uz compinit; compinit -u
+# zplug does colors and compinit
+#autoload -Uz colors; colors
+#autoload -Uz compinit; compinit -u
 autoload -Uz terminfo
 autoload -Uz vcs_info
 
@@ -320,4 +321,8 @@ fi
 source "${DOTFILES}/shell/after"
 source_if_exists "${DOTFILES}/local/zshrc"
 
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    unsetopt xtrace
+    exec 2>&3 3>&-
+fi
 export DKO_SOURCE="${DKO_SOURCE} }"
