@@ -26,7 +26,7 @@ setopt PUSHD_TO_HOME                  # go home if no d specified
 # Completion
 setopt AUTO_LIST                      # list completions
 setopt AUTO_MENU                      # TABx2 to start a tab complete menu
-setopt COMPLETE_ALIASES               # recurse alias completion
+setopt NO_COMPLETE_ALIASES            # don't expand aliases before completion
 setopt LIST_PACKED                    # variable column widths
 
 # Expansion and Globbing
@@ -307,7 +307,8 @@ if [[ "$0" == *"zsh" ]]; then
   # Aliases (e.g. a=b use results from b when completing for a)
   # --------------------------------------------------------------------------
 
-  compdef g=git
+  compdef e=vim
+  compdef vopen=vim
   compdef pkill=kill
 
 fi
