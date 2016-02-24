@@ -1,6 +1,6 @@
 # zsh/keybindings.zsh
 
-export DKO_SOURCE="$DKO_SOURCE -> keybindings.zsh"
+export DKO_SOURCE="${DKO_SOURCE} -> keybindings.zsh"
 
 # disable ^S and ^Q terminal freezing
 unsetopt flowcontrol
@@ -10,10 +10,10 @@ bindkey -v
 
 # These keys should also be set in shell/.inputrc
 # search through history starting with current buffer contents
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
+bindkey "^[[A"  history-beginning-search-backward
+bindkey "^[[B"  history-beginning-search-forward
 # fix backspace
-bindkey '^?' backward-delete-char
+bindkey '^?'    backward-delete-char
 # fix delete
 bindkey '^[[3~' delete-char
 # fix up and down to end of line after history
@@ -28,12 +28,12 @@ bindkey '\e[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
 bindkey '\e[1;5D' backward-word
 # home/end
-bindkey '^[[H' beginning-of-line
+bindkey '^[[H'  beginning-of-line
 bindkey '^[[1~' beginning-of-line
-bindkey '^[OH' beginning-of-line
-bindkey '^[[F' end-of-line
+bindkey '^[OH'  beginning-of-line
+bindkey '^[[F'  end-of-line
 bindkey '^[[4~' end-of-line
-bindkey '^[OF' end-of-line
+bindkey '^[OF'  end-of-line
 # VI mode allow home and end
 bindkey -M vicmd '^[[H' beginning-of-line
 bindkey -M vicmd '^[[F' end-of-line
