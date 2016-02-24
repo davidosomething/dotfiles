@@ -39,10 +39,7 @@ dko_add_paths() {
   # package managers -----------------------------------------------------------
 
   # composer
-  # *nix
   my_path="${XDG_CONFIG_HOME}/composer/vendor/bin:${my_path}"
-  # osx and non-xdg-compliant *nix
-  my_path="${HOME}/.composer/vendor/bin:${my_path}"
 
   # go
   my_path="${GOPATH}/bin:${my_path}"
@@ -53,7 +50,6 @@ dko_add_paths() {
   # local ----------------------------------------------------------------------
 
   my_path="${DOTFILES}/bin:${my_path}"
-  my_path="${DOTFILES}/local/bin:${my_path}"
 
   [ ! -d "${HOME}/.local/bin" ] && mkdir -p "${HOME}/.local/bin"
   my_path="${HOME}/.local/bin:${my_path}"
