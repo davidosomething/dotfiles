@@ -42,8 +42,11 @@ fi
 typeset -gU cdpath path fpath manpath
 
 # ============================================================================
-# Autoload
+# Modules
 # ============================================================================
+
+# color complist
+zmodload -i zsh/complist
 
 autoload -Uz colors; colors
 autoload -Uz compinit; compinit -u
@@ -185,6 +188,14 @@ alias mkdir="nocorrect mkdir"
 
 # check that we're in the shell and not in something like vim terminal
 if [[ "$0" == *"zsh" ]]; then
+  # Use caching for commands that would like a cache.
+  zstyle ':completion:*' use-cache true
+  zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/.zcache"
+
+  # --------------------------------------------------------------------------
+  # Completion display
+  # --------------------------------------------------------------------------
+
   # group all by the description above
   zstyle ':completion:*' group-name ''
 
@@ -196,32 +207,54 @@ if [[ "$0" == *"zsh" ]]; then
 
   zstyle ':completion:*' list-dirs-first yes
 
-  # use case-insensitive completion if case-sensitive generated no hits
-  zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+  # go into menu mode on second tab (like current vim wildmenu setting)
+  # only if there's more than two things to choose from
+  zstyle ':completion:*' menu select=2
+  # shift-tab to select previous result
+  bindkey -M menuselect '^[[Z'  reverse-menu-complete
+  # fix prompt (and side-effect of exiting menuselect) on ^C
+  bindkey -M menuselect '^C'    reset-prompt
 
-  # show a menu with 20 items on second tab (like current vim wildmenu setting)
-  zstyle ':completion:*' menu select
-
-  # expand completions as much as possible on tab
-  # e.g. start expanding a path up to wherever it can be until error
-  zstyle ':completion:*' expand 'yes'
-
-  # don't autocomplete homedirs
-  zstyle ':completion::complete:cd:*' tag-order '! users'
+  # show descriptions for options
+  zstyle ':completion:*' verbose yes
 
   # in Bold, specify what type the completion is, e.g. a file or an alias or
   # a cmd
   zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
 
+  # --------------------------------------------------------------------------
+  # Results matching
+  # --------------------------------------------------------------------------
+
+  # use case-insensitive completion if case-sensitive generated no hits
+  zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+
   # don't complete usernames
   zstyle ':completion:*' users ''
 
-  # show descriptions for options
-  zstyle ':completion:*' verbose yes
+  # don't autocomplete homedirs
+  zstyle ':completion::complete:cd:*' tag-order '! users'
 
-  # Use caching for commands that would like a cache.
-  zstyle ':completion:*' use-cache true
-  zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/.zcache"
+  # --------------------------------------------------------------------------
+  # Result output transformation
+  # --------------------------------------------------------------------------
+
+  # expand completions as much as possible on tab
+  # e.g. start expanding a path up to wherever it can be until error
+  zstyle ':completion:*' expand 'yes'
+
+  # colorful kill command completion
+  zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
+
+  # process names
+  zstyle ':completion:*:processes-names' command  'ps c -u ${USER} -o command | uniq'
+
+  # --------------------------------------------------------------------------
+  # Aliases (e.g. a=b use results from b when completing for a)
+  # --------------------------------------------------------------------------
+
+  compdef pkill=kill
+
 fi
 
 # ============================================================================
@@ -229,7 +262,6 @@ fi
 # ============================================================================
 
 source "${DOTFILES}/shell/after"
-
 source_if_exists "${DOTFILES}/local/zshrc"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
