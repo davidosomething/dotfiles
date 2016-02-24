@@ -307,6 +307,7 @@ if [[ "$0" == *"zsh" ]]; then
   # Aliases (e.g. a=b use results from b when completing for a)
   # --------------------------------------------------------------------------
 
+  compdef g=git
   compdef pkill=kill
 
 fi
