@@ -49,7 +49,7 @@ __dotfiles_usage() {
 }
 
 __dotfiles_reload() {
-  source "${DOTFILES}/shell/update"
+  source "${DOTFILES}/shell/update" && dkostatus "Reloaded shell/update"
 }
 
 __dotfiles_update_dotfiles() {
