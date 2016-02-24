@@ -17,6 +17,7 @@ Install keepassx 2.0 with http support using this fork (inspect diff first):
 - zshenv
     - shell/vars
         - shell/xdg
+- /etc/zprofile
 - zsh/.zprofile
 - zshrc
     - shell/before
