@@ -88,6 +88,14 @@ afk
 
 > Repeat `git checkout BRANCH FILE` commands
 
+## fkill
+
+> FZF-interface for `kill -9` a process
+
+## fbr
+
+> FZF-interface for selecting a git branch
+
 ## joingroup
 
 > Join a group and reload user's groups

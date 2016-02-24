@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+# fbr - checkout git branch
+# Uses fzf
+# @see <https://github.com/junegunn/fzf/wiki/examples>
+#
+
+branches=$(git branch -vv) &&
+branch=$(echo "$branches" | fzf +m) &&
+git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
+
