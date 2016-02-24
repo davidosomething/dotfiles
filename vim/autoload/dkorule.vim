@@ -20,7 +20,11 @@ function! dkorule#char(char) abort
   endif
 
   if l:reps <= 0 | return | endif
-  execute 'normal! ' . l:reps . 'A' . a:char . "\<ESC>"
+
+  " Insert the rule and go to the next line (does not initiate a 3piece
+  " comment, but may still insert a new comment character based on
+  " formatoptions)
+  execute 'normal! ' . l:reps . 'A' . a:char . "\<ESC>o"
 endfunction
 
 " Map key

@@ -16,6 +16,44 @@ command! Q q
 execute dko#BindFunction('<F10>', 'call dkotabline#Toggle()')
 
 " ============================================================================
+" Quick edit
+" ec* - Edit closest (find upwards)
+" er* - Edit from dkoproject#GetProjectRoot()
+" ============================================================================
+
+function! s:EditClosest(file)
+  let s:file = findfile(a:file, '.;')
+  if empty(s:file)
+    echomsg 'File not found:'  . a:file
+    return
+  endif
+  execute 'edit ' . s:file
+endfunction
+nnoremap  <silent>  <Leader>eca  :<C-u>call <SID>EditClosest('.agignore')<CR>
+nnoremap  <silent>  <Leader>eci  :<C-u>call <SID>EditClosest('.gitignore')<CR>
+nnoremap  <silent>  <Leader>ecr  :<C-u>call <SID>EditClosest('README.md')<CR>
+
+function! s:EditRoot(file)
+  let s:file = dkoproject#GetProjectConfigFile(a:file)
+  if empty(s:file)
+    echomsg 'File not found:'  . a:file
+    return
+  endif
+  execute 'edit ' . s:file
+endfunction
+nnoremap  <silent>  <Leader>era  :<C-u>call <SID>EditRoot('.agignore')<CR>
+nnoremap  <silent>  <Leader>eri  :<C-u>call <SID>EditRoot('.gitignore')<CR>
+nnoremap  <silent>  <Leader>erg  :<C-u>call <SID>EditRoot('gulpfile.js')<CR>
+nnoremap  <silent>  <Leader>erG  :<C-u>call <SID>EditRoot('Gruntfile.js')<CR>
+nnoremap  <silent>  <Leader>erp  :<C-u>call <SID>EditRoot('package.json')<CR>
+nnoremap  <silent>  <Leader>err  :<C-u>call <SID>EditRoot('README.md')<CR>
+
+nnoremap  <silent>  <Leader>ev   :<C-u>edit $MYVIMRC<CR>
+nnoremap  <silent>  <Leader>em
+      \ :<C-u>edit $VIM_DOTFILES/after/plugin/mappings.vim<CR>
+nnoremap  <silent>  <Leader>ez   :<C-u>edit $ZDOTDIR/.zshrc<CR>
+
+" ============================================================================
 " Unimpaired overrides
 " ============================================================================
 
@@ -49,7 +87,7 @@ nnoremap  <silent>  <Plug>unimpairedLNext
 nnoremap  <special> <BS> <C-^>
 
 " close buffer with space-bd and auto close loc list first
-nnoremap  <silent>  <Leader>bd  :lclose<CR>:bdelete<CR>
+nnoremap  <silent>  <Leader>bd  :<C-u>lclose<CR>:bdelete<CR>
 
 " ============================================================================
 " Split manip
@@ -216,6 +254,7 @@ nmap <special> <C-j> ]e
 " Bubble multiple lines
 vmap <special> <C-k> [egv
 vmap <special> <C-j> ]egv
+
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

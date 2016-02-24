@@ -242,8 +242,8 @@ set foldlevelstart=99                 " show all folds by default
 " ----------------------------------------------------------------------------
 
 set list
-set listchars=""                      " reset
-set listchars=tab:→\ 
+set listchars=
+set listchars+=tab:→\ 
 set listchars+=trail:·
 set listchars+=extends:»              " show cut off when nowrap
 set listchars+=precedes:«
@@ -265,7 +265,9 @@ set diffopt+=filler                   " blank lines to keep sides aligned
 set diffopt+=iwhite                   " Ignore whitespace changes
 
 " ----------------------------------------------------------------------------
-" Input auto-formatting
+" Input auto-formatting (global defaults)
+" Probably need to update these in after/ftplugin too since ftplugins will
+" probably update it.
 " ----------------------------------------------------------------------------
 
 set formatoptions=
@@ -273,9 +275,10 @@ set formatoptions+=c                  " Auto-wrap comments using textwidth
 set formatoptions+=r                  " Continue comments by default
 set formatoptions-=o                  " do not continue comment using o or O
 set formatoptions+=q                  " continue comments with gq
+set formatoptions-=a                  " auto-gq on type in comments?
 set formatoptions+=n                  " Recognize numbered lists
 set formatoptions+=2                  " Use indent from 2nd line of a paragraph
-set formatoptions+=l                  " Don't break lines that are already long
+set formatoptions-=l                  " break lines that are already long?
 set formatoptions+=1                  " Break before 1-letter words
 " Vim 7.4 only: no // comment when joining commented lines
 if v:version >= 704 | set formatoptions+=j | endif
