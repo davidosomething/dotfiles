@@ -1,11 +1,15 @@
 # shell/x11
 #
 # X11 Settings
-# sourced by shell/before
+# sourced by shell/before, uses shell/functions
 #
+
+export DKO_SOURCE="${DKO_SOURCE} -> shell/x11"
 
 # ============================================================================
 # Merge .Xresources
+# ============================================================================
+
 # On ArchLinux, GDM sources the user .Xresources with `-nocpp` so none of the
 # includes are processed. Do a real load here (and leave /etc/gdm/Xsession
 # alone).
