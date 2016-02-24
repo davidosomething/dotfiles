@@ -1,6 +1,6 @@
-# options.zsh
+# zsh/options.zsh
 
-export DKO_SOURCE="$DKO_SOURCE -> options.zsh"
+export DKO_SOURCE="${DKO_SOURCE} -> options.zsh"
 
 # Changing Directories
 setopt AUTO_PUSHD                     # pushd instead of cd
