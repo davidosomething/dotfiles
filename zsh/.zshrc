@@ -51,7 +51,7 @@ autoload -Uz terminfo
 autoload -Uz vcs_info
 
 # ============================================================================
-# Plugin settings
+# Plugin settings (before)
 # ============================================================================
 
 # bookmarks plugin
@@ -157,6 +157,14 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && \
 }
 
 # ============================================================================
+# Plugin settings (after)
+# ============================================================================
+
+# zsh-autosuggestions -- clear the suggestion when entering completion select
+# menu
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
+
+# ============================================================================
 # fzf
 # ============================================================================
 
@@ -176,7 +184,7 @@ alias mkdir="nocorrect mkdir"
 # ============================================================================
 
 # check that we're in the shell and not in something like vim terminal
-if [[ "$0" == "-zsh" ]]; then
+if [[ "$0" == *"zsh" ]]; then
   # group all by the description above
   zstyle ':completion:*' group-name ''
 
@@ -190,6 +198,9 @@ if [[ "$0" == "-zsh" ]]; then
 
   # use case-insensitive completion if case-sensitive generated no hits
   zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+
+  # show a menu with 20 items on second tab (like current vim wildmenu setting)
+  zstyle ':completion:*' menu select
 
   # expand completions as much as possible on tab
   # e.g. start expanding a path up to wherever it can be until error

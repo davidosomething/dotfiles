@@ -10,6 +10,8 @@ setopt PUSHD_TO_HOME                  # go home if no d specified
 
 # Completion
 setopt AUTO_LIST                      # list completions
+setopt AUTO_MENU                      # TABx2 to start a tab complete menu
+setopt COMPLETE_ALIASES               # recurse alias completion
 setopt LIST_PACKED                    # variable column widths
 
 # Expansion and Globbing
