@@ -1,4 +1,6 @@
-# prompt.zsh
+# zsh/prompt.zsh
+
+export DKO_SOURCE="${DKO_SOURCE} -> prompt.zsh"
 
 setopt PROMPT_SUBST                   # allow variables in prompt
 
