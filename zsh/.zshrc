@@ -13,7 +13,59 @@ export DKO_SOURCE="${DKO_SOURCE} -> zshrc {"
 source "${DOTFILES}/shell/before"
 
 # ============================================================================
-# Paths
+# Options
+# In the order of `man zshoptions`
+# ============================================================================
+
+# Changing Directories
+setopt AUTO_PUSHD                     # pushd instead of cd
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT                   # don't show stack after cd
+setopt PUSHD_TO_HOME                  # go home if no d specified
+
+# Completion
+setopt AUTO_LIST                      # list completions
+setopt AUTO_MENU                      # TABx2 to start a tab complete menu
+setopt COMPLETE_ALIASES               # recurse alias completion
+setopt LIST_PACKED                    # variable column widths
+
+# Expansion and Globbing
+setopt EXTENDED_GLOB                  # like ** for recursive dirs
+
+# History
+setopt APPEND_HISTORY                 # append instead of overwrite file
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE              # don't save in history if space prefixed
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY                    # verify when using history cmds/params
+
+# Initialisation
+
+# Input/Output
+setopt ALIASES                        # autocomplete switches for aliases
+setopt AUTO_PARAM_SLASH               # append slash if autocompleting a dir
+setopt CORRECT
+
+# Job Control
+setopt CHECK_JOBS                     # prompt before exiting shell with bg job
+setopt LONGLISTJOBS                   # display PID when suspending bg as well
+setopt NO_HUP                         # don't kill bg processes
+
+# Prompting
+
+# Scripts and Functions
+
+# Shell Emulation
+setopt INTERACTIVE_COMMENTS           # allow comments in shell
+
+# Shell State
+
+# Zle
+setopt NO_BEEP
+setopt VI
+
+# ============================================================================
+# fpath and manpath
 # ============================================================================
 
 # Completion paths
@@ -32,9 +84,10 @@ if [ -d "${BREW_PREFIX}" ]; then
 
   [ -d "${BREW_PREFIX}/share/zsh/helpfiles" ] && {
     # use homebrew bundled zsh helpfiles for online help
-    export HELPDIR="${BREW_PREFIX}/share/zsh/helpfiles"
+    # @see <https://github.com/Homebrew/homebrew/blob/master/Library/Formula/zsh.rb>
     unalias run-help
     autoload run-help
+    HELPDIR="${BREW_PREFIX}/share/zsh/helpfiles"
   }
 fi
 
@@ -136,7 +189,8 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && \
 
   # homebrew
   # note regular brew completion is broken:
-  # @see https://github.com/Homebrew/homebrew/issues/49066
+  # @see <https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Tips-N'-Tricks.md#zsh>
+  # @see <https://github.com/Homebrew/homebrew/issues/49066>
   #
   # fix by symlinking
   #     ln -s $(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh $(brew --prefix)/share/zsh/site-functions/_brew
