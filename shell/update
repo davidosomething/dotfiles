@@ -230,7 +230,14 @@ __dotfiles_update_brew() {
   local outdated=""
 
   dkostatus "Updating homebrew"
-  cd "$DOTFILES" || { dkoerr "Can't enter \$DOTFILES to run brew in clean environment" && return 1; }
+
+  # enter dotfiles dir to do this in case user has any gem flags or local
+  # vendor bundle that will cause use of local gems
+  cd "$DOTFILES" || {
+    dkoerr "Can't enter \$DOTFILES to run brew in clean environment"
+    cd - || return 1
+    return 1
+  }
   brew update
 
   outdated="$(brew outdated --quiet)"
@@ -255,6 +262,7 @@ __dotfiles_update_brew() {
   brew cask cleanup
   brew prune
   rehash
+  cd - || return 1
 }
 
 __dotfiles_update_python3() {
