@@ -218,6 +218,7 @@ vnoremap  <Leader>s   :!sort<CR>
 " Uppercase / lowercase word
 " ----------------------------------------------------------------------------
 
+" mark Q, visual, inner-word case, back to mark (don't change cursor position)
 nnoremap  <Leader>l   mQviwu`Q
 nnoremap  <Leader>u   mQviwU`Q
 
