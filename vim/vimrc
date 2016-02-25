@@ -456,6 +456,8 @@ augroup END
 
 let s:dko_use_plugins = 1 && $DOTFILES_DISTRO !=# 'busybox'
 
+let s:has_vim_plug = !empty(glob(expand(g:dko_vim_dir . '/autoload/plug.vim')))
+
 " This is used by plugin/completion.vim so is a g:
 let g:dko_has_completion = 0
 
@@ -481,18 +483,21 @@ let g:netrw_liststyle = 3
 let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')
 
 " ============================================================================
-" Plugins: vim-plug
+" Plugins: auto-install vim-plug
 " ============================================================================
 
 " Add plugin dirs to the runtimepath
-if s:dko_use_plugins
-  " Load vim-plug
-  if empty(glob(expand(g:dko_vim_dir . '/autoload/plug.vim')))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd vimrc   VimEnter  *  PlugInstall | source $MYVIMRC
-  endif
+if !s:has_vim_plug && s:dko_use_plugins
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd vimrc   VimEnter  *  PlugInstall | source $MYVIMRC
+endif
 
+" ============================================================================
+" Plugins: load
+" ============================================================================
+
+if s:has_vim_plug && s:dko_use_plugins
   " ==========================================================================
   " Which plugin set to use?
   " ==========================================================================
