@@ -53,6 +53,8 @@ setopt NO_HUP                         # don't kill bg processes
 
 # Prompting
 
+setopt PROMPT_SUBST                   # allow variables in prompt
+
 # Scripts and Functions
 
 # Shell Emulation

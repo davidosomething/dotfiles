@@ -2,8 +2,6 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> prompt.zsh"
 
-setopt PROMPT_SUBST                   # allow variables in prompt
-
 # ------------------------------------------------------------------------------
 # version control info
 # ------------------------------------------------------------------------------
