@@ -23,6 +23,7 @@ mkdir -p "${HOME}/.terminfo/t"
 [ -d "${dotfiles_path}/terminfo/t" ] && \
   cp  "${dotfiles_path}/terminfo/t/."  "${HOME}/.terminfo/t/"
 
+# Install all uncompiled terminfo files
 # xterm-256color-italic for iterm2
-tic -x "${dotfiles_path}/terminfo/xterm-256color-italic.terminfo"
+find "${dotfiles_path}/terminfo/" -name '*.terminfo' -exec tic -x {} \;
 
