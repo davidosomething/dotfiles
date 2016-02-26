@@ -463,6 +463,7 @@ let g:dko_has_completion = 0
 
 " ============================================================================
 " Plugins: Disable distributed plugins
+" To re-enable you have to comment them out (checks if defined, not if truthy)
 " ============================================================================
 
 let g:loaded_2html_plugin = 1
@@ -471,8 +472,8 @@ let g:loaded_gzip = 1
 let g:loaded_LogiPat = 1
 let g:loaded_tarPlugin = 1
 let g:loaded_zipPlugin = 1
-" re-enable this one if you need auto-spellfile download
-let g:loaded_netrwPlugin = 0
+" used to download spellfile and enable gx mapping
+"let g:loaded_netrwPlugin = 0
 
 " ============================================================================
 " Plugins: netrw
@@ -481,6 +482,7 @@ let g:loaded_netrwPlugin = 0
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
 let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')
+let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
 " ============================================================================
 " Plugins: auto-install vim-plug
