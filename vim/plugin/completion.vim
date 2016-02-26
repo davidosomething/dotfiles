@@ -21,7 +21,7 @@ let s:use_phpcomplete = 0
 
 " These set the default omnifuncs. Completion engine will use something
 " different if there are other sources available (e.g. TernJS for JavaScript).
-augroup dkoomnifuncs
+augroup dkocompletion
   autocmd!
   autocmd FileType css
         \ setlocal omnifunc=csscomplete#CompleteCSS
@@ -56,6 +56,48 @@ endif
 " ============================================================================
 " Neocomplete / Deoplete
 " ============================================================================
+
+let s:REGEXPS = {}
+let s:REGEXPS.any_word        = '\h\w*'
+let s:REGEXPS.nonspace_dot    = '[^. \t]\.\w'
+let s:REGEXPS.nonspace_arrow  = '[^. \t]->\%(\h\w*\)\?'
+let s:REGEXPS.word_scope_word = '\h\w*::\%(\h\w*\)\?'
+
+" For jspc.vim
+let s:REGEXPS.keychar   = '\k\zs \+'
+let s:REGEXPS.parameter = s:REGEXPS.keychar . '\|' . '(' . '\|' . ':'
+
+" ----------------------------------------------------------------------------
+" Regexes to use completion engine
+" See plugins sections too (e.g. phpcomplete and jspc)
+" ----------------------------------------------------------------------------
+
+" Neocomplete
+" - String or list of vim regex
+let s:neo_patterns = {}
+
+let s:neo_patterns.javascript =
+      \ s:REGEXPS.any_word . '\|' . s:REGEXPS.nonspace_dot
+
+" coffee
+"let s:neo_patterns.coffee = '\h\w*\|[^. \t]\.\w*'
+
+" javascript
+" default: https://github.com/Shougo/neocomplete.vim/blame/34b42e76be30c0f365110ea036c8490b38fcb13e/autoload/neocomplete/sources/omni.vim
+let s:neo_patterns.javascript =
+      \ s:REGEXPS.any_word . '\|' . s:REGEXPS.nonspace_dot
+
+" lua with xolox/vim-lua-ftplugin -- not used but correct
+" https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1705
+" let s:neo_patterns.lua = '\w\+[.:]\|require\s*(\?["'']\w*'
+
+" perl
+"let s:neo_patterns.perl   = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+" ----------------------------------------------------------------------------
+" Regexes to force omnifunc completion
+" See plugins sections too (e.g. tern)
+" ----------------------------------------------------------------------------
 
 " When defined for a filetype, call the omnifunc directly (feedkeys
 " <C-X><C-O>) instead of delegating to completion plugin. See each plugin
@@ -100,46 +142,48 @@ let s:omnifuncs.javascript = [ 'javascriptcomplete#CompleteJS' ]
 let s:omnifuncs.php = [ 'phpcomplete#CompletePHP' ]
 
 " ============================================================================
-" Completion Plugin: jspc.vim
-" ============================================================================
-
-if 1 && exists('g:plugs["jspc.vim"]')
-  let s:indexdefault = index(s:omnifuncs.javascript, 'javascriptcomplete#CompleteJS')
-  " jspc.vim wraps the default omnicomplete, so we'll have duplicates if we
-  " have both in our neocomplete sources.
-  " Remove last item, which is 'javascriptcomplete#CompleteJS'
-  call remove(s:omnifuncs.javascript, s:indexdefault)
-  call add(s:omnifuncs.javascript, 'jspc#omni')
-endif
-
-" ============================================================================
 " Completion Plugin: vim-better-javascript-completion
 " ============================================================================
 
-if 1 && exists('g:plugs["vim-better-javascript-completion"]')
+if exists('g:plugs["vim-better-javascript-completion"]')
   " insert instead of add, this is preferred completion omnifunc (except tern)
   call insert(s:omnifuncs.javascript, 'js#CompleteJS')
 endif
 
 " ============================================================================
 " Completion Plugin: tern
-" This overrides all other JS completions
+" This overrides all other JS completions when fip matches
 " ============================================================================
 
 if g:dko_use_tern_completion
-  " Use tabline instead (<F10>)
-  "let g:tern_show_argument_hints = 'on_hold'
+  "let g:tern_show_argument_hints = 'on_hold'   " Use tabline instead (<F10>)
   let g:tern_show_signature_in_pum = 1
 
-  augroup dkoomnifuncs
+  augroup dkocompletion
     autocmd FileType javascript nnoremap <silent><buffer> gb :<C-u>TernDef<CR>
+    " Set omnifunc every time, in case jspc's after ftplugin call to init
+    " sets it to jspc#omni
     autocmd FileType javascript setlocal omnifunc=tern#Complete
   augroup END
 
-  " force using omnicompletion (tern in this case)
-  " pretty much match anything | match whitespace and then anything
-  "let s:fip.javascript = '\h\w*\|[^. \t]\.\w*'
-  let s:fip.javascript = '[^. \t]\.\w*'
+  " force using tern when typing matches regex
+  let s:fip.javascript = s:REGEXPS.nonspace_dot
+endif
+
+" ============================================================================
+" Completion Plugin: jspc.vim
+" <C-x><c-u> to use jspc in particular
+" ============================================================================
+
+if exists('g:plugs["jspc.vim"]')
+  autocmd dkocompletion FileType javascript setlocal completefunc=jspc#omni
+  " jspc.vim wraps the default omnicomplete, so we'll have duplicates if we
+  " have both in our neocomplete sources.
+  call remove(
+        \   s:omnifuncs.javascript,
+        \   index(s:omnifuncs.javascript, 'javascriptcomplete#CompleteJS')
+        \ )
+  call add(s:omnifuncs.javascript, 'jspc#omni')
 endif
 
 if 1 && s:use_phpcomplete
@@ -149,6 +193,13 @@ if 1 && s:use_phpcomplete
   " ============================================================================
 
   let g:phpcomplete_parse_docblock_comments = 1
+
+  " php with phpcomplete.vim support
+  " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1731
+  let s:neo_patterns.php =
+      \   s:REGEXPS.any_word
+      \ . '\|' . s:REGEXPS.nonspace_arrow
+      \ . '\|' . s:REGEXPS.word_scope_word
 
   " ============================================================================
   " Completion Plugin: phpcomplete-extended
@@ -196,31 +247,7 @@ if exists('g:plugs["neocomplete.vim"]')
   call dko#InitObject('g:neocomplete#force_omni_input_patterns')
   call extend(g:neocomplete#force_omni_input_patterns, s:fip)
 
-  " Completion engine input patterns
-  " - String or list of vim regex
-  let s:neo_patterns = {}
-
-  " coffee
-  "let s:neo_patterns.coffee = '\h\w*\|[^. \t]\.\w*'
-
-  " javascript (superseded by s:fip when tern is available)
-  " default: https://github.com/Shougo/neocomplete.vim/blame/34b42e76be30c0f365110ea036c8490b38fcb13e/autoload/neocomplete/sources/omni.vim
-  let s:neo_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
-
-  " lua with xolox/vim-lua-ftplugin -- not used but correct
-  " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1705
-  " let s:neo_patterns.lua = '\w\+[.:]\|require\s*(\?["'']\w*'
-
-  " perl
-  "let s:neo_patterns.perl   = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-
-  " php with phpcomplete.vim support
-  " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1731
-  if s:use_phpcomplete
-    let s:neo_patterns.php =
-          \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-  endif
-
+  " Patterns that use neocomplete
   call dko#InitObject('g:neocomplete#sources#omni#input_patterns')
   call extend(g:neocomplete#sources#omni#input_patterns, s:neo_patterns)
 endif
@@ -270,6 +297,8 @@ if exists('g:plugs["deoplete.nvim"]')
   call extend(g:deoplete#omni#input#patterns, s:deo_patterns)
 
 endif
+
+" ============================================================================
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
