@@ -530,7 +530,7 @@ if s:has_vim_plug && s:dko_use_plugins
 
   let s:dko_use_gutentags = 1
 
-  let s:dko_use_colorv    = 1 && (has('python') || has('python3'))
+  let s:dko_use_colorv    = 0 && (has('python') || has('python3'))
 
   call plug#begin(g:dko_plug_absdir)
 
@@ -953,8 +953,8 @@ if s:has_vim_plug && s:dko_use_plugins
 
   " Hex (et al) color highlighting
   if s:dko_use_colorv | Plug 'Rykka/colorv.vim'
-  else                | Plug 'chrisbra/Colorizer'
-  "else                | Plug 'ap/vim-css-color'
+  else                | Plug 'ap/vim-css-color'
+  "else                | Plug 'chrisbra/Colorizer'
   endif
 
   " Omnicompletion
