@@ -243,6 +243,11 @@ function! s:FindSasslintConfig()
 endfunction
 autocmd dkosyntastic FileType scss call s:FindSasslintConfig()
 
+let g:syntastic_scss_sass_lint_quiet_messages = {
+      \   'regex': '-webkit-overflow-scrolling',
+      \ }
+
+
 " ----------------------------------------------------------------------------
 " Checker assignment
 " ----------------------------------------------------------------------------
