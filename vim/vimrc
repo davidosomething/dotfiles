@@ -1,4 +1,11 @@
-" vimrc
+"                88
+"
+"   8b       d8  88  88,dba,,adba,   8b,dPPYba,   ,adPYba,
+"   `8b     d8'  88  88P' '88'  '8a  88P'   'Y8  a8P
+"    `8b   d8'   88  88    88    88  88          8b
+"     `8b,d8'    88  88    88    88  88          "8a
+" 88    `8'      88  88    88    88  88           `"YbbdP'
+"
 set encoding=utf-8 nobomb
 scriptencoding utf-8
 " note: set encoding BEFORE scriptencoding
@@ -169,10 +176,13 @@ endif
 " Don't keep .viminfo information for files in temporary directories or shared
 " memory filesystems; this is because they're used as scratch spaces for tools
 " like sudoedit(8) and pass(1) and hence could present a security problem
-if has('viminfo')
-  silent! autocmd vimrc BufNewFile,BufReadPre
-      \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-      \ setlocal viminfo=
+if !has('nvim') && has('viminfo')
+  augroup dkoviminfo
+    autocmd!
+    silent! autocmd vimrc BufNewFile,BufReadPre
+        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+        \ setlocal viminfo=
+  augroup END
 endif
 
 " swap - useless
@@ -183,7 +193,10 @@ set backupskip=/tmp/*
 " Make Vim able to edit crontab files again.
 set backupskip+=,/private/tmp/*"
 if has('mac')
-  autocmd vimrc   BufEnter  /private/tmp/crontab.*  setlocal backupcopy=yes
+  augroup dkomac
+    autocmd!
+    autocmd vimrc   BufEnter  /private/tmp/crontab.*  setlocal backupcopy=yes
+  augroup END
 endif
 execute 'set backupdir=' . g:dko_vim_dir . '/.tmp/backup//'
 set backup
@@ -424,10 +437,14 @@ let g:vimsyn_embed = 'lpPr'
 " Autocommands
 " ----------------------------------------------------------------------------
 
-augroup vimrc
+augroup dkopanes
+  autocmd!
   " Resize splits when the window is resized
   autocmd VimResized   *   wincmd =
+augroup END
 
+augroup dkowpvip
+  autocmd!
   " No EOL character on files -- specifically for WP VIP PHP
   autocmd BufNewFile,BufRead  */wp-content/themes/vip/*
         \ setlocal noeol binary fileformat=dos
