@@ -26,6 +26,7 @@ alias gpo="git push origin"
 # bin
 alias a="atom"
 alias ag="ag --path-to-agignore \"\${DOTFILES}/ag/agignore\""
+alias archey="archey --offline"
 alias be="bundle exec"
 alias bfy="browserify"
 alias bun="bundle"
