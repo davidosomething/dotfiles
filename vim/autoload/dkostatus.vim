@@ -131,7 +131,7 @@ endfunction
 function! dkostatus#GitaBranch() abort
   if winwidth(0) < 80
         \ || s:winnr != winnr()
-        \ || !exists('g:plugs["vim-gita"]')
+        \ || !exists('g:gita#debug')
     return ''
   endif
   let l:branch = gita#statusline#format('%lb')
@@ -143,7 +143,7 @@ endfunction
 function! dkostatus#GutentagsStatus() abort
   if winwidth(0) < 80
         \ || s:winnr != winnr()
-        \ || !exists("g:plugs['vim-gutentags']")
+        \ || !exists('g:loaded_gutentags')
     return ''
   endif
   return '%#SignColumn#%{gutentags#statusline(" ᴛᴀɢ ")}%*'

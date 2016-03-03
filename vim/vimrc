@@ -585,8 +585,8 @@ if s:has_vim_plug && s:dko_use_plugins
   Plug 'dockyard/vim-easydir'
 
   if s:dko_use_gutentags
-    "Plug 'ludovicchabant/vim-gutentags'
-    Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
+    Plug 'ludovicchabant/vim-gutentags'
+    "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
   endif
 
   " ========================================================================
