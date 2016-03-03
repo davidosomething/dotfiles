@@ -115,18 +115,26 @@ __dotfiles_update_node() {
   local previous_node
 
   source "${NVM_DIR}/nvm.sh"
+  dkostatus "Checking node versions..."
   desired_node_minor="$(nvm version-remote "$desired_node")"
   previous_node="$(nvm current)"
 
-  dkostatus "Previous node version was $previous_node"
+  dkostatus_ "Previous node version was $previous_node"
   if [ "$desired_node_minor" != "$previous_node" ]; then
-    dkostatus "Installing and using new node $desired_node_minor"
-    nvm install             "$desired_node"
-    nvm use                 "$desired_node"
-    nvm alias default       "$desired_node"
-    npm install --global npm@latest
-    nvm reinstall-packages  "$previous_node"
-    rehash
+    echo -n "Install and use new node ${desired_node_minor} as default? [y/N] "
+    read -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      nvm install             "$desired_node"
+      nvm alias default       "$desired_node"
+
+      dkostatus_ "Installing npm@latest for $desired_node_minor..."
+      npm install --global npm@latest
+      rehash
+
+      dkostatus "Node and npm updated."
+      dkostatus_ "Run \$DOTFILES/node/install.sh to install global packages."
+    fi
   else
     dkostatus_ "Node version is already up-to-date."
   fi
