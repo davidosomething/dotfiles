@@ -1,5 +1,4 @@
 bashate
-editorconfig
 neovim
 prospector
 Pygments
