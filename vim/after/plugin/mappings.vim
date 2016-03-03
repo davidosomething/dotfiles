@@ -48,7 +48,12 @@ nnoremap  <silent>  <Leader>erG  :<C-u>call <SID>EditRoot('Gruntfile.js')<CR>
 nnoremap  <silent>  <Leader>erp  :<C-u>call <SID>EditRoot('package.json')<CR>
 nnoremap  <silent>  <Leader>err  :<C-u>call <SID>EditRoot('README.md')<CR>
 
-nnoremap  <silent>  <Leader>ev   :<C-u>edit $MYVIMRC<CR>
+" Not using $MYVIMRC since it varies based on (n)vim
+nnoremap  <silent>  <Leader>evi   :<C-u>execute 'edit ' . expand(g:dko_vim_dir . '/init.vim')<CR>
+nnoremap  <silent>  <Leader>evg   :<C-u>execute 'edit ' . expand(g:dko_vim_dir . '/gvimrc')<CR>
+nnoremap  <silent>  <Leader>evl   :<C-u>edit ~/.secret/vim/vimrc.vim<CR>
+nnoremap  <silent>  <Leader>evr   :<C-u>execute 'edit ' . expand(g:dko_vim_dir . '/vimrc')<CR>
+
 nnoremap  <silent>  <Leader>em
       \ :<C-u>edit $VIM_DOTFILES/after/plugin/mappings.vim<CR>
 nnoremap  <silent>  <Leader>ez   :<C-u>edit $ZDOTDIR/.zshrc<CR>
@@ -83,11 +88,11 @@ nnoremap  <silent>  <Plug>unimpairedLNext
 " Buffer manip
 " ============================================================================
 
-" Prev buffer with <BS> in normal
-nnoremap  <special> <BS> <C-^>
+" Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)
+nnoremap  <special>   <BS>  <C-^>
 
 " close buffer with space-bd and auto close loc list first
-nnoremap  <silent>  <Leader>bd  :<C-u>lclose<CR>:bdelete<CR>
+nnoremap  <silent><special>  <Leader>bd  :<C-u>lclose<CR>:bdelete<CR>
 
 " ============================================================================
 " Split manip
