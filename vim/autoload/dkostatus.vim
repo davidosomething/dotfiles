@@ -117,7 +117,7 @@ function! dkostatus#Anzu() abort
   let l:anzu = anzu#search_status()
   return empty(l:anzu)
         \ ? ''
-        \ : '%#Visual# %{anzu#search_status()} %*'
+        \ : '%#Visual# ' . l:anzu .' %*'
 endfunction
 
 function! dkostatus#ShortPath() abort
