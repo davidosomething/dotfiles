@@ -168,7 +168,8 @@ if g:dko_use_tern_completion
 
   " force using tern when typing matches regex
   " first regex is match 5 or more characters to end of line
-  let s:fip.javascript = '\h\k\{4,}$' . '\|' . s:REGEXPS.nonspace_dot
+  "let s:fip.javascript = '\h\k\{4,}$' . '\|' .
+  let s:fip.javascript = s:REGEXPS.nonspace_dot
 endif
 
 " ============================================================================
