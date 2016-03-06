@@ -59,9 +59,9 @@ endif
 
 let s:REGEXPS = {}
 let s:REGEXPS.any_word        = '\h\w*'
-let s:REGEXPS.nonspace_dot    = '[^. \t]\.\w'
-let s:REGEXPS.nonspace_arrow  = '[^. \t]->\%(\h\w*\)\?'
-let s:REGEXPS.word_scope_word = '\h\w*::\%(\h\w*\)\?'
+let s:REGEXPS.nonspace_dot    = '[^-. \t]\.\w*'
+let s:REGEXPS.nonspace_arrow  = '[^-. \t]->\w*'
+let s:REGEXPS.word_scope_word = '\h\w*::\w*'
 
 " For jspc.vim
 let s:REGEXPS.keychar   = '\k\zs \+'
@@ -210,6 +210,34 @@ if 1 && s:use_phpcomplete
   if 1 && exists("g:plugs['phpcomplete-extended']")
     call insert(s:omnifuncs.php, 'phpcomplete_extended#CompletePHP' )
   endif
+endif
+
+" ============================================================================
+" Completion Plugin: phpcd.vim
+" ============================================================================
+
+if exists('g:plugs["phpcd.vim"]')
+  augroup dkocompletion
+    autocmd FileType php setlocal omnifunc=phpcd#CompletePHP
+  augroup END
+
+  let s:fip.php = s:REGEXPS.any_word
+      \ . '\|' . s:REGEXPS.nonspace_arrow
+      \ . '\|' . s:REGEXPS.word_scope_word
+endif
+
+" ============================================================================
+" Completion Plugin: padawan.vim
+" ============================================================================
+
+if exists('g:plugs["padawan.vim"]')
+  augroup dkocompletion
+    autocmd FileType php setlocal omnifunc=padawan#Complete
+  augroup END
+
+  let s:fip.php = s:REGEXPS.any_word
+      \ . '\|' . s:REGEXPS.nonspace_arrow
+      \ . '\|' . s:REGEXPS.word_scope_word
 endif
 
 " ============================================================================

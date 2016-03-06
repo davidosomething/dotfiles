@@ -919,15 +919,25 @@ if s:has_vim_plug && s:dko_use_plugins
   " 'phpvim/phpcd.vim'            - server based completion
   " 'shawncplus/phpcomplete.vim'  - slow as fuck, included in VIMRUNTIME.
   "                                 this is upstream. Manual <c-x><c-o> to use
-  if has('nvim') && executable('composer')
-    Plug 'mkusher/padawan.php', {
-          \   'do': 'composer global require mkusher/padawan',
-          \   'for': 'php',
-          \ }
-  endif
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
   "Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
+
+  " server-based PHP completion disabled
+  if 0 && executable('composer')
+    if has('nvim')
+      Plug 'phpvim/phpcd.vim', {
+            \   'do': 'composer update',
+            \   'for': 'php'
+            \ }
+      Plug 'vim-scripts/progressbar-widget'
+    elseif has('python') || has('python3')
+      Plug 'mkusher/padawan.vim', {
+            \   'do': 'composer global require mkusher/padawan',
+            \   'for': 'php',
+            \ }
+    endif
+  endif
 
   " Snippet
   Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
