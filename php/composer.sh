@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-composer global require boris
+set -eu
+
+composer diagnose
 composer global require mkusher/padawan
-composer global require rocketeer
 
