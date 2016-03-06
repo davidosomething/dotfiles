@@ -34,6 +34,7 @@ __dotfiles_usage() {
     nvm         -- update nvm installation
 
   Packages
+    composer    -- update composer and global packages
     gem         -- update rubygems and global gems for current ruby
     go          -- golang
     heroku      -- heroku toolbelt
@@ -76,6 +77,15 @@ __dotfiles_update_secret() {
 # ------------------------------------------------------------------------------
 # Externals
 # ------------------------------------------------------------------------------
+
+__dotfiles_update_composer() {
+  has_program "composer" || { dkoerr "composer is not installed" && return 1; }
+  dkostatus "Updating composer itself"
+  composer self-update || { dkoerr "Could not update composer" && return 1; }
+  dkostatus "Updating composer global packages"
+  composer global update
+  rehash
+}
 
 __dotfiles_update_fzf() {
   dkostatus "Updating fzf"
@@ -306,6 +316,7 @@ __dotfiles_main() {
     reload)   __dotfiles_reload           ;;
     dotfiles) __dotfiles_update_dotfiles  ;;
     secret)   __dotfiles_update_secret    ;;
+    composer) __dotfiles_update_composer  ;;
     fzf)      __dotfiles_update_fzf       ;;
     gem)      __dotfiles_update_gems      ;;
     go)       __dotfiles_update_go        ;;
