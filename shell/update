@@ -62,7 +62,10 @@ __dotfiles_update_dotfiles() {
     dkoerr "Error updating dotfiles submodules" && return 1
   }
   __dotfiles_reload
-  [ -n "$ZSH_VERSION" ] && dkostatus "Done, don't forget to zplug update"
+  [ -n "$ZSH_VERSION" ] && has_program "zplug" && {
+    dkostatus "Updating zplug"
+    zplug update
+  }
   cd - || return 1
 }
 
