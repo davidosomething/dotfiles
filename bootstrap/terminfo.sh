@@ -27,3 +27,5 @@ mkdir -p "${HOME}/.terminfo/t"
 # xterm-256color-italic for iterm2
 find "${dotfiles_path}/terminfo/" -name '*.terminfo' -exec tic -x {} \;
 
+# xterm-termite
+tic -x "${dotfiles_path}/termite/termite.terminfo"
