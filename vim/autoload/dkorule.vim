@@ -15,7 +15,7 @@ function! dkorule#char(char) abort
   " whitespace
   let l:is_end_space = match(getline('.')[l:lastcol - 2], '[ \t]') != -1
   if l:lastcol > 1 && !l:is_end_space
-    execute 'normal! A '
+    normal! 1A 
     let l:reps -= 1
   endif
 
