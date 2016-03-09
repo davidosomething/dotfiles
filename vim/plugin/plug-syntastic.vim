@@ -147,7 +147,10 @@ function! s:UseMarkdownLint() abort
   " Use project local or global markdownlintrc if available
   " Otherwise clear the args since they contain '--warnings' from mdl args
   if !empty(b:syntastic_markdown_mdl_exec)
-    let l:ruleset = dkoproject#GetProjectConfigFile('.markdownlintrc')
+    let l:ruleset = dkoproject#GetProjectConfigFile('markdownlint.json')
+    if empty(l:ruleset)
+      let l:ruleset = dkoproject#GetProjectConfigFile('.markdownlintrc')
+    endif
     if empty(l:ruleset)
       let l:ruleset = glob(expand('$DOTFILES/markdownlint/config.json'))
     endif
@@ -255,15 +258,15 @@ let g:syntastic_scss_sass_lint_quiet_messages = {
 function! s:AddScssCheckers()
   let b:syntastic_checkers = ['sass']
 
+  " Found sass-lint node package, this is preferred over scss_lint
+  if exists('b:syntastic_scss_sass_lint_exec')
+    let b:syntastic_checkers += ['sass_lint']
+
   " Found .scss-lint.yml
-  if exists('b:syntastic_scss_scss_lint_args')
+  elseif exists('b:syntastic_scss_scss_lint_args')
     let b:syntastic_checkers += ['scss_lint']
   endif
 
-  " Found sass-lint node package
-  if exists('b:syntastic_scss_sass_lint_exec')
-    let b:syntastic_checkers += ['sass_lint']
-  endif
 
   " Found stylelint node package
   if exists('b:syntastic_scss_stylelint_lint_exec')

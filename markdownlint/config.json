@@ -4,6 +4,7 @@
   "MD003": { "style": "atx" },
   "MD004": { "style": "dash" },
   "MD007": { "indent": 4 },
+  "MD009": false,
   "MD012": false,
   "MD013": false,
   "MD026": false,
