@@ -7,7 +7,7 @@
 
 [alias]
 	a       = add
-	b       = branch
+	b       = branch --verbose
 	ci      = commit
 	co      = checkout
 	d       = diff
