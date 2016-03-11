@@ -10,12 +10,6 @@ let s:cpo_save = &cpoptions
 set cpoptions&vim
 
 " ============================================================================
-" Options
-" ============================================================================
-
-let s:use_phpcomplete = 0
-
-" ============================================================================
 " Default bundled omni-completion for each filetype
 " ============================================================================
 
@@ -76,16 +70,14 @@ let s:REGEXPS.parameter = s:REGEXPS.keychar . '\|' . '(' . '\|' . ':'
 " - String or list of vim regex
 let s:neo_patterns = {}
 
-let s:neo_patterns.javascript =
-      \ s:REGEXPS.any_word . '\|' . s:REGEXPS.nonspace_dot
-
 " coffee
 "let s:neo_patterns.coffee = '\h\w*\|[^. \t]\.\w*'
 
 " javascript
 " default: https://github.com/Shougo/neocomplete.vim/blame/34b42e76be30c0f365110ea036c8490b38fcb13e/autoload/neocomplete/sources/omni.vim
 let s:neo_patterns.javascript =
-      \ s:REGEXPS.any_word . '\|' . s:REGEXPS.nonspace_dot
+      \ s:REGEXPS.any_word
+      \ . '\|' . s:REGEXPS.nonspace_dot
 
 " lua with xolox/vim-lua-ftplugin -- not used but correct
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1705
@@ -93,6 +85,10 @@ let s:neo_patterns.javascript =
 
 " perl
 "let s:neo_patterns.perl   = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+"Deoplete
+" - Python 3 regex
+let s:deo_patterns = {}
 
 " ----------------------------------------------------------------------------
 " Regexes to force omnifunc completion
@@ -188,28 +184,36 @@ if exists('g:plugs["jspc.vim"]')
   call add(s:omnifuncs.javascript, 'jspc#omni')
 endif
 
-if 1 && s:use_phpcomplete
-  " ============================================================================
-  " Completion Plugin: phpcomplete.vim
-  " don't need to check exists since an older one comes with vimruntime
-  " ============================================================================
+" ============================================================================
+" Completion Plugin: phpcomplete.vim
+" don't need to check exists since an older one comes with vimruntime
+" ============================================================================
 
+if exists("g:plugs['phpcomplete.vim']")
   let g:phpcomplete_parse_docblock_comments = 1
 
   " php with phpcomplete.vim support
   " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1731
   let s:neo_patterns.php =
-      \   s:REGEXPS.any_word
+      \ s:REGEXPS.any_word
       \ . '\|' . s:REGEXPS.nonspace_arrow
       \ . '\|' . s:REGEXPS.word_scope_word
+endif
 
-  " ============================================================================
-  " Completion Plugin: phpcomplete-extended
-  " ============================================================================
+" ============================================================================
+" Completion Plugin: phpcomplete-extended
+" No config needed for deoplete
+" ============================================================================
 
-  if 1 && exists("g:plugs['phpcomplete-extended']")
-    call insert(s:omnifuncs.php, 'phpcomplete_extended#CompletePHP' )
-  endif
+if exists("g:plugs['phpcomplete-extended']")
+  autocmd dkocompletion FileType php
+        \ setlocal completefunc=phpcomplete_extended#CompletePHP
+
+  " https://github.com/Shougo/deoplete.nvim/blob/03f8cad9330a1ac557dfe7d12e8e77ba7f39d822/doc/deoplete.txt#L216
+  let s:fip.php =
+        \ s:REGEXPS.any_word
+        \ . '\|' . '[^. \t]->\%(\h\w*\)\?'
+        \ . '\|' . '\h\w*::\%(\h\w*\)\?'
 endif
 
 " ============================================================================
@@ -221,9 +225,10 @@ if exists('g:plugs["phpcd.vim"]')
     autocmd FileType php setlocal omnifunc=phpcd#CompletePHP
   augroup END
 
-  let s:fip.php = s:REGEXPS.any_word
-      \ . '\|' . s:REGEXPS.nonspace_arrow
-      \ . '\|' . s:REGEXPS.word_scope_word
+  let s:fip.php =
+        \ s:REGEXPS.any_word
+        \ . '\|' . s:REGEXPS.nonspace_arrow
+        \ . '\|' . s:REGEXPS.word_scope_word
 endif
 
 " ============================================================================
@@ -235,9 +240,10 @@ if exists('g:plugs["padawan.vim"]')
     autocmd FileType php setlocal omnifunc=padawan#Complete
   augroup END
 
-  let s:fip.php = s:REGEXPS.any_word
-      \ . '\|' . s:REGEXPS.nonspace_arrow
-      \ . '\|' . s:REGEXPS.word_scope_word
+  let s:fip.php =
+        \ s:REGEXPS.any_word
+        \ . '\|' . s:REGEXPS.nonspace_arrow
+        \ . '\|' . s:REGEXPS.word_scope_word
 endif
 
 " ============================================================================
@@ -288,7 +294,7 @@ endif
 
 if exists('g:plugs["deoplete.nvim"]')
   let g:deoplete#enable_at_startup = 1
-  let g:deoplete#auto_completion_start_length = 2
+  let g:deoplete#auto_complete_start_length = 2
   call deoplete#custom#set('_', 'matchers', [
         \   'matcher_head',
         \   'matcher_length',
@@ -313,16 +319,6 @@ if exists('g:plugs["deoplete.nvim"]')
   call extend(g:deoplete#omni_patterns, s:fip)
 
   " Completion engine input patterns
-  " - Python 3 regex
-  let s:deo_patterns = {}
-  " not quite...
-  " if s:is_php_enabled
-  "   let s:deo_patterns.php = [
-  "         \   '[^. \t0-9]\.\w*',
-  "         \   '[^. \t0-9]\->\w*',
-  "         \   '[a-zA-Z_]\::\w*',
-  "         \ ]
-  " endif
   call dko#InitObject('g:deoplete#omni#input#patterns')
   call extend(g:deoplete#omni#input#patterns, s:deo_patterns)
 

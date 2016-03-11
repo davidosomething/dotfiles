@@ -912,8 +912,8 @@ if s:has_vim_plug && s:dko_use_plugins
   " 'phpvim/phpcd.vim'            - server based completion
   " 'shawncplus/phpcomplete.vim'  - slow as fuck, included in VIMRUNTIME.
   "                                 this is upstream. Manual <c-x><c-o> to use
-  Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-  "Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
+  "Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+  Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
   " server-based PHP completion disabled
