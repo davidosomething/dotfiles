@@ -34,6 +34,7 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= dkostatus#Mode()
   let l:contents .= dkostatus#Paste()
   "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
+  let l:contents .= dkostatus#Neomake()
   let l:contents .= dkostatus#Syntastic()
   let l:contents .= dkostatus#Readonly()
   let l:contents .= dkostatus#Filetype()
@@ -80,6 +81,30 @@ function! dkostatus#Paste() abort
         \ || empty(&paste)
         \ ? ''
         \ : '%#DiffText# ᴘ %*'
+endfunction
+
+" Custom formatter based on https://github.com/benekastah/neomake/blob/master/autoload/neomake/statusline.vim#L36
+function! dkostatus#FormatNeomakeCounts(counts) abort
+  let l:result = ''
+  let l:e = get(a:counts, 'E', 0)
+  let l:w = get(a:counts, 'W', 0)
+
+  if l:e
+    let l:result .= '%#SyntasticErrorSign# ⚑' . l:e
+  endif
+  if l:w
+    let l:result .= '%#SyntasticWarningSign# ⚑' . l:w
+  endif
+  return (l:e || l:w)
+        \ ? l:result . ' %*'
+        \ : ''
+endfunction
+
+function! dkostatus#Neomake() abort
+  return s:winnr != winnr()
+        \ || !exists('g:plugs["neomake"]')
+        \ ? ''
+        \ : dkostatus#FormatNeomakeCounts(neomake#statusline#LoclistCounts())
 endfunction
 
 function! dkostatus#Syntastic() abort
