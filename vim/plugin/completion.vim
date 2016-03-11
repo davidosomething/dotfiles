@@ -206,6 +206,12 @@ endif
 " ============================================================================
 
 if exists("g:plugs['phpcomplete-extended']")
+  if executable('composer')
+    let g:phpcomplete_index_composer_command = 'composer'
+  endif
+
+  let g:phpcomplete_extended_auto_add_use = 0
+
   autocmd dkocompletion FileType php
         \ setlocal completefunc=phpcomplete_extended#CompletePHP
 
