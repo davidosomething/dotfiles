@@ -55,16 +55,6 @@ let g:neomake_warning_sign = {
 " Maker: eslint
 " ----------------------------------------------------------------------------
 
-autocmd dkosyntastic FileType javascript call dkoproject#AssignConfigPath(
-      \ 'node_modules/.bin/eslint',
-      \ 'b:syntastic_javascript_eslint_exec')
-
-let b:dko_jscsrc = dkoproject#GetProjectConfigFile('.jscsrc')
-if (!empty(b:dko_jscsrc))
-  "let b:syntastic_checkers = g:syntastic_javascript_checkers + ['jscs']
-  let b:syntastic_javascript_jscs_post_args = '-c ' . b:dko_jscsrc
-endif
-
 function! s:SetupEslint()
   " Use local bin
   let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/eslint')
