@@ -11,6 +11,9 @@ augroup END
 " Syntastic config
 " ============================================================================
 
+" migrated to neomake
+let s:disabled_checkers = [ 'php' ]
+
 " ----------------------------------------------------------------------------
 " When to check
 " ----------------------------------------------------------------------------
@@ -18,8 +21,8 @@ augroup END
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq   = 0
 let g:syntastic_mode_map = {
-      \   'mode': 'active',
-      \   'passive_filetypes': [],
+      \   'mode':               'active',
+      \   'passive_filetypes':  s:disabled_checkers,
       \ }
 
 " ----------------------------------------------------------------------------
@@ -58,6 +61,14 @@ let g:syntastic_ignore_files = [
       \ '\m\.min\.js$',
       \ '\m\.min\.css$',
       \ ]
+
+" ============================================================================
+" Checkers: disabled (probably using neomake instead)
+" ============================================================================
+
+for s:ft in s:disabled_checkers
+  let g:syntastic_{s:ft}_checkers = []
+endfor
 
 " ============================================================================
 " Checker: HTML, Handlebars
@@ -161,36 +172,6 @@ function! s:UseMarkdownLint() abort
 endfunction
 autocmd dkosyntastic FileType markdown.pandoc call s:UseMarkdownLint()
 
-
-" ============================================================================
-" Syntax: PHP
-" ============================================================================
-
-let g:syntastic_php_checkers = ['php', 'phplint', 'phpmd', 'phpcs']
-
-" ----------------------------------------------------------------------------
-" Checker: phpmd
-" ----------------------------------------------------------------------------
-
-" Find local ruleset.xml
-autocmd dkosyntastic FileType php call dkoproject#AssignConfigPath(
-      \ 'ruleset.xml',
-      \ 'b:syntastic_php_phpmd_post_args')
-
-" ----------------------------------------------------------------------------
-" Checker: phpcs
-" ----------------------------------------------------------------------------
-
-let g:syntastic_php_phpcs_quiet_messages = { 'regex': 'Yoda' }
-
-function! s:FindPhpcsStandard()
-  " WordPress VIP?
-  if match(expand('%:p'), 'wp-\|plugins\|themes') > -1
-    let b:syntastic_php_phpcs_args = '--standard=WordPress-VIP'
-  endif
-endfunction
-autocmd dkosyntastic FileType php call s:FindPhpcsStandard()
-
 " ============================================================================
 " Syntax: Python
 " ============================================================================
@@ -213,13 +194,13 @@ if !empty(glob(s:dko_scsslint_config))
 endif
 
 " Set scss_lint config for current buffer
-function! s:FindScsslintConfig()
+function! s:SetScsslintConfig()
   let l:config = dkoproject#GetProjectConfigFile('.scss-lint.yml')
   if !empty(l:config)
     let b:syntastic_scss_scss_lint_args = '--config=' . l:config
   endif
 endfunction
-autocmd dkosyntastic FileType scss call s:FindScsslintConfig()
+autocmd dkosyntastic FileType scss call s:SetScsslintConfig()
 
 " ----------------------------------------------------------------------------
 " Checker: sass_lint
@@ -238,13 +219,13 @@ endfunction
 autocmd dkosyntastic FileType scss call s:SasslintFallback()
 
 " Set sass_lint config for current buffer
-function! s:FindSasslintConfig()
+function! s:SetSasslintConfig()
   let l:config = dkoproject#GetProjectConfigFile('.sass-lint.yml')
   if !empty(l:config)
     let b:syntastic_scss_sass_lint_args = '--config=' . l:config
   endif
 endfunction
-autocmd dkosyntastic FileType scss call s:FindSasslintConfig()
+autocmd dkosyntastic FileType scss call s:SetSasslintConfig()
 
 let g:syntastic_scss_sass_lint_quiet_messages = {
       \   'regex': '-webkit-overflow-scrolling',
