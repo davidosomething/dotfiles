@@ -40,24 +40,24 @@ function! s:DKO_StarSearch()
 endfunction
 
 if !empty(s:DKO_StarSearch())
-  nmap <special><expr>  *   <SID>DKO_StarSearch()
+  nmap <silent><special><expr>  *   <SID>DKO_StarSearch()
 endif
 
 if exists("g:plugs['incsearch.vim']")
-  nmap  <special> /   <Plug>(incsearch-forward)
-  nmap  <special> ?   <Plug>(incsearch-backward)
-  nmap  <special> g/  <Plug>(incsearch-stay)
-  nmap  <special> n   <Plug>(incsearch-nohl)
-  nmap  <special> N   <Plug>(incsearch-nohl)
-  nmap  <special> #   <Plug>(incsearch-nohl)
+  nmap  <silent><special> /   <Plug>(incsearch-forward)
+  nmap  <silent><special> ?   <Plug>(incsearch-backward)
+  nmap  <silent><special> g/  <Plug>(incsearch-stay)
+  nmap  <silent><special> n   <Plug>(incsearch-nohl)
+  nmap  <silent><special> N   <Plug>(incsearch-nohl)
+  nmap  <silent><special> #   <Plug>(incsearch-nohl)
 endif
 
 if exists("g:plugs['vim-anzu']")
   " Support other search modes like `gd`
   let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
-  nmap <special> n <Plug>(anzu-n)
-  nmap <special> N <Plug>(anzu-N)
-  nmap <special> # <Plug>(anzu-sharp)
+  nmap <silent><special> n <Plug>(anzu-n)
+  nmap <silent><special> N <Plug>(anzu-N)
+  nmap <silent><special> # <Plug>(anzu-sharp)
 endif
 
 let &cpoptions = s:cpo_save
