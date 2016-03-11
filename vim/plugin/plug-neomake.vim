@@ -12,6 +12,11 @@ augroup END
 
 "let g:neomake_verbose = 3
 
+" No output on :wq
+" @see https://github.com/benekastah/neomake/issues/309
+" @see https://github.com/benekastah/neomake/issues/329
+autocmd dkoneomake QuitPre * let g:neomake_verbose = 0
+
 " loclist
 let g:neomake_open_list   = 0
 let g:neomake_list_height = g:dko_loc_list_height
