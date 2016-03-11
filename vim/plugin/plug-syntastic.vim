@@ -12,7 +12,7 @@ augroup END
 " ============================================================================
 
 " migrated to neomake
-let s:disabled_checkers = [ 'php' ]
+let s:disabled_fts = [ 'php', 'scss' ]
 
 " ----------------------------------------------------------------------------
 " When to check
@@ -22,7 +22,7 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq   = 0
 let g:syntastic_mode_map = {
       \   'mode':               'active',
-      \   'passive_filetypes':  s:disabled_checkers,
+      \   'passive_filetypes':  s:disabled_fts,
       \ }
 
 " ----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ let g:syntastic_ignore_files = [
 " Checkers: disabled (probably using neomake instead)
 " ============================================================================
 
-for s:ft in s:disabled_checkers
+for s:ft in s:disabled_fts
   let g:syntastic_{s:ft}_checkers = []
 endfor
 
@@ -183,78 +183,6 @@ let g:syntastic_python_checkers = ['prospector', 'python']
 " ============================================================================
 
 let g:syntastic_scss_checkers = [ 'sass' ]
-
-" ----------------------------------------------------------------------------
-" Checker: scss_lint
-" ----------------------------------------------------------------------------
-
-let s:dko_scsslint_config = expand('$DOTFILES/scss-lint/.scss-lint.yml')
-if !empty(glob(s:dko_scsslint_config))
-  let g:syntastic_scss_scss_lint_args = '--config=' . s:dko_scsslint_config
-endif
-
-" Set scss_lint config for current buffer
-function! s:SetScsslintConfig()
-  let l:config = dkoproject#GetProjectConfigFile('.scss-lint.yml')
-  if !empty(l:config)
-    let b:syntastic_scss_scss_lint_args = '--config=' . l:config
-  endif
-endfunction
-autocmd dkosyntastic FileType scss call s:SetScsslintConfig()
-
-" ----------------------------------------------------------------------------
-" Checker: sass_lint
-" ----------------------------------------------------------------------------
-
-" Use local ruleset.xml
-autocmd dkosyntastic FileType scss call dkoproject#AssignConfigPath(
-      \ 'node_modules/.bin/sass-lint',
-      \ 'b:syntastic_scss_sass_lint_exec')
-
-function! s:SasslintFallback()
-  if !exists('b:syntastic_scss_sass_lint_exec') && executable('sass-lint')
-    let b:syntastic_scss_sass_lint_exec = 'sass-lint'
-  endif
-endfunction
-autocmd dkosyntastic FileType scss call s:SasslintFallback()
-
-" Set sass_lint config for current buffer
-function! s:SetSasslintConfig()
-  let l:config = dkoproject#GetProjectConfigFile('.sass-lint.yml')
-  if !empty(l:config)
-    let b:syntastic_scss_sass_lint_args = '--config=' . l:config
-  endif
-endfunction
-autocmd dkosyntastic FileType scss call s:SetSasslintConfig()
-
-let g:syntastic_scss_sass_lint_quiet_messages = {
-      \   'regex': '-webkit-overflow-scrolling',
-      \ }
-
-
-" ----------------------------------------------------------------------------
-" Checker assignment
-" ----------------------------------------------------------------------------
-
-function! s:AddScssCheckers()
-  let b:syntastic_checkers = ['sass']
-
-  " Found sass-lint node package, this is preferred over scss_lint
-  if exists('b:syntastic_scss_sass_lint_exec')
-    let b:syntastic_checkers += ['sass_lint']
-
-  " Found .scss-lint.yml
-  elseif exists('b:syntastic_scss_scss_lint_args')
-    let b:syntastic_checkers += ['scss_lint']
-  endif
-
-
-  " Found stylelint node package
-  if exists('b:syntastic_scss_stylelint_lint_exec')
-    let b:syntastic_checkers += ['stylelint']
-  endif
-endfunction
-autocmd dkosyntastic FileType scss call s:AddScssCheckers()
 
 " ============================================================================
 " Syntax: Shell

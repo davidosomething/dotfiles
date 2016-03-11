@@ -121,7 +121,7 @@ endfunction
 " @param {String} var
 function! dkoproject#AssignConfigPath(file, var) abort
   let l:file = dkoproject#GetProjectConfigFile(a:file)
-  if !empty(glob(l:file))
+  if !empty(l:file)
     let {a:var} = l:file
   else
     unlet! {a:var}

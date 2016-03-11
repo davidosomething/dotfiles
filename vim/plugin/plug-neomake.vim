@@ -82,6 +82,40 @@ function! s:SetPhpmdRuleset()
 endfunction
 autocmd dkoneomake FileType php call s:SetPhpmdRuleset()
 
+" ----------------------------------------------------------------------------
+" Maker: sasslint
+" ----------------------------------------------------------------------------
+
+let g:neomake_scss_sasslint_maker = {
+      \   'exe':          'sass-lint',
+      \   'args':         [ '--no-exit', '--verbose', '--format=compact' ],
+      \   'errorformat':  '%E%f: line %l\, col %c\, Error - %m,' .
+      \                   '%W%f: line %l\, col %c\, Warning - %m',
+      \ }
+
+function! s:SetupSasslint()
+  " Use local bin
+  let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/sass-lint')
+  if !empty(l:bin)
+    let b:neomake_scss_sasslint_exe = l:bin
+  endif
+
+  " Use local config
+  let l:config = dkoproject#GetProjectConfigFile('.sass-lint.yml')
+  if !empty(l:config)
+    let b:neomake_scss_sasslint_args = g:neomake_scss_sasslint_maker.args
+          \ + [ '--config=' . l:config ]
+  endif
+endfunction
+autocmd dkoneomake FileType scss call s:SetupSasslint()
+
+" ============================================================================
+" Disabled until migrated from syntastic
+" ============================================================================
+
+let g:neomake_javascript_enabled_makers = []
+let g:neomake_scss_enabled_makers       = [ 'sasslint' ]
+
 " ============================================================================
 " Auto run
 " Keep this last so all the other autocmds happen first
