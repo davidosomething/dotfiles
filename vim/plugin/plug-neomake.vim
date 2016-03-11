@@ -52,6 +52,29 @@ let g:neomake_warning_sign = {
 "       \ let g:neomake_javascript_enabled_makers = dkoproject#JsLinters()
 
 " ----------------------------------------------------------------------------
+" Maker: eslint
+" ----------------------------------------------------------------------------
+
+autocmd dkosyntastic FileType javascript call dkoproject#AssignConfigPath(
+      \ 'node_modules/.bin/eslint',
+      \ 'b:syntastic_javascript_eslint_exec')
+
+let b:dko_jscsrc = dkoproject#GetProjectConfigFile('.jscsrc')
+if (!empty(b:dko_jscsrc))
+  "let b:syntastic_checkers = g:syntastic_javascript_checkers + ['jscs']
+  let b:syntastic_javascript_jscs_post_args = '-c ' . b:dko_jscsrc
+endif
+
+function! s:SetupEslint()
+  " Use local bin
+  let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/eslint')
+  if !empty(l:bin)
+    let b:neomake_javascript_eslint_exe = l:bin
+  endif
+endfunction
+autocmd dkoneomake FileType javascript call s:SetupEslint()
+
+" ----------------------------------------------------------------------------
 " Maker: phpcs
 " ----------------------------------------------------------------------------
 
@@ -110,10 +133,16 @@ endfunction
 autocmd dkoneomake FileType scss call s:SetupSasslint()
 
 " ============================================================================
-" Disabled until migrated from syntastic
+" Disable makers
 " ============================================================================
 
-let g:neomake_javascript_enabled_makers = []
+" using syntastic still
+let g:neomake_markdown_enabled_makers   = []
+let g:neomake_python_enabled_makers     = []
+let g:neomake_sh_enabled_makers         = []
+
+" limit to only preferred
+let g:neomake_javascript_enabled_makers = [ 'eslint' ]
 let g:neomake_scss_enabled_makers       = [ 'sasslint' ]
 
 " ============================================================================

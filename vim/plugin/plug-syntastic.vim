@@ -12,7 +12,17 @@ augroup END
 " ============================================================================
 
 " migrated to neomake
-let s:disabled_fts = [ 'php', 'scss' ]
+let s:disabled_fts = [
+      \   'coffee',
+      \   'css',
+      \   'javascript',
+      \   'json',
+      \   'lua',
+      \   'php',
+      \   'scss',
+      \   'vim',
+      \   'yaml,'
+      \ ]
 
 " ----------------------------------------------------------------------------
 " When to check
@@ -63,14 +73,6 @@ let g:syntastic_ignore_files = [
       \ ]
 
 " ============================================================================
-" Checkers: disabled (probably using neomake instead)
-" ============================================================================
-
-for s:ft in s:disabled_fts
-  let g:syntastic_{s:ft}_checkers = []
-endfor
-
-" ============================================================================
 " Checker: HTML, Handlebars
 " ============================================================================
 
@@ -91,36 +93,6 @@ let g:syntastic_html_tidy_ignore_errors = g:syntastic_html_tidy_ignore_errors
       \   ' allowed in <head> elements',
       \   '{{',
       \ ]
-
-" ============================================================================
-" Syntax: JS, Coffee
-" ============================================================================
-
-let g:syntastic_coffeescript_checkers  = ['coffee', 'coffeelint']
-
-let g:syntastic_javascript_checkers = ['eslint']
-
-let g:syntastic_javascript_eslint_quiet_messages = {
-      \   'regex': 'File ignored because of your .eslintignore file.',
-      \ }
-
-autocmd dkosyntastic FileType javascript call dkoproject#AssignConfigPath(
-      \ 'node_modules/.bin/eslint',
-      \ 'b:syntastic_javascript_eslint_exec')
-
-" syntastic: jscs if has .jscsrc
-" @TODO disabled for now
-let b:dko_jscsrc = dkoproject#GetProjectConfigFile('.jscsrc')
-if (!empty(b:dko_jscsrc))
-  "let b:syntastic_checkers = g:syntastic_javascript_checkers + ['jscs']
-  let b:syntastic_javascript_jscs_post_args = '-c ' . b:dko_jscsrc
-endif
-
-" ============================================================================
-" Syntax: Lua
-" ============================================================================
-
-let g:syntastic_lua_checkers = ['luac', 'luacheck']
 
 " ============================================================================
 " Syntax: Markdown
@@ -179,12 +151,6 @@ autocmd dkosyntastic FileType markdown.pandoc call s:UseMarkdownLint()
 let g:syntastic_python_checkers = ['prospector', 'python']
 
 " ============================================================================
-" Syntax: scss
-" ============================================================================
-
-let g:syntastic_scss_checkers = [ 'sass' ]
-
-" ============================================================================
 " Syntax: Shell
 " ============================================================================
 
@@ -200,24 +166,12 @@ let g:syntastic_zsh_checkers = [ 'zsh' ]
 "let g:syntastic_sh_checkbashisms_args_after = '--posix'
 
 " ============================================================================
-" Syntax: VimL
+" Checkers: disabled (probably using neomake instead)
 " ============================================================================
 
-" Syntastic checks if they're installed so don't need to check here.
-let g:syntastic_vim_checkers = [ 'vint' ]
-
-" ----------------------------------------------------------------------------
-" Checker: vimlint
-" ----------------------------------------------------------------------------
-
-if exists("g:plugs['vim-vimlint']")
-  call add(g:syntastic_vim_checkers, 'vimlint')
-
-  call dko#InitObject('g:vimlint#config')
-  let g:vimlint#config.EVL103 = 1
-
-  let g:syntastic_vimlint_options = g:vimlint#config
-endif
+for s:ft in s:disabled_fts
+  let g:syntastic_{s:ft}_checkers = []
+endfor
 
 " ============================================================================
 " Execution
