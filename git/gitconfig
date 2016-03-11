@@ -20,8 +20,8 @@
 	aa      = add .
 
 	be      = branch --edit-description
-	done    = branch --merged
-	um      = branch --no-merged
+	done    = branch --verbose --merged
+	um      = branch --verbose --no-merged
 
 	cl      = changelog --list
 
