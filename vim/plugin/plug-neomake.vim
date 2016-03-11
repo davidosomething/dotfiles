@@ -38,7 +38,7 @@ let g:neomake_error_sign = {
 
 let g:neomake_warning_sign = {
       \   'text':   '⚑',
-      \   'texthl': 'SyntasticErrorSign',
+      \   'texthl': 'SyntasticWarningSign',
       \ }
 
 " ============================================================================
