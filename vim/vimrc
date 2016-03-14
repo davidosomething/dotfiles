@@ -760,10 +760,6 @@ if s:has_vim_plug && s:dko_use_plugins
 
   "Plug 'tpope/vim-haml'
 
-  " APPLIES TO HTML (and therefore mustache/hbs) too
-  " Closing tags, % match support
-  Plug 'othree/xml.vim'
-
   " Creates html.handlebars and other fts and sets syn
   Plug 'mustache/vim-mustache-handlebars'
 
