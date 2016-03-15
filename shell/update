@@ -43,6 +43,9 @@ __dotfiles_usage() {
   Arch Linux
     arch        -- update arch packages
 
+  Debian/Ubuntu
+    deb         -- update apt packages
+
   OSX
     brew        -- osx homebrew packages
     osx         -- repair osx permissions and check software updates
@@ -198,6 +201,7 @@ __dotfiles_update_pip() {
 __dotfiles_update_linux() {
   case "$1" in
     arch) __dotfiles_update_arch      ;;
+    deb)  __dotfiles_update_deb       ;;
     pip)  __dotfiles_update_pip "pip" ;;
   esac
 }
@@ -215,7 +219,7 @@ __dotfiles_update_darwin() {
 }
 
 # ------------------------------------------------------------------------------
-# OS: Arch Linux
+# OS: GNU/Linux: Arch Linux
 # ------------------------------------------------------------------------------
 
 __dotfiles_update_arch() {
@@ -232,6 +236,24 @@ __dotfiles_update_arch() {
   else
     pacman -Syu
   fi
+}
+
+# ------------------------------------------------------------------------------
+# OS: GNU/Linux: Debian or Ubuntu
+# ------------------------------------------------------------------------------
+
+__dotfiles_update_deb() {
+  dkostatus "Apt system update"
+
+  if ! has_program "apt"; then
+    dkoerr "Plain 'apt' not found, manually use 'apt-get' for crappy systems."
+    exit 1
+  fi
+
+  sudo apt-get update
+
+  # this is for home systems only!
+  sudo apt-get dist-upgrade
 }
 
 # ------------------------------------------------------------------------------
