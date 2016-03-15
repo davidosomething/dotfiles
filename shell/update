@@ -250,10 +250,11 @@ __dotfiles_update_deb() {
     exit 1
   fi
 
-  sudo apt-get update
+  sudo apt update
 
-  # this is for home systems only!
-  sudo apt-get dist-upgrade
+  # This is for home systems only! Removes unused stuff, same as
+  # `apt-get dist-upgrade`
+  sudo apt full-upgrade
 }
 
 # ------------------------------------------------------------------------------
