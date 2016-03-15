@@ -159,7 +159,7 @@ _alias_arch() {
 }
 
 _alias_deb() {
-  alias a="sudo aptitude -F \"%p %d %v\""
+  alias b="apt "
 }
 
 # os specific
