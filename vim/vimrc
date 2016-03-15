@@ -187,6 +187,7 @@ endif
 
 " swap - useless
 set noswapfile
+execute 'set directory=' . g:dko_vim_dir . '/.tmp/swap//'
 
 " backups
 set backupskip=/tmp/*
@@ -204,10 +205,9 @@ set backup
 " undo files
 " double slash means create dir structure to mirror file's path
 set undofile
-set undolevels=500
-set undoreload=500
+set undolevels=1000
+set undoreload=10000
 execute 'set undodir=' . g:dko_vim_dir . '/.tmp/undo//'
-execute 'set directory=' . g:dko_vim_dir . '/.tmp/swap//'
 
 " ----------------------------------------------------------------------------
 " Spellcheck
