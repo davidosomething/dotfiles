@@ -54,7 +54,7 @@ function! dkoproject#GetProjectRoot(...) abort
 
   " Determine if git root exists (empty string on error)
   execute 'lcd! ' . l:path
-  let l:result = systemlist('git rev-parse --show-toplevel')
+  let l:result = system('git rev-parse --show-toplevel 2>/dev/null')
   lcd! -
 
   " No git root?
