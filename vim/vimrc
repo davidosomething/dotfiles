@@ -226,7 +226,9 @@ set completeopt-=preview              " don't open scratch preview
 set completeopt+=menu,menuone         " show PUM, even for one thing
 
 " @see <https://github.com/Valloric/YouCompleteMe/blob/master/autoload/youcompleteme.vim#L343>
-set shortmess+=c                      " Disable "Pattern not found" messages
+if has('patch-7.4.314')
+  set shortmess+=c                    " Disable "Pattern not found" messages
+endif
 
 " ----------------------------------------------------------------------------
 " Splits and buffers
