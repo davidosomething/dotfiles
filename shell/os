@@ -39,7 +39,6 @@ esac
 
 [[ "$DOTFILES_OS" = "Linux" ]] && {
   [[ -f "/etc/debian_version" ]] && export DOTFILES_DISTRO="debian"
-  [[ -x "/bin/busybox" ]]        && export DOTFILES_DISTRO="busybox"
 
   # ----------------------------------------------------------------------
   # Arch Linux
