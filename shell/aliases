@@ -23,6 +23,10 @@ alias gl="git l"
 alias gp="git push"
 alias gpo="git push origin"
 
+# remote
+alias irc="ssh dsmchroot -t -- tmux attach -t irc"
+alias mc="ssh minecraftvm -t -- tmux attach -t mc"
+
 # bin
 alias a="atom"
 alias ag="ag --path-to-agignore \"\${DOTFILES}/ag/agignore\""
@@ -37,7 +41,6 @@ alias df="df -h"
 alias f="find"
 alias grep="grep --color=auto"
 alias grw="grunt watch"
-alias irc="ssh dsmchroot -t -- tmux attach -t irc"
 alias irssi="irssi --home \"\${DOTFILES}/irssi\" --config \"\${DOTFILES}/irssi/config-\${DOTFILES_DISTRO}\""
 alias ln="ln -v"
 alias mdl="mdl --config \"\${DOTFILES}/mdl/.mdlrc\""
