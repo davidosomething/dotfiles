@@ -507,21 +507,10 @@ let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')
 let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
 " ============================================================================
-" Plugins: auto-install vim-plug
+" Plugins: load - called when vim-plug available
 " ============================================================================
 
-" Add plugin dirs to the runtimepath
-if !s:has_vim_plug && s:dko_use_plugins
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter  *  PlugInstall | source $MYVIMRC
-endif
-
-" ============================================================================
-" Plugins: load
-" ============================================================================
-
-if s:has_vim_plug && s:dko_use_plugins
+function s:LoadPlugins()
   " ==========================================================================
   " Which plugin set to use?
   " ==========================================================================
@@ -1032,11 +1021,26 @@ if s:has_vim_plug && s:dko_use_plugins
 
   " append vim-plug rtps and ft/syn enable
   call plug#end()
+endfunction
 
+
+" ============================================================================
+" Plugins: auto-install vim-plug
+" ============================================================================
+
+if s:dko_use_plugins
+  if !s:has_vim_plug
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    augroup dkovimplug
+      autocmd VimEnter  *  PlugInstall | call s:LoadPlugins()
+    augroup END
+  else
+    call s:LoadPlugins()
+  endif
 else
   filetype indent plugin on
   syntax enable
-
 endif
 
 " Loads vimrc.vim from the ~/.secret/vim runtimepath (and wherever else it
