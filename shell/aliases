@@ -84,6 +84,7 @@ _alias_ls() {
   local classify="-F" # switched from --classify for old bash support
   local colorized="--color=auto"
   local groupdirs="--group-directories-first"
+  local literal=""
   local long="-l"
   local single_column="-1"
   local timestyle=""
@@ -99,11 +100,12 @@ _alias_ls() {
   fi
 
   if [ "$DOTFILES_OS" = "Linux" ] && [ "$DOTFILES_DISTRO" != "busybox" ]; then
+    literal="-N"
     timestyle="--time-style=\"+%Y%m%d\""
   fi
 
   # shellcheck disable=SC2139
-  alias ls="ls $colorized $classify $groupdirs $timestyle"
+  alias ls="ls $colorized $literal $classify $groupdirs $timestyle"
   # shellcheck disable=SC2139
   alias la="ls $almost_all"
   # shellcheck disable=SC2139
