@@ -129,7 +129,8 @@ function! s:UseMarkdownLint() abort
 
   " Use project local or global markdownlintrc if available
   " Otherwise clear the args since they contain '--warnings' from mdl args
-  if !empty(b:syntastic_markdown_mdl_exec)
+  if exists('b:syntastic_markdown_mdl_exec')
+        \ && !empty(b:syntastic_markdown_mdl_exec)
     let l:ruleset = dkoproject#GetProjectConfigFile('markdownlint.json')
     if empty(l:ruleset)
       let l:ruleset = dkoproject#GetProjectConfigFile('.markdownlintrc')
