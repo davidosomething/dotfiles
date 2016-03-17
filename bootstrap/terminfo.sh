@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-set -eu
+
+# errors are okay.
+#set -eu
 
 # Copy compiled terminfo files
 
