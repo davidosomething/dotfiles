@@ -41,9 +41,6 @@
 	dm      = diff master
 	mod     = diff master --name-only
 
-# show alias definition by name, e.g. `git finda changed`
-	finda   = "!grepalias() { git config --global --get-regexp alias | grep -i \"$1\" | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; grepalias"
-
 	g       = grep --break --heading --line-number
 
 	l       = log --abbrev-commit --oneline

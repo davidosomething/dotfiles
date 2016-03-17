@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -e
+
+# git-whats
+#
+# Show a git alias' definition
+#
+
+
+# @param {String} alias name
+__whats() {
+  git config --global --get-regexp alias | grep -i "$1" |\
+  awk -v nr=2 '
+    { sub(/^alias\\./, "") };
+    { printf "\033[31m%_20s\033[1;37m", $1 };
+    { sep=FS };
+    {
+      for (x=nr; x<=NF; x++) { printf "%s%s", sep, $x; };
+      print "\033[0;39m"
+    }
+    '
+}
+
+
+[ -n "$#" ] && __whats "$@" || echo "USAGE: git whats somealias"
+
+
