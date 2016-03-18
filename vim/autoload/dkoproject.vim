@@ -101,7 +101,8 @@ function! dkoproject#GetProjectConfigFile(filename) abort
   let l:config_paths = dkoproject#GetConfigPaths()
 
   for l:config_path in l:config_paths
-    let l:project_config_path = dkoproject#GetProjectRoot() . '/' . l:config_path
+    let l:project_config_path = dkoproject#GetProjectRoot()
+          \ . '/' . l:config_path
 
     if !isdirectory(l:project_config_path)
       continue
