@@ -75,7 +75,9 @@ set title                             " wintitle = filename - vim
 " this is already set by modern terminal
 "set ttyfast
 
-set lazyredraw                        " macros don't update display
+if !has('nvim')
+  set lazyredraw                      " macros don't update display
+endif
 
 " no beeps or flashes
 set visualbell t_vb=
@@ -1009,7 +1011,7 @@ function s:LoadPlugins()
   "Plug 'junegunn/vim-peekaboo'
 
   " Show (#/total results) when searching for a term
-  Plug 'osyo-manga/vim-anzu'
+  "Plug 'osyo-manga/vim-anzu'
 
   Plug 'now/vim-quit-if-only-quickfix-buffer-left'
 
