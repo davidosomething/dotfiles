@@ -54,7 +54,7 @@ set shell=$SHELL
 
 set pastetoggle=<F12>
 
-if has('clipboard')
+if !empty('$SSH_CONNECTION') && has('clipboard')
   set clipboard=unnamed  " Use clipboard register
 
   " Share X windows clipboard. NOT ON NEOVIM -- neovim automatically uses
