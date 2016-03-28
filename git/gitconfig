@@ -1,6 +1,5 @@
 # Global gitconfig
 #
-# Symlink ~/.dotfiles/git/.gitconfig.symlink to ~/.gitconfig
 # Don't assign global GIT_CONFIG var since it has trouble with [include] when
 # you do that
 #
@@ -72,7 +71,33 @@
 	ui          = auto
 	pager       = true
 
-# Repo settings ----------------------------------------------------------------
+# ============================================================================
+# URL aliases
+# ============================================================================
+
+[url "git@github.com:"]
+	insteadOf = "gh:"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+	insteadOf = "github:"
+
+[url "git@gist.github.com:"]
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
+
+[url "git://gist.github.com/"]
+	insteadOf = "gist:"
+
+[url "git@heroku.com:"]
+	insteadOf = "heroku:"
+
+# ============================================================================
+# Repo settings
+# ============================================================================
+
 [commit]
 	template = "~/.dotfiles/git/commit-template"
 
@@ -96,21 +121,36 @@
 	smudge    = git-lfs smudge %f
 	required  = true
 
+[mailmap]
+	file = "~/.secret/git/.mailmap"
+
 [push]
 	default = simple
 
 [rerere]
 	enabled = 1
 
-# Programs ---------------------------------------------------------------------
+# ============================================================================
+# Programs (assumes linux and may be overridden by OSX settings)
+# ============================================================================
+
+[credential]
+	helper = /usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring
+
 [gui]
 	fontui = -family \"Fira Sans\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
 	fontdiff = -family \"Fira Mono for Powerline\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
 	commitmsgwidth = 80
 	diffcontext = 10
 
+[diff]
+	tool = meld
+
 [difftool]
 	prompt = false
+
+[merge]
+	tool = meld
 
 [mergetool]
 	prompt = false
@@ -118,27 +158,27 @@
 [pager]
 	status = true
 
-# URL aliases ------------------------------------------------------------------
-[url "git@github.com:"]
-	insteadOf = "gh:"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
+[web]
+	browser = xdg-open
 
-[url "git://github.com/"]
-	insteadOf = "github:"
+# ============================================================================
+# User defaults (may be overridden by local)
+# ============================================================================
 
-[url "git@gist.github.com:"]
-	insteadOf = "gst:"
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
+[credential]
+username = "davidosomething"
 
-[url "git://gist.github.com/"]
-	insteadOf = "gist:"
+[user]
+name  = "David O'Trakoun"
+email = "me@davidosomething.com"
 
-[url "git@heroku.com:"]
-	insteadOf = "heroku:"
+# ============================================================================
+# Local
+# ============================================================================
 
-# Local ------------------------------------------------------------------------
+[include]
+	path = "~/.secret/git/common.gitconfig"
+
 [include]
 	path = "~/.dotfiles/local/gitconfig"
 
