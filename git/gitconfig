@@ -131,11 +131,8 @@
 	enabled = 1
 
 # ============================================================================
-# Programs (assumes linux and may be overridden by OSX settings)
+# Programs (assumes may be overridden by OS settings)
 # ============================================================================
-
-[credential]
-	helper = /usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring
 
 [gui]
 	fontui = -family \"Fira Sans\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
@@ -143,23 +140,14 @@
 	commitmsgwidth = 80
 	diffcontext = 10
 
-[diff]
-	tool = meld
-
 [difftool]
 	prompt = false
-
-[merge]
-	tool = meld
 
 [mergetool]
 	prompt = false
 
 [pager]
 	status = true
-
-[web]
-	browser = xdg-open
 
 # ============================================================================
 # User defaults (may be overridden by local)
