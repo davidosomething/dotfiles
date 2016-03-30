@@ -56,6 +56,7 @@ alias py="python"
 alias rsync="rsync --human-readable --partial --progress" 
 alias spip="sudo -H pip install"
 alias tmux="tmux -f \"\${DOTFILES}/tmux/tmux.conf\""
+alias t="tree -a --noreport --dirsfirst -I '.git|node_modules|bower_components|.DS_Store'"
 alias today="date +%Y-%m-%d"
 alias tpr="tput reset"                # really clear the scrollback
 alias u="__dotfiles_main"
