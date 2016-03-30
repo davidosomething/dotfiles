@@ -10,33 +10,46 @@ export DKO_SOURCE="${DKO_SOURCE} -> title.zsh"
 # %m          expands to hostname up to first '.'
 # %~          expands to directory, replacing $HOME with '~'
 
-_ansi_processname() {
+# ============================================================================
+# Handlers
+# ============================================================================
+
+__dko_processname_ansi() {
   print -n "\ek$1\e\\"
 }
 
-_ansi_title() {
+__dko_title_ansi() {
   local title="%n@%m:%~"
   print -Pn "\e${title}\e\\"
 }
 
-_xterm_processname() {
+__dko_processname_xterm() {
   print -n "\e]0;$1\a"
 }
 
-_xterm_title() {
+__dko_title_xterm() {
   local title="%n@%m:%~"
   print -Pn "\e]0;${title}/\a"
 }
 
-_term_title() {
-  case "${TERM}" in
-    rxvt*|xterm*)
-      preexec_functions+=_xterm_processname
-      precmd_functions+=_xterm_title
-      _xterm_title
-      ;;
-  esac
-}
+# ============================================================================
+# Make sure the references are to the global arrays
+# ============================================================================
 
-_term_title
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+typeset -ga chpwd_functions
+
+# ============================================================================
+# Assign the handlers
+# ============================================================================
+
+case "${TERM}" in
+  rxvt*|xterm*)
+    preexec_functions+=__dko_processname_xterm
+    precmd_functions+=__dko_title_xterm
+    chpwd_functions+=__dko_title_xterm
+    __dko_title_xterm
+    ;;
+esac
 
