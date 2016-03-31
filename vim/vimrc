@@ -592,7 +592,9 @@ function s:LoadPlugins()
           \| Plug 'Shougo/vimfiler.vim'
           \| Plug 'Shougo/unite-outline'
           \| Plug 'tsukkee/unite-tag'
-    if executable('redis-server')
+
+    " MRU
+    if executable('redis-server') && executable('npm')
       Plug 'chemzqm/redismru.vim', { 'do': 'npm install' }
     else
       Plug 'Shougo/neomru.vim'
