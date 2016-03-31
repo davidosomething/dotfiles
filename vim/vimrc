@@ -590,9 +590,13 @@ function s:LoadPlugins()
   if exists("g:plugs['vimproc.vim']")
     Plug 'Shougo/unite.vim'
           \| Plug 'Shougo/vimfiler.vim'
-          \| Plug 'Shougo/neomru.vim'
           \| Plug 'Shougo/unite-outline'
           \| Plug 'tsukkee/unite-tag'
+    if executable('redis-server')
+      Plug 'chemzqm/redismru.vim', { 'do': 'npm install' }
+    else
+      Plug 'Shougo/neomru.vim'
+    endif
   endif
 
   Plug 'nathanaelkane/vim-indent-guides'

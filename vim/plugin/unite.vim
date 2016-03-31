@@ -150,7 +150,9 @@ function! s:BindFunctionKeys()
     execute dko#BindFunction('<F2>', 'Unite outline')
   endif
   execute dko#BindFunction('<F3>', 'Unite -start-insert buffer')
-  if exists("g:plugs['neomru.vim']")
+  if exists("g:plugs['redismru.vim']")
+    execute dko#BindFunction('<F4>', 'Unite -start-insert redismru')
+  elseif exists("g:plugs['neomru.vim']")
     execute dko#BindFunction('<F4>', 'Unite -start-insert neomru/file')
   endif
   if has('nvim')
