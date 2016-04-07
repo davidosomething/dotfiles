@@ -554,11 +554,11 @@ function s:LoadPlugins()
   " Plug: Python virtualenv support
   " ========================================================================
 
-  Plug 'jmcantrell/vim-virtualenv'
+  " Plug 'jmcantrell/vim-virtualenv'
 
-  if !has('mac') && executable('pyenv')
-    Plug 'lambdalisue/vim-pyenv'
-  endif
+  " if !has('mac') && executable('pyenv')
+  "   Plug 'lambdalisue/vim-pyenv'
+  " endif
 
   " ========================================================================
   " Plug: File system
