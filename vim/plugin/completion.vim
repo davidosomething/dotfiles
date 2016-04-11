@@ -202,10 +202,12 @@ endif
 
 " ============================================================================
 " Completion Plugin: phpcomplete-extended
-" No config needed for deoplete
+" Includes neocomplete source
 " ============================================================================
 
 if exists("g:plugs['phpcomplete-extended']")
+  let s:omnifuncs.php = [ 'phpcomplete_extended#CompletePHP' ]
+
   if executable('composer')
     let g:phpcomplete_index_composer_command = 'composer'
   endif
