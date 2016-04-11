@@ -58,6 +58,8 @@
 
 	forget  = rm -r --cached
 
+	last    = show -1 --show-signature
+
 	s       = status --short --branch
 
 	root    = !pwd -P
@@ -99,6 +101,7 @@
 # ============================================================================
 
 [commit]
+	gpgsign = true
 	template = "~/.dotfiles/git/commit-template"
 
 [core]
@@ -154,11 +157,12 @@
 # ============================================================================
 
 [credential]
-username = "davidosomething"
+	username = "davidosomething"
 
 [user]
-name  = "David O'Trakoun"
-email = "me@davidosomething.com"
+	name  = "David O'Trakoun"
+	email = "me@davidosomething.com"
+	signingkey = 8CA0D3F4
 
 # ============================================================================
 # Local
@@ -166,8 +170,6 @@ email = "me@davidosomething.com"
 
 [include]
 	path = "~/.secret/git/common.gitconfig"
-
-[include]
 	path = "~/.dotfiles/local/gitconfig"
 
 # vim: ft=gitconfig :
