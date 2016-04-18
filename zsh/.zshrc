@@ -114,7 +114,7 @@ autoload -Uz vcs_info
 # ============================================================================
 
 # bookmarks plugin
-export ZSH_BOOKMARKS="${HOME}/.secret/.zshbookmarks"
+export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
 
 # knu/z
 export _Z_CMD="j"
