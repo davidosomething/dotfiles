@@ -112,6 +112,7 @@ cscope.po.out
 *.tmproj
 *.tmproject
 tmtags
+.phpcomplete_extended/
 
 # ----------------------------------------------------------------------------
 # real junk, temp files

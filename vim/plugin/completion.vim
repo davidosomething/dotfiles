@@ -215,7 +215,7 @@ if exists("g:plugs['phpcomplete-extended']")
   let g:phpcomplete_extended_auto_add_use = 0
 
   autocmd dkocompletion FileType php
-        \ setlocal completefunc=phpcomplete_extended#CompletePHP
+        \ setlocal omnifunc=phpcomplete_extended#CompletePHP
 
   " https://github.com/Shougo/deoplete.nvim/blob/03f8cad9330a1ac557dfe7d12e8e77ba7f39d822/doc/deoplete.txt#L216
   let s:fip.php =
