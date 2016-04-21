@@ -1,6 +1,10 @@
 /**
  * termite padding
+ *
+ * Updated for gnome 3.20
+ * - @see https://github.com/thestinger/termite/issues/338
+ *
  */
-VteTerminal {
+VteTerminal, vte-terminal {
   padding: 12px;
 }
