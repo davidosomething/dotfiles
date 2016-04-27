@@ -130,20 +130,17 @@ export _Z_DATA="${HOME}/.local/z"
 # again in between loading plugins and nice plugins.
 
 export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
-export ZPLUG_LOADFILE="${ZDOTDIR}/zplug.zsh"
+export ZPLUG_LOADFILE="${ZDOTDIR}/zplug.zsh"  # plugin definitions
 
+# auto-install
 if [ ! -f "${ZPLUG_HOME}/init.zsh" ]; then
   git clone https://github.com/b4b4r07/zplug.git "$ZPLUG_HOME"
   source "${ZPLUG_HOME}/init.zsh" && zplug update --self
 fi
 
+# run
 { has_program "zplug" || source_if_exists "${ZPLUG_HOME}/init.zsh" } && {
   export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
-
-  # ----------------------------------------
-  # Load
-  # ----------------------------------------
-
   zplug check --verbose || zplug install
   zplug load && export DKO_SOURCE="${DKO_SOURCE} }"
 
