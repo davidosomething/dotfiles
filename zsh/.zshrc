@@ -129,18 +129,12 @@ export _Z_DATA="${HOME}/.local/z"
 # Make sure fpaths are defined before or within zplug -- it calls compinit
 # again in between loading plugins and nice plugins.
 
-# install zplug if needed
-[[ -f "${XDG_DATA_HOME}/zplug/zplug" ]] || {
-  echo "==> Installing zplug"
-  mkdir -p "${XDG_DATA_HOME}/zplug"
-  rm "${XDG_DATA_HOME}/zplug/zplug"
-  curl -fLo "${XDG_DATA_HOME}/zplug/zplug" --create-dirs https://git.io/zplug \
-    && source "${XDG_DATA_HOME}/zplug/zplug" \
-    && zplug update --self
-}
+export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
+if [ ! -f "${ZPLUG_HOME}/init.zsh" ]; then
+  git clone https://github.com/b4b4r07/zplug.git "$ZPLUG_HOME"
+fi
 
-source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && \
-  export DKO_SOURCE="${DKO_SOURCE} -> zplug {" && {
+source "${ZPLUG_HOME}/init.zsh" && {
 
   # ----------------------------------------
   # Mine
@@ -152,10 +146,10 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && \
   # Bin
   # ----------------------------------------
 
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/colored-man-pages/*.zsh"
+  zplug "robbyrussell/oh-my-zsh", use:"plugins/colored-man-pages/*.zsh"
 
   # bunch of git extra commands (bin)
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/git-extras/*.zsh"
+  zplug "robbyrussell/oh-my-zsh", use:"plugins/git-extras/*.zsh"
 
   # prompt -- unused, using only pyenv for now
   #zplug "tonyseek/oh-my-zsh-virtualenv-prompt"
@@ -164,24 +158,8 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && \
   zplug "davidosomething/cdbk"
 
   # ----------------------------------------
-  # Completions
+  # Shell enhancements
   # ----------------------------------------
-
-  # gulp completion (parses file so not 100% accurate)
-  zplug "akoenig/gulp.plugin.zsh"
-
-  # Broken
-  # gem completion
-  #zplug "robbyrussell/oh-my-zsh", of:"plugins/gem/_*"
-
-  # go completion
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/golang/*.zsh"
-
-  # NVM completion
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/nvm/_*"
-
-  # Various program completions
-  zplug "zsh-users/zsh-completions"
 
   # In-line best history match suggestion
   zplug "tarruda/zsh-autosuggestions"
@@ -200,10 +178,26 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && \
   #
   # These addons need to be nice, otherwise won't override _brew
   zplug "vasyharan/zsh-brew-services", if:"[[ $OSTYPE == *darwin* ]]", nice:10
-  zplug "robbyrussell/oh-my-zsh", of:"plugins/brew-cask/*.zsh", if:"[[ $OSTYPE == *darwin* ]]", nice:10
+  zplug "robbyrussell/oh-my-zsh", use:"plugins/brew-cask/*.zsh", if:"[[ $OSTYPE == *darwin* ]]", nice:10
 
   # fork of rupa/z with better completion
-  zplug "knu/z", of:z.sh, nice:10
+  zplug "knu/z", use:z.sh, nice:10
+
+  # ----------------------------------------
+  # Completions
+  # ----------------------------------------
+
+  # gulp completion (parses file so not 100% accurate)
+  zplug "akoenig/gulp.plugin.zsh", nice:10
+
+  # go completion
+  zplug "robbyrussell/oh-my-zsh", use:"plugins/golang/*.zsh", nice:10
+
+  # NVM completion
+  zplug "robbyrussell/oh-my-zsh", use:"plugins/nvm/_*", nice:10
+
+  # Various program completions
+  zplug "zsh-users/zsh-completions", nice:10
 
   # highlight as you type
   zplug "zsh-users/zsh-syntax-highlighting", nice:19
@@ -214,6 +208,7 @@ source_if_exists "${XDG_DATA_HOME}/zplug/zplug" && \
 
   zplug check --verbose || zplug install
   zplug load && export DKO_SOURCE="${DKO_SOURCE} }"
+
 }
 
 # ============================================================================

@@ -165,9 +165,5 @@ export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
 export XINITRC="${DOTFILES}/linux/.xinitrc"
 export XAPPLRESDIR="${DOTFILES}/linux"
 
-# zplug
-export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
-
-
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :
