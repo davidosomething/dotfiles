@@ -123,11 +123,7 @@ export _Z_DATA="${HOME}/.local/z"
 
 # ============================================================================
 # zplug
-# Use repo format for oh-my-zsh plugins so no random crap is sourced
 # ============================================================================
-
-# Make sure fpaths are defined before or within zplug -- it calls compinit
-# again in between loading plugins and nice plugins.
 
 export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
 export ZPLUG_LOADFILE="${ZDOTDIR}/zplug.zsh"  # plugin definitions

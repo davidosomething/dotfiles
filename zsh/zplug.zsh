@@ -2,6 +2,11 @@
 #
 # Loaded by zplug when path assigned to ZPLUG_LOADFILE
 #
+# Use repo format for oh-my-zsh plugins so no random crap is sourced
+#
+# Make sure fpaths are defined before or within zplug -- it calls compinit
+# again in between loading plugins and nice plugins.
+#
 
 # --------------------------------------------------------------------------
 # Mine
@@ -55,7 +60,8 @@ zplug "robbyrussell/oh-my-zsh", nice:10, \
 # @see <https://github.com/Homebrew/homebrew/issues/49066>
 #
 # fix by symlinking
-#     ln -s $(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh $(brew --prefix)/share/zsh/site-functions/_brew
+#     ln -s $(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh \
+  #     $(brew --prefix)/share/zsh/site-functions/_brew
 #
 # These addons need to be nice, otherwise won't override _brew
 
