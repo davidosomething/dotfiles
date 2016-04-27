@@ -132,41 +132,57 @@ export _Z_DATA="${HOME}/.local/z"
 export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
 if [ ! -f "${ZPLUG_HOME}/init.zsh" ]; then
   git clone https://github.com/b4b4r07/zplug.git "$ZPLUG_HOME"
+  source "${ZPLUG_HOME}/init.zsh" && zplug update --self
 fi
 
-source "${ZPLUG_HOME}/init.zsh" && {
+{ has_program "zplug" || source_if_exists "${ZPLUG_HOME}/init.zsh" } && {
+  export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
 
-  # ----------------------------------------
+  # --------------------------------------------------------------------------
   # Mine
-  # ----------------------------------------
+  # --------------------------------------------------------------------------
 
   zplug "${ZDOTDIR}", from:local
-
-  # ----------------------------------------
-  # Bin
-  # ----------------------------------------
-
-  zplug "robbyrussell/oh-my-zsh", use:"plugins/colored-man-pages/*.zsh"
-
-  # bunch of git extra commands (bin)
-  zplug "robbyrussell/oh-my-zsh", use:"plugins/git-extras/*.zsh"
-
-  # prompt -- unused, using only pyenv for now
-  #zplug "tonyseek/oh-my-zsh-virtualenv-prompt"
+  zplug "davidosomething/git-ink",  as:command
+  zplug "davidosomething/git-my",   as:command
+  zplug "davidosomething/git-open", as:command
 
   # my fork of cdbk, zsh hash based directory bookmarking
   zplug "davidosomething/cdbk"
 
-  # ----------------------------------------
-  # Shell enhancements
-  # ----------------------------------------
+  # --------------------------------------------------------------------------
+  # Vendor
+  # --------------------------------------------------------------------------
+
+  zplug "robbyrussell/oh-my-zsh", use:"plugins/colored-man-pages/*.zsh"
 
   # In-line best history match suggestion
   zplug "tarruda/zsh-autosuggestions"
 
-  # ----------------------------------------
-  # LAST, after compinit, enforced by nice
-  # ----------------------------------------
+  # highlight as you type
+  zplug "zsh-users/zsh-syntax-highlighting"
+
+  # Various program completions
+  # This adds to fpath (so before compinit)
+  zplug "zsh-users/zsh-completions"
+
+  # --------------------------------------------------------------------------
+  # LAST, these call "compdef" so must be run after compinit, enforced by nice
+  # --------------------------------------------------------------------------
+
+  # fork of rupa/z with better completion (so needs nice)
+  zplug "knu/z", nice:10, use:'z.sh'
+
+  # --------------------------------------------------------------------------
+  # Completions that require compdef (so nice 10)
+  # --------------------------------------------------------------------------
+
+  # gulp completion (parses file so not 100% accurate)
+  zplug "akoenig/gulp.plugin.zsh", nice:10
+
+  # 2016-04-27 nvm assumes ~/.nvm exists, so probably not working
+  zplug "robbyrussell/oh-my-zsh", nice:10, \
+    use:"plugins/{golang/*.zsh,nvm/_nvm}"
 
   # homebrew
   # note regular brew completion is broken:
@@ -177,30 +193,15 @@ source "${ZPLUG_HOME}/init.zsh" && {
   #     ln -s $(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh $(brew --prefix)/share/zsh/site-functions/_brew
   #
   # These addons need to be nice, otherwise won't override _brew
-  zplug "vasyharan/zsh-brew-services", if:"[[ $OSTYPE == *darwin* ]]", nice:10
-  zplug "robbyrussell/oh-my-zsh", use:"plugins/brew-cask/*.zsh", if:"[[ $OSTYPE == *darwin* ]]", nice:10
 
-  # fork of rupa/z with better completion
-  zplug "knu/z", use:z.sh, nice:10
+  zplug "vasyharan/zsh-brew-services",  \
+    if:"[[ $OSTYPE == *darwin* ]]",     \
+    nice:10
 
-  # ----------------------------------------
-  # Completions
-  # ----------------------------------------
-
-  # gulp completion (parses file so not 100% accurate)
-  zplug "akoenig/gulp.plugin.zsh", nice:10
-
-  # go completion
-  zplug "robbyrussell/oh-my-zsh", use:"plugins/golang/*.zsh", nice:10
-
-  # NVM completion
-  zplug "robbyrussell/oh-my-zsh", use:"plugins/nvm/_*", nice:10
-
-  # Various program completions
-  zplug "zsh-users/zsh-completions", nice:10
-
-  # highlight as you type
-  zplug "zsh-users/zsh-syntax-highlighting", nice:19
+  zplug "robbyrussell/oh-my-zsh",       \
+    if:"[[ $OSTYPE == *darwin* ]]",     \
+    nice:10,                            \
+    use:"plugins/brew-cask/*.zsh"
 
   # ----------------------------------------
   # Load
@@ -212,7 +213,7 @@ source "${ZPLUG_HOME}/init.zsh" && {
 }
 
 # ============================================================================
-# Plugin settings (after)
+# Plugin settings (after plugin loaded)
 # ============================================================================
 
 # zsh-autosuggestions -- clear the suggestion when entering completion select
@@ -303,6 +304,7 @@ if [[ "$0" == *"zsh" ]]; then
 
   # --------------------------------------------------------------------------
   # Aliases (e.g. a=b use results from b when completing for a)
+  # compdef here assumes zplug loaded compinit
   # --------------------------------------------------------------------------
 
   compdef e=vim
