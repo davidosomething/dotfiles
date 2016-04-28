@@ -27,7 +27,7 @@ zplug "davidosomething/cdbk"
 # Vendor
 # --------------------------------------------------------------------------
 
-zplug "robbyrussell/oh-my-zsh", use:"plugins/colored-man-pages/*.zsh"
+zplug "plugins/colored-man-pages", from:oh-my-zsh
 
 # In-line best history match suggestion
 zplug "tarruda/zsh-autosuggestions"
@@ -50,9 +50,14 @@ zplug "knu/z", nice:10, use:'z.sh'
 # gulp completion (parses file so not 100% accurate)
 zplug "akoenig/gulp.plugin.zsh", nice:10
 
+zplug "plugins/golang", \
+  from:oh-my-zsh,       \
+  nice:10
+
 # 2016-04-27 nvm assumes ~/.nvm exists, so probably not working
-zplug "robbyrussell/oh-my-zsh", nice:10, \
-  use:"plugins/{golang/*.zsh,nvm/_nvm}"
+zplug "robbyrussell/oh-my-zsh", \
+  use:"plugins/nvm/_nvm"        \
+  nice:10
 
 # homebrew
 # note regular brew completion is broken:
@@ -69,10 +74,10 @@ zplug "vasyharan/zsh-brew-services",  \
   if:"[[ $OSTYPE == *darwin* ]]",     \
   nice:10
 
-zplug "robbyrussell/oh-my-zsh",       \
-  if:"[[ $OSTYPE == *darwin* ]]",     \
-  nice:10,                            \
-  use:"plugins/brew-cask/*.zsh"
+zplug "plugins/brew-cask",        \
+  from:oh-my-zsh,                 \
+  if:"[[ $OSTYPE == *darwin* ]]", \
+  nice:10                         \
 
 # highlight as you type
 zplug "zsh-users/zsh-syntax-highlighting", nice:19
