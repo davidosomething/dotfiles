@@ -41,7 +41,9 @@ zplug "zsh-users/zsh-completions"
 # --------------------------------------------------------------------------
 
 # fork of rupa/z with better completion (so needs nice)
-zplug "knu/z", nice:10, use:'z.sh'
+zplug "knu/z",  \
+  use:"z.sh",   \
+  nice:10
 
 # --------------------------------------------------------------------------
 # Completions that require compdef (so nice 10)
@@ -56,7 +58,7 @@ zplug "plugins/golang", \
 
 # 2016-04-27 nvm assumes ~/.nvm exists, so probably not working
 zplug "robbyrussell/oh-my-zsh", \
-  use:"plugins/nvm/_nvm"        \
+  use:"plugins/nvm/_nvm",       \
   nice:10
 
 # homebrew
