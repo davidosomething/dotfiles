@@ -118,6 +118,7 @@ tmtags
 # real junk, temp files
 # ----------------------------------------------------------------------------
 
+npm-debug.log
 .sass-cache/
 *.rbc
 
