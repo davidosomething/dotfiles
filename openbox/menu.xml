@@ -13,29 +13,14 @@
 		</item>
 	</menu>
 	<menu id="minecraft" label="Minecraft">
-		<item label="ATLauncher">
-			<action name="Execute">
-				<execute>atlauncher</execute>
-			</action>
-		</item>
 		<item label="FeedTheBeast">
 			<action name="Execute">
 				<execute>feedthebeast</execute>
 			</action>
 		</item>
-		<item label="Minecraft">
-			<action name="Execute">
-				<execute>minecraft</execute>
-			</action>
-		</item>
 		<item label="MultiMC">
 			<action name="Execute">
 				<execute>multimc5</execute>
-			</action>
-		</item>
-		<item label="Technic Launcher">
-			<action name="Execute">
-				<execute>technic-launcher</execute>
 			</action>
 		</item>
 	</menu>
@@ -71,11 +56,6 @@
 				<execute>obs</execute>
 			</action>
 		</item>
-		<item label="Popcorn Time">
-			<action name="Execute">
-				<execute>popcorntime</execute>
-			</action>
-		</item>
 	</menu>
 	<menu id="messaging" label="Messaging">
 		<item label="Hangouts">
@@ -83,24 +63,9 @@
 				<execute>/usr/bin/chromium --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl</execute>
 			</action>
 		</item>
-		<item label="HexChat">
-			<action name="Execute">
-				<execute>hexchat</execute>
-			</action>
-		</item>
 		<item label="LINE Messenger">
 			<action name="Execute">
 				<execute>/usr/bin/chromium --profile-directory=Default --app-id=menkifleemblimdogmoihpfopnplikde</execute>
-			</action>
-		</item>
-		<item label="Pidgin">
-			<action name="Execute">
-				<execute>pidgin</execute>
-			</action>
-		</item>
-		<item label="ScudCloud">
-			<action name="Execute">
-				<execute>scudcloud</execute>
 			</action>
 		</item>
 		<item label="Mumble">
@@ -114,11 +79,6 @@
 			</action>
 		</item>
 		<separator/>
-		<item label="Hipchat">
-			<action name="Execute">
-				<execute>hipchat</execute>
-			</action>
-		</item>
 	</menu>
 	<menu id="network" label="Network">
 		<item label="FileZilla">
@@ -205,17 +165,6 @@
 		<menu id="graphics"/>
 		<menu id="network"/>
 		<separator/>
-		<item label="Terminator">
-			<action name="Execute">
-				<execute>terminator</execute>
-			</action>
-		</item>
-		<item label="Thunar">
-			<action name="Execute">
-				<execute>/bin/thunar</execute>
-			</action>
-		</item>
-		<menu execute="/home/davidosomething/.dotfiles/linux/openbox/pipe/thunar-bookmarks.pl" id="pipe-places" label="Places"/>
 		<menu execute="/home/davidosomething/.dotfiles/linux/openbox/pipe/obdevicemenu" id="pipe-devices" label="Devices"/>
 		<separator/>
 		<menu id="system-menu"/>

@@ -1,9 +1,9 @@
-# openbox environment
+# openbox/environment
 #
 # environment -> autostart.sh
 #
 
-export DKO_SOURCE="$DKO_SOURCE -> ob environment"
+export DKO_SOURCE="${DKO_SOURCE} -> openbox/environment"
 
 export GNOME_DESKTOP_SESSION_ID="openbox"
 

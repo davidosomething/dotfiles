@@ -7,7 +7,7 @@
 # Check ~/.config/autostart/ and /etc/xdg/autostart/ for other places programs
 # might be starting from
 
-export DKO_SOURCE="$DKO_SOURCE -> ob autostart"
+export DKO_SOURCE="${DKO_SOURCE} -> openbox/autostart.sh"
 
 # Keymaps
 # GDM reads .Xmodmap -- don't do this, stalls everything for a few secs
@@ -19,14 +19,14 @@ fi
 # Compositing
 # Only use for openbox
 # Consider moving out if using different compositor for other DEs
-compton -b --config "$HOME/.config/compton.conf"
+compton -b --config "${HOME}/.config/compton.conf"
 
 # Only for openbox since others might use gnome-settings-daemon or something
 # Background Image
-if [ -f "$HOME/.fehbg" ]; then
-  "$HOME/.fehbg" &
+if [ -f "${HOME}/.fehbg" ]; then
+  "${HOME}/.fehbg" &
 else
-  feh --bg-scale "$HOME/Dropbox/Public/03338_emptiness_1920x1080.jpg" &
+  feh --bg-scale "${HOME}/Dropbox/Public/03338_emptiness_1920x1080.jpg" &
 fi
 
 # Conky
@@ -35,6 +35,7 @@ fi
 
 # Tint Panel
 (sleep 2s && tint2 > /dev/null 2>&1) &
+
 # Thinkpad specific battery icon using tp_smapi
 # Starts on its own from /etc/xdg/autostart
 #tp-battery-icon &
@@ -53,14 +54,6 @@ if [ -x /usr/bin/tpb ] && [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
   /usr/bin/tpb -d &
 fi
 
-# Launcher
-# using xdg autostart
-#(sleep 1s && synapse --startup) &
-
-# Clipboard manager
-# using xdg autostart
-#(sleep 1s && parcellite -d) &
-
 # Volume applet
 (sleep 3s && pnmixer) &
 
@@ -69,18 +62,5 @@ fi
 
 # nVidia Dock applet
 (sleep 3s && nvdock) &
-
-
-# Apps
-
-# redshift-gtk starts itself
-#(sleep 1s && redshift-gtk) &
-
-# Start thunar daemon so it opens faster
-# Removed it doesn't run as user
-#thunar --daemon &
-
-# moved to .config/autostart/terminator.desktop
-#terminator &
 
 # vim: syn=sh :
