@@ -51,4 +51,5 @@ export WINEPREFIX="${XDG_CONFIG_HOME}/wine"
 export WINEARCH=win32
 
 export DKO_SOURCE="${DKO_SOURCE} }"
+
 # vim: ft=sh :
