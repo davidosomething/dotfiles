@@ -65,6 +65,7 @@ alias vb="VBoxManage"
 alias vbm="VBoxManage"
 alias weechat="weechat -d \"\${DOTFILES}/weechat\""
 alias wget="wget --no-check-certificate"
+alias xit="exit" # dammit
 
 # sudo ops
 alias mine="sudo chown -R \"\$USER\""
