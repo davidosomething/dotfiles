@@ -81,6 +81,12 @@ zplug "plugins/brew-cask",        \
   if:"[[ $OSTYPE == *darwin* ]]", \
   nice:10                         \
 
+# completions I have locally
+zplug "${ZDOTDIR}",     \
+  from:local,           \
+  use:"completions/_*", \
+  nice:11
+
 # highlight as you type
 zplug "zsh-users/zsh-syntax-highlighting", nice:19
 
