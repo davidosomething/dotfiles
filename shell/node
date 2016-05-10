@@ -28,12 +28,5 @@ else
   export PATH="${NPM_PACKAGES}/bin:${PATH}"
 fi
 
-# ==============================================================================
-# avn
-# ==============================================================================
-
-source_if_exists "${HOME}/.avn/bin/avn.sh" && \
-  export DKO_SOURCE="${DKO_SOURCE} -> avn"
-
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :
