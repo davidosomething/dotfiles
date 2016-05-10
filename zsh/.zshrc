@@ -131,7 +131,7 @@ export ZPLUG_LOADFILE="${ZDOTDIR}/zplug.zsh"  # plugin definitions
 # auto-install
 if [ ! -f "${ZPLUG_HOME}/init.zsh" ]; then
   rm -rf "${ZPLUG_HOME}" \
-    && git clone https://github.com/b4b4r07/zplug.git "$ZPLUG_HOME" \
+    && git clone https://github.com/zplug/zplug.git "$ZPLUG_HOME" \
     && source "${ZPLUG_HOME}/init.zsh" \
     && zplug update --self
 fi
