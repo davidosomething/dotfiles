@@ -840,7 +840,11 @@ function s:LoadPlugins()
 
   if g:dko_has_completion
     if g:dko_use_tern_completion
-      Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+      if has('nvim')
+        Plug 'carlitux/deoplete-ternjs'
+      else
+        Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+      endif
     else
       " Syntax completion
       Plug '1995eaton/vim-better-javascript-completion'

@@ -147,7 +147,7 @@ if exists('g:plugs["vim-better-javascript-completion"]')
 endif
 
 " ============================================================================
-" Completion Plugin: tern
+" Completion Plugin: tern (both nvim and vim versions)
 " This overrides all other JS completions when fip matches
 " ============================================================================
 
@@ -302,7 +302,6 @@ endif
 
 if exists('g:plugs["deoplete.nvim"]')
   let g:deoplete#enable_at_startup = 1
-  let g:deoplete#auto_complete_start_length = 2
   call deoplete#custom#set('_', 'matchers', [
         \   'matcher_head',
         \   'matcher_length',
