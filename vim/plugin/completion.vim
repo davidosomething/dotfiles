@@ -155,12 +155,15 @@ if g:dko_use_tern_completion
   "let g:tern_show_argument_hints = 'on_hold'   " Use tabline instead (<F10>)
   let g:tern_show_signature_in_pum = 1
 
-  augroup dkocompletion
-    autocmd FileType javascript nnoremap <silent><buffer> gb :<C-u>TernDef<CR>
-    " Set omnifunc every time, in case jspc's after ftplugin call to init
-    " sets it to jspc#omni
-    autocmd FileType javascript setlocal omnifunc=tern#Complete
-  augroup END
+  if exists('g:plugs["carlitux/deoplete-ternjs"]')
+    augroup dkocompletion
+      autocmd FileType javascript nnoremap <silent><buffer> gb :<C-u>TernDef<CR>
+      " Set omnifunc every time, in case jspc's after ftplugin call to init
+      " sets it to jspc#omni
+      "
+      autocmd FileType javascript setlocal omnifunc=tern#Complete
+    augroup END
+  endif
 
   " force using tern when typing matches regex
   " first regex is match 5 or more characters to end of line
