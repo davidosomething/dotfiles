@@ -138,7 +138,6 @@ _alias_darwin() {
 
   # Audio control - http://xkcd.com/530/
   alias stfu="osascript -e 'set volume output muted true'"
-  alias pumpitup="osascript -e 'set volume 7'"
 }
 
 _alias_linux() {

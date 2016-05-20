@@ -179,6 +179,12 @@ ios() {
   open "$(xcode-select -p)/Applications/Simulator.app"
 }
 
+vol() {
+  if has_program "osascript"; then
+    osascript -e "set volume ${1}"
+  fi
+}
+
 # ============================================================================
 # linux
 # ============================================================================
