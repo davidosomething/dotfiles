@@ -113,6 +113,7 @@ cscope.po.out
 *.tmproject
 tmtags
 .phpcomplete_extended/
+.tern-port
 
 # ----------------------------------------------------------------------------
 # real junk, temp files
