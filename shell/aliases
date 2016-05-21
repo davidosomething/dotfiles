@@ -160,6 +160,9 @@ _alias_arch() {
   alias bq="b -Qs"
   alias bs="b -Ss"
 
+  # Always create log file
+  alias makepkg="makepkg --log"
+
   alias rphp="sudo systemctl restart php-fpm.service"
   alias rnginx="sudo systemctl restart nginx.service"
 }
