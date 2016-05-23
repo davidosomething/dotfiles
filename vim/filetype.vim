@@ -38,6 +38,8 @@ augroup filetypedetect
         \ BRANCH_DESCRIPTION
         \ setfiletype gitbranchdescription.markdown.pandoc
 
+  " pre Vim 7.4.480 - md is modula2
+  " post Vim 7.4.480 - md is markdown
   autocmd BufNewFile,BufRead *.md
         \ setfiletype markdown.pandoc
 
