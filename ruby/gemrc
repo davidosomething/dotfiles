@@ -1,5 +1,5 @@
-gem: --no-rdoc --no-ri --no-doc
-install: --no-rdoc --no-ri --no-doc
-update: --no-rdoc --no-ri --no-doc
-update_sources: true
+gem:              --no-document
+install:          --no-document
+update:           --no-document
+update_sources:   true
 
