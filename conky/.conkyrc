@@ -9,8 +9,8 @@ no_buffers yes
 
 # placement
 alignment top_left
-gap_x 64
-gap_y 48
+gap_x 72
+gap_y 56
 
 # dimensions
 minimum_size 200 200
