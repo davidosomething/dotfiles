@@ -32,3 +32,13 @@ let g:vimfiler_readonly_file_icon = 'ʀ'
 execute dko#BindFunction('<F1>',
       \ 'VimFilerExplorer -parent -explorer-columns=type')
 
+" ============================================================================
+" Keymappings
+" ============================================================================
+
+augroup dkovimfiler
+  autocmd FileType vimfiler
+        \ nmap <buffer> u <Plug>(vimfiler_switch_to_parent_directory)
+  autocmd FileType vimfiler
+        \ nmap <buffer> q <Plug>(vimfiler_close)
+augroup END
