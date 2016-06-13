@@ -29,7 +29,6 @@ esac
   command -v "brew" >/dev/null 2>&1 && {
     BREW_PREFIX="$(brew --prefix)"
     export BREW_PREFIX
-    export HOMEBREW_CASK_OPTS="--appdir=/Applications"
   }
 }
 
