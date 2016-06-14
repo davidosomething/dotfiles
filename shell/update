@@ -46,9 +46,9 @@ __dotfiles_usage() {
   Debian/Ubuntu
     deb         -- update apt packages
 
-  OSX
-    brew        -- osx homebrew packages
-    osx         -- repair osx permissions and check software updates
+  macOS/OS X
+    brew        -- homebrew packages
+    mac         -- repair permissions and check software updates
 "
 }
 
@@ -209,7 +209,7 @@ __dotfiles_update_linux() {
 __dotfiles_update_darwin() {
   case "$1" in
     brew) __dotfiles_update_brew  ;;
-    osx)  __dotfiles_update_osx   ;;
+    mac)  __dotfiles_update_mac   ;;
     pip)
       __dotfiles_update_pip "pip"
       __dotfiles_update_pip "pip2"
@@ -258,15 +258,15 @@ __dotfiles_update_deb() {
 }
 
 # ------------------------------------------------------------------------------
-# OS: OSX
+# OS: macOS/OS X
 # ------------------------------------------------------------------------------
 
-__dotfiles_update_osx() {
+__dotfiles_update_mac() {
   # fix file system permissions
   dkostatus "Repairing permissions"
   diskutil repairPermissions / || dkoerr "Error repairing permissions"
 
-  dkostatus "OSX system update"
+  dkostatus "macOS system update"
   sudo softwareupdate -i -a || { dkoerr "Error updating software permissions" && return 1; }
 }
 

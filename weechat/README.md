@@ -2,7 +2,7 @@
 
 Start with `weechat -d ~/.dotfiles/weechat`
 
-## OSX
+## Mac
 
 Good post here: [http://aaronfranks.com/posts/weechat-on-osx/]
 

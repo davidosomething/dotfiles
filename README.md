@@ -2,7 +2,7 @@
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
-- OSX and Arch Linux compatible
+- macOS/OS X, Arch Linux, and Debian compatible
 - XDG compliance wherever possible to keep `$HOME` clean
     - See [Archlinux wiki for XDG Base Directory Support]
     - See [Debian DotFilesList]
@@ -37,23 +37,23 @@ git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
 - Change default shell to zsh (ensure listed in `/etc/shells`) and
   restart shell (zplug will self-install)
 
-- See OS specific notes in [osx/README.md](osx/README.md) and for linux
+- See OS specific notes in [macOS/README.md](macOS/README.md) and for linux
   [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 
 #### Dev environment setup
 
-Install these using the system package manager. For OSX there are helper
+Install these using the system package manager. For macOS/OS X there are helper
 scripts.
 
 - `chruby`, `ruby-install`, then use ruby-install to install a version of ruby
-    - `bootstrap/osx/ruby.sh`
+    - `bootstrap/mac/ruby.sh`
 - Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
   consequently `npm`)
 - `php`, `composer`, use composer to install `wp-cli`
-    - `bootstrap/osx/php.sh`
+    - `bootstrap/mac/php.sh`
 - `pyenv`, `virtualenv`, then create a new env with a new python/pip
-    - `bootstrap/osx/python.sh`
+    - `bootstrap/mac/python.sh`
 
 ### Provisioning scripts
 
@@ -69,7 +69,7 @@ first.
     - install default packages
 - `ruby/install-default-gems.sh`
     - requires you set up chruby and install a ruby first
-- `bootstrap/osx/*.sh`
+- `bootstrap/mac/*.sh`
     - `alfred.sh` - Install alfred via brew cask -- requires cask.sh first
     - `brew.sh` - Install common brews
     - `cask.sh` - Install common casks

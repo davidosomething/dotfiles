@@ -1,4 +1,4 @@
-# OSX
+# macOS/OS X
 
 ## iterm2
 

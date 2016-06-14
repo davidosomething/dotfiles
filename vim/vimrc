@@ -694,7 +694,7 @@ function s:LoadPlugins()
         \| Plug 'svermeulen/vim-easyclip'
         "\| Plug 'davidosomething/EasyClipRing.vim'
 
-  " used for line bubbling commands on osx
+  " used for line bubbling commands on mac
   " buffer switch, lnext/prev, etc.
   Plug 'tpope/vim-unimpaired'
 

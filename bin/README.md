@@ -12,7 +12,7 @@
 
 > Say creepy stuff on an interval
 
-- For OSX
+- For macOS/OS X
 
 ```shell
 afk

@@ -12,8 +12,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/path"
 
 # Probably created via /etc/profile and /etc/profile.d/*
 #
-# On OSX/BSD path_helper is run in /etc/profile, which generates paths using
-# /etc/paths and /etc/paths.d/* and defines the initial $PATH
+# On macOS/OS X/BSD path_helper is run in /etc/profile, which generates paths
+# using /etc/paths and /etc/paths.d/* and defines the initial $PATH
 # Something like "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
 #
 # On arch, via /etc/profile, default path is:

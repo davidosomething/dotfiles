@@ -13,7 +13,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/xdg {"
 
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
-# user-dirs.dirs doesn't exist on OSX so check first.
+# user-dirs.dirs doesn't exist on macOS/OS X so check first.
 # Exporting is fine since the file is generated via xdg-user-dirs-update
 # and should have those vars. I am just using the defaults but want them
 # explicitly defined.

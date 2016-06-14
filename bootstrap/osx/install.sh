@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-osx_dotfiles="${HOME}/.dotfiles/osx"
+mac_dotfiles="${HOME}/.dotfiles/mac"
 
 # .hushlogin -- hide last login time when opening new term
-ln -sf "${osx_dotfiles}/.hushlogin" "${HOME}/.hushlogin"
+ln -sf "${mac_dotfiles}/.hushlogin" "${HOME}/.hushlogin"
 
