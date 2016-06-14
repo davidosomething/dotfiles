@@ -112,6 +112,7 @@
 # pager = less -x4 ; removed so git will use the env GIT_PAGER
 
 [diff]
+	compactionHeuristic = true
 	renames = true
 
 [filter "media"]
