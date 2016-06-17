@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# Last updated 2016-06-17 for el capitan
+
 set -eu
 
 # sources:
@@ -28,9 +31,6 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 # finder
 # Show the ~/Library folder
 chflags nohidden ~/Library
-
-# allow quit
-defaults write com.apple.finder QuitMenuItem -bool true
 
 # Disable window animations and Get Info animations in Finder
 defaults write com.apple.finder DisableAllAnimations -bool true
@@ -219,4 +219,4 @@ for app in \
   Twitter \
   ; do killall "$app" >/dev/null 2>&1; done
 
-#vi:syn=zsh
+# vim: ft=sh :

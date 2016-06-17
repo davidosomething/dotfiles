@@ -7,6 +7,7 @@
 - `Amphetamine` - better than caffeine
 - `Display Menu` - for setting native resolutions on multiple monitors
 - `xcode`
+    - Then run `xcode-select --install` to prompt for CLI tools.
 
 ### Setup ssh keys
 
@@ -29,11 +30,14 @@ brew install git-extras hub
 
 ### Install dotfiles
 
-`git clone` and run `~/.dotfiles/bootstrap/symlink.sh`
+1. `git clone`
+1. `~/.dotfiles/bootstrap/symlink.sh`
+1. `~/.dotfiles/mac/settings` -- set apple defaults and fix some issues like
+   zsh startup
 
 ### Install macvim
 
-We want this to override the outdated system vim too. 
+We want this to override the outdated system vim too.
 
 `~/.dotfiles/bootstrap/osx/macvim.sh` is good.
 
@@ -61,6 +65,21 @@ chsh -s /usr/local/bin/zsh
    start app -> Preferences -> Load preferences from custom folder, point to
    existing plist exports.
 
+### Install dev stuff
+
+- Install `chruby`, `ruby-install`, and start using a local ruby
+    - Then install the default gems using
+      `~/.dotfiles/ruby/install-default-gems.sh`
+- Install `nvm`, and start using a local node
+    - Then install the default packages using `~/.dotfiles/node/install.sh`
+- `brew install redis` for `redismru.vim` later
+
+### Install neovim
+
+1. Follow <https://github.com/neovim/homebrew-neovim>
+1. Launch `nvim` and let `vim-plug` install itself, exit
+1. Launch `nvim` and `:PlugInstall`, exit
+
 ### Install keepassx from source
 
 Install keepassx 2.0 with http support from the source of this fork (inspect
@@ -77,9 +96,13 @@ Known requirements:
 - libgcrypt
 - oath-toolkit
 
-### Install karabiner from cask
+### Install from cask
 
-Map simultaneous-dual-shift to capslock and show capslock state.
+- dropbox
+    - Then setup keepassx to load the key database from dropbox
+- google-chrome
+- karabiner
+    - Map simultaneous-dual-shift to capslock and show capslock state.
 
 ## Source order
 
