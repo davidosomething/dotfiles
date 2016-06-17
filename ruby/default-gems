@@ -1,9 +1,7 @@
 bundler
 CoffeeTags
 commander
-compass
 csscss
-dandelion
 ffi
 gem-browse
 github-markup
@@ -14,12 +12,6 @@ httpclient
 i18n
 json
 mdless
-net-scp
-net-sftp
-net-ssh
-net-ssh-gateway
-net-ssh-multi
-octodown
 pry
 psych
 puppet-lint
@@ -27,11 +19,9 @@ rake
 rdoc
 redcarpet
 RedCloth
-rubygems-update
 sass
 sass-json-vars
 sassy-maps
-scss_lint
 sshkit
 term-ansicolor
 travis
