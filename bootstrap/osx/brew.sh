@@ -36,13 +36,6 @@ brew install tidy-html5
 brew install bash install bash-completion
 brew install shellcheck
 brew install tmux
-brew install zsh
-
-# vcs --------------------------------------------------------------------------
-# git completions provided by zsh
-brew install git --without-completions
-brew git-extras hub
-brew install mercurial
 
 # web --------------------------------------------------------------------------
 brew install curl wget

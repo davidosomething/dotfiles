@@ -1,16 +1,85 @@
 # macOS/OS X
 
-## iterm2
+## Full setup, in order
 
-Set up iterm2 with fonts and base16 theme
-<https://github.com/chriskempson/base16-iterm2>
+### Install App Store apps
 
-My iterm2 plist file is kept in a separate repo.
+- `Amphetamine` - better than caffeine
+- `Display Menu` - for setting native resolutions on multiple monitors
+- `xcode`
 
-## keepassx
+### Setup ssh keys
 
-Install keepassx 2.0 with http support using this fork (inspect diff first):
-<https://github.com/eugenesan/keepassx/tree/2.0-http-totp-2.0.0>
+1. keygen
+1. add to GitHub
+    - NEED alternate means of logging in via web
+    - then do a test login and store the passphrase in Keychain
+1. add to GitLab
+
+### Install homebrew
+
+### Install git from brew
+
+Don't need completions, we'll use zsh completions instead
+
+```bash
+brew install git --without-completions
+brew install git-extras hub
+```
+
+### Install dotfiles
+
+`git clone` and run `symlink.sh`
+
+### Install macvim
+
+We want this to override the outdated system vim too. 
+
+`~/.dotfiles/bootstrap/osx/macvim.sh` is good.
+
+### Install zsh and set as default
+
+```bash
+brew install zsh
+chsh -s /usr/local/bin/zsh
+```
+
+### Install Powerline patched fonts from source
+
+1. `git clone https://github.com/powerline/fonts ~/src/fonts`
+1. Run `install.sh`
+
+### Install iterm2 from brew
+
+1. Install `iterm2-beta`, which is technically iterm3:
+    ```bash
+    brew tap caskroom/versions
+    brew cask install iterm2-beta
+    ```
+1. Set up fonts (Fura Mono for Powerline, see _Powerline patched fonts_ above)
+1. Set up base16 theme from <https://github.com/chriskempson/base16-iterm2> or
+   start app -> Preferences -> Load preferences from custom folder, point to
+   existing plist exports.
+
+### Install keepassx from source
+
+Install keepassx 2.0 with http support from the source of this fork (inspect
+diff first):
+<https://github.com/eugenesan/keepassx/tree/2.0-http-totp>
+
+It is fine to run the `cmake` step until it builds successfully (it will tell
+you what deps are missing each time, and the deps can all be installed via
+brew).
+
+Known requirements:
+
+- cmake
+- libgcrypt
+- oath-toolkit
+
+### Install karabiner from cask
+
+Map simultaneous-dual-shift to capslock and show capslock state.
 
 ## Source order
 

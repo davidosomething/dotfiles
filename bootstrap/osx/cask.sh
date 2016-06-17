@@ -3,7 +3,6 @@
 # Tap and install caskroom apps
 
 brew tap phinze/homebrew-cask
-brew tap caskroom/versions
 brew update
 
 brew install brew-cask
@@ -11,9 +10,6 @@ brew install brew-cask
 brew cask install adium
 brew cask install android-file-transfer
 brew cask install bettertouchtool
-
-# menubar app to prevent display sleeping
-brew cask install caffeine
 
 brew cask install charles
 brew cask install firefox
@@ -23,7 +19,6 @@ brew cask install gitifier
 
 brew cask install google-chrome
 
-brew cask install iterm2-beta
 brew cask install jing
 brew cask install joinme
 brew cask install kaleidoscope
