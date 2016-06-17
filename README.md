@@ -16,6 +16,8 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 
 ## Installation
 
+_For mac, see full install details in [mac/README.md](mac/README.md)._
+
 Clone and run the symlink script.
 
 ```bash
@@ -37,7 +39,7 @@ git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
 - Change default shell to zsh (ensure listed in `/etc/shells`) and
   restart shell (zplug will self-install)
 
-- See OS specific notes in [macOS/README.md](macOS/README.md) and for linux
+- See OS specific notes in [mac/README.md](mac/README.md) and for linux
   [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 
 #### Dev environment setup
@@ -69,14 +71,6 @@ first.
     - install default packages
 - `ruby/install-default-gems.sh`
     - requires you set up chruby and install a ruby first
-- `bootstrap/mac/*.sh`
-    - `alfred.sh` - Install alfred via brew cask -- requires cask.sh first
-    - `brew.sh` - Install common brews
-    - `cask.sh` - Install common casks
-    - `dnsmasq.sh` - Install and setup dnsmasq for .dev domains (optional)
-    - `install.sh` - symlink `.hushlogin`
-    - `macvim.sh` - Install macvim via brew
-    - `quicklook.sh` - Install quicklook plugins via brew cask
 - `bootstrap/terminfo.sh`
     - copy/compile terminfo files for user to `~/.terminfo/*`
 - `bootstrap/x11.sh`

@@ -30,16 +30,16 @@ brew install git-extras hub
 
 ### Install dotfiles
 
-1. `git clone`
+1. `git clone` for `~/.dotfiles/`
 1. `~/.dotfiles/bootstrap/symlink.sh`
 1. `~/.dotfiles/mac/settings` -- set apple defaults and fix some issues like
    zsh startup
+1. `git clone` for `~/.secrets` and link as needed
 
 ### Install macvim
 
-We want this to override the outdated system vim too.
-
-`~/.dotfiles/bootstrap/osx/macvim.sh` is good.
+We want this to override the outdated system vim too. Just use
+`~/.dotfiles/bootstrap/mac/macvim.sh`.
 
 ### Install zsh and set as default
 
@@ -61,18 +61,25 @@ chsh -s /usr/local/bin/zsh
     brew cask install iterm2-beta
     ```
 1. Set up fonts (Fura Mono for Powerline, see _Powerline patched fonts_ above)
-1. Set up base16 theme from <https://github.com/chriskempson/base16-iterm2> or
+1. Set up base16 from <https://github.com/chriskempson/base16-iterm2> or
    start app -> Preferences -> Load preferences from custom folder, point to
    existing plist exports.
 
 ### Install dev stuff
 
-- Install `chruby`, `ruby-install`, and start using a local ruby
-    - Then install the default gems using
-      `~/.dotfiles/ruby/install-default-gems.sh`
-- Install `nvm`, and start using a local node
-    - Then install the default packages using `~/.dotfiles/node/install.sh`
+- Install `chruby`, `ruby-install`
+    1. `ruby-install ruby` to install latest
+    1. `chruby` to latest version just installed
+    1. Install gems using `~/.dotfiles/ruby/install-default-gems.sh`
+- Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
+  `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
+  consequently `npm`)
+    1. Use nvm managed node
+    1. `npm install -g npm@latest`
+    1. Install the default packages using `~/.dotfiles/node/install.sh`
 - `brew install redis` for `redismru.vim` later
+- run `bootstrap/mac/install.sh`
+- run `bootstrap/mac/completions.sh`
 
 ### Install neovim
 
@@ -82,6 +89,12 @@ chsh -s /usr/local/bin/zsh
 
 ### Install keepassx from source
 
+Some of the requirements to `brew install` first:
+
+- cmake
+- libgcrypt
+- oath-toolkit
+
 Install keepassx 2.0 with http support from the source of this fork (inspect
 diff first):
 <https://github.com/eugenesan/keepassx/tree/2.0-http-totp>
@@ -90,19 +103,21 @@ It is fine to run the `cmake` step until it builds successfully (it will tell
 you what deps are missing each time, and the deps can all be installed via
 brew).
 
-Known requirements:
-
-- cmake
-- libgcrypt
-- oath-toolkit
-
 ### Install from cask
 
+- google-chrome
+    - Login and sync
+    - Provides `authy`
 - dropbox
     - Then setup keepassx to load the key database from dropbox
-- google-chrome
 - karabiner
     - Map simultaneous-dual-shift to capslock and show capslock state.
+- kaleidoscope
+    - Load license file
+- transmission
+    - Load blocklist `http://john.bitsurge.net/public/biglist.p2p.gz`
+
+Rest of stuff from bootstrap/mac/cask.sh
 
 ## Source order
 
