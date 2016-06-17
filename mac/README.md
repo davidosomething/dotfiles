@@ -1,6 +1,6 @@
 # macOS/OS X
 
-## Full setup, in order
+## Full generic setup, in order
 
 ### Install App Store apps
 
@@ -29,7 +29,7 @@ brew install git-extras hub
 
 ### Install dotfiles
 
-`git clone` and run `symlink.sh`
+`git clone` and run `~/.dotfiles/bootstrap/symlink.sh`
 
 ### Install macvim
 
