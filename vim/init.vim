@@ -1,6 +1,8 @@
 " init.vim
 " Neovim init (in place of vimrc)
 
+set termguicolors
+
 let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 " =============================================================================

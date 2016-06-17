@@ -84,7 +84,12 @@ chsh -s /usr/local/bin/zsh
 
 ### Install neovim
 
-1. Follow <https://github.com/neovim/homebrew-neovim>
+1. Follow <https://github.com/neovim/homebrew-neovim> for HEAD
+    ```bash
+    brew tap neovim/neovim
+    brew update
+    brew install --HEAD --with-release neovim
+    ```
 1. Launch `nvim` and let `vim-plug` install itself, exit
 1. Launch `nvim` and `:PlugInstall`, exit
 
@@ -100,9 +105,9 @@ Install keepassx 2.0 with http support from the source of this fork (inspect
 diff first):
 <https://github.com/eugenesan/keepassx/tree/2.0-http-totp>
 
-It is fine to run the `cmake` step until it builds successfully (it will tell
-you what deps are missing each time, and the deps can all be installed via
-brew).
+It is fine to run the `cmake -DCMAKE_BUILD_TYPE=Release` step until it builds
+successfully (it will tell you what deps are missing each time, and the deps
+can all be installed via brew).
 
 ### Install from cask
 

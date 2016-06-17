@@ -125,7 +125,6 @@ export MYSQL_HISTFILE="${XDG_CACHE_HOME}/mysql_histfile"
 
 # neovim
 #export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
-export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 # php moved to shell/php loaded in shell/before
 
