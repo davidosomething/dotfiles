@@ -262,12 +262,10 @@ __dotfiles_update_deb() {
 # ------------------------------------------------------------------------------
 
 __dotfiles_update_mac() {
-  # fix file system permissions
-  dkostatus "Repairing permissions"
-  diskutil repairPermissions / || dkoerr "Error repairing permissions"
-
   dkostatus "macOS system update"
-  sudo softwareupdate -i -a || { dkoerr "Error updating software permissions" && return 1; }
+  sudo softwareupdate --install --all || {
+    dkoerr "Error updating software permissions" && return 1
+  }
 }
 
 __dotfiles_update_brew() {
