@@ -80,6 +80,7 @@ chsh -s /usr/local/bin/zsh
 - `brew install redis` for `redismru.vim` later
 - run `bootstrap/mac/install.sh`
 - run `bootstrap/mac/completions.sh`
+- run `bootstrap/terminfo.sh` (added terminfo for iterm with italics support)
 
 ### Install neovim
 
