@@ -91,17 +91,17 @@ function! s:SetupMarkdownlint()
   let b:neomake_pandoc_markdownlint_args =
         \ b:neomake_markdown_markdownlint_args
 endfunction
-autocmd dkoneomake FileType markdown.pandoc call s:SetupMarkdownlint()
+autocmd dkoneomake FileType markdown,pandoc call s:SetupMarkdownlint()
 
 " ----------------------------------------------------------------------------
 " Maker: phpcs
 " ----------------------------------------------------------------------------
 
 function! s:SetPhpcsStandard()
-  " WordPress VIP?
+  " WordPress
   if expand('%:p') =~? 'wp-\|plugins\|themes'
     let b:neomake_php_phpcs_args = neomake#makers#ft#php#phpcs().args
-          \ + [ '--standard=WordPress-VIP' ]
+          \ + [ '--standard=WordPress' ]
   endif
 endfunction
 autocmd dkoneomake FileType php call s:SetPhpcsStandard()
