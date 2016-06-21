@@ -65,6 +65,35 @@ endfunction
 autocmd dkoneomake FileType javascript call s:SetupEslint()
 
 " ----------------------------------------------------------------------------
+" Maker: markdownlint (npm package)
+" ----------------------------------------------------------------------------
+
+" Let pandoc use markdownlint as well
+let g:neomake_pandoc_markdownlint_maker = neomake#GetMaker('markdownlint')
+
+function! s:SetupMarkdownlint()
+  " Use local markdownlint if available
+  let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/markdownlint')
+  if !empty(l:bin)
+    let b:neomake_markdown_markdownlint_exe = l:bin
+    let b:neomake_pandoc_markdownlint_exe = l:bin
+  endif
+
+  " Use local config
+  let l:config = dkoproject#GetProjectConfigFile('markdownlint.json')
+  if empty(l:config)
+    let l:config = dkoproject#GetProjectConfigFile('.markdownlintrc')
+  endif
+  if empty(l:config)
+    let l:config = glob(expand('$DOTFILES/markdownlint/config.json'))
+  endif
+  let b:neomake_markdown_markdownlint_args = [ '--config', l:config ]
+  let b:neomake_pandoc_markdownlint_args =
+        \ b:neomake_markdown_markdownlint_args
+endfunction
+autocmd dkoneomake FileType markdown.pandoc call s:SetupMarkdownlint()
+
+" ----------------------------------------------------------------------------
 " Maker: phpcs
 " ----------------------------------------------------------------------------
 
@@ -119,20 +148,28 @@ function! s:SetupSasslint()
     let b:neomake_scss_sasslint_args = g:neomake_scss_sasslint_maker.args
           \ + [ '--config=' . l:config ]
   endif
+
+  " @TODO port this, ignore
+  " let g:syntastic_markdown_mdl_quiet_messages = {
+  "       \   'regex': "No link definition for link ID '\[ x\]'",
+  "       \ }
+
 endfunction
 autocmd dkoneomake FileType scss call s:SetupSasslint()
+
 
 " ============================================================================
 " Disable makers
 " ============================================================================
 
 " using syntastic still
-let g:neomake_markdown_enabled_makers   = []
 let g:neomake_python_enabled_makers     = []
-let g:neomake_sh_enabled_makers         = []
 
 " limit to only preferred
-let g:neomake_javascript_enabled_makers = [ 'eslint' ]
+let g:neomake_javascript_enabled_makers = [ 'eslint', 'jscs' ]
+let g:neomake_markdown_enabled_makers   = [ 'markdownlint' ]
+" I don't use real pandoc so just assume it's always markdown
+let g:neomake_pandoc_enabled_makers     = g:neomake_markdown_enabled_makers
 let g:neomake_scss_enabled_makers       = [ 'sasslint' ]
 
 " ============================================================================
