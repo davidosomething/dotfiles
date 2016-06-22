@@ -13,6 +13,11 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 " - :UpdateRemotePlugins
 " =============================================================================
 
+" python2 off
+let g:loaded_python_provider = 1
+let g:python_host_skip_check = 1
+
+" python3 use pyenv
 let s:pyenv_python3 = glob('~/.local/pyenv/shims/python3')
 if !empty(s:pyenv_python3)
   let g:python3_host_prog = s:pyenv_python3
