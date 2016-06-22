@@ -119,16 +119,20 @@ _alias_ls
 
 _alias_darwin() {
   alias b="brew"
-  alias bi="b install"
-  alias bq="b list"
-  alias bs="b search"
-  alias bservices="b services"
+  alias bi="brew install"
+  alias bq="brew list"
+  alias bs="brew search"
+  alias bservices="brew services"
 
   # @TODO accept version
   alias rphp="brew services restart php56"
 
   # sudo since we run nginx on port 80 so needs admin
   alias rnginx="sudo brew services restart nginx"
+
+  alias pyenv="CFLAGS=\"-I\$(brew --prefix openssl)/include\" \
+    LDFLAGS=\"-L\$(brew --prefix openssl)/lib\" \
+    pyenv"
 
   # electron apps can't focus if started using Electron symlink
   alias elec="/Applications/Electron.app/Contents/MacOS/Electron"
