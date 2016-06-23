@@ -77,6 +77,10 @@ chsh -s /usr/local/bin/zsh
     1. Use nvm managed node
     1. `npm install -g npm@latest`
     1. Install the default packages using `~/.dotfiles/node/install.sh`
+- Install `pyenv` and make sure to use the libs provided by `brew openssl`
+    1. `brew install openssl`
+    1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
+    1. Install `pyenv-doctor` if needed.
 - `brew install redis` for `redismru.vim` later
 - run `bootstrap/mac/install.sh`
 - run `bootstrap/mac/completions.sh`
