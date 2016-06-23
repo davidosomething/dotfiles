@@ -130,10 +130,6 @@ _alias_darwin() {
   # sudo since we run nginx on port 80 so needs admin
   alias rnginx="sudo brew services restart nginx"
 
-  alias pyenv="CFLAGS=\"-I\$(brew --prefix openssl)/include\" \
-    LDFLAGS=\"-L\$(brew --prefix openssl)/lib\" \
-    pyenv"
-
   # electron apps can't focus if started using Electron symlink
   alias elec="/Applications/Electron.app/Contents/MacOS/Electron"
 
