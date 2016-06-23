@@ -85,6 +85,11 @@ chsh -s /usr/local/bin/zsh
 - run `bootstrap/mac/install.sh`
 - run `bootstrap/mac/completions.sh`
 - run `bootstrap/terminfo.sh` (added terminfo for iterm with italics support)
+- Install `gpgtools` from brew cask (using GPG suite since it provides
+  `gpg-agent` and can store passphrase in keychain with minimal cfg on
+  El Capitan)
+    - Import keybase public/private keys into gpg
+    - Setup local gitconfig to sign commits
 
 ### Install neovim
 
