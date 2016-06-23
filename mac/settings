@@ -144,6 +144,9 @@ defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
 defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
+# Don't ask to use every drive for Time Machine
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+
 ################################################################################
 # safari
 # Enable the Develop menu and the Web Inspector in Safari
