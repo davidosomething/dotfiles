@@ -19,9 +19,6 @@ rake
 rdoc
 redcarpet
 RedCloth
-sass
-sass-json-vars
-sassy-maps
 sshkit
 term-ansicolor
 travis
