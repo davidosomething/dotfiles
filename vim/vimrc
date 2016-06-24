@@ -579,7 +579,7 @@ function s:LoadPlugins()
   " Mostly for :Gblame
   "Plug 'tpope/vim-fugitive'
   " the blame in vim-gita is hawt :3
-  Plug 'lambdalisue/vim-gita'
+  Plug 'lambdalisue/vim-gita', { 'on': ['Gita'] }
 
   " Mostly for :Scriptnames and zS
   Plug 'tpope/vim-scriptease'
