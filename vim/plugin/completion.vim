@@ -201,6 +201,9 @@ if exists("g:plugs['phpcomplete.vim']")
       \ s:REGEXPS.any_word
       \ . '\|' . s:REGEXPS.nonspace_arrow
       \ . '\|' . s:REGEXPS.word_scope_word
+
+  " https://github.com/Shougo/deoplete.nvim/commit/2af84d10e2c9d6c70bc0d8bd97c964e47b6a2b08#diff-e5bdd2909698ddcc54fe0c4267ea88a2R291
+  let s:deo_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
 endif
 
 " ============================================================================
