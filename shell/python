@@ -19,15 +19,13 @@ export PYLINTHOME="${XDG_CONFIG_HOME}/pylint"
 # ==============================================================================
 
 export PYENV_ROOT="${HOME}/.local/pyenv"
-
-# Not using this for consistency (pyvenv is only for py3.3+), since some py2
-# things are still around.
-#export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+export PATH="${PYENV_ROOT}/bin:${PATH}"
 
 has_program "pyenv" && {
   eval "$(pyenv init -)"
-  # pyenv init doesn't add this one... is it needed?
-  export PATH="${PYENV_ROOT}/bin:${PATH}"
+
+  # Don't try to auto-init venv
+  #eval "$(pyenv virtualenv init -)"
 }
 
 # ==============================================================================
