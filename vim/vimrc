@@ -20,7 +20,7 @@ let g:dko_vim_dir      = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 " Settings vars
 " ============================================================================
 
-" Used by anything that needs to change/use loc list (e.g. syntastic)
+" Used by anything that needs to change/use loc list
 let g:dko_loc_list_height = 10
 
 " ============================================================================
@@ -624,9 +624,7 @@ function! s:LoadPlugins()
   " add gS to smart split lines like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
 
-  " Linters (transitioning to neomake)
-  Plug 'benekastah/neomake'
-  Plug 'scrooloose/syntastic'
+  Plug 'neomake/neomake'
 
   Plug 'tyru/current-func-info.vim'
   "Plug 'davidosomething/current-func-info.vim', { 'branch': 'javascript' }
@@ -756,8 +754,6 @@ function! s:LoadPlugins()
 
   " Creates html.handlebars and other fts and sets syn
   Plug 'mustache/vim-mustache-handlebars'
-
-  Plug 'davidosomething/syntastic-hbstidy'
 
   " ========================================================================
   " Language: JavaScript / CoffeeScript / JSON

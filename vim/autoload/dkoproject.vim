@@ -3,7 +3,6 @@
 "
 " Helpers to finds config files for a project (e.g. linting RC files) relative
 " to a git repo root.
-" Useful for syntastic settings.
 "
 " Settings:
 " b:dkoproject_config_paths - highest precendence array to look in

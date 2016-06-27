@@ -35,7 +35,6 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= dkostatus#Paste()
   "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
   let l:contents .= dkostatus#Neomake()
-  let l:contents .= dkostatus#Syntastic()
   let l:contents .= dkostatus#Readonly()
   let l:contents .= dkostatus#Filetype()
   let l:contents .= dkostatus#Filename()
@@ -89,6 +88,7 @@ function! dkostatus#FormatNeomakeCounts(counts) abort
   let l:e = get(a:counts, 'E', 0)
   let l:w = get(a:counts, 'W', 0)
 
+  " assuming colorscheme has Syntastic colors defined
   if l:e
     let l:result .= '%#SyntasticErrorSign# ⚑' . l:e
   endif
@@ -105,14 +105,6 @@ function! dkostatus#Neomake() abort
         \ || !exists('g:plugs["neomake"]')
         \ ? ''
         \ : dkostatus#FormatNeomakeCounts(neomake#statusline#LoclistCounts())
-endfunction
-
-function! dkostatus#Syntastic() abort
-  return s:winnr != winnr()
-        \ || !exists('g:plugs["syntastic"]')
-        \ || empty(SyntasticStatuslineFlag())
-        \ ? ''
-        \ : '%#SyntasticErrorSign# %{SyntasticStatuslineFlag()} %*'
 endfunction
 
 function! dkostatus#Readonly() abort

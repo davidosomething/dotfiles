@@ -10,8 +10,6 @@ augroup END
 " Output
 " ============================================================================
 
-"let g:neomake_verbose = 3
-
 " No output on :wq
 " @see https://github.com/benekastah/neomake/issues/309
 " @see https://github.com/benekastah/neomake/issues/329
@@ -31,15 +29,8 @@ let g:neomake_airline = 0
 " Signs column
 " ----------------------------------------------------------------------------
 
-let g:neomake_error_sign = {
-      \   'text':   '⚑',
-      \   'texthl': 'SyntasticErrorSign',
-      \ }
-
-let g:neomake_warning_sign = {
-      \   'text':   '⚑',
-      \   'texthl': 'SyntasticWarningSign',
-      \ }
+let g:neomake_error_sign    = { 'text': '⚑' }
+let g:neomake_warning_sign  = { 'text': '⚑' }
 
 " ============================================================================
 " Define makers
@@ -72,14 +63,16 @@ autocmd dkoneomake FileType javascript call s:SetupEslint()
 let g:neomake_pandoc_markdownlint_maker = neomake#GetMaker('markdownlint')
 
 function! s:SetupMarkdownlint()
-  " Use local markdownlint if available
-  let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/markdownlint')
-  if !empty(l:bin)
-    let b:neomake_markdown_markdownlint_exe = l:bin
-    let b:neomake_pandoc_markdownlint_exe = l:bin
-  endif
+  let l:maker = {
+        \   'exe':          'markdownlint',
+        \   'errorformat':  '%f: %l: %m',
+        \ }
 
-  " Use local config
+  " Use markdownlint in local node_modules/ if available
+  let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/markdownlint')
+  let l:maker.exe = !empty(l:bin) ? 'markdownlint' : l:bin
+
+  " Use config local to project if available
   let l:config = dkoproject#GetProjectConfigFile('markdownlint.json')
   if empty(l:config)
     let l:config = dkoproject#GetProjectConfigFile('.markdownlintrc')
@@ -87,11 +80,12 @@ function! s:SetupMarkdownlint()
   if empty(l:config)
     let l:config = glob(expand('$DOTFILES/markdownlint/config.json'))
   endif
-  let b:neomake_markdown_markdownlint_args = [ '--config', l:config ]
-  let b:neomake_pandoc_markdownlint_args =
-        \ b:neomake_markdown_markdownlint_args
+  let l:maker.args = empty(l:config) ? [] : [ '--config', l:config ]
+
+  let b:neomake_markdown_markdownlint_maker = l:maker
+  let b:neomake_pandoc_markdownlint_maker = l:maker
 endfunction
-autocmd dkoneomake FileType markdown,pandoc call s:SetupMarkdownlint()
+autocmd dkoneomake BufNewFile,BufRead *.md call s:SetupMarkdownlint()
 
 " ----------------------------------------------------------------------------
 " Maker: phpcs
@@ -148,28 +142,18 @@ function! s:SetupSasslint()
     let b:neomake_scss_sasslint_args = g:neomake_scss_sasslint_maker.args
           \ + [ '--config=' . l:config ]
   endif
-
-  " @TODO port this, ignore
-  " let g:syntastic_markdown_mdl_quiet_messages = {
-  "       \   'regex': "No link definition for link ID '\[ x\]'",
-  "       \ }
-
 endfunction
 autocmd dkoneomake FileType scss call s:SetupSasslint()
-
 
 " ============================================================================
 " Disable makers
 " ============================================================================
 
-" using syntastic still
-let g:neomake_python_enabled_makers     = []
-
 " limit to only preferred
-let g:neomake_javascript_enabled_makers = [ 'eslint', 'jscs' ]
+let g:neomake_javascript_enabled_makers = [ 'eslint' ]
 let g:neomake_markdown_enabled_makers   = [ 'markdownlint' ]
 " I don't use real pandoc so just assume it's always markdown
-let g:neomake_pandoc_enabled_makers     = g:neomake_markdown_enabled_makers
+let g:neomake_pandoc_enabled_makers     = [ 'markdownlint' ]
 let g:neomake_scss_enabled_makers       = [ 'sasslint' ]
 
 " ============================================================================
@@ -177,6 +161,8 @@ let g:neomake_scss_enabled_makers       = [ 'sasslint' ]
 " Keep this last so all the other autocmds happen first
 " ============================================================================
 
-autocmd dkoneomake BufWritePost  *   Neomake
-autocmd dkoneomake Filetype      *   Neomake
+autocmd dkoneomake    BufWritePost  *   Neomake
+autocmd dkoneomake    Filetype      *   Neomake
+autocmd dkostatusline User NeomakeMakerFinished
+      \ call dkostatus#Refresh()
 
