@@ -1,5 +1,9 @@
 bashate
+flake8
+frosted
 neovim
+pep8
 prospector
 Pygments
 vim-vint
+vulture

@@ -157,7 +157,7 @@ let s:python_makers = [ 'python' ]
 "@TODO enable flake8 only if .flake8 dir exists in project
 "call add(s:python_makers, 'flake8')   " aggreg. pep8+pyflakes
 "call add(s:python_makers, 'frosted')  " better than pyflakes
-"call add(s:python_makers, 'pep8')     " style
+call add(s:python_makers, 'pep8')     " style
 call add(s:python_makers, 'pyflakes') " syntax errors
 call add(s:python_makers, 'pylint')   " generic linter, SLOW
 "call add(s:python_makers, 'pep257')   " comments
