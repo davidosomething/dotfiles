@@ -87,16 +87,6 @@ precmd() {
 # prompt main
 # ------------------------------------------------------------------------------
 
-current_ruby() {
-    local _ruby
-    _ruby="$(chruby |grep \* |tr -d '* ')"
-    if [[ $(chruby |grep -c \*) -eq 1 ]]; then
-        echo ${_ruby}
-    else
-        echo "system"
-    fi
-}
-
 # This function is available to the shell if need to reset
 dkoprompt() {
   # ----------------------------------------------------------------------------

@@ -37,7 +37,6 @@ __dotfiles_usage() {
     composer    -- update composer and global packages
     gem         -- update rubygems and global gems for current ruby
     go          -- golang
-    heroku      -- heroku toolbelt
     pip         -- update all versions of pip (OS dependent)
 
   Arch Linux
@@ -105,7 +104,12 @@ __dotfiles_update_fzf() {
 
 __dotfiles_update_gems() {
   has_program "gem" || { dkoerr "rubygems is not installed" && return 1; }
-  dkostatus "Updating RubyGems itself"
+  if [ -z "$RUBY_VERSION" ]; then
+    dkoerr "System ruby detected! Use chruby and manage rubygems in userspace."
+    return 1
+  fi
+
+  dkostatus "Updating RubyGems itself for ruby: ${RUBY_VERSION}"
   gem update --system  || { dkoerr "Could not update system gems" && return 1; }
   dkostatus "Updating gems"
   gem update
@@ -117,12 +121,6 @@ __dotfiles_update_go() {
   dkostatus "Updating go packages"
   go get -u all
   rehash
-}
-
-__dotfiles_update_heroku() {
-  has_program "heroku" || { dkoerr "heroku is not installed" && return 1; }
-  dkostatus "Updating heroku"
-  heroku update
 }
 
 __dotfiles_update_node() {
@@ -264,14 +262,20 @@ __dotfiles_update_deb() {
 __dotfiles_update_mac() {
   dkostatus "macOS system update"
   sudo softwareupdate --install --all || {
-    dkoerr "Error updating software permissions" && return 1
+    dkoerr "Error updating software permissions"
+    return 1
   }
 }
 
-__dotfiles_update_brew() {
-  local is_python_rebuild=""
-  local outdated=""
+__dotfiles_update_brew_done() {
+  dkostatus "Cleanup old versions and prune dead symlinks"
+  brew cleanup
+  brew cask cleanup
+  brew prune
+  rehash
+}
 
+__dotfiles_update_brew() {
   dkostatus "Updating homebrew"
 
   # enter dotfiles dir to do this in case user has any gem flags or local
@@ -281,41 +285,51 @@ __dotfiles_update_brew() {
     cd - || return 1
     return 1
   }
+
   brew update
 
+  # check if needed
+  local outdated=""
   outdated="$(brew outdated --quiet)"
-
   if [ -z "$outdated" ]; then
     dkostatus "All packages up-to-date"
-  else
-    dkostatus "Upgrade packages"
-    brew upgrade --all --cleanup
-
-    # @TODO this isn't working
-    is_python_rebuild="$(echo "$outdated" | grep "python3")"
+    __dotfiles_update_brew_done
+    return
   fi
 
-  # handle python3 and macvim
-  if [ -n "$is_python_rebuild" ]; then
-    __dotfiles_update_python3 && __dotfiles_update_macvim
+  # switch to brew's python (fallback to system if no brew python)
+  has_program "pyenv" && pyenv shell system
+
+  dkostatus "Upgrade packages"
+  brew upgrade --all --cleanup
+
+  # Detect if brew's python3 (not pyenv) was upgraded
+  # Reinstall macvim with new python3 if needed
+  if echo "$outdated" | grep -q "python3"; then
+    __dotfiles_update_python3
+    __dotfiles_update_macvim
   fi
 
-  dkostatus "Cleanup old versions and prune dead symlinks"
-  brew cleanup
-  brew cask cleanup
-  brew prune
-  rehash
+  # restore pyenv python
+  has_program "pyenv" && pyenv shell "$(pyenv global)"
   cd - || return 1
+  __dotfiles_update_brew_done
 }
 
+# Must use brew/system python!
 __dotfiles_update_python3() {
   dkostatus_ "Linking python3 apps"
-  brew linkapps python3 || { dkoerr "Error linking python3" && return 1; }
-  dkostatus "Python3 was upgraded"
-  dkostatus_ "Updating pip and setuptools"
-  pip3 install --upgrade pip setuptools || { dkoerr "Error updating setuptools" && return 1; }
+  brew linkapps python3 || {
+    dkoerr "Error linking python3" && return 1
+  }
+
+  dkostatus "Python3 was upgraded, updating pip and setuptools"
+  pip3 install --upgrade pip setuptools || {
+    dkoerr "Error updating setuptools" && return 1
+  }
 }
 
+# Must use brew/system python!
 __dotfiles_update_macvim() {
   dkostatus_ "Rebuilding macvim for new python3"
   brew reinstall macvim \
@@ -344,7 +358,6 @@ __dotfiles_main() {
     fzf)      __dotfiles_update_fzf       ;;
     gem)      __dotfiles_update_gems      ;;
     go)       __dotfiles_update_go        ;;
-    heroku)   __dotfiles_update_heroku    ;;
     node)     __dotfiles_update_node      ;;
     nvm)      __dotfiles_update_nvm       ;;
   esac
