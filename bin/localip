@@ -8,31 +8,32 @@
 set -eu
 
 # silently determine existence of executable
-has_program() {
+__has_program() {
   command -v "$1" >/dev/null 2>&1
 }
 
 # type localip to get ethernet or wireless ip
-_localip() {
-  local localip
+__localip() {
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    local ethernet && ethernet=$(ipconfig getifaddr en0)
+    [ -n "$ethernet" ] && echo "$ethernet" && exit 0
 
-  if has_program "hostname"; then
+    local wireless && wireless=$(ipconfig getifaddr en1)
+    [ -n "$wireless" ] && echo "$wireless" && exit 0
+
+    exit 1
+  fi
+
+  if __has_program "hostname"; then
     hostname -i
 
-  elif has_program "ifconfig"; then
+  elif __has_program "ifconfig"; then
     ifconfig | grep "inet " | grep -v "127.0.0.1"
 
-  elif has_program "ip"; then
+  elif __has_program "ip"; then
     ip addr | grep "inet 192"
-
-  elif has_program "ipconfig"; then
-    localip=$(ipconfig getifaddr en0)
-    if [ -z "$localip" ]; then
-      localip=$(ipconfig getifaddr en1)
-    fi
-    echo "$localip"
 
   fi
 }
 
-_localip
+__localip
