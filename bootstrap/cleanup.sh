@@ -118,8 +118,6 @@ __merge_dir "${HOME}/.fonts"          "${XDG_DATA_HOME}/fonts"
 # INPUTRC is set
 
 # Removes
-# alias points home
-__remove "${HOME}/.irssi"
 # alias points to dotfile
 __remove "${HOME}/.mdlrc"
 # should be in XDG

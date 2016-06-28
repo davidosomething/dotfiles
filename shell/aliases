@@ -41,7 +41,6 @@ alias df="df -h"
 alias f="find"
 alias grep="grep --color=auto"
 alias grw="grunt watch"
-alias irssi="irssi --home \"\${DOTFILES}/irssi\" --config \"\${DOTFILES}/irssi/config-\${DOTFILES_DISTRO}\""
 alias ln="ln -v"
 alias mdl="mdl --config \"\${DOTFILES}/mdl/.mdlrc\""
 alias n="npm"
@@ -82,6 +81,8 @@ alias evr="e \"\${VIM_DOTFILES}/vimrc\""
 alias eze="e \"\${ZDOTDIR}/.zshenv\""
 alias ezr="e \"\${ZDOTDIR}/.zshrc\""
 
+# ============================================================================
+
 _alias_ls() {
   local almost_all="-A" # switchted from --almost-all for old bash support
   local classify="-F" # switched from --classify for old bash support
@@ -118,15 +119,16 @@ _alias_ls() {
 }
 _alias_ls
 
+# ============================================================================
+
 _alias_darwin() {
   alias b="brew"
   alias bi="brew install"
   alias bq="brew list"
   alias bs="brew search"
-  alias bservices="brew services"
 
-  # @TODO accept version
-  alias rphp="brew services restart php56"
+  alias bsvc="brew services"
+  alias bsvr="brew services restart"
 
   # sudo since we run nginx on port 80 so needs admin
   alias rnginx="sudo brew services restart nginx"
@@ -141,6 +143,8 @@ _alias_darwin() {
   alias stfu="osascript -e 'set volume output muted true'"
 }
 
+# ============================================================================
+
 _alias_linux() {
   alias open="o"                    # use open() function in shell/functions
   alias startx="startx > \"\${DOTFILES}/logs/startx.log\" 2>&1"
@@ -150,6 +154,8 @@ _alias_linux() {
     'This is an example notification.' \
     --icon=dialog-information"
 }
+
+# ============================================================================
 
 _alias_arch() {
   if command -v pacaur >/dev/null; then
@@ -168,9 +174,13 @@ _alias_arch() {
   alias rnginx="sudo systemctl restart nginx.service"
 }
 
+# ============================================================================
+
 _alias_deb() {
   alias b="apt "
 }
+
+# ============================================================================
 
 # os specific
 case "$OSTYPE" in
