@@ -146,15 +146,34 @@ endfunction
 autocmd dkoneomake FileType scss call s:SetupSasslint()
 
 " ============================================================================
-" Disable makers
+" Makers selection
 " ============================================================================
 
-" limit to only preferred
+" ----------------------------------------------------------------------------
+" Python preferred
+" ----------------------------------------------------------------------------
+
+let s:python_makers = [ 'python' ]
+"@TODO enable flake8 only if .flake8 dir exists in project
+"call add(s:python_makers, 'flake8')   " aggreg. pep8+pyflakes
+"call add(s:python_makers, 'frosted')  " better than pyflakes
+"call add(s:python_makers, 'pep8')     " style
+call add(s:python_makers, 'pyflakes') " syntax errors
+call add(s:python_makers, 'pylint')   " generic linter, SLOW
+"call add(s:python_makers, 'pep257')   " comments
+"call add(s:python_makers, 'pylama')   " aggregator
+"call add(s:python_makers, 'vulture')   " find unused
+
+" ----------------------------------------------------------------------------
+" Use preferred
+" ----------------------------------------------------------------------------
+
 let g:neomake_javascript_enabled_makers = [ 'eslint' ]
 let g:neomake_markdown_enabled_makers   = [ 'markdownlint' ]
 " I don't use real pandoc so just assume it's always markdown
 let g:neomake_pandoc_enabled_makers     = [ 'markdownlint' ]
 let g:neomake_scss_enabled_makers       = [ 'sasslint' ]
+let g:neomake_python_enabled_makers     = s:python_makers
 
 " ============================================================================
 " Auto run
