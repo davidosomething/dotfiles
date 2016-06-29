@@ -54,8 +54,7 @@ scripts.
   consequently `npm`)
 - `php`, `composer`, use composer to install `wp-cli`
     - `bootstrap/mac/php.sh`
-- `pyenv`, `virtualenv`, then create a new env with a new python/pip
-    - `bootstrap/mac/python.sh`
+- `pyenv`, `pyenv-virtualenv`, then create a new env with a new python/pip
 
 ### Provisioning scripts
 

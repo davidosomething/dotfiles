@@ -547,16 +547,6 @@ function! s:LoadPlugins()
   Plug 'morhetz/gruvbox'
 
   " ========================================================================
-  " Plug: Python virtualenv support
-  " ========================================================================
-
-  " Plug 'jmcantrell/vim-virtualenv'
-
-  " if !has('mac') && executable('pyenv')
-  "   Plug 'lambdalisue/vim-pyenv'
-  " endif
-
-  " ========================================================================
   " Plug: File system
   " ========================================================================
 

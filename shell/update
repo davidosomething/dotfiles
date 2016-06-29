@@ -311,7 +311,7 @@ __dotfiles_update_brew() {
   fi
 
   # restore pyenv python
-  has_program "pyenv" && pyenv shell "$(pyenv global)"
+  has_program "pyenv" && pyenv shell --unset
   cd - || return 1
   __dotfiles_update_brew_done
 }

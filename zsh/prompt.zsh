@@ -133,13 +133,10 @@ dkoprompt() {
   RPS1+='%F{blue}'
 
   # NVM node version
-  has_program "nvm" && RPS1+='[node:$(nvm_ls current 2>&1)]'
+  has_program "nvm" && RPS1+='[node:$(nvm_ls current 2>/dev/null)]'
 
   # pyenv python version
-  has_program "pyenv" && RPS1+='[py:$(pyenv version-name 2>&1)]'
-
-  # VirtualEnv python version
-  # has_program "virtualenv" && RPS1+='[py:$(virtualenv_prompt_info 2>&1)]'
+  has_program "pyenv" && RPS1+='[py:$(pyenv version-name 2>/dev/null)]'
 
   # chruby Ruby version
   has_program "chruby" && RPS1+='[rb:${RUBY_VERSION:-system}]'
