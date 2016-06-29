@@ -63,14 +63,16 @@ autocmd dkoneomake FileType javascript call s:SetupEslint()
 let g:neomake_pandoc_markdownlint_maker = neomake#GetMaker('markdownlint')
 
 function! s:SetupMarkdownlint()
-  let l:maker = {
-        \   'exe':          'markdownlint',
-        \   'errorformat':  '%f: %l: %m',
-        \ }
+  let l:maker = { 'errorformat':  '%f: %l: %m' }
 
   " Use markdownlint in local node_modules/ if available
   let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/markdownlint')
   let l:maker.exe = !empty(l:bin) ? 'markdownlint' : l:bin
+
+  " Bail if not installed either locally or globally
+  if !executable(l:maker.exe)
+    return
+  endif
 
   " Use config local to project if available
   let l:config = dkoproject#GetProjectConfigFile('markdownlint.json')
@@ -119,6 +121,19 @@ endfunction
 autocmd dkoneomake FileType php call s:SetPhpmdRuleset()
 
 " ----------------------------------------------------------------------------
+" Maker: pylint
+" ----------------------------------------------------------------------------
+
+" Add disable to defaults
+" @see https://github.com/neomake/neomake/blob/master/autoload/neomake/makers/ft/python.vim#L26
+let g:neomake_python_pylint_args = [
+      \   '--output-format=text',
+      \   '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
+      \   '--reports=no',
+      \   '--disable=locally-disabled',
+      \ ]
+
+" ----------------------------------------------------------------------------
 " Maker: sasslint
 " ----------------------------------------------------------------------------
 
@@ -150,6 +165,19 @@ autocmd dkoneomake FileType scss call s:SetupSasslint()
 " ============================================================================
 
 " ----------------------------------------------------------------------------
+" Markdown preferred
+" ----------------------------------------------------------------------------
+
+let s:markdown_makers = []
+if exists('b:neomake_markdown_markdownlint_maker')
+  call add(s:markdown_makers, 'markdownlint')
+endif
+
+let g:neomake_markdown_enabled_makers = s:markdown_makers
+" I don't use real pandoc so just assume it's always markdown
+let g:neomake_pandoc_enabled_makers   = s:markdown_makers
+
+" ----------------------------------------------------------------------------
 " Python preferred
 " ----------------------------------------------------------------------------
 
@@ -163,17 +191,14 @@ call add(s:python_makers, 'pylint')   " generic linter, SLOW
 "call add(s:python_makers, 'pep257')   " comments
 "call add(s:python_makers, 'pylama')   " aggregator
 "call add(s:python_makers, 'vulture')   " find unused
+let g:neomake_python_enabled_makers = s:python_makers
 
 " ----------------------------------------------------------------------------
-" Use preferred
+" etc.
 " ----------------------------------------------------------------------------
 
 let g:neomake_javascript_enabled_makers = [ 'eslint' ]
-let g:neomake_markdown_enabled_makers   = [ 'markdownlint' ]
-" I don't use real pandoc so just assume it's always markdown
-let g:neomake_pandoc_enabled_makers     = [ 'markdownlint' ]
 let g:neomake_scss_enabled_makers       = [ 'sasslint' ]
-let g:neomake_python_enabled_makers     = s:python_makers
 
 " ============================================================================
 " Auto run

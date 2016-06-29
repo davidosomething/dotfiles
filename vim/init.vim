@@ -17,8 +17,8 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 let g:loaded_python_provider = 1
 let g:python_host_skip_check = 1
 
-" python3 use pyenv
-let s:pyenv_python3 = glob('~/.local/pyenv/shims/python3')
+" python3 use pyenv virtualenv neovim3
+let s:pyenv_python3 = glob(expand('$PYENV_ROOT/versions/neovim3/bin/python'))
 if !empty(s:pyenv_python3)
   let g:python3_host_prog = s:pyenv_python3
 endif

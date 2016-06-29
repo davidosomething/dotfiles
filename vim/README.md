@@ -30,6 +30,17 @@ Keep `(g)vimrc` (no dot in filename) in `.vim` -- Vim knows to look in there.
 Even though [neomake] is used to handle running linters, the [syntastic] wiki
 still has a good list ([Syntax-Checkers]) and shows how to set them up.
 
+### Neovim Python Settings
+
+- Using `pyenv`, install python 3+.
+- Set up a virtualenv using `pyenv-virtualenv`: `pyenv virtualenv neovim3`
+- `pip install neovim` in the virtualenv
+- You can now switch back to whatever python you want, `init.vim` for neovim
+  startup is already configured to find the `neovim3` virtualenv.
+- `:UpdateRemotePlugins` if installing/upgrading python-based plugins like
+  deoplete.
+- `:CheckHealth` to see if the python3 setup and plugins are working.
+
 ### Arch Linux
 
 Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux!
