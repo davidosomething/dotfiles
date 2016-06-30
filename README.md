@@ -94,8 +94,8 @@ Use `u` without arguments for usage.
       also reflected in a custom vim highlighting syntax in
       `vim/after/syntax/gitcommit.vim`.
 - `python/`
-    - Just remember to never `sudo pip` anything. Set up a phpenv and pip
-      install the [python/requirements.txt](python/requirements.txt) file.
+    - Just remember to never `sudo pip` anything. Set up a pyenv, optional
+      pyenv-virtualenv (which will delegate to `pyvenv`) and pip install the
 - `vim/`
     - If `curl` is installed, [vim-plug](https://github.com/junegunn/vim-plug)
       will be downloaded and plugins will install on run. See
@@ -116,7 +116,17 @@ For X apps (no terminal) the value is probably:
 
 ---
 
-#### Credits
+## Code Style
+
+### Shell
+
+- **Function names**  
+    - My helpers for scripting and provisioning via these dotfiles are namespaced
+      following [google shell style] as `dko::function_name()`
+    - For private functions in a script, use two underscores `__private_func()`
+
+
+## Credits
 
 > _Logo from [jglovier/dotfiles-logo]_
 
@@ -127,4 +137,5 @@ For X apps (no terminal) the value is probably:
 [Debian DotFilesList]: https://wiki.debian.org/DotFilesList
 [Fira (Fura) Mono for Powerline]: https://github.com/powerline/fonts
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
+[google shell style]: https://google.github.io/styleguide/shell.xml
 
