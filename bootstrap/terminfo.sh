@@ -13,7 +13,7 @@ readonly bootstrap_path="${dotfiles_path}/bootstrap"
 source "${bootstrap_path}/helpers.sh"
 
 # begin ------------------------------------------------------------------------
-dkostatus "Copying terminfo files"
+dko::status "Copying terminfo files"
 
 # RXVT
 mkdir -p "${HOME}/.terminfo/r"

@@ -21,16 +21,16 @@ source "${bootstrap_path}/helpers.sh"
 # ----------------------------------------------------------------------------
 
 __move() {
-  dkostatus "Move ${1} to ${2}"
+  dko::status "Move ${1} to ${2}"
 
   if [ ! -d "$1" ] && [ ! -f "$1" ] && [ ! -h "$1" ]; then
-    dkostatus_ "OK, didn't find ${1}"
+    dko::status_ "OK, didn't find ${1}"
     return 0
   fi
 
   if [ -d "$2" ] || [ -f "$2" ] || [ -h "$2" ]; then
-    dkoerr  "Not moving ${1} to ${2}, destination already exists."
-    dkoerr_ "Please resolve conflict manually."
+    dko::err  "Not moving ${1} to ${2}, destination already exists."
+    dko::err_ "Please resolve conflict manually."
     return 1
   fi
 
@@ -38,10 +38,10 @@ __move() {
   dest_parent="$(dirname "${2}")"
   if [ ! -d "$dest_parent" ]; then
     mkdir -p "$dest_parent" \
-      && dkostatus_ "Created parent directory ${dest_parent}"
+      && dko::status_ "Created parent directory ${dest_parent}"
   fi
 
-  mv "$1" "$2" && dkostatus_ "Moved ${1} to ${2}"
+  mv "$1" "$2" && dko::status_ "Moved ${1} to ${2}"
 }
 
 # ----------------------------------------------------------------------------
@@ -49,21 +49,21 @@ __move() {
 # ----------------------------------------------------------------------------
 
 __merge_dir() {
-  dkostatus "Merge ${1} into ${2}"
+  dko::status "Merge ${1} into ${2}"
 
   if [ ! -d "$1" ]; then
-    dkostatus_ "OK, didn't find ${1}"
+    dko::status_ "OK, didn't find ${1}"
     return 0
   fi
 
   if [ ! -d "$2" ]; then
     mkdir -p "$2" \
-      && dkostatus_ "Created dest directory ${2}"
+      && dko::status_ "Created dest directory ${2}"
   fi
 
-  mv "${1}/*"   "$2" && dkostatus_ "Moved contents of ${1} into ${2}"
-  mv "${1}/.*"  "$2" && dkostatus_ "Moved .contents in ${1} into ${2}"
-  rmdir "$1" && dkostatus_ "Removed ${1}"
+  mv "${1}/*"   "$2" && dko::status_ "Moved contents of ${1} into ${2}"
+  mv "${1}/.*"  "$2" && dko::status_ "Moved .contents in ${1} into ${2}"
+  rmdir "$1" && dko::status_ "Removed ${1}"
 }
 
 # ----------------------------------------------------------------------------
@@ -71,14 +71,14 @@ __merge_dir() {
 # ----------------------------------------------------------------------------
 
 __remove() {
-  dkostatus "Remove ${1}"
+  dko::status "Remove ${1}"
 
   if [ -f "$1" ] || [ -h "$1" ]; then
-    rm -i   "$1" && dkostatus_ "Removed file ${1}"
+    rm -i   "$1" && dko::status_ "Removed file ${1}"
   elif [ -d "$1" ]; then
-    rm -ir  "$1" && dkostatus_ "Removed directory ${1}"
+    rm -ir  "$1" && dko::status_ "Removed directory ${1}"
   else
-    dkostatus_ "OK, didn't find ${1}"
+    dko::status_ "OK, didn't find ${1}"
   fi
 }
 
@@ -87,10 +87,10 @@ __remove() {
 # ----------------------------------------------------------------------------
 
 __clean_nvm() {
-  dkostatus "Move invalid NVM paths"
+  dko::status "Move invalid NVM paths"
 
   if [ "${NVM_DIR}" != "${XDG_CONFIG_HOME}/nvm" ]; then
-    dkoerr "NVM_DIR not set properly. Should be ${XDG_CONFIG_HOME}/nvm"
+    dko::err "NVM_DIR not set properly. Should be ${XDG_CONFIG_HOME}/nvm"
     return 1
   fi
 

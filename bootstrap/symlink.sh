@@ -11,33 +11,33 @@ readonly bootstrap_path="${dotfiles_path}/bootstrap"
 source "${bootstrap_path}/helpers.sh"
 
 # begin ------------------------------------------------------------------------
-dkostatus "Symlinking dotfiles"
+dko::status "Symlinking dotfiles"
 
 # ctags
-dkosymlink ctags/ctags                          .ctags
+dko::symlink ctags/ctags                          .ctags
 
 # XDG-compatible
-dkosymlink git/gitconfig                        .config/git/config
-dkosymlink git/gitignore                        .config/git/ignore
-dkosymlink shell/.inputrc                       .config/readline/inputrc
+dko::symlink git/gitconfig                        .config/git/config
+dko::symlink git/gitignore                        .config/git/ignore
+dko::symlink shell/.inputrc                       .config/readline/inputrc
 
 # (n)vim
-dkosymlink vim                                  .vim
-dkosymlink vim                                  .config/nvim
+dko::symlink vim                                  .vim
+dko::symlink vim                                  .config/nvim
 
 case "$OSTYPE" in
   darwin*)
-    dkosymlink subversion/config                .subversion/config
+    dko::symlink subversion/config                .subversion/config
     ;;
   linux*)
-    dkosymlink linux/subversion/config          .subversion/config
+    dko::symlink linux/subversion/config          .subversion/config
     ;;
 esac
 
 
 # symlink shells ---------------------------------------------------------------
-dkosymlink bash/.bashrc                         .bashrc
-dkosymlink bash/.bash_profile                   .bash_profile
-dkosymlink zsh/.zshenv                          .zshenv
+dko::symlink bash/.bashrc                         .bashrc
+dko::symlink bash/.bash_profile                   .bash_profile
+dko::symlink zsh/.zshenv                          .zshenv
 
-dkostatus "Done! [symlink.sh]"
+dko::status "Done! [symlink.sh]"

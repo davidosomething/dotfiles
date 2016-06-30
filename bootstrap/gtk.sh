@@ -11,7 +11,7 @@ readonly bootstrap_path="${dotfiles_path}/bootstrap"
 source "${bootstrap_path}/helpers.sh"
 
 # begin ------------------------------------------------------------------------
-dkostatus "COPYING ~/.config/gtk-3.0"
+dko::status "COPYING ~/.config/gtk-3.0"
 if [ -d "${XDG_CONFIG_HOME}/gtk-3.0" ]; then
   mv "${XDG_CONFIG_HOME}/gtk-3.0" "${XDG_CONFIG_HOME}/gtk-3.0.old"
 fi

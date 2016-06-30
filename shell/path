@@ -26,7 +26,7 @@ fi
 
 # _add_my_paths
 #
-dko_add_paths() {
+dko::add_paths() {
   # Begin my_path composition --------------------------------------------------
   # On BSD system, e.g. Darwin -- path_helper is called, reads /etc/paths
   # Move local bin to front for homebrew compatibility
@@ -57,7 +57,7 @@ dko_add_paths() {
   echo "${my_path}"
 }
 
-PATH="$(dko_add_paths)"
+PATH="$(dko::add_paths)"
 export PATH
 
 # vim: ft=sh :

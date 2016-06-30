@@ -11,8 +11,8 @@ readonly bootstrap_path="${dotfiles_path}/bootstrap"
 source "${bootstrap_path}/helpers.sh"
 
 # begin ------------------------------------------------------------------------
-dkostatus "Symlinking termite config"
-dkosymlink termite/config       .config/termite/config
+dko::status "Symlinking termite config"
+dko::symlink termite/config       .config/termite/config
 
-dkostatus "Installing terminfo"
+dko::status "Installing terminfo"
 tic -x "${dotfiles_path}/termite/termite.terminfo"

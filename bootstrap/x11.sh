@@ -11,9 +11,9 @@ readonly bootstrap_path="${dotfiles_path}/bootstrap"
 source "${bootstrap_path}/helpers.sh"
 
 # begin ------------------------------------------------------------------------
-dkostatus "Symlinking X11 dotfiles"
+dko::status "Symlinking X11 dotfiles"
 # this probably isn't sourced by your session
-dkosymlink linux/.xinitrc       .xinitrc
-dkosymlink linux/.xbindkeysrc   .xbindkeysrc
-dkosymlink linux/.xprofile      .xprofile
+dko::symlink linux/.xinitrc       .xinitrc
+dko::symlink linux/.xbindkeysrc   .xbindkeysrc
+dko::symlink linux/.xprofile      .xprofile
 
