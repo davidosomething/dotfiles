@@ -86,7 +86,7 @@ alias ezr="e \"\${ZDOTDIR}/.zshrc\""
 
 # ============================================================================
 
-_alias_ls() {
+__alias_ls() {
   local almost_all="-A" # switchted from --almost-all for old bash support
   local classify="-F" # switched from --classify for old bash support
   local colorized="--color=auto"
@@ -120,11 +120,11 @@ _alias_ls() {
   # shellcheck disable=SC2139
   alias ll="l $long"
 }
-_alias_ls
+__alias_ls
 
 # ============================================================================
 
-_alias_darwin() {
+__alias_darwin() {
   alias b="brew"
   alias bi="brew install"
   alias bq="brew list"
@@ -148,7 +148,7 @@ _alias_darwin() {
 
 # ============================================================================
 
-_alias_linux() {
+__alias_linux() {
   alias open="o"                    # use open() function in shell/functions
   alias startx="startx > \"\${DOTFILES}/logs/startx.log\" 2>&1"
 
@@ -160,7 +160,7 @@ _alias_linux() {
 
 # ============================================================================
 
-_alias_arch() {
+__alias_arch() {
   if command -v pacaur >/dev/null; then
     alias b="pacaur"
   elif command -v yaourt >/dev/null; then
@@ -179,7 +179,7 @@ _alias_arch() {
 
 # ============================================================================
 
-_alias_deb() {
+__alias_deb() {
   alias b="apt "
 }
 
@@ -187,12 +187,12 @@ _alias_deb() {
 
 # os specific
 case "$OSTYPE" in
-  darwin*)  _alias_darwin ;;
-  linux*)   _alias_linux
+  darwin*)  __alias_darwin ;;
+  linux*)   __alias_linux
     case "$DOTFILES_DISTRO" in
       busybox)                  ;;
-      archlinux)  _alias_arch   ;;
-      debian)     _alias_deb    ;;
+      archlinux)  __alias_arch   ;;
+      debian)     __alias_deb    ;;
     esac
     ;;
 esac
