@@ -298,7 +298,8 @@ __dotfiles_update_brew() {
   fi
 
   # switch to brew's python (fallback to system if no brew python)
-  has_program "pyenv" && pyenv shell system
+  has_program "pyenv" && pyenv shell system && \
+    dkostatus_ "Switched to system python"
 
   dkostatus "Upgrade packages"
   brew upgrade --all --cleanup
@@ -311,7 +312,9 @@ __dotfiles_update_brew() {
   fi
 
   # restore pyenv python
-  has_program "pyenv" && pyenv shell --unset
+  has_program "pyenv" && pyenv shell --unset && \
+    dkostatus_ "Switched to global python"
+
   cd - || return 1
   __dotfiles_update_brew_done
 }
@@ -322,19 +325,12 @@ __dotfiles_update_python3() {
   brew linkapps python3 || {
     dkoerr "Error linking python3" && return 1
   }
-
-  dkostatus "Python3 was upgraded, updating pip and setuptools"
-  pip3 install --upgrade pip setuptools || {
-    dkoerr "Error updating setuptools" && return 1
-  }
 }
 
 # Must use brew/system python!
 __dotfiles_update_macvim() {
   dkostatus_ "Rebuilding macvim for new python3"
-  brew reinstall macvim \
-    --with-custom-icons --with-override-system-vim \
-    --with-lua          --with-python3 \
+  brew reinstall macvim --with-lua --with-override-system-vim --with-python3 \
     || { dkoerr "Error reinstalling macvim" && return 1; }
   dkostatus_ "Linking new macvim.app"
   brew linkapps macvim
