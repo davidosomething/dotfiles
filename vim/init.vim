@@ -6,18 +6,19 @@ set termguicolors
 let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 " =============================================================================
-" Python setup
-" Python error? Try:
-" - Check python is python >=3 (if not using pyenv shim)
-" - Check `pip3 list` shows `neovim`
-" - :UpdateRemotePlugins
+" Python 2 setup
 " =============================================================================
 
 " python2 off
-let g:loaded_python_provider = 1
-let g:python_host_skip_check = 1
+let s:pyenv_python2 = glob(expand('$PYENV_ROOT/versions/neovim2/bin/python'))
+if !empty(s:pyenv_python2)
+  let g:python_host_prog = s:pyenv_python2
+endif
 
-" python3 use pyenv virtualenv neovim3
+" =============================================================================
+" Python 3 setup
+" =============================================================================
+
 let s:pyenv_python3 = glob(expand('$PYENV_ROOT/versions/neovim3/bin/python'))
 if !empty(s:pyenv_python3)
   let g:python3_host_prog = s:pyenv_python3
