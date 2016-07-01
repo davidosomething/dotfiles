@@ -33,7 +33,9 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 chflags nohidden ~/Library
 
 # Disable window animations and Get Info animations in Finder
-defaults write com.apple.finder DisableAllAnimations -bool true
+# 2016-06-01 -- UNDONE because of the tiny finder window bug:
+# https://discussions.apple.com/message/25915421#message25915421
+defaults write com.apple.finder DisableAllAnimations -bool false
 
 # turn off window animations opening and closing
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
