@@ -56,7 +56,7 @@
 	pr      = pull --rebase
 	pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
 
-	poh     = push origin @
+	poh     = push origin HEAD
 
 	rso     = remote show origin
 
