@@ -6,7 +6,8 @@
 
 [alias]
 	a       = add
-	b       = branch --verbose
+	aa      = add .
+
 	ci      = commit
 	co      = checkout
 	d       = diff
@@ -16,8 +17,7 @@
 	st      = status
 	t       = tag
 
-	aa      = add .
-
+	b       = branch --verbose
 	be      = branch --edit-description
 	done    = branch --verbose --merged
 	um      = branch --verbose --no-merged
@@ -40,6 +40,8 @@
 	dm      = diff master
 	mod     = diff master --name-only
 
+	fo      = fetch origin
+
 	g       = grep --break --heading --line-number
 
 	l       = log --abbrev-commit --oneline
@@ -48,9 +50,13 @@
 	lg      = log --abbrev-commit           --decorate --all --graph
 
 	mma     = merge master
+	mom     = merge origin/master
+	mum     = merge upstream/master
 
 	pr      = pull --rebase
 	pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
+
+	poh     = push origin @
 
 	rso     = remote show origin
 
