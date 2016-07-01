@@ -1,6 +1,6 @@
 " plugin/unite.vim
 scriptencoding utf-8
-if !exists("g:plugs['unite.vim']") | finish | endif
+if !exists('g:loaded_unite') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

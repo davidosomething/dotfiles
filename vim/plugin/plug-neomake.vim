@@ -1,6 +1,9 @@
 " plugin/plug-neomake.vim
 scriptencoding utf-8
-if !exists("g:plugs['neomake']") | finish | endif
+
+" Check if neomake/plugins/neomake.vim ran, this function from its autoload/
+" was called (and therefore loaded) if it exists
+if !exists('*neomake#signs#DefineHighlights') | finish | endif
 
 augroup dkoneomake
   autocmd!
