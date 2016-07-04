@@ -37,7 +37,7 @@ augroup end
 " Neosnippet
 " ============================================================================
 
-if exists('g:loaded_neosnippet')
+if !empty(glob(expand(g:dko_plug_absdir . '/neosnippet')))
   " Snippets userdir
   let g:neosnippet#snippets_directory = g:dko_vim_dir . '/snippets'
 
@@ -264,7 +264,7 @@ endif
 " Neocomplete
 " ============================================================================
 
-if exists('g:loaded_neocomplete')
+if !empty(glob(expand(g:dko_plug_absdir . '/neocomplete')))
   let g:neocomplete#data_directory =
         \ expand(g:dko_vim_dir . '/.tmp/neocomplete')
 
@@ -306,7 +306,7 @@ endif
 " Deoplete
 " ============================================================================
 
-if exists('g:loaded_deoplete')
+if !empty(glob(expand(g:dko_plug_absdir . '/deoplete.nvim')))
   let g:deoplete#enable_at_startup = 1
   call deoplete#custom#set('_', 'matchers', [
         \   'matcher_head',

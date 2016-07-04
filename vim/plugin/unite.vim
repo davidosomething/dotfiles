@@ -1,6 +1,6 @@
 " plugin/unite.vim
 scriptencoding utf-8
-if !exists('g:loaded_unite') | finish | endif
+if empty(glob(expand(g:dko_plug_absdir . '/unite.vim'))) | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
