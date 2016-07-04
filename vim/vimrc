@@ -502,21 +502,12 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 " This is used by plugin/completion.vim so is a g:
 let g:dko_has_completion = 0
 
+" ==========================================================================
+" Plugins: declare vim-plug managed plugins
+" ==========================================================================
+
 function! s:LoadPlugins()
-  " ==========================================================================
-  " Which plugin set to use?
-  " ==========================================================================
-
-  let s:dko_plug_dir = '/vendor/vim'
-  if has('nvim') | let s:dko_plug_dir = '/vendor/nvim' | endif
-  let g:dko_plug_absdir = g:dko_vim_dir . s:dko_plug_dir
-
-  " ==========================================================================
-  " What to load - set first number to turn on/off
-  " ==========================================================================
-
   let s:dko_use_incsearch       = 1 && !has('nvim')
-
   let s:dko_use_deoplete        = 1 && has('nvim') && has('python3')
   let s:dko_use_neocomplete     = 1 && has('lua')
   let s:dko_use_neosnippet      = 1
@@ -527,8 +518,6 @@ function! s:LoadPlugins()
   let s:dko_use_gutentags = 1
 
   let s:dko_use_colorv    = 0 && (has('python') || has('python3'))
-
-  call plug#begin(g:dko_plug_absdir)
 
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
@@ -630,9 +619,8 @@ function! s:LoadPlugins()
   " Plug: Completion
   " ========================================================================
 
-  if      s:dko_use_neocomplete
-    Plug 'Shougo/neocomplete.vim'
-  elseif  s:dko_use_deoplete
+  if s:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
+  elseif s:dko_use_deoplete
     function! DoRemote(arg)
       UpdateRemotePlugins
     endfunction
@@ -696,12 +684,12 @@ function! s:LoadPlugins()
   " = and i= for conflicts marked blocks
   " f for function (c, java, js, php, vim only)
   Plug 'kana/vim-textobj-user'
-        \| Plug 'kana/vim-textobj-entire'
-        \| Plug 'kana/vim-textobj-indent'
-        \| Plug 'kana/vim-textobj-line'
+        \| Plug 'kana/vim-textobj-entire', { 'on': '<Plug>(textobj-entire' }
+        \| Plug 'kana/vim-textobj-indent', { 'on': '<Plug>(textobj-indent' }
+        \| Plug 'kana/vim-textobj-line', { 'on': '<Plug>(textobj-line' }
         \| Plug 'akiyan/vim-textobj-php'
         \| Plug 'mattn/vim-textobj-url'
-        \| Plug 'rhysd/vim-textobj-anyblock'
+        \| Plug 'rhysd/vim-textobj-anyblock', { 'on': '<Plug>(textobj-anyblock' }
         \| Plug 'rhysd/vim-textobj-conflict'
         \| Plug 'kana/vim-textobj-function'
         \| Plug 'thinca/vim-textobj-function-javascript'
@@ -824,7 +812,7 @@ function! s:LoadPlugins()
     if g:dko_use_tern_completion
       if has('nvim')
         Plug 'carlitux/deoplete-ternjs'
-      else
+      elseif executable('npm')
         Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
       endif
     else
@@ -1007,34 +995,35 @@ function! s:LoadPlugins()
   Plug 'now/vim-quit-if-only-quickfix-buffer-left'
 
   Plug 'tmux-plugins/vim-tmux-focus-events'
-
-  " append vim-plug rtps and ft/syn enable
-  call plug#end()
 endfunction
-
 
 " ============================================================================
 " Plugins: auto-install vim-plug
 " ============================================================================
 
-function! s:IsVimPlugInstalled()
-  return !empty(glob(expand(g:dko_vim_dir . '/autoload/plug.vim')))
+let s:dko_plug_dir = '/vendor/vim'
+if has('nvim') | let s:dko_plug_dir = '/vendor/nvim' | endif
+let g:dko_plug_absdir = g:dko_vim_dir . s:dko_plug_dir
+
+function! s:IsPluginsInstalled()
+  return 
 endfunction
 
 " Load vim-plug and its plugins?
-if 1 && $DOTFILES_DISTRO !=# 'busybox'
-  if !s:IsVimPlugInstalled()
-    silent !curl -fLo 
-          \ ~/.vim/autoload/plug.vim
-          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd vimrc VimEnter  *  PlugInstall | call s:LoadPlugins()
-  else
-    call s:LoadPlugins()
-  endif
-else
-  filetype indent plugin on
-  syntax enable
+if empty(glob(expand(g:dko_vim_dir . '/autoload/plug.vim')))
+  silent !curl -fLo 
+        \ ~/.vim/autoload/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
+
+call plug#begin(g:dko_plug_absdir)
+  call s:LoadPlugins()
+  autocmd vimrc VimEnter *
+        \ if empty(glob(expand(g:dko_plug_absdir)))
+        \   | PlugInstall
+        \ | endif
+  autocmd vimrc VimEnter * runtime! config/*.vim
+call plug#end()
 
 " ============================================================================
 " Local vimrc
