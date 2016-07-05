@@ -34,7 +34,7 @@ git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
   `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
 
 - Install and use [Fira (Fura) Mono for Powerline] font (install
-  to `$XDG_DATA_HOME/fonts` on \*nix)
+  to `${XDG_DATA_HOME}/fonts` on \*nix)
 
 - Change default shell to zsh (ensure listed in `/etc/shells`) and
   restart shell (zplug will self-install)
@@ -54,7 +54,8 @@ scripts.
   consequently `npm`)
 - `php`, `composer`, use composer to install `wp-cli`
     - `bootstrap/mac/php.sh`
-- `pyenv`, `pyenv-virtualenv`, then create a new env with a new python/pip
+- Use [pyenv-installer] for `pyenv`, `pyenv-virtualenv`, then create a new env
+  with a new python/pip.
 
 ### Provisioning scripts
 
@@ -94,8 +95,9 @@ Use `u` without arguments for usage.
       also reflected in a custom vim highlighting syntax in
       `vim/after/syntax/gitcommit.vim`.
 - `python/`
-    - Just remember to never `sudo pip` anything. Set up a pyenv, optional
-      pyenv-virtualenv (which will delegate to `pyvenv`) and pip install the
+    - Never `sudo pip`. Set up a pyenv, and use a pyenv-virtualenv (which will
+      delegate to `pyvenv`) if doing project specific stuff, and pip install
+      into that userspace pyenv or virtualenv.
 - `vim/`
     - If `curl` is installed, [vim-plug](https://github.com/junegunn/vim-plug)
       will be downloaded and plugins will install on run. See
@@ -120,6 +122,10 @@ For X apps (no terminal) the value is probably:
 
 ### Shell
 
+- **Variable interpolation**  
+    - Always use curly braces around the variable name when interpolating in
+      double quotes.
+
 - **Function names**  
     - My helpers for scripting and provisioning via these dotfiles are namespaced
       following [google shell style] as `dko::function_name()`
@@ -136,6 +142,7 @@ For X apps (no terminal) the value is probably:
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
 [Debian DotFilesList]: https://wiki.debian.org/DotFilesList
 [Fira (Fura) Mono for Powerline]: https://github.com/powerline/fonts
+[pyenv-installer]: https://github.com/yyuu/pyenv-installer
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
 [google shell style]: https://google.github.io/styleguide/shell.xml
 
