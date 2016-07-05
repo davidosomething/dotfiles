@@ -6,7 +6,7 @@
 " ██╗╚████╔╝  ██║ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗
 " ╚═╝ ╚═══╝   ╚═╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝
 "
-set encoding=utf-8 nobomb
+if has("vim_starting") | set encoding=utf-8 nobomb | endif
 scriptencoding utf-8
 " note: set encoding BEFORE scriptencoding
 
@@ -1004,6 +1004,7 @@ augroup END
 " Multi-file projects
 augroup dkoproject
   autocmd!
+
   autocmd BufNewFile,BufRead,BufWritePost
         \ *
         \ call dkoproject#GetProjectRoot()
