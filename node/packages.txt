@@ -7,7 +7,6 @@ greenkeeper
 handlebars
 js-beautify
 jscpd
-jscs
 jsctags
 jsinspect
 jsonlint
