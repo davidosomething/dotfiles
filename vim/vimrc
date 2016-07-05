@@ -433,10 +433,10 @@ let g:vimsyn_embed = 'lpPr'
 " Plugins
 " ============================================================================
 
-" ============================================================================
+" ----------------------------------------------------------------------------
 " Plugins: Disable distributed plugins
 " To re-enable you have to comment them out (checks if defined, not if truthy)
-" ============================================================================
+" ----------------------------------------------------------------------------
 
 let g:loaded_2html_plugin = 1
 let g:loaded_getscriptPlugin = 1
@@ -447,36 +447,32 @@ let g:loaded_zipPlugin = 1
 " used to download spellfile and enable gx mapping
 "let g:loaded_netrwPlugin = 0
 
-" ============================================================================
+" ----------------------------------------------------------------------------
 " Plugins: netrw
-" ============================================================================
+" ----------------------------------------------------------------------------
 
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
 let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')
 let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
-" ============================================================================
+" ----------------------------------------------------------------------------
 " Plugins: load - called when vim-plug available
-" ============================================================================
+" ----------------------------------------------------------------------------
 
 " This is used by plugin/completion.vim so is a g:
 let g:dko_has_completion = 0
 
-" ==========================================================================
-" Plugins: declare vim-plug managed plugins
-" ==========================================================================
-
 function! s:LoadPlugins()
+  " Disabled on neovim
+  " @see https://github.com/haya14busa/incsearch.vim/issues/79
   let s:dko_use_incsearch       = 1 && !has('nvim')
+
   let s:dko_use_deoplete        = 1 && has('nvim') && has('python3')
   let s:dko_use_neocomplete     = 1 && has('lua')
-  let s:dko_use_neosnippet      = 1
 
   " global, used in plugin/completion.vim
   let g:dko_use_tern_completion = 1 && executable('npm')
-
-  let s:dko_use_gutentags = 1
 
   let s:dko_use_colorv    = 0 && (has('python') || has('python3'))
 
@@ -503,17 +499,13 @@ function! s:LoadPlugins()
   " creates dir if new file in new dir
   Plug 'dockyard/vim-easydir'
 
-  if s:dko_use_gutentags
-    Plug 'ludovicchabant/vim-gutentags'
-    "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
-  endif
+  Plug 'ludovicchabant/vim-gutentags'
+  "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
 
   " ========================================================================
   " Plug: Commands
   " ========================================================================
 
-  " Mostly for :Gblame
-  "Plug 'tpope/vim-fugitive'
   " the blame in vim-gita is hawt :3
   Plug 'lambdalisue/vim-gita', { 'on': ['Gita'] }
 
@@ -523,18 +515,16 @@ function! s:LoadPlugins()
   " gK to lookup
   Plug 'keith/investigate.vim'
 
-  if exists("g:plugs['vimproc.vim']")
-    Plug 'Shougo/unite.vim'
-          \| Plug 'Shougo/vimfiler.vim'
-          \| Plug 'Shougo/unite-outline'
-          \| Plug 'tsukkee/unite-tag'
+  Plug 'Shougo/unite.vim'
+        \| Plug 'Shougo/vimfiler.vim'
+        \| Plug 'Shougo/unite-outline'
+        \| Plug 'tsukkee/unite-tag'
 
-    " MRU
-    if executable('redis-server') && executable('npm')
-      Plug 'chemzqm/redismru.vim', { 'do': 'npm install' }
-    else
-      Plug 'Shougo/neomru.vim'
-    endif
+  " unite most-recently-used files menu
+  if executable('redis-server') && executable('npm')
+    Plug 'chemzqm/redismru.vim', { 'do': 'npm install' }
+  else
+    Plug 'Shougo/neomru.vim'
   endif
 
   Plug 'nathanaelkane/vim-indent-guides'
@@ -548,14 +538,7 @@ function! s:LoadPlugins()
   " Plug: Input, syntax, spacing
   " ========================================================================
 
-  " let s:dko_use_editorconfig = 1 && (has('python') || has('python3'))
-  " if s:dko_use_editorconfig
-  "   if !has('patch-7.4.785') | Plug 'vim-scripts/PreserveNoEOL'
-  "   endif
-  "   Plug 'editorconfig/editorconfig-vim'
-  " endif
   Plug 'sgur/vim-editorconfig'
-  " my fork ...
   "Plug 'davidosomething/vim-editorconfig', { 'branch': 'lint-skip-comments' }
 
   " highlight matching html tag
@@ -603,11 +586,9 @@ function! s:LoadPlugins()
     " Include completion
     Plug 'Shougo/neoinclude.vim'
 
-    if s:dko_use_neosnippet
-      Plug 'Shougo/neosnippet'
-            \| Plug 'honza/vim-snippets'
-            \| Plug 'Shougo/neosnippet-snippets'
-    endif
+    Plug 'Shougo/neosnippet'
+          \| Plug 'honza/vim-snippets'
+          \| Plug 'Shougo/neosnippet-snippets'
   endif
 
   " ========================================================================
@@ -625,7 +606,6 @@ function! s:LoadPlugins()
   " and use 'm' instead
   Plug 'tpope/vim-repeat'
         \| Plug 'svermeulen/vim-easyclip'
-        "\| Plug 'davidosomething/EasyClipRing.vim'
 
   " used for line bubbling commands on mac
   " buffer switch, lnext/prev, etc.
@@ -740,6 +720,8 @@ function! s:LoadPlugins()
   endif
 
   " es.next support
+  " possible jsx indent conflict?
+  " @see https://github.com/othree/es.next.syntax.vim/issues/5
   "Plug 'othree/es.next.syntax.vim'
 
   " extends syntax for with jQuery,backbone,etc.
@@ -858,8 +840,11 @@ function! s:LoadPlugins()
   endif
 
   " Snippet
-  Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
-        \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
+  " Errors if no function under cursor,
+  " Use 'doc' neosnippet instead
+  " @see https://github.com/Shougo/neosnippet-snippets/blob/master/neosnippets/php.snip
+  " Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
+  "       \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
 
   " ========================================================================
   " Language: Ruby, rails, puppet
@@ -919,19 +904,9 @@ function! s:LoadPlugins()
   Plug 'kana/vim-gf-user', { 'for': ['vim'] }
         \| Plug 'sgur/vim-gf-autoload', { 'for': ['vim'] }
 
-  " Lint: SLOW viml plugin
-  " Plug 'ynkdir/vim-vimlparser', { 'for': ['vim'] }
-  "       \| Plug 'syngan/vim-vimlint', { 'for': ['vim'] }
-
   " Completion
   if g:dko_has_completion | Plug 'Shougo/neco-vim', { 'for': ['vim'] }
   endif
-
-  " ========================================================================
-  " Language: YAML
-  " ========================================================================
-
-  Plug 'ingydotnet/yaml-vim'
 
   " ========================================================================
   " Plug: UI -- load last!
@@ -951,6 +926,8 @@ function! s:LoadPlugins()
   "Plug 'junegunn/vim-peekaboo'
 
   " Show (#/total results) when searching for a term
+  " disabled for echo issue
+  " @see https://github.com/osyo-manga/vim-anzu/issues/19
   "Plug 'osyo-manga/vim-anzu'
 
   Plug 'now/vim-quit-if-only-quickfix-buffer-left'
@@ -958,9 +935,9 @@ function! s:LoadPlugins()
   Plug 'tmux-plugins/vim-tmux-focus-events'
 endfunction
 
-" ============================================================================
-" Plugins: auto-install vim-plug
-" ============================================================================
+" ----------------------------------------------------------------------------
+" Plugins: autoinstall vim-plug, define plugins, install plugins if needed
+" ----------------------------------------------------------------------------
 
 let s:dko_plug_dir = '/vendor/vim'
 if has('nvim') | let s:dko_plug_dir = '/vendor/nvim' | endif
@@ -980,11 +957,12 @@ call plug#begin(g:dko_plug_absdir)
   endif
 call plug#end()
 
-" ----------------------------------------------------------------------------
+" ============================================================================
 " Autocommands
-" ----------------------------------------------------------------------------
+" ============================================================================
 
-augroup dkopanes
+" Window aucmds -- affect layout
+augroup dkowindow
   autocmd!
 
   " Resize splits when the window is resized
@@ -993,6 +971,7 @@ augroup dkopanes
         \ wincmd =
 augroup END
 
+" Tabline
 augroup dkotabline
   autocmd!
   autocmd BufWinEnter,Colorscheme,CursorMoved,Filetype,SessionLoadPost,WinEnter
@@ -1000,11 +979,12 @@ augroup dkotabline
         \ call dkotabline#Refresh()
 augroup END
 
+" Statusline
+" Must init statusline after plugs installed since it uses some plugins
+" @TODO decouple
 augroup dkostatusline
   autocmd!
 
-  " Must init statusline after plugs installed since it uses some plugins
-  " @TODO decouple
   autocmd vimrc VimEnter
         \ *
         \ set statusline=%!dkostatus#Output(1)
@@ -1015,6 +995,7 @@ augroup dkostatusline
         \ call dkostatus#Refresh()
 augroup END
 
+" Multi-file projects
 augroup dkoproject
   autocmd!
   autocmd BufNewFile,BufRead,BufWritePost
@@ -1022,6 +1003,7 @@ augroup dkoproject
         \ call dkoproject#GetProjectRoot()
 augroup END
 
+" WordPress VIP specific
 augroup dkowpvip
   autocmd!
 
