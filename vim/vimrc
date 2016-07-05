@@ -588,6 +588,10 @@ function! s:LoadPlugins()
     Plug 'Shougo/neosnippet'
           \| Plug 'honza/vim-snippets'
           \| Plug 'Shougo/neosnippet-snippets'
+
+    if has('python3')
+      Plug 'zchee/deoplete-jedi'
+    endif
   endif
 
   " ========================================================================

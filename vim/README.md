@@ -35,6 +35,7 @@ still has a good list ([Syntax-Checkers]) and shows how to set them up.
 - Set up a virtualenv using `pyenv-virtualenv`: `pyenv virtualenv neovim3`
 - Activate the virtualenv `pyenv activate neovim3`
 - `pip install neovim` in the virtualenv
+- `pip install jedi` for python completion while still in the virtualenv
 - You can now switch back to whatever python (`pyenv deactivate`) you want,
   `init.vim` for neovim startup is already configured to find the `neovim3`
   virtualenv.
