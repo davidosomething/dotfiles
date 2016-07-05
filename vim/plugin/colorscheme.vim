@@ -1,4 +1,4 @@
-" plugin/colorscheme.vim
+" after/plugin/colorscheme.vim
 
 " ============================================================================
 " gui

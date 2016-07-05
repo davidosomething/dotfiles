@@ -100,8 +100,6 @@ set tabline=%!dkotabline#Output()
 " ------------------------------------
 
 set laststatus=2                      " always show all statuslines
-" initial statusline in case you type before VimEnter
-set statusline=%!dkostatus#Output(1)
 
 " ------------------------------------
 " Command line
@@ -430,43 +428,6 @@ let g:is_bash = 1
 " $VIMRUNTIME/syntax/vim.vim
 " disable mzscheme, tcl highlighting
 let g:vimsyn_embed = 'lpPr'
-
-" ----------------------------------------------------------------------------
-" Autocommands
-" ----------------------------------------------------------------------------
-
-augroup dkopanes
-  autocmd!
-  " Resize splits when the window is resized
-  autocmd VimResized   *   wincmd =
-augroup END
-
-augroup dkowpvip
-  autocmd!
-  " No EOL character on files -- specifically for WP VIP PHP
-  autocmd BufNewFile,BufRead  */wp-content/themes/vip/*
-        \ setlocal noeol binary fileformat=dos
-augroup END
-
-augroup dkoproject
-  autocmd!
-  autocmd BufNewFile,BufRead,BufWritePost  *
-        \ call dkoproject#GetProjectRoot()
-augroup END
-
-augroup dkotabline
-  autocmd!
-  autocmd BufWinEnter,Colorscheme,CursorMoved,Filetype,SessionLoadPost,WinEnter
-        \ *
-        \ call dkotabline#Refresh()
-augroup END
-
-augroup dkostatusline
-  autocmd!
-  autocmd BufWinEnter,Colorscheme,Filetype,SessionLoadPost,WinEnter
-        \ *
-        \ call dkostatus#Refresh()
-augroup END
 
 " ============================================================================
 " Plugins
@@ -1005,25 +966,70 @@ let s:dko_plug_dir = '/vendor/vim'
 if has('nvim') | let s:dko_plug_dir = '/vendor/nvim' | endif
 let g:dko_plug_absdir = g:dko_vim_dir . s:dko_plug_dir
 
-function! s:IsPluginsInstalled()
-  return 
-endfunction
-
 " Load vim-plug and its plugins?
 if empty(glob(expand(g:dko_vim_dir . '/autoload/plug.vim')))
-  silent !curl -fLo 
-        \ ~/.vim/autoload/plug.vim
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  execute 'silent !curl -fLo '
+        \ . g:dko_vim_dir . '/autoload/plug.vim '
+        \ . 'https://raw.githubusercontent.com/'
+        \ . 'junegunn/vim-plug/master/plug.vim'
 endif
 
 call plug#begin(g:dko_plug_absdir)
   call s:LoadPlugins()
-  autocmd vimrc VimEnter *
-        \ if empty(glob(expand(g:dko_plug_absdir)))
-        \   | PlugInstall
-        \ | endif
-  autocmd vimrc VimEnter * runtime! config/*.vim
+  if empty(glob(expand(g:dko_plug_absdir))) | PlugInstall
+  endif
 call plug#end()
+
+" ----------------------------------------------------------------------------
+" Autocommands
+" ----------------------------------------------------------------------------
+
+augroup dkopanes
+  autocmd!
+
+  " Resize splits when the window is resized
+  autocmd VimResized
+        \ *
+        \ wincmd =
+augroup END
+
+augroup dkotabline
+  autocmd!
+  autocmd BufWinEnter,Colorscheme,CursorMoved,Filetype,SessionLoadPost,WinEnter
+        \ *
+        \ call dkotabline#Refresh()
+augroup END
+
+augroup dkostatusline
+  autocmd!
+
+  " Must init statusline after plugs installed since it uses some plugins
+  " @TODO decouple
+  autocmd vimrc VimEnter
+        \ *
+        \ set statusline=%!dkostatus#Output(1)
+
+  " initial statusline in case you type before VimEnter
+  autocmd BufWinEnter,Colorscheme,Filetype,SessionLoadPost,WinEnter
+        \ *
+        \ call dkostatus#Refresh()
+augroup END
+
+augroup dkoproject
+  autocmd!
+  autocmd BufNewFile,BufRead,BufWritePost
+        \ *
+        \ call dkoproject#GetProjectRoot()
+augroup END
+
+augroup dkowpvip
+  autocmd!
+
+  " No EOL character on files -- specifically for WP VIP PHP
+  autocmd BufNewFile,BufRead
+        \ */wp-content/themes/vip/*
+        \ setlocal noeol binary fileformat=dos
+augroup END
 
 " ============================================================================
 " Local vimrc
