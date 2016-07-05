@@ -735,10 +735,8 @@ function! s:LoadPlugins()
   " ----------------------------------------
 
   " <leader>pd on function to insert jsdoc above
-  "Plug 'heavenshell/vim-jsdoc'
-  " USING MY FORK INSTEAD
-  Plug 'davidosomething/vim-jsdoc'
-  "Plug '~/projects/vim-jsdoc'
+  Plug 'heavenshell/vim-jsdoc'
+  "Plug 'davidosomething/vim-jsdoc'
 
   " detect extensionless node scripts (executables) via shebang
   " and add gf for going to node_modules files
