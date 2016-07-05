@@ -25,12 +25,18 @@ augroup dkocompletion
         \ setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType php
         \ setlocal omnifunc=phpcomplete#CompletePHP
-  autocmd FileType python
-        \ setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType ruby
         \ setlocal omnifunc=rubycomplete#Complete
   autocmd FileType xml
         \ setlocal omnifunc=xmlcomplete#CompleteTags
+
+  if has('python')
+    autocmd FileType python
+          \ setlocal omnifunc=pythoncomplete#Complete
+  else
+    autocmd FileType python
+          \ setlocal omnifunc=syntaxcomplete#Complete
+  endif
 augroup end
 
 " ============================================================================
