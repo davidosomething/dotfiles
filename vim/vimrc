@@ -93,7 +93,6 @@ set synmaxcol=512                     " don't syntax highlight long lines
 " ------------------------------------
 
 set showtabline=0                     " start OFF, toggle =2 to show tabline
-set tabline=%!dkotabline#Output()
 
 " ------------------------------------
 " Status line
@@ -466,15 +465,15 @@ let g:dko_has_completion = 0
 function! s:LoadPlugins()
   " Disabled on neovim
   " @see https://github.com/haya14busa/incsearch.vim/issues/79
-  let s:dko_use_incsearch       = 1 && !has('nvim')
+  let s:use_incsearch       = 1 && !has('nvim')
 
-  let s:dko_use_deoplete        = 1 && has('nvim') && has('python3')
-  let s:dko_use_neocomplete     = 1 && has('lua')
+  let s:use_deoplete        = 1 && has('nvim') && has('python3')
+  let s:use_neocomplete     = 1 && has('lua')
 
   " global, used in plugin/completion.vim
   let g:dko_use_tern_completion = 1 && executable('npm')
 
-  let s:dko_use_colorv    = 0 && (has('python') || has('python3'))
+  let s:use_colorv    = 0 && (has('python') || has('python3'))
 
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
@@ -563,8 +562,8 @@ function! s:LoadPlugins()
   " Plug: Completion
   " ========================================================================
 
-  if s:dko_use_neocomplete | Plug 'Shougo/neocomplete.vim'
-  elseif s:dko_use_deoplete
+  if s:use_neocomplete | Plug 'Shougo/neocomplete.vim'
+  elseif s:use_deoplete
     function! DoRemote(arg)
       UpdateRemotePlugins
     endfunction
@@ -880,7 +879,7 @@ function! s:LoadPlugins()
   " ----------------------------------------
 
   " Hex (et al) color highlighting
-  if s:dko_use_colorv | Plug 'Rykka/colorv.vim'
+  if s:use_colorv | Plug 'Rykka/colorv.vim'
   else                | Plug 'ap/vim-css-color'
   "else                | Plug 'chrisbra/Colorizer'
   endif
@@ -917,7 +916,7 @@ function! s:LoadPlugins()
   Plug 'haya14busa/vim-asterisk'
 
   " highlight partial matches as you type in search mode
-  if s:dko_use_incsearch | Plug 'haya14busa/incsearch.vim'
+  if s:use_incsearch | Plug 'haya14busa/incsearch.vim'
   endif
 
   " show registers in split if use \" or <C-R>
@@ -937,9 +936,9 @@ endfunction
 " Plugins: autoinstall vim-plug, define plugins, install plugins if needed
 " ----------------------------------------------------------------------------
 
-let s:dko_plug_dir = '/vendor/vim'
-if has('nvim') | let s:dko_plug_dir = '/vendor/nvim' | endif
-let g:dko_plug_absdir = g:dko_vim_dir . s:dko_plug_dir
+let s:plug_dir = '/vendor/vim'
+if has('nvim') | let s:plug_dir = '/vendor/nvim' | endif
+let g:dko_plug_absdir = g:dko_vim_dir . s:plug_dir
 
 " Load vim-plug and its plugins?
 if empty(glob(expand(g:dko_vim_dir . '/autoload/plug.vim')))
@@ -972,6 +971,11 @@ augroup END
 " Tabline
 augroup dkotabline
   autocmd!
+
+  autocmd vimrc VimEnter
+        \ *
+        \ set tabline=%!dkotabline#Output()
+
   autocmd BufWinEnter,Colorscheme,CursorMoved,Filetype,SessionLoadPost,WinEnter
         \ *
         \ call dkotabline#Refresh()

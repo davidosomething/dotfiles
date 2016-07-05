@@ -200,3 +200,4 @@ phpenv
 ftplugin
 runtimes
 disable
+Neomake
