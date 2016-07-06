@@ -56,6 +56,9 @@ zplug "plugins/golang", \
   from:oh-my-zsh,       \
   nice:10
 
+zplug "lukechilds/zsh-better-npm-completion", \
+  nice:10
+
 # 2016-04-27 nvm assumes ~/.nvm exists, so probably not working
 zplug "robbyrussell/oh-my-zsh", \
   use:"plugins/nvm/_nvm",       \
