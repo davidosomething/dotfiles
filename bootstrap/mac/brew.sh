@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
+brew tap nishanths/tap
+
 brew update
+
+# license generator
+brew install nishanths/tap/license
 
 # compilers, tools, and libs ---------------------------------------------------
 brew install automake cmake
