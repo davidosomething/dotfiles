@@ -118,16 +118,6 @@ phpminorver() {
   php -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"
 }
 
-# start up an http server on :8000
-pyserve() {
-  case "$(python --version 2>&1)" in
-      *" 3."*)  xterm "python3 -m http.server"
-                ;;
-      *)        xterm "python -m SimpleHTTPServer"
-                ;;
-  esac
-}
-
 # ============================================================================
 # Archiving
 # ============================================================================
