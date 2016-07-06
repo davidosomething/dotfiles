@@ -128,21 +128,36 @@ export _Z_DATA="${HOME}/.local/z"
 export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
 export ZPLUG_LOADFILE="${ZDOTDIR}/zplug.zsh"  # plugin definitions
 
-# auto-install
-if [ ! -f "${ZPLUG_HOME}/init.zsh" ]; then
-  rm -rf "${ZPLUG_HOME}" \
-    && git clone https://github.com/zplug/zplug.git "$ZPLUG_HOME" \
-    && source "${ZPLUG_HOME}/init.zsh" \
-    && zplug update --self
-fi
+zplug_init="${ZPLUG_HOME}/init.zsh"
 
-# run
-{ has_program "zplug" || source_if_exists "${ZPLUG_HOME}/init.zsh" } && {
-  export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
-  zplug check --verbose || zplug install
-  zplug load && export DKO_SOURCE="${DKO_SOURCE} }"
-
+__load_zplug_init() {
+  source_if_exists "$zplug_init"
+  export DKO_SOURCE="${DKO_SOURCE} -> $zplug_init"
+  # self-managed zplug assumes ZPLUG_ROOT == ZPLUG_HOME and doesn't add this
+  # path any more
+  export PATH="${ZPLUG_HOME}/bin:${PATH}"
 }
+
+__load_zplug() {
+  # auto-install (new install)
+  if [ ! -f "$zplug_init" ]; then
+    rm -rf "${ZPLUG_HOME}"
+    git clone https://github.com/zplug/zplug.git "$ZPLUG_HOME" \
+      && __load_zplug_init \
+      && zplug update --self
+  fi
+
+  # load zplug_init if not loaded (existing install)
+  [ -z "$ZPLUG_ROOT" ] && __load_zplug_init
+
+  # define plugins
+  has_program "zplug" && {
+    export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
+    zplug check --verbose || zplug install
+    zplug load && export DKO_SOURCE="${DKO_SOURCE} }"
+  }
+}
+__load_zplug
 
 # ============================================================================
 # Plugin settings (after plugin loaded)
