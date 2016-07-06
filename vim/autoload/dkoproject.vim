@@ -52,7 +52,7 @@ function! dkoproject#GetProjectRoot(...) abort
   "echomsg 'Got filepath: ' . l:path
 
   " Determine if git root exists (empty string on error, strip last newline)
-  execute 'lcd! ' . l:path
+  execute 'lcd! "' . l:path . '"'
   let l:result = system('git rev-parse --show-toplevel 2>/dev/null')[:-2]
   lcd! -
 
