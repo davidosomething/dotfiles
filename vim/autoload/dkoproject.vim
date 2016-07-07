@@ -67,12 +67,11 @@ endfunction
 " Get array of config paths for a project
 " @return {String[]} config paths relative to git root
 function! dkoproject#GetConfigPaths() abort
-  if exists('b:dkoproject_config_paths')
-    return b:dkoproject_config_paths
-  elseif exists('g:dkoproject_config_paths')
-    return g:dkoproject_config_paths
-  endif
-  return s:default_config_paths
+  return get(
+        \   b:, 'dkoproject_config_paths', get(
+        \   g:, 'dkoproject_config_paths',
+        \   s:default_config_paths
+        \ ))
 endfunction
 
 " ============================================================================
