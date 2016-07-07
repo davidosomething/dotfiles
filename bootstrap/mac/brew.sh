@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
 brew tap nishanths/tap
+brew tap universal-ctags/universal-ctags
 
 brew update
 
 # license generator
 brew install nishanths/tap/license
+
+# universal-ctags
+brew install --HEAD universal-ctags
 
 # compilers, tools, and libs ---------------------------------------------------
 brew install automake cmake

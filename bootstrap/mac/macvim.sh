@@ -2,8 +2,6 @@
 
 set -eu
 
-brew install ctags ctags-exuberant
-
 brew reinstall \
   --with-custom-icons \
   --with-lua \
