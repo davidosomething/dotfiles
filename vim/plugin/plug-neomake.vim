@@ -57,7 +57,6 @@ let g:neomake_warning_sign  = { 'text': '⚑' }
 function! s:SetupEslint() abort
   " Use local eslint bin
   let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/eslint')
-  echom l:bin
   if !empty(l:bin)
     let b:neomake_javascript_eslint_exe = l:bin
   endif
