@@ -102,10 +102,14 @@ typeset -gU cdpath path fpath manpath
 
 # color complist
 zmodload -i zsh/complist
-
 # zplug does colors and compinit
 #autoload -Uz colors; colors
 #autoload -Uz compinit; compinit -u
+
+# hooks
+autoload -Uz add-zsh-hook
+
+# prompt
 autoload -Uz terminfo
 autoload -Uz vcs_info
 
@@ -181,6 +185,16 @@ alias cp="nocorrect cp"
 alias mv="nocorrect mv"
 alias rm="nocorrect rm"
 alias mkdir="nocorrect mkdir"
+
+# ============================================================================
+# hooks
+# ============================================================================
+
+# Auto-detect .nvmrc and run nvm use
+__auto_nvm_use() {
+  [[ -f ".nvmrc" && -r ".nvmrc" ]] && nvm use
+}
+has_program "nvm" && add-zsh-hook chpwd __auto_nvm_use
 
 # ============================================================================
 # Completion settings
