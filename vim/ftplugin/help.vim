@@ -1,7 +1,7 @@
 " plugin/help.vim
 " Help buffer
 
-if !&readonly | finish | endif
+if &buftype != 'help' | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
