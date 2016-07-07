@@ -64,15 +64,6 @@ function! dkoproject#GetProjectRoot(...) abort
 endfunction
 
 " ============================================================================
-" For all windows, change path to project root
-function! dkoproject#CdProjectRoot() abort
-  if empty(dkoproject#GetProjectRoot())
-    return
-  endif
-  execute 'cd! ' . dkoproject#GetProjectRoot()
-endfunction
-
-" ============================================================================
 " Get array of config paths for a project
 " @return {String[]} config paths relative to git root
 function! dkoproject#GetConfigPaths() abort

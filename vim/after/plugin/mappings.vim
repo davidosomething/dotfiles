@@ -147,17 +147,21 @@ nnoremap U :<C-u>syntax sync fromstart<CR>:redraw!<CR>
 " cd
 " ----------------------------------------------------------------------------
 
-" to current buffer path
-nnoremap <silent>   <Leader>cd
-      \ :<C-u>lcd %:h<CR>
+" ----------------------------------------
+" for all windows
+" ----------------------------------------
 
-" to current buffer's git root
+" cd to current buffer's git root
 nnoremap <silent>   <Leader>cr
-      \ :<C-u>call dkoproject#CdProjectRoot()<CR>
+      \ :<C-u>if exists('b:dkoproject_root') \| execute 'cd! ' . b:dkoproject_root \| endif<CR>
 
-" up a level
+" cd to current buffer path
+nnoremap <silent>   <Leader>cd
+      \ :<C-u>cd! %:h<CR>
+
+" go up a level
 nnoremap <silent>   <Leader>..
-      \ :<C-u>lcd ..<CR>
+      \ :<C-u>cd! ..<CR>
 
 " ============================================================================
 " Editing
