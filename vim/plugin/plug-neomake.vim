@@ -39,9 +39,10 @@ let g:neomake_warning_sign  = { 'text': '⚑' }
 " Define makers
 " ============================================================================
 
-" Custom linters for js based on rc file presence in project dir
+" @TODO re-enable linter selection by rc file presence
 " Need to set the var on the hook BufReadPre, BufWinEnter is too late
-" So caveat is that we can't catch when ft is set by modeline
+" So caveat is that we can't catch when ft is set by modeline (there's
+" probably another way)
 " autocmd dkoneomake BufReadPre  *.js
 "       \ let g:neomake_javascript_enabled_makers = dkoproject#JsLinters()
 

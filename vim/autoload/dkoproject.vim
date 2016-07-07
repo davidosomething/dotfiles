@@ -130,6 +130,7 @@ endfunction
 
 " ============================================================================
 " Get JS linters based on rc file presence
+" Currently not used, see plugin/plug-neomake.vim
 " @return {String[]} list of linter names
 function! dkoproject#JsLinters() abort
   if exists('b:dko_js_linters')
