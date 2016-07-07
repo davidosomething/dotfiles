@@ -1,9 +1,7 @@
 " plugin/plug-neomake.vim
 scriptencoding utf-8
 
-" Check if neomake/plugins/neomake.vim ran, this function from its autoload/
-" was called (and therefore loaded) if it exists
-if !exists('*neomake#signs#DefineHighlights') | finish | endif
+if !exists('g:plugs["neomake"]') | finish | endif
 
 augroup dkoneomake
   autocmd!
@@ -56,9 +54,10 @@ let g:neomake_warning_sign  = { 'text': '⚑' }
 " Maker: eslint
 " ----------------------------------------------------------------------------
 
-function! s:SetupEslint()
+function! s:SetupEslint() abort
   " Use local eslint bin
   let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/eslint')
+  echom l:bin
   if !empty(l:bin)
     let b:neomake_javascript_eslint_exe = l:bin
   endif
