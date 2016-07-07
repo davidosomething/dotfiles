@@ -39,6 +39,12 @@ let g:neomake_warning_sign  = { 'text': '⚑' }
 " Define makers
 " ============================================================================
 
+" For using local NPM based makers (e.g. eslint):
+" Resolve the maker's exe relative to the project of the file in buffer, as
+" opposed to using the result of `system('npm bin')` since that executes
+" relative to vim's working path (and gives a fake result of not in a node
+" project). Lotta people doin` it wrong ಠ_ಠ
+
 " @TODO re-enable linter selection by rc file presence
 " Need to set the var on the hook BufReadPre, BufWinEnter is too late
 " So caveat is that we can't catch when ft is set by modeline (there's
@@ -51,7 +57,7 @@ let g:neomake_warning_sign  = { 'text': '⚑' }
 " ----------------------------------------------------------------------------
 
 function! s:SetupEslint()
-  " Use local bin
+  " Use local eslint bin
   let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/eslint')
   if !empty(l:bin)
     let b:neomake_javascript_eslint_exe = l:bin
@@ -67,6 +73,9 @@ autocmd dkoneomake FileType javascript call s:SetupEslint()
 let g:neomake_pandoc_markdownlint_maker = neomake#GetMaker('markdownlint')
 
 function! s:SetupMarkdownlint()
+  " This is totally different from using local eslint -- don't like what
+  " neomake has by default.
+
   let l:maker = { 'errorformat':  '%f: %l: %m' }
 
   " Use markdownlint in local node_modules/ if available
@@ -150,6 +159,7 @@ let g:neomake_scss_sasslint_maker = {
 
 function! s:SetupSasslint()
   " Use local bin
+  " @TODO dry up with eslint's use local section
   let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/sass-lint')
   if !empty(l:bin)
     let b:neomake_scss_sasslint_exe = l:bin
@@ -201,7 +211,9 @@ let g:neomake_python_enabled_makers = s:python_makers
 " etc.
 " ----------------------------------------------------------------------------
 
+" @TODO determine using dkoproject#JsLinters
 let g:neomake_javascript_enabled_makers = [ 'eslint' ]
+
 let g:neomake_scss_enabled_makers       = [ 'sasslint' ]
 
 " ============================================================================
@@ -209,8 +221,11 @@ let g:neomake_scss_enabled_makers       = [ 'sasslint' ]
 " Keep this last so all the other autocmds happen first
 " ============================================================================
 
-autocmd dkoneomake    BufWritePost  *   Neomake
-autocmd dkoneomake    Filetype      *   Neomake
-autocmd dkostatusline User NeomakeMakerFinished
+autocmd dkoneomake      BufWritePost,Filetype,FileChangedShellPost
+      \ *
+      \ Neomake
+
+autocmd dkostatusline   User
+      \ NeomakeMakerFinished
       \ call dkostatus#Refresh()
 
