@@ -118,9 +118,7 @@ For X apps (no terminal) the value is probably:
 
 ---
 
-## Code Style
-
-### Shell
+## Shell script code style
 
 - **Variable interpolation**  
     - Always use curly braces around the variable name when interpolating in
