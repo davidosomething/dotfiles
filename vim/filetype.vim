@@ -21,42 +21,45 @@ function! s:SetJSONorYAML()
   setfiletype yaml
 endfunction
 
-" only useful for filetypes that can be detected by filename
-" it is option C in the docs
+" For filetypes that can be detected by filename (option C in the docs for
+" `new-filetype`)
+" Use `autocmd!` so the original filetype autocmd for the given extension gets
+" cleared (otherwise it will run, and then this one, possible causing two
+" filetype events to execute in succession)
 augroup filetypedetect
 
-  autocmd BufNewFile,BufRead
+  autocmd! BufNewFile,BufRead
         \ *.cap
         \ setfiletype ruby
 
-  autocmd BufNewFile,BufRead
+  autocmd! BufNewFile,BufRead
         \ *.dump
         \ setfiletype sql
 
   " git branch description (opened via `git branch --edit-description`)
-  autocmd BufNewFile,BufRead
+  autocmd! BufNewFile,BufRead
         \ BRANCH_DESCRIPTION
         \ setfiletype gitbranchdescription.markdown.pandoc
 
   " pre Vim 7.4.480 - md is modula2
   " post Vim 7.4.480 - md is markdown
-  autocmd BufNewFile,BufRead *.md
+  autocmd! BufNewFile,BufRead *.md
         \ setfiletype markdown.pandoc
 
-  autocmd BufNewFile,BufRead
-        \ .babelrc,.bowerrc,.jscsrc,.jshintrc
+  autocmd! BufNewFile,BufRead
+        \ .babelrc,.bowerrc,.jshintrc
         \ setfiletype json
 
-  autocmd BufNewFile,BufRead
+  autocmd! BufNewFile,BufRead
         \ .eslintrc,.stylelintrc
         \ call s:SetJSONorYAML()
 
-  autocmd BufRead,BufNewFile
+  autocmd! BufRead,BufNewFile
         \ */nginx*.conf,/*/nginx*.conf
         \ setfiletype nginx
 
   " polkit rules files
-  autocmd BufNewFile,BufRead
+  autocmd! BufNewFile,BufRead
         \ *.rules
         \ setfiletype javascript
 

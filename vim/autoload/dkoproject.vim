@@ -144,11 +144,6 @@ function! dkoproject#JsLinters() abort
     let b:dko_js_linters += ['jshint']
   endif
 
-  let l:jscsrc = dkoproject#GetProjectConfigFile('.jscsrc')
-  if !empty(l:jscsrc)
-    "let b:dko_js_linters += ['jscs']
-  endif
-
   return b:dko_js_linters
 endfunction
 
