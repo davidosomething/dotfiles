@@ -429,6 +429,19 @@ let g:is_bash = 1
 let g:vimsyn_embed = 'lpPr'
 
 " ============================================================================
+" Multi-file projects
+" This has to run super early
+" ============================================================================
+
+augroup dkoproject
+  autocmd!
+
+  autocmd BufNewFile,BufRead,BufWritePost
+        \ *
+        \ call dkoproject#GetProjectRoot()
+augroup END
+
+" ============================================================================
 " Plugins
 " ============================================================================
 
@@ -999,15 +1012,6 @@ augroup dkostatusline
   autocmd BufWinEnter,Colorscheme,Filetype,SessionLoadPost,WinEnter
         \ *
         \ call dkostatus#Refresh()
-augroup END
-
-" Multi-file projects
-augroup dkoproject
-  autocmd!
-
-  autocmd BufNewFile,BufRead,BufWritePost
-        \ *
-        \ call dkoproject#GetProjectRoot()
 augroup END
 
 " WordPress VIP specific

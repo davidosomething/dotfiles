@@ -32,32 +32,28 @@ let s:default_config_paths = [
 " @param {string} [file]
 " @return {string} project git root path or empty string
 function! dkoproject#GetProjectRoot(...) abort
-  "echomsg 'Finding root'
   if exists('b:dkoproject_root')
-    "echomsg 'Cached ' . b:dkoproject_root
     return b:dkoproject_root
   endif
 
   if !empty(a:0)
     " path for given file
-    "echomsg 'Using file provided in arg ' . a:0
     let l:path = expand(fnamemodify(a:0, ':p:h'))
   elseif filereadable(expand('%'))
-    "echomsg 'Using opened file ' . expand('%')
     " path for current file
     let l:path = expand('%:p:h')
   else
     let l:path = getcwd()
   endif
-  "echomsg 'Got filepath: ' . l:path
 
-  " Determine if git root exists (empty string on error, strip last newline)
-  execute 'lcd! "' . l:path . '"'
-  let l:result = system('git rev-parse --show-toplevel 2>/dev/null')[:-2]
-  lcd! -
+  " Determine if git root exists
+  " (empty string on error, strip last newline)
+  let l:result = system(
+        \ 'cd ' . l:path . 
+        \ ' && git rev-parse --show-toplevel 2>/dev/null')
 
   " No git root?
-  let l:root = empty(l:result) ? '' : l:result
+  let l:root = empty(l:result) ? '' : l:result[:-2]
   if !isdirectory(l:root)
     return ''
   endif
@@ -71,7 +67,6 @@ endfunction
 " For all windows, change path to project root
 function! dkoproject#CdProjectRoot() abort
   if empty(dkoproject#GetProjectRoot())
-    echoerr 'Not a git project'
     return
   endif
   execute 'cd! ' . dkoproject#GetProjectRoot()
