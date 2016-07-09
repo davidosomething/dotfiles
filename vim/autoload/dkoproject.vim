@@ -4,9 +4,22 @@
 " Helpers to finds config files for a project (e.g. linting RC files) relative
 " to a git repo root.
 "
+" "Project Root" is essentially the git root (so doesn't properly support
+" projects where the .git directory has been manually defined), or the cwd
+" if there is no git root.
+" Similar to what this plugin does, but using a single system call to `git`
+" instead of using `expand()` with `:h` to traverse up directories.
+" https://github.com/dbakker/vim-projectroot/blob/master/autoload/projectroot.vim
+"
+" "Config Paths" are where rc files (e.g. linter configs) are stored, which
+" may not necessarily be in the immediate Project Root (even though I wish
+" they were).
+"
 " Settings:
-" b:dkoproject_config_paths - highest precendence array to look in
-" g:dkoproject_config_paths - next highest
+" b:dkoproject_config_paths [array] - look for config files in this array of
+"                                     directory names relative to the project
+"                                     root if it is set
+" g:dkoproject_config_paths [array] - global overrides
 " ============================================================================
 
 if exists('g:loaded_dkoproject')
@@ -82,9 +95,7 @@ function! dkoproject#GetProjectConfigFile(filename) abort
     return ''
   endif
 
-  let l:config_paths = dkoproject#GetConfigPaths()
-
-  for l:config_path in l:config_paths
+  for l:config_path in dkoproject#GetConfigPaths()
     let l:project_config_path = dkoproject#GetProjectRoot()
           \ . '/' . l:config_path
 
