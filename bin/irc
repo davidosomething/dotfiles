@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Connect to Synology and attach/create to tmux session for IRC
+__irc() {
+  if command -v mosh >/dev/null; then
+    mosh dsmchroot -- ./tmux-irc.sh
+    exit
+  fi
+
+  ssh dsmchroot -t -- ./tmux-irc.sh
+}
+
+__irc

@@ -24,7 +24,6 @@ alias gp="git push"
 alias gpo="git push origin"
 
 # remote
-alias irc="ssh dsmchroot -t -- tmux attach -t irc"
 alias mc="ssh rmc -t -- \".local/bin/ftb\""
 
 # bin

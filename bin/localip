@@ -14,7 +14,15 @@ __has_program() {
 
 # type localip to get ethernet or wireless ip
 __localip() {
-  if [[ "$OSTYPE" == "darwin"* ]]; then
+
+  # works on el capitan via wifi
+  if __has_program "ifconfig"; then
+    ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'
+    exit
+  fi
+
+  # OSTYPE is not set on debian chroot
+  if [[ -n "$OSTYPE" && "$OSTYPE" == "darwin"* ]]; then
     local ethernet && ethernet=$(ipconfig getifaddr en0)
     [ -n "$ethernet" ] && echo "$ethernet" && exit 0
 
@@ -24,16 +32,15 @@ __localip() {
     exit 1
   fi
 
-  if __has_program "hostname"; then
-    hostname -i
-
-  elif __has_program "ifconfig"; then
-    ifconfig | grep "inet " | grep -v "127.0.0.1"
-
-  elif __has_program "ip"; then
+  # this would be used for debian chroot
+  if __has_program "ip"; then
     ip addr | grep "inet 192"
-
+    exit
   fi
+
+  # on my debian chroot this yields internal IP, not unchroot'ed ip
+  __has_program "hostname" && hostname -i && exit
+
 }
 
 __localip
