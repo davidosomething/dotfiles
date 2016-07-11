@@ -47,10 +47,16 @@ if !empty(glob(expand(g:dko_plug_absdir . '/neosnippet')))
   " Snippets userdir
   let g:neosnippet#snippets_directory = g:dko_vim_dir . '/snippets'
 
-  " C-k is the only acceptable neosnippet advance key
-  imap  <special> <C-k>   <Plug>(neosnippet_jump_or_expand)
-  smap  <special> <C-k>   <Plug>(neosnippet_jump_or_expand)
-  xmap  <special> <C-k>   <Plug>(neosnippet_expand_target)
+  " C-k is used for bubbling lines up, so C-l is the only acceptable
+  " neosnippet advance key I have
+  imap  <special> <C-l>   <Plug>(neosnippet_jump_or_expand)
+  smap  <special> <C-l>   <Plug>(neosnippet_jump_or_expand)
+  xmap  <special> <C-l>   <Plug>(neosnippet_expand_target)
+
+  " Get rid of the placeholders in inserted snippets when done inserting
+  augroup dkocompletion
+    autocmd InsertLeave * NeoSnippetClearMarkers
+  augroup END
 endif
 
 " ============================================================================
