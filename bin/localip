@@ -15,7 +15,8 @@ __has_program() {
 # type localip to get ethernet or wireless ip
 __localip() {
 
-  # works on el capitan via wifi
+  # VERIFIED on OS X El Capitan (10.11)   via wifi
+  # VERIFIED on OS X Yosemite   (10.10.5) via wifi
   if __has_program "ifconfig"; then
     ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'
     exit
