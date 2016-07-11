@@ -262,16 +262,6 @@ if [[ "$0" == *"zsh" ]]; then
 
   # process names
   zstyle ':completion:*:processes-names' command  'ps c -u ${USER} -o command | uniq'
-
-  # --------------------------------------------------------------------------
-  # Aliases (e.g. a=b use results from b when completing for a)
-  # compdef here assumes zplug loaded compinit
-  # --------------------------------------------------------------------------
-
-  compdef e=vim
-  compdef vopen=vim
-  compdef pkill=kill
-
 fi
 
 # ============================================================================
