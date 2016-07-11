@@ -10,12 +10,17 @@ if exists("g:plugs['php.vim']")
 endif
 
 " ============================================================================
-" pdv.vim
+" Insert phpdoc block
 " ============================================================================
-if exists("g:plugs['pdv']")
-  let g:pdv_template_dir =
-        \ expand(g:dko_plug_absdir . '/pdv/templates')
+if exists("g:plugs['neosnippet']")
 
-  nnoremap <silent><buffer> <Leader>pd :<C-u>call pdv#DocumentCurrentLine()<CR>
+  inoremap <silent><buffer>
+        \ <Leader>pd
+        \ a<C-r>=neosnippet#expand('doc')<CR>
+
+  nnoremap <silent><buffer><expr>
+        \ <Leader>pd
+        \ neosnippet#expand('doc')
+
 endif
 
