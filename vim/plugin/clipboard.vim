@@ -12,5 +12,5 @@ let g:EasyClipUseGlobalPasteToggle = 0
 
 " save yanks in a file and persist
 let g:EasyClipShareYanks = 1
-let g:EasyClipShareYanksDirectory = glob(expand(g:dko_vim_dir . '/.tmp/cache'))
+let g:EasyClipShareYanksDirectory = glob(expand(dko#vim_dir . '/.tmp/cache'))
 

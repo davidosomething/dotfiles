@@ -43,9 +43,9 @@ augroup end
 " Neosnippet
 " ============================================================================
 
-if !empty(glob(expand(g:dko_plug_absdir . '/neosnippet')))
+if !empty(glob(expand(g:plug_home . '/neosnippet')))
   " Snippets userdir
-  let g:neosnippet#snippets_directory = g:dko_vim_dir . '/snippets'
+  let g:neosnippet#snippets_directory = dko#vim_dir . '/snippets'
 
   " C-k is used for bubbling lines up, so C-l is the only acceptable
   " neosnippet advance key I have
@@ -276,9 +276,9 @@ endif
 " Neocomplete
 " ============================================================================
 
-if !empty(glob(expand(g:dko_plug_absdir . '/neocomplete')))
+if !empty(glob(expand(g:plug_home . '/neocomplete')))
   let g:neocomplete#data_directory =
-        \ expand(g:dko_vim_dir . '/.tmp/neocomplete')
+        \ expand(dko#vim_dir . '/.tmp/neocomplete')
 
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1
@@ -318,7 +318,7 @@ endif
 " Deoplete
 " ============================================================================
 
-if !empty(glob(expand(g:dko_plug_absdir . '/deoplete.nvim')))
+if !empty(glob(expand(g:plug_home . '/deoplete.nvim')))
   let g:deoplete#enable_at_startup = 1
   call deoplete#custom#set('_', 'matchers', [
         \   'matcher_head',

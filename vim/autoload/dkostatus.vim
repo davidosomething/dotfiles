@@ -102,7 +102,7 @@ endfunction
 
 function! dkostatus#Neomake() abort
   return s:winnr != winnr()
-        \ || empty(glob(expand(g:dko_plug_absdir . '/neomake')))
+        \ || empty(glob(expand(g:plug_home . '/neomake')))
         \ ? ''
         \ : dkostatus#FormatNeomakeCounts(neomake#statusline#LoclistCounts())
 endfunction

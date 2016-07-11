@@ -14,7 +14,6 @@ scriptencoding utf-8
 set t_u7=
 
 let g:dko_rtp_original = &runtimepath
-let g:dko_vim_dir      = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 " ============================================================================
 " Settings vars
@@ -162,7 +161,7 @@ set fileformat=unix
 
 " info file -- nvim uses shada in $XDG_DATA_HOME so that's cool.
 if !has('nvim')
-  execute 'set viminfo+=n' . expand(g:dko_vim_dir . '/.tmp/cache/.viminfo')
+  execute 'set viminfo+=n' . expand(dko#vim_dir . '/.tmp/cache/.viminfo')
 endif
 
 " From https://github.com/swizzard/dotfiles/blob/master/.vimrc
@@ -180,7 +179,7 @@ endif
 
 " swap - useless
 set noswapfile
-execute 'set directory=' . g:dko_vim_dir . '/.tmp/swap//'
+execute 'set directory=' . dko#vim_dir . '/.tmp/swap//'
 
 " backups
 set backupskip=/tmp/*
@@ -192,7 +191,7 @@ if has('mac')
     autocmd BufEnter  /private/tmp/crontab.*  setlocal backupcopy=yes
   augroup END
 endif
-execute 'set backupdir=' . g:dko_vim_dir . '/.tmp/backup//'
+execute 'set backupdir=' . dko#vim_dir . '/.tmp/backup//'
 set backup
 
 " undo files
@@ -200,14 +199,14 @@ set backup
 set undofile
 set undolevels=1000
 set undoreload=10000
-execute 'set undodir=' . g:dko_vim_dir . '/.tmp/undo//'
+execute 'set undodir=' . dko#vim_dir . '/.tmp/undo//'
 
 " ----------------------------------------------------------------------------
 " Spellcheck
 " ----------------------------------------------------------------------------
 
 " Add symlinked aspell from dotfiles as default spellfile
-"execute 'set spellfile=' . glob(expand(g:dko_vim_dir . '/en.utf-8.add'))
+"execute 'set spellfile=' . glob(expand(dko#vim_dir . '/en.utf-8.add'))
 
 " ----------------------------------------------------------------------------
 " Completion -- see also plugins/completion.vim
@@ -465,7 +464,7 @@ let g:loaded_zipPlugin = 1
 
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
-let g:netrw_home = expand(g:dko_vim_dir . '/.tmp/cache')
+let g:netrw_home = expand(dko#vim_dir . '/.tmp/cache')
 let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
 " ----------------------------------------------------------------------------
@@ -955,19 +954,19 @@ endfunction
 
 let s:plug_dir = '/vendor/vim'
 if has('nvim') | let s:plug_dir = '/vendor/nvim' | endif
-let g:dko_plug_absdir = g:dko_vim_dir . s:plug_dir
+let s:dko_plug_absdir = dko#vim_dir . s:plug_dir
 
 " Load vim-plug and its plugins?
-if empty(glob(expand(g:dko_vim_dir . '/autoload/plug.vim')))
+if empty(glob(expand(dko#vim_dir . '/autoload/plug.vim')))
   execute 'silent !curl -fLo '
-        \ . g:dko_vim_dir . '/autoload/plug.vim '
+        \ . dko#vim_dir . '/autoload/plug.vim '
         \ . 'https://raw.githubusercontent.com/'
         \ . 'junegunn/vim-plug/master/plug.vim'
 endif
 
-call plug#begin(g:dko_plug_absdir)
+call plug#begin(s:dko_plug_absdir)
   call s:LoadPlugins()
-  if empty(glob(expand(g:dko_plug_absdir))) | PlugInstall
+  if empty(glob(expand(s:dko_plug_absdir))) | PlugInstall
   endif
 call plug#end()
 
