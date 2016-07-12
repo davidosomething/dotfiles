@@ -18,7 +18,7 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 
 _For mac, see full install details in [mac/README.md](mac/README.md)._
 
-Clone and run the symlink script.
+Clone and run the symlink script:
 
 ```bash
 git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
@@ -32,13 +32,10 @@ git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
 - Create XDG child directories (run `bootstrap/xdg.sh`). The base directories
   are probably already initialized by
   `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
-
 - Install and use [Fira (Fura) Mono for Powerline] font (install
   to `${XDG_DATA_HOME}/fonts` on \*nix)
-
 - Change default shell to zsh (ensure listed in `/etc/shells`) and
   restart shell (zplug will self-install)
-
 - See OS specific notes in [mac/README.md](mac/README.md) and for linux
   [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 
@@ -48,12 +45,10 @@ Install these using the system package manager. For macOS/OS X there are helper
 scripts.
 
 - `chruby`, `ruby-install`, then use ruby-install to install a version of ruby
-    - `bootstrap/mac/ruby.sh`
 - Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
-  consequently `npm`)
+  `npm install --global npm@latest`)
 - `php`, `composer`, use composer to install `wp-cli`
-    - `bootstrap/mac/php.sh`
 - Use [pyenv-installer] for `pyenv`, `pyenv-virtualenv`, then create a new env
   with a new python/pip.
 
@@ -62,19 +57,16 @@ scripts.
 These will assist in installing things. Best to have the Environment set up
 first.
 
-- `bootstrap/cleanup.sh`
-    - Moves some things into their XDG Base Directory supported directories
-- `bootstrap/symlink.sh`
-    - bash, zsh, ack, screen, (n)vim
-- `npm/install.sh`
-    - requires you set up nvm and install node first
-    - install default packages
-- `ruby/install-default-gems.sh`
-    - requires you set up chruby and install a ruby first
-- `bootstrap/terminfo.sh`
-    - copy/compile terminfo files for user to `~/.terminfo/*`
-- `bootstrap/x11.sh`
-    - symlink `.xbindkeysrc`, `.xprofile`
+- `bootstrap/cleanup.sh` moves some things into their XDG Base Directory
+  supported directories
+- `bootstrap/symlink.sh` symlinks rc files for bash, zsh, ack, (neo)vim, etc.
+- `npm/install.sh` install default packages, requires you set up nvm and
+  install node first
+- `ruby/install-default-gems.sh` requires you set up chruby and install a ruby
+  first
+- `bootstrap/terminfo.sh` will copy/compile terminfo files for user to
+  `~/.terminfo/*`
+- `bootstrap/x11.sh` symlinks `.xbindkeysrc`, `.xprofile`
 
 ## Updating
 
@@ -116,19 +108,24 @@ For X apps (no terminal) the value is probably:
       shell/vars
         shell/xdg
 
----
-
 ## Shell script code style
 
-- **Variable interpolation**  
+- **Script architecture**
+    - Use the `#!/usr/bin/env bash` shebang and write with bash compatibility
+    - Create a private main function with the same name as the shell script.
+      E.g. for a script called `fun`, there should be a `__fun()` that gets
+      called with the original arguments `__fun $@`
+    - Two space indents
+- **Function names**
+    - My helpers for scripting and provisioning via these dotfiles are
+      namespaced following [google shell style] as `dko::function_name()`
+    - For private functions in a script, use two underscores `__private_func()`
+- **Variable interpolation**
     - Always use curly braces around the variable name when interpolating in
       double quotes.
-
-- **Function names**  
-    - My helpers for scripting and provisioning via these dotfiles are namespaced
-      following [google shell style] as `dko::function_name()`
-    - For private functions in a script, use two underscores `__private_func()`
-
+- **Variable scope**
+    - Try to use `local` and `readonly` variables as much as possible over
+      unscoped variables.
 
 ## Credits
 
