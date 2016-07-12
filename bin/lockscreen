@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Adapted from
+# https://github.com/unixorn/tumult.plugin.zsh/blob/master/bin/lockscreen
+
+[[ "$OSTYPE" == "darwin"* ]] && \
+  exec /System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend
