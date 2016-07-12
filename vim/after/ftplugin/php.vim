@@ -18,9 +18,9 @@ if exists("g:plugs['neosnippet']")
         \ <Leader>pd
         \ a<C-r>=neosnippet#expand('doc')<CR>
 
-  nnoremap <silent><buffer><expr>
+  nnoremap <silent><buffer>
         \ <Leader>pd
-        \ neosnippet#expand('doc')
+        \ O<C-r>=neosnippet#expand('doc')<CR>
 
 endif
 
