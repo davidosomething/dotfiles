@@ -852,12 +852,11 @@ function! s:LoadPlugins()
     endif
   endif
 
-  " Snippet
-  " Errors if no function under cursor,
-  " Use 'doc' neosnippet instead
-  " @see https://github.com/Shougo/neosnippet-snippets/blob/master/neosnippets/php.snip
-  " Plug 'tobyS/vmustache', { 'for': ['php', 'blade'] }
-  "       \| Plug 'tobyS/pdv', { 'for': ['php', 'blade'] }
+  " ========================================================================
+  " Language: Python
+  " ========================================================================
+
+  Plug 'hynek/vim-python-pep8-indent'
 
   " ========================================================================
   " Language: Ruby, rails, puppet
