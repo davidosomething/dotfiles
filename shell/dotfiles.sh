@@ -1,4 +1,4 @@
-# .dotfiles/shell/update.sh
+# .dotfiles/shell/dotfiles.sh
 #
 # Update dotfiles and provide instructions for updating the system
 # THIS FILE IS SOURCED to give access to current shell
@@ -58,7 +58,7 @@ dko::dotfiles::__reload() {
     && dko::status "Reloaded shell/update.sh"
 }
 
-dko::dotfiles::__update_dotfiles() {
+dko::dotfiles::__update() {
   dko::status "Updating dotfiles"
   (
     cd "$DOTFILES" || dko::die "No \$DOTFILES directory"
@@ -193,6 +193,7 @@ dko::dotfiles::__update_nvm() {
   cd - || return 1
 }
 
+# $1 pip command (e.g. `pip2`)
 dko::dotfiles::__update_pip() {
   local pip_command=${1:-pip}
   dko::status "Updating $pip_command"
@@ -354,7 +355,7 @@ dko::dotfiles() {
 
   case $1 in
     reload)   dko::dotfiles::__reload           ;;
-    dotfiles) dko::dotfiles::__update_dotfiles  ;;
+    dotfiles) dko::dotfiles::__update           ;;
     secret)   dko::dotfiles::__update_secret    ;;
     composer) dko::dotfiles::__update_composer  ;;
     fzf)      dko::dotfiles::__update_fzf       ;;

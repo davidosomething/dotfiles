@@ -17,7 +17,7 @@ source "${DOTFILES}/shell/path.sh"       # rebuild path starting from system pat
 source "${DOTFILES}/shell/os.sh"         # os env requires path to detect brew
 source "${DOTFILES}/shell/helpers.sh"    # useful functions
 source "${DOTFILES}/shell/functions.sh"  # useful functions
-source "${DOTFILES}/shell/update.sh"     # update dotfiles
+source "${DOTFILES}/shell/dotfiles.sh"   # update dotfiles
 source "${DOTFILES}/shell/x11.sh"        # xrdb merge
 source "${DOTFILES}/shell/aliases.sh"    # aliases
 
