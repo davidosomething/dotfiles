@@ -9,6 +9,7 @@
 # Based on http://serverwizard.heroku.com/script/rvm+git
 # added error output to stderr
 dko::echo_()      { echo -e "    $*"; }
+
 dko::status()     { echo -e "\033[0;34m==>\033[0;32m $*\033[0;m"; }
 dko::status_()    { echo -e "\033[0;32m    $*\033[0;m"; }
 dko::err()        { echo -e "\033[0;31m==> \033[0;33mERROR: \033[0;31m$*\033[0;m" >&2; }

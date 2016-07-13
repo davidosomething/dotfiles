@@ -1,4 +1,4 @@
-# .dotfiles/shell/update
+# .dotfiles/shell/update.sh
 #
 # Update dotfiles and provide instructions for updating the system
 # THIS FILE IS SOURCED
@@ -87,11 +87,15 @@ __dotfiles_update_secret() {
 # ------------------------------------------------------------------------------
 
 __dotfiles_update_composer() {
-  dko::has "composer" || { dko::err "composer is not installed" && return 1; }
-  dko::status "Updating composer itself"
-  composer self-update || { dko::err "Could not update composer" && return 1; }
-  dko::status "Updating composer global packages"
-  composer global update
+  (
+    dko::has "composer" || dko::die "composer is not installed"
+
+    dko::status "Updating composer itself"
+    composer self-update || dko::die "Could not update composer"
+
+    dko::status "Updating composer global packages"
+    composer global update || dko::die "Could not update global packages"
+  )
   rehash
 }
 
@@ -105,23 +109,25 @@ __dotfiles_update_fzf() {
 }
 
 __dotfiles_update_gems() {
-  dko::has "gem" || { dko::err "rubygems is not installed" && return 1; }
-  if [ -z "$RUBY_VERSION" ]; then
-    dko::err "System ruby detected! Use chruby and manage rubygems in userspace."
-    return 1
-  fi
+  (
+    dko::has "gem" || dko::die "rubygems is not installed"
+    [ -z "$RUBY_VERSION" ] && dko::die "System ruby detected! Use chruby."
 
-  dko::status "Updating RubyGems itself for ruby: ${RUBY_VERSION}"
-  gem update --system  || { dko::err "Could not update system gems" && return 1; }
-  dko::status "Updating gems"
-  gem update
+    dko::status "Updating RubyGems itself for ruby: ${RUBY_VERSION}"
+    gem update --system  || dko::die "Could not update RubyGems"
+
+    dko::status "Updating gems"
+    gem update || dko::die "Could not update global gems"
+  )
   rehash
 }
 
 __dotfiles_update_go() {
-  dko::has "go" || { dko::err "go is not installed" && return 1; }
-  dko::status "Updating go packages"
-  go get -u all
+  (
+    dko::has "go" || dko::die "go is not installed"
+    dko::status "Updating go packages"
+    go get -u all || dko::die "Could not update go packages"
+  )
   rehash
 }
 
@@ -202,19 +208,13 @@ __dotfiles_update_linux() {
   case "$1" in
     arch) __dotfiles_update_arch      ;;
     deb)  __dotfiles_update_deb       ;;
-    pip)  __dotfiles_update_pip "pip" ;;
   esac
 }
 
 __dotfiles_update_darwin() {
   case "$1" in
-    brew) __dotfiles_update_brew  ;;
-    mac)  __dotfiles_update_mac   ;;
-    pip)
-      __dotfiles_update_pip "pip"
-      __dotfiles_update_pip "pip2"
-      __dotfiles_update_pip "pip3"
-      ;;
+    brew) __dotfiles_update_brew      ;;
+    mac)  __dotfiles_update_mac       ;;
   esac
 }
 
@@ -358,6 +358,7 @@ __dotfiles_main() {
     go)       __dotfiles_update_go        ;;
     node)     __dotfiles_update_node      ;;
     nvm)      __dotfiles_update_nvm       ;;
+    pip)      __dotfiles_update_pip "pip" ;;
   esac
 
   case "$OSTYPE" in
