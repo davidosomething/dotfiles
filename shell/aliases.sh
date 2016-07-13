@@ -2,7 +2,7 @@
 # Not run by loader
 # Sourced by both .zshrc and .bashrc, so keep it bash compatible
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases.sh"
 
 # paths and dirs
 alias ..="cd .."
@@ -66,7 +66,7 @@ alias vag="vagrant"
 alias vb="VBoxManage"
 alias vbm="VBoxManage"
 alias weechat="weechat -d \"\${DOTFILES}/weechat\""
-alias wget="wget --no-check-certificate"
+alias wget="wget --no-check-certificate --hsts-file=\"\${XDG_DATA_HOME}/wget/.wget-hsts\""
 alias xit="exit" # dammit
 
 # sudo ops

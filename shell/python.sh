@@ -1,9 +1,9 @@
-# shell/python
+# shell/python.sh
 #
 # uses vars from shell/vars and functions from shell/functions
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/python"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/python.sh"
 
 # Let python guess where to `import` packages, or use pip instead
 unset PYTHONPATH
@@ -21,7 +21,7 @@ export PYLINTHOME="${XDG_CONFIG_HOME}/pylint"
 export PYENV_ROOT="${HOME}/.local/pyenv"
 export PATH="${PYENV_ROOT}/bin:${PATH}"
 
-has_program "pyenv" && {
+dko::has "pyenv" && {
   eval "$(pyenv init -)"
 
   # Don't try to auto-init venv
@@ -64,7 +64,7 @@ source_if_exists "$dko_virtualenv_wrapper"
 # pip
 # ==============================================================================
 
-has_program "pip" && {
+dko::has "pip" && {
   if [ -n "$ZSH_VERSION" ]; then
     eval "$(pip completion --zsh)"
   elif [ -n "$BASH" ]; then

@@ -1,4 +1,4 @@
-# shell/vars
+# shell/vars.sh
 #
 # Sourced by .zshenv or .bashrc
 #
@@ -6,9 +6,9 @@
 # term and we may need to reset the values
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/vars {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.sh {"
 # Sourced only once, may have been sourced in linux/.xprofile already
-source "${HOME}/.dotfiles/shell/xdg"
+source "${HOME}/.dotfiles/shell/xdg.sh"
 
 # ============================================================================
 # Locale

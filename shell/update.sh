@@ -9,8 +9,7 @@
 # ==============================================================================
 
 # get bootstrap folder
-readonly bootstrap_path="${DOTFILES}/bootstrap"
-source "${bootstrap_path}/helpers.sh"
+source "${DOTFILES}/shell/helpers.sh"
 
 # ==============================================================================
 # Command functions
@@ -52,7 +51,8 @@ __dotfiles_usage() {
 }
 
 __dotfiles_reload() {
-  source "${DOTFILES}/shell/update" && dko::status "Reloaded shell/update"
+  source "${DOTFILES}/shell/update.sh" \
+    && dko::status "Reloaded shell/update.sh"
 }
 
 __dotfiles_update_dotfiles() {
@@ -64,7 +64,7 @@ __dotfiles_update_dotfiles() {
     dko::err "Error updating dotfiles submodules" && return 1
   }
   __dotfiles_reload
-  [ -n "$ZSH_VERSION" ] && has_program "zplug" && {
+  [ -n "$ZSH_VERSION" ] && dko::has "zplug" && {
     dko::status "Updating zplug"
     zplug update
   }
@@ -84,7 +84,7 @@ __dotfiles_update_secret() {
 # ------------------------------------------------------------------------------
 
 __dotfiles_update_composer() {
-  has_program "composer" || { dko::err "composer is not installed" && return 1; }
+  dko::has "composer" || { dko::err "composer is not installed" && return 1; }
   dko::status "Updating composer itself"
   composer self-update || { dko::err "Could not update composer" && return 1; }
   dko::status "Updating composer global packages"
@@ -103,7 +103,7 @@ __dotfiles_update_fzf() {
 }
 
 __dotfiles_update_gems() {
-  has_program "gem" || { dko::err "rubygems is not installed" && return 1; }
+  dko::has "gem" || { dko::err "rubygems is not installed" && return 1; }
   if [ -z "$RUBY_VERSION" ]; then
     dko::err "System ruby detected! Use chruby and manage rubygems in userspace."
     return 1
@@ -117,7 +117,7 @@ __dotfiles_update_gems() {
 }
 
 __dotfiles_update_go() {
-  has_program "go" || { dko::err "go is not installed" && return 1; }
+  dko::has "go" || { dko::err "go is not installed" && return 1; }
   dko::status "Updating go packages"
   go get -u all
   rehash
@@ -185,7 +185,7 @@ __dotfiles_update_nvm() {
 __dotfiles_update_pip() {
   local pip_command=${1:-pip}
   dko::status "Updating $pip_command"
-  if has_program "$pip_command"; then
+  if dko::has "$pip_command"; then
     $pip_command install --upgrade setuptools || return 1
     $pip_command install --upgrade pip        || return 1
     $pip_command list | cut -d' ' -f1 | xargs "$pip_command" install --upgrade
@@ -222,14 +222,14 @@ __dotfiles_update_darwin() {
 
 __dotfiles_update_arch() {
   dko::status "Arch Linux system update"
-  if has_program "pacaur"; then
+  if dko::has "pacaur"; then
     # update system
     pacaur -Syu
-  elif has_program "yaourt"; then
+  elif dko::has "yaourt"; then
     # -Sy         -- get new file list
     yaourt --sync --refresh
     yaourt -Syua
-  elif has_program "aura"; then
+  elif dko::has "aura"; then
     aura -Syua
   else
     pacman -Syu
@@ -243,7 +243,7 @@ __dotfiles_update_arch() {
 __dotfiles_update_deb() {
   dko::status "Apt system update"
 
-  if ! has_program "apt"; then
+  if ! dko::has "apt"; then
     dko::err "Plain 'apt' not found, manually use 'apt-get' for crappy systems."
     exit 1
   fi
@@ -298,7 +298,7 @@ __dotfiles_update_brew() {
   fi
 
   # switch to brew's python (fallback to system if no brew python)
-  has_program "pyenv" && pyenv shell system && \
+  dko::has "pyenv" && pyenv shell system && \
     dko::status_ "Switched to system python"
 
   dko::status "Upgrade packages"
@@ -312,7 +312,7 @@ __dotfiles_update_brew() {
   fi
 
   # restore pyenv python
-  has_program "pyenv" && pyenv shell --unset && \
+  dko::has "pyenv" && pyenv shell --unset && \
     dko::status_ "Switched to global python"
 
   cd - || return 1

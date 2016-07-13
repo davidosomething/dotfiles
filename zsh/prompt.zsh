@@ -133,13 +133,13 @@ dko::prompt() {
   RPS1+='%F{blue}'
 
   # NVM node version
-  has_program "nvm" && RPS1+='[node:$(nvm_ls current 2>/dev/null)]'
+  dko::has "nvm" && RPS1+='[node:$(nvm_ls current 2>/dev/null)]'
 
   # pyenv python version
-  has_program "pyenv" && RPS1+='[py:$(pyenv version-name 2>/dev/null)]'
+  dko::has "pyenv" && RPS1+='[py:$(pyenv version-name 2>/dev/null)]'
 
   # chruby Ruby version
-  has_program "chruby" && RPS1+='[rb:${RUBY_VERSION:-system}]'
+  dko::has "chruby" && RPS1+='[rb:${RUBY_VERSION:-system}]'
 
   # Back to actual prompt position
   RPS1+="%{${go_down}%}"

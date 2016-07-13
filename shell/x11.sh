@@ -1,10 +1,10 @@
-# shell/x11
+# shell/x11.sh
 #
 # X11 Settings
 # sourced by shell/before, uses shell/functions
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/x11"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/x11.sh"
 
 # ============================================================================
 # Merge .Xresources
@@ -15,7 +15,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/x11"
 # alone).
 # Setting $XENVIRONMENT is an option, but the -I flag here is more useful.
 # This also lets me keep .Xresources out of ~/
-[[ "$DOTFILES_OS" = "Linux" ]] && has_program "xrdb" && \
+[[ "$DOTFILES_OS" == "Linux" ]] && dko::has "xrdb" && \
   xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
 
 # vim: ft=sh :

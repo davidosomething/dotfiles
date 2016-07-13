@@ -10,7 +10,7 @@
 # ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} -> zshrc {"
-source "${DOTFILES}/shell/before"
+source "${DOTFILES}/shell/before.sh"
 
 # ============================================================================
 # Options
@@ -155,7 +155,7 @@ __load_zplug() {
   [ -z "$ZPLUG_ROOT" ] && __load_zplug_init
 
   # define plugins
-  has_program "zplug" && {
+  dko::has "zplug" && {
     export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
     zplug check --verbose || zplug install
     zplug load && export DKO_SOURCE="${DKO_SOURCE} }"
@@ -194,7 +194,7 @@ alias mkdir="nocorrect mkdir"
 __auto_nvm_use() {
   [[ -f ".nvmrc" && -r ".nvmrc" ]] && nvm use
 }
-has_program "nvm" && add-zsh-hook chpwd __auto_nvm_use
+dko::has "nvm" && add-zsh-hook chpwd __auto_nvm_use
 
 # ============================================================================
 # Completion settings
@@ -268,7 +268,7 @@ fi
 # After
 # ============================================================================
 
-source "${DOTFILES}/shell/after"
+source "${DOTFILES}/shell/after.sh"
 source_if_exists "${DOTFILES}/local/zshrc"
 
 if [[ "$PROFILE_STARTUP" == true ]]; then

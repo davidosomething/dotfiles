@@ -1,11 +1,11 @@
-# shell/os
+# shell/os.sh
 #
 # os detection, default to Linux
 # Sourced by shell/before since path needs to be set first (for brew in
 # particular)
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/os"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/os.sh"
 
 # @see https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
 case "$(uname -s)" in

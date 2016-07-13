@@ -13,13 +13,25 @@ readonly bootstrap_path="${dotfiles_path}/bootstrap"
 source "${bootstrap_path}/helpers.sh"
 
 # ============================================================================
+# ENV validation
+# ============================================================================
+
+if [ -z "$BASH_DOTFILES" ] \
+  || [ -z "$XDG_CONFIG_HOME" ] \
+  || [ -z "$XDG_DATA_HOME" ]
+then
+  dko::err  "DOTFILES are not set up, run this after symlinking and restarting"
+  dko::err_ "shell"
+  exit 1
+fi
+
+# ============================================================================
 # Cleanup functions
 # ============================================================================
 
-# ----------------------------------------------------------------------------
-# Move entire dir or file somewhere else
-# ----------------------------------------------------------------------------
-
+# Move entire dir or file somewhere else (create dir if needed)
+# $1 full path to move (can be file or dir)
+# $2 full destination path
 __move() {
   dko::status "Move ${1} to ${2}"
 
@@ -44,10 +56,9 @@ __move() {
   mv "$1" "$2" && dko::status_ "Moved ${1} to ${2}"
 }
 
-# ----------------------------------------------------------------------------
 # Move contents of one dir into another
-# ----------------------------------------------------------------------------
-
+# $1 source directory, removed on completion
+# $2 destination directory, created if needed
 __merge_dir() {
   dko::status "Merge ${1} into ${2}"
 
@@ -66,10 +77,8 @@ __merge_dir() {
   rmdir "$1" && dko::status_ "Removed ${1}"
 }
 
-# ----------------------------------------------------------------------------
 # Remove file or dir completely with confirmation
-# ----------------------------------------------------------------------------
-
+# $1 path to completely remove
 __remove() {
   dko::status "Remove ${1}"
 
@@ -82,10 +91,7 @@ __remove() {
   fi
 }
 
-# ----------------------------------------------------------------------------
 # Logic for NVM
-# ----------------------------------------------------------------------------
-
 __clean_nvm() {
   dko::status "Move invalid NVM paths"
 
@@ -111,6 +117,7 @@ __move      "${HOME}/.bash_history"   "${BASH_DOTFILES}/.bash_history"
 __move      "${HOME}/.composer"       "${XDG_CONFIG_HOME}/composer"
 __move      "${HOME}/.gimp-2.8"       "${XDG_CONFIG_HOME}/GIMP/2.8"
 __move      "${HOME}/.inputrc"        "${XDG_CONFIG_HOME}/readline/inputrc"
+__move      "${HOME}/.wget-hsts"      "${XDG_DATA_HOME}/wget/.wget-hsts"
 # PYLINTHOME is set
 __move      "${HOME}/.pylint.d"       "${XDG_CONFIG_HOME}/pylint"
 __merge_dir "${HOME}/.fonts"          "${XDG_DATA_HOME}/fonts"
