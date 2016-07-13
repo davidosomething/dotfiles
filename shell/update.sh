@@ -57,26 +57,29 @@ __dotfiles_reload() {
 
 __dotfiles_update_dotfiles() {
   dko::status "Updating dotfiles"
-  cd "$DOTFILES" || { dko::err "No \$DOTFILES directory" && return 1; }
-  git pull --rebase || { dko::err "Error updating dotfiles" && return 1; }
-  dko::status "Updating dotfiles submodules"
-  git submodule update --init || {
-    dko::err "Error updating dotfiles submodules" && return 1
-  }
-  __dotfiles_reload
-  [ -n "$ZSH_VERSION" ] && dko::has "zplug" && {
-    dko::status "Updating zplug"
-    zplug update
-  }
-  cd - || return 1
+  (
+    cd "$DOTFILES" || dko::die "No \$DOTFILES directory"
+    git pull --rebase || dko::die "Error updating dotfiles"
+
+    {
+      dko::status "Updating dotfiles submodules"
+      git submodule update --init && __dotfiles_reload
+    } || dko::die "Error updating dotfiles submodules"
+
+    [ -n "$ZSH_VERSION" ] && dko::has "zplug" && {
+      dko::status "Updating zplug"
+      zplug update
+    }
+  )
 }
 
 __dotfiles_update_secret() {
   dko::status "Updating secret"
-  cd "${HOME}/.secret" || { dko::err "No ~/.secret directory" && return 1; }
-  git pull --rebase --recurse-submodules && \
-  git submodule update --init
-  cd - || return 1
+  (
+    cd "${HOME}/.secret" || dko::err "No ~/.secret directory"
+    git pull --rebase --recurse-submodules \
+      && git submodule update --init
+  )
 }
 
 # ------------------------------------------------------------------------------
@@ -94,12 +97,11 @@ __dotfiles_update_composer() {
 
 __dotfiles_update_fzf() {
   dko::status "Updating fzf"
-  cd "${HOME}/.fzf" || { dko::err "Could not cd to ~/.fzf" && return 1; }
-  git pull || { dko::err "Could not update ~/.fzf" && return 1; }
-  ./install --key-bindings --completion --no-update-rc
-  local return_status=$?
-  cd - || return 1
-  return $return_status
+  (
+    cd "${HOME}/.fzf" || dko::die "Could not cd to ~/.fzf"
+    git pull || dko::die "Could not update ~/.fzf"
+    ./install --key-bindings --completion --no-update-rc
+  )
 }
 
 __dotfiles_update_gems() {
@@ -298,8 +300,8 @@ __dotfiles_update_brew() {
   fi
 
   # switch to brew's python (fallback to system if no brew python)
-  dko::has "pyenv" && pyenv shell system && \
-    dko::status_ "Switched to system python"
+  dko::has "pyenv" && pyenv shell system \
+    && dko::status_ "Switched to system python"
 
   dko::status "Upgrade packages"
   brew upgrade --all --cleanup
@@ -312,8 +314,8 @@ __dotfiles_update_brew() {
   fi
 
   # restore pyenv python
-  dko::has "pyenv" && pyenv shell --unset && \
-    dko::status_ "Switched to global python"
+  dko::has "pyenv" && pyenv shell --unset \
+    && dko::status_ "Switched to global python"
 
   cd - || return 1
   __dotfiles_update_brew_done
