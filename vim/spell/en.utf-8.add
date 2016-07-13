@@ -202,3 +202,8 @@ ftplugin
 runtimes
 disable
 Neomake
+namespaced
+userspace
+terminfo
+symlinks
+Debian
