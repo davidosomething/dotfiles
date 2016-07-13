@@ -47,8 +47,8 @@ dko::dotfiles::__usage() {
 }
 
 dko::dotfiles::__reload() {
-  source "${DOTFILES}/shell/update.sh" \
-    && dko::status "Reloaded shell/update.sh"
+  source "${DOTFILES}/shell/dotfiles.sh" \
+    && dko::status "Reloaded shell/dotfiles.sh"
 }
 
 dko::dotfiles::__update() {
