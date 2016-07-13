@@ -3,9 +3,6 @@
 # Update dotfiles and provide instructions for updating the system
 # THIS FILE IS SOURCED to give access to current shell
 #
-# @namespace  dko
-# @package    dotfiles
-#
 
 # ==============================================================================
 # Command functions
