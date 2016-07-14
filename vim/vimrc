@@ -6,7 +6,7 @@
 " ██╗╚████╔╝  ██║ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗
 " ╚═╝ ╚═══╝   ╚═╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝
 "
-if has("vim_starting") | set encoding=utf-8 nobomb | endif
+if has('vim_starting') | set encoding=utf-8 nobomb | endif
 scriptencoding utf-8
 " note: set encoding BEFORE scriptencoding
 
@@ -161,7 +161,7 @@ set fileformat=unix
 
 " info file -- nvim uses shada in $XDG_DATA_HOME so that's cool.
 if !has('nvim')
-  execute 'set viminfo+=n' . expand(dko#vim_dir . '/.tmp/cache/.viminfo')
+  execute 'set viminfo+=n' . expand(g:dko#vim_dir . '/.tmp/cache/.viminfo')
 endif
 
 " From https://github.com/swizzard/dotfiles/blob/master/.vimrc
@@ -179,7 +179,7 @@ endif
 
 " swap - useless
 set noswapfile
-execute 'set directory=' . dko#vim_dir . '/.tmp/swap//'
+execute 'set directory=' . g:dko#vim_dir . '/.tmp/swap//'
 
 " backups
 set backupskip=/tmp/*
@@ -191,7 +191,7 @@ if has('mac')
     autocmd BufEnter  /private/tmp/crontab.*  setlocal backupcopy=yes
   augroup END
 endif
-execute 'set backupdir=' . dko#vim_dir . '/.tmp/backup//'
+execute 'set backupdir=' . g:dko#vim_dir . '/.tmp/backup//'
 set backup
 
 " undo files
@@ -199,7 +199,7 @@ set backup
 set undofile
 set undolevels=1000
 set undoreload=10000
-execute 'set undodir=' . dko#vim_dir . '/.tmp/undo//'
+execute 'set undodir=' . g:dko#vim_dir . '/.tmp/undo//'
 
 " ----------------------------------------------------------------------------
 " Spellcheck
@@ -464,7 +464,7 @@ let g:loaded_zipPlugin = 1
 
 " netrw in details format when no vimfiler
 let g:netrw_liststyle = 3
-let g:netrw_home = expand(dko#vim_dir . '/.tmp/cache')
+let g:netrw_home = expand(g:dko#vim_dir . '/.tmp/cache')
 let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
 " ----------------------------------------------------------------------------
@@ -641,13 +641,13 @@ function! s:LoadPlugins()
   " = and i= for conflicts marked blocks
   " f for function (c, java, js, php, vim only)
   Plug 'kana/vim-textobj-user'
-        \| Plug 'kana/vim-textobj-entire', { 'on': '<Plug>(textobj-entire' }
-        \| Plug 'kana/vim-textobj-indent', { 'on': '<Plug>(textobj-indent' }
-        \| Plug 'kana/vim-textobj-line', { 'on': '<Plug>(textobj-line' }
-        \| Plug 'akiyan/vim-textobj-php'
+        \| Plug 'kana/vim-textobj-entire'
+        \| Plug 'kana/vim-textobj-indent'
+        \| Plug 'kana/vim-textobj-line'
         \| Plug 'mattn/vim-textobj-url'
-        \| Plug 'rhysd/vim-textobj-anyblock', { 'on': '<Plug>(textobj-anyblock' }
+        \| Plug 'rhysd/vim-textobj-anyblock'
         \| Plug 'rhysd/vim-textobj-conflict'
+        \| Plug 'akiyan/vim-textobj-php'
         \| Plug 'kana/vim-textobj-function'
         \| Plug 'thinca/vim-textobj-function-javascript'
         \| Plug 'kentaro/vim-textobj-function-php'
@@ -954,12 +954,12 @@ endfunction
 
 let s:plug_dir = '/vendor/vim'
 if has('nvim') | let s:plug_dir = '/vendor/nvim' | endif
-let s:dko_plug_absdir = dko#vim_dir . s:plug_dir
+let s:dko_plug_absdir = g:dko#vim_dir . s:plug_dir
 
 " Load vim-plug and its plugins?
-if empty(glob(expand(dko#vim_dir . '/autoload/plug.vim')))
+if empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
   execute 'silent !curl -fLo '
-        \ . dko#vim_dir . '/autoload/plug.vim '
+        \ . g:dko#vim_dir . '/autoload/plug.vim '
         \ . 'https://raw.githubusercontent.com/'
         \ . 'junegunn/vim-plug/master/plug.vim'
 endif
