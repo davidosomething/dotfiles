@@ -176,31 +176,45 @@ dko::dotfiles::__update_node() {
 }
 
 dko::dotfiles::__update_nvm() {
-  local previous_nvm
-  local latest_nvm
+  (
+    if [ ! -d "$NVM_DIR" ]; then
+      dko::status "Installing nvm"
+      git clone https://github.com/creationix/nvm.git "$NVM_DIR" \
+        || dko::die "Could not install nvm"
+    fi
 
-  if [ ! -d "$NVM_DIR" ]; then
-    dko::status "Installing nvm"
-    git clone https://github.com/creationix/nvm.git "$NVM_DIR"
-  fi
+    dko::status "Updating nvm"
+    cd "$NVM_DIR" || dko::die "Could not cd to \$NVM_DIR at $NVM_DIR"
+    readonly previous_nvm="$(git describe --abbrev=0 --tags)"
 
-  dko::status "Updating nvm"
-  cd "$NVM_DIR"  || { dko::err "Could not cd to \$NVM_DIR" && return 1; }
+    dko::status "Fetching latest nvm"
+    { git checkout master && git pull --ff-only; } \
+      || dko::die "Could not fetch"
+    readonly latest_nvm="$(git describe --abbrev=0 --tags)"
 
-  previous_nvm="$(git describe --abbrev=0 --tags)"
-  { git checkout master && git pull; } || {
-    dko::err "Could not update nvm"
-    cd - || return 1
-    return 1;
-  }
-  latest_nvm="$(git describe --abbrev=0 --tags)"
-  git checkout "$latest_nvm" || {
-    dko::err "Could not update nvm"
-    cd - || return 1
-    return 1
-  }
-  [ "$previous_nvm" != "$latest_nvm" ] && source "$NVM_DIR/nvm.sh"
-  cd - || return 1
+    # Already up to date
+    [[ "$previous_nvm" == "$latest_nvm" ]] && exit
+
+    dko::status "Fast-forwarding to latest nvm"
+    git checkout --quiet --progress "$latest_nvm" \
+      || dko::die "Could not fast-forward"
+
+    # Updated
+    exit 3
+  )
+
+  case "$?" in
+    3)    dko::status "Reloading nvm"
+          source "$NVM_DIR/nvm.sh"
+          return $?
+          ;;
+    256)  dko::err "Could not update nvm"
+          return 1
+          ;;
+  esac
+
+  dko::status "Already at latest nvm"
+  return 0
 }
 
 # $1 pip command (e.g. `pip2`)
