@@ -12,7 +12,7 @@
 
 set -eu
 
-_wpp() {
+__wpp() {
   local plugin_name
   plugin_name=""
 
@@ -23,12 +23,12 @@ _wpp() {
 
   if [[ -n "$BROWSER" ]]; then
     $BROWSER "http://wordpress.org/plugins/$plugin_name" &
-  elif has_program "xdg-open"; then
+  elif dko::has "xdg-open"; then
     xdg-open "http://wordpress.org/plugins/$plugin_name" &
   elif [[ $(uname) == "Darwin" ]]; then
     open "http://wordpress.org/plugins/$plugin_name" &
   fi
 }
 
-_wpp "$@"
+__wpp "$@"
 

@@ -5,8 +5,8 @@
 # ==============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
-source "${HOME}/.dotfiles/shell/vars"
-source "${DOTFILES}/shell/before"
+source "${HOME}/.dotfiles/shell/vars.sh"
+source "${DOTFILES}/shell/before.sh"
 
 # ==============================================================================
 # Plugins
@@ -26,7 +26,7 @@ source "${BASH_DOTFILES}/prompt.bash"
 # After
 # ==============================================================================
 
-source "${DOTFILES}/shell/after"
+source "${DOTFILES}/shell/after.sh"
 source_if_exists "${DOTFILES}/local/bashrc"
 
 export DKO_SOURCE="${DKO_SOURCE} }"

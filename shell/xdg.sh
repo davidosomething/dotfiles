@@ -5,7 +5,7 @@
 
 [ -n "$DKO_SOURCED_XDG" ] && return
 export DKO_SOURCED_XDG=1
-export DKO_SOURCE="${DKO_SOURCE} -> shell/xdg {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/xdg.sh {"
 
 # ============================================================================
 # Define dirs

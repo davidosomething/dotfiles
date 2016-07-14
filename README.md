@@ -2,7 +2,7 @@
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
-- macOS/OS X, Arch Linux, and Debian compatible
+- mac OS/OS X, Arch Linux, and Debian compatible
 - XDG compliance wherever possible to keep `$HOME` clean
     - See [Archlinux wiki for XDG Base Directory Support]
     - See [Debian DotFilesList]
@@ -41,7 +41,7 @@ git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
 
 #### Dev environment setup
 
-Install these using the system package manager. For macOS/OS X there are helper
+Install these using the system package manager. For mac OS/OS X there are helper
 scripts.
 
 - `chruby`, `ruby-install`, then use ruby-install to install a version of ruby
@@ -70,7 +70,7 @@ first.
 
 ## Updating
 
-The sourced `__dotfiles_main()` function is available as the alias `u`.
+The sourced `dko::dotfiles::main()` function is available as the alias `u`.
 Use `u` without arguments for usage.
 
 ## Notes
@@ -84,7 +84,7 @@ Use `u` without arguments for usage.
 - `git/`
     - The comment character was changed from `#` to `;` so I can use Markdown
       in my commit messages without trimming the headers as comments. This is
-      also reflected in a custom vim highlighting syntax in
+      also reflected in a custom Vim highlighting syntax in
       `vim/after/syntax/gitcommit.vim`.
 - `python/`
     - Never `sudo pip`. Set up a pyenv, and use a pyenv-virtualenv (which will
@@ -118,14 +118,17 @@ For X apps (no terminal) the value is probably:
     - Two space indents
 - **Function names**
     - My helpers for scripting and provisioning via these dotfiles are
-      namespaced following [google shell style] as `dko::function_name()`
+      namespaced following [google shell style] as `dko::function_name()`.
+      These functions are expected to persist for the lifetime of the script
+      or in the shell if the script was sourced.
     - For private functions in a script, use two underscores `__private_func()`
+      These function names are safe to reuse after script execution.
 - **Variable interpolation**
     - Always use curly braces around the variable name when interpolating in
       double quotes.
 - **Variable scope**
     - Try to use `local` and `readonly` variables as much as possible over
-      unscoped variables.
+      global/shell-scoped variables.
 
 ## Credits
 

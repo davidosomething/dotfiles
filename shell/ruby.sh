@@ -1,9 +1,9 @@
-# shell/ruby
+# shell/ruby.sh
 #
 # Uses vars from shell/vars and shell/os
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/ruby {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
 
 export GEMRC="${DOTFILES}/ruby/gemrc"
 

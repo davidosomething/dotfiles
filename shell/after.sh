@@ -3,14 +3,14 @@
 # Runs before local/* .zshrc and .bashrc
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/after {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 
 # ==============================================================================
 # Grunt completion
 # ==============================================================================
 
 # ZSH one loaded by plugin
-has_program "grunt" && {
+dko::has "grunt" && {
   [ -n "$ZSH_VERSION" ] && eval "$(grunt --completion=zsh)"
   [ -n "$BASH" ] && eval "$(grunt --completion=bash)"
 }

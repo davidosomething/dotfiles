@@ -14,7 +14,7 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
     setopt xtrace prompt_subst
 fi
 
-source "${HOME}/.dotfiles/shell/vars"
+source "${HOME}/.dotfiles/shell/vars.sh"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
 export HISTFILE="${ZDOTDIR}/.zhistory"
 export DKO_SOURCE="${DKO_SOURCE} }"

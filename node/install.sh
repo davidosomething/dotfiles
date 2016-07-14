@@ -1,21 +1,40 @@
 #!/usr/bin/env bash
 
 set -eu
-if [ -z "$DOTFILES" ]; then exit 1; fi
-source "${DOTFILES}/bootstrap/helpers.sh"
 
-dko::status "Installing Yeoman"
-npm install --force --global yo
+# =============================================================================
+# Require DOTFILES
+# =============================================================================
 
-dko::status "Checking npm environment"
-yo doctor || exit 1
+if [ -z "$DOTFILES" ]; then
+  echo ".dotfiles repo is not set up"
+  exit 1
+fi
+source "${DOTFILES}/shell/helpers.sh"
 
-dko::status "Installing global node packages"
-# loop through packages.txt file and install each one
-while read -r package; do
-  if [ "$package" != "yo" ]; then
-    # npm ls --global --parseable --depth=0 "$package" ||
-    npm install --force --global "$package"
-  fi
-done < packages.txt
+# =============================================================================
+# Main
+# =============================================================================
 
+# @TODO check for nvm node
+__install() {
+  dko::status "Installing latest NPM"
+  npm install npm@latest
+
+  dko::status "Installing Yeoman"
+  npm install --force --global yo
+
+  dko::status "Checking npm environment"
+  yo doctor || exit 1
+
+  dko::status "Installing global node packages"
+  # loop through packages.txt file and install each one
+  while read -r package; do
+    if [ "$package" != "yo" ]; then
+      # npm ls --global --parseable --depth=0 "$package" ||
+      npm install --force --global "$package"
+    fi
+  done < packages.txt
+}
+
+__install

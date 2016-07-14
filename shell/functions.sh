@@ -1,7 +1,8 @@
-# Shell functions
+# shell/functions.sh
+#
 # Sourced in bash and zsh by loader
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/functions"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/functions.sh"
 
 # ============================================================================
 # Scripting
@@ -9,11 +10,6 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/functions"
 
 current_shell() {
   ps -p $$ | awk 'NR==2 { print $4 }'
-}
-
-# silently determine existence of executable
-has_program() {
-  command -v "$1" >/dev/null 2>&1
 }
 
 # source a file if it exists
@@ -135,9 +131,9 @@ gitexport() {
 
 mykey() {
   cat "$HOME/.ssh/id_rsa.pub"
-  if has_program "pbcopy"; then
+  if dko::has "pbcopy"; then
     pbcopy < "$HOME/.ssh/id_rsa.pub"
-  elif has_program "xclip"; then
+  elif dko::has "xclip"; then
     xclip "$HOME/.ssh/id_rsa.pub"
   fi
 }
@@ -170,7 +166,7 @@ ios() {
 }
 
 vol() {
-  if has_program "osascript"; then
+  if dko::has "osascript"; then
     osascript -e "set volume ${1}"
   fi
 }
