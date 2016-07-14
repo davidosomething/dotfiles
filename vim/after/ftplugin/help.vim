@@ -8,7 +8,7 @@ set cpoptions&vim
 " Don't hide formatting symbols
 " ============================================================================
 
-if !&ro && has("conceal")
+if !&readonly && has('conceal')
   setlocal conceallevel=0
   setlocal concealcursor=
 endif
@@ -32,7 +32,7 @@ function! s:Close()
   endif
 endfunction
 
-if &buftype == 'help'
+if &buftype ==# 'help'
   nnoremap  <silent><buffer>   q   :<C-u>call <SID>Close()<CR>
   nmap      <silent><buffer>   Q   q
 
