@@ -76,6 +76,26 @@ dko::dotfiles::__update_secret() {
 }
 
 # ------------------------------------------------------------------------------
+# Private utilities
+# ------------------------------------------------------------------------------
+
+dko::dotfiles::__pyenv_system() {
+  # switch to brew's python (fallback to system if no brew python)
+  dko::has "pyenv" \
+    && echo \
+    && dko::status "Switching to system python to upgrade brew packages" \
+    && pyenv shell system
+}
+
+dko::dotfiles::__pyenv_global() {
+  # restore pyenv python
+  dko::has "pyenv" \
+    && echo \
+    && dko::status_ "Switching back to global python" \
+    && pyenv shell --unset
+}
+
+# ------------------------------------------------------------------------------
 # Externals
 # ------------------------------------------------------------------------------
 
@@ -273,63 +293,40 @@ dko::dotfiles::__update_brew_done() {
 
 dko::dotfiles::__update_brew() {
   dko::status "Updating homebrew"
+  (
+    dko::has "brew" || dko::die "Homebrew is not installed."
 
-  # enter dotfiles dir to do this in case user has any gem flags or local
-  # vendor bundle that will cause use of local gems
-  cd "$DOTFILES" || {
-    dko::err "Can't enter \$DOTFILES to run brew in clean environment"
-    cd - || return 1
-    return 1
-  }
+    # enter dotfiles dir to do this in case user has any gem flags or local
+    # vendor bundle that will cause use of local gems
+    cd "$DOTFILES" || {
+      cd - || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
+    }
 
-  brew update
+    brew update
 
-  # check if needed
-  local outdated=""
-  outdated="$(brew outdated --quiet)"
-  if [ -z "$outdated" ]; then
-    dko::status "All packages up-to-date"
-    dko::dotfiles::__update_brew_done
-    return
-  fi
+    # check if needed
+    readonly outdated="$(brew outdated --quiet)"
+    [ -z "$outdated" ] && exit
 
-  # switch to brew's python (fallback to system if no brew python)
-  dko::has "pyenv" && pyenv shell system \
-    && dko::status_ "Switched to system python"
+    dko::dotfiles::__pyenv_system
 
-  dko::status "Upgrade packages"
-  brew upgrade --all --cleanup
+    # Detect if brew's python3 (not pyenv) was outdated
+    # Reinstall macvim with new python3 if needed
+    grep -q "python3" <<<"$outdated"      \
+      && dko::status "Upgrading python3"  \
+      && brew upgrade python3             \
+      && brew linkapps python3            \
+      && dko::status "Rebuilding macvim with new python3" \
+      && brew reinstall macvim --with-lua --with-override-system-vim --with-python3 \
+      && dko::status "Linking new macvim.app" \
+      && brew linkapps macvim
 
-  # Detect if brew's python3 (not pyenv) was upgraded
-  # Reinstall macvim with new python3 if needed
-  if echo "$outdated" | grep -q "python3"; then
-    dko::dotfiles::__update_python3
-    dko::dotfiles::__update_macvim
-  fi
+    dko::status "Upgrading packages"
+    brew upgrade --all
 
-  # restore pyenv python
-  dko::has "pyenv" && pyenv shell --unset \
-    && dko::status_ "Switched to global python"
+    dko::dotfiles::__pyenv_global
 
-  cd - || return 1
-  dko::dotfiles::__update_brew_done
-}
-
-# Must use brew/system python!
-dko::dotfiles::__update_python3() {
-  dko::status_ "Linking python3 apps"
-  brew linkapps python3 || {
-    dko::err "Error linking python3" && return 1
-  }
-}
-
-# Must use brew/system python!
-dko::dotfiles::__update_macvim() {
-  dko::status_ "Rebuilding macvim for new python3"
-  brew reinstall macvim --with-lua --with-override-system-vim --with-python3 \
-    || { dko::err "Error reinstalling macvim" && return 1; }
-  dko::status_ "Linking new macvim.app"
-  brew linkapps macvim
+  ) && dko::dotfiles::__update_brew_done
 }
 
 # ==============================================================================
