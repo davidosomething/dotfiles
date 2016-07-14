@@ -125,26 +125,6 @@ function! dkoproject#AssignConfigPath(file, var) abort
 endfunction
 
 " ============================================================================
-" Get JS linters based on rc file presence
-" Currently not used, see plugin/plug-neomake.vim
-" @return {String[]} list of linter names
-function! dkoproject#JsLinters() abort
-  if exists('b:dko_js_linters')
-    return b:dko_js_linters
-  endif
-
-  let b:dko_js_linters = ['eslint']
-
-  " Can definitely DRY this up...
-  let l:jshintrc = dkoproject#GetProjectConfigFile('.jshintrc')
-  if !empty(l:jshintrc)
-    let b:dko_js_linters += ['jshint']
-  endif
-
-  return b:dko_js_linters
-endfunction
-
-" ============================================================================
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
