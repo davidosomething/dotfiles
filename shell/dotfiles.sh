@@ -261,7 +261,7 @@ dko::dotfiles::__update_deb() {
 
   if ! dko::has "apt"; then
     dko::err "Plain 'apt' not found, manually use 'apt-get' for crappy systems."
-    exit 1
+    return 1
   fi
 
   sudo apt update
