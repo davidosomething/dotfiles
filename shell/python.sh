@@ -20,22 +20,12 @@ export PYLINTHOME="${XDG_CONFIG_HOME}/pylint"
 
 export PYENV_ROOT="${HOME}/.local/pyenv"
 export PATH="${PYENV_ROOT}/bin:${PATH}"
-
-dko::has "pyenv" && {
-  eval "$(pyenv init -)"
-
-  # Don't try to auto-init venv
-  #eval "$(pyenv virtualenv init -)"
-}
+dko::has "pyenv" && eval "$(pyenv init -)"
+dko::has "pyenv-virtualenv-init" && eval "$(pyenv virtualenv-init -)"
 
 # ==============================================================================
 # VirtualEnv for python package isolation
 # ==============================================================================
-
-# VirtualEnvWrapper is still in play for easier mgmt of py2 virtualenvs
-
-# Safety -- only allow pip installs in a virtualenv
-#export PIP_REQUIRE_VIRTUALENV=true
 
 # Default virtualenv
 export WORKON_HOME="${HOME}/.local/virtualenv"
@@ -53,12 +43,6 @@ virtualenv_info() {
   fi
   [[ -n "$venv" ]] && echo "$venv"
 }
-
-# Auto-init default virtualenv
-dko_virtualenv_wrapper="$(which virtualenvwrapper_lazy.sh)"
-source_if_exists "$dko_virtualenv_wrapper"
-# || source_if_exists /usr/bin/virtualenvwrapper_lazy.sh \
-# || source_if_exists /usr/bin/virtualenvwrapper.sh
 
 # ==============================================================================
 # pip
