@@ -479,9 +479,6 @@ function! s:LoadPlugins()
   " @see https://github.com/haya14busa/incsearch.vim/issues/79
   let s:use_incsearch       = 1 && !has('nvim')
 
-  let s:use_deoplete        = 1 && has('nvim') && has('python3')
-  let s:use_neocomplete     = 1 && has('lua')
-
   " global, used in plugin/completion.vim
   let g:dko_use_tern_completion = 1 && executable('npm')
 
@@ -575,12 +572,10 @@ function! s:LoadPlugins()
   " Plug: Completion
   " ========================================================================
 
-  if s:use_neocomplete | Plug 'Shougo/neocomplete.vim'
-  elseif s:use_deoplete
-    function! DoRemote(arg)
-      UpdateRemotePlugins
-    endfunction
-    Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+  if has('lua')
+    Plug 'Shougo/neocomplete.vim'
+  elseif has('nvim') && has('python3')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   endif
 
   let g:dko_has_completion =
