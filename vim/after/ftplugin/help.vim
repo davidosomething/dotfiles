@@ -1,4 +1,4 @@
-" plugin/help.vim
+" after/ftplugin/help.vim
 " Help buffer
 
 let s:cpo_save = &cpoptions
