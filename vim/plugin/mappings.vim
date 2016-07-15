@@ -58,27 +58,42 @@ nnoremap  <silent>  <Leader>ez   :<C-u>edit $ZDOTDIR/.zshrc<CR>
 " Buffer manip
 " ============================================================================
 
+" ----------------------------------------------------------------------------
 " Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)
+" ----------------------------------------------------------------------------
+
 nnoremap  <special>   <BS>  <C-^>
 
+" ----------------------------------------------------------------------------
 " close buffer with space-bd and auto close loc list first
+" ----------------------------------------------------------------------------
+
 nnoremap  <silent><special>  <Leader>bd  :<C-u>lclose<CR>:bdelete<CR>
 
 " ============================================================================
 " Split manip
 " ============================================================================
 
+" ----------------------------------------------------------------------------
 " Navigate with ctrl+arrow (insert mode leaves user in normal)
+" ----------------------------------------------------------------------------
+
 nnoremap  <special>   <C-Left>    <C-w>h
 nnoremap  <special>   <C-Down>    <C-w>j
 nnoremap  <special>   <C-Up>      <C-w>k
 nnoremap  <special>   <C-Right>   <C-w>l
 
+" ----------------------------------------------------------------------------
 " Cycle with tab in normal mode
+" ----------------------------------------------------------------------------
+
 nnoremap  <special>   <Tab>       <C-w>w
 nnoremap  <special>   <S-Tab>     <C-w>W
 
+" ----------------------------------------------------------------------------
 " Resize (can take a count, eg. 2<S-Left>)
+" ----------------------------------------------------------------------------
+
 nnoremap  <special>   <S-Left>    <C-w><
 imap      <special>   <S-Left>    <C-o><S-Left>
 nnoremap  <special>   <S-Down>    <C-W>-
@@ -114,22 +129,23 @@ cmap jj <Esc>
 nnoremap U :<C-u>syntax sync fromstart<CR>:redraw!<CR>
 
 " ----------------------------------------------------------------------------
-" cd
+" cd to current buffer's git root
 " ----------------------------------------------------------------------------
 
-" ----------------------------------------
-" for all windows
-" ----------------------------------------
-
-" cd to current buffer's git root
 nnoremap <silent>   <Leader>cr
-      \ :<C-u>if exists('b:dkoproject_root') \| execute 'cd! ' . b:dkoproject_root \| endif<CR>
+      \ :<C-u>execute 'cd! ' . get(b:, 'dkoproject_root', getcwd())<CR>
 
+" ----------------------------------------------------------------------------
 " cd to current buffer path
+" ----------------------------------------------------------------------------
+
 nnoremap <silent>   <Leader>cd
       \ :<C-u>cd! %:h<CR>
 
+" ----------------------------------------------------------------------------
 " go up a level
+" ----------------------------------------------------------------------------
+
 nnoremap <silent>   <Leader>..
       \ :<C-u>cd! ..<CR>
 
@@ -137,27 +153,35 @@ nnoremap <silent>   <Leader>..
 " Editing
 " ============================================================================
 
+" ----------------------------------------------------------------------------
 " Use gm to set a mark (since easyclip is using m for "move")
+" ----------------------------------------------------------------------------
+
 nnoremap  gm   m
 vnoremap  gm   m
 
 " ----------------------------------------------------------------------------
-" Scrolling and movement
+" Map the arrow keys to be based on display lines, not physical lines
 " ----------------------------------------------------------------------------
 
-" Map the arrow keys to be based on display lines, not physical lines
 vnoremap  <special>   <Down>      gj
 vnoremap  <special>   <Up>        gk
 nnoremap  <special>   <Leader>mm  :<C-u>call dkomovemode#toggle()<CR>
 
+" ----------------------------------------------------------------------------
 " Replace PgUp and PgDn with Ctrl-U/D
-noremap   <special> <PageUp>    <C-U>
-noremap   <special> <PageDown>  <C-D>
-" same in insert mode, but stay in insert mode (needs recursive)
-imap  <special> <PageUp>    <C-o><PageUp>
-imap  <special> <PageDown>  <C-o><PageDown>
+" ----------------------------------------------------------------------------
 
+noremap   <special>   <PageUp>    <C-U>
+noremap   <special>   <PageDown>  <C-D>
+" same in insert mode, but stay in insert mode (needs recursive)
+imap      <special>   <PageUp>    <C-o><PageUp>
+imap      <special>   <PageDown>  <C-o><PageDown>
+
+" ----------------------------------------------------------------------------
 " Start/EOL
+" ----------------------------------------------------------------------------
+
 " Easier to type, and I never use the default behavior.
 " From https://bitbucket.org/sjl/dotfiles/
 " default is {count}from top line in visible window
@@ -226,6 +250,8 @@ call dkorule#map('-')
 call dkorule#map('=')
 call dkorule#map('#')
 call dkorule#map('*')
+
+" ============================================================================
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
