@@ -1,8 +1,7 @@
 " plugin/plug-neomake.vim
 scriptencoding utf-8
 
-if !exists('g:plugs["neomake"]') || !exists('*neomake#GetMaker') | finish
-endif
+if !exists('g:plugs["neomake"]') | finish | endif
 
 augroup dkoneomake
   autocmd!
@@ -160,8 +159,15 @@ function! s:SetPhpmdRuleset()
   endif
 endfunction
 
+let s:local_maker_phpcs = {
+      \ 'ft':     'php',
+      \ 'maker':  'phpcs',
+      \ 'local':  'vendor/bin/phpcs',
+      \ }
+
 autocmd dkoneomake FileType php
-      \ call s:SetPhpcsStandard()
+      \ call s:AddLocalMaker(s:local_maker_phpcs)
+      \| call s:SetPhpcsStandard()
       \| call s:SetPhpmdRuleset()
 
 " ----------------------------------------------------------------------------
@@ -223,6 +229,10 @@ autocmd dkoneomake      BufWritePost,Filetype,FileChangedShellPost
       \ Neomake
 
 autocmd dkostatusline   User
-      \ NeomakeMakerFinished
+      \ NeomakeCountsChanged
+      \ call dkostatus#Refresh()
+
+autocmd dkostatusline   User
+      \ NeomakeFinished
       \ call dkostatus#Refresh()
 
