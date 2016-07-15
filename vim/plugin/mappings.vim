@@ -1,8 +1,4 @@
-" after/plugin/mappings.vim
-"
-" There are some overrides here for unimpaired and other plugins so this is an
-" after/plugin.
-"
+" plugin/mappings.vim
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
@@ -57,32 +53,6 @@ nnoremap  <silent>  <Leader>evr   :<C-u>edit $VIM_DOTFILES/vimrc<CR>
 nnoremap  <silent>  <Leader>em
       \ :<C-u>edit $VIM_DOTFILES/after/plugin/mappings.vim<CR>
 nnoremap  <silent>  <Leader>ez   :<C-u>edit $ZDOTDIR/.zshrc<CR>
-
-" ============================================================================
-" Unimpaired overrides
-" ============================================================================
-
-" go to last error instead of bitching
-function! s:LocationPrevious()
-  try
-    lprev
-  catch /.*/
-    silent! llast
-  endtry
-endfunction
-nnoremap  <silent>  <Plug>unimpairedLPrevious
-      \ :<C-u>call <SID>LocationPrevious()<CR>
-
-" go to first error instead of bitching
-function! s:LocationNext()
-  try
-    lnext
-  catch /.*/
-    silent! lfirst
-  endtry
-endfunction
-nnoremap  <silent>  <Plug>unimpairedLNext
-      \ :<C-u>call <SID>LocationNext()<CR>
 
 " ============================================================================
 " Buffer manip
@@ -181,9 +151,9 @@ vnoremap  <special>   <Up>        gk
 nnoremap  <special>   <Leader>mm  :<C-u>call dkomovemode#toggle()<CR>
 
 " Replace PgUp and PgDn with Ctrl-U/D
-map   <special> <PageUp>    <C-U>
-map   <special> <PageDown>  <C-D>
-" same in insert mode, but stay in insert mode
+noremap   <special> <PageUp>    <C-U>
+noremap   <special> <PageDown>  <C-D>
+" same in insert mode, but stay in insert mode (needs recursive)
 imap  <special> <PageUp>    <C-o><PageUp>
 imap  <special> <PageDown>  <C-o><PageDown>
 
@@ -256,19 +226,6 @@ call dkorule#map('-')
 call dkorule#map('=')
 call dkorule#map('#')
 call dkorule#map('*')
-
-" ----------------------------------------------------------------------------
-" Bubble and indent mappings  - REQUIRES tim pope's unimpaired
-" ----------------------------------------------------------------------------
-
-" Bubble single lines
-nmap <special> <C-k> [e
-nmap <special> <C-j> ]e
-
-" Bubble multiple lines
-vmap <special> <C-k> [egv
-vmap <special> <C-j> ]egv
-
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
