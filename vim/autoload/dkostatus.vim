@@ -34,7 +34,8 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= dkostatus#Mode()
   let l:contents .= dkostatus#Paste()
   "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
-  let l:contents .= dkostatus#Neomake()
+  let l:contents .= dkostatus#NeomakeJobs()
+  let l:contents .= dkostatus#NeomakeCounts()
   let l:contents .= dkostatus#Readonly()
   let l:contents .= dkostatus#Filetype()
   let l:contents .= dkostatus#Filename()
@@ -100,11 +101,19 @@ function! dkostatus#FormatNeomakeCounts(counts) abort
         \ : ''
 endfunction
 
-function! dkostatus#Neomake() abort
+function! dkostatus#NeomakeCounts() abort
   return s:winnr != winnr()
         \ || empty(glob(expand(g:plug_home . '/neomake')))
         \ ? ''
         \ : dkostatus#FormatNeomakeCounts(neomake#statusline#LoclistCounts())
+endfunction
+
+function! dkostatus#NeomakeJobs() abort
+  return s:winnr != winnr()
+        \ || empty(glob(expand(g:plug_home . '/neomake')))
+        \ || empty(neomake#GetJobs())
+        \ ? ''
+        \ : '%#StatusLineNC# … %*'
 endfunction
 
 function! dkostatus#Readonly() abort
