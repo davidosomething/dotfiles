@@ -1,0 +1,39 @@
+" plugin/plug-unimpaired.vim
+
+if !exists('g:plugs["vim-unimpaired"]') | finish | endif
+
+" ============================================================================
+" Unimpaired overrides
+" ============================================================================
+
+" go to last error instead of bitching
+function! s:LocationPrevious()
+  try
+    lprev
+  catch /.*/
+    silent! llast
+  endtry
+endfunction
+nnoremap  <silent>  <Plug>unimpairedLPrevious
+      \ :<C-u>call <SID>LocationPrevious()<CR>
+
+" go to first error instead of bitching
+function! s:LocationNext()
+  try
+    lnext
+  catch /.*/
+    silent! lfirst
+  endtry
+endfunction
+nnoremap  <silent>  <Plug>unimpairedLNext
+      \ :<C-u>call <SID>LocationNext()<CR>
+
+" ----------------------------------------------------------------------------
+" Bubble remaps
+" ----------------------------------------------------------------------------
+
+nmap <special> <C-k> <Plug>unimpairedMoveUp
+nmap <special> <C-j> <Plug>unimpairedMoveDown
+vmap <special> <C-k> <Plug>unimpairedMoveSelectionUp
+vmap <special> <C-j> <Plug>unimpairedMoveSelectionDown
+

@@ -1,8 +1,4 @@
-" after/plugin/mappings.vim
-"
-" There are some overrides here for unimpaired and other plugins so this is an
-" after/plugin.
-"
+" plugin/mappings.vim
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
@@ -59,56 +55,45 @@ nnoremap  <silent>  <Leader>em
 nnoremap  <silent>  <Leader>ez   :<C-u>edit $ZDOTDIR/.zshrc<CR>
 
 " ============================================================================
-" Unimpaired overrides
-" ============================================================================
-
-" go to last error instead of bitching
-function! s:LocationPrevious()
-  try
-    lprev
-  catch /.*/
-    silent! llast
-  endtry
-endfunction
-nnoremap  <silent>  <Plug>unimpairedLPrevious
-      \ :<C-u>call <SID>LocationPrevious()<CR>
-
-" go to first error instead of bitching
-function! s:LocationNext()
-  try
-    lnext
-  catch /.*/
-    silent! lfirst
-  endtry
-endfunction
-nnoremap  <silent>  <Plug>unimpairedLNext
-      \ :<C-u>call <SID>LocationNext()<CR>
-
-" ============================================================================
 " Buffer manip
 " ============================================================================
 
+" ----------------------------------------------------------------------------
 " Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)
+" ----------------------------------------------------------------------------
+
 nnoremap  <special>   <BS>  <C-^>
 
+" ----------------------------------------------------------------------------
 " close buffer with space-bd and auto close loc list first
+" ----------------------------------------------------------------------------
+
 nnoremap  <silent><special>  <Leader>bd  :<C-u>lclose<CR>:bdelete<CR>
 
 " ============================================================================
 " Split manip
 " ============================================================================
 
+" ----------------------------------------------------------------------------
 " Navigate with ctrl+arrow (insert mode leaves user in normal)
+" ----------------------------------------------------------------------------
+
 nnoremap  <special>   <C-Left>    <C-w>h
 nnoremap  <special>   <C-Down>    <C-w>j
 nnoremap  <special>   <C-Up>      <C-w>k
 nnoremap  <special>   <C-Right>   <C-w>l
 
+" ----------------------------------------------------------------------------
 " Cycle with tab in normal mode
+" ----------------------------------------------------------------------------
+
 nnoremap  <special>   <Tab>       <C-w>w
 nnoremap  <special>   <S-Tab>     <C-w>W
 
+" ----------------------------------------------------------------------------
 " Resize (can take a count, eg. 2<S-Left>)
+" ----------------------------------------------------------------------------
+
 nnoremap  <special>   <S-Left>    <C-w><
 imap      <special>   <S-Left>    <C-o><S-Left>
 nnoremap  <special>   <S-Down>    <C-W>-
@@ -144,22 +129,23 @@ cmap jj <Esc>
 nnoremap U :<C-u>syntax sync fromstart<CR>:redraw!<CR>
 
 " ----------------------------------------------------------------------------
-" cd
+" cd to current buffer's git root
 " ----------------------------------------------------------------------------
 
-" ----------------------------------------
-" for all windows
-" ----------------------------------------
-
-" cd to current buffer's git root
 nnoremap <silent>   <Leader>cr
-      \ :<C-u>if exists('b:dkoproject_root') \| execute 'cd! ' . b:dkoproject_root \| endif<CR>
+      \ :<C-u>execute 'cd! ' . get(b:, 'dkoproject_root', getcwd())<CR>
 
+" ----------------------------------------------------------------------------
 " cd to current buffer path
+" ----------------------------------------------------------------------------
+
 nnoremap <silent>   <Leader>cd
       \ :<C-u>cd! %:h<CR>
 
+" ----------------------------------------------------------------------------
 " go up a level
+" ----------------------------------------------------------------------------
+
 nnoremap <silent>   <Leader>..
       \ :<C-u>cd! ..<CR>
 
@@ -167,27 +153,35 @@ nnoremap <silent>   <Leader>..
 " Editing
 " ============================================================================
 
+" ----------------------------------------------------------------------------
 " Use gm to set a mark (since easyclip is using m for "move")
+" ----------------------------------------------------------------------------
+
 nnoremap  gm   m
 vnoremap  gm   m
 
 " ----------------------------------------------------------------------------
-" Scrolling and movement
+" Map the arrow keys to be based on display lines, not physical lines
 " ----------------------------------------------------------------------------
 
-" Map the arrow keys to be based on display lines, not physical lines
 vnoremap  <special>   <Down>      gj
 vnoremap  <special>   <Up>        gk
 nnoremap  <special>   <Leader>mm  :<C-u>call dkomovemode#toggle()<CR>
 
+" ----------------------------------------------------------------------------
 " Replace PgUp and PgDn with Ctrl-U/D
-map   <special> <PageUp>    <C-U>
-map   <special> <PageDown>  <C-D>
-" same in insert mode, but stay in insert mode
-imap  <special> <PageUp>    <C-o><PageUp>
-imap  <special> <PageDown>  <C-o><PageDown>
+" ----------------------------------------------------------------------------
 
+noremap   <special>   <PageUp>    <C-U>
+noremap   <special>   <PageDown>  <C-D>
+" same in insert mode, but stay in insert mode (needs recursive)
+imap      <special>   <PageUp>    <C-o><PageUp>
+imap      <special>   <PageDown>  <C-o><PageDown>
+
+" ----------------------------------------------------------------------------
 " Start/EOL
+" ----------------------------------------------------------------------------
+
 " Easier to type, and I never use the default behavior.
 " From https://bitbucket.org/sjl/dotfiles/
 " default is {count}from top line in visible window
@@ -257,18 +251,7 @@ call dkorule#map('=')
 call dkorule#map('#')
 call dkorule#map('*')
 
-" ----------------------------------------------------------------------------
-" Bubble and indent mappings  - REQUIRES tim pope's unimpaired
-" ----------------------------------------------------------------------------
-
-" Bubble single lines
-nmap <special> <C-k> [e
-nmap <special> <C-j> ]e
-
-" Bubble multiple lines
-vmap <special> <C-k> [egv
-vmap <special> <C-j> ]egv
-
+" ============================================================================
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

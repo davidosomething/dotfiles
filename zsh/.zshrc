@@ -152,6 +152,8 @@ __load_zplug() {
   fi
 
   # load zplug_init if not loaded (existing install)
+  # Note: ZPLUG_ROOT is manually unset in .zshenv ! This ensures plugins are
+  # loaded for tmux and subshells (e.g. `exec $SHELL`)
   [ -z "$ZPLUG_ROOT" ] && __load_zplug_init
 
   # define plugins
