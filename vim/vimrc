@@ -840,7 +840,6 @@ function! s:LoadPlugins()
             \   'do': 'composer update',
             \   'for': 'php'
             \ }
-      Plug 'vim-scripts/progressbar-widget'
     elseif has('python') || has('python3')
       Plug 'mkusher/padawan.vim', {
             \   'do': 'composer global require mkusher/padawan',
