@@ -60,11 +60,13 @@ function! s:AddLocalMaker(settings) abort
 
   " Enable the maker
   if !empty(l:bin)
+    " Init b: variable as list if not exists
     let b:neomake_{a:settings['ft']}_enabled_makers = get(
           \   b:,
           \   'neomake_' . a:settings['ft'] . '_enabled_makers',
           \   []
           \ )
+    " Add new local maker to list
     call add(b:neomake_{a:settings['ft']}_enabled_makers, a:settings['maker'])
   endif
 endfunction
@@ -96,11 +98,14 @@ autocmd dkoneomake FileType javascript
 " ----------------------------------------------------------------------------
 
 " Let pandoc use markdownlint as well
-let g:neomake_pandoc_markdownlint_maker = neomake#GetMaker('markdownlint')
+let g:neomake_pandoc_markdownlint_maker = neomake#GetMaker(
+      \ 'markdownlint',
+      \ 'markdown'
+      \ )
 
 let g:neomake_markdown_enabled_makers = []
 if executable('markdownlint')
-  call add(g:neomake_markdown_enabled_makers, 'markdownlint')
+  let g:neomake_markdown_enabled_makers += [ 'markdownlint' ]
 endif
 let g:neomake_pandoc_enabled_makers = g:neomake_markdown_enabled_makers
 
