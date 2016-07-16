@@ -114,6 +114,10 @@ dko::dotfiles::__update_composer() {
 
 dko::dotfiles::__update_fzf() {
   dko::status "Updating fzf"
+  [ -x "/usr/local/bin/fzf" ] \
+    && dko::status "fzf was installed via brew" \
+    && return 0
+
   (
     cd "${HOME}/.fzf" || dko::die "Could not cd to ~/.fzf"
     git pull || dko::die "Could not update ~/.fzf"

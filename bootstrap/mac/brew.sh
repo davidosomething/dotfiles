@@ -37,6 +37,7 @@ brew install icdiff
 brew install jq jsonpp
 
 # programming ------------------------------------------------------------------
+brew install git diff-so-fancy
 brew install cloc
 brew install lua
 brew install mono
