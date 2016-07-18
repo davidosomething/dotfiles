@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
-set -e
-
+#
 # Basic symlinks, safe to run on any system
+#
+
+set -e
 
 # initialize script and dependencies -------------------------------------------
 # get this bootstrap folder
 cd "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
-readonly bootstrap_path="${dotfiles_path}/bootstrap"
-source "${bootstrap_path}/helpers.sh"
+source "${dotfiles_path}/shell/helpers.sh"
 
 # begin ------------------------------------------------------------------------
 dko::status "Symlinking dotfiles"
@@ -24,6 +25,9 @@ dko::symlink shell/.inputrc                       .config/readline/inputrc
 # (n)vim
 dko::symlink vim                                  .vim
 dko::symlink vim                                  .config/nvim
+
+# hyperterm
+dko::symlink hyperterm/.hyperterm.js              .hyperterm.js
 
 case "$OSTYPE" in
   darwin*)
