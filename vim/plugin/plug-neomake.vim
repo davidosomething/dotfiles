@@ -145,8 +145,9 @@ autocmd dkoneomake BufNewFile,BufRead *.md call s:SetupMarkdownlint()
 
 function! s:SetPhpcsStandard()
   " WordPress
-  if expand('%:p') =~? 'content/(mu-plugins\|plugins\|themes)'
+  if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
     let b:neomake_php_phpcs_args = neomake#makers#ft#php#phpcs().args
+          \ + [ '--runtime-set', 'installed_paths', '~/src/wpcs' ]
           \ + [ '--standard=WordPress-Extra' ]
   endif
 endfunction
