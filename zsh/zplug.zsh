@@ -76,12 +76,12 @@ zplug "robbyrussell/oh-my-zsh", \
 # These addons need to be nice, otherwise won't override _brew
 
 zplug "vasyharan/zsh-brew-services",  \
-  if:"[[ $OSTYPE == *darwin* ]]",     \
+  if:"[[ $OSTYPE == "darwin"* ]]",     \
   nice:10
 
 zplug "plugins/brew-cask",        \
   from:oh-my-zsh,                 \
-  if:"[[ $OSTYPE == *darwin* ]]", \
+  if:"[[ $OSTYPE == "darwin"* ]]", \
   nice:10                         \
 
 # completions I have locally
