@@ -148,7 +148,7 @@ sparingly (mostly for `setlocal` ftplugin settings).
 - `g:dko_variable_name` - dko_snake_case for my global variables
 - `dkoautocommandgroup` - lowercasealphanumer1c
 
-
+----
 
 [Syntax-Checkers]: https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers
 [syntastic]: https://github.com/scrooloose/syntastic
