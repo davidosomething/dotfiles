@@ -57,6 +57,7 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
     'hyperterm-blink',
+    'hyperterm-hyperline',
     'hyperterm-tomorrow-night',
   ],
 
