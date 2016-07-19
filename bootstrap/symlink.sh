@@ -27,7 +27,7 @@ dko::symlink vim                                  .vim
 dko::symlink vim                                  .config/nvim
 
 # hyperterm
-dko::symlink hyperterm/.hyperterm.js              .hyperterm.js
+dko::symlink hyperterm/dot.hyperterm.js           .hyperterm.js
 
 case "$OSTYPE" in
   darwin*)
