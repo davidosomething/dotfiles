@@ -34,11 +34,14 @@ brew install multitail
 
 # pretty print and processor ---------------------------------------------------
 brew install icdiff
-brew install jq jsonpp
+brew install jq
+brew install jsonpp
 
 # programming ------------------------------------------------------------------
-brew install git diff-so-fancy
 brew install cloc
+brew install diff-so-fancy
+brew install git
+brew install hyperterm
 brew install lua
 brew install mono
 brew install tidy-html5
@@ -49,9 +52,10 @@ brew install bats shellcheck
 brew install tmux
 
 # web --------------------------------------------------------------------------
-brew install curl wget
+brew install curl
 brew install dnsmasq
 brew install openssl
+brew install wget
 
 # links to /Applications -------------------------------------------------------
 brew linkapps
