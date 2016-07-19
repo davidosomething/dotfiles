@@ -57,8 +57,9 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
     'hyperterm-blink',
-    'hyperterm-hyperline',
-    'hyperterm-tomorrow-night',
+    'hyperterm-material',
+    'hyperline',
+    'hyperlinks',
   ],
 
   // in development, you can create a directory under
