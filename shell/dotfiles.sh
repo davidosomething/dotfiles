@@ -87,8 +87,8 @@ dko::dotfiles::__pyenv_system() {
     && pyenv shell system
 }
 
+# probably don't need this as long as running updates in subshells
 dko::dotfiles::__pyenv_global() {
-  # restore pyenv python
   dko::has "pyenv" \
     && echo \
     && dko::status_ "Switching back to global python" \
@@ -245,8 +245,9 @@ dko::dotfiles::__update_linux() {
 
 dko::dotfiles::__update_darwin() {
   case "$1" in
-    brew) dko::dotfiles::__update_brew      ;;
-    mac)  dko::dotfiles::__update_mac       ;;
+    brew)   dko::dotfiles::__update_brew        ;;
+    neovim) dko::dotfiles::__update_brew_neovim ;;
+    mac)    dko::dotfiles::__update_mac         ;;
   esac
 }
 
@@ -316,9 +317,8 @@ dko::dotfiles::__update_brew() {
 
     # enter dotfiles dir to do this in case user has any gem flags or local
     # vendor bundle that will cause use of local gems
-    cd "$DOTFILES" || {
-      cd - || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
-    }
+    cd "$DOTFILES" \
+      || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
 
     brew update
 
@@ -341,10 +341,23 @@ dko::dotfiles::__update_brew() {
 
     dko::status "Upgrading packages"
     brew upgrade --all
-
-    dko::dotfiles::__pyenv_global
-
   ) && dko::dotfiles::__update_brew_done
+}
+
+dko::dotfiles::__update_brew_neovim() {
+  dko::status "Updating neovim via homebrew"
+  (
+    dko::has "brew" || dko::die "Homebrew is not installed."
+
+    # enter dotfiles dir to do this in case user has any gem flags or local
+    # vendor bundle that will cause use of local gems
+    cd "$DOTFILES" \
+      || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
+
+    brew update
+    dko::dotfiles::__pyenv_system
+    brew reinstall --HEAD --with-release neovim
+  )
 }
 
 # ==============================================================================
