@@ -63,7 +63,7 @@ dko::dotfiles::__update() {
       dko::status "Updating zplug"
       zplug update
     }
-  )
+  ) && dko::dotfiles::__reload
 }
 
 dko::dotfiles::__update_secret() {
