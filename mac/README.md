@@ -123,13 +123,19 @@ can all be installed via brew).
 
 ### Install from cask
 
+- bettertouchtool
+    - License acquired
+    - Provide window snapping
+    - Provide better trackpad swipe configs
 - google-chrome
     - Login and sync
     - Provides `authy`
 - dropbox
     - Then setup keepassx to load the key database from dropbox
 - karabiner
-    - Map simultaneous-dual-shift to capslock and show capslock state.
+    - Maps simultaneous-dual-shift to capslock and show capslock state.
+      - Run `karabiner/install.sh` to symlink `private.xml`
+      - In prefs must enable by toggling checkbox
 - kaleidoscope
     - Load license file
 - transmission
