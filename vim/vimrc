@@ -497,7 +497,7 @@ function! s:LoadPlugins()
   " Plug: Colorscheme
   " ========================================================================
 
-  Plug 'altercation/vim-colors-solarized'
+  "Plug 'altercation/vim-colors-solarized'
   Plug 'morhetz/gruvbox'
 
   " ========================================================================
