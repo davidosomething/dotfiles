@@ -230,7 +230,7 @@ autocmd dkoneomake FileType scss
 " Keep this last so all the other autocmds happen first
 " ============================================================================
 
-autocmd dkoneomake      BufWritePost
+autocmd dkoneomake      BufWritePost,Filetype,FileChangedShellPost
       \ *
       \ Neomake
 
