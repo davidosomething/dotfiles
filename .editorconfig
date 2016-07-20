@@ -2,11 +2,45 @@ root = true
 
 [*]
 charset = utf-8
+end_of_line = LF
 indent_style = space
 indent_size = 2
 
+# html is not minified so reduce character output by using real tabs
+# use indent size 4 for parity with PHP
+[*.{html,xml}]
+indent_style = tab
+tab_width = 2
+
+[*.{hbs,mustache}]
+indent_style = tab
+tab_width = 2
+
+# shouldn't be editing css anyway
+[*.css]
+insert_final_newline = true
+
+# sass-lint standards
+[*.{sass,scss}]
+insert_final_newline = true
+
+# coffeelint standards
+[*.coffee]
+insert_final_newline = true
+
+# jshint standards
+[*.{js,json}]
+insert_final_newline = true
+
 [*.markdown]
 indent_size = 4
+
+# PHP http://make.wordpress.org/core/handbook/coding-standards/php/
+[*.php]
+indent_style = tab
+tab_width = 4
+indent_size = 4
+insert_final_newline = true
 
 [*.{sh,zsh}]
 max_line_length = 80
