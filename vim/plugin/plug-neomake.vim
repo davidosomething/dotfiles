@@ -78,20 +78,44 @@ endfunction
 let g:neomake_javascript_enabled_makers = [ 'eslint' ]
 
 let s:local_maker_eslint = {
-      \ 'ft':     'javascript',
-      \ 'maker':  'eslint',
-      \ 'local':  'node_modules/.bin/eslint',
+      \   'ft':     'javascript',
+      \   'maker':  'eslint',
+      \   'local':  'node_modules/.bin/eslint',
       \ }
 
 let s:local_maker_jshint = {
-      \ 'ft':     'javascript',
-      \ 'maker':  'jshint',
-      \ 'local':  'node_modules/.bin/jshint',
+      \   'ft':     'javascript',
+      \   'maker':  'jshint',
+      \   'local':  'node_modules/.bin/jshint',
       \ }
+
+" @return Boolean
+function! s:HasJsHint()
+  return executable('jshint')
+        \ || (exists('b:neomake_javascript_enabled_makers')
+        \     && index(b:neomake_javascript_enabled_makers, 'jshint') > -1)
+endfunction
+
+function! s:PickJavascriptMakers() abort
+  " If there's a jshintrc file, use jshint instead of eslint
+  if empty(dkoproject#GetProjectConfigFile('.jshintrc')) | return
+  endif
+
+  " Only if jshint is executable (globally or locally)
+  if !s:HasJsHint() | return
+  endif
+
+  " Remove eslint from enabled makers, use only jshint
+  let b:neomake_javascript_enabled_makers = filter(
+        \   copy(get(b:, 'neomake_javascript_enabled_makers', [])),
+        \   "v:val !~? 'eslint'"
+        \ )
+endfunction
 
 autocmd dkoneomake FileType javascript
       \ call s:AddLocalMaker(s:local_maker_eslint)
       \| call s:AddLocalMaker(s:local_maker_jshint)
+      \| call s:PickJavascriptMakers()
 
 " ----------------------------------------------------------------------------
 " Markdown
@@ -166,9 +190,9 @@ function! s:SetPhpmdRuleset()
 endfunction
 
 let s:local_maker_phpcs = {
-      \ 'ft':     'php',
-      \ 'maker':  'phpcs',
-      \ 'local':  'vendor/bin/phpcs',
+      \   'ft':     'php',
+      \   'maker':  'phpcs',
+      \   'local':  'vendor/bin/phpcs',
       \ }
 
 autocmd dkoneomake FileType php
@@ -216,9 +240,9 @@ function! s:SetupSasslint()
 endfunction
 
 let s:local_maker_sasslint = {
-      \ 'ft':     'scss',
-      \ 'maker':  'sasslint',
-      \ 'local':  'node_modules/.bin/sass-lint',
+      \   'ft':     'scss',
+      \   'maker':  'sasslint',
+      \   'local':  'node_modules/.bin/sass-lint',
       \ }
 
 autocmd dkoneomake FileType scss
