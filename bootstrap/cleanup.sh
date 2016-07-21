@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-set -e
-
+#
 # Cleanup home for XDG compliance
+#
+
+set -e
 
 # ============================================================================
 # initialize script and dependencies
@@ -9,8 +11,7 @@ set -e
 
 cd "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
-readonly bootstrap_path="${dotfiles_path}/bootstrap"
-source "${bootstrap_path}/helpers.sh"
+source "${dotfiles_path}/shell/helpers.sh"
 
 # ============================================================================
 # ENV validation

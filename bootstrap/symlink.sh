@@ -5,43 +5,52 @@
 
 set -e
 
-# initialize script and dependencies -------------------------------------------
-# get this bootstrap folder
+# ============================================================================
+# initialize script and dependencies
+# ============================================================================
+
 cd "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
 source "${dotfiles_path}/shell/helpers.sh"
 
-# begin ------------------------------------------------------------------------
-dko::status "Symlinking dotfiles"
+# ============================================================================
+# Main
+# ============================================================================
 
-# ctags
-dko::symlink ctags/ctags                          .ctags
+__symlink() {
+  dko::status "Symlinking dotfiles"
 
-# XDG-compatible
-dko::symlink git/gitconfig                        .config/git/config
-dko::symlink git/gitignore                        .config/git/ignore
-dko::symlink shell/.inputrc                       .config/readline/inputrc
+  # ctags
+  dko::symlink ctags/ctags                          .ctags
 
-# (n)vim
-dko::symlink vim                                  .vim
-dko::symlink vim                                  .config/nvim
+  # XDG-compatible
+  dko::symlink git/gitconfig                        .config/git/config
+  dko::symlink git/gitignore                        .config/git/ignore
+  dko::symlink shell/.inputrc                       .config/readline/inputrc
 
-# hyperterm
-dko::symlink hyperterm/dot.hyperterm.js           .hyperterm.js
+  # (n)vim
+  dko::symlink vim                                  .vim
+  dko::symlink vim                                  .config/nvim
 
-case "$OSTYPE" in
-  darwin*)
-    dko::symlink subversion/config                .subversion/config
-    ;;
-  linux*)
-    dko::symlink linux/subversion/config          .subversion/config
-    ;;
-esac
+  # hyperterm
+  dko::symlink hyperterm/dot.hyperterm.js           .hyperterm.js
+
+  case "$OSTYPE" in
+    darwin*)
+      dko::symlink subversion/config                .subversion/config
+      ;;
+    linux*)
+      dko::symlink linux/subversion/config          .subversion/config
+      ;;
+  esac
 
 
-# symlink shells ---------------------------------------------------------------
-dko::symlink bash/.bashrc                         .bashrc
-dko::symlink bash/.bash_profile                   .bash_profile
-dko::symlink zsh/.zshenv                          .zshenv
+  # symlink shells ---------------------------------------------------------------
+  dko::symlink bash/.bashrc                         .bashrc
+  dko::symlink bash/.bash_profile                   .bash_profile
+  dko::symlink zsh/.zshenv                          .zshenv
 
-dko::status "Done! [symlink.sh]"
+  dko::status "Done! [symlink.sh]"
+}
+
+__symlink
