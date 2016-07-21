@@ -11,7 +11,7 @@ scriptencoding utf-8
 " note: set encoding BEFORE scriptencoding
 
 " weird terminal bug wher ^[[2;2R appears after filename
-set t_u7=
+"set t_u7=
 
 let g:dko_rtp_original = &runtimepath
 
