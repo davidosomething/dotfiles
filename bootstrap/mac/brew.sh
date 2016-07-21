@@ -52,10 +52,8 @@ brew install bats shellcheck
 brew install tmux
 
 # web --------------------------------------------------------------------------
-brew install curl
-brew install dnsmasq
+brew install curl wget
 brew install openssl
-brew install wget
 
 # links to /Applications -------------------------------------------------------
 brew linkapps
