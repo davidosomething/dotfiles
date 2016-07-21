@@ -84,10 +84,8 @@ endfunction
 " JavaScript
 " ----------------------------------------------------------------------------
 
-let g:neomake_javascript_enabled_makers = []
-if executable('eslint')
-  let g:neomake_javascript_enabled_makers += [ 'eslint' ]
-endif
+let g:neomake_javascript_enabled_makers =
+      \ executable('eslint') ? [ 'eslint' ] : []
 
 let s:local_maker_eslint = {
       \   'ft':     'javascript',
@@ -132,10 +130,8 @@ let g:neomake_pandoc_markdownlint_maker = neomake#GetMaker(
       \ 'markdown'
       \ )
 
-let g:neomake_markdown_enabled_makers = []
-if executable('markdownlint')
-  let g:neomake_markdown_enabled_makers += [ 'markdownlint' ]
-endif
+let g:neomake_markdown_enabled_makers =
+      \ executable('markdownlint') ? [ 'markdownlint' ] : []
 let g:neomake_pandoc_enabled_makers = g:neomake_markdown_enabled_makers
 
 function! s:SetupMarkdownlint()
@@ -233,10 +229,8 @@ let g:neomake_scss_sasslint_maker = {
       \                   '%W%f: line %l\, col %c\, Warning - %m',
       \ }
 
-let g:neomake_scss_enabled_makers = []
-if executable('sasslint')
-  let g:neomake_scss_enabled_makers += [ 'sasslint' ]
-endif
+let g:neomake_scss_enabled_makers =
+      \ executable('sasslint') ? [ 'sasslint' ] : []
 
 function! s:SetSasslintRc()
   " Use local config if exists
