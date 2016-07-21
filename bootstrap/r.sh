@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
+#
+# Setup R environment
+#
 
-set -eu
-
-# setup R environment
-
-# create local R library dir
 mkdir -p ~/.library/lib/R/library
 

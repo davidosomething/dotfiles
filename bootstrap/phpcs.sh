@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-
-set -eu
-
 #
 # Install WordPress-Coding-Standards standard for PHP-Code-Sniffer
 #
+
+set -eu
 
 readonly wpcs_repo="https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git"
 readonly sources_path="${HOME}/src"

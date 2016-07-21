@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
+#
+# Generic brews
+#
 
 brew tap nishanths/tap
 brew tap universal-ctags/universal-ctags
+brew tap homebrew/completions
 
 brew update
 
@@ -10,6 +14,9 @@ brew install nishanths/tap/license
 
 # universal-ctags
 brew install --HEAD universal-ctags
+
+# `brew` completion
+brew install brew-cask-completion
 
 # compilers, tools, and libs ---------------------------------------------------
 brew install automake cmake

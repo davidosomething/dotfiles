@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-
+#
 # Tap and install caskroom apps
+#
 
 brew tap caskroom/cask
 brew update

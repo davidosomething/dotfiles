@@ -1,18 +1,25 @@
 #!/usr/bin/env bash
+#
+# Symlink termite config
+#
+
 set -eu
 
-# Symlink termite config
+# ============================================================================
+# initialize script and dependencies
+# ============================================================================
 
-# initialize script and dependencies -------------------------------------------
-# get this bootstrap folder
 cd "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
-readonly bootstrap_path="${dotfiles_path}/bootstrap"
-source "${bootstrap_path}/helpers.sh"
+source "${dotfiles_path}/shell/helpers.sh"
 
-# begin ------------------------------------------------------------------------
+# ==============================================================================
+# Main
+# ==============================================================================
+
 dko::status "Symlinking termite config"
 dko::symlink termite/config       .config/termite/config
 
 dko::status "Installing terminfo"
 tic -x "${dotfiles_path}/termite/termite.terminfo"
+
