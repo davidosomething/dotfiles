@@ -889,9 +889,15 @@ function! s:LoadPlugins()
   " runtime css.vim provides @media syntax highlighting where hail2u doesn't
   " JulesWang/css.vim is the active repo for the css.vim bundled with vim
   " hail2u extends vim's css highlighting
+  "
+  " scss-syntax needs the 'for' since it has an ftdetect that doesn't check
+  " if the ft was already set. The result is that without 'for', the filetype
+  " will be set twice successively (and any autocommands will run twice),
+  " particularly in neovim which comes with tpope's (older) scss rumtimes.
   Plug 'JulesWang/css.vim'
         \| Plug 'hail2u/vim-css3-syntax'
-        \| Plug 'cakebaker/scss-syntax.vim'
+        \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
+        "\| Plug 'davidosomething/scss-syntax.vim', 
 
   " ----------------------------------------
   " Features

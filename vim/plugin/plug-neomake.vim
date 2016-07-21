@@ -71,11 +71,23 @@ function! s:AddLocalMaker(settings) abort
   endif
 endfunction
 
+" The maker exe exists globally or was registered as a local
+" maker (so local exe exists)
+function! s:HasMakerExe(ft, maker, ...) abort
+  let l:exe = get(a:, 1, a:maker)
+  return executable(l:exe)
+        \ || (exists('b:neomake_' . a:ft . '_enabled_makers')
+        \     && index(b:neomake_{a:ft}_enabled_makers, a:maker) > -1)
+endfunction
+
 " ----------------------------------------------------------------------------
 " JavaScript
 " ----------------------------------------------------------------------------
 
-let g:neomake_javascript_enabled_makers = [ 'eslint' ]
+let g:neomake_javascript_enabled_makers = []
+if executable('eslint')
+  let g:neomake_javascript_enabled_makers += [ 'eslint' ]
+endif
 
 let s:local_maker_eslint = {
       \   'ft':     'javascript',
@@ -89,20 +101,13 @@ let s:local_maker_jshint = {
       \   'local':  'node_modules/.bin/jshint',
       \ }
 
-" @return Boolean
-function! s:HasJsHint()
-  return executable('jshint')
-        \ || (exists('b:neomake_javascript_enabled_makers')
-        \     && index(b:neomake_javascript_enabled_makers, 'jshint') > -1)
-endfunction
-
 function! s:PickJavascriptMakers() abort
   " If there's a jshintrc file, use jshint instead of eslint
   if empty(dkoproject#GetProjectConfigFile('.jshintrc')) | return
   endif
 
   " Only if jshint is executable (globally or locally)
-  if !s:HasJsHint() | return
+  if !s:HasMakerExe('javascript', 'jshint') | return
   endif
 
   " Remove eslint from enabled makers, use only jshint
@@ -228,9 +233,12 @@ let g:neomake_scss_sasslint_maker = {
       \                   '%W%f: line %l\, col %c\, Warning - %m',
       \ }
 
-let g:neomake_scss_enabled_makers = [ 'sasslint' ]
+let g:neomake_scss_enabled_makers = []
+if executable('sasslint')
+  let g:neomake_scss_enabled_makers += [ 'sasslint' ]
+endif
 
-function! s:SetupSasslint()
+function! s:SetSasslintRc()
   " Use local config if exists
   let l:config = dkoproject#GetProjectConfigFile('.sass-lint.yml')
   if !empty(l:config)
@@ -245,9 +253,26 @@ let s:local_maker_sasslint = {
       \   'local':  'node_modules/.bin/sass-lint',
       \ }
 
-autocmd dkoneomake FileType scss
-      \ call s:SetupSasslint()
-      \| call s:AddLocalMaker(s:local_maker_sasslint)
+function! s:PickScssMakers() abort
+  " If there's a jshintrc file, use jshint instead of eslint
+  if empty(dkoproject#GetProjectConfigFile('.scss-lint.yml')) | return
+  endif
+
+  " Only if scss-lint is executable (globally or locally)
+  if !s:HasMakerExe('scss', 'scsslint', 'scss-lint') | return
+  endif
+
+  " Remove sasslint from enabled makers, use only scsslint
+  let b:neomake_scss_enabled_makers = filter(
+        \   copy(get(b:, 'neomake_scss_enabled_makers', [])),
+        \   "v:val !~? 'sasslint'"
+        \ )
+endfunction
+
+ autocmd dkoneomake FileType scss
+       \ call s:SetSasslintRc()
+       \| call s:AddLocalMaker(s:local_maker_sasslint)
+"       \| call s:PickScssMakers()
 
 " ============================================================================
 " Auto run
