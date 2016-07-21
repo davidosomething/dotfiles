@@ -1,3 +1,0 @@
-# resolve to local for dev domains
-# use with DNSMasq
-nameserver 127.0.0.1
