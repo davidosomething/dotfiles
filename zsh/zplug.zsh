@@ -56,13 +56,14 @@ zplug "plugins/golang", \
   from:oh-my-zsh,       \
   nice:10
 
-# zplug "lukechilds/zsh-better-npm-completion", \
+# 2016-04-27 nvm assumes ~/.nvm exists, so probably not working
+# My (unmerged) PR here: https://github.com/robbyrussell/oh-my-zsh/pull/5047/files
+# zplug "robbyrussell/oh-my-zsh", \
+#   use:"plugins/nvm/_nvm",       \
 #   nice:10
 
-# 2016-04-27 nvm assumes ~/.nvm exists, so probably not working
-zplug "robbyrussell/oh-my-zsh", \
-  use:"plugins/nvm/_nvm",       \
-  nice:10
+zplug "lukechilds/zsh-better-npm-completion", \
+  nice:11
 
 # homebrew
 # note regular brew completion is broken:
