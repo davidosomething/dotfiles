@@ -13,7 +13,7 @@
 # ------------------------------------------------------------------------------
 
 dko::dotfiles::__usage() {
-  dko::usage  "update <command>"
+  dko::usage  "u <command>"
   echo "
   Utility Commands
     dotfiles    -- update dotfiles (git pull)
