@@ -93,6 +93,12 @@ let s:local_maker_eslint = {
       \   'local':  'node_modules/.bin/eslint',
       \ }
 
+let s:local_maker_jscs = {
+      \   'ft':     'javascript',
+      \   'maker':  'jscs',
+      \   'local':  'node_modules/.bin/jscs',
+      \ }
+
 let s:local_maker_jshint = {
       \   'ft':     'javascript',
       \   'maker':  'jshint',
@@ -117,6 +123,7 @@ endfunction
 
 autocmd dkoneomake FileType javascript
       \ call s:AddLocalMaker(s:local_maker_eslint)
+      \| call s:AddLocalMaker(s:local_maker_jscs)
       \| call s:AddLocalMaker(s:local_maker_jshint)
       \| call s:PickJavascriptMakers()
 
