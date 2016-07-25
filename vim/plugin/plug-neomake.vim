@@ -43,13 +43,6 @@ let g:neomake_warning_sign  = { 'text': '⚑' }
 " relative to vim's working path (and gives a fake result of not in a node
 " project). Lotta people doin` it wrong ಠ_ಠ
 
-" @TODO re-enable linter selection by rc file presence
-" Need to set the var on the hook BufReadPre, BufWinEnter is too late
-" So caveat is that we can't catch when ft is set by modeline (there's
-" probably another way)
-" autocmd dkoneomake BufReadPre  *.js
-"       \ let g:neomake_javascript_enabled_makers = dkoproject#JsLinters()
-
 " settings is a dict { ft, maker, local }
 function! s:AddLocalMaker(settings) abort
   " Use local binary
