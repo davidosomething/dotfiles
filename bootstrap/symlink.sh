@@ -21,12 +21,12 @@ __symlink() {
   dko::status "Symlinking dotfiles"
 
   # ctags
-  dko::symlink ctags/ctags                          .ctags
+  dko::symlink ctags/dot.ctags                      .ctags
 
   # XDG-compatible
-  dko::symlink git/gitconfig                        .config/git/config
-  dko::symlink git/gitignore                        .config/git/ignore
-  dko::symlink shell/.inputrc                       .config/readline/inputrc
+  dko::symlink git/dot.gitconfig                    .config/git/config
+  dko::symlink git/dot.gitignore                    .config/git/ignore
+  dko::symlink shell/dot.inputrc                    .config/readline/inputrc
 
   # (n)vim
   dko::symlink vim                                  .vim
@@ -34,6 +34,10 @@ __symlink() {
 
   # hyperterm
   dko::symlink hyperterm/dot.hyperterm.js           .hyperterm.js
+
+  # default tern-project
+  dko::symlink ternjs/dot.tern-project              .tern-project
+
 
   case "$OSTYPE" in
     darwin*)
