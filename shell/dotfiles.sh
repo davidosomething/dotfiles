@@ -56,6 +56,7 @@ dko::dotfiles::__update() {
   (
     cd "$DOTFILES" || dko::die "No \$DOTFILES directory"
     git pull --rebase || dko::die "Error updating dotfiles"
+    "${DOTFILES}/bootstrap/symlink.sh"
 
     {
       dko::status "Updating dotfiles submodules"
