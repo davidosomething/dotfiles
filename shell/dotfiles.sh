@@ -239,7 +239,7 @@ dko::dotfiles::__update_pip() {
 
 dko::dotfiles::__update_wpcs() {
   if ! dko::has "phpcs"; then
-    dko::error "phpcs is not installed"
+    dko::err "phpcs is not installed"
     return 1
   fi
 
