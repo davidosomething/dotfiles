@@ -232,6 +232,34 @@ dko::dotfiles::__update_pip() {
   fi
 }
 
+dko::dotfiles::__update_wpcs() {
+  if ! dko::has "phpcs"; then
+    dko::error "phpcs is not installed"
+    return 1
+  fi
+
+  readonly wpcs_repo="https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git"
+  readonly sources_path="${HOME}/src"
+  readonly wpcs_path="${sources_path}/wpcs"
+  readonly standards_path="/usr/local/etc/php-code-sniffer/Standards"
+  readonly installed_paths="${standards_path},${sources_path}/wpcs"
+
+  # Create and clone if not exists
+  if [ ! -d "$wpcs_path" ]; then
+    mkdir -p "${sources_path}"
+    git clone -b master "$wpcs_repo" "$wpcs_path"
+  else
+    (
+      dko::status "Updating wpcs"
+      cd "$wpcs_path" || exit 1
+      git pull
+    ) || return 1
+  fi
+
+  dko::status "(Re)adding wpcs path to phpcs installed_paths"
+  phpcs --config-set installed_paths "$installed_paths"
+}
+
 # ------------------------------------------------------------------------------
 # OS-specific commands
 # ------------------------------------------------------------------------------
@@ -382,6 +410,7 @@ dko::dotfiles() {
     node)     dko::dotfiles::__update_node      ;;
     nvm)      dko::dotfiles::__update_nvm       ;;
     pip)      dko::dotfiles::__update_pip "pip" ;;
+    wpcs)     dko::dotfiles::__update_wpcs      ;;
   esac
 
   case "$OSTYPE" in
