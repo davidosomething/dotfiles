@@ -40,6 +40,9 @@ dko::dotfiles::__usage() {
   macOS/OS X
     brew        -- homebrew packages
     mac         -- repair permissions and check software updates
+
+  Development
+    wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
 "
 }
 
