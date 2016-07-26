@@ -1,6 +1,6 @@
 " autoload/dko.vim
 
-let dko#vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+let g:dko#vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 function! dko#rtp() abort
   put! =split(&runtimepath, ',', 0)

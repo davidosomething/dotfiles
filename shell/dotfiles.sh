@@ -115,7 +115,7 @@ dko::dotfiles::__update_composer() {
 dko::dotfiles::__update_fzf() {
   dko::status "Updating fzf"
   [ -x "/usr/local/bin/fzf" ] \
-    && dko::status "fzf was installed via brew" \
+    && dko::status "fzf was installed via brew (BAD, vim expects in ~/.fzf)" \
     && return 0
 
   (

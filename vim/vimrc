@@ -473,15 +473,10 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
 " This is used by plugin/completion.vim so is a g:
 let g:dko_has_completion = 0
+let g:dko_use_tern_completion = executable('npm')
+let g:dko_use_fzf = has('nvim') && !empty(glob(expand('~/.fzf')))
 
 function! s:LoadPlugins()
-  " Disabled on neovim
-  " @see https://github.com/haya14busa/incsearch.vim/issues/79
-  let s:use_incsearch       = 1 && !has('nvim')
-
-  " global, used in plugin/completion.vim
-  let g:dko_use_tern_completion = 1 && executable('npm')
-
   let s:use_colorv    = 0 && (has('python') || has('python3'))
 
   " Notes on adding plugins:
@@ -513,6 +508,10 @@ function! s:LoadPlugins()
   " ========================================================================
   " Plug: Commands
   " ========================================================================
+
+  " Disabled on regular vim since it needs a terminal
+  if g:dko_use_fzf | Plug '~/.fzf'
+  endif
 
   " the blame in vim-gita is hawt :3
   Plug 'lambdalisue/vim-gita', { 'on': ['Gita'] }
@@ -940,8 +939,10 @@ function! s:LoadPlugins()
   " <Plug> to not move on * search function
   Plug 'haya14busa/vim-asterisk'
 
+  " Disabled on neovim until 0.2
+  " @see https://github.com/haya14busa/incsearch.vim/issues/79
   " highlight partial matches as you type in search mode
-  if s:use_incsearch | Plug 'haya14busa/incsearch.vim'
+  if !has('nvim') | Plug 'haya14busa/incsearch.vim'
   endif
 
   " show registers in split if use \" or <C-R>
