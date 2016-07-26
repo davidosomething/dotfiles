@@ -165,7 +165,10 @@ function! s:SetupMarkdownlint()
   let b:neomake_markdown_markdownlint_maker = l:maker
   let b:neomake_pandoc_markdownlint_maker = l:maker
 endfunction
-autocmd dkoneomake BufNewFile,BufRead *.md call s:SetupMarkdownlint()
+" Stupid composite filetypes
+autocmd dkoneomake FileType
+      \ markdown.pandoc,markdown,pandoc
+      \ call s:SetupMarkdownlint()
 
 " ----------------------------------------------------------------------------
 " PHP: phpcs, phpmd
