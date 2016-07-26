@@ -140,15 +140,6 @@ function! s:SetupMarkdownlint()
 
   let l:maker = { 'errorformat':  '%f: %l: %m' }
 
-  " Use markdownlint in local node_modules/ if available
-  let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/markdownlint')
-  let l:maker.exe = !empty(l:bin) ? 'markdownlint' : l:bin
-
-  " Bail if not installed either locally or globally
-  if !executable(l:maker.exe)
-    return
-  endif
-
   " Use config local to project if available
   let l:config = dkoproject#GetProjectConfigFile('markdownlint.json')
   if empty(l:config)
@@ -158,6 +149,18 @@ function! s:SetupMarkdownlint()
     let l:config = glob(expand('$DOTFILES/markdownlint/config.json'))
   endif
   let l:maker.args = empty(l:config) ? [] : [ '--config', l:config ]
+
+  let b:neomake_markdown_markdownlint_args = l:maker.args
+  let b:neomake_pandoc_markdownlint_args = l:maker.args
+
+  " Use markdownlint in local node_modules/ if available
+  let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/markdownlint')
+  let l:maker.exe = !empty(l:bin) ? 'markdownlint' : l:bin
+
+  " Bail if not installed either locally or globally
+  if !executable(l:maker.exe)
+    return
+  endif
 
   let b:neomake_markdown_markdownlint_maker = l:maker
   let b:neomake_pandoc_markdownlint_maker = l:maker
