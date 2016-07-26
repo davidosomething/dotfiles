@@ -67,12 +67,8 @@ dko::dotfiles::__update() {
       zplug update
     }
   )
-  if [ -n "$?" ]; then
-    return 1
-  else
-    dko::dotfiles::__reload
-    dko::status "Re-symlink if any dotfiles changed!"
-  fi
+  dko::dotfiles::__reload
+  dko::status "Re-symlink if any dotfiles changed!"
 }
 
 dko::dotfiles::__update_secret() {
