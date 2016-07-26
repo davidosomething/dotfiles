@@ -56,12 +56,13 @@ dko::dotfiles::__update() {
   (
     cd "$DOTFILES" || dko::die "No \$DOTFILES directory"
     git pull --rebase || dko::die "Error updating dotfiles"
-    "${DOTFILES}/bootstrap/symlink.sh"
 
     {
       dko::status "Updating dotfiles submodules"
       git submodule update --init && dko::dotfiles::__reload
     } || dko::die "Error updating dotfiles submodules"
+
+    "${DOTFILES}/bootstrap/symlink.sh"
 
     [ -n "$ZSH_VERSION" ] && dko::has "zplug" && {
       dko::status "Updating zplug"
