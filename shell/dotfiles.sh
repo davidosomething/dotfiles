@@ -238,11 +238,6 @@ dko::dotfiles::__update_pip() {
 }
 
 dko::dotfiles::__update_wpcs() {
-  if ! dko::has "phpcs"; then
-    dko::err "phpcs is not installed"
-    return 1
-  fi
-
   readonly wpcs_repo="https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git"
   readonly sources_path="${HOME}/src"
   readonly wpcs_path="${sources_path}/wpcs"
@@ -261,8 +256,14 @@ dko::dotfiles::__update_wpcs() {
     ) || return 1
   fi
 
-  dko::status "(Re)adding wpcs path to phpcs installed_paths"
-  phpcs --config-set installed_paths "$installed_paths"
+  if ! dko::has "phpcs"; then
+    dko::err  "phpcs is not installed"
+    dko::err_ "Install and run again, or set installed_paths manually"
+    return 1
+  else
+    dko::status "(Re)adding wpcs path to phpcs installed_paths"
+    phpcs --config-set installed_paths "$installed_paths"
+  fi
 }
 
 # ------------------------------------------------------------------------------
