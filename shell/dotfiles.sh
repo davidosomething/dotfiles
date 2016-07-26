@@ -257,8 +257,8 @@ dko::dotfiles::__update_wpcs() {
   fi
 
   if ! dko::has "phpcs"; then
-    dko::err  "phpcs is not installed"
-    dko::err_ "Install and run again, or set installed_paths manually"
+    dko::warn  "phpcs is not installed"
+    dko::warn_ "Install and run again, or set installed_paths manually"
     return 1
   else
     dko::status "(Re)adding wpcs path to phpcs installed_paths"
