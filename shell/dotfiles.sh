@@ -59,16 +59,16 @@ dko::dotfiles::__update() {
 
     {
       dko::status "Updating dotfiles submodules"
-      git submodule update --init && dko::dotfiles::__reload
+      git submodule update --init
     } || dko::die "Error updating dotfiles submodules"
-
-    "${DOTFILES}/bootstrap/symlink.sh"
 
     [ -n "$ZSH_VERSION" ] && dko::has "zplug" && {
       dko::status "Updating zplug"
       zplug update
     }
-  ) && dko::dotfiles::__reload
+  )
+  dko::dotfiles::__reload
+  dko::status "Re-symlink if any dotfiles changed!"
 }
 
 dko::dotfiles::__update_secret() {
