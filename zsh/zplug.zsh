@@ -18,7 +18,7 @@ zplug "${ZDOTDIR}", \
 
 zplug "davidosomething/git-ink",  as:command
 zplug "davidosomething/git-my",   as:command
-zplug "davidosomething/git-open", as:command
+zplug "paulirish/git-open",       as:command
 
 # my fork of cdbk, zsh hash based directory bookmarking
 zplug "davidosomething/cdbk"
