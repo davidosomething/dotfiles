@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Extract files based on suffix
+#
 
 function _fatal {
     echo "$*" >&2
