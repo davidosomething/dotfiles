@@ -1,8 +1,9 @@
-# _path
+# NOTE no shebang, this needs access to current shell
 #
+# _path
 # adapted from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh
 
-_parse_args() {
+__parse_args() {
   local the_path
 
   # concat array with semicolon to support array paths like fpath
@@ -23,12 +24,12 @@ _parse_args() {
   echo $the_path
 }
 
-_path() {
+__path() {
   # split, also split over ; for joined array in zsh
   echo $1 | tr ":" "\n" | tr " " "\n"
 }
 
-_colorize() {
+__colorize() {
   local Z="\033[0m"
   local K="\033[0;30m"
   local R="\033[0;31m"
@@ -39,16 +40,17 @@ _colorize() {
   local C="\033[0;36m"
   local W="\033[0;37m"
 
+  # exception for /opt since may have /options
   awk "{ sub(\"/usr\",   \"$G/usr$Z\"); \
     sub(\"/bin\",   \"$B/bin$Z\"); \
     sub(\"/sbin\",  \"$P/sbin$Z\"); \
     sub(\"/local\", \"$Y/local$Z\"); \
-    sub(\"/opt\",   \"$C/opt$Z\"); \
+    sub(\"/opt/\",   \"$C/opt$Z/\"); \
     sub(\"/Users\", \"$R/Users$Z\"); \
     sub(\"/home\",  \"$R/home$Z\"); \
     print }"
 }
 
-_path $(_parse_args $@) | _colorize
+__path $(__parse_args $@) | __colorize
 
 # vim: syn=sh :
