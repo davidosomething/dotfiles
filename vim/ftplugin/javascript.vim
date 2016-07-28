@@ -82,6 +82,9 @@ if exists("g:plugs['vim-jsdoc']")
         \   '^i$': {
         \     'type': '{Number}'
         \   },
+        \   '\(width\|height\)': {
+        \     'type': '{Number}'
+        \   },
         \   '\(data\|options\)$': {
         \     'type': '{Object}'
         \   },
