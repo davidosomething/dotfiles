@@ -72,10 +72,12 @@ setopt VI
 
 # Completion paths
 # fpath must be before compinit
+
+# Brew provided
+# Removed "${BREW_PREFIX}/share/zsh-completions", prefer zplugging upstream
 if [ -d "${BREW_PREFIX}" ]; then
   # Autoload function paths, add tab completion paths, top precedence
   fpath=(
-    "${BREW_PREFIX}/share/zsh-completions"
     "${BREW_PREFIX}/share/zsh/site-functions"
     $fpath
   )
@@ -92,6 +94,12 @@ if [ -d "${BREW_PREFIX}" ]; then
     HELPDIR="${BREW_PREFIX}/share/zsh/helpfiles"
   }
 fi
+
+# Mine, e.g. custom _composer #compdef
+fpath=(
+  "${ZDOTDIR}/fpath"
+  $fpath
+)
 
 # dedupe paths
 typeset -gU cdpath path fpath manpath
