@@ -143,6 +143,10 @@ can all be installed via brew).
 
 Rest of stuff from bootstrap/mac/cask.sh
 
+## Reduce desktop icon size
+
+Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
+
 ## Source order
 
 - zshenv
