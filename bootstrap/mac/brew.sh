@@ -9,9 +9,6 @@ brew tap homebrew/completions
 
 brew update
 
-# license generator
-brew install nishanths/tap/license
-
 # universal-ctags
 brew install --HEAD universal-ctags
 
