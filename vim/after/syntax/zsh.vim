@@ -1,9 +1,9 @@
 " after/syntax/zsh.vim
 
-let s:cpo_save = &cpo
-set cpo&vim
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 
 setlocal foldmethod=manual
 
-let &cpo = s:cpo_save
+let &cpoptions = s:cpo_save
 unlet s:cpo_save

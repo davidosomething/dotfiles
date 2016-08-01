@@ -45,7 +45,7 @@ augroup end
 
 if !empty(glob(expand(g:plug_home . '/neosnippet')))
   " Snippets userdir
-  let g:neosnippet#snippets_directory = dko#vim_dir . '/snippets'
+  let g:neosnippet#snippets_directory = g:dko#vim_dir . '/snippets'
 
   " C-k is used for bubbling lines up, so C-l is the only acceptable
   " neosnippet advance key I have
@@ -278,7 +278,7 @@ endif
 
 if !empty(glob(expand(g:plug_home . '/neocomplete')))
   let g:neocomplete#data_directory =
-        \ expand(dko#vim_dir . '/.tmp/neocomplete')
+        \ expand(g:dko#vim_dir . '/.tmp/neocomplete')
 
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1

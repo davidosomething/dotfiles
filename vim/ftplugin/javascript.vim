@@ -1,4 +1,4 @@
-" ftplugin/javascript
+" ftplugin/javascript.vim
 "
 " Settings for plugins that need to be available before plug loads
 "

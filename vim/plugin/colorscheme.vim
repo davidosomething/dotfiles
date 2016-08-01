@@ -20,11 +20,11 @@ endif
 " terminal / fallbacks
 " ============================================================================
 
-if exists('g:plugs["gruvbox"]')
+if !empty(glob(expand(g:plug_home . '/gruvbox')))
   let g:gruvbox_contrast_dark      = 'hard'
   let g:gruvbox_contrast_light     = 'hard'
   let g:gruvbox_italic             = 1
-  let g:gruvbox_italicize_comments = 0
+  let g:gruvbox_italicize_comments = 1
   let g:gruvbox_invert_selection   = 0
   if &t_Co != 256
     let g:gruvbox_termcolors = 16

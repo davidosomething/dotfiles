@@ -8,7 +8,7 @@
 let s:excluded_ft = [ 'gitbranchdescription', 'gitcommit' ]
 
 function! s:RestorePosition()
-  if index(s:excluded_ft, &ft) < 0 && line("'\"") > 1 && line("'\"") <= line('$')
+  if index(s:excluded_ft, &filetype) < 0 && line("'\"") > 1 && line("'\"") <= line('$')
     execute "normal! g`\""
   endif
 endfunction

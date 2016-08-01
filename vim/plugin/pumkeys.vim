@@ -19,7 +19,7 @@ function! s:DKO_Tab()
 
   " Insert alignment spaces
   " Calc how many spaces, support for negative sts
-  let l:sts = (&sts <= 0) ? &sw : &sts
+  let l:sts = (&softtabstop <= 0) ? &shiftwidth : &softtabstop
   let l:sp = (virtcol('.') % l:sts)
   if l:sp == 0 | let l:sp = l:sts | endif
   return repeat(' ', 1 + l:sts - l:sp)

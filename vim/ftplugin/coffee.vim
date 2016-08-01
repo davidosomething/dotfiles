@@ -1,4 +1,4 @@
-" coffee (coffeescript)
+" ftplugin/coffee.vim
 
 if exists("g:plugs['vim-coffee-script']")
   let g:coffee_compile_vert = 1
