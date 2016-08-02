@@ -75,7 +75,7 @@ alias root="sudo -s"
 alias se="sudo -e"
 
 # editor
-alias e="vopen"
+{ dko::has 'nvim' && alias e="nvim"; } || alias e="vim"
 alias ehosts="se /etc/hosts"
 alias evl="e \"\${HOME}/.vimrc.local\""
 alias evm="e \"\${VIM_DOTFILES}/after/plugin/mappings.vim\""

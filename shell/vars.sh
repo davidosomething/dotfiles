@@ -50,8 +50,8 @@ export CVSIGNORE="${DOTFILES}/git/.gitignore"
 # editor
 # ----------------------------------------------------------------------------
 
-export EDITOR="${DOTFILES}/bin/vopen-nofork"
-export VISUAL="${DOTFILES}/bin/vopen-nofork"
+export EDITOR="vim"
+export VISUAL="gvim"
 
 # ----------------------------------------------------------------------------
 # pager
@@ -86,7 +86,7 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
 # egr() function
-export EGR_EDITOR="${DOTFILES}/bin/vopen"
+export EGR_EDITOR="$EDITOR"
 
 # fzf
 # ** is globbing completion in zsh, use tickticktab instead
