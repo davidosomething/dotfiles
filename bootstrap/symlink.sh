@@ -51,9 +51,9 @@ __symlink() {
 
 
   # symlink shells ---------------------------------------------------------------
-  dko::symlink bash/.bashrc                         .bashrc
-  dko::symlink bash/.bash_profile                   .bash_profile
-  dko::symlink zsh/.zshenv                          .zshenv
+  dko::symlink bash/dot.bashrc                      .bashrc
+  dko::symlink bash/dot.bash_profile                .bash_profile
+  dko::symlink zsh/dot.zshenv                       .zshenv
 
   dko::status "Done! [symlink.sh]"
 }

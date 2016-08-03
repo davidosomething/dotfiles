@@ -8,6 +8,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 source "${HOME}/.dotfiles/shell/vars.sh"
 source "${DOTFILES}/shell/before.sh"
 
+export INPUTRC="${DOTFILES}/shell/dot.inputrc"
+
 # ==============================================================================
 # Plugins
 # ==============================================================================

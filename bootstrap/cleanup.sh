@@ -126,6 +126,9 @@ __merge_dir "${HOME}/.fonts"          "${XDG_DATA_HOME}/fonts"
 # INPUTRC is set
 
 # Removes
+__remove "${HOME}/.bash_profile"
+__remove "${HOME}/.bashrc"
+__remove "${HOME}/.zshenv"
 # alias points to dotfile
 __remove "${HOME}/.mdlrc"
 # should be in XDG
