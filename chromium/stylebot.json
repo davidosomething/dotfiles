@@ -1,0 +1,1 @@
+{"www.mangahere.co":{"_enabled":true,"_rules":{"iframe, .banner-600x90, .mb10, .mangaread_also, footer, header":{"display":"none"}}},"www.mangapanda.com":{"_enabled":true,"_rules":{".top, #bottomchapter, #wrapper_footer":{"display":"none"}}}}
