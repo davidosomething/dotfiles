@@ -16,15 +16,11 @@ case "$(uname -s)" in
 esac
 
 # ============================================================================
-# macOS/OS X
+# mac OS/OS X
 # ============================================================================
 
 [[ "$DOTFILES_OS" = "Darwin" ]] && {
   export DOTFILES_DISTRO="mac"
-
-  # ----------------------------------------------------------------------
-  # homebrew
-
 
   command -v "brew" >/dev/null 2>&1 && {
     BREW_PREFIX="$(brew --prefix)"
@@ -47,7 +43,7 @@ esac
     export DOTFILES_DISTRO="archlinux"
 
     # for pacdiff
-    export DIFFPROG="${DOTFILES}/bin/vopen-nofork -d"
+    export DIFFPROG="nvim -d"
 
     # for arch wiki lite
     export wiki_browser="chromium"

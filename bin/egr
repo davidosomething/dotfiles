@@ -2,7 +2,7 @@
 
 set -e
 
-_maybe_git_root() {
+__maybe_git_root() {
   local git_root="."
 
   # check for git root
@@ -15,10 +15,10 @@ _maybe_git_root() {
 
 # find and edit file from git root
 #
-_egr() {
+__egr() {
   local filename="${1:-README.md}"
   local git_root
-  git_root=$(_maybe_git_root)
+  git_root=$(__maybe_git_root)
 
   # edit gruntfile in git root or local dir if exists
   if [ -f "${git_root}/${filename}" ]; then
@@ -29,5 +29,5 @@ _egr() {
   fi
 }
 
-_egr "$1"
+__egr "$1"
 

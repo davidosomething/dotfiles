@@ -85,9 +85,6 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
-# egr() function
-export EGR_EDITOR="$EDITOR"
-
 # fzf
 # ** is globbing completion in zsh, use tickticktab instead
 export FZF_COMPLETION_TRIGGER="\`\`"
@@ -147,12 +144,6 @@ export TRAVIS_CONFIG_PATH="${XDG_CONFIG_HOME}/travis"
 
 # vagrant
 export VAGRANT_HOME="${XDG_CONFIG_HOME}/vagrant"
-
-# vopen
-export VOPEN_EDITOR="vim"
-export VOPEN_VISUAL="gvim"
-export VOPEN_USE_GUI=false
-export VOPEN_USE_SERVER=true
 
 # weechat
 export WEECHAT_HOME="${DOTFILES}/weechat"
