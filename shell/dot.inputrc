@@ -1,5 +1,16 @@
-# ~/.inputrc
+# .inputrc
 #
+# Readline configuration
+#
+# This is symlinked into ~/.config/readline/inputrc
+# In bash it is set in .bashrc via env var INPUTRC to the realpath
+# It is not used in zsh since zsh has its own readline implementation
+#
+
+# ============================================================================
+# Display
+# ============================================================================
+
 # Allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
 set input-meta on
 set output-meta on
@@ -8,7 +19,9 @@ set convert-meta off
 # Immediately add a trailing slash when autocompleting symlinks to directories
 set mark-symlinked-directories on
 
-# Completion -------------------------------------------------------------------
+# ============================================================================
+# Completion
+# ============================================================================
 
 set completion-ignore-case on
 set completion-prefix-display-length 2
@@ -31,13 +44,15 @@ set match-hidden-files off
 set page-completions off
 
 # If there are more than 200 possible completions for a word, ask to show them
-# all
+# all (otherwise display is clobbered or slow)
 set completion-query-items 200
 
 # Show extra file information when completing, like `ls -F` does
 set visible-stats on
 
-# Keys -------------------------------------------------------------------------
+# ============================================================================
+# Keys
+# ============================================================================
 
 "\e[1;5D": backward-word
 "\e[1;5C": forward-word
@@ -54,3 +69,4 @@ set visible-stats on
 
 # Use Alt/Meta + Delete to delete the preceding word
 "\e[3;3~": kill-word
+
