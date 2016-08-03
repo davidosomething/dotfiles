@@ -8,7 +8,52 @@ export DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 source "${HOME}/.dotfiles/shell/vars.sh"
 source "${DOTFILES}/shell/before.sh"
 
-export INPUTRC="${DOTFILES}/shell/dot.inputrc"
+# Override HISTFILE for bash
+export HISTFILE="${BASH_DOTFILES}/.bash_history"
+
+# ==============================================================================
+# Main
+# ==============================================================================
+
+# ----------------------------------------------------------------------------
+# Options
+# ----------------------------------------------------------------------------
+
+set -o notify
+shopt -s checkwinsize               # update $LINES and $COLUMNS
+shopt -s cmdhist                    # save multi-line commands in one
+shopt -s histappend
+shopt -s dotglob                    # expand filenames starting with dots too
+shopt -s nocaseglob
+shopt -s extglob
+shopt -s cdspell                    # autocorrect dir names
+shopt -s cdable_vars
+shopt -s no_empty_cmd_completion    # don't try to complete empty lines
+
+# ----------------------------------------------------------------------------
+# Completions
+# ----------------------------------------------------------------------------
+
+set completion-ignore-case on
+
+source_if_exists /etc/bash_completion
+source_if_exists /usr/share/bash-completion/bash_completion
+
+# homebrew's bash-completion package sources the rest of bash_completion.d
+source_if_exists "${BREW_PREFIX}/etc/bash_completion"
+
+source_if_exists "${NVM_DIR}/bash_completion"
+
+# following are from
+# https://github.com/mathiasbynens/dotfiles/blob/master/.bash_profile
+
+# Enable tab completion for `g` by marking it as an alias for `git`
+if type _git &>/dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+  complete -o default -o nospace -F _git g;
+fi
+
+# WP-CLI Bash completions
+source_if_exists "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
 
 # ==============================================================================
 # Plugins
@@ -16,12 +61,10 @@ export INPUTRC="${DOTFILES}/shell/dot.inputrc"
 
 source_if_exists "${HOME}/.fzf.bash"
 
-# ==============================================================================
-# Main
-# ==============================================================================
+# ============================================================================
+# Prompt -- needs to be after plugins since it might use them
+# ============================================================================
 
-source "${BASH_DOTFILES}/options.bash"
-source "${BASH_DOTFILES}/completions.bash"
 source "${BASH_DOTFILES}/prompt.bash"
 
 # ==============================================================================

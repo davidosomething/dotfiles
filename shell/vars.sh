@@ -132,7 +132,7 @@ export R_ENVIRON_USER="${DOTFILES}/r/.Renviron"
 export R_LIBS_USER="${HOME}/.local/lib/R/library/"
 
 # readline
-export INPUTRC="${DOTFILES}/shell/.inputrc"
+export INPUTRC="${DOTFILES}/shell/dot.inputrc"
 
 # ruby moved to shell/ruby loaded in shell/before
 

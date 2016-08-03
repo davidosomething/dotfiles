@@ -1,11 +1,11 @@
 # prompt.bash
 
-# _prompt_git
+# __prompt_git
 #
 # from paul irish
 # @see https://github.com/paulirish/dotfiles/blob/master/.bash_prompt
 #
-_prompt_git() {
+__prompt_git() {
   local branch_name
   local dirty_symbol
 
@@ -30,9 +30,9 @@ _prompt_git() {
   echo -e "${1}${branch_name}${2}${dirty_symbol}"
 }
 
-# _bash_prompt
+# __bash_prompt
 #
-_bash_prompt() {
+__bash_prompt() {
   local Z="\[\033[0m\]"
   #local K="\[\033[0;30m\]"
   #local R="\[\033[0;31m\]"
@@ -56,9 +56,10 @@ _bash_prompt() {
 
   PS1="${USER}$B@${HOST}$C:${DIR}\n"
   PS1+="${CURTIME}"
-  PS1+="${P}(\$(_prompt_git))"   # git repository details
+  PS1+="${P}(\$(__prompt_git))"   # git repository details
   PS1+="${Z} "
   export PS1
 }
 
-_bash_prompt
+__bash_prompt
+
