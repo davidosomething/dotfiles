@@ -38,6 +38,8 @@ git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
   restart shell (zplug will self-install)
 - See OS specific notes in [mac/README.md](mac/README.md) and for linux
   [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
+- Chrome extensions I use are listed in
+  [chromium/README.md](chromium/README.md)
 
 #### Dev environment setup
 
