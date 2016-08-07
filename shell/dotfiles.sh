@@ -40,6 +40,7 @@ dko::dotfiles::__usage() {
   macOS/OS X
     brew        -- homebrew packages
     mac         -- repair permissions and check software updates
+    neovim      -- update brew neovim/neovim on HEAD
 
   Development
     wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
@@ -280,6 +281,7 @@ dko::dotfiles::__update_linux() {
 dko::dotfiles::__update_darwin() {
   case "$1" in
     brew)   dko::dotfiles::__update_brew        ;;
+    macvim) dko::dotfiles::__update_brew_macvim ;;
     neovim) dko::dotfiles::__update_brew_neovim ;;
     mac)    dko::dotfiles::__update_mac         ;;
   esac
@@ -362,6 +364,10 @@ dko::dotfiles::__update_brew() {
 
     dko::dotfiles::__pyenv_system
 
+    # Brew some makefiles like macvim use tput for output so need to reset
+    # from xterm-256color-italic I use in iterm
+    TERM="xterm-256color"
+
     # Detect if brew's python3 (not pyenv) was outdated
     # Reinstall macvim with new python3 if needed
     grep -q "python3" <<<"$outdated"      \
@@ -369,13 +375,19 @@ dko::dotfiles::__update_brew() {
       && brew upgrade python3             \
       && brew linkapps python3            \
       && dko::status "Rebuilding macvim with new python3" \
-      && brew reinstall macvim --with-lua --with-override-system-vim --with-python3 \
-      && dko::status "Linking new macvim.app" \
-      && brew linkapps macvim
+      && dko::dotfiles::__update_brew_macvim
 
     dko::status "Upgrading packages"
     brew upgrade --all
   ) && dko::dotfiles::__update_brew_done
+}
+
+dko::dotfiles::__update_brew_macvim() {
+  TERM=xterm-256color \
+     brew reinstall macvim \
+     --with-lua --with-override-system-vim --with-python3 \
+  && dko::status "Linking new macvim.app" \
+  && brew linkapps macvim
 }
 
 dko::dotfiles::__update_brew_neovim() {
