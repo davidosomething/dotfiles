@@ -124,8 +124,8 @@ __alias_ls
 # ============================================================================
 
 __alias_darwin() {
-  alias b="brew"
-  alias bi="brew install"
+  alias b="TERM=xterm-256color brew"
+  alias bi="TERM=xterm-256color brew install"
   alias bq="brew list"
   alias bs="brew search"
 
