@@ -228,15 +228,15 @@ let g:neomake_python_pylint_args = [
 " Sass: sasslint
 " ----------------------------------------------------------------------------
 
-let g:neomake_scss_sasslint_maker = {
-      \   'exe':          'sass-lint',
-      \   'args':         [ '--no-exit', '--verbose', '--format=compact' ],
-      \   'errorformat':  '%E%f: line %l\, col %c\, Error - %m,' .
-      \                   '%W%f: line %l\, col %c\, Warning - %m',
-      \ }
-
-let g:neomake_scss_enabled_makers =
-      \ executable('sasslint') ? [ 'sasslint' ] : []
+" Merged into upstream https://github.com/neomake/neomake/pull/504
+" let g:neomake_scss_sasslint_maker = {
+"       \   'exe':          'sass-lint',
+"       \   'args':         [ '--no-exit', '--verbose', '--format=compact' ],
+"       \   'errorformat':  '%E%f: line %l\, col %c\, Error - %m,' .
+"       \                   '%W%f: line %l\, col %c\, Warning - %m',
+"       \ }
+" let g:neomake_scss_enabled_makers =
+"       \ executable('sasslint') ? [ 'sasslint' ] : []
 
 function! s:SetSasslintRc()
   " Use local config if exists
