@@ -242,7 +242,8 @@ function! s:SetSasslintRc()
   " Use local config if exists
   let l:config = dkoproject#GetProjectConfigFile('.sass-lint.yml')
   if !empty(l:config)
-    let b:neomake_scss_sasslint_args = get(g:, 'neomake_scss_sasslint_args', [])
+    let b:neomake_scss_sasslint_args =
+          \ get(g:, 'neomake_scss_sasslint_args', [])
           \ + [ '--config=' . l:config ]
   endif
 endfunction
@@ -269,9 +270,9 @@ function! s:PickScssMakers() abort
         \ )
 endfunction
 
- autocmd dkoneomake FileType scss
-       \ call s:SetSasslintRc()
-       \| call s:AddLocalMaker(s:local_maker_sasslint)
+autocmd dkoneomake FileType scss
+      \ call s:SetSasslintRc()
+      \| call s:AddLocalMaker(s:local_maker_sasslint)
 "       \| call s:PickScssMakers()
 
 " ============================================================================
