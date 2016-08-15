@@ -633,10 +633,11 @@ function! s:LoadPlugins()
   " e for entire file
   " i for indent level
   " l for current line
-  " p for <?php ?>
+  " P for <?php ?>
   " u for url
   " b for any block type (parens, braces, quotes, ltgt)
   " = and i= for conflicts marked blocks
+  " c for css/sass/less block
   " f for function (c, java, js, php, vim only)
   Plug 'kana/vim-textobj-user'
         \| Plug 'kana/vim-textobj-entire'
@@ -646,9 +647,10 @@ function! s:LoadPlugins()
         \| Plug 'rhysd/vim-textobj-anyblock'
         \| Plug 'rhysd/vim-textobj-conflict'
         \| Plug 'akiyan/vim-textobj-php'
+        \| Plug 'jasonlong/vim-textobj-css'
         \| Plug 'kana/vim-textobj-function'
-        \| Plug 'thinca/vim-textobj-function-javascript'
-        \| Plug 'kentaro/vim-textobj-function-php'
+                \| Plug 'thinca/vim-textobj-function-javascript'
+                \| Plug 'kentaro/vim-textobj-function-php'
 
   Plug 'benjifisher/matchit.zip'
   "Plug 'vim-scripts/matchit.zip'
