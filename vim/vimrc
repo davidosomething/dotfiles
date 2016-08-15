@@ -513,10 +513,14 @@ function! s:LoadPlugins()
   if g:dko_use_fzf | Plug '~/.fzf'
   endif
 
+  " `:Bufferize messages` to get messages (or any :command) in a new buffer
+  Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
+
   " the blame in vim-gita is hawt :3
   Plug 'lambdalisue/vim-gita', { 'on': ['Gita'] }
 
-  " Mostly for :Scriptnames and zS
+  " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer than
+  " :Scriptnames)
   Plug 'tpope/vim-scriptease'
 
   " gK to lookup

@@ -40,7 +40,8 @@ dko::dotfiles::__usage() {
   macOS/OS X
     brew        -- homebrew packages
     mac         -- repair permissions and check software updates
-    neovim      -- update brew neovim/neovim on HEAD
+    macvim      -- install latest brew macvim
+    neovim      -- install latest brew neovim/neovim on HEAD
 
   Development
     wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
@@ -369,7 +370,7 @@ dko::dotfiles::__update_brew() {
     TERM="xterm-256color"
 
     # Detect if brew's python3 (not pyenv) was outdated
-    # Reinstall macvim with new python3 if needed
+    # Reinstall macvim (in another sub-shell) with new python3 if needed
     grep -q "python3" <<<"$outdated"      \
       && dko::status "Upgrading python3"  \
       && brew upgrade python3             \
@@ -383,26 +384,35 @@ dko::dotfiles::__update_brew() {
 }
 
 dko::dotfiles::__update_brew_macvim() {
-  TERM=xterm-256color \
-     brew reinstall macvim \
-     --with-lua --with-override-system-vim --with-python3 \
-  && dko::status "Linking new macvim.app" \
-  && brew linkapps macvim
-}
-
-dko::dotfiles::__update_brew_neovim() {
-  dko::status "Updating neovim via homebrew"
+  dko::status "Re-installing macvim via homebrew (brew update first to upgrade)"
+  dko::has "brew" || dko::die "Homebrew is not installed."
   (
-    dko::has "brew" || dko::die "Homebrew is not installed."
-
     # enter dotfiles dir to do this in case user has any gem flags or local
     # vendor bundle that will cause use of local gems
     cd "$DOTFILES" \
       || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
 
-    brew update
+    TERM=xterm-256color \
+       brew reinstall macvim \
+       --with-lua --with-override-system-vim --with-python3 \
+    && dko::status "Linking new macvim.app" \
+    && brew linkapps macvim
+  )
+}
+
+dko::dotfiles::__update_brew_neovim() {
+  dko::status "Re-installing neovim via homebrew (brew update first to upgrade)"
+  dko::has "brew" || dko::die "Homebrew is not installed."
+  (
+    # enter dotfiles dir to do this in case user has any gem flags or local
+    # vendor bundle that will cause use of local gems
+    cd "$DOTFILES" \
+      || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
+
     dko::dotfiles::__pyenv_system
-    brew reinstall --HEAD --with-release neovim
+
+    TERM=xterm-256color \
+      brew reinstall --HEAD --with-release neovim
   )
 }
 
