@@ -65,7 +65,7 @@ export GIT_PAGER="$PAGER"
 # ----------------------------------------------------------------------------
 
 # ack
-export ACKRC="${DOTFILES}/ack/.ackrc"
+export ACKRC="${DOTFILES}/ack/dot.ackrc"
 
 # apache
 [[ -f "/etc/apache2/envvars" ]] && source "/etc/apache2/envvars"
