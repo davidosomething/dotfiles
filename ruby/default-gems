@@ -12,6 +12,7 @@ httpclient
 i18n
 json
 mdless
+neovim
 pry
 psych
 puppet-lint

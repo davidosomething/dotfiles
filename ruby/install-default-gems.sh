@@ -24,7 +24,9 @@ __install() {
 
   # loop through default-gems file and install each one
   dko::status "Installing default gems"
-  while read -r gemname; do gem install "$gemname"; done < default-gems
+  while read -r gemname; do
+    gem install "$gemname"
+  done < default-gems
 }
 
 __install
