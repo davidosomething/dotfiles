@@ -549,8 +549,10 @@ function! s:LoadPlugins()
   " Plug: Input, syntax, spacing
   " ========================================================================
 
-  Plug 'sgur/vim-editorconfig'
+  "Disabled -- tries to run on :Gita commands
+  "Plug 'sgur/vim-editorconfig'
   "Plug 'davidosomething/vim-editorconfig', { 'branch': 'lint-skip-comments' }
+  Plug 'editorconfig/editorconfig-vim'
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
