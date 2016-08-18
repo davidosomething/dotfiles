@@ -473,7 +473,6 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
 " This is used by plugin/completion.vim so is a g:
 let g:dko_has_completion = 0
-let g:dko_use_tern_completion = executable('npm')
 let g:dko_use_fzf = has('nvim') && !empty(glob(expand('~/.fzf')))
 
 function! s:LoadPlugins()
@@ -742,9 +741,7 @@ function! s:LoadPlugins()
   "'jiangmiao/simple-javascript-indenter'   " Alternative js indent
   "'jason0x43/vim-js-indent'                " Use HTML's indenter with
                                             " TypeScript support
-  if exists("g:plugs['yajs.vim']")
-    Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' }
-  endif
+  Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' }
 
   " es.next support
   " possible jsx indent conflict?
@@ -776,12 +773,13 @@ function! s:LoadPlugins()
   " Parameter completion
   Plug 'othree/jspc.vim'
 
+  " Code analysis completion
   if g:dko_has_completion
-    if g:dko_use_tern_completion
+    if executable('npm')
       if has('nvim')
-        Plug 'carlitux/deoplete-ternjs'
-      elseif executable('npm')
-        Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+        Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
+      else
+        Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
       endif
     else
       " Syntax completion
@@ -802,7 +800,7 @@ function! s:LoadPlugins()
 
   if executable('npm')
     Plug 'suan/vim-instant-markdown', {
-          \   'do': 'npm install -g instant-markdown-d'
+          \   'do': 'npm install --global instant-markdown-d'
           \ }
   endif
 
@@ -949,6 +947,7 @@ function! s:LoadPlugins()
 
   " Disabled on neovim until 0.2
   " @see https://github.com/haya14busa/incsearch.vim/issues/79
+  " @see https://github.com/neovim/neovim/issues/3688
   " highlight partial matches as you type in search mode
   if !has('nvim') | Plug 'haya14busa/incsearch.vim'
   endif
@@ -970,8 +969,8 @@ endfunction
 " Plugins: autoinstall vim-plug, define plugins, install plugins if needed
 " ----------------------------------------------------------------------------
 
-let s:plug_dir = '/vendor/vim'
-if has('nvim') | let s:plug_dir = '/vendor/nvim' | endif
+let s:plug_dir = '/vendor/'
+let s:plug_dir .= has('nvim') ? 'nvim' : 'vim'
 let s:dko_plug_absdir = g:dko#vim_dir . s:plug_dir
 
 " Load vim-plug and its plugins?

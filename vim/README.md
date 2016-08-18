@@ -29,7 +29,7 @@ Keep `(g)vimrc` (no dot in filename) in `.vim` -- Vim knows to look in there.
 Even though [neomake] is used to handle running linters, the [syntastic] wiki
 still has a good list ([Syntax-Checkers]) and shows how to set them up.
 
-### Neovim Python Settings
+### Python Settings
 
 - Using `pyenv`, install python 3+.
 - Set up a virtualenv using `pyenv-virtualenv`: `pyenv virtualenv neovim3`
@@ -43,6 +43,25 @@ still has a good list ([Syntax-Checkers]) and shows how to set them up.
   deoplete.
 - `:CheckHealth` to see if the python3 setup and plugins are working.
 
+### Ruby Settings
+
+- Not used for anything right now.
+- Using `chruby` install and use a ruby.
+- Install the `neovim` gem
+- `:CheckHealth` to see if the gem is found.
+
+### JavaScript Settings
+
+- Using `nvm` install and use a node.
+- When installing/updating plugins, ones that have a dependency on node will
+  be installed.
+
+#### Redis Settings
+
+- If a local redis server is available (`brew install redis`), AND npm is
+  available, unite will provide the much faster redismru.vim instead of
+  neomru.vim
+
 ### Arch Linux
 
 Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux!
@@ -55,19 +74,19 @@ Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux!
 #### / (dotfiles/vim root)
 
 This is a Vim runtimepath that will load after the user and system runtimepaths
-but before the vim-plug ones. So `plugin/xyz.vim` will load before
+but before the [vim-plug] ones. So `plugin/xyz.vim` will load before
 `plug/vim/pluginname/plugin/name.vim`. Neovim plugins will be in `plug/nvim/`.
 
 Use this for settings that must be set before a plugin is loaded (i.e. the
 plugin does not check for the existence of a setting on init). The global
 variable `g:plugs`, which is a dictionary of plugin names and settings from
-vim-plug, is available to before since it is created in the main `vimrc` file
+[vim-plug], is available to before since it is created in the main `vimrc` file
 by the `Plug` calls.
 
 #### after/
 
 This is a runtimepath that will load after the system runtimepath but before
-the vim-plug one. So `after/plugin/xyz.vim` will load after
+the [vim-plug] one. So `after/plugin/xyz.vim` will load after
 `plug/vim/pluginname/plugin/name.vim`.
 
 Use this for settings that should override or extend system or plugin settings.
@@ -120,7 +139,7 @@ Unite keys are arranged by search context from small (current buf) to big
 | `<F12>` | toggle paste mode |
 
 See `plugin/mappings.vim` (and other plugin/* files) for mappings not
-associated to vim-plug-managed plugins.
+associated to [vim-plug]-managed plugins.
 
 ### Junk defaults and unmapped keys
 
