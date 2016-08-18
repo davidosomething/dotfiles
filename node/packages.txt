@@ -18,6 +18,7 @@ npm-check-updates
 package-json-validator
 sass-lint
 surge
+tern
 tldr
 webcoach
 yo
