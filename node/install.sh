@@ -19,7 +19,7 @@ source "${DOTFILES}/shell/helpers.sh"
 # @TODO check for nvm node
 __install() {
   dko::status "Installing latest NPM"
-  npm install npm@latest
+  npm install --global npm@latest
 
   dko::status "Installing Yeoman"
   npm install --force --global yo
