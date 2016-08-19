@@ -24,9 +24,9 @@ export GEMRC="${DOTFILES}/ruby/gemrc"
 export CHRUBY_PREFIX="${BREW_PREFIX:-/usr}"
 
 # chruby and auto-switcher for .ruby-version
-source_if_exists "${CHRUBY_PREFIX}/share/chruby/chruby.sh" && \
+dko::source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" && \
   export DKO_SOURCE="${DKO_SOURCE} -> chruby"
-source_if_exists "${CHRUBY_PREFIX}/share/chruby/auto.sh"
+dko::source "${CHRUBY_PREFIX}/share/chruby/auto.sh"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :

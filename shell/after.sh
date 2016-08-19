@@ -36,7 +36,7 @@ dko::has "grunt" && {
 # travis completion
 # ==============================================================================
 
-source_if_exists "${TRAVIS_CONFIG_PATH}/travis.sh" && \
+dko::source "${TRAVIS_CONFIG_PATH}/travis.sh" && \
   export DKO_SOURCE="${DKO_SOURCE} -> travis"
 
 # ==============================================================================

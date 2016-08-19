@@ -36,13 +36,13 @@ shopt -s no_empty_cmd_completion    # don't try to complete empty lines
 
 set completion-ignore-case on
 
-source_if_exists /etc/bash_completion
-source_if_exists /usr/share/bash-completion/bash_completion
+dko::source /etc/bash_completion
+dko::source /usr/share/bash-completion/bash_completion
 
 # homebrew's bash-completion package sources the rest of bash_completion.d
-source_if_exists "${BREW_PREFIX}/etc/bash_completion"
+dko::source "${BREW_PREFIX}/etc/bash_completion"
 
-source_if_exists "${NVM_DIR}/bash_completion"
+dko::source "${NVM_DIR}/bash_completion"
 
 # following are from
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_profile
@@ -53,13 +53,13 @@ if type _git &>/dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion
 fi
 
 # WP-CLI Bash completions
-source_if_exists "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
+dko::source "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
 
 # ==============================================================================
 # Plugins
 # ==============================================================================
 
-source_if_exists "${HOME}/.fzf.bash"
+dko::source "${HOME}/.fzf.bash"
 
 # ============================================================================
 # Prompt -- needs to be after plugins since it might use them
@@ -72,7 +72,7 @@ source "${BASH_DOTFILES}/prompt.bash"
 # ==============================================================================
 
 source "${DOTFILES}/shell/after.sh"
-source_if_exists "${DOTFILES}/local/bashrc"
+dko::source "${DOTFILES}/local/bashrc"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: syn=sh :

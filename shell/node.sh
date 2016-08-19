@@ -10,8 +10,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/node.sh {"
 export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 
 # using nvm?
-[ -d "$NVM_DIR" ] && source_if_exists "${NVM_DIR}/nvm.sh" && \
-    export DKO_SOURCE="${DKO_SOURCE} -> nvm"
+dko::source "${NVM_DIR}/nvm.sh" && export DKO_SOURCE="${DKO_SOURCE} -> nvm"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 

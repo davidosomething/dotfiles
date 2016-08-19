@@ -31,6 +31,12 @@ dko::has() { command -v "$1" >/dev/null 2>&1; }
 # pipe into this to indent
 dko::indent() { sed 's/^/    /'; }
 
+# source a file if it exists
+# $1 path to file
+dko::source() {
+  [ -f "$1" ] && source "$1" # && echo "Sourced $1"
+}
+
 # require root
 dko::requireroot() {
   if [[ "$(whoami)" != "root" ]]; then

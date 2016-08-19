@@ -205,7 +205,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 # fzf
 # ============================================================================
 
-source_if_exists "${HOME}/.fzf.zsh" && export DKO_SOURCE="${DKO_SOURCE} -> fzf"
+dko::source "${HOME}/.fzf.zsh" && export DKO_SOURCE="${DKO_SOURCE} -> fzf"
 
 # ============================================================================
 # nocorrect aliases
@@ -299,7 +299,7 @@ fi
 # ============================================================================
 
 source "${DOTFILES}/shell/after.sh"
-source_if_exists "${DOTFILES}/local/zshrc"
+dko::source "${DOTFILES}/local/zshrc"
 
 # Started xtrace in dot.zshenv
 if [[ "$PROFILE_STARTUP" == true ]]; then
