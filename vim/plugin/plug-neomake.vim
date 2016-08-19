@@ -242,9 +242,12 @@ function! s:SetSasslintRc()
   " Use local config if exists
   let l:config = dkoproject#GetProjectConfigFile('.sass-lint.yml')
   if !empty(l:config)
+    let l:sasslint_maker = neomake#GetMaker('sasslint', 'scss')
+    let l:sasslint_args = get(
+          \ g:, 'neomake_scss_sasslint_args',
+          \ l:sasslint_maker.args)
     let b:neomake_scss_sasslint_args =
-          \ get(g:, 'neomake_scss_sasslint_args', [])
-          \ + [ '--config=' . l:config ]
+          \ l:sasslint_args + [ '--config=' . l:config ]
   endif
 endfunction
 
