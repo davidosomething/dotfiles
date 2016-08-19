@@ -138,42 +138,60 @@ export _Z_DATA="${HOME}/.local/z"
 # ============================================================================
 
 export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
-export ZPLUG_LOADFILE="${ZDOTDIR}/zplug.zsh"  # plugin definitions
+# plugin definitions file -- don't set before zplug is installed
+export ZPLUG_LOADFILE="${ZDOTDIR}/zplug.zsh"
 
-zplug_init="${ZPLUG_HOME}/init.zsh"
+readonly zplug_init="${ZPLUG_HOME}/init.zsh"
+
+# ----------------------------------------------------------------------------
+# zplug - load cli
+# ----------------------------------------------------------------------------
 
 __load_zplug_init() {
-  source_if_exists "$zplug_init"
-  export DKO_SOURCE="${DKO_SOURCE} -> $zplug_init"
-  # self-managed zplug assumes ZPLUG_ROOT == ZPLUG_HOME and doesn't add this
-  # path any more
-  export PATH="${ZPLUG_HOME}/bin:${PATH}"
+  if [ -f "$zplug_init" ]; then
+    source "$zplug_init"
+    export DKO_SOURCE="${DKO_SOURCE} -> $zplug_init"
+    # self-managed zplug assumes ZPLUG_ROOT == ZPLUG_HOME and doesn't add this
+    # path any more
+    export PATH="${ZPLUG_HOME}/bin:${PATH}"
+    if ! zplug check --verbose; then
+      dko::status "Installing zplug plugins"
+      zplug install
+    fi
+  else
+    dko::warn "Did not find zplug/init.zsh"
+  fi
 }
 
-__load_zplug() {
-  # auto-install (new install)
-  if [ ! -f "$zplug_init" ]; then
-    dko::status "(Re)installing zplug"
-    rm -rf "${ZPLUG_HOME}"
-    git clone https://github.com/zplug/zplug "$ZPLUG_HOME" \
-      && __load_zplug_init \
-      && zplug update --self \
-      && zplug update
-  fi
+# ----------------------------------------------------------------------------
+# zplug - auto-install (new install)
+# ----------------------------------------------------------------------------
 
-  # load zplug_init if not loaded (existing install)
+if [ ! -f "$zplug_init" ]; then
+  dko::status "(Re)installing zplug"
+  rm -rf "${ZPLUG_HOME}"
+  git clone https://github.com/zplug/zplug.git "$ZPLUG_HOME" \
+    && __load_zplug_init \
+    && zplug update --self
+
+else # Already installed, check if need to re-source for new shell
   # Note: ZPLUG_ROOT is manually unset in .zshenv ! This ensures plugins are
   # loaded for tmux and subshells (e.g. `exec $SHELL`)
   [ -z "$ZPLUG_ROOT" ] && __load_zplug_init
+fi
 
-  # define plugins
-  dko::has "zplug" && {
-    export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
-    zplug check --verbose || zplug install
-    zplug load && export DKO_SOURCE="${DKO_SOURCE} }"
-  }
+# ----------------------------------------------------------------------------
+# zplug - define plugins
+# ----------------------------------------------------------------------------
+
+dko::has "zplug" && {
+  export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
+  # don't put in ZPLUG_LOADFILE, zplug can't handle it
+  zplug "zplug/zplug"
+
+  zplug load --verbose
+  export DKO_SOURCE="${DKO_SOURCE} }"
 }
-__load_zplug
 
 # ============================================================================
 # Plugin settings (after plugin loaded)

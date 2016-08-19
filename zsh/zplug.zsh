@@ -83,7 +83,3 @@ zplug "plugins/brew-cask",        \
 
 # highlight as you type
 zplug "zsh-users/zsh-syntax-highlighting", nice:19
-
-# ----------------------------------------------------------------------------
-
-zplug "zplug/zplug"
