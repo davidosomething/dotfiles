@@ -1,6 +1,7 @@
 " autoload/dkorule.vim
 
 " Generate a line of a:char from current cursor to end of textwidth
+" For &tw=78 (my preferred textwidth) the line will go up to col 78
 " http://stackoverflow.com/a/3400528/230473
 function! dkorule#char(char) abort
   if !strlen(a:char) | return | endif

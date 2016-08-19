@@ -82,8 +82,9 @@ set numberwidth=5
 set scrolloff=8
 set sidescrolloff=16
 
-" +1 means highlight the col at &textwidth+1
-set colorcolumn=+1
+set textwidth=78
+" the line will be right after column 80, &tw+3
+set colorcolumn=+3
 set cursorline
 
 set synmaxcol=512                     " don't syntax highlight long lines

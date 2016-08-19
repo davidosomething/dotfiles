@@ -153,10 +153,12 @@ __load_zplug_init() {
 __load_zplug() {
   # auto-install (new install)
   if [ ! -f "$zplug_init" ]; then
+    dko::status "(Re)installing zplug"
     rm -rf "${ZPLUG_HOME}"
-    git clone https://github.com/zplug/zplug.git "$ZPLUG_HOME" \
+    git clone https://github.com/zplug/zplug "$ZPLUG_HOME" \
       && __load_zplug_init \
-      && zplug update --self
+      && zplug update --self \
+      && zplug update
   fi
 
   # load zplug_init if not loaded (existing install)
