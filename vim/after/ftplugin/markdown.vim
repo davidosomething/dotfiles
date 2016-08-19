@@ -10,6 +10,7 @@
 setlocal nomodeline
 setlocal expandtab
 setlocal textwidth=0
+setlocal colorcolumn=81
 setlocal spell
 
 " too slow
