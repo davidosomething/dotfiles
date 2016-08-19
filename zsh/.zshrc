@@ -154,7 +154,7 @@ __load_zplug_init() {
     # self-managed zplug assumes ZPLUG_ROOT == ZPLUG_HOME and doesn't add this
     # path any more
     export PATH="${ZPLUG_HOME}/bin:${PATH}"
-    if ! zplug check --verbose; then
+    if ! zplug check; then
       dko::status "Installing zplug plugins"
       zplug install
     fi
@@ -189,7 +189,7 @@ dko::has "zplug" && {
   # don't put in ZPLUG_LOADFILE, zplug can't handle it
   zplug "zplug/zplug"
 
-  zplug load --verbose
+  zplug load
   export DKO_SOURCE="${DKO_SOURCE} }"
 }
 
