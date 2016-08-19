@@ -177,7 +177,7 @@ if [ ! -f "$zplug_init" ]; then
 else # Already installed, check if need to re-source for new shell
   # Note: ZPLUG_ROOT is manually unset in .zshenv ! This ensures plugins are
   # loaded for tmux and subshells (e.g. `exec $SHELL`)
-  [ -z "$ZPLUG_ROOT" ] && __load_zplug_init
+  __load_zplug_init
 fi
 
 # ----------------------------------------------------------------------------
@@ -301,8 +301,10 @@ fi
 source "${DOTFILES}/shell/after.sh"
 source_if_exists "${DOTFILES}/local/zshrc"
 
+# Started xtrace in dot.zshenv
 if [[ "$PROFILE_STARTUP" == true ]]; then
     unsetopt xtrace
     exec 2>&3 3>&-
 fi
+
 export DKO_SOURCE="${DKO_SOURCE} }"

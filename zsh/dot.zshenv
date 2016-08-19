@@ -21,3 +21,5 @@ export HISTFILE="${ZDOTDIR}/.zhistory"
 unset ZPLUG_ROOT
 
 export DKO_SOURCE="${DKO_SOURCE} }"
+
+# vim: ft=zsh
