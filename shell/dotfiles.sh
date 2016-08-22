@@ -55,22 +55,18 @@ dko::dotfiles::__reload() {
 
 dko::dotfiles::__update() {
   dko::status "Updating dotfiles"
-  (
-    cd "$DOTFILES" || dko::die "No \$DOTFILES directory"
-    git pull --rebase || dko::die "Error updating dotfiles"
+  cd "$DOTFILES" || dko::die "No \$DOTFILES directory"
 
-    {
-      dko::status "Updating dotfiles submodules"
-      git submodule update --init
-    } || dko::die "Error updating dotfiles submodules"
+  {
+    git pull --rebase
+    dko::status "Updating dotfiles submodules"
+    git submodule update --init
+    dko::dotfiles::__reload
+  } || dko::die "Error updating dotfiles"
 
-    [ -n "$ZSH_VERSION" ] && dko::has "zplug" && {
-      dko::status "Updating zplug"
-      source "$DKO_ZPLUG_INIT" # since we're in a subshell we need to re-init
-      zplug update
-    }
-  )
-  dko::dotfiles::__reload
+  [ -n "$ZSH_VERSION" ] && dko::has "zplug" && dko::status "Updating zplug" \
+    && zplug update
+
   dko::status "Re-symlink if any dotfiles changed!"
 }
 
