@@ -148,6 +148,7 @@ readonly zplug_init="${ZPLUG_HOME}/init.zsh"
 # ----------------------------------------------------------------------------
 
 __load_zplug_init() {
+  dko::status "zplug init"
   if [ -f "$zplug_init" ]; then
     source "$zplug_init"
     export DKO_SOURCE="${DKO_SOURCE} -> $zplug_init"
@@ -167,6 +168,7 @@ __load_zplug_init() {
 # zplug - auto-install (new install)
 # ----------------------------------------------------------------------------
 
+dko::status "zplug install"
 if [ ! -f "$zplug_init" ]; then
   dko::status "(Re)installing zplug"
   rm -rf "${ZPLUG_HOME}"
@@ -185,6 +187,7 @@ fi
 # ----------------------------------------------------------------------------
 
 dko::has "zplug" && {
+  dko::status "zplug load"
   export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
   # don't put in ZPLUG_LOADFILE, zplug can't handle it
   zplug "zplug/zplug"
