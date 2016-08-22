@@ -19,6 +19,7 @@ dko::dotfiles::__usage() {
     dotfiles    -- update dotfiles (git pull)
     reload      -- reload this script if it was modified
     secret      -- update ~/.secret (git pull)
+    zplug       -- update zplug
 
   Shell Tools
     fzf         -- update fzf with flags to not update rc scripts
@@ -64,10 +65,14 @@ dko::dotfiles::__update() {
     dko::dotfiles::__reload
   } || dko::die "Error updating dotfiles"
 
-  [ -n "$ZSH_VERSION" ] && dko::has "zplug" && dko::status "Updating zplug" \
-    && zplug update
-
+  dko::dotfiles::__zplug
   dko::status "Re-symlink if any dotfiles changed!"
+}
+
+dko::dotfiles::__zplug() {
+  [ -n "$ZSH_VERSION" ] && dko::has "zplug" \
+    && dko::status "Updating zplug" \
+    && zplug update
 }
 
 dko::dotfiles::__update_secret() {
@@ -428,6 +433,7 @@ dko::dotfiles() {
     reload)   dko::dotfiles::__reload           ;;
     dotfiles) dko::dotfiles::__update           ;;
     secret)   dko::dotfiles::__update_secret    ;;
+    zplug)    dko::dotfiles::__zplug            ;;
     composer) dko::dotfiles::__update_composer  ;;
     fzf)      dko::dotfiles::__update_fzf       ;;
     gem)      dko::dotfiles::__update_gems      ;;

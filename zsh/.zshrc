@@ -171,8 +171,7 @@ if [ ! -f "$DKO_ZPLUG_INIT" ]; then
   dko::status "(Re)installing zplug"
   rm -rf "${ZPLUG_HOME}"
   git clone -b fix-228 https://github.com/zplug/zplug.git "$ZPLUG_HOME" \
-    && __load_zplug_init \
-    && zplug update --self
+    && __load_zplug_init
 
 else # Already installed, check if need to re-source for new shell
   # Note: ZPLUG_ROOT is manually unset in .zshenv ! This ensures plugins are
@@ -186,9 +185,6 @@ fi
 
 dko::has "zplug" && {
   export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
-  # don't put in ZPLUG_LOADFILE, zplug can't handle it
-  zplug "zplug/zplug", at:fix-228
-
   zplug load
   export DKO_SOURCE="${DKO_SOURCE} }"
 }
