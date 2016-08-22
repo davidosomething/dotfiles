@@ -66,6 +66,7 @@ dko::dotfiles::__update() {
 
     [ -n "$ZSH_VERSION" ] && dko::has "zplug" && {
       dko::status "Updating zplug"
+      source "$DKO_ZPLUG_INIT" # since we're in a subshell we need to re-init
       zplug update
     }
   )
