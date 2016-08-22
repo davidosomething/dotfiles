@@ -170,7 +170,7 @@ __load_zplug_init() {
 if [ ! -f "$DKO_ZPLUG_INIT" ]; then
   dko::status "(Re)installing zplug"
   rm -rf "${ZPLUG_HOME}"
-  git clone -b fix-228 https://github.com/zplug/zplug.git "$ZPLUG_HOME" \
+  git clone https://github.com/zplug/zplug.git "$ZPLUG_HOME" \
     && __load_zplug_init
 
 else # Already installed, check if need to re-source for new shell
