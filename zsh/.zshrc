@@ -187,7 +187,7 @@ fi
 dko::has "zplug" && {
   export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
   # don't put in ZPLUG_LOADFILE, zplug can't handle it
-  zplug "zplug/zplug"
+  zplug "zplug/zplug", at:fix-228
 
   zplug load
   export DKO_SOURCE="${DKO_SOURCE} }"
