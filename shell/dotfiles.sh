@@ -70,8 +70,15 @@ dko::dotfiles::__update() {
 }
 
 dko::dotfiles::__zplug() {
+  dko::status "Updating zplug"
+  (
+    cd "${ZPLUG_HOME}" || dko::die "No \$ZPLUG_HOME"
+    git pull
+    dko::status "Restart the shell to ensure a clean zplug init"
+  )
+
   [ -n "$ZSH_VERSION" ] && dko::has "zplug" \
-    && dko::status "Updating zplug" \
+    && dko::status "Updating plugins managed by zplug" \
     && zplug update
 }
 
