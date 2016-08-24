@@ -317,7 +317,7 @@ set copyindent
 
 " Try not to change the indent structure on "<<" and ">>" commands. I.e. keep
 " block comments aligned with space if there is a space there.
-set preserveindent
+set nopreserveindent
 
 " Smart detect when in braces and parens. Has annoying side effect that it
 " won't indent lines beginning with '#'. Relying on syntax indentexpr instead.
@@ -403,8 +403,15 @@ let g:markdown_fenced_languages = [
 " Filetype: php
 " ----------------------------------------
 
+" Highlight unclosed ([]) - from $VIMRUNTIME/syntax/php.vim
+let g:php_parentError = 1
+" Assume strings contain HTML
+let g:php_htmlInStrings = 1
+
 " $VIMRUNTIME/indent/php.vim and 2072/
+" Don't indent after <?php opening
 let g:PHP_default_indenting = 0
+" Don't outdent the <?php tags to the first column
 let g:PHP_outdentphpescape  = 0
 
 " ----------------------------------------
@@ -649,11 +656,14 @@ function! s:LoadPlugins()
         \| Plug 'mattn/vim-textobj-url'
         \| Plug 'rhysd/vim-textobj-anyblock'
         \| Plug 'rhysd/vim-textobj-conflict'
-        \| Plug 'akiyan/vim-textobj-php'
-        \| Plug 'jasonlong/vim-textobj-css'
+        \| Plug 'glts/vim-textobj-comment', { 'for': [ 'javascript', 'php' ] }
+        \| Plug 'akiyan/vim-textobj-php', { 'for': [ 'php' ] }
+        \| Plug 'jasonlong/vim-textobj-css',
+        \   { 'for': [ 'css', 'sass', 'scss' ] }
         \| Plug 'kana/vim-textobj-function'
-                \| Plug 'thinca/vim-textobj-function-javascript'
-                \| Plug 'kentaro/vim-textobj-function-php'
+                \| Plug 'thinca/vim-textobj-function-javascript',
+                \   { 'for': [ 'javascript' ] }
+                \| Plug 'kentaro/vim-textobj-function-php', { 'for': [ 'php' ] }
 
   Plug 'benjifisher/matchit.zip'
   "Plug 'vim-scripts/matchit.zip'
@@ -827,13 +837,25 @@ function! s:LoadPlugins()
   "Plug 'evidens/vim-twig'
 
   " Syntax
-  Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+
+  " Neovim comes with
+  "   https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD
+  " 2072 has a fork, but it is actually older than the one in Neovim runtime
+  "   https://github.com/2072/vim-syntax-for-PHP/
+
+  " This is catered towards PHP 5.x, so while it is actively maintained, it is
+  " for an old PHP.
+  "Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 
   " Indent
-  " Fix indent of HTML in all PHP files -- basically adds
-  " indent/html.vim when outside of PHP block.
-  Plug '2072/PHP-Indenting-for-VIm'
-        \| Plug 'captbaritone/better-indent-support-for-php-with-html'
+  " 2072 is included with vim, this is upstream
+  "Plug '2072/PHP-Indenting-for-VIm'
+
+  " Fix indent of HTML in all PHP files -- basically adds indent/html.vim when
+  " outside of PHP block.
+  " This actually never loads since 2072 sets b:did_indent
+  " Also not needed since 2072 uses <script.*> style indenting for HTML
+  "Plug 'captbaritone/better-indent-support-for-php-with-html'
 
   " ----------------------------------------
   " Features

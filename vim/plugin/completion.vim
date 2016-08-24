@@ -49,9 +49,9 @@ if !empty(glob(expand(g:plug_home . '/neosnippet')))
 
   " C-k is used for bubbling lines up, so C-l is the only acceptable
   " neosnippet advance key I have
-  imap  <special> <C-l>   <Plug>(neosnippet_jump_or_expand)
-  smap  <special> <C-l>   <Plug>(neosnippet_jump_or_expand)
-  xmap  <special> <C-l>   <Plug>(neosnippet_expand_target)
+  imap  <C-l>   <Plug>(neosnippet_expand_or_jump)
+  smap  <C-l>   <Plug>(neosnippet_expand_or_jump)
+  xmap  <C-l>   <Plug>(neosnippet_expand_target)
 
   " Get rid of the placeholders in inserted snippets when done inserting
   augroup dkocompletion
