@@ -17,6 +17,7 @@ markdownlint-cli
 npm-check-updates
 package-json-validator
 sass-lint
+selenium-standalone
 surge
 tern
 tldr
