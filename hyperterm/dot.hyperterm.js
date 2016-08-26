@@ -60,8 +60,9 @@ module.exports = {
     'hyperterm-firewatch',        // material design colors
     //'hyperterm-material',         // material design colors
     //'hyperterm-mactabs',        // fancy tabs
+    //'hyperterm-tabs',             // draggable tabs
     'hyperterm-bold-tab',         // bold active tab
-    'hyperterm-tab-icons',        // bold active tab
+    'hyperterm-tab-icons',        // tab icons
     'hyperterm-focus-reporting',  // add focus-gained/lost events
     'hyperterm-title',            // respect xterm titles
     //'hyperline',                // status bar
