@@ -56,13 +56,16 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyperterm-blink',    // blinking cursor
-    'hyperterm-material', // material design colors
-    //'hyperterm-mactabs',  // fancy tabs
-    'hyperterm-bold-tab', // bold active tab
-    'hyperterm-title',    // respect xterm titles
-    //'hyperline',          // status bar
-    'hyperlinks',         // clickable links
+    'hyperterm-blink',            // blinking cursor
+    'hyperterm-firewatch',        // material design colors
+    //'hyperterm-material',         // material design colors
+    //'hyperterm-mactabs',        // fancy tabs
+    'hyperterm-bold-tab',         // bold active tab
+    'hyperterm-tab-icons',        // bold active tab
+    'hyperterm-focus-reporting',  // add focus-gained/lost events
+    'hyperterm-title',            // respect xterm titles
+    //'hyperline',                // status bar
+    'hyperlinks',                 // clickable links
   ],
 
   // in development, you can create a directory under
