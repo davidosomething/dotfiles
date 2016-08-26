@@ -285,7 +285,7 @@ autocmd dkoneomake FileType scss
 
 autocmd dkoneomake      BufWritePost,Filetype,FileChangedShellPost
       \ *
-      \ Neomake
+      \ if &buftype != 'nofile' | Neomake | endif
 
 autocmd dkostatusline   User
       \ NeomakeCountsChanged
