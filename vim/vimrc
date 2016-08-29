@@ -873,20 +873,21 @@ function! s:LoadPlugins()
   "Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
+  " See also https://github.com/pbogut/deoplete-padawan
   " server-based PHP completion disabled
-  if 0 && executable('composer')
-    if has('nvim')
-      Plug 'phpvim/phpcd.vim', {
-            \   'do': 'composer update',
-            \   'for': 'php'
-            \ }
-    elseif has('python') || has('python3')
-      Plug 'mkusher/padawan.vim', {
-            \   'do': 'composer global require mkusher/padawan',
-            \   'for': 'php',
-            \ }
-    endif
-  endif
+  " if 0 && executable('composer')
+  "   if has('nvim')
+  "     Plug 'phpvim/phpcd.vim', {
+  "           \   'do': 'composer update',
+  "           \   'for': 'php'
+  "           \ }
+  "   elseif has('python') || has('python3')
+  "     Plug 'mkusher/padawan.vim', {
+  "           \   'do': 'composer global require mkusher/padawan',
+  "           \   'for': 'php',
+  "           \ }
+  "   endif
+  " endif
 
   " ========================================================================
   " Language: Python

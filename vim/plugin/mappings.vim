@@ -192,10 +192,13 @@ noremap   L   g_
 " ----------------------------------------------------------------------------
 " Allow [[ open,  [] close, back/forward to curly brace in any column
 " see :h section
+" REMOVED since some default runtimes include their own matches
+" e.g. PHP has a setting in
+" https://github.com/neovim/neovim/blob/master/runtime/ftplugin/php.vim
 " ----------------------------------------------------------------------------
 
-map     [[  ?{<CR>w99[{
-map     []  k$][%?}<CR>
+" map     [[  ?{<CR>w99[{
+" map     []  k$][%?}<CR>
 "map    ][  /}<CR>b99]}
 "map    ]]  j0[[%/{<CR>
 
