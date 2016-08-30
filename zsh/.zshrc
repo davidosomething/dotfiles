@@ -154,10 +154,6 @@ __load_zplug_init() {
     # self-managed zplug assumes ZPLUG_ROOT == ZPLUG_HOME and doesn't add this
     # path any more
     export PATH="${ZPLUG_HOME}/bin:${PATH}"
-    if ! zplug check; then
-      dko::status "Installing zplug plugins"
-      zplug install
-    fi
   else
     dko::warn "Did not find zplug/init.zsh"
   fi
@@ -177,6 +173,11 @@ else # Already installed, check if need to re-source for new shell
   # Note: ZPLUG_ROOT is manually unset in .zshenv ! This ensures plugins are
   # loaded for tmux and subshells (e.g. `exec $SHELL`)
   __load_zplug_init
+fi
+
+if ! zplug check; then
+  dko::status "Installing zplug plugins"
+  zplug install
 fi
 
 # ----------------------------------------------------------------------------
