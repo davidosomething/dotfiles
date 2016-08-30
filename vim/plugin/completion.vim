@@ -47,6 +47,17 @@ if !empty(glob(expand(g:plug_home . '/neosnippet')))
   " Snippets userdir
   let g:neosnippet#snippets_directory = g:dko#vim_dir . '/snippets'
 
+  let g:neosnippet#enable_snipmate_compatibility = 1
+
+  let g:neosnippet#scope_aliases = {}
+
+  " Map honza/vim-snippets files to neosnippet's javascript set
+  " The javascript.* set is included via 'javascript' but mocha is a separate
+  " filetype
+  let g:neosnippet#scope_aliases['javascript'] =
+        \   'javascript'
+        \.  ',javascript-mocha'
+
   " C-k is used for bubbling lines up, so C-l is the only acceptable
   " neosnippet advance key I have
   imap  <C-l>   <Plug>(neosnippet_expand_or_jump)
