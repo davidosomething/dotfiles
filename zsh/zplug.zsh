@@ -67,9 +67,11 @@ zplug "lukechilds/zsh-better-npm-completion", \
 #   use:"plugins/nvm/_nvm",       \
 #   nice:10
 
-zplug "vasyharan/zsh-brew-services",  \
-  if:"[[ $OSTYPE == "darwin"* ]]",     \
-  nice:10
+# Moved if block outside since `zplug check` doesn't consider it
+if [[ $OSTYPE == "darwin"* ]]; then
+  zplug "vasyharan/zsh-brew-services",  \
+    nice:10
+fi
 
 zplug "plugins/brew-cask",        \
   from:oh-my-zsh,                 \
