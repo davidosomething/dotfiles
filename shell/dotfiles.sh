@@ -77,9 +77,16 @@ dko::dotfiles::__zplug() {
     dko::status "Restart the shell to ensure a clean zplug init"
   )
 
-  [ -n "$ZSH_VERSION" ] && dko::has "zplug" \
-    && dko::status "Updating plugins managed by zplug" \
-    && zplug update
+  [ -n "$ZSH_VERSION" ] && dko::has "zplug" && {
+    dko::status "Updating plugins managed by zplug"
+
+    if ! zplug check; then
+      dko::status "Installing zplug plugins"
+      zplug install
+    fi
+
+    zplug update
+  }
 }
 
 dko::dotfiles::__update_secret() {
