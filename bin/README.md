@@ -47,6 +47,10 @@ afk
 
 > Find and edit a Gruntfile.{js,coffee}
 
+## enginx
+
+> Edit the nginx.conf file
+
 ## ephp
 
 > Edit the php.ini file
@@ -55,9 +59,21 @@ afk
 
 > Extract any archive format
 
+## fbr
+
+> FZF-interface for selecting a git branch
+
+## fkill
+
+> FZF-interface for `kill -9` a process
+
 ## git-committers
 
 > List git committers
+
+## git-in
+
+Is PWD in git repository?
 
 ## git-key
 
@@ -67,34 +83,13 @@ afk
 
 > List pull requests since last tag
 
-## git-my
-
-> Lists a user's remote branches and shows if it was merged and/or available
-> locally <https://github.com/davidosomething/git-my>
-
-## git-open
-
-> Open a repo's homepage in github/bitbucket/etc.
-
 ## git-punish
 
 > Send URL to blame someone for crap code
 
-## git-rel
+## git-whats
 
-> Show git remote branch sync info
-
-## git-take
-
-> Repeat `git checkout BRANCH FILE` commands
-
-## fkill
-
-> FZF-interface for `kill -9` a process
-
-## fbr
-
-> FZF-interface for selecting a git branch
+> Show git alias command
 
 ## joingroup
 
@@ -107,6 +102,10 @@ afk
 ## localip
 
 > Show user's local ip
+
+## lockscreen
+
+> OSX/mac OS lock screen
 
 ## maybe-git-root
 
@@ -124,6 +123,10 @@ afk
 
 > Pretty list path env
 
+## pokecolor
+
+> pokemon
+
 ## rln
 
 > Rename a symlink's source file and update the symlink
@@ -132,14 +135,14 @@ afk
 
 > Pretty show terminal color support
 
-## update
-
-> Update system shortcuts
-
 ## vopen
 
 > Open files in a single vim/gvim server
 > <https://github.com/davidosomething/vopen/>
+
+## vopen-nofork
+
+> Call vopen with --no-fork flag
 
 ## w510-touchpadtoggle
 
