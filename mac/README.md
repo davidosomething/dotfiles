@@ -82,8 +82,10 @@ chsh -s /usr/local/bin/zsh
     1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
     1. Install `pyenv-doctor` if needed.
     1. Install `pyenv-virtualenv`
-    1. Set up a python3 virtualenv called `neovim3` -- nvim is configured to
-       use that already.
+    1. Set up python virtualenvs called `neovim{2,3}` -- nvim is configured to
+       use those already. E.g.,
+        1. `pyenv install 2.7.12`
+        1. `pyenv virtualenv 2.7.12 neovim2`
 - `brew install redis` for `redismru.vim` later
 - run `bootstrap/mac/install.sh`
 - run `bootstrap/mac/completions.sh`
