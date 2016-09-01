@@ -279,13 +279,27 @@ autocmd dkoneomake FileType scss
 "       \| call s:PickScssMakers()
 
 " ============================================================================
+" Should we :Neomake?
+" ============================================================================
+
+function! s:MaybeNeomake() abort
+  " Not a real file
+  if &buftype ==# 'nofile' | return | endif
+
+  " File was never written
+  if empty(glob(expand('%'))) | return | endif
+
+  Neomake
+endfunction
+
+" ============================================================================
 " Auto run
 " Keep this last so all the other autocmds happen first
 " ============================================================================
 
 autocmd dkoneomake      BufWritePost,Filetype,FileChangedShellPost
       \ *
-      \ if &buftype != 'nofile' | Neomake | endif
+      \ call s:MaybeNeomake()
 
 autocmd dkostatusline   User
       \ NeomakeCountsChanged

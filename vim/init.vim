@@ -61,7 +61,9 @@ let g:terminal_color_15 = '#ebdbb2'
 " python2 off
 let s:pyenv_python2 = glob(expand('$PYENV_ROOT/versions/neovim2/bin/python'))
 if !empty(s:pyenv_python2)
-  let g:python_host_prog = s:pyenv_python2
+  " CheckHealth and docs are inconsistent
+  let g:python_host_prog  = s:pyenv_python2
+  let g:python2_host_prog = s:pyenv_python2
 else
   let g:loaded_python_provider = 1
 endif
