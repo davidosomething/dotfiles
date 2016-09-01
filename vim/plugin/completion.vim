@@ -74,15 +74,16 @@ endif
 " Neocomplete / Deoplete
 " ============================================================================
 
-let s:REGEXPS = {}
-let s:REGEXPS.any_word        = '\h\w*'
-let s:REGEXPS.nonspace_dot    = '[^-. \t]\.\w*'
-let s:REGEXPS.nonspace_arrow  = '[^-. \t]->\w*'
-let s:REGEXPS.word_scope_word = '\h\w*::\w*'
+let s:REGEX = {}
+let s:REGEX.any_word        = '\h\w*'
+let s:REGEX.nonspace        = '[^-. \t]'
+let s:REGEX.nonspace_dot    = s:REGEX.nonspace . '\.\w*'
+let s:REGEX.nonspace_arrow  = s:REGEX.nonspace . '->\w*'
+let s:REGEX.word_scope_word = s:REGEX.any_word . '::\w*'
 
 " For jspc.vim
-let s:REGEXPS.keychar   = '\k\zs \+'
-let s:REGEXPS.parameter = s:REGEXPS.keychar . '\|' . '(' . '\|' . ':'
+let s:REGEX.keychar   = '\k\zs \+'
+let s:REGEX.parameter = s:REGEX.keychar . '\|' . '(' . '\|' . ':'
 
 " ----------------------------------------------------------------------------
 " Regexes to use completion engine
@@ -99,8 +100,8 @@ let s:neo_patterns = {}
 " javascript
 " default: https://github.com/Shougo/neocomplete.vim/blame/34b42e76be30c0f365110ea036c8490b38fcb13e/autoload/neocomplete/sources/omni.vim
 let s:neo_patterns.javascript =
-      \ s:REGEXPS.any_word
-      \ . '\|' . s:REGEXPS.nonspace_dot
+      \ s:REGEX.any_word
+      \ . '\|' . s:REGEX.nonspace_dot
 
 " lua with xolox/vim-lua-ftplugin -- not used but correct
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1705
@@ -192,7 +193,7 @@ if executable('npm')
   " force using tern when typing matches regex
   " first regex is match 5 or more characters to end of line
   "let s:fip.javascript = '\h\k\{4,}$' . '\|' .
-  let s:fip.javascript = s:REGEXPS.nonspace_dot
+  let s:fip.javascript = s:REGEX.nonspace_dot
 endif
 
 " ============================================================================
@@ -222,10 +223,11 @@ if exists("g:plugs['phpcomplete.vim']")
   " php with phpcomplete.vim support
   " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1731
   let s:neo_patterns.php =
-      \ s:REGEXPS.any_word
-      \ . '\|' . s:REGEXPS.nonspace_arrow
-      \ . '\|' . s:REGEXPS.word_scope_word
+      \ s:REGEX.any_word
+      \ . '\|' . s:REGEX.nonspace_arrow
+      \ . '\|' . s:REGEX.word_scope_word
 
+  " Py3 regex
   " https://github.com/Shougo/deoplete.nvim/commit/2af84d10e2c9d6c70bc0d8bd97c964e47b6a2b08#diff-e5bdd2909698ddcc54fe0c4267ea88a2R291
   let s:deo_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
 endif
@@ -246,12 +248,6 @@ if exists("g:plugs['phpcomplete-extended']")
 
   autocmd dkocompletion FileType php
         \ setlocal omnifunc=phpcomplete_extended#CompletePHP
-
-  " https://github.com/Shougo/deoplete.nvim/blob/03f8cad9330a1ac557dfe7d12e8e77ba7f39d822/doc/deoplete.txt#L216
-  let s:fip.php =
-        \ s:REGEXPS.any_word
-        \ . '\|' . '[^. \t]->\%(\h\w*\)\?'
-        \ . '\|' . '\h\w*::\%(\h\w*\)\?'
 endif
 
 " ============================================================================
@@ -262,11 +258,6 @@ if exists('g:plugs["phpcd.vim"]')
   augroup dkocompletion
     autocmd FileType php setlocal omnifunc=phpcd#CompletePHP
   augroup END
-
-  let s:fip.php =
-        \ s:REGEXPS.any_word
-        \ . '\|' . s:REGEXPS.nonspace_arrow
-        \ . '\|' . s:REGEXPS.word_scope_word
 endif
 
 " ============================================================================
@@ -277,11 +268,6 @@ if exists('g:plugs["padawan.vim"]')
   augroup dkocompletion
     autocmd FileType php setlocal omnifunc=padawan#Complete
   augroup END
-
-  let s:fip.php =
-        \ s:REGEXPS.any_word
-        \ . '\|' . s:REGEXPS.nonspace_arrow
-        \ . '\|' . s:REGEXPS.word_scope_word
 endif
 
 " ============================================================================
