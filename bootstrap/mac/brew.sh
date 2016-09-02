@@ -1,47 +1,76 @@
 #!/usr/bin/env bash
-#
-# Generic brews
-#
 
-brew tap nishanths/tap
-brew tap universal-ctags/universal-ctags
-brew tap homebrew/completions
+set -eu
+
+# ============================================================================
+# taps
+# ============================================================================
+
+brew tap homebrew/dupes
+brew tap homebrew/emacs
+
+# brew services launchctl manager -- no formulae
+brew tap homebrew/services
+
+# ============================================================================
+# Meta
+# ============================================================================
 
 brew update
+brew install homebrew/completions/brew-cask-completion
+
+# ============================================================================
+# Install tapped formulae
+# ============================================================================
 
 # universal-ctags
-brew install --HEAD universal-ctags
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
-# `brew` completion
-brew install brew-cask-completion
+# ============================================================================
+# compilers, tools, and libs
+# ============================================================================
 
-# compilers, tools, and libs ---------------------------------------------------
 brew install automake cmake
 brew install coreutils findutils moreutils
 brew install libtool
 brew install pkg-config
 
-# general ----------------------------------------------------------------------
+# ============================================================================
+# general
+# ============================================================================
+
 brew install aspell
 
-# filesystem -------------------------------------------------------------------
+# ============================================================================
+# filesystem
+# ============================================================================
+
 brew install ack
 brew install findutils
 brew install fzf
 brew install the_silver_searcher
 brew install tree
 
-# operations -------------------------------------------------------------------
+# ============================================================================
+# operations
+# ============================================================================
+
 brew install nmap
 brew install ssh-copy-id
 brew install multitail
 
-# pretty print and processor ---------------------------------------------------
+# ============================================================================
+# pretty print and processor
+# ============================================================================
+
 brew install icdiff
 brew install jq
 brew install jsonpp
 
-# programming ------------------------------------------------------------------
+# ============================================================================
+# programming
+# ============================================================================
+
 brew install cloc
 brew install diff-so-fancy
 brew install git
@@ -50,15 +79,24 @@ brew install lua
 brew install mono
 brew install tidy-html5
 
-# shells -----------------------------------------------------------------------
+# ============================================================================
+# shells
+# ============================================================================
+
 brew install bash install bash-completion
 brew install bats shellcheck
 brew install tmux
 
-# web --------------------------------------------------------------------------
+# ============================================================================
+# web
+# ============================================================================
+
 brew install curl wget
 brew install openssl
 
-# links to /Applications -------------------------------------------------------
+# ============================================================================
+# Finish up
+# ============================================================================
+
 brew linkapps
 
