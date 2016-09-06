@@ -18,6 +18,10 @@
 afk
 ```
 
+## brew-repair
+
+> `brew repair` to hard reset and brew update
+
 ## colortest
 
 256color test script from

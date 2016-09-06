@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Repair brew repo via hard reset
+
+set -eu
+
+cd "$(brew --repo)" \
+  && git fetch \
+  && git reset --hard origin/master \
+  && brew update
