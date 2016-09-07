@@ -10,11 +10,12 @@ ounmap <buffer> [[
 ounmap <buffer> ]]
 
 " Remap them with my own
+let s:match_done = '<CR>:nohlsearch<CR>'
 let s:matches = '\(<?php\|function\ \|class\ \|interface\ \)'
-execute 'nmap <silent><buffer> [[ ?' . escape(s:matches, '|?') . '<CR>'
-execute 'omap <silent><buffer> [[ ?' . escape(s:matches, '|?') . '<CR>'
-execute 'nmap <silent><buffer> ]] /' . escape(s:matches, '|') . '<CR>'
-execute 'omap <silent><buffer> ]] /' . escape(s:matches, '|') . '<CR>'
+execute 'nmap <silent><buffer> [[ ?' . escape(s:matches, '|?') . s:match_done
+execute 'omap <silent><buffer> [[ ?' . escape(s:matches, '|?') . s:match_done
+execute 'nmap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
+execute 'omap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
 
 " ============================================================================
 " EditorConfig overrides
