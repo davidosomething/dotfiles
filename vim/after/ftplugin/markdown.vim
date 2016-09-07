@@ -9,9 +9,12 @@
 
 setlocal nomodeline
 setlocal expandtab
-setlocal textwidth=0
-setlocal colorcolumn=81
 setlocal spell
+
+" Override pandoc
+setlocal textwidth=78
+" the line will be right after column 80, &tw+3
+setlocal colorcolumn=+3
 
 " too slow
 "setlocal complete+=kspell

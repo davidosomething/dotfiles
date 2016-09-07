@@ -228,16 +228,6 @@ let g:neomake_python_pylint_args = [
 " Sass: sasslint
 " ----------------------------------------------------------------------------
 
-" Merged into upstream https://github.com/neomake/neomake/pull/504
-" let g:neomake_scss_sasslint_maker = {
-"       \   'exe':          'sass-lint',
-"       \   'args':         [ '--no-exit', '--verbose', '--format=compact' ],
-"       \   'errorformat':  '%E%f: line %l\, col %c\, Error - %m,' .
-"       \                   '%W%f: line %l\, col %c\, Warning - %m',
-"       \ }
-" let g:neomake_scss_enabled_makers =
-"       \ executable('sasslint') ? [ 'sasslint' ] : []
-
 function! s:SetSasslintRc()
   " Use local config if exists
   let l:config = dkoproject#GetProjectConfigFile('.sass-lint.yml')
@@ -258,7 +248,6 @@ let s:local_maker_sasslint = {
       \ }
 
 function! s:PickScssMakers() abort
-  " If there's a jshintrc file, use jshint instead of eslint
   if empty(dkoproject#GetProjectConfigFile('.scss-lint.yml')) | return
   endif
 
@@ -276,7 +265,7 @@ endfunction
 autocmd dkoneomake FileType scss
       \ call s:SetSasslintRc()
       \| call s:AddLocalMaker(s:local_maker_sasslint)
-"       \| call s:PickScssMakers()
+      \| call s:PickScssMakers()
 
 " ============================================================================
 " Should we :Neomake?

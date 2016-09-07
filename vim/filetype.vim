@@ -21,6 +21,17 @@ function! s:SetJSONorYAML()
   setfiletype yaml
 endfunction
 
+function! s:BindPreview()
+  if exists('$ITERM_PROFILE') || has('gui_macvim')
+    nnoremap  <silent><buffer>  <Leader>m
+          \ :<C-u>silent !open -a "Marked 2" '%:p'<CR>
+  elseif exists("g:plugs['vim-instant-markdown']")
+    let g:instant_markdown_autostart = 0
+    nnoremap  <silent><buffer>  <Leader>m
+          \ :<C-u>InstantMarkdownPreview<CR>
+  endif
+endfunction
+
 " For filetypes that can be detected by filename (option C in the docs for
 " `new-filetype`)
 " Use `autocmd!` so the original filetype autocmd for the given extension gets
@@ -39,12 +50,13 @@ augroup filetypedetect
   " git branch description (opened via `git branch --edit-description`)
   autocmd! BufNewFile,BufRead
         \ BRANCH_DESCRIPTION
-        \ setfiletype gitbranchdescription.markdown.pandoc
+        \ setfiletype gitbranchdescription.markdown
 
   " pre Vim 7.4.480 - md is modula2
   " post Vim 7.4.480 - md is markdown
   autocmd! BufNewFile,BufRead *.md
-        \ setfiletype markdown.pandoc
+        \ setfiletype markdown
+        \| call s:BindPreview()
 
   autocmd! BufNewFile,BufRead
         \ .babelrc,.bowerrc,.jshintrc

@@ -803,12 +803,15 @@ function! s:LoadPlugins()
   endif
 
   " ========================================================================
-  " Language: Markdown
+  " Language: Markdown, Pandoc
   " ========================================================================
 
   " Override vim included markdown ft* and syntax
   " The git repo has a newer syntax file than the one that ships with vim
   "Plug 'tpope/vim-markdown'
+
+  " Enable pandoc filetype options and vim operators/fns
+  Plug 'vim-pandoc/vim-pandoc'
 
   " Use pandoc for markdown syntax
   Plug 'vim-pandoc/vim-pandoc-syntax'
