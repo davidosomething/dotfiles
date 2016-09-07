@@ -3,6 +3,8 @@
 # Tap and install caskroom apps
 #
 
+set -eu
+
 brew tap caskroom/cask
 brew tap caskroom/versions
 
@@ -13,7 +15,6 @@ brew update
 # ==============================================================================
 
 brew cask install alfred
-brew cask alfred link
 echo "License in email"
 echo "Workflows in Dropbox"
 
@@ -78,3 +79,4 @@ brew cask install vagrant vagrant-manager
 brew cask install virtualbox virtualbox-extension-pack
 brew cask install vlc
 brew cask install vnc-viewer
+
