@@ -1,5 +1,25 @@
 " after/ftplugin/php.vim
 
+" ============================================================================
+" Unmap terrible mappings from $VIMRUNTIME/ftplugin/php.vim
+" ============================================================================
+
+nunmap <buffer> [[
+nunmap <buffer> ]]
+ounmap <buffer> [[
+ounmap <buffer> ]]
+
+" Remap them with my own
+let s:matches = '\(<?php\|function\ \|class\ \|interface\ \)'
+execute 'nmap <silent><buffer> [[ ?' . escape(s:matches, '|?') . '<CR>'
+execute 'omap <silent><buffer> [[ ?' . escape(s:matches, '|?') . '<CR>'
+execute 'nmap <silent><buffer> ]] /' . escape(s:matches, '|') . '<CR>'
+execute 'omap <silent><buffer> ]] /' . escape(s:matches, '|') . '<CR>'
+
+" ============================================================================
+" EditorConfig overrides
+" ============================================================================
+
 function! DKO_EditorConfigPhp(config)
   setlocal tabstop=2
   setlocal shiftwidth=2
