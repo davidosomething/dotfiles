@@ -11,7 +11,18 @@ ounmap <buffer> ]]
 
 " Remap them with my own
 let s:match_done = '<CR>:nohlsearch<CR>'
-let s:matches = '\(<?php\|abstract\ \|class\ \|final\ \|function\ \|interface\ \|private\ \|public\ \|static\ \)'
+let s:matches = '\('
+      \.  '<?php'
+      \.  '\|' . '\('
+      \.    '\(abstract\s\|final\s\)\=' . '\('
+      \.      'class\s'
+      \.      '\|' . '\('
+      \.        'private\s\|protected\s\|public\s\|static\s'
+      \.      '\)\=' . 'function\s'
+      \.    '\)'
+      \.  '\)'
+      \.  '\|' . 'interface '
+      \. '\)'
 execute 'nmap <silent><buffer> [[ ?' . escape(s:matches, '|?') . s:match_done
 execute 'omap <silent><buffer> [[ ?' . escape(s:matches, '|?') . s:match_done
 execute 'nmap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
