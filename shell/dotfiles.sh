@@ -379,8 +379,8 @@ dko::dotfiles::__update_brew() {
     readonly outdated="$(brew outdated --quiet)"
     [ -z "$outdated" ] && exit
 
+    # CLEANROOM
     dko::dotfiles::__pyenv_system
-
     # Brew some makefiles like macvim use tput for output so need to reset
     # from xterm-256color-italic I use in iterm
     TERM="xterm-256color"
@@ -394,6 +394,11 @@ dko::dotfiles::__update_brew() {
       && dko::status "Rebuilding macvim with new python3" \
       && dko::dotfiles::__update_brew_macvim
 
+    # Update neovim separately
+    grep -q "neovim" <<<"$outdated"      \
+      && dko::dotfiles::__update_brew_neovim
+
+    # Upgrade remaining
     dko::status "Upgrading packages"
     brew upgrade --all
   ) && dko::dotfiles::__update_brew_done
@@ -408,11 +413,13 @@ dko::dotfiles::__update_brew_macvim() {
     cd "$DOTFILES" \
       || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
 
-    TERM=xterm-256color \
-       brew reinstall macvim \
-       --with-lua --with-override-system-vim --with-python3 \
-    && dko::status "Linking new macvim.app" \
-    && brew linkapps macvim
+    # CLEANROOM
+    dko::dotfiles::__pyenv_system
+    TERM=xterm-256color
+
+    brew reinstall macvim --with-lua --with-override-system-vim --with-python3 \
+      && dko::status "Linking new macvim.app" \
+      && brew linkapps macvim
   )
 }
 
@@ -425,10 +432,11 @@ dko::dotfiles::__update_brew_neovim() {
     cd "$DOTFILES" \
       || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
 
+    # CLEANROOM
     dko::dotfiles::__pyenv_system
+    TERM=xterm-256color
 
-    TERM=xterm-256color \
-      brew reinstall --HEAD --with-release neovim
+    brew reinstall --HEAD --with-release neovim
   )
 }
 

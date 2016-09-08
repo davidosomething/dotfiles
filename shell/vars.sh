@@ -137,7 +137,7 @@ export INPUTRC="${DOTFILES}/shell/dot.inputrc"
 # ruby moved to shell/ruby loaded in shell/before
 
 # for shellcheck
-export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090  --exclude=SC1091 --exclude=SC2148"
+export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC1091 --exclude=SC2148 --exclude=SC2039"
 
 # travis cli
 export TRAVIS_CONFIG_PATH="${XDG_CONFIG_HOME}/travis"
