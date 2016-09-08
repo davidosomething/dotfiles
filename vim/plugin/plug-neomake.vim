@@ -267,6 +267,13 @@ autocmd dkoneomake FileType scss
       \| call s:AddLocalMaker(s:local_maker_sasslint)
       \| call s:PickScssMakers()
 
+" ----------------------------------------------------------------------------
+" VimL
+" ----------------------------------------------------------------------------
+
+" vimlint is disabled, run on cli only
+let g:neomake_vim_enabled_makers = [ 'vint' ]
+
 " ============================================================================
 " Should we :Neomake?
 " ============================================================================

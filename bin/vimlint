@@ -8,7 +8,11 @@ __vimlint() {
   readonly vimlparser="${sources_path}/vim-vimlparser"
 
   if [ -d "$vimlint" ]; then
-    "${vimlint}/bin/vimlint.sh" -l "$vimlint" -p "$vimlparser" "$@"
+    "${vimlint}/bin/vimlint.sh" \
+      -l "$vimlint"     \
+      -p "$vimlparser"  \
+      -c func_abort=1 autoload \
+    "$@"
   fi
 }
 

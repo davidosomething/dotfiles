@@ -1,4 +1,6 @@
+if has('vim_starting') | set encoding=utf-8 nobomb | endif
 scriptencoding utf-8
+"
 "
 "   ██╗   ██╗ ██╗ ███╗   ███╗ ██████╗   ██████╗
 "   ██║   ██║ ██║ ████╗ ████║ ██╔══██╗ ██╔════╝
@@ -7,17 +9,14 @@ scriptencoding utf-8
 " ██╗╚████╔╝  ██║ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗
 " ╚═╝ ╚═══╝   ╚═╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝
 "
-if has('vim_starting') | set encoding=utf-8 nobomb | endif
-" note: set encoding BEFORE scriptencoding
-
-" weird terminal bug wher ^[[2;2R appears after filename
-"set t_u7=
-
-let g:dko_rtp_original = &runtimepath
+"
 
 " ============================================================================
 " Settings vars
 " ============================================================================
+
+" Just for debugging
+let g:dko_rtp_original = &runtimepath
 
 " Used by anything that needs to change/use loc list
 let g:dko_loc_list_height = 10
@@ -38,23 +37,14 @@ augroup END
 set modeline
 
 " ----------------------------------------------------------------------------
-" OS Related
-" ----------------------------------------------------------------------------
-
-" ------------------------------------
 " Clipboard -- use os clipboard
-" ------------------------------------
+" ----------------------------------------------------------------------------
 
 set pastetoggle=<F12>
 
 if empty($SSH_CONNECTION) && has('clipboard')
   set clipboard=unnamed  " Use clipboard register
-
-  " Share X windows clipboard. NOT ON NEOVIM -- neovim automatically uses
-  " system clipboard when xclip/xsel/pbcopy are available.
-  if has('nvim') && !has('mac')
-    set clipboard=unnamedplus
-  elseif has('unnamedplus')
+  if has('unnamedplus') || has('nvim')
     set clipboard+=unnamedplus
   endif
 endif
