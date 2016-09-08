@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -eu
+
+__vimlint() {
+  readonly sources_path="${HOME}/src"
+  readonly vimlint="${sources_path}/vim-vimlint"
+  readonly vimlparser="${sources_path}/vim-vimlparser"
+
+  if [ -d "$vimlint" ]; then
+    "${vimlint}/bin/vimlint.sh" -l "$vimlint" -p "$vimlparser" "$@"
+  fi
+}
+
+__vimlint "$@"

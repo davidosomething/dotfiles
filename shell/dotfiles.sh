@@ -45,6 +45,7 @@ dko::dotfiles::__usage() {
     neovim      -- install latest brew neovim/neovim on HEAD
 
   Development
+    vimlint     -- update vimlint
     wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
 "
 }
@@ -313,6 +314,28 @@ dko::dotfiles::__update_wpcs() {
   phpcs --config-set default_standard PSR2
 }
 
+dko::dotfiles::__update_vimlint() {
+  readonly sources_path="${HOME}/src"
+  readonly vimlint="${sources_path}/vim-vimlint"
+  readonly vimlparser="${sources_path}/vim-vimlparser"
+
+  if [ -d "$vimlint" ]; then
+    dko::status "Updating vimlint"
+    ( cd "$vimlint" && git reset --hard && git pull )
+  else
+    dko::status "Installing vimlint"
+    git clone https://github.com/syngan/vim-vimlint "$vimlint"
+  fi
+
+  if [ -d "$vimlparser" ]; then
+    dko::status "Updating vimlparser"
+    ( cd "$vimlparser" && git reset --hard && git pull )
+  else
+    dko::status "Installing vimlparser"
+    git clone https://github.com/ynkdir/vim-vimlparser "$vimlparser" >/dev/null 2>&1
+  fi
+}
+
 # ------------------------------------------------------------------------------
 # OS-specific commands
 # ------------------------------------------------------------------------------
@@ -493,6 +516,7 @@ dko::dotfiles() {
     nvm)      dko::dotfiles::__update_nvm       ;;
     pip)      dko::dotfiles::__update_pip "pip" ;;
     wpcs)     dko::dotfiles::__update_wpcs      ;;
+    vimlint)  dko::dotfiles::__update_vimlint   ;;
   esac
 
   case "$OSTYPE" in
