@@ -259,16 +259,17 @@ dko::dotfiles::__update_wpcs() {
   readonly wpcs_repo="https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git"
   readonly sources_path="${HOME}/src"
   readonly wpcs_path="${sources_path}/wpcs"
-  readonly standards_path="/usr/local/etc/php-code-sniffer/Standards"
-  readonly installed_paths="${standards_path},${sources_path}/wpcs"
 
-  # Create and clone if not exists
+  # --------------------------------------------------------------------------
+  # Create and clone wpcs if not exists
+  # --------------------------------------------------------------------------
+
+  dko::status "Updating wpcs"
   if [ ! -d "$wpcs_path" ]; then
     mkdir -p "${sources_path}"
     git clone -b master "$wpcs_repo" "$wpcs_path"
   else
     (
-      dko::status "Updating wpcs"
       cd "$wpcs_path" || exit 1
       git pull
     ) || return 1
@@ -278,10 +279,38 @@ dko::dotfiles::__update_wpcs() {
     dko::warn  "phpcs is not installed"
     dko::warn_ "Install and run again, or set installed_paths manually"
     return 1
-  else
-    dko::status "(Re)adding wpcs path to phpcs installed_paths"
-    phpcs --config-set installed_paths "$installed_paths"
   fi
+
+  # --------------------------------------------------------------------------
+  # Determine installed standards
+  # --------------------------------------------------------------------------
+
+  dko::status "Looking for standards"
+  readonly possible=( \
+    "/usr/local/etc/php-code-sniffer/Standards" \
+    "/usr/local/Cellar/php-code-sniffer/2.7.0/CodeSniffer/Standards" \
+    "$wpcs_path" \
+  )
+  local standards=()
+
+  for entry in "${possible[@]}"; do
+    [ -d "$entry" ] && \
+      echo "Found $entry" && \
+      standards+=("$entry")
+  done
+  standards_path=$( IFS=','; echo "${standards[*]}" )
+
+  # --------------------------------------------------------------------------
+  # Update config
+  # --------------------------------------------------------------------------
+
+  dko::status "Updating standards path to:"
+  echo "    ${standards_path}"
+  phpcs --config-set installed_paths "$standards_path"
+
+  # List installed standards:
+  phpcs -i
+  phpcs --config-set default_standard PSR2
 }
 
 # ------------------------------------------------------------------------------
