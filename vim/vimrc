@@ -43,8 +43,8 @@ set modeline
 set pastetoggle=<F12>
 
 if empty($SSH_CONNECTION) && has('clipboard')
-  set clipboard=unnamed  " Use clipboard register
-  if has('unnamedplus') || has('nvim')
+  set clipboard=unnamed                 " Use vim global clipboard register
+  if has('unnamedplus') || has('nvim')  " Use system clipboard register
     set clipboard+=unnamedplus
   endif
 endif
