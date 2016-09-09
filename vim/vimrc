@@ -952,6 +952,9 @@ function! s:LoadPlugins()
   Plug 'kana/vim-gf-user', { 'for': ['vim'] }
         \| Plug 'sgur/vim-gf-autoload', { 'for': ['vim'] }
 
+  " Auto-prefix continuation lines with \
+  Plug 'lambdalisue/vim-backslash'
+
   " Completion
   if g:dko_has_completion | Plug 'Shougo/neco-vim', { 'for': ['vim'] }
   endif
