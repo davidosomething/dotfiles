@@ -1,7 +1,17 @@
-" plugin/plug-editorconfig.vim
+" plugin/editorconfig.vim
+"
+" Settings for editorconfig plugins
+" Still haven't found a perfect one:
+"
+" - Would prefer straight up VimL for portability (sgur/vim-editorconfig)
+" - Able to exclude buffer types (official editorconfig-vim)
+" - Easy to add support for new props via config only (dahu/)
+"
 
 " ============================================================================
 " sgur's VimL version
+" Not used -- how do I disabled based on buffer name?
+" @see https://github.com/sgur/vim-editorconfig/issues/7
 " ============================================================================
 
 if exists("g:plugs['vim-editorconfig']")
@@ -9,7 +19,7 @@ if exists("g:plugs['vim-editorconfig']")
 endif
 
 " ============================================================================
-" Python version
+" Official version (python dep)
 " ============================================================================
 
 if exists("g:plugs['editorconfig-vim']")
