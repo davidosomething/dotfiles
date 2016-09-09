@@ -16,7 +16,7 @@ dko::dotfiles::__usage() {
   dko::usage  "u <command>"
   echo "
   Utility Commands
-    dotfiles    -- update dotfiles (git pull)
+    dotfiles    -- update dotfiles (git pull); then reload; then zplug
     reload      -- reload this script if it was modified
     secret      -- update ~/.secret (git pull)
     zplug       -- update zplug
