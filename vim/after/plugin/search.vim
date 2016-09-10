@@ -1,11 +1,18 @@
-" plugin/search.vim
+" after/plugin/search.vim
+"
+" This is an after/plugin since some plugins (in testing, like vim-searchant)
+" might set their own mappings.
+"
+" @TODO maybe unmap before mapping in case some other plugin tries something
+" fishy
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
-" - vim-anzu        show number of matches, with airline integration
-" - vim-asterisk    don't move on first search with *
 " - incsearch.vim   highlighting all matches
+" - vim-anzu        show number of matches, with status integration
+" - vim-asterisk    don't move on first search with *
+" - vim-searchant   highlight CURRENT search item differently
 
 " Star search (*) mapping expression
 " Get vim-asterisk, vim-anzu, and incsearch.vim to play nicely
