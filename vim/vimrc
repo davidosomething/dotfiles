@@ -630,6 +630,11 @@ function! s:LoadPlugins()
         \| Plug 'rhysd/vim-operator-surround'
         \| Plug 'tyru/operator-camelize.vim'
 
+  " Sorted by what the textobj provides
+  " Tip Use :omap ie to see what the operator-pending is mapped to
+  " d/D for underscore section (e.g. `did` on foo_b|ar_baz -> foo__baz)
+  " r for right hand of assignment (`baz` in `foo = baz`)
+  " k/v for JSON style key/value
   " e for entire file
   " i for indent level
   " l for current line
@@ -637,15 +642,20 @@ function! s:LoadPlugins()
   " u for url
   " b for any block type (parens, braces, quotes, ltgt)
   " = and i= for conflicts marked blocks
+  " x for xml attr like `data-content="everything"`
   " c for css/sass/less block
   " f for function (c, java, js, php, vim only)
   Plug 'kana/vim-textobj-user'
+        \| Plug 'machakann/vim-textobj-delimited'
+        \| Plug 'Julian/vim-textobj-assignment'
+        \| Plug 'vimtaku/vim-textobj-keyvalue'
         \| Plug 'kana/vim-textobj-entire'
         \| Plug 'kana/vim-textobj-indent'
         \| Plug 'kana/vim-textobj-line'
         \| Plug 'mattn/vim-textobj-url'
         \| Plug 'rhysd/vim-textobj-anyblock'
         \| Plug 'rhysd/vim-textobj-conflict'
+        \| Plug 'whatyouhide/vim-textobj-xmlattr'
         \| Plug 'glts/vim-textobj-comment', { 'for': [ 'javascript', 'php' ] }
         \| Plug 'akiyan/vim-textobj-php', { 'for': [ 'php' ] }
         \| Plug 'jasonlong/vim-textobj-css',
