@@ -215,12 +215,12 @@ if has('patch-7.4.314')
 endif
 
 " ----------------------------------------------------------------------------
-" Splits and buffers
+" Window splitting and buffers
 " ----------------------------------------------------------------------------
 
 set splitbelow
 set splitright
-set fillchars=vert:│                  " Vertical sep for splits (unicode bar)
+set fillchars=vert:│                  " Vertical sep between windows (unicode)
 
 set hidden                            " remember undo after quitting
 
@@ -260,7 +260,7 @@ set listchars+=nbsp:⣿
 " Diffing
 " ----------------------------------------------------------------------------
 
-" Note this is += since fillchars was defined in splits
+" Note this is += since fillchars was defined in the window config
 set fillchars+=diff:⣿
 set diffopt=vertical                  " Use in vertical diff mode
 set diffopt+=filler                   " blank lines to keep sides aligned
@@ -1029,7 +1029,7 @@ call plug#end()
 augroup dkowindow
   autocmd!
 
-  " Resize splits when the window is resized
+  " Resize all windows when the window is resized
   autocmd VimResized
         \ *
         \ wincmd =

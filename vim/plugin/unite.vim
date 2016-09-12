@@ -87,7 +87,7 @@ function! s:UniteProfiles()
         \ )
 
   " ----------------------------------------------------------------------
-  " Split profile: default - open in bottom pane like ctrl-p
+  " Unite window profile: default - open in bottom pane like ctrl-p
   " ----------------------------------------------------------------------
 
   call unite#custom#profile('default', 'context', {
@@ -102,7 +102,7 @@ function! s:UniteProfiles()
         \ })
 
   " ----------------------------------------------------------------------
-  " Split profile: unite-outline - open in right pane like tagbar
+  " Unite window profile: unite-outline - open in right pane like tagbar
   " ----------------------------------------------------------------------
 
   call unite#custom#profile('source/outline', 'context', {
