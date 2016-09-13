@@ -732,30 +732,8 @@ function! s:LoadPlugins()
   " Syntax
   " ----------------------------------------
 
-  " Options
-  " 'jelera/vim-javascript-syntax' " Jelera: No indent file
-  " 'pangloss/vim-javascript'      " pangloss' is probably the oldest, lot of
-                                   " contributors but not up-to-date
-                                   " Includes indent settings
-  " 'othree/yajs.vim'              " othree has the latest support
-  "                                " no indent file, fork of jelera
-
-  " ----------------------------------------
-  " Syntax Addons
-  " ----------------------------------------
-
-  " Options
-  "'gavocanov/vim-js-indent'                " Indent from pangloss, works well
-                                            " with yajs well
-  "'jiangmiao/simple-javascript-indenter'   " Alternative js indent
-  "'jason0x43/vim-js-indent'                " Use HTML's indenter with
-                                            " TypeScript support
-
   " The "for" is required so the syntax registers on filetype, otherwise
   " yajs has trouble overriding the default js syntax due to runtime order
-  " Plug 'othree/yajs.vim', { 'for': 'javascript' }
-  "       \| Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' }
-
   Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
   " es.next support
