@@ -180,6 +180,7 @@ function! s:SetPhpcsStandard()
     let b:neomake_php_phpcs_args = neomake#makers#ft#php#phpcs().args
           \ + [ '--runtime-set', 'installed_paths', '~/src/wpcs' ]
           \ + [ '--standard=WordPress-Extra' ]
+          \ + [ '--exclude=WordPress.PHP.YodaConditions' ]
   endif
 endfunction
 
@@ -293,7 +294,7 @@ endfunction
 " Keep this last so all the other autocmds happen first
 " ============================================================================
 
-autocmd dkoneomake      BufWritePost,Filetype,FileChangedShellPost
+autocmd dkoneomake      BufWritePost,FileChangedShellPost
       \ *
       \ call s:MaybeNeomake()
 
