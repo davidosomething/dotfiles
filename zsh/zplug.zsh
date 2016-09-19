@@ -73,11 +73,6 @@ if [[ $OSTYPE == "darwin"* ]]; then
     nice:10
 fi
 
-zplug "plugins/brew-cask",        \
-  from:oh-my-zsh,                 \
-  if:"[[ $OSTYPE == "darwin"* ]]", \
-  nice:10                         \
-
 # # completions I have locally
 # zplug "${ZDOTDIR}",     \
 #   from:local,           \
