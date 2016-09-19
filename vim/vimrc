@@ -647,7 +647,8 @@ function! s:LoadPlugins()
   " f for function (c, java, js, php, vim only)
   Plug 'kana/vim-textobj-user'
         \| Plug 'machakann/vim-textobj-delimited'
-        \| Plug 'Julian/vim-textobj-assignment'
+        \| Plug 'Julian/vim-textobj-assignment',
+        \   has('python') ? {} : { 'on': [] }
         \| Plug 'vimtaku/vim-textobj-keyvalue'
         \| Plug 'kana/vim-textobj-entire'
         \| Plug 'kana/vim-textobj-indent'
