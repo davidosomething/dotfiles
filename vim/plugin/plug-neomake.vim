@@ -230,16 +230,21 @@ let g:neomake_python_pylint_args = [
 " ----------------------------------------------------------------------------
 
 function! s:SetSasslintRc()
+  let l:sasslint_maker = neomake#GetMaker('sasslint', 'scss')
+  let l:sasslint_args = get(
+        \ g:, 'neomake_scss_sasslint_args',
+        \ l:sasslint_maker.args)
+
   " Use local config if exists
   let l:config = dkoproject#GetProjectConfigFile('.sass-lint.yml')
-  if !empty(l:config)
-    let l:sasslint_maker = neomake#GetMaker('sasslint', 'scss')
-    let l:sasslint_args = get(
-          \ g:, 'neomake_scss_sasslint_args',
-          \ l:sasslint_maker.args)
-    let b:neomake_scss_sasslint_args =
-          \ l:sasslint_args + [ '--config=' . l:config ]
+
+  " Fall back to my global config
+  if empty(l:config)
+    let l:config = glob(expand('$DOTFILES/sasslint/.sass-lint.yml'))
   endif
+
+  let b:neomake_scss_sasslint_args =
+        \ l:sasslint_args + [ '--config=' . l:config ]
 endfunction
 
 let s:local_maker_sasslint = {

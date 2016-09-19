@@ -65,10 +65,16 @@ nnoremap  <silent>  <Leader>ez   :<C-u>edit $ZDOTDIR/.zshrc<CR>
 nnoremap  <special>   <BS>  <C-^>
 
 " ----------------------------------------------------------------------------
-" close buffer with space-bd and auto close loc list first
+" Auto close loc list first
+" Then close buffer
+" Use vim-bbye to preserve window layout if possible
 " ----------------------------------------------------------------------------
 
-nnoremap  <silent><special>  <Leader>bd  :<C-u>lclose<CR>:bdelete<CR>
+if exists("g:plugs['vim-bbye']")
+  nnoremap  <silent><special>  <Leader>bd  :<C-u>Bdelete<CR>
+else
+  nnoremap  <silent><special>  <Leader>bd  :<C-u>lclose<CR>:bdelete<CR>
+endif
 
 " ============================================================================
 " Window manipulation
