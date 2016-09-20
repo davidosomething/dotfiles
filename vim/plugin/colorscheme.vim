@@ -14,13 +14,19 @@ if s:use_solarized
   silent! colorscheme solarized
   set background=light
   finish
-endif
 
 " ============================================================================
 " terminal / fallbacks
 " ============================================================================
 
-if !empty(glob(expand(g:plug_home . '/gruvbox')))
+elseif exists("g:plugs['vim-two-firewatch']")
+      \ && !empty(glob(expand(g:plug_home . '/vim-two-firewatch')))
+  set background=dark
+  let g:two_firewatch_italics = 1
+  silent! colorscheme two-firewatch
+
+elseif exists("g:plugs['vim-colors-solarized']")
+      \ && !empty(glob(expand(g:plug_home . '/gruvbox')))
   let g:gruvbox_contrast_dark      = 'hard'
   let g:gruvbox_contrast_light     = 'hard'
   let g:gruvbox_italic             = 1
