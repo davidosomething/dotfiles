@@ -52,13 +52,10 @@ let g:terminal_color_15 = '#ebdbb2'
 " Skips if python is not installed in a pyenv virtualenv
 " ============================================================================
 
-" @TODO DRY this up
-
 " ----------------------------------------------------------------------------
 " Python 2
 " ----------------------------------------------------------------------------
 
-" python2 off
 let s:pyenv_python2 = glob(expand('$PYENV_ROOT/versions/neovim2/bin/python'))
 if !empty(s:pyenv_python2)
   " CheckHealth and docs are inconsistent
