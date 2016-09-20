@@ -491,7 +491,7 @@ function! s:LoadPlugins()
   " ========================================================================
 
   "Plug 'altercation/vim-colors-solarized'
-  "Plug 'morhetz/gruvbox'
+  Plug 'morhetz/gruvbox'
   Plug 'rakr/vim-two-firewatch'
   Plug 'atelierbram/Base2Tone-vim'
 
@@ -736,7 +736,8 @@ function! s:LoadPlugins()
   " ----------------------------------------
 
   " The "for" is required so the syntax registers on filetype, otherwise
-  " yajs has trouble overriding the default js syntax due to runtime order
+  " trouble overriding the default js syntax due to runtime order
+  " Configured in plugin/plug-vim-javascript.vim
   Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
   " es.next support
