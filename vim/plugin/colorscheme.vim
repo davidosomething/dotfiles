@@ -1,44 +1,56 @@
 " plugin/colorscheme.vim
 
-" ============================================================================
-" gui
-" ============================================================================
+try
+  " ============================================================================
+  " gui
+  " ============================================================================
 
-let s:use_solarized = 1
-      \ && has('gui_running')
-      \ && exists("g:plugs['vim-colors-solarized']")
+  let s:use_solarized = 1
+        \ && has('gui_running')
+        \ && dko#IsPlugged('vim-colors-solarized')
 
-if s:use_solarized
-  let g:solarized_italic  = 0
-  let g:solarized_menu    = 0
-  silent! colorscheme solarized
-  set background=light
-  finish
+  if s:use_solarized
+    let g:solarized_italic  = 0
+    let g:solarized_menu    = 0
+    silent! colorscheme solarized
+    set background=light
+    finish
 
-" ============================================================================
-" terminal / fallbacks
-" ============================================================================
+  " ============================================================================
+  " terminal / fallbacks
+  " ============================================================================
 
-elseif exists("g:plugs['vim-two-firewatch']")
-      \ && !empty(glob(expand(g:plug_home . '/vim-two-firewatch')))
-  set background=dark
-  let g:two_firewatch_italics = 1
-  silent! colorscheme two-firewatch
+  elseif dko#IsPlugged('Base2Tone-vim')
+    silent! colorscheme Base2Tone-Lake-dark
+    set background=dark
+    finish
 
-elseif exists("g:plugs['vim-colors-solarized']")
-      \ && !empty(glob(expand(g:plug_home . '/gruvbox')))
-  let g:gruvbox_contrast_dark      = 'hard'
-  let g:gruvbox_contrast_light     = 'hard'
-  let g:gruvbox_italic             = 1
-  let g:gruvbox_italicize_comments = 1
-  let g:gruvbox_invert_selection   = 0
-  if &t_Co != 256
-    let g:gruvbox_termcolors = 16
+  elseif dko#IsPlugged('vim-two-firewatch')
+    let g:two_firewatch_italics = 1
+    silent! colorscheme two-firewatch
+    set background=dark
+    finish
+
+  elseif dko#IsPlugged('vim-colors-solarized')
+    let g:gruvbox_contrast_dark      = 'hard'
+    let g:gruvbox_contrast_light     = 'hard'
+    let g:gruvbox_italic             = 1
+    let g:gruvbox_italicize_comments = 1
+    let g:gruvbox_invert_selection   = 0
+    if &t_Co != 256
+      let g:gruvbox_termcolors = 16
+    endif
+    silent! colorscheme gruvbox
+    set background=dark
+    finish
+
+  else
+    silent! colorscheme delek
+    set background=dark
+
   endif
-  silent! colorscheme gruvbox
-else
-  silent! colorscheme delek
-endif
 
-set background=dark
+catch /^Vim\%((\a\+)\)\=:E/
+    silent! colorscheme delek
 
+endtry

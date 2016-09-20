@@ -493,6 +493,7 @@ function! s:LoadPlugins()
   "Plug 'altercation/vim-colors-solarized'
   "Plug 'morhetz/gruvbox'
   Plug 'rakr/vim-two-firewatch'
+  Plug 'atelierbram/Base2Tone-vim'
 
   " ========================================================================
   " Plug: File system
