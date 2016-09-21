@@ -9,15 +9,9 @@
 - `xcode`
     - Then run `xcode-select --install` to prompt for CLI tools.
 
-### Setup ssh keys
-
-1. keygen
-1. add to GitHub
-    - NEED alternate means of logging in via web
-    - then do a test login and store the passphrase in Keychain
-1. add to GitLab
-
 ### Install homebrew
+
+http://brew.sh/
 
 ### Install git from brew
 
@@ -28,18 +22,21 @@ brew install git --without-completions
 brew install git-extras hub
 ```
 
+### Setup ssh keys
+
+1. ssh-keygen
+1. Add to GitHub
+    - NEED alternate means of logging in via web
+    - then do a test login and store the passphrase in Keychain
+1. Add to GitLab
+
 ### Install dotfiles
 
 1. `git clone` for `~/.dotfiles/`
 1. `~/.dotfiles/bootstrap/symlink.sh`
-1. `~/.dotfiles/mac/settings` -- set apple defaults and fix some issues like
+1. `~/.dotfiles/mac/defaults` -- set apple defaults and fix some issues like
    zsh startup
 1. `git clone` for `~/.secrets` and link as needed
-
-### Install macvim
-
-We want this to override the outdated system vim too. Just use
-`~/.dotfiles/bootstrap/mac/macvim.sh`.
 
 ### Install zsh and set as default
 
@@ -65,49 +62,19 @@ chsh -s /usr/local/bin/zsh
    start app -> Preferences -> Load preferences from custom folder, point to
    existing plist exports.
 
-### Install dev stuff
+### Install macvim
 
-- Install `chruby`, `ruby-install`
-    1. `ruby-install ruby` to install latest
-    1. `chruby` to latest version just installed
-    1. Install gems using `~/.dotfiles/ruby/install-default-gems.sh`
-- Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
-  `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
-  consequently `npm`)
-    1. Use nvm managed node
-    1. `npm install -g npm@latest`
-    1. Install the default packages using `~/.dotfiles/node/install.sh`
-- Install `pyenv` using `pyenv-installer` (rm `~/.local/pyenv` directory for
-  clean install) and make sure to use the libs provided by `brew openssl`
-    1. `brew install openssl`
-    1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
-    1. Set up the global pyenv as the latest stable (3.x.x)
-    1. Set up python virtualenvs called `neovim{2,3}` -- nvim is configured to
-       use those already. E.g.,
-        1. `pyenv install 2.7.12`
-        1. `pyenv virtualenv 2.7.12 neovim2`
-        1. `pyenv activate neovim2`
-        1. `pip install neovim`
-- `brew install redis` for `redismru.vim` later
-- run `bootstrap/mac/install.sh`
-- run `bootstrap/mac/completions.sh`
-- run `bootstrap/terminfo.sh` (added terminfo for iterm with italics support)
-- Install `gpgtools` from brew cask (using GPG suite since it provides
-  `gpg-agent` and can store passphrase in keychain with minimal cfg on
-  El Capitan)
-    - Import keybase public/private keys into gpg
-    - Setup local gitconfig to sign commits
+```bash
+u macvim
+```
+
+1. Launch `vim` and let `vim-plug` install itself
 
 ### Install neovim
 
-1. Follow <https://github.com/neovim/homebrew-neovim> for HEAD
-    ```bash
-    brew tap neovim/neovim
-    brew update
-    brew install --HEAD --with-release neovim
-    ```
-1. Launch `nvim` and let `vim-plug` install itself, exit
-1. Launch `nvim` and `:PlugInstall`, exit
+1. Follow <https://github.com/neovim/homebrew-neovim> for HEAD. `u neovim` can
+   do this automatically.
+1. Launch `nvim` and let `vim-plug` install itself
 
 ### Install keepassx from source
 
@@ -125,6 +92,10 @@ It is fine to run the `cmake -DCMAKE_BUILD_TYPE=Release` step until it builds
 successfully (it will tell you what deps are missing each time, and the deps
 can all be installed via brew).
 
+### Install from brew
+
+Stuff from [bootstrap/mac/brew.sh](../bootstrap/mac/brew.sh) as desired.
+
 ### Install from cask
 
 - bettertouchtool
@@ -132,20 +103,59 @@ can all be installed via brew).
     - Provide window snapping
     - Provide better trackpad swipe configs
 - google-chrome
-    - Login and sync
+    - Login and sync google account for settings
     - Provides `authy`
 - dropbox
     - Then setup keepassx to load the key database from dropbox
 - karabiner
     - Maps simultaneous-dual-shift to capslock and show capslock state.
-        - Run `karabiner/install.sh` to symlink `private.xml`
-        - In prefs must enable by toggling checkbox
+        - Run [karabiner/install.sh](karabiner/install.sh) to symlink
+          the [karabiner/private.xml](karabiner/private.xml) file into the
+          user's library
+        - Enable the option in Karabiner preferences by toggling the checkbox
+          since it isn't kept in the filesystem.
 - kaleidoscope
     - Load license file
 - transmission
     - Load blocklist `http://john.bitsurge.net/public/biglist.p2p.gz`
 
-Rest of stuff from bootstrap/mac/cask.sh
+Rest of stuff from [bootstrap/mac/cask.sh](../bootstrap/mac/cask.sh) as desired.
+
+### Install dev stuff
+
+Make sure the rest of the things above are installed since after you start using
+`pyenv` it gets annoying to remember to switch back to system python for each
+`brew` operation.
+
+- Install `chruby`, `ruby-install`
+    1. `ruby-install ruby` to install latest
+    1. `chruby` to latest version just installed
+    1. Install gems using
+       [ruby/install-default-gems.sh](../ruby/install-default-gems.sh)
+- Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
+  `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
+  consequently `npm`)
+    1. Use nvm managed node
+    1. `npm install -g npm@latest`
+    1. Install the default packages using [node/install.sh](../node/install.sh)
+- Install `pyenv` using `pyenv-installer` (rm `~/.local/pyenv` directory for
+  clean install) and make sure to use the libs provided by `brew openssl`
+    1. `brew install openssl`
+    1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
+    1. Set up the global pyenv as the latest stable (3.x.x)
+    1. Set up python virtualenvs called `neovim{2,3}` -- nvim is configured to
+       use those already. E.g.,
+        1. `pyenv install 2.7.12`
+        1. `pyenv virtualenv 2.7.12 neovim2`
+        1. `pyenv activate neovim2`
+        1. `pip install neovim`
+- `brew install redis` for `redismru.vim` later
+- run [bootstrap/terminfo.sh](../bootstrap/terminfo.sh) (added terminfo for iterm with italics support)
+- Install `gpgtools` from brew cask (using GPG suite since it provides
+  `gpg-agent` and can store passphrase in keychain with minimal cfg on
+  El Capitan)
+    - Import keybase public/private keys into gpg
+    - Setup local gitconfig to sign commits
 
 ## Reduce desktop icon size
 
