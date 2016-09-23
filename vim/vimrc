@@ -492,7 +492,7 @@ function! s:LoadPlugins()
 
   "Plug 'altercation/vim-colors-solarized'
   Plug 'morhetz/gruvbox'
-  Plug 'rakr/vim-two-firewatch'
+  "Plug 'rakr/vim-two-firewatch'
   Plug 'atelierbram/Base2Tone-vim'
 
   " ========================================================================
@@ -538,9 +538,15 @@ function! s:LoadPlugins()
     Plug 'Shougo/neomru.vim'
   endif
 
-  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'nathanaelkane/vim-indent-guides', {
+        \   'on': [
+        \     '<Plug>IndentGuidesToggle',
+        \     'IndentGuidesToggle',
+        \     'IndentGuidesEnable',
+        \   ]
+        \ }
 
-  Plug 'osyo-manga/vim-over'
+  Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   Plug 'tpope/vim-eunuch'
