@@ -45,6 +45,10 @@ let g:neomake_warning_sign  = { 'text': '⚑' }
 
 " settings is a dict { ft, maker, local }
 function! s:AddLocalMaker(settings) abort
+  if has_key(a:settings, 'when') && !a:settings['when']
+    return
+  endif
+
   " Use local binary
   let l:bin = dkoproject#GetProjectConfigFile(a:settings['local'])
   if !empty(l:bin)
@@ -87,9 +91,10 @@ let s:local_maker_eslint = {
       \ }
 
 let s:local_maker_jscs = {
-      \   'ft':     'javascript',
-      \   'maker':  'jscs',
-      \   'local':  'node_modules/.bin/jscs',
+      \   'ft':       'javascript',
+      \   'maker':    'jscs',
+      \   'local':    'node_modules/.bin/jscs',
+      \   'when':     !empty(dkoproject#GetProjectConfigFile('.jscsrc')),
       \ }
 
 let s:local_maker_jshint = {
@@ -177,6 +182,7 @@ autocmd dkoneomake FileType
 function! s:SetPhpcsStandard()
   " WordPress
   if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
+        \ || expand('%:p') =~? 'ed-com'
     let b:neomake_php_phpcs_args = neomake#makers#ft#php#phpcs().args
           \ + [ '--runtime-set', 'installed_paths', '~/src/wpcs' ]
           \ + [ '--standard=WordPress-Extra' ]
