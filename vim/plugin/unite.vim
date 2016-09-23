@@ -25,9 +25,25 @@ endif
 
 " candidates
 let g:unite_source_grep_max_candidates = 300
+let g:unite_source_grep_recursive_opt = ''
 
-" use ag for file_rec/async and unite grep
-if executable('ag')
+" file_rec/async and unite grep settings
+" use ripgrep
+if executable('rg')
+  let s:options = [
+        \ '--color=never',
+        \ '--follow',
+        \ '--ignore-case',
+        \ '--line-number',
+        \ '--no-heading',
+        \ ]
+  let g:unite_source_grep_command       = 'rg'
+  let g:unite_source_grep_default_opts  = join(s:options, ' ')
+
+  let g:unite_source_rec_async_command  = [ 'rg' ] + s:options + [ '-g', '' ]
+
+" use the_silver_searcher
+elseif executable('ag')
   let s:ag_opts = ' -i --vimgrep --hidden'
 
   " Ignore wildignores too
@@ -37,15 +53,13 @@ if executable('ag')
     let s:ag_opts = s:ag_opts .
           \ ' --ignore "' . substitute(s:i, '\*/\(.*\)/\*', '\1', 'g') . '"'
   endfor
+  let g:unite_source_grep_command       = 'ag'
+  let g:unite_source_grep_default_opts  = s:ag_opts
 
   " This setting reverted so just providing --vimgrep no longer works
   " https://github.com/Shougo/unite.vim/issues/986#issuecomment-133950231
   let g:unite_source_rec_async_command  = [ 'ag',
         \ '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '' ]
-
-  let g:unite_source_grep_command       = 'ag'
-  let g:unite_source_grep_default_opts  = s:ag_opts
-  let g:unite_source_grep_recursive_opt = ''
 endif
 
 " ============================================================================
@@ -149,7 +163,12 @@ function! s:BindFunctionKeys()
   if exists("g:plugs['unite-outline']")
     execute dko#BindFunction('<F2>', 'Unite outline')
   endif
-  execute dko#BindFunction('<F3>', 'Unite -start-insert buffer')
+
+  " Using :FZB instead of Unite for buffer list
+  if !g:dko_use_fzf
+    execute dko#BindFunction('<F3>', 'Unite -start-insert buffer')
+  endif
+
   if exists("g:plugs['redismru.vim']")
     execute dko#BindFunction('<F4>', 'Unite -start-insert redismru')
   elseif exists("g:plugs['neomru.vim']")
