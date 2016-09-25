@@ -289,6 +289,16 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # Don't ask to use every drive for Time Machine
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
+# ----------------------------------------------------------------------------
+# Transmission
+# ----------------------------------------------------------------------------
+
+defaults write org.m0k.transmission WarningDonate -bool false
+defaults write org.m0k.transmission WarningLegal -bool false
+defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
+defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
+defaults write org.m0k.transmission BlocklistNew -bool true
+
 # ============================================================================
 # Restart for changes
 # ============================================================================

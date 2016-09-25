@@ -50,6 +50,8 @@ brew install ack
 brew install findutils
 brew install fzf
 brew install the_silver_searcher
+# @TODO this will probably be in homebrew-formulas soon
+brew install https://raw.githubusercontent.com/BurntSushi/ripgrep/master/pkg/brew/ripgrep.rb
 brew install tree
 
 # ============================================================================
