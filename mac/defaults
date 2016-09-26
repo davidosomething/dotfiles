@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-# Last updated 2016-06-17 for el capitan
-
 set -eu
 
 # sources:
+# https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 # https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 # https://github.com/simonowendesign/dotfiles/blob/master/.osx
+
+osascript -e 'tell application "System Preferences" to quit'
 
 sudo -v
 
