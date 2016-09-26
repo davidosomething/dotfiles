@@ -40,8 +40,9 @@ alias gpo="git push origin"
 # greppers
 alias f="find"
 alias grep="grep --color=auto"
-alias ag="ag --path-to-ignore \"\${DOTFILES}/ag/agignore\""
+alias ag="ag --hidden --smart-case --one-device --path-to-ignore \"\${DOTFILES}/ag/dot.ignore\""
 alias rg="rg --hidden --smart-case"
+# also see gg in git
 
 # node
 alias bfy="browserify"
