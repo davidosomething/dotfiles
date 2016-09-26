@@ -40,7 +40,7 @@ alias gpo="git push origin"
 # greppers
 alias f="find"
 alias grep="grep --color=auto"
-alias ag="ag --path-to-agignore \"\${DOTFILES}/ag/agignore\""
+alias ag="ag --path-to-ignore \"\${DOTFILES}/ag/agignore\""
 alias rg="rg --hidden --smart-case"
 
 # node
