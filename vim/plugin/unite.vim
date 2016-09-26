@@ -30,21 +30,26 @@ let g:unite_source_grep_recursive_opt = ''
 " file_rec/async and unite grep settings
 " use ripgrep
 if executable('rg')
+  " let s:options = [
+  "       \ '--color=never',
+  "       \ '--follow',
+  "       \ '--ignore-case',
+  "       \ '--line-number',
+  "       \ '--no-heading',
+  " As of 0.1.16
   let s:options = [
-        \ '--color=never',
-        \ '--follow',
-        \ '--ignore-case',
-        \ '--line-number',
-        \ '--no-heading',
+        \   '--hidden',
+        \   '--smart-case',
+        \   '--vimgrep',
         \ ]
   let g:unite_source_grep_command       = 'rg'
   let g:unite_source_grep_default_opts  = join(s:options, ' ')
 
-  let g:unite_source_rec_async_command  = [ 'rg' ] + s:options + [ '-g', '' ]
+  let g:unite_source_rec_async_command  = [ 'rg' ] + s:options + [ '--glob', '' ]
 
 " use the_silver_searcher
 elseif executable('ag')
-  let s:ag_opts = ' -i --vimgrep --hidden'
+  let s:ag_opts = ' --hidden --smart-case --vimgrep'
 
   " Ignore wildignores too
   " https://github.com/gf3/dotfiles/blob/master/.vimrc#L564

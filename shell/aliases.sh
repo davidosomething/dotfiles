@@ -13,6 +13,20 @@ alias cdv="cd \"\${VIM_DOTFILES}\""
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias tree="tree -C"
 
+# cat
+alias pyg="pygmentize -O style=rrt -f console256 -g"
+
+# editors
+alias a="atom"
+{ dko::has 'nvim' && alias e="nvim"; } || alias e="vim"
+alias ehosts="se /etc/hosts"
+alias evl="e \"\${HOME}/.vimrc.local\""
+alias evm="e \"\${VIM_DOTFILES}/after/plugin/mappings.vim\""
+alias evr="e \"\${VIM_DOTFILES}/vimrc\""
+alias eze="e \"\${ZDOTDIR}/.zshenv\""
+alias ezp="e \"\${ZDOTDIR}/zplug.zsh\""
+alias ezr="e \"\${ZDOTDIR}/.zshrc\""
+
 # git
 alias g="git"
 alias g-="git co -"
@@ -23,40 +37,43 @@ alias gl="git l"
 alias gp="git push"
 alias gpo="git push origin"
 
-# remote
-alias mc="ssh rmc -t -- \".local/bin/ftb\""
-
-# bin
-alias a="atom"
-alias ag="ag --path-to-agignore \"\${DOTFILES}/ag/agignore\""
-alias archey="archey --offline"
-alias be="bundle exec"
-alias bfy="browserify"
-alias bun="bundle"
-alias cb="cdbk"
-alias cm="composer"
-alias cap="bundle exec cap"
-alias df="df -h"
+# greppers
 alias f="find"
 alias grep="grep --color=auto"
-alias grw="grunt watch"
-alias ln="ln -v"
-alias mdl="mdl --config \"\${DOTFILES}/mdl/.mdlrc\""
+alias ag="ag --path-to-agignore \"\${DOTFILES}/ag/agignore\""
+alias rg="rg --hidden --smart-case"
+
+# node
+alias bfy="browserify"
 alias n="npm"
 alias ni="npm install"
 alias nude="nvm use default"
-alias o="dko-open"
-alias paclast="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -20"
+
+# php
+alias cm="composer"
+
+# python
 alias pea="pyenv activate"
 alias ped="pyenv deactivate"
 alias pss="pyenv shell system"
-alias publicip="curl icanhazip.com"
 alias py2="python2"
 alias py3="python3"
 alias py="python"
-alias pyg="pygmentize -O style=rrt -f console256 -g"
+
+# ruby
+alias be="bundle exec"
+alias bun="bundle"
+alias cap="bundle exec cap"
+
+# rest of bins
+alias archey="archey --offline"
+alias cb="cdbk"
+alias df="df -h"
+alias ln="ln -v"
+alias mdl="mdl --config \"\${DOTFILES}/mdl/.mdlrc\""
+alias o="dko-open"
+alias publicip="curl icanhazip.com"
 alias rsync="rsync --human-readable --partial --progress" 
-alias spip="sudo -H pip install"
 alias tmux="tmux -f \"\${DOTFILES}/tmux/tmux.conf\""
 alias t="tree -a --noreport --dirsfirst -I '.git|node_modules|bower_components|.DS_Store'"
 alias today="date +%Y-%m-%d"
@@ -74,14 +91,8 @@ alias mine="sudo chown -R \"\$USER\""
 alias root="sudo -s"
 alias se="sudo -e"
 
-# editor
-{ dko::has 'nvim' && alias e="nvim"; } || alias e="vim"
-alias ehosts="se /etc/hosts"
-alias evl="e \"\${HOME}/.vimrc.local\""
-alias evm="e \"\${VIM_DOTFILES}/after/plugin/mappings.vim\""
-alias evr="e \"\${VIM_DOTFILES}/vimrc\""
-alias eze="e \"\${ZDOTDIR}/.zshenv\""
-alias ezr="e \"\${ZDOTDIR}/.zshrc\""
+# remote
+alias mc="ssh rmc -t -- \".local/bin/ftb\""
 
 # ============================================================================
 
@@ -160,6 +171,8 @@ __alias_linux() {
 # ============================================================================
 
 __alias_arch() {
+  alias paclast="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -20"
+
   if command -v pacaur >/dev/null; then
     alias b="pacaur"
   elif command -v yaourt >/dev/null; then
