@@ -128,6 +128,8 @@ For X apps (no terminal) the value is probably:
 - **Variable interpolation**
     - Always use curly braces around the variable name when interpolating in
       double quotes.
+- **Variable names**
+    - Stick to nouns, lower camel case
 - **Variable scope**
     - Try to use `local` and `readonly` variables as much as possible over
       global/shell-scoped variables.
