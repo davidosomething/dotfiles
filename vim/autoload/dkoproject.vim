@@ -11,10 +11,6 @@
 " instead of using `expand()` with `:h` to traverse up directories.
 " https://github.com/dbakker/vim-projectroot/blob/master/autoload/projectroot.vim
 "
-" "Config Paths" are where rc files (e.g. linter configs) are stored, which
-" may not necessarily be in the immediate Project Root (even though I wish
-" they were).
-"
 " Settings:
 " b:dkoproject#roots [array] - look for config files in this array of
 "                              directory names relative to the project
@@ -39,6 +35,7 @@ let s:default_roots = [
       \ ]
 
 " Find git root of current file, set to buffer var
+"
 " @param {string} [file]
 " @return {string} project git root path or empty string
 function! dkoproject#GetRoot(...) abort
@@ -73,9 +70,11 @@ function! dkoproject#GetRoot(...) abort
   return l:root
 endfunction
 
-" Get array of possible root paths for a project
+" Get array of possible config file paths for a project -- any dirs where
+" files like .eslintrc, package.json, etc. might be stored
+"
 " @return {String[]} config paths relative to git root
-function! dkoproject#GetRoots() abort
+function! dkoproject#GetPaths() abort
   return get(
         \   b:, 'dkoproject#roots', get(
         \   g:, 'dkoproject#roots',
@@ -84,6 +83,7 @@ function! dkoproject#GetRoots() abort
 endfunction
 
 " Get full path to a file in a dkoproject
+"
 " @param {String} filename
 " @return {String} full path to config file
 function! dkoproject#GetFile(filename) abort
@@ -91,7 +91,7 @@ function! dkoproject#GetFile(filename) abort
     return ''
   endif
 
-  for l:root in dkoproject#GetRoots()
+  for l:root in dkoproject#GetPaths()
     let l:current =
           \ expand(dkoproject#GetRoot() . '/' . l:root)
 
