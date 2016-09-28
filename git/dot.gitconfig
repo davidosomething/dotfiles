@@ -37,8 +37,7 @@
 	lasttag = describe --tags --abbrev=0
 
 	dc      = diff --cached
-	dm      = diff master
-	mod     = diff master --name-only
+	dino    = diff --name-only
 
 	fo      = fetch origin
 
@@ -49,12 +48,10 @@
 	lb      = log --abbrev-commit --oneline --decorate --all --graph
 	lg      = log --abbrev-commit           --decorate --all --graph
 
-	mma     = merge master
-	mom     = merge origin/master
-	mum     = merge upstream/master
-
+	pom     = pull --ff-only origin master
 	pr      = pull --rebase
 	pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
+	pum     = pull --ff-only upstream master
 
 	poh     = push origin HEAD
 
