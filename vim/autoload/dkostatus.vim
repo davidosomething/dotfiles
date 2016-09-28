@@ -103,14 +103,16 @@ endfunction
 
 function! dkostatus#NeomakeCounts() abort
   return s:winnr != winnr()
-        \ || empty(glob(expand(g:plug_home . '/neomake')))
+        \ || !dko#IsPlugged('neomake')
+        \ || !exists('*neomake#statusline#LoclistCounts')
         \ ? ''
         \ : dkostatus#FormatNeomakeCounts(neomake#statusline#LoclistCounts())
 endfunction
 
 function! dkostatus#NeomakeJobs() abort
   return s:winnr != winnr()
-        \ || empty(glob(expand(g:plug_home . '/neomake')))
+        \ || !dko#IsPlugged('neomake')
+        \ || !exists('*neomake#GetJobs')
         \ || empty(neomake#GetJobs())
         \ ? ''
         \ : '%#StatusLineNC# … %*'
@@ -137,9 +139,12 @@ function! dkostatus#Filename() abort
 endfunction
 
 function! dkostatus#Anzu() abort
-  if s:winnr != winnr() || !dko#IsPlugged('vim-anzu')
+  if s:winnr != winnr()
+        \ || !dko#IsPlugged('vim-anzu')
+        \ || !exists('*anzu#search_status')
     return ''
   endif
+
   let l:anzu = anzu#search_status()
   return empty(l:anzu)
         \ ? ''
@@ -157,9 +162,11 @@ endfunction
 function! dkostatus#GitaBranch() abort
   if winwidth(0) < 80
         \ || s:winnr != winnr()
+        \ || !dko#IsPlugged('vim-gita')
         \ || !exists('g:gita#debug')
     return ''
   endif
+
   let l:branch = gita#statusline#format('%lb')
   return empty(l:branch)
         \ ? '' 
@@ -169,6 +176,7 @@ endfunction
 function! dkostatus#GutentagsStatus() abort
   if winwidth(0) < 80
         \ || s:winnr != winnr()
+        \ || !dko#IsPlugged('vim-gutentags')
         \ || !exists('g:loaded_gutentags')
     return ''
   endif

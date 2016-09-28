@@ -9,5 +9,6 @@ vendor/
 *min.*
 *.crt
 *.svg
+*.vim.old
 LICENSE*
 COPYING*

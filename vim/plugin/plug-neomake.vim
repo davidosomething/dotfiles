@@ -50,7 +50,7 @@ function! s:AddLocalMaker(settings) abort
   endif
 
   " Use local binary
-  let l:bin = dkoproject#GetProjectConfigFile(a:settings['local'])
+  let l:bin = dkoproject#GetFile(a:settings['local'])
   if !empty(l:bin)
     let b:neomake_{a:settings['ft']}_{a:settings['maker']}_exe = l:bin
   endif
@@ -94,7 +94,7 @@ let s:local_maker_jscs = {
       \   'ft':       'javascript',
       \   'maker':    'jscs',
       \   'local':    'node_modules/.bin/jscs',
-      \   'when':     !empty(dkoproject#GetProjectConfigFile('.jscsrc')),
+      \   'when':     !empty(dkoproject#GetFile('.jscsrc')),
       \ }
 
 let s:local_maker_jshint = {
@@ -105,7 +105,7 @@ let s:local_maker_jshint = {
 
 function! s:PickJavascriptMakers() abort
   " If there's a jshintrc file, use jshint instead of eslint
-  if empty(dkoproject#GetProjectConfigFile('.jshintrc')) | return
+  if empty(dkoproject#GetFile('.jshintrc')) | return
   endif
 
   " Only if jshint is executable (globally or locally)
@@ -146,9 +146,9 @@ function! s:SetupMarkdownlint()
   let l:maker = { 'errorformat':  '%f: %l: %m' }
 
   " Use config local to project if available
-  let l:config = dkoproject#GetProjectConfigFile('markdownlint.json')
+  let l:config = dkoproject#GetFile('markdownlint.json')
   if empty(l:config)
-    let l:config = dkoproject#GetProjectConfigFile('.markdownlintrc')
+    let l:config = dkoproject#GetFile('.markdownlintrc')
   endif
   if empty(l:config)
     let l:config = glob(expand('$DOTFILES/markdownlint/config.json'))
@@ -159,7 +159,7 @@ function! s:SetupMarkdownlint()
   let b:neomake_pandoc_markdownlint_args = l:maker.args
 
   " Use markdownlint in local node_modules/ if available
-  let l:bin = dkoproject#GetProjectConfigFile('node_modules/.bin/markdownlint')
+  let l:bin = dkoproject#GetFile('node_modules/.bin/markdownlint')
   let l:maker.exe = !empty(l:bin) ? 'markdownlint' : l:bin
 
   " Bail if not installed either locally or globally
@@ -191,7 +191,7 @@ function! s:SetPhpcsStandard()
 endfunction
 
 function! s:SetPhpmdRuleset()
-  let l:ruleset_file = dkoproject#GetProjectConfigFile('ruleset.xml')
+  let l:ruleset_file = dkoproject#GetFile('ruleset.xml')
 
   if !empty(l:ruleset_file)
     " source, format, ruleset(xml file or comma sep list of default rules)
@@ -242,7 +242,7 @@ function! s:SetSasslintRc()
         \ l:sasslint_maker.args)
 
   " Use local config if exists
-  let l:config = dkoproject#GetProjectConfigFile('.sass-lint.yml')
+  let l:config = dkoproject#GetFile('.sass-lint.yml')
 
   " Fall back to my global config
   if empty(l:config)
@@ -260,7 +260,7 @@ let s:local_maker_sasslint = {
       \ }
 
 function! s:PickScssMakers() abort
-  if empty(dkoproject#GetProjectConfigFile('.scss-lint.yml')) | return
+  if empty(dkoproject#GetFile('.scss-lint.yml')) | return
   endif
 
   " Only if scss-lint is executable (globally or locally)

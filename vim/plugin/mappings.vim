@@ -14,7 +14,7 @@ execute dko#BindFunction('<F10>', 'call dkotabline#Toggle()')
 " ============================================================================
 " Quick edit
 " ec* - Edit closest (find upwards)
-" er* - Edit from dkoproject#GetProjectRoot()
+" er* - Edit from dkoproject#GetRoot()
 " ============================================================================
 
 function! s:EditClosest(file)
@@ -30,7 +30,7 @@ nnoremap  <silent>  <Leader>eci  :<C-u>call <SID>EditClosest('.gitignore')<CR>
 nnoremap  <silent>  <Leader>ecr  :<C-u>call <SID>EditClosest('README.md')<CR>
 
 function! s:EditRoot(file)
-  let s:file = dkoproject#GetProjectConfigFile(a:file)
+  let s:file = dkoproject#GetFile(a:file)
   if empty(s:file)
     echomsg 'File not found:'  . a:file
     return

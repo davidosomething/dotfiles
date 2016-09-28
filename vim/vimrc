@@ -442,7 +442,7 @@ augroup dkoproject
 
   autocmd BufNewFile,BufRead,BufWritePost
         \ *
-        \ call dkoproject#GetProjectRoot()
+        \ call dkoproject#GetRoot()
 augroup END
 
 " ============================================================================
@@ -478,7 +478,7 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
 " This is used by plugin/completion.vim so is a g:
 let g:dko_has_completion = 0
-let g:dko_use_fzf = has('nvim') && !empty(glob(expand('~/.fzf')))
+let g:dko_use_fzf = has('nvim') && !isdirectory(expand('~/.fzf'))
 
 function! s:LoadPlugins()
   let s:use_colorv    = 0 && (has('python') || has('python3'))
@@ -552,7 +552,7 @@ function! s:LoadPlugins()
         \   ]
         \ }
 
-  Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
+  Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   Plug 'tpope/vim-eunuch'
@@ -728,7 +728,7 @@ function! s:LoadPlugins()
   Plug 'mustache/vim-mustache-handlebars'
 
   " ========================================================================
-  " Language: JavaScript / CoffeeScript / JSON
+  " Language: JavaScript and derivatives, JSON
   " ========================================================================
 
   Plug 'elzr/vim-json'
@@ -738,10 +738,6 @@ function! s:LoadPlugins()
 
   " TypeScript
   "Plug 'leafgarland/typescript-vim'
-
-  " react/JSX syn highlighting for .cjsx
-  " If you're using coffee+react instead of es6+react, quit your job.
-  "Plug 'mtscout6/vim-cjsx'
 
   " ----------------------------------------
   " Syntax
@@ -1005,7 +1001,7 @@ let s:plug_dir .= has('nvim') ? 'nvim' : 'vim'
 let s:dko_plug_absdir = g:dko#vim_dir . s:plug_dir
 
 " Load vim-plug and its plugins?
-if empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
+if !isdirectory(expand(g:dko#vim_dir . '/autoload/plug.vim'))
   execute 'silent !curl -fLo '
         \ . g:dko#vim_dir . '/autoload/plug.vim '
         \ . 'https://raw.githubusercontent.com/'
@@ -1014,7 +1010,7 @@ endif
 
 call plug#begin(s:dko_plug_absdir)
   call s:LoadPlugins()
-  if empty(glob(expand(s:dko_plug_absdir))) | PlugInstall
+  if !isdirectory(expand(s:dko_plug_absdir)) | PlugInstall
   endif
 call plug#end()
 

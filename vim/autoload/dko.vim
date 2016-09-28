@@ -2,10 +2,12 @@
 
 let g:dko#vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
-function! dko#rtp() abort
+" Output &runtimepath, one per line, to current buffer
+function! dko#Runtimepath() abort
   put! =split(&runtimepath, ',', 0)
 endfunction
 
+" Assigns a new object to a variable if it doesn't exist yet
 " @param string var
 function! dko#InitObject(var) abort
   let {a:var} = exists(a:var) ? {a:var} : {}
@@ -26,6 +28,8 @@ endfunction
 " @param string name
 " @return boolean
 function! dko#IsPlugged(name) abort
+  " Use exists instead of has_key so can skip checking if g:plugs itself
+  " exists
   return exists("g:plugs['" . a:name . "']")
-        \ && !empty(glob(expand(g:plug_home . '/' . a:name)))
+        \ && isdirectory(expand(g:plug_home . '/' . a:name))
 endfunction
