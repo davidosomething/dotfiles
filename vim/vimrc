@@ -354,9 +354,15 @@ set wrapscan                          " Searches wrap around end of the file.
 set ignorecase
 set smartcase
 
-" The Silver Searcher
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+elseif executable('ag')
+  set grepprg=ag\ --vimgrep\ --nocolor
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable('ack')
+  set grepprg=ack\ --nogroup\ --nocolor\ --smart-case\ --column
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
 " ----------------------------------------------------------------------------
