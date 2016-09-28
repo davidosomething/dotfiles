@@ -20,14 +20,14 @@ function! s:DKO_StarSearch()
   let l:ops = ''
 
   " Move or don't move?
-  if exists("g:plugs['vim-asterisk']")
+  if dko#IsPlugged('vim-asterisk')
     let l:ops = l:ops . "\<Plug>(asterisk-z*)"
   endif
 
   " Highlight matches?
-  if exists("g:plugs['incsearch.vim']")
+  if dko#IsPlugged('incsearch.vim')
     " no CursorMoved event if using vim-asterisk
-    if exists("g:plugs['vim-asterisk']")
+    if dko#IsPlugged('vim-asterisk')
       let l:ops = l:ops . "\<Plug>(incsearch-nohl0)"
     else
       let l:ops = l:ops . "\<Plug>(incsearch-nohl)"
@@ -35,8 +35,8 @@ function! s:DKO_StarSearch()
   endif
 
   " Show count of matches
-  if exists("g:plugs['vim-anzu']")
-    if exists("g:plugs['vim-asterisk']")
+  if dko#IsPlugged('vim-anzu')
+    if dko#IsPlugged('vim-asterisk')
       let l:ops = l:ops . "\<Plug>(anzu-update-search-status)"
     else
       let l:ops = l:ops . "\<Plug>(anzu-star)"
@@ -50,7 +50,7 @@ if !empty(s:DKO_StarSearch())
   nmap <silent><special><expr>  *   <SID>DKO_StarSearch()
 endif
 
-if exists("g:plugs['incsearch.vim']")
+if dko#IsPlugged('incsearch.vim')
   nmap  <silent><special> /   <Plug>(incsearch-forward)
   nmap  <silent><special> ?   <Plug>(incsearch-backward)
   nmap  <silent><special> g/  <Plug>(incsearch-stay)
@@ -59,7 +59,7 @@ if exists("g:plugs['incsearch.vim']")
   nmap  <silent><special> #   <Plug>(incsearch-nohl)
 endif
 
-if exists("g:plugs['vim-anzu']")
+if dko#IsPlugged('vim-anzu')
   " Support other search modes like `gd`
   let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
   nmap <silent><special> n <Plug>(anzu-n)

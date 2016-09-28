@@ -13,7 +13,7 @@ augroup END
 " Extension: neomru settings
 " ============================================================================
 
-if exists("g:plugs['neomru.vim']")
+if dko#IsPlugged('neomru.vim')
   let g:neomru#update_interval      = 300     " Update cache every 5 minutes
   let g:neomru#file_mru_limit       = 200     " Fewer files in mru
   let g:neomru#directory_mru_limit  = 0       " Don't list directories
@@ -165,7 +165,7 @@ autocmd dkounite FileType unite call s:BindUniteBufferKeys()
 " ============================================================================
 
 function! s:BindFunctionKeys()
-  if exists("g:plugs['unite-outline']")
+  if dko#IsPlugged('unite-outline')
     execute dko#BindFunction('<F2>', 'Unite outline')
   endif
 
@@ -174,9 +174,9 @@ function! s:BindFunctionKeys()
     execute dko#BindFunction('<F3>', 'Unite -start-insert buffer')
   endif
 
-  if exists("g:plugs['redismru.vim']")
+  if dko#IsPlugged('redismru.vim')
     execute dko#BindFunction('<F4>', 'Unite -start-insert redismru')
-  elseif exists("g:plugs['neomru.vim']")
+  elseif dko#IsPlugged('neomru.vim')
     execute dko#BindFunction('<F4>', 'Unite -start-insert neomru/file')
   endif
 
@@ -190,7 +190,7 @@ function! s:BindFunctionKeys()
   endif
 
   execute dko#BindFunction('<F6>', 'UniteWithProjectDir grep:.')
-  if exists("g:plugs['unite-tag']")
+  if dko#IsPlugged('unite-tag')
     execute dko#BindFunction('<F7>', 'Unite -start-insert tag')
   endif
   execute dko#BindFunction('<F8>', 'Unite -start-insert command')

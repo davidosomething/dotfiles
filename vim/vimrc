@@ -929,8 +929,8 @@ function! s:LoadPlugins()
 
   " Hex (et al) color highlighting
   if s:use_colorv | Plug 'Rykka/colorv.vim'
-  else                | Plug 'ap/vim-css-color'
-  "else                | Plug 'chrisbra/Colorizer'
+  else | Plug 'ap/vim-css-color'
+  "else | Plug 'chrisbra/Colorizer'
   endif
 
   " Omnicompletion
@@ -968,6 +968,7 @@ function! s:LoadPlugins()
   Plug 'haya14busa/vim-asterisk'
 
   " Disabled on neovim until 0.2
+  " Will be replaced by https://github.com/neovim/neovim/pull/5226
   " @see https://github.com/haya14busa/incsearch.vim/issues/79
   " @see https://github.com/neovim/neovim/issues/3688
   " highlight partial matches as you type in search mode
@@ -978,9 +979,9 @@ function! s:LoadPlugins()
   "Plug 'junegunn/vim-peekaboo'
 
   " Show (#/total results) when searching for a term
-  " disabled for echo issue
+  " known echo issue if remapping [[ and ]], but I removed that map
   " @see https://github.com/osyo-manga/vim-anzu/issues/19
-  "Plug 'osyo-manga/vim-anzu'
+  Plug 'osyo-manga/vim-anzu'
 
   Plug 'moll/vim-bbye'
 
