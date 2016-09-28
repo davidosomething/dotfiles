@@ -23,7 +23,7 @@ __find_missing() {
     if [ "$?" != "0" ]; then
       echo "${gemname} not installed"
     fi
-  done < default-gems
+  done < "${DOTFILES}/ruby/default-gems"
 }
 
 __find_missing

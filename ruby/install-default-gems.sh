@@ -26,7 +26,7 @@ __install() {
   dko::status "Installing default gems"
   while read -r gemname; do
     gem install "$gemname"
-  done < default-gems
+  done < "${DOTFILES}/ruby/default-gems"
 }
 
 __install
