@@ -34,7 +34,7 @@ __install() {
       # npm ls --global --parseable --depth=0 "$package" ||
       npm install --force --global "$package"
     fi
-  done < packages.txt
+  done < "${DOTFILES}/node/packages.txt"
 }
 
 __install
