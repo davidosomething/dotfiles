@@ -137,12 +137,14 @@ __alias_ls
 
 __alias_darwin() {
   alias b="TERM=xterm-256color brew"
-  alias bi="TERM=xterm-256color brew install"
-  alias bq="brew list"
-  alias bs="brew search"
+  alias brew="TERM=xterm-256color brew"
 
-  alias bsvc="brew services"
-  alias bsvr="brew services restart"
+  alias bi="b install"
+  alias bq="b list"
+  alias bs="b search"
+
+  alias bsvc="b services"
+  alias bsvr="b services restart"
 
   # sudo since we run nginx on port 80 so needs admin
   alias rnginx="sudo brew services restart nginx"
