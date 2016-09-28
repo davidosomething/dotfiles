@@ -18,11 +18,13 @@ source "${DOTFILES}/shell/helpers.sh"
 
 # @TODO check for nvm node
 __install() {
+  local flags=${1:-""}
+
   dko::status "Installing latest NPM"
   npm install --global npm@latest
 
   dko::status "Installing Yeoman"
-  npm install --force --global yo
+  npm install --global "${flags}" yo
 
   dko::status "Checking npm environment"
   yo doctor || exit 1
@@ -32,9 +34,9 @@ __install() {
   while read -r package; do
     if [ "$package" != "yo" ]; then
       # npm ls --global --parseable --depth=0 "$package" ||
-      npm install --force --global "$package"
+      npm install --global "${flags}" "$package"
     fi
   done < "${DOTFILES}/node/packages.txt"
 }
 
-__install
+__install "$@"
