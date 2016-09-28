@@ -165,7 +165,7 @@ let s:omnifuncs.php = [ 'phpcomplete#CompletePHP' ]
 " Completion Plugin: vim-better-javascript-completion
 " ============================================================================
 
-if exists('g:plugs["vim-better-javascript-completion"]')
+if dko#IsPlugged('vim-better-javascript-completion')
   " insert instead of add, this is preferred completion omnifunc (except tern)
   call insert(s:omnifuncs.javascript, 'js#CompleteJS')
 endif
@@ -179,7 +179,7 @@ if executable('npm')
   "let g:tern_show_argument_hints = 'on_hold'   " Use tabline instead (<F10>)
   let g:tern_show_signature_in_pum = 1
 
-  if executable('tern') && exists('g:plugs["carlitux/deoplete-ternjs"]')
+  if executable('tern') && dko#IsPlugged('carlitux/deoplete-ternjs')
     augroup dkocompletion
       autocmd FileType javascript
             \ nnoremap <silent><buffer> gb :<C-u>TernDef<CR>
@@ -201,7 +201,7 @@ endif
 " <C-x><c-u> to use jspc in particular
 " ============================================================================
 
-if exists('g:plugs["jspc.vim"]')
+if dko#IsPlugged('jspc.vim')
   autocmd dkocompletion FileType javascript setlocal completefunc=jspc#omni
   " jspc.vim wraps the default omnicomplete, so we'll have duplicates if we
   " have both in our neocomplete sources.
@@ -217,7 +217,7 @@ endif
 " don't need to check exists since an older one comes with vimruntime
 " ============================================================================
 
-if exists("g:plugs['phpcomplete.vim']")
+if dko#IsPlugged('phpcomplete.vim')
   let g:phpcomplete_parse_docblock_comments = 1
 
   " php with phpcomplete.vim support
@@ -237,7 +237,7 @@ endif
 " Includes neocomplete source
 " ============================================================================
 
-if exists("g:plugs['phpcomplete-extended']")
+if dko#IsPlugged('phpcomplete-extended')
   let s:omnifuncs.php = [ 'phpcomplete_extended#CompletePHP' ]
 
   if executable('composer')
@@ -254,7 +254,7 @@ endif
 " Completion Plugin: phpcd.vim
 " ============================================================================
 
-if exists('g:plugs["phpcd.vim"]')
+if dko#IsPlugged('phpcd.vim')
   augroup dkocompletion
     autocmd FileType php setlocal omnifunc=phpcd#CompletePHP
   augroup END
@@ -264,7 +264,7 @@ endif
 " Completion Plugin: padawan.vim
 " ============================================================================
 
-if exists('g:plugs["padawan.vim"]')
+if dko#IsPlugged('padawan.vim')
   augroup dkocompletion
     autocmd FileType php setlocal omnifunc=padawan#Complete
   augroup END

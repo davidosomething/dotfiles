@@ -56,7 +56,7 @@ function! dkotabline#FunctionSignature() abort
   endif
 
   " disabled, too many false positives
-  if 0 && empty(l:function) && exists('g:plugs["vim-gazetteer"]')
+  if 0 && empty(l:function) && dko#IsPlugged('vim-gazetteer')
     try
       let l:function = gazetteer#WhereAmI()
     endtry

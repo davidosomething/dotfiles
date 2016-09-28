@@ -25,7 +25,7 @@ function! s:BindPreview()
   if exists('$ITERM_PROFILE') || has('gui_macvim')
     nnoremap  <silent><buffer>  <Leader>m
           \ :<C-u>silent !open -a "Marked 2" '%:p'<CR>
-  elseif exists("g:plugs['vim-instant-markdown']")
+  elseif dko#IsPlugged('vim-instant-markdown')
     let g:instant_markdown_autostart = 0
     nnoremap  <silent><buffer>  <Leader>m
           \ :<C-u>InstantMarkdownPreview<CR>

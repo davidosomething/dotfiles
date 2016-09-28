@@ -1,7 +1,7 @@
 " plugin/plug-vim-gitgutter.vim
 scriptencoding utf-8
 
-if !exists("g:plugs['vim-gitgutter']") | finish | endif
+if !dko#IsPlugged('vim-gitgutter') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

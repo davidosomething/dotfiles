@@ -1,7 +1,7 @@
 " plugin/plug-neomake.vim
 scriptencoding utf-8
 
-if !exists('g:plugs["neomake"]') | finish | endif
+if !dko#IsPlugged('neomake') | finish | endif
 
 augroup dkoneomake
   autocmd!

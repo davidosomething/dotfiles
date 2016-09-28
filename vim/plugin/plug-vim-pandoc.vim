@@ -1,5 +1,5 @@
 " plugin/plug-vim-pandoc.vim
-if !exists("g:plugs['vim-pandoc-syntax']") | finish | endif
+if !dko#IsPlugged('vim-pandoc-syntax') | finish | endif
 
 " Use this plugin on markdown
 let g:pandoc#filetypes#handled = ['pandoc', 'markdown']

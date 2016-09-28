@@ -1,6 +1,6 @@
 " plugin/plug-unimpaired.vim
 
-if !exists('g:plugs["vim-unimpaired"]') | finish | endif
+if !dko#IsPlugged('vim-unimpaired') | finish | endif
 
 " ============================================================================
 " Unimpaired overrides

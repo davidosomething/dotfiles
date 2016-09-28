@@ -1,5 +1,5 @@
 " plugin/plug-tabular.vim
-if !exists("g:plugs['tabular']") | finish | endif
+if !dko#IsPlugged('tabular') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

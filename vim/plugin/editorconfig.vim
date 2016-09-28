@@ -14,7 +14,7 @@
 " @see https://github.com/sgur/vim-editorconfig/issues/7
 " ============================================================================
 
-if exists("g:plugs['vim-editorconfig']")
+if dko#IsPlugged('vim-editorconfig')
   let g:editorconfig_verbose = 1
 endif
 
@@ -22,7 +22,7 @@ endif
 " Official version (python dep)
 " ============================================================================
 
-if exists("g:plugs['editorconfig-vim']")
+if dko#IsPlugged('editorconfig-vim')
   " Disable plugin's setting for &colorcolumn, prefer &tw relative setting
   let g:EditorConfig_max_line_indicator = ''
 

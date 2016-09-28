@@ -1,5 +1,5 @@
 " plugin/plug-vim-indent-guides.vim
-if !exists("g:plugs['vim-indent-guides']") | finish | endif
+if !dko#IsPlugged('vim-indent-guides') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

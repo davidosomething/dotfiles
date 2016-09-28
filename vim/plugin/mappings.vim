@@ -70,7 +70,7 @@ nnoremap  <special>   <BS>  <C-^>
 " Use vim-bbye to preserve window layout if possible
 " ----------------------------------------------------------------------------
 
-if exists("g:plugs['vim-bbye']")
+if dko#IsPlugged('vim-bbye')
   nnoremap  <silent><special>  <Leader>bd  :<C-u>Bdelete<CR>
 else
   nnoremap  <silent><special>  <Leader>bd  :<C-u>lclose<CR>:bdelete<CR>
@@ -220,7 +220,7 @@ vnoremap  >   >gv
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
 " ----------------------------------------------------------------------------
 
-if exists("g:plugs['vim-textobj-indent']")
+if dko#IsPlugged('vim-textobj-indent')
   " Auto select indent-level and sort
   nnoremap  <Leader>s   vii:!sort<CR>
 else

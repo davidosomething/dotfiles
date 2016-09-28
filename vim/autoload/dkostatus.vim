@@ -137,7 +137,7 @@ function! dkostatus#Filename() abort
 endfunction
 
 function! dkostatus#Anzu() abort
-  if s:winnr != winnr() || !exists('g:plugs["vim-anzu"]')
+  if s:winnr != winnr() || !dko#IsPlugged('vim-anzu')
     return ''
   endif
   let l:anzu = anzu#search_status()
