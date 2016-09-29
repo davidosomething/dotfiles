@@ -1,6 +1,7 @@
 " plugin/unite.vim
 scriptencoding utf-8
-if empty(glob(expand(g:plug_home . '/unite.vim'))) | finish | endif
+
+if !dko#IsPlugged('unite.vim') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
