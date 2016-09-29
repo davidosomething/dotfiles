@@ -83,7 +83,8 @@ function! dkostatus#Paste() abort
         \ : '%#DiffText# ᴘ %*'
 endfunction
 
-" Custom formatter based on https://github.com/benekastah/neomake/blob/master/autoload/neomake/statusline.vim#L36
+" Custom formatter based on
+" https://github.com/benekastah/neomake/blob/master/autoload/neomake/statusline.vim#L36
 function! dkostatus#FormatNeomakeCounts(counts) abort
   let l:result = ''
   let l:e = get(a:counts, 'E', 0)

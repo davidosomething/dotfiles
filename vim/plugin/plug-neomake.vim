@@ -23,9 +23,6 @@ let g:neomake_list_height = g:dko_loc_list_height
 " aggregate errors
 let g:neomake_serialize = 0
 
-" disable airline integration
-let g:neomake_airline = 0
-
 " ----------------------------------------------------------------------------
 " Signs column
 " ----------------------------------------------------------------------------
@@ -43,38 +40,31 @@ let g:neomake_warning_sign  = { 'text': '⚑' }
 " relative to vim's working path (and gives a fake result of not in a node
 " project). Lotta people doin` it wrong ಠ_ಠ
 
-" settings is a dict { ft, maker, local }
+" @param dict settings
+" @param string [settings.when]       eval()'d, add local maker only if true
+" @param string settings.ft           filetype for the maker
+" @param string settings.maker        maker's name
+" @param string [settings.exe]        alternate exe path to use in the buffer
+" @param string [settings.is_enabled] default true, auto-enable when defined
 function! s:AddLocalMaker(settings) abort
-  if has_key(a:settings, 'when') && !a:settings['when']
+  " We eval this so it runs with the buffer context
+  if has_key(a:settings, 'when') && !eval(a:settings['when'])
     return
   endif
 
-  " Use local binary
-  let l:bin = dkoproject#GetFile(a:settings['local'])
-  if !empty(l:bin)
-    let b:neomake_{a:settings['ft']}_{a:settings['maker']}_exe = l:bin
+  " Override maker's exe for this buffer?
+  let l:exe = dkoproject#GetFile(a:settings['exe'])
+  if !empty(l:exe) && executable(l:exe)
+    let b:neomake_{a:settings['ft']}_{a:settings['maker']}_exe = l:exe
   endif
 
-  " Enable the maker
-  if !empty(l:bin)
-    " Init b: variable as list if not exists
-    let b:neomake_{a:settings['ft']}_enabled_makers = get(
-          \   b:,
-          \   'neomake_' . a:settings['ft'] . '_enabled_makers',
-          \   []
-          \ )
-    " Add new local maker to list
-    call add(b:neomake_{a:settings['ft']}_enabled_makers, a:settings['maker'])
+  " Automatically enable the maker for this buffer?
+  let l:is_enabled = get(a:settings, 'is_enabled', 1)
+  if l:is_enabled && dko#IsMakerExecutable(a:settings['maker'])
+    call add(
+          \ dko#InitList('b:neomake_{a:settings[''ft'']}_enabled_makers'),
+          \ a:settings['maker'])
   endif
-endfunction
-
-" The maker exe exists globally or was registered as a local
-" maker (so local exe exists)
-function! s:HasMakerExe(ft, maker, ...) abort
-  let l:exe = get(a:, 1, a:maker)
-  return executable(l:exe)
-        \ || (exists('b:neomake_' . a:ft . '_enabled_makers')
-        \     && index(b:neomake_{a:ft}_enabled_makers, a:maker) > -1)
 endfunction
 
 " ----------------------------------------------------------------------------
@@ -84,23 +74,23 @@ endfunction
 let g:neomake_javascript_enabled_makers =
       \ executable('eslint') ? [ 'eslint' ] : []
 
-let s:local_maker_eslint = {
-      \   'ft':     'javascript',
-      \   'maker':  'eslint',
-      \   'local':  'node_modules/.bin/eslint',
+let s:local_eslint = {
+      \   'ft':    'javascript',
+      \   'maker': 'eslint',
+      \   'exe':   'node_modules/.bin/eslint',
       \ }
 
-let s:local_maker_jscs = {
-      \   'ft':       'javascript',
-      \   'maker':    'jscs',
-      \   'local':    'node_modules/.bin/jscs',
-      \   'when':     !empty(dkoproject#GetFile('.jscsrc')),
+let s:local_jscs = {
+      \   'ft':    'javascript',
+      \   'maker': 'jscs',
+      \   'exe':   'node_modules/.bin/jscs',
+      \   'when':  '!empty(dkoproject#GetFile(''.jscsrc''))',
       \ }
 
-let s:local_maker_jshint = {
-      \   'ft':     'javascript',
-      \   'maker':  'jshint',
-      \   'local':  'node_modules/.bin/jshint',
+let s:local_jshint = {
+      \   'ft':    'javascript',
+      \   'maker': 'jshint',
+      \   'exe':   'node_modules/.bin/jshint',
       \ }
 
 function! s:PickJavascriptMakers() abort
@@ -109,7 +99,7 @@ function! s:PickJavascriptMakers() abort
   endif
 
   " Only if jshint is executable (globally or locally)
-  if !s:HasMakerExe('javascript', 'jshint') | return
+  if !dko#IsMakerExecutable('jshint') | return
   endif
 
   " Remove eslint from enabled makers, use only jshint
@@ -120,9 +110,9 @@ function! s:PickJavascriptMakers() abort
 endfunction
 
 autocmd dkoneomake FileType javascript
-      \ call s:AddLocalMaker(s:local_maker_eslint)
-      \| call s:AddLocalMaker(s:local_maker_jscs)
-      \| call s:AddLocalMaker(s:local_maker_jshint)
+      \ call s:AddLocalMaker(s:local_eslint)
+      \| call s:AddLocalMaker(s:local_jscs)
+      \| call s:AddLocalMaker(s:local_jshint)
       \| call s:PickJavascriptMakers()
 
 " ----------------------------------------------------------------------------
@@ -203,14 +193,14 @@ function! s:SetPhpmdRuleset()
   endif
 endfunction
 
-let s:local_maker_phpcs = {
+let s:local_phpcs = {
       \   'ft':     'php',
       \   'maker':  'phpcs',
-      \   'local':  'vendor/bin/phpcs',
+      \   'exe':    'vendor/bin/phpcs',
       \ }
 
 autocmd dkoneomake FileType php
-      \ call s:AddLocalMaker(s:local_maker_phpcs)
+      \ call s:AddLocalMaker(s:local_phpcs)
       \| call s:SetPhpcsStandard()
       \| call s:SetPhpmdRuleset()
 
@@ -253,10 +243,10 @@ function! s:SetSasslintRc()
         \ l:sasslint_args + [ '--config=' . l:config ]
 endfunction
 
-let s:local_maker_sasslint = {
+let s:local_sasslint = {
       \   'ft':     'scss',
       \   'maker':  'sasslint',
-      \   'local':  'node_modules/.bin/sass-lint',
+      \   'exe':    'node_modules/.bin/sass-lint',
       \ }
 
 function! s:PickScssMakers() abort
@@ -264,7 +254,7 @@ function! s:PickScssMakers() abort
   endif
 
   " Only if scss-lint is executable (globally or locally)
-  if !s:HasMakerExe('scss', 'scsslint', 'scss-lint') | return
+  if !dko#IsMakerExecutable('scsslint') | return
   endif
 
   " Remove sasslint from enabled makers, use only scsslint
@@ -276,7 +266,7 @@ endfunction
 
 autocmd dkoneomake FileType scss
       \ call s:SetSasslintRc()
-      \| call s:AddLocalMaker(s:local_maker_sasslint)
+      \| call s:AddLocalMaker(s:local_sasslint)
       \| call s:PickScssMakers()
 
 " ----------------------------------------------------------------------------

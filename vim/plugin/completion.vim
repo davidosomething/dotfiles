@@ -296,7 +296,7 @@ if dko#IsPlugged('neocomplete')
   " Sources for engine-based omni-completion (ignored if match s:fip)
   " --------------------------------------------------------------------------
 
-  call dko#InitObject('g:neocomplete#sources#omni#functions')
+  call dko#InitDict('g:neocomplete#sources#omni#functions')
   call extend(g:neocomplete#sources#omni#functions, s:omnifuncs)
 
   " --------------------------------------------------------------------------
@@ -304,11 +304,11 @@ if dko#IsPlugged('neocomplete')
   " --------------------------------------------------------------------------
 
   " Patterns that bypass to &omnifunc
-  call dko#InitObject('g:neocomplete#force_omni_input_patterns')
+  call dko#InitDict('g:neocomplete#force_omni_input_patterns')
   call extend(g:neocomplete#force_omni_input_patterns, s:fip)
 
   " Patterns that use neocomplete
-  call dko#InitObject('g:neocomplete#sources#omni#input_patterns')
+  call dko#InitDict('g:neocomplete#sources#omni#input_patterns')
   call extend(g:neocomplete#sources#omni#input_patterns, s:neo_patterns)
 endif
 
@@ -328,7 +328,7 @@ if dko#IsPlugged('deoplete.nvim')
   " Unlike neocomplete, deoplete only supports one omnifunction at a time
   " --------------------------------------------------------------------------
 
-  call dko#InitObject('g:deoplete#omni#functions')
+  call dko#InitDict('g:deoplete#omni#functions')
   " Not extending, instead pluck first item from list since deoplete only
   " supports one omnifunc
   call extend(g:deoplete#omni#functions, map(copy(s:omnifuncs), 'v:val[0]'))
@@ -338,11 +338,11 @@ if dko#IsPlugged('deoplete.nvim')
   " --------------------------------------------------------------------------
 
   " Patterns that bypass to &omnifunc
-  call dko#InitObject('g:deoplete#omni_patterns')
+  call dko#InitDict('g:deoplete#omni_patterns')
   call extend(g:deoplete#omni_patterns, s:fip)
 
   " Completion engine input patterns
-  call dko#InitObject('g:deoplete#omni#input#patterns')
+  call dko#InitDict('g:deoplete#omni#input#patterns')
   call extend(g:deoplete#omni#input#patterns, s:deo_patterns)
 
 endif
