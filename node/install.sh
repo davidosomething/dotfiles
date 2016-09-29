@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu
+set -e
 
 # =============================================================================
 # Require DOTFILES
@@ -18,15 +18,13 @@ source "${DOTFILES}/shell/helpers.sh"
 
 # @TODO check for nvm node
 __install() {
-  local flags=${1:-""}
-
   dko::status "Installing latest NPM"
   npm install --global npm@latest
 
   dko::status "Installing Yeoman"
-  npm install --global "${flags}" yo
+  npm install --global yo
 
-  dko::status "Checking npm environment"
+  dko::status "Checking npm environment using yo doctor"
   yo doctor || exit 1
 
   dko::status "Installing global node packages"
@@ -34,7 +32,7 @@ __install() {
   while read -r package; do
     if [ "$package" != "yo" ]; then
       # npm ls --global --parseable --depth=0 "$package" ||
-      npm install --global "${flags}" "$package"
+      npm install --global "$package"
     fi
   done < "${DOTFILES}/node/packages.txt"
 }
