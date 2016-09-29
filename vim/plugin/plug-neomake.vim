@@ -62,7 +62,7 @@ function! s:AddLocalMaker(settings) abort
   let l:is_enabled = get(a:settings, 'is_enabled', 1)
   if l:is_enabled && dko#IsMakerExecutable(a:settings['maker'])
     call add(
-          \ dko#InitList('b:neomake_{a:settings[''ft'']}_enabled_makers'),
+          \ dko#InitList('b:neomake_' . a:settings['ft'] . '_enabled_makers'),
           \ a:settings['maker'])
   endif
 endfunction
@@ -71,9 +71,27 @@ endfunction
 " JavaScript
 " ----------------------------------------------------------------------------
 
+" Sets b:neomake_javascript_enabled_makers based on what is present in the
+" project
+function! s:PickJavascriptMakers() abort
+  " If there's a jshintrc file, use jshint instead of eslint
+  if empty(dkoproject#GetFile('.jshintrc')) | return | endif
+
+  " Only if jshint is executable (globally or locally)
+  if !dko#IsMakerExecutable('jshint') | return  | endif
+
+  " Remove eslint from enabled makers, use only jshint
+  let b:neomake_javascript_enabled_makers = filter(
+        \   copy(get(b:, 'neomake_javascript_enabled_makers', [])),
+        \   "v:val !~? 'eslint'"
+        \ )
+endfunction
+
+" Run these makers by default on :Neomake
 let g:neomake_javascript_enabled_makers =
       \ executable('eslint') ? [ 'eslint' ] : []
 
+" Override settings for these makers, and enable them
 let s:local_eslint = {
       \   'ft':    'javascript',
       \   'maker': 'eslint',
@@ -92,22 +110,6 @@ let s:local_jshint = {
       \   'maker': 'jshint',
       \   'exe':   'node_modules/.bin/jshint',
       \ }
-
-function! s:PickJavascriptMakers() abort
-  " If there's a jshintrc file, use jshint instead of eslint
-  if empty(dkoproject#GetFile('.jshintrc')) | return
-  endif
-
-  " Only if jshint is executable (globally or locally)
-  if !dko#IsMakerExecutable('jshint') | return
-  endif
-
-  " Remove eslint from enabled makers, use only jshint
-  let b:neomake_javascript_enabled_makers = filter(
-        \   copy(get(b:, 'neomake_javascript_enabled_makers', [])),
-        \   "v:val !~? 'eslint'"
-        \ )
-endfunction
 
 autocmd dkoneomake FileType javascript
       \ call s:AddLocalMaker(s:local_eslint)
