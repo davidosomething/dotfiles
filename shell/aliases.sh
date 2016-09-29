@@ -47,7 +47,8 @@ alias rg="rg --hidden --smart-case"
 # node
 alias bfy="browserify"
 alias n="npm"
-alias npmo="npm outdated"
+alias ncu="n outdated"
+alias npmo="n outdated"
 alias nude="nvm use default"
 
 # php
