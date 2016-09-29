@@ -28,9 +28,13 @@ __install() {
   yo doctor || exit 1
 
   dko::status "Installing global node packages"
+  # peer dep packages
+  npm install --global eslint
+
   # loop through packages.txt file and install each one
   while read -r package; do
-    if [ "$package" != "yo" ]; then
+    if [ "$package" != "yo" ] \
+      && [ "$package" != "eslint" ]; then
       # npm ls --global --parseable --depth=0 "$package" ||
       npm install --global "$package"
     fi
