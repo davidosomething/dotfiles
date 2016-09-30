@@ -14,11 +14,9 @@ augroup END
 " Extension: neomru settings
 " ============================================================================
 
-if dko#IsPlugged('neomru.vim')
-  let g:neomru#update_interval      = 300     " Update cache every 5 minutes
-  let g:neomru#file_mru_limit       = 200     " Fewer files in mru
-  let g:neomru#directory_mru_limit  = 0       " Don't list directories
-endif
+let g:neomru#update_interval      = 300     " Update cache every 5 minutes
+let g:neomru#file_mru_limit       = 200     " Fewer files in mru
+let g:neomru#directory_mru_limit  = 0       " Don't list directories
 
 " ============================================================================
 " unite settings

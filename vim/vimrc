@@ -498,7 +498,6 @@ function! s:LoadPlugins()
 
   "Plug 'altercation/vim-colors-solarized'
   Plug 'morhetz/gruvbox'
-  "Plug 'rakr/vim-two-firewatch'
   Plug 'atelierbram/Base2Tone-vim'
 
   " ========================================================================
@@ -996,23 +995,26 @@ endfunction
 " Plugins: autoinstall vim-plug, define plugins, install plugins if needed
 " ----------------------------------------------------------------------------
 
+let s:use_plugins = 1
 let s:plug_dir = '/vendor/'
 let s:plug_dir .= has('nvim') ? 'nvim' : 'vim'
 let s:dko_plug_absdir = g:dko#vim_dir . s:plug_dir
 
-" Load vim-plug and its plugins?
-if !isdirectory(expand(g:dko#vim_dir . '/autoload/plug.vim'))
-  execute 'silent !curl -fLo '
-        \ . g:dko#vim_dir . '/autoload/plug.vim '
-        \ . 'https://raw.githubusercontent.com/'
-        \ . 'junegunn/vim-plug/master/plug.vim'
-endif
-
-call plug#begin(s:dko_plug_absdir)
-  call s:LoadPlugins()
-  if !isdirectory(expand(s:dko_plug_absdir)) | PlugInstall
+if s:use_plugins
+  " Load vim-plug and its plugins?
+  if !isdirectory(expand(g:dko#vim_dir . '/autoload/plug.vim'))
+    execute 'silent !curl -fLo '
+          \ . g:dko#vim_dir . '/autoload/plug.vim '
+          \ . 'https://raw.githubusercontent.com/'
+          \ . 'junegunn/vim-plug/master/plug.vim'
   endif
-call plug#end()
+
+  call plug#begin(s:dko_plug_absdir)
+    call s:LoadPlugins()
+    if !isdirectory(expand(s:dko_plug_absdir)) | PlugInstall
+    endif
+  call plug#end()
+endif
 
 " ============================================================================
 " Autocommands

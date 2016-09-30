@@ -1,5 +1,4 @@
 " plugin/plug-increment-activator.vim
-if !dko#IsPlugged('increment-activator') | finish | endif
 
 let g:increment_activator_filetype_candidates = {
       \   '_': [
