@@ -63,7 +63,7 @@ function! dkoproject#GetRoot(...) abort
   " No git root?
   let l:root = empty(l:result) ? '' : l:result[:-2]
   if !isdirectory(l:root)
-    let l:root = ''
+    let l:root = expand('%:p:h')
   endif
 
   " Found git root
