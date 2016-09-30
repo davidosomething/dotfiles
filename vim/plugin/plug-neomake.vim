@@ -14,7 +14,8 @@ augroup END
 " No output on :wq
 " @see https://github.com/benekastah/neomake/issues/309
 " @see https://github.com/benekastah/neomake/issues/329
-autocmd dkoneomake VimLeave * let g:neomake_verbose = 0
+autocmd dkoneomake VimLeave *
+      \ let g:neomake_verbose = 0 <bar> call neomake#CancelJob(<args>)
 
 " loclist
 let g:neomake_open_list   = 0
@@ -96,6 +97,7 @@ let s:local_eslint = {
       \   'ft':    'javascript',
       \   'maker': 'eslint',
       \   'exe':   'node_modules/.bin/eslint',
+      \   'when':  '!empty(dkoproject#GetEslintrc())'
       \ }
 
 let s:local_jscs = {

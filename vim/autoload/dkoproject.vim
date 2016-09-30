@@ -43,6 +43,7 @@ function! dkoproject#GetRoot(...) abort
     return b:dkoproject_root
   endif
 
+  " Get root for a specific file
   if !empty(a:0)
     " path for given file
     let l:path = expand(fnamemodify(a:0, ':p:h'))
@@ -62,7 +63,7 @@ function! dkoproject#GetRoot(...) abort
   " No git root?
   let l:root = empty(l:result) ? '' : l:result[:-2]
   if !isdirectory(l:root)
-    return ''
+    let l:root = ''
   endif
 
   " Found git root
@@ -105,6 +106,26 @@ function! dkoproject#GetFile(filename) abort
   endfor
 
   return ''
+endfunction
+
+function! dkoproject#GetEslintrc() abort
+  let l:candidates = [
+        \   '.eslintrc.js',
+        \   '.eslintrc.yaml',
+        \   '.eslintrc.yml',
+        \   '.eslintrc.json',
+        \   '.eslintrc',
+        \ ]
+
+  let l:result = ''
+  for l:candidate in l:candidates
+    if !empty(dkoproject#GetFile(l:candidate))
+      let l:result = l:candidate
+      break
+    endif
+  endfor
+
+  return l:result
 endfunction
 
 " ============================================================================
