@@ -19,24 +19,24 @@ source "${DOTFILES}/shell/helpers.sh"
 # @TODO check for nvm node
 __install() {
   dko::status "Installing latest NPM"
-  npm install --global npm@latest
+  npm install --global --production npm@latest
 
   dko::status "Installing Yeoman"
-  npm install --global yo
+  npm install --global --production yo
 
   dko::status "Checking npm environment using yo doctor"
   yo doctor || exit 1
 
   dko::status "Installing global node packages"
   # peer dep packages
-  npm install --global eslint
+  npm install --global --production eslint
 
   # loop through packages.txt file and install each one
   while read -r package; do
     if [ "$package" != "yo" ] \
       && [ "$package" != "eslint" ]; then
       # npm ls --global --parseable --depth=0 "$package" ||
-      npm install --global "$package"
+      npm install --global --production "$package"
     fi
   done < "${DOTFILES}/node/packages.txt"
 }
