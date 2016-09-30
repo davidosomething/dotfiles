@@ -1002,7 +1002,7 @@ let s:dko_plug_absdir = g:dko#vim_dir . s:plug_dir
 
 if s:use_plugins
   " Load vim-plug and its plugins?
-  if !isdirectory(expand(g:dko#vim_dir . '/autoload/plug.vim'))
+  if empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
     execute 'silent !curl -fLo '
           \ . g:dko#vim_dir . '/autoload/plug.vim '
           \ . 'https://raw.githubusercontent.com/'
