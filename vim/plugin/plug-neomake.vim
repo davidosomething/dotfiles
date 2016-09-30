@@ -74,24 +74,41 @@ endfunction
 " Sets b:neomake_javascript_enabled_makers based on what is present in the
 " project
 function! s:PickJavascriptMakers() abort
-  " If there's a jshintrc file, use jshint instead of eslint
-  if empty(dkoproject#GetFile('.jshintrc')) | return | endif
+  " Enable ternlint if there's a .tern-project -- can just use the global
+  " tern-lint
+  if executable('tern-lint')
+        \ && !empty(dkoproject#GetFile('.tern-project'))
+    call add(
+          \ dko#InitList('b:neomake_javascript_enabled_makers'),
+          \ 'ternlint')
+  endif
 
-  " Only if jshint is executable (globally or locally)
-  if !dko#IsMakerExecutable('jshint') | return  | endif
-
-  " Remove eslint from enabled makers, use only jshint
-  let b:neomake_javascript_enabled_makers = filter(
-        \   copy(get(b:, 'neomake_javascript_enabled_makers', [])),
-        \   "v:val !~? 'eslint'"
-        \ )
+  " This project uses jshint instead of eslint, disable eslint
+  if exists('b:neomake_javascript_enabled_makers')
+        \ && dko#IsMakerExecutable('jshint')
+        \ && !empty(dkoproject#GetFile('.jshintrc'))
+    " Remove eslint from enabled makers, use only jshint
+    let b:neomake_javascript_enabled_makers = filter(
+          \   b:neomake_javascript_enabled_makers,
+          \   "v:val !~? 'eslint'"
+          \ )
+  endif
 endfunction
+
+" Use with my tern-lint fork
+" https://github.com/davidosomething/tern-lint/tree/format-vim
+let g:neomake_javascript_ternlint_maker = {
+      \   'exe':          'tern-lint',
+      \   'args':         [ '--format=vim' ],
+      \   'errorformat':  '%f:%l:%c: %trror: %m,'
+      \                 . '%f:%l:%c: %tarning: %m',
+      \ }
 
 " Run these makers by default on :Neomake
 let g:neomake_javascript_enabled_makers =
       \ executable('eslint') ? [ 'eslint' ] : []
 
-" Override settings for these makers, and enable them
+" Override/create these makers as buffer local ones, and enable them
 let s:local_eslint = {
       \   'ft':    'javascript',
       \   'maker': 'eslint',
@@ -110,6 +127,13 @@ let s:local_jshint = {
       \   'ft':    'javascript',
       \   'maker': 'jshint',
       \   'exe':   'node_modules/.bin/jshint',
+      \ }
+
+let s:local_ternlint = {
+      \   'ft':    'javascript',
+      \   'maker': 'ternlint',
+      \   'exe':   'node_modules/.bin/tern-lint',
+      \   'when':  '!empty(dkoproject#GetFile(''.tern-project''))',
       \ }
 
 autocmd dkoneomake FileType javascript
