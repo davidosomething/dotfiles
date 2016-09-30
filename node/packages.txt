@@ -3,7 +3,6 @@ coffee-script
 coffeelint
 eslint
 eslint-config-davidosomething
-eslint-plugin-import
 eslint-plugin-jsdoc
 greenkeeper
 handlebars
