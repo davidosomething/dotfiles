@@ -76,7 +76,7 @@ endfunction
 function! s:PickJavascriptMakers() abort
   " Enable ternlint if there's a .tern-project -- can just use the global
   " tern-lint
-  if executable('tern-lint')
+  if dko#IsMakerExecutable('ternlint')
         \ && !empty(dkoproject#GetFile('.tern-project'))
     call add(
           \ dko#InitList('b:neomake_javascript_enabled_makers'),
