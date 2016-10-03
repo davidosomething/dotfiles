@@ -153,19 +153,19 @@ set fileformat=unix
 " info file -- nvim uses shada in $XDG_DATA_HOME so that's cool.
 if !has('nvim')
   execute 'set viminfo+=n' . expand(g:dko#vim_dir . '/.tmp/cache/.viminfo')
-endif
 
-" From https://github.com/swizzard/dotfiles/blob/master/.vimrc
-" Don't keep .viminfo information for files in temporary directories or shared
-" memory filesystems; this is because they're used as scratch spaces for tools
-" like sudoedit(8) and pass(1) and hence could present a security problem
-if !has('nvim') && has('viminfo')
-  augroup dkoviminfo
-    autocmd!
-    silent! autocmd vimrc BufNewFile,BufReadPre
-        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-        \ setlocal viminfo=
-  augroup END
+  " From https://github.com/swizzard/dotfiles/blob/master/.vimrc
+  " Don't keep .viminfo information for files in temporary directories or shared
+  " memory filesystems; this is because they're used as scratch spaces for tools
+  " like sudoedit(8) and pass(1) and hence could present a security problem
+  if has('viminfo')
+    augroup dkoviminfo
+      autocmd!
+      silent! autocmd vimrc BufNewFile,BufReadPre
+          \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+          \ setlocal viminfo=
+    augroup END
+  endif
 endif
 
 " swap - useless
@@ -175,6 +175,7 @@ if !has('nvim')
 endif
 
 " backups
+"set nobackup -- default, don't keep those file~ leftovers
 set backupskip=/tmp/*
 " Make Vim able to edit crontab files again.
 set backupskip+=,/private/tmp/*"
@@ -187,7 +188,6 @@ endif
 if !has('nvim')
   execute 'set backupdir=' . g:dko#vim_dir . '/.tmp/backup//'
 endif
-set backup
 
 " undo files
 " double slash means create dir structure to mirror file's path
