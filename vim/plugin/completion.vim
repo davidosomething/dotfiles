@@ -333,7 +333,7 @@ if dko#IsPlugged('deoplete.nvim')
   let g:deoplete#enable_at_startup  = 1
 
   " [file] candidates are relative to the buffer path
-  let g:deoplete#enable_buffer_path = 1
+  let g:deoplete#file#enable_buffer_path = 1
 
   call deoplete#custom#set('_', 'matchers', [
         \   'matcher_head',
