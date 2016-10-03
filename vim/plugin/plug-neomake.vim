@@ -97,11 +97,18 @@ endfunction
 
 " Use with my tern-lint fork
 " https://github.com/davidosomething/tern-lint/tree/format-vim
+let s:tern_mapexpr = 'substitute('
+      \.   'v:val,'
+      \.   "'\(.\{-}:\)\([0-9]\)*\(.*\)',"
+      \.   "'\=submatch(1) . byte2line(submatch(2)) . submatch(3)',"
+      \.   "''"
+      \. ')'
 let g:neomake_javascript_ternlint_maker = {
       \   'exe':          'tern-lint',
       \   'args':         [ '--format=vim' ],
-      \   'errorformat':  '%f:%l:%c: %trror: %m,'
-      \                 . '%f:%l:%c: %tarning: %m',
+      \   'mapexpr':      s:tern_mapexpr,
+      \   'errorformat':  '%f:%l: %trror: %m,'
+      \                 . '%f:%l: %tarning: %m',
       \ }
 
 " Run these makers by default on :Neomake
@@ -129,12 +136,12 @@ let s:local_jshint = {
       \   'exe':   'node_modules/.bin/jshint',
       \ }
 
-let s:local_ternlint = {
-      \   'ft':    'javascript',
-      \   'maker': 'ternlint',
-      \   'exe':   'node_modules/.bin/tern-lint',
-      \   'when':  '!empty(dkoproject#GetFile(''.tern-project''))',
-      \ }
+" let s:local_ternlint = {
+"       \   'ft':    'javascript',
+"       \   'maker': 'ternlint',
+"       \   'exe':   'node_modules/.bin/tern-lint',
+"       \   'when':  '!empty(dkoproject#GetFile(''.tern-project''))',
+"       \ }
 
 autocmd dkoneomake FileType javascript
       \ call s:AddLocalMaker(s:local_eslint)

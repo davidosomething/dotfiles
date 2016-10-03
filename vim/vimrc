@@ -947,6 +947,8 @@ function! s:LoadPlugins()
   " Language: VimL
   " ========================================================================
 
+  Plug 'machakann/vim-vimhelplint'
+
   " gf to go to where autoloaded function is defined
   Plug 'kana/vim-gf-user', { 'for': ['vim'] }
         \| Plug 'sgur/vim-gf-autoload', { 'for': ['vim'] }
