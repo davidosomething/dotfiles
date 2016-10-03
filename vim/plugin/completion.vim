@@ -176,10 +176,16 @@ endif
 " ============================================================================
 
 if executable('npm')
+  " tern_for_vim settings
   "let g:tern_show_argument_hints = 'on_hold'   " Use tabline instead (<F10>)
+  let g:tern_request_timeout = 1
   let g:tern_show_signature_in_pum = 1
 
-  if executable('tern') && dko#IsPlugged('carlitux/deoplete-ternjs')
+  if executable('tern') && dko#IsPlugged('tern_for_vim')
+    " Use global tern server instance (same as deoplete-ternjs)
+    let g:tern#command   = [ 'tern' ]
+    let g:tern#arguments = [ '--persistent' ]
+
     augroup dkocompletion
       autocmd FileType javascript
             \ nnoremap <silent><buffer> gb :<C-u>TernDef<CR>

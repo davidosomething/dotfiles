@@ -786,10 +786,10 @@ function! s:LoadPlugins()
   " Code analysis completion
   if g:dko_has_completion
     if executable('npm')
+      Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
+
       if has('nvim')
         Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
-      else
-        Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
       endif
     else
       " Syntax completion
