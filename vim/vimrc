@@ -43,9 +43,9 @@ set modeline
 set pastetoggle=<F12>
 
 if empty($SSH_CONNECTION) && has('clipboard')
-  set clipboard=unnamed                 " Use vim global clipboard register
+  set clipboard^=unnamed                 " Use vim global clipboard register
   if has('unnamedplus') || has('nvim')  " Use system clipboard register
-    set clipboard+=unnamedplus
+    set clipboard^=unnamedplus
   endif
 endif
 
@@ -171,7 +171,9 @@ endif
 
 " swap - useless
 set noswapfile
-execute 'set directory=' . g:dko#vim_dir . '/.tmp/swap//'
+if !has('nvim')
+  execute 'set directory=' . g:dko#vim_dir . '/.tmp/swap//'
+endif
 
 " backups
 set backupskip=/tmp/*
@@ -183,7 +185,9 @@ if has('mac')
     autocmd BufEnter  /private/tmp/crontab.*  setlocal backupcopy=yes
   augroup END
 endif
-execute 'set backupdir=' . g:dko#vim_dir . '/.tmp/backup//'
+if !has('nvim')
+  execute 'set backupdir=' . g:dko#vim_dir . '/.tmp/backup//'
+endif
 set backup
 
 " undo files
@@ -191,7 +195,9 @@ set backup
 set undofile
 set undolevels=1000
 set undoreload=10000
-execute 'set undodir=' . g:dko#vim_dir . '/.tmp/undo//'
+if !has('nvim')
+  execute 'set undodir=' . g:dko#vim_dir . '/.tmp/undo//'
+endif
 
 " ----------------------------------------------------------------------------
 " Spellcheck
