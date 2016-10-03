@@ -177,10 +177,6 @@ endif
 
 if executable('npm')
   " tern_for_vim settings
-  "let g:tern_show_argument_hints = 'on_hold'   " Use tabline instead (<F10>)
-  let g:tern_request_timeout = 1
-  let g:tern_show_signature_in_pum = 1
-
   if executable('tern') && dko#IsPlugged('tern_for_vim')
     " Use global tern server instance (same as deoplete-ternjs)
     let g:tern#command   = [ 'tern' ]
@@ -196,15 +192,26 @@ if executable('npm')
     augroup END
   endif
 
-  " force using tern when typing matches regex
-  " first regex is match 5 or more characters to end of line
-  "let s:fip.javascript = '\h\k\{4,}$' . '\|' .
-  let s:fip.javascript = s:REGEX.nonspace_dot
+  " deoplete-ternjs settings
+  "let g:tern_show_argument_hints = 'on_hold'   " Use tabline instead (<F10>)
+  let g:tern_request_timeout       = 1
+  let g:tern_show_signature_in_pum = 1
+
+  " Use tern for completion if either plugin is installed
+  if executable('tern') && (
+        \ dko#IsPlugged('tern_for_vim') || dko#IsPlugged('deoplete-ternjs')
+        \ )
+    " force using tern when typing matches regex
+    " first regex is match 5 or more characters to end of line
+    "let s:fip.javascript = '\h\k\{4,}$' . '\|' .
+    let s:fip.javascript = s:REGEX.nonspace_dot
+  endif
 endif
 
 " ============================================================================
 " Completion Plugin: jspc.vim
 " <C-x><c-u> to use jspc in particular
+" (Ignored if s:fip.javascript was set by the above tern settings)
 " ============================================================================
 
 if dko#IsPlugged('jspc.vim')
@@ -323,7 +330,11 @@ endif
 " ============================================================================
 
 if dko#IsPlugged('deoplete.nvim')
-  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_at_startup  = 1
+
+  " [file] candidates are relative to the buffer path
+  let g:deoplete#enable_buffer_path = 1
+
   call deoplete#custom#set('_', 'matchers', [
         \   'matcher_head',
         \   'matcher_length',
