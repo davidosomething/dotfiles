@@ -210,7 +210,8 @@ endif
 " Completion -- see also plugins/completion.vim
 " ----------------------------------------------------------------------------
 
-set isfname-==                        " don't include = as part of filenames
+" Don't consider = symbol as part filename. Helps for deoplete file source, too.
+set isfname-==
 
 set complete-=i                       " don't complete includes
 set complete-=t                       " don't complete tags
