@@ -452,7 +452,7 @@ dko::dotfiles::__update_brew() {
 
     # Upgrade remaining
     dko::status "Upgrading packages"
-    brew upgrade --all
+    brew upgrade
   ) && dko::dotfiles::__update_brew_done
 }
 
