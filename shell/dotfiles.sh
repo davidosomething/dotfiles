@@ -20,6 +20,7 @@ dko::dotfiles::__usage() {
     reload      -- reload this script if it was modified
     secret      -- update ~/.secret (git pull)
     zplug       -- update zplug
+    daily       -- update everything except dotfiles and apt/brew/pac
 
   Shell Tools
     fzf         -- update fzf with flags to not update rc scripts
@@ -58,25 +59,28 @@ dko::dotfiles::__reload() {
 dko::dotfiles::__update() {
   dko::status "Updating dotfiles"
   (
-    cd "$DOTFILES" || dko::die "No \$DOTFILES directory"
-    git pull --rebase
+    cd "$DOTFILES" || { dko::err "No \$DOTFILES directory" && exit 1; }
+    git pull --rebase || exit 1
     dko::status "Updating dotfiles submodules"
-    git submodule update --init
-  ) || dko::die "Error updating dotfiles"
+    git submodule update --init || exit 1
+  ) || {
+    dko::err "Error updating dotfiles"
+    return 1
+  }
 
   dko::dotfiles::__reload
   dko::status "Re-symlink if any dotfiles changed!"
 
-  dko::dotfiles::__zplug
+  dko::dotfiles::__update_zplug
 }
 
-dko::dotfiles::__zplug() {
+dko::dotfiles::__update_zplug() {
   dko::status "Updating zplug"
   (
-    cd "${ZPLUG_HOME}" || dko::die "No \$ZPLUG_HOME"
-    git pull
+    cd "${ZPLUG_HOME}" || { dko::err "No \$ZPLUG_HOME" && exit 1; }
+    git pull || exit 1
     dko::status "Restart the shell to ensure a clean zplug init"
-  )
+  ) || return 1
 
   [ -n "$ZSH_VERSION" ] && dko::has "zplug" && {
     dko::status "Updating plugins managed by zplug"
@@ -97,6 +101,17 @@ dko::dotfiles::__update_secret() {
     git pull --rebase --recurse-submodules \
       && git submodule update --init
   )
+}
+
+dko::dotfiles::__update_daily() {
+  dko::dotfiles::__update_secret
+  dko::dotfiles::__update_composer
+  dko::dotfiles::__update_fzf
+  dko::dotfiles::__update_gems
+  dko::dotfiles::__update_nvm
+  dko::dotfiles::__update_pip "pip"
+  dko::dotfiles::__update_vimlint
+  dko::dotfiles::__update_wpcs
 }
 
 # ------------------------------------------------------------------------------
@@ -124,52 +139,80 @@ dko::dotfiles::__pyenv_global() {
 # ------------------------------------------------------------------------------
 
 dko::dotfiles::__update_composer() {
+  dko::status "Updating composer"
+
+  if [ -x "/usr/local/bin/composer" ]; then
+    dko::status_ "composer was installed via brew"
+  else
+    dko::status_ "Updating composer itself"
+    (
+      dko::has "composer" || {
+        dko::err "composer is not installed"
+        exit 1
+      }
+      composer self-update || {
+        dko::err "Could not update composer"
+        exit 1
+      }
+    ) || return 1
+  fi
+
+  dko::status "Updating composer global packages"
   (
-    dko::has "composer" || dko::die "composer is not installed"
-
-    dko::status "Updating composer itself"
-    composer self-update || dko::die "Could not update composer"
-
-    dko::status "Updating composer global packages"
-    composer global update || dko::die "Could not update global packages"
-  )
-  rehash
+    dko::has "composer" || {
+      dko::err "composer is not installed"
+      exit 1
+    }
+    composer global update || {
+      dko::err "Could not update global packages"
+      exit 1
+    }
+  ) || return 1
 }
 
 dko::dotfiles::__update_fzf() {
   dko::status "Updating fzf"
+
   [ -x "/usr/local/bin/fzf" ] \
     && dko::status "fzf was installed via brew (BAD, vim expects in ~/.fzf)" \
-    && return 0
+    && return 1
 
   (
-    cd "${HOME}/.fzf" || dko::die "Could not cd to ~/.fzf"
-    git pull || dko::die "Could not update ~/.fzf"
+    cd "${HOME}/.fzf" || { dko::err "Could not cd to ~/.fzf" && exit 1; }
+    git pull || { dko::err "Could not update ~/.fzf" && exit 1; }
     ./install --key-bindings --completion --no-update-rc
-  )
+  ) || return 1
 }
 
 dko::dotfiles::__update_gems() {
+  dko::status "Updating gems"
   (
-    dko::has "gem" || dko::die "rubygems is not installed"
-    [ -z "$RUBY_VERSION" ] && dko::die "System ruby detected! Use chruby."
+    [ -z "$RUBY_VERSION" ] && {
+      dko::err "System ruby detected! Use chruby."
+      exit 1
+    }
+
+    dko::has "gem" || {
+      dko::err "rubygems is not installed"
+      exit 1
+    }
 
     dko::status "Updating RubyGems itself for ruby: ${RUBY_VERSION}"
-    gem update --system  || dko::die "Could not update RubyGems"
+    gem update --system  || {
+      dko::err "Could not update RubyGems"
+      exit 1
+    }
 
-    dko::status "Updating gems"
-    gem update || dko::die "Could not update global gems"
-  )
-  rehash
+    gem update || { dko::err "Could not update gems" && exit 1; }
+  ) || return 1
 }
 
 dko::dotfiles::__update_go() {
+  dko::status "Updating go packages"
   (
-    dko::has "go" || dko::die "go is not installed"
-    dko::status "Updating go packages"
-    go get -u all || dko::die "Could not update go packages"
-  )
-  rehash
+    dko::has "go" || { dko::err "go is not installed" && exit 1; }
+    go get -u all || { dko::err "Could not update go packages" && exit 1; }
+  ) || return 1
 }
 
 dko::dotfiles::__update_node() {
@@ -208,16 +251,17 @@ dko::dotfiles::__update_nvm() {
     if [ ! -d "$NVM_DIR" ]; then
       dko::status "Installing nvm"
       git clone https://github.com/creationix/nvm.git "$NVM_DIR" \
-        || dko::die "Could not install nvm"
+        || dko::err "Could not install nvm" && exit 1
     fi
 
     dko::status "Updating nvm"
-    cd "$NVM_DIR" || dko::die "Could not cd to \$NVM_DIR at $NVM_DIR"
+    cd "$NVM_DIR" \
+      || dko::err "Could not cd to \$NVM_DIR at $NVM_DIR" && exit 1
     readonly previous_nvm="$(git describe --abbrev=0 --tags)"
 
     dko::status "Fetching latest nvm"
     { git checkout master && git pull --ff-only; } \
-      || dko::die "Could not fetch"
+      || dko::err "Could not fetch" && exit 1
     readonly latest_nvm="$(git describe --abbrev=0 --tags)"
 
     # Already up to date
@@ -225,7 +269,7 @@ dko::dotfiles::__update_nvm() {
 
     dko::status "Fast-forwarding to latest nvm"
     git checkout --quiet --progress "$latest_nvm" \
-      || dko::die "Could not fast-forward"
+      || dko::err "Could not fast-forward" && exit 1
 
     # Updated
     exit 3
@@ -295,9 +339,7 @@ dko::dotfiles::__update_wpcs() {
   local standards=()
 
   for entry in "${possible[@]}"; do
-    [ -d "$entry" ] && \
-      echo "Found $entry" && \
-      standards+=("$entry")
+    [ -d "$entry" ] && echo "Found $entry" && standards+=("$entry")
   done
   standards_path=$( IFS=','; echo "${standards[*]}" )
 
@@ -340,27 +382,32 @@ dko::dotfiles::__update_vimlint() {
 # OS-specific commands
 # ------------------------------------------------------------------------------
 
-dko::dotfiles::__update_linux() {
+dko::dotfiles::linux::__update() {
   case "$1" in
-    arch) dko::dotfiles::__update_arch      ;;
-    deb)  dko::dotfiles::__update_deb       ;;
+    arch) dko::dotfiles::linux::arch::__update ;;
+    deb)  dko::dotfiles::linux::deb::__update ;;
   esac
+
+  return $?
 }
 
-dko::dotfiles::__update_darwin() {
+dko::dotfiles::darwin::__update() {
   case "$1" in
-    brew)   dko::dotfiles::__update_brew        ;;
-    macvim) dko::dotfiles::__update_brew_macvim ;;
-    neovim) dko::dotfiles::__update_brew_neovim ;;
-    mac)    dko::dotfiles::__update_mac         ;;
+    brew)   dko::dotfiles::darwin::__update_brew        ;;
+    macvim) dko::dotfiles::darwin::__update_brew_macvim ;;
+    neovim) dko::dotfiles::darwin::__update_brew_neovim ;;
+    mac)    dko::dotfiles::darwin::__update_mac         ;;
+    all)    dko::dotfiles::darwin::__update_all         ;;
   esac
+
+  return $?
 }
 
 # ------------------------------------------------------------------------------
 # OS: GNU/Linux: Arch Linux
 # ------------------------------------------------------------------------------
 
-dko::dotfiles::__update_arch() {
+dko::dotfiles::linux::arch::__update() {
   dko::status "Arch Linux system update"
   if dko::has "pacaur"; then
     # update system
@@ -380,7 +427,7 @@ dko::dotfiles::__update_arch() {
 # OS: GNU/Linux: Debian or Ubuntu
 # ------------------------------------------------------------------------------
 
-dko::dotfiles::__update_deb() {
+dko::dotfiles::linux::deb::__update() {
   dko::status "Apt system update"
 
   if ! dko::has "apt"; then
@@ -399,7 +446,7 @@ dko::dotfiles::__update_deb() {
 # OS: macOS/OS X
 # ------------------------------------------------------------------------------
 
-dko::dotfiles::__update_mac() {
+dko::dotfiles::darwin::__update_mac() {
   dko::status "macOS system update"
   sudo softwareupdate --install --all || {
     dko::err "Error updating software permissions"
@@ -407,7 +454,7 @@ dko::dotfiles::__update_mac() {
   }
 }
 
-dko::dotfiles::__update_brew_done() {
+dko::dotfiles::darwin::__update_brew_done() {
   dko::status "Cleanup old versions and prune dead symlinks"
   brew cleanup
   brew cask cleanup
@@ -415,15 +462,18 @@ dko::dotfiles::__update_brew_done() {
   rehash
 }
 
-dko::dotfiles::__update_brew() {
+dko::dotfiles::darwin::__update_brew() {
   dko::status "Updating homebrew"
   (
-    dko::has "brew" || dko::die "Homebrew is not installed."
+    dko::has "brew" || { dko::err "Homebrew is not installed." && exit 1; }
 
     # enter dotfiles dir to do this in case user has any gem flags or local
     # vendor bundle that will cause use of local gems
     cd "$DOTFILES" \
-      || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
+      || {
+        dko::err "Can't enter \$DOTFILES to run brew in clean environment"
+        exit 1
+      }
 
     brew update
 
@@ -444,26 +494,35 @@ dko::dotfiles::__update_brew() {
       && brew upgrade python3             \
       && brew linkapps python3            \
       && dko::status "Rebuilding macvim with new python3" \
-      && dko::dotfiles::__update_brew_macvim
+      && dko::dotfiles::darwin::__update_brew_macvim
 
     # Update neovim separately
     grep -q "neovim" <<<"$outdated"      \
-      && dko::dotfiles::__update_brew_neovim
+      && dko::dotfiles::darwin::__update_brew_neovim
 
     # Upgrade remaining
     dko::status "Upgrading packages"
     brew upgrade
-  ) && dko::dotfiles::__update_brew_done
+  ) && dko::dotfiles::darwin::__update_brew_done
 }
 
-dko::dotfiles::__update_brew_macvim() {
+dko::dotfiles::darwin::__require_homebrew() {
+  dko::has "brew" || {
+    dko::err "Homebrew is not installed."
+    exit 1
+  }
+}
+
+dko::dotfiles::darwin::__update_brew_macvim() {
   dko::status "Re-installing macvim via homebrew (brew update first to upgrade)"
-  dko::has "brew" || dko::die "Homebrew is not installed."
   (
+    dko::dotfiles::darwin::__require_homebrew
+
     # enter dotfiles dir to do this in case user has any gem flags or local
     # vendor bundle that will cause use of local gems
     cd "$DOTFILES" \
-      || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
+      || dko::err "Can't enter \$DOTFILES to run brew in clean environment" \
+      && exit 1
 
     # CLEANROOM
     dko::dotfiles::__pyenv_system
@@ -475,14 +534,17 @@ dko::dotfiles::__update_brew_macvim() {
   )
 }
 
-dko::dotfiles::__update_brew_neovim() {
+dko::dotfiles::darwin::__update_brew_neovim() {
   dko::status "Re-installing neovim via homebrew (brew update first to upgrade)"
-  dko::has "brew" || dko::die "Homebrew is not installed."
   (
+    dko::dotfiles::darwin::__require_homebrew
+
     # enter dotfiles dir to do this in case user has any gem flags or local
     # vendor bundle that will cause use of local gems
-    cd "$DOTFILES" \
-      || dko::die "Can't enter \$DOTFILES to run brew in clean environment"
+    cd "$DOTFILES" || {
+      dko::err "Can't enter \$DOTFILES to run brew in clean environment"
+      exit 1
+    }
 
     # CLEANROOM
     dko::dotfiles::__pyenv_system
@@ -507,7 +569,8 @@ dko::dotfiles() {
     reload)   dko::dotfiles::__reload           ;;
     dotfiles) dko::dotfiles::__update           ;;
     secret)   dko::dotfiles::__update_secret    ;;
-    zplug)    dko::dotfiles::__zplug            ;;
+    zplug)    dko::dotfiles::__update_zplug     ;;
+    daily)    dko::dotfiles::__update_daily     ;;
     composer) dko::dotfiles::__update_composer  ;;
     fzf)      dko::dotfiles::__update_fzf       ;;
     gem)      dko::dotfiles::__update_gems      ;;
@@ -515,14 +578,17 @@ dko::dotfiles() {
     node)     dko::dotfiles::__update_node      ;;
     nvm)      dko::dotfiles::__update_nvm       ;;
     pip)      dko::dotfiles::__update_pip "pip" ;;
-    wpcs)     dko::dotfiles::__update_wpcs      ;;
     vimlint)  dko::dotfiles::__update_vimlint   ;;
+    wpcs)     dko::dotfiles::__update_wpcs      ;;
+
+    *)
+      case "$OSTYPE" in
+        linux*)   dko::dotfiles::linux::__update "$1" ;;
+        darwin*)  dko::dotfiles::darwin::__update "$1" ;;
+      esac
   esac
 
-  case "$OSTYPE" in
-    linux*)   dko::dotfiles::__update_linux   "$1" ;;
-    darwin*)  dko::dotfiles::__update_darwin  "$1" ;;
-  esac
+  return $?
 }
 
 # vim: ft=sh :

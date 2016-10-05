@@ -19,16 +19,19 @@ source "${DOTFILES}/shell/helpers.sh"
 __install() {
   # Make sure not using mac OS internal python and pip
   if pip --version | grep -q /usr/lib; then
-    dko::die  "System pip detected, not running. Use a userspace python's pip."
+    dko::err  "System pip detected, not running. Use a userspace python's pip."
+    exit 1
   fi
 
   # Make sure has pyenv
   if ! dko::has "pyenv"; then
-    dko::die  "pyenv is not installed. Install it and set up a global pyenv."
+    dko::err  "pyenv is not installed. Install it and set up a global pyenv."
+    exit 1
   fi
 
   if pyenv version | grep system >/dev/null; then
-    dko::die  "Using system pyenv. Use real pyenv instead."
+    dko::err  "Using system pyenv. Use real pyenv instead."
+    exit 1
   fi
 
   dko::status "Updating global pip"

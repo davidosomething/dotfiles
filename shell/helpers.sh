@@ -22,7 +22,6 @@ dko::usage_()     { echo -e "\033[0;29m    $*\033[0;m"; }
 
 dko::installing() { dko::status "Installing \033[0;33m$1\033[0;32m..."; }
 dko::symlinking() { dko::status "Symlinking \033[0;35m$1\033[0;32m -> \033[0;35m$2\033[0;32m "; }
-dko::die()        { dko::err "$*"; exit 256; }
 
 # silently determine existence of executable
 # $1 name of bin
@@ -40,7 +39,8 @@ dko::source() {
 # require root
 dko::requireroot() {
   if [[ "$(whoami)" != "root" ]]; then
-    dko::die "Please run as root, these files go into /etc/**/";
+    dko::err "Please run as root, these files go into /etc/**/";
+    exit 1
   fi
 }
 
@@ -51,7 +51,8 @@ dko::require() {
     dko::status "FOUND: ${1}"
   else
     dko::err "MISSING: ${1}"
-    dko::die "Please install before proceeding.";
+    dko::err_ "Please install before proceeding.";
+    exit 1
   fi
 }
 
