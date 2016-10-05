@@ -157,17 +157,20 @@ dko::dotfiles::__update_composer() {
     ) || return 1
   fi
 
-  dko::status "Updating composer global packages"
-  (
-    dko::has "composer" || {
-      dko::err "composer is not installed"
-      exit 1
-    }
-    composer global update || {
-      dko::err "Could not update global packages"
-      exit 1
-    }
-  ) || return 1
+  if [ -f "$COMPOSER_HOME/composer.json" ]; then
+    dko::status "Updating composer global packages"
+    (
+      dko::has "composer" || {
+        dko::err "composer is not installed"
+        exit 1
+      }
+
+      composer global update || {
+        dko::err "Could not update global packages"
+        exit 1
+      }
+    ) || return 1
+  fi
 }
 
 dko::dotfiles::__update_fzf() {
