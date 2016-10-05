@@ -99,10 +99,12 @@ endfunction
 
 " Use with my tern-lint fork
 " https://github.com/davidosomething/tern-lint/tree/format-vim
+let s:tern_pattern = '\([^:]\+:\)\([^:]\+\)\(.*\)'
+let s:tern_replace = '\=submatch(1) . byte2line(submatch(2)) . submatch(3) . " [tern-lint]"'
 let s:tern_mapexpr = 'substitute('
-      \.   'v:val,'
-      \.   "'\(.\{-}:\)\([0-9]\)*\(.*\)',"
-      \.   "'\=submatch(1) . byte2line(submatch(2)) . submatch(3)',"
+      \.   'v:val, '
+      \.   "'" . s:tern_pattern . "', "
+      \.   "'" . s:tern_replace . "', "
       \.   "''"
       \. ')'
 let g:neomake_javascript_ternlint_maker = {
