@@ -56,16 +56,16 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyperterm-blink',            // blinking cursor
-    'hyperterm-firewatch',        // material design colors
-    //'hyperterm-material',         // material design colors
+    //'hyperterm-blink',            // blinking cursor
+    'hyperterm-base16-tomorrow-dark',
+    //'hyperterm-resboned',
     //'hyperterm-mactabs',        // fancy tabs
-    //'hyperterm-tabs',             // draggable tabs
+    //'hyperterm-tabs',           // draggable tabs
     'hyperterm-bold-tab',         // bold active tab
-    'hyperterm-tab-icons',        // tab icons
+    //'hyperterm-tab-icons',        // tab icons
     'hyperterm-focus-reporting',  // add focus-gained/lost events
     'hyperterm-title',            // respect xterm titles
-    //'hyperline',                // status bar
+    'hyperline',                // status bar
     'hyperlinks',                 // clickable links
   ],
 

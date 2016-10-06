@@ -32,8 +32,8 @@ __symlink() {
   dko::symlink vim                                  .vim
   dko::symlink vim                                  .config/nvim
 
-  # hyperterm
-  dko::symlink hyperterm/dot.hyperterm.js           .hyperterm.js
+  # hyper.app
+  dko::symlink hyper.app/dot.hyper.js               .hyper.js
 
   # default tern-project
   dko::symlink ternjs/dot.tern-project              .tern-project
