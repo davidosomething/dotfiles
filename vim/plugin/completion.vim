@@ -167,6 +167,7 @@ let s:omnifuncs.php = [ 'phpcomplete#CompletePHP' ]
 
 if dko#IsPlugged('vim-better-javascript-completion')
   " insert instead of add, this is preferred completion omnifunc (except tern)
+  autocmd dkocompletion FileType javascript setlocal omnifunc=js#CompleteJS
   call insert(s:omnifuncs.javascript, 'js#CompleteJS')
 endif
 
@@ -180,6 +181,8 @@ if executable('npm')
   if executable('tern') && dko#IsPlugged('tern_for_vim')
     " Use global tern server instance (same as deoplete-ternjs)
     let g:tern#command   = [ 'tern' ]
+    " Don't close tern after 5 minutes, helps speed up deoplete completion if
+    " they manage to share the instance
     let g:tern#arguments = [ '--persistent' ]
 
     augroup dkocompletion
