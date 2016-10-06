@@ -791,9 +791,11 @@ function! s:LoadPlugins()
   " Code analysis completion
   if g:dko_has_completion
     if executable('npm')
+      " Configured in plugins/completion.vim
       Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
 
       if has('nvim')
+        " Configured in plugins/completion.vim
         Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
       endif
     else
