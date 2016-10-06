@@ -18,9 +18,12 @@ package-json-validator
 sass-lint
 surge
 tern
+tern-browser-extension
+tern-fetch
+tern-gulp
 tern-jspm
 tern-jquery-extension
-tern-browser-extension
+tern-node-extension
 tldr
 webcoach
 yo
