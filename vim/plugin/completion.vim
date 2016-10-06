@@ -186,8 +186,7 @@ if executable('npm')
     let g:tern#arguments = [ '--persistent' ]
 
     augroup dkocompletion
-      autocmd FileType javascript
-            \ nnoremap <silent><buffer> gb :<C-u>TernDef<CR>
+      autocmd FileType javascript nnoremap <silent><buffer> gd :<C-u>TernDef<CR>
 
       " Set omnifunc every time, in case jspc's after ftplugin call to init
       " sets it to jspc#omni
