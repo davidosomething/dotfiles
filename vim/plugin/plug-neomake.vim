@@ -99,21 +99,21 @@ endfunction
 
 " Use with my tern-lint fork
 " https://github.com/davidosomething/tern-lint/tree/format-vim
-let s:tern_pattern = '\([^:]\+:\)\([^:]\+\)\(.*\)'
-let s:tern_replace = '\=submatch(1) . byte2line(submatch(2)) . submatch(3) . " [tern-lint]"'
-let s:tern_mapexpr = 'substitute('
-      \.   'v:val, '
-      \.   "'" . s:tern_pattern . "', "
-      \.   "'" . s:tern_replace . "', "
-      \.   "''"
-      \. ')'
-let g:neomake_javascript_ternlint_maker = {
-      \   'exe':          'tern-lint',
-      \   'args':         [ '--format=vim' ],
-      \   'mapexpr':      s:tern_mapexpr,
-      \   'errorformat':  '%f:%l: %trror: %m,'
-      \                 . '%f:%l: %tarning: %m',
-      \ }
+" let s:tern_pattern = '\([^:]\+:\)\([^:]\+\)\(.*\)'
+" let s:tern_replace = '\=submatch(1) . byte2line(submatch(2)) . submatch(3) . " [tern-lint]"'
+" let s:tern_mapexpr = 'substitute('
+"       \.   'v:val, '
+"       \.   "'" . s:tern_pattern . "', "
+"       \.   "'" . s:tern_replace . "', "
+"       \.   "''"
+"       \. ')'
+" let g:neomake_javascript_ternlint_maker = {
+"       \   'exe':          'tern-lint',
+"       \   'args':         [ '--format=vim' ],
+"       \   'mapexpr':      s:tern_mapexpr,
+"       \   'errorformat':  '%f:%l: %trror: %m,'
+"       \                 . '%f:%l: %tarning: %m',
+"       \ }
 
 " Run these makers by default on :Neomake
 let g:neomake_javascript_enabled_makers =

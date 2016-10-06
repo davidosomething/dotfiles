@@ -576,6 +576,9 @@ function! s:LoadPlugins()
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
 
+  " highlight lines corresponding to quickfix entries
+  Plug 'jceb/vim-hier', { 'on': ['HierStart'] }
+
   " add gS to smart split lines like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
 
