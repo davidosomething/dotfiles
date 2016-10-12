@@ -114,7 +114,11 @@ if !has('nvim') | set ttymouse=xterm | endif
 
 set notimeout
 set ttimeout
-set ttimeoutlen=10
+if has('nvim')
+  set ttimeoutlen=0
+else
+  set ttimeoutlen=10
+endif
 
 " no longer using comma so I can reverse repeat fFtT searches
 " no longer using \ so I can type escaped chars :/
