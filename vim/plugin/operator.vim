@@ -28,7 +28,7 @@ if dko#IsPlugged('vim-operator-surround')
   vmap   s'    <Plug>(operator-surround-append)'
   vmap   s"    <Plug>(operator-surround-append)"
   vmap   s)    <Plug>(operator-surround-append))
-  vmap   s}    <Plug>(operator-surround-append))
+  vmap   s}    <Plug>(operator-surround-append)}
   vmap   s]    <Plug>(operator-surround-append)]
   vmap   s>    <Plug>(operator-surround-append)>
 

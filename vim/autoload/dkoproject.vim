@@ -50,7 +50,7 @@ function! dkoproject#GetRoot(...) abort
   " Get root for a specific file
   if !empty(a:0)
     " path for given file
-    let l:path = expand(fnamemodify(a:0, ':p:h'))
+    let l:path = fnamemodify(resolve(expand(a:0)), ':p:h')
   elseif filereadable(expand('%'))
     " path for current file
     let l:path = expand('%:p:h')
@@ -91,7 +91,7 @@ function! dkoproject#GetRootByFileMarker(markers) abort
     if empty(l:filepath)
       continue
     endif
-    let l:result = fnamemodify(l:filepath, ':h')
+    let l:result = fnamemodify(resolve(expand(l:filepath)), ':h')
   endfor
 
   return l:result

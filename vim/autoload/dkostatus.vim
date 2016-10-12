@@ -133,7 +133,7 @@ endfunction
 function! dkostatus#Filename() abort
   let l:contents = ' '
   let l:contents .= winwidth(0) > 40 ? '%<%f' : '%t'
-  let l:contents .= (isdirectory(expand('%p')) ? '/ ' : '')
+  let l:contents .= (isdirectory(expand('%:p')) ? '/ ' : '')
   let l:contents .= getbufvar(s:bufnr, '&modified') ? '%#PmenuThumb#+' : ''
   let l:contents .= '%* '
   return l:contents
