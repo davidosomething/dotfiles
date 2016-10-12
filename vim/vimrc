@@ -529,6 +529,8 @@ function! s:LoadPlugins()
   " `:Bufferize messages` to get messages (or any :command) in a new buffer
   Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
 
+  Plug 'cocopon/colorswatch.vim', { 'on': ['ColorSwatchGenerate'] }
+
   " the blame in vim-gita is hawt :3
   Plug 'lambdalisue/vim-gita', { 'on': ['Gita'] }
 
