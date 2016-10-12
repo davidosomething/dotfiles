@@ -1,5 +1,8 @@
 " plugin/pumkeys.vim
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 " ============================================================================
 " PUM key handling
 " ============================================================================
@@ -39,3 +42,7 @@ endfunction
 inoremap  <silent><special><expr>  <Tab>     <SID>DKO_Tab()
 imap      <silent><special><expr>  <S-Tab>   <SID>DKO_STab()
 
+" ============================================================================
+
+let &cpoptions = s:cpo_save
+unlet s:cpo_save
