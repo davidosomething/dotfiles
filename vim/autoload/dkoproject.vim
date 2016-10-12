@@ -54,21 +54,27 @@ function! dkoproject#GetRoot(...) abort
     let l:path = getcwd()
   endif
 
+  " Get root via git rev-parse
+  let l:root = dkoproject#GetGitRootByFile(l:path)
+  " @TODO get by markers: project.json, composer.json, Gemfile, README.md
+
+  " No git root, use cwd of current buffer
+  let l:root = empty(l:root) ? expand('%:p:h') : l:root
+
+  let b:dkoproject_root = l:root
+  return l:root
+endfunction
+
+" @param {string} filepath
+" @return {string} git root of file or empty string
+function! dkoproject#GetGitRootByFile(filepath) abort
   " Determine if git root exists
   " (empty string on error, strip last newline)
   let l:result = system(
-        \ 'cd ' . l:path . 
+        \ 'cd ' . a:filepath . 
         \ ' && git rev-parse --show-toplevel 2>/dev/null')
 
-  " No git root?
-  let l:root = empty(l:result) ? '' : l:result[:-2]
-  if !isdirectory(l:root)
-    let l:root = expand('%:p:h')
-  endif
-
-  " Found git root
-  let b:dkoproject_root = l:root
-  return l:root
+  return empty(l:result) ? '' : l:result[:-2]
 endfunction
 
 " Get array of possible config file paths for a project -- any dirs where
@@ -107,6 +113,9 @@ function! dkoproject#GetFile(filename) abort
 
   return ''
 endfunction
+
+" @TODO support findfile() and finddir() with project root as basepath?
+"       what would that be good for
 
 function! dkoproject#GetEslintrc() abort
   let l:candidates = [
