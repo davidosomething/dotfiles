@@ -18,9 +18,6 @@
 " g:dkoproject#roots [array] - global overrides
 " ============================================================================
 
-if exists('g:loaded_dkoproject') | finish | endif
-let g:loaded_dkoproject = 1
-
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
@@ -32,6 +29,13 @@ set cpoptions&vim
 let s:default_roots = [
       \   '',
       \   'config/',
+      \ ]
+
+" Look for project root using these file markers if not a git project
+let s:default_markers = [
+      \   'package.json',
+      \   'composer.json',
+      \   'Gemfile',
       \ ]
 
 " Find git root of current file, set to buffer var
@@ -54,12 +58,13 @@ function! dkoproject#GetRoot(...) abort
     let l:path = getcwd()
   endif
 
-  " Get root via git rev-parse
   let l:root = dkoproject#GetGitRootByFile(l:path)
-  " @TODO get by markers: project.json, composer.json, Gemfile, README.md
-
-  " No git root, use cwd of current buffer
-  let l:root = empty(l:root) ? expand('%:p:h') : l:root
+  let l:root = empty(l:root)
+        \ ? dkoproject#GetRootByFileMarker(s:default_markers)
+        \ : l:root
+  let l:root = empty(l:root)
+        \ ? expand('%:p:h')
+        \ : l:root
 
   let b:dkoproject_root = l:root
   return l:root
@@ -75,6 +80,21 @@ function! dkoproject#GetGitRootByFile(filepath) abort
         \ ' && git rev-parse --show-toplevel 2>/dev/null')
 
   return empty(l:result) ? '' : l:result[:-2]
+endfunction
+
+" @TODO support findfile() and finddir() with project root as basepath?
+"       what would that be good for
+function! dkoproject#GetRootByFileMarker(markers) abort
+  let l:result = ''
+  for l:marker in a:markers
+    let l:filepath = findfile(l:marker, '.;')
+    if empty(l:filepath)
+      continue
+    endif
+    let l:result = fnamemodify(l:filepath, ':h')
+  endfor
+
+  return l:result
 endfunction
 
 " Get array of possible config file paths for a project -- any dirs where
@@ -113,9 +133,6 @@ function! dkoproject#GetFile(filename) abort
 
   return ''
 endfunction
-
-" @TODO support findfile() and finddir() with project root as basepath?
-"       what would that be good for
 
 function! dkoproject#GetEslintrc() abort
   let l:candidates = [
