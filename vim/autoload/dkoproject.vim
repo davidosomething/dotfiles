@@ -82,8 +82,8 @@ function! dkoproject#GetGitRootByFile(filepath) abort
   return empty(l:result) ? '' : l:result[:-2]
 endfunction
 
-" @TODO support findfile() and finddir() with project root as basepath?
-"       what would that be good for
+" @param {String[]} markers
+" @return {string} root path based on presence of file marker
 function! dkoproject#GetRootByFileMarker(markers) abort
   let l:result = ''
   for l:marker in a:markers
@@ -98,9 +98,10 @@ function! dkoproject#GetRootByFileMarker(markers) abort
 endfunction
 
 " Get array of possible config file paths for a project -- any dirs where
-" files like .eslintrc, package.json, etc. might be stored
+" files like .eslintrc, package.json, etc. might be stored. These will be
+" paths relative to the root from dkoproject#GetRoot
 "
-" @return {String[]} config paths relative to git root
+" @return {String[]} config paths relative to dkoproject#GetRoot
 function! dkoproject#GetPaths() abort
   return get(
         \   b:, 'dkoproject#roots', get(
@@ -134,6 +135,8 @@ function! dkoproject#GetFile(filename) abort
   return ''
 endfunction
 
+" @TODO support package.json configs
+" @return {String} eslintrc filename
 function! dkoproject#GetEslintrc() abort
   let l:candidates = [
         \   '.eslintrc.js',
@@ -145,10 +148,10 @@ function! dkoproject#GetEslintrc() abort
 
   let l:result = ''
   for l:candidate in l:candidates
-    if !empty(dkoproject#GetFile(l:candidate))
-      let l:result = l:candidate
-      break
+    if empty(dkoproject#GetFile(l:candidate))
+      continue
     endif
+    let l:result = l:candidate
   endfor
 
   return l:result
