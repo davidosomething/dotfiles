@@ -175,14 +175,16 @@ if !has('nvim')
 endif
 
 " backups
-"set nobackup -- default, don't keep those file~ leftovers
+set nobackup
 set backupskip=/tmp/*
 " Make Vim able to edit crontab files again.
 set backupskip+=,/private/tmp/*"
 if has('mac')
   augroup dkomac
     autocmd!
-    autocmd BufEnter  /private/tmp/crontab.*  setlocal backupcopy=yes
+    autocmd BufEnter  /private/tmp/crontab.*
+          \ setlocal backup
+          \ setlocal backupcopy=yes
   augroup END
 endif
 if !has('nvim')
