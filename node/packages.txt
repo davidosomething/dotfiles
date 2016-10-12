@@ -14,6 +14,7 @@ jsinspect
 jsonlint
 jspm-check-updates
 markdownlint-cli
+nativefier
 package-json-validator
 sass-lint
 surge
