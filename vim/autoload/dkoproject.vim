@@ -35,6 +35,7 @@ let s:default_roots = [
 let s:default_markers = [
       \   'package.json',
       \   'composer.json',
+      \   'requirements.txt',
       \   'Gemfile',
       \ ]
 

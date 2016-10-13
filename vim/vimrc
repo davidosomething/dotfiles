@@ -907,6 +907,7 @@ function! s:LoadPlugins()
   " ========================================================================
 
   Plug 'hynek/vim-python-pep8-indent'
+  Plug 'raimon49/requirements.txt.vim'
 
   " ========================================================================
   " Language: Ruby, rails, puppet
