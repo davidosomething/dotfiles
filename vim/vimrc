@@ -986,8 +986,13 @@ function! s:LoadPlugins()
   " Plug: UI -- load last!
   " ========================================================================
 
-  " :GitGutterToggle
-  Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle'] }
+  " :EC and :DC to enable/disable changes plugin
+  if v:version >= 800
+    Plug 'chrisbra/changesPlugin', { 'on': ['EC'] }
+  else
+    " :GitGutterToggle (bound to C-g)
+    Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle'] }
+  endif
 
   " <Plug> to not move on * search function
   Plug 'haya14busa/vim-asterisk'
