@@ -145,6 +145,9 @@ function! s:BindUniteBufferKeys()
   " also exit with function keys, so you can toggle with same key
   for l:fnum in range(1, 12)
     let l:fk = '<F' . l:fnum . '>'
+    execute 'silent! iunmap <buffer><special> ' . l:fk
+    execute 'silent! unmap <buffer><special> ' . l:fk
+
     execute 'imap <buffer><special> ' . l:fk . ' '
           \ . '<Plug>(unite_insert_leave)'
           \ . '<Plug>(unite_cursor_bottom)'
@@ -152,9 +155,18 @@ function! s:BindUniteBufferKeys()
     execute 'nmap <buffer><special> ' . l:fk . ' <Plug>(unite_all_exit)'
   endfor
 
+  imap    <buffer><special>  <C-j>   <Plug>(unite_select_next_line)
+  imap    <buffer><special>  <C-d>   <Plug>(unite_select_next_page)
+  imap    <buffer><special>  <C-k>   <Plug>(unite_select_previous_line)
+  imap    <buffer><special>  <C-u>   <Plug>(unite_select_previous_page)
+
+  imap    <silent><buffer><expr>  <C-s>     unite#do_action('split')
+  imap    <silent><buffer><expr>  <C-v>     unite#do_action('vsplit')
+  imap    <silent><buffer><expr>  <C-t>     unite#do_action('tabopen')
+
   " never use unite actions on TAB
-  unmap   <buffer><special>  <Tab>
   iunmap  <buffer><special>  <Tab>
+  unmap   <buffer><special>  <Tab>
 endfunction
 
 autocmd dkounite FileType unite call s:BindUniteBufferKeys()
