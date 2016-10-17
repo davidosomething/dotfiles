@@ -12,7 +12,7 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 - RC files for lua, markdown, node, php, python, r, ruby, shell
 
 ![terminal screenshot][screenshot]
-> Screenshot of the zsh prompt in tmux in termite on Arch Linux
+> Screenshot of my zsh prompt
 
 ## Installation
 
