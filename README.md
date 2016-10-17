@@ -136,7 +136,7 @@ For X apps (no terminal) the value is probably:
 
 > _Logo from [jglovier/dotfiles-logo]_
 
-[screenshot]: https://cdn.rawgit.com/davidosomething/dotfiles/2016-02-22/meta/terminal.png
+[screenshot]: https://cloud.githubusercontent.com/assets/609213/19455761/51922106-948c-11e6-9827-efd2eea2fd8d.png
 [Archlinux wiki for XDG Base Directory Support]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
 [grawity's dotfile notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
