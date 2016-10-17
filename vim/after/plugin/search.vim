@@ -16,7 +16,7 @@ set cpoptions&vim
 
 " Star search (*) mapping expression
 " Get vim-asterisk, vim-anzu, and incsearch.vim to play nicely
-function! s:DKO_StarSearch()
+function! s:DKO_StarSearch() abort
   let l:ops = ''
 
   " Move or don't move?

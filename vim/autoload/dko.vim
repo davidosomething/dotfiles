@@ -3,7 +3,22 @@
 " vimrc and debugging helper funtions
 "
 
+" ============================================================================
+" Guards
+" ============================================================================
+
+if exists('g:loaded_dko') | finish | endif
+let g:loaded_dko = 1
+
+" ============================================================================
+" Setup vars
+" ============================================================================
+
 let g:dko#vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+
+" ============================================================================
+" General VimL utility functions
+" ============================================================================
 
 " Output &runtimepath, one per line, to current buffer
 function! dko#Runtimepath() abort
@@ -91,42 +106,33 @@ endfunction
 
 " @param {String} [1] cursor position to look, defaults to current cursorline
 " @return {String}
-function! dko#GetFunctionName() abort
-  let l:position = get(a:, 1, getline('.')[:col('.')-2])
+function! dko#GetFunctionInfo() abort
 
-  let l:matches = matchlist(l:position, '\([a-zA-Z0-9_]*\)([^()]*$')
-  if empty(l:matches)
-    return ''
-  endif
-
-  return get(l:matches, 1, '')
-endfunction
-
-" Show function signature using various plugins
-function! dko#GetFunctionSignature() abort
-  let l:source = ''
-  let l:function = ''
+  " --------------------------------------------------------------------------
+  " By current-func-info.vim
+  " --------------------------------------------------------------------------
 
   if exists('g:loaded_cfi')
-    let l:function = cfi#format('%s', '')
-    if !empty(l:function)
-      let l:source = 'cfi'
-    endif
+    return {
+          \   'name':   cfi#get_func_name(),
+          \   'source': 'cfi',
+          \ }
   endif
 
-  " disabled, too many false positives
-  if 0 && empty(l:function) && dko#IsPlugged('vim-gazetteer')
-    try
-      let l:function = gazetteer#WhereAmI()
-    endtry
-    if !empty(l:function)
-      let l:source = 'gzt'
-    endif
-  endif
+  " --------------------------------------------------------------------------
+  " By VimL
+  " --------------------------------------------------------------------------
 
-  return (g:dkotabline_show_function_signature_source
-        \     ? '[' . l:source . ']'
-        \     : '')
-        \ . l:function
+  "let l:position = get(a:, 1, getline('.')[:col('.')-2])
+  let l:position = getline('.')
+  let l:matches = matchlist(l:position, '\(()\s[a-zA-Z0-9_]*\)([^()]*$')
+  if empty(l:matches) || empty(l:matches[1])
+    return {}
+  endif
+  return {
+        \   'name':   l:matches[1],
+        \   'source': 'viml',
+        \ }
+
 endfunction
 
