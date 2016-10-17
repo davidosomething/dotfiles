@@ -11,7 +11,7 @@
 
 ### Install homebrew
 
-http://brew.sh/
+<http://brew.sh/>
 
 ### Install git from brew
 
@@ -136,7 +136,6 @@ Make sure the rest of the things above are installed since after you start using
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
   consequently `npm`)
     1. Use nvm managed node
-    1. `npm install -g npm@latest`
     1. Install the default packages using [node/install.sh](../node/install.sh)
 - Install `pyenv` using `pyenv-installer` (rm `~/.local/pyenv` directory for
   clean install) and make sure to use the libs provided by `brew openssl`
