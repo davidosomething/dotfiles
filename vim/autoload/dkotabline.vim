@@ -28,9 +28,8 @@ function! dkotabline#Output() abort
   " Left side
   " ==========================================================================
 
-  let l:contents .= dkotabline#ArgumentHints()
-  let l:contents .= dkotabline#FunctionSignature()
-
+  let l:contents .= '%#CursorLineNr# ' . dkotabline#ArgumentHints()
+  let l:contents .= '%#StatusLine# ' . dko#GetFunctionSignature()
   " end of tab is showing a tab info
   "let l:contents .= '%#StatusLine#%T'
 
@@ -41,36 +40,6 @@ function! dkotabline#Output() abort
   let l:contents .= '%='
 
   return l:contents
-endfunction
-
-" Show function signature using various plugins
-function! dkotabline#FunctionSignature() abort
-  let l:source = ''
-  let l:function = ''
-
-  if exists('g:loaded_cfi')
-    let l:function = cfi#format('%s', '')
-    if !empty(l:function)
-      let l:source = 'cfi'
-    endif
-  endif
-
-  " disabled, too many false positives
-  if 0 && empty(l:function) && dko#IsPlugged('vim-gazetteer')
-    try
-      let l:function = gazetteer#WhereAmI()
-    endtry
-    if !empty(l:function)
-      let l:source = 'gzt'
-    endif
-  endif
-
-  return empty(l:source)
-        \ ? ''
-        \ : (g:dkotabline_show_function_signature_source
-        \     ? '%#StatusLineNC# ' . l:source . ' '
-        \     : '')
-        \ . '%#StatusLine# ' . l:function . ' '
 endfunction
 
 " Copied function from tern_for_vim and redirect output to variable.
@@ -94,14 +63,7 @@ function! dkotabline#ArgumentHints() abort
     return ''
   endif
 
-  let l:fname = get(
-        \   matchlist(
-        \     getline('.')[:col('.')-2],
-        \     '\([a-zA-Z0-9_]*\)([^()]*$'
-        \   ),
-        \   1
-        \)
-
+  let l:fname = dko#GetFunctionName()
   if has('python')
     redir => l:hints
       python tern_lookupArgumentHints(vim.eval('fname'), int(vim.eval('l:pos')))

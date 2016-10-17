@@ -12,8 +12,8 @@ endfunction
 
 " Declare and define var as new dict if the variable has not been used before
 "
-" @param string var
-" @return the declared var
+" @param  {String} var
+" @return {String} the declared var name
 function! dko#InitDict(var) abort
   let {a:var} = exists(a:var) ? {a:var} : {}
   return {a:var}
@@ -21,16 +21,16 @@ endfunction
 
 " Declare and define var as new list if the variable has not been used before
 "
-" @param string var
-" @return the declared var
+" @param  {String} var
+" @return {String} the declared var name
 function! dko#InitList(var) abort
   let {a:var} = exists(a:var) ? {a:var} : []
   return {a:var}
 endfunction
 
-" @param  string key
-" @param  string command
-" @return string to execute (this way :verb map traces back to correct file)
+" @param  {String} key
+" @param  {String} command
+" @return {String} to execute (this way :verb map traces back to correct file)
 function! dko#BindFunction(key, command) abort
   let l:lhs = '<silent><special> ' . a:key . ' '
   let l:rhs = ':<C-u>' . a:command . '<CR>'
@@ -46,8 +46,8 @@ endfunction
 " Memory cache
 let s:plugged = {}
 
-" @param string name
-" @return boolean true if the plugin is installed
+" @param  {String} name
+" @return {Boolean} true if the plugin is installed
 function! dko#IsPlugged(name) abort
   if has_key(s:plugged, a:name)
     return s:plugged[a:name]
@@ -67,10 +67,9 @@ endfunction
 " Neomake helpers
 " ============================================================================
 
-" @param string name of maker
-" @param string [a:1] ft of the maker, defaults to current buffers filetype
-" @return boolean true when the maker exe exists or was registered as a local
-"
+" @param  {String} name of maker
+" @param  {String} [a:1] ft of the maker, defaults to current buffers filetype
+" @return {Boolean} true when the maker exe exists or was registered as a local
 "         maker (so local exe exists)
 function! dko#IsMakerExecutable(name, ...) abort
   if !exists('*neomake#GetMaker')
@@ -84,5 +83,50 @@ function! dko#IsMakerExecutable(name, ...) abort
 
   let l:maker = neomake#GetMaker(a:name, l:ft)
   return !empty(l:maker) && executable(l:maker.exe)
+endfunction
+
+" ============================================================================
+" Code parsing
+" ============================================================================
+
+" @param {String} [1] cursor position to look, defaults to current cursorline
+" @return {String}
+function! dko#GetFunctionName() abort
+  let l:position = get(a:, 1, getline('.')[:col('.')-2])
+
+  let l:matches = matchlist(l:position, '\([a-zA-Z0-9_]*\)([^()]*$')
+  if empty(l:matches)
+    return ''
+  endif
+
+  return get(l:matches, 1, '')
+endfunction
+
+" Show function signature using various plugins
+function! dko#GetFunctionSignature() abort
+  let l:source = ''
+  let l:function = ''
+
+  if exists('g:loaded_cfi')
+    let l:function = cfi#format('%s', '')
+    if !empty(l:function)
+      let l:source = 'cfi'
+    endif
+  endif
+
+  " disabled, too many false positives
+  if 0 && empty(l:function) && dko#IsPlugged('vim-gazetteer')
+    try
+      let l:function = gazetteer#WhereAmI()
+    endtry
+    if !empty(l:function)
+      let l:source = 'gzt'
+    endif
+  endif
+
+  return (g:dkotabline_show_function_signature_source
+        \     ? '[' . l:source . ']'
+        \     : '')
+        \ . l:function
 endfunction
 
