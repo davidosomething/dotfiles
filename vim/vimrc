@@ -94,7 +94,9 @@ set laststatus=2                      " always show all statuslines
 " Command line
 " ------------------------------------
 
-set noshowcmd                         " show incomplete commands (SLOW so off)
+" This is slow on some terminals and often gets hidden by msgs so leave it off
+set noshowcmd
+
 set noshowmode                        " don't show -- INSERT -- in cmdline
 
 " ----------------------------------------------------------------------------
