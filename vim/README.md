@@ -130,14 +130,16 @@ Unite keys are arranged by search context from small (current buf) to big
 | `<F2>`  | right pane: unite outline (current buffer) |
 | `<F3>`  | unite buffers (current instance) |
 | `<F4>`  | unite most recently used files (limited filesystem) |
-| `<F5>`  | FZF fuzzy search files (filesystem) |
-| `<F6>`  | FZF grep using ripgrep (from PWD) |
+| `<F5>`  | FZF (or unite) fuzzy search files (filesystem) |
+| `<F6>`  | FZF (or unite) grep using ripgrep (from PWD) |
 | `<F7>`  | unite tag selector (tagged files in project) |
 | `<F8>`  | unite command palette |
-| `<F9>`  | OverCommandLine for subst |
+| `<F9>`  | _unused_ |
 | `<F10>` | toggle tabline |
 | `<F11>` | toggle indent guides |
 | `<F12>` | toggle paste mode |
+| `\`     | enter OverCommandLine for subst |
+| `<C-g>` | toggle GitGutter |
 
 See `plugin/mappings.vim` (and other plugin/* files) for mappings not
 associated to [vim-plug]-managed plugins.
@@ -162,6 +164,8 @@ sparingly (mostly for `setlocal` ftplugin settings).
 
 ### VimL Coding
 
+- Include `&cpoptions` guard if there are mappings
+- Use `<special>` if the mapping key is special
 - `s:FunctionName` - PascalCase
 - `l:local_variable` - snake_case function local variables
 - `s:variable_name` - snake_case for script-local variables
