@@ -43,14 +43,38 @@ function! dko#InitList(var) abort
   return {a:var}
 endfunction
 
-" @param  {String} key
-" @param  {String} command
-" @return {String} to execute (this way :verb map traces back to correct file)
-function! dko#BindFunction(key, command) abort
-  let l:lhs = '<silent><special> ' . a:key . ' '
-  let l:rhs = ':<C-u>' . a:command . '<CR>'
-  let l:mapping_nvo = 'noremap '  . l:lhs .           l:rhs
-  let l:mapping_ic  = 'noremap! ' . l:lhs . '<Esc>' . l:rhs
+" Generate a string command to map keys in nvo&ic modes to a command
+"
+" @param  {Dict}    settings
+" @param  {String}  settings.key
+" @param  {String}  [settings.command]
+" @param  {Int}     [settings.special]
+" @return {String}  to execute (this way :verb map traces back to correct file)
+function! dko#MapAll(settings) abort
+  " Auto determine if special key was mapped
+  " Just in case I forgot to include cpoptions guards somewhere
+  let l:special = get(a:settings, 'special', 0) || a:settings.key[0] ==# '<'
+        \ ? '<special>'
+        \ : ''
+
+  " Key to map
+  let l:lhs = '<silent>'
+        \ . l:special
+        \ . ' ' . a:settings.key . ' '
+
+  " Command to map to
+  if !empty(get(a:settings, 'command', ''))
+    let l:rhs_nvo = ':<C-u>' . a:settings.command . '<CR>'
+    let l:rhs_ic  = '<Esc>' . l:rhs_nvo
+  else
+    " No command
+    " @TODO support non command mappings
+    return ''
+  endif
+
+  " Compose result
+  let l:mapping_nvo = 'noremap '  . l:lhs . ' ' . l:rhs_nvo
+  let l:mapping_ic  = 'noremap! ' . l:lhs . ' ' . l:rhs_ic
   return l:mapping_nvo . ' | ' . l:mapping_ic
 endfunction
 

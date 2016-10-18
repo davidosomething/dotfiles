@@ -177,34 +177,61 @@ autocmd dkounite FileType unite call s:BindUniteBufferKeys()
 
 function! s:BindFunctionKeys()
   if dko#IsPlugged('unite-outline')
-    execute dko#BindFunction('<F2>', 'Unite outline')
+    execute dko#MapAll({
+          \   'key':      '<F2>',
+          \   'command':  'Unite outline'
+          \ })
   endif
 
   " Using :FZB instead of Unite for buffer list
   if !g:dko_use_fzf
-    execute dko#BindFunction('<F3>', 'Unite -start-insert buffer')
+    execute dko#MapAll({
+          \   'key':      '<F3>',
+          \   'command':  'Unite -start-insert buffer'
+          \ })
   endif
 
   if dko#IsPlugged('redismru.vim')
-    execute dko#BindFunction('<F4>', 'Unite -start-insert redismru')
+    execute dko#MapAll({
+          \   'key':      '<F4>',
+          \   'command':  'Unite -start-insert redismru'
+          \ })
   elseif dko#IsPlugged('neomru.vim')
-    execute dko#BindFunction('<F4>', 'Unite -start-insert neomru/file')
+    execute dko#MapAll({
+          \   'key': '<F4>',
+          \   'command': 'Unite -start-insert neomru/file'
+          \ })
   endif
 
   " Using :FZF instead of Unite for file reducing
   if !g:dko_use_fzf
     if has('nvim')
-      execute dko#BindFunction('<F5>', 'Unite -start-insert file_rec/neovim:!')
+      execute dko#MapAll({
+            \   'key':      '<F5>',
+            \   'command':  'Unite -start-insert file_rec/neovim:!'
+            \ })
     else
-      execute dko#BindFunction('<F5>', 'Unite -start-insert file_rec/async:!')
+      execute dko#MapAll({
+            \   'key':      '<F5>',
+            \   'command':  'Unite -start-insert file_rec/async:!'
+            \ })
     endif
   endif
 
-  execute dko#BindFunction('<F6>', 'UniteWithProjectDir grep:.')
+  execute dko#MapAll({
+        \   'key':      '<F6>',
+        \   'command':  'UniteWithProjectDir grep:.'
+        \ })
   if dko#IsPlugged('unite-tag')
-    execute dko#BindFunction('<F7>', 'Unite -start-insert tag')
+    execute dko#MapAll({
+          \   'key':      '<F7>',
+          \   'command':  'Unite -start-insert tag'
+          \ })
   endif
-  execute dko#BindFunction('<F8>', 'Unite -start-insert command')
+  execute dko#MapAll({
+        \   'key':    '<F8>',
+        \   'command': 'Unite -start-insert command'
+        \ })
 endfunction
 
 autocmd dkounite VimEnter * call s:BindFunctionKeys()

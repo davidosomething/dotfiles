@@ -6,13 +6,15 @@ if !g:dko_use_fzf | finish | endif
 " ============================================================================
 " Use FZF to search files
 " ============================================================================
-execute dko#BindFunction('<F5>', 'FZF')
+
+execute dko#MapAll({ 'key': '<F5>', 'command': 'FZF' })
 
 " ============================================================================
 " :FZC to switch color scheme
 " ============================================================================
 
-command! FZC call fzf#run({
+command! FZC
+      \ call fzf#run({
       \   'source':
       \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
       \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
@@ -36,10 +38,11 @@ function! s:OpenBuffer(e)
   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-command! FZB call fzf#run({
+command! FZB
+      \ call fzf#run({
       \   'source':  reverse(<SID>GetBufferList()),
       \   'sink':    function('<SID>OpenBuffer'),
       \   'options': '+m',
       \   'down':    min([ len(<SID>GetBufferList()) + 2, 10 ]),
       \ })
-execute dko#BindFunction('<F3>', 'FZB')
+execute dko#MapAll({ 'key': '<F3>', 'command': 'FZB' })

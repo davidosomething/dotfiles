@@ -9,7 +9,7 @@ set cpoptions&vim
 
 command! Q q
 
-execute dko#BindFunction('<F10>', 'call dkotabline#Toggle()')
+execute dko#MapAll({ 'key': '<F10>', 'command': 'call dkotabline#Toggle()' })
 
 " ============================================================================
 " Quick edit

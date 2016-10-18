@@ -29,8 +29,10 @@ let g:vimfiler_readonly_file_icon = 'ʀ'
 " Shortcut
 " ============================================================================
 
-execute dko#BindFunction('<F1>',
-      \ 'VimFilerExplorer -parent -explorer-columns=type')
+execute dko#MapAll({
+      \   'key':     '<F1>',
+      \   'command': 'VimFilerExplorer -parent -explorer-columns=type'
+      \ })
 
 " ============================================================================
 " Keymappings

@@ -494,7 +494,7 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
 " This is used by plugin/completion.vim so is a g:
 let g:dko_has_completion = 0
-let g:dko_use_fzf = has('nvim') && !isdirectory(expand('~/.fzf'))
+let g:dko_use_fzf = has('nvim') && isdirectory(expand('~/.fzf'))
 
 function! s:LoadPlugins()
   let s:use_colorv    = 0 && (has('python') || has('python3'))
