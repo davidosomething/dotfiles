@@ -736,7 +736,7 @@ function! s:LoadPlugins()
   " vim 7.4-77 ships with 2013 version, this is newer
   Plug 'tpope/vim-git'
 
-  " show diff in own split when editing a COMMIT_EDITMSG
+  " show diff when editing a COMMIT_EDITMSG
   Plug 'rhysd/committia.vim'
 
   " ========================================================================
@@ -1009,9 +1009,6 @@ function! s:LoadPlugins()
   " highlight partial matches as you type in search mode
   if !has('nvim') | Plug 'haya14busa/incsearch.vim'
   endif
-
-  " show registers in split if use \" or <C-R>
-  "Plug 'junegunn/vim-peekaboo'
 
   " Show (#/total results) when searching for a term
   " known echo issue if remapping [[ and ]], but I removed that map
