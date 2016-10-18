@@ -24,7 +24,7 @@ let g:over_command_line_key_mappings = {
       \   "\<F12>": "\<Esc>",
       \ }
 
-nnoremap <silent>  \   :<C-u>OverCommandLine<CR>
+nnoremap <silent>  \   :<C-U>OverCommandLine<CR>
 
 " ============================================================================
 

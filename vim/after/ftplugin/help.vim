@@ -49,11 +49,11 @@ endfunction
 
 " Only for the actual help buffer, not when editing doc/helpfile.txt
 if &buftype ==# 'help'
-  nnoremap  <silent><buffer>   q   :<C-u>call <SID>Close()<CR>
+  nnoremap  <silent><buffer>   q   :<C-U>call <SID>Close()<CR>
   nmap      <silent><buffer>   Q   q
 
   nnoremap  <silent><buffer>   <Leader>v
-        \ :<C-u>wincmd L <BAR> vertical resize 82<CR>
+        \ :<C-U>wincmd L <BAR> vertical resize 82<CR>
 
   " Help navigation
   nnoremap <buffer><nowait> < <C-o>

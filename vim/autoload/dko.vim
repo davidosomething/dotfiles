@@ -64,7 +64,7 @@ function! dko#MapAll(settings) abort
 
   " Command to map to
   if !empty(get(a:settings, 'command', ''))
-    let l:rhs_nvo = ':<C-u>' . a:settings.command . '<CR>'
+    let l:rhs_nvo = ':<C-U>' . a:settings.command . '<CR>'
     let l:rhs_ic  = '<Esc>' . l:rhs_nvo
   else
     " No command

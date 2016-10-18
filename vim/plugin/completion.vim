@@ -186,7 +186,7 @@ if executable('npm')
     let g:tern#arguments = [ '--persistent' ]
 
     augroup dkocompletion
-      autocmd FileType javascript nnoremap <silent><buffer> gd :<C-u>TernDef<CR>
+      autocmd FileType javascript nnoremap <silent><buffer> gd :<C-U>TernDef<CR>
 
       " Set omnifunc every time, in case jspc's after ftplugin call to init
       " sets it to jspc#omni
@@ -212,7 +212,7 @@ endif
 
 " ============================================================================
 " Completion Plugin: jspc.vim
-" <C-x><c-u> to use jspc in particular
+" <C-x><C-u> to use jspc in particular
 " (Ignored if s:fip.javascript was set by the above tern settings)
 " ============================================================================
 

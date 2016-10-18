@@ -7,6 +7,9 @@ set cpoptions&vim
 " Commands
 " ============================================================================
 
+" In normal mode, jump to command mode with <CR>
+nnoremap  <special>  <CR>  <Esc>:<C-U>
+
 command! Q q
 
 execute dko#MapAll({ 'key': '<F10>', 'command': 'call dkotabline#Toggle()' })
@@ -25,9 +28,9 @@ function! s:EditClosest(file)
   endif
   execute 'edit ' . s:file
 endfunction
-nnoremap  <silent>  <Leader>eca  :<C-u>call <SID>EditClosest('.agignore')<CR>
-nnoremap  <silent>  <Leader>eci  :<C-u>call <SID>EditClosest('.gitignore')<CR>
-nnoremap  <silent>  <Leader>ecr  :<C-u>call <SID>EditClosest('README.md')<CR>
+nnoremap  <silent>  <Leader>eca  :<C-U>call <SID>EditClosest('.agignore')<CR>
+nnoremap  <silent>  <Leader>eci  :<C-U>call <SID>EditClosest('.gitignore')<CR>
+nnoremap  <silent>  <Leader>ecr  :<C-U>call <SID>EditClosest('README.md')<CR>
 
 function! s:EditRoot(file)
   let s:file = dkoproject#GetFile(a:file)
@@ -37,22 +40,22 @@ function! s:EditRoot(file)
   endif
   execute 'edit ' . s:file
 endfunction
-nnoremap  <silent>  <Leader>era  :<C-u>call <SID>EditRoot('.agignore')<CR>
-nnoremap  <silent>  <Leader>eri  :<C-u>call <SID>EditRoot('.gitignore')<CR>
-nnoremap  <silent>  <Leader>erg  :<C-u>call <SID>EditRoot('gulpfile.js')<CR>
-nnoremap  <silent>  <Leader>erG  :<C-u>call <SID>EditRoot('Gruntfile.js')<CR>
-nnoremap  <silent>  <Leader>erp  :<C-u>call <SID>EditRoot('package.json')<CR>
-nnoremap  <silent>  <Leader>err  :<C-u>call <SID>EditRoot('README.md')<CR>
+nnoremap  <silent>  <Leader>era  :<C-U>call <SID>EditRoot('.agignore')<CR>
+nnoremap  <silent>  <Leader>eri  :<C-U>call <SID>EditRoot('.gitignore')<CR>
+nnoremap  <silent>  <Leader>erg  :<C-U>call <SID>EditRoot('gulpfile.js')<CR>
+nnoremap  <silent>  <Leader>erG  :<C-U>call <SID>EditRoot('Gruntfile.js')<CR>
+nnoremap  <silent>  <Leader>erp  :<C-U>call <SID>EditRoot('package.json')<CR>
+nnoremap  <silent>  <Leader>err  :<C-U>call <SID>EditRoot('README.md')<CR>
 
 " Not using $MYVIMRC since it varies based on (n)vim
-nnoremap  <silent>  <Leader>evi   :<C-u>edit $VIM_DOTFILES/init.vim<CR>
-nnoremap  <silent>  <Leader>evg   :<C-u>edit $VIM_DOTFILES/gvimrc<CR>
-nnoremap  <silent>  <Leader>evl   :<C-u>edit ~/.secret/vim/vimrc.vim<CR>
-nnoremap  <silent>  <Leader>evr   :<C-u>edit $VIM_DOTFILES/vimrc<CR>
+nnoremap  <silent>  <Leader>evi   :<C-U>edit $VIM_DOTFILES/init.vim<CR>
+nnoremap  <silent>  <Leader>evg   :<C-U>edit $VIM_DOTFILES/gvimrc<CR>
+nnoremap  <silent>  <Leader>evl   :<C-U>edit ~/.secret/vim/vimrc.vim<CR>
+nnoremap  <silent>  <Leader>evr   :<C-U>edit $VIM_DOTFILES/vimrc<CR>
 
 nnoremap  <silent>  <Leader>em
-      \ :<C-u>edit $VIM_DOTFILES/after/plugin/mappings.vim<CR>
-nnoremap  <silent>  <Leader>ez   :<C-u>edit $ZDOTDIR/.zshrc<CR>
+      \ :<C-U>edit $VIM_DOTFILES/after/plugin/mappings.vim<CR>
+nnoremap  <silent>  <Leader>ez   :<C-U>edit $ZDOTDIR/.zshrc<CR>
 
 " ============================================================================
 " Buffer manip
@@ -71,9 +74,9 @@ nnoremap  <special>   <BS>  <C-^>
 " ----------------------------------------------------------------------------
 
 if dko#IsPlugged('vim-bbye')
-  nnoremap  <silent><special>  <Leader>bd  :<C-u>Bdelete<CR>
+  nnoremap  <silent><special>  <Leader>bd  :<C-U>Bdelete<CR>
 else
-  nnoremap  <silent><special>  <Leader>bd  :<C-u>lclose<CR>:bdelete<CR>
+  nnoremap  <silent><special>  <Leader>bd  :<C-U>lclose<CR>:bdelete<CR>
 endif
 
 " ============================================================================
@@ -132,28 +135,28 @@ cmap jj <Esc>
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-444
 " ----------------------------------------------------------------------------
 
-nnoremap U :<C-u>syntax sync fromstart<CR>:redraw!<CR>
+nnoremap U :<C-U>syntax sync fromstart<CR>:redraw!<CR>
 
 " ----------------------------------------------------------------------------
 " cd to current buffer's git root
 " ----------------------------------------------------------------------------
 
 nnoremap <silent>   <Leader>cr
-      \ :<C-u>execute 'cd! ' . get(b:, 'dkoproject_root', getcwd())<CR>
+      \ :<C-U>execute 'cd! ' . get(b:, 'dkoproject_root', getcwd())<CR>
 
 " ----------------------------------------------------------------------------
 " cd to current buffer path
 " ----------------------------------------------------------------------------
 
 nnoremap <silent>   <Leader>cd
-      \ :<C-u>cd! %:h<CR>
+      \ :<C-U>cd! %:h<CR>
 
 " ----------------------------------------------------------------------------
 " go up a level
 " ----------------------------------------------------------------------------
 
 nnoremap <silent>   <Leader>..
-      \ :<C-u>cd! ..<CR>
+      \ :<C-U>cd! ..<CR>
 
 " ============================================================================
 " Editing
@@ -172,7 +175,7 @@ vnoremap  gm   m
 
 vnoremap  <special>   <Down>      gj
 vnoremap  <special>   <Up>        gk
-nnoremap  <special>   <Leader>mm  :<C-u>call dkomovemode#toggle()<CR>
+nnoremap  <special>   <Leader>mm  :<C-U>call dkomovemode#toggle()<CR>
 
 " ----------------------------------------------------------------------------
 " Replace PgUp and PgDn with Ctrl-U/D
@@ -248,7 +251,7 @@ nnoremap  <Leader>j   VjgJl
 " Clean up whitespace
 " ----------------------------------------------------------------------------
 
-nnoremap  <Leader>ws  :<C-u>call dkowhitespace#clean()<CR>
+nnoremap  <Leader>ws  :<C-U>call dkowhitespace#clean()<CR>
 
 " ----------------------------------------------------------------------------
 " Horizontal rule

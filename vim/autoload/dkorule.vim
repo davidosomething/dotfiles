@@ -34,7 +34,7 @@ endfunction
 function! dkorule#map(...) abort
   let l:key = a:1
   let l:char = len(a:000) > 1 ? a:2 : a:1
-  let l:command = ':<C-u>call dkorule#char("' . l:char . '")<CR>'
+  let l:command = ':<C-U>call dkorule#char("' . l:char . '")<CR>'
   execute 'nnoremap <silent><special> <Leader>f' . l:key . ' ' . l:command
   execute 'inoremap <silent><special> <Leader>f' . l:key . ' <C-o>' . l:command
 endfunction

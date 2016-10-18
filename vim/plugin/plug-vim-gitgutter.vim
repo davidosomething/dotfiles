@@ -11,7 +11,7 @@ let g:gitgutter_enabled = 0
 
 let g:gitgutter_sign_modified = 'Δ'
 
-nmap <silent><special> <C-g> :<C-u>GitGutterToggle<CR>
+nmap <silent><special> <C-g> :<C-U>GitGutterToggle<CR>
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
