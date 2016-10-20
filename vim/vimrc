@@ -174,28 +174,38 @@ if !has('nvim')
   endif
 endif
 
-" swap - useless
-set noswapfile
+" ----------------------------------------------------------------------------
+" Writing swaps
+" ----------------------------------------------------------------------------
+
+" default is on, leave it alone.
+" pros: prevent editing stale copy of same file in two vim instances
+set swapfile
+
+" swapfile directory
 if !has('nvim')
   execute 'set directory=' . g:dko#vim_dir . '/.tmp/swap//'
 endif
 
-" backups
-set nobackup
-set backupskip=/tmp/*
-" Make Vim able to edit crontab files again.
-set backupskip+=,/private/tmp/*"
-if has('mac')
-  augroup dkomac
-    autocmd!
-    autocmd BufEnter  /private/tmp/crontab.*
-          \ setlocal backup
-          \ setlocal backupcopy=yes
-  augroup END
-endif
+" ----------------------------------------------------------------------------
+" Write backups
+" ----------------------------------------------------------------------------
+
+set backup
+
 if !has('nvim')
   execute 'set backupdir=' . g:dko#vim_dir . '/.tmp/backup//'
 endif
+
+" backupcopy=yes is the default, just be explicit. We need this for
+" webpack-dev-server and hot module reloading
+set backupcopy=yes
+
+" don't create backups for these paths
+set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
+" Make Vim able to edit crontab files again.
+set backupskip+=/private/tmp/*"
+set backupskip+=~/.secret/*
 
 " undo files
 " double slash means create dir structure to mirror file's path
