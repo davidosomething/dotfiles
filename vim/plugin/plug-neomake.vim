@@ -212,7 +212,7 @@ function! s:SetPhpcsStandard()
   if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
         \ || expand('%:p') =~? 'ed-com'
     let b:neomake_php_phpcs_args = neomake#makers#ft#php#phpcs().args
-          \ + [ '--runtime-set', 'installed_paths', '~/src/wpcs' ]
+          \ + [ '--runtime-set', 'installed_paths', expand('~/src/wpcs') ]
           \ + [ '--standard=WordPress-Extra' ]
           \ + [ '--exclude=WordPress.PHP.YodaConditions' ]
   endif
