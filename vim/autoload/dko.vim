@@ -75,7 +75,56 @@ function! dko#MapAll(settings) abort
   " Compose result
   let l:mapping_nvo = 'noremap '  . l:lhs . ' ' . l:rhs_nvo
   let l:mapping_ic  = 'noremap! ' . l:lhs . ' ' . l:rhs_ic
-  return l:mapping_nvo . ' | ' . l:mapping_ic
+  return l:mapping_nvo . '| ' . l:mapping_ic
+endfunction
+
+" ============================================================================
+" grepprg
+" ============================================================================
+
+function! dko#GetGrepper() abort
+  if exists('s:grepper') | return s:grepper | endif
+
+  let s:greppers = {}
+  let s:greppers.rg = {
+        \   'command': 'rg',
+        \   'options': [
+        \     '--hidden',
+        \     '--smart-case',
+        \     '--no-heading',
+        \     '--vimgrep',
+        \   ],
+        \   'format': '%f:%l:%c:%m',
+        \ }
+  let s:greppers.ag = {
+        \   'command': 'ag',
+        \   'options': [
+        \     '--hidden',
+        \     '--smart-case',
+        \     '--vimgrep',
+        \   ],
+        \   'format': '%f:%l:%c:%m,%f:%l:%m',
+        \ }
+  let s:greppers.ack = {
+        \   'command': 'ack',
+        \   'options': [
+        \     '--nogroup',
+        \     '--nocolor',
+        \     '--smart-case',
+        \     '--column',
+        \   ],
+        \   'format': '%f:%l:%c:%m,%f:%l:%m',
+        \ }
+
+  let s:grepper_name =
+        \   executable('rg') ? 'rg'
+        \ : executable('ag') ? 'ag'
+        \ : executable('ack') ? 'ack'
+        \ : ''
+
+  let s:grepper = empty(s:grepper_name) ? {} : s:greppers[s:grepper_name]
+
+  return s:grepper
 endfunction
 
 " ============================================================================

@@ -22,48 +22,14 @@ let g:neomru#directory_mru_limit  = 0       " Don't list directories
 " unite settings
 " ============================================================================
 
-" candidates
 let g:unite_source_grep_max_candidates = 300
 let g:unite_source_grep_recursive_opt = ''
 
-" file_rec/async and unite grep settings
-" use ripgrep
-if executable('rg')
-  " let s:options = [
-  "       \ '--color=never',
-  "       \ '--follow',
-  "       \ '--ignore-case',
-  "       \ '--line-number',
-  "       \ '--no-heading',
-  " As of 0.1.16
-  let s:options = [
-        \   '--hidden',
-        \   '--smart-case',
-        \   '--vimgrep',
-        \ ]
-  let g:unite_source_grep_command       = 'rg'
-  let g:unite_source_grep_default_opts  = join(s:options, ' ')
-
-  let g:unite_source_rec_async_command  = [ 'rg' ] + s:options + [ '--glob', '' ]
-
-" use the_silver_searcher
-elseif executable('ag')
-  let s:ag_opts = ' --hidden --smart-case --vimgrep'
-
-  " Ignore wildignores too
-  " https://github.com/gf3/dotfiles/blob/master/.vimrc#L564
-  for s:i in split(&wildignore, ',')
-    let s:i = substitute(s:i, '\*/\(.*\)/\*', '\1', 'g')
-    let s:ag_opts = s:ag_opts .
-          \ ' --ignore "' . substitute(s:i, '\*/\(.*\)/\*', '\1', 'g') . '"'
-  endfor
-  let g:unite_source_grep_command       = 'ag'
-  let g:unite_source_grep_default_opts  = s:ag_opts
-
-  " This setting reverted so just providing --vimgrep no longer works
-  " https://github.com/Shougo/unite.vim/issues/986#issuecomment-133950231
-  let g:unite_source_rec_async_command  = [ 'ag',
-        \ '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '' ]
+if !empty(dko#GetGrepper())
+  let g:unite_source_grep_command = dko#GetGrepper().command
+  let g:unite_source_grep_default_opts = join(dko#GetGrepper().options, ' ')
+  let g:unite_source_rec_async_command =
+        \ [ dko#GetGrepper().command ] + dko#GetGrepper().options
 endif
 
 " ============================================================================
@@ -179,7 +145,7 @@ function! s:BindFunctionKeys()
   if dko#IsPlugged('unite-outline')
     execute dko#MapAll({
           \   'key':      '<F2>',
-          \   'command':  'Unite outline'
+          \   'command':  'Unite outline',
           \ })
   endif
 
@@ -187,19 +153,19 @@ function! s:BindFunctionKeys()
   if !g:dko_use_fzf
     execute dko#MapAll({
           \   'key':      '<F3>',
-          \   'command':  'Unite -start-insert buffer'
+          \   'command':  'Unite -start-insert buffer',
           \ })
   endif
 
   if dko#IsPlugged('redismru.vim')
     execute dko#MapAll({
           \   'key':      '<F4>',
-          \   'command':  'Unite -start-insert redismru'
+          \   'command':  'Unite -start-insert redismru',
           \ })
   elseif dko#IsPlugged('neomru.vim')
     execute dko#MapAll({
-          \   'key': '<F4>',
-          \   'command': 'Unite -start-insert neomru/file'
+          \   'key':     '<F4>',
+          \   'command': 'Unite -start-insert neomru/file',
           \ })
   endif
 
@@ -208,29 +174,31 @@ function! s:BindFunctionKeys()
     if has('nvim')
       execute dko#MapAll({
             \   'key':      '<F5>',
-            \   'command':  'Unite -start-insert file_rec/neovim:!'
+            \   'command':  'Unite -start-insert file_rec/neovim:!',
             \ })
     else
       execute dko#MapAll({
             \   'key':      '<F5>',
-            \   'command':  'Unite -start-insert file_rec/async:!'
+            \   'command':  'Unite -start-insert file_rec/async:!',
             \ })
     endif
   endif
 
   execute dko#MapAll({
         \   'key':      '<F6>',
-        \   'command':  'UniteWithProjectDir grep:.'
+        \   'command':  'UniteWithProjectDir grep:. -wrap',
         \ })
+
   if dko#IsPlugged('unite-tag')
     execute dko#MapAll({
           \   'key':      '<F7>',
-          \   'command':  'Unite -start-insert tag'
+          \   'command':  'Unite -start-insert tag',
           \ })
   endif
+
   execute dko#MapAll({
         \   'key':    '<F8>',
-        \   'command': 'Unite -start-insert command'
+        \   'command': 'Unite -start-insert command',
         \ })
 endfunction
 
