@@ -905,6 +905,10 @@ function! s:LoadPlugins()
   " Language: Python
   " ========================================================================
 
+  " Vim's python ftplugin upstream
+  " Not a valid plugin runtime structure, file needs to be in ftplugin/
+  "Plug 'sullyj3/vim-ftplugin-python'
+
   Plug 'hynek/vim-python-pep8-indent'
   Plug 'raimon49/requirements.txt.vim'
 
