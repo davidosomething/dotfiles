@@ -57,12 +57,6 @@ still has a good list ([Syntax-Checkers]) and shows how to set them up.
 - When installing/updating plugins, ones that have a dependency on node will
   be installed.
 
-#### Redis Settings
-
-- If a local redis server is available (`brew install redis`), AND npm is
-  available, unite will provide the much faster redismru.vim instead of
-  neomru.vim
-
 ### Arch Linux
 
 Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux!

@@ -148,7 +148,6 @@ Make sure the rest of the things above are installed since after you start using
         1. `pyenv virtualenv 2.7.12 neovim2`
         1. `pyenv activate neovim2`
         1. `pip install neovim`
-- `brew install redis` for `redismru.vim` later
 - run [bootstrap/terminfo.sh](../bootstrap/terminfo.sh) (added terminfo for iterm with italics support)
 - Install `gpgtools` from brew cask (using GPG suite since it provides
   `gpg-agent` and can store passphrase in keychain with minimal cfg on

@@ -15,7 +15,7 @@ augroup END
 " ============================================================================
 
 let g:neomru#update_interval      = 300     " Update cache every 5 minutes
-let g:neomru#file_mru_limit       = 200     " Fewer files in mru
+let g:neomru#file_mru_limit       = 100     " Fewer files in mru
 let g:neomru#directory_mru_limit  = 0       " Don't list directories
 
 " ============================================================================
@@ -157,12 +157,7 @@ function! s:BindFunctionKeys()
           \ })
   endif
 
-  if dko#IsPlugged('redismru.vim')
-    execute dko#MapAll({
-          \   'key':      '<F4>',
-          \   'command':  'Unite -start-insert redismru',
-          \ })
-  elseif dko#IsPlugged('neomru.vim')
+  if dko#IsPlugged('neomru.vim')
     execute dko#MapAll({
           \   'key':     '<F4>',
           \   'command': 'Unite -start-insert neomru/file',

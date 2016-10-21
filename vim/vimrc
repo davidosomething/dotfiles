@@ -562,13 +562,7 @@ function! s:LoadPlugins()
         \| Plug 'Shougo/vimfiler.vim'
         \| Plug 'Shougo/unite-outline'
         \| Plug 'tsukkee/unite-tag'
-
-  " unite most-recently-used files menu
-  if executable('redis-server') && executable('npm')
-    Plug 'chemzqm/redismru.vim', { 'do': 'npm install' }
-  else
-    Plug 'Shougo/neomru.vim'
-  endif
+        \| Plug 'Shougo/neomru.vim'
 
   Plug 'nathanaelkane/vim-indent-guides', {
         \   'on': [
