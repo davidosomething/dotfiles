@@ -191,15 +191,19 @@ endif
 " Write backups
 " ----------------------------------------------------------------------------
 
-set backup
-
 " Don't write backups to current directory (vim and neovim default to .)
 if !has('nvim')
   execute 'set backupdir=' . g:dko#vim_dir . '/.tmp/backup//'
 endif
 
+" Use backup files when writing (create new file, replace old one with new
+" one)
+set writebackup
+" but do not leave around backup.xyz~ files after that
+set nobackup
 " backupcopy=yes is the default, just be explicit. We need this for
-" webpack-dev-server and hot module reloading
+" webpack-dev-server and hot module reloading -- preserves special file types
+" like symlinks
 set backupcopy=yes
 
 " don't create backups for these paths
