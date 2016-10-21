@@ -12,6 +12,9 @@ nnoremap  <special>  <CR>  <Esc>:<C-U>
 
 command! Q q
 
+" vim-plug shortcut
+command! PU PlugUpdate | PlugUpgrade
+
 execute dko#MapAll({ 'key': '<F10>', 'command': 'call dkotabline#Toggle()' })
 
 " ============================================================================
