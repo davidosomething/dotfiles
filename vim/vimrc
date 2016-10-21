@@ -193,6 +193,7 @@ endif
 
 set backup
 
+" Don't write backups to current directory (vim and neovim default to .)
 if !has('nvim')
   execute 'set backupdir=' . g:dko#vim_dir . '/.tmp/backup//'
 endif
