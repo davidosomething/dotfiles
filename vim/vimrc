@@ -562,7 +562,6 @@ function! s:LoadPlugins()
         \| Plug 'Shougo/vimfiler.vim'
         \| Plug 'Shougo/unite-outline'
         \| Plug 'tsukkee/unite-tag'
-        \| Plug 'Shougo/neomru.vim'
 
   Plug 'nathanaelkane/vim-indent-guides', {
         \   'on': [

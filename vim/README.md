@@ -122,13 +122,13 @@ Unite keys are arranged by search context from small (current buf) to big
 | ------: | :--- |
 | `<F1>`  | left pane: vimfiler |
 | `<F2>`  | right pane: unite outline (current buffer) |
-| `<F3>`  | unite buffers (current instance) |
-| `<F4>`  | unite most recently used files (limited filesystem) |
+| `<F3>`  | FZF current buffers (current instance) |
+| `<F4>`  | FZF most recently used files and open buffers (limited filesystem) |
 | `<F5>`  | FZF (or unite) fuzzy search files (filesystem) |
 | `<F6>`  | FZF (or unite) grep using ripgrep (from PWD) |
 | `<F7>`  | unite tag selector (tagged files in project) |
 | `<F8>`  | unite command palette |
-| `<F9>`  | _unused_ |
+| `<F9>`  | FZF change colorscheme |
 | `<F10>` | toggle tabline |
 | `<F11>` | toggle indent guides |
 | `<F12>` | toggle paste mode |

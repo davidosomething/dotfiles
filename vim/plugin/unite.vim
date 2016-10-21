@@ -11,14 +11,6 @@ augroup dkounite
 augroup END
 
 " ============================================================================
-" Extension: neomru settings
-" ============================================================================
-
-let g:neomru#update_interval      = 300     " Update cache every 5 minutes
-let g:neomru#file_mru_limit       = 100     " Fewer files in mru
-let g:neomru#directory_mru_limit  = 0       " Don't list directories
-
-" ============================================================================
 " unite settings
 " ============================================================================
 
@@ -147,36 +139,6 @@ function! s:BindFunctionKeys()
           \   'key':      '<F2>',
           \   'command':  'Unite outline',
           \ })
-  endif
-
-  " Using :FZB instead of Unite for buffer list
-  if !g:dko_use_fzf
-    execute dko#MapAll({
-          \   'key':      '<F3>',
-          \   'command':  'Unite -start-insert buffer',
-          \ })
-  endif
-
-  if dko#IsPlugged('neomru.vim')
-    execute dko#MapAll({
-          \   'key':     '<F4>',
-          \   'command': 'Unite -start-insert neomru/file',
-          \ })
-  endif
-
-  " Using :FZF instead of Unite for file reducing
-  if !g:dko_use_fzf
-    if has('nvim')
-      execute dko#MapAll({
-            \   'key':      '<F5>',
-            \   'command':  'Unite -start-insert file_rec/neovim:!',
-            \ })
-    else
-      execute dko#MapAll({
-            \   'key':      '<F5>',
-            \   'command':  'Unite -start-insert file_rec/async:!',
-            \ })
-    endif
   endif
 
   execute dko#MapAll({

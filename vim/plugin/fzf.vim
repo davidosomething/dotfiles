@@ -10,6 +10,30 @@ if !g:dko_use_fzf | finish | endif
 execute dko#MapAll({ 'key': '<F5>', 'command': 'FZF' })
 
 " ============================================================================
+" :FZB to list buffers, bound to F3
+" ============================================================================
+
+function! s:GetBufferList() abort
+  redir => l:ls
+  silent ls
+  redir END
+  return split(l:ls, '\n')
+endfunction
+
+function! s:OpenBuffer(e) abort
+  execute 'buffer ' . matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+command! FZB
+      \ call fzf#run({
+      \   'source':  reverse(s:GetBufferList()),
+      \   'sink':    function('s:OpenBuffer'),
+      \   'options': '+m',
+      \   'down':    min([ len(s:GetBufferList()) + 2, 10 ]),
+      \ })
+execute dko#MapAll({ 'key': '<F3>', 'command': 'FZB' })
+
+" ============================================================================
 " :FZC to switch color scheme
 " ============================================================================
 
@@ -22,27 +46,35 @@ command! FZC
       \   'options': '+m',
       \   'down':    10,
       \ })
+execute dko#MapAll({ 'key': '<F9>', 'command': 'FZC' })
 
 " ============================================================================
-" :FZB to list buffers, bound to F3
+" :FZM for open buffers AND MRU
 " ============================================================================
 
-function! s:GetBufferList()
-  redir => l:ls
-  silent ls
-  redir END
-  return split(l:ls, '\n')
+let s:mru_filter = join([
+      \   'Bufferize:',
+      \   'fugitive:',
+      \   '\[unite\]',
+      \   'NERD_tree',
+      \   '^/tmp/',
+      \   '.git/',
+      \   'nvim/runtime/doc/',
+      \ ], '\|')
+      \ 
+function! s:GetMruFiles() abort
+  return extend(
+  \ filter(copy(v:oldfiles),
+  \        "v:val !~? '" . s:mru_filter . "'"),
+  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
 
-function! s:OpenBuffer(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-command! FZB
+command! FZM
       \ call fzf#run({
-      \   'source':  reverse(<SID>GetBufferList()),
-      \   'sink':    function('<SID>OpenBuffer'),
-      \   'options': '+m',
-      \   'down':    min([ len(<SID>GetBufferList()) + 2, 10 ]),
+      \   'source':  reverse(s:GetMruFiles()),
+      \   'sink':    'edit',
+      \   'options': '-m -x +s',
+      \   'down':    min([ len(s:GetMruFiles()) + 2, 10 ]),
       \ })
-execute dko#MapAll({ 'key': '<F3>', 'command': 'FZB' })
+execute dko#MapAll({ 'key': '<F4>', 'command': 'FZM' })
+
