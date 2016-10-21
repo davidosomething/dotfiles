@@ -167,7 +167,7 @@ if !has('nvim')
   if has('viminfo')
     augroup dkoviminfo
       autocmd!
-      silent! autocmd vimrc BufNewFile,BufReadPre
+      silent! autocmd BufNewFile,BufReadPre
           \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
           \ setlocal viminfo=
     augroup END
@@ -558,6 +558,9 @@ function! s:LoadPlugins()
   " gK to lookup
   Plug 'keith/investigate.vim'
 
+  " Include completion, include tags
+  Plug 'Shougo/neoinclude.vim'
+
   Plug 'Shougo/unite.vim'
         \| Plug 'Shougo/vimfiler.vim'
         \| Plug 'Shougo/unite-outline'
@@ -631,9 +634,6 @@ function! s:LoadPlugins()
     " Mixed-filetype completion for Shougo complete, e.g. highlight JS within
     " Markdown fenced code blocks.
     Plug 'Shougo/context_filetype.vim'
-
-    " Include completion
-    Plug 'Shougo/neoinclude.vim'
 
     Plug 'Shougo/neosnippet'
           \| Plug 'honza/vim-snippets'
@@ -1071,7 +1071,7 @@ augroup END
 augroup dkotabline
   autocmd!
 
-  autocmd vimrc VimEnter
+  autocmd VimEnter
         \ *
         \ set tabline=%!dkotabline#Output()
 
@@ -1086,7 +1086,7 @@ augroup END
 augroup dkostatusline
   autocmd!
 
-  autocmd vimrc VimEnter
+  autocmd VimEnter
         \ *
         \ set statusline=%!dkostatus#Output(1)
 
