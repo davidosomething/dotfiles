@@ -561,11 +561,6 @@ function! s:LoadPlugins()
   " Include completion, include tags
   Plug 'Shougo/neoinclude.vim'
 
-  Plug 'Shougo/unite.vim'
-        \| Plug 'Shougo/vimfiler.vim'
-        \| Plug 'Shougo/unite-outline'
-        \| Plug 'tsukkee/unite-tag'
-
   Plug 'nathanaelkane/vim-indent-guides', {
         \   'on': [
         \     '<Plug>IndentGuidesToggle',
