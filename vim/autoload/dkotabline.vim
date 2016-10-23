@@ -4,7 +4,7 @@ scriptencoding utf-8
 " Tab line
 " ============================================================================
 
-" bound to <F10>
+" bound to <F11> - see plugin/mappings.vim
 function! dkotabline#Toggle() abort
   execute 'set showtabline=' . (&showtabline ? 0 : 2)
 endfunction

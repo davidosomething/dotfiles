@@ -506,16 +506,8 @@ let g:dko_has_completion = 0
 let g:dko_use_fzf = has('nvim') && isdirectory(expand('~/.fzf'))
 
 function! s:LoadPlugins()
-  let s:use_colorv    = 0 && (has('python') || has('python3'))
-
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
-
-  " ==========================================================================
-  " Plug: Async processes
-  " ==========================================================================
-
-  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
   " ========================================================================
   " Plug: Colorscheme
@@ -590,7 +582,7 @@ function! s:LoadPlugins()
   Plug 'gregsexton/MatchTag'
 
   " highlight lines corresponding to quickfix entries
-  Plug 'jceb/vim-hier', { 'on': ['HierStart'] }
+  Plug 'jceb/vim-hier', { 'on': [ 'HierStart' ] }
 
   " add gS to smart split lines like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
@@ -643,7 +635,7 @@ function! s:LoadPlugins()
   " Plug: Editing keys
   " ========================================================================
 
-  Plug 'godlygeek/tabular', { 'on': ['Tabularize'] }
+  Plug 'godlygeek/tabular', { 'on': [ 'Tabularize' ] }
 
   " custom C-x C-a mappings, see plugin/plug-increment-activator.vim
   Plug 'nishigori/increment-activator'
@@ -957,10 +949,9 @@ function! s:LoadPlugins()
   " ----------------------------------------
 
   " Hex (et al) color highlighting
-  if s:use_colorv | Plug 'Rykka/colorv.vim'
-  else | Plug 'ap/vim-css-color'
-  "else | Plug 'chrisbra/Colorizer'
-  endif
+  "Plug 'Rykka/colorv.vim' -- requires python
+  "Plug 'chrisbra/Colorizer' -- slower and not as complete
+  Plug 'ap/vim-css-color'
 
   " Omnicompletion
   Plug 'othree/csscomplete.vim'
@@ -1018,8 +1009,6 @@ function! s:LoadPlugins()
 
   Plug 'moll/vim-bbye'
 
-  Plug 'now/vim-quit-if-only-quickfix-buffer-left'
-
   Plug 'tmux-plugins/vim-tmux-focus-events'
 endfunction
 
@@ -1060,6 +1049,12 @@ augroup dkowindow
   autocmd VimResized
         \ *
         \ wincmd =
+
+  " Quit if quickfix is the only window
+  " from https://github.com/now/vim-quit-if-only-quickfix-buffer-left/blob/master/plugin/now/quit-if-only-quickfix-buffer-left.vim
+  autocmd WinEnter
+        \ *
+        \ if winnr('$') == 1 && &buftype == 'quickfix' | quit | endif
 augroup END
 
 " Tabline

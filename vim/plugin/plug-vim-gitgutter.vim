@@ -11,7 +11,7 @@ let g:gitgutter_enabled = 0
 
 let g:gitgutter_sign_modified = 'Δ'
 
-nmap <silent><special> <C-g> :<C-U>GitGutterToggle<CR>
+execute dko#MapAll({ 'key': '<F9>', 'command': 'GitGutterToggle' })
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

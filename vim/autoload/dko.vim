@@ -49,12 +49,17 @@ endfunction
 " @param  {String}  settings.key
 " @param  {String}  [settings.command]
 " @param  {Int}     [settings.special]
+" @param  {Int}     [settings.remap]
 " @return {String}  to execute (this way :verb map traces back to correct file)
 function! dko#MapAll(settings) abort
   " Auto determine if special key was mapped
   " Just in case I forgot to include cpoptions guards somewhere
   let l:special = get(a:settings, 'special', 0) || a:settings.key[0] ==# '<'
         \ ? '<special>'
+        \ : ''
+
+  let l:remap = get(a:settings, 'remap', 1)
+        \ ? 'nore'
         \ : ''
 
   " Key to map
@@ -73,8 +78,8 @@ function! dko#MapAll(settings) abort
   endif
 
   " Compose result
-  let l:mapping_nvo = 'noremap '  . l:lhs . ' ' . l:rhs_nvo
-  let l:mapping_ic  = 'noremap! ' . l:lhs . ' ' . l:rhs_ic
+  let l:mapping_nvo = l:remap . 'map '  . l:lhs . ' ' . l:rhs_nvo
+  let l:mapping_ic  = l:remap . 'map! ' . l:lhs . ' ' . l:rhs_ic
   return l:mapping_nvo . '| ' . l:mapping_ic
 endfunction
 

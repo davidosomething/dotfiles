@@ -111,26 +111,24 @@ way to find them.
 - `[s]ubstitute` has been remapped to vim-operator-surround
 - A bunch of `c` mappings are now operators that toggle camelcase (e.g., `cc`
   which was previously equivalent to `C`). See `plugin/operator.vim`
-- normal `<C-g>` -- gitgutter toggle (originally file status)
 
 #### Function Keys
 
 |     Key | Desc |
 | ------: | :--- |
-| `<F1>`  | Unused |
-| `<F2>`  | Unused |
-| `<F3>`  | FZF current buffers (current instance) |
-| `<F4>`  | FZF most recently used files and open buffers (limited filesystem) |
-| `<F5>`  | FZF fuzzy search files (filesystem) |
-| `<F6>`  | FZF grep using ripgrep (from PWD) |
-| `<F7>`  | Unused |
-| `<F8>`  | Unused |
-| `<F9>`  | FZF change colorscheme |
-| `<F10>` | toggle tabline |
-| `<F11>` | toggle indent guides |
-| `<F12>` | toggle paste mode |
-| `\`     | enter OverCommandLine for subst |
-| `<C-g>` | toggle GitGutter |
+| `<F1>`  | FZF current buffers (current instance) |
+| `<F2>`  | FZF most recently used files and open buffers (limited filesystem) |
+| `<F3>`  | FZF fuzzy search files (filesystem) |
+| `<F4>`  | unused |
+| `<F5>`  | :Neomake |
+| `<F6>`  | unused |
+| `<F7>`  | unused |
+| `<F8>`  | FZF change colorscheme |
+| `<F9>`  | :GitGutterToggle |
+| `<F10>` | :IndentGuidesToggle |
+| `<F11>` | dkotabline#Toggle() |
+| `<F12>` | set pastetoggle |
+| `\`     | :OverCommandLine |
 
 See `plugin/mappings.vim` (and other plugin/* files) for mappings not
 associated to [vim-plug]-managed plugins.
@@ -141,7 +139,8 @@ Plan to map these at some point
 
 - `n <C-b>` -- back one screen (page)
 - `n <C-f>` -- fore one screen (page)
-- `n <C-s>`
+- `n <C-g>` -- show file status (everything's already in statusline...)
+- `n <C-s>` -- nothing
 - `n zh/l`  -- useless wrap mode scroll
 
 ## My Vim conventions

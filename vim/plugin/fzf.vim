@@ -4,13 +4,7 @@ scriptencoding utf-8
 if !g:dko_use_fzf | finish | endif
 
 " ============================================================================
-" Use FZF to search files
-" ============================================================================
-
-execute dko#MapAll({ 'key': '<F5>', 'command': 'FZF' })
-
-" ============================================================================
-" :FZB to list buffers, bound to F3
+" :FZB to list buffers
 " ============================================================================
 
 function! s:GetBufferList() abort
@@ -31,22 +25,7 @@ command! FZB
       \   'options': '+m',
       \   'down':    min([ len(s:GetBufferList()) + 2, 10 ]),
       \ })
-execute dko#MapAll({ 'key': '<F3>', 'command': 'FZB' })
-
-" ============================================================================
-" :FZC to switch color scheme
-" ============================================================================
-
-command! FZC
-      \ call fzf#run({
-      \   'source':
-      \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
-      \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-      \   'sink':    'colo',
-      \   'options': '+m',
-      \   'down':    10,
-      \ })
-execute dko#MapAll({ 'key': '<F9>', 'command': 'FZC' })
+execute dko#MapAll({ 'key': '<F1>', 'command': 'FZB' })
 
 " ============================================================================
 " :FZM for open buffers AND MRU
@@ -76,5 +55,26 @@ command! FZM
       \   'options': '-m -x +s',
       \   'down':    min([ len(s:GetMruFiles()) + 2, 10 ]),
       \ })
-execute dko#MapAll({ 'key': '<F4>', 'command': 'FZM' })
+execute dko#MapAll({ 'key': '<F2>', 'command': 'FZM' })
+
+" ============================================================================
+" Use FZF to search files
+" ============================================================================
+
+execute dko#MapAll({ 'key': '<F3>', 'command': 'FZF' })
+
+" ============================================================================
+" :FZC to switch color scheme
+" ============================================================================
+
+command! FZC
+      \ call fzf#run({
+      \   'source':
+      \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
+      \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
+      \   'sink':    'colo',
+      \   'options': '+m',
+      \   'down':    10,
+      \ })
+execute dko#MapAll({ 'key': '<F8>', 'command': 'FZC' })
 
