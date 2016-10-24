@@ -524,8 +524,10 @@ function! s:LoadPlugins()
   " creates dir if new file in new dir
   Plug 'dockyard/vim-easydir'
 
-  Plug 'ludovicchabant/vim-gutentags'
-  "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
+  if executable('ctags')
+    Plug 'ludovicchabant/vim-gutentags'
+    "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
+  endif
 
   " ========================================================================
   " Plug: Commands
