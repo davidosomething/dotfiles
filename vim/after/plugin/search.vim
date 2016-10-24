@@ -30,6 +30,10 @@ if dko#IsPlugged('incsearch.vim')
   map  #  <Plug>(incsearch-nohl)
 endif
 
+if dko#IsPlugged('vim-asterisk')
+  let g:asterisk#keeppos = 1
+endif
+
 if dko#IsPlugged('vim-anzu')
   " Support other search modes like `gd`
   let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
