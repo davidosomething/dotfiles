@@ -1,9 +1,11 @@
+Pygments
 bashate
 flake8
 frosted
 neovim
 pep8
 prospector
-Pygments
+pycodestyle
+pylint
 vim-vint
 vulture
