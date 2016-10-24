@@ -14,14 +14,17 @@ set cpoptions&vim
 " - vim-asterisk    don't move on first search with *
 " - vim-searchant   highlight CURRENT search item differently
 
-" Star search (*) mapping expression
 " Get vim-asterisk, vim-anzu, and incsearch.vim to play nicely
-function! s:DKO_StarSearch() abort
+" @param {String} op
+" @return {String} <expr>
+function! s:DKO_Search(op) abort
+  let l:long_op = a:op ==# '*' ? 'star' : 'sharp'
+
   let l:ops = ''
 
   " Move or don't move?
   if dko#IsPlugged('vim-asterisk')
-    let l:ops = l:ops . "\<Plug>(asterisk-z*)"
+    let l:ops = l:ops . "\<Plug>(asterisk-z" . a:op . ")"
   endif
 
   " Highlight matches?
@@ -39,15 +42,16 @@ function! s:DKO_StarSearch() abort
     if dko#IsPlugged('vim-asterisk')
       let l:ops = l:ops . "\<Plug>(anzu-update-search-status)"
     else
-      let l:ops = l:ops . "\<Plug>(anzu-star)"
+      let l:ops = l:ops . "\<Plug>(anzu-" . l:long_op . ")"
     endif
   endif
 
   return l:ops
 endfunction
 
-if !empty(s:DKO_StarSearch())
-  nmap <silent><special><expr>  *   <SID>DKO_StarSearch()
+if !empty(s:DKO_Search('*'))
+  nmap <silent><special><expr>  *   <SID>DKO_Search('*')
+  nmap <silent><special><expr>  #   <SID>DKO_Search('#')
 endif
 
 if dko#IsPlugged('incsearch.vim')
@@ -64,7 +68,6 @@ if dko#IsPlugged('vim-anzu')
   let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
   nmap <silent><special> n <Plug>(anzu-n)
   nmap <silent><special> N <Plug>(anzu-N)
-  nmap <silent><special> # <Plug>(anzu-sharp)
 endif
 
 let &cpoptions = s:cpo_save
