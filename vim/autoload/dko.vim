@@ -179,6 +179,42 @@ function! dko#IsMakerExecutable(name, ...) abort
 endfunction
 
 " ============================================================================
+" Search helpers
+" ============================================================================
+
+" Get vim-asterisk, vim-anzu, and incsearch.vim to play nicely
+"
+" @param  {String} op
+" @return {String} <expr>
+function! dko#Search(op) abort
+  let l:long_op = a:op ==# '*' ? 'star' : 'sharp'
+
+  let l:ops = ''
+
+  " Highlight matches?
+  if dko#IsPlugged('incsearch.vim')
+    " no CursorMoved event if using vim-asterisk
+    let l:ops .= dko#IsPlugged('vim-asterisk')
+          \ ? "\<Plug>(incsearch-nohl0)"
+          \ : "\<Plug>(incsearch-nohl)"
+  endif
+
+  " Move or don't move?
+  let l:ops .= dko#IsPlugged('vim-asterisk')
+        \ ? "\<Plug>(asterisk-z" . a:op . ')'
+        \ : ''
+
+  " Show count of matches
+  if dko#IsPlugged('vim-anzu')
+    let l:ops .= dko#IsPlugged('vim-asterisk')
+          \ ? "\<Plug>(anzu-update-search-status)"
+          \ : "\<Plug>(anzu-" . l:long_op . ')'
+  endif
+
+  return l:ops
+endfunction
+
+" ============================================================================
 " Code parsing
 " ============================================================================
 

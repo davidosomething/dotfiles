@@ -981,6 +981,24 @@ function! s:LoadPlugins()
   if g:dko_has_completion | Plug 'Shougo/neco-vim', { 'for': ['vim'] }
   endif
 
+  " ==========================================================================
+  " Plug: Search
+  " ==========================================================================
+
+  " <Plug> to not move on * search function
+  Plug 'haya14busa/vim-asterisk'
+
+  " Will be replaced by https://github.com/neovim/neovim/pull/5226
+  " @see https://github.com/haya14busa/incsearch.vim/issues/79
+  " @see https://github.com/neovim/neovim/issues/3688
+  " highlight partial matches as you type in search mode
+  Plug 'haya14busa/incsearch.vim'
+
+  " Show (#/total results) when searching for a term
+  " known echo issue if remapping [[ and ]], but I removed that map
+  " @see https://github.com/osyo-manga/vim-anzu/issues/19
+  Plug 'osyo-manga/vim-anzu'
+
   " ========================================================================
   " Plug: UI -- load last!
   " ========================================================================
@@ -992,22 +1010,6 @@ function! s:LoadPlugins()
     " :GitGutterToggle (bound to C-g)
     Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle'] }
   endif
-
-  " <Plug> to not move on * search function
-  Plug 'haya14busa/vim-asterisk'
-
-  " Disabled on neovim until 0.2
-  " Will be replaced by https://github.com/neovim/neovim/pull/5226
-  " @see https://github.com/haya14busa/incsearch.vim/issues/79
-  " @see https://github.com/neovim/neovim/issues/3688
-  " highlight partial matches as you type in search mode
-  if !has('nvim') | Plug 'haya14busa/incsearch.vim'
-  endif
-
-  " Show (#/total results) when searching for a term
-  " known echo issue if remapping [[ and ]], but I removed that map
-  " @see https://github.com/osyo-manga/vim-anzu/issues/19
-  Plug 'osyo-manga/vim-anzu'
 
   Plug 'moll/vim-bbye'
 
