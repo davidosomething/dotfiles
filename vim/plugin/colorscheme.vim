@@ -1,7 +1,7 @@
 " plugin/colorscheme.vim
 
 let s:colorscheme = 'default'
-if dko#IsPlugged('Base2Tone-vim') && (has('nvim') || has('gui'))
+if dko#IsPlugged('Base2Tone-vim') && (has('nvim') || has('gui_running'))
   let g:base16colorspace=256
   silent! colorscheme Base2Tone-Lake-dark
   set background=dark

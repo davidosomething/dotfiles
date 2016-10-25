@@ -1028,6 +1028,8 @@ let s:plug_dir = '/vendor/'
 let s:plug_dir .= has('nvim') ? 'nvim' : 'vim'
 let s:dko_plug_absdir = g:dko#vim_dir . s:plug_dir
 
+let g:plug_window = 'tabnew'
+
 if s:use_plugins
   " Load vim-plug and its plugins?
   if empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
