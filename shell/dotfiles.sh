@@ -58,9 +58,9 @@ dko::dotfiles::__reload() {
 
 dko::dotfiles::__update() {
   dko::status "Updating dotfiles"
-  (
-    cd "$DOTFILES" || { dko::err "No \$DOTFILES directory" && exit 1; }
+  ( cd "$DOTFILES" || { dko::err "No \$DOTFILES directory" && exit 1; }
     git pull --rebase || exit 1
+    git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     dko::status "Updating dotfiles submodules"
     git submodule update --init || exit 1
   ) || {
@@ -76,9 +76,9 @@ dko::dotfiles::__update() {
 
 dko::dotfiles::__update_zplug() {
   dko::status "Updating zplug"
-  (
-    cd "${ZPLUG_HOME}" || { dko::err "No \$ZPLUG_HOME" && exit 1; }
+  ( cd "${ZPLUG_HOME}" || { dko::err "No \$ZPLUG_HOME" && exit 1; }
     git pull || exit 1
+    git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     dko::status "Restart the shell to ensure a clean zplug init"
   ) || return 1
 
@@ -96,10 +96,10 @@ dko::dotfiles::__update_zplug() {
 
 dko::dotfiles::__update_secret() {
   dko::status "Updating secret"
-  (
-    cd "${HOME}/.secret" || dko::err "No ~/.secret directory"
+  ( cd "${HOME}/.secret" || dko::err "No ~/.secret directory"
     git pull --rebase --recurse-submodules \
-      && git submodule update --init
+    && git log --no-merges --abbrev-commit --oneline ORIG_HEAD.. \
+    && git submodule update --init
   )
 }
 
@@ -180,9 +180,9 @@ dko::dotfiles::__update_fzf() {
     && dko::status "fzf was installed via brew (BAD, vim expects in ~/.fzf)" \
     && return 1
 
-  (
-    cd "${HOME}/.fzf" || { dko::err "Could not cd to ~/.fzf" && exit 1; }
+  ( cd "${HOME}/.fzf" || { dko::err "Could not cd to ~/.fzf" && exit 1; }
     git pull || { dko::err "Could not update ~/.fzf" && exit 1; }
+    git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     ./install --key-bindings --completion --no-update-rc
   ) || return 1
 }
@@ -263,7 +263,11 @@ dko::dotfiles::__update_nvm() {
     readonly previous_nvm="$(git describe --abbrev=0 --tags)"
 
     dko::status "Fetching latest nvm"
-    { git checkout master && git pull --ff-only; } \
+    {
+      git checkout master
+      git pull --ff-only
+      git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
+    } \
       || dko::err "Could not fetch" && exit 1
     readonly latest_nvm="$(git describe --abbrev=0 --tags)"
 
@@ -317,9 +321,9 @@ dko::dotfiles::__update_wpcs() {
     mkdir -p "${sources_path}"
     git clone -b master "$wpcs_repo" "$wpcs_path"
   else
-    (
-      cd "$wpcs_path" || exit 1
-      git pull
+    ( cd "$wpcs_path" || exit 1
+      git pull \
+      && git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     ) || return 1
   fi
 
@@ -366,7 +370,11 @@ dko::dotfiles::__update_vimlint() {
 
   if [ -d "$vimlint" ]; then
     dko::status "Updating vimlint"
-    ( cd "$vimlint" && git reset --hard && git pull )
+    ( cd "$vimlint" \
+      && git reset --hard \
+      && git pull \
+      && git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
+    )
   else
     dko::status "Installing vimlint"
     git clone https://github.com/syngan/vim-vimlint "$vimlint"
@@ -374,7 +382,11 @@ dko::dotfiles::__update_vimlint() {
 
   if [ -d "$vimlparser" ]; then
     dko::status "Updating vimlparser"
-    ( cd "$vimlparser" && git reset --hard && git pull )
+    ( cd "$vimlparser" \
+      && git reset --hard \
+      && git pull \
+      && git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
+    )
   else
     dko::status "Installing vimlparser"
     git clone https://github.com/ynkdir/vim-vimlparser "$vimlparser" >/dev/null 2>&1
