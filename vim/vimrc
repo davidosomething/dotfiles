@@ -513,8 +513,10 @@ function! s:LoadPlugins()
   " Plug: Colorscheme
   " ========================================================================
 
-  Plug 'morhetz/gruvbox'
+  " Use in nvim
   Plug 'atelierbram/Base2Tone-vim'
+  " Use in vim
+  Plug 'morhetz/gruvbox'
 
   " ========================================================================
   " Plug: File system
