@@ -3,14 +3,21 @@
 " This is an after/plugin since some plugins (in testing, like vim-searchant)
 " might set their own mappings.
 "
-" @TODO maybe unmap before mapping in case some other plugin tries something
-" fishy
-
 if exists('g:loaded_dko_search') | finish | endif
 let g:loaded_dko_search = 1
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
+
+" In case some other plugin tries something fishy
+
+silent! unmap /
+silent! unmap g/
+silent! unmap ?
+silent! unmap n
+silent! unmap N
+silent! unmap #
+silent! unmap *
 
 " ============================================================================
 
@@ -20,9 +27,8 @@ set cpoptions&vim
 " - vim-searchant   highlight CURRENT search item differently
 
 if dko#IsPlugged('incsearch.vim')
-  " Swapped stay and forward
-  map  /  <Plug>(incsearch-stay)
-  map  g/  <Plug>(incsearch-forward)
+  map  /  <Plug>(incsearch-forward)
+  map  g/ <Plug>(incsearch-stay)
 
   map  ?  <Plug>(incsearch-backward)
   map  n  <Plug>(incsearch-nohl)
