@@ -47,6 +47,7 @@
 	ll      = log --abbrev-commit --oneline --decorate --all
 	lb      = log --abbrev-commit --oneline --decorate --all --graph
 	lg      = log --abbrev-commit           --decorate --all --graph
+	new     = log --no-merges --abbrev-commit --oneline ORIG_HEAD..
 
 	pom     = pull --ff-only origin master
 	pr      = pull --rebase
