@@ -132,6 +132,8 @@ __alias_ls() {
   alias l="ls $single_column $almost_all"
   # shellcheck disable=SC2139
   alias ll="l $long"
+  # shit
+  alias kk='ll'
 }
 __alias_ls
 
