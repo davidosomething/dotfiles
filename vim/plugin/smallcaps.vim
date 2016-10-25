@@ -20,7 +20,7 @@ vnoremap <silent><script>
       \ <Plug>(dkosmallcaps)
       \ y:<C-U>call setreg('', <SID>convert(@"), getregtype(''))<CR>gv""P
 
-vmap <Leader>C <Plug>(dkosmallcaps)
+vmap <special> <Leader>C <Plug>(dkosmallcaps)
 
 " ============================================================================
 

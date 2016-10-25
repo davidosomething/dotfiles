@@ -1,5 +1,11 @@
 " plugin/mappings.vim
 
+" KEEP IDEMPOTENT
+" There is no loaded guard on top, so any recursive maps need a silent unmap
+" prior to binding. This way this file can be edited and sourced at any time
+" to rebind keys.
+
+" cpoptions are reset but use <special> when mapping anyway
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
@@ -23,6 +29,9 @@ execute dko#MapAll({ 'key': '<F11>', 'command': 'call dkotabline#Toggle()' })
 " er* - Edit from dkoproject#GetRoot()
 " ============================================================================
 
+" This executes instead of returns string so the mapping can noop when file
+" not found.
+" @param {String} file
 function! s:EditClosest(file)
   let s:file = findfile(a:file, '.;')
   if empty(s:file)
@@ -31,10 +40,15 @@ function! s:EditClosest(file)
   endif
   execute 'edit ' . s:file
 endfunction
-nnoremap  <silent>  <Leader>eca  :<C-U>call <SID>EditClosest('.agignore')<CR>
-nnoremap  <silent>  <Leader>eci  :<C-U>call <SID>EditClosest('.gitignore')<CR>
-nnoremap  <silent>  <Leader>ecr  :<C-U>call <SID>EditClosest('README.md')<CR>
+nnoremap  <silent><special>  <Leader>eca
+      \ :<C-U>call <SID>EditClosest('.agignore')<CR>
+nnoremap  <silent><special>  <Leader>eci
+      \ :<C-U>call <SID>EditClosest('.gitignore')<CR>
+nnoremap  <silent><special>  <Leader>ecr
+      \ :<C-U>call <SID>EditClosest('README.md')<CR>
 
+" As above, this noops if file not found
+" @param {String} file
 function! s:EditRoot(file)
   let s:file = dkoproject#GetFile(a:file)
   if empty(s:file)
@@ -43,22 +57,22 @@ function! s:EditRoot(file)
   endif
   execute 'edit ' . s:file
 endfunction
-nnoremap  <silent>  <Leader>era  :<C-U>call <SID>EditRoot('.agignore')<CR>
-nnoremap  <silent>  <Leader>eri  :<C-U>call <SID>EditRoot('.gitignore')<CR>
-nnoremap  <silent>  <Leader>erg  :<C-U>call <SID>EditRoot('gulpfile.js')<CR>
-nnoremap  <silent>  <Leader>erG  :<C-U>call <SID>EditRoot('Gruntfile.js')<CR>
-nnoremap  <silent>  <Leader>erp  :<C-U>call <SID>EditRoot('package.json')<CR>
-nnoremap  <silent>  <Leader>err  :<C-U>call <SID>EditRoot('README.md')<CR>
+nnoremap  <silent><special>  <Leader>era  :<C-U>call <SID>EditRoot('.agignore')<CR>
+nnoremap  <silent><special>  <Leader>eri  :<C-U>call <SID>EditRoot('.gitignore')<CR>
+nnoremap  <silent><special>  <Leader>erg  :<C-U>call <SID>EditRoot('gulpfile.js')<CR>
+nnoremap  <silent><special>  <Leader>erG  :<C-U>call <SID>EditRoot('Gruntfile.js')<CR>
+nnoremap  <silent><special>  <Leader>erp  :<C-U>call <SID>EditRoot('package.json')<CR>
+nnoremap  <silent><special>  <Leader>err  :<C-U>call <SID>EditRoot('README.md')<CR>
 
 " Not using $MYVIMRC since it varies based on (n)vim
-nnoremap  <silent>  <Leader>evi   :<C-U>edit $VIM_DOTFILES/init.vim<CR>
-nnoremap  <silent>  <Leader>evg   :<C-U>edit $VIM_DOTFILES/gvimrc<CR>
-nnoremap  <silent>  <Leader>evl   :<C-U>edit ~/.secret/vim/vimrc.vim<CR>
-nnoremap  <silent>  <Leader>evr   :<C-U>edit $VIM_DOTFILES/vimrc<CR>
+nnoremap  <silent><special>  <Leader>evi   :<C-U>edit $VIM_DOTFILES/init.vim<CR>
+nnoremap  <silent><special>  <Leader>evg   :<C-U>edit $VIM_DOTFILES/gvimrc<CR>
+nnoremap  <silent><special>  <Leader>evl   :<C-U>edit ~/.secret/vim/vimrc.vim<CR>
+nnoremap  <silent><special>  <Leader>evr   :<C-U>edit $VIM_DOTFILES/vimrc<CR>
 
-nnoremap  <silent>  <Leader>em
+nnoremap  <silent><special>  <Leader>em
       \ :<C-U>edit $VIM_DOTFILES/after/plugin/mappings.vim<CR>
-nnoremap  <silent>  <Leader>ez   :<C-U>edit $ZDOTDIR/.zshrc<CR>
+nnoremap  <silent><special>  <Leader>ez   :<C-U>edit $ZDOTDIR/.zshrc<CR>
 
 " ============================================================================
 " Buffer manip
@@ -106,12 +120,17 @@ nnoremap  <special>   <S-Tab>     <C-w>W
 " Resize (can take a count, eg. 2<S-Left>)
 " ----------------------------------------------------------------------------
 
-nnoremap  <special>   <S-Left>    <C-w><
-imap      <special>   <S-Left>    <C-o><S-Left>
-nnoremap  <special>   <S-Down>    <C-W>-
-imap      <special>   <S-Down>    <C-o><S-Down>
+silent! iunmap <S-Up>
+silent! iunmap <S-Down>
+silent! iunmap <S-Left>
+silent! iunmap <S-Right>
+
 nnoremap  <special>   <S-Up>      <C-W>+
 imap      <special>   <S-Up>      <C-o><S-Up>
+nnoremap  <special>   <S-Down>    <C-W>-
+imap      <special>   <S-Down>    <C-o><S-Down>
+nnoremap  <special>   <S-Left>    <C-w><
+imap      <special>   <S-Left>    <C-o><S-Left>
 nnoremap  <special>   <S-Right>   <C-w>>
 imap      <special>   <S-Right>   <C-o><S-Right>
 
@@ -123,12 +142,15 @@ imap      <special>   <S-Right>   <C-o><S-Right>
 " Toggle visual/normal mode with space-space
 " ----------------------------------------------------------------------------
 
-nnoremap  <Leader><Leader>  V
-vnoremap  <Leader><Leader>  <Esc>
+nnoremap  <special> <Leader><Leader>  V
+vnoremap  <special> <Leader><Leader>  <Esc>
 
 " ----------------------------------------------------------------------------
 " Back to normal mode
 " ----------------------------------------------------------------------------
+
+silent! iunmap jj
+silent! cunmap jj
 
 imap jj <Esc>
 cmap jj <Esc>
@@ -144,21 +166,21 @@ nnoremap U :<C-U>syntax sync fromstart<CR>:redraw!<CR>
 " cd to current buffer's git root
 " ----------------------------------------------------------------------------
 
-nnoremap <silent>   <Leader>cr
+nnoremap <silent><special>   <Leader>cr
       \ :<C-U>execute 'cd! ' . get(b:, 'dkoproject_root', getcwd())<CR>
 
 " ----------------------------------------------------------------------------
 " cd to current buffer path
 " ----------------------------------------------------------------------------
 
-nnoremap <silent>   <Leader>cd
+nnoremap <silent><special>   <Leader>cd
       \ :<C-U>cd! %:h<CR>
 
 " ----------------------------------------------------------------------------
 " go up a level
 " ----------------------------------------------------------------------------
 
-nnoremap <silent>   <Leader>..
+nnoremap <silent><special>   <Leader>..
       \ :<C-U>cd! ..<CR>
 
 " ============================================================================
@@ -186,7 +208,10 @@ nnoremap  <special>   <Leader>mm  :<C-U>call dkomovemode#toggle()<CR>
 
 noremap   <special>   <PageUp>    <C-U>
 noremap   <special>   <PageDown>  <C-D>
+
 " same in insert mode, but stay in insert mode (needs recursive)
+silent! iunmap <PageUp>
+silent! iunmap <PageDown>
 imap      <special>   <PageUp>    <C-o><PageUp>
 imap      <special>   <PageDown>  <C-o><PageDown>
 
@@ -228,33 +253,33 @@ vnoremap  >   >gv
 
 if dko#IsPlugged('vim-textobj-indent')
   " Auto select indent-level and sort
-  nnoremap  <Leader>s   vii:!sort<CR>
+  nnoremap  <special> <Leader>s   vii:!sort<CR>
 else
   " Auto select paragraph (bounded by blank lines) and sort
-  nnoremap  <Leader>s   vip:!sort<CR>
+  nnoremap  <special> <Leader>s   vip:!sort<CR>
 endif
 " Sort selection (no clear since in visual)
-vnoremap  <Leader>s   :!sort<CR>
+vnoremap  <special> <Leader>s   :!sort<CR>
 
 " ----------------------------------------------------------------------------
 " Uppercase / lowercase word
 " ----------------------------------------------------------------------------
 
 " mark Q, visual, inner-word case, back to mark (don't change cursor position)
-nnoremap  <Leader>l   mQviwu`Q
-nnoremap  <Leader>u   mQviwU`Q
+nnoremap  <special> <Leader>l   mQviwu`Q
+nnoremap  <special> <Leader>u   mQviwU`Q
 
 " ----------------------------------------------------------------------------
 " Join lines without space (and go to first char line that was merged up)
 " ----------------------------------------------------------------------------
 
-nnoremap  <Leader>j   VjgJl
+nnoremap  <special> <Leader>j   VjgJl
 
 " ----------------------------------------------------------------------------
 " Clean up whitespace
 " ----------------------------------------------------------------------------
 
-nnoremap  <Leader>ws  :<C-U>call dkowhitespace#clean()<CR>
+nnoremap  <special> <Leader>ws  :<C-U>call dkowhitespace#clean()<CR>
 
 " ----------------------------------------------------------------------------
 " Horizontal rule
