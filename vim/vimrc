@@ -533,7 +533,9 @@ function! s:LoadPlugins()
   " ========================================================================
 
   " Disabled on regular vim since it needs a terminal
-  if g:dko_use_fzf | Plug '~/.fzf'
+  if g:dko_use_fzf
+    Plug '~/.fzf'
+    Plug 'junegunn/fzf.vim'
   endif
 
   " `:Bufferize messages` to get messages (or any :command) in a new buffer

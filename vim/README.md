@@ -116,10 +116,10 @@ way to find them.
 
 |     Key | Desc |
 | ------: | :--- |
-| `<F1>`  | FZF current buffers (current instance) |
-| `<F2>`  | FZF most recently used files and open buffers (limited filesystem) |
-| `<F3>`  | FZF fuzzy search files (filesystem) |
-| `<F4>`  | unused |
+| `<F1>`  | FZF :Buffers |
+| `<F2>`  | FZF :History (recently used) |
+| `<F3>`  | FZF :Files |
+| `<F4>`  | FZF :Ag |
 | `<F5>`  | :Neomake |
 | `<F6>`  | unused |
 | `<F7>`  | unused |
