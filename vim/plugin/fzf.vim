@@ -15,3 +15,11 @@ execute dko#MapAll({ 'key': '<F3>', 'command': 'Files' })
 execute dko#MapAll({ 'key': '<F4>', 'command': 'Ag' })
 execute dko#MapAll({ 'key': '<F8>', 'command': 'Colors' })
 
+command! FZV
+      \ call fzf#run({
+      \   'source':   split(globpath(dko#vim_dir, "{after,autoload,ftplugin,plugin,syntax}/**/*.vim"), "\n"),
+      \   'sink':     'edit',
+      \   'options':  '+m',
+      \   'down':     10,
+      \ })
+
