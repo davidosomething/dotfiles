@@ -25,13 +25,9 @@ mkdir -p "${HOME}/.terminfo/r"
 [ -d "${dotfiles_path}/terminfo/r" ] && \
   cp -R "${dotfiles_path}/terminfo/r" "${HOME}/.terminfo/r/"
 
-# tmux
-mkdir -p "${HOME}/.terminfo/t"
-[ -d "${dotfiles_path}/terminfo/t" ] && \
-  cp -R "${dotfiles_path}/terminfo/t" "${HOME}/.terminfo/t/"
-
-# Install all uncompiled terminfo files
-# xterm-256color-italic for iterm2
+# Install all uncompiled terminfo files, e.g.
+# - xterm-256color-italic for iterm2
+# - tmux-256color for tmux
 find "${dotfiles_path}/terminfo/" -name '*.terminfo' -exec tic -x {} \;
 
 # xterm-termite

@@ -1,0 +1,7 @@
+# A tmux-256color TERMINFO
+# - adds the escape sequences for italic
+# - fixes ^H backspace
+tmux-256color|screen with 256 colors and italic,
+  sitm=\E[3m, ritm=\E[23m,
+  kbs=\177,
+  use=screen-256color,
