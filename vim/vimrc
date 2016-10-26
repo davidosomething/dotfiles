@@ -607,10 +607,10 @@ function! s:LoadPlugins()
   " Plug: Completion
   " ========================================================================
 
-  if has('lua')
-    Plug 'Shougo/neocomplete.vim'
-  elseif has('nvim') && has('python3')
+  if has('nvim') && has('python3')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  elseif has('lua')
+    Plug 'Shougo/neocomplete.vim'
   endif
 
   let g:dko_has_completion =
