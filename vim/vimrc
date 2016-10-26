@@ -116,9 +116,7 @@ if !has('nvim') | set ttymouse=xterm | endif
 
 set notimeout
 set ttimeout
-if has('nvim')
-  set ttimeoutlen=0
-else
+if !has('nvim')
   set ttimeoutlen=10
 endif
 
