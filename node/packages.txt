@@ -13,6 +13,7 @@ jsctags
 jsinspect
 jsonlint
 jspm-check-updates
+lighthouse
 markdownlint-cli
 nativefier
 package-json-validator
