@@ -4,12 +4,14 @@
 # Make sure to start a login shell so all dotfiles are sourced (e.g. tmux
 # stuff)
 __irc() {
-  if command -v mosh >/dev/null; then
-    mosh dsmchroot -- bash -l ./tmux-irc.sh
-    exit
-  fi
+  # Don't use mosh -- we're using tmux already and mosh detroys mouse
+  # scrolling and scrollback in general
+  # if command -v mosh >/dev/null; then
+  #   mosh dsmchroot -- ./tmux-irc.sh
+  #   exit
+  # fi
 
-  ssh dsmchroot -t -- bash -l ./tmux-irc.sh
+  ssh dsmchroot -t -- ./tmux-irc.sh
 }
 
 __irc
