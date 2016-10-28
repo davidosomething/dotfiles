@@ -317,8 +317,8 @@ autocmd dkoneomake FileType scss
 " VimL
 " ----------------------------------------------------------------------------
 
-" vimlint is disabled, run on cli only
-let g:neomake_vim_enabled_makers = [ 'vint' ]
+" this is the default setting these days (vint only, vimlint is disabled)
+"let g:neomake_vim_enabled_makers = [ 'vint' ]
 
 " ============================================================================
 " Should we :Neomake?
