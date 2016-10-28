@@ -13,6 +13,24 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 dko::has "nvim" && {
   export EDITOR="nvim"
   export VISUAL="nvim"
+  export VOPEN_EDITOR="nvim"
+  export VOPEN_VISUAL="nvim"
+
+  dko::has "nvr" && {
+    export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+    export VOPEN_SERVERNAME="$NVIM_LISTEN_ADDRESS"
+    export VOPEN_EDITOR="nvr"
+    export VOPEN_VISUAL="nvr"
+  }
+}
+
+# ============================================================================
+# Use vopen
+# ============================================================================
+
+dko::has "vopen" && {
+  export EDITOR="vopen"
+  export VISUAL="vopen"
 }
 
 # ==============================================================================

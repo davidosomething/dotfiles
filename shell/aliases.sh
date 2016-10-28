@@ -18,7 +18,7 @@ alias pyg="pygmentize -O style=rrt -f console256 -g"
 
 # editors
 alias a="atom"
-{ dko::has 'nvim' && alias e="nvim"; } || alias e="vim"
+alias e="\$EDITOR"
 alias ehosts="se /etc/hosts"
 alias etmux="e \"\${DOTFILES}/tmux/tmux.conf\""
 alias evr="e \"\${VIM_DOTFILES}/vimrc\""

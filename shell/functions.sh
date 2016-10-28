@@ -84,21 +84,6 @@ cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
 }
 
-# Edit files modified in git repo
-em() {
-  local my_pwd="$PWD"
-  local gr
-  gr="$(git root)"
-  pushd "$gr"
-  git diff --name-only | uniq | xargs vopen
-  if [ "$PWD" != "$my_pwd" ]; then popd; fi
-}
-
-# Edit a vim plugin
-evp() {
-  vopen "$VIM_DOTFILES/plugin/$1"
-}
-
 # PHP version numbers
 # @TODO use cut instead of splitting awk?
 phpver() {

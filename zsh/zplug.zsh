@@ -24,6 +24,10 @@ zplug "paulirish/git-open",       as:command
 # my fork of cdbk, zsh hash based directory bookmarking
 zplug "davidosomething/cdbk"
 
+zplug "davidosomething/vopen",     \
+  use:"{vopen,vopen-nofork}", \
+  as:command
+
 # ----------------------------------------------------------------------------
 # Vendor
 # ----------------------------------------------------------------------------
