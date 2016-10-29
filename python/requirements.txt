@@ -3,6 +3,7 @@ bashate
 flake8
 frosted
 neovim
+neovim-remote
 pep8
 prospector
 pycodestyle
