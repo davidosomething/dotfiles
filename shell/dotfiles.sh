@@ -467,6 +467,8 @@ dko::dotfiles::darwin::__update_mac() {
     dko::err "Error updating software permissions"
     return 1
   }
+
+  dko::has "mas" && mas upgrade
 }
 
 dko::dotfiles::darwin::__update_brew_done() {
@@ -504,15 +506,16 @@ dko::dotfiles::darwin::__update_brew() {
 
     # Detect if brew's python3 (not pyenv) was outdated
     # Reinstall macvim (in another sub-shell) with new python3 if needed
-    grep -q "python3" <<<"$outdated"      \
-      && dko::status "Upgrading python3"  \
-      && brew upgrade python3             \
-      && brew linkapps python3            \
+    grep -q "python3" <<<"$outdated" \
+      && dko::status "Python3 was outdated, upgrading python3" \
+      && brew upgrade python3  \
+      && brew linkapps python3 \
       && dko::status "Rebuilding macvim with new python3" \
       && dko::dotfiles::darwin::__update_brew_macvim
 
     # Update neovim separately
     grep -q "neovim" <<<"$outdated"      \
+      && dko::status "Neovim was outdated"  \
       && dko::dotfiles::darwin::__update_brew_neovim
 
     # Upgrade remaining
