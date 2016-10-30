@@ -1014,6 +1014,8 @@ function! s:LoadPlugins()
 
   Plug 'moll/vim-bbye'
 
+  " Alternatively use sjl/vitality.vim -- but that has some cursor shape stuff
+  " that Neovim doesn't need.
   Plug 'tmux-plugins/vim-tmux-focus-events'
 endfunction
 
