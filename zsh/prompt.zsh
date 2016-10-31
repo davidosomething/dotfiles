@@ -36,7 +36,6 @@ function +vi-gitmergemessage() {
   fi
 }
 
-
 # ------------------------------------------------------------------------------
 # vi mode
 # ------------------------------------------------------------------------------
@@ -47,8 +46,10 @@ vimode='I'
 
 # show if in vi mode
 function zle-line-init zle-keymap-select {
+  # We only show [I]nsert and [N]ormal even when in R and C modes
   vimode="${${KEYMAP/vicmd/N}/(main|viins)/I}"
   zle reset-prompt
+  zle -R
 }
 
 # on end of cmd, back to ins mode
@@ -69,10 +70,10 @@ TRAPINT() {
 }
 
 # Ensure that the prompt is redrawn when the terminal size changes.
+# https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/vi-mode/vi-mode.plugin.zsh#L7
 TRAPWINCH() {
-  zle && { zle reset-prompt; zle -R }
+  zle && zle -R
 }
-
 
 # ------------------------------------------------------------------------------
 # precmd - set field values before display
@@ -81,7 +82,6 @@ TRAPWINCH() {
 precmd() {
   vcs_info;
 }
-
 
 # ------------------------------------------------------------------------------
 # prompt main
