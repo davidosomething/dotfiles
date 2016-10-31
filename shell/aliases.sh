@@ -18,7 +18,7 @@ alias pyg="pygmentize -O style=rrt -f console256 -g"
 
 # editors
 alias a="atom"
-alias e="\$EDITOR"
+alias e="vim"
 alias ehosts="se /etc/hosts"
 alias etmux="e \"\${DOTFILES}/tmux/tmux.conf\""
 alias evr="e \"\${VIM_DOTFILES}/vimrc\""

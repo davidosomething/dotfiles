@@ -11,6 +11,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 # ==============================================================================
 
 dko::has "nvim" && {
+  alias e="nvim"
+
   export EDITOR="nvim"
   export VISUAL="nvim"
   export VOPEN_EDITOR="nvim"
@@ -30,10 +32,7 @@ dko::has "nvim" && {
 # Use vopen
 # ============================================================================
 
-dko::has "vopen" && {
-  export EDITOR="vopen"
-  export VISUAL="vopen"
-}
+dko::has "vopen" && alias e="vopen"
 
 # ==============================================================================
 # Grunt completion
