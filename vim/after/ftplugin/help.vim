@@ -75,5 +75,7 @@ if &buftype ==# 'help'
   nnoremap <buffer> i <Nop>
 endif
 
+" ============================================================================
+
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
