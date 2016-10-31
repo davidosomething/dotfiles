@@ -9,12 +9,18 @@
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
+augroup dkomappings
+  autocmd!
+augroup END
+
 " ============================================================================
 " Commands
 " ============================================================================
 
 " In normal mode, jump to command mode with <CR>
-nnoremap  <special>  <CR>  <Esc>:<C-U>
+" Don't map <CR>, it's a pain to unmap for various window types like quickfix
+" where <CR> should jump to the entry, or NetRW or unite or fzf.
+"nnoremap  <special>  <CR>  <Esc>:<C-U>
 
 command! Q q
 
