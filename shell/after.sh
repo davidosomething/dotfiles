@@ -16,12 +16,14 @@ dko::has "nvim" && {
   export VOPEN_EDITOR="nvim"
   export VOPEN_VISUAL="nvim"
 
-  # dko::has "nvr" && {
-  #   export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
-  #   export VOPEN_SERVERNAME="$NVIM_LISTEN_ADDRESS"
-  #   export VOPEN_EDITOR="nvr"
-  #   export VOPEN_VISUAL="nvr"
-  # }
+  dko::has "nvr" && {
+    export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+    export VOPEN_SERVERNAME="$NVIM_LISTEN_ADDRESS"
+    export VOPEN_DEFAULT_COMMAND="+enew"
+    export VOPEN_REUSE_COMMAND="--remote-silent +sleep"
+    export VOPEN_EDITOR="nvr"
+    export VOPEN_VISUAL="nvr"
+  }
 }
 
 # ============================================================================
