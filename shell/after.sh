@@ -58,11 +58,19 @@ dko::has "grunt" && {
 dko::source "${TRAVIS_CONFIG_PATH}/travis.sh" && \
   export DKO_SOURCE="${DKO_SOURCE} -> travis"
 
+# ============================================================================
+# yarn completion
+# ============================================================================
+
+dko::source "${DKO_DEFAULT_NODE}/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh"
+
 # ==============================================================================
 # Auto-manpath
 # ==============================================================================
 
 unset MANPATH
 
+# ==============================================================================
+
 export DKO_SOURCE="${DKO_SOURCE} }"
-# vim: ft=zsh :
+# vim: ft=sh :
