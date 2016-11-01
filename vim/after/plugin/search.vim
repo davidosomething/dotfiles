@@ -9,6 +9,7 @@ let g:loaded_dko_search = 1
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
+" ============================================================================
 
 if         dko#IsPlugged('incsearch.vim')
       \ || dko#IsPlugged('vim-asterisk')
