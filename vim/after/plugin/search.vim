@@ -9,15 +9,22 @@ let g:loaded_dko_search = 1
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
+
+if         dko#IsPlugged('incsearch.vim')
+      \ || dko#IsPlugged('vim-asterisk')
+      \ || dko#IsPlugged('vim-anzu')
+  let s:has_search_plugin = 1
+endif
+
 " In case some other plugin tries something fishy
 
-silent! unmap /
-silent! unmap g/
-silent! unmap ?
-silent! unmap n
-silent! unmap N
-silent! unmap #
-silent! unmap *
+if s:has_search_plugin
+  silent! unmap /
+  silent! unmap g/
+  silent! unmap ?
+  silent! unmap #
+  silent! unmap *
+endif
 
 " ============================================================================
 
@@ -31,9 +38,9 @@ if dko#IsPlugged('incsearch.vim')
   map  g/ <Plug>(incsearch-stay)
 
   map  ?  <Plug>(incsearch-backward)
-  map  n  <Plug>(incsearch-nohl)
-  map  N  <Plug>(incsearch-nohl)
-  map  #  <Plug>(incsearch-nohl)
+  map  n  <Plug>(incsearch-nohl-n)
+  map  N  <Plug>(incsearch-nohl-N)
+  map  #  <Plug>(incsearch-nohl-#)
 endif
 
 if dko#IsPlugged('vim-asterisk')
@@ -43,8 +50,9 @@ endif
 if dko#IsPlugged('vim-anzu')
   " Support other search modes like `gd`
   let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
-  map  n  <Plug>(anzu-n)
-  map  N  <Plug>(anzu-N)
+  nmap  n   <Plug>(anzu-n)
+  nmap  N   <Plug>(anzu-N)
+  nmap  #   <Plug>(anzu-sharp)
 endif
 
 if         dko#IsPlugged('incsearch.vim')
