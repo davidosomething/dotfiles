@@ -2,7 +2,6 @@ certs/
 fonts/
 logs/
 osx/base16-iterm2/
-osx/karabiner/
 tmux/plugins/
 vim/plug/
 vim/.tmp/
