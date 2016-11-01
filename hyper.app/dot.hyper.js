@@ -57,7 +57,7 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
     //'hyperterm-blink',            // blinking cursor
-    'hyperterm-base16-tomorrow-dark',
+    'hyperterm-base16-tomorrow-night',
     //'hyperterm-resboned',
     //'hyperterm-mactabs',        // fancy tabs
     //'hyperterm-tabs',           // draggable tabs
