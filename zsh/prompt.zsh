@@ -133,13 +133,14 @@ precmd() {
   # Output
   # --------------------------------------------------------------------------
 
-  # Right side if has room
   local right="$(dko::prompt::_env)"
   # $COLUMNS is not always right on iterm so use modern tput
   local space=$(($(tput cols) - ${#left_raw} - ${#right}))
-  [[ $space -gt 1 ]] \
-    && print -P "${left}$(printf "%*s" $space " ")%F{blue}${right}" \
-    || print -P "${left}"
+  # Right side if has room
+  if [[ $space -gt 1 ]]
+  then print -P "${left}$(printf "%*s" $space " ")%F{blue}${right}"
+  else print -P "${left}"
+  fi
 
   # Load up git status for prompt
   [ -z "$SSH_CONNECTION" ] && command -v "vcs_info" >/dev/null && vcs_info

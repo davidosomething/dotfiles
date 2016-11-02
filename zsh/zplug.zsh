@@ -12,9 +12,10 @@
 # Mine
 # ----------------------------------------------------------------------------
 
-zplug "${ZDOTDIR}", \
-  from:local, \
-  use:"{keybindings,prompt,title}.zsh"
+zplug "${ZDOTDIR}", from:local, use:"{keybindings,title}.zsh"
+[ -z "$SSH_CONNECTION" ] \
+  && zplug "${ZDOTDIR}", from:local, use:"prompt.zsh" \
+  || zplug "${ZDOTDIR}", from:local, use:"prompt-legacy.zsh"
 
 zplug "davidosomething/git-ink",  as:command
 zplug "davidosomething/git-my",   as:command
