@@ -79,6 +79,12 @@
 	ui          = auto
 	pager       = true
 
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+
 # ============================================================================
 # URL aliases
 # ============================================================================
@@ -180,8 +186,3 @@
 	path = "~/.dotfiles/local/gitconfig"
 
 # vim: ft=gitconfig :
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
