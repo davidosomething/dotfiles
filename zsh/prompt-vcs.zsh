@@ -52,6 +52,6 @@ zstyle ':vcs_info:git*+set-message:*' hooks gitmergemessage
 
 function dko::prompt::precmd::vcs() {
   # Load up git status for prompt
-  [ -z "$SSH_CONNECTION" ] && command -v "vcs_info" >/dev/null && vcs_info
+  command -v "vcs_info" >/dev/null && vcs_info
 }
 add-zsh-hook precmd dko::prompt::precmd::vcs

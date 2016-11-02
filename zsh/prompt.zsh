@@ -82,7 +82,7 @@ dko::prompt() {
   [ -n "$vimode" ] && PS1+='%F{blue}${vimode}'
 
   # VCS
-  [ -z "$SSH_CONNECTION" ] && PS1+='${vcs_info_msg_0_}'
+  PS1+='${vcs_info_msg_0_}'
 
   # Symbol
   PS1+='%F{yellow}%#%f '
