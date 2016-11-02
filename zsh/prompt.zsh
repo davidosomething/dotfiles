@@ -143,7 +143,7 @@ precmd() {
   fi
 
   # Load up git status for prompt
-  [ -z "$SSH_CONNECTION" ] && command -v "vcs_info" >/dev/null && vcs_info
+  [ -z "$SSH_CONNECTION" ] && command -v "vcs_info" >/dev/null && vcs_info;
 }
 
 # ============================================================================
