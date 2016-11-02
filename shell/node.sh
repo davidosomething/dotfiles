@@ -9,10 +9,11 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/node.sh {"
 export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 
 # using nvm?
-dko::source "${NVM_DIR}/nvm.sh" && export DKO_SOURCE="${DKO_SOURCE} -> nvm"
-
-DKO_DEFAULT_NODE="$(cd "$(npm bin --global)/.." && pwd)"
-export DKO_DEFAULT_NODE
+dko::source "${NVM_DIR}/nvm.sh" && {
+  export DKO_SOURCE="${DKO_SOURCE} -> nvm"
+  DKO_DEFAULT_NODE="$(cd "$(npm bin --global)/.." && pwd)"
+  export DKO_DEFAULT_NODE
+}
 
 # ==============================================================================
 
