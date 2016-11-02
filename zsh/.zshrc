@@ -114,7 +114,7 @@ zmodload -i zsh/complist
 #autoload -Uz colors; colors
 #autoload -Uz compinit; compinit -u
 
-# hooks
+# hooks -- used for prompt too
 autoload -Uz add-zsh-hook
 
 # prompt

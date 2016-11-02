@@ -62,7 +62,7 @@ dko::source "${TRAVIS_CONFIG_PATH}/travis.sh" && \
 # yarn completion
 # ============================================================================
 
-dko::source "${DKO_DEFAULT_NODE}/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh"
+dko::source "${DKO_DEFAULT_NODE_PATH}/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh"
 
 # ==============================================================================
 # Auto-manpath
