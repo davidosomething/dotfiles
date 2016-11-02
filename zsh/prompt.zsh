@@ -1,4 +1,8 @@
 # zsh/prompt.zsh
+#
+# prompt-*.zsh should be loaded first
+# Use add-zsh-hook for precmd or else the other zsh prompt plugins may break
+#
 
 export DKO_SOURCE="${DKO_SOURCE} -> prompt.zsh"
 
