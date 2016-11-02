@@ -99,29 +99,29 @@ dko::prompt::_env() {
 
 precmd() {
   local left_parts=()
-  local left_colors=()
-
   left_parts+=('%n')  # User
   left_parts+=('@')
   left_parts+=('%m')  # Host
   left_parts+=(':')
   left_parts+=('%~ ')  # Path and space
+  local left_raw="$(print -Pn "${(j::)left_parts}")"
 
-  if [ "$USER" = 'root' ]
-  then left_colors+=('%F{red}')
-  else left_colors+=('%F{green}')
-  fi
-  left_colors+=('%F{blue}')
-  if [ -n "$SSH_CONNECTION" ]
-  then left_colors+=('%F{red}')
-  else left_colors+=('%F{green}')
-  fi
-  left_colors+=('%F{blue}')
-  left_colors+=('%F{yellow}')
-
-  local left_raw="$(print -Pn "${left_parts[@]}")"
   local left=''
   if [ -z "$SSH_CONNECTION" ]; then
+    local left_colors=()
+    if [ "$USER" = 'root' ]
+    then left_colors+=('%F{red}')
+    else left_colors+=('%F{green}')
+    fi
+    left_colors+=('%F{blue}')
+    if [ -n "$SSH_CONNECTION" ]
+    then left_colors+=('%F{red}')
+    else left_colors+=('%F{green}')
+    fi
+    left_colors+=('%F{blue}')
+    left_colors+=('%F{yellow}')
+
+    # join parts and colors
     for (( i = 1; i <= ${#left_parts}; i++ )) do
       left="${left}${left_colors[i]}${left_parts[i]}"
     done
@@ -158,7 +158,7 @@ dko::prompt() {
   [ -n "$vimode" ] && PS1+='%F{blue}${vimode}'
 
   # VCS
-  [ -n "$SSH_CONNECTION" ] && PS1+='${vcs_info_msg_0_}'
+  [ -z "$SSH_CONNECTION" ] && PS1+='${vcs_info_msg_0_}'
 
   # Symbol
   PS1+='%F{yellow}%#%f '
