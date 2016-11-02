@@ -81,21 +81,18 @@ TRAPWINCH() {
 
 # nvm, pyenv, chruby versions
 dko::prompt::_env() {
-  local output
-  output=''
-
-  output+='%F{blue}'
+  local output=()
 
   # NVM node version
-  dko::has "nvm" && output+='[node:$(nvm_ls current 2>/dev/null)]'
+  dko::has "nvm" && output+=('js:$(nvm_ls current 2>/dev/null)')
 
   # pyenv python version
-  dko::has "pyenv" && output+='[py:$(pyenv version-name 2>/dev/null)]'
+  dko::has "pyenv" && output+=('py:$(pyenv version-name 2>/dev/null)')
 
   # chruby Ruby version
-  dko::has "chruby" && output+='[rb:${RUBY_VERSION:-system}]'
+  dko::has "chruby" && output+=('rb:${RUBY_VERSION:-system}')
 
-  print -Pn "${output}"
+  [ -n ${#output} ] && print -Pn "${(j.|.)output}"
 }
 
 # exit status
@@ -134,11 +131,11 @@ precmd() {
   local zero='%([BSUbfksu]|([FBK]|){*})'
   left=$(dko::prompt::_location)
   left_length=${(S%%)left//$~zero/}}
-  right=$(dko::prompt::_env)
+  right="$(dko::prompt::_env)"
   space=(($COLUMNS-${#right}))
 
   # OUTPUT INFO LINE ABOVE PROMPT
-  print -P "${left}${(l:$space:: :)right}"
+  print -rP "${left}%F{blue}${(l:$space:: :)right}"
 
   # Load up git status
   vcs_info
@@ -150,15 +147,19 @@ precmd() {
 
 # Actual prompt (single line prompt)
 dko::prompt() {
+  # Time
   PS1='%f%*'
+
+  # VI mode
   PS1+='%F{blue}${vimode}'
+
+  # VCS
   PS1+='${vcs_info_msg_0_}'
+
+  # Symbol
   PS1+='%F{yellow}%#%f '
 
-  # ----------------------------------------------------------------------------
-  # Left side - continuation mode
-  # ----------------------------------------------------------------------------
-
+  # Continuation mode
   PS2='%F{green}%_…%f '
 }
 
