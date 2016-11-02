@@ -37,7 +37,7 @@ zplug "davidosomething/vopen",     \
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 
 # In-line best history match suggestion
-zplug "tarruda/zsh-autosuggestions"
+[ -z "$SSH_CONNECTION" ] && zplug "tarruda/zsh-autosuggestions"
 
 # Various program completions
 # This adds to fpath (so before compinit)
@@ -86,4 +86,4 @@ fi
 #   nice:18
 
 # highlight as you type
-zplug "zsh-users/zsh-syntax-highlighting", nice:19
+[ -z "$SSH_CONNECTION" ] && zplug "zsh-users/zsh-syntax-highlighting", nice:19
