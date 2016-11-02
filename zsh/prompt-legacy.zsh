@@ -15,8 +15,8 @@ dko::prompt() {
   # logname»username (e.g. david»root)
   prompt_user='%F{green}%n'
   prompt_host='%F{green}%m'
-  [ "$USER" = 'root' ] && prompt_user='%F{white}%n'
-  [ "$SSH_CONNECTION" != '' ] && prompt_host='%F{white}%m'
+  [ "$USER" = 'root' ] && prompt_user='%F{red}%n'
+  [ "$SSH_CONNECTION" != '' ] && prompt_host='%F{red}%m'
 
   PS1='${prompt_user}%F{blue}@${prompt_host}%F{blue}:'
   PS1+='%F{yellow}%~'
