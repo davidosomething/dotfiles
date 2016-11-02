@@ -2,11 +2,13 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> prompt.zsh"
 
-# ------------------------------------------------------------------------------
+# ============================================================================
 # version control info
-# ------------------------------------------------------------------------------
+# ============================================================================
 
-zstyle ':vcs_info:*'            enable            bzr git hg svn
+# Not using anything else, don't bother
+#zstyle ':vcs_info:*'            enable            bzr git hg svn
+zstyle ':vcs_info:*'            enable            git
 
 # bzr/svn prompt
 zstyle ':vcs_info:(svn|bzr):*'  branchformat      'r%r'
@@ -36,9 +38,9 @@ function +vi-gitmergemessage() {
   fi
 }
 
-# ------------------------------------------------------------------------------
+# ============================================================================
 # vi mode
-# ------------------------------------------------------------------------------
+# ============================================================================
 
 # http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
 # use vi mode even if EDITOR is emacs
@@ -75,75 +77,76 @@ TRAPWINCH() {
   zle && zle -R
 }
 
-# ----------------------------------------------------------------------------
+# ============================================================================
 # components
-# ----------------------------------------------------------------------------
+# ============================================================================
 
 # nvm, pyenv, chruby versions
 dko::prompt::_env() {
-  local output=()
+  local envs=()
 
-  # NVM node version
-  dko::has "nvm" && output+=('js:$(nvm_ls current 2>/dev/null)')
+  dko::has "nvm" && envs+=('js:$(nvm_ls current 2>/dev/null)')
+  dko::has "pyenv" && envs+=('py:$(pyenv version-name 2>/dev/null)')
+  dko::has "chruby" && envs+=('rb:${RUBY_VERSION:-system}')
 
-  # pyenv python version
-  dko::has "pyenv" && output+=('py:$(pyenv version-name 2>/dev/null)')
-
-  # chruby Ruby version
-  dko::has "chruby" && output+=('rb:${RUBY_VERSION:-system}')
-
-  [ -n ${#output} ] && print -Pn "${(j.|.)output}"
+  # escape the symbols to get proper size calculation
+  [ -n ${#envs} ] && print -Pn "\[${(j.\|.)envs}\]"
 }
 
-# exit status
-dko::prompt::_exit() {
-  print -Pn '%(?.%F{green}ok.%F{red}%?)'
-}
-
-# user@hostname:~path
-dko::prompt::_location() {
-  local prompt_user
-  local prompt_host
-
-  local output
-  output=''
-
-  # logname»username (e.g. david»root)
-  prompt_user='%F{green}%n'
-  prompt_host='%F{green}%m'
-  [ "$USER" = 'root' ] && prompt_user='%F{white}%n'
-  [ "$SSH_CONNECTION" != '' ] && prompt_host='%F{white}%m'
-
-  output+='${prompt_user}%F{blue}@${prompt_host}%F{blue}:'
-  output+='%F{yellow}%~'
-  print -Pn "${output}"
-}
-
-# ------------------------------------------------------------------------------
+# ============================================================================
 # precmd - set field values before promptline
-# ------------------------------------------------------------------------------
+# ============================================================================
 
 precmd() {
   # Line above prompt
-  local left
-  local right
-  local space
   local zero='%([BSUbfksu]|([FBK]|){*})'
-  left=$(dko::prompt::_location)
-  left_length=${(S%%)left//$~zero/}}
-  right="$(dko::prompt::_env)"
-  space=(($COLUMNS-${#right}))
 
-  # OUTPUT INFO LINE ABOVE PROMPT
-  print -rP "${left}%F{blue}${(l:$space:: :)right}"
+  local left_parts=()
+  local left_colors=()
 
-  # Load up git status
-  vcs_info
+  left_parts+=('%n')  # User
+  left_parts+=('@')
+  left_parts+=('%m')  # Host
+  left_parts+=(':')
+  left_parts+=('%~ ')  # Path and space
+
+  if [ "$USER" = 'root' ]
+  then left_colors+=('%F{red}')
+  else left_colors+=('%F{green}')
+  fi
+  left_colors+=('%F{blue}')
+  if [ -n "$SSH_CONNECTION" ]
+  then left_colors+=('%F{red}')
+  else left_colors+=('%F{green}')
+  fi
+  left_colors+=('%F{blue}')
+  left_colors+=('%F{yellow}')
+
+  local left_raw="$(print -Pn "${left_parts[@]}")"
+  local left=''
+  for (( i = 1; i <= $#left_parts; i++ )) do
+    left="${left}${left_colors[i]}${left_parts[i]}"
+  done
+
+  # --------------------------------------------------------------------------
+  # Output
+  # --------------------------------------------------------------------------
+
+  # Right side if has room
+  local right="$(dko::prompt::_env)"
+  # $COLUMNS is not always right on iterm so use modern tput
+  local space=$(($(tput cols) - ${#left_raw} - ${#right}))
+  [[ $space -gt 1 ]] \
+    && print -P "${left}$(printf "%*s" $space " ")%F{blue}${right}" \
+    || print -P "${left}"
+
+  # Load up git status for prompt
+  command -v "vcs_info" >/dev/null && vcs_info
 }
 
-# ------------------------------------------------------------------------------
+# ============================================================================
 # prompt main
-# ------------------------------------------------------------------------------
+# ============================================================================
 
 # Actual prompt (single line prompt)
 dko::prompt() {
@@ -151,7 +154,7 @@ dko::prompt() {
   PS1='%f%*'
 
   # VI mode
-  PS1+='%F{blue}${vimode}'
+  [ -n "$vimode" ] && PS1+='%F{blue}${vimode}'
 
   # VCS
   PS1+='${vcs_info_msg_0_}'
@@ -159,9 +162,10 @@ dko::prompt() {
   # Symbol
   PS1+='%F{yellow}%#%f '
 
+  RPROMPT='%(?..%F{red}%?)'
+
   # Continuation mode
   PS2='%F{green}%_…%f '
 }
 
 dko::prompt
-
