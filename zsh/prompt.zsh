@@ -141,7 +141,7 @@ precmd() {
     || print -P "${left}"
 
   # Load up git status for prompt
-  command -v "vcs_info" >/dev/null && vcs_info
+  [ -z "$SSH_CONNECTION" ] && command -v "vcs_info" >/dev/null && vcs_info
 }
 
 # ============================================================================
@@ -157,7 +157,7 @@ dko::prompt() {
   [ -n "$vimode" ] && PS1+='%F{blue}${vimode}'
 
   # VCS
-  PS1+='${vcs_info_msg_0_}'
+  [ -n "$SSH_CONNECTION" ] && PS1+='${vcs_info_msg_0_}'
 
   # Symbol
   PS1+='%F{yellow}%#%f '
