@@ -98,9 +98,6 @@ dko::prompt::_env() {
 # ============================================================================
 
 precmd() {
-  # Line above prompt
-  local zero='%([BSUbfksu]|([FBK]|){*})'
-
   local left_parts=()
   local left_colors=()
 
@@ -124,9 +121,13 @@ precmd() {
 
   local left_raw="$(print -Pn "${left_parts[@]}")"
   local left=''
-  for (( i = 1; i <= $#left_parts; i++ )) do
-    left="${left}${left_colors[i]}${left_parts[i]}"
-  done
+  if [ -n "$SSH_CONNECTION" ]; then
+    for (( i = 1; i <= ${#left_parts}; i++ )) do
+      left="${left}${left_colors[i]}${left_parts[i]}"
+    done
+  else
+    left="$left_raw"
+  fi
 
   # --------------------------------------------------------------------------
   # Output
