@@ -6,43 +6,53 @@ export DKO_SOURCE="${DKO_SOURCE} -> prompt.zsh"
 # components
 # ============================================================================
 
-dko_prompt_left_parts=()
-dko_prompt_left_parts+=('%n')  # User
-dko_prompt_left_parts+=('@')
-dko_prompt_left_parts+=('%m')  # Host
-dko_prompt_left_parts+=(':')
-dko_prompt_left_parts+=('%~ ')  # Path and space
-
 dko_prompt_left_colors=()
+dko_prompt_left_parts=()
 if [ "$USER" = 'root' ]
 then dko_prompt_left_colors+=('%F{red}')
 else dko_prompt_left_colors+=('%F{green}')
 fi
-dko_prompt_left_colors+=('%F{blue}')   # @
+dko_prompt_left_parts+=('%n')  # User
+dko_prompt_left_colors+=('%F{blue}')
+dko_prompt_left_parts+=('@')
 if [ -n "$SSH_CONNECTION" ]
 then dko_prompt_left_colors+=('%F{red}')
 else dko_prompt_left_colors+=('%F{green}')
 fi
-dko_prompt_left_colors+=('%F{blue}')   # :
-dko_prompt_left_colors+=('%F{yellow}') # ~
-
-dko_prompt_right_parts=()
-dko::has "nvm" \
-  && dko_prompt_right_parts+=('js:') \
-  && dko_prompt_right_parts+=('${$(nvm_ls current 2>/dev/null):-?}') \
-  && dko_prompt_right_parts+=('|')
-dko::has "pyenv" \
-  && dko_prompt_right_parts+=('py:') \
-  && dko_prompt_right_parts+=(${$(pyenv version-name 2>/dev/null):-sys}) \
-  && dko_prompt_right_parts+=('|')
-dko::has "chruby" \
-  && dko_prompt_right_parts+=('rb:') \
-  && dko_prompt_right_parts+=('${RUBY_VERSION:-sys}')
+dko_prompt_left_parts+=('%m')
+dko_prompt_left_colors+=('%F{blue}')
+dko_prompt_left_parts+=(':')
+dko_prompt_left_colors+=('%F{yellow}')
+dko_prompt_left_parts+=('%~ ')
 
 dko_prompt_right_colors=()
-dko_prompt_right_colors+=('%F{blue}') # js:
-dko_prompt_right_colors+=('$( [ "${(e)$(nvm_ls current 2>/dev/null)}" = "$DKO_DEFAULT_NODE_VERSION" ] && echo "%F{blue}" || echo "%F{red}")')
-dko_prompt_right_colors+=('%F{blue}') # |
+dko_prompt_right_parts=()
+dko::has "nvm" && {
+  dko_prompt_right_colors+=('%F{blue}')
+  dko_prompt_right_parts+=('js:')
+  dko_prompt_right_colors+=('$( [ "${(e)$(nvm_ls current 2>/dev/null)}" = "$DKO_DEFAULT_NODE_VERSION" ] && echo "%F{blue}" || echo "%F{red}")')
+  dko_prompt_right_parts+=('${$(nvm_ls current 2>/dev/null):-?}')
+}
+dko::has "pyenv" && {
+  [ -n ${#dko_prompt_right_parts} ] && {
+    dko_prompt_right_colors+=('%F{blue}')
+    dko_prompt_right_parts+=('|')
+  }
+  dko_prompt_right_colors+=('%F{blue}')
+  dko_prompt_right_parts+=('py:')
+  dko_prompt_right_colors+=('%F{blue}')
+  dko_prompt_right_parts+=(${$(pyenv version-name 2>/dev/null):-sys})
+}
+dko::has "chruby" && {
+  [ -n ${#dko_prompt_right_parts} ] && {
+    dko_prompt_right_colors+=('%F{blue}')
+    dko_prompt_right_parts+=('|')
+  }
+  dko_prompt_right_colors+=('%F{blue}')
+  dko_prompt_right_parts+=('rb:')
+  dko_prompt_right_colors+=('%F{blue}')
+  dko_prompt_right_parts+=('${RUBY_VERSION:-sys}')
+}
 
 # ============================================================================
 # precmd - set field values before promptline
@@ -55,29 +65,18 @@ dko::prompt::precmd::state() {
   local spaces=$(($(tput cols) - ${#left_raw} - ${#right_raw}))
 
   local left=''
-  if [ -z "$SSH_CONNECTION" ]; then
-    # join expanded parts and colors
-    for (( i = 1; i <= ${#dko_prompt_left_parts}; i++ )) do
-      left="${left}${(%)dko_prompt_left_colors[i]}${(%)dko_prompt_left_parts[i]}"
-    done
-  else
-    left="$left_raw"
-  fi
+  for (( i = 1; i <= ${#dko_prompt_left_parts}; i++ )) do
+    left="${left}${(%)dko_prompt_left_colors[i]}${(%)dko_prompt_left_parts[i]}"
+  done
 
   # Right side if has room
   if [[ $spaces -gt 1 ]]; then
     local right=''
-    if [ -z "$SSH_CONNECTION" ]; then
-      # join expanded parts and colors
-      for (( i = 1; i <= ${#dko_prompt_right_parts}; i++ )) do
-        right="${right}${(%)dko_prompt_right_colors[i]}${(e)dko_prompt_right_parts[i]}"
-      done
-      right="[${right}]"
-    else
-      right="$right_raw"
-    fi
+    for (( i = 1; i <= ${#dko_prompt_right_parts}; i++ )) do
+      right="${right}${(%)dko_prompt_right_colors[i]}${(e)dko_prompt_right_parts[i]}"
+    done
   fi
-  print -P "${left}${(l:spaces-1:: :)}%F{blue}${(e)right}"
+  print -P "${left}${(l:spaces-1:: :)}%F{blue}[${(e)right}%F{blue}]"
 }
 add-zsh-hook precmd dko::prompt::precmd::state
 
