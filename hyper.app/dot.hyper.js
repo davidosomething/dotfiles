@@ -56,17 +56,39 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyperterm-blink',            // blinking cursor
-    'hyperterm-firewatch',        // material design colors
-    //'hyperterm-material',         // material design colors
-    //'hyperterm-mactabs',        // fancy tabs
-    //'hyperterm-tabs',             // draggable tabs
-    'hyperterm-bold-tab',         // bold active tab
-    'hyperterm-tab-icons',        // tab icons
-    'hyperterm-focus-reporting',  // add focus-gained/lost events
-    'hyperterm-title',            // respect xterm titles
-    //'hyperline',                // status bar
-    'hyperlinks',                 // clickable links
+    //// blinking cursor
+    'hyperterm-blink',
+
+    'hyperterm-base16-tomorrow-night',
+
+    //'hyperterm-resboned',
+
+    //// fancy tabs
+    //'hyperterm-mactabs',
+
+    //// draggable tabs
+    //'hyperterm-tabs',
+
+    // bold active tab
+    'hyperterm-bold-tab',
+
+    //// tab icons
+    //'hyperterm-tab-icons',
+
+    //// add focus-gained/lost events
+    'hyperterm-focus-reporting',
+
+    //// respect xterm titles
+    'hyperterm-title',
+
+    //// status bar
+    'hyperline',
+
+    //// clickable links in same window... buggy
+    //'hyperlinks',
+
+    //// clickable links, but behave like iterm... buggy
+    //'hyperlinks-iterm',
   ],
 
   // in development, you can create a directory under

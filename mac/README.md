@@ -11,7 +11,7 @@
 
 ### Install homebrew
 
-http://brew.sh/
+<http://brew.sh/>
 
 ### Install git from brew
 
@@ -107,13 +107,6 @@ Stuff from [bootstrap/mac/brew.sh](../bootstrap/mac/brew.sh) as desired.
     - Provides `authy`
 - dropbox
     - Then setup keepassx to load the key database from dropbox
-- karabiner
-    - Maps simultaneous-dual-shift to capslock and show capslock state.
-        - Run [karabiner/install.sh](karabiner/install.sh) to symlink
-          the [karabiner/private.xml](karabiner/private.xml) file into the
-          user's library
-        - Enable the option in Karabiner preferences by toggling the checkbox
-          since it isn't kept in the filesystem.
 - kaleidoscope
     - Load license file
 - transmission
@@ -136,7 +129,6 @@ Make sure the rest of the things above are installed since after you start using
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
   consequently `npm`)
     1. Use nvm managed node
-    1. `npm install -g npm@latest`
     1. Install the default packages using [node/install.sh](../node/install.sh)
 - Install `pyenv` using `pyenv-installer` (rm `~/.local/pyenv` directory for
   clean install) and make sure to use the libs provided by `brew openssl`
@@ -149,7 +141,6 @@ Make sure the rest of the things above are installed since after you start using
         1. `pyenv virtualenv 2.7.12 neovim2`
         1. `pyenv activate neovim2`
         1. `pip install neovim`
-- `brew install redis` for `redismru.vim` later
 - run [bootstrap/terminfo.sh](../bootstrap/terminfo.sh) (added terminfo for iterm with italics support)
 - Install `gpgtools` from brew cask (using GPG suite since it provides
   `gpg-agent` and can store passphrase in keychain with minimal cfg on

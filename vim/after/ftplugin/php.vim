@@ -39,7 +39,7 @@ function! DKO_EditorConfigPhp(config)
   return 0
 endfunction
 
-if exists("g:plugs['editorconfig-vim']")
+if dko#IsPlugged('editorconfig-vim')
   call editorconfig#AddNewHook(function('DKO_EditorConfigPhp'))
 endif
 
@@ -47,7 +47,7 @@ endif
 " StanAngeloff/php.vim
 " ============================================================================
 
-if exists("g:plugs['php.vim']")
+if dko#IsPlugged('php.vim')
   " Syntax highlighting in phpdoc blocks
   hi! def link phpDocTags  phpDefine
   hi! def link phpDocParam phpType
@@ -57,7 +57,7 @@ endif
 " Insert phpdoc block
 " ============================================================================
 
-if exists("g:plugs['neosnippet']")
+if dko#IsPlugged('neosnippet')
   inoremap <silent><buffer>
         \ <Leader>pd
         \ a<C-r>=neosnippet#expand('doc')<CR>

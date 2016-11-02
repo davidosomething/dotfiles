@@ -1,6 +1,6 @@
 if has('vim_starting') | set encoding=utf-8 nobomb | endif
 scriptencoding utf-8
-"
+
 "
 "   ██╗   ██╗ ██╗ ███╗   ███╗ ██████╗   ██████╗
 "   ██║   ██║ ██║ ████╗ ████║ ██╔══██╗ ██╔════╝
@@ -8,7 +8,6 @@ scriptencoding utf-8
 "   ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║ ██╔══██╗ ██║
 " ██╗╚████╔╝  ██║ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗
 " ╚═╝ ╚═══╝   ╚═╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝
-"
 "
 
 " ============================================================================
@@ -43,9 +42,9 @@ set modeline
 set pastetoggle=<F12>
 
 if empty($SSH_CONNECTION) && has('clipboard')
-  set clipboard=unnamed                 " Use vim global clipboard register
+  set clipboard^=unnamed                 " Use vim global clipboard register
   if has('unnamedplus') || has('nvim')  " Use system clipboard register
-    set clipboard+=unnamedplus
+    set clipboard^=unnamedplus
   endif
 endif
 
@@ -95,7 +94,9 @@ set laststatus=2                      " always show all statuslines
 " Command line
 " ------------------------------------
 
-set noshowcmd                         " show incomplete commands (SLOW so off)
+" This is slow on some terminals and often gets hidden by msgs so leave it off
+set noshowcmd
+
 set noshowmode                        " don't show -- INSERT -- in cmdline
 
 " ----------------------------------------------------------------------------
@@ -115,7 +116,9 @@ if !has('nvim') | set ttymouse=xterm | endif
 
 set notimeout
 set ttimeout
-set ttimeoutlen=10
+if !has('nvim')
+  set ttimeoutlen=10
+endif
 
 " no longer using comma so I can reverse repeat fFtT searches
 " no longer using \ so I can type escaped chars :/
@@ -154,44 +157,67 @@ set fileformat=unix
 " info file -- nvim uses shada in $XDG_DATA_HOME so that's cool.
 if !has('nvim')
   execute 'set viminfo+=n' . expand(g:dko#vim_dir . '/.tmp/cache/.viminfo')
+
+  " From https://github.com/swizzard/dotfiles/blob/master/.vimrc
+  " Don't keep .viminfo information for files in temporary directories or shared
+  " memory filesystems; this is because they're used as scratch spaces for tools
+  " like sudoedit(8) and pass(1) and hence could present a security problem
+  if has('viminfo')
+    augroup dkoviminfo
+      autocmd!
+      silent! autocmd BufNewFile,BufReadPre
+          \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+          \ setlocal viminfo=
+    augroup END
+  endif
 endif
 
-" From https://github.com/swizzard/dotfiles/blob/master/.vimrc
-" Don't keep .viminfo information for files in temporary directories or shared
-" memory filesystems; this is because they're used as scratch spaces for tools
-" like sudoedit(8) and pass(1) and hence could present a security problem
-if !has('nvim') && has('viminfo')
-  augroup dkoviminfo
-    autocmd!
-    silent! autocmd vimrc BufNewFile,BufReadPre
-        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-        \ setlocal viminfo=
-  augroup END
+" ----------------------------------------------------------------------------
+" Writing swaps
+" ----------------------------------------------------------------------------
+
+" default is on, leave it alone.
+" pros: prevent editing stale copy of same file in two vim instances
+set swapfile
+
+" swapfile directory
+if !has('nvim')
+  execute 'set directory=' . g:dko#vim_dir . '/.tmp/swap//'
 endif
 
-" swap - useless
-set noswapfile
-execute 'set directory=' . g:dko#vim_dir . '/.tmp/swap//'
+" ----------------------------------------------------------------------------
+" Write backups
+" ----------------------------------------------------------------------------
 
-" backups
-set backupskip=/tmp/*
+" Don't write backups to current directory (vim and neovim default to .)
+if !has('nvim')
+  execute 'set backupdir=' . g:dko#vim_dir . '/.tmp/backup//'
+endif
+
+" Use backup files when writing (create new file, replace old one with new
+" one)
+set writebackup
+" but do not leave around backup.xyz~ files after that
+set nobackup
+" backupcopy=yes is the default, just be explicit. We need this for
+" webpack-dev-server and hot module reloading -- preserves special file types
+" like symlinks
+set backupcopy=yes
+
+" don't create backups for these paths
+set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
 " Make Vim able to edit crontab files again.
-set backupskip+=,/private/tmp/*"
-if has('mac')
-  augroup dkomac
-    autocmd!
-    autocmd BufEnter  /private/tmp/crontab.*  setlocal backupcopy=yes
-  augroup END
-endif
-execute 'set backupdir=' . g:dko#vim_dir . '/.tmp/backup//'
-set backup
+set backupskip+=/private/tmp/*"
+set backupskip+=~/.secret/*
 
 " undo files
 " double slash means create dir structure to mirror file's path
 set undofile
 set undolevels=1000
 set undoreload=10000
-execute 'set undodir=' . g:dko#vim_dir . '/.tmp/undo//'
+if !has('nvim')
+  execute 'set undodir=' . g:dko#vim_dir . '/.tmp/undo//'
+endif
 
 " ----------------------------------------------------------------------------
 " Spellcheck
@@ -204,9 +230,12 @@ execute 'set undodir=' . g:dko#vim_dir . '/.tmp/undo//'
 " Completion -- see also plugins/completion.vim
 " ----------------------------------------------------------------------------
 
+" Don't consider = symbol as part filename. Helps for deoplete file source, too.
+set isfname-==
+
 set complete-=i                       " don't complete includes
 set complete-=t                       " don't complete tags
-set completeopt-=preview              " don't open scratch preview
+set completeopt-=preview              " don't open scratch preview (e.g. echodoc)
 set completeopt+=menu,menuone         " show PUM, even for one thing
 
 " @see <https://github.com/Valloric/YouCompleteMe/blob/master/autoload/youcompleteme.vim#L343>
@@ -354,9 +383,9 @@ set wrapscan                          " Searches wrap around end of the file.
 set ignorecase
 set smartcase
 
-" The Silver Searcher
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
+if !empty(dko#GetGrepper())
+  execute 'set grepprg=' . escape(dko#GetGrepper().command . ' ' . join(dko#GetGrepper().options, ' '), ' ')
+  execute 'set grepformat=' . dko#GetGrepper().format
 endif
 
 " ----------------------------------------------------------------------------
@@ -436,7 +465,7 @@ augroup dkoproject
 
   autocmd BufNewFile,BufRead,BufWritePost
         \ *
-        \ call dkoproject#GetProjectRoot()
+        \ call dkoproject#GetRoot()
 augroup END
 
 " ============================================================================
@@ -472,28 +501,20 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
 " This is used by plugin/completion.vim so is a g:
 let g:dko_has_completion = 0
-let g:dko_use_fzf = has('nvim') && !empty(glob(expand('~/.fzf')))
+let g:dko_use_fzf = has('nvim') && isdirectory(expand('~/.fzf'))
 
 function! s:LoadPlugins()
-  let s:use_colorv    = 0 && (has('python') || has('python3'))
-
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
-
-  " ==========================================================================
-  " Plug: Async processes
-  " ==========================================================================
-
-  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
   " ========================================================================
   " Plug: Colorscheme
   " ========================================================================
 
-  "Plug 'altercation/vim-colors-solarized'
-  Plug 'morhetz/gruvbox'
-  "Plug 'rakr/vim-two-firewatch'
+  " Use in nvim
   Plug 'atelierbram/Base2Tone-vim'
+  " Use in vim
+  Plug 'morhetz/gruvbox'
 
   " ========================================================================
   " Plug: File system
@@ -502,19 +523,25 @@ function! s:LoadPlugins()
   " creates dir if new file in new dir
   Plug 'dockyard/vim-easydir'
 
-  Plug 'ludovicchabant/vim-gutentags'
-  "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
+  if executable('ctags')
+    Plug 'ludovicchabant/vim-gutentags'
+    "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
+  endif
 
   " ========================================================================
   " Plug: Commands
   " ========================================================================
 
   " Disabled on regular vim since it needs a terminal
-  if g:dko_use_fzf | Plug '~/.fzf'
+  if g:dko_use_fzf
+    Plug '~/.fzf'
+    Plug 'junegunn/fzf.vim'
   endif
 
   " `:Bufferize messages` to get messages (or any :command) in a new buffer
   Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
+
+  Plug 'cocopon/colorswatch.vim', { 'on': ['ColorSwatchGenerate'] }
 
   " the blame in vim-gita is hawt :3
   Plug 'lambdalisue/vim-gita', { 'on': ['Gita'] }
@@ -526,17 +553,8 @@ function! s:LoadPlugins()
   " gK to lookup
   Plug 'keith/investigate.vim'
 
-  Plug 'Shougo/unite.vim'
-        \| Plug 'Shougo/vimfiler.vim'
-        \| Plug 'Shougo/unite-outline'
-        \| Plug 'tsukkee/unite-tag'
-
-  " unite most-recently-used files menu
-  if executable('redis-server') && executable('npm')
-    Plug 'chemzqm/redismru.vim', { 'do': 'npm install' }
-  else
-    Plug 'Shougo/neomru.vim'
-  endif
+  " Include completion, include tags
+  Plug 'Shougo/neoinclude.vim'
 
   Plug 'nathanaelkane/vim-indent-guides', {
         \   'on': [
@@ -546,7 +564,10 @@ function! s:LoadPlugins()
         \   ]
         \ }
 
-  Plug 'osyo-manga/vim-over', { 'on': ['OverCommandLine'] }
+  Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
+
+  " Preview window with function signature
+  Plug 'Shougo/echodoc.vim'
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   Plug 'tpope/vim-eunuch'
@@ -562,6 +583,9 @@ function! s:LoadPlugins()
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
+
+  " highlight lines corresponding to quickfix entries
+  Plug 'jceb/vim-hier', { 'on': [ 'HierStart' ] }
 
   " add gS to smart split lines like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
@@ -583,10 +607,10 @@ function! s:LoadPlugins()
   " Plug: Completion
   " ========================================================================
 
-  if has('lua')
-    Plug 'Shougo/neocomplete.vim'
-  elseif has('nvim') && has('python3')
+  if has('nvim') && has('python3')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  elseif has('lua')
+    Plug 'Shougo/neocomplete.vim'
   endif
 
   let g:dko_has_completion =
@@ -601,9 +625,6 @@ function! s:LoadPlugins()
     " Markdown fenced code blocks.
     Plug 'Shougo/context_filetype.vim'
 
-    " Include completion
-    Plug 'Shougo/neoinclude.vim'
-
     Plug 'Shougo/neosnippet'
           \| Plug 'honza/vim-snippets'
           \| Plug 'Shougo/neosnippet-snippets'
@@ -617,7 +638,7 @@ function! s:LoadPlugins()
   " Plug: Editing keys
   " ========================================================================
 
-  Plug 'godlygeek/tabular', { 'on': ['Tabularize'] }
+  Plug 'godlygeek/tabular', { 'on': [ 'Tabularize' ] }
 
   " custom C-x C-a mappings, see plugin/plug-increment-activator.vim
   Plug 'nishigori/increment-activator'
@@ -707,7 +728,7 @@ function! s:LoadPlugins()
   " vim 7.4-77 ships with 2013 version, this is newer
   Plug 'tpope/vim-git'
 
-  " show diff in own split when editing a COMMIT_EDITMSG
+  " show diff when editing a COMMIT_EDITMSG
   Plug 'rhysd/committia.vim'
 
   " ========================================================================
@@ -722,7 +743,7 @@ function! s:LoadPlugins()
   Plug 'mustache/vim-mustache-handlebars'
 
   " ========================================================================
-  " Language: JavaScript / CoffeeScript / JSON
+  " Language: JavaScript and derivatives, JSON
   " ========================================================================
 
   Plug 'elzr/vim-json'
@@ -732,10 +753,6 @@ function! s:LoadPlugins()
 
   " TypeScript
   "Plug 'leafgarland/typescript-vim'
-
-  " react/JSX syn highlighting for .cjsx
-  " If you're using coffee+react instead of es6+react, quit your job.
-  "Plug 'mtscout6/vim-cjsx'
 
   " ----------------------------------------
   " Syntax
@@ -779,10 +796,12 @@ function! s:LoadPlugins()
   " Code analysis completion
   if g:dko_has_completion
     if executable('npm')
+      " Configured in plugins/completion.vim
+      Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
+
       if has('nvim')
+        " Configured in plugins/completion.vim
         Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
-      else
-        Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
       endif
     else
       " Syntax completion
@@ -884,7 +903,12 @@ function! s:LoadPlugins()
   " Language: Python
   " ========================================================================
 
+  " Vim's python ftplugin upstream
+  " Not a valid plugin runtime structure, file needs to be in ftplugin/
+  "Plug 'sullyj3/vim-ftplugin-python'
+
   Plug 'hynek/vim-python-pep8-indent'
+  Plug 'raimon49/requirements.txt.vim'
 
   " ========================================================================
   " Language: Ruby, rails, puppet
@@ -928,10 +952,9 @@ function! s:LoadPlugins()
   " ----------------------------------------
 
   " Hex (et al) color highlighting
-  if s:use_colorv | Plug 'Rykka/colorv.vim'
-  else                | Plug 'ap/vim-css-color'
-  "else                | Plug 'chrisbra/Colorizer'
-  endif
+  "Plug 'Rykka/colorv.vim' -- requires python
+  "Plug 'chrisbra/Colorizer' -- slower and not as complete
+  Plug 'ap/vim-css-color'
 
   " Omnicompletion
   Plug 'othree/csscomplete.vim'
@@ -946,6 +969,8 @@ function! s:LoadPlugins()
   " Language: VimL
   " ========================================================================
 
+  Plug 'machakann/vim-vimhelplint'
+
   " gf to go to where autoloaded function is defined
   Plug 'kana/vim-gf-user', { 'for': ['vim'] }
         \| Plug 'sgur/vim-gf-autoload', { 'for': ['vim'] }
@@ -957,35 +982,40 @@ function! s:LoadPlugins()
   if g:dko_has_completion | Plug 'Shougo/neco-vim', { 'for': ['vim'] }
   endif
 
-  " ========================================================================
-  " Plug: UI -- load last!
-  " ========================================================================
-
-  " :GitGutterToggle
-  Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle'] }
+  " ==========================================================================
+  " Plug: Search
+  " ==========================================================================
 
   " <Plug> to not move on * search function
   Plug 'haya14busa/vim-asterisk'
 
-  " Disabled on neovim until 0.2
+  " Will be replaced by https://github.com/neovim/neovim/pull/5226
   " @see https://github.com/haya14busa/incsearch.vim/issues/79
   " @see https://github.com/neovim/neovim/issues/3688
   " highlight partial matches as you type in search mode
-  if !has('nvim') | Plug 'haya14busa/incsearch.vim'
-  endif
-
-  " show registers in split if use \" or <C-R>
-  "Plug 'junegunn/vim-peekaboo'
+  Plug 'haya14busa/incsearch.vim'
 
   " Show (#/total results) when searching for a term
-  " disabled for echo issue
+  " known echo issue if remapping [[ and ]], but I removed that map
   " @see https://github.com/osyo-manga/vim-anzu/issues/19
-  "Plug 'osyo-manga/vim-anzu'
+  Plug 'osyo-manga/vim-anzu'
+
+  " ========================================================================
+  " Plug: UI -- load last!
+  " ========================================================================
+
+  " :EC and :DC to enable/disable changes plugin
+  if v:version >= 800
+    Plug 'chrisbra/changesPlugin', { 'on': ['EC'] }
+  else
+    " :GitGutterToggle (bound to C-g)
+    Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle'] }
+  endif
 
   Plug 'moll/vim-bbye'
 
-  Plug 'now/vim-quit-if-only-quickfix-buffer-left'
-
+  " Alternatively use sjl/vitality.vim -- but that has some cursor shape stuff
+  " that Neovim doesn't need.
   Plug 'tmux-plugins/vim-tmux-focus-events'
 endfunction
 
@@ -993,23 +1023,28 @@ endfunction
 " Plugins: autoinstall vim-plug, define plugins, install plugins if needed
 " ----------------------------------------------------------------------------
 
+let s:use_plugins = 1
 let s:plug_dir = '/vendor/'
 let s:plug_dir .= has('nvim') ? 'nvim' : 'vim'
 let s:dko_plug_absdir = g:dko#vim_dir . s:plug_dir
 
-" Load vim-plug and its plugins?
-if empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
-  execute 'silent !curl -fLo '
-        \ . g:dko#vim_dir . '/autoload/plug.vim '
-        \ . 'https://raw.githubusercontent.com/'
-        \ . 'junegunn/vim-plug/master/plug.vim'
-endif
+let g:plug_window = 'tabnew'
 
-call plug#begin(s:dko_plug_absdir)
-  call s:LoadPlugins()
-  if empty(glob(expand(s:dko_plug_absdir))) | PlugInstall
+if s:use_plugins
+  " Load vim-plug and its plugins?
+  if empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
+    execute 'silent !curl -fLo '
+          \ . g:dko#vim_dir . '/autoload/plug.vim '
+          \ . 'https://raw.githubusercontent.com/'
+          \ . 'junegunn/vim-plug/master/plug.vim'
   endif
-call plug#end()
+
+  call plug#begin(s:dko_plug_absdir)
+    call s:LoadPlugins()
+    if !isdirectory(expand(s:dko_plug_absdir)) | PlugInstall
+    endif
+  call plug#end()
+endif
 
 " ============================================================================
 " Autocommands
@@ -1023,13 +1058,19 @@ augroup dkowindow
   autocmd VimResized
         \ *
         \ wincmd =
+
+  " Quit if quickfix is the only window
+  " from https://github.com/now/vim-quit-if-only-quickfix-buffer-left/blob/master/plugin/now/quit-if-only-quickfix-buffer-left.vim
+  autocmd WinEnter
+        \ *
+        \ if winnr('$') == 1 && &buftype == 'quickfix' | quit | endif
 augroup END
 
 " Tabline
 augroup dkotabline
   autocmd!
 
-  autocmd vimrc VimEnter
+  autocmd VimEnter
         \ *
         \ set tabline=%!dkotabline#Output()
 
@@ -1044,7 +1085,7 @@ augroup END
 augroup dkostatusline
   autocmd!
 
-  autocmd vimrc VimEnter
+  autocmd VimEnter
         \ *
         \ set statusline=%!dkostatus#Output(1)
 

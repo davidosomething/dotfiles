@@ -1,5 +1,9 @@
 " plugin/plug-vim-over.vim
-if !exists("g:plugs['vim-over']") | finish | endif
+if !dko#IsPlugged('vim-over') | finish | endif
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
+" ============================================================================
 
 let g:over_command_line_prompt = 'over> '
 
@@ -20,5 +24,9 @@ let g:over_command_line_key_mappings = {
       \   "\<F12>": "\<Esc>",
       \ }
 
-execute dko#BindFunction('<F9>', 'OverCommandLine')
+nnoremap <silent>  \   :<C-U>OverCommandLine<CR>
 
+" ============================================================================
+
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

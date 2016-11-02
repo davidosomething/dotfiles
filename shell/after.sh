@@ -11,9 +11,28 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 # ==============================================================================
 
 dko::has "nvim" && {
+  alias e="nvim"
+
   export EDITOR="nvim"
   export VISUAL="nvim"
+  export VOPEN_EDITOR="nvim"
+  export VOPEN_VISUAL="nvim"
+
+  dko::has "nvr" && {
+    export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+    export VOPEN_SERVERNAME="$NVIM_LISTEN_ADDRESS"
+    export VOPEN_DEFAULT_COMMAND="+enew"
+    export VOPEN_REUSE_COMMAND="--remote-silent +sleep"
+    export VOPEN_EDITOR="nvr"
+    export VOPEN_VISUAL="nvr"
+  }
 }
+
+# ============================================================================
+# Use vopen
+# ============================================================================
+
+dko::has "vopen" && alias e="vopen"
 
 # ==============================================================================
 # Grunt completion
@@ -39,11 +58,19 @@ dko::has "grunt" && {
 dko::source "${TRAVIS_CONFIG_PATH}/travis.sh" && \
   export DKO_SOURCE="${DKO_SOURCE} -> travis"
 
+# ============================================================================
+# yarn completion
+# ============================================================================
+
+dko::source "${DKO_DEFAULT_NODE}/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh"
+
 # ==============================================================================
 # Auto-manpath
 # ==============================================================================
 
 unset MANPATH
 
+# ==============================================================================
+
 export DKO_SOURCE="${DKO_SOURCE} }"
-# vim: ft=zsh :
+# vim: ft=sh :

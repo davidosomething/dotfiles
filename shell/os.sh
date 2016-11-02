@@ -47,7 +47,16 @@ esac
 
     # for arch wiki lite
     export wiki_browser="chromium"
-  }
+
+    # On ArchLinux, GDM sources the user .Xresources with `-nocpp` so none of the
+    # includes are processed. Do a real load here (and leave /etc/gdm/Xsession
+    # alone).
+    # Setting $XENVIRONMENT is an option, but the -I flag here is more useful.
+    # This also lets me keep .Xresources out of ~/
+    [[ "$DISPLAY" != "" ]] \
+      && dko::has "xrdb" \
+      && xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
+    }
 }
 
 # vim: ft=sh :

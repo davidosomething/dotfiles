@@ -88,6 +88,7 @@ export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 # fzf
 # ** is globbing completion in zsh, use tickticktab instead
 export FZF_COMPLETION_TRIGGER="\`\`"
+# using git paths only for FZF
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |

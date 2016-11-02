@@ -18,10 +18,9 @@ alias pyg="pygmentize -O style=rrt -f console256 -g"
 
 # editors
 alias a="atom"
-{ dko::has 'nvim' && alias e="nvim"; } || alias e="vim"
+alias e="vim"
 alias ehosts="se /etc/hosts"
-alias evl="e \"\${HOME}/.vimrc.local\""
-alias evm="e \"\${VIM_DOTFILES}/after/plugin/mappings.vim\""
+alias etmux="e \"\${DOTFILES}/tmux/tmux.conf\""
 alias evr="e \"\${VIM_DOTFILES}/vimrc\""
 alias eze="e \"\${ZDOTDIR}/.zshenv\""
 alias ezp="e \"\${ZDOTDIR}/zplug.zsh\""
@@ -47,7 +46,9 @@ alias rg="rg --hidden --smart-case"
 # node
 alias bfy="browserify"
 alias n="npm"
-alias ni="npm install"
+alias npmo="n outdated --long"
+alias nog="npmo --global"
+alias ncu="npmo"
 alias nude="nvm use default"
 
 # php
@@ -130,6 +131,8 @@ __alias_ls() {
   alias l="ls $single_column $almost_all"
   # shellcheck disable=SC2139
   alias ll="l $long"
+  # shit
+  alias kk='ll'
 }
 __alias_ls
 
@@ -137,12 +140,14 @@ __alias_ls
 
 __alias_darwin() {
   alias b="TERM=xterm-256color brew"
-  alias bi="TERM=xterm-256color brew install"
-  alias bq="brew list"
-  alias bs="brew search"
+  alias brew="TERM=xterm-256color brew"
 
-  alias bsvc="brew services"
-  alias bsvr="brew services restart"
+  alias bi="b install"
+  alias bq="b list"
+  alias bs="b search"
+
+  alias bsvc="b services"
+  alias bsvr="b services restart"
 
   # sudo since we run nginx on port 80 so needs admin
   alias rnginx="sudo brew services restart nginx"

@@ -1,11 +1,13 @@
 " plugin/operator.vim
 
-if !exists("g:plugs['vim-operator-user']") | finish | endif
+if !dko#IsPlugged('vim-operator-user') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
-if exists("g:plugs['vim-operator-surround']")
+" ============================================================================
+
+if dko#IsPlugged('vim-operator-surround')
   " disable [s]ubstitute
   map   s   <Nop>
 
@@ -22,15 +24,23 @@ if exists("g:plugs['vim-operator-surround']")
   nmap   s]    <Plug>(operator-surround-append)iW]
   nmap   s>    <Plug>(operator-surround-append)iW>
 
+  " visual mode
+  vmap   s'    <Plug>(operator-surround-append)'
+  vmap   s"    <Plug>(operator-surround-append)"
+  vmap   s)    <Plug>(operator-surround-append))
+  vmap   s}    <Plug>(operator-surround-append)}
+  vmap   s]    <Plug>(operator-surround-append)]
+  vmap   s>    <Plug>(operator-surround-append)>
+
   " accept block char on anyblock
-  if exists("g:plugs['vim-textobj-anyblock']")
+  if dko#IsPlugged('vim-textobj-anyblock')
     nmap  say   <Plug>(operator-surround-append)<Plug>(textobj-anyblock-a)
     nmap  sdy   <Plug>(operator-surround-delete)<Plug>(textobj-anyblock-a)
     nmap  sry   <Plug>(operator-surround-replace)<Plug>(textobj-anyblock-a)
   endif
 endif
 
-if exists("g:plugs['operator-camelize.vim']")
+if dko#IsPlugged('operator-camelize.vim')
   " operators
   map   <unique>  <Leader>c   <Plug>(operator-camelize-toggle)
 
@@ -38,6 +48,8 @@ if exists("g:plugs['operator-camelize.vim']")
   map   ccb          <Plug>(operator-camelize-toggle)<Plug>(textobj-anyblock-a)
   map   ccc          <Plug>(operator-camelize-toggle)iWB
 endif
+
+" ============================================================================
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

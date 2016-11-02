@@ -1,3 +1,40 @@
+--recurse=yes
+
+--tag-relative=yes
+
+--fields=+a
+--fields=+f
+--fields=+i
+--fields=+k
+--fields=+l
+--fields=+m
+--fields=+n
+--fields=+s
+--fields=+S
+--fields=+z
+--fields=+t
+
+--languages=+Lua
+--languages=+Make
+--languages=+Perl
+--languages=+Python
+--languages=+Sh
+--languages=+PHP
+--languages=+Vim
+--languages=+JavaScript
+
+--langdef=markdown
+--langmap=markdown:.md
+--regex-markdown=/^#[ \t]+(.*)/\1/h,Heading_L1/
+--regex-markdown=/^##[ \t]+(.*)/\1/i,Heading_L2/
+--regex-markdown=/^###[ \t]+(.*)/\1/k,Heading_L3/
+
+--langmap=php:+.inc
+--php-kinds=cfd
+
+--langmap=vim:+.vimrc
+--langmap=vim:+.gvimrc
+
 --exclude=.bundle/*
 --exclude=.cache/*
 --exclude=.git/*
@@ -42,14 +79,3 @@
 --exclude=TAGS
 --exclude=GTAGS
 --exclude=cscope.*
-
-
---languages=JavaScript,Lua,Make,Perl,PHP,Python,Sh,Vim
-
-
---langmap=php:.engine.inc.module.theme.install.php --PHP-kinds=+cf-v
-
-
---fields=afiklmnsSzt
---tag-relative=yes
---recurse=yes

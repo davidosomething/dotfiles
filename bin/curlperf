@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# curlperf
+#
+# Simple alternative to apachebench to get request time for a URL
+#
+
+# @param $1 url
+__curlperf() {
+  curl \
+    -o /dev/null \
+    -s \
+    -w "%{time_connect} + %{time_starttransfer} = %{time_total}\n" \
+    "$1"
+}
+
+[ -n "$#" ] && __curlperf "$1"

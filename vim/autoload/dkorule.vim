@@ -3,6 +3,8 @@
 " Generate a line of a:char from current cursor to end of textwidth
 " For &tw=78 (my preferred textwidth) the line will go up to col 78
 " http://stackoverflow.com/a/3400528/230473
+"
+" @param {String} char
 function! dkorule#char(char) abort
   if !strlen(a:char) | return | endif
   let l:tw = getbufvar('%', '&textwidth', 78)
@@ -32,7 +34,7 @@ endfunction
 function! dkorule#map(...) abort
   let l:key = a:1
   let l:char = len(a:000) > 1 ? a:2 : a:1
-  let l:command = ':<C-u>call dkorule#char("' . l:char . '")<CR>'
+  let l:command = ':<C-U>call dkorule#char("' . l:char . '")<CR>'
   execute 'nnoremap <silent><special> <Leader>f' . l:key . ' ' . l:command
   execute 'inoremap <silent><special> <Leader>f' . l:key . ' <C-o>' . l:command
 endfunction

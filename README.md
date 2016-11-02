@@ -12,7 +12,7 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 - RC files for lua, markdown, node, php, python, r, ruby, shell
 
 ![terminal screenshot][screenshot]
-> Screenshot of the zsh prompt in tmux in termite on Arch Linux
+> Screenshot of my zsh prompt
 
 ## Installation
 
@@ -34,8 +34,8 @@ git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
   `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
 - Install and use [Fira (Fura) Mono for Powerline] font (install
   to `${XDG_DATA_HOME}/fonts` on \*nix)
-- Change default shell to zsh (ensure listed in `/etc/shells`) and
-  restart shell (zplug will self-install)
+- Install zsh and change default shell to it (ensure listed in `/etc/shells`)
+  and restart shell (zplug will self-install)
 - See OS specific notes in [mac/README.md](mac/README.md) and for linux
   [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 - Chrome extensions I use are listed in
@@ -53,6 +53,7 @@ scripts.
 - `php`, `composer`, use composer to install `wp-cli`
 - Use [pyenv-installer] for `pyenv`, `pyenv-virtualenv`, then create a new env
   with a new python/pip.
+    - Create virtualenvs for neovim.
 
 ### Provisioning scripts
 
@@ -62,13 +63,14 @@ first.
 - `bootstrap/cleanup.sh` moves some things into their XDG Base Directory
   supported directories
 - `bootstrap/symlink.sh` symlinks rc files for bash, zsh, ack, (neo)vim, etc.
+- `bootstrap/terminfo.sh` will copy/compile terminfo files for user to
+  `~/.terminfo/*`
+- `bootstrap/x11.sh` symlinks `.xbindkeysrc`, `.xprofile`
 - `npm/install.sh` install default packages, requires you set up nvm and
   install node first
 - `ruby/install-default-gems.sh` requires you set up chruby and install a ruby
   first
-- `bootstrap/terminfo.sh` will copy/compile terminfo files for user to
-  `~/.terminfo/*`
-- `bootstrap/x11.sh` symlinks `.xbindkeysrc`, `.xprofile`
+- `python/install.sh` requires you set up pyenv. Install default pip packages
 
 ## Updating
 
@@ -82,7 +84,8 @@ Use `u` without arguments for usage.
       script/binary. This directory is added to the `$PATH`.
 - `local/`
     - Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
-      and they will automatically be sourced LAST by the default scripts.
+      and they will automatically be sourced LAST by the default scripts. _No
+      dots on the filenames._
 - `git/`
     - The comment character was changed from `#` to `;` so I can use Markdown
       in my commit messages without trimming the headers as comments. This is
@@ -131,14 +134,14 @@ For X apps (no terminal) the value is probably:
 - **Variable names**
     - Stick to nouns, lower camel case
 - **Variable scope**
-    - Try to use `local` and `readonly` variables as much as possible over
+    - Use `local` and `readonly` variables as much as possible over
       global/shell-scoped variables.
 
 ## Credits
 
 > _Logo from [jglovier/dotfiles-logo]_
 
-[screenshot]: https://cdn.rawgit.com/davidosomething/dotfiles/2016-02-22/meta/terminal.png
+[screenshot]: https://cloud.githubusercontent.com/assets/609213/19455761/51922106-948c-11e6-9827-efd2eea2fd8d.png
 [Archlinux wiki for XDG Base Directory Support]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
 [grawity's dotfile notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes

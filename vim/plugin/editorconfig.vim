@@ -14,22 +14,17 @@
 " @see https://github.com/sgur/vim-editorconfig/issues/7
 " ============================================================================
 
-if exists("g:plugs['vim-editorconfig']")
-  let g:editorconfig_verbose = 1
-endif
+let g:editorconfig_verbose = 1
 
 " ============================================================================
 " Official version (python dep)
 " ============================================================================
 
-if exists("g:plugs['editorconfig-vim']")
-  " Disable plugin's setting for &colorcolumn, prefer &tw relative setting
-  let g:EditorConfig_max_line_indicator = ''
+" Disable plugin's setting for &colorcolumn, prefer &tw relative setting
+let g:EditorConfig_max_line_indicator = ''
 
-  let g:EditorConfig_exclude_patterns = [
-        \   'fugitive://.*',
-        \   'gita:.*',
-        \   'scp://.*',
-        \ ]
-endif
-
+let g:EditorConfig_exclude_patterns = [
+      \   'fugitive://.*',
+      \   'gita:.*',
+      \   'scp://.*',
+      \ ]

@@ -117,6 +117,7 @@ __clean_nvm() {
 __move      "${HOME}/.bash_history"   "${BASH_DOTFILES}/.bash_history"
 __move      "${HOME}/.composer"       "${XDG_CONFIG_HOME}/composer"
 __move      "${HOME}/.gimp-2.8"       "${XDG_CONFIG_HOME}/GIMP/2.8"
+__move      "${HOME}/.hyperterm.js"   "${HOME}/.hyper.js"
 __move      "${HOME}/.inputrc"        "${XDG_CONFIG_HOME}/readline/inputrc"
 __move      "${HOME}/.wget-hsts"      "${XDG_DATA_HOME}/wget/.wget-hsts"
 # PYLINTHOME is set

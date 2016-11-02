@@ -43,7 +43,7 @@ augroup end
 " Neosnippet
 " ============================================================================
 
-if !empty(glob(expand(g:plug_home . '/neosnippet')))
+if dko#IsPlugged('neosnippet')
   " Snippets userdir
   let g:neosnippet#snippets_directory = g:dko#vim_dir . '/snippets'
 
@@ -165,8 +165,9 @@ let s:omnifuncs.php = [ 'phpcomplete#CompletePHP' ]
 " Completion Plugin: vim-better-javascript-completion
 " ============================================================================
 
-if exists('g:plugs["vim-better-javascript-completion"]')
+if dko#IsPlugged('vim-better-javascript-completion')
   " insert instead of add, this is preferred completion omnifunc (except tern)
+  autocmd dkocompletion FileType javascript setlocal omnifunc=js#CompleteJS
   call insert(s:omnifuncs.javascript, 'js#CompleteJS')
 endif
 
@@ -176,13 +177,16 @@ endif
 " ============================================================================
 
 if executable('npm')
-  "let g:tern_show_argument_hints = 'on_hold'   " Use tabline instead (<F10>)
-  let g:tern_show_signature_in_pum = 1
+  " tern_for_vim settings
+  if executable('tern') && dko#IsPlugged('tern_for_vim')
+    " Use global tern server instance (same as deoplete-ternjs)
+    let g:tern#command   = [ 'tern' ]
+    " Don't close tern after 5 minutes, helps speed up deoplete completion if
+    " they manage to share the instance
+    let g:tern#arguments = [ '--persistent' ]
 
-  if executable('tern') && exists('g:plugs["carlitux/deoplete-ternjs"]')
     augroup dkocompletion
-      autocmd FileType javascript
-            \ nnoremap <silent><buffer> gb :<C-u>TernDef<CR>
+      autocmd FileType javascript nnoremap <silent><buffer> gd :<C-U>TernDef<CR>
 
       " Set omnifunc every time, in case jspc's after ftplugin call to init
       " sets it to jspc#omni
@@ -190,18 +194,29 @@ if executable('npm')
     augroup END
   endif
 
-  " force using tern when typing matches regex
-  " first regex is match 5 or more characters to end of line
-  "let s:fip.javascript = '\h\k\{4,}$' . '\|' .
-  let s:fip.javascript = s:REGEX.nonspace_dot
+  " deoplete-ternjs settings
+  "let g:tern_show_argument_hints = 'on_hold'   " Use tabline instead (<F10>)
+  let g:tern_request_timeout       = 1
+  let g:tern_show_signature_in_pum = 1
+
+  " Use tern for completion if either plugin is installed
+  if executable('tern') && (
+        \ dko#IsPlugged('tern_for_vim') || dko#IsPlugged('deoplete-ternjs')
+        \ )
+    " force using tern when typing matches regex
+    " first regex is match 5 or more characters to end of line
+    "let s:fip.javascript = '\h\k\{4,}$' . '\|' .
+    let s:fip.javascript = s:REGEX.nonspace_dot
+  endif
 endif
 
 " ============================================================================
 " Completion Plugin: jspc.vim
-" <C-x><c-u> to use jspc in particular
+" <C-x><C-u> to use jspc in particular
+" (Ignored if s:fip.javascript was set by the above tern settings)
 " ============================================================================
 
-if exists('g:plugs["jspc.vim"]')
+if dko#IsPlugged('jspc.vim')
   autocmd dkocompletion FileType javascript setlocal completefunc=jspc#omni
   " jspc.vim wraps the default omnicomplete, so we'll have duplicates if we
   " have both in our neocomplete sources.
@@ -217,7 +232,7 @@ endif
 " don't need to check exists since an older one comes with vimruntime
 " ============================================================================
 
-if exists("g:plugs['phpcomplete.vim']")
+if dko#IsPlugged('phpcomplete.vim')
   let g:phpcomplete_parse_docblock_comments = 1
 
   " php with phpcomplete.vim support
@@ -237,7 +252,7 @@ endif
 " Includes neocomplete source
 " ============================================================================
 
-if exists("g:plugs['phpcomplete-extended']")
+if dko#IsPlugged('phpcomplete-extended')
   let s:omnifuncs.php = [ 'phpcomplete_extended#CompletePHP' ]
 
   if executable('composer')
@@ -254,7 +269,7 @@ endif
 " Completion Plugin: phpcd.vim
 " ============================================================================
 
-if exists('g:plugs["phpcd.vim"]')
+if dko#IsPlugged('phpcd.vim')
   augroup dkocompletion
     autocmd FileType php setlocal omnifunc=phpcd#CompletePHP
   augroup END
@@ -264,7 +279,7 @@ endif
 " Completion Plugin: padawan.vim
 " ============================================================================
 
-if exists('g:plugs["padawan.vim"]')
+if dko#IsPlugged('padawan.vim')
   augroup dkocompletion
     autocmd FileType php setlocal omnifunc=padawan#Complete
   augroup END
@@ -274,7 +289,7 @@ endif
 " Neocomplete
 " ============================================================================
 
-if !empty(glob(expand(g:plug_home . '/neocomplete')))
+if dko#IsPlugged('neocomplete')
   let g:neocomplete#data_directory =
         \ expand(g:dko#vim_dir . '/.tmp/neocomplete')
 
@@ -296,7 +311,7 @@ if !empty(glob(expand(g:plug_home . '/neocomplete')))
   " Sources for engine-based omni-completion (ignored if match s:fip)
   " --------------------------------------------------------------------------
 
-  call dko#InitObject('g:neocomplete#sources#omni#functions')
+  call dko#InitDict('g:neocomplete#sources#omni#functions')
   call extend(g:neocomplete#sources#omni#functions, s:omnifuncs)
 
   " --------------------------------------------------------------------------
@@ -304,11 +319,11 @@ if !empty(glob(expand(g:plug_home . '/neocomplete')))
   " --------------------------------------------------------------------------
 
   " Patterns that bypass to &omnifunc
-  call dko#InitObject('g:neocomplete#force_omni_input_patterns')
+  call dko#InitDict('g:neocomplete#force_omni_input_patterns')
   call extend(g:neocomplete#force_omni_input_patterns, s:fip)
 
   " Patterns that use neocomplete
-  call dko#InitObject('g:neocomplete#sources#omni#input_patterns')
+  call dko#InitDict('g:neocomplete#sources#omni#input_patterns')
   call extend(g:neocomplete#sources#omni#input_patterns, s:neo_patterns)
 endif
 
@@ -316,8 +331,12 @@ endif
 " Deoplete
 " ============================================================================
 
-if !empty(glob(expand(g:plug_home . '/deoplete.nvim')))
-  let g:deoplete#enable_at_startup = 1
+if dko#IsPlugged('deoplete.nvim')
+  let g:deoplete#enable_at_startup  = 1
+
+  " [file] candidates are relative to the buffer path
+  let g:deoplete#file#enable_buffer_path = 1
+
   call deoplete#custom#set('_', 'matchers', [
         \   'matcher_head',
         \   'matcher_length',
@@ -328,7 +347,7 @@ if !empty(glob(expand(g:plug_home . '/deoplete.nvim')))
   " Unlike neocomplete, deoplete only supports one omnifunction at a time
   " --------------------------------------------------------------------------
 
-  call dko#InitObject('g:deoplete#omni#functions')
+  call dko#InitDict('g:deoplete#omni#functions')
   " Not extending, instead pluck first item from list since deoplete only
   " supports one omnifunc
   call extend(g:deoplete#omni#functions, map(copy(s:omnifuncs), 'v:val[0]'))
@@ -338,11 +357,11 @@ if !empty(glob(expand(g:plug_home . '/deoplete.nvim')))
   " --------------------------------------------------------------------------
 
   " Patterns that bypass to &omnifunc
-  call dko#InitObject('g:deoplete#omni_patterns')
+  call dko#InitDict('g:deoplete#omni_patterns')
   call extend(g:deoplete#omni_patterns, s:fip)
 
   " Completion engine input patterns
-  call dko#InitObject('g:deoplete#omni#input#patterns')
+  call dko#InitDict('g:deoplete#omni#input#patterns')
   call extend(g:deoplete#omni#input#patterns, s:deo_patterns)
 
 endif

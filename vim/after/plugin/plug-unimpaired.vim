@@ -1,6 +1,6 @@
 " plugin/plug-unimpaired.vim
 
-if !exists('g:plugs["vim-unimpaired"]') | finish | endif
+if !dko#IsPlugged('vim-unimpaired') | finish | endif
 
 " ============================================================================
 " Unimpaired overrides
@@ -15,7 +15,7 @@ function! s:LocationPrevious()
   endtry
 endfunction
 nnoremap  <silent>  <Plug>unimpairedLPrevious
-      \ :<C-u>call <SID>LocationPrevious()<CR>
+      \ :<C-U>call <SID>LocationPrevious()<CR>
 
 " go to first error instead of bitching
 function! s:LocationNext()
@@ -26,7 +26,7 @@ function! s:LocationNext()
   endtry
 endfunction
 nnoremap  <silent>  <Plug>unimpairedLNext
-      \ :<C-u>call <SID>LocationNext()<CR>
+      \ :<C-U>call <SID>LocationNext()<CR>
 
 " ----------------------------------------------------------------------------
 " Bubble remaps

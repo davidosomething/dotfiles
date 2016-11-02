@@ -83,7 +83,8 @@ function! dkostatus#Paste() abort
         \ : '%#DiffText# ᴘ %*'
 endfunction
 
-" Custom formatter based on https://github.com/benekastah/neomake/blob/master/autoload/neomake/statusline.vim#L36
+" Custom formatter based on
+" https://github.com/benekastah/neomake/blob/master/autoload/neomake/statusline.vim#L36
 function! dkostatus#FormatNeomakeCounts(counts) abort
   let l:result = ''
   let l:e = get(a:counts, 'E', 0)
@@ -103,14 +104,16 @@ endfunction
 
 function! dkostatus#NeomakeCounts() abort
   return s:winnr != winnr()
-        \ || empty(glob(expand(g:plug_home . '/neomake')))
+        \ || !dko#IsPlugged('neomake')
+        \ || !exists('*neomake#statusline#LoclistCounts')
         \ ? ''
         \ : dkostatus#FormatNeomakeCounts(neomake#statusline#LoclistCounts())
 endfunction
 
 function! dkostatus#NeomakeJobs() abort
   return s:winnr != winnr()
-        \ || empty(glob(expand(g:plug_home . '/neomake')))
+        \ || !dko#IsPlugged('neomake')
+        \ || !exists('*neomake#GetJobs')
         \ || empty(neomake#GetJobs())
         \ ? ''
         \ : '%#StatusLineNC# … %*'
@@ -130,16 +133,19 @@ endfunction
 function! dkostatus#Filename() abort
   let l:contents = ' '
   let l:contents .= winwidth(0) > 40 ? '%<%f' : '%t'
-  let l:contents .= (isdirectory(expand('%p')) ? '/ ' : '')
+  let l:contents .= (isdirectory(expand('%:p')) ? '/ ' : '')
   let l:contents .= getbufvar(s:bufnr, '&modified') ? '%#PmenuThumb#+' : ''
   let l:contents .= '%* '
   return l:contents
 endfunction
 
 function! dkostatus#Anzu() abort
-  if s:winnr != winnr() || !exists('g:plugs["vim-anzu"]')
+  if s:winnr != winnr()
+        \ || !dko#IsPlugged('vim-anzu')
+        \ || !exists('*anzu#search_status')
     return ''
   endif
+
   let l:anzu = anzu#search_status()
   return empty(l:anzu)
         \ ? ''
@@ -157,9 +163,11 @@ endfunction
 function! dkostatus#GitaBranch() abort
   if winwidth(0) < 80
         \ || s:winnr != winnr()
+        \ || !dko#IsPlugged('vim-gita')
         \ || !exists('g:gita#debug')
     return ''
   endif
+
   let l:branch = gita#statusline#format('%lb')
   return empty(l:branch)
         \ ? '' 
@@ -169,6 +177,7 @@ endfunction
 function! dkostatus#GutentagsStatus() abort
   if winwidth(0) < 80
         \ || s:winnr != winnr()
+        \ || !dko#IsPlugged('vim-gutentags')
         \ || !exists('g:loaded_gutentags')
     return ''
   endif

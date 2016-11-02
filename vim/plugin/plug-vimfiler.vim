@@ -1,6 +1,6 @@
 " plugin/plug-vimfiler.vim
 scriptencoding utf-8
-if !exists("g:plugs['vimfiler.vim']") | finish | endif
+if !dko#IsPlugged('vimfiler.vim') | finish | endif
 
 let g:vimfiler_as_default_explorer = 1
 
@@ -29,8 +29,10 @@ let g:vimfiler_readonly_file_icon = 'ʀ'
 " Shortcut
 " ============================================================================
 
-execute dko#BindFunction('<F1>',
-      \ 'VimFilerExplorer -parent -explorer-columns=type')
+execute dko#MapAll({
+      \   'key':     '<F1>',
+      \   'command': 'VimFilerExplorer -parent -explorer-columns=type'
+      \ })
 
 " ============================================================================
 " Keymappings

@@ -139,15 +139,6 @@ Is PWD in git repository?
 
 > Pretty show terminal color support
 
-## vopen
-
-> Open files in a single vim/gvim server
-> <https://github.com/davidosomething/vopen/>
-
-## vopen-nofork
-
-> Call vopen with --no-fork flag
-
 ## w510-touchpadtoggle
 
 > For w510 enable/disable touchpad

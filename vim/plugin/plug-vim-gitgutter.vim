@@ -1,7 +1,7 @@
 " plugin/plug-vim-gitgutter.vim
 scriptencoding utf-8
 
-if !exists("g:plugs['vim-gitgutter']") | finish | endif
+if !dko#IsPlugged('vim-gitgutter') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
@@ -11,7 +11,7 @@ let g:gitgutter_enabled = 0
 
 let g:gitgutter_sign_modified = 'Δ'
 
-nmap <silent><special> <C-g> :<C-u>GitGutterToggle<CR>
+execute dko#MapAll({ 'key': '<F9>', 'command': 'GitGutterToggle' })
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
