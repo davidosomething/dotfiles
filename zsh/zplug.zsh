@@ -12,7 +12,10 @@
 # Mine
 # ----------------------------------------------------------------------------
 
-zplug "${ZDOTDIR}", from:local, use:"{keybindings,title}.zsh"
+zplug "${ZDOTDIR}", \
+  from:local,       \
+  use:"{keybindings,prompt-vcs,prompt-vi,title}.zsh"
+
 [ -z "$SSH_CONNECTION" ] \
   && zplug "${ZDOTDIR}", from:local, use:"prompt.zsh" \
   || zplug "${ZDOTDIR}", from:local, use:"prompt-legacy.zsh"
