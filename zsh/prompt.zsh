@@ -121,7 +121,7 @@ precmd() {
 
   local left_raw="$(print -Pn "${left_parts[@]}")"
   local left=''
-  if [ -n "$SSH_CONNECTION" ]; then
+  if [ -z "$SSH_CONNECTION" ]; then
     for (( i = 1; i <= ${#left_parts}; i++ )) do
       left="${left}${left_colors[i]}${left_parts[i]}"
     done
