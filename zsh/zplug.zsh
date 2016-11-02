@@ -14,11 +14,7 @@
 
 zplug "${ZDOTDIR}", \
   from:local,       \
-  use:"{keybindings,prompt-vcs,prompt-vi,title}.zsh"
-
-[ -z "$SSH_CONNECTION" ] \
-  && zplug "${ZDOTDIR}", from:local, use:"prompt.zsh" \
-  || zplug "${ZDOTDIR}", from:local, use:"prompt-legacy.zsh"
+  use:"{keybindings,prompt-vcs,prompt-vi,prompt,title}.zsh"
 
 zplug "davidosomething/git-ink",  as:command
 zplug "davidosomething/git-my",   as:command
@@ -41,7 +37,7 @@ zplug "davidosomething/vopen",     \
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 
 # In-line best history match suggestion
-[ -z "$SSH_CONNECTION" ] && zplug "tarruda/zsh-autosuggestions"
+zplug "tarruda/zsh-autosuggestions"
 
 # Various program completions
 # This adds to fpath (so before compinit)
@@ -90,4 +86,4 @@ fi
 #   nice:18
 
 # highlight as you type
-[ -z "$SSH_CONNECTION" ] && zplug "zsh-users/zsh-syntax-highlighting", nice:19
+zplug "zsh-users/zsh-syntax-highlighting", nice:19
