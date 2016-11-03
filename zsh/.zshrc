@@ -9,7 +9,7 @@
 # Before
 # ============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} -> zshrc {"
+export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 source "${DOTFILES}/shell/before.sh"
 
 # ============================================================================

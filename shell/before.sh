@@ -1,14 +1,13 @@
 # shell/before.sh
 #
-# Sourced by .bashrc and .zshrc (interactive shells)
-# Depends on shell/vars (which should have been loaded into env by login shell)
+# Depends on shell/vars.sh (which should have been loaded before this file,
+# via .bashrc or .zshenv)
 #
-# Stuff here is used by .zshrc and .bashrc (so unlike vars, this is updated on
-# every TTY and not loaded once in env/profile).
+# Sourced by .bashrc and .zshrc (interactive shells)
 #
 # Regarding tmux:
 # Since my tmux shells are not login shells the path needs to be rebuilt.
-# shell/vars on the other hand just get inherited.
+# shell/vars.sh on the other hand just get inherited.
 #
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/before.sh {"
@@ -31,4 +30,4 @@ source "${DOTFILES}/shell/ruby.sh"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 
-# vim: ft=zsh :
+# vim: ft=sh :

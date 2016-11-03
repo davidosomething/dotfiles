@@ -1,4 +1,9 @@
-# .bashrc
+# dot.bashrc
+#
+# sourced on interactive/TTY
+# sourced on login shells via .bash_profile
+# symlinked to ~/.bashrc
+#
 
 # ==============================================================================
 # Before
@@ -75,4 +80,4 @@ source "${DOTFILES}/shell/after.sh"
 dko::source "${DOTFILES}/local/bashrc"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
-# vim: syn=sh :
+# vim: ft=sh :
