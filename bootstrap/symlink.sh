@@ -20,8 +20,8 @@ source "${dotfiles_path}/shell/helpers.sh"
 __symlink() {
   dko::status "Symlinking dotfiles"
 
-  # ctags
-  dko::symlink ctags/dot.ctags                      .ctags
+  # universal-ctags
+  dko::symlink universal-ctags/dot.ctags            .ctags
 
   # XDG-compatible
   dko::symlink git/dot.gitconfig                    .config/git/config
