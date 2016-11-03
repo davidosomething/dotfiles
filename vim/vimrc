@@ -26,6 +26,30 @@ let g:dko_loc_list_height = 10
 
 augroup vimrc
   autocmd!
+
+  " These set the default omnifuncs. Completion engine will use something
+  " different if there are other sources available (e.g. TernJS for JavaScript).
+  " Plugins may override these early values
+  " @see plugin/completion.vim
+  autocmd FileType css
+        \ setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown
+        \ setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript
+        \ setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType php
+        \ setlocal omnifunc=phpcomplete#CompletePHP
+  autocmd FileType ruby
+        \ setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType xml
+        \ setlocal omnifunc=xmlcomplete#CompleteTags
+  if has('python')
+    autocmd FileType python
+          \ setlocal omnifunc=pythoncomplete#Complete
+  else
+    autocmd FileType python
+          \ setlocal omnifunc=syntaxcomplete#Complete
+  endif
 augroup END
 
 " ============================================================================

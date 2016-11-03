@@ -9,34 +9,8 @@ if !g:dko_has_completion | finish | endif
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
-" ============================================================================
-" Default bundled omni-completion for each filetype
-" ============================================================================
-
-" These set the default omnifuncs. Completion engine will use something
-" different if there are other sources available (e.g. TernJS for JavaScript).
 augroup dkocompletion
   autocmd!
-  autocmd FileType css
-        \ setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown
-        \ setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript
-        \ setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType php
-        \ setlocal omnifunc=phpcomplete#CompletePHP
-  autocmd FileType ruby
-        \ setlocal omnifunc=rubycomplete#Complete
-  autocmd FileType xml
-        \ setlocal omnifunc=xmlcomplete#CompleteTags
-
-  if has('python')
-    autocmd FileType python
-          \ setlocal omnifunc=pythoncomplete#Complete
-  else
-    autocmd FileType python
-          \ setlocal omnifunc=syntaxcomplete#Complete
-  endif
 augroup end
 
 " ============================================================================
@@ -72,6 +46,11 @@ endif
 " Neocomplete / Deoplete
 " ============================================================================
 
+" ----------------------------------------------------------------------------
+" Regexes to use completion engine
+" See plugins sections too (e.g. phpcomplete and jspc)
+" ----------------------------------------------------------------------------
+
 let s:REGEX = {}
 let s:REGEX.any_word        = '\h\w*'
 let s:REGEX.nonspace        = '[^-. \t]'
@@ -83,12 +62,8 @@ let s:REGEX.word_scope_word = s:REGEX.any_word . '::\w*'
 let s:REGEX.keychar   = '\k\zs \+'
 let s:REGEX.parameter = s:REGEX.keychar . '\|' . '(' . '\|' . ':'
 
-" ----------------------------------------------------------------------------
-" Regexes to use completion engine
-" See plugins sections too (e.g. phpcomplete and jspc)
-" ----------------------------------------------------------------------------
-
-" Neocomplete
+" Neocomplete -- if any of these match what you're typing, neocomplete will
+" collect the omnifunc results and put them in the PUM with any other results.
 " - String or list of vim regex
 let s:neo_patterns = {}
 
@@ -108,9 +83,36 @@ let s:neo_patterns.javascript =
 " perl
 "let s:neo_patterns.perl   = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
-"Deoplete
+" ----------------------------------------------------------------------------
+" For Deoplete deo_patterns only
+" ----------------------------------------------------------------------------
+
+let s:PY3REGEX = {}
+let s:PY3REGEX.starting_word  = '^\s*\w+'
+let s:PY3REGEX.css_media      = '^\s*@'
+let s:PY3REGEX.css_value      = ': \w*'
+
+" ----------------------------------------------------------------------------
+" Deoplete -- if any of these match what you're typing, deoplete will collect
+" the omnifunc results and put them in the PUM with any other results.
 " - Python 3 regex
+" ----------------------------------------------------------------------------
+
 let s:deo_patterns = {}
+
+" Not using deoplete defaults because if you hit <TAB> after a full rule,
+" e.g. `margin: 1em;<TAB>` it will trigger completion of a new rule.
+" These regexes only complete for one rule per line.
+let s:deo_patterns.css  = [
+      \   s:PY3REGEX.css_media,
+      \   s:PY3REGEX.starting_word,
+      \   s:PY3REGEX.starting_word . s:PY3REGEX.css_value,
+      \   s:PY3REGEX.css_media . '[\w\s]*',
+      \   s:PY3REGEX.css_media . s:PY3REGEX.css_value,
+      \   s:PY3REGEX.css_value . '\s*!',
+      \   s:PY3REGEX.css_value . '\s*!',
+      \ ]
+let s:deo_patterns.scss = s:deo_patterns.css
 
 " ----------------------------------------------------------------------------
 " Regexes to force omnifunc completion
@@ -354,13 +356,13 @@ if dko#IsPlugged('deoplete.nvim')
   " Input patterns
   " --------------------------------------------------------------------------
 
-  " Patterns that bypass to &omnifunc
+  " Patterns that bypass deoplete and use &omnifunc directly
   call dko#InitDict('g:deoplete#omni_patterns')
   call extend(g:deoplete#omni_patterns, s:fip)
 
-  " Completion engine input patterns
-  call dko#InitDict('g:deoplete#omni#input#patterns')
-  call extend(g:deoplete#omni#input#patterns, s:deo_patterns)
+  " Patterns that trigger deoplete aggregated PUM
+  call dko#InitDict('g:deoplete#omni#input_patterns')
+  call extend(g:deoplete#omni#input_patterns, s:deo_patterns)
 
 endif
 
