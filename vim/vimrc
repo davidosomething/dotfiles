@@ -790,7 +790,7 @@ function! s:LoadPlugins()
   " Completion
   " ----------------------------------------
 
-  " Parameter completion
+  " Parameter completion (in or after ' or "), bound to user complete
   Plug 'othree/jspc.vim'
 
   " Code analysis completion

@@ -1,6 +1,6 @@
-# zsh/prompt-vi.zsh
+# zsh/prompt-vimode.zsh
 
-export DKO_SOURCE="${DKO_SOURCE} -> prompt-vi.zsh"
+export DKO_SOURCE="${DKO_SOURCE} -> prompt-vimode.zsh"
 
 # ------------------------------------------------------------------------------
 # vi mode
