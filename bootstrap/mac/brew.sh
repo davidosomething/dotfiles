@@ -17,11 +17,13 @@ brew tap homebrew/services
 # ============================================================================
 
 brew update
-brew install homebrew/completions/brew-cask-completion
 
 # ============================================================================
 # Install tapped formulae
 # ============================================================================
+
+# brew cask completion
+brew install homebrew/completions/brew-cask-completion
 
 # universal-ctags
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
