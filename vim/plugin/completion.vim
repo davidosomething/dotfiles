@@ -112,6 +112,8 @@ let s:deo_patterns.css  = [
       \   s:PY3REGEX.css_value . '\s*!',
       \   s:PY3REGEX.css_value . '\s*!',
       \ ]
+let s:deo_patterns.less = s:deo_patterns.css
+let s:deo_patterns.sass = s:deo_patterns.css
 let s:deo_patterns.scss = s:deo_patterns.css
 
 " ----------------------------------------------------------------------------
