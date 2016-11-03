@@ -237,17 +237,14 @@ if dko#IsPlugged('phpcomplete.vim')
 
   " phpcomplete and universal-ctags suck
   " These two options essentially disable ctag searching for vars and
-  " namespaces
-  "
-  " @TODO configure gutentags to use https://github.com/vim-php/phpctags
-  " for PHP only and set tags to a separate file for php buffers
+  " namespaces. Works, for now, though.
   "
   " @see https://github.com/shawncplus/phpcomplete.vim/wiki/Getting-better-tags
   " @see https://github.com/universal-ctags/ctags/issues/815
   " @see https://github.com/shawncplus/phpcomplete.vim/issues/89
   " @see https://github.com/shawncplus/phpcomplete.vim/search?q=ctags&type=Issues&utf8=%E2%9C%93
-  let g:phpcomplete_search_tags_for_variables = 0
-  let g:phpcomplete_min_num_of_chars_for_namespace_completion = 999
+  " let g:phpcomplete_search_tags_for_variables = 0
+  " let g:phpcomplete_min_num_of_chars_for_namespace_completion = 999
 
   " --------------------------------------------------------------------------
 

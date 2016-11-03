@@ -2,17 +2,9 @@
 
 --tag-relative=yes
 
---fields=+a
---fields=+f
---fields=+i
---fields=+k
---fields=+l
---fields=+m
---fields=+n
---fields=+s
---fields=+S
---fields=+z
---fields=+t
+--fields=+aimlS
+
+--languages=-CSS
 
 --languages=+Lua
 --languages=+Make
@@ -45,14 +37,18 @@
 --exclude=.DS_Store*
 --exclude=bower_components/*
 --exclude=bundle/*
+--exclude=coverage/*
 --exclude=dist/*
 --exclude=docs/*
+--exclude=lcov-report/*
 --exclude=log/*
---exclude=node_modules/*
+--exclude=*node_modules/*
+--exclude=*tests/*
 --exclude=*tmp/*
---exclude=*/vendor/*
---exclude=wp/*
---exclude=jquery*.js
+--exclude=*vendor/*
+--exclude=*wp/*
+--exclude=*wp-includes/*
+--exclude=*jquery*.js
 --exclude=*-min.*
 --exclude=*.bak
 --exclude=*.class
