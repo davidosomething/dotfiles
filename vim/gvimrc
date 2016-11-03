@@ -1,3 +1,5 @@
+" gvimrc
+
 set lines=60 columns=180              " 2 panes wide
 set guioptions-=m                     " hide file/edit/etc. menu
 set guioptions-=T                     " hide stupid button bar
@@ -28,7 +30,7 @@ if has('gui_macvim')
 else
   set guifont=Fura\ Mono\ For\ Powerline\ 9
 
-  cnoremap <S-Insert> <MiddleMouse>
+  cnoremap  <special>  <S-Insert>  <MiddleMouse>
 
 endif
 
@@ -37,4 +39,3 @@ endif
 " ============================================================================
 
 runtime! gvimrc.vim
-

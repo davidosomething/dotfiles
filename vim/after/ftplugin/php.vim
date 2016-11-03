@@ -58,11 +58,11 @@ endif
 " ============================================================================
 
 if dko#IsPlugged('neosnippet')
-  inoremap <silent><buffer>
+  inoremap <silent><buffer><special>
         \ <Leader>pd
         \ a<C-r>=neosnippet#expand('doc')<CR>
 
-  nnoremap <silent><buffer>
+  nnoremap <silent><buffer><special>
         \ <Leader>pd
         \ O<C-r>=neosnippet#expand('doc')<CR>
 endif

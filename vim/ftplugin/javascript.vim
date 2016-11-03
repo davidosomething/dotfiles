@@ -14,6 +14,7 @@ let b:match_words = '\<function\>:\<return\>,'
 " ============================================================================
 " javascript-libraries-syntax
 " ============================================================================
+
 if dko#IsPlugged('javascript-libraries-syntax.vim')
   " the jquery lib causes funky highlighting in selectors
   " e.g. in $('.ad-native-code'); the word native gets highlighted
@@ -30,6 +31,7 @@ endif
 " ============================================================================
 " vim-jsdoc
 " ============================================================================
+
 if dko#IsPlugged('vim-jsdoc')
   let g:jsdoc_return = 0
 

@@ -11,10 +11,10 @@ setlocal nobuflisted
 " Quit with q
 nnoremap  <buffer>    Q   q
 
-" Horizontal split
+" Open result in horizontal split window
 nnoremap  <buffer>    s   <C-w><CR>
 
-" Verical split
+" Open result in verical split window
 " https://github.com/romainl/vim-qf/blob/master/after/ftplugin/qf.vim
 nnoremap  <buffer><expr>
       \ v
@@ -22,7 +22,7 @@ nnoremap  <buffer><expr>
       \   ? "\<C-w>\<CR>\<C-w>L\<C-w>p\<C-w>J\<C-w>p"
       \   : "\<C-w>\<CR>\<C-w>H\<C-w>p\<C-w>J\<C-w>p"
 
-" New tab
+" Open result in new tab
 nnoremap  <buffer>    t   <C-w><CR><C-w>T
 
 " ============================================================================

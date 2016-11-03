@@ -111,6 +111,7 @@ way to find them.
 - `[s]ubstitute` has been remapped to vim-operator-surround
 - A bunch of `c` mappings are now operators that toggle camelcase (e.g., `cc`
   which was previously equivalent to `C`). See `plugin/operator.vim`
+- `<C-f>` -- Expand neosnippet. I use `<C-u>`/`<C-d>` to jump pages instead.
 
 #### Function Keys
 
@@ -138,7 +139,6 @@ associated to [vim-plug]-managed plugins.
 Plan to map these at some point
 
 - `n <C-b>` -- back one screen (page)
-- `n <C-f>` -- fore one screen (page)
 - `n <C-g>` -- show file status (everything's already in statusline...)
 - `n <C-s>` -- nothing
 - `n zh/l`  -- useless wrap mode scroll

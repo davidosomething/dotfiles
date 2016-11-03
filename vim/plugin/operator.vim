@@ -45,8 +45,8 @@ if dko#IsPlugged('operator-camelize.vim')
   map   <unique>  <Leader>c   <Plug>(operator-camelize-toggle)
 
   " commands, not operators
-  map   ccb          <Plug>(operator-camelize-toggle)<Plug>(textobj-anyblock-a)
-  map   ccc          <Plug>(operator-camelize-toggle)iWB
+  map   ccb   <Plug>(operator-camelize-toggle)<Plug>(textobj-anyblock-a)
+  map   ccc   <Plug>(operator-camelize-toggle)iWB
 endif
 
 " ============================================================================

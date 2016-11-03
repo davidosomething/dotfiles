@@ -1,5 +1,4 @@
 " plugin/pumkeys.vim
-
 if exists('g:loaded_dko_pumkeys') | finish | endif
 let g:loaded_dko_pumkeys = 1
 
