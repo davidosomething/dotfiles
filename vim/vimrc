@@ -746,6 +746,8 @@ function! s:LoadPlugins()
   " Language: JavaScript and derivatives, JSON
   " ========================================================================
 
+  Plug '~/.vim/mine/vim-pj'
+
   Plug 'elzr/vim-json'
 
   " provides coffee ft
