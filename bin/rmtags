@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+__maybe_git_root() {
+  local git_root="."
+
+  # check for git root
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    git_root="$(git rev-parse --show-toplevel)"
+  fi
+
+  echo "${git_root}"
+}
+
+# find and edit file from git root
+#
+__rmtags() {
+  local git_root
+  git_root=$(__maybe_git_root)
+
+  # edit gruntfile in git root or local dir if exists
+  if [ -f "${git_root}/.git/tags" ]; then
+    rm "${git_root}/.git/tags"
+  else
+    echo "Not a git repository."
+    return 1
+  fi
+}
+
+__rmtags
+

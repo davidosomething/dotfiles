@@ -135,6 +135,10 @@ Is PWD in git repository?
 
 > Rename a symlink's source file and update the symlink
 
+## rmtags
+
+> Delete .git/tags if it exists in a repository
+
 ## termcolors
 
 > Pretty show terminal color support
