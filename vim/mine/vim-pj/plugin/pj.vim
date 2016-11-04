@@ -53,6 +53,11 @@ function! s:GetValue(...) abort
   " There must be a better way to deep traverse an object...
   let l:result = l:hash
   for l:deep_key in a:000
+    " Requested more keys than there were available
+    if type(l:result) !=# 4
+      return {}
+    endif
+
     let l:result = get(l:result, l:deep_key, {})
     if empty(l:result)
       return {}
@@ -85,14 +90,24 @@ endfunction
 " Commands and their wildmenu completions
 " ============================================================================
 
-" Open the package's homepage in browser
-function! s:CommandHome() abort
-  call s:OpenUrl(s:GetValue('homepage'))
+" Open the package's issues URL in browser
+function! s:CommandBugs() abort
+  
 endfunction
 
-" Open the package's repository in browser
-function! s:CommandRepo() abort
-  call s:OpenUrl(s:GetValue('repository', 'url'))
+" Edit the package's main file
+function! s:CommandMain() abort
+  let l:main = s:GetValue('main')
+  if empty(l:main)
+    return
+  endif
+  execute 'vsplit ' . l:main
+endfunction
+
+" Open the package's readme.md in browser
+" @TODO if not a URL then edit it
+function! s:CommandReadme() abort
+  call s:OpenUrl(s:GetValue('readme'))
 endfunction
 
 " Edit the package.json file
@@ -118,14 +133,8 @@ function! s:CommandRun(name) abort
 endfunction
 
 " ============================================================================
-" Immediate
+" Main
 " ============================================================================
-
-" Hash of package.json paths to decoded JSON objects in vim dict format
-" e.g. { '~/.project/package.json': { json } }
-" This saves us from having to json_decode again and store multiple instances
-" of the same package.json in memory
-let s:jsons = {}
 
 function! s:Main() abort
   if !exists('*json_decode')
@@ -155,20 +164,39 @@ function! s:Main() abort
   let l:text = readfile(l:path)
   let s:jsons[l:path] = json_decode(l:text)
 
+  " --------------------------------------------------------------------------
   " Provide commands to this buffer since it has a valid package.json
-  command! -buffer PjHome call s:CommandHome()
-  command! -buffer PjRepo call s:CommandRepo()
-  command! -buffer PjEdit call s:CommandEdit()
+  " --------------------------------------------------------------------------
+
+  " Complex logic commands
+  command! -buffer PjEdit   call s:CommandEdit()
+  command! -buffer PjReadme call s:CommandReadme()
+
+  " Simple URL openers
+  command! -buffer PjBugs   call s:OpenUrl(s:GetValue('bugs', 'url'))
+  command! -buffer PjHome   call s:OpenUrl(s:GetValue('homepage'))
+  command! -buffer PjRepo   call s:OpenUrl(s:GetValue('repository', 'url'))
   command! -buffer -complete=customlist,s:CompleteRun -nargs=1
         \ PjRun
         \ call s:CommandRun('<args>')
+
 endfunction
 
+" ============================================================================
+" Init
+" ============================================================================
+
+augroup vimpj
+  autocmd!
+augroup END
+
+" Hash of package.json paths to decoded JSON objects in vim dict format
+" e.g. { '~/.project/package.json': { json } }
+" This saves us from having to json_decode again and store multiple instances
+" of the same package.json in memory
+let s:jsons = {}
 if get(g:, 'PJ_enabled', 1)
-  augroup vimpj
-    autocmd!
-    autocmd   BufNewFile,BufRead  *   call s:Main()
-  augroup END
+  autocmd vimpj BufNewFile,BufRead  *   call s:Main()
 endif
 
 " Call this to re-read g:PJ_function and the package.json for the current
