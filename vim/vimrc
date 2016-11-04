@@ -956,7 +956,7 @@ function! s:LoadPlugins()
   "Plug 'chrisbra/Colorizer' -- slower and not as complete
   Plug 'ap/vim-css-color'
 
-  " Omnicompletion
+  " Omnicompletion, this is beta repo, where stables are already in VIMRUNTIME
   Plug 'othree/csscomplete.vim'
 
   " ========================================================================
