@@ -756,23 +756,31 @@ function! s:LoadPlugins()
 
   " ----------------------------------------
   " Syntax
+  " Configured in plugin/plug-vim-javascript.vim
   " ----------------------------------------
 
-  " The "for" is required so the syntax registers on filetype, otherwise
-  " trouble overriding the default js syntax due to runtime order
-  " Configured in plugin/plug-vim-javascript.vim
-  Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+  let s:js_mode = 'pangloss'
+  if s:js_mode ==# 'pangloss'
+    " PANGLOSS MODE
+    " 1.  Preferring pangloss for now since I like the included indentexpr
+    "     it also has a node ftdetect, but that is the same as in
+    "     moll/vim-node
+    " 2.  After syntax, ftplugin, indent for JSX
+    Plug 'pangloss/vim-javascript'
+          \| Plug 'mxw/vim-jsx'
 
-  " es.next support
-  " possible jsx indent conflict?
-  " @see https://github.com/othree/es.next.syntax.vim/issues/5
-  "Plug 'othree/es.next.syntax.vim'
-
-  " extends syntax for with jQuery,backbone,etc.
-  Plug 'othree/javascript-libraries-syntax.vim'
-
-  " After syntax, ftplugin, indent for JSX
-  Plug 'mxw/vim-jsx'
+  elseif s:js_mode ==# 'othree'
+    " YAJS MODE
+    " 1.  yajs.vim highlighting is a little more robust than the pangloss one.
+    " 2.  The libraries syntax adds unique highlighting for
+    "     jQuery,backbone,etc. and I've confirmed it is only compatible with
+    "     yajs.vim as of 2016-11-03.
+    " 3.  es.next support has possible jsx indent conflicts
+    "     @see https://github.com/othree/es.next.syntax.vim/issues/5
+    Plug 'othree/yajs.vim'
+          \| Plug 'othree/javascript-libraries-syntax.vim'
+          \| Plug 'othree/es.next.syntax.vim'
+  endif
 
   " ----------------------------------------
   " Features
@@ -790,24 +798,23 @@ function! s:LoadPlugins()
   " Completion
   " ----------------------------------------
 
+" Code analysis completion
+  if executable('npm')
+    " Configured in plugins/completion.vim
+    Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
+
+    if has('nvim')
+      " Configured in plugins/completion.vim
+      Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
+    endif
+
+  else
+    " Syntax completion when no npm
+    Plug '1995eaton/vim-better-javascript-completion'
+  endif
+
   " Parameter completion (in or after ' or "), bound to user complete
   Plug 'othree/jspc.vim'
-
-  " Code analysis completion
-  if g:dko_has_completion
-    if executable('npm')
-      " Configured in plugins/completion.vim
-      Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
-
-      if has('nvim')
-        " Configured in plugins/completion.vim
-        Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
-      endif
-    else
-      " Syntax completion
-      Plug '1995eaton/vim-better-javascript-completion'
-    endif
-  endif
 
   " ========================================================================
   " Language: Markdown, Pandoc
@@ -872,16 +879,13 @@ function! s:LoadPlugins()
   " ----------------------------------------
 
   " Completion
-  " This is the upstream for the phpcomplete.vim in the $VIMRUNTIME
-
-  " 'm2mdas/phpcomplete-extended' - fast via vimproc
+  " 'm2mdas/phpcomplete-extended' - fast via vimproc, but dead
   " 'mkusher/padawan.php'         - server based completion
   " 'phpvim/phpcd.vim'            - server based completion
   " 'shawncplus/phpcomplete.vim'  - slow as fuck, included in VIMRUNTIME.
-  "                                 this is upstream. Manual <c-x><c-o> to use
+  "                                 this is upstream. tags based
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
   "Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
-  "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] }
 
   " See also https://github.com/pbogut/deoplete-padawan
   " server-based PHP completion disabled
@@ -898,6 +902,8 @@ function! s:LoadPlugins()
   "           \ }
   "   endif
   " endif
+
+  "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] } -- dead
 
   " ========================================================================
   " Language: Python
@@ -934,18 +940,20 @@ function! s:LoadPlugins()
   " creates less filetype
   "Plug 'groenewege/vim-less'
 
-  " runtime css.vim provides @media syntax highlighting where hail2u doesn't
-  " JulesWang/css.vim is the active repo for the css.vim bundled with vim
-  " hail2u extends vim's css highlighting
+  " 1)  runtime css.vim provides @media syntax highlighting where hail2u
+  "     doesn't JulesWang/css.vim is the active repo for the css.vim bundled
+  "     with vim
+  " 2)  hail2u extends vim's css highlighting
   "
-  " scss-syntax needs the 'for' since it has an ftdetect that doesn't check
-  " if the ft was already set. The result is that without 'for', the filetype
-  " will be set twice successively (and any autocommands will run twice),
-  " particularly in neovim which comes with tpope's (older) scss rumtimes.
+  " 3)  scss-syntax needs the 'for' since it has an ftdetect that doesn't check
+  "     if the ft was already set. The result is that without 'for', the
+  "     filetype will be set twice successively (and any autocommands will run
+  "     twice), particularly in neovim which comes with tpope's (older) scss
+  "     rumtimes.
   Plug 'JulesWang/css.vim'
         \| Plug 'hail2u/vim-css3-syntax'
         \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
-        "\| Plug 'davidosomething/scss-syntax.vim', 
+        "\| Plug 'davidosomething/scss-syntax.vim', { 'for': ['scss'] }
 
   " ----------------------------------------
   " Features
@@ -1123,4 +1131,3 @@ runtime! vimrc.vim
 " Disallow unsafe local vimrc commands
 " Leave down here since it trims local settings
 set secure
-
