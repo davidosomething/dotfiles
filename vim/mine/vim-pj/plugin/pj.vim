@@ -27,6 +27,14 @@ endfunction
 let g:PJ_function = function('g:DKO_FindPackageJson')
 
 " ============================================================================
+" Reset
+" ============================================================================
+
+augroup vimpj
+  autocmd!
+augroup END
+
+" ============================================================================
 " Helpers
 " ============================================================================
 
@@ -59,6 +67,13 @@ endfunction
 " Commands and their wildmenu completions
 " ============================================================================
 
+" Edit the package.json file
+" @TODO support options for opening in same window, or new tab or horizontally
+"       split window
+function! s:CommandEdit() abort
+  execute 'vsplit ' . b:PJ_file
+endfunction
+
 " Edit the package's main file
 function! s:CommandMain() abort
   let l:main = pj#GetValue('main')
@@ -74,11 +89,10 @@ function! s:CommandReadme() abort
   call s:OpenUrl(pj#GetValue('readme'))
 endfunction
 
-" Edit the package.json file
-" @TODO support options for opening in same window, or new tab or horizontally
-"       split window
-function! s:CommandEdit() abort
-  execute 'vsplit ' . b:PJ_file
+" Forget the previous package.json data and reload it
+function! s:CommandReload() abort
+  call pj#Invalidate()
+  call pj#GetJson()
 endfunction
 
 " Completion for :PjRun
@@ -106,6 +120,21 @@ function! s:Init() abort
     return
   endif
 
+  augroup vimpj
+    autocmd!
+
+    " Start pj for the buffer
+    autocmd BufNewFile,BufRead * call s:InitBuffer()
+
+    " Re-decode package.json when edited
+    autocmd BufWritePost
+          \ package.json
+          \ call pj#Invalidate(expand('%:p')) | call pj#GetJson()
+
+  augroup END
+endfunction
+
+function s:InitBuffer() abort
   let b:PJ_file = pj#GetPackageJsonPath(
         \ get(g:, 'PJ_function', function('s:FindPackageJson'))
         \ )
@@ -120,6 +149,7 @@ function! s:Init() abort
   " Complex logic commands
   command! -buffer PjEdit   call s:CommandEdit()
   command! -buffer PjReadme call s:CommandReadme()
+  command! -buffer PjReload call s:CommandReload()
 
   " Simple URL openers
   command! -buffer PjBugs   call s:OpenUrl(pj#GetValue('bugs', 'url'))
@@ -128,29 +158,19 @@ function! s:Init() abort
   command! -buffer -complete=customlist,s:CompleteRun -nargs=1
         \ PjRun
         \ call s:CommandRun('<args>')
-
 endfunction
 
 " ============================================================================
 " Init
 " ============================================================================
 
-augroup vimpj
-  autocmd!
-augroup END
-
 " Hash of package.json paths to decoded JSON objects in vim dict format
 " e.g. { '~/.project/package.json': { json } }
 " This saves us from having to json_decode again and store multiple instances
 " of the same package.json in memory
 if get(g:, 'PJ_enabled', 1)
-  augroup vimpj
-  autocmd BufWritePost
-        \ package.json
-        \ call pj#Invalidate(expand('%:p')) | call pj#GetJson()
-  autocmd BufNewFile,BufRead
-        \ *
-        \ call s:Init()
+  " Set b:PJ_file for all new buffers
+  call s:Init()
 endif
 
 " Call this to re-read g:PJ_function and the package.json for the current
