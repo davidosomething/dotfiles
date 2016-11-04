@@ -68,7 +68,7 @@ brew cask install transmit
 echo "License in email"
 echo "Favorites in Dropbox"
 
-brew cask install vagrant vagrant-manager
+brew cask install vagrant
 brew cask install virtualbox virtualbox-extension-pack
 brew cask install vlc
 brew cask install vnc-viewer
