@@ -120,7 +120,7 @@ endfunction
 " @param {String} name of script to run
 function! s:CommandRun(name) abort
   if  !executable('node') || !executable('npm')
-    echoerr 'The binaries for node and/or npm is not available to Vim.'
+    echoerr 'Vim could not access node and/or npm.'
   endif
 
   " @TODO -- delegate to Neomake#Sh or dispatch... too lazy to write out
