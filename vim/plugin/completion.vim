@@ -19,19 +19,20 @@ augroup end
 
 if dko#IsPlugged('neosnippet')
   " Snippets userdir
-  let g:neosnippet#snippets_directory = g:dko#vim_dir . '/snippets'
-
   let g:neosnippet#enable_snipmate_compatibility = 1
-
-  let g:neosnippet#scope_aliases = {}
+  let g:neosnippet#snippets_directory = g:dko#vim_dir . '/snippets'
 
   " Map honza/vim-snippets files to neosnippet's javascript set
   " The javascript.* set is included via 'javascript' but mocha is a separate
   " filetype
+  let g:neosnippet#scope_aliases = {}
   let g:neosnippet#scope_aliases['javascript'] =
         \   'javascript'
         \.  ',javascript-mocha'
 
+  " Keybindings for snippet completion
+  " Pressing <TAB> with PUM open will move through results, but won't expand
+  " unless I explicitly hit <C-f>
   imap  <special>   <C-f>   <Plug>(neosnippet_expand_or_jump)
   smap  <special>   <C-f>   <Plug>(neosnippet_expand_or_jump)
   xmap  <special>   <C-f>   <Plug>(neosnippet_expand_target)
@@ -88,9 +89,14 @@ let s:neo_patterns.javascript =
 " ----------------------------------------------------------------------------
 
 let s:PY3REGEX = {}
+
+" For css and preprocessors
 let s:PY3REGEX.starting_word  = '^\s*\w+'
 let s:PY3REGEX.css_media      = '^\s*@'
 let s:PY3REGEX.css_value      = ': \w*'
+
+" For jspc.vim
+let s:PY3REGEX.parameter = '\w\.\w+\('''
 
 " ----------------------------------------------------------------------------
 " Deoplete -- if any of these match what you're typing, deoplete will collect
@@ -115,6 +121,9 @@ let s:deo_patterns.css  = [
 let s:deo_patterns.less = s:deo_patterns.css
 let s:deo_patterns.sass = s:deo_patterns.css
 let s:deo_patterns.scss = s:deo_patterns.css
+
+let s:deo_patterns.javascript = []
+let s:deo_patterns.php = []
 
 " ----------------------------------------------------------------------------
 " Regexes to force omnifunc completion
@@ -177,6 +186,7 @@ endif
 
 if executable('npm')
   " tern_for_vim settings
+  " It already sets the buffer's &omnifunc
   if executable('tern') && dko#IsPlugged('tern_for_vim')
     " Use global tern server instance (same as deoplete-ternjs)
     let g:tern#command   = [ 'tern' ]
@@ -186,10 +196,6 @@ if executable('npm')
 
     augroup dkocompletion
       autocmd FileType javascript nnoremap <silent><buffer> gd :<C-U>TernDef<CR>
-
-      " Set omnifunc every time, in case jspc's after ftplugin call to init
-      " sets it to jspc#omni
-      autocmd FileType javascript setlocal omnifunc=tern#Complete
     augroup END
   endif
 
@@ -199,31 +205,36 @@ if executable('npm')
   let g:tern_show_signature_in_pum = 1
 
   " Use tern for completion if either plugin is installed
-  if executable('tern') && (
-        \ dko#IsPlugged('tern_for_vim') || dko#IsPlugged('deoplete-ternjs')
-        \ )
+  " if executable('tern') && (
+  "       \ dko#IsPlugged('tern_for_vim') || dko#IsPlugged('deoplete-ternjs')
+  "       \ )
     " force using tern when typing matches regex
     " first regex is match 5 or more characters to end of line
     "let s:fip.javascript = '\h\k\{4,}$' . '\|' .
-    let s:fip.javascript = s:REGEX.nonspace_dot
-  endif
+    "let s:fip.javascript = s:REGEX.nonspace_dot
+    "call add(s:deo_patterns.javascript, s:REGEX.nonspace_dot)
+  " endif
 endif
 
 " ============================================================================
 " Completion Plugin: jspc.vim
-" <C-x><C-u> to use jspc in particular
 " (Ignored if s:fip.javascript was set by the above tern settings)
 " ============================================================================
 
 if dko#IsPlugged('jspc.vim')
+  " <C-x><C-u> to manually use jspc in particular
   autocmd dkocompletion FileType javascript setlocal completefunc=jspc#omni
-  " jspc.vim wraps the default omnicomplete, so we'll have duplicates if we
-  " have both in our neocomplete sources.
+
+  " jspc.vim calls the javascriptcomplete#CompleteJS if it doesn't match, so
+  " we don't need it in the omnifuncs
   call remove(
         \   s:omnifuncs.javascript,
         \   index(s:omnifuncs.javascript, 'javascriptcomplete#CompleteJS')
         \ )
   call add(s:omnifuncs.javascript, 'jspc#omni')
+
+  " Triggered on quotes in `window.addEventListener('` for example
+  call add(s:deo_patterns.javascript, s:PY3REGEX.parameter)
 endif
 
 " ============================================================================
@@ -259,7 +270,7 @@ if dko#IsPlugged('phpcomplete.vim')
 
   " Py3 regex
   " https://github.com/Shougo/deoplete.nvim/commit/2af84d10e2c9d6c70bc0d8bd97c964e47b6a2b08#diff-e5bdd2909698ddcc54fe0c4267ea88a2R291
-  let s:deo_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
+  call add(s:deo_patterns.php, '\w+|[^. \t]->\w*|\w+::\w*')
 endif
 
 " ============================================================================
