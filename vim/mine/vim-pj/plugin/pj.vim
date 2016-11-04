@@ -90,11 +90,6 @@ endfunction
 " Commands and their wildmenu completions
 " ============================================================================
 
-" Open the package's issues URL in browser
-function! s:CommandBugs() abort
-  
-endfunction
-
 " Edit the package's main file
 function! s:CommandMain() abort
   let l:main = s:GetValue('main')
