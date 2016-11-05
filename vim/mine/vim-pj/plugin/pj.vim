@@ -114,6 +114,7 @@ endfunction
 " Main
 " ============================================================================
 
+" Auto-enable pj on buffers and reload Json on editing package.json
 function! s:Init() abort
   if !exists('*json_decode')
     echoerr 'vim-pj requires json_decode() functionality'
@@ -134,7 +135,8 @@ function! s:Init() abort
   augroup END
 endfunction
 
-function s:InitBuffer() abort
+" Enable pj commands for a buffer
+function! s:InitBuffer() abort
   let b:PJ_file = pj#GetPackageJsonPath(
         \ get(g:, 'PJ_function', function('s:FindPackageJson'))
         \ )
