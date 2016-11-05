@@ -125,7 +125,7 @@ way to find them.
 | `<F6>`  | unused |
 | `<F7>`  | unused |
 | `<F8>`  | FZF change colorscheme |
-| `<F9>`  | :GitGutterToggle |
+| `<F9>`  | :QuickfixsignsToggle (on by default) |
 | `<F10>` | :IndentGuidesToggle |
 | `<F11>` | dkotabline#Toggle() |
 | `<F12>` | set pastetoggle |

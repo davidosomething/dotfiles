@@ -38,7 +38,7 @@ execute dko#MapAll({ 'key': '<F11>', 'command': 'call dkotabline#Toggle()' })
 " This executes instead of returns string so the mapping can noop when file
 " not found.
 " @param {String} file
-function! s:EditClosest(file)
+function! s:EditClosest(file) abort
   let s:file = findfile(a:file, '.;')
   if empty(s:file)
     echomsg 'File not found:'  . a:file
@@ -89,18 +89,6 @@ nnoremap  <silent><special>  <Leader>ez   :<C-U>edit $ZDOTDIR/.zshrc<CR>
 " ----------------------------------------------------------------------------
 
 nnoremap  <special>   <BS>  <C-^>
-
-" ----------------------------------------------------------------------------
-" Auto close loc list first
-" Then close buffer
-" Use vim-bbye to preserve window layout if possible
-" ----------------------------------------------------------------------------
-
-if dko#IsPlugged('vim-bbye')
-  nnoremap  <silent><special>  <Leader>bd  :<C-U>Bdelete<CR>
-else
-  nnoremap  <silent><special>  <Leader>bd  :<C-U>lclose<CR>:bdelete<CR>
-endif
 
 " ============================================================================
 " Window manipulation
@@ -194,11 +182,10 @@ nnoremap <silent><special>   <Leader>..
 " ============================================================================
 
 " ----------------------------------------------------------------------------
-" Vim completion recommended mappings
+" Quickly apply macro q
 " ----------------------------------------------------------------------------
 
-inoremap <special><C-F> <C-X><C-F>
-inoremap <special><C-L> <C-X><C-L>
+nnoremap  <special> <Leader>q   @q
 
 " ----------------------------------------------------------------------------
 " Use gm to set a mark (since easyclip is using m for "move")

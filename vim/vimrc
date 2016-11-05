@@ -134,6 +134,7 @@ set wildmenu                          " Enhanced command line completion.
 set wildmode=list:longest,full        " Complete files using a menu AND list
 set wildignorecase
 " output, VCS
+set wildignore+=*.*~
 set wildignore+=.git,.hg,.svn
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,*.gem
 set wildignore+=*.aux,*.out,*.toc
@@ -545,6 +546,9 @@ function! s:LoadPlugins()
 
   " the blame in vim-gita is hawt :3
   Plug 'lambdalisue/vim-gita', { 'on': ['Gita'] }
+
+  " :Bdelete to preserve windows
+  Plug 'moll/vim-bbye'
 
   " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer than
   " :Scriptnames)
@@ -1015,15 +1019,17 @@ function! s:LoadPlugins()
   " Plug: UI -- load last!
   " ========================================================================
 
+  " Using quickfixsigns_vim instead of these
   " :EC and :DC to enable/disable changes plugin
-  if v:version >= 800
-    Plug 'chrisbra/changesPlugin', { 'on': ['EC'] }
-  else
+  " if v:version >= 800
+  "   Plug 'chrisbra/changesPlugin', { 'on': ['EC'] }
+  " else
     " :GitGutterToggle (bound to C-g)
-    Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle'] }
-  endif
+  "   Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle'] }
+  " endif
 
-  Plug 'moll/vim-bbye'
+  " Always show signs column with marks / vcs / qf
+  Plug 'tomtom/quickfixsigns_vim'
 
   " Alternatively use sjl/vitality.vim -- but that has some cursor shape stuff
   " that Neovim doesn't need.
