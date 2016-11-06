@@ -303,7 +303,8 @@ dko::dotfiles::__update_pip() {
   if dko::has "$pip_command"; then
     $pip_command install --upgrade setuptools || return 1
     $pip_command install --upgrade pip        || return 1
-    $pip_command list | cut -d' ' -f1 | xargs "$pip_command" install --upgrade
+    $pip_command install --upgrade \
+      --requirement "${DOTFILES}/python/requirements.txt"
   fi
 }
 
