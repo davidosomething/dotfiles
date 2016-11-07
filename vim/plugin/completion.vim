@@ -242,7 +242,7 @@ endif
 " don't need to check exists since an older one comes with vimruntime
 " ============================================================================
 
-if dko#IsPlugged('phpcomplete.vim')
+if 0 && dko#IsPlugged('phpcomplete.vim')
   " Settings are read when phpcomplete#CompletePHP is called
   let g:phpcomplete_parse_docblock_comments = 1
 
