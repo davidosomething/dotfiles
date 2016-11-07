@@ -1,5 +1,5 @@
 scriptencoding utf-8
-" plugin/smallcaps.vim
+" vim-smallcaps
 "
 " Convert highlighted text to ᴜɴɪᴄᴏᴅᴇ sᴍᴀʟʟᴄᴀᴘs
 "
@@ -19,8 +19,6 @@ endfunction
 vnoremap <silent><script>
       \ <Plug>(dkosmallcaps)
       \ y:<C-U>call setreg('', <SID>convert(@"), getregtype(''))<CR>gv""P
-
-vmap <special> <Leader>C <Plug>(dkosmallcaps)
 
 " ============================================================================
 

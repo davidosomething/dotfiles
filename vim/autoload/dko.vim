@@ -149,7 +149,8 @@ function! dko#IsPlugged(name) abort
   " Use exists instead of has_key so can skip checking if g:plugs itself
   " exists
   let l:is_plugged = exists("g:plugs['" . a:name . "']")
-        \ && isdirectory(expand(g:plug_home . '/' . a:name))
+        \ && ( isdirectory(expand(g:plug_home . '/' . a:name))
+        \      || isdirectory(expand(g:dko#vim_dir . '/mine/' . a:name)) )
 
   let s:plugged[a:name] = l:is_plugged
 

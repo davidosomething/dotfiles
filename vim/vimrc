@@ -703,6 +703,15 @@ function! s:LoadPlugins()
   Plug 'benjifisher/matchit.zip'
   "Plug 'vim-scripts/matchit.zip'
 
+  " HR with <Leader>f[CHAR]
+  Plug '~/.vim/mine/vim-hr'
+
+  " <Leader>C <Plug>(dkosmallcaps)
+  Plug '~/.vim/mine/vim-smallcaps'
+
+  " Toggle movement mode line-wise/display-wise
+  Plug '~/.vim/mine/vim-movemode'
+
   " ========================================================================
   " Plug: Language
   " ========================================================================

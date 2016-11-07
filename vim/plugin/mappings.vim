@@ -200,7 +200,6 @@ vnoremap  gm   m
 
 vnoremap  <special>   <Down>      gj
 vnoremap  <special>   <Up>        gk
-nnoremap  <special>   <Leader>mm  :<C-U>call dkomovemode#toggle()<CR>
 
 " ----------------------------------------------------------------------------
 " Replace PgUp and PgDn with Ctrl-U/D
@@ -280,16 +279,6 @@ nnoremap  <special> <Leader>j   VjgJl
 " ----------------------------------------------------------------------------
 
 nnoremap  <special> <Leader>ws  :<C-U>call dkowhitespace#clean()<CR>
-
-" ----------------------------------------------------------------------------
-" Horizontal rule
-" ----------------------------------------------------------------------------
-
-call dkorule#map('_')
-call dkorule#map('-')
-call dkorule#map('=')
-call dkorule#map('#')
-call dkorule#map('*')
 
 " ============================================================================
 
