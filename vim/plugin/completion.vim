@@ -56,8 +56,8 @@ let s:REGEX = {}
 let s:REGEX.any_word        = '\h\w*'
 let s:REGEX.nonspace        = '[^-. \t]'
 let s:REGEX.nonspace_dot    = s:REGEX.nonspace . '\.\w*'
-let s:REGEX.nonspace_arrow  = s:REGEX.nonspace . '->\w*'
-let s:REGEX.word_scope_word = s:REGEX.any_word . '::\w*'
+let s:REGEX.member = s:REGEX.nonspace . '->\w*'
+let s:REGEX.static = s:REGEX.any_word . '::\w*'
 
 " For jspc.vim
 let s:REGEX.keychar   = '\k\zs \+'
@@ -84,19 +84,34 @@ let s:neo_patterns.javascript =
 " perl
 "let s:neo_patterns.perl   = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
+" php with phpcomplete.vim support
+" https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1731
+let s:neo_patterns.php =
+    \ s:REGEX.any_word
+    \ . '\|' . s:REGEX.member
+    \ . '\|' . s:REGEX.static
+
 " ----------------------------------------------------------------------------
 " For Deoplete deo_patterns only
 " ----------------------------------------------------------------------------
 
+" Py3 regex notes:
+" - \s is a space
 let s:PY3REGEX = {}
+let s:PY3REGEX.word = '\w+'
 
 " For css and preprocessors
-let s:PY3REGEX.starting_word  = '^\s*\w+'
+let s:PY3REGEX.starting_word  = '^\s*' . s:PY3REGEX.word
 let s:PY3REGEX.css_media      = '^\s*@'
 let s:PY3REGEX.css_value      = ': \w*'
 
 " For jspc.vim
-let s:PY3REGEX.parameter = '\w\.\w+\('''
+" parameter completion for window.addEventListener('___
+let s:PY3REGEX.parameter = "\.\w+\('"
+
+" For phpcomplete.vim
+let s:PY3REGEX.member = '->\w*'
+let s:PY3REGEX.static = s:PY3REGEX.word . '::\w*'
 
 " ----------------------------------------------------------------------------
 " Deoplete -- if any of these match what you're typing, deoplete will collect
@@ -106,14 +121,14 @@ let s:PY3REGEX.parameter = '\w\.\w+\('''
 
 let s:deo_patterns = {}
 
-" Not using deoplete defaults because if you hit <TAB> after a full rule,
-" e.g. `margin: 1em;<TAB>` it will trigger completion of a new rule.
-" These regexes only complete for one rule per line.
+" Not using deoplete defaults from omni.py because if you hit <TAB> after
+" a full rule, e.g. `margin: 1em;<TAB>` it will trigger completion of a new
+" rule. These regexes only complete for one rule per line.
 let s:deo_patterns.css  = [
       \   s:PY3REGEX.css_media,
       \   s:PY3REGEX.starting_word,
       \   s:PY3REGEX.starting_word . s:PY3REGEX.css_value,
-      \   s:PY3REGEX.css_media . '[\w\s]*',
+      \   s:PY3REGEX.css_media . '\w*',
       \   s:PY3REGEX.css_media . s:PY3REGEX.css_value,
       \   s:PY3REGEX.css_value . '\s*!',
       \   s:PY3REGEX.css_value . '\s*!',
@@ -122,8 +137,15 @@ let s:deo_patterns.less = s:deo_patterns.css
 let s:deo_patterns.sass = s:deo_patterns.css
 let s:deo_patterns.scss = s:deo_patterns.css
 
+" JS patterns are defined per plugin
 let s:deo_patterns.javascript = []
-let s:deo_patterns.php = []
+
+" https://github.com/Shougo/deoplete.nvim/blob/5fc5ed772de138439322d728b103a7cb225cbf82/doc/deoplete.txt#L300
+let s:deo_patterns.php = [
+      \   s:PY3REGEX.word,
+      \   s:PY3REGEX.member,
+      \   s:PY3REGEX.static,
+      \ ]
 
 " ----------------------------------------------------------------------------
 " Regexes to force omnifunc completion
@@ -238,11 +260,50 @@ if dko#IsPlugged('jspc.vim')
 endif
 
 " ============================================================================
-" Completion Plugin: phpcomplete.vim
-" don't need to check exists since an older one comes with vimruntime
+" Completion Plugin: phpcd.vim
 " ============================================================================
 
-if 0 && dko#IsPlugged('phpcomplete.vim')
+if dko#IsPlugged('phpcd.vim')
+  " Call omnifunc directly
+  let s:fip.php = s:REGEX.any_word
+        \. '\|' . s:REGEX.member
+        \. '\|' . s:REGEX.static
+  let s:deo_patterns.php = []
+
+" ============================================================================
+" Completion Plugin: padawan.vim
+" ============================================================================
+
+elseif dko#IsPlugged('padawan.vim')
+  augroup dkocompletion
+    autocmd FileType php setlocal omnifunc=padawan#Complete
+  augroup END
+
+" ============================================================================
+" Completion Plugin: phpcomplete-extended
+" Includes neocomplete source.
+" This requires vimproc and composer.json in project root.
+" ============================================================================
+
+elseif dko#IsPlugged('phpcomplete-extended')
+  let g:phpcomplete_extended_auto_add_use = 0
+  if executable('composer')
+    let g:phpcomplete_index_composer_command = 'composer'
+  endif
+
+  autocmd dkocompletion FileType php
+        \ setlocal omnifunc=phpcomplete_extended#CompletePHP
+
+  let s:omnifuncs.php = [ 'phpcomplete_extended#CompletePHP' ]
+endif
+
+" ============================================================================
+" Completion Plugin: phpcomplete.vim
+" Don't need to check exists since an older one comes with vimruntime.
+" This is the worst one, moves the cursor, reads tags files
+" ============================================================================
+
+if dko#IsPlugged('phpcomplete.vim')
   " Settings are read when phpcomplete#CompletePHP is called
   let g:phpcomplete_parse_docblock_comments = 1
 
@@ -257,58 +318,8 @@ if 0 && dko#IsPlugged('phpcomplete.vim')
   " let g:phpcomplete_search_tags_for_variables = 0
   " let g:phpcomplete_min_num_of_chars_for_namespace_completion = 999
 
-  " --------------------------------------------------------------------------
-
-  let s:omnifuncs.php = [ 'phpcomplete#CompletePHP' ]
-
-  " php with phpcomplete.vim support
-  " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1731
-  let s:neo_patterns.php =
-      \ s:REGEX.any_word
-      \ . '\|' . s:REGEX.nonspace_arrow
-      \ . '\|' . s:REGEX.word_scope_word
-
-  " Py3 regex
-  " https://github.com/Shougo/deoplete.nvim/commit/2af84d10e2c9d6c70bc0d8bd97c964e47b6a2b08#diff-e5bdd2909698ddcc54fe0c4267ea88a2R291
-  call add(s:deo_patterns.php, '\w+|[^. \t]->\w*|\w+::\w*')
-endif
-
-" ============================================================================
-" Completion Plugin: phpcomplete-extended
-" Includes neocomplete source
-" ============================================================================
-
-if dko#IsPlugged('phpcomplete-extended')
-  let s:omnifuncs.php = [ 'phpcomplete_extended#CompletePHP' ]
-
-  if executable('composer')
-    let g:phpcomplete_index_composer_command = 'composer'
-  endif
-
-  let g:phpcomplete_extended_auto_add_use = 0
-
   autocmd dkocompletion FileType php
-        \ setlocal omnifunc=phpcomplete_extended#CompletePHP
-endif
-
-" ============================================================================
-" Completion Plugin: phpcd.vim
-" ============================================================================
-
-if dko#IsPlugged('phpcd.vim')
-  augroup dkocompletion
-    autocmd FileType php setlocal omnifunc=phpcd#CompletePHP
-  augroup END
-endif
-
-" ============================================================================
-" Completion Plugin: padawan.vim
-" ============================================================================
-
-if dko#IsPlugged('padawan.vim')
-  augroup dkocompletion
-    autocmd FileType php setlocal omnifunc=padawan#Complete
-  augroup END
+        \ setlocal completefunc=phpcomplete#CompletePHP
 endif
 
 " ============================================================================
@@ -358,6 +369,8 @@ endif
 " ============================================================================
 
 if dko#IsPlugged('deoplete.nvim')
+  let g:deoplete#enable_ignore_case = 0
+  let g:deoplete#enable_smart_case = 1
   let g:deoplete#enable_at_startup  = 1
 
   " [file] candidates are relative to the buffer path

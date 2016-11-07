@@ -882,7 +882,7 @@ function! s:LoadPlugins()
 
   " Indent
   " 2072 is included with vim, this is upstream
-  "Plug '2072/PHP-Indenting-for-VIm'
+  Plug '2072/PHP-Indenting-for-VIm'
 
   " Fix indent of HTML in all PHP files -- basically adds indent/html.vim when
   " outside of PHP block.
@@ -900,24 +900,29 @@ function! s:LoadPlugins()
   " 'phpvim/phpcd.vim'            - server based completion
   " 'shawncplus/phpcomplete.vim'  - slow as fuck, included in VIMRUNTIME.
   "                                 this is upstream. tags based
+
+  " Set to completefunc
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-  "Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
+
+  " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
+  "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
 
   " See also https://github.com/pbogut/deoplete-padawan
   " server-based PHP completion disabled
-  " if 0 && executable('composer')
-  "   if has('nvim')
-  "     Plug 'phpvim/phpcd.vim', {
-  "           \   'do': 'composer update',
-  "           \   'for': 'php'
-  "           \ }
+  if executable('composer')
+    if has('nvim')
+    "   Plug 'phpvim/phpcd.vim', {
+    "         \   'do': 'composer update',
+    "         \   'for': 'php'
+    "         \ }
   "   elseif has('python') || has('python3')
-  "     Plug 'mkusher/padawan.vim', {
-  "           \   'do': 'composer global require mkusher/padawan',
-  "           \   'for': 'php',
-  "           \ }
-  "   endif
-  " endif
+      Plug 'mkusher/padawan.vim', {
+            \   'do': 'composer global require mkusher/padawan',
+            \   'for': 'php',
+            \ }
+            \| Plug 'pbogut/deoplete-padawan'
+    endif
+  endif
 
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] } -- dead
 
@@ -1003,8 +1008,7 @@ function! s:LoadPlugins()
   Plug 'lambdalisue/vim-backslash'
 
   " Completion
-  if g:dko_has_completion | Plug 'Shougo/neco-vim', { 'for': ['vim'] }
-  endif
+  Plug 'Shougo/neco-vim'
 
   " ==========================================================================
   " Plug: Search
