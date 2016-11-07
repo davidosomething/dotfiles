@@ -500,10 +500,6 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 " Plugins: load - called when vim-plug available
 " ----------------------------------------------------------------------------
 
-" This is used by plugin/completion.vim so is a g:
-let g:dko_has_completion = 0
-let g:dko_use_fzf = has('nvim') && isdirectory(expand('~/.fzf'))
-
 function! s:LoadPlugins()
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
@@ -534,7 +530,7 @@ function! s:LoadPlugins()
   " ========================================================================
 
   " Disabled on regular vim since it needs a terminal
-  if g:dko_use_fzf
+  if has('nvim') && isdirectory(expand('~/.fzf'))
     Plug '~/.fzf'
     Plug 'junegunn/fzf.vim'
   endif
@@ -613,15 +609,7 @@ function! s:LoadPlugins()
 
   if has('nvim') && has('python3')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  elseif has('lua')
-    Plug 'Shougo/neocomplete.vim'
-  endif
 
-  let g:dko_has_completion =
-        \ exists("g:plugs['neocomplete.vim']")
-        \ || exists("g:plugs['deoplete.nvim']")
-
-  if g:dko_has_completion
     "Full syntax completion - super slow, like syntaxcomplete
     "Plug 'Shougo/neco-syntax', { 'for': ['scss'] }
 
@@ -704,13 +692,13 @@ function! s:LoadPlugins()
   "Plug 'vim-scripts/matchit.zip'
 
   " HR with <Leader>f[CHAR]
-  Plug '~/.vim/mine/vim-hr'
+  Plug g:dko#vim_dir . '/mine/vim-hr'
 
   " <Leader>C <Plug>(dkosmallcaps)
-  Plug '~/.vim/mine/vim-smallcaps'
+  Plug g:dko#vim_dir . '/mine/vim-smallcaps'
 
   " Toggle movement mode line-wise/display-wise
-  Plug '~/.vim/mine/vim-movemode'
+  Plug g:dko#vim_dir . '/mine/vim-movemode'
 
   " ========================================================================
   " Plug: Language
@@ -760,7 +748,7 @@ function! s:LoadPlugins()
   " Language: JavaScript and derivatives, JSON
   " ========================================================================
 
-  Plug '~/.vim/mine/vim-pj'
+  Plug g:dko#vim_dir . '/mine/vim-pj'
 
   Plug 'elzr/vim-json'
 
@@ -907,21 +895,21 @@ function! s:LoadPlugins()
   " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
   "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
 
+  " if has('nvim') && executable('composer')
+  "   Plug 'phpvim/phpcd.vim', {
+  "         \   'do': 'composer update',
+  "         \   'for': 'php'
+  "         \ }
+  " endif
+
   " See also https://github.com/pbogut/deoplete-padawan
   " server-based PHP completion disabled
-  if executable('composer')
-    if has('nvim')
-    "   Plug 'phpvim/phpcd.vim', {
-    "         \   'do': 'composer update',
-    "         \   'for': 'php'
-    "         \ }
-  "   elseif has('python') || has('python3')
-      Plug 'mkusher/padawan.vim', {
-            \   'do': 'composer global require mkusher/padawan',
-            \   'for': 'php',
-            \ }
-            \| Plug 'pbogut/deoplete-padawan'
-    endif
+  if has('nvim') && executable('composer')
+    Plug 'mkusher/padawan.vim', {
+          \   'do': 'composer global require mkusher/padawan',
+          \   'for': 'php',
+          \ }
+          \| Plug 'pbogut/deoplete-padawan'
   endif
 
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] } -- dead

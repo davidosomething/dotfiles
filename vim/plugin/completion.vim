@@ -4,7 +4,7 @@
 " @see <https://github.com/zeekay/vice-neocompletion/blob/master/autoload/vice/neocomplete.vim>
 "
 
-if !g:dko_has_completion | finish | endif
+if !dko#IsPlugged('deoplete.nvim') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
@@ -44,7 +44,7 @@ if dko#IsPlugged('neosnippet')
 endif
 
 " ============================================================================
-" Neocomplete / Deoplete
+" Deoplete
 " ============================================================================
 
 " ----------------------------------------------------------------------------
@@ -62,38 +62,6 @@ let s:REGEX.static = s:REGEX.any_word . '::\w*'
 " For jspc.vim
 let s:REGEX.keychar   = '\k\zs \+'
 let s:REGEX.parameter = s:REGEX.keychar . '\|' . '(' . '\|' . ':'
-
-" Neocomplete -- if any of these match what you're typing, neocomplete will
-" collect the omnifunc results and put them in the PUM with any other results.
-" - String or list of vim regex
-let s:neo_patterns = {}
-
-" coffee
-"let s:neo_patterns.coffee = '\h\w*\|[^. \t]\.\w*'
-
-" javascript
-" default: https://github.com/Shougo/neocomplete.vim/blame/34b42e76be30c0f365110ea036c8490b38fcb13e/autoload/neocomplete/sources/omni.vim
-let s:neo_patterns.javascript =
-      \ s:REGEX.any_word
-      \ . '\|' . s:REGEX.nonspace_dot
-
-" lua with xolox/vim-lua-ftplugin -- not used but correct
-" https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1705
-" let s:neo_patterns.lua = '\w\+[.:]\|require\s*(\?["'']\w*'
-
-" perl
-"let s:neo_patterns.perl   = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-
-" php with phpcomplete.vim support
-" https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1731
-let s:neo_patterns.php =
-    \ s:REGEX.any_word
-    \ . '\|' . s:REGEX.member
-    \ . '\|' . s:REGEX.static
-
-" ----------------------------------------------------------------------------
-" For Deoplete deo_patterns only
-" ----------------------------------------------------------------------------
 
 " Py3 regex notes:
 " - \s is a space
@@ -320,48 +288,6 @@ if dko#IsPlugged('phpcomplete.vim')
 
   autocmd dkocompletion FileType php
         \ setlocal completefunc=phpcomplete#CompletePHP
-endif
-
-" ============================================================================
-" Neocomplete
-" ============================================================================
-
-if dko#IsPlugged('neocomplete')
-  let g:neocomplete#data_directory =
-        \ expand(g:dko#vim_dir . '/.tmp/neocomplete')
-
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#enable_smart_case = 1
-  let g:neocomplete#enable_camel_case = 1
-
-  " no effect since i completeopt-=preview
-  let g:neocomplete#enable_auto_close_preview = 1
-
-  " Match by string head instead of fuzzy
-  let g:neocomplete#enable_fuzzy_completion = 0
-  call neocomplete#custom#source('_', 'matchers', [
-        \   'matcher_head',
-        \   'matcher_length',
-        \ ])
-
-  " --------------------------------------------------------------------------
-  " Sources for engine-based omni-completion (ignored if match s:fip)
-  " --------------------------------------------------------------------------
-
-  call dko#InitDict('g:neocomplete#sources#omni#functions')
-  call extend(g:neocomplete#sources#omni#functions, s:omnifuncs)
-
-  " --------------------------------------------------------------------------
-  " Input patterns
-  " --------------------------------------------------------------------------
-
-  " Patterns that bypass to &omnifunc
-  call dko#InitDict('g:neocomplete#force_omni_input_patterns')
-  call extend(g:neocomplete#force_omni_input_patterns, s:fip)
-
-  " Patterns that use neocomplete
-  call dko#InitDict('g:neocomplete#sources#omni#input_patterns')
-  call extend(g:neocomplete#sources#omni#input_patterns, s:neo_patterns)
 endif
 
 " ============================================================================

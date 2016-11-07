@@ -1,7 +1,5 @@
 " plugin/fzf.vim
 scriptencoding utf-8
-
-if !g:dko_use_fzf | finish | endif
 if !dko#IsPlugged('fzf.vim') | finish | endif
 
 let g:fzf_layout = { 'down': '10' }
