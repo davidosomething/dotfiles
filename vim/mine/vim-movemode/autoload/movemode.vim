@@ -4,7 +4,7 @@
 
 function! movemode#setByLine() abort
   let b:movementmode = 'linewise'
-  echo 'Move by linebroken lines'
+  echo 'Move by real newlines'
   silent! nunmap <buffer> j
   silent! nunmap <buffer> k
 endfunction
