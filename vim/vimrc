@@ -883,17 +883,31 @@ function! s:LoadPlugins()
   " ----------------------------------------
 
   " Completion
-  " 'm2mdas/phpcomplete-extended' - fast via vimproc, but dead
-  " 'mkusher/padawan.php'         - server based completion
+  " 'pbogut/deoplete-padawan'     - server based completion for deoplete.nvim
   " 'phpvim/phpcd.vim'            - server based completion
+  " 'mkusher/padawan.vim'         - server based completion for VIM
+  " 'm2mdas/phpcomplete-extended' - fast via vimproc, but dead
   " 'shawncplus/phpcomplete.vim'  - slow as fuck, included in VIMRUNTIME.
   "                                 this is upstream. tags based
 
   " Set to completefunc
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 
+  if has('nvim') && executable('composer')
+    Plug 'pbogut/deoplete-padawan', {
+          \   'do': 'composer global require mkusher/padawan',
+          \ }
+  endif
+
   " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
   "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
+
+  " if !has('nvim') && executable('composer')
+    " Plug 'mkusher/padawan.vim', {
+    "       \   'do': 'composer global require mkusher/padawan',
+    "       \   'for': 'php',
+    "       \ }
+  " endif
 
   " if has('nvim') && executable('composer')
   "   Plug 'phpvim/phpcd.vim', {
@@ -901,16 +915,6 @@ function! s:LoadPlugins()
   "         \   'for': 'php'
   "         \ }
   " endif
-
-  " See also https://github.com/pbogut/deoplete-padawan
-  " server-based PHP completion disabled
-  if has('nvim') && executable('composer')
-    Plug 'mkusher/padawan.vim', {
-          \   'do': 'composer global require mkusher/padawan',
-          \   'for': 'php',
-          \ }
-          \| Plug 'pbogut/deoplete-padawan'
-  endif
 
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] } -- dead
 
