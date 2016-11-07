@@ -4,14 +4,15 @@
 " @see <https://github.com/zeekay/vice-neocompletion/blob/master/autoload/vice/neocomplete.vim>
 "
 
+augroup dkocompletion
+  autocmd!
+  autocmd FileType php setlocal omnifunc=
+augroup end
+
 if !dko#IsPlugged('deoplete.nvim') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
-
-augroup dkocompletion
-  autocmd!
-augroup end
 
 " ============================================================================
 " Neosnippet
@@ -109,11 +110,11 @@ let s:deo_patterns.scss = s:deo_patterns.css
 let s:deo_patterns.javascript = []
 
 " https://github.com/Shougo/deoplete.nvim/blob/5fc5ed772de138439322d728b103a7cb225cbf82/doc/deoplete.txt#L300
-let s:deo_patterns.php = [
-      \   s:PY3REGEX.word,
-      \   s:PY3REGEX.member,
-      \   s:PY3REGEX.static,
-      \ ]
+" let s:deo_patterns.php = [
+"       \   s:PY3REGEX.word,
+"       \   s:PY3REGEX.member,
+"       \   s:PY3REGEX.static,
+"       \ ]
 
 " ----------------------------------------------------------------------------
 " Regexes to force omnifunc completion
@@ -227,11 +228,18 @@ if dko#IsPlugged('jspc.vim')
   call add(s:deo_patterns.javascript, s:PY3REGEX.parameter)
 endif
 
+
+" ============================================================================
+" Completion Plugin: deoplete-padawan
+" ============================================================================
+
+if dko#IsPlugged('deoplete-padawan')
+
 " ============================================================================
 " Completion Plugin: phpcd.vim
 " ============================================================================
 
-if dko#IsPlugged('phpcd.vim')
+elseif dko#IsPlugged('phpcd.vim')
   " Call omnifunc directly
   let s:fip.php = s:REGEX.any_word
         \. '\|' . s:REGEX.member

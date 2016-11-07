@@ -112,6 +112,7 @@ cscope.po.out
 *.tmproj
 *.tmproject
 tmtags
+.padawan/
 .phpcomplete_extended/
 .tern-port
 
