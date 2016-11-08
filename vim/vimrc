@@ -817,7 +817,7 @@ function! s:LoadPlugins()
     endif
 
   else
-    " Syntax completion when no npm
+    " Syntax completion when tern is not available -- same stuff as tern
     Plug '1995eaton/vim-better-javascript-completion'
   endif
 
