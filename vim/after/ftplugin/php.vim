@@ -33,8 +33,6 @@ execute 'omap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
 " ============================================================================
 
 function! DKO_EditorConfigPhp(config)
-  setlocal tabstop=2
-  setlocal shiftwidth=2
   setlocal softtabstop=-2
   return 0
 endfunction

@@ -37,7 +37,7 @@ indent_size = 4
 
 # PHP http://make.wordpress.org/core/handbook/coding-standards/php/
 [*.php]
-indent_style = tab
+indent_style = space
 tab_width = 4
 indent_size = 4
 insert_final_newline = true

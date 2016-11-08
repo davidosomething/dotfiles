@@ -6,37 +6,7 @@ set cpoptions&vim
 augroup dkocompletion
   autocmd!
   autocmd FileType php setlocal omnifunc=
-augroup end
-
-" ============================================================================
-" Neosnippet
-" ============================================================================
-
-if dko#IsPlugged('neosnippet')
-  " Snippets userdir
-  let g:neosnippet#enable_snipmate_compatibility = 1
-  let g:neosnippet#snippets_directory = g:dko#vim_dir . '/snippets'
-
-  " Map honza/vim-snippets files to neosnippet's javascript set
-  " The javascript.* set is included via 'javascript' but mocha is a separate
-  " filetype
-  let g:neosnippet#scope_aliases = {}
-  let g:neosnippet#scope_aliases['javascript'] =
-        \   'javascript'
-        \.  ',javascript-mocha'
-
-  " Keybindings for snippet completion
-  " Pressing <TAB> with PUM open will move through results, but won't expand
-  " unless I explicitly hit <C-f>
-  imap  <special>   <C-f>   <Plug>(neosnippet_expand_or_jump)
-  smap  <special>   <C-f>   <Plug>(neosnippet_expand_or_jump)
-  xmap  <special>   <C-f>   <Plug>(neosnippet_expand_target)
-
-  " Get rid of the placeholders in inserted snippets when done inserting
-  augroup dkocompletion
-    autocmd InsertLeave * NeoSnippetClearMarkers
-  augroup END
-endif
+augroup END
 
 " ============================================================================
 " Deoplete
@@ -265,7 +235,6 @@ if dko#IsPlugged('jspc.vim')
         \   s:PY3REGEX.parameter,
         \ ])
 endif
-
 
 " ============================================================================
 " Completion Plugin: deoplete-padawan
