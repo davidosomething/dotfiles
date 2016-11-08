@@ -1,4 +1,4 @@
-" plugin/snippets.vim
+" plugin/plug-neosnippet.vim
 
 if !dko#IsPlugged('neosnippet') | finish | endif
 let s:cpo_save = &cpoptions
@@ -24,9 +24,9 @@ let g:neosnippet#scope_aliases['javascript'] =
 silent! iunmap <C-f>
 silent! sunmap <C-f>
 silent! xunmap <C-f>
-imap  <unique><special>   <C-f>   <Plug>(neosnippet_expand_or_jump)
-smap  <unique><special>   <C-f>   <Plug>(neosnippet_expand_or_jump)
-xmap  <unique><special>   <C-f>   <Plug>(neosnippet_expand_target)
+imap  <special>   <C-f>   <Plug>(neosnippet_expand_or_jump)
+smap  <special>   <C-f>   <Plug>(neosnippet_expand_or_jump)
+xmap  <special>   <C-f>   <Plug>(neosnippet_expand_target)
 
 " Get rid of the placeholders in inserted snippets when done inserting
 augroup dkoneosnippet
