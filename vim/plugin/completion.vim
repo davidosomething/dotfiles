@@ -1,18 +1,12 @@
 " plugin/completion.vim
-"
-" See vice setup for stuff to steal
-" @see <https://github.com/zeekay/vice-neocompletion/blob/master/autoload/vice/neocomplete.vim>
-"
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 
 augroup dkocompletion
   autocmd!
   autocmd FileType php setlocal omnifunc=
 augroup end
-
-if !dko#IsPlugged('deoplete.nvim') | finish | endif
-
-let s:cpo_save = &cpoptions
-set cpoptions&vim
 
 " ============================================================================
 " Neosnippet
@@ -76,7 +70,9 @@ let s:PY3REGEX.css_value      = ': \w*'
 
 " For jspc.vim
 " parameter completion for window.addEventListener('___
-let s:PY3REGEX.parameter = "\.\w+\('"
+" single quote escaped as ''
+" literal parentheses escaped as \(
+let s:PY3REGEX.parameter = '\.\w+\('''
 
 " For phpcomplete.vim
 let s:PY3REGEX.member = '->\w*'
@@ -88,6 +84,8 @@ let s:PY3REGEX.static = s:PY3REGEX.word . '::\w*'
 " - Python 3 regex
 " ----------------------------------------------------------------------------
 
+" If you set a filetype key, completion will ONLY be triggered for the
+" matching regex; so leave unset if possible.
 let s:deo_patterns = {}
 
 " Not using deoplete defaults from omni.py because if you hit <TAB> after
@@ -107,7 +105,9 @@ let s:deo_patterns.sass = s:deo_patterns.css
 let s:deo_patterns.scss = s:deo_patterns.css
 
 " JS patterns are defined per plugin
-let s:deo_patterns.javascript = []
+let s:deo_patterns.javascript = [
+      \   s:PY3REGEX.word,
+      \ ]
 
 " https://github.com/Shougo/deoplete.nvim/blob/5fc5ed772de138439322d728b103a7cb225cbf82/doc/deoplete.txt#L300
 " let s:deo_patterns.php = [
@@ -124,28 +124,27 @@ let s:deo_patterns.javascript = []
 " When defined for a filetype, call the omnifunc directly (feedkeys
 " <C-X><C-O>) instead of delegating to completion plugin. See each plugin
 " section for settings.
-" neocomplete dict: g:neocomplete#force_omni_input_patterns
 " deoplete dict:    g:deoplete#omni_patterns
 " - string vim regex
-let s:fip = {}
+let s:omni_only = get(g:, 'deoplete#_omni_patterns', {})
 
 " c-type with clang_complete -- not used but correct
-" let s:fip.c =       '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?',
-" let s:fip.cpp =     '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?',
-" let s:fip.objc =    '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-" let s:fip.objcpp =  '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+" let s:omni_only.c =       '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?',
+" let s:omni_only.cpp =     '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?',
+" let s:omni_only.objc =    '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+" let s:omni_only.objcpp =  '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
 
 " ruby with Shougo/neocomplete-rsense -- not used but correct
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1605
-" let s:fip.ruby = '[^. *\t]\.\w*\|\h\w*::'
+" let s:omni_only.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 " python with davidhalter/jedi-vim -- not used but correct
 " https://github.com/Shougo/neocomplete.vim/blob/master/doc/neocomplete.txt#L1617
-" let s:fip.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+" let s:omni_only.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
 " typescript with Quramy/tsuquyomi -- not used but correct
-" let s:fip.typescript = '[^. \t]\.\%(\h\w*\)\?'
-" let s:fip.typescript = '\h\w*\|[^. \t]\.\w*' -- maybe more relaxed
+" let s:omni_only.typescript = '[^. \t]\.\%(\h\w*\)\?'
+" let s:omni_only.typescript = '\h\w*\|[^. \t]\.\w*' -- maybe more relaxed
 
 " ----------------------------------------------------------------------------
 " Omnifunc for each filetype
@@ -153,12 +152,47 @@ let s:fip = {}
 
 " When triggering a completion within an engine, use these omnifuncs
 " deoplete    g:deoplete#omni#functions
-" neocomplete g:neocomplete#sources#omni#functions
 " - list of omnifunc function names
-let s:omnifuncs = {}
+let s:omnifuncs = {
+      \   'javascript': [ 'javascriptcomplete#CompleteJS' ],
+      \   'html':       [ 'htmlcomplete#CompleteTags' ],
+      \ }
 
-" JavaScript (probably superseded by tern)
-let s:omnifuncs.javascript = [ 'javascriptcomplete#CompleteJS' ]
+" ============================================================================
+" Helper functions
+" ============================================================================
+
+" Include an omnifunc from deoplete aggregation
+"
+" @param {String} ft
+" @param {String} funcname
+function! s:Include(ft, funcname) abort
+  call insert(s:omnifuncs[a:ft], a:funcname)
+endfunction
+
+" Exclude an omnifunc from deoplete aggregation
+"
+" @param {String} ft
+" @param {String} funcname
+function! s:Exclude(ft, funcname) abort
+  call remove(
+        \   s:omnifuncs[a:ft],
+        \   index(s:omnifuncs[a:ft], a:funcname)
+        \ )
+endfunction
+
+" Trigger deoplete aggregated omnifunc when matching this regex
+"
+" @param {String} ft
+" @param {List} regexps
+" @param {List} [a:] a:1 clear?
+function! s:Trigger(ft, regexps, ...) abort
+  if !empty(a:000)
+    let s:deo_patterns[a:ft] = a:regexps
+  else
+    call extend(s:deo_patterns[a:ft], a:regexps)
+  endif
+endfunction
 
 " ============================================================================
 " Completion Plugin: vim-better-javascript-completion
@@ -167,65 +201,69 @@ let s:omnifuncs.javascript = [ 'javascriptcomplete#CompleteJS' ]
 if dko#IsPlugged('vim-better-javascript-completion')
   " insert instead of add, this is preferred completion omnifunc (except tern)
   autocmd dkocompletion FileType javascript setlocal omnifunc=js#CompleteJS
-  call insert(s:omnifuncs.javascript, 'js#CompleteJS')
+  call s:Include('javascript', 'js#CompleteJS')
 endif
 
 " ============================================================================
 " Completion Plugin: tern (both nvim and vim versions)
-" This overrides all other JS completions when fip matches
+" This overrides all other JS completions when omni_only matches
 " ============================================================================
 
-if executable('npm')
+if executable('tern')
+
+  " --------------------------------------------------------------------------
   " tern_for_vim settings
-  " It already sets the buffer's &omnifunc
-  if executable('tern') && dko#IsPlugged('tern_for_vim')
-    " Use global tern server instance (same as deoplete-ternjs)
-    let g:tern#command   = [ 'tern' ]
-    " Don't close tern after 5 minutes, helps speed up deoplete completion if
-    " they manage to share the instance
-    let g:tern#arguments = [ '--persistent' ]
+  " This plugin is used for its refactoring and helper methods, not completion
+  " --------------------------------------------------------------------------
+
+  " @TODO deprecated, replace with own plugin
+  if dko#IsPlugged('tern_for_vim')
+    " Use tabline instead (<F10>)
+    let g:tern_show_argument_hints = 'no'
+
+    let g:tern_request_timeout       = 1
+
+    " Don't set the omnifunc to tern#Complete
+    "let g:tern_set_omni_function     = 0
+    " Useless since not using omnifunc
+    let g:tern_show_signature_in_pum = 1
 
     augroup dkocompletion
       autocmd FileType javascript nnoremap <silent><buffer> gd :<C-U>TernDef<CR>
     augroup END
   endif
 
+  " --------------------------------------------------------------------------
   " deoplete-ternjs settings
-  "let g:tern_show_argument_hints = 'on_hold'   " Use tabline instead (<F10>)
-  let g:tern_request_timeout       = 1
-  let g:tern_show_signature_in_pum = 1
+  " This plugin adds a custom deoplete source only
+  " --------------------------------------------------------------------------
 
-  " Use tern for completion if either plugin is installed
-  " if executable('tern') && (
-  "       \ dko#IsPlugged('tern_for_vim') || dko#IsPlugged('deoplete-ternjs')
-  "       \ )
-    " force using tern when typing matches regex
-    " first regex is match 5 or more characters to end of line
-    "let s:fip.javascript = '\h\k\{4,}$' . '\|' .
-    "let s:fip.javascript = s:REGEX.nonspace_dot
-    "call add(s:deo_patterns.javascript, s:REGEX.nonspace_dot)
-  " endif
+  " Use global tern server instance (same as deoplete-ternjs)
+  let g:tern#command   = [ 'tern' ]
+  " Don't close tern after 5 minutes, helps speed up deoplete completion if
+  " they manage to share the instance
+  let g:tern#arguments = [ '--persistent' ]
+
 endif
 
 " ============================================================================
 " Completion Plugin: jspc.vim
-" (Ignored if s:fip.javascript was set by the above tern settings)
+" (Ignored if s:omni_only.javascript was set by the above tern settings)
 " ============================================================================
 
 if dko#IsPlugged('jspc.vim')
   " <C-x><C-u> to manually use jspc in particular
   autocmd dkocompletion FileType javascript setlocal completefunc=jspc#omni
 
-  " jspc.vim calls the javascriptcomplete#CompleteJS if it doesn't match, so
-  " we don't need it in the omnifuncs
-  call remove(
-        \   s:omnifuncs.javascript,
-        \   index(s:omnifuncs.javascript, 'javascriptcomplete#CompleteJS')
-        \ )
-  call add(s:omnifuncs.javascript, 'jspc#omni')
-
+  " jspc.vim calls the original &omnifunc (probably
+  " javascriptcomplete#CompleteJS or tern#Complete) if it doesn't match, so we
+  " don't need it in the deoplete omnifuncs
+  call s:Exclude('javascript', 'javascriptcomplete#CompleteJS')
+  call s:Include('javascript', 'jspc#omni')
   " Triggered on quotes in `window.addEventListener('` for example
-  call add(s:deo_patterns.javascript, s:PY3REGEX.parameter)
+  call s:Trigger('javascript', [
+        \   s:PY3REGEX.parameter,
+        \ ])
 endif
 
 
@@ -241,7 +279,7 @@ if dko#IsPlugged('deoplete-padawan')
 
 elseif dko#IsPlugged('phpcd.vim')
   " Call omnifunc directly
-  let s:fip.php = s:REGEX.any_word
+  let s:omni_only.php = s:REGEX.any_word
         \. '\|' . s:REGEX.member
         \. '\|' . s:REGEX.static
   let s:deo_patterns.php = []
@@ -257,7 +295,6 @@ elseif dko#IsPlugged('padawan.vim')
 
 " ============================================================================
 " Completion Plugin: phpcomplete-extended
-" Includes neocomplete source.
 " This requires vimproc and composer.json in project root.
 " ============================================================================
 
@@ -316,8 +353,7 @@ if dko#IsPlugged('deoplete.nvim')
         \ ])
 
   " --------------------------------------------------------------------------
-  " Sources for engine based omni-completion (ignored if match s:fip)
-  " Unlike neocomplete, deoplete only supports one omnifunction at a time
+  " Sources for engine based omni-completion (ignored if match s:omni_only)
   " --------------------------------------------------------------------------
 
   call dko#InitDict('g:deoplete#omni#functions')
@@ -329,14 +365,13 @@ if dko#IsPlugged('deoplete.nvim')
   " Input patterns
   " --------------------------------------------------------------------------
 
-  " Patterns that bypass deoplete and use &omnifunc directly
+  " Patterns that use &omnifunc directly by synthetic <C-X><C-O>
   call dko#InitDict('g:deoplete#omni_patterns')
-  call extend(g:deoplete#omni_patterns, s:fip)
+  call extend(g:deoplete#omni_patterns, s:omni_only)
 
   " Patterns that trigger deoplete aggregated PUM
   call dko#InitDict('g:deoplete#omni#input_patterns')
   call extend(g:deoplete#omni#input_patterns, s:deo_patterns)
-
 endif
 
 " ============================================================================

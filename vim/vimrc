@@ -737,7 +737,11 @@ function! s:LoadPlugins()
   " Language: HTML, XML, and generators: mustache, handlebars
   " ========================================================================
 
-  Plug 'othree/html5.vim'
+  " Syntax enhancements and htmlcomplete#CompleteTags function override
+  " The completion function doesn't work with deoplete
+  " @see https://github.com/Shougo/deoplete.nvim/issues/65
+  " @see https://github.com/Shougo/deoplete.nvim/issues/70
+  "Plug 'othree/html5.vim'
 
   "Plug 'tpope/vim-haml'
 
