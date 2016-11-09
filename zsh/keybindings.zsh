@@ -4,6 +4,9 @@
 #
 # `cat -e` to test out keys
 #
+# \e is the same as ^[ is the escape code for <Esc>
+# Prefer ^[ since it mixes better with the letter form [A
+#
 
 export DKO_SOURCE="${DKO_SOURCE} -> keybindings.zsh"
 
@@ -19,10 +22,6 @@ bindkey -v
 
 # fix backspace
 # bindkey '^?'    backward-delete-char
-
-# fix up and down to end of line after history
-# bindkey '\e[A'  history-search-backward  # Up
-# bindkey '\e[B'  history-search-forward   # Down
 
 # home/end
 # Home/Fn-Left
@@ -51,16 +50,22 @@ bindkey -M vicmd  '^[[F'  end-of-line
 bindkey '^[[3~' delete-char
 
 # Left and right should jump through words
-# Opt-Left - Same as ^[^[[D
-bindkey '\e\e[D' backward-word
-# Opt-Right - Same as ^[^[[C
-bindkey '\e\e[C' forward-word
+# Opt-Left
+bindkey '^[^[[D' backward-word
+# Opt-Right
+bindkey '^[^[[C' forward-word
 # C-L
 bindkey '^[[1;5D' backward-word
 #bindkey '\e[1;5D' backward-word
 # C-R
 bindkey '^[[1;5C' forward-word
 #bindkey '\e[1;5C' forward-word
+
+# Up and down search history filtered using already entered contents
+# Up
+bindkey '^[[A'  history-search-backward
+# Down
+bindkey '^[[B'  history-search-forward
 
 # PgUp/Dn navigate through history like regular up/down
 bindkey -M viins "^[[5~" up-history
