@@ -394,7 +394,9 @@ endif
 " replacing/reference previous regex tokens). Default is off, but explicitly
 " disabled here, too.
 " @see https://github.com/neovim/neovim/pull/5226
-set inccommand=
+if has('nvim')
+  set inccommand=
+endif
 
 " ----------------------------------------------------------------------------
 " Special highlights
