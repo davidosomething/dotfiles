@@ -389,6 +389,13 @@ if !empty(dko#GetGrepper())
   execute 'set grepformat=' . dko#GetGrepper().format
 endif
 
+" New neovim feature, it's like vim-over but hides the thing being replaced
+" so it is not practical for now (makes it harder to remember what you're
+" replacing/reference previous regex tokens). Default is off, but explicitly
+" disabled here, too.
+" @see https://github.com/neovim/neovim/pull/5226
+set inccommand=
+
 " ----------------------------------------------------------------------------
 " Special highlights
 " ----------------------------------------------------------------------------
@@ -1013,7 +1020,6 @@ function! s:LoadPlugins()
   " <Plug> to not move on * search function
   Plug 'haya14busa/vim-asterisk'
 
-  " Will be replaced by https://github.com/neovim/neovim/pull/5226
   " @see https://github.com/haya14busa/incsearch.vim/issues/79
   " @see https://github.com/neovim/neovim/issues/3688
   " highlight partial matches as you type in search mode
