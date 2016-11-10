@@ -19,7 +19,7 @@ esac
 # mac OS/OS X
 # ============================================================================
 
-[[ "$DOTFILES_OS" = "Darwin" ]] && {
+[ "$DOTFILES_OS" = "Darwin" ] && {
   export DOTFILES_DISTRO="mac"
 
   command -v "brew" >/dev/null 2>&1 && {
@@ -32,14 +32,14 @@ esac
 # Linux
 # ============================================================================
 
-[[ "$DOTFILES_OS" = "Linux" ]] && {
-  [[ -f "/etc/debian_version" ]] && export DOTFILES_DISTRO="debian"
+[ "$DOTFILES_OS" = "Linux" ] && {
+  [ -f "/etc/debian_version" ] && export DOTFILES_DISTRO="debian"
 
   # ----------------------------------------------------------------------
   # Arch Linux
   # ----------------------------------------------------------------------
 
-  [[ -f "/etc/arch-release" ]] && {
+  [ -f "/etc/arch-release" ] && {
     export DOTFILES_DISTRO="archlinux"
 
     # for pacdiff
@@ -53,7 +53,7 @@ esac
     # alone).
     # Setting $XENVIRONMENT is an option, but the -I flag here is more useful.
     # This also lets me keep .Xresources out of ~/
-    [[ "$DISPLAY" != "" ]] \
+    [ "$DISPLAY" != "" ] \
       && dko::has "xrdb" \
       && xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
     }

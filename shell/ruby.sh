@@ -8,7 +8,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
 export GEMRC="${DOTFILES}/ruby/gemrc"
 
 # Ruby use brew openssl if available
-[[ -f "${BREW_PREFIX}/opt/openssl" ]] && \
+[ -f "${BREW_PREFIX}/opt/openssl" ] && \
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${BREW_PREFIX}/opt/openssl"
 
 # auto bundle exec to use gems in current ruby

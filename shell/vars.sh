@@ -8,7 +8,7 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.sh {"
 # Sourced only once, may have been sourced in linux/.xprofile already
-source "${HOME}/.dotfiles/shell/xdg.sh"
+. "${HOME}/.dotfiles/shell/xdg.sh"
 
 # ============================================================================
 # Locale
@@ -68,7 +68,7 @@ export GIT_PAGER="$PAGER"
 export ACKRC="${DOTFILES}/ack/dot.ackrc"
 
 # apache
-[[ -f "/etc/apache2/envvars" ]] && source "/etc/apache2/envvars"
+[ -f "/etc/apache2/envvars" ] && . "/etc/apache2/envvars"
 
 # atom editor
 export ATOM_HOME="${XDG_CONFIG_HOME}/atom"

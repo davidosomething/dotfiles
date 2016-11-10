@@ -33,12 +33,12 @@ dko::indent() { sed 's/^/    /'; }
 # source a file if it exists
 # $1 path to file
 dko::source() {
-  [ -f "$1" ] && source "$1" # && echo "Sourced $1"
+  [ -f "$1" ] && . "$1" # && echo "Sourced $1"
 }
 
 # require root
 dko::requireroot() {
-  if [[ "$(whoami)" != "root" ]]; then
+  if [ "$(whoami)" != "root" ]; then
     dko::err "Please run as root, these files go into /etc/**/";
     exit 1
   fi

@@ -52,7 +52,7 @@ dko::dotfiles::__usage() {
 }
 
 dko::dotfiles::__reload() {
-  source "${DOTFILES}/shell/dotfiles.sh" \
+  . "${DOTFILES}/shell/dotfiles.sh" \
     && dko::status "Reloaded shell/dotfiles.sh"
 }
 
@@ -223,7 +223,7 @@ dko::dotfiles::__update_node() {
   local desired_node_minor
   local previous_node
 
-  source "${NVM_DIR}/nvm.sh"
+  . "${NVM_DIR}/nvm.sh"
   dko::status "Checking node versions..."
   desired_node_minor="$(nvm version-remote "$desired_node")"
   previous_node="$(nvm current)"
@@ -233,7 +233,7 @@ dko::dotfiles::__update_node() {
     echo -n "Install and use new node ${desired_node_minor} as default? [y/N] "
     read -r
     echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [ "$REPLY" = "y" ]; then
       nvm install             "$desired_node"
       nvm alias default       "$desired_node"
 
@@ -272,7 +272,7 @@ dko::dotfiles::__update_nvm() {
     readonly latest_nvm="$(git describe --abbrev=0 --tags)"
 
     # Already up to date
-    [[ "$previous_nvm" == "$latest_nvm" ]] && exit
+    [ "$previous_nvm" = "$latest_nvm" ] && exit
 
     dko::status "Fast-forwarding to latest nvm"
     git checkout --quiet --progress "$latest_nvm" \
@@ -284,7 +284,7 @@ dko::dotfiles::__update_nvm() {
 
   case "$?" in
     3)    dko::status "Reloading nvm"
-          source "$NVM_DIR/nvm.sh"
+          . "$NVM_DIR/nvm.sh"
           return $?
           ;;
     256)  dko::err "Could not update nvm"
@@ -579,7 +579,7 @@ dko::dotfiles::darwin::__update_brew_neovim() {
 
 # $1 command
 dko::dotfiles() {
-  if [[ $# -eq 0 ]]; then
+  if [ $# -eq 0 ]; then
     dko::dotfiles::__usage
     return 1
   fi

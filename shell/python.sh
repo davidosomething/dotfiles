@@ -35,13 +35,13 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Assign global var to virtualenv name
 virtualenv_info() {
-  if [[ -n "$VIRTUAL_ENV" ]]; then
+  if [ -n "$VIRTUAL_ENV" ]; then
       # Strip out the path and just leave the env name
       venv="${VIRTUAL_ENV##*/}"
   else
       venv=''
   fi
-  [[ -n "$venv" ]] && echo "$venv"
+  [ -n "$venv" ] && echo "$venv"
 }
 
 # ==============================================================================

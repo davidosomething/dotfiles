@@ -18,28 +18,24 @@ current_shell() {
 
 # flatten a dir
 flatten() {
-  if [[ -n "$1" ]]; then
-    read -r "reply?Flatten folder: are you sure? [Yy] "
+  if [ -n "$1" ]; then
+    read -r "reply?Flatten folder: are you sure? [y] "
   else
-    reply=Y
+    local _reply=y
   fi
 
-  if [[ $reply =~ ^[Yy]$ ]]; then
-    mv ./*/* .
-  fi
+  [ "$_reply" = "y" ] && mv ./*/* .
 }
 
 # delete empty subdirs
 prune() {
-  if [[ -n $1 ]]; then
-    read -r "reply?Prune empty directories: are you sure? [Yy] "
+  if [ -n "$1" ]; then
+    read -r "reply?Prune empty directories: are you sure? [y] "
   else
-    reply=Y
+    local _reply=y
   fi
 
-  if [[ $reply =~ ^[Yy]$ ]]; then
-    find . -type d -empty -delete
-  fi
+  [ "$_reply" = y ] && find . -type d -empty -delete
 }
 
 # Go to git root
@@ -68,7 +64,7 @@ fs() {
     arg=-sh
   fi
 
-  if [[ -n "$@" ]]; then
+  if [ -n "$@" ]; then
     du "$arg" -- "$@"
   else
     du "$arg" .[^.]* ./*
@@ -100,7 +96,6 @@ phpminorver() {
 
 # Export repo files to specified dir
 gitexport() {
-  local to_dir
   to_dir="${2:-./gitexport}"
   rsync -a "${1:-./}" "$to_dir" --exclude "$to_dir" --exclude .git
 }

@@ -12,21 +12,21 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/before.sh {"
 
-source "${DOTFILES}/shell/path.sh"       # rebuild path starting from system path
-source "${DOTFILES}/shell/os.sh"         # os env requires path to detect brew
-source "${DOTFILES}/shell/helpers.sh"    # useful functions
-source "${DOTFILES}/shell/functions.sh"  # useful functions
-source "${DOTFILES}/shell/dotfiles.sh"   # update dotfiles
-source "${DOTFILES}/shell/aliases.sh"    # aliases
+. "${DOTFILES}/shell/path.sh"       # rebuild path starting from system path
+. "${DOTFILES}/shell/os.sh"         # os env requires path to detect brew
+. "${DOTFILES}/shell/helpers.sh"    # useful functions
+. "${DOTFILES}/shell/functions.sh"  # useful functions
+. "${DOTFILES}/shell/dotfiles.sh"   # update dotfiles
+. "${DOTFILES}/shell/aliases.sh"    # aliases
 
 # ==============================================================================
 # env management -- Node, PHP, Python, Ruby - These add to path
 # ==============================================================================
 
 # This also adds completions based on global nvm->npm packages
-source "${DOTFILES}/shell/node.sh"
-source "${DOTFILES}/shell/python.sh"
-source "${DOTFILES}/shell/ruby.sh"
+. "${DOTFILES}/shell/node.sh"
+. "${DOTFILES}/shell/python.sh"
+. "${DOTFILES}/shell/ruby.sh"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 

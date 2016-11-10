@@ -18,7 +18,7 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 # and should have those vars. I am just using the defaults but want them
 # explicitly defined.
 [ -f "${XDG_CONFIG_HOME}/user-dirs.dirs" ]      \
-  && source "${XDG_CONFIG_HOME}/user-dirs.dirs" \
+  && . "${XDG_CONFIG_HOME}/user-dirs.dirs" \
   && export                             \
     XDG_DESKTOP_DIR                     \
     XDG_DOWNLOAD_DIR                    \
