@@ -525,8 +525,7 @@ dko::dotfiles::darwin::__update_brew() {
 
     # If imagemagick was outdated and php-imagick was not, force a reinstall
     # of php-imagick from source (using the new imagemagick)
-    if grep -q "imagemagick" <<<"$outdated" \
-      && ! grep -q "php.*imagick" <<<"$outdated"; then
+    if grep -q "imagemagick" <<<"$outdated"; then
       readonly phpimagick="$(brew ls | grep 'php.*imagick')"
       [ -n "$phpimagick" ] \
         && dko::status "Rebuilding ${phpimagick} for new imagemagick" \
