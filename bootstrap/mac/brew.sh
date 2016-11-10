@@ -77,7 +77,7 @@ brew install jsonpp
 
 brew install cloc
 brew install diff-so-fancy
-brew install git
+brew install git tig
 brew install hyperterm
 brew install lua
 brew install mono
