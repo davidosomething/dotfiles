@@ -239,7 +239,12 @@ set complete-=t                       " don't complete tags
 set completeopt-=preview              " don't open scratch preview (e.g. echodoc)
 set completeopt+=menu,menuone         " show PUM, even for one thing
 
-" @see <https://github.com/Valloric/YouCompleteMe/blob/master/autoload/youcompleteme.vim#L343>
+" ----------------------------------------------------------------------------
+" Message output on vim actions
+" ----------------------------------------------------------------------------
+
+set shortmess-=f                      " (file x of x) instead of just (x of x)
+set shortmess+=mnrxoOt
 if has('patch-7.4.314')
   set shortmess+=c                    " Disable "Pattern not found" messages
 endif
