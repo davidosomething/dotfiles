@@ -95,7 +95,7 @@ nnoremap  <special>   <BS>  <C-^>
 " ============================================================================
 
 " ----------------------------------------------------------------------------
-" Navigate with ctrl+arrow (insert mode leaves user in normal)
+" Navigate with <C+arrow> (insert mode leaves user in normal)
 " ----------------------------------------------------------------------------
 
 nnoremap  <special>   <C-Left>    <C-w>h
@@ -104,7 +104,7 @@ nnoremap  <special>   <C-Up>      <C-w>k
 nnoremap  <special>   <C-Right>   <C-w>l
 
 " ----------------------------------------------------------------------------
-" Cycle with tab in normal mode
+" Cycle window with <Tab> in normal mode
 " ----------------------------------------------------------------------------
 
 nnoremap  <special>   <Tab>       <C-w>w
@@ -244,6 +244,15 @@ noremap   L   g_
 
 vnoremap  <   <gv
 vnoremap  >   >gv
+
+" ----------------------------------------------------------------------------
+" <Tab> indents in visual mode (recursive map to the above)
+" ----------------------------------------------------------------------------
+
+silent! vunmap <Tab>
+silent! vunmap <S-Tab>
+vmap  <special>   <Tab>     >
+vmap  <special>   <S-Tab>   <
 
 " ----------------------------------------------------------------------------
 " Sort lines (use unix sort)
