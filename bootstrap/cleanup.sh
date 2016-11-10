@@ -11,7 +11,7 @@ set -e
 
 cd "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
-source "${dotfiles_path}/shell/helpers.sh"
+source "${dotfiles_path}/shell/helpers.bash"
 
 # ============================================================================
 # ENV validation

@@ -1,5 +1,5 @@
-# shell/node.sh
-export DKO_SOURCE="${DKO_SOURCE} -> shell/node.sh {"
+# shell/node.bash
+export DKO_SOURCE="${DKO_SOURCE} -> shell/node.bash {"
 
 # ==============================================================================
 # nvm

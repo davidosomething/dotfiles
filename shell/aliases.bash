@@ -1,8 +1,8 @@
-# shell/aliases
+# shell/aliases.bash
 # Not run by loader
 # Sourced by both .zshrc and .bashrc, so keep it bash compatible
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases.sh"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases.bash"
 
 # paths and dirs
 alias ..="cd .."

@@ -1,9 +1,9 @@
-# shell/after.sh
+# shell/after.bash
 #
 # Runs before local/* .zshrc and .bashrc
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/after.bash {"
 
 # ==============================================================================
 # Use neovim
@@ -55,7 +55,7 @@ dko::has "grunt" && {
 # travis completion
 # ==============================================================================
 
-dko::source "${TRAVIS_CONFIG_PATH}/travis.sh" && \
+dko::source "${TRAVIS_CONFIG_PATH}/travis.bash" && \
   export DKO_SOURCE="${DKO_SOURCE} -> travis"
 
 # ============================================================================

@@ -1,4 +1,4 @@
-# shell/vars.sh
+# shell/vars.bash
 #
 # Sourced by .zshenv or .bashrc
 #
@@ -6,9 +6,9 @@
 # term and we may need to reset the values
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.sh {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.bash {"
 # Sourced only once, may have been sourced in linux/.xprofile already
-. "${HOME}/.dotfiles/shell/xdg.sh"
+. "${HOME}/.dotfiles/shell/xdg.bash"
 
 # ============================================================================
 # Locale
@@ -68,6 +68,7 @@ export GIT_PAGER="$PAGER"
 export ACKRC="${DOTFILES}/ack/dot.ackrc"
 
 # apache
+# shellcheck source=/dev/null
 [ -f "/etc/apache2/envvars" ] && . "/etc/apache2/envvars"
 
 # atom editor
@@ -141,7 +142,7 @@ export INPUTRC="${DOTFILES}/shell/dot.inputrc"
 # ruby moved to shell/ruby loaded in shell/before
 
 # for shellcheck
-export SHELLCHECK_OPTS="--shell=bash --exclude=SC1090 --exclude=SC1091 --exclude=SC2148 --exclude=SC2039"
+export SHELLCHECK_OPTS="--exclude=SC1090,SC2148"
 
 # travis cli
 export TRAVIS_CONFIG_PATH="${XDG_CONFIG_HOME}/travis"

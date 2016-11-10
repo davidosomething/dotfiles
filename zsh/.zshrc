@@ -10,7 +10,7 @@
 # ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
-source "${DOTFILES}/shell/before.sh"
+source "${DOTFILES}/shell/before.bash"
 
 # ============================================================================
 # Options
@@ -299,7 +299,7 @@ fi
 # After
 # ============================================================================
 
-source "${DOTFILES}/shell/after.sh"
+source "${DOTFILES}/shell/after.bash"
 dko::source "${DOTFILES}/local/zshrc"
 
 # Started xtrace in dot.zshenv

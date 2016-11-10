@@ -1,10 +1,10 @@
-# shell/path.sh
+# shell/path.bash
 #
 # Sourced in bash and zsh by loader
 # pyenv, chruby, chphp, nvm pathing is done in shell/after
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/path.sh"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/path.bash"
 
 # ==============================================================================
 # Store default system path

@@ -1,7 +1,7 @@
-# .dotfiles/shell/helpers.sh
+# .dotfiles/shell/helpers.bash
 # Should be sourced only
 #
-# Sourced by shell/before.sh
+# Sourced by shell/before.bash
 # Helper functions should be sourced AGAIN by any scripts that need it
 #
 
@@ -33,6 +33,7 @@ dko::indent() { sed 's/^/    /'; }
 # source a file if it exists
 # $1 path to file
 dko::source() {
+  # shellcheck source=/dev/null
   [ -f "$1" ] && . "$1" # && echo "Sourced $1"
 }
 

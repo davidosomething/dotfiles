@@ -10,8 +10,8 @@
 # ==============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
-source "${HOME}/.dotfiles/shell/vars.sh"
-source "${DOTFILES}/shell/before.sh"
+source "${HOME}/.dotfiles/shell/vars.bash"
+source "${DOTFILES}/shell/before.bash"
 
 # Override HISTFILE for bash
 export HISTFILE="${BASH_DOTFILES}/.bash_history"
@@ -76,7 +76,7 @@ source "${BASH_DOTFILES}/prompt.bash"
 # After
 # ==============================================================================
 
-source "${DOTFILES}/shell/after.sh"
+source "${DOTFILES}/shell/after.bash"
 dko::source "${DOTFILES}/local/bashrc"
 
 export DKO_SOURCE="${DKO_SOURCE} }"

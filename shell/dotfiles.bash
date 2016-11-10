@@ -1,4 +1,4 @@
-# .dotfiles/shell/dotfiles.sh
+# .dotfiles/shell/dotfiles.bash
 #
 # Update dotfiles and provide instructions for updating the system
 # THIS FILE IS SOURCED to give access to current shell
@@ -52,8 +52,8 @@ dko::dotfiles::__usage() {
 }
 
 dko::dotfiles::__reload() {
-  . "${DOTFILES}/shell/dotfiles.sh" \
-    && dko::status "Reloaded shell/dotfiles.sh"
+  . "${DOTFILES}/shell/dotfiles.bash" \
+    && dko::status "Reloaded shell/dotfiles.bash"
 }
 
 dko::dotfiles::__update() {

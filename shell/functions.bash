@@ -1,8 +1,8 @@
-# shell/functions.sh
+# shell/functions.bash
 #
 # Sourced in bash and zsh by loader
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/functions.sh"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/functions.bash"
 
 # ============================================================================
 # Scripting

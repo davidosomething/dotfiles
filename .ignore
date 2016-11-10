@@ -1,8 +1,12 @@
+*.crt
+base16/
 certs/
 fonts/
 logs/
 osx/base16-iterm2/
 tmux/plugins/
-vim/plug/
 vim/.tmp/
 vim/autoload/plug.vim
+vim/plug/
+vim/vendor/
+weechat/

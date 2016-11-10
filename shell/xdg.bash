@@ -1,11 +1,11 @@
-# shell/xdg
+# shell/xdg.bash
 #
 # Only loaded once, either by .xprofile or by shell/vars
 #
 
 [ -n "$DKO_SOURCED_XDG" ] && return
 export DKO_SOURCED_XDG=1
-export DKO_SOURCE="${DKO_SOURCE} -> shell/xdg.sh {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/xdg.bash {"
 
 # ============================================================================
 # Define dirs
@@ -17,7 +17,8 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 # Exporting is fine since the file is generated via xdg-user-dirs-update
 # and should have those vars. I am just using the defaults but want them
 # explicitly defined.
-[ -f "${XDG_CONFIG_HOME}/user-dirs.dirs" ]      \
+# shellcheck source=/dev/null
+[ -f "${XDG_CONFIG_HOME}/user-dirs.dirs" ] \
   && . "${XDG_CONFIG_HOME}/user-dirs.dirs" \
   && export                             \
     XDG_DESKTOP_DIR                     \

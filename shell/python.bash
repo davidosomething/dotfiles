@@ -1,9 +1,9 @@
-# shell/python.sh
+# shell/python.bash
 #
 # uses vars from shell/vars and functions from shell/functions
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/python.sh"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/python.bash"
 
 # Let python guess where to `import` packages, or use pip instead
 unset PYTHONPATH
