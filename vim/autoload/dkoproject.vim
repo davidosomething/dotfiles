@@ -48,16 +48,7 @@ function! dkoproject#GetRoot(...) abort
     return b:dkoproject_root
   endif
 
-  " Get root for a specific file
-  if !empty(a:0)
-    " path for given file
-    let l:path = fnamemodify(resolve(expand(a:0)), ':p:h')
-  elseif filereadable(expand('%'))
-    " path for current file
-    let l:path = expand('%:p:h')
-  else
-    let l:path = getcwd()
-  endif
+  let l:path = dkoproject#GetRootPath(a:0)
 
   let l:root = dkoproject#GetGitRootByFile(l:path)
   let l:root = empty(l:root)
@@ -71,13 +62,40 @@ function! dkoproject#GetRoot(...) abort
   return l:root
 endfunction
 
-" @param {String} filepath
+function! dkoproject#GetRootPath(...) abort
+  " Argument
+  " Path for given file
+  let l:path = empty(a:0) ? '' : fnamemodify(resolve(expand(a:0)), ':p:h')
+
+  " Fallback to current file if no argument
+  " Try current file's path
+  let l:path = empty(l:path) && filereadable(expand('%'))
+        \ ? expand('%:p:h')
+        \ : l:path
+
+  " Fallback if no current file
+  " File was not readable so just use current path buffer started from
+  let l:path = empty(l:path)
+        \ ? getcwd()
+        \ : l:path
+
+  " Special circumstances
+  " Go up one level if INSIDE the .git/ dir
+  let l:path = fnamemodify(l:path, ':h') ==# '.git'
+        \ ? fnamemodify(l:path, ':p:h:h')
+        \ : l:path
+
+  return l:path
+endfunction
+
+" @param {String} path
 " @return {String} git root of file or empty string
-function! dkoproject#GetGitRootByFile(filepath) abort
-  let l:result = split(system(
-        \   'cd ' . a:filepath . ' && git rev-parse --show-toplevel'
-        \ ), '\n')[0]
-  return v:shell_error ? '' : l:result
+function! dkoproject#GetGitRootByFile(path) abort
+  let b:std = split(
+        \ system('cd ' . a:path . ' && git rev-parse --show-toplevel 2>/dev/null'),
+        \ '\n'
+        \ )
+  return len(b:std) && v:shell_error ? '' : b:std[0]
 endfunction
 
 " @param {String[]} markers
