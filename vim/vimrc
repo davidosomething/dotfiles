@@ -335,10 +335,17 @@ set nojoinspaces                      " J command doesn't add extra space
 
 set autoindent                        " indent when creating newline
 
-" for autoindent, use same spaces/tabs mix as previous line, even if
+" For autoindent, use same spaces/tabs mix as previous line, even if
 " tabs/spaces are mixed. Helps for docblock, where the block comments have a
 " space after the indent to align asterisks
-set copyindent
+"
+" The test case what happens when using o/O and >> and << on these:
+"
+"     /**
+"      *
+"
+" Refer also to formatoptions+=o (copy comment indent to newline)
+set nocopyindent
 
 " Try not to change the indent structure on "<<" and ">>" commands. I.e. keep
 " block comments aligned with space if there is a space there.
@@ -1135,13 +1142,18 @@ augroup dkostatusline
 augroup END
 
 " WordPress VIP specific
-augroup dkowpvip
+augroup dkowordpresssucksdonkeyballs
   autocmd!
 
   " No EOL character on files -- specifically for WP VIP PHP
   autocmd BufNewFile,BufRead
         \ */wp-content/themes/vip/*
         \ setlocal noeol binary fileformat=dos
+
+  " Indent case: and default: in switch()
+  autocmd BufNewFile,BufRead
+        \ */*content/themes/*,*/*content/plugins/*,*/mu-plugins/*
+        \ let b:PHP_vintage_case_default_indent = 1
 augroup END
 
 " ============================================================================

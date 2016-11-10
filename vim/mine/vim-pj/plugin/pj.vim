@@ -101,13 +101,29 @@ function! s:CompleteRun(arglead, cmdline, pos) abort
 endfunction
 
 " @param {String} name of script to run
+" @return {Dict} command results
 function! s:CommandRun(name) abort
-  if  !executable('node') || !executable('npm')
+  if !executable('node') || !executable('npm')
     echoerr 'Vim could not access node and/or npm.'
   endif
 
+  let l:command = 'npm run ' . a:name
+
+  if has('nvim')
+    execute 'split | terminal ' . l:command
+    return
+  endif
+
   " @TODO -- delegate to Neomake#Sh or dispatch... too lazy to write out
-  echom 'npm run ' . a:name
+  if exists('*neomake#Sh')
+    return neomake#Sh(l:command, function('s:OpenQf'))
+  endif
+
+  return {}
+endfunction
+
+function! s:OpenQf(...) abort
+  copen
 endfunction
 
 " ============================================================================
