@@ -515,13 +515,24 @@ dko::dotfiles::darwin::__update_brew() {
       && dko::dotfiles::darwin::__update_brew_macvim
 
     # Update neovim separately
-    grep -q "neovim" <<<"$outdated"      \
-      && dko::status "Neovim was outdated"  \
+    grep -q "neovim" <<<"$outdated" \
+      && dko::status "Neovim was outdated" \
       && dko::dotfiles::darwin::__update_brew_neovim
 
     # Upgrade remaining
     dko::status "Upgrading packages"
     brew upgrade
+
+    # If imagemagick was outdated and php-imagick was not, force a reinstall
+    # of php-imagick from source (using the new imagemagick)
+    if grep -q "imagemagick" <<<"$outdated" \
+      && ! grep -q "php.*imagick" <<<"$outdated"; then
+      readonly phpimagick="$(brew ls | grep 'php.*imagick')"
+      [ -n "$phpimagick" ] \
+        && dko::status "Rebuilding ${phpimagick} for new imagemagick" \
+        && brew reinstall --build-from-source "$phpimagick"
+    fi
+
   ) && dko::dotfiles::darwin::__update_brew_done
 }
 
@@ -611,3 +622,4 @@ dko::dotfiles() {
 }
 
 # vim: ft=sh :
+
