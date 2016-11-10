@@ -10,7 +10,7 @@ set cpoptions&vim
 " ============================================================================
 
 " Select from PUM or insert tabs or alignment spaces
-function! s:DKO_Tab()
+function! s:DKO_Tab() abort
   " Advance and select autocomplete result
   if pumvisible()
     return "\<C-n>"
@@ -22,17 +22,17 @@ function! s:DKO_Tab()
     return "\<Tab>"
   endif
 
-  " Insert alignment spaces
-  " Calc how many spaces, support for negative sts
+  " The PUM is closed and characters before the cursor are not all whitespace
+  " so we need to insert alignment spaces (always spaces)
+  " Calc how many spaces, support for negative &sts values
   let l:sts = (&softtabstop <= 0) ? &shiftwidth : &softtabstop
   let l:sp = (virtcol('.') % l:sts)
   if l:sp == 0 | let l:sp = l:sts | endif
   return repeat(' ', 1 + l:sts - l:sp)
 endfunction
 
-
 " S-Tab goes reverses selection or untabs
-function! s:DKO_STab()
+function! s:DKO_STab() abort
   return pumvisible() ? "\<C-p>" : "\<C-d>"
 endfunction
 
@@ -40,8 +40,11 @@ endfunction
 " Mappings
 " ----------------------------------------------------------------------------
 
-" requires noremap if returns original key
+" Tab - requires noremap since it may return a regular <Tab>
 inoremap  <silent><special><expr>  <Tab>     <SID>DKO_Tab()
+
+" Shift-Tab
+silent!   iunmap  <S-Tab>
 imap      <silent><special><expr>  <S-Tab>   <SID>DKO_STab()
 
 " ============================================================================
