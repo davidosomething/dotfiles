@@ -41,8 +41,8 @@ let s:default_markers = [
 
 " Find git root of current file, set to buffer var
 "
-" @param {string} [file]
-" @return {string} project git root path or empty string
+" @param {String} [file]
+" @return {String} project git root path or empty string
 function! dkoproject#GetRoot(...) abort
   if exists('b:dkoproject_root')
     return b:dkoproject_root
@@ -71,20 +71,17 @@ function! dkoproject#GetRoot(...) abort
   return l:root
 endfunction
 
-" @param {string} filepath
-" @return {string} git root of file or empty string
+" @param {String} filepath
+" @return {String} git root of file or empty string
 function! dkoproject#GetGitRootByFile(filepath) abort
-  " Determine if git root exists
-  " (empty string on error, strip last newline)
-  let l:result = system(
-        \ 'cd ' . a:filepath . 
-        \ ' && git rev-parse --show-toplevel 2>/dev/null')
-
-  return empty(l:result) ? '' : l:result[:-2]
+  let l:result = split(system(
+        \   'cd ' . a:filepath . ' && git rev-parse --show-toplevel'
+        \ ), '\n')[0]
+  return v:shell_error ? '' : l:result
 endfunction
 
 " @param {String[]} markers
-" @return {string} root path based on presence of file marker
+" @return {String} root path based on presence of file marker
 function! dkoproject#GetRootByFileMarker(markers) abort
   let l:result = ''
   for l:marker in a:markers
