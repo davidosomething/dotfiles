@@ -41,8 +41,19 @@ function! s:GetFzfGitModifiedRoot()
         \ : dkoproject#GetRoot()
 endfunction
 
+function! s:GetFzfGitModifiedSource()
+  let l:modified = system('git ls-files --modified --others --exclude-standard')
+  let l:modified = v:shell_error ? [] : split(l:modified, '\n')
+  let l:staged   = system('git diff --cached --name-only')
+  let l:staged   = v:shell_error ? [] : split(l:staged, '\n')
+  let l:result   = l:modified + l:staged
+
+  return map(l:result, "fnamemodify(v:val, ':~:.')")
+endfunction
+
+" List modified, untracked, and don't include anything .gitignored
 command! FZFModified call fzf#run(fzf#wrap({
-      \     'source':   'git ls-files -m',
+      \     'source':   s:GetFzfGitModifiedSource(),
       \     'dir':      s:GetFzfGitModifiedRoot(),
       \     'options':  s:options . ' --prompt="Git[+]> "',
       \     'down':     10,

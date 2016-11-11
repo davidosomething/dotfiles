@@ -1,5 +1,5 @@
 " after/ftplugin/html.vim
-" This is also used as base settings for markdown filetypes
+" This is also used as base settings for php and markdown filetypes
 
 setlocal nowrap
 setlocal noexpandtab
