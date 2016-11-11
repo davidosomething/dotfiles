@@ -229,11 +229,11 @@ let s:mru_blacklist = "v:val !~ '" . join([
 
 " @return {List} recently used and still-existing files
 function! dko#GetMru() abort
-  " Reversed(Readable(Whitelist))
-  return reverse(filter(
+  " Readable(Whitelist)
+  return filter(
         \   filter(copy(v:oldfiles), s:mru_blacklist),
         \   'filereadable(expand(v:val))'
-        \ ))
+        \ )
 endfunction
 
 " @return {List} listed buffers

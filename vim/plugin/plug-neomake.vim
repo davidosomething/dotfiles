@@ -11,7 +11,8 @@ augroup END
 " Map
 " ============================================================================
 
-execute dko#MapAll({ 'key': '<F5>', 'command': 'Neomake' })
+execute dko#MapAll({ 'key': '<F6>', 'command': 'Neomake' })
+execute dko#MapAll({ 'key': '<F7>', 'command': 'Neomake!' })
 
 " ============================================================================
 " Output

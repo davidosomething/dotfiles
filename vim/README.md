@@ -115,24 +115,23 @@ way to find them.
 
 #### Function Keys
 
-|     Key | Desc |
-| ------: | :--- |
-| `<F1>`  | :FZFBuffers |
-| `<F2>`  | :FZFMRU (customized, recently used + listed buffers) |
-| `<F3>`  | :FZFFiles |
-| `<F4>`  | :FZFAg |
-| `<F5>`  | :Neomake |
-| `<F6>`  | unused |
-| `<F7>`  | unused |
-| `<F8>`  | FZF change colorscheme |
-| `<F9>`  | :QuickfixsignsToggle (on by default) |
-| `<F10>` | :IndentGuidesToggle |
-| `<F11>` | dkotabline#Toggle() |
-| `<F12>` | set pastetoggle |
-| `\`     | :OverCommandLine |
+|     Key | Desc                                                               |
+| ------: | :-------------------------------------------------- -------------- |
+| `<F1>`  | Files - :FZFBuffers |
+| `<F2>`  | Files - :FZFModified (custom, 'git ls-files -m' in buffer root) |
+| `<F3>`  | Files - :FZFMRU (custom, whitelisted recently used + buffers) |
+| `<F4>`  | Files - :FZFFiles |
+| `<F5>`  | Files - :FZFAg |
+| `<F6>`  | Tasks - :Neomake |
+| `<F7>`  | Tasks - :Neomake! |
+| `<F8>`  | UI - :FZFColors |
+| `<F9>`  | UI - :QuickfixsignsToggle (on by default) |
+| `<F10>` | UI - :IndentGuidesToggle |
+| `<F11>` | UI - dkotabline#Toggle() |
+| `<F12>` | UI - set pastetoggle |
+| `\`     | UI - :OverCommandLine |
 
-See `plugin/mappings.vim` (and other plugin/* files) for mappings not
-associated to [vim-plug]-managed plugins.
+See `plugin/mappings.vim` (and other `plugin/*` files) for other mappings.
 
 ### Junk defaults and unmapped keys
 
