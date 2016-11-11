@@ -188,7 +188,7 @@ if executable('tern')
 
   " @TODO deprecated, replace with own plugin
   if dko#IsPlugged('tern_for_vim')
-    " Use tabline instead (<F10>)
+    " Use tabline instead
     let g:tern_show_argument_hints = 'no'
 
     let g:tern_request_timeout       = 1

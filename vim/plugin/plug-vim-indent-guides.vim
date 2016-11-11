@@ -1,6 +1,5 @@
 " plugin/plug-vim-indent-guides.vim
 if !dko#IsPlugged('vim-indent-guides') | finish | endif
-
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
@@ -13,12 +12,6 @@ augroup dkoindentguides
   autocmd BufEnter  *.hbs,*.html,*.mustache,*.php   IndentGuidesEnable
   autocmd BufLeave  *.hbs,*.html,*.mustache,*.php   IndentGuidesDisable
 augroup END
-
-" Must be recursive maps
-execute dko#MapAll({
-      \   'key':      '<F10>',
-      \   'command':  'IndentGuidesToggle',
-      \ })
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

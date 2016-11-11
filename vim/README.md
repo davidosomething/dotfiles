@@ -9,9 +9,9 @@
 
 - Custom statusline with minimal junk, showing short cwd - much faster than
   airline
-- Custom tabline (toggle with F10) is used to show function signature (PHP,
-  Python, Ruby, and a few others supported via [tyru/current-func-info.vim],
-  and I added regexes for JavaScript/es6.
+- Custom tabline is used to show function signature (PHP, Python, Ruby, VimL,
+  and a few others supported via [tyru/current-func-info.vim], and I added
+  regexes for JavaScript/es6.
 - FZF for Most Recently Used files and fuzzy file finder
 - Neomake + local use of eslint, custom detection of .eslint, .scss-lint,
   etc.
@@ -126,7 +126,7 @@ way to find them.
 | `<F7>`  | Tasks - :Neomake! |
 | `<F8>`  | UI - :FZFColors |
 | `<F9>`  | UI - :QuickfixsignsToggle (on by default) |
-| `<F10>` | UI - :IndentGuidesToggle |
+| `<F10>` | do not use -- gnome-terminal menu key |
 | `<F11>` | UI - dkotabline#Toggle() |
 | `<F12>` | UI - set pastetoggle |
 | `\`     | UI - :OverCommandLine |
