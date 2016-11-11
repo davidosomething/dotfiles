@@ -224,22 +224,27 @@ let s:mru_blacklist = "v:val !~ '" . join([
       \   'NERD_tree',
       \   '^/tmp/',
       \   '.git/',
-      \   '\[.*\]'
+      \   '\[.*\]',
+      \   'vim/runtime/doc',
       \ ], '\|') . "'"
 
 " @return {List} recently used and still-existing files
 function! dko#GetMru() abort
-  " Readable(Whitelist)
-  return filter(
-        \   filter(copy(v:oldfiles), s:mru_blacklist),
-        \   'filereadable(expand(v:val))'
+  " Shortened(Readable(Whitelist)
+  return map(
+        \   filter(
+        \     filter(copy(v:oldfiles), s:mru_blacklist),
+        \     'filereadable(expand(v:val))'
+        \   ),
+        \   "fnamemodify(v:val, ':~:.')"
         \ )
 endfunction
 
 " @return {List} listed buffers
 function! dko#GetBuffers() abort
   return map(
-        \ filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'
+        \   filter(range(1, bufnr('$')), 'buflisted(v:val)'),
+        \   'bufname(v:val)'
         \ )
 endfunction
 

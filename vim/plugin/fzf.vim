@@ -35,13 +35,18 @@ let s:options = '--ansi --cycle --multi'
 " git modified
 " ----------------------------------------------------------------------------
 
-command! FZFModified
-      \ call fzf#run(fzf#wrap({
-      \   'source':   'git ls-files -m',
-      \   'dir':      dkoproject#GetRoot(expand('%')),
-      \   'options':  s:options . ' --prompt="Git[+]> "',
-      \   'down':     10,
-      \ }))
+function! s:FzfGitModified()
+  let l:root = exists('b:dkoproject_root')
+        \ ? dkoproject#GetRoot(b:dkoproject_root)
+        \ : dkoproject#GetRoot()
+    call fzf#run(fzf#wrap({
+          \     'source':   'git ls-files -m',
+          \     'dir':      l:root,
+          \     'options':  s:options . ' --prompt="Git[+]> "',
+          \     'down':     10,
+          \   }))
+endfunction
+command! FZFModified call s:FzfGitModified()
 
 " ----------------------------------------------------------------------------
 " My vim runtime
