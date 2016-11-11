@@ -90,12 +90,11 @@ endfunction
 " @param {String} path
 " @return {String} git root of file or empty string
 function! dkoproject#GetGitRootByFile(path) abort
-  let b:p = a:path
-  let b:std = split(
+  let l:std = split(
         \ system('cd ' . a:path . ' && git rev-parse --show-toplevel 2>/dev/null'),
         \ '\n'
         \ )
-  return len(b:std) && v:shell_error ? '' : b:std[0]
+  return v:shell_error || empty(l:std) ? '' : l:std[0]
 endfunction
 
 " @param {String[]} markers
