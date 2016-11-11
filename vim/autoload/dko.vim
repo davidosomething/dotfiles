@@ -216,6 +216,34 @@ function! dko#Search(op) abort
 endfunction
 
 " ============================================================================
+" Vim introspection
+" ============================================================================
+
+let s:mru_blacklist = "v:val !~ '" . join([
+      \   'fugitive:',
+      \   'NERD_tree',
+      \   '^/tmp/',
+      \   '.git/',
+      \   '\[.*\]'
+      \ ], '\|') . "'"
+
+" @return {List} recently used and still-existing files
+function! dko#GetMru() abort
+  " Reversed(Readable(Whitelist))
+  return reverse(filter(
+        \   filter(copy(v:oldfiles), s:mru_blacklist),
+        \   'filereadable(expand(v:val))'
+        \ ))
+endfunction
+
+" @return {List} listed buffers
+function! dko#GetBuffers() abort
+  return map(
+        \ filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'
+        \ )
+endfunction
+
+" ============================================================================
 " Code parsing
 " ============================================================================
 
