@@ -117,10 +117,10 @@ way to find them.
 
 |     Key | Desc |
 | ------: | :--- |
-| `<F1>`  | FZF :Buffers |
-| `<F2>`  | FZF :History (recently used) |
-| `<F3>`  | FZF :Files |
-| `<F4>`  | FZF :Ag |
+| `<F1>`  | :FZFBuffers |
+| `<F2>`  | :FZFMRU (customized, recently used + listed buffers) |
+| `<F3>`  | :FZFFiles |
+| `<F4>`  | :FZFAg |
 | `<F5>`  | :Neomake |
 | `<F6>`  | unused |
 | `<F7>`  | unused |
@@ -154,13 +154,15 @@ sparingly (mostly for `setlocal` ftplugin settings).
 
 ### VimL Coding
 
+- Include `dko#IsPlugged()` check if relying on plugins
 - Include `&cpoptions` guard if there are mappings
-- Use `<special>` if the mapping key is special
+- Use `<special>` if the mapping key is special (irrespective of &cpoptions)
 - `s:FunctionName` - PascalCase
-- `l:local_variable` - snake_case function local variables
+- `l:local_variable` - snake_case function-local variables
 - `s:variable_name` - snake_case for script-local variables
 - `g:dko_variable_name` - dko_snake_case for my global variables
-- `dkoautocommandgroup` - lowercasealphanumer1c
+- `g:dko#variable_name` - prefixed autoload-provided global variable
+- `dkoautocommandgroup` - lowercasealphanumer1cnospaces
 
 ----
 
