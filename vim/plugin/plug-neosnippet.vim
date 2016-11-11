@@ -7,16 +7,19 @@ set cpoptions&vim
 " ============================================================================
 
 " Snippets userdir
-let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory = g:dko#vim_dir . '/snippets'
+
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#enable_conceal_markers = 0
 
 " Map honza/vim-snippets files to neosnippet's javascript set
 " The javascript.* set is included via 'javascript' but mocha is a separate
 " filetype
 let g:neosnippet#scope_aliases = {}
-let g:neosnippet#scope_aliases['javascript'] =
-      \   'javascript'
-      \.  ',javascript-mocha'
+let g:neosnippet#scope_aliases['javascript'] = join([
+      \   'javascript',
+      \   'javascript-mocha',
+      \ ], ',')
 
 " Keybindings for snippet completion
 " Pressing <TAB> with PUM open will move through results, but won't expand

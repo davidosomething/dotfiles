@@ -35,26 +35,42 @@ let s:options = '--ansi --cycle --multi'
 " git modified
 " ----------------------------------------------------------------------------
 
-function! s:FzfGitModified()
-  let l:root = exists('b:dkoproject_root')
+function! s:GetFzfGitModifiedRoot()
+  return exists('b:dkoproject_root')
         \ ? dkoproject#GetRoot(b:dkoproject_root)
         \ : dkoproject#GetRoot()
-    call fzf#run(fzf#wrap({
-          \     'source':   'git ls-files -m',
-          \     'dir':      l:root,
-          \     'options':  s:options . ' --prompt="Git[+]> "',
-          \     'down':     10,
-          \   }))
 endfunction
-command! FZFModified call s:FzfGitModified()
+
+command! FZFModified call fzf#run(fzf#wrap({
+      \     'source':   'git ls-files -m',
+      \     'dir':      s:GetFzfGitModifiedRoot(),
+      \     'options':  s:options . ' --prompt="Git[+]> "',
+      \     'down':     10,
+      \   }))
 
 " ----------------------------------------------------------------------------
 " My vim runtime
 " ----------------------------------------------------------------------------
 
+" @return {List} my files in my vim runtime
+function! s:GetFzfVimSource()
+  let l:runtime_dirs = globpath(g:dko#vim_dir, '{' . join([
+        \   'after',
+        \   'autoload',
+        \   'ftplugin',
+        \   'plugin',
+        \   'snippets',
+        \   'syntax',
+        \ ], ',') . '}/**/*.vim', 0, 1)
+  let l:runtime_files = globpath(g:dko#vim_dir, '*.vim', 0, 1)
+  let l:rcfiles = globpath(g:dko#vim_dir, '*vimrc', 0, 1)
+  return map( l:runtime_dirs + l:runtime_files + l:rcfiles,
+        \     "fnamemodify(v:val, ':~:.')" )
+endfunction
+
 command! FZFVim
       \ call fzf#run(fzf#wrap({
-      \   'source':   split(globpath(dko#vim_dir, "{after,autoload,ftplugin,plugin,syntax}/**/*.vim"), "\n"),
+      \   'source':   s:GetFzfVimSource(),
       \   'options':  s:options . ' --prompt="Vim> "',
       \   'down':     10,
       \ }))
@@ -64,13 +80,14 @@ command! FZFVim
 " Regular MRU doesn't blacklist files
 " ----------------------------------------------------------------------------
 
-function! s:GetFzmSource() abort
-  return extend(dko#GetMru(), dko#GetBuffers())
+" @return {List} recently used filenames and buffers
+function! s:GetFzfMruSource() abort
+  return uniq(dko#GetMru() + dko#GetBuffers())
 endfunction
 
 command! FZFMRU
       \ call fzf#run(fzf#wrap({
-      \   'source':  s:GetFzmSource(),
+      \   'source':  s:GetFzfMruSource(),
       \   'options': s:options . ' --no-sort --prompt="MRU> "',
       \   'down':    10,
       \ }))
