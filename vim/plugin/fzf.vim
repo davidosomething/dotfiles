@@ -48,16 +48,41 @@ function! s:GetFzfGitModifiedSource()
   let l:staged   = v:shell_error ? [] : split(l:staged, '\n')
   let l:result   = l:modified + l:staged
 
-  return map(l:result, "fnamemodify(v:val, ':~:.')")
+  return dko#ShortPaths(l:result)
+endfunction
+
+" Handle expected <c-*> bindings for :FZFModified
+" This is essentially what fzf#wrap() does
+"
+" @TODO really support --multi
+" @param {String[]} lines
+function! s:FzfGitModifiedSink(lines)
+  if len(a:lines) < 1 | return | endif
+
+  let l:list = a:lines[1:]
+  let l:file = l:list[0]
+
+  let l:cmd = get({
+        \   'ctrl-x': 'split',
+        \   'ctrl-v': 'vertical split',
+        \   'ctrl-t': 'tabe',
+        \ }, a:lines[0], 'e')
+  execute l:cmd escape(l:file, ' %#\')
 endfunction
 
 " List modified, untracked, and don't include anything .gitignored
-command! FZFModified call fzf#run(fzf#wrap({
-      \     'source':   s:GetFzfGitModifiedSource(),
-      \     'dir':      s:GetFzfGitModifiedRoot(),
-      \     'options':  s:options . ' --prompt="Git[+]> "',
-      \     'down':     10,
-      \   }))
+" @FIXME ideally I'd like to use `dir`, instead of `sink` but it has problems
+"         resolving the file such that it appears empty until running `:edit`
+"         on the empty buffer to force a re-read.
+"         Also fzf#wrap is not running on this one so can bind the --expect
+"         manually.
+"\   'dir':      s:GetFzfGitModifiedRoot(),
+command! FZFModified call fzf#run({
+      \   'source':   s:GetFzfGitModifiedSource(),
+      \   'sink*':    function('s:FzfGitModifiedSink'),
+      \   'options':  '--cycle --expect=ctrl-t,ctrl-v,ctrl-x --prompt="G[+]> "',
+      \   'down':     10,
+      \ })
 
 " ----------------------------------------------------------------------------
 " My vim runtime
@@ -65,7 +90,8 @@ command! FZFModified call fzf#run(fzf#wrap({
 
 " @return {List} my files in my vim runtime
 function! s:GetFzfVimSource()
-  let l:runtime_dirs = globpath(g:dko#vim_dir, '{' . join([
+  " Want these recomputed every time in case files are added/removed
+  let l:runtime_dirs_files = globpath(g:dko#vim_dir, '{' . join([
         \   'after',
         \   'autoload',
         \   'ftplugin',
@@ -75,8 +101,7 @@ function! s:GetFzfVimSource()
         \ ], ',') . '}/**/*.vim', 0, 1)
   let l:runtime_files = globpath(g:dko#vim_dir, '*.vim', 0, 1)
   let l:rcfiles = globpath(g:dko#vim_dir, '*vimrc', 0, 1)
-  return map( l:runtime_dirs + l:runtime_files + l:rcfiles,
-        \     "fnamemodify(v:val, ':~:.')" )
+  return dko#ShortPaths( l:runtime_dirs_files + l:runtime_files + l:rcfiles )
 endfunction
 
 command! FZFVim

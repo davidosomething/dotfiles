@@ -216,6 +216,19 @@ function! dko#Search(op) abort
 endfunction
 
 " ============================================================================
+" Filepath helpers
+" ============================================================================
+
+" @param {String[]} pathlist to shorten and validate
+" @return {String[]} filtered pathlist
+function! dko#ShortPaths(pathlist) abort
+  return map(
+        \   filter(a:pathlist, 'filereadable(expand(v:val))'),
+        \   "fnamemodify(v:val, ':~:.')"
+        \ )
+endfunction
+
+" ============================================================================
 " Vim introspection
 " ============================================================================
 
@@ -231,13 +244,7 @@ let s:mru_blacklist = "v:val !~ '" . join([
 " @return {List} recently used and still-existing files
 function! dko#GetMru() abort
   " Shortened(Readable(Whitelist)
-  return map(
-        \   filter(
-        \     filter(copy(v:oldfiles), s:mru_blacklist),
-        \     'filereadable(expand(v:val))'
-        \   ),
-        \   "fnamemodify(v:val, ':~:.')"
-        \ )
+  return dko#ShortPaths(filter(copy(v:oldfiles), s:mru_blacklist))
 endfunction
 
 " @return {List} listed buffers

@@ -42,7 +42,7 @@ let s:default_markers = [
 " Find git root of current file, set to buffer var
 "
 " @param {String} [file]
-" @return {String} project git root path or empty string
+" @return {String} project root path or empty string
 function! dkoproject#GetRoot(...) abort
   if exists('b:dkoproject_root')
     return b:dkoproject_root
@@ -61,6 +61,8 @@ function! dkoproject#GetRoot(...) abort
   return l:root
 endfunction
 
+" @param {String} [a:1] optional file for which you want the project root
+" @return {String} path to project root
 function! dkoproject#GetRootPath(...) abort
   " Argument
   " Path for given file
@@ -150,19 +152,18 @@ function! dkoproject#GetFile(filename) abort
   return ''
 endfunction
 
+let s:eslintrc_candidates = [
+      \   '.eslintrc.js',
+      \   '.eslintrc.yaml',
+      \   '.eslintrc.yml',
+      \   '.eslintrc.json',
+      \   '.eslintrc',
+      \ ]
 " @TODO support package.json configs
 " @return {String} eslintrc filename
 function! dkoproject#GetEslintrc() abort
-  let l:candidates = [
-        \   '.eslintrc.js',
-        \   '.eslintrc.yaml',
-        \   '.eslintrc.yml',
-        \   '.eslintrc.json',
-        \   '.eslintrc',
-        \ ]
-
   let l:result = ''
-  for l:candidate in l:candidates
+  for l:candidate in s:eslintrc_candidates
     if empty(dkoproject#GetFile(l:candidate))
       continue
     endif
