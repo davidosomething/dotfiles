@@ -27,7 +27,6 @@ tern-jspm
 tern-jquery-extension
 tern-node-extension
 tldr
-webcoach
 yarn
 yo
 generator-hubot
