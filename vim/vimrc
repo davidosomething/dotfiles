@@ -1142,6 +1142,13 @@ augroup dkostatusline
         \ call dkostatus#Refresh()
 augroup END
 
+augroup dkoquickfix
+    autocmd!
+    " auto open quickfix and loclist?
+    autocmd   QuickFixCmdPost [^l]*   cwindow
+    "autocmd   QuickFixCmdPost l*      lwindow
+augroup END
+
 " WordPress VIP specific
 augroup dkowordpresssucksdonkeyballs
   autocmd!
