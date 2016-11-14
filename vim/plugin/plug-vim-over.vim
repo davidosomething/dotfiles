@@ -22,6 +22,8 @@ let g:over_command_line_key_mappings = {
       \   "\<F10>": "\<Esc>",
       \   "\<F11>": "\<Esc>",
       \   "\<F12>": "\<Esc>",
+      \   "\<A-s>": "\<Plug>(over-cmdline-substitute-jump-string)",
+      \   "\<A-p>": "\<Plug>(over-cmdline-substitute-jump-pattern)",
       \ }
 
 nnoremap <silent>  \   :<C-U>OverCommandLine<CR>
