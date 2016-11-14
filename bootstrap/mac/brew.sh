@@ -87,7 +87,10 @@ brew install tidy-html5
 # shells
 # ============================================================================
 
-brew install bash install bash-completion
+# bash 4 shell
+brew install bash
+# bash 4 completion
+brew install homebrew/versions/bash-completion2
 brew install bats shellcheck
 brew install tmux
 
