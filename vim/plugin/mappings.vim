@@ -47,7 +47,7 @@ function! s:EditClosest(file) abort
   execute 'edit ' . s:file
 endfunction
 nnoremap  <silent><special>  <Leader>eca
-      \ :<C-U>call <SID>EditClosest('.agignore')<CR>
+      \ :<C-U>call <SID>EditClosest('.ignore')<CR>
 nnoremap  <silent><special>  <Leader>eci
       \ :<C-U>call <SID>EditClosest('.gitignore')<CR>
 nnoremap  <silent><special>  <Leader>ecr
@@ -63,7 +63,7 @@ function! s:EditRoot(file)
   endif
   execute 'edit ' . s:file
 endfunction
-nnoremap  <silent><special>  <Leader>era  :<C-U>call <SID>EditRoot('.agignore')<CR>
+nnoremap  <silent><special>  <Leader>era  :<C-U>call <SID>EditRoot('.ignore')<CR>
 nnoremap  <silent><special>  <Leader>eri  :<C-U>call <SID>EditRoot('.gitignore')<CR>
 nnoremap  <silent><special>  <Leader>erg  :<C-U>call <SID>EditRoot('gulpfile.js')<CR>
 nnoremap  <silent><special>  <Leader>erG  :<C-U>call <SID>EditRoot('Gruntfile.js')<CR>
