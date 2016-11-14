@@ -116,7 +116,7 @@ endfunction
 "       \. ')'
 " let g:neomake_javascript_ternlint_maker = {
 "       \   'exe':          'tern-lint',
-"       \   'args':         [ '--format=vim' ],
+"       \   'args':         ['--format=vim'],
 "       \   'mapexpr':      s:tern_mapexpr,
 "       \   'errorformat':  '%f:%l: %trror: %m,'
 "       \                 . '%f:%l: %tarning: %m',
@@ -124,7 +124,7 @@ endfunction
 
 " Run these makers by default on :Neomake
 let g:neomake_javascript_enabled_makers =
-      \ executable('eslint') ? [ 'eslint' ] : []
+      \ executable('eslint') ? ['eslint'] : []
 
 " Override/create these makers as buffer local ones, and enable them
 let s:local_eslint = {
@@ -161,17 +161,17 @@ autocmd dkoneomake FileType javascript
       \| call s:PickJavascriptMakers()
 
 " ----------------------------------------------------------------------------
-" Markdown
+" Markdown and Pandoc
 " ----------------------------------------------------------------------------
 
-" Let pandoc use markdownlint as well
-let g:neomake_pandoc_markdownlint_maker = neomake#GetMaker(
-      \ 'markdownlint',
-      \ 'markdown'
-      \ )
+" Pandoc copies markdown settings as of
+" https://github.com/neomake/neomake/commit/795e82629d6d44295b83bc4fa0014440eae148c7
 
+" Only use markdownlint, not mdl
 let g:neomake_markdown_enabled_makers =
-      \ executable('markdownlint') ? [ 'markdownlint' ] : []
+      \ executable('markdownlint') ? ['markdownlint'] : []
+" Always use proselint
+let g:neomake_markdown_enabled_makers += ['proselint']
 let g:neomake_pandoc_enabled_makers = g:neomake_markdown_enabled_makers
 
 function! s:SetupMarkdownlint()
@@ -188,7 +188,7 @@ function! s:SetupMarkdownlint()
   if empty(l:config)
     let l:config = glob(expand('$DOTFILES/markdownlint/config.json'))
   endif
-  let l:maker.args = empty(l:config) ? [] : [ '--config', l:config ]
+  let l:maker.args = empty(l:config) ? [] : ['--config', l:config]
 
   let b:neomake_markdown_markdownlint_args = l:maker.args
   let b:neomake_pandoc_markdownlint_args = l:maker.args
@@ -219,9 +219,9 @@ function! s:SetPhpcsStandard()
   if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
         \ || expand('%:p') =~? 'ed-com'
     let b:neomake_php_phpcs_args = neomake#makers#ft#php#phpcs().args
-          \ + [ '--runtime-set', 'installed_paths', expand('~/src/wpcs') ]
-          \ + [ '--standard=WordPress-Extra' ]
-          \ + [ '--exclude=WordPress.PHP.YodaConditions' ]
+          \ + ['--runtime-set', 'installed_paths', expand('~/src/wpcs')]
+          \ + ['--standard=WordPress-Extra']
+          \ + ['--exclude=WordPress.PHP.YodaConditions']
   endif
 endfunction
 
@@ -285,7 +285,7 @@ function! s:SetSasslintRc()
   endif
 
   let b:neomake_scss_sasslint_args =
-        \ l:sasslint_args + [ '--config=' . l:config ]
+        \ l:sasslint_args + ['--config=' . l:config]
 endfunction
 
 let s:local_sasslint = {
@@ -319,7 +319,7 @@ autocmd dkoneomake FileType scss
 " ----------------------------------------------------------------------------
 
 " this is the default setting these days (vint only, vimlint is disabled)
-"let g:neomake_vim_enabled_makers = [ 'vint' ]
+"let g:neomake_vim_enabled_makers = ['vint']
 
 " ============================================================================
 " Should we :Neomake?

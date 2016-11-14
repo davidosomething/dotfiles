@@ -83,6 +83,15 @@ function! dko#MapAll(settings) abort
   return l:mapping_nvo . '| ' . l:mapping_ic
 endfunction
 
+" @param {List} a:000 args
+" @return {Mixed} first arg that is non-empty or empty string
+function! dko#First(...) abort
+  for l:item in a:000
+    if !empty(l:item) | return l:item | endif
+  endfor
+  return ''
+endfunction
+
 " ============================================================================
 " grepprg
 " ============================================================================
