@@ -308,6 +308,13 @@ dko::dotfiles::__update_pip() {
   fi
 }
 
+dko::dotfiles::__update_neovim_python() {
+  dko::status "Updating neovim2"
+  pyenv activate neovim2 && pip install --upgrade neovim
+  pyenv activate neovim3 && pip install --upgrade neovim
+  pyenv deactivate
+}
+
 dko::dotfiles::__update_wpcs() {
   readonly wpcs_repo="https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git"
   readonly sources_path="${HOME}/src"

@@ -174,7 +174,7 @@ let g:neomake_markdown_enabled_makers =
 let g:neomake_markdown_enabled_makers += ['proselint']
 let g:neomake_pandoc_enabled_makers = g:neomake_markdown_enabled_makers
 
-function! s:SetupMarkdownlint()
+function! s:SetupMarkdownlint() abort
   " This is totally different from using local eslint -- don't like what
   " neomake has by default.
 
@@ -214,7 +214,7 @@ autocmd dkoneomake FileType
 " PHP: phpcs, phpmd
 " ----------------------------------------------------------------------------
 
-function! s:SetPhpcsStandard()
+function! s:SetPhpcsStandard() abort
   " WordPress
   if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
         \ || expand('%:p') =~? 'ed-com'
@@ -225,7 +225,7 @@ function! s:SetPhpcsStandard()
   endif
 endfunction
 
-function! s:SetPhpmdRuleset()
+function! s:SetPhpmdRuleset() abort
   let l:ruleset_file = dkoproject#GetFile('ruleset.xml')
 
   if !empty(l:ruleset_file)
@@ -270,7 +270,7 @@ let g:neomake_python_pylint_args = [
 " Sass: sasslint
 " ----------------------------------------------------------------------------
 
-function! s:SetSasslintRc()
+function! s:SetSasslintRc() abort
   let l:sasslint_maker = neomake#GetMaker('sasslint', 'scss')
   let l:sasslint_args = get(
         \ g:, 'neomake_scss_sasslint_args',
@@ -313,6 +313,23 @@ autocmd dkoneomake FileType scss
       \ call s:SetSasslintRc()
       \| call s:AddLocalMaker(s:local_sasslint)
       \| call s:PickScssMakers()
+
+" ----------------------------------------------------------------------------
+" Shellcheck
+" ----------------------------------------------------------------------------
+
+function! s:SetupShellcheck() abort
+  if expand('%') =~# '.bash'
+    let b:neomake_sh_shellcheck_args = neomake#makers#ft#sh#shellcheck().args
+    let l:shellflag_index = index(b:neomake_sh_shellcheck_args, '-s')
+    if l:shellflag_index != -1
+      let b:neomake_sh_shellcheck_args[l:shellflag_index + 1] = 'bash'
+    endif
+  endif
+endfunction
+
+autocmd dkoneomake FileType sh
+      \ call s:SetupShellcheck()
 
 " ----------------------------------------------------------------------------
 " VimL
