@@ -319,6 +319,7 @@ autocmd dkoneomake FileType scss
 " ----------------------------------------------------------------------------
 
 function! s:SetupShellcheck() abort
+  " Don't assume bash is POSIX sh, run with `-s bash` instead.
   if expand('%') =~# '.bash'
     let b:neomake_sh_shellcheck_args = neomake#makers#ft#sh#shellcheck().args
     let l:shellflag_index = index(b:neomake_sh_shellcheck_args, '-s')
