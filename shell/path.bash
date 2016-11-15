@@ -24,8 +24,6 @@ else
   export DKO_SYSTEM_PATH="${PATH}"
 fi
 
-# _add_my_paths
-#
 dko::add_paths() {
   # Begin my_path composition --------------------------------------------------
   # On BSD system, e.g. Darwin -- path_helper is called, reads /etc/paths
@@ -33,7 +31,7 @@ dko::add_paths() {
   #if [ -x /usr/libexec/path_helper ]; then
   my_path="$DKO_SYSTEM_PATH"
 
-  # enforce local bin and sbin order
+  # enforce local bin and sbin order, they come before any system paths
   my_path="/usr/local/bin:/usr/local/sbin:${DKO_SYSTEM_PATH}"
 
   # package managers -----------------------------------------------------------
@@ -41,11 +39,11 @@ dko::add_paths() {
   # composer
   my_path="${XDG_CONFIG_HOME}/composer/vendor/bin:${my_path}"
 
-  # go
-  my_path="${GOPATH}/bin:${my_path}"
-
   # luarocks
   my_path="${HOME}/.luarocks/bin:${my_path}"
+
+  # go -- prefer go binaries over composer
+  my_path="${GOPATH}/bin:${my_path}"
 
   # local ----------------------------------------------------------------------
 
