@@ -1058,6 +1058,8 @@ function! s:LoadPlugins()
   "   Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle'] }
   " endif
 
+  Plug 'wellle/visual-split.vim'
+
   " Always show signs column with marks / vcs / qf
   Plug 'tomtom/quickfixsigns_vim'
 
