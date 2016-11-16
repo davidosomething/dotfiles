@@ -195,8 +195,7 @@ function! dkostatus#GitaBranch() abort
 endfunction
 
 function! dkostatus#GutentagsStatus() abort
-  if winwidth(0) < 80
-        \ || s:winnr != winnr()
+  if s:winnr != winnr()
         \ || !dko#IsPlugged('vim-gutentags')
         \ || !exists('g:loaded_gutentags')
     return ''
