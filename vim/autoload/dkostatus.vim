@@ -25,31 +25,42 @@ function! dkostatus#Output(winnr) abort
   let s:winnr = a:winnr
   let s:bufnr = winbufnr(a:winnr)
 
-  let l:contents = ''
+  " signs column size
+  let l:contents = '%#VertSplit#    '
 
   " ==========================================================================
   " Left side
   " ==========================================================================
 
-  let l:contents .= dkostatus#Mode()
-  let l:contents .= dkostatus#Paste()
+  " Temporary
+  let l:contents .= dkostatus#GutentagsStatus()
   "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
   let l:contents .= dkostatus#NeomakeJobs()
   let l:contents .= dkostatus#NeomakeCounts()
+
+  " Toggleable
+  let l:contents .= dkostatus#Mode()
+  let l:contents .= dkostatus#Paste()
   let l:contents .= dkostatus#Readonly()
+
+  " Filebased
   let l:contents .= dkostatus#Filetype()
   let l:contents .= dkostatus#Filename()
+
+  " Search context
   let l:contents .= dkostatus#Anzu()
 
   " ==========================================================================
   " Right side
   " ==========================================================================
 
+  " Instance context
   let l:contents .= '%='
   let l:contents .= dkostatus#ShortPath()
+
   " too slow
   "let l:contents .= dkostatus#GitaBranch()
-  let l:contents .= dkostatus#GutentagsStatus()
+  "
   let l:contents .= dkostatus#Ruler()
 
   return l:contents
@@ -116,7 +127,7 @@ function! dkostatus#NeomakeJobs() abort
         \ || !exists('*neomake#GetJobs')
         \ || empty(neomake#GetJobs())
         \ ? ''
-        \ : '%#StatusLineNC# … %*'
+        \ : '%#TermCursor# ᴍᴀᴋᴇ %*'
 endfunction
 
 function! dkostatus#Readonly() abort
@@ -157,7 +168,16 @@ function! dkostatus#ShortPath() abort
   if winwidth(0) < 80 || dkostatus#IsNonFile()
     return ''
   endif
-  return '%#Folded# %<%{pathshorten(getcwd())} %*'
+
+  let l:path = ''
+  let l:short = pathshorten(getcwd())
+  let l:full = fnamemodify(getcwd(), ':~:.')
+  if winwidth(0) > len(l:short)
+    let l:path = '%#StatusLine# %<'
+    let l:path .= len(l:full) > winwidth(0) ? l:short : l:full
+    let l:path .= ' %*'
+  endif
+  return l:path
 endfunction
 
 function! dkostatus#GitaBranch() abort
@@ -181,13 +201,13 @@ function! dkostatus#GutentagsStatus() abort
         \ || !exists('g:loaded_gutentags')
     return ''
   endif
-  return '%#SignColumn#%{gutentags#statusline(" ᴛᴀɢ ")}%*'
+  return '%#TermCursor#%{gutentags#statusline(" ᴛᴀɢ ")}%*'
 endfunction
 
 function! dkostatus#Ruler() abort
   if s:winnr != winnr() || dkostatus#IsNonFile()
     return ''
   endif
-  return '%#StatusLineNC# %5.(%c%) %*'
+  return '%#PmenuSel# %5.(%c%) %*'
 endfunction
 
