@@ -133,7 +133,7 @@ endfunction
 " Auto-enable pj on buffers and re-read on editing package.json
 function! s:Init() abort
   if !exists('*json_decode')
-    echoerr 'vim-pj requires json_decode() functionality'
+    "echoerr 'vim-pj requires json_decode() functionality'
     return
   endif
 
