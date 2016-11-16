@@ -26,29 +26,34 @@ function! dkostatus#Output(winnr) abort
   let s:bufnr = winbufnr(a:winnr)
 
   " signs column size
-  let l:contents = '%#VertSplit#    '
+  let l:contents = '%#VertSplit# '
 
   " ==========================================================================
   " Left side
   " ==========================================================================
 
-  " Temporary
-  let l:contents .= dkostatus#GutentagsStatus()
-  "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
-  let l:contents .= dkostatus#NeomakeJobs()
-  let l:contents .= dkostatus#NeomakeCounts()
-
-  " Toggleable
   let l:contents .= dkostatus#Mode()
-  let l:contents .= dkostatus#Paste()
-  let l:contents .= dkostatus#Readonly()
 
   " Filebased
-  let l:contents .= dkostatus#Filetype()
+  "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
+  let l:contents .= '%#PmenuSel#' . dkostatus#Filetype()
   let l:contents .= dkostatus#Filename()
+  let l:contents .= '%#Todo#' . dkostatus#Dirty()
+
+  " Toggleable
+  let l:contents .= '%#DiffText#' . dkostatus#Paste()
+  let l:contents .= '%#Error#' . dkostatus#Readonly()
+
+  " Temporary
+  let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus()
+  let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs()
+  let l:contents .= '%#NeomakeWarningSign#' . dkostatus#NeomakeWarnings(dkostatus#NeomakeCounts())
+  let l:contents .= '%#NeomakeErrorSign#' . dkostatus#NeomakeErrors(dkostatus#NeomakeCounts())
+
 
   " Search context
-  let l:contents .= dkostatus#Anzu()
+  let l:contents .= '%* '
+  let l:contents .= '%#Visual#' . dkostatus#Anzu()
 
   " ==========================================================================
   " Right side
@@ -56,12 +61,13 @@ function! dkostatus#Output(winnr) abort
 
   " Instance context
   let l:contents .= '%='
-  let l:contents .= dkostatus#ShortPath()
+  let l:contents .= '%* ' . dkostatus#ShortPath()
+  let l:contents .= '%* '
 
   " too slow
   "let l:contents .= dkostatus#GitaBranch()
   "
-  let l:contents .= dkostatus#Ruler()
+  let l:contents .= '%#PmenuSel# ' . dkostatus#Ruler() . ' '
 
   return l:contents
 endfunction
@@ -91,34 +97,25 @@ function! dkostatus#Paste() abort
   return s:winnr != winnr()
         \ || empty(&paste)
         \ ? ''
-        \ : '%#DiffText# ᴘ %*'
+        \ : ' ᴘ '
 endfunction
 
-" Custom formatter based on
-" https://github.com/benekastah/neomake/blob/master/autoload/neomake/statusline.vim#L36
-function! dkostatus#FormatNeomakeCounts(counts) abort
-  let l:result = ''
+function! dkostatus#NeomakeErrors(counts) abort
   let l:e = get(a:counts, 'E', 0)
-  let l:w = get(a:counts, 'W', 0)
+  return l:e ? ' ⚑' . l:e . ' ' : ''
+endfunction
 
-  " assuming colorscheme has Syntastic colors defined
-  if l:e
-    let l:result .= '%#SyntasticErrorSign# ⚑' . l:e
-  endif
-  if l:w
-    let l:result .= '%#SyntasticWarningSign# ⚑' . l:w
-  endif
-  return (l:e || l:w)
-        \ ? l:result . ' %*'
-        \ : ''
+function! dkostatus#NeomakeWarnings(counts) abort
+  let l:w = get(a:counts, 'W', 0)
+  return l:w ? ' ⚑' . l:w . ' ' : ''
 endfunction
 
 function! dkostatus#NeomakeCounts() abort
   return s:winnr != winnr()
         \ || !dko#IsPlugged('neomake')
         \ || !exists('*neomake#statusline#LoclistCounts')
-        \ ? ''
-        \ : dkostatus#FormatNeomakeCounts(neomake#statusline#LoclistCounts())
+        \ ? {}
+        \ : neomake#statusline#LoclistCounts()
 endfunction
 
 function! dkostatus#NeomakeJobs() abort
@@ -127,11 +124,11 @@ function! dkostatus#NeomakeJobs() abort
         \ || !exists('*neomake#GetJobs')
         \ || empty(neomake#GetJobs())
         \ ? ''
-        \ : '%#TermCursor# ᴍᴀᴋᴇ %*'
+        \ : ' ᴍᴀᴋᴇ '
 endfunction
 
 function! dkostatus#Readonly() abort
-  return getbufvar(s:bufnr, '&readonly') ? '%#Error# ʀ %*' : ''
+  return getbufvar(s:bufnr, '&readonly') ? ' ʀ ' : ''
 endfunction
 
 function! dkostatus#Filetype() abort
@@ -142,12 +139,13 @@ function! dkostatus#Filetype() abort
 endfunction
 
 function! dkostatus#Filename() abort
-  let l:contents = ' '
-  let l:contents .= winwidth(0) > 40 ? '%<%f' : '%t'
-  let l:contents .= (isdirectory(expand('%:p')) ? '/ ' : '')
-  let l:contents .= getbufvar(s:bufnr, '&modified') ? '%#PmenuThumb#+' : ''
-  let l:contents .= '%* '
+  let l:contents = winwidth(0) > 40 ? ' %<%f' : ' %t'
+  let l:contents .= isdirectory(expand('%:p')) ? '/ ' : ' '
   return l:contents
+endfunction
+
+function! dkostatus#Dirty() abort
+  return getbufvar(s:bufnr, '&modified') ? ' + ' : ''
 endfunction
 
 function! dkostatus#Anzu() abort
@@ -160,24 +158,21 @@ function! dkostatus#Anzu() abort
   let l:anzu = anzu#search_status()
   return empty(l:anzu)
         \ ? ''
-        \ : '%#Visual# ' . l:anzu .' %*'
+        \ : ' ' . l:anzu . ' '
 endfunction
 
 function! dkostatus#ShortPath() abort
-  " blacklist
   if winwidth(0) < 80 || dkostatus#IsNonFile()
     return ''
   endif
 
-  let l:path = ''
   let l:short = pathshorten(getcwd())
-  let l:full = fnamemodify(getcwd(), ':~:.')
-  if winwidth(0) > len(l:short)
-    let l:path = '%#StatusLine# %<'
-    let l:path .= len(l:full) > winwidth(0) ? l:short : l:full
-    let l:path .= ' %*'
+  if len(l:short) > winwidth(0)
+    return ''
   endif
-  return l:path
+
+  let l:full = fnamemodify(getcwd(), ':~:.')
+  return len(l:full) > winwidth(0) - len(expand('%:~:.')) ? l:short : l:full
 endfunction
 
 function! dkostatus#GitaBranch() abort
@@ -200,13 +195,13 @@ function! dkostatus#GutentagsStatus() abort
         \ || !exists('g:loaded_gutentags')
     return ''
   endif
-  return '%#TermCursor#%{gutentags#statusline(" ᴛᴀɢ ")}%*'
+  return '%{gutentags#statusline(" ᴛᴀɢ ")}'
 endfunction
 
 function! dkostatus#Ruler() abort
   if s:winnr != winnr() || dkostatus#IsNonFile()
     return ''
   endif
-  return '%#PmenuSel# %5.(%c%) %*'
+  return '%5.(%c%)'
 endfunction
 
