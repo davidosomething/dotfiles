@@ -61,7 +61,7 @@ function! dkostatus#Output(winnr) abort
 
   " Instance context
   let l:contents .= '%='
-  let l:contents .= '%* ' . dkostatus#ShortPath()
+  let l:contents .= '%* %<' . dkostatus#ShortPath()
   let l:contents .= '%* '
 
   " too slow
@@ -139,7 +139,7 @@ function! dkostatus#Filetype() abort
 endfunction
 
 function! dkostatus#Filename() abort
-  let l:contents = winwidth(0) > 40 ? ' %<%f' : ' %t'
+  let l:contents = ' %f'
   let l:contents .= isdirectory(expand('%:p')) ? '/ ' : ' '
   return l:contents
 endfunction

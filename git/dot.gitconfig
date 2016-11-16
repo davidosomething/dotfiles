@@ -31,6 +31,8 @@
 	ca      = commit --amend
 	cm      = commit -m
 
+	copy    = copy-branch
+
 	get     = config --get
 	cfg     = config --global --edit
 
