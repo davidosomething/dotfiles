@@ -1,7 +1,7 @@
 # bash/dot.bash_profile
 #
 # Sourced on login shells only
-# mac OS always starts a login shell.
+# macOS always starts a login shell.
 # @see http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html
 #
 

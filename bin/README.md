@@ -109,7 +109,7 @@ Is PWD in git repository?
 
 ## lockscreen
 
-> OSX/mac OS lock screen
+> OSX/macOS lock screen
 
 ## maybe-git-root
 

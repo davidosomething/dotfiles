@@ -17,7 +17,7 @@ source "${DOTFILES}/shell/helpers.bash"
 # =============================================================================
 
 __install() {
-  # Make sure not using mac OS internal python and pip
+  # Make sure not using system python and pip
   if pip --version | grep -q /usr/lib; then
     dko::err  "System pip detected, not running. Use a userspace python's pip."
     exit 1

@@ -2,7 +2,7 @@
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
-- mac OS/OS X, Arch Linux, and Debian compatible
+- macOS/OS X, Arch Linux, and Debian compatible
 - XDG compliance wherever possible to keep `$HOME` clean
     - See [Archlinux wiki for XDG Base Directory Support]
     - See [Debian DotFilesList]
@@ -43,7 +43,7 @@ git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
 
 #### Dev environment setup
 
-Install these using the system package manager. For mac OS/OS X there are helper
+Install these using the system package manager. For macOS/OS X there are helper
 scripts.
 
 - `chruby`, `ruby-install`, then use ruby-install to install a version of ruby
