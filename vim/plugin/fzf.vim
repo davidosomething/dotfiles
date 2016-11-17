@@ -52,7 +52,7 @@ function! s:GetFzfGitModifiedSource() abort
   let l:unmerged   = system('git diff master --name-only')
   let l:unmerged   = v:shell_error ? [] : split(l:unmerged, '\n')
 
-  let l:result  = dko#Dedupe(l:modified + l:staged + l:unmerged)
+  let l:result  = dko#Unique(l:modified + l:staged + l:unmerged)
   return dko#ShortPaths(l:result)
 endfunction
 

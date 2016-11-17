@@ -85,7 +85,7 @@ endfunction
 
 " @param {List} list
 " @return {List} deduplicated list
-function! dko#Dedupe(list) abort
+function! dko#Unique(list) abort
   " stackoverflow style -- immutable, but unnecessary since we're operating on
   " a copy of the list in a:list anyway
   "return filter( copy(l:list), 'index(l:list, v:val, v:key + 1) == -1' )
