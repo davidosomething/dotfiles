@@ -218,9 +218,20 @@ alias mkdir="nocorrect mkdir"
 # ============================================================================
 
 # Auto-detect .nvmrc and run nvm use
+# Updated to only trigger nvm use if there's actually a different version
 __auto_nvm_use() {
-  [[ -f ".nvmrc" && -r ".nvmrc" ]] && nvm use
+  local node_version="$(nvm version)"
+  local nvmrc_node_version="$(nvm version "$(< $(nvm_find_nvmrc))")"
+  if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
+    nvm use
+    return $?
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    nvm use default
+    return $?
+  fi
+  #[[ -f ".nvmrc" && -r ".nvmrc" ]] && nvm use
 }
+# NVM loaded in shell/before.bash -> shell/node.bash
 dko::has "nvm" && add-zsh-hook chpwd __auto_nvm_use
 
 # ============================================================================
