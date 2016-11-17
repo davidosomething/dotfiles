@@ -35,13 +35,15 @@ let s:options = '--ansi --cycle --multi'
 " git modified
 " ----------------------------------------------------------------------------
 
-function! s:GetFzfGitModifiedRoot()
+" Unused, see note above command
+function! s:GetFzfGitModifiedRoot() abort
   return exists('b:dkoproject_root')
         \ ? dkoproject#GetRoot(b:dkoproject_root)
         \ : dkoproject#GetRoot()
 endfunction
 
-function! s:GetFzfGitModifiedSource()
+" @return {String[]} list of shortened filepaths that are modified or staged
+function! s:GetFzfGitModifiedSource() abort
   let l:modified = system('git ls-files --modified --others --exclude-standard')
   let l:modified = v:shell_error ? [] : split(l:modified, '\n')
   let l:staged   = system('git diff --cached --name-only')
@@ -56,7 +58,7 @@ endfunction
 "
 " @TODO really support --multi
 " @param {String[]} lines
-function! s:FzfGitModifiedSink(lines)
+function! s:FzfGitModifiedSink(lines) abort
   if len(a:lines) < 1 | return | endif
 
   let l:list = a:lines[1:]
@@ -89,7 +91,7 @@ command! FZFModified call fzf#run({
 " ----------------------------------------------------------------------------
 
 " @return {List} my files in my vim runtime
-function! s:GetFzfVimSource()
+function! s:GetFzfVimSource() abort
   " Want these recomputed every time in case files are added/removed
   let l:runtime_dirs_files = globpath(g:dko#vim_dir, '{' . join([
         \   'after',
@@ -105,7 +107,7 @@ function! s:GetFzfVimSource()
 endfunction
 
 command! FZFVim
-      \ call fzf#run(fzf#wrap({
+      \ call fzf#run(fzf#wrap('Vim', {
       \   'source':   s:GetFzfVimSource(),
       \   'options':  s:options . ' --prompt="Vim> "',
       \   'down':     10,
@@ -122,7 +124,7 @@ function! s:GetFzfMruSource() abort
 endfunction
 
 command! FZFMRU
-      \ call fzf#run(fzf#wrap({
+      \ call fzf#run(fzf#wrap('MRU', {
       \   'source':  s:GetFzfMruSource(),
       \   'options': s:options . ' --no-sort --prompt="MRU> "',
       \   'down':    10,
