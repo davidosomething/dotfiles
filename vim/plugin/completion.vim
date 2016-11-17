@@ -180,6 +180,11 @@ endif
 " ============================================================================
 
 if executable('tern')
+  " Settings common to deoplete-ternjs (vim var read via python) and
+  " tern_for_vim
+  " @see https://github.com/carlitux/deoplete-ternjs/blob/5500ae246aa1421a0e578c2c7e1b00d858b2fab2/rplugin/python3/deoplete/sources/ternjs.py#L70-L75
+  let g:tern_request_timeout       = 1 " undocumented in tern_for_vim
+  let g:tern_show_signature_in_pum = 1
 
   " --------------------------------------------------------------------------
   " tern_for_vim settings
@@ -191,12 +196,8 @@ if executable('tern')
     " Use tabline instead
     let g:tern_show_argument_hints = 'no'
 
-    let g:tern_request_timeout       = 1
-
     " Don't set the omnifunc to tern#Complete
     "let g:tern_set_omni_function     = 0
-    " Useless since not using omnifunc
-    let g:tern_show_signature_in_pum = 1
 
     augroup dkocompletion
       autocmd FileType javascript nnoremap <silent><buffer> gd :<C-U>TernDef<CR>
