@@ -250,50 +250,37 @@ dko::dotfiles::__update_node() {
 }
 
 dko::dotfiles::__update_nvm() {
-  (
-    if [ ! -d "$NVM_DIR" ]; then
-      dko::status "Installing nvm"
-      git clone https://github.com/creationix/nvm.git "$NVM_DIR" \
-        || dko::err "Could not install nvm" && exit 1
-    fi
+  if [ -z "$NVM_DIR" ]; then
+    dko::err "\$NVM_DIR is not defined, make sure rc files are linked."
+    return 1
+  fi
 
-    dko::status "Updating nvm"
-    cd "$NVM_DIR" \
-      || dko::err "Could not cd to \$NVM_DIR at $NVM_DIR" && exit 1
-    readonly previous_nvm="$(git describe --abbrev=0 --tags)"
+  if [ ! -d "$NVM_DIR" ]; then
+    dko::status "Installing nvm"
+    git clone https://github.com/creationix/nvm.git "$NVM_DIR" \
+      || { dko::err "Could not install nvm" && return 1; }
+    return 0
+  fi
 
-    dko::status "Fetching latest nvm"
-    {
-      git checkout master
-      git pull --ff-only
-      git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
-    } \
-      || dko::err "Could not fetch" && exit 1
-    readonly latest_nvm="$(git describe --abbrev=0 --tags)"
+  dko::status "Updating nvm"
+  cd "$NVM_DIR" \
+    || { dko::err "Could not cd to \$NVM_DIR at $NVM_DIR" && return 1; }
+  readonly previous_nvm="$(git describe --abbrev=0 --tags)"
 
-    # Already up to date
-    [ "$previous_nvm" = "$latest_nvm" ] && exit
+  dko::status_ "Found nvm ${previous_nvm}"
+  { git checkout master && git pull --tags; } \
+    || { dko::err "Could not fetch" && return 1; }
+  readonly latest_nvm="$(git describe --abbrev=0 --tags)"
+  # Already up to date
+  [ "$previous_nvm" = "$latest_nvm" ] \
+    && { dko::status_ "Already have nvm ${latest_nvm}" && return 0; }
 
-    dko::status "Fast-forwarding to latest nvm"
-    git checkout --quiet --progress "$latest_nvm" \
-      || dko::err "Could not fast-forward" && exit 1
+  dko::status "Fast-forwarding to nvm ${latest_nvm}"
+  git checkout --quiet --progress "$latest_nvm" \
+    || { dko::err "Could not fast-forward" && return 1; }
 
-    # Updated
-    exit 3
-  )
-
-  case "$?" in
-    3)    dko::status "Reloading nvm"
-          . "$NVM_DIR/nvm.sh"
-          return $?
-          ;;
-    256)  dko::err "Could not update nvm"
-          return 1
-          ;;
-  esac
-
-  dko::status "Already at latest nvm"
-  return 0
+  dko::status "Reloading nvm"
+  . "$NVM_DIR/nvm.sh"
 }
 
 # $1 pip command (e.g. `pip2`)
