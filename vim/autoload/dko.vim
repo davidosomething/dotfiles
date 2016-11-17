@@ -83,6 +83,17 @@ function! dko#MapAll(settings) abort
   return l:mapping_nvo . '| ' . l:mapping_ic
 endfunction
 
+" @param {List} list
+" @return {List} deduplicated list
+function! dko#Dedupe(list) abort
+  " stackoverflow style -- immutable, but unnecessary since we're operating on
+  " a copy of the list in a:list anyway
+  "return filter( copy(l:list), 'index(l:list, v:val, v:key + 1) == -1' )
+
+  " xolox style -- mutable list
+  return reverse(filter(reverse(a:list), 'count(a:list, v:val) == 1'))
+endfunction
+
 " @param {List} a:000 args
 " @return {Mixed} first arg that is non-empty or empty string
 function! dko#First(...) abort

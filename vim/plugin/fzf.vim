@@ -52,11 +52,8 @@ function! s:GetFzfGitModifiedSource() abort
   let l:unmerged   = system('git diff master --name-only')
   let l:unmerged   = v:shell_error ? [] : split(l:unmerged, '\n')
 
-  let l:result  = l:modified + l:staged + l:unmerged
-  let l:dedupe  = filter( copy(l:result),
-        \ 'index(l:result, v:val, v:key + 1) == -1' )
-
-  return dko#ShortPaths(l:dedupe)
+  let l:result  = dko#Dedupe(l:modified + l:staged + l:unmerged)
+  return dko#ShortPaths(l:result)
 endfunction
 
 " Handle expected <c-*> bindings for :FZFModified
