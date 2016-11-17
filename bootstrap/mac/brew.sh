@@ -75,6 +75,8 @@ brew install jsonpp
 # programming
 # ============================================================================
 
+brew install homebrew/homebrew-php/composer
+
 brew install cloc
 brew install diff-so-fancy
 brew install git tig
