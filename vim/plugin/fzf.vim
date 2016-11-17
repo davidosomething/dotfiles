@@ -48,9 +48,15 @@ function! s:GetFzfGitModifiedSource() abort
   let l:modified = v:shell_error ? [] : split(l:modified, '\n')
   let l:staged   = system('git diff --cached --name-only')
   let l:staged   = v:shell_error ? [] : split(l:staged, '\n')
-  let l:result   = l:modified + l:staged
 
-  return dko#ShortPaths(l:result)
+  let l:unmerged   = system('git diff master --name-only')
+  let l:unmerged   = v:shell_error ? [] : split(l:unmerged, '\n')
+
+  let l:result  = l:modified + l:staged + l:unmerged
+  let l:dedupe  = filter( copy(l:result),
+        \ 'index(l:result, v:val, v:key + 1) == -1' )
+
+  return dko#ShortPaths(l:dedupe)
 endfunction
 
 " Handle expected <c-*> bindings for :FZFModified
