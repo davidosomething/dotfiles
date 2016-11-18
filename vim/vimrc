@@ -354,6 +354,7 @@ set nopreserveindent
 
 " Smart detect when in braces and parens. Has annoying side effect that it
 " won't indent lines beginning with '#'. Relying on syntax indentexpr instead.
+" 'smartindent' in general is a piece of garbage, never turn it on.
 set nosmartindent
 
 " Global setting. I don't edit C-style code all the time so don't default to
