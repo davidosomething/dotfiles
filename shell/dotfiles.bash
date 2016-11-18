@@ -299,6 +299,7 @@ dko::dotfiles::__update_pip() {
 dko::dotfiles::__update_neovim_python() {
   dko::status "Updating neovim2"
   pyenv activate neovim2 && pip install --upgrade neovim
+  dko::status "Updating neovim3"
   pyenv activate neovim3 && pip install --upgrade neovim
   pyenv deactivate
 }
