@@ -32,7 +32,7 @@ endif
 " ============================================================================
 
 silent! nunmap    <Esc><Esc>
-nmap  <special>   <Plug>DKOClearSearch  :<C-u>nohlsearch<CR><C-l>
+nmap  <special>   <Plug>DKOClearSearch  :<C-U>nohlsearch<CR><C-l>
 
 " Default, may be overridden by a plugin conf below
 nmap  <special>   <Esc><Esc>   <Plug>DKOClearSearch

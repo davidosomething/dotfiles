@@ -242,6 +242,7 @@ endif
 " ============================================================================
 
 if dko#IsPlugged('deoplete-padawan')
+  "let g:deoplete#sources#padawan#server_autostart = 0
 
 " ============================================================================
 " Completion Plugin: phpcd.vim

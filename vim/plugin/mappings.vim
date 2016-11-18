@@ -4,14 +4,13 @@
 " There is no loaded guard on top, so any recursive maps need a silent unmap
 " prior to binding. This way this file can be edited and sourced at any time
 " to rebind keys.
+"
+" @see after/plugin/search for search mappings like <Esc><Esc>
+"
 
 " cpoptions are reset but use <special> when mapping anyway
 let s:cpo_save = &cpoptions
 set cpoptions&vim
-
-augroup dkomappings
-  autocmd!
-augroup END
 
 " ============================================================================
 " Commands
@@ -58,7 +57,7 @@ nnoremap  <silent><special>  <Leader>ecr
 function! s:EditRoot(file)
   let s:file = dkoproject#GetFile(a:file)
   if empty(s:file)
-    echomsg 'File not found:'  . a:file
+    echomsg 'File not found: '  . a:file
     return
   endif
   execute 'edit ' . s:file
