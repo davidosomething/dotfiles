@@ -32,6 +32,7 @@ dko::dotfiles::__usage() {
     gem         -- update rubygems and global gems for current ruby
     go          -- golang
     pip         -- update all versions of pip (OS dependent)
+    neopy       -- update neovim pyenvs
 
   Arch Linux
     arch        -- update arch packages
@@ -589,25 +590,26 @@ dko::dotfiles() {
   fi
 
   case $1 in
-    reload)   dko::dotfiles::__reload           ;;
-    dotfiles) dko::dotfiles::__update           ;;
-    secret)   dko::dotfiles::__update_secret    ;;
-    zplug)    dko::dotfiles::__update_zplug     ;;
-    daily)    dko::dotfiles::__update_daily     ;;
-    composer) dko::dotfiles::__update_composer  ;;
-    fzf)      dko::dotfiles::__update_fzf       ;;
-    gem)      dko::dotfiles::__update_gems      ;;
-    go)       dko::dotfiles::__update_go        ;;
-    node)     dko::dotfiles::__update_node      ;;
-    nvm)      dko::dotfiles::__update_nvm       ;;
-    pip)      dko::dotfiles::__update_pip "pip" ;;
-    vimlint)  dko::dotfiles::__update_vimlint   ;;
-    wpcs)     dko::dotfiles::__update_wpcs      ;;
+    reload)   dko::dotfiles::__reload               ;;
+    dotfiles) dko::dotfiles::__update               ;;
+    secret)   dko::dotfiles::__update_secret        ;;
+    zplug)    dko::dotfiles::__update_zplug         ;;
+    daily)    dko::dotfiles::__update_daily         ;;
+    composer) dko::dotfiles::__update_composer      ;;
+    fzf)      dko::dotfiles::__update_fzf           ;;
+    gem)      dko::dotfiles::__update_gems          ;;
+    go)       dko::dotfiles::__update_go            ;;
+    node)     dko::dotfiles::__update_node          ;;
+    nvm)      dko::dotfiles::__update_nvm           ;;
+    pip)      dko::dotfiles::__update_pip "pip"     ;;
+    neopy)    dko::dotfiles::__update_neovim_python ;;
+    vimlint)  dko::dotfiles::__update_vimlint       ;;
+    wpcs)     dko::dotfiles::__update_wpcs          ;;
 
     *)
       case "$OSTYPE" in
-        linux*)   dko::dotfiles::linux::__update "$1" ;;
-        darwin*)  dko::dotfiles::darwin::__update "$1" ;;
+        linux*)   dko::dotfiles::linux::__update "$1"   ;;
+        darwin*)  dko::dotfiles::darwin::__update "$1"  ;;
       esac
   esac
 
