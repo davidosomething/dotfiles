@@ -28,6 +28,17 @@ if s:has_search_plugin
 endif
 
 " ============================================================================
+" Clear search
+" ============================================================================
+
+silent! nunmap    <Esc><Esc>
+nunmap  <Plug>DKOClearSearch
+nmap  <special>   <Plug>DKOClearSearch  :<C-u>nohlsearch<CR><C-l>
+
+" Default, may be overridden by a plugin conf below
+nmap  <special>   <Esc><Esc>   <Plug>DKOClearSearch
+
+" ============================================================================
 
 " - incsearch.vim   highlighting all matches
 " - vim-anzu        show number of matches, with status integration
@@ -54,6 +65,10 @@ if dko#IsPlugged('vim-anzu')
   nmap  n   <Plug>(anzu-n)
   nmap  N   <Plug>(anzu-N)
   nmap  #   <Plug>(anzu-sharp)
+
+  " Clear anzu in status AND unhighlight last search
+  nmap  <special>  <Esc><Esc>
+        \ <Plug>(anzu-clear-search-status)<Plug>DKOClearSearch
 endif
 
 if         dko#IsPlugged('incsearch.vim')
