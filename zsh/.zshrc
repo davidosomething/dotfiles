@@ -221,7 +221,9 @@ alias mkdir="nocorrect mkdir"
 # Updated to only trigger nvm use if there's actually a different version
 __auto_nvm_use() {
   local node_version="$(nvm version)"
-  local nvmrc_node_version="$(nvm version "$(< $(nvm_find_nvmrc))")"
+  local nvmrc=$(nvm_find_nvmrc)
+  local nvmrc_node_version="N/A"
+  [ -n "$nvmrc" ] && nvmrc_node_version="$(nvm version "$(< $nvmrc)")"
   if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
     nvm use
     return $?
