@@ -133,13 +133,26 @@ set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
 set wildmode=list:longest,full        " Complete files using a menu AND list
 set wildignorecase
-set wildignore+=.git,.hg,.svn
+
+" wildignore prevents things from showing up in cmd completion
+" It's for things you'd NEVER open in Vim, like caches and binary files
+" @see https://github.com/tpope/vim-fugitive/issues/121#issuecomment-38720847
+" @see https://github.com/kien/ctrlp.vim/issues/63
+" @see https://github.com/tpope/vim-vinegar/issues/61#issuecomment-167432416
+" @see http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html#comment-1396330403
+"
+" So don't do this! There are cases where you'd edit them or their contents
+"set wildignore+=.git
+"set wildignore+=.hg,.svn
+"set wildignore+=tags
+"set wildignore+=*.manifest
+
 set wildignore+=.sass-cache
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*.gem
 set wildignore+=*.*~,*~
-set wildignore+=tags,tags.lock
+set wildignore+=tags.lock
 set wildignore+=*.aux,*.out,*.toc
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.jar,*.manifest,*.pyc,*.rbc,*.class
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.jar,*.pyc,*.rbc,*.class
 set wildignore+=*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
 set wildignore+=*.avi,*.m4a,*.mp3,*.oga,*.ogg,*.wav,*.webm
 set wildignore+=*.eot,*.otf,*.ttf,*.woff
