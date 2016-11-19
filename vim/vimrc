@@ -634,8 +634,6 @@ function! s:LoadPlugins()
   "Plug '~/projects/current-func-info.vim'
 
   " ctags on-the-fly processing
-  " @TODO integrate into tabline
-  "Plug 'majutsushi/tagbar'
   " This is a nice function context plugin but too many false positives
   "Plug 'jeetsukumaran/vim-gazetteer'
 
@@ -1062,6 +1060,10 @@ function! s:LoadPlugins()
   " ========================================================================
   " Plug: UI -- load last!
   " ========================================================================
+
+  " if executable('ctags')
+  "   Plug 'majutsushi/tagbar'
+  " endif
 
   " Using quickfixsigns_vim instead of these
   " :EC and :DC to enable/disable changes plugin
