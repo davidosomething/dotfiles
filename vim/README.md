@@ -116,7 +116,7 @@ way to find them.
 #### Function Keys
 
 |     Key | Desc                                                               |
-| ------: | :-------------------------------------------------- -------------- |
+| ------: | :----------------------------------------------------------------- |
 | `<F1>`  | Files - :FZFBuffers |
 | `<F2>`  | Files - :FZFModified (custom, 'git ls-files -m' in buffer root) |
 | `<F3>`  | Files - :FZFMRU (custom, whitelisted recently used + buffers) |
