@@ -931,7 +931,7 @@ function! s:LoadPlugins()
   " Set to completefunc
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 
-  if has('nvim') && executable('composer')
+  if 0 && has('nvim') && executable('composer')
     Plug 'pbogut/deoplete-padawan', {
           \   'do': 'composer global require mkusher/padawan',
           \ }
