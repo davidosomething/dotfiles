@@ -52,6 +52,11 @@ augroup filetypedetect
         \ BRANCH_DESCRIPTION
         \ setfiletype gitbranchdescription.markdown
 
+  " marko templating, close enough to HTML
+  autocmd! BufNewFile,BufRead
+        \ *.marko
+        \ setfiletype html.handlebars
+
   " pre Vim 7.4.480 - md is modula2
   " post Vim 7.4.480 - md is markdown
   autocmd! BufNewFile,BufRead *.md
