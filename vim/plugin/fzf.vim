@@ -26,21 +26,30 @@ execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors' })
 "   when the source is to open files
 "
 
-" ansi colors even though I'm not using any right now...
+" Some default options. Removed --ansi for now, not using it
 " cycle through list
 " multi select with <Tab>
-let s:options = ' --ansi --cycle --multi '
-let s:bindings = join([
-      \   'f1:abort',
-      \   'f2:abort',
-      \   'f3:abort',
-      \   'f4:abort',
-      \   'f5:abort',
-      \   'f6:abort',
-      \   'f7:abort',
-      \   'f8:abort',
-      \ ], ',')
-let s:bind = ' --bind=' . s:bindings
+let s:options = ' --cycle --multi '
+
+" Not sure if these are working -- function keys. In FZF 0.15.7 it used to
+" read the escape code (^[ and then the function keysym) so it would be the
+" same as hitting escape to close FZF (and the garbage characters), but
+" in 0.15.8 it stopped working.
+" @see https://github.com/neovim/neovim/issues/4343
+" @see https://github.com/junegunn/fzf/issues/741
+" let s:bindings = join([
+"       \   'f1:abort',
+"       \   'f2:abort',
+"       \   'f3:abort',
+"       \   'f4:abort',
+"       \   'f5:abort',
+"       \   'f6:abort',
+"       \   'f7:abort',
+"       \   'f8:abort',
+"       \ ], ',')
+" let s:bind = ' --bind ' . s:bindings
+" let s:options .= s:bind
+
 
 " ----------------------------------------------------------------------------
 " git modified
@@ -96,8 +105,7 @@ endfunction
 command! FZFModified call fzf#run({
       \   'source':   s:GetFzfGitModifiedSource(),
       \   'sink*':    function('s:FzfGitModifiedSink'),
-      \   'options':  s:bind
-      \     . ' --cycle --expect=ctrl-t,ctrl-v,ctrl-x --prompt="G[+]> "',
+      \   'options':  ' --cycle --expect=ctrl-t,ctrl-v,ctrl-x --prompt="G[+]> "',
       \   'down':     10,
       \ })
 
@@ -124,9 +132,7 @@ endfunction
 command! FZFVim
       \ call fzf#run(fzf#wrap('Vim', {
       \   'source':   s:GetFzfVimSource(),
-      \   'options':  s:bind
-      \     . s:options
-      \     . ' --prompt="Vim> "',
+      \   'options':  s:options . ' --prompt="Vim> "',
       \   'down':     10,
       \ }))
 
@@ -143,9 +149,7 @@ endfunction
 command! FZFMRU
       \ call fzf#run(fzf#wrap('MRU', {
       \   'source':  s:GetFzfMruSource(),
-      \   'options': s:bind
-      \     . s:options
-      \     . ' --no-sort --prompt="MRU> "',
+      \   'options': s:options . ' --no-sort --prompt="MRU> "',
       \   'down':    10,
       \ }))
 
