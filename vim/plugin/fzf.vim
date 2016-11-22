@@ -29,7 +29,18 @@ execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors' })
 " ansi colors even though I'm not using any right now...
 " cycle through list
 " multi select with <Tab>
-let s:options = '--ansi --cycle --multi'
+let s:options = ' --ansi --cycle --multi '
+let s:bindings = join([
+      \   'f1:abort',
+      \   'f2:abort',
+      \   'f3:abort',
+      \   'f4:abort',
+      \   'f5:abort',
+      \   'f6:abort',
+      \   'f7:abort',
+      \   'f8:abort',
+      \ ], ',')
+let s:bind = ' --bind=' . s:bindings
 
 " ----------------------------------------------------------------------------
 " git modified
@@ -85,7 +96,8 @@ endfunction
 command! FZFModified call fzf#run({
       \   'source':   s:GetFzfGitModifiedSource(),
       \   'sink*':    function('s:FzfGitModifiedSink'),
-      \   'options':  '--cycle --expect=ctrl-t,ctrl-v,ctrl-x --prompt="G[+]> "',
+      \   'options':  s:bind
+      \     . ' --cycle --expect=ctrl-t,ctrl-v,ctrl-x --prompt="G[+]> "',
       \   'down':     10,
       \ })
 
@@ -112,7 +124,9 @@ endfunction
 command! FZFVim
       \ call fzf#run(fzf#wrap('Vim', {
       \   'source':   s:GetFzfVimSource(),
-      \   'options':  s:options . ' --prompt="Vim> "',
+      \   'options':  s:bind
+      \     . s:options
+      \     . ' --prompt="Vim> "',
       \   'down':     10,
       \ }))
 
@@ -129,7 +143,9 @@ endfunction
 command! FZFMRU
       \ call fzf#run(fzf#wrap('MRU', {
       \   'source':  s:GetFzfMruSource(),
-      \   'options': s:options . ' --no-sort --prompt="MRU> "',
+      \   'options': s:bind
+      \     . s:options
+      \     . ' --no-sort --prompt="MRU> "',
       \   'down':    10,
       \ }))
 
