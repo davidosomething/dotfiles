@@ -861,7 +861,7 @@ function! s:LoadPlugins()
   endif
 
   " Parameter completion (in or after ' or "), bound to user complete
-  Plug 'othree/jspc.vim'
+  "Plug 'othree/jspc.vim'
 
   " ========================================================================
   " Language: Markdown, Pandoc
