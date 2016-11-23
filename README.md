@@ -57,10 +57,10 @@ scripts.
 
 ### Provisioning scripts
 
-These will assist in installing things. Best to have the Environment set up
-first.
+These will assist in installing packages and dotfiles. Best to have the
+Environment set up first.
 
-- `bootstrap/cleanup.sh` moves some things into their XDG Base Directory
+- `bootstrap/cleanup.sh` moves some dotfiles into their XDG Base Directory
   supported directories
 - `bootstrap/symlink.sh` symlinks rc files for bash, zsh, ack, (neo)vim, etc.
 - `bootstrap/terminfo.sh` will copy/compile terminfo files for user to
@@ -84,7 +84,7 @@ Use `u` without arguments for usage.
       script/binary. This directory is added to the `$PATH`.
 - `local/`
     - Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
-      and they will automatically be sourced LAST by the default scripts. _No
+      and they will be automatically sourced, LAST, by the default scripts. _No
       dots on the filenames._
 - `git/`
     - The comment character was changed from `#` to `;` so I can use Markdown
