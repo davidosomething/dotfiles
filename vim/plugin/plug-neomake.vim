@@ -167,7 +167,7 @@ autocmd dkoneomake FileType javascript
 " Pandoc copies markdown settings as of
 " https://github.com/neomake/neomake/commit/795e82629d6d44295b83bc4fa0014440eae148c7
 
-" Only use markdownlint, not mdl
+" Only use markdownlint, not mdl (resets defaults)
 let g:neomake_markdown_enabled_makers =
       \ executable('markdownlint') ? ['markdownlint'] : []
 " Always use proselint
