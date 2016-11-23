@@ -597,13 +597,7 @@ function! s:LoadPlugins()
   " Include completion, include tags
   Plug 'Shougo/neoinclude.vim'
 
-  Plug 'nathanaelkane/vim-indent-guides', {
-        \   'on': [
-        \     '<Plug>IndentGuidesToggle',
-        \     'IndentGuidesToggle',
-        \     'IndentGuidesEnable',
-        \   ]
-        \ }
+  Plug 'nathanaelkane/vim-indent-guides'
 
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
 
