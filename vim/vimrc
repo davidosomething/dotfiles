@@ -147,10 +147,7 @@ set wildignorecase
 "set wildignore+=tags
 "set wildignore+=*.manifest
 
-set wildignore+=.sass-cache
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*.gem
-set wildignore+=*.*~,*~
-set wildignore+=tags.lock
+" Binary
 set wildignore+=*.aux,*.out,*.toc
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.jar,*.pyc,*.rbc,*.class
 set wildignore+=*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
@@ -158,7 +155,15 @@ set wildignore+=*.avi,*.m4a,*.mp3,*.oga,*.ogg,*.wav,*.webm
 set wildignore+=*.eot,*.otf,*.ttf,*.woff
 set wildignore+=*.doc,*.pdf
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
-set wildignore+=*.swp,.lock,.DS_Store,._*
+" Cache
+set wildignore+=.sass-cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*.gem
+" Compiled
+set wildignore+=*.marko.js
+set wildignore+=*.min.*
+" Temp/System
+set wildignore+=*.*~,*~
+set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
 
 " ----------------------------------------------------------------------------
 " File saving
