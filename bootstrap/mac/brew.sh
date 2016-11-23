@@ -6,7 +6,6 @@ set -eu
 # taps
 # ============================================================================
 
-brew tap homebrew/dupes
 brew tap homebrew/emacs
 
 # brew services launchctl manager -- no formulae
@@ -58,6 +57,10 @@ brew install tree
 # ============================================================================
 # operations
 # ============================================================================
+
+# Install a newer version of OpenSSH
+# that isn't susceptible to http://www.openssh.com/txt/release-7.1p2
+brew install homebrew/dupes/ssh --with-libressl
 
 brew install nmap
 brew install ssh-copy-id
