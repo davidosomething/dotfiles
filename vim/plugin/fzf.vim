@@ -2,6 +2,19 @@
 scriptencoding utf-8
 if !dko#IsPlugged('fzf.vim') | finish | endif
 
+augroup dkofzf
+  autocmd!
+
+  " Bind <fx> to abort FZF (<C-g> is one of the default abort keys in FZF)
+  " @see #f-keys
+  autocmd FileType fzf tnoremap <buffer><special> <F1> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F2> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F3> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F4> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F5> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F8> <C-g>
+augroup END
+
 let g:fzf_command_prefix = 'FZF'
 
 let g:fzf_layout = { 'down': '10' }
@@ -31,6 +44,7 @@ execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors' })
 " multi select with <Tab>
 let s:options = ' --cycle --multi '
 
+" #f-keys
 " Not sure if these are working -- function keys. In FZF 0.15.7 it used to
 " read the escape code (^[ and then the function keysym) so it would be the
 " same as hitting escape to close FZF (and the garbage characters), but
@@ -66,6 +80,7 @@ endfunction
 function! s:GetFzfGitModifiedSource() abort
   let l:modified = system('git ls-files --modified --others --exclude-standard')
   let l:modified = v:shell_error ? [] : split(l:modified, '\n')
+
   let l:staged   = system('git diff --cached --name-only')
   let l:staged   = v:shell_error ? [] : split(l:staged, '\n')
 
