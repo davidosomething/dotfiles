@@ -6,9 +6,10 @@ vendor/
 **.csv
 **.lock
 **.map
-**min.*
 **.crt
 **.svg
 **.vim.old
+**.marko.js
+**min.*
 LICENSE*
 COPYING*
