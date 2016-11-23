@@ -24,11 +24,14 @@ brew install git-extras hub
 
 ### Setup ssh keys
 
+1. Upgrade to a more recent OpenSSH -- the one that comes with macOS is
+  outdated. `brew install homebrew/dupes/openssh --with-libressl`
 1. ssh-keygen
-1. Add to GitHub
+1. Load the private key into ssh-agent `ssh-add ~/.ssh/id_rsa`
+1. Add the public key to GitHub
     - NEED alternate means of logging in via web
     - then do a test login and store the passphrase in Keychain
-1. Add to GitLab
+1. Add the public key to GitLab
 
 ### Install dotfiles
 
