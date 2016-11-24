@@ -103,8 +103,10 @@ brew install tmux
 # web
 # ============================================================================
 
-brew install curl wget
+# OpenSSL for some programs, but prefer libressl where possible
 brew install openssl
+brew install curl --with-libressl
+brew install wget
 
 # ============================================================================
 # OS
