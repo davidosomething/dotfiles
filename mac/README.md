@@ -5,7 +5,7 @@
 ### Install App Store apps
 
 - `Amphetamine` - better than caffeine
-- `Display Menu` - for setting native resolutions on multiple monitors
+- `Display Menu` - for setting native resolutions on monitors
 - `xcode`
     - Then run `xcode-select --install` to prompt for CLI tools.
 
@@ -97,7 +97,9 @@ can all be installed via brew).
 
 ### Install from brew
 
-Stuff from [bootstrap/mac/brew.sh](../bootstrap/mac/brew.sh) as desired.
+Install packages from [bootstrap/mac/brew.sh](../bootstrap/mac/brew.sh) as
+desired. Some things may already be installed (e.g. should have installed
+openssh already).
 
 ### Install from cask
 
@@ -115,17 +117,18 @@ Stuff from [bootstrap/mac/brew.sh](../bootstrap/mac/brew.sh) as desired.
 - transmission
     - Load blocklist `http://john.bitsurge.net/public/biglist.p2p.gz`
 
-Rest of stuff from [bootstrap/mac/cask.sh](../bootstrap/mac/cask.sh) as desired.
+Install the rest of the packages from
+[bootstrap/mac/cask.sh](../bootstrap/mac/cask.sh) as desired.
 
-### Install dev stuff
+### Install development tools
 
-Make sure the rest of the things above are installed since after you start using
+Make sure the other packages above are installed since after you start using
 `pyenv` it gets annoying to remember to switch back to system python for each
 `brew` operation.
 
 - Install `chruby`, `ruby-install`
     1. `ruby-install ruby` to install latest
-    1. `chruby` to latest version just installed
+    1. `chruby` to that version
     1. Install gems using
        [ruby/install-default-gems.sh](../ruby/install-default-gems.sh)
 - Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
