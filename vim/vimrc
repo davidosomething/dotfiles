@@ -679,7 +679,8 @@ function! s:LoadPlugins()
   " buffer switch, lnext/prev, etc.
   Plug 'tpope/vim-unimpaired'
 
-  " REMAPS 's' to surround operator
+  " <Leader>s(a/r/d) to modify surrounding the pending operator
+  " <Leader>c to toggle CamelCase/snak_e the pending operator
   Plug 'kana/vim-operator-user'
         \| Plug 'rhysd/vim-operator-surround'
         \| Plug 'tyru/operator-camelize.vim'
