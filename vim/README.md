@@ -59,8 +59,8 @@ still has a good list ([Syntax-Checkers]) and shows how to set them up.
 
 ### Arch Linux
 
-Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux!
-(In spite of its pleas not to.)
+Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux
+(in spite of its pleas not to.)
 
 ## Usage
 
@@ -108,9 +108,6 @@ way to find them.
 - EasyClip changes behavior of pretty much all register operations (`[y]ank`,
   `[d]elete`, `[s]ubstitute`, etc.). Prefer `[y]ank` or explicitly `[m]ove` to
   populate registers.
-- `[s]ubstitute` has been remapped to vim-operator-surround
-- A bunch of `c` mappings are now operators that toggle camelcase (e.g., `cc`
-  which was previously equivalent to `C`). See `plugin/operator.vim`
 - `<C-f>` -- Expand neosnippet. I use `<C-u>`/`<C-d>` to jump pages instead.
 
 #### Function Keys
@@ -138,7 +135,7 @@ See `plugin/mappings.vim` (and other `plugin/*` files) for other mappings.
 Plan to map these at some point
 
 - `n <C-b>` -- back one screen (page)
-- `n <C-g>` -- show file status (everything's already in statusline...)
+- `n <C-g>` -- show file status (everything's already in statusline)
 - `n <C-s>` -- nothing
 - `n zh/l`  -- useless wrap mode scroll
 
