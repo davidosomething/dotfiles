@@ -699,7 +699,7 @@ function! s:LoadPlugins()
   " - =/i=  for conflicts marked blocks
   " - x     for xml attr like `data-content="everything"`
   " - c     for css/sass/less block
-  " - f     for function (c, java, js, php, vim only)
+  " - f     for function (c, java, vim; js; php)
   Plug 'kana/vim-textobj-user'
         \| Plug 'machakann/vim-textobj-delimited'
         \| Plug 'Julian/vim-textobj-assignment',
