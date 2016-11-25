@@ -31,7 +31,6 @@ echo "License in secrets"
 #brew cask install gitifier
 
 brew cask install flux
-brew cask install gpgtools
 brew cask install hyperterm
 brew cask install java
 brew cask install jing

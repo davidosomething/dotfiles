@@ -103,10 +103,13 @@ brew install tmux
 # web
 # ============================================================================
 
+# provides `gpg`
+brew install gnupg2
+brew install gpg-agent pinentry-mac
+
 # OpenSSL for some programs, but prefer libressl where possible
 brew install openssl
 brew install wget
-
 brew install curl --with-libressl
 brew link --force curl
 
