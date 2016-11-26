@@ -15,23 +15,17 @@
 
 ### Install git from brew
 
-Don't need completions, we'll use zsh completions instead
-
-```bash
-brew install git --without-completions
-brew install git-extras hub
-```
+See `bootstrap/mac/brew.sh`
 
 ### Setup ssh keys
 
 1. Upgrade to a more recent OpenSSH -- the one that comes with macOS is
-  outdated. `brew install homebrew/dupes/openssh --with-libressl`
-1. ssh-keygen
-1. Load the private key into ssh-agent `ssh-add ~/.ssh/id_rsa`
-1. Add the public key to GitHub
-    - NEED alternate means of logging in via web
-    - then do a test login and store the passphrase in Keychain
-1. Add the public key to GitLab
+  outdated. See brew.sh, install:
+    - `openssh`
+    - `keychain`
+1. `ssh-keygen` for the new system
+1. Load the private key into `ssh-agent` and the macOS keychain using `keychain`
+1. Add the public key to GitHub and GitLab
 
 ### Install dotfiles
 

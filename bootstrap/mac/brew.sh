@@ -100,7 +100,9 @@ brew install homebrew/homebrew-php/composer
 
 brew install cloc
 brew install diff-so-fancy
-brew install git tig
+brew install git --without-completions
+brew install git-extras
+brew install hub tig
 brew install hyperterm
 brew install lua
 brew install mono
