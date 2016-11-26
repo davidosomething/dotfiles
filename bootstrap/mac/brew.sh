@@ -78,9 +78,11 @@ brew install nmap
 brew install ssh-copy-id
 brew install multitail
 
+# Use the `gpgtools` cask instead. It provides a nicer gui prefpane and
+# automatic integration without having to configure all this stuff.
 # provides `gpg`
-brew install gnupg2
-brew install gpg-agent pinentry-mac
+# brew install gnupg2
+# brew install gpg-agent pinentry-mac
 
 brew install wget
 
