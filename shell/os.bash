@@ -27,8 +27,8 @@ esac
     export BREW_PREFIX
   }
 
-  command -v "keychain" >/dev/null \
-    && eval "$(keychain --eval --agents ssh --inherit any id_rsa)"
+  # command -v "keychain" >/dev/null \
+  #   && eval "$(keychain --eval --agents ssh --inherit any id_rsa)"
 }
 
 # ============================================================================
