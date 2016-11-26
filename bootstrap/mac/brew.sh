@@ -60,15 +60,19 @@ brew install tree
 # OpenSSL for some programs, but prefer libressl where possible
 brew install openssl
 
+# Too annoying to re-setup ssh-agent since the ssh-add does not have keychain
+# access -- disabled:
+# ----------------------------------------------------------------------------
 # Install a newer version of OpenSSH
 # that isn't susceptible to http://www.openssh.com/txt/release-7.1p2
-brew install homebrew/dupes/ssh --with-libressl
+#brew install homebrew/dupes/ssh --with-libressl
 
 # Since we're not using system ssh, the launchd's attempt to ssh-add our key
 # fails (due to wrong flags). We could change the launchagent, but instead
 # prefer to use keychain to interface with ssh-agent and osxkeychain.
 # It is run in shell/os.bash.
-brew install keychain
+#brew install keychain
+# ----------------------------------------------------------------------------
 
 brew install nmap
 brew install ssh-copy-id
