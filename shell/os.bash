@@ -22,10 +22,13 @@ esac
 [ "$DOTFILES_OS" = "Darwin" ] && {
   export DOTFILES_DISTRO="mac"
 
-  command -v "brew" >/dev/null 2>&1 && {
+  command -v "brew" >/dev/null && {
     BREW_PREFIX="$(brew --prefix)"
     export BREW_PREFIX
   }
+
+  command -v "keychain" >/dev/null \
+    && eval "$(keychain --eval --agents ssh --inherit any id_rsa)"
 }
 
 # ============================================================================
