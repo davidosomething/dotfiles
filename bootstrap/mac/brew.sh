@@ -41,7 +41,6 @@ brew install pkg-config
 # ============================================================================
 
 brew install aspell
-brew install gnupg2
 
 # ============================================================================
 # filesystem
@@ -58,13 +57,32 @@ brew install tree
 # operations
 # ============================================================================
 
+# OpenSSL for some programs, but prefer libressl where possible
+brew install openssl
+
 # Install a newer version of OpenSSH
 # that isn't susceptible to http://www.openssh.com/txt/release-7.1p2
 brew install homebrew/dupes/ssh --with-libressl
 
+# Since we're not using system ssh, the launchd's attempt to ssh-add our key
+# fails (due to wrong flags). We could change the launchagent, but instead
+# prefer to use keychain to interface with ssh-agent and osxkeychain.
+# It is run in shell/os.bash.
+brew install keychain
+
 brew install nmap
 brew install ssh-copy-id
 brew install multitail
+
+# provides `gpg`
+brew install gnupg2
+brew install gpg-agent pinentry-mac
+
+brew install wget
+
+# better curl
+brew install curl --with-libressl
+brew link --force curl
 
 # ============================================================================
 # pretty print and processor
@@ -98,20 +116,6 @@ brew install bash
 brew install homebrew/versions/bash-completion2
 brew install bats shellcheck
 brew install tmux
-
-# ============================================================================
-# web
-# ============================================================================
-
-# provides `gpg`
-brew install gnupg2
-brew install gpg-agent pinentry-mac
-
-# OpenSSL for some programs, but prefer libressl where possible
-brew install openssl
-brew install wget
-brew install curl --with-libressl
-brew link --force curl
 
 # ============================================================================
 # OS
