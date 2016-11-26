@@ -142,11 +142,10 @@ Make sure the other packages above are installed since after you start using
         1. `pyenv activate neovim2`
         1. `pip install neovim`
 - run [bootstrap/terminfo.sh](../bootstrap/terminfo.sh) (added terminfo for iterm with italics support)
-- Install `gpgtools` from brew cask (using GPG suite since it provides
-  `gpg-agent` and can store passphrase in keychain with minimal cfg on
-  El Capitan)
-    - Import keybase public/private keys into gpg
-    - Setup local gitconfig to sign commits
+- Install `gpgtools` from `brew cask` (it provides `gpg-agent` and can store
+  passphrase in keychain with minimal work)
+    - Import keybase public/private keys into gpg using the pref pane.
+    - Setup `local/gitconfig` to sign commits
 
 ## Reduce desktop icon size
 
