@@ -170,8 +170,8 @@ autocmd dkoneomake FileType javascript
 " Only use markdownlint, not mdl (resets defaults)
 let g:neomake_markdown_enabled_makers =
       \ executable('markdownlint') ? ['markdownlint'] : []
-" Always use proselint
-let g:neomake_markdown_enabled_makers += ['proselint']
+" Always use proselint -- meh
+"let g:neomake_markdown_enabled_makers += ['proselint']
 let g:neomake_pandoc_enabled_makers = g:neomake_markdown_enabled_makers
 
 function! s:SetupMarkdownlint() abort
