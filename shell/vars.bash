@@ -62,6 +62,8 @@ export GIT_PAGER="$PAGER"
 
 # ----------------------------------------------------------------------------
 # others
+# see after.bash for configurations that require access to these vars or
+# functions like dko::has
 # ----------------------------------------------------------------------------
 
 # ack
@@ -85,15 +87,6 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
-
-# fzf
-# ** is globbing completion in zsh, use tickticktab instead
-export FZF_COMPLETION_TRIGGER="\`\`"
-# using git paths only for FZF
-export FZF_DEFAULT_COMMAND='
-  (git ls-tree -r --name-only HEAD ||
-   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
-      sed s/^..//) 2> /dev/null'
 
 # go
 # used in shell/paths

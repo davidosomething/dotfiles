@@ -29,5 +29,4 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/before.bash {"
 . "${DOTFILES}/shell/ruby.bash"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
-
 # vim: ft=sh :
