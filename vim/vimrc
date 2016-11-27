@@ -571,9 +571,18 @@ function! s:LoadPlugins()
   " ========================================================================
 
   " Disabled on regular vim since it needs a terminal
-  if has('nvim') && isdirectory(expand('~/.fzf'))
-    Plug '~/.fzf'
-    Plug 'junegunn/fzf.vim'
+  let s:has_fzf = 0
+  if has('nvim')
+    if isdirectory(expand('~/.fzf'))
+      Plug '~/.fzf'
+      let s:has_fzf = 1
+    elseif isdirectory('/usr/local/opt/fzf')
+      Plug '/usr/local/opt/fzf'
+      let s:has_fzf = 1
+    endif
+    if s:has_fzf
+      Plug 'junegunn/fzf.vim'
+    endif
   endif
 
   " `:Bufferize messages` to get messages (or any :command) in a new buffer

@@ -175,16 +175,28 @@ dko::dotfiles::__update_composer() {
 }
 
 dko::dotfiles::__update_fzf() {
-  dko::status "Updating fzf"
+  local installer
 
-  [ -x "/usr/local/bin/fzf" ] \
-    && dko::status "fzf was installed via brew (BAD, vim expects in ~/.fzf)" \
-    && return 1
+  if [ -x "/usr/local/bin/fzf" ]; then
+    dko::status "fzf was installed via brew"
+    installer="/usr/local/opt/fzf/install"
+  elif [ -d "$HOME/.fzf" ]; then
+    dko::status "fzf was installed in ~/.fzf"
+    installer="$HOME/.fzf/install"
+    ( cd "${HOME}/.fzf" || { dko::err "Could not cd to ~/.fzf" && exit 1; }
+      dko::status "Updating fzf"
+      git pull || { dko::err "Could not update ~/.fzf" && exit 1; }
+      git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
+    ) || return 1
+  else
+    dko::err "fzf is not installed"
+    return 1
+  fi
 
-  ( cd "${HOME}/.fzf" || { dko::err "Could not cd to ~/.fzf" && exit 1; }
-    git pull || { dko::err "Could not update ~/.fzf" && exit 1; }
-    git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
-    ./install --key-bindings --completion --no-update-rc
+  # Install/update shell extensions
+  (
+    dko::status "Updating fzf shell extensions"
+    "$installer" --key-bindings --completion --no-update-rc
   ) || return 1
 }
 
