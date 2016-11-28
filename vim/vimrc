@@ -684,9 +684,12 @@ function! s:LoadPlugins()
   Plug 'tpope/vim-repeat'
         \| Plug 'svermeulen/vim-easyclip'
 
-  " used for line bubbling commands on mac
-  " buffer switch, lnext/prev, etc.
+  " []-bindings -- buffer switch, lnext/prev, etc.
+  " co-bindings
   Plug 'tpope/vim-unimpaired'
+
+  " used for line bubbling commands (instead of unimpared!)
+  Plug 'matze/vim-move'
 
   " <Leader>s(a/r/d) to modify surrounding the pending operator
   " <Leader>c to toggle CamelCase/snak_e the pending operator

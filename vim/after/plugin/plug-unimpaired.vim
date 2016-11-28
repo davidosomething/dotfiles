@@ -1,6 +1,8 @@
-" plugin/plug-unimpaired.vim
+" after/plugin/plug-unimpaired.vim
 
 if !dko#IsPlugged('vim-unimpaired') | finish | endif
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 
 " ============================================================================
 " Unimpaired overrides
@@ -28,12 +30,7 @@ endfunction
 nnoremap  <silent>  <Plug>unimpairedLNext
       \ :<C-U>call <SID>LocationNext()<CR>
 
-" ----------------------------------------------------------------------------
-" Bubble remaps
-" ----------------------------------------------------------------------------
+" ============================================================================
 
-nmap <special> <C-k> <Plug>unimpairedMoveUp
-nmap <special> <C-j> <Plug>unimpairedMoveDown
-vmap <special> <C-k> <Plug>unimpairedMoveSelectionUp
-vmap <special> <C-j> <Plug>unimpairedMoveSelectionDown
-
+let &cpoptions = s:cpo_save
+unlet s:cpo_save
