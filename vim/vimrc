@@ -735,9 +735,6 @@ function! s:LoadPlugins()
                 \   { 'for': [ 'javascript' ] }
                 \| Plug 'kentaro/vim-textobj-function-php', { 'for': [ 'php' ] }
 
-  Plug 'benjifisher/matchit.zip'
-  "Plug 'vim-scripts/matchit.zip'
-
   " HR with <Leader>f[CHAR]
   Plug g:dko#vim_dir . '/mine/vim-hr'
 
