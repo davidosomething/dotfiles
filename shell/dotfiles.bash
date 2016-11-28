@@ -275,22 +275,26 @@ dko::dotfiles::__update_nvm() {
     return 0
   fi
 
-  dko::status "Updating nvm"
-  cd "$NVM_DIR" \
-    || { dko::err "Could not cd to \$NVM_DIR at $NVM_DIR" && return 1; }
-  readonly previous_nvm="$(git describe --abbrev=0 --tags)"
+  (
+    cd "$NVM_DIR" || exit 1
 
-  dko::status_ "Found nvm ${previous_nvm}"
-  { git checkout master && git pull --tags; } \
-    || { dko::err "Could not fetch" && return 1; }
-  readonly latest_nvm="$(git describe --abbrev=0 --tags)"
-  # Already up to date
-  [ "$previous_nvm" = "$latest_nvm" ] \
-    && { dko::status_ "Already have nvm ${latest_nvm}" && return 0; }
+    dko::status "Updating nvm"
+    readonly previous_nvm="$(git describe --abbrev=0 --tags)"
 
-  dko::status "Fast-forwarding to nvm ${latest_nvm}"
-  git checkout --quiet --progress "$latest_nvm" \
-    || { dko::err "Could not fast-forward" && return 1; }
+    dko::status_ "Found nvm ${previous_nvm}"
+    { git checkout master && git pull --tags; } \
+      || { dko::err "Could not fetch" && exit 1; }
+    readonly latest_nvm="$(git describe --abbrev=0 --tags)"
+    # Already up to date
+    [ "$previous_nvm" = "$latest_nvm" ] \
+      && { dko::status_ "Already have nvm ${latest_nvm}" && exit 0; }
+
+    dko::status "Fast-forwarding to nvm ${latest_nvm}"
+    git checkout --quiet --progress "$latest_nvm" \
+      || { dko::err "Could not fast-forward" && exit 1; }
+
+    exit 0
+  ) || return 1
 
   dko::status "Reloading nvm"
   . "$NVM_DIR/nvm.sh"
