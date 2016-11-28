@@ -136,7 +136,7 @@ Plan to map these at some point
 
 - `n <C-b>` -- back one screen (page)
 - `n <C-g>` -- show file status (everything's already in statusline)
-- `n <C-s>` -- nothing
+- `n <C-s>` -- nothing (terminal XOFF)
 - `n zh/l`  -- useless wrap mode scroll
 
 ## My Vim conventions
