@@ -63,16 +63,16 @@ if &buftype ==# 'help'
 
   " STFU
   " <nowait> for operator pending or multikeys
-  noremap <buffer> c <Nop>
-  noremap <buffer> m <Nop>
-  noremap <buffer> p <Nop>
-  noremap <buffer> r <Nop>
-  noremap <buffer> u <Nop>
-  noremap <buffer> x <Nop>
-  noremap <buffer><nowait>  d <Nop>
-  noremap <buffer><nowait>  s <Nop>
-  nnoremap <buffer> a <Nop>
-  nnoremap <buffer> i <Nop>
+  noremap <buffer> c <NOP>
+  noremap <buffer> m <NOP>
+  noremap <buffer> p <NOP>
+  noremap <buffer> r <NOP>
+  noremap <buffer> u <NOP>
+  noremap <buffer> x <NOP>
+  noremap <buffer><nowait>  d <NOP>
+  noremap <buffer><nowait>  s <NOP>
+  nnoremap <buffer> a <NOP>
+  nnoremap <buffer> i <NOP>
 endif
 
 " ============================================================================

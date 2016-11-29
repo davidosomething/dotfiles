@@ -16,7 +16,7 @@ function! s:convert(text)
   return tr(toupper(a:text), s:letters, s:smallcaps)
 endfunction
 
-vnoremap <silent><script>
+vnoremap <silent><script><special>
       \ <Plug>(dkosmallcaps)
       \ y:<C-U>call setreg('', <SID>convert(@"), getregtype(''))<CR>gv""P
 
