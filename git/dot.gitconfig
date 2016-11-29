@@ -36,6 +36,8 @@
 	get     = config --get
 	cfg     = config --global --edit
 
+	dmb     = delete-merged-branches
+
 	lasttag = describe --tags --abbrev=0
 
 	dc      = diff --cached
