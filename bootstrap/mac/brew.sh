@@ -41,6 +41,7 @@ brew install pkg-config
 # ============================================================================
 
 brew install aspell
+brew install neofetch # prefer over archey
 
 # ============================================================================
 # filesystem
