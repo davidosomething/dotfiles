@@ -44,32 +44,11 @@ execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors' })
 " multi select with <Tab>
 let s:options = ' --cycle --multi '
 
-" #f-keys
-" Not sure if these are working -- function keys. In FZF 0.15.7 it used to
-" read the escape code (^[ and then the function keysym) so it would be the
-" same as hitting escape to close FZF (and the garbage characters), but
-" in 0.15.8 it stopped working.
-" @see https://github.com/neovim/neovim/issues/4343
-" @see https://github.com/junegunn/fzf/issues/741
-" let s:bindings = join([
-"       \   'f1:abort',
-"       \   'f2:abort',
-"       \   'f3:abort',
-"       \   'f4:abort',
-"       \   'f5:abort',
-"       \   'f6:abort',
-"       \   'f7:abort',
-"       \   'f8:abort',
-"       \ ], ',')
-" let s:bind = ' --bind ' . s:bindings
-" let s:options .= s:bind
-
-
 " ----------------------------------------------------------------------------
 " git modified
 " ----------------------------------------------------------------------------
 
-" Unused, see note above command
+" @return {String} project root
 function! s:GetFzfGitModifiedRoot() abort
   return exists('b:dkoproject_root')
         \ ? dkoproject#GetRoot(b:dkoproject_root)
@@ -79,47 +58,25 @@ endfunction
 " Depends on my `git-modified` script, see:
 " https://github.com/davidosomething/dotfiles/blob/master/bin/git-modified
 "
+" @param {String[]} args passed to git-modified, e.g. `--branch somebranch`
 " @return {String[]} list of shortened filepaths that are modified or staged
-function! s:GetFzfGitModifiedSource() abort
-  let l:modified = system('git modified')
+function! s:GetFzfGitModifiedSource(...) abort
+  let l:args = get(a:, '000', [])
+  let l:modified = system('git modified ' . join(l:args, ' '))
   if v:shell_error
     return []
   endif
-  return dko#ShortPaths(split(l:modified, '\n'), s:GetFzfGitModifiedRoot())
-endfunction
-
-" Handle expected <c-*> bindings for :FZFModified
-" This is essentially what fzf#wrap() does
-"
-" @TODO really support --multi
-" @param {String[]} lines
-function! s:FzfGitModifiedSink(lines) abort
-  if len(a:lines) < 1 | return | endif
-
-  let l:list = a:lines[1:]
-  let l:file = l:list[0]
-
-  let l:cmd = get({
-        \   'ctrl-x': 'split',
-        \   'ctrl-v': 'vertical split',
-        \   'ctrl-t': 'tabe',
-        \ }, a:lines[0], 'e')
-  execute l:cmd escape(l:file, ' %#\')
+  return split(l:modified, '\n')
 endfunction
 
 " List modified, untracked, and don't include anything .gitignored
-" @FIXME ideally I'd like to use `dir`, instead of `sink` but it has problems
-"         resolving the file such that it appears empty until running `:edit`
-"         on the empty buffer to force a re-read.
-"         Also fzf#wrap is not running on this one so can bind the --expect
-"         manually.
-"\   'dir':      s:GetFzfGitModifiedRoot(),
-command! FZFModified call fzf#run({
-      \   'source':   s:GetFzfGitModifiedSource(),
-      \   'sink*':    function('s:FzfGitModifiedSink'),
-      \   'options':  ' --cycle --expect=ctrl-t,ctrl-v,ctrl-x --prompt="G[+]> "',
+" Accepts args for `git-modified`
+command! -nargs=* FZFModified call fzf#run(fzf#wrap('GitModified', {
+      \   'source':   s:GetFzfGitModifiedSource(<f-args>),
+      \   'dir':      s:GetFzfGitModifiedRoot(),
+      \   'options':  s:options . ' --prompt="Dirty> "',
       \   'down':     10,
-      \ })
+      \ }))
 
 " ----------------------------------------------------------------------------
 " My vim runtime

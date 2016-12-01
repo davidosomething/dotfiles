@@ -12,21 +12,43 @@
 set -e
 
 __git_modified() {
-  local comparison_branch
-  comparison_branch="${1:-master}"
-
   local dirty
-  dirty=$(git ls-files --modified --others --exclude-standard 2>/dev/null)
-
   local staged
-  staged=$(git diff --name-only --cached 2>/dev/null)
-
   local unmerged
+
+  local comparison_branch='master'
+
+  local output
+
+  while [[ "$#" -gt 0 ]] && [[ ."$1" = .--* ]]; do
+    case "$1" in
+      "--branch")
+        shift
+        comparison_branch="$1"
+        ;;
+    esac
+    shift
+  done
+
+  # Committed but different from what's in $comparison_branch
+  # Does not get untracked
   unmerged=$(git diff --name-only "$comparison_branch" 2>/dev/null)
 
-  printf "%s\n%s\n%s" "$dirty" "$staged" "$unmerged" \
+  # Modified (may have duplicates of the above) and untracked files
+  dirty=$( \
+    git ls-files --full-name --modified --others --exclude-standard \
+    2>/dev/null )
+
+  # Staged files (even if file contents haven't changed)
+  staged=$(git diff --name-only --cached 2>/dev/null)
+
+  # List all, unique, drop blank lines
+  # Store for further processing (TODO)
+  output=$(printf "%s\n%s\n%s" "$dirty" "$staged" "$unmerged" \
     | sort --unique \
-    | sed '/^$/d'
+    | sed '/^$/d')
+
+  echo "$output"
 }
 
 __git_modified "$@"
