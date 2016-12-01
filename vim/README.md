@@ -153,7 +153,7 @@ sparingly (mostly for `setlocal` ftplugin settings).
 
 - Include `dko#IsPlugged()` check if relying on plugins
 - Include `&cpoptions` guard if there are mappings
-- Use `<special>` if the mapping key is special (irrespective of &cpoptions)
+- Use `<special>` if the mapping key is special (irrespective of `&cpoptions`)
 - `s:FunctionName` - PascalCase
 - `l:local_variable` - snake_case function-local variables
 - `s:variable_name` - snake_case for script-local variables
