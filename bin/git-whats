@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-
-set -e
-
+#
 # git-whats
 #
 # Show a git alias' definition
 #
 
+set -e
 
 # @param {String} alias name
 __whats() {

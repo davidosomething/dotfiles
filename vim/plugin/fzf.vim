@@ -91,6 +91,12 @@ function! s:GetFzfGitModifiedSource() abort
   return dko#ShortPaths(l:result)
 endfunction
 
+function! g:Fdebug() abort
+  let l:unmerged   = system('git diff master --name-only')
+  let l:unmerged   = v:shell_error ? [] : split(l:unmerged, '\n')
+  echo l:unmerged
+endfunction
+
 " Handle expected <c-*> bindings for :FZFModified
 " This is essentially what fzf#wrap() does
 "

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# Output list of file paths that have been modified (staged or not) and are
+# not merged into a given branch (master by default)
+#
+# My typical usage is as a recently used files list for Vim/fzf
+#
+# Copyright (c) 2016 David O'Trakoun <me@davidosomething.com>
+# MIT License
+#
+
+set -e
+
+__git_modified() {
+  local comparison_branch
+  comparison_branch="${1:-master}"
+
+  local dirty
+  dirty=$(git ls-files --modified --others --exclude-standard 2>/dev/null)
+
+  local staged
+  staged=$(git diff --name-only --cached 2>/dev/null)
+
+  local unmerged
+  unmerged=$(git diff --name-only "$comparison_branch" 2>/dev/null)
+
+  printf "%s\n%s\n%s" "$dirty" "$staged" "$unmerged" \
+    | sort --unique \
+    | sed '/^$/d'
+}
+
+__git_modified "$@"
