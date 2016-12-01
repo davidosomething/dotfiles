@@ -240,12 +240,22 @@ endfunction
 " ============================================================================
 
 " @param {String[]} pathlist to shorten and validate
+" @param {String} base to prepend to paths
 " @return {String[]} filtered pathlist
-function! dko#ShortPaths(pathlist) abort
-  return map(
-        \   filter(a:pathlist, 'filereadable(expand(v:val))'),
-        \   "fnamemodify(v:val, ':~:.')"
-        \ )
+function! dko#ShortPaths(pathlist, ...) abort
+  let l:pathlist = a:pathlist
+
+  " Prepend base path
+  if isdirectory(get(a:, 1, ''))
+    call map(l:pathlist, 'a:1 . "/" . v:val')
+  endif
+
+  " Filter out non-existing files (e.g. when given deleted filenames from
+  " `git diff -name-only`)
+  call filter(l:pathlist, 'filereadable(expand(v:val))')
+
+  " Shorten
+  return map(l:pathlist, "fnamemodify(v:val, ':~:.')" )
 endfunction
 
 " ============================================================================

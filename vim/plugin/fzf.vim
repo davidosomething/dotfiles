@@ -76,25 +76,16 @@ function! s:GetFzfGitModifiedRoot() abort
         \ : dkoproject#GetRoot()
 endfunction
 
+" Depends on my `git-modified` script, see:
+" https://github.com/davidosomething/dotfiles/blob/master/bin/git-modified
+"
 " @return {String[]} list of shortened filepaths that are modified or staged
 function! s:GetFzfGitModifiedSource() abort
-  let l:modified = system('git ls-files --modified --others --exclude-standard')
-  let l:modified = v:shell_error ? [] : split(l:modified, '\n')
-
-  let l:staged   = system('git diff --cached --name-only')
-  let l:staged   = v:shell_error ? [] : split(l:staged, '\n')
-
-  let l:unmerged   = system('git diff master --name-only')
-  let l:unmerged   = v:shell_error ? [] : split(l:unmerged, '\n')
-
-  let l:result  = dko#Unique(l:modified + l:staged + l:unmerged)
-  return dko#ShortPaths(l:result)
-endfunction
-
-function! g:Fdebug() abort
-  let l:unmerged   = system('git diff master --name-only')
-  let l:unmerged   = v:shell_error ? [] : split(l:unmerged, '\n')
-  echo l:unmerged
+  let l:modified = system('git modified')
+  if v:shell_error
+    return []
+  endif
+  return dko#ShortPaths(split(l:modified, '\n'), s:GetFzfGitModifiedRoot())
 endfunction
 
 " Handle expected <c-*> bindings for :FZFModified
