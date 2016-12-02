@@ -63,7 +63,8 @@ brew cask install transmission
 # Transmit
 # ==============================================================================
 
-brew cask install transmit
+# Install from mac app store instead
+#brew cask install transmit
 echo "License in email"
 echo "Favorites in Dropbox"
 
