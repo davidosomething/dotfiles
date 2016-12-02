@@ -21,6 +21,10 @@ unsetopt flowcontrol
 # VI mode
 bindkey -v
 
+# ----------------------------------------------------------------------------
+# Movement keys
+# ----------------------------------------------------------------------------
+
 # Home/Fn-Left
 bindkey           '^[[H'    beginning-of-line
 bindkey -M vicmd  '^[[H'    beginning-of-line
@@ -28,10 +32,6 @@ bindkey -M vicmd  '^[[H'    beginning-of-line
 # End/Fn-Right
 bindkey           '^[[F'    end-of-line
 bindkey -M vicmd  '^[[F'    end-of-line
-
-# fix delete - Fn-delete
-bindkey           '^[[3~'   delete-char
-bindkey -M vicmd  '^[[3~'   delete-char
 
 # Left and right should jump through words
 # Opt-Left
@@ -45,7 +45,15 @@ bindkey           '^[[1;5D' backward-word
 bindkey -M vicmd  '^[[1;5D' backward-word
 # C-R
 bindkey           '^[[1;5C' forward-word
-bindkey M vicmd   '^[[1;5C' forward-word
+bindkey -M vicmd  '^[[1;5C' forward-word
+
+# ----------------------------------------------------------------------------
+# Editing keys
+# Don't bind in vicmd mode
+# ----------------------------------------------------------------------------
+
+# fix delete - Fn-delete
+bindkey '^[[3~' delete-char
 
 # ----------------------------------------------------------------------------
 # History navigation
