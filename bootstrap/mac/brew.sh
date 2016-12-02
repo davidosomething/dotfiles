@@ -17,15 +17,8 @@ brew tap homebrew/services
 
 brew update
 
-# ============================================================================
-# Install tapped formulae
-# ============================================================================
-
 # brew cask completion
 brew install homebrew/completions/brew-cask-completion
-
-# universal-ctags
-brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 # ============================================================================
 # compilers, tools, and libs
@@ -48,7 +41,6 @@ brew install neofetch # prefer over archey
 # ============================================================================
 
 brew install ack
-brew install findutils
 brew install fzf
 brew install the_silver_searcher
 brew install ripgrep
@@ -105,12 +97,13 @@ brew install jsonpp
 
 brew install homebrew/homebrew-php/composer
 
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+
 brew install cloc
 brew install diff-so-fancy
 brew install git --without-completions
 brew install git-extras
 brew install hub tig
-brew install hyperterm
 brew install lua
 brew install mono
 brew install tidy-html5
