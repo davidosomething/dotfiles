@@ -316,7 +316,7 @@ source "${DOTFILES}/shell/after.bash"
 dko::source "${DOTFILES}/local/zshrc"
 
 # Started xtrace in dot.zshenv
-if [[ "$PROFILE_STARTUP" == true ]]; then
+if [[ "$DKO_PROFILE_STARTUP" == true ]]; then
     unsetopt xtrace
     exec 2>&3 3>&-
 fi
