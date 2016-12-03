@@ -15,15 +15,20 @@ brew update
 # ==============================================================================
 
 brew cask install alfred
-echo "License in email"
-echo "Workflows in Dropbox"
+echo "License in SpiderOak Hive"
+echo "Workflows in SpiderOak Hive"
 
 # ==============================================================================
 # bettertouchtool
 # ==============================================================================
 
 brew cask install bettertouchtool
-echo "License in secrets"
+echo "License in SpiderOak Hive"
+
+# ==============================================================================
+
+brew cask install bitbar
+echo "Sync in SpiderOak Hive"
 
 # ==============================================================================
 
@@ -31,7 +36,6 @@ echo "License in secrets"
 #brew cask install gitifier
 
 brew cask install flux
-brew cask install hyperterm
 brew cask install java
 brew cask install jing
 brew cask install joinme
@@ -41,14 +45,14 @@ brew cask install joinme
 # ==============================================================================
 
 brew cask install kaleidoscope
-echo "License in secrets"
+echo "License in SpiderOak Hive"
 
 # ==============================================================================
 # Marked
 # ==============================================================================
 
 brew cask install marked
-echo "License in email"
+echo "License in SpiderOak Hive"
 
 # ==============================================================================
 
@@ -65,8 +69,8 @@ brew cask install transmission
 
 # Install from mac app store instead
 #brew cask install transmit
-echo "License in email"
-echo "Favorites in Dropbox"
+# echo "License in email"
+# echo "Favorites in SpiderOak Hive"
 
 brew cask install vagrant
 brew cask install virtualbox virtualbox-extension-pack

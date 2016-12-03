@@ -570,17 +570,15 @@ function! s:LoadPlugins()
   " Plug: Commands
   " ========================================================================
 
-  " Disabled on regular vim since it needs a terminal
-  let s:has_fzf = 0
-  if has('nvim')
-    if isdirectory(expand('~/.fzf'))
-      Plug '~/.fzf'
-      let s:has_fzf = 1
-    elseif isdirectory('/usr/local/opt/fzf')
-      Plug '/usr/local/opt/fzf'
-      let s:has_fzf = 1
-    endif
-    if s:has_fzf
+  if has('nvim') || $TERM_PROGRAM ==# 'iTerm.app'
+    " This must be a g: variable to access with the Plug command
+    let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
+          \ ? '/usr/local/opt/fzf'
+          \ : isdirectory(expand('~/.fzf'))
+          \ ? '~/.fzf'
+          \ : ''
+    if !empty(g:fzf_dir)
+      Plug g:fzf_dir
       Plug 'junegunn/fzf.vim'
     endif
   endif

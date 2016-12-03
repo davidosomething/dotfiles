@@ -115,11 +115,11 @@ way to find them.
 
 |     Key | Desc                                                               |
 | ------: | :----------------------------------------------------------------- |
-| `<F1>`  | Files - :FZFBuffers |
+| `<F1>`  | Files - :FZFAg |
 | `<F2>`  | Files - :FZFModified (custom, 'git ls-files -m' in buffer root) |
 | `<F3>`  | Files - :FZFMRU (custom, whitelisted recently used + buffers) |
 | `<F4>`  | Files - :FZFFiles |
-| `<F5>`  | Files - :FZFAg |
+| `<F5>`  | unused |
 | `<F6>`  | Tasks - :Neomake |
 | `<F7>`  | Tasks - :Neomake! |
 | `<F8>`  | UI - :FZFColors |

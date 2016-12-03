@@ -11,9 +11,12 @@ augroup dkofzf
   autocmd FileType fzf tnoremap <buffer><special> <F2> <C-g>
   autocmd FileType fzf tnoremap <buffer><special> <F3> <C-g>
   autocmd FileType fzf tnoremap <buffer><special> <F4> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F5> <C-g>
   autocmd FileType fzf tnoremap <buffer><special> <F8> <C-g>
 augroup END
+
+if !has('nvim') && $TERM_PROGRAM ==# 'iTerm.app'
+  let g:fzf_launcher = g:dko#vim_dir . '/bin/vim-fzf'
+endif
 
 let g:fzf_command_prefix = 'FZF'
 
@@ -22,12 +25,10 @@ let g:fzf_layout = { 'down': '10' }
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
-execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFBuffers' })
+execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFAg' })
 execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFModified' })
 execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFMRU' })
 execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFFiles' })
-execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFAg' })
-
 execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors' })
 
 " ============================================================================
