@@ -35,6 +35,8 @@ brew install pkg-config
 
 brew install aspell
 brew install neofetch # prefer over archey
+brew install asciinema
+echo "asciinema auth to link computer to account"
 
 # ============================================================================
 # filesystem
