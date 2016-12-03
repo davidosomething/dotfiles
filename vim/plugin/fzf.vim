@@ -34,6 +34,18 @@ augroup dkofzf
 augroup END
 
 " ============================================================================
+" Local Helpers
+" ============================================================================
+
+" fzf#run() can't use autoload function in options so wrap it with
+" a script-local
+"
+" @return {String} project root
+function! s:GetRoot() abort
+  return dkoproject#GetRoot()
+endfunction
+
+" ============================================================================
 " Custom sources for junegunn/fzf
 " ============================================================================
 
@@ -50,13 +62,6 @@ let s:options = ' --cycle --multi '
 " ----------------------------------------------------------------------------
 " git modified
 " ----------------------------------------------------------------------------
-
-" @return {String} project root
-function! s:GetFzfGitModifiedRoot() abort
-  return exists('b:dkoproject_root')
-        \ ? dkoproject#GetRoot(b:dkoproject_root)
-        \ : dkoproject#GetRoot()
-endfunction
 
 " Depends on my `git-modified` script, see:
 " https://github.com/davidosomething/dotfiles/blob/master/bin/git-modified
@@ -76,13 +81,13 @@ endfunction
 " Accepts args for `git-modified`
 command! -nargs=* FZFModified call fzf#run(fzf#wrap('GitModified', {
       \   'source':   s:GetFzfGitModifiedSource(<f-args>),
-      \   'dir':      s:GetFzfGitModifiedRoot(),
+      \   'dir':      s:GetRoot(),
       \   'options':  s:options . ' --prompt="Dirty> "',
       \   'down':     10,
       \ }))
 
 " ----------------------------------------------------------------------------
-" My vim runtime
+" My vim runtime files
 " ----------------------------------------------------------------------------
 
 " @return {List} my files in my vim runtime
@@ -129,37 +134,50 @@ command! FZFMRU
 " Custom commands for fzf.vim
 " ============================================================================
 
-" fzf.vim ripgrep or ag with preview
-" Assuming has('ruby') for all of these
+" fzf.vim ripgrep or ag with preview (requires ruby, but safely checks for it)
+" Fallback to git-grep if rg and ag not installed (e.g. I'm ssh'ed somewhere)
 " @see https://github.com/junegunn/fzf.vim#advanced-customization
+"
+" Always grep from the project root, not from CWD
+let s:grepper_fzf_options = {
+      \   'dir': s:GetRoot(),
+      \ }
+
+" FZFGrepper! settings
+let s:grepper_full = fzf#vim#with_preview(
+      \   s:grepper_fzf_options,
+      \   'up:60%'
+      \ )
+
+" FZFGrepper settings
+let s:grepper_half = fzf#vim#with_preview(
+      \   s:grepper_fzf_options,
+      \   'right:50%:hidden',
+      \   '?'
+      \ )
+
 if dko#GetGrepper().command ==# 'rg'
   command! -bang -nargs=* FZFGrepper
         \ call fzf#vim#grep(
         \   'rg --column --line-number --no-heading --color=always '
         \     . shellescape(<q-args>),
         \   1,
-        \   <bang>0
-        \     ? fzf#vim#with_preview('up:60%')
-        \     : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \   <bang>0 ? s:grepper_full : s:grepper_half,
         \   <bang>0
         \ )
 elseif dko#GetGrepper().command ==# 'ag'
   command! -bang -nargs=* FZFGrepper
         \ call fzf#vim#ag(
         \   <q-args>,
-        \   <bang>0
-        \     ? fzf#vim#with_preview('up:60%')
-        \     : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \   <bang>0 ? s:grepper_full : s:grepper_half,
         \   <bang>0
         \ )
-endif
-
-" Fallback to git-grep if rg and ag not installed (e.g. I'm ssh'ed somewhere)
-if !exists(':FZFGrepper')
+else
   command! -bang -nargs=* FZFGrepper
         \ call fzf#vim#grep(
         \   'git grep --line-number ' . shellescape(<q-args>),
-        \   0,
+        \   1,
+        \   <bang>0 ? s:grepper_full : s:grepper_half,
         \   <bang>0
         \ )
 endif
