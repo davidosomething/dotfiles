@@ -59,6 +59,13 @@ elseif dko#GetGrepper().command ==# 'ag'
         \     : fzf#vim#with_preview('right:50%:hidden', '?'),
         \   <bang>0
         \ )
+else
+    command! -bang -nargs=* FZFGrepper
+      \ call fzf#vim#grep(
+      \   'git grep --line-number ' . shellescape(<q-args>),
+      \   0,
+      \   <bang>0
+      \ )
 endif
 
 " ============================================================================
