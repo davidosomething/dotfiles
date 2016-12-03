@@ -6,6 +6,7 @@ if !dko#IsPlugged('fzf.vim') | finish | endif
 " fzf.vim Settings
 " ============================================================================
 
+" iTerm can pipe from a spawned FZF back to Vim
 if !has('nvim') && $TERM_PROGRAM ==# 'iTerm.app'
   let g:fzf_launcher = g:dko#vim_dir . '/bin/vim-fzf'
 endif
