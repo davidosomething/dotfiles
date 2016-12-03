@@ -33,46 +33,6 @@ augroup dkofzf
 augroup END
 
 " ============================================================================
-" Custom commands for fzf.vim
-" ============================================================================
-
-" fzf.vim ripgrep or ag with preview
-" Assuming has('ruby') for all of these
-" @see https://github.com/junegunn/fzf.vim#advanced-customization
-if dko#GetGrepper().command ==# 'rg'
-  command! -bang -nargs=* FZFGrepper
-        \ call fzf#vim#grep(
-        \   'rg --column --line-number --no-heading --color=always '
-        \     . shellescape(<q-args>),
-        \   1,
-        \   <bang>0
-        \     ? fzf#vim#with_preview('up:60%')
-        \     : fzf#vim#with_preview('right:50%:hidden', '?'),
-        \   <bang>0
-        \ )
-elseif dko#GetGrepper().command ==# 'ag'
-  command! -bang -nargs=*
-        \ FZFGrepper
-        \ call fzf#vim#ag(
-        \   <q-args>,
-        \   <bang>0
-        \     ? fzf#vim#with_preview('up:60%')
-        \     : fzf#vim#with_preview('right:50%:hidden', '?'),
-        \   <bang>0
-        \ )
-endif
-
-" Fallback to git-grep if rg and ag not installed (e.g. I'm ssh'ed somewhere)
-if !exists(':FZFGrepper')
-  command! -bang -nargs=* FZFGrepper
-        \ call fzf#vim#grep(
-        \   'git grep --line-number ' . shellescape(<q-args>),
-        \   0,
-        \   <bang>0
-        \ )
-endif
-
-" ============================================================================
 " Custom sources for junegunn/fzf
 " ============================================================================
 
@@ -148,8 +108,8 @@ command! FZFVim
       \ }))
 
 " ----------------------------------------------------------------------------
-" Whitelisted MRU/Buffer combined
-" Regular MRU doesn't blacklist files
+" Whitelisted MRU/Buffer combined.
+" Regular :FZFHistory doesn't blacklist files
 " ----------------------------------------------------------------------------
 
 " @return {List} recently used filenames and buffers
@@ -163,6 +123,45 @@ command! FZFMRU
       \   'options': s:options . ' --no-sort --prompt="MRU> "',
       \   'down':    10,
       \ }))
+
+" ============================================================================
+" Custom commands for fzf.vim
+" ============================================================================
+
+" fzf.vim ripgrep or ag with preview
+" Assuming has('ruby') for all of these
+" @see https://github.com/junegunn/fzf.vim#advanced-customization
+if dko#GetGrepper().command ==# 'rg'
+  command! -bang -nargs=* FZFGrepper
+        \ call fzf#vim#grep(
+        \   'rg --column --line-number --no-heading --color=always '
+        \     . shellescape(<q-args>),
+        \   1,
+        \   <bang>0
+        \     ? fzf#vim#with_preview('up:60%')
+        \     : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \   <bang>0
+        \ )
+elseif dko#GetGrepper().command ==# 'ag'
+  command! -bang -nargs=* FZFGrepper
+        \ call fzf#vim#ag(
+        \   <q-args>,
+        \   <bang>0
+        \     ? fzf#vim#with_preview('up:60%')
+        \     : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \   <bang>0
+        \ )
+endif
+
+" Fallback to git-grep if rg and ag not installed (e.g. I'm ssh'ed somewhere)
+if !exists(':FZFGrepper')
+  command! -bang -nargs=* FZFGrepper
+        \ call fzf#vim#grep(
+        \   'git grep --line-number ' . shellescape(<q-args>),
+        \   0,
+        \   <bang>0
+        \ )
+endif
 
 " ============================================================================
 " Mappings
