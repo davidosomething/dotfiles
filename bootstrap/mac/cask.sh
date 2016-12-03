@@ -56,6 +56,7 @@ echo "License in SpiderOak Hive"
 
 # ==============================================================================
 
+brew cask install ngrok
 brew cask install skype
 brew cask install slack
 brew cask install spideroakone
@@ -72,8 +73,15 @@ brew cask install transmission
 # echo "License in email"
 # echo "Favorites in SpiderOak Hive"
 
-brew cask install vagrant
+# ============================================================================
+# Virtualization
+# ============================================================================
+
+brew cask install vagrant vagrant-manager
 brew cask install virtualbox virtualbox-extension-pack
+
+# ============================================================================
+
 brew cask install vlc
 brew cask install vnc-viewer
 
