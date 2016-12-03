@@ -570,7 +570,7 @@ function! s:LoadPlugins()
   " Plug: Commands
   " ========================================================================
 
-  if has('nvim') || $TERM_PROGRAM ==# 'iTerm.app'
+  if v:version >= 704 && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
     " This must be a g: variable to access with the Plug command
     let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
           \ ? '/usr/local/opt/fzf'
@@ -579,7 +579,7 @@ function! s:LoadPlugins()
           \ : ''
     if !empty(g:fzf_dir)
       Plug g:fzf_dir
-      Plug 'junegunn/fzf.vim'
+            \| Plug 'junegunn/fzf.vim'
     endif
   endif
 

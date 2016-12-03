@@ -2,17 +2,9 @@
 scriptencoding utf-8
 if !dko#IsPlugged('fzf.vim') | finish | endif
 
-augroup dkofzf
-  autocmd!
-
-  " Bind <fx> to abort FZF (<C-g> is one of the default abort keys in FZF)
-  " @see #f-keys
-  autocmd FileType fzf tnoremap <buffer><special> <F1> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F2> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F3> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F4> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F8> <C-g>
-augroup END
+" ============================================================================
+" fzf.vim Settings
+" ============================================================================
 
 if !has('nvim') && $TERM_PROGRAM ==# 'iTerm.app'
   let g:fzf_launcher = g:dko#vim_dir . '/bin/vim-fzf'
@@ -25,16 +17,54 @@ let g:fzf_layout = { 'down': '10' }
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
-execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFAg' })
-execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFModified' })
-execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFMRU' })
-execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFFiles' })
-execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors' })
+" ============================================================================
+
+augroup dkofzf
+  autocmd!
+
+  " junegunn/fzf mappings for the neovim :term
+  " Bind <fx> to abort FZF (<C-g> is one of the default abort keys in FZF)
+  " @see #f-keys
+  autocmd FileType fzf tnoremap <buffer><special> <F1> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F2> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F3> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F4> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F8> <C-g>
+augroup END
 
 " ============================================================================
-" My custom sources
+" Custom commands for fzf.vim
 " ============================================================================
-"
+
+" fzf.vim ripgrep or ag with preview
+" @see https://github.com/junegunn/fzf.vim#advanced-customization
+if dko#GetGrepper().command ==# 'rg'
+  command! -bang -nargs=* FZFGrepper
+        \ call fzf#vim#grep(
+        \   'rg --column --line-number --no-heading --color=always '
+        \     . shellescape(<q-args>),
+        \   1,
+        \   <bang>0
+        \     ? fzf#vim#with_preview('up:60%')
+        \     : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \   <bang>0
+        \ )
+elseif dko#GetGrepper().command ==# 'ag'
+  command! -bang -nargs=*
+        \ FZFGrepper
+        \ call fzf#vim#ag(
+        \   <q-args>,
+        \   <bang>0
+        \     ? fzf#vim#with_preview('up:60%')
+        \     : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \   <bang>0
+        \ )
+endif
+
+" ============================================================================
+" Custom sources for junegunn/fzf
+" ============================================================================
+
 " Notes:
 " - Use fzf#wrap() instead of 'sink' option to get the <C-T/V/X> keybindings
 "   when the source is to open files
@@ -122,4 +152,14 @@ command! FZFMRU
       \   'options': s:options . ' --no-sort --prompt="MRU> "',
       \   'down':    10,
       \ }))
+
+" ============================================================================
+" Mappings
+" ============================================================================
+
+execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper!' })
+execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFModified' })
+execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFMRU' })
+execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFFiles' })
+execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors!' })
 

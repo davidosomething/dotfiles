@@ -100,13 +100,22 @@ brew install homebrew/homebrew-php/composer
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 brew install cloc
+
+# used by fzf grepper preview
+brew install highlight
+
+brew install lua
+brew install mono
+brew install tidy-html5
+
+# ----------------------------------------------------------------------------
+# git
+# ----------------------------------------------------------------------------
+
 brew install diff-so-fancy
 brew install git --without-completions
 brew install git-extras
 brew install hub tig
-brew install lua
-brew install mono
-brew install tidy-html5
 
 # ============================================================================
 # shells
