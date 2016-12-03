@@ -115,7 +115,7 @@ way to find them.
 
 |     Key | Desc                                                               |
 | ------: | :----------------------------------------------------------------- |
-| `<F1>`  | Files - :FZFAg |
+| `<F1>`  | Files - :FZFGrepper (custom, rg/ag with preview or git-grep) |
 | `<F2>`  | Files - :FZFModified (custom, 'git ls-files -m' in buffer root) |
 | `<F3>`  | Files - :FZFMRU (custom, whitelisted recently used + buffers) |
 | `<F4>`  | Files - :FZFFiles |

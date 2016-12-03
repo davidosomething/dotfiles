@@ -37,6 +37,7 @@ augroup END
 " ============================================================================
 
 " fzf.vim ripgrep or ag with preview
+" Assuming has('ruby') for all of these
 " @see https://github.com/junegunn/fzf.vim#advanced-customization
 if dko#GetGrepper().command ==# 'rg'
   command! -bang -nargs=* FZFGrepper
@@ -59,13 +60,16 @@ elseif dko#GetGrepper().command ==# 'ag'
         \     : fzf#vim#with_preview('right:50%:hidden', '?'),
         \   <bang>0
         \ )
-else
-    command! -bang -nargs=* FZFGrepper
-      \ call fzf#vim#grep(
-      \   'git grep --line-number ' . shellescape(<q-args>),
-      \   0,
-      \   <bang>0
-      \ )
+endif
+
+" Fallback to git-grep if rg and ag not installed (e.g. I'm ssh'ed somewhere)
+if !exists(':FZFGrepper')
+  command! -bang -nargs=* FZFGrepper
+        \ call fzf#vim#grep(
+        \   'git grep --line-number ' . shellescape(<q-args>),
+        \   0,
+        \   <bang>0
+        \ )
 endif
 
 " ============================================================================
