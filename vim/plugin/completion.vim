@@ -136,19 +136,22 @@ let s:omnifuncs = {
 "
 " @param {String} ft
 " @param {String} funcname
+" @return {String[]} omnifunc list for the ft
 function! s:Include(ft, funcname) abort
-  call insert(s:omnifuncs[a:ft], a:funcname)
+  return insert(s:omnifuncs[a:ft], a:funcname)
 endfunction
 
 " Exclude an omnifunc from deoplete aggregation
 "
 " @param {String} ft
 " @param {String} funcname
+" @return {String[]} omnifunc list for the ft
 function! s:Exclude(ft, funcname) abort
-  call remove(
-        \   s:omnifuncs[a:ft],
-        \   index(s:omnifuncs[a:ft], a:funcname)
-        \ )
+  let l:index = index(s:omnifuncs[a:ft], a:funcname)
+  if l:index >= 0
+    return remove(s:omnifuncs[a:ft], l:index)
+  endif
+  return s:omnifuncs[a:ft]
 endfunction
 
 " Trigger deoplete aggregated omnifunc when matching this regex
@@ -180,6 +183,9 @@ endif
 " ============================================================================
 
 if executable('tern')
+  " No reason to use javascriptcomplete when tern is available
+  call s:Exclude('javascript', 'javascriptcomplete#CompleteJS')
+
   " Settings common to deoplete-ternjs (vim var read via python) and
   " tern_for_vim
   " @see https://github.com/carlitux/deoplete-ternjs/blob/5500ae246aa1421a0e578c2c7e1b00d858b2fab2/rplugin/python3/deoplete/sources/ternjs.py#L70-L75
@@ -327,10 +333,7 @@ if dko#IsPlugged('deoplete.nvim')
   " Sources for engine based omni-completion (ignored if match s:omni_only)
   " --------------------------------------------------------------------------
 
-  call dko#InitDict('g:deoplete#omni#functions')
-  " Not extending, instead pluck first item from list since deoplete only
-  " supports one omnifunc
-  call extend(g:deoplete#omni#functions, map(copy(s:omnifuncs), 'v:val[0]'))
+  let g:deoplete#omni#functions = s:omnifuncs
 
   " --------------------------------------------------------------------------
   " Input patterns
