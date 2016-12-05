@@ -103,8 +103,8 @@ set noshowmode                        " don't show -- INSERT -- in cmdline
 " Input
 " ----------------------------------------------------------------------------
 
-" Disable mouse
-set mouse=
+" Enable mouse
+set mouse=a
 
 " Typing key combos
 set notimeout
