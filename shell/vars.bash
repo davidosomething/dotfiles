@@ -52,6 +52,7 @@ export CVSIGNORE="${DOTFILES}/git/.gitignore"
 
 export EDITOR="vim"
 export VISUAL="gvim"
+if [ -n "$SSH_CONNECTION" ] || [ -n "$TMUX" ]; then export VISUAL="vim"; fi
 
 # ----------------------------------------------------------------------------
 # pager
