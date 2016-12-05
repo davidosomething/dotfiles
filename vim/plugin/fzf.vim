@@ -70,12 +70,22 @@ let s:options = ' --cycle --multi '
 " @return {String[]} list of shortfilepaths that are relevant to the branch
 function! s:GetFzfRelevantSource(...) abort
   let l:args = get(a:, '000', [])
-  let l:relevant = system('git relevant ' . join(l:args, ' '))
+  let l:relevant = system(
+        \   'cd "' . s:GetRoot() . '" '
+        \ . '&& git relevant ' . join(l:args, ' ')
+        \)
   if v:shell_error
     return []
   endif
+
+  " List of paths, relative to the buffer's b:dkoproject_root
   let l:relevant_list = split(l:relevant, '\n')
-  return filter(l:relevant_list, 'filereadable(expand(v:val))')
+
+  " Check that the paths, prefixed with the root exist
+  let l:filtered = filter(l:relevant_list,
+        \ 'filereadable(expand("' . s:GetRoot() . '/" . v:val))'
+        \ )
+  return l:filtered
 endfunction
 
 " List relevant and don't include anything .gitignored
