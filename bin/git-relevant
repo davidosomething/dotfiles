@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 #
-# Output list of file paths that have been modified (staged or not) and are
-# not merged into a given branch (master by default)
+# git-relevant
+#
+# Output list of file paths relevant to what you're working on. I.e., files
+# that:
+# - are in the project but not tracked (new)
+# - have been modified (staged or not)
+# - are not merged into a given branch (master by default)
 #
 # My typical usage is as a recently used files list for Vim/fzf
 #
@@ -11,7 +16,7 @@
 
 set -e
 
-__git_modified() {
+__git_relevant() {
   local dirty
   local staged
   local unmerged
@@ -34,7 +39,8 @@ __git_modified() {
   # Does not get untracked
   unmerged=$(git diff --name-only "$comparison_branch" 2>/dev/null)
 
-  # Modified (may have duplicates of the above) and untracked files
+  # Modified (may have duplicates of the above)
+  # and untracked files
   dirty=$( \
     git ls-files --full-name --modified --others --exclude-standard \
     2>/dev/null )
@@ -51,4 +57,4 @@ __git_modified() {
   echo "$output"
 }
 
-__git_modified "$@"
+__git_relevant "$@"

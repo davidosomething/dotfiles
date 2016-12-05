@@ -4,42 +4,32 @@
 # you do that
 #
 
+# ============================================================================
+
 [alias]
 	a       = add
 	aa      = add .
-
-	ci      = commit
-	co      = checkout
-	d       = diff
-	i       = ink
-	m       = merge
-	rb      = rebase
-	st      = status
-	t       = tag
 
 	b       = branch --verbose
 	be      = branch --edit-description
 	done    = branch --verbose --merged
 	um      = branch --verbose --no-merged
 
-	cl      = changelog --list
-
+	co      = checkout
 	cb      = checkout -b
 	ct      = checkout --track
 	master  = checkout master
 
+	ci      = commit
 	ca      = commit --amend
 	cm      = commit -m
-
-	copy    = copy-branch
 
 	get     = config --get
 	cfg     = config --global --edit
 
-	dmb     = delete-merged-branches
-
 	lasttag = describe --tags --abbrev=0
 
+	d       = diff
 	dc      = diff --cached
 	dino    = diff --name-only
 
@@ -54,6 +44,8 @@
 	new     = log --no-merges --abbrev-commit --oneline         ORIG_HEAD..
 	news    = log --no-merges --abbrev-commit --oneline --stat  ORIG_HEAD..
 
+	m       = merge
+
 	pom     = pull --ff-only origin master
 	pr      = pull --rebase
 	pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
@@ -61,18 +53,47 @@
 
 	poh     = push origin HEAD
 
+	rb      = rebase
+
 	rso     = remote show origin
 
 	rehard  = reset --hard
 
 	forget  = rm -r --cached
 
-	last    = show -1 --show-signature
+	last    = show --show-signature
 
+	st      = status
 	s       = status --short --branch
 
+	t       = tag
+
+	dsf     = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX; }; f"
+
+	# ---------------------------------------------------------------------------
+	# Shell commands
+	# ---------------------------------------------------------------------------
+
 	root    = !pwd -P
-	dsf = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX; }; f"
+
+	# ---------------------------------------------------------------------------
+	# git-extras
+	# ---------------------------------------------------------------------------
+
+	cl      = changelog --list
+	copy    = copy-branch
+	dmb     = delete-merged-branches
+
+	# ---------------------------------------------------------------------------
+	# my own git-* commands
+	# ---------------------------------------------------------------------------
+
+	i       = ink
+	rel     = relevant
+
+# ============================================================================
+# Color
+# ============================================================================
 
 [color]
 	branch      = auto
@@ -84,9 +105,9 @@
 	pager       = true
 
 [color "diff-highlight"]
-	oldNormal = red bold
+	oldNormal    = red bold
 	oldHighlight = red bold 52
-	newNormal = green bold
+	newNormal    = green bold
 	newHighlight = green bold 22
 
 # ============================================================================

@@ -13,7 +13,7 @@ endif
 
 let g:fzf_command_prefix = 'FZF'
 
-let g:fzf_layout = { 'down': '10' }
+let g:fzf_layout = { 'down': 16 }
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
@@ -60,31 +60,33 @@ endfunction
 let s:options = ' --cycle --multi '
 
 " ----------------------------------------------------------------------------
-" git modified
+" git relevant
 " ----------------------------------------------------------------------------
 
-" Depends on my `git-modified` script, see:
-" https://github.com/davidosomething/dotfiles/blob/master/bin/git-modified
+" Depends on my `git-relevant` script, see:
+" https://github.com/davidosomething/dotfiles/blob/master/bin/git-relevant
 "
-" @param {String[]} args passed to git-modified, e.g. `--branch somebranch`
-" @return {String[]} list of shortened filepaths that are modified or staged
-function! s:GetFzfGitModifiedSource(...) abort
+" @param {String[]} args passed to git-relevant, e.g. `--branch somebranch`
+" @return {String[]} list of shortfilepaths that are relevant to the branch
+function! s:GetFzfRelevantSource(...) abort
   let l:args = get(a:, '000', [])
-  let l:modified = system('git modified ' . join(l:args, ' '))
+  let l:relevant = system('git relevant ' . join(l:args, ' '))
   if v:shell_error
     return []
   endif
-  return split(l:modified, '\n')
+  let l:relevant_list = split(l:relevant, '\n')
+  return filter(l:relevant_list, 'filereadable(expand(v:val))')
 endfunction
 
-" List modified, untracked, and don't include anything .gitignored
-" Accepts args for `git-modified`
-command! -nargs=* FZFModified call fzf#run(fzf#wrap('GitModified', {
-      \   'source':   s:GetFzfGitModifiedSource(<f-args>),
-      \   'dir':      s:GetRoot(),
-      \   'options':  s:options . ' --prompt="Dirty> "',
-      \   'down':     10,
-      \ }))
+" List relevant and don't include anything .gitignored
+" Accepts args for `git-relevant`
+command! -nargs=* FZFRelevant call fzf#run(fzf#wrap('Relevant',
+      \   fzf#vim#with_preview(extend({
+      \     'source':   s:GetFzfRelevantSource(<f-args>),
+      \     'dir':      s:GetRoot(),
+      \     'options':  s:options . ' --prompt="Relevant> "',
+      \   }, g:fzf_layout), 'right:50%')
+      \ ))
 
 " ----------------------------------------------------------------------------
 " My vim runtime files
@@ -107,11 +109,12 @@ function! s:GetFzfVimSource() abort
 endfunction
 
 command! FZFVim
-      \ call fzf#run(fzf#wrap('Vim', {
-      \   'source':   s:GetFzfVimSource(),
-      \   'options':  s:options . ' --prompt="Vim> "',
-      \   'down':     10,
-      \ }))
+      \ call fzf#run(fzf#wrap('Vim',
+      \   extend({
+      \     'source':   s:GetFzfVimSource(),
+      \     'options':  s:options . ' --prompt="Vim> "',
+      \   }, g:fzf_layout)
+      \ ))
 
 " ----------------------------------------------------------------------------
 " Whitelisted MRU/Buffer combined.
@@ -124,11 +127,12 @@ function! s:GetFzfMruSource() abort
 endfunction
 
 command! FZFMRU
-      \ call fzf#run(fzf#wrap('MRU', {
-      \   'source':  s:GetFzfMruSource(),
-      \   'options': s:options . ' --no-sort --prompt="MRU> "',
-      \   'down':    10,
-      \ }))
+      \ call fzf#run(fzf#wrap('MRU',
+      \   fzf#vim#with_preview(extend({
+      \     'source':  s:GetFzfMruSource(),
+      \     'options': s:options . ' --no-sort --prompt="MRU> "',
+      \   }, g:fzf_layout), 'right:50%')
+      \ ))
 
 " ============================================================================
 " Custom commands for fzf.vim
@@ -187,7 +191,7 @@ endif
 " ============================================================================
 
 execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper!' })
-execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFModified' })
+execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFRelevant' })
 execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFMRU' })
 execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFFiles' })
 execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors!' })
