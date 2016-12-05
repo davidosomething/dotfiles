@@ -103,17 +103,10 @@ set noshowmode                        " don't show -- INSERT -- in cmdline
 " Input
 " ----------------------------------------------------------------------------
 
-" ------------------------------------
-" Mouse
-" ------------------------------------
+" Disable mouse
+set mouse=
 
-set mouse=a
-if !has('nvim') | set ttymouse=xterm | endif
-
-" ------------------------------------
 " Typing key combos
-" ------------------------------------
-
 set notimeout
 set ttimeout
 if !has('nvim')
