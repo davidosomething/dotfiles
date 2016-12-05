@@ -91,6 +91,14 @@ Is PWD in git repository?
 
 > Send URL to blame someone for crap code
 
+## git-relevant
+
+Output list of file paths relevant to what you're working on. I.e., files that:
+
+- are in the project but not tracked (new)
+- have been modified (staged or not)
+- are not merged into a given branch (master by default)
+
 ## git-whats
 
 > Show git alias command
