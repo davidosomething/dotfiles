@@ -4,7 +4,7 @@ let s:colorscheme = 'default'
 if dko#IsPlugged('Base2Tone-vim') && (has('nvim') || has('gui_running'))
   let g:base16colorspace=256
   silent! colorscheme Base2Tone-Lake-dark
-  set background=dark
+  "set background=dark  " don't do this! colorscheme will source again
   finish
 endif
 
@@ -18,7 +18,7 @@ if dko#IsPlugged('gruvbox')
     let g:gruvbox_termcolors = 16
   endif
   silent! colorscheme gruvbox
-  set background=dark
+  "set background=dark
 
 else
   silent! colorscheme darkblue
