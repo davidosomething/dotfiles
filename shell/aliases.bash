@@ -70,7 +70,7 @@ alias cap="bundle exec cap"
 # rest of bins
 alias archey="archey --offline"
 alias cb="cdbk"
-alias curl="curl --config \"\${DOTFILES}/curl/dot.curl\""
+alias curl="curl --config \"\${DOTFILES}/curl/dot.curlrc\""
 alias df="df -h"
 alias ln="ln -v"
 alias mdl="mdl --config \"\${DOTFILES}/mdl/dot.mdlrc\""
