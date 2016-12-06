@@ -35,7 +35,6 @@ echo "Sync in SpiderOak Hive"
 # monitor git repos in menubar
 #brew cask install gitifier
 
-brew cask install flux
 brew cask install java
 brew cask install jing
 brew cask install joinme
