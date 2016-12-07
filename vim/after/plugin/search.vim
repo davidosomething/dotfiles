@@ -59,8 +59,14 @@ if dko#IsPlugged('vim-asterisk')
 endif
 
 if dko#IsPlugged('vim-anzu')
-  " Support other search modes like `gd`
-  let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
+  " These will allow anzu to trigger on motions like `gd` but will cause
+  " the status to re-enable even after <Esc><Esc>
+  " Disable them. To enable anzu for other motions, should recursive map them
+  " to trigger anzu#mode#start.
+  let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus  = 0
+  let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus   = 0
+
+  " Mappings
   nmap  n   <Plug>(anzu-n)
   nmap  N   <Plug>(anzu-N)
   nmap  #   <Plug>(anzu-sharp)

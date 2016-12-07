@@ -31,26 +31,25 @@ function! dkostatus#Output(winnr) abort
   " Left side
   " ==========================================================================
 
-  let l:contents .= '%#VertSplit# ' . dkostatus#Mode()
+  let l:contents .= '%#TabLine# ' . dkostatus#Mode()
 
   " Filebased
   "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
-  let l:contents .= '%#StatusLineNC#' . dkostatus#Filetype()
+  let l:contents .= '%#StatusLine#' . dkostatus#Filetype()
   let l:contents .= '%#PmenuSel#' . dkostatus#Filename()
   let l:contents .= '%#Todo#' . dkostatus#Dirty()
+  let l:contents .= '%#StatusLine#' . dkostatus#GitBranch()
 
   " Toggleable
   let l:contents .= '%#DiffText#' . dkostatus#Paste()
   let l:contents .= '%#Error#' . dkostatus#Readonly()
 
   " Temporary
-  let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus()
-  let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs()
   let l:contents .= '%#NeomakeWarningSign#' . dkostatus#NeomakeWarnings(dkostatus#NeomakeCounts())
   let l:contents .= '%#NeomakeErrorSign#' . dkostatus#NeomakeErrors(dkostatus#NeomakeCounts())
 
   " Search context
-  let l:contents .= '%#Visual#' . dkostatus#Anzu()
+  let l:contents .= '%#Search#' . dkostatus#Anzu()
 
   " ==========================================================================
   " Right side
@@ -58,12 +57,11 @@ function! dkostatus#Output(winnr) abort
 
   " Instance context
   let l:contents .= '%*%='
-  let l:contents .= '%* %<' . dkostatus#ShortPath() . ' '
-
-  " too slow
-  "let l:contents .= dkostatus#GitaBranch()
-  "
-  let l:contents .= '%#PmenuSel#' . dkostatus#Ruler()
+  let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus()
+  let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs()
+  let l:contents .= '%<'
+  let l:contents .= '%#PmenuSel# ' . dkostatus#ShortPath() . ' '
+  let l:contents .= '%#TabLine#' . dkostatus#Ruler()
 
   return l:contents
 endfunction
@@ -75,7 +73,7 @@ function! dkostatus#Mode() abort
     return ''
   endif
 
-  let l:modecolor = '%#DiffAdd#'
+  let l:modecolor = '%#TabLine#'
   let l:modeflag = mode()
   if l:modeflag ==# 'i'
     let l:modecolor = '%#PmenuSel#'
@@ -92,8 +90,7 @@ endfunction
 
 " @return {String}
 function! dkostatus#Paste() abort
-  return s:winnr != winnr()
-        \ || empty(&paste)
+  return s:winnr != winnr() || empty(&paste)
         \ ? ''
         \ : ' ᴘ '
 endfunction
@@ -113,7 +110,6 @@ endfunction
 " @return {String}
 function! dkostatus#NeomakeCounts() abort
   return s:winnr != winnr()
-        \ || !dko#IsPlugged('neomake')
         \ || !exists('*neomake#statusline#LoclistCounts')
         \ ? {}
         \ : neomake#statusline#LoclistCounts()
@@ -156,9 +152,7 @@ endfunction
 
 " @return {String}
 function! dkostatus#Anzu() abort
-  if s:winnr != winnr()
-        \ || !dko#IsPlugged('vim-anzu')
-        \ || !exists('*anzu#search_status')
+  if s:winnr != winnr() || !exists('*anzu#search_status')
     return ''
   endif
 
@@ -180,39 +174,39 @@ function! dkostatus#ShortPath() abort
   endif
 
   let l:full = fnamemodify(getcwd(), ':~:.')
-  return len(l:full) > winwidth(0) - len(expand('%:~:.')) ? l:short : l:full
+  return len(l:full) == 0
+        \ ? '~'
+        \ : len(l:full) > winwidth(0) - len(expand('%:~:.'))
+        \   ? l:short
+        \   : l:full
 endfunction
 
+" Uses fugitive or gita to get cached branch name
+"
 " @return {String}
-function! dkostatus#GitaBranch() abort
-  if winwidth(0) < 80
-        \ || s:winnr != winnr()
-        \ || !dko#IsPlugged('vim-gita')
-        \ || !exists('g:gita#debug')
+function! dkostatus#GitBranch() abort
+  if winwidth(0) < 80 || s:winnr != winnr()
     return ''
   endif
-
-  let l:branch = gita#statusline#format('%lb')
-  return empty(l:branch)
-        \ ? ''
-        \ : '%#DiffAdd# ' . l:branch . ' '
+  if exists('*fugitive#head')
+    return ' ' . fugitive#head(7) . ' '
+  endif
+  if exists('g:gita#debug')
+    return gita#statusline#format('%lb')
+  endif
 endfunction
 
 " @return {String}
 function! dkostatus#GutentagsStatus() abort
-  if s:winnr != winnr()
-        \ || !dko#IsPlugged('vim-gutentags')
-        \ || !exists('g:loaded_gutentags')
-    return ''
-  endif
-  return '%{gutentags#statusline(" ᴛᴀɢ ")}'
+  return s:winnr != winnr() || !exists('g:loaded_gutentags')
+        \ ? ''
+        \ : '%{gutentags#statusline(" ᴛᴀɢ ")}'
 endfunction
 
 " @return {String}
 function! dkostatus#Ruler() abort
-  if s:winnr != winnr() || dkostatus#IsNonFile()
-    return ''
-  endif
-  return ' %5.(%c%) '
+  return s:winnr != winnr() || dkostatus#IsNonFile()
+        \ ? ''
+        \ : ' %5.(%c%) '
 endfunction
 

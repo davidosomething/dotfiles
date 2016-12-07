@@ -581,9 +581,6 @@ function! s:LoadPlugins()
 
   Plug 'cocopon/colorswatch.vim', { 'on': ['ColorSwatchGenerate'] }
 
-  " the blame in vim-gita is hawt :3
-  Plug 'lambdalisue/vim-gita', { 'on': ['Gita'] }
-
   " :Bdelete to preserve windows
   Plug 'moll/vim-bbye'
 
@@ -606,6 +603,9 @@ function! s:LoadPlugins()
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   Plug 'tpope/vim-eunuch'
+
+  " FZF uses this for :FZFBCommits and other git related commands
+  Plug 'tpope/vim-fugitive'
 
   " ========================================================================
   " Plug: Input, syntax, spacing
