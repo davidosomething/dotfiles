@@ -6,7 +6,12 @@ scriptencoding utf-8
 
 " @return {String}
 function! dkostatus#IsNonFile() abort
-  return getbufvar(s:bufnr, '&buftype') =~# '\v(help|nofile|terminal)'
+  return getbufvar(s:bufnr, '&buftype') =~# '\v(nofile|quickfix|terminal)'
+endfunction
+
+" @return {String}
+function! dkostatus#IsHelp() abort
+  return getbufvar(s:bufnr, '&buftype') =~# '\v(help)'
 endfunction
 
 " ============================================================================
@@ -25,6 +30,7 @@ endfunction
 function! dkostatus#Output(winnr) abort
   let s:winnr = a:winnr
   let s:bufnr = winbufnr(a:winnr)
+  let s:ww    = winwidth(a:winnr)
   let l:contents = ''
 
   " ==========================================================================
@@ -45,8 +51,10 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= '%#Error#' . dkostatus#Readonly()
 
   " Temporary
-  let l:contents .= '%#NeomakeErrorSign#' . dkostatus#Neomake('E', dkostatus#NeomakeCounts())
-  let l:contents .= '%#NeomakeWarningSign#' . dkostatus#Neomake('W', dkostatus#NeomakeCounts())
+  let l:contents .= '%#NeomakeErrorSign#'
+        \. dkostatus#Neomake('E', dkostatus#NeomakeCounts())
+  let l:contents .= '%#NeomakeWarningSign#'
+        \. dkostatus#Neomake('W', dkostatus#NeomakeCounts())
 
   " Search context
   let l:contents .= '%#Search#' . dkostatus#Anzu()
@@ -60,7 +68,7 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus()
   let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs()
   let l:contents .= '%<'
-  let l:contents .= '%#PmenuSel# ' . dkostatus#ShortPath() . ' '
+  let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath()
   let l:contents .= '%#TabLine#' . dkostatus#Ruler()
 
   return l:contents
@@ -69,10 +77,6 @@ endfunction
 " @return {String}
 function! dkostatus#Mode() abort
   " blacklist
-  if s:winnr != winnr()
-    return ''
-  endif
-
   let l:modecolor = '%#TabLine#'
   let l:modeflag = mode()
   if l:modeflag ==# 'i'
@@ -134,7 +138,11 @@ endfunction
 
 " @return {String}
 function! dkostatus#Filename() abort
-  let l:contents = ' %f'
+  if dkostatus#IsNonFile()
+    return ''
+  endif
+
+  let l:contents = ' %.64f'
   let l:contents .= isdirectory(expand('%:p')) ? '/ ' : ' '
   return l:contents
 endfunction
@@ -158,28 +166,25 @@ endfunction
 
 " @return {String}
 function! dkostatus#ShortPath() abort
-  if winwidth(0) < 80 || dkostatus#IsNonFile()
-    return ''
-  endif
-
-  let l:short = pathshorten(getcwd())
-  if len(l:short) > winwidth(0)
+  if s:ww < 80
+        \ || dkostatus#IsNonFile()
+        \ || dkostatus#IsHelp()
     return ''
   endif
 
   let l:full = fnamemodify(getcwd(), ':~:.')
-  return len(l:full) == 0
-        \ ? '~'
-        \ : len(l:full) > winwidth(0) - len(expand('%:~:.'))
-        \   ? l:short
-        \   : l:full
+  return len(l:full) > s:ww
+        \ ? ''
+        \ : ' ' . (len(l:full) == 0 ? '~' : l:full) . ' '
 endfunction
 
 " Uses fugitive or gita to get cached branch name
 "
 " @return {String}
 function! dkostatus#GitBranch() abort
-  return winwidth(0) < 80 || s:winnr != winnr()
+  return s:ww < 80 || s:winnr != winnr()
+        \ || dkostatus#IsNonFile()
+        \ || dkostatus#IsHelp()
         \ ? ''
         \ : exists('*fugitive#head')
         \   ? ' ' . fugitive#head(7) . ' '
@@ -197,8 +202,6 @@ endfunction
 
 " @return {String}
 function! dkostatus#Ruler() abort
-  return s:winnr != winnr() || dkostatus#IsNonFile()
-        \ ? ''
-        \ : ' %5.(%c%) '
+  return ' %5.(%c%) '
 endfunction
 

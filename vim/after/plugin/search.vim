@@ -9,6 +9,10 @@ let g:loaded_dko_search = 1
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
+augroup dkosearch
+  autocmd!
+augroup END
+
 " ============================================================================
 
 if         dko#IsPlugged('incsearch.vim')
@@ -76,9 +80,14 @@ if dko#IsPlugged('vim-anzu')
         \ <Plug>(anzu-clear-search-status)<Plug>DKOClearSearch
 endif
 
-if         dko#IsPlugged('incsearch.vim')
-      \ || dko#IsPlugged('vim-asterisk')
-      \ || dko#IsPlugged('vim-anzu')
+" Incsearch + Anzu interaction
+if dko#IsPlugged('incsearch.vim') && dko#IsPlugged('vim-anzu')
+  " Make sure / and g/ (which start an <over>-mode/fake-command mode) update
+  " the anzu status
+  autocmd dkosearch User IncSearchLeave AnzuUpdateSearchStatus
+endif
+
+if s:has_search_plugin
   map   <expr>  *   dko#Search('*')
 endif
 
