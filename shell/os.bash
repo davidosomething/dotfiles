@@ -36,17 +36,15 @@ esac
 # ============================================================================
 
 [ "$DOTFILES_OS" = "Linux" ] && {
-  [ -f "/etc/debian_version" ] && export DOTFILES_DISTRO="debian"
+  # for pacdiff
+  export DIFFPROG="nvim -d"
 
-  # ----------------------------------------------------------------------
-  # Arch Linux
-  # ----------------------------------------------------------------------
-
-  [ -f "/etc/arch-release" ] && {
+  if [ -f "/etc/fedora-release" ]; then
+    export DOTFILES_DISTRO="fedora"
+  elif [ -f "/etc/debian_version" ]; then
+    export DOTFILES_DISTRO="debian"
+  elif [ -f "/etc/arch-release" ]; then
     export DOTFILES_DISTRO="archlinux"
-
-    # for pacdiff
-    export DIFFPROG="nvim -d"
 
     # for arch wiki lite
     export wiki_browser="chromium"
@@ -59,7 +57,7 @@ esac
     [ "$DISPLAY" != "" ] \
       && dko::has "xrdb" \
       && xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
-    }
+  fi
 }
 
 # vim: ft=sh :

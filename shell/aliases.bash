@@ -205,6 +205,12 @@ __alias_deb() {
 
 # ============================================================================
 
+__alias_fedora() {
+  alias b="sudo dnf "
+}
+
+# ============================================================================
+
 # os specific
 case "$OSTYPE" in
   darwin*)  __alias_darwin ;;
@@ -213,6 +219,7 @@ case "$OSTYPE" in
       busybox)                  ;;
       archlinux)  __alias_arch   ;;
       debian)     __alias_deb    ;;
+      fedora)     __alias_fedora ;;
     esac
     ;;
 esac
