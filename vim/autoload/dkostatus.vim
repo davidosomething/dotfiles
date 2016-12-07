@@ -45,8 +45,8 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= '%#Error#' . dkostatus#Readonly()
 
   " Temporary
-  let l:contents .= '%#NeomakeWarningSign#' . dkostatus#NeomakeWarnings(dkostatus#NeomakeCounts())
-  let l:contents .= '%#NeomakeErrorSign#' . dkostatus#NeomakeErrors(dkostatus#NeomakeCounts())
+  let l:contents .= '%#NeomakeErrorSign#' . dkostatus#Neomake('E', dkostatus#NeomakeCounts())
+  let l:contents .= '%#NeomakeWarningSign#' . dkostatus#Neomake('W', dkostatus#NeomakeCounts())
 
   " Search context
   let l:contents .= '%#Search#' . dkostatus#Anzu()
@@ -96,15 +96,9 @@ function! dkostatus#Paste() abort
 endfunction
 
 " @return {String}
-function! dkostatus#NeomakeErrors(counts) abort
-  let l:e = get(a:counts, 'E', 0)
+function! dkostatus#Neomake(key, counts) abort
+  let l:e = get(a:counts, a:key, 0)
   return l:e ? ' ⚑' . l:e . ' ' : ''
-endfunction
-
-" @return {String}
-function! dkostatus#NeomakeWarnings(counts) abort
-  let l:w = get(a:counts, 'W', 0)
-  return l:w ? ' ⚑' . l:w . ' ' : ''
 endfunction
 
 " @return {String}
@@ -185,15 +179,13 @@ endfunction
 "
 " @return {String}
 function! dkostatus#GitBranch() abort
-  if winwidth(0) < 80 || s:winnr != winnr()
-    return ''
-  endif
-  if exists('*fugitive#head')
-    return ' ' . fugitive#head(7) . ' '
-  endif
-  if exists('g:gita#debug')
-    return gita#statusline#format('%lb')
-  endif
+  return winwidth(0) < 80 || s:winnr != winnr()
+        \ ? ''
+        \ : exists('*fugitive#head')
+        \   ? ' ' . fugitive#head(7) . ' '
+        \   : exists('g:gita#debug')
+        \     ? gita#statusline#format('%lb')
+        \     : ''
 endfunction
 
 " @return {String}
