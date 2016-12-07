@@ -247,7 +247,7 @@ function! dko#ShortPaths(pathlist, ...) abort
 
   " Prepend base path
   if isdirectory(get(a:, 1, ''))
-    call map(l:pathlist, 'a:1 . "/" . v:val')
+    call map(l:pathlist, "a:1 . '/' . v:val")
   endif
 
   " Filter out non-existing files (e.g. when given deleted filenames from
