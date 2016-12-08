@@ -42,7 +42,7 @@ set modeline
 set pastetoggle=<F12>
 
 if empty($SSH_CONNECTION) && has('clipboard')
-  set clipboard^=unnamed                 " Use vim global clipboard register
+  set clipboard^=unnamed                " Use vim global clipboard register
   if has('unnamedplus') || has('nvim')  " Use system clipboard register
     set clipboard^=unnamedplus
   endif
@@ -526,8 +526,8 @@ let g:loaded_zipPlugin = 1
 " ----------------------------------------------------------------------------
 
 " netrw in details format when no vimfiler
-let g:netrw_liststyle = 3
-let g:netrw_home = expand(g:dko#vim_dir . '/.tmp/cache')
+let g:netrw_liststyle      = 3
+let g:netrw_home           = expand(g:dko#vim_dir . '/.tmp/cache')
 let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 
 " ----------------------------------------------------------------------------
@@ -693,7 +693,6 @@ function! s:LoadPlugins()
   " Tip Use :omap ie to see what the operator-pending is mapped to
   " -       Base textobj plugin
   " - d/D   for underscore section (e.g. `did` on foo_b|ar_baz -> foo__baz)
-  " - e     for entire file
   " - i     for indent level
   " - l     for current line
   " - P     for <?php ?>
@@ -705,7 +704,6 @@ function! s:LoadPlugins()
   " - f     for function (c, java, vim; js; php)
   Plug 'kana/vim-textobj-user'
         \| Plug 'machakann/vim-textobj-delimited'
-        \| Plug 'kana/vim-textobj-entire'
         \| Plug 'kana/vim-textobj-indent'
         \| Plug 'kana/vim-textobj-line'
         \| Plug 'mattn/vim-textobj-url'

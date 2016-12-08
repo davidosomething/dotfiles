@@ -22,7 +22,7 @@ function! dkotabline#Output() abort
   " Left side
   " ==========================================================================
 
-  let l:funcinfo = dko#GetFunctionInfo()
+  let l:funcinfo = dkocode#GetFunctionInfo()
   let l:contents .= !empty(l:funcinfo.name)
         \ ? ' %#PMenu# ' . l:funcinfo.name . ' '
         \ : ''
