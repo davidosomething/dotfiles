@@ -15,7 +15,6 @@ if has('gui_macvim')
 
   set antialias
   set guifont=Fura\ Mono\ For\ Powerline:h12
-  set backupcopy=yes                  " keep finder labels!
 
   " CMD-mappings, esp so macvim doesn't screw up if I accidentally use the
   " system copy/paste
