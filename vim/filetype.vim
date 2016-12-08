@@ -55,7 +55,7 @@ augroup filetypedetect
   " marko templating, close enough to HTML
   autocmd! BufNewFile,BufRead
         \ *.marko
-        \ setfiletype xml
+        \ setfiletype html.marko
 
   " pre Vim 7.4.480 - md is modula2
   " post Vim 7.4.480 - md is markdown
