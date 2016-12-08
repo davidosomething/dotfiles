@@ -200,42 +200,6 @@ function! dko#IsMakerExecutable(name, ...) abort
 endfunction
 
 " ============================================================================
-" Search helpers
-" ============================================================================
-
-" Get vim-asterisk, vim-anzu, and incsearch.vim to play nicely
-"
-" @param  {String} op
-" @return {String} <expr>
-function! dko#Search(op) abort
-  let l:long_op = a:op ==# '*' ? 'star' : 'sharp'
-
-  let l:ops = ''
-
-  " Highlight matches?
-  if dko#IsPlugged('incsearch.vim')
-    " no CursorMoved event if using vim-asterisk
-    let l:ops .= dko#IsPlugged('vim-asterisk')
-          \ ? "\<Plug>(incsearch-nohl0)"
-          \ : "\<Plug>(incsearch-nohl)"
-  endif
-
-  " Move or don't move?
-  let l:ops .= dko#IsPlugged('vim-asterisk')
-        \ ? "\<Plug>(asterisk-z" . a:op . ')'
-        \ : ''
-
-  " Show count of matches
-  if dko#IsPlugged('vim-anzu')
-    let l:ops .= dko#IsPlugged('vim-asterisk')
-          \ ? "\<Plug>(anzu-update-search-status)"
-          \ : "\<Plug>(anzu-" . l:long_op . ')'
-  endif
-
-  return l:ops
-endfunction
-
-" ============================================================================
 " Filepath helpers
 " ============================================================================
 
@@ -284,40 +248,3 @@ function! dko#GetBuffers() abort
         \   'bufname(v:val)'
         \ )
 endfunction
-
-" ============================================================================
-" Code parsing
-" ============================================================================
-
-" @param {String} [1] cursor position to look, defaults to current cursorline
-" @return {String}
-function! dko#GetFunctionInfo() abort
-
-  " --------------------------------------------------------------------------
-  " By current-func-info.vim
-  " --------------------------------------------------------------------------
-
-  if exists('g:loaded_cfi')
-    return {
-          \   'name':   cfi#get_func_name(),
-          \   'source': 'cfi',
-          \ }
-  endif
-
-  " --------------------------------------------------------------------------
-  " By VimL
-  " --------------------------------------------------------------------------
-
-  "let l:position = get(a:, 1, getline('.')[:col('.')-2])
-  let l:position = getline('.')
-  let l:matches = matchlist(l:position, '\(()\s[a-zA-Z0-9_]*\)([^()]*$')
-  if empty(l:matches) || empty(l:matches[1])
-    return {}
-  endif
-  return {
-        \   'name':   l:matches[1],
-        \   'source': 'viml',
-        \ }
-
-endfunction
-

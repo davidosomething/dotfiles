@@ -23,10 +23,8 @@ let g:pandoc#syntax#conceal#use = 0
 
 let g:pandoc#syntax#codeblocks#embeds#langs = [
       \   'bash=sh',
-      \   'handlebars=mustache',
       \   'html',
       \   'javascript',
-      \   'php',
       \   'vim',
       \ ]
 

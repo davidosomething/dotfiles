@@ -14,24 +14,6 @@ augroup dkosearch
 augroup END
 
 " ============================================================================
-
-if         dko#IsPlugged('incsearch.vim')
-      \ || dko#IsPlugged('vim-asterisk')
-      \ || dko#IsPlugged('vim-anzu')
-  let s:has_search_plugin = 1
-endif
-
-" In case some other plugin tries something fishy
-
-if s:has_search_plugin
-  silent! unmap /
-  silent! unmap g/
-  silent! unmap ?
-  silent! unmap #
-  silent! unmap *
-endif
-
-" ============================================================================
 " Clear search
 " ============================================================================
 
@@ -47,8 +29,50 @@ nmap  <special>   <Esc><Esc>   <Plug>DKOClearSearch
 " - vim-anzu        show number of matches, with status integration
 " - vim-asterisk    don't move on first search with *
 " - vim-searchant   highlight CURRENT search item differently
+if         !dko#IsPlugged('incsearch.vim')
+      \ && !dko#IsPlugged('vim-asterisk')
+      \ && !dko#IsPlugged('vim-anzu')
+  finish
+endif
 
-if dko#IsPlugged('incsearch.vim')
+" Get vim-asterisk, vim-anzu, and incsearch.vim to play nicely
+"
+" @param  {String} op
+" @return {String} <expr>
+function! s:GetSearchRHS(op) abort
+  let l:long_op = a:op ==# '*' ? 'star' : 'sharp'
+
+  let l:ops = ''
+
+  " Highlight matches?
+  if dko#IsPlugged('incsearch.vim')
+    " no CursorMoved event if using vim-asterisk
+    let l:ops .= dko#IsPlugged('vim-asterisk')
+          \ ? "<Plug>(incsearch-nohl0)"
+          \ : "<Plug>(incsearch-nohl)"
+  endif
+
+  " Move or don't move?
+  let l:ops .= dko#IsPlugged('vim-asterisk')
+        \ ? "<Plug>(asterisk-z" . a:op . ')'
+        \ : ''
+
+  " Show count of matches after asterisk-z-op
+  " Or use anzu-op if no vim-asterisk
+  if dko#IsPlugged('vim-anzu')
+    let l:ops .= dko#IsPlugged('vim-asterisk')
+          \ ? "<Plug>(anzu-update-search-status)"
+          \ : "<Plug>(anzu-" . l:long_op . ')'
+  endif
+
+  return l:ops
+endfunction
+
+function! s:SetupIncsearch() abort
+  if !dko#IsPlugged('incsearch.vim')
+    return
+  endif
+
   map  /  <Plug>(incsearch-forward)
   map  g/ <Plug>(incsearch-stay)
 
@@ -56,13 +80,13 @@ if dko#IsPlugged('incsearch.vim')
   map  n  <Plug>(incsearch-nohl-n)
   map  N  <Plug>(incsearch-nohl-N)
   map  #  <Plug>(incsearch-nohl-#)
-endif
+endfunction
 
-if dko#IsPlugged('vim-asterisk')
-  let g:asterisk#keeppos = 1
-endif
+function! s:SetupAnzu() abort
+  if !dko#IsPlugged('vim-anzu')
+    return
+  endif
 
-if dko#IsPlugged('vim-anzu')
   " These will allow anzu to trigger on motions like `gd` but will cause
   " the status to re-enable even after <Esc><Esc>
   " Disable them. To enable anzu for other motions, should recursive map them
@@ -78,7 +102,16 @@ if dko#IsPlugged('vim-anzu')
   " Clear anzu in status AND unhighlight last search
   nmap  <special>  <Esc><Esc>
         \ <Plug>(anzu-clear-search-status)<Plug>DKOClearSearch
-endif
+endfunction
+
+" In case some other plugin tries something fishy
+silent! unmap /
+silent! unmap g/
+silent! unmap ?
+silent! unmap #
+silent! unmap *
+
+let g:asterisk#keeppos = 1
 
 " Incsearch + Anzu interaction
 if dko#IsPlugged('incsearch.vim') && dko#IsPlugged('vim-anzu')
@@ -87,9 +120,10 @@ if dko#IsPlugged('incsearch.vim') && dko#IsPlugged('vim-anzu')
   autocmd dkosearch User IncSearchLeave AnzuUpdateSearchStatus
 endif
 
-if s:has_search_plugin
-  map   <expr>  *   dko#Search('*')
-endif
+call s:SetupIncsearch()
+call s:SetupAnzu()
+
+execute 'map <special> * ' . s:GetSearchRHS('*')
 
 " ============================================================================
 
