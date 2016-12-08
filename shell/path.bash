@@ -1,10 +1,17 @@
 # shell/path.bash
 #
 # Sourced in bash and zsh by loader
+# XDG is set up in vars.bash, which should already have been sourced
 # pyenv, chruby, chphp, nvm pathing is done in shell/after
 #
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/path.bash"
+
+# ============================================================================
+# Create paths
+# ============================================================================
+
+mkdir -p "${HOME}/.local/bin"
 
 # ==============================================================================
 # Store default system path
@@ -24,38 +31,36 @@ else
   export DKO_SYSTEM_PATH="${PATH}"
 fi
 
-dko::add_paths() {
-  # Begin my_path composition --------------------------------------------------
-  # On BSD system, e.g. Darwin -- path_helper is called, reads /etc/paths
-  # Move local bin to front for homebrew compatibility
-  #if [ -x /usr/libexec/path_helper ]; then
-  my_path="$DKO_SYSTEM_PATH"
+# ============================================================================
+# Begin composition
+# ============================================================================
 
-  # enforce local bin and sbin order, they come before any system paths
-  my_path="/usr/local/bin:/usr/local/sbin:${DKO_SYSTEM_PATH}"
+# On BSD system, e.g. Darwin -- path_helper is called, reads /etc/paths
+# Move local bin to front for homebrew compatibility
+#if [ -x /usr/libexec/path_helper ]; then
+PATH="$DKO_SYSTEM_PATH"
 
-  # package managers -----------------------------------------------------------
+# enforce local bin and sbin order, they come before any system paths
+PATH="/usr/local/bin:/usr/local/sbin:${DKO_SYSTEM_PATH}"
 
-  # composer
-  my_path="${XDG_CONFIG_HOME}/composer/vendor/bin:${my_path}"
+# ----------------------------------------------------------------------------
+# Package managers
+# ----------------------------------------------------------------------------
 
-  # luarocks
-  my_path="${HOME}/.luarocks/bin:${my_path}"
+# composer; COMPOSER_HOME is in shell/vars.bash
+PATH="${COMPOSER_HOME}/vendor/bin:${PATH}"
 
-  # go -- prefer go binaries over composer
-  my_path="${GOPATH}/bin:${my_path}"
+# luarocks per-user rock tree
+PATH="${HOME}/.luarocks/bin:${PATH}"
 
-  # local ----------------------------------------------------------------------
+# go -- prefer go binaries over composer; GOPATH is in shell/vars.bash
+PATH="${GOPATH}/bin:${PATH}"
 
-  my_path="${DOTFILES}/bin:${my_path}"
+# ----------------------------------------------------------------------------
+# Local bin
+# ----------------------------------------------------------------------------
 
-  [ ! -d "${HOME}/.local/bin" ] && mkdir -p "${HOME}/.local/bin"
-  my_path="${HOME}/.local/bin:${my_path}"
+PATH="${DOTFILES}/bin:${PATH}"
+PATH="${HOME}/.local/bin:${PATH}"
 
-  echo "${my_path}"
-}
-
-PATH="$(dko::add_paths)"
 export PATH
-
-# vim: ft=sh :

@@ -8,8 +8,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.bash {"
 export GEMRC="${DOTFILES}/ruby/gemrc"
 
 # Ruby use brew openssl if available
-[ -f "${BREW_PREFIX}/opt/openssl" ] && \
-  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${BREW_PREFIX}/opt/openssl"
+[ -f "${DKO_BREW_PREFIX}/opt/openssl" ] && \
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${DKO_BREW_PREFIX}/opt/openssl"
 
 # auto bundle exec to use gems in current ruby
 # see https://github.com/rvm/rubygems-bundler#note-for-rubygems--220
@@ -21,7 +21,7 @@ export GEMRC="${DOTFILES}/ruby/gemrc"
 # chruby
 # ==============================================================================
 
-export CHRUBY_PREFIX="${BREW_PREFIX:-/usr}"
+export CHRUBY_PREFIX="${DKO_BREW_PREFIX:-/usr}"
 
 # chruby and auto-switcher for .ruby-version
 dko::source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" && \

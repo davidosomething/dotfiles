@@ -632,6 +632,3 @@ dko::dotfiles() {
 
   return $?
 }
-
-# vim: ft=sh :
-

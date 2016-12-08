@@ -74,11 +74,11 @@ setopt VI
 # fpath must be before compinit
 
 # Brew provided
-# Removed "${BREW_PREFIX}/share/zsh-completions", prefer zplugging upstream
-if [ -d "${BREW_PREFIX}" ]; then
+# Removed "${DKO_BREW_PREFIX}/share/zsh-completions", prefer zplugging upstream
+if [ -d "${DKO_BREW_PREFIX}" ]; then
   # Autoload function paths, add tab completion paths, top precedence
   fpath=(
-    "${BREW_PREFIX}/share/zsh/site-functions"
+    "${DKO_BREW_PREFIX}/share/zsh/site-functions"
     $fpath
   )
 
@@ -86,12 +86,12 @@ if [ -d "${BREW_PREFIX}" ]; then
   # Prefer homebrew zsh's helpfiles
   # ----------------------------------------
 
-  [ -d "${BREW_PREFIX}/share/zsh/helpfiles" ] && {
+  [ -d "${DKO_BREW_PREFIX}/share/zsh/helpfiles" ] && {
     # use homebrew bundled zsh helpfiles for online help
     # @see <https://github.com/Homebrew/homebrew/blob/master/Library/Formula/zsh.rb>
     unalias run-help
     autoload run-help
-    HELPDIR="${BREW_PREFIX}/share/zsh/helpfiles"
+    HELPDIR="${DKO_BREW_PREFIX}/share/zsh/helpfiles"
   }
 fi
 

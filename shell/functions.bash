@@ -154,5 +154,3 @@ vol() {
 flushfonts() {
   fc-cache -f -v
 }
-
-# vim: ft=sh :

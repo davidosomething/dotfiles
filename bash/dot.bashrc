@@ -45,7 +45,7 @@ dko::source /etc/bash_completion
 dko::source /usr/share/bash-completion/bash_completion
 
 # homebrew's bash-completion package sources the rest of bash_completion.d
-dko::source "${BREW_PREFIX}/etc/bash_completion"
+dko::source "${DKO_BREW_PREFIX}/etc/bash_completion"
 
 dko::source "${NVM_DIR}/bash_completion"
 

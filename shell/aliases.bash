@@ -95,9 +95,6 @@ alias mine="sudo chown -R \"\$USER\""
 alias root="sudo -s"
 alias se="sudo -e"
 
-# remote
-alias mc="ssh rmc -t -- \".local/bin/ftb\""
-
 # ============================================================================
 
 __alias_ls() {
@@ -200,13 +197,13 @@ __alias_arch() {
 # ============================================================================
 
 __alias_deb() {
-  alias b="sudo apt "
+  alias b="sudo apt"
 }
 
 # ============================================================================
 
 __alias_fedora() {
-  alias b="sudo dnf "
+  alias b="sudo dnf"
 }
 
 # ============================================================================
@@ -223,5 +220,3 @@ case "$OSTYPE" in
     esac
     ;;
 esac
-
-# vim: ft=sh :

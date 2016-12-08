@@ -70,4 +70,3 @@ dko::symlink() {
   mkdir -p "$(dirname "$homefilepath")"
   dko::symlinking "$homefile" "$dotfile" && ln -fns "$dotfile" "$homefilepath"
 }
-

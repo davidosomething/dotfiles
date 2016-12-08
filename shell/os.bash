@@ -19,23 +19,18 @@ esac
 # macOS/OS X
 # ============================================================================
 
-[ "$DOTFILES_OS" = "Darwin" ] && {
+if [ "$DOTFILES_OS" = "Darwin" ]; then
   export DOTFILES_DISTRO="mac"
 
-  command -v "brew" >/dev/null && {
-    BREW_PREFIX="$(brew --prefix)"
-    export BREW_PREFIX
-  }
-
-  # command -v "keychain" >/dev/null \
-  #   && eval "$(keychain --eval --agents ssh --inherit any id_rsa)"
-}
+  # just assume brew is in normal location, don't even check for it
+  DKO_BREW_PREFIX="/usr/local"
+  export DKO_BREW_PREFIX
 
 # ============================================================================
 # Linux
 # ============================================================================
 
-[ "$DOTFILES_OS" = "Linux" ] && {
+elif [ "$DOTFILES_OS" = "Linux" ]; then
   # for pacdiff
   export DIFFPROG="nvim -d"
 
@@ -54,10 +49,7 @@ esac
     # alone).
     # Setting $XENVIRONMENT is an option, but the -I flag here is more useful.
     # This also lets me keep .Xresources out of ~/
-    [ "$DISPLAY" != "" ] \
-      && dko::has "xrdb" \
+    [ -n "$DISPLAY" ] && dko::has "xrdb" \
       && xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
   fi
-}
-
-# vim: ft=sh :
+fi
