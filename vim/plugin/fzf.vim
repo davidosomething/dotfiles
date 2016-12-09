@@ -170,19 +170,19 @@ let s:grepper_half = fzf#vim#with_preview(
       \   '?'
       \ )
 
-if dko#GetGrepper().command ==# 'rg'
+if dko#GetGrepper().command ==# 'ag'
+  command! -bang -nargs=* FZFGrepper
+        \ call fzf#vim#ag(
+        \   <q-args>,
+        \   <bang>0 ? s:grepper_full : s:grepper_half,
+        \   <bang>0
+        \ )
+elseif dko#GetGrepper().command ==# 'rg'
   command! -bang -nargs=* FZFGrepper
         \ call fzf#vim#grep(
         \   'rg --column --line-number --no-heading --color=always '
         \     . shellescape(<q-args>),
         \   1,
-        \   <bang>0 ? s:grepper_full : s:grepper_half,
-        \   <bang>0
-        \ )
-elseif dko#GetGrepper().command ==# 'ag'
-  command! -bang -nargs=* FZFGrepper
-        \ call fzf#vim#ag(
-        \   <q-args>,
         \   <bang>0 ? s:grepper_full : s:grepper_half,
         \   <bang>0
         \ )

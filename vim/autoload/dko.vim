@@ -142,8 +142,8 @@ function! dko#GetGrepper() abort
         \ }
 
   let s:grepper_name =
-        \   executable('rg') ? 'rg'
-        \ : executable('ag') ? 'ag'
+        \   executable('ag') ? 'ag'
+        \ : executable('rg') ? 'rg'
         \ : executable('ack') ? 'ack'
         \ : ''
 
