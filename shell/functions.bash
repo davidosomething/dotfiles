@@ -80,20 +80,6 @@ cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
 }
 
-# PHP version numbers
-# @TODO use cut instead of splitting awk?
-phpver() {
-  php -d display_startup_errors=0 \
-    -r 'echo phpversion();' \
-    2>/dev/null
-}
-
-phpminorver() {
-  php -d display_startup_errors=0 \
-    -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;" \
-    2>/dev/null
-}
-
 # ============================================================================
 # Archiving
 # ============================================================================

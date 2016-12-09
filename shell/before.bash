@@ -25,6 +25,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/before.bash {"
 
 # This also adds completions based on global nvm->npm packages
 . "${DOTFILES}/shell/node.bash"
+. "${DOTFILES}/shell/php.bash"
 . "${DOTFILES}/shell/python.bash"
 . "${DOTFILES}/shell/ruby.bash"
 
