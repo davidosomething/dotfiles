@@ -612,9 +612,9 @@ function! s:LoadPlugins()
   " ========================================================================
 
   "Disabled -- tries to run on :Gita commands
-  "Plug 'sgur/vim-editorconfig'
+  Plug 'sgur/vim-editorconfig'
   "Plug 'davidosomething/vim-editorconfig', { 'branch': 'lint-skip-comments' }
-  Plug 'editorconfig/editorconfig-vim'
+  "Plug 'editorconfig/editorconfig-vim'
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'

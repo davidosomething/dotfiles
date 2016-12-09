@@ -12,10 +12,6 @@
 # Mine
 # ----------------------------------------------------------------------------
 
-zplug "${ZDOTDIR}", \
-  from:local,       \
-  use:"{keybindings,prompt-vcs,prompt-vimode,prompt,title}.zsh"
-
 zplug "davidosomething/git-ink",  as:command
 zplug "davidosomething/git-my",   as:command
 zplug "davidosomething/git-take", as:command

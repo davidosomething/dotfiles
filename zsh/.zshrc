@@ -10,7 +10,7 @@
 # ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
-source "${DOTFILES}/shell/before.bash"
+. "${DOTFILES}/shell/before.bash"
 
 # ============================================================================
 # Options
@@ -121,6 +121,13 @@ autoload -Uz add-zsh-hook
 autoload -Uz terminfo
 autoload -Uz vcs_info
 
+. "${ZDOTDIR}/keybindings.zsh"
+. "${ZDOTDIR}/prompt-vcs.zsh"
+. "${ZDOTDIR}/prompt-vimode.zsh"
+. "${ZDOTDIR}/prompt.zsh"
+. "${ZDOTDIR}/title.zsh"
+
+
 # ============================================================================
 # Plugin settings (before)
 # ============================================================================
@@ -149,7 +156,7 @@ readonly DKO_ZPLUG_INIT="${ZPLUG_HOME}/init.zsh"
 
 __load_zplug_init() {
   if [ -f "$DKO_ZPLUG_INIT" ]; then
-    source "$DKO_ZPLUG_INIT"
+    . "$DKO_ZPLUG_INIT"
     export DKO_SOURCE="${DKO_SOURCE} -> ${DKO_ZPLUG_INIT}"
     # self-managed zplug assumes ZPLUG_ROOT == ZPLUG_HOME and doesn't add this
     # path any more
@@ -312,7 +319,7 @@ fi
 # After
 # ============================================================================
 
-source "${DOTFILES}/shell/after.bash"
+. "${DOTFILES}/shell/after.bash"
 dko::source "${DOTFILES}/local/zshrc"
 
 # Started xtrace in dot.zshenv
