@@ -83,11 +83,15 @@ cunt() {
 # PHP version numbers
 # @TODO use cut instead of splitting awk?
 phpver() {
-  php -r 'echo phpversion();'
+  php -d display_startup_errors=0 \
+    -r 'echo phpversion();' \
+    2>/dev/null
 }
 
 phpminorver() {
-  php -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"
+  php -d display_startup_errors=0 \
+    -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;" \
+    2>/dev/null
 }
 
 # ============================================================================

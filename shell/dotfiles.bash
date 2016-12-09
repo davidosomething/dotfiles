@@ -476,10 +476,10 @@ dko::dotfiles::linux::deb::__update() {
 
 dko::dotfiles::darwin::__update_mac() {
   dko::status "macOS system update"
-  sudo softwareupdate --install --all || {
-    dko::err "Error updating software permissions"
-    return 1
-  }
+  sudo softwareupdate --install --all
+
+  dko::status "xcode and cli update"
+  sudo xcode-select --install
 
   dko::has "mas" && mas upgrade
 }
