@@ -13,10 +13,10 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/after.bash {"
 export FZF_COMPLETION_TRIGGER="\`\`"
 
 # Use fastest grepper available
-if dko::has "rg"; then
-  export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob ""'
-elif dko::has "ag"; then
+if dko::has "ag"; then
   export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
+elif dko::has "rg"; then
+  export FZF_DEFAULT_COMMAND='rg --hidden -g ""'
 else
   # using git paths only for FZF
   export FZF_DEFAULT_COMMAND='

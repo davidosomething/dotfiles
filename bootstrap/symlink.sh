@@ -20,6 +20,10 @@ source "${dotfiles_path}/shell/helpers.bash"
 __symlink() {
   dko::status "Symlinking dotfiles"
 
+  # REQUIRED in ~/ -- ag looks for ~/.agignore LAST and includes it.
+  # .ignore files are for project local only
+  dko::symlink ag/dot.ignore                    .agignore
+
   # universal-ctags
   dko::symlink universal-ctags/dot.ctags        .ctags
 
@@ -50,8 +54,7 @@ __symlink() {
       ;;
   esac
 
-
-  # symlink shells ---------------------------------------------------------------
+  # Shell
   dko::symlink bash/dot.bashrc                  .bashrc
   dko::symlink bash/dot.bash_profile            .bash_profile
   dko::symlink zsh/dot.zshenv                   .zshenv

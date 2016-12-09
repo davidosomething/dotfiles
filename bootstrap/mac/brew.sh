@@ -42,10 +42,8 @@ echo "asciinema auth to link computer to account"
 # filesystem
 # ============================================================================
 
-brew install ack
+brew install ack the_silver_searcher ripgrep
 brew install fzf
-brew install the_silver_searcher
-brew install ripgrep
 brew install tree
 
 # ============================================================================

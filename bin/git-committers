@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
 
-git ls-tree --name-only -r HEAD | xargs -n1 git blame --line-porcelain | grep "^author "|sort|uniq -c|sort -nr
+set -e
+
+git ls-tree --name-only -r HEAD \
+  | xargs -n1 git blame --line-porcelain \
+  | grep "^author " \
+  | sort \
+  | uniq -c \
+  | sort -nr
+

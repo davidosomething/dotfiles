@@ -37,10 +37,10 @@ alias gp="git push"
 alias gpo="git push origin"
 
 # greppers
-alias f="find"
-alias grep="grep --color=auto"
-alias ag="ag --hidden --smart-case --one-device --path-to-ignore \"\${DOTFILES}/ag/dot.ignore\""
-alias rg="rg --hidden --smart-case"
+alias f='find'
+alias grep='grep --color=auto'
+alias ag='ag --hidden --one-device  --numbers      --skip-vcs-ignores  --smart-case'
+alias rg='rg --hidden               --line-number  --no-ignore-vcs     --smart-case --ignore-file "${DOTFILES}/ag/dot.ignore"'
 # also see gg in git
 
 # node

@@ -1,5 +1,5 @@
-# the_silver_searcher
+# the_silver_searcher AND ripgrep
 
-`ag` looks for `.ignore` files as of 0.33.0.
-`.agignore` is now `dot.ignore`. The path is set as a default in
-`shell/aliases.bash`
+- `ag` looks for `.ignore` files upwards from pwd as of 0.33.0.
+- `~/.agignore` is still used as the global ignore file
+
