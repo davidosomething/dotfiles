@@ -607,14 +607,27 @@ function! s:LoadPlugins()
   " FZF uses this for :FZFBCommits and other git related commands
   Plug 'tpope/vim-fugitive'
 
+  " ==========================================================================
+  " Plug: EditorConfig
+  " ==========================================================================
+
+  " Still haven't found a perfect one:
+  "
+  " - Would prefer straight up VimL for portability (sgur/vim-editorconfig)
+  " - Able to exclude buffer types (official editorconfig-vim)
+  " - Easy to add support for new props via config only (dahu/)
+
+  " Tries to run on :Gita commands
+  " @see https://github.com/sgur/vim-editorconfig/issues/7
+  Plug 'sgur/vim-editorconfig'
+  "Plug 'davidosomething/vim-editorconfig', { 'branch': 'lint-skip-comments' }
+
+  " 200ms slower to load
+  "Plug 'editorconfig/editorconfig-vim'
+
   " ========================================================================
   " Plug: Input, syntax, spacing
   " ========================================================================
-
-  "Disabled -- tries to run on :Gita commands
-  Plug 'sgur/vim-editorconfig'
-  "Plug 'davidosomething/vim-editorconfig', { 'branch': 'lint-skip-comments' }
-  "Plug 'editorconfig/editorconfig-vim'
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
