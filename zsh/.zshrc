@@ -193,7 +193,7 @@ fi
 
 dko::has "zplug" && {
   export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
-  zplug load
+  zplug load >/dev/null
   export DKO_SOURCE="${DKO_SOURCE} }"
 }
 
