@@ -3,6 +3,18 @@ scriptencoding utf-8
 if !dko#IsPlugged('fzf.vim') | finish | endif
 
 " ============================================================================
+" Local Helpers
+" ============================================================================
+
+" fzf#run() can't use autoload function in options so wrap it with
+" a script-local
+"
+" @return {String} project root
+function! s:GetRoot() abort
+  return dkoproject#GetRoot()
+endfunction
+
+" ============================================================================
 " fzf.vim Settings
 " ============================================================================
 
@@ -18,6 +30,9 @@ let g:fzf_layout = { 'down': 16 }
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
+" [Files]
+"let g:fzf_files_options = '--something...'
+
 " ============================================================================
 
 augroup dkofzf
@@ -30,20 +45,15 @@ augroup dkofzf
   autocmd FileType fzf tnoremap <buffer><special> <F2> <C-g>
   autocmd FileType fzf tnoremap <buffer><special> <F3> <C-g>
   autocmd FileType fzf tnoremap <buffer><special> <F4> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F5> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F6> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F7> <C-g>
   autocmd FileType fzf tnoremap <buffer><special> <F8> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F9> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F10> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F11> <C-g>
+  autocmd FileType fzf tnoremap <buffer><special> <F12> <C-g>
 augroup END
-
-" ============================================================================
-" Local Helpers
-" ============================================================================
-
-" fzf#run() can't use autoload function in options so wrap it with
-" a script-local
-"
-" @return {String} project root
-function! s:GetRoot() abort
-  return dkoproject#GetRoot()
-endfunction
 
 " ============================================================================
 " Custom sources for junegunn/fzf
@@ -92,8 +102,8 @@ endfunction
 " Accepts args for `git-relevant`
 command! -nargs=* FZFRelevant call fzf#run(fzf#wrap('Relevant',
       \   fzf#vim#with_preview(extend({
-      \     'source':   s:GetFzfRelevantSource(<f-args>),
       \     'dir':      s:GetRoot(),
+      \     'source':   s:GetFzfRelevantSource(<f-args>),
       \     'options':  s:options . ' --prompt="Relevant> "',
       \   }, g:fzf_layout), 'right:50%')
       \ ))
@@ -120,10 +130,11 @@ endfunction
 
 command! FZFVim
       \ call fzf#run(fzf#wrap('Vim',
-      \   extend({
+      \   fzf#vim#with_preview(extend({
+      \     'dir':      s:GetRoot(),
       \     'source':   s:GetFzfVimSource(),
       \     'options':  s:options . ' --prompt="Vim> "',
-      \   }, g:fzf_layout)
+      \   }, g:fzf_layout), 'right:50%')
       \ ))
 
 " ----------------------------------------------------------------------------
@@ -148,24 +159,22 @@ command! FZFMRU
 " Custom commands for fzf.vim
 " ============================================================================
 
+" ----------------------------------------------------------------------------
+" FZFGrepper
 " fzf.vim ripgrep or ag with preview (requires ruby, but safely checks for it)
 " Fallback to git-grep if rg and ag not installed (e.g. I'm ssh'ed somewhere)
 " @see https://github.com/junegunn/fzf.vim#advanced-customization
-"
-" Always grep from the project root, not from CWD
-let s:grepper_fzf_options = {
-      \   'dir': s:GetRoot(),
-      \ }
+" ----------------------------------------------------------------------------
 
 " FZFGrepper! settings
 let s:grepper_full = fzf#vim#with_preview(
-      \   s:grepper_fzf_options,
+      \   { 'dir': s:GetRoot() },
       \   'up:60%'
       \ )
 
 " FZFGrepper settings
 let s:grepper_half = fzf#vim#with_preview(
-      \   s:grepper_fzf_options,
+      \   { 'dir': s:GetRoot() },
       \   'right:50%:hidden',
       \   '?'
       \ )
@@ -203,6 +212,29 @@ else
         \ )
 endif
 
+" ----------------------------------------------------------------------------
+" Root files
+" ----------------------------------------------------------------------------
+
+" FZFGrepper! settings
+let s:rootfiles_full = fzf#vim#with_preview(
+      \   { 'dir': s:GetRoot() },
+      \   'up:60%'
+      \ )
+
+let s:rootfiles_half = fzf#vim#with_preview(
+      \   { 'dir': s:GetRoot() },
+      \   'right:50%:hidden',
+      \   '?'
+      \ )
+
+command! -bang FZFRootFiles
+      \ call fzf#vim#files(
+      \   s:GetRoot(),
+      \   <bang>0 ? s:rootfiles_full : s:rootfiles_half,
+      \   <bang>0
+      \ )
+
 " ============================================================================
 " Mappings
 " ============================================================================
@@ -211,5 +243,6 @@ execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper!' })
 execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFRelevant' })
 execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFMRU' })
 execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFFiles' })
+execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFRootFiles' })
 execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors!' })
 

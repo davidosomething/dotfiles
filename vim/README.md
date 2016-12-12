@@ -115,19 +115,19 @@ way to find them.
 
 |     Key | Desc                                                               |
 | ------: | :----------------------------------------------------------------- |
-| `<F1>`  | Files - :FZFGrepper (custom, rg/ag with preview or git-grep) |
-| `<F2>`  | Files - :FZFRelevant (custom, 'git ls-files -m' in buffer root) |
-| `<F3>`  | Files - :FZFMRU (custom, whitelisted recently used + buffers) |
-| `<F4>`  | Files - :FZFFiles |
-| `<F5>`  | unused |
-| `<F6>`  | Tasks - :Neomake |
-| `<F7>`  | Tasks - :Neomake! |
-| `<F8>`  | UI - :FZFColors |
-| `<F9>`  | UI - :QuickfixsignsToggle (on by default) |
+|  `<F1>` | :FZFGrepper - custom, rg/ag with preview or git-grep |
+|  `<F2>` | :FZFRelevant - custom, 'git ls-files -m' in buffer root |
+|  `<F3>` | :FZFMRU - custom, whitelisted recently used + buffers |
+|  `<F5>` | :FZFRootFiles - custom, files from project root |
+|  `<F4>` | :FZFFiles - files from buffer cwd, may be from different project |
+|  `<F6>` | :Neomake |
+|  `<F7>` | :Neomake! |
+|  `<F8>` | UI - :FZFColors |
+|  `<F9>` | UI - :QuickfixsignsToggle (on by default) |
 | `<F10>` | do not use -- gnome-terminal menu key |
 | `<F11>` | UI - dkotabline#Toggle() |
 | `<F12>` | UI - set pastetoggle |
-| `\`     | UI - :OverCommandLine |
+|     `\` | UI - :OverCommandLine |
 
 See `plugin/mappings.vim` (and other `plugin/*` files) for other mappings.
 
