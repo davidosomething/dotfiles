@@ -41,11 +41,11 @@ bindkey -M vicmd  '^[^[[D'  backward-word
 bindkey           '^[^[[C'  forward-word
 bindkey -M vicmd  '^[^[[C'  forward-word
 # C-L
-bindkey           '^[[1;5D' backward-word
-bindkey -M vicmd  '^[[1;5D' backward-word
+bindkey           '^[[1;5D' vi-backward-word
+bindkey -M vicmd  '^[[1;5D' vi-backward-word
 # C-R
-bindkey           '^[[1;5C' forward-word
-bindkey -M vicmd  '^[[1;5C' forward-word
+bindkey           '^[[1;5C' vi-forward-word
+bindkey -M vicmd  '^[[1;5C' vi-forward-word
 
 # ----------------------------------------------------------------------------
 # Editing keys
