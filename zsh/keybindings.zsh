@@ -67,3 +67,21 @@ bindkey '^[[B'  history-search-forward
 # PgUp/Dn navigate through history like regular up/down
 bindkey '^[[5~' up-history
 bindkey '^[[6~' down-history
+
+# ============================================================================
+# fzf
+# ============================================================================
+
+__dkofzfbranch() {
+  if git rev-parse --git-dir >/dev/null 2>&1; then
+    fbr
+    zle accept-line
+  fi
+}
+
+# <C-b> to open git branch menu
+if dko::has "fzf"; then
+  zle     -N      __dkofzfbranch
+  bindkey '^B'    __dkofzfbranch
+fi
+

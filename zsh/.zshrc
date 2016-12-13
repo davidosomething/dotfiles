@@ -121,12 +121,10 @@ autoload -Uz add-zsh-hook
 autoload -Uz terminfo
 autoload -Uz vcs_info
 
-. "${ZDOTDIR}/keybindings.zsh"
 . "${ZDOTDIR}/prompt-vcs.zsh"
 . "${ZDOTDIR}/prompt-vimode.zsh"
 . "${ZDOTDIR}/prompt.zsh"
 . "${ZDOTDIR}/title.zsh"
-
 
 # ============================================================================
 # Plugin settings (before)
@@ -210,6 +208,12 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 # ============================================================================
 
 dko::source "${HOME}/.fzf.zsh" && export DKO_SOURCE="${DKO_SOURCE} -> fzf"
+
+# ============================================================================
+# Keybindings (after plugins since some are custom for fzf)
+# ============================================================================
+
+. "${ZDOTDIR}/keybindings.zsh"
 
 # ============================================================================
 # nocorrect aliases

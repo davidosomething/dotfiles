@@ -12,17 +12,14 @@
 #
 
 
-# _check_in_repository
-#
 # Exits with error if not a git repository
-#
-_check_in_repository() {
+__check_in_repository() {
   git rev-parse --git-dir > /dev/null 2>&1
 }
 
 
 # exit with message if invalid usage
-_check_args() {
+__check_args() {
   if [ "$#" -eq 0 ]; then
     echo "ERROR: Please provide a path argument."
     echo
@@ -39,7 +36,7 @@ _check_args() {
 
 # cd into path's directory and exit with check_in_repository status
 # so either 0 (in git) or 128 (not in git)
-_git_in() {
+__git_in() {
   local dir_path=$1
   local remote
 
@@ -53,7 +50,7 @@ _git_in() {
     exit 1
   }
 
-  if _check_in_repository; then
+  if __check_in_repository; then
     echo "local repo    $(git rev-parse --show-toplevel)"
 
     remote="$(git config --get remote.origin.url)"
@@ -67,5 +64,5 @@ _git_in() {
 }
 
 
-_check_args "$@"
-_git_in "$1"
+__check_args "$@"
+__git_in "$1"
