@@ -116,10 +116,10 @@ way to find them.
 |     Key | Desc                                                               |
 | ------: | :----------------------------------------------------------------- |
 |  `<F1>` | :FZFGrepper - custom, rg/ag with preview or git-grep |
-|  `<F2>` | :FZFRelevant - custom, 'git ls-files -m' in buffer root |
-|  `<F3>` | :FZFMRU - custom, whitelisted recently used + buffers |
-|  `<F5>` | :FZFRootFiles - custom, files from project root |
-|  `<F4>` | :FZFFiles - files from buffer cwd, may be from different project |
+|  `<F2>` | :FZFRelevant - custom, dirty/new files vs git master |
+|  `<F3>` | :FZFProject - custom, :FZFFiles but from project root |
+|  `<F4>` | :FZFMRU - custom, whitelisted recently used + buffers |
+|  `<F5>` | :FZFFiles - files from Vim's cwd |
 |  `<F6>` | :Neomake |
 |  `<F7>` | :Neomake! |
 |  `<F8>` | UI - :FZFColors |
@@ -127,15 +127,17 @@ way to find them.
 | `<F10>` | do not use -- gnome-terminal menu key |
 | `<F11>` | UI - dkotabline#Toggle() |
 | `<F12>` | UI - set pastetoggle |
-|     `\` | UI - :OverCommandLine |
+|    `/`  | UI - incsearch |
+|    `\`  | UI - :OverCommandLine |
 
 See `plugin/mappings.vim` (and other `plugin/*` files) for other mappings.
 
 ### Junk defaults and unmapped keys
 
-Plan to map these at some point
+Plan to remap these at some point
 
-- `n <C-b>` -- back one screen (page)
+- `n <C-b>` -- backward one screen (page)
+- `n <C-f>` -- foreward one screen (page)
 - `n <C-g>` -- show file status (everything's already in statusline)
 - `n <C-s>` -- nothing (terminal XOFF)
 - `n zh/l`  -- useless wrap mode scroll

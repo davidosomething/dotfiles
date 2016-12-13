@@ -213,25 +213,24 @@ else
 endif
 
 " ----------------------------------------------------------------------------
-" Root files
+" Files from project root
 " ----------------------------------------------------------------------------
 
-" FZFGrepper! settings
-let s:rootfiles_full = fzf#vim#with_preview(
-      \   { 'dir': s:GetRoot() },
+" FZFProject! settings
+let s:project_full = fzf#vim#with_preview(
       \   'up:60%'
       \ )
 
-let s:rootfiles_half = fzf#vim#with_preview(
-      \   { 'dir': s:GetRoot() },
+" FZFProject settings
+let s:project_half = fzf#vim#with_preview(
       \   'right:50%:hidden',
       \   '?'
       \ )
 
-command! -bang FZFRootFiles
+command! -bang FZFProject
       \ call fzf#vim#files(
       \   s:GetRoot(),
-      \   <bang>0 ? s:rootfiles_full : s:rootfiles_half,
+      \   <bang>0 ? s:project_full : s:project_half,
       \   <bang>0
       \ )
 
@@ -241,8 +240,8 @@ command! -bang FZFRootFiles
 
 execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper!' })
 execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFRelevant' })
-execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFMRU' })
-execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFFiles' })
-execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFRootFiles' })
+execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFProject' })
+execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
+execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
 execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors!' })
 
