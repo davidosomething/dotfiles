@@ -1,7 +1,12 @@
 " plugin/colorscheme.vim
 
+if !has('nvim') && has('termguicolors')
+  set termguicolors
+endif
+
 let s:colorscheme = 'default'
-if dko#IsPlugged('Base2Tone-vim') && (has('nvim') || has('gui_running'))
+if dko#IsPlugged('Base2Tone-vim')
+      \ && (has('nvim') || has('gui_running') || has('termguicolors'))
   let g:base16colorspace=256
   silent! colorscheme Base2Tone-Lake-dark
   "set background=dark  " don't do this! colorscheme will source again
