@@ -175,7 +175,7 @@ let s:grepper_full = fzf#vim#with_preview(
 " FZFGrepper settings
 let s:grepper_half = fzf#vim#with_preview(
       \   { 'dir': s:GetRoot() },
-      \   'right:50%:hidden',
+      \   'right:50%',
       \   '?'
       \ )
 
@@ -218,12 +218,14 @@ endif
 
 " FZFProject! settings
 let s:project_full = fzf#vim#with_preview(
+      \   {},
       \   'up:60%'
       \ )
 
 " FZFProject settings
 let s:project_half = fzf#vim#with_preview(
-      \   'right:50%:hidden',
+      \   {},
+      \   'right:50%',
       \   '?'
       \ )
 
