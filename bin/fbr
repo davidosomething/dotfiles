@@ -7,6 +7,14 @@
 
 set -e
 
-branches=$(git branch -vv) &&
-branch=$(echo "$branches" | fzf +m) &&
-git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
+__fbr() {
+  current=$(git rev-parse --abbrev-ref HEAD) || return 1
+  branches=$(git branch -vv)
+  branch=$(\
+    echo "$branches" \
+    | fzf +m --exit-0 --nth=1 --cycle --prompt="$current> " \
+  ) &&
+    git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
+}
+
+__fbr
