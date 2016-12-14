@@ -18,6 +18,7 @@ markdownlint-cli
 nativefier
 package-json-validator
 sass-lint
+source-map-explorer
 surge
 tern
 tern-browser-extension
