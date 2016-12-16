@@ -10,13 +10,16 @@ export KEYTIMEOUT=2
 
 # http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
 # use vi mode even if EDITOR is emacs
-export DKOPROMPT_VIMODE="I"
+export DKO_PROMPT_VIMODE='%K{blue}%F{white} I '
 
-# show if in vi mode
+# ============================================================================
+# Show VI mode indicator
+# ============================================================================
+
 function zle-line-init zle-keymap-select {
   case ${KEYMAP} in
-    (vicmd)      export DKOPROMPT_VIMODE='%K{green}%F{black} N ' ;;
-    (main|viins) export DKOPROMPT_VIMODE='%K{blue}%F{white} I ' ;;
+    (vicmd)      export DKO_PROMPT_VIMODE='%K{green}%F{black} N ' ;;
+    (main|viins) export DKO_PROMPT_VIMODE='%K{blue}%F{white} I ' ;;
   esac
 
   # force redisplay
@@ -26,16 +29,25 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# on end of cmd, back to ins mode
+# ============================================================================
+# End of cmd (after pressing <CR> at any point), back to ins mode
+# ============================================================================
+
 function zle-line-finish {
-  export DKOPROMPT_VIMODE="I"
+  # This will be the prompt for the current line that we're leaving.
+  export DKO_PROMPT_VIMODE='%K{blue}%F{white} I '
+  # Redraw the current line's prompt before advancing to a readline.
   zle reset-prompt
   zle -R
 }
 zle -N zle-line-finish
 
-# fix ctrl-c mode display
+# ============================================================================
+# On interrupt (<C-c>)
+# ============================================================================
+
 TRAPINT() {
-  export DKOPROMPT_VIMODE="I"
+  export DKO_PROMPT_VIMODE='%K{blue}%F{white} I '
+  export DKO_PROMPT_IS_TRAPPED=1
   return $(( 128 + $1 ))
 }

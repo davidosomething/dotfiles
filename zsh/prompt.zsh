@@ -91,7 +91,13 @@ __dko::prompt::precmd::state() {
       right="${right}${(%)__dko_prompt_right_colors[i]}${(e)__dko_prompt_right_parts[i]}"
     done
   fi
-  print -P "${left}${(l:spaces-1:: :)}%F{blue}[${(e)right}%F{blue}]"
+
+  # <C-c> to just output a prompt without the statusline above it
+  if [ "$DKO_PROMPT_IS_TRAPPED" -eq "1" ]; then
+    export DKO_PROMPT_IS_TRAPPED=0
+  else
+    print -P "${left}${(l:spaces-1:: :)}%F{blue}[${(e)right}%F{blue}]"
+  fi
 }
 add-zsh-hook precmd __dko::prompt::precmd::state
 
@@ -107,7 +113,7 @@ __dko::prompt() {
   #PS1+='%f'
 
   # VI mode
-  PS1+='${DKOPROMPT_VIMODE}'
+  PS1+='${DKO_PROMPT_VIMODE}'
   # Restore colors from VIMODE - the black in necessary for menu select mode
   # fix.
   PS1+='%K{black}%{$reset_color%} '
