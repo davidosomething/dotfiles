@@ -6,14 +6,23 @@ export DKO_SOURCE="${DKO_SOURCE} -> prompt-vimode.zsh"
 # vi mode
 # ------------------------------------------------------------------------------
 
+# zsh var, timeout between <Esc> and mode switch update
+export KEYTIMEOUT=2
+
 # http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
 # use vi mode even if EDITOR is emacs
-vimode='I'
+export DKOPROMPT_VIMODE="I"
 
 # show if in vi mode
 function zle-line-init zle-keymap-select {
-  # We only show [I]nsert and [N]ormal even when in R and C modes
-  vimode="${${KEYMAP/vicmd/N}/(main|viins)/I}"
+  case ${KEYMAP} in
+    (vicmd)      DKOPROMPT_VIMODE="N" ;;
+    (main|viins) DKOPROMPT_VIMODE="I" ;;
+    (*)          DKOPROMPT_VIMODE="I" ;;
+  esac
+  export DKOPROMPT_VIMODE
+
+  # force redisplay
   zle reset-prompt
   zle -R
 }
@@ -25,13 +34,14 @@ function zle-line-finish {
   zle -R
 }
 
+# bind the new widgets
 zle -N zle-line-init
 zle -N zle-keymap-select
 zle -N zle-line-finish
 
 # fix ctrl-c mode display
 TRAPINT() {
-  vimode='I'
+  export DKOPROMPT_VIMODE="I"
   return $(( 128 + $1 ))
 }
 

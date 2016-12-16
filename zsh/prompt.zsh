@@ -81,6 +81,11 @@ dko::prompt::precmd::state() {
     done
   fi
   print -P "${left}${(l:spaces-1:: :)}%F{blue}[${(e)right}%F{blue}]"
+
+  # set vimode var
+  vimode=''
+  [[ "$DKOPROMPT_VIMODE" == "I" ]] && vimode='%K{blue}%F{white} I %{$reset_color%} '
+  [[ "$DKOPROMPT_VIMODE" == "N" ]] && vimode='%K{green}%F{black} N %{$reset_color%} '
 }
 add-zsh-hook precmd dko::prompt::precmd::state
 
@@ -88,24 +93,36 @@ add-zsh-hook precmd dko::prompt::precmd::state
 # prompt main
 # ============================================================================
 
+dko::prompt::vi() {
+  case ${DKOPROMPT_VIMODE} in
+    (I) print -nP '%K{blue}%F{white} I ' ;;
+    (N) print -nP '%K{green}%F{black} N ' ;;
+  esac
+  print -nP '%{$reset_color%}'
+}
+
 # Actual prompt (single line prompt)
 dko::prompt() {
+  PS1=''
+
   # Time
-  PS1='%f%*'
+  #PS1+='%f'
 
   # VI mode
-  [ -n "$vimode" ] && PS1+='%F{blue}${vimode}'
+  PS1+='$(dko::prompt::vi) '
 
   # VCS
   PS1+='${vcs_info_msg_0_}'
 
-  # Symbol
+  # Continuation mode
+  PS2="$PS1"
+  PS2+='%F{green}.%f '
+
+  # Symbol on PS1 only - NOT on PS2 though
   PS1+='%F{yellow}%#%f '
 
-  RPROMPT='%(?..%F{red}%?)'
-
-  # Continuation mode
-  PS2='%F{green}%_…%f '
+  # Exit code if non-zero
+  RPS1='%F{red}%(?..[%?])'
 }
 
 dko::prompt
