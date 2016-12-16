@@ -18,7 +18,6 @@ function zle-line-init zle-keymap-select {
   case ${KEYMAP} in
     (vicmd)      DKOPROMPT_VIMODE='%K{green}%F{black} N ' ;;
     (main|viins) DKOPROMPT_VIMODE='%K{blue}%F{white} I ' ;;
-    (*)          DKOPROMPT_VIMODE='%K{blue}%F{white} I ' ;;
   esac
   export DKOPROMPT_VIMODE
 

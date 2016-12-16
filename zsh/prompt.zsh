@@ -96,7 +96,10 @@ dko::prompt() {
   #PS1+='%f'
 
   # VI mode
-  PS1+='${DKOPROMPT_VIMODE}%{$reset_color%} '
+  PS1+='${DKOPROMPT_VIMODE}'
+  # Restore colors from VIMODE - the black in necessary for menu select mode
+  # fix.
+  PS1+='%K{black}%{$reset_color%} '
 
   # VCS
   PS1+='${vcs_info_msg_0_}'
@@ -106,10 +109,10 @@ dko::prompt() {
   PS2+='%F{green}.%f '
 
   # Symbol on PS1 only - NOT on PS2 though
-  PS1+='%F{yellow}%#%f '
+  PS1+='%F{yellow}%#%f %{$reset_color%}'
 
   # Exit code if non-zero
-  RPS1='%F{red}%(?..[%?])'
+  RPROMPT='%F{red}%(?..[%?])'
 }
 
 dko::prompt
