@@ -18,8 +18,8 @@ export DKO_PROMPT_VIMODE='%K{blue}%F{white} I '
 
 function zle-line-init zle-keymap-select {
   case ${KEYMAP} in
-    (vicmd)      export DKO_PROMPT_VIMODE='%K{green}%F{black} N ' ;;
-    (main|viins) export DKO_PROMPT_VIMODE='%K{blue}%F{white} I ' ;;
+    (vicmd)       export DKO_PROMPT_VIMODE='%K{green}%F{black} N ' ;;
+    (main|viins)  export DKO_PROMPT_VIMODE='%K{blue}%F{white} I ' ;;
   esac
 
   # force redisplay
