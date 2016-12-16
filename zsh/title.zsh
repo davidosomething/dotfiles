@@ -14,20 +14,20 @@ export DKO_SOURCE="${DKO_SOURCE} -> title.zsh"
 # Handlers
 # ============================================================================
 
-dko::processname_ansi() {
+__dko::process::ansi() {
   print -n "\ek$1\e\\"
 }
 
-dko::title_ansi() {
+__dko::title::ansi() {
   local title="%n@%m:%~"
   print -Pn "\e${title}\e\\"
 }
 
-dko::processname_xterm() {
+__dko::process::xterm() {
   print -n "\e]0;$1\a"
 }
 
-dko::title_xterm() {
+__dko::title::xterm() {
   local title="%n@%m:%~"
   print -Pn "\e]0;${title}/\a"
 }
@@ -46,10 +46,10 @@ typeset -ga chpwd_functions
 
 case "${TERM}" in
   rxvt*|xterm*)
-    preexec_functions+=dko::processname_xterm
-    precmd_functions+=dko::title_xterm
-    chpwd_functions+=dko::title_xterm
-    dko::title_xterm
+    preexec_functions+=__dko::process::xterm
+    precmd_functions+=__dko::title::xterm
+    chpwd_functions+=__dko::title::xterm
+    __dko::title::xterm
     ;;
 esac
 

@@ -127,7 +127,8 @@ For X apps (no terminal) the value is probably:
       These functions are expected to persist for the lifetime of the script
       or in the shell if the script was sourced.
     - For private functions in a script, use two underscores `__private_func()`
-      These function names are safe to reuse after script execution.
+      These function names are safe to reuse after script execution. When
+      namespaced, they are in the form of `__dko::function_name()`.
 - **Variable interpolation**
     - Always use curly braces around the variable name when interpolating in
       double quotes.

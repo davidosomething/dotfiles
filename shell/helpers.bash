@@ -20,9 +20,6 @@ dko::warn_()      { echo -e           "          $*" >&2; }
 dko::usage()      { echo -e "\033[0;34m==> \033[0;34mUSAGE: \033[0;32m$*\033[0;m"; }
 dko::usage_()     { echo -e "\033[0;29m    $*\033[0;m"; }
 
-dko::installing() { dko::status "Installing \033[0;33m$1\033[0;32m..."; }
-dko::symlinking() { dko::status "Symlinking \033[0;35m$1\033[0;32m -> \033[0;35m$2\033[0;32m "; }
-
 # silently determine existence of executable
 # $1 name of bin
 dko::has() { command -v "$1" >/dev/null 2>&1; }
@@ -67,6 +64,7 @@ dko::symlink() {
   local homefile="$2"
   local homefilepath="${HOME}/${homefile}"
 
+  dko::status "Symlinking \033[0;35m${homefile}\033[0;32m -> \033[0;35m${dotfile}\033[0;32m "
   mkdir -p "$(dirname "$homefilepath")"
-  dko::symlinking "$homefile" "$dotfile" && ln -fns "$dotfile" "$homefilepath"
+  ln -fns "$dotfile" "$homefilepath"
 }
