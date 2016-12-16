@@ -16,9 +16,9 @@ export DKOPROMPT_VIMODE="I"
 # show if in vi mode
 function zle-line-init zle-keymap-select {
   case ${KEYMAP} in
-    (vicmd)      DKOPROMPT_VIMODE="N" ;;
-    (main|viins) DKOPROMPT_VIMODE="I" ;;
-    (*)          DKOPROMPT_VIMODE="I" ;;
+    (vicmd)      DKOPROMPT_VIMODE='%K{green}%F{black} N ' ;;
+    (main|viins) DKOPROMPT_VIMODE='%K{blue}%F{white} I ' ;;
+    (*)          DKOPROMPT_VIMODE='%K{blue}%F{white} I ' ;;
   esac
   export DKOPROMPT_VIMODE
 

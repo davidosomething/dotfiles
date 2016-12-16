@@ -81,25 +81,12 @@ dko::prompt::precmd::state() {
     done
   fi
   print -P "${left}${(l:spaces-1:: :)}%F{blue}[${(e)right}%F{blue}]"
-
-  # set vimode var
-  vimode=''
-  [[ "$DKOPROMPT_VIMODE" == "I" ]] && vimode='%K{blue}%F{white} I %{$reset_color%} '
-  [[ "$DKOPROMPT_VIMODE" == "N" ]] && vimode='%K{green}%F{black} N %{$reset_color%} '
 }
 add-zsh-hook precmd dko::prompt::precmd::state
 
 # ============================================================================
 # prompt main
 # ============================================================================
-
-dko::prompt::vi() {
-  case ${DKOPROMPT_VIMODE} in
-    (I) print -nP '%K{blue}%F{white} I ' ;;
-    (N) print -nP '%K{green}%F{black} N ' ;;
-  esac
-  print -nP '%{$reset_color%}'
-}
 
 # Actual prompt (single line prompt)
 dko::prompt() {
@@ -109,7 +96,7 @@ dko::prompt() {
   #PS1+='%f'
 
   # VI mode
-  PS1+='$(dko::prompt::vi) '
+  PS1+='${DKOPROMPT_VIMODE}%{$reset_color%} '
 
   # VCS
   PS1+='${vcs_info_msg_0_}'
