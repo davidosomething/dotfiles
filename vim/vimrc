@@ -653,8 +653,9 @@ function! s:LoadPlugins()
   " Plug: Completion
   " ========================================================================
 
-  if has('nvim') && has('python3')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  if (has('nvim') && has('python3')) " || has('patch-7.4.1758')
+    Plug 'Shougo/deoplete.nvim',
+          \ has('nvim') ? { 'do': ':UpdateRemotePlugins' } : {}
 
     "Full syntax completion - super slow, like syntaxcomplete
     "Plug 'Shougo/neco-syntax', { 'for': ['scss'] }
