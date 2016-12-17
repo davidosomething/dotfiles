@@ -33,7 +33,7 @@ zplug "davidosomething/vopen",     \
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 
 # In-line best history match suggestion
-zplug "tarruda/zsh-autosuggestions"
+zplug "zsh-users/zsh-autosuggestions"
 
 # Various program completions; includes go, nvm
 # This adds to fpath (so before compinit)
