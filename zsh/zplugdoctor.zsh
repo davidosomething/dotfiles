@@ -25,10 +25,11 @@ zplugdoctor() {
     return 1
   }
 
-  __zplugdoctor::log "zplug home    = \"${ZPLUG_HOME}\""
-  __zplugdoctor::log "zplug root    = \"${ZPLUG_ROOT}\""
-  __zplugdoctor::log "zplug rev     = \"$(git --git-dir="${ZPLUG_ROOT}/.git" rev-parse HEAD)\""
-  __zplugdoctor::log "zplug version = \"$(zplug --version)\""
+  __zplugdoctor::log "zplug rev"
+  git --git-dir="${ZPLUG_ROOT}/.git" rev-parse HEAD
+
+  __zplugdoctor::log "zplug env"
+  zplug env
 }
 
 #vim: ft=zsh
