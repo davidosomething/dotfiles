@@ -68,6 +68,13 @@ bindkey '^[[B'  history-search-forward
 bindkey '^[[5~' up-history
 bindkey '^[[6~' down-history
 
+# ----------------------------------------------------------------------------
+# Plugins: zsh-autosuggestions
+# ----------------------------------------------------------------------------
+
+# native forward-word in insert mode to partially accept autosuggestion
+bindkey '^K' forward-word
+
 # ============================================================================
 # Custom widget: fzf
 # ============================================================================
