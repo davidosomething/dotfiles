@@ -142,6 +142,7 @@ export _Z_DATA="${HOME}/.local/z"
 # zplug
 # ============================================================================
 
+. "${ZDOTDIR}/zplug-doctor.zsh"
 export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
 # plugin definitions file -- don't set before zplug is installed
 export ZPLUG_LOADFILE="${ZDOTDIR}/zplug.zsh"
