@@ -544,6 +544,11 @@ __dko::dotfiles::darwin::update_brew() {
         && brew reinstall --build-from-source "$phpimagick"
     fi
 
+    # link curl
+    if grep -q curl <<<"$outdated"; then
+      brew link --force curl
+    fi
+
   ) && __dko::dotfiles::darwin::update_brew_done
 }
 
