@@ -56,7 +56,7 @@ dko::has "pyenv" && {
   __dko_prompt_right_colors+=('%F{blue}')
   __dko_prompt_right_parts+=('py:')
   __dko_prompt_right_colors+=('%F{blue}')
-  __dko_prompt_right_parts+=(${$(pyenv version-name 2>/dev/null):-sys})
+  __dko_prompt_right_parts+=('${$(pyenv version-name 2>/dev/null):-sys}')
 }
 dko::has "chruby" && {
   [ -n ${#__dko_prompt_right_parts} ] && {
