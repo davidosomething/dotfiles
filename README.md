@@ -53,6 +53,8 @@ scripts.
 - `php`, `composer`, use composer to install `wp-cli`
 - Use [pyenv-installer] for `pyenv`, `pyenv-virtualenv`, then create a new env
   with a new python/pip.
+    - Remove `~/.local/pyenv` if it exists prior to installing `pyenv` via
+      [pyenv-installer] (e.g. had installed it via `brew` by accident)
     - Create virtualenvs for neovim.
 
 ### Provisioning scripts
