@@ -26,6 +26,7 @@ __dko::dotfiles::usage() {
     fzf         -- update fzf with flags to not update rc scripts
     node        -- install latest node via nvm
     nvm         -- update nvm installation
+    pyenv       -- update pyenv installation
 
   Packages
     composer    -- update composer and global packages
@@ -111,6 +112,7 @@ __dko::dotfiles::update_daily() {
   __dko::dotfiles::update_gems
   __dko::dotfiles::update_nvm
   __dko::dotfiles::update_pip "pip"
+  __dko::dotfiles::update_pyenv
   __dko::dotfiles::update_vimlint
   __dko::dotfiles::update_wpcs
 }
@@ -298,6 +300,17 @@ __dko::dotfiles::update_nvm() {
 
   dko::status "Reloading nvm"
   . "$NVM_DIR/nvm.sh"
+}
+
+__dko::dotfiles::update_pyenv() {
+  if [ -n "$PYENV_ROOT" ] && [ -d "${PYENV_ROOT}/.git" ]; then
+    dko::status "Updating pyenv"
+    ( cd "${PYENV_ROOT}" || exit 1
+      git pull
+    ) || return 1
+  else
+    dko::status "pyenv was not installed using pyenv-installer"
+  fi
 }
 
 # $1 pip command (e.g. `pip2`)
@@ -624,6 +637,7 @@ dko::dotfiles() {
     node)     __dko::dotfiles::update_node          ;;
     nvm)      __dko::dotfiles::update_nvm           ;;
     pip)      __dko::dotfiles::update_pip "pip"     ;;
+    pyenv)    __dko::dotfiles::update_pyenv         ;;
     neopy)    __dko::dotfiles::update_neovim_python ;;
     vimlint)  __dko::dotfiles::update_vimlint       ;;
     wpcs)     __dko::dotfiles::update_wpcs          ;;
