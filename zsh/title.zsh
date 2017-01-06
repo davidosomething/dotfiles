@@ -1,6 +1,7 @@
 # zsh/title.zsh
 #
 # Set title of terminal emulator
+# Requires add-zsh-hook module (should have been autoloaded in .zshrc)
 #
 
 export DKO_SOURCE="${DKO_SOURCE} -> title.zsh"
@@ -11,45 +12,54 @@ export DKO_SOURCE="${DKO_SOURCE} -> title.zsh"
 # %~          expands to directory, replacing $HOME with '~'
 
 # ============================================================================
-# Handlers
+# Hook handlers
 # ============================================================================
 
-__dko::process::ansi() {
-  print -n "\ek$1\e\\"
+# ----------------------------------------------------------------------------
+# ansi-compatible
+# ----------------------------------------------------------------------------
+
+__dko::zhook::ansi::process() {
+  print -n "\ek${1}\e\\"
 }
 
-__dko::title::ansi() {
+__dko::zhook::ansi::title() {
   local title="%n@%m:%~"
   print -Pn "\e${title}\e\\"
 }
 
-__dko::process::xterm() {
-  print -n "\e]0;$1\a"
+__dko::ztitle::ansi() {
+  add-zsh-hook preexec  __dko::zhook::ansi::process
+  add-zsh-hook precmd   __dko::zhook::ansi::title
+  add-zsh-hook chpwd    __dko::zhook::ansi::title
 }
 
-__dko::title::xterm() {
+# ----------------------------------------------------------------------------
+# xterm-compatible
+# ----------------------------------------------------------------------------
+
+__dko::zhook::xterm::process() {
+  print -n "\e]0;${1}\a"
+}
+
+__dko::zhook::xterm::title() {
   local title="%n@%m:%~"
-  print -Pn "\e]0;${title}/\a"
+  print -Pn "\e]0;${title}\a"
+}
+
+__dko::ztitle::xterm() {
+  add-zsh-hook preexec  __dko::zhook::xterm::process
+  add-zsh-hook precmd   __dko::zhook::xterm::title
+  add-zsh-hook chpwd    __dko::zhook::xterm::title
 }
 
 # ============================================================================
-# Make sure the references are to the global arrays
-# ============================================================================
-
-typeset -ga preexec_functions
-typeset -ga precmd_functions
-typeset -ga chpwd_functions
-
-# ============================================================================
-# Assign the handlers
+# Use title hooks
 # ============================================================================
 
 case "${TERM}" in
-  rxvt*|xterm*)
-    preexec_functions+=__dko::process::xterm
-    precmd_functions+=__dko::title::xterm
-    chpwd_functions+=__dko::title::xterm
-    __dko::title::xterm
-    ;;
-esac
+  rxvt*|xterm*) __dko::ztitle::xterm ;;
 
+  # echos on tmux :<
+  #*)            __dko::term::ansi ;;
+esac
