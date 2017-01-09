@@ -81,7 +81,6 @@ brew cask install virtualbox virtualbox-extension-pack
 
 # ============================================================================
 
-# mplayerx is nicer...
-brew cask install mplayerx
+brew cask install vlc
 brew cask install vnc-viewer
 
