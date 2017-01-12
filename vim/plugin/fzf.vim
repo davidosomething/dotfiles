@@ -246,5 +246,5 @@ execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFProject' })
 execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
 execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
 execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors!' })
-execute dko#MapAll({ 'key': '<Leader>b', 'command': 'FZFBuffers' })
+map   <special>   <Leader>b   :<C-U>FZFBuffers<CR>
 
