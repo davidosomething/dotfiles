@@ -56,6 +56,9 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
+    // Alt buffer scrolling
+    'hyperterm-alternatescroll',
+
     //// blinking cursor
     'hyperterm-blink',
 
@@ -84,8 +87,8 @@ module.exports = {
     //// status bar
     'hyperline',
 
-    //// clickable links in same window... buggy
-    //'hyperlinks',
+    // clickable links in same window... buggy
+    'hyperlinks',
 
     //// clickable links, but behave like iterm... buggy
     //'hyperlinks-iterm',
