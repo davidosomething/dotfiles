@@ -85,7 +85,7 @@ module.exports = {
     'hyperterm-title',
 
     //// status bar
-    'hyperline',
+    //'hyperline',
 
     // clickable links in same window... buggy
     'hyperlinks',
