@@ -4,29 +4,21 @@
 #
 # Open browser to WordPress plugin page
 #
-# Copyright (c) 2015 David O'Trakoun <me@davidosomething.com>
-#
 # Usage: wpp [plugin-name]
 # Omitting the plugin-name will just open up the plugins landing page
 #
 
-set -eu
+set -e
 
 __wpp() {
-  local plugin_name
-  plugin_name=""
+  local plugin_name="${1:-""}"
 
-  if [ $# -ne 0 ]; then
-    plugin_name="$1"
-
-  fi
-
-  if [[ -n "$BROWSER" ]]; then
+  if [[ $(uname) == "Darwin" ]]; then
+    open "http://wordpress.org/plugins/$plugin_name" &
+  elif [[ -n "$BROWSER" ]]; then
     $BROWSER "http://wordpress.org/plugins/$plugin_name" &
   elif dko::has "xdg-open"; then
     xdg-open "http://wordpress.org/plugins/$plugin_name" &
-  elif [[ $(uname) == "Darwin" ]]; then
-    open "http://wordpress.org/plugins/$plugin_name" &
   fi
 }
 
