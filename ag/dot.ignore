@@ -11,11 +11,10 @@ vendor/
 *.lock
 *.map
 *.marko.js
-*.min.js
+*.min.*
 *.po
 *.svg
 *.vim.old
-*.min.*
 *-min.*
 COPYING*
 LICENSE*
@@ -27,4 +26,3 @@ GTAGS
 GRTAGS
 GPATH
 tags.log
-
