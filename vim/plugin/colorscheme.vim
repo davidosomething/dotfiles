@@ -8,7 +8,7 @@ let s:colorscheme = 'default'
 if dko#IsPlugged('Base2Tone-vim')
       \ && (has('nvim') || has('gui_running') || has('termguicolors'))
   let g:base16colorspace=256
-  silent! colorscheme Base2Tone-Lake-dark
+  silent! colorscheme Base2Tone_LakeDark
   "set background=dark  " don't do this! colorscheme will source again
   finish
 endif
