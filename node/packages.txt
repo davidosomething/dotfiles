@@ -4,7 +4,6 @@ coffeelint
 eslint
 eslint-config-davidosomething
 eslint-plugin-jsdoc
-greenkeeper
 handlebars
 instant-markdown-d
 js-beautify
