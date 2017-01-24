@@ -50,6 +50,7 @@ alias npmo="n outdated --long"
 alias nog="npmo --global"
 alias ncu="npmo"
 alias nude="nvm use default"
+alias sme="source-map-explorer"
 
 # php
 alias cm="composer"
