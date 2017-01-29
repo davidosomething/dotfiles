@@ -972,7 +972,7 @@ function! s:LoadPlugins()
   " Not a valid plugin runtime structure, file needs to be in ftplugin/
   "Plug 'sullyj3/vim-ftplugin-python'
 
-  Plug 'hynek/vim-python-pep8-indent'
+  Plug 'Vimjas/vim-python-pep8-indent'
   Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
 
   " ========================================================================
