@@ -67,6 +67,8 @@ brew install openssl
 #brew install keychain
 # ----------------------------------------------------------------------------
 
+brew install htop --with-ncurses
+
 brew install nmap
 brew install ssh-copy-id
 brew install multitail
