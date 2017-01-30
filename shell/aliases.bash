@@ -149,6 +149,9 @@ __alias_darwin() {
   alias bsvc="b services"
   alias bsvr="b services restart"
 
+  alias redstart="bsvc start redshift"
+  alias redstop="bsvc stop redshift"
+
   # sudo since we run nginx on port 80 so needs admin
   alias rnginx="sudo brew services restart nginx"
 
