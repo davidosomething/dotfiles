@@ -10,8 +10,9 @@
 	a       = add
 	aa      = add .
 
-	b       = branch --verbose
+	b       = branch
 	be      = branch --edit-description
+	bv      = branch --verbose
 	done    = branch --verbose --merged
 	um      = branch --verbose --no-merged
 
