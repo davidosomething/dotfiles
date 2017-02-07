@@ -57,26 +57,29 @@ if dko#IsPlugged('vim-jsdoc')
   " The match is done via matchstr() (so magic mode is on -- escape ?)
   let g:jsdoc_custom_args_regex_only = 1
   let g:jsdoc_custom_args_hook = {
+        \   '^\$': {
+        \     'type': '{jQuery}'
+        \   },
         \   '^_\?is': {
         \     'type': '{Boolean}'
         \   },
-        \   'date$': {
+        \   '\cdate$': {
         \     'type': '{Date}'
         \   },
-        \   'el$': {
+        \   '\cel$': {
         \     'type': '{Element}'
         \   },
-        \   '\(err\|error\)$': {
+        \   '\c\(err\|error\)$': {
         \     'type': '{Error}'
         \   },
         \   '^\(e\|evt\|event\)$': {
         \     'type': '{Event}'
         \   },
-        \   '\(callback\|cb\|done\)$': {
+        \   '\c\(callback\|cb\|done\)$': {
         \     'description': 'Callback function',
         \     'type': '{Function}',
         \   },
-        \   'handler$': {
+        \   '\chandler$': {
         \     'description': 'Event handler',
         \     'type': '{Function}'
         \   },
@@ -84,32 +87,29 @@ if dko#IsPlugged('vim-jsdoc')
         \     'description': 'Event handler',
         \     'type': '{Function}'
         \   },
-        \   'handlers$': {
+        \   '\chandlers$': {
         \     'description': 'Event handlers',
         \     'type': '{Function[]}'
-        \   },
-        \   '^\$': {
-        \     'type': '{jQuery}'
         \   },
         \   '^i$': {
         \     'type': '{Number}'
         \   },
-        \   '\(width\|height\)': {
+        \   '\c\(width\|height\)': {
         \     'type': '{Number}'
         \   },
-        \   '\(data\|options\)$': {
+        \   '\c\(data\|options\)$': {
         \     'type': '{Object}'
         \   },
-        \   'promise$': {
+        \   '\cpromise$': {
         \     'type': '{Promise}'
         \   },
-        \   'regex': {
+        \   '\cregex': {
         \     'type': '{RegExp}'
         \   },
-        \   '\(description\|message\|title\|url\)': {
+        \   '\c\(description\|message\|title\|url\)': {
         \     'type': '{String}'
         \   },
-        \   'messages': {
+        \   '\cmessages?': {
         \     'type': '{String[]}'
         \   },
         \ }
