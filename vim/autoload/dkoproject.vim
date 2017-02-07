@@ -104,6 +104,7 @@ endfunction
 function! dkoproject#GetRootByFileMarker(markers) abort
   let l:result = ''
   for l:marker in a:markers
+    " Try to use nearest first; findfile .; goes from current file upwards
     let l:filepath = findfile(l:marker, '.;')
     if empty(l:filepath)
       continue
@@ -132,6 +133,12 @@ endfunction
 " @param {String} filename
 " @return {String} full path to config file
 function! dkoproject#GetFile(filename) abort
+  " Try to use nearest first; findfile .; goes from current file upwards
+  let l:nearest = findfile(a:filename, '.;')
+  if !empty(l:nearest)
+    return fnamemodify(l:nearest, ':p')
+  endif
+
   if empty(dkoproject#GetRoot())
     return ''
   endif
@@ -162,15 +169,14 @@ let s:eslintrc_candidates = [
 " @TODO support package.json configs
 " @return {String} eslintrc filename
 function! dkoproject#GetEslintrc() abort
-  let l:result = ''
   for l:candidate in s:eslintrc_candidates
-    if empty(dkoproject#GetFile(l:candidate))
+    let l:result = dkoproject#GetFile(l:candidate)
+    if empty(l:result)
       continue
     endif
-    let l:result = l:candidate
+    return l:result
   endfor
-
-  return l:result
+  return ''
 endfunction
 
 " ============================================================================

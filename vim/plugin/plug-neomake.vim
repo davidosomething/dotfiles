@@ -102,6 +102,18 @@ function! s:PickJavascriptMakers() abort
           \   "v:val !~? 'eslint'"
           \ )
   endif
+
+  let l:eslint_maker = neomake#GetMaker('eslint', 'javascript')
+  let l:eslint_args = get(
+        \ g:, 'neomake_javascript_eslint_args',
+        \ l:eslint_maker.args)
+
+  " Use nearest config in current project if available
+  if !empty(dkoproject#GetEslintrc())
+    let b:neomake_javascript_eslint_args =
+          \ l:eslint_args + [ '-c', dkoproject#GetEslintrc() ]
+  endif
+
 endfunction
 
 " Use with my tern-lint fork
