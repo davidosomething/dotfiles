@@ -2,6 +2,11 @@
 
 ## Full generic setup, in order
 
+If there is user data on encrypted volumes other than the boot volume, they
+will not be mounted until a user has logged in. To remedy this, see
+[https://github.com/davidosomething/Unlock](jridgewell/Unlock) (forked to my
+GitHub for archival).
+
 ### Install App Store apps
 
 - `Amphetamine` - better than caffeine
