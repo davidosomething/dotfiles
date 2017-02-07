@@ -3,7 +3,7 @@
 if !dko#IsPlugged('vim-jsdoc') | finish | endif
 
 augroup dkovimjsdoc
-  autocmd FileType javascript *
+  autocmd FileType javascript
         \ nmap  <buffer><special>  <Leader>pd  <Plug>(jsdoc)
 augroup END
 
