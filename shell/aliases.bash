@@ -28,13 +28,15 @@ alias ezr="e \"\${ZDOTDIR}/.zshrc\""
 
 # git
 alias g="git"
-alias g-="git co -"
+alias g-="git checkout -"
 alias gb="git branch --verbose"
 alias gi="git ink"
 alias gg="git grep --line-number --break --heading"
-alias gl="git l"
+alias gl="git l --max-count 50"
+alias gll="git ll --max-count 50"
 alias gp="git push"
 alias gpo="git push origin"
+alias gs="git status"
 
 # greppers
 alias f='find'
@@ -44,11 +46,10 @@ alias rg='rg --hidden               --line-number  --no-ignore-vcs     --smart-c
 # also see gg in git
 
 # node
-alias bfy="browserify"
 alias n="npm"
-alias npmo="n outdated --long"
-alias nog="npmo --global"
-alias ncu="npmo"
+alias ns="npm start"
+alias nt="npm test"
+alias no="n outdated --long"
 alias nude="nvm use default"
 alias sme="source-map-explorer"
 
