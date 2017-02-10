@@ -47,10 +47,11 @@ alias rg='rg --hidden               --line-number  --no-ignore-vcs     --smart-c
 
 # node
 alias n="npm"
+alias no="n outdated --long"
 alias nr="n run --silent"
 alias ns="n start"
 alias nt="n test"
-alias no="n outdated --long"
+alias nu="n update"
 alias nude="nvm use default"
 alias sme="source-map-explorer"
 
