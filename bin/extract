@@ -11,19 +11,31 @@ __extract() {
   mkdir "$dir"
 
   case "$1" in
-    *.tar|*.tar.*)  tar -xf "$1" "$dir"    ;;
-    *.bz2)          bunzip2 "$1" "$dir"    ;;
-    *.rar)          rar x "$1" "$dir"      ;;
-    *.gz)           gunzip "$1" "$dir"     ;;
-    *.tbz2)         tar xvjf "$1" "$dir"   ;;
-    *.tgz)          tar xvzf "$1" "$dir"   ;;
-    *.zip)          unzip "$1" -d "$dir"   ;;
-    *.Z)            uncompress "$1" "$dir" ;;
-    *.7z)           7z x "$1" "$dir"       ;;
+
+    *.tar|*.tar.*)
+      # if the archive is already in a top directory, strip-components will
+      # get the contents of the directory only
+      tar -xf "$1" -C "$dir" --strip-components=1
+      ;;
+    *.tbz2)
+      tar xvjf "$1" -C "$dir" --strip-components=1
+      ;;
+    *.tgz)
+      tar xvzf "$1" -C "$dir" --strip-components=1
+      ;;
+
+    *.7z)  7z x "$1" "$dir"       ;;
+    *.bz2) bunzip2 "$1" "$dir"    ;;
+    *.gz)  gunzip "$1" "$dir"     ;;
+    *.rar) rar x "$1" "$dir"      ;;
+    *.Z)   uncompress "$1" "$dir" ;;
+    *.zip) unzip "$1" -d "$dir"   ;;
+
     *)
       echo "ERROR: Filetype not recognized for '$1'" >&2
       return 1
       ;;
+
   esac
 
   return 0
