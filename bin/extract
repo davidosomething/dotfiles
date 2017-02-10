@@ -3,24 +3,30 @@
 # Extract files based on suffix
 #
 
-function _fatal {
-    echo "$*" >&2
-    exit 1
+__extract() {
+  [ ! -f "$1" ] && echo "ERROR: $1 is not a valid file!" >&2 && return 0
+
+  local dir="${1%.*}"
+
+  mkdir "$dir"
+
+  case "$1" in
+    *.tar|*.tar.*)  tar -xf "$1" "$dir"    ;;
+    *.bz2)          bunzip2 "$1" "$dir"    ;;
+    *.rar)          rar x "$1" "$dir"      ;;
+    *.gz)           gunzip "$1" "$dir"     ;;
+    *.tbz2)         tar xvjf "$1" "$dir"   ;;
+    *.tgz)          tar xvzf "$1" "$dir"   ;;
+    *.zip)          unzip "$1" -d "$dir"   ;;
+    *.Z)            uncompress "$1" "$dir" ;;
+    *.7z)           7z x "$1" "$dir"       ;;
+    *)
+      echo "ERROR: Filetype not recognized for '$1'" >&2
+      return 1
+      ;;
+  esac
+
+  return 0
 }
 
-if [ -f "$1" ] ; then
-case $1 in
-        *.tar|*.tar.*)  tar -xf "$1"     ;;
-        *.bz2)          bunzip2 "$1"     ;;
-        *.rar)          rar x "$1"       ;;
-        *.gz)           gunzip "$1"      ;;
-        *.tbz2)         tar xvjf "$1"    ;;
-        *.tgz)          tar xvzf "$1"    ;;
-        *.zip)          unzip "$1"       ;;
-        *.Z)            uncompress "$1"  ;;
-        *.7z)           7z x "$1"        ;;
-        *)              _fatal "don't know how to extract '$1'..." ;;
-   esac
-else
-    _fatal "'$1' is not a valid file!"
-fi
+__extract "$@"
