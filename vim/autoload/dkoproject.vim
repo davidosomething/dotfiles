@@ -159,6 +159,29 @@ function! dkoproject#GetFile(filename) abort
   return ''
 endfunction
 
+" Get bin local to project
+"
+" @param {String} bin path relative to project root
+" @return {String}
+function! dkoproject#GetBin(bin) abort
+  if empty(a:bin)
+    return ''
+  endif
+
+  " Use cached
+  let l:bins = dko#InitDict('b:dkoproject_bin')
+  if !empty(get(l:bins, a:bin))
+    return l:bins[a:bin]
+  endif
+
+  let l:exe = dkoproject#GetFile(a:bin)
+  if !empty(l:exe) && executable(l:exe)
+    let l:bins[a:bin] = l:exe
+    return l:exe
+  endif
+  return ''
+endfunction
+
 let s:eslintrc_candidates = [
       \   '.eslintrc.js',
       \   '.eslintrc.yaml',
@@ -169,14 +192,8 @@ let s:eslintrc_candidates = [
 " @TODO support package.json configs
 " @return {String} eslintrc filename
 function! dkoproject#GetEslintrc() abort
-  for l:candidate in s:eslintrc_candidates
-    let l:result = dkoproject#GetFile(l:candidate)
-    if empty(l:result)
-      continue
-    endif
-    return l:result
-  endfor
-  return ''
+  let l:candidates = map(copy(s:eslintrc_candidates), 'dkoproject#GetFile(v:val)')
+  return call('dko#First', l:candidates)
 endfunction
 
 " ============================================================================

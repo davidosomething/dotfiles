@@ -16,6 +16,7 @@ lighthouse
 markdownlint-cli
 nativefier
 package-json-validator
+prettier-eslint-cli
 pwmetrics
 sass-lint
 source-map-explorer

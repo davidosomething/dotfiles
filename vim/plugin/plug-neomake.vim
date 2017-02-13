@@ -62,7 +62,7 @@ function! s:AddLocalMaker(settings) abort
   endif
 
   " Override maker's exe for this buffer?
-  let l:exe = dkoproject#GetFile(a:settings['exe'])
+  let l:exe = dkoproject#GetBin(get(a:settings, 'exe', ''))
   if !empty(l:exe) && executable(l:exe)
     let b:neomake_{a:settings['ft']}_{a:settings['maker']}_exe = l:exe
   endif
@@ -83,15 +83,6 @@ endfunction
 " Sets b:neomake_javascript_enabled_makers based on what is present in the
 " project
 function! s:PickJavascriptMakers() abort
-  " Enable ternlint if there's a .tern-project -- can just use the global
-  " tern-lint
-  " if dko#IsMakerExecutable('ternlint')
-  "       \ && !empty(dkoproject#GetFile('.tern-project'))
-  "   call add(
-  "         \ dko#InitList('b:neomake_javascript_enabled_makers'),
-  "         \ 'ternlint')
-  " endif
-
   " This project uses jshint instead of eslint, disable eslint
   if exists('b:neomake_javascript_enabled_makers')
         \ && dko#IsMakerExecutable('jshint')
@@ -113,26 +104,7 @@ function! s:PickJavascriptMakers() abort
     let b:neomake_javascript_eslint_args =
           \ l:eslint_args + [ '-c', dkoproject#GetEslintrc() ]
   endif
-
 endfunction
-
-" Use with my tern-lint fork
-" https://github.com/davidosomething/tern-lint/tree/format-vim
-" let s:tern_pattern = '\([^:]\+:\)\([^:]\+\)\(.*\)'
-" let s:tern_replace = '\=submatch(1) . byte2line(submatch(2)) . submatch(3) . " [tern-lint]"'
-" let s:tern_mapexpr = 'substitute('
-"       \.   'v:val, '
-"       \.   "'" . s:tern_pattern . "', "
-"       \.   "'" . s:tern_replace . "', "
-"       \.   "''"
-"       \. ')'
-" let g:neomake_javascript_ternlint_maker = {
-"       \   'exe':          'tern-lint',
-"       \   'args':         ['--format=vim'],
-"       \   'mapexpr':      s:tern_mapexpr,
-"       \   'errorformat':  '%f:%l: %trror: %m,'
-"       \                 . '%f:%l: %tarning: %m',
-"       \ }
 
 " Run these makers by default on :Neomake
 let g:neomake_javascript_enabled_makers =
@@ -158,13 +130,6 @@ let s:local_jshint = {
       \   'maker': 'jshint',
       \   'exe':   'node_modules/.bin/jshint',
       \ }
-
-" let s:local_ternlint = {
-"       \   'ft':    'javascript',
-"       \   'maker': 'ternlint',
-"       \   'exe':   'node_modules/.bin/tern-lint',
-"       \   'when':  '!empty(dkoproject#GetFile(''.tern-project''))',
-"       \ }
 
 autocmd dkoneomake FileType javascript
       \ call s:AddLocalMaker(s:local_eslint)
@@ -206,7 +171,7 @@ function! s:SetupMarkdownlint() abort
   let b:neomake_pandoc_markdownlint_args = l:maker.args
 
   " Use markdownlint in local node_modules/ if available
-  let l:bin = dkoproject#GetFile('node_modules/.bin/markdownlint')
+  let l:bin = 'node_modules/.bin/markdownlint'
   let l:maker.exe = !empty(l:bin) ? 'markdownlint' : l:bin
 
   " Bail if not installed either locally or globally
