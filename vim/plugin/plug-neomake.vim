@@ -63,7 +63,7 @@ function! s:AddLocalMaker(settings) abort
 
   " Override maker's exe for this buffer?
   let l:exe = dkoproject#GetBin(get(a:settings, 'exe', ''))
-  if !empty(l:exe) && executable(l:exe)
+  if !empty(l:exe)
     let b:neomake_{a:settings['ft']}_{a:settings['maker']}_exe = l:exe
   endif
 

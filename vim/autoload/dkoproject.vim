@@ -128,6 +128,31 @@ function! dkoproject#GetPaths() abort
         \ ))
 endfunction
 
+" Get full path to a dir in a dkoproject
+"
+" @param {String} dirname
+" @return {String} full path to dir
+function! dkoproject#GetDir(dirname) abort
+  if empty(dkoproject#GetRoot())
+    return ''
+  endif
+
+  for l:root in dkoproject#GetPaths()
+    let l:current =
+          \ expand(dkoproject#GetRoot() . '/' . l:root)
+
+    if !isdirectory(l:current)
+      continue
+    endif
+
+    if isdirectory(glob(l:current . a:dirname))
+      return l:current . a:dirname
+    endif
+  endfor
+
+  return ''
+endfunction
+
 " Get full path to a file in a dkoproject
 "
 " @param {String} filename
