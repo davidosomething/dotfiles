@@ -555,7 +555,7 @@ function! s:LoadPlugins()
   Plug 'dockyard/vim-easydir'
 
   if executable('ctags')
-    Plug 'ludovicchabant/vim-gutentags'
+    "Plug 'ludovicchabant/vim-gutentags'
     "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
   endif
 

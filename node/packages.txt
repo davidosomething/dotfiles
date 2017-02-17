@@ -3,7 +3,12 @@ coffee-script
 coffeelint
 eslint
 eslint-config-davidosomething
+eslint-plugin-chai-expect
+eslint-plugin-import
+eslint-plugin-import-resolver-node
 eslint-plugin-jsdoc
+eslint-plugin-mocha
+eslint-plugin-mocha-cleanup
 handlebars
 instant-markdown-d
 js-beautify
