@@ -153,6 +153,10 @@ endfunction
 
 " Enable pj commands for a buffer
 function! s:InitBuffer() abort
+  if (&buftype !=# '') || &diff || &previewwindow || exists('b:fugitive_type')
+    return
+  endif
+
   let b:PJ_file = pj#GetPackageJsonPath(
         \ get(g:, 'PJ_function', function('s:FindPackageJson'))
         \ )
