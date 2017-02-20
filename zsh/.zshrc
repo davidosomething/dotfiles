@@ -276,10 +276,6 @@ if [[ "$0" == *"zsh" ]]; then
   # go into menu mode on second tab (like current vim wildmenu setting)
   # only if there's more than two things to choose from
   zstyle ':completion:*' menu select=2
-  # shift-tab to select previous result
-  bindkey -M menuselect '^[[Z'  reverse-menu-complete
-  # fix prompt (and side-effect of exiting menuselect) on ^C
-  bindkey -M menuselect '^C'    reset-prompt
 
   # show descriptions for options
   zstyle ':completion:*' verbose yes
@@ -293,7 +289,8 @@ if [[ "$0" == *"zsh" ]]; then
   # --------------------------------------------------------------------------
 
   # use case-insensitive completion if case-sensitive generated no hits
-  zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+  zstyle ':completion:*' matcher-list \
+    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 
   # don't complete usernames
   zstyle ':completion:*' users ''
@@ -307,7 +304,7 @@ if [[ "$0" == *"zsh" ]]; then
 
   # expand completions as much as possible on tab
   # e.g. start expanding a path up to wherever it can be until error
-  zstyle ':completion:*' expand 'yes'
+  zstyle ':completion:*' expand yes
 
   # colorful kill command completion
   zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"

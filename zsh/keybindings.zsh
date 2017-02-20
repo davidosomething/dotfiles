@@ -22,6 +22,17 @@ unsetopt flowcontrol
 bindkey -v
 
 # ----------------------------------------------------------------------------
+# Completion with tab
+# Cancel and reset prompt with ctrl-c
+# ----------------------------------------------------------------------------
+
+# shift-tab to select previous result
+bindkey -M menuselect '^[[Z'  reverse-menu-complete
+
+# fix prompt (and side-effect of exiting menuselect) on ^C
+bindkey -M menuselect '^C'    reset-prompt
+
+# ----------------------------------------------------------------------------
 # Movement keys
 # ----------------------------------------------------------------------------
 
