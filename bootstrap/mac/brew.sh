@@ -107,6 +107,9 @@ brew install cloc
 # used by fzf grepper preview
 brew install highlight
 
+# ios dev
+brew install carthage
+
 brew install lua
 brew install mono
 brew install tidy-html5
