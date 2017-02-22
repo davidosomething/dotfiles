@@ -17,8 +17,12 @@
 
 --type-set=md=.markdown,.md,.mkd,.txt
 
+--ignore-dir=bundle
 --ignore-dir=bower_components
 --ignore-dir=log
 --ignore-dir=tmp
 --ignore-dir=node_modules
 --ignore-dir=assets/components
+
+--ignore-file=ext:log
+--ignore-file=is:tags
