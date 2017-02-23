@@ -7,7 +7,7 @@
 --type-set=sass=.sass,.scss
 --type-set=less=.less
 
---type-add=html=.ejs,.erb,.handlebars,.hbs,.html.erb,.html.slim,.html.haml,.jst,.mustache
+--type-add=html=.ejs,.erb,.handlebars,.hbs,.html.erb,.html.slim,.html.haml,.jst,.marko,.mustache,.twig
 
 --type-add=js=.bowerrc,.coffee,.js.erb,.jshintrc,.json
 
