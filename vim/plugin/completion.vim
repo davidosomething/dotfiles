@@ -6,6 +6,10 @@ set cpoptions&vim
 augroup dkocompletion
   autocmd!
   autocmd FileType php setlocal omnifunc=
+
+ " useful for filename completion relative to current buffer path
+  autocmd InsertEnter * let b:save_cwd = getcwd() | set autochdir
+  autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(b:save_cwd)
 augroup END
 
 " ============================================================================
