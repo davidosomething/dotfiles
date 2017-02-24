@@ -47,6 +47,7 @@ alias rg='rg --hidden               --line-number  --no-ignore-vcs     --smart-c
 
 # node
 alias n="npm"
+alias ni="n install"
 alias no="n outdated --long"
 alias nr="n run --silent"
 alias ns="n start"
