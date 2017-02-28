@@ -14,3 +14,5 @@ inoreabbrev targetted   targeted
 inoreabbrev targetting  targeting
 inoreabbrev targetter   targeter
 
+inoreabbrev removeable  removable
+
