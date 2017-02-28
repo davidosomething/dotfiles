@@ -638,7 +638,9 @@ function! s:LoadPlugins()
   " add gS to smart split lines like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
 
-  Plug 'neomake/neomake'
+  if exists('+signs')
+    Plug 'neomake/neomake'
+  endif
   "Plug '~/projects/neomake'
 
   Plug 'tyru/current-func-info.vim'
