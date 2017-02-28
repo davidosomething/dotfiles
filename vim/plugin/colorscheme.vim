@@ -23,7 +23,7 @@ if dko#IsPlugged('gruvbox')
     let g:gruvbox_termcolors = 16
   endif
   silent! colorscheme gruvbox
-  "set background=dark
+  set background=dark
 
 else
   silent! colorscheme darkblue
