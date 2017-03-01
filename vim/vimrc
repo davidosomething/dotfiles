@@ -546,6 +546,8 @@ function! s:LoadPlugins()
   Plug 'atelierbram/Base2Tone-vim'
   " Use in vim
   Plug 'morhetz/gruvbox'
+  " Low colors
+  Plug 'fxn/vim-monochrome'
 
   " ========================================================================
   " Plug: File system
@@ -563,6 +565,9 @@ function! s:LoadPlugins()
   " ========================================================================
   " Plug: Commands
   " ========================================================================
+
+  " in command mode, alt-f/b to go forward/back words
+  Plug 'vim-utils/vim-husk'
 
   if v:version >= 704 && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
     " This must be a g: variable to access with the Plug command
@@ -1106,19 +1111,25 @@ let s:dko_plug_absdir = g:dko#vim_dir . s:plug_dir
 let g:plug_window = 'tabnew'
 
 if s:use_plugins
+  let s:has_plug = !empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
   " Load vim-plug and its plugins?
-  if empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
-    execute 'silent !curl -fLo '
-          \ . g:dko#vim_dir . '/autoload/plug.vim '
-          \ . 'https://raw.githubusercontent.com/'
-          \ . 'junegunn/vim-plug/master/plug.vim'
+  if !s:has_plug
+    if executable('curl')
+      execute 'silent !curl -fLo '
+            \ . g:dko#vim_dir . '/autoload/plug.vim '
+            \ . 'https://raw.githubusercontent.com/'
+            \ . 'junegunn/vim-plug/master/plug.vim'
+      let s:has_plug = 1
+    endif
   endif
 
-  call plug#begin(s:dko_plug_absdir)
-    call s:LoadPlugins()
-    if !isdirectory(expand(s:dko_plug_absdir)) | PlugInstall
-    endif
-  call plug#end()
+  if s:has_plug
+    call plug#begin(s:dko_plug_absdir)
+      call s:LoadPlugins()
+      if !isdirectory(expand(s:dko_plug_absdir)) | PlugInstall
+      endif
+    call plug#end()
+  endif
 endif
 
 " ============================================================================
