@@ -313,8 +313,10 @@ if [[ "$0" == *"zsh" ]]; then
   zstyle ':completion:*:processes-names' command  'ps c -u ${USER} -o command | uniq'
 
   # SSH use hosts from ~/.ssh/config
-  hosts=($(egrep '^Host ' "$HOME/.ssh/config" | grep -v '*' | awk '{print $2}' ))
-  zstyle ':completion:*:hosts' hosts $hosts
+  [ -f "$HOME/.ssh/config ] && {
+    hosts=($(egrep '^Host ' "$HOME/.ssh/config" | grep -v '*' | awk '{print $2}' ))
+    zstyle ':completion:*:hosts' hosts $hosts
+  }
 fi
 
 # ============================================================================
