@@ -12,13 +12,13 @@ let g:neosnippet#snippets_directory = g:dko#vim_dir . '/snippets'
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#enable_conceal_markers = 0
 
-" Map honza/vim-snippets files to neosnippet's javascript set
 " The javascript.* set is included via 'javascript' but mocha is a separate
 " filetype
+" Using my own vim/snippets/dko-javascript-mocha instead of honza's
 let g:neosnippet#scope_aliases = {}
 let g:neosnippet#scope_aliases['javascript'] = join([
       \   'javascript',
-      \   'javascript-mocha',
+      \   'dko-javascript-mocha',
       \ ], ',')
 
 " Keybindings for snippet completion
