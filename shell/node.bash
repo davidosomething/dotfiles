@@ -21,6 +21,8 @@ dko::source "${NVM_DIR}/nvm.sh" && {
   export DKO_DEFAULT_NODE_VERSION
 }
 
+dko::has 'trash' && alias rm=trash
+
 # ==============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"

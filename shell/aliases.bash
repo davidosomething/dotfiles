@@ -4,6 +4,10 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases.bash"
 
+# safeguarding
+# @see {@link https://github.com/sindresorhus/guides/blob/master/how-not-to-rm-yourself.md#safeguard-rm}
+alias rm='rm -i'
+
 # paths and dirs
 alias ..="cd .."
 alias ....="cd ../.."
