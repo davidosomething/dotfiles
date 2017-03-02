@@ -82,6 +82,8 @@ brew install multitail
 
 brew install wget
 
+brew install wifi-password
+
 # better curl
 brew install curl --with-libressl
 brew link --force curl

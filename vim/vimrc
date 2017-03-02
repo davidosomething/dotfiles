@@ -576,6 +576,16 @@ function! s:LoadPlugins()
     "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
   endif
 
+  " ==========================================================================
+  " Plug: Buffer management commands
+  " ==========================================================================
+
+  " `:Bufferize messages` to get messages (or any :command) in a new buffer
+  Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
+
+  " :Bdelete to preserve windows
+  Plug 'moll/vim-bbye'
+
   " ========================================================================
   " Plug: Commands
   " ========================================================================
@@ -596,13 +606,7 @@ function! s:LoadPlugins()
     endif
   endif
 
-  " `:Bufferize messages` to get messages (or any :command) in a new buffer
-  Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
-
   Plug 'cocopon/colorswatch.vim', { 'on': ['ColorSwatchGenerate'] }
-
-  " :Bdelete to preserve windows
-  Plug 'moll/vim-bbye'
 
   " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer than
   " :Scriptnames)
