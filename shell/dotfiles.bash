@@ -44,7 +44,6 @@ __dko::dotfiles::usage() {
   macOS/OS X
     brew        -- homebrew packages
     mac         -- repair permissions and check software updates
-    macvim      -- install latest brew macvim
     neovim      -- install latest brew neovim/neovim on HEAD
 
   Development
@@ -435,7 +434,6 @@ __dko::dotfiles::linux::update() {
 __dko::dotfiles::darwin::update() {
   case "$1" in
     brew)   __dko::dotfiles::darwin::update_brew        ;;
-    macvim) __dko::dotfiles::darwin::update_brew_macvim ;;
     neovim) __dko::dotfiles::darwin::update_brew_neovim ;;
     mac)    __dko::dotfiles::darwin::update_mac         ;;
     all)    __dko::dotfiles::darwin::update_all         ;;
@@ -531,13 +529,10 @@ __dko::dotfiles::darwin::update_brew() {
     TERM="xterm-256color"
 
     # Detect if brew's python3 (not pyenv) was outdated
-    # Reinstall macvim (in another sub-shell) with new python3 if needed
     grep -q "python3" <<<"$outdated" \
       && dko::status "Python3 was outdated, upgrading python3" \
       && brew upgrade python3  \
-      && brew linkapps python3 \
-      && dko::status "Rebuilding macvim with new python3" \
-      && __dko::dotfiles::darwin::update_brew_macvim
+      && brew linkapps python3
 
     # Update neovim separately
     grep -q "neovim" <<<"$outdated" \
@@ -570,27 +565,6 @@ __dko::dotfiles::darwin::require_homebrew() {
     dko::err "Homebrew is not installed."
     exit 1
   }
-}
-
-__dko::dotfiles::darwin::update_brew_macvim() {
-  dko::status "Re-installing macvim via homebrew (brew update first to upgrade)"
-  (
-    __dko::dotfiles::darwin::require_homebrew
-
-    # enter dotfiles dir to do this in case user has any gem flags or local
-    # vendor bundle that will cause use of local gems
-    cd "$DOTFILES" \
-      || dko::err "Can't enter \$DOTFILES to run brew in clean environment" \
-      && exit 1
-
-    # CLEANROOM
-    __dko::dotfiles::pyenv_system
-    TERM=xterm-256color
-
-    brew reinstall macvim --with-lua --with-override-system-vim --with-python3 \
-      && dko::status "Linking new macvim.app" \
-      && brew linkapps macvim
-  )
 }
 
 __dko::dotfiles::darwin::update_brew_neovim() {

@@ -64,14 +64,6 @@ chsh -s /usr/local/bin/zsh
    start app -> Preferences -> Load preferences from custom folder, point to
    existing plist exports.
 
-### Install macvim
-
-```bash
-u macvim
-```
-
-1. Launch `vim` and let `vim-plug` install itself
-
 ### Install neovim
 
 1. Follow <https://github.com/neovim/homebrew-neovim> for HEAD. `u neovim` can

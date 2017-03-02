@@ -2,42 +2,42 @@
 # Prefer anon functions over arrow
 # @see {@link https://github.com/meteor/guide/issues/318}
 
-snippet  describe
+snippet  describe(
 abbr     describe('x', function () { ... })
 options  head
     describe('${1:}', function () {
       ${0}
     });
 
-snippet  it
+snippet  it(
 abbr     it('should x', function () { ... })
 options  head
     it('should ${1:}', function () {
       ${0}
     });
 
-snippet  before
+snippet  before(
 abbr     before(function () { ... })
 options  head
     before(function () {
       ${0}
     });
 
-snippet  after
+snippet  after(
 abbr     after(function () { ... })
 options  head
     after(function () {
       ${0}
     });
 
-snippet  beach
+snippet  beach(
 abbr     beforeEach(function () { ... })
 options  head
     beforeEach(function () {
       ${0}
     });
 
-snippet  aeach
+snippet  aeach(
 abbr     afterEach(function () { ... })
 options  head
     afterEach(function () {
