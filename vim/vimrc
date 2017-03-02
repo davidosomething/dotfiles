@@ -553,6 +553,7 @@ function! s:LoadPlugins()
   Plug 'morhetz/gruvbox'
   " Low colors
   Plug 'fxn/vim-monochrome'
+  Plug 'AlessandroYorba/Sidonia'
 
   " ========================================================================
   " Plug: File system
