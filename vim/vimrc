@@ -125,7 +125,10 @@ let g:mapleader = "\<Space>"
 set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
 set wildmode=list:longest,full        " Complete files using a menu AND list
-set wildignorecase
+
+if v:version >= 704
+  set wildignorecase
+endif
 
 " wildignore prevents things from showing up in cmd completion
 " It's for things you'd NEVER open in Vim, like caches and binary files
@@ -381,7 +384,9 @@ set shiftwidth=2                      " softtabs are 2 spaces for expandtab
 
 " Alignment tabs are two spaces, and never tabs. Negative means use same as
 " shiftwidth (so the 2 actually doesn't matter).
-set softtabstop=-2
+if v:version >= 704
+  set softtabstop=-2
+endif
 
 " real tabs render width. Applicable to HTML, PHP, anything using real tabs.
 " I.e., not applicable to JS.
@@ -556,7 +561,7 @@ function! s:LoadPlugins()
   " creates dir if new file in new dir
   Plug 'dockyard/vim-easydir'
 
-  if executable('ctags')
+  if v:version >= 704 && executable('ctags')
     Plug 'rafi/vim-gutentags', { 'branch': 'fix/globpath' }
     "Plug 'ludovicchabant/vim-gutentags'
     "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }

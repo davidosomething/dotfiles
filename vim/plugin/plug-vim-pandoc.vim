@@ -16,7 +16,18 @@ let g:pandoc#modules#enabled = [
       \   'keyboard',
       \   'toc',
       \   'spell',
-      \   'hypertext'
+      \   'hypertext',
+      \   'yaml',
+      \ ]
+
+" Only works in vim 7.4+, but I also just don't use them
+let g:pandoc#modules#disabled = [
+      \   'bibliographies',
+      \   'chdir',
+      \   'command',
+      \   'executors',
+      \   'folding',
+      \   'formatting',
       \ ]
 
 let g:pandoc#syntax#conceal#use = 0
