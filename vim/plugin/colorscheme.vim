@@ -13,7 +13,10 @@ if dko#IsPlugged('Base2Tone-vim')
   finish
 endif
 
-if dko#IsPlugged('gruvbox')
+if dko#IsPlugged('zazen')
+  silent! colorscheme zazen
+
+elseif dko#IsPlugged('gruvbox')
   let g:gruvbox_contrast_dark      = 'hard'
   let g:gruvbox_contrast_light     = 'hard'
   let g:gruvbox_italic             = 1

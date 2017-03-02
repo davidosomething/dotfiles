@@ -548,12 +548,20 @@ function! s:LoadPlugins()
   " ========================================================================
 
   " Use in nvim
-  Plug 'atelierbram/Base2Tone-vim'
-  " Use in vim
-  Plug 'morhetz/gruvbox'
-  " Low colors
+  if (has('nvim') || has('gui_running') || has('termguicolors'))
+    Plug 'atelierbram/Base2Tone-vim'
+    Plug 'AlessandroYorba/Sidonia'
+    Plug 'kristiandupont/shades-of-teal'
+  endif
+
+  " Black, grey, blue
   Plug 'fxn/vim-monochrome'
-  Plug 'AlessandroYorba/Sidonia'
+
+  " Gruvy
+  Plug 'morhetz/gruvbox'
+
+  " Grey, red
+  Plug 'zaki/zazen'
 
   " ========================================================================
   " Plug: File system
@@ -1071,7 +1079,9 @@ function! s:LoadPlugins()
   " @see https://github.com/haya14busa/incsearch.vim/issues/79
   " @see https://github.com/neovim/neovim/issues/3688
   " highlight partial matches as you type in search mode
-  Plug 'haya14busa/incsearch.vim'
+  if v:version >= 704
+    Plug 'haya14busa/incsearch.vim'
+  endif
 
   " Show (#/total results) when searching for a term
   " known echo issue if remapping [[ and ]], but I removed that map
