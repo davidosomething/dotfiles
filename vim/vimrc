@@ -621,7 +621,8 @@ function! s:LoadPlugins()
   Plug 'keith/investigate.vim'
 
   " Include completion, include tags
-  Plug 'Shougo/neoinclude.vim'
+  " slow...
+  "Plug 'Shougo/neoinclude.vim'
 
   Plug 'nathanaelkane/vim-indent-guides'
 
@@ -887,6 +888,10 @@ function! s:LoadPlugins()
     if has('nvim')
       " Configured in plugins/completion.vim
       Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
+
+      " Complete imports
+      " Plug 'neovim/node-host', { 'do': 'npm install' }
+      "       \| Plug 'billyvg/jsimport.nvim'
     endif
 
   else
