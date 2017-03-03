@@ -555,10 +555,10 @@ function! s:LoadPlugins()
   endif
 
   " Black, grey, blue
-  Plug 'fxn/vim-monochrome'
+  "Plug 'fxn/vim-monochrome'
 
   " Gruvy
-  Plug 'morhetz/gruvbox'
+  "Plug 'morhetz/gruvbox'
 
   " Grey, red
   Plug 'zaki/zazen'
@@ -577,18 +577,29 @@ function! s:LoadPlugins()
   endif
 
   " ==========================================================================
-  " Plug: Buffer management commands
+  " Plug: Vim debugging
   " ==========================================================================
 
-  " `:Bufferize messages` to get messages (or any :command) in a new buffer
-  Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
+  if !empty($DEBUG)
+    " `:Bufferize messages` to get messages (or any :command) in a new buffer
+    Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
 
-  " :Bdelete to preserve windows
-  Plug 'moll/vim-bbye'
+    Plug 'cocopon/colorswatch.vim', { 'on': ['ColorSwatchGenerate'] }
+
+    " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer than
+    " :Scriptnames)
+    Plug 'tpope/vim-scriptease'
+
+    " Show slow plugins
+    Plug 'tweekmonster/startuptime.vim'
+  endif
 
   " ========================================================================
   " Plug: Commands
   " ========================================================================
+
+  " :Bdelete to preserve windows
+  Plug 'moll/vim-bbye'
 
   " in command mode, alt-f/b to go forward/back words
   Plug 'vim-utils/vim-husk'
@@ -605,12 +616,6 @@ function! s:LoadPlugins()
             \| Plug 'junegunn/fzf.vim'
     endif
   endif
-
-  Plug 'cocopon/colorswatch.vim', { 'on': ['ColorSwatchGenerate'] }
-
-  " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer than
-  " :Scriptnames)
-  Plug 'tpope/vim-scriptease'
 
   " gK to lookup
   Plug 'keith/investigate.vim'
