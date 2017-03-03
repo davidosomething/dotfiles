@@ -580,7 +580,7 @@ function! s:LoadPlugins()
   " Plug: Vim debugging
   " ==========================================================================
 
-  if !empty($DEBUG)
+  if !empty($VIMDEBUG)
     " `:Bufferize messages` to get messages (or any :command) in a new buffer
     Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
 
