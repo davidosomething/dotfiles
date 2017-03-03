@@ -75,7 +75,6 @@ brew link --force curl
 brew install htop --with-ncurses
 
 brew install multitail
-brew install ngrok
 brew install nmap
 brew install ssh-copy-id
 brew install wget
