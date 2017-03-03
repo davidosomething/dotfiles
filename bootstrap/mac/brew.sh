@@ -68,25 +68,24 @@ brew install openssl
 #brew install keychain
 # ----------------------------------------------------------------------------
 
+# better curl
+brew install curl --with-libressl
+brew link --force curl
+
 brew install htop --with-ncurses
 
+brew install multitail
+brew install ngrok
 brew install nmap
 brew install ssh-copy-id
-brew install multitail
+brew install wget
+brew install wifi-password
 
 # Use the `gpgtools` cask instead (it also provides cli `gpg` and
 # `gpg-agent`). It provides a nicer gui prefpane and automatic integration
 # without having to configure all this stuff.
 #brew install gnupg2
 #brew install gpg-agent pinentry-mac
-
-brew install wget
-
-brew install wifi-password
-
-# better curl
-brew install curl --with-libressl
-brew link --force curl
 
 # ============================================================================
 # pretty print and processor
