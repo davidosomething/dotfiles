@@ -76,6 +76,15 @@ alias be="bundle exec"
 alias bun="bundle"
 alias cap="bundle exec cap"
 
+# sudo ops
+alias mine="sudo chown -R \"\$USER\""
+alias root="sudo -s"
+alias se="sudo -e"
+
+# tmux
+alias tmux="tmux -f \"\${DOTFILES}/tmux/tmux.conf\""
+alias ta="tmux attach"
+
 # rest of bins
 alias archey="archey --offline"
 alias cb="cdbk"
@@ -87,7 +96,6 @@ alias neofetch="neofetch --image ~/Dropbox/_avatars/trafalgarlaw_W.png --size 24
 alias o='dko-open'
 alias publicip='\curl icanhazip.com'
 alias rsync='rsync --human-readable --partial --progress'
-alias tmux="tmux -f \"\${DOTFILES}/tmux/tmux.conf\""
 alias t="tree -a --noreport --dirsfirst -I '.git|node_modules|bower_components|.DS_Store'"
 alias today='date +%Y-%m-%d'
 alias tpr="tput reset"                # really clear the scrollback
@@ -98,11 +106,6 @@ alias vbm="VBoxManage"
 alias weechat="weechat -d \"\${DOTFILES}/weechat\""
 alias wget="wget --no-check-certificate --hsts-file=\"\${XDG_DATA_HOME}/wget/.wget-hsts\""
 alias xit="exit" # dammit
-
-# sudo ops
-alias mine="sudo chown -R \"\$USER\""
-alias root="sudo -s"
-alias se="sudo -e"
 
 # ============================================================================
 
