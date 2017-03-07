@@ -1,13 +1,39 @@
+; ==============================================================================
+; Conventional changelog format
+; @see {@link https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y}
+; ==============================================================================
+
+; REQUIRED <HEADER> <type>(scope): lowercase present tense subject no period
+;feat(pencil): add 'graphiteWidth' option
+;fix(graphite): stop graphite breaking when width < 0.1
+;perf(pencil): remove graphiteWidth option
+;docs()
+;chore()
+;refactor()
+;test()
+;revert: feat(pencil): add 'graphiteWidth' option
+
+; OPTIONAL <BODY> present tense body
+
+; OPTIONAL <FOOTER>
+;Closes #28
+;BREAKING CHANGE: The graphiteWidth option has been removed. ...
+;This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
+
+; ==============================================================================
+; Long changelog format
+; ==============================================================================
+
 ; Purpose (50 char max), e.g.: -----------------|
 ; Performance improvements by refactoring XYZ...
 
-; Long description ...
-
-#### Changelog ####
+;#### Changelog ####
 
 ;- ADDED:   New tracking module
 ;- CHANGED: Unwrap loop
 ;- FIXED:   Missing variable declaration
 ;- REMOVED: Old tracking module
+
+; ==============================================================================
 
 ; vim: ft=gitcommit :
