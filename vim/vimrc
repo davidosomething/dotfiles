@@ -765,7 +765,7 @@ function! s:LoadPlugins()
                 \   { 'for': [ 'javascript' ] }
                 \| Plug 'kentaro/vim-textobj-function-php', { 'for': [ 'php' ] }
 
-  Plug 'terryma/vim-expand-region'
+  "Plug 'terryma/vim-expand-region'
 
   " HR with <Leader>f[CHAR]
   Plug g:dko#vim_dir . '/mine/vim-hr'
