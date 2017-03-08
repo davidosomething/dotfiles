@@ -6,6 +6,16 @@
 #
 
 # ============================================================================
+# nocorrect aliases
+# These may be re-aliased later (e.g. rm=trash from trash-cli node module)
+# ============================================================================
+
+alias cp="nocorrect cp"
+alias mv="nocorrect mv"
+alias rm="nocorrect rm"
+alias mkdir="nocorrect mkdir"
+
+# ============================================================================
 # Before
 # ============================================================================
 
@@ -65,16 +75,6 @@ setopt INTERACTIVE_COMMENTS           # allow comments in shell
 # Zle
 setopt NO_BEEP
 setopt VI
-
-# ============================================================================
-# nocorrect aliases
-# These may be re-aliased later
-# ============================================================================
-
-alias cp="nocorrect cp"
-alias mv="nocorrect mv"
-alias rm="nocorrect rm"
-alias mkdir="nocorrect mkdir"
 
 # ============================================================================
 # fpath and manpath
