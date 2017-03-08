@@ -570,11 +570,11 @@ function! s:LoadPlugins()
   " creates dir if new file in new dir
   Plug 'dockyard/vim-easydir'
 
-  if v:version >= 704 && executable('ctags')
-    Plug 'rafi/vim-gutentags', { 'branch': 'fix/globpath' }
+  " if v:version >= 704 && executable('ctags')
+    "Plug 'rafi/vim-gutentags', { 'branch': 'fix/globpath' }
     "Plug 'ludovicchabant/vim-gutentags'
     "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
-  endif
+  " endif
 
   " ==========================================================================
   " Plug: Vim debugging
