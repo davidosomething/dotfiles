@@ -67,6 +67,16 @@ setopt NO_BEEP
 setopt VI
 
 # ============================================================================
+# nocorrect aliases
+# These may be re-aliased later
+# ============================================================================
+
+alias cp="nocorrect cp"
+alias mv="nocorrect mv"
+alias rm="nocorrect rm"
+alias mkdir="nocorrect mkdir"
+
+# ============================================================================
 # fpath and manpath
 # ============================================================================
 
@@ -215,15 +225,6 @@ dko::source "${HOME}/.fzf.zsh" && export DKO_SOURCE="${DKO_SOURCE} -> fzf"
 # ============================================================================
 
 . "${ZDOTDIR}/keybindings.zsh"
-
-# ============================================================================
-# nocorrect aliases
-# ============================================================================
-
-alias cp="nocorrect cp"
-alias mv="nocorrect mv"
-alias rm="nocorrect rm"
-alias mkdir="nocorrect mkdir"
 
 # ============================================================================
 # hooks
