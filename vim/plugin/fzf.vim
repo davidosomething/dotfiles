@@ -109,7 +109,7 @@ command! -nargs=* FZFRelevant call fzf#run(fzf#wrap('Relevant',
       \   fzf#vim#with_preview(extend({
       \     'dir':      s:GetRoot(),
       \     'source':   s:GetFzfRelevantSource(<f-args>),
-      \     'options':  s:options . ' --prompt="Relevant> "',
+      \     'options':  s:options . ' --prompt="Rel> "',
       \   }, g:fzf_layout), 'right:50%')
       \ ))
 
@@ -166,9 +166,9 @@ command! FZFMRU
 
 " @return {List} test spec files
 function! s:GetFzfSpecsSource() abort
-  " Want these recomputed every time in case files are added/removed
-  let l:specs = globpath(dkoproject#GetDir('tests') . '/**/*.vim', 0, 1)
-  return dko#ShortPaths(l:specs)
+  let l:glob = globpath(dkoproject#GetDir('tests'), '**/*.*', 0, 1)
+  let l:filtered = filter(l:glob, "v:val !~# 'node_modules'")
+  return dko#ShortPaths(l:filtered)
 endfunction
 
 command! FZFSpecs
@@ -271,5 +271,6 @@ execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFProject' })
 execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
 execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
 execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors!' })
+execute dko#MapAll({ 'key': '<C-s>', 'command': 'FZFSpecs' })
 map   <special>   <Leader>b   :<C-U>FZFBuffers<CR>
 
