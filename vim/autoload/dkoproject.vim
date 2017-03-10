@@ -39,6 +39,10 @@ let s:default_markers = [
       \   'Gemfile',
       \ ]
 
+" ============================================================================
+" Project root resolution
+" ============================================================================
+
 " Find git root of current file, set to buffer var
 "
 " @param {String} [file]

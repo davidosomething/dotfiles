@@ -14,6 +14,11 @@ function! s:GetRoot() abort
   return dkoproject#GetRoot()
 endfunction
 
+" @return {String} test specs dir
+function! s:GetSpecs() abort
+  return dkoproject#GetDir('tests')
+endfunction
+
 " ============================================================================
 " fzf.vim Settings
 " ============================================================================
@@ -152,6 +157,26 @@ command! FZFMRU
       \   fzf#vim#with_preview(extend({
       \     'source':  s:GetFzfMruSource(),
       \     'options': s:options . ' --no-sort --prompt="MRU> "',
+      \   }, g:fzf_layout), 'right:50%')
+      \ ))
+
+" ----------------------------------------------------------------------------
+" Test specs
+" ----------------------------------------------------------------------------
+
+" @return {List} test spec files
+function! s:GetFzfSpecsSource() abort
+  " Want these recomputed every time in case files are added/removed
+  let l:specs = globpath(dkoproject#GetDir('tests') . '/**/*.vim', 0, 1)
+  return dko#ShortPaths(l:specs)
+endfunction
+
+command! FZFSpecs
+      \ call fzf#run(fzf#wrap('Specs',
+      \   fzf#vim#with_preview(extend({
+      \     'dir':      s:GetRoot(),
+      \     'source':   s:GetFzfSpecsSource(),
+      \     'options':  s:options . ' --prompt="Specs> "',
       \   }, g:fzf_layout), 'right:50%')
       \ ))
 

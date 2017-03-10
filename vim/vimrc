@@ -495,11 +495,6 @@ let g:is_bash = 1
 " disable mzscheme, tcl highlighting
 let g:vimsyn_embed = 'lpPr'
 
-" ============================================================================
-" Multi-file projects
-" This has to run super early
-" ============================================================================
-
 augroup dkoproject
   autocmd!
 

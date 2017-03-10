@@ -137,7 +137,7 @@ See `plugin/mappings.vim` (and other `plugin/*` files) for other mappings.
 Plan to remap these at some point
 
 - `n <C-b>` -- backward one screen (page)
-- `n <C-f>` -- foreward one screen (page)
+- `n <C-f>` -- forward one screen (page)
 - `n <C-g>` -- show file status (everything's already in statusline)
 - `n <C-s>` -- nothing (terminal XOFF)
 - `n zh/l`  -- useless wrap mode scroll
