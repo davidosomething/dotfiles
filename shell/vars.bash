@@ -94,7 +94,7 @@ export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
 # go
 # used in shell/paths
-export GOPATH="${HOME}/go"
+export GOPATH="${HOME}/.local/go"
 
 # homebrew
 export HOMEBREW_NO_ANALYTICS=1
