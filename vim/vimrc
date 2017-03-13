@@ -665,8 +665,8 @@ function! s:LoadPlugins()
 
   if has('nvim')
     Plug 'neomake/neomake'
+    "Plug '~/projects/neomake'
   endif
-  "Plug '~/projects/neomake'
 
   Plug 'tyru/current-func-info.vim'
   "Plug 'davidosomething/current-func-info.vim', { 'branch': 'javascript' }
