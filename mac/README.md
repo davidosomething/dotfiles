@@ -20,12 +20,12 @@ GitHub for archival).
 
 ### Install git from brew
 
-See `bootstrap/mac/brew.sh`
+See `bootstrap/mac/brew`
 
 ### Setup ssh keys
 
 1. Upgrade to a more recent OpenSSH -- the one that comes with macOS is
-  outdated. See brew.sh, install:
+  outdated.
     - `openssh`
     - `keychain`
 1. `ssh-keygen` for the new system
@@ -35,14 +35,14 @@ See `bootstrap/mac/brew.sh`
 ### Install dotfiles
 
 1. `git clone` for `~/.dotfiles/`
-1. `~/.dotfiles/bootstrap/symlink.sh`
+1. `~/.dotfiles/bootstrap/symlink`
 1. `~/.dotfiles/mac/defaults` -- set apple defaults and fix some issues like
    zsh startup
 1. `git clone` for `~/.secrets` and link as needed
 
 ### Install zsh and set as default
 
-```bash
+```sh
 brew install zsh
 chsh -s /usr/local/bin/zsh
 ```
@@ -55,7 +55,7 @@ chsh -s /usr/local/bin/zsh
 ### Install iterm2 from brew
 
 1. Install `iterm2-beta`, which is technically iterm3:
-    ```bash
+    ```sh
     brew tap caskroom/versions
     brew cask install iterm2-beta
     ```
@@ -88,7 +88,7 @@ can all be installed via brew).
 
 ### Install from brew
 
-Install packages from [bootstrap/mac/brew.sh](../bootstrap/mac/brew.sh) as
+Install packages from [bootstrap/mac/brew](../bootstrap/mac/brew) as
 desired. Some things may already be installed (e.g. should have installed
 openssh already).
 
@@ -109,7 +109,7 @@ openssh already).
     - Load blocklist `http://john.bitsurge.net/public/biglist.p2p.gz`
 
 Install the rest of the packages from
-[bootstrap/mac/cask.sh](../bootstrap/mac/cask.sh) as desired.
+[bootstrap/mac/cask](../bootstrap/mac/cask) as desired.
 
 ### Install development tools
 
@@ -121,12 +121,12 @@ Make sure the other packages above are installed since after you start using
     1. `ruby-install ruby` to install latest
     1. `chruby` to that version
     1. Install gems using
-       [ruby/install-default-gems.sh](../ruby/install-default-gems.sh)
+       [ruby/install-default-gems](../ruby/install-default-gems)
 - Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
   consequently `npm`)
     1. Use nvm managed node
-    1. Install the default packages using [node/install.sh](../node/install.sh)
+    1. Install the default packages using [node/install](../node/install)
 - Install `pyenv` using `pyenv-installer` (rm `~/.local/pyenv` directory for
   clean install) and make sure to use the libs provided by `brew openssl`
     1. `brew install openssl`
@@ -138,7 +138,7 @@ Make sure the other packages above are installed since after you start using
         1. `pyenv virtualenv 2.7.12 neovim2`
         1. `pyenv activate neovim2`
         1. `pip install neovim`
-- run [bootstrap/terminfo.sh](../bootstrap/terminfo.sh) (added terminfo for iterm with italics support)
+- run [bootstrap/terminfo](../bootstrap/terminfo) (added terminfo for iterm with italics support)
 - Install `gpgtools` from `brew cask` (it provides `gpg-agent` and can store
   passphrase in keychain with minimal work)
     - Import keybase public/private keys into gpg using the pref pane.

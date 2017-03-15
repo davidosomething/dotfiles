@@ -17,18 +17,18 @@ I am using [termite](https://github.com/thestinger/termite) for now. See the
 Terminator and urxvt are good as well, and there are configs for those. All
 of the terminal emulators are setup to use the base16-twilight-dark theme, and
 probably need `terminfo` installed. Run the bootstrap scripts
-[../bootstrap/termite.sh](../bootstrap/termite.sh) or
-[../bootstrap/urxvt.sh](../bootstrap/urxvt.sh) to get those installed.
+[../bootstrap/termite](../bootstrap/termite) or
+[../bootstrap/urxvt](../bootstrap/urxvt) to get those installed.
 
 ## Other bootstrapping scripts
 
-### ../bootstrap/linux/gsettings.sh
+### ../bootstrap/linux/gsettings
 
 This flips some gnome shell settings I like.
 
 ### Deprecated
 
-#### ../bootstrap/linux/thunar.sh
+#### ../bootstrap/linux/thunar
 
 This flips some thunar settings I like. Only used in Openbox desktop so
 probably not up to date.
