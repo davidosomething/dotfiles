@@ -3,13 +3,13 @@
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
 - macOS/OS X, Arch Linux, and Debian compatible
-- XDG compliance wherever possible to keep `$HOME` clean
+- [XDG] compliance wherever possible to keep `$HOME` clean
     - See [Archlinux wiki for XDG Base Directory Support]
     - See [Debian DotFilesList]
     - See [grawity's dotfile notes] and [environ notes]
 - ZSH and BASH configs
 - VIM and Neovim configs
-- RC files for lua, markdown, node, php, python, r, ruby, shell
+- RC files for Lua, markdown, node, PHP, python, R, ruby, and others
 
 ![terminal screenshot][screenshot]
 > Screenshot of my zsh prompt
@@ -25,13 +25,8 @@ git clone --recurse-submodules https://github.com/davidosomething/dotfiles ~/.do
 ~/.dotfiles/bootstrap/symlink
 ```
 
-You may need to run the cleanup script if you currently have a `.bashrc` or
-other dotfiles (e.g. defaults) in your `$HOME`.
-
-```sh
-~/.dotfiles/bootstrap/cleanup
-````
-
+(WIP) After symlinking, `~/.dotfiles/bootstrap/cleanup` can be used to clean up
+pre-existing dotfiles that might conflict with these.
 
 ### Post-Installation
 
@@ -42,9 +37,9 @@ other dotfiles (e.g. defaults) in your `$HOME`.
   `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
 - Install and use [Fira (Fura) Mono for Powerline] font (install
   to `${XDG_DATA_HOME}/fonts` on \*nix)
-- Install zsh and change default shell to it (ensure listed in `/etc/shells`)
-  and restart shell (zplug will self-install)
-- See OS specific notes in [mac/README.md](mac/README.md) and for linux
+- Install ZSH and set it as the default (make sure it is available in
+  `/etc/shells`); restart the terminal and zplug will self-install
+- See OS specific notes in [mac/README.md](mac/README.md) and
   [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 - Chrome extensions I use are listed in
   [chromium/README.md](chromium/README.md)
@@ -54,14 +49,15 @@ other dotfiles (e.g. defaults) in your `$HOME`.
 Install these using the system package manager. For macOS/OS X there are helper
 scripts.
 
-- `chruby`, `ruby-install`, then use ruby-install to install a version of ruby
+- `chruby`, `ruby-install`, then use `ruby-install` to install a version of
+  ruby (preferably latest)
 - Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
   `npm install --global npm@latest`)
 - `php`, `composer`, use composer to install `wp-cli`
-- Use [pyenv-installer] for `pyenv`, `pyenv-virtualenv`, then create a new env
+- Use [pyenv-installer] for [pyenv], [pyenv-virtualenv], then create a new env
   with a new python/pip.
-    - Remove `~/.local/pyenv` if it exists prior to installing `pyenv` via
+    - Remove `~/.local/pyenv` if it exists prior to installing [pyenv] via
       [pyenv-installer] (e.g. had installed it via `brew` by accident)
     - Create virtualenvs for neovim.
 
@@ -79,8 +75,9 @@ Environment set up first.
 - `npm/install` install default packages, requires you set up nvm and
   install node first
 - `ruby/install-default-gems` requires you set up chruby and install a ruby
-  first
-- `python/install` requires you set up pyenv. Install default pip packages
+  first.
+- `python/install` installs default pip packages. Requires [pyenv] already set
+  up,
 
 ## Updating
 
@@ -102,9 +99,12 @@ Use `u` without arguments for usage.
       also reflected in a custom Vim highlighting syntax in
       `vim/after/syntax/gitcommit.vim`.
 - `python/`
-    - Never `sudo pip`. Set up a pyenv, and use a pyenv-virtualenv (which will
-      delegate to `pyvenv`) if doing project specific stuff, and pip install
-      into that userspace pyenv or virtualenv.
+    - Never `sudo pip`. Set up a [pyenv], and use a [pyenv-virtualenv] (which
+      will delegate to `pyvenv`) if doing project specific stuff, and
+      `pip install` into that userspace [pyenv] or virtualenv.
+- `ruby/`
+    - Never `sudo gem`. Set up a [chruby] env first, and then you can install
+      gems into the userspace local to the active ruby env.
 - `vim/`
     - If `curl` is installed, [vim-plug](https://github.com/junegunn/vim-plug)
       will be downloaded and plugins will install on run. See
@@ -112,9 +112,9 @@ Use `u` without arguments for usage.
 
 ### rc script source order
 
-`echo $DKO_SOURCE` to see what files were loaded to get to the current shell
-state. If you have node installed, the `dko-sourced`
-([bin/dko-sourced](bin/dko-sourced)) command has better output formatting.
+If you have node installed, the `dko-sourced`
+([bin/dko-sourced](bin/dko-sourced)) command will show you (not exhaustively)
+the order scripts are sourced. Without node `echo $DKO_SOURCE` works.
 
 For X apps (no terminal) the value is probably:
 
@@ -152,13 +152,16 @@ For X apps (no terminal) the value is probably:
 
 > _Logo from [jglovier/dotfiles-logo]_
 
-[screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/master/meta/terminal-potatopro.png
 [Archlinux wiki for XDG Base Directory Support]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
-[grawity's dotfile notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
-[environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
 [Debian DotFilesList]: https://wiki.debian.org/DotFilesList
 [Fira (Fura) Mono for Powerline]: https://github.com/powerline/fonts
-[pyenv-installer]: https://github.com/yyuu/pyenv-installer
-[jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
+[XDG]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+[chruby]: https://github.com/postmodern/chruby
+[environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
 [google shell style]: https://google.github.io/styleguide/shell.xml
-
+[grawity's dotfile notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
+[jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
+[pyenv-installer]: https://github.com/yyuu/pyenv-installer
+[pyenv-virtualenv]: https://github.com/pyenv/pyenv-virtualenv
+[pyenv]: https://github.com/pyenv/pyenv
+[screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/master/meta/terminal-potatopro.png
