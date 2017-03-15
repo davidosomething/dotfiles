@@ -43,6 +43,8 @@ pre-existing dotfiles that might conflict with these.
   [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 - Chrome extensions I use are listed in
   [chromium/README.md](chromium/README.md)
+- If node is set up and packages installed, [trash-cli] is used in place of
+  `rm`
 
 #### Dev environment setup
 
@@ -165,3 +167,4 @@ For X apps (no terminal) the value is probably:
 [pyenv-virtualenv]: https://github.com/pyenv/pyenv-virtualenv
 [pyenv]: https://github.com/pyenv/pyenv
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/master/meta/terminal-potatopro.png
+[trash-cli]: https://github.com/sindresorhus/trash-cli
