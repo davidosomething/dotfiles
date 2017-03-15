@@ -211,6 +211,7 @@ function! dkoproject#GetBin(bin) abort
   return ''
 endfunction
 
+" Ordered by preference
 let s:eslintrc_candidates = [
       \   '.eslintrc.js',
       \   '.eslintrc.yaml',
@@ -218,6 +219,8 @@ let s:eslintrc_candidates = [
       \   '.eslintrc.json',
       \   '.eslintrc',
       \ ]
+" GetFile looks upwards from current file first, then into project roots
+" for eslintrc_candidates in order
 " @TODO support package.json configs
 " @return {String} eslintrc filename
 function! dkoproject#GetEslintrc() abort
