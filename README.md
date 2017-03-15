@@ -20,16 +20,24 @@ _For mac, see full install details in [mac/README.md](mac/README.md)._
 
 Clone and run the symlink script:
 
-```bash
-git clone --recurse-submodules https://git.io/vg0hV ~/.dotfiles
-~/.dotfiles/bootstrap/symlink.sh
+```sh
+git clone --recurse-submodules https://github.com/davidosomething/dotfiles ~/.dotfiles
+~/.dotfiles/bootstrap/symlink
 ```
+
+You may need to run the cleanup script if you currently have a `.bashrc` or
+other dotfiles (e.g. defaults) in your `$HOME`.
+
+```sh
+~/.dotfiles/bootstrap/cleanup
+````
+
 
 ### Post-Installation
 
 #### Recommended steps
 
-- Create XDG child directories (run `bootstrap/xdg.sh`). The base directories
+- Create XDG child directories (run `bootstrap/xdg`). The base directories
   are probably already initialized by
   `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
 - Install and use [Fira (Fura) Mono for Powerline] font (install
@@ -62,17 +70,17 @@ scripts.
 These will assist in installing packages and dotfiles. Best to have the
 Environment set up first.
 
-- `bootstrap/cleanup.sh` moves some dotfiles into their XDG Base Directory
+- `bootstrap/cleanup` moves some dotfiles into their XDG Base Directory
   supported directories
-- `bootstrap/symlink.sh` symlinks rc files for bash, zsh, ack, (neo)vim, etc.
-- `bootstrap/terminfo.sh` will copy/compile terminfo files for user to
+- `bootstrap/symlink` symlinks rc files for bash, zsh, ack, (neo)vim, etc.
+- `bootstrap/terminfo` will copy/compile terminfo files for user to
   `~/.terminfo/*`
-- `bootstrap/x11.sh` symlinks `.xbindkeysrc`, `.xprofile`
-- `npm/install.sh` install default packages, requires you set up nvm and
+- `bootstrap/x11` symlinks `.xbindkeysrc`, `.xprofile`
+- `npm/install` install default packages, requires you set up nvm and
   install node first
-- `ruby/install-default-gems.sh` requires you set up chruby and install a ruby
+- `ruby/install-default-gems` requires you set up chruby and install a ruby
   first
-- `python/install.sh` requires you set up pyenv. Install default pip packages
+- `python/install` requires you set up pyenv. Install default pip packages
 
 ## Updating
 
