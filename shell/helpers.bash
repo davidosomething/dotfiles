@@ -65,6 +65,15 @@ dko::symlink() {
   local homefilepath="${HOME}/${homefile}"
 
   dko::status "Symlinking \033[0;35m${homefile}\033[0;32m -> \033[0;35m${dotfile}\033[0;32m "
+
+  if [ -f "$homefilepath" ]; then
+    read -p "    ${homefilepath} exists, overwrite? [y/N] " -r
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      dko::warn "Skipped ${homefilepath}"
+      return
+    fi
+  fi
+
   mkdir -p "$(dirname "$homefilepath")"
   ln -fns "$dotfile" "$homefilepath"
 }
