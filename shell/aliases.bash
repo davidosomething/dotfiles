@@ -15,7 +15,7 @@ alias cd..="cd .."
 alias cdd="cd \"\${DOTFILES}\""
 alias cdv="cd \"\${VIM_DOTFILES}\""
 alias dirs="dirs -v"                  # default to vert, use -l for list
-alias tree="tree -C"
+alias tree="tree -CF"
 
 # cat
 alias pyg="pygmentize -O style=rrt -f console256 -g"
