@@ -38,7 +38,7 @@ __dko_prompt_left_parts+=('%m')
 __dko_prompt_left_colors+=('%F{blue}')
 __dko_prompt_left_parts+=(':')
 __dko_prompt_left_colors+=('%F{yellow}')
-__dko_prompt_left_parts+=('%~ ')
+__dko_prompt_left_parts+=('%~')
 
 __dko_prompt_right_colors=()
 __dko_prompt_right_parts=()
@@ -74,8 +74,8 @@ dko::has "chruby" && {
 # ============================================================================
 
 __dko::prompt::precmd::state() {
-  local left_raw="${(%j::)__dko_prompt_left_parts}"
-  local right_raw="[${(ej::)__dko_prompt_right_parts}]"
+  local left_raw="${(%j::)__dko_prompt_left_parts} "
+  local right_raw=" ${(ej::)__dko_prompt_right_parts}"
   # $COLUMNS is not always right on iterm so use modern tput
   local spaces=$(($(tput cols) - ${#left_raw} - ${#right_raw}))
 
@@ -83,10 +83,11 @@ __dko::prompt::precmd::state() {
   for (( i = 1; i <= ${#__dko_prompt_left_parts}; i++ )) do
     left="${left}${(%)__dko_prompt_left_colors[i]}${(%)__dko_prompt_left_parts[i]}"
   done
+  left="${left} "
 
   # Right side if has room
   if [[ $spaces -gt 1 ]]; then
-    local right=''
+    local right=' '
     for (( i = 1; i <= ${#__dko_prompt_right_parts}; i++ )) do
       right="${right}${(%)__dko_prompt_right_colors[i]}${(e)__dko_prompt_right_parts[i]}"
     done
@@ -96,7 +97,7 @@ __dko::prompt::precmd::state() {
   if [ "$DKO_PROMPT_IS_TRAPPED" -eq "1" ]; then
     export DKO_PROMPT_IS_TRAPPED=0
   else
-    print -P "${left}%F{black}${(l:spaces-2::═:)} %F{blue}[${(e)right}%F{blue}]"
+    print -P "${left}%F{black}${(l:spaces-1::═:)}%F{blue}${(e)right}%F{blue}"
   fi
 }
 add-zsh-hook precmd __dko::prompt::precmd::state
