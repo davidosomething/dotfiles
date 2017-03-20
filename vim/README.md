@@ -9,15 +9,14 @@
 
 - Custom statusline with minimal junk, showing short cwd - much faster than
   airline
-- Custom tabline is used to show function signature (PHP, Python, Ruby, VimL,
-  and a few others supported via [tyru/current-func-info.vim], and I added
-  regexes for JavaScript/es6.
+- Custom tabline used to show function signature (PHP, Python, Ruby, VimL,
+  and others supported via [tyru/current-func-info.vim], and I added regexps
+  for JavaScript/es6.
 - FZF for Most Recently Used files and fuzzy file finder
 - Neomake + local use of eslint, custom detection of .eslint, .scss-lint,
   etc.
 - Language emphasis: JavaScript, VimL, PHP, HTML, SCSS (but not exclusive)
-- Lots more but you shouldn't use any of it unless you really know what you're
-  doing.
+- Lots more but you shouldn't use any of it unless you know what you're doing.
 
 ## Installation
 
@@ -26,8 +25,8 @@ Best used with rest of dotfiles. Should self-install plugins via curl and
 
 Keep `(g)vimrc` (no dot in filename) in `.vim` -- Vim knows to look in there.
 
-Even though [neomake] is used to handle running linters, the [syntastic] wiki
-still has a good list ([Syntax-Checkers]) and shows how to set them up.
+Even though [neomake] handles linting, the [syntastic] wiki still has a good
+list ([Syntax-Checkers]) and shows how to set them up.
 
 ### Python Settings
 
@@ -49,13 +48,13 @@ still has a good list ([Syntax-Checkers]) and shows how to set them up.
 - Not used for anything right now.
 - Using `chruby` install and use a ruby.
 - Install the `neovim` gem
-- `:CheckHealth` to see if the gem is found.
+- `:CheckHealth` to see if Neovim can find the gem.
 
 ### JavaScript Settings
 
 - Using `nvm` install and use a node.
-- When installing/updating plugins, ones that have a dependency on node will
-  be installed.
+- When installing/updating plugins, [vim-plug] will automatically install the
+  associated dependencies.
 
 ### Arch Linux
 
@@ -69,19 +68,16 @@ Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux
 #### / (dotfiles/vim root)
 
 This is a Vim runtimepath that will load after the user and system runtimepaths
-but before the [vim-plug] ones. So `plugin/xyz.vim` will load before
+but before the [vim-plug] ones. I.e., `plugin/xyz.vim` will load before
 `plug/vim/pluginname/plugin/name.vim`. Neovim plugins will be in `plug/nvim/`.
 
 Use this for settings that must be set before a plugin is loaded (i.e. the
-plugin does not check for the existence of a setting on init). The global
-variable `g:plugs`, which is a dictionary of plugin names and settings from
-[vim-plug], is available to before since it is created in the main `vimrc` file
-by the `Plug` calls.
+plugin does not check for the existence of a setting on init).
 
 #### after/
 
 This is a runtimepath that will load after the system runtimepath but before
-the [vim-plug] one. So `after/plugin/xyz.vim` will load after
+the [vim-plug] one. I.e., `after/plugin/xyz.vim` will load after
 `plug/vim/pluginname/plugin/name.vim`.
 
 Use this for settings that should override or extend system or plugin settings.
@@ -89,19 +85,19 @@ This will take precedence over everything but local vimrc files.
 
 ### local vimrc
 
-Local `vimrc`s are expected to be in `~/.secret/vim/` and follow the standard
-Vim directory layout (`plugin/`, `syntax/`, `indent/`, etc.). A base (g)vimrc
-file there is probably enough.
+Store local `vimrc`s in `~/.secret/vim/` and follow the standard Vim directory
+layout (`plugin/`, `syntax/`, `indent/`, etc.). A base `(g)vimrc` file there is
+probably enough.
 
 All local settings are loaded LAST (after all of the system, user, plugin, and
 `*/after` runtimes).
 
 ### Plugin settings
 
-Settings for various plugins have been interspersed into `plugin/`, and a few
-in `after/ftplugin/` as needed. There is generally a wrapper around them that
-checks for `exists('g:plugs["plugin"])` so grepping for `g:plugs` is an easy
-way to find them.
+Plugins settings are in `plugin/` and `after/ftplugin/` as appropriate. There
+is generally a wrapper around them that checks for
+`exists('g:plugs["plugin"])` so grepping for `g:plugs` is an easy way to find
+them.
 
 #### Super-non-standard keys
 
@@ -146,10 +142,9 @@ Plan to remap these at some point
 
 Adhere to [vint](https://github.com/Kuniwak/vint) and
 [vim-vimlint](https://github.com/syngan/vim-vimlint) linting rules.
-now because it is too slow to complete between quick edits.
 
 Always try to keep as much in the main runtime as possible, using `after/`
-sparingly (mostly for `setlocal` ftplugin settings).
+sparingly (typically for `setlocal` ftplugin settings).
 
 ### VimL Coding
 
