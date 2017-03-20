@@ -96,7 +96,7 @@ __dko::prompt::precmd::state() {
   if [ "$DKO_PROMPT_IS_TRAPPED" -eq "1" ]; then
     export DKO_PROMPT_IS_TRAPPED=0
   else
-    print -P "${left}${(l:spaces-1:: :)}%F{blue}[${(e)right}%F{blue}]"
+    print -P "${left}%F{black}${(l:spaces-2::═:)} %F{blue}[${(e)right}%F{blue}]"
   fi
 }
 add-zsh-hook precmd __dko::prompt::precmd::state
