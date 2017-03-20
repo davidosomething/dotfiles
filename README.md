@@ -37,14 +37,13 @@ pre-existing dotfiles that might conflict with these.
   `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
 - Install and use [Fira (Fura) Mono for Powerline] font (install
   to `${XDG_DATA_HOME}/fonts` on \*nix)
-- Install ZSH and set it as the default (make sure it is available in
+- Install ZSH and set it as the default (ensure its presence in
   `/etc/shells`); restart the terminal and zplug will self-install
 - See OS specific notes in [mac/README.md](mac/README.md) and
   [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
-- Chrome extensions I use are listed in
-  [chromium/README.md](chromium/README.md)
-- If node is set up and packages installed, [trash-cli] is used in place of
-  `rm`
+- Useful Chrome extensions are in [chromium/README.md](chromium/README.md)
+- Install node and the default npm packages; `rm` will then alias to the
+  [trash-cli] script.
 
 #### Dev environment setup
 
@@ -59,9 +58,9 @@ scripts.
 - `php`, `composer`, use composer to install `wp-cli`
 - Use [pyenv-installer] for [pyenv], [pyenv-virtualenv], then create a new env
   with a new python/pip.
-    - Remove `~/.local/pyenv` if it exists prior to installing [pyenv] via
+    - Remove `~/.local/pyenv` if it exists before installing [pyenv] via
       [pyenv-installer] (e.g. had installed it via `brew` by accident)
-    - Create virtualenvs for neovim.
+    - Create virtualenvs for Neovim.
 
 ### Provisioning scripts
 
@@ -96,7 +95,7 @@ Use `u` without arguments for usage.
       and they will be automatically sourced, LAST, by the default scripts. _No
       dots on the filenames._
 - `git/`
-    - The comment character was changed from `#` to `;` so I can use Markdown
+    - The comment character is `#` instead of `;` so I can use Markdown
       in my commit messages without trimming the headers as comments. This is
       also reflected in a custom Vim highlighting syntax in
       `vim/after/syntax/gitcommit.vim`.
@@ -108,15 +107,15 @@ Use `u` without arguments for usage.
     - Never `sudo gem`. Set up a [chruby] env first, and then you can install
       gems into the userspace local to the active ruby env.
 - `vim/`
-    - If `curl` is installed, [vim-plug](https://github.com/junegunn/vim-plug)
-      will be downloaded and plugins will install on run. See
+    - If `curl` is available, [vim-plug](https://github.com/junegunn/vim-plug)
+      can automatically download and install itself on first run. See
       [vim/README.md](vim/README.md) for more information.
 
 ### rc script source order
 
 If you have node installed, the `dko-sourced`
 ([bin/dko-sourced](bin/dko-sourced)) command will show you (not exhaustively)
-the order scripts are sourced. Without node `echo $DKO_SOURCE` works.
+the order scripts get sourced. Without node `echo $DKO_SOURCE` works.
 
 For X apps (no terminal) the value is probably:
 
