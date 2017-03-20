@@ -32,16 +32,16 @@ alias ezr="e \"\${ZDOTDIR}/.zshrc\""
 
 # git
 alias g="git"
-alias g-="git checkout -"
-alias gb="git branch --verbose"
-alias gi="git ink"
-alias gg="git grep --line-number --break --heading"
-alias gl="git l --max-count 25"
-alias gm="git checkout master"
-alias gp="git push"
-alias gpo="git push origin"
-alias gs="git status"
-alias gt="git take"
+alias g-="g checkout -"
+alias gb="g branch --verbose"
+alias gi="g ink"
+alias gg="g grep --line-number --break --heading"
+alias gl="g l --max-count 25"
+alias gm="g checkout master"
+alias gp="g push"
+alias gpo="g push origin"
+alias gs="g status"
+alias gt="g take"
 
 # greppers
 alias f='find'
@@ -73,9 +73,9 @@ alias py3="python3"
 alias py="python"
 
 # ruby
-alias be="bundle exec"
 alias bun="bundle"
-alias cap="bundle exec cap"
+alias be="bun exec"
+alias cap="be cap"
 
 # sudo ops
 alias mine="sudo chown -R \"\$USER\""
@@ -103,7 +103,7 @@ alias tpr="tput reset"                # really clear the scrollback
 alias u="dko::dotfiles"
 alias vag="vagrant"
 alias vb="VBoxManage"
-alias vbm="VBoxManage"
+alias vbm="vb"
 alias weechat="weechat -d \"\${DOTFILES}/weechat\""
 alias wget="wget --no-check-certificate --hsts-file=\"\${XDG_DATA_HOME}/wget/.wget-hsts\""
 alias xit="exit" # dammit
