@@ -36,11 +36,12 @@ alias g-="git checkout -"
 alias gb="git branch --verbose"
 alias gi="git ink"
 alias gg="git grep --line-number --break --heading"
-alias gl="git l --max-count 50"
-alias gll="git ll --max-count 50"
+alias gl="git l --max-count 25"
+alias gm="git checkout master"
 alias gp="git push"
 alias gpo="git push origin"
 alias gs="git status"
+alias gt="git take"
 
 # greppers
 alias f='find'
