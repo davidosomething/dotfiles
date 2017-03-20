@@ -152,8 +152,9 @@ set wildignore+=*.eot,*.otf,*.ttf,*.woff
 set wildignore+=*.doc,*.pdf
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 " Cache
-set wildignore+=.sass-cache
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*.gem
+set wildignore+=.sass-cache
+set wildignore+=npm-debug.log
 " Compiled
 set wildignore+=*.marko.js
 set wildignore+=*.min.*
