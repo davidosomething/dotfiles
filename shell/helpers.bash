@@ -60,28 +60,28 @@ dko::require() {
 # $2 dest file relative to $HOME
 dko::symlink() {
   local dotfiles_dir="${HOME}/.dotfiles"
-  local dotfile="${dotfiles_dir}/${1}"
-  local homepath="$2"
-  local fullhomepath="${HOME}/${homepath}"
+  local sourcepath="${dotfiles_dir}/${1}"
+  local targetpath="$2"
+  local fulltargetpath="${HOME}/${targetpath}"
 
-  if [ -f "$fullhomepath" ] || [ -d "$fullhomepath" ]; then
+  if [ -f "$fulltargetpath" ] || [ -d "$fulltargetpath" ]; then
     local rp
-    rp=$(realpath "$fullhomepath")
-    if [[ "$rp" == "$dotfile" ]]; then
-      dko::status "${fullhomepath} correctly symlinked"
+    rp=$(realpath "$fulltargetpath")
+    if [[ "$rp" == "$sourcepath" ]]; then
+      dko::status "${fulltargetpath} correctly symlinked"
       return
     else
-      dko::warn "${fullhomepath} exists"
+      dko::warn "${fulltargetpath} exists"
       #        ==> WARN: 
       read -p "          Overwrite? [y/N] " -r
       if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        dko::warn "Skipped ${fullhomepath}"
+        dko::warn "Skipped ${fulltargetpath}"
         return
       fi
     fi
   fi
 
-  dko::status "Symlinking \033[0;35m${homepath}\033[0;32m -> \033[0;35m${dotfile}\033[0;32m "
-  mkdir -p "$(dirname "$fullhomepath")"
-  ln -fns "$dotfile" "$fullhomepath"
+  dko::status "Symlinking \033[0;35m${targetpath}\033[0;32m -> \033[0;35m${sourcepath}\033[0;32m "
+  mkdir -p "$(dirname "$fulltargetpath")"
+  ln -fns "$sourcepath" "$fulltargetpath"
 }
