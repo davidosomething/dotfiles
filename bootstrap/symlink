@@ -28,6 +28,7 @@ __symlink() {
   dko::symlink universal-ctags/dot.ctags        .ctags
 
   # XDG-compatible
+  dko::symlink atom/config.cson                 .config/atom/config.cson
   dko::symlink git/dot.gitconfig                .config/git/config
   dko::symlink git/dot.gitignore                .config/git/ignore
   dko::symlink shell/dot.inputrc                .config/readline/inputrc
