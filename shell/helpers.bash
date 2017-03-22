@@ -61,25 +61,27 @@ dko::require() {
 dko::symlink() {
   local dotfiles_dir="${HOME}/.dotfiles"
   local dotfile="${dotfiles_dir}/${1}"
-  local homefile="$2"
-  local homefilepath="${HOME}/${homefile}"
+  local homepath="$2"
+  local fullhomepath="${HOME}/${homepath}"
 
-  dko::status "Symlinking \033[0;35m${homefile}\033[0;32m -> \033[0;35m${dotfile}\033[0;32m "
-
-  if [ -f "$homefilepath" ]; then
+  if [ -f "$fullhomepath" ] || [ -d "$fullhomepath" ]; then
     local rp
-    rp=$(realpath "$homefilepath")
+    rp=$(realpath "$fullhomepath")
     if [[ "$rp" == "$dotfile" ]]; then
-      echo "    ${homefilepath} correctly symlinked"
+      dko::status "${fullhomepath} correctly symlinked"
+      return
     else
-      read -p "    ${homefilepath} exists, overwrite? [y/N] " -r
+      dko::warn "${fullhomepath} exists"
+      #        ==> WARN: 
+      read -p "          Overwrite? [y/N] " -r
       if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        dko::warn "Skipped ${homefilepath}"
+        dko::warn "Skipped ${fullhomepath}"
         return
       fi
     fi
   fi
 
-  mkdir -p "$(dirname "$homefilepath")"
-  ln -fns "$dotfile" "$homefilepath"
+  dko::status "Symlinking \033[0;35m${homepath}\033[0;32m -> \033[0;35m${dotfile}\033[0;32m "
+  mkdir -p "$(dirname "$fullhomepath")"
+  ln -fns "$dotfile" "$fullhomepath"
 }
