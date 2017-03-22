@@ -914,12 +914,6 @@ function! s:LoadPlugins()
   " Use pandoc for markdown syntax
   Plug 'vim-pandoc/vim-pandoc-syntax'
 
-  if !has('mac') && executable('npm')
-    Plug 'suan/vim-instant-markdown', {
-          \   'do': 'npm install --global instant-markdown-d'
-          \ }
-  endif
-
   " ========================================================================
   " Language: Nginx
   " ========================================================================
