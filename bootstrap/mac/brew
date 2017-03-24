@@ -140,10 +140,3 @@ brew install tmux
 
 brew install redshift # prefer opensource vs f.lux
 brew install mas
-
-# ============================================================================
-# Finish up
-# ============================================================================
-
-brew linkapps
-

@@ -531,8 +531,7 @@ __dko::dotfiles::darwin::update_brew() {
     # Detect if brew's python3 (not pyenv) was outdated
     grep -q "python3" <<<"$outdated" \
       && dko::status "Python3 was outdated, upgrading python3" \
-      && brew upgrade python3  \
-      && brew linkapps python3
+      && brew upgrade python3
 
     # Update neovim separately
     grep -q "neovim" <<<"$outdated" \
