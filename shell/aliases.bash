@@ -21,7 +21,7 @@ alias tree="tree -CF"
 alias pyg="pygmentize -O style=rrt -f console256 -g"
 
 # editors
-alias a="atom"
+alias a="atom-beta"
 alias e="vim"
 alias ehosts="se /etc/hosts"
 alias etmux="e \"\${DOTFILES}/tmux/tmux.conf\""
