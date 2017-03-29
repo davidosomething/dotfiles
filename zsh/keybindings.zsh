@@ -60,11 +60,14 @@ bindkey -M vicmd  '^[[1;5C' vi-forward-word
 
 # ----------------------------------------------------------------------------
 # Editing keys
-# Don't bind in vicmd mode
 # ----------------------------------------------------------------------------
 
 # fix delete - Fn-delete
+# Don't bind in vicmd mode
 bindkey '^[[3~' delete-char
+
+# Allow using backspace from :normal [A]ppend
+bindkey -M viins '^?' backward-delete-char
 
 # ----------------------------------------------------------------------------
 # History navigation
