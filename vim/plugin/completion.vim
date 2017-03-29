@@ -25,6 +25,31 @@ endif
 " ============================================================================
 
 " ----------------------------------------------------------------------------
+" Conditionally disable deoplete
+" For JS files, deoplete-ternjs looks for .tern-project from the file dir
+" upwards. If editing a file in a directory that doesn't exist (e.g. NetRW or
+" creating by doing `e newdir/newfile.js`) disable deoplete until the file is
+" written (which will create the directory automatically thanks to vim-easydir)
+" ----------------------------------------------------------------------------
+
+function! s:disableDeopleteIfNoDir()
+  if !isdirectory(expand('%:h'))
+    let b:deoplete_disable_auto_complete = 1
+    let b:dko_enable_deoplete_on_save = 1
+  endif
+endfunction
+
+function! s:enableDeopleteOnWriteDir()
+  if get(b:, 'dko_enable_deoplete_on_save', 0) && isdirectory(expand('%:h'))
+    let b:deoplete_disable_auto_complete = 0
+    let b:dko_enable_deoplete_on_save = 0
+  endif
+endfunction
+
+autocmd dkocompletion BufNewFile    *.js  call s:disableDeopleteIfNoDir()
+autocmd dkocompletion BufWritePost  *.js  call s:enableDeopleteOnWriteDir()
+
+" ----------------------------------------------------------------------------
 " Regexes to use completion engine
 " See plugins sections too (e.g. phpcomplete and jspc)
 " ----------------------------------------------------------------------------
@@ -232,7 +257,6 @@ if executable('tern')
   " Don't close tern after 5 minutes, helps speed up deoplete completion if
   " they manage to share the instance
   let g:tern#arguments = [ '--persistent' ]
-
 endif
 
 " ============================================================================
