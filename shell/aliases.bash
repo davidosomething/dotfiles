@@ -150,7 +150,7 @@ __alias_ls
 
 __alias_exa() {
   if ! dko::has 'exa'; then
-    returun
+    return
   fi
 
   alias ll="exa --long --all --group-directories-first --group --git"
