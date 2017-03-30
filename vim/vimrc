@@ -918,7 +918,10 @@ function! s:LoadPlugins()
   " Language: Nginx
   " ========================================================================
 
-  Plug 'moskytw/nginx-contrib-vim'
+  " Same as in official upstream, @mhinz tends to update more often
+  " @see http://hg.nginx.org/nginx/file/tip/contrib/vim
+  Plug 'mhinz/vim-nginx'
+  "Plug 'moskytw/nginx-contrib-vim'
 
   " ========================================================================
   " Language: PHP, twig

@@ -148,6 +148,15 @@ __alias_ls() {
 }
 __alias_ls
 
+__alias_exa() {
+  if ! dko::has 'exa'; then
+    returun
+  fi
+
+  alias ll="exa --long --all --group-directories-first --group --git"
+}
+__alias_exa
+
 # ============================================================================
 
 __alias_darwin() {
