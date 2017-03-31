@@ -3,9 +3,8 @@
 ## Full generic setup, in order
 
 If there is user data on encrypted volumes other than the boot volume, they
-will not be mounted until a user has logged in. To remedy this, see
-[https://github.com/davidosomething/Unlock](jridgewell/Unlock) (forked to my
-GitHub for archival).
+will not mount until a user has logged in. To remedy this, see
+[Unlock] (forked to my GitHub for archival).
 
 ### Install App Store apps
 
@@ -24,10 +23,6 @@ See `bootstrap/mac/brew`
 
 ### Setup ssh keys
 
-1. Upgrade to a more recent OpenSSH -- the one that comes with macOS is
-  outdated.
-    - `openssh`
-    - `keychain`
 1. `ssh-keygen` for the new system
 1. Load the private key into `ssh-agent` and the macOS keychain using `keychain`
 1. Add the public key to GitHub and GitLab
@@ -82,15 +77,14 @@ Install keepassx 2.0 with http support from the source of this fork (inspect
 diff first):
 <https://github.com/eugenesan/keepassx/tree/2.0-http-totp>
 
-It is fine to run the `cmake -DCMAKE_BUILD_TYPE=Release` step until it builds
-successfully (it will tell you what deps are missing each time, and the deps
-can all be installed via brew).
+Run the `cmake -DCMAKE_BUILD_TYPE=Release` step until it builds (it will tell
+you what dependencies are missing each time, and install dependencies with
+brew).
 
 ### Install from brew
 
 Install packages from [bootstrap/mac/brew](../bootstrap/mac/brew) as
-desired. Some things may already be installed (e.g. should have installed
-openssh already).
+desired.
 
 ### Install from cask
 
@@ -113,9 +107,9 @@ Install the rest of the packages from
 
 ### Install development tools
 
-Make sure the other packages above are installed since after you start using
-`pyenv` it gets annoying to remember to switch back to system python for each
-`brew` operation.
+Make sure you've installed packages since after you start using `pyenv` it
+gets annoying to remember to switch back to system python for each `brew`
+operation. Use the `bi` alias for a clean room install if possible.
 
 - Install `chruby`, `ruby-install`
     1. `ruby-install ruby` to install latest
@@ -123,8 +117,7 @@ Make sure the other packages above are installed since after you start using
     1. Install gems using
        [ruby/install-default-gems](../ruby/install-default-gems)
 - Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
-  `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
-  consequently `npm`)
+  `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and `npm`)
     1. Use nvm managed node
     1. Install the default packages using [node/install](../node/install)
 - Install `pyenv` using `pyenv-installer` (rm `~/.local/pyenv` directory for
@@ -132,8 +125,8 @@ Make sure the other packages above are installed since after you start using
     1. `brew install openssl`
     1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
     1. Set up the global pyenv as the latest stable (3.x.x)
-    1. Set up python virtualenvs called `neovim{2,3}` -- nvim is configured to
-       use those already. E.g.,
+    1. Set up python virtualenvs called `neovim{2,3}` -- the Neovim
+       configuration expects to find those. E.g.,
         1. `pyenv install 2.7.12`
         1. `pyenv virtualenv 2.7.12 neovim2`
         1. `pyenv activate neovim2`
@@ -177,3 +170,5 @@ Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
         - travis
     - .secret/local/shellrc
 
+
+[Unlock]: https://github.com/davidosomething/Unlock
