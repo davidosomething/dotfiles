@@ -83,8 +83,17 @@ endfunction
 " Sets b:neomake_javascript_enabled_makers based on what is present in the
 " project
 function! s:PickJavascriptMakers() abort
+  " Find an eslintrc in current project. If not found use jshint
+  if !empty(dkoproject#GetEslintrc())
+    let l:eslint_maker = neomake#GetMaker('eslint', 'javascript')
+    let l:eslint_args = get(
+          \ g:, 'neomake_javascript_eslint_args',
+          \ l:eslint_maker.args)
+    let b:neomake_javascript_eslint_args =
+          \ l:eslint_args + [ '-c', dkoproject#GetEslintrc() ]
+
   " This project uses jshint instead of eslint, disable eslint
-  if exists('b:neomake_javascript_enabled_makers')
+  elseif exists('b:neomake_javascript_enabled_makers')
         \ && dko#IsMakerExecutable('jshint')
         \ && !empty(dkoproject#GetFile('.jshintrc'))
     " Remove eslint from enabled makers, use only jshint
@@ -92,17 +101,6 @@ function! s:PickJavascriptMakers() abort
           \   b:neomake_javascript_enabled_makers,
           \   "v:val !~? 'eslint'"
           \ )
-  endif
-
-  let l:eslint_maker = neomake#GetMaker('eslint', 'javascript')
-  let l:eslint_args = get(
-        \ g:, 'neomake_javascript_eslint_args',
-        \ l:eslint_maker.args)
-
-  " Use nearest config in current project if available
-  if !empty(dkoproject#GetEslintrc())
-    let b:neomake_javascript_eslint_args =
-          \ l:eslint_args + [ '-c', dkoproject#GetEslintrc() ]
   endif
 endfunction
 
@@ -118,22 +116,15 @@ let s:local_eslint = {
       \   'when':  '!empty(dkoproject#GetEslintrc())'
       \ }
 
-let s:local_jscs = {
-      \   'ft':    'javascript',
-      \   'maker': 'jscs',
-      \   'exe':   'node_modules/.bin/jscs',
-      \   'when':  '!empty(dkoproject#GetFile(''.jscsrc''))',
-      \ }
-
 let s:local_jshint = {
       \   'ft':    'javascript',
       \   'maker': 'jshint',
       \   'exe':   'node_modules/.bin/jshint',
+      \   'when':  'empty(dkoproject#GetEslintrc())'
       \ }
 
 autocmd dkoneomake FileType javascript
       \ call s:AddLocalMaker(s:local_eslint)
-      \| call s:AddLocalMaker(s:local_jscs)
       \| call s:AddLocalMaker(s:local_jshint)
       \| call s:PickJavascriptMakers()
 
