@@ -25,7 +25,7 @@ git clone --recurse-submodules https://github.com/davidosomething/dotfiles ~/.do
 ~/.dotfiles/bootstrap/symlink
 ```
 
-(WIP) After symlinking, `~/.dotfiles/bootstrap/cleanup` can be used to clean up
+(WIP) After symlinking, `~/.dotfiles/bootstrap/cleanup` can detect and move
 pre-existing dotfiles that might conflict with these.
 
 ### Post-Installation
@@ -89,7 +89,7 @@ Use `u` without arguments for usage.
 
 - `bin/`
     - There's a [readme](bin/README.md) in `bin/` describing each
-      script/binary. This directory is added to the `$PATH`.
+      script/binary. This directory is in the `$PATH`.
 - `local/`
     - Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
       and they will be automatically sourced, LAST, by the default scripts. _No
@@ -101,7 +101,7 @@ Use `u` without arguments for usage.
       `vim/after/syntax/gitcommit.vim`.
 - `python/`
     - Never `sudo pip`. Set up a [pyenv], and use a [pyenv-virtualenv] (which
-      will delegate to `pyvenv`) if doing project specific stuff, and
+      will delegate to `pyvenv`) if doing project specific work, and
       `pip install` into that userspace [pyenv] or virtualenv.
 - `ruby/`
     - Never `sudo gem`. Set up a [chruby] env first, and then you can install
@@ -133,10 +133,10 @@ For X apps (no terminal) the value is probably:
       called with the original arguments `__fun $@`
     - Two space indents
 - **Function names**
-    - My helpers for scripting and provisioning via these dotfiles are
-      namespaced following [google shell style] as `dko::function_name()`.
-      These functions are expected to persist for the lifetime of the script
-      or in the shell if the script was sourced.
+    - Namespace helpers for scripting and provisioning following
+      [google shell style] as `dko::function_name()`.
+      These functions persist for the lifetime of the script or in the shell
+      for sourced scripts.
     - For private functions in a script, use two underscores `__private_func()`
       These function names are safe to reuse after script execution. When
       namespaced, they are in the form of `__dko::function_name()`.
