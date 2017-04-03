@@ -3,18 +3,22 @@
 # fbr - checkout git branch
 # Uses fzf
 # @see <https://github.com/junegunn/fzf/wiki/examples>
-#
 
 set -e
 
 __fbr() {
-  current=$(git rev-parse --abbrev-ref HEAD) || return 1
+  local current
+  local branches
+  local branch
+
+  current=$(git rev-parse --abbrev-ref HEAD)
+  [[ "$current" == "" ]] && return 1
+
   branches=$(git branch -vv)
   branch=$(\
     echo "$branches" \
     | fzf +m --exit-0 --nth=1 --cycle --prompt="$current> " \
-  ) &&
-    git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
+    ) \
+    && git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
 }
-
 __fbr
