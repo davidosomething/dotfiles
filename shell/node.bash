@@ -23,6 +23,8 @@ dko::source "${NVM_DIR}/nvm.sh" && {
 
 dko::has 'trash' && alias rm=trash
 
+dko::has 'yarn' && PATH="${PATH}:$(yarn global bin)" && export PATH
+
 # ==============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"

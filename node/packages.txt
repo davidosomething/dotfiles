@@ -1,6 +1,7 @@
 bower
 coffee-script
 coffeelint
+create-react-app
 eslint-config-davidosomething
 js-beautify
 jscpd
