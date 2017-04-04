@@ -826,7 +826,9 @@ function! s:LoadPlugins()
   " Language: Java
   " ==========================================================================
 
-  Plug 'artur-shaik/vim-javacomplete2'
+  Plug 'artur-shaik/vim-javacomplete2', {
+        \   'do': 'cd libs/javavi/ && mvn compile'
+        \ }
 
   " ==========================================================================
   " Language: JavaScript and derivatives, JSON
