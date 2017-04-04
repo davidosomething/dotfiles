@@ -77,6 +77,14 @@ function! s:AddLocalMaker(settings) abort
 endfunction
 
 " ----------------------------------------------------------------------------
+" Java
+" ----------------------------------------------------------------------------
+
+" No java makers, use ALE instead until fixed:
+" https://github.com/neomake/neomake/issues/875
+let g:neomake_java_enabled_makers = []
+
+" ----------------------------------------------------------------------------
 " JavaScript
 " ----------------------------------------------------------------------------
 
