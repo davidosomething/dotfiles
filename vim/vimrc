@@ -247,12 +247,12 @@ endif
 " Completion -- see also plugins/completion.vim
 " ----------------------------------------------------------------------------
 
-" Don't consider = symbol as part filename. Helps for deoplete file source, too.
+" Don't consider = symbol as part filename. Helps for deoplete file source.
 set isfname-==
 
 set complete-=i                       " don't complete includes
 set complete-=t                       " don't complete tags
-set completeopt-=preview              " don't open scratch preview (e.g. echodoc)
+set completeopt-=preview              " don't open scratch (e.g. echodoc)
 set completeopt+=menu,menuone         " show PUM, even for one thing
 
 " ----------------------------------------------------------------------------
@@ -416,7 +416,9 @@ set ignorecase
 set smartcase
 
 if !empty(dko#GetGrepper())
-  execute 'set grepprg=' . escape(dko#GetGrepper().command . ' ' . join(dko#GetGrepper().options, ' '), ' ')
+  execute 'set grepprg='
+        \. escape(dko#GetGrepper().command . ' '
+        \. join(dko#GetGrepper().options, ' '), ' ')
   execute 'set grepformat=' . dko#GetGrepper().format
 endif
 
@@ -539,9 +541,9 @@ function! s:LoadPlugins()
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
 
-  " ========================================================================
+  " ==========================================================================
   " Plug: Colorscheme
-  " ========================================================================
+  " ==========================================================================
 
   " Use in nvim
   if (has('nvim') || has('gui_running') || has('termguicolors'))
@@ -559,9 +561,9 @@ function! s:LoadPlugins()
   " Grey, red
   Plug 'zaki/zazen'
 
-  " ========================================================================
+  " ==========================================================================
   " Plug: File system
-  " ========================================================================
+  " ==========================================================================
 
   " creates dir if new file in new dir
   Plug 'dockyard/vim-easydir'
@@ -582,17 +584,17 @@ function! s:LoadPlugins()
 
     Plug 'cocopon/colorswatch.vim', { 'on': ['ColorSwatchGenerate'] }
 
-    " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer than
-    " :Scriptnames)
+    " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer
+    " than :Scriptnames)
     Plug 'tpope/vim-scriptease'
 
     " Show slow plugins
     Plug 'tweekmonster/startuptime.vim'
   endif
 
-  " ========================================================================
+  " ==========================================================================
   " Plug: Commands
-  " ========================================================================
+  " ==========================================================================
 
   " :Bdelete to preserve windows
   Plug 'moll/vim-bbye'
@@ -651,9 +653,9 @@ function! s:LoadPlugins()
   " 200ms slower to load
   "Plug 'editorconfig/editorconfig-vim'
 
-  " ========================================================================
+  " ==========================================================================
   " Plug: Input, syntax, spacing
-  " ========================================================================
+  " ==========================================================================
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
@@ -677,9 +679,9 @@ function! s:LoadPlugins()
   " This is a nice function context plugin but too many false positives
   "Plug 'jeetsukumaran/vim-gazetteer'
 
-  " ========================================================================
+  " ==========================================================================
   " Plug: Completion
-  " ========================================================================
+  " ==========================================================================
 
   if (has('nvim') && has('python3')) " || has('patch-7.4.1758')
     Plug 'Shougo/deoplete.nvim',
@@ -701,9 +703,9 @@ function! s:LoadPlugins()
     endif
   endif
 
-  " ========================================================================
+  " ==========================================================================
   " Plug: Editing keys
-  " ========================================================================
+  " ==========================================================================
 
   Plug 'godlygeek/tabular', { 'on': [ 'Tabularize' ] }
 
@@ -772,30 +774,30 @@ function! s:LoadPlugins()
   " Toggle movement mode line-wise/display-wise
   Plug g:dko#vim_dir . '/mine/vim-movemode'
 
-  " ========================================================================
+  " ==========================================================================
   " Plug: Language
-  " ========================================================================
+  " ==========================================================================
 
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
 
-  " ========================================================================
+  " ==========================================================================
   " Language: bash/shell/zsh
-  " ========================================================================
+  " ==========================================================================
 
   " Upstreams
   Plug 'chrisbra/vim-sh-indent'
   Plug 'chrisbra/vim-zsh'
 
-  " ========================================================================
+  " ==========================================================================
   " Language: D
-  " ========================================================================
+  " ==========================================================================
 
   Plug 'idanarye/vim-dutyl', { 'for': 'd' }
 
-  " ========================================================================
+  " ==========================================================================
   " Language: Git
-  " ========================================================================
+  " ==========================================================================
 
   " creates gitconfig, gitcommit, rebase
   " provides :DiffGitCached in gitcommit file type
@@ -805,9 +807,9 @@ function! s:LoadPlugins()
   " show diff when editing a COMMIT_EDITMSG
   Plug 'rhysd/committia.vim'
 
-  " ========================================================================
+  " ==========================================================================
   " Language: HTML, XML, and generators: mustache, handlebars
-  " ========================================================================
+  " ==========================================================================
 
   " Syntax enhancements and htmlcomplete#CompleteTags function override
   " The completion function doesn't work with deoplete
@@ -820,9 +822,15 @@ function! s:LoadPlugins()
   " Creates html.handlebars and other fts and sets syn
   Plug 'mustache/vim-mustache-handlebars'
 
-  " ========================================================================
+  " ==========================================================================
+  " Language: Java
+  " ==========================================================================
+
+  Plug 'artur-shaik/vim-javacomplete2'
+
+  " ==========================================================================
   " Language: JavaScript and derivatives, JSON
-  " ========================================================================
+  " ==========================================================================
 
   Plug g:dko#vim_dir . '/mine/vim-pj'
 
@@ -900,9 +908,9 @@ function! s:LoadPlugins()
   " Parameter completion (in or after ' or "), bound to user complete
   "Plug 'othree/jspc.vim'
 
-  " ========================================================================
+  " ==========================================================================
   " Language: Markdown, Pandoc
-  " ========================================================================
+  " ==========================================================================
 
   " Override vim included markdown ft* and syntax
   " The git repo has a newer syntax file than the one that ships with vim
@@ -914,18 +922,18 @@ function! s:LoadPlugins()
   " Use pandoc for markdown syntax
   Plug 'vim-pandoc/vim-pandoc-syntax'
 
-  " ========================================================================
+  " ==========================================================================
   " Language: Nginx
-  " ========================================================================
+  " ==========================================================================
 
   " Same as in official upstream, @mhinz tends to update more often
   " @see http://hg.nginx.org/nginx/file/tip/contrib/vim
   Plug 'mhinz/vim-nginx'
   "Plug 'moskytw/nginx-contrib-vim'
 
-  " ========================================================================
+  " ==========================================================================
   " Language: PHP, twig
-  " ========================================================================
+  " ==========================================================================
 
   " ----------------------------------------
   " Syntax
@@ -995,9 +1003,9 @@ function! s:LoadPlugins()
 
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] } -- dead
 
-  " ========================================================================
+  " ==========================================================================
   " Language: Python
-  " ========================================================================
+  " ==========================================================================
 
   " Vim's python ftplugin upstream
   " Not a valid plugin runtime structure, file needs to be in ftplugin/
@@ -1006,9 +1014,9 @@ function! s:LoadPlugins()
   Plug 'Vimjas/vim-python-pep8-indent'
   Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
 
-  " ========================================================================
+  " ==========================================================================
   " Language: Ruby, rails, puppet
-  " ========================================================================
+  " ==========================================================================
 
   " creates pp filetype
   "Plug 'rodjek/vim-puppet'
@@ -1019,9 +1027,9 @@ function! s:LoadPlugins()
   " creates ruby filetype
   Plug 'vim-ruby/vim-ruby'
 
-  " ========================================================================
+  " ==========================================================================
   " Language: Stylesheets
-  " ========================================================================
+  " ==========================================================================
 
   " ----------------------------------------
   " Syntax
@@ -1056,15 +1064,15 @@ function! s:LoadPlugins()
   " Omnicompletion, this is beta repo, where stables are already in VIMRUNTIME
   Plug 'othree/csscomplete.vim'
 
-  " ========================================================================
+  " ==========================================================================
   " Language: .tmux.conf
-  " ========================================================================
+  " ==========================================================================
 
   Plug 'tmux-plugins/vim-tmux'
 
-  " ========================================================================
+  " ==========================================================================
   " Language: VimL
-  " ========================================================================
+  " ==========================================================================
 
   Plug 'machakann/vim-vimhelplint'
 
@@ -1097,9 +1105,9 @@ function! s:LoadPlugins()
   " @see https://github.com/osyo-manga/vim-anzu/issues/19
   Plug 'osyo-manga/vim-anzu'
 
-  " ========================================================================
+  " ==========================================================================
   " Plug: UI -- load last!
-  " ========================================================================
+  " ==========================================================================
 
   " if executable('ctags')
   "   Plug 'majutsushi/tagbar'
@@ -1157,7 +1165,7 @@ if s:use_plugins
   endif
 endif
 
-" ============================================================================
+  " ==========================================================================
 " Autocommands
 " ============================================================================
 
