@@ -25,7 +25,6 @@ tern-gulp
 tern-jspm
 tern-jquery-extension
 tern-node-extension
-tldr
 trash-cli
 write-good
 yo

@@ -30,6 +30,8 @@ zplug "davidosomething/vopen",     \
 # Vendor
 # ----------------------------------------------------------------------------
 
+zplug 'raylee/tldr', as:command
+
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 
 # In-line best history match suggestion
