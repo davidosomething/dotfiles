@@ -153,7 +153,7 @@ __alias_exa() {
     return
   fi
 
-  alias ll="exa --long --all --group-directories-first --group --git"
+  alias exa="exa --long --all --group-directories-first --group --git"
 }
 __alias_exa
 
