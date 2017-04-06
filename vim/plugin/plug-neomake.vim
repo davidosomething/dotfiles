@@ -180,14 +180,21 @@ autocmd dkoneomake FileType
 " PHP: phpcs, phpmd
 " ----------------------------------------------------------------------------
 
+let s:phpcs_psr2 = ['--standard=PSR2']
+
+let s:phpcs_wordpress = ['--standard=WordPress-Extra']
+          \ + ['--runtime-set', 'installed_paths', expand('~/src/wpcs')]
+          \ + ['--exclude=WordPress.PHP.YodaConditions']
+
 function! s:SetPhpcsStandard() abort
   " WordPress
   if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
         \ || expand('%:p') =~? 'ed-com'
     let b:neomake_php_phpcs_args = neomake#makers#ft#php#phpcs().args
-          \ + ['--runtime-set', 'installed_paths', expand('~/src/wpcs')]
-          \ + ['--standard=WordPress-Extra']
-          \ + ['--exclude=WordPress.PHP.YodaConditions']
+          \ + s:phpcs_wordpress
+  else
+    let b:neomake_php_phpcs_args = neomake#makers#ft#php#phpcs().args
+          \ + s:phpcs_psr2
   endif
 endfunction
 
