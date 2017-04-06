@@ -146,6 +146,7 @@ export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
 # knu/z
 export _Z_CMD="j"
 export _Z_DATA="${HOME}/.local/z"
+export _Z_NO_RESOLVE_SYMLINKS=1
 [ ! -f "$_Z_DATA" ] && touch "$_Z_DATA"
 
 # ============================================================================
