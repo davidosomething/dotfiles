@@ -12,6 +12,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/path.bash"
 # ============================================================================
 
 mkdir -p "${HOME}/.local/bin"
+mkdir -p "${HOME}/.local/man/man1"
 
 # ==============================================================================
 # Store default system path
@@ -64,3 +65,13 @@ PATH="${DOTFILES}/bin:${PATH}"
 PATH="${HOME}/.local/bin:${PATH}"
 
 export PATH
+
+# ----------------------------------------------------------------------------
+# MANPATH using manpath
+# ----------------------------------------------------------------------------
+
+if command -v manpath >/dev/null; then
+  MANPATH="$(manpath)"
+fi
+MANPATH="${HOME}/.local/man:${MANPATH}"
+export MANPATH

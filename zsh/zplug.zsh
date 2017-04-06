@@ -46,7 +46,8 @@ zplug "zsh-users/zsh-completions"
 # fork of rupa/z with better completion (so needs defer)
 zplug "knu/z",  \
   use:"z.sh",   \
-  defer:2
+  defer:2,      \
+  hook-build:'cp z.1 "${HOME}/.local/man/man1/"'
 
 # gulp completion (parses file so not 100% accurate)
 zplug "akoenig/gulp.plugin.zsh", defer:2
@@ -69,3 +70,10 @@ fi
 # absolute last
 # highlight as you type
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
+
+# ==============================================================================
+# Add zplug's man to MANPATH
+# ==============================================================================
+
+MANPATH="${ZPLUG_ROOT}/doc/man:${MANPATH}"
+export MANPATH
