@@ -4,11 +4,17 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases.bash"
 
+# ----------------------------------------------------------------------------
 # safeguarding
 # @see {@link https://github.com/sindresorhus/guides/blob/master/how-not-to-rm-yourself.md#safeguard-rm}
+# ----------------------------------------------------------------------------
+
 alias rm='rm -i'
 
+# ----------------------------------------------------------------------------
 # paths and dirs
+# ----------------------------------------------------------------------------
+
 alias ..="cd .."
 alias ....="cd ../.."
 alias cd..="cd .."
@@ -17,10 +23,16 @@ alias cdv="cd \"\${VIM_DOTFILES}\""
 alias dirs="dirs -v"                  # default to vert, use -l for list
 alias tree="tree -CF"
 
-# cat
+# ----------------------------------------------------------------------------
+# cat (prefer bin/dog)
+# ----------------------------------------------------------------------------
+
 alias pyg="pygmentize -O style=rrt -f console256 -g"
 
+# ----------------------------------------------------------------------------
 # editors
+# ----------------------------------------------------------------------------
+
 alias a="atom-beta"
 alias e="vim"
 alias ehosts="se /etc/hosts"
@@ -30,7 +42,10 @@ alias eze="e \"\${ZDOTDIR}/.zshenv\""
 alias ezp="e \"\${ZDOTDIR}/zplug.zsh\""
 alias ezr="e \"\${ZDOTDIR}/.zshrc\""
 
+# ----------------------------------------------------------------------------
 # git
+# ----------------------------------------------------------------------------
+
 alias g="git"
 alias g-="g checkout -"
 alias gb="g branch --verbose"
@@ -43,14 +58,20 @@ alias gpo="g push origin"
 alias gs="g status"
 alias gt="g take"
 
+# ----------------------------------------------------------------------------
 # greppers
+# ----------------------------------------------------------------------------
+
 alias f='find'
 alias grep='grep --color=auto'
 alias ag='ag --hidden --one-device  --numbers      --smart-case'
 alias rg='rg --hidden               --line-number  --no-ignore-vcs     --smart-case --ignore-file "${DOTFILES}/ag/dot.ignore"'
 # also see gg in git
 
+# ----------------------------------------------------------------------------
 # node
+# ----------------------------------------------------------------------------
+
 alias n="npm"
 alias ni="n install"
 alias no="n outdated --long"
@@ -61,10 +82,16 @@ alias nu="n update"
 alias nude="nvm use default"
 alias sme="source-map-explorer"
 
+# ----------------------------------------------------------------------------
 # php
+# ----------------------------------------------------------------------------
+
 alias cm="composer"
 
+# ----------------------------------------------------------------------------
 # python
+# ----------------------------------------------------------------------------
+
 alias pea="pyenv activate"
 alias ped="pyenv deactivate"
 alias pss="pyenv shell system"
@@ -72,21 +99,43 @@ alias py2="python2"
 alias py3="python3"
 alias py="python"
 
+# ----------------------------------------------------------------------------
 # ruby
+# ----------------------------------------------------------------------------
+
 alias bun="bundle"
 alias be="bun exec"
 alias cap="be cap"
 
+# ----------------------------------------------------------------------------
+# ssh keys
+# @see {@link https://blog.g3rt.nl/upgrade-your-ssh-keys.html}
+# ----------------------------------------------------------------------------
+
+# useful for finding things like INSECURE keys (acceptable: RSA 4096 or Ed25519)
+alias sshlistkeys='for keyfile in ~/.ssh/id_*; do ssh-keygen -l -f "${keyfile}"; done | uniq'
+# Keep this up to date with latest security best practices
+alias sshkeygen='ssh-keygen -o -a 100 -t ed25519'
+
+# ----------------------------------------------------------------------------
 # sudo ops
+# ----------------------------------------------------------------------------
+
 alias mine="sudo chown -R \"\$USER\""
 alias root="sudo -s"
 alias se="sudo -e"
 
+# ----------------------------------------------------------------------------
 # tmux
+# ----------------------------------------------------------------------------
+
 alias tmux="tmux -f \"\${DOTFILES}/tmux/tmux.conf\""
 alias ta="tmux attach"
 
+# ----------------------------------------------------------------------------
 # rest of bins
+# ----------------------------------------------------------------------------
+
 alias archey="archey --offline"
 alias cb="cdbk"
 alias curl="curl --config \"\${DOTFILES}/curl/dot.curlrc\""
@@ -234,8 +283,9 @@ __alias_fedora() {
 }
 
 # ============================================================================
-
 # os specific
+# ============================================================================
+
 case "$OSTYPE" in
   darwin*)  __alias_darwin ;;
   linux*)   __alias_linux
