@@ -16,6 +16,7 @@ zplug "davidosomething/git-ink",  as:command
 zplug "davidosomething/git-my",   as:command
 zplug "davidosomething/git-take", as:command
 zplug "paulirish/git-open",       as:command
+zplug "paulirish/git-recent",     as:command
 
 # my fork of cdbk, zsh hash based directory bookmarking
 zplug "davidosomething/cdbk"
