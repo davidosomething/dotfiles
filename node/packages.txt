@@ -26,5 +26,6 @@ tern-jquery-extension
 tern-node-extension
 trash-cli
 write-good
+yarn-completions
 yo
 generator-hubot
