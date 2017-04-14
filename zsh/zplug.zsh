@@ -72,7 +72,8 @@ fi
 
 # absolute last
 # highlight as you type
-zplug "zsh-users/zsh-syntax-highlighting", defer:3
+#zplug "zsh-users/zsh-syntax-highlighting", defer:3
+zplug "zdharma/fast-syntax-highlighting", defer:3
 
 # ==============================================================================
 # Add zplug's man to MANPATH
