@@ -616,13 +616,11 @@ function! s:LoadPlugins()
             \|  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', {
             \     'on': [
             \       'FZFGrepper',
-            \       'FZFRelevant',
-            \       'FZFProject',
             \       'FZFMRU',
-            \       'FZFFiles',
-            \       'FZFColors',
+            \       'FZFProject',
+            \       'FZFRelevant',
             \       'FZFSpecs',
-            \       'FZFBuffers',
+            \       'FZFVim',
             \     ]
             \   }
     endif
