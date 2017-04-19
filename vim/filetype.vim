@@ -36,10 +36,6 @@ endfunction
 augroup filetypedetect
 
   autocmd! BufNewFile,BufRead
-        \ *.cap
-        \ setfiletype ruby
-
-  autocmd! BufNewFile,BufRead
         \ *.dump
         \ setfiletype sql
 
