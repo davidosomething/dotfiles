@@ -562,12 +562,10 @@ function! s:LoadPlugins()
   Plug 'zaki/zazen'
 
   " ==========================================================================
-  " Plug: File system
+  " Plug: File system, ctags
   " ==========================================================================
 
-  " creates dir if new file in new dir
-  Plug 'dockyard/vim-easydir'
-
+  " Off until nvim 2.0 release, which fixes missing method
   " if v:version >= 704 && executable('ctags')
     "Plug 'rafi/vim-gutentags', { 'branch': 'fix/globpath' }
     "Plug 'ludovicchabant/vim-gutentags'
