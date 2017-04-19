@@ -51,9 +51,11 @@ augroup filetypedetect
 
   " pre Vim 7.4.480 - md is modula2
   " post Vim 7.4.480 - md is markdown
-  autocmd! BufNewFile,BufRead *.md
-        \ setfiletype markdown
-        \| call s:BindPreview()
+  if !has('nvim') || !has('patch-7.4.480')
+    autocmd! BufNewFile,BufRead *.md
+          \ setfiletype markdown
+          \| call s:BindPreview()
+  endif
 
   autocmd! BufNewFile,BufRead
         \ .babelrc,.bowerrc,.jshintrc
@@ -63,7 +65,7 @@ augroup filetypedetect
         \ .eslintrc,.stylelintrc
         \ call s:SetJSONorYAML()
 
-  autocmd! BufRead,BufNewFile
+  autocmd! BufNewFile,BufRead
         \ */nginx*.conf,/*/nginx*.conf
         \ setfiletype nginx
 

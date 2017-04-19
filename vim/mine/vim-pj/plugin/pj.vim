@@ -198,4 +198,3 @@ endif
 " Call this to re-read g:PJ_function and the package.json for the current
 " file, too.
 command! PjEnable call s:Init()
-

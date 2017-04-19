@@ -285,10 +285,12 @@ set nostartofline                     " don't jump to col1 on switch buffer
 " Code folding
 " ----------------------------------------------------------------------------
 
+if !has('nvim')
+  set foldcolumn=2
+  set foldlevel=99                      " show all folds by default
+  set foldlevelstart=99                 " show all folds by default
+endif
 set nofoldenable
-set foldcolumn=2
-set foldlevel=99                      " show all folds by default
-set foldlevelstart=99                 " show all folds by default
 
 " ----------------------------------------------------------------------------
 " Trailing whitespace
@@ -547,6 +549,7 @@ function! s:LoadPlugins()
 
   " Use in nvim
   if (has('nvim') || has('gui_running') || has('termguicolors'))
+    Plug 'davidosomething/vim-base2tone-lakedark'
     Plug 'atelierbram/Base2Tone-vim'
     Plug 'AlessandroYorba/Sidonia'
     Plug 'kristiandupont/shades-of-teal'
@@ -609,7 +612,19 @@ function! s:LoadPlugins()
           \ : ''
     if !empty(g:fzf_dir)
       Plug g:fzf_dir
-            \| Plug 'junegunn/fzf.vim'
+            \|  Plug 'junegunn/fzf.vim'
+            \|  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', {
+            \     'on': [
+            \       'FZFGrepper',
+            \       'FZFRelevant',
+            \       'FZFProject',
+            \       'FZFMRU',
+            \       'FZFFiles',
+            \       'FZFColors',
+            \       'FZFSpecs',
+            \       'FZFBuffers',
+            \     ]
+            \   }
     endif
   endif
 
@@ -825,7 +840,8 @@ function! s:LoadPlugins()
   " ==========================================================================
 
   Plug 'artur-shaik/vim-javacomplete2', {
-        \   'do': 'cd libs/javavi/ && mvn compile'
+        \   'do': 'cd libs/javavi/ && mvn compile',
+        \   'for': 'java',
         \ }
 
   " ==========================================================================

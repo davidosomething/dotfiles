@@ -260,17 +260,3 @@ command! -bang FZFProject
       \   <bang>0 ? s:project_full : s:project_half,
       \   <bang>0
       \ )
-
-" ============================================================================
-" Mappings
-" ============================================================================
-
-execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper!' })
-execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFRelevant' })
-execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFProject' })
-execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
-execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
-execute dko#MapAll({ 'key': '<F8>', 'command': 'FZFColors!' })
-execute dko#MapAll({ 'key': '<C-s>', 'command': 'FZFSpecs' })
-map   <special>   <Leader>b   :<C-U>FZFBuffers<CR>
-

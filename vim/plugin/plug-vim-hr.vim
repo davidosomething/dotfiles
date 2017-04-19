@@ -6,4 +6,3 @@ call hr#map('-')
 call hr#map('=')
 call hr#map('#')
 call hr#map('*')
-
