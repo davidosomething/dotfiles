@@ -569,11 +569,13 @@ function! s:LoadPlugins()
   " ==========================================================================
 
   " Off until nvim 2.0 release, which fixes missing method
-  " if v:version >= 704 && executable('ctags')
-    "Plug 'rafi/vim-gutentags', { 'branch': 'fix/globpath' }
-    "Plug 'ludovicchabant/vim-gutentags'
-    "Plug 'davidosomething/vim-gutentags', { 'branch': 'user-autocmd' }
-  " endif
+  if v:version >= 704 && executable('ctags')
+    if has('patch-7.4.1685')
+      Plug 'ludovicchabant/vim-gutentags'
+    else
+      Plug 'smkent/vim-gutentags', { 'branch': 'replace-matchstrpos' }
+    endif
+  endif
 
   " ==========================================================================
   " Plug: Vim debugging

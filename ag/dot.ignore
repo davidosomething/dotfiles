@@ -6,16 +6,16 @@ node_modules/
 vendor/
 
 *~
-*.crt
-*.csv
-*.lock
-*.map
-*.marko.js
-*.min.*
-*.po
-*.svg
-*.vim.old
-*-min.*
+**.crt
+**.csv
+**.lock
+**.map
+**.marko.js
+**.min.*
+**.po
+**.svg
+**.vim.old
+**-min.*
 COPYING*
 LICENSE*
 jquery.*
