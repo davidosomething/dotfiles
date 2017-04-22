@@ -570,7 +570,7 @@ function! s:LoadPlugins()
 
   " Off until nvim 2.0 release, which fixes missing method
   if v:version >= 704 && executable('ctags')
-    if has('patch-7.4.1685')
+    if exists("*matchstrpos")
       Plug 'ludovicchabant/vim-gutentags'
     else
       Plug 'smkent/vim-gutentags', { 'branch': 'replace-matchstrpos' }
