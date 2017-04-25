@@ -1,0 +1,7 @@
+[credential]
+	helper = osxkeychain
+
+[web]
+	browser = open
+
+# vim: ft=gitconfig :

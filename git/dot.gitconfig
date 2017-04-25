@@ -195,6 +195,9 @@
 # User defaults (may be overridden by local)
 # ============================================================================
 
+[github]
+	user  = "davidosomething"
+
 [credential]
 	username = "davidosomething"
 
@@ -208,7 +211,6 @@
 # ============================================================================
 
 [include]
-	path = "~/.secret/git/common.gitconfig"
 	path = "~/.dotfiles/local/gitconfig"
 
 # vim: ft=gitconfig :
