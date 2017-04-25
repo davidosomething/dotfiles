@@ -111,7 +111,7 @@ function! s:GetFzfVimSource() abort
         \ ], ',') . '}/**/*.vim', 0, 1)
   let l:runtime_files = globpath(g:dko#vim_dir, '*.vim', 0, 1)
   let l:rcfiles = globpath(g:dko#vim_dir, '*vimrc', 0, 1)
-  return dko#ShortPaths( l:runtime_dirs_files + l:runtime_files + l:rcfiles )
+  return l:runtime_dirs_files + l:runtime_files + l:rcfiles
 endfunction
 
 command! FZFVim
