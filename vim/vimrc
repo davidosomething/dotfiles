@@ -1146,9 +1146,11 @@ function! s:LoadPlugins()
   " Always show signs column with marks / vcs / qf
   Plug 'tomtom/quickfixsigns_vim'
 
+  " Disabled, not worth the overhead.
   " Alternatively use sjl/vitality.vim -- but that has some cursor shape stuff
   " that Neovim doesn't need.
-  Plug 'tmux-plugins/vim-tmux-focus-events'
+  " @see <https://github.com/sjl/vitality.vim/issues/31>
+  "Plug 'tmux-plugins/vim-tmux-focus-events'
 endfunction
 
 " ----------------------------------------------------------------------------
