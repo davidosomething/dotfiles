@@ -75,19 +75,24 @@ dko::has "chruby" && {
 
 __dko::prompt::precmd::state() {
   local left_raw="${(%j::)__dko_prompt_left_parts} "
+  local left_len=${#left_raw}
   local right_raw=" ${(ej::)__dko_prompt_right_parts}"
+  local right_len=${#right_raw}
   # $COLUMNS is not always right on iterm so use modern tput
-  local spaces=$(($(tput cols) - ${#left_raw} - ${#right_raw}))
+  local cols=$(tput cols)
 
   local left=''
+  # colorize
   for (( i = 1; i <= ${#__dko_prompt_left_parts}; i++ )) do
     left="${left}${(%)__dko_prompt_left_colors[i]}${(%)__dko_prompt_left_parts[i]}"
   done
   left="${left} "
 
   # Right side if has room
+  local spaces=$(( $cols - $left_len - $right_len ))
   if [[ $spaces -gt 1 ]]; then
     local right=' '
+    # colorize
     for (( i = 1; i <= ${#__dko_prompt_right_parts}; i++ )) do
       right="${right}${(%)__dko_prompt_right_colors[i]}${(e)__dko_prompt_right_parts[i]}"
     done
