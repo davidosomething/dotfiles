@@ -570,7 +570,7 @@ function! s:LoadPlugins()
 
   " Off until nvim 2.0 release, which fixes missing method
   if v:version >= 704 && executable('ctags')
-    if exists("*matchstrpos")
+    if exists('*matchstrpos')
       Plug 'ludovicchabant/vim-gutentags'
     else
       Plug 'smkent/vim-gutentags', { 'branch': 'replace-matchstrpos' }
@@ -987,31 +987,24 @@ function! s:LoadPlugins()
   " ----------------------------------------
 
   " Completion
-  " 'pbogut/deoplete-padawan'     - server based completion for deoplete.nvim
-  " 'phpvim/phpcd.vim'            - server based completion
-  " 'mkusher/padawan.vim'         - server based completion for VIM
-  " 'm2mdas/phpcomplete-extended' - fast via vimproc, but dead
-  " 'shawncplus/phpcomplete.vim'  - slow as fuck, included in VIMRUNTIME.
-  "                                 this is upstream. tags based
+  " 'padawan-php/deoplete-padawan'  - server based completion for deoplete.nvim
+  " 'phpvim/phpcd.vim'              - server based completion
+  " 'mkusher/padawan.vim'           - server based completion for VIM
+  " 'm2mdas/phpcomplete-extended'   - fast via vimproc, but dead
+  " 'shawncplus/phpcomplete.vim'    - slow as fuck, included in VIMRUNTIME.
+  "                                   this is upstream. tags based
 
   " Set to completefunc
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 
   if 0 && has('nvim') && executable('composer')
-    Plug 'pbogut/deoplete-padawan', {
-          \   'do': 'composer global require mkusher/padawan',
+    Plug 'padawan-php/deoplete-padawan', {
+          \   'do': 'composer install',
           \ }
   endif
 
   " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
   "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
-
-  " if !has('nvim') && executable('composer')
-    " Plug 'mkusher/padawan.vim', {
-    "       \   'do': 'composer global require mkusher/padawan',
-    "       \   'for': 'php',
-    "       \ }
-  " endif
 
   " if has('nvim') && executable('composer')
   "   Plug 'phpvim/phpcd.vim', {
