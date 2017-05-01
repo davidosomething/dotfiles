@@ -8,6 +8,5 @@ pep8
 prospector
 pycodestyle
 pylint
-proselint
 vim-vint
 vulture
