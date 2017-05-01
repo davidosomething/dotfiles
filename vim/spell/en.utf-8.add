@@ -246,3 +246,7 @@ dev
 app
 AWS
 Bynder
+gui
+args
+vimfiler
+nvim

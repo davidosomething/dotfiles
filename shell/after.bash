@@ -41,8 +41,8 @@ dko::has "nvim" && {
   dko::has "nvr" && {
     export NVIM_LISTEN_ADDRESS=~/.dotfiles/local/nvimsocket
     export VOPEN_SERVERNAME="$NVIM_LISTEN_ADDRESS"
-    export VOPEN_DEFAULT_COMMAND="+enew"
-    export VOPEN_REUSE_COMMAND="--remote-silent +sleep"
+    export VOPEN_DEFAULT_COMMAND="--remote-silent +enew"
+    export VOPEN_REUSE_COMMAND="--remote-silent"
     export VOPEN_EDITOR="nvr"
     export VOPEN_VISUAL="nvr"
   }

@@ -21,8 +21,8 @@ zplug "paulirish/git-recent",     as:command
 # my fork of cdbk, zsh hash based directory bookmarking
 zplug "davidosomething/cdbk"
 
-# zplug "~/projects/vopen", \
-#   from:local, \
+# zplug "~/projects/davidosomething/vopen", \
+  # from:local, \
 zplug "davidosomething/vopen",     \
   use:"{vopen,vopen-nofork}", \
   as:command
