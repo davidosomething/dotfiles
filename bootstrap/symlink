@@ -31,6 +31,7 @@ __symlink() {
   dko::symlink atom/config.cson                 .config/atom/config.cson
   dko::symlink git/dot.gitconfig                .config/git/config
   dko::symlink git/dot.gitignore                .config/git/ignore
+  dko::symlink node/default-packages            .config/nvm/default-packages
   dko::symlink shell/dot.inputrc                .config/readline/inputrc
   dko::symlink redshift/redshift.conf           .config/redshift/redshift.conf
 

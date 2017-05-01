@@ -38,7 +38,7 @@ __install() {
       # npm ls --global --parseable --depth=0 "$package" ||
       npm install --global --production "$package"
     fi
-  done < "${DOTFILES}/node/packages.txt"
+  done < "${DOTFILES}/node/default-packages"
 }
 
 __install "$@"
