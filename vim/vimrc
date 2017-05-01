@@ -550,7 +550,7 @@ function! s:LoadPlugins()
   " Use in nvim
   if (has('nvim') || has('gui_running') || has('termguicolors'))
     Plug 'davidosomething/vim-base2tone-lakedark'
-    Plug 'atelierbram/Base2Tone-vim'
+    "Plug 'atelierbram/Base2Tone-vim'
     Plug 'AlessandroYorba/Sidonia'
     Plug 'kristiandupont/shades-of-teal'
   endif
