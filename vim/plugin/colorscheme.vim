@@ -5,7 +5,7 @@ if !has('nvim') && has('termguicolors')
 endif
 
 let s:colorscheme = 'default'
-if dko#IsPlugged('Base2Tone-vim')
+if dko#IsPlugged('Base2Tone-vim') || dko#IsPlugged('vim-base2tone-lakedark')
       \ && (has('nvim') || has('gui_running') || has('termguicolors'))
   let g:base16colorspace=256
   silent! colorscheme Base2Tone_LakeDark
