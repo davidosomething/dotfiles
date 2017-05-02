@@ -44,7 +44,6 @@ __dko::dotfiles::usage() {
   macOS/OS X
     brew        -- homebrew packages
     mac         -- repair permissions and check software updates
-    neovim      -- install latest brew neovim/neovim on HEAD
 
   Development
     vimlint     -- update vimlint
@@ -434,7 +433,6 @@ __dko::dotfiles::linux::update() {
 __dko::dotfiles::darwin::update() {
   case "$1" in
     brew)   __dko::dotfiles::darwin::update_brew        ;;
-    neovim) __dko::dotfiles::darwin::update_brew_neovim ;;
     mac)    __dko::dotfiles::darwin::update_mac         ;;
     all)    __dko::dotfiles::darwin::update_all         ;;
   esac
@@ -533,11 +531,6 @@ __dko::dotfiles::darwin::update_brew() {
       && dko::status "Python3 was outdated, upgrading python3" \
       && brew upgrade python3
 
-    # Update neovim separately
-    grep -q "neovim" <<<"$outdated" \
-      && dko::status "Neovim was outdated" \
-      && __dko::dotfiles::darwin::update_brew_neovim
-
     # Upgrade remaining
     dko::status "Upgrading packages"
     brew upgrade
@@ -564,26 +557,6 @@ __dko::dotfiles::darwin::require_homebrew() {
     dko::err "Homebrew is not installed."
     exit 1
   }
-}
-
-__dko::dotfiles::darwin::update_brew_neovim() {
-  dko::status "Re-installing neovim via homebrew (brew update first to upgrade)"
-  (
-    __dko::dotfiles::darwin::require_homebrew
-
-    # enter dotfiles dir to do this in case user has any gem flags or local
-    # vendor bundle that will cause use of local gems
-    cd "$DOTFILES" || {
-      dko::err "Can't enter \$DOTFILES to run brew in clean environment"
-      exit 1
-    }
-
-    # CLEANROOM
-    __dko::dotfiles::pyenv_system
-    TERM=xterm-256color
-
-    brew reinstall --HEAD --with-release neovim
-  )
 }
 
 # ==============================================================================
