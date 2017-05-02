@@ -353,7 +353,7 @@ __dko::dotfiles::update_wpcs() {
 
   if ! dko::has "phpcs"; then
     dko::warn  "phpcs is not installed"
-    dko::warn_ "Install and run again, or set installed_paths manually"
+    dko::warn_ "Install via composer global require and run again, or set installed_paths manually"
     return 1
   fi
 
@@ -363,8 +363,7 @@ __dko::dotfiles::update_wpcs() {
 
   dko::status "Looking for standards"
   readonly possible=( \
-    "/usr/local/etc/php-code-sniffer/Standards" \
-    "/usr/local/Cellar/php-code-sniffer/2.7.0/CodeSniffer/Standards" \
+    "$COMPOSER_HOME/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards" \
     "$wpcs_path" \
   )
   local standards=()
