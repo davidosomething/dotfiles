@@ -15,6 +15,9 @@ let g:loaded_dko = 1
 " ============================================================================
 
 let g:dko#vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+let g:dko#plug_dir = '/vendor/'
+let g:dko#plug_dir .= has('nvim') ? 'nvim' : 'vim'
+let g:dko#plug_absdir = g:dko#vim_dir . g:dko#plug_dir
 
 " ============================================================================
 " General VimL utility functions

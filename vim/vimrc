@@ -697,8 +697,9 @@ function! s:LoadPlugins()
   " ==========================================================================
 
   if (has('nvim') && has('python3')) " || has('patch-7.4.1758')
-    Plug 'Shougo/deoplete.nvim',
-          \ has('nvim') ? { 'do': ':UpdateRemotePlugins' } : {}
+    Plug 'roxma/nvim-completion-manager'
+          \| Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+          \| Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 
     "Full syntax completion - super slow, like syntaxcomplete
     "Plug 'Shougo/neco-syntax', { 'for': ['scss'] }
@@ -710,10 +711,6 @@ function! s:LoadPlugins()
     Plug 'Shougo/neosnippet'
           \| Plug 'honza/vim-snippets'
           \| Plug 'Shougo/neosnippet-snippets'
-
-    if has('python3')
-      Plug 'zchee/deoplete-jedi'
-    endif
   endif
 
   " ==========================================================================
@@ -902,14 +899,15 @@ function! s:LoadPlugins()
   " Completion
   " ----------------------------------------
 
-" Code analysis completion
+  " Code analysis completion
   if executable('npm')
     " Configured in plugins/completion.vim
     Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
 
     if has('nvim')
       " Configured in plugins/completion.vim
-      Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
+      Plug 'roxma/nvim-cm-tern', { 'do': 'npm install' }
+      " Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
 
       " Complete imports
       " Plug 'neovim/node-host', { 'do': 'npm install' }
@@ -995,23 +993,26 @@ function! s:LoadPlugins()
   "                                   this is upstream. tags based
 
   " Set to completefunc
-  Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 
-  if 0 && has('nvim') && executable('composer')
-    Plug 'padawan-php/deoplete-padawan', {
-          \   'do': 'composer install',
-          \ }
+  if has('nvim') && executable('composer')
+    " Plug 'roxma/nvim-cm-php-language-server', {
+    "       \   'do': 'composer install && composer run-script parse-stubs'
+    "       \ }
+
+    " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+    "       \|  Plug 'roxma/LanguageServer-php-neovim', {
+    "       \     'do': 'composer install && composer run-script parse-stubs'
+    "       \   }
+
+    "   Plug 'phpvim/phpcd.vim', {
+    "         \   'do': 'composer update',
+    "         \   'for': 'php'
+    "         \ }
+  else
+    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+    " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
+    "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
   endif
-
-  " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
-  "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
-
-  " if has('nvim') && executable('composer')
-  "   Plug 'phpvim/phpcd.vim', {
-  "         \   'do': 'composer update',
-  "         \   'for': 'php'
-  "         \ }
-  " endif
 
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] } -- dead
 
@@ -1151,10 +1152,6 @@ endfunction
 " ----------------------------------------------------------------------------
 
 let s:use_plugins = 1
-let s:plug_dir = '/vendor/'
-let s:plug_dir .= has('nvim') ? 'nvim' : 'vim'
-let s:dko_plug_absdir = g:dko#vim_dir . s:plug_dir
-
 let g:plug_window = 'tabnew'
 
 if s:use_plugins
@@ -1171,9 +1168,9 @@ if s:use_plugins
   endif
 
   if s:has_plug
-    call plug#begin(s:dko_plug_absdir)
+    call plug#begin(g:dko#plug_absdir)
       call s:LoadPlugins()
-      if !isdirectory(expand(s:dko_plug_absdir)) | PlugInstall
+      if !isdirectory(expand(g:dko#plug_absdir)) | PlugInstall
       endif
     call plug#end()
   endif
