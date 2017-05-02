@@ -142,35 +142,27 @@ __dko::dotfiles::pyenv_global() {
 __dko::dotfiles::update_composer() {
   dko::status "Updating composer"
 
+  dko::has "composer" || {
+    dko::err "composer is not installed"
+    return 1
+  }
+
   if [ -x "/usr/local/bin/composer" ]; then
-    dko::status_ "composer was installed via brew"
+    dko::status_ "composer was installed via brew (yay)"
   else
     dko::status_ "Updating composer itself"
-    (
-      dko::has "composer" || {
-        dko::err "composer is not installed"
-        exit 1
-      }
-      composer self-update || {
-        dko::err "Could not update composer"
-        exit 1
-      }
-    ) || return 1
+    composer self-update || {
+      dko::err "Could not update composer"
+      return 1
+    }
   fi
 
   if [ -f "$COMPOSER_HOME/composer.json" ]; then
     dko::status "Updating composer global packages"
-    (
-      dko::has "composer" || {
-        dko::err "composer is not installed"
-        exit 1
-      }
-
-      composer global update || {
-        dko::err "Could not update global packages"
-        exit 1
-      }
-    ) || return 1
+    composer global update || {
+      dko::err "Could not update global packages"
+      return 1
+    }
   fi
 }
 
