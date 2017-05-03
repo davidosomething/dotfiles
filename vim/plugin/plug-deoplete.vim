@@ -215,24 +215,6 @@ if executable('tern')
   let g:tern_show_signature_in_pum = 1
 
   " --------------------------------------------------------------------------
-  " tern_for_vim settings
-  " This plugin is used for its refactoring and helper methods, not completion
-  " --------------------------------------------------------------------------
-
-  " @TODO deprecated, replace with own plugin
-  if dko#IsPlugged('tern_for_vim')
-    " Use tabline instead
-    let g:tern_show_argument_hints = 'no'
-
-    " Don't set the omnifunc to tern#Complete
-    "let g:tern_set_omni_function     = 0
-
-    augroup dkocompletion
-      autocmd FileType javascript nnoremap <silent><buffer> gd :<C-U>TernDef<CR>
-    augroup END
-  endif
-
-  " --------------------------------------------------------------------------
   " deoplete-ternjs settings
   " This plugin adds a custom deoplete source only
   " --------------------------------------------------------------------------
@@ -327,40 +309,38 @@ if !g:dko_use_ncm && dko#IsPlugged('phpcomplete.vim')
 endif
 
 " ============================================================================
-" Deoplete
+" Deoplete actual settings
 " ============================================================================
 
-if dko#IsPlugged('deoplete.nvim')
-  let g:deoplete#enable_ignore_case = 0
-  let g:deoplete#enable_smart_case = 1
-  let g:deoplete#enable_at_startup  = 1
+let g:deoplete#enable_ignore_case = 0
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_at_startup  = 1
 
-  " [file] candidates are relative to the buffer path
-  let g:deoplete#file#enable_buffer_path = 1
+" [file] candidates are relative to the buffer path
+let g:deoplete#file#enable_buffer_path = 1
 
-  call deoplete#custom#set('_', 'matchers', [
-        \   'matcher_head',
-        \   'matcher_length',
-        \ ])
+call deoplete#custom#set('_', 'matchers', [
+      \   'matcher_head',
+      \   'matcher_length',
+      \ ])
 
-  " --------------------------------------------------------------------------
-  " Sources for engine based omni-completion (ignored if match s:omni_only)
-  " --------------------------------------------------------------------------
+" --------------------------------------------------------------------------
+" Sources for engine based omni-completion (ignored if match s:omni_only)
+" --------------------------------------------------------------------------
 
-  let g:deoplete#omni#functions = s:omnifuncs
+let g:deoplete#omni#functions = s:omnifuncs
 
-  " --------------------------------------------------------------------------
-  " Input patterns
-  " --------------------------------------------------------------------------
+" --------------------------------------------------------------------------
+" Input patterns
+" --------------------------------------------------------------------------
 
-  " Patterns that use &omnifunc directly by synthetic <C-X><C-O>
-  call dko#InitDict('g:deoplete#omni_patterns')
-  call extend(g:deoplete#omni_patterns, s:omni_only)
+" Patterns that use &omnifunc directly by synthetic <C-X><C-O>
+call dko#InitDict('g:deoplete#omni_patterns')
+call extend(g:deoplete#omni_patterns, s:omni_only)
 
-  " Patterns that trigger deoplete aggregated PUM
-  call dko#InitDict('g:deoplete#omni#input_patterns')
-  call extend(g:deoplete#omni#input_patterns, s:deo_patterns)
-endif
+" Patterns that trigger deoplete aggregated PUM
+call dko#InitDict('g:deoplete#omni#input_patterns')
+call extend(g:deoplete#omni#input_patterns, s:deo_patterns)
 
 " ============================================================================
 

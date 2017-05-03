@@ -104,7 +104,9 @@ set noshowmode                        " don't show -- INSERT -- in cmdline
 " ----------------------------------------------------------------------------
 
 " Enable mouse
-set mouse=a
+if !has('nvim')
+  set mouse=a
+endif
 
 " Typing key combos
 set notimeout
@@ -157,7 +159,7 @@ set wildignore+=.sass-cache
 set wildignore+=npm-debug.log
 " Compiled
 set wildignore+=*.marko.js
-set wildignore+=*.min.*
+set wildignore+=*.min.*,*-min.*
 " Temp/System
 set wildignore+=*.*~,*~
 set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
@@ -802,9 +804,6 @@ function! s:LoadPlugins()
 
   " Code analysis completion
   if executable('npm')
-    " For refactoring, not completion
-    Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
-
     if g:dko_use_ncm
       " nvim-cm-tern is faster than deoplete implementation, so use it
       " instead of forwarding.
@@ -895,6 +894,7 @@ function! s:LoadPlugins()
   " Completion: Snippet engine
   " --------------------------------------------------------------------------
 
+  " nvim-completion-manager and deoplete
   Plug 'Shougo/neosnippet'
         \| Plug 'honza/vim-snippets'
         \| Plug 'Shougo/neosnippet-snippets'
@@ -903,10 +903,11 @@ function! s:LoadPlugins()
   " Completion: VimL
   " --------------------------------------------------------------------------
 
+  " nvim-completion-manager and deoplete
   Plug 'Shougo/neco-vim'
 
   " ==========================================================================
-  " Plug: Language
+  " Plug: Multiple languages
   " ==========================================================================
 
   " special end syntax for various langs
@@ -1006,6 +1007,11 @@ function! s:LoadPlugins()
   " detect extensionless node scripts (executables) via shebang
   " and add gf for going to node_modules files
   Plug 'moll/vim-node'
+
+  if executable('npm')
+    " For refactoring only, not completion
+    Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
+  endif
 
   " ==========================================================================
   " Language: Markdown, Pandoc
