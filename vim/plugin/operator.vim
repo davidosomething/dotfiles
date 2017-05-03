@@ -17,9 +17,9 @@ if dko#IsPlugged('vim-operator-surround')
   silent! unmap gsr
 
   " note: gs is mapped to <NOP> in after/plugin/mappings.vim
-  map       <silent>  gsa   <Plug>(operator-surround-append)
-  map       <silent>  gsd   <Plug>(operator-surround-delete)
-  map       <silent>  gsr   <Plug>(operator-surround-replace)
+  map <silent>  gsa   <Plug>(operator-surround-append)
+  map <silent>  gsd   <Plug>(operator-surround-delete)
+  map <silent>  gsr   <Plug>(operator-surround-replace)
 endif
 
 if dko#IsPlugged('operator-camelize.vim')
