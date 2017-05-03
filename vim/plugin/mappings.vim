@@ -266,7 +266,7 @@ vmap  <special>   <S-Tab>   <
 
 if dko#IsPlugged('vim-textobj-indent')
   " Auto select indent-level and sort
-  nnoremap  <special> <Leader>s   vii:!sort<CR>
+  nmap  <special> <Leader>s   vii:!sort<CR>
 else
   " Auto select paragraph (bounded by blank lines) and sort
   nnoremap  <special> <Leader>s   vip:!sort<CR>
