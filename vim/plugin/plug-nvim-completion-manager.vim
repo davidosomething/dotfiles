@@ -6,17 +6,21 @@ augroup dkonvimcompletionmanager
   autocmd!
 augroup END
 
+" Deoplete integration implementation from
+" https://github.com/roxma/nvim-completion-manager/issues/50
 if dko#IsPlugged('deoplete.nvim')
-  " register deoplete as ncm source
+
+  " see https://github.com/roxma/nvim-completion-manager/blob/e24352af8a744f75966d7a2358040095e2d0b1f2/doc/nvim-completion-manager.txt#L299
+  " for what the source kvs are
   autocmd dkonvimcompletionmanager User CmSetup
         \ call cm#register_source({
-        \   'name': 'deoplete',
-        \   'priority': 7,
+        \   'name':         'deoplete',
+        \   'priority':     8,
         \   'abbreviation': '',
         \ })
 
   " forward to ncm
-  function! g:Deoplete_ncm() abort
+  function! g:DkoNcmDeopleteSource() abort
     call cm#complete(
           \   'deoplete',
           \   cm#context(),
@@ -27,17 +31,5 @@ if dko#IsPlugged('deoplete.nvim')
   endfunction
 
   " hack deoplete's mapping
-  inoremap <silent> <Plug>_ <C-r>=g:Deoplete_ncm()<CR>
-
+  inoremap <silent> <Plug>_ <C-r>=g:DkoNcmDeopleteSource()<CR>
 endif
-
-" Autostarted in LanguageClient-neovim
-" if dko#IsPlugged('roxma/LanguageServer-php-neovim')
-  " let g:LanguageClient_serverCommands = {
-  "       \   'php': [
-  "       \     'php',
-  "       \     expand(g:dko#plug_absdir . '/vendor/felixfbecker/language-server/bin/php-language-server.php')
-  "       \   ],
-  "       \ }
-  " autocmd dkonvimcompletionmanager FileType php LanguageClientStart
-" endif

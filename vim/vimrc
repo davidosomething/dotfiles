@@ -849,21 +849,20 @@ function! s:LoadPlugins()
   " Completion: PHP
   " --------------------------------------------------------------------------
 
-  " Use deoplete-padawan (and forward to nvim-completion-manager if present)
+  " Actually quite fast when used with nvim-completion-manager
   Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 
-  " Could not get these to complete (though refactoring works)
-
-  " DEPRECATED
-  " Plug 'roxma/nvim-cm-php-language-server', {
-  "       \   'do': 'composer install && composer run-script parse-stubs'
-  "       \ }
-
-  " ACTIVE DEV
-  " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-  "       \|  Plug 'roxma/LanguageServer-php-neovim', {
-  "       \     'do': 'composer install && composer run-script parse-stubs'
-  "       \   }
+  " if g:dko_use_ncm
+    " The language client completion is a bit slow to kick in, but it works
+    " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+    "       \|  Plug 'roxma/LanguageServer-php-neovim', {
+    "       \     'do': 'composer install && composer run-script parse-stubs'
+    "       \   }
+          " DEPRECATED language server client, code is like 99% same as above
+          " \|  Plug 'roxma/nvim-cm-php-language-server', {
+          " \     'do': 'composer install && composer run-script parse-stubs'
+          " \   }
+  " endif
 
   " Possible vanilla plugins
   " 'phpvim/phpcd.vim'              - server based completion
