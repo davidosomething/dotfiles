@@ -244,7 +244,7 @@ endif
 "execute 'set spellfile=' . glob(expand(dko#vim_dir . '/en.utf-8.add'))
 
 " ----------------------------------------------------------------------------
-" Completion -- see also plugins/completion.vim
+" Built-in completion
 " ----------------------------------------------------------------------------
 
 " Don't consider = symbol as part filename. Helps for deoplete file source.
@@ -631,10 +631,6 @@ function! s:LoadPlugins()
   " gK to lookup
   Plug 'keith/investigate.vim'
 
-  " Include completion, include tags
-  " slow...
-  "Plug 'Shougo/neoinclude.vim'
-
   Plug 'nathanaelkane/vim-indent-guides'
 
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
@@ -691,27 +687,6 @@ function! s:LoadPlugins()
   " ctags on-the-fly processing
   " This is a nice function context plugin but too many false positives
   "Plug 'jeetsukumaran/vim-gazetteer'
-
-  " ==========================================================================
-  " Plug: Completion
-  " ==========================================================================
-
-  if (has('nvim') && has('python3')) " || has('patch-7.4.1758')
-    Plug 'roxma/nvim-completion-manager'
-          \| Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-          \| Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
-
-    "Full syntax completion - super slow, like syntaxcomplete
-    "Plug 'Shougo/neco-syntax', { 'for': ['scss'] }
-
-    " Mixed-filetype completion for Shougo complete, e.g. highlight JS within
-    " Markdown fenced code blocks.
-    Plug 'Shougo/context_filetype.vim'
-
-    Plug 'Shougo/neosnippet'
-          \| Plug 'honza/vim-snippets'
-          \| Plug 'Shougo/neosnippet-snippets'
-  endif
 
   " ==========================================================================
   " Plug: Editing keys
@@ -783,6 +758,133 @@ function! s:LoadPlugins()
 
   " Toggle movement mode line-wise/display-wise
   Plug g:dko#vim_dir . '/mine/vim-movemode'
+
+  " ==========================================================================
+  " Plug: Completion
+  " ==========================================================================
+
+  let s:use_ncm = has('nvim') && has('python3')
+
+  if s:use_ncm
+    " Main completion engine, bound to C-X
+    Plug 'roxma/nvim-completion-manager'
+  endif
+
+  " Always provide deoplete, may or may not be bound to C-X depending on if
+  " s:use_ncm, in which case deoplete Forwards to nvim-completion-manager for
+  " some sources (e.g. deoplete-padawan for php since langserver above didn't
+  " work for me.)
+  "
+  " context_filetype.vim provides mixed-filetype completion for deoplete,
+  " e.g. highlight JS within Markdown fenced code blocks.
+  " nvim-completion-manager already has this functionality built in.
+  Plug 'Shougo/context_filetype.vim'
+        \| Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+  " --------------------------------------------------------------------------
+  " Deoplete functionality: Includes
+  " --------------------------------------------------------------------------
+
+  " Include completion, include tags
+  " slow...
+  "Plug 'Shougo/neoinclude.vim'
+
+  " --------------------------------------------------------------------------
+  " Completion: CSS
+  " --------------------------------------------------------------------------
+
+  " Omnicompletion, this is beta repo, where stables are already in VIMRUNTIME
+  Plug 'othree/csscomplete.vim'
+
+  " --------------------------------------------------------------------------
+  " Completion: JavaScript
+  " --------------------------------------------------------------------------
+
+  " Code analysis completion
+  if executable('npm')
+    " For refactoring, not completion
+    Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
+
+    if s:use_ncm
+      " nvim-cm-tern is faster than deoplete implementation, so use it
+      " instead of forwarding.
+      Plug 'roxma/nvim-cm-tern', { 'do': 'npm install' }
+
+    else
+      Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
+
+      " Complete imports (slow, consider set up in .tern-project instead)
+      " Plug 'neovim/node-host', { 'do': 'npm install' }
+      "       \| Plug 'billyvg/jsimport.nvim'
+    endif
+
+  else
+    " Syntax completion when tern is not available -- same stuff as tern
+    Plug '1995eaton/vim-better-javascript-completion'
+  endif
+
+  " Parameter completion (in or after ' or "), bound to user complete
+  "Plug 'othree/jspc.vim'
+
+  " --------------------------------------------------------------------------
+  " Completion: PHP
+  " --------------------------------------------------------------------------
+
+  " Use deoplete-padawan (and forward to nvim-completion-manager if present)
+  Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
+
+  " Could not get these to complete (though refactoring works)
+
+  " DEPRECATED
+  " Plug 'roxma/nvim-cm-php-language-server', {
+  "       \   'do': 'composer install && composer run-script parse-stubs'
+  "       \ }
+
+  " ACTIVE DEV
+  " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+  "       \|  Plug 'roxma/LanguageServer-php-neovim', {
+  "       \     'do': 'composer install && composer run-script parse-stubs'
+  "       \   }
+
+  " Possible vanilla plugins
+  " 'phpvim/phpcd.vim'              - server based completion
+  " 'mkusher/padawan.vim'           - server based completion for VIM
+  " 'm2mdas/phpcomplete-extended'   - fast via vimproc, but dead
+  " 'shawncplus/phpcomplete.vim'    - slow as fuck, included in VIMRUNTIME.
+  "                                   this is upstream. tags based
+
+  " Alternative PHP completion daemon, never got it working...
+  "   Plug 'phpvim/phpcd.vim', {
+  "         \   'do': 'composer update',
+  "         \   'for': 'php'
+  "         \ }
+
+  if !has('nvim') || !executable('composer')
+    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+    " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
+    "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
+  endif
+
+  " --------------------------------------------------------------------------
+  " Completion: Syntax
+  " --------------------------------------------------------------------------
+
+  "Full syntax completion - super slow, like syntaxcomplete
+  "Plug 'Shougo/neco-syntax', { 'for': ['scss'] }
+
+  " --------------------------------------------------------------------------
+  " Completion: Snippet engine
+  " --------------------------------------------------------------------------
+
+  Plug 'Shougo/neosnippet'
+        \| Plug 'honza/vim-snippets'
+        \| Plug 'Shougo/neosnippet-snippets'
+
+  " --------------------------------------------------------------------------
+  " Completion: VimL
+  " --------------------------------------------------------------------------
+
+  Plug 'Shougo/neco-vim'
 
   " ==========================================================================
   " Plug: Language
@@ -895,33 +997,6 @@ function! s:LoadPlugins()
   " and add gf for going to node_modules files
   Plug 'moll/vim-node'
 
-  " ----------------------------------------
-  " Completion
-  " ----------------------------------------
-
-  " Code analysis completion
-  if executable('npm')
-    " Configured in plugins/completion.vim
-    Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
-
-    if has('nvim')
-      " Configured in plugins/completion.vim
-      Plug 'roxma/nvim-cm-tern', { 'do': 'npm install' }
-      " Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
-
-      " Complete imports
-      " Plug 'neovim/node-host', { 'do': 'npm install' }
-      "       \| Plug 'billyvg/jsimport.nvim'
-    endif
-
-  else
-    " Syntax completion when tern is not available -- same stuff as tern
-    Plug '1995eaton/vim-better-javascript-completion'
-  endif
-
-  " Parameter completion (in or after ' or "), bound to user complete
-  "Plug 'othree/jspc.vim'
-
   " ==========================================================================
   " Language: Markdown, Pandoc
   " ==========================================================================
@@ -984,36 +1059,6 @@ function! s:LoadPlugins()
   " Features
   " ----------------------------------------
 
-  " Completion
-  " 'padawan-php/deoplete-padawan'  - server based completion for deoplete.nvim
-  " 'phpvim/phpcd.vim'              - server based completion
-  " 'mkusher/padawan.vim'           - server based completion for VIM
-  " 'm2mdas/phpcomplete-extended'   - fast via vimproc, but dead
-  " 'shawncplus/phpcomplete.vim'    - slow as fuck, included in VIMRUNTIME.
-  "                                   this is upstream. tags based
-
-  " Set to completefunc
-
-  if has('nvim') && executable('composer')
-    " Plug 'roxma/nvim-cm-php-language-server', {
-    "       \   'do': 'composer install && composer run-script parse-stubs'
-    "       \ }
-
-    " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-    "       \|  Plug 'roxma/LanguageServer-php-neovim', {
-    "       \     'do': 'composer install && composer run-script parse-stubs'
-    "       \   }
-
-    "   Plug 'phpvim/phpcd.vim', {
-    "         \   'do': 'composer update',
-    "         \   'for': 'php'
-    "         \ }
-  else
-    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-    " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
-    "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
-  endif
-
   "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] } -- dead
 
   " ==========================================================================
@@ -1074,9 +1119,6 @@ function! s:LoadPlugins()
   "Plug 'chrisbra/Colorizer' -- slower and not as complete
   Plug 'ap/vim-css-color'
 
-  " Omnicompletion, this is beta repo, where stables are already in VIMRUNTIME
-  Plug 'othree/csscomplete.vim'
-
   " ==========================================================================
   " Language: .tmux.conf
   " ==========================================================================
@@ -1095,9 +1137,6 @@ function! s:LoadPlugins()
 
   " Auto-prefix continuation lines with \
   Plug 'lambdalisue/vim-backslash'
-
-  " Completion
-  Plug 'Shougo/neco-vim'
 
   " ==========================================================================
   " Plug: Search
