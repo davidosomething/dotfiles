@@ -763,15 +763,15 @@ function! s:LoadPlugins()
   " Plug: Completion
   " ==========================================================================
 
-  let s:use_ncm = has('nvim') && has('python3')
+  let g:dko_use_ncm = has('nvim') && has('python3')
 
-  if s:use_ncm
+  if g:dko_use_ncm
     " Main completion engine, bound to C-X
     Plug 'roxma/nvim-completion-manager'
   endif
 
   " Always provide deoplete, may or may not be bound to C-X depending on if
-  " s:use_ncm, in which case deoplete Forwards to nvim-completion-manager for
+  " use_ncm, in which case deoplete Forwards to nvim-completion-manager for
   " some sources (e.g. deoplete-padawan for php since langserver above didn't
   " work for me.)
   "
@@ -805,7 +805,7 @@ function! s:LoadPlugins()
     " For refactoring, not completion
     Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
 
-    if s:use_ncm
+    if g:dko_use_ncm
       " nvim-cm-tern is faster than deoplete implementation, so use it
       " instead of forwarding.
       Plug 'roxma/nvim-cm-tern', { 'do': 'npm install' }
@@ -825,6 +825,21 @@ function! s:LoadPlugins()
 
   " Parameter completion (in or after ' or "), bound to user complete
   "Plug 'othree/jspc.vim'
+
+  " --------------------------------------------------------------------------
+  " Completion: Java
+  " --------------------------------------------------------------------------
+
+  " Forwarded to nvim-completion-manager if present
+  if has('python3')
+    Plug 'zchee/deoplete-jedi'
+
+  elseif executable('mvn')
+    Plug 'artur-shaik/vim-javacomplete2', {
+          \   'do': 'cd libs/javavi/ && mvn compile',
+          \   'for': 'java',
+          \ }
+  endif
 
   " --------------------------------------------------------------------------
   " Completion: PHP
@@ -933,15 +948,6 @@ function! s:LoadPlugins()
 
   " Creates html.handlebars and other fts and sets syn
   Plug 'mustache/vim-mustache-handlebars'
-
-  " ==========================================================================
-  " Language: Java
-  " ==========================================================================
-
-  Plug 'artur-shaik/vim-javacomplete2', {
-        \   'do': 'cd libs/javavi/ && mvn compile',
-        \   'for': 'java',
-        \ }
 
   " ==========================================================================
   " Language: JavaScript and derivatives, JSON

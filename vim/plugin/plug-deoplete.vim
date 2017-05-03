@@ -193,7 +193,7 @@ endfunction
 " Completion Plugin: vim-better-javascript-completion
 " ============================================================================
 
-if dko#IsPlugged('vim-better-javascript-completion')
+if !g:dko_use_ncm && !dko#IsPlugged('vim-better-javascript-completion')
   " insert instead of add, this is preferred completion omnifunc (except tern)
   autocmd dkocompletion FileType javascript setlocal omnifunc=js#CompleteJS
   call s:Include('javascript', 'js#CompleteJS')
@@ -268,23 +268,16 @@ endif
 " Completion Plugin: vim-javacomplete2
 " ============================================================================
 
-if dko#IsPlugged('vim-javacomplete2')
+if !g:dko_use_ncm && dko#IsPlugged('vim-javacomplete2')
   let g:JavaComplete_ClosingBrace = 0
   let g:JavaComplete_ShowExternalCommandsOutput = 1
 endif
 
 " ============================================================================
-" Completion Plugin: deoplete-padawan
-" ============================================================================
-
-if dko#IsPlugged('deoplete-padawan')
-  "let g:deoplete#sources#padawan#server_autostart = 0
-
-" ============================================================================
 " Completion Plugin: phpcd.vim
 " ============================================================================
 
-elseif dko#IsPlugged('phpcd.vim')
+if !g:dko_use_ncm && dko#IsPlugged('phpcd.vim')
   " Call omnifunc directly
   let s:omni_only.php = s:REGEX.any_word
         \. '\|' . s:REGEX.member
@@ -292,20 +285,11 @@ elseif dko#IsPlugged('phpcd.vim')
   let s:deo_patterns.php = []
 
 " ============================================================================
-" Completion Plugin: padawan.vim
-" ============================================================================
-
-elseif dko#IsPlugged('padawan.vim')
-  augroup dkocompletion
-    autocmd FileType php setlocal omnifunc=padawan#Complete
-  augroup END
-
-" ============================================================================
 " Completion Plugin: phpcomplete-extended
 " This requires vimproc and composer.json in project root.
 " ============================================================================
 
-elseif dko#IsPlugged('phpcomplete-extended')
+elseif !g:dko_use_ncm && dko#IsPlugged('phpcomplete-extended')
   let g:phpcomplete_extended_auto_add_use = 0
   if executable('composer')
     let g:phpcomplete_index_composer_command = 'composer'
@@ -323,7 +307,7 @@ endif
 " This is the worst one, moves the cursor, reads tags files
 " ============================================================================
 
-if dko#IsPlugged('phpcomplete.vim')
+if !g:dko_use_ncm && dko#IsPlugged('phpcomplete.vim')
   " Settings are read when phpcomplete#CompletePHP is called
   let g:phpcomplete_parse_docblock_comments = 1
 
