@@ -82,8 +82,7 @@ nnoremap  <silent><special>  <Leader>evg   :<C-U>edit $VIM_DOTFILES/gvimrc<CR>
 nnoremap  <silent><special>  <Leader>evl   :<C-U>edit ~/.secret/vim/vimrc.vim<CR>
 nnoremap  <silent><special>  <Leader>evr   :<C-U>edit $VIM_DOTFILES/vimrc<CR>
 
-nnoremap  <silent><special>  <Leader>em
-      \ :<C-U>edit $VIM_DOTFILES/after/plugin/mappings.vim<CR>
+nnoremap  <silent><special>  <Leader>em   :<C-U>edit $VIM_DOTFILES/plugin/mappings.vim<CR>
 nnoremap  <silent><special>  <Leader>ez   :<C-U>edit $ZDOTDIR/.zshrc<CR>
 
 " ============================================================================

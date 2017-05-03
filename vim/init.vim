@@ -1,9 +1,24 @@
 " init.vim
-" Neovim init (in place of vimrc)
+" Neovim init (in place of vimrc, sources vimrc)
+
+let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+
+" ============================================================================
+" Settings
+" ============================================================================
 
 set termguicolors
 
-let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+set guicursor=n-v-c:block,i-ci-ve:ver50,r-cr:hor20,o:hor50
+      \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+      \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+" New neovim feature, it's like vim-over but hides the thing being replaced
+" so it is not practical for now (makes it harder to remember what you're
+" replacing/reference previous regex tokens). Default is off, but explicitly
+" disabled here, too.
+" @see https://github.com/neovim/neovim/pull/5226
+set inccommand=
 
 " ============================================================================
 " :terminal emulator
