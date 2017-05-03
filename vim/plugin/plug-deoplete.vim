@@ -193,7 +193,7 @@ endfunction
 " Completion Plugin: vim-better-javascript-completion
 " ============================================================================
 
-if !g:dko_use_ncm && !dko#IsPlugged('vim-better-javascript-completion')
+if !dko#IsPlugged('vim-better-javascript-completion')
   " insert instead of add, this is preferred completion omnifunc (except tern)
   autocmd dkocompletion FileType javascript setlocal omnifunc=js#CompleteJS
   call s:Include('javascript', 'js#CompleteJS')
@@ -207,12 +207,6 @@ endif
 if executable('tern')
   " No reason to use javascriptcomplete when tern is available
   call s:Exclude('javascript', 'javascriptcomplete#CompleteJS')
-
-  " Settings common to deoplete-ternjs (vim var read via python) and
-  " tern_for_vim
-  " @see https://github.com/carlitux/deoplete-ternjs/blob/5500ae246aa1421a0e578c2c7e1b00d858b2fab2/rplugin/python3/deoplete/sources/ternjs.py#L70-L75
-  let g:tern_request_timeout       = 1 " undocumented in tern_for_vim
-  let g:tern_show_signature_in_pum = 1
 
   " --------------------------------------------------------------------------
   " deoplete-ternjs settings
@@ -247,19 +241,10 @@ if dko#IsPlugged('jspc.vim')
 endif
 
 " ============================================================================
-" Completion Plugin: vim-javacomplete2
-" ============================================================================
-
-if !g:dko_use_ncm && dko#IsPlugged('vim-javacomplete2')
-  let g:JavaComplete_ClosingBrace = 0
-  let g:JavaComplete_ShowExternalCommandsOutput = 1
-endif
-
-" ============================================================================
 " Completion Plugin: phpcd.vim
 " ============================================================================
 
-if !g:dko_use_ncm && dko#IsPlugged('phpcd.vim')
+if dko#IsPlugged('phpcd.vim')
   " Call omnifunc directly
   let s:omni_only.php = s:REGEX.any_word
         \. '\|' . s:REGEX.member
@@ -271,7 +256,7 @@ if !g:dko_use_ncm && dko#IsPlugged('phpcd.vim')
 " This requires vimproc and composer.json in project root.
 " ============================================================================
 
-elseif !g:dko_use_ncm && dko#IsPlugged('phpcomplete-extended')
+elseif dko#IsPlugged('phpcomplete-extended')
   let g:phpcomplete_extended_auto_add_use = 0
   if executable('composer')
     let g:phpcomplete_index_composer_command = 'composer'
@@ -289,7 +274,7 @@ endif
 " This is the worst one, moves the cursor, reads tags files
 " ============================================================================
 
-if !g:dko_use_ncm && dko#IsPlugged('phpcomplete.vim')
+if dko#IsPlugged('phpcomplete.vim')
   " Settings are read when phpcomplete#CompletePHP is called
   let g:phpcomplete_parse_docblock_comments = 1
 

@@ -758,31 +758,34 @@ function! s:LoadPlugins()
   " Plug: Completion
   " ==========================================================================
 
-  let g:dko_use_ncm = has('nvim') && has('python3')
-
-  if g:dko_use_ncm
+  function! s:LoadCompletionEngine() abort
     " Main completion engine, bound to C-X
     Plug 'roxma/nvim-completion-manager'
+
+    " Always provide deoplete, may or may not be bound to C-X depending on if
+    " use_ncm, in which case deoplete Forwards to nvim-completion-manager for
+    " some sources (e.g. deoplete-padawan for php since langserver above didn't
+    " work for me.)
+    "
+    " context_filetype.vim provides mixed-filetype completion for deoplete,
+    " e.g. highlight JS within Markdown fenced code blocks.
+    " nvim-completion-manager already has this functionality built in.
+    Plug 'Shougo/context_filetype.vim'
+          \| Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+    " --------------------------------------------------------------------------
+    " Deoplete functionality: Includes
+    " --------------------------------------------------------------------------
+
+    " Include completion, include tags
+    " slow...
+    "Plug 'Shougo/neoinclude.vim'
+  endfunction
+
+  let s:use_completion_engine = has('nvim') && has('python3')
+  if s:use_completion_engine
+    call s:LoadCompletionEngine()
   endif
-
-  " Always provide deoplete, may or may not be bound to C-X depending on if
-  " use_ncm, in which case deoplete Forwards to nvim-completion-manager for
-  " some sources (e.g. deoplete-padawan for php since langserver above didn't
-  " work for me.)
-  "
-  " context_filetype.vim provides mixed-filetype completion for deoplete,
-  " e.g. highlight JS within Markdown fenced code blocks.
-  " nvim-completion-manager already has this functionality built in.
-  Plug 'Shougo/context_filetype.vim'
-        \| Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-  " --------------------------------------------------------------------------
-  " Deoplete functionality: Includes
-  " --------------------------------------------------------------------------
-
-  " Include completion, include tags
-  " slow...
-  "Plug 'Shougo/neoinclude.vim'
 
   " --------------------------------------------------------------------------
   " Completion: CSS
@@ -796,27 +799,22 @@ function! s:LoadPlugins()
   " --------------------------------------------------------------------------
 
   " Code analysis completion
-  if executable('npm')
-    if g:dko_use_ncm
-      " nvim-cm-tern is faster than deoplete implementation, so use it
-      " instead of forwarding.
-      Plug 'roxma/nvim-cm-tern', { 'do': 'npm install' }
-
-    else
-      Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
-
-      " Complete imports (slow, consider set up in .tern-project instead)
-      " Plug 'neovim/node-host', { 'do': 'npm install' }
-      "       \| Plug 'billyvg/jsimport.nvim'
-    endif
+  if s:use_completion_engine && executable('npm')
+    " nvim-cm-tern is faster than deoplete implementation, so use it
+    " instead of forwarding.
+    Plug 'roxma/nvim-cm-tern', { 'do': 'npm install' }
+    " Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
+    " Complete imports (slow, consider set up in .tern-project instead)
+    " Plug 'neovim/node-host', { 'do': 'npm install' }
+    "       \| Plug 'billyvg/jsimport.nvim'
 
   else
-    " Syntax completion when tern is not available -- same stuff as tern
+    " Nice generic omnifunc
     Plug '1995eaton/vim-better-javascript-completion'
-  endif
 
-  " Parameter completion (in or after ' or "), bound to user complete
-  "Plug 'othree/jspc.vim'
+    " Parameter completion (in or after ' or "), bound to user complete
+    "Plug 'othree/jspc.vim'
+  endif
 
   " --------------------------------------------------------------------------
   " Completion: Java
@@ -824,17 +822,11 @@ function! s:LoadPlugins()
 
   " nvim-completion-manager has a jedi source in python already, so as long as
   " jedi is pip installed it is good to go.
-  if !g:dko_use_ncm
-    if has('python3')
-    " Forwarded to nvim-completion-manager if present
-    Plug 'zchee/deoplete-jedi'
-
-    elseif executable('mvn')
-      Plug 'artur-shaik/vim-javacomplete2', {
-            \   'do': 'cd libs/javavi/ && mvn compile',
-            \   'for': 'java',
-            \ }
-    endif
+  if executable('mvn')
+    Plug 'artur-shaik/vim-javacomplete2', {
+          \   'do': 'cd libs/javavi/ && mvn compile',
+          \   'for': 'java',
+          \ }
   endif
 
   " --------------------------------------------------------------------------
@@ -842,9 +834,9 @@ function! s:LoadPlugins()
   " --------------------------------------------------------------------------
 
   " Actually quite fast when used with nvim-completion-manager
-  Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
+  if s:use_completion_engine
+    Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 
-  " if g:dko_use_ncm
     " The language client completion is a bit slow to kick in, but it works
     " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
     "       \|  Plug 'roxma/LanguageServer-php-neovim', {
@@ -854,26 +846,34 @@ function! s:LoadPlugins()
           " \|  Plug 'roxma/nvim-cm-php-language-server', {
           " \     'do': 'composer install && composer run-script parse-stubs'
           " \   }
-  " endif
+  " else
 
-  " Possible vanilla plugins
-  " 'phpvim/phpcd.vim'              - server based completion
-  " 'mkusher/padawan.vim'           - server based completion for VIM
-  " 'm2mdas/phpcomplete-extended'   - fast via vimproc, but dead
-  " 'shawncplus/phpcomplete.vim'    - slow as fuck, included in VIMRUNTIME.
-  "                                   this is upstream. tags based
+    " Possible vanilla plugins
+    " 'phpvim/phpcd.vim'              - server based completion
+    " 'mkusher/padawan.vim'           - server based completion for VIM
+    " 'm2mdas/phpcomplete-extended'   - fast via vimproc, but dead
+    " 'shawncplus/phpcomplete.vim'    - slow as fuck, included in VIMRUNTIME.
+    "                                   this is upstream. tags based
 
-  " Alternative PHP completion daemon, never got it working...
-  "   Plug 'phpvim/phpcd.vim', {
-  "         \   'do': 'composer update',
-  "         \   'for': 'php'
-  "         \ }
+    " Alternative PHP completion daemon, never got it working...
+    "   Plug 'phpvim/phpcd.vim', {
+    "         \   'do': 'composer update',
+    "         \   'for': 'php'
+    "         \ }
 
-  if !has('nvim') || !executable('composer')
+  elseif !has('nvim') || !executable('composer')
     Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
     " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
     "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
   endif
+
+  " --------------------------------------------------------------------------
+  " Completion: Python
+  " --------------------------------------------------------------------------
+
+  " nvim-completion-manager handles jedi itself
+  " Forwarded to nvim-completion-manager if present
+  " Plug 'zchee/deoplete-jedi'
 
   " --------------------------------------------------------------------------
   " Completion: Syntax
