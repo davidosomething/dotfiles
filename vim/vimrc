@@ -57,12 +57,19 @@ set title                             " wintitle = filename - vim
 " this is already set by modern terminal
 "set ttyfast
 
-if !has('nvim')
-  set lazyredraw                      " macros don't update display
-endif
-
 " no beeps or flashes
-set visualbell t_vb=
+set visualbell
+
+if !has('nvim')
+  " macros don't update display
+  set lazyredraw
+  " visualbell term code
+  set t_vb=
+else
+  set guicursor=n-v-c:block,i-ci-ve:ver50,r-cr:hor20,o:hor50
+        \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+        \,sm:block-blinkwait175-blinkoff150-blinkon175
+endif
 
 set number
 set numberwidth=5
