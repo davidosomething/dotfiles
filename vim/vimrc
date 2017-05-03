@@ -830,15 +830,19 @@ function! s:LoadPlugins()
   " Completion: Java
   " --------------------------------------------------------------------------
 
-  " Forwarded to nvim-completion-manager if present
-  if has('python3')
+  " nvim-completion-manager has a jedi source in python already, so as long as
+  " jedi is pip installed it is good to go.
+  if !g:dko_use_ncm
+    if has('python3')
+    " Forwarded to nvim-completion-manager if present
     Plug 'zchee/deoplete-jedi'
 
-  elseif executable('mvn')
-    Plug 'artur-shaik/vim-javacomplete2', {
-          \   'do': 'cd libs/javavi/ && mvn compile',
-          \   'for': 'java',
-          \ }
+    elseif executable('mvn')
+      Plug 'artur-shaik/vim-javacomplete2', {
+            \   'do': 'cd libs/javavi/ && mvn compile',
+            \   'for': 'java',
+            \ }
+    endif
   endif
 
   " --------------------------------------------------------------------------
