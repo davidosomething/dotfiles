@@ -1,9 +1,9 @@
 " plugin/plug-vim-indent-guides.vim
 if !dko#IsPlugged('vim-indent-guides') | finish | endif
-let s:cpo_save = &cpoptions
-set cpoptions&vim
 
-let g:indent_guides_color_change_percent = 3
+" added custom colors to my colorscheme
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_color_change_percent = 10
 
 " The autocmd hooks are run after plugins loaded so okay to reference them in
 " this file even though it is sourced before the functions are defined.
@@ -12,7 +12,3 @@ augroup dkoindentguides
   autocmd BufEnter  *.hbs,*.html,*.mustache,*.php   IndentGuidesEnable
   autocmd BufLeave  *.hbs,*.html,*.mustache,*.php   IndentGuidesDisable
 augroup END
-
-let s:cpo_save = &cpoptions
-set cpoptions&vim
-
