@@ -182,9 +182,11 @@ autocmd dkoneomake FileType
 
 let s:phpcs_psr2 = ['--standard=PSR2']
 
-let s:phpcs_wordpress = ['--standard=WordPress-Extra']
-          \ + ['--runtime-set', 'installed_paths', expand('~/src/wpcs')]
-          \ + ['--exclude=WordPress.PHP.YodaConditions']
+let s:phpcs_wordpress = [
+      \   '--standard=WordPress-Extra',
+      \   '--runtime-set', 'installed_paths', expand('~/src/wpcs'),
+      \   '--exclude=WordPress.PHP.YodaConditions',
+      \ ]
 
 function! s:SetPhpcsStandard() abort
   " WordPress
