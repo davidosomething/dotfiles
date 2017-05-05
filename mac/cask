@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
-#
-# Tap and install caskroom apps
-#
 
-set -eu
-
-brew tap caskroom/cask
-brew tap caskroom/versions
+set -e
 
 brew update
 
@@ -33,13 +27,15 @@ echo "Sync in SpiderOak Hive"
 brew cask install discord
 brew cask install docker
 brew cask install dropbox
+brew cask install firefox
+brew cask install gimp
 brew cask install gitter
 brew cask install google-chrome-beta
 brew cask install gpgtools
+brew cask install inkscape
 brew cask install iterm2-beta
 brew cask install java
 brew cask install jing
-brew cask install joinme
 
 # ==============================================================================
 # Kaleidoscope
@@ -51,6 +47,7 @@ echo "License in SpiderOak Hive"
 # ==============================================================================
 
 brew cask install karabiner-elements
+brew cask install keepassxc
 brew cask install keybase
 
 # ==============================================================================
@@ -62,11 +59,13 @@ echo "License in SpiderOak Hive"
 
 # ==============================================================================
 
+brew cask install mplayerx
 brew cask install ngrok
 brew cask install skype
 brew cask install slack
 brew cask install spideroakone
 brew cask install spotify spotifree
+# brew cask install switchresx
 brew cask install the-unarchiver
 brew cask install transmission
 
@@ -87,11 +86,10 @@ echo "Set up AirVPN ovpns"
 # Virtualization
 # ============================================================================
 
-brew cask install vagrant vagrant-manager
+brew cask install vagrant
 brew cask install virtualbox virtualbox-extension-pack
 
 # ============================================================================
 
 brew cask install vlc
 brew cask install vnc-viewer
-

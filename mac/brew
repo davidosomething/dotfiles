@@ -1,12 +1,26 @@
 #!/usr/bin/env bash
 
-set -eu
+set -e
+
+# =============================================================================
+# Require DOTFILES
+# =============================================================================
+
+if [ -z "$DOTFILES" ]; then
+  echo ".dotfiles repo is not set up"
+  exit 1
+fi
+source "${DOTFILES}/shell/helpers.bash"
+
+# ============================================================================
+
+# Clean room
+# reset TERM since we use custom one in iTerm
+TERM=xterm-256color
 
 # ============================================================================
 # taps
 # ============================================================================
-
-brew tap homebrew/emacs
 
 # brew services launchctl manager -- no formulae
 brew tap homebrew/services
@@ -18,7 +32,7 @@ brew tap homebrew/services
 brew update
 
 # brew cask completion
-brew install homebrew/completions/brew-cask-completion
+brew install brew-cask-completion
 
 # ============================================================================
 # compilers, tools, and libs
@@ -34,10 +48,16 @@ brew install pkg-config
 # ============================================================================
 
 brew install aspell
-brew install neofetch # prefer over archey
+brew install archey neofetch
 brew install asciinema
-echo "asciinema auth to link computer to account"
+dko::status "asciinema auth to link computer to account"
 brew install catimg
+
+# ============================================================================
+# vim
+# ============================================================================
+
+brew install neovim/neovim/neovim
 
 # ============================================================================
 # filesystem
@@ -45,7 +65,7 @@ brew install catimg
 
 brew install ack the_silver_searcher ripgrep
 brew install fzf
-brew install tree
+brew install exa tree
 
 # ============================================================================
 # operations
@@ -60,13 +80,6 @@ brew install openssl
 # Install a newer version of OpenSSH
 # that isn't susceptible to http://www.openssh.com/txt/release-7.1p2
 #brew install homebrew/dupes/ssh --with-libressl
-
-# Since we're not using system ssh, the launchd's attempt to ssh-add our key
-# fails (due to wrong flags). We could change the launchagent, but instead
-# prefer to use keychain to interface with ssh-agent and osxkeychain.
-# It is run in shell/os.bash.
-#brew install keychain
-# ----------------------------------------------------------------------------
 
 # better curl
 brew install curl --with-libressl
@@ -90,14 +103,14 @@ brew install wifi-password
 # pretty print and processor
 # ============================================================================
 
-brew install icdiff
-brew install jq
-brew install jsonpp
+brew install diff-so-fancy icdiff
+brew install jsonpp jq
 
 # ============================================================================
 # programming
 # ============================================================================
 
+brew install php71
 brew install homebrew/homebrew-php/composer
 
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
@@ -127,7 +140,6 @@ brew install maven
 # git
 # ----------------------------------------------------------------------------
 
-brew install diff-so-fancy
 brew install git --without-completions
 brew install git-extras
 brew install hub tig
@@ -137,15 +149,17 @@ brew install hub tig
 # ============================================================================
 
 # bash 4 shell
-brew install bash
-# bash 4 completion
-brew install homebrew/versions/bash-completion2
+brew install bash bash-completion@2
 brew install bats shellcheck
 brew install tmux
+brew install zsh
 
 # ============================================================================
 # OS
 # ============================================================================
 
-brew install redshift # prefer opensource vs f.lux
+# Only if system has no camera
+dko::status   "Redshift was not installed; only needed if there is no camera."
+dko::status_  "brew install redshift"
+
 brew install mas

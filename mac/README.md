@@ -15,11 +15,8 @@ will not mount until a user has logged in. To remedy this, see
 
 ### Install homebrew
 
-<http://brew.sh/>
-
-### Install git from brew
-
-See `bootstrap/mac/brew`
+- Install according to <http://brew.sh/>
+- `brew install` programs automatically via `~/.dotfiles/mac/brew`
 
 ### Setup ssh keys
 
