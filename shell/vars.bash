@@ -129,7 +129,7 @@ export MYSQL_HISTFILE="${XDG_CACHE_HOME}/mysql_histfile"
 # python moved to shell/python loaded in shell/before
 
 # R
-export R_ENVIRON_USER="${DOTFILES}/r/.Renviron"
+export R_ENVIRON_USER="${DOTFILES}/r/dot.Renviron"
 export R_LIBS_USER="${HOME}/.local/lib/R/library/"
 
 # readline
