@@ -55,14 +55,14 @@ zplug "knu/z",  \
 # gulp completion (parses file so not 100% accurate)
 zplug "akoenig/gulp.plugin.zsh", defer:2
 
-zplug "lukechilds/zsh-better-npm-completion", \
-  defer:2
+zplug "lukechilds/zsh-better-npm-completion", defer:2
 
 # Moved if block outside since `zplug check` doesn't consider it
 if [[ $OSTYPE == "darwin"* ]]; then
-  zplug "vasyharan/zsh-brew-services",  \
-    defer:2
+  zplug "vasyharan/zsh-brew-services", defer:2
 fi
+
+zplug "voronkovich/phpcs.plugin.zsh", defer:2
 
 # # completions I have locally
 # zplug "${ZDOTDIR}",     \
