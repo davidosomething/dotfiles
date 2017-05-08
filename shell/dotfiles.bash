@@ -111,6 +111,7 @@ __dko::dotfiles::update_daily() {
   __dko::dotfiles::update_nvm
   __dko::dotfiles::update_pip "pip"
   __dko::dotfiles::update_pyenv
+  __dko::dotfiles::update_neovim_python
   __dko::dotfiles::update_vimlint
   __dko::dotfiles::update_wpcs
 }
