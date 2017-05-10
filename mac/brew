@@ -51,6 +51,7 @@ brew install aspell
 brew install archey neofetch
 brew install asciinema
 dko::status "asciinema auth to link computer to account"
+brew install awscli
 brew install catimg
 
 # ============================================================================
