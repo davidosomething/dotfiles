@@ -563,13 +563,14 @@ function! s:LoadPlugins()
   " Plug: File system, ctags
   " ==========================================================================
 
-  " Off until nvim 2.0 release, which fixes missing method
-  if v:version >= 704 && executable('ctags')
-    if exists('*matchstrpos')
-      Plug 'ludovicchabant/vim-gutentags'
-    else
-      Plug 'smkent/vim-gutentags', { 'branch': 'replace-matchstrpos' }
-    endif
+  if executable('ctags')
+    Plug 'ludovicchabant/vim-gutentags'
+
+    "   Plug 'majutsushi/tagbar'
+
+    " ctags on-the-fly processing
+    " This is a nice function context plugin but too many false positives
+    "Plug 'jeetsukumaran/vim-gazetteer'
   endif
 
   " ==========================================================================
@@ -678,10 +679,6 @@ function! s:LoadPlugins()
   Plug 'tyru/current-func-info.vim'
   "Plug 'davidosomething/current-func-info.vim', { 'branch': 'javascript' }
   "Plug '~/projects/current-func-info.vim'
-
-  " ctags on-the-fly processing
-  " This is a nice function context plugin but too many false positives
-  "Plug 'jeetsukumaran/vim-gazetteer'
 
   " ==========================================================================
   " Plug: Editing keys
@@ -1168,10 +1165,6 @@ function! s:LoadPlugins()
   " ==========================================================================
   " Plug: UI -- load last!
   " ==========================================================================
-
-  " if executable('ctags')
-  "   Plug 'majutsushi/tagbar'
-  " endif
 
   " Using quickfixsigns_vim instead of these
   " :EC and :DC to enable/disable changes plugin
