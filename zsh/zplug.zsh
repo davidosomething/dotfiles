@@ -46,6 +46,14 @@ zplug "zsh-users/zsh-completions"
 # LAST, these call "compdef" so must be run after compinit
 # ----------------------------------------------------------------------------
 
+# brew completions, re-source these since
+# - they may have .bash extension like tig completion
+# - rely on bashcompinit like aws
+zplug "/usr/local/share/zsh/site-functions",  \
+  from:local,   \
+  use:"*",   \
+  defer:2
+
 # fork of rupa/z with better completion (so needs defer)
 zplug "knu/z",  \
   use:"z.sh",   \

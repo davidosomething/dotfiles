@@ -77,35 +77,20 @@ setopt NO_BEEP
 setopt VI
 
 # ============================================================================
-# fpath and manpath
+# fpath for completion and manpath
+# fpath must be before compinit
 # ============================================================================
 
-# Completion paths
-# fpath must be before compinit
+# Prefer homebrew zsh's helpfiles
+[ -d "${DKO_BREW_PREFIX}/share/zsh/helpfiles" ] && {
+  # use homebrew bundled zsh helpfiles for online help
+  # @see <https://github.com/Homebrew/homebrew/blob/master/Library/Formula/zsh.rb>
+  unalias run-help
+  autoload run-help
+  HELPDIR="${DKO_BREW_PREFIX}/share/zsh/helpfiles"
+}
 
-# Brew provided
-# Removed "${DKO_BREW_PREFIX}/share/zsh-completions", prefer zplugging upstream
-if [ -d "${DKO_BREW_PREFIX}" ]; then
-  # Autoload function paths, add tab completion paths, top precedence
-  fpath=(
-    "${DKO_BREW_PREFIX}/share/zsh/site-functions"
-    $fpath
-  )
-
-  # ----------------------------------------
-  # Prefer homebrew zsh's helpfiles
-  # ----------------------------------------
-
-  [ -d "${DKO_BREW_PREFIX}/share/zsh/helpfiles" ] && {
-    # use homebrew bundled zsh helpfiles for online help
-    # @see <https://github.com/Homebrew/homebrew/blob/master/Library/Formula/zsh.rb>
-    unalias run-help
-    autoload run-help
-    HELPDIR="${DKO_BREW_PREFIX}/share/zsh/helpfiles"
-  }
-fi
-
-# Mine, e.g. custom _composer #compdef
+# Add my completions, e.g. custom _composer #compdef
 fpath=(
   "${ZDOTDIR}/fpath"
   $fpath
@@ -123,6 +108,10 @@ zmodload -i zsh/complist
 # zplug does colors and compinit
 #autoload -Uz colors; colors
 #autoload -Uz compinit; compinit -u
+
+# zplugged completions will do this as needed
+# autoload -Uz bashcompinit
+# bashcompinit -i
 
 # hooks -- used for prompt too
 autoload -Uz add-zsh-hook
