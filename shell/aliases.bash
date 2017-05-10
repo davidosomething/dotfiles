@@ -81,6 +81,9 @@ alias nt="n test"
 alias nu="n update"
 alias nude="nvm use default"
 alias sme="source-map-explorer"
+alias y="yarn"
+alias yi="yarn install"
+alias yr="yarn run"
 
 # ----------------------------------------------------------------------------
 # php
