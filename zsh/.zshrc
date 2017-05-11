@@ -133,7 +133,7 @@ export _Z_NO_RESOLVE_SYMLINKS=1
 # don't suggest lines longer than
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # as of v4.0 use zsh/zpty module to async retrieve
-export ZSH_AUTOSUGGEST_USE_ASYNC=1
+#export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # ============================================================================
 # zplug
