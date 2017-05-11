@@ -10,8 +10,8 @@
 # ==============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
-source "${HOME}/.dotfiles/shell/vars.bash"
-source "${DOTFILES}/shell/before.bash"
+. "${HOME}/.dotfiles/shell/vars.bash"
+. "${DOTFILES}/shell/before.bash"
 
 # Override HISTFILE for bash
 export HISTFILE="${BASH_DOTFILES}/.bash_history"
@@ -70,13 +70,13 @@ dko::source "${HOME}/.fzf.bash"
 # Prompt -- needs to be after plugins since it might use them
 # ============================================================================
 
-source "${BASH_DOTFILES}/prompt.bash"
+. "${BASH_DOTFILES}/prompt.bash"
 
 # ==============================================================================
 # After
 # ==============================================================================
 
-source "${DOTFILES}/shell/after.bash"
+. "${DOTFILES}/shell/after.bash"
 dko::source "${DOTFILES}/local/bashrc"
 
 export DKO_SOURCE="${DKO_SOURCE} }"

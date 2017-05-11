@@ -49,10 +49,11 @@ zplug "zsh-users/zsh-completions"
 # brew completions, re-source these since
 # - they may have .bash extension like tig completion
 # - rely on bashcompinit like aws
-zplug "/usr/local/share/zsh/site-functions",  \
-  from:local,   \
-  use:"*",   \
-  defer:2
+[[ $OSTYPE == "darwin"* ]] && \
+  zplug "/usr/local/share/zsh/site-functions",  \
+    from:local,   \
+    use:"*",      \
+    defer:2
 
 # fork of rupa/z with better completion (so needs defer)
 zplug "knu/z",  \
@@ -65,10 +66,8 @@ zplug "akoenig/gulp.plugin.zsh", defer:2
 
 zplug "lukechilds/zsh-better-npm-completion", defer:2
 
-# Moved if block outside since `zplug check` doesn't consider it
-if [[ $OSTYPE == "darwin"* ]]; then
+[[ $OSTYPE == "darwin"* ]] && \
   zplug "vasyharan/zsh-brew-services", defer:2
-fi
 
 zplug "voronkovich/phpcs.plugin.zsh", defer:2
 
@@ -78,7 +77,10 @@ zplug "voronkovich/phpcs.plugin.zsh", defer:2
 #   use:"completions/_*", \
 #   defer:18
 
+# ==============================================================================
 # absolute last
+# ==============================================================================
+
 # highlight as you type
 #zplug "zsh-users/zsh-syntax-highlighting", defer:3
 zplug "zdharma/fast-syntax-highlighting", defer:3

@@ -30,7 +30,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 # Changing Directories
 setopt AUTO_PUSHD                     # pushd instead of cd
 setopt PUSHD_IGNORE_DUPS
-setopt PUSHD_SILENT                   # don't show stack after cd
+setopt PUSHD_SILENT                   # hide stack after cd
 setopt PUSHD_TO_HOME                  # go home if no d specified
 
 # Completion
@@ -45,7 +45,7 @@ setopt EXTENDED_GLOB                  # like ** for recursive dirs
 # History
 setopt APPEND_HISTORY                 # append instead of overwrite file
 setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE              # don't save in history if space prefixed
+setopt HIST_IGNORE_SPACE              # omit from history if space prefixed
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY                    # verify when using history cmds/params
 
@@ -80,15 +80,6 @@ setopt VI
 # fpath for completion and manpath
 # fpath must be before compinit
 # ============================================================================
-
-# Prefer homebrew zsh's helpfiles
-[ -d "${DKO_BREW_PREFIX}/share/zsh/helpfiles" ] && {
-  # use homebrew bundled zsh helpfiles for online help
-  # @see <https://github.com/Homebrew/homebrew/blob/master/Library/Formula/zsh.rb>
-  unalias run-help
-  autoload run-help
-  HELPDIR="${DKO_BREW_PREFIX}/share/zsh/helpfiles"
-}
 
 # Add my completions, e.g. custom _composer #compdef
 fpath=(
@@ -163,9 +154,6 @@ __load_zplug_init() {
   if [ -f "$DKO_ZPLUG_INIT" ]; then
     . "$DKO_ZPLUG_INIT"
     export DKO_SOURCE="${DKO_SOURCE} -> ${DKO_ZPLUG_INIT}"
-    # self-managed zplug assumes ZPLUG_ROOT == ZPLUG_HOME and doesn't add this
-    # path any more
-    export PATH="${ZPLUG_HOME}/bin:${PATH}"
   else
     dko::warn "Did not find zplug/init.zsh"
   fi
@@ -233,7 +221,8 @@ __auto_nvm_use() {
   local nvmrc=$(nvm_find_nvmrc)
   local nvmrc_node_version="N/A"
   [ -n "$nvmrc" ] && nvmrc_node_version="$(nvm version "$(< $nvmrc)")"
-  if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
+  if [ "$nvmrc_node_version" != "N/A" ] && \
+    [ "$nvmrc_node_version" != "$node_version" ]; then
     nvm use
     return $?
   elif [ "$node_version" != "$(nvm version default)" ]; then
@@ -304,15 +293,21 @@ if [[ "$0" == *"zsh" ]]; then
   zstyle ':completion:*' expand yes
 
   # colorful kill command completion
-  zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
+  zstyle ':completion:*:*:kill:*:processes' list-colors \
+    "=(#b) #([0-9]#)*=36=31"
 
   # process names
-  zstyle ':completion:*:processes-names' command  'ps c -u ${USER} -o command | uniq'
+  zstyle ':completion:*:processes-names' command \
+    'ps c -u ${USER} -o command | uniq'
 
-  # SSH use hosts from ~/.ssh/config
-  [ -f "$HOME/.ssh/config" ] && {
-    hosts=($(egrep '^Host ' "$HOME/.ssh/config" | grep -v '*' | awk '{print $2}' ))
-    zstyle ':completion:*:hosts' hosts $hosts
+  # rsync and SSH use hosts from ~/.ssh/config
+  [ -r "$HOME/.ssh/config" ] && {
+    # Vanilla parsing of config file :)
+    # @see {@link https://github.com/Eriner/zim/issues/46#issuecomment-219344931}
+    hosts=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+    #hosts=($(egrep '^Host ' "$HOME/.ssh/config" | grep -v '*' | awk '{print $2}' ))
+    zstyle ':completion:*:ssh:*'    hosts $hosts
+    zstyle ':completion:*:rsync:*'  hosts $hosts
   }
 fi
 
@@ -325,8 +320,8 @@ dko::source "${DOTFILES}/local/zshrc"
 
 # Started xtrace in dot.zshenv
 if [[ "$DKO_PROFILE_STARTUP" == true ]]; then
-    unsetopt xtrace
-    exec 2>&3 3>&-
+  unsetopt xtrace
+  exec 2>&3 3>&-
 fi
 
 export DKO_SOURCE="${DKO_SOURCE} }"

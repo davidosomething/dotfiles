@@ -85,5 +85,13 @@ dko::source "${TRAVIS_CONFIG_PATH}/travis.bash" && \
 dko::source "${DKO_DEFAULT_NODE_PATH}/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh"
 
 # ==============================================================================
+# Local path
+# ----------------------------------------------------------------------------
+
+PATH="${DOTFILES}/bin:${PATH}"
+PATH="${HOME}/.local/bin:${PATH}"
+export PATH
+
+# ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"
