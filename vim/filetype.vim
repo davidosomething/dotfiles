@@ -13,7 +13,7 @@ if exists('g:did_load_filetypes_user') | finish | endif
 let g:did_load_filetypes_user = 1
 
 " For files that might be JSON or YAML, read first line and use that
-function! s:SetJSONorYAML()
+function! s:SetJSONorYAML() abort
   if getline(1) ==# '{'
     setfiletype json
     return
@@ -21,7 +21,7 @@ function! s:SetJSONorYAML()
   setfiletype yaml
 endfunction
 
-function! s:BindPreview()
+function! s:BindPreview() abort
   if exists('$ITERM_PROFILE') || has('gui_macvim')
     nnoremap  <silent><buffer><special>  <Leader>m
           \ :<C-U>silent !open -a "Marked 2" '%:p'<CR>
@@ -49,13 +49,9 @@ augroup filetypedetect
         \ *.marko
         \ setfiletype html.marko
 
-  " pre Vim 7.4.480 - md is modula2
-  " post Vim 7.4.480 - md is markdown
-  if !has('nvim') || !has('patch-7.4.480')
-    autocmd! BufNewFile,BufRead *.md
-          \ setfiletype markdown
-          \| call s:BindPreview()
-  endif
+  autocmd! BufNewFile,BufRead *.md
+        \ setfiletype markdown
+        \| call s:BindPreview()
 
   autocmd! BufNewFile,BufRead
         \ .babelrc,.bowerrc,.jshintrc
@@ -75,4 +71,3 @@ augroup filetypedetect
         \ setfiletype javascript
 
 augroup END
-
