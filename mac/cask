@@ -24,6 +24,8 @@ echo "License in SpiderOak Hive"
 brew cask install bitbar
 echo "Sync in SpiderOak Hive"
 
+brew cask install cloudapp
+
 brew cask install discord
 brew cask install docker
 brew cask install dropbox
@@ -32,10 +34,13 @@ brew cask install gimp
 brew cask install gitter
 brew cask install google-chrome-beta
 brew cask install gpgtools
+brew cask install hammerspoon
 brew cask install inkscape
 brew cask install iterm2-beta
 brew cask install java
-brew cask install jing
+
+# replaced by cloudapp
+#brew cask install jing
 
 # ==============================================================================
 # Kaleidoscope
