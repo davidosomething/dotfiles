@@ -61,6 +61,8 @@ let s:options = ' --cycle --multi '
 
 " Depends on my `git-relevant` script, see:
 " https://github.com/davidosomething/dotfiles/blob/master/bin/git-relevant
+" Alternatively use git-extras' `git-delta` (though it doesn't get unstaged
+" files)
 "
 " @param {String[]} args passed to git-relevant, e.g. `--branch somebranch`
 " @return {String[]} list of shortfilepaths that are relevant to the branch
@@ -105,6 +107,7 @@ function! s:GetFzfVimSource() abort
         \   'after',
         \   'autoload',
         \   'ftplugin',
+        \   'mine',
         \   'plugin',
         \   'snippets',
         \   'syntax',
