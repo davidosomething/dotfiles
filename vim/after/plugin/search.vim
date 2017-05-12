@@ -18,10 +18,10 @@ augroup END
 " ============================================================================
 
 silent! nunmap    <Esc><Esc>
-nmap  <special>   <Plug>DKOClearSearch  :<C-U>nohlsearch<CR><C-l>
+nmap  <special>   <Plug>(DKOClearSearch)  :<C-U>nohlsearch<CR><C-l>
 
 " Default, may be overridden by a plugin conf below
-nmap  <special>   <Esc><Esc>   <Plug>DKOClearSearch
+nmap  <special>   <Esc><Esc>   <Plug>(DKOClearSearch)
 
 " ============================================================================
 
@@ -35,38 +35,23 @@ if         !dko#IsPlugged('incsearch.vim')
   finish
 endif
 
-" Get vim-asterisk, vim-anzu, and incsearch.vim to play nicely
-"
-" @param  {String} op
-" @return {String} <expr>
-function! s:GetSearchRHS(op) abort
-  let l:long_op = a:op ==# '*' ? 'star' : 'sharp'
+" In case some other plugin tries something fishy
+silent! unmap /
+silent! unmap g/
+silent! unmap ?
+silent! unmap *
+silent! unmap g*
+silent! unmap #
+silent! unmap g#
 
-  let l:ops = ''
+let g:asterisk#keeppos = 1
 
-  " Highlight matches?
-  if dko#IsPlugged('incsearch.vim')
-    " no CursorMoved event if using vim-asterisk
-    let l:ops .= dko#IsPlugged('vim-asterisk')
-          \ ? "<Plug>(incsearch-nohl0)"
-          \ : "<Plug>(incsearch-nohl)"
-  endif
-
-  " Move or don't move?
-  let l:ops .= dko#IsPlugged('vim-asterisk')
-        \ ? "<Plug>(asterisk-z" . a:op . ')'
-        \ : ''
-
-  " Show count of matches after asterisk-z-op
-  " Or use anzu-op if no vim-asterisk
-  if dko#IsPlugged('vim-anzu')
-    let l:ops .= dko#IsPlugged('vim-asterisk')
-          \ ? "<Plug>(anzu-update-search-status)"
-          \ : "<Plug>(anzu-" . l:long_op . ')'
-  endif
-
-  return l:ops
-endfunction
+" Incsearch + Anzu interaction
+if dko#IsPlugged('incsearch.vim') && dko#IsPlugged('vim-anzu')
+  " Make sure / and g/ (which start an <over>-mode/fake-command mode) update
+  " the anzu status
+  autocmd dkosearch User IncSearchLeave AnzuUpdateSearchStatus
+endif
 
 function! s:SetupIncsearch() abort
   if !dko#IsPlugged('incsearch.vim')
@@ -79,8 +64,8 @@ function! s:SetupIncsearch() abort
   map  ?  <Plug>(incsearch-backward)
   map  n  <Plug>(incsearch-nohl-n)
   map  N  <Plug>(incsearch-nohl-N)
-  map  #  <Plug>(incsearch-nohl-#)
 endfunction
+call s:SetupIncsearch()
 
 function! s:SetupAnzu() abort
   if !dko#IsPlugged('vim-anzu')
@@ -97,33 +82,54 @@ function! s:SetupAnzu() abort
   " Mappings
   nmap  n   <Plug>(anzu-n)
   nmap  N   <Plug>(anzu-N)
-  nmap  #   <Plug>(anzu-sharp)
 
   " Clear anzu in status AND unhighlight last search
   nmap  <special>  <Esc><Esc>
-        \ <Plug>(anzu-clear-search-status)<Plug>DKOClearSearch
+        \ <Plug>(anzu-clear-search-status)<Plug>(DKOClearSearch)
 endfunction
-
-" In case some other plugin tries something fishy
-silent! unmap /
-silent! unmap g/
-silent! unmap ?
-silent! unmap #
-silent! unmap *
-
-let g:asterisk#keeppos = 1
-
-" Incsearch + Anzu interaction
-if dko#IsPlugged('incsearch.vim') && dko#IsPlugged('vim-anzu')
-  " Make sure / and g/ (which start an <over>-mode/fake-command mode) update
-  " the anzu status
-  autocmd dkosearch User IncSearchLeave AnzuUpdateSearchStatus
-endif
-
-call s:SetupIncsearch()
 call s:SetupAnzu()
 
-execute 'map <special> * ' . s:GetSearchRHS('*')
+" Get vim-asterisk, vim-anzu, and incsearch.vim to play nicely
+"
+" @param  {String} op for asterisk, translated to anzu also
+" @return {String} <expr>
+function! s:GetSearchRHS(op) abort
+  let l:ops = ''
+
+  " Highlight matches?
+  if dko#IsPlugged('incsearch.vim')
+    " no CursorMoved event if using vim-asterisk
+    let l:ops .= dko#IsPlugged('vim-asterisk')
+          \ ? '<Plug>(incsearch-nohl0)'
+          \ : '<Plug>(incsearch-nohl)'
+  endif
+
+  " Move or don't move?
+  let l:ops .= dko#IsPlugged('vim-asterisk')
+        \ ? '<Plug>(asterisk-' . a:op . ')'
+        \ : ''
+
+  " Show count of matches after asterisk-z-op
+  " Or use anzu-op if no vim-asterisk
+  if dko#IsPlugged('vim-anzu')
+    let l:anzu_op = ''
+    let l:anzu_op = a:op ==# 'z*' ? 'star' : l:anzu_op
+    let l:anzu_op = a:op ==# 'z#' ? 'sharp' : l:anzu_op
+    if dko#IsPlugged('vim-asterisk') || empty(l:anzu_op)
+      let l:ops .= '<Plug>(anzu-update-search-status)'
+    else
+      " no anzu stuff for gz* and gz#
+      let l:ops .= '<Plug>(anzu-' . l:anzu_op . ')'
+    endif
+  endif
+
+  return l:ops
+endfunction
+" the "z" means stay on the first match instead of autojump to next
+execute 'map <special> * ' . s:GetSearchRHS('z*')
+execute 'map <special> # ' . s:GetSearchRHS('z#')
+execute 'map <special> g* ' . s:GetSearchRHS('gz*')
+execute 'map <special> g# ' . s:GetSearchRHS('gz#')
 
 " ============================================================================
 

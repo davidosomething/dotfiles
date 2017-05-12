@@ -71,9 +71,6 @@ This is a Vim runtimepath that will load after the user and system runtimepaths
 but before the [vim-plug] ones. I.e., `plugin/xyz.vim` will load before
 `plug/vim/pluginname/plugin/name.vim`. Neovim plugins will be in `plug/nvim/`.
 
-Use this for settings that must be set before a plugin is loaded (i.e. the
-plugin does not check for the existence of a setting on init).
-
 #### after/
 
 This is a runtimepath that will load after the system runtimepath but before
@@ -89,7 +86,7 @@ Store local `vimrc`s in `~/.secret/vim/` and follow the standard Vim directory
 layout (`plugin/`, `syntax/`, `indent/`, etc.). A base `(g)vimrc` file there is
 probably enough.
 
-All local settings are loaded LAST (after all of the system, user, plugin, and
+All local settings load LAST (after all the system, user, plugin, and
 `*/after` runtimes).
 
 ### Plugin settings
@@ -157,6 +154,7 @@ sparingly (typically for `setlocal` ftplugin settings).
 - `g:dko_variable_name` - dko_snake_case for my global variables
 - `g:dko#variable_name` - prefixed autoload-provided global variable
 - `dkoautocommandgroup` - lowercasealphanumer1cnospaces
+- `<Plug>(DKOMyPlugMapping)` - Parentheses around `<Plug>` mapping names
 
 ----
 
