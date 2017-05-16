@@ -80,6 +80,10 @@ export ACKRC="${DOTFILES}/ack/dot.ackrc"
 # atom editor
 export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
 
+# aws
+export AWS_CONFIG_FILE="${DOTFILES}/aws/config"
+# credentials are per system
+
 # bazaar
 export BZRPATH="${XDG_CONFIG_HOME}/bazaar"
 export BZR_PLUGIN_PATH="${XDG_DATA_HOME}/bazaar"
