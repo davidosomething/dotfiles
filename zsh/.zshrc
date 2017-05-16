@@ -292,7 +292,7 @@ if [[ "$0" == *"zsh" ]]; then
   # e.g. start expanding a path up to wherever it can be until error
   zstyle ':completion:*' expand yes
 
-  # colorful kill command completion
+  # colorful kill command completion -- probably overridden by fzf
   zstyle ':completion:*:*:kill:*:processes' list-colors \
     "=(#b) #([0-9]#)*=36=31"
 
