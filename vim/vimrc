@@ -520,7 +520,14 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 " Plugins: load - called when vim-plug available
 " ----------------------------------------------------------------------------
 
-function! s:LoadPlugins()
+function! PlugIf(condition, ...) abort
+  let l:enabled = a:condition ? {} : { 'on': [] }
+  return a:0 && type(a:000[0]) == v:t_dict
+        \   ? extend(l:enabled, a:000[0])
+        \   : l:enabled
+endfunction
+
+function! s:LoadPlugins() abort
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
 
@@ -529,13 +536,14 @@ function! s:LoadPlugins()
   " ==========================================================================
 
   " Use in nvim
-  if (has('nvim') || has('gui_running') || has('termguicolors'))
-    "Plug '~/projects/davidosomething/vim-base2tone-lakedark'
-    Plug 'davidosomething/vim-base2tone-lakedark'
-    "Plug 'atelierbram/Base2Tone-vim'
-    Plug 'AlessandroYorba/Sidonia'
-    Plug 'kristiandupont/shades-of-teal'
-  endif
+  let l:truecolor = has('nvim')
+        \|| has('gui_running')
+        \|| has('termguicolors')
+  "Plug '~/projects/davidosomething/vim-base2tone-lakedark', PlugIf(l:truecolor)
+  Plug 'davidosomething/vim-base2tone-lakedark', PlugIf(l:truecolor)
+  "Plug 'atelierbram/Base2Tone-vim', PlugIf(l:truecolor)
+  Plug 'AlessandroYorba/Sidonia', PlugIf(l:truecolor)
+  Plug 'kristiandupont/shades-of-teal', PlugIf(l:truecolor)
 
   " Black, grey, blue
   "Plug 'fxn/vim-monochrome'
@@ -550,33 +558,33 @@ function! s:LoadPlugins()
   " Plug: File system, ctags
   " ==========================================================================
 
-  if executable('ctags')
-    Plug 'ludovicchabant/vim-gutentags'
+  Plug 'ludovicchabant/vim-gutentags', PlugIf(executable('ctags'))
 
-    "   Plug 'majutsushi/tagbar'
+  "   Plug 'majutsushi/tagbar', PlugIf(executable('ctags'))
 
-    " ctags on-the-fly processing
-    " This is a nice function context plugin but too many false positives
-    "Plug 'jeetsukumaran/vim-gazetteer'
-  endif
+  " ctags on-the-fly processing
+  " This is a nice function context plugin but too many false positives
+  "Plug 'jeetsukumaran/vim-gazetteer', PlugIf(executable('ctags'))
 
   " ==========================================================================
   " Plug: Vim debugging
   " ==========================================================================
 
-  if !empty($VIMDEBUG)
-    " `:Bufferize messages` to get messages (or any :command) in a new buffer
-    Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
+  let l:debug = !empty($VIMDEBUG)
+  " `:Bufferize messages` to get messages (or any :command) in a new buffer
+  Plug 'AndrewRadev/bufferize.vim', PlugIf(l:debug, {
+        \   'on': ['Bufferize'] })
 
-    Plug 'cocopon/colorswatch.vim', { 'on': ['ColorSwatchGenerate'] }
+  Plug 'cocopon/colorswatch.vim', PlugIf(l:debug, {
+        \   'on': ['ColorSwatchGenerate']
+        \ })
 
-    " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer
-    " than :Scriptnames)
-    Plug 'tpope/vim-scriptease'
+  " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer
+  " than :Scriptnames)
+  Plug 'tpope/vim-scriptease', PlugIf(l:debug)
 
-    " Show slow plugins
-    Plug 'tweekmonster/startuptime.vim'
-  endif
+  " Show slow plugins
+  Plug 'tweekmonster/startuptime.vim', PlugIf(l:debug)
 
   " ==========================================================================
   " Plug: Commands
@@ -588,27 +596,27 @@ function! s:LoadPlugins()
   " in command mode, alt-f/b to go forward/back words
   Plug 'vim-utils/vim-husk'
 
-  if v:version >= 704 && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
-    " This must be a g: variable to access with the Plug command
-    let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
-          \ ? '/usr/local/opt/fzf'
-          \ : isdirectory(expand('~/.fzf'))
-          \ ? '~/.fzf'
-          \ : ''
-    if !empty(g:fzf_dir)
-      Plug g:fzf_dir
-            \|  Plug 'junegunn/fzf.vim'
-            \|  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', {
-            \     'on': [
-            \       'FZFGrepper',
-            \       'FZFMRU',
-            \       'FZFProject',
-            \       'FZFRelevant',
-            \       'FZFSpecs',
-            \       'FZFVim',
-            \     ]
-            \   }
-    endif
+  " This must be a g: variable to access with the Plug command
+  let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
+        \ ? '/usr/local/opt/fzf'
+        \ : isdirectory(expand('~/.fzf'))
+        \ ? '~/.fzf'
+        \ : ''
+  let l:fzfable = v:version >= 704
+        \ && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
+  if !empty(g:fzf_dir)
+    Plug g:fzf_dir, PlugIf(l:fzfable)
+          \|  Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
+          \|  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(l:fzfable, {
+          \     'on': [
+          \       'FZFGrepper',
+          \       'FZFMRU',
+          \       'FZFProject',
+          \       'FZFRelevant',
+          \       'FZFSpecs',
+          \       'FZFVim',
+          \     ]
+          \   })
   endif
 
   " gK to lookup
@@ -640,7 +648,6 @@ function! s:LoadPlugins()
   " Tries to run on :Gita commands
   " @see https://github.com/sgur/vim-editorconfig/issues/7
   Plug 'sgur/vim-editorconfig'
-  "Plug 'davidosomething/vim-editorconfig', { 'branch': 'lint-skip-comments' }
 
   " 200ms slower to load
   "Plug 'editorconfig/editorconfig-vim'
@@ -658,13 +665,11 @@ function! s:LoadPlugins()
   " add gS to smart split lines like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
 
-  if has('nvim')
-    Plug 'neomake/neomake'
-    "Plug '~/projects/neomake'
-  endif
+  " Compatible with Neovim or Vim with this patch level
+  Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
+  "Plug '~/projects/neomake'
 
   Plug 'tyru/current-func-info.vim'
-  "Plug 'davidosomething/current-func-info.vim', { 'branch': 'javascript' }
   "Plug '~/projects/current-func-info.vim'
 
   " ==========================================================================
@@ -742,34 +747,32 @@ function! s:LoadPlugins()
   " Plug: Completion
   " ==========================================================================
 
-  function! s:LoadCompletionEngine() abort
-    " Main completion engine, bound to C-X
-    Plug 'roxma/nvim-completion-manager'
-
-    " Always provide deoplete, may or may not be bound to C-X depending on if
-    " use_ncm, in which case deoplete Forwards to nvim-completion-manager for
-    " some sources (e.g. deoplete-padawan for php since langserver above didn't
-    " work for me.)
-    "
-    " context_filetype.vim provides mixed-filetype completion for deoplete,
-    " e.g. highlight JS within Markdown fenced code blocks.
-    " nvim-completion-manager already has this functionality built in.
-    Plug 'Shougo/context_filetype.vim'
-          \| Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-    " --------------------------------------------------------------------------
-    " Deoplete functionality: Includes
-    " --------------------------------------------------------------------------
-
-    " Include completion, include tags
-    " slow...
-    "Plug 'Shougo/neoinclude.vim'
-  endfunction
-
   let s:use_completion_engine = has('nvim') && has('python3')
-  if s:use_completion_engine
-    call s:LoadCompletionEngine()
-  endif
+  let l:completion = s:use_completion_engine
+
+  " Main completion engine, bound to C-X
+  Plug 'roxma/nvim-completion-manager', PlugIf(l:completion)
+
+  " Always provide deoplete, may or may not be bound to C-X depending on if
+  " use_ncm, in which case deoplete Forwards to nvim-completion-manager for
+  " some sources (e.g. deoplete-padawan for php since langserver above didn't
+  " work for me.)
+  "
+  " context_filetype.vim provides mixed-filetype completion for deoplete,
+  " e.g. highlight JS within Markdown fenced code blocks.
+  " nvim-completion-manager already has this functionality built in.
+  Plug 'Shougo/context_filetype.vim', PlugIf(l:completion)
+        \|  Plug 'Shougo/deoplete.nvim', PlugIf(l:completion, {
+        \     'do': ':UpdateRemotePlugins'
+        \   })
+
+  " --------------------------------------------------------------------------
+  " Deoplete functionality: Includes
+  " --------------------------------------------------------------------------
+
+  " Include completion, include tags
+  " slow...
+  "Plug 'Shougo/neoinclude.vim'
 
   " --------------------------------------------------------------------------
   " Completion: CSS
@@ -783,22 +786,25 @@ function! s:LoadPlugins()
   " --------------------------------------------------------------------------
 
   " Code analysis completion
-  if s:use_completion_engine && executable('npm')
-    " nvim-cm-tern is faster than deoplete implementation, so use it
-    " instead of forwarding.
-    Plug 'roxma/nvim-cm-tern', { 'do': 'npm install' }
-    " Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
-    " Complete imports (slow, consider set up in .tern-project instead)
-    " Plug 'neovim/node-host', { 'do': 'npm install' }
-    "       \| Plug 'billyvg/jsimport.nvim'
+  let l:use_tern = l:completion && executable('npm')
 
-  else
-    " Nice generic omnifunc
-    Plug '1995eaton/vim-better-javascript-completion'
+  " nvim-cm-tern is faster than deoplete implementation, so use it
+  " instead of forwarding.
+  Plug 'roxma/nvim-cm-tern', PlugIf(l:use_tern, { 'do': 'npm install' })
 
-    " Parameter completion (in or after ' or "), bound to user complete
-    "Plug 'othree/jspc.vim'
-  endif
+  " Plug 'carlitux/deoplete-ternjs', PlugIf(l:use_tern, {
+  "   \   'do': 'npm install --global tern'
+  "   \ })
+
+  " Complete imports (slow, consider set up in .tern-project instead)
+  " Plug 'neovim/node-host', { 'do': 'npm install' }
+  "       \| Plug 'billyvg/jsimport.nvim'
+
+  " Nice generic omnifunc
+  Plug '1995eaton/vim-better-javascript-completion', PlugIf(!l:use_tern)
+
+  " Parameter completion (in or after ' or "), bound to user complete
+  "Plug 'othree/jspc.vim', PlugIf(!l:use_tern)
 
   " --------------------------------------------------------------------------
   " Completion: Java
@@ -806,50 +812,52 @@ function! s:LoadPlugins()
 
   " nvim-completion-manager has a jedi source in python already, so as long as
   " jedi is pip installed it is good to go.
-  if executable('mvn')
-    Plug 'artur-shaik/vim-javacomplete2', {
-          \   'do': 'cd libs/javavi/ && mvn compile',
-          \   'for': 'java',
-          \ }
-  endif
+  Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
+        \   'do': 'cd libs/javavi/ && mvn compile',
+        \   'for': 'java',
+        \ })
 
   " --------------------------------------------------------------------------
   " Completion: PHP
   " --------------------------------------------------------------------------
+  "
+  let l:use_composer = l:completion
+        \ && has('nvim')
+        \ && executable('composer')
 
   " Actually quite fast when used with nvim-completion-manager
-  if s:use_completion_engine
-    Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
+  Plug 'padawan-php/deoplete-padawan', PlugIf(l:use_composer, {
+        \   'do': 'composer install'
+        \ })
 
-    " The language client completion is a bit slow to kick in, but it works
-    " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-    "       \|  Plug 'roxma/LanguageServer-php-neovim', {
-    "       \     'do': 'composer install && composer run-script parse-stubs'
-    "       \   }
-          " DEPRECATED language server client, code is like 99% same as above
-          " \|  Plug 'roxma/nvim-cm-php-language-server', {
-          " \     'do': 'composer install && composer run-script parse-stubs'
-          " \   }
+  " The language client completion is a bit slow to kick in, but it works
+  " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+  "       \|  Plug 'roxma/LanguageServer-php-neovim', {
+  "       \     'do': 'composer install && composer run-script parse-stubs'
+  "       \   }
+        " DEPRECATED language server client, code is like 99% same as above
+        " \|  Plug 'roxma/nvim-cm-php-language-server', {
+        " \     'do': 'composer install && composer run-script parse-stubs'
+        " \   }
   " else
 
-    " Possible vanilla plugins
-    " 'phpvim/phpcd.vim'              - server based completion
-    " 'mkusher/padawan.vim'           - server based completion for VIM
-    " 'm2mdas/phpcomplete-extended'   - fast via vimproc, but dead
-    " 'shawncplus/phpcomplete.vim'    - slow as fuck, included in VIMRUNTIME.
-    "                                   this is upstream. tags based
+  " Possible vanilla plugins
+  " 'phpvim/phpcd.vim'              - server based completion
+  " 'mkusher/padawan.vim'           - server based completion for VIM
+  " 'm2mdas/phpcomplete-extended'   - fast via vimproc, but dead
+  " 'shawncplus/phpcomplete.vim'    - slow as fuck, included in VIMRUNTIME.
+  "                                   this is upstream. tags based
 
-    " Alternative PHP completion daemon, never got it working...
-    "   Plug 'phpvim/phpcd.vim', {
-    "         \   'do': 'composer update',
-    "         \   'for': 'php'
-    "         \ }
+  " Alternative PHP completion daemon, never got it working...
+  "   Plug 'phpvim/phpcd.vim', {
+  "         \   'do': 'composer update',
+  "         \   'for': 'php'
+  "         \ }
 
-  elseif !has('nvim') || !executable('composer')
-    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-    " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
-    "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
-  endif
+  Plug 'shawncplus/phpcomplete.vim', PlugIf(!l:use_composer, { 'for': 'php' })
+
+  " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
+  "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
 
   " --------------------------------------------------------------------------
   " Completion: Python
@@ -949,28 +957,30 @@ function! s:LoadPlugins()
   " Configured in plugin/plug-vim-javascript.vim
   " ----------------------------------------
 
-  let s:js_mode = 'pangloss'
-  if s:js_mode ==# 'pangloss'
-    " PANGLOSS MODE
-    " 1.  Preferring pangloss for now since I like the included indentexpr
-    "     it also has a node ftdetect, but that is the same as in
-    "     moll/vim-node
-    " 2.  After syntax, ftplugin, indent for JSX
-    Plug 'pangloss/vim-javascript'
-          \| Plug 'mxw/vim-jsx'
+  let l:jsmode = 'p'
 
-  elseif s:js_mode ==# 'othree'
-    " YAJS MODE
-    " 1.  yajs.vim highlighting is a little more robust than the pangloss one.
-    " 2.  The libraries syntax adds unique highlighting for
-    "     jQuery,backbone,etc. and I've confirmed it is only compatible with
-    "     yajs.vim as of 2016-11-03.
-    " 3.  es.next support has possible jsx indent conflicts
-    "     @see https://github.com/othree/es.next.syntax.vim/issues/5
-    Plug 'othree/yajs.vim'
-          \| Plug 'othree/javascript-libraries-syntax.vim'
-          \| Plug 'othree/es.next.syntax.vim'
-  endif
+  " PANGLOSS MODE
+  " 1.  Preferring pangloss for now since I like the included indentexpr
+  "     it also has a node ftdetect, but that is the same as in
+  "     moll/vim-node
+  " 2.  After syntax, ftplugin, indent for JSX
+  Plug 'pangloss/vim-javascript', PlugIf(l:jsmode ==# 'p')
+        \|  Plug 'mxw/vim-jsx', PlugIf(l:jsmode ==# 'p')
+        \|  Plug 'paulrosania/vim-graphql', PlugIf(l:jsmode ==# 'p', {
+        \     'branch': 'tagged-template-literals'
+        \   })
+  " graphql upstream is https://github.com/jparise/vim-graphql
+
+  " YAJS MODE
+  " 1.  yajs.vim highlighting is a little more robust than the pangloss one.
+  " 2.  The libraries syntax adds unique highlighting for
+  "     jQuery,backbone,etc. and I've confirmed it is only compatible with
+  "     yajs.vim as of 2016-11-03.
+  " 3.  es.next support has possible jsx indent conflicts
+  "     @see https://github.com/othree/es.next.syntax.vim/issues/5
+  Plug 'othree/yajs.vim', PlugIf(l:jsmode ==# 'o')
+        \| Plug 'othree/javascript-libraries-syntax.vim', PlugIf(l:jsmode ==# 'o')
+        \| Plug 'othree/es.next.syntax.vim', PlugIf(l:jsmode ==# 'o')
 
   " ----------------------------------------
   " Features
@@ -978,16 +988,15 @@ function! s:LoadPlugins()
 
   " <leader>pd on function to insert jsdoc above
   Plug 'heavenshell/vim-jsdoc'
-  "Plug 'davidosomething/vim-jsdoc'
 
   " detect extensionless node scripts (executables) via shebang
   " and add gf for going to node_modules files
   Plug 'moll/vim-node'
 
-  if executable('npm')
-    " For refactoring only, not completion
-    Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
-  endif
+  " For refactoring only, not completion
+  Plug 'ternjs/tern_for_vim', PlugIf(executable('npm'), {
+        \   'do': 'npm install --global tern'
+        \ })
 
   " ==========================================================================
   " Language: Markdown, Pandoc
@@ -1100,7 +1109,6 @@ function! s:LoadPlugins()
   Plug 'JulesWang/css.vim'
         \| Plug 'hail2u/vim-css3-syntax'
         \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
-        "\| Plug 'davidosomething/scss-syntax.vim', { 'for': ['scss'] }
 
   " ----------------------------------------
   " Features
@@ -1140,9 +1148,7 @@ function! s:LoadPlugins()
   " @see https://github.com/haya14busa/incsearch.vim/issues/79
   " @see https://github.com/neovim/neovim/issues/3688
   " highlight partial matches as you type in search mode
-  if v:version >= 704
-    Plug 'haya14busa/incsearch.vim'
-  endif
+  Plug 'haya14busa/incsearch.vim', PlugIf(v:version >= 704)
 
   " Show (#/total results) when searching for a term
   " known echo issue if remapping [[ and ]], but I removed that map
