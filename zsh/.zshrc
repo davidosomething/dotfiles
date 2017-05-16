@@ -98,6 +98,7 @@ typeset -gU cdpath path fpath manpath
 zmodload -i zsh/complist
 # zplug does colors and compinit
 #autoload -Uz colors; colors
+# -u means unsafe (allow completion of filenames/dirs not OWNED)
 #autoload -Uz compinit; compinit -u
 
 # zplugged completions will do this as needed
@@ -295,6 +296,9 @@ if [[ "$0" == *"zsh" ]]; then
   # colorful kill command completion -- probably overridden by fzf
   zstyle ':completion:*:*:kill:*:processes' list-colors \
     "=(#b) #([0-9]#)*=36=31"
+
+  # complete .log filenames if redirecting stderr
+  zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 
   # process names
   zstyle ':completion:*:processes-names' command \
