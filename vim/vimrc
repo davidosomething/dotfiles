@@ -520,11 +520,11 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 " Plugins: load - called when vim-plug available
 " ----------------------------------------------------------------------------
 
+" Similar but safer than Cond() from
+" <https://github.com/junegunn/vim-plug/wiki/faq>
 function! PlugIf(condition, ...) abort
-  let l:enabled = a:condition ? {} : { 'on': [] }
-  return a:0 && type(a:000[0]) == v:t_dict
-        \   ? extend(l:enabled, a:000[0])
-        \   : l:enabled
+  let l:enabled = a:condition ? {} : { 'on': [], 'for': [] }
+  return a:0 ? extend(l:enabled, a:000[0]) : l:enabled
 endfunction
 
 function! s:LoadPlugins() abort
