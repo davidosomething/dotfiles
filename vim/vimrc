@@ -172,7 +172,10 @@ set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
 "set autoread                         " reload files if they were edited
                                       " elsewhere
 set fileformats=unix,mac,dos
-set fileformat=unix
+" Not modifiable if no window (e.g. resourcing vimrc)
+if !&modifiable
+  set fileformat=unix
+endif
 
 " info file -- nvim uses shada in $XDG_DATA_HOME so that's cool.
 if !has('nvim')
@@ -1203,7 +1206,9 @@ if s:use_plugins
   if s:has_plug
     call plug#begin(g:dko#plug_absdir)
       call s:LoadPlugins()
-      if !isdirectory(expand(g:dko#plug_absdir)) | PlugInstall
+      if !isdirectory(expand(g:dko#plug_absdir))
+        PlugInstall
+        source $MYVIMRC
       endif
     call plug#end()
   endif
