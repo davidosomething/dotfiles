@@ -750,11 +750,8 @@ function! s:LoadPlugins() abort
   " Plug: Completion
   " ==========================================================================
 
-  let s:use_completion_engine = has('nvim') && has('python3')
-  let l:completion = s:use_completion_engine
-
   " Main completion engine, bound to C-X
-  Plug 'roxma/nvim-completion-manager', PlugIf(l:completion)
+  Plug 'roxma/nvim-completion-manager', PlugIf(g:dko_use_completion)
 
   " Always provide deoplete, may or may not be bound to C-X depending on if
   " use_ncm, in which case deoplete Forwards to nvim-completion-manager for
@@ -764,8 +761,8 @@ function! s:LoadPlugins() abort
   " context_filetype.vim provides mixed-filetype completion for deoplete,
   " e.g. highlight JS within Markdown fenced code blocks.
   " nvim-completion-manager already has this functionality built in.
-  Plug 'Shougo/context_filetype.vim', PlugIf(l:completion)
-        \|  Plug 'Shougo/deoplete.nvim', PlugIf(l:completion, {
+  Plug 'Shougo/context_filetype.vim', PlugIf(g:dko_use_completion)
+        \|  Plug 'Shougo/deoplete.nvim', PlugIf(g:dko_use_completion, {
         \     'do': ':UpdateRemotePlugins'
         \   })
 
@@ -789,7 +786,7 @@ function! s:LoadPlugins() abort
   " --------------------------------------------------------------------------
 
   " Code analysis completion
-  let l:use_tern = l:completion && executable('npm')
+  let l:use_tern = g:dko_use_completion && executable('npm')
 
   " nvim-cm-tern is faster than deoplete implementation, so use it
   " instead of forwarding.
@@ -824,7 +821,7 @@ function! s:LoadPlugins() abort
   " Completion: PHP
   " --------------------------------------------------------------------------
   "
-  let l:use_composer = l:completion
+  let l:use_composer = g:dko_use_completion
         \ && has('nvim')
         \ && executable('composer')
 
@@ -1187,31 +1184,29 @@ endfunction
 " Plugins: autoinstall vim-plug, define plugins, install plugins if needed
 " ----------------------------------------------------------------------------
 
-let s:use_plugins = 1
 let g:plug_window = 'tabnew'
+let g:dko_use_completion = has('nvim') && has('python3')
 
-if s:use_plugins
-  let s:has_plug = !empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
-  " Load vim-plug and its plugins?
-  if !s:has_plug
-    if executable('curl')
-      execute 'silent !curl -fLo '
-            \ . g:dko#vim_dir . '/autoload/plug.vim '
-            \ . 'https://raw.githubusercontent.com/'
-            \ . 'junegunn/vim-plug/master/plug.vim'
-      let s:has_plug = 1
+let s:has_plug = !empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
+" Load vim-plug and its plugins?
+if !s:has_plug
+  if executable('curl')
+    execute 'silent !curl -fLo '
+          \ . g:dko#vim_dir . '/autoload/plug.vim '
+          \ . 'https://raw.githubusercontent.com/'
+          \ . 'junegunn/vim-plug/master/plug.vim'
+    let s:has_plug = 1
+  endif
+endif
+
+if s:has_plug
+  call plug#begin(g:dko#plug_absdir)
+    call s:LoadPlugins()
+    if !isdirectory(expand(g:dko#plug_absdir))
+      PlugInstall
+      source $MYVIMRC
     endif
-  endif
-
-  if s:has_plug
-    call plug#begin(g:dko#plug_absdir)
-      call s:LoadPlugins()
-      if !isdirectory(expand(g:dko#plug_absdir))
-        PlugInstall
-        source $MYVIMRC
-      endif
-    call plug#end()
-  endif
+  call plug#end()
 endif
 
 " ============================================================================
