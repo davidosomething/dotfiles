@@ -10,8 +10,15 @@ set cpoptions&vim
 
 " ============================================================================
 
+if dko#IsPlugged('caw.vim')
+  " By default works like tcomment_vim (instantly)
+  "let g:caw_operator_keymappings = 1
+
+  silent! unmap gsc
+  map <silent> gsc   <Plug>(caw:hatpos:toggle:operator)
+endif
+
 if dko#IsPlugged('vim-operator-surround')
-  " unmap just in case
   silent! unmap gsa
   silent! unmap gsd
   silent! unmap gsr
@@ -24,7 +31,7 @@ endif
 
 if dko#IsPlugged('operator-camelize.vim')
   silent! unmap <Leader>c
-  map <special> <Leader>c <Plug>(operator-camelize-toggle)
+  nmap <special> <Leader>c <Plug>(operator-camelize-toggle)
 endif
 
 " ============================================================================

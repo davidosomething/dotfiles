@@ -32,4 +32,9 @@ function elb()
     // e.g.
     // $inst->
     // $inst::
+    ?>
+    <script>
+    const b = 'hi';
+    </script>
+    <?php
 }

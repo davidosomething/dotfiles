@@ -564,6 +564,14 @@ function! s:LoadPlugins() abort
   Plug 'zaki/zazen'
 
   " ==========================================================================
+  " Embedded filetype support
+  " ==========================================================================
+
+  " tyru/caw.vim, deoplete, some others use this to determine inline embedded
+  " filetypes
+  Plug 'Shougo/context_filetype.vim'
+
+  " ==========================================================================
   " Plug: File system, ctags
   " ==========================================================================
 
@@ -667,7 +675,9 @@ function! s:LoadPlugins() abort
   " custom C-x C-a mappings, see plugin/plug-increment-activator.vim
   Plug 'nishigori/increment-activator'
 
-  Plug 'tomtom/tcomment_vim'
+  " Using tyru/caw.vim instead since it does a better job with wrapping block
+  " comments intelligently
+  " Plug 'tomtom/tcomment_vim'
 
   Plug 'tpope/vim-repeat'
   " easyclip requires repeat, REMAPS all register keys (y,d,s,c,etc.)
@@ -683,6 +693,8 @@ function! s:LoadPlugins() abort
   Plug 'matze/vim-move'
 
   Plug 'kana/vim-operator-user'
+  " gcc to toggle comment
+  Plug 'tyru/caw.vim'
   " <Leader>s(a/r/d) to modify surrounding the pending operator
   Plug 'rhysd/vim-operator-surround'
   " <Leader>c to toggle CamelCase/snak_e the pending operator
@@ -742,7 +754,6 @@ function! s:LoadPlugins() abort
   " context_filetype.vim provides mixed-filetype completion for deoplete,
   " e.g. highlight JS within Markdown fenced code blocks.
   " nvim-completion-manager already has this functionality built in.
-  Plug 'Shougo/context_filetype.vim', PlugIf(g:dko_use_completion)
   Plug 'Shougo/deoplete.nvim', PlugIf(g:dko_use_completion, {
         \   'do': ':UpdateRemotePlugins'
         \ })
@@ -787,7 +798,8 @@ function! s:LoadPlugins() abort
   " Parameter completion (in or after ' or ")
   " Extends omnicomplete to fill in addEventListener('click'
   " Forwarded by deoplete to nvim-completion-manager
-  Plug 'othree/jspc.vim'
+  "DOES NOT WORK IN DEOPLETE
+  "Plug 'othree/jspc.vim'
 
   " --------------------------------------------------------------------------
   " Completion: Java

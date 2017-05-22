@@ -35,3 +35,4 @@ max_line_length = 78
 
 [*.vim]
 indent_size = 2
+tab_width = 2

@@ -4,7 +4,10 @@ if !dko#IsPlugged('quickfixsigns_vim') | finish | endif
 
 let g:quickfixsigns_balloon = 0
 
-"disabled: 'breakpoints'
+"disabled:
+" - 'breakpoints'
+" - 'qfl' -- neomake handles
+" - 'loc' -- neomake handles
 let g:quickfixsigns_classes = [ 'marks', 'vcsdiff' ]
 
 " Leave neomake signs alone
