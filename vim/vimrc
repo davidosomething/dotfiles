@@ -940,7 +940,13 @@ function! s:LoadPlugins() abort
   Plug 'elzr/vim-json'
 
   " provides coffee ft
-  Plug 'kchmck/vim-coffee-script'
+  "Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+  " The upstream has after/* garbage that messes with <script> html blocks in
+  " php files
+  Plug 'davidosomething/vim-coffee-script', {
+        \   'for':    'coffee',
+        \   'branch': 'noft'
+        \ }
 
   " TypeScript
   "Plug 'leafgarland/typescript-vim'
@@ -950,18 +956,16 @@ function! s:LoadPlugins() abort
   " Configured in plugin/plug-vim-javascript.vim
   " ----------------------------------------
 
-  let l:jsmode = 'p'
-
   " PANGLOSS MODE
   " 1.  Preferring pangloss for now since I like the included indentexpr
   "     it also has a node ftdetect, but that is the same as in
   "     moll/vim-node
   " 2.  After syntax, ftplugin, indent for JSX
-  Plug 'pangloss/vim-javascript', PlugIf(l:jsmode ==# 'p')
-  Plug 'mxw/vim-jsx', PlugIf(l:jsmode ==# 'p')
-  Plug 'paulrosania/vim-graphql', PlugIf(l:jsmode ==# 'p', {
+  Plug 'pangloss/vim-javascript'
+  "Plug 'mxw/vim-jsx'
+  Plug 'paulrosania/vim-graphql', {
         \   'branch': 'tagged-template-literals'
-        \ })
+        \ }
   " graphql upstream is https://github.com/jparise/vim-graphql
 
   " YAJS MODE
@@ -971,9 +975,13 @@ function! s:LoadPlugins() abort
   "     yajs.vim as of 2016-11-03.
   " 3.  es.next support has possible jsx indent conflicts
   "     @see https://github.com/othree/es.next.syntax.vim/issues/5
-  Plug 'othree/yajs.vim', PlugIf(l:jsmode ==# 'o')
-  Plug 'othree/javascript-libraries-syntax.vim', PlugIf(l:jsmode ==# 'o')
-  Plug 'othree/es.next.syntax.vim', PlugIf(l:jsmode ==# 'o')
+  " Plug 'othree/yajs.vim'
+  " Plug 'othree/javascript-libraries-syntax.vim'
+  " Plug 'othree/es.next.syntax.vim'
+
+  " Works with both pangloss/othree
+  " Offers inline code highlighting in JSX blocks, as well as vim-jsx's hi
+  Plug 'maxmellon/vim-jsx-pretty'
 
   " ----------------------------------------
   " Features
