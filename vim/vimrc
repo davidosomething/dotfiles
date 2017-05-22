@@ -545,6 +545,25 @@ function! s:LoadPlugins() abort
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
 
   " ==========================================================================
+  " Plug: Vim debugging
+  " ==========================================================================
+
+  let l:debug = !empty($VIMDEBUG)
+  " `:Bufferize messages` to get messages (or any :command) in a new buffer
+  Plug 'AndrewRadev/bufferize.vim', PlugIf(l:debug, { 'on': ['Bufferize'] })
+
+  Plug 'cocopon/colorswatch.vim', PlugIf(l:debug, {
+        \   'on': ['ColorSwatchGenerate']
+        \ })
+
+  " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer
+  " than :Scriptnames)
+  Plug 'tpope/vim-scriptease', PlugIf(l:debug)
+
+  " Show slow plugins
+  Plug 'tweekmonster/startuptime.vim', PlugIf(l:debug)
+
+  " ==========================================================================
   " Plug: Colorscheme
   " ==========================================================================
 
@@ -584,25 +603,6 @@ function! s:LoadPlugins() abort
   " ctags on-the-fly processing
   " This is a nice function context plugin but too many false positives
   "Plug 'jeetsukumaran/vim-gazetteer', PlugIf(executable('ctags'))
-
-  " ==========================================================================
-  " Plug: Vim debugging
-  " ==========================================================================
-
-  let l:debug = !empty($VIMDEBUG)
-  " `:Bufferize messages` to get messages (or any :command) in a new buffer
-  Plug 'AndrewRadev/bufferize.vim', PlugIf(l:debug, { 'on': ['Bufferize'] })
-
-  Plug 'cocopon/colorswatch.vim', PlugIf(l:debug, {
-        \   'on': ['ColorSwatchGenerate']
-        \ })
-
-  " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer
-  " than :Scriptnames)
-  Plug 'tpope/vim-scriptease', PlugIf(l:debug)
-
-  " Show slow plugins
-  Plug 'tweekmonster/startuptime.vim', PlugIf(l:debug)
 
   " ==========================================================================
   " Plug: Commands
@@ -1036,9 +1036,8 @@ function! s:LoadPlugins() abort
   " changes. It does not support embedded HTML with Neovim
   "Plug '2072/vim-syntax-for-PHP'
 
-  " This is catered towards PHP 5.x, so while it is actively maintained, it is
-  " for an old PHP.
-  "Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+  " Updated for php 7.1, Jan 2017 (newer than neovim 2.0 runtime)
+  Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 
   " Indent
   " 2072 is included with vim, this is upstream

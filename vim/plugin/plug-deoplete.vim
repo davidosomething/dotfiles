@@ -1,6 +1,6 @@
 " plugin/plug-deoplete.vim
 
-if !g:dko_use_completion && dko#IsPlugged('deoplete.nvim') | finish | endif
+if !g:dko_use_completion || !dko#IsPlugged('deoplete.nvim') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

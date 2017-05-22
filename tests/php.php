@@ -35,7 +35,7 @@ function elb()
     ?>
     <p>testing</p>
     <!-- the script tag will match as jsOperator in bad vim-javascript -->
-    <script>
+    <script type="text/javascript">
     const b = 'hi';
     </script>
     <?php
