@@ -13,3 +13,8 @@ let b:match_words = '\<function\>:\<return\>,'
 
 " Require to import
 nmap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
+
+" Indent settings in case no .editorconfig
+setlocal noexpandtab
+setlocal shiftwidth=2
+setlocal softtabstop=2

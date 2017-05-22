@@ -1,4 +1,4 @@
 " ftplugin/tmux.vim
 
-set omnifunc=syntaxcomplete#Complete
+setlocal omnifunc=syntaxcomplete#Complete
 
