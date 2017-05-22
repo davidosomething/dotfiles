@@ -459,6 +459,8 @@ let g:markdown_fenced_languages = [
 " Filetype: php
 " ----------------------------------------
 
+" Additional syntax groups for php baselib
+let g:php_baselib = 1
 " Highlight unclosed ([]) - from $VIMRUNTIME/syntax/php.vim
 let g:php_parentError = 1
 " Assume strings contain HTML
@@ -1030,8 +1032,9 @@ function! s:LoadPlugins() abort
 
   " Neovim comes with
   "   https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD
-  " 2072 has a fork, but it is actually older than the one in Neovim runtime
-  "   https://github.com/2072/vim-syntax-for-PHP/
+  " 2072 has a fork of an older version but has support for php 5.6 and other
+  " changes. It does not support embedded HTML with Neovim
+  "Plug '2072/vim-syntax-for-PHP'
 
   " This is catered towards PHP 5.x, so while it is actively maintained, it is
   " for an old PHP.
