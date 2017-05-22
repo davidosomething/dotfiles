@@ -547,9 +547,7 @@ function! s:LoadPlugins() abort
   " ==========================================================================
 
   " Use in nvim
-  let l:truecolor = has('nvim')
-        \|| has('gui_running')
-        \|| has('termguicolors')
+  let l:truecolor = has('nvim') || has('gui_running') || has('termguicolors')
   "Plug '~/projects/davidosomething/vim-base2tone-lakedark', PlugIf(l:truecolor)
   Plug 'davidosomething/vim-base2tone-lakedark', PlugIf(l:truecolor)
   "Plug 'atelierbram/Base2Tone-vim', PlugIf(l:truecolor)
@@ -610,17 +608,15 @@ function! s:LoadPlugins() abort
         \ && v:version >= 704
         \ && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
   Plug g:fzf_dir, PlugIf(l:fzfable)
-        \|  Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
-        \|  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(l:fzfable, {
-        \     'on': [
-        \       'FZFGrepper',
-        \       'FZFMRU',
-        \       'FZFProject',
-        \       'FZFRelevant',
-        \       'FZFSpecs',
-        \       'FZFVim',
-        \     ]
-        \   })
+  Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
+  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(l:fzfable, { 'on': [
+        \   'FZFGrepper',
+        \   'FZFMRU',
+        \   'FZFProject',
+        \   'FZFRelevant',
+        \   'FZFSpecs',
+        \   'FZFVim',
+        \ ]})
 
   " gK to lookup
   Plug 'keith/investigate.vim'
@@ -673,10 +669,10 @@ function! s:LoadPlugins() abort
 
   Plug 'tomtom/tcomment_vim'
 
+  Plug 'tpope/vim-repeat'
   " easyclip requires repeat, REMAPS all register keys (y,d,s,c,etc.)
   " and use 'm' instead
-  Plug 'tpope/vim-repeat'
-        \| Plug 'svermeulen/vim-easyclip'
+  Plug 'svermeulen/vim-easyclip'
 
   " []-bindings -- buffer switch, lnext/prev, etc.
   " co-bindings
@@ -686,41 +682,39 @@ function! s:LoadPlugins() abort
   " Consider also t9md/vim-textmanip
   Plug 'matze/vim-move'
 
-  " <Leader>s(a/r/d) to modify surrounding the pending operator
-  " <Leader>c to toggle CamelCase/snak_e the pending operator
   Plug 'kana/vim-operator-user'
-        \| Plug 'rhysd/vim-operator-surround'
-        \| Plug 'tyru/operator-camelize.vim'
+  " <Leader>s(a/r/d) to modify surrounding the pending operator
+  Plug 'rhysd/vim-operator-surround'
+  " <Leader>c to toggle CamelCase/snak_e the pending operator
+  Plug 'tyru/operator-camelize.vim'
 
-  " Sorted by what the textobj provides
   " Tip Use :omap ie to see what the operator-pending is mapped to
   " -       Base textobj plugin
-  " - d/D   for underscore section (e.g. `did` on foo_b|ar_baz -> foo__baz)
-  " - i     for indent level
-  " - l     for current line
-  " - P     for <?php ?>
-  " - u     for url
-  " - b     for any block type (parens, braces, quotes, ltgt)
-  " - =/i=  for conflicts marked blocks
-  " - x     for xml attr like `data-content="everything"`
-  " - c     for css/sass/less block
-  " - f     for function (c, java, vim; js; php)
   Plug 'kana/vim-textobj-user'
-        \| Plug 'machakann/vim-textobj-delimited'
-        \| Plug 'kana/vim-textobj-indent'
-        \| Plug 'kana/vim-textobj-line'
-        \| Plug 'mattn/vim-textobj-url'
-        \| Plug 'rhysd/vim-textobj-anyblock'
-        \| Plug 'rhysd/vim-textobj-conflict'
-        \| Plug 'whatyouhide/vim-textobj-xmlattr'
-        \| Plug 'glts/vim-textobj-comment', { 'for': [ 'javascript', 'php' ] }
-        \| Plug 'akiyan/vim-textobj-php', { 'for': [ 'php' ] }
-        \| Plug 'jasonlong/vim-textobj-css',
-        \   { 'for': [ 'css', 'sass', 'scss' ] }
-        \| Plug 'kana/vim-textobj-function'
-                \| Plug 'thinca/vim-textobj-function-javascript',
-                \   { 'for': [ 'javascript' ] }
-                \| Plug 'kentaro/vim-textobj-function-php', { 'for': [ 'php' ] }
+  " - d/D   for underscore section (e.g. `did` on foo_b|ar_baz -> foo__baz)
+  Plug 'machakann/vim-textobj-delimited'
+  " - i     for indent level
+  Plug 'kana/vim-textobj-indent'
+  " - l     for current line
+  Plug 'kana/vim-textobj-line'
+  " - u     for url
+  Plug 'mattn/vim-textobj-url'
+  " - b     for any block type (parens, braces, quotes, ltgt)
+  Plug 'rhysd/vim-textobj-anyblock'
+  " - =/i=  for conflicts marked blocks
+  Plug 'rhysd/vim-textobj-conflict'
+  " - x     for xml attr like `data-content="everything"`
+  Plug 'whatyouhide/vim-textobj-xmlattr'
+  " - c     for comment
+  Plug 'glts/vim-textobj-comment', { 'for': [ 'javascript', 'php' ] }
+  " - P     for <?php ?>
+  Plug 'akiyan/vim-textobj-php', { 'for': [ 'php' ] }
+  " - c     for css/sass/less block
+  Plug 'jasonlong/vim-textobj-css', { 'for': [ 'css', 'sass', 'scss' ] }
+  " - f     for function (c, java, vim; js; php)
+  Plug 'kana/vim-textobj-function'
+  Plug 'thinca/vim-textobj-function-javascript', { 'for': [ 'javascript' ] }
+  Plug 'kentaro/vim-textobj-function-php', { 'for': [ 'php' ] }
 
   "Plug 'terryma/vim-expand-region'
 
@@ -749,9 +743,9 @@ function! s:LoadPlugins() abort
   " e.g. highlight JS within Markdown fenced code blocks.
   " nvim-completion-manager already has this functionality built in.
   Plug 'Shougo/context_filetype.vim', PlugIf(g:dko_use_completion)
-        \|  Plug 'Shougo/deoplete.nvim', PlugIf(g:dko_use_completion, {
-        \     'do': ':UpdateRemotePlugins'
-        \   })
+  Plug 'Shougo/deoplete.nvim', PlugIf(g:dko_use_completion, {
+        \   'do': ':UpdateRemotePlugins'
+        \ })
 
   " --------------------------------------------------------------------------
   " Deoplete functionality: Includes
@@ -824,10 +818,6 @@ function! s:LoadPlugins() abort
   "       \|  Plug 'roxma/LanguageServer-php-neovim', {
   "       \     'do': 'composer install && composer run-script parse-stubs'
   "       \   }
-        " DEPRECATED language server client, code is like 99% same as above
-        " \|  Plug 'roxma/nvim-cm-php-language-server', {
-        " \     'do': 'composer install && composer run-script parse-stubs'
-        " \   }
   " else
 
   " Possible vanilla plugins
@@ -869,8 +859,8 @@ function! s:LoadPlugins() abort
 
   " nvim-completion-manager and deoplete
   Plug 'Shougo/neosnippet'
-        \| Plug 'honza/vim-snippets'
-        \| Plug 'Shougo/neosnippet-snippets'
+  Plug 'honza/vim-snippets'
+  Plug 'Shougo/neosnippet-snippets'
 
   " --------------------------------------------------------------------------
   " Completion: VimL
@@ -954,10 +944,10 @@ function! s:LoadPlugins() abort
   "     moll/vim-node
   " 2.  After syntax, ftplugin, indent for JSX
   Plug 'pangloss/vim-javascript', PlugIf(l:jsmode ==# 'p')
-        \|  Plug 'mxw/vim-jsx', PlugIf(l:jsmode ==# 'p')
-        \|  Plug 'paulrosania/vim-graphql', PlugIf(l:jsmode ==# 'p', {
-        \     'branch': 'tagged-template-literals'
-        \   })
+  Plug 'mxw/vim-jsx', PlugIf(l:jsmode ==# 'p')
+  Plug 'paulrosania/vim-graphql', PlugIf(l:jsmode ==# 'p', {
+        \   'branch': 'tagged-template-literals'
+        \ })
   " graphql upstream is https://github.com/jparise/vim-graphql
 
   " YAJS MODE
@@ -968,8 +958,8 @@ function! s:LoadPlugins() abort
   " 3.  es.next support has possible jsx indent conflicts
   "     @see https://github.com/othree/es.next.syntax.vim/issues/5
   Plug 'othree/yajs.vim', PlugIf(l:jsmode ==# 'o')
-        \| Plug 'othree/javascript-libraries-syntax.vim', PlugIf(l:jsmode ==# 'o')
-        \| Plug 'othree/es.next.syntax.vim', PlugIf(l:jsmode ==# 'o')
+  Plug 'othree/javascript-libraries-syntax.vim', PlugIf(l:jsmode ==# 'o')
+  Plug 'othree/es.next.syntax.vim', PlugIf(l:jsmode ==# 'o')
 
   " ----------------------------------------
   " Features
@@ -1096,8 +1086,8 @@ function! s:LoadPlugins() abort
   "     twice), particularly in neovim which comes with tpope's (older) scss
   "     rumtimes.
   Plug 'JulesWang/css.vim'
-        \| Plug 'hail2u/vim-css3-syntax'
-        \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
+  Plug 'hail2u/vim-css3-syntax'
+  Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
 
   " ----------------------------------------
   " Features
@@ -1122,7 +1112,7 @@ function! s:LoadPlugins() abort
 
   " gf to go to where autoloaded function is defined
   Plug 'kana/vim-gf-user', { 'for': ['vim'] }
-        \| Plug 'sgur/vim-gf-autoload', { 'for': ['vim'] }
+  Plug 'sgur/vim-gf-autoload', { 'for': ['vim'] }
 
   " Auto-prefix continuation lines with \
   Plug 'lambdalisue/vim-backslash'
