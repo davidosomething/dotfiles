@@ -1131,6 +1131,7 @@ function! s:LoadPlugins() abort
 
   " ==========================================================================
   " Plug: Search
+  " See after/plugin/search.vim for complex configutation
   " ==========================================================================
 
   " <Plug> to not move on * search function

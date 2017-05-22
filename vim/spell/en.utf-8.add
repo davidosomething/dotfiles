@@ -250,3 +250,4 @@ gui
 args
 vimfiler
 nvim
+linting
