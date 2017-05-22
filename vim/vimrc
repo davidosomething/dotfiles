@@ -635,9 +635,6 @@ function! s:LoadPlugins() abort
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   Plug 'tpope/vim-eunuch'
 
-  " FZF uses this for :FZFBCommits and other git related commands
-  Plug 'tpope/vim-fugitive'
-
   " ==========================================================================
   " Plug: EditorConfig
   " ==========================================================================
