@@ -20,6 +20,13 @@ let g:dko_rtp_original = &runtimepath
 " Used by anything that needs to change/use loc list
 let g:dko_loc_list_height = 10
 
+" This must be a g: variable to access with the Plug command
+let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
+      \ ? '/usr/local/opt/fzf'
+      \ : isdirectory(expand('~/.fzf'))
+      \ ? '~/.fzf'
+      \ : ''
+
 " ============================================================================
 " My autocmd block - Clear vimrc group's autocmds if reloading
 " ============================================================================
@@ -169,8 +176,9 @@ set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
 " File saving
 " ----------------------------------------------------------------------------
 
-"set autoread                         " reload files if they were edited
-                                      " elsewhere
+" reload files if they were edited elsewhere?
+"set autoread
+
 set fileformats=unix,mac,dos
 " Not modifiable if no window (e.g. resourcing vimrc)
 if !&modifiable
@@ -199,7 +207,7 @@ endif
 " Writing swaps
 " ----------------------------------------------------------------------------
 
-" default is on, leave it alone.
+" default is on, explicitly set on here.
 " pros: prevent editing stale copy of same file in two vim instances
 set swapfile
 
@@ -575,8 +583,7 @@ function! s:LoadPlugins() abort
 
   let l:debug = !empty($VIMDEBUG)
   " `:Bufferize messages` to get messages (or any :command) in a new buffer
-  Plug 'AndrewRadev/bufferize.vim', PlugIf(l:debug, {
-        \   'on': ['Bufferize'] })
+  Plug 'AndrewRadev/bufferize.vim', PlugIf(l:debug, { 'on': ['Bufferize'] })
 
   Plug 'cocopon/colorswatch.vim', PlugIf(l:debug, {
         \   'on': ['ColorSwatchGenerate']
@@ -599,28 +606,21 @@ function! s:LoadPlugins() abort
   " in command mode, alt-f/b to go forward/back words
   Plug 'vim-utils/vim-husk'
 
-  " This must be a g: variable to access with the Plug command
-  let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
-        \ ? '/usr/local/opt/fzf'
-        \ : isdirectory(expand('~/.fzf'))
-        \ ? '~/.fzf'
-        \ : ''
-  let l:fzfable = v:version >= 704
+  let l:fzfable = !empty(g:fzf_dir)
+        \ && v:version >= 704
         \ && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
-  if !empty(g:fzf_dir)
-    Plug g:fzf_dir, PlugIf(l:fzfable)
-          \|  Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
-          \|  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(l:fzfable, {
-          \     'on': [
-          \       'FZFGrepper',
-          \       'FZFMRU',
-          \       'FZFProject',
-          \       'FZFRelevant',
-          \       'FZFSpecs',
-          \       'FZFVim',
-          \     ]
-          \   })
-  endif
+  Plug g:fzf_dir, PlugIf(l:fzfable)
+        \|  Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
+        \|  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(l:fzfable, {
+        \     'on': [
+        \       'FZFGrepper',
+        \       'FZFMRU',
+        \       'FZFProject',
+        \       'FZFRelevant',
+        \       'FZFSpecs',
+        \       'FZFVim',
+        \     ]
+        \   })
 
   " gK to lookup
   Plug 'keith/investigate.vim'
@@ -636,14 +636,8 @@ function! s:LoadPlugins() abort
   Plug 'tpope/vim-eunuch'
 
   " ==========================================================================
-  " Plug: EditorConfig
+  " Plug: Input, syntax, spacing
   " ==========================================================================
-
-  " Still haven't found a perfect one:
-  "
-  " - Would prefer straight up VimL for portability (sgur/vim-editorconfig)
-  " - Able to exclude buffer types (official editorconfig-vim)
-  " - Easy to add support for new props via config only (dahu/)
 
   " Tries to run on :Gita commands
   " @see https://github.com/sgur/vim-editorconfig/issues/7
@@ -652,17 +646,13 @@ function! s:LoadPlugins() abort
   " 200ms slower to load
   "Plug 'editorconfig/editorconfig-vim'
 
-  " ==========================================================================
-  " Plug: Input, syntax, spacing
-  " ==========================================================================
-
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
 
   " highlight lines corresponding to quickfix entries
   Plug 'jceb/vim-hier', { 'on': [ 'HierStart' ] }
 
-  " add gS to smart split lines like comma lists and html tags
+  " add gS on char to smart split lines at char, like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
 
   " Compatible with Neovim or Vim with this patch level
@@ -785,10 +775,10 @@ function! s:LoadPlugins() abort
   " Code analysis completion
   let l:use_tern = g:dko_use_completion && executable('npm')
 
-  " nvim-cm-tern is faster than deoplete implementation, so use it
-  " instead of forwarding.
+  " faster than deoplete implementation
   Plug 'roxma/nvim-cm-tern', PlugIf(l:use_tern, { 'do': 'npm install' })
 
+  " slower than nvim-cm-tern
   " Plug 'carlitux/deoplete-ternjs', PlugIf(l:use_tern, {
   "   \   'do': 'npm install --global tern'
   "   \ })
@@ -800,8 +790,10 @@ function! s:LoadPlugins() abort
   " Nice generic omnifunc
   Plug '1995eaton/vim-better-javascript-completion', PlugIf(!l:use_tern)
 
-  " Parameter completion (in or after ' or "), bound to user complete
-  "Plug 'othree/jspc.vim', PlugIf(!l:use_tern)
+  " Parameter completion (in or after ' or ")
+  " Extends omnicomplete to fill in addEventListener('click'
+  " Forwarded by deoplete to nvim-completion-manager
+  Plug 'othree/jspc.vim'
 
   " --------------------------------------------------------------------------
   " Completion: Java
