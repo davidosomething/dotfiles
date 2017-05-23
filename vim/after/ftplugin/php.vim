@@ -4,10 +4,10 @@
 " Unmap terrible mappings from $VIMRUNTIME/ftplugin/php.vim
 " ============================================================================
 
-nunmap <buffer> [[
-nunmap <buffer> ]]
-ounmap <buffer> [[
-ounmap <buffer> ]]
+silent! nunmap <buffer> [[
+silent! nunmap <buffer> ]]
+silent! ounmap <buffer> [[
+silent! ounmap <buffer> ]]
 
 " Remap them with my own
 let s:match_done = '<CR>:nohlsearch<CR>'

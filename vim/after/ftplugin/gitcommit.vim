@@ -19,4 +19,3 @@ setlocal softtabstop=4
 
 " Always start in display movement mode for markdown
 silent! call movemode#setByDisplay()
-

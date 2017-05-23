@@ -52,7 +52,7 @@ if &buftype ==# 'help'
   nnoremap  <silent><buffer>   q   :<C-U>call <SID>Close()<CR>
   nmap      <silent><buffer>   Q   q
 
-  nnoremap  <silent><buffer>   <Leader>v
+  nnoremap  <silent><buffer><special>   <Leader>v
         \ :<C-U>wincmd L <BAR> vertical resize 82<CR>
 
   " Help navigation
