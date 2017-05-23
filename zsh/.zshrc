@@ -44,6 +44,7 @@ setopt EXTENDED_GLOB                  # like ** for recursive dirs
 
 # History
 setopt APPEND_HISTORY                 # append instead of overwrite file
+setopt EXTENDED_HISTORY               # extended timestamps
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE              # omit from history if space prefixed
 setopt HIST_REDUCE_BLANKS
@@ -118,7 +119,7 @@ autoload -Uz vcs_info
 . "${ZDOTDIR}/title.zsh"
 
 # ============================================================================
-# Plugin settings (before)
+# Plugins
 # ============================================================================
 
 # bookmarks plugin
@@ -136,9 +137,9 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # as of v4.0 use zsh/zpty module to async retrieve
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-# ============================================================================
-# zplug
-# ============================================================================
+# ----------------------------------------------------------------------------
+# Plugins: zplug
+# ----------------------------------------------------------------------------
 
 . "${ZDOTDIR}/zplugdoctor.zsh"
 export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
@@ -146,10 +147,6 @@ export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
 export ZPLUG_LOADFILE="${ZDOTDIR}/zplug.zsh"
 
 readonly DKO_ZPLUG_INIT="${ZPLUG_HOME}/init.zsh"
-
-# ----------------------------------------------------------------------------
-# zplug - load cli
-# ----------------------------------------------------------------------------
 
 __load_zplug_init() {
   if [ -f "$DKO_ZPLUG_INIT" ]; then
@@ -160,17 +157,14 @@ __load_zplug_init() {
   fi
 }
 
-# ----------------------------------------------------------------------------
-# zplug - auto-install (new install)
-# ----------------------------------------------------------------------------
-
 if [ ! -f "$DKO_ZPLUG_INIT" ]; then
   dko::status "(Re)installing zplug"
   rm -rf "${ZPLUG_HOME}"
   git clone https://github.com/zplug/zplug.git "$ZPLUG_HOME" \
     && __load_zplug_init
 
-else # Already installed, check if need to re-source for new shell
+else
+  # Already installed, check if need to re-source for new shell
   # Note: ZPLUG_ROOT is manually unset in .zshenv ! This ensures plugins are
   # loaded for tmux and subshells (e.g. `exec $SHELL`)
   __load_zplug_init
@@ -181,38 +175,133 @@ if ! zplug check; then
   zplug install
 fi
 
-# ----------------------------------------------------------------------------
-# zplug - define plugins
-# ----------------------------------------------------------------------------
-
+# Load ZPLUG_LOADFILE
 dko::has "zplug" && {
   export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
   zplug load >/dev/null
   export DKO_SOURCE="${DKO_SOURCE} }"
 }
 
-# ============================================================================
-# Plugin settings (after plugin loaded)
-# ============================================================================
+# ----------------------------------------------------------------------------
+# Plugins: Post-load settings
+# ----------------------------------------------------------------------------
 
 # zsh-autosuggestions -- clear the suggestion when entering completion select
 # menu
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
-# ============================================================================
-# fzf
-# ============================================================================
+# ----------------------------------------------------------------------------
+# Plugins: fzf (non-zplug managed)
+# ----------------------------------------------------------------------------
 
 dko::source "${HOME}/.fzf.zsh" && export DKO_SOURCE="${DKO_SOURCE} -> fzf"
 
 # ============================================================================
 # Keybindings (after plugins since some are custom for fzf)
+# These keys should also be set in shell/.inputrc
+#
+# `cat -e` to test out keys
+#
+# \e is the same as ^[ is the escape code for <Esc>
+# Prefer ^[ since it mixes better with the letter form [A
+#
+# Tested on macbook, iterm2 (default key codes), xterm-256color-italic
+# - Need both normal mode and vicmd mode
 # ============================================================================
 
-. "${ZDOTDIR}/keybindings.zsh"
+# disable ^S and ^Q terminal freezing
+unsetopt flowcontrol
+
+# VI mode
+bindkey -v
+
+# ----------------------------------------------------------------------------
+# Keybindings - Completion with tab
+# Cancel and reset prompt with ctrl-c
+# ----------------------------------------------------------------------------
+
+# shift-tab to select previous result
+bindkey -M menuselect '^[[Z'  reverse-menu-complete
+
+# fix prompt (and side-effect of exiting menuselect) on ^C
+bindkey -M menuselect '^C'    reset-prompt
+
+# ----------------------------------------------------------------------------
+# Keybindings - Movement keys
+# ----------------------------------------------------------------------------
+
+# Home/Fn-Left
+bindkey           '^[[H'    beginning-of-line
+bindkey -M vicmd  '^[[H'    beginning-of-line
+
+# End/Fn-Right
+bindkey           '^[[F'    end-of-line
+bindkey -M vicmd  '^[[F'    end-of-line
+
+# Left and right should jump through words
+# Opt-Left
+bindkey           '^[^[[D'  backward-word
+bindkey -M vicmd  '^[^[[D'  backward-word
+# Opt-Right
+bindkey           '^[^[[C'  forward-word
+bindkey -M vicmd  '^[^[[C'  forward-word
+# C-L
+bindkey           '^[[1;5D' vi-backward-word
+bindkey -M vicmd  '^[[1;5D' vi-backward-word
+# C-R
+bindkey           '^[[1;5C' vi-forward-word
+bindkey -M vicmd  '^[[1;5C' vi-forward-word
+
+# ----------------------------------------------------------------------------
+# Keybindings: Editing keys
+# ----------------------------------------------------------------------------
+
+# fix delete - Fn-delete
+# Don't bind in vicmd mode
+bindkey '^[[3~' delete-char
+
+# Allow using backspace from :normal [A]ppend
+bindkey -M viins '^?' backward-delete-char
+
+# ----------------------------------------------------------------------------
+# Keybindings: History navigation
+# Don't bind in vicmd mode, so I can edit multiline commands properly.
+# ----------------------------------------------------------------------------
+
+# Up/Down search history filtered using already entered contents
+bindkey '^[[A'  history-search-backward
+bindkey '^[[B'  history-search-forward
+
+# PgUp/Dn navigate through history like regular up/down
+bindkey '^[[5~' up-history
+bindkey '^[[6~' down-history
+
+# ----------------------------------------------------------------------------
+# Keybindings: Plugin - zsh-autosuggestions
+# ----------------------------------------------------------------------------
+
+# native forward-word in insert mode to partially accept autosuggestion
+bindkey '^K' forward-word
 
 # ============================================================================
-# hooks
+# Custom widget: fzf
+# ============================================================================
+
+__dkofzfbranch() {
+  if git rev-parse --git-dir >/dev/null 2>&1; then
+    fbr
+    zle accept-line
+  fi
+}
+
+# <C-b> to open git branch menu
+if dko::has "fzf"; then
+  zle     -N      __dkofzfbranch
+  bindkey '^B'    __dkofzfbranch
+fi
+
+# ============================================================================
+# Hooks
 # ============================================================================
 
 # Auto-detect .nvmrc and run nvm use
