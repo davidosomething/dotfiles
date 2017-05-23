@@ -578,9 +578,6 @@ function! s:LoadPlugins() abort
   " Black, grey, blue
   "Plug 'fxn/vim-monochrome'
 
-  " Gruvy
-  "Plug 'morhetz/gruvbox'
-
   " Grey, red
   Plug 'zaki/zazen'
 
@@ -1130,6 +1127,7 @@ function! s:LoadPlugins() abort
   " Language: VimL
   " ==========================================================================
 
+  Plug 'MicahElliott/vim-cterm-highlight'
   Plug 'machakann/vim-vimhelplint'
 
   " gf to go to where autoloaded function is defined
