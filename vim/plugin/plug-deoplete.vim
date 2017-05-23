@@ -1,6 +1,6 @@
 " plugin/plug-deoplete.vim
 
-if !g:dko_use_completion || !dko#IsPlugged('deoplete.nvim') | finish | endif
+if !dko#IsPlugged('deoplete.nvim') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
@@ -11,10 +11,9 @@ augroup END
 
 " ----------------------------------------------------------------------------
 " Conditionally disable deoplete
-" For JS files, deoplete-ternjs looks for .tern-project from the file dir
-" upwards. If editing a file in a directory that doesn't exist (e.g. NetRW or
-" creating by doing `e newdir/newfile.js`) disable deoplete until the file is
-" written (which will create the directory automatically thanks to vim-easydir)
+" If editing a file in a directory that doesn't exist (e.g. NetRW or creating
+" by doing `e newdir/newfile.js`) disable deoplete until the file is written
+" (which will create the directory automatically thanks to vim-easydir)
 " ----------------------------------------------------------------------------
 
 function! s:disableDeopleteIfNoDir()
@@ -31,8 +30,8 @@ function! s:enableDeopleteOnWriteDir()
   endif
 endfunction
 
-autocmd dkodeoplete BufNewFile    *.js  call s:disableDeopleteIfNoDir()
-autocmd dkodeoplete BufWritePost  *.js  call s:enableDeopleteOnWriteDir()
+autocmd dkodeoplete BufNewFile    *  call s:disableDeopleteIfNoDir()
+autocmd dkodeoplete BufWritePost  *  call s:enableDeopleteOnWriteDir()
 
 " ----------------------------------------------------------------------------
 " Regexes to use completion engine
@@ -40,11 +39,12 @@ autocmd dkodeoplete BufWritePost  *.js  call s:enableDeopleteOnWriteDir()
 " ----------------------------------------------------------------------------
 
 let s:REGEX = {}
-let s:REGEX.any_word        = '\h\w*'
-let s:REGEX.nonspace        = '[^-. \t]'
-let s:REGEX.nonspace_dot    = s:REGEX.nonspace . '\.\w*'
-let s:REGEX.member = s:REGEX.nonspace . '->\w*'
-let s:REGEX.static = s:REGEX.any_word . '::\w*'
+let s:REGEX.any_word      = '\h\w*'
+let s:REGEX.nonspace      = '[^-. \t]'
+let s:REGEX.nonspace_dot  = s:REGEX.nonspace . '\.\w*'
+let s:REGEX.member        = s:REGEX.nonspace . '->\w*'
+let s:REGEX.static        = s:REGEX.any_word . '::\w*'
+let s:REGEX.paramter      = "\w*('"
 
 " For jspc.vim
 let s:REGEX.keychar   = '\k\zs \+'
@@ -193,9 +193,9 @@ endfunction
 " Completion Plugin: vim-better-javascript-completion
 " ============================================================================
 
-if !dko#IsPlugged('vim-better-javascript-completion')
-  " insert instead of add, this is preferred completion omnifunc (except tern)
+if dko#IsPlugged('vim-better-javascript-completion') && !g:dko_use_completion
   autocmd dkocompletion FileType javascript setlocal omnifunc=js#CompleteJS
+  " insert instead of add, this is preferred completion omnifunc (except tern)
   call s:Include('javascript', 'js#CompleteJS')
 endif
 
@@ -204,7 +204,7 @@ endif
 " This overrides all other JS completions when omni_only matches
 " ============================================================================
 
-if executable('tern')
+if dko#IsPlugged('deoplete-ternjs')
   " No reason to use javascriptcomplete when tern is available
   call s:Exclude('javascript', 'javascriptcomplete#CompleteJS')
 
@@ -226,18 +226,17 @@ endif
 " ============================================================================
 
 if dko#IsPlugged('jspc.vim')
-  " <C-x><C-u> to manually use jspc in particular
-  autocmd dkocompletion FileType javascript setlocal completefunc=jspc#omni
-
   " jspc.vim calls the original &omnifunc (probably
   " javascriptcomplete#CompleteJS or tern#Complete) if it doesn't match, so we
   " don't need it in the deoplete omnifuncs
   call s:Exclude('javascript', 'javascriptcomplete#CompleteJS')
   call s:Include('javascript', 'jspc#omni')
-  " Triggered on quotes in `window.addEventListener('` for example
-  call s:Trigger('javascript', [
-        \   s:PY3REGEX.parameter,
-        \ ])
+
+  " When using nvim-completion-manager, have deoplete call the omnifunc
+  " directly
+  if g:dko_use_completion
+    let s:omni_only.javascript = s:REGEX.paramter
+  endif
 endif
 
 " ============================================================================
@@ -288,9 +287,6 @@ if dko#IsPlugged('phpcomplete.vim')
   " @see https://github.com/shawncplus/phpcomplete.vim/search?q=ctags&type=Issues&utf8=%E2%9C%93
   " let g:phpcomplete_search_tags_for_variables = 0
   " let g:phpcomplete_min_num_of_chars_for_namespace_completion = 999
-
-  autocmd dkocompletion FileType php
-        \ setlocal completefunc=phpcomplete#CompletePHP
 endif
 
 " ============================================================================

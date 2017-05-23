@@ -804,14 +804,16 @@ function! s:LoadPlugins() abort
   " Plug 'neovim/node-host', { 'do': 'npm install' }
   "       \| Plug 'billyvg/jsimport.nvim'
 
-  " Nice generic omnifunc
+  " Nice generic omnifunc when no completion engine
   Plug '1995eaton/vim-better-javascript-completion', PlugIf(!l:use_tern)
 
   " Parameter completion (in or after ' or ")
   " Extends omnicomplete to fill in addEventListener('click'
   " Forwarded by deoplete to nvim-completion-manager
-  "DOES NOT WORK IN DEOPLETE
-  "Plug 'othree/jspc.vim'
+  "
+  " Does not work in deoplete -- use as omnicomplete only!
+  " E.g. specific g:deoplete#omni_patterns so omnifunction is called directly
+  Plug 'othree/jspc.vim'
 
   " --------------------------------------------------------------------------
   " Completion: Java
