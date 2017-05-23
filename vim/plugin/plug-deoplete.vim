@@ -40,8 +40,16 @@ autocmd dkodeoplete BufWritePost  *  call s:enableDeopleteOnWriteDir()
 call dko#InitDict('g:deoplete#sources')
 call dko#InitDict('g:deoplete#ignore_sources')
 
-" Disable the 'around' source in general. Somewhat broken with NCM
-let g:deoplete#ignore_sources._ = ['around']
+" Disable most sources since they are implemented by NCM
+" Only forward omni complete and dictionary sources
+" - around is Somewhat broken with NCM
+let g:deoplete#ignore_sources._ = [
+      \   'buffer',
+      \   'member',
+      \   'tag',
+      \   'file',
+      \   'around',
+      \ ]
 
 " ----------------------------------------------------------------------------
 " Regexes to use completion engine
@@ -242,16 +250,6 @@ if dko#IsPlugged('jspc.vim')
   " When using nvim-completion-manager, have deoplete call the omnifunc
   " directly
   if g:dko_use_completion
-    " Disabled sources:
-    " - member: use tern instead
-    " - omni:   deoplete should forward jspc only
-    " - around: not compatible with NCM
-    let g:deoplete#sources.javascript = [
-          \   'buffer',
-          \   'tag',
-          \   'file',
-          \   'dictionary',
-          \ ]
     " Only forward jspc to NCM
     let s:omni_only.javascript = s:REGEX.paramter
   endif
