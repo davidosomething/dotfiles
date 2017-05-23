@@ -50,10 +50,16 @@ zplug "zsh-users/zsh-completions"
 # - they may have .bash extension like tig completion
 # - rely on bashcompinit like aws
 [[ $OSTYPE == "darwin"* ]] && \
-  zplug "/usr/local/share/zsh/site-functions",  \
+  zplug "/usr/local/share/zsh/site-functions", \
     from:local,   \
     use:"*",      \
     defer:2
+
+# Add my local completions
+zplug "${ZDOTDIR}fpath", \
+  from:local,   \
+  use:"*",      \
+  defer:2
 
 # fork of rupa/z with better completion (so needs defer)
 zplug "knu/z",  \

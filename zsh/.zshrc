@@ -78,17 +78,12 @@ setopt NO_BEEP
 setopt VI
 
 # ============================================================================
-# fpath for completion and manpath
-# fpath must be before compinit
+# fpath
+# completion and manpath; fpath must be before compinit
+# actual completions are loaded via zplug now, even my zsh/fpath
 # ============================================================================
 
-# Add my completions, e.g. custom _composer #compdef
-fpath=(
-  "${ZDOTDIR}/fpath"
-  $fpath
-)
-
-# dedupe paths
+# dedupe these path arrays
 typeset -gU cdpath path fpath manpath
 
 # ============================================================================
@@ -122,7 +117,11 @@ autoload -Uz vcs_info
 # Plugins
 # ============================================================================
 
-# bookmarks plugin
+# ----------------------------------------------------------------------------
+# Plugins: Settings that must be defined before loading
+# ----------------------------------------------------------------------------
+
+# davidosomething/cdbk
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
 
 # knu/z
@@ -131,7 +130,7 @@ export _Z_DATA="${HOME}/.local/z"
 export _Z_NO_RESOLVE_SYMLINKS=1
 [ ! -f "$_Z_DATA" ] && touch "$_Z_DATA"
 
-# zsh-autosuggestions
+# zsh-users/zsh-autosuggestions
 # don't suggest lines longer than
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # as of v4.0 use zsh/zpty module to async retrieve
@@ -304,8 +303,11 @@ fi
 # Hooks
 # ============================================================================
 
-# Auto-detect .nvmrc and run nvm use
+# ----------------------------------------------------------------------------
+# Hooks: Auto-detect .nvmrc and run nvm use
 # Updated to only trigger nvm use if there's actually a different version
+# ----------------------------------------------------------------------------
+
 __auto_nvm_use() {
   local node_version="$(nvm version)"
   local nvmrc=$(nvm_find_nvmrc)
@@ -326,16 +328,20 @@ dko::has "nvm" && add-zsh-hook chpwd __auto_nvm_use
 
 # ============================================================================
 # Completion settings
+# Order by * specificity
 # ============================================================================
 
 # check that we're in the shell and not in something like vim terminal
 if [[ "$0" == *"zsh" ]]; then
-  # Use caching for commands that would like a cache.
+  # --------------------------------------------------------------------------
+  # Completion: Caching
+  # --------------------------------------------------------------------------
+
   zstyle ':completion:*' use-cache true
   zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/.zcache"
 
   # --------------------------------------------------------------------------
-  # Completion display
+  # Completion: Display
   # --------------------------------------------------------------------------
 
   # group all by the description above
@@ -361,7 +367,7 @@ if [[ "$0" == *"zsh" ]]; then
   zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
 
   # --------------------------------------------------------------------------
-  # Results matching
+  # Completion: Matching
   # --------------------------------------------------------------------------
 
   # use case-insensitive completion if case-sensitive generated no hits
@@ -375,19 +381,12 @@ if [[ "$0" == *"zsh" ]]; then
   zstyle ':completion::complete:cd:*' tag-order '! users'
 
   # --------------------------------------------------------------------------
-  # Result output transformation
+  # Completion: Output transformation
   # --------------------------------------------------------------------------
 
   # expand completions as much as possible on tab
   # e.g. start expanding a path up to wherever it can be until error
   zstyle ':completion:*' expand yes
-
-  # colorful kill command completion -- probably overridden by fzf
-  zstyle ':completion:*:*:kill:*:processes' list-colors \
-    "=(#b) #([0-9]#)*=36=31"
-
-  # complete .log filenames if redirecting stderr
-  zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 
   # process names
   zstyle ':completion:*:processes-names' command \
@@ -402,6 +401,13 @@ if [[ "$0" == *"zsh" ]]; then
     zstyle ':completion:*:ssh:*'    hosts $hosts
     zstyle ':completion:*:rsync:*'  hosts $hosts
   }
+
+  # colorful kill command completion -- probably overridden by fzf
+  zstyle ':completion:*:*:kill:*:processes' list-colors \
+    "=(#b) #([0-9]#)*=36=31"
+
+  # complete .log filenames if redirecting stderr
+  zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 fi
 
 # ============================================================================
