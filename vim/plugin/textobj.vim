@@ -20,6 +20,7 @@ function! s:MapTextobj(obj) abort
 endfunction
 
 for s:obj in [
+      \   'comment',
       \   'indent',
       \   'line',
       \   'url',

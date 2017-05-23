@@ -701,9 +701,14 @@ function! s:LoadPlugins() abort
   " <Leader>c to toggle CamelCase/snak_e the pending operator
   Plug 'tyru/operator-camelize.vim'
 
-  " Tip Use :omap ie to see what the operator-pending is mapped to
+  " Some textobjs are lazy loaded since they are ~4ms slow to load.
+  " See plugin/textobj.vim to see how they're mapped.
   " -       Base textobj plugin
   Plug 'kana/vim-textobj-user'
+  " - c     for comment
+  Plug 'glts/vim-textobj-comment', { 'on': [
+        \   '<Plug>(textobj-comment',
+        \ ]}
   " - d/D   for underscore section (e.g. `did` on foo_b|ar_baz -> foo__baz)
   Plug 'machakann/vim-textobj-delimited'
   " - i     for indent level
@@ -724,17 +729,14 @@ function! s:LoadPlugins() abort
   Plug 'rhysd/vim-textobj-conflict'
   " - x     for xml attr like `data-content="everything"`
   Plug 'whatyouhide/vim-textobj-xmlattr', { 'on': [
-        \   '<Plug>(textobj-attr',
+        \   '<Plug>(textobj-xmlattr',
         \ ]}
-
-  " - c     for comment
-  Plug 'glts/vim-textobj-comment', { 'for': [ 'javascript', 'php' ] }
+  " - f     for function (c, java, vim; js; php)
   " - P     for <?php ?>
   Plug 'akiyan/vim-textobj-php', { 'for': [ 'php' ] }
-  " - c     for css/sass/less block
-  Plug 'jasonlong/vim-textobj-css', { 'for': [ 'css', 'sass', 'scss' ] }
-  " - f     for function (c, java, vim; js; php)
+
   Plug 'kana/vim-textobj-function'
+  " These rely on base textobj-function
   Plug 'thinca/vim-textobj-function-javascript', { 'for': [ 'javascript' ] }
   Plug 'kentaro/vim-textobj-function-php', { 'for': [ 'php' ] }
 
