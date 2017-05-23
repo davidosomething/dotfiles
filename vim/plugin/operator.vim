@@ -15,6 +15,7 @@ if dko#IsPlugged('caw.vim')
   "let g:caw_operator_keymappings = 1
 
   silent! unmap gsc
+  nmap gcc   <Plug>(caw:hatpos:toggle)
   map <silent> gsc   <Plug>(caw:hatpos:toggle:operator)
 endif
 

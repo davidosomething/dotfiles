@@ -693,7 +693,9 @@ function! s:LoadPlugins() abort
 
   Plug 'kana/vim-operator-user'
   " gcc to toggle comment
-  Plug 'tyru/caw.vim'
+  Plug 'tyru/caw.vim', { 'on': [
+        \   '<Plug>(caw',
+        \ ]}
   " <Leader>s(a/r/d) to modify surrounding the pending operator
   Plug 'rhysd/vim-operator-surround'
   " <Leader>c to toggle CamelCase/snak_e the pending operator
@@ -705,17 +707,26 @@ function! s:LoadPlugins() abort
   " - d/D   for underscore section (e.g. `did` on foo_b|ar_baz -> foo__baz)
   Plug 'machakann/vim-textobj-delimited'
   " - i     for indent level
-  Plug 'kana/vim-textobj-indent'
+  Plug 'kana/vim-textobj-indent', { 'on': [
+        \   '<Plug>(textobj-indent',
+        \ ]}
   " - l     for current line
-  Plug 'kana/vim-textobj-line'
+  Plug 'kana/vim-textobj-line', { 'on': [
+        \   '<Plug>(textobj-line',
+        \ ]}
   " - u     for url
-  Plug 'mattn/vim-textobj-url'
+  Plug 'mattn/vim-textobj-url', { 'on': [
+        \   '<Plug>(textobj-url',
+        \ ]}
   " - b     for any block type (parens, braces, quotes, ltgt)
   Plug 'rhysd/vim-textobj-anyblock'
   " - =/i=  for conflicts marked blocks
   Plug 'rhysd/vim-textobj-conflict'
   " - x     for xml attr like `data-content="everything"`
-  Plug 'whatyouhide/vim-textobj-xmlattr'
+  Plug 'whatyouhide/vim-textobj-xmlattr', { 'on': [
+        \   '<Plug>(textobj-attr',
+        \ ]}
+
   " - c     for comment
   Plug 'glts/vim-textobj-comment', { 'for': [ 'javascript', 'php' ] }
   " - P     for <?php ?>
@@ -1127,7 +1138,6 @@ function! s:LoadPlugins() abort
   " Language: VimL
   " ==========================================================================
 
-  Plug 'MicahElliott/vim-cterm-highlight'
   Plug 'machakann/vim-vimhelplint'
 
   " gf to go to where autoloaded function is defined
