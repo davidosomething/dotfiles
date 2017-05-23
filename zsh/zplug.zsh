@@ -56,7 +56,7 @@ zplug "zsh-users/zsh-completions"
     defer:2
 
 # Add my local completions
-zplug "${ZDOTDIR}fpath", \
+zplug "${ZDOTDIR}/fpath", \
   from:local,   \
   use:"*",      \
   defer:2
