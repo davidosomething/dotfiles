@@ -14,8 +14,15 @@ if dko#IsPlugged('caw.vim')
   " By default works like tcomment_vim (instantly)
   "let g:caw_operator_keymappings = 1
 
-  silent! unmap gsc
+  silent! unmap gc
+  nmap gc   <Plug>(caw:prefix)
+  xmap gc   <Plug>(caw:prefix)
+
+  silent! unmap gcc
   nmap gcc   <Plug>(caw:hatpos:toggle)
+  xmap gcc   <Plug>(caw:hatpos:toggle)
+
+  silent! unmap gsc
   map <silent> gsc   <Plug>(caw:hatpos:toggle:operator)
 endif
 
