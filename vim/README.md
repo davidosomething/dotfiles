@@ -16,6 +16,8 @@
 - Neomake + local use of eslint, custom detection of .eslint, .scss-lint,
   etc.
 - Language emphasis: JavaScript, VimL, PHP, HTML, SCSS (but not exclusive)
+- Lazy loaded plugins and keybindings -- a brand new Vim instance opens in
+  <200ms (without plugins Vim takes around 100ms)
 - Lots more but you shouldn't use any of it unless you know what you're doing.
 
 ## Installation
@@ -36,7 +38,7 @@ list ([Syntax-Checkers]) and shows how to set them up.
 - `pip install neovim` in the virtualenv
 - `pip install jedi` for python completion while still in the virtualenv
 - You can now switch back to whatever python (`pyenv deactivate`) you want,
-  `init.vim` for neovim startup is already configured to find the `neovim3`
+  `init.vim` for Neovim startup is already configured to find the `neovim3`
   virtualenv.
 - `:UpdateRemotePlugins` if installing/upgrading python-based plugins like
   deoplete.
