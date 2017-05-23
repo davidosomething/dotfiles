@@ -43,7 +43,7 @@ let g:neomake_info_sign     = { 'text': '⚑', 'texthl': 'NeomakeInfoSign' }
 " Define makers
 " ============================================================================
 
-" For using local NPM based makers (e.g. eslint):
+" For using local npm based makers (e.g. eslint):
 " Resolve the maker's exe relative to the project of the file in buffer, as
 " opposed to using the result of `system('npm bin')` since that executes
 " relative to vim's working path (and gives a fake result of not in a node
