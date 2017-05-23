@@ -18,3 +18,10 @@ nmap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
 setlocal noexpandtab
 setlocal shiftwidth=2
 setlocal softtabstop=2
+
+if g:dko_use_completion && dko#IsPlugged('jspc.vim')
+  " jspc#omni normally extends javascriptcomplete on param pattern match.
+  " Unset the omnifunc so it doesn't extend anything. This way only paramter
+  " completion is forwarded to NCM
+  set omnifunc=
+endif

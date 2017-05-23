@@ -15,8 +15,8 @@ if dko#IsPlugged('deoplete.nvim')
   autocmd dkonvimcompletionmanager User CmSetup
         \ call cm#register_source({
         \   'name':         'deoplete',
-        \   'priority':     7,
-        \   'abbreviation': '',
+        \   'priority':     6,
+        \   'abbreviation': 'D',
         \ })
 
   " forward to ncm

@@ -9,12 +9,12 @@ augroup dkodeoplete
   autocmd!
 augroup END
 
-" ----------------------------------------------------------------------------
+" ============================================================================
 " Conditionally disable deoplete
 " If editing a file in a directory that doesn't exist (e.g. NetRW or creating
 " by doing `e newdir/newfile.js`) disable deoplete until the file is written
 " (which will create the directory automatically thanks to vim-easydir)
-" ----------------------------------------------------------------------------
+" ============================================================================
 
 function! s:disableDeopleteIfNoDir()
   if !isdirectory(expand('%:h'))
@@ -32,6 +32,16 @@ endfunction
 
 autocmd dkodeoplete BufNewFile    *  call s:disableDeopleteIfNoDir()
 autocmd dkodeoplete BufWritePost  *  call s:enableDeopleteOnWriteDir()
+
+" ============================================================================
+" Compatibility with nvim-completion-manager
+" ============================================================================
+
+call dko#InitDict('g:deoplete#sources')
+call dko#InitDict('g:deoplete#ignore_sources')
+
+" Disable the 'around' source in general. Somewhat broken with NCM
+let g:deoplete#ignore_sources._ = ['around']
 
 " ----------------------------------------------------------------------------
 " Regexes to use completion engine
@@ -59,12 +69,6 @@ let s:PY3REGEX.word = '\w+'
 let s:PY3REGEX.starting_word  = '^\s*' . s:PY3REGEX.word
 let s:PY3REGEX.css_media      = '^\s*@'
 let s:PY3REGEX.css_value      = ': \w*'
-
-" For jspc.vim
-" parameter completion for window.addEventListener('___
-" single quote escaped as ''
-" literal parentheses escaped as \(
-let s:PY3REGEX.parameter = '\.\w+\('''
 
 " For phpcomplete.vim
 let s:PY3REGEX.member = '->\w*'
@@ -96,10 +100,10 @@ let s:deo_patterns.less = s:deo_patterns.css
 let s:deo_patterns.sass = s:deo_patterns.css
 let s:deo_patterns.scss = s:deo_patterns.css
 
-" JS patterns are defined per plugin
-let s:deo_patterns.javascript = [
-      \   s:PY3REGEX.word,
-      \ ]
+" JS patterns are defined per plugin. Skip entirely if using ncm
+let s:deo_patterns.javascript = g:dko_use_completion
+      \ ? []
+      \ : [ s:PY3REGEX.word ]
 
 " https://github.com/Shougo/deoplete.nvim/blob/5fc5ed772de138439322d728b103a7cb225cbf82/doc/deoplete.txt#L300
 " let s:deo_patterns.php = [
@@ -226,15 +230,29 @@ endif
 " ============================================================================
 
 if dko#IsPlugged('jspc.vim')
+  " See also ftplugin/javascript.vim for clearing the omnifunc early
+
   " jspc.vim calls the original &omnifunc (probably
   " javascriptcomplete#CompleteJS or tern#Complete) if it doesn't match, so we
   " don't need it in the deoplete omnifuncs
   call s:Exclude('javascript', 'javascriptcomplete#CompleteJS')
+  call s:Exclude('javascript', 'jscomplete#CompleteJS')
   call s:Include('javascript', 'jspc#omni')
 
   " When using nvim-completion-manager, have deoplete call the omnifunc
   " directly
   if g:dko_use_completion
+    " Disabled sources:
+    " - member: use tern instead
+    " - omni:   deoplete should forward jspc only
+    " - around: not compatible with NCM
+    let g:deoplete#sources.javascript = [
+          \   'buffer',
+          \   'tag',
+          \   'file',
+          \   'dictionary',
+          \ ]
+    " Only forward jspc to NCM
     let s:omni_only.javascript = s:REGEX.paramter
   endif
 endif
