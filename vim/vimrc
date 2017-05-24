@@ -819,8 +819,6 @@ function! s:LoadPlugins() abort
   " Completion: Java
   " --------------------------------------------------------------------------
 
-  " nvim-completion-manager has a jedi source in python already, so as long as
-  " jedi is pip installed it is good to go.
   Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
         \   'do': 'cd libs/javavi/ && mvn compile',
         \   'for': 'java',
@@ -868,7 +866,9 @@ function! s:LoadPlugins() abort
   " Completion: Python
   " --------------------------------------------------------------------------
 
-  " nvim-completion-manager handles jedi itself
+  " nvim-completion-manager has a jedi source in python already, so as long as
+  " jedi is pip installed it is good to go.
+
   " Forwarded to nvim-completion-manager if present
   " Plug 'zchee/deoplete-jedi'
 
