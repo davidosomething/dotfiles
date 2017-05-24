@@ -32,12 +32,12 @@ execute 'omap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
 " EditorConfig overrides
 " ============================================================================
 
-function! DKO_EditorConfigPhp(config)
-  setlocal softtabstop=-2
-  return 0
-endfunction
-
 if dko#IsPlugged('editorconfig-vim')
+  function! DKO_EditorConfigPhp(config) abort
+    setlocal softtabstop=-2
+    return 0
+  endfunction
+
   call editorconfig#AddNewHook(function('DKO_EditorConfigPhp'))
 endif
 

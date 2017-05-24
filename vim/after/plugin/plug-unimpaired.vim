@@ -9,7 +9,7 @@ set cpoptions&vim
 " ============================================================================
 
 " go to last error instead of bitching
-function! s:LocationPrevious()
+function! s:LocationPrevious() abort
   try
     lprev
   catch /.*/
@@ -20,7 +20,7 @@ nnoremap  <silent>  <Plug>unimpairedLPrevious
       \ :<C-U>call <SID>LocationPrevious()<CR>
 
 " go to first error instead of bitching
-function! s:LocationNext()
+function! s:LocationNext() abort
   try
     lnext
   catch /.*/

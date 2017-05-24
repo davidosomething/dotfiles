@@ -15,7 +15,11 @@ augroup END
 " useful for filename completion relative to current buffer path
 if exists('+autochdir')
   autocmd dkocompletion InsertEnter *
-        \ let b:save_cwd = getcwd() | set autochdir
+        \   let b:save_cwd = getcwd()
+        \|  set autochdir
   autocmd dkocompletion InsertLeave *
-        \ set noautochdir | execute 'cd' fnameescape(b:save_cwd)
+        \   set noautochdir
+        \|  if exists('b:save_cwd')
+        \|    execute 'cd' fnameescape(b:save_cwd)
+        \|  endif
 endif

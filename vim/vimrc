@@ -754,6 +754,10 @@ function! s:LoadPlugins() abort
   " context_filetype.vim provides mixed-filetype completion for deoplete,
   " e.g. highlight JS within Markdown fenced code blocks.
   " nvim-completion-manager already has this functionality built in.
+  "
+  " Currently forwarding to NCM:
+  " - deoplete-padawan (deoplete)
+  " - jspc.vim (omni only)
   Plug 'Shougo/deoplete.nvim', PlugIf(g:dko_use_completion, {
         \   'do': ':UpdateRemotePlugins'
         \ })

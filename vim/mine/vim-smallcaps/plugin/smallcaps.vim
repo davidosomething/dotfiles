@@ -12,7 +12,7 @@ set cpoptions&vim
 let s:smallcaps  = 'ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ'
 let s:letters    = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-function! s:convert(text)
+function! s:convert(text) abort
   return tr(toupper(a:text), s:letters, s:smallcaps)
 endfunction
 

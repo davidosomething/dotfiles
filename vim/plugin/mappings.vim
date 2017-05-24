@@ -61,7 +61,7 @@ nnoremap  <silent><special>  <Leader>ecr
 
 " As above, this noops if file not found
 " @param {String} file
-function! s:EditRoot(file)
+function! s:EditRoot(file) abort
   let s:file = dkoproject#GetFile(a:file)
   if empty(s:file)
     echomsg 'File not found: '  . a:file

@@ -39,7 +39,7 @@ setlocal iskeyword+=-
 " @TODO extract, used in qf and loclist too
 " ============================================================================
 
-function! s:Close()
+function! s:Close() abort
   if winnr('$') > 1
     :close
   else

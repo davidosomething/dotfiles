@@ -16,14 +16,14 @@ augroup END
 " (which will create the directory automatically thanks to vim-easydir)
 " ============================================================================
 
-function! s:disableDeopleteIfNoDir()
+function! s:disableDeopleteIfNoDir() abort
   if !isdirectory(expand('%:h'))
     let b:deoplete_disable_auto_complete = 1
     let b:dko_enable_deoplete_on_save = 1
   endif
 endfunction
 
-function! s:enableDeopleteOnWriteDir()
+function! s:enableDeopleteOnWriteDir() abort
   if get(b:, 'dko_enable_deoplete_on_save', 0) && isdirectory(expand('%:h'))
     let b:deoplete_disable_auto_complete = 0
     let b:dko_enable_deoplete_on_save = 0
