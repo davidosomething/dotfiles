@@ -116,7 +116,7 @@ endfunction
 " @return {String}
 function! dkostatus#NeomakeJobs() abort
   return s:winnr != winnr()
-        \ || !dko#IsPlugged('neomake')
+        \ || !dko#IsLoaded('neomake')
         \ || !exists('*neomake#GetJobs')
         \ || empty(neomake#GetJobs())
         \ ? ''

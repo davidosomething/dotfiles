@@ -8,6 +8,7 @@
 
 if dko#IsPlugged('vim-editorconfig')
   let g:editorconfig_verbose = 1
+  finish
 endif
 
 " ============================================================================

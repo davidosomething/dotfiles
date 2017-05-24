@@ -1,6 +1,6 @@
 " plugin/plug-deoplete.vim
 
-if !g:dko_use_completion || !dko#IsPlugged('deoplete.nvim') | finish | endif
+if !g:dko_use_completion || !dko#IsLoaded('deoplete.nvim') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
@@ -205,7 +205,7 @@ endfunction
 " Completion Plugin: vim-better-javascript-completion
 " ============================================================================
 
-if dko#IsPlugged('vim-better-javascript-completion') && !g:dko_use_completion
+if dko#IsLoaded('vim-better-javascript-completion') && !g:dko_use_completion
   autocmd dkocompletion FileType javascript setlocal omnifunc=js#CompleteJS
   " insert instead of add, this is preferred completion omnifunc (except tern)
   call s:Include('javascript', 'js#CompleteJS')
@@ -216,7 +216,7 @@ endif
 " This overrides all other JS completions when omni_only matches
 " ============================================================================
 
-if dko#IsPlugged('deoplete-ternjs')
+if dko#IsLoaded('deoplete-ternjs')
   " No reason to use javascriptcomplete when tern is available
   call s:Exclude('javascript', 'javascriptcomplete#CompleteJS')
 
@@ -237,7 +237,7 @@ endif
 " (Ignored if s:omni_only.javascript was set by the above tern settings)
 " ============================================================================
 
-if dko#IsPlugged('jspc.vim')
+if dko#IsLoaded('jspc.vim')
   " See also ftplugin/javascript.vim for clearing the omnifunc early
 
   " jspc.vim calls the original &omnifunc (probably
@@ -259,7 +259,7 @@ endif
 " Completion Plugin: phpcd.vim
 " ============================================================================
 
-if dko#IsPlugged('phpcd.vim')
+if dko#IsLoaded('phpcd.vim')
   " Call omnifunc directly
   let s:omni_only.php = s:REGEX.any_word
         \. '\|' . s:REGEX.member
@@ -271,7 +271,7 @@ if dko#IsPlugged('phpcd.vim')
 " This requires vimproc and composer.json in project root.
 " ============================================================================
 
-elseif dko#IsPlugged('phpcomplete-extended')
+elseif dko#IsLoaded('phpcomplete-extended')
   let g:phpcomplete_extended_auto_add_use = 0
   if executable('composer')
     let g:phpcomplete_index_composer_command = 'composer'
@@ -289,7 +289,7 @@ endif
 " This is the worst one, moves the cursor, reads tags files
 " ============================================================================
 
-if dko#IsPlugged('phpcomplete.vim')
+if dko#IsLoaded('phpcomplete.vim')
   " Settings are read when phpcomplete#CompletePHP is called
   let g:phpcomplete_parse_docblock_comments = 1
 

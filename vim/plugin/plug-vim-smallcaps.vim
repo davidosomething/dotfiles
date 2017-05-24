@@ -1,4 +1,5 @@
 " plugin/plug-vim-smallcaps.vim
+
 if !dko#IsPlugged('vim-smallcaps') | finish | endif
 
 let s:cpo_save = &cpoptions

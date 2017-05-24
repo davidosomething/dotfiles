@@ -734,7 +734,7 @@ function! s:LoadPlugins() abort
   Plug g:dko#vim_dir . '/mine/vim-hr'
 
   " <Leader>C <Plug>(dkosmallcaps)
-  Plug g:dko#vim_dir . '/mine/vim-smallcaps'
+  Plug g:dko#vim_dir . '/mine/vim-smallcaps', { 'on': '<Plug>(dkosmallcaps)' }
 
   " Toggle movement mode line-wise/display-wise
   Plug g:dko#vim_dir . '/mine/vim-movemode'
@@ -992,7 +992,7 @@ function! s:LoadPlugins() abort
   " ----------------------------------------
 
   " <leader>pd on function to insert jsdoc above
-  Plug 'heavenshell/vim-jsdoc'
+  Plug 'heavenshell/vim-jsdoc', { 'on': '<Plug>(jsdoc)' }
 
   " detect extensionless node scripts (executables) via shebang
   " and add gf for going to node_modules files

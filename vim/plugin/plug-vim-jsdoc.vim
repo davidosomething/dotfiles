@@ -2,6 +2,11 @@
 
 if !dko#IsPlugged('vim-jsdoc') | finish | endif
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
+" ============================================================================
+
 augroup dkovimjsdoc
   autocmd FileType javascript
         \ nmap  <buffer><special>  <Leader>pd  <Plug>(jsdoc)
@@ -78,3 +83,7 @@ let g:jsdoc_custom_args_hook = {
       \   },
       \ }
 
+" ============================================================================
+
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

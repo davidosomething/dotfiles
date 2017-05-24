@@ -1,6 +1,7 @@
 " plugin/fzf.vim
 scriptencoding utf-8
-if !dko#IsPlugged('fzf.vim') | finish | endif
+
+if !dko#IsLoaded('fzf.vim') | finish | endif
 
 " ============================================================================
 " Local Helpers

@@ -32,7 +32,7 @@ execute 'omap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
 " EditorConfig overrides
 " ============================================================================
 
-if dko#IsPlugged('editorconfig-vim')
+if dko#IsLoaded('editorconfig-vim')
   function! DKO_EditorConfigPhp(config) abort
     setlocal softtabstop=-2
     return 0
@@ -55,7 +55,7 @@ endif
 " Insert phpdoc block
 " ============================================================================
 
-if dko#IsPlugged('neosnippet')
+if dko#IsLoaded('neosnippet')
   inoremap <silent><buffer><special>
         \ <Leader>pd
         \ a<C-r>=neosnippet#expand('doc')<CR>

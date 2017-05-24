@@ -159,24 +159,42 @@ endfunction
 " ============================================================================
 
 " Memory cache
-let s:plugged = {}
+" List of loaded plug names
+let s:loaded = []
 
 " @param  {String} name
 " @return {Boolean} true if the plugin is installed
 function! dko#IsPlugged(name) abort
-  if has_key(s:plugged, a:name)
-    return s:plugged[a:name]
+  return index(g:plugs_order, a:name) > -1
+endfunction
+
+" @param  {String} name
+" @return {String} path where plugin installed
+function! dko#PlugDir(name) abort
+  return dko#IsPlugged(a:name) ? g:plugs[a:name].dir : ''
+endfunction
+
+" @param  {String} name
+" @return {Boolean} true if the plugin is actually loaded
+function! dko#IsLoaded(name) abort
+  if index(s:loaded, a:name) > -1
+    return 1
   endif
 
-  " Use exists instead of has_key so can skip checking if g:plugs itself
-  " exists
-  let l:is_plugged = exists("g:plugs['" . a:name . "']")
-        \ && ( isdirectory(expand(g:plug_home . '/' . a:name))
-        \      || isdirectory(expand(g:dko#vim_dir . '/mine/' . a:name)) )
+  let l:plug_dir = dko#PlugDir(a:name)
+  if empty(l:plug_dir)
+    return 0
+  endif
 
-  let s:plugged[a:name] = l:is_plugged
+  let l:is_loaded = empty(l:plug_dir)
+        \ ? 0
+        \ : stridx(&runtimepath, l:plug_dir) > -1
 
-  return l:is_plugged
+  if l:is_loaded
+    call add(s:loaded, a:name)
+  endif
+
+  return l:is_loaded
 endfunction
 
 " ============================================================================

@@ -1,6 +1,6 @@
 " plugin/plug-languageclient-neovim.vim
 
-if !dko#IsPlugged('LanguageClient-neovim') | finish | endif
+if !dko#IsLoaded('LanguageClient-neovim') | finish | endif
 
 augroup dkolanguageclient
   autocmd!

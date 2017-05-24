@@ -2,8 +2,7 @@
 " tern_for_vim settings
 " This plugin is used for its refactoring and helper methods, not completion
 
-if !( dko#IsPlugged('tern_for_vim')
-      \&& executable('tern') )
+if !( dko#IsLoaded('tern_for_vim') && executable('tern') )
   finish
 endif
 

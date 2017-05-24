@@ -1,4 +1,5 @@
 " plugin/plug-vim-gutentags.vim
+
 if !dko#IsPlugged('vim-gutentags') | finish | endif
 
 let g:gutentags_ctags_tagfile = '.git/tags'

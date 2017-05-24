@@ -1,6 +1,7 @@
 " after/plugin/plug-unimpaired.vim
 
-if !dko#IsPlugged('vim-unimpaired') | finish | endif
+if !dko#IsLoaded('vim-unimpaired') | finish | endif
+
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 

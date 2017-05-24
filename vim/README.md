@@ -147,7 +147,7 @@ sparingly (typically for `setlocal` ftplugin settings).
 
 ### VimL Coding
 
-- Include `dko#IsPlugged()` check if relying on plugins
+- Include `dko#IsPlugged()` or `dko#IsLoaded()` check if relying on plugins
 - Include `&cpoptions` guard if there are mappings
 - Use `<special>` if the mapping key is special (irrespective of `&cpoptions`)
 - `g:DKO_FunctionName` - DKO_PascalCase

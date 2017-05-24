@@ -29,9 +29,9 @@ nmap  <special>   <Esc><Esc>   <Plug>(DKOClearSearch)
 " - vim-anzu        show number of matches, with status integration
 " - vim-asterisk    don't move on first search with *
 " - vim-searchant   highlight CURRENT search item differently
-if         !dko#IsPlugged('incsearch.vim')
-      \ && !dko#IsPlugged('vim-asterisk')
-      \ && !dko#IsPlugged('vim-anzu')
+if         !dko#IsLoaded('incsearch.vim')
+      \ && !dko#IsLoaded('vim-asterisk')
+      \ && !dko#IsLoaded('vim-anzu')
   finish
 endif
 
@@ -47,14 +47,14 @@ silent! unmap g#
 let g:asterisk#keeppos = 1
 
 " Incsearch + Anzu interaction
-if dko#IsPlugged('incsearch.vim') && dko#IsPlugged('vim-anzu')
+if dko#IsLoaded('incsearch.vim') && dko#IsLoaded('vim-anzu')
   " Make sure / and g/ (which start an <over>-mode/fake-command mode) update
   " the anzu status
   autocmd dkosearch User IncSearchLeave AnzuUpdateSearchStatus
 endif
 
 function! s:SetupIncsearch() abort
-  if !dko#IsPlugged('incsearch.vim')
+  if !dko#IsLoaded('incsearch.vim')
     return
   endif
 
@@ -68,7 +68,7 @@ endfunction
 call s:SetupIncsearch()
 
 function! s:SetupAnzu() abort
-  if !dko#IsPlugged('vim-anzu')
+  if !dko#IsLoaded('vim-anzu')
     return
   endif
 
@@ -97,25 +97,25 @@ function! s:GetSearchRHS(op) abort
   let l:ops = ''
 
   " Highlight matches?
-  if dko#IsPlugged('incsearch.vim')
+  if dko#IsLoaded('incsearch.vim')
     " no CursorMoved event if using vim-asterisk
-    let l:ops .= dko#IsPlugged('vim-asterisk')
+    let l:ops .= dko#IsLoaded('vim-asterisk')
           \ ? '<Plug>(incsearch-nohl0)'
           \ : '<Plug>(incsearch-nohl)'
   endif
 
   " Move or don't move?
-  let l:ops .= dko#IsPlugged('vim-asterisk')
+  let l:ops .= dko#IsLoaded('vim-asterisk')
         \ ? '<Plug>(asterisk-' . a:op . ')'
         \ : ''
 
   " Show count of matches after asterisk-z-op
   " Or use anzu-op if no vim-asterisk
-  if dko#IsPlugged('vim-anzu')
+  if dko#IsLoaded('vim-anzu')
     let l:anzu_op = ''
     let l:anzu_op = a:op ==# 'z*' ? 'star' : l:anzu_op
     let l:anzu_op = a:op ==# 'z#' ? 'sharp' : l:anzu_op
-    if dko#IsPlugged('vim-asterisk') || empty(l:anzu_op)
+    if dko#IsLoaded('vim-asterisk') || empty(l:anzu_op)
       let l:ops .= '<Plug>(anzu-update-search-status)'
     else
       " no anzu stuff for gz* and gz#

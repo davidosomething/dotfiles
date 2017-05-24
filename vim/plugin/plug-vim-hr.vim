@@ -1,5 +1,6 @@
 " plugin/plug-vim-hr.vim
-if !dko#IsPlugged('vim-hr') | finish | endif
+
+if !dko#IsLoaded('vim-hr') | finish | endif
 
 call hr#map('_')
 call hr#map('-')

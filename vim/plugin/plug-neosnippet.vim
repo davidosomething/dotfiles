@@ -1,6 +1,6 @@
 " plugin/plug-neosnippet.vim
 
-if !dko#IsPlugged('neosnippet') | finish | endif
+if !dko#IsLoaded('neosnippet') | finish | endif
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 

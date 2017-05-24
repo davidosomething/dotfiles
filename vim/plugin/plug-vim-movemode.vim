@@ -1,5 +1,7 @@
 " plugin/plug-vim-movemode.vim
+
 if !dko#IsPlugged('vim-movemode') | finish | endif
+
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 

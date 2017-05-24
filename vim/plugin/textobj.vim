@@ -4,7 +4,7 @@
 " These are lazy loaded so we need the bindings to trigger the <Plug>
 "
 
-if !dko#IsPlugged('vim-textobj-user') | finish | endif
+if !dko#IsLoaded('vim-textobj-user') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

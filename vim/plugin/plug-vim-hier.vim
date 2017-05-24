@@ -1,4 +1,5 @@
 " plugin/plug-vim-gutentags.vim
+
 if !dko#IsPlugged('vim-hier') | finish | endif
 
 let g:hier_enabled = 0
