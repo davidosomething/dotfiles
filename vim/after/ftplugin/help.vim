@@ -73,6 +73,9 @@ if &buftype ==# 'help'
   noremap <buffer><nowait>  s <NOP>
   nnoremap <buffer> a <NOP>
   nnoremap <buffer> i <NOP>
+
+  silent! unmap <C-j>
+  silent! unmap <C-k>
 endif
 
 " ============================================================================
