@@ -64,9 +64,13 @@ brew install neovim/neovim/neovim
 # filesystem
 # ============================================================================
 
-brew install ack the_silver_searcher ripgrep
+brew install ack
 brew install fzf
 brew install exa tree
+brew install ripgrep
+
+# prefer ripgrep
+# brew install the_silver_searcher
 
 # ============================================================================
 # operations
