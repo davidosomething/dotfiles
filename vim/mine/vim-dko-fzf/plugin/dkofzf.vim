@@ -188,7 +188,18 @@ let s:grepper_half = fzf#vim#with_preview(
       \   '?'
       \ )
 
-if dko#GetGrepper().command ==# 'ag'
+if dko#GetGrepper().command ==# 'rg'
+  command! -bang -nargs=* FZFGrepper
+        \ call fzf#vim#grep(
+        \   'rg --color=always --column --hidden --line-number --no-heading '
+        \     . '--no-ignore-vcs '
+        \     . '--ignore-file "${DOTFILES}/ag/dot.ignore" '
+        \     . shellescape(<q-args>),
+        \   1,
+        \   <bang>0 ? s:grepper_full : s:grepper_half,
+        \   <bang>0
+        \ )
+elseif dko#GetGrepper().command ==# 'ag'
   " @see https://github.com/junegunn/fzf.vim/blob/abdf894edf5dbbe8eaa734a6a4dce39c9f174e33/autoload/fzf/vim.vim#L614
   " Default options are --nogroup --column --color
   let s:ag_options = ' --one-device --skip-vcs-ignores --smart-case '
@@ -197,17 +208,6 @@ if dko#GetGrepper().command ==# 'ag'
         \ call fzf#vim#ag(
         \   <q-args>,
         \   s:ag_options,
-        \   <bang>0 ? s:grepper_full : s:grepper_half,
-        \   <bang>0
-        \ )
-elseif dko#GetGrepper().command ==# 'rg'
-  command! -bang -nargs=* FZFGrepper
-        \ call fzf#vim#grep(
-        \   'rg --color=always --column --hidden --line-number --no-heading '
-        \     . '--no-ignore-vcs '
-        \     . '--ignore-file "${DOTFILES}/ag/dot.ignore" '
-        \     . shellescape(<q-args>),
-        \   1,
         \   <bang>0 ? s:grepper_full : s:grepper_half,
         \   <bang>0
         \ )

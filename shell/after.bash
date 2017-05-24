@@ -15,7 +15,7 @@ export FZF_COMPLETION_TRIGGER="\`\`"
 # Use fastest grepper available
 if dko::has "ag"; then
   export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
-elif dko::has "rg"; then
+elif dko::has "ag"; then
   export FZF_DEFAULT_COMMAND='rg --hidden -g ""'
 else
   # using git paths only for FZF
