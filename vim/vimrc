@@ -799,6 +799,9 @@ function! s:LoadPlugins() abort
   " Nice generic omnifunc when no completion engine
   Plug '1995eaton/vim-better-javascript-completion', PlugIf(!l:use_tern)
 
+  " Most features disabled, using the omnifunc only
+  Plug 'facebook/vim-flow'
+
   " Parameter completion (in or after ' or ")
   " Extends omnicomplete to fill in addEventListener('click'
   " Forwarded by deoplete to nvim-completion-manager

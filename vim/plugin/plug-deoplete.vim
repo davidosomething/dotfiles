@@ -132,6 +132,10 @@ let s:deo_patterns.javascript = g:dko_use_completion
 " - string vim regex
 let s:omni_only = get(g:, 'deoplete#_omni_patterns', {})
 
+if dko#IsLoaded('nvim-completion-manager')
+  let s:omni_only.javascript = []
+endif
+
 " c-type with clang_complete -- not used but correct
 " let s:omni_only.c =       '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?',
 " let s:omni_only.cpp =     '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?',
@@ -165,6 +169,17 @@ let s:omnifuncs = {
 " ============================================================================
 " Helper functions
 " ============================================================================
+
+" When match an added regexp when inserting in a file of filetype, have
+" deoplete call &omnifunc directly instead of running through engine.
+"
+" @param {String} ft
+" @param {String} regexp
+function! s:OmniOnly(ft, regexp) abort
+  let s:omni_only[a:ft] = empty(s:omni_only[a:ft])
+        \ ? a:regexp
+        \ : s:omni_only[a:ft] . '\|' . a:regexp
+endfunction
 
 " Include an omnifunc from deoplete aggregation
 "
@@ -213,7 +228,6 @@ endif
 
 " ============================================================================
 " Completion Plugin: tern (both nvim and vim versions)
-" This overrides all other JS completions when omni_only matches
 " ============================================================================
 
 if dko#IsLoaded('deoplete-ternjs')
@@ -233,8 +247,21 @@ if dko#IsLoaded('deoplete-ternjs')
 endif
 
 " ============================================================================
+" Completion Plugin: vim-flow
+" ============================================================================
+
+if dko#IsLoaded('vim-flow')
+  " See also plugin/plug-vim-flow.vim for disabling a bunch of features
+
+  call s:Include('javascript', 'flowcomplete#Complete')
+
+  if dko#IsLoaded('nvim-completion-manager')
+    call s:OmniOnly('javascript', s:REGEX.any_word)
+  endif
+endif
+
+" ============================================================================
 " Completion Plugin: jspc.vim
-" (Ignored if s:omni_only.javascript was set by the above tern settings)
 " ============================================================================
 
 if dko#IsLoaded('jspc.vim')
@@ -247,11 +274,8 @@ if dko#IsLoaded('jspc.vim')
   call s:Exclude('javascript', 'jscomplete#CompleteJS')
   call s:Include('javascript', 'jspc#omni')
 
-  " When using nvim-completion-manager, have deoplete call the omnifunc
-  " directly
-  if g:dko_use_completion
-    " Only forward jspc to NCM
-    let s:omni_only.javascript = s:REGEX.paramter
+  if dko#IsLoaded('nvim-completion-manager')
+    call s:OmniOnly('javascript', s:REGEX.paramter)
   endif
 endif
 
