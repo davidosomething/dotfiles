@@ -24,16 +24,16 @@ function! dkotabline#Output() abort
 
   let l:funcinfo = dkocode#GetFunctionInfo()
   let l:contents .= !empty(l:funcinfo.name)
-        \ ? ' %#PMenu# ' . l:funcinfo.name . ' '
+        \ ? '%#PMenu# Fᴜɴᴄ %#PmenuSel# ' . l:funcinfo.name . ' '
         \ : ''
-  " end of tab is showing a tab info
-  "let l:contents .= '%#StatusLine#%T'
 
   " ==========================================================================
   " Right side
   " ==========================================================================
 
   let l:contents .= '%#StatusLine# %= '
+
+  let l:contents .= '%#Pmenu# Pʀᴏᴊ %#PmenuSel#' . dko#ShortenPath(dkoproject#GetRoot(), 80)
 
   " ==========================================================================
 

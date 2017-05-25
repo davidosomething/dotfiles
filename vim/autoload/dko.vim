@@ -45,6 +45,18 @@ function! dko#InitList(var) abort
   return {a:var}
 endfunction
 
+" Return shortened path
+"
+" @param {String} path
+" @param {Int} max
+" @return {String}
+function! dko#ShortenPath(path, max) abort
+  let l:full = fnamemodify(a:path, ':~:.')
+  return len(l:full) > a:max
+        \ ? ''
+        \ : ' ' . (len(l:full) == 0 ? '~' : l:full) . ' '
+endfunction
+
 " Generate a string command to map keys in nvo&ic modes to a command
 "
 " @param  {Dict}    settings

@@ -68,7 +68,7 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus()
   let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs()
   let l:contents .= '%<'
-  let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath()
+  let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath(getcwd(), s:ww)
   let l:contents .= '%#TabLine#' . dkostatus#Ruler()
 
   return l:contents
@@ -164,18 +164,18 @@ function! dkostatus#Anzu() abort
         \ : ' ' . l:anzu . ' '
 endfunction
 
+" Use dko#ShortenPath conditionally
+"
+" @param {String} path
+" @param {Int} max
 " @return {String}
-function! dkostatus#ShortPath() abort
-  if s:ww < 80
+function! dkostatus#ShortPath(path, max) abort
+  if s:ww < a:max
         \ || dkostatus#IsNonFile()
         \ || dkostatus#IsHelp()
     return ''
   endif
-
-  let l:full = fnamemodify(getcwd(), ':~:.')
-  return len(l:full) > s:ww
-        \ ? ''
-        \ : ' ' . (len(l:full) == 0 ? '~' : l:full) . ' '
+  return dko#ShortenPath(a:path, a:max)
 endfunction
 
 " Uses fugitive or gita to get cached branch name

@@ -52,7 +52,7 @@ function! dkoproject#GetRoot(...) abort
     return b:dkoproject_root
   endif
 
-  let l:path = dkoproject#GetRootPath(a:000)
+  let l:path = dkoproject#GetFilePath(a:000)
   let l:root = dkoproject#GetGitRootByFile(l:path)
   let l:root = empty(l:root)
         \ ? dkoproject#GetRootByFileMarker(s:default_markers)
@@ -65,12 +65,14 @@ function! dkoproject#GetRoot(...) abort
   return l:root
 endfunction
 
-" @param {String} [a:1] optional file for which you want the project root
+" @param {String} file to get path to
 " @return {String} path to project root
-function! dkoproject#GetRootPath(...) abort
+function! dkoproject#GetFilePath(file) abort
   " Argument
   " Path for given file
-  let l:path = empty(a:1) ? '' : fnamemodify(resolve(expand(a:1)), ':p:h')
+  let l:path = empty(get(a:, 'file', ''))
+        \ ? ''
+        \ : fnamemodify(resolve(expand(a:file)), ':p:h')
 
   " Fallback to current file if no argument
   " Try current file's path
