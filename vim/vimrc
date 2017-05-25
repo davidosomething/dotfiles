@@ -1,4 +1,4 @@
-if has('vim_starting') | set encoding=utf-8 nobomb | endif
+if !has('nvim') && has('vim_starting') | set encoding=utf-8 nobomb | endif
 scriptencoding utf-8
 
 "
@@ -61,7 +61,7 @@ endif
 
 set title                             " wintitle = filename - vim
 
-" this is already set by modern terminal
+" this is already set by modern terminal and removed from nvim
 "set ttyfast
 
 " no beeps or flashes
