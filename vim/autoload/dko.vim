@@ -118,6 +118,22 @@ function! dko#First(...) abort
 endfunction
 
 " ============================================================================
+" Buffer info
+" ============================================================================
+
+" @param {Int} bufnr
+" @return {Boolean}
+function! dko#IsNonFile(bufnr) abort
+  return getbufvar(a:bufnr, '&buftype') =~# '\v(nofile|quickfix|terminal)'
+endfunction
+
+" @param {Int} bufnr
+" @return {Boolean}
+function! dko#IsHelp(bufnr) abort
+  return getbufvar(a:bufnr, '&buftype') =~# '\v(help)'
+endfunction
+
+" ============================================================================
 " grepprg
 " ============================================================================
 

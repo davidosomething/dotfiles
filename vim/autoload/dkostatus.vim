@@ -1,20 +1,6 @@
 scriptencoding utf-8
 
 " ============================================================================
-" Utility
-" ============================================================================
-
-" @return {String}
-function! dkostatus#IsNonFile() abort
-  return getbufvar(s:bufnr, '&buftype') =~# '\v(nofile|quickfix|terminal)'
-endfunction
-
-" @return {String}
-function! dkostatus#IsHelp() abort
-  return getbufvar(s:bufnr, '&buftype') =~# '\v(help)'
-endfunction
-
-" ============================================================================
 " Status line
 " ============================================================================
 
@@ -138,7 +124,7 @@ endfunction
 
 " @return {String}
 function! dkostatus#Filename() abort
-  if dkostatus#IsNonFile()
+  if dko#IsNonFile(s:bufnr)
     return ''
   endif
 
@@ -171,8 +157,8 @@ endfunction
 " @return {String}
 function! dkostatus#ShortPath(path, max) abort
   if s:ww < a:max
-        \ || dkostatus#IsNonFile()
-        \ || dkostatus#IsHelp()
+        \ || dko#IsNonFile(s:bufnr)
+        \ || dko#IsHelp(s:bufnr)
     return ''
   endif
   return dko#ShortenPath(a:path, a:max)
@@ -183,8 +169,8 @@ endfunction
 " @return {String}
 function! dkostatus#GitBranch() abort
   return s:ww < 80 || s:winnr != winnr()
-        \ || dkostatus#IsNonFile()
-        \ || dkostatus#IsHelp()
+        \ || dko#IsNonFile(s:bufnr)
+        \ || dko#IsHelp(s:bufnr)
         \ ? ''
         \ : exists('*fugitive#head')
         \   ? ' ' . fugitive#head(7) . ' '
@@ -204,4 +190,3 @@ endfunction
 function! dkostatus#Ruler() abort
   return ' %5.(%c%) '
 endfunction
-

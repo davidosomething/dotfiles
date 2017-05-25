@@ -10,7 +10,7 @@ function! dkocode#GetFunctionInfo() abort
   " By current-func-info.vim
   " --------------------------------------------------------------------------
 
-  if exists('g:loaded_cfi')
+  if dko#IsLoaded('current-func-info.vim')
     return {
           \   'name':   cfi#get_func_name(),
           \   'source': 'cfi',
