@@ -244,12 +244,15 @@ bindkey -M vicmd  '^[^[[D'  backward-word
 # Opt-Right
 bindkey           '^[^[[C'  forward-word
 bindkey -M vicmd  '^[^[[C'  forward-word
-# C-L
+# C-Left
 bindkey           '^[[1;5D' vi-backward-word
 bindkey -M vicmd  '^[[1;5D' vi-backward-word
-# C-R
+# C-Right
 bindkey           '^[[1;5C' vi-forward-word
 bindkey -M vicmd  '^[[1;5C' vi-forward-word
+
+# C-n to partially accept
+bindkey           '^N'  forward-word
 
 # ----------------------------------------------------------------------------
 # Keybindings: Editing keys
