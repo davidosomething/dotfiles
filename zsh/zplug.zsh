@@ -23,8 +23,8 @@ zplug "davidosomething/cdbk"
 
 # zplug "~/projects/davidosomething/vopen", \
   # from:local, \
-zplug "davidosomething/vopen",     \
-  use:"{vopen,vopen-nofork}", \
+zplug "davidosomething/vopen",  \
+  use:"{vopen,vopen-nofork}",   \
   as:command
 
 # ----------------------------------------------------------------------------
@@ -32,6 +32,9 @@ zplug "davidosomething/vopen",     \
 # ----------------------------------------------------------------------------
 
 zplug 'raylee/tldr', as:command
+
+# replaces up() in shell/functions.sh
+zplug 'shannonmoeller/up', use:"up.sh"
 
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 
