@@ -69,7 +69,10 @@ function! s:AddLocalMaker(settings) abort
 
   " Automatically enable the maker for this buffer?
   let l:is_enabled = get(a:settings, 'is_enabled', 1)
-  if l:is_enabled && dko#IsMakerExecutable(a:settings['maker'])
+  let l:is_executable = !empty(l:exe)
+        \ || dko#IsMakerExecutable(a:settings['exe'], a:settings['ft'])
+
+  if l:is_enabled && l:is_executable
     call add(
           \ dko#InitList('b:neomake_' . a:settings['ft'] . '_enabled_makers'),
           \ a:settings['maker'])
@@ -99,6 +102,15 @@ function! s:PickJavascriptMakers() abort
           \ l:eslint_maker.args)
     let b:neomake_javascript_eslint_args =
           \ l:eslint_args + [ '-c', dkoproject#GetEslintrc() ]
+
+    " Use global eslint if local one wasn't added to b:
+    if executable('eslint') &&
+          \ (   empty(b:neomake_javascript_enabled_makers)
+          \ ||  index(b:neomake_javascript_enabled_makers, 'eslint') == -1)
+      call add(
+          \ dko#InitList('b:neomake_javascript_enabled_makers'),
+          \ 'eslint')
+    endif
 
   " This project uses jshint instead of eslint, disable eslint
   elseif exists('b:neomake_javascript_enabled_makers')
@@ -131,9 +143,17 @@ let s:local_jshint = {
       \   'when':  'empty(dkoproject#GetEslintrc())'
       \ }
 
+let s:local_flow = {
+      \   'ft':    'javascript',
+      \   'maker': 'flow',
+      \   'exe':   'node_modules/.bin/flow',
+      \   'when':  '!empty(dkoproject#GetFile(".flowconfig"))'
+      \ }
+
 autocmd dkoneomake FileType javascript
       \ call s:AddLocalMaker(s:local_eslint)
       \| call s:AddLocalMaker(s:local_jshint)
+      \| call s:AddLocalMaker(s:local_flow)
       \| call s:PickJavascriptMakers()
 
 " ----------------------------------------------------------------------------

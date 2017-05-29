@@ -210,6 +210,7 @@ function! dkoproject#GetBin(bin) abort
     let l:bins[a:bin] = l:exe
     return l:exe
   endif
+
   return ''
 endfunction
 

@@ -234,14 +234,19 @@ endfunction
 " @return {Boolean} true when the maker exe exists or was registered as a local
 "         maker (so local exe exists)
 function! dko#IsMakerExecutable(name, ...) abort
-  if !exists('*neomake#GetMaker')
-    return 0
-  endif
-
   let l:ft = get(a:, 1, &filetype)
   if empty(l:ft)
     return 0
   endif
+
+  if exists('b:neomake_' . l:ft . '_' . a:name . '_exe')
+    return executable(b:neomake_{l:ft}_{a:name}_exe)
+  endif
+
+  if !exists('*neomake#GetMaker')
+    return 0
+  endif
+
 
   let l:maker = neomake#GetMaker(a:name, l:ft)
   return !empty(l:maker) && executable(l:maker.exe)
