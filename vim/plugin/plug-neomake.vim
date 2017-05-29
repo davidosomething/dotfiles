@@ -41,7 +41,30 @@ let g:neomake_info_sign     = { 'text': '⚑', 'texthl': 'NeomakeInfoSign' }
 
 " ============================================================================
 " Define makers
+" This should run for EVERY buffer, even though it may be slow. This way
+" mono-repos may use different makers when in different dirs.
 " ============================================================================
+
+" @param  {String} name of maker
+" @param  {String} [a:1] ft of the maker, defaults to current buffers filetype
+" @return {Boolean} true when the maker exe exists or was registered as a local
+"         maker (so local exe exists)
+function! s:IsMakerExecutable(name, ...) abort
+  let l:ft = get(a:, 1, &filetype)
+  if empty(l:ft)
+    return 0
+  endif
+
+  " s:AddLocalMaker successfully determined a project-local bin was
+  " executable, return that instead
+  if exists('b:neomake_' . l:ft . '_' . a:name . '_exe')
+    return executable(b:neomake_{l:ft}_{a:name}_exe)
+  endif
+
+  " Use the default exe from maker definition
+  let l:maker = neomake#GetMaker(a:name, l:ft)
+  return !empty(l:maker) && executable(l:maker.exe)
+endfunction
 
 " For using local npm based makers (e.g. eslint):
 " Resolve the maker's exe relative to the project of the file in buffer, as
@@ -49,12 +72,12 @@ let g:neomake_info_sign     = { 'text': '⚑', 'texthl': 'NeomakeInfoSign' }
 " relative to vim's working path (and gives a fake result of not in a node
 " project). Lotta people doin` it wrong ಠ_ಠ
 
-" @param dict settings
-" @param string [settings.when]       eval()'d, add local maker only if true
-" @param string settings.ft           filetype for the maker
-" @param string settings.maker        maker's name
-" @param string [settings.exe]        alternate exe path to use in the buffer
-" @param string [settings.is_enabled] default true, auto-enable when defined
+" @param {dict} settings
+" @param {string} [settings.exe] alternate exe path to use in the buffer
+" @param {string} settings.ft filetype for the maker
+" @param {Boolean} [settings.is_enabled] default true, auto-enable when defined
+" @param {string} settings.maker name
+" @param {string} [settings.when] eval()'d, add local maker only if true
 function! s:AddLocalMaker(settings) abort
   " We eval this so it runs with the buffer context
   if has_key(a:settings, 'when') && !eval(a:settings['when'])
@@ -70,7 +93,7 @@ function! s:AddLocalMaker(settings) abort
   " Automatically enable the maker for this buffer?
   let l:is_enabled = get(a:settings, 'is_enabled', 1)
   let l:is_executable = !empty(l:exe)
-        \ || dko#IsMakerExecutable(a:settings['exe'], a:settings['ft'])
+        \ || s:IsMakerExecutable(a:settings['exe'], a:settings['ft'])
 
   if l:is_enabled && l:is_executable
     call add(
@@ -83,7 +106,7 @@ endfunction
 " Java
 " ----------------------------------------------------------------------------
 
-" No java makers, use ALE instead until fixed:
+" Disabled java makers
 " https://github.com/neomake/neomake/issues/875
 let g:neomake_java_enabled_makers = []
 
@@ -112,9 +135,9 @@ function! s:PickJavascriptMakers() abort
           \ 'eslint')
     endif
 
-  " This project uses jshint instead of eslint, disable eslint
+  " This project uses jshint instead of eslint, disable eslint (and flow)
   elseif exists('b:neomake_javascript_enabled_makers')
-        \ && dko#IsMakerExecutable('jshint')
+        \ && s:IsMakerExecutable('jshint')
         \ && !empty(dkoproject#GetFile('.jshintrc'))
     " Remove eslint from enabled makers, use only jshint
     let b:neomake_javascript_enabled_makers = filter(
@@ -167,10 +190,7 @@ function! s:SetupMarkdownlint() abort
   let l:maker = { 'errorformat':  '%f: %l: %m' }
 
   " Use config local to project if available
-  let l:config = dkoproject#GetFile('markdownlint.json')
-  if empty(l:config)
-    let l:config = dkoproject#GetFile('.markdownlintrc')
-  endif
+  let l:config = dkoproject#GetMarkdownlintrc()
   if empty(l:config)
     let l:config = glob(expand('$DOTFILES/markdownlint/config.json'))
   endif
@@ -265,7 +285,7 @@ let g:neomake_python_pylint_args = [
 " Sass: sasslint
 " ----------------------------------------------------------------------------
 
-function! s:SetSasslintRc() abort
+function! s:SetSasslintrc() abort
   let l:sasslint_maker = neomake#GetMaker('sasslint', 'scss')
   let l:sasslint_args = get(
         \ g:, 'neomake_scss_sasslint_args',
@@ -273,8 +293,6 @@ function! s:SetSasslintRc() abort
 
   " Use local config if exists
   let l:config = dkoproject#GetFile('.sass-lint.yml')
-
-  " Fall back to my global config
   if empty(l:config)
     let l:config = glob(expand('$DOTFILES/sasslint/.sass-lint.yml'))
   endif
@@ -294,7 +312,7 @@ function! s:PickScssMakers() abort
   endif
 
   " Only if scss-lint is executable (globally or locally)
-  if !dko#IsMakerExecutable('scsslint') | return
+  if !s:IsMakerExecutable('scsslint') | return
   endif
 
   " Remove sasslint from enabled makers, use only scsslint
@@ -305,7 +323,7 @@ function! s:PickScssMakers() abort
 endfunction
 
 autocmd dkoneomake FileType scss
-      \ call s:SetSasslintRc()
+      \ call s:SetSasslintrc()
       \| call s:AddLocalMaker(s:local_sasslint)
       \| call s:PickScssMakers()
 

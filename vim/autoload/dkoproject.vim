@@ -214,6 +214,21 @@ function! dkoproject#GetBin(bin) abort
   return ''
 endfunction
 
+function! dkoproject#GetCandidate(candidates) abort
+  let l:candidates = map(copy(a:candidates), 'dkoproject#GetFile(v:val)')
+  return call('dko#First', l:candidates)
+endfunction
+
+" Ordered by preference
+let s:markdownlint_candidates = [
+      \   'markdownlint.json',
+      \   '.markdownlintrc',
+      \ ]
+" @return {String} markdownlintrc filename
+function! dkoproject#GetMarkdownlintrc() abort
+  return dkoproject#GetCandidate(s:markdownlint_candidates)
+endfunction
+
 " Ordered by preference
 let s:eslintrc_candidates = [
       \   '.eslintrc.js',
@@ -222,13 +237,10 @@ let s:eslintrc_candidates = [
       \   '.eslintrc.json',
       \   '.eslintrc',
       \ ]
-" GetFile looks upwards from current file first, then into project roots
-" for eslintrc_candidates in order
 " @TODO support package.json configs
 " @return {String} eslintrc filename
 function! dkoproject#GetEslintrc() abort
-  let l:candidates = map(copy(s:eslintrc_candidates), 'dkoproject#GetFile(v:val)')
-  return call('dko#First', l:candidates)
+  return dkoproject#GetCandidate(s:eslintrc_candidates)
 endfunction
 
 " ============================================================================
