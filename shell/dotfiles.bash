@@ -58,6 +58,7 @@ __dko::dotfiles::reload() {
 
 __dko::dotfiles::update() {
   dko::status "Updating dotfiles"
+  touch "${DOTFILES}/local/dotfiles.lock"
   ( cd "$DOTFILES" || { dko::err "No \$DOTFILES directory" && exit 1; }
     git pull --rebase || exit 1
     git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
@@ -67,6 +68,7 @@ __dko::dotfiles::update() {
     dko::err "Error updating dotfiles"
     return 1
   }
+  rm "${DOTFILES}/local/dotfiles.lock"
 
   __dko::dotfiles::reload
   dko::status "Re-symlink if any dotfiles changed!"
