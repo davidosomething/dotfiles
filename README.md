@@ -132,6 +132,7 @@ For X apps (no terminal) the value is probably:
       E.g. for a script called `fun`, there should be a `__fun()` that gets
       called with the original arguments `__fun $@`
     - Two space indents
+    - Prefer `.` over `source`
 - **Function names**
     - Namespace helpers for scripting and provisioning following
       [google shell style] as `dko::function_name()`.

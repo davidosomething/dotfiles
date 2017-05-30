@@ -18,7 +18,7 @@ fi
 
 . "${HOME}/.dotfiles/shell/vars.bash"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
-export HISTFILE="${ZDOTDIR}/.zhistory"
+export HISTFILE="${LDOTDIR}/zsh_history"
 
 # Fix invalid ZPLUG setting if reloading shell
 unset ZPLUG_ROOT

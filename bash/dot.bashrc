@@ -14,7 +14,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 . "${DOTFILES}/shell/before.bash"
 
 # Override HISTFILE for bash
-export HISTFILE="${BASH_DOTFILES}/.bash_history"
+export HISTFILE="${LDOTDIR}/bash_history"
 
 # ==============================================================================
 # Main
@@ -53,9 +53,9 @@ dko::source "${NVM_DIR}/bash_completion"
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_profile
 
 # Enable tab completion for `g` by marking it as an alias for `git`
-if type _git &>/dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
-  complete -o default -o nospace -F _git g;
-fi
+type _git &>/dev/null \
+  && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ] \
+  && complete -o default -o nospace -F _git g
 
 # WP-CLI Bash completions
 dko::source "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
@@ -70,14 +70,14 @@ dko::source "${HOME}/.fzf.bash"
 # Prompt -- needs to be after plugins since it might use them
 # ============================================================================
 
-. "${BASH_DOTFILES}/prompt.bash"
+. "${BDOTDIR}/prompt.bash"
 
 # ==============================================================================
 # After
 # ==============================================================================
 
 . "${DOTFILES}/shell/after.bash"
-dko::source "${DOTFILES}/local/bashrc"
+dko::source "${LDOTDIR}/bashrc"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :

@@ -17,7 +17,7 @@ source "${dotfiles_path}/shell/helpers.bash"
 # ENV validation
 # ============================================================================
 
-if [ -z "$BASH_DOTFILES" ] \
+if [ -z "$BDOTDIR" ] \
   || [ -z "$XDG_CONFIG_HOME" ] \
   || [ -z "$XDG_DATA_HOME" ]
 then
@@ -114,7 +114,8 @@ __clean_nvm() {
 # main
 # ============================================================================
 
-__move      "${HOME}/.bash_history"   "${BASH_DOTFILES}/.bash_history"
+__move      "${HOME}/.bash_history"   "${LDOTDIR}/bash_history"
+__move      "${HOME}/.zhistory"       "${LDOTDIR}/zsh_history"
 __move      "${HOME}/.composer"       "${XDG_CONFIG_HOME}/composer"
 __move      "${HOME}/.gimp-2.8"       "${XDG_CONFIG_HOME}/GIMP/2.8"
 __move      "${HOME}/.hyperterm.js"   "${HOME}/.hyper.js"

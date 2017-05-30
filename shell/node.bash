@@ -5,8 +5,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/node.bash {"
 # npm config
 # ============================================================================
 
-[ -f "${DOTFILES}/local/npmrc" ] \
-  && export NPM_CONF_USERCONFIG="${DOTFILES}/local/npmrc"
+[ -f "${LDOTDIR}/npmrc" ] \
+  && export NPM_CONF_USERCONFIG="${LDOTDIR}/npmrc"
 
 export NPM_CONFIG_INIT_VERSION="0.0.1"
 export NPM_CONFIG_INIT_LICENSE="MIT"

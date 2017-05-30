@@ -418,7 +418,7 @@ fi
 # ============================================================================
 
 . "${DOTFILES}/shell/after.bash"
-dko::source "${DOTFILES}/local/zshrc"
+dko::source "${LDOTDIR}/zshrc"
 
 # Started xtrace in dot.zshenv
 if [[ "$DKO_PROFILE_STARTUP" == true ]]; then
