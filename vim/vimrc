@@ -897,6 +897,8 @@ function! s:LoadPlugins() abort
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
 
+  "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+
   " ==========================================================================
   " Language: bash/shell/zsh
   " ==========================================================================
