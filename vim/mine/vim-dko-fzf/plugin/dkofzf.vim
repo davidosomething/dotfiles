@@ -154,7 +154,8 @@ function! s:GetFzfSpecsSource() abort
   let l:tests_dirs = join(filter([
         \   dkoproject#GetDir('tests'),
         \   dkoproject#GetDir('specs'),
-        \ ], 'v:val'), ',')
+        \ ], "v:val !=# ''"), ',')
+  echom l:tests_dirs
   let l:dir_files = empty(l:tests_dirs)
         \ ? []
         \ : globpath(l:tests_dirs, '**/*.*', 0, 1)
