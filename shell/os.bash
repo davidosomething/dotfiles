@@ -1,8 +1,6 @@
 # shell/os.bash
 #
 # os detection, default to Linux
-# Sourced by shell/before since path needs to be set first (for brew in
-# particular)
 #
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/os.bash"
@@ -41,7 +39,7 @@ elif [ "$DOTFILES_OS" = "Linux" ]; then
   elif [ -f "/etc/arch-release" ]; then
     export DOTFILES_DISTRO="archlinux"
 
-    # for arch wiki lite
+    # for arch wiki lite, intentionally lowercase
     export wiki_browser="chromium"
 
     # On ArchLinux, GDM sources the user .Xresources with `-nocpp` so none of the

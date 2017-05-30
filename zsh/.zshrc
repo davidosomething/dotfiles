@@ -5,6 +5,14 @@
 # sourced when you type zsh
 #
 
+export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
+
+# ============================================================================
+# Interactive shell init
+# ============================================================================
+
+. "${DOTFILES}/shell/interactive.bash"
+
 # ============================================================================
 # nocorrect aliases
 # These may be re-aliased later (e.g. rm=trash from trash-cli node module)
@@ -14,13 +22,6 @@ alias cp="nocorrect cp"
 alias mv="nocorrect mv"
 alias rm="nocorrect rm"
 alias mkdir="nocorrect mkdir"
-
-# ============================================================================
-# Before
-# ============================================================================
-
-export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
-. "${DOTFILES}/shell/before.bash"
 
 # ============================================================================
 # Options

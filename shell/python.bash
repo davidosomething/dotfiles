@@ -3,7 +3,7 @@
 # uses vars from shell/vars and functions from shell/functions
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/python.bash"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/python.bash {"
 
 # Let python guess where to `import` packages, or use pip instead
 unset PYTHONPATH
@@ -20,7 +20,10 @@ export PYLINTHOME="${XDG_CONFIG_HOME}/pylint"
 
 export PYENV_ROOT="${HOME}/.local/pyenv"
 export PATH="${PYENV_ROOT}/bin:${PATH}"
-dko::has "pyenv" && eval "$(pyenv init -)"
+dko::has "pyenv" && {
+  export DKO_SOURCE="${DKO_SOURCE} -> pyenv"
+  eval "$(pyenv init -)"
+}
 dko::has "pyenv-virtualenv-init" && eval "$(pyenv virtualenv-init -)"
 
 # ==============================================================================
@@ -56,4 +59,6 @@ dko::has "pip" && {
   fi
 }
 
-# vim: ft=sh :
+# ==============================================================================
+
+export DKO_SOURCE="${DKO_SOURCE} }"

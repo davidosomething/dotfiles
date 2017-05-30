@@ -1,14 +1,10 @@
 # shell/vars.bash
 #
-# Sourced by .zshenv or .bashrc
-#
 # Some things from env are here since macOS/OS X doesn't start new env for each
 # term and we may need to reset the values
 #
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.bash {"
-# Sourced only once, may have been sourced in linux/.xprofile already
-. "${HOME}/.dotfiles/shell/xdg.bash"
 
 # ============================================================================
 # Locale
@@ -161,5 +157,6 @@ export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
 export XINITRC="${DOTFILES}/linux/.xinitrc"
 export XAPPLRESDIR="${DOTFILES}/linux"
 
+# ============================================================================
+
 export DKO_SOURCE="${DKO_SOURCE} }"
-# vim: ft=sh :

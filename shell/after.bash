@@ -88,8 +88,8 @@ dko::source "${DKO_DEFAULT_NODE_PATH}/lib/node_modules/yarn-completions/node_mod
 # Local path
 # ----------------------------------------------------------------------------
 
-PATH="${DOTFILES}/bin:${PATH}"
 PATH="${HOME}/.local/bin:${PATH}"
+PATH="${DOTFILES}/bin:${PATH}"
 export PATH
 
 # ============================================================================

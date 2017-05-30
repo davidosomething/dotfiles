@@ -10,7 +10,7 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> linux/.xprofile {"
 # Sourced only once, this would be the first and only place on linux
-source "${HOME}/.dotfiles/shell/xdg"
+. "${HOME}/.dotfiles/shell/xdg.bash"
 
 # ============================================================================
 # Programs

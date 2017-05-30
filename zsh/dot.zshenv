@@ -7,7 +7,10 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> .zshenv {"
 
+# ============================================================================
 # Profiling -- see .zshrc for its execution
+# ============================================================================
+
 export DKO_PROFILE_STARTUP=false
 if [[ "$DKO_PROFILE_STARTUP" == true ]]; then
     # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
@@ -16,12 +19,26 @@ if [[ "$DKO_PROFILE_STARTUP" == true ]]; then
     setopt xtrace prompt_subst
 fi
 
-. "${HOME}/.dotfiles/shell/vars.bash"
+# ============================================================================
+# Shell init
+# ============================================================================
+
+. "${HOME}/.dotfiles/shell/init.bash"
+
+# ============================================================================
+# ZSH settings
+# ============================================================================
+
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
 export HISTFILE="${LDOTDIR}/zsh_history"
 
+# ============================================================================
 # Fix invalid ZPLUG setting if reloading shell
+# ============================================================================
+
 unset ZPLUG_ROOT
+
+# ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=zsh
