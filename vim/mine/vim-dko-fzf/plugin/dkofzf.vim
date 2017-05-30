@@ -151,7 +151,15 @@ command! FZFMRU
 
 " @return {List} test spec files
 function! s:GetFzfSpecsSource() abort
-  let l:glob = globpath(dkoproject#GetDir('tests'), '**/*.*', 0, 1)
+  let l:tests_dirs = join(filter([
+        \   dkoproject#GetDir('tests'),
+        \   dkoproject#GetDir('specs'),
+        \ ], 'v:val'), ',')
+  let l:dir_files = empty(l:tests_dirs)
+        \ ? []
+        \ : globpath(l:tests_dirs, '**/*.*', 0, 1)
+  let l:local_files = globpath(expand('%:p:h'), '*.test.*', 0, 1)
+  let l:glob = l:dir_files + l:local_files
   let l:filtered = filter(l:glob, "v:val !~# 'node_modules'")
   return dko#ShortPaths(l:filtered)
 endfunction
