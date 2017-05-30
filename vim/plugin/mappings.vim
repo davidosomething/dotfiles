@@ -77,12 +77,12 @@ nnoremap  <silent><special>  <Leader>erp  :<C-U>call <SID>EditRoot('package.json
 nnoremap  <silent><special>  <Leader>err  :<C-U>call <SID>EditRoot('README.md')<CR>
 
 " Not using $MYVIMRC since it varies based on (n)vim
-nnoremap  <silent><special>  <Leader>evi   :<C-U>edit $VIM_DOTFILES/init.vim<CR>
-nnoremap  <silent><special>  <Leader>evg   :<C-U>edit $VIM_DOTFILES/gvimrc<CR>
+nnoremap  <silent><special>  <Leader>evi   :<C-U>edit $VDOTDIR/init.vim<CR>
+nnoremap  <silent><special>  <Leader>evg   :<C-U>edit $VDOTDIR/gvimrc<CR>
 nnoremap  <silent><special>  <Leader>evl   :<C-U>edit ~/.secret/vim/vimrc.vim<CR>
-nnoremap  <silent><special>  <Leader>evr   :<C-U>edit $VIM_DOTFILES/vimrc<CR>
+nnoremap  <silent><special>  <Leader>evr   :<C-U>edit $VDOTDIR/vimrc<CR>
 
-nnoremap  <silent><special>  <Leader>em   :<C-U>edit $VIM_DOTFILES/plugin/mappings.vim<CR>
+nnoremap  <silent><special>  <Leader>em   :<C-U>edit $VDOTDIR/plugin/mappings.vim<CR>
 nnoremap  <silent><special>  <Leader>ez   :<C-U>edit $ZDOTDIR/.zshrc<CR>
 
 " ============================================================================
