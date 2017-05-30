@@ -93,7 +93,7 @@ function! s:AddLocalMaker(settings) abort
   " Automatically enable the maker for this buffer?
   let l:is_enabled = get(a:settings, 'is_enabled', 1)
   let l:is_executable = !empty(l:exe)
-        \ || s:IsMakerExecutable(a:settings['exe'], a:settings['ft'])
+        \ || s:IsMakerExecutable(a:settings['maker'], a:settings['ft'])
 
   if l:is_enabled && l:is_executable
     call add(
@@ -127,12 +127,10 @@ function! s:PickJavascriptMakers() abort
           \ l:eslint_args + [ '-c', dkoproject#GetEslintrc() ]
 
     " Use global eslint if local one wasn't added to b:
-    if executable('eslint') &&
-          \ (   empty(b:neomake_javascript_enabled_makers)
-          \ ||  index(b:neomake_javascript_enabled_makers, 'eslint') == -1)
-      call add(
-          \ dko#InitList('b:neomake_javascript_enabled_makers'),
-          \ 'eslint')
+    if executable('eslint')
+          \ && exists('b:neomake_javascript_enabled_makers')
+          \ && index(b:neomake_javascript_enabled_makers, 'eslint') == -1
+      call add(b:neomake_javascript_enabled_makers, 'eslint')
     endif
 
   " This project uses jshint instead of eslint, disable eslint (and flow)
