@@ -425,6 +425,7 @@ dko::source "${LDOTDIR}/zshrc"
 if [[ "$DKO_PROFILE_STARTUP" == true ]]; then
   unsetopt xtrace
   exec 2>&3 3>&-
+  echo "ZSH startup log written to ${HOME}/tmp/startlog.$$"
 fi
 
 export DKO_SOURCE="${DKO_SOURCE} }"

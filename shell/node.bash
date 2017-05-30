@@ -22,15 +22,9 @@ export NPM_CONFIG_MESSAGE="Cut %s (via npm version)"
 # custom NVM_DIR so we don't pollute home
 export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 
-# using nvm?
+# using nvm? -- store default version for prompt compare
 dko::source "${NVM_DIR}/nvm.sh" && {
   export DKO_SOURCE="${DKO_SOURCE} -> nvm"
-
-  dko::has 'npm' && {
-    DKO_DEFAULT_NODE_PATH="$(cd "$(npm bin --global)/.." && pwd)"
-    export DKO_DEFAULT_NODE_PATH
-  }
-
   DKO_DEFAULT_NODE_VERSION="$(nvm version default)"
   export DKO_DEFAULT_NODE_VERSION
 }
