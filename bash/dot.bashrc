@@ -5,7 +5,7 @@
 # symlinked to ~/.bashrc
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
+DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 
 # ============================================================================
 # Shell init

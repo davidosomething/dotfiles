@@ -6,7 +6,7 @@
 # Sourced by .bashrc and .zshrc (interactive shells)
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.bash {"
+DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.bash {"
 
 # ============================================================================
 

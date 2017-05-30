@@ -4,7 +4,7 @@
 # term and we may need to reset the values
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.bash {"
+DKO_SOURCE="${DKO_SOURCE} -> shell/vars.bash {"
 
 # ============================================================================
 # Locale

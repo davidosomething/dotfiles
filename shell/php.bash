@@ -1,5 +1,6 @@
 # shell/php.bash
-export DKO_SOURCE="${DKO_SOURCE} -> shell/php.bash {"
+
+DKO_SOURCE="${DKO_SOURCE} -> shell/php.bash {"
 
 # ============================================================================
 # php-version

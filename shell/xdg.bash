@@ -5,7 +5,7 @@
 
 [ -n "$DKO_SOURCED_XDG" ] && return
 export DKO_SOURCED_XDG=1
-export DKO_SOURCE="${DKO_SOURCE} -> shell/xdg.bash {"
+DKO_SOURCE="${DKO_SOURCE} -> shell/xdg.bash {"
 
 # ============================================================================
 # Define dirs
@@ -29,7 +29,7 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
     XDG_MUSIC_DIR                       \
     XDG_PICTURES_DIR                    \
     XDG_VIDEOS_DIR                      \
-  && export DKO_SOURCE="${DKO_SOURCE} -> user-dirs.dirs"
+  && DKO_SOURCE="${DKO_SOURCE} -> user-dirs.dirs"
 
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"

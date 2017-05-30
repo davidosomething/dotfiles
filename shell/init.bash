@@ -3,7 +3,14 @@
 # Sourced on all shells, interactive or not
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> init.bash {"
+DKO_SOURCE="${DKO_SOURCE} -> init.bash {"
+
+# ============================================================================
+# Create paths (slow)
+# ============================================================================
+
+mkdir -p "${HOME}/.local/bin"
+mkdir -p "${HOME}/.local/man/man1"
 
 # ============================================================================
 

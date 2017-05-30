@@ -6,29 +6,26 @@
 export DKO_SOURCE="${DKO_SOURCE} -> shell/os.bash"
 
 # @see https://github.com/nojhan/liquidprompt/blob/master/liquidprompt
-case "$(uname -s)" in
-    FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
-    OpenBSD)   export DOTFILES_OS="OpenBSD" ;;
-    Darwin)    export DOTFILES_OS="Darwin"  ;;
-    *)         export DOTFILES_OS="Linux"   ;;
-esac
-
-# ============================================================================
-# macOS/OS X
-# ============================================================================
-
-if [ "$DOTFILES_OS" = "Darwin" ]; then
+# uname is slower
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  export DOTFILES_OS="Darwin"
   export DOTFILES_DISTRO="mac"
-
   # just assume brew is in normal location, don't even check for it
-  DKO_BREW_PREFIX="/usr/local"
-  export DKO_BREW_PREFIX
+  export DKO_BREW_PREFIX="/usr/local"
+
+else
+  case "$(uname -s)" in
+      FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
+      OpenBSD)   export DOTFILES_OS="OpenBSD" ;;
+      *)         export DOTFILES_OS="Linux"   ;;
+  esac
+fi
 
 # ============================================================================
 # Linux
 # ============================================================================
 
-elif [ "$DOTFILES_OS" = "Linux" ]; then
+if [ "$DOTFILES_OS" = "Linux" ]; then
   # for pacdiff
   export DIFFPROG="nvim -d"
 

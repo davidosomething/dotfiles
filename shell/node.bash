@@ -1,5 +1,5 @@
 # shell/node.bash
-export DKO_SOURCE="${DKO_SOURCE} -> shell/node.bash {"
+DKO_SOURCE="${DKO_SOURCE} -> shell/node.bash {"
 
 # ============================================================================
 # npm config
@@ -24,7 +24,7 @@ export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 
 # using nvm? -- store default version for prompt compare
 dko::source "${NVM_DIR}/nvm.sh" && {
-  export DKO_SOURCE="${DKO_SOURCE} -> nvm"
+  DKO_SOURCE="${DKO_SOURCE} -> nvm"
   DKO_DEFAULT_NODE_VERSION="$(nvm version default)"
   export DKO_DEFAULT_NODE_VERSION
 }

@@ -7,7 +7,7 @@
 # startx ONLY -> .xinitrc -> .xprofile
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> .xinitrc {"
+DKO_SOURCE="${DKO_SOURCE} -> .xinitrc {"
 
 # ============================================================================
 # Copied from /etc/X11/xinitrc

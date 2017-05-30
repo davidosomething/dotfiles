@@ -8,7 +8,8 @@
 #     -> /usr/share/xsessions .desktop file (runs before WM/DE, e.g. openbox)
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> linux/.xprofile {"
+DKO_SOURCE="${DKO_SOURCE} -> linux/.xprofile {"
+
 # Sourced only once, this would be the first and only place on linux
 . "${HOME}/.dotfiles/shell/xdg.bash"
 
@@ -49,6 +50,8 @@ export STEAMAPPS="${HOME}/.steam/steam/SteamApps"
 # Wine
 export WINEPREFIX="${XDG_CONFIG_HOME}/wine"
 export WINEARCH=win32
+
+# ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 

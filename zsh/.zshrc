@@ -5,7 +5,7 @@
 # sourced when you type zsh
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
+DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 
 # ============================================================================
 # Interactive shell init
@@ -151,7 +151,7 @@ readonly DKO_ZPLUG_INIT="${ZPLUG_HOME}/init.zsh"
 __load_zplug_init() {
   if [ -f "$DKO_ZPLUG_INIT" ]; then
     . "$DKO_ZPLUG_INIT"
-    export DKO_SOURCE="${DKO_SOURCE} -> ${DKO_ZPLUG_INIT}"
+    DKO_SOURCE="${DKO_SOURCE} -> ${DKO_ZPLUG_INIT}"
   else
     dko::warn "Did not find zplug/init.zsh"
   fi
@@ -177,9 +177,9 @@ fi
 
 # Load ZPLUG_LOADFILE
 dko::has "zplug" && {
-  export DKO_SOURCE="${DKO_SOURCE} -> zplug {"
+  DKO_SOURCE="${DKO_SOURCE} -> zplug {"
   zplug load >/dev/null
-  export DKO_SOURCE="${DKO_SOURCE} }"
+  DKO_SOURCE="${DKO_SOURCE} }"
 }
 
 # ----------------------------------------------------------------------------
@@ -194,7 +194,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 # Plugins: fzf (non-zplug managed)
 # ----------------------------------------------------------------------------
 
-dko::source "${HOME}/.fzf.zsh" && export DKO_SOURCE="${DKO_SOURCE} -> fzf"
+dko::source "${HOME}/.fzf.zsh" && DKO_SOURCE="${DKO_SOURCE} -> fzf"
 
 # ============================================================================
 # Keybindings (after plugins since some are custom for fzf)

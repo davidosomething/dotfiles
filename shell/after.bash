@@ -3,7 +3,7 @@
 # Runs before local/* .zshrc and .bashrc
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/after.bash {"
+DKO_SOURCE="${DKO_SOURCE} -> shell/after.bash {"
 
 # ============================================================================
 # fzf
