@@ -10,6 +10,19 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.bash {"
 
 # ============================================================================
 
+[ -f "${HOME}/.dotfiles/local/dotfiles.lock" ] && {
+  echo -n "Found dotfiles.lock, waiting 3 secs or press [enter] to continue "
+  # shellcheck disable=SC2162
+  read -t 3
+  if rm "${HOME}/.dotfiles/local/dotfiles.lock" 2>/dev/null; then
+    echo -n "Force cleared dotfiles.lock"
+  else
+    echo -n "Successfully unlocked dotfiles.lock"
+  fi
+}
+
+# ============================================================================
+
 # Rebuild path starting from system path
 # Regarding tmux:
 # Since my tmux shells are not login shells the path needs to be rebuilt.
