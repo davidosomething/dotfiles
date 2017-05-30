@@ -4,6 +4,8 @@
 # THIS FILE IS SOURCED to give access to current shell
 #
 
+export DKO_SOURCE="${DKO_SOURCE} -> shell/dotfiles.bash"
+
 # ==============================================================================
 # Command functions
 # ==============================================================================

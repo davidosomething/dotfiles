@@ -1,9 +1,11 @@
 # .dotfiles/shell/helpers.bash
 # Should be sourced only
 #
-# Sourced by shell/before.bash
+# Sourced by shell/interactive.bash
 # Helper functions should be sourced AGAIN by any scripts that need it
 #
+
+export DKO_SOURCE="${DKO_SOURCE} -> shell/helpers.bash"
 
 # std logging
 # Based on http://serverwizard.heroku.com/script/rvm+git

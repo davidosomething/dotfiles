@@ -1,5 +1,7 @@
 # shell/java.bash
 
+export DKO_SOURCE="${DKO_SOURCE} -> shell/java.bash"
+
 if dko::has '/usr/libexec/java_home'; then
   JAVA_HOME="$(/usr/libexec/java_home -v1.8)"
 elif dko::has 'javac'; then
