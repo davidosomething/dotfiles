@@ -1,5 +1,16 @@
 " plugin/plug-increment-activator.vim
 
+" Check for IsPlugged instead of IsLoaded since we lazy load
+if !dko#IsPlugged('increment-activator') | finish | endif
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
+" ============================================================================
+
+nmap <special> <C-a> <Plug>(increment-activator-increment)
+nmap <special> <C-x> <Plug>(increment-activator-decrement)
+
 let g:increment_activator_filetype_candidates = {
       \   '_': [
       \     ['absolute', 'relative'],
@@ -47,3 +58,7 @@ let g:increment_activator_filetype_candidates = {
       \   ],
       \ }
 
+" ============================================================================
+
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

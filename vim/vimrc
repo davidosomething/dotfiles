@@ -660,7 +660,9 @@ function! s:LoadPlugins() abort
   Plug 'godlygeek/tabular', { 'on': [ 'Tabularize' ] }
 
   " custom C-x C-a mappings, see plugin/plug-increment-activator.vim
-  Plug 'nishigori/increment-activator'
+  Plug 'nishigori/increment-activator', { 'on': [
+        \   '<Plug>(increment-activator',
+        \ ]}
 
   " Using tyru/caw.vim instead since it does a better job with wrapping block
   " comments intelligently
