@@ -7,6 +7,9 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 
+# dedupe these path arrays (they shadow PATH, FPATH, etc)
+typeset -gU cdpath path fpath manpath
+
 # ============================================================================
 # Interactive shell init
 # ============================================================================
@@ -77,15 +80,6 @@ setopt INTERACTIVE_COMMENTS           # allow comments in shell
 # Zle
 setopt NO_BEEP
 setopt VI
-
-# ============================================================================
-# fpath
-# completion and manpath; fpath must be before compinit
-# actual completions are loaded via zplug now, even my zsh/fpath
-# ============================================================================
-
-# dedupe these path arrays
-typeset -gU cdpath path fpath manpath
 
 # ============================================================================
 # Modules
