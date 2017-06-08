@@ -174,9 +174,8 @@ __dko::dotfiles::update_composer() {
 __dko::dotfiles::update_fzf() {
   local installer
 
-  if [ -x "/usr/local/bin/fzf" ]; then
+  if [ -x "/usr/local/opt/fzf/bin/fzf" ]; then
     dko::status "fzf was installed via brew"
-    installer="/usr/local/opt/fzf/install"
   elif [ -d "$HOME/.fzf" ]; then
     dko::status "fzf was installed in ~/.fzf"
     installer="$HOME/.fzf/install"
@@ -191,10 +190,10 @@ __dko::dotfiles::update_fzf() {
   fi
 
   # Install/update shell extensions
-  (
+  if [[ -n "$installer" ]]; then
     dko::status "Updating fzf shell extensions"
-    "$installer" --key-bindings --completion --no-update-rc
-  ) || return 1
+    "$installer" --key-bindings --completion --no-update-rc || return 1
+  fi
 }
 
 __dko::dotfiles::update_gems() {
