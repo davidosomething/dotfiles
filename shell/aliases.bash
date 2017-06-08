@@ -224,7 +224,7 @@ __alias_exa
 # ============================================================================
 
 __alias_darwin() {
-  alias b='TERM=xterm-256color brew'
+  alias b='TERM=xterm-256color \brew'
   alias brew='b'
 
   alias bi='b install'
