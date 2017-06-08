@@ -15,10 +15,11 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.bash {"
   # shellcheck disable=SC2162
   read -t 3
   if rm "${HOME}/.dotfiles/local/dotfiles.lock" 2>/dev/null; then
-    echo -n "Force cleared dotfiles.lock"
+    echo "Force cleared dotfiles.lock"
   else
-    echo -n "Successfully unlocked dotfiles.lock"
+    echo "Successfully unlocked dotfiles.lock"
   fi
+  echo
 }
 
 # ============================================================================
