@@ -10,14 +10,14 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/helpers.bash"
 # std logging
 # Based on http://serverwizard.heroku.com/script/rvm+git
 # added error output to stderr
-dko::echo_()      { echo -e "    $*\033[0;m"; }
+dko::echo_()    { echo -e           "          $*\033[0;m"; }
 
-dko::status()   { echo -e "\033[0;34m==> $*\033[0;m"; }
-dko::status_()  { echo -e "\033[0;34m    $*\033[0;m"; }
-dko::ok()       { echo -e "\033[0;32m==> OK: $*\033[0;m"; }
-dko::ok_()      { echo -e "\033[0;32m==>     $*\033[0;m"; }
-dko::err()      { echo -e "\033[0;31m==> ERR: $*\033[0;m" >&2; }
-dko::err_()     { echo -e "\033[0;31m         $*\033[0;m" >&2; }
+dko::status()   { echo -e "\033[0;34m==>       $*\033[0;m"; }
+dko::status_()  { echo -e "\033[0;34m          $*\033[0;m"; }
+dko::ok()       { echo -e "\033[0;32m==> OK:   $*\033[0;m"; }
+dko::ok_()      { echo -e "\033[0;32m==>       $*\033[0;m"; }
+dko::err()      { echo -e "\033[0;31m==> ERR:  $*\033[0;m" >&2; }
+dko::err_()     { echo -e "\033[0;31m          $*\033[0;m" >&2; }
 dko::warn()     { echo -e "\033[0;33m==> WARN: $*\033[0;m" >&2; }
 dko::warn_()    { echo -e "\033[0;33m          $*\033[0;m" >&2; }
 
