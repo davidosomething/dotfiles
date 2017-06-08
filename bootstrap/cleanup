@@ -37,7 +37,7 @@ __move() {
   dko::status "Move ${1} to ${2}"
 
   if [ ! -d "$1" ] && [ ! -f "$1" ] && [ ! -h "$1" ]; then
-    dko::status_ "OK, didn't find ${1}"
+    dko::ok "Didn't find ${1}"
     return 0
   fi
 
@@ -50,11 +50,10 @@ __move() {
   local dest_parent
   dest_parent="$(dirname "${2}")"
   if [ ! -d "$dest_parent" ]; then
-    mkdir -p "$dest_parent" \
-      && dko::status_ "Created parent directory ${dest_parent}"
+    mkdir -p "$dest_parent" && dko::ok "Created parent directory ${dest_parent}"
   fi
 
-  mv "$1" "$2" && dko::status_ "Moved ${1} to ${2}"
+  mv "$1" "$2" && dko::ok "Moved ${1} to ${2}"
 }
 
 # Move contents of one dir into another
@@ -64,18 +63,17 @@ __merge_dir() {
   dko::status "Merge ${1} into ${2}"
 
   if [ ! -d "$1" ]; then
-    dko::status_ "OK, didn't find ${1}"
+    dko::ok "Didn't find ${1}"
     return 0
   fi
 
   if [ ! -d "$2" ]; then
-    mkdir -p "$2" \
-      && dko::status_ "Created dest directory ${2}"
+    mkdir -p "$2" && dko::ok "Created dest directory ${2}"
   fi
 
-  mv "${1}/*"   "$2" && dko::status_ "Moved contents of ${1} into ${2}"
-  mv "${1}/.*"  "$2" && dko::status_ "Moved .contents in ${1} into ${2}"
-  rmdir "$1" && dko::status_ "Removed ${1}"
+  mv "${1}/*"   "$2" && dko::ok "Moved contents of ${1} into ${2}"
+  mv "${1}/.*"  "$2" && dko::ok "Moved .contents in ${1} into ${2}"
+  rmdir "$1" && dko::ok "Removed ${1}"
 }
 
 # Remove file or dir completely with confirmation
@@ -84,11 +82,11 @@ __remove() {
   dko::status "Remove ${1}"
 
   if [ -f "$1" ] || [ -h "$1" ]; then
-    rm -i   "$1" && dko::status_ "Removed file ${1}"
+    rm -i   "$1" && dko::ok "Removed file ${1}"
   elif [ -d "$1" ]; then
-    rm -ir  "$1" && dko::status_ "Removed directory ${1}"
+    rm -ir  "$1" && dko::ok "Removed directory ${1}"
   else
-    dko::status_ "OK, didn't find ${1}"
+    dko::ok "Didn't find ${1}"
   fi
 }
 

@@ -11,13 +11,13 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.bash {"
 # ============================================================================
 
 [ -f "${HOME}/.dotfiles/local/dotfiles.lock" ] && {
-  echo -n "Found dotfiles.lock, waiting 3 secs or press [enter] to continue "
+  echo -e "\033[0;33m==> Found dotfiles.lock, waiting 3 secs or press [enter] to continue"
   # shellcheck disable=SC2162
   read -t 3
   if rm "${HOME}/.dotfiles/local/dotfiles.lock" 2>/dev/null; then
-    echo "Force cleared dotfiles.lock"
+    echo -e "\033[0;33m==> Force cleared dotfiles.lock. Starting shell..."
   else
-    echo "Successfully unlocked dotfiles.lock"
+    echo -e "\033[0;32m==> Successfully cleared dotfiles.lock. Starting shell..."
   fi
   echo
 }

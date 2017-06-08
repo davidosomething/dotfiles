@@ -10,16 +10,19 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/helpers.bash"
 # std logging
 # Based on http://serverwizard.heroku.com/script/rvm+git
 # added error output to stderr
-dko::echo_()      { echo -e "    $*"; }
+dko::echo_()      { echo -e "    $*\033[0;m"; }
 
-dko::status()     { echo -e "\033[0;34m==>\033[0;32m $*\033[0;m"; }
-dko::status_()    { echo -e "\033[0;32m    $*\033[0;m"; }
-dko::err()        { echo -e "\033[0;31m==> ERR: \033[0;m$*\033[0;m" >&2; }
-dko::err_()       { echo -e           "         $*" >&2; }
-dko::warn()       { echo -e "\033[0;33m==> WARN: \033[0;m$*\033[0;m" >&2; }
-dko::warn_()      { echo -e           "          $*" >&2; }
+dko::status()   { echo -e "\033[0;34m==> $*\033[0;m"; }
+dko::status_()  { echo -e "\033[0;34m    $*\033[0;m"; }
+dko::ok()       { echo -e "\033[0;32m==> OK: $*\033[0;m"; }
+dko::ok_()      { echo -e "\033[0;32m==>     $*\033[0;m"; }
+dko::err()      { echo -e "\033[0;31m==> ERR: $*\033[0;m" >&2; }
+dko::err_()     { echo -e "\033[0;31m         $*\033[0;m" >&2; }
+dko::warn()     { echo -e "\033[0;33m==> WARN: $*\033[0;m" >&2; }
+dko::warn_()    { echo -e "\033[0;33m          $*\033[0;m" >&2; }
 
-dko::usage()      { echo -e "\033[0;34m==> \033[0;34mUSAGE: \033[0;32m$*\033[0;m"; }
+
+dko::usage()      { echo -e "\033[0;34m==> USAGE: \033[0;32m$*\033[0;m"; }
 dko::usage_()     { echo -e "\033[0;29m    $*\033[0;m"; }
 
 # silently determine existence of executable
@@ -70,10 +73,10 @@ dko::symlink() {
     local rp
     rp=$(realpath "$fulltargetpath")
     if [[ "$rp" == "$sourcepath" ]]; then
-      dko::status "${fulltargetpath} correctly symlinked"
+      dko::ok "${fulltargetpath} is correct."
       return
     else
-      dko::warn "${fulltargetpath} exists"
+      dko::warn "${fulltargetpath} exists."
       #        ==> WARN: 
       read -p "          Overwrite? [y/N] " -r
       if [[ ! $REPLY =~ ^[Yy]$ ]]; then

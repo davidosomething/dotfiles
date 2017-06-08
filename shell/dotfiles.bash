@@ -55,7 +55,7 @@ __dko::dotfiles::usage() {
 
 __dko::dotfiles::reload() {
   . "${DOTFILES}/shell/dotfiles.bash" \
-    && dko::status "Reloaded shell/dotfiles.bash"
+    && dko::ok "Reloaded shell/dotfiles.bash"
 }
 
 __dko::dotfiles::update() {
@@ -153,7 +153,7 @@ __dko::dotfiles::update_composer() {
   }
 
   if [ -x "/usr/local/bin/composer" ]; then
-    dko::status_ "composer was installed via brew (yay)"
+    dko::ok "composer was installed via brew (yay)"
   else
     dko::status_ "Updating composer itself"
     composer self-update || {
@@ -175,7 +175,7 @@ __dko::dotfiles::update_fzf() {
   local installer
 
   if [ -x "/usr/local/opt/fzf/bin/fzf" ]; then
-    dko::status "fzf was installed via brew"
+    dko::ok "fzf was installed via brew"
   elif [ -d "$HOME/.fzf" ]; then
     dko::status "fzf was installed in ~/.fzf"
     installer="$HOME/.fzf/install"
@@ -250,11 +250,11 @@ __dko::dotfiles::update_node() {
       npm install --global npm@latest
       rehash
 
-      dko::status "Node and npm updated."
-      dko::status_ "Run \$DOTFILES/node/install.sh to install global packages."
+      dko::ok "Node and npm updated."
+      dko::ok_ "Run \$DOTFILES/node/install.sh to install global packages."
     fi
   else
-    dko::status_ "Node version is already up-to-date."
+    dko::ok "Node version is already up-to-date."
   fi
 }
 
@@ -283,7 +283,7 @@ __dko::dotfiles::update_nvm() {
     readonly latest_nvm="$(git describe --abbrev=0 --tags)"
     # Already up to date
     [ "$previous_nvm" = "$latest_nvm" ] \
-      && { dko::status_ "Already have nvm ${latest_nvm}" && exit 0; }
+      && { dko::ok "Already have nvm ${latest_nvm}" && exit 0; }
 
     dko::status "Fast-forwarding to nvm ${latest_nvm}"
     git checkout --quiet --progress "$latest_nvm" \
@@ -303,7 +303,7 @@ __dko::dotfiles::update_pyenv() {
       git pull
     ) || return 1
   else
-    dko::status "pyenv was not installed using pyenv-installer"
+    dko::warn "pyenv was not installed using pyenv-installer"
   fi
 }
 
