@@ -1110,25 +1110,27 @@ function! s:LoadPlugins() abort
   "Plug 'groenewege/vim-less'
 
   " 1)  runtime css.vim provides @media syntax highlighting where hail2u
-  "     doesn't JulesWang/css.vim is the active repo for the css.vim bundled
-  "     with vim
+  "     doesn't JulesWang/css.vim was upstream for $VIMRUNTIME up until Vim 8
   " 2)  hail2u extends vim's css highlighting
+  "     - Super up-to-date with spec, after syntax that extends runtime
   " 3)  scss-syntax needs the 'for' since it has an ftdetect that doesn't check
   "     if the ft was already set. The result is that without 'for', the
   "     filetype will be set twice successively (and any autocommands will run
   "     twice), particularly in neovim which comes with tpope's (older) scss
   "     rumtimes.
-  Plug 'JulesWang/css.vim'
+  "     - Extra indent support
+  "     - NeoVim comes with tpope's 2010 syntax that pulls in sass.vim and
+  "       adds comment matching. sass.vim is okay, but doesn't have as many hi
+  "       groups.
+  Plug 'JulesWang/css.vim', PlugIf(v:version <= 704)
   Plug 'hail2u/vim-css3-syntax'
   Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
 
-  " ----------------------------------------
-  " Features
-  " ----------------------------------------
-
   " Hex (et al) color highlighting
-  "Plug 'Rykka/colorv.vim' -- requires python
-  "Plug 'chrisbra/Colorizer' -- slower and not as complete
+  "Plug 'Rykka/colorv.vim'    --  requires python
+  "Plug 'chrisbra/Colorizer'  --  slower and not as complete but more features
+  "                               like X11 colors and color translation for
+  "                               degraded terminals
   Plug 'ap/vim-css-color'
 
   " ==========================================================================
