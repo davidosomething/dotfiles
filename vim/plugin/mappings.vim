@@ -97,15 +97,16 @@ nnoremap  <special>   <BS>  <C-^>
 
 " ============================================================================
 " Window manipulation
+" See init.vim for neovim specific mappings (e.g. using <A-*>)
 " ============================================================================
 
 " ----------------------------------------------------------------------------
-" Navigate with <C+arrow> (insert mode leaves user in normal)
+" Navigate with <C-arrow> (insert mode leaves user in normal)
 " ----------------------------------------------------------------------------
 
-nnoremap  <special>   <C-Left>    <C-w>h
-nnoremap  <special>   <C-Down>    <C-w>j
 nnoremap  <special>   <C-Up>      <C-w>k
+nnoremap  <special>   <C-Down>    <C-w>j
+nnoremap  <special>   <C-Left>    <C-w>h
 nnoremap  <special>   <C-Right>   <C-w>l
 
 " ----------------------------------------------------------------------------
@@ -119,18 +120,18 @@ nnoremap  <special>   <S-Tab>     <C-w>W
 " Resize (can take a count, eg. 2<S-Left>)
 " ----------------------------------------------------------------------------
 
+nnoremap  <special>   <S-Up>      <C-W>+
+nnoremap  <special>   <S-Down>    <C-W>-
+nnoremap  <special>   <S-Left>    <C-w><
+nnoremap  <special>   <S-Right>   <C-w>>
+
 silent! iunmap <S-Up>
 silent! iunmap <S-Down>
 silent! iunmap <S-Left>
 silent! iunmap <S-Right>
-
-nnoremap  <special>   <S-Up>      <C-W>+
 imap      <special>   <S-Up>      <C-o><S-Up>
-nnoremap  <special>   <S-Down>    <C-W>-
 imap      <special>   <S-Down>    <C-o><S-Down>
-nnoremap  <special>   <S-Left>    <C-w><
 imap      <special>   <S-Left>    <C-o><S-Left>
-nnoremap  <special>   <S-Right>   <C-w>>
 imap      <special>   <S-Right>   <C-o><S-Right>
 
 " ============================================================================
@@ -150,7 +151,6 @@ vnoremap  <special> <Leader><Leader>  <Esc>
 
 silent! iunmap jj
 silent! cunmap jj
-
 imap jj <Esc>
 cmap jj <Esc>
 
@@ -159,7 +159,7 @@ cmap jj <Esc>
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-444
 " ----------------------------------------------------------------------------
 
-nnoremap U :<C-U>syntax sync fromstart<CR>:redraw!<CR>
+nnoremap <silent> U :<C-U>syntax sync fromstart<CR>:redraw!<CR>
 
 " ----------------------------------------------------------------------------
 " cd to current buffer's git root
@@ -214,10 +214,10 @@ noremap   <special>   <PageUp>    <C-U>
 noremap   <special>   <PageDown>  <C-D>
 
 " same in insert mode, but stay in insert mode (needs recursive)
-silent! iunmap              <PageUp>
-silent! iunmap              <PageDown>
-        imap    <special>   <PageUp>    <C-o><PageUp>
-        imap    <special>   <PageDown>  <C-o><PageDown>
+silent! iunmap <PageUp>
+silent! iunmap <PageDown>
+imap <special> <PageUp>    <C-o><PageUp>
+imap <special> <PageDown>  <C-o><PageDown>
 
 " ----------------------------------------------------------------------------
 " Start/EOL
@@ -256,8 +256,8 @@ vnoremap  >   >gv
 
 silent! vunmap <Tab>
 silent! vunmap <S-Tab>
-vmap  <special>   <Tab>     >
-vmap  <special>   <S-Tab>   <
+vmap <special> <Tab>     >
+vmap <special> <S-Tab>   <
 
 " ----------------------------------------------------------------------------
 " Sort lines (use unix sort)
@@ -266,7 +266,8 @@ vmap  <special>   <S-Tab>   <
 
 if dko#IsPlugged('vim-textobj-indent')
   " Auto select indent-level and sort
-  nmap  <special> <Leader>s   vii:!sort<CR>
+  silent! nunmap <Leader>s
+  nmap <special> <Leader>s   vii:!sort<CR>
 else
   " Auto select paragraph (bounded by blank lines) and sort
   nnoremap  <special> <Leader>s   vip:!sort<CR>
