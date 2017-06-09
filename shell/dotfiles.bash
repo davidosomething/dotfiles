@@ -174,8 +174,9 @@ __dko::dotfiles::update_composer() {
 __dko::dotfiles::update_fzf() {
   local installer
 
-  if [ -x "/usr/local/opt/fzf/bin/fzf" ]; then
-    dko::ok "fzf was installed via brew"
+  if [ -x "/usr/local/opt/fzf/install" ]; then
+    dko::status "fzf was installed via brew, re-running installer"
+    installer="/usr/local/opt/fzf/install"
   elif [ -d "$HOME/.fzf" ]; then
     dko::status "fzf was installed in ~/.fzf"
     installer="$HOME/.fzf/install"
