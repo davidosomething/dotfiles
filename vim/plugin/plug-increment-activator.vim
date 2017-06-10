@@ -8,8 +8,10 @@ set cpoptions&vim
 
 " ============================================================================
 
-nmap <special> <C-a> <Plug>(increment-activator-increment)
-nmap <special> <C-x> <Plug>(increment-activator-decrement)
+nmap <special><silent> <C-a> <Plug>(increment-activator-increment)
+imap <special><silent> <C-a> <Plug>(increment-activator-increment)
+nmap <special><silent> <C-x> <Plug>(increment-activator-decrement)
+imap <special><silent> <C-x> <Plug>(increment-activator-decrement)
 
 let g:increment_activator_filetype_candidates = {
       \   '_': [
