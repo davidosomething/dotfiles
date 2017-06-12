@@ -9,11 +9,13 @@ function! movemode#setByLine() abort
   silent! nunmap <buffer> k
 endfunction
 
+" Move by display lines unless a count is given
+" https://bluz71.github.io/2017/05/15/vim-tips-tricks.html
 function! movemode#setByDisplay() abort
   let b:movementmode = 'display'
   echo 'Move by display lines'
-  nnoremap <buffer> j gj
-  nnoremap <buffer> k gk
+  nnoremap <buffer><expr>   j   v:count ? 'j' : 'gj'
+  nnoremap <buffer><expr>   k   v:count ? 'k' : 'gk'
 endfunction
 
 function! movemode#toggle() abort
