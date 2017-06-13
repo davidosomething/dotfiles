@@ -82,7 +82,8 @@ dko::source "${TRAVIS_CONFIG_PATH}/travis.bash" && \
 # yarn completion
 # ============================================================================
 
-dko::source "$(npm prefix --global)/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh"
+dko::has "npm" && \
+  dko::source "$(npm prefix --global)/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh"
 
 # ============================================================================
 # Local path
