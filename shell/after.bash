@@ -25,6 +25,10 @@ else
         sed s/^..//) 2> /dev/null'
 fi
 
+# Workaround bug with FZF in nvim terminal
+# https://github.com/junegunn/fzf/issues/809#issuecomment-273226434
+[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
+
 # ============================================================================
 # Use neovim
 # Now that path is available, use neovim instead of vim if it is installed
