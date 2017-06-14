@@ -255,3 +255,5 @@ wiki
 statusline
 tabline
 VimL
+mixin
+viewport
