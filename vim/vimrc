@@ -773,6 +773,8 @@ function! s:LoadPlugins() abort
   " --------------------------------------------------------------------------
 
   " Include completion, include tags
+  " For what langs are supported, see:
+  " https://github.com/Shougo/neoinclude.vim/blob/master/autoload/neoinclude.vim
   Plug 'Shougo/neoinclude.vim', PlugIf(g:dko_use_completion)
 
   " --------------------------------------------------------------------------
@@ -876,8 +878,8 @@ function! s:LoadPlugins() abort
   " Completion: Syntax
   " --------------------------------------------------------------------------
 
-  " Full syntax completion - normally super slow, like syntaxcomplete
-  " Only use with NCM
+  " Full syntax completion. Keyed as [S]
+  " Only use with NCM - normally super slow, like syntaxcomplete
   Plug 'Shougo/neco-syntax', PlugIf(g:dko_use_completion)
 
   " --------------------------------------------------------------------------
