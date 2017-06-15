@@ -769,12 +769,11 @@ function! s:LoadPlugins() abort
         \ })
 
   " --------------------------------------------------------------------------
-  " Deoplete functionality: Includes
+  " NCM/Deoplete functionality: Includes
   " --------------------------------------------------------------------------
 
   " Include completion, include tags
-  " slow...
-  "Plug 'Shougo/neoinclude.vim'
+  Plug 'Shougo/neoinclude.vim', PlugIf(g:dko_use_completion)
 
   " --------------------------------------------------------------------------
   " Completion: CSS
@@ -877,8 +876,9 @@ function! s:LoadPlugins() abort
   " Completion: Syntax
   " --------------------------------------------------------------------------
 
-  "Full syntax completion - super slow, like syntaxcomplete
-  "Plug 'Shougo/neco-syntax', { 'for': ['scss'] }
+  " Full syntax completion - normally super slow, like syntaxcomplete
+  " Only use with NCM
+  Plug 'Shougo/neco-syntax', PlugIf(g:dko_use_completion)
 
   " --------------------------------------------------------------------------
   " Completion: Snippet engine
