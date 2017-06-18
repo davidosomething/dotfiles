@@ -35,7 +35,11 @@ brew cask install gitter
 brew cask install google-chrome-beta
 brew cask install gpgtools
 brew cask install hammerspoon
+
+# inkscape requires xquartz
+brew cask install xquartz
 brew cask install inkscape
+
 brew cask install iterm2-beta
 brew cask install java
 
