@@ -5,9 +5,12 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> prompt-vcs.zsh"
 
-# Not using anything else, don't bother
-#zstyle ':vcs_info:*'            enable            bzr git hg svn
-zstyle ':vcs_info:*'            enable            git
+autoload -Uz vcs_info
+
+# "enable" disables everything else, i.e.
+#   bzr cdv cvs darcs hg mtn svk svn tla
+# are all disabled
+zstyle ':vcs_info:*' enable git
 
 # bzr/svn prompt
 zstyle ':vcs_info:(svn|bzr):*'  branchformat      'r%r'
