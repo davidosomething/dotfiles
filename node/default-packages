@@ -19,6 +19,7 @@ jsonlint
 jspm-check-updates
 lighthouse
 markdownlint-cli
+npm-check-updates
 package-json-validator
 prettier-eslint-cli
 pwmetrics
