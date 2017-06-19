@@ -25,7 +25,7 @@ fi
 # Linux
 # ============================================================================
 
-if [ "$DOTFILES_OS" = "Linux" ]; then
+if [[ "$DOTFILES_OS" == "Linux" ]]; then
   # for pacdiff
   export DIFFPROG="nvim -d"
 
@@ -44,7 +44,7 @@ if [ "$DOTFILES_OS" = "Linux" ]; then
     # alone).
     # Setting $XENVIRONMENT is an option, but the -I flag here is more useful.
     # This also lets me keep .Xresources out of ~/
-    [ -n "$DISPLAY" ] && dko::has "xrdb" \
-      && xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
+    [ -n "$DISPLAY" ] && dko::has "xrdb" && \
+      xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
   fi
 fi

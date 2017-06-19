@@ -9,8 +9,8 @@ DKO_SOURCE="${DKO_SOURCE} -> init.bash {"
 # Create paths (slow)
 # ============================================================================
 
-mkdir -p "${HOME}/.local/bin"
-mkdir -p "${HOME}/.local/man/man1"
+[ ! -d "${HOME}/.local/bin" ]       && mkdir -p "${HOME}/.local/bin"
+[ ! -d "${HOME}/.local/man/man1" ]  && mkdir -p "${HOME}/.local/man/man1"
 
 # ============================================================================
 
