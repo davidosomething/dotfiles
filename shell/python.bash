@@ -23,8 +23,8 @@ export PATH="${PYENV_ROOT}/bin:${PATH}"
 dko::has "pyenv" && {
   DKO_SOURCE="${DKO_SOURCE} -> pyenv"
   eval "$(pyenv init -)"
+  dko::has "pyenv-virtualenv-init" && eval "$(pyenv virtualenv-init -)"
 }
-dko::has "pyenv-virtualenv-init" && eval "$(pyenv virtualenv-init -)"
 
 # ==============================================================================
 # VirtualEnv for python package isolation
