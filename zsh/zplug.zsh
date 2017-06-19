@@ -94,6 +94,12 @@ zplug "voronkovich/phpcs.plugin.zsh", defer:2
 #zplug "zsh-users/zsh-syntax-highlighting", defer:3
 zplug "zdharma/fast-syntax-highlighting", defer:3
 
+# ============================================================================
+# Local
+# ============================================================================
+
+dko::source "${LDOTDIR}/zplug.zsh"
+
 # ==============================================================================
 # Add zplug's man to MANPATH
 # ==============================================================================
