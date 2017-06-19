@@ -6,6 +6,9 @@ end_of_line = LF
 indent_size = 2
 indent_style = space
 
+[.gitconfig]
+indent_style = tab
+
 # html is not minified so reduce character output by using real tabs
 # use indent size 4 for parity with PHP
 [*.{hbs,html,marko,mustache,xml}]
