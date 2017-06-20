@@ -1001,6 +1001,9 @@ function! s:LoadPlugins() abort
   " Offers inline code highlighting in JSX blocks, as well as vim-jsx's hi
   Plug 'maxmellon/vim-jsx-pretty'
 
+  " `:JsPreTmpl html` to highlight `<div></div>` template strings
+  Plug 'Quramy/vim-js-pretty-template'
+
   " ----------------------------------------
   " Features
   " ----------------------------------------
