@@ -807,7 +807,8 @@ function! s:LoadPlugins() abort
   Plug '1995eaton/vim-better-javascript-completion', PlugIf(!l:use_tern)
 
   " Most features disabled, using the omnifunc only
-  Plug 'facebook/vim-flow'
+  "Plug 'facebook/vim-flow'
+  Plug 'wokalski/autocomplete-flow', PlugIf(g:dko_use_completion)
 
   " Parameter completion (in or after ' or ")
   " Extends omnicomplete to fill in addEventListener('click'
