@@ -97,7 +97,9 @@ zmodload -i zsh/complist
 # bashcompinit -i
 
 # hooks -- used for prompt too
+autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
+
 
 . "${ZDOTDIR}/prompt-vcs.zsh"
 . "${ZDOTDIR}/prompt-vimode.zsh"
