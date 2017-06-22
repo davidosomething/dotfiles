@@ -90,6 +90,7 @@ alias sme='source-map-explorer'
 alias y='yarn'
 alias yi='yarn install'
 alias yr='yarn run'
+alias yt='yarn test'
 
 # ----------------------------------------------------------------------------
 # php
