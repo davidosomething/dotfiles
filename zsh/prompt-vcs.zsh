@@ -37,7 +37,7 @@ function +vi-git-untracked() {
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 
 # use custom hook to parse merge message in actionformat
-function +vi-gitmergemessage() {
+function +vi-git-merge-message() {
   if [ "${hook_com[action_orig]}" = "merge" ]; then
     # misc_orig is in the format:
     # bd69f0644eb9aa460da5de9ebf72e2e3c04b30f2 Merge branch 'x' (1 applied)
@@ -49,7 +49,7 @@ function +vi-gitmergemessage() {
     hook_com[misc]="${from}"
   fi
 }
-zstyle ':vcs_info:git*+set-message:*' hooks gitmergemessage
+zstyle ':vcs_info:git*+set-message:*' hooks git-merge-message
 
 function __dko::prompt::precmd::vcs() {
   # Load up git status for prompt
