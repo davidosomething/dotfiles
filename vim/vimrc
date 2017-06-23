@@ -793,7 +793,6 @@ function! s:LoadPlugins() abort
 
   " faster than deoplete implementation
   Plug 'roxma/nvim-cm-tern', PlugIf(l:use_tern, { 'do': 'npm install' })
-  Plug 'roxma/ncm-flow'
 
   " slower than nvim-cm-tern
   " Plug 'carlitux/deoplete-ternjs', PlugIf(l:use_tern, {
@@ -807,9 +806,9 @@ function! s:LoadPlugins() abort
   " Nice generic omnifunc when no completion engine
   Plug '1995eaton/vim-better-javascript-completion', PlugIf(!l:use_tern)
 
-  " Most features disabled, using the omnifunc only
   "Plug 'facebook/vim-flow'
   "Plug 'wokalski/autocomplete-flow', PlugIf(g:dko_use_completion)
+  Plug 'roxma/ncm-flow', PlugIf(g:dko_use_completion)
 
   " Parameter completion (in or after ' or ")
   " Extends omnicomplete to fill in addEventListener('click'
@@ -968,7 +967,7 @@ function! s:LoadPlugins() abort
         \ }
 
   " TypeScript
-  "Plug 'leafgarland/typescript-vim'
+  Plug 'leafgarland/typescript-vim'
 
   " ----------------------------------------
   " Syntax
