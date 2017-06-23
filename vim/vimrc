@@ -791,7 +791,10 @@ function! s:LoadPlugins() abort
   " --------------------------------------------------------------------------
 
   " Code analysis completion
-  let l:use_tern = g:dko_use_completion && executable('npm')
+  let g:langserver_js = glob('~/src/javascript-typescript-langserver/lib/language-server-stdio.js')
+  let l:use_tern = g:dko_use_completion
+        \ && empty(g:langserver_js)
+        \ && executable('npm')
 
   " faster than deoplete implementation
   Plug 'roxma/nvim-cm-tern', PlugIf(l:use_tern, { 'do': 'npm install' })
@@ -843,11 +846,9 @@ function! s:LoadPlugins() abort
         \ })
 
   " The language client completion is a bit slow to kick in, but it works
-  " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-  "       \|  Plug 'roxma/LanguageServer-php-neovim', {
-  "       \     'do': 'composer install && composer run-script parse-stubs'
-  "       \   }
-  " else
+  " Plug 'roxma/LanguageServer-php-neovim', PlugIf(l:use_lsp, {
+  "   \   'do': 'composer install && composer run-script parse-stubs'
+  "   \ })
 
   " Possible vanilla plugins
   " 'phpvim/phpcd.vim'              - server based completion
@@ -908,7 +909,10 @@ function! s:LoadPlugins() abort
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
 
-  "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+  let l:use_lsp = has('nvim')
+  Plug 'autozimu/LanguageClient-neovim', PlugIf(l:use_lsp, {
+        \   'do': ':UpdateRemotePlugins',
+        \ })
 
   " ==========================================================================
   " Language: bash/shell/zsh
