@@ -764,7 +764,7 @@ function! s:LoadPlugins() abort
   " Currently forwarding to NCM:
   " - deoplete-padawan (deoplete)
   " - jspc.vim (omni only)
-  Plug 'Shougo/deoplete.nvim', PlugIf(g:dko_use_completion, {
+  Plug 'Shougo/deoplete.nvim', PlugIf(g:dko_use_deoplete, {
         \   'do': ':UpdateRemotePlugins'
         \ })
 
@@ -808,10 +808,6 @@ function! s:LoadPlugins() abort
   " Nice generic omnifunc when no completion engine
   Plug '1995eaton/vim-better-javascript-completion', PlugIf(!l:use_tern)
 
-  "Plug 'facebook/vim-flow'
-  Plug 'wokalski/autocomplete-flow', PlugIf(g:dko_use_completion)
-  "Plug 'roxma/ncm-flow', PlugIf(g:dko_use_completion)
-
   " Parameter completion (in or after ' or ")
   " Extends omnicomplete to fill in addEventListener('click'
   " Forwarded by deoplete to nvim-completion-manager
@@ -819,6 +815,19 @@ function! s:LoadPlugins() abort
   " Does not work in deoplete -- use as omnicomplete only!
   " E.g. specific g:deoplete#omni_patterns so omnifunction is called directly
   Plug 'othree/jspc.vim'
+
+  " ----------------------------------
+  " Flow
+  " ----------------------------------
+
+  " Native omnicomplete and some refactoring support
+  "Plug 'facebook/vim-flow'
+
+  " Deoplete completion
+  Plug 'wokalski/autocomplete-flow', PlugIf(g:dko_use_deoplete)
+
+  " NCM completion
+  "Plug 'roxma/ncm-flow', PlugIf(g:dko_use_completion)
 
   " --------------------------------------------------------------------------
   " Completion: Java
@@ -836,18 +845,21 @@ function! s:LoadPlugins() abort
   let l:use_composer = g:dko_use_completion
         \ && has('nvim')
         \ && executable('composer')
+  let l:use_padawan     = l:use_composer && g:dko_use_deoplete
+  let l:use_langserver  = l:use_composer && !g:dko_use_deoplete
 
   " Actually quite fast when used with nvim-completion-manager
-  Plug 'padawan-php/deoplete-padawan', PlugIf(l:use_composer, {
+  Plug 'padawan-php/deoplete-padawan', PlugIf(l:use_padawan, {
         \   'do': 'composer install'
         \ })
 
   " The language client completion is a bit slow to kick in, but it works
-  " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-  "       \|  Plug 'roxma/LanguageServer-php-neovim', {
-  "       \     'do': 'composer install && composer run-script parse-stubs'
-  "       \   }
-  " else
+  Plug 'autozimu/LanguageClient-neovim', PlugIf(l:use_langserver, {
+        \   'do': ':UpdateRemotePlugins'
+        \ })
+  Plug 'roxma/LanguageServer-php-neovim', PlugIf(l:use_langserver, {
+        \   'do': 'composer install && composer run-script parse-stubs'
+        \ })
 
   " Possible vanilla plugins
   " 'phpvim/phpcd.vim'              - server based completion
@@ -1215,6 +1227,7 @@ endfunction
 
 let g:plug_window = 'tabnew'
 let g:dko_use_completion = has('nvim') && has('python3')
+let g:dko_use_deoplete = g:dko_use_completion && 0
 
 let s:has_plug = !empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
 " Load vim-plug and its plugins?
