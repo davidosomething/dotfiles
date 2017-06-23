@@ -970,6 +970,8 @@ function! s:LoadPlugins() abort
 
   " TypeScript
   Plug 'leafgarland/typescript-vim'
+  " Alternatively
+  "Plug 'HerringtonDarkholme/yats.vim'
 
   " ----------------------------------------
   " Syntax
