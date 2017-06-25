@@ -11,7 +11,7 @@ indent_style = tab
 
 # html is not minified so reduce character output by using real tabs
 # use indent size 4 for parity with PHP
-[*.{hbs,html,marko,mustache,xml}]
+[*.{erb,hbs,html,marko,mustache,xml}]
 indent_style = tab
 tab_width = 2
 
