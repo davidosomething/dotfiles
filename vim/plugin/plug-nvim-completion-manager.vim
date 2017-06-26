@@ -6,6 +6,11 @@ augroup dkonvimcompletionmanager
   autocmd!
 augroup END
 
+" Refresh list
+imap <special><expr> <C-g> pumvisible()
+      \ ? "\<Plug>(cm_force_refresh)"
+      \ : "\<C-g>"
+
 " Deoplete integration implementation from
 " https://github.com/roxma/nvim-completion-manager/issues/50
 if dko#IsLoaded('deoplete.nvim')
@@ -30,5 +35,5 @@ if dko#IsLoaded('deoplete.nvim')
   endfunction
 
   " hack deoplete's mapping
-  inoremap <silent> <Plug>_ <C-r>=g:DkoNcmDeopleteSource()<CR>
+  inoremap <silent><special> <Plug>_ <C-r>=g:DkoNcmDeopleteSource()<CR>
 endif
