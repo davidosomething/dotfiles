@@ -1227,7 +1227,7 @@ endfunction
 
 let g:plug_window = 'tabnew'
 let g:dko_use_completion = has('nvim') && has('python3')
-let g:dko_use_deoplete = g:dko_use_completion && 0
+let g:dko_use_deoplete = g:dko_use_completion && 1
 
 let s:has_plug = !empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
 " Load vim-plug and its plugins?

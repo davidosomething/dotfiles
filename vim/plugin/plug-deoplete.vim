@@ -335,7 +335,8 @@ endif
 
 let g:deoplete#enable_ignore_case = 0
 let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_at_startup  = 1
+let g:deoplete#enable_at_startup = 0
+autocmd dkodeoplete InsertEnter * call deoplete#enable()
 
 " [file] candidates are relative to the buffer path
 let g:deoplete#file#enable_buffer_path = 1
