@@ -110,7 +110,7 @@ All
 end
 
 puts """
-brew[#{started != 0 && BAR_COLORS ? green(started) : started}/#{total}]
+[#{started != 0 && BAR_COLORS ? green(started) : started}/#{total}]
 ---
 #{menus}
 ---
