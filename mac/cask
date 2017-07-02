@@ -76,7 +76,6 @@ brew cask install spideroakone
 brew cask install spotify spotifree
 # brew cask install switchresx
 brew cask install the-unarchiver
-brew cask install transmission
 
 # ==============================================================================
 # Transmit
