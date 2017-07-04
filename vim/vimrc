@@ -820,13 +820,11 @@ function! s:LoadPlugins() abort
   " Flow
   " ----------------------------------
 
-  " Native omnicomplete and some refactoring support
-  "Plug 'facebook/vim-flow'
-
-  " Deoplete completion
+  " Deoplete completion (forwarded to NCM)
   Plug 'wokalski/autocomplete-flow', PlugIf(g:dko_use_deoplete)
-
-  " NCM completion
+  " Native omnicomplete and some refactoring support, official plugin
+  "Plug 'flowtype/vim-flow'
+  " NCM completion, same deps as vim-flow
   "Plug 'roxma/ncm-flow', PlugIf(g:dko_use_completion)
 
   " --------------------------------------------------------------------------
@@ -885,7 +883,6 @@ function! s:LoadPlugins() abort
 
   " nvim-completion-manager has a jedi source in python already, so as long as
   " jedi is pip installed it is good to go.
-
   " Forwarded to nvim-completion-manager if present
   " Plug 'zchee/deoplete-jedi'
 
