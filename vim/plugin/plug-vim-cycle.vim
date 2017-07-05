@@ -17,13 +17,13 @@ silent! nunmap <C-a>
 silent! nunmap <C-x>
 silent! vunmap <C-a>
 silent! vunmap <C-x>
-nmap    <special><silent> <C-x> <Plug>CyclePrev
-nmap    <special><silent> <C-a> <Plug>CycleNext
-vmap    <special><silent> <C-x> <Plug>CyclePrev
-vmap    <special><silent> <C-a> <Plug>CycleNext
+nmap    <special><silent> <C-x> <Plug>CyclePrev:redraw!<CR>
+nmap    <special><silent> <C-a> <Plug>CycleNext:redraw!<CR>
+vmap    <special><silent> <C-x> <Plug>CyclePrev:redraw!<CR>
+vmap    <special><silent> <C-a> <Plug>CycleNext:redraw!<CR>
 
-noremap <special><silent> <Plug>CycleFallbackPrev <C-x>
-noremap <special><silent> <Plug>CycleFallbackNext <C-a>
+noremap <special><silent> <Plug>CycleFallbackPrev <C-x>:redraw!<CR>
+noremap <special><silent> <Plug>CycleFallbackNext <C-a>:redraw!<CR>
 " map <special><silent> <Plug>CycleFallbackNext <Plug>SpeedDatingUp
 
 " Normally this is handled by cycle, but we miss the first call for lazy load
