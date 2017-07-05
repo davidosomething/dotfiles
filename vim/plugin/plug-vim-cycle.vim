@@ -68,7 +68,8 @@ let g:cycle_default_groups = [
       \   [['{:}', '[:]', '(:)'], 'sub_pairs'],
       \   [['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
       \     'Friday', 'Saturday'], 'hard_case', {'name': 'Days'}],
-      \   [['h1', 'h2', 'h3', 'h4', 'h5', 'h6']],
+      \   [['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], 'sub_tag'],
+      \   [['ul', 'ol'], 'sub_tag'],
       \ ]
 
 let g:cycle_default_groups_for_javascript = [
