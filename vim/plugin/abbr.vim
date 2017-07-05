@@ -16,3 +16,6 @@ inoreabbrev targetter   targeter
 
 inoreabbrev removeable  removable
 
+inoreabbrev d'' David O'Trakoun
+inoreabbrev o'' O'Trakoun
+inoreabbrev m@@ me@davidosomething.com

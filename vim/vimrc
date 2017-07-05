@@ -663,14 +663,9 @@ function! s:LoadPlugins() abort
 
   Plug 'godlygeek/tabular', { 'on': [ 'Tabularize' ] }
 
-  " custom C-x C-a mappings, see plugin/plug-increment-activator.vim
-  Plug 'nishigori/increment-activator', { 'on': [
-        \   '<Plug>(increment-activator',
+  Plug 'bootleq/vim-cycle', { 'on': [
+        \   '<Plug>Cycle',
         \ ]}
-
-  " Using tyru/caw.vim instead since it does a better job with wrapping block
-  " comments intelligently
-  " Plug 'tomtom/tcomment_vim'
 
   Plug 'tpope/vim-repeat'
   " easyclip requires repeat, REMAPS all register keys (y,d,s,c,etc.)
@@ -749,10 +744,10 @@ function! s:LoadPlugins() abort
   " Plug: Completion
   " ==========================================================================
 
-  " Main completion engine, bound to C-X
+  " Main completion engine, bound to <C-o>
   Plug 'roxma/nvim-completion-manager', PlugIf(g:dko_use_completion)
 
-  " Always provide deoplete, may or may not be bound to C-X depending on if
+  " Always provide deoplete, may or may not be bound to <C-o> depending on if
   " use_ncm, in which case deoplete Forwards to nvim-completion-manager for
   " some sources (e.g. deoplete-padawan for php since langserver above didn't
   " work for me.)
@@ -1318,17 +1313,6 @@ augroup dkowordpresssucksdonkeyballs
         \ */*content/themes/*,*/*content/plugins/*,*/mu-plugins/*
         \ let b:PHP_vintage_case_default_indent = 1
 augroup END
-
-" ============================================================================
-" Local vimrc
-" ============================================================================
-
-" Loads vimrc.vim from the ~/.secret/vim runtimepath (and wherever else it
-" exists).
-" The filename vimrc.vim only exists in ~/.secret/vim AFAIK, but might have to
-" change it if I find out otherwise...
-set runtimepath+=$HOME/.secret/vim
-runtime! vimrc.vim
 
 " ============================================================================
 " Security
