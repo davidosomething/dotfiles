@@ -15,3 +15,30 @@ let g:fzf_buffers_jump = 1
 
 " [Files]
 "let g:fzf_files_options = '--something...'
+
+" junegunn/fzf mappings for the neovim :term
+" Bind <fx> to abort FZF (<C-g> is one of the default abort keys in FZF)
+" @see #f-keys
+function! s:MapCloseFzf() abort
+  if !has('nvim')
+    return
+  endif
+
+  tnoremap <buffer><special> <F1> <C-g>
+  tnoremap <buffer><special> <F2> <C-g>
+  tnoremap <buffer><special> <F3> <C-g>
+  tnoremap <buffer><special> <F4> <C-g>
+  tnoremap <buffer><special> <F5> <C-g>
+  tnoremap <buffer><special> <F6> <C-g>
+  tnoremap <buffer><special> <F7> <C-g>
+  tnoremap <buffer><special> <F8> <C-g>
+  tnoremap <buffer><special> <F9> <C-g>
+  tnoremap <buffer><special> <F10> <C-g>
+  tnoremap <buffer><special> <F11> <C-g>
+  tnoremap <buffer><special> <F12> <C-g>
+endfunction
+
+augroup dkofzf
+  autocmd!
+  autocmd FileType fzf call s:MapCloseFzf()
+augroup END

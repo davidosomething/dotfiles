@@ -117,7 +117,7 @@ them.
 |  `<F5>` | :FZFFiles - files from Vim's cwd |
 |  `<F6>` | :Neomake |
 |  `<F7>` | :Neomake! |
-|  `<F8>` | UI - :FZFColors |
+|  `<F8>` | unused |
 |  `<F9>` | UI - :QuickfixsignsToggle (on by default) |
 | `<F10>` | do not use -- gnome-terminal menu key |
 | `<F11>` | UI - dkotabline#Toggle() |

@@ -21,28 +21,6 @@ function! s:GetSpecs() abort
 endfunction
 
 " ============================================================================
-
-augroup dkofzf
-  autocmd!
-
-  " junegunn/fzf mappings for the neovim :term
-  " Bind <fx> to abort FZF (<C-g> is one of the default abort keys in FZF)
-  " @see #f-keys
-  autocmd FileType fzf tnoremap <buffer><special> <F1> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F2> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F3> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F4> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F5> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F6> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F7> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F8> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F9> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F10> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F11> <C-g>
-  autocmd FileType fzf tnoremap <buffer><special> <F12> <C-g>
-augroup END
-
-" ============================================================================
 " Custom sources for junegunn/fzf
 " ============================================================================
 
