@@ -15,7 +15,7 @@ endif
 " Official version (python dep)
 " ============================================================================
 
-if dko#IsPlugged('editoconfig-vim')
+if dko#IsPlugged('editorconfig-vim')
   " Disable plugin's setting for &colorcolumn, prefer &tw relative setting
   let g:EditorConfig_max_line_indicator = ''
 
