@@ -83,9 +83,13 @@ cunt() {
 serve() {
   local port
   port="${1:-8888}"
+
   if dko::has 'python3'; then
     echo "Using python3 http.server"
     python3 -m http.server "$port"
+  elif dko::has 'python2'; then
+    echo "Using python2 SimpleHTTPServer"
+    python2 -m SimpleHTTPServer "$port"
   elif dko::has 'http-server'; then
     echo "Using node http-server"
     http-server -p "$port"
