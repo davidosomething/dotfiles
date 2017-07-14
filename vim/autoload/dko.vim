@@ -134,6 +134,28 @@ function! dko#IsHelp(bufnr) abort
 endfunction
 
 " ============================================================================
+" Whitespace settings
+" ============================================================================
+
+function! dko#TwoSpace() abort
+  setlocal expandtab
+  setlocal shiftwidth=2
+  setlocal softtabstop=2
+endfunction
+
+function! dko#TwoTabs() abort
+  setlocal noexpandtab
+  setlocal shiftwidth=2
+  setlocal softtabstop=2
+endfunction
+
+function! dko#FourTabs() abort
+  setlocal noexpandtab
+  setlocal shiftwidth=4
+  setlocal softtabstop=4
+endfunction
+
+" ============================================================================
 " grepprg
 " ============================================================================
 

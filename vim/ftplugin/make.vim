@@ -1,5 +1,4 @@
-" after/ftplugin/make.vim
+" ftplugin/make.vim
 " makefiles
 
 setlocal noexpandtab
-

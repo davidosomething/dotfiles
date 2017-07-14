@@ -1,7 +1,4 @@
 " after/ftplugin/handlebars.vim
 
+call dko#TwoTabs()
 setlocal nowrap
-setlocal noexpandtab
-setlocal shiftwidth=2
-setlocal softtabstop=2
-

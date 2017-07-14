@@ -1,4 +1,7 @@
 " ftplugin/javascript.vim
+
+call dko#TwoSpace()
+
 "
 " Settings for plugins that need to be available before plug loads
 "
@@ -13,11 +16,6 @@ let b:match_words = '\<function\>:\<return\>,'
 
 " Require to import
 nmap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
-
-" Indent settings in case no .editorconfig
-setlocal expandtab
-setlocal shiftwidth=2
-setlocal softtabstop=2
 
 if g:dko_use_completion && dko#IsPlugged('jspc.vim')
   " jspc#omni normally extends javascriptcomplete on param pattern match.
