@@ -12,6 +12,7 @@ eslint-plugin-jsx-a11y
 eslint-plugin-react
 flow-bin
 generator-hubot
+http-server
 js-beautify
 jscpd
 jsctags
