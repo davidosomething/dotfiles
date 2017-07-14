@@ -64,7 +64,7 @@ fs() {
     arg=-sh
   fi
 
-  if [ -n "$@" ]; then
+  if [ -n "$*" ]; then
     du "$arg" -- "$@"
   else
     du "$arg" .[^.]* ./*
@@ -78,6 +78,18 @@ fs() {
 # Update composer packages without cache
 cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
+}
+
+serve() {
+  local port
+  port="${1:-8888}"
+  if dko::has 'python3'; then
+    echo "Using python3 http.server"
+    python3 -m http.server "$port"
+  elif dko::has 'http-server'; then
+    echo "Using node http-server"
+    http-server -p "$port"
+  fi
 }
 
 # ============================================================================
