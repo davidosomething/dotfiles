@@ -235,6 +235,10 @@ __alias_darwin() {
   alias bsvc='b services'
   alias bsvr='b services restart'
 
+  alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+  alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
+  alias chromium="/Applications/Chromium.app/Contents/MacOS/Chromium"
+
   alias redstart='bsvc start redshift'
   alias redstop='bsvc stop redshift'
 
