@@ -84,10 +84,14 @@ let g:cycle_default_groups_for_php = [
 
 let g:cycle_default_groups_for_vim = [
       \   [['g:', 'b:', 'l:', 's:']],
-      \   [['map', 'nmap', 'xmap', 'imap', 'vmap', 'cmap', 'omap']],
-      \   [['noremap', 'nnoremap', 'xnoremap', 'inoremap', 'vnoremap',
+      \   [['map', 'nmap', 'imap',
+      \     'vmap', 'smap', 'xmap',
+      \     'cmap', 'omap']],
+      \   [['noremap', 'nnoremap', 'inoremap',
+      \     'vnoremap', 'snoremap', 'xnoremap',
       \     'cnoremap', 'onoremap']],
-      \   [['unmap', 'nunmap', 'xunmap', 'iunmap', 'vunmap',
+      \   [['unmap', 'nunmap', 'iunmap',
+      \     'vunmap', 'sunmap', 'xunmap',
       \     'cunmap', 'ounmap']],
       \   [['<special>', '<silent>', '<buffer>', '<expr>']],
       \ ]
