@@ -64,8 +64,11 @@ endfunction
 function! dkostatus#Mode() abort
   " blacklist
   let l:modecolor = '%#TabLine#'
+
   let l:modeflag = mode()
-  if l:modeflag ==# 'i'
+  if s:winnr != winnr()
+    let l:modeflag = ' '
+  elseif l:modeflag ==# 'i'
     let l:modecolor = '%#PmenuSel#'
   elseif l:modeflag ==# 'R'
     let l:modecolor = '%#DiffDelete#'
