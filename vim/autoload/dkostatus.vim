@@ -54,7 +54,7 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus()
   let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs()
   let l:contents .= '%<'
-  let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath(getcwd(), s:ww)
+  let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath(getcwd(s:winnr), s:ww)
   let l:contents .= '%#TabLine#' . dkostatus#Ruler()
 
   return l:contents
