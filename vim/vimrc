@@ -563,15 +563,8 @@ function! s:LoadPlugins() abort
   let l:truecolor = has('nvim') || has('gui_running') || has('termguicolors')
   "Plug '~/projects/davidosomething/vim-base2tone-lakedark', PlugIf(l:truecolor)
   Plug 'davidosomething/vim-base2tone-lakedark', PlugIf(l:truecolor)
-  "Plug 'atelierbram/Base2Tone-vim', PlugIf(l:truecolor)
-  Plug 'AlessandroYorba/Sidonia', PlugIf(l:truecolor)
-  Plug 'kristiandupont/shades-of-teal', PlugIf(l:truecolor)
-
-  " Black, grey, blue
-  "Plug 'fxn/vim-monochrome'
-
-  " Grey, red
-  Plug 'zaki/zazen'
+  "Plug 'AlessandroYorba/Sidonia', PlugIf(l:truecolor)
+  Plug 'rakr/vim-two-firewatch'
 
   " ==========================================================================
   " Embedded filetype support

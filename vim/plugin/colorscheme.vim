@@ -10,17 +10,16 @@ if (dko#IsPlugged('Base2Tone-vim') || dko#IsPlugged('vim-base2tone-lakedark'))
       \ && $TERM_PROGRAM !=# 'Apple_Terminal'
   let g:base16colorspace=256
   silent! colorscheme Base2Tone_LakeDark
-  "set background=dark  " don't do this! colorscheme will source again
   finish
 endif
 
-if dko#IsPlugged('zazen')
-  silent! colorscheme zazen
-  if &t_Co == 256
-    hi CursorLine ctermbg=236
-  endif
+if dko#IsPlugged('two-firewatch')
+  set background=dark
+  silent! colorscheme two-firewatch
+  finish
 
 else
   silent! colorscheme darkblue
+  finish
 
 endif
