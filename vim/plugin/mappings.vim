@@ -79,7 +79,6 @@ nnoremap  <silent><special>  <Leader>err  :<C-U>call <SID>EditRoot('README.md')<
 " Not using $MYVIMRC since it varies based on (n)vim
 nnoremap  <silent><special>  <Leader>evi   :<C-U>edit $VDOTDIR/init.vim<CR>
 nnoremap  <silent><special>  <Leader>evg   :<C-U>edit $VDOTDIR/gvimrc<CR>
-nnoremap  <silent><special>  <Leader>evl   :<C-U>edit ~/.secret/vim/vimrc.vim<CR>
 nnoremap  <silent><special>  <Leader>evr   :<C-U>edit $VDOTDIR/vimrc<CR>
 
 nnoremap  <silent><special>  <Leader>em   :<C-U>edit $VDOTDIR/plugin/mappings.vim<CR>
