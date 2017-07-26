@@ -20,7 +20,7 @@ will not mount until a user has logged in. To remedy this, see
 
 ### Setup ssh keys
 
-1. `ssh-keygen` for the new system
+1. `sshkeygen` (alias to generate new ed25519 keys)
 1. Load the private key into `ssh-agent` and the macOS keychain using `keychain`
 1. Add the public key to GitHub and GitLab
 
