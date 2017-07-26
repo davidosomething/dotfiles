@@ -599,16 +599,18 @@ function! s:LoadPlugins() abort
   let l:fzfable = !empty(g:fzf_dir)
         \ && v:version >= 704
         \ && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
-  Plug g:fzf_dir, PlugIf(l:fzfable)
-  Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
-  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(l:fzfable, { 'on': [
-        \   'FZFGrepper',
-        \   'FZFMRU',
-        \   'FZFProject',
-        \   'FZFRelevant',
-        \   'FZFSpecs',
-        \   'FZFVim',
-        \ ]})
+  if !empty(g:fzf_dir)
+    Plug g:fzf_dir, PlugIf(l:fzfable)
+    Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
+    Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(l:fzfable, { 'on': [
+          \   'FZFGrepper',
+          \   'FZFMRU',
+          \   'FZFProject',
+          \   'FZFRelevant',
+          \   'FZFSpecs',
+          \   'FZFVim',
+          \ ]})
+  endif
 
   " gK to lookup
   Plug 'keith/investigate.vim'
