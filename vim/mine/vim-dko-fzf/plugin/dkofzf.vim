@@ -190,7 +190,7 @@ if dko#GetGrepper().command ==# 'rg'
 elseif dko#GetGrepper().command ==# 'ag'
   " @see https://github.com/junegunn/fzf.vim/blob/abdf894edf5dbbe8eaa734a6a4dce39c9f174e33/autoload/fzf/vim.vim#L614
   " Default options are --nogroup --column --color
-  let s:ag_options = ' --one-device --skip-vcs-ignores --smart-case '
+  let s:ag_options = ' --skip-vcs-ignores --smart-case '
 
   command! -bang -nargs=* FZFGrepper
         \ call fzf#vim#ag(
