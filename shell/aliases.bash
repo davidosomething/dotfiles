@@ -69,7 +69,9 @@ alias grep='grep --color=auto'
 if command -v rg >/dev/null; then
   alias ag='rg'
 elif command -v ag >/dev/null; then
-  alias ag='ag --hidden --numbers --smart-case'
+  # --numbers is a default and not supported on old ag
+  # --one-device not supported on old ag
+  alias ag='ag --hidden --smart-case'
 fi
 alias rg='rg --hidden --line-number --no-ignore-vcs --smart-case --ignore-file "${DOTFILES}/ag/dot.ignore"'
 # also see gg in git
