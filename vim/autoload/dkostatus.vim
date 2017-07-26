@@ -17,6 +17,7 @@ function! dkostatus#Output(winnr) abort
   let s:winnr = a:winnr
   let s:bufnr = winbufnr(a:winnr)
   let s:ww    = winwidth(a:winnr)
+  let l:cwd   = has('nvim') ? getcwd(s:winnr) : getcwd()
   let l:contents = ''
 
   " ==========================================================================
@@ -54,7 +55,7 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus()
   let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs()
   let l:contents .= '%<'
-  let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath(getcwd(s:winnr), s:ww)
+  let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath(l:cwd, s:ww)
   let l:contents .= '%#TabLine#' . dkostatus#Ruler()
 
   return l:contents
