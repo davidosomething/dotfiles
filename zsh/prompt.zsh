@@ -23,14 +23,14 @@ TRAPWINCH() {
 
 __dko_prompt_left_colors=()
 __dko_prompt_left_parts=()
-if [ "$USER" = 'root' ]
+if [[ "$USER" = 'root' ]]
 then __dko_prompt_left_colors+=('%F{red}')
 else __dko_prompt_left_colors+=('%F{green}')
 fi
 __dko_prompt_left_parts+=('%n')  # User
 __dko_prompt_left_colors+=('%F{blue}')
 __dko_prompt_left_parts+=('@')
-if [ -n "$SSH_CONNECTION" ]
+if [[ -n "$SSH_CONNECTION" ]]
 then __dko_prompt_left_colors+=('%F{red}')
 else __dko_prompt_left_colors+=('%F{green}')
 fi
@@ -49,7 +49,7 @@ dko::has "nvm" && {
   __dko_prompt_right_parts+=('${$(nvm_ls current 2>/dev/null):-?}')
 }
 dko::has "pyenv" && {
-  [ -n ${#__dko_prompt_right_parts} ] && {
+  [[ -n ${#__dko_prompt_right_parts} ]] && {
     __dko_prompt_right_colors+=('%F{blue}')
     __dko_prompt_right_parts+=('|')
   }
@@ -59,7 +59,7 @@ dko::has "pyenv" && {
   __dko_prompt_right_parts+=('${$(pyenv version-name 2>/dev/null):-sys}')
 }
 dko::has "chruby" && {
-  [ -n ${#__dko_prompt_right_parts} ] && {
+  [[ -n ${#__dko_prompt_right_parts} ]] && {
     __dko_prompt_right_colors+=('%F{blue}')
     __dko_prompt_right_parts+=('|')
   }
@@ -99,7 +99,7 @@ __dko::prompt::precmd::state() {
   fi
 
   # <C-c> to just output a prompt without the statusline above it
-  if [ "$DKO_PROMPT_IS_TRAPPED" -eq "1" ]; then
+  if [[ "$DKO_PROMPT_IS_TRAPPED" -eq "1" ]]; then
     export DKO_PROMPT_IS_TRAPPED=0
   else
     print -P "${left}%F{black}${(l:spaces-1::═:)}%F{blue}${(e)right}%F{blue}"
