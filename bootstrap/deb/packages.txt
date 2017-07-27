@@ -1,4 +1,8 @@
+bzip2
 gawk
+libreadline6
+libreadline6-dev
+openssl
 tmux
 zlib1g-dev
 zsh
