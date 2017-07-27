@@ -26,6 +26,9 @@ echo "Sync in SpiderOak Hive"
 
 brew cask install cloudapp
 
+# full socks5+DHT+blocklist support
+brew cask install deluge
+
 brew cask install discord
 brew cask install docker
 brew cask install dropbox
