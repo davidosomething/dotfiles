@@ -1,3 +1,4 @@
 gawk
 tmux
+zlib1g-dev
 zsh
