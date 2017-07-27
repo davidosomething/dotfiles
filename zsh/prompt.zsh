@@ -49,7 +49,7 @@ dko::has "nvm" && {
   __dko_prompt_right_parts+=('${$(nvm_ls current 2>/dev/null):-?}')
 }
 dko::has "pyenv" && {
-  [[ "${#__dko_prompt_right_parts}" -neq 0 ]] && {
+  [[ "${#__dko_prompt_right_parts}" -ne 0 ]] && {
     __dko_prompt_right_colors+=('%F{blue}')
     __dko_prompt_right_parts+=('|')
   }
@@ -59,7 +59,7 @@ dko::has "pyenv" && {
   __dko_prompt_right_parts+=('${$(pyenv version-name 2>/dev/null):-sys}')
 }
 dko::has "chruby" && {
-  [[ "${#__dko_prompt_right_parts}" -neq 0 ]] && {
+  [[ "${#__dko_prompt_right_parts}" -ne 0 ]] && {
     __dko_prompt_right_colors+=('%F{blue}')
     __dko_prompt_right_parts+=('|')
   }
