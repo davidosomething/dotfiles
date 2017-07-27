@@ -301,7 +301,7 @@ __dko::dotfiles::update_pyenv() {
   if [ -n "$PYENV_ROOT" ] && [ -d "${PYENV_ROOT}/.git" ]; then
     dko::status "Updating pyenv"
     ( cd "${PYENV_ROOT}" || exit 1
-      git pull
+      pyenv update
     ) || return 1
   else
     dko::warn "pyenv was not installed using pyenv-installer"
