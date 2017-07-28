@@ -111,7 +111,7 @@ alias py2='python2'
 alias py3='python3'
 alias py='python'
 
-alias getsubs="subliminal download --language en "
+alias getsubs="subliminal download -p opensubtitles -p shooter -p subscenter -p thesubdb -p tvsubtitles --language en "
 
 # ----------------------------------------------------------------------------
 # ruby
