@@ -111,7 +111,7 @@ alias py2='python2'
 alias py3='python3'
 alias py='python'
 
-alias getsubs="find . -type f -iname '*.mkv' -exec subliminal download -l en {} \\;"
+alias getsubs="subliminal download --language en "
 
 # ----------------------------------------------------------------------------
 # ruby
