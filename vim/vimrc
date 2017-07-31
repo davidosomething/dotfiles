@@ -565,6 +565,7 @@ function! s:LoadPlugins() abort
   Plug 'davidosomething/vim-base2tone-lakedark', PlugIf(l:truecolor)
   "Plug 'AlessandroYorba/Sidonia', PlugIf(l:truecolor)
   Plug 'rakr/vim-two-firewatch'
+  Plug 'arcticicestudio/nord-vim'
 
   " ==========================================================================
   " Embedded filetype support
