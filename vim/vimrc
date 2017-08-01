@@ -420,9 +420,8 @@ endif
 set smartcase
 
 if !empty(dko#GetGrepper())
-  let &g:grepprg = escape(
-        \ dko#GetGrepper().command . ' ' . join(dko#GetGrepper().options, ' '),
-        \ ' ')
+  let &g:grepprg = dko#GetGrepper().command . ' '
+        \ . join(dko#GetGrepper().options, ' ')
   let &g:grepformat = dko#GetGrepper().format
 endif
 
