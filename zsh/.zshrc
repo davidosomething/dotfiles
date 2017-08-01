@@ -40,7 +40,7 @@ setopt PUSHD_TO_HOME                  # go home if no d specified
 # Completion
 setopt AUTO_LIST                      # list completions
 setopt AUTO_MENU                      # TABx2 to start a tab complete menu
-setopt NO_COMPLETE_ALIASES            # don't expand aliases before completion
+setopt NO_COMPLETE_ALIASES            # no expand aliases before completion
 setopt LIST_PACKED                    # variable column widths
 
 # Expansion and Globbing

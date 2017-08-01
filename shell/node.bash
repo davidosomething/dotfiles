@@ -26,7 +26,11 @@ export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 # using nvm? -- store default version for prompt compare
 dko::source "${NVM_DIR}/nvm.sh" && {
   DKO_SOURCE="${DKO_SOURCE} -> nvm"
-  DKO_DEFAULT_NODE_VERSION="$(nvm version default)"
+  # Get initial nvm version using bash string manipulation instead of NVM
+  # calls. While this is significantly faster, it is not correct if starting
+  # a shell in a dir with a .nvmrc ~= default (which I almost never do).
+  DKO_DEFAULT_NODE_VERSION="${${NVM_BIN/$NVM_DIR\/versions\/node\/v}%\/b*}"
+  #DKO_DEFAULT_NODE_VERSION="$(nvm version default)"
   export DKO_DEFAULT_NODE_VERSION
 }
 
