@@ -187,7 +187,7 @@ endif
 
 " info file -- nvim uses shada in $XDG_DATA_HOME so that's cool.
 if !has('nvim')
-  execute 'set viminfo+=n' . expand(g:dko#vim_dir . '/.tmp/cache/.viminfo')
+  let &g:viminfo += 'n' . expand(g:dko#vim_dir . '/.tmp/cache/.viminfo')
 
   " From https://github.com/swizzard/dotfiles/blob/master/.vimrc
   " Don't keep .viminfo information for files in temporary directories or shared
@@ -204,6 +204,16 @@ if !has('nvim')
 endif
 
 " ----------------------------------------------------------------------------
+" Temp dirs
+" ----------------------------------------------------------------------------
+
+if !has('nvim')
+  let &g:directory = g:dko#vim_dir . '/.tmp/swap//'
+  let &g:backupdir = g:dko#vim_dir . '/.tmp/backup//'
+  let &g:undodir = g:dko#vim_dir . '/.tmp/undo//'
+endif
+
+" ----------------------------------------------------------------------------
 " Writing swaps
 " ----------------------------------------------------------------------------
 
@@ -211,19 +221,9 @@ endif
 " pros: prevent editing stale copy of same file in two vim instances
 set swapfile
 
-" swapfile directory
-if !has('nvim')
-  execute 'set directory=' . g:dko#vim_dir . '/.tmp/swap//'
-endif
-
 " ----------------------------------------------------------------------------
 " Write backups
 " ----------------------------------------------------------------------------
-
-" Don't write backups to current directory (vim and neovim default to .)
-if !has('nvim')
-  execute 'set backupdir=' . g:dko#vim_dir . '/.tmp/backup//'
-endif
 
 " Use backup files when writing (create new file, replace old one with new
 " one)
@@ -246,16 +246,13 @@ set backupskip+=~/.secret/*
 set undofile
 set undolevels=1000
 set undoreload=10000
-if !has('nvim')
-  execute 'set undodir=' . g:dko#vim_dir . '/.tmp/undo//'
-endif
 
 " ----------------------------------------------------------------------------
 " Spellcheck
 " ----------------------------------------------------------------------------
 
 " Add symlinked aspell from dotfiles as default spellfile
-"execute 'set spellfile=' . glob(expand(dko#vim_dir . '/en.utf-8.add'))
+"let &g:spellfile = glob(expand(dko#vim_dir . '/en.utf-8.add'))
 
 " ----------------------------------------------------------------------------
 " Built-in completion
@@ -417,16 +414,16 @@ set incsearch
 set wrapscan                          " Searches wrap around end of the file.
 set ignorecase
 " Follow smartcase and ignorecase when doing tag search
-if has('nvim')
+if exists('+tagcase')
   set tagcase=followscs
 endif
 set smartcase
 
 if !empty(dko#GetGrepper())
-  execute 'set grepprg='
-        \. escape(dko#GetGrepper().command . ' '
-        \. join(dko#GetGrepper().options, ' '), ' ')
-  execute 'set grepformat=' . dko#GetGrepper().format
+  let &g:grepprg = escape(
+        \ dko#GetGrepper().command . ' ' . join(dko#GetGrepper().options, ' '),
+        \ ' ')
+  let &g:grepformat = dko#GetGrepper().format
 endif
 
 " ----------------------------------------------------------------------------
