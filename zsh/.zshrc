@@ -64,7 +64,7 @@ setopt CORRECT
 # Job Control
 setopt CHECK_JOBS                     # prompt before exiting shell with bg job
 setopt LONGLISTJOBS                   # display PID when suspending bg as well
-setopt NO_HUP                         # don't kill bg processes
+setopt NO_HUP                         # do not kill bg processes
 
 # Prompting
 

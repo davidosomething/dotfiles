@@ -91,11 +91,15 @@ dko::source "${TRAVIS_CONFIG_PATH}/travis.bash" && \
   export DKO_SOURCE="${DKO_SOURCE} -> travis"
 
 # ============================================================================
-# yarn completion
+# npm stuff
 # ============================================================================
 
-dko::has "npm" && \
+dko::has "npm" && {
+  dko::has 'trash' && alias rm=trash
+  dko::has 'yarn' && PATH="${PATH}:$(yarn global bin)" && export PATH
+  # yarn completion
   dko::source "$(npm prefix --global)/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh"
+}
 
 # ============================================================================
 

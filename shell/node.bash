@@ -34,14 +34,6 @@ dko::source "${NVM_DIR}/nvm.sh" && {
   export DKO_DEFAULT_NODE_VERSION
 }
 
-# ============================================================================
-# npm global packages
-# ============================================================================
-
-dko::has 'trash' && alias rm=trash
-
-dko::has 'yarn' && PATH="${PATH}:$(yarn global bin)" && export PATH
-
 # ==============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"
