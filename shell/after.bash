@@ -47,17 +47,18 @@ dko::has "nvim" && {
 
   export EDITOR="nvim"
   export VISUAL="nvim"
-  VOPEN_EDITOR="nvim"
-  VOPEN_VISUAL="nvim"
 
-  dko::has "nvr" && {
+  if dko::has "nvr"; then
     export NVIM_LISTEN_ADDRESS=~/.dotfiles/local/nvimsocket
     export VOPEN_SERVERNAME="$NVIM_LISTEN_ADDRESS"
     export VOPEN_DEFAULT_COMMAND="--remote-silent +enew"
     export VOPEN_REUSE_COMMAND="--remote-silent"
     VOPEN_EDITOR="nvr"
     VOPEN_VISUAL="nvr"
-  }
+  else
+    VOPEN_EDITOR="nvim"
+    VOPEN_VISUAL="nvim"
+  fi
 
   export VOPEN_EDITOR
   export VOPEN_VISUAL
