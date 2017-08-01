@@ -88,7 +88,7 @@ dko::has "grunt" && {
 # ============================================================================
 
 dko::source "${TRAVIS_CONFIG_PATH}/travis.bash" && \
-  export DKO_SOURCE="${DKO_SOURCE} -> travis"
+  DKO_SOURCE="${DKO_SOURCE} -> travis"
 
 # ============================================================================
 # npm stuff
