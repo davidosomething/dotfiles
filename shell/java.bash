@@ -4,7 +4,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/java.bash"
 
 __java_version="1.8"
 if [ -z "$JAVA_HOME" ] && [ -x '/usr/libexec/java_home' ]; then
-  JAVA_HOME="$(/usr/libexec/java_home -v"$__java_version")"
+  JAVA_HOME="$(/usr/libexec/java_home -v"$__java_version" 2>/dev/null)"
 fi
 
 [ -n "$JAVA_HOME" ] \
