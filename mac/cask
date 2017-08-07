@@ -43,7 +43,7 @@ brew cask install hammerspoon
 brew cask install xquartz
 brew cask install inkscape
 
-brew cask install iterm2-beta
+brew cask install iterm2
 brew cask install java
 
 # replaced by cloudapp

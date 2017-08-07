@@ -6,38 +6,46 @@ If there is user data on encrypted volumes other than the boot volume, they
 will not mount until a user has logged in. To remedy this, see
 [Unlock] (forked to my GitHub for archival).
 
+### iCloud sign in
+
 ### Install App Store apps
 
-- `Amphetamine` - better than caffeine
-- `Display Menu` - for setting native resolutions on monitors
-- `xcode`
-    - Then run `xcode-select --install` to prompt for CLI tools.
+- `Amphetamine` (free) - better than caffeine
+- `Display Menu` (free) - set higher/native resolutions on monitors
 
 ### Install homebrew
 
 - Install according to <http://brew.sh/>
 - `brew install` programs automatically via `~/.dotfiles/mac/brew`
 
-### Setup ssh keys
+### Keybase.io app
 
-1. `sshkeygen` (alias to generate new ed25519 keys)
-1. Load the private key into `ssh-agent` and the macOS keychain using `keychain`
-1. Add the public key to GitHub and GitLab
+- `brew cask install keybase`
+- Add device to keybase.io
+- Export key from keybase
+- `brew cask install gpgtools`
+- Import key into gpgtools
+- Add User ID to key
+- Update key in keybase
+
+### Use zsh as default
+
+Add `/usr/local/bin/zsh` to `/etc/shells`, then
+
+```sh
+chsh -s /usr/local/bin/zsh
+```
 
 ### Install dotfiles
 
-1. `git clone` for `~/.dotfiles/`
+1. `git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/`
 1. `~/.dotfiles/bootstrap/symlink`
-1. `~/.dotfiles/mac/defaults` -- set apple defaults and fix some issues like
-   zsh startup
-1. `git clone` for `~/.secrets` and link as needed
+1. Restart shell
 
-### Install zsh and set as default
+### Setup ssh keys
 
-```sh
-brew install zsh
-chsh -s /usr/local/bin/zsh
-```
+1. `sshkeygen` (alias to generate new ed25519 keys)
+1. Add the public key to GitHub and GitLab
 
 ### Install Powerline patched fonts from source
 
@@ -46,42 +54,14 @@ chsh -s /usr/local/bin/zsh
 
 ### Install iterm2 from brew
 
-1. Install `iterm2-beta`, which is technically iterm3:
+1. Install `iterm2`
     ```sh
-    brew tap caskroom/versions
-    brew cask install iterm2-beta
+    brew cask install iterm2
     ```
 1. Set up fonts (Fura Mono for Powerline, see _Powerline patched fonts_ above)
 1. Set up base16 from <https://github.com/chriskempson/base16-iterm2> or
    start app -> Preferences -> Load preferences from custom folder, point to
    existing plist exports.
-
-### Install neovim
-
-1. Follow <https://github.com/neovim/homebrew-neovim> for HEAD. `u neovim` can
-   do this automatically.
-1. Launch `nvim` and let `vim-plug` install itself
-
-### Install keepassx from source
-
-Some of the requirements to `brew install` first:
-
-- cmake
-- libgcrypt
-- oath-toolkit
-
-Install keepassx 2.0 with http support from the source of this fork (inspect
-diff first):
-<https://github.com/eugenesan/keepassx/tree/2.0-http-totp>
-
-Run the `cmake -DCMAKE_BUILD_TYPE=Release` step until it builds (it will tell
-you what dependencies are missing each time, and install dependencies with
-brew).
-
-### Install from brew
-
-Install packages from [bootstrap/mac/brew](../bootstrap/mac/brew) as
-desired.
 
 ### Install from cask
 
