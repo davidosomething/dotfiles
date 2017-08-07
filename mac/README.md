@@ -18,16 +18,9 @@ will not mount until a user has logged in. To remedy this, see
 - Install according to <http://brew.sh/>
 - `brew install` programs automatically via `~/.dotfiles/mac/brew`
 
-### Install iterm2 from brew
+### Install Powerline patched fonts from source
 
-1. Install `iterm2`
-    ```sh
-    brew cask install iterm2
-    ```
-1. Set up fonts (Fura Mono for Powerline, see _Powerline patched fonts_ above)
-1. Set up base16 from <https://github.com/chriskempson/base16-iterm2> or
-   start app -> Preferences -> Load preferences from custom folder, point to
-   existing plist exports.
+1. Run `~/.dotfiles/mac/fonts` to install via cask
 
 ### Keybase.io app
 
@@ -38,6 +31,19 @@ will not mount until a user has logged in. To remedy this, see
 - Import key into gpgtools
 - Add User ID to key
 - Update key in keybase
+
+### Install spideroakone
+
+1. Create new backup folder `sync`
+1. Sync with existing `sync` to get iTerm profile
+
+### Install iterm2 from brew
+
+1. Install `iterm2`
+    ```sh
+    brew cask install iterm2
+    ```
+1. Load iTerm profile from `sync`
 
 ### Use zsh as default
 
@@ -58,11 +64,6 @@ chsh -s /usr/local/bin/zsh
 1. `sshkeygen` (alias to generate new ed25519 keys)
 1. Add the public key to GitHub and GitLab
 
-### Install Powerline patched fonts from source
-
-1. `git clone https://github.com/powerline/fonts ~/src/fonts`
-1. Run `install.sh`
-
 ### Install from cask
 
 - bettertouchtool
@@ -73,7 +74,7 @@ chsh -s /usr/local/bin/zsh
     - Login and sync google account for settings
     - Provides `authy`
 - dropbox
-    - Then setup keepassx to load the key database from dropbox
+    - Then setup keepassxc to load the key database from dropbox
 - kaleidoscope
     - Load license file
 - transmission
