@@ -18,6 +18,17 @@ will not mount until a user has logged in. To remedy this, see
 - Install according to <http://brew.sh/>
 - `brew install` programs automatically via `~/.dotfiles/mac/brew`
 
+### Install iterm2 from brew
+
+1. Install `iterm2`
+    ```sh
+    brew cask install iterm2
+    ```
+1. Set up fonts (Fura Mono for Powerline, see _Powerline patched fonts_ above)
+1. Set up base16 from <https://github.com/chriskempson/base16-iterm2> or
+   start app -> Preferences -> Load preferences from custom folder, point to
+   existing plist exports.
+
 ### Keybase.io app
 
 - `brew cask install keybase`
@@ -51,17 +62,6 @@ chsh -s /usr/local/bin/zsh
 
 1. `git clone https://github.com/powerline/fonts ~/src/fonts`
 1. Run `install.sh`
-
-### Install iterm2 from brew
-
-1. Install `iterm2`
-    ```sh
-    brew cask install iterm2
-    ```
-1. Set up fonts (Fura Mono for Powerline, see _Powerline patched fonts_ above)
-1. Set up base16 from <https://github.com/chriskempson/base16-iterm2> or
-   start app -> Preferences -> Load preferences from custom folder, point to
-   existing plist exports.
 
 ### Install from cask
 
