@@ -192,21 +192,6 @@
 	status = true
 
 # ============================================================================
-# User defaults (may be overridden by local)
-# ============================================================================
-
-[github]
-	user  = "davidosomething"
-
-[credential]
-	username = "davidosomething"
-
-[user]
-	name  = "David O'Trakoun"
-	email = "me@davidosomething.com"
-	signingkey = 8CA0D3F4
-
-# ============================================================================
 # Local
 # ============================================================================
 
