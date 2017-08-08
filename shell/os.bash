@@ -13,6 +13,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   # just assume brew is in normal location, don't even check for it
   export DKO_BREW_PREFIX="/usr/local"
 
+  # Allow pyenv to use custom openssl from brew
   [ -d "${DKO_BREW_PREFIX}/opt/openssl/lib" ] \
     && export LDFLAGS="-L${DKO_BREW_PREFIX}/opt/openssl/lib"
   [ -d "${DKO_BREW_PREFIX}/opt/openssl/include" ] \
