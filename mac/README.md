@@ -6,79 +6,63 @@ If there is user data on encrypted volumes other than the boot volume, they
 will not mount until a user has logged in. To remedy this, see
 [Unlock] (forked to my GitHub for archival).
 
-### iCloud sign in
+### App store
 
-### Install App Store apps
-
-- `Amphetamine` (free) - better than caffeine
-- `Display Menu` (free) - set higher/native resolutions on monitors
-
-### Install homebrew
-
-- Install according to <http://brew.sh/>
-- `brew install` programs automatically via `~/.dotfiles/mac/brew`
-
-### Install Powerline patched fonts from source
-
-1. Run `~/.dotfiles/mac/fonts` to install via cask
-
-### Keybase.io app
-
-- `brew cask install keybase`
-- Add device to keybase.io
-- Export key from keybase
-- `brew cask install gpgtools`
-- Import key into gpgtools
-- Add User ID to key
-- Update key in keybase
-
-### Install spideroakone
-
-1. Create new backup folder `sync`
-1. Sync with existing `sync` to get iTerm profile
-
-### Install iterm2 from brew
-
-1. Install `iterm2`
-    ```sh
-    brew cask install iterm2
-    ```
-1. Load iTerm profile from `sync`
-
-### Use zsh as default
-
-Add `/usr/local/bin/zsh` to `/etc/shells`, then
-
-```sh
-chsh -s /usr/local/bin/zsh
-```
+1. iCloud sign in
+1. Install App store apps
+    - `Amphetamine` (free) - better than caffeine
+    - `Display Menu` (free) - set higher/native resolutions on monitors
 
 ### Install dotfiles
 
 1. `git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/`
 1. `~/.dotfiles/bootstrap/symlink`
+
+### Install homebrew
+
+1. Install according to <http://brew.sh/>
+1. `brew install` programs via `~/.dotfiles/mac/brew`, or pick as desired
+    - Of note are `git`, `fzf`
+1. Use zsh as default
+    - Add `/usr/local/bin/zsh` to `/etc/shells`, then
+      ```sh
+      chsh -s /usr/local/bin/zsh
+      ```
 1. Restart shell
 
 ### Setup ssh keys
 
 1. `sshkeygen` (alias to generate new ed25519 keys)
-1. Add the public key to GitHub and GitLab
+1. Add the public key to GitHub, GitLab, Bitbucket, keybasefs, etc.
 
-### Install from cask
+### Casks
 
+- Install fonts - `~/.dotfiles/mac/fonts` to install via cask
+- spideroakone
+    1. Create new backup folder `sync`
+    1. Sync with existing `sync` to get iTerm profile
+- iterm2
+    1. Load iTerm profile from oak sync
 - bettertouchtool
-    - License acquired
+    - License in oak
+    - Import from oak sync
     - Provide window snapping
     - Provide better trackpad swipe configs
+- dropbox
+    - Then setup keepassxc to load the key database from Dropbox
 - google-chrome
     - Login and sync google account for settings
     - Provides `authy`
-- dropbox
-    - Then setup keepassxc to load the key database from dropbox
+- java
 - kaleidoscope
     - Load license file
-- transmission
-    - Load blocklist `http://john.bitsurge.net/public/biglist.p2p.gz`
+- keybase
+    - Add device to keybase.io
+    - Export key from keybase
+    - `brew cask install gpgtools`
+    - Import key into gpgtools
+    - Add User ID to key
+    - Update key in keybase
 
 Install the rest of the packages from
 [bootstrap/mac/cask](../bootstrap/mac/cask) as desired.
