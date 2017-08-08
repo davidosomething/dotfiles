@@ -13,6 +13,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   # just assume brew is in normal location, don't even check for it
   export DKO_BREW_PREFIX="/usr/local"
 
+  [ -d "${DKO_BREW_PREFIX}/opt/openssl/lib" ] \
+    && export LDFLAGS="-L${DKO_BREW_PREFIX}/opt/openssl/lib"
+  [ -d "${DKO_BREW_PREFIX}/opt/openssl/include" ] \
+    && export CPPFLAGS="-I${DKO_BREW_PREFIX}/opt/openssl/include"
+
 else
   case "$(uname -s)" in
       FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
