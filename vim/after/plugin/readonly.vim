@@ -17,7 +17,7 @@ function! s:Close() abort
 endfunction
 
 function! s:UnmapForRO() abort
-  if !&readonly || !(&buftype ==# 'help' || &buftype ==# 'qf')
+  if !&readonly || !(&buftype ==# 'help' || &buftype ==# 'quickfix')
     return
   endif
 

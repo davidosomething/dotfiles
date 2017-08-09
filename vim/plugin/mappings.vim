@@ -12,6 +12,10 @@
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
+augroup dkomappings
+  autocmd!
+augroup END
+
 " ============================================================================
 " Disable for reuse
 " ============================================================================
@@ -93,6 +97,16 @@ nnoremap  <silent><special>  <Leader>ez   :<C-U>edit $ZDOTDIR/.zshrc<CR>
 " ----------------------------------------------------------------------------
 
 nnoremap  <special>   <BS>  <C-^>
+
+" Disabled for certain buffers
+function! s:UnmapNormalBackspace() abort
+  if &buftype ==# 'quickfix'
+        \ || &buftype ==# 'nofile'
+        \ || &filetype ==# 'gitcommit'
+    nnoremap <buffer><special> <BS> <Nop>
+  endif
+endfunction
+autocmd dkomappings BufEnter * call s:UnmapNormalBackspace()
 
 " ============================================================================
 " Window manipulation
