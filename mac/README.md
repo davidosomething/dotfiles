@@ -73,6 +73,9 @@ Make sure you've installed packages since after you start using `pyenv` it
 gets annoying to remember to switch back to system python for each `brew`
 operation. Use the `bi` alias for a clean room install if possible.
 
+- Increase file limits - <https://superuser.com/a/1171026>
+    - See <https://gist.github.com/abernix/a7619b07b687bb97ab573b0dc30928a0> if
+      there are still file limit issues
 - Install `chruby`, `ruby-install`
     1. `ruby-install ruby` to install latest
     1. `chruby` to that version
