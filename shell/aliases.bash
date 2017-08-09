@@ -68,7 +68,7 @@ alias gethsync='geth --syncmode "fast" --cache 1024 console'
 # gradle
 # ----------------------------------------------------------------------------
 
-alias grr='./gradlew run -DUseMemcached=true'
+alias grwr='./gradlew run -DUseMemcached=true'
 
 # ----------------------------------------------------------------------------
 # greppers
