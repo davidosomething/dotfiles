@@ -77,6 +77,7 @@ operation. Use the `bi` alias for a clean room install if possible.
   <https://github.com/karma-runner/karma/issues/1979#issuecomment-260790451>
     - See <https://gist.github.com/abernix/a7619b07b687bb97ab573b0dc30928a0> if
       there are still file limit issues
+    - REBOOT for `ulimit -n` changes to take effect
 - Install `chruby`, `ruby-install`
     1. `ruby-install ruby` to install latest
     1. `chruby` to that version
