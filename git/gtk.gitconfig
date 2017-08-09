@@ -1,0 +1,15 @@
+# Linux specific gitconfig
+
+[credential]
+	helper = /usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring
+
+[diff]
+	tool = meld
+
+[merge]
+	tool = meld
+
+[web]
+	browser = xdg-open
+
+# vim: ft=gitconfig :

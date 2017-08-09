@@ -1,0 +1,15 @@
+# Linux specific gitconfig
+
+[credential]
+	helper = /usr/bin/ksshaskpass
+
+[diff]
+	tool = meld
+
+[merge]
+	tool = meld
+
+[web]
+	browser = kde-open
+
+# vim: ft=gitconfig :
