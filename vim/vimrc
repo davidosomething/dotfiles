@@ -879,7 +879,8 @@ function! s:LoadPlugins() abort
 
   " Full syntax completion. Keyed as [S]
   " Only use with NCM - normally super slow, like syntaxcomplete
-  Plug 'Shougo/neco-syntax', PlugIf(g:dko_use_completion)
+  " DISABLED - Makes pandoc/markdown really slow.
+  "Plug 'Shougo/neco-syntax', PlugIf(g:dko_use_completion)
 
   " --------------------------------------------------------------------------
   " Completion: Snippet engine
