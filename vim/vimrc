@@ -895,7 +895,7 @@ function! s:LoadPlugins() abort
   " Completion: VimL
   " --------------------------------------------------------------------------
 
-  " nvim-completion-manager and deoplete
+  " nvim-completion-manager and deoplete (disabled deoplete integration)
   Plug 'Shougo/neco-vim'
 
   " ==========================================================================

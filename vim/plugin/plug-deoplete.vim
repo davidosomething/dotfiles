@@ -50,6 +50,13 @@ let g:deoplete#ignore_sources._ = [
       \   'file',
       \   'around',
       \ ]
+      \ 
+
+" Disable deoplete neco-syntax -- let NCM call neco-syntax
+let g:deoplete#ignore_sources._ += [ 'syntax' ]
+
+" Disable deoplete neco-vim -- let NCM call neco-vim
+let g:deoplete#ignore_sources._ += [ 'vim' ]
 
 " ----------------------------------------------------------------------------
 " Regexes to use completion engine
