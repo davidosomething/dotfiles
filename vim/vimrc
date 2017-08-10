@@ -187,13 +187,12 @@ endif
 
 " info file -- nvim uses shada in $XDG_DATA_HOME so that's cool.
 if !has('nvim')
-  let &g:viminfo += 'n' . expand(g:dko#vim_dir . '/.tmp/cache/.viminfo')
-
   " From https://github.com/swizzard/dotfiles/blob/master/.vimrc
   " Don't keep .viminfo information for files in temporary directories or shared
   " memory filesystems; this is because they're used as scratch spaces for tools
   " like sudoedit(8) and pass(1) and hence could present a security problem
   if has('viminfo')
+    let &g:viminfo .= 'n' . expand(g:dko#vim_dir . '/.tmp/cache/.viminfo')
     augroup dkoviminfo
       autocmd!
       silent! autocmd BufNewFile,BufReadPre
