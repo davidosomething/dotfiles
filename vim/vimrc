@@ -817,10 +817,10 @@ function! s:LoadPlugins() abort
   " Completion: Java
   " --------------------------------------------------------------------------
 
-  Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
-        \   'do': 'cd libs/javavi/ && mvn compile',
-        \   'for': 'java',
-        \ })
+  " Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
+  "       \   'do': 'cd libs/javavi/ && mvn compile',
+  "       \   'for': 'java',
+  "       \ })
 
   " --------------------------------------------------------------------------
   " Completion: PHP

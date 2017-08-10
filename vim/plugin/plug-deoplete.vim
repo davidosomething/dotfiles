@@ -287,6 +287,18 @@ if dko#IsLoaded('jspc.vim')
 endif
 
 " ============================================================================
+" Completion Plugin: vim-javacomplete2
+" ============================================================================
+
+if dko#IsLoaded('vim-javacomplete2')
+  " Call omnifunc directly
+  let s:omni_only.java = s:REGEX.any_word
+
+  autocmd dkocompletion FileType java
+        \ setlocal omnifunc=javacomplete#Complete
+endif
+
+" ============================================================================
 " Completion Plugin: phpcd.vim
 " ============================================================================
 
