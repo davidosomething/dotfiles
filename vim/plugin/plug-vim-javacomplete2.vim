@@ -4,6 +4,8 @@ if !dko#IsPlugged('vim-javacomplete2') | finish | endif
 
 augroup dkojavacomplete
   autocmd!
+  autocmd FileType java
+        \ setlocal omnifunc=javacomplete#Complete
 augroup END
 
 let g:JavaComplete_ClosingBrace = 0
