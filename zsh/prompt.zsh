@@ -42,14 +42,17 @@ __dko_prompt_left_parts+=('%~')
 
 __dko_prompt_right_colors=()
 __dko_prompt_right_parts=()
+
+dko::get_current_node() {
+  echo "${${NVM_BIN/$NVM_DIR\/versions\/node\/v}%\/b*}"
+}
 dko::has "nvm" && {
-  __current_node="${${NVM_BIN/$NVM_DIR\/versions\/node\/v}%\/b*}"
   __dko_prompt_right_colors+=('%F{blue}')
   __dko_prompt_right_parts+=('js:')
   # Using nvm_ls is much slower (also has vX.X.X instead of just X.X.X)
   #__dko_prompt_right_colors+=('$( [ "${(e)$(nvm_ls current 2>/dev/null)}" = "$DKO_DEFAULT_NODE_VERSION" ] && echo "%F{blue}" || echo "%F{red}")')
-  __dko_prompt_right_colors+=('$( [[ "$__current_node" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")')
-  __dko_prompt_right_parts+=($__current_node)
+  __dko_prompt_right_colors+=('$( [[ "$(dko::get_current_node)" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")')
+  __dko_prompt_right_parts+=('$(dko::get_current_node)')
 }
 dko::has "pyenv" && {
   [[ "${#__dko_prompt_right_parts}" -ne 0 ]] && {
