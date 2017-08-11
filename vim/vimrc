@@ -659,9 +659,12 @@ function! s:LoadPlugins() abort
         \ ]}
 
   Plug 'tpope/vim-repeat'
+
   " easyclip requires repeat, REMAPS all register keys (y,d,s,c,etc.)
   " and use 'm' instead
-  Plug 'svermeulen/vim-easyclip'
+  " Only on Neovim, because someone else is probably using my computer if
+  " they're using regular vim
+  Plug 'svermeulen/vim-easyclip', PlugIf(has('nvim'))
 
   " []-bindings -- buffer switch, lnext/prev, etc.
   " co-bindings
