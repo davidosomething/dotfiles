@@ -54,8 +54,8 @@ __dko::dotfiles::usage() {
 }
 
 __dko::dotfiles::reload() {
-  . "${DOTFILES}/shell/dotfiles.bash" \
-    && dko::ok "Reloaded shell/dotfiles.bash"
+  . "${DOTFILES}/shell/dotfiles.bash" || return 1
+  dko::ok "Reloaded shell/dotfiles.bash"
 }
 
 __dko::dotfiles::cd() {
@@ -114,9 +114,17 @@ __dko::dotfiles::update_zplug() {
   }
 }
 
+__dko::dotfiles::cd_secrets() {
+  cd "${HOME}/.secret" || {
+    dko::err "No ~/.secret directory"
+    return 1
+  }
+}
+
 __dko::dotfiles::update_secret() {
   dko::status "Updating secret"
-  ( cd "${HOME}/.secret" || dko::err "No ~/.secret directory"
+  (
+    __dko::dotfiles::cd_secrets || return 1
     git pull --rebase --recurse-submodules \
     && git log --no-merges --abbrev-commit --oneline ORIG_HEAD.. \
     && git submodule update --init
@@ -125,15 +133,15 @@ __dko::dotfiles::update_secret() {
 
 __dko::dotfiles::update_daily() {
   __dko::dotfiles::update_secret
-  __dko::dotfiles::update_composer
+  __dko::dotfiles::php::update_composer
   __dko::dotfiles::update_fzf
   __dko::dotfiles::ruby::update_gems
   __dko::dotfiles::node::update_nvm
-  __dko::dotfiles::update_pip "pip"
-  __dko::dotfiles::update_pyenv
-  __dko::dotfiles::update_neovim_python
-  __dko::dotfiles::update_vimlint
-  __dko::dotfiles::update_wpcs
+  __dko::dotfiles::py::update_pip "pip"
+  __dko::dotfiles::py::update_pyenv
+  __dko::dotfiles::py::update_neovim_python
+  __dko::dotfiles::vim::update_vimlint
+  __dko::dotfiles::php::update_wpcs
 }
 
 # ------------------------------------------------------------------------------
@@ -157,33 +165,6 @@ __dko::dotfiles::pyenv_global() {
 # ------------------------------------------------------------------------------
 # Externals
 # ------------------------------------------------------------------------------
-
-__dko::dotfiles::update_composer() {
-  dko::status "Updating composer"
-
-  dko::has "composer" || {
-    dko::err "composer is not installed"
-    return 1
-  }
-
-  if [ -x "/usr/local/bin/composer" ]; then
-    dko::ok "composer was installed via brew (yay)"
-  else
-    dko::status_ "Updating composer itself"
-    composer self-update || {
-      dko::err "Could not update composer"
-      return 1
-    }
-  fi
-
-  if [ -f "$COMPOSER_HOME/composer.json" ]; then
-    dko::status "Updating composer global packages"
-    composer global update || {
-      dko::err "Could not update global packages"
-      return 1
-    }
-  fi
-}
 
 __dko::dotfiles::update_fzf() {
   local installer
@@ -232,33 +213,39 @@ __dko::dotfiles::ruby::require_rubygems() {
 # ----------------------------------------------------------------------------
 
 __dko::dotfiles::ruby::update_gems() {
-  __dko::dotfiles::require_chruby || return 1
-  __dko::dotfiles::require_rubygems || return 1
+  dko::status "Updating gems"
+  __dko::dotfiles::ruby::require_chruby || return 1
+  __dko::dotfiles::ruby::require_rubygems || return 1
 
-  (
-    dko::status "Updating RubyGems itself for ruby: ${RUBY_VERSION}"
-    gem update --system  || {
-      dko::err "Could not update RubyGems"
-      exit 1
-    }
+  dko::status "Updating RubyGems itself for ruby: ${RUBY_VERSION}"
+  gem update --system  || {
+    dko::err "Could not update RubyGems"
+    return 1
+  }
 
-    gem update || {
-      dko::err "Could not update gems"
-      exit 1
-    }
-  ) || return 1
+  gem update || {
+    dko::err "Could not update gems"
+    return 1
+  }
 }
 
 # ----------------------------------------------------------------------------
 # Go
 # ----------------------------------------------------------------------------
 
-__dko::dotfiles::update_go() {
+__dko::dotfiles::go::require_go() {
+  dko::has "go" && return 0
+  dko::warn "go is not installed"
+  return 1
+}
+
+__dko::dotfiles::go::update_go() {
   dko::status "Updating go packages"
-  (
-    dko::has "go" || { dko::err "go is not installed" && exit 1; }
-    go get -u all || { dko::err "Could not update go packages" && exit 1; }
-  ) || return 1
+  __dko::dotfiles::go::require_go || return 1
+  go get -u all || {
+    dko::err "Could not update go packages"
+    return 1
+  }
 }
 
 # ----------------------------------------------------------------------------
@@ -351,7 +338,7 @@ __dko::dotfiles::node::update_nvm() {
 # Python
 # ----------------------------------------------------------------------------
 
-__dko::dotfiles::update_pyenv() {
+__dko::dotfiles::py::update_pyenv() {
   if [ -n "$PYENV_ROOT" ] && [ -d "${PYENV_ROOT}/.git" ]; then
     dko::status "Updating pyenv"
     ( cd "${PYENV_ROOT}" || exit 1
@@ -363,7 +350,7 @@ __dko::dotfiles::update_pyenv() {
 }
 
 # $1 pip command (e.g. `pip2`)
-__dko::dotfiles::update_pip() {
+__dko::dotfiles::py::update_pip() {
   local pip_command=${1:-pip}
   dko::status "Updating $pip_command"
   if dko::has "$pip_command"; then
@@ -374,7 +361,7 @@ __dko::dotfiles::update_pip() {
   fi
 }
 
-__dko::dotfiles::update_neovim_python() {
+__dko::dotfiles::py::update_neovim_python() {
   dko::status "Updating neovim2"
   pyenv activate neovim2 && pip install --upgrade neovim
   dko::status "Updating neovim3"
@@ -386,7 +373,43 @@ __dko::dotfiles::update_neovim_python() {
 # PHP
 # ----------------------------------------------------------------------------
 
-__dko::dotfiles::update_wpcs() {
+__dko::dotfiles::php::require_composer() {
+  dko::has "composer" && return 0
+  dko::warn "composer is not installed"
+  return 1
+}
+
+__dko::dotfiles::php::update_composer() {
+  __dko::dotfiles::php::require_composer || return 1
+
+  dko::status "Updating composer"
+  if [ -x "/usr/local/bin/composer" ]; then
+    dko::ok "composer was installed via brew (yay)"
+  else
+    dko::status_ "Updating composer itself"
+    composer self-update || {
+      dko::err "Could not update composer"
+      return 1
+    }
+  fi
+
+  if [ -f "$COMPOSER_HOME/composer.json" ]; then
+    dko::status "Updating composer global packages"
+    composer global update || {
+      dko::err "Could not update global packages"
+      return 1
+    }
+  fi
+}
+
+__dko::dotfiles::php::require_phpcs() {
+  dko::has "phpcs" && return 0
+  dko::warn  "phpcs is not installed"
+  dko::warn_ "Install via composer global require and run again, or set installed_paths manually"
+  return 1
+}
+
+__dko::dotfiles::php::update_wpcs() {
   readonly wpcs_repo="https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git"
   readonly sources_path="${HOME}/src"
   readonly wpcs_path="${sources_path}/wpcs"
@@ -396,6 +419,9 @@ __dko::dotfiles::update_wpcs() {
   # --------------------------------------------------------------------------
 
   dko::status "Updating wpcs"
+  __dko::dotfiles::php::require_composer || return 1
+  __dko::dotfiles::php::require_phpcs || return 1
+
   if [ ! -d "$wpcs_path" ]; then
     mkdir -p "${sources_path}"
     git clone -b master "$wpcs_repo" "$wpcs_path"
@@ -404,12 +430,6 @@ __dko::dotfiles::update_wpcs() {
       git pull \
       && git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     ) || return 1
-  fi
-
-  if ! dko::has "phpcs"; then
-    dko::warn  "phpcs is not installed"
-    dko::warn_ "Install via composer global require and run again, or set installed_paths manually"
-    return 1
   fi
 
   # --------------------------------------------------------------------------
@@ -445,7 +465,7 @@ __dko::dotfiles::update_wpcs() {
 # Vim
 # ----------------------------------------------------------------------------
 
-__dko::dotfiles::update_vimlint() {
+__dko::dotfiles::vim::update_vimlint() {
   readonly sources_path="${HOME}/src"
   readonly vimlint="${sources_path}/vim-vimlint"
   readonly vimlparser="${sources_path}/vim-vimlparser"
@@ -490,8 +510,8 @@ __dko::dotfiles::linux::update() {
 
 __dko::dotfiles::darwin::update() {
   case "$1" in
-    brew)   __dko::dotfiles::darwin::update_brew        ;;
-    mac)    __dko::dotfiles::darwin::update_mac         ;;
+    brew)   __dko::dotfiles::darwin::update_brew ;;
+    mac)    __dko::dotfiles::darwin::update_mac  ;;
   esac
 
   return $?
@@ -627,17 +647,17 @@ dko::dotfiles() {
     secret)   __dko::dotfiles::update_secret        ;;
     zplug)    __dko::dotfiles::update_zplug         ;;
     daily)    __dko::dotfiles::update_daily         ;;
-    composer) __dko::dotfiles::update_composer      ;;
+    composer) __dko::dotfiles::php::update_composer ;;
     fzf)      __dko::dotfiles::update_fzf           ;;
     gem)      __dko::dotfiles::ruby::update_gems    ;;
-    go)       __dko::dotfiles::update_go            ;;
+    go)       __dko::dotfiles::go::update_go        ;;
     node)     __dko::dotfiles::update_node          ;;
     nvm)      __dko::dotfiles::node::update_nvm     ;;
-    pip)      __dko::dotfiles::update_pip "pip"     ;;
-    pyenv)    __dko::dotfiles::update_pyenv         ;;
-    neopy)    __dko::dotfiles::update_neovim_python ;;
-    vimlint)  __dko::dotfiles::update_vimlint       ;;
-    wpcs)     __dko::dotfiles::update_wpcs          ;;
+    pip)      __dko::dotfiles::py::update_pip "pip" ;;
+    pyenv)    __dko::dotfiles::py::update_pyenv           ;;
+    neopy)    __dko::dotfiles::py::update_neovim_python   ;;
+    vimlint)  __dko::dotfiles::vim::update_vimlint        ;;
+    wpcs)     __dko::dotfiles::php::update_wpcs     ;;
 
     *)
       case "$OSTYPE" in
