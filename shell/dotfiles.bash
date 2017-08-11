@@ -69,7 +69,7 @@ __dko::dotfiles::update() {
   dko::status "Updating dotfiles"
 
   local lockfile="${LDOTDIR}/dotfiles.lock"
-  trap "{ rm -f \"${lockfile}\" ; exit 255; }" EXIT
+  trap "rm -f \"${lockfile}\"" EXIT
   touch "$lockfile"
 
   (
