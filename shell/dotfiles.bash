@@ -143,7 +143,6 @@ __dko::dotfiles::update_daily() {
 __dko::dotfiles::pyenv_system() {
   # switch to brew's python (fallback to system if no brew python)
   dko::has "pyenv" \
-    && echo \
     && dko::status "Switching to system python to upgrade brew packages" \
     && pyenv shell system
 }
@@ -151,7 +150,6 @@ __dko::dotfiles::pyenv_system() {
 # probably don't need this as long as running updates in subshells
 __dko::dotfiles::pyenv_global() {
   dko::has "pyenv" \
-    && echo \
     && dko::status_ "Switching back to global python" \
     && pyenv shell --unset
 }
