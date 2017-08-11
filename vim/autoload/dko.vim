@@ -232,7 +232,7 @@ function! dko#IsLoaded(name) abort
   endif
 
   let l:plug_dir = dko#PlugDir(a:name)
-  if empty(l:plug_dir)
+  if empty(l:plug_dir)  || !isdirectory(l:plug_dir)
     return 0
   endif
 

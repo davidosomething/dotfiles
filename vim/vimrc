@@ -757,6 +757,12 @@ function! s:LoadPlugins() abort
         \   'do': ':UpdateRemotePlugins'
         \ })
 
+  " The language client completion is a bit slow to kick in, but it works
+  let l:use_langserver  = !g:dko_use_deoplete
+  Plug 'autozimu/LanguageClient-neovim', PlugIf(l:use_langserver, {
+        \   'do': ':UpdateRemotePlugins'
+        \ })
+
   " --------------------------------------------------------------------------
   " NCM/Deoplete functionality: Includes
   " --------------------------------------------------------------------------
@@ -832,21 +838,17 @@ function! s:LoadPlugins() abort
   let l:use_composer = g:dko_use_completion
         \ && has('nvim')
         \ && executable('composer')
-  let l:use_padawan     = l:use_composer && g:dko_use_deoplete
-  let l:use_langserver  = l:use_composer && !g:dko_use_deoplete
+  let l:use_padawan = l:use_composer && g:dko_use_deoplete
 
-  " Actually quite fast when used with nvim-completion-manager
-  Plug 'padawan-php/deoplete-padawan', PlugIf(l:use_padawan, {
-        \   'do': 'composer install'
-        \ })
+  if executable('composer')
+    Plug 'padawan-php/deoplete-padawan', PlugIf(l:use_padawan, {
+          \   'do': 'composer install'
+          \ })
 
-  " The language client completion is a bit slow to kick in, but it works
-  Plug 'autozimu/LanguageClient-neovim', PlugIf(l:use_langserver, {
-        \   'do': ':UpdateRemotePlugins'
-        \ })
-  Plug 'roxma/LanguageServer-php-neovim', PlugIf(l:use_langserver, {
-        \   'do': 'composer install && composer run-script parse-stubs'
-        \ })
+    Plug 'roxma/LanguageServer-php-neovim', PlugIf(l:use_langserver, {
+          \   'do': 'composer install && composer run-script parse-stubs'
+          \ })
+  endif
 
   " Possible vanilla plugins
   " 'phpvim/phpcd.vim'              - server based completion
@@ -1230,11 +1232,7 @@ endif
 
 if s:has_plug
   call plug#begin(g:dko#plug_absdir)
-    call s:LoadPlugins()
-    if !isdirectory(expand(g:dko#plug_absdir))
-      PlugInstall
-      source $MYVIMRC
-    endif
+  call s:LoadPlugins()
   call plug#end()
 endif
 
