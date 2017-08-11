@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -e
+
+# =============================================================================
+# Require DOTFILES
+# =============================================================================
+
+if [ -z "$DOTFILES" ]; then
+  echo ".dotfiles repo is not set up"
+  exit 1
+fi
+source "${DOTFILES}/shell/helpers.bash"
+
+# =============================================================================
+# Main
+# =============================================================================
+
+[ ! -x 'composer' ] && {
+  dko::err "composer is not installed"
+  exit 1
+}
+
+__install() {
+  composer diagnose
+  composer global require "mkusher/padawan=*"
+  composer global require "phpmd/phpmd=@stable"
+  composer global require "phpunit/phpunit=5.5.*"
+  composer global require "psy/psysh=@stable"
+  composer global require "sebastian/phpcpd=*"
+  composer global require "squizlabs/php_codesniffer=*"
+}
+
+__install "$@"
