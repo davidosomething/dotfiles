@@ -67,7 +67,11 @@ __dko::dotfiles::cd() {
 
 __dko::dotfiles::update() {
   dko::status "Updating dotfiles"
-  touch "${LDOTDIR}/dotfiles.lock"
+
+  local lockfile="${LDOTDIR}/dotfiles.lock"
+  trap "{ rm -f \"${lockfile}\" ; exit 255; }" EXIT
+  touch "$lockfile"
+
   (
     __dko::dotfiles::cd || exit 1
     git pull --rebase || exit 1
@@ -78,7 +82,6 @@ __dko::dotfiles::update() {
     dko::err "Error updating dotfiles"
     return 1
   }
-  rm "${LDOTDIR}/dotfiles.lock"
 
   __dko::dotfiles::reload
   dko::status "Re-symlink if any dotfiles changed!"
