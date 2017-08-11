@@ -16,7 +16,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/dotfiles.bash"
 
 __dko::dotfiles::usage() {
   dko::usage  "u <command>"
-  echo "
+  echo '
   Utility Commands
     dotfiles    -- update dotfiles (git pull); then reload; then zplug
     reload      -- reload this script if it was modified
@@ -50,7 +50,7 @@ __dko::dotfiles::usage() {
   Development
     vimlint     -- update vimlint
     wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
-"
+'
 }
 
 __dko::dotfiles::reload() {
@@ -58,10 +58,18 @@ __dko::dotfiles::reload() {
     && dko::ok "Reloaded shell/dotfiles.bash"
 }
 
+__dko::dotfiles::cd() {
+  cd "$DOTFILES" || {
+    dko::err "No \$DOTFILES directory"
+    return 1
+  }
+}
+
 __dko::dotfiles::update() {
   dko::status "Updating dotfiles"
   touch "${LDOTDIR}/dotfiles.lock"
-  ( cd "$DOTFILES" || { dko::err "No \$DOTFILES directory" && exit 1; }
+  (
+    __dko::dotfiles::cd || exit 1
     git pull --rebase || exit 1
     git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     dko::status "Updating dotfiles submodules"
@@ -78,9 +86,17 @@ __dko::dotfiles::update() {
   __dko::dotfiles::update_zplug
 }
 
+__dko::dotfiles::require_zplug() {
+  cd "${ZPLUG_HOME}" || {
+    dko::err "No \$ZPLUG_HOME"
+    return 1
+  }
+}
+
 __dko::dotfiles::update_zplug() {
   dko::status "Updating zplug"
-  ( cd "${ZPLUG_HOME}" || { dko::err "No \$ZPLUG_HOME" && exit 1; }
+  (
+    __dko::dotfiles::require_zplug || exit 1
     git pull || exit 1
     git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     dko::status "Restart the shell to ensure a clean zplug init"
@@ -111,8 +127,8 @@ __dko::dotfiles::update_daily() {
   __dko::dotfiles::update_secret
   __dko::dotfiles::update_composer
   __dko::dotfiles::update_fzf
-  __dko::dotfiles::update_gems
-  __dko::dotfiles::update_nvm
+  __dko::dotfiles::ruby::update_gems
+  __dko::dotfiles::node::update_nvm
   __dko::dotfiles::update_pip "pip"
   __dko::dotfiles::update_pyenv
   __dko::dotfiles::update_neovim_python
@@ -197,28 +213,47 @@ __dko::dotfiles::update_fzf() {
   fi
 }
 
-__dko::dotfiles::update_gems() {
-  dko::status "Updating gems"
+# ----------------------------------------------------------------------------
+# Ruby: Introspection
+# ----------------------------------------------------------------------------
+
+__dko::dotfiles::ruby::require_chruby() {
+  [ -n "$RUBY_VERSION" ] && return 0
+  dko::warn "System ruby detected! Please install and use chruby."
+  return 1
+}
+
+__dko::dotfiles::ruby::require_rubygems() {
+  dko::has "gem" && return 0
+  dko::warn "rubygems is not installed"
+  return 1
+}
+
+# ----------------------------------------------------------------------------
+# Ruby: Update Gems
+# ----------------------------------------------------------------------------
+
+__dko::dotfiles::ruby::update_gems() {
+  __dko::dotfiles::require_chruby || return 1
+  __dko::dotfiles::require_rubygems || return 1
+
   (
-    [ -z "$RUBY_VERSION" ] && {
-      dko::err "System ruby detected! Use chruby."
-      exit 1
-    }
-
-    dko::has "gem" || {
-      dko::err "rubygems is not installed"
-      exit 1
-    }
-
     dko::status "Updating RubyGems itself for ruby: ${RUBY_VERSION}"
     gem update --system  || {
       dko::err "Could not update RubyGems"
       exit 1
     }
 
-    gem update || { dko::err "Could not update gems" && exit 1; }
+    gem update || {
+      dko::err "Could not update gems"
+      exit 1
+    }
   ) || return 1
 }
+
+# ----------------------------------------------------------------------------
+# Go
+# ----------------------------------------------------------------------------
 
 __dko::dotfiles::update_go() {
   dko::status "Updating go packages"
@@ -228,10 +263,33 @@ __dko::dotfiles::update_go() {
   ) || return 1
 }
 
+# ----------------------------------------------------------------------------
+# Node: Introspection
+# ----------------------------------------------------------------------------
+
+__dko::dotfiles::node::require_nvm() {
+  if [ -z "$NVM_DIR" ]; then
+    dko::err "\$NVM_DIR is not defined, make sure rc files are linked."
+    return 1
+  fi
+
+  if [ ! -d "$NVM_DIR" ]; then
+    dko::status "Installing nvm"
+    git clone https://github.com/creationix/nvm.git "$NVM_DIR" \
+      || { dko::err "Could not install nvm" && return 1; }
+  fi
+}
+
+# ----------------------------------------------------------------------------
+# Node: Update node to latest stable
+# ----------------------------------------------------------------------------
+
 __dko::dotfiles::update_node() {
-  local desired_node="v4"
+  local desired_node="v6"
   local desired_node_minor
   local previous_node
+
+  __dko::dotfiles::node::require_nvm || return 1
 
   . "${NVM_DIR}/nvm.sh"
   dko::status "Checking node versions..."
@@ -259,18 +317,12 @@ __dko::dotfiles::update_node() {
   fi
 }
 
-__dko::dotfiles::update_nvm() {
-  if [ -z "$NVM_DIR" ]; then
-    dko::err "\$NVM_DIR is not defined, make sure rc files are linked."
-    return 1
-  fi
+# ----------------------------------------------------------------------------
+# Node: Update NVM
+# ----------------------------------------------------------------------------
 
-  if [ ! -d "$NVM_DIR" ]; then
-    dko::status "Installing nvm"
-    git clone https://github.com/creationix/nvm.git "$NVM_DIR" \
-      || { dko::err "Could not install nvm" && return 1; }
-    return 0
-  fi
+__dko::dotfiles::node::update_nvm() {
+  __dko::dotfiles::node::require_nvm || return 1
 
   (
     cd "$NVM_DIR" || exit 1
@@ -296,6 +348,10 @@ __dko::dotfiles::update_nvm() {
   dko::status "Reloading nvm"
   . "$NVM_DIR/nvm.sh"
 }
+
+# ----------------------------------------------------------------------------
+# Python
+# ----------------------------------------------------------------------------
 
 __dko::dotfiles::update_pyenv() {
   if [ -n "$PYENV_ROOT" ] && [ -d "${PYENV_ROOT}/.git" ]; then
@@ -327,6 +383,10 @@ __dko::dotfiles::update_neovim_python() {
   pyenv activate neovim3 && pip install --upgrade neovim
   pyenv deactivate
 }
+
+# ----------------------------------------------------------------------------
+# PHP
+# ----------------------------------------------------------------------------
 
 __dko::dotfiles::update_wpcs() {
   readonly wpcs_repo="https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git"
@@ -383,6 +443,10 @@ __dko::dotfiles::update_wpcs() {
   phpcs --config-set default_standard PSR2
 }
 
+# ----------------------------------------------------------------------------
+# Vim
+# ----------------------------------------------------------------------------
+
 __dko::dotfiles::update_vimlint() {
   readonly sources_path="${HOME}/src"
   readonly vimlint="${sources_path}/vim-vimlint"
@@ -430,7 +494,6 @@ __dko::dotfiles::darwin::update() {
   case "$1" in
     brew)   __dko::dotfiles::darwin::update_brew        ;;
     mac)    __dko::dotfiles::darwin::update_mac         ;;
-    all)    __dko::dotfiles::darwin::update_all         ;;
   esac
 
   return $?
@@ -497,30 +560,31 @@ __dko::dotfiles::darwin::update_brew_done() {
   rehash
 }
 
+__dko::dotfiles::darwin::require_brew() {
+  dko::has "brew" && return 0
+  dko::warn "Homebrew is not installed."
+  return 1
+}
+
 __dko::dotfiles::darwin::update_brew() {
+  __dko::dotfiles::darwin::require_brew || return 1
+
   dko::status "Updating homebrew"
   (
-    dko::has "brew" || { dko::err "Homebrew is not installed." && exit 1; }
-
+    # CLEANROOM
     # enter dotfiles dir to do this in case user has any gem flags or local
     # vendor bundle that will cause use of local gems
-    cd "$DOTFILES" \
-      || {
-        dko::err "Can't enter \$DOTFILES to run brew in clean environment"
-        exit 1
-      }
+    __dko::dotfiles::cd || exit 1
+    __dko::dotfiles::pyenv_system
+    # Brew some makefiles like macvim use tput for output so need to reset
+    # from xterm-256color-italic I use in iterm
+    TERM="xterm-256color"
 
     brew update
 
     # check if needed
     readonly outdated="$(brew outdated --quiet)"
     [ -z "$outdated" ] && exit
-
-    # CLEANROOM
-    __dko::dotfiles::pyenv_system
-    # Brew some makefiles like macvim use tput for output so need to reset
-    # from xterm-256color-italic I use in iterm
-    TERM="xterm-256color"
 
     # Detect if brew's python3 (not pyenv) was outdated
     grep -q "python3" <<<"$outdated" \
@@ -548,13 +612,6 @@ __dko::dotfiles::darwin::update_brew() {
   ) && __dko::dotfiles::darwin::update_brew_done
 }
 
-__dko::dotfiles::darwin::require_homebrew() {
-  dko::has "brew" || {
-    dko::err "Homebrew is not installed."
-    exit 1
-  }
-}
-
 # ==============================================================================
 # Main
 # ==============================================================================
@@ -574,10 +631,10 @@ dko::dotfiles() {
     daily)    __dko::dotfiles::update_daily         ;;
     composer) __dko::dotfiles::update_composer      ;;
     fzf)      __dko::dotfiles::update_fzf           ;;
-    gem)      __dko::dotfiles::update_gems          ;;
+    gem)      __dko::dotfiles::ruby::update_gems    ;;
     go)       __dko::dotfiles::update_go            ;;
     node)     __dko::dotfiles::update_node          ;;
-    nvm)      __dko::dotfiles::update_nvm           ;;
+    nvm)      __dko::dotfiles::node::update_nvm     ;;
     pip)      __dko::dotfiles::update_pip "pip"     ;;
     pyenv)    __dko::dotfiles::update_pyenv         ;;
     neopy)    __dko::dotfiles::update_neovim_python ;;
