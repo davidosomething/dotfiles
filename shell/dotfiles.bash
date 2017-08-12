@@ -69,7 +69,8 @@ __dko::dotfiles::update() {
   dko::status "Updating dotfiles"
 
   local lockfile="${LDOTDIR}/dotfiles.lock"
-  trap rm -f "${lockfile}" EXIT
+  # shellcheck disable=SC2064
+  trap "rm -f \"$lockfile\"" EXIT
   touch "$lockfile"
 
   (
