@@ -586,6 +586,9 @@ function! s:LoadPlugins() abort
   " Plug: Commands
   " ==========================================================================
 
+  " <C-w>m to zoom in/out of a window
+  Plug 'dhruvasagar/vim-zoom'
+
   " :Bdelete to preserve windows
   Plug 'moll/vim-bbye'
 

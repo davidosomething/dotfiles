@@ -14,37 +14,37 @@ endfunction
 
 " a:winnr from dkostatus#Refresh() or 0 on set statusline
 function! dkostatus#Output(winnr) abort
-  let s:winnr = a:winnr
-  let s:bufnr = winbufnr(a:winnr)
-  let s:ww    = winwidth(a:winnr)
-  let l:cwd   = has('nvim') ? getcwd(s:winnr) : getcwd()
+  if empty(a:winnr) | return | endif
+  let l:bufnr = winbufnr(a:winnr)
+  let l:ww    = winwidth(a:winnr)
+  let l:cwd   = has('nvim') ? getcwd(a:winnr) : getcwd()
   let l:contents = ''
 
   " ==========================================================================
   " Left side
   " ==========================================================================
 
-  let l:contents .= '%#TabLine# ' . dkostatus#Mode()
+  let l:contents .= '%#TabLine# ' . dkostatus#Mode(a:winnr)
 
   " Filebased
   "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
-  let l:contents .= '%#StatusLine#' . dkostatus#Filetype()
-  let l:contents .= '%#PmenuSel#' . dkostatus#Filename()
-  let l:contents .= '%#Todo#' . dkostatus#Dirty()
-  let l:contents .= '%#StatusLine#' . dkostatus#GitBranch()
+  let l:contents .= '%#StatusLine#' . dkostatus#Filetype(l:bufnr)
+  let l:contents .= '%#PmenuSel#' . dkostatus#Filename(l:bufnr)
+  let l:contents .= '%#Todo#' . dkostatus#Dirty(l:bufnr)
+  let l:contents .= '%#StatusLine#' . dkostatus#GitBranch(a:winnr, l:ww, l:bufnr)
 
   " Toggleable
-  let l:contents .= '%#DiffText#' . dkostatus#Paste()
-  let l:contents .= '%#Error#' . dkostatus#Readonly()
+  let l:contents .= '%#DiffText#' . dkostatus#Paste(a:winnr)
+  let l:contents .= '%#Error#' . dkostatus#Readonly(l:bufnr)
 
   " Temporary
   let l:contents .= '%#NeomakeErrorSign#'
-        \. dkostatus#Neomake('E', dkostatus#NeomakeCounts())
+        \. dkostatus#Neomake('E', dkostatus#NeomakeCounts(a:winnr))
   let l:contents .= '%#NeomakeWarningSign#'
-        \. dkostatus#Neomake('W', dkostatus#NeomakeCounts())
+        \. dkostatus#Neomake('W', dkostatus#NeomakeCounts(a:winnr))
 
   " Search context
-  let l:contents .= '%#Search#' . dkostatus#Anzu()
+  let l:contents .= '%#Search#' . dkostatus#Anzu(a:winnr)
 
   " ==========================================================================
   " Right side
@@ -52,22 +52,22 @@ function! dkostatus#Output(winnr) abort
 
   " Instance context
   let l:contents .= '%*%='
-  let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus()
-  let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs()
+  let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus(a:winnr)
+  let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs(a:winnr)
   let l:contents .= '%<'
-  let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath(l:cwd, s:ww)
+  let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath(l:bufnr, l:cwd, l:ww)
   let l:contents .= '%#TabLine#' . dkostatus#Ruler()
 
   return l:contents
 endfunction
 
 " @return {String}
-function! dkostatus#Mode() abort
+function! dkostatus#Mode(winnr) abort
   " blacklist
   let l:modecolor = '%#TabLine#'
 
   let l:modeflag = mode()
-  if s:winnr != winnr()
+  if a:winnr != winnr()
     let l:modeflag = ' '
   elseif l:modeflag ==# 'i'
     let l:modecolor = '%#PmenuSel#'
@@ -83,8 +83,8 @@ function! dkostatus#Mode() abort
 endfunction
 
 " @return {String}
-function! dkostatus#Paste() abort
-  return s:winnr != winnr() || empty(&paste)
+function! dkostatus#Paste(winnr) abort
+  return a:winnr != winnr() || empty(&paste)
         \ ? ''
         \ : ' ᴘ '
 endfunction
@@ -96,16 +96,16 @@ function! dkostatus#Neomake(key, counts) abort
 endfunction
 
 " @return {String}
-function! dkostatus#NeomakeCounts() abort
-  return s:winnr != winnr()
+function! dkostatus#NeomakeCounts(winnr) abort
+  return a:winnr != winnr()
         \ || !exists('*neomake#statusline#LoclistCounts')
         \ ? {}
         \ : neomake#statusline#LoclistCounts()
 endfunction
 
 " @return {String}
-function! dkostatus#NeomakeJobs() abort
-  return s:winnr != winnr()
+function! dkostatus#NeomakeJobs(winnr) abort
+  return a:winnr != winnr()
         \ || !dko#IsLoaded('neomake')
         \ || !exists('*neomake#GetJobs')
         \ || empty(neomake#GetJobs())
@@ -114,21 +114,21 @@ function! dkostatus#NeomakeJobs() abort
 endfunction
 
 " @return {String}
-function! dkostatus#Readonly() abort
-  return getbufvar(s:bufnr, '&readonly') ? ' ʀ ' : ''
+function! dkostatus#Readonly(bufnr) abort
+  return getbufvar(a:bufnr, '&readonly') ? ' ʀ ' : ''
 endfunction
 
 " @return {String}
-function! dkostatus#Filetype() abort
-  let l:ft = getbufvar(s:bufnr, '&filetype')
+function! dkostatus#Filetype(bufnr) abort
+  let l:ft = getbufvar(a:bufnr, '&filetype')
   return empty(l:ft)
         \ ? ''
         \ : ' ' . l:ft . ' '
 endfunction
 
 " @return {String}
-function! dkostatus#Filename() abort
-  if dko#IsNonFile(s:bufnr)
+function! dkostatus#Filename(bufnr) abort
+  if dko#IsNonFile(a:bufnr)
     return ''
   endif
 
@@ -138,13 +138,13 @@ function! dkostatus#Filename() abort
 endfunction
 
 " @return {String}
-function! dkostatus#Dirty() abort
-  return getbufvar(s:bufnr, '&modified') ? ' + ' : ''
+function! dkostatus#Dirty(bufnr) abort
+  return getbufvar(a:bufnr, '&modified') ? ' + ' : ''
 endfunction
 
 " @return {String}
-function! dkostatus#Anzu() abort
-  if s:winnr != winnr() || !exists('*anzu#search_status')
+function! dkostatus#Anzu(winnr) abort
+  if a:winnr != winnr() || !exists('*anzu#search_status')
     return ''
   endif
 
@@ -159,10 +159,8 @@ endfunction
 " @param {String} path
 " @param {Int} max
 " @return {String}
-function! dkostatus#ShortPath(path, max) abort
-  if s:ww < a:max
-        \ || dko#IsNonFile(s:bufnr)
-        \ || dko#IsHelp(s:bufnr)
+function! dkostatus#ShortPath(bufnr, path, max) abort
+  if dko#IsNonFile(a:bufnr) || dko#IsHelp(a:bufnr)
     return ''
   endif
   return dko#ShortenPath(a:path, a:max)
@@ -171,10 +169,10 @@ endfunction
 " Uses fugitive or gita to get cached branch name
 "
 " @return {String}
-function! dkostatus#GitBranch() abort
-  return s:ww < 80 || s:winnr != winnr()
-        \ || dko#IsNonFile(s:bufnr)
-        \ || dko#IsHelp(s:bufnr)
+function! dkostatus#GitBranch(winnr, ww, bufnr) abort
+  return a:ww < 80 || a:winnr != winnr()
+        \ || dko#IsNonFile(a:bufnr)
+        \ || dko#IsHelp(a:bufnr)
         \ ? ''
         \ : exists('*fugitive#head')
         \   ? ' ' . fugitive#head(7) . ' '
@@ -184,8 +182,8 @@ function! dkostatus#GitBranch() abort
 endfunction
 
 " @return {String}
-function! dkostatus#GutentagsStatus() abort
-  return s:winnr != winnr() || !exists('g:loaded_gutentags')
+function! dkostatus#GutentagsStatus(winnr) abort
+  return a:winnr != winnr() || !exists('g:loaded_gutentags')
         \ ? ''
         \ : '%{gutentags#statusline(" ᴛᴀɢ ")}'
 endfunction
