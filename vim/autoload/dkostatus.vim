@@ -15,36 +15,37 @@ endfunction
 " a:winnr from dkostatus#Refresh() or 0 on set statusline
 function! dkostatus#Output(winnr) abort
   if empty(a:winnr) | return | endif
-  let l:bufnr = winbufnr(a:winnr)
-  let l:ww    = winwidth(a:winnr)
-  let l:cwd   = has('nvim') ? getcwd(a:winnr) : getcwd()
+  let l:winnr = a:winnr > winnr('$') ? 1 : a:winnr
+  let l:bufnr = winbufnr(l:winnr)
+  let l:ww    = winwidth(l:winnr)
+  let l:cwd   = has('nvim') ? getcwd(l:winnr) : getcwd()
   let l:contents = ''
 
   " ==========================================================================
   " Left side
   " ==========================================================================
 
-  let l:contents .= '%#TabLine# ' . dkostatus#Mode(a:winnr)
+  let l:contents .= '%#TabLine# ' . dkostatus#Mode(l:winnr)
 
   " Filebased
   "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
   let l:contents .= '%#StatusLine#' . dkostatus#Filetype(l:bufnr)
   let l:contents .= '%#PmenuSel#' . dkostatus#Filename(l:bufnr)
   let l:contents .= '%#Todo#' . dkostatus#Dirty(l:bufnr)
-  let l:contents .= '%#StatusLine#' . dkostatus#GitBranch(a:winnr, l:ww, l:bufnr)
+  let l:contents .= '%#StatusLine#' . dkostatus#GitBranch(l:winnr, l:ww, l:bufnr)
 
   " Toggleable
-  let l:contents .= '%#DiffText#' . dkostatus#Paste(a:winnr)
+  let l:contents .= '%#DiffText#' . dkostatus#Paste(l:winnr)
   let l:contents .= '%#Error#' . dkostatus#Readonly(l:bufnr)
 
   " Temporary
   let l:contents .= '%#NeomakeErrorSign#'
-        \. dkostatus#Neomake('E', dkostatus#NeomakeCounts(a:winnr))
+        \. dkostatus#Neomake('E', dkostatus#NeomakeCounts(l:winnr))
   let l:contents .= '%#NeomakeWarningSign#'
-        \. dkostatus#Neomake('W', dkostatus#NeomakeCounts(a:winnr))
+        \. dkostatus#Neomake('W', dkostatus#NeomakeCounts(l:winnr))
 
   " Search context
-  let l:contents .= '%#Search#' . dkostatus#Anzu(a:winnr)
+  let l:contents .= '%#Search#' . dkostatus#Anzu(l:winnr)
 
   " ==========================================================================
   " Right side
@@ -52,8 +53,8 @@ function! dkostatus#Output(winnr) abort
 
   " Instance context
   let l:contents .= '%*%='
-  let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus(a:winnr)
-  let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs(a:winnr)
+  let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus(l:winnr)
+  let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs(l:winnr)
   let l:contents .= '%<'
   let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath(l:bufnr, l:cwd, l:ww)
   let l:contents .= '%#TabLine#' . dkostatus#Ruler()
