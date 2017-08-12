@@ -587,7 +587,9 @@ function! s:LoadPlugins() abort
   " ==========================================================================
 
   " <C-w>m to zoom in/out of a window
-  Plug 'dhruvasagar/vim-zoom'
+  "Plug 'dhruvasagar/vim-zoom'
+  " Better zoom plugin, accounts for command window and doesn't use sessions
+  Plug 'troydm/zoomwintab.vim'
 
   " :Bdelete to preserve windows
   Plug 'moll/vim-bbye'
