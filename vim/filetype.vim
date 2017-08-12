@@ -39,6 +39,10 @@ augroup filetypedetect
         \ *.dump
         \ setfiletype sql
 
+  autocmd! BufNewFile,BufRead
+        \ *.gradle
+        \ setfiletype groovy
+
   " git branch description (opened via `git branch --edit-description`)
   autocmd! BufNewFile,BufRead
         \ BRANCH_DESCRIPTION
