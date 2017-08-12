@@ -7,7 +7,9 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 " Settings
 " ============================================================================
 
-set termguicolors
+if !empty($ITERM_PROFILE)
+  set termguicolors
+endif
 
 set guicursor=n-v-c:block,i-ci-ve:ver50,r-cr:hor20,o:hor50
       \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
