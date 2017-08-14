@@ -14,7 +14,7 @@ DKO_SOURCE="${DKO_SOURCE} -> .zshenv {"
 if [[ "$ITERM_PROFILE" == "PROFILE"* ]] \
   || [[ "$DKO_PROFILE_STARTUP" == true ]]; then
     export DKO_PROFILE_STARTUP=${DKO_PROFILE_STARTUP:-1}
-    echo "Profiling zsh startup to ${HOME}/tmp/startlog.$$"
+    echo "Profiling ZSH startup to ${HOME}/tmp/startlog.$$"
     # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
     PS4=$'%D{%M%S%.} %N:%i> '
     exec 3>&2 2>$HOME/tmp/startlog.$$

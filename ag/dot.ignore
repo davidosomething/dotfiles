@@ -16,6 +16,10 @@ vendor/
 *.svg
 *.vim.old
 *-min.*
+.bash_history
+.zcompdump
+bash_history
+zsh_history
 COPYING*
 LICENSE*
 jquery.*

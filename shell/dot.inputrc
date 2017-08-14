@@ -4,7 +4,7 @@
 #
 # This is symlinked into ~/.config/readline/inputrc
 # In bash it is set in .bashrc via env var INPUTRC to the realpath
-# It is not used in zsh since zsh has its own readline implementation
+# It is not used in ZSH since ZSH has its own readline implementation
 #
 
 # ============================================================================

@@ -17,7 +17,7 @@ export PATH
 # fzf
 # ============================================================================
 
-# ** is globbing completion in zsh, use tickticktab instead
+# ** is globbing completion in ZSH, use tickticktab instead
 export FZF_COMPLETION_TRIGGER="\`\`"
 
 # Use fastest grepper available
@@ -82,7 +82,7 @@ dko::has "grunt" && {
 
 # ============================================================================
 # npm completion
-# Now only on zsh via zsh-better-npm-completion
+# Now only on ZSH via zsh-better-npm-completion
 # ============================================================================
 
 #eval "$(npm completion 2>/dev/null)"

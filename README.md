@@ -12,7 +12,7 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 - RC files for Lua, markdown, node, PHP, python, R, ruby, and others
 
 ![terminal screenshot][screenshot]
-> Screenshot of my zsh prompt
+> Screenshot of my ZSH prompt
 
 ## Installation
 
@@ -69,7 +69,7 @@ Environment set up first.
 
 - `bootstrap/cleanup` moves some dotfiles into their XDG Base Directory
   supported directories
-- `bootstrap/symlink` symlinks rc files for bash, zsh, ack, (neo)vim, etc.
+- `bootstrap/symlink` symlinks rc files for bash, ZSH, ack, (Neo)vim, etc.
 - `bootstrap/terminfo` will copy/compile terminfo files for user to
   `~/.terminfo/*`
 - `bootstrap/x11` symlinks `.xbindkeysrc`, `.xprofile`

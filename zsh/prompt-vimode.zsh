@@ -1,11 +1,11 @@
 # zsh/prompt-vimode.zsh
 #
-# VI mode for zsh readline
+# VI mode for ZSH readline
 #
 
 export DKO_SOURCE="${DKO_SOURCE} -> prompt-vimode.zsh"
 
-# zsh var, timeout between <Esc> and mode switch update
+# ZSH var, timeout between <Esc> and mode switch update
 export KEYTIMEOUT=2
 
 # http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/

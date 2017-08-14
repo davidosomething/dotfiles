@@ -39,7 +39,7 @@ alias ehosts='se /etc/hosts'
 alias etmux='e "${DOTFILES}/tmux/tmux.conf"'
 alias esd='e "${DOTFILES}/shell/dotfiles.bash"'
 alias evr='e "${VDOTDIR}/vimrc"'
-alias eze='e "${ZDOTDIR}/.zshenv"'
+alias eze='e "${ZDOTDIR}/dot.zshenv"'
 alias ezp='e "${ZDOTDIR}/zplug.zsh"'
 alias ezr='e "${ZDOTDIR}/.zshrc"'
 

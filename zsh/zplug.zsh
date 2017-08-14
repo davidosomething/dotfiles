@@ -18,7 +18,7 @@ zplug "davidosomething/git-take", as:command
 zplug "paulirish/git-open",       as:command
 zplug "paulirish/git-recent",     as:command
 
-# my fork of cdbk, zsh hash based directory bookmarking
+# my fork of cdbk, ZSH hash based directory bookmarking
 zplug "davidosomething/cdbk"
 
 # zplug "~/projects/davidosomething/vopen", \

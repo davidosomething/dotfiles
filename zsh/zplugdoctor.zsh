@@ -7,7 +7,7 @@ zplugdoctor() {
   __zplugdoctor::log 'uname -a'
   uname -a
 
-  __zplugdoctor::log 'zsh version'
+  __zplugdoctor::log 'ZSH version'
   zsh --version
 
   if [ -z "$ZPLUG_ROOT" ]; then

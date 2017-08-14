@@ -2,7 +2,7 @@
 #
 # sourced only on interactive/TTY
 # sourced on login after zprofile
-# sourced when you type zsh
+# sourced when you type ZSH
 #
 
 DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
@@ -126,7 +126,7 @@ export _Z_NO_RESOLVE_SYMLINKS=1
 # zsh-users/zsh-autosuggestions
 # don't suggest lines longer than
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
-# as of v4.0 use zsh/zpty module to async retrieve
+# as of v4.0 use ZSH/zpty module to async retrieve
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # ----------------------------------------------------------------------------

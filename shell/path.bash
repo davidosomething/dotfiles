@@ -1,6 +1,6 @@
 # shell/path.bash
 #
-# Sourced in bash and zsh by loader
+# Sourced in bash and ZSH by loader
 # XDG is set up in init.bash, which should already have been sourced
 # pyenv, chruby, chphp, nvm pathing is done in shell/after
 #

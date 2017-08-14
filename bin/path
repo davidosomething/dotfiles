@@ -25,7 +25,7 @@ __parse_args() {
 }
 
 __path() {
-  # split, also split over ; for joined array in zsh
+  # split, also split over ; for joined array in ZSH
   echo $1 | tr ":" "\n" | tr " " "\n"
 }
 

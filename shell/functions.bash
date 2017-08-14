@@ -1,6 +1,6 @@
 # shell/functions.bash
 #
-# Sourced in bash and zsh by loader
+# Sourced in bash and ZSH by loader
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/functions.bash"
 
