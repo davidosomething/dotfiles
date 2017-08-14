@@ -602,16 +602,20 @@ __dko::dotfiles::darwin::update_brew() {
     # from xterm-256color-italic I use in iterm
     TERM="xterm-256color"
 
-    brew update
+    # we use & wait on brew since they sometimes spawn
+
+    brew update & wait
 
     # check if needed
-    readonly outdated="$(brew outdated --quiet)"
+    readonly outdated="$(brew outdated --quiet & wait)"
     [ -z "$outdated" ] && exit
 
     # Detect if brew's python3 (not pyenv) was outdated
-    grep -q "python3" <<<"$outdated" \
-      && dko::status "Python3 was outdated, upgrading python3" \
-      && brew upgrade python3
+    grep -q "python3" <<<"$outdated" && {
+      dko::status "Python3 was outdated, upgrading python3"
+      brew upgrade python3 &
+      wait
+    }
 
     # Upgrade remaining
     dko::status "Upgrading packages"
