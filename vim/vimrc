@@ -784,7 +784,9 @@ function! s:LoadPlugins() abort
   " --------------------------------------------------------------------------
 
   " Omnicompletion, this is beta repo, where stables are already in VIMRUNTIME
-  Plug 'othree/csscomplete.vim'
+  "Plug 'othree/csscomplete.vim'
+
+  Plug 'calebeby/ncm-css', PlugIf(g:dko_use_completion)
 
   " --------------------------------------------------------------------------
   " Completion: JavaScript
@@ -845,11 +847,13 @@ function! s:LoadPlugins() abort
         \ && executable('composer')
   let l:use_padawan = l:use_composer && g:dko_use_deoplete
 
-  if executable('composer')
+  if l:use_padawan
     Plug 'padawan-php/deoplete-padawan', PlugIf(l:use_padawan, {
           \   'do': 'composer install'
           \ })
+  endif
 
+  if l:use_composer
     Plug 'roxma/LanguageServer-php-neovim', PlugIf(l:use_langserver, {
           \   'do': 'composer install && composer run-script parse-stubs'
           \ })
