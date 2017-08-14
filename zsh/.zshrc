@@ -165,6 +165,9 @@ fi
 if ! zplug check; then
   dko::status "Installing zplug plugins"
   zplug install
+
+  # from ~/.dotfiles/shell/dotfiles.bash
+  dko::dotfiles::secure_zplug_repos
 fi
 
 # Load ZPLUG_LOADFILE

@@ -97,6 +97,12 @@ __dko::dotfiles::require_zplug() {
   }
 }
 
+dko::dotfiles::secure_zplug_repos() {
+  [ -z  "$ZPLUG_HOME" ] && return
+  local repodir="${ZPLUG_HOME}/repos"
+  chmod -R g-w "$repodir"
+}
+
 __dko::dotfiles::update_zplug() {
   dko::status "Updating zplug"
   (
@@ -116,6 +122,8 @@ __dko::dotfiles::update_zplug() {
 
     zplug update
   }
+
+  dko::dotfiles::secure_zplug_repos
 }
 
 __dko::dotfiles::cd_secrets() {
