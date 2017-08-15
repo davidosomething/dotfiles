@@ -12,6 +12,7 @@ irssi/config
 # deprecated
 z/.z
 z/.z.*
+zsh/.zplugin
 zsh/antibody
 
 # cache + logs

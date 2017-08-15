@@ -4,6 +4,7 @@ compass-css/
 dist/
 node_modules/
 vendor/
+zsh/.zplugin/
 
 *~
 *.crt

@@ -87,10 +87,7 @@ setopt VI
 
 # color complist
 zmodload -i zsh/complist
-# zplug does colors and compinit
 #autoload -Uz colors; colors
-# -u means unsafe (allow completion of filenames/dirs not OWNED)
-#autoload -Uz compinit; compinit -u
 
 # zplugged completions will do this as needed
 # autoload -Uz bashcompinit
@@ -128,54 +125,6 @@ export _Z_NO_RESOLVE_SYMLINKS=1
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # as of v4.0 use ZSH/zpty module to async retrieve
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
-
-# ----------------------------------------------------------------------------
-# Plugins: zplug
-# ----------------------------------------------------------------------------
-
-. "${ZDOTDIR}/zplugdoctor.zsh"
-export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
-# plugin definitions file -- don't set before zplug is installed
-export ZPLUG_LOADFILE="${ZDOTDIR}/zplug.zsh"
-
-readonly DKO_ZPLUG_INIT="${ZPLUG_HOME}/init.zsh"
-
-__load_zplug_init() {
-  if [ -f "$DKO_ZPLUG_INIT" ]; then
-    . "$DKO_ZPLUG_INIT"
-    DKO_SOURCE="${DKO_SOURCE} -> ${DKO_ZPLUG_INIT}"
-  else
-    dko::warn "Did not find zplug/init.zsh"
-  fi
-}
-
-if [ ! -f "$DKO_ZPLUG_INIT" ]; then
-  dko::status "(Re)installing zplug"
-  rm -rf "${ZPLUG_HOME}"
-  git clone https://github.com/zplug/zplug.git "$ZPLUG_HOME" \
-    && __load_zplug_init
-
-else
-  # Already installed, check if need to re-source for new shell
-  # Note: ZPLUG_ROOT is manually unset in .zshenv ! This ensures plugins are
-  # loaded for tmux and subshells (e.g. `exec $SHELL`)
-  __load_zplug_init
-fi
-
-if ! zplug check; then
-  dko::status "Installing zplug plugins"
-  zplug install
-
-  # from ~/.dotfiles/shell/dotfiles.bash
-  dko::dotfiles::secure_zplug_repos
-fi
-
-# Load ZPLUG_LOADFILE
-dko::has "zplug" && {
-  DKO_SOURCE="${DKO_SOURCE} -> zplug {"
-  zplug load >/dev/null
-  DKO_SOURCE="${DKO_SOURCE} }"
-}
 
 # ----------------------------------------------------------------------------
 # Plugins: Post-load settings
@@ -410,11 +359,32 @@ if [[ "$0" == *"zsh" ]]; then
 fi
 
 # ============================================================================
-# After
+# zplugin
+# ============================================================================
+
+source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source "${ZDOTDIR}/zplugin.zsh"
+
+# ============================================================================
+# Local: can add more zplugins here
 # ============================================================================
 
 . "${DOTFILES}/shell/after.bash"
 dko::source "${LDOTDIR}/zshrc"
+
+# ============================================================================
+# zplugin: after
+# ============================================================================
+
+autoload -Uz compinit
+compinit
+zplugin cdreplay -q
+
+# ============================================================================
+# End profiling
+# ============================================================================
 
 # Started xtrace in dot.zshenv
 if [[ "$DKO_PROFILE_STARTUP" == true ]]; then
@@ -422,5 +392,7 @@ if [[ "$DKO_PROFILE_STARTUP" == true ]]; then
   exec 2>&3 3>&-
   echo "ZSH startup log written to ${HOME}/tmp/startlog.$$"
 fi
+
+# ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"
