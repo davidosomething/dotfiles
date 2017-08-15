@@ -71,16 +71,6 @@ dko::has "nvim" && {
 dko::has "vopen" && alias e="vopen"
 
 # ============================================================================
-# Grunt completion
-# ============================================================================
-
-# ZSH one loaded by plugin
-dko::has "grunt" && {
-  [ -n "$ZSH_VERSION" ] && eval "$(grunt --completion=zsh)"
-  [ -n "$BASH" ] && eval "$(grunt --completion=bash)"
-}
-
-# ============================================================================
 # npm completion
 # Now only on ZSH via zsh-better-npm-completion
 # ============================================================================

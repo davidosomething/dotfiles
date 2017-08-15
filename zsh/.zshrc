@@ -350,7 +350,7 @@ fi
 # ============================================================================
 
 # wget is a prerequisite
-dko::has 'wget' && {
+if dko::has 'wget'; then
   dko::source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" || {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/psprint/zplugin/master/doc/install.sh)" \
     && source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh"
@@ -361,8 +361,9 @@ dko::has 'wget' && {
     (( ${+_comps} )) && _comps[zplugin]=_zplugin
     dko::source "${ZDOTDIR}/zplugin.zsh"
   }
-}
-
+else
+  dko::warn 'wget is required for zplugin'
+fi
 
 # ============================================================================
 # Local: can add more zplugins here
@@ -377,7 +378,7 @@ dko::source "${LDOTDIR}/zshrc"
 
 autoload -Uz compinit
 compinit
-zplugin cdreplay -q
+dko::has 'zplugin' && zplugin cdreplay -q
 
 # ============================================================================
 # End profiling
