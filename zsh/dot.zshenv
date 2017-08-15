@@ -35,12 +35,6 @@ export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
 export HISTFILE="${LDOTDIR}/zsh_history"
 
 # ============================================================================
-# Fix invalid ZPLUG setting if reloading shell
-# ============================================================================
-
-unset ZPLUG_ROOT
-
-# ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=zsh

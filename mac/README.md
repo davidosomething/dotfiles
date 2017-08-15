@@ -98,9 +98,10 @@ operation. Use the `bi` alias for a clean room install if possible.
         1. `pyenv virtualenv 2.7.12 neovim2`
         1. `pyenv activate neovim2`
         1. `pip install neovim`
-- run [bootstrap/terminfo](../bootstrap/terminfo) (added terminfo for iterm with italics support)
+- run [bootstrap/terminfo](../bootstrap/terminfo) (added terminfo for iTerm
+  with italics support)
 - Install `gpgtools` from `brew cask` (it provides `gpg-agent` and can store
-  passphrase in keychain with minimal work)
+  passphrases in the OS keychain with minimal work)
     - Import keybase public/private keys into gpg using the pref pane.
     - Setup `local/gitconfig` to sign commits
 
@@ -108,33 +109,25 @@ operation. Use the `bi` alias for a clean room install if possible.
 
 Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
 
-## Source order
+## Example source order
+
+This is an example -- see output of `dko-sourced` for up-to-date version.
 
 - zshenv
-    - shell/vars
-        - shell/xdg
+    - shell/init.bash
+        - shell/{xdg,vars,os}.bash
 - /etc/zprofile
 - zsh/.zprofile
 - zshrc
-    - shell/before
-        - shell/path
-        - shell/os
-        - shell/functions
-        - shell/x11
-        - shell/aliases
-        - shell/node
-            - nvm
-            - avn
-        - shell/python
-        - shell/ruby
-            - chruby
-    - zplug
-        - keybindings.zsh
-        - prompt.zsh
-        - title.zsh
-    - fzf
+    - shell/interactive.bash
+        - shell/{path,helpers,functions,aliases}.bash
+        - shell/{java,node,php,python,ruby}.bash
+    - prompt-{vcs,vimode}.zsh
+    - prompt.zsh
+    - title.zsh
+    - fzf.zsh
+    - zplugin
     - shell/after
-        - travis
     - .secret/local/shellrc
 
 

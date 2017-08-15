@@ -1,5 +1,7 @@
 # zplugin.zsh
 
+export DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
+
 zplugin snippet --command 'https://github.com/davidosomething/git-ink/blob/master/git-ink'
 zplugin snippet --command 'https://github.com/davidosomething/git-my/blob/master/git-my'
 zplugin snippet --command 'https://github.com/davidosomething/git-take/blob/master/git-take'
@@ -31,6 +33,9 @@ zplugin snippet 'https://github.com/robbyrussell/oh-my-zsh/raw/master/plugins/co
 
 # In-line best history match suggestion
 zplugin load 'zsh-users/zsh-autosuggestions'
+# zsh-autosuggestions -- clear the suggestion when entering completion select
+# menu
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
 # highlight as you type
 #zplugin 'zsh-users/zsh-syntax-highlighting', defer:3

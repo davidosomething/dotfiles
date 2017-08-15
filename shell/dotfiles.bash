@@ -18,10 +18,10 @@ __dko::dotfiles::usage() {
   dko::usage  "u <command>"
   echo '
   Utility Commands
-    dotfiles    -- update dotfiles (git pull); then reload; then zplug
+    dotfiles    -- update dotfiles (git pull); then reload; then zplugin
     reload      -- reload this script if it was modified
     secret      -- update ~/.secret (git pull)
-    zplug       -- update zplug
+    zplugin     -- update zplugin
     daily       -- update everything except dotfiles and apt/brew/pac
 
   Shell Tools
@@ -87,43 +87,15 @@ __dko::dotfiles::update() {
   __dko::dotfiles::reload
   dko::status "Re-symlink if any dotfiles changed!"
 
-  __dko::dotfiles::update_zplug
+  __dko::dotfiles::update_zplugin
 }
 
-__dko::dotfiles::require_zplug() {
-  cd "${ZPLUG_HOME}" || {
-    dko::err "No \$ZPLUG_HOME"
-    return 1
+__dko::dotfiles::update_zplugin() {
+  dko::has 'zplugin' && {
+    dko::status "Updating zplugin"
+    zplugin self-update
+    zplugin update --all
   }
-}
-
-dko::dotfiles::secure_zplug_repos() {
-  [ -z  "$ZPLUG_HOME" ] && return
-  local repodir="${ZPLUG_HOME}/repos"
-  chmod -R g-w "$repodir"
-}
-
-__dko::dotfiles::update_zplug() {
-  dko::status "Updating zplug"
-  (
-    __dko::dotfiles::require_zplug || exit 1
-    git pull || exit 1
-    git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
-    dko::status "Restart the shell to ensure a clean zplug init"
-  ) || return 1
-
-  [ -n "$ZSH_VERSION" ] && dko::has "zplug" && {
-    dko::status "Updating plugins managed by zplug"
-
-    if ! zplug check; then
-      dko::status "Installing zplug plugins"
-      zplug install
-    fi
-
-    zplug update
-  }
-
-  dko::dotfiles::secure_zplug_repos
 }
 
 __dko::dotfiles::cd_secrets() {
@@ -661,7 +633,7 @@ dko::dotfiles() {
     reload)   __dko::dotfiles::reload               ;;
     dotfiles) __dko::dotfiles::update               ;;
     secret)   __dko::dotfiles::update_secret        ;;
-    zplug)    __dko::dotfiles::update_zplug         ;;
+    zplugin)  __dko::dotfiles::update_zplugin       ;;
     daily)    __dko::dotfiles::update_daily         ;;
     composer) __dko::dotfiles::php::update_composer ;;
     fzf)      __dko::dotfiles::update_fzf           ;;

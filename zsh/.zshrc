@@ -89,14 +89,9 @@ setopt VI
 zmodload -i zsh/complist
 #autoload -Uz colors; colors
 
-# zplugged completions will do this as needed
-# autoload -Uz bashcompinit
-# bashcompinit -i
-
 # hooks -- used for prompt too
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
-
 
 . "${ZDOTDIR}/prompt-vcs.zsh"
 . "${ZDOTDIR}/prompt-vimode.zsh"
@@ -127,15 +122,7 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # ----------------------------------------------------------------------------
-# Plugins: Post-load settings
-# ----------------------------------------------------------------------------
-
-# zsh-autosuggestions -- clear the suggestion when entering completion select
-# menu
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
-
-# ----------------------------------------------------------------------------
-# Plugins: fzf (non-zplug managed)
+# Plugins: fzf (unmanaged managed)
 # ----------------------------------------------------------------------------
 
 dko::source "${HOME}/.fzf.zsh" && DKO_SOURCE="${DKO_SOURCE} -> fzf"

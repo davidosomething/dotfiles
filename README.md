@@ -38,7 +38,7 @@ pre-existing dotfiles that might conflict with these.
 - Install and use [Fira (Fura) Mono for Powerline] font (install
   to `${XDG_DATA_HOME}/fonts` on \*nix)
 - Install ZSH and set it as the default (ensure its presence in
-  `/etc/shells`); restart the terminal and zplug will self-install
+  `/etc/shells`); restart the terminal and zplugin will self-install
 - See OS specific notes in [mac/README.md](mac/README.md) and
   [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 - Useful Chrome extensions are in [chromium/README.md](chromium/README.md)
