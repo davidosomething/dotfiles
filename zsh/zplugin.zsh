@@ -20,10 +20,9 @@ zplugin snippet --command 'https://github.com/paulirish/git-recent/blob/master/g
 zplugin snippet --command 'https://github.com/raylee/tldr/blob/master/tldr'
 
 # replaces up() in shell/functions.sh
-zplugin snippet --command 'https://github.com/shannonmoeller/up/blob/master/up.sh'
+zplugin light 'shannonmoeller/up'
 
-# fork of rupa/z with better completion (so needs defer)
-zplugin snippet --command 'https://github.com/knu/z/blob/master/z.sh'
+zplugin light 'knu/z'
 
 # ----------------------------------------------------------------------------
 # Vendor: ZSH extension
@@ -37,8 +36,6 @@ zplugin light 'zsh-users/zsh-autosuggestions'
 # menu
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
-# highlight as you type
-#zplugin 'zsh-users/zsh-syntax-highlighting', defer:3
 zplugin light 'zdharma/fast-syntax-highlighting'
 
 # ----------------------------------------------------------------------------
