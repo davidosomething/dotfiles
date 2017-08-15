@@ -349,10 +349,20 @@ fi
 # zplugin
 # ============================================================================
 
-source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
-source "${ZDOTDIR}/zplugin.zsh"
+# wget is a prerequisite
+dko::has 'wget' && {
+  dko::source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" || {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/psprint/zplugin/master/doc/install.sh)" \
+    && source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh"
+  }
+
+  dko::has 'zplugin' && {
+    autoload -Uz _zplugin
+    (( ${+_comps} )) && _comps[zplugin]=_zplugin
+    dko::source "${ZDOTDIR}/zplugin.zsh"
+  }
+}
+
 
 # ============================================================================
 # Local: can add more zplugins here
