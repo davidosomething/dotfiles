@@ -76,7 +76,6 @@ endfunction
 nnoremap  <silent><special>  <Leader>era  :<C-U>call <SID>EditRoot('.ignore')<CR>
 nnoremap  <silent><special>  <Leader>eri  :<C-U>call <SID>EditRoot('.gitignore')<CR>
 nnoremap  <silent><special>  <Leader>erg  :<C-U>call <SID>EditRoot('gulpfile.js')<CR>
-nnoremap  <silent><special>  <Leader>erG  :<C-U>call <SID>EditRoot('Gruntfile.js')<CR>
 nnoremap  <silent><special>  <Leader>erp  :<C-U>call <SID>EditRoot('package.json')<CR>
 nnoremap  <silent><special>  <Leader>err  :<C-U>call <SID>EditRoot('README.md')<CR>
 

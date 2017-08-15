@@ -47,10 +47,6 @@ afk
 
 > Edit a file in the git root
 
-## egrunt
-
-> Find and edit a Gruntfile.{js,coffee}
-
 ## enginx
 
 > Edit the nginx.conf file

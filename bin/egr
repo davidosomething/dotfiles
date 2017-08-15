@@ -20,7 +20,6 @@ __egr() {
   local git_root
   git_root=$(__maybe_git_root)
 
-  # edit gruntfile in git root or local dir if exists
   if [ -f "${git_root}/${filename}" ]; then
     eval "${EGR_EDITOR:-$EDITOR} \"${git_root}/${filename}\""
   else
