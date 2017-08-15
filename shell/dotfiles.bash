@@ -93,6 +93,8 @@ __dko::dotfiles::update() {
 __dko::dotfiles::update_zplugin() {
   dko::has 'zplugin' && {
     dko::status "Updating zplugin"
+    # Remove zplug
+    [ -d "${XDG_DATA_HOME}/zplug" ] && rm -rf "${XDG_DATA_HOME}/zplug"
     zplugin self-update
     zplugin update --all
   }
