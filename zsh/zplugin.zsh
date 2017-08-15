@@ -9,7 +9,7 @@ zplugin snippet --command 'https://github.com/davidosomething/vopen/blob/master/
 zplugin snippet --command 'https://github.com/davidosomething/vopen/blob/master/vopen'
 
 # my fork of cdbk, ZSH hash based directory bookmarking
-zplugin load 'davidosomething/cdbk'
+zplugin light 'davidosomething/cdbk'
 
 # ----------------------------------------------------------------------------
 # Vendor: Commands
@@ -32,29 +32,29 @@ zplugin snippet --command 'https://github.com/knu/z/blob/master/z.sh'
 zplugin snippet 'https://github.com/robbyrussell/oh-my-zsh/raw/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh'
 
 # In-line best history match suggestion
-zplugin load 'zsh-users/zsh-autosuggestions'
+zplugin light 'zsh-users/zsh-autosuggestions'
 # zsh-autosuggestions -- clear the suggestion when entering completion select
 # menu
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
 # highlight as you type
 #zplugin 'zsh-users/zsh-syntax-highlighting', defer:3
-zplugin load 'zdharma/fast-syntax-highlighting'
+zplugin light 'zdharma/fast-syntax-highlighting'
 
 # ----------------------------------------------------------------------------
 # Vendor: Completion
 # ----------------------------------------------------------------------------
 
-zplugin load 'zsh-users/zsh-completions'
+zplugin light 'zsh-users/zsh-completions'
 
 # gulp completion (parses file so not 100% accurate)
-zplugin load 'akoenig/gulp.plugin.zsh'
+zplugin light 'akoenig/gulp.plugin.zsh'
 
-zplugin load 'gradle/gradle-completion'
+zplugin light 'gradle/gradle-completion'
 
-zplugin load 'lukechilds/zsh-better-npm-completion'
+zplugin light 'lukechilds/zsh-better-npm-completion'
 
 [[ $OSTYPE == 'darwin'* ]] && \
-  zplugin load 'vasyharan/zsh-brew-services'
+  zplugin light 'vasyharan/zsh-brew-services'
 
-zplugin load 'voronkovich/phpcs.plugin.zsh'
+zplugin light 'voronkovich/phpcs.plugin.zsh'
