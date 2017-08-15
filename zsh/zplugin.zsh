@@ -54,8 +54,6 @@ zplugin light 'gradle/gradle-completion'
 
 zplugin light 'lukechilds/zsh-better-npm-completion'
 
-zplugin light 'srijanshetty/docker-zsh'
-
 zplugin light 'vasyharan/zsh-brew-services'
 
 zplugin light 'voronkovich/phpcs.plugin.zsh'
