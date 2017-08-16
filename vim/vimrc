@@ -993,8 +993,18 @@ function! s:LoadPlugins() abort
   "     it also has a node ftdetect, but that is the same as in
   "     moll/vim-node
   " 2.  After syntax, ftplugin, indent for JSX
-  Plug 'pangloss/vim-javascript'
+  "Plug 'pangloss/vim-javascript'
+  "
+  " Works with both pangloss/othree
+  " Offers inline code highlighting in JSX blocks, as well as vim-jsx's hi
+  "Plug 'maxmellon/vim-jsx-pretty'
+
+  " ALTERNATE, original
   "Plug 'mxw/vim-jsx'
+
+  " COMBINED AND MODIFIED pangloss + vim-jsx-pretty
+  Plug 'neoclide/vim-jsx-improve'
+
   Plug 'paulrosania/vim-graphql', {
         \   'branch': 'tagged-template-literals'
         \ }
@@ -1011,9 +1021,6 @@ function! s:LoadPlugins() abort
   " Plug 'othree/javascript-libraries-syntax.vim'
   " Plug 'othree/es.next.syntax.vim'
 
-  " Works with both pangloss/othree
-  " Offers inline code highlighting in JSX blocks, as well as vim-jsx's hi
-  Plug 'maxmellon/vim-jsx-pretty'
 
   " `:JsPreTmpl html` to highlight `<div></div>` template strings
   Plug 'Quramy/vim-js-pretty-template'
