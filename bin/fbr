@@ -15,7 +15,7 @@ __fbr() {
   branches=$(git branch -vv)
   branch=$(\
     echo "$branches" \
-    | fzf +m --height=25% --exit-0 --nth=1 --cycle --prompt="$current> " \
+    | fzf-tmux +m --height=25% --exit-0 --nth=1 --cycle --prompt="$current> " \
     ) \
     && git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
 }
