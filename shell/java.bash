@@ -12,5 +12,7 @@ fi
   && export PATH="${JAVA_HOME}/bin:${PATH}"
 
 # java settings - mostly for minecraft launcher
-export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.systemlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
-export JAVA_FONTS="/usr/share/fonts/TTF"
+alias jgui="_JAVA_OPTIONS=\"-Dawt.useSystemAAFontSettings=on \\ \
+  -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel \\ \
+  -Dswing.systemlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel\" \\ \
+  JAVA_FONTS=\"/usr/share/fonts/TTF\" java"
