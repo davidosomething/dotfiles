@@ -20,7 +20,7 @@ will not mount until a user has logged in. To remedy this, see
 
 ### Install homebrew
 
-1. Install according to <http://brew.sh/>
+1. Install according to <https://brew.sh/>
 1. `brew install` programs via `~/.dotfiles/mac/brew`, or pick as desired
     - Of note are `git`, `fzf`
 1. Use ZSH as default
