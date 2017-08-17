@@ -4,8 +4,6 @@
 # Uses fzf
 # @see <https://github.com/junegunn/fzf/wiki/examples>
 
-set -e
-
 __fbr() {
   local current
   local branches
@@ -17,7 +15,7 @@ __fbr() {
   branches=$(git branch -vv)
   branch=$(\
     echo "$branches" \
-    | fzf +m --exit-0 --nth=1 --cycle --prompt="$current> " \
+    | fzf +m --height=25% --exit-0 --nth=1 --cycle --prompt="$current> " \
     ) \
     && git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
 }
