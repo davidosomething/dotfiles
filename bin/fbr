@@ -4,19 +4,41 @@
 # Uses fzf
 # @see <https://github.com/junegunn/fzf/wiki/examples>
 
+# get_local_branches
+#
+# Proper way to get a porcelain list of local branches for shell script use
+#
+__get_local_branches() {
+  local fmt
+  local cmd_get_local_branches
+
+  fmt="
+    r=%(refname)
+    refname_without_prefix=\${r#refs/heads/}
+    printf \"%s\\t%s\\n\" \"\$refname_without_prefix\"
+  "
+  cmd_get_local_branches=$(
+    git for-each-ref --shell --format="$fmt" refs/heads
+  )
+
+  eval "$cmd_get_local_branches"
+}
+
 __fbr() {
   local current
-  local branches
   local branch
 
   current=$(git rev-parse --abbrev-ref HEAD)
   [[ "$current" == "" ]] && return 1
 
-  branches=$(git branch -vv)
-  branch=$(\
-    echo "$branches" \
-    | fzf-tmux +m --height=25% --exit-0 --nth=1 --cycle --prompt="$current> " \
-    ) \
-    && git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
+  branch=$(__get_local_branches | fzf-tmux \
+    +m \
+    --cycle \
+    --exit-0 \
+    --height=25% \
+    --nth=1 \
+    --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
+    --prompt="$current> ") \
+  && git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
 }
 __fbr

@@ -5,13 +5,27 @@
 # @see <https://github.com/junegunn/fzf/wiki/examples>
 
 __fbrl() {
+  local current
   local branches
   local branch
-  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
-  branch=$(\
-    echo "$branches" \
-    | fzf-tmux --height=25% -d $(( 2 + $(wc -l <<< "$branches") )) +m \
-    ) \
-    && git checkout "$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
+
+  current=$(git rev-parse --abbrev-ref HEAD)
+  [[ "$current" == "" ]] && return 1
+
+  branches=$(git for-each-ref \
+    --count=30 \
+    --sort=-committerdate \
+    --format="%(refname:short)" \
+    refs/heads/ | grep -v "$current") \
+  && branch=$(fzf-tmux \
+    +m \
+    --cycle \
+    --delimiter="$(( 2 + $(wc -l <<< "$branches") ))" \
+    --exit-0 \
+    --height=25% \
+    --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
+    --prompt="$current> " <<< "$branches") \
+  && git checkout "$(echo "$branch" \
+      | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
 }
 __fbrl
