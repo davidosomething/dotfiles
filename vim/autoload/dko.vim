@@ -121,10 +121,11 @@ endfunction
 " Buffer info
 " ============================================================================
 
-" @param {Int} bufnr
+" @param {Int|String} bufnr or {expr} as in bufname()
 " @return {Boolean}
 function! dko#IsNonFile(bufnr) abort
   return getbufvar(a:bufnr, '&buftype') =~# '\v(nofile|quickfix|terminal)'
+        \ || getbufvar(a:bufnr, '&filetype') =~# '\v(netrw)'
 endfunction
 
 " @param {Int} bufnr

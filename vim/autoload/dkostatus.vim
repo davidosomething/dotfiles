@@ -30,7 +30,7 @@ function! dkostatus#Output(winnr) abort
   " Filebased
   "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
   let l:contents .= '%#StatusLine#' . dkostatus#Filetype(l:bufnr)
-  let l:contents .= '%#PmenuSel#' . dkostatus#Filename(l:bufnr)
+  let l:contents .= '%#PmenuSel#' . dkostatus#Filename(l:bufnr, l:cwd)
   let l:contents .= '%#Todo#' . dkostatus#Dirty(l:bufnr)
   let l:contents .= '%#StatusLine#' . dkostatus#GitBranch(l:winnr, l:ww, l:bufnr)
 
@@ -128,13 +128,19 @@ function! dkostatus#Filetype(bufnr) abort
 endfunction
 
 " @return {String}
-function! dkostatus#Filename(bufnr) abort
+function! dkostatus#Filename(bufnr, path) abort
   if dko#IsNonFile(a:bufnr)
     return ''
   endif
 
-  let l:contents = ' %.64f'
-  let l:contents .= isdirectory(expand('%:p')) ? '/ ' : ' '
+  " let l:fullpath = expand('%:p')
+  let l:relative = dko#IsHelp(a:bufnr)
+        \ ? ''
+        \ : substitute(bufname(a:bufnr), a:path, '.', '')
+
+  let l:contents = ' %.64('
+  let l:contents .= l:relative
+  let l:contents .= ' %)'
   return l:contents
 endfunction
 

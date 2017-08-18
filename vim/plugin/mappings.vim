@@ -45,16 +45,21 @@ execute dko#MapAll({ 'key': '<F11>', 'command': 'call dkotabline#Toggle()' })
 " er* - Edit from dkoproject#GetRoot()
 " ============================================================================
 
+" @param {String} file
+function! s:Edit(file) abort
+  if empty(a:file)
+    echomsg 'File not found: ' . a:file
+    return
+  endif
+  execute 'edit ' . a:file
+endfunction
+
 " This executes instead of returns string so the mapping can noop when file
 " not found.
 " @param {String} file
 function! s:EditClosest(file) abort
-  let s:file = findfile(a:file, '.;')
-  if empty(s:file)
-    echomsg 'File not found:'  . a:file
-    return
-  endif
-  execute 'edit ' . s:file
+  let l:file = findfile(a:file, '.;')
+  call s:Edit(l:file)
 endfunction
 nnoremap  <silent><special>  <Leader>eca
       \ :<C-U>call <SID>EditClosest('.ignore')<CR>
@@ -66,12 +71,8 @@ nnoremap  <silent><special>  <Leader>ecr
 " As above, this noops if file not found
 " @param {String} file
 function! s:EditRoot(file) abort
-  let s:file = dkoproject#GetFile(a:file)
-  if empty(s:file)
-    echomsg 'File not found: '  . a:file
-    return
-  endif
-  execute 'edit ' . s:file
+  let l:file = dkoproject#GetFile(a:file)
+  call s:Edit(l:file)
 endfunction
 nnoremap  <silent><special>  <Leader>era  :<C-U>call <SID>EditRoot('.ignore')<CR>
 nnoremap  <silent><special>  <Leader>eri  :<C-U>call <SID>EditRoot('.gitignore')<CR>
