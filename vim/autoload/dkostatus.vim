@@ -139,7 +139,7 @@ function! dkostatus#Filename(bufnr, path) abort
         \ : substitute(bufname(a:bufnr), a:path, '.', '')
 
   let l:contents = ' %.64('
-  let l:contents .= l:relative
+  let l:contents .= fnamemodify(l:relative, ':~:.')
   let l:contents .= ' %)'
   return l:contents
 endfunction
