@@ -83,6 +83,7 @@ function! dkostatus#Mode(winnr) abort
   return  l:modecolor . ' ' . l:modeflag . ' '
 endfunction
 
+" @param {Int} winnr
 " @return {String}
 function! dkostatus#Paste(winnr) abort
   return a:winnr != winnr() || empty(&paste)
@@ -90,12 +91,15 @@ function! dkostatus#Paste(winnr) abort
         \ : ' ᴘ '
 endfunction
 
+" @param {String} key
+" @param {Dict} counts
 " @return {String}
 function! dkostatus#Neomake(key, counts) abort
   let l:e = get(a:counts, a:key, 0)
   return l:e ? ' ⚑' . l:e . ' ' : ''
 endfunction
 
+" @param {Int} winnr
 " @return {String}
 function! dkostatus#NeomakeCounts(winnr) abort
   return a:winnr != winnr()
@@ -104,6 +108,7 @@ function! dkostatus#NeomakeCounts(winnr) abort
         \ : neomake#statusline#LoclistCounts()
 endfunction
 
+" @param {Int} winnr
 " @return {String}
 function! dkostatus#NeomakeJobs(winnr) abort
   return a:winnr != winnr()
@@ -114,11 +119,13 @@ function! dkostatus#NeomakeJobs(winnr) abort
         \ : ' ᴍᴀᴋᴇ '
 endfunction
 
+" @param {Int} bufnr
 " @return {String}
 function! dkostatus#Readonly(bufnr) abort
   return getbufvar(a:bufnr, '&readonly') ? ' ʀ ' : ''
 endfunction
 
+" @param {Int} bufnr
 " @return {String}
 function! dkostatus#Filetype(bufnr) abort
   let l:ft = getbufvar(a:bufnr, '&filetype')
@@ -127,6 +134,8 @@ function! dkostatus#Filetype(bufnr) abort
         \ : ' ' . l:ft . ' '
 endfunction
 
+" @param {Int} bufnr
+" @param {String} path
 " @return {String}
 function! dkostatus#Filename(bufnr, path) abort
   if dko#IsNonFile(a:bufnr)
@@ -138,17 +147,19 @@ function! dkostatus#Filename(bufnr, path) abort
         \ ? ''
         \ : substitute(bufname(a:bufnr), a:path, '.', '')
 
-  let l:contents = ' %.64('
+  let l:contents = ' %('
   let l:contents .= fnamemodify(l:relative, ':~:.')
   let l:contents .= ' %)'
   return l:contents
 endfunction
 
+" @param {Int} bufnr
 " @return {String}
 function! dkostatus#Dirty(bufnr) abort
   return getbufvar(a:bufnr, '&modified') ? ' + ' : ''
 endfunction
 
+" @param {Int} winnr
 " @return {String}
 function! dkostatus#Anzu(winnr) abort
   if a:winnr != winnr() || !exists('*anzu#search_status')
@@ -163,6 +174,7 @@ endfunction
 
 " Use dko#ShortenPath conditionally
 "
+" @param {Int} bufnr
 " @param {String} path
 " @param {Int} max
 " @return {String}
@@ -175,6 +187,9 @@ endfunction
 
 " Uses fugitive or gita to get cached branch name
 "
+" @param {Int} winnr
+" @param {Int} ww window width
+" @param {Int} bufnr
 " @return {String}
 function! dkostatus#GitBranch(winnr, ww, bufnr) abort
   return a:ww < 80 || a:winnr != winnr()
@@ -188,6 +203,7 @@ function! dkostatus#GitBranch(winnr, ww, bufnr) abort
         \     : ''
 endfunction
 
+" @param {Int} winnr
 " @return {String}
 function! dkostatus#GutentagsStatus(winnr) abort
   return a:winnr != winnr() || !exists('g:loaded_gutentags')

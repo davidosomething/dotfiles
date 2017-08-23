@@ -114,6 +114,14 @@ let g:neomake_java_enabled_makers = []
 " JavaScript
 " ----------------------------------------------------------------------------
 
+" ----------------------------------------------------------------------------
+" FLOW VIM QUICKFIX CRAP
+" ----------------------------------------------------------------------------
+
+function! StrTrim(txt)
+  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+endfunction
+
 " Sets b:neomake_javascript_enabled_makers based on what is present in the
 " project
 function! s:PickJavascriptMakers() abort
@@ -154,28 +162,32 @@ let s:local_eslint = {
       \   'ft':    'javascript',
       \   'maker': 'eslint',
       \   'exe':   'node_modules/.bin/eslint',
-      \   'when':  '!empty(dkoproject#GetEslintrc())'
+      \   'when':  '!empty(dkoproject#GetEslintrc())',
       \ }
 
 let s:local_jshint = {
       \   'ft':    'javascript',
       \   'maker': 'jshint',
       \   'exe':   'node_modules/.bin/jshint',
-      \   'when':  'empty(dkoproject#GetEslintrc())'
+      \   'when':  'empty(dkoproject#GetEslintrc())',
       \ }
 
 let s:local_flow = {
-      \   'ft':    'javascript',
-      \   'maker': 'flow',
-      \   'exe':   'node_modules/.bin/flow',
-      \   'when':  '!empty(dkoproject#GetFile(".flowconfig"))'
+      \   'ft':          'javascript',
+      \   'maker':       'flow',
+      \   'exe':         'sh',
+      \   'args':        ['-c flow --json 2>/dev/null | flow-vim-quickfix'],
+      \   'errorformat': '%E%f:%l:%c\,%n: %m',
+      \   'cwd':         '%:p:h',
+      \   'when':        'executable("flow-vim-quickfix") && !empty(dkoproject#GetFile(".flowconfig"))',
       \ }
 
 autocmd dkoneomake FileType javascript
       \ call s:AddLocalMaker(s:local_eslint)
       \| call s:AddLocalMaker(s:local_jshint)
-      \| call s:AddLocalMaker(s:local_flow)
       \| call s:PickJavascriptMakers()
+
+"call s:AddLocalMaker(s:local_flow)
 
 " ----------------------------------------------------------------------------
 " Markdown and Pandoc
