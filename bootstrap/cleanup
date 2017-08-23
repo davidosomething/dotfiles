@@ -140,7 +140,9 @@ __remove "${HOME}/.gitconfig"
 # should be symlinked in XDG
 __remove "${HOME}/.gitignore"
 # should be in .local; probably created on ZSH startup
-__remove    "${HOME}/.wget-hsts"
+__remove "${HOME}/.wget-hsts"
+# should be .tern-config
+__remove "${HOME}/.tern-project"
 
 # NVM
 __clean_nvm

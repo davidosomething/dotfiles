@@ -62,19 +62,24 @@ dko::require() {
 # symlinking helper function
 # $1 source file path
 # $2 dest file path
-# return success if fulltargetpath is realpath
+# return success if fulltargetpath is resolvedpath
 dko::same() {
   local sourcepath="$1"
   local targetpath="$2"
 
+  if ! dko::has "realpath"; then
+    dko::err "Missing realpath command (e.g. brew install coreutils)"
+    exit 1
+  fi
+
   if [ -f "$targetpath" ] || [ -d "$targetpath" ]; then
-    local realpath
-    realpath=$(realpath "$targetpath")
-    if [[ "$realpath" == "$sourcepath" ]]; then
+    local resolvedpath
+    resolvedpath=$(realpath "$targetpath")
+    if [[ "$resolvedpath" == "$sourcepath" ]]; then
       dko::ok "${targetpath} is correct."
       return 0
     else
-      dko::warn "${targetpath} is not ${realpath}."
+      dko::warn "${targetpath} is not ${resolvedpath}."
       return 1
     fi
   fi
@@ -94,6 +99,7 @@ dko::symlink() {
   if dko::same "$sourcepath" "$fulltargetpath"; then
     return
   else
+    dko::status "Found different ${fulltargetpath}"
     read -p "          Overwrite? [y/N] " -r
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
       dko::warn "Skipped ${fulltargetpath}"
