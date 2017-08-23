@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# use 3rd-party program to cat file with syntax highlighting
+#
+
 set -e
 
 __has() {
@@ -11,7 +14,9 @@ __is_markdown() {
 }
 
 __cmd() {
-  if __is_markdown "${1}" && __has "mdless"; then
+  if __has "ccat"; then
+    echo "ccat"
+  elif __is_markdown "${1}" && __has "mdless"; then
     echo "mdless --no-pager --width=80"
   elif __has "pygmentize"; then
     echo "pygmentize -O style=rrt -f console256 -g"
