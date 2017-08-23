@@ -60,33 +60,48 @@ dko::require() {
 }
 
 # symlinking helper function
-# @TODO don't assume ~/.dotfiles
+# $1 source file path
+# $2 dest file path
+# return success if fulltargetpath is realpath
+dko::same() {
+  local sourcepath="$1"
+  local targetpath="$2"
+
+  if [ -f "$targetpath" ] || [ -d "$targetpath" ]; then
+    local realpath
+    realpath=$(realpath "$targetpath")
+    if [[ "$realpath" == "$sourcepath" ]]; then
+      dko::ok "${targetpath} is correct."
+      return 0
+    else
+      dko::warn "${targetpath} is not ${realpath}."
+      return 1
+    fi
+  fi
+
+  # does not exist
+  return 1
+}
+
+# symlinking helper function for ~/.dotfiles
 # $1 source file in $DOTFILES, assuming ${HOME}/.dotfiles
 # $2 dest file relative to $HOME
 dko::symlink() {
   local dotfiles_dir="${HOME}/.dotfiles"
   local sourcepath="${dotfiles_dir}/${1}"
-  local targetpath="$2"
-  local fulltargetpath="${HOME}/${targetpath}"
+  local fulltargetpath="${HOME}/${2}"
 
-  if [ -f "$fulltargetpath" ] || [ -d "$fulltargetpath" ]; then
-    local rp
-    rp=$(realpath "$fulltargetpath")
-    if [[ "$rp" == "$sourcepath" ]]; then
-      dko::ok "${fulltargetpath} is correct."
+  if dko::same "$sourcepath" "$fulltargetpath"; then
+    return
+  else
+    read -p "          Overwrite? [y/N] " -r
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      dko::warn "Skipped ${fulltargetpath}"
       return
-    else
-      dko::warn "${fulltargetpath} exists."
-      #        ==> WARN: 
-      read -p "          Overwrite? [y/N] " -r
-      if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        dko::warn "Skipped ${fulltargetpath}"
-        return
-      fi
     fi
   fi
 
-  dko::status "Symlinking \033[0;35m${targetpath}\033[0;32m -> \033[0;35m${sourcepath}\033[0;32m "
+  dko::status "Symlinking \033[0;35m${fulltargetpath}\033[0;32m -> \033[0;35m${sourcepath}\033[0;32m "
   mkdir -p "$(dirname "$fulltargetpath")"
   ln -fns "$sourcepath" "$fulltargetpath"
 }
