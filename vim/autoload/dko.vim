@@ -172,7 +172,7 @@ function! dko#GetGrepper() abort
         \     '--no-heading',
         \     '--vimgrep',
         \   ],
-        \   'format': '%f:%l:%c:%m',
+        \   'format': '%f:%l:%c:%m,%f:%l:%m,%f:%l%m,%f %l%m',
         \ }
   let s:greppers.ag = {
         \   'command': 'ag',
@@ -181,7 +181,7 @@ function! dko#GetGrepper() abort
         \     '--smart-case',
         \     '--vimgrep',
         \   ],
-        \   'format': '%f:%l:%c:%m,%f:%l:%m',
+        \   'format': '%f:%l:%c:%m,%f:%l:%m,%f:%l%m,%f %l%m',
         \ }
   let s:greppers.ack = {
         \   'command': 'ack',
@@ -191,7 +191,7 @@ function! dko#GetGrepper() abort
         \     '--smart-case',
         \     '--column',
         \   ],
-        \   'format': '%f:%l:%c:%m,%f:%l:%m',
+        \   'format': '%f:%l:%c:%m,%f:%l:%m,%f:%l%m,%f %l%m',
         \ }
 
   let s:grepper_name =
