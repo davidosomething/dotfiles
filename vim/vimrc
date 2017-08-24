@@ -763,7 +763,7 @@ function! s:LoadPlugins() abort
         \ })
 
   " The language client completion is a bit slow to kick in, but it works
-  let l:use_langserver  = !g:dko_use_deoplete
+  let l:use_langserver = 1 " !g:dko_use_deoplete
   Plug 'autozimu/LanguageClient-neovim', PlugIf(l:use_langserver, {
         \   'do': ':UpdateRemotePlugins'
         \ })
@@ -1234,7 +1234,7 @@ endfunction
 
 let g:plug_window = 'tabnew'
 let g:dko_use_completion = has('nvim') && has('python3')
-let g:dko_use_deoplete = g:dko_use_completion && 1
+let g:dko_use_deoplete = g:dko_use_completion && 0
 
 let s:has_plug = !empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
 " Load vim-plug and its plugins?
