@@ -19,6 +19,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   [ -d "${DKO_BREW_PREFIX}/opt/openssl/include" ] \
     && export CPPFLAGS="-I${DKO_BREW_PREFIX}/opt/openssl/include"
 
+  [ -d "${DKO_BREW_PREFIX}/share/android-sdk" ] \
+    $$ export ANDROID_SDK_ROOT="${DKO_BREW_PREFIX}/share/android-sdk"
+
 else
   case "$(uname -s)" in
       FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
