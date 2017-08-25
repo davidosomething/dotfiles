@@ -128,10 +128,6 @@ flushdns() {
   sudo killall -HUP mDNSResponder
 }
 
-brc() {
-  brew cask "${@}"
-}
-
 # list members for a group
 # http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
 members() {

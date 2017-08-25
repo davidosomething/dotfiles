@@ -255,6 +255,8 @@ __alias_darwin() {
   alias bq='b list'
   alias bs='b search'
 
+  alias brc='b cask'
+
   alias bsvc='b services'
   alias bsvr='b services restart'
 

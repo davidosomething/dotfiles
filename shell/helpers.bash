@@ -66,11 +66,15 @@ dko::require() {
 dko::same() {
   local sourcepath="$1"
   local targetpath="$2"
+  local targetdir
+  targetdir="$(basename "$targetpath")"
 
   if ! dko::has "realpath"; then
     dko::err "Missing realpath command (e.g. brew install coreutils)"
-    exit 1
+    return 1
   fi
+
+  [ -d "$targetdir" ] || mkdir -p "$targetdir"
 
   if [ -f "$targetpath" ] || [ -d "$targetpath" ]; then
     local resolvedpath
@@ -85,7 +89,8 @@ dko::same() {
   fi
 
   # does not exist
-  return 1
+  dko::ok "${targetpath} does not exist"
+  return 2
 }
 
 # symlinking helper function for ~/.dotfiles
@@ -96,9 +101,12 @@ dko::symlink() {
   local sourcepath="${dotfiles_dir}/${1}"
   local fulltargetpath="${HOME}/${2}"
 
-  if dko::same "$sourcepath" "$fulltargetpath"; then
+  dko::same "$sourcepath" "$fulltargetpath"
+  local result=$?
+
+  if [[ $result == 0 ]]; then
     return
-  else
+  elif [[ $result == 1 ]]; then
     dko::status "Found different ${fulltargetpath}"
     read -p "          Overwrite? [y/N] " -r
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then

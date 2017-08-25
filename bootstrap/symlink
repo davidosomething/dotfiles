@@ -3,8 +3,6 @@
 # Basic symlinks, safe to run on any system
 #
 
-set -e
-
 # ============================================================================
 # initialize script and dependencies
 # ============================================================================
@@ -42,9 +40,10 @@ __symlink() {
   # hyper.app
   dko::symlink hyper.app/dot.hyper.js           .hyper.js
 
+  dko::symlink oni/config.js                    .oni/config.js
+
   # default ~/.tern-config
   dko::symlink ternjs/dot.tern-config           .tern-config
-
 
   case "$OSTYPE" in
     darwin*)
