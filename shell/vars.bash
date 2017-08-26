@@ -97,10 +97,6 @@ export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 # used in shell/paths
 export GOPATH="${HOME}/.local/go"
 
-# homebrew
-export HOMEBREW_NO_ANALYTICS=1
-export HOMEBREW_NO_INSECURE_REDIRECT=1
-
 # java in java.bash
 
 # less

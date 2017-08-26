@@ -11,7 +11,7 @@ __parse_args() {
     the_path=$(echo "${*:2}" | tr " " ":")
 
   # use path
-  elif [ $# -eq 0 ]; then
+  elif (( $# == 0 )); then
     the_path=$PATH
 
   # use var in $1

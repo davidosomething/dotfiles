@@ -626,7 +626,7 @@ __dko::dotfiles::darwin::update_brew() {
 
 # $1 command
 dko::dotfiles() {
-  if [ $# -eq 0 ]; then
+  if (( $# == 0 )); then
     __dko::dotfiles::usage
     return 1
   fi

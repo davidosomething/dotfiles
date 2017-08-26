@@ -41,6 +41,11 @@ PATH="/usr/local/bin:/usr/local/sbin:${DKO_SYSTEM_PATH}"
 # Package managers
 # ----------------------------------------------------------------------------
 
+# GOROOT binaries
+[[ "$DOTFILES_OS" == "Darwin" ]] \
+  && [ -d "${DKO_BREW_PREFIX}/opt/go/libexec/bin" ] \
+  && PATH="${DKO_BREW_PREFIX}/opt/go/libexec/bin:${PATH}"
+
 # composer; COMPOSER_HOME is in shell/vars.bash
 PATH="${COMPOSER_HOME}/vendor/bin:${PATH}"
 

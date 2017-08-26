@@ -23,7 +23,7 @@ HERE
   exit 0
 fi
 
-if [ $# -eq 2 ] ; then
+if (( $# == 2 )); then
   CHANNEL=$1
   shift
 fi

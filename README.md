@@ -149,6 +149,10 @@ For X apps (no terminal) the value is probably:
 - **Variable scope**
     - Use `local` and `readonly` variables as much as possible over
       global/shell-scoped variables.
+- **Comparison**
+    - Not strict on POSIX, but portability
+    - Use BASH `==` for string comparison
+    - Use BASH `(( $A == 2 ))` for integer comparison
 
 ## Credits
 

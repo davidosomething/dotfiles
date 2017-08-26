@@ -20,7 +20,7 @@ __check_in_repository() {
 
 # exit with message if invalid usage
 __check_args() {
-  if [ "$#" -eq 0 ]; then
+  if (( $# == 0 )); then
     echo "ERROR: Please provide a path argument."
     echo
     exit 1
