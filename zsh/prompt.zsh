@@ -105,7 +105,7 @@ __dko::prompt::precmd::state() {
   fi
 
   # <C-c> to just output a prompt without the statusline above it
-  if (( $DKO_PROMPT_IS_TRAPPED == 1 )); then
+  if (( ${DKO_PROMPT_IS_TRAPPED:-0} == 1 )); then
     export DKO_PROMPT_IS_TRAPPED=0
   else
     print -P "${left}%F{black}${(l:spaces-1::═:)}%F{blue}${(e)right}%F{blue}"

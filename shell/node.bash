@@ -5,7 +5,7 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/node.bash {"
 # npm config
 # ============================================================================
 
-[ -f "${LDOTDIR}/npmrc" ] \
+[[ -f "${LDOTDIR}/npmrc" ]] \
   && export NPM_CONF_USERCONFIG="${LDOTDIR}/npmrc"
 
 export NPM_CONFIG_INIT_VERSION="0.0.1"
@@ -26,7 +26,7 @@ export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 # using nvm? -- store default version for prompt compare
 dko::source "${NVM_DIR}/nvm.sh" \
   && DKO_SOURCE="${DKO_SOURCE} -> nvm" \
-  && [ -z "$DKO_DEFAULT_NODE_VERSION" ] && {
+  && [[ -z "$DKO_DEFAULT_NODE_VERSION" ]] && {
   # Get initial nvm version using bash string manipulation instead of NVM
   # calls. While this is significantly faster, it is not correct if starting
   # a shell in a dir with a .nvmrc ~= default (which I almost never do).

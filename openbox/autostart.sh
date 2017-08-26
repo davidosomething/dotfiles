@@ -23,7 +23,7 @@ compton -b --config "${HOME}/.config/compton.conf"
 
 # Only for openbox since others might use gnome-settings-daemon or something
 # Background Image
-if [ -f "${HOME}/.fehbg" ]; then
+if [[ -f "${HOME}/.fehbg" ]]; then
   "${HOME}/.fehbg" &
 else
   feh --bg-scale "${HOME}/Dropbox/Public/03338_emptiness_1920x1080.jpg" &
@@ -50,7 +50,7 @@ fi
 (sleep 3s && udiskie --tray) &
 
 # Start Thinkpad OSD daemon
-if [ -x /usr/bin/tpb ] && [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
+if [[ -x /usr/bin/tpb ]] && [[ -w /dev/nvram ]] && [[ -r /dev/nvram ]]; then
   /usr/bin/tpb -d &
 fi
 

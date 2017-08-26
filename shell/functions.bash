@@ -18,24 +18,24 @@ current_shell() {
 
 # flatten a dir
 flatten() {
-  if [ -n "$1" ]; then
+  if [[ -n "$1" ]]; then
     read -r "reply?Flatten folder: are you sure? [y] "
   else
     local _reply=y
   fi
 
-  [ "$_reply" = "y" ] && mv ./*/* .
+  [[ "$_reply" = "y" ]] && mv ./*/* .
 }
 
 # delete empty subdirs
 prune() {
-  if [ -n "$1" ]; then
+  if [[ -n "$1" ]]; then
     read -r "reply?Prune empty directories: are you sure? [y] "
   else
     local _reply=y
   fi
 
-  [ "$_reply" = y ] && find . -type d -empty -delete
+  [[ "$_reply" = y ]] && find . -type d -empty -delete
 }
 
 # Go to git root
@@ -64,7 +64,7 @@ fs() {
     arg=-sh
   fi
 
-  if [ -n "$*" ]; then
+  if [[ -n "$*" ]]; then
     du "$arg" -- "$@"
   else
     du "$arg" .[^.]* ./*

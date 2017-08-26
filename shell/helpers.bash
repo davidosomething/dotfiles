@@ -36,12 +36,12 @@ dko::indent() { sed 's/^/    /'; }
 # $1 path to file
 dko::source() {
   # shellcheck source=/dev/null
-  [ -f "$1" ] && . "$1" # && echo "Sourced $1"
+  [[ -f "$1" ]] && . "$1" # && echo "Sourced $1"
 }
 
 # require root
 dko::requireroot() {
-  if [ "$(whoami)" != "root" ]; then
+  if [[ "$(whoami)" != "root" ]]; then
     dko::err "Please run as root, these files go into /etc/**/";
     exit 1
   fi
@@ -74,9 +74,9 @@ dko::same() {
     return 1
   fi
 
-  [ -d "$targetdir" ] || mkdir -p "$targetdir"
+  [[ -d "$targetdir" ]] || mkdir -p "$targetdir"
 
-  if [ -f "$targetpath" ] || [ -d "$targetpath" ]; then
+  if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
     local resolvedpath
     resolvedpath=$(realpath "$targetpath")
     if [[ "$resolvedpath" == "$sourcepath" ]]; then
@@ -104,9 +104,9 @@ dko::symlink() {
   dko::same "$sourcepath" "$fulltargetpath"
   local result=$?
 
-  if [[ $result == 0 ]]; then
+  if (( $result == 0 )); then
     return
-  elif [[ $result == 1 ]]; then
+  elif (( $result == 1 )); then
     dko::status "Found different ${fulltargetpath}"
     read -p "          Overwrite? [y/N] " -r
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then

@@ -94,7 +94,7 @@ __dko::dotfiles::update_zplugin() {
   dko::has 'zplugin' && {
     dko::status "Updating zplugin"
     # Remove zplug
-    [ -d "${XDG_DATA_HOME}/zplug" ] && rm -rf "${XDG_DATA_HOME}/zplug"
+    [[ -d "${XDG_DATA_HOME}/zplug" ]] && rm -rf "${XDG_DATA_HOME}/zplug"
     zplugin self-update
     zplugin update --all
   }
@@ -155,12 +155,12 @@ __dko::dotfiles::pyenv_global() {
 __dko::dotfiles::update_fzf() {
   local installer
 
-  if [ -x "/usr/local/opt/fzf/install" ]; then
+  if [[ -x "/usr/local/opt/fzf/install" ]]; then
     dko::status "fzf was installed via brew, re-running installer"
     installer="/usr/local/opt/fzf/install"
-  elif [ -d "$HOME/.fzf" ]; then
+  elif [[ -d "${HOME}/.fzf" ]]; then
     dko::status "fzf was installed in ~/.fzf"
-    installer="$HOME/.fzf/install"
+    installer="${HOME}/.fzf/install"
     ( cd "${HOME}/.fzf" || { dko::err "Could not cd to ~/.fzf" && exit 1; }
       dko::status "Updating fzf"
       git pull || { dko::err "Could not update ~/.fzf" && exit 1; }
@@ -183,7 +183,7 @@ __dko::dotfiles::update_fzf() {
 # ----------------------------------------------------------------------------
 
 __dko::dotfiles::ruby::require_chruby() {
-  [ -n "$RUBY_VERSION" ] && return 0
+  [[ -n "$RUBY_VERSION" ]] && return 0
   dko::warn "System ruby detected! Please install and use chruby."
   return 1
 }
@@ -239,12 +239,12 @@ __dko::dotfiles::go::update_go() {
 # ----------------------------------------------------------------------------
 
 __dko::dotfiles::node::require_nvm() {
-  if [ -z "$NVM_DIR" ]; then
+  if [[ -z "$NVM_DIR" ]]; then
     dko::err "\$NVM_DIR is not defined, make sure rc files are linked."
     return 1
   fi
 
-  if [ ! -d "$NVM_DIR" ]; then
+  if [[ ! -d "$NVM_DIR" ]]; then
     dko::status "Installing nvm"
     git clone https://github.com/creationix/nvm.git "$NVM_DIR" \
       || { dko::err "Could not install nvm" && return 1; }
@@ -268,11 +268,11 @@ __dko::dotfiles::update_node() {
   previous_node="$(nvm current)"
 
   dko::status_ "Previous node version was $previous_node"
-  if [ "$desired_node_minor" != "$previous_node" ]; then
+  if [[ "$desired_node_minor" != "$previous_node" ]]; then
     echo -n "Install and use new node ${desired_node_minor} as default? [y/N] "
     read -r
     echo
-    if [ "$REPLY" = "y" ]; then
+    if [[ "$REPLY" = "y" ]]; then
       nvm install             "$desired_node"
       nvm alias default       "$desired_node"
 
@@ -306,7 +306,7 @@ __dko::dotfiles::node::update_nvm() {
       || { dko::err "Could not fetch" && exit 1; }
     readonly latest_nvm="$(git describe --abbrev=0 --tags)"
     # Already up to date
-    [ "$previous_nvm" = "$latest_nvm" ] \
+    [[ "$previous_nvm" = "$latest_nvm" ]] \
       && { dko::ok "Already have nvm ${latest_nvm}" && exit 0; }
 
     dko::status "Fast-forwarding to nvm ${latest_nvm}"
@@ -325,7 +325,7 @@ __dko::dotfiles::node::update_nvm() {
 # ----------------------------------------------------------------------------
 
 __dko::dotfiles::py::update_pyenv() {
-  if [ -n "$PYENV_ROOT" ] && [ -d "${PYENV_ROOT}/.git" ]; then
+  if [[ -n "$PYENV_ROOT" ]] && [[ -d "${PYENV_ROOT}/.git" ]]; then
     dko::status "Updating pyenv"
     ( cd "${PYENV_ROOT}" || exit 1
       pyenv update
@@ -369,7 +369,7 @@ __dko::dotfiles::php::update_composer() {
   __dko::dotfiles::php::require_composer || return 1
 
   dko::status "Updating composer"
-  if [ -x "/usr/local/bin/composer" ]; then
+  if [[ -x "/usr/local/bin/composer" ]]; then
     dko::ok "composer was installed via brew (yay)"
   else
     dko::status_ "Updating composer itself"
@@ -379,7 +379,7 @@ __dko::dotfiles::php::update_composer() {
     }
   fi
 
-  if [ -f "$COMPOSER_HOME/composer.json" ]; then
+  if [[ -f "$COMPOSER_HOME/composer.json" ]]; then
     dko::status "Updating composer global packages"
     composer global update || {
       dko::err "Could not update global packages"
@@ -408,7 +408,7 @@ __dko::dotfiles::php::update_wpcs() {
   __dko::dotfiles::php::require_composer || return 1
   __dko::dotfiles::php::require_phpcs || return 1
 
-  if [ ! -d "$wpcs_path" ]; then
+  if [[ ! -d "$wpcs_path" ]]; then
     mkdir -p "${sources_path}"
     git clone -b master "$wpcs_repo" "$wpcs_path"
   else
@@ -430,7 +430,7 @@ __dko::dotfiles::php::update_wpcs() {
   local standards=()
 
   for entry in "${possible[@]}"; do
-    [ -d "$entry" ] && echo "Found $entry" && standards+=("$entry")
+    [[ -d "$entry" ]] && echo "Found $entry" && standards+=("$entry")
   done
   standards_path=$( IFS=','; echo "${standards[*]}" )
 
@@ -456,7 +456,7 @@ __dko::dotfiles::vim::update_vimlint() {
   readonly vimlint="${sources_path}/vim-vimlint"
   readonly vimlparser="${sources_path}/vim-vimlparser"
 
-  if [ -d "$vimlint" ]; then
+  if [[ -d "$vimlint" ]]; then
     dko::status "Updating vimlint"
     ( cd "$vimlint" \
       && git reset --hard \
@@ -468,7 +468,7 @@ __dko::dotfiles::vim::update_vimlint() {
     git clone https://github.com/syngan/vim-vimlint "$vimlint"
   fi
 
-  if [ -d "$vimlparser" ]; then
+  if [[ -d "$vimlparser" ]]; then
     dko::status "Updating vimlparser"
     ( cd "$vimlparser" \
       && git reset --hard \
@@ -590,7 +590,7 @@ __dko::dotfiles::darwin::update_brew() {
 
     # check if needed
     readonly outdated="$(brew outdated --quiet & wait)"
-    [ -z "$outdated" ] && exit
+    [[ -z "$outdated" ]] && exit
 
     # Detect if brew's python3 (not pyenv) was outdated
     grep -q "python3" <<<"$outdated" && {
@@ -607,7 +607,7 @@ __dko::dotfiles::darwin::update_brew() {
     # of php-imagick from source (using the new imagemagick)
     if grep -q "imagemagick" <<<"$outdated"; then
       readonly phpimagick="$(brew ls | grep 'php.*imagick')"
-      [ -n "$phpimagick" ] \
+      [[ -n "$phpimagick" ]] \
         && dko::status "Rebuilding ${phpimagick} for new imagemagick" \
         && brew reinstall --build-from-source "$phpimagick"
     fi

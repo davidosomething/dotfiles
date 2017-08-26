@@ -18,12 +18,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   export HOMEBREW_NO_INSECURE_REDIRECT=1
 
   # Allow pyenv to use custom openssl from brew
-  [ -d "${DKO_BREW_PREFIX}/opt/openssl/lib" ] \
+  [[ -d "${DKO_BREW_PREFIX}/opt/openssl/lib" ]] \
     && export LDFLAGS="-L${DKO_BREW_PREFIX}/opt/openssl/lib"
-  [ -d "${DKO_BREW_PREFIX}/opt/openssl/include" ] \
+  [[ -d "${DKO_BREW_PREFIX}/opt/openssl/include" ]] \
     && export CPPFLAGS="-I${DKO_BREW_PREFIX}/opt/openssl/include"
 
-  [ -d "${DKO_BREW_PREFIX}/share/android-sdk" ] \
+  [[ -d "${DKO_BREW_PREFIX}/share/android-sdk" ]] \
     && export ANDROID_SDK_ROOT="${DKO_BREW_PREFIX}/share/android-sdk"
 
 else
@@ -42,11 +42,11 @@ if [[ "$DOTFILES_OS" == "Linux" ]]; then
   # for pacdiff
   export DIFFPROG="nvim -d"
 
-  if [ -f "/etc/fedora-release" ]; then
+  if [[ -f "/etc/fedora-release" ]]; then
     export DOTFILES_DISTRO="fedora"
-  elif [ -f "/etc/debian_version" ]; then
+  elif [[ -f "/etc/debian_version" ]]; then
     export DOTFILES_DISTRO="debian"
-  elif [ -f "/etc/arch-release" ]; then
+  elif [[ -f "/etc/arch-release" ]]; then
     export DOTFILES_DISTRO="archlinux"
 
     # for arch wiki lite, intentionally lowercase
@@ -57,7 +57,7 @@ if [[ "$DOTFILES_OS" == "Linux" ]]; then
     # alone).
     # Setting $XENVIRONMENT is an option, but the -I flag here is more useful.
     # This also lets me keep .Xresources out of ~/
-    [ -n "$DISPLAY" ] && dko::has "xrdb" && \
+    [[ -n "$DISPLAY" ]] && dko::has "xrdb" && \
       xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
   fi
 fi

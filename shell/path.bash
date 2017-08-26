@@ -19,7 +19,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/path.bash"
 #
 # On arch, via /etc/profile, default path is:
 # /usr/local/sbin:/usr/local/bin:/usr/bin
-if [ -n "$DKO_SYSTEM_PATH" ]; then
+if [[ -n "$DKO_SYSTEM_PATH" ]]; then
   export DKO_SYSTEM_PATH="${PATH}:${DKO_SYSTEM_PATH}"
 else
   export DKO_SYSTEM_PATH="${PATH}"
@@ -31,7 +31,7 @@ fi
 
 # On BSD system, e.g. Darwin -- path_helper is called, reads /etc/paths
 # Move local bin to front for homebrew compatibility
-#if [ -x /usr/libexec/path_helper ]; then
+#if [[ -x /usr/libexec/path_helper ]]; then
 PATH="$DKO_SYSTEM_PATH"
 
 # enforce local bin and sbin order, they come before any system paths
@@ -43,7 +43,7 @@ PATH="/usr/local/bin:/usr/local/sbin:${DKO_SYSTEM_PATH}"
 
 # GOROOT binaries
 [[ "$DOTFILES_OS" == "Darwin" ]] \
-  && [ -d "${DKO_BREW_PREFIX}/opt/go/libexec/bin" ] \
+  && [[ -d "${DKO_BREW_PREFIX}/opt/go/libexec/bin" ]] \
   && PATH="${DKO_BREW_PREFIX}/opt/go/libexec/bin:${PATH}"
 
 # composer; COMPOSER_HOME is in shell/vars.bash

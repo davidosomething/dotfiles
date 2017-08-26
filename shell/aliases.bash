@@ -212,13 +212,14 @@ __alias_ls() {
     groupdirs=''
   fi
 
-  if [ "$DOTFILES_OS" = 'Darwin' ]; then
+  if [[ "$DOTFILES_OS" = 'Darwin' ]]; then
     almost_all='-A'
     classify='-F'
     colorized='-G'
   fi
 
-  if [ "$DOTFILES_OS" = 'Linux' ] && [ "$DOTFILES_DISTRO" != 'busybox' ]; then
+  if [[ "$DOTFILES_OS" = 'Linux' ]] \
+    && [[ "$DOTFILES_DISTRO" != 'busybox' ]]; then
     literal='-N'
     timestyle='--time-style="+%Y%m%d"'
   fi

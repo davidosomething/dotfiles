@@ -52,7 +52,9 @@ export CVSIGNORE="${DOTFILES}/git/.gitignore"
 
 export EDITOR="vim"
 export VISUAL="gvim"
-if [ -n "$SSH_CONNECTION" ] || [ -n "$TMUX" ]; then export VISUAL="vim"; fi
+if [[ -n "$SSH_CONNECTION" ]] || [[ -n "$TMUX" ]]; then
+  export VISUAL="vim"
+fi
 
 # ----------------------------------------------------------------------------
 # pager
@@ -72,7 +74,7 @@ export ACKRC="${DOTFILES}/ack/dot.ackrc"
 
 # apache
 # shellcheck source=/dev/null
-[ -f "/etc/apache2/envvars" ] && . "/etc/apache2/envvars"
+[[ -f "/etc/apache2/envvars" ]] && . "/etc/apache2/envvars"
 
 # atom editor
 export ATOM_HOME="${XDG_CONFIG_HOME}/atom"

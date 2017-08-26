@@ -26,7 +26,7 @@ __prompt_git() {
   #   technique via github.com/git/git/blob/355d4e173/contrib/completion/git-prompt.sh#L472-L475
   dirty_symbol=$(git diff --no-ext-diff --quiet --ignore-submodules --exit-code || echo -e "*")
 
-  [ -n "${s}" ] && s=" [${s}]";
+  [[ -n "${s}" ]] && s=" [${s}]";
   echo -e "${1}${branch_name}${2}${dirty_symbol}"
 }
 
@@ -45,11 +45,11 @@ __bash_prompt() {
 
   # USERNAME: white if root, green normal
   local USER="$G\u"
-  [ "$USER" = "root" ] && USER="$W\u"
+  [[ "$USER" = "root" ]] && USER="$W\u"
 
   # HOST: white if remote, green if local
   local HOST="$W\h"
-  [ -z "$SSH_CONNECTION" ] && HOST="$G\h"
+  [[ -z "$SSH_CONNECTION" ]] && HOST="$G\h"
 
   local DIR="$Y\w"
   local CURTIME="$Z\t"
