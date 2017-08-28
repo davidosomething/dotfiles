@@ -601,7 +601,8 @@ __dko::dotfiles::darwin::update_brew() {
 
     # Upgrade remaining
     dko::status "Upgrading packages"
-    brew upgrade
+    brew upgrade &
+    wait
 
     # If imagemagick was outdated and php-imagick was not, force a reinstall
     # of php-imagick from source (using the new imagemagick)
