@@ -304,7 +304,7 @@ function! s:SetSasslintrc() abort
   " Use local config if exists
   let l:config = dkoproject#GetFile('.sass-lint.yml')
   if empty(l:config)
-    let l:config = glob(expand('$DOTFILES/sasslint/.sass-lint.yml'))
+    let l:config = glob(expand('$DOTFILES/sasslint/dot.sass-lint.yml'))
   endif
 
   let b:neomake_scss_sasslint_args =
