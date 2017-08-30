@@ -39,6 +39,7 @@
 	g       = grep --break --heading --line-number
 
 	l       = log --abbrev-commit --oneline
+	ld      = log --abbrev-commit --date=short --pretty=format:'%C(yellow)%h %C(reset)%s %C(green)(%cr) %C(blue)<%an>%C(magenta)%d%C(reset)'
 	ll      = log --abbrev-commit --oneline --decorate --all
 	lb      = log --abbrev-commit --oneline --decorate --all --graph
 	lg      = log --abbrev-commit           --decorate --all --graph
