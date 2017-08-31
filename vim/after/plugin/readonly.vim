@@ -23,36 +23,40 @@ function! s:UnmapForRO() abort
 
   " STFU
   " <nowait> for operator pending or multikeys
-  noremap   <buffer>          c <NOP>
-  noremap   <buffer>          m <NOP>
-  noremap   <buffer>          p <NOP>
-  noremap   <buffer>          r <NOP>
-  noremap   <buffer>          u <NOP>
-  noremap   <buffer>          x <NOP>
-  noremap   <buffer><nowait>  d <NOP>
-  noremap   <buffer><nowait>  s <NOP>
-  nnoremap  <buffer>          a <NOP>
-  nnoremap  <buffer>          i <NOP>
+  silent! noremap   <buffer>          c <NOP>
+  silent! noremap   <buffer>          m <NOP>
+  silent! noremap   <buffer>          p <NOP>
+  silent! noremap   <buffer>          r <NOP>
+  silent! noremap   <buffer>          u <NOP>
+  silent! noremap   <buffer>          x <NOP>
+  silent! noremap   <buffer><nowait>  d <NOP>
+  silent! noremap   <buffer><nowait>  s <NOP>
+  silent! nnoremap  <buffer>          a <NOP>
+  silent! nnoremap  <buffer>          i <NOP>
 
-  silent! nnoremap <buffer> <C-j> <NOP>
-  silent! nnoremap <buffer> <C-k> <NOP>
-  silent! vnoremap <buffer> <C-j> <NOP>
-  silent! vnoremap <buffer> <C-k> <NOP>
+  silent! nnoremap <buffer>           <C-j> <NOP>
+  silent! nnoremap <buffer>           <C-k> <NOP>
+  silent! vnoremap <buffer>           <C-j> <NOP>
+  silent! vnoremap <buffer>           <C-k> <NOP>
+
+  silent! nunmap   <buffer>           <leader>c
 
   " Only for the actual help buffer, not when editing doc/helpfile.txt
   " That's why this is not in the ftplugin
   if &buftype ==# 'help'
-    nnoremap  <silent><buffer>   q   :<C-U>call <SID>Close()<CR>
-    nmap      <silent><buffer>   Q   q
+    nnoremap  <silent><buffer>            q
+          \ :<C-U>call <SID>Close()<CR>
+    nmap      <buffer>                    Q
+          \ q
 
     nnoremap  <silent><buffer><special>   <Leader>v
           \ :<C-U>wincmd L <BAR> vertical resize 82<CR>
 
     " Help navigation
-    nnoremap <buffer><nowait> < <C-o>
+    nnoremap <buffer><nowait>             < <C-o>
     " opposite of <C-o>
-    nnoremap <buffer>         o <C-]>
-    nnoremap <buffer><nowait> > <C-]>
+    nnoremap <buffer>                     o <C-]>
+    nnoremap <buffer><nowait>             > <C-]>
   endif
 endfunction
 
