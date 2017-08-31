@@ -55,15 +55,24 @@ def main():
                       ticker['symbol']).read()
         result = json.loads(url)
         value = float(result['price']['usd'])
-        symbol = SYMBOLS['up' if result['change'] > 0 else 'down']
+        # symbol = SYMBOLS['up' if result['change'] > 0 else 'down']
+        if result['change'] > 0:
+            symbol = ':chart_with_upwards_trend: '
+        else:
+            symbol = ':chart_with_downwards_trend: '
         output = ''.join((
-            ' ',
-            ticker['sign'],
-            '%.2f | image=',
+            # ' ',
             symbol,
-            ' color=#000000'
+            ticker['sign'],
+            '%.2f',
+            ' | size=12'
+            # '| image=', symbol,
+            # ' color=#000000'
         ))
         print(output % value)
+
+    print('---')
+    print('Refresh | refresh=true')
 
 
 if __name__ == "__main__":
