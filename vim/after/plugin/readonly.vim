@@ -1,6 +1,6 @@
 " after/plugin/readonly.vim
 
-augroup DKOReadOnly
+augroup dkoreadonly
   autocmd!
 augroup END
 
@@ -39,8 +39,6 @@ function! s:UnmapForRO() abort
   silent! vnoremap <buffer>           <C-j> <NOP>
   silent! vnoremap <buffer>           <C-k> <NOP>
 
-  silent! nunmap   <buffer>           <leader>c
-
   " Only for the actual help buffer, not when editing doc/helpfile.txt
   " That's why this is not in the ftplugin
   if &buftype ==# 'help'
@@ -60,4 +58,4 @@ function! s:UnmapForRO() abort
   endif
 endfunction
 
-autocmd DKOReadOnly BufEnter,BufReadPost * call s:UnmapForRO()
+autocmd dkoreadonly BufEnter,BufReadPost * call s:UnmapForRO()
