@@ -43,6 +43,12 @@ __dko_prompt_left_parts+=('%~')
 __dko_prompt_right_colors=()
 __dko_prompt_right_parts=()
 
+# ----------------------------------------------------------------------------
+# Add env to right parts
+# ----------------------------------------------------------------------------
+
+# result:
+# |
 __dko::prompt::env::separator() {
   [[ "${#__dko_prompt_right_parts}" -ne 0 ]] && {
     __dko_prompt_right_colors+=('%F{blue}')
@@ -50,44 +56,56 @@ __dko::prompt::env::separator() {
   }
 }
 
+# result:
+# js:
 __dko::prompt::env::symbol() {
   __dko_prompt_right_colors+=('%F{blue}')
   __dko_prompt_right_parts+=("${1}:")
 }
 
+# result:
+# 1.2.3
+#
+# $1 manager program
+# $2 optional version compute string -- default to *env style (pyenv style)
+# $3 optionsl color compute string -- default to blue
 __dko::prompt::env::version() {
   local manager="$1"
-  if (( $# == 2 )); then
+
+  if (( $# > 1 )); then
     local number="$2"
   else
     local open='${$('
     local close="${manager} version-name 2>/dev/null):-sys}"
     local number="${open}${close}"
   fi
-  __dko_prompt_right_colors+=('%F{blue}')
+
+  local color="${3:-"%F{blue}"}"
+  __dko_prompt_right_colors+=("${color}")
   __dko_prompt_right_parts+=("${number}")
 }
 
+# $1 symbol
+# $2 manager program
+# $3 optional version compute string
+# $4 optional color compute string
 __dko::prompt::env() {
   dko::has "$2" || return
   __dko::prompt::env::separator
   __dko::prompt::env::symbol "$1"
   (( $# == 2 )) && __dko::prompt::env::version "$2"
   (( $# == 3 )) && __dko::prompt::env::version "$2" "$3"
+  (( $# == 4 )) && __dko::prompt::env::version "$2" "$3" "$4"
 }
 
-dko::get_current_node() {
+# Get node version provided by NVM using the env vars instead of calling slow
+# NVM functions
+__dko::prompt::env::get_current_node() {
   echo "${${NVM_BIN/$NVM_DIR\/versions\/node\/v}%\/b*}"
 }
-dko::has "nvm" && {
-  __dko::prompt::env::symbol "js"
 
-  # Using nvm_ls is much slower (also has vX.X.X instead of just X.X.X)
-  #__dko_prompt_right_colors+=('$( [ "${(e)$(nvm_ls current 2>/dev/null)}" = "$DKO_DEFAULT_NODE_VERSION" ] && echo "%F{blue}" || echo "%F{red}")')
-  __dko_prompt_right_colors+=('$( [[ "$(dko::get_current_node)" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")')
-  __dko_prompt_right_parts+=('$(dko::get_current_node)')
-}
-
+__dko::prompt::env "js" "nvm" '$(__dko::prompt::env::get_current_node)' \
+  '$( [[ "$(__dko::prompt::env::get_current_node)" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")'
 __dko::prompt::env "go" "goenv"
 __dko::prompt::env "py" "pyenv"
 __dko::prompt::env "rb" "chruby" '${RUBY_VERSION:-sys}'
