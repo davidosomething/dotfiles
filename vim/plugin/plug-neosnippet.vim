@@ -18,7 +18,7 @@ let g:neosnippet#enable_conceal_markers = 0
 let g:neosnippet#scope_aliases = {}
 let g:neosnippet#scope_aliases['javascript'] = join([
       \   'javascript',
-      \   'dko-javascript-mocha',
+      \   'javascript.es6.react',
       \ ], ',')
 
 " Keybindings for snippet completion
@@ -34,8 +34,21 @@ xmap  <special>   <C-f>   <Plug>(neosnippet_expand_target)
 " Get rid of the placeholders in inserted snippets when done inserting
 augroup dkoneosnippet
   autocmd!
-  autocmd InsertLeave * NeoSnippetClearMarkers
+  autocmd FileType javascript,php
+        \ call s:docblock()
+  autocmd InsertLeave *
+        \ NeoSnippetClearMarkers
 augroup END
+
+" ============================================================================
+" Insert phpdoc block
+" ============================================================================
+
+function! s:docblock()
+  nnoremap <silent><buffer><special>
+        \ <Leader>pd
+        \ O<C-r>=neosnippet#expand('doc')<CR>
+endfunction
 
 " ============================================================================
 

@@ -51,17 +51,3 @@ if dko#IsPlugged('php.vim')
   hi! def link phpDocParam phpType
 endif
 
-" ============================================================================
-" Insert phpdoc block
-" ============================================================================
-
-if dko#IsLoaded('neosnippet')
-  inoremap <silent><buffer><special>
-        \ <Leader>pd
-        \ a<C-r>=neosnippet#expand('doc')<CR>
-
-  nnoremap <silent><buffer><special>
-        \ <Leader>pd
-        \ O<C-r>=neosnippet#expand('doc')<CR>
-endif
-

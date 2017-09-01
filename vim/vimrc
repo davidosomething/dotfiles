@@ -901,8 +901,8 @@ function! s:LoadPlugins() abort
 
   " nvim-completion-manager and deoplete
   Plug 'Shougo/neosnippet'
-  Plug 'honza/vim-snippets'
   Plug 'Shougo/neosnippet-snippets'
+  Plug 'honza/vim-snippets'
 
   " --------------------------------------------------------------------------
   " Completion: VimL
@@ -1030,9 +1030,6 @@ function! s:LoadPlugins() abort
   " ----------------------------------------
   " Features
   " ----------------------------------------
-
-  " <leader>pd on function to insert jsdoc above
-  Plug 'heavenshell/vim-jsdoc', { 'on': '<Plug>(jsdoc)' }
 
   " detect extensionless node scripts (executables) via shebang
   " and add gf for going to node_modules files
