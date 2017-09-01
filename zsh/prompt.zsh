@@ -43,37 +43,54 @@ __dko_prompt_left_parts+=('%~')
 __dko_prompt_right_colors=()
 __dko_prompt_right_parts=()
 
+__dko::prompt::env::separator() {
+  [[ "${#__dko_prompt_right_parts}" -ne 0 ]] && {
+    __dko_prompt_right_colors+=('%F{blue}')
+    __dko_prompt_right_parts+=('|')
+  }
+}
+
+__dko::prompt::env::symbol() {
+  __dko_prompt_right_colors+=('%F{blue}')
+  __dko_prompt_right_parts+=("${1}:")
+}
+
+__dko::prompt::env::version() {
+  local manager="$1"
+  if (( $# == 2 )); then
+    local number="$2"
+  else
+    local open='${$('
+    local close="${manager} version-name 2>/dev/null):-sys}"
+    local number="${open}${close}"
+  fi
+  __dko_prompt_right_colors+=('%F{blue}')
+  __dko_prompt_right_parts+=("${number}")
+}
+
+__dko::prompt::env() {
+  dko::has "$2" || return
+  __dko::prompt::env::separator
+  __dko::prompt::env::symbol "$1"
+  (( $# == 2 )) && __dko::prompt::env::version "$2"
+  (( $# == 3 )) && __dko::prompt::env::version "$2" "$3"
+}
+
 dko::get_current_node() {
   echo "${${NVM_BIN/$NVM_DIR\/versions\/node\/v}%\/b*}"
 }
 dko::has "nvm" && {
-  __dko_prompt_right_colors+=('%F{blue}')
-  __dko_prompt_right_parts+=('js:')
+  __dko::prompt::env::symbol "js"
+
   # Using nvm_ls is much slower (also has vX.X.X instead of just X.X.X)
   #__dko_prompt_right_colors+=('$( [ "${(e)$(nvm_ls current 2>/dev/null)}" = "$DKO_DEFAULT_NODE_VERSION" ] && echo "%F{blue}" || echo "%F{red}")')
   __dko_prompt_right_colors+=('$( [[ "$(dko::get_current_node)" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")')
   __dko_prompt_right_parts+=('$(dko::get_current_node)')
 }
-dko::has "pyenv" && {
-  [[ "${#__dko_prompt_right_parts}" -ne 0 ]] && {
-    __dko_prompt_right_colors+=('%F{blue}')
-    __dko_prompt_right_parts+=('|')
-  }
-  __dko_prompt_right_colors+=('%F{blue}')
-  __dko_prompt_right_parts+=('py:')
-  __dko_prompt_right_colors+=('%F{blue}')
-  __dko_prompt_right_parts+=('${$(pyenv version-name 2>/dev/null):-sys}')
-}
-dko::has "chruby" && {
-  [[ "${#__dko_prompt_right_parts}" -ne 0 ]] && {
-    __dko_prompt_right_colors+=('%F{blue}')
-    __dko_prompt_right_parts+=('|')
-  }
-  __dko_prompt_right_colors+=('%F{blue}')
-  __dko_prompt_right_parts+=('rb:')
-  __dko_prompt_right_colors+=('%F{blue}')
-  __dko_prompt_right_parts+=('${RUBY_VERSION:-sys}')
-}
+
+__dko::prompt::env "go" "goenv"
+__dko::prompt::env "py" "pyenv"
+__dko::prompt::env "rb" "chruby" '${RUBY_VERSION:-sys}'
 
 # ============================================================================
 # precmd - set field values before promptline

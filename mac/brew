@@ -116,8 +116,9 @@ brew install jsonpp jq
 # programming
 # ============================================================================
 
-brew install php71
-brew install homebrew/homebrew-php/composer
+# ----------------------------------------------------------------------------
+# code analysis
+# ----------------------------------------------------------------------------
 
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
@@ -126,14 +127,25 @@ brew install cloc
 # used by fzf grepper preview
 brew install highlight
 
+# ----------------------------------------------------------------------------
+# git
+# ----------------------------------------------------------------------------
+
+brew install git --without-completions
+brew install git-extras
+brew install hub tig
+
+# ----------------------------------------------------------------------------
+# go
+# ----------------------------------------------------------------------------
+
+brew install goenv
+
+# ----------------------------------------------------------------------------
 # ios dev
+# ----------------------------------------------------------------------------
+
 brew install carthage
-
-brew install lua
-brew install mono
-brew install tidy-html5
-
-brew install yarn
 
 # ----------------------------------------------------------------------------
 # java
@@ -143,12 +155,25 @@ brew install gradle --with-all
 brew install maven
 
 # ----------------------------------------------------------------------------
-# git
+# PHP
 # ----------------------------------------------------------------------------
 
-brew install git --without-completions
-brew install git-extras
-brew install hub tig
+brew install php71
+brew install homebrew/homebrew-php/composer
+
+# ----------------------------------------------------------------------------
+# scripting
+# ----------------------------------------------------------------------------
+
+brew install lua
+brew install mono
+
+# ----------------------------------------------------------------------------
+# web
+# ----------------------------------------------------------------------------
+
+brew install tidy-html5
+brew install yarn
 
 # ============================================================================
 # shells
