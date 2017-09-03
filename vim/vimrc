@@ -744,7 +744,11 @@ function! s:LoadPlugins() abort
   " ==========================================================================
 
   " Main completion engine, bound to <C-o>
-  Plug 'roxma/nvim-completion-manager', PlugIf(g:dko_use_completion)
+  " Does not start until InsertEnter, so we can set up sources, then load
+  " them, then load NCM
+  Plug 'roxma/nvim-completion-manager', PlugIf(g:dko_use_completion, {
+        \   'on': []
+        \ })
 
   " Always provide deoplete, may or may not be bound to <C-o> depending on if
   " use_ncm, in which case deoplete Forwards to nvim-completion-manager for
