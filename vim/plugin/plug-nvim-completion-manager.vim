@@ -1,16 +1,20 @@
 " plugin/plug-nvim-completion-manager.vim
 
-if !dko#IsLoaded('nvim-completion-manager') | finish | endif
+if !dko#IsPlugged('nvim-completion-manager') | finish | endif
 
 augroup dkoncm
   autocmd!
 augroup END
 
-let g:cm_smart_enable = 0
-
+" Delay loading NCM until InsertEnter
 function s:StartNcm()
-  doautocmd dkoncm User CmBefore
-  call cm#enable_for_buffer()
+  " Hooks for setting up sources before loading NCM
+  autocmd dkoncm User CmBefore echom 'cmbefore'
+  doautocmd User CmBefore
+
+  call plug#load('nvim-completion-manager')
+
+  autocmd! dkoncm InsertEnter
 endfunction
 autocmd dkoncm InsertEnter * call s:StartNcm()
 
