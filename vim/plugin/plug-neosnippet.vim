@@ -35,7 +35,7 @@ xmap  <special>   <C-f>   <Plug>(neosnippet_expand_target)
 augroup dkoneosnippet
   autocmd!
   autocmd FileType javascript,php
-        \ call s:docblock()
+        \ call s:BindDocblock()
   autocmd InsertLeave *
         \ NeoSnippetClearMarkers
 augroup END
@@ -44,7 +44,7 @@ augroup END
 " Insert phpdoc block
 " ============================================================================
 
-function! s:docblock()
+function! s:BindDocblock()
   nnoremap <silent><buffer><special>
         \ <Leader>pd
         \ O<C-r>=neosnippet#expand('doc')<CR>
