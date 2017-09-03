@@ -133,7 +133,7 @@ function! s:GetFzfSpecsSource() abort
         \   dkoproject#GetDir('tests'),
         \   dkoproject#GetDir('specs'),
         \ ], "v:val !=# ''"), ',')
-  echom l:tests_dirs
+  echomsg l:tests_dirs
   let l:dir_files = empty(l:tests_dirs)
         \ ? []
         \ : globpath(l:tests_dirs, '**/*.*', 0, 1)
