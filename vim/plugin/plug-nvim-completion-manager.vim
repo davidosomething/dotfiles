@@ -2,9 +2,17 @@
 
 if !dko#IsLoaded('nvim-completion-manager') | finish | endif
 
-augroup dkonvimcompletionmanager
+augroup dkoncm
   autocmd!
 augroup END
+
+let g:cm_smart_enable = 0
+
+function s:StartNcm()
+  doautocmd dkoncm User CmBefore
+  call cm#enable_for_buffer()
+endfunction
+autocmd dkoncm InsertEnter * call s:StartNcm()
 
 " Refresh list
 imap <special><expr> <C-g> pumvisible()
@@ -16,7 +24,7 @@ imap <special><expr> <C-g> pumvisible()
 if dko#IsLoaded('deoplete.nvim')
   " see https://github.com/roxma/nvim-completion-manager/blob/e24352af8a744f75966d7a2358040095e2d0b1f2/doc/nvim-completion-manager.txt#L299
   " for what the source kvs are
-  autocmd dkonvimcompletionmanager User CmSetup
+  autocmd dkoncm User CmSetup
         \ call cm#register_source({
         \   'name':         'deoplete',
         \   'priority':     9,
