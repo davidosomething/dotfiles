@@ -131,7 +131,15 @@ endfunction
 " @param {Int} bufnr
 " @return {Boolean}
 function! dko#IsHelp(bufnr) abort
-  return getbufvar(a:bufnr, '&buftype') =~# '\v(help)'
+  return getbufvar(a:bufnr, '&buftype') ==# 'help'
+endfunction
+
+function! dko#IsEditable() abort
+  return !(
+        \ &readonly
+        \ || &buftype =~# '\v(nofile|quickfix)'
+        \ || &filetype =~# '\v(netrw)'
+        \ )
 endfunction
 
 " ============================================================================

@@ -16,8 +16,8 @@ function! s:Close() abort
   endif
 endfunction
 
-function! s:UnmapForRO() abort
-  if !&readonly || !(&buftype ==# 'help' || &buftype ==# 'quickfix')
+function! s:Unmap() abort
+  if dko#IsEditable()
     return
   endif
 
@@ -33,11 +33,6 @@ function! s:UnmapForRO() abort
   silent! noremap   <buffer><nowait>  s <NOP>
   silent! nnoremap  <buffer>          a <NOP>
   silent! nnoremap  <buffer>          i <NOP>
-
-  silent! nnoremap <buffer>           <C-j> <NOP>
-  silent! nnoremap <buffer>           <C-k> <NOP>
-  silent! vnoremap <buffer>           <C-j> <NOP>
-  silent! vnoremap <buffer>           <C-k> <NOP>
 
   " Only for the actual help buffer, not when editing doc/helpfile.txt
   " That's why this is not in the ftplugin
@@ -58,4 +53,4 @@ function! s:UnmapForRO() abort
   endif
 endfunction
 
-autocmd dkoreadonly BufEnter,BufReadPost * call s:UnmapForRO()
+autocmd dkoreadonly BufEnter,BufReadPost * call s:Unmap()
