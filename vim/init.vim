@@ -83,6 +83,10 @@ nnoremap <special> <A-Up>     <C-w>k
 nnoremap <special> <A-Down>   <C-w>j
 nnoremap <special> <A-Left>   <C-w>h
 nnoremap <special> <A-Right>  <C-w>l
+nnoremap <special> <A-k>      <C-w>k
+nnoremap <special> <A-j>      <C-w>j
+nnoremap <special> <A-h>      <C-w>h
+nnoremap <special> <A-l>      <C-w>l
 
 " ============================================================================
 " Python setup
