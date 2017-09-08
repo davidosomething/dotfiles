@@ -52,10 +52,8 @@ __bash_prompt() {
   [[ -z "$SSH_CONNECTION" ]] && HOST="$G\h"
 
   local DIR="$Y\w"
-  local CURTIME="$Z\t"
 
   PS1="${USER}$B@${HOST}$C:${DIR}\n"
-  PS1+="${CURTIME}"
   PS1+="${P}(\$(__prompt_git))"   # git repository details
   PS1+="${Z} "
   export PS1
