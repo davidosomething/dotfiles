@@ -66,15 +66,11 @@ dko::require() {
 dko::same() {
   local sourcepath="$1"
   local targetpath="$2"
-  local targetdir
-  targetdir="$(basename "$targetpath")"
 
   if ! dko::has "realpath"; then
     dko::err "Missing realpath command (e.g. brew install coreutils)"
     return 1
   fi
-
-  [[ -d "$targetdir" ]] || mkdir -p "$targetdir"
 
   if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
     local resolvedpath
@@ -100,13 +96,14 @@ dko::symlink() {
   local dotfiles_dir="${HOME}/.dotfiles"
   local sourcepath="${dotfiles_dir}/${1}"
   local fulltargetpath="${HOME}/${2}"
+  local targetdir
 
   dko::same "$sourcepath" "$fulltargetpath"
   local result=$?
 
-  if (( $result == 0 )); then
+  if (( result == 0 )); then
     return
-  elif (( $result == 1 )); then
+  elif (( result == 1 )); then
     dko::status "Found different ${fulltargetpath}"
     read -p "          Overwrite? [y/N] " -r
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -116,6 +113,10 @@ dko::symlink() {
   fi
 
   dko::status "Symlinking \033[0;35m${fulltargetpath}\033[0;32m -> \033[0;35m${sourcepath}\033[0;32m "
+
+  targetdir="$(basename "$fulltargetpath")"
+  [[ -d "$targetdir" ]] || mkdir -p "$targetdir"
+
   mkdir -p "$(dirname "$fulltargetpath")"
   ln -fns "$sourcepath" "$fulltargetpath"
 }

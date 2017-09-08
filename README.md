@@ -152,7 +152,8 @@ For X apps (no terminal) the value is probably:
 - **Comparison**
     - Not strict on POSIX, but portability
     - Use BASH `==` for string comparison
-    - Use BASH `(( $A == 2 ))` for integer comparison
+    - Use BASH `(( A == 2 ))` for integer comparison (note not `$A`, `$` not
+      needed)
 
 ## Credits
 
