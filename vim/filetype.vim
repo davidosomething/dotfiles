@@ -53,6 +53,11 @@ augroup filetypedetect
         \ *.marko
         \ setfiletype html.marko
 
+  " marko templating, close enough to HTML
+  autocmd! BufNewFile,BufRead
+        \ *.template
+        \ setfiletype html
+
   autocmd! BufNewFile,BufRead *.md
         \ setfiletype markdown
         \| call s:BindPreview()
