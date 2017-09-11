@@ -22,8 +22,6 @@ zplugin snippet --command 'https://github.com/raylee/tldr/blob/master/tldr'
 # replaces up() in shell/functions.sh
 zplugin light 'shannonmoeller/up'
 
-zplugin light 'knu/z'
-
 # ----------------------------------------------------------------------------
 # Vendor: ZSH extension
 # ----------------------------------------------------------------------------

@@ -369,6 +369,8 @@ fi
 # Local: can add more zplugins here
 # ============================================================================
 
+dko::has "fasd" && eval "$(fasd --init posix-alias zsh-hook)"
+
 . "${DOTFILES}/shell/after.bash"
 dko::source "${LDOTDIR}/zshrc"
 
