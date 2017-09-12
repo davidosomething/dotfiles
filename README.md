@@ -25,7 +25,7 @@ git clone --recurse-submodules https://github.com/davidosomething/dotfiles ~/.do
 ~/.dotfiles/bootstrap/symlink
 ```
 
-(WIP) After symlinking, `~/.dotfiles/bootstrap/cleanup` can detect and move
+After symlinking, `~/.dotfiles/bootstrap/cleanup` can detect and move
 pre-existing dotfiles that might conflict with these.
 
 ### Post-Installation
