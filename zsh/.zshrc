@@ -109,12 +109,6 @@ autoload -Uz add-zsh-hook
 # davidosomething/cdbk
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
 
-# knu/z
-export _Z_CMD="j"
-export _Z_DATA="${HOME}/.local/z"
-export _Z_NO_RESOLVE_SYMLINKS=1
-[ ! -f "$_Z_DATA" ] && touch "$_Z_DATA"
-
 # zsh-users/zsh-autosuggestions
 # don't suggest lines longer than
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
@@ -122,7 +116,13 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # ----------------------------------------------------------------------------
-# Plugins: fzf (unmanaged managed)
+# Plugins: fasd (package install)
+# ----------------------------------------------------------------------------
+
+dko::has "fasd" && eval "$(fasd --init posix-alias zsh-hook)"
+
+# ----------------------------------------------------------------------------
+# Plugins: fzf (package install)
 # ----------------------------------------------------------------------------
 
 dko::source "${HOME}/.fzf.zsh" && DKO_SOURCE="${DKO_SOURCE} -> fzf"
@@ -368,8 +368,6 @@ fi
 # ============================================================================
 # Local: can add more zplugins here
 # ============================================================================
-
-dko::has "fasd" && eval "$(fasd --init posix-alias zsh-hook)"
 
 . "${DOTFILES}/shell/after.bash"
 dko::source "${LDOTDIR}/zshrc"
