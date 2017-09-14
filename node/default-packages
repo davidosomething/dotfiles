@@ -12,6 +12,7 @@ eslint-plugin-import
 eslint-plugin-jsx-a11y
 eslint-plugin-react
 flow-bin
+flow-language-server
 generator-hubot
 http-server
 js-beautify
