@@ -40,9 +40,9 @@ function! dkostatus#Output(winnr) abort
 
   " Temporary
   let l:contents .= '%#NeomakeErrorSign#'
-        \. dkostatus#Neomake('E', dkostatus#NeomakeCounts(l:winnr))
+        \. dkostatus#Neomake('E', dkostatus#NeomakeCounts(l:bufnr))
   let l:contents .= '%#NeomakeWarningSign#'
-        \. dkostatus#Neomake('W', dkostatus#NeomakeCounts(l:winnr))
+        \. dkostatus#Neomake('W', dkostatus#NeomakeCounts(l:bufnr))
 
   " Search context
   let l:contents .= '%#Search#' . dkostatus#Anzu(l:winnr)
@@ -54,7 +54,7 @@ function! dkostatus#Output(winnr) abort
   " Instance context
   let l:contents .= '%*%='
   let l:contents .= '%#TermCursor#' . dkostatus#GutentagsStatus(l:winnr)
-  let l:contents .= '%#TermCursor#' . dkostatus#NeomakeJobs(l:winnr)
+  let l:contents .= '%#Pmenu#' . dkostatus#NeomakeRunning(l:winnr, l:bufnr)
   let l:contents .= '%<'
   let l:contents .= '%#PmenuSel#' . dkostatus#ShortPath(l:bufnr, l:cwd, l:ww)
   let l:contents .= '%#TabLine#' . dkostatus#Ruler()
@@ -101,22 +101,31 @@ endfunction
 
 " @param {Int} winnr
 " @return {String}
-function! dkostatus#NeomakeCounts(winnr) abort
-  return a:winnr != winnr()
-        \ || !exists('*neomake#statusline#LoclistCounts')
+function! dkostatus#NeomakeCounts(bufnr) abort
+  return !exists('*neomake#statusline#LoclistCounts')
         \ ? {}
-        \ : neomake#statusline#LoclistCounts()
+        \ : neomake#statusline#LoclistCounts(a:bufnr)
 endfunction
 
 " @param {Int} winnr
+" @param {Int} bufnr
 " @return {String}
-function! dkostatus#NeomakeJobs(winnr) abort
+function! dkostatus#NeomakeRunning(winnr, bufnr) abort
   return a:winnr != winnr()
         \ || !dko#IsLoaded('neomake')
         \ || !exists('*neomake#GetJobs')
         \ || empty(neomake#GetJobs())
         \ ? ''
-        \ : ' ᴍᴀᴋᴇ '
+        \ : ' ᴍᴀᴋᴇ:' . dkostatus#NeomakeRunningJobs(a:bufnr) . ' '
+endfunction
+
+" @param {Int} bufnr
+" @return {String} comma-delimited running job names
+function! dkostatus#NeomakeRunningJobs(bufnr) abort
+  let l:running_jobs = filter(copy(neomake#GetJobs()),
+        \ "v:val.bufnr == a:bufnr && !get(v:val, 'canceled', 0)")
+  let l:names = map(l:running_jobs, 'v:val.name')
+  return join(l:names, ', ')
 endfunction
 
 " @param {Int} bufnr
@@ -206,9 +215,14 @@ endfunction
 " @param {Int} winnr
 " @return {String}
 function! dkostatus#GutentagsStatus(winnr) abort
-  return a:winnr != winnr() || !exists('g:loaded_gutentags')
+  if a:winnr != winnr() || !exists('g:loaded_gutentags')
+    return ''
+  endif
+
+  let l:tagger = substitute(gutentags#statusline(''), '\[\(.*\)\]', '\1', '')
+  return empty(l:tagger)
         \ ? ''
-        \ : '%{gutentags#statusline(" ᴛᴀɢ ")}'
+        \ : ' ᴛᴀɢ:' . l:tagger . ' '
 endfunction
 
 " @return {String}
