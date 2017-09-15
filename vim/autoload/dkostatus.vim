@@ -143,6 +143,9 @@ function! dkostatus#Filetype(bufnr) abort
         \ : ' ' . l:ft . ' '
 endfunction
 
+" Filename of buffer relative to the path, or just the helpfile name if it is
+" a help file
+"
 " @param {Int} bufnr
 " @param {String} path
 " @return {String}
@@ -156,14 +159,11 @@ function! dkostatus#Filename(bufnr, path) abort
     return ' [No Name] '
   endif
 
-  " let l:fullpath = expand('%:p')
-  let l:relative = dko#IsHelp(a:bufnr)
-        \ ? ''
-        \ : substitute(bufname(a:bufnr), a:path, '.', '')
-
-  let l:contents = ' %('
-  let l:contents .= fnamemodify(l:relative, ':~:.')
-  let l:contents .= ' %)'
+  let l:contents = ' '
+  let l:contents .= dko#IsHelp(a:bufnr)
+        \ ? '%t'
+        \ : fnamemodify(substitute(l:filename, a:path, '.', ''), ':~:.')
+  let l:contents .= ' '
   return l:contents
 endfunction
 
