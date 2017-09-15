@@ -92,6 +92,8 @@ nnoremap  <silent><special>  <Leader>ez   :<C-U>edit $ZDOTDIR/.zshrc<CR>
 " Buffer manip
 " ============================================================================
 
+nnoremap <special>  <Leader>v :<C-U>vnew<CR>
+
 " ----------------------------------------------------------------------------
 " Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)
 " ----------------------------------------------------------------------------

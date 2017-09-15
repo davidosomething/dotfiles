@@ -153,7 +153,7 @@ function! dkostatus#Filename(bufnr, path) abort
 
   let l:filename = bufname(a:bufnr)
   if empty(l:filename)
-    return ' ~~untitled~~ '
+    return ' [No Name] '
   endif
 
   " let l:fullpath = expand('%:p')
