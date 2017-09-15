@@ -151,6 +151,11 @@ function! dkostatus#Filename(bufnr, path) abort
     return ''
   endif
 
+  let l:filename = bufname(a:bufnr)
+  if empty(l:filename)
+    return ' ~~untitled~~ '
+  endif
+
   " let l:fullpath = expand('%:p')
   let l:relative = dko#IsHelp(a:bufnr)
         \ ? ''
