@@ -3,3 +3,4 @@
 set -e
 
 brew cask install caskroom/fonts/font-fira-mono-for-powerline
+brew cask install caskroom/fonts/font-hack
