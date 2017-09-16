@@ -36,7 +36,7 @@ setlocal keywordprg=:help
 setlocal iskeyword+=-
 
 if dko#IsLoaded('vim-docopen')
-  nnoremap go :<C-u>DocOpen<CR>
+  nnoremap <buffer><silent> go :<C-U>DocOpen<CR>
 endif
 
 " ============================================================================
