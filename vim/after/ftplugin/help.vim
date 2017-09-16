@@ -21,6 +21,7 @@ if !&readonly && has('conceal')
   if dko#IsLoaded('vim-vimhelplint') && dko#IsLoaded('vim-hier')
     autocmd dkohelp   BufEnter,BufReadPost  *   if &filetype ==# 'help' | HierStart | endif
     autocmd dkohelp   BufLeave,BufUnload    *   if &filetype ==# 'help' | HierStop | endif
+    HierStart
   endif
 endif
 
@@ -33,6 +34,10 @@ setlocal keywordprg=:help
 " include dash when looking up keywords, cursor on v in `vim-modes` will
 " look up `vim-modes`, not just `vim`
 setlocal iskeyword+=-
+
+if dko#IsLoaded('vim-docopen')
+  nnoremap go :<C-u>DocOpen<CR>
+endif
 
 " ============================================================================
 
