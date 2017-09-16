@@ -15,6 +15,7 @@ flow-bin
 flow-language-server
 generator-hubot
 http-server
+javascript-typescript-langserver
 js-beautify
 jscpd
 jsctags
