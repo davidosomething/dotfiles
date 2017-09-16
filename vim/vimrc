@@ -586,17 +586,6 @@ function! s:LoadPlugins() abort
   " Plug: Commands
   " ==========================================================================
 
-  " <C-w>m to zoom in/out of a window
-  "Plug 'dhruvasagar/vim-zoom'
-  " Better zoom plugin, accounts for command window and doesn't use sessions
-  Plug 'troydm/zoomwintab.vim'
-
-  " :Bdelete to preserve windows
-  Plug 'moll/vim-bbye'
-
-  " in command mode, alt-f/b to go forward/back words
-  Plug 'vim-utils/vim-husk'
-
   let l:fzfable = !empty(g:fzf_dir)
         \ && v:version >= 704
         \ && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
@@ -616,7 +605,13 @@ function! s:LoadPlugins() abort
   " gK to lookup
   Plug 'keith/investigate.vim'
 
+  " :Bdelete to preserve windows
+  Plug 'moll/vim-bbye'
+
   Plug 'nathanaelkane/vim-indent-guides'
+
+  " :DocOpen to open the current help.txt file in browser
+  Plug 'nelstrom/vim-docopen'
 
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
 
@@ -625,6 +620,14 @@ function! s:LoadPlugins() abort
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   Plug 'tpope/vim-eunuch'
+
+  " <C-w>o to zoom in/out of a window
+  "Plug 'dhruvasagar/vim-zoom'
+  " Better zoom plugin, accounts for command window and doesn't use sessions
+  Plug 'troydm/zoomwintab.vim'
+
+  " in command mode, alt-f/b to go forward/back words
+  Plug 'vim-utils/vim-husk'
 
   " ==========================================================================
   " Plug: Input, syntax, spacing
