@@ -8,11 +8,19 @@ augroup END
 
 let g:LanguageClient_serverCommands = {}
 
-if executable('flow-language-server')
+" Disabled for now
+if 0 && executable('flow-language-server')
   let g:LanguageClient_serverCommands['javascript'] = [
         \   'flow-language-server',
         \   '--stdio'
         \ ]
+endif
+
+if g:dko_use_js_langserver
+  let g:LanguageClient_serverCommands['javascript'] = [
+        \   dkonode#Langserver() . '/lib/language-server-stdio.js'
+        \ ]
+  autocmd dkolanguageclient FileType javascript LanguageClientStart
 endif
 
 " Autostarted in LanguageClient-neovim

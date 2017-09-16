@@ -797,7 +797,13 @@ function! s:LoadPlugins() abort
   " --------------------------------------------------------------------------
 
   " Code analysis completion
-  let l:use_tern = g:dko_use_completion && executable('npm')
+  " Langserver disabled
+  let g:dko_use_js_langserver = 0 && g:dko_use_completion
+        \ && l:use_langserver
+        \ && !empty(dkonode#Langserver())
+  let l:use_tern = g:dko_use_completion
+        \ && !g:dko_use_js_langserver
+        \ && executable('npm')
 
   " faster than deoplete implementation
   Plug 'roxma/nvim-cm-tern', PlugIf(l:use_tern, { 'do': 'npm install' })
@@ -812,7 +818,8 @@ function! s:LoadPlugins() abort
   "       \| Plug 'billyvg/jsimport.nvim'
 
   " Nice generic omnifunc when no completion engine
-  Plug '1995eaton/vim-better-javascript-completion', PlugIf(!l:use_tern)
+  Plug '1995eaton/vim-better-javascript-completion',
+        \ PlugIf(!l:use_tern && !g:dko_use_js_langserver)
 
   " Parameter completion (in or after ' or ")
   " Extends omnicomplete to fill in addEventListener('click'
@@ -921,8 +928,6 @@ function! s:LoadPlugins() abort
 
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
-
-  "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
   " ==========================================================================
   " Language: bash/shell/zsh
