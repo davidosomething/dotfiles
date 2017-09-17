@@ -7,7 +7,7 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 " Settings
 " ============================================================================
 
-if !empty($ITERM_PROFILE)
+if !empty($ITERM_PROFILE) || $TERM ==# 'xterm-kitty'
   set termguicolors
 endif
 
