@@ -1283,33 +1283,16 @@ augroup dkowindow
         \ if winnr('$') == 1 && &buftype == 'quickfix' | quit | endif
 augroup END
 
-" Tabline
-augroup dkotabline
-  autocmd!
-
-  autocmd VimEnter
-        \ *
-        \ set tabline=%!dkotabline#Output()
-
-  autocmd BufWinEnter,Colorscheme,CursorMoved,Filetype,SessionLoadPost,WinEnter
-        \ *
-        \ call dkotabline#Refresh()
-augroup END
-
-" Statusline
-" Must init statusline after plugs installed since it uses some plugins
-" @TODO decouple
 augroup dkostatusline
   autocmd!
 
   autocmd VimEnter
-        \ *
-        \ set statusline=%!dkostatus#Output(1)
+        \   *
+        \   call dkostatus#Init()
 
-  " initial statusline in case you type before VimEnter
   autocmd BufWinEnter,Colorscheme,Filetype,SessionLoadPost,WinEnter
-        \ *
-        \ call dkostatus#Refresh()
+        \   *
+        \   call dkostatus#Refresh()
 augroup END
 
 augroup dkoquickfix

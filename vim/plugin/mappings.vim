@@ -37,7 +37,7 @@ command! Q q
 " vim-plug shortcut
 command! PU PlugUpgrade | PlugUpdate
 
-execute dko#MapAll({ 'key': '<F11>', 'command': 'call dkotabline#Toggle()' })
+execute dko#MapAll({ 'key': '<F11>', 'command': 'call dkostatus#ToggleTabline()' })
 
 " ============================================================================
 " Quick edit
