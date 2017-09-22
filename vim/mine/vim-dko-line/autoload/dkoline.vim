@@ -1,7 +1,7 @@
-" autoload/dkostatus.vim
+" autoload/dkoline.vim
 scriptencoding utf-8
 
-function! dkostatus#OutputTabline() abort
+function! dkoline#GetTabline() abort
   let l:tabnr = tabpagenr()
   let l:winnr = tabpagewinnr(l:tabnr)
   let l:bufnr = winbufnr(l:winnr)
@@ -11,7 +11,6 @@ function! dkostatus#OutputTabline() abort
   let l:x = {
         \   'bufnr': l:bufnr,
         \   'ww': 9999,
-        \   'cwd': l:cwd,
         \ }
 
   let l:contents = '%#StatusLine#'
@@ -21,7 +20,7 @@ function! dkostatus#OutputTabline() abort
   " ==========================================================================
 
   " Search context
-  let l:contents .= s:Formatted(dkostatus#Anzu(), '%#Search#')
+  let l:contents .= s:Format(dkoline#Anzu(), '%#Search#')
 
   " ==========================================================================
   " Right side
@@ -29,16 +28,16 @@ function! dkostatus#OutputTabline() abort
 
   let l:contents .= '%#StatusLine# %= '
 
-  let l:contents .= s:Formatted(
-        \ dkostatus#ShortPath(l:bufnr, l:cwd, 80),
+  let l:contents .= s:Format(
+        \ dkoline#ShortPath(l:bufnr, l:cwd, 80),
         \ '%#Pmenu# ʟᴄᴅ %#PmenuSel#')
 
-  let l:contents .= s:Formatted(
+  let l:contents .= s:Format(
         \ dko#ShortenPath(dkoproject#GetRoot(), 80),
         \ '%#Pmenu# ᴘʀᴏᴊ %#PmenuSel#')
 
-  let l:contents .= s:Formatted(
-        \ dkostatus#GitBranch(l:bufnr),
+  let l:contents .= s:Format(
+        \ dkoline#GitBranch(l:bufnr),
         \ '%#Pmenu# ʙʀᴀɴᴄʜ %#PmenuSel#')
 
   " ==========================================================================
@@ -46,8 +45,8 @@ function! dkostatus#OutputTabline() abort
   return l:contents
 endfunction
 
-" a:winnr from dkostatus#Refresh() or 0 on set statusline
-function! dkostatus#Output(winnr) abort
+" a:winnr from dkoline#Refresh() or 0 on set statusline
+function! dkoline#GetStatusline(winnr) abort
   if empty(a:winnr) | return | endif
   let l:winnr = a:winnr > winnr('$') ? 1 : a:winnr
   let l:bufnr = winbufnr(l:winnr)
@@ -57,7 +56,6 @@ function! dkostatus#Output(winnr) abort
   let l:x = {
         \   'bufnr': l:bufnr,
         \   'ww': l:ww,
-        \   'cwd': l:cwd,
         \ }
 
   let l:contents = ''
@@ -66,26 +64,26 @@ function! dkostatus#Output(winnr) abort
   " Left side
   " ==========================================================================
 
-  let l:contents .= '%#TabLine# ' . dkostatus#Mode(l:winnr)
+  let l:contents .= '%#TabLine# ' . dkoline#Mode(l:winnr)
 
   " Filebased
-  let l:contents .= s:Formatted(dkostatus#Filetype(l:bufnr), '%#StatusLine#')
-  let l:contents .= s:Formatted(dkostatus#Filename(l:bufnr, l:cwd), '%#PmenuSel#')
-  let l:contents .= s:Formatted(dkostatus#Dirty(l:bufnr), '%#DiffAdded#')
+  let l:contents .= s:Format(dkoline#Filetype(l:bufnr), '%#StatusLine#')
+  let l:contents .= s:Format(dkoline#Filename(l:bufnr, l:cwd), '%#PmenuSel#')
+  let l:contents .= s:Format(dkoline#Dirty(l:bufnr), '%#DiffAdded#')
 
   " Toggleable
-  let l:contents .= s:Formatted(
-        \ s:If({ 'winnr': l:winnr }, l:x) ? dkostatus#Paste() : '',
+  let l:contents .= s:Format(
+        \ s:If({ 'winnr': l:winnr }, l:x) ? dkoline#Paste() : '',
         \ '%#DiffText#')
 
-  let l:contents .= s:Formatted(dkostatus#Readonly(l:bufnr), '%#Error#')
+  let l:contents .= s:Format(dkoline#Readonly(l:bufnr), '%#Error#')
 
   " Function
-  let l:contents .= s:Formatted(
+  let l:contents .= s:Format(
         \ s:If({
         \   'winnr': l:winnr,
         \   'ww': 80,
-        \ }, l:x) ? dkostatus#FunctionInfo() : '',
+        \ }, l:x) ? dkoline#FunctionInfo() : '',
         \ '%#PMenu# ғᴜɴᴄ %#PmenuSel#')
 
   " ==========================================================================
@@ -95,27 +93,27 @@ function! dkostatus#Output(winnr) abort
   let l:contents .= '%*%='
 
   " Tagging
-  let l:contents .= s:Formatted(
-        \ s:If({ 'winnr': l:winnr }, l:x) ? dkostatus#GutentagsStatus() : '',
+  let l:contents .= s:Format(
+        \ s:If({ 'winnr': l:winnr }, l:x) ? dkoline#GutentagsStatus() : '',
         \ '%#TermCursor#')
 
   " Linting
-  let l:contents .= s:Formatted(
-        \ dkostatus#Neomake('E', dkostatus#NeomakeCounts(l:bufnr)),
+  let l:contents .= s:Format(
+        \ dkoline#Neomake('E', dkoline#NeomakeCounts(l:bufnr)),
         \ '%#NeomakeErrorSign#')
 
-  let l:contents .= s:Formatted(
-        \ dkostatus#Neomake('W', dkostatus#NeomakeCounts(l:bufnr)),
+  let l:contents .= s:Format(
+        \ dkoline#Neomake('W', dkoline#NeomakeCounts(l:bufnr)),
         \ '%#NeomakeWarningSign#')
 
-  let l:contents .= s:Formatted(
-        \ s:If({ 'winnr': l:winnr }, l:x) ? dkostatus#NeomakeRunning(l:bufnr) : '',
+  let l:contents .= s:Format(
+        \ s:If({ 'winnr': l:winnr }, l:x) ? dkoline#NeomakeRunning(l:bufnr) : '',
         \ '%#DiffText#')
 
   let l:contents .= '%<'
 
-  let l:contents .= s:Formatted(
-        \ s:If({ 'winnr': l:winnr }, l:x) ? dkostatus#Ruler() : '',
+  let l:contents .= s:Format(
+        \ s:If({ 'winnr': l:winnr }, l:x) ? dkoline#Ruler() : '',
         \ '%#TabLine#')
 
   return l:contents
@@ -129,7 +127,7 @@ endfunction
 " @param {String} [before]
 " @param {String} [after]
 " @return {String}
-function! s:Formatted(...) abort
+function! s:Format(...) abort
   let l:content = get(a:, 1, '')
   let l:before = get(a:, 2, '')
   let l:after = get(a:, 3, '')
@@ -149,7 +147,7 @@ function! s:If(conditions, values) abort
 endfunction
 
 " @return {String}
-function! dkostatus#Mode(winnr) abort
+function! dkoline#Mode(winnr) abort
   " blacklist
   let l:modecolor = '%#TabLine#'
 
@@ -170,7 +168,7 @@ function! dkostatus#Mode(winnr) abort
 endfunction
 
 " @return {String}
-function! dkostatus#Paste() abort
+function! dkoline#Paste() abort
   return empty(&paste)
         \ ? ''
         \ : ' ᴘ '
@@ -179,14 +177,14 @@ endfunction
 " @param {String} key
 " @param {Dict} counts
 " @return {String}
-function! dkostatus#Neomake(key, counts) abort
+function! dkoline#Neomake(key, counts) abort
   let l:e = get(a:counts, a:key, 0)
   return l:e ? ' ⚑' . l:e . ' ' : ''
 endfunction
 
 " @param {Int} bufnr
 " @return {String}
-function! dkostatus#NeomakeCounts(bufnr) abort
+function! dkoline#NeomakeCounts(bufnr) abort
   return !exists('*neomake#statusline#LoclistCounts')
         \ ? {}
         \ : neomake#statusline#LoclistCounts(a:bufnr)
@@ -194,17 +192,17 @@ endfunction
 
 " @param {Int} bufnr
 " @return {String}
-function! dkostatus#NeomakeRunning(bufnr) abort
+function! dkoline#NeomakeRunning(bufnr) abort
   return !dko#IsLoaded('neomake')
         \ || !exists('*neomake#GetJobs')
         \ || empty(neomake#GetJobs())
         \ ? ''
-        \ : ' ᴍᴀᴋᴇ:' . dkostatus#NeomakeRunningJobs(a:bufnr) . ' '
+        \ : ' ᴍᴀᴋᴇ:' . dkoline#NeomakeRunningJobs(a:bufnr) . ' '
 endfunction
 
 " @param {Int} bufnr
 " @return {String} comma-delimited running job names
-function! dkostatus#NeomakeRunningJobs(bufnr) abort
+function! dkoline#NeomakeRunningJobs(bufnr) abort
   let l:running_jobs = filter(copy(neomake#GetJobs()),
         \ "v:val.bufnr == a:bufnr && !get(v:val, 'canceled', 0)")
   let l:names = map(l:running_jobs, 'v:val.name')
@@ -213,13 +211,13 @@ endfunction
 
 " @param {Int} bufnr
 " @return {String}
-function! dkostatus#Readonly(bufnr) abort
+function! dkoline#Readonly(bufnr) abort
   return getbufvar(a:bufnr, '&readonly') ? ' ʀ ' : ''
 endfunction
 
 " @param {Int} bufnr
 " @return {String}
-function! dkostatus#Filetype(bufnr) abort
+function! dkoline#Filetype(bufnr) abort
   let l:ft = getbufvar(a:bufnr, '&filetype')
   return empty(l:ft)
         \ ? ''
@@ -232,7 +230,7 @@ endfunction
 " @param {Int} bufnr
 " @param {String} path
 " @return {String}
-function! dkostatus#Filename(bufnr, path) abort
+function! dkoline#Filename(bufnr, path) abort
   if dko#IsNonFile(a:bufnr)
     return ''
   endif
@@ -251,12 +249,12 @@ endfunction
 
 " @param {Int} bufnr
 " @return {String}
-function! dkostatus#Dirty(bufnr) abort
+function! dkoline#Dirty(bufnr) abort
   return getbufvar(a:bufnr, '&modified') ? ' + ' : ''
 endfunction
 
 " @return {String}
-function! dkostatus#Anzu() abort
+function! dkoline#Anzu() abort
   if !exists('*anzu#search_status')
     return ''
   endif
@@ -273,7 +271,7 @@ endfunction
 " @param {String} path
 " @param {Int} max
 " @return {String}
-function! dkostatus#ShortPath(bufnr, path, max) abort
+function! dkoline#ShortPath(bufnr, path, max) abort
   if dko#IsNonFile(a:bufnr) || dko#IsHelp(a:bufnr)
     return ''
   endif
@@ -287,7 +285,7 @@ endfunction
 "
 " @param {Int} bufnr
 " @return {String}
-function! dkostatus#GitBranch(bufnr) abort
+function! dkoline#GitBranch(bufnr) abort
   return dko#IsNonFile(a:bufnr)
         \ || dko#IsHelp(a:bufnr)
         \ ? ''
@@ -299,7 +297,7 @@ function! dkostatus#GitBranch(bufnr) abort
 endfunction
 
 " @return {String}
-function! dkostatus#FunctionInfo() abort
+function! dkoline#FunctionInfo() abort
   let l:funcinfo = dkocode#GetFunctionInfo()
   return empty(l:funcinfo.name)
         \ ? ''
@@ -307,7 +305,7 @@ function! dkostatus#FunctionInfo() abort
 endfunction
 
 " @return {String}
-function! dkostatus#GutentagsStatus() abort
+function! dkoline#GutentagsStatus() abort
   if !exists('g:loaded_gutentags')
     return ''
   endif
@@ -319,7 +317,7 @@ function! dkostatus#GutentagsStatus() abort
 endfunction
 
 " @return {String}
-function! dkostatus#Ruler() abort
+function! dkoline#Ruler() abort
   return ' %5.(%c%) '
 endfunction
 
@@ -327,20 +325,20 @@ endfunction
 " Utility
 " ============================================================================
 
-function! dkostatus#Init() abort
-  set statusline=%!dkostatus#Output(1)
-  set tabline=%!dkostatus#OutputTabline()
+function! dkoline#Init() abort
+  set statusline=%!dkoline#GetStatusline(1)
+  set tabline=%!dkoline#GetTabline()
+  set showtabline=2
 endfunction
 
-function! dkostatus#Refresh() abort
+function! dkoline#Refresh() abort
   for l:winnr in range(1, winnr('$'))
-    let l:fn = '%!dkostatus#Output(' . l:winnr . ')'
+    let l:fn = '%!dkoline#GetStatusline(' . l:winnr . ')'
     call setwinvar(l:winnr, '&statusline', l:fn)
   endfor
 endfunction
 
 " bound to <F11> - see ../plugin/mappings.vim
-function! dkostatus#ToggleTabline() abort
+function! dkoline#ToggleTabline() abort
   let &showtabline = &showtabline ? 0 : 2
 endfunction
-

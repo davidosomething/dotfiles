@@ -1235,6 +1235,8 @@ function! s:LoadPlugins() abort
   " that Neovim doesn't need.
   " @see <https://github.com/sjl/vitality.vim/issues/31>
   "Plug 'tmux-plugins/vim-tmux-focus-events'
+
+  Plug g:dko#vim_dir . '/mine/vim-dko-line'
 endfunction
 
 " ----------------------------------------------------------------------------
@@ -1281,18 +1283,6 @@ augroup dkowindow
   autocmd WinEnter
         \ *
         \ if winnr('$') == 1 && &buftype == 'quickfix' | quit | endif
-augroup END
-
-augroup dkostatusline
-  autocmd!
-
-  autocmd VimEnter
-        \   *
-        \   call dkostatus#Init()
-
-  autocmd BufWinEnter,Colorscheme,Filetype,SessionLoadPost,WinEnter
-        \   *
-        \   call dkostatus#Refresh()
 augroup END
 
 augroup dkoquickfix
