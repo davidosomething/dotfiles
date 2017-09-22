@@ -3,5 +3,4 @@
 set -e
 
 brew cask install caskroom/fonts/font-firamono-nerd-font-mono
-brew cask install caskroom/fonts/font-mplus-nerd-font-mono
 brew cask install caskroom/fonts/font-fira-mono-for-powerline
