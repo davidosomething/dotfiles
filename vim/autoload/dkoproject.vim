@@ -52,7 +52,7 @@ function! dkoproject#GetRoot(...) abort
     return b:dkoproject_root
   endif
 
-  let l:path = dkoproject#GetFilePath(a:000)
+  let l:path = dkoproject#GetFilePath(get(a:, 1, ''))
   let l:root = dkoproject#GetGitRootByFile(l:path)
   let l:root = empty(l:root)
         \ ? dkoproject#GetRootByFileMarker(s:default_markers)
