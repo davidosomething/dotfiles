@@ -30,7 +30,7 @@ let g:PJ_function = function('g:DKO_FindPackageJson')
 " Reset
 " ============================================================================
 
-augroup vimpj
+augroup plugin-vimpj
   autocmd!
 augroup END
 
@@ -137,7 +137,7 @@ function! s:Init() abort
     return
   endif
 
-  augroup vimpj
+  augroup plugin-vimpj
     autocmd!
 
     " Start pj for the buffer

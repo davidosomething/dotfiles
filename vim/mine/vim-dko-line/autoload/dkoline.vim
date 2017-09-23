@@ -343,3 +343,25 @@ endfunction
 function! dkoline#ToggleTabline() abort
   let &showtabline = &showtabline ? 0 : 2
 endfunction
+
+function! dkoline#HookRefresh() abort
+  let l:refresh_hooks = [
+        \   'BufEnter',
+        \   'FileType',
+        \   'FileWritePost',
+        \   'FileReadPost',
+        \   'SessionLoadPost',
+        \   'CursorMoved',
+        \ ]
+  " BufEnter for different buffer
+  " CursorMoved is for updating anzu search status accurately
+
+  let l:user_refresh_hooks = [
+        \   'GutentagsUpdated',
+        \ ]
+  " 'NeomakeCountsChanged',
+  " 'NeomakeFinished'
+
+  execute 'autocmd plugin-dkoline ' . join(l:refresh_hooks, ',') . ' * call dkoline#Refresh()'
+  execute 'autocmd plugin-dkoline User ' . join(l:user_refresh_hooks, ',') . ' call dkoline#Refresh()'
+endfunction

@@ -24,4 +24,4 @@ function! s:Unmap() abort
   silent! vnoremap <buffer> <C-k> <NOP>
 endfunction
 
-autocmd dkovimmove BufEnter,BufReadPost * call s:Unmap()
+autocmd dkovimmove BufEnter * call s:Unmap()

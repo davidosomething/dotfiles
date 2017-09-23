@@ -1,25 +1,7 @@
 " plugin/dkoline.vim
 
-augroup dkoline-plugin
+augroup plugin-dkoline
   autocmd!
   autocmd VimEnter * call dkoline#Init()
+  autocmd VimEnter * call dkoline#HookRefresh()
 augroup END
-
-let s:refresh_hooks = [
-      \   'BufWinEnter',
-      \   'FileType',
-      \   'FileWritePost',
-      \   'SessionLoadPost',
-      \   'WinEnter',
-      \   'CursorMoved',
-      \ ]
-" CursorMoved is for updating anzu search status accurately
-
-let s:user_refresh_hooks = [
-      \   'GutentagsUpdated',
-      \ ]
-" 'NeomakeCountsChanged',
-" 'NeomakeFinished'
-
-execute 'autocmd dkoline-plugin ' . join(s:refresh_hooks, ',') . ' * call dkoline#Refresh()'
-execute 'autocmd dkoline-plugin User ' . join(s:user_refresh_hooks, ',') . ' call dkoline#Refresh()'

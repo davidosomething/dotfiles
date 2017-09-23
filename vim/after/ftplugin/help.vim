@@ -19,7 +19,7 @@ if !&readonly && has('conceal')
 
   " Toggle vim-hier for help buffers, run :VimhelpLint manually though
   if dko#IsLoaded('vim-vimhelplint') && dko#IsLoaded('vim-hier')
-    autocmd dkohelp   BufEnter,BufReadPost  *   if &filetype ==# 'help' | HierStart | endif
+    autocmd dkohelp   BufEnter *   if &filetype ==# 'help' | HierStart | endif
     autocmd dkohelp   BufLeave,BufUnload    *   if &filetype ==# 'help' | HierStop | endif
     HierStart
   endif
