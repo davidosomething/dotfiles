@@ -347,11 +347,13 @@ endfunction
 function! dkoline#HookRefresh() abort
   let l:refresh_hooks = [
         \   'BufEnter',
+        \   'BufWinEnter',
+        \   'CursorMoved',
+        \   'FileReadPost',
         \   'FileType',
         \   'FileWritePost',
-        \   'FileReadPost',
         \   'SessionLoadPost',
-        \   'CursorMoved',
+        \   'WinEnter',
         \ ]
   " BufEnter for different buffer
   " CursorMoved is for updating anzu search status accurately
