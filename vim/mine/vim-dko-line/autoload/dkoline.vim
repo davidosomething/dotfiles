@@ -353,6 +353,8 @@ function! dkoline#HookRefresh() abort
         \   'FileType',
         \   'FileWritePost',
         \   'SessionLoadPost',
+        \   'TabEnter',
+        \   'VimResized',
         \   'WinEnter',
         \ ]
   " BufEnter for different buffer
