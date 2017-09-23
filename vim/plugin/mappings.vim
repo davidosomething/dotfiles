@@ -37,8 +37,6 @@ command! Q q
 " vim-plug shortcut
 command! PU PlugUpgrade | PlugUpdate
 
-execute dko#MapAll({ 'key': '<F11>', 'command': 'call dkoline#ToggleTabline()' })
-
 " ============================================================================
 " Quick edit
 " ec* - Edit closest (find upwards)

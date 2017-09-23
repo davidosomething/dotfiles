@@ -43,6 +43,8 @@ silent! unmap *
 silent! unmap g*
 silent! unmap #
 silent! unmap g#
+silent! unmap n
+silent! unmap N
 
 let g:asterisk#keeppos = 1
 
@@ -62,8 +64,11 @@ function! s:SetupIncsearch() abort
   map  g/ <Plug>(incsearch-stay)
 
   map  ?  <Plug>(incsearch-backward)
-  map  n  <Plug>(incsearch-nohl-n)
-  map  N  <Plug>(incsearch-nohl-N)
+
+  if !dko#IsLoaded('vim-anzu')
+    map  n  <Plug>(incsearch-nohl-n)
+    map  N  <Plug>(incsearch-nohl-N)
+  endif
 endfunction
 call s:SetupIncsearch()
 
@@ -76,12 +81,17 @@ function! s:SetupAnzu() abort
   " the status to re-enable even after <Esc><Esc>
   " Disable them. To enable anzu for other motions, should recursive map them
   " to trigger anzu#mode#start.
-  let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus  = 0
-  let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus   = 0
+  let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 0
+  let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
 
   " Mappings
-  nmap  n   <Plug>(anzu-n)
-  nmap  N   <Plug>(anzu-N)
+  if dko#IsLoaded('incsearch.vim')
+    map  n   <Plug>(incsearch-nohl)<Plug>(anzu-n)
+    map  N   <Plug>(incsearch-nohl)<Plug>(anzu-N)
+  else
+    map  n   <Plug>(anzu-n)
+    map  N   <Plug>(anzu-N)
+  endif
 
   " Clear anzu in status AND unhighlight last search
   nmap  <special>  <Esc><Esc>

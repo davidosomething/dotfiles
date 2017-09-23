@@ -11,7 +11,9 @@ let s:refresh_hooks = [
       \   'FileWritePost',
       \   'SessionLoadPost',
       \   'WinEnter',
+      \   'CursorMoved',
       \ ]
+" CursorMoved is for updating anzu search status accurately
 
 let s:user_refresh_hooks = [
       \   'GutentagsUpdated',

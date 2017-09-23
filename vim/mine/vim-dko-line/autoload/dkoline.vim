@@ -262,7 +262,7 @@ function! dkoline#Anzu() abort
   let l:anzu = anzu#search_status()
   return empty(l:anzu)
         \ ? ''
-        \ : ' ' . l:anzu . ' '
+        \ : ' %{anzu#search_status()} '
 endfunction
 
 " Use dko#ShortenPath conditionally
@@ -336,6 +336,7 @@ function! dkoline#Refresh() abort
     let l:fn = '%!dkoline#GetStatusline(' . l:winnr . ')'
     call setwinvar(l:winnr, '&statusline', l:fn)
   endfor
+  set tabline=%!dkoline#GetTabline()
 endfunction
 
 " bound to <F11> - see ../plugin/mappings.vim
