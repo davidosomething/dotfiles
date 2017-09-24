@@ -1,12 +1,12 @@
 " autoload/dkoline.vim
 scriptencoding utf-8
 
-let g:dkoline#refresh = 0
-let g:dkoline#trefresh = 0
-let g:dkoline#srefresh = 0
+" let g:dkoline#refresh = 0
+" let g:dkoline#trefresh = 0
+" let g:dkoline#srefresh = 0
 
 function! dkoline#GetTabline() abort
-  let g:dkoline#trefresh += 1
+  "let g:dkoline#trefresh += 1
   let l:tabnr = tabpagenr()
   let l:winnr = tabpagewinnr(l:tabnr)
   let l:bufnr = winbufnr(l:winnr)
@@ -53,7 +53,7 @@ endfunction
 " a:winnr from dkoline#Refresh() or 0 on set statusline
 function! dkoline#GetStatusline(winnr) abort
   if empty(a:winnr) | return | endif
-  let g:dkoline#srefresh += 1
+  " let g:dkoline#srefresh += 1
 
   let l:winnr = a:winnr > winnr('$') ? 1 : a:winnr
   let l:bufnr = winbufnr(l:winnr)
@@ -339,7 +339,7 @@ function! dkoline#Init() abort
 endfunction
 
 function! dkoline#Refresh() abort
-  let g:dkoline#refresh += 1
+  " let g:dkoline#refresh += 1
   for l:winnr in range(1, winnr('$'))
     let l:fn = '%!dkoline#GetStatusline(' . l:winnr . ')'
     call setwinvar(l:winnr, '&statusline', l:fn)
