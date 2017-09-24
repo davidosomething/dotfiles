@@ -16,10 +16,10 @@ augroup END
 if exists('+autochdir')
   autocmd dkocompletion InsertEnter *
         \   let b:save_cwd = getcwd()
-        \|  set autochdir
+        \ | set autochdir
   autocmd dkocompletion InsertLeave *
         \   set noautochdir
-        \|  if exists('b:save_cwd')
-        \|    execute 'cd' fnameescape(b:save_cwd)
-        \|  endif
+        \ | if exists('b:save_cwd')
+        \ |   execute 'cd' fnameescape(b:save_cwd)
+        \ | endif
 endif

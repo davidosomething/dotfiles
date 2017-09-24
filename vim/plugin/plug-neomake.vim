@@ -183,9 +183,9 @@ let s:local_flow = {
       \ }
 
 autocmd dkoneomake FileType javascript
-      \ call s:AddLocalMaker(s:local_eslint)
-      \| call s:AddLocalMaker(s:local_jshint)
-      \| call s:PickJavascriptMakers()
+      \   call s:AddLocalMaker(s:local_eslint)
+      \ | call s:AddLocalMaker(s:local_jshint)
+      \ | call s:PickJavascriptMakers()
 
 "call s:AddLocalMaker(s:local_flow)
 
@@ -268,9 +268,9 @@ let s:local_phpcs = {
       \ }
 
 autocmd dkoneomake FileType php
-      \ call s:AddLocalMaker(s:local_phpcs)
-      \| call s:SetPhpcsStandard()
-      \| call s:SetPhpmdRuleset()
+      \   call s:AddLocalMaker(s:local_phpcs)
+      \ | call s:SetPhpcsStandard()
+      \ | call s:SetPhpmdRuleset()
 
 " ----------------------------------------------------------------------------
 " Python
@@ -331,9 +331,9 @@ function! s:PickScssMakers() abort
 endfunction
 
 autocmd dkoneomake FileType scss
-      \ call s:SetSasslintrc()
-      \| call s:AddLocalMaker(s:local_sasslint)
-      \| call s:PickScssMakers()
+      \   call s:SetSasslintrc()
+      \ | call s:AddLocalMaker(s:local_sasslint)
+      \ | call s:PickScssMakers()
 
 " ----------------------------------------------------------------------------
 " VimL

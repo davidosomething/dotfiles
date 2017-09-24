@@ -59,8 +59,8 @@ augroup filetypedetect
         \ setfiletype html
 
   autocmd! BufNewFile,BufRead *.md
-        \ setfiletype markdown.pandoc
-        \| call s:BindPreview()
+        \   setfiletype markdown.pandoc
+        \ | call s:BindPreview()
 
   autocmd! BufNewFile,BufRead
         \ .babelrc,.bowerrc,.jshintrc

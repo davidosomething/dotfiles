@@ -76,8 +76,11 @@ function! s:SetupAnzu() abort
   " Replace anzu's cursormoved with my own that updates the tabline where
   " search status is displayed
   autocmd! anzu CursorMoved
-  autocmd dkosearch CursorMoved * AnzuUpdateSearchStatus
-        \| call dkoline#RefreshTabline()
+  autocmd! anzu TextChanged
+  autocmd! anzu TextChangedI
+  autocmd dkosearch CursorMoved,Textchanged,TextChangedI *
+        \   AnzuUpdateSearchStatus
+        \ | call dkoline#RefreshTabline()
 
   " These will allow anzu to trigger on motions like `gd` but will cause
   " the status to re-enable even after <Esc><Esc>

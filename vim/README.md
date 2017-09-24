@@ -160,6 +160,7 @@ sparingly (typically for `setlocal` ftplugin settings).
 - `<Plug>(DKOMyPlugMapping)` - Parentheses around `<Plug>` mapping names
 - The `augroup` for `mine/` plugins should be `plugin-pluginname`
 - The `augroup` for plugin settings should be `dkopluginname`
+- Bar continuation should have a space: `\ | {{next command }}`
 
 ----
 

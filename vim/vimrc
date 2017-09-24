@@ -823,7 +823,7 @@ function! s:LoadPlugins() abort
 
   " Complete imports (slow, consider set up in .tern-project instead)
   " Plug 'neovim/node-host', { 'do': 'npm install' }
-  "       \| Plug 'billyvg/jsimport.nvim'
+  "       \ | Plug 'billyvg/jsimport.nvim'
 
   " Nice generic omnifunc when no completion engine
   Plug '1995eaton/vim-better-javascript-completion',
@@ -894,7 +894,7 @@ function! s:LoadPlugins() abort
   Plug 'shawncplus/phpcomplete.vim', PlugIf(!l:use_composer, { 'for': 'php' })
 
   " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
-  "       \| Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
+  "       \ | Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
 
   " --------------------------------------------------------------------------
   " Completion: Python
