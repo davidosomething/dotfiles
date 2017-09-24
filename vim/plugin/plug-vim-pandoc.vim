@@ -3,8 +3,8 @@
 " Use this plugin on markdown
 let g:pandoc#filetypes#handled = ['pandoc', 'markdown']
 
-" but don't override the filetype (leave it as 'markdown')
-"let g:pandoc#filetypes#pandoc_markdown = 0
+" but don't override the filetype (leave it as 'markdown' or 'markdown.pandoc')
+let g:pandoc#filetypes#pandoc_markdown = 0
 
 " Don't bind keys since they assume use of \ instead of <Leader>
 let g:pandoc#keyboard#use_default_mappings = 0

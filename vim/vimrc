@@ -1063,7 +1063,7 @@ function! s:LoadPlugins() abort
   "Plug 'tpope/vim-markdown'
 
   " Enable pandoc filetype options and vim operators/fns
-  Plug 'vim-pandoc/vim-pandoc'
+  Plug 'vim-pandoc/vim-pandoc', PlugIf(v:version >= 704)
 
   " Use pandoc for markdown syntax
   Plug 'vim-pandoc/vim-pandoc-syntax'

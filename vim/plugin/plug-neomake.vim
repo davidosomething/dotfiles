@@ -207,7 +207,6 @@ function! s:SetupMarkdownlint() abort
   let l:maker.args = empty(l:config) ? [] : ['--config', l:config]
 
   let b:neomake_markdown_markdownlint_args = l:maker.args
-  let b:neomake_pandoc_markdownlint_args = l:maker.args
 
   " Use markdownlint in local node_modules/ if available
   let l:bin = 'node_modules/.bin/markdownlint'
@@ -219,11 +218,10 @@ function! s:SetupMarkdownlint() abort
   endif
 
   let b:neomake_markdown_markdownlint_maker = l:maker
-  let b:neomake_pandoc_markdownlint_maker = l:maker
 endfunction
 " Stupid composite filetypes
 autocmd dkoneomake FileType
-      \ markdown.pandoc,markdown,pandoc
+      \ markdown.pandoc,markdown
       \ call s:SetupMarkdownlint()
 
 " ----------------------------------------------------------------------------

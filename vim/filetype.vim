@@ -46,7 +46,7 @@ augroup filetypedetect
   " git branch description (opened via `git branch --edit-description`)
   autocmd! BufNewFile,BufRead
         \ BRANCH_DESCRIPTION
-        \ setfiletype gitbranchdescription.markdown
+        \ setfiletype gitbranchdescription.markdown.pandoc
 
   " marko templating, close enough to HTML
   autocmd! BufNewFile,BufRead
@@ -59,7 +59,7 @@ augroup filetypedetect
         \ setfiletype html
 
   autocmd! BufNewFile,BufRead *.md
-        \ setfiletype markdown
+        \ setfiletype markdown.pandoc
         \| call s:BindPreview()
 
   autocmd! BufNewFile,BufRead
