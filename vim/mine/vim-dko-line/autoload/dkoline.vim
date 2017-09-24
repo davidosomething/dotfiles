@@ -79,9 +79,9 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= s:Format(dkoline#Dirty(l:bufnr), '%#DiffAdded#')
 
   " Toggleable
-  let l:contents .= s:Format(
-        \ s:If({ 'winnr': l:winnr }, l:x) ? dkoline#Paste() : '',
-        \ '%#DiffText#')
+  if !has('nvim')
+    let l:contents .= s:Format(dkoline#Paste(), '%#DiffText#')
+  endif
 
   let l:contents .= s:Format(dkoline#Readonly(l:bufnr), '%#Error#')
 
@@ -336,30 +336,15 @@ function! dkoline#Init() abort
   set statusline=%!dkoline#GetStatusline(1)
   set tabline=%!dkoline#GetTabline()
   set showtabline=2
-endfunction
 
-function! dkoline#Refresh() abort
-  " let g:dkoline#refresh += 1
-  for l:winnr in range(1, winnr('$'))
-    let l:fn = '%!dkoline#GetStatusline(' . l:winnr . ')'
-    call setwinvar(l:winnr, '&statusline', l:fn)
-  endfor
-endfunction
-
-" bound to <F11> - see ../plugin/mappings.vim
-function! dkoline#ToggleTabline() abort
-  let &showtabline = &showtabline ? 0 : 2
-endfunction
-
-function! dkoline#HookRefresh() abort
   let l:refresh_hooks = [
         \   'BufEnter',
-        \   'BufWinEnter',
-        \   'SessionLoadPost',
-        \   'TabEnter',
-        \   'VimResized',
-        \   'WinEnter',
         \ ]
+        " \   'BufWinEnter',
+        " \   'SessionLoadPost',
+        " \   'TabEnter',
+        " \   'VimResized',
+        " \   'WinEnter',
         " \   'FileType',
         " \   'FileWritePost',
         " \   'FileReadPost',
@@ -374,11 +359,28 @@ function! dkoline#HookRefresh() abort
   " 'NeomakeFinished'
 
   if !empty(l:refresh_hooks)
-    execute 'autocmd plugin-dkoline '
-          \ . join(l:refresh_hooks, ',') . ' * call dkoline#Refresh()'
+    execute 'autocmd plugin-dkoline ' . join(l:refresh_hooks, ',') . ' *'
+          \ . ' call dkoline#RefreshStatus()'
   endif
   if !empty(l:user_refresh_hooks)
-    execute 'autocmd plugin-dkoline User ' 
-          \ . join(l:user_refresh_hooks, ',') . ' call dkoline#Refresh()'
+    execute 'autocmd plugin-dkoline User ' . join(l:user_refresh_hooks, ',')
+          \ . ' call dkoline#RefreshStatus()'
   endif
+endfunction
+
+function! dkoline#RefreshStatus() abort
+  " let g:dkoline#refresh += 1
+  for l:winnr in range(1, winnr('$'))
+    let l:fn = '%!dkoline#GetStatusline(' . l:winnr . ')'
+    call setwinvar(l:winnr, '&statusline', l:fn)
+  endfor
+endfunction
+
+function! dkoline#RefreshTabline() abort
+  set tabline=%!dkoline#GetTabline()
+endfunction
+
+" bound to <F11> - see ../plugin/mappings.vim
+function! dkoline#ToggleTabline() abort
+  let &showtabline = &showtabline ? 0 : 2
 endfunction

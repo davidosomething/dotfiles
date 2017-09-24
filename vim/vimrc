@@ -46,7 +46,10 @@ set modeline
 " Clipboard -- use os clipboard
 " ----------------------------------------------------------------------------
 
-set pastetoggle=<F12>
+" nvim has bracketed paste built in
+if !has('nvim')
+  set pastetoggle=<F12>
+endif
 
 if empty($SSH_CONNECTION) && has('clipboard')
   set clipboard^=unnamed                " Use vim global clipboard register

@@ -56,9 +56,7 @@ if dko#IsLoaded('incsearch.vim') && dko#IsLoaded('vim-anzu')
 endif
 
 function! s:SetupIncsearch() abort
-  if !dko#IsLoaded('incsearch.vim')
-    return
-  endif
+  if !dko#IsLoaded('incsearch.vim') | return | endif
 
   map  /  <Plug>(incsearch-forward)
   map  g/ <Plug>(incsearch-stay)
@@ -73,9 +71,13 @@ endfunction
 call s:SetupIncsearch()
 
 function! s:SetupAnzu() abort
-  if !dko#IsLoaded('vim-anzu')
-    return
-  endif
+  if !dko#IsLoaded('vim-anzu') | return | endif
+
+  " Replace anzu's cursormoved with my own that updates the tabline where
+  " search status is displayed
+  autocmd! anzu CursorMoved
+  autocmd dkosearch CursorMoved * AnzuUpdateSearchStatus
+        \| call dkoline#RefreshTabline()
 
   " These will allow anzu to trigger on motions like `gd` but will cause
   " the status to re-enable even after <Esc><Esc>
