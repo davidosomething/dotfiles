@@ -26,6 +26,7 @@ lighthouse
 markdownlint-cli
 npm-check-updates
 package-json-validator
+prettier
 prettier-eslint-cli
 pwmetrics
 sass-lint

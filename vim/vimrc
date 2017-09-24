@@ -615,6 +615,8 @@ function! s:LoadPlugins() abort
 
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
 
+  Plug 'sbdchd/neoformat'
+
   " Preview window with function signature
   Plug 'Shougo/echodoc.vim'
 
