@@ -76,9 +76,7 @@ function! s:SetupAnzu() abort
   " Replace anzu's cursormoved with my own that updates the tabline where
   " search status is displayed
   autocmd! anzu CursorMoved
-  autocmd! anzu TextChanged
-  autocmd! anzu TextChangedI
-  autocmd dkosearch CursorMoved,Textchanged,TextChangedI *
+  autocmd dkosearch CursorMoved *
         \   AnzuUpdateSearchStatus
         \ | call dkoline#RefreshTabline()
 
