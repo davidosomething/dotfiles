@@ -50,9 +50,10 @@ endfunction
 " @param {String} path
 " @param {Int} max
 " @return {String}
-function! dko#ShortenPath(path, max) abort
+function! dko#ShortenPath(path, ...) abort
+  let l:max = get(a:, 1, 0)
   let l:full = fnamemodify(a:path, ':~:.')
-  return len(l:full) > a:max
+  return l:max && len(l:full) > l:max
         \ ? ''
         \ : ' ' . (len(l:full) == 0 ? '~' : l:full) . ' '
 endfunction

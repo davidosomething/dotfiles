@@ -22,3 +22,6 @@ let g:tern_show_argument_hints = 'no'
 
 " Don't set the omnifunc to tern#Complete
 let g:tern_set_omni_function = 0
+
+" Open loclist when doing search for refs
+let g:tern_show_loc_after_refs = 1

@@ -34,11 +34,11 @@ function! dkoline#GetTabline() abort
   let l:contents .= '%#StatusLine# %= '
 
   let l:contents .= s:Format(
-        \ dkoline#ShortPath(l:bufnr, l:cwd, 80),
+        \ dkoline#ShortPath(l:bufnr, l:cwd, 0),
         \ '%#Pmenu# ʟᴄᴅ %#PmenuSel#')
 
   let l:contents .= s:Format(
-        \ dko#ShortenPath(dkoproject#GetRoot(), 80),
+        \ dko#ShortenPath(dkoproject#GetRoot(), 0),
         \ '%#Pmenu# ᴘʀᴏᴊ %#PmenuSel#')
 
   let l:contents .= s:Format(
@@ -86,12 +86,14 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= s:Format(dkoline#Readonly(l:bufnr), '%#Error#')
 
   " Function
-  let l:contents .= s:Format(
-        \ s:If({
-        \   'winnr': l:winnr,
-        \   'ww': 80,
-        \ }, l:x) ? dkoline#FunctionInfo() : '',
-        \ '%#PMenu# ғᴜɴᴄ %#PmenuSel#')
+  if get(g:, 'dkoline#enabled_functioninfo', 0)
+    let l:contents .= s:Format(
+          \ s:If({
+          \   'winnr': l:winnr,
+          \   'ww': 80,
+          \ }, l:x) ? dkoline#FunctionInfo() : '',
+          \ '%#PMenu# ғᴜɴᴄ %#PmenuSel#')
+  endif
 
   " ==========================================================================
   " Right side
@@ -354,9 +356,9 @@ function! dkoline#Init() abort
 
   let l:user_refresh_hooks = [
         \   'GutentagsUpdated',
+        \   'NeomakeFinished',
         \ ]
   " 'NeomakeCountsChanged',
-  " 'NeomakeFinished'
 
   if !empty(l:refresh_hooks)
     execute 'autocmd plugin-dkoline ' . join(l:refresh_hooks, ',') . ' *'
