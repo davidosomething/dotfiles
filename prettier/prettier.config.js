@@ -7,7 +7,7 @@
 const p = {};
 
 p.trailingComma = 'es5';
-
 p.jsxBracketSameLine = true;
+p.singleQuote = true;
 
-export default p;
+module.exports = p;
