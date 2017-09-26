@@ -10,7 +10,7 @@ function! dkoline#GetTabline() abort
   let l:tabnr = tabpagenr()
   let l:winnr = tabpagewinnr(l:tabnr)
   let l:bufnr = winbufnr(l:winnr)
-  let l:ww    = 9999
+  let l:ww    = &columns
   let l:cwd   = has('nvim') ? getcwd(l:winnr) : getcwd()
 
   let l:x = {
@@ -34,12 +34,17 @@ function! dkoline#GetTabline() abort
 
   let l:contents .= '%#StatusLine# %= '
 
-  let l:contents .= dkoline#Format(
-        \ dkoline#ShortPath(l:bufnr, l:cwd, 0),
-        \ '%#Pmenu# ʟᴄᴅ %#PmenuSel#')
+  let l:project_root = dko#ShortenPath(dkoproject#GetRoot(), 0)
+  let l:maxwidth = float2nr(&columns / 2) - 5 - 6 - len(l:project_root)
 
   let l:contents .= dkoline#Format(
-        \ dko#ShortenPath(dkoproject#GetRoot(), 0),
+        \   dkoline#ShortPath(l:bufnr, l:cwd, 0),
+        \   '%#Pmenu# ʟᴄᴅ %#PmenuSel#%0.' . l:maxwidth . '(',
+        \   '%)'
+        \ )
+
+  let l:contents .= dkoline#Format(
+        \ l:project_root,
         \ '%#Pmenu# ᴘʀᴏᴊ %#PmenuSel#')
 
   let l:contents .= dkoline#Format(

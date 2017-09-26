@@ -36,6 +36,7 @@
 
 	fo      = fetch origin
 
+	git     = !exec git
 	g       = grep --break --heading --line-number
 
 	l       = log --abbrev-commit --oneline
