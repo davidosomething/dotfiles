@@ -928,8 +928,6 @@ function! s:LoadPlugins() abort
   Plug 'chrisbra/vim-sh-indent'
   Plug 'chrisbra/vim-zsh'
 
-  Plug 'z0mbix/vim-shfmt', PlugIf(executable('shfmt'))
-
   " ==========================================================================
   " Language: D
   " ==========================================================================
