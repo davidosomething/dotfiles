@@ -337,7 +337,8 @@ endfunction
 
 function! dkoline#Init() abort
   set statusline=%!dkoline#GetStatusline(1)
-  set tabline=%!dkoline#GetTabline()
+
+  call dkoline#RefreshTabline()
   set showtabline=2
 
   let l:refresh_hooks = [
@@ -377,6 +378,10 @@ function! dkoline#RefreshStatus() abort
     let l:fn = '%!dkoline#GetStatusline(' . l:winnr . ')'
     call setwinvar(l:winnr, '&statusline', l:fn)
   endfor
+endfunction
+
+function! dkoline#RefreshTabline() abort
+  set tabline=%!dkoline#GetTabline()
 endfunction
 
 " bound to <F11> - see ../plugin/mappings.vim
