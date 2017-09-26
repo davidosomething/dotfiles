@@ -35,7 +35,22 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.bash {"
 . "${DOTFILES}/shell/helpers.bash"    # scripting helpers
 . "${DOTFILES}/shell/functions.bash"  # shell functions
 . "${DOTFILES}/shell/dotfiles.bash"   # update dotfiles
-. "${DOTFILES}/shell/aliases.bash"    # aliases
+. "${DOTFILES}/shell/aliases.bash"    # generic aliases
+
+# ============================================================================
+# os specific aliases
+# ============================================================================
+
+case "$OSTYPE" in
+  darwin*) . "${DOTFILES}/shell/aliases-darwin.bash" ;;
+  linux*)  . "${DOTFILES}/shell/aliases-linux.bash"
+    case "$DOTFILES_DISTRO" in
+      "archlinux"|"debian"|"fedora")
+        . "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.bash"
+        ;;
+    esac
+    ;;
+esac
 
 # ==============================================================================
 # env management -- Node, PHP, Python, Ruby - These add to path

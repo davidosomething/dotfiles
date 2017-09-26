@@ -65,6 +65,7 @@ brew install neovim
 # ============================================================================
 
 brew install ack
+brew install fasd
 brew install fzf
 brew install tree
 brew install ripgrep
@@ -159,6 +160,7 @@ brew install maven
 # ----------------------------------------------------------------------------
 
 brew install php71
+brew install pmd
 brew install homebrew/homebrew-php/composer
 
 # ----------------------------------------------------------------------------
