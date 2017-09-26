@@ -187,7 +187,7 @@ if !has('nvim')
   " memory filesystems; this is because they're used as scratch spaces for tools
   " like sudoedit(8) and pass(1) and hence could present a security problem
   if has('viminfo')
-    let &g:viminfo .= 'n' . expand(g:dko#vim_dir . '/.tmp/cache/.viminfo')
+    let &g:viminfo .= ',n' . expand(g:dko#vim_dir . '/.tmp/cache/.viminfo')
     augroup dkoviminfo
       autocmd!
       silent! autocmd BufNewFile,BufReadPre
