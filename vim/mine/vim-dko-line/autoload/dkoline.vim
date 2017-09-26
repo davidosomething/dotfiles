@@ -379,10 +379,6 @@ function! dkoline#RefreshStatus() abort
   endfor
 endfunction
 
-function! dkoline#RefreshTabline() abort
-  set tabline=%!dkoline#GetTabline()
-endfunction
-
 " bound to <F11> - see ../plugin/mappings.vim
 function! dkoline#ToggleTabline() abort
   let &showtabline = &showtabline ? 0 : 2
