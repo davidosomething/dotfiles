@@ -47,9 +47,7 @@ set modeline
 " ----------------------------------------------------------------------------
 
 " nvim has bracketed paste built in
-if !has('nvim')
-  set pastetoggle=<F12>
-endif
+if !has('nvim') | set pastetoggle=<F12> | endif
 
 if empty($SSH_CONNECTION) && has('clipboard')
   set clipboard^=unnamed                " Use vim global clipboard register
@@ -122,9 +120,7 @@ set mouse=a
 " Typing key combos
 set notimeout
 set ttimeout
-if !has('nvim')
-  set ttimeoutlen=10
-endif
+if !has('nvim') | set ttimeoutlen=10 | endif
 
 " no longer using comma so I can reverse repeat fFtT searches
 " no longer using \ so I can type escaped chars :/
@@ -139,9 +135,7 @@ set browsedir=buffer                  " browse files in same dir as open file
 set wildmenu                          " Enhanced command line completion.
 set wildmode=list:longest,full        " Complete files using a menu AND list
 
-if v:version >= 704
-  set wildignorecase
-endif
+if v:version >= 704 | set wildignorecase | endif
 
 " wildignore prevents things from showing up in cmd completion
 " It's for things you'd NEVER open in Vim, like caches and binary files
@@ -184,9 +178,7 @@ set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
 
 set fileformats=unix,mac,dos
 " Not modifiable if no window (e.g. resourcing vimrc)
-if !&modifiable
-  set fileformat=unix
-endif
+if !&modifiable | set fileformat=unix | endif
 
 " info file -- nvim uses shada in $XDG_DATA_HOME so that's cool.
 if !has('nvim')
@@ -274,9 +266,8 @@ set completeopt+=menu,menuone         " show PUM, even for one thing
 
 set shortmess-=f                      " (file x of x) instead of just (x of x)
 set shortmess+=mnrxoOt
-if has('patch-7.4.314')
-  set shortmess+=c                    " Disable "Pattern not found" messages
-endif
+" Disable "Pattern not found" messages
+if has('patch-7.4.314') | set shortmess+=c | endif
 
 " ----------------------------------------------------------------------------
 " Window splitting and buffers
@@ -298,11 +289,7 @@ set nostartofline                     " don't jump to col1 on switch buffer
 " Code folding
 " ----------------------------------------------------------------------------
 
-if !has('nvim')
-  set foldcolumn=2
-  set foldlevel=99                      " show all folds by default
-  set foldlevelstart=99                 " show all folds by default
-endif
+set foldlevelstart=99                 " show all folds by default
 set nofoldenable
 
 " ----------------------------------------------------------------------------
@@ -318,9 +305,7 @@ set listchars+=precedes:«
 set listchars+=nbsp:⣿
 
 " maybe...
-" if has('patch-7.4.785')
-"   set fixendofline
-" endif
+" if has('patch-7.4.785') | set fixendofline | endif
 
 " ----------------------------------------------------------------------------
 " Diffing
@@ -416,9 +401,7 @@ set incsearch
 set wrapscan                          " Searches wrap around end of the file.
 set ignorecase
 " Follow smartcase and ignorecase when doing tag search
-if exists('+tagcase')
-  set tagcase=followscs
-endif
+if exists('+tagcase') | set tagcase=followscs | endif
 set smartcase
 
 if !empty(dko#GetGrepper())
