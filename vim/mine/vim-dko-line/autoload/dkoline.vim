@@ -25,7 +25,7 @@ function! dkoline#GetTabline() abort
   " ==========================================================================
 
   " Search context
-  let l:contents .= s:Format(dkoline#Anzu(), '%#Search#')
+  let l:contents .= dkoline#Format(dkoline#Anzu(), '%#Search#')
 
   " ==========================================================================
   " Right side
@@ -33,15 +33,15 @@ function! dkoline#GetTabline() abort
 
   let l:contents .= '%#StatusLine# %= '
 
-  let l:contents .= s:Format(
+  let l:contents .= dkoline#Format(
         \ dkoline#ShortPath(l:bufnr, l:cwd, 0),
         \ '%#Pmenu# ʟᴄᴅ %#PmenuSel#')
 
-  let l:contents .= s:Format(
+  let l:contents .= dkoline#Format(
         \ dko#ShortenPath(dkoproject#GetRoot(), 0),
         \ '%#Pmenu# ᴘʀᴏᴊ %#PmenuSel#')
 
-  let l:contents .= s:Format(
+  let l:contents .= dkoline#Format(
         \ dkoline#GitBranch(l:bufnr),
         \ '%#Pmenu# ʙʀᴀɴᴄʜ %#PmenuSel#')
 
@@ -74,21 +74,21 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%#TabLine# ' . dkoline#Mode(l:winnr)
 
   " Filebased
-  let l:contents .= s:Format(dkoline#Filetype(l:bufnr), '%#StatusLine#')
-  let l:contents .= s:Format(dkoline#Filename(l:bufnr, l:cwd), '%#PmenuSel#')
-  let l:contents .= s:Format(dkoline#Dirty(l:bufnr), '%#DiffAdded#')
+  let l:contents .= dkoline#Format(dkoline#Filetype(l:bufnr), '%#StatusLine#')
+  let l:contents .= dkoline#Format(dkoline#Filename(l:bufnr, l:cwd), '%#PmenuSel#')
+  let l:contents .= dkoline#Format(dkoline#Dirty(l:bufnr), '%#DiffAdded#')
 
   " Toggleable
   if !has('nvim')
-    let l:contents .= s:Format(dkoline#Paste(), '%#DiffText#')
+    let l:contents .= dkoline#Format(dkoline#Paste(), '%#DiffText#')
   endif
 
-  let l:contents .= s:Format(dkoline#Readonly(l:bufnr), '%#Error#')
+  let l:contents .= dkoline#Format(dkoline#Readonly(l:bufnr), '%#Error#')
 
   " Function
   if get(g:, 'dkoline#enabled_functioninfo', 0)
-    let l:contents .= s:Format(
-          \ s:If({
+    let l:contents .= dkoline#Format(
+          \ dkoline#If({
           \   'winnr': l:winnr,
           \   'ww': 80,
           \ }, l:x) ? dkoline#FunctionInfo() : '',
@@ -102,27 +102,27 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%*%='
 
   " Tagging
-  let l:contents .= s:Format(
-        \ s:If({ 'winnr': l:winnr }, l:x) ? dkoline#GutentagsStatus() : '',
+  let l:contents .= dkoline#Format(
+        \ dkoline#If({ 'winnr': l:winnr }, l:x) ? dkoline#GutentagsStatus() : '',
         \ '%#TermCursor#')
 
   " Linting
-  let l:contents .= s:Format(
+  let l:contents .= dkoline#Format(
         \ dkoline#Neomake('E', dkoline#NeomakeCounts(l:bufnr)),
         \ '%#NeomakeErrorSign#')
 
-  let l:contents .= s:Format(
+  let l:contents .= dkoline#Format(
         \ dkoline#Neomake('W', dkoline#NeomakeCounts(l:bufnr)),
         \ '%#NeomakeWarningSign#')
 
-  let l:contents .= s:Format(
-        \ s:If({ 'winnr': l:winnr }, l:x) ? dkoline#NeomakeRunning(l:bufnr) : '',
+  let l:contents .= dkoline#Format(
+        \ dkoline#If({ 'winnr': l:winnr }, l:x) ? dkoline#NeomakeRunning(l:bufnr) : '',
         \ '%#DiffText#')
 
   let l:contents .= '%<'
 
-  let l:contents .= s:Format(
-        \ s:If({ 'winnr': l:winnr }, l:x) ? dkoline#Ruler() : '',
+  let l:contents .= dkoline#Format(
+        \ dkoline#If({ 'winnr': l:winnr }, l:x) ? dkoline#Ruler() : '',
         \ '%#TabLine#')
 
   return l:contents
@@ -136,14 +136,14 @@ endfunction
 " @param {String} [before]
 " @param {String} [after]
 " @return {String}
-function! s:Format(...) abort
+function! dkoline#Format(...) abort
   let l:content = get(a:, 1, '')
   let l:before = get(a:, 2, '')
   let l:after = get(a:, 3, '')
   return empty(l:content) ? '' : l:before . l:content . l:after
 endfunction
 
-function! s:If(conditions, values) abort
+function! dkoline#If(conditions, values) abort
   if has_key(a:conditions, 'winnr')
     if winnr() != a:conditions.winnr | return 0 | endif
   endif
