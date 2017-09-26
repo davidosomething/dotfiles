@@ -89,11 +89,11 @@ function! s:SetupAnzu() abort
 
   " Mappings
   if dko#IsLoaded('incsearch.vim')
-    map  n   <Plug>(incsearch-nohl)<Plug>(anzu-n)<Plug>(dkotabline-refresh)
-    map  N   <Plug>(incsearch-nohl)<Plug>(anzu-N)<Plug>(dkotabline-refresh)
+    map  n   <Plug>(incsearch-nohl)<Plug>(anzu-n)
+    map  N   <Plug>(incsearch-nohl)<Plug>(anzu-N)
   else
-    map  n   <Plug>(anzu-n)<Plug>(dkotabline-refresh)
-    map  N   <Plug>(anzu-N)<Plug>(dkotabline-refresh)
+    map  n   <Plug>(anzu-n)
+    map  N   <Plug>(anzu-N)
   endif
 
   " Clear anzu in status AND unhighlight last search
@@ -129,10 +129,10 @@ function! s:GetSearchRHS(op) abort
     let l:anzu_op = a:op ==# 'z*' ? 'star' : l:anzu_op
     let l:anzu_op = a:op ==# 'z#' ? 'sharp' : l:anzu_op
     if dko#IsLoaded('vim-asterisk') || empty(l:anzu_op)
-      let l:ops .= '<Plug>(anzu-update-search-status)<Plug>(dkotabline-refresh)'
+      let l:ops .= '<Plug>(anzu-update-search-status)'
     else
       " no anzu stuff for gz* and gz#
-      let l:ops .= '<Plug>(anzu-' . l:anzu_op . ')<Plug>(dkotabline-refresh)'
+      let l:ops .= '<Plug>(anzu-' . l:anzu_op . ')'
     endif
   endif
 

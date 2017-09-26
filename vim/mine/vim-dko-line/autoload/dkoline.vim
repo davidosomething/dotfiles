@@ -25,7 +25,8 @@ function! dkoline#GetTabline() abort
   " ==========================================================================
 
   " Search context
-  let l:contents .= dkoline#Format(dkoline#Anzu(), '%#Search#')
+  let l:contents .= dkoline#Format(dkoline#Anzu(),
+        \ '%#Pmenu# ? %#PmenuSel#%#Search#')
 
   " ==========================================================================
   " Right side
@@ -86,7 +87,7 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= dkoline#Format(dkoline#Readonly(l:bufnr), '%#Error#')
 
   " Function
-  if get(g:, 'dkoline#enabled_functioninfo', 0)
+  if get(g:, 'dkoline_enabled_functioninfo', 0)
     let l:contents .= dkoline#Format(
           \ dkoline#If({
           \   'winnr': l:winnr,
@@ -376,10 +377,6 @@ function! dkoline#RefreshStatus() abort
     let l:fn = '%!dkoline#GetStatusline(' . l:winnr . ')'
     call setwinvar(l:winnr, '&statusline', l:fn)
   endfor
-endfunction
-
-function! dkoline#RefreshTabline() abort
-  set tabline=%!dkoline#GetTabline()
 endfunction
 
 " bound to <F11> - see ../plugin/mappings.vim
