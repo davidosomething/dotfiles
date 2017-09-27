@@ -81,7 +81,13 @@ function! dkoline#GetStatusline(winnr) abort
 
   " Filebased
   let l:contents .= dkoline#Format(dkoline#Filetype(l:bufnr), '%#StatusLine#')
-  let l:contents .= dkoline#Format(dkoline#Filename(l:bufnr, l:cwd), '%#PmenuSel#')
+
+  let l:maxwidth = l:ww - 32
+  let l:contents .= dkoline#Format(
+        \   dkoline#Filename(l:bufnr, l:cwd),
+        \   '%#PmenuSel#%0.' . l:maxwidth . '(',
+        \   '%)'
+        \ )
   let l:contents .= dkoline#Format(dkoline#Dirty(l:bufnr), '%#DiffAdded#')
 
   " Toggleable
@@ -108,28 +114,26 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%*%='
 
   " Tagging
-  let l:contents .= dkoline#Format(
-        \ dkoline#If({ 'winnr': l:winnr }, l:x) ? dkoline#GutentagsStatus() : '',
-        \ '%#TermCursor#')
+  let l:contents .= dkoline#Format(dkoline#GutentagsStatus(), '%#TermCursor#')
 
   " Linting
-  let l:contents .= dkoline#Format(
-        \ dkoline#Neomake('E', dkoline#NeomakeCounts(l:bufnr)),
-        \ '%#NeomakeErrorSign#')
+  if dko#IsLoaded('neomake') && exists('*neomake#GetJobs')
+    let l:contents .= dkoline#Format(
+          \ dkoline#Neomake('E', neomake#statusline#LoclistCounts(l:bufnr)),
+          \ '%#NeomakeErrorSign#')
 
-  let l:contents .= dkoline#Format(
-        \ dkoline#Neomake('W', dkoline#NeomakeCounts(l:bufnr)),
-        \ '%#NeomakeWarningSign#')
+    let l:contents .= dkoline#Format(
+          \ dkoline#Neomake('W', neomake#statusline#LoclistCounts(l:bufnr)),
+          \ '%#NeomakeWarningSign#')
 
-  let l:contents .= dkoline#Format(
-        \ dkoline#If({ 'winnr': l:winnr }, l:x) ? dkoline#NeomakeRunning(l:bufnr) : '',
-        \ '%#DiffText#')
+    let l:contents .= dkoline#Format(
+          \ dkoline#NeomakeRunning(l:bufnr),
+          \ '%#DiffText#')
+  endif
 
   let l:contents .= '%<'
 
-  let l:contents .= dkoline#Format(
-        \ dkoline#If({ 'winnr': l:winnr }, l:x) ? dkoline#Ruler() : '',
-        \ '%#TabLine#')
+  let l:contents .= dkoline#Format(dkoline#Ruler(), '%#TabLine#')
 
   return l:contents
 endfunction
@@ -199,29 +203,18 @@ endfunction
 
 " @param {Int} bufnr
 " @return {String}
-function! dkoline#NeomakeCounts(bufnr) abort
-  return !exists('*neomake#statusline#LoclistCounts')
-        \ ? {}
-        \ : neomake#statusline#LoclistCounts(a:bufnr)
-endfunction
-
-" @param {Int} bufnr
-" @return {String}
 function! dkoline#NeomakeRunning(bufnr) abort
-  return !dko#IsLoaded('neomake')
-        \ || !exists('*neomake#GetJobs')
-        \ || empty(neomake#GetJobs())
-        \ ? ''
-        \ : ' ᴍᴀᴋᴇ:' . dkoline#NeomakeRunningJobs(a:bufnr) . ' '
+  let l:running_jobs = filter(copy(neomake#GetJobs()),
+        \ 'v:val.bufnr == ' . a:bufnr . ' && !get(v:val, "canceled", 0)')
+  if empty(l:running_jobs) | return | endif
+
+  let l:names = join(map(l:running_jobs, 'v:val.name'), ',')
+  return ' ᴍᴀᴋᴇ:' . l:names . ' '
 endfunction
 
 " @param {Int} bufnr
 " @return {String} comma-delimited running job names
 function! dkoline#NeomakeRunningJobs(bufnr) abort
-  let l:running_jobs = filter(copy(neomake#GetJobs()),
-        \ "v:val.bufnr == a:bufnr && !get(v:val, 'canceled', 0)")
-  let l:names = map(l:running_jobs, 'v:val.name')
-  return join(l:names, ', ')
 endfunction
 
 " @param {Int} bufnr
