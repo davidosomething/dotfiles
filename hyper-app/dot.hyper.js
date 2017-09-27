@@ -1,7 +1,7 @@
 module.exports = {
   config: {
     // default font size in pixels for all tabs
-    fontSize: 14,
+    fontSize: 12,
 
     // font family with optional fallbacks
     fontFamily: '"Fira Mono for Powerline", "FuraMonoForPowerline Nerd Font", Menlo, "DejaVu Sans Mono", "Lucida Console", monospace',
