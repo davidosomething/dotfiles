@@ -1,10 +1,12 @@
 module.exports = {
   config: {
     // default font size in pixels for all tabs
-    fontSize: 16,
+    fontSize: 12,
 
     // font family with optional fallbacks
-    fontFamily: '"Fira Mono for Powerline", Menlo, "DejaVu Sans Mono", "Lucida Console", monospace',
+    fontFamily: '"Fira Mono for Powerline", "FuraMonoForPowerline Nerd Font", Menlo, "DejaVu Sans Mono", "Lucida Console", monospace',
+
+    cursorBlink: true,
 
     // terminal cursor background color (hex)
     cursorColor: '#F81CE5',
@@ -13,10 +15,10 @@ module.exports = {
     foregroundColor: '#fff',
 
     // terminal background color
-    backgroundColor: '#000',
+    backgroundColor: '#222',
 
     // border color (window, tabs)
-    borderColor: '#333',
+    borderColor: '#000',
 
     // custom css to embed in the main window
     css: '',
@@ -56,11 +58,11 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    // Alt buffer scrolling
-    'hyperterm-alternatescroll',
+    //// Alt buffer scrolling broken in Hyper 2.0
+    //'hyperterm-alternatescroll',
 
     //// blinking cursor
-    'hyperterm-blink',
+    //'hyperterm-blink',
 
     'hyperterm-base16-tomorrow-night',
 

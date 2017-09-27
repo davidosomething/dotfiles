@@ -9,6 +9,7 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 if $COLORTERM ==# 'truecolor'
       \|| $TERM ==# 'xterm-kitty'
+      \|| $TERM_PROGRAM ==# 'Hyper'
       \|| !empty($ITERM_PROFILE)
   set termguicolors
 endif
