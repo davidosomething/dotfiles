@@ -660,7 +660,7 @@ function! s:LoadPlugins() abort
   " and use 'm' instead
   " Only on Neovim, because someone else is probably using my computer if
   " they're using regular vim
-  "Plug 'svermeulen/vim-easyclip', PlugIf(has('nvim'))
+  Plug 'svermeulen/vim-easyclip', PlugIf(has('nvim'))
 
   " []-bindings -- buffer switch, lnext/prev, etc.
   " co-bindings
