@@ -10,29 +10,14 @@ augroup END
 
 function! s:Close() abort
   if winnr('$') > 1
-    :close
+    close
   else
-    :bprevious
+    bprevious
   endif
 endfunction
 
 function! s:Unmap() abort
-  if dko#IsEditable()
-    return
-  endif
-
-  " STFU
-  " <nowait> for operator pending or multikeys
-  silent! noremap   <buffer>          c <NOP>
-  silent! noremap   <buffer>          m <NOP>
-  silent! noremap   <buffer>          p <NOP>
-  silent! noremap   <buffer>          r <NOP>
-  silent! noremap   <buffer>          u <NOP>
-  silent! noremap   <buffer>          x <NOP>
-  silent! noremap   <buffer><nowait>  d <NOP>
-  silent! noremap   <buffer><nowait>  s <NOP>
-  silent! nnoremap  <buffer>          a <NOP>
-  silent! nnoremap  <buffer>          i <NOP>
+  if dko#IsEditable() | return | endif
 
   " Only for the actual help buffer, not when editing doc/helpfile.txt
   " That's why this is not in the ftplugin

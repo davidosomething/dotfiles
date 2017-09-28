@@ -660,7 +660,7 @@ function! s:LoadPlugins() abort
   " and use 'm' instead
   " Only on Neovim, because someone else is probably using my computer if
   " they're using regular vim
-  Plug 'svermeulen/vim-easyclip', PlugIf(has('nvim'))
+  "Plug 'svermeulen/vim-easyclip', PlugIf(has('nvim'))
 
   " []-bindings -- buffer switch, lnext/prev, etc.
   " co-bindings
@@ -713,11 +713,6 @@ function! s:LoadPlugins() abort
   " - f     for function (c, java, vim; js; php)
   " - P     for <?php ?>
   Plug 'akiyan/vim-textobj-php', { 'for': [ 'php' ] }
-
-  Plug 'kana/vim-textobj-function'
-  " These rely on base textobj-function
-  Plug 'thinca/vim-textobj-function-javascript', { 'for': [ 'javascript' ] }
-  Plug 'kentaro/vim-textobj-function-php', { 'for': [ 'php' ] }
 
   "Plug 'terryma/vim-expand-region'
 
@@ -1245,7 +1240,7 @@ endif
 
 if s:has_plug
   call plug#begin(g:dko#plug_absdir)
-  call s:LoadPlugins()
+  if empty($VIMNOPLUGS) | call s:LoadPlugins() | endif
   call plug#end()
 endif
 
