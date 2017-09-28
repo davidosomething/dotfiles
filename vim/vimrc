@@ -684,10 +684,6 @@ function! s:LoadPlugins() abort
   " See plugin/textobj.vim to see how they're mapped.
   " -       Base textobj plugin
   Plug 'kana/vim-textobj-user'
-  " - c     for comment
-  Plug 'glts/vim-textobj-comment', { 'on': [
-        \   '<Plug>(textobj-comment',
-        \ ]}
   " - d/D   for underscore section (e.g. `did` on foo_b|ar_baz -> foo__baz)
   Plug 'machakann/vim-textobj-delimited'
   " - i     for indent level
@@ -704,17 +700,10 @@ function! s:LoadPlugins() abort
         \ ]}
   " - b     for any block type (parens, braces, quotes, ltgt)
   Plug 'rhysd/vim-textobj-anyblock'
-  " - =/i=  for conflicts marked blocks
-  Plug 'rhysd/vim-textobj-conflict'
   " - x     for xml attr like `data-content="everything"`
   Plug 'whatyouhide/vim-textobj-xmlattr', { 'on': [
         \   '<Plug>(textobj-xmlattr',
         \ ]}
-  " - f     for function (c, java, vim; js; php)
-  " - P     for <?php ?>
-  Plug 'akiyan/vim-textobj-php', { 'for': [ 'php' ] }
-
-  "Plug 'terryma/vim-expand-region'
 
   " HR with <Leader>f[CHAR]
   Plug g:dko#vim_dir . '/mine/vim-hr'
