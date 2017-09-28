@@ -340,7 +340,13 @@ autocmd dkoneomake FileType scss
 " ----------------------------------------------------------------------------
 
 " this is the default setting these days (vint only, vimlint is disabled)
-"let g:neomake_vim_enabled_makers = ['vint']
+let g:neomake_vim_enabled_makers = ['vimlparser', 'vint']
+
+let g:neomake_vim_vimlparser_maker = {
+      \   'exe':         'vimlparser',
+      \   'args':        [],
+      \   'errorformat': '%E%f:%l:%c: %n: %m',
+      \ }
 
 " ============================================================================
 " Should we :Neomake?
