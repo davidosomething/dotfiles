@@ -3,8 +3,6 @@
 " nvm and node related
 "
 
-if !executable('node') || !executable('npm') | finish | endif
-
 " @return {string} cached default node directory or 0
 function! dkonode#Default() abort
   let s:default = get(s:, 'default')
