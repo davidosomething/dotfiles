@@ -2,6 +2,10 @@
 
 if !dko#IsLoaded('fzf.vim') | finish | endif
 
+augroup dkovimdkofzf
+  autocmd!
+augroup END
+
 " Map the commands -- the actual plugin is loaded by a vim-plug 'on' hook when
 " a command is run for the first time
 execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper!' })
