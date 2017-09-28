@@ -57,6 +57,7 @@ esac
 # ==============================================================================
 
 # This also adds completions based on global nvm->npm packages
+. "${DOTFILES}/shell/go.bash"
 . "${DOTFILES}/shell/java.bash"
 . "${DOTFILES}/shell/node.bash"
 . "${DOTFILES}/shell/php.bash"
