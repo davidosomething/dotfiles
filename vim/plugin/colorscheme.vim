@@ -28,7 +28,10 @@ if dkoplug#plugins#Exists('nord-vim')
 endif
 
 if dkoplug#plugins#Exists('vim-two-firewatch')
-  let g:dko_colorscheme = get(g:, 'dko_colorscheme', 'two-firewatch')
+  let g:dko_colorscheme = 
+        \ $ITERM_PROFILE =~? 'light'
+        \   ? 'two-firewatch'
+        \   : get(g:, 'dko_colorscheme', 'two-firewatch')
 
   function! s:Firewatch() abort
     set background=light
