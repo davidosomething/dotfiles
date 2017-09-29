@@ -24,7 +24,7 @@ zstyle ':vcs_info:git*' actionformats     '%F{magenta}(%m %F{red}→%F{magenta} 
 
 # Show untracked files
 # https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples#L155
-function +vi-git-untracked() {
++vi-git-untracked() {
   if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
     git status --porcelain | grep '??' &> /dev/null ; then
     # This will show the marker if there are any untracked files in repo.
@@ -37,8 +37,8 @@ function +vi-git-untracked() {
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 
 # use custom hook to parse merge message in actionformat
-function +vi-git-merge-message() {
-  if [ "${hook_com[action_orig]}" = "merge" ]; then
++vi-git-merge-message() {
+  if [[ "${hook_com[action_orig]}" == "merge" ]]; then
     # misc_orig is in the format:
     # bd69f0644eb9aa460da5de9ebf72e2e3c04b30f2 Merge branch 'x' (1 applied)
 
@@ -51,8 +51,4 @@ function +vi-git-merge-message() {
 }
 zstyle ':vcs_info:git*+set-message:*' hooks git-merge-message
 
-function __dko::prompt::precmd::vcs() {
-  # Load up git status for prompt
-  command -v "vcs_info" >/dev/null && vcs_info
-}
-add-zsh-hook precmd __dko::prompt::precmd::vcs
+dko::has "vcs_info" && add-zsh-hook "precmd" "vcs_info"
