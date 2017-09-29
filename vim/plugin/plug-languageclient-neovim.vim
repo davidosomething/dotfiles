@@ -1,6 +1,6 @@
 " plugin/plug-languageclient-neovim.vim
 
-if !dko#IsLoaded('LanguageClient-neovim') | finish | endif
+if !dkoplug#plugins#IsLoaded('LanguageClient-neovim') | finish | endif
 
 augroup dkolanguageclient
   autocmd!
@@ -24,6 +24,6 @@ if g:dko_use_js_langserver
 endif
 
 " Autostarted in LanguageClient-neovim
-if dko#IsPlugged('roxma/LanguageServer-php-neovim')
+if dkoplug#plugins#Exists('roxma/LanguageServer-php-neovim')
   autocmd dkolanguageclient FileType php LanguageClientStart
 endif

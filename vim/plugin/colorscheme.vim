@@ -1,33 +1,37 @@
 " plugin/colorscheme.vim
 
-if !has('nvim') && has('termguicolors')
-  set termguicolors
-endif
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
+" ============================================================================
+
+let &termguicolors = has('termguicolors')
 
 let s:colorscheme = 'default'
 
-if (dko#IsPlugged('Base2Tone-vim') || dko#IsPlugged('vim-base2tone-lakedark'))
+if dkoplug#plugins#Exists('vim-base2tone-lakedark')
       \ && (has('nvim') || has('gui_running') || has('termguicolors'))
       \ && $TERM_PROGRAM !=# 'Apple_Terminal'
   let g:base16colorspace=256
   let g:dko_colorscheme = 'Base2Tone_LakeDark'
 
   function! s:LakeDark() abort
+    set background=light
     silent! colorscheme Base2Tone_LakeDark
   endfunction
   nnoremap <silent><special> <Leader>zb :<C-U>call <SID>LakeDark()<CR>
 endif
 
-if dko#IsPlugged('nord-vim')
+if dkoplug#plugins#Exists('nord-vim')
   let g:nord_italic_comments = 1
   let g:dko_colorscheme = get(g:, 'dko_colorscheme', 'nord')
 endif
 
-if dko#IsPlugged('vim-two-firewatch')
+if dkoplug#plugins#Exists('vim-two-firewatch')
   let g:dko_colorscheme = get(g:, 'dko_colorscheme', 'two-firewatch')
 
   function! s:Firewatch() abort
-    set background=dark
+    set background=light
     silent! colorscheme two-firewatch
   endfunction
   nnoremap <silent><special> <Leader>zt :<C-U>call <SID>Firewatch()<CR>
@@ -38,3 +42,8 @@ else
 endif
 
 silent! execute 'colorscheme ' . g:dko_colorscheme
+
+" ============================================================================
+
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

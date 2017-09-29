@@ -1,6 +1,6 @@
 " plugin/plug-vim-dko-fzf.vim
 
-if !dko#IsLoaded('fzf.vim') | finish | endif
+if !dkoplug#plugins#IsLoaded('fzf.vim') | finish | endif
 
 augroup dkovimdkofzf
   autocmd!

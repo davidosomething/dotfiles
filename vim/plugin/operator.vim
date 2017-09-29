@@ -3,14 +3,14 @@
 " vim-operator-user operators
 "
 
-if !dko#IsPlugged('vim-operator-user') | finish | endif
+if !dkoplug#plugins#Exists('vim-operator-user') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
 " ============================================================================
 
-if dko#IsPlugged('caw.vim')
+if dkoplug#plugins#Exists('caw.vim')
   " By default works like tcomment_vim (instantly)
   "let g:caw_operator_keymappings = 1
 
@@ -26,7 +26,7 @@ if dko#IsPlugged('caw.vim')
   map <silent> gsc   <Plug>(caw:hatpos:toggle:operator)
 endif
 
-if dko#IsPlugged('vim-operator-surround')
+if dkoplug#plugins#Exists('vim-operator-surround')
   silent! unmap gsa
   silent! unmap gsd
   silent! unmap gsr
@@ -37,7 +37,7 @@ if dko#IsPlugged('vim-operator-surround')
   map <silent>  gsr   <Plug>(operator-surround-replace)
 endif
 
-if dko#IsPlugged('operator-camelize.vim')
+if dkoplug#plugins#Exists('operator-camelize.vim')
   silent! unmap <Leader>c
   nmap <special> <Leader>c <Plug>(operator-camelize-toggle)
 endif

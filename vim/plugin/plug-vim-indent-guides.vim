@@ -1,6 +1,6 @@
 " plugin/plug-vim-indent-guides.vim
 
-if !dko#IsLoaded('vim-indent-guides') | finish | endif
+if !dkoplug#plugins#IsLoaded('vim-indent-guides') | finish | endif
 
 " added custom colors to my colorscheme
 let g:indent_guides_auto_colors = 0

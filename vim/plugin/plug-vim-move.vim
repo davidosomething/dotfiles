@@ -1,6 +1,6 @@
 " plugin/plug-vim-move.vim
 
-if !dko#IsPlugged('vim-move') | finish | endif
+if !dkoplug#plugins#Exists('vim-move') | finish | endif
 
 augroup dkovimmove
   autocmd!

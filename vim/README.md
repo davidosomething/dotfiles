@@ -7,11 +7,7 @@
 ![vim screenshot][screenshot]
 > Screenshot in terminal vim with a function signature in tabline
 
-- Custom statusline with minimal junk, showing short cwd - much faster than
-  airline
-- Custom tabline used to show function signature (PHP, Python, Ruby, VimL,
-  and others supported via [tyru/current-func-info.vim], and I added regexps
-  for JavaScript/es6.
+- Custom statusline with minimal junk, showing short directory
 - FZF for Most Recently Used files and fuzzy file finder
 - Neomake + local use of eslint, custom detection of .eslint, .scss-lint,
   etc.
@@ -147,7 +143,8 @@ sparingly (typically for `setlocal` ftplugin settings).
 
 ### VimL Coding
 
-- Include `dko#IsPlugged()` or `dko#IsLoaded()` check if relying on plugins
+- Include `dkoplug#plugins#Exists()` or `dkoplug#plugins#IsLoaded()` checks if
+  relying on plugins
 - Include `&cpoptions` guard if there are mappings
 - Use `<special>` if the mapping key is special (irrespective of `&cpoptions`)
 - `g:DKO_FunctionName` - DKO_PascalCase
@@ -169,5 +166,3 @@ sparingly (typically for `setlocal` ftplugin settings).
 [syntastic]: https://github.com/scrooloose/syntastic
 [neomake]: https://github.com/neomake/neomake
 [vim-plug]: https://github.com/junegunn/vim-plug
-[tyru/current-func-info.vim]: https://github.com/tyru/current-func-info.vim
-[jeetsukumaran/vim-gazetteer]: https://github.com/jeetsukumaran/vim-gazetteer

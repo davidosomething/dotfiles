@@ -1,6 +1,6 @@
 " plugin/plug-vim-expand-region.vim
 
-if !dko#IsLoaded('vim-expand-region') | finish | endif
+if !dkoplug#plugins#IsLoaded('vim-expand-region') | finish | endif
 
 " Extend the global default (NOTE: Remove comments in dictionary before sourcing)
 call expand_region#custom_text_objects({

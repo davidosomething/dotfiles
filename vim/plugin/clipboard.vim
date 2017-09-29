@@ -7,7 +7,7 @@ set cpoptions&vim
 " EasyClip
 " ======================================================================
 
-if dko#IsLoaded('vim-easyclip')
+if dkoplug#plugins#IsLoaded('vim-easyclip')
   " explicitly do NOT remap s/S to paste register
   let g:EasyClipUseSubstituteDefaults = 0
 
@@ -19,7 +19,7 @@ endif
 " Manual blackhole
 " ============================================================================
 
-if !dko#IsLoaded('vim-easyclip')
+if !dkoplug#plugins#IsLoaded('vim-easyclip')
   function! s:Blackhole(key) abort
     execute 'nnoremap ' . a:key . ' "' . a:key . a:key
     execute 'xnoremap ' . a:key . ' "' . a:key . a:key

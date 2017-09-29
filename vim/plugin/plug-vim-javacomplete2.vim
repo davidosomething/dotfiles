@@ -1,6 +1,6 @@
 " plugin/plug-vim-javacomplete2.vim
 
-if !dko#IsPlugged('vim-javacomplete2') | finish | endif
+if !dkoplug#plugins#Exists('vim-javacomplete2') | finish | endif
 
 augroup dkojavacomplete
   autocmd!

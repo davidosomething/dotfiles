@@ -32,7 +32,7 @@ execute 'omap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
 " EditorConfig overrides
 " ============================================================================
 
-if dko#IsLoaded('editorconfig-vim')
+if dkoplug#plugins#IsLoaded('editorconfig-vim')
   function! DKO_EditorConfigPhp(config) abort
     setlocal softtabstop=-2
     return 0
@@ -45,7 +45,7 @@ endif
 " StanAngeloff/php.vim
 " ============================================================================
 
-if dko#IsPlugged('php.vim')
+if dkoplug#plugins#Exists('php.vim')
   " Syntax highlighting in phpdoc blocks
   hi! def link phpDocTags  phpDefine
   hi! def link phpDocParam phpType

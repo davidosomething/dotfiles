@@ -4,7 +4,7 @@
 " These are lazy loaded so we need the bindings to trigger the <Plug>
 "
 
-if !dko#IsLoaded('vim-textobj-user') | finish | endif
+if !dkoplug#plugins#IsLoaded('vim-textobj-user') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
@@ -26,7 +26,7 @@ for s:obj in [
       \   'url',
       \   'xmlattr',
       \ ]
-  if dko#IsPlugged('vim-textobj-' . s:obj)
+  if dkoplug#plugins#Exists('vim-textobj-' . s:obj)
     call s:MapTextobj(s:obj)
   endif
 endfor

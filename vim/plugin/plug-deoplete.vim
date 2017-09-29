@@ -1,6 +1,6 @@
 " plugin/plug-deoplete.vim
 
-if !g:dko_use_deoplete || !dko#IsLoaded('deoplete.nvim') | finish | endif
+if !g:dko_use_deoplete || !dkoplug#plugins#IsLoaded('deoplete.nvim') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
@@ -139,7 +139,7 @@ let s:deo_patterns.javascript = g:dko_use_completion
 " - string vim regex
 let s:omni_only = get(g:, 'deoplete#_omni_patterns', {})
 
-if dko#IsLoaded('nvim-completion-manager')
+if dkoplug#plugins#IsLoaded('nvim-completion-manager')
   let s:omni_only.javascript = []
 endif
 
@@ -227,7 +227,7 @@ endfunction
 " Completion Plugin: vim-better-javascript-completion
 " ============================================================================
 
-if dko#IsLoaded('vim-better-javascript-completion') && !g:dko_use_completion
+if dkoplug#plugins#IsLoaded('vim-better-javascript-completion') && !g:dko_use_completion
   autocmd dkocompletion FileType javascript setlocal omnifunc=js#CompleteJS
   " insert instead of add, this is preferred completion omnifunc (except tern)
   call s:Include('javascript', 'js#CompleteJS')
@@ -237,7 +237,7 @@ endif
 " Completion Plugin: tern (both nvim and vim versions)
 " ============================================================================
 
-if dko#IsLoaded('deoplete-ternjs')
+if dkoplug#plugins#IsLoaded('deoplete-ternjs')
   " No reason to use javascriptcomplete when tern is available
   call s:Exclude('javascript', 'javascriptcomplete#CompleteJS')
 
@@ -257,12 +257,12 @@ endif
 " Completion Plugin: vim-flow
 " ============================================================================
 
-if dko#IsLoaded('vim-flow')
+if dkoplug#plugins#IsLoaded('vim-flow')
   " See also plugin/plug-vim-flow.vim for disabling a bunch of features
 
   call s:Include('javascript', 'flowcomplete#Complete')
 
-  if dko#IsLoaded('nvim-completion-manager')
+  if dkoplug#plugins#IsLoaded('nvim-completion-manager')
     call s:OmniOnly('javascript', s:REGEX.any_word)
   endif
 endif
@@ -271,7 +271,7 @@ endif
 " Completion Plugin: jspc.vim
 " ============================================================================
 
-if dko#IsLoaded('jspc.vim')
+if dkoplug#plugins#IsLoaded('jspc.vim')
   " See also ftplugin/javascript.vim for clearing the omnifunc early
 
   " jspc.vim calls the original &omnifunc (probably
@@ -281,7 +281,7 @@ if dko#IsLoaded('jspc.vim')
   call s:Exclude('javascript', 'jscomplete#CompleteJS')
   call s:Include('javascript', 'jspc#omni')
 
-  if dko#IsLoaded('nvim-completion-manager')
+  if dkoplug#plugins#IsLoaded('nvim-completion-manager')
     call s:OmniOnly('javascript', s:REGEX.paramter)
   endif
 endif
@@ -290,7 +290,7 @@ endif
 " Completion Plugin: vim-javacomplete2
 " ============================================================================
 
-if dko#IsLoaded('vim-javacomplete2')
+if dkoplug#plugins#IsLoaded('vim-javacomplete2')
   " Call omnifunc directly
   let s:omni_only.java = s:REGEX.any_word
 endif
@@ -299,7 +299,7 @@ endif
 " Completion Plugin: phpcd.vim
 " ============================================================================
 
-if dko#IsLoaded('phpcd.vim')
+if dkoplug#plugins#IsLoaded('phpcd.vim')
   " Call omnifunc directly
   let s:omni_only.php = s:REGEX.any_word
         \. '\|' . s:REGEX.member
@@ -311,7 +311,7 @@ if dko#IsLoaded('phpcd.vim')
 " This requires vimproc and composer.json in project root.
 " ============================================================================
 
-elseif dko#IsLoaded('phpcomplete-extended')
+elseif dkoplug#plugins#IsLoaded('phpcomplete-extended')
   let g:phpcomplete_extended_auto_add_use = 0
   if executable('composer')
     let g:phpcomplete_index_composer_command = 'composer'
@@ -329,7 +329,7 @@ endif
 " This is the worst one, moves the cursor, reads tags files
 " ============================================================================
 
-if dko#IsLoaded('phpcomplete.vim')
+if dkoplug#plugins#IsLoaded('phpcomplete.vim')
   " Settings are read when phpcomplete#CompletePHP is called
   let g:phpcomplete_parse_docblock_comments = 1
 

@@ -1,6 +1,6 @@
 " plugin/plug-quickfixsigns_vim.vim
 
-if !dko#IsLoaded('quickfixsigns_vim') | finish | endif
+if !dkoplug#plugins#IsLoaded('quickfixsigns_vim') | finish | endif
 
 let g:quickfixsigns_balloon = 0
 
@@ -11,7 +11,7 @@ let g:quickfixsigns_balloon = 0
 let g:quickfixsigns_classes = [ 'marks', 'vcsdiff' ]
 
 " Leave neomake signs alone
-if dko#IsLoaded('neomake')
+if dkoplug#plugins#IsLoaded('neomake')
   let g:quickfixsigns_protect_sign_rx = '^neomake_'
 endif
 

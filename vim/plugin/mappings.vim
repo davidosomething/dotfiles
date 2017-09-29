@@ -1,4 +1,5 @@
 " plugin/mappings.vim
+scriptencoding utf-8
 
 " KEEP IDEMPOTENT
 " There is no loaded guard on top, so any recursive maps need a silent unmap
@@ -15,6 +16,25 @@ set cpoptions&vim
 augroup dkomappings
   autocmd!
 augroup END
+
+" ============================================================================
+" My abbreviations and autocorrect
+" ============================================================================
+
+inoreabbrev :lod: ಠ_ಠ
+inoreabbrev :flip: (ﾉಥ益ಥ）ﾉ︵┻━┻
+inoreabbrev :yuno: ლ(ಠ益ಠლ)
+inoreabbrev :strong: ᕦ(ò_óˇ)ᕤ
+
+inoreabbrev targetted   targeted
+inoreabbrev targetting  targeting
+inoreabbrev targetter   targeter
+
+inoreabbrev removeable  removable
+
+inoreabbrev d'' David O'Trakoun
+inoreabbrev o'' O'Trakoun
+inoreabbrev m@@ me@davidosomething.com
 
 " ============================================================================
 " Disable for reuse
@@ -277,7 +297,7 @@ vmap <special> <S-Tab>   <
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
 " ----------------------------------------------------------------------------
 
-if dko#IsPlugged('vim-textobj-indent')
+if dkoplug#plugins#Exists('vim-textobj-indent')
   " Auto select indent-level and sort
   silent! nunmap <Leader>s
   nmap <special> <Leader>s   vii:!sort<CR>
@@ -307,6 +327,44 @@ nnoremap  <special> <Leader>j   VjgJl
 " ----------------------------------------------------------------------------
 
 nnoremap  <special> <Leader>ws  :<C-U>call dkowhitespace#clean()<CR>
+
+" ============================================================================
+" PUM key handling
+" ============================================================================
+
+" Select from PUM or insert tabs or alignment spaces
+function! s:DKO_Tab() abort
+  " Advance and select autocomplete result
+  if pumvisible()
+    return "\<C-n>"
+  endif
+
+  " If characters all the way back to start of line were all whitespace,
+  " insert whatever expandtab setting is set to do.
+  if strpart(getline('.'), 0, col('.') - 1) =~? '^\s*$'
+    return "\<Tab>"
+  endif
+
+  " The PUM is closed and characters before the cursor are not all whitespace
+  " so we need to insert alignment spaces (always spaces)
+  " Calc how many spaces, support for negative &sts values
+  let l:sts = (&softtabstop <= 0) ? &shiftwidth : &softtabstop
+  let l:sp = (virtcol('.') % l:sts)
+  if l:sp == 0 | let l:sp = l:sts | endif
+  return repeat(' ', 1 + l:sts - l:sp)
+endfunction
+
+" S-Tab goes reverses selection or untabs
+function! s:DKO_STab() abort
+  return pumvisible() ? "\<C-p>" : "\<C-d>"
+endfunction
+
+silent! iunmap <Tab>
+silent! iunmap <S-Tab>
+
+" Tab - requires noremap since it may return a regular <Tab>
+inoremap  <silent><special><expr>  <Tab>     <SID>DKO_Tab()
+imap      <silent><special><expr>  <S-Tab>   <SID>DKO_STab()
 
 " ============================================================================
 

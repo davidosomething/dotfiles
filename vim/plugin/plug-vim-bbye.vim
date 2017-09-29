@@ -6,7 +6,7 @@ set cpoptions&vim
 " Auto close loc list first
 " Then close buffer
 " Use vim-bbye to preserve window layout if possible
-if dko#IsLoaded('vim-bbye')
+if dkoplug#plugins#IsLoaded('vim-bbye')
   nnoremap  <silent><special>  <Leader>x  :<C-U>Bdelete<CR>
 else
   nnoremap  <silent><special>  <Leader>x  :<C-U>lclose<CR>:bdelete<CR>
