@@ -161,9 +161,8 @@ __dko::prompt() {
 
   # VI mode
   PS1+='${DKO_PROMPT_VIMODE}'
-  # Restore colors from VIMODE - the black in necessary for menu select mode
-  # fix.
-  PS1+='%K{black}%{$reset_color%} '
+
+  PS1+='%{$reset_color%} '
 
   # VCS
   PS1+='${vcs_info_msg_0_}'
