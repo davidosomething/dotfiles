@@ -6,11 +6,11 @@ set -e
 # Require DOTFILES
 # =============================================================================
 
-if [ -z "$DOTFILES" ]; then
+if [[ -z "$DOTFILES" ]]; then
   echo ".dotfiles repo is not set up"
   exit 1
 fi
-source "${DOTFILES}/shell/helpers.bash"
+. "${DOTFILES}/shell/helpers.bash"
 
 # =============================================================================
 # Main

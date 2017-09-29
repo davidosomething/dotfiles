@@ -7,6 +7,6 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> .bash_profile {"
 # Use .bashrc exclusively
-[ -f "${HOME}/.bashrc" ] && source "${HOME}/.bashrc"
+[ -f "${HOME}/.bashrc" ] && . "${HOME}/.bashrc"
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :
