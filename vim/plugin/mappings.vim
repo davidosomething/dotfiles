@@ -54,9 +54,6 @@ noremap   gs    <NOP>
 
 command! Q q
 
-" vim-plug shortcut
-command! PU PlugUpgrade | PlugUpdate
-
 " ============================================================================
 " Quick edit
 " ec* - Edit closest (find upwards)

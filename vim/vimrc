@@ -489,6 +489,8 @@ if !s:has_plug && executable('curl')
 endif
 
 if s:has_plug
+  command! PI PlugInstall
+  command! PU PlugUpgrade | PlugUpdate
   let g:plug_window = 'tabnew'
   call plug#begin(g:dko#plug_absdir)
   if empty($VIMNOPLUGS) | call dkoplug#plugins#LoadAll() | endif
