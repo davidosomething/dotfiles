@@ -19,7 +19,7 @@ export DKO_PROMPT_VIMODE="${__dko_prompt_vi_insert}"
 # Show VI mode indicator
 # ============================================================================
 
-function zle-line-init zle-keymap-select {
+zle-line-init zle-keymap-select() {
   case ${KEYMAP} in
     (vicmd)
       export DKO_PROMPT_VIMODE="${__dko_prompt_vi_normal}"
@@ -40,7 +40,7 @@ zle -N zle-keymap-select
 # End of cmd (after pressing <CR> at any point), back to ins mode
 # ============================================================================
 
-function zle-line-finish {
+zle-line-finish() {
   # This will be the prompt for the current line that we're leaving.
   export DKO_PROMPT_VIMODE="${__dko_prompt_vi_insert}"
   # Redraw the current line's prompt before advancing to a readline.

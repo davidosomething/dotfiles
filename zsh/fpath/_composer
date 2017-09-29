@@ -1,6 +1,6 @@
 #compdef composer
 
-function _composer () {
+__composer () {
     local context curcontext=$curcontext state line subcommand
     declare -A opt_args
     local ret=1
@@ -147,4 +147,4 @@ __composer_commands () {
     _describe -t commands Commands _c
 }
 
-_composer "$@"
+__composer "$@"
