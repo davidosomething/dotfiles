@@ -465,8 +465,14 @@ let g:loaded_gzip = 1
 let g:loaded_LogiPat = 1
 let g:loaded_tarPlugin = 1
 let g:loaded_zipPlugin = 1
+
+" It is inaccurate
+let g:loaded_matchparen = 1
+
 " used to download spellfile and enable gx mapping
 "let g:loaded_netrwPlugin = 0
+
+
 
 " ----------------------------------------------------------------------------
 " Plugins: netrw
