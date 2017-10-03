@@ -112,7 +112,7 @@ command! FZFVim
 
 " @return {List} recently used filenames and buffers
 function! s:GetFzfMruSource() abort
-  return uniq(dko#GetMru() + dko#GetBuffers())
+  return uniq(dko#files#GetMru() + dko#files#GetBuffers())
 endfunction
 
 command! FZFMRU
