@@ -371,6 +371,8 @@ function! dkoplug#plugins#LoadAll() abort
   " Plug: Multiple languages
   " ==========================================================================
 
+  Plug 'itchyny/vim-parenmatch'
+
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
 
