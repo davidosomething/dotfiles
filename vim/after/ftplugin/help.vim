@@ -18,9 +18,14 @@ if !&readonly && has('conceal')
   augroup END
 
   " Toggle vim-hier for help buffers, run :VimhelpLint manually though
-  if dkoplug#plugins#IsLoaded('vim-vimhelplint') && dkoplug#plugins#IsLoaded('vim-hier')
-    autocmd dkohelp   BufEnter *   if &filetype ==# 'help' | HierStart | endif
-    autocmd dkohelp   BufLeave,BufUnload    *   if &filetype ==# 'help' | HierStop | endif
+  if dkoplug#plugins#IsLoaded('vim-vimhelplint')
+        \ && dkoplug#plugins#IsLoaded('vim-hier')
+    autocmd dkohelp   BufEnter
+          \ *
+          \ if &filetype ==# 'help' | HierStart | endif
+    autocmd dkohelp   BufLeave,BufUnload
+          \ *
+          \ if &filetype ==# 'help' | HierStop | endif
     HierStart
   endif
 endif

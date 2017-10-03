@@ -29,19 +29,6 @@ execute 'nmap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
 execute 'omap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
 
 " ============================================================================
-" EditorConfig overrides
-" ============================================================================
-
-if dkoplug#plugins#IsLoaded('editorconfig-vim')
-  function! DKO_EditorConfigPhp(config) abort
-    setlocal softtabstop=-2
-    return 0
-  endfunction
-
-  call editorconfig#AddNewHook(function('DKO_EditorConfigPhp'))
-endif
-
-" ============================================================================
 " StanAngeloff/php.vim
 " ============================================================================
 

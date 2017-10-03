@@ -54,54 +54,38 @@ noremap   gs    <NOP>
 
 command! Q q
 
-" ============================================================================
-" Quick edit
-" ec* - Edit closest (find upwards)
-" er* - Edit from dkoproject#GetRoot()
-" ============================================================================
-
-" @param {String} file
-function! s:Edit(file) abort
-  if empty(a:file)
-    echomsg 'File not found: ' . a:file
-    return
-  endif
-  execute 'edit ' . a:file
-endfunction
-
-" This executes instead of returns string so the mapping can noop when file
-" not found.
-" @param {String} file
-function! s:EditClosest(file) abort
-  let l:file = findfile(a:file, '.;')
-  call s:Edit(l:file)
-endfunction
 nnoremap  <silent><special>  <Leader>eca
-      \ :<C-U>call <SID>EditClosest('.ignore')<CR>
+      \ :<C-U>call dko#edit#EditClosest('.ignore')<CR>
 nnoremap  <silent><special>  <Leader>eci
-      \ :<C-U>call <SID>EditClosest('.gitignore')<CR>
+      \ :<C-U>call dko#edit#EditClosest('.gitignore')<CR>
 nnoremap  <silent><special>  <Leader>ecr
-      \ :<C-U>call <SID>EditClosest('README.md')<CR>
+      \ :<C-U>call dko#edit#EditClosest('README.md')<CR>
 
-" As above, this noops if file not found
-" @param {String} file
-function! s:EditRoot(file) abort
-  let l:file = dkoproject#GetFile(a:file)
-  call s:Edit(l:file)
-endfunction
-nnoremap  <silent><special>  <Leader>era  :<C-U>call <SID>EditRoot('.ignore')<CR>
-nnoremap  <silent><special>  <Leader>eri  :<C-U>call <SID>EditRoot('.gitignore')<CR>
-nnoremap  <silent><special>  <Leader>erg  :<C-U>call <SID>EditRoot('gulpfile.js')<CR>
-nnoremap  <silent><special>  <Leader>erp  :<C-U>call <SID>EditRoot('package.json')<CR>
-nnoremap  <silent><special>  <Leader>err  :<C-U>call <SID>EditRoot('README.md')<CR>
+nnoremap  <silent><special>  <Leader>era
+      \ :<C-U>call dko#edit#EditRoot('.ignore')<CR>
+nnoremap  <silent><special>  <Leader>eri
+      \ :<C-U>call dko#edit#EditRoot('.gitignore')<CR>
+nnoremap  <silent><special>  <Leader>erg
+      \ :<C-U>call dko#edit#EditRoot('gulpfile.js')<CR>
+nnoremap  <silent><special>  <Leader>erp
+      \ :<C-U>call dko#edit#EditRoot('package.json')<CR>
+nnoremap  <silent><special>  <Leader>err
+      \ :<C-U>call dko#edit#EditRoot('README.md')<CR>
 
 " Not using $MYVIMRC since it varies based on (n)vim
-nnoremap  <silent><special>  <Leader>evi   :<C-U>edit $VDOTDIR/init.vim<CR>
-nnoremap  <silent><special>  <Leader>evg   :<C-U>edit $VDOTDIR/gvimrc<CR>
-nnoremap  <silent><special>  <Leader>evr   :<C-U>edit $VDOTDIR/vimrc<CR>
+nnoremap  <silent><special>  <Leader>evi
+      \ :<C-U>edit $VDOTDIR/init.vim<CR>
+nnoremap  <silent><special>  <Leader>evg
+      \ :<C-U>edit $VDOTDIR/gvimrc<CR>
+nnoremap  <silent><special>  <Leader>evr
+      \ :<C-U>edit $VDOTDIR/vimrc<CR>
+nnoremap  <silent><special>  <Leader>evp
+      \ :<C-U>edit $VDOTDIR/autoload/dkoplug/plugins.vim<CR>
 
-nnoremap  <silent><special>  <Leader>em   :<C-U>edit $VDOTDIR/plugin/mappings.vim<CR>
-nnoremap  <silent><special>  <Leader>ez   :<C-U>edit $ZDOTDIR/.zshrc<CR>
+nnoremap  <silent><special>  <Leader>em
+      \ :<C-U>edit $VDOTDIR/plugin/mappings.vim<CR>
+nnoremap  <silent><special>  <Leader>ez
+      \ :<C-U>edit $ZDOTDIR/.zshrc<CR>
 
 " ============================================================================
 " Buffer manip

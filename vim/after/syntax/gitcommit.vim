@@ -4,4 +4,3 @@
 " gitcommits
 syntax clear   gitcommitComment    "^#.*"
 syntax match   gitcommitComment    "^;.*"
-

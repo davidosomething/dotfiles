@@ -8,8 +8,9 @@
 let s:excluded_ft = [ 'gitbranchdescription', 'gitcommit' ]
 
 function! s:RestorePosition() abort
-  if index(s:excluded_ft, &filetype) < 0 && line("'\"") > 1 && line("'\"") <= line('$')
-    execute "normal! g`\""
+  if index(s:excluded_ft, &filetype) < 0
+        \ && line("'\"") > 1 && line("'\"") <= line('$')
+    normal! g`"
   endif
 endfunction
 
@@ -17,4 +18,3 @@ augroup dkorestoreposition
   autocmd!
   autocmd BufReadPost * call s:RestorePosition()
 augroup END
-

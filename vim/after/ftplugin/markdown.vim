@@ -21,4 +21,3 @@ setlocal colorcolumn=+3
 
 " Always start in display movement mode for markdown
 silent! call movemode#setByDisplay()
-
