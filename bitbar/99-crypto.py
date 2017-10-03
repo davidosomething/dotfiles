@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
 """
-#
 # <bitbar.title>Crypto Ticker ($1USD)</bitbar.title>
 # <bitbar.version>v1.0</bitbar.version>
 # <bitbar.author>davidosomething</bitbar.author>
@@ -9,9 +8,7 @@
 # <bitbar.desc>
 #   Displays current crypto/$1 from Coinmarketcap
 # </bitbar.desc>
-# <bitbar.image>https://i.imgur.com/Gkj3RHB.jpg</bitbar.image>
-#
-# by impshum
+# <bitbar.image>https://i.imgur.com/B1nq4AU.jpg</bitbar.image>
 """
 
 import json
