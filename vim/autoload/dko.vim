@@ -161,8 +161,8 @@ endfunction
 
 function! dko#FourTabs() abort
   setlocal noexpandtab
-  setlocal shiftwidth=4
-  setlocal softtabstop=4
+  setlocal shiftwidth=2
+  setlocal softtabstop=0
 endfunction
 
 " ============================================================================

@@ -7,6 +7,7 @@ indent_size = 2
 indent_style = space
 
 [.gitconfig]
+indent_size = 2
 indent_style = tab
 
 # html is not minified so reduce character output by using real tabs
