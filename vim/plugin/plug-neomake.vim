@@ -51,9 +51,7 @@ let g:neomake_info_sign     = { 'text': '⚑', 'texthl': 'NeomakeInfoSign' }
 "         maker (so local exe exists)
 function! s:IsMakerExecutable(name, ...) abort
   let l:ft = get(a:, 1, &filetype)
-  if empty(l:ft)
-    return 0
-  endif
+  if empty(l:ft) | return 0 | endif
 
   " s:AddLocalMaker successfully determined a project-local bin was
   " executable, return that instead
@@ -80,9 +78,7 @@ endfunction
 " @param {string} [settings.when] eval()'d, add local maker only if true
 function! s:AddLocalMaker(settings) abort
   " We eval this so it runs with the buffer context
-  if has_key(a:settings, 'when') && !eval(a:settings['when'])
-    return
-  endif
+  if has_key(a:settings, 'when') && !eval(a:settings['when']) | return | endif
 
   " Override maker's exe for this buffer?
   let l:exe = dkoproject#GetBin(get(a:settings, 'exe', ''))
@@ -213,9 +209,7 @@ function! s:SetupMarkdownlint() abort
   let l:maker.exe = !empty(l:bin) ? 'markdownlint' : l:bin
 
   " Bail if not installed either locally or globally
-  if !executable(l:maker.exe)
-    return
-  endif
+  if !executable(l:maker.exe) | return | endif
 
   let b:neomake_markdown_markdownlint_maker = l:maker
 endfunction
@@ -316,12 +310,10 @@ let s:local_sasslint = {
       \ }
 
 function! s:PickScssMakers() abort
-  if empty(dkoproject#GetFile('.scss-lint.yml')) | return
-  endif
+  if empty(dkoproject#GetFile('.scss-lint.yml')) | return | endif
 
   " Only if scss-lint is executable (globally or locally)
-  if !s:IsMakerExecutable('scsslint') | return
-  endif
+  if !s:IsMakerExecutable('scsslint') | return | endif
 
   " Remove sasslint from enabled makers, use only scsslint
   let b:neomake_scss_enabled_makers = filter(
