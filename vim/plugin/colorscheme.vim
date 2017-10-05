@@ -5,7 +5,9 @@ set cpoptions&vim
 
 " ============================================================================
 
-let &termguicolors = has('termguicolors')
+if exists('+termguicolors')
+  let &termguicolors = has('termguicolors')
+endif
 
 let s:colorscheme = 'default'
 
