@@ -123,27 +123,10 @@ command! FZFMRU
 " Test specs
 " ----------------------------------------------------------------------------
 
-" @return {List} test spec files
-function! s:GetFzfSpecsSource() abort
-  let l:tests_dirs = join(filter([
-        \   dkoproject#GetDir('tests'),
-        \   dkoproject#GetDir('specs'),
-        \ ], "v:val !=# ''"), ',')
-  echomsg l:tests_dirs
-  let l:dir_files = empty(l:tests_dirs)
-        \ ? []
-        \ : globpath(l:tests_dirs, '**/*.*', 0, 1)
-  let l:local_files = globpath(expand('%:p:h'), '*.test.*', 0, 1)
-  let l:glob = l:dir_files + l:local_files
-  let l:filtered = filter(l:glob, "v:val !~# 'node_modules'")
-  return dko#ShortPaths(l:filtered)
-endfunction
-
 command! FZFSpecs
       \ call fzf#run(fzf#wrap('Specs',
       \   fzf#vim#with_preview(extend({
-      \     'dir':      s:GetRoot(),
-      \     'source':   s:GetFzfSpecsSource(),
+      \     'source':   dko#ShortPaths(dkoproject#tests#FindSpecs()),
       \     'options':  s:options . ' --prompt="Specs> "',
       \   }, g:fzf_layout), 'right:50%')
       \ ))

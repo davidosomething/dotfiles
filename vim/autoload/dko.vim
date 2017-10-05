@@ -112,7 +112,8 @@ endfunction
 " @param {List} a:000 args
 " @return {Mixed} first arg that is non-empty or empty string
 function! dko#First(...) abort
-  for l:item in a:000
+  let l:list = type(a:1) == type([]) ? a:1 : a:000
+  for l:item in l:list
     if !empty(l:item) | return l:item | endif
   endfor
   return ''
