@@ -171,5 +171,5 @@ For X apps (no terminal) the value is probably:
 [pyenv-installer]: https://github.com/yyuu/pyenv-installer
 [pyenv-virtualenv]: https://github.com/pyenv/pyenv-virtualenv
 [pyenv]: https://github.com/pyenv/pyenv
-[screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/master/meta/terminal-potatopro.png
+[screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/0f8a58661c3a3c111d9cc1332d5ab3962aaf1dd9/meta/terminal-potatopro.png
 [trash-cli]: https://github.com/sindresorhus/trash-cli

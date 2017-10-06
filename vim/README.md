@@ -161,7 +161,7 @@ sparingly (typically for `setlocal` ftplugin settings).
 
 ----
 
-[screenshot]: https://cloud.githubusercontent.com/assets/609213/19456070/cd2eeeec-948d-11e6-8fda-dad580c17c0a.png
+[screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/0f8a58661c3a3c111d9cc1332d5ab3962aaf1dd9/meta/vim-potatopro.png
 [Syntax-Checkers]: https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers
 [syntastic]: https://github.com/scrooloose/syntastic
 [neomake]: https://github.com/neomake/neomake
