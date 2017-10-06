@@ -42,9 +42,6 @@ zplugin light 'zdharma/fast-syntax-highlighting'
 
 zplugin light 'zsh-users/zsh-completions'
 
-# gulp completion (parses file so not 100% accurate)
-zplugin light 'akoenig/gulp.plugin.zsh'
-
 zplugin light 'gradle/gradle-completion'
 
 zplugin light 'lukechilds/zsh-better-npm-completion'
