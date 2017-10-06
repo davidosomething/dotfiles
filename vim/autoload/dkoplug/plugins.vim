@@ -461,9 +461,7 @@ function! dkoplug#plugins#LoadAll() abort
   " COMBINED AND MODIFIED pangloss + vim-jsx-pretty
   Plug 'neoclide/vim-jsx-improve'
 
-  Plug 'paulrosania/vim-graphql', {
-        \   'branch': 'tagged-template-literals'
-        \ }
+  Plug 'paulrosania/vim-graphql', { 'branch': 'tagged-template-literals' }
   " graphql upstream is https://github.com/jparise/vim-graphql
 
   " YAJS MODE
@@ -580,7 +578,7 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'tpope/vim-bundler'
 
   " creates ruby filetype
-  Plug 'vim-ruby/vim-ruby'
+  "Plug 'vim-ruby/vim-ruby'
 
   " ==========================================================================
   " Language: Stylesheets
@@ -591,10 +589,16 @@ function! dkoplug#plugins#LoadAll() abort
   " ----------------------------------------
 
   " creates less filetype
+  " Conflicts with vim-css-color
+  " Upstream Neovim uses https://github.com/genoma/vim-less
+  "   - older
+  "   - more groups
+  "   - no conflict with vim-css-color
   "Plug 'groenewege/vim-less'
 
   " 1)  runtime css.vim provides @media syntax highlighting where hail2u
   "     doesn't JulesWang/css.vim was upstream for $VIMRUNTIME up until Vim 8
+  "     - Only needed for old vim!!
   " 2)  hail2u extends vim's css highlighting
   "     - Super up-to-date with spec, after syntax that extends runtime
   " 3)  scss-syntax needs the 'for' since it has an ftdetect that doesn't check
