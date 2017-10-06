@@ -5,7 +5,7 @@
 ## Features
 
 ![vim screenshot][screenshot]
-> Screenshot in terminal vim with a function signature in tabline
+> Terminal Neovim
 
 - Custom statusline with minimal junk, showing short directory
 - FZF for Most Recently Used files and fuzzy file finder
