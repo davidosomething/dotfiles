@@ -57,6 +57,7 @@
 	poh     = push origin HEAD
 
 	rb      = rebase
+	rbc     = rebase --continue
 
 	rso     = remote show origin
 
