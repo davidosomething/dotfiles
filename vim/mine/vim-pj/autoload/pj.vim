@@ -1,4 +1,7 @@
 " autoload/pj.vim
+"
+" package.json file ops
+"
 
 let s:jsons = {}
 
@@ -81,4 +84,3 @@ function! pj#GetPackageJsonPath(PJ_function) abort
   " Expose only if file was found
   return l:path
 endfunction
-
