@@ -78,15 +78,6 @@ the [vim-plug] one. I.e., `after/plugin/xyz.vim` will load after
 Use this for settings that should override or extend system or plugin settings.
 This will take precedence over everything but local vimrc files.
 
-### local vimrc
-
-Store local `vimrc`s in `~/.secret/vim/` and follow the standard Vim directory
-layout (`plugin/`, `syntax/`, `indent/`, etc.). A base `(g)vimrc` file there is
-probably enough.
-
-All local settings load LAST (after all the system, user, plugin, and
-`*/after` runtimes).
-
 ### Plugin settings
 
 Plugins settings are in `plugin/` and `after/ftplugin/` as appropriate. There
