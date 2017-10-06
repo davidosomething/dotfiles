@@ -63,27 +63,11 @@ Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux
 
 ### Paths
 
-#### / (dotfiles/vim root)
-
-This is a Vim runtimepath that will load after the user and system runtimepaths
-but before the [vim-plug] ones. I.e., `plugin/xyz.vim` will load before
-`plug/vim/pluginname/plugin/name.vim`. Neovim plugins will be in `plug/nvim/`.
-
-#### after/
-
-This is a runtimepath that will load after the system runtimepath but before
-the [vim-plug] one. I.e., `after/plugin/xyz.vim` will load after
-`plug/vim/pluginname/plugin/name.vim`.
-
-Use this for settings that should override or extend system or plugin settings.
-This will take precedence over everything but local vimrc files.
-
 ### Plugin settings
 
-Plugins settings are in `plugin/` and `after/ftplugin/` as appropriate. There
+Plugins settings are in `plugin/` and `after/*` as appropriate. There
 is generally a wrapper around them that checks for
-`exists('g:plugs["plugin"])` so grepping for `g:plugs` is an easy way to find
-them.
+`dkoplug#IsLoaded('plugin-name')`.
 
 #### Super-non-standard keys
 
