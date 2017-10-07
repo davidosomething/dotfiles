@@ -84,7 +84,7 @@ is generally a wrapper around them that checks for
 |  `<F1>` | :FZFGrepper - custom, rg/ag with preview or git-grep |
 |  `<F2>` | :FZFRelevant - custom, dirty/new files vs git master |
 |  `<F3>` | :FZFProject - custom, :FZFFiles but from project root |
-|  `<F4>` | :FZFMRU - custom, whitelisted recently used + buffers |
+|  `<F4>` | :FZFMRU - custom, recently used files |
 |  `<F5>` | :FZFFiles - files from Vim's cwd |
 |  `<F6>` | :Neomake |
 |  `<F7>` | :Neomake! |

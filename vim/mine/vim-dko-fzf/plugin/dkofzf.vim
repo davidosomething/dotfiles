@@ -110,11 +110,10 @@ command! FZFVim
 " Regular :FZFHistory doesn't blacklist files
 " ----------------------------------------------------------------------------
 
-
 command! FZFMRU
       \ call fzf#run(fzf#wrap('MRU',
       \   fzf#vim#with_preview(extend({
-      \     'source':  uniq(dko#files#GetMru() + dko#files#GetBuffers()),
+      \     'source':  dko#files#GetMru(),
       \     'options': s:options . ' --no-sort --prompt="MRU> "',
       \   }, g:fzf_layout), 'right:50%')
       \ ))

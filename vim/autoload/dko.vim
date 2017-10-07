@@ -45,6 +45,19 @@ function! dko#InitList(var) abort
   return {a:var}
 endfunction
 
+" Convert to dictionary with keys as filenames
+" This will basically uniq() without sorting
+"
+" @param {List} a
+" @param {List} b
+" @return {List}
+function! dko#Uniq(a, b) abort
+  let l:results = {}
+  let l:combined = a:a + a:b
+  for l:item in l:combined | let l:results[l:item] = 1 | endfor
+  return keys(l:results)
+endfunction
+
 " Return shortened path
 "
 " @param {String} path

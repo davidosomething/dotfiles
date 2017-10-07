@@ -22,7 +22,7 @@ endfunction
 " @return {List} listed buffers
 function! dko#files#GetBuffers() abort
   return map(
-        \   filter(range(1, bufnr('$')), 'buflisted(v:val)'),
+        \   filter(range(1, bufnr('$')), 'buflisted(v:val) && !empty(v:val)'),
         \   'bufname(v:val)'
         \ )
 endfunction
