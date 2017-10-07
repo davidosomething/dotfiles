@@ -13,5 +13,10 @@ execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFRelevant' })
 execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFProject' })
 execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
 execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
-execute dko#MapAll({ 'key': '<C-s>', 'command': 'FZFSpecs' })
-map   <special>   <Leader>b   :<C-U>FZFBuffers<CR>
+
+" Start using meta mappings since I hate the Macbook touchbar
+nmap   <silent><special>   <A-g>   :<C-U>FZFGrepper!<CR>
+nmap   <silent><special>   <A-b>   :<C-U>FZFBuffers<CR>
+nmap   <silent><special>   <A-f>   :<C-U>FZFFiles<CR>
+nmap   <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
+nmap   <silent><special>   <A-s>   :<C-U>FZFSpecs<CR>

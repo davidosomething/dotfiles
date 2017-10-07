@@ -17,9 +17,7 @@ let g:fzf_buffers_jump = 1
 "let g:fzf_files_options = '--something...'
 
 " [Commands]
-if has('nvim')
-  nnoremap <silent><special> <A-p> :<C-u>FZFCommands<CR>
-endif
+nnoremap <silent><special> <A-p> :<C-u>FZFCommands<CR>
 
 " junegunn/fzf mappings for the neovim :term
 " Bind <fx> to abort FZF (<C-g> is one of the default abort keys in FZF)
