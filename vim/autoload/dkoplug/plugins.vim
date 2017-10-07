@@ -7,12 +7,15 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
 
   " Show slow plugins
-  Plug 'tweekmonster/startuptime.vim', { 'on': ['StartupTime'] }
+  Plug 'tweekmonster/startuptime.vim', { 'on': [ 'StartupTime' ] }
 
   " `:Bufferize messages` to get messages (or any :command) in a new buffer
-  Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
+  Plug 'AndrewRadev/bufferize.vim', { 'on': [ 'Bufferize' ] }
 
-  Plug 'cocopon/colorswatch.vim', { 'on': ['ColorSwatchGenerate'] }
+  Plug 'cocopon/colorswatch.vim', { 'on': [ 'ColorSwatchGenerate' ] }
+
+  " :DocOpen to open the current help.txt file in browser
+  Plug 'nelstrom/vim-docopen', { 'on': [ 'DocOpen' ] }
 
   " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer
   " than :Scriptnames)
@@ -80,17 +83,12 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'nathanaelkane/vim-indent-guides'
 
-  " :DocOpen to open the current help.txt file in browser
-  Plug 'nelstrom/vim-docopen'
-
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
 
   Plug 'sbdchd/neoformat'
 
-  " Preview window with function signature
-  Plug 'Shougo/echodoc.vim'
-
   " Add file manip commands like Remove, Move, Rename, SudoWrite
+  " Do not lazy load, tracks buffers
   Plug 'tpope/vim-eunuch'
 
   " <C-w>o to zoom in/out of a window
@@ -140,8 +138,8 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'svermeulen/vim-easyclip', PlugIf(has('nvim'))
 
   " []-bindings -- buffer switch, lnext/prev, etc.
-  " My fork has a lot of removals
-  Plug 'davidosomething/vim-unimpaired', { 'on': [ '<Plug>unimpaired' ] }
+  " My fork has a lot of removals like line movement and entities
+  Plug 'davidosomething/vim-unimpaired'
 
   " used for line bubbling commands (instead of unimpared!)
   " Consider also t9md/vim-textmanip
@@ -268,7 +266,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Parameter completion (in or after ' or ")
   " Extends omnicomplete to fill in addEventListener('click'
   " Forwarded by deoplete to nvim-completion-manager
-  "
   " Does not work in deoplete -- use as omnicomplete only!
   " E.g. specific g:deoplete#omni_patterns so omnifunction is called directly
   Plug 'othree/jspc.vim'
@@ -277,12 +274,15 @@ function! dkoplug#plugins#LoadAll() abort
   " Flow
   " ----------------------------------
 
-  " Deoplete completion (forwarded to NCM)
-  Plug 'wokalski/autocomplete-flow', PlugIf(g:dko_use_deoplete)
   " Native omnicomplete and some refactoring support, official plugin
   "Plug 'flowtype/vim-flow'
+
   " NCM completion, same deps as vim-flow
+  " not using until this is fixed: https://github.com/roxma/ncm-flow/issues/3
   "Plug 'roxma/ncm-flow', PlugIf(g:dko_use_completion)
+
+  " Deoplete completion (forwarded to NCM)
+  Plug 'wokalski/autocomplete-flow', PlugIf(g:dko_use_deoplete)
 
   " --------------------------------------------------------------------------
   " Completion: Java
@@ -300,21 +300,17 @@ function! dkoplug#plugins#LoadAll() abort
   let l:use_composer = g:dko_use_completion
         \ && has('nvim')
         \ && executable('composer')
-  let l:use_padawan = l:use_composer && g:dko_use_deoplete
-
-  if l:use_padawan
-    Plug 'padawan-php/deoplete-padawan', PlugIf(l:use_padawan, {
+  if l:use_composer
+    Plug 'padawan-php/deoplete-padawan', PlugIf(g:dko_use_deoplete, {
           \   'do': 'composer install'
           \ })
-  endif
 
-  if l:use_composer
     Plug 'roxma/LanguageServer-php-neovim', PlugIf(l:use_langserver, {
           \   'do': 'composer install && composer run-script parse-stubs'
           \ })
   endif
 
-  " Possible vanilla plugins
+  " Possible vanilla plugins - may work with deoplete
   " 'phpvim/phpcd.vim'              - server based completion
   " 'mkusher/padawan.vim'           - server based completion for VIM
   " 'm2mdas/phpcomplete-extended'   - fast via vimproc, but dead
@@ -329,15 +325,13 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'shawncplus/phpcomplete.vim', PlugIf(!l:use_composer, { 'for': 'php' })
 
-  " Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
-  "       \ | Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
-
   " --------------------------------------------------------------------------
   " Completion: Python
   " --------------------------------------------------------------------------
 
   " nvim-completion-manager has a jedi source in python already, so as long as
   " jedi is pip installed it is good to go.
+
   " Forwarded to nvim-completion-manager if present
   " Plug 'zchee/deoplete-jedi'
 
@@ -355,16 +349,16 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
 
   " nvim-completion-manager and deoplete
-  Plug 'Shougo/neosnippet'
-  Plug 'Shougo/neosnippet-snippets'
-  Plug 'honza/vim-snippets'
+  Plug 'Shougo/neosnippet', PlugIf(g:dko_use_completion)
+  Plug 'Shougo/neosnippet-snippets', PlugIf(g:dko_use_completion)
+  Plug 'honza/vim-snippets', PlugIf(g:dko_use_completion)
 
   " --------------------------------------------------------------------------
   " Completion: VimL
   " --------------------------------------------------------------------------
 
   " nvim-completion-manager and deoplete (disabled deoplete integration)
-  Plug 'Shougo/neco-vim'
+  Plug 'Shougo/neco-vim', PlugIf(g:dko_use_completion)
 
   " ==========================================================================
   " Plug: Multiple languages
@@ -443,25 +437,15 @@ function! dkoplug#plugins#LoadAll() abort
   " Configured in plugin/plug-vim-javascript.vim
   " ----------------------------------------
 
-  " PANGLOSS MODE
+  " COMBINED AND MODIFIED pangloss + vim-jsx-pretty
+  Plug 'neoclide/vim-jsx-improve'
+
+  " PANGLOSS MODE - this is vim upstream now!
   " 1.  Preferring pangloss for now since I like the included indentexpr
   "     it also has a node ftdetect, but that is the same as in
   "     moll/vim-node
   " 2.  After syntax, ftplugin, indent for JSX
   "Plug 'pangloss/vim-javascript'
-  "
-  " Works with both pangloss/othree
-  " Offers inline code highlighting in JSX blocks, as well as vim-jsx's hi
-  "Plug 'maxmellon/vim-jsx-pretty'
-
-  " ALTERNATE, original
-  "Plug 'mxw/vim-jsx'
-
-  " COMBINED AND MODIFIED pangloss + vim-jsx-pretty
-  Plug 'neoclide/vim-jsx-improve'
-
-  Plug 'paulrosania/vim-graphql', { 'branch': 'tagged-template-literals' }
-  " graphql upstream is https://github.com/jparise/vim-graphql
 
   " YAJS MODE
   " 1.  yajs.vim highlighting is a little more robust than the pangloss one.
@@ -474,9 +458,30 @@ function! dkoplug#plugins#LoadAll() abort
   " Plug 'othree/javascript-libraries-syntax.vim'
   " Plug 'othree/es.next.syntax.vim'
 
+  " ----------------------------------
+  " Template strings
+  " ----------------------------------
 
   " `:JsPreTmpl html` to highlight `<div></div>` template strings
   Plug 'Quramy/vim-js-pretty-template'
+
+  " ----------------------------------
+  " JSX
+  " ----------------------------------
+
+  " Works with both pangloss/othree
+  " Offers inline code highlighting in JSX blocks, as well as vim-jsx's hi
+  "Plug 'maxmellon/vim-jsx-pretty'
+
+  " ALTERNATE, original
+  "Plug 'mxw/vim-jsx'
+
+  " ----------------------------------
+  " GraphQL
+  " ----------------------------------
+
+  Plug 'paulrosania/vim-graphql', { 'branch': 'tagged-template-literals' }
+  " graphql upstream is https://github.com/jparise/vim-graphql
 
   " ----------------------------------------
   " Features
@@ -549,12 +554,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Also not needed since 2072 uses <script.*> style indenting for HTML
   "Plug 'captbaritone/better-indent-support-for-php-with-html'
 
-  " ----------------------------------------
-  " Features
-  " ----------------------------------------
-
-  "Plug 'dsawardekar/wordpress.vim', { 'for': ['php'] } -- dead
-
   " ==========================================================================
   " Language: Python
   " ==========================================================================
@@ -611,7 +610,7 @@ function! dkoplug#plugins#LoadAll() abort
   "       groups.
   Plug 'JulesWang/css.vim', PlugIf(v:version <= 704)
   Plug 'hail2u/vim-css3-syntax'
-  Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
+  Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss' ] }
 
   " Hex (et al) color highlighting
   "Plug 'Rykka/colorv.vim'    --  requires python
@@ -633,8 +632,8 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'machakann/vim-vimhelplint'
 
   " gf to go to where autoloaded function is defined
-  Plug 'kana/vim-gf-user', { 'for': ['vim'] }
-  Plug 'sgur/vim-gf-autoload', { 'for': ['vim'] }
+  Plug 'kana/vim-gf-user', { 'for': [ 'vim' ] }
+  Plug 'sgur/vim-gf-autoload', { 'for': [ 'vim' ] }
 
   " Auto-prefix continuation lines with \
   Plug 'lambdalisue/vim-backslash'
@@ -664,13 +663,17 @@ function! dkoplug#plugins#LoadAll() abort
   " Using quickfixsigns_vim instead of these
   " :EC and :DC to enable/disable changes plugin
   " if v:version >= 800
-  "   Plug 'chrisbra/changesPlugin', { 'on': ['EC'] }
+  "   Plug 'chrisbra/changesPlugin', { 'on': [ 'EC' ] }
   " else
     " :GitGutterToggle (bound to C-g)
-  "   Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle'] }
+  "   Plug 'airblade/vim-gitgutter', { 'on': [ 'GitGutterToggle' ] }
   " endif
 
-  Plug 'wellle/visual-split.vim'
+  Plug 'wellle/visual-split.vim', { 'on': [
+        \   'VSResize', 'VSSplit',
+        \   'VSSplitAbove', 'VSSplitBelow',
+        \   '<Plug>(Visual-Split',
+        \ ] }
 
   " Always show signs column with marks / vcs / qf
   Plug 'tomtom/quickfixsigns_vim'
