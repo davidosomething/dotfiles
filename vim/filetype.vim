@@ -63,7 +63,7 @@ augroup filetypedetect
         \ | call s:BindPreview()
 
   autocmd! BufNewFile,BufRead
-        \ .babelrc,.bowerrc,.jshintrc
+        \ .babelrc,.bowerrc,.jshintrc,*.tern-config
         \ setfiletype json
 
   autocmd! BufNewFile,BufRead

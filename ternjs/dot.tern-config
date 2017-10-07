@@ -1,4 +1,8 @@
 {
+  "exclude": [
+    ".git/**",
+    "*.min.js"
+  ],
   "libs": [
     "browser",
     "jquery"
