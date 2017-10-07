@@ -6,20 +6,19 @@ function! dkoplug#plugins#LoadAll() abort
   " Plug: Vim debugging
   " ==========================================================================
 
-  let l:debug = !empty($VIMDEBUG)
-  " `:Bufferize messages` to get messages (or any :command) in a new buffer
-  Plug 'AndrewRadev/bufferize.vim', PlugIf(l:debug, { 'on': ['Bufferize'] })
+  " Show slow plugins
+  Plug 'tweekmonster/startuptime.vim', { 'on': ['StartupTime'] }
 
-  Plug 'cocopon/colorswatch.vim', PlugIf(l:debug, {
-        \   'on': ['ColorSwatchGenerate']
-        \ })
+  " `:Bufferize messages` to get messages (or any :command) in a new buffer
+  Plug 'AndrewRadev/bufferize.vim', { 'on': ['Bufferize'] }
+
+  Plug 'cocopon/colorswatch.vim', { 'on': ['ColorSwatchGenerate'] }
 
   " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer
   " than :Scriptnames)
-  Plug 'tpope/vim-scriptease', PlugIf(l:debug)
-
-  " Show slow plugins
-  Plug 'tweekmonster/startuptime.vim', PlugIf(l:debug)
+  Plug 'tpope/vim-scriptease', { 'on': [
+        \   'PP', 'Scriptnames', 'Messages', '<Plug>Scriptease'
+        \ ] }
 
   " ==========================================================================
   " Plug: Colorscheme
@@ -142,7 +141,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " []-bindings -- buffer switch, lnext/prev, etc.
   " My fork has a lot of removals
-  Plug 'davidosomething/vim-unimpaired'
+  Plug 'davidosomething/vim-unimpaired', { 'on': [ '<Plug>unimpaired' ] }
 
   " used for line bubbling commands (instead of unimpared!)
   " Consider also t9md/vim-textmanip

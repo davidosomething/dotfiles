@@ -29,9 +29,9 @@ endfunction
 "   when the source is to open files
 "
 
-" Some default options. Removed --ansi for now, not using it
-" cycle through list
-" multi select with <Tab>
+" Some default options.
+" --cycle through list
+" --multi select with <Tab>
 let s:options = ' --cycle --multi '
 
 " ----------------------------------------------------------------------------
