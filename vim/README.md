@@ -122,6 +122,7 @@ sparingly (typically for `setlocal` ftplugin settings).
   relying on plugins
 - Include `&cpoptions` guard if there are mappings
 - Use `<special>` if the mapping key is special (irrespective of `&cpoptions`)
+- Use `<A-` instead of `<M-` for alt/meta mappings
 - `g:DKO_FunctionName` - DKO_PascalCase
 - `s:FunctionName` - PascalCase
 - `g:dko_variable_name` - dko_snake_case for my global variables
