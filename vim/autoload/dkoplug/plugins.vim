@@ -27,13 +27,11 @@ function! dkoplug#plugins#LoadAll() abort
   " Plug: Colorscheme
   " ==========================================================================
 
-  " Use in nvim
-  let l:truecolor = has('nvim') || has('gui_running') || has('termguicolors')
-  "Plug '~/projects/davidosomething/vim-base2tone-lakedark', PlugIf(l:truecolor)
-  Plug 'davidosomething/vim-base2tone-lakedark', PlugIf(l:truecolor)
-  "Plug 'AlessandroYorba/Sidonia', PlugIf(l:truecolor)
+  "Plug '~/projects/davidosomething/vim-base2tone-lakedark'
+  Plug 'davidosomething/vim-base2tone-lakedark'
+  "Plug 'AlessandroYorba/Sidonia'
   Plug 'rakr/vim-two-firewatch'
-  Plug 'arcticicestudio/nord-vim'
+  "Plug 'arcticicestudio/nord-vim'
 
   " ==========================================================================
   " Embedded filetype support
