@@ -47,7 +47,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'ludovicchabant/vim-gutentags', PlugIf(executable('ctags'))
 
-  "   Plug 'majutsushi/tagbar', PlugIf(executable('ctags'))
+  "Plug 'majutsushi/tagbar', PlugIf(executable('ctags'))
 
   " ctags on-the-fly processing
   " This is a nice function context plugin but too many false positives
