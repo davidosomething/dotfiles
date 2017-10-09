@@ -5,6 +5,7 @@
 # symlinked to ~/.bashrc
 #
 
+[[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ==== TMUX ==== {"
 DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 
 # ============================================================================
