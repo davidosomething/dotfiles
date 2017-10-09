@@ -31,7 +31,8 @@ dko::has "pyenv" && {
 # ==============================================================================
 
 # Default virtualenv
-export WORKON_HOME="${HOME}/.local/virtualenv"
+# pipenv compatible!
+export WORKON_HOME="${HOME}/.local/venvs"
 
 # Disable auto-add virtualenv name to prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
@@ -58,6 +59,12 @@ dko::has "pip" && {
     eval "$(pip completion --bash)"
   fi
 }
+
+# ============================================================================
+# pipenv
+# ============================================================================
+
+dko::has 'pipenv' && eval "$(pipenv --completion)"
 
 # ==============================================================================
 
