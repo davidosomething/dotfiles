@@ -8,14 +8,13 @@ export DKO_SOURCE="${DKO_SOURCE} -> prompt.zsh"
 
 # ============================================================================
 # Generic traps
+# @see <http://www.dribin.org/dave/blog/archives/2004/01/25/zsh_win_resize/>
 # ============================================================================
 
-# Ensure that the prompt is redrawn when the terminal size changes. This is
-# for RPROMPT position, (VI indicator is fine without it).
-# https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/vi-mode/vi-mode.plugin.zsh#L7
-TRAPWINCH() {
-  zle && zle -R
-}
+# @TODO redraw PS1 properly
+# TRAPWINCH() {
+#   zle && zle -R
+# }
 
 # ============================================================================
 # components
