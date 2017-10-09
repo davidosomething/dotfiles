@@ -1,6 +1,6 @@
 # zplugin.zsh
 
-export DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
+DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
 
 zplugin snippet --command 'https://github.com/davidosomething/git-ink/blob/master/git-ink'
 zplugin snippet --command 'https://github.com/davidosomething/git-my/blob/master/git-my'
@@ -50,3 +50,4 @@ zplugin light 'vasyharan/zsh-brew-services'
 
 zplugin light 'voronkovich/phpcs.plugin.zsh'
 
+export DKO_SOURCE="${DKO_SOURCE} }"
