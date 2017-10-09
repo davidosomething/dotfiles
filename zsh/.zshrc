@@ -5,7 +5,7 @@
 # sourced when you type ZSH
 #
 
-[[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ======== TMUX ======== {"
+[[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
 DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
