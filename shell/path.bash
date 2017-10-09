@@ -19,11 +19,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/path.bash"
 #
 # On arch, via /etc/profile, default path is:
 # /usr/local/sbin:/usr/local/bin:/usr/bin
-if [[ -n "$DKO_SYSTEM_PATH" ]]; then
-  export DKO_SYSTEM_PATH="${PATH}:${DKO_SYSTEM_PATH}"
-else
-  export DKO_SYSTEM_PATH="${PATH}"
-fi
+export DKO_SYSTEM_PATH="${DKO_SYSTEM_PATH:-$PATH}"
 
 # ============================================================================
 # Begin composition
