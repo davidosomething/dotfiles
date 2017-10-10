@@ -127,22 +127,24 @@ __dko::prompt::precmd::state() {
     left="${left}${(%)__dko_prompt_left_colors[i]}${(%)__dko_prompt_left_parts[i]}"
   done
   left="${left} "
+  local result="${left}"
 
   # Right side if has room
   local spaces=$(( $cols - $left_len - $right_len ))
-  if [[ $spaces -gt 1 ]]; then
+  if (( spaces > 4 )); then
     local right=' '
     # colorize
     for (( i = 1; i <= ${#__dko_prompt_right_parts}; i++ )) do
       right="${right}${(%)__dko_prompt_right_colors[i]}${(e)__dko_prompt_right_parts[i]}"
     done
+    result="${result}%F{black}${(l:spaces-1::═:)}%F{blue}${(e)right}%F{blue}"
   fi
 
   # <C-c> to just output a prompt without the statusline above it
   if (( ${DKO_PROMPT_IS_TRAPPED:-0} == 1 )); then
     export DKO_PROMPT_IS_TRAPPED=0
   else
-    print -P "${left}%F{black}${(l:spaces-1::═:)}%F{blue}${(e)right}%F{blue}"
+    print -P "$result"
   fi
 }
 add-zsh-hook precmd __dko::prompt::precmd::state
