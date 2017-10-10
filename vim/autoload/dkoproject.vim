@@ -170,7 +170,8 @@ function! dkoproject#GetFile(filename) abort
   if empty(dkoproject#GetRoot()) | return '' | endif
 
   " Try to use nearest first; up to the root
-  let l:nearest = findfile(a:filename, dkoproject#GetRoot() . ';')
+  let l:bounds = '.;' . dkoproject#GetRoot() . ';'
+  let l:nearest = findfile(a:filename, l:bounds)
   if !empty(l:nearest) | return fnamemodify(l:nearest, ':p') | endif
 
   for l:root in dkoproject#GetPaths()

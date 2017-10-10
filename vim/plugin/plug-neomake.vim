@@ -66,8 +66,8 @@ let g:neomake_vim_vimlparser_maker = {
 autocmd dkoneomake FileType javascript
       \   call dkoproject#neomake#LocalMaker(dkoproject#neomake#javascript#local_eslint)
       \ | call dkoproject#neomake#LocalMaker(dkoproject#neomake#javascript#local_jshint)
-      \ | call dkoproject#neomake#LocalMaker(dkoproject#neomake#javascript#local_flow)
       \ | call dkoproject#neomake#javascript#SetMaker()
+      "\ | call dkoproject#neomake#LocalMaker(dkoproject#neomake#javascript#local_flow)
 
 autocmd dkoneomake FileType markdown.pandoc,markdown
       \ call dkoproject#neomake#markdown#Markdownlint()
