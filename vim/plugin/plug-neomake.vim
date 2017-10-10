@@ -332,7 +332,6 @@ autocmd dkoneomake FileType scss
 " VimL
 " ----------------------------------------------------------------------------
 
-" this is the default setting these days (vint only, vimlint is disabled)
 let g:neomake_vim_enabled_makers = ['vimlparser', 'vint']
 
 let g:neomake_vim_vimlparser_maker = {
