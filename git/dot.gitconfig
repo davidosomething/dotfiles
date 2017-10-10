@@ -151,6 +151,7 @@
 	sharedRepository = 0664
 	commentchar = ";"
 # pager = less -x4 ; removed so git will use the env GIT_PAGER
+	ignorecase = false
 
 [diff]
 	compactionHeuristic = true

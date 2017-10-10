@@ -9,6 +9,7 @@ eslint-config-davidosomething
 eslint-config-react-app
 eslint-plugin-flowtype
 eslint-plugin-import
+eslint-plugin-jest
 eslint-plugin-jsx-a11y
 eslint-plugin-react
 flow-bin
