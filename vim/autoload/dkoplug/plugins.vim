@@ -3,7 +3,7 @@ function! dkoplug#plugins#LoadAll() abort
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
 
   " ==========================================================================
-  " Plug: Vim debugging
+  " Vim debugging
   " ==========================================================================
 
   " Show slow plugins
@@ -24,7 +24,7 @@ function! dkoplug#plugins#LoadAll() abort
         \ ] }
 
   " ==========================================================================
-  " Plug: Colorscheme
+  " Colorscheme
   " ==========================================================================
 
   "Plug '~/projects/davidosomething/vim-base2tone-lakedark'
@@ -42,7 +42,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'Shougo/context_filetype.vim'
 
   " ==========================================================================
-  " Plug: File system, ctags
+  " File system, ctags
   " ==========================================================================
 
   Plug 'ludovicchabant/vim-gutentags', PlugIf(executable('ctags'))
@@ -54,7 +54,7 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'jeetsukumaran/vim-gazetteer', PlugIf(executable('ctags'))
 
   " ==========================================================================
-  " Plug: Commands
+  " Commands
   " ==========================================================================
 
   let l:fzfable = !empty(g:fzf_dir)
@@ -98,7 +98,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'vim-utils/vim-husk'
 
   " ==========================================================================
-  " Plug: Input, syntax, spacing
+  " Input, syntax, spacing
   " ==========================================================================
 
   Plug 'sgur/vim-editorconfig'
@@ -120,7 +120,7 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug '~/projects/current-func-info.vim'
 
   " ==========================================================================
-  " Plug: Editing keys
+  " Editing keys
   " ==========================================================================
 
   Plug 'godlygeek/tabular', { 'on': [ 'Tabularize' ] }
@@ -180,8 +180,11 @@ function! dkoplug#plugins#LoadAll() abort
   Plug g:dko#vim_dir . '/mine/vim-movemode'
 
   " ==========================================================================
-  " Plug: Completion
+  " Completion
   " ==========================================================================
+
+  " Auto-insert matching braces with detection for jumping out on close.
+  Plug 'kana/vim-smartinput'
 
   " Main completion engine, bound to <C-o>
   " Does not start until InsertEnter, so we can set up sources, then load
@@ -359,7 +362,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'Shougo/neco-vim', PlugIf(g:dko_use_completion)
 
   " ==========================================================================
-  " Plug: Multiple languages
+  " Multiple languages
   " ==========================================================================
 
   Plug 'itchyny/vim-parenmatch'
@@ -637,7 +640,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'lambdalisue/vim-backslash'
 
   " ==========================================================================
-  " Plug: Search
+  " Search
   " See after/plugin/search.vim for complex configutation
   " ==========================================================================
 
@@ -655,7 +658,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'osyo-manga/vim-anzu'
 
   " ==========================================================================
-  " Plug: UI -- load last!
+  " UI -- load last!
   " ==========================================================================
 
   " Using quickfixsigns_vim instead of these
