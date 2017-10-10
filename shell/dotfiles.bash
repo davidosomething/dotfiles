@@ -123,8 +123,8 @@ __dko::dotfiles::update_daily() {
   __dko::dotfiles::update_fzf
   __dko::dotfiles::ruby::update_gems
   __dko::dotfiles::node::update_nvm
-  __dko::dotfiles::py::update_pip "pip"
   __dko::dotfiles::py::update_pyenv
+  __dko::dotfiles::py::update_pip "pip"
   __dko::dotfiles::py::update_neovim_python
   __dko::dotfiles::vim::update_vimlint
   __dko::dotfiles::php::update_wpcs
