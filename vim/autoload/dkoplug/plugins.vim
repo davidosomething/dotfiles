@@ -185,6 +185,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Auto-insert matching braces with detection for jumping out on close.
   Plug 'cohama/lexima.vim'
+  "Plug 'Raimondi/delimitMate' SLOWER LOAD
   "Plug 'kana/vim-smartinput' SLOW
 
   " Main completion engine, bound to <C-o>
