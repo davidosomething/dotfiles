@@ -35,7 +35,8 @@ function! dkoline#GetTabline() abort
   let l:contents .= '%#StatusLine# %= '
 
   let l:project_root = dko#IsNonFile(l:bufnr) ? '' : dko#ShortenPath(dkoproject#GetRoot(), 0)
-  let l:maxwidth = float2nr(&columns / 2) - 5 - 6 - len(l:project_root)
+  let l:maxwidth = float2nr(&columns / 3) - 5 - 6 - len(l:project_root)
+  let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
 
   let l:contents .= dkoline#Format(
         \   dkoline#ShortPath(l:bufnr, l:cwd, 0),
@@ -44,8 +45,10 @@ function! dkoline#GetTabline() abort
         \ )
 
   let l:contents .= dkoline#Format(
-        \ l:project_root,
-        \ '%#Pmenu# ᴘʀᴏᴊ %#PmenuSel#')
+        \   l:project_root,
+        \   '%#Pmenu# ᴘʀᴏᴊ %#PmenuSel#%0.' . l:maxwidth . '(',
+        \   '%)'
+        \ )
 
   let l:contents .= dkoline#Format(
         \ dkoline#GitBranch(l:bufnr),
