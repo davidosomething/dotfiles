@@ -175,7 +175,8 @@ let s:local_flow = {
       \   'args':        ['-c flow --json 2>/dev/null | flow-vim-quickfix'],
       \   'errorformat': '%E%f:%l:%c\,%n: %m',
       \   'cwd':         '%:p:h',
-      \   'when':        'executable("flow-vim-quickfix") && !empty(dkoproject#GetFile(".flowconfig"))',
+      \   'when':   'executable("flow-vim-quickfix")'
+      \           . '&& !empty(dkoproject#GetFile(".flowconfig"))',
       \ }
 
 autocmd dkoneomake FileType javascript
@@ -278,7 +279,7 @@ let g:neomake_python_enabled_makers = [
 " @see https://github.com/neomake/neomake/blob/master/autoload/neomake/makers/ft/python.vim#L26
 let g:neomake_python_pylint_args = [
       \   '--output-format=text',
-      \   '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
+      \   '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg} [{msg_id}]"',
       \   '--reports=no',
       \   '--disable=locally-disabled',
       \ ]
