@@ -48,18 +48,15 @@ let s:default_markers = [
 " @param {String} [file]
 " @return {String} project root path or empty string
 function! dkoproject#GetRoot(...) abort
-  if exists('b:dkoproject_root')
-    return b:dkoproject_root
-  endif
+  if exists('b:dkoproject_root') | return b:dkoproject_root | endif
 
   let l:path = dkoproject#GetFilePath(get(a:, 1, ''))
-  let l:root = dkoproject#GetGitRootByFile(l:path)
-  let l:root = empty(l:root)
-        \ ? dkoproject#GetRootByFileMarker(s:default_markers)
-        \ : l:root
-  let l:root = empty(l:root)
-        \ ? expand('%:p:h')
-        \ : l:root
+
+  " Look for markers FIRST, that way we support things like browsing through
+  " node_modules/ and monorepos
+  let l:root = dkoproject#GetRootByFileMarker(s:default_markers)
+  let l:root = !empty(l:root) ? l:root : dkoproject#GetGitRootByFile(l:path)
+  let l:root = !empty(l:root) ? l:root : l:path
 
   let b:dkoproject_root = l:root
   return l:root
@@ -82,9 +79,7 @@ function! dkoproject#GetFilePath(file) abort
 
   " Fallback if no current file
   " File was not readable so just use current path buffer started from
-  let l:path = empty(l:path)
-        \ ? getcwd()
-        \ : l:path
+  let l:path = empty(l:path) ? getcwd() : l:path
 
   " Special circumstances
   " Go up one level if INSIDE the .git/ dir
@@ -119,6 +114,14 @@ function! dkoproject#GetRootByFileMarker(markers) abort
   endfor
 
   return l:result
+endfunction
+
+" @return {String}
+function! dkoproject#ProjectType() abort
+  if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
+    return 'wordpress'
+  endif
+  return ''
 endfunction
 
 " Get array of possible config file paths for a project -- any dirs where
@@ -164,24 +167,15 @@ endfunction
 " @param {String} filename
 " @return {String} full path to config file
 function! dkoproject#GetFile(filename) abort
-  " Try to use nearest first; findfile .; goes from current file upwards
-  let l:nearest = findfile(a:filename, '.;')
-  if !empty(l:nearest)
-    return fnamemodify(l:nearest, ':p')
-  endif
+  if empty(dkoproject#GetRoot()) | return '' | endif
 
-  if empty(dkoproject#GetRoot())
-    return ''
-  endif
+  " Try to use nearest first; up to the root
+  let l:nearest = findfile(a:filename, dkoproject#GetRoot() . ';')
+  if !empty(l:nearest) | return fnamemodify(l:nearest, ':p') | endif
 
   for l:root in dkoproject#GetPaths()
-    let l:current =
-          \ expand(dkoproject#GetRoot() . '/' . l:root)
-
-    if !isdirectory(l:current)
-      continue
-    endif
-
+    let l:current = expand(dkoproject#GetRoot() . '/' . l:root)
+    if !isdirectory(l:current) | continue | endif
     if filereadable(glob(l:current . a:filename))
       return l:current . a:filename
     endif
