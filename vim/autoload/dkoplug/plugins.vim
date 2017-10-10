@@ -184,7 +184,8 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
 
   " Auto-insert matching braces with detection for jumping out on close.
-  Plug 'kana/vim-smartinput'
+  Plug 'cohama/lexima.vim'
+  "Plug 'kana/vim-smartinput' SLOW
 
   " Main completion engine, bound to <C-o>
   " Does not start until InsertEnter, so we can set up sources, then load
