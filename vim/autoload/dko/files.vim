@@ -1,7 +1,7 @@
 " autoload/dko/files.vim
 
 " ============================================================================
-" Vim introspection
+" MRU based on v:oldfiles
 " ============================================================================
 
 let s:mru_blacklist = "v:val !~ '" . join([
@@ -15,9 +15,21 @@ let s:mru_blacklist = "v:val !~ '" . join([
 
 " @return {List} recently used and still-existing files
 function! dko#files#GetMru() abort
-  " Shortened(Readable(Whitelist)
-  return dko#ShortPaths(filter(copy(v:oldfiles), s:mru_blacklist))
+  return get(s:, 'mru_cache', dko#files#RefreshMru())
 endfunction
+
+function! dko#files#RefreshMru() abort
+  let s:mru_cache = dko#ShortPaths(filter(copy(v:oldfiles), s:mru_blacklist))
+  return s:mru_cache
+endfunction
+
+augroup dkomru
+  autocmd! dkomru BufAdd,BufNew,BufFilePost * call dko#files#RefreshMru()
+augroup END
+
+" ============================================================================
+" Clean buffer names
+" ============================================================================
 
 " @return {List} listed buffers
 function! dko#files#GetBuffers() abort
