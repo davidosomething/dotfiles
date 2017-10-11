@@ -76,6 +76,11 @@ augroup filetypedetect
 
   " polkit rules files
   autocmd! BufNewFile,BufRead
+        \ *.plist
+        \ setfiletype xml
+
+  " polkit rules files
+  autocmd! BufNewFile,BufRead
         \ *.rules
         \ setfiletype javascript
 

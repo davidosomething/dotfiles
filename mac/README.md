@@ -18,12 +18,6 @@ will not mount until a user has logged in. To remedy this, see
 1. `git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/`
 1. `~/.dotfiles/bootstrap/symlink`
 
-### Set `launchctl` environment variables
-
-This sets env variables for GUI apps.
-
-1. Run `~/.dotfiles/mac/launchenv`
-
 ### Install homebrew
 
 1. Install according to <https://brew.sh/>

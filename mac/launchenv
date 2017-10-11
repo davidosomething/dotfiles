@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-[[ -z "$DKO_SOURCE" ]] && echo "Install dotfiles first." && exit 1
-[[ -n "$GNUPGHOME" ]] && launchctl setenv GNUPGHOME "$GNUPGHOME"

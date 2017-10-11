@@ -60,6 +60,8 @@ __symlink() {
 
   case "$OSTYPE" in
     darwin*)
+      dko::symlink  mac/dotfiles.plist \
+                    Library/LaunchAgents/dotfiles.plist
       dko::symlink  hammerspoon \
                     .hammerspoon
       dko::symlink  mac/dot.hushlogin \
