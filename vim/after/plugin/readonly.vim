@@ -38,4 +38,4 @@ function! s:Unmap() abort
   endif
 endfunction
 
-autocmd dkoreadonly BufEnter * call s:Unmap()
+autocmd dkoreadonly BufReadPost * call s:Unmap()

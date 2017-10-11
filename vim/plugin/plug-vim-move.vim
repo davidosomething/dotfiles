@@ -13,9 +13,7 @@ let g:move_key_modifier = 'C'
 let g:move_auto_indent = 0
 
 function! s:Unmap() abort
-  if dko#IsEditable()
-    return
-  endif
+  if dko#IsEditable() | return | endif
 
   " Have to <NOP> these since the vim-move mappings are not <buffer> local
   silent! nnoremap <buffer> <C-j> <NOP>
@@ -24,4 +22,4 @@ function! s:Unmap() abort
   silent! vnoremap <buffer> <C-k> <NOP>
 endfunction
 
-autocmd dkovimmove BufEnter * call s:Unmap()
+autocmd dkovimmove BufWinEnter * call s:Unmap()
