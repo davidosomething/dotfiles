@@ -4,7 +4,7 @@
 # term and we may need to reset the values
 #
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/vars.bash {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.bash"
 
 # ============================================================================
 # Locale
@@ -30,9 +30,9 @@ export ZDOTDIR="${DOTFILES}/zsh"
 # History -- except HISTFILE location is set by shell rc file
 # ============================================================================
 
-export SAVEHIST=1000
-export HISTSIZE=1000
-export HISTFILESIZE="$HISTSIZE"
+export HISTSIZE=10000
+export HISTFILESIZE=$HISTSIZE
+export SAVEHIST=$SAVEHIST
 export HISTCONTROL=ignoredups
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
@@ -72,10 +72,6 @@ export GIT_PAGER="$PAGER"
 # ack
 export ACKRC="${DOTFILES}/ack/dot.ackrc"
 
-# apache
-# shellcheck source=/dev/null
-[[ -f "/etc/apache2/envvars" ]] && . "/etc/apache2/envvars"
-
 # atom editor
 export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
 
@@ -95,14 +91,15 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
-export _FASD_DATA="${XDG_CONFIG_HOME}/fasd"
+# fasd
+export _FASD_DATA="${XDG_DATA_HOME}/fasd"
 
 # gnupg
 # This mirrors the value in mac/dotfiles.plist
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
 
 # go
-# used in shell/paths so not in shell/home
+# Used in shell/paths.bash so not in shell/go.bash
 export GOPATH="${HOME}/.local/go"
 
 # gradle and java in java.bash
@@ -160,11 +157,3 @@ export WEECHAT_HOME="${DOTFILES}/weechat"
 
 # wp cli
 export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
-
-# X11 - for starting via xinit or startx
-export XINITRC="${DOTFILES}/linux/.xinitrc"
-export XAPPLRESDIR="${DOTFILES}/linux"
-
-# ============================================================================
-
-export DKO_SOURCE="${DKO_SOURCE} }"

@@ -11,7 +11,10 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/xdg.bash {"
 # Define dirs
 # ============================================================================
 
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+# pretty much the defaults, but explicitly provide for my own use
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
 
 # user-dirs.dirs doesn't exist on macOS/OS X so check first.
 # Exporting is fine since the file is generated via xdg-user-dirs-update
@@ -29,10 +32,7 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
     XDG_MUSIC_DIR                       \
     XDG_PICTURES_DIR                    \
     XDG_VIDEOS_DIR                      \
-  && DKO_SOURCE="${DKO_SOURCE} -> user-dirs.dirs"
-
-export XDG_CACHE_HOME="${HOME}/.cache"
-export XDG_DATA_HOME="${HOME}/.local/share"
+  && DKO_SOURCE="${DKO_SOURCE} -> ${XDG_CONFIG_HOME}/user-dirs.dirs"
 
 # ============================================================================
 

@@ -3,14 +3,7 @@
 # Sourced on all shells, interactive or not
 #
 
-DKO_SOURCE="${DKO_SOURCE} -> init.bash {"
-
-# ============================================================================
-# Create paths (slow)
-# ============================================================================
-
-[ ! -d "${HOME}/.local/bin" ]       && mkdir -p "${HOME}/.local/bin"
-[ ! -d "${HOME}/.local/man/man1" ]  && mkdir -p "${HOME}/.local/man/man1"
+DKO_SOURCE="${DKO_SOURCE} -> shell/init.bash {"
 
 # ============================================================================
 
@@ -21,7 +14,10 @@ DKO_SOURCE="${DKO_SOURCE} -> init.bash {"
 . "${HOME}/.dotfiles/shell/vars.bash"
 
 # OS specific overrides
-. "${DOTFILES}/shell/os.bash"
+case "$OSTYPE" in
+  darwin*) . "${DOTFILES}/shell/os-darwin.bash" ;;
+  linux*)  . "${DOTFILES}/shell/os-linux.bash" ;;
+esac
 
 # ============================================================================
 

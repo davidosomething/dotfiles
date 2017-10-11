@@ -12,6 +12,16 @@ readonly dotfiles_path="$(pwd)"
 . "${dotfiles_path}/shell/helpers.bash"
 
 # ============================================================================
+# Create paths (slow)
+# ============================================================================
+
+mkdir -p "${HOME}/.cache"
+mkdir -p "${HOME}/.config"
+mkdir -p "${HOME}/.local/bin"
+mkdir -p "${HOME}/.local/share"
+mkdir -p "${HOME}/.local/man/man1"
+
+# ============================================================================
 # Main
 # ============================================================================
 
@@ -60,17 +70,16 @@ __symlink() {
 
   case "$OSTYPE" in
     darwin*)
-      dko::symlink  mac/dotfiles.plist \
-                    Library/LaunchAgents/dotfiles.plist
       dko::symlink  hammerspoon \
                     .hammerspoon
-      dko::symlink  mac/dot.hushlogin \
-                    .hushlogin
-      dko::symlink  subversion/config \
-                    .subversion/config
-      # kitty terminal
       dko::symlink  kitty/kitty.conf \
                     Library/Preferences/kitty/kitty.conf
+      dko::symlink  mac/dot.hushlogin \
+                    .hushlogin
+      dko::symlink  mac/dotfiles.plist \
+                    Library/LaunchAgents/dotfiles.plist
+      dko::symlink  subversion/config \
+                    .subversion/config
       ;;
     linux*)
       dko::symlink  linux/subversion/config \
