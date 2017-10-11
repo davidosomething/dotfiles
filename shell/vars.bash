@@ -97,8 +97,11 @@ export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
 export _FASD_DATA="${XDG_DATA_HOME}/fasd"
 
+# gnupg
+export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
+
 # go
-# used in shell/paths
+# used in shell/paths so not in shell/home
 export GOPATH="${HOME}/.local/go"
 
 # java in java.bash
