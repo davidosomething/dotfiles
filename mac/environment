@@ -1,9 +1,0 @@
-#!/bin/sh
-set -e
-syslog -s -l warn "${HOME}/.dotfiles/mac/environment $(whoami) - start"
-
-
-launchctl setenv GNUPGHOME ~/.local/share/gnupg
-
-
-syslog -s -l warn "${HOME}/.dotfiles/mac/environment $(whoami) - complete"

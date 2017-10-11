@@ -6,15 +6,15 @@
     <string>davidosomething.dotfiles</string>
     <key>ProgramArguments</key>
     <array>
-      <string>~/.dotfiles/mac/enviroment</string>
+      <string>sh</string>
+      <string>-c</string>
+      <string>
+        launchctl setenv GNUPGHOME "${HOME}/.local/share/gnupg"
+      </string>
     </array>
     <key>KeepAlive</key>
     <false/>
     <key>RunAtLoad</key>
     <true/>
-    <key>WatchPaths</key>
-    <array>
-      <string>~/.dotfiles/mac/environment</string>
-    </array>
   </dict>
 </plist>
