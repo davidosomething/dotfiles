@@ -148,6 +148,26 @@ vol() {
   fi
 }
 
+# Needs to be run from shell iTerm started in
+# Modified from
+# https://github.com/mhinz/dotfiles/blob/f1cae979e9e72ab414b4c8b3444144c30aa4cde3/.zsh/.zshrc#L448
+proftoggle() {
+  if [[ -z "$ITERM_PROFILE" ]]; then
+    print "Not in iTerm" 1>&2
+    return
+  fi
+  if [[ "$ITERM_PROFILE" == "ZSH - base16 Tomorrow Night" ]]; then
+    export ITERM_PROFILE='ZSH - Solarized Light'
+  else
+    export ITERM_PROFILE='ZSH - base16 Tomorrow Night'
+  fi
+  local seq="\e]1337;SetProfile=${ITERM_PROFILE}\x7"
+  # shellcheck disable=SC2059
+  printf "$seq"
+  clear
+  echo "Now using ${ITERM_PROFILE}"
+}
+
 # ============================================================================
 # linux
 # ============================================================================
