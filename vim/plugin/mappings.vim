@@ -173,7 +173,7 @@ cmap jj <Esc>
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-444
 " ----------------------------------------------------------------------------
 
-nnoremap <silent> U :<C-U>syntax sync fromstart<CR>:redraw!<CR>
+nnoremap <silent> U :<C-U>:diffupdate<CR>:syntax sync fromstart<CR><C-L>
 
 " ----------------------------------------------------------------------------
 " cd to current buffer's git root
