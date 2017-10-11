@@ -94,18 +94,15 @@ __remove() {
 __clean_nvm() {
   dko::status "Move invalid NVM paths"
 
-  if [ "${NVM_DIR}" != "${XDG_CONFIG_HOME}/nvm" ]; then
+  if [[ "${NVM_DIR}" != "${XDG_CONFIG_HOME}/nvm" ]]; then
     dko::err "NVM_DIR not set properly. Should be ${XDG_CONFIG_HOME}/nvm"
     return 1
   fi
 
   mkdir -p "${NVM_DIR}"
 
-  # Move if wrong place
-  __move "${XDG_CONFIG_HOME}/.nvm" "$NVM_DIR"
-
-  # Move if wrong name
-  __move "${HOME}/.nvm" "$NVM_DIR"
+  [[ -n "$NVM_DIR" ]] && __move "${XDG_CONFIG_HOME}/.nvm" "$NVM_DIR"
+  [[ -n "$NVM_DIR" ]] && __move "${HOME}/.nvm" "$NVM_DIR"
 }
 
 # ============================================================================
@@ -114,14 +111,13 @@ __clean_nvm() {
 
 __move      "${HOME}/.bash_history"   "${LDOTDIR}/bash_history"
 __move      "${HOME}/.zhistory"       "${LDOTDIR}/zsh_history"
-__move      "${HOME}/.composer"       "${XDG_CONFIG_HOME}/composer"
 __move      "${HOME}/.gimp-2.8"       "${XDG_CONFIG_HOME}/GIMP/2.8"
 __move      "${HOME}/.inputrc"        "${XDG_CONFIG_HOME}/readline/inputrc"
-# PYLINTHOME is set
-__move      "${HOME}/.pylint.d"       "${XDG_CONFIG_HOME}/pylint"
 __merge_dir "${HOME}/.fonts"          "${XDG_DATA_HOME}/fonts"
-# HISTFILE is set
-# INPUTRC is set
+
+[[ -n "$COMPOSER_HOME" ]] && __move "${HOME}/.composer" "$COMPOSER_HOME"
+[[ -n "$GNUPGHOME" ]] && __move "${HOME}/.gnupg" "$GNUPGHOME"
+[[ -n "$PYLINTHOME" ]] && __move "${HOME}/.pylint.d" "$PYLINTHOME"
 
 # Removes
 ! dko::same "${HOME}/.dotfiles/bash/dot.bash_profile" "${HOME}/.bash_profile" \
