@@ -2,6 +2,8 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/java.bash"
 
+export GRADLE_USER_HOME="${XDG_DATA_HOME}/gradle"
+
 __java_version="1.8"
 if [[ -z "$JAVA_HOME" ]] && [[ -x '/usr/libexec/java_home' ]]; then
   JAVA_HOME="$(/usr/libexec/java_home -v"$__java_version" 2>/dev/null)"

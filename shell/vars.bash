@@ -104,7 +104,7 @@ export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
 # used in shell/paths so not in shell/home
 export GOPATH="${HOME}/.local/go"
 
-# java in java.bash
+# gradle and java in java.bash
 
 # less
 # -F quit if one screen (default)
