@@ -95,10 +95,11 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
-export _FASD_DATA="${XDG_DATA_HOME}/fasd"
+export _FASD_DATA="${XDG_CONFIG_HOME}/fasd"
 
 # gnupg
-export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
+# This mirrors the value in mac/dotfiles.plist
+export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
 
 # go
 # used in shell/paths so not in shell/home

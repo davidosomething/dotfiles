@@ -9,7 +9,7 @@
       <string>sh</string>
       <string>-c</string>
       <string>
-        launchctl setenv GNUPGHOME "${HOME}/.local/share/gnupg"
+        launchctl setenv GNUPGHOME "${HOME}/.config/gnupg"
       </string>
     </array>
     <key>KeepAlive</key>
