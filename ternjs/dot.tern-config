@@ -1,13 +1,10 @@
 {
-  "exclude": [
-    ".git/**",
-    "*.min.js"
-  ],
   "libs": [
     "browser",
-    "jquery"
+    "ecmascript",
+    "jquery",
+    "react"
   ],
-  "loadEagerly": [],
   "plugins": {
     "commonjs": {},
     "complete_strings": {},
@@ -15,5 +12,11 @@
       "strong": true
     },
     "node": {}
-  }
+  },
+  "exclude": [
+    ".git/**",
+    "*.min.js"
+  ],
+  "loadEagerly": [],
+  "dontLoad": []
 }
