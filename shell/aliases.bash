@@ -42,6 +42,7 @@ alias esd='e "${DOTFILES}/shell/dotfiles.bash"'
 alias evr='e "${VDOTDIR}/vimrc"'
 alias evp='e "${VDOTDIR}/autoload/dkoplug/plugins.vim"'
 alias eze='e "${ZDOTDIR}/dot.zshenv"'
+alias ezl='e "${DOTFILES}/local/zshrc"'
 alias ezp='e "${ZDOTDIR}/zplugin.zsh"'
 alias ezr='e "${ZDOTDIR}/.zshrc"'
 
