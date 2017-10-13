@@ -234,7 +234,7 @@ set completeopt+=menu,menuone         " show PUM, even for one thing
 " ----------------------------------------------------------------------------
 
 set shortmess-=f                      " (file x of x) instead of just (x of x)
-set shortmess+=mnrxoOt
+set shortmess+=ilmnrxoOtWI
 " Disable "Pattern not found" messages
 if has('patch-7.4.314') | set shortmess+=c | endif
 
