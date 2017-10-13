@@ -6,7 +6,7 @@ let g:dkoproject#neomake#php#local_phpcs = {
       \   'exe':    'vendor/bin/phpcs',
       \ }
 
-let s:phpcs_psr2 = ['--standard=PSR2']
+let s:phpcs_psr2 = [ '--standard=PSR2' ]
 
 let s:phpcs_wordpress = [
       \   '--standard=WordPress-Extra',
@@ -33,4 +33,3 @@ function! dkoproject#neomake#php#Phpmd() abort
           \ ]
   endif
 endfunction
-
