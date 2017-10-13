@@ -13,6 +13,7 @@ unset PYTHONPATH
 # ==============================================================================
 
 export PYLINTHOME="${XDG_CONFIG_HOME}/pylint"
+export PYLINTRC="${DOTFILES}/python/pylintrc"
 
 # ==============================================================================
 # pyenv for multiple Python binaries
