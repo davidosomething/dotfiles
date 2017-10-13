@@ -120,18 +120,19 @@ sparingly (typically for `setlocal` ftplugin settings).
 
 ### VimL Coding
 
-- Include `dkoplug#plugins#Exists()` or `dkoplug#plugins#IsLoaded()` checks if
-  relying on plugins
 - Include `&cpoptions` guard if there are mappings
 - Use `<special>` if the mapping key is special (irrespective of `&cpoptions`)
 - Use `<A-` instead of `<M-` for alt/meta mappings
 - `g:DKO_FunctionName` - DKO_PascalCase
 - `s:FunctionName` - PascalCase
+- `autoload#FunctionName` - PascalCase
 - `g:dko_variable_name` - dko_snake_case for my global variables
 - `l:local_variable` - snake_case function-local variables
 - `s:variable_name` - snake_case for script-local variables
 - `g:dko#variable_name` - prefixed autoload-provided global variable
 - `dkoautocommandgroup` - lowercasealphanumer1cnospaces
+- Include `dkoplug#plugins#Exists()` or `dkoplug#plugins#IsLoaded()` checks if
+  relying on plugins
 - `<Plug>(DKOMyPlugMapping)` - Parentheses around `<Plug>` mapping names
 - The `augroup` for `mine/` plugins should be `plugin-pluginname`
 - The `augroup` for plugin settings should be `dkopluginname`
