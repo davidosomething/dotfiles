@@ -67,6 +67,8 @@ brew install neovim
 brew install ack
 brew install fasd
 brew install fzf
+# system version is SUPER old
+brew install rsync
 brew install tree
 brew install ripgrep
 

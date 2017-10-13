@@ -118,6 +118,7 @@ __merge_dir "${HOME}/.fonts"          "${XDG_DATA_HOME}/fonts"
 [[ -n "$COMPOSER_HOME" ]] && __move "${HOME}/.composer" "$COMPOSER_HOME"
 [[ -n "$GNUPGHOME" ]] && __move "${HOME}/.gnupg" "$GNUPGHOME"
 [[ -n "$PYLINTHOME" ]] && __move "${HOME}/.pylint.d" "$PYLINTHOME"
+[[ -n "$YARN_CACHE_FOLDER" ]] && __move "${HOME}/.yarn-cache" "$YARN_CACHE_FOLDER"
 
 # Removes
 ! dko::same "${HOME}/.dotfiles/bash/dot.bash_profile" "${HOME}/.bash_profile" \

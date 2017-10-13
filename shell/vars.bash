@@ -157,3 +157,7 @@ export WEECHAT_HOME="${DOTFILES}/weechat"
 
 # wp cli
 export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
+
+# yarn cache
+# https://github.com/yarnpkg/yarn/issues/3208
+export YARN_CACHE_FOLDER="${XDG_CACHE_HOME}/yarn"

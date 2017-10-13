@@ -79,22 +79,24 @@ is generally a wrapper around them that checks for
 
 #### Function Keys
 
-|     Key | Desc                                                               |
-| ------: | :----------------------------------------------------------------- |
-|  `<F1>` | :FZFGrepper - custom, rg/ag with preview or git-grep |
-|  `<F2>` | :FZFRelevant - custom, dirty/new files vs git master |
-|  `<F3>` | :FZFProject - custom, :FZFFiles but from project root |
-|  `<F4>` | :FZFMRU - custom, recently used files |
-|  `<F5>` | :FZFFiles - files from Vim's cwd |
-|  `<F6>` | :Neomake |
-|  `<F7>` | :Neomake! |
-|  `<F8>` | unused |
-|  `<F9>` | UI - :QuickfixsignsToggle (on by default) |
-| `<F10>` | do not use -- gnome-terminal menu key |
-| `<F11>` | UI - dkotabline#Toggle() |
-| `<F12>` | UI - set pastetoggle |
-|    `/`  | UI - incsearch |
-|    `\`  | UI - :OverCommandLine |
+|                 Key | Desc                                                    |
+| ------------------: | :------------------------------------------------------ |
+|  `<F1>` or `<A-g>`  | :FZFGrepper! - custom, rg/ag with preview or git-grep |
+|  `<F2>`             | :FZFRelevant - custom, dirty/new files vs git master |
+|  `<F3>`             | :FZFProject - custom, :FZFFiles but from project root |
+|  `<F4>` or `<A-m>`  | :FZFMRU - custom, recently used files |
+|  `<F5>` or `<A-f>`  | :FZFFiles - files from Vim's cwd |
+|  `<F6>`             | :Neomake  |
+|  `<F7>`             | :Neomake! |
+|  `<F8>`             | unused |
+|  `<F9>`             | UI - :QuickfixsignsToggle (on by default) |
+| `<F10>`             | do not use -- gnome-terminal menu key |
+| `<F11>`             | UI - dkotabline#Toggle() |
+| `<F12>`             | UI - set pastetoggle |
+| `<A-b>`             | :FZFBuffers
+| `<A-s>`             | :FZFSpecs - custom find test files near current path |
+|    `/`              | UI - incsearch |
+|    `\`              | UI - :OverCommandLine |
 
 See `plugin/mappings.vim` (and other `plugin/*` files) for other mappings.
 
