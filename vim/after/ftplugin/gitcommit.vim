@@ -15,4 +15,4 @@ setlocal textwidth=80
 setlocal formatoptions+=croq
 
 " Always start in display movement mode for markdown
-silent! call movemode#setByDisplay()
+silent! call movemode#Display()

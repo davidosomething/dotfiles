@@ -20,4 +20,4 @@ setlocal colorcolumn=+3
 "setlocal complete+=kspell
 
 " Always start in display movement mode for markdown
-silent! call movemode#setByDisplay()
+silent! call movemode#Display()
