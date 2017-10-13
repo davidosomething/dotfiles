@@ -36,7 +36,7 @@ let g:neomake_java_enabled_makers = []
 
 " Run these makers by default on :Neomake
 let g:neomake_javascript_enabled_makers =
-      \ executable('eslint') ? ['eslint'] : []
+      \ executable('eslint') ? [ 'eslint' ] : []
 
 let g:neomake_python_enabled_makers = [
       \   'python', 'pep8', 'pyflakes', 'pylint'
@@ -44,14 +44,10 @@ let g:neomake_python_enabled_makers = [
 
 " Add disable to defaults
 " @see https://github.com/neomake/neomake/blob/master/autoload/neomake/makers/ft/python.vim#L26
-let g:neomake_python_pylint_args = [
-      \   '--output-format=text',
-      \   '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg} [{msg_id}]"',
-      \   '--reports=no',
-      \   '--disable=locally-disabled',
-      \ ]
+let g:neomake_python_pylint_args = neomake#makers#ft#python#pylint().args
+      \ + [ '--disable=locally-disabled' ]
 
-let g:neomake_vim_enabled_makers = ['vimlparser', 'vint']
+let g:neomake_vim_enabled_makers = [ 'vimlparser', 'vint' ]
 
 let g:neomake_vim_vimlparser_maker = {
       \   'exe':         'vimlparser',
@@ -81,6 +77,11 @@ autocmd dkoneomake FileType scss
       \   call dkoproject#neomake#LocalMaker(dkoproject#neomake#scss#local_sasslint)
       \ | call dkoproject#neomake#scss#Sasslint()
       \ | call dkoproject#neomake#scss#SetMaker()
+
+autocmd dkoneomake User vim-pyenv-activate-post
+      \   call dkoproject#neomake#python#ActivatedPyenv()
+autocmd dkoneomake User vim-pyenv-dectivate-post
+      \   call dkoproject#neomake#python#DeactivatedPyenv()
 
 " ============================================================================
 
