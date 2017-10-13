@@ -565,6 +565,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Not a valid plugin runtime structure, file needs to be in ftplugin/
   "Plug 'sullyj3/vim-ftplugin-python'
 
+  Plug 'lambdalisue/vim-pyenv', { 'for': 'python' }
   Plug 'Vimjas/vim-python-pep8-indent'
   Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
 
