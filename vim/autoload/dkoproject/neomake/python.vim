@@ -1,6 +1,6 @@
 " autoload/dkoproject/neomake/python.vim
 
-let s:pylint_default_args = copy(g:neomake_python_pylint_args)
+let s:pylint_default_args = neomake#makers#ft#python#pylint().args
 
 " Runs on User vim-pyenv-activate-post
 " Which is provided by lambdalisue/vim-pyenv

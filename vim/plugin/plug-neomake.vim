@@ -42,11 +42,6 @@ let g:neomake_python_enabled_makers = [
       \   'python', 'pep8', 'pyflakes', 'pylint'
       \ ]
 
-" Add disable to defaults
-" @see https://github.com/neomake/neomake/blob/master/autoload/neomake/makers/ft/python.vim#L26
-let g:neomake_python_pylint_args = neomake#makers#ft#python#pylint().args
-      \ + [ '--disable=locally-disabled' ]
-
 let g:neomake_vim_enabled_makers = [ 'vimlparser', 'vint' ]
 
 let g:neomake_vim_vimlparser_maker = {
