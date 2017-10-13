@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
+# pylint: disable=invalid-name
 """
 # <bitbar.title>Crypto Ticker ($1USD)</bitbar.title>
 # <bitbar.version>v1.0</bitbar.version>
@@ -12,7 +13,7 @@
 """
 
 import json
-import urllib2
+import urllib
 
 TICKERS = [
     {
@@ -51,20 +52,21 @@ def main():
         currency = 'usd'
         symbol = ticker['symbol']
 
-        """cryptomate
+        """
+        cryptomate
         """
         currency = currency.upper()
         symbol = symbol.upper()
         api_base = 'https://cryptomate.co.uk/api/'
         url = api_base + symbol + '/' + currency
 
-        """coinmarketcap
+        """
+        coinmarketcap
         api_base = 'https://coinmarketcap-nexuist.rhcloud.com/api/'
         url = api_base + symbol
         """
 
-        request = urllib2.Request(url)
-        response = urllib2.urlopen(request).read()
+        response = urllib.urlopen(url).read()
         result = json.loads(response)
 
         """cryptomate
