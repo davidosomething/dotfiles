@@ -44,10 +44,7 @@ SYMBOLS = {
 
 
 def main():
-    """
-    Display movement icon, symbol, price
-    """
-
+    """Display movement icon, symbol, price"""
     for ticker in TICKERS:
         currency = 'usd'
         symbol = ticker['symbol']
@@ -89,7 +86,7 @@ def main():
             symbol,
             ticker['sign'],
             '%.2f',
-            ' | size=12'
+            ' | size=12',
             # '| image=', symbol,
             # ' color=#000000'
         ))
@@ -99,5 +96,5 @@ def main():
     print('Refresh | refresh=true')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

@@ -38,9 +38,9 @@ let g:neomake_java_enabled_makers = []
 let g:neomake_javascript_enabled_makers =
       \ executable('eslint') ? [ 'eslint' ] : []
 
-let g:neomake_python_enabled_makers = [
-      \   'python', 'pep8', 'pyflakes', 'pylint'
-      \ ]
+" flake8 is pycodestyle(pep8)+pyflakes+pydocstyle
+" preferred over pylama (other multi-runner) for now
+let g:neomake_python_enabled_makers = [ 'flake8' ]
 
 let g:neomake_vim_enabled_makers = [ 'vimlparser', 'vint' ]
 
