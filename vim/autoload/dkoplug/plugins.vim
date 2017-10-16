@@ -441,14 +441,15 @@ function! dkoplug#plugins#LoadAll() abort
   " ----------------------------------------
 
   " COMBINED AND MODIFIED pangloss + vim-jsx-pretty
-  Plug 'neoclide/vim-jsx-improve'
+  " Not well maintained
+  "Plug 'neoclide/vim-jsx-improve'
 
   " PANGLOSS MODE - this is vim upstream now!
   " 1.  Preferring pangloss for now since I like the included indentexpr
   "     it also has a node ftdetect, but that is the same as in
   "     moll/vim-node
   " 2.  After syntax, ftplugin, indent for JSX
-  "Plug 'pangloss/vim-javascript'
+  Plug 'pangloss/vim-javascript'
 
   " YAJS MODE
   " 1.  yajs.vim highlighting is a little more robust than the pangloss one.
@@ -474,7 +475,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Works with both pangloss/othree
   " Offers inline code highlighting in JSX blocks, as well as vim-jsx's hi
-  "Plug 'maxmellon/vim-jsx-pretty'
+  Plug 'maxmellon/vim-jsx-pretty'
 
   " ALTERNATE, original
   "Plug 'mxw/vim-jsx'
