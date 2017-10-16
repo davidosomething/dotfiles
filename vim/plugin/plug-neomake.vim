@@ -32,7 +32,8 @@ let g:neomake_info_sign     = { 'text': '⚑', 'texthl': 'NeomakeInfoSign' }
 
 " Disabled java makers
 " https://github.com/neomake/neomake/issues/875
-let g:neomake_java_enabled_makers = []
+let g:neomake_java_enabled_makers = [ 'checkstyle' ]
+let g:neomake_java_checkstyle_xml = expand('$DOTFILES/checkstyle/google_checks.xml')
 
 " Run these makers by default on :Neomake
 let g:neomake_javascript_enabled_makers =
