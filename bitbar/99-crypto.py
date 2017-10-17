@@ -63,7 +63,12 @@ def main():
         url = api_base + symbol
         """
 
-        response = urllib.urlopen(url).read()
+        try:
+            response = urllib.urlopen(url).read()
+        except urllib2.HTTPError, e:
+            print('offline')
+            return
+
         result = json.loads(response)
 
         """cryptomate
