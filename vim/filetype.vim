@@ -40,6 +40,10 @@ augroup filetypedetect
         \ setfiletype sql
 
   autocmd! BufNewFile,BufRead
+        \ .flake8
+        \ setfiletype dosini
+
+  autocmd! BufNewFile,BufRead
         \ *.gradle
         \ setfiletype groovy
 
