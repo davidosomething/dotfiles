@@ -34,6 +34,8 @@ export XDG_DATA_HOME="${HOME}/.local/share"
     XDG_VIDEOS_DIR                      \
   && DKO_SOURCE="${DKO_SOURCE} -> ${XDG_CONFIG_HOME}/user-dirs.dirs"
 
+export XDG_DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
+
 # ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"
