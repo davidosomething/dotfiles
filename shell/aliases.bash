@@ -21,7 +21,8 @@ alias cd..='cd ..'
 alias cdd='cd "${DOTFILES}"'
 alias cdv='cd "${VDOTDIR}"'
 alias dirs='dirs -v'                  # default to vert, use -l for list
-alias downs='cd "${XDG_DOWNLOAD_DIR}"'
+alias down='cd "${XDG_DOWNLOAD_DIR}"'
+alias downs='down'
 alias tree='tree -CF'
 
 # ----------------------------------------------------------------------------
