@@ -17,10 +17,12 @@ readonly dotfiles_path="$(pwd)"
 
 mkdir -p "${HOME}/.cache"
 mkdir -p "${HOME}/.config"
+
+# Mirror root in ~/.local
 mkdir -p "${HOME}/.local/bin"
-mkdir -p "${HOME}/.local/share"
-mkdir -p "${HOME}/.local/share/tig"
 mkdir -p "${HOME}/.local/man/man1"
+mkdir -p "${HOME}/.local/lib/R/library"
+mkdir -p "${HOME}/.local/share/tig"
 
 # ============================================================================
 # Main

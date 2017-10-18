@@ -92,7 +92,7 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
 # fasd
-export _FASD_DATA="${XDG_DATA_HOME}/fasd"
+export _FASD_DATA="${HOME}/.local/fasd"
 
 # gnupg
 # This mirrors the value in mac/dotfiles.plist
