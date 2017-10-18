@@ -147,6 +147,8 @@ export INPUTRC="${DOTFILES}/shell/dot.inputrc"
 export SHELLCHECK_OPTS="--exclude=SC1090,SC2148"
 
 # terminfo
+# OK to set, will fall back to system dir if not found
+# http://man7.org/linux/man-pages/man5/terminfo.5.html
 export TERMINFO="${XDG_DATA_HOME}/terminfo"
 
 # travis cli
