@@ -143,8 +143,11 @@ export INPUTRC="${DOTFILES}/shell/dot.inputrc"
 
 # ruby moved to shell/ruby loaded in shell/before
 
-# for shellcheck
+# -shellcheck
 export SHELLCHECK_OPTS="--exclude=SC1090,SC2148"
+
+# terminfo
+export TERMINFO="${XDG_DATA_HOME}/terminfo"
 
 # travis cli
 export TRAVIS_CONFIG_PATH="${XDG_CONFIG_HOME}/travis"

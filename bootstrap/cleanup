@@ -114,6 +114,7 @@ __move      "${HOME}/.zhistory"       "${LDOTDIR}/zsh_history"
 __move      "${HOME}/.gimp-2.8"       "${XDG_CONFIG_HOME}/GIMP/2.8"
 __move      "${HOME}/.inputrc"        "${XDG_CONFIG_HOME}/readline/inputrc"
 __merge_dir "${HOME}/.fonts"          "${XDG_DATA_HOME}/fonts"
+__merge_dir "${HOME}/.terminfo"       "${XDG_DATA_HOME}/terminfo"
 
 [[ -n "$COMPOSER_HOME" ]] && __move "${HOME}/.composer" "$COMPOSER_HOME"
 [[ -n "$GNUPGHOME" ]] && __move "${HOME}/.gnupg" "$GNUPGHOME"

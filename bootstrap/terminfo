@@ -20,16 +20,14 @@ readonly dotfiles_path="$(pwd)"
 
 dko::status "Copying terminfo files"
 
+TERMINFO="${TERMINFO:-${XDG_DATA_HOME}/terminfo}"
+
 # RXVT
-mkdir -p "${HOME}/.terminfo/r"
-[ -d "${dotfiles_path}/terminfo/r" ] && \
-  cp -R "${dotfiles_path}/terminfo/r" "${HOME}/.terminfo/r/"
+mkdir -p "${TERMINFO}/r"
+[[ -d "${dotfiles_path}/terminfo/r" ]] && \
+  cp -R "${dotfiles_path}/terminfo/r/*" "${TERMINFO}/r/"
 
 # Install all uncompiled terminfo files, e.g.
 # - xterm-256color-italic for iterm2
 # - tmux-256color for tmux
 find "${dotfiles_path}/terminfo/" -name '*.terminfo' -exec tic -x {} \;
-
-# xterm-termite
-tic -x "${dotfiles_path}/termite/termite.terminfo"
-
