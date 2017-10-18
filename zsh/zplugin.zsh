@@ -5,8 +5,6 @@ DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
 zplugin snippet --command 'https://github.com/davidosomething/git-ink/blob/master/git-ink'
 zplugin snippet --command 'https://github.com/davidosomething/git-my/blob/master/git-my'
 zplugin snippet --command 'https://github.com/davidosomething/git-take/blob/master/git-take'
-zplugin snippet --command 'https://github.com/davidosomething/vopen/blob/master/vopen-nofork'
-zplugin snippet --command 'https://github.com/davidosomething/vopen/blob/master/vopen'
 
 # my fork of cdbk, ZSH hash based directory bookmarking
 zplugin light 'davidosomething/cdbk'

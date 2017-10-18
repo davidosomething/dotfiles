@@ -48,27 +48,11 @@ dko::has "nvim" && {
   export EDITOR="nvim"
   export VISUAL="nvim"
 
-  if dko::has "nvr"; then
-    export NVIM_LISTEN_ADDRESS=~/.local/nvimsocket
-    export VOPEN_SERVERNAME="$NVIM_LISTEN_ADDRESS"
-    export VOPEN_DEFAULT_COMMAND="--remote-silent +enew"
-    export VOPEN_REUSE_COMMAND="--remote-silent"
-    VOPEN_EDITOR="nvr"
-    VOPEN_VISUAL="nvr"
-  else
-    VOPEN_EDITOR="nvim"
-    VOPEN_VISUAL="nvim"
-  fi
-
-  export VOPEN_EDITOR
-  export VOPEN_VISUAL
+  dko::has "nvr" && {
+    export NVIM_LISTEN_ADDRESS="${HOME}/.local/nvimsocket"
+    alias e="nvr"
+  }
 }
-
-# ============================================================================
-# Use vopen
-# ============================================================================
-
-dko::has "vopen" && alias e="vopen"
 
 # ============================================================================
 # travis completion
