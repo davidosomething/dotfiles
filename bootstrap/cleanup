@@ -139,6 +139,8 @@ __remove "${HOME}/.gitignore"
 __remove "${HOME}/.wget-hsts"
 # should be .tern-config
 __remove "${HOME}/.tern-project"
+# should be ~/.config/tldr
+__remove "${HOME}/.tldr"
 
 # NVM
 __clean_nvm
