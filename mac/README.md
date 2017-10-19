@@ -94,10 +94,11 @@ operation. Use the `bi` alias for a clean room install if possible.
     1. Set up the global pyenv as the latest stable (3.x.x)
     1. Set up python virtualenvs called `neovim{2,3}` -- the Neovim
        configuration expects to find those. E.g.,
-        1. `pyenv install 2.7.12`
-        1. `pyenv virtualenv 2.7.12 neovim2`
+        1. `pyenv install 2.7.xx`
+        1. `pyenv virtualenv 2.7.xx neovim2`
         1. `pyenv activate neovim2`
         1. `pip install neovim`
+        1. `pyenv deactivate`
 - run [bootstrap/terminfo](../bootstrap/terminfo) (added terminfo for iTerm
   with italics support)
 - Install `gpgtools` from `brew cask` (it provides `gpg-agent` and can store

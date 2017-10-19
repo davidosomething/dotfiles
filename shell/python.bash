@@ -19,7 +19,7 @@ export PYLINTRC="${DOTFILES}/python/pylintrc"
 # pyenv for multiple Python binaries
 # ==============================================================================
 
-export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
+export PYENV_ROOT="${XDG_CONFIG_HOME}/pyenv"
 export PATH="${PYENV_ROOT}/bin:${PATH}"
 dko::has "pyenv" && {
   DKO_SOURCE="${DKO_SOURCE} -> pyenv"
@@ -33,7 +33,7 @@ dko::has "pyenv" && {
 
 # Default virtualenv
 # pipenv compatible!
-export WORKON_HOME="${XDG_DATA_HOME}/venvs"
+export WORKON_HOME="${XDG_CONFIG_HOME}/venvs"
 
 # Disable auto-add virtualenv name to prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1

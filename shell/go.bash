@@ -9,7 +9,7 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/go.bash {"
 # goenv
 # ==============================================================================
 
-export GOENV_ROOT="${HOME}/.local/goenv"
+export GOENV_ROOT="${XDG_CONFIG_HOME}/goenv"
 
 dko::has "goenv" && {
   DKO_SOURCE="${DKO_SOURCE} -> goenv"
