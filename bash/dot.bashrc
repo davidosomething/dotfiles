@@ -19,7 +19,7 @@ DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 # BASH settings
 # ============================================================================
 
-export HISTFILE="${LDOTDIR}/bash_history"
+export HISTFILE="${HOME}/.local/bash_history"
 
 # ----------------------------------------------------------------------------
 # Options

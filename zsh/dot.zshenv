@@ -32,7 +32,7 @@ fi
 # ============================================================================
 
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
-export HISTFILE="${LDOTDIR}/zsh_history"
+export HISTFILE="${HOME}/.local/zsh_history"
 
 # ============================================================================
 
