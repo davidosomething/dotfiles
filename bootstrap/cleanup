@@ -109,8 +109,8 @@ __clean_nvm() {
 # main
 # ============================================================================
 
-__move      "${HOME}/.bash_history"   "${LDOTDIR}/bash_history"
-__move      "${HOME}/.zhistory"       "${LDOTDIR}/zsh_history"
+__move      "${HOME}/.bash_history"   "${HOME}/.local/bash_history"
+__move      "${HOME}/.zhistory"       "${HOME}/.local/zsh_history"
 __move      "${HOME}/.gimp-2.8"       "${XDG_CONFIG_HOME}/GIMP/2.8"
 __move      "${HOME}/.inputrc"        "${XDG_CONFIG_HOME}/readline/inputrc"
 __merge_dir "${HOME}/.fonts"          "${XDG_DATA_HOME}/fonts"
