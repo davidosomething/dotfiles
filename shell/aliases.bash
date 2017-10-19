@@ -17,6 +17,7 @@ alias rm='rm -i'
 
 alias ..='cd ..'
 alias ....='cd ../..'
+alias cd-='cd -'
 alias cd..='cd ..'
 alias cdd='cd "${DOTFILES}"'
 alias cdv='cd "${VDOTDIR}"'
