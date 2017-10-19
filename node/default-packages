@@ -23,6 +23,7 @@ jsctags
 jsinspect
 jsonlint
 jspm-check-updates
+less
 lighthouse
 markdownlint-cli
 npm-check-updates
