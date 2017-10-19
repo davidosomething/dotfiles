@@ -48,7 +48,6 @@ __dko::dotfiles::usage() {
     mac         -- repair permissions and check software updates
 
   Development
-    vimlint     -- update vimlint
     wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
 '
 }
@@ -126,7 +125,6 @@ __dko::dotfiles::update_daily() {
   __dko::dotfiles::py::update_pyenv
   __dko::dotfiles::py::update_pip "pip"
   __dko::dotfiles::py::update_neovim_python
-  __dko::dotfiles::vim::update_vimlint
   __dko::dotfiles::php::update_wpcs
 }
 
@@ -447,40 +445,6 @@ __dko::dotfiles::php::update_wpcs() {
   phpcs --config-set default_standard PSR2
 }
 
-# ----------------------------------------------------------------------------
-# Vim
-# ----------------------------------------------------------------------------
-
-__dko::dotfiles::vim::update_vimlint() {
-  readonly sources_path="${HOME}/src"
-  readonly vimlint="${sources_path}/vim-vimlint"
-  readonly vimlparser="${sources_path}/vim-vimlparser"
-
-  if [[ -d "$vimlint" ]]; then
-    dko::status "Updating vimlint"
-    ( cd "$vimlint" \
-      && git reset --hard \
-      && git pull \
-      && git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
-    )
-  else
-    dko::status "Installing vimlint"
-    git clone https://github.com/syngan/vim-vimlint "$vimlint"
-  fi
-
-  if [[ -d "$vimlparser" ]]; then
-    dko::status "Updating vimlparser"
-    ( cd "$vimlparser" \
-      && git reset --hard \
-      && git pull \
-      && git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
-    )
-  else
-    dko::status "Installing vimlparser"
-    git clone https://github.com/ynkdir/vim-vimlparser "$vimlparser" >/dev/null 2>&1
-  fi
-}
-
 # ------------------------------------------------------------------------------
 # OS-specific commands
 # ------------------------------------------------------------------------------
@@ -647,7 +611,6 @@ dko::dotfiles() {
     pip)      __dko::dotfiles::py::update_pip "pip" ;;
     pyenv)    __dko::dotfiles::py::update_pyenv           ;;
     neopy)    __dko::dotfiles::py::update_neovim_python   ;;
-    vimlint)  __dko::dotfiles::vim::update_vimlint        ;;
     wpcs)     __dko::dotfiles::php::update_wpcs     ;;
 
     *)

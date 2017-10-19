@@ -643,6 +643,8 @@ function! dkoplug#plugins#LoadAll() abort
   " Auto-prefix continuation lines with \
   Plug 'lambdalisue/vim-backslash'
 
+  "Plug 'syngan/vim-vimlint', PlugIf(executable('vimlparser'))
+
   " ==========================================================================
   " Search
   " See after/plugin/search.vim for complex configutation
