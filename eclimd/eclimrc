@@ -1,0 +1,2 @@
+osgi.instance.area.default=@user.home/.local/eclipse-workspace
+-Xmx1024M

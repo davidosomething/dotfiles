@@ -20,7 +20,21 @@ alias jgui="_JAVA_OPTIONS=\"-Dawt.useSystemAAFontSettings=on \\ \
   JAVA_FONTS=\"/usr/share/fonts/TTF\" java"
 
 # note the escaping
-if [[ -x "/Applications/Eclipse Java.app/Contents/Eclipse/eclimd" ]]; then
-  export DKO_ECLIMD="/Applications/Eclipse Java.app/Contents/Eclipse/eclimd"
-  alias eclimd='${DKO_ECLIMD}'
-fi
+eclimd() {
+  local bin
+  if [[ -x "/Applications/Eclipse Java.app/Contents/Eclipse/eclimd" ]]; then
+    bin="/Applications/Eclipse\ Java.app/Contents/Eclipse/eclimd"
+  else
+    dko::warn "eclimd not found"
+    return 1
+  fi
+
+  local args
+  (( $# == 0 )) && {
+    args="-f ${DOTFILES}/eclimd/eclimrc"
+    dko::status "Starting \`eclimd ${args}\`"
+    eval "${bin} ${args}"
+  }
+
+  "$bin" "$@"
+}
