@@ -81,9 +81,9 @@ __merge_dir() {
 __remove() {
   dko::status "Remove ${1}"
 
-  if [ -f "$1" ] || [ -h "$1" ]; then
+  if [[ -f "$1" ]] || [[ -h "$1" ]]; then
     rm -i   "$1" && dko::ok "Removed file ${1}"
-  elif [ -d "$1" ]; then
+  elif [[ -d "$1" ]]; then
     rm -ir  "$1" && dko::ok "Removed directory ${1}"
   else
     dko::ok "Didn't find ${1}"
