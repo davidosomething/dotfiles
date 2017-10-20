@@ -41,4 +41,4 @@ __install() {
   pip install --upgrade --requirement "${DOTFILES}/python/requirements.txt"
 }
 
-__install
+__install "$@"

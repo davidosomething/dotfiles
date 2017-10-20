@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+#
+# Basic symlinks, safe to run on any system
+#
+
+# ============================================================================
+# initialize script and dependencies
+# ============================================================================
+
+cd "$(dirname "$0")/.." || exit 1
+readonly dotfiles_path="$(pwd)"
+. "${dotfiles_path}/shell/helpers.bash"
+
+# ============================================================================
+
+dko::has 'pyenv' || {
+  dko::error 'pyenv is not installed'
+  exit 1
+}
+
+__versions=$(pyenv versions)
+__venvs=$(pyenv virtualenvs)
+
+__create_neovim_venv() {
+  local name="${1}"
+  local version="$2"
+
+  if grep -q "$name" <<< "$__venvs"; then
+    dko::ok "${name} exists"
+  elif ! grep -q "$version" <<< "$__versions"; then
+    dko::warn "python version ${version} not found"
+  else
+    dko::status "Creating ${name} and installing neovim python client"
+    pyenv virtualenv "$version" "$name" \
+      && pyenv activate "$name" \
+      && pip install neovim \
+      && pyenv deactivate
+  fi
+}
+
+__main() {
+  local p2="$1"
+  local p3="$2"
+
+  if [[ -z "$p2" ]] || [[ -z "$p3" ]]; then
+    dko::usage "$0 2.7.14 3.6.3"
+    return 1
+  fi
+
+  . "${dotfiles_path}/shell/python.bash"
+  dko::status "pyenv virtualenv setup"
+  dko::echo_  "\$PYENV_ROOT=${PYENV_ROOT}"
+  dko::echo_  "desired python2: ${p2}"
+  dko::echo_  "desired python3: ${p3}"
+
+  __create_neovim_venv "neovim2" "$p2"
+  __create_neovim_venv "neovim3" "$p3"
+}
+
+__main "$@"

@@ -19,12 +19,16 @@ export PYLINTRC="${DOTFILES}/python/pylintrc"
 # pyenv for multiple Python binaries
 # ==============================================================================
 
-export PYENV_ROOT="${XDG_CONFIG_HOME}/pyenv"
-export PATH="${PYENV_ROOT}/bin:${PATH}"
-dko::has "pyenv" && {
-  DKO_SOURCE="${DKO_SOURCE} -> pyenv"
-  eval "$(pyenv init -)"
-  dko::has "pyenv-virtualenv-init" && eval "$(pyenv virtualenv-init -)"
+# init once
+dko::has "pyenv" || {
+  export PYENV_ROOT="${XDG_CONFIG_HOME}/pyenv"
+  export PATH="${PYENV_ROOT}/bin:${PATH}"
+  dko::has "pyenv" && {
+    DKO_SOURCE="${DKO_SOURCE} -> pyenv"
+    eval "$(pyenv init -)"
+    # should have pyenv-virtualenv plugin if installed via pyenv-installer
+    dko::has "pyenv-virtualenv-init" && eval "$(pyenv virtualenv-init -)"
+  }
 }
 
 # ==============================================================================

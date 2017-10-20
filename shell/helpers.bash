@@ -20,10 +20,8 @@ dko::err()      { echo -e "\033[0;31m==> ERR:  $*\033[0;m" >&2; }
 dko::err_()     { echo -e "\033[0;31m          $*\033[0;m" >&2; }
 dko::warn()     { echo -e "\033[0;33m==> WARN: $*\033[0;m" >&2; }
 dko::warn_()    { echo -e "\033[0;33m          $*\033[0;m" >&2; }
-
-
-dko::usage()      { echo -e "\033[0;34m==> USAGE: \033[0;32m$*\033[0;m"; }
-dko::usage_()     { echo -e "\033[0;29m    $*\033[0;m"; }
+dko::usage()    { echo -e "\033[0;34m==> USAGE: \033[0;32m$*\033[0;m"; }
+dko::usage_()   { echo -e "\033[0;29m    $*\033[0;m"; }
 
 # silently determine existence of executable
 # $1 name of bin
