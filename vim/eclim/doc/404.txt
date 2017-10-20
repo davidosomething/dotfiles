@@ -1,0 +1,11 @@
+*404.html*
+
+Page Not Found
+**************
+
+The page you requested does not exist or may have been moved.
+
+You can use the "Site" drop down or the search box in the nav bar
+above to search for your desired topic.
+
+vim:ft=eclimhelp

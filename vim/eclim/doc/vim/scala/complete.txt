@@ -1,0 +1,22 @@
+*vim-scala-complete.html*
+
+Scala Code Completion
+*********************
+
+Scala code completion uses the standard Vim code completion mechanism
+(vim-code_completion) like so:
+
+>
+
+   package eclim.test
+
+   class Test {
+     def test(){
+       val list = List("foo", "bar", "baz")
+       list.s<C-X><C-U>
+     }
+   }
+
+<
+
+vim:ft=eclimhelp

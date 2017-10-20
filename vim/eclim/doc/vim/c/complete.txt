@@ -1,0 +1,24 @@
+*vim-c-complete.html*
+
+C/C++ Code Completion
+*********************
+
+C/C++ code completion uses the standard Vim code completion mechanism
+(vim-code_completion) like so:
+
+>
+
+   #include <st<C-X><C-U>
+   #include <stio.h>
+
+   int main(void) {
+     pu<C-X><C-U>
+     puts(
+     puts("Hello World");
+     return EX<C-X><C-U>
+     return EXIT_SUCCESS;
+   }
+
+<
+
+vim:ft=eclimhelp

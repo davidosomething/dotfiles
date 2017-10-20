@@ -1,0 +1,16 @@
+*vim-groovy-complete.html*
+
+Groovy Code Completion
+**********************
+
+Groovy code completion uses the standard Vim code completion mechanism
+(vim-code_completion) like so:
+
+>
+
+   list = ['foo', 'bar', 'baz']
+   list.s<C-X><C-U>
+
+<
+
+vim:ft=eclimhelp

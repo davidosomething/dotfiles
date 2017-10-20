@@ -1,0 +1,12 @@
+*vim-core-index.html*
+
+Core Functionality
+******************
+
+- Eclim Manage / Config (vim-core-eclim)
+- Eclipse Project Management (vim-core-project)
+- Eclipse Local History (vim-core-history)
+- Locate File (vim-core-locate)
+- Utility Commands (vim-core-util)
+
+vim:ft=eclimhelp

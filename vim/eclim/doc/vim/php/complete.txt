@@ -1,0 +1,27 @@
+*vim-php-complete.html*
+
+Php Code Completion
+*******************
+
+Php code completion uses the standard Vim code completion mechanism
+(vim-code_completion) like so:
+
+>
+
+   <?php
+   class Test {
+     function getName () {
+     }
+     function getValue () {
+     }
+   }
+
+   $test = new Test();
+
+   $test->get<C-X><C-U>
+   $test->getName()
+   ?>
+
+<
+
+vim:ft=eclimhelp

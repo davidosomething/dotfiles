@@ -238,6 +238,17 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'calebeby/ncm-css', PlugIf(g:dko_use_completion)
 
   " --------------------------------------------------------------------------
+  " Completion: Java
+  " --------------------------------------------------------------------------
+
+  Plug 'sassanh/nvim-cm-eclim', PlugIf(g:dko_use_completion)
+
+  " Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
+  "       \   'do': 'cd libs/javavi/ && mvn compile',
+  "       \   'for': 'java',
+  "       \ })
+
+  " --------------------------------------------------------------------------
   " Completion: JavaScript
   " --------------------------------------------------------------------------
 
@@ -286,15 +297,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Deoplete completion (forwarded to NCM)
   Plug 'wokalski/autocomplete-flow', PlugIf(g:dko_use_deoplete)
-
-  " --------------------------------------------------------------------------
-  " Completion: Java
-  " --------------------------------------------------------------------------
-
-  " Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
-  "       \   'do': 'cd libs/javavi/ && mvn compile',
-  "       \   'for': 'java',
-  "       \ })
 
   " --------------------------------------------------------------------------
   " Completion: PHP

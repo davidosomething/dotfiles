@@ -34,7 +34,7 @@ xmap  <special>   <C-f>   <Plug>(neosnippet_expand_target)
 " Get rid of the placeholders in inserted snippets when done inserting
 augroup dkoneosnippet
   autocmd!
-  autocmd FileType javascript,php
+  autocmd FileType java,javascript,php
         \ call s:BindDocblock()
   autocmd InsertLeave *
         \ NeoSnippetClearMarkers

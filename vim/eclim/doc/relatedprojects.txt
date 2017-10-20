@@ -1,0 +1,22 @@
+*relatedprojects.html*
+
+Related Projects
+****************
+
+
+Eclim clients for other editors:
+================================
+
+- Emacs (emacs-eclim (http://github.com/senny/emacs-eclim))
+- Sublime Text 2 (Subclim (http://github.com/JulianEberius/Subclim))
+- Texmate (Eclim.tmbundle
+  (http://github.com/JulianEberius/Eclim.tmbundle))
+
+Vim emulator plugins for Eclipse:
+=================================
+
+- Vrapper (http://vrapper.sourceforge.net) (free and open source)
+- viPlugin (http://www.satokar.com/viplugin/index.php)
+- Viable (http://viableplugin.com)
+
+vim:ft=eclimhelp

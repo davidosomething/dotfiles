@@ -1,0 +1,9 @@
+*vim-groovy-index.html*
+
+Groovy
+******
+
+- Groovy Code Completion (vim-groovy-complete)
+- Groovy Validation (vim-groovy-validate)
+
+vim:ft=eclimhelp

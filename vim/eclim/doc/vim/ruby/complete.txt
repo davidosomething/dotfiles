@@ -1,0 +1,25 @@
+*vim-ruby-complete.html*
+
+Ruby Code Completion
+********************
+
+Ruby code completion uses the standard Vim code completion mechanism
+(vim-code_completion) like so:
+
+>
+
+   class Test
+     def getName()
+     end
+
+     def getValue()
+     end
+   end
+
+   test = Test.new
+   test.get<C-X><C-U>
+   test.getName()
+
+<
+
+vim:ft=eclimhelp

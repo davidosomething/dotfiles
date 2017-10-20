@@ -1,0 +1,10 @@
+*vim-search.html*
+
+- g:EclimQuickFixOpen (Default: 'botright copen') Specifies the
+  command used to open the quickfix window when multiple results are
+  found.
+- g:EclimQuickFixHeight (Default: 10) - Sets the height, in lines,
+  of the quickfix window when eclim opens it to display search
+  results.
+
+vim:ft=eclimhelp

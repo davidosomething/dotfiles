@@ -18,3 +18,9 @@ alias jgui="_JAVA_OPTIONS=\"-Dawt.useSystemAAFontSettings=on \\ \
   -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel \\ \
   -Dswing.systemlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel\" \\ \
   JAVA_FONTS=\"/usr/share/fonts/TTF\" java"
+
+# note the escaping
+if [[ -x "/Applications/Eclipse Java.app/Contents/Eclipse/eclimd" ]]; then
+  export DKO_ECLIMD="/Applications/Eclipse Java.app/Contents/Eclipse/eclimd"
+  alias eclimd='${DKO_ECLIMD}'
+fi
