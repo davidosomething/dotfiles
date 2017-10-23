@@ -168,7 +168,7 @@
 	required  = true
 
 [mailmap]
-	file = "~/.secret/git/.mailmap"
+	file = "~/.dotfiles/local/mailmap"
 
 [push]
 	default = simple
