@@ -12,6 +12,7 @@ export DKO_BREW_PREFIX="/usr/local"
 # homebrew
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
+export HOMEBREW_CASK_OPTS='--require-sha'
 
 # Allow pyenv to use custom openssl from brew
 [[ -d "${DKO_BREW_PREFIX}/opt/openssl/lib" ]] \
