@@ -138,7 +138,7 @@
 	insteadOf = "heroku:"
 
 # ============================================================================
-# Repo settings
+# Repo settings and command options
 # ============================================================================
 
 [commit]
@@ -166,6 +166,9 @@
 	clean     = git-lfs clean %f
 	smudge    = git-lfs smudge %f
 	required  = true
+
+[log]
+	mailmap = true
 
 [mailmap]
 	file = "~/.dotfiles/local/mailmap"
