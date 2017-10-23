@@ -4,8 +4,8 @@ if !dkoplug#plugins#Exists('nvim-completion-manager') | finish | endif
 
 augroup dkoncm
   autocmd!
-  autocmd dkoncm User CmBefore  echomsg 'nvim-completion-manager loading'
-  autocmd dkoncm User CmSetup   echomsg 'nvim-completion-manager loaded'
+  " autocmd dkoncm User CmBefore  echomsg 'nvim-completion-manager loading'
+  " autocmd dkoncm User CmSetup   echomsg 'nvim-completion-manager loaded'
 augroup END
 
 " Delay loading NCM until InsertEnter
