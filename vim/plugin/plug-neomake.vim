@@ -56,10 +56,6 @@ let g:neomake_vim_vimlparser_maker = {
 " Buffer filetype settings
 " ============================================================================
 
-autocmd dkoneomake BufNewFile,BufReadPre */sqsp/*
-      \ let g:neomake_java_checkstyle_xml =
-      \   expand('$SQSP/squarespace-styleguide/squarespace-checkstyle.xml')
-
 autocmd dkoneomake FileType javascript
       \   call dkoproject#neomake#LocalMaker(dkoproject#neomake#javascript#local_eslint)
       \ | call dkoproject#neomake#LocalMaker(dkoproject#neomake#javascript#local_jshint)
@@ -83,6 +79,18 @@ autocmd dkoneomake User vim-pyenv-activate-post
       \   call dkoproject#neomake#python#ActivatedPyenv()
 autocmd dkoneomake User vim-pyenv-dectivate-post
       \   call dkoproject#neomake#python#DeactivatedPyenv()
+
+" ============================================================================
+" Custom project definitions
+" @TODO move these
+" ============================================================================
+
+autocmd dkoneomake BufNewFile,BufReadPre */sqsp/*
+      \ let g:neomake_java_checkstyle_xml =
+      \   expand('$SQSP/squarespace-styleguide/squarespace-checkstyle.xml')
+autocmd dkoneomake BufNewFile,BufReadPre */site-server/*
+      \ let b:neomake_javascript_eslint_exe =
+      \   expand('$SQSP/squarespace-v6/site-server/node_modules/.bin/eslint')
 
 " ============================================================================
 
