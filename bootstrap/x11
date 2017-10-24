@@ -3,8 +3,6 @@
 # Symlink X11 settings
 #
 
-set -eu
-
 # ============================================================================
 # initialize script and dependencies
 # ============================================================================
@@ -19,7 +17,6 @@ readonly dotfiles_path="$(pwd)"
 
 dko::status "Symlinking X11 dotfiles"
 # this probably isn't sourced by your session
-dko::symlink linux/.xinitrc       .xinitrc
-dko::symlink linux/.xbindkeysrc   .xbindkeysrc
-dko::symlink linux/.xprofile      .xprofile
-
+dko::symlink "linux/.xinitrc"       ".xinitrc"
+dko::symlink "linux/.xbindkeysrc"   ".xbindkeysrc"
+dko::symlink "linux/.xprofile"      ".xprofile"

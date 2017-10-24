@@ -149,6 +149,7 @@ For X apps (no terminal) the value is probably:
       global/shell-scoped variables.
 - **Comparison**
     - Not strict on POSIX, but portability
+    - Do NOT use BASH arrays, use ZSH or Python if need something complicated
     - Use BASH `==` for string comparison
     - Use BASH `(( A == 2 ))` for integer comparison (note not `$A`, `$` not
       needed)
