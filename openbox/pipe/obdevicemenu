@@ -272,7 +272,7 @@ action_unmount() {
 	fi
 }
 action_unmount_all() {
-	for devname in $*; do
+	for devname in "$@"; do
 		action_unmount ${devname}
 	done
 }
