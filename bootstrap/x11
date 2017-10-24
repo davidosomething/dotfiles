@@ -7,7 +7,7 @@
 # initialize script and dependencies
 # ============================================================================
 
-cd "$(dirname "$0")/.." || exit 1
+cd -- "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
 . "${dotfiles_path}/shell/helpers.bash"
 

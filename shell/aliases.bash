@@ -15,14 +15,14 @@ alias rm='rm -i'
 # paths and dirs
 # ----------------------------------------------------------------------------
 
-alias ..='cd ..'
-alias ....='cd ../..'
-alias cd-='cd -'
-alias cd..='cd ..'
-alias cdd='cd "${DOTFILES}"'
-alias cdv='cd "${VDOTDIR}"'
+alias ..='cd -- ..'
+alias ....='cd -- ../..'
+alias cd-='cd -- -'
+alias cd..='cd -- ..'
+alias cdd='cd -- "${DOTFILES}"'
+alias cdv='cd -- "${VDOTDIR}"'
 alias dirs='dirs -v'                  # default to vert, use -l for list
-alias down='cd "${XDG_DOWNLOAD_DIR}"'
+alias down='cd -- "${XDG_DOWNLOAD_DIR}"'
 alias downs='down'
 alias tree='tree -CF'
 

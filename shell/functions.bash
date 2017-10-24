@@ -41,7 +41,7 @@ prune() {
 # Go to git root
 cdr() {
   git rev-parse || return 1
-  cd "$(git rev-parse --show-cdup)" || return 1
+  cd -- "$(git rev-parse --show-cdup)" || return 1
 }
 
 # up 2 to cd ../..
@@ -52,7 +52,7 @@ up() {
   for i in $(seq "${1:-1}"); do
     x="$x../"
   done
-  cd "$x" || return 1
+  cd -- "$x" || return 1
 }
 
 # Determine size of a file or total size of a directory
@@ -182,4 +182,3 @@ flushfonts() {
 # ============================================================================
 
 weather() { curl wttr.in/"$1"; }
-

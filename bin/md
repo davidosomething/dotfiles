@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-set -eu
-
 # https://github.com/jmcantrell/dotfiles-zsh/blob/master/zsh/conf.d/40-functions
-mkdir -p "$@" && cd "$@"
+mkdir -p -- "$@" && cd -- "$@"

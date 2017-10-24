@@ -45,7 +45,7 @@ __git_in() {
   fi
 
   dir_path="$(realpath "$dir_path")"
-  cd "$dir_path" || {
+  cd -- "$dir_path" || {
     echo "ERROR: Could not enter $dir_path"
     exit 1
   }

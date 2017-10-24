@@ -4,7 +4,7 @@
 
 set -eu
 
-cd "$(brew --repo)" \
+cd -- "$(brew --repo)" \
   && git fetch \
   && git reset --hard origin/master \
   && brew update

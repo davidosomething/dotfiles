@@ -15,7 +15,7 @@ if [[ "$TERM_PROGRAM_VERSION" == "3."* ]]; then
       tell application "iTerm2"
           set myterm to (create window with default profile)
           tell current session of first window
-              write text "cd " & quoted form of (item 2 of argv)
+              write text "cd -- " & quoted form of (item 2 of argv)
               write text (item 1 of argv) & " && exit"
           end tell
           repeat while (exists myterm)
@@ -40,7 +40,7 @@ else
               set mysession to (make new session at the end of sessions)
               tell mysession
                   exec command "bash"
-                  write text "cd " & quoted form of (item 2 of argv)
+                  write text "cd -- " & quoted form of (item 2 of argv)
                   write text (item 1 of argv) & " && exit"
               end tell
               repeat while (exists myterm)

@@ -244,7 +244,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'sassanh/nvim-cm-eclim', PlugIf(g:dko_use_completion)
 
   " Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
-  "       \   'do': 'cd libs/javavi/ && mvn compile',
+  "       \   'do': 'cd -- libs/javavi/ && mvn compile',
   "       \   'for': 'java',
   "       \ })
 

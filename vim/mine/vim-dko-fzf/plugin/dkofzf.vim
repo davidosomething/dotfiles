@@ -48,7 +48,7 @@ let s:options = ' --cycle --multi '
 function! s:GetFzfRelevantSource(...) abort
   let l:args = get(a:, '000', [])
   let l:relevant = system(
-        \   'cd "' . s:GetRoot() . '" '
+        \   'cd -- "' . s:GetRoot() . '" '
         \ . '&& git relevant ' . join(l:args, ' ')
         \)
   if v:shell_error

@@ -58,7 +58,7 @@ __dko::dotfiles::reload() {
 }
 
 __dko::dotfiles::cd() {
-  cd "$DOTFILES" || {
+  cd -- "$DOTFILES" || {
     dko::err "No \$DOTFILES directory"
     return 1
   }
@@ -100,7 +100,7 @@ __dko::dotfiles::update_zplugin() {
 }
 
 __dko::dotfiles::cd_secrets() {
-  cd "${HOME}/.secret" || {
+  cd -- "${HOME}/.secret" || {
     dko::err "No ~/.secret directory"
     return 1
   }
@@ -159,7 +159,7 @@ __dko::dotfiles::update_fzf() {
   elif [[ -d "${HOME}/.fzf" ]]; then
     dko::status "fzf was installed in ~/.fzf"
     installer="${HOME}/.fzf/install"
-    ( cd "${HOME}/.fzf" || { dko::err "Could not cd to ~/.fzf" && exit 1; }
+    ( cd -- "${HOME}/.fzf" || { dko::err "Could not cd to ~/.fzf" && exit 1; }
       dko::status "Updating fzf"
       git pull || { dko::err "Could not update ~/.fzf" && exit 1; }
       git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
@@ -294,7 +294,7 @@ __dko::dotfiles::node::update_nvm() {
   __dko::dotfiles::node::require_nvm || return 1
 
   (
-    cd "$NVM_DIR" || exit 1
+    cd -- "$NVM_DIR" || exit 1
 
     dko::status "Updating nvm"
     readonly previous_nvm="$(git describe --abbrev=0 --tags)"
@@ -325,7 +325,7 @@ __dko::dotfiles::node::update_nvm() {
 __dko::dotfiles::py::update_pyenv() {
   if [[ -n "$PYENV_ROOT" ]] && [[ -d "${PYENV_ROOT}/.git" ]]; then
     dko::status "Updating pyenv"
-    ( cd "${PYENV_ROOT}" || exit 1
+    ( cd -- "${PYENV_ROOT}" || exit 1
       pyenv update
     ) || return 1
   else
@@ -410,7 +410,7 @@ __dko::dotfiles::php::update_wpcs() {
     mkdir -p "${sources_path}"
     git clone -b master "$wpcs_repo" "$wpcs_path"
   else
-    ( cd "$wpcs_path" || exit 1
+    ( cd -- "$wpcs_path" || exit 1
       git pull \
       && git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     ) || return 1
