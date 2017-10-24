@@ -42,8 +42,8 @@ shopt -s no_empty_cmd_completion    # don't try to complete empty lines
 
 set completion-ignore-case on
 
-dko::source /etc/bash_completion
-dko::source /usr/share/bash-completion/bash_completion
+dko::source "/etc/bash_completion"
+dko::source "/usr/share/bash-completion/bash_completion"
 
 # homebrew's bash-completion package sources the rest of bash_completion.d
 dko::source "${DKO_BREW_PREFIX}/etc/bash_completion"
@@ -55,7 +55,7 @@ dko::source "${NVM_DIR}/bash_completion"
 
 # Enable tab completion for `g` by marking it as an alias for `git`
 type _git &>/dev/null \
-  && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ] \
+  && [[ -f /usr/local/etc/bash_completion.d/git-completion.bash ]] \
   && complete -o default -o nospace -F _git g
 
 # WP-CLI Bash completions
