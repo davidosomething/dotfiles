@@ -33,6 +33,11 @@ __symlink() {
 
   # REQUIRED in ~/ -- ag looks for ~/.agignore LAST and includes it.
   # .ignore files are for project local only
+  dko::symlink  "shell/dot.profile" \
+                ".profile"
+
+  # REQUIRED in ~/ -- ag looks for ~/.agignore LAST and includes it.
+  # .ignore files are for project local only
   dko::symlink  "ag/dot.ignore" \
                 ".agignore"
 

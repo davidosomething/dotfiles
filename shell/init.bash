@@ -19,6 +19,14 @@ case "$OSTYPE" in
   linux*)  . "${DOTFILES}/shell/os-linux.bash" ;;
 esac
 
+# Rebuild path starting from system path
+# Regarding tmux:
+# Since my tmux shells are not login shells the path needs to be rebuilt.
+# shell/vars.bash on the other hand just get inherited.
+. "${DOTFILES}/shell/path.bash"
+
+. "${DOTFILES}/shell/helpers.bash"    # scripting helpers
+
 # ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"
