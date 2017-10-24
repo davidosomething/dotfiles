@@ -64,7 +64,7 @@ fs() {
     arg=-sh
   fi
 
-  if [[ -n "$*" ]]; then
+  if (( $# > 0 )); then
     du "$arg" -- "$@"
   else
     du "$arg" .[^.]* ./*
