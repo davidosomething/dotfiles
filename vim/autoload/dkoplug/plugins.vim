@@ -419,7 +419,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Language: Java
   " ==========================================================================
 
-  Plug 'dansomething/vim-eclim', { 'for': 'java' }
+  Plug 'dansomething/vim-eclim'
 
   " ==========================================================================
   " Language: JavaScript and derivatives, JSON
