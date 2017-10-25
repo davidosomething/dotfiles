@@ -7,7 +7,6 @@ export DKO_INIT=1
 
 # ============================================================================
 
-. "${HOME}/.dotfiles/shell/xdg.sh"
 . "${HOME}/.dotfiles/shell/vars.sh"
 
 # OS specific overrides

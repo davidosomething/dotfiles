@@ -7,10 +7,7 @@
 # NOTE: macOS always starts a login shell
 
 DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
-[ -z "$DKO_INIT" ] && {
-  . "${HOME}/.dotfiles/shell/init.sh"
-  export DKO_SH=1
-}
+[ -z "$DKO_INIT" ] && . "${HOME}/.dotfiles/shell/init.sh"
 
 # ==============================================================================
 # env management -- Node, PHP, Python, Ruby - These add to path

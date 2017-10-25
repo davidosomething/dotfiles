@@ -64,4 +64,5 @@ __dko_has "fasd" && alias j="z"
 
 # ============================================================================
 
+unset DKO_INIT
 export DKO_SOURCE="${DKO_SOURCE} }"

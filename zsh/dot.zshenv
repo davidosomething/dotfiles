@@ -1,9 +1,8 @@
 # dot.zshenv
-#
+
 # Symlinked to ~/.zshenv
 # OUTPUT FORBIDDEN
 # zshenv is always sourced, even for bg jobs
-#
 
 DKO_SOURCE="${DKO_SOURCE} -> .zshenv {"
 
@@ -22,15 +21,10 @@ if [[ "$ITERM_PROFILE" == "PROFILE"* ]] \
 fi
 
 # ============================================================================
-# Shell init
-# ============================================================================
-
-. "${HOME}/.dotfiles/shell/init.sh"
-
-# ============================================================================
 # ZSH settings
 # ============================================================================
 
+export ZDOTDIR="${HOME}/.dotfiles/zsh"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
 export HISTFILE="${HOME}/.local/zsh_history"
 

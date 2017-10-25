@@ -7,9 +7,8 @@
 
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
 DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
-# TMUX sources this out of order. Non-login shells need it too
-[[ -n "$TMUX" ]] || [[ ! -o login ]] && . "${DOTFILES}/shell/dot.profile"
 
+. "${DOTFILES}/shell/dot.profile"
 . "${DOTFILES}/shell/interactive.sh"
 
 # ============================================================================

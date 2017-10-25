@@ -1,19 +1,17 @@
 # .zshrc
-#
+
 # sourced only on interactive/TTY
 # sourced on login after zprofile
 # sourced when you type ZSH
-#
 
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
 DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
-# TMUX sources this out of order. Non-login shells need it too
-[[ -n "$TMUX" ]] || [[ ! -o login ]] && . "${DOTFILES}/shell/dot.profile"
+
+. "${HOME}/.dotfiles/shell/dot.profile"
+. "${DOTFILES}/shell/interactive.sh"
 
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
 typeset -gU cdpath path fpath manpath
-
-. "${DOTFILES}/shell/interactive.sh"
 
 # ============================================================================
 # nocorrect aliases
