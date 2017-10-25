@@ -51,4 +51,4 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 }
 zstyle ':vcs_info:git*+set-message:*' hooks git-merge-message
 
-dko::has "vcs_info" && add-zsh-hook "precmd" "vcs_info"
+__dko_has "vcs_info" && add-zsh-hook "precmd" "vcs_info"

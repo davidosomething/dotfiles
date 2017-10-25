@@ -48,7 +48,7 @@ __dko_prompt_right_parts=()
 
 # result:
 # |
-__dko::prompt::env::separator() {
+__dko_prompt::env::separator() {
   [[ "${#__dko_prompt_right_parts}" -ne 0 ]] && {
     __dko_prompt_right_colors+=('%F{blue}')
     __dko_prompt_right_parts+=('|')
@@ -57,7 +57,7 @@ __dko::prompt::env::separator() {
 
 # result:
 # js:
-__dko::prompt::env::symbol() {
+__dko_prompt::env::symbol() {
   __dko_prompt_right_colors+=('%F{blue}')
   __dko_prompt_right_parts+=("${1}:")
 }
@@ -68,7 +68,7 @@ __dko::prompt::env::symbol() {
 # $1 manager program
 # $2 optional version compute string -- default to *env style (pyenv style)
 # $3 optionsl color compute string -- default to blue
-__dko::prompt::env::version() {
+__dko_prompt::env::version() {
   local manager="$1"
 
   if (( $# > 1 )); then
@@ -88,32 +88,32 @@ __dko::prompt::env::version() {
 # $2 manager program
 # $3 optional version compute string
 # $4 optional color compute string
-__dko::prompt::env() {
-  dko::has "$2" || return
-  __dko::prompt::env::separator
-  __dko::prompt::env::symbol "$1"
-  (( $# == 2 )) && __dko::prompt::env::version "$2"
-  (( $# == 3 )) && __dko::prompt::env::version "$2" "$3"
-  (( $# == 4 )) && __dko::prompt::env::version "$2" "$3" "$4"
+__dko_prompt::env() {
+  __dko_has "$2" || return
+  __dko_prompt::env::separator
+  __dko_prompt::env::symbol "$1"
+  (( $# == 2 )) && __dko_prompt::env::version "$2"
+  (( $# == 3 )) && __dko_prompt::env::version "$2" "$3"
+  (( $# == 4 )) && __dko_prompt::env::version "$2" "$3" "$4"
 }
 
 # Get node version provided by NVM using the env vars instead of calling slow
 # NVM functions
-__dko::prompt::env::get_current_node() {
+__dko_prompt::env::get_current_node() {
   echo "${${NVM_BIN/$NVM_DIR\/versions\/node\/v}%\/b*}"
 }
 
-__dko::prompt::env "js" "nvm" '$(__dko::prompt::env::get_current_node)' \
-  '$( [[ "$(__dko::prompt::env::get_current_node)" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")'
-__dko::prompt::env "go" "goenv"
-__dko::prompt::env "py" "pyenv"
-__dko::prompt::env "rb" "chruby" '${RUBY_VERSION:-sys}'
+__dko_prompt::env "js" "nvm" '$(__dko_prompt::env::get_current_node)' \
+  '$( [[ "$(__dko_prompt::env::get_current_node)" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")'
+__dko_prompt::env "go" "goenv"
+__dko_prompt::env "py" "pyenv"
+__dko_prompt::env "rb" "chruby" '${RUBY_VERSION:-sys}'
 
 # ============================================================================
 # precmd - set field values before promptline
 # ============================================================================
 
-__dko::prompt::precmd::state() {
+__dko_prompt::precmd::state() {
   local left_raw="${(%j::)__dko_prompt_left_parts} "
   local left_len=${#left_raw}
   local right_raw=" ${(ej::)__dko_prompt_right_parts}"
@@ -147,14 +147,14 @@ __dko::prompt::precmd::state() {
     print -P "$result"
   fi
 }
-add-zsh-hook precmd __dko::prompt::precmd::state
+add-zsh-hook precmd __dko_prompt::precmd::state
 
 # ============================================================================
 # prompt main
 # ============================================================================
 
 # Actual prompt (single line prompt)
-__dko::prompt() {
+__dko_prompt() {
   PS1=''
 
   # Time
@@ -179,4 +179,4 @@ __dko::prompt() {
   RPROMPT='%F{red}%(?..[%?])'
 }
 
-__dko::prompt
+__dko_prompt

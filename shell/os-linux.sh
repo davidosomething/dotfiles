@@ -1,4 +1,5 @@
 # shell/os-linux.bash
+
 # Linux and BSD
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/os-linux.bash"
@@ -14,11 +15,11 @@ case "$(uname -s)" in
     export XINITRC="${DOTFILES}/linux/.xinitrc"
     export XAPPLRESDIR="${DOTFILES}/linux"
 
-    if [[ -f "/etc/fedora-release" ]]; then
+    if [ -f "/etc/fedora-release" ]; then
       export DOTFILES_DISTRO="fedora"
-    elif [[ -f "/etc/debian_version" ]]; then
+    elif [ -f "/etc/debian_version" ]; then
       export DOTFILES_DISTRO="debian"
-    elif [[ -f "/etc/arch-release" ]]; then
+    elif [ -f "/etc/arch-release" ]; then
       export DOTFILES_DISTRO="archlinux"
 
       # for arch wiki lite, intentionally lowercase
@@ -29,8 +30,18 @@ case "$(uname -s)" in
       # alone).
       # Setting $XENVIRONMENT is an option, but the -I flag here is more useful.
       # This also lets me keep .Xresources out of ~/
-      [[ -n "$DISPLAY" ]] && dko::has "xrdb" && \
-        xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
+      [ -n "$DISPLAY" ] && __dko_has "xrdb" \
+        && xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
     fi
     ;;
 esac
+
+# ============================================================================
+# Functions
+# ============================================================================
+
+# flush linux font cache
+flushfonts() {
+  fc-cache -f -v
+}
+

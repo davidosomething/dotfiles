@@ -15,7 +15,7 @@ typeset -gU cdpath path fpath manpath
 # Interactive shell init
 # ============================================================================
 
-. "${DOTFILES}/shell/interactive.bash"
+. "${DOTFILES}/shell/interactive.sh"
 
 # ============================================================================
 # nocorrect aliases
@@ -120,13 +120,13 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # Plugins: fasd (package install)
 # ----------------------------------------------------------------------------
 
-dko::has "fasd" && eval "$(fasd --init posix-alias zsh-hook)"
+__dko_has "fasd" && eval "$(fasd --init posix-alias zsh-hook)"
 
 # ----------------------------------------------------------------------------
 # Plugins: fzf (package install)
 # ----------------------------------------------------------------------------
 
-dko::source "${HOME}/.fzf.zsh" && DKO_SOURCE="${DKO_SOURCE} -> fzf"
+__dko_source "${HOME}/.fzf.zsh" && DKO_SOURCE="${DKO_SOURCE} -> fzf"
 
 # ============================================================================
 # Keybindings (after plugins since some are custom for fzf)
@@ -230,7 +230,7 @@ __dkofzfbranch() {
 }
 
 # <C-b> to open git branch menu
-if dko::has "fzf"; then
+if __dko_has "fzf"; then
   zle     -N      __dkofzfbranch
   bindkey '^B'    __dkofzfbranch
 fi
@@ -324,27 +324,27 @@ fi
 # ============================================================================
 
 # wget is a prerequisite
-if dko::has 'wget'; then
-  dko::source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" || {
+if __dko_has 'wget'; then
+  __dko_source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" || {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/psprint/zplugin/master/doc/install.sh)" \
     && source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh"
   }
 
-  dko::has 'zplugin' && {
+  __dko_has 'zplugin' && {
     autoload -Uz _zplugin
     (( ${+_comps} )) && _comps[zplugin]=_zplugin
-    dko::source "${ZDOTDIR}/zplugin.zsh"
+    __dko_source "${ZDOTDIR}/zplugin.zsh"
   }
 else
-  dko::warn 'wget is required for zplugin'
+  __dko_warn 'wget is required for zplugin'
 fi
 
 # ============================================================================
 # Local: can add more zplugins here
 # ============================================================================
 
-. "${DOTFILES}/shell/after.bash"
-dko::source "${LDOTDIR}/zshrc"
+. "${DOTFILES}/shell/after.sh"
+__dko_source "${LDOTDIR}/zshrc"
 
 # ============================================================================
 # zplugin: after
@@ -352,7 +352,7 @@ dko::source "${LDOTDIR}/zshrc"
 
 autoload -Uz compinit
 compinit
-dko::has 'zplugin' && zplugin cdreplay -q
+__dko_has 'zplugin' && zplugin cdreplay -q
 
 # ============================================================================
 # End profiling

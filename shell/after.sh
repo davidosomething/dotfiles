@@ -1,9 +1,6 @@
-# shell/after.bash
-#
-# Runs before local/* .zshrc and .bashrc
-#
+# shell/after.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/after.bash {"
+DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 
 # ============================================================================
 # Local path
@@ -21,9 +18,9 @@ export PATH
 export FZF_COMPLETION_TRIGGER="\`\`"
 
 # Use fastest grepper available
-if dko::has "rg"; then
+if __dko_has "rg"; then
   export FZF_DEFAULT_COMMAND='rg --files --hidden --glob ""'
-elif dko::has "ag"; then
+elif __dko_has "ag"; then
   export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
 else
   # using git paths only for FZF
@@ -42,13 +39,13 @@ fi
 # Now that path is available, use neovim instead of vim if it is installed
 # ============================================================================
 
-dko::has "nvim" && {
+__dko_has "nvim" && {
   alias e="nvim"
 
   export EDITOR="nvim"
   export VISUAL="nvim"
 
-  dko::has "nvr" && {
+  __dko_has "nvr" && {
     export NVIM_LISTEN_ADDRESS="${HOME}/.local/nvimsocket"
     alias e="nvr"
   }
@@ -58,20 +55,20 @@ dko::has "nvim" && {
 # travis completion
 # ============================================================================
 
-dko::source "${TRAVIS_CONFIG_PATH}/travis.bash" && \
+__dko_source "${TRAVIS_CONFIG_PATH}/travis.bash" && \
   DKO_SOURCE="${DKO_SOURCE} -> travis"
 
 # ============================================================================
 # npm stuff
 # ============================================================================
 
-dko::has 'trash' && alias rm=trash
+__dko_has 'trash' && alias rm=trash
 
 # ============================================================================
 # fasd or z
 # ============================================================================
 
-dko::has "fasd" && alias j="z"
+__dko_has "fasd" && alias j="z"
 
 # ============================================================================
 

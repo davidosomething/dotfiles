@@ -1,9 +1,6 @@
-# shell/go.bash
-#
-# uses vars from shell/vars and functions from shell/functions
-#
+# shell/go.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/go.bash {"
+DKO_SOURCE="${DKO_SOURCE} -> shell/go.sh {"
 
 # ==============================================================================
 # goenv
@@ -11,7 +8,7 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/go.bash {"
 
 export GOENV_ROOT="${XDG_CONFIG_HOME}/goenv"
 
-dko::has "goenv" && {
+__dko_has "goenv" && {
   DKO_SOURCE="${DKO_SOURCE} -> goenv"
   eval "$(goenv init -)"
 }

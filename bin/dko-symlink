@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+# $1 source file path
+# $2 dest file path
+# return success if fulltargetpath is resolvedpath
+__dko_same() {
+  local sourcepath="$1"
+  local targetpath="$2"
+
+  if ! __dko_has "realpath"; then
+    __dko_err "Missing realpath command (e.g. brew install coreutils)"
+    return 1
+  fi
+
+  if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
+    local resolvedpath
+    resolvedpath=$(realpath "$targetpath")
+    if [[ "$resolvedpath" == "$sourcepath" ]]; then
+      __dko_ok "${targetpath} is correct."
+      return 0
+    else
+      __dko_warn "${targetpath} is not ${resolvedpath}."
+      return 1
+    fi
+  fi
+
+  # does not exist
+  __dko_ok "${targetpath} does not exist"
+  return 2
+}
+
+# symlinking helper function for ~/.dotfiles
+# $1 source file in $DOTFILES, assuming ${HOME}/.dotfiles
+# $2 dest file relative to $HOME
+__dko_symlink() {
+  local dotfiles_dir="${HOME}/.dotfiles"
+  local sourcepath="${dotfiles_dir}/${1}"
+  local fulltargetpath="${HOME}/${2}"
+  local targetdir
+
+  __dko_same "$sourcepath" "$fulltargetpath"
+  local result=$?
+
+  if (( result == 0 )); then
+    return
+  elif (( result == 1 )); then
+    __dko_status "Found different ${fulltargetpath}"
+    read -p "          Overwrite? [y/N] " -r
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      __dko_warn "Skipped ${fulltargetpath}"
+      return
+    fi
+  fi
+
+  __dko_status "Symlinking \033[0;35m${fulltargetpath}\033[0;32m -> \033[0;35m${sourcepath}\033[0;32m "
+
+  targetdir="$(basename "$fulltargetpath")"
+  [[ -d "$targetdir" ]] || mkdir -p "$targetdir"
+
+  mkdir -p "$(dirname "$fulltargetpath")"
+  ln -fns "$sourcepath" "$fulltargetpath"
+}
+
+__dko_symlink "$@"

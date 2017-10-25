@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+__serve() {
+  local port
+  port="${1:-8888}"
+
+  if __dko_has 'python3'; then
+    echo "Using python3 http.server"
+    python3 -m http.server "$port"
+  elif __dko_has 'python2'; then
+    echo "Using python2 SimpleHTTPServer"
+    python2 -m SimpleHTTPServer "$port"
+  elif __dko_has 'http-server'; then
+    echo "Using node http-server"
+    http-server -p "$port"
+  fi
+}
+
+__serve "$@"

@@ -1,8 +1,8 @@
-# shell/aliases.bash
+# shell/aliases.sh
 # Not run by loader
-# Sourced by both .zshrc and .bashrc, so keep it bash compatible
+# Sourced by both .zshrc and .bashrc, so keep it POSIX compatible
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases.bash"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases.sh"
 
 # ----------------------------------------------------------------------------
 # safeguarding
@@ -41,7 +41,7 @@ alias a='atom-beta'
 alias e='vim'
 alias ehosts='se /etc/hosts'
 alias etmux='e "${DOTFILES}/tmux/tmux.conf"'
-alias esd='e "${DOTFILES}/shell/dotfiles.bash"'
+alias esd='e "${DOTFILES}/bin/dot"'
 alias evr='e "${VDOTDIR}/vimrc"'
 alias evp='e "${VDOTDIR}/autoload/dkoplug/plugins.vim"'
 alias eze='e "${ZDOTDIR}/dot.zshenv"'
@@ -207,7 +207,7 @@ alias rsync='rsync --human-readable --partial --progress'
 alias t="tree -a --noreport --dirsfirst -I '.git|node_modules|bower_components|.DS_Store'"
 alias today='date +%Y-%m-%d'
 alias tpr='tput reset'                # really clear the scrollback
-alias u='dko::dotfiles'
+alias u='dot'
 alias vag='vagrant'
 alias vb='VBoxManage'
 alias vbm='vb'
@@ -218,49 +218,38 @@ alias xit='exit' # dammit
 # ============================================================================
 
 __alias_ls() {
-  local almost_all='-A' # switchted from --almost-all for old bash support
-  local classify='-F' # switched from --classify for old bash support
-  local colorized='--color=auto'
-  local groupdirs='--group-directories-first'
-  local literal=''
-  local long='-l'
-  local single_column='-1'
-  local timestyle=''
+  __almost_all='-A' # switchted from --almost-all for old bash support
+  __classify='-F' # switched from --classify for old bash support
+  __colorized='--color=auto'
+  __groupdirs='--group-directories-first'
+  __literal=''
+  __long='-l'
+  __single_column='-1'
+  __timestyle=''
 
-  if ! ls $groupdirs >/dev/null 2>&1; then
-    groupdirs=''
+  if ! ls $__groupdirs >/dev/null 2>&1; then
+    __groupdirs=''
   fi
 
-  if [[ "$DOTFILES_OS" = 'Darwin' ]]; then
-    almost_all='-A'
-    classify='-F'
-    colorized='-G'
+  if [ "$DOTFILES_OS" = 'Darwin' ]; then
+    __almost_all='-A'
+    __classify='-F'
+    __colorized='-G'
+  elif [ "$DOTFILES_OS" = 'Linux' ] \
+    && [ "$DOTFILES_DISTRO" != 'busybox' ]; then
+    __literal='-N'
+    __timestyle='--time-style="+%Y%m%d"'
   fi
 
-  if [[ "$DOTFILES_OS" = 'Linux' ]] \
-    && [[ "$DOTFILES_DISTRO" != 'busybox' ]]; then
-    literal='-N'
-    timestyle='--time-style="+%Y%m%d"'
-  fi
-
   # shellcheck disable=SC2139
-  alias ls="ls $colorized $literal $classify $groupdirs $timestyle"
+  alias ls="ls $__colorized $__literal $__classify $__groupdirs $__timestyle"
   # shellcheck disable=SC2139
-  alias la="ls $almost_all"
+  alias la="ls $__almost_all"
   # shellcheck disable=SC2139
-  alias l="ls $single_column $almost_all"
+  alias l="ls $__single_column $__almost_all"
   # shellcheck disable=SC2139
-  alias ll="l $long"
+  alias ll="l $__long"
   # shit
   alias kk='ll'
 }
 __alias_ls
-
-__alias_exa() {
-  if ! dko::has 'exa'; then
-    return
-  fi
-
-  alias exa='exa --long --all --group-directories-first --group --git'
-}
-__alias_exa

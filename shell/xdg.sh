@@ -1,20 +1,21 @@
-# shell/xdg.bash
-#
-# Only loaded once, either by .xprofile or by shell/vars
-#
+# shell/xdg.sh
 
 [ -n "$DKO_SOURCED_XDG" ] && return
 export DKO_SOURCED_XDG=1
-DKO_SOURCE="${DKO_SOURCE} -> shell/xdg.bash {"
+DKO_SOURCE="${DKO_SOURCE} -> shell/xdg.sh {"
 
 # ============================================================================
-# Define dirs
+# Preferred locations
 # ============================================================================
 
 # pretty much the defaults, but explicitly provide for my own use
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_DATA_HOME="${HOME}/.local/share"
+
+# ============================================================================
+# user-dirs
+# ============================================================================
 
 # user-dirs.dirs doesn't exist on macOS/OS X so check first.
 # Exporting is fine since the file is generated via xdg-user-dirs-update
@@ -33,6 +34,10 @@ export XDG_DATA_HOME="${HOME}/.local/share"
     XDG_PICTURES_DIR                    \
     XDG_VIDEOS_DIR                      \
   && DKO_SOURCE="${DKO_SOURCE} -> ${XDG_CONFIG_HOME}/user-dirs.dirs"
+
+# ============================================================================
+# Defaults if not set in user-dirs
+# ============================================================================
 
 export XDG_DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
 

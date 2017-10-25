@@ -1,10 +1,9 @@
-# shell/vars.bash
-#
+# shell/vars.sh
+
 # Some things from env are here since macOS/OS X doesn't start new env for each
 # term and we may need to reset the values
-#
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.bash"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.sh"
 
 # ============================================================================
 # Locale
@@ -51,10 +50,7 @@ export CVSIGNORE="${DOTFILES}/git/.gitignore"
 # ----------------------------------------------------------------------------
 
 export EDITOR="vim"
-export VISUAL="gvim"
-if [[ -n "$SSH_CONNECTION" ]] || [[ -n "$TMUX" ]]; then
-  export VISUAL="vim"
-fi
+export VISUAL="vim"
 
 # ----------------------------------------------------------------------------
 # pager
@@ -65,8 +61,8 @@ export GIT_PAGER="$PAGER"
 
 # ----------------------------------------------------------------------------
 # others
-# see after.bash for configurations that require access to these vars or
-# functions like dko::has
+# see after.sh for configurations that require access to these vars or
+# functions like __dko_has
 # ----------------------------------------------------------------------------
 
 # ack
@@ -99,10 +95,10 @@ export _FASD_DATA="${HOME}/.local/fasd"
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
 
 # go
-# Used in shell/paths.bash so not in shell/go.bash
+# Used in shell/paths.sh so not in shell/go.sh
 export GOPATH="${HOME}/.local/go"
 
-# gradle and java in java.bash
+# gradle and java in java.sh
 
 # less
 # -F quit if one screen (default)

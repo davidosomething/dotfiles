@@ -5,6 +5,6 @@
 # macOS always starts a login shell.
 #
 DKO_SOURCE="${DKO_SOURCE} -> zsh/.zprofile {"
-[[ -f "${HOME}/.profile" ]] && . "${HOME}/.profile"
+. "${DOTFILES}/shell/dot.profile"
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :
