@@ -18,8 +18,8 @@ readonly dotfiles_path="$(pwd)"
 # Main
 # ==============================================================================
 
-dko::status "Symlinking termite config"
-dko::symlink "termite/config" ".config/termite/config"
+__dko_status "Symlinking termite config"
+__dko_symlink "termite/config" ".config/termite/config"
 
-dko::status "Installing terminfo"
+__dko_status "Installing terminfo"
 tic -x -- "${dotfiles_path}/termite/termite.terminfo"

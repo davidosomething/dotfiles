@@ -18,8 +18,8 @@ readonly dotfiles_path="$(pwd)"
 # Main
 # ==============================================================================
 
-dko::status "COPYING ~/.config/gtk-3.0"
-if [ -d "${XDG_CONFIG_HOME}/gtk-3.0" ]; then
+__dko_status "COPYING ~/.config/gtk-3.0"
+if [[ -d "${XDG_CONFIG_HOME}/gtk-3.0" ]]; then
   mv "${XDG_CONFIG_HOME}/gtk-3.0" "${XDG_CONFIG_HOME}/gtk-3.0.old"
 fi
 cp  -R  "${dotfiles_path}/linux/gtk-3.0"  "${XDG_CONFIG_HOME}/"
