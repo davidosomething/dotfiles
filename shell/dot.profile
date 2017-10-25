@@ -25,8 +25,6 @@ DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
 . "${DOTFILES}/shell/python.sh"
 . "${DOTFILES}/shell/ruby.sh"
 
-[ -n "$DKO_SH" ] && . "${DOTFILES}/shell/interactive.sh"
-
 # ============================================================================
 # Local path
 # ============================================================================
@@ -34,6 +32,14 @@ DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
 PATH="${HOME}/.local/bin:${PATH}"
 PATH="${DOTFILES}/bin:${PATH}"
 export PATH
+
+# ============================================================================
+# POSIX sh support
+# ============================================================================
+
+[ -n "$DKO_SH" ] && . "${DOTFILES}/shell/interactive.sh"
+
+# ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :
