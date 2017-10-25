@@ -100,7 +100,7 @@ __dko_prompt::env() {
 # Get node version provided by NVM using the env vars instead of calling slow
 # NVM functions
 __dko_prompt::env::get_current_node() {
-  echo "${${NVM_BIN/$NVM_DIR\/versions\/node\/v}%\/b*}"
+  dko-nvm-node-version
 }
 
 __dko_prompt::env "js" "nvm" '$(__dko_prompt::env::get_current_node)' \

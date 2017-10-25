@@ -6,7 +6,11 @@
 #
 
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
+
 DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
+
+# TMUX sources this out of order
+[[ -n "$TMUX" ]] && . "${DOTFILES}/shell/dot.profile"
 
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
 typeset -gU cdpath path fpath manpath
