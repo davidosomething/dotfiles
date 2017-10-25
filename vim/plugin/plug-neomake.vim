@@ -70,7 +70,7 @@ autocmd dkoneomake FileType php
       \ | call dkoproject#neomake#php#Phpcs()
       \ | call dkoproject#neomake#php#Phpmd()
 
-autocmd dkoneomake BufNewFile,BufRead *.sh
+autocmd dkoneomake BufNewFile,BufRead *.sh,dot.profile
       \   call dkoproject#neomake#sh#ShellcheckPosix()
 
 autocmd dkoneomake FileType scss
