@@ -12,9 +12,6 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.sh"
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
-# https://blog.packagecloud.io/eng/2017/02/21/set-environment-variable-save-thousands-of-system-calls/
-[ -h /etc/localtime ] && export TZ=:/etc/localtime
-
 # ============================================================================
 # Dotfile paths
 # ============================================================================
