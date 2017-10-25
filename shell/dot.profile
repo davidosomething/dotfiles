@@ -13,17 +13,11 @@ DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
 }
 
 # ==============================================================================
-# global helpers
-# ==============================================================================
-
-. "${DOTFILES}/lib/plain.sh"
-. "${DOTFILES}/lib/helpers.sh"
-
-# ==============================================================================
 # env management -- Node, PHP, Python, Ruby - These add to path
 # ==============================================================================
 
 # This also adds completions based on global nvm->npm packages
+. "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/shell/go.sh"
 . "${DOTFILES}/shell/java.sh"
 . "${DOTFILES}/shell/node.sh"
@@ -32,5 +26,14 @@ DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
 . "${DOTFILES}/shell/ruby.sh"
 
 [ -n "$DKO_SH" ] && . "${DOTFILES}/shell/interactive.sh"
+
+# ============================================================================
+# Local path
+# ============================================================================
+
+PATH="${HOME}/.local/bin:${PATH}"
+PATH="${DOTFILES}/bin:${PATH}"
+export PATH
+
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :

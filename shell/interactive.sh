@@ -4,6 +4,8 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
 
 "${DOTFILES}/shell/dko-wait-for-dotfiles-lock"
 
+# need this here in case not starting a login shell
+. "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/shell/functions.sh"  # shell functions
 . "${DOTFILES}/shell/aliases.sh"    # generic aliases
 

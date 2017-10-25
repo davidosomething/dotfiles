@@ -11,10 +11,6 @@ DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
 typeset -gU cdpath path fpath manpath
 
-# ============================================================================
-# Interactive shell init
-# ============================================================================
-
 . "${DOTFILES}/shell/interactive.sh"
 
 # ============================================================================

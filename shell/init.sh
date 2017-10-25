@@ -11,7 +11,7 @@ export DKO_INIT=1
 . "${HOME}/.dotfiles/shell/vars.sh"
 
 # OS specific overrides
-case $(uname) in
+case "$(uname)" in
   Darwin*) . "${DOTFILES}/shell/os-darwin.sh" ;;
   Linux*)  . "${DOTFILES}/shell/os-linux.sh" ;;
 esac
