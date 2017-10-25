@@ -502,7 +502,8 @@ __dko_dotfiles__darwin__update_brew_done() {
 }
 
 __dko_dotfiles__darwin__require_brew() {
-  ! __dko_has "brew" && __dko_warn "Homebrew is not installed." && return 1
+  __dko_has "brew" && return 0
+  __dko_warn "Homebrew is not installed." && return 1
 }
 
 __dko_dotfiles__darwin__update_brew() {
