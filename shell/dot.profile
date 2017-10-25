@@ -7,15 +7,14 @@
 # NOTE: macOS always starts a login shell
 
 DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
-
-[ -z "$BASH" ] && [ -z "$ZSH_VERSION" ] && {
-  export DKO_POSIX=1
+[ -z "$DKO_INIT" ] && {
+  . "${HOME}/.dotfiles/shell/init.sh"
+  export DKO_SH=1
 }
 
-if [ -z "$DOTFILES" ]; then
-  . "${HOME}/.dotfiles/shell/xdg.sh"
-  . "${HOME}/.dotfiles/shell/vars.sh"
-fi
+# ==============================================================================
+# global helpers
+# ==============================================================================
 
 . "${DOTFILES}/lib/plain.sh"
 . "${DOTFILES}/lib/helpers.sh"
@@ -32,5 +31,6 @@ fi
 . "${DOTFILES}/shell/python.sh"
 . "${DOTFILES}/shell/ruby.sh"
 
+[ -n "$DKO_SH" ] && . "${DOTFILES}/shell/interactive.sh"
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :

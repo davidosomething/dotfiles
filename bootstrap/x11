@@ -18,6 +18,6 @@ readonly dotfiles_path="$(pwd)"
 
 __dko_status "Symlinking X11 dotfiles"
 # this probably isn't sourced by your session
-__dko_symlink "linux/.xinitrc"       ".xinitrc"
-__dko_symlink "linux/.xbindkeysrc"   ".xbindkeysrc"
-__dko_symlink "linux/.xprofile"      ".xprofile"
+dko-symlink "linux/.xinitrc"       ".xinitrc"
+dko-symlink "linux/.xbindkeysrc"   ".xbindkeysrc"
+dko-symlink "linux/.xprofile"      ".xprofile"

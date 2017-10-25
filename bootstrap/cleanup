@@ -123,11 +123,11 @@ __merge_dir "${HOME}/.terminfo"       "${XDG_DATA_HOME}/terminfo"
 [[ -n "$YARN_CACHE_FOLDER" ]] && __move "${HOME}/.yarn-cache" "$YARN_CACHE_FOLDER"
 
 # Removes
-! __dko_same "${HOME}/.dotfiles/bash/dot.bash_profile" "${HOME}/.bash_profile" \
+! dko-same "${HOME}/.dotfiles/bash/dot.bash_profile" "${HOME}/.bash_profile" \
   && __remove "${HOME}/.bash_profile"
-! __dko_same "${HOME}/.dotfiles/bash/dot.bashrc" "${HOME}/.bashrc" \
+! dko-same "${HOME}/.dotfiles/bash/dot.bashrc" "${HOME}/.bashrc" \
 __remove "${HOME}/.bashrc"
-! __dko_same "${HOME}/.dotfiles/zsh/dot.zshenv" "${HOME}/.zshenv" \
+! dko-same "${HOME}/.dotfiles/zsh/dot.zshenv" "${HOME}/.zshenv" \
 __remove "${HOME}/.zshenv"
 # alias points to dotfile
 __remove "${HOME}/.mdlrc"

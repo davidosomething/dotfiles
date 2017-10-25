@@ -3,6 +3,7 @@
 # Sourced on all shells, interactive or not
 
 DKO_SOURCE="${DKO_SOURCE} -> shell/init.sh {"
+export DKO_INIT=1
 
 # ============================================================================
 
