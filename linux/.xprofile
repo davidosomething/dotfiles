@@ -10,8 +10,7 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> linux/.xprofile {"
 
-# Sourced only once, this would be the first and only place on linux
-. "${HOME}/.dotfiles/shell/xdg.bash"
+. "${HOME}/.dotfiles/shell/init.sh"
 
 # ============================================================================
 # Programs
