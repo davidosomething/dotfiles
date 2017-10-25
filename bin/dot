@@ -15,15 +15,21 @@
 # Meta
 # ------------------------------------------------------------------------------
 
+__dko_dotfiles__command_not_found() {
+  __dko_err "Command not found '${1:-''}'"
+  echo
+  __dko_dotfiles__usage
+  exit 1
+}
+
 __dko_dotfiles__usage() {
   __dko_usage  "dot <command>"
   echo '
   Utility Commands
-    dotfiles    -- update dotfiles (git pull); then reload; then zplugin
-    reload      -- reload this script if it was modified
+    dotfiles    -- update dotfiles (git pull)
     secret      -- update ~/.secret (git pull)
     zplugin     -- update zplugin
-    daily       -- update everything except dotfiles and apt/brew/pac
+    daily       -- all of the above
 
   Shell Tools
     fzf         -- update fzf with flags to not update rc scripts
@@ -31,25 +37,23 @@ __dko_dotfiles__usage() {
     nvm         -- update nvm installation
     pyenv       -- update pyenv installation
 
-  Packages
+  Packages / Developer Tools
     composer    -- update composer and global packages
     gem         -- update rubygems and global gems for current ruby
     go          -- golang
     pip         -- update all versions of pip (OS dependent)
     neopy       -- update neovim pyenvs
+    wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
 
-  Arch Linux
+  System: Arch Linux
     arch        -- update arch packages
 
-  Debian/Ubuntu
+  System: Debian/Ubuntu
     deb         -- update apt packages
 
-  macOS/OS X
+  System: macOS/OS X
     brew        -- homebrew packages
     mac         -- repair permissions and check software updates
-
-  Development
-    wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
 '
 }
 
@@ -73,40 +77,21 @@ __dko_dotfiles__update() {
     git pull --rebase || exit 1
     git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     __dko_status "Updating dotfiles submodules"
-    git submodule update --init || exit 1
   ) || {
     __dko_err "Error updating dotfiles"
     return 1
   }
 
   __dko_status "Re-symlink if any dotfiles changed!"
-
-  __dko_dotfiles__update_zplugin
-}
-
-__dko_dotfiles__update_zplugin() {
-  ! __dko_has "zplugin" && return 1
-  __dko_status "Updating zplugin"
-  # Remove zplug
-  [[ -d "${XDG_DATA_HOME}/zplug" ]] && rm -rf "${XDG_DATA_HOME}/zplug"
-  zplugin self-update
-  zplugin update --all
-}
-
-__dko_dotfiles__cd_secrets() {
-  cd -- "${HOME}/.secret" || {
-    __dko_err "No ~/.secret directory"
-    return 1
-  }
 }
 
 __dko_dotfiles__update_secret() {
   __dko_status "Updating secret"
   (
-    __dko_dotfiles__cd_secrets || return 1
-    git pull --rebase --recurse-submodules \
-    && git log --no-merges --abbrev-commit --oneline ORIG_HEAD.. \
-    && git submodule update --init
+    cd -- "${HOME}/.secret" \
+      || { __dko_err "No ~/.secret directory" && exit 1; }
+    git pull --rebase --recurse-submodules || exit 1
+    git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
   )
 }
 
@@ -248,7 +233,7 @@ __dko_dotfiles__node__require_nvm() {
 # ----------------------------------------------------------------------------
 
 __dko_dotfiles__update_node() {
-  local desired_node="v6"
+  local desired_node="v8"
   local desired_node_minor
   local previous_node
 
@@ -306,9 +291,6 @@ __dko_dotfiles__node__update_nvm() {
 
     exit 0
   ) || return 1
-
-  __dko_status "Reloading nvm"
-  . "$NVM_DIR/nvm.sh"
 }
 
 # ----------------------------------------------------------------------------
@@ -351,13 +333,15 @@ __dko_dotfiles__py__update_neovim_python() {
 # ----------------------------------------------------------------------------
 
 __dko_dotfiles__php__require_composer() {
-  ! __dko_has "composer" && __dko_warn "composer is not installed" && return 1
+  __dko_has "composer" || {
+    __dko_warn "composer is not installed" && return 1
+  }
 }
 
 __dko_dotfiles__php__update_composer() {
+  __dko_status "Updating composer"
   __dko_dotfiles__php__require_composer || return 1
 
-  __dko_status "Updating composer"
   if [[ -x "/usr/local/bin/composer" ]]; then
     __dko_ok "composer was installed via brew (yay)"
   else
@@ -378,10 +362,11 @@ __dko_dotfiles__php__update_composer() {
 }
 
 __dko_dotfiles__php__require_phpcs() {
-  __dko_has "phpcs" && return 0
-  __dko_warn  "phpcs is not installed"
-  __dko_warn_ "Install via composer global require and run again, or set installed_paths manually"
-  return 1
+  __dko_has "phpcs" || {
+    __dko_warn  "phpcs is not installed. Install via composer global require"
+    __dko_warn_ "and run again, or set installed_paths manually"
+    return 1
+  }
 }
 
 __dko_dotfiles__php__update_wpcs() {
@@ -428,7 +413,7 @@ __dko_dotfiles__php__update_wpcs() {
   # --------------------------------------------------------------------------
 
   __dko_status "Updating standards path to:"
-  echo "    ${standards_path}"
+  __dko_echo "${standards_path}"
   phpcs --config-set installed_paths "$standards_path"
 
   # List installed standards:
@@ -444,18 +429,17 @@ __dko_dotfiles__linux__update() {
   case "$1" in
     arch) __dko_dotfiles__linux__arch__update ;;
     deb)  __dko_dotfiles__linux__deb__update ;;
+    *)    __dko_dotfiles__command_not_found "$1"
   esac
-
-  return $?
+  __dko_dotfiles__command_not_found "$1"
 }
 
 __dko_dotfiles__darwin__update() {
   case "$1" in
-    brew)   __dko_dotfiles__darwin__update_brew ;;
-    mac)    __dko_dotfiles__darwin__update_mac  ;;
+    brew) __dko_dotfiles__darwin__update_brew ;;
+    mac)  __dko_dotfiles__darwin__update_mac  ;;
+    *)    __dko_dotfiles__command_not_found "$1"
   esac
-
-  return $?
 }
 
 # ------------------------------------------------------------------------------
@@ -485,10 +469,9 @@ __dko_dotfiles__linux__arch__update() {
 __dko_dotfiles__linux__deb__update() {
   __dko_status "Apt system update"
 
-  if ! __dko_has "apt"; then
-    __dko_err "Plain 'apt' not found, manually use 'apt-get' for crappy systems."
-    return 1
-  fi
+  ! __dko_has "apt" \
+    && __dko_err "apt not found, manually use 'apt-get' for crappy systems." \
+    && return 1
 
   sudo apt update
 
@@ -519,9 +502,7 @@ __dko_dotfiles__darwin__update_brew_done() {
 }
 
 __dko_dotfiles__darwin__require_brew() {
-  __dko_has "brew" && return 0
-  __dko_warn "Homebrew is not installed."
-  return 1
+  ! __dko_has "brew" && __dko_warn "Homebrew is not installed." && return 1
 }
 
 __dko_dotfiles__darwin__update_brew() {
@@ -539,7 +520,6 @@ __dko_dotfiles__darwin__update_brew() {
     TERM="xterm-256color"
 
     # we use & wait on brew since they sometimes spawn
-
     brew update & wait
 
     # check if needed
@@ -580,15 +560,11 @@ __dko_dotfiles__darwin__update_brew() {
 
 # $1 command
 __dko_dotfiles() {
-  if (( $# == 0 )); then
-    __dko_dotfiles__usage
-    return 1
-  fi
+  (( $# == 0 )) && __dko_dotfiles__usage && return 1
 
   case $1 in
     dotfiles) __dko_dotfiles__update               ;;
     secret)   __dko_dotfiles__update_secret        ;;
-    zplugin)  __dko_dotfiles__update_zplugin       ;;
     daily)    __dko_dotfiles__update_daily         ;;
     composer) __dko_dotfiles__php__update_composer ;;
     fzf)      __dko_dotfiles__update_fzf           ;;
@@ -607,8 +583,6 @@ __dko_dotfiles() {
         darwin*)  __dko_dotfiles__darwin__update "$1"  ;;
       esac
   esac
-
-  return $?
 }
 
 __dko_dotfiles "$@"
