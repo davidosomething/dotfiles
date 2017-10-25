@@ -184,9 +184,12 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
 
   " Auto-insert matching braces with detection for jumping out on close.
+  " No right brace detection
   Plug 'cohama/lexima.vim'
-  "Plug 'Raimondi/delimitMate' SLOWER LOAD
-  "Plug 'kana/vim-smartinput' SLOW
+  " Slow but detects right brace
+  "Plug 'Raimondi/delimitMate'
+  " Slowest
+  "Plug 'kana/vim-smartinput'
 
   " Main completion engine, bound to <C-o>
   " Does not start until InsertEnter, so we can set up sources, then load
