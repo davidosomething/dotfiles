@@ -11,18 +11,19 @@ set -e
 
 cd -- "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
-. "${dotfiles_path}/shell/helpers.bash"
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
 
 # ============================================================================
 # ENV validation
 # ============================================================================
 
-if [ -z "$BDOTDIR" ] \
-  || [ -z "$XDG_CONFIG_HOME" ] \
-  || [ -z "$XDG_DATA_HOME" ]
+if [[ -z "$BDOTDIR" ]] \
+  || [[ -z "$XDG_CONFIG_HOME" ]] \
+  || [[ -z "$XDG_DATA_HOME" ]]
 then
-  dko::err  "DOTFILES are not set up, run this after symlinking and restarting"
-  dko::err_ "shell"
+  __dko_err  "DOTFILES are not set up, run this after symlinking and restarting"
+  __dko_err_ "shell"
   exit 1
 fi
 
@@ -34,68 +35,68 @@ fi
 # $1 full path to move (can be file or dir)
 # $2 full destination path
 __move() {
-  dko::status "Move ${1} to ${2}"
+  __dko_status "Move ${1} to ${2}"
 
-  if [ ! -d "$1" ] && [ ! -f "$1" ] && [ ! -h "$1" ]; then
-    dko::ok "Didn't find ${1}"
+  if [[ ! -d "$1" ]] && [[ ! -f "$1" ]] && [[ ! -h "$1" ]]; then
+    __dko_ok "Didn't find ${1}"
     return 0
   fi
 
-  if [ -d "$2" ] || [ -f "$2" ] || [ -h "$2" ]; then
-    dko::err  "Not moving ${1} to ${2}, destination already exists."
-    dko::err_ "Please resolve conflict manually."
+  if [[ -d "$2" ]] || [[ -f "$2" ]] || [[ -h "$2" ]]; then
+    __dko_err  "Not moving ${1} to ${2}, destination already exists."
+    __dko_err_ "Please resolve conflict manually."
     return 1
   fi
 
   local dest_parent
   dest_parent="$(dirname "${2}")"
-  if [ ! -d "$dest_parent" ]; then
-    mkdir -p -- "$dest_parent" && dko::ok "Created parent directory ${dest_parent}"
+  if [[ ! -d "$dest_parent" ]]; then
+    mkdir -p -- "$dest_parent" && __dko_ok "Created parent directory ${dest_parent}"
   fi
 
-  mv -- "$1" "$2" && dko::ok "Moved ${1} to ${2}"
+  mv -- "$1" "$2" && __dko_ok "Moved ${1} to ${2}"
 }
 
 # Move contents of one dir into another
 # $1 source directory, removed on completion
 # $2 destination directory, created if needed
 __merge_dir() {
-  dko::status "Merge ${1} into ${2}"
+  __dko_status "Merge ${1} into ${2}"
 
-  if [ ! -d "$1" ]; then
-    dko::ok "Didn't find ${1}"
+  if [[ ! -d "$1" ]]; then
+    __dko_ok "Didn't find ${1}"
     return 0
   fi
 
-  if [ ! -d "$2" ]; then
-    mkdir -p -- "$2" && dko::ok "Created dest directory ${2}"
+  if [[ ! -d "$2" ]]; then
+    mkdir -p -- "$2" && __dko_ok "Created dest directory ${2}"
   fi
 
-  mv -- "${1}/*"   "$2" && dko::ok "Moved contents of ${1} into ${2}"
-  mv -- "${1}/.*"  "$2" && dko::ok "Moved .contents in ${1} into ${2}"
-  rmdir -- "$1" && dko::ok "Removed ${1}"
+  mv -- "${1}/*"   "$2" && __dko_ok "Moved contents of ${1} into ${2}"
+  mv -- "${1}/.*"  "$2" && __dko_ok "Moved .contents in ${1} into ${2}"
+  rmdir -- "$1" && __dko_ok "Removed ${1}"
 }
 
 # Remove file or dir completely with confirmation
 # $1 path to completely remove
 __remove() {
-  dko::status "Remove ${1}"
+  __dko_status "Remove ${1}"
 
   if [[ -f "$1" ]] || [[ -h "$1" ]]; then
-    rm -i -- "$1" && dko::ok "Removed file ${1}"
+    rm -i -- "$1" && __dko_ok "Removed file ${1}"
   elif [[ -d "$1" ]]; then
-    rm -ir -- "$1" && dko::ok "Removed directory ${1}"
+    rm -ir -- "$1" && __dko_ok "Removed directory ${1}"
   else
-    dko::ok "Didn't find ${1}"
+    __dko_ok "Didn't find ${1}"
   fi
 }
 
 # Logic for NVM
 __clean_nvm() {
-  dko::status "Move invalid NVM paths"
+  __dko_status "Move invalid NVM paths"
 
   if [[ "${NVM_DIR}" != "${XDG_CONFIG_HOME}/nvm" ]]; then
-    dko::err "NVM_DIR not set properly. Should be ${XDG_CONFIG_HOME}/nvm"
+    __dko_err "NVM_DIR not set properly. Should be ${XDG_CONFIG_HOME}/nvm"
     return 1
   fi
 
@@ -122,11 +123,11 @@ __merge_dir "${HOME}/.terminfo"       "${XDG_DATA_HOME}/terminfo"
 [[ -n "$YARN_CACHE_FOLDER" ]] && __move "${HOME}/.yarn-cache" "$YARN_CACHE_FOLDER"
 
 # Removes
-! dko::same "${HOME}/.dotfiles/bash/dot.bash_profile" "${HOME}/.bash_profile" \
+! dko-same "${HOME}/.dotfiles/bash/dot.bash_profile" "${HOME}/.bash_profile" \
   && __remove "${HOME}/.bash_profile"
-! dko::same "${HOME}/.dotfiles/bash/dot.bashrc" "${HOME}/.bashrc" \
+! dko-same "${HOME}/.dotfiles/bash/dot.bashrc" "${HOME}/.bashrc" \
 __remove "${HOME}/.bashrc"
-! dko::same "${HOME}/.dotfiles/zsh/dot.zshenv" "${HOME}/.zshenv" \
+! dko-same "${HOME}/.dotfiles/zsh/dot.zshenv" "${HOME}/.zshenv" \
 __remove "${HOME}/.zshenv"
 # alias points to dotfile
 __remove "${HOME}/.mdlrc"

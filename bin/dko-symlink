@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+__dotfiles_dir="${HOME}/.dotfiles"
+. "${__dotfiles_dir}/lib/pretty.bash"
+
+# symlinking helper function for ~/.dotfiles
+# $1 source file in $DOTFILES, assuming ${HOME}/.dotfiles
+# $2 dest file relative to $HOME
+__dko_symlink() {
+  local sourcepath="${__dotfiles_dir}/${1}"
+  local fulltargetpath="${HOME}/${2}"
+  local targetdir
+
+  dko-same "$sourcepath" "$fulltargetpath"
+  local result=$?
+
+  if (( result == 0 )); then
+    return
+  elif (( result == 1 )); then
+    __dko_status "Found different ${fulltargetpath}"
+    read -p "          Overwrite? [y/N] " -r
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      __dko_warn "Skipped ${fulltargetpath}"
+      return
+    fi
+  fi
+
+  __dko_status "Symlinking \033[0;35m${fulltargetpath}\033[0;32m -> \033[0;35m${sourcepath}\033[0;32m "
+
+  targetdir="$(basename "$fulltargetpath")"
+  [[ -d "$targetdir" ]] || mkdir -p "$targetdir"
+
+  mkdir -p "$(dirname "$fulltargetpath")"
+  ln -fns "$sourcepath" "$fulltargetpath"
+}
+
+__dko_symlink "$@"

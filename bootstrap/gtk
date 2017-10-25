@@ -11,14 +11,15 @@ set -eu
 
 cd -- "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
-. "${dotfiles_path}/shell/helpers.bash"
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
 
 # ==============================================================================
 # Main
 # ==============================================================================
 
-dko::status "COPYING ~/.config/gtk-3.0"
-if [ -d "${XDG_CONFIG_HOME}/gtk-3.0" ]; then
+__dko_status "COPYING ~/.config/gtk-3.0"
+if [[ -d "${XDG_CONFIG_HOME}/gtk-3.0" ]]; then
   mv "${XDG_CONFIG_HOME}/gtk-3.0" "${XDG_CONFIG_HOME}/gtk-3.0.old"
 fi
 cp  -R  "${dotfiles_path}/linux/gtk-3.0"  "${XDG_CONFIG_HOME}/"

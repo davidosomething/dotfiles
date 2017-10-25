@@ -9,14 +9,15 @@
 
 cd -- "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
-. "${dotfiles_path}/shell/helpers.bash"
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
 
 # ==============================================================================
 # Main
 # ==============================================================================
 
-dko::status "Symlinking X11 dotfiles"
+__dko_status "Symlinking X11 dotfiles"
 # this probably isn't sourced by your session
-dko::symlink "linux/.xinitrc"       ".xinitrc"
-dko::symlink "linux/.xbindkeysrc"   ".xbindkeysrc"
-dko::symlink "linux/.xprofile"      ".xprofile"
+dko-symlink "linux/.xinitrc"       ".xinitrc"
+dko-symlink "linux/.xbindkeysrc"   ".xbindkeysrc"
+dko-symlink "linux/.xprofile"      ".xprofile"

@@ -11,14 +11,15 @@ set -eu
 
 cd -- "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
-. "${dotfiles_path}/shell/helpers.bash"
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
 
 # ==============================================================================
 # Main
 # ==============================================================================
 
-dko::status "Symlinking termite config"
-dko::symlink "termite/config" ".config/termite/config"
+__dko_status "Symlinking termite config"
+dko-symlink "termite/config" ".config/termite/config"
 
-dko::status "Installing terminfo"
+__dko_status "Installing terminfo"
 tic -x -- "${dotfiles_path}/termite/termite.terminfo"

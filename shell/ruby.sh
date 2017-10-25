@@ -1,9 +1,6 @@
-# shell/ruby.bash
-#
-# Uses vars from shell/vars and shell/os
-#
+# shell/ruby.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.bash {"
+DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
 
 export GEMRC="${DOTFILES}/ruby/gemrc"
 
@@ -24,9 +21,9 @@ export GEMRC="${DOTFILES}/ruby/gemrc"
 export CHRUBY_PREFIX="${DKO_BREW_PREFIX:-/usr}"
 
 # chruby and auto-switcher for .ruby-version
-dko::source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" && \
+__dko_source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" && \
   DKO_SOURCE="${DKO_SOURCE} -> chruby"
-dko::source "${CHRUBY_PREFIX}/share/chruby/auto.sh"
+__dko_source "${CHRUBY_PREFIX}/share/chruby/auto.sh"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :

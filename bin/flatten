@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# flatten a dir
+__flatten() {
+  if [[ -n "$1" ]]; then
+    read -r "reply?Flatten folder: are you sure? [y] "
+  else
+    local _reply=y
+  fi
+
+  [[ "$_reply" = "y" ]] && mv ./*/* .
+}
+
+__flatten "$@"

@@ -8,12 +8,7 @@
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
 DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 
-# ============================================================================
-# Shell init
-# ============================================================================
-
-. "${HOME}/.dotfiles/shell/init.bash"
-. "${DOTFILES}/shell/interactive.bash"
+. "${DOTFILES}/shell/interactive.sh"
 
 # ============================================================================
 # BASH settings
@@ -42,13 +37,13 @@ shopt -s no_empty_cmd_completion    # don't try to complete empty lines
 
 set completion-ignore-case on
 
-dko::source "/etc/bash_completion"
-dko::source "/usr/share/bash-completion/bash_completion"
+__dko_source "/etc/bash_completion"
+__dko_source "/usr/share/bash-completion/bash_completion"
 
 # homebrew's bash-completion package sources the rest of bash_completion.d
-dko::source "${DKO_BREW_PREFIX}/etc/bash_completion"
+__dko_source "${DKO_BREW_PREFIX}/etc/bash_completion"
 
-dko::source "${NVM_DIR}/bash_completion"
+__dko_source "${NVM_DIR}/bash_completion"
 
 # following are from
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_profile
@@ -59,15 +54,15 @@ type _git &>/dev/null \
   && complete -o default -o nospace -F _git g
 
 # WP-CLI Bash completions
-dko::source "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
+__dko_source "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
 
 # ==============================================================================
 # Plugins
 # ==============================================================================
 
-dko::has "fasd" && eval "$(fasd --init auto)"
+__dko_has "fasd" && eval "$(fasd --init auto)"
 
-dko::source "${HOME}/.fzf.bash"
+__dko_source "${HOME}/.fzf.bash"
 
 # ============================================================================
 # Prompt -- needs to be after plugins since it might use them
@@ -79,8 +74,8 @@ dko::source "${HOME}/.fzf.bash"
 # After
 # ==============================================================================
 
-. "${DOTFILES}/shell/after.bash"
-dko::source "${LDOTDIR}/bashrc"
+. "${DOTFILES}/shell/after.sh"
+__dko_source "${LDOTDIR}/bashrc"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :

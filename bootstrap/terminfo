@@ -12,20 +12,18 @@
 
 cd -- "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
-. "${dotfiles_path}/shell/helpers.bash"
+. "${DOTFILES}/lib/pretty.bash"
 
 # ==============================================================================
 # Main
 # ==============================================================================
 
-dko::status "Copying terminfo files"
-
-TERMINFO="${TERMINFO:-${XDG_DATA_HOME}/terminfo}"
+__dko_status "Copying terminfo files"
 
 # RXVT
 mkdir -p -- "${TERMINFO}/r"
 [[ -d "${dotfiles_path}/terminfo/r" ]] && \
-  cp -R -- "${dotfiles_path}/terminfo/r/*" "${TERMINFO}/r/"
+  cp -R -- "${dotfiles_path}/terminfo/r/*" "${HOME}/.terminfo/r/"
 
 # Install all uncompiled terminfo files, e.g.
 # - xterm-256color-italic for iterm2

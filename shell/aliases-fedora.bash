@@ -1,1 +1,0 @@
-alias b='sudo dnf'

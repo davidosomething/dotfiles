@@ -1,3 +1,5 @@
+# shell/aliases-archlinux.bash
+
 alias paclast="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -20"
 
 if command -v pacaur >/dev/null; then

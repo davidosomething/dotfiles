@@ -1,3 +1,5 @@
+# shell/aliases-linux.bash
+
 alias open='o'                    # use open() function in shell/functions
 alias startx='startx > "${DOTFILES}/logs/startx.log" 2>&1'
 
