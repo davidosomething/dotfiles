@@ -31,6 +31,12 @@ for s:obj in [
   endif
 endfor
 
+let g:textobj_lastpaste_no_default_keymappings = 1
+if dkoplug#plugins#Exists('textobj-lastpaste')
+  omap iP <Plug>(textobj-lastpaste-i)
+  xmap iP <Plug>(textobj-lastpaste-i)
+endif
+
 " ============================================================================
 
 let &cpoptions = s:cpo_save

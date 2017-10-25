@@ -145,7 +145,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'kana/vim-operator-user'
   " gcc to toggle comment
-  Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ]}
+  Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
   " <Leader>s(a/r/d) to modify surrounding the pending operator
   Plug 'rhysd/vim-operator-surround'
   " <Leader>c to toggle CamelCase/snak_e the pending operator
@@ -158,17 +158,19 @@ function! dkoplug#plugins#LoadAll() abort
   " - d/D   for underscore section (e.g. `did` on foo_b|ar_baz -> foo__baz)
   Plug 'machakann/vim-textobj-delimited'
   " - i     for indent level
-  Plug 'kana/vim-textobj-indent', { 'on': [ '<Plug>(textobj-indent' ]}
+  Plug 'kana/vim-textobj-indent', { 'on': [ '<Plug>(textobj-indent' ] }
   " - l     for current line
-  Plug 'kana/vim-textobj-line', { 'on': [ '<Plug>(textobj-line' ]}
+  Plug 'kana/vim-textobj-line', { 'on': [ '<Plug>(textobj-line' ] }
+  " - P     for last paste
+  Plug 'gilligan/textobj-lastpaste', { 'on': [ '<Plug>(textobj-lastpaste' ] }
   " - u     for url
-  Plug 'mattn/vim-textobj-url', { 'on': [ '<Plug>(textobj-url' ]}
+  Plug 'mattn/vim-textobj-url', { 'on': [ '<Plug>(textobj-url' ] }
   " - b     for any block type (parens, braces, quotes, ltgt)
   Plug 'rhysd/vim-textobj-anyblock'
   " - x     for xml attr like `data-content="everything"`
   Plug 'whatyouhide/vim-textobj-xmlattr', { 'on': [
         \   '<Plug>(textobj-xmlattr',
-        \ ]}
+        \ ] }
 
   " HR with <Leader>f[CHAR]
   Plug g:dko#vim_dir . '/mine/vim-hr'
