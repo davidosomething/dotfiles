@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 
+. "${DOTFILES}/lib/pretty.bash"
+
 __eclimd() {
   local bin
   if [ -x "/Applications/Eclipse Java.app/Contents/Eclipse/eclimd" ]; then
     bin="/Applications/Eclipse\ Java.app/Contents/Eclipse/eclimd"
   else
-    dko::warn "eclimd not found"
+    __dko_warn "eclimd not found"
     return 1
   fi
 
   local args
   (( $# == 0 )) && {
     args="-f ${DOTFILES}/eclimd/eclimrc"
-    dko::status "Starting \`eclimd ${args}\`"
+    __dko_status "Starting \`eclimd ${args}\`"
     eval "${bin} ${args}"
   }
 
