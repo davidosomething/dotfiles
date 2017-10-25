@@ -21,8 +21,6 @@ esac
 # shell/vars.sh on the other hand just get inherited.
 . "${DOTFILES}/shell/path.sh"
 
-. "${DOTFILES}/shell/helpers.sh"    # scripting helpers
-
 # ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"

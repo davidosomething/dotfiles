@@ -17,15 +17,13 @@ export PYLINTRC="${DOTFILES}/python/pylintrc"
 # ==============================================================================
 
 # init once
-__dko_has "pyenv" || {
-  export PYENV_ROOT="${XDG_CONFIG_HOME}/pyenv"
-  export PATH="${PYENV_ROOT}/bin:${PATH}"
-  __dko_has "pyenv" && {
-    DKO_SOURCE="${DKO_SOURCE} -> pyenv"
-    eval "$(pyenv init -)"
-    # should have pyenv-virtualenv plugin if installed via pyenv-installer
-    __dko_has "pyenv-virtualenv-init" && eval "$(pyenv virtualenv-init -)"
-  }
+export PYENV_ROOT="${XDG_CONFIG_HOME}/pyenv"
+export PATH="${PYENV_ROOT}/bin:${PATH}"
+__dko_has "pyenv" && {
+  DKO_SOURCE="${DKO_SOURCE} -> pyenv"
+  eval "$(pyenv init -)"
+  # should have pyenv-virtualenv plugin if installed via pyenv-installer
+  __dko_has "pyenv-virtualenv-init" && eval "$(pyenv virtualenv-init -)"
 }
 
 # ==============================================================================
@@ -52,11 +50,8 @@ virtualenv_info() {
 # ==============================================================================
 
 __dko_has "pip" && {
-  if [ -n "$ZSH_VERSION" ]; then
-    eval "$(pip completion --zsh)"
-  elif [ -n "$BASH" ]; then
-    eval "$(pip completion --bash)"
-  fi
+  [ -n "$ZSH_VERSION" ] && eval "$(pip completion --zsh)"
+  [ -n "$BASH" ] && eval "$(pip completion --bash)"
 }
 
 # ============================================================================

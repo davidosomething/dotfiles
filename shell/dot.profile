@@ -17,6 +17,9 @@ if [ -z "$DOTFILES" ]; then
   . "${HOME}/.dotfiles/shell/vars.sh"
 fi
 
+. "${DOTFILES}/lib/plain.sh"
+. "${DOTFILES}/lib/helpers.sh"
+
 # ==============================================================================
 # env management -- Node, PHP, Python, Ruby - These add to path
 # ==============================================================================

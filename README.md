@@ -132,13 +132,9 @@ For X apps (no terminal) the value is probably:
     - Two space indents
     - Prefer `.` over `source`
 - **Function names**
-    - Namespace helpers for scripting and provisioning following
-      [google shell style] as `dko.function_name()`.
-      These functions persist for the lifetime of the script or in the shell
-      for sourced scripts.
     - For private functions in a script, use two underscores `__private_func()`
       These function names are safe to reuse after script execution. When
-      namespaced, they are in the form of `__dko.function_name()`.
+      namespaced, they are in the form of `__dko_function_name()`.
 - **Variable interpolation**
     - Always use curly braces around the variable name when interpolating in
       double quotes.

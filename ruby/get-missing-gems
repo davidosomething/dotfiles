@@ -10,7 +10,7 @@ if [[ -z "$DOTFILES" ]]; then
   echo ".dotfiles repo is not set up"
   exit 1
 fi
-. "${DOTFILES}/shell/helpers.bash"
+. "${DOTFILES}/lib/pretty.bash"
 
 # =============================================================================
 # Main

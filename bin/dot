@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
-[ -z "${DOTFILES}" ] && echo "Symlink first." && exit 1
+[[ -z "${DOTFILES}" ]] && echo "Symlink first." && exit 1
+. "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
+
+[[ -d "$PYENV_ROOT" ]] && eval "$(pyenv init -)"
+[[ -n "$NVM_DIR" ]] && __dko_source "${NVM_DIR}/nvm.sh"
 
 # ==============================================================================
 # Command functions
@@ -81,13 +85,12 @@ __dko_dotfiles__update() {
 }
 
 __dko_dotfiles__update_zplugin() {
-  __dko_has 'zplugin' && {
-    __dko_status "Updating zplugin"
-    # Remove zplug
-    [[ -d "${XDG_DATA_HOME}/zplug" ]] && rm -rf "${XDG_DATA_HOME}/zplug"
-    zplugin self-update
-    zplugin update --all
-  }
+  ! __dko_has "zplugin" && return 1
+  __dko_status "Updating zplugin"
+  # Remove zplug
+  [[ -d "${XDG_DATA_HOME}/zplug" ]] && rm -rf "${XDG_DATA_HOME}/zplug"
+  zplugin self-update
+  zplugin update --all
 }
 
 __dko_dotfiles__cd_secrets() {
@@ -127,14 +130,14 @@ __dko_dotfiles__pyenv_system() {
   # switch to brew's python (fallback to system if no brew python)
   __dko_has "pyenv" \
     && __dko_status "Switching to system python to upgrade brew packages" \
-    && pyenv shell system
+    && pyenv shell system || exit 1
 }
 
 # probably don't need this as long as running updates in subshells
 __dko_dotfiles__pyenv_global() {
   __dko_has "pyenv" \
     && __dko_status_ "Switching back to global python" \
-    && pyenv shell --unset
+    && pyenv shell --unset || exit 1
 }
 
 # ------------------------------------------------------------------------------
@@ -267,7 +270,6 @@ __dko_dotfiles__update_node() {
 
       __dko_status_ "Installing npm@latest for $desired_node_minor..."
       npm install --global npm@latest
-      rehash
 
       __dko_ok "Node and npm updated."
       __dko_ok_ "Run \$DOTFILES/node/install.sh to install global packages."
@@ -328,12 +330,12 @@ __dko_dotfiles__py__update_pyenv() {
 __dko_dotfiles__py__update_pip() {
   local pip_command=${1:-pip}
   __dko_status "Updating $pip_command"
-  if __dko_has "$pip_command"; then
-    $pip_command install --upgrade setuptools || return 1
-    $pip_command install --upgrade pip        || return 1
-    $pip_command install --upgrade \
-      --requirement "${DOTFILES}/python/requirements.txt"
-  fi
+  ! __dko_has "$pip_command" \
+    && __dko_warn "${pip_command} not found" && return 1
+  "$pip_command" install --upgrade setuptools || return 1
+  "$pip_command" install --upgrade pip        || return 1
+  "$pip_command" install --upgrade \
+    --requirement "${DOTFILES}/python/requirements.txt"
 }
 
 __dko_dotfiles__py__update_neovim_python() {
@@ -349,9 +351,7 @@ __dko_dotfiles__py__update_neovim_python() {
 # ----------------------------------------------------------------------------
 
 __dko_dotfiles__php__require_composer() {
-  __dko_has "composer" && return 0
-  __dko_warn "composer is not installed"
-  return 1
+  ! __dko_has "composer" && __dko_warn "composer is not installed" && return 1
 }
 
 __dko_dotfiles__php__update_composer() {
@@ -516,7 +516,6 @@ __dko_dotfiles__darwin__update_brew_done() {
   brew cleanup
   brew cask cleanup
   brew prune
-  rehash
 }
 
 __dko_dotfiles__darwin__require_brew() {
@@ -544,8 +543,9 @@ __dko_dotfiles__darwin__update_brew() {
     brew update & wait
 
     # check if needed
-    readonly outdated="$(brew outdated --quiet & wait)"
+    readonly outdated="$(brew outdated --quiet)"
     [[ -z "$outdated" ]] && exit
+    wait
 
     # Detect if brew's python3 (not pyenv) was outdated
     grep -q "python3" <<<"$outdated" && {
