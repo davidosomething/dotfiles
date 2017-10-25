@@ -21,7 +21,7 @@ readonly dotfiles_path="$(pwd)"
 __dko_status "Copying terminfo files"
 
 # RXVT
-mkdir -p -- "${TERMINFO}/r"
+mkdir -p -- "${HOME}/.terminfo/r"
 [[ -d "${dotfiles_path}/terminfo/r" ]] && \
   cp -R -- "${dotfiles_path}/terminfo/r/*" "${HOME}/.terminfo/r/"
 
