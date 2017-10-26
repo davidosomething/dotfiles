@@ -84,18 +84,6 @@ autocmd dkoneomake User vim-pyenv-dectivate-post
       \   call dkoproject#neomake#python#DeactivatedPyenv()
 
 " ============================================================================
-" Custom project definitions
-" @TODO move these
-" ============================================================================
-
-autocmd dkoneomake BufNewFile,BufReadPre */sqsp/*
-      \ let g:neomake_java_checkstyle_xml =
-      \   expand('$SQSP/squarespace-styleguide/squarespace-checkstyle.xml')
-autocmd dkoneomake BufNewFile,BufReadPre */site-server/*
-      \ let b:neomake_javascript_eslint_exe =
-      \   expand('$SQSP/squarespace-v6/site-server/node_modules/.bin/eslint')
-
-" ============================================================================
 
 " Keep this last so all the other autocmds happen first
 autocmd dkoneomake BufWritePost * call dkoproject#neomake#MaybeRun()
