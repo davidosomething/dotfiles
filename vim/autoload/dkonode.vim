@@ -1,7 +1,6 @@
 " autoload/dkonode.vim
-"
+
 " nvm and node related
-"
 
 " @return {string} cached default node directory or 0
 function! dkonode#Default() abort

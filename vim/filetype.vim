@@ -21,6 +21,11 @@ function! s:SetJSONorYAML() abort
   setfiletype yaml
 endfunction
 
+function! s:SetByShebang() abort
+  let l:shebang = getline(1)
+  if shebang =~# '^#!.*/.*\s\+node\>' | setfiletype javascript | endif
+endfunction
+
 function! s:BindPreview() abort
   if exists('$ITERM_PROFILE') || has('gui_macvim')
     nnoremap  <silent><buffer><special>  <Leader>m
@@ -34,33 +39,19 @@ endfunction
 " cleared (otherwise it will run, and then this one, possible causing two
 " filetype events to execute in succession)
 augroup filetypedetect
+  autocmd! BufNewFile,BufRead * call s:SetByShebang()
 
-  autocmd! BufNewFile,BufRead
-        \ *.dump
-        \ setfiletype sql
-
-  autocmd! BufNewFile,BufRead
-        \ .flake8
-        \ setfiletype dosini
-
-  autocmd! BufNewFile,BufRead
-        \ *.gradle
-        \ setfiletype groovy
+  autocmd! BufNewFile,BufRead *.dump setfiletype sql
+  autocmd! BufNewFile,BufRead .flake8 setfiletype dosini
+  autocmd! BufNewFile,BufRead *.gradle setfiletype groovy
 
   " git branch description (opened via `git branch --edit-description`)
-  autocmd! BufNewFile,BufRead
-        \ BRANCH_DESCRIPTION
+  autocmd! BufNewFile,BufRead BRANCH_DESCRIPTION
         \ setfiletype gitbranchdescription.markdown.pandoc
 
   " marko templating, close enough to HTML
-  autocmd! BufNewFile,BufRead
-        \ *.marko
-        \ setfiletype html.marko
-
-  " marko templating, close enough to HTML
-  autocmd! BufNewFile,BufRead
-        \ *.template
-        \ setfiletype html
+  autocmd! BufNewFile,BufRead *.marko setfiletype html.marko
+  autocmd! BufNewFile,BufRead *.template setfiletype html
 
   autocmd! BufNewFile,BufRead *.md
         \   setfiletype markdown.pandoc
@@ -78,14 +69,9 @@ augroup filetypedetect
         \ */nginx*.conf,/*/nginx*.conf
         \ setfiletype nginx
 
-  " polkit rules files
-  autocmd! BufNewFile,BufRead
-        \ *.plist
-        \ setfiletype xml
+  autocmd! BufNewFile,BufRead *.plist setfiletype xml
 
   " polkit rules files
-  autocmd! BufNewFile,BufRead
-        \ *.rules
-        \ setfiletype javascript
+  autocmd! BufNewFile,BufRead *.rules setfiletype javascript
 
 augroup END

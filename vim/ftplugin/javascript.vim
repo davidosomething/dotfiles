@@ -23,3 +23,5 @@ if g:dko_use_completion && dkoplug#plugins#Exists('jspc.vim')
   " completion is forwarded to NCM
   set omnifunc=
 endif
+
+nmap <buffer> gf <Plug>(enhanced-resolver)

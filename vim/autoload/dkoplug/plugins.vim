@@ -503,9 +503,8 @@ function! dkoplug#plugins#LoadAll() abort
   " Features
   " ----------------------------------------
 
-  " detect extensionless node scripts (executables) via shebang
-  " and add gf for going to node_modules files
-  Plug 'moll/vim-node'
+  " Resolve JS import/require paths using enhanced-resolver-cli
+  Plug g:dko#vim_dir . '/mine/vim-enhanced-resolver'
 
   " For refactoring only, not completion
   Plug 'ternjs/tern_for_vim', PlugIf(executable('npm'), {
