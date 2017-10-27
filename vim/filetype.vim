@@ -39,7 +39,8 @@ endfunction
 " cleared (otherwise it will run, and then this one, possible causing two
 " filetype events to execute in succession)
 augroup filetypedetect
-  autocmd! BufNewFile,BufRead * call s:SetByShebang()
+  " pangloss/vim-javascript provides this
+  "autocmd! BufNewFile,BufRead * call s:SetByShebang()
 
   autocmd! BufNewFile,BufRead *.dump setfiletype sql
   autocmd! BufNewFile,BufRead .flake8 setfiletype dosini

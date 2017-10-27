@@ -458,8 +458,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " PANGLOSS MODE - this is vim upstream now!
   " 1.  Preferring pangloss for now since I like the included indentexpr
-  "     it also has a node ftdetect, but that is the same as in
-  "     moll/vim-node
+  "     it also has a node ftdetect
   " 2.  After syntax, ftplugin, indent for JSX
   Plug 'pangloss/vim-javascript'
 
