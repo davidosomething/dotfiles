@@ -21,7 +21,7 @@ alias cd-='cd -- -'
 alias cd..='cd -- ..'
 alias cdd='cd -- "${DOTFILES}"'
 alias cdv='cd -- "${VDOTDIR}"'
-alias dirs='dirs -v'                  # default to vert, use -l for list
+alias dirs='dirs -v' # default to vert, use -l for list
 alias down='cd -- "${XDG_DOWNLOAD_DIR}"'
 alias downs='down'
 alias tree='tree -CF'
@@ -159,6 +159,12 @@ alias be='bun exec'
 alias cap='be cap'
 
 # ----------------------------------------------------------------------------
+# shfmt
+# ----------------------------------------------------------------------------
+
+alias shfmt='shfmt -p -i 2 -bn -ci'
+
+# ----------------------------------------------------------------------------
 # ssh keys
 # @see {@link https://blog.g3rt.nl/upgrade-your-ssh-keys.html}
 # ----------------------------------------------------------------------------
@@ -206,7 +212,7 @@ alias publicip='\curl icanhazip.com'
 alias rsync='rsync --human-readable --partial --progress'
 alias t="tree -a --noreport --dirsfirst -I '.git|node_modules|bower_components|.DS_Store'"
 alias today='date +%Y-%m-%d'
-alias tpr='tput reset'                # really clear the scrollback
+alias tpr='tput reset' # really clear the scrollback
 alias u='dot'
 alias vag='vagrant'
 alias vb='VBoxManage'
@@ -218,8 +224,8 @@ alias xit='exit' # dammit
 # ============================================================================
 
 __alias_ls() {
-  __almost_all='-A' # switchted from --almost-all for old bash support
-  __classify='-F' # switched from --classify for old bash support
+  __almost_all='-A' # switched from --almost-all for old bash support
+  __classify='-F'   # switched from --classify for old bash support
   __colorized='--color=auto'
   __groupdirs='--group-directories-first'
   __literal=''
