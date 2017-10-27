@@ -4,9 +4,8 @@ augroup squarespace
   autocmd!
 augroup END
 
-autocmd BufNewFile,BufReadPre
-      \ */projects/squarespace/*
-      \ setlocal noeol
+" autocmd squarespace BufNewFile,BufReadPre */sqsp/*
+"       \ setlocal noeol
 
 if dkoplug#plugins#IsLoaded('neomake')
   autocmd squarespace BufNewFile,BufReadPre */sqsp/*
