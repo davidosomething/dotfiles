@@ -3,13 +3,11 @@
 
 let g:editorconfig_verbose = 1
 
-" Disable default autocmd which only loads editorconfig on files that have
-" a directory
-
-" Always load editorconfig upon opening a file
 augroup dkovimeditorconfig
   autocmd!
-  autocmd User vim-editorconfig nested
-        \ autocmd! plugin-editorconfig BufNewFile,BufReadPost
-  autocmd BufNewFile,BufReadPost * nested call editorconfig#load()
+
+  " Always load editorconfig upon opening a file
+  " Fills in the gap that vim-editorconfig strangely ignores
+  autocmd BufNewFile,BufReadPost * nested
+        \ if !isdirectory(expand('%:p:h')) | call editorconfig#load() | endif
 augroup END
