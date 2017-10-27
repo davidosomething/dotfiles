@@ -11,7 +11,7 @@ augroup END
 " Delay loading NCM until InsertEnter
 function s:StartNcm()
   " Hooks for setting up sources before loading NCM
-  doautocmd User CmBefore
+  silent! doautocmd User CmBefore
   call plug#load('nvim-completion-manager')
   autocmd! dkoncm InsertEnter
 endfunction
