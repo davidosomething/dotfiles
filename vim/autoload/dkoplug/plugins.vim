@@ -185,6 +185,12 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion
   " ==========================================================================
 
+  " The language client completion is a bit slow to kick in, but it works
+  let l:use_langserver = !g:dko_use_deoplete
+  Plug 'autozimu/LanguageClient-neovim', PlugIf(l:use_langserver, {
+        \   'do': ':UpdateRemotePlugins'
+        \ })
+
   " Auto-insert matching braces with detection for jumping out on close.
   " No right brace detection
   "Plug 'cohama/lexima.vim'
@@ -213,12 +219,6 @@ function! dkoplug#plugins#LoadAll() abort
   " - deoplete-padawan (deoplete)
   " - jspc.vim (omni only)
   Plug 'Shougo/deoplete.nvim', PlugIf(g:dko_use_deoplete, {
-        \   'do': ':UpdateRemotePlugins'
-        \ })
-
-  " The language client completion is a bit slow to kick in, but it works
-  let l:use_langserver = !g:dko_use_deoplete
-  Plug 'autozimu/LanguageClient-neovim', PlugIf(l:use_langserver, {
         \   'do': ':UpdateRemotePlugins'
         \ })
 
@@ -259,11 +259,10 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Code analysis completion
   " Langserver disabled
-  let g:dko_use_js_langserver = 0 && g:dko_use_completion
+  let g:dko_use_js_langserver = g:dko_use_completion
         \ && l:use_langserver
-        \ && !empty(dkonode#Langserver())
+        \ && executable('javascript-typescript-stdio')
   let l:use_tern = g:dko_use_completion
-        \ && !g:dko_use_js_langserver
         \ && executable('npm')
 
   " faster than deoplete implementation

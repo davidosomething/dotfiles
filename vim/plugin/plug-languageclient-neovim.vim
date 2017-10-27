@@ -18,7 +18,7 @@ endif
 
 if g:dko_use_js_langserver
   let g:LanguageClient_serverCommands['javascript'] = [
-        \   dkonode#Langserver() . '/lib/language-server-stdio.js'
+        \   'javascript-typescript-stdio'
         \ ]
   autocmd dkolanguageclient FileType javascript LanguageClientStart
 endif

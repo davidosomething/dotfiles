@@ -31,10 +31,3 @@ function! dkonode#Package(package) abort
   let l:package_dir = dkonode#Packages() . '/' . a:package
   return isdirectory(l:package_dir) ? l:package_dir : ''
 endfunction
-
-" @return {string|int} langserver dir or 0
-function! dkonode#Langserver() abort
-  let s:langserver = get(s:, 'langserver', dkonode#Package('javascript-typescript-langserver'))
-  return s:langserver
-endfunction
-
