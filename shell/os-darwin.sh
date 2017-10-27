@@ -38,7 +38,7 @@ members() {
   dscl . -list /Users | while read -r user; do
     printf "%s " "$user"
     dsmemberutil checkmembership -U "$user" -G "$*"
-  done | grep "is a member" | cut -d " " -f 1;
+  done | grep "is a member" | cut -d " " -f 1
 }
 
 # short version of what's provided by oh-my-zsh/xcode

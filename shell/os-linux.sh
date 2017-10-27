@@ -5,8 +5,8 @@
 export DKO_SOURCE="${DKO_SOURCE} -> shell/os-linux.bash"
 
 case "$(uname -s)" in
-  FreeBSD)   export DOTFILES_OS="FreeBSD" ;;
-  OpenBSD)   export DOTFILES_OS="OpenBSD" ;;
+  FreeBSD) export DOTFILES_OS="FreeBSD" ;;
+  OpenBSD) export DOTFILES_OS="OpenBSD" ;;
   *)
     # for pacdiff
     export DIFFPROG="nvim -d"
@@ -44,4 +44,3 @@ esac
 flushfonts() {
   fc-cache -f -v
 }
-
