@@ -46,7 +46,7 @@ gitexport() {
 mykey() {
   cat "$HOME/.ssh/id_rsa.pub"
   if __dko_has "pbcopy"; then
-    pbcopy < "$HOME/.ssh/id_rsa.pub"
+    pbcopy <"$HOME/.ssh/id_rsa.pub"
   elif __dko_has "xclip"; then
     xclip "$HOME/.ssh/id_rsa.pub"
   fi
