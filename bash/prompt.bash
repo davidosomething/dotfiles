@@ -1,33 +1,27 @@
 # prompt.bash
 
+# check for what branch we're on. (fast)
+# If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
+# Otherwise, just give up.
+__branch_name() {
+  git symbolic-ref --quiet --short HEAD 2>/dev/null \
+    || git rev-parse --short HEAD 2>/dev/null \
+    || echo '(unknown)'
+}
+
+__symbol_dirty()    { git diff --no-ext-diff --quiet || echo "*"; }
+__symbol_unstaged() { git diff --no-ext-diff --cached --quiet || echo "+"; }
+
 # __prompt_git
 #
 # from paul irish
 # @see https://github.com/paulirish/dotfiles/blob/master/.bash_prompt
 #
 __prompt_git() {
-  local branch_name
-  local dirty_symbol
-
   # this is >5x faster than mathias's. has to be for working in Chromium & Blink.
   # check if we're in a git repo. (fast)
   git rev-parse --is-inside-work-tree &>/dev/null || return
-
-  # check for what branch we're on. (fast)
-  # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
-  # Otherwise, just give up.
-  branch_name="$(\
-    git symbolic-ref --quiet --short HEAD 2> /dev/null || \
-    git rev-parse --short HEAD 2> /dev/null || \
-    echo '(unknown)' \
-    )";
-
-  # check if it's dirty (slow)
-  #   technique via github.com/git/git/blob/355d4e173/contrib/completion/git-prompt.sh#L472-L475
-  dirty_symbol=$(git diff --no-ext-diff --quiet --ignore-submodules --exit-code || echo -e "*")
-
-  [[ -n "${s}" ]] && s=" [${s}]";
-  echo -e "${1}${branch_name}${2}${dirty_symbol}"
+  echo -e "${1}$(__branch_name)${2}$(__symbol_dirty)$(__symbol_unstaged)"
 }
 
 # __bash_prompt
