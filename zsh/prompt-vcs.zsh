@@ -25,14 +25,13 @@ zstyle ':vcs_info:git*' actionformats     '%F{magenta}(%m %F{red}→%F{magenta} 
 # Show untracked files
 # https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples#L155
 +vi-git-untracked() {
-  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-    git status --porcelain | grep '??' &> /dev/null ; then
+  git rev-parse --is-inside-work-tree 2>/dev/null \
+    && git status --porcelain | grep -q '??' \
+    && hook_com[staged]+='T'
     # This will show the marker if there are any untracked files in repo.
     # If instead you want to show the marker only if there are untracked
     # files in $PWD, use:
     #[[ -n $(git ls-files --others --exclude-standard) ]] ; then
-    hook_com[staged]+='T'
-  fi
 }
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 
