@@ -16,9 +16,10 @@ __eclimd() {
     args="-f ${DOTFILES}/eclimd/eclimrc"
     __dko_status "Starting \`eclimd ${args}\`"
     eval "${bin} ${args}"
+    exit
   }
 
-  "$bin" "$@"
+  eval "$bin $*"
 }
 
 __eclimd "$@"
