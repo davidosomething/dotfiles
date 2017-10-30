@@ -657,7 +657,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " ==========================================================================
   " Search
-  " See after/plugin/search.vim for complex configutation
+  " See after/plugin/search.vim for complex configuration
   " ==========================================================================
 
   " <Plug> to not move on * search function

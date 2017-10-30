@@ -13,6 +13,9 @@ augroup dkosearch
   autocmd!
 augroup END
 
+let s:is_native_incsearch = has('patch-8.0.1238')
+      \ && !dkoplug#plugins#IsLoaded('incsearch.vim')
+
 " ============================================================================
 " Clear search
 " ============================================================================
@@ -22,6 +25,18 @@ nmap  <special>   <Plug>(DKOClearSearch)  :<C-U>nohlsearch<CR><C-l>
 
 " Default, may be overridden by a plugin conf below
 nmap  <special>   <Esc><Esc>   <Plug>(DKOClearSearch)
+
+" ============================================================================
+" Native incsearch
+" ============================================================================
+
+" Tab/S-Tab go to next match while still in cmdline
+if s:is_native_incsearch
+  cnoremap <special><expr> <Tab>    getcmdtype() =~ '[?/]'
+        \ ? '<C-g>' : feedkeys('<Tab>', 'int')[1]
+  cnoremap <special><expr> <S-Tab>  getcmdtype() =~ '[?/]'
+        \ ? '<C-t>' : feedkeys('<S-Tab>', 'int')[1]
+endif
 
 " ============================================================================
 
