@@ -503,7 +503,7 @@ function! dkoplug#plugins#LoadAll() abort
   " ----------------------------------------
 
   " Resolve JS import/require paths using enhanced-resolver-cli
-  Plug g:dko#vim_dir . '/mine/vim-enhanced-resolver'
+  Plug 'davidosomething/vim-enhanced-resolver'
 
   " For refactoring only, not completion
   Plug 'ternjs/tern_for_vim', PlugIf(executable('npm'), {

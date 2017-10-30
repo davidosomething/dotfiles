@@ -162,27 +162,22 @@ endfunction
 " ============================================================================
 
 function! dko#TwoSpace() abort
-  setlocal expandtab
-  setlocal shiftwidth=2
-  setlocal softtabstop=2
+  setlocal expandtab shiftwidth=2 softtabstop=2
 endfunction
 
 function! dko#TwoTabs() abort
-  setlocal noexpandtab
-  setlocal shiftwidth=2
-  setlocal softtabstop=2
+  setlocal noexpandtab shiftwidth=2 softtabstop=2
 endfunction
 
 function! dko#FourTabs() abort
-  setlocal noexpandtab
-  setlocal shiftwidth=2
-  setlocal softtabstop=0
+  setlocal noexpandtab shiftwidth=2 softtabstop=0
 endfunction
 
 " ============================================================================
 " grepprg
 " ============================================================================
 
+" Cached
 function! dko#GetGrepper() abort
   if exists('s:grepper') | return s:grepper | endif
 

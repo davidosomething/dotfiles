@@ -442,14 +442,6 @@ let g:is_bash = 1
 " disable mzscheme, tcl highlighting
 let g:vimsyn_embed = 'lpPr'
 
-augroup dkoproject
-  autocmd!
-
-  autocmd BufNewFile,BufRead,BufWritePost
-        \ *
-        \ call dkoproject#GetRoot()
-augroup END
-
 " ============================================================================
 " Plugins
 " ============================================================================
@@ -525,6 +517,14 @@ augroup dkowindow
         \ [^l]*
         \ cwindow
   "autocmd   QuickFixCmdPost l*      lwindow
+augroup END
+
+augroup dkoproject
+  autocmd!
+
+  autocmd BufNewFile,BufRead,BufWritePost
+        \ *
+        \ call dkoproject#GetRoot()
 augroup END
 
 " WordPress VIP specific
