@@ -8,6 +8,10 @@ nmap <silent><special>
       \ :call enhancedresolver#GoCursor()<CR>
 
 nmap <special>
+      \ <Plug>(enhanced-resolver-get-cursor)
+      \ :call enhancedresolver#GetCursorWord()<CR>
+
+nmap <special>
       \ <Plug>(enhanced-resolver-echo-cursor)
       \ :echomsg enhancedresolver#ResolveCursor()<CR>
 

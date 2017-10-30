@@ -1,3 +1,10 @@
+require('path');
+import coffee from './x.coffee';
+import {
+  coffee,
+  a
+} from 'coffee';
+
 /**
  * Test JavaScript file
  */
