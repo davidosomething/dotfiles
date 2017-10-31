@@ -23,7 +23,7 @@ endfunction
 
 function! s:SetByShebang() abort
   let l:shebang = getline(1)
-  if shebang =~# '^#!.*/.*\s\+node\>' | setfiletype javascript | endif
+  if l:shebang =~# '^#!.*/.*\s\+node\>' | setfiletype javascript | endif
 endfunction
 
 function! s:BindPreview() abort
@@ -40,7 +40,7 @@ endfunction
 " filetype events to execute in succession)
 augroup filetypedetect
   " pangloss/vim-javascript provides this
-  "autocmd! BufNewFile,BufRead * call s:SetByShebang()
+  autocmd! BufNewFile,BufRead * call s:SetByShebang()
 
   autocmd! BufNewFile,BufRead *.dump setfiletype sql
   autocmd! BufNewFile,BufRead .flake8 setfiletype dosini
