@@ -12,6 +12,7 @@ apidoc
 coffee-script
 coffeelint
 create-react-app
+enhanced-resolve-cli
 flow-bin
 flow-language-server
 generator-hubot
