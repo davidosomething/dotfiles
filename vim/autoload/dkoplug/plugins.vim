@@ -252,7 +252,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
   "       \   'do': 'cd -- libs/javavi/ && mvn compile',
-  "       \   'for': 'java',
+  "       \   'for': [ 'java' ],
   "       \ })
 
   " --------------------------------------------------------------------------
@@ -331,10 +331,12 @@ function! dkoplug#plugins#LoadAll() abort
   " Alternative PHP completion daemon, never got it working...
   "   Plug 'phpvim/phpcd.vim', {
   "         \   'do': 'composer update',
-  "         \   'for': 'php'
+  "         \   'for': [ 'php' ]
   "         \ }
 
-  Plug 'shawncplus/phpcomplete.vim', PlugIf(!l:use_composer, { 'for': 'php' })
+  Plug 'shawncplus/phpcomplete.vim', PlugIf(!l:use_composer, {
+        \   'for': [ 'php' ]
+        \ })
 
   " --------------------------------------------------------------------------
   " Completion: Python
@@ -392,7 +394,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Language: D
   " ==========================================================================
 
-  Plug 'idanarye/vim-dutyl', { 'for': 'd' }
+  Plug 'idanarye/vim-dutyl', { 'for': [ 'd' ] }
 
   " ==========================================================================
   " Language: Git
@@ -425,7 +427,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Language: Java
   " ==========================================================================
 
-  Plug 'dansomething/vim-eclim'
+  Plug 'dansomething/vim-eclim', { 'for': [ 'java' ] }
 
   " ==========================================================================
   " Language: JavaScript and derivatives, JSON
@@ -436,11 +438,11 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'elzr/vim-json'
 
   " provides coffee ft
-  "Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+  "Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
   " The upstream has after/* garbage that messes with <script> html blocks in
   " php files
   Plug 'davidosomething/vim-coffee-script', {
-        \   'for':    'coffee',
+        \   'for':    [ 'coffee' ],
         \   'branch': 'noft'
         \ }
 
@@ -558,7 +560,7 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug '2072/vim-syntax-for-PHP'
 
   " Updated for php 7.1, Jan 2017 (newer than neovim 2.0 runtime)
-  Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+  Plug 'StanAngeloff/php.vim', { 'for': [ 'php' ] }
 
   " Indent
   " 2072 is included with vim, this is upstream
@@ -578,9 +580,9 @@ function! dkoplug#plugins#LoadAll() abort
   " Not a valid plugin runtime structure, file needs to be in ftplugin/
   "Plug 'sullyj3/vim-ftplugin-python'
 
-  Plug 'lambdalisue/vim-pyenv', { 'for': 'python' }
+  Plug 'lambdalisue/vim-pyenv', { 'for': [ 'python' ] }
   Plug 'Vimjas/vim-python-pep8-indent'
-  Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
+  Plug 'raimon49/requirements.txt.vim', { 'for': [ 'requirements' ] }
 
   " ==========================================================================
   " Language: Ruby, rails, puppet
