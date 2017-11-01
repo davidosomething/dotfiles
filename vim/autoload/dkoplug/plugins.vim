@@ -37,8 +37,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Embedded filetype support
   " ==========================================================================
 
-  " tyru/caw.vim, deoplete, some others use this to determine inline embedded
-  " filetypes
+  " tyru/caw.vim, some others use this to determine inline embedded filetypes
   Plug 'Shougo/context_filetype.vim'
 
   " ==========================================================================
@@ -188,10 +187,7 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
 
   " The language client completion is a bit slow to kick in, but it works
-  let l:use_langserver = !g:dko_use_deoplete
-  Plug 'autozimu/LanguageClient-neovim', PlugIf(l:use_langserver, {
-        \   'do': ':UpdateRemotePlugins'
-        \ })
+  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
   " Auto-insert matching braces with detection for jumping out on close.
   " No right brace detection
@@ -208,24 +204,8 @@ function! dkoplug#plugins#LoadAll() abort
         \   'on': []
         \ })
 
-  " Always provide deoplete, may or may not be bound to <C-o> depending on if
-  " use_ncm, in which case deoplete Forwards to nvim-completion-manager for
-  " some sources (e.g. deoplete-padawan for php since langserver above didn't
-  " work for me.)
-  "
-  " context_filetype.vim provides mixed-filetype completion for deoplete,
-  " e.g. highlight JS within Markdown fenced code blocks.
-  " nvim-completion-manager already has this functionality built in.
-  "
-  " Currently forwarding to NCM:
-  " - deoplete-padawan (deoplete)
-  " - jspc.vim (omni only)
-  Plug 'Shougo/deoplete.nvim', PlugIf(g:dko_use_deoplete, {
-        \   'do': ':UpdateRemotePlugins'
-        \ })
-
   " --------------------------------------------------------------------------
-  " NCM/Deoplete functionality: Includes
+  " NCM functionality: Includes
   " --------------------------------------------------------------------------
 
   " Include completion, include tags
@@ -259,36 +239,21 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion: JavaScript
   " --------------------------------------------------------------------------
 
-  " Code analysis completion
-  " Langserver disabled
-  let g:dko_use_js_langserver = g:dko_use_completion
-        \ && l:use_langserver
-        \ && executable('javascript-typescript-stdio')
-  let l:use_tern = g:dko_use_completion
-        \ && executable('npm')
-
-  " faster than deoplete implementation
-  Plug 'roxma/nvim-cm-tern', PlugIf(l:use_tern, { 'do': 'npm install' })
-
-  " slower than nvim-cm-tern
-  " Plug 'carlitux/deoplete-ternjs', PlugIf(l:use_tern, {
-  "   \   'do': 'npm install --global tern'
-  "   \ })
+  Plug 'roxma/nvim-cm-tern', PlugIf(g:dko_use_tern_lsp, {
+        \   'do': 'npm install'
+        \ })
 
   " Complete imports (slow, consider set up in .tern-project instead)
   " Plug 'neovim/node-host', { 'do': 'npm install' }
   "       \ | Plug 'billyvg/jsimport.nvim'
 
   " Nice generic omnifunc when no completion engine
-  Plug '1995eaton/vim-better-javascript-completion',
-        \ PlugIf(!l:use_tern && !g:dko_use_js_langserver)
+  "Plug '1995eaton/vim-better-javascript-completion',
+  "      \ PlugIf(!g:dko_use_js_langserver && !g:dko_use_tern_lsp)
 
   " Parameter completion (in or after ' or ")
   " Extends omnicomplete to fill in addEventListener('click'
-  " Forwarded by deoplete to nvim-completion-manager
-  " Does not work in deoplete -- use as omnicomplete only!
-  " E.g. specific g:deoplete#omni_patterns so omnifunction is called directly
-  Plug 'othree/jspc.vim'
+  "Plug 'othree/jspc.vim'
 
   " ----------------------------------
   " Flow
@@ -301,27 +266,17 @@ function! dkoplug#plugins#LoadAll() abort
   " not using until this is fixed: https://github.com/roxma/ncm-flow/issues/3
   "Plug 'roxma/ncm-flow', PlugIf(g:dko_use_completion)
 
-  " Deoplete completion (forwarded to NCM)
-  Plug 'wokalski/autocomplete-flow', PlugIf(g:dko_use_deoplete)
-
   " --------------------------------------------------------------------------
   " Completion: PHP
   " --------------------------------------------------------------------------
   "
-  let l:use_composer = g:dko_use_completion
-        \ && has('nvim')
-        \ && executable('composer')
-  if l:use_composer
-    Plug 'padawan-php/deoplete-padawan', PlugIf(g:dko_use_deoplete, {
-          \   'do': 'composer install'
-          \ })
-
-    Plug 'roxma/LanguageServer-php-neovim', PlugIf(l:use_langserver, {
+  if has('nvim') && g:dko_use_composer
+    Plug 'roxma/LanguageServer-php-neovim', {
           \   'do': 'composer install && composer run-script parse-stubs'
-          \ })
+          \ }
   endif
 
-  " Possible vanilla plugins - may work with deoplete
+  " Possible vanilla plugins
   " 'phpvim/phpcd.vim'              - server based completion
   " 'mkusher/padawan.vim'           - server based completion for VIM
   " 'm2mdas/phpcomplete-extended'   - fast via vimproc, but dead
@@ -334,7 +289,7 @@ function! dkoplug#plugins#LoadAll() abort
   "         \   'for': [ 'php' ]
   "         \ }
 
-  Plug 'shawncplus/phpcomplete.vim', PlugIf(!l:use_composer, {
+  Plug 'shawncplus/phpcomplete.vim', PlugIf(!g:dko_use_composer, {
         \   'for': [ 'php' ]
         \ })
 
@@ -344,9 +299,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   " nvim-completion-manager has a jedi source in python already, so as long as
   " jedi is pip installed it is good to go.
-
-  " Forwarded to nvim-completion-manager if present
-  " Plug 'zchee/deoplete-jedi'
 
   " --------------------------------------------------------------------------
   " Completion: Syntax
@@ -361,7 +313,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion: Snippet engine
   " --------------------------------------------------------------------------
 
-  " nvim-completion-manager and deoplete
+  " nvim-completion-manager
   Plug 'Shougo/neosnippet', PlugIf(g:dko_use_completion)
   Plug 'Shougo/neosnippet-snippets', PlugIf(g:dko_use_completion)
   Plug 'honza/vim-snippets', PlugIf(g:dko_use_completion)
@@ -370,7 +322,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion: VimL
   " --------------------------------------------------------------------------
 
-  " nvim-completion-manager and deoplete (disabled deoplete integration)
+  " nvim-completion-manager
   Plug 'Shougo/neco-vim', PlugIf(g:dko_use_completion)
 
   " ==========================================================================
@@ -413,9 +365,6 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
 
   " Syntax enhancements and htmlcomplete#CompleteTags function override
-  " The completion function doesn't work with deoplete
-  " @see https://github.com/Shougo/deoplete.nvim/issues/65
-  " @see https://github.com/Shougo/deoplete.nvim/issues/70
   "Plug 'othree/html5.vim'
 
   "Plug 'tpope/vim-haml'
@@ -509,10 +458,10 @@ function! dkoplug#plugins#LoadAll() abort
   " Resolve JS import/require paths using enhanced-resolver-cli
   Plug 'davidosomething/vim-enhanced-resolver'
 
-  " For refactoring only, not completion
-  Plug 'ternjs/tern_for_vim', PlugIf(executable('npm'), {
-        \   'do': 'npm install --global tern'
-        \ })
+  " For refactoring only, not completion. Langserver provides same feat.
+  " Plug 'ternjs/tern_for_vim', PlugIf(g:dko_use_tern_for_vim, {
+  "       \   'do': 'npm install --global tern'
+  "       \ })
 
   " ==========================================================================
   " Language: Markdown, Pandoc

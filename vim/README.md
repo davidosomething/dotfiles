@@ -36,8 +36,7 @@ list ([Syntax-Checkers]) and shows how to set them up.
 - You can now switch back to whatever python (`pyenv deactivate`) you want,
   `init.vim` for Neovim startup is already configured to find the `neovim3`
   virtualenv.
-- `:UpdateRemotePlugins` if installing/upgrading python-based plugins like
-  deoplete.
+- `:UpdateRemotePlugins` if installing/upgrading python-based plugins
 - `:CheckHealth` to see if the python3 setup and plugins are working. iTerm
   should use xterm-256color-italic terminfo if the backspace message is there.
 

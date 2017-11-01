@@ -34,7 +34,9 @@ let g:mapleader = "\<Space>"
 
 " Plugin settings
 let g:dko_use_completion = has('nvim') && has('python3')
-let g:dko_use_deoplete = g:dko_use_completion && 0
+let g:dko_use_js_langserver = executable('javascript-typescript-stdio')
+let g:dko_use_tern_lsp = g:dko_use_completion && executable('npm')
+let g:dko_use_composer = g:dko_use_completion && executable('composer')
 
 " ============================================================================
 " My autocmd block - Clear vimrc group's autocmds if reloading
@@ -221,7 +223,7 @@ set undoreload=10000
 " Built-in completion
 " ----------------------------------------------------------------------------
 
-" Don't consider = symbol as part filename. Helps for deoplete file source.
+" Don't consider = symbol as part filename.
 set isfname-==
 
 set complete-=i                       " don't complete includes

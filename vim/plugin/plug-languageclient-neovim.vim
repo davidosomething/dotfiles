@@ -2,10 +2,6 @@
 
 if !dkoplug#plugins#IsLoaded('LanguageClient-neovim') | finish | endif
 
-augroup dkolanguageclient
-  autocmd!
-augroup END
-
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_diagnosticsList = 'location' " use loclist instead of qf
 let g:LanguageClient_serverCommands = {}

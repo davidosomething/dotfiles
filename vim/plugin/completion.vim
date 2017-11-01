@@ -1,7 +1,6 @@
 " plugin/completion.vim
 " Generic completion helpers.
-" See plug-deoplete.vim or plug-nvim-completion-manager.vim for engine
-" specific settings.
+" See plug-nvim-completion-manager.vim for engine specific settings
 
 augroup dkocompletion
   autocmd!
