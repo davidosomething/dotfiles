@@ -27,33 +27,31 @@ let g:dkoproject#neomake#javascript#local_flow = {
       \   'when':         '!empty(dkoproject#GetFile(".flowconfig"))',
       \ }
 
+function! s:Disable(maker) abort
+  " Remove eslint from enabled makers, use only jshint
+  let b:neomake_javascript_enabled_makers = filter(
+        \   b:neomake_javascript_enabled_makers,
+        \   "v:val !~? '" . a:maker . "'"
+        \ )
+endfunction
+
+function! s:GetEslintArgs() abort
+  return copy(get(g:, 'neomake_javascript_eslint_args',
+        \ neomake#GetMaker('eslint', 'javascript').args))
+endfunction
+
 " Sets b:neomake_javascript_enabled_makers based on what is present in the
 " project
 function! dkoproject#neomake#javascript#SetMaker() abort
+  let b:neomake_javascript_enabled_makers =
+        \ copy(g:neomake_javascript_enabled_makers)
+
   " Find an eslintrc in current project. If not found use jshint
-  if !empty(dkoproject#GetEslintrc())
-    let l:eslint_maker = neomake#GetMaker('eslint', 'javascript')
-    let l:eslint_args = get(
-          \ g:, 'neomake_javascript_eslint_args',
-          \ l:eslint_maker.args)
-    let b:neomake_javascript_eslint_args =
-          \ l:eslint_args + [ '-c', dkoproject#GetEslintrc() ]
-
-    " Use global eslint if local one wasn't added to b:
-    if executable('eslint')
-          \ && exists('b:neomake_javascript_enabled_makers')
-          \ && index(b:neomake_javascript_enabled_makers, 'eslint') == -1
-      call add(b:neomake_javascript_enabled_makers, 'eslint')
-    endif
-
-  " This project uses jshint instead of eslint, disable eslint (and flow)
-  elseif exists('b:neomake_javascript_enabled_makers')
-        \ && dkoproject#neomake#IsMakerExecutable('jshint')
-        \ && !empty(dkoproject#GetFile('.jshintrc'))
-    " Remove eslint from enabled makers, use only jshint
-    let b:neomake_javascript_enabled_makers = filter(
-          \   b:neomake_javascript_enabled_makers,
-          \   "v:val !~? 'eslint'"
-          \ )
+  if empty(dkoproject#GetEslintrc())
+    call s:Disable('eslint')
+  else
+    let b:neomake_javascript_eslint_args = s:GetEslintArgs() + [
+          \   '-c', dkoproject#GetEslintrc()
+          \ ]
   endif
 endfunction
