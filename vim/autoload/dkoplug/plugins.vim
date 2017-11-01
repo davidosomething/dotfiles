@@ -68,7 +68,7 @@ function! dkoplug#plugins#LoadAll() abort
           \   'FZFMRU',
           \   'FZFProject',
           \   'FZFRelevant',
-          \   'FZFSpecs',
+          \   'FZFTests',
           \   'FZFVim',
           \ ]})
   endif
@@ -147,16 +147,18 @@ function! dkoplug#plugins#LoadAll() abort
   " gcc to toggle comment
   Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
   " <Leader>s(a/r/d) to modify surrounding the pending operator
-  Plug 'rhysd/vim-operator-surround'
+  Plug 'rhysd/vim-operator-surround', { 'on': [ '<Plug>(operator-surround' ] }
   " <Leader>c to toggle CamelCase/snak_e the pending operator
-  Plug 'tyru/operator-camelize.vim'
+  Plug 'tyru/operator-camelize.vim', { 'on': [ '<Plug>(operator-camelize' ] }
 
   " Some textobjs are lazy loaded since they are ~4ms slow to load.
   " See plugin/textobj.vim to see how they're mapped.
   " -       Base textobj plugin
   Plug 'kana/vim-textobj-user'
   " - d/D   for underscore section (e.g. `did` on foo_b|ar_baz -> foo__baz)
-  Plug 'machakann/vim-textobj-delimited'
+  Plug 'machakann/vim-textobj-delimited', { 'on': [
+        \   '<Plug>(textobj-delimited'
+        \ ] }
   " - i     for indent level
   Plug 'kana/vim-textobj-indent', { 'on': [ '<Plug>(textobj-indent' ] }
   " - l     for current line

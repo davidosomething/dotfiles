@@ -5,7 +5,7 @@ let s:glob_candidates = [ '**/*.test.*', '**/*.spec.*' ]
 
 " Look near current file or in project root; in s:dir_candidates dirs for
 " files matching s:glob_candidates
-function! dkoproject#tests#FindSpecs() abort
+function! dkoproject#tests#FindTests() abort
   let l:file_dir = expand('%:p:h:t')
   let l:file_path = expand('%:p:h')
 
