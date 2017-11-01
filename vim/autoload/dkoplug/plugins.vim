@@ -29,9 +29,9 @@ function! dkoplug#plugins#LoadAll() abort
 
   "Plug '~/projects/davidosomething/vim-base2tone-lakedark'
   Plug 'davidosomething/vim-base2tone-lakedark'
-  "Plug 'AlessandroYorba/Sidonia'
   Plug 'rakr/vim-two-firewatch'
   "Plug 'arcticicestudio/nord-vim'
+  Plug 'hauleth/blame.vim'
 
   " ==========================================================================
   " Embedded filetype support
