@@ -30,7 +30,7 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug '~/projects/davidosomething/vim-base2tone-lakedark'
   Plug 'davidosomething/vim-base2tone-lakedark'
   Plug 'rakr/vim-two-firewatch'
-  "Plug 'arcticicestudio/nord-vim'
+  Plug 'arcticicestudio/nord-vim'
   Plug 'hauleth/blame.vim'
 
   " ==========================================================================
