@@ -11,6 +11,7 @@ ajv-cli
 apidoc
 coffee-script
 coffeelint
+commitizen
 create-react-app
 enhanced-resolve-cli
 flow-bin
