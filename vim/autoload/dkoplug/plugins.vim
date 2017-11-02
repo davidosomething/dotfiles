@@ -19,9 +19,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer
   " than :Scriptnames)
-  Plug 'tpope/vim-scriptease', { 'on': [
-        \   'PP', 'Scriptnames', 'Messages', '<Plug>Scriptease'
-        \ ] }
+  Plug 'tpope/vim-scriptease'
 
   " ==========================================================================
   " Colorscheme
@@ -33,7 +31,6 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'arcticicestudio/nord-vim'
   Plug 'hauleth/blame.vim'
   Plug 'beigebrucewayne/skull-vim'
-  Plug 'owickstrom/vim-colors-paramount'
 
   " ==========================================================================
   " Embedded filetype support
