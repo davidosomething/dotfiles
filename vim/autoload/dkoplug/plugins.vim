@@ -32,6 +32,8 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'rakr/vim-two-firewatch'
   Plug 'arcticicestudio/nord-vim'
   Plug 'hauleth/blame.vim'
+  Plug 'beigebrucewayne/skull-vim'
+  Plug 'owickstrom/vim-colors-paramount'
 
   " ==========================================================================
   " Embedded filetype support

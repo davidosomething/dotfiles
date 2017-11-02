@@ -17,3 +17,15 @@ elseif g:dko_use_js_langserver
         \   'javascript-typescript-stdio'
         \ ]
 endif
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
+nnoremap <silent> <Leader>d
+      \ :<C-u>call LanguageClient_textDocument_definition()<CR>
+
+nnoremap <silent> <leader>k
+      \ :<C-u>call LanguageClient_textDocument_hover()<CR>
+
+let &cpoptions = s:cpo_save
+unlet s:cpo_save
