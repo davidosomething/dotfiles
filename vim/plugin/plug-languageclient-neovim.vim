@@ -2,21 +2,17 @@
 
 if !dkoplug#plugins#IsLoaded('LanguageClient-neovim') | finish | endif
 
+" ============================================================================
+" Plugin settings
+" ============================================================================
+
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_diagnosticsList = 'location' " use loclist instead of qf
 let g:LanguageClient_serverCommands = {}
 
-" Disabled for now
-if 0 && executable('flow-language-server')
-  let g:LanguageClient_serverCommands['javascript'] = [
-        \   'flow-language-server',
-        \   '--stdio'
-        \ ]
-elseif g:dko_use_js_langserver
-  let g:LanguageClient_serverCommands['javascript'] = [
-        \   'javascript-typescript-stdio'
-        \ ]
-endif
+" ============================================================================
+" Mappings
+" ============================================================================
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
@@ -29,3 +25,26 @@ nnoremap <silent> <leader>k
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
+
+" ============================================================================
+" Language Server Setup
+" ============================================================================
+
+" Disabled for now
+if 0 && executable('flow-language-server')
+  let g:LanguageClient_serverCommands['javascript'] = [
+        \   'flow-language-server',
+        \   '--stdio'
+        \ ]
+elseif g:dko_use_js_langserver
+  let g:LanguageClient_serverCommands['javascript'] = [
+        \   'javascript-typescript-stdio'
+        \ ]
+  let g:LanguageClient_serverCommands['typescript'] =
+        \ g:LanguageClient_serverCommands['javascript']
+endif
+
+" @TODO
+" python pyls
+" lua lua-lsp
+" go go-langserver
