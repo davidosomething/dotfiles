@@ -18,7 +18,8 @@ hi dkoOperator      guifg=#ff8888
 hi dkoStatement     guifg=#60686f
 hi dkoFunctionName  guifg=#ddddee
 
-hi dkoEmComment     guibg=#323232  guifg=#ddaa66
+hi dkoComment                      guifg=#666677  gui=italic
+hi dkoEmComment     guibg=#323232  guifg=#ddaa66  gui=bold
 
 " JavaDoc
 hi dkoJavaDocTag    guifg=#7788aa
@@ -26,7 +27,9 @@ hi dkoJavaDocType   guifg=#aa8877
 hi dkoJavaDocKey    guifg=#bbccee
 
 " Statusline
-hi dkoLineModeReplace guibg=#ff8888 guifg=#282828
+hi  dkoLineImportant              guibg=#ff8888 guifg=#282828
+hi  link dkoLineModeReplace       dkoLineImportant
+hi  link dkoLineNeomakeRunning    dkoLineImportant
 
 " ============================================================================
 " Vim base
@@ -45,22 +48,23 @@ hi  Whitespace      guibg=#22222f   guifg=#444466
 hi  Delimiter                       guifg=#778899
 hi  Number                          guifg=#ee7777
 
-hi! link Comment    dkoUnimportant
-hi! link Constant   normal
-hi  link Function   dkoFunctionName
-hi! link Identifier dkoIdentifier
-hi  link Include    normal
-hi  link Keyword    normal
-hi  link Label      dkoIdentifier
-hi  link Noise      dkoUnimportant
-hi  link Operator   dkoOperator
-hi! link PreProc    dkoString
-hi! link Special    Delimiter
-hi! link Statement  dkoStatement
-hi  link String     dkoString
-hi  link Title      dkoString
-hi! link Todo       dkoEmComment
-hi! link Type       dkoIdentifier
+hi! link Comment      dkoComment
+hi  link Conditional  normal
+hi! link Constant     normal
+hi  link Function     dkoFunctionName
+hi! link Identifier   dkoIdentifier
+hi  link Include      normal
+hi  link Keyword      normal
+hi  link Label        dkoIdentifier
+hi  link Noise        dkoUnimportant
+hi  link Operator     dkoOperator
+hi! link PreProc      dkoString
+hi! link Special      Delimiter
+hi! link Statement    dkoStatement
+hi  link String       dkoString
+hi  link Title        dkoString
+hi! link Todo         dkoEmComment
+hi! link Type         dkoIdentifier
 
 " ============================================================================
 " Line backgrounds

@@ -99,7 +99,7 @@ function! dkoline#GetStatusline(winnr) abort
     let l:contents .= dkoline#Format(dkoline#Paste(), '%#DiffText#')
   endif
 
-  let l:contents .= dkoline#Format(dkoline#Readonly(l:bufnr), '%#Error#')
+  let l:contents .= dkoline#Format(dkoline#Readonly(l:bufnr), '%#dkoLineImportant#')
 
   " Function
   if get(g:, 'dkoline_enabled_functioninfo', 0)
@@ -132,7 +132,7 @@ function! dkoline#GetStatusline(winnr) abort
 
     let l:contents .= dkoline#Format(
           \ dkoline#NeomakeRunning(l:bufnr),
-          \ '%#DiffText#')
+          \ '%#dkoLineNeomakeRunning#')
   endif
 
   let l:contents .= '%<'
