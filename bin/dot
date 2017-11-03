@@ -76,13 +76,12 @@ __dko_dotfiles__update() {
     __dko_dotfiles__cd || exit 1
     git pull --rebase || exit 1
     git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
-    __dko_status "Updating dotfiles submodules"
   ) || {
     __dko_err "Error updating dotfiles"
     return 1
   }
 
-  __dko_status "Re-symlink if any dotfiles changed!"
+  __dko_ok "Successfully updated dotfiles"
 }
 
 __dko_dotfiles__update_secret() {
