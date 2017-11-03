@@ -29,7 +29,7 @@ __dko_dotfiles__usage() {
     dotfiles    -- update dotfiles (git pull)
     secret      -- update ~/.secret (git pull)
     zplugin     -- update zplugin
-    daily       -- all of the above
+    daily       -- secret, Packages / Developer Tools, fzf, nvm, pyenv
 
   Shell Tools
     fzf         -- update fzf with flags to not update rc scripts
@@ -96,14 +96,38 @@ __dko_dotfiles__update_secret() {
 
 __dko_dotfiles__update_daily() {
   __dko_dotfiles__update_secret
-  __dko_dotfiles__php__update_composer
   __dko_dotfiles__update_fzf
-  __dko_dotfiles__ruby__update_gems
-  __dko_dotfiles__node__update_nvm
+
+  if __dko_dotfiles__node__require_nvm --silent
+  then __dko_dotfiles__node__update_nvm
+  else __dko_warn "NVM not found, skipping update NVM"
+  fi
+
+  if __dko_dotfiles__go__require_go --silent
+  then __dko_dotfiles__go__update_go_packages
+  else __dko_warn "Go not found, skipping update Go dependencies"
+  fi
+
+  if ! __dko_dotfiles__ruby__require_chruby --silent
+  then __dko_warn "Chruby not found, skipping update ruby gems"
+  elif ! __dko_dotfiles__ruby__require_rubygems
+  then __dko_warn "Rubygems not found, skipping update ruby gems"
+  else __dko_dotfiles__ruby__update_gems
+  fi
+
+  if ! __dko_dotfiles__php__require_composer --silent
+  then __dko_warn "Composer not found, skipping update composer and packages"
+  else
+    __dko_dotfiles__php__update_composer
+    if __dko_dotfiles__php__require_phpcs --silent
+    then __dko_dotfiles__php__update_wpcs
+    else __dko_warn "PHPCS not found, skipping update WPCS"
+    fi
+  fi
+
   __dko_dotfiles__py__update_pyenv
   __dko_dotfiles__py__update_pip "pip"
   __dko_dotfiles__py__update_neovim_python
-  __dko_dotfiles__php__update_wpcs
 }
 
 # ------------------------------------------------------------------------------
@@ -158,15 +182,17 @@ __dko_dotfiles__update_fzf() {
 # Ruby: Introspection
 # ----------------------------------------------------------------------------
 
+# pass any arg to silence
 __dko_dotfiles__ruby__require_chruby() {
   [[ -n "$RUBY_VERSION" ]] && return 0
-  __dko_warn "System ruby detected! Please install and use chruby."
+  (( $# == 0 )) && __dko_warn "System ruby detected! Please install and use chruby."
   return 1
 }
 
+# pass any arg to silence
 __dko_dotfiles__ruby__require_rubygems() {
   __dko_has "gem" && return 0
-  __dko_warn "rubygems is not installed"
+  (( $# == 0 )) && __dko_warn "rubygems is not installed"
   return 1
 }
 
@@ -195,13 +221,14 @@ __dko_dotfiles__ruby__update_gems() {
 # Go
 # ----------------------------------------------------------------------------
 
+# pass any arg to silence
 __dko_dotfiles__go__require_go() {
   __dko_has "go" && return 0
-  __dko_warn "go is not installed"
+  (( $# == 0 )) && __dko_warn "go is not installed"
   return 1
 }
 
-__dko_dotfiles__go__update_go() {
+__dko_dotfiles__go__update_go_packages() {
   __dko_status "Updating go packages"
   __dko_dotfiles__go__require_go || return 1
   go get -u all || {
@@ -214,13 +241,15 @@ __dko_dotfiles__go__update_go() {
 # Node: Introspection
 # ----------------------------------------------------------------------------
 
+# pass any arg to skip autoinstall
+# pass any arg to silence
 __dko_dotfiles__node__require_nvm() {
   if [[ -z "$NVM_DIR" ]]; then
-    __dko_err "\$NVM_DIR is not defined, make sure rc files are linked."
+    (( $# == 0 )) && __dko_err "\$NVM_DIR is not defined, make sure rc files are linked."
     return 1
   fi
 
-  if [[ ! -d "$NVM_DIR" ]]; then
+  if (( $# == 0 )) && [[ ! -d "$NVM_DIR" ]]; then
     __dko_status "Installing nvm"
     git clone https://github.com/creationix/nvm.git "$NVM_DIR" \
       || { __dko_err "Could not install nvm" && return 1; }
@@ -331,10 +360,11 @@ __dko_dotfiles__py__update_neovim_python() {
 # PHP
 # ----------------------------------------------------------------------------
 
+# pass any arg to silence
 __dko_dotfiles__php__require_composer() {
-  __dko_has "composer" || {
-    __dko_warn "composer is not installed" && return 1
-  }
+  __dko_has "composer" && return 0
+  (( $# == 0 )) && __dko_warn "composer is not installed"
+  return 1
 }
 
 __dko_dotfiles__php__update_composer() {
@@ -360,12 +390,14 @@ __dko_dotfiles__php__update_composer() {
   fi
 }
 
+# pass any arg to silence
 __dko_dotfiles__php__require_phpcs() {
-  __dko_has "phpcs" || {
+  __dko_has "phpcs" && return 0
+  (( $# == 0 )) && {
     __dko_warn  "phpcs is not installed. Install via composer global require"
     __dko_warn_ "and run again, or set installed_paths manually"
-    return 1
   }
+  return 1
 }
 
 __dko_dotfiles__php__update_wpcs() {
@@ -500,9 +532,11 @@ __dko_dotfiles__darwin__update_brew_done() {
   brew prune
 }
 
+# pass any arg to silence
 __dko_dotfiles__darwin__require_brew() {
   __dko_has "brew" && return 0
-  __dko_warn "Homebrew is not installed." && return 1
+  (( $# == 0 )) && __dko_warn "Homebrew is not installed."
+  return 1
 }
 
 __dko_dotfiles__darwin__update_brew() {
@@ -563,16 +597,16 @@ __dko_dotfiles() {
   (( $# == 0 )) && __dko_dotfiles__usage && return 1
 
   case $1 in
-    dotfiles) __dko_dotfiles__update               ;;
-    secret)   __dko_dotfiles__update_secret        ;;
-    daily)    __dko_dotfiles__update_daily         ;;
-    composer) __dko_dotfiles__php__update_composer ;;
-    fzf)      __dko_dotfiles__update_fzf           ;;
-    gem)      __dko_dotfiles__ruby__update_gems    ;;
-    go)       __dko_dotfiles__go__update_go        ;;
-    node)     __dko_dotfiles__update_node          ;;
-    nvm)      __dko_dotfiles__node__update_nvm     ;;
-    pip)      __dko_dotfiles__py__update_pip "pip" ;;
+    dotfiles) __dko_dotfiles__update                  ;;
+    secret)   __dko_dotfiles__update_secret           ;;
+    daily)    __dko_dotfiles__update_daily            ;;
+    composer) __dko_dotfiles__php__update_composer    ;;
+    fzf)      __dko_dotfiles__update_fzf              ;;
+    gem)      __dko_dotfiles__ruby__update_gems       ;;
+    go)       __dko_dotfiles__go__update_go_packages  ;;
+    node)     __dko_dotfiles__update_node             ;;
+    nvm)      __dko_dotfiles__node__update_nvm        ;;
+    pip)      __dko_dotfiles__py__update_pip "pip"    ;;
     pyenv)    __dko_dotfiles__py__update_pyenv           ;;
     neopy)    __dko_dotfiles__py__update_neovim_python   ;;
     wpcs)     __dko_dotfiles__php__update_wpcs     ;;
