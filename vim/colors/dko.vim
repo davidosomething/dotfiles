@@ -3,13 +3,55 @@ syntax reset
 
 let g:colors_name = 'dko'
 
-hi normal         guibg=#222222   guifg=#999988
+" ============================================================================
+" My colors
+" ============================================================================
+
+hi dkoBgDarkest     guibg=#1f1f1f
+hi dkoBgDarker      guibg=#282828
+hi dkoBgDark        guibg=#323232
+hi dkoBgLight       guibg=#afa08f
+hi dkoUnimportant   guifg=#666677
+hi dkoString        guifg=#eeddbb
+hi dkoIdentifier    guifg=#b0b8bf
+hi dkoOperator      guifg=#ff8888
+hi dkoStatement     guifg=#60686f
+hi dkoFunctionName  guifg=#ddddee
+
+" JavaDoc
+hi dkoJavaDocTag    guifg=#7788aa
+hi dkoJavaDocType   guifg=#aa8877
+hi dkoJavaDocKey    guifg=#bbccee
+
+" ============================================================================
+" Vim base
+" ============================================================================
+
+hi  normal          guibg=#282828   guifg=#999988
 " ~ markers before and after buffer and some other ui
-hi NonText                        guifg=#334455
-hi Visual         guibg=#333333
+hi  NonText                         guifg=#334455
+hi  Visual          guibg=#afa08f   guifg=#1f1f1f
 " E.g. <C-v> symbols
-hi SpecialKey                     guifg=#772222
-hi Whitespace     guibg=#2a2222   guifg=#772222
+hi  SpecialKey                      guifg=#772222
+hi  Whitespace      guibg=#22222f   guifg=#444466
+
+hi  Delimiter                       guifg=#778899
+hi  Number                          guifg=#ee7777
+
+hi! link Comment    dkoUnimportant
+hi! link Constant   normal
+hi! link Function   dkoFunctionName
+hi! link Identifier dkoIdentifier
+hi! link Include    normal
+hi! link Keyword    normal
+hi! link Noise      dkoUnimportant
+hi! link Operator   dkoOperator
+hi! link PreProc    dkoString
+hi! link Special    Delimiter
+hi! link Statement  dkoStatement
+hi! link String     dkoString
+hi! link Title      dkoString
+hi! link Type       Identifier
 
 " ============================================================================
 " Line backgrounds
@@ -18,7 +60,7 @@ hi Whitespace     guibg=#2a2222   guifg=#772222
 hi  ColorColumn         guibg=#2a2a2a
 hi! link CursorColumn   ColorColumn
 hi! link CursorLine     ColorColumn
-hi  LineNr                              guifg=#444433
+hi  LineNr              guibg=#2a2a2a   guifg=#444433
 hi! link CursorLineNr   ColorColumn
 hi  CursorLineNr                        guifg=#555544
 hi! link SignColumn     ColorColumn
@@ -40,7 +82,7 @@ hi! link TabLineSel     StatusLine
 " Command mode
 " ============================================================================
 
-hi! link Directory Comment
+hi! link Directory dkoUnimportant
 
 " ============================================================================
 " Popup menu
@@ -59,49 +101,49 @@ hi  PmenuThumb     guibg=#555555
 hi Search         guibg=#aa8866   guifg=#222222
 
 " ============================================================================
-" Language generics
-" ============================================================================
-
-hi  Comment                         guifg=#556688
-hi  Delimiter                       guifg=#778899
-hi  Identifier                      guifg=#cc9999
-hi  Number                          guifg=#ee7777
-hi  String                          guifg=#ddddff
-hi  Special                         guifg=#334466
-hi! link Function   String
-hi! link Type       Identifier
-hi! link Constant   normal
-hi! link Include    normal
-hi! link Keyword    normal
-hi! link PreProc    String
-hi! link Statement  Identifier
-hi! link Title      String
-
-" ============================================================================
-" JavaDoc
-" ============================================================================
-
-hi dkoJavaDocTag    guifg=#7788aa
-hi dkoJavaDocType   guifg=#aa8877
-hi dkoJavaDocKey    guifg=#bbccee
-
-" ============================================================================
 " JavaScript
 " ============================================================================
 
-hi  link jsModuleKeyword    String
+hi  link jsModuleKeyword    dkoString
 hi  link jsStorageClass     normal
+hi  link jsReturn           normal
+hi  link jsNull             dkoOperator
+hi  link jsThis             dkoStatement
 
 " group {Event} e
 " token Event
 hi  link jsDocType          dkoJavaDocType
 " token { }
-hi  link jsDocTypeBrackets  Comment
+hi  link jsDocTypeBrackets  dkoUnimportant
 
 hi  link jsDocTags          dkoJavaDocTag
 hi  link jsDocParam         dkoJavaDocKey
 
-hi  link jsVariableDef      String
+hi  link jsVariableDef      dkoIdentifier
+
+" group 'class InlineEditors extends Component'
+hi  link jsClassDefinition    dkoIdentifier
+hi  link jsClassKeyword       dkoStatement
+hi  link jsExtendsKeyword     dkoStatement
+
+" group 'editorInstances = {};'
+hi  link jsClassProperty      normal
+
+" token 'componentWillMount'
+hi  link jsClassFuncName      normal
+
+hi  link jsFuncCall           dkoFunctionName
+hi  link jsFuncArgs           dkoIdentifier
+hi  link jsParen              dkoIdentifier
+
+hi  link jsBracket            dkoIdentifier
+hi  link jsSpreadExpression   dkoIdentifier
+hi  link jsDestructuringBlock dkoIdentifier
+
+hi  link jsObject             dkoIdentifier
+hi  link jsObjectKey          dkoIdentifier
+hi  link jsObjectKeyComputed  dkoString
+hi  link jsObjectProp         dkoIdentifier
 
 " ============================================================================
 " PHP
@@ -113,6 +155,14 @@ hi  link phpDocParam        dkoJavaDocType
 hi  link phpDocIdentifier   dkoJavaDocKey
 
 " ============================================================================
+" Sh
+" ============================================================================
+
+hi  link shCommandSub       dkoFunctionName
+" token: '-f' and '--flag'
+hi  link shOption           normal
+
+" ============================================================================
 " VimL
 " ============================================================================
 
@@ -120,14 +170,15 @@ hi  link phpDocIdentifier   dkoJavaDocKey
 " Highlighting
 " ----------------------------------------------------------------------------
 
-" the word 'clear'
-hi vimHiClear                     guifg=#cc8888
-" First thing after 'hi'
-hi! link vimGroup      normal
-hi! link vimHiGroup    normal
-hi! link vimHiGuiFgBg  normal
-" the word 'highlight'
+" the word 'highlight' or 'hi'
 hi! link vimHighlight  normal
+" the word 'clear'
+" First thing after 'hi'
+"hi! link vimGroup      normal
+"hi! link vimHiLink      dkoString
+hi! link vimHiGroup    normal
+" Don't highlight this one or it will override vim-css-colors
+"hi! link vimHiGuiFgBg  normal
 
 " ----------------------------------------------------------------------------
 " Lang
@@ -147,21 +198,21 @@ hi! link vimSet         normal
 " token 'encoding'
 hi! link vimOption      normal
 " token '=utf-8'
-hi! link vimSetEqual    String
+hi! link vimSetEqual    dkoString
 
 " group
 " e.g. has()
 hi  default link vimFunc        normal
 hi          link vimFuncName    normal
-hi          link vimUserFunc    String
+hi          link vimUserFunc    dkoString
 
 " the word 'let'
 hi! link vimLet         normal
 " '=' in let x = y
 hi! link vimOper        normal
 " parens
-hi! link vimParenSep    Comment
-hi! link vimString      String
+hi! link vimParenSep    dkoUnimportant
+hi! link vimString      dkoString
 " the word 'syntax'
 hi! link vimSyntax      normal
 hi! link vimSynType     normal
@@ -171,15 +222,15 @@ hi! link vimSynType     normal
 " vim help
 " ============================================================================
 
-hi! link helpExample          String
-hi! link helpHeader           Comment
-hi! link helpHeadline         String
-hi! link helpHyperTextEntry   Comment
+hi! link helpExample          dkoString
+hi! link helpHeader           dkoUnimportant
+hi! link helpHeadline         dkoString
+hi! link helpHyperTextEntry   dkoUnimportant
 hi  helpHyperTextJump                       guifg=#88dd88
-hi! link helpNote             Comment
+hi! link helpNote             dkoUnimportant
 hi  helpOption                              guifg=#cc8888
-hi! link helpSectionDelim     Comment
+hi! link helpSectionDelim     dkoUnimportant
 hi! link helpSpecial          helpOption
-hi! link helpURL              String
-hi! link helpVim              String
-hi! link helpWarning          Comment
+hi! link helpURL              dkoString
+hi! link helpVim              dkoString
+hi! link helpWarning          dkoUnimportant
