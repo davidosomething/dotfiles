@@ -10,13 +10,15 @@ let g:colors_name = 'dko'
 hi dkoBgDarkest     guibg=#1f1f1f
 hi dkoBgDarker      guibg=#282828
 hi dkoBgDark        guibg=#323232
-hi dkoBgLight       guibg=#afa08f
+hi dkoBgLight       guibg=#333333
 hi dkoUnimportant   guifg=#666677
 hi dkoString        guifg=#eeddbb
 hi dkoIdentifier    guifg=#b0b8bf
 hi dkoOperator      guifg=#ff8888
 hi dkoStatement     guifg=#60686f
 hi dkoFunctionName  guifg=#ddddee
+
+hi dkoEmComment     guibg=#323232  guifg=#ddaa66
 
 " JavaDoc
 hi dkoJavaDocTag    guifg=#7788aa
@@ -28,30 +30,34 @@ hi dkoJavaDocKey    guifg=#bbccee
 " ============================================================================
 
 hi  normal          guibg=#282828   guifg=#999988
+hi  Folded          guibg=#333333   guifg=#999988
 " ~ markers before and after buffer and some other ui
 hi  NonText                         guifg=#334455
 hi  Visual          guibg=#afa08f   guifg=#1f1f1f
-" E.g. <C-v> symbols
+" e.g. <C-v> symbols
 hi  SpecialKey                      guifg=#772222
+" e.g. 'search hit BOTTOM' messages
+hi  WarningMsg                      guifg=#ccaa88
 hi  Whitespace      guibg=#22222f   guifg=#444466
-
 hi  Delimiter                       guifg=#778899
 hi  Number                          guifg=#ee7777
 
 hi! link Comment    dkoUnimportant
 hi! link Constant   normal
-hi! link Function   dkoFunctionName
+hi  link Function   dkoFunctionName
 hi! link Identifier dkoIdentifier
-hi! link Include    normal
-hi! link Keyword    normal
-hi! link Noise      dkoUnimportant
-hi! link Operator   dkoOperator
+hi  link Include    normal
+hi  link Keyword    normal
+hi  link Label      dkoIdentifier
+hi  link Noise      dkoUnimportant
+hi  link Operator   dkoOperator
 hi! link PreProc    dkoString
 hi! link Special    Delimiter
 hi! link Statement  dkoStatement
-hi! link String     dkoString
-hi! link Title      dkoString
-hi! link Type       Identifier
+hi  link String     dkoString
+hi  link Title      dkoString
+hi! link Todo       dkoEmComment
+hi! link Type       dkoIdentifier
 
 " ============================================================================
 " Line backgrounds
@@ -144,6 +150,12 @@ hi  link jsObject             dkoIdentifier
 hi  link jsObjectKey          dkoIdentifier
 hi  link jsObjectKeyComputed  dkoString
 hi  link jsObjectProp         dkoIdentifier
+
+" ============================================================================
+" JSON
+" ============================================================================
+
+hi  link jsonEscape           dkoOperator
 
 " ============================================================================
 " PHP
