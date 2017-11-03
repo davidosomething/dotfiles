@@ -180,7 +180,7 @@ function! dkoline#Mode(winnr) abort
   elseif l:modeflag ==# 'i'
     let l:modecolor = '%#PmenuSel#'
   elseif l:modeflag ==# 'R'
-    let l:modecolor = '%#DiffDelete#'
+    let l:modecolor = '%#dkoLineModeReplace#'
   elseif l:modeflag =~? 'v'
     let l:modecolor = '%#Cursor#'
   elseif l:modeflag ==? "\<C-v>"

@@ -25,6 +25,9 @@ hi dkoJavaDocTag    guifg=#7788aa
 hi dkoJavaDocType   guifg=#aa8877
 hi dkoJavaDocKey    guifg=#bbccee
 
+" Statusline
+hi dkoLineModeReplace guibg=#ff8888 guifg=#282828
+
 " ============================================================================
 " Vim base
 " ============================================================================
@@ -78,11 +81,11 @@ hi  VertSplit                           guifg=#202020
 " ============================================================================
 
 " Statusline uses fg as bg
-hi! StatusLine          guifg=#333333
-hi! StatusLineNC        guifg=#1f1f1f
-hi! link TabLine        StatusLine
-hi! link TabLineFill    StatusLine
-hi! link TabLineSel     StatusLine
+hi! StatusLine          guibg=#333333 guifg=#888899 gui=NONE
+hi! StatusLineNC        guifg=#1f1f1f gui=NONE
+hi! TabLine             guibg=#333333 guifg=#888899 gui=NONE
+hi! link TabLineFill    TabLine
+hi! link TabLineSel     TabLine
 
 " ============================================================================
 " Command mode
@@ -238,9 +241,9 @@ hi! link helpExample          dkoString
 hi! link helpHeader           dkoUnimportant
 hi! link helpHeadline         dkoString
 hi! link helpHyperTextEntry   dkoUnimportant
-hi  helpHyperTextJump                       guifg=#88dd88
+hi  link helpHyperTextJump    dkoIdentifier
 hi! link helpNote             dkoUnimportant
-hi  helpOption                              guifg=#cc8888
+hi  link helpOption           dkoIdentifier
 hi! link helpSectionDelim     dkoUnimportant
 hi! link helpSpecial          helpOption
 hi! link helpURL              dkoString
