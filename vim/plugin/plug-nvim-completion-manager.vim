@@ -11,6 +11,11 @@ if !dkoplug#plugins#Exists('nvim-completion-manager') | finish | endif
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
+let g:cm_refresh_length = [
+      \   [1, 4],
+      \   [7, 2],
+      \ ]
+
 " Delay loading NCM until InsertEnter
 function s:StartNcm()
   " Hooks for setting up sources before loading NCM

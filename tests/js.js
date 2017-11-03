@@ -14,7 +14,7 @@ const ns = {};
 /**
  * onClick
  *
- * @param {Event} e
+ * @param {Event} e click event
  */
 ns._onClick = function onClick(e) {
   return false;

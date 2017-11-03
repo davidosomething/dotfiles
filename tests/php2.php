@@ -7,7 +7,7 @@ class Mine
     public $ahlo = "ah";
 
     /**
-     * @param Boolean $something
+     * @param Boolean $something description
      */
     public static function someStatic(bool $something) : bool
     {

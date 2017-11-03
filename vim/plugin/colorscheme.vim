@@ -37,6 +37,8 @@ if dkoplug#plugins#Exists('vim-two-firewatch')
         \   : s:colorscheme
 endif
 
+let s:colorscheme = $DKOCOLOR ? 'dko' : s:colorscheme
+
 silent! execute 'colorscheme ' . s:colorscheme
 
 " ============================================================================

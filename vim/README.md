@@ -92,10 +92,10 @@ is generally a wrapper around them that checks for
 | `<F10>`             | do not use -- gnome-terminal menu key |
 | `<F11>`             | UI - dkotabline#Toggle() |
 | `<F12>`             | UI - set pastetoggle |
-| `<A-b>`             | :FZFBuffers
-| `<A-c>`             | :FZFCommands
-| `<A-p>`             | :FZFProject
-| `<A-r>`             | :FZFRelevant
+| `<A-b>`             | :FZFBuffers |
+| `<A-c>`             | :FZFCommands |
+| `<A-p>`             | :FZFProject |
+| `<A-r>`             | :FZFRelevant |
 | `<A-t>`             | :FZFTests - custom find test files near current path |
 | `<A-v>`             | :FZFVim - ~/.vim |
 |    `/`              | UI - incsearch |

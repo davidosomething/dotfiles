@@ -85,7 +85,8 @@ set sidescrolloff=16
 
 set textwidth=78
 " the line will be right after column 80, &tw+3
-set colorcolumn=+3,120
+set colorcolumn=+3
+set colorcolumn+=120
 set cursorline
 
 set synmaxcol=512                     " don't syntax highlight long lines
