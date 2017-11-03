@@ -261,31 +261,38 @@ __dko_dotfiles__node__require_nvm() {
 # ----------------------------------------------------------------------------
 
 __dko_dotfiles__update_node() {
-  local desired_node="v8"
-  local desired_node_minor
-  local previous_node
-
   __dko_dotfiles__node__require_nvm || return 1
+
+  local wanted
+  wanted="${1:-"v8"}"
+  [[ "$wanted" != "v"* ]] && wanted="v${wanted}"
 
   . "${NVM_DIR}/nvm.sh"
   __dko_status "Checking node versions..."
-  desired_node_minor="$(nvm version-remote "$desired_node")"
+
+  local wanted_with_minor
+  wanted_with_minor="$(nvm version-remote "$wanted")"
+
+  local previous_node
   previous_node="$(nvm current)"
 
-  __dko_status_ "Previous node version was $previous_node"
-  if [[ "$desired_node_minor" != "$previous_node" ]]; then
-    echo -n "Install and use new node ${desired_node_minor} as default? [y/N] "
+  if [[ "$wanted_with_minor" != "$previous_node" ]]; then
+    __dko_status_ "Previous node version was $previous_node"
+    echo -n "Install and use new node ${wanted_with_minor} as default? [y/N] "
     read -r
     echo
-    if [[ "$REPLY" = "y" ]]; then
-      nvm install             "$desired_node"
-      nvm alias default       "$desired_node"
-
-      __dko_status_ "Installing npm@latest for $desired_node_minor..."
+    if [[ "$REPLY" = "y" ]] || [[ "$REPLY" = "Y" ]]; then
+      __dko_status "Installing node ${wanted_with_minor}..."
+      nvm install             "$wanted"
+      nvm alias default       "$wanted"
       npm install --global npm@latest
 
+      nvm use default
+      local __nodir
+      __nodir="$("${DOTFILES}/bin/dko-nvm-node-version")"
+      export DKO_DEFAULT_NODE_VERSION="${__nodir%\/bin}"
+
       __dko_ok "Node and npm updated."
-      __dko_ok_ "Run \$DOTFILES/node/install.sh to install global packages."
     fi
   else
     __dko_ok "Node version is already up-to-date."
@@ -604,7 +611,7 @@ __dko_dotfiles() {
     fzf)      __dko_dotfiles__update_fzf              ;;
     gem)      __dko_dotfiles__ruby__update_gems       ;;
     go)       __dko_dotfiles__go__update_go_packages  ;;
-    node)     __dko_dotfiles__update_node             ;;
+    node)     __dko_dotfiles__update_node "$2"        ;;
     nvm)      __dko_dotfiles__node__update_nvm        ;;
     pip)      __dko_dotfiles__py__update_pip "pip"    ;;
     pyenv)    __dko_dotfiles__py__update_pyenv           ;;
@@ -613,8 +620,8 @@ __dko_dotfiles() {
 
     *)
       case "$OSTYPE" in
-        linux*)   __dko_dotfiles__linux__update "$1"   ;;
-        darwin*)  __dko_dotfiles__darwin__update "$1"  ;;
+        linux*)   __dko_dotfiles__linux__update "$@"   ;;
+        darwin*)  __dko_dotfiles__darwin__update "$@"  ;;
       esac
   esac
 }
