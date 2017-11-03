@@ -8,15 +8,16 @@ let g:colors_name = 'dko'
 " ============================================================================
 
 hi dkoBgDarkest     guibg=#1f1f1f
-hi dkoBgDarker      guibg=#282828
+hi dkoBgDarker      guibg=#242424
 hi dkoBgDark        guibg=#323232
 hi dkoBgLight       guibg=#333333
 hi dkoUnimportant   guifg=#666677
+hi dkoImportant     guifg=#cc4444
 hi dkoString        guifg=#eeddbb
-hi dkoIdentifier    guifg=#b0b8bf
-hi dkoOperator      guifg=#ff8888
-hi dkoStatement     guifg=#60686f
-hi dkoFunctionName  guifg=#ddddee
+hi dkoIdentifier    guifg=#bab080
+hi dkoOperator      guifg=#eeeecc
+hi dkoStatement     guifg=#80888f
+hi dkoFunctionName  guifg=#bbbbcc
 
 hi dkoComment                      guifg=#666677  gui=italic
 hi dkoEmComment     guibg=#323232  guifg=#ddaa66  gui=bold
@@ -27,7 +28,7 @@ hi dkoJavaDocType   guifg=#aa8877
 hi dkoJavaDocKey    guifg=#bbccee
 
 " Statusline
-hi  dkoLineImportant              guibg=#ff8888 guifg=#282828
+hi  dkoLineImportant              guibg=#ff8888     guifg=#242424
 hi  link dkoLineModeReplace       dkoLineImportant
 hi  link dkoLineNeomakeRunning    dkoLineImportant
 
@@ -35,7 +36,7 @@ hi  link dkoLineNeomakeRunning    dkoLineImportant
 " Vim base
 " ============================================================================
 
-hi  normal          guibg=#282828   guifg=#999988
+hi  normal          guibg=#242424   guifg=#999988
 hi  Folded          guibg=#333333   guifg=#999988
 " ~ markers before and after buffer and some other ui
 hi  NonText                         guifg=#334455
@@ -119,8 +120,8 @@ hi Search         guibg=#aa8866   guifg=#222222
 
 hi  link jsModuleKeyword    dkoString
 hi  link jsStorageClass     normal
-hi  link jsReturn           normal
-hi  link jsNull             dkoOperator
+hi  link jsReturn           dkoImportant
+hi  link jsNull             dkoImportant
 hi  link jsThis             dkoStatement
 
 " group {Event} e
