@@ -5,7 +5,8 @@ set cpoptions&vim
 
 " ============================================================================
 
-let s:truecolor = exists('+termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
+let s:truecolor = exists('+termguicolors')
+      \ && $TERM_PROGRAM !=# 'Apple_Terminal'
 if s:truecolor | let &termguicolors = 1 | endif
 
 let s:colorscheme = 'darkblue'
@@ -33,12 +34,13 @@ if dkoplug#plugins#Exists('vim-two-firewatch')
   nnoremap <silent><special> <Leader>zt :<C-U>call <SID>Firewatch()<CR>
 
   let s:colorscheme = s:truecolor && $ITERM_PROFILE =~? 'light'
-        \   ? 'two-firewatch'
-        \   : s:colorscheme
+        \ ? 'two-firewatch'
+        \ : s:colorscheme
 endif
 
-"let s:colorscheme = 'dko'
-let s:colorscheme = $DKOCOLOR ? 'dko' : s:colorscheme
+let s:colorscheme = $DKOCOLOR || $TERM_PROGRAM =~? 'Hyper'
+      \ ? 'dko'
+      \ : s:colorscheme
 
 silent! execute 'colorscheme ' . s:colorscheme
 

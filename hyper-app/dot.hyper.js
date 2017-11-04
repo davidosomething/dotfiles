@@ -1,3 +1,27 @@
+const hyperPaneConfig = {
+  debug: false,
+  hotkeys: {
+    navigation: {
+      up: 'alt+meta+up',
+      down: 'alt+meta+down',
+      left: 'alt+meta+left',
+      right: 'meta+alt+right'
+    },
+    jump_prefix: '', // completed with 1-9 digits
+    permutation_modifier: '', // Added to jump and navigation hotkeys for pane permutation
+    maximize: 'shift+meta+enter'
+  },
+  showIndicators: false, // Show pane number
+  indicatorPrefix: '^⌥', // Will be completed with pane number
+  indicatorStyle: { // Added to indicator <div>
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    fontSize: '10px'
+  },
+  focusOnMouseHover: false
+};
+
 module.exports = {
   config: {
     // default font size in pixels for all tabs
@@ -48,7 +72,9 @@ module.exports = {
       '#cc00ff',
       '#00ffff',
       '#ffffff'
-    ]
+    ],
+
+    paneNavigation: hyperPaneConfig,
   },
 
   // a list of plugins to fetch and install from npm
@@ -92,8 +118,8 @@ module.exports = {
     // clickable links in same window... buggy
     'hyperlinks',
 
-    //// clickable links, but behave like iterm... buggy
-    //'hyperlinks-iterm',
+    // Pane shortcuts
+    'hyper-pane',
   ],
 
   // in development, you can create a directory under
