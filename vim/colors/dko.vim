@@ -1,42 +1,53 @@
+" ============================================================================
+" DKO
+" A dark truecolor Vim colorscheme
+" ============================================================================
+
 hi clear
 syntax reset
-
-let g:colors_name = 'dko'
 
 " ============================================================================
 " My colors
 " ============================================================================
 
-hi dkoBgDarkest     guibg=#1f1f1f
-hi dkoBgDarker      guibg=#242424
-hi dkoBgDark        guibg=#323232
-hi dkoBgLight       guibg=#333333
+hi dkoBgDarkest     guibg=#1f2120
+hi dkoBgDarker      guibg=#222423
+hi dkoBgDarkerAlt   guibg=#252726
 hi dkoUnimportant   guifg=#666677
+hi dkoUnimportant2  guifg=#9999bb
+hi dkoFinal         guifg=#aa6666
+hi dkoInvalid       guifg=#cc4444
 hi dkoImportant     guifg=#cc4444
 hi dkoString        guifg=#eeddbb
 hi dkoIdentifier    guifg=#bab080
 hi dkoOperator      guifg=#eeeecc
-hi dkoStatement     guifg=#80888f
-hi dkoFunctionName  guifg=#bbbbcc
+hi dkoStatement     guifg=#8888aa
+hi dkoFunctionName  guifg=#9999bb
 
 hi dkoComment                      guifg=#666677  gui=italic
 hi dkoEmComment     guibg=#323232  guifg=#ddaa66  gui=bold
 
 " JavaDoc
-hi dkoJavaDocTag    guifg=#7788aa
-hi dkoJavaDocType   guifg=#aa8877
-hi dkoJavaDocKey    guifg=#bbccee
+hi  link dkoJavaDocTag            dkoUnimportant2
+hi  link dkoJavaDocType           dkoUnimportant2
+hi  link dkoJavaDocKey            dkoUnimportant2
 
-" Statusline
-hi  dkoLineImportant              guibg=#ff8888     guifg=#242424
+" Statusline Symbols
+hi       dkoLineImportant         guibg=#ff8888     guifg=#242424
 hi  link dkoLineModeReplace       dkoLineImportant
 hi  link dkoLineNeomakeRunning    dkoLineImportant
+
+" Signs
+hi        dkoSignError            guibg=#5a2a2a     guifg=#cc4444
+hi        dkoSignAdded            guibg=#2a332a     guifg=#668844
+hi        dkoSignDeleted          guibg=#332a2a     guifg=#cc4444
+hi        dkoSignChanged          guibg=#2c2b2a     guifg=#ffddaa
 
 " ============================================================================
 " Vim base
 " ============================================================================
 
-hi  normal          guibg=#242424   guifg=#999988
+hi  normal          guibg=#222423   guifg=#999988
 hi  Folded          guibg=#333333   guifg=#999988
 " ~ markers before and after buffer and some other ui
 hi  NonText                         guifg=#334455
@@ -71,24 +82,25 @@ hi! link Type         dkoIdentifier
 " Line backgrounds
 " ============================================================================
 
-hi  ColorColumn         guibg=#2a2a2a
-hi! link CursorColumn   ColorColumn
-hi! link CursorLine     ColorColumn
-hi  LineNr              guibg=#2a2a2a   guifg=#444433
-hi! link CursorLineNr   ColorColumn
-hi  CursorLineNr                        guifg=#555544
-hi! link SignColumn     ColorColumn
-" uses fg as bg
-hi  VertSplit                           guifg=#202020
+" fg is thin line
+hi  VertSplit           guibg=#252726   guifg=#252726
+
+hi  SignColumn          guibg=#252726
+hi  LineNr              guibg=#252726   guifg=#454746
+hi  CursorLineNr        guibg=#252726   guifg=#555756
+
+hi! link ColorColumn    dkoBgDarkerAlt
+hi! link CursorColumn   dkoBgDarkerAlt
+hi! link CursorLine     dkoBgDarkerAlt
 
 " ============================================================================
 " Status and tab line
 " ============================================================================
 
 " Statusline uses fg as bg
-hi! StatusLine          guibg=#333333 guifg=#888899 gui=NONE
-hi! StatusLineNC        guifg=#1f1f1f gui=NONE
-hi! TabLine             guibg=#333333 guifg=#888899 gui=NONE
+hi! StatusLine          guibg=#353736 guifg=#888899 gui=NONE
+hi! StatusLineNC        guibg=#272928 guifg=#2f2f2f gui=NONE
+hi! TabLine             guibg=#353736 guifg=#888899 gui=NONE
 hi! link TabLineFill    TabLine
 hi! link TabLineSel     TabLine
 
@@ -96,7 +108,7 @@ hi! link TabLineSel     TabLine
 " Command mode
 " ============================================================================
 
-hi! link Directory dkoUnimportant
+hi! link Directory dkoUnimportant2
 
 " ============================================================================
 " Popup menu
@@ -115,18 +127,28 @@ hi  PmenuThumb     guibg=#555555
 hi Search         guibg=#aa8866   guifg=#222222
 
 " ============================================================================
+" Plugin provided signs
+" ============================================================================
+
+hi  link ALEErrorSign       dkoSignError
+hi  link QuickFixSignsDiffAdd     dkoSignAdded
+hi  link QuickFixSignsDiffChange  dkoSignChanged
+hi  link QuickFixSignsDiffDelete  dkoSignDeleted
+
+" ============================================================================
 " JavaScript
 " ============================================================================
 
 hi  link jsModuleKeyword    dkoString
 hi  link jsStorageClass     normal
-hi  link jsReturn           dkoImportant
+hi  link jsReturn           dkoFinal
 hi  link jsNull             dkoImportant
 hi  link jsThis             dkoStatement
 
 " group {Event} e
 " token Event
 hi  link jsDocType          dkoJavaDocType
+hi  link jsDocTypeNoParam   dkoJavaDocType
 " token { }
 hi  link jsDocTypeBrackets  dkoUnimportant
 
@@ -209,7 +231,7 @@ hi! link vimHiGroup    normal
 
 " token
 "hi vimCommand
-hi vimIsCommand guifg=#cc8888
+"hi vimIsCommand guifg=#cc8888
 
 hi! link vimNotFunc     normal
 
@@ -217,14 +239,15 @@ hi! link vimNotFunc     normal
 hi! link vimSet         normal
 " token 'encoding'
 hi! link vimOption      normal
-" token '=utf-8'
-hi! link vimSetEqual    dkoString
+" token '=utf-8' but broken on things like '=dark'
+"hi! link vimSetEqual    dkoString
 
 " group
 " e.g. has()
 hi  default link vimFunc        normal
 hi          link vimFuncName    normal
-hi          link vimUserFunc    dkoString
+" token 'ThisFunction' in 'dko#ThisFunction()'
+"hi          link vimUserFunc    dkoString
 
 " the word 'let'
 hi! link vimLet         normal

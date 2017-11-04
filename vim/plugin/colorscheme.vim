@@ -12,7 +12,7 @@ if s:truecolor | let &termguicolors = 1 | endif
 let s:colorscheme = 'darkblue'
 
 if dkoplug#plugins#Exists('vim-base2tone-lakedark')
-  let g:base16colorspace=256
+  let g:base16colorspace = 256
   function! s:LakeDark() abort
     set background=dark
     silent! colorscheme Base2Tone_LakeDark
@@ -38,9 +38,10 @@ if dkoplug#plugins#Exists('vim-two-firewatch')
         \ : s:colorscheme
 endif
 
-let s:colorscheme = $DKOCOLOR || $TERM_PROGRAM =~? 'Hyper'
+let s:colorscheme = $TERM_PROGRAM =~? 'Hyper'
       \ ? 'dko'
       \ : s:colorscheme
+nnoremap <silent><special> <Leader>zd :<C-U>silent! colorscheme dko<CR>
 
 silent! execute 'colorscheme ' . s:colorscheme
 
