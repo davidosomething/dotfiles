@@ -19,7 +19,6 @@ hi! dkoBgDarkest     guibg=#1f2120
 hi! dkoBgDarker      guibg=#222423
 hi! dkoBgDarkerAlt   guibg=#292b2a
 hi! dkoUnimportant                  guifg=#666677
-hi! dkoUnimportant2                 guifg=#9999bb
 hi! dkoDiffAdded     guibg=#2a332a  guifg=#668844
 hi! dkoDiffRemoved   guibg=#4a2a2a  guifg=#aa6666
 hi! dkoFinal                        guifg=#aa6666
@@ -34,9 +33,9 @@ hi! dkoEmComment     guibg=#323232  guifg=#ddaa66  gui=bold
 hi! link dkoIdentifier dkoStatement
 
 " JavaDoc
-hi! link dkoJavaDocTag            dkoUnimportant2
-hi! link dkoJavaDocType           dkoUnimportant2
-hi! link dkoJavaDocKey            dkoUnimportant2
+hi! link dkoJavaDocTag            dkoStatement
+hi! link dkoJavaDocType           dkoStatement
+hi! link dkoJavaDocKey            dkoStatement
 
 " Statusline Symbols
 hi!      dkoLineImportant         guibg=#ff8888     guifg=#242424
@@ -114,7 +113,7 @@ hi! link TabLineSel     TabLine
 " Command mode
 " ============================================================================
 
-hi! link Directory dkoUnimportant2
+hi! link Directory dkoStatement
 
 " ============================================================================
 " Popup menu
@@ -310,3 +309,12 @@ hi! link helpSpecial          helpOption
 hi! link helpURL              dkoString
 hi! link helpVim              dkoString
 hi! link helpWarning          dkoUnimportant
+
+" ============================================================================
+" zsh
+" ============================================================================
+
+hi! link zshCommands          dkoStatement
+hi! link zshOperator          dkoOperator
+hi! link zshOptStart          dkoStatement
+hi! link zshOption            normal
