@@ -514,12 +514,6 @@ augroup dkowindow
   autocmd WinEnter
         \ *
         \ if winnr('$') == 1 && &buftype == 'quickfix' | quit | endif
-
-  " auto open quickfix and loclist?
-  autocmd QuickFixCmdPost
-        \ [^l]*
-        \ cwindow
-  "autocmd   QuickFixCmdPost l*      lwindow
 augroup END
 
 augroup dkoproject
