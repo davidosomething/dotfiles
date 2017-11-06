@@ -43,7 +43,8 @@ let s:colorscheme = $TERM_PROGRAM =~? 'Hyper'
       \ : s:colorscheme
 nnoremap <silent><special> <Leader>zd :<C-U>silent! colorscheme dko<CR>
 
-silent! execute 'colorscheme ' . s:colorscheme
+"silent! execute 'colorscheme ' . s:colorscheme
+colorscheme dko
 
 " ============================================================================
 
