@@ -30,7 +30,6 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'rakr/vim-two-firewatch'
   Plug 'arcticicestudio/nord-vim'
   Plug 'hauleth/blame.vim'
-  Plug 'beigebrucewayne/skull-vim'
 
   " ==========================================================================
   " Embedded filetype support
