@@ -14,11 +14,22 @@ scriptencoding utf-8
 " Settings vars
 " ============================================================================
 
+" no longer using comma so I can reverse repeat fFtT searches
+" no longer using \ so I can type escaped chars :/
+" needs to be before bundle so plugins map correctly
+let g:mapleader = "\<Space>"
+
 " Just for debugging
 let g:dko_rtp_original = &runtimepath
 
 " Used by anything that needs to change/use loc list
 let g:dko_loc_list_height = 10
+
+" Plugin settings
+let g:dko_use_completion = has('nvim') && has('python3')
+let g:dko_use_js_langserver = executable('javascript-typescript-stdio')
+let g:dko_use_tern_lsp = g:dko_use_completion && executable('npm')
+let g:dko_use_composer = g:dko_use_completion && executable('composer')
 
 " This must be a g: variable to access with the Plug command
 let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
@@ -26,17 +37,6 @@ let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
       \ : isdirectory(expand('~/.fzf'))
       \ ? '~/.fzf'
       \ : ''
-
-" no longer using comma so I can reverse repeat fFtT searches
-" no longer using \ so I can type escaped chars :/
-" needs to be before bundle so plugins map correctly
-let g:mapleader = "\<Space>"
-
-" Plugin settings
-let g:dko_use_completion = has('nvim') && has('python3')
-let g:dko_use_js_langserver = executable('javascript-typescript-stdio')
-let g:dko_use_tern_lsp = g:dko_use_completion && executable('npm')
-let g:dko_use_composer = g:dko_use_completion && executable('composer')
 
 " ============================================================================
 " My autocmd block - Clear vimrc group's autocmds if reloading
