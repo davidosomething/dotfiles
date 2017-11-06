@@ -1,5 +1,8 @@
 " after/plugin/readonly.vim
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 augroup dkoreadonly
   autocmd!
 augroup END
@@ -39,3 +42,6 @@ function! s:Unmap() abort
 endfunction
 
 autocmd dkoreadonly BufReadPost * call s:Unmap()
+
+let &cpoptions = s:cpo_save
+unlet s:cpo_save
