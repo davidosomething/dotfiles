@@ -541,7 +541,7 @@ augroup dkowordpresssucksdonkeyballs
 
   " Indent case: and default: in switch()
   autocmd BufNewFile,BufReadPre
-        \ */*content/themes/*,*/*content/plugins/*,*/mu-plugins/*
+        \ */*content/themes/*.php,*/*content/plugins/*.php,*/mu-plugins/*.php
         \ let b:PHP_vintage_case_default_indent = 1
 augroup END
 
