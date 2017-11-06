@@ -73,6 +73,8 @@ function! dkoplug#plugins#LoadAll() abort
   " gK to lookup
   Plug 'keith/investigate.vim'
 
+  Plug 'lambdalisue/gina.vim'
+
   " :Bdelete to preserve windows
   Plug 'moll/vim-bbye'
 

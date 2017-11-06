@@ -25,10 +25,10 @@ hi! dkoDiffRemoved   guibg=#4a2a2a  guifg=#aa6666
 hi! dkoFinal                        guifg=#aa6666
 hi! dkoInvalid                      guifg=#cc4444
 hi! dkoImportant                    guifg=#cc4444
-hi! dkoString                       guifg=#eeddbb
-hi! dkoOperator                     guifg=#eeeecc
+hi! dkoString                       guifg=#dfdad0
+hi! dkoOperator                     guifg=#aa6666
 hi! dkoStatement                    guifg=#8888aa
-hi! dkoFunctionName                 guifg=#9999bb
+hi! dkoFunctionName                 guifg=#bbbbcc
 hi! dkoComment                      guifg=#666677  gui=italic
 hi! dkoEmComment     guibg=#323232  guifg=#ddaa66  gui=bold
 hi! link dkoIdentifier dkoStatement
@@ -53,8 +53,8 @@ hi!       dkoSignChanged          guibg=#2c2b2a     guifg=#ffddaa
 " Vim base
 " ============================================================================
 
-hi! normal          guibg=#222423   guifg=#aaaa99
-hi! Folded          guibg=#333333   guifg=#aaaa99
+hi! normal          guibg=#222423   guifg=#909f90
+hi! Folded          guibg=#333333   guifg=#909f90
 " ~ markers before and after buffer and some other ui
 hi! NonText                         guifg=#334455
 hi! Visual          guibg=#afa08f   guifg=#1f1f1f
@@ -63,12 +63,12 @@ hi! SpecialKey                      guifg=#772222
 " e.g. 'search hit BOTTOM' messages
 hi! WarningMsg                      guifg=#ccaa88
 hi! Whitespace      guibg=#22222f   guifg=#444466
-hi! Delimiter                       guifg=#778899
 hi! Number                          guifg=#ee7777
 
 hi! link Comment      dkoComment
 hi! link Conditional  normal
 hi! link Constant     normal
+hi! link Delimiter    dkoFinal
 hi! link Function     dkoFunctionName
 hi! link Identifier   dkoIdentifier
 hi! link Include      normal
@@ -167,8 +167,8 @@ hi! link gitHash            dkoUnimportant
 
 hi! link jsModuleKeyword    dkoString
 hi! link jsStorageClass     normal
-hi! link jsReturn           dkoFinal
-hi! link jsNull             dkoImportant
+hi! link jsReturn           dkoImportant
+hi! link jsNull             dkoFinal
 hi! link jsThis             dkoStatement
 
 " group {Event} e
