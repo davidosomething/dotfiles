@@ -16,21 +16,18 @@ let g:colors_name = 'dko'
 " ============================================================================
 
 hi! dkoBgDarkest     guibg=#1f2120
-hi! dkoBgDarker      guibg=#222423
-hi! dkoBgDarkerAlt   guibg=#292b2a
+hi! dkoBgDarker      guibg=#222222
+hi! dkoBgDarkerAlt   guibg=#252525
 hi! dkoUnimportant                  guifg=#666677
 hi! dkoDiffAdded     guibg=#2a332a  guifg=#668844
 hi! dkoDiffRemoved   guibg=#4a2a2a  guifg=#aa6666
-hi! dkoFinal                        guifg=#aa6666
-hi! dkoInvalid                      guifg=#cc4444
-hi! dkoImportant                    guifg=#cc4444
-hi! dkoString                       guifg=#dfdad0
-hi! dkoOperator                     guifg=#aa6666
+hi! dkoImportant                    guifg=#cc6622
+hi! dkoString                       guifg=#eeeecc
+hi! dkoOperator                     guifg=#eeeeee
 hi! dkoStatement                    guifg=#8888aa
 hi! dkoFunctionName                 guifg=#bbbbcc
 hi! dkoComment                      guifg=#666677  gui=italic
 hi! dkoEmComment     guibg=#323232  guifg=#ddaa66  gui=bold
-hi! link dkoIdentifier dkoStatement
 
 " JavaDoc
 hi! link dkoJavaDocTag            dkoStatement
@@ -52,8 +49,8 @@ hi!       dkoSignChanged          guibg=#2c2b2a     guifg=#ffddaa
 " Vim base
 " ============================================================================
 
-hi! normal          guibg=#222423   guifg=#909f90
-hi! Folded          guibg=#333333   guifg=#909f90
+hi! normal          guibg=#222222   guifg=#aaaaaa
+hi! Folded          guibg=#333333   guifg=#aaaaaa
 " ~ markers before and after buffer and some other ui
 hi! NonText                         guifg=#334455
 hi! Visual          guibg=#afa08f   guifg=#1f1f1f
@@ -67,12 +64,12 @@ hi! Number                          guifg=#ee7777
 hi! link Comment      dkoComment
 hi! link Conditional  normal
 hi! link Constant     normal
-hi! link Delimiter    dkoFinal
+hi! link Delimiter    dkoImportant
 hi! link Function     dkoFunctionName
-hi! link Identifier   dkoIdentifier
+hi! link Identifier   dkoStatement
 hi! link Include      normal
 hi! link Keyword      normal
-hi! link Label        dkoIdentifier
+hi! link Label        dkoStatement
 hi! link Noise        dkoUnimportant
 hi! link Operator     dkoOperator
 hi! link PreProc      dkoString
@@ -81,7 +78,7 @@ hi! link Statement    dkoStatement
 hi! link String       dkoString
 hi! link Title        dkoString
 hi! link Todo         dkoEmComment
-hi! link Type         dkoIdentifier
+hi! link Type         dkoStatement
 
 " ============================================================================
 " Line backgrounds
@@ -156,7 +153,7 @@ hi! link diffRemoved    dkoDiffRemoved
 " Git (committia)
 " ============================================================================
 
-hi! link gitKeyword         dkoIdentifier
+hi! link gitKeyword         dkoStatement
 hi! link gitDate            dkoString
 hi! link gitHash            dkoUnimportant
 
@@ -167,7 +164,7 @@ hi! link gitHash            dkoUnimportant
 hi! link jsModuleKeyword    dkoString
 hi! link jsStorageClass     normal
 hi! link jsReturn           dkoImportant
-hi! link jsNull             dkoFinal
+hi! link jsNull             dkoImportant
 hi! link jsThis             dkoStatement
 
 " group {Event} e
@@ -180,10 +177,10 @@ hi! link jsDocTypeBrackets  dkoUnimportant
 hi! link jsDocTags          dkoJavaDocTag
 hi! link jsDocParam         dkoJavaDocKey
 
-hi! link jsVariableDef      dkoIdentifier
+hi! link jsVariableDef      dkoStatement
 
 " group 'class InlineEditors extends Component'
-hi! link jsClassDefinition    dkoIdentifier
+hi! link jsClassDefinition    dkoStatement
 hi! link jsClassKeyword       dkoStatement
 hi! link jsExtendsKeyword     dkoStatement
 
@@ -194,17 +191,17 @@ hi! link jsClassProperty      normal
 hi! link jsClassFuncName      normal
 
 hi! link jsFuncCall           dkoFunctionName
-hi! link jsFuncArgs           dkoIdentifier
-hi! link jsParen              dkoIdentifier
+hi! link jsFuncArgs           dkoStatement
+hi! link jsParen              dkoStatement
 
-hi! link jsBracket            dkoIdentifier
-hi! link jsSpreadExpression   dkoIdentifier
-hi! link jsDestructuringBlock dkoIdentifier
+hi! link jsBracket            dkoStatement
+hi! link jsSpreadExpression   dkoStatement
+hi! link jsDestructuringBlock dkoStatement
 
-hi! link jsObject             dkoIdentifier
-hi! link jsObjectKey          dkoIdentifier
+hi! link jsObject             dkoStatement
+hi! link jsObjectKey          dkoStatement
 hi! link jsObjectKeyComputed  dkoString
-hi! link jsObjectProp         dkoIdentifier
+hi! link jsObjectProp         dkoStatement
 
 " ============================================================================
 " JSON
@@ -233,7 +230,7 @@ hi! link shOption           normal
 " vim-plug
 " ============================================================================
 
-hi! link plugName           dkoIdentifier
+hi! link plugName           dkoStatement
 hi! link plugSha            dkoUnimportant
 
 " ============================================================================
@@ -301,9 +298,9 @@ hi! link helpExample          dkoString
 hi! link helpHeader           dkoUnimportant
 hi! link helpHeadline         dkoString
 hi! link helpHyperTextEntry   dkoUnimportant
-hi! link helpHyperTextJump    dkoIdentifier
+hi! link helpHyperTextJump    dkoStatement
 hi! link helpNote             dkoUnimportant
-hi! link helpOption           dkoIdentifier
+hi! link helpOption           dkoStatement
 hi! link helpSectionDelim     dkoUnimportant
 hi! link helpSpecial          helpOption
 hi! link helpURL              dkoString
