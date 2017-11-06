@@ -20,6 +20,8 @@ hi! dkoBgDarker      guibg=#222423
 hi! dkoBgDarkerAlt   guibg=#292b2a
 hi! dkoUnimportant                  guifg=#666677
 hi! dkoUnimportant2                 guifg=#9999bb
+hi! dkoDiffAdded     guibg=#2a332a  guifg=#668844
+hi! dkoDiffRemoved   guibg=#4a2a2a  guifg=#aa6666
 hi! dkoFinal                        guifg=#aa6666
 hi! dkoInvalid                      guifg=#cc4444
 hi! dkoImportant                    guifg=#cc4444
@@ -43,8 +45,8 @@ hi! link dkoLineNeomakeRunning    dkoLineImportant
 
 " Signs
 hi!       dkoSignError            guibg=#5a2a2a     guifg=#cc4444
-hi!       dkoSignAdded            guibg=#2a332a     guifg=#668844
-hi!       dkoSignDeleted          guibg=#332a2a     guifg=#cc4444
+hi! link  dkoSignAdded            dkoDiffAdded
+hi! link  dkoSignRemoved          dkoDiffRemoved
 hi!       dkoSignChanged          guibg=#2c2b2a     guifg=#ffddaa
 
 " ============================================================================
@@ -134,10 +136,30 @@ hi! Search         guibg=#aa8866   guifg=#222222
 " Plugin provided signs
 " ============================================================================
 
-hi! link ALEErrorSign       dkoSignError
+hi! link ALEErrorSign             dkoSignError
 hi! link QuickFixSignsDiffAdd     dkoSignAdded
 hi! link QuickFixSignsDiffChange  dkoSignChanged
-hi! link QuickFixSignsDiffDelete  dkoSignDeleted
+hi! link QuickFixSignsDiffDelete  dkoSignRemoved
+
+" ============================================================================
+" Diff
+" ============================================================================
+
+hi! link diffFile       dkoUnimportant
+hi! link diffIndexLine  dkoUnimportant
+hi! link diffLine       dkoUnimportant
+hi! link diffNewFile    dkoUnimportant
+
+hi! link diffAdded      dkoDiffAdded
+hi! link diffRemoved    dkoDiffRemoved
+
+" ============================================================================
+" Git (committia)
+" ============================================================================
+
+hi! link gitKeyword         dkoIdentifier
+hi! link gitDate            dkoString
+hi! link gitHash            dkoUnimportant
 
 " ============================================================================
 " JavaScript
@@ -207,6 +229,13 @@ hi! link phpDocIdentifier   dkoJavaDocKey
 hi! link shCommandSub       dkoFunctionName
 " token: '-f' and '--flag'
 hi! link shOption           normal
+
+" ============================================================================
+" vim-plug
+" ============================================================================
+
+hi! link plugName           dkoIdentifier
+hi! link plugSha            dkoUnimportant
 
 " ============================================================================
 " VimL
