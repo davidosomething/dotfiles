@@ -15,7 +15,8 @@ let b:match_words = '\<function\>:\<return\>,'
   \ . '\<try\>:\<catch\>:\<finally\>'
 
 " Require to import
-nmap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
+nnoremap r2i
+      \ :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
 
 if g:dko_use_completion && dkoplug#plugins#Exists('jspc.vim')
   " jspc#omni normally extends javascriptcomplete on param pattern match.
