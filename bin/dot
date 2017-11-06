@@ -465,19 +465,20 @@ __dko_dotfiles__php__update_wpcs() {
 
 __dko_dotfiles__linux__update() {
   case "$1" in
-    arch) __dko_dotfiles__linux__arch__update ;;
-    deb)  __dko_dotfiles__linux__deb__update ;;
-    *)    __dko_dotfiles__command_not_found "$1"
+    arch) __dko_dotfiles__linux__arch__update; return $? ;;
+    deb)  __dko_dotfiles__linux__deb__update; return $? ;;
   esac
   __dko_dotfiles__command_not_found "$1"
+  return 1
 }
 
 __dko_dotfiles__darwin__update() {
   case "$1" in
-    brew) __dko_dotfiles__darwin__update_brew ;;
-    mac)  __dko_dotfiles__darwin__update_mac  ;;
-    *)    __dko_dotfiles__command_not_found "$1"
+    brew) __dko_dotfiles__darwin__update_brew; return $? ;;
+    mac)  __dko_dotfiles__darwin__update_mac; return $? ;;
   esac
+  __dko_dotfiles__command_not_found "$1"
+  return 1
 }
 
 # ------------------------------------------------------------------------------
