@@ -17,20 +17,19 @@ let g:colors_name = 'dko'
 
 hi! dkoBgDarkest     guibg=#1f2120
 hi! dkoBgDarker      guibg=#222423
-hi! dkoBgDarkerAlt   guibg=#252726
-hi! dkoUnimportant   guifg=#666677
-hi! dkoUnimportant2  guifg=#9999bb
-hi! dkoFinal         guifg=#aa6666
-hi! dkoInvalid       guifg=#cc4444
-hi! dkoImportant     guifg=#cc4444
-hi! dkoString        guifg=#eeddbb
-hi! dkoIdentifier    guifg=#bab080
-hi! dkoOperator      guifg=#eeeecc
-hi! dkoStatement     guifg=#8888aa
-hi! dkoFunctionName  guifg=#9999bb
-
+hi! dkoBgDarkerAlt   guibg=#292b2a
+hi! dkoUnimportant                  guifg=#666677
+hi! dkoUnimportant2                 guifg=#9999bb
+hi! dkoFinal                        guifg=#aa6666
+hi! dkoInvalid                      guifg=#cc4444
+hi! dkoImportant                    guifg=#cc4444
+hi! dkoString                       guifg=#eeddbb
+hi! dkoOperator                     guifg=#eeeecc
+hi! dkoStatement                    guifg=#8888aa
+hi! dkoFunctionName                 guifg=#9999bb
 hi! dkoComment                      guifg=#666677  gui=italic
 hi! dkoEmComment     guibg=#323232  guifg=#ddaa66  gui=bold
+hi! link dkoIdentifier dkoStatement
 
 " JavaDoc
 hi! link dkoJavaDocTag            dkoUnimportant2
@@ -52,8 +51,8 @@ hi!       dkoSignChanged          guibg=#2c2b2a     guifg=#ffddaa
 " Vim base
 " ============================================================================
 
-hi! normal          guibg=#222423   guifg=#999988
-hi! Folded          guibg=#333333   guifg=#999988
+hi! normal          guibg=#222423   guifg=#aaaa99
+hi! Folded          guibg=#333333   guifg=#aaaa99
 " ~ markers before and after buffer and some other ui
 hi! NonText                         guifg=#334455
 hi! Visual          guibg=#afa08f   guifg=#1f1f1f
@@ -92,7 +91,7 @@ hi! VertSplit           guibg=#252726   guifg=#252726
 
 hi! SignColumn          guibg=#252726
 hi! LineNr              guibg=#252726   guifg=#454746
-hi! CursorLineNr        guibg=#252726   guifg=#555756
+hi! CursorLineNr        guibg=#353736   guifg=#555756
 
 hi! link ColorColumn    dkoBgDarkerAlt
 hi! link CursorColumn   dkoBgDarkerAlt
@@ -221,7 +220,7 @@ hi! link shOption           normal
 hi! link vimHighlight  normal
 " the word 'clear'
 " First thing after 'hi'
-"hi! link vimGroup      normal
+hi! link vimGroup      normal
 "hi! link vimHiLink      dkoString
 hi! link vimHiGroup    normal
 " Don't highlight this one or it will override vim-css-colors
