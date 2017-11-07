@@ -31,7 +31,7 @@ hi default dkoEmComment     guibg=#303033   guifg=#ddaa66   gui=bold
 hi default dkoFunctionName                  guifg=#99bb99
 hi default dkoLink                          guifg=#99bb99   gui=underline
 hi default dkoImportant                     guifg=#cc6622
-hi default dkoOperator                      guifg=#d0d0dd
+hi default dkoOperator                      guifg=#c0c0ff
 hi default dkoStatement                     guifg=#808088
 hi default dkoStatus        guibg=#303033                   gui=NONE
 hi default dkoString                        guifg=#eed090
