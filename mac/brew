@@ -184,17 +184,9 @@ brew install yarn
 # ============================================================================
 
 # bash 4 shell
-brew install bash bash-completion@2
 brew install bats shellcheck shfmt
 brew install tmux
 brew install zsh
-
-# ============================================================================
-# docker
-# ============================================================================
-
-# docker itself is installed from cask
-brew install docker-completion
 
 # ============================================================================
 # ethereum client
