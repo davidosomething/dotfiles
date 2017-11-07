@@ -4,15 +4,14 @@
 " ============================================================================
 
 if !has('termguicolors') || !&termguicolors | finish | endif
-
-hi! clear
-set background=dark
 syntax reset
+hi! clear
 
 let g:colors_name = 'dko'
 
 " Override vim-pandoc-syntax highlighting
 augroup colorsdko
+  autocmd!
   autocmd Syntax *pandoc* colorscheme dko
 augroup END
 

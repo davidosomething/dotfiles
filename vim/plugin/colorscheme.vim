@@ -19,7 +19,7 @@ if dkoplug#plugins#Exists('vim-base2tone-lakedark')
   endfunction
   nnoremap <silent><special> <Leader>zb :<C-U>call <SID>LakeDark()<CR>
 
-  let s:colorscheme = s:truecolor ? 'Base2Tone_LakeDark' : s:colorscheme
+  let s:colorscheme = 'Base2Tone_LakeDark'
 endif
 
 if dkoplug#plugins#Exists('nord-vim')
@@ -38,13 +38,13 @@ if dkoplug#plugins#Exists('vim-two-firewatch')
         \ : s:colorscheme
 endif
 
-let s:colorscheme = $TERM_PROGRAM =~? 'Hyper'
+let s:colorscheme = s:truecolor || $TERM_PROGRAM =~? 'Hyper'
       \ ? 'dko'
       \ : s:colorscheme
 nnoremap <silent><special> <Leader>zd :<C-U>silent! colorscheme dko<CR>
 
-"silent! execute 'colorscheme ' . s:colorscheme
-colorscheme dko
+silent! execute 'colorscheme ' . s:colorscheme
+"colorscheme dko
 
 " ============================================================================
 

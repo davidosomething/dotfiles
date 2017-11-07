@@ -187,7 +187,9 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
 
   " The language client completion is a bit slow to kick in, but it works
-  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'autozimu/LanguageClient-neovim', PlugIf(g:dko_use_completion, {
+        \   'do': ':UpdateRemotePlugins'
+        \ })
 
   " Auto-insert matching braces with detection for jumping out on close.
   " No right brace detection
