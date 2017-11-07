@@ -21,23 +21,23 @@ augroup END
 " ============================================================================
 
 hi! dkoBgAlt         guibg=#222226
-hi! dkoLight         guibg=#303033   guifg=#b0b0bb
+hi! dkoLight         guibg=#303033   guifg=#bbbbbb
 
-hi! dkoNormal        guibg=#202022   guifg=#bfbab0
-hi! dkoAlt                           guifg=#dfdad0
+hi! dkoNormal        guibg=#202022   guifg=#aaaaaa
+hi! dkoAlt                           guifg=#eeeeee
 
-hi! dkoComment                       guifg=#505a6a   gui=italic
+hi! dkoComment                       guifg=#505a6a  gui=italic
 hi! dkoDiffAdded     guibg=#2a332a   guifg=#668844
 hi! dkoDiffRemoved   guibg=#4a2a2a   guifg=#aa6666
-hi! dkoEm                            guifg=#ddaa66   gui=italic
-hi! dkoEmComment     guibg=#303033   guifg=#ddaa66   gui=bold
-hi! dkoFunctionName                  guifg=#99bb99
-hi! dkoLink                          guifg=#99bb99   gui=underline
+hi! dkoEm                            guifg=#ddaa66  gui=italic
+hi! dkoEmComment     guibg=#303033   guifg=#ddaa66  gui=bold
+hi! dkoFunctionName                  guifg=#99bbaa
+hi! dkoLink                          guifg=#99bbaa  gui=underline
 hi! dkoImportant                     guifg=#cc6622
-hi! dkoOperator                      guifg=#c0c0ff
-hi! dkoStatement                     guifg=#808088
-hi! dkoStatus        guibg=#303033                   gui=NONE
-hi! dkoString                        guifg=#eed090
+hi! dkoStatement                     guifg=#bbbbbb
+hi! dkoStatus        guibg=#303033                  gui=NONE
+hi! dkoString                        guifg=#eeddcc
+hi! link dkoOperator   dkoFunctionName
 hi! link dkoUnimportant dkoNormal
 
 " JavaDoc
@@ -46,15 +46,15 @@ hi! link dkoJavaDocType    dkoStatement
 hi! link dkoJavaDocKey     dkoStatement
 
 " Statusline Symbols
-hi! dkoLineImportant   guibg=#ddaa66      guifg=#303033
+hi! dkoLineImportant guibg=#ddaa66 guifg=#303033
 hi! link dkoLineModeReplace       dkoLineImportant
 hi! link dkoLineNeomakeRunning    dkoLineImportant
 
 " Signs
-hi! dkoSignError            guibg=#5a2a2a     guifg=#cc4444
-hi! link  dkoSignAdded            dkoDiffAdded
-hi! link  dkoSignRemoved          dkoDiffRemoved
-hi! dkoSignChanged          guibg=#2c2b2a     guifg=#7f6030
+hi! dkoSignError guibg=#5a2a2a guifg=#cc4444
+hi! link  dkoSignAdded    dkoDiffAdded
+hi! link  dkoSignRemoved  dkoDiffRemoved
+hi! dkoSignChanged guibg=#2c2b2a guifg=#7f6030
 
 " ============================================================================
 " Vim base
