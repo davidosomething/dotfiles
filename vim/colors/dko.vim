@@ -97,7 +97,7 @@ hi! link Underlined   dkoLink
 " fg is thin line
 hi! VertSplit           guibg=#222226   guifg=#222226
 hi! LineNr              guibg=#222226   guifg=#404044
-hi! CursorLineNr        guibg=#303033   guifg=#505055
+hi! CursorLineNr        guibg=#303033   guifg=#a0a0aa
 hi! link SignColumn     LineNr
 
 hi! link ColorColumn    dkoBgAlt
