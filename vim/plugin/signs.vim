@@ -1,3 +1,5 @@
+" plugin/signs.vim
+
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
@@ -44,9 +46,10 @@ if dkoplug#plugins#Exists('vim-gitgutter')
   xmap ac <Plug>GitGutterTextObjectOuterVisual
 
 elseif dkoplug#plugins#Exists('vim-signify')
-    let g:signify_vcs_list = [ 'git' ]
-    let g:signify_realtime = 1
-
+  let g:signify_vcs_list = [ 'git' ]
+  let g:signify_sign_change = '·'
+  let g:signify_sign_show_count = 0 " don't show number of deleted lines
+  let g:signify_realtime = 1
 endif
 
 let &cpoptions = s:cpo_save

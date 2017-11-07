@@ -20,44 +20,47 @@ augroup END
 " My colors
 " ============================================================================
 
-hi default dkoBgAlt         guibg=#222226
-hi default dkoLight         guibg=#303033   guifg=#b0b0bb
+hi! dkoBgAlt         guibg=#222226
+hi! dkoLight         guibg=#303033   guifg=#b0b0bb
 
-hi default dkoComment                       guifg=#505a6a   gui=italic
-hi default dkoDiffAdded     guibg=#2a332a   guifg=#668844
-hi default dkoDiffRemoved   guibg=#4a2a2a   guifg=#aa6666
-hi default dkoEm                            guifg=#ddaa66   gui=italic
-hi default dkoEmComment     guibg=#303033   guifg=#ddaa66   gui=bold
-hi default dkoFunctionName                  guifg=#99bb99
-hi default dkoLink                          guifg=#99bb99   gui=underline
-hi default dkoImportant                     guifg=#cc6622
-hi default dkoOperator                      guifg=#c0c0ff
-hi default dkoStatement                     guifg=#808088
-hi default dkoStatus        guibg=#303033                   gui=NONE
-hi default dkoString                        guifg=#eed090
-hi default dkoUnimportant                   guifg=#606066
+hi! dkoNormal        guibg=#202022   guifg=#bfbab0
+hi! dkoAlt                           guifg=#dfdad0
+
+hi! dkoComment                       guifg=#505a6a   gui=italic
+hi! dkoDiffAdded     guibg=#2a332a   guifg=#668844
+hi! dkoDiffRemoved   guibg=#4a2a2a   guifg=#aa6666
+hi! dkoEm                            guifg=#ddaa66   gui=italic
+hi! dkoEmComment     guibg=#303033   guifg=#ddaa66   gui=bold
+hi! dkoFunctionName                  guifg=#99bb99
+hi! dkoLink                          guifg=#99bb99   gui=underline
+hi! dkoImportant                     guifg=#cc6622
+hi! dkoOperator                      guifg=#c0c0ff
+hi! dkoStatement                     guifg=#808088
+hi! dkoStatus        guibg=#303033                   gui=NONE
+hi! dkoString                        guifg=#eed090
+hi! link dkoUnimportant dkoNormal
 
 " JavaDoc
-hi default link dkoJavaDocTag     dkoStatement
-hi default link dkoJavaDocType    dkoStatement
-hi default link dkoJavaDocKey     dkoStatement
+hi! link dkoJavaDocTag     dkoStatement
+hi! link dkoJavaDocType    dkoStatement
+hi! link dkoJavaDocKey     dkoStatement
 
 " Statusline Symbols
-hi default dkoLineImportant   guibg=#ddaa66      guifg=#303033
-hi default link dkoLineModeReplace       dkoLineImportant
-hi default link dkoLineNeomakeRunning    dkoLineImportant
+hi! dkoLineImportant   guibg=#ddaa66      guifg=#303033
+hi! link dkoLineModeReplace       dkoLineImportant
+hi! link dkoLineNeomakeRunning    dkoLineImportant
 
 " Signs
-hi default       dkoSignError            guibg=#5a2a2a     guifg=#cc4444
-hi default link  dkoSignAdded            dkoDiffAdded
-hi default link  dkoSignRemoved          dkoDiffRemoved
-hi default       dkoSignChanged          guibg=#2c2b2a     guifg=#ffddaa
+hi! dkoSignError            guibg=#5a2a2a     guifg=#cc4444
+hi! link  dkoSignAdded            dkoDiffAdded
+hi! link  dkoSignRemoved          dkoDiffRemoved
+hi! dkoSignChanged          guibg=#2c2b2a     guifg=#7f6030
 
 " ============================================================================
 " Vim base
 " ============================================================================
 
-hi! normal          guibg=#202022   guifg=#bbbbbb
+hi! link normal dkoNormal
 
 " ~ markers before and after buffer and some other ui
 hi! NonText                         guifg=#334455
@@ -70,14 +73,14 @@ hi! Whitespace      guibg=#221f1f   guifg=#552222
 hi! Number                          guifg=#ee7777
 
 hi! link Comment      dkoComment
-hi! link Conditional  normal
-hi! link Constant     normal
+hi! link Conditional  dkoNormal
+hi! link Constant     dkoNormal
 hi! link Delimiter    dkoImportant
 hi! link Folded       dkoLight
 hi! link Function     dkoFunctionName
 hi! link Identifier   dkoStatement
-hi! link Include      normal
-hi! link Keyword      normal
+hi! link Include      dkoNormal
+hi! link Keyword      dkoNormal
 hi! link Label        dkoStatement
 hi! link Noise        dkoUnimportant
 hi! link Operator     dkoOperator
@@ -179,7 +182,7 @@ hi! link gitHash            dkoUnimportant
 " ============================================================================
 
 hi! link jsModuleKeyword    dkoString
-hi! link jsStorageClass     normal
+hi! link jsStorageClass     dkoNormal
 hi! link jsReturn           dkoImportant
 hi! link jsNull             dkoImportant
 hi! link jsThis             dkoStatement
@@ -202,10 +205,10 @@ hi! link jsClassKeyword       dkoStatement
 hi! link jsExtendsKeyword     dkoStatement
 
 " group 'editorInstances = {};'
-hi! link jsClassProperty      normal
+hi! link jsClassProperty      dkoNormal
 
 " token 'componentWillMount'
-hi! link jsClassFuncName      normal
+hi! link jsClassFuncName      dkoNormal
 
 hi! link jsFuncCall           dkoFunctionName
 hi! link jsFuncArgs           dkoStatement
@@ -218,7 +221,7 @@ hi! link jsDestructuringBlock dkoStatement
 hi! link jsObject             dkoStatement
 hi! link jsObjectKey          dkoStatement
 hi! link jsObjectKeyComputed  dkoString
-hi! link jsObjectProp         dkoStatement
+hi! link jsObjectProp         dkoAlt
 
 " ============================================================================
 " JSON
@@ -241,7 +244,7 @@ hi! link pandocReferenceURL             dkoLink
 " PHP
 " ============================================================================
 
-hi! link phpType            normal
+hi! link phpType            dkoNormal
 hi! link phpDocTags         dkoJavaDocTag
 hi! link phpDocParam        dkoJavaDocType
 hi! link phpDocIdentifier   dkoJavaDocKey
@@ -252,7 +255,7 @@ hi! link phpDocIdentifier   dkoJavaDocKey
 
 hi! link shCommandSub       dkoFunctionName
 " token: '-f' and '--flag'
-hi! link shOption           normal
+hi! link shOption           dkoNormal
 
 " ============================================================================
 " vim-plug
@@ -270,14 +273,14 @@ hi! link plugSha            dkoUnimportant
 " ----------------------------------------------------------------------------
 
 " the word 'highlight' or 'hi'
-hi! link vimHighlight   normal
+hi! link vimHighlight   dkoNormal
 " the word 'clear'
 " First thing after 'hi'
-hi! link vimGroup       normal
+hi! link vimGroup       dkoNormal
 hi! link vimHiLink      dkoString
-hi! link vimHiGroup     normal
+hi! link vimHiGroup     dkoNormal
 " Don't highlight this one or it will override vim-css-colors
-"hi! link vimHiGuiFgBg  normal
+"hi! link vimHiGuiFgBg  dkoNormal
 
 " ----------------------------------------------------------------------------
 " Lang
@@ -292,31 +295,31 @@ hi! link vimContinue      dkoOperator
 " token
 "hi vimIsCommand guifg=#cc8888
 
-hi! link vimNotFunc     normal
+hi! link vimNotFunc     dkoNormal
 
 " group for 'set encoding=utf-8'
-hi! link vimSet         normal
+hi! link vimSet         dkoNormal
 " token 'encoding'
-hi! link vimOption      normal
+hi! link vimOption      dkoNormal
 " token '=utf-8' but broken on things like '=dark'
 "hi! link vimSetEqual    dkoString
 
 " group
 " e.g. has()
-hi! default link vimFunc        normal
-hi!         link vimFuncName    normal
+hi! default link vimFunc        dkoNormal
+hi!         link vimFuncName    dkoNormal
 " token 'ThisFunction' in 'dko#ThisFunction()'
 "hi          link vimUserFunc    dkoString
 
 " the word 'let'
-hi! link vimLet         normal
+hi! link vimLet         dkoNormal
 " '=' in let x = y
 " parens
 hi! link vimParenSep    dkoUnimportant
 hi! link vimString      dkoString
 " the word 'syntax'
-hi! link vimSyntax      normal
-hi! link vimSynType     normal
+hi! link vimSyntax      dkoNormal
+hi! link vimSynType     dkoNormal
 "hi  vimVar                          guifg=#ccccaa
 
 " ============================================================================
@@ -343,4 +346,4 @@ hi! link helpWarning          dkoUnimportant
 hi! link zshCommands          dkoStatement
 hi! link zshOperator          dkoOperator
 hi! link zshOptStart          dkoStatement
-hi! link zshOption            normal
+hi! link zshOption            dkoNormal
