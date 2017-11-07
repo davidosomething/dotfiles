@@ -406,8 +406,11 @@ function! dkoplug#plugins#LoadAll() abort
 
   " ----------------------------------------
   " Syntax
-  " Configured in plugin/plug-vim-javascript.vim
   " ----------------------------------------
+
+  " Common settings for vim-javascript, vim-jsx-improve
+  " let g:javascript_plugin_flow = 0
+  let g:javascript_plugin_jsdoc = 1
 
   " COMBINED AND MODIFIED pangloss + vim-jsx-pretty
   " Not well maintained
@@ -417,8 +420,6 @@ function! dkoplug#plugins#LoadAll() abort
   " 1.  Preferring pangloss for now since I like the included indentexpr
   "     it also has a node ftdetect
   " 2.  After syntax, ftplugin, indent for JSX
-  " let g:javascript_plugin_flow = 0
-  " let g:javascript_plugin_jsdoc = 1
   " Plug 'pangloss/vim-javascript'
 
   " YAJS MODE

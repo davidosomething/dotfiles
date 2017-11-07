@@ -20,29 +20,30 @@ augroup END
 " ============================================================================
 
 hi! dkoBgAlt         guibg=#222226
-hi! dkoLight         guibg=#303033   guifg=#bbbbbb
+hi! dkoLight         guibg=#303033  guifg=#bbbbbb
 
-hi! dkoNormal        guibg=#202022   guifg=#aaaaaa
-hi! dkoAlt                           guifg=#eeeeee
+hi! dkoNormal        guibg=#202022  guifg=#aaaaaa
+hi! dkoAlt                          guifg=#eeeeee
 
-hi! dkoComment                       guifg=#505a6a  gui=italic
-hi! dkoDiffAdded     guibg=#2a332a   guifg=#668844
-hi! dkoDiffRemoved   guibg=#4a2a2a   guifg=#aa6666
-hi! dkoEm                            guifg=#ddaa66  gui=italic
-hi! dkoEmComment     guibg=#303033   guifg=#ddaa66  gui=bold
-hi! dkoFunctionName                  guifg=#99bbaa
-hi! dkoLink                          guifg=#99bbaa  gui=underline
-hi! dkoImportant                     guifg=#cc6622
-hi! dkoStatement                     guifg=#bbbbbb
-hi! dkoStatus        guibg=#303033                  gui=NONE
-hi! dkoString                        guifg=#eeddcc
-hi! link dkoOperator   dkoFunctionName
+hi! dkoComment                      guifg=#505a6a gui=italic
+hi! dkoCommentDoc                   guifg=#707a8a gui=NONE
+hi! dkoDiffAdded     guibg=#2a332a  guifg=#668844
+hi! dkoDiffRemoved   guibg=#4a2a2a  guifg=#aa6666
+hi! dkoEm                           guifg=#ddaa66 gui=italic
+hi! dkoEmComment     guibg=#303033  guifg=#ddaa66 gui=bold
+hi! dkoFunctionName                 guifg=#99bbaa
+hi! dkoLink                         guifg=#99bbaa gui=underline
+hi! dkoImportant                    guifg=#cc6622
+hi! dkoStatement                    guifg=#bbbbbb
+hi! dkoStatus        guibg=#303033                gui=NONE
+hi! dkoString                       guifg=#eeddcc
+hi! link dkoOperator    dkoFunctionName
 hi! link dkoUnimportant dkoNormal
 
 " JavaDoc
-hi! link dkoJavaDocTag     dkoStatement
-hi! link dkoJavaDocType    dkoStatement
-hi! link dkoJavaDocKey     dkoStatement
+hi! link dkoJavaDocTag     dkoCommentDoc
+hi! link dkoJavaDocType    dkoCommentDoc
+hi! link dkoJavaDocKey     dkoCommentDoc
 
 " Statusline Symbols
 hi! dkoLineImportant guibg=#ddaa66 guifg=#303033
