@@ -288,29 +288,23 @@ hi! link vimHiGroup     dkoNormal
 
 hi! link vimCommentString dkoStatement
 hi! link vimContinue      dkoOperator
-
 " group 'function! dko#files#RefreshMru()' excluding abort
 " vimFunction
-
 " token
 "hi vimIsCommand guifg=#cc8888
-
 hi! link vimNotFunc     dkoNormal
-
 " group for 'set encoding=utf-8'
 hi! link vimSet         dkoNormal
 " token 'encoding'
 hi! link vimOption      dkoNormal
 " token '=utf-8' but broken on things like '=dark'
 "hi! link vimSetEqual    dkoString
-
 " group
 " e.g. has()
-hi! default link vimFunc        dkoNormal
-hi!         link vimFuncName    dkoNormal
+hi! link vimFunc        dkoNormal
+hi! link vimFuncName    dkoNormal
 " token 'ThisFunction' in 'dko#ThisFunction()'
 "hi          link vimUserFunc    dkoString
-
 " the word 'let'
 hi! link vimLet         dkoNormal
 " '=' in let x = y
