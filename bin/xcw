@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+find . -depth 1 -type d -iname '*.xcworkspace' -exec open {} \; \
+  || echo 'No *.xcworkspace found' && exit 1
