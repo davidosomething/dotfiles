@@ -355,10 +355,12 @@ __dko_has 'zplugin' && zplugin cdreplay -q
 # ============================================================================
 
 # Started xtrace in dot.zshenv
-if [[ "$DKO_PROFILE_STARTUP" == true ]]; then
+if [[ "$ITERM_PROFILE" == "PROFILE"* ]] \
+  || [[ -n "$DKO_PROFILE_STARTUP" ]]; then
   unsetopt xtrace
   exec 2>&3 3>&-
-  echo "ZSH startup log written to ${HOME}/tmp/startlog.$$"
+  echo "==> ZSH startup log written to"
+  echo "    ${HOME}/tmp/startlog.$$"
 fi
 
 # ============================================================================
