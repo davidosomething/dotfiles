@@ -11,32 +11,39 @@ syntax reset
 
 let g:colors_name = 'dko'
 
+" Override vim-pandoc-syntax highlighting
+augroup colorsdko
+  autocmd Syntax *pandoc* colorscheme dko
+augroup END
+
 " ============================================================================
 " My colors
 " ============================================================================
 
-hi default dkoBgAlt         guibg=#242424
-hi default dkoLight         guibg=#333333  guifg=#bbbbbb
+hi default dkoBgAlt         guibg=#222226
+hi default dkoLight         guibg=#303033   guifg=#b0b0bb
 
-hi default dkoComment                      guifg=#666677  gui=italic
-hi default dkoDiffAdded     guibg=#2a332a  guifg=#668844
-hi default dkoDiffRemoved   guibg=#4a2a2a  guifg=#aa6666
-hi default dkoEmComment     guibg=#323232  guifg=#ddaa66  gui=bold
-hi default dkoFunctionName                 guifg=#99aa99
-hi default dkoImportant                    guifg=#cc6622
-hi default dkoOperator                     guifg=#eeeeee
-hi default dkoStatement                    guifg=#aaaacc
-hi default dkoStatus        guibg=#333333                 gui=NONE
-hi default dkoString                       guifg=#eedd99
-hi default link dkoUnimportant dkoComment
+hi default dkoComment                       guifg=#505a6a   gui=italic
+hi default dkoDiffAdded     guibg=#2a332a   guifg=#668844
+hi default dkoDiffRemoved   guibg=#4a2a2a   guifg=#aa6666
+hi default dkoEm                            guifg=#ddaa66   gui=italic
+hi default dkoEmComment     guibg=#303033   guifg=#ddaa66   gui=bold
+hi default dkoFunctionName                  guifg=#99bb99
+hi default dkoLink                          guifg=#99bb99   gui=underline
+hi default dkoImportant                     guifg=#cc6622
+hi default dkoOperator                      guifg=#d0d0dd
+hi default dkoStatement                     guifg=#808088
+hi default dkoStatus        guibg=#303033                   gui=NONE
+hi default dkoString                        guifg=#eed090
+hi default dkoUnimportant                   guifg=#606066
 
 " JavaDoc
-hi default link dkoJavaDocTag            dkoStatement
-hi default link dkoJavaDocType           dkoStatement
-hi default link dkoJavaDocKey            dkoStatement
+hi default link dkoJavaDocTag     dkoStatement
+hi default link dkoJavaDocType    dkoStatement
+hi default link dkoJavaDocKey     dkoStatement
 
 " Statusline Symbols
-hi default dkoLineImportant   guibg=#ddaa66      guifg=#323232
+hi default dkoLineImportant   guibg=#ddaa66      guifg=#303033
 hi default link dkoLineModeReplace       dkoLineImportant
 hi default link dkoLineNeomakeRunning    dkoLineImportant
 
@@ -50,7 +57,7 @@ hi default       dkoSignChanged          guibg=#2c2b2a     guifg=#ffddaa
 " Vim base
 " ============================================================================
 
-hi! normal          guibg=#222222   guifg=#bbbbbb
+hi! normal          guibg=#202022   guifg=#bbbbbb
 
 " ~ markers before and after buffer and some other ui
 hi! NonText                         guifg=#334455
@@ -81,15 +88,16 @@ hi! link String       dkoString
 hi! link Title        dkoString
 hi! link Todo         dkoEmComment
 hi! link Type         dkoStatement
+hi! link Underlined   dkoLink
 
 " ============================================================================
 " Line backgrounds
 " ============================================================================
 
 " fg is thin line
-hi! VertSplit           guibg=#242424   guifg=#242424
-hi! LineNr              guibg=#242424   guifg=#444444
-hi! CursorLineNr        guibg=#2c2c2c   guifg=#4a4a4a
+hi! VertSplit           guibg=#222226   guifg=#222226
+hi! LineNr              guibg=#222226   guifg=#404044
+hi! CursorLineNr        guibg=#303033   guifg=#505055
 hi! link SignColumn     LineNr
 
 hi! link ColorColumn    dkoBgAlt
@@ -101,7 +109,7 @@ hi! link CursorLine     dkoBgAlt
 " ============================================================================
 
 " Statusline uses fg as bg
-hi! StatusLineNC        guibg=#2c2c2c gui=NONE
+hi! StatusLineNC        guibg=#26262a gui=NONE
 hi! link StatusLine     dkoStatus
 hi! link TabLine        dkoStatus
 hi! link TabLineFill    dkoStatus
@@ -118,16 +126,16 @@ hi! link Directory dkoStatement
 " ============================================================================
 
 hi! link Pmenu dkoLight
-hi! PmenuSel       guibg=#444444
+hi! PmenuSel       guibg=#404044
 " popup menu scrollbar
 hi! link PmenuSbar PmenuSel
-hi! PmenuThumb     guibg=#555555
+hi! PmenuThumb     guibg=#505055
 
 " ============================================================================
 " Search
 " ============================================================================
 
-hi! Search         guibg=#aa8866   guifg=#222222
+hi! Search         guibg=#aa8866   guifg=#202022
 
 " ============================================================================
 " Plugin provided signs
@@ -215,6 +223,17 @@ hi! link jsObjectProp         dkoStatement
 hi! link jsonEscape           dkoOperator
 
 " ============================================================================
+" Pandoc
+" ============================================================================
+
+hi! link pandocAutomaticLink            dkoLink
+hi! link pandocBlockQuote               dkoEm
+hi! link pandocDelimitedCodeBlockStart  dkoUnimportant
+hi! link pandocDelimitedCodeBlock       dkoString
+hi! link pandocDelimitedCodeBlockEnd    dkoUnimportant
+hi! link pandocReferenceURL             dkoLink
+
+" ============================================================================
 " PHP
 " ============================================================================
 
@@ -260,11 +279,13 @@ hi! link vimHiGroup     normal
 " Lang
 " ----------------------------------------------------------------------------
 
+hi! link vimCommentString dkoStatement
+hi! link vimContinue      dkoOperator
+
 " group 'function! dko#files#RefreshMru()' excluding abort
 " vimFunction
 
 " token
-"hi vimCommand
 "hi vimIsCommand guifg=#cc8888
 
 hi! link vimNotFunc     normal

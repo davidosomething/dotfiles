@@ -404,9 +404,8 @@ if !has('nvim') | call dko#old#Settings() | endif
 " vim-markdown plugin (which is bundled with vim7.4 now)
 " There are more syntaxes, but checking for them makes editing md very slow
 let g:markdown_fenced_languages = [
-      \ 'html',
-      \ 'javascript', 'js=javascript', 'json=javascript',
-      \ 'sass',
+      \   'javascript', 'js=javascript', 'json=javascript', 'jsx=javascript',
+      \   'sh',
       \ ]
 
 " ----------------------------------------
