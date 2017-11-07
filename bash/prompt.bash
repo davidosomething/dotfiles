@@ -9,8 +9,8 @@ __branch_name() {
     || echo '(unknown)'
 }
 
-__symbol_dirty()    { git diff --no-ext-diff --quiet || echo "*"; }
-__symbol_unstaged() { git diff --no-ext-diff --cached --quiet || echo "+"; }
+__symbol_dirty()    { git diff --no-ext-diff --quiet || echo '*'; }
+__symbol_unstaged() { git diff --no-ext-diff --cached --quiet || echo '+'; }
 
 # __prompt_git
 #
