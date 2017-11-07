@@ -9,7 +9,6 @@ let s:mru_blacklist = "v:val !~ '" . join([
       \   'NERD_tree',
       \   '^/tmp/',
       \   '.git/',
-      \   '\[.*\]',
       \   'vim/runtime/doc',
       \ ], '\|') . "'"
 
