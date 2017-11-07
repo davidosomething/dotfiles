@@ -53,6 +53,9 @@ augroup END
 
 set modeline
 
+" Pretty quick... errorprone on old vim so only apply to nvim
+if has('nvim') | set updatetime=250 | endif
+
 " ----------------------------------------------------------------------------
 " Clipboard -- use os clipboard
 " ----------------------------------------------------------------------------

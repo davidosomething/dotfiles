@@ -3,6 +3,7 @@
 if !dkoplug#plugins#IsLoaded('quickfixsigns_vim') | finish | endif
 
 let g:quickfixsigns_balloon = 0
+let g:quickfixsigns#vcsdiff#use_hidef = 0
 
 "disabled:
 " - 'breakpoints'

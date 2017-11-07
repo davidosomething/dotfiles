@@ -15,42 +15,43 @@ let g:colors_name = 'dko'
 " My colors
 " ============================================================================
 
-hi! dkoBgDarkest     guibg=#1f2120
-hi! dkoBgDarker      guibg=#222222
-hi! dkoBgDarkerAlt   guibg=#252525
-hi! dkoUnimportant                  guifg=#666677
-hi! dkoDiffAdded     guibg=#2a332a  guifg=#668844
-hi! dkoDiffRemoved   guibg=#4a2a2a  guifg=#aa6666
-hi! dkoImportant                    guifg=#cc6622
-hi! dkoString                       guifg=#eeeecc
-hi! dkoOperator                     guifg=#eeeeee
-hi! dkoStatement                    guifg=#8888aa
-hi! dkoFunctionName                 guifg=#bbbbcc
-hi! dkoComment                      guifg=#666677  gui=italic
-hi! dkoEmComment     guibg=#323232  guifg=#ddaa66  gui=bold
+hi default dkoBgAlt         guibg=#242424
+hi default dkoLight         guibg=#333333  guifg=#bbbbbb
+
+hi default dkoComment                      guifg=#666677  gui=italic
+hi default dkoDiffAdded     guibg=#2a332a  guifg=#668844
+hi default dkoDiffRemoved   guibg=#4a2a2a  guifg=#aa6666
+hi default dkoEmComment     guibg=#323232  guifg=#ddaa66  gui=bold
+hi default dkoFunctionName                 guifg=#99aa99
+hi default dkoImportant                    guifg=#cc6622
+hi default dkoOperator                     guifg=#eeeeee
+hi default dkoStatement                    guifg=#aaaacc
+hi default dkoStatus        guibg=#333333                 gui=NONE
+hi default dkoString                       guifg=#eedd99
+hi default link dkoUnimportant dkoComment
 
 " JavaDoc
-hi! link dkoJavaDocTag            dkoStatement
-hi! link dkoJavaDocType           dkoStatement
-hi! link dkoJavaDocKey            dkoStatement
+hi default link dkoJavaDocTag            dkoStatement
+hi default link dkoJavaDocType           dkoStatement
+hi default link dkoJavaDocKey            dkoStatement
 
 " Statusline Symbols
-hi!      dkoLineImportant         guibg=#ff8888     guifg=#242424
-hi! link dkoLineModeReplace       dkoLineImportant
-hi! link dkoLineNeomakeRunning    dkoLineImportant
+hi default dkoLineImportant   guibg=#ddaa66      guifg=#323232
+hi default link dkoLineModeReplace       dkoLineImportant
+hi default link dkoLineNeomakeRunning    dkoLineImportant
 
 " Signs
-hi!       dkoSignError            guibg=#5a2a2a     guifg=#cc4444
-hi! link  dkoSignAdded            dkoDiffAdded
-hi! link  dkoSignRemoved          dkoDiffRemoved
-hi!       dkoSignChanged          guibg=#2c2b2a     guifg=#ffddaa
+hi default       dkoSignError            guibg=#5a2a2a     guifg=#cc4444
+hi default link  dkoSignAdded            dkoDiffAdded
+hi default link  dkoSignRemoved          dkoDiffRemoved
+hi default       dkoSignChanged          guibg=#2c2b2a     guifg=#ffddaa
 
 " ============================================================================
 " Vim base
 " ============================================================================
 
-hi! normal          guibg=#222222   guifg=#aaaaaa
-hi! Folded          guibg=#333333   guifg=#aaaaaa
+hi! normal          guibg=#222222   guifg=#bbbbbb
+
 " ~ markers before and after buffer and some other ui
 hi! NonText                         guifg=#334455
 hi! Visual          guibg=#afa08f   guifg=#1f1f1f
@@ -58,13 +59,14 @@ hi! Visual          guibg=#afa08f   guifg=#1f1f1f
 hi! SpecialKey                      guifg=#772222
 " e.g. 'search hit BOTTOM' messages
 hi! WarningMsg                      guifg=#ccaa88
-hi! Whitespace      guibg=#22222f   guifg=#444466
+hi! Whitespace      guibg=#221f1f   guifg=#552222
 hi! Number                          guifg=#ee7777
 
 hi! link Comment      dkoComment
 hi! link Conditional  normal
 hi! link Constant     normal
 hi! link Delimiter    dkoImportant
+hi! link Folded       dkoLight
 hi! link Function     dkoFunctionName
 hi! link Identifier   dkoStatement
 hi! link Include      normal
@@ -85,26 +87,25 @@ hi! link Type         dkoStatement
 " ============================================================================
 
 " fg is thin line
-hi! VertSplit           guibg=#252726   guifg=#252726
+hi! VertSplit           guibg=#242424   guifg=#242424
+hi! LineNr              guibg=#242424   guifg=#444444
+hi! CursorLineNr        guibg=#2c2c2c   guifg=#4a4a4a
+hi! link SignColumn     LineNr
 
-hi! SignColumn          guibg=#252726
-hi! LineNr              guibg=#252726   guifg=#454746
-hi! CursorLineNr        guibg=#353736   guifg=#555756
-
-hi! link ColorColumn    dkoBgDarkerAlt
-hi! link CursorColumn   dkoBgDarkerAlt
-hi! link CursorLine     dkoBgDarkerAlt
+hi! link ColorColumn    dkoBgAlt
+hi! link CursorColumn   dkoBgAlt
+hi! link CursorLine     dkoBgAlt
 
 " ============================================================================
 " Status and tab line
 " ============================================================================
 
 " Statusline uses fg as bg
-hi! StatusLine          guibg=#353736 guifg=#888899 gui=NONE
-hi! StatusLineNC        guibg=#272928 guifg=#2f2f2f gui=NONE
-hi! TabLine             guibg=#353736 guifg=#888899 gui=NONE
-hi! link TabLineFill    TabLine
-hi! link TabLineSel     TabLine
+hi! StatusLineNC        guibg=#2c2c2c gui=NONE
+hi! link StatusLine     dkoStatus
+hi! link TabLine        dkoStatus
+hi! link TabLineFill    dkoStatus
+hi! link TabLineSel     dkoStatus
 
 " ============================================================================
 " Command mode
@@ -116,7 +117,7 @@ hi! link Directory dkoStatement
 " Popup menu
 " ============================================================================
 
-hi! Pmenu          guibg=#333333   guifg=#bbbbbb
+hi! link Pmenu dkoLight
 hi! PmenuSel       guibg=#444444
 " popup menu scrollbar
 hi! link PmenuSbar PmenuSel
@@ -136,6 +137,10 @@ hi! link ALEErrorSign             dkoSignError
 hi! link QuickFixSignsDiffAdd     dkoSignAdded
 hi! link QuickFixSignsDiffChange  dkoSignChanged
 hi! link QuickFixSignsDiffDelete  dkoSignRemoved
+hi! link GitGutterAdd             dkoSignAdded
+hi! link GitGutterChange          dkoSignChanged
+hi! link GitGutterChangeDelete    dkoSignChanged
+hi! link GitGutterDelete          dkoSignRemoved
 
 " ============================================================================
 " Diff
@@ -242,12 +247,12 @@ hi! link plugSha            dkoUnimportant
 " ----------------------------------------------------------------------------
 
 " the word 'highlight' or 'hi'
-hi! link vimHighlight  normal
+hi! link vimHighlight   normal
 " the word 'clear'
 " First thing after 'hi'
-hi! link vimGroup      normal
-"hi! link vimHiLink      dkoString
-hi! link vimHiGroup    normal
+hi! link vimGroup       normal
+hi! link vimHiLink      dkoString
+hi! link vimHiGroup     normal
 " Don't highlight this one or it will override vim-css-colors
 "hi! link vimHiGuiFgBg  normal
 
