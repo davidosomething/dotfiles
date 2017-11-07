@@ -269,7 +269,7 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
   " Completion: PHP
   " --------------------------------------------------------------------------
-  "
+
   if has('nvim') && g:dko_use_composer
     Plug 'roxma/LanguageServer-php-neovim', {
           \   'do': 'composer install && composer run-script parse-stubs'

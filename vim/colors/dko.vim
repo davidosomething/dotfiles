@@ -286,7 +286,6 @@ hi!         link vimFuncName    normal
 " the word 'let'
 hi! link vimLet         normal
 " '=' in let x = y
-hi! link vimOper        normal
 " parens
 hi! link vimParenSep    dkoUnimportant
 hi! link vimString      dkoString
