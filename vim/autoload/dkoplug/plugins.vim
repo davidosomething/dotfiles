@@ -177,7 +177,9 @@ function! dkoplug#plugins#LoadAll() abort
   Plug g:dko#vim_dir . '/mine/vim-hr'
 
   " <Leader>C <Plug>(dkosmallcaps)
-  Plug g:dko#vim_dir . '/mine/vim-smallcaps', { 'on': '<Plug>(dkosmallcaps)' }
+  Plug g:dko#vim_dir . '/mine/vim-smallcaps', {
+        \   'on': [ '<Plug>(dkosmallcaps)' ]
+        \ }
 
   " Toggle movement mode line-wise/display-wise
   Plug g:dko#vim_dir . '/mine/vim-movemode'
