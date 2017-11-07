@@ -649,6 +649,11 @@ function! dkoplug#plugins#LoadAll() abort
         \   '<Plug>(Visual-Split',
         \ ] }
 
+  "Plug 'airblade/vim-gitgutter'
+
+  " Faster than quickfixsigns_vim and vim-gitgutter
+  Plug 'mhinz/vim-signify'
+
   " Always show signs column with marks / vcs / qf
   Plug 'tomtom/quickfixsigns_vim'
 

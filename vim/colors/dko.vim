@@ -149,6 +149,10 @@ hi! link GitGutterAdd             dkoSignAdded
 hi! link GitGutterChange          dkoSignChanged
 hi! link GitGutterChangeDelete    dkoSignChanged
 hi! link GitGutterDelete          dkoSignRemoved
+hi! link SignifySignAdd           dkoSignAdded
+hi! link SignifySignChange        dkoSignChanged
+hi! link SignifySignChangeDelete  dkoSignChanged
+hi! link SignifySignDelete        dkoSignRemoved
 
 " ============================================================================
 " Diff
