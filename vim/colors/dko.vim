@@ -138,7 +138,7 @@ hi! PmenuThumb     guibg=#505055
 " Search
 " ============================================================================
 
-hi! Search         guibg=#aa8866   guifg=#202022
+hi! Search         guibg=#ee9966   guifg=#202022
 
 " ============================================================================
 " Plugin provided signs
@@ -156,6 +156,11 @@ hi! link SignifySignAdd           dkoSignAdded
 hi! link SignifySignChange        dkoSignChanged
 hi! link SignifySignChangeDelete  dkoSignChanged
 hi! link SignifySignDelete        dkoSignRemoved
+
+" the head in <head></head>
+hi! MatchParen    guibg=#225588   guifg=#dddddd
+" the <> in <head>
+hi! ParenMatch    guibg=#ee4433 guifg=#eeeeee
 
 " ============================================================================
 " Diff
