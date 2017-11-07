@@ -237,7 +237,7 @@ hi! link pandocReferenceURL             dkoLink
 " PHP
 " ============================================================================
 
-hi! link phpType            Delimiter
+hi! link phpType            normal
 hi! link phpDocTags         dkoJavaDocTag
 hi! link phpDocParam        dkoJavaDocType
 hi! link phpDocIdentifier   dkoJavaDocKey
