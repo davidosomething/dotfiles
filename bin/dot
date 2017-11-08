@@ -286,7 +286,7 @@ __dko_dotfiles__update_node() {
       nvm install             "$wanted"
       nvm alias default       "$wanted"
       nvm use default
-      npm install --global npm@latest
+      nvm install-latest-npm
 
       local __nodir
       __nodir="$("${DOTFILES}/bin/dko-nvm-node-version")"

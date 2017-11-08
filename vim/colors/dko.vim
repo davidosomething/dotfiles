@@ -5,7 +5,7 @@
 
 if !has('termguicolors') || !&termguicolors | finish | endif
 syntax reset
-hi! clear
+hi clear
 
 let g:colors_name = 'dko'
 
