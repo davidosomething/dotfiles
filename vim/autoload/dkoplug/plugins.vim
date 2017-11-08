@@ -47,10 +47,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   "Plug 'majutsushi/tagbar', PlugIf(executable('ctags'))
 
-  " ctags on-the-fly processing
-  " This is a nice function context plugin but too many false positives
-  "Plug 'jeetsukumaran/vim-gazetteer', PlugIf(executable('ctags'))
-
   " ==========================================================================
   " Commands
   " ==========================================================================
@@ -178,9 +174,9 @@ function! dkoplug#plugins#LoadAll() abort
   Plug g:dko#vim_dir . '/mine/vim-hr'
 
   " <Leader>C <Plug>(dkosmallcaps)
-  Plug g:dko#vim_dir . '/mine/vim-smallcaps', {
-        \   'on': [ '<Plug>(dkosmallcaps)' ]
-        \ }
+  Plug g:dko#vim_dir . '/mine/vim-smallcaps', { 'on': [
+        \   '<Plug>(dkosmallcaps)',
+        \ ] }
 
   " Toggle movement mode line-wise/display-wise
   Plug g:dko#vim_dir . '/mine/vim-movemode'
@@ -190,7 +186,7 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
 
   " The language client completion is a bit slow to kick in, but it works
-  Plug 'autozimu/LanguageClient-neovim', PlugIf(g:dko_use_completion, {
+  Plug 'autozimu/LanguageClient-neovim', WithCompl({
         \   'do': ':UpdateRemotePlugins'
         \ })
 
@@ -205,9 +201,11 @@ function! dkoplug#plugins#LoadAll() abort
   " Main completion engine, bound to <C-o>
   " Does not start until InsertEnter, so we can set up sources, then load
   " them, then load NCM
-  Plug 'roxma/nvim-completion-manager', PlugIf(g:dko_use_completion, {
-        \   'on': []
-        \ })
+  Plug 'roxma/nvim-completion-manager', WithCompl({ 'on': [] })
+
+  " Complete words from other open buffers (tags is probably enough, this will
+  " just introduce irrelevant completions)
+  "Plug 'fgrsnau/ncm-otherbuf', WithCompl()
 
   " --------------------------------------------------------------------------
   " NCM functionality: Includes
@@ -218,7 +216,7 @@ function! dkoplug#plugins#LoadAll() abort
   " https://github.com/Shougo/neoinclude.vim/blob/master/autoload/neoinclude.vim
   "
   " NCM Errors when can't find b:node_root
-  "Plug 'Shougo/neoinclude.vim', PlugIf(g:dko_use_completion)
+  "Plug 'Shougo/neoinclude.vim', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: CSS
@@ -227,13 +225,13 @@ function! dkoplug#plugins#LoadAll() abort
   " Omnicompletion, this is beta repo, where stables are already in VIMRUNTIME
   "Plug 'othree/csscomplete.vim'
 
-  Plug 'calebeby/ncm-css', PlugIf(g:dko_use_completion)
+  Plug 'calebeby/ncm-css', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: Java
   " --------------------------------------------------------------------------
 
-  Plug 'sassanh/nvim-cm-eclim', PlugIf(g:dko_use_completion)
+  Plug 'sassanh/nvim-cm-eclim', WithCompl()
 
   " Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
   "       \   'do': 'cd -- libs/javavi/ && mvn compile',
@@ -269,7 +267,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " NCM completion, same deps as vim-flow
   " not using until this is fixed: https://github.com/roxma/ncm-flow/issues/3
-  "Plug 'roxma/ncm-flow', PlugIf(g:dko_use_completion)
+  "Plug 'roxma/ncm-flow', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: PHP
@@ -312,23 +310,23 @@ function! dkoplug#plugins#LoadAll() abort
   " Full syntax completion. Keyed as [S]
   " Only use with NCM - normally super slow, like syntaxcomplete
   " DISABLED - Makes pandoc/markdown really slow.
-  "Plug 'Shougo/neco-syntax', PlugIf(g:dko_use_completion)
+  "Plug 'Shougo/neco-syntax', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: Snippet engine
   " --------------------------------------------------------------------------
 
   " nvim-completion-manager
-  Plug 'Shougo/neosnippet', PlugIf(g:dko_use_completion)
-  Plug 'Shougo/neosnippet-snippets', PlugIf(g:dko_use_completion)
-  Plug 'honza/vim-snippets', PlugIf(g:dko_use_completion)
+  Plug 'Shougo/neosnippet', WithCompl()
+  Plug 'Shougo/neosnippet-snippets', WithCompl()
+  Plug 'honza/vim-snippets', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: VimL
   " --------------------------------------------------------------------------
 
   " nvim-completion-manager
-  Plug 'Shougo/neco-vim', PlugIf(g:dko_use_completion)
+  Plug 'Shougo/neco-vim', WithCompl()
 
   " ==========================================================================
   " Multiple languages
@@ -627,7 +625,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Provides:
   " - Highlight partial matches as you type in search mode
   " - Stay cursor on first match slash '/' search
-  " [DEPRECATED] Native incsearch has('patch-8.0.1238')
+  " [DEPRECATED] Use native incsearch instead if has('patch-8.0.1238')
   " [BUG] Double cmdline cursor
   " - <https://github.com/haya14busa/incsearch.vim/issues/79>
   " - <https://github.com/neovim/neovim/issues/3688>
@@ -680,6 +678,11 @@ endfunction
 function! PlugIf(condition, ...) abort
   let l:enabled = a:condition ? {} : { 'on': [], 'for': [] }
   return a:0 ? extend(l:enabled, a:000[0]) : l:enabled
+endfunction
+
+" Shortcut
+function! WithCompl(...) abort
+  return call('PlugIf', [ g:dko_use_completion ] + a:000)
 endfunction
 
 " ============================================================================
