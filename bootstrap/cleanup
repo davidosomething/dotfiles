@@ -51,7 +51,12 @@ __move() {
   local dest_parent
   dest_parent="$(dirname "${2}")"
   if [[ ! -d "$dest_parent" ]]; then
-    mkdir -p -- "$dest_parent" && __dko_ok "Created parent directory ${dest_parent}"
+    read -p "Directory ${dest_parent} does not exist, create? [y/N] " -r
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      mkdir -p -- "$dest_parent" && __dko_ok "Created parent directory ${dest_parent}"
+    else
+      return 1
+    fi
   fi
 
   mv -- "$1" "$2" && __dko_ok "Moved ${1} to ${2}"
@@ -69,7 +74,12 @@ __merge_dir() {
   fi
 
   if [[ ! -d "$2" ]]; then
-    mkdir -p -- "$2" && __dko_ok "Created dest directory ${2}"
+    read -p "Directory ${2} does not exist, create? [y/N] " -r
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      mkdir -p -- "$2" && __dko_ok "Created dest directory ${2}"
+    else
+      return 1
+    fi
   fi
 
   mv -- "${1}/*"   "$2" && __dko_ok "Moved contents of ${1} into ${2}"
