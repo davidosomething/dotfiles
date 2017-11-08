@@ -200,6 +200,7 @@ alias cuios='XCODE_XCCONFIG_FILE="${PWD}/xcconfigs/swift31.xcconfig" carthage up
 # ----------------------------------------------------------------------------
 
 alias archey='archey --offline'
+alias bashate='bashate -i E003,E006'
 alias brokensymlinks='find . -type l ! -exec test -e {} \; -print'
 alias cb='cdbk'
 alias curl='curl --config "${DOTFILES}/curl/dot.curlrc"'
