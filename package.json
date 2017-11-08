@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echint; shellcheck --exclude=SC1090,SC2148 --shell=sh shell/*.sh"
   },
   "repository": {
     "type": "git",

@@ -6,6 +6,3 @@ before_install:
   - sudo apt-get install -y shellcheck
 install:
   - npm install --production --global echint
-script:
-  - echint
-  - shellcheck --exclude=SC1090,SC2148 --shell=sh shell/*.sh
