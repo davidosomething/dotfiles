@@ -50,15 +50,7 @@ __move() {
 
   local dest_parent
   dest_parent="$(dirname "${2}")"
-  if [[ ! -d "$dest_parent" ]]; then
-    read -p "Directory ${dest_parent} does not exist, create? [y/N] " -r
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      mkdir -p -- "$dest_parent" && __dko_ok "Created parent directory ${dest_parent}"
-    else
-      return 1
-    fi
-  fi
-
+  dko-maybemkdir "$dest_parent" || return 1
   mv -- "$1" "$2" && __dko_ok "Moved ${1} to ${2}"
 }
 
@@ -73,18 +65,10 @@ __merge_dir() {
     return 0
   fi
 
-  if [[ ! -d "$2" ]]; then
-    read -p "Directory ${2} does not exist, create? [y/N] " -r
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      mkdir -p -- "$2" && __dko_ok "Created dest directory ${2}"
-    else
-      return 1
-    fi
-  fi
-
+  dko-maybemkdir "$2" || return 1
   mv -- "${1}/*"   "$2" && __dko_ok "Moved contents of ${1} into ${2}"
   mv -- "${1}/.*"  "$2" && __dko_ok "Moved .contents in ${1} into ${2}"
-  rmdir -- "$1" && __dko_ok "Removed ${1}"
+  [[ -d "$1" ]] && rmdir -- "$1" && __dko_ok "Removed ${1}"
 }
 
 # Remove file or dir completely with confirmation
@@ -127,9 +111,9 @@ __move      "${HOME}/.inputrc"        "${XDG_CONFIG_HOME}/readline/inputrc"
 __merge_dir "${HOME}/.fonts"          "${XDG_DATA_HOME}/fonts"
 
 [[ -n "$COMPOSER_HOME" ]] && __move "${HOME}/.composer" "$COMPOSER_HOME"
-if [[ -n "$GNUPGHOME" ]]; then
-  rmdir "${HOME}/.gnupg" || __move "${HOME}/.gnupg" "$GNUPGHOME"
-fi
+[[ -n "$GNUPGHOME" ]] && [[ -d "${HOME}/.gnupg" ]] && {
+  rmdir "${HOME}/.gnupg" 2>/dev/null || __move "${HOME}/.gnupg" "$GNUPGHOME"
+}
 [[ -n "$PYLINTHOME" ]] && __move "${HOME}/.pylint.d" "$PYLINTHOME"
 [[ -n "$YARN_CACHE_FOLDER" ]] && __move "${HOME}/.yarn-cache" "$YARN_CACHE_FOLDER"
 

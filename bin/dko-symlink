@@ -28,9 +28,7 @@ __dko_symlink() {
   __dko_status "Symlinking \033[0;35m${fulltargetpath}\033[0;32m -> \033[0;35m${sourcepath}\033[0;32m "
 
   targetdir="$(basename "$fulltargetpath")"
-  [[ -d "$targetdir" ]] || mkdir -p "$targetdir"
-
-  mkdir -p "$(dirname "$fulltargetpath")"
+  dko-maybemkdir "$targetdir" || return 1
   ln -fns "$sourcepath" "$fulltargetpath"
 }
 

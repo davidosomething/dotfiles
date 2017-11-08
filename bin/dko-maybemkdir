@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+__dotfiles_dir="${HOME}/.dotfiles"
+. "${__dotfiles_dir}/lib/pretty.bash"
+
+__maybemkdir() {
+  if [[ ! -d "$1" ]]; then
+    read -p "Directory ${1} does not exist, create? [y/N] " -r
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      mkdir -p -- "$1" && __dko_ok "Created ${1}"
+    else
+      return 1
+    fi
+  fi
+}
+
+__maybemkdir "$1"
