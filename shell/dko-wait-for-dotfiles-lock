@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-[ -f "${HOME}/.dotfiles/local/dotfiles.lock" ] && {
+[[ -f "${HOME}/.dotfiles/local/dotfiles.lock" ]] && {
   echo -e "\033[0;33m==> Found dotfiles.lock, waiting 3 secs or press [enter] to continue"
   # shellcheck disable=SC2162
   read -t 3
