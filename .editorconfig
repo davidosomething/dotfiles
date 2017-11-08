@@ -10,6 +10,10 @@ indent_style = space
 indent_size = 2
 indent_style = tab
 
+[*.gitconfig]
+indent_size = 2
+indent_style = tab
+
 # html is not minified so reduce character output by using real tabs
 # use indent size 4 for parity with PHP
 [*.{erb,hbs,html,marko,mustache,xml}]

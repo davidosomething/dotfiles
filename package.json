@@ -22,15 +22,23 @@
   "homepage": "https://github.com/davidosomething/dotfiles#readme",
   "echint": {
     "ignore": [
+      "**/*.md",
+      "**/*.xml",
+      "bitbar/*",
+      "iterm2/*.itermcolors",
       "linux/**",
       "local/**",
       "logs/**",
+      "mac/*.terminal",
+      "openbox/**",
       "terminfo/**",
       "tests/**",
       "tmux/plugins/**",
       "vim/autoload/plug.vim*",
+      "vim/spell/**",
       "vim/vendor/**",
-      "weechat/**"
+      "weechat/**",
+      "xresources/**"
     ]
   }
 }
