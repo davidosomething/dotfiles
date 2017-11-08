@@ -322,7 +322,7 @@ fi
 # wget is a prerequisite
 if __dko_has 'wget'; then
   __dko_source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" || {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/psprint/zplugin/master/doc/install.sh)" \
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)" \
     && source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh"
   }
 

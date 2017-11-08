@@ -48,4 +48,7 @@ zplugin light 'vasyharan/zsh-brew-services'
 
 zplugin light 'voronkovich/phpcs.plugin.zsh'
 
+[[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] \
+  && zplugin load "${TRAVIS_CONFIG_PATH}"
+
 export DKO_SOURCE="${DKO_SOURCE} }"
