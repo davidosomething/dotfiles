@@ -12,7 +12,8 @@ function! dkoplug#plugins#LoadAll() abort
   " `:Bufferize messages` to get messages (or any :command) in a new buffer
   Plug 'AndrewRadev/bufferize.vim', { 'on': [ 'Bufferize' ] }
 
-  Plug 'cocopon/colorswatch.vim', { 'on': [ 'ColorSwatchGenerate' ] }
+  Plug 'cocopon/colorswatch.vim'
+  Plug 'cocopon/pgmnt.vim'
 
   " :DocOpen to open the current help.txt file in browser
   Plug 'nelstrom/vim-docopen', { 'on': [ 'DocOpen' ] }
