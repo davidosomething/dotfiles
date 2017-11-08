@@ -47,7 +47,7 @@ __dko_has "nvim" && {
 # travis gem completion
 # ============================================================================
 
-__dko_source "${TRAVIS_CONFIG_PATH}/travis.bash" \
+__dko_source "${TRAVIS_CONFIG_PATH}/travis.sh" \
   && DKO_SOURCE="${DKO_SOURCE} -> travis"
 
 # ============================================================================
