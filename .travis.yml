@@ -4,6 +4,7 @@ node_js:
 install:
   - npm install --global echint
 script:
+  - pwd
   - echint "${PWD}/bash/*"
   - echint "${PWD}/bin/*"
   - echint "${PWD}/lib/*"
