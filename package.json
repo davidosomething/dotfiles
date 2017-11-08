@@ -9,7 +9,8 @@
   },
   "scripts": {
     "_markdownlint": "npx --quiet markdownlint-cli --config ./markdownlint/config.json",
-    "test": "npx --quiet npm-run-all -p lint:*",
+    "_parallel": "npx --quiet npm-run-all --silent --aggregate-output --parallel",
+    "test": "npm run --silent _parallel -- lint:*",
     "lint:shell": "shellcheck --exclude=SC1090,SC2148 --shell=sh -- shell/*.sh",
     "lint:editorconfig": "npx --quiet echint",
     "lint:readme": "npm run --silent _markdownlint -- ./README.md",
