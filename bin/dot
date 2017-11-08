@@ -264,11 +264,11 @@ __dko_dotfiles__update_node() {
   __dko_dotfiles__node__require_nvm || return 1
 
   local wanted
-  wanted="${1:-"v8"}"
+  wanted="${1:-"$(nvm version-remote --lts)"}"
   [[ "$wanted" != "v"* ]] && wanted="v${wanted}"
 
   . "${NVM_DIR}/nvm.sh"
-  __dko_status "Checking node versions..."
+  __dko_status "Checking node versions against ${wanted}"
 
   local wanted_with_minor
   wanted_with_minor="$(nvm version-remote "$wanted")"
@@ -285,9 +285,9 @@ __dko_dotfiles__update_node() {
       __dko_status "Installing node ${wanted_with_minor}..."
       nvm install             "$wanted"
       nvm alias default       "$wanted"
+      nvm use default
       npm install --global npm@latest
 
-      nvm use default
       local __nodir
       __nodir="$("${DOTFILES}/bin/dko-nvm-node-version")"
       export DKO_DEFAULT_NODE_VERSION="${__nodir%\/bin}"
