@@ -8,7 +8,12 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "npx echint; shellcheck --exclude=SC1090,SC2148 --shell=sh shell/*.sh"
+    "_markdownlint": "npx --quiet markdownlint-cli --config ./markdownlint/config.json",
+    "test": "npx --quiet npm-run-all lint:*",
+    "lint:shell": "shellcheck --exclude=SC1090,SC2148 --shell=sh -- shell/*.sh",
+    "lint:editorconfig": "npx --quiet echint",
+    "lint:readme": "npm run --silent _markdownlint -- ./README.md",
+    "lint:readme:vim": "npm run --silent _markdownlint -- ./vim/README.md"
   },
   "repository": {
     "type": "git",
