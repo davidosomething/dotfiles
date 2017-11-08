@@ -1,0 +1,36 @@
+{
+  "name": "dotfiles",
+  "version": "0.0.1",
+  "description": "@davidosomething/dotfiles",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidosomething/dotfiles.git"
+  },
+  "author": "David O'Trakoun <me@davidosomething.com> (https://davidosomething.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidosomething/dotfiles/issues"
+  },
+  "homepage": "https://github.com/davidosomething/dotfiles#readme",
+  "echint": {
+    "ignore": [
+      "linux/**",
+      "local/**",
+      "logs/**",
+      "terminfo/**",
+      "tests/**",
+      "tmux/plugins/**",
+      "vim/autoload/plug.vim*",
+      "vim/vendor/**",
+      "weechat/**"
+    ]
+  }
+}

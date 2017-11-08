@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "8"
+install:
+  - npm install --global echint
+script:
+  - echint "${PWD}/bash/*"
+  - echint "${PWD}/bin/*"
+  - echint "${PWD}/lib/*"
+  - echint "${PWD}/node/*"
+  - echint "${PWD}/php/*"
+  - echint "${PWD}/python/*"
+  - echint "${PWD}/r/*"
+  - echint "${PWD}/ruby/*"
+  - echint "${PWD}/shell/*"
+  - echint "${PWD}/vim/**/*.vim"
+  - echint "${PWD}/zsh/**/*"

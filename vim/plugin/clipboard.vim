@@ -27,7 +27,7 @@ if !dkoplug#plugins#IsLoaded('vim-easyclip')
 
   let s:blackhole_keys = [ 'c', 'C', 'd', 'D', 's', 'S', 'x', 'X' ]
   for s:key in s:blackhole_keys
-     call s:Blackhole(s:key)
+    call s:Blackhole(s:key)
   endfor
 
   let s:register = has('clipboard') ? '"*' : '""'

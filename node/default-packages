@@ -13,6 +13,7 @@ coffee-script
 coffeelint
 commitizen
 create-react-app
+echint
 enhanced-resolve-cli
 flow-bin
 flow-language-server
