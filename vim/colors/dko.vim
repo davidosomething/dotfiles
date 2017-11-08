@@ -267,7 +267,7 @@ hi! link shOption           dkoNormal
 " ============================================================================
 
 hi! link plugName           dkoStatement
-hi! link plugSha            dkoUnimportant
+hi! link plugSha            dkoCommentDoc
 
 " ============================================================================
 " VimL
