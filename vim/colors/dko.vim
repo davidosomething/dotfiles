@@ -4,7 +4,7 @@
 " ============================================================================
 
 if !has('termguicolors') || !&termguicolors | finish | endif
-syntax reset
+if exists('syntax_on') | syntax reset | endif
 hi clear
 
 let g:colors_name = 'dko'
