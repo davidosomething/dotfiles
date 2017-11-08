@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echint; shellcheck --exclude=SC1090,SC2148 --shell=sh shell/*.sh"
+    "test": "npx echint; shellcheck --exclude=SC1090,SC2148 --shell=sh shell/*.sh"
   },
   "repository": {
     "type": "git",
