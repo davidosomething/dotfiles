@@ -8,4 +8,4 @@ install:
   - npm install --global echint
 script:
   - echint
-  - shellcheck --shell=sh shell/*.sh
+  - shellcheck --exclude=SC1090,SC2148 --shell=sh shell/*.sh
