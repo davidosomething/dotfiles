@@ -160,7 +160,7 @@ hi! link SignifySignDelete        dkoSignRemoved
 " the head in <head></head>
 hi! MatchParen    guibg=#225588   guifg=#dddddd
 " the <> in <head>
-hi! ParenMatch    guibg=#ee4433 guifg=#eeeeee
+hi! ParenMatch    guibg=#ee4433   guifg=#eeeeee gui=NONE
 
 " ============================================================================
 " Diff
