@@ -121,6 +121,7 @@ tmtags
 # real junk, temp files
 # ----------------------------------------------------------------------------
 
+package-lock.json.*
 containerlog.txt
 npm-debug.log
 .sass-cache/

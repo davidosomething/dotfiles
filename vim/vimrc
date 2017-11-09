@@ -179,6 +179,18 @@ set fileformats=unix,mac,dos
 if !&modifiable | set fileformat=unix | endif
 
 " ----------------------------------------------------------------------------
+" shada
+" viminfo is in autoload/dko/old.vim
+" ----------------------------------------------------------------------------
+
+if has('shada')
+  " Bumped '100 to '1000 to save more previous files
+  " Bumped <50 to <100 to save more register lines
+  " Bumped s10 to s100 for to allow up to 100kb of data per item
+  set shada=!,'1000,<100,s100,h
+endif
+
+" ----------------------------------------------------------------------------
 " Temp dirs
 " ----------------------------------------------------------------------------
 
