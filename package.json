@@ -47,5 +47,9 @@
       "weechat/**",
       "xresources/**"
     ]
+  },
+  "peerDependencies": {
+    "eslint": "^4.10.0",
+    "eslint-config-davidosomething": "^2.0.0"
   }
 }

@@ -4,7 +4,7 @@
 'use strict';
 
 // Recursive array flatten
-const flatten = arr => arr.reduce(
+const flatten = (arr) => arr.reduce(
   (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
 );
 
@@ -16,19 +16,20 @@ const sources = flatten(
     .map((s) => s.split(' '))
 ).filter((n) => n.length);
 
+const LEVELS = {
+  '{': 1,
+  '}': -1,
+};
+
 // output and store bracket balance
 // exits non-zero if brackets not balanced
 process.exit(sources.reduce((indent, node) => {
-  // opening node
-  if (node === '{') {
-    return indent += 1;
+  if (LEVELS[node]) {
+    indent += LEVELS[node];
   }
-
-  if (node === '}') {
-    return indent -= 1;
+  else {
+    process.stdout.write(`  ${'  '.repeat(indent)}- ${node}\n`);
   }
-
-  process.stdout.write(`  ${'  '.repeat(indent)}- ${node}\n`);
   return indent;
-}, 0))
+}, 0));
 

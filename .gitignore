@@ -1,13 +1,11 @@
 # managed
+node_modules/
+tmux/plugins/
 !tmux/plugins/tpm
-tmux/plugins/*
 
 # secrets
 local/
 logs/
-
-# symlink
-irssi/config
 
 # deprecated
 z/.z
