@@ -132,6 +132,10 @@ function! dko#First(...) abort
   return ''
 endfunction
 
+function! dko#BorG(var, default) abort
+  return get(b:, a:var, get(g:, a:var, a:default))
+endfunction
+
 " ============================================================================
 " Buffer info
 " ============================================================================

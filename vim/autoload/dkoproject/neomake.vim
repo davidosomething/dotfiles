@@ -41,7 +41,7 @@ endfunction
 " @param {string} settings.maker name
 " @param {string} [settings.when] eval()'d, add local maker only if true
 function! dkoproject#neomake#LocalMaker(settings) abort
-  " We eval this so it runs with the buffer context
+  " eval to runs with the buffer context
   if has_key(a:settings, 'when') && !eval(a:settings['when']) | return | endif
 
   " Override maker's exe for this buffer?
@@ -60,6 +60,28 @@ function! dkoproject#neomake#LocalMaker(settings) abort
           \ dko#InitList('b:neomake_' . a:settings['ft'] . '_enabled_makers'),
           \ a:settings['maker'])
   endif
+endfunction
+
+" @param {dict} settings to make an npx maker with
+" @param {mixed} [1] pass to just return the resulting dict, omit to set on b:
+" @return {dict}
+function! dkoproject#neomake#NpxMaker(settings, ...) abort
+  " eval to runs with the buffer context
+  if has_key(a:settings, 'when') && !eval(a:settings['when']) | return | endif
+
+  let l:bin = get(a:settings, 'npx', a:settings['maker'])
+  let l:args = get(a:settings, 'args', [])
+  let l:maker = extend(copy(a:settings), {
+      \   'cwd': '%:p:h',
+      \   'exe': 'npx',
+      \   'args': [ '--quiet', l:bin ] + l:args,
+      \ })
+
+  if a:0 == 0
+    let b:neomake_{a:settings['ft']}_{a:settings['maker']}_maker = l:maker
+  endif
+
+  return l:maker
 endfunction
 
 function! dkoproject#neomake#MaybeRun() abort

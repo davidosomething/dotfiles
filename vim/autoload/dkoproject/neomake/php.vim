@@ -1,6 +1,6 @@
 if !dkoplug#plugins#IsLoaded('neomake') | finish | endif
 
-let g:dkoproject#neomake#php#local_phpcs = {
+let g:dkoproject#neomake#php#phpcs = {
       \   'ft':     'php',
       \   'maker':  'phpcs',
       \   'exe':    'vendor/bin/phpcs',

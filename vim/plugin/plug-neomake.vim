@@ -57,16 +57,14 @@ let g:neomake_vim_vimlparser_maker = {
 " ============================================================================
 
 autocmd dkoneomake FileType javascript
-      \   call dkoproject#neomake#LocalMaker(dkoproject#neomake#javascript#local_eslint)
-      \ | call dkoproject#neomake#LocalMaker(dkoproject#neomake#javascript#local_jshint)
-      \ | call dkoproject#neomake#javascript#SetMaker()
-      "\ | call dkoproject#neomake#LocalMaker(dkoproject#neomake#javascript#local_flow)
+      \ call dkoproject#neomake#javascript#Setup()
+      "\ | call dkoproject#neomake#NpxMaker(dkoproject#neomake#javascript#flow)
 
 autocmd dkoneomake FileType markdown.pandoc,markdown
-      \ call dkoproject#neomake#markdown#Markdownlint()
+      \ call dkoproject#neomake#markdown#Setup()
 
 autocmd dkoneomake FileType php
-      \   call dkoproject#neomake#LocalMaker(dkoproject#neomake#php#local_phpcs)
+      \   call dkoproject#neomake#LocalMaker(dkoproject#neomake#php#phpcs)
       \ | call dkoproject#neomake#php#Phpcs()
       \ | call dkoproject#neomake#php#Phpmd()
 
@@ -74,9 +72,7 @@ autocmd dkoneomake BufNewFile,BufRead *.sh,dot.profile
       \   call dkoproject#neomake#sh#ShellcheckPosix()
 
 autocmd dkoneomake FileType scss
-      \   call dkoproject#neomake#LocalMaker(dkoproject#neomake#scss#local_sasslint)
-      \ | call dkoproject#neomake#scss#Sasslint()
-      \ | call dkoproject#neomake#scss#SetMaker()
+      \ call dkoproject#neomake#scss#Setup()
 
 autocmd dkoneomake User vim-pyenv-activate-post
       \   call dkoproject#neomake#python#ActivatedPyenv()
