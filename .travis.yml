@@ -10,4 +10,4 @@ before_install:
   - nvm install --lts
   - nvm use --lts
 script:
-  - npm test
+  - npm test --silent
