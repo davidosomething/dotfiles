@@ -16,8 +16,7 @@
     "lint:readme": "npm run --silent _header -- \"$npm_lifecycle_event\"          && npm run --silent _markdownlint -- ./README.md",
     "lint:readme:vim": "npm run --silent _header -- \"$npm_lifecycle_event\"      && npm run --silent _markdownlint -- ./vim/README.md",
     "lint:shell": "npm run --silent _header -- \"$npm_lifecycle_event\"           && shellcheck --exclude=SC1090,SC2148 --shell=sh -- shell/*.sh",
-    "lint:vim:rc": "npm run --silent _header -- \"$npm_lifecycle_event\"          && vint vim/{gvimrc,vimrc,*.vim}",
-    "lint:vim:runtime": "npm run --silent _header -- \"$npm_lifecycle_event\"     && vint vim/{after,autoload/dko*,colors,ftplugin,mine,plugin}",
+    "lint:vim": "npm run --silent _header -- \"$npm_lifecycle_event\"             && npx --ignore-existing --quiet globstar -- vint \"vim/{after,autoload/dko*,colors,ftplugin,gvimrc,mine,plugin,vimrc,*.vim}\"",
     "test": "npm run --silent _parallel -- lint:**"
   },
   "repository": {
