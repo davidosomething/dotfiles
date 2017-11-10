@@ -7,6 +7,5 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y shellcheck
   - nvm install --lts
-  - nvm use --lts
 script:
   - npm test --silent
