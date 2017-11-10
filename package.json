@@ -10,7 +10,7 @@
   },
   "scripts": {
     "_header": "npx --ignore-existing --quiet boxen-cli --padding 0",
-    "_markdownlint": "npx --ignore-existing --quiet markdownlint-cli --config ./markdownlint/config.json",
+    "_markdownlint": "npx --ignore-existing --quiet markdownlint-cli --config ./markdownlint/dot.markdownlintrc",
     "_parallel": "npx --ignore-existing --quiet npm-run-all --silent --aggregate-output --parallel",
     "lint": "npm run --silent _parallel -- lint:**",
     "lint:editorconfig": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"  && npx --ignore-existing --quiet echint && echo ' ✓ passed\n'",

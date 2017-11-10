@@ -6,11 +6,8 @@ __dotfiles_dir="${HOME}/.dotfiles"
 __maybemkdir() {
   if [[ ! -d "$1" ]]; then
     read -p "Directory ${1} does not exist, create? [y/N] " -r
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      mkdir -p -- "$1" && __dko_ok "Created ${1}"
-    else
-      return 1
-    fi
+    [[ ! $REPLY =~ ^[Yy]$ ]] && return 1
+    mkdir -p -- "$1" && __dko_ok "Created ${1}"
   fi
 }
 

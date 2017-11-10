@@ -53,6 +53,8 @@ __symlink() {
                 ".config/git/config"
   dko-symlink  "git/dot.gitignore" \
                 ".config/git/ignore"
+  dko-symlink  "markdownlint/dot.markdownlintrc" \
+                ".config/markdownlint"
   dko-symlink  "node/default-packages" \
                 ".config/nvm/default-packages"
   dko-symlink  "shell/dot.inputrc" \
