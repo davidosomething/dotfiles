@@ -19,7 +19,7 @@ import urllib
 TICKERS = [
     {
         'symbol': 'btc',
-        'sign': 'B',
+        'sign': 'Ƀ',
     },
     {
         'symbol': 'eth',
