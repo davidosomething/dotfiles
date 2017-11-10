@@ -1,4 +1,3 @@
-if !has('nvim') && has('vim_starting') | set encoding=utf-8 nobomb | endif
 scriptencoding utf-8
 
 "

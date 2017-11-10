@@ -1,4 +1,5 @@
 " plugin/signs.vim
+scriptencoding utf-8
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
