@@ -2,6 +2,8 @@
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
+[![Build Status](https://travis-ci.org/davidosomething/dotfiles.svg?branch=master)](https://travis-ci.org/davidosomething/dotfiles)
+
 - macOS/OS X, Arch Linux, and Debian compatible
 - [XDG] compliance wherever possible to keep `$HOME` clean
     - See [Archlinux wiki for XDG Base Directory Support]
