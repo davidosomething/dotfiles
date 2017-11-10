@@ -307,7 +307,7 @@ nnoremap  <special> <Leader>j   VjgJl
 " Clean up whitespace
 " ----------------------------------------------------------------------------
 
-nnoremap  <special> <Leader>ws  :<C-U>call dkowhitespace#clean()<CR>
+nnoremap  <special> <Leader>ws  :<C-U>call dko#whitespace#clean()<CR>
 
 " ============================================================================
 " PUM key handling
