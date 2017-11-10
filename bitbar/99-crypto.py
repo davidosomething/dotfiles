@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # coding=utf-8
 # pylint: disable=invalid-name
 """
@@ -12,6 +12,7 @@
 # <bitbar.image>https://i.imgur.com/B1nq4AU.jpg</bitbar.image>
 """
 
+import sys
 import json
 import urllib
 
@@ -65,11 +66,13 @@ def main():
 
         try:
             response = urllib.urlopen(url).read()
-        except urllib2.HTTPError, e:
+        except urllib.HTTPError as e:
             print('offline')
-            return
+            sys.exit(1)
 
         result = json.loads(response)
+        if type(result) is not dict:
+            sys.exit(1)
 
         """cryptomate
         """
