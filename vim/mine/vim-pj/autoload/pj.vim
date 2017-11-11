@@ -14,6 +14,7 @@ let s:jsons = {}
 function! pj#GetJson(...) abort
   let l:filepath = get(a:, 1, get(b:, 'PJ_file', ''))
   if empty(l:filepath)
+    echom '[pj] This buffer has no package.json path in b:PJ_file.'
     return {}
   endif
 
@@ -43,16 +44,8 @@ endfunction
 " @param {String} ... keys to get, e.g. ('repository', 'url')
 " @return {Mixed} empty dict if not found
 function! pj#GetValue(...) abort
-  if !exists('b:PJ_file')
-    echom '[pj] This buffer has no package.json path in b:PJ_file.'
-    return {}
-  endif
-
   let l:hash = pj#GetJson()
-  if empty(l:hash)
-    echom '[pj] The package.json for this buffer is empty.'
-    return {}
-  endif
+  if empty(l:hash) | return {} | endif
 
   " There must be a better way to deep traverse an object...
   let l:result = l:hash
@@ -78,13 +71,6 @@ function! pj#GetPackageJsonPath(PJ_function) abort
         \   type(a:PJ_function) ==# 1 ? a:PJ_function
         \ : type(a:PJ_function) ==# 2 ? a:PJ_function()
         \ : ''
-  if empty(l:path) | return '' | endif
-
-  if !filereadable(l:path)
-    echom '[pj] Could not read package.json at ' . l:path
-    return ''
-  endif
-
-  " Expose only if file was found
+  if empty(l:path) || !filereadable(l:path) | return '' | endif
   return l:path
 endfunction
