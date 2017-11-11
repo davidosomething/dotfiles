@@ -5,6 +5,11 @@
 
 let s:jsons = {}
 
+" Hash of package.json paths to decoded JSON objects in vim dict format
+" e.g. { '~/.project/package.json': { json } }
+" This saves us from having to json_decode again and store multiple instances
+" of the same package.json in memory
+"
 " @param {String} [filepath] key in s:jsons
 function! pj#GetJson(...) abort
   let l:filepath = get(a:, 1, get(b:, 'PJ_file', ''))
@@ -39,13 +44,13 @@ endfunction
 " @return {Mixed} empty dict if not found
 function! pj#GetValue(...) abort
   if !exists('b:PJ_file')
-    echoerr 'This buffer has no package.json path in b:PJ_file.'
+    echom '[pj] This buffer has no package.json path in b:PJ_file.'
     return {}
   endif
 
   let l:hash = pj#GetJson()
   if empty(l:hash)
-    echoerr 'The package.json for this buffer is empty.'
+    echom '[pj] The package.json for this buffer is empty.'
     return {}
   endif
 
@@ -53,16 +58,17 @@ function! pj#GetValue(...) abort
   let l:result = l:hash
   for l:deep_key in a:000
     " Requested more keys than there were available
-    if type(l:result) !=# 4
-      return {}
-    endif
-
+    if type(l:result) !=# v:t_dict | return {} | endif
     let l:result = get(l:result, l:deep_key, {})
-    if empty(l:result)
-      return {}
-    endif
+    if empty(l:result) | return {} | endif
   endfor
   return l:result
+endfunction
+
+function! pj#HasDevDependency(package) abort
+  let b:PJ_devdeps = get(b:, 'PJ_devdeps', pj#GetValue('devDependencies'))
+  if type(b:PJ_devdeps) != v:t_dict | return 0 | endif
+  return has_key(b:PJ_devdeps, a:package)
 endfunction
 
 " @param {String|Funcref} PJ_function
@@ -72,12 +78,10 @@ function! pj#GetPackageJsonPath(PJ_function) abort
         \   type(a:PJ_function) ==# 1 ? a:PJ_function
         \ : type(a:PJ_function) ==# 2 ? a:PJ_function()
         \ : ''
-  if empty(l:path)
-    return ''
-  endif
+  if empty(l:path) | return '' | endif
 
   if !filereadable(l:path)
-    echoerr 'Could not read package.json at ' . l:path
+    echom '[pj] Could not read package.json at ' . l:path
     return ''
   endif
 

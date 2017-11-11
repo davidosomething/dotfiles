@@ -54,24 +54,24 @@ let g:neomake_vim_vimlparser_maker = {
 
 " ============================================================================
 " Buffer filetype settings
+" Use BufWinEnter because it runs after modelines
 " ============================================================================
 
-autocmd dkoneomake FileType javascript
+autocmd dkoneomake BufWinEnter *
       \ call dkoproject#neomake#javascript#Setup()
-      "\ | call dkoproject#neomake#NpxMaker(dkoproject#neomake#javascript#flow)
 
-autocmd dkoneomake FileType markdown.pandoc,markdown
+autocmd dkoneomake BufWinEnter *.md,*.markdown,*.pandoc
       \ call dkoproject#neomake#markdown#Setup()
 
-autocmd dkoneomake FileType php
+autocmd dkoneomake BufWinEnter *.php
       \   call dkoproject#neomake#LocalMaker(dkoproject#neomake#php#phpcs)
       \ | call dkoproject#neomake#php#Phpcs()
       \ | call dkoproject#neomake#php#Phpmd()
 
-autocmd dkoneomake BufNewFile,BufRead *.sh,dot.profile
+autocmd dkoneomake BufWinEnter *.sh,dot.profile
       \   call dkoproject#neomake#sh#ShellcheckPosix()
 
-autocmd dkoneomake FileType scss
+autocmd dkoneomake BufWinEnter *.scss
       \ call dkoproject#neomake#scss#Setup()
 
 autocmd dkoneomake User vim-pyenv-activate-post

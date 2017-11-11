@@ -13,6 +13,9 @@
 "   - a path to package.json (relative to the buffer's path, or absolute)
 "
 
+" Auto-enable pj on buffers and re-read on editing package.json
+if !exists('*json_decode') | finish | endif
+
 " ============================================================================
 " Reset
 " ============================================================================
@@ -24,27 +27,6 @@ augroup END
 " ============================================================================
 " Main
 " ============================================================================
-
-" Auto-enable pj on buffers and re-read on editing package.json
-function! s:Init() abort
-  if !exists('*json_decode')
-    "echoerr 'vim-pj requires json_decode() functionality'
-    return
-  endif
-
-  augroup plugin-vimpj
-    autocmd!
-
-    " Start pj for the buffer
-    autocmd BufNewFile,BufRead * call s:InitBuffer()
-
-    " Re-decode package.json when edited
-    autocmd BufWritePost
-          \ package.json
-          \ call pj#Invalidate(expand('%:p')) | call pj#GetJson()
-
-  augroup END
-endfunction
 
 " Default package.json locator. Not used if g:PJ_function is set
 function! s:FindPackageJson() abort
@@ -84,15 +66,15 @@ endfunction
 " Init
 " ============================================================================
 
-" Hash of package.json paths to decoded JSON objects in vim dict format
-" e.g. { '~/.project/package.json': { json } }
-" This saves us from having to json_decode again and store multiple instances
-" of the same package.json in memory
-if get(g:, 'PJ_enabled', 0)
-  " Set b:PJ_file for all new buffers
-  call s:Init()
-endif
+command! PjEnable call s:InitBuffer()
 
-" Call this to re-read g:PJ_function and the package.json for the current
-" file, too.
-command! PjEnable call s:Init() | call s:InitBuffer()
+function! s:Init() abort
+  " Start pj for the buffer
+  autocmd plugin-vimpj BufNewFile,BufRead * call s:InitBuffer()
+
+  " Re-decode package.json when edited
+  autocmd plugin-vimpj BufWritePost
+        \ package.json
+        \ call pj#Invalidate(expand('%:p')) | call pj#GetJson()
+endfunction
+autocmd plugin-vimpj VimEnter * nested call s:Init()

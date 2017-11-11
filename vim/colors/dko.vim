@@ -328,12 +328,12 @@ hi! link vimSynType     dkoNormal
 hi! link helpExample          dkoString
 hi! link helpHeader           dkoUnimportant
 hi! link helpHeadline         dkoString
-hi! link helpHyperTextEntry   dkoUnimportant
+hi! link helpHyperTextEntry   dkoFunctionName
 hi! link helpHyperTextJump    dkoStatement
 hi! link helpNote             dkoUnimportant
-hi! link helpOption           dkoStatement
+hi! link helpOption           dkoFunctionName
 hi! link helpSectionDelim     dkoUnimportant
-hi! link helpSpecial          helpOption
+hi! link helpSpecial          dkoStatement
 hi! link helpURL              dkoString
 hi! link helpVim              dkoString
 hi! link helpWarning          dkoUnimportant
