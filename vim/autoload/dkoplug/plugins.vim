@@ -655,6 +655,8 @@ function! dkoplug#plugins#LoadAll() abort
   " Faster than quickfixsigns_vim and vim-gitgutter
   Plug 'mhinz/vim-signify'
 
+  Plug 'romainl/vim-qf'
+
   " Always show signs column with marks / vcs / qf
   Plug 'tomtom/quickfixsigns_vim'
 

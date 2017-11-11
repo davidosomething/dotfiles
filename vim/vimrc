@@ -21,9 +21,6 @@ let g:mapleader = "\<Space>"
 " Just for debugging
 let g:dko_rtp_original = &runtimepath
 
-" Used by anything that needs to change/use loc list
-let g:dko_loc_list_height = 10
-
 " Plugin settings
 let g:dko_use_completion = has('nvim') && has('python3')
 let g:dko_use_js_langserver = executable('javascript-typescript-stdio')
@@ -516,40 +513,12 @@ endif
 " Window aucmds -- affect layout
 augroup dkowindow
   autocmd!
-
-  " Resize all windows when the window is resized
-  autocmd VimResized
-        \ *
-        \ wincmd =
-
-  " Quit if quickfix is the only window
-  " from https://github.com/now/vim-quit-if-only-quickfix-buffer-left/blob/master/plugin/now/quit-if-only-quickfix-buffer-left.vim
-  autocmd WinEnter
-        \ *
-        \ if winnr('$') == 1 && &buftype == 'quickfix' | quit | endif
+  autocmd VimResized * wincmd =
 augroup END
 
 augroup dkoproject
   autocmd!
-
-  autocmd BufNewFile,BufRead,BufWritePost
-        \ *
-        \ call dkoproject#GetRoot()
-augroup END
-
-" WordPress VIP specific
-augroup dkowordpresssucksdonkeyballs
-  autocmd!
-
-  " No EOL character on files -- specifically for WP VIP PHP
-  autocmd BufNewFile,BufReadPre
-        \ */wp-content/themes/vip/*
-        \ setlocal noeol binary fileformat=dos
-
-  " Indent case: and default: in switch()
-  autocmd BufNewFile,BufReadPre
-        \ */*content/themes/*.php,*/*content/plugins/*.php,*/mu-plugins/*.php
-        \ let b:PHP_vintage_case_default_indent = 1
+  autocmd BufNewFile,BufRead,BufWritePost * call dkoproject#GetRoot()
 augroup END
 
 " ============================================================================
