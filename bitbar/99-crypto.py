@@ -71,7 +71,7 @@ def main():
             sys.exit(1)
 
         result = json.loads(response)
-        if type(result) is not dict:
+        if not isinstance(result, dict):
             sys.exit(1)
 
         """cryptomate
