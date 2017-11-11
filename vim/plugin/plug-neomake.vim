@@ -18,7 +18,7 @@ execute dko#MapAll({ 'key': '<F7>', 'command': 'Neomake!' })
 " Output
 " ============================================================================
 
-let g:neomake_open_list   = 0
+let g:neomake_open_list   = 2 " open and preserve cursor pos
 let g:neomake_list_height = g:dko_loc_list_height
 let g:neomake_serialize   = 0 " aggregate errors
 let g:neomake_error_sign    = { 'text': '⚑', 'texthl': 'NeomakeErrorSign' }
