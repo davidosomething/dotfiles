@@ -66,7 +66,7 @@ def main():
 
         try:
             response = urllib.urlopen(url).read()
-        except urllib.HTTPError as e:
+        except urllib.HTTPError:
             print('offline')
             sys.exit(1)
 
