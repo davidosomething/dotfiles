@@ -18,7 +18,7 @@ execute dko#MapAll({ 'key': '<F7>', 'command': 'Neomake!' })
 " Output
 " ============================================================================
 
-let g:neomake_open_list   = 0 " vim-qf handling
+let g:neomake_open_list   = 2
 let g:neomake_serialize   = 0 " aggregate errors
 let g:neomake_error_sign    = { 'text': '⚑', 'texthl': 'NeomakeErrorSign' }
 let g:neomake_warning_sign  = { 'text': '⚑', 'texthl': 'NeomakeWarningSign' }
@@ -42,14 +42,6 @@ let g:neomake_javascript_enabled_makers =
 " flake8 is pycodestyle(pep8)+pyflakes+pydocstyle
 " preferred over pylama (other multi-runner) for now
 let g:neomake_python_enabled_makers = [ 'flake8' ]
-
-let g:neomake_vim_enabled_makers = [ 'vimlparser', 'vint' ]
-
-let g:neomake_vim_vimlparser_maker = {
-      \   'exe':         'vimlparser',
-      \   'args':        [],
-      \   'errorformat': '%E%f:%l:%c: %n: %m',
-      \ }
 
 " ============================================================================
 " Buffer filetype settings
