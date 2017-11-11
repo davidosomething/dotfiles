@@ -12,8 +12,8 @@
 # <bitbar.image>https://i.imgur.com/B1nq4AU.jpg</bitbar.image>
 """
 
-import sys
 import json
+import sys
 import urllib
 
 TICKERS = [
@@ -50,16 +50,14 @@ def main():
         currency = 'usd'
         symbol = ticker['symbol']
 
-        """
-        cryptomate
+        """cryptomate
         """
         currency = currency.upper()
         symbol = symbol.upper()
         api_base = 'https://cryptomate.co.uk/api/'
         url = api_base + symbol + '/' + currency
 
-        """
-        coinmarketcap
+        """coinmarketcap
         api_base = 'https://coinmarketcap-nexuist.rhcloud.com/api/'
         url = api_base + symbol
         """
