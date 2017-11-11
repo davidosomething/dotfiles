@@ -457,13 +457,6 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'paulrosania/vim-graphql', { 'branch': 'tagged-template-literals' }
   " graphql upstream is https://github.com/jparise/vim-graphql
 
-  " ----------------------------------------
-  " Features
-  " ----------------------------------------
-
-  " Resolve JS import/require paths using enhanced-resolver-cli
-  Plug 'davidosomething/vim-enhanced-resolver'
-
   " ==========================================================================
   " Language: Markdown, Pandoc
   " ==========================================================================
