@@ -1,3 +1,8 @@
+" plugin/plug-vim-enhanced-resolver.vim
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 augroup dkovimenhancedresolver
   autocmd!
   autocmd FileType javascript
@@ -7,3 +12,6 @@ augroup dkovimenhancedresolver
   autocmd FileType *
         \ nmap <buffer> gR <Plug>(enhanced-resolver-echo-resolve)
 augroup END
+
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

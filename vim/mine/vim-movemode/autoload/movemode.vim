@@ -1,6 +1,8 @@
-" ============================================================================
+" autoload/movemode.vim
 " Toggle display lines movement mode for normal mode
-" ============================================================================
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 
 function! movemode#Line() abort
   let b:movementmode = 'linewise'
@@ -25,3 +27,5 @@ function! movemode#toggle() abort
   endif
 endfunction
 
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

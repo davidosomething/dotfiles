@@ -464,11 +464,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Resolve JS import/require paths using enhanced-resolver-cli
   Plug 'davidosomething/vim-enhanced-resolver'
 
-  " For refactoring only, not completion. Langserver provides same feat.
-  " Plug 'ternjs/tern_for_vim', PlugIf(g:dko_use_tern_for_vim, {
-  "       \   'do': 'npm install --global tern'
-  "       \ })
-
   " ==========================================================================
   " Language: Markdown, Pandoc
   " ==========================================================================

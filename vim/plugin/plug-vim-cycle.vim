@@ -1,5 +1,4 @@
 " plugin/plug-vim-cycle.vim
-
 scriptencoding utf-8
 
 " Check for IsPlugged instead of IsLoaded since we lazy load

@@ -3,6 +3,7 @@
 " This is an after/plugin since some plugins (in testing, like vim-searchant)
 " might set their own mappings.
 "
+
 if exists('g:loaded_dko_search') | finish | endif
 let g:loaded_dko_search = 1
 
@@ -21,7 +22,6 @@ let s:is_native_incsearch = has('patch-8.0.1238')
 " ============================================================================
 
 nmap  <special>   <Plug>(DKOClearSearch)  :<C-U>nohlsearch<CR><C-l>
-
 silent! nunmap    <Esc><Esc>
 nmap  <special>   <Esc><Esc>   <Plug>(DKOClearSearch)
 

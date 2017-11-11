@@ -1,8 +1,13 @@
 " plugin/plug-neosnippet.vim
 
 if !dkoplug#plugins#IsLoaded('neosnippet') | finish | endif
+
 let s:cpo_save = &cpoptions
 set cpoptions&vim
+
+augroup dkoneosnippet
+  autocmd!
+augroup END
 
 " ============================================================================
 
@@ -32,13 +37,8 @@ smap  <special>   <C-f>   <Plug>(neosnippet_expand_or_jump)
 xmap  <special>   <C-f>   <Plug>(neosnippet_expand_target)
 
 " Get rid of the placeholders in inserted snippets when done inserting
-augroup dkoneosnippet
-  autocmd!
-  autocmd FileType java,javascript,php
-        \ call s:BindDocblock()
-  autocmd InsertLeave *
-        \ NeoSnippetClearMarkers
-augroup END
+autocmd dkoneosnippet BufWinEnter * call s:BindDocblock()
+autocmd dkoneosnippet InsertLeave * NeoSnippetClearMarkers
 
 " ============================================================================
 " Insert phpdoc block

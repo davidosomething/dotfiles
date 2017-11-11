@@ -27,14 +27,3 @@ execute 'nmap <silent><buffer> [[ ?' . escape(s:matches, '|?') . s:match_done
 execute 'omap <silent><buffer> [[ ?' . escape(s:matches, '|?') . s:match_done
 execute 'nmap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
 execute 'omap <silent><buffer> ]] /' . escape(s:matches, '|') . s:match_done
-
-" ============================================================================
-" StanAngeloff/php.vim
-" ============================================================================
-
-if dkoplug#plugins#Exists('php.vim')
-  " Syntax highlighting in phpdoc blocks
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
-endif
-
