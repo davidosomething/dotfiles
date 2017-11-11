@@ -54,7 +54,8 @@ let g:neomake_vim_vimlparser_maker = {
 
 " ============================================================================
 " Buffer filetype settings
-" Use BufWinEnter because it runs after modelines
+" Use BufWinEnter because it runs after modelines, which might change the
+" filetype. Setup functions should check filetype if not matching by extension
 " ============================================================================
 
 autocmd dkoneomake BufWinEnter *
