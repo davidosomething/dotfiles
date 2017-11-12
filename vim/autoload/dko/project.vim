@@ -12,10 +12,10 @@
 " https://github.com/dbakker/vim-projectroot/blob/master/autoload/projectroot.vim
 "
 " Settings:
-" b:dkoproject#roots [array] - look for config files in this array of
+" b:dko_project_roots [array] - look for config files in this array of
 "                              directory names relative to the project
 "                              root if it is set
-" g:dkoproject#roots [array] - global overrides
+" g:dko_project_roots [array] - global overrides
 " ============================================================================
 
 let s:cpo_save = &cpoptions
@@ -47,24 +47,24 @@ let s:default_markers = [
 "
 " @param {String} [file]
 " @return {String} project root path or empty string
-function! dkoproject#GetRoot(...) abort
-  if exists('b:dkoproject_root') | return b:dkoproject_root | endif
+function! dko#project#GetRoot(...) abort
+  if exists('b:dko_project_root') | return b:dko_project_root | endif
 
-  let l:path = dkoproject#GetFilePath(get(a:, 1, ''))
+  let l:path = dko#project#GetFilePath(get(a:, 1, ''))
 
   " Look for markers FIRST, that way we support things like browsing through
   " node_modules/ and monorepos
-  let l:root = dkoproject#GetRootByFileMarker(s:default_markers)
-  let l:root = !empty(l:root) ? l:root : dkoproject#GetGitRootByFile(l:path)
+  let l:root = dko#project#GetRootByFileMarker(s:default_markers)
+  let l:root = !empty(l:root) ? l:root : dko#project#GetGitRootByFile(l:path)
   let l:root = !empty(l:root) ? l:root : l:path
 
-  let b:dkoproject_root = l:root
+  let b:dko_project_root = l:root
   return l:root
 endfunction
 
 " @param {String} file to get path to
 " @return {String} path to project root
-function! dkoproject#GetFilePath(file) abort
+function! dko#project#GetFilePath(file) abort
   " Argument
   " Path for given file
   let l:path = empty(get(a:, 'file', ''))
@@ -92,7 +92,7 @@ endfunction
 
 " @param {String} path
 " @return {String} git root of file or empty string
-function! dkoproject#GetGitRootByFile(path) abort
+function! dko#project#GetGitRootByFile(path) abort
   let l:std = split(
         \ system('cd -- ' . a:path . ' && git rev-parse --show-toplevel 2>/dev/null'),
         \ '\n'
@@ -102,7 +102,7 @@ endfunction
 
 " @param {String[]} markers
 " @return {String} root path based on presence of file marker
-function! dkoproject#GetRootByFileMarker(markers) abort
+function! dko#project#GetRootByFileMarker(markers) abort
   let l:result = ''
   for l:marker in a:markers
     " Try to use nearest first; findfile .; goes from current file upwards
@@ -117,7 +117,7 @@ function! dkoproject#GetRootByFileMarker(markers) abort
 endfunction
 
 " @return {String}
-function! dkoproject#ProjectType() abort
+function! dko#project#ProjectType() abort
   if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
     return 'wordpress'
   endif
@@ -126,29 +126,29 @@ endfunction
 
 " Get array of possible config file paths for a project -- any dirs where
 " files like .eslintrc, package.json, etc. might be stored. These will be
-" paths relative to the root from dkoproject#GetRoot
+" paths relative to the root from dko#project#GetRoot
 "
-" @return {String[]} config paths relative to dkoproject#GetRoot
-function! dkoproject#GetPaths() abort
+" @return {String[]} config paths relative to dko#project#GetRoot
+function! dko#project#GetPaths() abort
   return get(
-        \   b:, 'dkoproject#roots', get(
-        \   g:, 'dkoproject#roots',
+        \   b:, 'dko#project#roots', get(
+        \   g:, 'dko#project#roots',
         \   s:default_roots
         \ ))
 endfunction
 
-" Get full path to a dir in a dkoproject
+" Get full path to a dir in a project
 "
 " @param {String} dirname
 " @return {String} full path to dir
-function! dkoproject#GetDir(dirname) abort
-  if empty(dkoproject#GetRoot())
+function! dko#project#GetDir(dirname) abort
+  if empty(dko#project#GetRoot())
     return ''
   endif
 
-  for l:root in dkoproject#GetPaths()
+  for l:root in dko#project#GetPaths()
     let l:current =
-          \ expand(dkoproject#GetRoot() . '/' . l:root)
+          \ expand(dko#project#GetRoot() . '/' . l:root)
 
     if !isdirectory(l:current)
       continue
@@ -162,20 +162,20 @@ function! dkoproject#GetDir(dirname) abort
   return ''
 endfunction
 
-" Get full path to a file in a dkoproject
+" Get full path to a file in a project
 "
 " @param {String} filename
 " @return {String} full path to config file
-function! dkoproject#GetFile(filename) abort
-  if empty(dkoproject#GetRoot()) | return '' | endif
+function! dko#project#GetFile(filename) abort
+  if empty(dko#project#GetRoot()) | return '' | endif
 
   " Try to use nearest first; up to the root
-  let l:bounds = '.;' . dkoproject#GetRoot() . ';'
+  let l:bounds = '.;' . dko#project#GetRoot() . ';'
   let l:nearest = findfile(a:filename, l:bounds)
   if !empty(l:nearest) | return fnamemodify(l:nearest, ':p') | endif
 
-  for l:root in dkoproject#GetPaths()
-    let l:current = expand(dkoproject#GetRoot() . '/' . l:root)
+  for l:root in dko#project#GetPaths()
+    let l:current = expand(dko#project#GetRoot() . '/' . l:root)
     if !isdirectory(l:current) | continue | endif
     if filereadable(glob(l:current . a:filename))
       return l:current . a:filename
@@ -189,18 +189,16 @@ endfunction
 "
 " @param {String} bin path relative to project root
 " @return {String}
-function! dkoproject#GetBin(bin) abort
-  if empty(a:bin)
-    return ''
-  endif
+function! dko#project#GetBin(bin) abort
+  if empty(a:bin) | return '' | endif
 
   " Use cached
-  let l:bins = dko#InitDict('b:dkoproject_bin')
+  let l:bins = dko#InitDict('b:dko_project_bins')
   if !empty(get(l:bins, a:bin))
     return l:bins[a:bin]
   endif
 
-  let l:exe = dkoproject#GetFile(a:bin)
+  let l:exe = dko#project#GetFile(a:bin)
   if !empty(l:exe) && executable(l:exe)
     let l:bins[a:bin] = l:exe
     return l:exe
@@ -209,8 +207,8 @@ function! dkoproject#GetBin(bin) abort
   return ''
 endfunction
 
-function! dkoproject#GetCandidate(candidates) abort
-  let l:candidates = map(copy(a:candidates), 'dkoproject#GetFile(v:val)')
+function! dko#project#GetCandidate(candidates) abort
+  let l:candidates = map(copy(a:candidates), 'dko#project#GetFile(v:val)')
   return call('dko#First', l:candidates)
 endfunction
 
@@ -220,8 +218,8 @@ let s:markdownlint_candidates = [
       \   '.markdownlintrc',
       \ ]
 " @return {String} markdownlintrc filename
-function! dkoproject#GetMarkdownlintrc() abort
-  return dkoproject#GetCandidate(s:markdownlint_candidates)
+function! dko#project#GetMarkdownlintrc() abort
+  return dko#project#GetCandidate(s:markdownlint_candidates)
 endfunction
 
 " Ordered by preference
@@ -234,8 +232,8 @@ let s:eslintrc_candidates = [
       \ ]
 " @TODO support package.json configs
 " @return {String} eslintrc filename
-function! dkoproject#GetEslintrc() abort
-  return dkoproject#GetCandidate(s:eslintrc_candidates)
+function! dko#project#GetEslintrc() abort
+  return dko#project#GetCandidate(s:eslintrc_candidates)
 endfunction
 
 " ============================================================================

@@ -518,7 +518,7 @@ augroup END
 
 augroup dkoproject
   autocmd!
-  autocmd BufNewFile,BufRead,BufWritePost * call dkoproject#GetRoot()
+  autocmd BufNewFile,BufRead,BufWritePost * call dko#project#GetRoot()
 augroup END
 
 " ============================================================================

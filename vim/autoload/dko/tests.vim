@@ -1,11 +1,11 @@
-" autoload/dkoproject/tests.vim
+" autoload/dko/tests.vim
 
 let s:dir_candidates = [ '/tests', '/__tests__' ]
 let s:glob_candidates = [ '**/*.test.*', '**/*.spec.*' ]
 
 " Look near current file or in project root; in s:dir_candidates dirs for
 " files matching s:glob_candidates
-function! dkoproject#tests#FindTests() abort
+function! dko#tests#FindTests() abort
   let l:file_dir = expand('%:p:h:t')
   let l:file_path = expand('%:p:h')
 
@@ -17,7 +17,7 @@ function! dkoproject#tests#FindTests() abort
   let l:candidates += map(copy(l:dirs), 'l:file_path . v:val')
   " Look in project root /__tests__ and /tests
   let l:candidates += map(copy(s:dir_candidates),
-        \ 'dkoproject#GetRoot() . v:val')
+        \ 'dko#project#GetRoot() . v:val')
   let l:actual = dko#First(filter(l:candidates, 'isdirectory(v:val)'))
   if empty(l:actual) | return [] | endif
 

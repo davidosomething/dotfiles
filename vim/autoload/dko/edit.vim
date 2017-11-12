@@ -3,7 +3,7 @@
 " ============================================================================
 " Quick edit
 " ec* - Edit closest (find upwards)
-" er* - Edit from dkoproject#GetRoot()
+" er* - Edit from dko#project#GetRoot()
 " ============================================================================
 
 " @param {String} file
@@ -26,6 +26,6 @@ endfunction
 " As above, this noops if file not found
 " @param {String} file
 function! dko#edit#EditRoot(file) abort
-  let l:file = dkoproject#GetFile(a:file)
+  let l:file = dko#project#GetFile(a:file)
   call dko#edit#Edit(l:file)
 endfunction

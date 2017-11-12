@@ -12,12 +12,12 @@ if !dkoplug#plugins#IsLoaded('fzf.vim') | finish | endif
 "
 " @return {String} project root
 function! s:GetRoot() abort
-  return dkoproject#GetRoot()
+  return dko#project#GetRoot()
 endfunction
 
 " @return {String} test specs dir
 function! s:GetSpecs() abort
-  return dkoproject#GetDir('tests')
+  return dko#project#GetDir('tests')
 endfunction
 
 " ============================================================================
@@ -125,7 +125,7 @@ command! FZFMRU
 command! FZFSpecs
       \ call fzf#run(fzf#wrap('Specs',
       \   fzf#vim#with_preview(extend({
-      \     'source':   dko#ShortPaths(dkoproject#tests#FindSpecs()),
+      \     'source':   dko#ShortPaths(dko#tests#FindSpecs()),
       \     'options':  s:options . ' --prompt="Specs> "',
       \   }, g:fzf_layout), 'right:50%')
       \ ))

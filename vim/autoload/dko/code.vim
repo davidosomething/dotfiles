@@ -1,10 +1,12 @@
+" autoload/dko/code.vim
+
 " ============================================================================
 " Code parsing
 " ============================================================================
 
 " @param {String} [1] cursor position to look, defaults to current cursorline
 " @return {String}
-function! dkocode#GetFunctionInfo() abort
+function! dko#code#GetFunctionInfo() abort
 
   " --------------------------------------------------------------------------
   " By current-func-info.vim
@@ -33,4 +35,3 @@ function! dkocode#GetFunctionInfo() abort
         \ }
 
 endfunction
-

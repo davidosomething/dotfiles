@@ -1,4 +1,4 @@
-" autoload/dkoproject/neomake/javascript.vim
+" autoload/dko/neomake/javascript.vim
 
 if !dkoplug#plugins#IsLoaded('neomake') | finish | endif
 
@@ -7,47 +7,47 @@ if !dkoplug#plugins#IsLoaded('neomake') | finish | endif
 " project
 " Uses pj#HasDevDependency so runs after &filetype is set (by filetypedetect,
 " shebang, or modeline)
-function! dkoproject#neomake#javascript#Setup() abort
+function! dko#neomake#javascript#Setup() abort
   if &filetype !=# 'javascript' | return | endif
 
-  call dkoproject#neomake#NpxMaker(extend(
+  call dko#neomake#NpxMaker(extend(
         \   neomake#makers#ft#javascript#eslint(), {
         \     'ft': 'javascript',
         \     'maker': 'eslint',
-        \     'when': '!empty(dkoproject#GetEslintrc())',
+        \     'when': '!empty(dko#project#GetEslintrc())',
         \   }))
 
-  call dkoproject#neomake#NpxMaker(extend(
+  call dko#neomake#NpxMaker(extend(
         \   neomake#makers#ft#javascript#xo(), {
         \     'ft': 'javascript',
         \     'maker': 'xo',
         \     'when': 'pj#HasDevDependency("xo")',
         \   }))
 
-  call dkoproject#neomake#NpxMaker(extend(
+  call dko#neomake#NpxMaker(extend(
         \   neomake#makers#ft#javascript#jshint(), {
         \     'ft': 'javascript',
         \     'maker': 'jshint',
-        \     'when': 'empty(dkoproject#GetEslintrc()) '
-        \             . ' && !empty(dkoproject#GetFile(".jshintrc"))',
+        \     'when': 'empty(dko#project#GetEslintrc()) '
+        \             . ' && !empty(dko#project#GetFile(".jshintrc"))',
         \   }))
 
-  call dkoproject#neomake#NpxMaker(extend(
+  call dko#neomake#NpxMaker(extend(
         \   neomake#makers#ft#javascript#flow(), {
         \     'ft': 'javascript',
         \     'maker': 'flow',
-        \     'when': '!empty(dkoproject#GetFile(".flowconfig"))',
+        \     'when': '!empty(dko#project#GetFile(".flowconfig"))',
         \   }))
 
   let b:neomake_javascript_enabled_makers = []
-  if !empty(dkoproject#GetEslintrc())
+  if !empty(dko#project#GetEslintrc())
     let b:neomake_javascript_enabled_makers += [ 'eslint' ]
-  elseif !empty(dkoproject#GetFile('.jshintrc'))
+  elseif !empty(dko#project#GetFile('.jshintrc'))
     let b:neomake_javascript_enabled_makers += [ 'jshint' ]
   elseif pj#HasDevDependency('xo')
     let b:neomake_javascript_enabled_makers += [ 'xo' ]
   endif
-  if !empty(dkoproject#GetFile('.flowconfig'))
+  if !empty(dko#project#GetFile('.flowconfig'))
     let b:neomake_javascript_enabled_makers += [ 'flow' ]
   endif
 endfunction

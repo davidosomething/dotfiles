@@ -35,7 +35,7 @@ function! dkoline#GetTabline() abort
   let l:contents .= '%#StatusLine# %= '
 
   let l:project_root = dko#IsHelp(l:bufnr) || dko#IsNonFile(l:bufnr)
-        \ ? '' : dko#ShortenPath(dkoproject#GetRoot(), 0)
+        \ ? '' : dko#ShortenPath(dko#project#GetRoot(), 0)
   let l:maxwidth = float2nr(&columns / 2) - 24
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
 
@@ -310,7 +310,7 @@ endfunction
 
 " @return {String}
 function! dkoline#FunctionInfo() abort
-  let l:funcinfo = dkocode#GetFunctionInfo()
+  let l:funcinfo = dko#code#GetFunctionInfo()
   return empty(l:funcinfo.name)
         \ ? ''
         \ : ' ' . l:funcinfo.name . ' '

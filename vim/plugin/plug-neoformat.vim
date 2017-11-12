@@ -5,8 +5,8 @@ if !dkoplug#plugins#IsLoaded('neoformat') | finish | endif
 
 " function! g:DKO_OverridePrettierFormatter() abort
 "   let l:bin_candidates = [
-"         \   dkoproject#GetBin('node_modules/.bin/prettier-eslint'),
-"         \   dkoproject#GetBin('node_modules/.bin/prettier'),
+"         \   dko#project#GetBin('node_modules/.bin/prettier-eslint'),
+"         \   dko#project#GetBin('node_modules/.bin/prettier'),
 "         \   executable('prettier-eslint') ? 'prettier-eslint' : '',
 "         \   executable('prettier') ? 'prettier' : '',
 "         \ ]
@@ -14,17 +14,17 @@ if !dkoplug#plugins#IsLoaded('neoformat') | finish | endif
 "   if empty(l:bin) | return | endif
 "
 "   let l:args =  [ '--stdin' ]
-"   let l:eslint = dkoproject#GetDir('node_modules/eslint') " Module, not bin
+"   let l:eslint = dko#project#GetDir('node_modules/eslint') " Module, not bin
 "   if !empty(l:eslint)
 "     let l:args += [ '--eslint-path', l:eslint ]
 "   endif
 "
-"   let l:eslintrc = dkoproject#GetEslintrc()
+"   let l:eslintrc = dko#project#GetEslintrc()
 "   if !empty(l:eslintrc)
 "     let l:args += [ '--eslint-config', l:eslintrc ]
 "   endif
 "
-"   let l:prettier = dkoproject#GetDir('node_modules/prettier') " Module, not bin
+"   let l:prettier = dko#project#GetDir('node_modules/prettier') " Module, not bin
 "   if !empty(l:prettier)
 "     let l:args += [ '--prettier-path',  l:prettier ]
 "   endif

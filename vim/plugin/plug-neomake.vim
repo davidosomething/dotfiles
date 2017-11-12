@@ -50,28 +50,28 @@ let g:neomake_python_enabled_makers = [ 'flake8' ]
 " ============================================================================
 
 autocmd dkoneomake BufWinEnter *
-      \ call dkoproject#neomake#javascript#Setup()
+      \ call dko#neomake#javascript#Setup()
 
 autocmd dkoneomake BufWinEnter *.md,*.markdown,*.pandoc
-      \ call dkoproject#neomake#markdown#Setup()
+      \ call dko#neomake#markdown#Setup()
 
 autocmd dkoneomake BufWinEnter *.php
-      \   call dkoproject#neomake#LocalMaker(dkoproject#neomake#php#phpcs)
-      \ | call dkoproject#neomake#php#Phpcs()
-      \ | call dkoproject#neomake#php#Phpmd()
+      \   call dko#neomake#LocalMaker(dko#neomake#php#phpcs)
+      \ | call dko#neomake#php#Phpcs()
+      \ | call dko#neomake#php#Phpmd()
 
 autocmd dkoneomake BufWinEnter *.sh,dot.profile
-      \   call dkoproject#neomake#sh#ShellcheckPosix()
+      \   call dko#neomake#sh#ShellcheckPosix()
 
 autocmd dkoneomake BufWinEnter *.scss
-      \ call dkoproject#neomake#scss#Setup()
+      \ call dko#neomake#scss#Setup()
 
 autocmd dkoneomake User vim-pyenv-activate-post
-      \   call dkoproject#neomake#python#ActivatedPyenv()
+      \   call dko#neomake#python#ActivatedPyenv()
 autocmd dkoneomake User vim-pyenv-dectivate-post
-      \   call dkoproject#neomake#python#DeactivatedPyenv()
+      \   call dko#neomake#python#DeactivatedPyenv()
 
 " ============================================================================
 
 " Keep this last so all the other autocmds happen first
-autocmd dkoneomake BufWritePost * call dkoproject#neomake#MaybeRun()
+autocmd dkoneomake BufWritePost * call dko#neomake#MaybeRun()

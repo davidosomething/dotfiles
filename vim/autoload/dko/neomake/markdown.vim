@@ -1,7 +1,7 @@
-" autoload/dkoproject/neomake/markdown.vim
+" autoload/dko/neomake/markdown.vim
 
-function! dkoproject#neomake#markdown#Setup() abort
-  call dkoproject#neomake#NpxMaker(extend(
+function! dko#neomake#markdown#Setup() abort
+  call dko#neomake#NpxMaker(extend(
         \   neomake#makers#ft#markdown#markdownlint(), {
         \     'ft': 'markdown',
         \     'maker': 'markdownlint',
