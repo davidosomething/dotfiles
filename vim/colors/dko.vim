@@ -336,3 +336,19 @@ hi! link zshCommands          Identifier
 hi! link zshOperator          Operator
 hi! link zshOptStart          Identifier
 hi! link zshOption            Normal
+
+" ============================================================================
+" QuickFix
+" ============================================================================
+
+hi! qfError                                 guifg=#772222
+hi! link qfFileName dkoCommentDoc
+
+" ============================================================================
+" Neomake
+" ============================================================================
+
+hi! NeomakeError              guibg=#5a2a2a
+hi! NeomakeInfo               guibg=#2a332a
+hi! NeomakeMessage            guibg=#2a332a
+hi! NeomakeWarning            guibg=#2c2b2a

@@ -10,6 +10,10 @@ if !dkoplug#IsLoaded('neomake') | finish | endif
 function! dko#neomake#javascript#Setup() abort
   if &filetype !=# 'javascript' | return | endif
 
+  " ==========================================================================
+  " Configure NPX to run makers
+  " ==========================================================================
+
   call dko#neomake#NpxMaker(extend(
         \   neomake#makers#ft#javascript#eslint(), {
         \     'ft': 'javascript',
@@ -38,6 +42,10 @@ function! dko#neomake#javascript#Setup() abort
         \     'maker': 'flow',
         \     'when': '!empty(dko#project#GetFile(".flowconfig"))',
         \   }))
+
+  " ==========================================================================
+  " Define which makers should be used
+  " ==========================================================================
 
   let b:neomake_javascript_enabled_makers = []
 
