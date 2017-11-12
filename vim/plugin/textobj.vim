@@ -4,7 +4,7 @@
 " These are lazy loaded so we need the bindings to trigger the <Plug>
 "
 
-if !dkoplug#plugins#IsLoaded('vim-textobj-user') | finish | endif
+if !dkoplug#IsLoaded('vim-textobj-user') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
@@ -26,13 +26,13 @@ for s:obj in [
       \   'url',
       \   'xmlattr',
       \ ]
-  if dkoplug#plugins#Exists('vim-textobj-' . s:obj)
+  if dkoplug#Exists('vim-textobj-' . s:obj)
     call s:MapTextobj(s:obj)
   endif
 endfor
 
 let g:textobj_lastpaste_no_default_keymappings = 1
-if dkoplug#plugins#Exists('textobj-lastpaste')
+if dkoplug#Exists('textobj-lastpaste')
   omap iP <Plug>(textobj-lastpaste-i)
   xmap iP <Plug>(textobj-lastpaste-i)
 endif

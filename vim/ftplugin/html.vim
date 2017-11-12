@@ -12,7 +12,7 @@ let g:html_indent_autotags = 'html,head,body'
 " othree/html5.vim settings
 " ============================================================================
 
-if dkoplug#plugins#Exists('html5.vim')
+if dkoplug#Exists('html5.vim')
   " fixed array mode as of https://github.com/othree/html5.vim/commit/f5bdca5153dc526623df5ae16943d1f627dc5523
   let g:html_exclude_tags = ['html', 'head', 'style', 'script', 'body']
 endif

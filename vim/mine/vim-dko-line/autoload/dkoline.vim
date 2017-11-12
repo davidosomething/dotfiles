@@ -121,7 +121,7 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= dkoline#Format(dkoline#GutentagsStatus(), '%#TermCursor#')
 
   " Linting
-  if dkoplug#plugins#IsLoaded('neomake') && exists('*neomake#GetJobs')
+  if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
     let l:contents .= dkoline#Format(
           \ dkoline#Neomake('E', neomake#statusline#LoclistCounts(l:bufnr)),
           \ '%#NeomakeErrorSign#')

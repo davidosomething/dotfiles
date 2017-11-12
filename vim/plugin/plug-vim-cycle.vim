@@ -2,7 +2,7 @@
 scriptencoding utf-8
 
 " Check for IsPlugged instead of IsLoaded since we lazy load
-if !dkoplug#plugins#Exists('vim-cycle') | finish | endif
+if !dkoplug#Exists('vim-cycle') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

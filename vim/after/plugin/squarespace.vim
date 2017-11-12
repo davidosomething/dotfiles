@@ -6,7 +6,8 @@ augroup squarespace
   " autocmd squarespace BufNewFile,BufReadPre */sqsp/*
   "       \ setlocal noeol
 
-  if dkoplug#plugins#IsLoaded('neomake')
+  if dkoplug#IsLoaded('neomake')
+    " There is no b: for this option
     autocmd BufNewFile,BufReadPre */sqsp/*
           \ let g:neomake_java_checkstyle_xml =
           \   expand('$SQSP/squarespace-styleguide/squarespace-checkstyle.xml')

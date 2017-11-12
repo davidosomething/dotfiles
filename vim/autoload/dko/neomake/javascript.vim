@@ -1,6 +1,6 @@
 " autoload/dko/neomake/javascript.vim
 
-if !dkoplug#plugins#IsLoaded('neomake') | finish | endif
+if !dkoplug#IsLoaded('neomake') | finish | endif
 
 " Hook for BufWinEnter *
 " Sets b:neomake_javascript_enabled_makers based on what is present in the

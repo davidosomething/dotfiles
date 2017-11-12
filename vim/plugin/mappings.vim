@@ -278,7 +278,7 @@ vmap <special> <S-Tab>   <
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
 " ----------------------------------------------------------------------------
 
-if dkoplug#plugins#Exists('vim-textobj-indent')
+if dkoplug#Exists('vim-textobj-indent')
   " Auto select indent-level and sort
   silent! nunmap <Leader>s
   nmap <special> <Leader>s   vii:!sort<CR>

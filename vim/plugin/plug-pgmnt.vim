@@ -1,6 +1,6 @@
 " plugin/plug-pgmnt.vim
 
-if !dkoplug#plugins#IsLoaded('pgmnt.vim') | finish | endif
+if !dkoplug#IsLoaded('pgmnt.vim') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

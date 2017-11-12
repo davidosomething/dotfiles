@@ -1,7 +1,7 @@
 " plugin/plug-neoformat.vim
 scriptencoding utf-8
 
-if !dkoplug#plugins#IsLoaded('neoformat') | finish | endif
+if !dkoplug#IsLoaded('neoformat') | finish | endif
 
 " function! g:DKO_OverridePrettierFormatter() abort
 "   let l:bin_candidates = [

@@ -5,7 +5,7 @@ let s:cpo_save = &cpoptions
 set cpoptions&vim
 
 " plugin/plug-quickfixsigns_vim.vim
-if dkoplug#plugins#IsLoaded('quickfixsigns_vim')
+if dkoplug#IsLoaded('quickfixsigns_vim')
   let g:quickfixsigns_balloon = 0
   let g:quickfixsigns#vcsdiff#use_hidef = 0
 
@@ -14,13 +14,13 @@ if dkoplug#plugins#IsLoaded('quickfixsigns_vim')
   " - 'qfl' -- neomake/languageclient
   " - 'loc' -- neomake/languageclient
   let g:quickfixsigns_classes = [ 'marks' ]
-  if !dkoplug#plugins#Exists('vim-gitgutter')
-        \&& !dkoplug#plugins#Exists('vim-signify')
+  if !dkoplug#Exists('vim-gitgutter')
+        \&& !dkoplug#Exists('vim-signify')
     let g:quickfixsigns_classes += [ 'vcsdiff' ]
   endif
 
   " Leave neomake signs alone
-  if dkoplug#plugins#IsLoaded('neomake')
+  if dkoplug#IsLoaded('neomake')
     let g:quickfixsigns_protect_sign_rx = '^neomake_'
   endif
 
@@ -31,7 +31,7 @@ if dkoplug#plugins#IsLoaded('quickfixsigns_vim')
         \ })
 endif
 
-if dkoplug#plugins#Exists('vim-gitgutter')
+if dkoplug#Exists('vim-gitgutter')
   " Don't touch my colors
   let g:gitgutter_override_sign_column_highlight = 0
 
@@ -46,7 +46,7 @@ if dkoplug#plugins#Exists('vim-gitgutter')
   xmap ic <Plug>GitGutterTextObjectInnerVisual
   xmap ac <Plug>GitGutterTextObjectOuterVisual
 
-elseif dkoplug#plugins#Exists('vim-signify')
+elseif dkoplug#Exists('vim-signify')
   let g:signify_vcs_list = [ 'git' ]
   let g:signify_sign_change = '·'
   let g:signify_sign_show_count = 0 " don't show number of deleted lines

@@ -18,8 +18,8 @@ if !&readonly && has('conceal')
   augroup END
 
   " Toggle vim-hier for help buffers, run :VimhelpLint manually though
-  if dkoplug#plugins#IsLoaded('vim-vimhelplint')
-        \ && dkoplug#plugins#IsLoaded('vim-hier')
+  if dkoplug#IsLoaded('vim-vimhelplint')
+        \ && dkoplug#IsLoaded('vim-hier')
     autocmd dkohelp   BufEnter
           \ *
           \ if &filetype ==# 'help' | HierStart | endif
@@ -40,7 +40,7 @@ setlocal keywordprg=:help
 " look up `vim-modes`, not just `vim`
 setlocal iskeyword+=-
 
-if dkoplug#plugins#IsLoaded('vim-docopen')
+if dkoplug#IsLoaded('vim-docopen')
   nnoremap <buffer><silent> go :<C-U>DocOpen<CR>
 endif
 

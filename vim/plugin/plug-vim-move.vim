@@ -1,6 +1,6 @@
 " plugin/plug-vim-move.vim
 
-if !dkoplug#plugins#Exists('vim-move') | finish | endif
+if !dkoplug#Exists('vim-move') | finish | endif
 
 augroup dkovimmove
   autocmd!
@@ -15,11 +15,17 @@ let g:move_auto_indent = 0
 function! s:Unmap() abort
   if dko#IsEditable() | return | endif
 
+  let s:cpo_save = &cpoptions
+  set cpoptions&vim
+
   " Have to <NOP> these since the vim-move mappings are not <buffer> local
   silent! nnoremap <buffer> <C-j> <NOP>
   silent! nnoremap <buffer> <C-k> <NOP>
   silent! vnoremap <buffer> <C-j> <NOP>
   silent! vnoremap <buffer> <C-k> <NOP>
+
+  let &cpoptions = s:cpo_save
+  unlet s:cpo_save
 endfunction
 
 autocmd dkovimmove BufWinEnter * call s:Unmap()

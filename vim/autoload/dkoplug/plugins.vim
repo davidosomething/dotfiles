@@ -1,3 +1,5 @@
+" autoload/dkoplug/plugins.vim
+
 function! dkoplug#plugins#LoadAll() abort
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
@@ -673,47 +675,4 @@ endfunction
 " Shortcut
 function! WithCompl(...) abort
   return call('PlugIf', [ g:dko_use_completion ] + a:000)
-endfunction
-
-" ============================================================================
-" vim-plug helpers
-" ============================================================================
-
-" Memory cache
-" List of loaded plug names
-let s:loaded = []
-
-" @param  {String} name
-" @return {Boolean} true if the plugin is installed
-function! dkoplug#plugins#Exists(name) abort
-  return index(g:plugs_order, a:name) > -1
-endfunction
-
-" @param  {String} name
-" @return {String} path where plugin installed
-function! dkoplug#plugins#Dir(name) abort
-  return dkoplug#plugins#Exists(a:name) ? g:plugs[a:name].dir : ''
-endfunction
-
-" @param  {String} name
-" @return {Boolean} true if the plugin is actually loaded
-function! dkoplug#plugins#IsLoaded(name) abort
-  if index(s:loaded, a:name) > -1
-    return 1
-  endif
-
-  let l:plug_dir = dkoplug#plugins#Dir(a:name)
-  if empty(l:plug_dir)  || !isdirectory(l:plug_dir)
-    return 0
-  endif
-
-  let l:is_loaded = empty(l:plug_dir)
-        \ ? 0
-        \ : stridx(&runtimepath, l:plug_dir) > -1
-
-  if l:is_loaded
-    call add(s:loaded, a:name)
-  endif
-
-  return l:is_loaded
 endfunction

@@ -1,6 +1,6 @@
 " plugin/plug-javascript-libraries-syntax.vim
 
-if !dkoplug#plugins#Exists('javascript-libraries-syntax.vim') | finish | endif
+if !dkoplug#Exists('javascript-libraries-syntax.vim') | finish | endif
 
 " the jquery lib causes funky highlighting in selectors
 " e.g. in $('.ad-native-code'); the word native gets highlighted

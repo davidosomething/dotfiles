@@ -1,6 +1,6 @@
 " plugin/plug-vim-over.vim
 
-if !dkoplug#plugins#Exists('vim-over') | finish | endif
+if !dkoplug#Exists('vim-over') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

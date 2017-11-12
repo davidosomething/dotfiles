@@ -1,6 +1,6 @@
 " plugin/plug-vim-gutentags.vim
 
-if !dkoplug#plugins#Exists('vim-gutentags') | finish | endif
+if !dkoplug#Exists('vim-gutentags') | finish | endif
 
 let g:gutentags_ctags_tagfile = '.git/tags'
 

@@ -14,11 +14,14 @@ let b:match_words = '\<function\>:\<return\>,'
   \ . '\<if\>:\<else\>,'
   \ . '\<try\>:\<catch\>:\<finally\>'
 
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 " Require to import
 nnoremap r2i
       \ :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
 
-if g:dko_use_completion && dkoplug#plugins#Exists('jspc.vim')
+if g:dko_use_completion && dkoplug#IsLoaded('jspc.vim')
   " jspc#omni normally extends javascriptcomplete on param pattern match.
   " Unset the omnifunc so it doesn't extend anything. This way only paramter
   " completion is forwarded to NCM
@@ -26,3 +29,6 @@ if g:dko_use_completion && dkoplug#plugins#Exists('jspc.vim')
 endif
 
 nmap <buffer> gf <Plug>(enhanced-resolver)
+
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

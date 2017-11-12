@@ -1,4 +1,6 @@
-if !dkoplug#plugins#IsLoaded('neomake') | finish | endif
+" autoload/dko/neomake/php.vim
+
+if !dkoplug#IsLoaded('neomake') | finish | endif
 
 let g:dko#neomake#php#phpcs = {
       \   'ft':     'php',

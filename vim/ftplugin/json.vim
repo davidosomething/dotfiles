@@ -3,6 +3,6 @@
 call dko#TwoTabs()
 setlocal nowrap
 
-if dkoplug#plugins#Exists('vim-json')
+if dkoplug#Exists('vim-json')
   let g:vim_json_syntax_conceal = 0
 endif

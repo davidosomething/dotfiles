@@ -1,3 +1,5 @@
+" autoload/dkoplug/browse.vim
+
 function! dkoplug#browse#gx() abort
   let l:line = getline('.')
   let l:sha  = matchstr(l:line, '^  \X*\zs\x\{7,9}\ze ')

@@ -134,7 +134,7 @@ sparingly (typically for `setlocal` ftplugin settings).
 - `s:variable_name` - snake_case for script-local variables
 - `g:dko#variable_name` - prefixed autoload-provided global variable
 - `dkoautocommandgroup` - lowercasealphanumer1cnospaces
-- Include `dkoplug#plugins#Exists()` or `dkoplug#plugins#IsLoaded()` checks if
+- Include `dkoplug#Exists()` or `dkoplug#IsLoaded()` checks if
   relying on plugins
 - `<Plug>(DKOMyPlugMapping)` - Parentheses around `<Plug>` mapping names
 - The `augroup` for `mine/` plugins should be `plugin-pluginname`

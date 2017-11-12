@@ -1,6 +1,6 @@
 " plugin/plug-languageclient-neovim.vim
 
-if !dkoplug#plugins#IsLoaded('LanguageClient-neovim') | finish | endif
+if !dkoplug#IsLoaded('LanguageClient-neovim') | finish | endif
 
 " ============================================================================
 " Plugin settings

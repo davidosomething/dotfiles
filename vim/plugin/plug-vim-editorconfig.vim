@@ -1,7 +1,7 @@
 " plugin/plug-vim-editorconfig.vim
 " sgur/vim-editorconfig
 
-if !dkoplug#plugins#IsLoaded('vim-editorconfig') | finish | endif
+if !dkoplug#IsLoaded('vim-editorconfig') | finish | endif
 
 let g:editorconfig_verbose = 1
 

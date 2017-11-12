@@ -1,6 +1,6 @@
 " plugin/plug-splitjoin.vim
 
-if !dkoplug#plugins#IsLoaded('splitjoin.vim') | finish | endif
+if !dkoplug#IsLoaded('splitjoin.vim') | finish | endif
 
 let g:splitjoin_trailing_comma = 1
 

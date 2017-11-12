@@ -4,7 +4,7 @@ augroup dkofzf
   autocmd!
 augroup END
 
-if !dkoplug#plugins#IsLoaded('fzf.vim') | finish | endif
+if !dkoplug#IsLoaded('fzf.vim') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

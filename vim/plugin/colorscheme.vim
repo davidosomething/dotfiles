@@ -11,7 +11,7 @@ if s:truecolor | let &termguicolors = 1 | endif
 
 let s:colorscheme = 'darkblue'
 
-if dkoplug#plugins#Exists('vim-base2tone-lakedark')
+if dkoplug#Exists('vim-base2tone-lakedark')
   let g:base16colorspace = 256
   function! s:LakeDark() abort
     set background=dark
@@ -22,11 +22,11 @@ if dkoplug#plugins#Exists('vim-base2tone-lakedark')
   let s:colorscheme = 'Base2Tone_LakeDark'
 endif
 
-if dkoplug#plugins#Exists('nord-vim')
+if dkoplug#Exists('nord-vim')
   let g:nord_italic_comments = 1
 endif
 
-if dkoplug#plugins#Exists('vim-two-firewatch')
+if dkoplug#Exists('vim-two-firewatch')
   function! s:Firewatch() abort
     set background=light
     silent! colorscheme two-firewatch

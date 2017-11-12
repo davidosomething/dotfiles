@@ -6,7 +6,7 @@ augroup dkoncm
   " autocmd dkoncm User CmSetup   echomsg 'nvim-completion-manager loaded'
 augroup END
 
-if !dkoplug#plugins#Exists('nvim-completion-manager') | finish | endif
+if !dkoplug#Exists('nvim-completion-manager') | finish | endif
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim

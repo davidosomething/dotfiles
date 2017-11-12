@@ -1,6 +1,6 @@
 " plugin/plug-vim-hier.vim
 
-if !dkoplug#plugins#Exists('vim-hier') | finish | endif
+if !dkoplug#Exists('vim-hier') | finish | endif
 
 let g:hier_enabled = 0
 let g:hier_highlight_group_qf = 'Error'
