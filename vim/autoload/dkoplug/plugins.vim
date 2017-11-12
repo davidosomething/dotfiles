@@ -104,9 +104,6 @@ function! dkoplug#plugins#LoadAll() abort
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
 
-  " highlight lines corresponding to quickfix entries
-  Plug 'jceb/vim-hier', { 'on': [ 'HierStart' ] }
-
   " add gS on char to smart split lines at char, like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
 
