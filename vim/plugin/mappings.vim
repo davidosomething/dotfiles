@@ -157,7 +157,7 @@ imap      <special>   <S-Right>   <C-o><S-Right>
 " ----------------------------------------------------------------------------
 
 nnoremap  <special> <Leader><Leader>  V
-vnoremap  <special> <Leader><Leader>  <Esc>
+xnoremap  <special> <Leader><Leader>  <Esc>
 
 " ----------------------------------------------------------------------------
 " Back to normal mode
@@ -211,7 +211,7 @@ nnoremap  <special> <Leader>q   @q
 " ----------------------------------------------------------------------------
 
 nnoremap  gm   m
-vnoremap  gm   m
+xnoremap  gm   m
 
 " ----------------------------------------------------------------------------
 " Map the arrow keys to be based on display lines, not physical lines
@@ -261,8 +261,8 @@ noremap   L   g_
 " Reselect visual block after indent
 " ----------------------------------------------------------------------------
 
-vnoremap  <   <gv
-vnoremap  >   >gv
+xnoremap  <   <gv
+xnoremap  >   >gv
 
 " ----------------------------------------------------------------------------
 " <Tab> indents in visual mode (recursive map to the above)
@@ -287,7 +287,7 @@ else
   nnoremap  <special> <Leader>s   vip:!sort<CR>
 endif
 " Sort selection (no clear since in visual)
-vnoremap  <special> <Leader>s   :!sort<CR>
+xnoremap  <special> <Leader>s   :!sort<CR>
 
 " ----------------------------------------------------------------------------
 " Uppercase / lowercase word
