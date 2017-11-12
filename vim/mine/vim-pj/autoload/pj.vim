@@ -12,6 +12,7 @@ let s:jsons = {}
 "
 " @param {String} [filepath] key in s:jsons
 function! pj#GetJson(...) abort
+  if !&buflisted | return {} | endif
   let l:filepath = get(a:, 1, get(b:, 'PJ_file', ''))
   if empty(l:filepath)
     echom '[pj] This buffer has no package.json path in b:PJ_file.'

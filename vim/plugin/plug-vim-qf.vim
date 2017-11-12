@@ -2,6 +2,11 @@
 
 if !dkoplug#Exists('vim-qf') | finish | endif
 
+" Neomake handles
+let g:qf_auto_open_quickfix = 0
+let g:qf_auto_open_loclist = 0
+let g:qf_auto_resize = 0 " flawed, does not expand
+
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 

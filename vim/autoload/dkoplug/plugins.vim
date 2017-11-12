@@ -630,6 +630,10 @@ function! dkoplug#plugins#LoadAll() abort
   " UI -- load last!
   " ==========================================================================
 
+  " --------------------------------------------------------------------------
+  " VCS signs
+  " --------------------------------------------------------------------------
+
   " Using quickfixsigns_vim instead of these
   " :EC and :DC to enable/disable changes plugin
   " if v:version >= 800
@@ -638,22 +642,26 @@ function! dkoplug#plugins#LoadAll() abort
     " :GitGutterToggle (bound to C-g)
   "   Plug 'airblade/vim-gitgutter', { 'on': [ 'GitGutterToggle' ] }
   " endif
-
-  Plug 'wellle/visual-split.vim', { 'on': [
-        \   'VSResize', 'VSSplit',
-        \   'VSSplitAbove', 'VSSplitBelow',
-        \   '<Plug>(Visual-Split',
-        \ ] }
-
-  "Plug 'airblade/vim-gitgutter'
-
   " Faster than quickfixsigns_vim and vim-gitgutter
   Plug 'mhinz/vim-signify'
 
+  " --------------------------------------------------------------------------
+  " Quickfix window
+  " --------------------------------------------------------------------------
+
+  Plug 'blueyed/vim-qf_resize'
   Plug 'romainl/vim-qf'
 
-  " Always show signs column with marks / vcs / qf
+  " --------------------------------------------------------------------------
+  " Multi sign column
+  " --------------------------------------------------------------------------
+
+  " Always show signs column with marks
   Plug 'tomtom/quickfixsigns_vim'
+
+  " --------------------------------------------------------------------------
+  " Window events
+  " --------------------------------------------------------------------------
 
   " Disabled, not worth the overhead.
   " Alternatively use sjl/vitality.vim -- but that has some cursor shape stuff
@@ -661,7 +669,18 @@ function! dkoplug#plugins#LoadAll() abort
   " @see <https://github.com/sjl/vitality.vim/issues/31>
   "Plug 'tmux-plugins/vim-tmux-focus-events'
 
+  Plug 'wellle/visual-split.vim', { 'on': [
+        \   'VSResize', 'VSSplit',
+        \   'VSSplitAbove', 'VSSplitBelow',
+        \   '<Plug>(Visual-Split',
+        \ ] }
+
+  " --------------------------------------------------------------------------
+  " Status / tab line
+  " --------------------------------------------------------------------------
+
   Plug g:dko#vim_dir . '/mine/vim-dko-line'
+
 endfunction
 
 " Similar but safer than Cond() from

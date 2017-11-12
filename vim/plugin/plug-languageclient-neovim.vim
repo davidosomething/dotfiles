@@ -7,7 +7,8 @@ if !dkoplug#IsLoaded('LanguageClient-neovim') | finish | endif
 " ============================================================================
 
 let g:LanguageClient_autoStart = 1
-let g:LanguageClient_diagnosticsList = 'location' " use loclist instead of qf
+" Don't populate lists since it overrides Neomake lists
+let g:LanguageClient_diagnosticsList = ''
 let g:LanguageClient_serverCommands = {}
 
 " ============================================================================

@@ -15,7 +15,7 @@ const ns = {};
  *
  * @param {Event} e click event
  */
-s._onClick = function onClick(e) {
+ns._onClick = function onClick(e) {
   return false;
 };
 
