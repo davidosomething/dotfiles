@@ -1,13 +1,5 @@
 " after/ftplugin/vim.vim
 
-setlocal iskeyword-=#
+if exists('b:did_after_ftplugin') | finish | endif
 
-augroup dkoafterftvim
-  autocmd!
-  autocmd BufWritePost */colors/*.vim
-        \ echom 'reload'
-        \ | so <afile>
-        \ | if dkoplug#IsLoaded('vim-css-color')
-        \ |   call css_color#reinit()
-        \ | endif
-augroup END
+setlocal iskeyword-=#

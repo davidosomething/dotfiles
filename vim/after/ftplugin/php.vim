@@ -1,5 +1,7 @@
 " after/ftplugin/php.vim
 
+if exists('b:did_after_ftplugin') | finish | endif
+
 " ============================================================================
 " Unmap terrible mappings from $VIMRUNTIME/ftplugin/php.vim
 " ============================================================================

@@ -1,6 +1,8 @@
 " after/ftplugin/help.vim
 " Help buffer
 
+if exists('b:did_after_ftplugin') | finish | endif
+
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 

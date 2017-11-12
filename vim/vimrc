@@ -521,6 +521,15 @@ augroup dkoproject
   autocmd BufNewFile,BufRead,BufWritePost * call dko#project#GetRoot()
 augroup END
 
+augroup dkocoloredit
+  autocmd!
+  autocmd BufWritePost */colors/*.vim
+        \   so <afile>
+        \ | if dkoplug#IsLoaded('vim-css-color')
+        \ |   call css_color#reinit()
+        \ | endif
+augroup END
+
 " ============================================================================
 " Security
 " ============================================================================

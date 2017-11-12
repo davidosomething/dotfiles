@@ -4,6 +4,8 @@
 " Only runs in a vim server named GIT (probably opened via my "e" script)
 "
 
+if exists('b:did_after_ftplugin') | finish | endif
+
 call dko#FourTabs()
 setlocal wrap
 setlocal linebreak
