@@ -6,7 +6,7 @@ augroup dkoafterftvim
   autocmd!
   autocmd BufWritePost */colors/*.vim
         \ echom 'reload'
-        \ so <afile>
+        \ | so <afile>
         \ | if dkoplug#plugins#IsLoaded('vim-css-color')
         \ |   call css_color#reinit()
         \ | endif

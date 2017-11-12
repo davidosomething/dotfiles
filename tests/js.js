@@ -36,6 +36,10 @@ ns.retSomething = function () {
   return ns.SOMETHING;
 };
 
+a = ns.retSomething();
+
+ns._onClick(
+
 window.addEventListener('click', ns._onClick);
 window.testvalue = true;
 
