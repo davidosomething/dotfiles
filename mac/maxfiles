@@ -15,7 +15,7 @@ fi
 __maxfiles() {
   local limit="${1:-65536}"
 
-  dko::status "Settings kern.maxfiles[perproc] and ulimit to ${limit}"
+  __dko_status "Settings kern.maxfiles[perproc] and ulimit to ${limit}"
 
   echo kern.maxfiles="$limit" | sudo tee -a /etc/sysctl.conf
   echo kern.maxfilesperproc="$limit" | sudo tee -a /etc/sysctl.conf
@@ -23,7 +23,7 @@ __maxfiles() {
   sudo sysctl -w kern.maxfilesperproc="$limit"
   ulimit -n "$limit"
 
-  dko::status "Please reboot for changes to take effect"
+  __dko_status "Please reboot for changes to take effect"
 }
 
 __maxfiles "$@"

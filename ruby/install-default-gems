@@ -19,11 +19,11 @@ fi
 __install() {
   # @TODO check for chruby
 
-  dko::status "Cleaning up gems with broken names"
+  __dko_status "Cleaning up gems with broken names"
   gem uninstall scss-lint
 
   # loop through default-gems file and install each one
-  dko::status "Installing default gems"
+  __dko_status "Installing default gems"
   while read -r gemname; do
     gem install "$gemname"
   done < "${DOTFILES}/ruby/default-gems"

@@ -17,7 +17,7 @@ fi
 # =============================================================================
 
 [ ! -x 'composer' ] && {
-  dko::err "composer is not installed"
+  __dko_err "composer is not installed"
   exit 1
 }
 

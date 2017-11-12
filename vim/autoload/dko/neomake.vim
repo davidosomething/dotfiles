@@ -84,6 +84,7 @@ function! dko#neomake#NpxMaker(settings, ...) abort
   return l:maker
 endfunction
 
+" @TODO can use neomake#configure#automake() when blacklist is implemented
 function! dko#neomake#MaybeRun() abort
   if dko#IsNonFile('%') || dko#IsHelp('%') | return | endif
   " File was never written

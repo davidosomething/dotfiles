@@ -50,7 +50,7 @@ brew install pkg-config
 brew install aspell
 brew install archey neofetch
 brew install asciinema
-dko::status "asciinema auth to link computer to account"
+__dko_status "asciinema auth to link computer to account"
 brew install awscli
 brew install catimg
 
@@ -199,7 +199,7 @@ brew install ethereum/ethereum/ethereum
 # ============================================================================
 
 # Only if system has no camera
-dko::status   "Redshift was not installed; only needed if there is no camera."
-dko::status_  "brew install redshift"
+__dko_status   "Redshift was not installed; only needed if there is no camera."
+__dko_status_  "brew install redshift"
 
 brew install mas
