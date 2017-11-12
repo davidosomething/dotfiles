@@ -17,18 +17,15 @@ indent_style = tab
 # html is not minified so reduce character output by using real tabs
 # use indent size 4 for parity with PHP
 [*.{erb,hbs,html,marko,mustache,xml}]
+indent_size = 2
 indent_style = tab
-tab_width = 2
 
-# sass-lint standards
 [*.{css,less,sass,scss}]
 insert_final_newline = true
 
-# coffeelint standards
 [*.coffee]
 insert_final_newline = true
 
-# jshint standards
 [*.{js,json,jsx,ts,tsx}]
 insert_final_newline = true
 
@@ -36,7 +33,6 @@ insert_final_newline = true
 [*.{blade,php}]
 indent_size = 4
 insert_final_newline = true
-tab_width = 4
 
 [*.{bash,sh,zsh}]
 max_line_length = 78
@@ -45,4 +41,4 @@ max_line_length = 78
 indent_size = 4
 
 [*.vim]
-tab_width = 2
+indent_size = 2
