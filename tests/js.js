@@ -1,7 +1,6 @@
 require('path');
 import coffee from './x.coffee';
 import {
-  coffee,
   a
 } from 'coffee';
 
@@ -16,7 +15,7 @@ const ns = {};
  *
  * @param {Event} e click event
  */
-ns._onClick = function onClick(e) {
+s._onClick = function onClick(e) {
   return false;
 };
 
@@ -38,7 +37,7 @@ ns.retSomething = function () {
 
 a = ns.retSomething();
 
-ns._onClick();
+ns._onClick()
 
 window.addEventListener('click', ns._onClick);
 window.testvalue = true;
@@ -60,5 +59,5 @@ ns
 
 // ===========================================================================
 // Adding apostrophe after here should trigger jspc#omni
-window.addEventListener(
+window.addEventListener();
 
