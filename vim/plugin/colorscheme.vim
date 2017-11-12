@@ -14,7 +14,6 @@ let s:colorscheme = 'darkblue'
 if dkoplug#Exists('vim-base2tone-lakedark')
   let g:base16colorspace = 256
   function! s:LakeDark() abort
-    set background=dark
     silent! colorscheme Base2Tone_LakeDark
   endfunction
   nnoremap <silent><special> <Leader>zb :<C-U>call <SID>LakeDark()<CR>
@@ -28,7 +27,6 @@ endif
 
 if dkoplug#Exists('vim-two-firewatch')
   function! s:Firewatch() abort
-    set background=light
     silent! colorscheme two-firewatch
   endfunction
   nnoremap <silent><special> <Leader>zt :<C-U>call <SID>Firewatch()<CR>
