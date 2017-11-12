@@ -634,15 +634,11 @@ function! dkoplug#plugins#LoadAll() abort
   " VCS signs
   " --------------------------------------------------------------------------
 
-  " Using quickfixsigns_vim instead of these
-  " :EC and :DC to enable/disable changes plugin
-  " if v:version >= 800
-  "   Plug 'chrisbra/changesPlugin', { 'on': [ 'EC' ] }
-  " else
-    " :GitGutterToggle (bound to C-g)
-  "   Plug 'airblade/vim-gitgutter', { 'on': [ 'GitGutterToggle' ] }
-  " endif
-  " Faster than quickfixsigns_vim and vim-gitgutter
+  " Super slow start
+  "Plug 'chrisbra/changesPlugin', PlugIf(v:version >= 800)
+  " Slow start
+  "Plug 'airblade/vim-gitgutter', { 'on': [ 'GitGutterToggle' ] }
+  " Significatly faster than quickfixsigns_vim and the above
   Plug 'mhinz/vim-signify'
 
   " --------------------------------------------------------------------------

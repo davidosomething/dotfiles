@@ -134,18 +134,26 @@ hi! PmenuThumb     guibg=#505055
 " Plugin provided signs
 " ============================================================================
 
+" w0rp/ale
 hi! link ALEErrorSign             dkoSignError
+" tomtom/quickfixsigns_vim 
 hi! link QuickFixSignsDiffAdd     dkoSignAdded
 hi! link QuickFixSignsDiffChange  dkoSignChanged
 hi! link QuickFixSignsDiffDelete  dkoSignRemoved
+" airblade/vim-gitgutter
 hi! link GitGutterAdd             dkoSignAdded
 hi! link GitGutterChange          dkoSignChanged
 hi! link GitGutterChangeDelete    dkoSignChanged
 hi! link GitGutterDelete          dkoSignRemoved
+" mhinz/vim-signify
 hi! link SignifySignAdd           dkoSignAdded
 hi! link SignifySignChange        dkoSignChanged
 hi! link SignifySignChangeDelete  dkoSignChanged
 hi! link SignifySignDelete        dkoSignRemoved
+" chrisbra/changesPlugin
+hi! link ChangesSignTextAdd       dkoSignAdded
+hi! link ChangesSignTextCh        dkoSignChanged
+hi! link ChangesSignTextDel       dkoSignRemoved
 
 " the head in <head></head>
 hi! MatchParen    guibg=#225588   guifg=#ddddcc
