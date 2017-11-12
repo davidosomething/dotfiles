@@ -40,13 +40,18 @@ function! dko#neomake#javascript#Setup() abort
         \   }))
 
   let b:neomake_javascript_enabled_makers = []
-  if !empty(dko#project#GetEslintrc())
+
+  if expand('%:p:t') ==# '.eslintrc.js'
+    " Skip linting .eslintrc.js
+    return
+  elseif !empty(dko#project#GetEslintrc())
     let b:neomake_javascript_enabled_makers += [ 'eslint' ]
   elseif !empty(dko#project#GetFile('.jshintrc'))
     let b:neomake_javascript_enabled_makers += [ 'jshint' ]
   elseif pj#HasDevDependency('xo')
     let b:neomake_javascript_enabled_makers += [ 'xo' ]
   endif
+
   if !empty(dko#project#GetFile('.flowconfig'))
     let b:neomake_javascript_enabled_makers += [ 'flow' ]
   endif
