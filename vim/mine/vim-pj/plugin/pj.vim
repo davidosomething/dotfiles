@@ -29,8 +29,11 @@ augroup END
 " ============================================================================
 
 " Default package.json locator. Not used if g:PJ_function is set
+"
+" @return {string}
 function! s:FindPackageJson() abort
-  return fnamemodify(findfile('package.json', '.;'), ':p')
+  if empty(expand('%')) | return '' | endif
+  return fnamemodify(findfile('package.json', expand('%:p:h') . ';'), ':p')
 endfunction
 
 " Enable pj commands for a buffer
@@ -73,7 +76,7 @@ command! PjEnable call s:InitBuffer()
 
 " Start pj for the buffer. Done super early to provide info to other
 " plugins like neomake. Not dependent on FileType, just a cwd
-autocmd plugin-vimpj BufNewFile,BufReadPre *
+autocmd plugin-vimpj BufNewFile,BufReadPre,BufWritePost,BufFilePost *
       \ call s:InitBuffer()
 
 " Re-decode package.json when edited
