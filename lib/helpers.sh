@@ -13,7 +13,7 @@ __dko_source() { [ -f "$1" ] && . "$1"; }
 __dko_requireroot() {
   [ "$(whoami)" = "root" ] && return 0
   __dko_err "Please run as root, these files go into /etc/**/";
- return 1
+  return 1
 }
 
 # require executable
