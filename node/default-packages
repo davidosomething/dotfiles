@@ -30,6 +30,7 @@ less
 lighthouse
 markdownlint-cli
 npm-check-updates
+nsp
 package-json-validator
 prettier
 prettier-eslint-cli
