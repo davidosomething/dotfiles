@@ -4,10 +4,11 @@
 " ============================================================================
 
 if !has('termguicolors') || !&termguicolors | finish | endif
-if exists('syntax_on') | syntax reset | endif
 hi clear
+if exists('syntax_on') | syntax reset | endif
 
 let g:colors_name = 'dko'
+set background=dark
 
 " Override vim-pandoc-syntax highlighting
 augroup colorsdko
@@ -47,13 +48,13 @@ hi! link  dkoSignRemoved  DiffDelete
 hi! Boolean                         guifg=#aaaaaa gui=italic
 hi! Comment                         guifg=#50586a gui=italic
 hi! Constant                        guifg=#aaaaaa gui=italic
-hi! Delimiter                       guifg=#6677aa
+hi! Delimiter                       guifg=#6688cc
 hi! DiffAdd           guibg=#2a332a guifg=#668844
 hi! DiffChange        guibg=#2c2b2a guifg=#7f6030
 hi! DiffDelete        guibg=#4a2a2a guifg=#aa6666
 hi! DiffText          guibg=#4a2a2a
 hi! Function                        guifg=#aaaaaa
-hi! Identifier                      guifg=#aaaaaa
+hi! Identifier                      guifg=#dddddd
 hi! IncSearch         guibg=#dd77cc guifg=#202022 gui=NONE
 hi! Label                           guifg=#dddddd
 hi! Noise                           guifg=#888888
@@ -305,7 +306,6 @@ hi! link vimHiGroup     Normal
 hi! link vimCommentTitle  dkoCommentDoc
 hi! link vimCommentString Identifier
 hi! link vimContinue      dkoDecorations
-hi! link vimNotFunc       Normal
 hi! link vimOption        Normal
 " token '=utf-8' but broken on things like '=dark'
 hi! link vimSet           String
