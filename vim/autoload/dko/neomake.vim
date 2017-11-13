@@ -109,11 +109,18 @@ function! g:PostprocessEchint(entry) abort
         \ : a:entry
 endfunction
 
+" Excludes things like python, which has pep8.
 let g:echint_whitelist = [
       \   'javascript',
+      \   'json',
+      \   'jsx',
+      \   'lua',
+      \   'node',
       \   'markdown',
+      \   'php',
       \   'sh',
       \   'vim',
+      \   'yaml',
       \   'zsh',
       \]
 
@@ -122,6 +129,7 @@ let g:echint_whitelist = [
 " default list)
 function! dko#neomake#EchintSetup() abort
   if !dko#neomake#CanMake('%') | return | endif
+  " @TODO also skip things that have automatic Neoformat enabled
 
   let l:config = dko#project#GetFile('.editorconfig')
   if empty(l:config) | return | endif
