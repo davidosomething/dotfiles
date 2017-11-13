@@ -117,7 +117,7 @@ function! dko#project#GetRootByFileMarker(markers) abort
 endfunction
 
 " @return {String}
-function! dko#project#ProjectType() abort
+function! dko#project#Type() abort
   if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
     return 'wordpress'
   endif
