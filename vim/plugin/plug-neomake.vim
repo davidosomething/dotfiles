@@ -52,9 +52,7 @@ let g:neomake_python_enabled_makers = [ 'flake8' ]
 
 " Init all buffers; ft may be set by shebang or modeline
 autocmd dkoneomake BufWinEnter *
-      \   call dko#neomake#InitBuffer()
-      \ | call dko#neomake#EchintSetup()
-      \ | call dko#neomake#ShellcheckPosix()
+      \   call dko#neomake#ShellcheckPosix()
       \ | call dko#neomake#javascript#Setup()
 
 autocmd dkoneomake BufWinEnter *.md,*.markdown,*.pandoc
@@ -68,10 +66,13 @@ autocmd dkoneomake BufWinEnter *.php
 autocmd dkoneomake BufWinEnter *.scss
       \ call dko#neomake#scss#Setup()
 
+autocmd dkoneomake BufWinEnter *
+      \ call dko#neomake#EchintSetup()
+
 autocmd dkoneomake User vim-pyenv-activate-post
-      \   call dko#neomake#python#ActivatedPyenv()
+      \ call dko#neomake#python#ActivatedPyenv()
 autocmd dkoneomake User vim-pyenv-dectivate-post
-      \   call dko#neomake#python#DeactivatedPyenv()
+      \ call dko#neomake#python#DeactivatedPyenv()
 
 " ============================================================================
 

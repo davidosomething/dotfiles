@@ -71,7 +71,7 @@ function! dko#neomake#NpxMaker(settings, ...) abort
 
   let l:bin = get(a:settings, 'npx', a:settings['maker'])
   let l:args = get(a:settings, 'args', [])
-  let l:ft = get(a:settings, 'ft', &filetype)
+  let l:ft = get(a:settings, 'ft', neomake#utils#get_ft_confname(&filetype))
   let l:maker = extend(copy(a:settings), {
       \   'exe': 'npx',
       \   'args': [ '--quiet', l:bin ] + l:args,
@@ -87,21 +87,16 @@ function! dko#neomake#NpxMaker(settings, ...) abort
   return l:maker
 endfunction
 
-" @TODO can use neomake#configure#automake() when blacklist is implemented
-function! dko#neomake#MaybeRun() abort
-  if dko#IsNonFile('%') || dko#IsHelp('%') | return | endif
-  " File was never written
-  if empty(glob(expand('%'))) | return | endif
-  Neomake
+function! dko#neomake#CanMake(...) abort
+  let l:bufnr = get(a:, 1, '%')
+  return !dko#IsNonFile(l:bufnr) && !dko#IsHelp(l:bufnr)
+        \ && !empty(getbufvar(l:bufnr, '&filetype'))
 endfunction
 
-" Always use b: list of makers; init with defaults
-function! dko#neomake#InitBuffer() abort
-  if empty(&filetype) || dko#IsNonFile(bufnr('%')) | return | endif
-  let l:maker_list = 'b:neomake_' . &filetype . '_enabled_makers'
-  call dko#InitList(l:maker_list)
-  let l:ftfunc = 'neomake#makers#ft#' . &filetype . '#EnabledMakers'
-  let {l:maker_list} = call(l:ftfunc, [])
+" @TODO can use neomake#configure#automake() when blacklist is implemented
+function! dko#neomake#MaybeRun() abort
+  if !dko#neomake#CanMake('%') | return | endif
+  Neomake
 endfunction
 
 " ============================================================================
@@ -114,23 +109,52 @@ function! g:PostprocessEchint(entry) abort
         \ : a:entry
 endfunction
 
+let g:echint_whitelist = [
+      \   'javascript',
+      \   'markdown',
+      \   'sh',
+      \   'vim',
+      \   'zsh',
+      \]
+
+" For each filetype in the above whitelist, try to setup echint as
+" a buffer-local maker, extending the current list of buffer-local makers (or
+" default list)
 function! dko#neomake#EchintSetup() abort
-  if empty(&filetype) || dko#IsNonFile(bufnr('%')) | return | endif
+  if !dko#neomake#CanMake('%') | return | endif
+
   let l:config = dko#project#GetFile('.editorconfig')
   if empty(l:config) | return | endif
-  call dko#neomake#NpxMaker({
-        \   'maker': 'echint',
-        \   'errorformat': '%E%f:%l %m',
-        \   'cwd': fnamemodify(l:config, ':p:h'),
-        \   'postprocess': function('PostprocessEchint'),
-        \ })
-  let b:neomake_{&filetype}_enabled_makers += [ 'echint' ]
+
+  let l:cwd = fnamemodify(l:config, ':p:h')
+
+  let l:fts = neomake#utils#get_config_fts(&filetype)
+  let l:capable_fts = filter(l:fts, 'index(g:echint_whitelist, v:val) != -1')
+  for l:ft in l:capable_fts
+    call dko#neomake#NpxMaker({
+          \   'maker': 'echint',
+          \   'errorformat': '%E%f:%l %m',
+          \   'cwd': l:cwd,
+          \   'postprocess': function('PostprocessEchint'),
+          \ })
+    let l:bmakers = 'b:neomake_' . l:ft . '_enabled_makers'
+    if !exists(l:bmakers)
+      try
+        let l:makersfn = 'neomake#makers#ft#' . l:ft . '#EnabledMakers'
+        let {l:bmakers} = call(l:makersfn, [])
+      catch
+        return
+      endtry
+    endif
+    let {l:bmakers} += [ 'echint' ]
+  endfor
 endfunction
 
 " ============================================================================
 " Shellcheck
 " ============================================================================
 
+" Assume posix
 function! dko#neomake#ShellcheckPosix() abort
   if &filetype !=# 'sh' | return | endif
   " https://github.com/neomake/neomake/blob/master/autoload/neomake/makers/ft/sh.vim
@@ -139,6 +163,4 @@ function! dko#neomake#ShellcheckPosix() abort
         \   '--external-sources',
         \   '--shell=sh',
         \ ]
-  call dko#InitDict('b:neomake_sh_enabled_makers')
-  let b:neomake_sh_enabled_makers += neomake#makers#ft#sh#EnabledMakers()
 endfunction

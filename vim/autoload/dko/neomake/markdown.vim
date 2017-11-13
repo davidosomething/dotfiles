@@ -7,6 +7,8 @@ function! dko#neomake#markdown#Setup() abort
         \     'maker': 'markdownlint',
         \     'npx': 'markdownlint-cli',
         \   }))
+
+  call dko#InitList('b:neomake_markdown_enabled_makers')
   let b:neomake_markdown_enabled_makers += [ 'markdownlint' ]
 endfunction
 
