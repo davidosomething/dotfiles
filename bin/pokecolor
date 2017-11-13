@@ -7,7 +7,7 @@ initializeANSI()
   Bf="${esc}[30m";   rf="${esc}[31m";    gf="${esc}[32m"
   yf="${esc}[33m"   bf="${esc}[34m";   pf="${esc}[35m"
   cf="${esc}[36m";    wf="${esc}[37m"
-  
+
   Bb="${esc}[40m";   rb="${esc}[41m";    gb="${esc}[42m"
   yb="${esc}[43m"   bb="${esc}[44m";   pb="${esc}[45m"
   cb="${esc}[46m";    wb="${esc}[47m"

@@ -47,7 +47,7 @@ hi! link  dkoSignRemoved  DiffDelete
 hi! Boolean                         guifg=#aaaaaa gui=italic
 hi! Comment                         guifg=#50586a gui=italic
 hi! Constant                        guifg=#aaaaaa gui=italic
-hi! Delimiter                       guifg=#dd7766
+hi! Delimiter                       guifg=#6677aa
 hi! DiffAdd           guibg=#2a332a guifg=#668844
 hi! DiffChange        guibg=#2c2b2a guifg=#7f6030
 hi! DiffDelete        guibg=#4a2a2a guifg=#aa6666
@@ -256,6 +256,12 @@ hi! link phpType            Normal
 hi! link phpDocTags         dkoJavaDocTag
 hi! link phpDocParam        dkoJavaDocType
 hi! link phpDocIdentifier   dkoJavaDocKey
+
+" ============================================================================
+" Ruby
+" ============================================================================
+
+hi! link rubyInterpolation  PreProc
 
 " ============================================================================
 " Sh
