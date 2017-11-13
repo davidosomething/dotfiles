@@ -71,14 +71,17 @@ function! dko#neomake#NpxMaker(settings, ...) abort
 
   let l:bin = get(a:settings, 'npx', a:settings['maker'])
   let l:args = get(a:settings, 'args', [])
+  let l:ft = get(a:settings, 'ft', &filetype)
   let l:maker = extend(copy(a:settings), {
-      \   'cwd': '%:p:h',
       \   'exe': 'npx',
       \   'args': [ '--quiet', l:bin ] + l:args,
       \ })
+  if !has_key(a:settings, 'cwd')
+    let l:maker.cwd = '%:p:h'
+  endif
 
   if a:0 == 0
-    let b:neomake_{a:settings['ft']}_{a:settings['maker']}_maker = l:maker
+    let b:neomake_{l:ft}_{a:settings['maker']}_maker = l:maker
   endif
 
   return l:maker
@@ -90,4 +93,15 @@ function! dko#neomake#MaybeRun() abort
   " File was never written
   if empty(glob(expand('%'))) | return | endif
   Neomake
+endfunction
+
+function! dko#neomake#Echint() abort
+  let l:config = dko#project#GetFile('.editorconfig')
+  if empty(l:config) | return | endif
+  call dko#neomake#NpxMaker({
+        \   'maker': 'echint',
+        \   'errorformat': '%E%f:%l %m',
+        \   'cwd': fnamemodify(l:config, ':p:h'),
+        \ })
+  let b:neomake_{&filetype}_enabled_makers += [ 'echint' ]
 endfunction

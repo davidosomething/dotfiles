@@ -7,4 +7,6 @@ function! dko#neomake#sh#ShellcheckPosix() abort
         \   '--external-sources',
         \   '--shell=sh',
         \ ]
+  call dko#InitDict('b:neomake_sh_enabled_makers')
+  let b:neomake_sh_enabled_makers += neomake#makers#ft#sh#EnabledMakers()
 endfunction

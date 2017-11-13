@@ -47,7 +47,7 @@ function! dko#neomake#javascript#Setup() abort
   " Define which makers should be used
   " ==========================================================================
 
-  let b:neomake_javascript_enabled_makers = []
+  call dko#InitList('b:neomake_javascript_enabled_makers')
 
   if expand('%:p:t') ==# '.eslintrc.js'
     " Skip linting .eslintrc.js

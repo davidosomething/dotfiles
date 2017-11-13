@@ -51,7 +51,9 @@ let g:neomake_python_enabled_makers = [ 'flake8' ]
 " ============================================================================
 
 autocmd dkoneomake BufWinEnter *
-      \ call dko#neomake#javascript#Setup()
+      \   call dko#InitList('b:neomake_' . &filetype . '_enabled_makers')
+      \ | call dko#neomake#Echint()
+      \ | call dko#neomake#javascript#Setup()
 
 autocmd dkoneomake BufWinEnter *.md,*.markdown,*.pandoc
       \ call dko#neomake#markdown#Setup()
