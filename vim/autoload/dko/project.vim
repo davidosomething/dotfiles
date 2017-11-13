@@ -4,9 +4,6 @@
 " Helpers to finds config files for a project (e.g. linting RC files) relative
 " to a git repo root.
 "
-" "Project Root" is essentially the git root (so doesn't properly support
-" projects where the .git directory has been manually defined), or the cwd
-" if there is no git root.
 " Similar to what this plugin does, but using a single system call to `git`
 " instead of using `expand()` with `:h` to traverse up directories.
 " https://github.com/dbakker/vim-projectroot/blob/master/autoload/projectroot.vim
@@ -32,7 +29,7 @@ let s:default_roots = [
       \ ]
 
 " Look for project root using these file markers if not a git project
-let s:default_markers = [
+let s:markers = [
       \   'package.json',
       \   'composer.json',
       \   'requirements.txt',
@@ -43,23 +40,34 @@ let s:default_markers = [
 " Project root resolution
 " ============================================================================
 
-" Find git root of current file, set to buffer var
+" Buffer-cached project root, prefer based on file markers
 "
-" @param {String} [file]
+" @param {String} [file] from which to look upwards
 " @return {String} project root path or empty string
 function! dko#project#GetRoot(...) abort
   if exists('b:dko_project_root') | return b:dko_project_root | endif
 
-  let l:path = dko#project#GetFilePath(get(a:, 1, ''))
-
   " Look for markers FIRST, that way we support things like browsing through
   " node_modules/ and monorepos
-  let l:root = dko#project#GetRootByFileMarker(s:default_markers)
-  let l:root = !empty(l:root) ? l:root : dko#project#GetGitRootByFile(l:path)
-  let l:root = !empty(l:root) ? l:root : l:path
+  let l:root = dko#project#GetRootByFileMarker(s:markers)
+
+  " Try git root
+  " Always sets gitroot
+  let l:path = dko#project#GetFilePath(get(a:, 1, ''))
+  let l:gitroot = dko#project#GetGitRootByFile(l:path)
+  if !empty(l:gitroot)
+    let b:dko_project_gitroot = l:gitroot
+    if empty(l:root) | let l:root = l:gitroot | endif
+  endif
 
   let b:dko_project_root = l:root
-  return l:root
+  return b:dko_project_root
+endfunction
+
+" @return {Boolean} if gitroot and project root differ
+function! dko#project#IsMonorepo() abort
+  if empty(dko#project#GetRoot()) | return 0 | endif
+  return b:dko_project_root !=# b:dko_project_gitroot
 endfunction
 
 " @param {String} file to get path to
@@ -67,9 +75,9 @@ endfunction
 function! dko#project#GetFilePath(file) abort
   " Argument
   " Path for given file
-  let l:path = empty(get(a:, 'file', ''))
-        \ ? ''
-        \ : fnamemodify(resolve(expand(a:file)), ':p:h')
+  let l:path = get(a:, 'file')
+        \ ? fnamemodify(resolve(expand(a:file)), ':p:h')
+        \ : ''
 
   " Fallback to current file if no argument
   " Try current file's path
@@ -90,14 +98,18 @@ function! dko#project#GetFilePath(file) abort
   return l:path
 endfunction
 
+" Buffer-cached gitroot
+"
 " @param {String} path
 " @return {String} git root of file or empty string
 function! dko#project#GetGitRootByFile(path) abort
+  if exists('b:dko_project_gitroot') | return b:dko_project_gitroot | endif
   let l:std = split(
         \ system('cd -- ' . a:path . ' && git rev-parse --show-toplevel 2>/dev/null'),
         \ '\n'
         \ )
-  return v:shell_error || empty(l:std) ? '' : l:std[0]
+  let b:dko_project_gitroot = v:shell_error || empty(l:std) ? '' : l:std[0]
+  return b:dko_project_gitroot
 endfunction
 
 " @param {String[]} markers
@@ -112,7 +124,6 @@ function! dko#project#GetRootByFileMarker(markers) abort
     endif
     let l:result = fnamemodify(resolve(expand(l:filepath)), ':h')
   endfor
-
   return l:result
 endfunction
 
@@ -142,9 +153,7 @@ endfunction
 " @param {String} dirname
 " @return {String} full path to dir
 function! dko#project#GetDir(dirname) abort
-  if empty(dko#project#GetRoot())
-    return ''
-  endif
+  if empty(dko#project#GetRoot()) | return '' | endif
 
   for l:root in dko#project#GetPaths()
     let l:current =
@@ -163,19 +172,26 @@ function! dko#project#GetDir(dirname) abort
 endfunction
 
 " Get full path to a file in a project
+" Look in local project first, then in git root
 "
 " @param {String} filename
 " @return {String} full path to config file
 function! dko#project#GetFile(filename) abort
   if empty(dko#project#GetRoot()) | return '' | endif
 
-  " Try to use nearest first; up to the root
-  let l:bounds = '.;' . dko#project#GetRoot() . ';'
-  let l:nearest = findfile(a:filename, l:bounds)
-  if !empty(l:nearest) | return fnamemodify(l:nearest, ':p') | endif
+  let l:root = dko#project#IsMonorepo()
+        \ ? b:dko_project_gitroot
+        \ : dko#project#GetRoot()
 
+  " Try to use nearest first; up to the root
+  let l:bounds = fnamemodify(a:filename, ':p:h') . ';' . l:root
+  let l:nearest = findfile(a:filename, l:bounds)
+  if !empty(l:nearest) | return l:nearest | endif
+
+  " @FIXME
+  " Look in local paths for the project (not including git root)
   for l:root in dko#project#GetPaths()
-    let l:current = expand(dko#project#GetRoot() . '/' . l:root)
+    let l:current = expand(l:root . '/' . l:root)
     if !isdirectory(l:current) | continue | endif
     if filereadable(glob(l:current . a:filename))
       return l:current . a:filename
@@ -194,10 +210,9 @@ function! dko#project#GetBin(bin) abort
 
   " Use cached
   let l:bins = dko#InitDict('b:dko_project_bins')
-  if !empty(get(l:bins, a:bin))
-    return l:bins[a:bin]
-  endif
+  if !empty(get(l:bins, a:bin)) | return l:bins[a:bin] | endif
 
+  " Use found
   let l:exe = dko#project#GetFile(a:bin)
   if !empty(l:exe) && executable(l:exe)
     let l:bins[a:bin] = l:exe

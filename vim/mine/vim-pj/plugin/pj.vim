@@ -30,19 +30,22 @@ augroup END
 
 " Default package.json locator. Not used if g:PJ_function is set
 function! s:FindPackageJson() abort
-  return fnamemodify(findfile('package.json'), ':p')
+  return fnamemodify(findfile('package.json', '.;'), ':p')
 endfunction
 
 " Enable pj commands for a buffer
 function! s:InitBuffer() abort
-  if (&buftype !=# '') || &diff || &previewwindow || exists('b:fugitive_type')
+  if &diff || &previewwindow || &buftype !=# ''
+        \ || get(b:, 'PJ_file')
+        \ || get(b:, 'fugitive_type')
     return
   endif
 
-  let b:PJ_file = pj#GetPackageJsonPath(
+  let l:pj_file = pj#GetPackageJsonPath(
         \ get(g:, 'PJ_function', function('s:FindPackageJson'))
         \ )
-  if empty(b:PJ_file) | return | endif
+  if empty(l:pj_file) | return | endif
+  let b:PJ_file = l:pj_file
 
   " --------------------------------------------------------------------------
   " Provide commands to this buffer since it has a valid package.json
@@ -68,14 +71,12 @@ endfunction
 
 command! PjEnable call s:InitBuffer()
 
-function! s:Init() abort
-  " Start pj for the buffer. Done super early to provide info to other
-  " plugins like neomake. Not dependent on FileType, just a cwd
-  autocmd plugin-vimpj BufNew,BufReadPre * call s:InitBuffer()
+" Start pj for the buffer. Done super early to provide info to other
+" plugins like neomake. Not dependent on FileType, just a cwd
+autocmd plugin-vimpj BufNewFile,BufReadPre *
+      \ call s:InitBuffer()
 
-  " Re-decode package.json when edited
-  autocmd plugin-vimpj BufWritePost
-        \ package.json
-        \ call pj#Invalidate(expand('%:p')) | call pj#GetJson()
-endfunction
-autocmd plugin-vimpj VimEnter * nested call s:Init()
+" Re-decode package.json when edited
+autocmd plugin-vimpj BufWritePost package.json
+      \   call pj#Invalidate(expand('%:p'))
+      \ | call pj#GetJson()

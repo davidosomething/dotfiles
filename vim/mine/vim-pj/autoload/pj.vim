@@ -69,8 +69,8 @@ endfunction
 function! pj#GetPackageJsonPath(PJ_function) abort
   " Use PJ_function if string, call if funcref
   let l:path =
-        \   type(a:PJ_function) ==# 1 ? a:PJ_function
-        \ : type(a:PJ_function) ==# 2 ? a:PJ_function()
+        \   type(a:PJ_function) ==# v:t_string ? a:PJ_function
+        \ : type(a:PJ_function) ==# v:t_func ? a:PJ_function()
         \ : ''
   if empty(l:path) || !filereadable(l:path) | return '' | endif
   return l:path

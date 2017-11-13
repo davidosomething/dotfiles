@@ -52,21 +52,15 @@ let g:neomake_python_enabled_makers = [ 'flake8' ]
 
 call dko#neomake#EchintCreate()
 
-autocmd dkoneomake FileType javascript
+autocmd dkoneomake BufWinEnter *
       \ call dko#neomake#javascript#Setup()
-
-autocmd dkoneomake FileType markdown
+autocmd dkoneomake BufWinEnter *.md,*.markdown
       \ call dko#neomake#markdown#Setup()
-
-autocmd dkoneomake FileType php
-      \   call dko#neomake#LocalMaker(dko#neomake#php#phpcs)
-      \ | call dko#neomake#php#Phpcs()
-      \ | call dko#neomake#php#Phpmd()
-
-autocmd dkoneomake FileType scss
+autocmd dkoneomake BufWinEnter *.php
+      \ call dko#neomake#php#Setup()
+autocmd dkoneomake BufWinEnter scss
       \ call dko#neomake#scss#Setup()
-
-autocmd dkoneomake FileType *
+autocmd dkoneomake BufWinEnter *
       \ call dko#neomake#EchintSetup()
 
 autocmd dkoneomake User vim-pyenv-activate-post

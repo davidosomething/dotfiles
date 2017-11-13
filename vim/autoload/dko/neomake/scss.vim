@@ -4,8 +4,8 @@
 let s:sasslint_default = glob(expand('$DOTFILES/sasslint/dot.sass-lint.yml'))
 function! dko#neomake#scss#Setup() abort
   let l:safeft = neomake#utils#get_ft_confname(&filetype)
-  if exists('b:did_echint_' . l:safeft) | return | endif
-  let b:did_echint_{l:safeft} = 1
+  if exists('b:did_dkoneomake_' . l:safeft) | return | endif
+  let b:did_dkoneomake_{l:safeft} = 1
 
   call dko#neomake#NpxMaker(extend(neomake#makers#ft#scss#sasslint(), {
         \     'ft': 'scss',

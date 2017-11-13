@@ -6,9 +6,11 @@
 " Uses pj#HasDevDependency so runs after &filetype is set (by filetypedetect,
 " shebang, or modeline)
 function! dko#neomake#javascript#Setup() abort
+  if &filetype !~? 'javascript' | return | endif
+
   let l:safeft = neomake#utils#get_ft_confname(&filetype)
-  if exists('b:did_echint_' . l:safeft) | return | endif
-  let b:did_echint_{l:safeft} = 1
+  if exists('b:did_dkoneomake_' . l:safeft) | return | endif
+  let b:did_dkoneomake_{l:safeft} = 1
 
   " ==========================================================================
   " Configure NPX to run makers
@@ -25,7 +27,7 @@ function! dko#neomake#javascript#Setup() abort
         \   neomake#makers#ft#javascript#xo(), {
         \     'ft': 'javascript',
         \     'maker': 'xo',
-        \     'when': 'pj#HasDevDependency("xo")',
+        \     'when': 'get(b:, "PJ_file") && pj#HasDevDependency("xo")',
         \   }))
 
   call dko#neomake#NpxMaker(extend(
@@ -36,12 +38,15 @@ function! dko#neomake#javascript#Setup() abort
         \             . ' && !empty(dko#project#GetFile(".jshintrc"))',
         \   }))
 
-  call dko#neomake#NpxMaker(extend(
-        \   neomake#makers#ft#javascript#flow(), {
-        \     'ft': 'javascript',
-        \     'maker': 'flow',
-        \     'when': '!empty(dko#project#GetFile(".flowconfig"))',
-        \   }))
+  " flow disabled
+  " args overridden from defaults -- allow limiting returned entries
+  " call dko#neomake#NpxMaker(extend(
+  "       \   neomake#makers#ft#javascript#flow(), {
+  "       \     'ft': 'javascript',
+  "       \     'maker': 'flow',
+  "       \     'args': [ '--from=vim' ],
+  "       \     'when': '!empty(dko#project#GetFile(".flowconfig"))',
+  "       \   }))
 
   " ==========================================================================
   " Define which makers should be used
@@ -56,11 +61,12 @@ function! dko#neomake#javascript#Setup() abort
     let b:neomake_javascript_enabled_makers += [ 'eslint' ]
   elseif !empty(dko#project#GetFile('.jshintrc'))
     let b:neomake_javascript_enabled_makers += [ 'jshint' ]
-  elseif pj#HasDevDependency('xo')
+  elseif get(b:, 'PJ_file') && pj#HasDevDependency('xo')
     let b:neomake_javascript_enabled_makers += [ 'xo' ]
   endif
 
-  if !empty(dko#project#GetFile('.flowconfig'))
-    let b:neomake_javascript_enabled_makers += [ 'flow' ]
-  endif
+  " flow disabled
+  " if !empty(dko#project#GetFile('.flowconfig'))
+  "   let b:neomake_javascript_enabled_makers += [ 'flow' ]
+  " endif
 endfunction

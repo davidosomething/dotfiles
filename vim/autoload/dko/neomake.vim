@@ -25,6 +25,22 @@ function! dko#neomake#IsMakerExecutable(name, ...) abort
   return !empty(l:maker) && executable(l:maker.exe)
 endfunction
 
+function! dko#neomake#AddMaker(ft, maker) abort
+  let l:bmakers = 'b:neomake_' . a:ft . '_enabled_makers'
+
+  if exists(l:bmakers)
+    if index({l:bmakers}, a:maker) > -1 | return | endif
+    let {l:bmakers} += [ a:maker ]
+    return
+  endif
+
+  try
+    let l:makersfn = 'neomake#makers#ft#' . a:ft . '#EnabledMakers'
+    let {l:bmakers} = call(l:makersfn, []) + [ a:maker ]
+  catch
+  endtry
+endfunction
+
 " ============================================================================
 " Define makers
 " This should run for EVERY buffer, even though it may be slow. This way
@@ -129,17 +145,6 @@ function! dko#neomake#EchintCreate() abort
           \   'postprocess': function('PostprocessEchint'),
           \ }, 'global')
   endfor
-endfunction
-
-function! dko#neomake#AddMaker(ft, maker) abort
-  let l:bmakers = 'b:neomake_' . a:ft . '_enabled_makers'
-  if !exists(l:bmakers)
-    try
-      let l:makersfn = 'neomake#makers#ft#' . a:ft . '#EnabledMakers'
-      let {l:bmakers} = call(l:makersfn, []) + [ a:maker ]
-    catch
-    endtry
-  endif
 endfunction
 
 " For each filetype in the above whitelist, try to setup echint as
