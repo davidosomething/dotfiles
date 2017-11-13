@@ -46,6 +46,8 @@ augroup filetypedetect
   autocmd! BufNewFile,BufRead .flake8 setfiletype dosini
   autocmd! BufNewFile,BufRead *.gradle setfiletype groovy
 
+  autocmd! BufNewFile,BufRead *.gitconfig setfiletype gitconfig
+
   " git branch description (opened via `git branch --edit-description`)
   autocmd! BufNewFile,BufRead BRANCH_DESCRIPTION
         \ setfiletype gitbranchdescription.markdown.pandoc

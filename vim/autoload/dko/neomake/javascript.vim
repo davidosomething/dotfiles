@@ -1,14 +1,14 @@
 " autoload/dko/neomake/javascript.vim
 
-if !dkoplug#IsLoaded('neomake') | finish | endif
-
 " Hook for BufWinEnter *
 " Sets b:neomake_javascript_enabled_makers based on what is present in the
 " project
 " Uses pj#HasDevDependency so runs after &filetype is set (by filetypedetect,
 " shebang, or modeline)
 function! dko#neomake#javascript#Setup() abort
-  if &filetype !=# 'javascript' | return | endif
+  let l:safeft = neomake#utils#get_ft_confname(&filetype)
+  if exists('b:did_echint_' . l:safeft) | return | endif
+  let b:did_echint_{l:safeft} = 1
 
   " ==========================================================================
   " Configure NPX to run makers

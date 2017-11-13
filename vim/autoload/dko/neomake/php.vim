@@ -1,7 +1,5 @@
 " autoload/dko/neomake/php.vim
 
-if !dkoplug#IsLoaded('neomake') | finish | endif
-
 let g:dko#neomake#php#phpcs = {
       \   'ft':     'php',
       \   'maker':  'phpcs',

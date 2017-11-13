@@ -50,23 +50,27 @@ let g:neomake_python_enabled_makers = [ 'flake8' ]
 " filetype. Setup functions should check filetype if not matching by extension
 " ============================================================================
 
-" Init all buffers; ft may be set by shebang or modeline
-autocmd dkoneomake BufWinEnter *
-      \   call dko#neomake#ShellcheckPosix()
-      \ | call dko#neomake#javascript#Setup()
+call dko#neomake#EchintCreate()
 
-autocmd dkoneomake BufWinEnter *.md,*.markdown,*.pandoc
+" Init all buffers; ft may be set by shebang or modeline
+autocmd dkoneomake FileType sh
+      \ call dko#neomake#ShellcheckPosix()
+
+autocmd dkoneomake FileType javascript
+      \ call dko#neomake#javascript#Setup()
+
+autocmd dkoneomake FileType markdown
       \ call dko#neomake#markdown#Setup()
 
-autocmd dkoneomake BufWinEnter *.php
+autocmd dkoneomake FileType php
       \   call dko#neomake#LocalMaker(dko#neomake#php#phpcs)
       \ | call dko#neomake#php#Phpcs()
       \ | call dko#neomake#php#Phpmd()
 
-autocmd dkoneomake BufWinEnter *.scss
+autocmd dkoneomake FileType scss
       \ call dko#neomake#scss#Setup()
 
-autocmd dkoneomake BufWinEnter *
+autocmd dkoneomake FileType *
       \ call dko#neomake#EchintSetup()
 
 autocmd dkoneomake User vim-pyenv-activate-post

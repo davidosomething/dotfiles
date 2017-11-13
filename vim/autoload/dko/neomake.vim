@@ -111,6 +111,7 @@ endfunction
 
 " Excludes things like python, which has pep8.
 let g:echint_whitelist = [
+      \   'gitconfig',
       \   'javascript',
       \   'json',
       \   'jsx',
@@ -124,6 +125,29 @@ let g:echint_whitelist = [
       \   'zsh',
       \]
 
+function! dko#neomake#EchintCreate() abort
+  let l:fts = g:echint_whitelist
+  for l:ft in l:fts
+    let g:neomake_{l:ft}_echint_maker = dko#neomake#NpxMaker({
+          \   'maker': 'echint',
+          \   'ft': l:ft,
+          \   'errorformat': '%E%f:%l %m',
+          \   'postprocess': function('PostprocessEchint'),
+          \ }, 'global')
+  endfor
+endfunction
+
+function! dko#neomake#AddMaker(ft, maker) abort
+  let l:bmakers = 'b:neomake_' . a:ft . '_enabled_makers'
+  if !exists(l:bmakers)
+    try
+      let l:makersfn = 'neomake#makers#ft#' . a:ft . '#EnabledMakers'
+      let {l:bmakers} = call(l:makersfn, []) + [ a:maker ]
+    catch
+    endtry
+  endif
+endfunction
+
 " For each filetype in the above whitelist, try to setup echint as
 " a buffer-local maker, extending the current list of buffer-local makers (or
 " default list)
@@ -131,30 +155,25 @@ function! dko#neomake#EchintSetup() abort
   if !dko#neomake#CanMake('%') | return | endif
   " @TODO also skip things that have automatic Neoformat enabled
 
+  let l:safeft = neomake#utils#get_ft_confname(&filetype)
+  if exists('b:did_echint_' . l:safeft) | return | endif
+  let b:did_echint_{l:safeft} = 1
+
   let l:config = dko#project#GetFile('.editorconfig')
   if empty(l:config) | return | endif
 
   let l:cwd = fnamemodify(l:config, ':p:h')
 
   let l:fts = neomake#utils#get_config_fts(&filetype)
+
   let l:capable_fts = filter(l:fts, 'index(g:echint_whitelist, v:val) != -1')
   for l:ft in l:capable_fts
-    call dko#neomake#NpxMaker({
-          \   'maker': 'echint',
-          \   'errorformat': '%E%f:%l %m',
-          \   'cwd': l:cwd,
-          \   'postprocess': function('PostprocessEchint'),
-          \ })
-    let l:bmakers = 'b:neomake_' . l:ft . '_enabled_makers'
-    if !exists(l:bmakers)
-      try
-        let l:makersfn = 'neomake#makers#ft#' . l:ft . '#EnabledMakers'
-        let {l:bmakers} = call(l:makersfn, [])
-      catch
-        return
-      endtry
+    if !exists('g:neomake_' . l:ft . '_echint_maker')
+      continue
     endif
-    let {l:bmakers} += [ 'echint' ]
+    let b:neomake_{l:ft}_echint_maker = copy(g:neomake_{l:ft}_echint_maker)
+    let b:neomake_{l:ft}_echint_maker.cwd = l:cwd
+    call dko#neomake#AddMaker(l:ft, 'echint')
   endfor
 endfunction
 
