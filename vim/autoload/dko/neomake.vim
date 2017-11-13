@@ -14,9 +14,12 @@ function! dko#neomake#IsMakerExecutable(name, ...) abort
   " dko#neomake#LocalMaker successfully determined a project-local
   " bin was executable, return that instead
   if exists('b:neomake_' . l:ft . '_' . a:name . '_exe')
+        \ || exists('b:neomake_' . neomake#utils#get_ft_confname(l:ft)
+        \           . '_' . a:name . '_exe')
     return executable(b:neomake_{l:ft}_{a:name}_exe)
   endif
 
+  " Don't need to sanitize
   " Use the default exe from maker definition
   let l:maker = neomake#GetMaker(a:name, l:ft)
   return !empty(l:maker) && executable(l:maker.exe)
@@ -108,15 +111,12 @@ let g:echint_whitelist = [
       \   'gitconfig',
       \   'javascript',
       \   'json',
-      \   'jsx',
       \   'lua',
-      \   'node',
       \   'markdown',
       \   'php',
       \   'sh',
       \   'vim',
       \   'yaml',
-      \   'zsh',
       \]
 
 function! dko#neomake#EchintCreate() abort
