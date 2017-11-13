@@ -28,12 +28,6 @@ endfunction
 " mono-repos may use different makers when in different dirs.
 " ============================================================================
 
-" For using local npm based makers (e.g. eslint):
-" Resolve the maker's exe relative to the project of the file in buffer, as
-" opposed to using the result of `system('npm bin')` since that executes
-" relative to vim's working path (and gives a fake result of not in a node
-" project). Lotta people doin` it wrong ಠ_ಠ
-
 " @param {dict} settings
 " @param {string} [settings.exe] alternate exe path to use in the buffer
 " @param {string} settings.ft filetype for the maker
