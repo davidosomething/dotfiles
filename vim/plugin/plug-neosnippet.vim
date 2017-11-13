@@ -40,7 +40,7 @@ smap  <special>   <C-f>   <Plug>(neosnippet_expand_or_jump)
 xmap  <special>   <C-f>   <Plug>(neosnippet_expand_target)
 
 " Insert phpdoc block
-nnoremap <silent><buffer><special>
+nnoremap <silent><special>
       \ <Leader>pd
       \ O<Esc>a<C-r>=neosnippet#expand('doc')<CR>
 
