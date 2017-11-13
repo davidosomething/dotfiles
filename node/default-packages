@@ -9,6 +9,7 @@ eslint-config-davidosomething
 eslint-config-react-app
 ajv-cli
 apidoc
+boxen-cli
 coffee-script
 coffeelint
 commitizen
@@ -18,6 +19,7 @@ enhanced-resolve-cli
 flow-bin
 flow-language-server
 generator-hubot
+glob-cli2
 http-server
 javascript-typescript-langserver
 js-beautify
@@ -30,6 +32,7 @@ less
 lighthouse
 markdownlint-cli
 npm-check-updates
+npm-run-all
 nsp
 package-json-validator
 prettier
