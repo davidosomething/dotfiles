@@ -69,8 +69,9 @@ endfunction
 command! PjEnable call s:InitBuffer()
 
 function! s:Init() abort
-  " Start pj for the buffer
-  autocmd plugin-vimpj BufNewFile,BufRead * call s:InitBuffer()
+  " Start pj for the buffer. Done super early to provide info to other
+  " plugins like neomake. Not dependent on FileType, just a cwd
+  autocmd plugin-vimpj BufNew,BufReadPre * call s:InitBuffer()
 
   " Re-decode package.json when edited
   autocmd plugin-vimpj BufWritePost

@@ -52,10 +52,6 @@ let g:neomake_python_enabled_makers = [ 'flake8' ]
 
 call dko#neomake#EchintCreate()
 
-" Init all buffers; ft may be set by shebang or modeline
-autocmd dkoneomake FileType sh
-      \ call dko#neomake#ShellcheckPosix()
-
 autocmd dkoneomake FileType javascript
       \ call dko#neomake#javascript#Setup()
 

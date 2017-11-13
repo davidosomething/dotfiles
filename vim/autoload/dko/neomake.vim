@@ -170,18 +170,3 @@ function! dko#neomake#EchintSetup() abort
     call dko#neomake#AddMaker(l:ft, 'echint')
   endfor
 endfunction
-
-" ============================================================================
-" Shellcheck
-" ============================================================================
-
-" Assume posix
-function! dko#neomake#ShellcheckPosix() abort
-  if &filetype !=# 'sh' | return | endif
-  " https://github.com/neomake/neomake/blob/master/autoload/neomake/makers/ft/sh.vim
-  let b:neomake_sh_shellcheck_args = [
-        \   '--format=gcc',
-        \   '--external-sources',
-        \   '--shell=sh',
-        \ ]
-endfunction
