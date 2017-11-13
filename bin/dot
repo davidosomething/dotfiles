@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-[[ -z "${DOTFILES}" ]] && echo "Symlink first." && exit 1
+[[ -z "${DOTFILES}" ]] && echo "Symlink first" && exit 1
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
 
@@ -185,7 +185,7 @@ __dko_dotfiles__update_fzf() {
 # pass any arg to silence
 __dko_dotfiles__ruby__require_chruby() {
   [[ -n "$RUBY_VERSION" ]] && return 0
-  (( $# == 0 )) && __dko_warn "System ruby detected! Please install and use chruby."
+  (( $# == 0 )) && __dko_warn "System ruby detected! Please install and use chruby"
   return 1
 }
 
@@ -238,14 +238,14 @@ __dko_dotfiles__go__update_go_packages() {
 }
 
 # ----------------------------------------------------------------------------
-# Node: Introspection
+# Node.js: Introspection
 # ----------------------------------------------------------------------------
 
 # pass any arg to skip autoinstall
 # pass any arg to silence
 __dko_dotfiles__node__require_nvm() {
   if [[ -z "$NVM_DIR" ]]; then
-    (( $# == 0 )) && __dko_err "\$NVM_DIR is not defined, make sure rc files are linked."
+    (( $# == 0 )) && __dko_err "\$NVM_DIR is not defined, make sure rc files are linked"
     return 1
   fi
 
@@ -257,7 +257,7 @@ __dko_dotfiles__node__require_nvm() {
 }
 
 # ----------------------------------------------------------------------------
-# Node: Update node to latest stable
+# Node.js: Update node to latest stable
 # ----------------------------------------------------------------------------
 
 __dko_dotfiles__update_node() {
@@ -276,31 +276,32 @@ __dko_dotfiles__update_node() {
   local previous_node
   previous_node="$(nvm current)"
 
-  if [[ "$wanted_with_minor" != "$previous_node" ]]; then
-    __dko_status_ "Previous node version was $previous_node"
-    echo -n "Install and use new node ${wanted_with_minor} as default? [y/N] "
-    read -r
-    echo
-    if [[ "$REPLY" = "y" ]] || [[ "$REPLY" = "Y" ]]; then
-      __dko_status "Installing node ${wanted_with_minor}..."
-      nvm install             "$wanted"
-      nvm alias default       "$wanted"
-      nvm use default
-      nvm install-latest-npm
+  wait
 
-      local __nodir
-      __nodir="$("${DOTFILES}/bin/dko-nvm-node-version")"
-      export DKO_DEFAULT_NODE_VERSION="${__nodir%\/bin}"
+  if [[ "$wanted_with_minor" == "$previous_node" ]]; then
+    __dko_ok "Node.js is already up-to-date"
+    return 0
+  fi
 
-      __dko_ok "Node and npm updated."
-    fi
-  else
-    __dko_ok "Node version is already up-to-date."
+  __dko_status_ "Previous node version was $previous_node"
+  echo -n "Install and use new node ${wanted_with_minor} as default? [y/N] "
+  read -r
+  echo
+  if [[ "$REPLY" = "y" ]] || [[ "$REPLY" = "Y" ]]; then
+    __dko_status "Installing node ${wanted_with_minor}..."
+    nvm install        "$wanted" & wait
+    __dko_status "Updating default alias to ${wanted_with_minor}..."
+    nvm alias default  "$wanted" & wait
+    __dko_status "Switching to ${wanted_with_minor}..."
+    nvm use            "$wanted" & wait
+    __dko_status "install-latest-npm"
+    nvm install-latest-npm       & wait
+    __dko_ok "Node.js and npm updated, shell restart required"
   fi
 }
 
 # ----------------------------------------------------------------------------
-# Node: Update NVM
+# Node.js: Update NVM
 # ----------------------------------------------------------------------------
 
 __dko_dotfiles__node__update_nvm() {
@@ -509,7 +510,7 @@ __dko_dotfiles__linux__deb__update() {
   __dko_status "Apt system update"
 
   ! __dko_has "apt" \
-    && __dko_err "apt not found, manually use 'apt-get' for crappy systems." \
+    && __dko_err "apt not found, manually use 'apt-get' for crappy systems" \
     && return 1
 
   sudo apt update
@@ -543,7 +544,7 @@ __dko_dotfiles__darwin__update_brew_done() {
 # pass any arg to silence
 __dko_dotfiles__darwin__require_brew() {
   __dko_has "brew" && return 0
-  (( $# == 0 )) && __dko_warn "Homebrew is not installed."
+  (( $# == 0 )) && __dko_warn "Homebrew is not installed"
   return 1
 }
 
