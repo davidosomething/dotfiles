@@ -6,6 +6,11 @@ import {
 
 const A_CONSTANT = true;
 
+/**
+ * Garbage code! Not real!
+ *
+ * @return {Function}
+ */
 document.addEventListener('click', function namedFun(x, ...rest) {
   return (lab = {}, rat = {}) => {
     const [ x, y ] = [ y, x ];
