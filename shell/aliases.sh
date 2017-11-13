@@ -194,6 +194,7 @@ alias ta='tmux attach'
 # ----------------------------------------------------------------------------
 
 alias cuios='XCODE_XCCONFIG_FILE="${PWD}/xcconfigs/swift31.xcconfig" carthage update --platform iOS'
+alias deletederived='rm -rf ~/Library/Developer/Xcode/DerivedData/*'
 
 # ----------------------------------------------------------------------------
 # rest of bins
