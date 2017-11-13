@@ -66,7 +66,7 @@ hi! Search            guibg=#dd99ff guifg=#202022
 hi! Special                         guifg=#dd7766
 hi! SpecialKey                      guifg=#772222
 hi! Statement                       guifg=#999999 gui=NONE
-hi! String                          guifg=#dddddd
+hi! String                          guifg=#88aabb
 hi! Title                           guifg=#dddddd
 hi! Todo              guibg=#303033 guifg=#ddaa66 gui=bold
 hi! Type                            guifg=#dddddd gui=NONE
