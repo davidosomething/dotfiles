@@ -50,9 +50,11 @@ let g:neomake_python_enabled_makers = [ 'flake8' ]
 " filetype. Setup functions should check filetype if not matching by extension
 " ============================================================================
 
+" Init all buffers; ft may be set by shebang or modeline
 autocmd dkoneomake BufWinEnter *
-      \   call dko#InitList('b:neomake_' . &filetype . '_enabled_makers')
-      \ | call dko#neomake#Echint()
+      \   call dko#neomake#InitBuffer()
+      \ | call dko#neomake#EchintSetup()
+      \ | call dko#neomake#ShellcheckPosix()
       \ | call dko#neomake#javascript#Setup()
 
 autocmd dkoneomake BufWinEnter *.md,*.markdown,*.pandoc
@@ -62,9 +64,6 @@ autocmd dkoneomake BufWinEnter *.php
       \   call dko#neomake#LocalMaker(dko#neomake#php#phpcs)
       \ | call dko#neomake#php#Phpcs()
       \ | call dko#neomake#php#Phpmd()
-
-autocmd dkoneomake BufWinEnter *.sh,dot.profile
-      \   call dko#neomake#sh#ShellcheckPosix()
 
 autocmd dkoneomake BufWinEnter *.scss
       \ call dko#neomake#scss#Setup()

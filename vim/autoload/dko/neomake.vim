@@ -95,13 +95,50 @@ function! dko#neomake#MaybeRun() abort
   Neomake
 endfunction
 
-function! dko#neomake#Echint() abort
+" Always use b: list of makers; init with defaults
+function! dko#neomake#InitBuffer() abort
+  if empty(&filetype) || dko#IsNonFile(bufnr('%')) | return | endif
+  let l:maker_list = 'b:neomake_' . &filetype . '_enabled_makers'
+  call dko#InitList(l:maker_list)
+  let l:ftfunc = 'neomake#makers#ft#' . &filetype . '#EnabledMakers'
+  let {l:maker_list} = call(l:ftfunc, [])
+endfunction
+
+" ============================================================================
+" ECHint
+" ============================================================================
+
+function! g:PostprocessEchint(entry) abort
+  return a:entry.text =~# 'did not pass EditorConfig validation'
+        \ ? extend(a:entry, { 'valid': -1 })
+        \ : a:entry
+endfunction
+
+function! dko#neomake#EchintSetup() abort
+  if empty(&filetype) || dko#IsNonFile(bufnr('%')) | return | endif
   let l:config = dko#project#GetFile('.editorconfig')
   if empty(l:config) | return | endif
   call dko#neomake#NpxMaker({
         \   'maker': 'echint',
         \   'errorformat': '%E%f:%l %m',
         \   'cwd': fnamemodify(l:config, ':p:h'),
+        \   'postprocess': function('PostprocessEchint'),
         \ })
   let b:neomake_{&filetype}_enabled_makers += [ 'echint' ]
+endfunction
+
+" ============================================================================
+" Shellcheck
+" ============================================================================
+
+function! dko#neomake#ShellcheckPosix() abort
+  if &filetype !=# 'sh' | return | endif
+  " https://github.com/neomake/neomake/blob/master/autoload/neomake/makers/ft/sh.vim
+  let b:neomake_sh_shellcheck_args = [
+        \   '--format=gcc',
+        \   '--external-sources',
+        \   '--shell=sh',
+        \ ]
+  call dko#InitDict('b:neomake_sh_enabled_makers')
+  let b:neomake_sh_enabled_makers += neomake#makers#ft#sh#EnabledMakers()
 endfunction
