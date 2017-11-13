@@ -35,14 +35,6 @@ let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
       \ : ''
 
 " ============================================================================
-" My autocmd block - Clear vimrc group's autocmds if reloading
-" ============================================================================
-
-augroup vimrc
-  autocmd!
-augroup END
-
-" ============================================================================
 " My defaults
 " May be overridden by **/plugins, after/plugins and **/ftplugins
 " ============================================================================
@@ -510,7 +502,6 @@ endif
 " Autocommands
 " ============================================================================
 
-" Window aucmds -- affect layout
 augroup dkowindow
   autocmd!
   autocmd VimResized * wincmd =
