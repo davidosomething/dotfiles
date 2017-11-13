@@ -185,8 +185,8 @@ endfunction
 function! dko#GetGrepper() abort
   if exists('s:grepper') | return s:grepper | endif
 
-  let s:greppers = {}
-  let s:greppers.rg = {
+  let l:greppers = {}
+  let l:greppers.rg = {
         \   'command': 'rg',
         \   'options': [
         \     '--hidden',
@@ -196,7 +196,7 @@ function! dko#GetGrepper() abort
         \   ],
         \   'format': '%f:%l:%c:%m,%f:%l:%m,%f:%l%m,%f %l%m',
         \ }
-  let s:greppers.ag = {
+  let l:greppers.ag = {
         \   'command': 'ag',
         \   'options': [
         \     '--hidden',
@@ -205,7 +205,7 @@ function! dko#GetGrepper() abort
         \   ],
         \   'format': '%f:%l:%c:%m,%f:%l:%m,%f:%l%m,%f %l%m',
         \ }
-  let s:greppers.ack = {
+  let l:greppers.ack = {
         \   'command': 'ack',
         \   'options': [
         \     '--nogroup',
@@ -216,13 +216,13 @@ function! dko#GetGrepper() abort
         \   'format': '%f:%l:%c:%m,%f:%l:%m,%f:%l%m,%f %l%m',
         \ }
 
-  let s:grepper_name =
+  let l:grepper_name =
         \   executable('rg') ? 'rg'
         \ : executable('ag') ? 'ag'
         \ : executable('ack') ? 'ack'
         \ : ''
 
-  let s:grepper = empty(s:grepper_name) ? {} : s:greppers[s:grepper_name]
+  let s:grepper = empty(l:grepper_name) ? {} : l:greppers[l:grepper_name]
 
   return s:grepper
 endfunction
