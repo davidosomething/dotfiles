@@ -1,3 +1,7 @@
+# ============================================================================
+# POSIX-compliant helper scripts
+# ============================================================================
+
 # silently determine existence of executable
 # $1 name of bin
 __dko_has() { command -v "$1" >/dev/null 2>&1; }
