@@ -1,1 +1,1 @@
-vim-vint
+vim-vint==0.3.16
