@@ -9,4 +9,4 @@ before_install:
   - nvm install --lts
 script:
   - tox
-  - npm test
+  - npm test --silent

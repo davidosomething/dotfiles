@@ -11,7 +11,7 @@
   "scripts": {
     "_header": "npx --ignore-existing --quiet boxen-cli --padding 0",
     "_markdownlint": "npx --ignore-existing --quiet markdownlint-cli --config ./markdownlint/dot.markdownlintrc",
-    "_parallel": "npx --ignore-existing --quiet npm-run-all --silent --aggregate-output --parallel",
+    "_parallel": "npx --ignore-existing --quiet npm-run-all --silent --aggregate-output --continue-on-error --parallel",
     "lint": "npm run --silent _parallel -- lint:**",
     "lint:editorconfig": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"                && npx --ignore-existing --quiet echint && echo ' ✓ passed\n'",
     "lint:bash:bashate": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"                && bashate --ignore=E003,E005,E006 -- $(npx --ignore-existing --quiet glob-cli2 \"{bash/*,**/*.bash}\") && echo ' ✓ passed\n'",
