@@ -1,4 +1,5 @@
 # managed
+bitbar/enabled/
 node_modules/
 tmux/plugins/
 !tmux/plugins/tpm
