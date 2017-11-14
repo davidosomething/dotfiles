@@ -38,6 +38,7 @@ function! dko#neomake#AddMaker(ft, maker) abort
     let l:makersfn = 'neomake#makers#ft#' . a:ft . '#EnabledMakers'
     let {l:bmakers} = call(l:makersfn, []) + [ a:maker ]
   catch
+    let {l:bmakers} = [ a:maker ]
   endtry
 endfunction
 
@@ -125,6 +126,7 @@ endfunction
 " Excludes things like python, which has pep8.
 let g:echint_whitelist = [
       \   'gitconfig',
+      \   'dosini',
       \   'javascript',
       \   'json',
       \   'lua',
@@ -167,9 +169,7 @@ function! dko#neomake#EchintSetup() abort
 
   let l:capable_fts = filter(l:fts, 'index(g:echint_whitelist, v:val) != -1')
   for l:ft in l:capable_fts
-    if !exists('g:neomake_' . l:ft . '_echint_maker')
-      continue
-    endif
+    if !exists('g:neomake_' . l:ft . '_echint_maker') | continue | endif
     let b:neomake_{l:ft}_echint_maker = copy(g:neomake_{l:ft}_echint_maker)
     let b:neomake_{l:ft}_echint_maker.cwd = l:cwd
     call dko#neomake#AddMaker(l:ft, 'echint')
