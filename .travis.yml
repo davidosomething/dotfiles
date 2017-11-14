@@ -2,10 +2,11 @@ language: python
 os:
   - linux
 python:
-  - "3.6"
+  - "2.7"
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y shellcheck
   - nvm install --lts
 script:
   - npm test --silent
+  - tox

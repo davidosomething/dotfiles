@@ -16,6 +16,7 @@ zsh/antibody
 # cache + logs
 .bash_history
 .lesshst
+.tox
 .zcache
 .zcompdump*
 .zhistory
