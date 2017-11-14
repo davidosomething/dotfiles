@@ -1,3 +1,4 @@
+---
 # Default application configuration that all configurations inherit from.
 linters:
   BorderZero:
@@ -43,11 +44,11 @@ linters:
 
   HexLength:
     enabled: false
-    style: short # or 'long'
+    style: short  # or 'long'
 
   HexNotation:
     enabled: true
-    style: lowercase # or 'uppercase'
+    style: lowercase  # or 'uppercase'
 
   HexValidation:
     enabled: true
@@ -73,7 +74,7 @@ linters:
 
   LeadingZero:
     enabled: false
-    style: exclude_zero # or 'include_zero'
+    style: exclude_zero   # or 'include_zero'
 
   MergeableSelector:
     enabled: false
@@ -105,7 +106,7 @@ linters:
     max_depth: 7
 
   SelectorFormat:
-    enabled: false # I WANT IT
+    enabled: false  # I WANT IT
     convention: BEM
     severity: warning
 
@@ -134,7 +135,7 @@ linters:
 
   StringQuotes:
     enabled: true
-    style: single_quotes # or double_quotes
+    style: single_quotes  # or double_quotes
 
   TrailingSemicolon:
     enabled: false

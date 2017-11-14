@@ -6,9 +6,6 @@ end_of_line = LF
 indent_size = 2
 indent_style = space
 
-[*.ini]
-indent_size = 4
-
 [.gitconfig]
 indent_size = 2
 indent_style = tab
@@ -16,6 +13,9 @@ indent_style = tab
 [*.gitconfig]
 indent_size = 2
 indent_style = tab
+
+[*.ini]
+indent_size = 4
 
 # html is not minified so reduce character output by using real tabs
 # use indent size 4 for parity with PHP
@@ -44,4 +44,7 @@ max_line_length = 78
 indent_size = 4
 
 [*.vim]
+indent_size = 2
+
+[*.{yaml,yml}]
 indent_size = 2

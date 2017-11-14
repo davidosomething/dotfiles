@@ -1,0 +1,6 @@
+---
+extends: default
+ignore: |
+  tmux/plugins/
+  vim/vendor/
+  zsh/.zplugin/
