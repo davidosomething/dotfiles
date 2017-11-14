@@ -1,3 +1,4 @@
+bashate
 tox
 tox-travis==0.10
 vim-vint==0.3.16
