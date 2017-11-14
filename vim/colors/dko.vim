@@ -45,7 +45,7 @@ hi! link  dkoSignRemoved  DiffDelete
 " Vim base
 " ============================================================================
 
-hi! Boolean                         guifg=#aaaaaa gui=italic
+hi! Boolean                         guifg=#cccccc gui=italic
 hi! Comment                         guifg=#50586a gui=italic
 hi! Constant                        guifg=#aaaaaa gui=italic
 hi! Delimiter                       guifg=#6688cc
@@ -66,7 +66,7 @@ hi! PreProc                         guifg=#dddddd
 hi! Search            guibg=#dd99ff guifg=#202022
 hi! Special                         guifg=#dd7766
 hi! SpecialKey                      guifg=#772222
-hi! Statement                       guifg=#999999 gui=NONE
+hi! Statement                       guifg=#777777 gui=NONE
 hi! String                          guifg=#88aabb
 hi! Title                           guifg=#dddddd
 hi! Todo              guibg=#303033 guifg=#ddaa66 gui=bold
