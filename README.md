@@ -1,6 +1,6 @@
 <img alt="dotfiles" width="200" src="https://cdn.rawgit.com/davidosomething/dotfiles/master/meta/dotfiles-logo.png">
 
-[![Build Status](https://travis-ci.org/davidosomething/dotfiles.svg?branch=master)](https://travis-ci.org/davidosomething/dotfiles) [![Updates](https://pyup.io/repos/github/davidosomething/dotfiles/shield.svg)](https://pyup.io/repos/github/davidosomething/dotfiles/)
+[![Build Status](https://travis-ci.org/davidosomething/dotfiles.svg?branch=master)](https://travis-ci.org/davidosomething/dotfiles) [![Updates](https://pyup.io/repos/github/davidosomething/dotfiles/shield.svg)](https://pyup.io/repos/github/davidosomething/dotfiles/) [![Greenkeeper badge](https://badges.greenkeeper.io/davidosomething/dotfiles.svg)](https://greenkeeper.io/)
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
@@ -17,8 +17,6 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 > Screenshot of my ZSH prompt
 
 ## Installation
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/davidosomething/dotfiles.svg)](https://greenkeeper.io/)
 
 _For mac, see full install details in [mac/README.md](mac/README.md)._
 
