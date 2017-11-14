@@ -19,7 +19,6 @@ enhanced-resolve-cli
 flow-bin
 flow-language-server
 generator-hubot
-glob-cli2
 http-server
 javascript-typescript-langserver
 js-beautify
