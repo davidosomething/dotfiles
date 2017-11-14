@@ -9,7 +9,7 @@ neovim==0.2.0
 neovim-remote==1.8.8
 prospector==0.12.7
 pycodestyle==2.3.1
-pydocstyle
+pydocstyle==2.1.1
 pyflakes
 pylint
 vim-vint
