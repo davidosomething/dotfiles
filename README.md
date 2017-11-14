@@ -1,6 +1,7 @@
 <img alt="dotfiles" width="200" src="https://cdn.rawgit.com/davidosomething/dotfiles/master/meta/dotfiles-logo.png">
 
-[![Build Status](https://travis-ci.org/davidosomething/dotfiles.svg?branch=master)](https://travis-ci.org/davidosomething/dotfiles) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/911af684dcaf4e93adcde85f3deafad4)](https://www.codacy.com/app/davidosomething/dotfiles?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=davidosomething/dotfiles&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/davidosomething/dotfiles.svg?branch=master)](https://travis-ci.org/davidosomething/dotfiles) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/911af684dcaf4e93adcde85f3deafad4)](https://www.codacy.com/app/davidosomething/dotfiles?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=davidosomething/dotfiles&amp;utm_campaign=Badge_Grade) 
+[![Updates](https://pyup.io/repos/github/davidosomething/dotfiles/shield.svg)](https://pyup.io/repos/github/davidosomething/dotfiles/)
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
