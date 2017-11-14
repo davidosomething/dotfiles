@@ -1,4 +1,5 @@
 .git/
+.tox/
 build/
 compass-css/
 dist/
