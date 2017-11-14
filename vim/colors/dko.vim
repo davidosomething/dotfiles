@@ -53,6 +53,7 @@ hi! DiffAdd           guibg=#2a332a guifg=#668844
 hi! DiffChange        guibg=#2c2b2a guifg=#7f6030
 hi! DiffDelete        guibg=#4a2a2a guifg=#aa6666
 hi! DiffText          guibg=#4a2a2a
+hi! Error             guibg=#ee7777 guifg=#4a2a2a
 hi! Function                        guifg=#aaaaaa
 hi! Identifier                      guifg=#dddddd
 hi! IncSearch         guibg=#dd77cc guifg=#202022 gui=NONE
@@ -174,6 +175,12 @@ hi! link diffRemoved    DiffDelete
 hi! link gitKeyword         Identifier
 hi! link gitDate            String
 hi! link gitHash            Normal
+
+" ============================================================================
+" vim-indentguides
+" ============================================================================
+
+hi! IndentGuidesOdd   guibg=#252527
 
 " ============================================================================
 " JavaScript
