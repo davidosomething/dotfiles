@@ -5,10 +5,6 @@
 
 set -e
 
-# ============================================================================
-# initialize script and dependencies
-# ============================================================================
-
 cd -- "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
 . "${DOTFILES}/lib/helpers.sh"
@@ -35,22 +31,11 @@ fi
 # $1 full path to move (can be file or dir)
 # $2 full destination path
 __move() {
+  [[ ! -e "$1" ]] && __dko_ok "${1} not found" && return 0
+  [[ -e "$2" ]] && __dko_err  "${2} exists, cannot move ${1}" && return 1
+
   __dko_status "Move ${1} to ${2}"
-
-  if [[ ! -d "$1" ]] && [[ ! -f "$1" ]] && [[ ! -h "$1" ]]; then
-    __dko_ok "Didn't find ${1}"
-    return 0
-  fi
-
-  if [[ -d "$2" ]] || [[ -f "$2" ]] || [[ -h "$2" ]]; then
-    __dko_err  "Not moving ${1} to ${2}, destination already exists."
-    __dko_err_ "Please resolve conflict manually."
-    return 1
-  fi
-
-  local dest_parent
-  dest_parent="$(dirname "${2}")"
-  dko-maybemkdir "$dest_parent" || return 1
+  dko-maybemkdir "$(dirname "${2}")" || return 1
   mv -- "$1" "$2" && __dko_ok "Moved ${1} to ${2}"
 }
 
@@ -58,46 +43,38 @@ __move() {
 # $1 source directory, removed on completion
 # $2 destination directory, created if needed
 __merge_dir() {
+  [[ ! -d "$1" ]] && __dko_ok "${1} not found" && return 0
+
   __dko_status "Merge ${1} into ${2}"
-
-  if [[ ! -d "$1" ]]; then
-    __dko_ok "Didn't find ${1}"
-    return 0
-  fi
-
   dko-maybemkdir "$2" || return 1
-  mv -- "${1}/*"   "$2" && __dko_ok "Moved contents of ${1} into ${2}"
-  mv -- "${1}/.*"  "$2" && __dko_ok "Moved .contents in ${1} into ${2}"
-  [[ -d "$1" ]] && rmdir -- "$1" && __dko_ok "Removed ${1}"
+  mv -- "${1}/*"   "$2" && __dko_ok "${1}/* moved into ${2}"
+  mv -- "${1}/.*"  "$2" && __dko_ok "${1}/.* moved into ${2}"
+  [[ -d "$1" ]] && rmdir -- "$1" && __dko_ok "${1} removed"
 }
 
 # Remove file or dir completely with confirmation
 # $1 path to completely remove
 __remove() {
-  __dko_status "Remove ${1}"
-
+  [[ ! -e "$1" ]] && __dko_ok "${1} not found" && return 0
   if [[ -f "$1" ]] || [[ -h "$1" ]]; then
-    rm -i -- "$1" && __dko_ok "Removed file ${1}"
+    rm -i -- "$1" && __dko_ok "${1} removed"
   elif [[ -d "$1" ]]; then
-    rm -ir -- "$1" && __dko_ok "Removed directory ${1}"
-  else
-    __dko_ok "Didn't find ${1}"
+    rm -ir -- "$1" && __dko_ok "${1} removed"
   fi
 }
 
 # Logic for NVM
 __clean_nvm() {
-  __dko_status "Move invalid NVM paths"
-
   if [[ "${NVM_DIR}" != "${XDG_CONFIG_HOME}/nvm" ]]; then
     __dko_err "NVM_DIR not set properly. Should be ${XDG_CONFIG_HOME}/nvm"
     return 1
   fi
 
-  mkdir -p -- "${NVM_DIR}"
-
-  [[ -n "$NVM_DIR" ]] && __move "${XDG_CONFIG_HOME}/.nvm" "$NVM_DIR"
-  [[ -n "$NVM_DIR" ]] && __move "${HOME}/.nvm" "$NVM_DIR"
+  dko-maybemkdir "${NVM_DIR}" || return 1
+  [[ -n "$NVM_DIR" ]] && __move "${XDG_CONFIG_HOME}/.nvm" "$NVM_DIR" \
+    && __dko_ok "${XDG_CONFIG_HOME}/.nvm moved to ${NVM_DIR}"
+  [[ -n "$NVM_DIR" ]] && __move "${HOME}/.nvm" "$NVM_DIR" \
+    && __dko_ok "${HOME}/.nvm moved to to ${NVM_DIR}"
 }
 
 # ============================================================================
@@ -141,4 +118,3 @@ __remove "${HOME}/.tldr"
 
 # NVM
 __clean_nvm
-
