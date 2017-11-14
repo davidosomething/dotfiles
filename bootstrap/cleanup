@@ -65,16 +65,15 @@ __remove() {
 
 # Logic for NVM
 __clean_nvm() {
-  if [[ "${NVM_DIR}" != "${XDG_CONFIG_HOME}/nvm" ]]; then
+  [[ -z "$NVM_DIR" ]] \
+    || [[ "${NVM_DIR}" != "${XDG_CONFIG_HOME}/nvm" ]] && {
     __dko_err "NVM_DIR not set properly. Should be ${XDG_CONFIG_HOME}/nvm"
     return 1
-  fi
+  }
 
   dko-maybemkdir "${NVM_DIR}" || return 1
-  [[ -n "$NVM_DIR" ]] && __move "${XDG_CONFIG_HOME}/.nvm" "$NVM_DIR" \
-    && __dko_ok "${XDG_CONFIG_HOME}/.nvm moved to ${NVM_DIR}"
-  [[ -n "$NVM_DIR" ]] && __move "${HOME}/.nvm" "$NVM_DIR" \
-    && __dko_ok "${HOME}/.nvm moved to to ${NVM_DIR}"
+  __move "${XDG_CONFIG_HOME}/.nvm" "$NVM_DIR"
+  __move "${HOME}/.nvm" "$NVM_DIR"
 }
 
 # ============================================================================
