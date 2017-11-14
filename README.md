@@ -18,6 +18,8 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 
 ## Installation
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/davidosomething/dotfiles.svg)](https://greenkeeper.io/)
+
 _For mac, see full install details in [mac/README.md](mac/README.md)._
 
 Clone and run the symlink script:
