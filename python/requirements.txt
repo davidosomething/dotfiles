@@ -1,6 +1,6 @@
 Pygments==2.2.0
 bashate==0.5.1
-flake8
+flake8==3.5.0
 flake8-commas
 flake8-docstrings
 flake8-import-order
