@@ -8,6 +8,7 @@ eslint-plugin-react
 eslint-config-davidosomething
 eslint-config-react-app
 ajv-cli
+alex
 apidoc
 boxen-cli
 coffee-script

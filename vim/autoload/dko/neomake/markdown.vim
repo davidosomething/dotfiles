@@ -12,13 +12,16 @@ function! dko#neomake#markdown#Setup() abort
         \     'npx': 'markdownlint-cli',
         \   }))
 
-  call dko#neomake#NpxMaker({
+  call dko#neomake#NpxMaker(extend(
+        \   neomake#makers#ft#markdown#alex(), {
         \     'ft': 'markdown',
         \     'maker': 'alex',
-        \     'errorformat': '%l:%c-[%*]  %trror  %m,%l:%c-[%*]  %tarning  %m',
-        \   })
+        \   }))
 
-  call dko#InitList('b:neomake_markdown_enabled_makers')
-  let b:neomake_markdown_enabled_makers += [ 'markdownlint' ]
+  let b:neomake_markdown_enabled_makers = [
+        \   'alex',
+        \   'markdownlint',
+        \   'writegood',
+        \ ]
 endfunction
 
