@@ -19,17 +19,18 @@ __dko_same() {
   if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
     local resolvedpath
     resolvedpath=$(realpath "$targetpath")
-    if [[ "$resolvedpath" == "$sourcepath" ]]; then
-      __dko_ok "${targetpath} is correct."
+
+    [[ "$resolvedpath" == "$sourcepath" ]] && {
+      __dko_ok "${targetpath} links ${resolvedpath}"
       return 0
-    else
-      __dko_warn "${targetpath} is not ${resolvedpath}."
-      return 1
-    fi
+    }
+
+    __dko_warn "${targetpath} not linked to ${resolvedpath}"
+    return 1
   fi
 
   # does not exist
-  __dko_ok "${targetpath} does not exist"
+  __dko_ok "${targetpath} not found"
   return 2
 }
 
