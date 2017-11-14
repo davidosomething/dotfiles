@@ -1,4 +1,4 @@
-Pygments
+Pygments==2.2.0
 bashate
 flake8
 flake8-commas
