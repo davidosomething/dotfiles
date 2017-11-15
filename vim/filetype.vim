@@ -26,13 +26,6 @@ function! s:SetByShebang() abort
   if l:shebang =~# '^#!.*/.*\s\+node\>' | setfiletype javascript | endif
 endfunction
 
-function! s:BindPreview() abort
-  if exists('$ITERM_PROFILE') || has('gui_macvim')
-    nnoremap  <silent><buffer><special>  <Leader>m
-          \ :<C-U>silent !open -a "Marked 2" '%:p'<CR>
-  endif
-endfunction
-
 " For filetypes that can be detected by filename (option C in the docs for
 " `new-filetype`)
 " Use `autocmd!` so the original filetype autocmd for the given extension gets
@@ -56,9 +49,7 @@ augroup filetypedetect
   autocmd! BufNewFile,BufRead *.marko setfiletype html.marko
   autocmd! BufNewFile,BufRead *.template setfiletype html
 
-  autocmd! BufNewFile,BufRead *.md
-        \   setfiletype markdown.pandoc
-        \ | call s:BindPreview()
+  autocmd! BufNewFile,BufRead *.md setfiletype markdown.pandoc
 
   autocmd! BufNewFile,BufRead
         \ .babelrc,.bowerrc,.jshintrc,*.tern-config
