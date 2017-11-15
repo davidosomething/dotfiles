@@ -55,6 +55,7 @@ hi! DiffDelete        guibg=#4a2a2a guifg=#aa6666
 hi! DiffText          guibg=#4a2a2a
 hi! Function                        guifg=#aaaaaa
 hi! Identifier                      guifg=#dddddd
+hi! Ignore                          guifg=#40485a
 hi! IncSearch         guibg=#dd77cc guifg=#202022 gui=NONE
 hi! Label                           guifg=#dddddd
 hi! Noise                           guifg=#888888
