@@ -6,8 +6,6 @@
 " Uses pj#HasDevDependency so runs after &filetype is set (by filetypedetect,
 " shebang, or modeline)
 function! dko#neomake#javascript#Setup() abort
-  if &filetype !~? 'javascript' | return | endif
-
   let l:safeft = neomake#utils#get_ft_confname(&filetype)
   if exists('b:did_dkoneomake_' . l:safeft) | return | endif
   let b:did_dkoneomake_{l:safeft} = 1
@@ -20,7 +18,7 @@ function! dko#neomake#javascript#Setup() abort
         \   neomake#makers#ft#javascript#eslint(), {
         \     'ft': 'javascript',
         \     'maker': 'eslint',
-        \     'when': '!empty(dko#project#GetEslintrc())',
+        \     'when': '!empty(dko#project#javascript#GetEslintrc())',
         \   }))
 
   call dko#neomake#NpxMaker(extend(
@@ -34,7 +32,7 @@ function! dko#neomake#javascript#Setup() abort
         \   neomake#makers#ft#javascript#jshint(), {
         \     'ft': 'javascript',
         \     'maker': 'jshint',
-        \     'when': 'empty(dko#project#GetEslintrc()) '
+        \     'when': 'empty(dko#project#javascript#GetEslintrc()) '
         \             . ' && !empty(dko#project#GetFile(".jshintrc"))',
         \   }))
 
@@ -57,7 +55,7 @@ function! dko#neomake#javascript#Setup() abort
   if expand('%:p:t') ==# '.eslintrc.js'
     " Skip linting .eslintrc.js
     return
-  elseif !empty(dko#project#GetEslintrc())
+  elseif !empty(dko#project#javascript#GetEslintrc())
     let b:neomake_javascript_enabled_makers += [ 'eslint' ]
   elseif !empty(dko#project#GetFile('.jshintrc'))
     let b:neomake_javascript_enabled_makers += [ 'jshint' ]

@@ -53,7 +53,9 @@ let g:neomake_python_enabled_makers = [ 'flake8' ]
 call dko#neomake#EchintCreate()
 
 autocmd dkoneomake BufWinEnter *
-      \ call dko#neomake#javascript#Setup()
+      \   if &filetype !~? 'javascript'
+      \ |   call dko#neomake#javascript#Setup()
+      \ | endif
 autocmd dkoneomake BufWinEnter *.md,*.markdown
       \ call dko#neomake#markdown#Setup()
 autocmd dkoneomake BufWinEnter *.php

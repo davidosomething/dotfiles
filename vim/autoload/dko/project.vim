@@ -227,30 +227,6 @@ function! dko#project#GetCandidate(candidates) abort
   return call('dko#First', l:candidates)
 endfunction
 
-" Ordered by preference
-let s:markdownlint_candidates = [
-      \   'markdownlint.json',
-      \   '.markdownlintrc',
-      \ ]
-" @return {String} markdownlintrc filename
-function! dko#project#GetMarkdownlintrc() abort
-  return dko#project#GetCandidate(s:markdownlint_candidates)
-endfunction
-
-" Ordered by preference
-let s:eslintrc_candidates = [
-      \   '.eslintrc.js',
-      \   '.eslintrc.yaml',
-      \   '.eslintrc.yml',
-      \   '.eslintrc.json',
-      \   '.eslintrc',
-      \ ]
-" @TODO support package.json configs
-" @return {String} eslintrc filename
-function! dko#project#GetEslintrc() abort
-  return dko#project#GetCandidate(s:eslintrc_candidates)
-endfunction
-
 " ============================================================================
 
 let &cpoptions = s:cpo_save

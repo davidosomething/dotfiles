@@ -19,7 +19,7 @@ if !dkoplug#IsLoaded('neoformat') | finish | endif
 "     let l:args += [ '--eslint-path', l:eslint ]
 "   endif
 "
-"   let l:eslintrc = dko#project#GetEslintrc()
+"   let l:eslintrc = dko#project#javascript#GetEslintrc()
 "   if !empty(l:eslintrc)
 "     let l:args += [ '--eslint-config', l:eslintrc ]
 "   endif

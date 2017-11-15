@@ -524,7 +524,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'lambdalisue/vim-pyenv', { 'for': [ 'python' ] }
   Plug 'Vimjas/vim-python-pep8-indent'
-  Plug 'raimon49/requirements.txt.vim', { 'for': [ 'requirements' ] }
 
   " ==========================================================================
   " Language: Ruby, rails, puppet
