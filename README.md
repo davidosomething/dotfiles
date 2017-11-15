@@ -1,6 +1,6 @@
 <img alt="dotfiles" width="200" src="https://cdn.rawgit.com/davidosomething/dotfiles/master/meta/dotfiles-logo.png">
 
-[![Build Status](https://travis-ci.org/davidosomething/dotfiles.svg?branch=master)](https://travis-ci.org/davidosomething/dotfiles) [![Updates](https://pyup.io/repos/github/davidosomething/dotfiles/shield.svg)](https://pyup.io/repos/github/davidosomething/dotfiles/) [![Greenkeeper badge](https://badges.greenkeeper.io/davidosomething/dotfiles.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/davidosomething/dotfiles.svg?branch=dev)](https://travis-ci.org/davidosomething/dotfiles) [![Updates](https://pyup.io/repos/github/davidosomething/dotfiles/shield.svg)](https://pyup.io/repos/github/davidosomething/dotfiles/) [![Greenkeeper badge](https://badges.greenkeeper.io/davidosomething/dotfiles.svg)](https://greenkeeper.io/)
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 

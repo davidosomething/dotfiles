@@ -1,4 +1,7 @@
 ---
+branches:
+  except:
+    - master
 sudo: false
 language: python
 os:
@@ -13,6 +16,7 @@ script:
   - tox
   - npm test --silent
 deploy:
+  skip_cleanup: true
   provider: script
   script: meta/travis-automerge.bash
   "on":
