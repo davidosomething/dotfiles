@@ -28,7 +28,7 @@ hi! dkoDecorations                    guifg=#505a6a
 hi! dkoRegex                          guifg=#77aa88
 hi! dkoReturn                         guifg=#cc8877 gui=italic
 hi! dkoQuote                          guifg=#77aa88 gui=italic
-hi! dkoWarningText      guibg=#2c2b2a guifg=#cc9988 gui=bold
+hi! dkoWarningText      guibg=#2c2b2a guifg=#ddaa66 gui=bold
 
 hi! dkoStatus           guibg=#303135               gui=NONE
 hi! dkoStatusKey        guibg=#404044
@@ -43,6 +43,9 @@ hi! link dkoJavaDocKey  dkoCommentDoc
 
 " Signs
 hi! dkoSignError        guibg=#5a2a2a guifg=#cc4444
+hi! dkoSignWarning                    guifg=#ddaa66
+hi! dkoSignInfo                       guifg=fg
+hi! dkoSignMessage                    guifg=#77aa88
 hi! link dkoSignAdded   DiffAdd
 hi! link dkoSignRemoved DiffDelete
 
@@ -139,7 +142,7 @@ hi! link WildMenu       PmenuThumb
 " ============================================================================
 
 " w0rp/ale
-hi! link ALEErrorSign             dkoSignError
+"hi! link ALEErrorSign             dkoSignError
 " tomtom/quickfixsigns_vim
 hi! link QuickFixSignsDiffAdd     dkoSignAdded
 hi! link QuickFixSignsDiffChange  DiffChange
@@ -379,6 +382,10 @@ hi! NeomakeError              guibg=#5a2a2a
 hi! NeomakeInfo               guibg=#2a332a
 hi! NeomakeMessage            guibg=#2a332a
 hi! NeomakeWarning            guibg=#2c2b2a
+hi! link NeomakeErrorSign     dkoSignError
+hi! link NeomakeWarningSign   dkoSignWarning
+hi! link NeomakeInfoSign      dkoSignInfo
+hi! link NeomakeMessageSign   dkoSignMessage
 
 " ============================================================================
 " netrw
