@@ -28,6 +28,7 @@ hi! dkoDecorations                    guifg=#505a6a
 hi! dkoRegex                          guifg=#77aa88
 hi! dkoReturn                         guifg=#cc8877 gui=italic
 hi! dkoQuote                          guifg=#77aa88 gui=italic
+hi! dkoWarningText      guibg=#2c2b2a guifg=#cc9988 gui=bold
 
 hi! dkoStatus           guibg=#303135               gui=NONE
 hi! dkoStatusKey        guibg=#404044
@@ -42,7 +43,6 @@ hi! link dkoJavaDocKey  dkoCommentDoc
 
 " Signs
 hi! dkoSignError        guibg=#5a2a2a guifg=#cc4444
-hi! dkoSignChanged      guibg=#2c2b2a guifg=#7f6030
 hi! link dkoSignAdded   DiffAdd
 hi! link dkoSignRemoved DiffDelete
 
@@ -52,17 +52,17 @@ hi! link dkoSignRemoved DiffDelete
 
 hi! Boolean                           guifg=#cccccc gui=italic
 hi! Comment                           guifg=#50586a gui=italic
-hi! Constant                          guifg=#aaaaaa gui=italic
+hi! Constant                          guifg=NONE    gui=italic
 hi! Delimiter                         guifg=#6688cc
 hi! DiffAdd             guibg=#2a332a guifg=#668844
 hi! DiffChange          guibg=#2c2b2a guifg=#7f6030
 hi! DiffDelete          guibg=#4a2a2a guifg=#aa6666
 hi! DiffText            guibg=#4a2a2a
 hi! Error               guibg=#4a2a2a guifg=#ee7777
-hi! Function                          guifg=#aaaaaa
+hi! Function                          guifg=NONE
 hi! Identifier                        guifg=#dddddd
 hi! Ignore                            guifg=#40485a
-hi! IncSearch           guibg=#dd77cc guifg=#202022 gui=NONE
+hi! IncSearch           guibg=#dd77cc guifg=bg      gui=NONE
 hi! Label                             guifg=#dddddd
 hi! Noise                             guifg=#888888
 hi! NonText                           guifg=#334455
@@ -70,7 +70,7 @@ hi! Normal              guibg=#202022 guifg=#aaaaaa
 hi! Number                            guifg=#ee7777
 hi! Operator                          guifg=#888888
 hi! PreProc                           guifg=#dddddd
-hi! Search              guibg=#dd99ff guifg=#202022
+hi! Search              guibg=#dd99ff guifg=bg
 hi! Special                           guifg=#dd7766
 hi! SpecialKey                        guifg=#772222
 hi! Statement                         guifg=#777777 gui=NONE
@@ -126,11 +126,13 @@ hi! link dkoLineNeomakeRunning    dkoLineImportant
 " Popup menu
 " ============================================================================
 
-hi! link Pmenu dkoLight
+hi! link Pmenu          dkoLight
 hi! PmenuSel            guibg=#404044
 " popup menu scrollbar
-hi! link PmenuSbar PmenuSel
+hi! link PmenuSbar      PmenuSel
 hi! PmenuThumb          guibg=#505055
+
+hi! link WildMenu       PmenuThumb
 
 " ============================================================================
 " Plugin provided signs
@@ -140,21 +142,21 @@ hi! PmenuThumb          guibg=#505055
 hi! link ALEErrorSign             dkoSignError
 " tomtom/quickfixsigns_vim
 hi! link QuickFixSignsDiffAdd     dkoSignAdded
-hi! link QuickFixSignsDiffChange  dkoSignChanged
+hi! link QuickFixSignsDiffChange  DiffChange
 hi! link QuickFixSignsDiffDelete  dkoSignRemoved
 " airblade/vim-gitgutter
 hi! link GitGutterAdd             dkoSignAdded
-hi! link GitGutterChange          dkoSignChanged
-hi! link GitGutterChangeDelete    dkoSignChanged
+hi! link GitGutterChange          DiffChange
+hi! link GitGutterChangeDelete    DiffChange
 hi! link GitGutterDelete          dkoSignRemoved
 " mhinz/vim-signify
 hi! link SignifySignAdd           dkoSignAdded
-hi! link SignifySignChange        dkoSignChanged
-hi! link SignifySignChangeDelete  dkoSignChanged
+hi! link SignifySignChange        DiffChange
+hi! link SignifySignChangeDelete  DiffChange
 hi! link SignifySignDelete        dkoSignRemoved
 " chrisbra/changesPlugin
 hi! link ChangesSignTextAdd       dkoSignAdded
-hi! link ChangesSignTextCh        dkoSignChanged
+hi! link ChangesSignTextCh        DiffChange
 hi! link ChangesSignTextDel       dkoSignRemoved
 
 " the head in <head></head>
@@ -266,33 +268,33 @@ hi! link pandocUListItemBullet          Normal
 " PHP
 " ============================================================================
 
-hi! link phpType            Normal
-hi! link phpDocTags         dkoJavaDocTag
-hi! link phpDocParam        dkoJavaDocType
-hi! link phpDocIdentifier   dkoJavaDocKey
+hi! link phpType              Normal
+hi! link phpDocTags           dkoJavaDocTag
+hi! link phpDocParam          dkoJavaDocType
+hi! link phpDocIdentifier     dkoJavaDocKey
 
 " ============================================================================
 " Ruby
 " ============================================================================
 
-hi! link rubyInterpolation  PreProc
+hi! link rubyInterpolation    PreProc
 
 " ============================================================================
 " Sh
 " ============================================================================
 
-hi! link shCommandSub       Function
+hi! link shCommandSub         Function
 " token: '-f' and '--flag'
-hi! link shOption           Normal
+hi! link shOption             Normal
 
 " ============================================================================
 " vim-plug
 " ============================================================================
 
-hi! link plug1              Normal
-hi! link plug2              dkoDecorations
-hi! link plugDash           dkoDecorations
-hi! link plugSha            dkoCommentDoc
+hi! link plug1                Normal
+hi! link plug2                dkoDecorations
+hi! link plugDash             dkoDecorations
+hi! link plugSha              dkoCommentDoc
 
 " ============================================================================
 " VimL
@@ -303,12 +305,12 @@ hi! link plugSha            dkoCommentDoc
 " ----------------------------------------------------------------------------
 
 " the word 'highlight' or 'hi'
-hi! link vimHighlight   Normal
+hi! link vimHighlight         Normal
 " the word 'clear'
 " First thing after 'hi'
-hi! link vimGroup       Normal
-hi! link vimHiLink      String
-hi! link vimHiGroup     Normal
+hi! link vimGroup             Normal
+hi! link vimHiLink            String
+hi! link vimHiGroup           Normal
 " Don't highlight this one or it will override vim-css-colors
 "hi! link vimHiGuiFgBg  Normal
 
@@ -316,45 +318,39 @@ hi! link vimHiGroup     Normal
 " Lang
 " ----------------------------------------------------------------------------
 
-hi! link vimCommentTitle  dkoCommentDoc
-hi! link vimCommentString Identifier
-hi! link vimContinue      dkoDecorations
-hi! link vimOption        Normal
+hi! link vimCommentTitle      dkoCommentDoc
+hi! link vimCommentString     Identifier
+hi! link vimContinue          dkoDecorations
+hi! link vimOption            Normal
 " token '=utf-8' but broken on things like '=dark'
-hi! link vimSet           String
-hi! link vimSetEqual      String
+hi! link vimSet               String
+hi! link vimSetEqual          String
 " group
 " e.g. has()
-hi! link vimFunc          Normal
-hi! link vimFuncName      Normal
+hi! link vimFunc              Normal
+hi! link vimFuncName          Normal
 " token 'ThisFunction' in 'dko#ThisFunction()'
 "hi          link vimUserFunc    String
 " the word 'let'
-hi! link vimLet           Normal
+hi! link vimLet               Normal
 " '=' in let x = y
 " parens
-hi! link vimParenSep      dkoDecorations
-hi! link vimString        String
+hi! link vimParenSep          dkoDecorations
+hi! link vimString            String
 " the word 'syntax'
-hi! link vimSyntax        Normal
-hi! link vimSynType       Normal
+hi! link vimSyntax            Normal
+hi! link vimSynType           Normal
 
 " ============================================================================
 " vim help
 " ============================================================================
 
 hi! link helpExample          String
-hi! link helpHeader           Normal
-hi! link helpHeadline         String
-hi! link helpHyperTextEntry   Function
-hi! link helpHyperTextJump    Identifier
-hi! link helpNote             Normal
-hi! link helpOption           Function
-hi! link helpSectionDelim     Normal
-hi! link helpSpecial          Identifier
-hi! link helpURL              String
-hi! link helpVim              String
-hi! link helpWarning          Normal
+hi! link helpHeadline         Title
+hi! link helpOption           Identifier
+hi! link helpSectionDelim     Ignore
+hi! link helpSpecial          dkoRegex
+hi! link helpWarning          dkoWarningText
 
 " ============================================================================
 " zsh
