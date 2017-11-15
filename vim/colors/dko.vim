@@ -161,6 +161,8 @@ hi! link SignifySignDelete        dkoSignRemoved
 hi! link ChangesSignTextAdd       dkoSignAdded
 hi! link ChangesSignTextCh        DiffChange
 hi! link ChangesSignTextDel       dkoSignRemoved
+" kshenoy/vim-signature
+hi! link SignatureMarkText        dkoLineImportant
 
 " the head in <head></head>
 hi! MatchParen        guibg=#225588 guifg=#ddddcc

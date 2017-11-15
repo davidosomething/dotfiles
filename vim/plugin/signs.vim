@@ -4,8 +4,33 @@ scriptencoding utf-8
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
-" plugin/plug-quickfixsigns_vim.vim
-if dkoplug#IsLoaded('quickfixsigns_vim')
+if dkoplug#IsLoaded('vim-signature')
+  " disable mappings
+  let g:SignatureMap = {
+        \   'Leader': '<Leader>gm',
+        \   'PlaceNextMark': '',
+        \   'ToggleMarkAtLine': '',
+        \   'PurgeMarksAtLine': '',
+        \   'DeleteMark': '',
+        \   'PurgeMarks': '',
+        \   'PurgeMarkers': '',
+        \   'GotoNextLineAlpha': '',
+        \   'GotoPrevLineAlpha': '',
+        \   'GotoNextSpotAlpha': '',
+        \   'GotoPrevSpotAlpha': '',
+        \   'GotoNextLineByPos': '',
+        \   'GotoPrevLineByPos': '',
+        \   'GotoNextSpotByPos': ']`',
+        \   'GotoPrevSpotByPos': '[`',
+        \   'GotoNextMarker': '',
+        \   'GotoPrevMarker': '',
+        \   'GotoNextMarkerAny': '',
+        \   'GotoPrevMarkerAny': '',
+        \   'ListBufferMarks': '',
+        \   'ListBufferMarkers': '',
+        \ }
+
+elseif dkoplug#IsLoaded('quickfixsigns_vim')
   let g:quickfixsigns_balloon = 0
   let g:quickfixsigns#vcsdiff#use_hidef = 0
 

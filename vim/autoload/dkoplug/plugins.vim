@@ -646,7 +646,8 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
 
   " Always show signs column with marks
-  Plug 'tomtom/quickfixsigns_vim'
+  "Plug 'tomtom/quickfixsigns_vim'
+  Plug 'kshenoy/vim-signature'
 
   " --------------------------------------------------------------------------
   " Window events
