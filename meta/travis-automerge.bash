@@ -3,13 +3,14 @@
 echo "==> Checking env vars"
 : "${TRAVIS_COMMIT:?}"
 : "${TRAVIS_REPO_SLUG:?}"
-: "${encrypted_ea0d6abeb5c4_key:?}"
-: "${encrypted_ea0d6abeb5c4_iv:?}"
+: "${encrypted_6115b2a51146_key:?}"
+: "${encrypted_6115b2a51146_iv:?}"
 
 echo "==> Setup deploy key"
 openssl aes-256-cbc \
-  -K "$encrypted_ea0d6abeb5c4_key" \
-  -iv "$encrypted_ea0d6abeb5c4_iv" \
+openssl aes-256-cbc 
+  -K "$encrypted_6115b2a51146_key" \
+  -iv "$encrypted_6115b2a51146_iv" \
   -in ./meta/deploy_key.enc \
   -out ./local/deploy_key -d
 eval "$(ssh-agent -s)"  # start the ssh agent
