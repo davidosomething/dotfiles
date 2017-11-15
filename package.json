@@ -52,6 +52,7 @@
       "local/**",
       "logs/**",
       "mac/*.terminal",
+      "meta/**",
       "openbox/**",
       "terminfo/**",
       "tests/**",
