@@ -1,9 +1,10 @@
 ---
+sudo: false
 language: python
 os:
   - linux
 python:
-  - "2.7"
+  - '2.7'
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y shellcheck
@@ -11,3 +12,8 @@ before_install:
 script:
   - tox
   - npm test --silent
+deploy:
+  provider: script
+  script: meta/travis-automerge.bash
+  "on":
+    branch: dev
