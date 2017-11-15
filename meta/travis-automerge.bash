@@ -8,7 +8,6 @@ echo "==> Checking env vars"
 
 echo "==> Setup deploy key"
 openssl aes-256-cbc \
-openssl aes-256-cbc 
   -K "$encrypted_6115b2a51146_key" \
   -iv "$encrypted_6115b2a51146_iv" \
   -in ./meta/deploy_key.enc \
