@@ -1,0 +1,7 @@
+---
+branch: dev
+schedule: "every day"
+search: true
+assignees:
+  - davidosomething
+close_prs: true
