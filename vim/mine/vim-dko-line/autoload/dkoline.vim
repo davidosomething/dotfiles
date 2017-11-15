@@ -101,16 +101,6 @@ function! dkoline#GetStatusline(winnr) abort
 
   let l:contents .= dkoline#Format(dkoline#Readonly(l:bufnr), '%#dkoLineImportant#')
 
-  " Function
-  if get(g:, 'dkoline_enabled_functioninfo', 0)
-    let l:contents .= dkoline#Format(
-          \ dkoline#If({
-          \   'winnr': l:winnr,
-          \   'ww': 80,
-          \ }, l:x) ? dkoline#FunctionInfo() : '',
-          \ '%#dkoStatusKey# ғᴜɴᴄ %#dkoStatusValue#')
-  endif
-
   " ==========================================================================
   " Right side
   " ==========================================================================
@@ -304,14 +294,6 @@ function! dkoline#GitBranch(bufnr) abort
         \ : dkoplug#Exists('gina.vim') ? ' ' . gina#component#repo#branch() . ' '
         \ : dkoplug#Exists('fugitive.vim') ? ' ' . fugitive#head(7) . ' '
         \ : ''
-endfunction
-
-" @return {String}
-function! dkoline#FunctionInfo() abort
-  let l:funcinfo = dko#code#GetFunctionInfo()
-  return empty(l:funcinfo.name)
-        \ ? ''
-        \ : ' ' . l:funcinfo.name . ' '
 endfunction
 
 " @return {String}

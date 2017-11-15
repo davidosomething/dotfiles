@@ -111,9 +111,6 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
   "Plug '~/projects/neomake'
 
-  Plug 'tyru/current-func-info.vim'
-  "Plug '~/projects/current-func-info.vim'
-
   " ==========================================================================
   " Editing keys
   " ==========================================================================
