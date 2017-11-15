@@ -60,6 +60,8 @@ autocmd dkoneomake BufWinEnter *.php
       \ call dko#neomake#php#Setup()
 autocmd dkoneomake BufWinEnter scss
       \ call dko#neomake#scss#Setup()
+autocmd dkoneomake BufWinEnter *.zsh
+      \ let b:neomake_zsh_enabled_makers = [ 'zsh' ]
 autocmd dkoneomake BufWinEnter *
       \ call dko#neomake#EchintSetup()
 
