@@ -61,6 +61,7 @@ hi! DiffText            guibg=#4a2a2a
 hi! Error               guibg=#4a2a2a guifg=#ee7777
 hi! Function                          guifg=#aaaaaa
 hi! Identifier                        guifg=#dddddd
+hi! Ignore                            guifg=#40485a
 hi! IncSearch           guibg=#dd77cc guifg=#202022 gui=NONE
 hi! Label                             guifg=#dddddd
 hi! Noise                             guifg=#888888
