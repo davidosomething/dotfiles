@@ -144,9 +144,12 @@ alias cm='composer'
 alias pea='pyenv activate'
 alias ped='pyenv deactivate'
 alias pss='pyenv shell system'
+
 alias py2='python2'
 alias py3='python3'
 alias py='python'
+
+alias pir='pip install --requirement=requirements.txt'
 
 alias getsubs="subliminal download -p opensubtitles -p shooter -p subscenter -p thesubdb -p tvsubtitles --language en "
 

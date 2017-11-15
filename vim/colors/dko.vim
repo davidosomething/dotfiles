@@ -20,68 +20,75 @@ augroup END
 " My colors
 " ============================================================================
 
-hi! dkoBgAlt          guibg=#24252a
-hi! dkoLight          guibg=#303135
+hi! dkoBgAlt            guibg=#24252a
+hi! dkoLight            guibg=#303135
 
-hi! dkoCommentDoc                   guifg=#707a8a gui=NONE
-hi! dkoDecorations                  guifg=#505a6a
-hi! dkoRegex                        guifg=#77aa88
-hi! dkoReturn                       guifg=#cc8877 gui=italic
-hi! dkoQuote                        guifg=#77aa88 gui=italic
-hi! dkoStatus         guibg=#303033               gui=NONE
+hi! dkoCommentDoc                     guifg=#707a8a gui=NONE
+hi! dkoDecorations                    guifg=#505a6a
+hi! dkoRegex                          guifg=#77aa88
+hi! dkoReturn                         guifg=#cc8877 gui=italic
+hi! dkoQuote                          guifg=#77aa88 gui=italic
+
+hi! dkoStatus           guibg=#303135               gui=NONE
+hi! dkoStatusKey        guibg=#404044
+hi! dkoStatusValue      guibg=#505055
+hi! dkoStatusItem       guibg=#24252a
+hi! dkoStatusTransient  guibg=#707a8a guifg=#303135
 
 " JavaDoc
-hi! link dkoJavaDocTag     dkoCommentDoc
-hi! link dkoJavaDocType    dkoCommentDoc
-hi! link dkoJavaDocKey     dkoCommentDoc
+hi! link dkoJavaDocTag  dkoCommentDoc
+hi! link dkoJavaDocType dkoCommentDoc
+hi! link dkoJavaDocKey  dkoCommentDoc
 
 " Signs
-hi! dkoSignError      guibg=#5a2a2a guifg=#cc4444
-hi! dkoSignChanged    guibg=#2c2b2a guifg=#7f6030
-hi! link  dkoSignAdded    DiffAdd
-hi! link  dkoSignRemoved  DiffDelete
+hi! dkoSignError        guibg=#5a2a2a guifg=#cc4444
+hi! dkoSignChanged      guibg=#2c2b2a guifg=#7f6030
+hi! link dkoSignAdded   DiffAdd
+hi! link dkoSignRemoved DiffDelete
 
 " ============================================================================
 " Vim base
 " ============================================================================
 
-hi! Boolean                         guifg=#cccccc gui=italic
-hi! Comment                         guifg=#50586a gui=italic
-hi! Constant                        guifg=#aaaaaa gui=italic
-hi! Delimiter                       guifg=#6688cc
-hi! DiffAdd           guibg=#2a332a guifg=#668844
-hi! DiffChange        guibg=#2c2b2a guifg=#7f6030
-hi! DiffDelete        guibg=#4a2a2a guifg=#aa6666
-hi! DiffText          guibg=#4a2a2a
-hi! Function                        guifg=#aaaaaa
-hi! Identifier                      guifg=#dddddd
-hi! IncSearch         guibg=#dd77cc guifg=#202022 gui=NONE
-hi! Label                           guifg=#dddddd
-hi! Noise                           guifg=#888888
-hi! NonText                         guifg=#334455
-hi! Normal            guibg=#202022 guifg=#aaaaaa
-hi! Number                          guifg=#ee7777
-hi! Operator                        guifg=#888888
-hi! PreProc                         guifg=#dddddd
-hi! Search            guibg=#dd99ff guifg=#202022
-hi! Special                         guifg=#dd7766
-hi! SpecialKey                      guifg=#772222
-hi! Statement                       guifg=#777777 gui=NONE
-hi! String                          guifg=#88aabb
-hi! Title                           guifg=#dddddd
-hi! Todo              guibg=#303033 guifg=#ddaa66 gui=bold
-hi! Type                            guifg=#dddddd gui=NONE
-hi! Underlined                      guifg=#88aaee gui=underline
-hi! Visual            guibg=#afa08f guifg=#1f1f1f
-hi! WarningMsg                      guifg=#ccaa88
-hi! Whitespace        guibg=#221f1f guifg=#552222
+hi! Boolean                           guifg=#cccccc gui=italic
+hi! Comment                           guifg=#50586a gui=italic
+hi! Constant                          guifg=#aaaaaa gui=italic
+hi! Delimiter                         guifg=#6688cc
+hi! DiffAdd             guibg=#2a332a guifg=#668844
+hi! DiffChange          guibg=#2c2b2a guifg=#7f6030
+hi! DiffDelete          guibg=#4a2a2a guifg=#aa6666
+hi! DiffText            guibg=#4a2a2a
+hi! Error               guibg=#4a2a2a guifg=#ee7777
+hi! Function                          guifg=#aaaaaa
+hi! Identifier                        guifg=#dddddd
+hi! Ignore                            guifg=#40485a
+hi! IncSearch           guibg=#dd77cc guifg=#202022 gui=NONE
+hi! Label                             guifg=#dddddd
+hi! Noise                             guifg=#888888
+hi! NonText                           guifg=#334455
+hi! Normal              guibg=#202022 guifg=#aaaaaa
+hi! Number                            guifg=#ee7777
+hi! Operator                          guifg=#888888
+hi! PreProc                           guifg=#dddddd
+hi! Search              guibg=#dd99ff guifg=#202022
+hi! Special                           guifg=#dd7766
+hi! SpecialKey                        guifg=#772222
+hi! Statement                         guifg=#777777 gui=NONE
+hi! String                            guifg=#88aabb
+hi! Title                             guifg=#dddddd
+hi! Todo                guibg=#303033 guifg=#ddaa66 gui=bold
+hi! Type                              guifg=#dddddd gui=NONE
+hi! Underlined                        guifg=#88aaee gui=underline
+hi! Visual              guibg=#afa08f guifg=#1f1f1f
+hi! WarningMsg                        guifg=#ccaa88
+hi! Whitespace          guibg=#552222 guifg=#dddddd
 
-hi! link Character    Normal
-hi! link Conditional  Normal
-hi! link Directory    Identifier
-hi! link Folded       dkoLight
-hi! link Include      Normal
-hi! link Keyword      Normal
+hi! link Character      Normal
+hi! link Conditional    Normal
+hi! link Directory      Identifier
+hi! link Folded         dkoLight
+hi! link Include        Normal
+hi! link Keyword        Normal
 
 " ============================================================================
 " Line backgrounds
@@ -174,6 +181,12 @@ hi! link diffRemoved    DiffDelete
 hi! link gitKeyword         Identifier
 hi! link gitDate            String
 hi! link gitHash            Normal
+
+" ============================================================================
+" vim-indentguides
+" ============================================================================
+
+hi! IndentGuidesOdd   guibg=#252527
 
 " ============================================================================
 " JavaScript

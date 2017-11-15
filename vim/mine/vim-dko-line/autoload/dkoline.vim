@@ -26,7 +26,7 @@ function! dkoline#GetTabline() abort
 
   " Search context
   let l:contents .= dkoline#Format(dkoline#Anzu(),
-        \ '%#Pmenu# ? %#PmenuSel#%#Search#')
+        \ '%#dkoStatusKey# ? %#Search#')
 
   " ==========================================================================
   " Right side
@@ -41,19 +41,19 @@ function! dkoline#GetTabline() abort
 
   let l:contents .= dkoline#Format(
         \   dkoline#ShortPath(l:bufnr, l:cwd, 0),
-        \   '%#Pmenu# ʟᴄᴅ %#PmenuSel#%0.' . l:maxwidth . '(',
+        \   '%#dkoStatusKey# ʟᴄᴅ %#dkoStatusValue#%0.' . l:maxwidth . '(',
         \   '%)'
         \ )
 
   let l:contents .= dkoline#Format(
         \   l:project_root,
-        \   '%#Pmenu# ᴘʀᴏᴊ %#PmenuSel#%0.' . l:maxwidth . '(',
+        \   '%#dkoStatusKey# ᴘʀᴏᴊ %#dkoStatusValue#%0.' . l:maxwidth . '(',
         \   '%)'
         \ )
 
   let l:contents .= dkoline#Format(
         \ dkoline#GitBranch(l:bufnr),
-        \ '%#Pmenu# ʙʀᴀɴᴄʜ %#PmenuSel#')
+        \ '%#dkoStatusKey# ʙʀᴀɴᴄʜ %#dkoStatusValue#')
 
   " ==========================================================================
 
@@ -89,7 +89,7 @@ function! dkoline#GetStatusline(winnr) abort
   let l:maxwidth = l:ww - 32
   let l:contents .= dkoline#Format(
         \   dkoline#Filename(l:bufnr, l:cwd),
-        \   '%#PmenuSel#%0.' . l:maxwidth . '(',
+        \   '%#dkoStatusValue#%0.' . l:maxwidth . '(',
         \   '%)'
         \ )
   let l:contents .= dkoline#Format(dkoline#Dirty(l:bufnr), '%#DiffAdded#')
@@ -108,7 +108,7 @@ function! dkoline#GetStatusline(winnr) abort
           \   'winnr': l:winnr,
           \   'ww': 80,
           \ }, l:x) ? dkoline#FunctionInfo() : '',
-          \ '%#PMenu# ғᴜɴᴄ %#PmenuSel#')
+          \ '%#dkoStatusKey# ғᴜɴᴄ %#dkoStatusValue#')
   endif
 
   " ==========================================================================
@@ -118,7 +118,7 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%*%='
 
   " Tagging
-  let l:contents .= dkoline#Format(dkoline#GutentagsStatus(), '%#TermCursor#')
+  let l:contents .= dkoline#Format(dkoline#GutentagsStatus(), '%#dkoStatusTransient#')
 
   " Linting
   if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
@@ -178,7 +178,7 @@ function! dkoline#Mode(winnr) abort
   if a:winnr != winnr()
     let l:modeflag = ' '
   elseif l:modeflag ==# 'i'
-    let l:modecolor = '%#PmenuSel#'
+    let l:modecolor = '%#dkoStatusItem#'
   elseif l:modeflag ==# 'R'
     let l:modecolor = '%#dkoLineModeReplace#'
   elseif l:modeflag =~? 'v'
@@ -301,11 +301,9 @@ function! dkoline#GitBranch(bufnr) abort
   return dko#IsNonFile(a:bufnr)
         \ || dko#IsHelp(a:bufnr)
         \ ? ''
-        \ : exists('*fugitive#head')
-        \   ? ' ' . fugitive#head(7) . ' '
-        \   : exists('g:gita#debug')
-        \     ? gita#statusline#format('%lb')
-        \     : ''
+        \ : dkoplug#Exists('gina.vim') ? ' ' . gina#component#repo#branch() . ' '
+        \ : dkoplug#Exists('fugitive.vim') ? ' ' . fugitive#head(7) . ' '
+        \ : ''
 endfunction
 
 " @return {String}
