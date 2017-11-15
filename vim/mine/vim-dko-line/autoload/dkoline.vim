@@ -291,8 +291,8 @@ function! dkoline#GitBranch(bufnr) abort
   return dko#IsNonFile(a:bufnr)
         \ || dko#IsHelp(a:bufnr)
         \ ? ''
-        \ : dkoplug#Exists('gina.vim') ? ' ' . gina#component#repo#branch() . ' '
-        \ : dkoplug#Exists('fugitive.vim') ? ' ' . fugitive#head(7) . ' '
+        \ : dkoplug#IsLoaded('gina.vim') ? ' ' . gina#component#repo#branch() . ' '
+        \ : dkoplug#IsLoaded('fugitive.vim') ? ' ' . fugitive#head(7) . ' '
         \ : ''
 endfunction
 
