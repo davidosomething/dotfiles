@@ -3,10 +3,6 @@ scriptencoding utf-8
 
 if !dkoplug#IsLoaded('neomake') | finish | endif
 
-augroup dkoneomake
-  autocmd!
-augroup END
-
 " ============================================================================
 " Map
 " ============================================================================
@@ -52,25 +48,21 @@ let g:neomake_python_enabled_makers = [ 'flake8' ]
 
 call dko#neomake#EchintCreate()
 
-autocmd dkoneomake FileType javascript
-      \ call dko#neomake#javascript#Setup()
-autocmd dkoneomake FileType markdown
-      \ call dko#neomake#markdown#Setup()
-autocmd dkoneomake FileType php
-      \ call dko#neomake#php#Setup()
-autocmd dkoneomake FileType scss
-      \ call dko#neomake#scss#Setup()
-autocmd dkoneomake FileType zsh
-      \ let b:neomake_zsh_enabled_makers = [ 'zsh' ]
-autocmd dkoneomake FileType *
-      \ call dko#neomake#EchintSetup()
+augroup dkoneomake
+  autocmd!
 
-autocmd dkoneomake User vim-pyenv-activate-post
-      \ call dko#neomake#python#ActivatedPyenv()
-autocmd dkoneomake User vim-pyenv-dectivate-post
-      \ call dko#neomake#python#DeactivatedPyenv()
+  autocmd User vim-pyenv-activate-post
+        \ call dko#neomake#python#ActivatedPyenv()
+  autocmd User vim-pyenv-dectivate-post
+        \ call dko#neomake#python#DeactivatedPyenv()
 
-" ============================================================================
+  autocmd FileType javascript   call dko#neomake#javascript#Setup()
+  autocmd FileType markdown     call dko#neomake#markdown#Setup()
+  autocmd FileType php          call dko#neomake#php#Setup()
+  autocmd FileType scss         call dko#neomake#scss#Setup()
+  autocmd FileType zsh          let b:neomake_zsh_enabled_makers = [ 'zsh' ]
+  autocmd FileType *            call dko#neomake#EchintSetup()
 
-" Keep this last so all the other autocmds happen first
-autocmd dkoneomake BufWritePost * call dko#neomake#MaybeRun()
+  " Keep this last so all the other autocmds happen first
+  autocmd BufWritePost *        call dko#neomake#MaybeRun()
+augroup END

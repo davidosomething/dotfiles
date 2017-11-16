@@ -13,7 +13,7 @@ function! dko#neomake#php#Setup() abort
   if exists('b:did_dkoneomake_' . l:safeft) | return | endif
   let b:did_dkoneomake_{l:safeft} = 1
 
-  call dko#neomake#LocalMaker({
+  call dko#neomake#utils#LocalMaker({
         \   'ft':     'php',
         \   'maker':  'phpcs',
         \   'exe':    'vendor/bin/phpcs',
