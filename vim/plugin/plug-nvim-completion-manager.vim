@@ -8,8 +8,9 @@ augroup END
 
 if !dkoplug#Exists('nvim-completion-manager') | finish | endif
 
-let s:cpo_save = &cpoptions
-set cpoptions&vim
+" wait 1ms before running the completion function, make sure typing is never
+" clobbered
+let g:cm_complete_start_delay = 1
 
 let g:cm_refresh_length = [
       \   [1, 4],
@@ -25,6 +26,9 @@ function s:StartNcm()
   autocmd! dkoncm InsertEnter
 endfunction
 autocmd dkoncm InsertEnter * call s:StartNcm()
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 
 " Refresh list
 imap <special><expr> <C-g> pumvisible()
