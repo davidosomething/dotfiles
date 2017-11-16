@@ -55,6 +55,7 @@
 	pum     = pull --ff-only upstream master
 
 	poh     = push origin HEAD
+	puh     = push upstream HEAD
 
 	rb      = rebase
 	rbc     = rebase --continue
