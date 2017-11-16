@@ -47,8 +47,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'ludovicchabant/vim-gutentags', PlugIf(executable('ctags'))
 
-  "Plug 'majutsushi/tagbar', PlugIf(executable('ctags'))
-
   " ==========================================================================
   " Commands
   " ==========================================================================
