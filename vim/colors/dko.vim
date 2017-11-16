@@ -17,39 +17,6 @@ augroup colorsdko
 augroup END
 
 " ============================================================================
-" My colors
-" ============================================================================
-
-hi! dkoBgAlt            guibg=#24252a
-hi! dkoLight            guibg=#303135
-
-hi! dkoCommentDoc                     guifg=#707a8a gui=NONE
-hi! dkoDecorations                    guifg=#505a6a
-hi! dkoRegex                          guifg=#77aa88
-hi! dkoReturn                         guifg=#cc8877 gui=italic
-hi! dkoQuote                          guifg=#77aa88 gui=italic
-hi! dkoWarningText      guibg=#2c2b2a guifg=#ddaa66 gui=bold
-
-hi! dkoStatus           guibg=#303135               gui=NONE
-hi! dkoStatusKey        guibg=#404044
-hi! dkoStatusValue      guibg=#505055
-hi! dkoStatusItem       guibg=#24252a
-hi! dkoStatusTransient  guibg=#707a8a guifg=#303135
-
-" JavaDoc
-hi! link dkoJavaDocTag  dkoCommentDoc
-hi! link dkoJavaDocType dkoCommentDoc
-hi! link dkoJavaDocKey  dkoCommentDoc
-
-" Signs
-hi! dkoSignError        guibg=#5a2a2a guifg=#cc4444
-hi! dkoSignWarning                    guifg=#ddaa66
-hi! dkoSignInfo                       guifg=fg
-hi! dkoSignMessage                    guifg=#77aa88
-hi! link dkoSignAdded   DiffAdd
-hi! link dkoSignRemoved DiffDelete
-
-" ============================================================================
 " Vim base
 " ============================================================================
 
@@ -75,6 +42,7 @@ hi! Operator                          guifg=#888888
 hi! PreProc                           guifg=#dddddd
 hi! Search              guibg=#dd99ff guifg=bg
 hi! Special                           guifg=#dd7766
+hi! SpecialComment      guifg=#707a8a               gui=NONE
 hi! SpecialKey                        guifg=#772222
 hi! Statement                         guifg=#777777 gui=NONE
 hi! String                            guifg=#88aabb
@@ -92,6 +60,38 @@ hi! link Directory      Identifier
 hi! link Folded         dkoLight
 hi! link Include        Normal
 hi! link Keyword        Normal
+
+" ============================================================================
+" My colors
+" ============================================================================
+
+hi! dkoBgAlt            guibg=#24252a
+hi! dkoLight            guibg=#303135
+
+hi! dkoDecorations                    guifg=#505a6a
+hi! dkoRegex                          guifg=#77aa88
+hi! dkoReturn                         guifg=#cc8877 gui=italic
+hi! dkoQuote                          guifg=#77aa88 gui=italic
+hi! dkoWarningText      guibg=#2c2b2a guifg=#ddaa66 gui=bold
+
+hi! dkoStatus           guibg=#303135               gui=NONE
+hi! dkoStatusKey        guibg=#404044
+hi! dkoStatusValue      guibg=#505055
+hi! dkoStatusItem       guibg=#24252a
+hi! dkoStatusTransient  guibg=#707a8a guifg=#303135
+
+" JavaDoc
+hi! link dkoJavaDocTag  SpecialComment
+hi! link dkoJavaDocType SpecialComment
+hi! link dkoJavaDocKey  SpecialComment
+
+" Signs
+hi! dkoSignError        guibg=#5a2a2a guifg=#cc4444
+hi! dkoSignWarning                    guifg=#ddaa66
+hi! dkoSignInfo                       guifg=fg
+hi! dkoSignMessage                    guifg=#77aa88
+hi! link dkoSignAdded   DiffAdd
+hi! link dkoSignRemoved DiffDelete
 
 " ============================================================================
 " Line backgrounds
@@ -299,7 +299,7 @@ hi! link shOption             Normal
 hi! link plug1                Normal
 hi! link plug2                dkoDecorations
 hi! link plugDash             dkoDecorations
-hi! link plugSha              dkoCommentDoc
+hi! link plugSha              SpecialComment
 
 " ============================================================================
 " VimL
@@ -323,7 +323,7 @@ hi! link vimHiGroup           Normal
 " Lang
 " ----------------------------------------------------------------------------
 
-hi! link vimCommentTitle      dkoCommentDoc
+hi! link vimCommentTitle      SpecialComment
 hi! link vimCommentString     Identifier
 hi! link vimContinue          dkoDecorations
 hi! link vimOption            Normal
@@ -378,7 +378,7 @@ hi! link zshOption            Normal
 
 hi! qfError                                 guifg=#772222
 hi! link QuickFixLine dkoLight
-hi! link qfFileName   dkoCommentDoc
+hi! link qfFileName   SpecialComment
 hi! link qfLineNr     Comment
 hi! link qfSeparator  dkoDecorations
 

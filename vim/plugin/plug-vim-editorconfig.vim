@@ -17,7 +17,7 @@ augroup dkovimeditorconfig
   autocmd User CmSetup call cm#register_source({
         \   'name':                 'cm-editorconfig',
         \   'priority':             9,
-        \   'scoping':              1,
+        \   'scoping':              0,
         \   'scopes':               [ 'editorconfig' ],
         \   'abbreviation':         'editorconfig',
         \   'word_pattern':         '[\w\-]+',

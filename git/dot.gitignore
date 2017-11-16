@@ -116,6 +116,7 @@ tmtags
 .padawan/
 .phpcomplete_extended/
 .tern-port
+workbench.xmi
 
 # ----------------------------------------------------------------------------
 # real junk, temp files

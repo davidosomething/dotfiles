@@ -14,6 +14,7 @@ set cpoptions&vim
 let g:cm_refresh_length = [
       \   [1, 4],
       \   [7, 2],
+      \   [9, 1],
       \ ]
 
 " Delay loading NCM until InsertEnter
