@@ -1,4 +1,5 @@
 " after/plugin/wordpress.vim
+
 augroup dkowordpresssucksdonkeyballs
   autocmd!
 

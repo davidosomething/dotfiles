@@ -1,6 +1,9 @@
 " after/ftplugin/php.vim
 
 if exists('b:did_after_ftplugin') | finish | endif
+let b:did_after_ftplugin = 1
+
+setlocal omnifunc=
 
 " ============================================================================
 " Unmap terrible mappings from $VIMRUNTIME/ftplugin/php.vim
