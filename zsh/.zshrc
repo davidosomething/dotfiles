@@ -79,23 +79,6 @@ setopt NO_BEEP
 setopt VI
 
 # ============================================================================
-# Plugins
-# ============================================================================
-
-# ----------------------------------------------------------------------------
-# Plugins: Settings that must be defined before loading
-# ----------------------------------------------------------------------------
-
-# davidosomething/cdbk
-export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
-
-# zsh-users/zsh-autosuggestions
-# don't suggest lines longer than
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
-# as of v4.0 use ZSH/zpty module to async retrieve
-#export ZSH_AUTOSUGGEST_USE_ASYNC=1
-
-# ============================================================================
 # Completion settings
 # Order by * specificity
 # ============================================================================

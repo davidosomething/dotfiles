@@ -7,6 +7,7 @@ zplugin snippet --command 'https://github.com/davidosomething/git-my/blob/master
 zplugin snippet --command 'https://github.com/davidosomething/git-take/blob/master/git-take'
 
 # my fork of cdbk, ZSH hash based directory bookmarking
+export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
 zplugin light 'davidosomething/cdbk'
 
 # ----------------------------------------------------------------------------
@@ -27,9 +28,12 @@ zplugin light 'shannonmoeller/up'
 zplugin snippet 'https://github.com/robbyrussell/oh-my-zsh/raw/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh'
 
 # In-line best history match suggestion
+# don't suggest lines longer than
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
+# as of v4.0 use ZSH/zpty module to async retrieve
+#export ZSH_AUTOSUGGEST_USE_ASYNC=1
 zplugin light 'zsh-users/zsh-autosuggestions'
-# zsh-autosuggestions -- clear the suggestion when entering completion select
-# menu
+# clear the suggestion when entering completion select menu
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
 zplugin light 'zdharma/fast-syntax-highlighting'
