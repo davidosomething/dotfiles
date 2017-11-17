@@ -23,7 +23,7 @@ augroup END
 hi! Boolean                           guifg=#cccccc gui=italic
 hi! Comment                           guifg=#50586a gui=italic
 hi! Constant                          guifg=NONE    gui=italic
-hi! Delimiter                         guifg=#6688cc
+hi! Delimiter                         guifg=#cc99cc
 hi! DiffAdd             guibg=#2a332a guifg=#668844
 hi! DiffChange          guibg=#2c2b2a guifg=#7f6030
 hi! DiffDelete          guibg=#4a2a2a guifg=#aa6666
@@ -72,7 +72,7 @@ hi! dkoBgAlt            guibg=#24252a
 hi! dkoLight            guibg=#303135
 
 hi! dkoDecorations                    guifg=#505a6a
-hi! dkoRegex                          guifg=#77aa88
+hi! dkoRegex                          guifg=#cc99cc
 hi! dkoReturn                         guifg=#cc8877 gui=italic
 hi! dkoQuote                          guifg=#77aa88 gui=italic
 hi! dkoWarningText      guibg=#2c2b2a guifg=#ddaa66 gui=bold
@@ -289,13 +289,17 @@ hi! link phpDocIdentifier     dkoJavaDocKey
 " Python
 " ============================================================================
 
-hi! link pythonTripleQuotes   dkoDecorations
+hi! link pythonQuotes         Noise
+hi! link pythonTripleQuotes   Noise
 
 " ============================================================================
 " Ruby
 " ============================================================================
 
 hi! link rubyInterpolation    PreProc
+hi! link rubyRegexp           dkoRegex
+" rubyRegexpSpecial is not always part of rubyRegexp
+hi! link rubyRegexpSpecial    dkoRegex
 hi! link rubyStringDelimiter  Noise
 
 " ============================================================================

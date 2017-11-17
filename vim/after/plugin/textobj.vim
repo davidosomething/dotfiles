@@ -37,6 +37,13 @@ if dkoplug#Exists('textobj-lastpaste')
   xmap iP <Plug>(textobj-lastpaste-i)
 endif
 
+" Overrides for plugin/mappings.vim when textobj available
+if dkoplug#Exists('vim-textobj-indent')
+  " Auto select indent-level and sort
+  silent! nunmap <Leader>s
+  nmap <special> <Leader>s   vii:!sort<CR>
+endif
+
 " ============================================================================
 
 let &cpoptions = s:cpo_save
