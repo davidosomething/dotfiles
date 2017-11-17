@@ -45,17 +45,6 @@ set modeline
 if has('nvim') | set updatetime=250 | endif
 
 " ----------------------------------------------------------------------------
-" Clipboard -- use os clipboard
-" ----------------------------------------------------------------------------
-
-if empty($SSH_CONNECTION) && has('clipboard')
-  set clipboard^=unnamed                " Use vim global clipboard register
-  if has('unnamedplus') || has('nvim')  " Use system clipboard register
-    set clipboard^=unnamedplus
-  endif
-endif
-
-" ----------------------------------------------------------------------------
 " Display
 " ----------------------------------------------------------------------------
 
