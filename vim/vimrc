@@ -65,7 +65,8 @@ set title                             " wintitle = filename - vim
 "set ttyfast
 
 " no beeps or flashes
-set visualbell
+set novisualbell
+set noerrorbells
 
 set number
 set numberwidth=5

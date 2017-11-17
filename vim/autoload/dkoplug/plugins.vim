@@ -119,12 +119,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'tpope/vim-repeat'
 
-  " easyclip requires repeat, REMAPS all register keys (y,d,s,c,etc.)
-  " and use 'm' instead
-  " Only on Neovim, because someone else is probably using my computer if
-  " they're using regular vim
-  Plug 'svermeulen/vim-easyclip', PlugIf(has('nvim'))
-
   " []-bindings -- buffer switch, lnext/prev, etc.
   " My fork has a lot of removals like line movement and entities
   Plug 'davidosomething/vim-unimpaired'
