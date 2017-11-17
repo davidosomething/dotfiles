@@ -319,6 +319,7 @@ endfunction
 " ============================================================================
 
 function! dkoline#Init() abort
+  set statusline=%!dkoline#GetStatusline(1)
   call dkoline#RefreshTabline()
   set showtabline=2
 
