@@ -34,12 +34,14 @@ hi! Identifier                        guifg=#dddddd
 hi! Ignore                            guifg=#40485a
 hi! IncSearch           guibg=#dd77cc guifg=bg      gui=NONE
 hi! Label                             guifg=#dddddd
+hi! MoreMsg                           guifg=#aa6666
 hi! Noise                             guifg=#888888
 hi! NonText                           guifg=#334455
 hi! Normal              guibg=#202022 guifg=#aaaaaa
 hi! Number                            guifg=#ee7777
 hi! Operator                          guifg=#888888
 hi! PreProc                           guifg=#dddddd
+hi! Question                          guifg=#88aabb
 hi! Search              guibg=#dd99ff guifg=bg
 hi! Special                           guifg=#dd7766
 hi! SpecialComment      guifg=#707a8a               gui=NONE
