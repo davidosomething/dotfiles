@@ -7,10 +7,10 @@ set cpoptions&vim
 if dkoplug#IsLoaded('vim-signature')
   " disable mappings
   let g:SignatureMap = {
-        \   'Leader': '<Leader>gm',
+        \   'Leader': 'm',
         \   'PlaceNextMark': '',
         \   'ToggleMarkAtLine': '',
-        \   'PurgeMarksAtLine': '',
+        \   'PurgeMarksAtLine': 'M',
         \   'DeleteMark': '',
         \   'PurgeMarks': '',
         \   'PurgeMarkers': '',

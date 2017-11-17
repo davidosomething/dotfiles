@@ -72,6 +72,8 @@ set cursorline
 
 set synmaxcol=512                     " don't syntax highlight long lines
 
+set signcolumn=yes
+
 " ------------------------------------
 " Tab line
 " ------------------------------------
