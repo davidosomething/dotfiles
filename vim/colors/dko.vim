@@ -54,7 +54,7 @@ hi! Type                              guifg=#dddddd gui=NONE
 hi! Underlined                        guifg=#88aaee gui=underline
 hi! Visual              guibg=#afa08f guifg=#1f1f1f
 hi! WarningMsg                        guifg=#ccaa88
-hi! Whitespace          guibg=#552222 guifg=#dddddd
+hi! Whitespace          guibg=#ccaa88 guifg=#eeddaa
 
 hi! link Character      Normal
 hi! link Conditional    Normal
@@ -81,6 +81,10 @@ hi! dkoStatusKey        guibg=#404044
 hi! dkoStatusValue      guibg=#505055
 hi! dkoStatusItem       guibg=#24252a
 hi! dkoStatusTransient  guibg=#707a8a guifg=#303135
+hi! dkoStatusGood       guibg=#24252a guifg=#77aa88
+hi! dkoStatusError      guibg=#24252a guifg=#cc4444
+hi! dkoStatusWarning    guibg=#24252a guifg=#ddaa66
+hi! dkoStatusInfo       guibg=#24252a guifg=fg
 
 " JavaDoc
 hi! link dkoJavaDocTag  SpecialComment
@@ -388,14 +392,15 @@ hi! link qfSeparator  dkoDecorations
 " Neomake
 " ============================================================================
 
-hi! NeomakeError              guibg=#5a2a2a
-hi! NeomakeInfo               guibg=#2a332a
-hi! NeomakeMessage            guibg=#2a332a
-hi! NeomakeWarning            guibg=#2c2b2a
-hi! link NeomakeErrorSign     dkoSignError
-hi! link NeomakeWarningSign   dkoSignWarning
-hi! link NeomakeInfoSign      dkoSignInfo
-hi! link NeomakeMessageSign   dkoSignMessage
+hi! NeomakeError                guibg=#5a2a2a
+hi! NeomakeInfo                 guibg=#2a332a
+hi! NeomakeMessage              guibg=#2a332a
+hi! NeomakeWarning              guibg=#2c2b2a
+hi! link NeomakeErrorSign       dkoSignError
+hi! link NeomakeWarningSign     dkoSignWarning
+hi! link NeomakeInfoSign        dkoSignInfo
+hi! link NeomakeMessageSign     dkoSignMessage
+hi! link NeomakeStatusGood      dkoStatusGood
 
 " ============================================================================
 " netrw

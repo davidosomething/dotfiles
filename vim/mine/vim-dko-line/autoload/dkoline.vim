@@ -80,7 +80,7 @@ function! dkoline#GetStatusline(winnr) abort
   " Left side
   " ==========================================================================
 
-  let l:contents .= '%#TabLine# ' . dkoline#Mode(l:winnr)
+  let l:contents .= '%#StatusLine# ' . dkoline#Mode(l:winnr)
 
   " Filebased
   let l:contents .= dkoline#Format(dkoline#Filetype(l:bufnr), '%#StatusLine#')
@@ -88,7 +88,9 @@ function! dkoline#GetStatusline(winnr) abort
   let l:maxwidth = l:ww - 32
   let l:contents .= dkoline#Format(
         \   dkoline#Filename(l:bufnr, l:cwd),
-        \   '%#dkoStatusValue#%0.' . l:maxwidth . '(',
+        \   (dkoline#If({ 'winnr': l:winnr }, l:x)
+        \     ? '%#dkoStatusValue#' : '%#StatusLineNC#' )
+        \     . '%0.' . l:maxwidth . '(',
         \   '%)'
         \ )
   let l:contents .= dkoline#Format(dkoline#Dirty(l:bufnr), '%#DiffAdded#')
@@ -107,26 +109,21 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%*%='
 
   " Tagging
-  let l:contents .= dkoline#Format(dkoline#GutentagsStatus(), '%#dkoStatusTransient#')
+  let l:contents .= dkoline#Format(
+        \ dkoline#If({
+        \   'winnr': l:winnr,
+        \   'normal': 1,
+        \ }, l:x) ? dkoline#GutentagsStatus() : '',
+        \ '%#dkoStatusTransient#')
 
   " Linting
   if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
-    let l:contents .= dkoline#Format(
-          \ dkoline#Neomake('E', neomake#statusline#LoclistCounts(l:bufnr)),
-          \ '%#NeomakeErrorSign#')
-
-    let l:contents .= dkoline#Format(
-          \ dkoline#Neomake('W', neomake#statusline#LoclistCounts(l:bufnr)),
-          \ '%#NeomakeWarningSign#')
-
-    let l:contents .= dkoline#Format(
-          \ dkoline#NeomakeRunning(l:bufnr),
-          \ '%#dkoLineNeomakeRunning#')
+    let l:contents .= dkoline#Neomake(l:winnr, l:bufnr)
   endif
 
   let l:contents .= '%<'
 
-  let l:contents .= dkoline#Format(dkoline#Ruler(), '%#TabLine#')
+  let l:contents .= dkoline#Format(dkoline#Ruler(), '%#dkoStatusItem#')
 
   return l:contents
 endfunction
@@ -153,6 +150,10 @@ function! dkoline#If(conditions, values) abort
 
   if has_key(a:conditions, 'ww')
     if a:values.ww < a:conditions.ww | return 0 | endif
+  endif
+
+  if has_key(a:conditions, 'normal')
+    if !getbufvar(a:values.bufnr, '&buflisted') | return 0 | endif
   endif
 
   return 1
@@ -186,29 +187,6 @@ function! dkoline#Paste() abort
         \ : ' ᴘ '
 endfunction
 
-" @param {String} key
-" @param {Dict} counts
-" @return {String}
-function! dkoline#Neomake(key, counts) abort
-  let l:e = get(a:counts, a:key, 0)
-  return l:e ? ' ⚑' . l:e . ' ' : ''
-endfunction
-
-" @param {Int} bufnr
-" @return {String}
-function! dkoline#NeomakeRunning(bufnr) abort
-  let l:running_jobs = filter(copy(neomake#GetJobs()),
-        \ 'v:val.bufnr == ' . a:bufnr . ' && !get(v:val, "canceled", 0)')
-  if empty(l:running_jobs) | return | endif
-
-  let l:names = join(map(l:running_jobs, 'v:val.name'), ',')
-  return ' ᴍᴀᴋᴇ:' . l:names . ' '
-endfunction
-
-" @param {Int} bufnr
-" @return {String} comma-delimited running job names
-function! dkoline#NeomakeRunningJobs(bufnr) abort
-endfunction
 
 " @param {Int} bufnr
 " @return {String}
@@ -304,7 +282,31 @@ function! dkoline#GutentagsStatus() abort
   let l:tagger = substitute(gutentags#statusline(''), '\[\(.*\)\]', '\1', '')
   return empty(l:tagger)
         \ ? ''
-        \ : ' ᴛᴀɢ:' . l:tagger . ' '
+        \ : ' ᴛ:' . l:tagger . ' '
+endfunction
+
+" @return {string} job1,job2,job3
+function! dkoline#NeomakeJobs(bufnr) abort
+  if !a:bufnr | return '' | endif
+  let l:running_jobs = filter(copy(neomake#GetJobs()),
+        \ 'v:val.bufnr == ' . a:bufnr . ' && !get(v:val, "canceled", 0)')
+  if empty(l:running_jobs) | return | endif
+
+  return join(map(l:running_jobs, 'v:val.name'), ',')
+endfunction
+
+function! dkoline#Neomake(winnr, bufnr) abort
+  if !a:bufnr | return '' | endif
+  let l:result = neomake#statusline#get(a:bufnr, {
+        \   'format_running':         '%#dkoLineNeomakeRunning# ᴍ:'
+        \                             . dkoline#NeomakeJobs(a:bufnr) . ' ',
+        \   'format_ok' :             '%#dkoStatusGood# ⚑ ',
+        \   'format_loclist_unknown': '',
+        \   'format_loclist_type_E':  '%#dkoStatusError# ⚑{{count}} ',
+        \   'format_loclist_type_W':  '%#dkoStatusWarning# ⚑{{count}} ',
+        \   'format_loclist_type_I':  '%#dkoStatusInfo# ⚑{{count}} ',
+        \ })
+  return l:result
 endfunction
 
 " @return {String}
@@ -317,15 +319,14 @@ endfunction
 " ============================================================================
 
 function! dkoline#Init() abort
-  set statusline=%!dkoline#GetStatusline(1)
-
   call dkoline#RefreshTabline()
   set showtabline=2
 
+  " BufWinEnter will initialize the statusline for each buffer
   let l:refresh_hooks = [
         \   'BufEnter',
+        \   'BufWinEnter',
         \ ]
-        " \   'BufWinEnter',
         " \   'SessionLoadPost',
         " \   'TabEnter',
         " \   'VimResized',
