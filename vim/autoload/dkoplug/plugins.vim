@@ -639,7 +639,9 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
 
   " Always show signs column with marks
+  "Too many features, slow start
   "Plug 'tomtom/quickfixsigns_vim'
+  "Still slowish but better
   Plug 'kshenoy/vim-signature'
 
   " --------------------------------------------------------------------------

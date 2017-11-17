@@ -207,13 +207,6 @@ nnoremap <silent><special>   <Leader>..
 nnoremap  <special> <Leader>q   @q
 
 " ----------------------------------------------------------------------------
-" Use gm to set a mark (since easyclip is using m for "move")
-" ----------------------------------------------------------------------------
-
-nnoremap  gm   m
-xnoremap  gm   m
-
-" ----------------------------------------------------------------------------
 " Map the arrow keys to be based on display lines, not physical lines
 " ----------------------------------------------------------------------------
 

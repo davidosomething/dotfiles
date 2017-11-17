@@ -70,9 +70,6 @@ is generally a wrapper around them that checks for
 
 #### Super-non-standard keys
 
-- EasyClip changes behavior of pretty much all register operations (`[y]ank`,
-  `[d]elete`, `[s]ubstitute`, etc.). Prefer `[y]ank` or explicitly `[m]ove` to
-  populate registers.
 - `<C-f>` -- Expand neosnippet. I use `<C-u>`/`<C-d>` to jump pages instead.
 - `gs` no longer sleeps. It's an operator prefix for vim-operator-surround.
 
