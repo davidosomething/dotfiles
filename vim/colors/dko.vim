@@ -47,6 +47,7 @@ hi! Special                           guifg=#dd7766
 hi! SpecialComment      guifg=#707a8a               gui=NONE
 hi! SpecialKey                        guifg=#772222
 hi! Statement                         guifg=#777777 gui=NONE
+hi! StorageClass                      guifg=#777777
 hi! String                            guifg=#88aabb
 hi! Title                             guifg=#dddddd
 hi! Todo                guibg=#303033 guifg=#ddaa66 gui=bold
@@ -80,7 +81,7 @@ hi! dkoStatus           guibg=#303135               gui=NONE
 hi! dkoStatusKey        guibg=#404044
 hi! dkoStatusValue      guibg=#505055
 hi! dkoStatusItem       guibg=#24252a
-hi! dkoStatusTransient  guibg=#707a8a guifg=#303135
+hi! dkoStatusTransient  guibg=#505a6a guifg=fg
 hi! dkoStatusGood       guibg=#24252a guifg=#77aa88
 hi! dkoStatusError      guibg=#24252a guifg=#cc4444
 hi! dkoStatusWarning    guibg=#24252a guifg=#ddaa66
@@ -214,7 +215,7 @@ hi! link jsFuncArgOperator    Operator
 hi! link jsModuleKeyword      String
 hi! link jsNull               Constant
 hi! link jsReturn             dkoReturn
-hi! link jsStorageClass       Statement
+"hi! link jsStorageClass       Statement
 hi! link jsTemplateBraces     dkoRegex
 hi! link jsThis               Identifier
 "hi! link jsVariableDef        Identifier
@@ -285,10 +286,17 @@ hi! link phpDocParam          dkoJavaDocType
 hi! link phpDocIdentifier     dkoJavaDocKey
 
 " ============================================================================
+" Python
+" ============================================================================
+
+hi! link pythonTripleQuotes   dkoDecorations
+
+" ============================================================================
 " Ruby
 " ============================================================================
 
 hi! link rubyInterpolation    PreProc
+hi! link rubyStringDelimiter  Noise
 
 " ============================================================================
 " Sh

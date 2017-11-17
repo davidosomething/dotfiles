@@ -300,7 +300,7 @@ function! dkoline#Neomake(winnr, bufnr) abort
   let l:result = neomake#statusline#get(a:bufnr, {
         \   'format_running':         '%#dkoLineNeomakeRunning# ᴍ:'
         \                             . dkoline#NeomakeJobs(a:bufnr) . ' ',
-        \   'format_ok' :             '%#dkoStatusGood# ⚑ ',
+        \   'format_loclist_ok':      '%#dkoStatusGood# ⚑ ',
         \   'format_loclist_unknown': '',
         \   'format_loclist_type_E':  '%#dkoStatusError# ⚑{{count}} ',
         \   'format_loclist_type_W':  '%#dkoStatusWarning# ⚑{{count}} ',

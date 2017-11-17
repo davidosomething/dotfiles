@@ -443,7 +443,8 @@ function! dkoplug#plugins#LoadAll() abort
   " GraphQL
   " ----------------------------------
 
-  Plug 'paulrosania/vim-graphql', { 'branch': 'tagged-template-literals' }
+  Plug 'jparise/vim-graphql'
+  "Plug 'paulrosania/vim-graphql', { 'branch': 'tagged-template-literals' }
   " graphql upstream is https://github.com/jparise/vim-graphql
 
   " ==========================================================================
