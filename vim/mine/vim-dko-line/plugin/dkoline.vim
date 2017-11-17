@@ -2,7 +2,7 @@
 
 augroup plugin-dkoline
   autocmd!
-  autocmd VimEnter * call dkoline#Init()
+  autocmd VimEnter * nested call dkoline#Init()
 augroup END
 
 nmap <silent><special>

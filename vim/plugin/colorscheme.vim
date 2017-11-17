@@ -11,16 +11,6 @@ if s:truecolor | let &termguicolors = 1 | endif
 
 let s:colorscheme = 'darkblue'
 
-if dkoplug#Exists('vim-base2tone-lakedark')
-  let g:base16colorspace = 256
-  function! s:LakeDark() abort
-    silent! colorscheme Base2Tone_LakeDark
-  endfunction
-  nnoremap <silent><special> <Leader>zb :<C-U>call <SID>LakeDark()<CR>
-
-  let s:colorscheme = 'Base2Tone_LakeDark'
-endif
-
 if dkoplug#Exists('nord-vim')
   let g:nord_italic_comments = 1
 endif

@@ -28,8 +28,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Colorscheme
   " ==========================================================================
 
-  "Plug '~/projects/davidosomething/vim-base2tone-lakedark'
-  Plug 'davidosomething/vim-base2tone-lakedark'
   Plug 'rakr/vim-two-firewatch'
   Plug 'arcticicestudio/nord-vim'
 
@@ -201,18 +199,14 @@ function! dkoplug#plugins#LoadAll() abort
   " Include completion, include tags
   " For what langs are supported, see:
   " https://github.com/Shougo/neoinclude.vim/blob/master/autoload/neoinclude.vim
-  "
-  " NCM Errors when can't find b:node_root
-  "Plug 'Shougo/neoinclude.vim', WithCompl()
+  " Note: NCM Errors when can't find b:node_root (from moll/vim-node)
+  Plug 'Shougo/neoinclude.vim', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: CSS
   " --------------------------------------------------------------------------
 
-  " Omnicompletion, this is beta repo, where stables are already in VIMRUNTIME
-  "Plug 'othree/csscomplete.vim'
-
-  Plug 'calebeby/ncm-css', WithCompl()
+  Plug 'davidosomething/ncm-css', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: Java
