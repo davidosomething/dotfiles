@@ -32,7 +32,6 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'davidosomething/vim-base2tone-lakedark'
   Plug 'rakr/vim-two-firewatch'
   Plug 'arcticicestudio/nord-vim'
-  Plug 'hauleth/blame.vim'
 
   " ==========================================================================
   " Embedded filetype support
@@ -444,8 +443,6 @@ function! dkoplug#plugins#LoadAll() abort
   " ----------------------------------
 
   Plug 'jparise/vim-graphql'
-  "Plug 'paulrosania/vim-graphql', { 'branch': 'tagged-template-literals' }
-  " graphql upstream is https://github.com/jparise/vim-graphql
 
   " ==========================================================================
   " Language: Markdown, Pandoc
