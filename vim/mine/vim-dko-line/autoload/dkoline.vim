@@ -10,7 +10,6 @@ function! dkoline#GetTabline() abort
   let l:tabnr = tabpagenr()
   let l:winnr = tabpagewinnr(l:tabnr)
   let l:bufnr = winbufnr(l:winnr)
-  let l:ww    = &columns
   let l:cwd   = has('nvim') ? getcwd(l:winnr) : getcwd()
 
   let l:x = {
