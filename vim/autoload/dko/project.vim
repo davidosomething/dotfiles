@@ -45,7 +45,10 @@ let s:markers = [
 " @param {String} [file] from which to look upwards
 " @return {String} project root path or empty string
 function! dko#project#GetRoot(...) abort
-  if exists('b:dko_project_root') | return b:dko_project_root | endif
+  let l:bufnr = a:0 && type(a:1) == v:t_dict && a:1['bufnr']
+        \ ? a:1['bufnr'] : '%'
+  let l:existing = getbufvar(l:bufnr, 'dko_project_root')
+  if l:existing | return l:existing | endif
 
   " Look for markers FIRST, that way we support things like browsing through
   " node_modules/ and monorepos
@@ -119,10 +122,8 @@ function! dko#project#GetRootByFileMarker(markers) abort
   for l:marker in a:markers
     " Try to use nearest first; findfile .; goes from current file upwards
     let l:filepath = findfile(l:marker, '.;')
-    if empty(l:filepath)
-      continue
-    endif
-    let l:result = fnamemodify(resolve(expand(l:filepath)), ':h')
+    if empty(l:filepath) | continue | endif
+    let l:result = fnamemodify(resolve(expand(l:filepath)), ':p:h')
   endfor
   return l:result
 endfunction
