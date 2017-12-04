@@ -3,7 +3,7 @@ bashate==0.5.1
 flake8==3.5.0
 flake8-commas==0.4.3
 flake8-docstrings==1.1.0
-flake8-import-order==0.15
+flake8-import-order==0.16
 flake8-quotes==0.12.0
 neovim==0.2.0
 neovim-remote==1.8.9
