@@ -11,7 +11,7 @@ ajv-cli
 alex
 apidoc
 boxen-cli
-coffee-script
+coffeescript
 coffeelint
 commitizen
 create-react-app
