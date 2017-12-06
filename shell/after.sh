@@ -37,7 +37,7 @@ __dko_has "nvim" && {
   export EDITOR="nvim"
   export VISUAL="nvim"
 
-  __dko_has "nvr" && alias e="nvr"
+  __dko_has "nvr" && alias e="nvr -s"
 }
 
 # ============================================================================
