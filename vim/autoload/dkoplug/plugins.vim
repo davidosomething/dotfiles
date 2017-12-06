@@ -206,7 +206,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion: CSS
   " --------------------------------------------------------------------------
 
-  Plug 'davidosomething/ncm-css', WithCompl()
+  Plug 'calebeby/ncm-css', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: Java
