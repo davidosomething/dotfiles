@@ -13,7 +13,6 @@ DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
 # env management -- Node, PHP, Python, Ruby - These add to path
 # ==============================================================================
 
-# This also adds completions based on global nvm->npm packages
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/shell/go.sh"
 . "${DOTFILES}/shell/java.sh"

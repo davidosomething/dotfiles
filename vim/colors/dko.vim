@@ -77,15 +77,16 @@ hi! dkoReturn                         guifg=#cc8877 gui=italic
 hi! dkoQuote                          guifg=#77aa88 gui=italic
 hi! dkoWarningText      guibg=#2c2b2a guifg=#ddaa66 gui=bold
 
-hi! dkoStatus           guibg=#303135               gui=NONE
-hi! dkoStatusKey        guibg=#404044
-hi! dkoStatusValue      guibg=#505055
-hi! dkoStatusItem       guibg=#24252a
-hi! dkoStatusTransient  guibg=#505a6a guifg=fg
-hi! dkoStatusGood       guibg=#24252a guifg=#77aa88
-hi! dkoStatusError      guibg=#24252a guifg=#cc4444
-hi! dkoStatusWarning    guibg=#24252a guifg=#ddaa66
-hi! dkoStatusInfo       guibg=#24252a guifg=fg
+hi! dkoStatus           guibg=#30313c               gui=NONE
+hi! dkoStatusNC         guibg=#262631               gui=NONE
+hi! dkoStatusKey        guibg=#40404c
+hi! dkoStatusValue      guibg=#50505c
+hi! dkoStatusItem       guibg=#242531
+hi! dkoStatusTransient  guibg=#505a71 guifg=fg
+hi! dkoStatusGood       guibg=#242531 guifg=#77aa88
+hi! dkoStatusError      guibg=#242531 guifg=#cc4444
+hi! dkoStatusWarning    guibg=#242531 guifg=#ddaa66
+hi! dkoStatusInfo       guibg=#242531 guifg=fg
 
 " JavaDoc
 hi! link dkoJavaDocTag  SpecialComment
@@ -120,7 +121,7 @@ hi! link CursorLine     dkoBgAlt
 " ============================================================================
 
 " Statusline uses fg as bg
-hi! StatusLineNC        guibg=#26262a               gui=NONE
+hi! link StatusLineNC   dkoStatusNC
 hi! link StatusLine     dkoStatus
 hi! link TabLine        dkoStatus
 hi! link TabLineFill    dkoStatus
