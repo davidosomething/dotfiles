@@ -106,7 +106,7 @@ hi! link dkoSignRemoved DiffDelete
 " ============================================================================
 
 " fg is thin line
-hi! VertSplit           guibg=#222226 guifg=#222226
+hi! VertSplit           guibg=#262631 guifg=#262631
 hi! LineNr              guibg=#222226 guifg=#404044
 hi! CursorLineNr        guibg=#303033 guifg=#a0a0aa
 hi! link FoldColumn     LineNr
