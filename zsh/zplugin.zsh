@@ -2,6 +2,9 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
 
+# Needed first for turbo mode
+zplugin light 'zdharma/fast-syntax-highlighting'
+
 zplugin snippet --command 'https://github.com/davidosomething/git-ink/blob/master/git-ink'
 zplugin snippet --command 'https://github.com/davidosomething/git-my/blob/master/git-my'
 zplugin snippet --command 'https://github.com/davidosomething/git-take/blob/master/git-take'
@@ -32,11 +35,10 @@ zplugin snippet 'https://github.com/robbyrussell/oh-my-zsh/raw/master/plugins/co
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # as of v4.0 use ZSH/zpty module to async retrieve
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
+zplugin ice wait'1' atload'_zsh_autosuggest_start'
 zplugin light 'zsh-users/zsh-autosuggestions'
 # clear the suggestion when entering completion select menu
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
-
-zplugin light 'zdharma/fast-syntax-highlighting'
 
 # ----------------------------------------------------------------------------
 # Vendor: Completion
@@ -59,7 +61,8 @@ zplugin light 'voronkovich/phpcs.plugin.zsh'
 # zplugin management
 # ----------------------------------------------------------------------------
 
-# zplugin light zdharma/zui
-# zplugin light zdharma/zplugin-crasis
+zplugin light zdharma/zui
+zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]'
+zplugin load zdharma/zplugin-crasis
 
 export DKO_SOURCE="${DKO_SOURCE} }"
