@@ -52,6 +52,7 @@ function! s:GetFzfRelevantSource(...) abort
         \ . '&& git relevant ' . join(l:args, ' ')
         \)
   if v:shell_error
+    echo 'Not in a repo or error calling git-relevant'
     return []
   endif
 
