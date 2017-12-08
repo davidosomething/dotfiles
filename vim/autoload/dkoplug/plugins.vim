@@ -215,10 +215,10 @@ function! dkoplug#plugins#LoadAll() abort
   " Saves file every time completions are requested due to eclim limitations
   "Plug 'sassanh/nvim-cm-eclim', WithCompl()
 
-  Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
-        \   'do': 'cd -- libs/javavi/ && mvn compile',
-        \   'for': [ 'java' ],
-        \ })
+  " Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
+  "       \   'do': 'cd -- libs/javavi/ && mvn compile',
+  "       \   'for': [ 'java' ],
+  "       \ })
 
   " --------------------------------------------------------------------------
   " Completion: JavaScript
