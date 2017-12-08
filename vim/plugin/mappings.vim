@@ -180,7 +180,7 @@ nnoremap <silent> U :<C-U>:diffupdate<CR>:syntax sync fromstart<CR><C-L>
 " ----------------------------------------------------------------------------
 
 nnoremap <silent><special>   <Leader>cr
-      \ :<C-U>execute 'cd! ' . get(b:, 'dkoproject_root', getcwd())<CR>
+      \ :<C-U>execute 'cd! ' . dko#project#GetRoot()<CR>
 
 " ----------------------------------------------------------------------------
 " cd to current buffer path

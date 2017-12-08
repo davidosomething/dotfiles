@@ -1,0 +1,3 @@
+#!
+[ -n "$JAVA_HOME" ] && \
+  launchctl setenv JAVA_HOME "/usr/libexec/java_home ${JAVA_HOME}"

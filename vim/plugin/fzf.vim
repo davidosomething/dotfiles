@@ -56,7 +56,7 @@ autocmd dkofzf FileType fzf call s:MapCloseFzf()
 " Map the commands -- the actual plugin is loaded by a vim-plug 'on' hook when
 " a command is run for the first time
 execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper!' })
-execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFRelevant ' . getcwd() })
+execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFRelevant ' . dko#project#GetRoot() })
 execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFProject' })
 execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
 execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
