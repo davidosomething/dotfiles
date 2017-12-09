@@ -180,7 +180,7 @@ nnoremap <silent> U :<C-U>:diffupdate<CR>:syntax sync fromstart<CR><C-L>
 " ----------------------------------------------------------------------------
 
 nnoremap <silent><special>   <Leader>cr
-      \ :<C-U>execute 'cd! ' . get(b:, 'dkoproject_root', getcwd())<CR>
+      \ :<C-U>execute 'cd! ' . dko#project#GetRoot()<CR>
 
 " ----------------------------------------------------------------------------
 " cd to current buffer path
@@ -303,6 +303,7 @@ nnoremap  <special> <Leader>ws  :<C-U>call dko#whitespace#clean()<CR>
 
 inoremap <special> <C-p> <C-r>*
 nnoremap <special> <C-p> "*p
+vnoremap <special> <C-p> "*p
 
 nnoremap <special> <C-y> "*y
 xnoremap <special> <C-y> "*y
