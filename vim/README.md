@@ -95,6 +95,8 @@ is generally a wrapper around them that checks for
 | `<A-r>`             | :FZFRelevant |
 | `<A-t>`             | :FZFTests - custom find test files near current path |
 | `<A-v>`             | :FZFVim - ~/.vim |
+| `<C-s>`             | Extract.vim - cycle paste previous |
+| `<C-S>`             | Extract.vim - cycle paste next |
 |    `/`              | UI - incsearch |
 |    `\`              | UI - :OverCommandLine |
 
@@ -107,7 +109,6 @@ Plan to remap these at some point
 - `n <C-b>` -- backward one screen (page)
 - `n <C-f>` -- forward one screen (page)
 - `n <C-g>` -- show file status (everything's already in statusline)
-- `n <C-s>` -- nothing (terminal XOFF)
 - `n zh/l`  -- useless wrap mode scroll
 
 ## My Vim conventions
