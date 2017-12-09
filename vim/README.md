@@ -95,8 +95,8 @@ is generally a wrapper around them that checks for
 | `<A-r>`             | :FZFRelevant |
 | `<A-t>`             | :FZFTests - custom find test files near current path |
 | `<A-v>`             | :FZFVim - ~/.vim |
-| `<C-s>`             | Extract.vim - cycle paste previous |
-| `<C-S>`             | Extract.vim - cycle paste next |
+| `<C-s>`             | Extract - cycle paste previous |
+| `<C-S>`             | Extract - cycle paste next |
 |    `/`              | UI - incsearch |
 |    `\`              | UI - :OverCommandLine |
 
