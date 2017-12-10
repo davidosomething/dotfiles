@@ -174,7 +174,8 @@ function! dkoplug#plugins#LoadAll() abort
 
   " The language client completion is a bit slow to kick in, but it works
   Plug 'autozimu/LanguageClient-neovim', WithCompl({
-        \   'do': ':UpdateRemotePlugins'
+        \   'branch': 'next',
+        \   'do': './install.sh'
         \ })
 
   " Auto-insert matching braces with detection for jumping out on close.
