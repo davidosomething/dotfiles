@@ -91,7 +91,7 @@ __dko_dotfiles__update_secret() {
       || { __dko_err "No ~/.secret directory" && exit 1; }
     git pull --rebase --recurse-submodules || exit 1
     git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
-  ) || __dko_error "Failed to update ~/.secret/"
+  ) || __dko_err "Failed to update ~/.secret/"
 }
 
 __dko_dotfiles__update_daily() {
