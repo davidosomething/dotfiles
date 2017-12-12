@@ -1,5 +1,8 @@
 babel-eslint
 eslint
+eslint-import-resolver-alias
+eslint-import-resolver-node
+eslint-import-resolver-webpack
 eslint-plugin-import
 eslint-plugin-jsx-a11y
 eslint-plugin-flowtype
