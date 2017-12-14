@@ -28,7 +28,6 @@ __dko_dotfiles__usage() {
   Utility Commands
     dotfiles    -- update dotfiles (git pull)
     secret      -- update ~/.secret (git pull)
-    zplugin     -- update zplugin
     daily       -- secret, Packages / Developer Tools, fzf, nvm, pyenv
 
   Shell Tools
