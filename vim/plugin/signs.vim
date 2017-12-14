@@ -12,7 +12,7 @@ if dkoplug#IsLoaded('vim-signature')
         \   'ToggleMarkAtLine': '',
         \   'PurgeMarksAtLine': 'M',
         \   'DeleteMark': '',
-        \   'PurgeMarks': '',
+        \   'PurgeMarks': 'gM',
         \   'PurgeMarkers': '',
         \   'GotoNextLineAlpha': '',
         \   'GotoPrevLineAlpha': '',
