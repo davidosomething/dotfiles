@@ -72,7 +72,7 @@ set cursorline
 
 set synmaxcol=512                     " don't syntax highlight long lines
 
-set signcolumn=yes
+if exists('+signcolumn') | set signcolumn=yes | endif
 
 " ------------------------------------
 " Tab line
@@ -474,20 +474,22 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 " Plugins: autoinstall vim-plug, define plugins, install plugins if needed
 " ----------------------------------------------------------------------------
 
-let s:has_plug = !empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
-" Load vim-plug and its plugins?
-if !s:has_plug && executable('curl')
-  call dkoplug#install#Install()
-  let s:has_plug = 1
-endif
+if executable('git')
+  let s:has_plug = !empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
+  " Load vim-plug and its plugins?
+  if !s:has_plug && executable('curl')
+    call dkoplug#install#Install()
+    let s:has_plug = 1
+  endif
 
-if s:has_plug
-  command! PI PlugInstall
-  command! PU PlugUpgrade | PlugUpdate
-  let g:plug_window = 'tabnew'
-  call plug#begin(g:dko#plug_absdir)
-  if empty($VIMNOPLUGS) | call dkoplug#plugins#LoadAll() | endif
-  call plug#end()
+  if s:has_plug
+    command! PI PlugInstall
+    command! PU PlugUpgrade | PlugUpdate
+    let g:plug_window = 'tabnew'
+    call plug#begin(g:dko#plug_absdir)
+    if empty($VIMNOPLUGS) | call dkoplug#plugins#LoadAll() | endif
+    call plug#end()
+  endif
 endif
 
 " ============================================================================
