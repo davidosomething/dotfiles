@@ -12,6 +12,8 @@ readonly dotfiles_path="$(pwd)"
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
 
+PATH="${DOTFILES}/bin:${PATH}"
+
 # ============================================================================
 # Create paths (slow)
 # ============================================================================
