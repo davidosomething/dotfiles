@@ -8,6 +8,9 @@
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
 DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 
+# Just in case...
+[[ -z ${DOTFILES} ]] && . "${HOME}/.dotfiles/shell/init.sh"
+
 . "${DOTFILES}/shell/dot.profile"
 . "${DOTFILES}/shell/interactive.sh"
 
