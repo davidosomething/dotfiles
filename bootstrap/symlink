@@ -9,10 +9,10 @@
 
 cd -- "$(dirname "$0")/.." || exit 1
 readonly dotfiles_path="$(pwd)"
-. "${DOTFILES}/lib/helpers.sh"
-. "${DOTFILES}/lib/pretty.bash"
+. "${dotfiles_path}/lib/helpers.sh"
+. "${dotfiles_path}/lib/pretty.bash"
 
-export PATH="${DOTFILES}/bin:${PATH}"
+export PATH="${dotfiles_path}/bin:${PATH}"
 
 # ============================================================================
 # Create paths (slow)
