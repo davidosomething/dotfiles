@@ -95,7 +95,11 @@ __dko_dotfiles__update_secret() {
 
 __dko_dotfiles__update_daily() {
   __dko_dotfiles__update_secret
-  __dko_dotfiles__update_fzf
+
+  if [[ -x "/usr/local/opt/fzf/install" ]] || [[ -d "${HOME}/.fzf" ]]
+  then __dko_dotfiles__update_fzf
+  else __dko_warn "fzf is not installed"
+  fi
 
   if __dko_dotfiles__node__require_nvm --silent
   then __dko_dotfiles__node__update_nvm
@@ -124,9 +128,13 @@ __dko_dotfiles__update_daily() {
     fi
   fi
 
-  __dko_dotfiles__py__update_pyenv
-  __dko_dotfiles__py__update_pip "pip"
-  __dko_dotfiles__py__update_neovim_python
+  if ! __dko_has "pyenv"
+  then __dko_warn "pyenv not found"
+  else
+    __dko_dotfiles__py__update_pyenv
+    __dko_dotfiles__py__update_pip "pip"
+    __dko_dotfiles__py__update_neovim_python
+  fi
 }
 
 # ------------------------------------------------------------------------------
@@ -356,6 +364,8 @@ __dko_dotfiles__py__update_pip() {
 }
 
 __dko_dotfiles__py__update_neovim_python() {
+  ! __dko_has "pyenv" \
+    && __dko_err "pyenv is not installed" && return 1
   __dko_status "Updating neovim2"
   pyenv activate neovim2 && pip install --upgrade neovim
   __dko_status "Updating neovim3"
