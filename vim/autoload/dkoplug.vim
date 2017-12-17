@@ -11,7 +11,7 @@ let s:loaded = []
 " @param  {String} name
 " @return {Boolean} true if the plugin is installed
 function! dkoplug#Exists(name) abort
-  return index(g:plugs_order, a:name) > -1
+  return index(get(g:, 'plugs_order', []), a:name) > -1
 endfunction
 
 " @param  {String} name
