@@ -5,8 +5,10 @@
 
 set -e
 
-cd -- "$(dirname "$0")/.." || exit 1
-readonly dotfiles_path="$(pwd)"
+if [[ -z "$DOTFILES" ]]; then
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$(pwd)"
+fi
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
 

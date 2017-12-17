@@ -7,12 +7,13 @@
 # initialize script and dependencies
 # ============================================================================
 
-cd -- "$(dirname "$0")/.." || exit 1
-readonly dotfiles_path="$(pwd)"
-. "${dotfiles_path}/lib/helpers.sh"
-. "${dotfiles_path}/lib/pretty.bash"
-
-export PATH="${dotfiles_path}/bin:${PATH}"
+if [[ -z "$DOTFILES" ]]; then
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$(pwd)"
+fi
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
+export PATH="${DOTFILES}/bin:${PATH}"
 
 # ============================================================================
 # Create paths (slow)

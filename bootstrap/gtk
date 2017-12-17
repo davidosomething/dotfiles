@@ -9,8 +9,10 @@ set -eu
 # initialize script and dependencies
 # ============================================================================
 
-cd -- "$(dirname "$0")/.." || exit 1
-readonly dotfiles_path="$(pwd)"
+if [[ -z "$DOTFILES" ]]; then
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$(pwd)"
+fi
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
 
@@ -22,4 +24,4 @@ __dko_status "COPYING ~/.config/gtk-3.0"
 if [[ -d "${XDG_CONFIG_HOME}/gtk-3.0" ]]; then
   mv "${XDG_CONFIG_HOME}/gtk-3.0" "${XDG_CONFIG_HOME}/gtk-3.0.old"
 fi
-cp  -R  "${dotfiles_path}/linux/gtk-3.0"  "${XDG_CONFIG_HOME}/"
+cp  -R  "${DOTFILES}/linux/gtk-3.0"  "${XDG_CONFIG_HOME}/"

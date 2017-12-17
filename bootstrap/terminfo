@@ -10,8 +10,10 @@
 # initialize script and dependencies
 # ============================================================================
 
-cd -- "$(dirname "$0")/.." || exit 1
-readonly dotfiles_path="$(pwd)"
+if [[ -z "$DOTFILES" ]]; then
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$(pwd)"
+fi
 . "${DOTFILES}/lib/pretty.bash"
 
 # ==============================================================================
@@ -22,10 +24,10 @@ __dko_status "Copying terminfo files"
 
 # RXVT
 mkdir -p -- "${HOME}/.terminfo/r"
-[[ -d "${dotfiles_path}/terminfo/r" ]] && \
-  cp -R -- "${dotfiles_path}/terminfo/r/*" "${HOME}/.terminfo/r/"
+[[ -d "${DOTFILES}/terminfo/r" ]] && \
+  cp -R -- "${DOTFILES}/terminfo/r/*" "${HOME}/.terminfo/r/"
 
 # Install all uncompiled terminfo files, e.g.
 # - xterm-256color-italic for iterm2
 # - tmux-256color for tmux
-find "${dotfiles_path}/terminfo/" -name '*.terminfo' -exec tic -x {} \;
+find "${DOTFILES}/terminfo/" -name '*.terminfo' -exec tic -x {} \;
