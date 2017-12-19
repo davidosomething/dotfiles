@@ -30,6 +30,15 @@ git clone --recurse-submodules https://github.com/davidosomething/dotfiles ~/.do
 After symlinking, `~/.dotfiles/bootstrap/cleanup` can detect and move
 pre-existing dotfiles that might conflict with these.
 
+### Using a different repository path
+
+Installation assumes the repo is in `~/.dotfiles` but you can provide
+a different path setting the `DOTFILES` environment variable beforehand:
+
+```sh
+DOTFILES=~/.dot ~/.dot/bootstrap/symlink
+```
+
 ### Post-Installation
 
 #### Recommended steps
@@ -65,7 +74,7 @@ scripts.
 ### Provisioning scripts
 
 These will assist in installing packages and dotfiles. Best to have the
-Environment set up first.
+environment set up first.
 
 - `bootstrap/cleanup` moves some dotfiles into their XDG Base Directory
   supported directories
@@ -107,8 +116,9 @@ Use `u` without arguments for usage.
     - Never `sudo gem`. Set up a [chruby] env first, and then you can install
       gems into the userspace local to the active ruby env.
 - `vim/`
-    - If `curl` is available, [vim-plug](https://github.com/junegunn/vim-plug)
-      can automatically download and install itself on first run. See
+    - If `curl` and `git` are available,
+      [vim-plug](https://github.com/junegunn/vim-plug) can automatically
+      download and install itself on first run. See
       [vim/README.md](vim/README.md) for more information.
 
 ### rc script source order
