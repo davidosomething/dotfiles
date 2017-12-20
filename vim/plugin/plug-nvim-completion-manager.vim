@@ -6,7 +6,9 @@ augroup dkoncm
   " autocmd dkoncm User CmSetup   echomsg 'nvim-completion-manager loaded'
 augroup END
 
-if !dkoplug#Exists('nvim-completion-manager') | finish | endif
+if !g:dko_use_completion || !dkoplug#Exists('nvim-completion-manager')
+  finish
+endif
 
 " wait 1ms before running the completion function, make sure typing is never
 " clobbered
