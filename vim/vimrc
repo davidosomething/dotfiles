@@ -22,7 +22,7 @@ let g:mapleader = "\<Space>"
 let g:dko_rtp_original = &runtimepath
 
 " Plugin settings
-let g:dko_use_completion = has('nvim') && has('python3') && has('pyenv')
+let g:dko_use_completion = has('nvim') && has('python3') && executable('pyenv')
 let g:dko_use_js_langserver = executable('javascript-typescript-stdio')
 let g:dko_use_tern_lsp = g:dko_use_completion && executable('npm')
 let g:dko_use_composer = g:dko_use_completion && executable('composer')
