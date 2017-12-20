@@ -31,28 +31,27 @@ function! dkoline#GetTabline() abort
   " Right side
   " ==========================================================================
 
-  let l:contents .= '%#StatusLine# %= '
+  " Leave 24 chars for search
+  let l:maxwidth = float2nr(&columns) - 24
+  let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
+  let l:contents .= '%#StatusLine# %= %0.' . l:maxwidth . '('
 
   let l:project_root = dko#IsHelp(l:bufnr) || dko#IsNonFile(l:bufnr)
         \ ? '' : dko#ShortenPath(dko#project#GetRoot(), 0)
-  let l:maxwidth = float2nr(&columns / 2) - 24
-  let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
 
   let l:contents .= dkoline#Format(
         \   dkoline#ShortPath(l:bufnr, l:cwd, 0),
-        \   '%#dkoStatusKey# ʟᴄᴅ %#dkoStatusValue#%0.' . l:maxwidth . '(',
-        \   '%)'
-        \ )
+        \   '%#dkoStatusKey# ʟᴄᴅ %#dkoStatusValue#')
 
   let l:contents .= dkoline#Format(
         \   l:project_root,
-        \   '%#dkoStatusKey# ᴘʀᴏᴊ %#dkoStatusValue#%0.' . l:maxwidth . '(',
-        \   '%)'
-        \ )
+        \   '%#dkoStatusKey# ᴘʀᴏᴊ %#dkoStatusValue#')
 
   let l:contents .= dkoline#Format(
         \ dkoline#GitBranch(l:bufnr),
         \ '%#dkoStatusKey# ʙʀᴀɴᴄʜ %#dkoStatusValue#')
+
+  let l:contents .= '%)'
 
   " ==========================================================================
 
