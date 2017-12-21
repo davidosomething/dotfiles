@@ -28,7 +28,5 @@ if g:dko_use_completion && dkoplug#IsLoaded('jspc.vim')
   set omnifunc=
 endif
 
-nmap <buffer> gf <Plug>(enhanced-resolver)
-
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
