@@ -15,8 +15,8 @@ function! s:GetRoot() abort
   return dko#project#GetRoot()
 endfunction
 
-" @return {String} test specs dir
-function! s:GetSpecs() abort
+" @return {String} tests dir
+function! s:GetTests() abort
   return dko#project#GetDir('tests')
 endfunction
 
@@ -123,11 +123,11 @@ command! FZFMRU
 " Test specs
 " ----------------------------------------------------------------------------
 
-command! FZFSpecs
-      \ call fzf#run(fzf#wrap('Specs',
+command! FZFTests
+      \ call fzf#run(fzf#wrap('Tests',
       \   fzf#vim#with_preview(extend({
-      \     'source':   dko#ShortPaths(dko#tests#FindSpecs()),
-      \     'options':  s:options . ' --prompt="Specs> "',
+      \     'source':   dko#ShortPaths(dko#tests#FindTests()),
+      \     'options':  s:options . ' --prompt="Tests> "',
       \   }, g:fzf_layout), 'right:50%')
       \ ))
 
