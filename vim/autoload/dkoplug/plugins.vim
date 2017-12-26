@@ -174,7 +174,9 @@ function! dkoplug#plugins#LoadAll() abort
 
   " The language client completion is a bit slow to kick in, but it works
   if has('mac')
-    Plug 'autozimu/LanguageClient-neovim', {'tag': 'binary-*-x86_64-apple-darwin' }
+    Plug 'autozimu/LanguageClient-neovim', WithCompl({
+          \   'tag': 'binary-*-x86_64-apple-darwin'
+          \ })
   else
     Plug 'autozimu/LanguageClient-neovim', WithCompl({
           \   'branch': 'next',
