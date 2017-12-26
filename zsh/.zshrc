@@ -347,7 +347,7 @@ if [[ "$ITERM_PROFILE" == "PROFILE"* ]] \
   unsetopt xtrace
   exec 2>&3 3>&-
   echo "==> ZSH startup log written to"
-  echo "    ${HOME}/tmp/startlog.$$"
+  echo "    ${HOME}/.cache/zlog.$$"
 fi
 
 # ============================================================================

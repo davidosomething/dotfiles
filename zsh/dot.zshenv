@@ -15,9 +15,8 @@ if [[ "$ITERM_PROFILE" == "PROFILE"* ]] \
   export DKO_PROFILE_STARTUP="${DKO_PROFILE_STARTUP:-1}"
   echo "==> Profiling ZSH startup"
   # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
-  mkdir -p "${HOME}/tmp"
   PS4=$'%D{%M%S%.} %N:%i> '
-  exec 3>&2 2>"${HOME}/tmp/startlog.$$"
+  exec 3>&2 2>"${HOME}/.cache/zlog.$$"
   setopt xtrace prompt_subst
 fi
 
