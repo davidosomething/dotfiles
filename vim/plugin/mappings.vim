@@ -13,10 +13,6 @@ scriptencoding utf-8
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
-augroup dkomappings
-  autocmd!
-augroup END
-
 " ============================================================================
 " My abbreviations and autocorrect
 " ============================================================================
@@ -104,16 +100,6 @@ nnoremap <special>  <Leader>v :<C-U>vnew<CR>
 " ----------------------------------------------------------------------------
 
 nnoremap  <special>   <BS>  <C-^>
-
-" Disabled for certain buffers
-function! s:UnmapNormalBackspace() abort
-  if &buftype ==# 'quickfix'
-        \ || &buftype ==# 'nofile'
-        \ || &filetype ==# 'gitcommit'
-    nnoremap <buffer><special> <BS> <Nop>
-  endif
-endfunction
-autocmd dkomappings BufEnter * call s:UnmapNormalBackspace()
 
 " ============================================================================
 " Window manipulation
@@ -223,25 +209,14 @@ vnoremap  <special>   <Up>        gk
 " Start/EOL
 " ----------------------------------------------------------------------------
 
+    "
+
 " Easier to type, and I never use the default behavior.
 " From https://bitbucket.org/sjl/dotfiles/
 " default is {count}from top line in visible window
 noremap   H   ^
 " default is {count}from last line in visible window
 noremap   L   g_
-
-" ----------------------------------------------------------------------------
-" Allow [[ open,  [] close, back/forward to curly brace in any column
-" see :h section
-" REMOVED since some default runtimes include their own matches
-" e.g. PHP has a setting in
-" https://github.com/neovim/neovim/blob/master/runtime/ftplugin/php.vim
-" ----------------------------------------------------------------------------
-
-" map     [[  ?{<CR>w99[{
-" map     []  k$][%?}<CR>
-"map    ][  /}<CR>b99]}
-"map    ]]  j0[[%/{<CR>
 
 " ----------------------------------------------------------------------------
 " Reselect visual block after indent
@@ -275,8 +250,8 @@ xnoremap  <special> <Leader>s   :!sort<CR>
 " ----------------------------------------------------------------------------
 
 " mark Q, visual, inner-word case, back to mark (don't change cursor position)
-nnoremap  <special> <Leader>l   mQviwu`Q
-nnoremap  <special> <Leader>u   mQviwU`Q
+nnoremap  <special> <Leader>l   viwu
+nnoremap  <special> <Leader>u   viwU
 
 " ----------------------------------------------------------------------------
 " Join lines without space (and go to first char line that was merged up)
