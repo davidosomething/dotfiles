@@ -220,19 +220,6 @@ vnoremap  <special>   <Down>      gj
 vnoremap  <special>   <Up>        gk
 
 " ----------------------------------------------------------------------------
-" Replace PgUp and PgDn with Ctrl-U/D
-" ----------------------------------------------------------------------------
-
-noremap   <special>   <PageUp>    <C-U>
-noremap   <special>   <PageDown>  <C-D>
-
-" same in insert mode, but stay in insert mode (needs recursive)
-silent! iunmap <PageUp>
-silent! iunmap <PageDown>
-imap <special> <PageUp>    <C-o><PageUp>
-imap <special> <PageDown>  <C-o><PageDown>
-
-" ----------------------------------------------------------------------------
 " Start/EOL
 " ----------------------------------------------------------------------------
 
