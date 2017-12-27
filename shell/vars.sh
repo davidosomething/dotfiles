@@ -109,6 +109,9 @@ export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
 export AWS_CONFIG_FILE="${DOTFILES}/aws/config"
 # credentials are per system
 
+# babel.js
+export BABEL_CACHE_PATH="${XDG_CACHE_HOME}/babel"
+
 # bazaar
 export BZRPATH="${XDG_CONFIG_HOME}/bazaar"
 export BZR_PLUGIN_PATH="${XDG_DATA_HOME}/bazaar"
