@@ -25,8 +25,15 @@ if g:dko_use_completion && dkoplug#IsLoaded('jspc.vim')
   " jspc#omni normally extends javascriptcomplete on param pattern match.
   " Unset the omnifunc so it doesn't extend anything. This way only paramter
   " completion is forwarded to NCM
-  set omnifunc=
+  setlocal omnifunc=
 endif
+
+" Set up native eslint making so we can debug eslint configs
+setlocal makeprg=npx\ eslint\ -f\ compact\ %
+setlocal errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
+setlocal errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
+setlocal errorformat+=%-G\s%#
+setlocal errorformat+=%-G\s%#%\\d%\\+\ problems%#
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
