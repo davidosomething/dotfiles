@@ -86,6 +86,7 @@ function! s:GetFzfVimSource() abort
   let l:runtime_dirs_files = globpath(g:dko#vim_dir, '{' . join([
         \   'after',
         \   'autoload',
+        \   'colors',
         \   'ftplugin',
         \   'mine',
         \   'plugin',

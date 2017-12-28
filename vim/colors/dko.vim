@@ -114,7 +114,9 @@ hi! link SignColumn     LineNr
 
 hi! link ColorColumn    dkoBgAlt
 hi! link CursorColumn   dkoBgAlt
-hi! link CursorLine     dkoBgAlt
+
+" current line
+hi! link CursorLine     dkoLight
 
 " ============================================================================
 " Status and tab line
