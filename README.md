@@ -62,7 +62,7 @@ Install these using the system package manager. For macOS/OS X there are helper
 scripts.
 
 - `chruby`, `ruby-install`, then use `ruby-install` to install a version of
-  ruby (preferably latest)
+  ruby (preferably latest, and into `~/.config/rubies/ruby-1.2.3` using flags)
 - Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
   `npm install --global npm@latest`)
