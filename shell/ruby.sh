@@ -25,5 +25,8 @@ __dko_source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" \
   && DKO_SOURCE="${DKO_SOURCE} -> chruby"
 __dko_source "${CHRUBY_PREFIX}/share/chruby/auto.sh"
 
+RUBIES+=( "${XDG_CONFIG_HOME}"/rubies/* )
+export RUBIES
+
 export DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh :
