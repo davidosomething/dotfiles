@@ -283,10 +283,14 @@ hi! link pandocUListItemBullet          Normal
 " PHP
 " ============================================================================
 
+hi! link phpClass             Identifier
 hi! link phpType              Normal
 hi! link phpDocTags           dkoJavaDocTag
 hi! link phpDocParam          dkoJavaDocType
 hi! link phpDocIdentifier     dkoJavaDocKey
+hi! link phpInclude           Statement
+hi! link phpMemberSelector    Noise
+hi! link phpVarSelector       Type
 
 " ============================================================================
 " Python
