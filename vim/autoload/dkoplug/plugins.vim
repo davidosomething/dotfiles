@@ -221,9 +221,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion: Java
   " --------------------------------------------------------------------------
 
-  " Saves file every time completions are requested due to eclim limitations
-  "Plug 'sassanh/nvim-cm-eclim', WithCompl()
-
   " Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
   "       \   'do': 'cd -- libs/javavi/ && mvn compile',
   "       \   'for': [ 'java' ],
@@ -365,12 +362,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Creates html.handlebars and other fts and sets syn
   Plug 'mustache/vim-mustache-handlebars'
-
-  " ==========================================================================
-  " Language: Java
-  " ==========================================================================
-
-  Plug 'dansomething/vim-eclim', { 'for': [ 'java' ] }
 
   " ==========================================================================
   " Language: JavaScript and derivatives, JSON
