@@ -24,6 +24,7 @@ endfunction
 function! s:SetByShebang() abort
   let l:shebang = getline(1)
   if l:shebang =~# '^#!.*/.*\s\+node\>' | setfiletype javascript | endif
+  if l:shebang =~# '^#!.*/.*\s\+zsh\>' | setfiletype zsh | endif
 endfunction
 
 " For filetypes that can be detected by filename (option C in the docs for
@@ -51,17 +52,12 @@ augroup filetypedetect
 
   autocmd! BufNewFile,BufRead *.md setfiletype markdown.pandoc
 
-  autocmd! BufNewFile,BufRead
-        \ .babelrc,.bowerrc,.jshintrc,*.tern-config
-        \ setfiletype json
+  autocmd! BufNewFile,BufRead .babelrc,.bowerrc,.jshintrc setfiletype json
+  autocmd! BufNewFile,BufRead *.tern-config,.tern-config setfiletype json
 
-  autocmd! BufNewFile,BufRead
-        \ .eslintrc,.stylelintrc
-        \ call s:SetJSONorYAML()
+  autocmd! BufNewFile,BufRead .eslintrc,.stylelintrc call s:SetJSONorYAML()
 
-  autocmd! BufNewFile,BufRead
-        \ */nginx*.conf,/*/nginx*.conf
-        \ setfiletype nginx
+  autocmd! BufNewFile,BufRead */nginx*.conf,/*/nginx*.conf setfiletype nginx
 
   autocmd! BufNewFile,BufRead *.plist setfiletype xml
 
@@ -71,4 +67,5 @@ augroup filetypedetect
   " ironic that it doesn't use a .yml/.yaml extension
   autocmd! BufNewFile,BufRead .yamllint setfiletype yaml
 
+  autocmd! BufNewFile,BufRead .zprofile setfiletype zsh
 augroup END
