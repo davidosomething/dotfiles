@@ -96,14 +96,24 @@ nnoremap <special> <A-l>      <C-w>l
 " Skips if python is not installed in a pyenv virtualenv
 " ============================================================================
 
+function! s:FindExecutable(paths) abort
+  for l:path in a:paths
+    let l:executable = glob(expand(l:path))
+    if executable(l:executable) | return l:executable | endif
+  endfor
+  return ''
+endfunction
+
 " ----------------------------------------------------------------------------
 " Python 2
 " ----------------------------------------------------------------------------
 
-let s:pyenv_python2 = glob(expand('$PYENV_ROOT/versions/neovim2/bin/python'))
-if !empty(s:pyenv_python2)
-  " CheckHealth and docs are inconsistent
-  let g:python_host_prog  = s:pyenv_python2
+let s:pyenv_py2 = s:FindExecutable([
+      \   '$PYENV_ROOT/versions/neovim2/bin/python',
+      \   '/usr/bin/python2',
+      \ ])
+if !empty(s:pyenv_py2)
+  let g:python_host_prog  = s:pyenv_py2
 else
   let g:loaded_python_provider = 1
 endif
@@ -112,9 +122,12 @@ endif
 " Python 3
 " ----------------------------------------------------------------------------
 
-let s:pyenv_python3 = glob(expand('$PYENV_ROOT/versions/neovim3/bin/python'))
-if !empty(s:pyenv_python3)
-  let g:python3_host_prog = s:pyenv_python3
+let s:pyenv_py3 = s:FindExecutable([
+      \   '$PYENV_ROOT/versions/neovim3/bin/python',
+      \   '/usr/bin/python3',
+      \ ])
+if !empty(s:pyenv_py3)
+  let g:python3_host_prog = s:pyenv_py3
 else
   let g:loaded_python3_provider = 1
 endif
