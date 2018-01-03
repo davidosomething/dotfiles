@@ -39,13 +39,22 @@ function! dkoline#GetTabline() abort
   let l:project_root = dko#IsHelp(l:bufnr) || dko#IsNonFile(l:bufnr)
         \ ? '' : dko#ShortenPath(dko#project#GetRoot(), 0)
 
-  let l:contents .= dkoline#Format(
-        \   dkoline#ShortPath(l:bufnr, l:cwd, 0),
-        \   '%#dkoStatusKey# ʟᴄᴅ %#dkoStatusValue#')
+  let l:lcd = dkoline#ShortPath(l:bufnr, l:cwd, 0)
+
+  let l:cdkey = 'ʟᴄᴅ'
+  if l:lcd ==# l:project_root
+    let l:cdkey .= '/ᴘʀᴏᴊ'
+  endif
 
   let l:contents .= dkoline#Format(
-        \   l:project_root,
-        \   '%#dkoStatusKey# ᴘʀᴏᴊ %#dkoStatusValue#')
+        \   l:lcd,
+        \   '%#dkoStatusKey# ' . l:cdkey . ' %#dkoStatusValue#')
+
+  if l:lcd !=# l:project_root
+    let l:contents .= dkoline#Format(
+          \   l:project_root,
+          \   '%#dkoStatusKey# ᴘʀᴏᴊ %#dkoStatusValue#')
+  endif
 
   let l:contents .= dkoline#Format(
         \ dkoline#GitBranch(l:bufnr),
