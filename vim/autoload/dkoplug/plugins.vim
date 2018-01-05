@@ -325,9 +325,6 @@ function! dkoplug#plugins#LoadAll() abort
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
 
-  " fork of https://github.com/kien/rainbow_parentheses.vim
-  Plug 'junegunn/rainbow_parentheses.vim'
-
   " ==========================================================================
   " Language: bash/shell/zsh
   " ==========================================================================
