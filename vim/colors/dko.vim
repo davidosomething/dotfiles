@@ -55,7 +55,7 @@ hi! Type                              guifg=#dddddd gui=NONE
 hi! Underlined                        guifg=#88aaee gui=underline
 hi! Visual              guibg=#afa08f guifg=#1f1f1f
 hi! WarningMsg                        guifg=#ccaa88
-hi! Whitespace          guibg=#ccaa88 guifg=#eeddaa
+hi! Whitespace          guibg=#1c1c1c guifg=#333333
 
 hi! link Character      Normal
 hi! link Conditional    Normal
