@@ -60,7 +60,7 @@ hi! Whitespace          guibg=#1c1c1c guifg=#333333
 hi! link Character      Normal
 hi! link Conditional    Normal
 hi! link Directory      Identifier
-hi! link Folded         dkoLight
+hi! link Folded         dkoBgLight
 hi! link Include        Normal
 hi! link Keyword        Normal
 
@@ -69,13 +69,14 @@ hi! link Keyword        Normal
 " ============================================================================
 
 hi! dkoBgAlt            guibg=#24252a
-hi! dkoLight            guibg=#303135
+hi! dkoBgLight          guibg=#303135
 
 hi! dkoDecorations                    guifg=#505a6a
 hi! dkoRegex                          guifg=#cc99cc
 hi! dkoReturn                         guifg=#cc8877 gui=italic
 hi! dkoQuote                          guifg=#77aa88 gui=italic
 hi! dkoWarningText      guibg=#2c2b2a guifg=#ddaa66 gui=bold
+hi! dkoNormalKey                      guifg=#ccccbb
 
 hi! dkoStatus           guibg=#30313c               gui=NONE
 hi! dkoStatusNC         guibg=#262631               gui=NONE
@@ -116,7 +117,7 @@ hi! link ColorColumn    dkoBgAlt
 hi! link CursorColumn   dkoBgAlt
 
 " current line
-hi! link CursorLine     dkoLight
+hi! link CursorLine     dkoBgLight
 
 " ============================================================================
 " Status and tab line
@@ -139,7 +140,7 @@ hi! link dkoLineNeomakeRunning    dkoLineImportant
 " Popup menu
 " ============================================================================
 
-hi! link Pmenu          dkoLight
+hi! link Pmenu          dkoBgLight
 hi! PmenuSel            guibg=#404044
 " popup menu scrollbar
 hi! link PmenuSbar      PmenuSel
@@ -213,7 +214,7 @@ hi! link jsRegexpCharClass    dkoRegex
 hi! link jsRegexpString       dkoRegex
 
 hi! link jsGlobalObjects      Normal
-hi! link jsGlobalNodeObjects  Normal
+hi! link jsGlobalNodeObjects  dkoNormalKey
 hi! link jsFuncArgOperator    Operator
 hi! link jsModuleKeyword      String
 hi! link jsNull               Constant
@@ -249,12 +250,14 @@ hi! link jsFuncArgs           Identifier
 
 hi! link jsBracket            Identifier
 hi! link jsSpreadExpression   Identifier
-hi! link jsDestructuringBlock Identifier
+hi! link jsDestructuringBlock dkoNormalKey
 
 hi! link jsObject             Identifier
-hi! link jsObjectKey          Identifier
+hi! link jsObjectKey          dkoNormalKey
 hi! link jsObjectKeyComputed  String
 hi! link jsObjectProp         Normal
+
+hi! link jsxAttrib            dkoNormalKey
 
 " ============================================================================
 " JSON
@@ -402,7 +405,7 @@ hi! link zshOption            Normal
 " ============================================================================
 
 hi! qfError                                 guifg=#772222
-hi! link QuickFixLine dkoLight
+hi! link QuickFixLine dkoBgLight
 hi! link qfFileName   SpecialComment
 hi! link qfLineNr     Comment
 hi! link qfSeparator  dkoDecorations
