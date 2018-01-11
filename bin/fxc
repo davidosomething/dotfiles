@@ -9,13 +9,13 @@ __fxc() {
   local version
 
   current=$(xcode-select --print-path)
-  version=$(find /Applications -maxdepth 1 -iname 'XCode*.app' | fzf-tmux \
+  version=$(find /Applications -maxdepth 1 -iname 'Xcode*.app' | fzf-tmux \
     +m \
     --cycle \
     --exit-0 \
     --height=25% \
     --nth=1 \
     --prompt="$current> ") \
-  && xcode-select --switch "${version}/Contents/Developer"
+  && sudo xcode-select --switch "${version}"
 }
 __fxc
