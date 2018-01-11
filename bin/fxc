@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#
+# fxc - XCode version switcher
+# Uses fzf
+# @see <https://github.com/junegunn/fzf/wiki/examples>
+
+__fxc() {
+  local current
+  local version
+
+  current=$(xcode-select --print-path)
+  version=$(find /Applications -maxdepth 1 -iname 'XCode*.app' | fzf-tmux \
+    +m \
+    --cycle \
+    --exit-0 \
+    --height=25% \
+    --nth=1 \
+    --prompt="$current> ") \
+  && xcode-select --switch "${version}/Contents/Developer"
+}
+__fxc
