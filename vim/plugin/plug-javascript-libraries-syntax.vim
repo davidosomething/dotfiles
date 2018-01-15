@@ -7,7 +7,7 @@ if !dkoplug#Exists('javascript-libraries-syntax.vim') | finish | endif
 "let g:used_javascript_libs = 'jquery,underscore,backbone,chai,handlebars'
 
 let g:used_javascript_libs = 'underscore'
-let g:used_javascript_libs .= ',backbone'
+"let g:used_javascript_libs .= ',backbone'
 let g:used_javascript_libs .= ',chai'
 let g:used_javascript_libs .= ',handlebars'
-let g:used_javascript_libs .= ',jquery'
+"let g:used_javascript_libs .= ',jquery'

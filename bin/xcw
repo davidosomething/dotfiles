@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 
-find . -depth 1 -type d -iname '*.xcworkspace' -exec open {} \; \
-  || echo 'No *.xcworkspace found' && exit 1
+__xcw() {
+  local xcode_app="${$(xcode-select --print-path)/\/Contents\/Developer/}"
+  find . -depth 1 -type d -iname '*.xcworkspace' -exec open -a "${xcode_app}" {} \; \
+    || echo 'No *.xcworkspace found' && exit 1
+}
+__xcw "$@"
