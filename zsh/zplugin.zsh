@@ -5,9 +5,14 @@ DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
 # Needed first for turbo mode
 zplugin light 'zdharma/fast-syntax-highlighting'
 
-zplugin snippet --command 'https://github.com/davidosomething/git-ink/blob/master/git-ink'
-zplugin snippet --command 'https://github.com/davidosomething/git-my/blob/master/git-my'
-zplugin snippet --command 'https://github.com/davidosomething/git-take/blob/master/git-take'
+zplugin ice as"program" pick"git-ink"
+zplugin light davidosomething/git-ink
+
+zplugin ice as"program" pick"git-my"
+zplugin light davidosomething/git-my
+
+zplugin ice as"program" pick"git-take"
+zplugin light davidosomething/git-take
 
 # my fork of cdbk, ZSH hash based directory bookmarking
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
@@ -17,9 +22,14 @@ zplugin light 'davidosomething/cdbk'
 # Vendor: Commands
 # ----------------------------------------------------------------------------
 
-zplugin snippet --command 'https://github.com/paulirish/git-open/blob/master/git-open'
-zplugin snippet --command 'https://github.com/paulirish/git-recent/blob/master/git-recent'
-zplugin snippet --command 'https://github.com/raylee/tldr/blob/master/tldr'
+zplugin ice as"program" pick"git-open"
+zplugin light paulirish/git-open
+
+zplugin ice as"program" pick"git-recent"
+zplugin light paulirish/git-recent
+
+zplugin ice as"program" pick"raylee/tldr"
+zplugin light raylee/tldr
 
 # replaces up() in shell/functions.sh
 zplugin light 'shannonmoeller/up'
@@ -28,7 +38,7 @@ zplugin light 'shannonmoeller/up'
 # Vendor: ZSH extension
 # ----------------------------------------------------------------------------
 
-zplugin snippet 'https://github.com/robbyrussell/oh-my-zsh/raw/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh'
+zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
 # In-line best history match suggestion
 # don't suggest lines longer than
