@@ -56,6 +56,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
 zplugin light 'zsh-users/zsh-completions'
 
+zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)grad*]} ]]'
 zplugin light 'gradle/gradle-completion'
 
 zplugin light 'lukechilds/zsh-better-npm-completion'
@@ -64,8 +65,12 @@ zplugin light 'vasyharan/zsh-brew-services'
 
 zplugin light 'voronkovich/phpcs.plugin.zsh'
 
+
 [[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] \
-  && zplugin light "${TRAVIS_CONFIG_PATH}"
+  && {
+    zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)trav*]} ]]'
+    zplugin light "${TRAVIS_CONFIG_PATH}"
+  }
 
 # ----------------------------------------------------------------------------
 # zplugin management
