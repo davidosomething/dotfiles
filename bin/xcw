@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
 __xcw() {
-  local xcode_app="${$(xcode-select --print-path)/\/Contents\/Developer/}"
+  local xcode_path
+  xcode_path="$(xcode-select --print-path)"
+  local xcode_app
+  xcode_app="${xcode_path/\/Contents\/Developer/}"
   find . -depth 1 -type d -iname '*.xcworkspace' -exec open -a "${xcode_app}" {} \; \
     || echo 'No *.xcworkspace found' && exit 1
 }
