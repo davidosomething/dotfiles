@@ -12,13 +12,13 @@ __dko_same() {
   local sourcepath="$1"
   local targetpath="$2"
 
-  if ! __dko_has "realpath"; then
-    __dko_err "Missing realpath command (e.g. brew install coreutils)"
-    # http://www.tldp.org/LDP/abs/html/exitcodes.html
-    return 126
-  fi
-
   if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
+    if ! __dko_has "realpath"; then
+      __dko_err "Missing realpath command (e.g. brew install coreutils)"
+      # http://www.tldp.org/LDP/abs/html/exitcodes.html
+      return 126
+    fi
+
     local resolvedpath
     resolvedpath=$(realpath "$targetpath")
 
