@@ -4,6 +4,10 @@ cd -- "$(dirname "$0")/.." || exit 1
 __dotfiles_dir="$(pwd)"
 . "${__dotfiles_dir}/lib/pretty.bash"
 
+__dko_symlinking() {
+  printf '          \033[0;35m%s\033[0;m -> %s\033[0;m\n' "$1" "$2"
+}
+
 # symlinking helper function for ~/.dotfiles
 # $1 source file in $DOTFILES, assuming ${HOME}/.dotfiles
 # $2 dest file relative to $HOME
@@ -16,17 +20,26 @@ __dko_symlink() {
   local result=$?
 
   if (( result == 0 )); then
+    # properly symlinked
     return
-  elif (( result == 1 )); then
+  elif (( result == 10 )); then
     __dko_status "Found different ${fulltargetpath}"
     read -p "          Overwrite? [y/N] " -r
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    if [[ -n "$CI" ]] || [[ ! $REPLY =~ ^[Yy]$ ]]; then
       __dko_warn "Skipped ${fulltargetpath}"
       return
     fi
+    # OVERWRITE!
+  elif (( result == 20 )); then
+    # SYMLINK!
+    __dko_status "Will symlink"
+  else
+    # could not determine status
+    __dko_status "Skipping"
+    return
   fi
 
-  __dko_status "Symlinking \\033[0;35m${fulltargetpath}\\033[0;32m -> \\033[0;35m${sourcepath}\\033[0;32m "
+  __dko_symlinking "${fulltargetpath}" "${sourcepath}"
 
   targetdir="$(dirname "$fulltargetpath")"
   dko-maybemkdir "$targetdir" || return 1

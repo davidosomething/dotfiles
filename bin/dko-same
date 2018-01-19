@@ -14,7 +14,8 @@ __dko_same() {
 
   if ! __dko_has "realpath"; then
     __dko_err "Missing realpath command (e.g. brew install coreutils)"
-    return 1
+    # http://www.tldp.org/LDP/abs/html/exitcodes.html
+    return 126
   fi
 
   if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
@@ -27,12 +28,12 @@ __dko_same() {
     }
 
     __dko_warn "${targetpath} not linked to ${resolvedpath}"
-    return 1
+    return 10
   fi
 
   # does not exist
   __dko_ok "${targetpath} not found"
-  return 2
+  return 20
 }
 
 __dko_same "$@"

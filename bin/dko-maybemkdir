@@ -6,8 +6,11 @@ __dotfiles_dir="$(pwd)"
 
 __maybemkdir() {
   if [[ ! -d "$1" ]]; then
-    read -p "Directory ${1} does not exist, create? [y/N] " -r
-    [[ ! $REPLY =~ ^[Yy]$ ]] && return 1
+    __dko_status "Directory ${1} does not exist."
+    if [[ -z "$CI" ]]; then
+      read -p "          Create? [y/N] " -r
+      [[ ! $REPLY =~ ^[Yy]$ ]] && return 1
+    fi
     mkdir -p -- "$1" && __dko_ok "Created ${1}"
   fi
 }
