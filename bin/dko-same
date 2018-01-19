@@ -14,7 +14,8 @@ __dko_same() {
 
   if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
     if ! __dko_has "realpath"; then
-      __dko_err "Missing realpath command (e.g. brew install coreutils)"
+      __dko_err   "$targetpath exists but unable to determine if it is properly linked."
+      __dko_err_  "Please install the 'realpath' command (e.g. 'brew install coreutils')."
       # http://www.tldp.org/LDP/abs/html/exitcodes.html
       return 126
     fi
@@ -23,7 +24,7 @@ __dko_same() {
     resolvedpath=$(realpath "$targetpath")
 
     [[ "$resolvedpath" == "$sourcepath" ]] && {
-      __dko_ok "${targetpath} links ${resolvedpath}"
+      __dko_status "${targetpath} already linked to ${resolvedpath}"
       return 0
     }
 
@@ -32,7 +33,7 @@ __dko_same() {
   fi
 
   # does not exist
-  __dko_ok "${targetpath} not found"
+  __dko_status "${targetpath} not found"
   return 20
 }
 

@@ -5,7 +5,7 @@ __dotfiles_dir="$(pwd)"
 . "${__dotfiles_dir}/lib/pretty.bash"
 
 __dko_symlinking() {
-  printf '          \033[0;35m%s\033[0;m -> %s\033[0;m\n' "$1" "$2"
+  printf '\033[0;32m==> OK:   \033[0;35m%s\033[0;m -> %s\033[0;m\n' "$1" "$2"
 }
 
 # symlinking helper function for ~/.dotfiles
@@ -30,12 +30,8 @@ __dko_symlink() {
       return
     fi
     # OVERWRITE!
-  elif (( result == 20 )); then
-    # SYMLINK!
-    __dko_status "Will symlink"
-  else
+  elif (( result != 20 )); then
     # could not determine status
-    __dko_status "Skipping"
     return
   fi
 
