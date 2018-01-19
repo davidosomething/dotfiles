@@ -551,6 +551,15 @@ __dko_dotfiles__darwin__update_brew_done() {
 }
 
 # pass any arg to silence
+__dko_dotfiles__darwin__require_latest_xcode() {
+  local latest_xcode="9.2"
+  xcodebuild -version | grep -q "$latest_xcode" && return 0
+  (( $# == 0 )) \
+    && __dko_err "Using an outdated Xcode, please install/switch to latest version."
+  return 1
+}
+
+# pass any arg to silence
 __dko_dotfiles__darwin__require_brew() {
   __dko_has "brew" && return 0
   (( $# == 0 )) && __dko_warn "Homebrew is not installed"
@@ -558,6 +567,7 @@ __dko_dotfiles__darwin__require_brew() {
 }
 
 __dko_dotfiles__darwin__update_brew() {
+  __dko_dotfiles__darwin__require_latest_xcode || return 1
   __dko_dotfiles__darwin__require_brew || return 1
 
   __dko_status "Updating homebrew"
