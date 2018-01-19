@@ -28,7 +28,8 @@
     "lint:vim:plugin": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"    && vint -- vim/plugin && echo ' ✓ passed\n'",
     "lint:yaml": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"          && yamllint -- . && echo ' ✓ passed\n'",
     "pretest": "npm run --silent lint",
-    "test": "echo ' DONE '"
+    "test": "./bootstrap/symlink",
+    "posttest": "echo DONE"
   },
   "repository": {
     "type": "git",

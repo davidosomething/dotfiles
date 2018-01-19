@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-__dotfiles_dir="${HOME}/.dotfiles"
+cd -- "$(dirname "$0")/.." || exit 1
+__dotfiles_dir="$(pwd)"
 . "${__dotfiles_dir}/lib/helpers.sh"
 . "${__dotfiles_dir}/lib/pretty.bash"
 
@@ -11,27 +12,29 @@ __dko_same() {
   local sourcepath="$1"
   local targetpath="$2"
 
-  if ! __dko_has "realpath"; then
-    __dko_err "Missing realpath command (e.g. brew install coreutils)"
-    return 1
-  fi
-
   if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
+    if ! __dko_has "realpath"; then
+      __dko_err   "$targetpath exists but unable to determine if it is properly linked."
+      __dko_err_  "Please install the 'realpath' command (e.g. 'brew install coreutils')."
+      # http://www.tldp.org/LDP/abs/html/exitcodes.html
+      return 126
+    fi
+
     local resolvedpath
     resolvedpath=$(realpath "$targetpath")
 
     [[ "$resolvedpath" == "$sourcepath" ]] && {
-      __dko_ok "${targetpath} links ${resolvedpath}"
+      __dko_status "${targetpath} already linked to ${resolvedpath}"
       return 0
     }
 
     __dko_warn "${targetpath} not linked to ${resolvedpath}"
-    return 1
+    return 10
   fi
 
   # does not exist
-  __dko_ok "${targetpath} not found"
-  return 2
+  __dko_status "${targetpath} not found"
+  return 20
 }
 
 __dko_same "$@"
