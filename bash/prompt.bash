@@ -27,31 +27,30 @@ __prompt_git() {
 # __bash_prompt
 #
 __bash_prompt() {
-  local Z="\[\033[0m\]"
-  #local K="\[\033[0;30m\]"
-  #local R="\[\033[0;31m\]"
-  local G="\[\033[0;32m\]"
-  local Y="\[\033[0;33m\]"
-  local B="\[\033[0;34m\]"
-  local P="\[\033[0;35m\]"
-  local C="\[\033[0;36m\]"
-  local W="\[\033[0;37m\]"
+  local Z='\[\033[0m\]'
+  #local K='\[\033[0;30m\]'
+  #local R='\[\033[0;31m\]'
+  local G='\[\033[0;32m\]'
+  local Y='\[\033[0;33m\]'
+  local B='\[\033[0;34m\]'
+  local P='\[\033[0;35m\]'
+  local C='\[\033[0;36m\]'
+  local W='\[\033[0;37m\]'
 
   # USERNAME: white if root, green normal
-  local USER="$G\u"
-  [[ "$USER" = "root" ]] && USER="$W\u"
+  local USER="${G}\\u"
+  [[ "$USER" = "root" ]] && USER="${W}\\u"
 
   # HOST: white if remote, green if local
-  local HOST="$W\h"
-  [[ -z "$SSH_CONNECTION" ]] && HOST="$G\h"
+  local HOST="${W}\\h"
+  [[ -z "$SSH_CONNECTION" ]] && HOST="${G}\\h"
 
-  local DIR="$Y\w"
+  local DIR="${Y}\\w"
 
-  PS1="${USER}$B@${HOST}$C:${DIR}\n"
+  PS1="${USER}${B}@${HOST}${C}:${DIR}\\n"
   PS1+="${P}(\$(__prompt_git))"   # git repository details
   PS1+="${Z} "
   export PS1
 }
 
 __bash_prompt
-
