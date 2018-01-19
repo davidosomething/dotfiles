@@ -67,9 +67,9 @@ alias brc='b cask'
 alias bsvc='b services'
 alias bsvr='b services restart'
 
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
-alias chromium="/Applications/Chromium.app/Contents/MacOS/Chromium"
+alias chrome='open -a /Applications/Google\ Chrome.app'
+alias chrome-canary='open -a /Applications/Google\ Chrome\ Canary.app'
+alias chromium='open -a /Applications/Chromium.app'
 
 alias redstart='bsvc start redshift'
 alias redstop='bsvc stop redshift'
