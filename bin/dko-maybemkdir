@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-__dotfiles_dir="${HOME}/.dotfiles"
+cd -- "$(dirname "$0")/.." || exit 1
+__dotfiles_dir="$(pwd)"
 . "${__dotfiles_dir}/lib/pretty.bash"
 
 __maybemkdir() {
