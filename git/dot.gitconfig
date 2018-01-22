@@ -33,6 +33,7 @@
 	d       = diff
 	dc      = diff --cached
 	dino    = diff --name-only
+	dns     = diff --ignore-all-space
 
 	fo      = fetch origin
 
