@@ -4,6 +4,7 @@ if !dkoplug#IsLoaded('Extract') | finish | endif
 
 let g:extract_maxCount = 20
 let g:extract_useDefaultMappings = 0
+let g:extract_loadNCM = 1
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
