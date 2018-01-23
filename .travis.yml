@@ -6,6 +6,7 @@ sudo: false
 language: python
 os:
   - linux
+  - osx
 python:
   - '2.7'
 before_install:
