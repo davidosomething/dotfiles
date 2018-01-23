@@ -26,4 +26,3 @@ __dko_source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" \
 __dko_source "${CHRUBY_PREFIX}/share/chruby/auto.sh"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
-# vim: ft=sh :
