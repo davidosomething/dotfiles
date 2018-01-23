@@ -13,15 +13,17 @@ __dko_same() {
   local targetpath="$2"
 
   if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
-    if ! __dko_has "realpath"; then
+    local resolvedpath
+
+    if __dko_has "realpath"; then
+      resolvedpath=$(realpath "$targetpath")
+    elif __dko_has "readlink" && [[ "$(uname)" == "Darwin" ]]; then
+      resolvedpath=$(readlink "$targetpath")
+    else
       __dko_err   "$targetpath exists but unable to determine if it is properly linked."
-      __dko_err_  "Please install the 'realpath' command (e.g. 'brew install coreutils')."
       # http://www.tldp.org/LDP/abs/html/exitcodes.html
       return 126
     fi
-
-    local resolvedpath
-    resolvedpath=$(realpath "$targetpath")
 
     [[ "$resolvedpath" == "$sourcepath" ]] && {
       __dko_status "${targetpath} already linked to ${resolvedpath}"
