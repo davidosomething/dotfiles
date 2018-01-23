@@ -320,10 +320,26 @@ bindkey '^K' forward-word
 
 # <C-b> to open git branch menu
 __dko_has "fzf" && {
+  dko-zsh-widget-fzf-fasd() {
+    local dir
+    dir=$(fasd -d -l -R | fzf-tmux \
+      +m \
+      --cycle \
+      --exit-0 \
+      --height=25% \
+      --preview="echo \"{1}\" && ls -1 {1}" \
+      --prompt="cd> ") \
+    && cd "$dir" \
+    || return 1
+    zle accept-line
+  }
+  zle -N        dko-zsh-widget-fzf-fasd
+  bindkey '^G'  dko-zsh-widget-fzf-fasd
+
   dko-zsh-widget-fzf-branch() {
     if git rev-parse --git-dir >/dev/null 2>&1; then
       fbr
-      zle reset-prompt
+      zle accept-line
     fi
   }
   zle -N        dko-zsh-widget-fzf-branch
@@ -332,7 +348,7 @@ __dko_has "fzf" && {
   __dko_has "xcode-select" && {
     dko-zsh-widget-fzf-xcode() {
       fxc
-      zle reset-prompt
+      zle accept-line
     }
     zle -N        dko-zsh-widget-fzf-xcode
     bindkey '^X'  dko-zsh-widget-fzf-xcode
