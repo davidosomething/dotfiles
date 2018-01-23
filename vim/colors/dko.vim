@@ -210,6 +210,8 @@ hi! IndentGuidesOdd   guibg=#252527
 " JavaScript
 " ============================================================================
 
+hi! link jsBuiltins           Identifier
+
 hi! link jsRegexpCharClass    dkoRegex
 hi! link jsRegexpString       dkoRegex
 
