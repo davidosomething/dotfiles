@@ -72,6 +72,8 @@
 	st      = status
 	s       = status --short --branch
 
+	subup   = submodule update --init
+
 	t       = tag
 
 	track   = branch -u
