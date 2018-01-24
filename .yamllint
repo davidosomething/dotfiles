@@ -1,6 +1,7 @@
 ---
 extends: default
 ignore: |
+  node_modules/
   tmux/plugins/
   vim/vendor/
   zsh/.zplugin/
