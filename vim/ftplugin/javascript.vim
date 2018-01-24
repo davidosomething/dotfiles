@@ -29,7 +29,7 @@ if g:dko_use_completion && dkoplug#IsLoaded('jspc.vim')
 endif
 
 " Set up native eslint making so we can debug eslint configs
-setlocal makeprg=npx\ eslint\ -f\ compact\ %
+let &l:makeprg = 'cd ' . dko#project#GetRoot() . ' && npx eslint -f compact %'
 setlocal errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
 setlocal errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
 setlocal errorformat+=%-G\s%#

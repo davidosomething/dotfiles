@@ -11,6 +11,10 @@ function! dko#neomake#javascript#Setup() abort
   let b:did_dkoneomake_{l:safeft} = 1
 
   " ==========================================================================
+  " eslint path override
+  " ==========================================================================
+
+  " ==========================================================================
   " Configure NPX to run makers
   " ==========================================================================
 
@@ -18,6 +22,7 @@ function! dko#neomake#javascript#Setup() abort
         \   neomake#makers#ft#javascript#eslint(), {
         \     'ft': 'javascript',
         \     'maker': 'eslint',
+        \     'cwd': dko#project#GetRoot(),
         \     'when': '!empty(dko#project#javascript#GetEslintrc())',
         \   }))
 
@@ -25,6 +30,7 @@ function! dko#neomake#javascript#Setup() abort
         \   neomake#makers#ft#javascript#xo(), {
         \     'ft': 'javascript',
         \     'maker': 'xo',
+        \     'cwd': dko#project#GetRoot(),
         \     'when': 'get(b:, "PJ_file") && pj#HasDevDependency("xo")',
         \   }))
 
@@ -32,6 +38,7 @@ function! dko#neomake#javascript#Setup() abort
         \   neomake#makers#ft#javascript#jshint(), {
         \     'ft': 'javascript',
         \     'maker': 'jshint',
+        \     'cwd': dko#project#GetRoot(),
         \     'when': 'empty(dko#project#javascript#GetEslintrc()) '
         \             . ' && !empty(dko#project#GetFile(".jshintrc"))',
         \   }))
@@ -43,6 +50,7 @@ function! dko#neomake#javascript#Setup() abort
   "       \     'ft': 'javascript',
   "       \     'maker': 'flow',
   "       \     'args': [ '--from=vim' ],
+  "       \     'cwd': dko#project#GetRoot(),
   "       \     'when': '!empty(dko#project#GetFile(".flowconfig"))',
   "       \   }))
 
