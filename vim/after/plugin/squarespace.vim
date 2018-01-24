@@ -1,5 +1,7 @@
 " after/plugin/squarespace.vim
 
+if !exists('$SQSP') | finish | endif
+
 augroup squarespace
   autocmd!
 
@@ -9,4 +11,8 @@ augroup squarespace
           \ let g:neomake_java_checkstyle_xml =
           \   expand('$SQSP/squarespace-styleguide/squarespace-checkstyle.xml')
   endif
+
+  autocmd BufNewFile,BufReadPre */squarespace-v6/site-server/*
+        \ call dko#project#SetRoot(expand('$SQSP/squarespace-v6/site-server'))
+
 augroup END

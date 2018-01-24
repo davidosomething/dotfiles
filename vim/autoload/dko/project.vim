@@ -48,7 +48,7 @@ function! dko#project#GetRoot(...) abort
   let l:bufnr = a:0 && type(a:1) == v:t_dict && a:1['bufnr']
         \ ? a:1['bufnr'] : '%'
   let l:existing = getbufvar(l:bufnr, 'dko_project_root')
-  if l:existing | return l:existing | endif
+  if !empty(l:existing) | return l:existing | endif
 
   " Look for markers FIRST, that way we support things like browsing through
   " node_modules/ and monorepos
@@ -67,10 +67,14 @@ function! dko#project#GetRoot(...) abort
   return b:dko_project_root
 endfunction
 
+function! dko#project#SetRoot(root) abort
+  let b:dko_project_root = a:root
+endfunction
+
 " @return {Boolean} if gitroot and project root differ
 function! dko#project#IsMonorepo() abort
   if empty(dko#project#GetRoot()) | return 0 | endif
-  return b:dko_project_root !=# b:dko_project_gitroot
+  return b:dko_project_root !=# get(b:, 'dko_project_gitroot', '')
 endfunction
 
 " @param {String} file to get path to
@@ -181,7 +185,7 @@ function! dko#project#GetFile(filename) abort
   if empty(dko#project#GetRoot()) | return '' | endif
 
   let l:root = dko#project#IsMonorepo()
-        \ ? b:dko_project_gitroot
+        \ ? get(b:, 'dko_project_gitroot', dko#project#GetRoot())
         \ : dko#project#GetRoot()
 
   " Try to use nearest first; up to the root

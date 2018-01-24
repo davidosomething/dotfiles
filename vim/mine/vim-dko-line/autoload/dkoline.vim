@@ -37,7 +37,7 @@ function! dkoline#GetTabline() abort
   let l:contents .= '%#StatusLine# %= %0.' . l:maxwidth . '('
 
   let l:project_root = dko#IsHelp(l:bufnr) || dko#IsNonFile(l:bufnr)
-        \ ? '' : dko#ShortenPath(dko#project#GetRoot(), 0)
+        \ ? '' : dko#ShortenPath(dko#project#GetRoot('%'), 0)
 
   let l:lcd = dkoline#ShortPath(l:bufnr, l:cwd, 0)
 
