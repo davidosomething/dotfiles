@@ -3,6 +3,7 @@
     "config:base"
   ],
   "baseBranch": "dev",
+  "pinVersions": false,
   "peerDependencies": {
     "enabled": true
   }
