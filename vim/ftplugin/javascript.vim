@@ -29,11 +29,14 @@ if g:dko_use_completion && dkoplug#IsLoaded('jspc.vim')
 endif
 
 " Set up native eslint making so we can debug eslint configs
-let &l:makeprg = 'cd ' . dko#project#GetRoot() . ' && npx eslint -f compact %'
 setlocal errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
 setlocal errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
 setlocal errorformat+=%-G\s%#
 setlocal errorformat+=%-G\s%#%\\d%\\+\ problems%#
+let &l:makeprg = 'cd ' . dko#project#GetRoot() . ' && npx eslint -f compact %'
+
+" Automatically try these file extensions when gf to a word without extension
+setlocal suffixesadd+=.js,.vue,.json,.jsx,.ts,.tsx
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
