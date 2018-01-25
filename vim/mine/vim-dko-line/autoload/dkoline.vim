@@ -88,16 +88,20 @@ function! dkoline#GetStatusline(winnr) abort
   " Left side
   " ==========================================================================
 
-  let l:contents .= '%#StatusLine# ' . dkoline#Mode(l:winnr)
+  let l:contents .= '%#StatusLineNC# ' . dkoline#Mode(l:winnr)
 
   " Filebased
-  let l:contents .= dkoline#Format(dkoline#Filetype(l:bufnr), '%#StatusLine#')
+  let l:contents .= dkoline#Format(
+        \   dkoline#Filetype(l:bufnr),
+        \   (dkoline#If({ 'winnr': l:winnr }, l:x)
+        \     ? '%#dkoStatusValue#' : '%#StatusLineNC#' )
+        \ )
 
   let l:maxwidth = l:ww - 32
   let l:contents .= dkoline#Format(
         \   dkoline#Filename(l:bufnr, l:cwd),
         \   (dkoline#If({ 'winnr': l:winnr }, l:x)
-        \     ? '%#dkoStatusValue#' : '%#StatusLineNC#' )
+        \     ? '%#StatusLine#' : '%#StatusLineNC#' )
         \     . '%0.' . l:maxwidth . '(',
         \   '%)'
         \ )
@@ -170,7 +174,7 @@ endfunction
 " @return {String}
 function! dkoline#Mode(winnr) abort
   " blacklist
-  let l:modecolor = '%#TabLine#'
+  let l:modecolor = '%#StatusLineNC#'
 
   let l:modeflag = mode()
   if a:winnr != winnr()
