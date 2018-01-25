@@ -527,6 +527,7 @@ if exists('+autochdir')
           \ | if exists('b:save_cwd')
           \ |   execute 'cd' fnameescape(b:save_cwd)
           \ | endif
+          \ | unlet b:save_cwd
   augroup END
 endif
 
