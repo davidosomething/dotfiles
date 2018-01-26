@@ -53,6 +53,8 @@ brew install asciinema
 __dko_status "asciinema auth to link computer to account"
 brew install awscli
 brew install catimg
+# does not come with Docker.app
+brew install docker-completion
 
 # ============================================================================
 # vim
@@ -187,12 +189,6 @@ brew install yarn
 brew install bats shellcheck shfmt
 brew install tmux
 brew install zsh
-
-# ============================================================================
-# ethereum client
-# ============================================================================
-
-brew install ethereum/ethereum/ethereum
 
 # ============================================================================
 # OS
