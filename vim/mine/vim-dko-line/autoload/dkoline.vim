@@ -281,8 +281,7 @@ endfunction
 " @param {Int} bufnr
 " @return {String}
 function! dkoline#GitBranch(bufnr) abort
-  return dko#IsNonFile(a:bufnr)
-        \ || dko#IsHelp(a:bufnr)
+  return dko#IsNonFile(a:bufnr) || dko#IsHelp(a:bufnr)
         \ ? ''
         \ : dkoplug#IsLoaded('gina.vim') ? ' ' . gina#component#repo#branch() . ' '
         \ : dkoplug#IsLoaded('fugitive.vim') ? ' ' . fugitive#head(7) . ' '

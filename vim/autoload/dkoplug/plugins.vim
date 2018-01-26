@@ -67,7 +67,7 @@ function! dkoplug#plugins#LoadAll() abort
   " gK to lookup
   Plug 'keith/investigate.vim'
 
-  Plug 'lambdalisue/gina.vim', PlugIf(exists('v:null'))
+  "Plug 'lambdalisue/gina.vim', PlugIf(exists('v:null'))
 
   " :Bdelete to preserve windows
   Plug 'moll/vim-bbye'
