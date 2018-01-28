@@ -14,7 +14,7 @@
 "
 
 " Auto-enable pj on buffers and re-read on editing package.json
-if !exists('*json_decode') | finish | endif
+if !exists('*json_decode') || !v:version == 800 | finish | endif
 
 " ============================================================================
 " Reset
