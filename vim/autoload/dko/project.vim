@@ -45,7 +45,7 @@ let s:markers = [
 " @param {String} [file] from which to look upwards
 " @return {String} project root path or empty string
 function! dko#project#GetRoot(...) abort
-  let l:bufnr = a:0 && type(a:1) == v:t_dict && a:1['bufnr']
+  let l:bufnr = a:0 && type(a:1) == type({}) && a:1['bufnr']
         \ ? a:1['bufnr'] : '%'
   let l:existing = getbufvar(l:bufnr, 'dko_project_root')
   if !empty(l:existing) | return l:existing | endif
