@@ -368,7 +368,7 @@ set incsearch
 set wrapscan                          " Searches wrap around end of the file.
 set ignorecase
 " Follow smartcase and ignorecase when doing tag search
-if exists('+tagcase') | set tagcase=followscs | endif
+if exists('+tagcase') && has('patch-7.4.2230') | set tagcase=followscs | endif
 set smartcase
 
 if !empty(dko#GetGrepper())
