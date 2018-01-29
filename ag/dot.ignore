@@ -18,6 +18,7 @@ zsh/.zplugin/
 *.svg
 *.vim.old
 *-min.*
+*.xcbkptlist
 .bash_history
 .zcompdump
 bash_history
