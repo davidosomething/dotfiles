@@ -38,43 +38,28 @@ let s:options = ' --cycle --multi '
 " git relevant
 " ----------------------------------------------------------------------------
 
-" Depends on my `git-relevant` script, see:
-" https://github.com/davidosomething/dotfiles/blob/master/bin/git-relevant
-" Alternatively use git-extras' `git-delta` (though it doesn't get unstaged
-" files)
-"
-" @param {String[]} args passed to git-relevant, e.g. `--branch somebranch`
-" @return {String[]} list of shortfilepaths that are relevant to the branch
-function! s:GetFzfRelevantSource(...) abort
-  let l:args = get(a:, '000', [])
-  let l:relevant = system(
-        \   'cd -- "' . s:GetRoot() . '" '
-        \ . '&& git relevant ' . join(l:args, ' ')
-        \)
-  if v:shell_error
-    echo 'Not in a repo or error calling git-relevant'
-    return []
+function! s:FzfRelevant(...) abort
+  let l:base_index = index(a:000, '--branch')
+  let l:base = l:base_index >= 0 ? a:000[l:base_index + 1] : 'master'
+  let l:path = dko#git#GetRoot(expand('%:p:h'))
+  let l:prompt = l:base . '::' . dko#git#GetBranch(l:path)
+  let l:source = dko#git#GetRelevant(l:path, a:000)
+  if !len(l:source)
+    echo 'No files changed compared to ' . l:base
+    return
   endif
-
-  " List of paths, relative to the buffer's b:dkoproject_root
-  let l:relevant_list = split(l:relevant, '\n')
-
-  " Check that the paths, prefixed with the root exist
-  let l:filtered = filter(l:relevant_list,
-        \ 'filereadable(expand("' . s:GetRoot() . '/" . v:val))'
-        \ )
-  return l:filtered
+  call fzf#run(fzf#wrap('Relevant',
+        \   fzf#vim#with_preview(extend({
+        \     'dir':      l:path,
+        \     'source':   l:source,
+        \     'options':  s:options . ' --prompt="' . l:prompt . '> "',
+        \   }, g:fzf_layout), 'right:50%')
+        \ ))
 endfunction
 
 " List relevant and don't include anything .gitignored
 " Accepts args for `git-relevant`
-command! -nargs=* FZFRelevant call fzf#run(fzf#wrap('Relevant',
-      \   fzf#vim#with_preview(extend({
-      \     'dir':      s:GetRoot(),
-      \     'source':   s:GetFzfRelevantSource(<f-args>),
-      \     'options':  s:options . ' --prompt="Rel> "',
-      \   }, g:fzf_layout), 'right:50%')
-      \ ))
+command! -nargs=* FZFRelevant call s:FzfRelevant(<f-args>)
 
 " ----------------------------------------------------------------------------
 " My vim runtime files

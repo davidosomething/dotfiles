@@ -111,10 +111,7 @@ endfunction
 " @return {String} git root of file or empty string
 function! dko#project#GetGitRootByFile(path) abort
   if exists('b:dko_project_gitroot') | return b:dko_project_gitroot | endif
-  let l:std = split(
-        \ system('cd -- ' . a:path . ' && git rev-parse --show-toplevel 2>/dev/null'),
-        \ '\n'
-        \ )
+  let l:std = dko#git#GetRoot(a:path)
   let b:dko_project_gitroot = v:shell_error || empty(l:std) ? '' : l:std[0]
   return b:dko_project_gitroot
 endfunction
