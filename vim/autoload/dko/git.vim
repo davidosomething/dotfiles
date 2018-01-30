@@ -14,10 +14,7 @@ function! dko#git#GetRoot(...) abort
         \   ? system(l:cmd)
         \   : system('cd -- "' . l:path . '" && ' . l:cmd)
         \ ), '\n')
-  if v:shell_error
-    echoerr 'dko#git#GetRoot'
-    return ''
-  endif
+  if v:shell_error | return '' | endif
   return len(l:result) ? l:result[0] : ''
 endfunction
 
@@ -33,10 +30,7 @@ function! dko#git#GetBranch(...) abort
         \   ? system(l:cmd)
         \   : system('cd -- "' . l:path . '" && ' . l:cmd)
         \ ), '\n')
-  if v:shell_error
-    echoerr 'dko#git#GetBranch'
-    return ''
-  endif
+  if v:shell_error | return '' | endif
   return len(l:result) ? l:result[0] : ''
 endfunction
 
@@ -54,9 +48,6 @@ function! dko#git#GetRelevant(...) abort
   let l:cmd_args = len(l:args) > 1 ? join(l:args[1], ' ') : ''
   let l:cmd = 'git relevant ' . l:cmd_args
   let l:relevant = system('cd -- "' . l:path . '" && ' . l:cmd)
-  if v:shell_error
-    echoerr 'dko#git#GetRelevant'
-    return []
-  endif
+  if v:shell_error | return [] | endif
   return split(l:relevant, '\n')
 endfunction

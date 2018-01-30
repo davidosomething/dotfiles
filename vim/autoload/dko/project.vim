@@ -55,7 +55,6 @@ function! dko#project#GetRoot(...) abort
   let l:root = dko#project#GetRootByFileMarker(s:markers)
 
   " Try git root
-  " Always sets gitroot
   let l:path = dko#project#GetFilePath(get(a:, 1, ''))
   let l:gitroot = dko#project#GetGitRootByFile(l:path)
   if !empty(l:gitroot)
@@ -111,8 +110,7 @@ endfunction
 " @return {String} git root of file or empty string
 function! dko#project#GetGitRootByFile(path) abort
   if exists('b:dko_project_gitroot') | return b:dko_project_gitroot | endif
-  let l:std = dko#git#GetRoot(a:path)
-  let b:dko_project_gitroot = v:shell_error || empty(l:std) ? '' : l:std[0]
+  let b:dko_project_gitroot = dko#git#GetRoot(a:path)
   return b:dko_project_gitroot
 endfunction
 
