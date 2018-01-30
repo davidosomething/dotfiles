@@ -51,7 +51,7 @@ endfunction
 function! dko#git#GetRelevant(...) abort
   let l:args = get(a:, '000', [])
   let l:path = len(l:args) ? l:args[0] : dko#git#GetRoot(expand('%:p:h'))
-  let l:cmd_args = join(l:args[2:], ' ')
+  let l:cmd_args = len(l:args) > 1 ? join(l:args[1], ' ') : ''
   let l:cmd = 'git relevant ' . l:cmd_args
   let l:relevant = system('cd -- "' . l:path . '" && ' . l:cmd)
   if v:shell_error
