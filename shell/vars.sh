@@ -63,7 +63,7 @@ export XDG_DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
 # History -- except HISTFILE location is set by shell rc file
 # ============================================================================
 
-export HISTSIZE=10000
+export HISTSIZE=50000
 export HISTFILESIZE=$HISTSIZE
 export SAVEHIST=$SAVEHIST
 export HISTCONTROL=ignoredups
