@@ -82,7 +82,7 @@ operation. Use the `bi` alias for a clean room install if possible.
     1. `ruby-install ruby` to install latest
     1. `chruby` to that version
     1. Install gems using
-       [ruby/install-default-gems](../ruby/install-default-gems)
+        [ruby/install-default-gems](../ruby/install-default-gems)
 - Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and `npm`)
     1. Use nvm managed node
@@ -93,7 +93,7 @@ operation. Use the `bi` alias for a clean room install if possible.
     1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
     1. Set up the global pyenv as the latest stable (3.x.x)
     1. Set up python virtualenvs called `neovim{2,3}` -- the Neovim
-       configuration expects to find those. E.g.,
+        configuration expects to find those. E.g.,
         1. `pyenv install 2.7.xx`
         1. `pyenv virtualenv 2.7.xx neovim2`
         1. `pyenv activate neovim2`
@@ -112,7 +112,7 @@ Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
 
 ## Example source order
 
-This is an example -- see output of `dko-sourced` for up-to-date version.
+This is an example -- see output of `dkosourced` for up-to-date version.
 
 - zshenv
     - shell/init.bash

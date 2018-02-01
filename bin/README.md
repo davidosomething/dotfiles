@@ -8,10 +8,6 @@
 
 > Add a certificate
 
-## afk
-
-> Say creepy stuff on an interval
-
 - For macOS/OS X
 
 ```shell
@@ -31,9 +27,9 @@ afk
 
 > `open` or `xdg-open`
 
-## dko-sourced
+## dkosourced
 
-> Pretty print the `$DKO_SOURCE` env variable to see what was sourced
+> Pretty print the `$DKO_SOURCE` env variable to see sourced files
 
 ## dog
 
@@ -96,7 +92,7 @@ Is PWD in git repository?
 Output list of file paths relevant to what you're working on. I.e., files that:
 
 - are in the project but not tracked (new)
-- have been modified (staged or not)
+- are modified (staged or not)
 - are not merged into a given branch (master by default)
 
 ## git-whats

@@ -123,8 +123,8 @@ Use `u` without arguments for usage.
 
 ### rc script source order
 
-If you have node installed, the `dko-sourced`
-([bin/dko-sourced](bin/dko-sourced)) command will show you (not exhaustively)
+If you have node installed, the `dkosourced`
+([bin/dkosourced](bin/dkosourced)) command will show you (not exhaustively)
 the order scripts get sourced. Without node `echo $DKO_SOURCE` works.
 
 For X apps (no terminal) the value is probably:
