@@ -22,7 +22,7 @@ else
         sed s/^..//) 2> /dev/null'
 fi
 
-export FZF_DEFAULT_OPTS='--height=20'
+export FZF_DEFAULT_OPTS='--height=20 --min-height=4'
 
 # ============================================================================
 # Use neovim
