@@ -22,9 +22,7 @@ else
         sed s/^..//) 2> /dev/null'
 fi
 
-# Workaround bug with FZF in nvim terminal
-# https://github.com/junegunn/fzf/issues/809#issuecomment-273226434
-[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
+export FZF_DEFAULT_OPTS='--height=20'
 
 # ============================================================================
 # Use neovim
