@@ -181,7 +181,7 @@ __dko_dotfiles__update_fzf() {
   # Install/update shell extensions
   if [[ -n "$installer" ]]; then
     __dko_status "Updating fzf shell extensions"
-    "$installer" --key-bindings --completion --no-update-rc || return 1
+    "$installer" --bin || return 1
   fi
 }
 
