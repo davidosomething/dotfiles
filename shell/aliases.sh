@@ -97,6 +97,7 @@ alias gwr='gw run'
 
 alias f='find'
 alias grep='grep --color=auto'
+alias rg='rg --smart-case --ignore-file "${DOTFILES}/ag/dot.ignore"'
 
 # always prefer ripgrep
 if command -v rg >/dev/null; then
@@ -106,7 +107,6 @@ elif command -v ag >/dev/null; then
   # --one-device not supported on old ag
   alias ag='ag --hidden --smart-case'
 fi
-alias rg='rg --hidden --line-number --no-ignore-vcs --smart-case --ignore-file "${DOTFILES}/ag/dot.ignore"'
 # also see gg in git
 
 # ----------------------------------------------------------------------------
@@ -125,6 +125,7 @@ alias no='n outdated --long'
 alias nolocks='n config set package-lock false'
 alias nomod='rm -rf ./node_modules'
 alias likereallynomod='find . -type d -iname node_modules -exec rm \-rf {} \;'
+alias packwipe='rm package-lock.json.*'
 alias nr='n run'
 alias nrm="n rm"
 alias ns='n start'
