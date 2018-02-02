@@ -223,7 +223,13 @@ __dko_has "fasd" && eval "$(fasd --init posix-alias zsh-hook)"
 # Plugins: fzf (installed via package manager)
 # ----------------------------------------------------------------------------
 
-__dko_source "${HOME}/.fzf.zsh" && DKO_SOURCE="${DKO_SOURCE} -> fzf"
+if [[ -d /usr/local/opt/fzf ]]; then
+  [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]] &&
+    export PATH="$PATH:/usr/local/opt/fzf/bin"
+  __dko_source "/usr/local/opt/fzf/shell/completion.zsh" 2>/dev/null
+  __dko_source "/usr/local/opt/fzf/shell/key-bindings.zsh"
+  DKO_SOURCE="${DKO_SOURCE} -> fzf"
+fi
 
 # ============================================================================
 # Keybindings (after plugins since some are custom for fzf)
