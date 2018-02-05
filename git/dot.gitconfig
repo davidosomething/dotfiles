@@ -10,6 +10,8 @@
 	a       = add
 	aa      = add .
 
+	bl      = blame
+
 	b       = branch
 	be      = branch --edit-description
 	bv      = branch --verbose
