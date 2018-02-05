@@ -291,7 +291,7 @@ nnoremap sD "_D
 " Select from PUM or insert tabs or alignment spaces
 function! s:DKO_Tab() abort
   " Advance and select autocomplete result
-  if pumvisible()
+  if g:dko_tab_completion && pumvisible()
     return "\<C-n>"
   endif
 
@@ -312,7 +312,7 @@ endfunction
 
 " S-Tab goes reverses selection or untabs
 function! s:DKO_STab() abort
-  return pumvisible() ? "\<C-p>" : "\<C-d>"
+  return g:dko_tab_completion && pumvisible() ? "\<C-p>" : "\<C-d>"
 endfunction
 
 silent! iunmap <Tab>

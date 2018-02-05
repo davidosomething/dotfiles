@@ -21,6 +21,9 @@ let g:mapleader = "\<Space>"
 " Just for debugging
 let g:dko_rtp_original = &runtimepath
 
+" flags
+let g:dko_tab_completion = 0 " use (s-)tab to navigate PUM?
+
 " Plugin settings
 let g:dko_use_completion = has('nvim') && has('python3') && executable('pyenv')
 let g:dko_use_js_langserver = executable('javascript-typescript-stdio')
