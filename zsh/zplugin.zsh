@@ -45,7 +45,7 @@ zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # as of v4.0 use ZSH/zpty module to async retrieve
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
-zplugin ice wait'1' atload'_zsh_autosuggest_start'
+zplugin ice silent wait'1' atload'_zsh_autosuggest_start'
 zplugin light 'zsh-users/zsh-autosuggestions'
 # clear the suggestion when entering completion select menu
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
