@@ -149,6 +149,10 @@
 # Repo settings and command options
 # ============================================================================
 
+[blame]
+	date = short
+	showEmail = true
+
 [commit]
 	gpgsign = true
 	template = "~/.dotfiles/git/commit-template"
