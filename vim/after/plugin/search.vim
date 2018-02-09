@@ -73,9 +73,8 @@ function! s:SetupIncsearch() abort
   if !dkoplug#IsLoaded('incsearch.vim') | return | endif
 
   map  /  <Plug>(incsearch-forward)
-  map  g/ <Plug>(incsearch-stay)
-
   map  ?  <Plug>(incsearch-backward)
+  map  g/ <Plug>(incsearch-stay)
 
   if !dkoplug#IsLoaded('vim-anzu')
     map  n  <Plug>(incsearch-nohl-n)

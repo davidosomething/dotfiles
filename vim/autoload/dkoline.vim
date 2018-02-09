@@ -24,8 +24,10 @@ function! dkoline#GetTabline() abort
   " ==========================================================================
 
   " Search context
-  let l:contents .= dkoline#Format(dkoline#Anzu(),
-        \ '%#dkoStatusKey# ? %#Search#')
+  let l:contents .= dkoline#Format(
+        \ dkoline#Anzu(),
+        \ '%#dkoStatusKey# ? %(%#Search#',
+        \ '%)')
 
   " ==========================================================================
   " Right side
@@ -34,7 +36,7 @@ function! dkoline#GetTabline() abort
   " Leave 24 chars for search
   let l:maxwidth = float2nr(&columns) - 24
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
-  let l:contents .= '%#StatusLine# %= %0.' . l:maxwidth . '('
+  let l:contents .= '%#StatusLine# %= '
 
   let l:project_root = dko#IsHelp(l:bufnr) || dko#IsNonFile(l:bufnr)
         \ ? '' : dko#ShortenPath(dko#project#GetRoot(l:bufnr), 0)
@@ -51,20 +53,23 @@ function! dkoline#GetTabline() abort
   endif
 
   let l:contents .= dkoline#Format(
-        \   l:lcd,
-        \   '%#dkoStatusKey# ' . l:cdkey . ' %#dkoStatusValue#')
+        \ l:lcd,
+        \ '%#dkoStatusKey# ' . l:cdkey . ' %(%#dkoStatusValue#%<',
+        \ '%)')
 
   if l:lcd !=# l:project_root
     let l:contents .= dkoline#Format(
-          \   l:project_root,
-          \   '%#dkoStatusKey# ᴘʀᴏᴊ %#dkoStatusValue#')
+          \ l:project_root,
+          \ '%#dkoStatusKey# ᴘʀᴏᴊ %(%#dkoStatusValue#%<',
+          \ '%)')
   endif
 
   let l:contents .= dkoline#Format(
         \ dkoline#GitBranch(l:bufnr),
-        \ '%#dkoStatusKey# ∆ %#dkoStatusValue#')
+        \ '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
+        \ '%)')
 
-  let l:contents .= '%)'
+  "let l:contents .= ''
 
   " ==========================================================================
 
@@ -92,21 +97,24 @@ function! dkoline#GetStatusline(winnr) abort
   " Left side
   " ==========================================================================
 
-  let l:contents .= '%#StatusLineNC# ' . dkoline#Mode(l:winnr)
+  let l:contents .= '%#StatusLineNC# %3(' . dkoline#Mode(l:winnr) . '%)'
 
   " Filebased
+  let l:ft = dkoline#Filetype(l:bufnr)
   let l:contents .= dkoline#Format(
         \   dkoline#Filetype(l:bufnr),
         \   (dkoline#If({ 'winnr': l:winnr }, l:x)
         \     ? '%#dkoStatusValue#' : '%#StatusLineNC#' )
         \ )
 
-  let l:maxwidth = l:ww - 32
+  let l:maxwidth = l:ww - 4 - len(l:ft) - 16
+  let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 48
   let l:contents .= dkoline#Format(
         \   dkoline#Filename(l:bufnr, l:cwd),
-        \   (dkoline#If({ 'winnr': l:winnr }, l:x)
-        \     ? '%#StatusLine#' : '%#StatusLineNC#' )
-        \     . '%0.' . l:maxwidth . '(',
+        \   '%0.' . l:maxwidth . '('
+        \     . (dkoline#If({ 'winnr': l:winnr }, l:x)
+        \       ? '%#StatusLine#'
+        \       : '%#StatusLineNC#'),
         \   '%)'
         \ )
   let l:contents .= dkoline#Format(dkoline#Dirty(l:bufnr), '%#DiffAdded#')
@@ -136,8 +144,6 @@ function! dkoline#GetStatusline(winnr) abort
   if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
     let l:contents .= dkoline#Neomake(l:winnr, l:bufnr)
   endif
-
-  let l:contents .= '%<'
 
   let l:contents .= dkoline#Format(dkoline#Ruler(), '%#dkoStatusItem#')
 
