@@ -62,7 +62,7 @@ function! dkoline#GetTabline() abort
 
   let l:contents .= dkoline#Format(
         \ dkoline#GitBranch(l:bufnr),
-        \ '%#dkoStatusKey# ʙʀᴀɴᴄʜ %#dkoStatusValue#')
+        \ '%#dkoStatusKey# ∆ %#dkoStatusValue#')
 
   let l:contents .= '%)'
 
@@ -276,7 +276,7 @@ function! dkoline#ShortPath(bufnr, path, max) abort
         \ : l:path
 endfunction
 
-" Uses fugitive or gita to get cached branch name
+" Uses fugitive or gita to get cached branch name, or b:dko_branch
 "
 " @param {Int} bufnr
 " @return {String}
@@ -285,6 +285,7 @@ function! dkoline#GitBranch(bufnr) abort
         \ ? ''
         \ : dkoplug#IsLoaded('gina.vim') ? ' ' . gina#component#repo#branch() . ' '
         \ : dkoplug#IsLoaded('fugitive.vim') ? ' ' . fugitive#head(7) . ' '
+        \ : !empty(get(b:, 'dko_branch')) ? ' ' . b:dko_branch . ' '
         \ : ''
 endfunction
 
@@ -338,6 +339,11 @@ function! dkoline#Init() abort
   call dkoline#RefreshTabline()
   set showtabline=2
 
+  silent! nunmap <special> <Plug>(dkoline-refresh-tabline)
+  nmap <silent><special>
+        \ <Plug>(dkoline-refresh-tabline)
+        \ :call dkoline#RefreshTabline()<CR>
+
   " BufWinEnter will initialize the statusline for each buffer
   let l:refresh_hooks = [
         \   'BufEnter',
@@ -360,14 +366,17 @@ function! dkoline#Init() abort
         \ ]
   " 'NeomakeCountsChanged',
 
-  if !empty(l:refresh_hooks)
-    execute 'autocmd plugin-dkoline ' . join(l:refresh_hooks, ',') . ' *'
-          \ . ' call dkoline#RefreshStatus()'
-  endif
-  if !empty(l:user_refresh_hooks)
-    execute 'autocmd plugin-dkoline User ' . join(l:user_refresh_hooks, ',')
-          \ . ' call dkoline#RefreshStatus()'
-  endif
+  augroup dkoline
+    autocmd!
+    if !empty(l:refresh_hooks)
+      execute 'autocmd dkoline ' . join(l:refresh_hooks, ',') . ' *'
+            \ . ' call dkoline#RefreshStatus()'
+    endif
+    if !empty(l:user_refresh_hooks)
+      execute 'autocmd dkoline User ' . join(l:user_refresh_hooks, ',')
+            \ . ' call dkoline#RefreshStatus()'
+    endif
+  augroup END
 endfunction
 
 function! dkoline#RefreshStatus() abort

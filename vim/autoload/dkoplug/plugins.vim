@@ -646,12 +646,6 @@ function! dkoplug#plugins#LoadAll() abort
         \   '<Plug>(Visual-Split',
         \ ] }
 
-  " --------------------------------------------------------------------------
-  " Status / tab line
-  " --------------------------------------------------------------------------
-
-  Plug g:dko#vim_dir . '/mine/vim-dko-line'
-
 endfunction
 
 " Similar but safer than Cond() from

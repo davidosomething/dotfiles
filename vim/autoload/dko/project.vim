@@ -36,6 +36,27 @@ let s:markers = [
       \   'Gemfile',
       \ ]
 
+" @param {mixed} { bufnr } or number/string bufnr
+" @return {Number|String| bufnr
+function! s:BufnrFromArgs(...) abort
+  if a:0
+    return type(a:1) == type(0) || type(a:1) == type('')
+          \ ? a:1
+          \ : type(a:1) == type({}) && a:1['bufnr']
+          \ ? a:1['bufnr']
+          \ : '%'
+  endif
+  return '%'
+endfunction
+
+" Mark buffer -- set up buffer local variables or update a buffer's meta data
+function! dko#project#MarkBuffer(...) abort
+  let l:bufnr = s:BufnrFromArgs(a:000)
+  call dko#project#SetRoot('')      " clear
+  call dko#project#GetRoot(l:bufnr) " force reset
+  let b:dko_branch = dko#git#GetBranch(expand('%:p:h'))
+endfunction
+
 " ============================================================================
 " Project root resolution
 " ============================================================================
@@ -45,8 +66,7 @@ let s:markers = [
 " @param {String} [file] from which to look upwards
 " @return {String} project root path or empty string
 function! dko#project#GetRoot(...) abort
-  let l:bufnr = a:0 && type(a:1) == type({}) && a:1['bufnr']
-        \ ? a:1['bufnr'] : '%'
+  let l:bufnr = s:BufnrFromArgs(a:000)
   let l:existing = getbufvar(l:bufnr, 'dko_project_root')
   if !empty(l:existing) | return l:existing | endif
 

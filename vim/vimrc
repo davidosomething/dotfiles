@@ -506,7 +506,7 @@ augroup END
 
 augroup dkoproject
   autocmd!
-  autocmd BufNewFile,BufRead,BufWritePost * call dko#project#GetRoot()
+  autocmd BufNewFile,BufRead,BufWritePost * call dko#project#MarkBuffer()
 augroup END
 
 augroup dkocoloredit
@@ -533,6 +533,11 @@ if exists('+autochdir')
           \ | unlet b:save_cwd
   augroup END
 endif
+
+augroup dkolines
+  autocmd!
+  autocmd VimEnter * nested call dkoline#Init()
+augroup END
 
 " Read only mode (un)mappings
 augroup dkoreadonly
