@@ -40,24 +40,15 @@ function! dkoline#GetTabline() abort
 
   let l:project_root = dko#IsHelp(l:bufnr) || dko#IsNonFile(l:bufnr)
         \ ? '' : dko#ShortenPath(dko#project#GetRoot(l:bufnr), 0)
-
-  " Consider the InsertEnter autochdir in .vimrc autocmd
-  let l:saved_cd = get(b:, 'save_cwd', '')
-  let l:lcd = !empty(l:saved_cd)
-        \ ? dko#ShortenPath(l:saved_cd)
-        \ : dkoline#ShortPath(l:bufnr, l:cwd, 0)
-
-  let l:cdkey = 'ʟᴄᴅ'
-  if l:lcd ==# l:project_root
-    let l:cdkey .= '/ᴘʀᴏᴊ'
-  endif
-
+  let l:lcd = dkoline#ShortPath(l:bufnr, l:cwd, 0)
+  let l:is_in_project_root = l:lcd ==# l:project_root 
+  let l:cdkey = l:is_in_project_root ? 'ʟᴄᴅ/ᴘʀᴏᴊ' : 'ʟᴄᴅ'
   let l:contents .= dkoline#Format(
         \ l:lcd,
         \ '%#dkoStatusKey# ' . l:cdkey . ' %(%#dkoStatusValue#%<',
         \ '%)')
 
-  if l:lcd !=# l:project_root
+  if !l:is_in_project_root
     let l:contents .= dkoline#Format(
           \ l:project_root,
           \ '%#dkoStatusKey# ᴘʀᴏᴊ %(%#dkoStatusValue#%<',

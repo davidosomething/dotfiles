@@ -518,22 +518,6 @@ augroup dkocoloredit
         \ | endif
 augroup END
 
-" useful for filename completion relative to current buffer path
-if exists('+autochdir')
-  augroup dkocompletion
-    autocmd!
-    autocmd InsertEnter *
-          \   let b:save_cwd = getcwd()
-          \ | set autochdir
-    autocmd dkocompletion InsertLeave *
-          \   set noautochdir
-          \ | if exists('b:save_cwd')
-          \ |   execute 'cd' fnameescape(b:save_cwd)
-          \ | endif
-          \ | unlet b:save_cwd
-  augroup END
-endif
-
 augroup dkolines
   autocmd!
   autocmd VimEnter * nested call dkoline#Init()
