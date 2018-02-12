@@ -78,17 +78,6 @@ hi! dkoQuote                          guifg=#77aa88 gui=italic
 hi! dkoWarningText      guibg=#2c2b2a guifg=#ddaa66 gui=bold
 hi! dkoNormalKey                      guifg=#ccccbb
 
-hi! dkoStatus           guibg=#30313c               gui=NONE
-hi! dkoStatusNC         guibg=#262631               gui=NONE
-hi! dkoStatusKey        guibg=#40404c
-hi! dkoStatusValue      guibg=#50505c
-hi! dkoStatusItem       guibg=#242531
-hi! dkoStatusTransient  guibg=#505a71 guifg=fg
-hi! dkoStatusGood       guibg=#242531 guifg=#77aa88
-hi! dkoStatusError      guibg=#242531 guifg=#cc4444
-hi! dkoStatusWarning    guibg=#242531 guifg=#ddaa66
-hi! dkoStatusInfo       guibg=#242531 guifg=fg
-
 " JavaDoc
 hi! link dkoJavaDocTag  SpecialComment
 hi! link dkoJavaDocType SpecialComment
@@ -118,23 +107,6 @@ hi! link CursorColumn   dkoBgAlt
 
 " current line
 hi! link CursorLine     dkoBgLight
-
-" ============================================================================
-" Status and tab line
-" ============================================================================
-
-" Statusline uses fg as bg
-hi! link StatusLineNC   dkoStatusNC
-hi! link StatusLine     dkoStatus
-hi! link TabLine        dkoStatus
-hi! link TabLineFill    dkoStatus
-hi! link TabLineSel     dkoStatus
-
-" Statusline Symbols
-" See mine/vim-dko-line/
-hi! dkoLineImportant    guibg=#ddaa66 guifg=#303033
-hi! link dkoLineModeReplace       dkoLineImportant
-hi! link dkoLineNeomakeRunning    dkoLineImportant
 
 " ============================================================================
 " Popup menu
@@ -172,8 +144,6 @@ hi! link SignifySignDelete        dkoSignRemoved
 hi! link ChangesSignTextAdd       dkoSignAdded
 hi! link ChangesSignTextCh        DiffChange
 hi! link ChangesSignTextDel       dkoSignRemoved
-" kshenoy/vim-signature
-hi! link SignatureMarkText        dkoLineImportant
 
 " the head in <head></head>
 hi! MatchParen        guibg=#225588 guifg=#ddddcc
@@ -432,7 +402,6 @@ hi! link NeomakeErrorSign       dkoSignError
 hi! link NeomakeWarningSign     dkoSignWarning
 hi! link NeomakeInfoSign        dkoSignInfo
 hi! link NeomakeMessageSign     dkoSignMessage
-hi! link NeomakeStatusGood      dkoStatusGood
 
 " ============================================================================
 " netrw
