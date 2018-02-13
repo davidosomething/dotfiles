@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 
+# Find first *.xcworkspace and open it in the current Xcode
 __xcw() {
   local xcode_path
   xcode_path="$(xcode-select --print-path)"
+  [[ -z "$xcode_path" ]] && echo 'Xcode not found' && exit 1
+
   local xcode_app
   xcode_app="${xcode_path/\/Contents\/Developer/}"
-  find . -depth 1 -type d -iname '*.xcworkspace' -exec open -a "${xcode_app}" {} \; \
-    || echo 'No *.xcworkspace found' && exit 1
+
+  local xcworkspace
+  xcworkspace=$(find . -depth 1 -type d -iname '*.xcworkspace' | head -n 1)
+  [[ -z "$xcworkspace" ]] && echo 'No xcworkspaces found' && exit 1
+
+  open -a "${xcode_app}" "$xcworkspace"
 }
-__xcw "$@"
+__xcw
