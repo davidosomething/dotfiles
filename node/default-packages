@@ -3,7 +3,6 @@ alex
 boxen-cli
 commitizen
 create-react-app
-echint
 eslint_d
 generator-hubot
 http-server
@@ -15,10 +14,8 @@ jsinspect
 jsonlint
 jspm-check-updates
 less
-lighthouse
 markdownlint-cli
 npm-check-updates
-npm-run-all
 npmrc
 nsp
 package-json-validator
