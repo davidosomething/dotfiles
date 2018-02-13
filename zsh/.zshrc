@@ -10,6 +10,8 @@ DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 . "${HOME}/.dotfiles/shell/dot.profile"
 . "${DOTFILES}/shell/interactive.sh"
 
+export HISTORY_IGNORE="(pwd|l|ls|ll|cl|clear)"
+
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
 typeset -gU cdpath path fpath manpath
 
@@ -166,11 +168,8 @@ zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 
 # wget is a prerequisite
 if __dko_has 'wget'; then
-  __dko_source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" || {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)" \
-    && source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh"
-  }
-
+  __dko_source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" \
+    || echo "[MISSING] Install zplugin"
   __dko_has 'zplugin' && {
     autoload -Uz _zplugin
     (( ${+_comps} )) && _comps[zplugin]=_zplugin
@@ -195,6 +194,10 @@ compinit
 # enable menu selection
 zmodload -i zsh/complist
 
+# run compdefs provided by plugins
+__dko_has 'zplugin' && zplugin cdreplay -q
+
+
 # ============================================================================
 # prompt & title
 # @uses vcs_info
@@ -207,11 +210,8 @@ zmodload -i zsh/complist
 . "${ZDOTDIR}/title.zsh"
 
 # ============================================================================
-# zplugin: after
+# Unmanaged plugins
 # ============================================================================
-
-# run compdefs provided by plugins
-__dko_has 'zplugin' && zplugin cdreplay -q
 
 # ----------------------------------------------------------------------------
 # Plugins: fasd (installed via package manager)
