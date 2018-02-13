@@ -1,12 +1,10 @@
 ajv-cli
 alex
-apidoc
 boxen-cli
-coffeescript
-coffeelint
 commitizen
 create-react-app
 echint
+eslint_d
 generator-hubot
 http-server
 javascript-typescript-langserver
