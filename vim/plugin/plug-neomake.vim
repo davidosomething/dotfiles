@@ -55,9 +55,8 @@ augroup dkoneomake
         \ call dko#neomake#python#ActivatedPyenv()
   autocmd User vim-pyenv-dectivate-post
         \ call dko#neomake#python#DeactivatedPyenv()
-
   autocmd FileType javascript   call dko#neomake#javascript#Setup()
-  autocmd FileType less         let b:neomake_less_lessc_args = [ '--include-path=..', '--lint', '--no-color' ]
+  autocmd FileType less         call dko#neomake#less#Setup()
   autocmd FileType markdown     call dko#neomake#markdown#Setup()
   autocmd FileType php          call dko#neomake#php#Setup()
   autocmd FileType scss         call dko#neomake#scss#Setup()
