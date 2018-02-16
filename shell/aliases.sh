@@ -97,7 +97,7 @@ alias gwr='gw run'
 
 alias f='find'
 alias grep='grep --color=auto'
-alias rg='rg --smart-case --ignore-file "${DOTFILES}/ag/dot.ignore"'
+alias rg='rg --hidden --smart-case --ignore-file "${DOTFILES}/ag/dot.ignore"'
 
 # always prefer ripgrep
 if command -v rg >/dev/null; then
