@@ -21,3 +21,6 @@ deploy:
   script: meta/travis-automerge.bash
   "on":
     branch: dev
+notifications:
+  email:
+    - travis@davidosomething.com
