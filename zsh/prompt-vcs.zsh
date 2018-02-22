@@ -23,7 +23,11 @@ zstyle ':vcs_info:git*' formats           '%F{magenta}(%b%c%u)'
 zstyle ':vcs_info:git*' actionformats     '%F{magenta}(%m %F{red}→%F{magenta} %b%c%u)'
 
 # Show untracked files
-# https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples#L155
+#
+# @see <https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples#L155>
+# @see <http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#vcs_005finfo-Quickstart>
+# $1 message variable name
+# $2 formats/actionformats
 +vi-git-untracked() {
   git rev-parse --is-inside-work-tree 2>/dev/null \
     && git status --porcelain | grep -q '??' \
@@ -35,7 +39,11 @@ zstyle ':vcs_info:git*' actionformats     '%F{magenta}(%m %F{red}→%F{magenta} 
 }
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 
-# use custom hook to parse merge message in actionformat
+# Use custom hook to parse merge message in actionformat
+#
+# @see <http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#vcs_005finfo-Quickstart>
+# $1 message variable name
+# $2 formats/actionformats
 +vi-git-merge-message() {
   if [[ "${hook_com[action_orig]}" == "merge" ]]; then
     # misc_orig is in the format:
