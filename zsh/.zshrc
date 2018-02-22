@@ -349,6 +349,7 @@ __dko_has "fzf" && {
   dko-zsh-widget-fzf-branch() {
     if git rev-parse --git-dir >/dev/null 2>&1; then
       fbr
+      __dko_has vcs_info && vcs_info
       zle reset-prompt
     fi
   }
