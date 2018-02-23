@@ -12,6 +12,6 @@ pycodestyle==2.3.1
 pydocstyle==2.1.1
 pyflakes==1.6.0
 pylint==1.8.2
-yamllint==1.10.0
+yamllint==1.11.0
 vim-vint==0.3.18
 vulture==0.26
