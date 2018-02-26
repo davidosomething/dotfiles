@@ -20,7 +20,7 @@ function! dkoplug#plugins#LoadAll() abort
   " :DocOpen to open the current help.txt file in browser
   Plug 'nelstrom/vim-docopen', { 'on': [ 'DocOpen' ] }
 
-  " Mostly for zS to debug hilight group (:Bufferize scriptnames is nicer
+  " Mostly for zS to debug highlight group (:Bufferize scriptnames is nicer
   " than :Scriptnames)
   Plug 'tpope/vim-scriptease'
 
