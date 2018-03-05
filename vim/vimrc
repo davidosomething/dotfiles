@@ -499,6 +499,12 @@ endif
 " Autocommands
 " ============================================================================
 
+" Disable linting and syntax highlighting for large files
+augroup dkofile
+  autocmd BufReadPre *
+        \ if getfsize(expand("%")) > 10000000 | syntax off | endif
+augroup END
+
 augroup dkowindow
   autocmd!
   autocmd VimResized * wincmd =
