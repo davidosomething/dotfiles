@@ -499,10 +499,12 @@ endif
 " Autocommands
 " ============================================================================
 
-" Disable linting and syntax highlighting for large files
+" Disable linting and syntax highlighting for large and minified files
 augroup dkofile
   autocmd BufReadPre *
         \ if getfsize(expand("%")) > 10000000 | syntax off | endif
+  autocmd *.min.*
+        \ syntax off
 augroup END
 
 augroup dkowindow
