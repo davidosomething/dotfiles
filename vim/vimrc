@@ -503,8 +503,7 @@ endif
 augroup dkofile
   autocmd BufReadPre *
         \ if getfsize(expand("%")) > 10000000 | syntax off | endif
-  autocmd *.min.*
-        \ syntax off
+  autocmd BufReadPre *.min.* syntax off
 augroup END
 
 augroup dkowindow
