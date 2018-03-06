@@ -101,7 +101,7 @@ function! dkoline#GetStatusline(winnr) abort
   let l:maxwidth = l:ww - 4 - len(l:ft) - 16
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 48
   let l:contents .= dkoline#Format(
-        \   dkoline#Filename(l:bufnr, l:cwd),
+        \   ' %t ',
         \   '%0.' . l:maxwidth . '('
         \     . (dkoline#If({ 'winnr': l:winnr }, l:x)
         \       ? '%#StatusLine#'
@@ -207,22 +207,27 @@ function! dkoline#Readonly(bufnr) abort
   return getbufvar(a:bufnr, '&readonly') ? ' ʀ ' : ''
 endfunction
 
+" Ignore some filetypes
+"
 " @param {Int} bufnr
 " @return {String}
 function! dkoline#Filetype(bufnr) abort
   let l:ft = getbufvar(a:bufnr, '&filetype')
-  return empty(l:ft)
+  return empty(l:ft) || index([
+        \   'javascript',
+        \   'java',
+        \   'vim',
+        \ ], l:ft) > -1
         \ ? ''
         \ : ' ' . l:ft . ' '
 endfunction
 
-" Filename of buffer relative to the path, or just the helpfile name if it is
-" a help file
+" File path of buffer, or just the helpfile name if it is a help file
 "
 " @param {Int} bufnr
 " @param {String} path
 " @return {String}
-function! dkoline#Filename(bufnr, path) abort
+function! dkoline#RelativeFilepath(bufnr, path) abort
   if dko#IsNonFile(a:bufnr)
     return ''
   endif
