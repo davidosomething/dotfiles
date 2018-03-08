@@ -108,7 +108,6 @@ Plan to remap these at some point
 
 - `n <C-b>` -- backward one screen (page)
 - `n <C-f>` -- forward one screen (page)
-- `n <C-g>` -- show file status (everything's already in statusline)
 - `n zh/l`  -- useless wrap mode scroll
 
 ## My Vim conventions
