@@ -12,6 +12,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'tweekmonster/startuptime.vim', { 'on': [ 'StartupTime' ] }
 
   " `:Bufferize messages` to get messages (or any :command) in a new buffer
+  let g:bufferize_command = 'tabnew'
   Plug 'AndrewRadev/bufferize.vim', { 'on': [ 'Bufferize' ] }
 
   Plug 'cocopon/colorswatch.vim'
