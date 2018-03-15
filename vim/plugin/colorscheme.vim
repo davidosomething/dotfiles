@@ -23,7 +23,7 @@ if dkoplug#Exists('vim-two-firewatch')
   function! s:Firewatch() abort
     silent! colorscheme two-firewatch
   endfunction
-  nnoremap <silent><special> <Leader>zt :<C-U>call <SID>Firewatch()<CR>
+  nnoremap <silent><special> <Leader>zt :<C-U>call <SID>Firewatch()<CR>:set bg=light<CR>
 
   let s:colorscheme = s:truecolor && $ITERM_PROFILE =~? 'light'
         \ ? 'two-firewatch'
