@@ -43,6 +43,12 @@ function! dkoline#GetTabline() abort
   let l:lcd = dkoline#ShortPath(l:bufnr, l:cwd, 0)
   let l:is_in_project_root = l:lcd ==# l:project_root 
   let l:cdkey = l:is_in_project_root ? 'ʟᴄᴅ/ᴘʀᴏᴊ' : 'ʟᴄᴅ'
+
+  " Replace project_root with ᴘʀᴏᴊ/ in lcd
+  if !l:is_in_project_root && dko#StartsWith(l:project_root, l:lcd)
+    let l:lcd = ' ᴘʀᴏᴊ/' . strcharpart(l:lcd, strchars(l:project_root))
+  endif
+
   let l:contents .= dkoline#Format(
         \ l:lcd,
         \ '%#dkoStatusKey# ' . l:cdkey . ' %(%#dkoStatusValue#%<',

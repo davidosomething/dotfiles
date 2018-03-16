@@ -22,6 +22,14 @@ let g:dko#plug_absdir = g:dko#vim_dir . g:dko#plug_dir
 " General VimL utility functions
 " ============================================================================
 
+" @TODO
+" @param {String} needle
+" @param {String} haystack
+" @return {number} 1 true
+function! dko#StartsWith(needle, haystack) abort
+  return match(a:haystack, '\V' . a:needle)
+endfunction
+
 " Output &runtimepath, one per line, to current buffer
 function! dko#Runtimepath() abort
   put! =split(&runtimepath, ',', 0)
