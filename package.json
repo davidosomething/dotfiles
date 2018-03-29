@@ -21,7 +21,6 @@
     "lint:shell:shellcheck": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"            && shellcheck --exclude=SC1090,SC2148 --shell=sh -- $(npx --ignore-existing --quiet glob-cli2 \"{shell,bitbar/mine}/*.sh\") && echo ' ✓ passed\n'",
     "lint:vim:after": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"     && vint -- vim/after          && echo ' ✓ passed\n'",
     "lint:vim:autoload": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"  && vint -- vim/autoload/dko*  && echo ' ✓ passed\n'",
-    "lint:vim:colors": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"    && vint -- vim/colors         && echo ' ✓ passed\n'",
     "lint:vim:ftplugin": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"  && vint -- vim/ftplugin       && echo ' ✓ passed\n'",
     "lint:vim:rc": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"        && vint -- $(npx --ignore-existing --quiet glob-cli2 \"vim/{gvimrc,vimrc,*.vim}\") && echo ' ✓ passed\n'",
     "lint:vim:mine": "npm run --silent _header -- \"  ${npm_lifecycle_event}  \"      && vint -- vim/mine   && echo ' ✓ passed\n'",
