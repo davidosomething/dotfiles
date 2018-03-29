@@ -1,4 +1,6 @@
 " These bar colors apply to all colorschemes
+" So after switching to a non-meh colorscheme, you can call this function to
+" keep the meh status and tab line colors
 function! meh#LineColors() abort
   " ============================================================================
   " Status and tab line
@@ -42,4 +44,20 @@ function! meh#LineColors() abort
 
   " kshenoy/vim-signature
   hi! link SignatureMarkText        dkoLineImportant
+endfunction
+
+" vim-pandoc colors load out of normal colorscheme order, this fn helps
+" override
+function! meh#PandocColors() abort
+  hi! link pandocAtxHeader                Function
+  hi! link pandocAtxStart                 dkoDecorations
+  hi! link pandocAutomaticLink            Underlined
+  hi! link pandocBlockQuote               dkoQuote
+  hi! link pandocDelimitedCodeBlockStart  Normal
+  hi! link pandocDelimitedCodeBlock       String
+  hi! link pandocDelimitedCodeBlockEnd    Normal
+  hi! link pandocHRule                    dkoDecorations
+  hi! link pandocPipeTableDelims          dkoDecorations
+  hi! link pandocReferenceURL             Underlined
+  hi! link pandocUListItemBullet          Normal
 endfunction

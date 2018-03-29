@@ -2,9 +2,7 @@ augroup vim-meh
   autocmd!
 augroup END
 
-let s:truecolor = has('termguicolors') && &termguicolors
-      \ && $TERM_PROGRAM !=# 'Apple_Terminal'
-
-if s:truecolor
-  autocmd vim-meh ColorScheme * call meh#LineColors()
-endif
+" Override vim-pandoc-syntax highlighting
+autocmd vim-meh Syntax *pandoc*
+      \ colorscheme meh
+      \| meh#PandocColors()

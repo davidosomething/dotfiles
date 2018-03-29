@@ -10,12 +10,6 @@ if exists('syntax_on') | syntax reset | endif
 let g:colors_name = 'meh'
 set background=dark
 
-" Override vim-pandoc-syntax highlighting
-augroup colorscheme-meh
-  autocmd!
-  autocmd Syntax *pandoc* colorscheme meh
-augroup END
-
 " ============================================================================
 " Vim base
 " ============================================================================
@@ -247,22 +241,6 @@ hi! link jsonBoolean          Boolean
 hi! link jsonEscape           Operator
 
 " ============================================================================
-" Pandoc
-" ============================================================================
-
-hi! link pandocAtxHeader                Function
-hi! link pandocAtxStart                 dkoDecorations
-hi! link pandocAutomaticLink            Underlined
-hi! link pandocBlockQuote               dkoQuote
-hi! link pandocDelimitedCodeBlockStart  Normal
-hi! link pandocDelimitedCodeBlock       String
-hi! link pandocDelimitedCodeBlockEnd    Normal
-hi! link pandocHRule                    dkoDecorations
-hi! link pandocPipeTableDelims          dkoDecorations
-hi! link pandocReferenceURL             Underlined
-hi! link pandocUListItemBullet          Normal
-
-" ============================================================================
 " PHP
 " ============================================================================
 
@@ -410,3 +388,9 @@ hi! link NeomakeMessageSign     dkoSignMessage
 hi link netrwTreeBar  dkoDecorations
 hi link netrwClassify Delimiter
 hi link netrwExe      Normal
+
+" ============================================================================
+" Line
+" ============================================================================
+
+call meh#LineColors()
