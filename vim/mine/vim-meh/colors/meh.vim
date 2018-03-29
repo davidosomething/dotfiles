@@ -1,5 +1,5 @@
 " ============================================================================
-" DKO
+" MEH
 " A dark truecolor Vim colorscheme
 " ============================================================================
 
@@ -7,13 +7,13 @@ if !has('termguicolors') || !&termguicolors | finish | endif
 hi clear
 if exists('syntax_on') | syntax reset | endif
 
-let g:colors_name = 'dko'
+let g:colors_name = 'meh'
 set background=dark
 
 " Override vim-pandoc-syntax highlighting
-augroup colorsdko
+augroup colorscheme-meh
   autocmd!
-  autocmd Syntax *pandoc* colorscheme dko
+  autocmd Syntax *pandoc* colorscheme meh
 augroup END
 
 " ============================================================================

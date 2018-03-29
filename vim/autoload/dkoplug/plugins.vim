@@ -29,6 +29,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Colorscheme
   " ==========================================================================
 
+  Plug g:dko#vim_dir . '/mine/vim-meh'
   Plug 'rakr/vim-two-firewatch'
   Plug 'arcticicestudio/nord-vim'
 
@@ -442,10 +443,10 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'tpope/vim-markdown'
 
   " Enable pandoc filetype options and vim operators/fns
-  Plug 'vim-pandoc/vim-pandoc', PlugIf(v:version >= 704)
+  " Plug 'vim-pandoc/vim-pandoc', PlugIf(v:version >= 704)
 
   " Use pandoc for markdown syntax
-  Plug 'vim-pandoc/vim-pandoc-syntax'
+  " Plug 'vim-pandoc/vim-pandoc-syntax'
 
   " ==========================================================================
   " Language: Nginx

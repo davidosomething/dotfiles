@@ -44,13 +44,13 @@ augroup filetypedetect
 
   " git branch description (opened via `git branch --edit-description`)
   autocmd! BufNewFile,BufRead BRANCH_DESCRIPTION
-        \ setfiletype gitbranchdescription.markdown.pandoc
+        \ setfiletype gitbranchdescription.markdown
 
   " marko templating, close enough to HTML
   autocmd! BufNewFile,BufRead *.marko setfiletype html.marko
   autocmd! BufNewFile,BufRead *.template setfiletype html
 
-  autocmd! BufNewFile,BufRead *.md setfiletype markdown.pandoc
+  autocmd! BufNewFile,BufRead *.md setfiletype markdown
 
   autocmd! BufNewFile,BufRead .babelrc,.bowerrc,.jshintrc setfiletype json
   autocmd! BufNewFile,BufRead *.tern-config,.tern-config setfiletype json
