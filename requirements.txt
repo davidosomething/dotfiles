@@ -1,4 +1,4 @@
 bashate==0.5.1
-tox==2.9.1
+tox==3.0.0
 vim-vint==0.3.18
 yamllint==1.11.0
