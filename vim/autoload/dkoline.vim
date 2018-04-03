@@ -369,6 +369,7 @@ function! dkoline#Init() abort
         "     using Plug mapping instead.
 
   let l:user_refresh_hooks = [
+        \   'GutentagsUpdating',
         \   'GutentagsUpdated',
         \   'NeomakeFinished',
         \ ]
