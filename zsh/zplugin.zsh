@@ -34,6 +34,8 @@ zplugin light raylee/tldr
 # replaces up() in shell/functions.sh
 zplugin light 'shannonmoeller/up'
 
+zplugin light 'wfxr/forgit'
+
 # ----------------------------------------------------------------------------
 # Vendor: ZSH extension
 # ----------------------------------------------------------------------------
