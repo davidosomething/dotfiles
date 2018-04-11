@@ -119,6 +119,7 @@ alias pmddir='pmd pmd -dir ./ -format textcolor -rulesets '
 # node
 # ----------------------------------------------------------------------------
 
+alias lr='lerna'
 alias n='npm'
 alias ni='n install'
 alias no='n outdated --long'
