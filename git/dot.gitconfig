@@ -5,6 +5,13 @@
 #
 
 # ============================================================================
+# Formatting
+# ============================================================================
+
+[pretty]
+	ld      = %C(yellow)%h %C(reset)%s %C(green)(%cr) %C(blue)<%an>%C(magenta)%d%C(reset)
+
+# ============================================================================
 
 [alias]
 	a       = add
@@ -43,8 +50,9 @@
 	g       = grep --break --heading --line-number
 
 	l       = log --abbrev-commit --oneline
-	ld      = log --abbrev-commit --date=short --pretty=format:'%C(yellow)%h %C(reset)%s %C(green)(%cr) %C(blue)<%an>%C(magenta)%d%C(reset)'
+	ld      = log --abbrev-commit --date=short --pretty=ld
 	ll      = log --abbrev-commit --oneline --decorate --all
+	lm      = ld --author="davidosomething"
 	lb      = log --abbrev-commit --oneline --decorate --all --graph
 	lg      = log --abbrev-commit           --decorate --all --graph
 	new     = log --no-merges --abbrev-commit --oneline         ORIG_HEAD..
