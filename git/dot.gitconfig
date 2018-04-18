@@ -72,6 +72,7 @@
 	rbc     = rebase --continue
 
 	rso     = remote show origin
+	reorigin = remote set-url origin
 
 	rehard  = reset --hard
 
