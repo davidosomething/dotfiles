@@ -18,9 +18,6 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'cocopon/colorswatch.vim'
   Plug 'cocopon/pgmnt.vim'
 
-  " :DocOpen to open the current help.txt file in browser
-  Plug 'nelstrom/vim-docopen', { 'on': [ 'DocOpen' ] }
-
   " Mostly for zS to debug highlight group (:Bufferize scriptnames is nicer
   " than :Scriptnames)
   Plug 'tpope/vim-scriptease'
@@ -230,14 +227,6 @@ function! dkoplug#plugins#LoadAll() abort
         \   'do': 'npm install'
         \ })
 
-  " Complete imports (slow, consider set up in .tern-project instead)
-  " Plug 'neovim/node-host', { 'do': 'npm install' }
-  "       \ | Plug 'billyvg/jsimport.nvim'
-
-  " Nice generic omnifunc when no completion engine
-  "Plug '1995eaton/vim-better-javascript-completion',
-  "      \ PlugIf(!g:dko_use_js_langserver && !g:dko_use_tern_lsp)
-
   " Parameter completion (in or after ' or ")
   " Extends omnicomplete to fill in addEventListener('click'
   "Plug 'othree/jspc.vim'
@@ -440,7 +429,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Override vim included markdown ft* and syntax
   " The git repo has a newer syntax file than the one that ships with vim
-  "Plug 'tpope/vim-markdown'
+  Plug 'tpope/vim-markdown'
 
   " Enable pandoc filetype options and vim operators/fns
   " Plug 'vim-pandoc/vim-pandoc', PlugIf(v:version >= 704)
