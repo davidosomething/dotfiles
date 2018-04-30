@@ -93,7 +93,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Input, syntax, spacing
   " ==========================================================================
 
-  Plug 'sgur/vim-editorconfig'
+  "Plug 'sgur/vim-editorconfig'
 
   " highlight matching html tag
   Plug 'gregsexton/MatchTag'
