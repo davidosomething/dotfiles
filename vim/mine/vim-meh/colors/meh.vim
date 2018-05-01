@@ -193,6 +193,7 @@ hi! link jsFuncArgOperator    Operator
 hi! link jsModuleKeyword      String
 hi! link jsNull               Constant
 hi! link jsReturn             dkoReturn
+hi! link jsSuper              dkoQuote
 "hi! link jsStorageClass       Statement
 hi! link jsTemplateBraces     dkoRegex
 hi! link jsThis               Identifier
