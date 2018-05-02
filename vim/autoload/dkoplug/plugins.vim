@@ -513,13 +513,14 @@ function! dkoplug#plugins#LoadAll() abort
   " Syntax
   " ----------------------------------------
 
-  " creates less filetype
-  " Conflicts with vim-css-color
   " Upstream Neovim uses https://github.com/genoma/vim-less
-  "   - older
   "   - more groups
   "   - no conflict with vim-css-color
+
   "Plug 'groenewege/vim-less'
+  " - the syntax file here is actually older than genoma
+  " - creates less filetype
+  " - Conflicts with vim-css-color
 
   " 1)  runtime css.vim provides @media syntax highlighting where hail2u
   "     doesn't JulesWang/css.vim was upstream for $VIMRUNTIME up until Vim 8
