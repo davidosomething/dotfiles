@@ -232,7 +232,9 @@ hi! link jsObjectKey          dkoNormalKey
 hi! link jsObjectKeyComputed  String
 hi! link jsObjectProp         Normal
 
-hi! link jsxAttrib            dkoNormalKey
+hi! link jsxAttrib              dkoNormalKey
+hi! link jsxAttributeBraces     Noise
+hi! link jsxEqual               Noise
 
 " ============================================================================
 " JSON
