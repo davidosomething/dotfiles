@@ -58,7 +58,6 @@ autocmd dkofzf FileType fzf call s:MapCloseFzf()
 execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper!' })
 execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFRelevant ' . dko#project#GetRoot() })
 execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFProject' })
-execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
 execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
 
 " Start using meta mappings since I hate the Macbook touchbar
@@ -66,11 +65,18 @@ nnoremap  <silent><special>   <A-b>   :<C-U>FZFBuffers<CR>
 nnoremap  <silent><special>   <A-c>   :<C-U>FZFCommands<CR>
 nnoremap  <silent><special>   <A-f>   :<C-U>FZFFiles<CR>
 nnoremap  <silent><special>   <A-g>   :<C-U>FZFGrepper!<CR>
-nnoremap  <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
 nnoremap  <silent><special>   <A-p>   :<C-U>FZFProject<CR>
 nnoremap  <silent><special>   <A-r>   :<C-U>FZFRelevant<CR>
 nnoremap  <silent><special>   <A-t>   :<C-U>FZFTests<CR>
 nnoremap  <silent><special>   <A-v>   :<C-U>FZFVim<CR>
+
+if dkoplug#IsLoaded('redismru.vim')
+  execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFRedisMRU' })
+  nnoremap  <silent><special>   <A-m>   :<C-U>FZFRedisMRU<CR>
+else
+  execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
+  nnoremap  <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
+endif
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

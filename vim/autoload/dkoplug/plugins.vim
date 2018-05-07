@@ -62,6 +62,7 @@ function! dkoplug#plugins#LoadAll() abort
           \   'FZFGrepper',
           \   'FZFMRU',
           \   'FZFProject',
+          \   'FZFRedisMRU',
           \   'FZFRelevant',
           \   'FZFTests',
           \   'FZFVim',
