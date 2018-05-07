@@ -47,6 +47,7 @@
       "**/*.xml",
       "bitbar/enabled/*",
       "bitbar/vendor/*",
+      "hammerspoon/Spoons/**",
       "iterm2/*.itermcolors",
       "linux/**",
       "local/**",
