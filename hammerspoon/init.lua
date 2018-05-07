@@ -27,8 +27,8 @@ customBindings = {
   prevThird = false,
   enlarge = false,
   shrink = false,
-  undo = {{"cmd", "ctrl"}, "Z"},
-  redo = {{"cmd", "ctrl", "shift"}, "Z"},
+  undo = {{"cmd", "ctrl", "shift"}, "Z"},
+  redo = {{"cmd", "ctrl", "shift"}, "Y"},
   nextDisplay = false,
   prevDisplay = false
 }
