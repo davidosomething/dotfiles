@@ -45,7 +45,7 @@ DefaultMapping = {
 function obj:bindHotkeys(userMapping)
   print("Lunette: Binding Hotkeys")
 
-  local userMapping = {} or userMapping
+  local userMapping = userMapping or {}
   local mapping = DefaultMapping
 
   for k, v in pairs(userMapping) do
