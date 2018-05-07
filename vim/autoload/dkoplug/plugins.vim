@@ -41,6 +41,9 @@ function! dkoplug#plugins#LoadAll() abort
   " File system, ctags
   " ==========================================================================
 
+  " Store accessed files in redis
+  Plug 'neoclide/redismru.vim', PlugIf(executable('redis-cli'))
+
   Plug 'ludovicchabant/vim-gutentags', PlugIf(executable('ctags'))
 
   " ==========================================================================
