@@ -112,7 +112,7 @@ command! FZFMRU
 command! FZFRedisMRU
       \ call fzf#run(fzf#wrap('RedisMRU',
       \   fzf#vim#with_preview(extend({
-      \     'source':  redismru#files(),
+      \     'source':  dko#ShortPaths(redismru#files()),
       \     'options': s:options . ' --no-sort --prompt="RedisMRU> "',
       \   }, g:fzf_layout), 'right:50%')
       \ ))
