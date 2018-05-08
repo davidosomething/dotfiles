@@ -199,19 +199,21 @@ endfunction
 function! dko#project#GetFile(filename) abort
   if empty(dko#project#GetRoot()) | return '' | endif
 
-  let l:root = dko#project#IsMonorepo()
+  let l:project_root = dko#project#IsMonorepo()
         \ ? get(b:, 'dko_project_gitroot', dko#project#GetRoot())
         \ : dko#project#GetRoot()
 
   " Try to use nearest first; up to the root
-  let l:bounds = fnamemodify(a:filename, ':p:h') . ';' . l:root
+  let l:bounds = expand('%:p:h') . ';' . l:project_root
   let l:nearest = findfile(a:filename, l:bounds)
   if !empty(l:nearest) | return l:nearest | endif
 
   " @FIXME
   " Look in local paths for the project (not including git root)
   for l:root in dko#project#GetPaths()
-    let l:current = expand(l:root . '/' . l:root)
+    let l:current = empty(l:root)
+          \ ? expand(l:project_root)
+          \ : expand(l:project_root . '/' . l:root)
     if !isdirectory(l:current) | continue | endif
     if filereadable(glob(l:current . a:filename))
       return l:current . a:filename
@@ -242,9 +244,19 @@ function! dko#project#GetBin(bin) abort
   return ''
 endfunction
 
+" Find the first existing file in list of candidate filenames by looking up
+" from current path
+"
+" @FIXME this goes by first found filename in parents
+" instead of first found filename closest to the active file's path
 function! dko#project#GetCandidate(candidates) abort
-  let l:candidates = map(copy(a:candidates), 'dko#project#GetFile(v:val)')
-  return call('dko#First', l:candidates)
+  for l:candidate in a:candidates
+    let l:attempt = dko#project#GetFile(l:candidate)
+    if !empty(l:attempt)
+      return l:attempt
+    endif
+  endfor
+  return ''
 endfunction
 
 " ============================================================================

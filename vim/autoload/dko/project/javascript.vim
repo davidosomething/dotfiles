@@ -12,8 +12,9 @@ let s:eslintrc_candidates = [
 " @TODO support package.json configs
 " @return {String} eslintrc filename
 function! dko#project#javascript#GetEslintrc() abort
-  let b:dko_project_javascript_eslintrc =
-        \ get(b:, 'dko_project_javascript_eslintrc',
-        \   dko#project#GetCandidate(s:eslintrc_candidates))
+  if !exists('b:dko_project_javascript_eslintrc')
+    let b:dko_project_javascript_eslintrc =
+          \ dko#project#GetCandidate(s:eslintrc_candidates)
+  endif
   return b:dko_project_javascript_eslintrc
 endfunction
