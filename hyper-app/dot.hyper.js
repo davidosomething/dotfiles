@@ -1,10 +1,14 @@
 module.exports = {
   config: {
+    updateChannel: 'canary',
+
     // default font size in pixels for all tabs
     fontSize: 12,
 
     // font family with optional fallbacks
     fontFamily: '"Fira Mono for Powerline", "FuraMonoForPowerline Nerd Font", Menlo, "DejaVu Sans Mono", "Lucida Console", monospace',
+
+    lineHeight: 1.4,
 
     cursorBlink: true,
 
@@ -75,7 +79,8 @@ module.exports = {
     //'hyperterm-tabs',
 
     // bold active tab
-    'hyperterm-bold-tab',
+    // causes funky tab opening
+    //'hyperterm-bold-tab',
 
     //// tab icons
     //'hyperterm-tab-icons',
@@ -85,6 +90,8 @@ module.exports = {
 
     //// respect xterm titles
     'hyperterm-title',
+
+    'hyper-search',
 
     //// status bar
     //'hyperline',
@@ -105,5 +112,6 @@ module.exports = {
   // in development, you can create a directory under
   // `~/.hyperterm_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
-  localPlugins: []
+  localPlugins: [],
+
 };
