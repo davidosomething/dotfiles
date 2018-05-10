@@ -22,41 +22,79 @@ Command = dofile(obj.spoonPath.."/command.lua")
 history = dofile(obj.spoonPath.."/history.lua"):init()
 
 DefaultMapping = {
-  leftHalf = {{"cmd", "alt"}, "left"},
-  rightHalf = {{"cmd", "alt"}, "right"},
-  topHalf = {{"cmd", "alt"}, "up"},
-  bottomHalf = {{"cmd", "alt"}, "down"},
-  topLeft = {{"ctrl", "cmd"}, "Left"},
-  topRight = {{"ctrl", "cmd"}, "Right"},
-  bottomLeft = {{"ctrl", "cmd", "shift"}, "Left"},
-  bottomRight = {{"ctrl", "cmd", "shift"}, "Right"},
-  fullScreen = {{"cmd", "alt"}, "F"},
-  center = {{"cmd", "alt"}, "C"},
-  nextThird = {{"ctrl", "alt"}, "Right"},
-  prevThird = {{"ctrl", "alt"}, "Left"},
-  enlarge = {{"ctrl", "alt", "shift"}, "Right"},
-  shrink = {{"ctrl", "alt", "shift"}, "Left"},
-  undo = {{"alt", "cmd"}, "Z"},
-  redo = {{"alt", "cmd", "shift"}, "Z"},
-  nextDisplay = {{"ctrl", "alt", "cmd"}, "Right"},
-  prevDisplay = {{"ctrl", "alt", "cmd"}, "Left"}
+  leftHalf = {
+    {{"cmd", "alt"}, "left"},
+  },
+  rightHalf = {
+    {{"cmd", "alt"}, "right"},
+  },
+  topHalf = {
+    {{"cmd", "alt"}, "up"},
+  },
+  bottomHalf = {
+    {{"cmd", "alt"}, "down"},
+  },
+  topLeft = {
+    {{"ctrl", "cmd"}, "Left"},
+  },
+  topRight = {
+    {{"ctrl", "cmd"}, "Right"},
+  },
+  bottomLeft = {
+    {{"ctrl", "cmd", "shift"}, "Left"},
+  },
+  bottomRight = {
+    {{"ctrl", "cmd", "shift"}, "Right"},
+  },
+  fullScreen = {
+    {{"cmd", "alt"}, "F"},
+  },
+  center = {
+    {{"cmd", "alt"}, "C"},
+  },
+  nextThird = {
+    {{"ctrl", "alt"}, "Right"},
+  },
+  prevThird = {
+    {{"ctrl", "alt"}, "Left"},
+  },
+  enlarge = {
+    {{"ctrl", "alt", "shift"}, "Right"},
+  },
+  shrink = {
+    {{"ctrl", "alt", "shift"}, "Left"},
+  },
+  undo = {
+    {{"alt", "cmd"}, "Z"},
+  },
+  redo = {
+    {{"alt", "cmd", "shift"}, "Z"},
+  },
+  nextDisplay = {
+    {{"ctrl", "alt", "cmd"}, "Right"},
+  },
+  prevDisplay = {
+    {{"ctrl", "alt", "cmd"}, "Left"},
+  }
 }
 
-function obj:bindHotkeys(userMapping)
+function obj:bindHotkeys(userBindings)
   print("Lunette: Binding Hotkeys")
 
-  local userMapping = userMapping or {}
-  local mapping = DefaultMapping
+  local userBindings = userBindings or {}
+  local bindings = DefaultMapping
 
-  for k, v in pairs(userMapping) do
-    mapping[k] = v
+  for command, mappings in pairs(userBindings) do
+    bindings[command] = mappings
   end
 
-  for k, v in pairs(mapping) do
-    if mapping[k] then
-      hs.hotkey.bind(v[1], v[2], function()
-        exec(k)
-      end)
+  for command, mappings in pairs(bindings) do
+    if mappings then
+      for i, binding in ipairs(mappings) do
+        hs.hotkey.bind(binding[1], binding[2], function()
+          exec(command)
+        end)
+      end
     end
   end
 end

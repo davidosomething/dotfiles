@@ -12,11 +12,23 @@ end)
 -- Spectacle.app style window management
 -- https://github.com/scottwhudson/Lunette
 hs.loadSpoon("Lunette")
-customBindings = {
-  leftHalf = {{"cmd", "ctrl", "shift"}, "H"},
-  rightHalf = {{"cmd", "ctrl", "shift"}, "L"},
-  topHalf = {{"cmd", "ctrl", "shift"}, "K"},
-  bottomHalf = {{"cmd", "ctrl", "shift"}, "J"},
+spoon.Lunette:bindHotkeys({
+  leftHalf = {
+    {{"cmd", "ctrl", "shift"}, "left"},
+    {{"cmd", "ctrl", "shift"}, "H"},
+  },
+  rightHalf = {
+    {{"cmd", "ctrl", "shift"}, "right"},
+    {{"cmd", "ctrl", "shift"}, "L"},
+  },
+  topHalf = {
+    {{"cmd", "ctrl", "shift"}, "up"},
+    {{"cmd", "ctrl", "shift"}, "K"},
+  },
+  bottomHalf = {
+    {{"cmd", "ctrl", "shift"}, "down"},
+    {{"cmd", "ctrl", "shift"}, "J"},
+  },
   topLeft = false,
   topRight = false,
   bottomLeft = false,
@@ -27,9 +39,12 @@ customBindings = {
   prevThird = false,
   enlarge = false,
   shrink = false,
-  undo = {{"cmd", "ctrl", "shift"}, "Z"},
-  redo = {{"cmd", "ctrl", "shift"}, "Y"},
+  undo = {
+    {{"cmd", "ctrl", "shift"}, "Z"},
+  },
+  redo = {
+    {{"cmd", "ctrl", "shift"}, "Y"},
+  },
   nextDisplay = false,
-  prevDisplay = false
-}
-spoon.Lunette:bindHotkeys(customBindings)
+  prevDisplay = false,
+})
