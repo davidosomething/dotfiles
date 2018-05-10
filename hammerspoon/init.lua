@@ -2,6 +2,8 @@
 -- init.lua
 -- ---------------------------------------------------------------------------
 
+-- luacheck: globals hs spoon
+
 ---
 -- type what is in the clipboard
 hs.hotkey.bind({"cmd", "ctrl"}, "V", function()

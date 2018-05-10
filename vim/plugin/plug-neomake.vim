@@ -57,6 +57,7 @@ augroup dkoneomake
         \ call dko#neomake#python#DeactivatedPyenv()
   autocmd FileType javascript   call dko#neomake#javascript#Setup()
   autocmd FileType less         call dko#neomake#less#Setup()
+  autocmd FileType lua          call dko#neomake#lua#Setup()
   autocmd FileType markdown     call dko#neomake#markdown#Setup()
   autocmd FileType php          call dko#neomake#php#Setup()
   autocmd FileType scss         call dko#neomake#scss#Setup()

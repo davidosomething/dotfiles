@@ -1,12 +1,5 @@
 Requires
 
-### ArchLinux
-
-- luarocks
-- lua-sec
-
-## via luarocks
-
-- ldoc
-- luacheck
-
+luarocks install --server=http://luarocks.org/dev lua-lsp
+luarocks install luacheck
+luarocks install ldoc

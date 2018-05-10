@@ -56,7 +56,12 @@ elseif g:dko_use_js_langserver
         \ g:LanguageClient_serverCommands['javascript']
 endif
 
+if executable('luacheck')
+  let g:LanguageClient_serverCommands['lua'] = [
+        \   'lua-lsp'
+        \ ]
+endif
+
 " @TODO
 " python pyls
-" lua lua-lsp
 " go go-langserver
