@@ -176,6 +176,7 @@
 [diff]
 	compactionHeuristic = true
 	renames = true
+	renameLimit = 12650
 
 [filter "media"]
 	clean     = git media clean %f
