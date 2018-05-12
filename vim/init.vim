@@ -7,9 +7,11 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 " Settings
 " ============================================================================
 
+" Hyper.app does not truly support truecolor yet
+" @see https://github.com/zeit/hyper/issues/2846
+"\ || $TERM_PROGRAM ==# 'Hyper'
 if $COLORTERM ==# 'truecolor'
       \ || $TERM ==# 'xterm-kitty'
-      \ || $TERM_PROGRAM ==# 'Hyper'
       \ || !empty($ITERM_PROFILE)
   set termguicolors
 endif
