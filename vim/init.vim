@@ -16,6 +16,11 @@ if $COLORTERM ==# 'truecolor'
   set termguicolors
 endif
 
+if $TERM ==# 'xterm-kitty'
+  " @see https://github.com/kovidgoyal/kitty#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
+  let &t_ut=''
+endif
+
 set guicursor=n-v-c:block,i-ci-ve:ver50,r-cr:hor20,o:hor50
       \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
       \,sm:block-blinkwait175-blinkoff150-blinkon175
