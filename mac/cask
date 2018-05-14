@@ -21,6 +21,8 @@ echo "License in SpiderOak Hive"
 
 # ==============================================================================
 
+brew cask install betwixt
+
 brew cask install bitbar
 echo "Sync in SpiderOak Hive"
 
@@ -36,18 +38,15 @@ brew cask install firefox
 brew cask install gimp
 brew cask install gitter
 brew cask install google-chrome-beta
-brew cask install gpgtools
 brew cask install hammerspoon
 
 # inkscape requires xquartz
 brew cask install xquartz
 brew cask install inkscape
 
+brew cask install iina
 brew cask install iterm2
 brew cask install java
-
-# replaced by cloudapp
-#brew cask install jing
 
 # ==============================================================================
 # Kaleidoscope
@@ -71,7 +70,6 @@ echo "License in SpiderOak Hive"
 
 # ==============================================================================
 
-brew cask install mplayerx
 brew cask install ngrok
 brew cask install skype
 brew cask install slack
@@ -91,7 +89,7 @@ echo "Favorites in SpiderOak sync"
 # ============================================================================
 
 brew cask install tunnelblick
-echo "Set up AirVPN ovpns"
+echo "Set up vpn"
 
 # ============================================================================
 # Virtualization
