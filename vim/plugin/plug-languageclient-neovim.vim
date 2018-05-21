@@ -26,14 +26,14 @@ let s:cpo_save = &cpoptions
 set cpoptions&vim
 
 nnoremap <silent> <Leader>d
-      \ :<C-U>call LanguageClient_textDocument_definition()<CR>
+      \ :<C-U>call LanguageClient#textDocument_definition()<CR>
 
 nnoremap <silent> <leader>k
-      \ :<C-U>call LanguageClient_textDocument_hover()<CR>
+      \ :<C-U>call LanguageClient#textDocument_hover()<CR>
 
 " Symbols in current document (like tagbar)
 nnoremap <silent><special> <A-s>
-      \ :<C-U>call LanguageClient_textDocument_documentSymbol()<CR>
+      \ :<C-U>call LanguageClient#textDocument_documentSymbol()<CR>
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
