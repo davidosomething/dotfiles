@@ -7,7 +7,6 @@ flake8-import-order==0.17.1
 flake8-quotes==1.0.0
 neovim==0.2.6
 neovim-remote==2.0.5
-prospector==0.12.7
 pydocstyle==2.1.1
 pyflakes==1.6.0
 pylint==1.9.1
