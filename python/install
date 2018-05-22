@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-set -e
-
 # =============================================================================
 # Require DOTFILES
 # =============================================================================
 
-if [ -z "$DOTFILES" ]; then
-  echo ".dotfiles repo is not set up"
-  exit 1
+if [[ -z "$DOTFILES" ]]; then
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$(pwd)"
 fi
+. "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
+export PATH="${DOTFILES}/bin:${PATH}"
 
 # =============================================================================
 # Main
