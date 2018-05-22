@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 
-set -e
-
 # =============================================================================
 # Require DOTFILES
 # =============================================================================
 
 if [[ -z "$DOTFILES" ]]; then
-  echo ".dotfiles repo is not set up"
-  exit 1
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$(pwd)"
 fi
 . "${DOTFILES}/lib/pretty.bash"
 
@@ -17,7 +15,10 @@ fi
 # =============================================================================
 
 __install() {
-  # @TODO check for chruby
+  { which ruby | grep -q rubies; } || {
+    __dko_err  "Not using ruby in userspace"
+    exit 1
+  }
 
   __dko_status "Cleaning up gems with broken names"
   gem uninstall scss-lint
@@ -30,4 +31,3 @@ __install() {
 }
 
 __install
-
