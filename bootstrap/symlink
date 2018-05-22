@@ -62,8 +62,6 @@ __symlink() {
                 ".config/nvm/default-packages"
   dko-symlink  "shell/dot.inputrc" \
                 ".config/readline/inputrc"
-  dko-symlink  "redshift/redshift.conf" \
-                ".config/redshift/redshift.conf"
 
   # (n)vim
   dko-symlink  "vim" \
@@ -94,6 +92,8 @@ __symlink() {
                     "Library/LaunchAgents/dotfiles.plist"
       dko-symlink  "subversion/config" \
                     ".subversion/config"
+      dko-symlink  "mac/redshift.conf" \
+                    ".config/redshift/redshift.conf"
       ;;
     linux*)
       dko-symlink  "linux/subversion/config" \
