@@ -557,7 +557,10 @@ function! dkoplug#plugins#LoadAll() abort
   " Language: .tmux.conf
   " ==========================================================================
 
-  Plug 'tmux-plugins/vim-tmux'
+  " Older syntax but has neat features
+  "Plug 'tmux-plugins/vim-tmux'
+  " Less feature filled but this is upstream for $VIMRUNTIME and more up-to-date
+  Plug 'ericpruitt/tmux.vim', { 'rtp': 'vim/' }
 
   " ==========================================================================
   " Language: VimL
