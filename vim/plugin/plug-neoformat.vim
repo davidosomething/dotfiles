@@ -34,7 +34,10 @@ if !dkoplug#IsLoaded('neoformat') | finish | endif
 " endfunction
 
 function! s:PrettierConfig() abort
-  return expand('$DOTFILES/prettier/prettier.config.js')
+  if !exists('s:config')
+    let s:config = expand('$DOTFILES/prettier/prettier.config.js')
+  endif
+  return s:config
 endfunction
 
 let g:neoformat_javascript_dkoprettier = {
@@ -55,9 +58,14 @@ let g:neoformat_javascript_dkoprettiereslint = {
       \   'stdin':  1,
       \ }
 
-let g:neoformat_enabled_css = ['dkoprettier']
+let g:neoformat_enabled_css = ['prettier']
 let g:neoformat_enabled_java = ['uncrustify']
 let g:neoformat_enabled_javascript = ['dkoprettier']
-let g:neoformat_enabled_json = ['dkoprettier']
+let g:neoformat_enabled_json = ['jq']
 let g:neoformat_enabled_python = ['autopep8', 'isort']
-let g:neoformat_enabled_scss = ['dkoprettier']
+let g:neoformat_enabled_scss = ['prettier']
+
+augroup dkoneoformat
+  autocmd!
+  autocmd BufWritePre *.json Neoformat
+augroup END
