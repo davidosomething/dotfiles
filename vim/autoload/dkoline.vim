@@ -107,7 +107,7 @@ function! dkoline#GetStatusline(winnr) abort
   let l:maxwidth = l:ww - 4 - len(l:ft) - 16
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 48
   let l:contents .= dkoline#Format(
-        \   ' %t ',
+        \   dkoline#TailDirFilename(l:bufnr, l:cwd),
         \   '%0.' . l:maxwidth . '('
         \     . (dkoline#If({ 'winnr': l:winnr }, l:x)
         \       ? '%#StatusLine#'
@@ -245,6 +245,32 @@ function! dkoline#RelativeFilepath(bufnr, path) abort
     let l:contents = dko#IsHelp(a:bufnr)
           \ ? '%t'
           \ : fnamemodify(substitute(l:filename, a:path, '.', ''), ':~:.')
+  endif
+
+  return ' ' . l:contents . ' '
+endfunction
+
+" Show buffer's filename and immediate parent directory
+"
+" @param {Int} bufnr
+" @param {String} cwd
+" @return {String}
+function! dkoline#TailDirFilename(bufnr, cwd) abort
+  if dko#IsNonFile(a:bufnr)
+    return ''
+  endif
+
+  let l:filename = bufname(a:bufnr)
+  if empty(l:filename)
+    let l:contents = '[No Name]'
+  else
+    if dko#IsHelp(a:bufnr)
+      let l:contents = '%t'
+    else
+      let l:parent_dir = fnamemodify(l:filename, ':h:t')
+      let l:parent_dir = l:parent_dir !=# '.' ? l:parent_dir : fnamemodify(a:cwd, ':t')
+      let l:contents = l:parent_dir . '/' . fnamemodify(l:filename, ':t')
+    endif
   endif
 
   return ' ' . l:contents . ' '
