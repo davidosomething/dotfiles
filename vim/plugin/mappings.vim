@@ -243,8 +243,8 @@ xnoremap  <special> <Leader>s   :!sort<CR>
 " ----------------------------------------------------------------------------
 
 " mark Q, visual, inner-word case, back to mark (don't change cursor position)
-nnoremap  <special> <Leader>l   viwu
-nnoremap  <special> <Leader>u   viwU
+nnoremap  <special> <Leader>l   viWu
+nnoremap  <special> <Leader>u   viWU
 
 " ----------------------------------------------------------------------------
 " Join lines without space (and go to first char line that was merged up)
