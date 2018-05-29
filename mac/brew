@@ -137,7 +137,6 @@ brew install highlight
 # ----------------------------------------------------------------------------
 
 brew install git --without-completions
-brew install git-extras
 brew install hub tig
 
 # ----------------------------------------------------------------------------
