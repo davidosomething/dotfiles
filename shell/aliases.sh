@@ -71,7 +71,7 @@ alias gethsync='geth --syncmode "fast" --cache 1024 console'
 # git
 # ----------------------------------------------------------------------------
 
-if command -v hub >/dev/null; then alias g='hub'; else alias g='git'; fi
+alias g='git'
 alias g-='g checkout -'
 alias gb='g branch --verbose'
 alias gi='g ink'
