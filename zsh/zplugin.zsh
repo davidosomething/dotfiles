@@ -5,13 +5,13 @@ DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
 # Needed first for turbo mode
 zplugin light 'zdharma/fast-syntax-highlighting'
 
-zplugin ice as"program" pick"git-ink"
+zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-ink"
 zplugin light davidosomething/git-ink
 
-zplugin ice as"program" pick"git-my"
+zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-my"
 zplugin light davidosomething/git-my
 
-zplugin ice as"program" pick"git-take"
+zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-take"
 zplugin light davidosomething/git-take
 
 # my fork of cdbk, ZSH hash based directory bookmarking
@@ -22,14 +22,16 @@ zplugin light 'davidosomething/cdbk'
 # Vendor: Commands
 # ----------------------------------------------------------------------------
 
-zplugin ice as"program" pick"git-open"
+zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-*"
+zplugin light tj/git-extras
+
+zplugin ice as"program"\
+	pick"${ZPFX}/bin/git-open"\
+	atload"__dko_source ${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
 zplugin light paulirish/git-open
 
-zplugin ice as"program" pick"git-recent"
+zplugin ice as"program" pick"${ZPFX}/bin/git-recent"
 zplugin light paulirish/git-recent
-
-zplugin ice as"program" pick"raylee/tldr"
-zplugin light raylee/tldr
 
 # replaces up() in shell/functions.sh
 zplugin light 'shannonmoeller/up'
@@ -73,13 +75,5 @@ zplugin light 'voronkovich/phpcs.plugin.zsh'
     zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)trav*]} ]]'
     zplugin light "${TRAVIS_CONFIG_PATH}"
   }
-
-# ----------------------------------------------------------------------------
-# zplugin management
-# ----------------------------------------------------------------------------
-
-zplugin light zdharma/zui
-zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]'
-zplugin load zdharma/zplugin-crasis
 
 export DKO_SOURCE="${DKO_SOURCE} }"

@@ -61,8 +61,8 @@
 	m       = merge
 
 	pom     = pull --ff-only origin master
-	pr      = pull --rebase
 	pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
+	pure    = pull --rebase
 	pum     = pull --ff-only upstream master
 
 	poh     = push origin HEAD
