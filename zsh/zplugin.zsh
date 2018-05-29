@@ -5,13 +5,13 @@ DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
 # Needed first for turbo mode
 zplugin light 'zdharma/fast-syntax-highlighting'
 
-zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-ink"
+zplugin ice wait"1" lucid as"program" pick"git-ink"
 zplugin light davidosomething/git-ink
 
-zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-my"
+zplugin ice wait"1" lucid as"program" pick"git-my"
 zplugin light davidosomething/git-my
 
-zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-take"
+zplugin ice wait"1" lucid as"program" pick"git-take"
 zplugin light davidosomething/git-take
 
 # my fork of cdbk, ZSH hash based directory bookmarking
@@ -22,15 +22,14 @@ zplugin light 'davidosomething/cdbk'
 # Vendor: Commands
 # ----------------------------------------------------------------------------
 
-zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-*"
+zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-*"\
+  atload"__dko_source ${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
 zplugin light tj/git-extras
 
-zplugin ice as"program"\
-  pick"${ZPFX}/bin/git-open"\
-  atload"__dko_source ${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
+zplugin ice wait"1" lucid as"program" pick"git-open"
 zplugin light paulirish/git-open
 
-zplugin ice as"program" pick"${ZPFX}/bin/git-recent"
+zplugin ice wait"1" lucid as"program" pick"git-recent"
 zplugin light paulirish/git-recent
 
 # replaces up() in shell/functions.sh
