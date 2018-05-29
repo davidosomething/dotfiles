@@ -26,8 +26,8 @@ zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-*"
 zplugin light tj/git-extras
 
 zplugin ice as"program"\
-	pick"${ZPFX}/bin/git-open"\
-	atload"__dko_source ${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
+  pick"${ZPFX}/bin/git-open"\
+  atload"__dko_source ${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
 zplugin light paulirish/git-open
 
 zplugin ice as"program" pick"${ZPFX}/bin/git-recent"
