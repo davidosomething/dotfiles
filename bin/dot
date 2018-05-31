@@ -552,7 +552,7 @@ __dko_dotfiles__darwin__update_brew_done() {
 
 # pass any arg to silence
 __dko_dotfiles__darwin__require_latest_xcode() {
-  local latest_xcode="9.3"
+  local latest_xcode="9.4"
   xcodebuild -version | grep -q "$latest_xcode" && return 0
   (( $# == 0 )) \
     && __dko_err "Using an outdated Xcode, please install/switch to latest version."
