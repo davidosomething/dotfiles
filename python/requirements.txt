@@ -12,4 +12,4 @@ pyflakes==1.6.0
 pylint==1.9.1
 yamllint==1.11.1
 vim-vint==0.3.18
-vulture==0.26
+vulture==0.27
