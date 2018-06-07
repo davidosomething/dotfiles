@@ -1,7 +1,9 @@
 ---
+update: insecure
 branch: dev
 schedule: "every day"
 search: true
+label_prs: bot
 assignees:
   - davidosomething
 close_prs: true
