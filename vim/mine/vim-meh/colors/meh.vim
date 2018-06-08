@@ -244,6 +244,14 @@ hi! link jsonBoolean          Boolean
 hi! link jsonEscape           Operator
 
 " ============================================================================
+" Markdown
+" ============================================================================
+
+hi! link markdownCode               Identifier
+hi! link markdownLinkDelimiter      Noise
+hi! link markdownLinkTextDelimiter  Noise
+
+" ============================================================================
 " PHP
 " ============================================================================
 

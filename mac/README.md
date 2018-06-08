@@ -81,8 +81,7 @@ operation. Use the `bi` alias for a clean room install if possible.
 - Install `chruby`, `ruby-install`
     1. `ruby-install ruby` to install latest
     1. `chruby` to that version
-    1. Install gems using
-        [ruby/install-default-gems](../ruby/install-default-gems)
+    1. Install gems using [ruby/install-default-gems](../ruby/install-default-gems)
 - Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and `npm`)
     1. Use nvm managed node
@@ -92,13 +91,14 @@ operation. Use the `bi` alias for a clean room install if possible.
     1. `brew install openssl`
     1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
     1. Set up the global pyenv as the latest stable (3.x.x)
-    1. Set up python virtualenvs called `neovim{2,3}` -- the Neovim
-        configuration expects to find those. E.g.,
-        1. `pyenv install 2.7.xx`
-        1. `pyenv virtualenv 2.7.xx neovim2`
-        1. `pyenv activate neovim2`
-        1. `pip install neovim`
-        1. `pyenv deactivate`
+    1. Set up python virtualenvs called `neovim{2,3}` -- the Neovim configuration expects to find those. E.g.,
+        ```sh
+        pyenv install 2.7.xx
+        pyenv virtualenv 2.7.xx neovim2
+        pyenv activate neovim2
+        pip install neovim
+        pyenv deactivate
+        ```
 - run [bootstrap/terminfo](../bootstrap/terminfo) (added terminfo for iTerm
   with italics support)
 - Install `gpgtools` from `brew cask` (it provides `gpg-agent` and can store
