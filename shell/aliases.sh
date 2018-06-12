@@ -119,6 +119,8 @@ alias pmddir='pmd pmd -dir ./ -format textcolor -rulesets '
 # node
 # ----------------------------------------------------------------------------
 
+alias gulp='npx gulp'
+alias grunt='npx grunt'
 alias lr='lerna'
 alias n='npm'
 alias ni='n install'
