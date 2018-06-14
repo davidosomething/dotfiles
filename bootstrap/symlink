@@ -47,7 +47,7 @@ __symlink() {
 
   # universal-ctags
   dko-symlink  "universal-ctags/dot.ctags" \
-                ".ctags"
+                ".ctags.d/universal.ctags"
 
   # XDG-compatible
   dko-symlink  "atom/config.cson" \

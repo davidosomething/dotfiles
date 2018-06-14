@@ -3,8 +3,6 @@
 # Cleanup home for XDG compliance
 #
 
-set -e
-
 if [[ -z "$DOTFILES" ]]; then
   cd -- "$(dirname "$0")/.." || exit 1
   DOTFILES="$(pwd)"
@@ -102,6 +100,8 @@ __merge_dir "${HOME}/.fonts"          "${XDG_DATA_HOME}/fonts"
 __remove "${HOME}/.bashrc"
 ! dko-same "${HOME}/.dotfiles/zsh/dot.zshenv" "${HOME}/.zshenv" \
 __remove "${HOME}/.zshenv"
+# should be ~/.ctags.d/universal.ctags
+__remove "${HOME}/.ctags"
 # alias points to dotfile
 __remove "${HOME}/.mdlrc"
 # should be in XDG
