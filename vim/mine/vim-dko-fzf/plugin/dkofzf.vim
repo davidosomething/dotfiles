@@ -156,7 +156,8 @@ let s:grepper_half = fzf#vim#with_preview(
 if dko#GetGrepper().command ==# 'rg'
   command! -bang -nargs=* FZFGrepper
         \ call fzf#vim#grep(
-        \   'rg --color=always --column --hidden --line-number --no-heading '
+        \   'rg --color=always --column --line-number --no-heading '
+        \     . '--hidden --smart-case '
         \     . '--no-ignore-vcs '
         \     . '--ignore-file "${DOTFILES}/ag/dot.ignore" '
         \     . shellescape(<q-args>),
