@@ -446,7 +446,7 @@ __dko_dotfiles__php__update_wpcs() {
 
   __dko_status "Looking for standards"
   readonly possible=( \
-    "$COMPOSER_HOME/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards" \
+    "${COMPOSER_HOME}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards" \
     "$wpcs_path" \
   )
   local standards=()
@@ -475,20 +475,18 @@ __dko_dotfiles__php__update_wpcs() {
 
 __dko_dotfiles__linux__update() {
   case "$1" in
-    arch) __dko_dotfiles__linux__arch__update; return $? ;;
-    deb)  __dko_dotfiles__linux__deb__update; return $? ;;
+    arch) __dko_dotfiles__linux__arch__update ;;
+    deb)  __dko_dotfiles__linux__deb__update ;;
+    *)    __dko_dotfiles__command_not_found "$1"; return 1 ;;
   esac
-  __dko_dotfiles__command_not_found "$1"
-  return 1
 }
 
 __dko_dotfiles__darwin__update() {
   case "$1" in
-    brew) __dko_dotfiles__darwin__update_brew; return $? ;;
-    mac)  __dko_dotfiles__darwin__update_mac; return $? ;;
+    brew) __dko_dotfiles__darwin__update_brew ;;
+    mac)  __dko_dotfiles__darwin__update_mac ;;
+    *)    __dko_dotfiles__command_not_found "$1"; return 1 ;;
   esac
-  __dko_dotfiles__command_not_found "$1"
-  return 1
 }
 
 # ------------------------------------------------------------------------------
@@ -554,15 +552,14 @@ __dko_dotfiles__darwin__update_brew_done() {
 __dko_dotfiles__darwin__require_latest_xcode() {
   local latest_xcode="9.4"
   xcodebuild -version | grep -q "$latest_xcode" && return 0
-  (( $# == 0 )) \
-    && __dko_err "Using an outdated Xcode, please install/switch to latest version."
+  __dko_err "Using an outdated Xcode, please install/switch to latest version."
   return 1
 }
 
 # pass any arg to silence
 __dko_dotfiles__darwin__require_brew() {
   __dko_has "brew" && return 0
-  (( $# == 0 )) && __dko_warn "Homebrew is not installed"
+  __dko_warn "Homebrew is not installed"
   return 1
 }
 
