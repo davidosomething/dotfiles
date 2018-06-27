@@ -35,7 +35,11 @@ if !dkoplug#IsLoaded('neoformat') | finish | endif
 
 let g:neoformat_enabled_css = ['prettier']
 let g:neoformat_enabled_java = ['uncrustify']
-let g:neoformat_enabled_javascript = ['dkoprettier', 'dkoprettiereslint']
+let g:neoformat_enabled_javascript = [
+      \   'dkoprettier',
+      \   'dkoprettiereslint',
+      \   'prettier'
+      \ ]
 let g:neoformat_enabled_json = ['jq']
 let g:neoformat_enabled_python = ['autopep8', 'isort']
 let g:neoformat_enabled_scss = ['prettier']
