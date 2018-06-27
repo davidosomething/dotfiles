@@ -60,10 +60,7 @@ function! dko#neomake#javascript#Setup() abort
 
   call dko#InitList('b:neomake_javascript_enabled_makers')
 
-  if expand('%:p:t') ==# '.eslintrc.js'
-    " Skip linting .eslintrc.js
-    return
-  elseif !empty(dko#project#javascript#GetEslintrc())
+  if !empty(dko#project#javascript#GetEslintrc())
     let b:neomake_javascript_enabled_makers += [ 'eslint' ]
   elseif !empty(dko#project#GetFile('.jshintrc'))
     let b:neomake_javascript_enabled_makers += [ 'jshint' ]

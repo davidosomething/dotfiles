@@ -6,9 +6,10 @@
 
 const p = {};
 
-p.trailingComma = 'es5';
-p.jsxBracketSameLine = true;
-p.singleQuote = true;
 p.arrowParens = 'always';
+p.bracketSpacing = true,
+p.jsxBracketSameLine = false;
+p.singleQuote = true;
+p.trailingComma = 'es5';
 
 module.exports = p;
