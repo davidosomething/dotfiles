@@ -38,7 +38,8 @@ let g:neoformat_enabled_java = ['uncrustify']
 let g:neoformat_enabled_javascript = [
       \   'dkoprettier',
       \   'dkoprettiereslint',
-      \   'prettier'
+      \   'prettier',
+      \   'standard',
       \ ]
 let g:neoformat_enabled_json = ['jq']
 let g:neoformat_enabled_python = ['autopep8', 'isort']
