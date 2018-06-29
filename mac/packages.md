@@ -1,5 +1,7 @@
 # brew packages
 
+Generated on 2018-06-29T01:38:11.359Z
+
 | Package | Description |
 | ------- | ----------- |
 | [ack](https://beyondgrep.com/) | `Search tool like grep, but optimized for programmers` |
@@ -141,6 +143,3 @@
 | [youtube-dl](https://rg3.github.io/youtube-dl/) | `Download YouTube videos from the command-line` |
 | [zlib](https://zlib.net/) | `General-purpose lossless data-compression library` |
 | [zsh](https://www.zsh.org/) | `UNIX shell (command interpreter)` |
-
-
-Generated on 2018-06-29T01:32:13.371Z
