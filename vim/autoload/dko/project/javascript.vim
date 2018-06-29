@@ -14,10 +14,12 @@ let s:eslintrc_candidates = [
 " @return {String} eslintrc filename
 function! dko#project#javascript#GetEslintrc() abort
   if !exists('b:dko_project_javascript_eslintrc')
-    let b:dko_project_javascript_eslintrc =
-          \ dko#project#GetCandidate(s:eslintrc_candidates)
+    let l:found = dko#project#GetCandidate(s:eslintrc_candidates)
+    if !empty(l:found)
+      let b:dko_project_javascript_eslintrc = fnamemodify(l:found, ':p')
+    endif
   endif
-  return b:dko_project_javascript_eslintrc
+  return get(b:, 'dko_project_javascript_eslintrc', '')
 endfunction
 
 let s:prettierrc_candidates = [
