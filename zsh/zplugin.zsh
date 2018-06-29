@@ -3,7 +3,7 @@
 DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
 
 # Needed first for turbo mode
-zplugin light 'zdharma/fast-syntax-highlighting'
+#zplugin light 'zdharma/fast-syntax-highlighting'
 
 zplugin ice wait"1" lucid as"program" pick"git-ink"
 zplugin light davidosomething/git-ink

@@ -46,7 +46,7 @@ __main() {
   local p3="$2"
 
   if [[ -z "$p2" ]] || [[ -z "$p3" ]]; then
-    __dko_usage "$0 2.7.14 3.6.3"
+    __dko_usage "$0 2.7.14 3.6.6"
     return 1
   fi
 

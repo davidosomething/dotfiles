@@ -32,6 +32,7 @@ alias tree='tree -CF'
 
 alias pyg='pygmentize -O style=rrt -f console256 -g'
 alias d='icdiff -line-numbers --tabsize=4 --numlines=8'
+alias crm='dog README.md'
 
 # ----------------------------------------------------------------------------
 # docker

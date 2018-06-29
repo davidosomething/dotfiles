@@ -33,34 +33,14 @@ if !dkoplug#IsLoaded('neoformat') | finish | endif
 "   return l:formatprg
 " endfunction
 
-function! s:PrettierConfig() abort
-  if !exists('s:config')
-    let s:config = expand('$DOTFILES/prettier/prettier.config.js')
-  endif
-  return s:config
-endfunction
-
-let g:neoformat_javascript_dkoprettier = {
-      \   'exe':    'prettier',
-      \   'args':   [
-      \     '--config', s:PrettierConfig(),
-      \     '--stdin',
-      \   ],
-      \   'stdin':  1,
-      \ }
-
-let g:neoformat_javascript_dkoprettiereslint = {
-      \   'exe':    'prettier-eslint',
-      \   'args':   [
-      \     '--config', s:PrettierConfig(),
-      \     '--stdin',
-      \   ],
-      \   'stdin':  1,
-      \ }
-
 let g:neoformat_enabled_css = ['prettier']
 let g:neoformat_enabled_java = ['uncrustify']
-let g:neoformat_enabled_javascript = ['dkoprettier']
+let g:neoformat_enabled_javascript = [
+      \   'dkoprettier',
+      \   'dkoprettiereslint',
+      \   'prettier',
+      \   'standard',
+      \ ]
 let g:neoformat_enabled_json = ['jq']
 let g:neoformat_enabled_python = ['autopep8', 'isort']
 let g:neoformat_enabled_scss = ['prettier']

@@ -2,7 +2,7 @@
 
 phpini="$(php -d display_startup_errors=0 -r 'echo php_ini_loaded_file();' 2>/dev/null)"
 if [ -w "${phpini}" ]; then
-  eval "${EDITOR} ${phpini}"
+  eval "${EDITOR:-vim} ${phpini}"
 else
   sudo -e "${phpini}"
 fi

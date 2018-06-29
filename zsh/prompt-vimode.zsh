@@ -21,13 +21,11 @@ export DKO_PROMPT_VIMODE="${__dko_prompt_vi_insert}"
 
 zle-line-init zle-keymap-select() {
   case ${KEYMAP} in
-    (vicmd)
-      export DKO_PROMPT_VIMODE="${__dko_prompt_vi_normal}"
-      ;;
-    (main|viins)
-      export DKO_PROMPT_VIMODE="${__dko_prompt_vi_insert}"
-      ;;
+    (vicmd)       : "${__dko_prompt_vi_normal}" ;;
+    (main|viins)  : "${__dko_prompt_vi_insert}" ;;
   esac
+  DKO_PROMPT_VIMODE="$_"
+  export DKO_PROMPT_VIMODE
 
   # force redisplay
   zle reset-prompt
