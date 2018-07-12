@@ -19,7 +19,7 @@ set cpoptions&vim
 
 " Require to import
 nnoremap r2i
-      \ :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
+      \ :<C-U>s/\(const\|var\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
 
 if g:dko_use_completion && dkoplug#IsLoaded('jspc.vim')
   " jspc#omni normally extends javascriptcomplete on param pattern match.
@@ -33,7 +33,9 @@ setlocal errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
 setlocal errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
 setlocal errorformat+=%-G\s%#
 setlocal errorformat+=%-G\s%#%\\d%\\+\ problems%#
-let &l:makeprg = 'cd ' . dko#project#GetRoot() . ' && npx eslint -f compact %'
+let &l:makeprg = 'cd ' . dko#project#GetRoot() . ' && npx eslint'
+      \. ' --config ' . dko#project#javascript#geteslintrc()
+      \. ' --format compact --no-color %'
 
 " Automatically try these file extensions when gf to a word without extension
 setlocal suffixesadd+=.js,.vue,.json,.jsx,.ts,.tsx
