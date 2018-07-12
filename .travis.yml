@@ -3,14 +3,16 @@ branches:
   except:
     - master
 sudo: false
+addons:
+  apt:
+    packages:
+      - shellcheck
 language: python
 os:
   - linux
 python:
   - '2.7'
 before_install:
-  - apt-get -qq update
-  - apt-get install -qq -y shellcheck
   - nvm install --lts
 script:
   - tox
