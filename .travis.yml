@@ -9,8 +9,8 @@ os:
 python:
   - '2.7'
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -qq -y shellcheck
+  - apt-get -qq update
+  - apt-get install -qq -y shellcheck
   - nvm install --lts
 script:
   - tox
