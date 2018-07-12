@@ -54,7 +54,7 @@ __dko_status "asciinema auth to link computer to account"
 brew install awscli
 brew install catimg
 # does not come with Docker.app
-brew install docker-completion
+brew install docker-completion hadolint
 
 # ============================================================================
 # vim
@@ -155,6 +155,7 @@ brew install carthage
 # java
 # ----------------------------------------------------------------------------
 
+brew install checkstyle
 brew install gradle --with-all
 brew install maven
 
@@ -172,6 +173,12 @@ brew install homebrew/homebrew-php/composer
 
 brew install lua
 brew install mono
+
+# ----------------------------------------------------------------------------
+# swift
+# ----------------------------------------------------------------------------
+
+brew install swiftlint
 
 # ----------------------------------------------------------------------------
 # web

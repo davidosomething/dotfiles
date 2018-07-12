@@ -227,7 +227,7 @@ set isfname-==
 
 set complete-=i                       " don't complete includes
 set complete-=t                       " don't complete tags
-set completeopt-=preview              " don't open scratch (e.g. echodoc)
+"set completeopt-=preview              " don't open scratch (e.g. echodoc)
 set completeopt+=noinsert             " only insert on manual completion accept
 set completeopt+=menu,menuone         " show PUM, even for one thing
 
