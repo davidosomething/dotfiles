@@ -53,7 +53,7 @@ augroup filetypedetect
   autocmd! BufNewFile,BufRead *.md setfiletype markdown
 
   autocmd! BufNewFile,BufRead .babelrc,.bowerrc,.jshintrc setfiletype json
-  autocmd! BufNewFile,BufRead *.tern-config,.tern-config setfiletype json
+  autocmd! BufNewFile,BufRead *.tern-*,.tern-* setfiletype json
 
   autocmd! BufNewFile,BufRead .eslintrc,.stylelintrc call s:SetJSONorYAML()
 
