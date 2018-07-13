@@ -99,14 +99,20 @@ __dko_prompt::env() {
 
 # Get node version provided by NVM using the env vars instead of calling slow
 # NVM functions
-__dko_prompt::env::get_current_node() {
-  dko-nvm-node-version
-}
+__dko_prompt::env "js" "nvm" '$(dko-nvm-node-version)' \
+  '$( [[ "$(dko-nvm-node-version)" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")'
 
-__dko_prompt::env "js" "nvm" '$(__dko_prompt::env::get_current_node)' \
-  '$( [[ "$(__dko_prompt::env::get_current_node)" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")'
 __dko_prompt::env "go" "goenv"
-__dko_prompt::env "py" "pyenv"
+
+__dko_prompt::env::py() {
+  if [ -n "$VIRTUAL_ENV" ]; then
+    echo "${VIRTUAL_ENV##*/}"
+  else
+    echo "${$(pyenv version-name 2>/dev/null):-sys}"
+  fi
+}
+__dko_prompt::env "py" "pyenv" '$(__dko_prompt::env::py)'
+
 __dko_prompt::env "rb" "chruby" '${RUBY_VERSION:-sys}'
 
 # ============================================================================

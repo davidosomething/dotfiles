@@ -51,8 +51,15 @@ __main() {
   fi
 
   . "${DOTFILES}/shell/python.bash"
-  __dko_status "pyenv virtualenv setup"
+
   __dko_echo "\$PYENV_ROOT=${PYENV_ROOT}"
+
+  __dko_status "pyenv-virtualenvwrapper plugin installation"
+  git clone \
+    https://github.com/pyenv/pyenv-virtualenvwrapper.git \
+    "$(pyenv root)/plugins/pyenv-virtualenvwrapper"
+
+  __dko_status "pyenv-virtualenv setup"
   __dko_echo "desired python2: ${p2}"
   __dko_echo "desired python3: ${p3}"
 

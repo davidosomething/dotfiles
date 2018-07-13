@@ -45,6 +45,7 @@
 	dns     = diff --ignore-all-space
 
 	fo      = fetch origin
+	fom     = fetch origin master
 
 	git     = !exec git
 	g       = grep --break --heading --line-number
