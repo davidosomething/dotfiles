@@ -7,7 +7,7 @@ function! s:replace_tokens() abort
         \ }
 
   let l:lnum = nextnonblank(1)
-  while l:lnum && lnum < line('$')
+  while l:lnum && l:lnum < line('$')
     call setline(
           \ l:lnum,
           \ substitute(
