@@ -1,4 +1,7 @@
+${BRANCH}
+
 ; [ci skip]
+; [skip Scrutinizer]
 
 ; ==============================================================================
 ; Conventional changelog format
