@@ -22,6 +22,7 @@ function! dko#neomake#markdown#Setup() abort
         \   'alex',
         \   'markdownlint',
         \   'writegood',
+        \   'vale',
         \ ]
 endfunction
 

@@ -28,7 +28,7 @@ git clone --recurse-submodules https://github.com/davidosomething/dotfiles ~/.do
 ```
 
 After symlinking, `~/.dotfiles/bootstrap/cleanup` can detect and move
-pre-existing dotfiles that might conflict with these.
+pre-existing dotfiles that conflict with these.
 
 ### Using a different repository path
 
@@ -127,7 +127,7 @@ If you have node installed, the `dkosourced`
 ([bin/dkosourced](bin/dkosourced)) command will show you (not exhaustively)
 the order scripts get sourced. Without node `echo $DKO_SOURCE` works.
 
-For X apps (no terminal) the value is probably:
+For X apps (no terminal) the value may be:
 
     /etc/profile
     .xprofile
@@ -145,7 +145,7 @@ For X apps (no terminal) the value is probably:
     - Prefer `.` over `source`
 - **Function names**
     - For private functions in a script, use two underscores `__private_func()`
-      These function names are safe to reuse after script execution. When
+      These function names are safe to reuse after running the script once. When
       namespaced, they are in the form of `__dko_function_name()`.
 - **Variable interpolation**
     - Always use curly braces around the variable name when interpolating in

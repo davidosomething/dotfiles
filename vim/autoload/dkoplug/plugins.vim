@@ -108,7 +108,10 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'AndrewRadev/splitjoin.vim'
 
   " Compatible with Neovim or Vim with this patch level
-  Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
+  "Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
+  Plug 'davidosomething/neomake', PlugIf(has('patch-7.4.503'), {
+        \   'branch': 'add-vale'
+        \ })
   "Plug '~/projects/neomake'
 
   " ==========================================================================
