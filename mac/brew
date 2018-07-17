@@ -18,10 +18,6 @@ fi
 # reset TERM since we use custom one in iTerm
 TERM=xterm-256color
 
-# ============================================================================
-# taps
-# ============================================================================
-
 # brew services launchctl manager -- no formulae
 brew tap homebrew/services
 
@@ -166,6 +162,13 @@ brew install maven
 brew install php71
 brew install pmd
 brew install homebrew/homebrew-php/composer
+
+# ----------------------------------------------------------------------------
+# Prose
+# ----------------------------------------------------------------------------
+
+brew tap ValeLint/vale
+brew install vale
 
 # ----------------------------------------------------------------------------
 # scripting
