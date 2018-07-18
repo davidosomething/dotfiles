@@ -575,6 +575,8 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'kana/vim-gf-user', { 'for': [ 'vim' ] }
   Plug 'sgur/vim-gf-autoload', { 'for': [ 'vim' ] }
 
+  Plug 'junegunn/vader.vim'
+
   " Auto-prefix continuation lines with \
   Plug 'lambdalisue/vim-backslash'
 
