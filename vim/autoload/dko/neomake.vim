@@ -119,6 +119,8 @@ function! dko#neomake#EchintSetup() abort
     if !exists('g:neomake_' . l:ft . '_echint_maker') | continue | endif
     let b:neomake_{l:ft}_echint_maker = copy(g:neomake_{l:ft}_echint_maker)
     let b:neomake_{l:ft}_echint_maker.cwd = l:cwd
-    call dko#neomake#AddMaker(l:ft, 'echint')
+    if get(b:, 'echint_enabled', 1) " enabled by default
+      call dko#neomake#AddMaker(l:ft, 'echint')
+    endif
   endfor
 endfunction
