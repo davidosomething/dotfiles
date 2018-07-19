@@ -239,14 +239,6 @@ nnoremap  <special> <Leader>s   vip:!sort<CR>
 xnoremap  <special> <Leader>s   :!sort<CR>
 
 " ----------------------------------------------------------------------------
-" Uppercase / lowercase word
-" ----------------------------------------------------------------------------
-
-" mark Q, visual, inner-word case, back to mark (don't change cursor position)
-nnoremap  <special> <Leader>l   viWu
-nnoremap  <special> <Leader>u   viWU
-
-" ----------------------------------------------------------------------------
 " Join lines without space (and go to first char line that was merged up)
 " ----------------------------------------------------------------------------
 
