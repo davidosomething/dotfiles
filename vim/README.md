@@ -21,10 +21,7 @@
 Best used with rest of dotfiles. Should self-install plugins via curl and
 [vim-plug] on first load.
 
-Keep `(g)vimrc` (no dot in filename) in `.vim` -- Vim knows to look in there.
-
-Even though [neomake] handles linting, the [syntastic] wiki still has a good
-list ([Syntax-Checkers]) and shows how to set them up.
+Keep `(g)vimrc` (no dot in filename) in `~/.vim/` -- Vim knows to look in there.
 
 ### Python Settings
 
@@ -56,7 +53,7 @@ list ([Syntax-Checkers]) and shows how to set them up.
 ### Arch Linux
 
 Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux
-(in spite of its pleas not to.)
+(despite its pleas not to.)
 
 ## Usage
 
@@ -95,7 +92,7 @@ is generally a wrapper around them that checks for
 | `<A-r>`             | :FZFRelevant |
 | `<A-t>`             | :FZFTests - custom find test files near current path |
 | `<A-v>`             | :FZFVim - ~/.vim |
-| `<C-s>`             | Extract - cycle paste previous |
+| `<C-s>`             | Extract - cycle paste prev |
 | `<C-S>`             | Extract - cycle paste next |
 |    `/`              | UI - incsearch |
 |    `\`              | UI - :OverCommandLine |

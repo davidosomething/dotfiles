@@ -2,9 +2,8 @@
 
 ## Full generic setup, in order
 
-If there is user data on encrypted volumes other than the boot volume, they
-will not mount until a user has logged in. To remedy this, see
-[Unlock] (forked to my GitHub for archival).
+User data on encrypted volumes other than the boot volume will not mount until
+login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
 ### App store
 
@@ -69,7 +68,7 @@ Install the rest of the packages from
 
 ### Install development tools
 
-Make sure you've installed packages since after you start using `pyenv` it
+Installed packages before development tools. After you start using `pyenv` it
 gets annoying to remember to switch back to system python for each `brew`
 operation. Use the `bi` alias for a clean room install if possible.
 

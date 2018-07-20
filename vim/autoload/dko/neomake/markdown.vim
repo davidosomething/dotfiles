@@ -18,11 +18,9 @@ function! dko#neomake#markdown#Setup() abort
         \     'maker': 'alex',
         \   }))
 
-  let b:neomake_markdown_enabled_makers = [
-        \   'alex',
-        \   'markdownlint',
-        \   'writegood',
-        \   'vale',
-        \ ]
+  let b:neomake_markdown_enabled_makers =
+        \ !empty(dko#project#GetFile('.vale.ini'))
+        \   ? [ 'vale' ]
+        \   : [ 'alex', 'markdownlint', 'writegood' ]
 endfunction
 

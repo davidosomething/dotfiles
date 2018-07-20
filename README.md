@@ -32,8 +32,8 @@ pre-existing dotfiles that conflict with these.
 
 ### Using a different repository path
 
-Installation assumes the repo is in `~/.dotfiles` but you can provide
-a different path setting the `DOTFILES` environment variable beforehand:
+Installation assumes the repo is in `~/.dotfiles` but you can set a different
+path setting the `DOTFILES` environment variable beforehand:
 
 ```sh
 DOTFILES=~/.dot ~/.dot/bootstrap/symlink
@@ -43,9 +43,8 @@ DOTFILES=~/.dot ~/.dot/bootstrap/symlink
 
 #### Recommended steps
 
-- Create XDG child directories (run `bootstrap/xdg`). The base directories
-  are probably already initialized by
-  `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
+- Create XDG child directories (run `bootstrap/xdg`). The X Desktop will
+  export them in `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
 - Install and use [Fira (Fura) Mono for Powerline] font (install
   to `${XDG_DATA_HOME}/fonts` on \*nix)
 - Install ZSH and set it as the default (ensure its presence in
