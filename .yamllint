@@ -3,6 +3,7 @@ extends: default
 ignore: |
   node_modules/
   tmux/plugins/
+  vale/styles/
   vim/vendor/
   vim/.tmp/
   zsh/.zplugin/
