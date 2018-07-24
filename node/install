@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 # =============================================================================
 # Require DOTFILES
 # =============================================================================
@@ -22,23 +20,10 @@ __install() {
   __dko_status "Installing latest npm"
   npm install --global --production npm@latest
 
-  __dko_status "Installing Yeoman"
-  npm install --global --production yo
-
-  __dko_status "Checking npm environment using yo doctor"
-  yo doctor || exit 1
-
   __dko_status "Installing global node packages"
-  # peer dep packages
-  npm install --global --production eslint
-
-  # loop through packages.txt file and install each one
   while read -r package; do
-    if [ "$package" != "yo" ] \
-      && [ "$package" != "eslint" ]; then
-      # npm ls --global --parseable --depth=0 "$package" ||
-      npm install --global --production "$package"
-    fi
+    # npm ls --global --parseable --depth=0 "$package" ||
+    npm install --global --production "$package"
   done < "${DOTFILES}/node/default-packages"
 }
 

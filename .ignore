@@ -5,6 +5,7 @@ fonts/
 logs/
 osx/base16-iterm2/
 tmux/plugins/
+vale/styles/
 vim/.tmp/
 vim/autoload/plug.vim
 vim/plug/
