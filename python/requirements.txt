@@ -9,7 +9,7 @@ neovim==0.2.6
 neovim-remote==2.0.10
 pydocstyle==2.1.1
 pyflakes==1.6.0
-pylint==1.9.2
+pylint==1.9.3
 yamllint==1.11.1
 vim-vint==0.3.18
 vulture==0.28
