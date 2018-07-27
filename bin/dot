@@ -296,14 +296,16 @@ __dko_dotfiles__update_node() {
   echo
   if [[ "$REPLY" = "y" ]] || [[ "$REPLY" = "Y" ]]; then
     __dko_status "Installing node ${wanted_with_minor}..."
-    nvm install        "$wanted" & wait
-    __dko_status "Updating default alias to ${wanted_with_minor}..."
-    nvm alias default  "$wanted" & wait
-    __dko_status "Switching to ${wanted_with_minor}..."
-    nvm use            "$wanted" & wait
-    __dko_status "install-latest-npm"
-    nvm install-latest-npm       & wait
-    __dko_ok "Node.js and npm updated, shell restart required"
+    if nvm install "$wanted"; then
+      wait
+      __dko_status "Updating default alias to ${wanted_with_minor}..."
+      nvm alias default  "$wanted"
+      __dko_status "Switching to ${wanted_with_minor}..."
+      nvm use            "$wanted"
+      __dko_status "install-latest-npm"
+      nvm install-latest-npm
+      __dko_ok "Node.js and npm updated, shell restart required"
+    fi
   fi
 }
 
