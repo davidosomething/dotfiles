@@ -22,7 +22,8 @@ zplugin light 'davidosomething/cdbk'
 # Vendor: Commands
 # ----------------------------------------------------------------------------
 
-zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-*" make"PREFIX=$ZPFX"\
+zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-*" \
+  make"PREFIX=$ZPFX" nocompile \
   atload"__dko_source ${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
 zplugin light tj/git-extras
 
