@@ -194,7 +194,10 @@ function! dkoplug#plugins#LoadAll() abort
   " Main completion engine, bound to <C-o>
   " Does not start until InsertEnter, so we can set up sources, then load
   " them, then load NCM
-  Plug 'roxma/nvim-completion-manager', WithCompl({ 'on': [] })
+  Plug 'roxma/nvim-yarp', WithCompl()
+  Plug 'ncm2/ncm2', WithCompl()
+  Plug 'ncm2/ncm2-bufword', WithCompl()
+  Plug 'ncm2/ncm2-path', WithCompl()
 
   " Complete words from other open buffers (tags is probably enough, this will
   " just introduce irrelevant completions)
@@ -208,13 +211,14 @@ function! dkoplug#plugins#LoadAll() abort
   " For what langs are supported, see:
   " https://github.com/Shougo/neoinclude.vim/blob/master/autoload/neoinclude.vim
   " Note: NCM Errors when can't find b:node_root (from moll/vim-node)
+  Plug 'ncm2/ncm2-neoinclude', WithCompl()
   Plug 'Shougo/neoinclude.vim', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: CSS
   " --------------------------------------------------------------------------
 
-  Plug 'calebeby/ncm-css', WithCompl()
+  Plug 'ncm2/ncm2-cssomni', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: Java
@@ -229,58 +233,19 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion: JavaScript
   " --------------------------------------------------------------------------
 
-  Plug 'roxma/nvim-cm-tern', PlugIf(g:dko_use_tern_lsp, {
+  Plug 'ncm2/ncm2-tern', PlugIf(g:dko_use_tern_lsp, {
         \   'do': 'npm install'
         \ })
-
-  " Parameter completion (in or after ' or ")
-  " Extends omnicomplete to fill in addEventListener('click'
-  "Plug 'othree/jspc.vim'
-
-  " ----------------------------------
-  " Flow
-  " ----------------------------------
-
-  " Native omnicomplete and some refactoring support, official plugin
-  "Plug 'flowtype/vim-flow'
-
-  " NCM completion, same deps as vim-flow
-  " not using until this is fixed: https://github.com/roxma/ncm-flow/issues/3
-  "Plug 'roxma/ncm-flow', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: PHP
   " --------------------------------------------------------------------------
 
-  if has('nvim') && g:dko_use_composer
-    Plug 'roxma/LanguageServer-php-neovim', {
-          \   'do': 'composer install && composer run-script parse-stubs'
-          \ }
-  endif
-
-  " Possible vanilla plugins
-  " 'phpvim/phpcd.vim'              - server based completion
-  " 'mkusher/padawan.vim'           - server based completion for VIM
-  " 'm2mdas/phpcomplete-extended'   - fast via vimproc, but dead
-  " 'shawncplus/phpcomplete.vim'    - slow as fuck, included in VIMRUNTIME.
-  "                                   this is upstream. tags based
-
-  " Alternative PHP completion daemon, never got it working...
-  "   Plug 'phpvim/phpcd.vim', {
-  "         \   'do': 'composer update',
-  "         \   'for': [ 'php' ]
-  "         \ }
-
-  Plug 'shawncplus/phpcomplete.vim', PlugIf(!g:dko_use_composer, {
-        \   'for': [ 'php' ]
-        \ })
-
   " --------------------------------------------------------------------------
   " Completion: Python
   " --------------------------------------------------------------------------
 
-  " nvim-completion-manager has a jedi source in python already, so as long as
-  " jedi is pip installed it is good to go.
+  Plug 'ncm2/ncm2-jedi', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: Syntax
@@ -288,24 +253,23 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Full syntax completion. Keyed as [S]
   " Only use with NCM - normally super slow, like syntaxcomplete
-  " DISABLED - Makes pandoc/markdown really slow.
-  "Plug 'Shougo/neco-syntax', WithCompl()
-
-  " --------------------------------------------------------------------------
-  " Completion: Snippet engine
-  " --------------------------------------------------------------------------
-
-  " nvim-completion-manager
-  Plug 'Shougo/neosnippet', WithCompl()
-  Plug 'Shougo/neosnippet-snippets', WithCompl()
-  Plug 'honza/vim-snippets', WithCompl()
+  Plug 'ncm2/ncm2-syntax', WithCompl()
+  Plug 'Shougo/neco-syntax', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: VimL
   " --------------------------------------------------------------------------
 
-  " nvim-completion-manager
+  Plug 'ncm2/ncm2-vim', WithCompl()
   Plug 'Shougo/neco-vim', WithCompl()
+
+  " --------------------------------------------------------------------------
+  " Snippet engine
+  " --------------------------------------------------------------------------
+
+  Plug 'Shougo/neosnippet', WithCompl()
+  Plug 'Shougo/neosnippet-snippets', WithCompl()
+  Plug 'honza/vim-snippets', WithCompl()
 
   " ==========================================================================
   " Multiple languages
