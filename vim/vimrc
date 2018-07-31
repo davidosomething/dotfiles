@@ -25,7 +25,7 @@ let g:dko_rtp_original = &runtimepath
 let g:dko_tab_completion = 0 " use (s-)tab to navigate PUM?
 
 " Plugin settings
-let g:dko_use_completion = has('nvim') && has('python3') && executable('pyenv')
+let g:dko_use_completion = has('nvim-0.2.2') && has('python3')
 let g:dko_use_js_langserver = executable('javascript-typescript-stdio')
 let g:dko_use_tern_lsp = g:dko_use_completion && executable('npm')
 let g:dko_use_composer = g:dko_use_completion && executable('composer')
@@ -228,7 +228,8 @@ set isfname-==
 set complete-=i                       " don't complete includes
 set complete-=t                       " don't complete tags
 "set completeopt-=preview              " don't open scratch (e.g. echodoc)
-set completeopt+=noinsert             " only insert on manual completion accept
+set completeopt+=noinsert             " ncm2 requirement
+set completeopt-=longest              " ncm2 requirement
 set completeopt+=menu,menuone         " show PUM, even for one thing
 
 " ----------------------------------------------------------------------------
