@@ -227,9 +227,10 @@ set isfname-==
 
 set complete-=i                       " don't complete includes
 set complete-=t                       " don't complete tags
+set completeopt-=longest              " ncm2 requirement
 set completeopt-=preview              " don't open scratch (e.g. echodoc)
 set completeopt+=noinsert             " ncm2 requirement
-set completeopt-=longest              " ncm2 requirement
+set completeopt+=noselect             " ncm2 don't select first thing
 set completeopt+=menu,menuone         " show PUM, even for one thing
 
 " ----------------------------------------------------------------------------
