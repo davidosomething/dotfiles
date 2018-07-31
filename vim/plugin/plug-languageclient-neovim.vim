@@ -9,7 +9,7 @@ if !dkoplug#IsLoaded('LanguageClient-neovim') | finish | endif
 let g:LanguageClient_autoStart = executable(
       \ g:plugs['LanguageClient-neovim']['dir'] . 'bin/languageclient'
       \ )
-let g:LanguageClient_loggingLevel = 'INFO'
+"let g:LanguageClient_loggingLevel = 'INFO'
 " Don't populate lists since it overrides Neomake lists
 try
   let g:LanguageClient_diagnosticsList = v:null
