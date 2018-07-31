@@ -8,7 +8,7 @@ flake8-quotes==1.0.0
 neovim==0.2.6
 neovim-remote==2.0.10
 pydocstyle==2.1.1
-pyflakes==1.6.0
+pyflakes==2.0.0
 pylint==2.0.1
 yamllint==1.11.1
 vim-vint==0.3.18
