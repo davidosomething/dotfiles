@@ -60,7 +60,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
 zplugin light 'zsh-users/zsh-completions'
 
-zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)grad*]} ]]'
+zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)grad*]} ]]' nocompile
 zplugin light 'gradle/gradle-completion'
 
 zplugin light 'lukechilds/zsh-better-npm-completion'
