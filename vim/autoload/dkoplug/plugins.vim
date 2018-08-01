@@ -571,7 +571,7 @@ function! dkoplug#plugins#LoadAll() abort
   " [BUG] Double cmdline cursor
   " - <https://github.com/haya14busa/incsearch.vim/issues/79>
   " - <https://github.com/neovim/neovim/issues/3688>
-  Plug 'haya14busa/incsearch.vim', PlugIf(v:version >= 704)
+  "Plug 'haya14busa/incsearch.vim', PlugIf(v:version >= 704)
 
   " Show (#/total results) when searching for a term
   " known echo issue if remapping [[ and ]], but I removed that map
