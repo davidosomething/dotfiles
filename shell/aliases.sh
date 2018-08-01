@@ -205,14 +205,6 @@ alias tmux='tmux -f "${DOTFILES}/tmux/tmux.conf"'
 alias ta='tmux attach'
 
 # ----------------------------------------------------------------------------
-# xcode
-# ----------------------------------------------------------------------------
-
-alias cuios='XCODE_XCCONFIG_FILE="${PWD}/xcconfigs/swift31.xcconfig" carthage update --platform iOS'
-alias deletederived='rm -rf ~/Library/Developer/Xcode/DerivedData/*'
-alias xcimg="xcrun simctl addmedia booted"
-
-# ----------------------------------------------------------------------------
 # rest of bins
 # ----------------------------------------------------------------------------
 
