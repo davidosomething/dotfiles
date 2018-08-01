@@ -6,8 +6,12 @@ endif
 
 augroup dkoncm
   autocmd!
-  autocmd BufEnter * call ncm2#enable_for_buffer()
 augroup END
 
 " Reduce priority below langclient's 9
 let g:ncm2_tern#source = { 'priority': 8 }
+
+function s:DelayedStart(...)
+  call ncm2#enable_for_buffer()
+endfunc
+autocmd dkoncm BufEnter * call timer_start(60, function('s:DelayedStart'))
