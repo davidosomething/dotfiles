@@ -451,7 +451,7 @@ function! dkoplug#plugins#LoadAll() abort
   " changes. It does not support embedded HTML with Neovim
   "Plug '2072/vim-syntax-for-PHP'
 
-  " Updated for php 7.1, Jan 2017 (newer than neovim 2.0 runtime)
+  " Updated for php 7.1, Apr 2018 (newer than neovim 3.0 runtime)
   Plug 'StanAngeloff/php.vim', { 'for': [ 'php' ] }
 
   " Indent

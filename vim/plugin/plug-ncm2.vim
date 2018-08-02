@@ -12,6 +12,7 @@ augroup END
 let g:ncm2_tern#source = { 'priority': 8 }
 
 function s:DelayedStart(...)
+  if &filetype ==# 'vim-plug' | return | endif
   call ncm2#enable_for_buffer()
 endfunc
 autocmd dkoncm BufEnter * call timer_start(60, function('s:DelayedStart'))
