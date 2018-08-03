@@ -65,7 +65,8 @@ zplugin light 'gradle/gradle-completion'
 
 zplugin light 'lukechilds/zsh-better-npm-completion'
 
-zplugin light 'vasyharan/zsh-brew-services'
+[ "$DOTFILES_OS" = 'Darwin' ] \
+  && zplugin light 'vasyharan/zsh-brew-services'
 
 zplugin light 'voronkovich/phpcs.plugin.zsh'
 
