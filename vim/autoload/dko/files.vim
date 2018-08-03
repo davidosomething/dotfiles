@@ -23,7 +23,8 @@ function! dko#files#RefreshMru() abort
 endfunction
 
 augroup dkomru
-  autocmd! dkomru BufAdd,BufNew,BufFilePost * call dko#files#RefreshMru()
+  autocmd!
+  autocmd dkomru BufAdd,BufNew,BufFilePost * call dko#files#RefreshMru()
 augroup END
 
 " ============================================================================
