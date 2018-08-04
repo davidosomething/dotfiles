@@ -49,3 +49,5 @@ augroup dkoneoformat
   autocmd!
   autocmd BufWritePre *.json Neoformat
 augroup END
+
+nnoremap  <silent><special>   <A-=>   :<C-U>Neoformat<CR>

@@ -11,11 +11,9 @@ let g:LanguageClient_autoStart = executable(
       \ )
 "let g:LanguageClient_loggingLevel = 'INFO'
 " Don't populate lists since it overrides Neomake lists
-try
-  let g:LanguageClient_diagnosticsList = v:null
-catch
-  let g:LanguageClient_diagnosticsList = ''
-endtry
+let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_diagnosticsSignsMax = 0
+let g:LanguageClient_diagnosticsList = 'Disabled'
 let g:LanguageClient_serverCommands = {}
 
 " ============================================================================
