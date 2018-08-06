@@ -57,18 +57,12 @@ elseif g:dko_use_js_langserver
         \ ]
   let g:LanguageClient_serverCommands['typescript'] =
         \ g:LanguageClient_serverCommands['javascript']
-
-  autocmd dkolangclient FileType javascript,typescript
-        \ setlocal formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 endif
 
 if executable('luacheck')
   let g:LanguageClient_serverCommands['lua'] = [
         \   'lua-lsp'
         \ ]
-
-  autocmd dkolangclient FileType lua
-        \ setlocal formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 endif
 
 " @TODO

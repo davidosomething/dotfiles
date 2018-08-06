@@ -63,11 +63,13 @@ __symlink() {
   dko-symlink  "shell/dot.inputrc" \
                 ".config/readline/inputrc"
 
-  # (n)vim
+  # (n)vim / intellij ideavim
   dko-symlink  "vim" \
                 ".vim"
   dko-symlink  "vim" \
                 ".config/nvim"
+  dko-symlink  "ideavim/dot.ideavimrc" \
+                ".ideavimrc"
 
   # hyper.app
   dko-symlink  "hyper-app/dot.hyper.js" \
