@@ -2,4 +2,7 @@ let g:mapleader = "\<Space>"
 
 set smartcase
 
-nmap <C-k> :action GotoImplementation<CR>
+nnoremap <BS>  :action VimFilePrevious<cr>
+nnoremap <C-f> :action SearchEverywhere<cr>
+nnoremap <C-k> :action GotoImplementation<CR>
+nnoremap <C-x> :action CloseContent<CR>
