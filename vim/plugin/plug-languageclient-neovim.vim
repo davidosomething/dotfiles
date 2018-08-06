@@ -2,6 +2,10 @@
 
 if !dkoplug#IsLoaded('LanguageClient-neovim') | finish | endif
 
+augroup dkolangclient
+  autocmd!
+augroup END
+
 " ============================================================================
 " Plugin settings
 " ============================================================================
@@ -15,6 +19,7 @@ let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_diagnosticsSignsMax = 0
 let g:LanguageClient_diagnosticsList = 'Disabled'
 let g:LanguageClient_serverCommands = {}
+let g:LanguageClient_hoverPreview = 'Never'
 
 " ============================================================================
 " Mappings
@@ -52,12 +57,18 @@ elseif g:dko_use_js_langserver
         \ ]
   let g:LanguageClient_serverCommands['typescript'] =
         \ g:LanguageClient_serverCommands['javascript']
+
+  autocmd dkolangclient FileType javascript,typescript
+        \ setlocal formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 endif
 
 if executable('luacheck')
   let g:LanguageClient_serverCommands['lua'] = [
         \   'lua-lsp'
         \ ]
+
+  autocmd dkolangclient FileType lua
+        \ setlocal formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 endif
 
 " @TODO
