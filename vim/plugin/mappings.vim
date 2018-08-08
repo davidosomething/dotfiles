@@ -239,12 +239,6 @@ nnoremap  <special> <Leader>s   vip:!sort<CR>
 xnoremap  <special> <Leader>s   :!sort<CR>
 
 " ----------------------------------------------------------------------------
-" Join lines without space (and go to first char line that was merged up)
-" ----------------------------------------------------------------------------
-
-nnoremap  <special> <Leader>j   VjgJl
-
-" ----------------------------------------------------------------------------
 " Clean up whitespace
 " ----------------------------------------------------------------------------
 
