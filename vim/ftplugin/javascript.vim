@@ -21,13 +21,6 @@ set cpoptions&vim
 nnoremap r2i
       \ :<C-U>s/\(const\|var\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
 
-if g:dko_use_completion && dkoplug#IsLoaded('jspc.vim')
-  " jspc#omni normally extends javascriptcomplete on param pattern match.
-  " Unset the omnifunc so it doesn't extend anything. This way only paramter
-  " completion is forwarded to NCM
-  setlocal omnifunc=
-endif
-
 " Set up native eslint making so we can debug eslint configs
 setlocal errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
 setlocal errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m

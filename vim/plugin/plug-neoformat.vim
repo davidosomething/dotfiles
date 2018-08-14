@@ -41,6 +41,9 @@ let g:neoformat_enabled_javascript = [
       \   'prettier',
       \   'standard',
       \ ]
+let g:neoformat_enabled_typescript = [
+      \   'dkoprettier',
+      \ ]
 let g:neoformat_enabled_json = ['jq']
 let g:neoformat_enabled_python = ['autopep8', 'isort']
 let g:neoformat_enabled_scss = ['prettier']
