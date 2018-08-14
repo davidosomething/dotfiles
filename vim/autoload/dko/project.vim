@@ -260,6 +260,33 @@ function! dko#project#GetCandidate(candidates) abort
 endfunction
 
 " ============================================================================
+" prettier
+" Can be run on many different file types, not just JS
+" ============================================================================
+
+let s:prettierrc_candidates = [
+      \   '.prettierrc',
+      \   '.prettierrc.yaml',
+      \   '.prettierrc.yml',
+      \   '.prettierrc.json',
+      \   '.prettierrc.js',
+      \   'prettier.config.js',
+      \ ]
+
+" @return {String} prettierrc filename
+function! dko#project#GetPrettierrc() abort
+  if !exists('b:dko_project_prettierrc')
+    let b:dko_project_prettierrc =
+          \ dko#project#GetCandidate(s:prettierrc_candidates)
+    if empty(b:dko_project_prettierrc)
+      let b:dko_project_prettierrc =
+            \ expand('$DOTFILES/prettier/prettier.config.js')
+    endif
+  endif
+  return b:dko_project_prettierrc
+endfunction
+
+" ============================================================================
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

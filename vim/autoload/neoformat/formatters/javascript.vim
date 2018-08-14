@@ -4,7 +4,7 @@ function! neoformat#formatters#javascript#dkoprettier() abort
   return {
       \   'exe':    'prettier',
       \   'args':   [
-      \     '--config', dko#project#javascript#GetPrettierrc(),
+      \     '--config', dko#project#GetPrettierrc(),
       \     '--stdin',
       \   ],
       \   'stdin':  1,
@@ -17,7 +17,7 @@ function! neoformat#formatters#javascript#dkoprettiereslint() abort
       \   'args':   [
       \     '--eslint-path', dko#project#GetRoot() . '/node_modules/eslint',
       \     '--eslint-config-path', dko#project#javascript#GetEslintrc(),
-      \     '--config', dko#project#javascript#GetPrettierrc(),
+      \     '--config', dko#project#GetPrettierrc(),
       \     '--stdin',
       \   ],
       \   'stdin':  1,

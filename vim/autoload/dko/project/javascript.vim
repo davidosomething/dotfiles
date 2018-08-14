@@ -11,7 +11,7 @@ let s:eslintrc_candidates = [
       \   '.eslintrc',
       \ ]
 
-" @return {String} eslintrc filename
+" @return {String} .eslintrc* filepath
 function! dko#project#javascript#GetEslintrc() abort
   if !exists('b:dko_project_javascript_eslintrc')
     let l:found = dko#project#GetCandidate(s:eslintrc_candidates)
@@ -22,24 +22,13 @@ function! dko#project#javascript#GetEslintrc() abort
   return get(b:, 'dko_project_javascript_eslintrc', '')
 endfunction
 
-let s:prettierrc_candidates = [
-      \   '.prettierrc',
-      \   '.prettierrc.yaml',
-      \   '.prettierrc.yml',
-      \   '.prettierrc.json',
-      \   '.prettierrc.js',
-      \   'prettier.config.js',
-      \ ]
-
-" @return {String} prettierrc filename
-function! dko#project#javascript#GetPrettierrc() abort
-  if !exists('b:dko_project_javascript_prettierrc')
-    let b:dko_project_javascript_prettierrc =
-          \ dko#project#GetCandidate(s:prettierrc_candidates)
-    if empty(b:dko_project_javascript_prettierrc)
-      let b:dko_project_javascript_prettierrc =
-            \ expand('$DOTFILES/prettier/prettier.config.js')
+" @return {String} .tern-project file path
+function! dko#project#javascript#GetTernProject() abort
+  if !exists('b:dko_project_javascript_ternproject')
+    let l:found = dko#project#GetCandidate(['.tern-project'])
+    if !empty(l:found)
+      let b:dko_project_javascript_ternproject = fnamemodify(l:found, ':p')
     endif
   endif
-  return b:dko_project_javascript_prettierrc
+  return get(b:, 'dko_project_javascript_ternproject', '')
 endfunction
