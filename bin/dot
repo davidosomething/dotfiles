@@ -546,7 +546,6 @@ __dko_dotfiles__darwin__update_mac() {
 __dko_dotfiles__darwin__update_brew_done() {
   __dko_status "Cleanup old versions and prune dead symlinks"
   brew cleanup
-  brew cask cleanup
   brew prune
 }
 
