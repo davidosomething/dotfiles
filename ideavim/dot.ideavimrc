@@ -1,5 +1,6 @@
 let g:mapleader = "\<Space>"
 
+set incsearch
 set smartcase
 
 nnoremap <BS>  :action VimFilePrevious<cr>

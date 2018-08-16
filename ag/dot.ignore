@@ -20,6 +20,7 @@ zsh/.zplugin/
 *-min.*
 *.xcbkptlist
 .bash_history
+.classpath
 .zcompdump
 bash_history
 zsh_history
