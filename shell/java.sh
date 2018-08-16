@@ -4,6 +4,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/java.sh {"
 
 export GRADLE_USER_HOME="${XDG_CONFIG_HOME}/gradle"
 
+export UNCRUSTIFY_CONFIG="${DOTFILES}/uncrustify/uncrustify"
+
 # Ruby use brew openssl if available
 if __dko_has 'jenv'; then
   DKO_SOURCE="${DKO_SOURCE} -> jenv"
