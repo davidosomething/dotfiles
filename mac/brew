@@ -151,7 +151,7 @@ brew install carthage
 # java
 # ----------------------------------------------------------------------------
 
-brew install checkstyle
+brew install checkstyle uncrustify
 brew install gradle --with-all
 brew install maven
 
