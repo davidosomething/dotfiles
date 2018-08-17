@@ -21,6 +21,7 @@ package-json-validator
 prettier
 prettier-eslint-cli
 pwmetrics
+remark-cli
 sass-lint
 source-map-explorer
 tern
