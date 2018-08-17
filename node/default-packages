@@ -26,7 +26,6 @@ source-map-explorer
 tern
 tern-browser-extension
 tern-fetch
-tern-gulp
 tern-jquery-extension
 tern-jspm
 tern-node-extension
