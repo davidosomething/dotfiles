@@ -238,6 +238,10 @@ __dko_dotfiles__go__require_go() {
 __dko_dotfiles__go__update_go_packages() {
   __dko_status "Updating go packages"
   __dko_dotfiles__go__require_go || return 1
+
+  # in case go was updated recently, the go shim needs to be reset
+  goenv rehash
+
   go get -u all || {
     __dko_err "Could not update go packages"
     return 1
@@ -544,9 +548,9 @@ __dko_dotfiles__darwin__update_mac() {
 }
 
 __dko_dotfiles__darwin__update_brew_done() {
-  __dko_status "Cleanup old versions and prune dead symlinks"
-  brew cleanup
-  brew prune
+  __dko_status "Clean up old versions and prune dead symlinks"
+  brew cleanup && wait && brew prune && wait && \
+    __dko_ok "All clean"
 }
 
 # pass any arg to silence
@@ -584,34 +588,56 @@ __dko_dotfiles__darwin__update_brew() {
 
     # check if needed
     readonly outdated="$(brew outdated --quiet)"
-    [[ -z "$outdated" ]] && exit
+    [[ -z "$outdated" ]] &&
+      __dko_ok "Packages up-to-date"
+      exit
     wait
-
-    # Detect if brew's python3 (not pyenv) was outdated
-    grep -q "python3" <<<"$outdated" && {
-      __dko_status "Python3 was outdated, upgrading python3"
-      brew upgrade python3 & wait
-    }
 
     # Upgrade remaining
     __dko_status "Upgrading packages"
-    brew upgrade & wait
-
-    # If imagemagick was outdated and php-imagick was not, force a reinstall
-    # of php-imagick from source (using the new imagemagick)
-    if grep -q "imagemagick" <<<"$outdated"; then
-      readonly phpimagick="$(brew ls | grep 'php.*imagick')"
-      [[ -n "$phpimagick" ]] \
-        && __dko_status "Rebuilding ${phpimagick} for new imagemagick" \
-        && brew reinstall --build-from-source "$phpimagick"
-    fi
-
-    # link curl
-    if grep -q curl <<<"$outdated"; then
-      brew link --force curl
-    fi
+    brew upgrade
+    wait
+    __dko_dotfiles__darwin__update_brew_postupgrade "$outdated"
 
   ) && __dko_dotfiles__darwin__update_brew_done
+}
+
+__dko_dotfiles__darwin__update_brew_postupgrade() {
+  __dko_status "Running post-upgrade packages"
+
+  local outdated="$1"
+
+  # link curl
+  if grep -q "curl" <<<"$outdated"; then
+    brew link --force curl
+    wait
+  fi
+
+  # re-init goenv
+  if grep -q "goenv" <<<"$outdated"; then
+    goenv rehash
+    wait
+  fi
+
+  # If imagemagick was outdated and php-imagick was not, force a reinstall
+  # of php-imagick from source (using the new imagemagick)
+  if grep -q "imagemagick" <<<"$outdated"; then
+    readonly phpimagick="$(brew ls | grep 'php.*imagick')"
+    if [[ -n "$phpimagick" ]]; then
+      __dko_status "Rebuilding ${phpimagick} for new imagemagick"
+      brew reinstall --build-from-source "$phpimagick"
+      wait
+    fi
+  fi
+
+  # Detect if brew's python3 (not pyenv) was outdated
+  if grep -q "python3" <<<"$outdated"; then
+    __dko_status "Python3 was outdated, upgrading python3"
+    brew upgrade python3
+    wait
+  fi
+
+  __dko_ok "Post-upgrade complete"
 }
 
 # ==============================================================================
