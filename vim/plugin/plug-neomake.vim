@@ -41,6 +41,15 @@ let g:neomake_javascript_enabled_makers =
 " preferred over pylama (other multi-runner) for now
 let g:neomake_python_enabled_makers = [ 'flake8' ]
 
+let g:neomake_sh_bashate_maker = {
+      \   'exe': 'bashate',
+      \   'args': ['--ignore=E003,E005,E006,E011'],
+      \   'errorformat': '%f:%l:%c: %t%n %m',
+      \ }
+let g:neomake_sh_enabled_makers = neomake#makers#ft#sh#EnabledMakers() + [
+      \   'bashate'
+      \ ]
+
 " ============================================================================
 " Buffer filetype settings
 " Use BufWinEnter because it runs after modelines, which might change the

@@ -7,15 +7,16 @@
 function! dko#neomake#AddMaker(ft, maker) abort
   let l:bmakers = 'b:neomake_' . a:ft . '_enabled_makers'
 
+  " Append to buffer local settings if exists
   if exists(l:bmakers)
     if index({l:bmakers}, a:maker) > -1 | return | endif
     let {l:bmakers} += [ a:maker ]
     return
   endif
 
+  " Create new buffer local settings based on global settings
   try
-    let l:makersfn = 'neomake#makers#ft#' . a:ft . '#EnabledMakers'
-    let {l:bmakers} = call(l:makersfn, []) + [ a:maker ]
+    let {l:bmakers} = neomake#GetEnabledMakers(a:ft) + [ a:maker ]
   catch
     let {l:bmakers} = [ a:maker ]
   endtry

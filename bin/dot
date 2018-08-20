@@ -192,14 +192,14 @@ __dko_dotfiles__update_fzf() {
 # pass any arg to silence
 __dko_dotfiles__ruby__require_chruby() {
   [[ -n "$RUBY_VERSION" ]] && return 0
-  (( $# == 0 )) && __dko_warn "System ruby detected! Please install and use chruby"
+  __dko_warn "System ruby detected! Please install and use chruby"
   return 1
 }
 
 # pass any arg to silence
 __dko_dotfiles__ruby__require_rubygems() {
   __dko_has "gem" && return 0
-  (( $# == 0 )) && __dko_warn "rubygems is not installed"
+  __dko_warn "rubygems is not installed"
   return 1
 }
 
@@ -231,7 +231,7 @@ __dko_dotfiles__ruby__update_gems() {
 # pass any arg to silence
 __dko_dotfiles__go__require_go() {
   __dko_has "go" && return 0
-  (( $# == 0 )) && __dko_warn "go is not installed"
+  __dko_warn "go is not installed"
   return 1
 }
 
@@ -256,7 +256,7 @@ __dko_dotfiles__go__update_go_packages() {
 # pass any arg to silence
 __dko_dotfiles__node__require_nvm() {
   if [[ -z "$NVM_DIR" ]]; then
-    (( $# == 0 )) && __dko_err "\$NVM_DIR is not defined, make sure rc files are linked"
+    __dko_err "\$NVM_DIR is not defined, make sure rc files are linked"
     return 1
   fi
 
@@ -386,7 +386,7 @@ __dko_dotfiles__py__update_neovim_python() {
 # pass any arg to silence
 __dko_dotfiles__php__require_composer() {
   __dko_has "composer" && return 0
-  (( $# == 0 )) && __dko_warn "composer is not installed"
+  __dko_warn "composer is not installed"
   return 1
 }
 
@@ -416,10 +416,8 @@ __dko_dotfiles__php__update_composer() {
 # pass any arg to silence
 __dko_dotfiles__php__require_phpcs() {
   __dko_has "phpcs" && return 0
-  (( $# == 0 )) && {
-    __dko_warn  "phpcs is not installed. Install via composer global require"
-    __dko_warn_ "and run again, or set installed_paths manually"
-  }
+  __dko_warn  "phpcs is not installed. Install via composer global require"
+  __dko_warn_ "and run again, or set installed_paths manually"
   return 1
 }
 
@@ -646,7 +644,8 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
 
 # $1 command
 __dko_dotfiles() {
-  (( $# == 0 )) && __dko_dotfiles__usage && return 1
+  local argcount="$#"
+  [[ "$argcount" == "0" ]] && __dko_dotfiles__usage && return 1
 
   case $1 in
     dotfiles) __dko_dotfiles__update                  ;;
