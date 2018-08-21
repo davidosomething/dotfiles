@@ -48,6 +48,7 @@ brew install archey neofetch
 brew install asciinema
 __dko_status "asciinema auth to link computer to account"
 brew install awscli
+brew install bat
 brew install catimg
 # does not come with Docker.app
 brew install docker-completion hadolint
