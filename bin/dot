@@ -586,10 +586,12 @@ __dko_dotfiles__darwin__update_brew() {
 
     # check if needed
     readonly outdated="$(brew outdated --quiet)"
-    [[ -z "$outdated" ]] &&
+    wait
+
+    [[ -z "$outdated" ]] && {
       __dko_ok "Packages up-to-date"
       exit
-    wait
+    }
 
     # Upgrade remaining
     __dko_status "Upgrading packages"
