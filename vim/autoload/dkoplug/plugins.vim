@@ -414,6 +414,9 @@ function! dkoplug#plugins#LoadAll() abort
   " The git repo has a newer syntax file than the one that ships with vim
   Plug 'tpope/vim-markdown'
 
+  " after/syntax for GitHub emoji, checkboxes
+  Plug 'rhysd/vim-gfm-syntax'
+
   " Enable pandoc filetype options and vim operators/fns
   " Plug 'vim-pandoc/vim-pandoc', PlugIf(v:version >= 704)
 
