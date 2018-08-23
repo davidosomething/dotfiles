@@ -22,6 +22,7 @@ if $TERM ==# 'xterm-kitty'
 endif
 
 set guicursor=
+" @see https://github.com/neovim/neovim/issues?utf8=%E2%9C%93&q=is%3<Plug>(ncm2_auto_trigger)Aissue+cursor+shape+q
 " Leaves random artifacts in display like "q"
 " set guicursor=n-v-c:block,i-ci-ve:ver50,r-cr:hor20,o:hor50
 "       \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
