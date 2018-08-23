@@ -585,7 +585,8 @@ __dko_dotfiles__darwin__update_brew() {
     brew update & wait
 
     # check if needed
-    readonly outdated="$(brew outdated --quiet)"
+    local outdated
+    outdated="$(brew outdated --quiet)"
     wait
 
     [[ -z "$outdated" ]] && {
