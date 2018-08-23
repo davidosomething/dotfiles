@@ -21,6 +21,10 @@ if $TERM ==# 'xterm-kitty'
   let &t_ut=''
 endif
 
+augroup dkonvim
+  autocmd!
+  autocmd OptionSet guicursor noautocmd set guicursor=
+augroup END
 set guicursor=
 " @see https://github.com/neovim/neovim/issues?utf8=%E2%9C%93&q=is%3<Plug>(ncm2_auto_trigger)Aissue+cursor+shape+q
 " Leaves random artifacts in display like "q"
