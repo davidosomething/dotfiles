@@ -193,6 +193,9 @@ export VAGRANT_HOME="${XDG_CONFIG_HOME}/vagrant"
 # weechat
 export WEECHAT_HOME="${DOTFILES}/weechat"
 
+# create-react-app
+export REACT_EDITOR="$EDITOR"
+
 # wp cli
 export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
 
