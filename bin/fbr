@@ -26,19 +26,32 @@ __get_local_branches() {
 
 __fbr() {
   local current
+  local out
   local branch
+  local key
 
   current=$(git rev-parse --abbrev-ref HEAD)
   [[ "$current" == "" ]] && return 1
 
-  branch=$(__get_local_branches | fzf-tmux \
+  out=$(__get_local_branches | fzf-tmux \
     +m \
     --cycle \
     --exit-0 \
+    --expect=ctrl-y \
     --height=25% \
     --nth=1 \
     --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
-    --prompt="$current> ") \
-  && git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
+    --prompt="$current> ")
+
+  key="$(head -1 <<< "$out")"
+
+  branch="$(head -2 <<< "$out" | tail -1)"
+  # strip spaces
+  branch="$(echo "$branch" | xargs)"
+
+  if [[ -n "$branch" ]]; then
+    [[ "$key" == "ctrl-y" ]] && echo "$branch" | tr -d '\n' | pbcopy && return
+    git checkout "$branch"
+  fi
 }
 __fbr
