@@ -27,12 +27,14 @@ alias downs='down'
 alias tree='tree -CF'
 
 # ----------------------------------------------------------------------------
-# cat (prefer bin/dog)
+# cat (prefer bat or bin/dog)
 # ----------------------------------------------------------------------------
 
+alias c='bat --paging never'
+alias crm='c README.md'
+alias cpj='dog package.json'
 alias pyg='pygmentize -O style=rrt -f console256 -g'
 alias d='icdiff -line-numbers --tabsize=4 --numlines=8'
-alias crm='dog README.md'
 
 # ----------------------------------------------------------------------------
 # docker
@@ -136,7 +138,6 @@ alias ns='n start'
 alias nt='n test'
 alias nu='n update'
 alias nude='nvm use default'
-alias cpj='dog package.json'
 alias sme='source-map-explorer'
 alias y='yarn'
 alias yi='yarn install'
