@@ -43,7 +43,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Store accessed files in redis
   Plug 'neoclide/redismru.vim', PlugIf(executable('redis-cli'), {
-        \   'do': 'npm install',
+        \   'do': 'npm install --force',
         \ })
 
   Plug 'ludovicchabant/vim-gutentags', PlugIf(executable('ctags'))
@@ -234,7 +234,7 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
 
   Plug 'ncm2/ncm2-tern', PlugIf(g:dko_use_tern_lsp, {
-        \   'do': 'npm install'
+        \   'do': 'npm install --force'
         \ })
 
   " --------------------------------------------------------------------------
