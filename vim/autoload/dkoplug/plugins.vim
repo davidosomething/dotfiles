@@ -28,7 +28,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug g:dko#vim_dir . '/mine/vim-meh'
   Plug 'rakr/vim-two-firewatch'
-  Plug 'arcticicestudio/nord-vim'
+  Plug 'kamwitsta/flatwhite-vim'
 
   " ==========================================================================
   " Embedded filetype support
