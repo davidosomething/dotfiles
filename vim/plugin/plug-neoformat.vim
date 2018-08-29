@@ -43,9 +43,16 @@ let g:neoformat_enabled_python = [ 'autopep8', 'isort' ]
 let g:neoformat_enabled_scss = [ 'dkoprettier' ]
 let g:neoformat_enabled_typescript = [ 'dkoprettier' ]
 
+function! s:MaybeNeoformat() abort
+  if expand('%:t') ==# 'package.json'
+    return
+  endif
+  Neoformat
+endfunction
+
 augroup dkoneoformat
   autocmd!
-  autocmd BufWritePre *.json Neoformat
+  autocmd BufWritePre *.json call s:MaybeNeoformat()
 augroup END
 
 nnoremap  <silent><special>   <A-=>   :<C-U>Neoformat<CR>
