@@ -62,7 +62,6 @@ alias b='TERM=xterm-256color \brew'
 alias brew='b'
 
 alias bi='b install'
-alias bq='b list'
 alias bs='b search'
 alias blfn='b ls --full-name'
 
@@ -72,6 +71,7 @@ alias bsvc='b services'
 alias bsvr='b services restart'
 
 alias cask='brc'
+alias ci='brc install'
 
 # ----------------------------------------------------------------------------
 # Chrome
@@ -111,4 +111,3 @@ alias stfu="osascript -e 'set volume output muted true'"
 alias cuios='XCODE_XCCONFIG_FILE="${PWD}/xcconfigs/swift31.xcconfig" carthage update --platform iOS'
 alias deletederived='rm -rf ~/Library/Developer/Xcode/DerivedData/*'
 alias xcimg="xcrun simctl addmedia booted"
-
