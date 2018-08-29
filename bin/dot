@@ -235,8 +235,15 @@ __dko_dotfiles__go__require_go() {
   return 1
 }
 
+# pass any arg to silence
+__dko_dotfiles__go__require_goenv() {
+  __dko_has "goenv" && return 0
+  __dko_warn "goenv is not installed"
+  return 1
+}
 __dko_dotfiles__go__update_go_packages() {
   __dko_status "Updating go packages"
+  __dko_dotfiles__go__require_goenv || return 1
   __dko_dotfiles__go__require_go || return 1
 
   # in case go was updated recently, the go shim needs to be reset
