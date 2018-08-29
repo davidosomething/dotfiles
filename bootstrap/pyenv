@@ -46,18 +46,21 @@ __main() {
   local p3="$2"
 
   if [[ -z "$p2" ]] || [[ -z "$p3" ]]; then
-    __dko_usage "$0 2.7.14 3.6.6"
+    __dko_usage "$0 2.7.14 3.7.0"
     return 1
   fi
 
-  . "${DOTFILES}/shell/python.bash"
+  . "${DOTFILES}/shell/python.sh"
 
   __dko_echo "\$PYENV_ROOT=${PYENV_ROOT}"
 
-  __dko_status "pyenv-virtualenvwrapper plugin installation"
-  git clone \
-    https://github.com/pyenv/pyenv-virtualenvwrapper.git \
-    "$(pyenv root)/plugins/pyenv-virtualenvwrapper"
+  readonly virtualenvwrapperdest="$(pyenv root)/plugins/pyenv-virtualenvwrapper"
+  if [[ ! -d "$virtualenvwrapperdest" ]]; then
+    __dko_status "pyenv-virtualenvwrapper plugin installation"
+    git clone \
+      https://github.com/pyenv/pyenv-virtualenvwrapper.git \
+      "$virtualenvwrapperdest"
+  fi
 
   __dko_status "pyenv-virtualenv setup"
   __dko_echo "desired python2: ${p2}"
