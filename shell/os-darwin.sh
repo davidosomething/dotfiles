@@ -72,7 +72,6 @@ alias bsvr='b services restart'
 
 alias cask='brc'
 alias ci='brc install'
-alias cs='brc search'
 
 # ----------------------------------------------------------------------------
 # Chrome
