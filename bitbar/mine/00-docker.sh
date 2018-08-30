@@ -20,7 +20,7 @@ list_containers() {
 }
 
 main() {
-  [[ -z "$docker" ]] && exit 0
+  [ -z "$docker" ] && exit 0
   echo "D | dropdown=false"
   echo "---"
   list_containers
