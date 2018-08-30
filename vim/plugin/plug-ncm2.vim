@@ -31,11 +31,9 @@ call ncm2#override_source('LanguageClient_python', { 'enable': 0 })
 "       \ })
 
 " Delayed and filetype conditional start
-let s:ft_no_completion = [ 'vim-plug', 'git' ]
+let s:ft_no_completion = []
 function s:DelayedStart(...)
-  if !&buflisted
-        \|| &buftype ==# 'terminal'
-        \|| index(s:ft_no_completion, &filetype) != -1
+  if dko#IsNonFile('%') || index(s:ft_no_completion, &filetype) != -1
     return
   endif
   call ncm2#enable_for_buffer()

@@ -7,7 +7,7 @@ set cpoptions&vim
 
 " ============================================================================
 
-nnoremap  <special>   <Leader>mm  :<C-U>call movemode#toggle()<CR>
+nnoremap <special> <Leader>mm :<C-U>call movemode#toggle()<CR>
 
 " ============================================================================
 

@@ -21,9 +21,9 @@ let s:is_native_incsearch = has('patch-8.0.1238')
 " Clear search
 " ============================================================================
 
-nmap  <special>   <Plug>(DKOClearSearch)  :<C-U>nohlsearch<CR><C-l>
-silent! nunmap    <Esc><Esc>
-nmap  <special>   <Esc><Esc>   <Plug>(DKOClearSearch)
+nnoremap  <special>   <Plug>(DKOClearSearch)  :<C-U>nohlsearch<CR><C-l>
+silent!   nunmap      <Esc><Esc>
+nmap      <special>   <Esc><Esc>   <Plug>(DKOClearSearch)
 
 " ============================================================================
 " Native incsearch

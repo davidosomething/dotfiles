@@ -7,7 +7,7 @@ function! s:Close() abort
 endfunction
 
 function! dko#readonly#Unmap() abort
-  if dko#IsEditable() | return | endif
+  if dko#IsEditable('%') | return | endif
   if &buftype !=# 'help' | return | endif
 
   " Only for the actual help buffer, not when editing doc/helpfile.txt

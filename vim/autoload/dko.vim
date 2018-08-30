@@ -150,23 +150,23 @@ endfunction
 
 " @param {Int|String} bufnr or {expr} as in bufname()
 " @return {Boolean}
-function! dko#IsNonFile(bufnr) abort
-  return getbufvar(a:bufnr, '&buftype') =~# '\v(nofile|quickfix|terminal)'
-        \ || getbufvar(a:bufnr, '&filetype') =~# '\v(netrw)'
-endfunction
-
-" @param {Int} bufnr
-" @return {Boolean}
 function! dko#IsHelp(bufnr) abort
   return getbufvar(a:bufnr, '&buftype') ==# 'help'
 endfunction
 
-function! dko#IsEditable() abort
-  return !(
-        \ &readonly
-        \ || &buftype =~# '\v(nofile|quickfix)'
-        \ || &filetype =~# '\v(netrw)'
-        \ )
+" @param {Int|String} bufnr or {expr} as in bufname()
+" @return {Boolean}
+function! dko#IsNonFile(bufnr) abort
+  let l:ft = getbufvar(a:bufnr, '&filetype')
+  return getbufvar(a:bufnr, '&buftype') =~# '\v(help|nofile|quickfix|terminal)'
+        \ || l:ft ==# 'git'
+        \ || l:ft =~# '\v(netrw|vim-plug)'
+endfunction
+
+" @param {Int|String} bufnr or {expr} as in bufname()
+" @return {Boolean}
+function! dko#IsEditable(bufnr) abort
+  return !getbufvar(a:bufnr, '&readonly') && !dko#IsNonFile(a:bufnr)
 endfunction
 
 " ============================================================================

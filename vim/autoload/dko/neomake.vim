@@ -51,8 +51,7 @@ endfunction
 
 function! dko#neomake#CanMake(...) abort
   let l:bufnr = get(a:, 1, '%')
-  return !dko#IsNonFile(l:bufnr) && !dko#IsHelp(l:bufnr)
-        \ && !empty(getbufvar(l:bufnr, '&filetype'))
+  return !dko#IsNonFile(l:bufnr) && !empty(getbufvar(l:bufnr, '&filetype'))
 endfunction
 
 " @TODO can use neomake#configure#automake() when blacklist is implemented

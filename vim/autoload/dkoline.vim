@@ -38,7 +38,7 @@ function! dkoline#GetTabline() abort
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
   let l:contents .= '%#StatusLine# %= '
 
-  let l:project_root = dko#IsHelp(l:bufnr) || dko#IsNonFile(l:bufnr)
+  let l:project_root = dko#IsNonFile(l:bufnr)
         \ ? '' : dko#ShortenPath(dko#project#GetRoot(l:bufnr), 0)
   let l:lcd = dkoline#ShortPath(l:bufnr, l:cwd, 0)
   let l:is_in_project_root = l:lcd ==# l:project_root 
@@ -301,7 +301,7 @@ endfunction
 " @param {Int} max
 " @return {String}
 function! dkoline#ShortPath(bufnr, path, max) abort
-  if dko#IsNonFile(a:bufnr) || dko#IsHelp(a:bufnr)
+  if dko#IsNonFile(a:bufnr)
     return ''
   endif
   let l:path = dko#ShortenPath(a:path, a:max)
@@ -315,7 +315,7 @@ endfunction
 " @param {Int} bufnr
 " @return {String}
 function! dkoline#GitBranch(bufnr) abort
-  return dko#IsNonFile(a:bufnr) || dko#IsHelp(a:bufnr)
+  return dko#IsNonFile(a:bufnr)
         \ ? ''
         \ : dkoplug#IsLoaded('gina.vim') ? ' ' . gina#component#repo#branch() . ' '
         \ : dkoplug#IsLoaded('fugitive.vim') ? ' ' . fugitive#head(7) . ' '
