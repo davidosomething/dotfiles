@@ -8,8 +8,8 @@ augroup dkoncm
   autocmd!
 augroup END
 
-" 5ms delay so I can type fast
-let g:ncm2#complete_delay = 5
+" short delay so I can type fast
+let g:ncm2#complete_delay = 10
 
 " Deault "abbrfuzzy" but I usually know what I'm completing
 let g:ncm2#matcher = 'prefix'
