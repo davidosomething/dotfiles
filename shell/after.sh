@@ -11,9 +11,9 @@ export FZF_COMPLETION_TRIGGER="\`\`"
 
 # Use fastest grepper available
 if __dko_has "rg"; then
-  export FZF_DEFAULT_COMMAND='rg --files --hidden --glob ""'
+  export FZF_DEFAULT_COMMAND='rg --files --glob ""'
 elif __dko_has "ag"; then
-  export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
+  export FZF_DEFAULT_COMMAND='ag -g ""'
 else
   # using git paths only for FZF
   export FZF_DEFAULT_COMMAND='
