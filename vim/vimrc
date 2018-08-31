@@ -181,9 +181,9 @@ endif
 " Writing swaps
 " ----------------------------------------------------------------------------
 
-" default is on, explicitly set on here.
-" pros: prevent editing stale copy of same file in two vim instances
-set swapfile
+" If we have a swap conflict, FZF has issues opening the file (and doesn't
+" prompt correctly)
+set noswapfile
 
 " ----------------------------------------------------------------------------
 " Write backups
