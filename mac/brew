@@ -52,6 +52,7 @@ brew install bat
 brew install catimg
 # does not come with Docker.app
 brew install docker-completion hadolint
+brew install kubectx
 
 # ============================================================================
 # vim
