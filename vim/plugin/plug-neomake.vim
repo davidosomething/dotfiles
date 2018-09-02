@@ -34,8 +34,7 @@ let g:neomake_java_checkstyle_xml =
       \ expand('$DOTFILES/checkstyle/google_checks.xml')
 
 " Run these makers by default on :Neomake
-let g:neomake_javascript_enabled_makers =
-      \ executable('eslint') ? [ 'eslint' ] : []
+let g:neomake_javascript_enabled_makers = [ 'eslint' ]
 
 " flake8 is pycodestyle(pep8)+pyflakes+pydocstyle
 " preferred over pylama (other multi-runner) for now
