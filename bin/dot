@@ -617,7 +617,7 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
 
   # link curl
   if grep -q "curl" <<<"$outdated"; then
-    brew link --force curl
+    brew unlink curl && brew link --force curl
     wait
   fi
 
