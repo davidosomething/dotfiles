@@ -233,9 +233,9 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion: JavaScript
   " --------------------------------------------------------------------------
 
-  Plug 'ncm2/ncm2-tern', PlugIf(g:dko_use_tern_lsp, {
-        \   'do': 'npm install --force'
-        \ })
+  " Plug 'ncm2/ncm2-tern', PlugIf(g:dko_use_tern_lsp, {
+  "       \   'do': 'npm install --force'
+  "       \ })
 
   " --------------------------------------------------------------------------
   " Completion: Markdown
