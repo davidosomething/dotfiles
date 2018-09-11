@@ -49,13 +49,10 @@ function! s:FzfRelevant(...) abort
   let l:base = l:base_index >= 0 ? a:000[l:base_index + 1] : 'master'
   let l:prompt = l:base . '::' . dko#git#GetBranch(l:path)
 
-  let l:fullpaths = map(
-        \   dko#git#GetRelevant(l:path, a:000),
-        \   '"' . l:path . '/" . v:val'
-        \ )
+  let l:filepaths = dko#git#GetRelevant(l:path, a:000)
   let l:source =  filter(
-        \   l:fullpaths,
-        \   'filereadable(v:val)'
+        \   l:filepaths,
+        \   "filereadable(l:path . '/' .v:val)"
         \ )
   if !len(l:source)
     echo 'No files changed compared to ' . l:base

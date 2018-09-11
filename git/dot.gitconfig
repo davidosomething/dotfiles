@@ -50,8 +50,7 @@
 	git     = !exec git
 	g       = grep --break --heading --line-number
 
-	l       = log --abbrev-commit --oneline
-	ld      = log --abbrev-commit --date=short --pretty=ld
+	l       = log --abbrev-commit --date=short --pretty=ld
 	ll      = log --abbrev-commit --oneline --decorate --all
 	lm      = ld --author="davidosomething"
 	lb      = log --abbrev-commit --oneline --decorate --all --graph
