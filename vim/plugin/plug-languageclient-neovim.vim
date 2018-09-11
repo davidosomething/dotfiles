@@ -10,15 +10,11 @@ augroup END
 " Plugin settings
 " ============================================================================
 
-let g:LanguageClient_autoStart = executable(
-      \ g:plugs['LanguageClient-neovim']['dir'] . 'bin/languageclient'
-      \ )
 "let g:LanguageClient_loggingLevel = 'INFO'
 " Don't populate lists since it overrides Neomake lists
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_diagnosticsSignsMax = 0
 let g:LanguageClient_diagnosticsList = 'Disabled'
-let g:LanguageClient_serverCommands = {}
 let g:LanguageClient_hoverPreview = 'Never'
 
 " ============================================================================
@@ -44,6 +40,8 @@ unlet s:cpo_save
 " ============================================================================
 " Language Server Setup
 " ============================================================================
+
+let g:LanguageClient_serverCommands = {}
 
 " Disabled for now
 if 0 && executable('flow-language-server')
