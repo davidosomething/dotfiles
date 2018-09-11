@@ -39,11 +39,24 @@ let s:options = ' --cycle --multi '
 " ----------------------------------------------------------------------------
 
 function! s:FzfRelevant(...) abort
+  let l:path = dko#git#GetRoot(expand('%:p:h'))
+  if empty(l:path)
+    echo 'Not a git repository'
+    return
+  endif
+
   let l:base_index = index(a:000, '--branch')
   let l:base = l:base_index >= 0 ? a:000[l:base_index + 1] : 'master'
-  let l:path = dko#git#GetRoot(expand('%:p:h'))
   let l:prompt = l:base . '::' . dko#git#GetBranch(l:path)
-  let l:source = dko#git#GetRelevant(l:path, a:000)
+
+  let l:fullpaths = map(
+        \   dko#git#GetRelevant(l:path, a:000),
+        \   '"' . l:path . '/" . v:val'
+        \ )
+  let l:source =  filter(
+        \   l:fullpaths,
+        \   'filereadable(v:val)'
+        \ )
   if !len(l:source)
     echo 'No files changed compared to ' . l:base
     return
