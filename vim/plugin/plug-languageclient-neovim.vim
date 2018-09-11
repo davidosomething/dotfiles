@@ -16,6 +16,8 @@ let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_diagnosticsSignsMax = 0
 let g:LanguageClient_diagnosticsList = 'Disabled'
 let g:LanguageClient_hoverPreview = 'Never'
+let g:LanguageClient_settingsPath = expand('$DOTFILES/languageclient')
+let g:LanguageClient_hasSnippetSupport = 0
 
 " ============================================================================
 " Mappings
