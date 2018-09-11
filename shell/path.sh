@@ -41,6 +41,9 @@ PATH="/usr/local/bin:/usr/local/sbin:${DKO_SYSTEM_PATH}"
   && [ -d "${DKO_BREW_PREFIX}/opt/go/libexec/bin" ] \
   && PATH="${DKO_BREW_PREFIX}/opt/go/libexec/bin:${PATH}"
 
+[ "$DOTFILES_OS" = "Darwin" ] \
+  && PATH="${DKO_BREW_PREFIX}/opt/git/share/git-core/contrib/git-jump:${PATH}"
+
 # composer; COMPOSER_HOME is in shell/vars.sh
 PATH="${COMPOSER_HOME}/vendor/bin:${PATH}"
 
