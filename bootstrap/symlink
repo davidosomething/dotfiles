@@ -62,6 +62,8 @@ __symlink() {
                 ".config/nvm/default-packages"
   dko-symlink  "shell/dot.inputrc" \
                 ".config/readline/inputrc"
+  dko-symlink  "kitty/kitty.conf" \
+                ".config/kitty/kitty.conf"
 
   # (n)vim / intellij ideavim
   dko-symlink  "vim" \
@@ -86,8 +88,6 @@ __symlink() {
     darwin*)
       dko-symlink  "hammerspoon" \
                     ".hammerspoon"
-      dko-symlink  "kitty/kitty.conf" \
-                    "Library/Preferences/kitty/kitty.conf"
       dko-symlink  "mac/dot.hushlogin" \
                     ".hushlogin"
       dko-symlink  "mac/dotfiles.plist" \
