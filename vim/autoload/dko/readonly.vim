@@ -7,6 +7,10 @@ function! s:Close() abort
 endfunction
 
 function! dko#readonly#Unmap() abort
+  if dko#IsEditable('%') || &filetype ==# 'vim-plug'
+    return
+  endif
+
   let s:cpo_save = &cpoptions
   set cpoptions&vim
 

@@ -536,8 +536,7 @@ augroup END
 " Read only mode (un)mappings
 augroup dkoreadonly
   autocmd!
-  autocmd BufEnter *
-        \ if !dko#IsEditable('%') | call dko#readonly#Unmap() | endif
+  autocmd BufEnter * call dko#readonly#Unmap()
 augroup END
 
 " ============================================================================
