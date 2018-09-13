@@ -98,9 +98,6 @@ alias rnginx='sudo brew services restart nginx'
 # electron apps can't focus if started using Electron symlink
 alias elec='/Applications/Electron.app/Contents/MacOS/Electron'
 
-# clear xattrs
-alias xc='xattr -c *'
-
 # Audio control - http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"
 
