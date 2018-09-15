@@ -23,8 +23,7 @@ zplugin light 'davidosomething/cdbk'
 # ----------------------------------------------------------------------------
 
 zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-*" \
-  make"PREFIX=$ZPFX" nocompile \
-  atload"__dko_source ${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
+  make"PREFIX=$ZPFX" multisrc'etc/git-extras-completion.zsh' nocompile
 zplugin light tj/git-extras
 
 zplugin ice wait"1" lucid as"program" pick"git-open"
