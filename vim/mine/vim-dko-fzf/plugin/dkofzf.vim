@@ -32,7 +32,7 @@ endfunction
 " Some default options.
 " --cycle through list
 " --multi select with <Tab>
-let s:options = ' --tiebreak=index,length --cycle --multi '
+let s:options = ' --tiebreak=index --cycle --multi '
 
 " ----------------------------------------------------------------------------
 " git relevant
