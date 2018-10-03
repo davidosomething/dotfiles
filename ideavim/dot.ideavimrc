@@ -7,3 +7,11 @@ nnoremap <BS>  :action VimFilePrevious<cr>
 nnoremap <C-f> :action SearchEverywhere<cr>
 nnoremap <C-k> :action GotoImplementation<CR>
 nnoremap <C-x> :action CloseContent<CR>
+
+nnoremap  <special> <Leader><Leader>  V
+xnoremap  <special> <Leader><Leader>  <Esc>
+
+inoremap jj <Esc>
+
+nnoremap <Leader>, $r,
+nnoremap <Leader>; $r;

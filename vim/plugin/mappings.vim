@@ -150,8 +150,8 @@ xnoremap  <special> <Leader><Leader>  <Esc>
 
 silent! iunmap jj
 silent! cunmap jj
-imap jj <Esc>
-cmap jj <Esc>
+inoremap jj <Esc>
+cnoremap jj <Esc>
 
 " ----------------------------------------------------------------------------
 " Unfuck my screen
