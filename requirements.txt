@@ -3,4 +3,4 @@ pycodestyle==2.4.0
 safety==1.8.4
 tox==3.4.0
 vim-vint==0.3.18
-yamllint==1.11.1
+yamllint==1.12.0
