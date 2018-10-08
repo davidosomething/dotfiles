@@ -17,10 +17,6 @@ let b:match_words = '\<function\>:\<return\>,'
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
-" Require to import
-nnoremap r2i
-      \ :<C-U>s/\(const\|var\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
-
 " Set up native eslint making so we can debug eslint configs
 setlocal errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
 setlocal errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m

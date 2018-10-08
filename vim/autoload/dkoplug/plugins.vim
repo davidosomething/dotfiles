@@ -579,7 +579,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Show (#/total results) when searching for a term
   " known echo issue if remapping [[ and ]], but I removed that map
   " @see https://github.com/osyo-manga/vim-anzu/issues/19
-  Plug 'osyo-manga/vim-anzu'
+  "Plug 'osyo-manga/vim-anzu'
 
   " ==========================================================================
   " UI -- load last!
