@@ -127,7 +127,7 @@ alias kctx='kubectx'
 alias kns='kubens'
 
 # ----------------------------------------------------------------------------
-# node
+# node / JS
 # ----------------------------------------------------------------------------
 
 alias gulp='npx gulp'
@@ -151,6 +151,9 @@ alias y='yarn'
 alias yi='yarn install'
 alias yr='yarn run'
 alias yt='yarn test'
+nused() {
+  ag '(require|import).*'"$1"
+}
 
 # ----------------------------------------------------------------------------
 # php
