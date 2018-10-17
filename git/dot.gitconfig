@@ -83,6 +83,8 @@
 	st      = status
 	s       = status --short --branch
 
+	squashwip = rebase -i @{u}
+
 	subup   = submodule update --init
 
 	t       = tag
