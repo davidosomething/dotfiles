@@ -38,4 +38,5 @@ function s:DelayedStart(...)
   endif
   call ncm2#enable_for_buffer()
 endfunction
-autocmd dkoncm BufEnter * call timer_start(60, function('s:DelayedStart'))
+"autocmd dkoncm BufEnter * call timer_start(60, function('s:DelayedStart'))
+autocmd dkoncm BufEnter * call s:DelayedStart()
