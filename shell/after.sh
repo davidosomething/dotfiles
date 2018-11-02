@@ -6,23 +6,32 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 # fzf
 # ============================================================================
 
+fzfopts="--height=20 --inline-info --min-height=4 --preview 'head -100 {}'"
+export FZF_DEFAULT_OPTS="${fzfopts} --tiebreak=index"
+
 # ** is globbing completion in ZSH, use tickticktab instead
 export FZF_COMPLETION_TRIGGER="\`\`"
 
 # Use fastest grepper available
 if __dko_has "rg"; then
-  export FZF_DEFAULT_COMMAND='rg --files --glob ""'
+  grepper="rg --glob ''"
+  grepargs="--files --ignore-file \"${DOTFILES}/ag/dot.ignore\""
 elif __dko_has "ag"; then
-  export FZF_DEFAULT_COMMAND='ag -g ""'
+  grepper='ag'
+  grepargs='-g ""'
+elif __dko_has "fd"; then
+  grepper='fd'
+  grepargs='--type f'
 else
   # using git paths only for FZF
-  export FZF_DEFAULT_COMMAND='
+  grepper='
     (git ls-tree -r --name-only HEAD ||
       find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
         sed s/^..//) 2> /dev/null'
+  grepargs=''
 fi
-
-export FZF_DEFAULT_OPTS='--height=20 --min-height=4 --tiebreak=index'
+export FZF_DEFAULT_COMMAND="${grepper} ${grepargs}"
+export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 
 # ============================================================================
 # Use neovim
