@@ -20,7 +20,7 @@ endif
 
 let g:fzf_command_prefix = 'FZF'
 
-let g:fzf_layout = { 'down': 16 }
+let g:fzf_layout = { 'down': '~40%' }
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
