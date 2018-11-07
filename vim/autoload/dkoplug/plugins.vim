@@ -192,8 +192,6 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'kana/vim-smartinput'
 
   " Main completion engine, bound to <C-o>
-  " Does not start until InsertEnter, so we can set up sources, then load
-  " them, then load NCM
   Plug 'roxma/nvim-yarp', WithCompl()
   Plug 'ncm2/ncm2', WithCompl()
   Plug 'ncm2/ncm2-bufword', WithCompl()
