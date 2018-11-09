@@ -141,24 +141,6 @@ zstyle ':completion::complete:cd:*' tag-order '! users'
 # e.g. start expanding a path up to wherever it can be until error
 zstyle ':completion:*' expand yes
 
-# process names
-zstyle ':completion:*:processes-names' command \
-  'ps c -u ${USER} -o command | uniq'
-
-# rsync and SSH use hosts from ~/.ssh/config
-[ -r "$HOME/.ssh/config" ] && {
-  # Vanilla parsing of config file :)
-  # @see {@link https://github.com/Eriner/zim/issues/46#issuecomment-219344931}
-  hosts=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
-  #hosts=($(egrep '^Host ' "$HOME/.ssh/config" | grep -v '*' | awk '{print $2}' ))
-  zstyle ':completion:*:ssh:*'    hosts $hosts
-  zstyle ':completion:*:rsync:*'  hosts $hosts
-}
-
-# colorful kill command completion -- probably overridden by fzf
-zstyle ':completion:*:*:kill:*:processes' list-colors \
-  "=(#b) #([0-9]#)*=36=31"
-
 # complete .log filenames if redirecting stderr
 zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 
