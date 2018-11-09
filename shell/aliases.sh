@@ -255,14 +255,11 @@ __alias_ls() {
   __single_column='-1'
   __timestyle=''
 
-  if ! ls $__groupdirs >/dev/null 2>&1; then
-    __groupdirs=''
-  fi
-
   if [ "$DOTFILES_OS" = 'Darwin' ]; then
-    __almost_all='-A'
-    __classify='-F'
+    #__almost_all='-A'
+    #__classify='-F'
     __colorized='-G'
+    __groupdirs=''
   elif [ "$DOTFILES_OS" = 'Linux' ] \
     && [ "$DOTFILES_DISTRO" != 'busybox' ]; then
     __literal='-N'
