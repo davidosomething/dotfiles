@@ -13,16 +13,14 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
 # os specific aliases
 # ============================================================================
 
-case "$(uname)" in
-  Linux*)
-    . "${DOTFILES}/shell/aliases-linux.sh"
-    case "$DOTFILES_DISTRO" in
-      "archlinux" | "debian" | "fedora")
-        . "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.sh"
-        ;;
-    esac
+if [ "$DOTFILES_OS" = 'Linux' ]; then
+  . "${DOTFILES}/shell/aliases-linux.sh"
+  case "$DOTFILES_DISTRO" in
+  "archlinux" | "debian" | "fedora")
+    . "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.sh"
     ;;
-esac
+  esac
+fi
 
 # ============================================================================
 

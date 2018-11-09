@@ -11,8 +11,8 @@ export DKO_INIT=1
 
 # OS specific overrides
 case "$(uname)" in
-  Darwin*) . "${DOTFILES}/shell/os-darwin.sh" ;;
-  Linux*) . "${DOTFILES}/shell/os-linux.sh" ;;
+Darwin*) . "${DOTFILES}/shell/os-darwin.sh" ;;
+Linux*) . "${DOTFILES}/shell/os-linux.sh" ;;
 esac
 
 # Rebuild path starting from system path

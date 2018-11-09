@@ -65,7 +65,7 @@ export XDG_DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
 
 export HISTSIZE=50000
 export HISTFILESIZE=$HISTSIZE
-export SAVEHIST=$SAVEHIST
+export SAVEHIST=$HISTSIZE
 export HISTCONTROL=ignoredups
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
@@ -192,9 +192,6 @@ export VAGRANT_HOME="${XDG_CONFIG_HOME}/vagrant"
 
 # weechat
 export WEECHAT_HOME="${DOTFILES}/weechat"
-
-# create-react-app
-export REACT_EDITOR="$EDITOR"
 
 # wp cli
 export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"

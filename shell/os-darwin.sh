@@ -15,13 +15,13 @@ export HOMEBREW_NO_INSECURE_REDIRECT=1
 export HOMEBREW_CASK_OPTS='--require-sha'
 
 # Allow pyenv to use custom openssl from brew
-[ -d "${DKO_BREW_PREFIX}/opt/openssl/lib" ] \
-  && export LDFLAGS="-L${DKO_BREW_PREFIX}/opt/openssl/lib"
-[ -d "${DKO_BREW_PREFIX}/opt/openssl/include" ] \
-  && export CPPFLAGS="-I${DKO_BREW_PREFIX}/opt/openssl/include"
+[ -d "${DKO_BREW_PREFIX}/opt/openssl/lib" ] &&
+  export LDFLAGS="-L${DKO_BREW_PREFIX}/opt/openssl/lib"
+[ -d "${DKO_BREW_PREFIX}/opt/openssl/include" ] &&
+  export CPPFLAGS="-I${DKO_BREW_PREFIX}/opt/openssl/include"
 
-[ -d "${DKO_BREW_PREFIX}/share/android-sdk" ] \
-  && export ANDROID_SDK_ROOT="${DKO_BREW_PREFIX}/share/android-sdk"
+[ -d "${DKO_BREW_PREFIX}/share/android-sdk" ] &&
+  export ANDROID_SDK_ROOT="${DKO_BREW_PREFIX}/share/android-sdk"
 
 # ============================================================================
 # Functions

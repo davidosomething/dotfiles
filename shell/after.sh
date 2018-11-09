@@ -38,14 +38,20 @@ export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 # Now that path is available, use neovim instead of vim if it is installed
 # ============================================================================
 
-__dko_has "nvim" && {
-  alias e="nvim"
+__dko_has 'nvim' && {
+  alias e='nvim'
 
-  export EDITOR="nvim"
-  export VISUAL="nvim"
+  export EDITOR='nvim'
+  export VISUAL='nvim'
 
-  __dko_has "nvr" && alias e="PYTHONWARNINGS=ignore nvr -s"
+  __dko_has 'nvr' && alias e='PYTHONWARNINGS=ignore nvr -s'
 }
+
+# ============================================================================
+# create-react-app
+# ============================================================================
+
+export REACT_EDITOR="$VISUAL"
 
 # ============================================================================
 # npm stuff
@@ -57,7 +63,7 @@ __dko_has 'trash' && alias rm=trash
 # fasd or z
 # ============================================================================
 
-__dko_has "fasd" && alias j="z"
+__dko_has 'fasd' && alias j='z'
 
 # ============================================================================
 
