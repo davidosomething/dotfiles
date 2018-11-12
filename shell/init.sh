@@ -10,9 +10,9 @@ export DKO_INIT=1
 . "${HOME}/.dotfiles/shell/vars.sh"
 
 # OS specific overrides
-case "$(uname)" in
-Darwin*) . "${DOTFILES}/shell/os-darwin.sh" ;;
-Linux*) . "${DOTFILES}/shell/os-linux.sh" ;;
+case "$OSTYPE" in
+darwin*) . "${DOTFILES}/shell/os-darwin.sh" ;;
+linux*) . "${DOTFILES}/shell/os-linux.sh" ;;
 esac
 
 # Rebuild path starting from system path
