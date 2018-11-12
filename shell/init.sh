@@ -9,7 +9,9 @@ export DKO_INIT=1
 
 . "${HOME}/.dotfiles/shell/vars.sh"
 
-# OS specific overrides
+# OS specific overrides, OSTYPE is not POSIX so these won't run except in
+# modern shells
+# shellcheck disable=SC2039
 case "$OSTYPE" in
 darwin*) . "${DOTFILES}/shell/os-darwin.sh" ;;
 linux*) . "${DOTFILES}/shell/os-linux.sh" ;;
