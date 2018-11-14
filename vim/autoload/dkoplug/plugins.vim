@@ -193,9 +193,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Main completion engine, bound to <C-o>
   Plug 'roxma/nvim-yarp', WithCompl()
-  Plug 'ncm2/ncm2', WithCompl({
-        \   'branch': 'fix-92'
-        \ })
+  Plug 'ncm2/ncm2', WithCompl()
   Plug 'ncm2/ncm2-bufword', WithCompl()
   Plug 'ncm2/ncm2-path', WithCompl()
 
