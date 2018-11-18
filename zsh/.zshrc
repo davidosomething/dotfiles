@@ -199,7 +199,14 @@ __dko_has 'zplugin' && zplugin cdreplay -q
 # Plugins: fasd (installed via package manager)
 # ----------------------------------------------------------------------------
 
-__dko_has "fasd" && eval "$(fasd --init posix-alias zsh-hook)"
+__dko_has "fasd" && {
+  fasd_cache="${LDOTDIR}/cached-fasd-init"
+  if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+    fasd --init posix-alias zsh-hook >| "$fasd_cache"
+  fi
+  __dko_source "$fasd_cache"
+  unset fasd_cache
+}
 
 # ----------------------------------------------------------------------------
 # Plugins: fzf (installed via brew)
