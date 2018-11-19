@@ -1,5 +1,18 @@
 " autoload/dkoplug/plugins.vim
 
+" Similar but safer than Cond() from
+" <https://github.com/junegunn/vim-plug/wiki/faq>
+" This is a global function for command access
+function! PlugIf(condition, ...) abort
+  let l:enabled = a:condition ? {} : { 'on': [], 'for': [] }
+  return a:0 ? extend(l:enabled, a:000[0]) : l:enabled
+endfunction
+
+" Shortcut
+function! WithCompl(...) abort
+  return call('PlugIf', [ g:dko_use_completion ] + a:000)
+endfunction
+
 function! dkoplug#plugins#LoadAll() abort
   " Notes on adding plugins:
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
@@ -177,96 +190,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion
   " ==========================================================================
 
-  " The language client completion is a bit slow to kick in, but it works
-  Plug 'autozimu/LanguageClient-neovim', WithCompl({
-        \   'branch': 'next',
-        \   'do': 'bash ./install.sh',
-        \ })
-
-  " Auto-insert matching braces with detection for jumping out on close.
-  " No right brace detection
-  "Plug 'cohama/lexima.vim'
-  " Slow but detects right brace
-  "Plug 'Raimondi/delimitMate'
-  " Slowest
-  "Plug 'kana/vim-smartinput'
-
-  " Main completion engine, bound to <C-o>
-  Plug 'roxma/nvim-yarp', WithCompl()
-  Plug 'ncm2/ncm2', WithCompl()
-  Plug 'ncm2/ncm2-bufword', WithCompl()
-  Plug 'ncm2/ncm2-path', WithCompl()
-
-  " Complete words from other open buffers (tags is probably enough, this will
-  " just introduce irrelevant completions)
-  "Plug 'fgrsnau/ncm-otherbuf', WithCompl()
-
-  " --------------------------------------------------------------------------
-  " NCM functionality: Includes
-  " --------------------------------------------------------------------------
-
-  " Include completion, include tags
-  " For what langs are supported, see:
-  " https://github.com/Shougo/neoinclude.vim/blob/master/autoload/neoinclude.vim
-  " Note: NCM Errors when can't find b:node_root (from moll/vim-node)
-  Plug 'ncm2/ncm2-neoinclude', WithCompl()
-  Plug 'Shougo/neoinclude.vim', WithCompl()
-
-  " --------------------------------------------------------------------------
-  " Completion: CSS
-  " --------------------------------------------------------------------------
-
-  Plug 'ncm2/ncm2-cssomni', WithCompl()
-
-  " --------------------------------------------------------------------------
-  " Completion: Java
-  " --------------------------------------------------------------------------
-
-  " Plug 'artur-shaik/vim-javacomplete2', PlugIf(executable('mvn'), {
-  "       \   'do': 'cd -- libs/javavi/ && mvn compile',
-  "       \   'for': [ 'java' ],
-  "       \ })
-
-  " --------------------------------------------------------------------------
-  " Completion: JavaScript
-  " --------------------------------------------------------------------------
-
-  " Plug 'ncm2/ncm2-tern', PlugIf(g:dko_use_tern_lsp, {
-  "       \   'do': 'npm install --force'
-  "       \ })
-
-  " --------------------------------------------------------------------------
-  " Completion: Markdown
-  " --------------------------------------------------------------------------
-
-  Plug 'ncm2/ncm2-markdown-subscope', WithCompl()
-
-  " --------------------------------------------------------------------------
-  " Completion: PHP
-  " --------------------------------------------------------------------------
-
-  " --------------------------------------------------------------------------
-  " Completion: Python
-  " --------------------------------------------------------------------------
-
-  Plug 'ncm2/ncm2-jedi', WithCompl()
-
-  " --------------------------------------------------------------------------
-  " Completion: Syntax
-  " --------------------------------------------------------------------------
-
-  " Full syntax completion. Keyed as [S]
-  " Only use with NCM - normally super slow, like syntaxcomplete
-  Plug 'ncm2/ncm2-syntax', WithCompl()
-  Plug 'Shougo/neco-syntax', WithCompl()
-
-  " --------------------------------------------------------------------------
-  " Completion: VimL
-  " --------------------------------------------------------------------------
-
-  Plug 'ncm2/ncm2-vim', WithCompl()
-  Plug 'Shougo/neco-vim', WithCompl()
-
   " --------------------------------------------------------------------------
   " Snippet engine
   " --------------------------------------------------------------------------
@@ -274,6 +197,34 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'Shougo/neosnippet', WithCompl()
   Plug 'Shougo/neosnippet-snippets', WithCompl()
   Plug 'honza/vim-snippets', WithCompl()
+
+  " --------------------------------------------------------------------------
+  " Completion engine
+  " --------------------------------------------------------------------------
+
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
+  " --------------------------------------------------------------------------
+  " Completion libraries
+  " --------------------------------------------------------------------------
+
+  " Include completion, include tags
+  " For what langs are supported, see:
+  " https://github.com/Shougo/neoinclude.vim/blob/master/autoload/neoinclude.vim
+  Plug 'Shougo/neoinclude.vim', WithCompl()
+
+  " --------------------------------------------------------------------------
+  " Completion: Syntax
+  " --------------------------------------------------------------------------
+
+  " Full syntax completion. Keyed as [S]
+  Plug 'Shougo/neco-syntax', WithCompl()
+
+  " --------------------------------------------------------------------------
+  " Completion: VimL
+  " --------------------------------------------------------------------------
+
+  Plug 'Shougo/neco-vim', WithCompl()
 
   " ==========================================================================
   " Multiple languages
@@ -627,17 +578,4 @@ function! dkoplug#plugins#LoadAll() abort
         \   '<Plug>(Visual-Split',
         \ ] }
 
-endfunction
-
-" Similar but safer than Cond() from
-" <https://github.com/junegunn/vim-plug/wiki/faq>
-" This is a global function for command access
-function! PlugIf(condition, ...) abort
-  let l:enabled = a:condition ? {} : { 'on': [], 'for': [] }
-  return a:0 ? extend(l:enabled, a:000[0]) : l:enabled
-endfunction
-
-" Shortcut
-function! WithCompl(...) abort
-  return call('PlugIf', [ g:dko_use_completion ] + a:000)
 endfunction
