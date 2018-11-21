@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+_main() {
+  local site_functions="${DKO_BREW_PREFIX}/share/zsh/site-functions"
+  local zsh_git_completion="${site_functions}/_git"
+  [[ -e "$zsh_git_completion" ]] &&
+    [[ -e "${site_functions}/git-completion.bash" ]] &&
+    rm "$zsh_git_completion"
+}
+
+_main

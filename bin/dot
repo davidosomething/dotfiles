@@ -627,6 +627,11 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
     wait
   fi
 
+  # do not use zsh git completion, the bash one is better
+  if grep -q "git" <<<"$outdated"; then
+    "${DOTFILES}/bin/dko-fix-git-completion"
+  fi
+
   # If imagemagick was outdated and php-imagick was not, force a reinstall
   # of php-imagick from source (using the new imagemagick)
   if grep -q "imagemagick" <<<"$outdated"; then
