@@ -1,7 +1,5 @@
 " autoload/dko/project/javascript.vim
 
-" @TODO support package.json configs
-
 " Ordered by preference
 let s:eslintrc_candidates = [
       \   '.eslintrc.js',
@@ -24,12 +22,16 @@ function! dko#project#javascript#GetEslintrc() abort
 
   " Check in package.json
   if empty(l:found)
-    let l:packagejson = dko#project#GetFile('package.json')
-    if !empty(l:packagejson)
-      let l:eslint_config =
-            \ system('grep eslintConfig ' . shellescape(l:packagejson))
-      if !empty(l:eslint_config)
-        let b:dko_project_javascript_eslintrc = l:packagejson
+    if exists('*pj#GetValue') && len(pj#GetValue('eslintConfig'))
+      let b:dko_project_javascript_eslintrc = b:PJ_file
+    else
+      let l:packagejson = dko#project#GetFile('package.json')
+      if !empty(l:packagejson)
+        let l:eslint_config =
+              \ system('grep eslintConfig ' . shellescape(l:packagejson))
+        if !empty(l:eslint_config)
+          let b:dko_project_javascript_eslintrc = l:packagejson
+        endif
       endif
     endif
   endif
