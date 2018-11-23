@@ -50,38 +50,13 @@ noremap   gs    <NOP>
 
 command! Q q
 
-nnoremap  <silent><special>  <Leader>eca
-      \ :<C-U>call dko#edit#EditClosest('.ignore')<CR>
-nnoremap  <silent><special>  <Leader>eci
-      \ :<C-U>call dko#edit#EditClosest('.gitignore')<CR>
 nnoremap  <silent><special>  <Leader>ecr
       \ :<C-U>call dko#edit#EditClosest('README.md')<CR>
 
-nnoremap  <silent><special>  <Leader>era
-      \ :<C-U>call dko#edit#EditRoot('.ignore')<CR>
-nnoremap  <silent><special>  <Leader>eri
-      \ :<C-U>call dko#edit#EditRoot('.gitignore')<CR>
-nnoremap  <silent><special>  <Leader>erg
-      \ :<C-U>call dko#edit#EditRoot('gulpfile.js')<CR>
-nnoremap  <silent><special>  <Leader>erp
-      \ :<C-U>call dko#edit#EditRoot('package.json')<CR>
-nnoremap  <silent><special>  <Leader>err
-      \ :<C-U>call dko#edit#EditRoot('README.md')<CR>
-
-" Not using $MYVIMRC since it varies based on (n)vim
-nnoremap  <silent><special>  <Leader>evi
-      \ :<C-U>edit $VDOTDIR/init.vim<CR>
-nnoremap  <silent><special>  <Leader>evg
-      \ :<C-U>edit $VDOTDIR/gvimrc<CR>
 nnoremap  <silent><special>  <Leader>evr
       \ :<C-U>edit $VDOTDIR/vimrc<CR>
 nnoremap  <silent><special>  <Leader>evp
       \ :<C-U>edit $VDOTDIR/autoload/dkoplug/plugins.vim<CR>
-
-nnoremap  <silent><special>  <Leader>em
-      \ :<C-U>edit $VDOTDIR/plugin/mappings.vim<CR>
-nnoremap  <silent><special>  <Leader>ez
-      \ :<C-U>edit $ZDOTDIR/.zshrc<CR>
 
 " ============================================================================
 " Run :make
