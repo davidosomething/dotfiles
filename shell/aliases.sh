@@ -27,12 +27,12 @@ alias downs='down'
 alias tree='tree -CF'
 
 # ----------------------------------------------------------------------------
-# cat (prefer bat or bin/dog)
+# cat (prefer bat)
 # ----------------------------------------------------------------------------
 
 alias c='bat --paging never'
-alias crm='c README.md'
-alias cpj='dog package.json'
+alias crm='bat --plain README.md'
+alias cpj='bat --plain package.json'
 alias pyg='pygmentize -O style=rrt -f console256 -g'
 alias d='icdiff -line-numbers --tabsize=4 --numlines=8'
 

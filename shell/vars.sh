@@ -111,6 +111,8 @@ export AWS_CONFIG_FILE="${DOTFILES}/aws/config"
 
 # bat
 export BAT_PAGER=""
+export BAT_STYLE="numbers"
+export BAT_THEME="zenburn"
 
 # bazaar
 export BZRPATH="${XDG_CONFIG_HOME}/bazaar"

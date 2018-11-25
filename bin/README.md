@@ -31,10 +31,6 @@ afk
 
 > Pretty print the `$DKO_SOURCE` env variable to see sourced files
 
-## dog
-
-> `mdless`, `pygmentize`, or `cat` a stream
-
 ## eapache
 
 > Edit the apache httpd.conf file
