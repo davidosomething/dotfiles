@@ -59,7 +59,7 @@ function! dkoplug#plugins#LoadAll() abort
         \   'do': 'npm install --force',
         \ })
 
-  Plug 'ludovicchabant/vim-gutentags', PlugIf(executable('ctags'))
+  "Plug 'ludovicchabant/vim-gutentags', PlugIf(executable('ctags'))
 
   " ==========================================================================
   " Commands
