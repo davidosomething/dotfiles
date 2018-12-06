@@ -17,12 +17,9 @@ endfunction
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
-nnoremap <silent> <Leader>d
-      \ <Plug>(coc-definition)
-
-nnoremap <silent> <leader>k
-      \ :<C-U>call <SID>ShowDocumentation()<CR>
-
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nnoremap <silent> K :<C-U>call <SID>ShowDocumentation()<CR>
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
