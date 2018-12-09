@@ -1,3 +1,4 @@
 {
-  "coc.source.tag.enable": false
+  "coc.source.tag.enable": false,
+  "coc.preferences.useQuickfixForLocations": false
 }
