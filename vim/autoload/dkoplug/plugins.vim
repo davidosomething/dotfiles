@@ -293,6 +293,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug g:dko#vim_dir . '/mine/vim-pj'
 
+  Plug 'neoclide/jsonc.vim'
   Plug 'elzr/vim-json'
 
   " provides coffee ft

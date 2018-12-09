@@ -2,6 +2,7 @@
   "coc.source.tag.enable": false,
   "coc.preferences.echodocSupport": true,
   //"coc.preferences.diagnostic.displayByAle": true,
+  // When true, destroys loclist on insert (and kills neomake results)
   "coc.preferences.diagnostic.locationlist": false,
   "coc.preferences.codeLens.enable": true
 }
