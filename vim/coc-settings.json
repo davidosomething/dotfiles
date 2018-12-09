@@ -1,4 +1,7 @@
 {
   "coc.source.tag.enable": false,
-  "coc.preferences.useQuickfixForLocations": false
+  "coc.preferences.echodocSupport": true,
+  //"coc.preferences.diagnostic.displayByAle": true,
+  "coc.preferences.diagnostic.locationlist": false,
+  "coc.preferences.codeLens.enable": true
 }

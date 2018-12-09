@@ -6,6 +6,10 @@ augroup dkococ
   autocmd!
 augroup END
 
+let g:coc_auto_copen = 0
+let g:coc_snippet_next = '<C-f>'
+let g:coc_snippet_prev = '<C-b>'
+
 function! s:ShowDocumentation()
   if &filetype ==# 'vim'
     execute 'h '.expand('<cword>')
