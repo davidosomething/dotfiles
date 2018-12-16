@@ -48,7 +48,6 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
     - Provide window snapping
     - Provide better trackpad swipe configs
 - dropbox
-    - Then setup keepassxc to load the key database from Dropbox
 - google-chrome
     - Login and sync google account for settings
     - Provides `authy`

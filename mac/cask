@@ -58,7 +58,6 @@ echo "License in SpiderOak Hive"
 # ==============================================================================
 
 brew cask install karabiner-elements
-brew cask install keepassxc
 brew cask install keybase
 
 # ==============================================================================
