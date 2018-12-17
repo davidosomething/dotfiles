@@ -67,5 +67,7 @@ __dko_has 'fasd' && alias j='z'
 
 # ============================================================================
 
+#__dko_has 'catimg' && echo && catimg "${DOTFILES}/meta/motd.png" && echo
+
 unset DKO_INIT
 export DKO_SOURCE="${DKO_SOURCE} }"
