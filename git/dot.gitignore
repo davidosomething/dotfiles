@@ -106,6 +106,8 @@ cscope.po.out
 # Editors
 # ----------------------------------------------------------------------------
 
+.padawan/
+.phpcomplete_extended/
 *.orig
 *.sublime-project
 *.sublime-workspace
@@ -113,8 +115,6 @@ cscope.po.out
 *.tmproj
 *.tmproject
 tmtags
-.padawan/
-.phpcomplete_extended/
 .tern-port
 workbench.xmi
 
@@ -122,9 +122,10 @@ workbench.xmi
 # real junk, temp files
 # ----------------------------------------------------------------------------
 
+.jscpd/
+.sass-cache/
 package-lock.json.*
 containerlog.txt
 npm-debug.log
-.sass-cache/
 *.rbc
 
