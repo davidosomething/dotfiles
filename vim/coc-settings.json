@@ -1,10 +1,14 @@
 {
   "coc.preferences.codeLens.enable": true,
   "coc.preferences.diagnostic.locationlist": false,
+  "coc.preferences.diagnostic.errorSign": "⚑",
+  "coc.preferences.diagnostic.hintSign": "⚑",
+  "coc.preferences.diagnostic.infoSign": "⚑",
+  "coc.preferences.diagnostic.warningSign": "⚑",
   "coc.preferences.echodocSupport": true,
   //"coc.preferences.diagnostic.displayByAle": true,
   // When true, destroys loclist on insert (and kills neomake results)
   "coc.preferences.minTriggerInputLength": 2,
-  "coc.preferences.snippetIndicator": "⭐︎"
-  "coc.source.tag.enable": false,
+  "coc.preferences.snippetIndicator": " ⭐︎",
+  "coc.source.tag.enable": false
 }
