@@ -293,8 +293,9 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug g:dko#vim_dir . '/mine/vim-pj'
 
-  Plug 'neoclide/jsonc.vim'
+  " Order of these two matters
   Plug 'elzr/vim-json'
+  Plug 'neoclide/jsonc.vim'
 
   " provides coffee ft
   "Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
