@@ -22,6 +22,8 @@ let s:cpo_save = &cpoptions
 set cpoptions&vim
 
 nmap <silent> <Leader>d <Plug>(coc-diagnostic-info)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
 nmap <silent> gh <Plug>(coc-declaration)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
