@@ -1,5 +1,10 @@
 ---
 extends: default
+rules:
+  comments:
+    ignore-shebangs: true
+    require-starting-space: true
+  document-start: disable
 ignore: |
   node_modules/
   tmux/plugins/
