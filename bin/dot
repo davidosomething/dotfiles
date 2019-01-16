@@ -294,8 +294,6 @@ __dko_dotfiles__update_node() {
   local previous_node
   previous_node="$(nvm current)"
 
-  wait
-
   if [[ "$wanted_with_minor" == "$previous_node" ]]; then
     __dko_ok "Node.js is already up-to-date"
     return 0
@@ -308,7 +306,6 @@ __dko_dotfiles__update_node() {
   if [[ "$REPLY" = "y" ]] || [[ "$REPLY" = "Y" ]]; then
     __dko_status "Installing node ${wanted_with_minor}..."
     if nvm install "$wanted"; then
-      wait
       __dko_status "Updating default alias to ${wanted_with_minor}..."
       nvm alias default  "$wanted"
       __dko_status "Switching to ${wanted_with_minor}..."
@@ -552,12 +549,6 @@ __dko_dotfiles__darwin__update_mac() {
   __dko_has "mas" && mas upgrade
 }
 
-__dko_dotfiles__darwin__update_brew_done() {
-  __dko_status "Clean up old versions and prune dead symlinks"
-  brew cleanup && wait && brew prune && wait && \
-    __dko_ok "All clean"
-}
-
 # pass any arg to silence
 __dko_dotfiles__darwin__require_latest_xcode() {
   local latest_xcode="10.1"
@@ -588,13 +579,11 @@ __dko_dotfiles__darwin__update_brew() {
     # from xterm-256color-italic I use in iterm
     TERM="xterm-256color"
 
-    # we use & wait on brew since they sometimes spawn
-    brew update & wait
+    brew update
 
     # check if needed
     local outdated
     outdated="$(brew outdated --quiet)"
-    wait
 
     [[ -z "$outdated" ]] && {
       __dko_ok "Packages up-to-date"
@@ -604,10 +593,12 @@ __dko_dotfiles__darwin__update_brew() {
     # Upgrade remaining
     __dko_status "Upgrading packages"
     brew upgrade
-    wait
     __dko_dotfiles__darwin__update_brew_postupgrade "$outdated"
-
-  ) && __dko_dotfiles__darwin__update_brew_done
+  ) && {
+    __dko_status "Clean up old versions and prune dead symlinks"
+    brew cleanup
+    __dko_ok "All clean"
+  }
 }
 
 __dko_dotfiles__darwin__update_brew_postupgrade() {
@@ -618,13 +609,11 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
   # link curl
   if grep -q "curl" <<<"$outdated"; then
     brew unlink curl && brew link --force curl
-    wait
   fi
 
   # re-init goenv
   if grep -q "goenv" <<<"$outdated"; then
     goenv rehash
-    wait
   fi
 
   # do not use zsh git completion, the bash one is better
@@ -639,7 +628,6 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
     if [[ -n "$phpimagick" ]]; then
       __dko_status "Rebuilding ${phpimagick} for new imagemagick"
       brew reinstall --build-from-source "$phpimagick"
-      wait
     fi
   fi
 
@@ -647,7 +635,6 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
   if grep -q "python3" <<<"$outdated"; then
     __dko_status "Python3 was outdated, upgrading python3"
     brew upgrade python3
-    wait
   fi
 
   __dko_ok "Post-upgrade complete"
