@@ -1,6 +1,6 @@
 # https://github.com/drduh/macOS-Security-and-Privacy-Guide#curl
 
-#user-agent = "Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+#user-agent = "Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0"
 referer = ";auto"
 connect-timeout = 10
 progress-bar
@@ -8,4 +8,4 @@ max-time = 90
 #verbose
 show-error
 remote-time
-ipv4
+#ipv4
