@@ -2,7 +2,7 @@
 
 if !dkoplug#IsLoaded('coc.nvim') | finish | endif
 
-let g:coc_auto_copen = 0
+let g:coc_enable_locationlist = 0
 let g:coc_snippet_next = '<C-f>'
 let g:coc_snippet_prev = '<C-b>'
 
