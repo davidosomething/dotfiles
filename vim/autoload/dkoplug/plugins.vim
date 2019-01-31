@@ -525,20 +525,6 @@ function! dkoplug#plugins#LoadAll() abort
   " <Plug> to not move on * search function
   Plug 'haya14busa/vim-asterisk'
 
-  " Provides:
-  " - Highlight partial matches as you type in search mode
-  " - Stay cursor on first match slash '/' search
-  " [DEPRECATED] Use native incsearch instead if has('patch-8.0.1238')
-  " [BUG] Double cmdline cursor
-  " - <https://github.com/haya14busa/incsearch.vim/issues/79>
-  " - <https://github.com/neovim/neovim/issues/3688>
-  "Plug 'haya14busa/incsearch.vim', PlugIf(v:version >= 704)
-
-  " Show (#/total results) when searching for a term
-  " known echo issue if remapping [[ and ]], but I removed that map
-  " @see https://github.com/osyo-manga/vim-anzu/issues/19
-  "Plug 'osyo-manga/vim-anzu'
-
   " ==========================================================================
   " UI -- load last!
   " ==========================================================================

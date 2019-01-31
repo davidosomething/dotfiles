@@ -10,13 +10,6 @@ let g:loaded_dko_search = 1
 let s:cpo_save = &cpoptions
 set cpoptions&vim
 
-augroup dkosearch
-  autocmd!
-augroup END
-
-let s:is_native_incsearch = has('patch-8.0.1238')
-      \ && !dkoplug#IsLoaded('incsearch.vim')
-
 " ============================================================================
 " Clear search
 " ============================================================================
@@ -30,24 +23,14 @@ nmap      <special>   <Esc><Esc>   <Plug>(DKOClearSearch)
 " ============================================================================
 
 " Tab/S-Tab go to next match while still in cmdline
-if s:is_native_incsearch
-  cnoremap <special><expr> <Tab>    getcmdtype() =~ '[?/]'
-        \ ? '<C-g>' : feedkeys('<Tab>', 'int')[1]
-  cnoremap <special><expr> <S-Tab>  getcmdtype() =~ '[?/]'
-        \ ? '<C-t>' : feedkeys('<S-Tab>', 'int')[1]
-endif
+cnoremap <special><expr> <Tab>    getcmdtype() =~ '[?/]'
+      \ ? '<C-g>' : feedkeys('<Tab>', 'int')[1]
+cnoremap <special><expr> <S-Tab>  getcmdtype() =~ '[?/]'
+      \ ? '<C-t>' : feedkeys('<S-Tab>', 'int')[1]
 
 " ============================================================================
 
-" - incsearch.vim   highlighting all matches
-" - vim-anzu        show number of matches, with status integration
-" - vim-asterisk    don't move on first search with *
-" - vim-searchant   highlight CURRENT search item differently
-if         !dkoplug#IsLoaded('incsearch.vim')
-      \ && !dkoplug#IsLoaded('vim-asterisk')
-      \ && !dkoplug#IsLoaded('vim-anzu')
-  finish
-endif
+if !dkoplug#IsLoaded('vim-asterisk') | finish | endif
 
 " In case some other plugin tries something fishy
 silent! unmap /
@@ -62,96 +45,10 @@ silent! unmap N
 
 let g:asterisk#keeppos = 1
 
-" Incsearch + Anzu interaction
-if dkoplug#IsLoaded('incsearch.vim') && dkoplug#IsLoaded('vim-anzu')
-  " Make sure / and g/ (which start an <over>-mode/fake-command mode) update
-  " the anzu status
-  autocmd dkosearch User IncSearchLeave AnzuUpdateSearchStatus
-endif
-
-function! s:SetupIncsearch() abort
-  if !dkoplug#IsLoaded('incsearch.vim') | return | endif
-
-  map  /  <Plug>(incsearch-forward)
-  map  ?  <Plug>(incsearch-backward)
-  map  g/ <Plug>(incsearch-stay)
-
-  if !dkoplug#IsLoaded('vim-anzu')
-    map  n  <Plug>(incsearch-nohl-n)
-    map  N  <Plug>(incsearch-nohl-N)
-  endif
-endfunction
-call s:SetupIncsearch()
-
-function! s:SetupAnzu() abort
-  if !dkoplug#IsLoaded('vim-anzu') | return | endif
-
-  " Replace anzu's cursormoved with my own that updates the tabline where
-  " search status is displayed
-  autocmd! anzu CursorMoved
-  autocmd dkosearch CursorMoved *
-        \   AnzuUpdateSearchStatus
-        \ | call dkoline#RefreshTabline()
-
-  " These will allow anzu to trigger on motions like `gd` but will cause
-  " the status to re-enable even after <Esc><Esc>
-  " Disable them. To enable anzu for other motions, should recursive map them
-  " to trigger anzu#mode#start.
-  let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 0
-  let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
-
-  " Mappings
-  if dkoplug#IsLoaded('incsearch.vim')
-    map  n   <Plug>(incsearch-nohl)<Plug>(anzu-n)
-    map  N   <Plug>(incsearch-nohl)<Plug>(anzu-N)
-  else
-    map  n   <Plug>(anzu-n)
-    map  N   <Plug>(anzu-N)
-  endif
-
-  " Clear anzu in status AND unhighlight last search
-  nmap  <special>  <Esc><Esc>
-        \ <Plug>(anzu-clear-search-status)<Plug>(DKOClearSearch)
-endfunction
-call s:SetupAnzu()
-
-" Get vim-asterisk, vim-anzu, and incsearch.vim to play nicely
-"
-" @param  {String} op for asterisk, translated to anzu also
+" @param  {String} op for asterisk
 " @return {String} <expr>
 function! s:GetSearchRHS(op) abort
-  let l:ops = ''
-
-  " Highlight matches?
-  if dkoplug#IsLoaded('incsearch.vim')
-    " no CursorMoved event if using vim-asterisk
-    let l:ops .= dkoplug#IsLoaded('vim-asterisk')
-          \ ? '<Plug>(incsearch-nohl0)'
-          \ : '<Plug>(incsearch-nohl)'
-  endif
-
-  " Move or don't move?
-  let l:ops .= dkoplug#IsLoaded('vim-asterisk')
-        \ ? '<Plug>(asterisk-' . a:op . ')'
-        \ : ''
-
-  " Show count of matches after asterisk-z-op
-  " Or use anzu-op if no vim-asterisk
-  if dkoplug#IsLoaded('vim-anzu')
-    let l:anzu_op = ''
-    let l:anzu_op = a:op ==# 'z*' ? 'star' : l:anzu_op
-    let l:anzu_op = a:op ==# 'z#' ? 'sharp' : l:anzu_op
-    if dkoplug#IsLoaded('vim-asterisk') || empty(l:anzu_op)
-      let l:ops .= '<Plug>(anzu-update-search-status)'
-    else
-      " no anzu stuff for gz* and gz#
-      let l:ops .= '<Plug>(anzu-' . l:anzu_op . ')'
-    endif
-  endif
-
-  let l:ops .= '<Plug>(dkoline-refresh-tabline)'
-
-  return l:ops
+  return '<Plug>(asterisk-' . a:op . ')'
 endfunction
 " the "z" means stay on the first match instead of autojump to next
 execute 'map <special> * ' . s:GetSearchRHS('z*')
