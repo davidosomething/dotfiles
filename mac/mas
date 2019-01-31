@@ -2,7 +2,6 @@
 
 set -e
 
-mas install Amphetamine
 #mas install Display Menu
 mas install Microsoft Remote Desktop
 mas install Transmit

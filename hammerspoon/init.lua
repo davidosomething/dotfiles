@@ -11,36 +11,53 @@ hs.hotkey.bind({"cmd", "ctrl"}, "V", function()
 end)
 
 ---
+-- reload config
+hs.hotkey.bind({"cmd", "ctrl", "shift"}, "R", function()
+  hs.reload()
+  hs.notify.new({title="Hammerspoon config reloaded", informativeText="Manually via keyboard shortcut"}):send()
+end)
+
+---
+-- http://www.hammerspoon.org/Spoons/Caffeine.html
+hs.loadSpoon("Caffeine")
+spoon.Caffeine:bindHotkeys({
+  toggle = {{"cmd", "ctrl", "shift"}, "C"},
+})
+spoon.Caffeine:start()
+
+---
 -- Spectacle.app style window management
 -- https://github.com/scottwhudson/Lunette
 hs.loadSpoon("Lunette")
 spoon.Lunette:bindHotkeys({
   leftHalf = {
-    {{"cmd", "ctrl", "shift"}, "left"},
     {{"cmd", "ctrl", "shift"}, "H"},
   },
   rightHalf = {
-    {{"cmd", "ctrl", "shift"}, "right"},
     {{"cmd", "ctrl", "shift"}, "L"},
   },
   topHalf = {
-    {{"cmd", "ctrl", "shift"}, "up"},
     {{"cmd", "ctrl", "shift"}, "K"},
   },
   bottomHalf = {
-    {{"cmd", "ctrl", "shift"}, "down"},
     {{"cmd", "ctrl", "shift"}, "J"},
   },
   topLeft = false,
   topRight = false,
   bottomLeft = false,
   bottomRight = false,
-  fullScreen = false,
+  fullScreen = {
+    {{"cmd", "ctrl", "shift"}, "F"},
+  },
   center = false,
   nextThird = false,
   prevThird = false,
-  enlarge = false,
-  shrink = false,
+  enlarge = {
+    {{"cmd", "ctrl", "shift"}, "up"},
+  },
+  shrink = {
+    {{"cmd", "ctrl", "shift"}, "down"},
+  },
   undo = {
     {{"cmd", "ctrl", "shift"}, "Z"},
   },

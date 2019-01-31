@@ -9,7 +9,6 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
 1. iCloud sign in
 1. Install App store apps
-    - `Amphetamine` (free) - better than caffeine
     - `Display Menu` (free) - set higher/native resolutions on monitors
 
 ### Install dotfiles
