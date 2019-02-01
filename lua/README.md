@@ -1,7 +1,9 @@
 Requires
 
 ```sh
-luarocks install --server=http://luarocks.org/dev lua-lsp
-luarocks install luacheck
-luarocks install ldoc
+luarocks install --local checks # formatter requires
+luarocks install --local formatter
+luarocks install --local ldoc
+luarocks install --local --server=http://luarocks.org/dev lua-lsp
+luarocks install --local luacheck
 ```
