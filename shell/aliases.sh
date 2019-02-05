@@ -132,7 +132,6 @@ alias kns='kubens'
 
 alias gulp='npx gulp'
 alias grunt='npx grunt'
-alias lr='lerna'
 alias n='npm'
 alias ni='n install'
 alias no='n outdated --long'
