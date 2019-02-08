@@ -34,7 +34,7 @@ export HOMEBREW_CASK_OPTS='--require-sha'
 # ============================================================================
 
 command -v luarocks >/dev/null &&
-  [[ -d "${DKO_BREW_PREFIX}/opt/lua@5.1" ]] &&
+  [ -d "${DKO_BREW_PREFIX}/opt/lua@5.1" ] &&
   {
     export DKO_LUA_DIR="${DKO_BREW_PREFIX}/opt/lua@5.1"
     eval "$(luarocks --lua-dir="$DKO_LUA_DIR" path --bin)"
