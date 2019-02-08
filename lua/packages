@@ -1,0 +1,5 @@
+checks # formatter requires
+formatter
+ldoc
+--server=http://luarocks.org/dev lua-lsp
+luacheck
