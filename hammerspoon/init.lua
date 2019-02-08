@@ -4,6 +4,8 @@
 
 -- luacheck: globals hs spoon
 
+hyper = {"⌘", "⌃", "⇧"}
+
 ---
 -- type what is in the clipboard
 hs.hotkey.bind({"cmd", "ctrl"}, "V", function()
@@ -12,7 +14,7 @@ end)
 
 ---
 -- reload config
-hs.hotkey.bind({"cmd", "ctrl", "shift"}, "R", function()
+hs.hotkey.bind(hyper, "R", function()
   hs.reload()
   hs.notify.new({title="Hammerspoon config reloaded", informativeText="Manually via keyboard shortcut"}):send()
 end)
@@ -21,9 +23,19 @@ end)
 -- http://www.hammerspoon.org/Spoons/Caffeine.html
 hs.loadSpoon("Caffeine")
 spoon.Caffeine:bindHotkeys({
-  toggle = {{"cmd", "ctrl", "shift"}, "C"},
+  toggle = {hyper, "C"},
 })
 spoon.Caffeine:start()
+
+---
+-- App launcher
+-- http://www.hammerspoon.org/Spoons/Seal.html
+hs.loadSpoon("Seal")
+spoon.Seal:loadPlugins({ "calc", "myapps" })
+spoon.Seal:bindHotkeys({
+  show = {hyper, "Space"}
+})
+spoon.Seal:start()
 
 ---
 -- Spectacle.app style window management
@@ -31,38 +43,38 @@ spoon.Caffeine:start()
 hs.loadSpoon("Lunette")
 spoon.Lunette:bindHotkeys({
   leftHalf = {
-    {{"cmd", "ctrl", "shift"}, "H"},
+    {hyper, "H"},
   },
   rightHalf = {
-    {{"cmd", "ctrl", "shift"}, "L"},
+    {hyper, "L"},
   },
   topHalf = {
-    {{"cmd", "ctrl", "shift"}, "K"},
+    {hyper, "K"},
   },
   bottomHalf = {
-    {{"cmd", "ctrl", "shift"}, "J"},
+    {hyper, "J"},
   },
   topLeft = false,
   topRight = false,
   bottomLeft = false,
   bottomRight = false,
   fullScreen = {
-    {{"cmd", "ctrl", "shift"}, "F"},
+    {hyper, "F"},
   },
   center = false,
   nextThird = false,
   prevThird = false,
   enlarge = {
-    {{"cmd", "ctrl", "shift"}, "up"},
+    {hyper, "up"},
   },
   shrink = {
-    {{"cmd", "ctrl", "shift"}, "down"},
+    {hyper, "down"},
   },
   undo = {
-    {{"cmd", "ctrl", "shift"}, "Z"},
+    {hyper, "Z"},
   },
   redo = {
-    {{"cmd", "ctrl", "shift"}, "Y"},
+    {hyper, "Y"},
   },
   nextDisplay = false,
   prevDisplay = false,
