@@ -1,113 +1,173 @@
 [
   {
-    "Command": [],
-    "Constant": [],
-    "Constructor": [],
-    "Deprecated": [],
-    "Field": [],
-    "Function": [],
-    "Method": [
+    "Constant" : [
+
+    ],
+    "submodules" : [
+
+    ],
+    "Function" : [
+
+    ],
+    "Variable" : [
+
+    ],
+    "stripped_doc" : [
+
+    ],
+    "desc" : "Prevent the screen from going to sleep",
+    "Deprecated" : [
+
+    ],
+    "type" : "Module",
+    "Constructor" : [
+
+    ],
+    "Field" : [
+
+    ],
+    "Method" : [
       {
-        "def": "Caffeine:bindHotkeys(mapping)",
-        "desc": "Binds hotkeys for Caffeine",
-        "doc": "Binds hotkeys for Caffeine\n\nParameters:\n * mapping - A table containing hotkey modifier/key details for the following items:\n  * toggle - This will toggle the state of display sleep prevention, and update the menubar graphic\n\nReturns:\n * The Caffeine object",
-        "name": "bindHotkeys",
-        "parameters": [
-          " * mapping - A table containing hotkey modifier/key details for the following items:",
-          "  * toggle - This will toggle the state of display sleep prevention, and update the menubar graphic"
+        "doc" : "Binds hotkeys for Caffeine\n\nParameters:\n * mapping - A table containing hotkey modifier\/key details for the following items:\n  * toggle - This will toggle the state of display sleep prevention, and update the menubar graphic\n\nReturns:\n * The Caffeine object",
+        "stripped_doc" : [
+          "Binds hotkeys for Caffeine",
+          ""
         ],
-        "returns": [
+        "desc" : "Binds hotkeys for Caffeine",
+        "name" : "bindHotkeys",
+        "notes" : [
+
+        ],
+        "signature" : "Caffeine:bindHotkeys(mapping)",
+        "type" : "Method",
+        "returns" : [
           " * The Caffeine object"
         ],
-        "signature": "Caffeine:bindHotkeys(mapping)",
-        "stripped_doc": "",
-        "type": "Method"
+        "def" : "Caffeine:bindHotkeys(mapping)",
+        "parameters" : [
+          " * mapping - A table containing hotkey modifier\/key details for the following items:",
+          "  * toggle - This will toggle the state of display sleep prevention, and update the menubar graphic",
+          ""
+        ]
       },
       {
-        "def": "Caffeine:start()",
-        "desc": "Starts Caffeine",
-        "doc": "Starts Caffeine\n\nParameters:\n * None\n\nReturns:\n * The Caffeine object",
-        "name": "start",
-        "parameters": [
-          " * None"
+        "doc" : "Starts Caffeine\n\nParameters:\n * None\n\nReturns:\n * The Caffeine object",
+        "stripped_doc" : [
+          "Starts Caffeine",
+          ""
         ],
-        "returns": [
+        "desc" : "Starts Caffeine",
+        "name" : "start",
+        "notes" : [
+
+        ],
+        "signature" : "Caffeine:start()",
+        "type" : "Method",
+        "returns" : [
           " * The Caffeine object"
         ],
-        "signature": "Caffeine:start()",
-        "stripped_doc": "",
-        "type": "Method"
+        "def" : "Caffeine:start()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
       },
       {
-        "def": "Caffeine:stop()",
-        "desc": "Stops Caffeine",
-        "doc": "Stops Caffeine\n\nParameters:\n * None\n\nReturns:\n * The Caffeine object",
-        "name": "stop",
-        "parameters": [
-          " * None"
+        "doc" : "Stops Caffeine\n\nParameters:\n * None\n\nReturns:\n * The Caffeine object",
+        "stripped_doc" : [
+          "Stops Caffeine",
+          ""
         ],
-        "returns": [
+        "desc" : "Stops Caffeine",
+        "name" : "stop",
+        "notes" : [
+
+        ],
+        "signature" : "Caffeine:stop()",
+        "type" : "Method",
+        "returns" : [
           " * The Caffeine object"
         ],
-        "signature": "Caffeine:stop()",
-        "stripped_doc": "",
-        "type": "Method"
+        "def" : "Caffeine:stop()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
       }
     ],
-    "Variable": [],
-    "desc": "Prevent the screen from going to sleep",
-    "doc": "Prevent the screen from going to sleep\nDownload: [https://github.com/Hammerspoon/Spoons/raw/master/Spoons/Caffeine.spoon.zip](https://github.com/Hammerspoon/Spoons/raw/master/Spoons/Caffeine.spoon.zip)",
-    "items": [
+    "Command" : [
+
+    ],
+    "doc" : "Prevent the screen from going to sleep\nDownload: [https:\/\/github.com\/Hammerspoon\/Spoons\/raw\/master\/Spoons\/Caffeine.spoon.zip](https:\/\/github.com\/Hammerspoon\/Spoons\/raw\/master\/Spoons\/Caffeine.spoon.zip)",
+    "items" : [
       {
-        "def": "Caffeine:bindHotkeys(mapping)",
-        "desc": "Binds hotkeys for Caffeine",
-        "doc": "Binds hotkeys for Caffeine\n\nParameters:\n * mapping - A table containing hotkey modifier/key details for the following items:\n  * toggle - This will toggle the state of display sleep prevention, and update the menubar graphic\n\nReturns:\n * The Caffeine object",
-        "name": "bindHotkeys",
-        "parameters": [
-          " * mapping - A table containing hotkey modifier/key details for the following items:",
-          "  * toggle - This will toggle the state of display sleep prevention, and update the menubar graphic"
+        "doc" : "Binds hotkeys for Caffeine\n\nParameters:\n * mapping - A table containing hotkey modifier\/key details for the following items:\n  * toggle - This will toggle the state of display sleep prevention, and update the menubar graphic\n\nReturns:\n * The Caffeine object",
+        "stripped_doc" : [
+          "Binds hotkeys for Caffeine",
+          ""
         ],
-        "returns": [
+        "desc" : "Binds hotkeys for Caffeine",
+        "name" : "bindHotkeys",
+        "notes" : [
+
+        ],
+        "signature" : "Caffeine:bindHotkeys(mapping)",
+        "type" : "Method",
+        "returns" : [
           " * The Caffeine object"
         ],
-        "signature": "Caffeine:bindHotkeys(mapping)",
-        "stripped_doc": "",
-        "type": "Method"
+        "def" : "Caffeine:bindHotkeys(mapping)",
+        "parameters" : [
+          " * mapping - A table containing hotkey modifier\/key details for the following items:",
+          "  * toggle - This will toggle the state of display sleep prevention, and update the menubar graphic",
+          ""
+        ]
       },
       {
-        "def": "Caffeine:start()",
-        "desc": "Starts Caffeine",
-        "doc": "Starts Caffeine\n\nParameters:\n * None\n\nReturns:\n * The Caffeine object",
-        "name": "start",
-        "parameters": [
-          " * None"
+        "doc" : "Starts Caffeine\n\nParameters:\n * None\n\nReturns:\n * The Caffeine object",
+        "stripped_doc" : [
+          "Starts Caffeine",
+          ""
         ],
-        "returns": [
+        "desc" : "Starts Caffeine",
+        "name" : "start",
+        "notes" : [
+
+        ],
+        "signature" : "Caffeine:start()",
+        "type" : "Method",
+        "returns" : [
           " * The Caffeine object"
         ],
-        "signature": "Caffeine:start()",
-        "stripped_doc": "",
-        "type": "Method"
+        "def" : "Caffeine:start()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
       },
       {
-        "def": "Caffeine:stop()",
-        "desc": "Stops Caffeine",
-        "doc": "Stops Caffeine\n\nParameters:\n * None\n\nReturns:\n * The Caffeine object",
-        "name": "stop",
-        "parameters": [
-          " * None"
+        "doc" : "Stops Caffeine\n\nParameters:\n * None\n\nReturns:\n * The Caffeine object",
+        "stripped_doc" : [
+          "Stops Caffeine",
+          ""
         ],
-        "returns": [
+        "desc" : "Stops Caffeine",
+        "name" : "stop",
+        "notes" : [
+
+        ],
+        "signature" : "Caffeine:stop()",
+        "type" : "Method",
+        "returns" : [
           " * The Caffeine object"
         ],
-        "signature": "Caffeine:stop()",
-        "stripped_doc": "",
-        "type": "Method"
+        "def" : "Caffeine:stop()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
       }
     ],
-    "name": "Caffeine",
-    "stripped_doc": "Download: [https://github.com/Hammerspoon/Spoons/raw/master/Spoons/Caffeine.spoon.zip](https://github.com/Hammerspoon/Spoons/raw/master/Spoons/Caffeine.spoon.zip)",
-    "submodules": [],
-    "type": "Module"
+    "name" : "Caffeine"
   }
 ]

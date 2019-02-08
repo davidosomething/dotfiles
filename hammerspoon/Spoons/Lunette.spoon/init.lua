@@ -1,3 +1,5 @@
+-- luacheck: globals Command history DefaultMapping
+--
 local obj = {}
 obj.__index = obj
 
@@ -78,28 +80,7 @@ DefaultMapping = {
   }
 }
 
-function obj:bindHotkeys(userBindings)
-  print("Lunette: Binding Hotkeys")
-
-  local userBindings = userBindings or {}
-  local bindings = DefaultMapping
-
-  for command, mappings in pairs(userBindings) do
-    bindings[command] = mappings
-  end
-
-  for command, mappings in pairs(bindings) do
-    if mappings then
-      for i, binding in ipairs(mappings) do
-        hs.hotkey.bind(binding[1], binding[2], function()
-          exec(command)
-        end)
-      end
-    end
-  end
-end
-
-function exec(commandName)
+function obj.exec(commandName)
   local window = hs.window.focusedWindow()
   local windowFrame = window:frame()
   local screen = window:screen()
@@ -117,6 +98,29 @@ function exec(commandName)
   end
 
   window:setFrame(newFrame)
+end
+
+function obj:bindHotkeys(userBindings)
+  print("Lunette: Binding Hotkeys")
+
+  userBindings = userBindings or {}
+  local bindings = DefaultMapping
+
+  for command, mappings in pairs(userBindings) do
+    bindings[command] = mappings
+  end
+
+  for command, mappings in pairs(bindings) do
+    if mappings then
+      for _, binding in ipairs(mappings) do
+        hs.hotkey.bind(binding[1], binding[2], function()
+          obj.exec(command)
+        end)
+      end
+    end
+  end
+
+  return self
 end
 
 return obj

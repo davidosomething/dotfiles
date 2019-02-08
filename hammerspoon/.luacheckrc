@@ -1,1 +1,5 @@
-globals = { "hs" }
+globals = {
+	"hs",
+	"spoon",
+	"hyper"
+}

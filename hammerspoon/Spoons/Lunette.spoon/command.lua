@@ -1,3 +1,4 @@
+-- luacheck: globals Validate Resize
 local obj = {}
 obj.__index = obj
 obj.name = "Command"
@@ -12,14 +13,7 @@ obj.spoonPath = script_path()
 Validate = dofile(obj.spoonPath.."/validator.lua")
 Resize = dofile(obj.spoonPath.."/resize.lua")
 
---- Command:leftHalf(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.leftHalf = function(windowFrame, screenFrame)
+function obj.leftHalf(windowFrame, screenFrame)
   local newFrame
 
   if Validate:leftHalf(windowFrame, screenFrame) then
@@ -33,38 +27,17 @@ obj.leftHalf = function(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:fullscreen(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.fullScreen = function(windowFrame, screenFrame)
+function obj.fullScreen(windowFrame, screenFrame)
   local newFrame = Resize:fullScreen(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:center(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.center = function(windowFrame, screenFrame)
+function obj.center(windowFrame, screenFrame)
   local newFrame = Resize:center(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:topHalf(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.topHalf = function(windowFrame, screenFrame)
+function obj.topHalf(windowFrame, screenFrame)
   local newFrame
 
   if Validate:topHalf(windowFrame, screenFrame) then
@@ -78,14 +51,7 @@ obj.topHalf = function(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:bottomHalf(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.bottomHalf = function(windowFrame, screenFrame)
+function obj.bottomHalf(windowFrame, screenFrame)
   local newFrame
 
   if Validate:bottomHalf(windowFrame, screenFrame) then
@@ -99,14 +65,7 @@ obj.bottomHalf = function(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:topLeft(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.topLeft = function(windowFrame, screenFrame)
+function obj.topLeft(windowFrame, screenFrame)
   local newFrame
 
   if Validate:topLeftHalf(windowFrame, screenFrame) then
@@ -120,14 +79,7 @@ obj.topLeft = function(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:topRight(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.topRight = function(windowFrame, screenFrame)
+function obj.topRight(windowFrame, screenFrame)
   local newFrame
 
   if Validate:topRightHalf(windowFrame, screenFrame) then
@@ -141,14 +93,7 @@ obj.topRight = function(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:bottomRight(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.bottomRight = function(windowFrame, screenFrame)
+function obj.bottomRight(windowFrame, screenFrame)
   local newFrame
 
   if Validate:bottomRightHalf(windowFrame, screenFrame) then
@@ -162,14 +107,7 @@ obj.bottomRight = function(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:bottomLeft(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.bottomLeft = function(windowFrame, screenFrame)
+function obj.bottomLeft(windowFrame, screenFrame)
   local newFrame
 
   if Validate:bottomLeftHalf(windowFrame, screenFrame) then
@@ -183,14 +121,7 @@ obj.bottomLeft = function(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:rightHalf(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.rightHalf = function(windowFrame, screenFrame)
+function obj.rightHalf(windowFrame, screenFrame)
   local newFrame
 
   if Validate:rightHalf(windowFrame, screenFrame) then
@@ -204,39 +135,18 @@ obj.rightHalf = function(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:enlarge(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.enlarge = function(windowFrame, screenFrame)
+function obj.enlarge(windowFrame, screenFrame)
   local newFrame = Resize:enlarge(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:shrink(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.shrink = function(windowFrame, screenFrame)
+function obj.shrink(windowFrame, screenFrame)
   local newFrame = Resize:shrink(windowFrame, screenFrame)
   return newFrame
 end
 
 
---- Command:nextThird(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.nextThird = function(windowFrame, screenFrame)
+function obj.nextThird(windowFrame, screenFrame)
   local newFrame
 
   if Validate:leftThird(windowFrame, screenFrame) then
@@ -256,14 +166,7 @@ obj.nextThird = function(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:prevThird(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.prevThird = function(windowFrame, screenFrame)
+function obj.prevThird(windowFrame, screenFrame)
   local newFrame
 
   if Validate:leftThird(windowFrame, screenFrame) then
@@ -283,14 +186,7 @@ obj.prevThird = function(windowFrame, screenFrame)
   return newFrame
 end
 
---- Command:nextScreen(windowFrame, screenFrame)
---- Method
---- Inspects current screen frame position, determines how to resize given frame
---- and calls corresponding resize method
----
---- Returns:
---- * A screenFrame to be rendered
-obj.nextDisplay = function(windowFrame, screenFrame)
+function obj.nextDisplay(windowFrame, _)
   local currentWindow = hs.window.focusedWindow()
   local currentScreen = currentWindow:screen()
   local nextScreen = currentScreen:next()
@@ -306,7 +202,7 @@ obj.nextDisplay = function(windowFrame, screenFrame)
   return newFrame
 end
 
-obj.prevDisplay = function(windowFrame, screenFrame)
+function obj.prevDisplay(windowFrame, _)
   local currentWindow = hs.window.focusedWindow()
   local currentScreen = currentWindow:screen()
   local prevScreen = currentScreen:previous()

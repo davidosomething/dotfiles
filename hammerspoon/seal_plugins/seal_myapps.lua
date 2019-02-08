@@ -15,13 +15,13 @@ obj.appSearchPaths = {
 
 local modifyNameMap = function(info, add)
   for _, item in ipairs(info) do
+    local displayname = item.kMDItemDisplayName
     if add then
-      bundleID = item.kMDItemCFBundleIdentifier
-      icon = nil
+      local bundleID = item.kMDItemCFBundleIdentifier
+      local icon = nil
       if bundleID then
         icon = hs.image.imageFromAppBundle(bundleID)
       end
-      local displayname = item.kMDItemDisplayName
       displayname = displayname:gsub("%.app$", "", 1)
       if string.find(item.kMDItemPath, "%.prefPane$") then
         displayname = item.kMDItemDisplayName .. " preferences"
@@ -33,12 +33,14 @@ local modifyNameMap = function(info, add)
         icon = icon
       }
     else
-      obj.appCache[item.kMDItemDisplayName] = nil
+      if displayname then
+        obj.appCache[displayname] = nil
+      end
     end
   end
 end
 
-local updateNameMap = function(obj, msg, info)
+local updateNameMap = function(_, msg, info)
   if info then
     -- all three can occur in either message, so check them all!
     if info.kMDQueryUpdateAddedItems   then modifyNameMap(info.kMDQueryUpdateAddedItems,   true)  end
@@ -52,7 +54,12 @@ end
 
 hs.application.enableSpotlightForNameSearches(true)
 obj.spotlight = hs.spotlight.new():queryString(
-  [[ (kMDItemContentType = "com.apple.application-bundle") || (kMDItemContentType = "com.apple.systempreference.prefpane")  || (kMDItemContentType = "com.apple.applescript.text")  || (kMDItemContentType = "com.apple.applescript.script") ]]
+  [[
+  (kMDItemContentType = "com.apple.application-bundle") ||
+  (kMDItemContentType = "com.apple.systempreference.prefpane") ||
+  (kMDItemContentType = "com.apple.applescript.text") ||
+  (kMDItemContentType = "com.apple.applescript.script")
+  ]]
 )
   :callbackMessages("didUpdate", "inProgress")
   :setCallback(updateNameMap)
@@ -60,20 +67,21 @@ obj.spotlight = hs.spotlight.new():queryString(
   :start()
 
 function obj:commands()
-  return {kill = {
-    cmd = "kill",
-    fn = obj.choicesKillCommand,
-    plugin = obj.__name,
-    name = "Kill",
-    description = "Kill an application"
-  },
-  reveal = {
-    cmd = "reveal",
-    fn = obj.choicesRevealCommand,
-    plugin = obj.__name,
-    name = "Reveal",
-    description = "Reveal an application in the Finder"
-  }
+  return {
+    kill = {
+      cmd = "kill",
+      fn = obj.choicesKillCommand,
+      plugin = obj.__name,
+      name = "Kill",
+      description = "Kill an application"
+    },
+    reveal = {
+      cmd = "reveal",
+      fn = obj.choicesRevealCommand,
+      plugin = obj.__name,
+      name = "Reveal",
+      description = "Reveal an application in the Finder"
+    }
   }
 end
 
@@ -118,7 +126,7 @@ function obj.choicesKillCommand(query)
     return choices
   end
   local apps = hs.application.runningApplications()
-  for k, app in pairs(apps) do
+  for _, app in pairs(apps) do
     local name = app:name()
     if string.match(name:lower(), query:lower()) and app:mainWindow() then
       local choice = {}
@@ -140,7 +148,7 @@ function obj.choicesRevealCommand(query)
     return choices
   end
   local apps = obj.choicesApps(query)
-  for k, app in pairs(apps) do
+  for _, app in pairs(apps) do
     local name = app.text
     if string.match(name:lower(), query:lower()) then
       local choice = {}

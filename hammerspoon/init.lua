@@ -2,7 +2,7 @@
 -- init.lua
 -- ---------------------------------------------------------------------------
 
--- luacheck: globals hs spoon
+print("======================================================================")
 
 hyper = {"⌘", "⌃", "⇧"}
 
@@ -16,7 +16,10 @@ end)
 -- reload config
 hs.hotkey.bind(hyper, "R", function()
   hs.reload()
-  hs.notify.new({title="Hammerspoon config reloaded", informativeText="Manually via keyboard shortcut"}):send()
+  hs.notify.new({
+    title="Hammerspoon config reloaded",
+    informativeText="Manually via keyboard shortcut",
+  }):send()
 end)
 
 ---
@@ -38,44 +41,5 @@ spoon.Seal:bindHotkeys({
 spoon.Seal:start()
 
 ---
--- Spectacle.app style window management
--- https://github.com/scottwhudson/Lunette
-hs.loadSpoon("Lunette")
-spoon.Lunette:bindHotkeys({
-  leftHalf = {
-    {hyper, "H"},
-  },
-  rightHalf = {
-    {hyper, "L"},
-  },
-  topHalf = {
-    {hyper, "K"},
-  },
-  bottomHalf = {
-    {hyper, "J"},
-  },
-  topLeft = false,
-  topRight = false,
-  bottomLeft = false,
-  bottomRight = false,
-  fullScreen = {
-    {hyper, "F"},
-  },
-  center = false,
-  nextThird = false,
-  prevThird = false,
-  enlarge = {
-    {hyper, "up"},
-  },
-  shrink = {
-    {hyper, "down"},
-  },
-  undo = {
-    {hyper, "Z"},
-  },
-  redo = {
-    {hyper, "Y"},
-  },
-  nextDisplay = false,
-  prevDisplay = false,
-})
+-- Big stuff
+require("window")
