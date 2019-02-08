@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2018-12-24T01:57:20.155Z
+Generated on 2019-02-08T20:02:58.744Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -56,7 +56,6 @@ Generated on 2018-12-24T01:57:20.155Z
 | [hadolint](https://github.com/hadolint/hadolint) | `Smarter Dockerfile linter to validate best practices` |
 | [harfbuzz](https://wiki.freedesktop.org/www/Software/HarfBuzz/) | `OpenType text shaping engine` |
 | [hicolor-icon-theme](https://wiki.freedesktop.org/www/Software/icon-theme/) | `Fallback theme for FreeDesktop.org icon themes` |
-| [highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php) | `Convert source code to formatted text with syntax highlighting` |
 | [hr](https://github.com/LuRsT/hr) | `<hr />, for your terminal window` |
 | [hub](https://hub.github.com/) | `Add GitHub support to git on the command-line` |
 | [icdiff](https://github.com/jeffkaufman/icdiff) | `Improved colored diff` |
@@ -81,6 +80,7 @@ Generated on 2018-12-24T01:57:20.155Z
 | [libksba](https://www.gnupg.org/related_software/libksba/) | `X.509 and CMS library` |
 | [libmicrohttpd](https://www.gnu.org/software/libmicrohttpd/) | `Light HTTP/1.1 server library` |
 | [libmpc](http://www.multiprecision.org/mpc/) | `C library for the arithmetic of high precision complex numbers` |
+| [libomp](https://openmp.llvm.org/) | `LLVM's OpenMP runtime library` |
 | [libpng](http://www.libpng.org/pub/png/libpng.html) | `Library for manipulating PNG images` |
 | [libressl](https://www.libressl.org/) | `Version of the SSL/TLS protocol forked from OpenSSL` |
 | [libssh2](https://libssh2.org/) | `C library implementing the SSH2 protocol` |
@@ -100,6 +100,7 @@ Generated on 2018-12-24T01:57:20.155Z
 | [lua](https://www.lua.org/) | `Powerful, lightweight programming language` |
 | [lua@5.1](https://www.lua.org/) | `Powerful, lightweight programming language (v5.1.5)` |
 | [luajit](https://luajit.org/luajit.html) | `Just-In-Time Compiler (JIT) for the Lua programming language` |
+| [luarocks](https://luarocks.org/) | `Package manager for the Lua programming language` |
 | [lynx](https://invisible-island.net/lynx/) | `Text-based web browser` |
 | [mas](https://github.com/mas-cli/mas) | `Mac App Store command-line interface` |
 | [megatools](https://megatools.megous.com/) | `Command-line client for Mega.co.nz` |
@@ -115,6 +116,7 @@ Generated on 2018-12-24T01:57:20.155Z
 | [node](https://nodejs.org/) | `Platform built on V8 to build network applications` |
 | [oath-toolkit](https://www.nongnu.org/oath-toolkit/) | `Tools for one-time password authentication systems` |
 | [oniguruma](https://github.com/kkos/oniguruma/) | `Regular expressions library` |
+| [openblas](https://www.openblas.net/) | `Optimized BLAS library` |
 | [openjpeg](https://www.openjpeg.org/) | `Library for JPEG-2000 image manipulation` |
 | [openssl](https://openssl.org/) | `SSL/TLS cryptography library` |
 | [openssl@1.1](https://openssl.org/) | `Cryptography and SSL/TLS Toolkit` |
@@ -147,6 +149,7 @@ Generated on 2018-12-24T01:57:20.155Z
 | [tidy-html5](https://www.html-tidy.org/) | `Granddaddy of HTML tools, with support for modern standards` |
 | [tig](https://jonas.github.io/tig/) | `Text interface for Git repositories` |
 | [tmux](https://tmux.github.io/) | `Terminal multiplexer` |
+| [trash](https://hasseg.org/trash/) | `CLI tool that moves files or folder to the trash` |
 | [tree](http://mama.indstate.edu/users/ice/tree/) | `Display directories as trees (with optional color/HTML output)` |
 | [uncrustify](https://uncrustify.sourceforge.io/) | `Source code beautifier` |
 | [unibilium](https://github.com/mauke/unibilium) | `Very basic terminfo library` |
