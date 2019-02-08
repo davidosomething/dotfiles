@@ -36,7 +36,7 @@ spoon.Caffeine:start()
 hs.loadSpoon("Seal")
 spoon.Seal:loadPlugins({ "calc", "myapps" })
 spoon.Seal:bindHotkeys({
-  show = {hyper, "Space"}
+  show = {{"cmd"}, "Space"}
 })
 spoon.Seal:start()
 
