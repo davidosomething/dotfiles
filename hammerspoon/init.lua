@@ -16,10 +16,7 @@ end)
 -- reload config
 hs.hotkey.bind(hyper, "R", function()
   hs.reload()
-  hs.notify.new({
-    title="Hammerspoon config reloaded",
-    informativeText="Manually via keyboard shortcut",
-  }):send()
+  hs.notify.show("Hammerspoon config reloaded", "Manually", "")
 end)
 
 ---

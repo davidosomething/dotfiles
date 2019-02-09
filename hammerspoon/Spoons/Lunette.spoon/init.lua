@@ -89,12 +89,12 @@ function obj.exec(commandName)
   local newFrame
 
   if commandName == "undo" then
-    newFrame = history:retrievePrevState()
+    newFrame = history.retrievePrevState()
   elseif commandName == "redo" then
-    newFrame = history:retrieveNextState()
+    newFrame = history.retrieveNextState()
   else
     newFrame = Command[commandName](windowFrame, screenFrame)
-    history:push(currentFrame, newFrame)
+    history.push(currentFrame, newFrame)
   end
 
   window:setFrame(newFrame)
