@@ -10,7 +10,6 @@
   // When true, destroys loclist on insert (and kills neomake results)
   "coc.preferences.minTriggerInputLength": 2,
   "coc.preferences.snippetIndicator": " ⭐︎",
-  "coc.source.tag.enable": false,
   "languageserver": {
     "lua": {
       "command": "lua-lsp",
