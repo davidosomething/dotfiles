@@ -66,7 +66,7 @@ brew cask install robo-3t
 brew cask install skype
 brew cask install slack
 brew cask install spideroakone
-brew cask install spotify spotifree
+brew cask install spotify
 # brew cask install switchresx
 brew cask install the-unarchiver
 
