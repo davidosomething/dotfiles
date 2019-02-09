@@ -1,5 +1,6 @@
 {
   "coc.preferences.codeLens.enable": true,
+  "coc.preferences.diagnostic.enable": false,
   "coc.preferences.diagnostic.locationlist": false,
   "coc.preferences.diagnostic.errorSign": "⚑",
   "coc.preferences.diagnostic.hintSign": "⚑",
