@@ -77,9 +77,6 @@ __symlink() {
   dko-symlink  "hyper-app/dot.hyper.js" \
                 ".hyper.js"
 
-  dko-symlink  "oni/config.js" \
-                ".oni/config.js"
-
   # default ~/.tern-config
   dko-symlink  "ternjs/dot.tern-config" \
                 ".tern-config"
