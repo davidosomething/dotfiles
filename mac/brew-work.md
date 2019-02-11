@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-01-14T22:52:10.093Z
+Generated on 2019-02-11T15:39:52.040Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -15,7 +15,6 @@ Generated on 2019-01-14T22:52:10.093Z
 | [bats](https://github.com/sstephenson/bats) | `TAP-compliant test framework for Bash scripts` |
 | [boost](https://www.boost.org/) | `Collection of portable C++ source libraries` |
 | [brew-cask-completion](https://github.com/xyb/homebrew-cask-completion) | `Fish completion for brew-cask` |
-| [ccat](https://github.com/jingweno/ccat) | `Like cat but displays content with syntax highlighting` |
 | [checkbashisms](https://launchpad.net/ubuntu/+source/devscripts/) | `Checks for bashisms in shell scripts` |
 | [checkstyle](https://checkstyle.sourceforge.io/) | `Check Java source against a coding standard` |
 | [clang-format](https://clang.llvm.org/docs/ClangFormat.html) | `Formatting tools for C, C++, Obj-C, Java, JavaScript, TypeScript` |
@@ -35,10 +34,10 @@ Generated on 2019-01-14T22:52:10.093Z
 | [go](https://golang.org) | `Open source programming language to build simple/reliable/efficient software` |
 | [gradle](https://www.gradle.org/) | `Open-source build automation tool based on the Groovy and Kotlin DSL` |
 | [hadolint](https://github.com/hadolint/hadolint) | `Smarter Dockerfile linter to validate best practices` |
-| [highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php) | `Convert source code to formatted text with syntax highlighting` |
 | [hub](https://hub.github.com/) | `Add GitHub support to git on the command-line` |
 | [icdiff](https://github.com/jeffkaufman/icdiff) | `Improved colored diff` |
 | [icu4c](https://ssl.icu-project.org/) | `C/C++ and Java libraries for Unicode and globalization` |
+| [ilmbase](https://www.openexr.com/) | `OpenEXR ILM Base libraries (high dynamic-range image file format)` |
 | [imagemagick](https://www.imagemagick.org/) | `Tools and libraries to manipulate images in many formats` |
 | [ios-webkit-debug-proxy](https://github.com/google/ios-webkit-debug-proxy) | `DevTools proxy for iOS devices` |
 | [jemalloc](http://jemalloc.net/) | `malloc implementation emphasizing fragmentation avoidance` |
@@ -49,7 +48,9 @@ Generated on 2019-01-14T22:52:10.093Z
 | [kubectx](https://github.com/ahmetb/kubectx) | `Tool that can switch between kubectl contexts easily and create aliases` |
 | [kubernetes-cli](https://kubernetes.io/) | `Kubernetes command-line interface` |
 | [launchctl-completion](https://github.com/CamJN/launchctl-completion) | `Bash completion for Launchctl` |
+| [libde265](https://github.com/strukturag/libde265) | `Open h.265 video codec implementation` |
 | [libevent](https://libevent.org/) | `Asynchronous event library` |
+| [libheif](https://www.libde265.org/) | `ISO/IEC 23008-12:2017 HEIF file format decoder and encoder` |
 | [libidn2](https://www.gnu.org/software/libidn/#libidn2) | `International domain name library (IDNA2008, Punycode and TR46)` |
 | [libimobiledevice](https://www.libimobiledevice.org/) | `Library to communicate with iOS devices natively` |
 | [libomp](https://openmp.llvm.org/) | `LLVM's OpenMP runtime library` |
@@ -69,6 +70,7 @@ Generated on 2019-01-14T22:52:10.093Z
 | [lua](https://www.lua.org/) | `Powerful, lightweight programming language` |
 | [lua@5.1](https://www.lua.org/) | `Powerful, lightweight programming language (v5.1.5)` |
 | [luajit](https://luajit.org/luajit.html) | `Just-In-Time Compiler (JIT) for the Lua programming language` |
+| [luarocks](https://luarocks.org/) | `Package manager for the Lua programming language` |
 | [mas](https://github.com/mas-cli/mas) | `Mac App Store command-line interface` |
 | [maven](https://maven.apache.org/) | `Java-based project management` |
 | [mercurial](https://mercurial-scm.org/) | `Scalable distributed version control system` |
@@ -81,6 +83,7 @@ Generated on 2019-01-14T22:52:10.093Z
 | [node](https://nodejs.org/) | `Platform built on V8 to build network applications` |
 | [node@8](https://nodejs.org/) | `Platform built on V8 to build network applications` |
 | [oniguruma](https://github.com/kkos/oniguruma/) | `Regular expressions library` |
+| [openexr](https://www.openexr.com/) | `High dynamic-range image file format` |
 | [openjpeg](https://www.openjpeg.org/) | `Library for JPEG-2000 image manipulation` |
 | [openssl](https://openssl.org/) | `SSL/TLS cryptography library` |
 | [openssl@1.1](https://openssl.org/) | `Cryptography and SSL/TLS Toolkit` |
@@ -109,5 +112,6 @@ Generated on 2019-01-14T22:52:10.093Z
 | [webp](https://developers.google.com/speed/webp/) | `Image format providing lossless and lossy compression for web images` |
 | [wget](https://www.gnu.org/software/wget/) | `Internet file retriever` |
 | [wifi-password](https://github.com/rauchg/wifi-password) | `Show the current WiFi network password` |
+| [x265](http://x265.org) | `H.265/HEVC encoder` |
 | [xz](https://tukaani.org/xz/) | `General-purpose data compression with high compression ratio` |
 | [zsh](https://www.zsh.org/) | `UNIX shell (command interpreter)` |
