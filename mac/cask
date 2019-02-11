@@ -30,6 +30,7 @@ brew cask install firefox
 brew cask install gimp
 brew cask install gitter
 brew cask install google-chrome-beta
+brew cask install gpg-suite-no-mail
 brew cask install hammerspoon
 
 # inkscape requires xquartz
@@ -50,7 +51,6 @@ echo "License in SpiderOak Hive"
 # ==============================================================================
 
 brew cask install karabiner-elements
-brew cask install keybase
 
 # ==============================================================================
 # Marked

@@ -44,8 +44,7 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 - bettertouchtool
     - License in oak
     - Import from oak sync
-    - Provide window snapping
-    - Provide better trackpad swipe configs
+    - Better trackpad swipe configs
 - dropbox
 - google-chrome
     - Login and sync google account for settings
@@ -53,13 +52,11 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 - java
 - kaleidoscope
     - Load license file
-- keybase
+- gpg-suite-no-mail
     - Add device to keybase.io
     - Export key from keybase
-    - `brew cask install gpgtools`
-    - Import key into gpgtools
+    - Import key
     - Add User ID to key
-    - Update key in keybase
 
 Install the rest of the packages from
 [bootstrap/mac/cask](../bootstrap/mac/cask) as desired.
@@ -87,7 +84,7 @@ operation. Use the `bi` alias for a clean room install if possible.
   clean install) and make sure to use the libs provided by `brew openssl`
     1. `brew install openssl`
     1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
-    1. Set up the global pyenv as the latest stable (3.x.x)
+    1. Set up the global pyenv as the latest stable (3.x)
     1. Set up python virtualenvs called `neovim{2,3}` -- the Neovim configuration expects to find those. E.g.,
         ```sh
         pyenv install 2.7.xx
