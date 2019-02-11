@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-02-08T20:02:58.744Z
+Generated on 2019-02-11T23:49:46.495Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -60,6 +60,7 @@ Generated on 2019-02-08T20:02:58.744Z
 | [hub](https://hub.github.com/) | `Add GitHub support to git on the command-line` |
 | [icdiff](https://github.com/jeffkaufman/icdiff) | `Improved colored diff` |
 | [icu4c](https://ssl.icu-project.org/) | `C/C++ and Java libraries for Unicode and globalization` |
+| [ilmbase](https://www.openexr.com/) | `OpenEXR ILM Base libraries (high dynamic-range image file format)` |
 | [imagemagick](https://www.imagemagick.org/) | `Tools and libraries to manipulate images in many formats` |
 | [isl](http://isl.gforge.inria.fr/) | `Integer Set Library for the polyhedral model` |
 | [jemalloc](http://jemalloc.net/) | `malloc implementation emphasizing fragmentation avoidance` |
@@ -71,11 +72,13 @@ Generated on 2019-02-08T20:02:58.744Z
 | [ktlint](https://github.com/shyiko/ktlint) | `Kotlin linter` |
 | [launchctl-completion](https://github.com/CamJN/launchctl-completion) | `Bash completion for Launchctl` |
 | [libassuan](https://www.gnupg.org/related_software/libassuan/) | `Assuan IPC Library` |
+| [libde265](https://github.com/strukturag/libde265) | `Open h.265 video codec implementation` |
 | [libevent](https://libevent.org/) | `Asynchronous event library` |
 | [libffi](https://sourceware.org/libffi/) | `Portable Foreign Function Interface library` |
 | [libgcrypt](https://gnupg.org/related_software/libgcrypt/) | `Cryptographic library based on the code from GnuPG` |
 | [libgit2](https://libgit2.github.com/) | `C library of Git core methods that is re-entrant and linkable` |
 | [libgpg-error](https://www.gnupg.org/related_software/libgpg-error/) | `Common error values for all GnuPG components` |
+| [libheif](https://www.libde265.org/) | `ISO/IEC 23008-12:2017 HEIF file format decoder and encoder` |
 | [libidn2](https://www.gnu.org/software/libidn/#libidn2) | `International domain name library (IDNA2008, Punycode and TR46)` |
 | [libksba](https://www.gnupg.org/related_software/libksba/) | `X.509 and CMS library` |
 | [libmicrohttpd](https://www.gnu.org/software/libmicrohttpd/) | `Light HTTP/1.1 server library` |
@@ -117,6 +120,7 @@ Generated on 2019-02-08T20:02:58.744Z
 | [oath-toolkit](https://www.nongnu.org/oath-toolkit/) | `Tools for one-time password authentication systems` |
 | [oniguruma](https://github.com/kkos/oniguruma/) | `Regular expressions library` |
 | [openblas](https://www.openblas.net/) | `Optimized BLAS library` |
+| [openexr](https://www.openexr.com/) | `High dynamic-range image file format` |
 | [openjpeg](https://www.openjpeg.org/) | `Library for JPEG-2000 image manipulation` |
 | [openssl](https://openssl.org/) | `SSL/TLS cryptography library` |
 | [openssl@1.1](https://openssl.org/) | `Cryptography and SSL/TLS Toolkit` |
@@ -161,6 +165,7 @@ Generated on 2019-02-08T20:02:58.744Z
 | [wget](https://www.gnu.org/software/wget/) | `Internet file retriever` |
 | [wifi-password](https://github.com/rauchg/wifi-password) | `Show the current WiFi network password` |
 | [x264](https://www.videolan.org/developers/x264.html) | `H.264/AVC encoder` |
+| [x265](http://x265.org) | `H.265/HEVC encoder` |
 | [xz](https://tukaani.org/xz/) | `General-purpose data compression with high compression ratio` |
 | [yarn](https://yarnpkg.com/) | `JavaScript package manager` |
 | [youtube-dl](https://rg3.github.io/youtube-dl/) | `Download YouTube videos from the command-line` |
