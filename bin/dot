@@ -23,7 +23,7 @@ __dko_dotfiles__command_not_found() {
 }
 
 __dko_dotfiles__usage() {
-  __dko_usage  "dot <command>"
+  __dko_usage "dot <command>"
   echo '
   Utility Commands
     dotfiles    -- update dotfiles (git pull)
@@ -86,8 +86,8 @@ __dko_dotfiles__update() {
 __dko_dotfiles__update_secret() {
   __dko_status "Updating ~/.secret/"
   (
-    cd -- "${HOME}/.secret" \
-      || { __dko_err "No ~/.secret directory" && exit 1; }
+    cd -- "${HOME}/.secret" ||
+      { __dko_err "No ~/.secret directory" && exit 1; }
     git pull --rebase --recurse-submodules || exit 1
     git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
   ) || __dko_err "Failed to update ~/.secret/"
@@ -96,40 +96,45 @@ __dko_dotfiles__update_secret() {
 __dko_dotfiles__update_daily() {
   __dko_dotfiles__update_secret
 
-  if [[ -x "/usr/local/opt/fzf/install" ]] || [[ -d "${HOME}/.fzf" ]]
-  then __dko_dotfiles__update_fzf
-  else __dko_warn "fzf is not installed"
+  if [[ -x "/usr/local/opt/fzf/install" ]] || [[ -d "${HOME}/.fzf" ]]; then
+    __dko_dotfiles__update_fzf
+  else
+    __dko_warn "fzf is not installed"
   fi
 
-  if __dko_dotfiles__node__require_nvm --silent
-  then __dko_dotfiles__node__update_nvm
-  else __dko_warn "NVM not found, skipping update NVM"
+  if __dko_dotfiles__node__require_nvm --silent; then
+    __dko_dotfiles__node__update_nvm
+  else
+    __dko_warn "NVM not found, skipping update NVM"
   fi
 
-  if __dko_dotfiles__go__require_go --silent
-  then __dko_dotfiles__go__update_go_packages
-  else __dko_warn "Go not found, skipping update Go dependencies"
+  if __dko_dotfiles__go__require_go --silent; then
+    __dko_dotfiles__go__update_go_packages
+  else
+    __dko_warn "Go not found, skipping update Go dependencies"
   fi
 
-  if ! __dko_dotfiles__ruby__require_chruby --silent
-  then __dko_warn "Chruby not found, skipping update ruby gems"
-  elif ! __dko_dotfiles__ruby__require_rubygems
-  then __dko_warn "Rubygems not found, skipping update ruby gems"
-  else __dko_dotfiles__ruby__update_gems
+  if ! __dko_dotfiles__ruby__require_chruby --silent; then
+    __dko_warn "Chruby not found, skipping update ruby gems"
+  elif ! __dko_dotfiles__ruby__require_rubygems; then
+    __dko_warn "Rubygems not found, skipping update ruby gems"
+  else
+    __dko_dotfiles__ruby__update_gems
   fi
 
-  if ! __dko_dotfiles__php__require_composer --silent
-  then __dko_warn "Composer not found, skipping update composer and packages"
+  if ! __dko_dotfiles__php__require_composer --silent; then
+    __dko_warn "Composer not found, skipping update composer and packages"
   else
     __dko_dotfiles__php__update_composer
-    if __dko_dotfiles__php__require_phpcs --silent
-    then __dko_dotfiles__php__update_wpcs
-    else __dko_warn "PHPCS not found, skipping update WPCS"
+    if __dko_dotfiles__php__require_phpcs --silent; then
+      __dko_dotfiles__php__update_wpcs
+    else
+      __dko_warn "PHPCS not found, skipping update WPCS"
     fi
   fi
 
-  if ! __dko_has "pyenv"
-  then __dko_warn "pyenv not found"
+  if ! __dko_has "pyenv"; then
+    __dko_warn "pyenv not found"
   else
     __dko_dotfiles__py__update_pyenv
     __dko_dotfiles__py__update_pip "pip"
@@ -143,16 +148,16 @@ __dko_dotfiles__update_daily() {
 
 __dko_dotfiles__pyenv_system() {
   # switch to brew's python (fallback to system if no brew python)
-  __dko_has "pyenv" \
-    && __dko_status "Switching to system python to upgrade brew packages" \
-    && pyenv shell system || exit 1
+  __dko_has "pyenv" &&
+    __dko_status "Switching to system python to upgrade brew packages" &&
+    pyenv shell system || exit 1
 }
 
 # probably don't need this as long as running updates in subshells
 __dko_dotfiles__pyenv_global() {
-  __dko_has "pyenv" \
-    && __dko_status_ "Switching back to global python" \
-    && pyenv shell --unset || exit 1
+  __dko_has "pyenv" &&
+    __dko_status_ "Switching back to global python" &&
+    pyenv shell --unset || exit 1
 }
 
 # ------------------------------------------------------------------------------
@@ -168,7 +173,8 @@ __dko_dotfiles__update_fzf() {
   elif [[ -d "${HOME}/.fzf" ]]; then
     __dko_status "fzf was installed in ~/.fzf"
     installer="${HOME}/.fzf/install"
-    ( cd -- "${HOME}/.fzf" || { __dko_err "Could not cd to ~/.fzf" && exit 1; }
+    (
+      cd -- "${HOME}/.fzf" || { __dko_err "Could not cd to ~/.fzf" && exit 1; }
       __dko_status "Updating fzf"
       git pull || { __dko_err "Could not update ~/.fzf" && exit 1; }
       git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
@@ -213,7 +219,7 @@ __dko_dotfiles__ruby__update_gems() {
   __dko_dotfiles__ruby__require_rubygems || return 1
 
   __dko_status "Updating RubyGems itself for ruby: ${RUBY_VERSION}"
-  gem update --system  || {
+  gem update --system || {
     __dko_err "Could not update RubyGems"
     return 1
   }
@@ -267,10 +273,10 @@ __dko_dotfiles__node__require_nvm() {
     return 1
   fi
 
-  if (( $# == 0 )) && [[ ! -d "$NVM_DIR" ]]; then
+  if (($# == 0)) && [[ ! -d "$NVM_DIR" ]]; then
     __dko_status "Installing nvm"
-    git clone https://github.com/creationix/nvm.git "$NVM_DIR" \
-      || { __dko_err "Could not install nvm" && return 1; }
+    git clone https://github.com/creationix/nvm.git "$NVM_DIR" ||
+      { __dko_err "Could not install nvm" && return 1; }
   fi
 }
 
@@ -303,13 +309,13 @@ __dko_dotfiles__update_node() {
   echo -n "Install and use new node ${wanted_with_minor} as default? [y/N] "
   read -r
   echo
-  if [[ "$REPLY" = "y" ]] || [[ "$REPLY" = "Y" ]]; then
+  if [[ "$REPLY" == "y" ]] || [[ "$REPLY" == "Y" ]]; then
     __dko_status "Installing node ${wanted_with_minor}..."
     if nvm install "$wanted"; then
       __dko_status "Updating default alias to ${wanted_with_minor}..."
-      nvm alias default  "$wanted"
+      nvm alias default "$wanted"
       __dko_status "Switching to ${wanted_with_minor}..."
-      nvm use            "$wanted"
+      nvm use "$wanted"
       __dko_status "install-latest-npm"
       nvm install-latest-npm
       __dko_ok "Node.js and npm updated, shell restart required"
@@ -331,16 +337,16 @@ __dko_dotfiles__node__update_nvm() {
     readonly previous_nvm="$(git describe --abbrev=0 --tags)"
 
     __dko_status_ "Found nvm ${previous_nvm}"
-    { git checkout master && git pull --tags; } \
-      || { __dko_err "Could not fetch" && exit 1; }
+    { git checkout master && git pull --tags; } ||
+      { __dko_err "Could not fetch" && exit 1; }
     readonly latest_nvm="$(git describe --abbrev=0 --tags)"
     # Already up to date
-    [[ "$previous_nvm" = "$latest_nvm" ]] \
-      && { __dko_ok "Already have nvm ${latest_nvm}" && exit 0; }
+    [[ "$previous_nvm" == "$latest_nvm" ]] &&
+      { __dko_ok "Already have nvm ${latest_nvm}" && exit 0; }
 
     __dko_status "Fast-forwarding to nvm ${latest_nvm}"
-    git checkout --quiet --progress "$latest_nvm" \
-      || { __dko_err "Could not fast-forward" && exit 1; }
+    git checkout --quiet --progress "$latest_nvm" ||
+      { __dko_err "Could not fast-forward" && exit 1; }
 
     exit 0
   ) || return 1
@@ -353,7 +359,8 @@ __dko_dotfiles__node__update_nvm() {
 __dko_dotfiles__py__update_pyenv() {
   if [[ -n "$PYENV_ROOT" ]] && [[ -d "${PYENV_ROOT}/.git" ]]; then
     __dko_status "Updating pyenv"
-    ( cd -- "${PYENV_ROOT}" || exit 1
+    (
+      cd -- "${PYENV_ROOT}" || exit 1
       pyenv update
     ) || return 1
   else
@@ -365,21 +372,27 @@ __dko_dotfiles__py__update_pyenv() {
 __dko_dotfiles__py__update_pip() {
   local pip_command=${1:-pip}
   __dko_status "Updating $pip_command"
-  ! __dko_has "$pip_command" \
-    && __dko_warn "${pip_command} not found" && return 1
+  ! __dko_has "$pip_command" &&
+    __dko_warn "${pip_command} not found" && return 1
   "$pip_command" install --upgrade setuptools || return 1
-  "$pip_command" install --upgrade pip        || return 1
+  "$pip_command" install --upgrade pip || return 1
   "$pip_command" install --upgrade \
     --requirement "${DOTFILES}/python/requirements.txt"
 }
 
 __dko_dotfiles__py__update_neovim_python() {
-  ! __dko_has "pyenv" \
-    && __dko_err "pyenv is not installed" && return 1
+  ! __dko_has "pyenv" &&
+    __dko_err "pyenv is not installed" && return 1
   __dko_status "Updating neovim2"
-  pyenv activate neovim2 && pip install --upgrade neovim
+  pyenv activate neovim2 &&
+    __dko_dotfiles__py__update_pip &&
+    pip install --upgrade neovim &&
+    pip install --upgrade pynvim
   __dko_status "Updating neovim3"
-  pyenv activate neovim3 && pip install --upgrade neovim
+  pyenv activate neovim3 &&
+    __dko_dotfiles__py__update_pip &&
+    pip install --upgrade neovim &&
+    pip install --upgrade pynvim
   pyenv deactivate
 }
 
@@ -420,7 +433,7 @@ __dko_dotfiles__php__update_composer() {
 # pass any arg to silence
 __dko_dotfiles__php__require_phpcs() {
   __dko_has "phpcs" && return 0
-  __dko_warn  "phpcs is not installed. Install via composer global require"
+  __dko_warn "phpcs is not installed. Install via composer global require"
   __dko_warn_ "and run again, or set installed_paths manually"
   return 1
 }
@@ -442,9 +455,10 @@ __dko_dotfiles__php__update_wpcs() {
     mkdir -p "${sources_path}"
     git clone -b master "$wpcs_repo" "$wpcs_path"
   else
-    ( cd -- "$wpcs_path" || exit 1
-      git pull \
-      && git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
+    (
+      cd -- "$wpcs_path" || exit 1
+      git pull &&
+        git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     ) || return 1
   fi
 
@@ -453,16 +467,19 @@ __dko_dotfiles__php__update_wpcs() {
   # --------------------------------------------------------------------------
 
   __dko_status "Looking for standards"
-  readonly possible=( \
-    "${COMPOSER_HOME}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards" \
-    "$wpcs_path" \
+  readonly possible=(
+    "${COMPOSER_HOME}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards"
+    "$wpcs_path"
   )
   local standards=()
 
   for entry in "${possible[@]}"; do
     [[ -d "$entry" ]] && echo "Found $entry" && standards+=("$entry")
   done
-  standards_path=$( IFS=','; echo "${standards[*]}" )
+  standards_path=$(
+    IFS=','
+    echo "${standards[*]}"
+  )
 
   # --------------------------------------------------------------------------
   # Update config
@@ -483,17 +500,23 @@ __dko_dotfiles__php__update_wpcs() {
 
 __dko_dotfiles__linux__update() {
   case "$1" in
-    arch) __dko_dotfiles__linux__arch__update ;;
-    deb)  __dko_dotfiles__linux__deb__update ;;
-    *)    __dko_dotfiles__command_not_found "$1"; return 1 ;;
+  arch) __dko_dotfiles__linux__arch__update ;;
+  deb) __dko_dotfiles__linux__deb__update ;;
+  *)
+    __dko_dotfiles__command_not_found "$1"
+    return 1
+    ;;
   esac
 }
 
 __dko_dotfiles__darwin__update() {
   case "$1" in
-    brew) __dko_dotfiles__darwin__update_brew ;;
-    mac)  __dko_dotfiles__darwin__update_mac ;;
-    *)    __dko_dotfiles__command_not_found "$1"; return 1 ;;
+  brew) __dko_dotfiles__darwin__update_brew ;;
+  mac) __dko_dotfiles__darwin__update_mac ;;
+  *)
+    __dko_dotfiles__command_not_found "$1"
+    return 1
+    ;;
   esac
 }
 
@@ -524,9 +547,9 @@ __dko_dotfiles__linux__arch__update() {
 __dko_dotfiles__linux__deb__update() {
   __dko_status "Apt system update"
 
-  ! __dko_has "apt" \
-    && __dko_err "apt not found, manually use 'apt-get' for crappy systems" \
-    && return 1
+  ! __dko_has "apt" &&
+    __dko_err "apt not found, manually use 'apt-get' for crappy systems" &&
+    return 1
 
   sudo apt update
 
@@ -650,25 +673,26 @@ __dko_dotfiles() {
   [[ "$argcount" == "0" ]] && __dko_dotfiles__usage && return 1
 
   case $1 in
-    dotfiles) __dko_dotfiles__update                  ;;
-    secret)   __dko_dotfiles__update_secret           ;;
-    daily)    __dko_dotfiles__update_daily            ;;
-    composer) __dko_dotfiles__php__update_composer    ;;
-    fzf)      __dko_dotfiles__update_fzf              ;;
-    gem)      __dko_dotfiles__ruby__update_gems       ;;
-    go)       __dko_dotfiles__go__update_go_packages  ;;
-    node)     __dko_dotfiles__update_node "$2"        ;;
-    nvm)      __dko_dotfiles__node__update_nvm        ;;
-    pip)      __dko_dotfiles__py__update_pip "pip"    ;;
-    pyenv)    __dko_dotfiles__py__update_pyenv           ;;
-    neopy)    __dko_dotfiles__py__update_neovim_python   ;;
-    wpcs)     __dko_dotfiles__php__update_wpcs     ;;
+  dotfiles) __dko_dotfiles__update ;;
+  secret) __dko_dotfiles__update_secret ;;
+  daily) __dko_dotfiles__update_daily ;;
+  composer) __dko_dotfiles__php__update_composer ;;
+  fzf) __dko_dotfiles__update_fzf ;;
+  gem) __dko_dotfiles__ruby__update_gems ;;
+  go) __dko_dotfiles__go__update_go_packages ;;
+  node) __dko_dotfiles__update_node "$2" ;;
+  nvm) __dko_dotfiles__node__update_nvm ;;
+  pip) __dko_dotfiles__py__update_pip "pip" ;;
+  pyenv) __dko_dotfiles__py__update_pyenv ;;
+  neopy) __dko_dotfiles__py__update_neovim_python ;;
+  wpcs) __dko_dotfiles__php__update_wpcs ;;
 
-    *)
-      case "$OSTYPE" in
-        linux*)   __dko_dotfiles__linux__update "$@"   ;;
-        darwin*)  __dko_dotfiles__darwin__update "$@"  ;;
-      esac
+  *)
+    case "$OSTYPE" in
+    linux*) __dko_dotfiles__linux__update "$@" ;;
+    darwin*) __dko_dotfiles__darwin__update "$@" ;;
+    esac
+    ;;
   esac
 }
 
