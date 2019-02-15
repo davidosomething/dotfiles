@@ -383,16 +383,19 @@ __dko_dotfiles__py__update_pip() {
 __dko_dotfiles__py__update_neovim_python() {
   ! __dko_has "pyenv" &&
     __dko_err "pyenv is not installed" && return 1
-  __dko_status "Updating neovim2"
-  pyenv activate neovim2 &&
+
+  __dko_status "Updating neovim2" &&
+    pyenv activate neovim2 &&
     __dko_dotfiles__py__update_pip &&
     pip install --upgrade neovim &&
     pip install --upgrade pynvim
-  __dko_status "Updating neovim3"
-  pyenv activate neovim3 &&
+
+  __dko_status "Updating neovim3" &&
+    pyenv activate neovim3 &&
     __dko_dotfiles__py__update_pip &&
     pip install --upgrade neovim &&
     pip install --upgrade pynvim
+
   pyenv deactivate
 }
 
