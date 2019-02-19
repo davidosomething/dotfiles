@@ -140,6 +140,8 @@ function! dkoplug#plugins#LoadAll() abort
   " My fork has a lot of removals like line movement and entities
   Plug 'davidosomething/vim-unimpaired'
 
+  Plug 'machakann/vim-highlightedyank'
+
   " used for line bubbling commands (instead of unimpared!)
   " Consider also t9md/vim-textmanip
   Plug 'matze/vim-move'
