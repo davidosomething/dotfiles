@@ -44,7 +44,7 @@ __dko_has 'nvim' && {
   export EDITOR='nvim'
   export VISUAL='nvim'
 
-  __dko_has 'nvr' && alias e='PYTHONWARNINGS=ignore nvr -s'
+  __dko_has 'nvr' && alias e='PYTHONWARNINGS=default nvr -s'
 }
 
 # ============================================================================
