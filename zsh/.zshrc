@@ -10,8 +10,6 @@ DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 . "${HOME}/.dotfiles/shell/dot.profile"
 . "${DOTFILES}/shell/interactive.sh"
 
-export HISTORY_IGNORE="(pwd|l|ls|ll|cl|clear)"
-
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
 typeset -gU cdpath path fpath manpath
 
@@ -39,7 +37,7 @@ setopt PUSHD_TO_HOME                  # go home if no d specified
 # Completion
 setopt AUTO_LIST                      # list completions
 setopt AUTO_MENU                      # TABx2 to start a tab complete menu
-#setopt NO_COMPLETE_ALIASES            # no expand aliases before completion
+setopt NO_COMPLETE_ALIASES            # no expand aliases before completion
 setopt LIST_PACKED                    # variable column widths
 
 # Expansion and Globbing
@@ -48,8 +46,7 @@ setopt EXTENDED_GLOB                  # like ** for recursive dirs
 # History
 setopt APPEND_HISTORY                 # append instead of overwrite file
 setopt EXTENDED_HISTORY               # extended timestamps
-setopt HIST_FIND_NO_DUPS              # ignore already-seen entries when cycling
-setopt HIST_IGNORE_ALL_DUPS           # prune older entries when same entered
+setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE              # omit from history if space prefixed
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY                    # verify when using history cmds/params
@@ -82,109 +79,16 @@ setopt NO_BEEP
 setopt VI
 
 # ============================================================================
-# Completion settings
-# Order by * specificity
-# ============================================================================
-
-# --------------------------------------------------------------------------
-# Completion: Caching
-# --------------------------------------------------------------------------
-
-zstyle ':completion:*' use-cache true
-zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/.zcache"
-
-# --------------------------------------------------------------------------
-# Completion: Display
-# --------------------------------------------------------------------------
-
-# group all by the description above
-zstyle ':completion:*' group-name ''
-
-# colorful completion
-#zstyle ':completion:*' list-colors ''
-
-# Updated to respect LS_COLORS
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-zstyle ':completion:*' list-dirs-first yes
-
-# go into menu mode on second tab (like current vim wildmenu setting)
-# only if there's more than two things to choose from
-zstyle ':completion:*' menu select=2
-
-# show descriptions for options
-zstyle ':completion:*' verbose yes
-
-# in Bold, specify what type the completion is, e.g. a file or an alias or
-# a cmd
-zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
-
-# --------------------------------------------------------------------------
-# Completion: Matching
-# --------------------------------------------------------------------------
-
-# use case-insensitive completion if case-sensitive generated no hits
-zstyle ':completion:*' matcher-list \
-  'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
-
-# don't complete usernames
-zstyle ':completion:*' users ''
-
-# don't autocomplete homedirs
-zstyle ':completion::complete:cd:*' tag-order '! users'
-
-# --------------------------------------------------------------------------
-# Completion: Output transformation
-# --------------------------------------------------------------------------
-
-# expand completions as much as possible on tab
-# e.g. start expanding a path up to wherever it can be until error
-zstyle ':completion:*' expand yes
-
-# complete .log filenames if redirecting stderr
-zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
-
-# ============================================================================
-# zplugin
-# ============================================================================
-
-# wget is a prerequisite
-if __dko_has 'wget'; then
-  __dko_source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" \
-    || echo "[MISSING] Install zplugin"
-  __dko_has 'zplugin' && {
-    autoload -Uz _zplugin
-    (( ${+_comps} )) && _comps[zplugin]=_zplugin
-    # Must be sourced above compinit
-    __dko_source "${ZDOTDIR}/zplugin.zsh"
-  }
-else
-  __dko_warn 'wget is required for zplugin'
-fi
-
-# ============================================================================
 # Modules
 # ============================================================================
 
+# color complist
+zmodload -i zsh/complist
+#autoload -Uz colors; colors
+
+# hooks -- used for prompt too
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
-
-# must be after sourcing zplugin and before cdreplay
-autoload -Uz compinit
-compinit
-
-# enable menu selection
-zmodload -i zsh/complist
-
-# run compdefs provided by plugins
-__dko_has 'zplugin' && zplugin cdreplay -q
-
-
-# ============================================================================
-# prompt & title
-# @uses vcs_info
-# @uses add-zsh-hook
-# ============================================================================
 
 . "${ZDOTDIR}/prompt-vcs.zsh"
 . "${ZDOTDIR}/prompt-vimode.zsh"
@@ -192,33 +96,33 @@ __dko_has 'zplugin' && zplugin cdreplay -q
 . "${ZDOTDIR}/title.zsh"
 
 # ============================================================================
-# Unmanaged plugins
+# Plugins
 # ============================================================================
 
 # ----------------------------------------------------------------------------
-# Plugins: fasd (installed via package manager)
+# Plugins: Settings that must be defined before loading
 # ----------------------------------------------------------------------------
 
-__dko_has "fasd" && {
-  fasd_cache="${LDOTDIR}/cached-fasd-init"
-  if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-    fasd --init posix-alias zsh-hook >| "$fasd_cache"
-  fi
-  __dko_source "$fasd_cache"
-  unset fasd_cache
-}
+# davidosomething/cdbk
+export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
+
+# zsh-users/zsh-autosuggestions
+# don't suggest lines longer than
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
+# as of v4.0 use ZSH/zpty module to async retrieve
+#export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # ----------------------------------------------------------------------------
-# Plugins: fzf (installed via brew)
+# Plugins: fasd (package install)
 # ----------------------------------------------------------------------------
 
-if [[ -d /usr/local/opt/fzf ]]; then
-  [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]] &&
-    export PATH="$PATH:/usr/local/opt/fzf/bin"
-  __dko_source "/usr/local/opt/fzf/shell/completion.zsh"
-  __dko_source "/usr/local/opt/fzf/shell/key-bindings.zsh"
-  DKO_SOURCE="${DKO_SOURCE} -> fzf"
-fi
+__dko_has "fasd" && eval "$(fasd --init posix-alias zsh-hook)"
+
+# ----------------------------------------------------------------------------
+# Plugins: fzf (package install)
+# ----------------------------------------------------------------------------
+
+__dko_source "${HOME}/.fzf.zsh" && DKO_SOURCE="${DKO_SOURCE} -> fzf"
 
 # ============================================================================
 # Keybindings (after plugins since some are custom for fzf)
@@ -310,58 +214,141 @@ bindkey '^[[6~' down-history
 # native forward-word in insert mode to partially accept autosuggestion
 bindkey '^K' forward-word
 
-# ----------------------------------------------------------------------------
-# Keybindings: Custom fzf widgets
-# ----------------------------------------------------------------------------
+# ============================================================================
+# Custom widget: fzf
+# ============================================================================
 
-__dko_has "fzf" && {
-  # <C-G> cd to MRU directory
-  __dko_has "fasd" && {
-    dko-zsh-widget-fzf-fasd() {
-      local dir
-      dir=$(fasd -d -l -R | fzf-tmux \
-        +m \
-        --cycle \
-        --exit-0 \
-        --height=25% \
-        --preview="echo \"{1}\" && ls -1 {1}" \
-        --prompt="cd> ") \
-      && cd "$dir" \
-      || return 1
-      zle reset-prompt
-    }
-    zle -N        dko-zsh-widget-fzf-fasd
-    bindkey '^G'  dko-zsh-widget-fzf-fasd
-  }
-
-  # <C-B> switch git branch
-  dko-zsh-widget-fzf-branch() {
-    if git rev-parse --git-dir >/dev/null 2>&1; then
-      fbr
-      __dko_has vcs_info && vcs_info
-      zle reset-prompt
-    fi
-  }
-  zle -N        dko-zsh-widget-fzf-branch
-  bindkey '^B'  dko-zsh-widget-fzf-branch
-
-  # <C-X> switch xcode version
-  __dko_has "xcode-select" && {
-    dko-zsh-widget-fzf-xcode() {
-      fxc
-      zle reset-prompt
-    }
-    zle -N        dko-zsh-widget-fzf-xcode
-    bindkey '^X'  dko-zsh-widget-fzf-xcode
-  }
+__dkofzfbranch() {
+  if git rev-parse --git-dir >/dev/null 2>&1; then
+    fbr
+    zle accept-line
+  fi
 }
 
+# <C-b> to open git branch menu
+if __dko_has "fzf"; then
+  zle     -N      __dkofzfbranch
+  bindkey '^B'    __dkofzfbranch
+fi
+
 # ============================================================================
-# Local
+# Completion settings
+# Order by * specificity
+# ============================================================================
+
+# check that we're in the shell and not in something like vim terminal
+if [[ "$0" == *"zsh" ]]; then
+  # --------------------------------------------------------------------------
+  # Completion: Caching
+  # --------------------------------------------------------------------------
+
+  zstyle ':completion:*' use-cache true
+  zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/.zcache"
+
+  # --------------------------------------------------------------------------
+  # Completion: Display
+  # --------------------------------------------------------------------------
+
+  # group all by the description above
+  zstyle ':completion:*' group-name ''
+
+  # colorful completion
+  #zstyle ':completion:*' list-colors ''
+
+  # Updated to respect LS_COLORS
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+  zstyle ':completion:*' list-dirs-first yes
+
+  # go into menu mode on second tab (like current vim wildmenu setting)
+  # only if there's more than two things to choose from
+  zstyle ':completion:*' menu select=2
+
+  # show descriptions for options
+  zstyle ':completion:*' verbose yes
+
+  # in Bold, specify what type the completion is, e.g. a file or an alias or
+  # a cmd
+  zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
+
+  # --------------------------------------------------------------------------
+  # Completion: Matching
+  # --------------------------------------------------------------------------
+
+  # use case-insensitive completion if case-sensitive generated no hits
+  zstyle ':completion:*' matcher-list \
+    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
+
+  # don't complete usernames
+  zstyle ':completion:*' users ''
+
+  # don't autocomplete homedirs
+  zstyle ':completion::complete:cd:*' tag-order '! users'
+
+  # --------------------------------------------------------------------------
+  # Completion: Output transformation
+  # --------------------------------------------------------------------------
+
+  # expand completions as much as possible on tab
+  # e.g. start expanding a path up to wherever it can be until error
+  zstyle ':completion:*' expand yes
+
+  # process names
+  zstyle ':completion:*:processes-names' command \
+    'ps c -u ${USER} -o command | uniq'
+
+  # rsync and SSH use hosts from ~/.ssh/config
+  [ -r "$HOME/.ssh/config" ] && {
+    # Vanilla parsing of config file :)
+    # @see {@link https://github.com/Eriner/zim/issues/46#issuecomment-219344931}
+    hosts=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+    #hosts=($(egrep '^Host ' "$HOME/.ssh/config" | grep -v '*' | awk '{print $2}' ))
+    zstyle ':completion:*:ssh:*'    hosts $hosts
+    zstyle ':completion:*:rsync:*'  hosts $hosts
+  }
+
+  # colorful kill command completion -- probably overridden by fzf
+  zstyle ':completion:*:*:kill:*:processes' list-colors \
+    "=(#b) #([0-9]#)*=36=31"
+
+  # complete .log filenames if redirecting stderr
+  zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
+fi
+
+# ============================================================================
+# zplugin
+# ============================================================================
+
+# wget is a prerequisite
+if __dko_has 'wget'; then
+  __dko_source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" || {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)" \
+    && source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh"
+  }
+
+  __dko_has 'zplugin' && {
+    autoload -Uz _zplugin
+    (( ${+_comps} )) && _comps[zplugin]=_zplugin
+    __dko_source "${ZDOTDIR}/zplugin.zsh"
+  }
+else
+  __dko_warn 'wget is required for zplugin'
+fi
+
+# ============================================================================
+# Local: can add more zplugins here
 # ============================================================================
 
 . "${DOTFILES}/shell/after.sh"
 __dko_source "${LDOTDIR}/zshrc"
+
+# ============================================================================
+# zplugin: after
+# ============================================================================
+
+autoload -Uz compinit
+compinit
+__dko_has 'zplugin' && zplugin cdreplay -q
 
 # ============================================================================
 # End profiling
@@ -373,7 +360,7 @@ if [[ "$ITERM_PROFILE" == "PROFILE"* ]] \
   unsetopt xtrace
   exec 2>&3 3>&-
   echo "==> ZSH startup log written to"
-  echo "    ${HOME}/.cache/zlog.$$"
+  echo "    ${HOME}/tmp/startlog.$$"
 fi
 
 # ============================================================================

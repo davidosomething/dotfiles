@@ -13,7 +13,7 @@ export FZF_DEFAULT_OPTS="${fzfopts} --tiebreak=index"
 export FZF_COMPLETION_TRIGGER="\`\`"
 
 # Use fastest grepper available
-if __dko_has "rg"; then
+if __dko_prefer "rg"; then
   grepper="rg --glob ''"
   grepargs="--files --ignore-file \"${DOTFILES}/ag/dot.ignore\""
 elif __dko_has "ag"; then
@@ -38,13 +38,13 @@ export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 # Now that path is available, use neovim instead of vim if it is installed
 # ============================================================================
 
-__dko_has 'nvim' && {
+__dko_prefer 'nvim' && {
   alias e='nvim'
 
   export EDITOR='nvim'
   export VISUAL='nvim'
 
-  __dko_has 'nvr' && alias e='PYTHONWARNINGS=default nvr -s'
+  __dko_prefer 'nvr' && alias e='PYTHONWARNINGS=default nvr -s'
 }
 
 # ============================================================================
@@ -57,13 +57,13 @@ export REACT_EDITOR="$VISUAL"
 # npm stuff
 # ============================================================================
 
-__dko_has 'trash' && alias rm=trash
+__dko_prefer 'trash' && alias rm=trash
 
 # ============================================================================
 # fasd or z
 # ============================================================================
 
-__dko_has 'fasd' && alias j='z'
+__dko_prefer 'fasd' && alias j='z'
 
 # ============================================================================
 
