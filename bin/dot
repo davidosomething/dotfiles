@@ -80,10 +80,12 @@ __dko_dotfiles__update() {
     return 1
   }
 
-  __dko_status "Re-sourcing shell/interactive.sh"
-  export DOTFILES_RESOURCE=1
+  rm -f "$lockfile"
+
+  __dko_status "Re-sourcing parts of env (not path)"
+  . "$DOTFILES/shell/os.sh"
   . "$DOTFILES/shell/interactive.sh"
-  unset DOTFILES_RESOURCE
+  . "$DOTFILES/shell/after.sh"
 
   __dko_ok "Successfully updated dotfiles"
 }

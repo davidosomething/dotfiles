@@ -1,6 +1,12 @@
 # shell/path.sh
-
+#
 # Sourced in bash and ZSH by loader
+#
+# Rebuild path starting from system path
+# Regarding tmux:
+# Since my tmux shells are not login shells the path needs to be rebuilt.
+#
+# shell/vars.sh on the other hand just get inherited.
 # XDG is set up in init.sh, which should already have been sourced
 # pyenv, chruby, chphp, nvm pathing is done in shell/after
 
