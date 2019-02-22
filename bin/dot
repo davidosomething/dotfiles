@@ -80,12 +80,12 @@ __dko_dotfiles__update() {
     return 1
   }
 
-  __dko_ok "Successfully updated dotfiles"
-
   __dko_status "Re-sourcing shell/interactive.sh"
   export DOTFILES_RESOURCE=1
   . "$DOTFILES/shell/interactive.sh"
   unset DOTFILES_RESOURCE
+
+  __dko_ok "Successfully updated dotfiles"
 }
 
 __dko_dotfiles__update_secret() {
