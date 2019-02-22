@@ -1,7 +1,5 @@
 # shell/after.sh
 
-# RERUNS ON DOTFILE UPDATE
-
 DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 
 # ============================================================================

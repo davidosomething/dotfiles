@@ -1,7 +1,5 @@
 # shell/interactive.sh
 
-# RERUNS ON DOTFILE UPDATE
-
 DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
 if [ -f "${HOME}/.dotfiles/local/dotfiles.lock" ]; then
   "${DOTFILES}/shell/dko-wait-for-dotfiles-lock"

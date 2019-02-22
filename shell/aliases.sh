@@ -2,8 +2,6 @@
 # Not run by loader
 # Sourced by both .zshrc and .bashrc, so keep it POSIX compatible
 
-# RERUNS ON DOTFILE UPDATE
-
 export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases.sh"
 
 # ----------------------------------------------------------------------------
@@ -147,7 +145,6 @@ alias ns='n start'
 alias nt='n test'
 alias nu='n update'
 alias nude='nvm use default'
-alias sme='source-map-explorer'
 alias y='yarn'
 alias yi='yarn install'
 alias yr='yarn run'
