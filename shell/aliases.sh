@@ -2,6 +2,8 @@
 # Not run by loader
 # Sourced by both .zshrc and .bashrc, so keep it POSIX compatible
 
+# RERUNS ON DOTFILE UPDATE
+
 export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases.sh"
 
 # ----------------------------------------------------------------------------

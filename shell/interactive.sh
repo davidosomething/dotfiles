@@ -1,10 +1,13 @@
 # shell/interactive.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
+# RERUNS ON DOTFILE UPDATE
 
-if [ -f "${HOME}/.dotfiles/local/dotfiles.lock" ]; then
-  "${DOTFILES}/shell/dko-wait-for-dotfiles-lock"
-fi
+[ -z "$DOTFILES_RESOURCE" ] && {
+  DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
+  if [ -f "${HOME}/.dotfiles/local/dotfiles.lock" ]; then
+    "${DOTFILES}/shell/dko-wait-for-dotfiles-lock"
+  fi
+}
 
 # need this here in case not starting a login shell
 . "${DOTFILES}/lib/helpers.sh"
@@ -26,4 +29,4 @@ fi
 
 # ============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+[ -z "$DOTFILES_RESOURCE" ] && export DKO_SOURCE="${DKO_SOURCE} }"

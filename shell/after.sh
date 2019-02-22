@@ -1,5 +1,7 @@
 # shell/after.sh
 
+# RERUNS ON DOTFILE UPDATE
+
 DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 
 # ============================================================================
@@ -44,7 +46,7 @@ __dko_prefer 'nvim' && {
   export EDITOR='nvim'
   export VISUAL='nvim'
 
-  __dko_prefer 'nvr' && alias e='PYTHONWARNINGS=default nvr -s'
+  __dko_prefer 'nvr' && alias e='PYTHONWARNINGS=ignore nvr -s'
 }
 
 # ============================================================================

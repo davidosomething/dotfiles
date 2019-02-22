@@ -81,6 +81,9 @@ __dko_dotfiles__update() {
   }
 
   __dko_ok "Successfully updated dotfiles"
+  export DOTFILES_RESOURCE=1
+  . "$DOTFILES/shell/interactive.sh"
+  unset DOTFILES_RESOURCE
 }
 
 __dko_dotfiles__update_secret() {
