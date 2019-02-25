@@ -23,9 +23,11 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
     - Of note are `git`, `fzf`
 1. Use ZSH as default
     - Add `/usr/local/bin/zsh` to `/etc/shells`, then
+
       ```sh
       chsh -s /usr/local/bin/zsh
       ```
+
 1. Restart shell
 
 ### Setup ssh keys
@@ -86,6 +88,7 @@ operation. Use the `bi` alias for a clean room install if possible.
     1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
     1. Set up the global pyenv as the latest stable (3.x)
     1. Set up python virtualenvs called `neovim{2,3}` -- the Neovim configuration expects to find those. E.g.,
+
         ```sh
         pyenv install 2.7.xx
         pyenv virtualenv 2.7.xx neovim2
@@ -93,6 +96,7 @@ operation. Use the `bi` alias for a clean room install if possible.
         pip install neovim
         pyenv deactivate
         ```
+
 - run [bootstrap/terminfo](../bootstrap/terminfo) (added terminfo for iTerm
   with italics support)
 - Install `gpgtools` from `brew cask` (it provides `gpg-agent` and can store
