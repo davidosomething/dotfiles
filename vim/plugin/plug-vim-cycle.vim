@@ -13,16 +13,16 @@ set cpoptions&vim
 let g:cycle_no_mappings = 1
 
 silent! nunmap <C-a>
-silent! nunmap <C-x>
 silent! vunmap <C-a>
+silent! nunmap <C-x>
 silent! vunmap <C-x>
-nmap    <special><silent> <C-x> <Plug>CyclePrev:redraw!<CR>
-nmap    <special><silent> <C-a> <Plug>CycleNext:redraw!<CR>
-vmap    <special><silent> <C-x> <Plug>CyclePrev:redraw!<CR>
-vmap    <special><silent> <C-a> <Plug>CycleNext:redraw!<CR>
+nmap    <special><silent> <C-a> <Plug>CycleNext
+vmap    <special><silent> <C-a> <Plug>CycleNext
+nmap    <special><silent> <C-x> <Plug>CyclePrev
+vmap    <special><silent> <C-x> <Plug>CyclePrev
 
-noremap <special><silent> <Plug>CycleFallbackPrev <C-x>:redraw!<CR>
-noremap <special><silent> <Plug>CycleFallbackNext <C-a>:redraw!<CR>
+noremap <special><silent> <Plug>CycleFallbackNext <C-a>
+noremap <special><silent> <Plug>CycleFallbackPrev <C-x>
 " map <special><silent> <Plug>CycleFallbackNext <Plug>SpeedDatingUp
 
 " Normally this is handled by cycle, but we miss the first call for lazy load
