@@ -29,6 +29,10 @@ cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
 }
 
+npmdiff() {
+  dko-open "https://diff.intrinsic.com/${1}/${2}/${3}"
+}
+
 # ============================================================================
 # Archiving
 # ============================================================================
@@ -38,6 +42,7 @@ gitexport() {
   to_dir="${2:-./gitexport}"
   rsync -a "${1:-./}" "$to_dir" --exclude "$to_dir" --exclude .git
 }
+
 
 # ============================================================================
 # Network tools
