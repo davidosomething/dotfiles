@@ -123,7 +123,8 @@ brew install jsonpp jq
 # code analysis
 # ----------------------------------------------------------------------------
 
-brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+# ctags are generally crap compared, language servers are the way to go
+#brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 brew install cloc
 

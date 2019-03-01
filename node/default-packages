@@ -5,7 +5,6 @@ http-server
 javascript-typescript-langserver
 js-beautify
 jscpd
-jsctags
 jsinspect
 jsonlint
 jspm-check-updates

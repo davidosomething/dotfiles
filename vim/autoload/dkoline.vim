@@ -129,14 +129,6 @@ function! dkoline#GetStatusline(winnr) abort
 
   let l:contents .= '%*%='
 
-  " Tagging
-  let l:contents .= dkoline#Format(
-        \ dkoline#If({
-        \   'winnr': l:winnr,
-        \   'normal': 1,
-        \ }, l:x) ? dkoline#GutentagsStatus() : '',
-        \ '%#dkoStatusTransient#')
-
   " Linting
   if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
     let l:contents .= dkoline#Neomake(l:winnr, l:bufnr)
@@ -323,18 +315,6 @@ function! dkoline#GitBranch(bufnr) abort
         \ : ''
 endfunction
 
-" @return {String}
-function! dkoline#GutentagsStatus() abort
-  if !exists('g:loaded_gutentags')
-    return ''
-  endif
-
-  let l:tagger = substitute(gutentags#statusline(''), '\[\(.*\)\]', '\1', '')
-  return empty(l:tagger)
-        \ ? ''
-        \ : ' ᴛ:' . l:tagger . ' '
-endfunction
-
 " @return {string} job1,job2,job3
 function! dkoline#NeomakeJobs(bufnr) abort
   if !a:bufnr | return '' | endif
@@ -395,8 +375,6 @@ function! dkoline#Init() abort
         "     using Plug mapping instead.
 
   let l:user_refresh_hooks = [
-        \   'GutentagsUpdating',
-        \   'GutentagsUpdated',
         \   'NeomakeFinished',
         \ ]
   " 'NeomakeCountsChanged',

@@ -51,15 +51,13 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'Shougo/context_filetype.vim'
 
   " ==========================================================================
-  " File system, ctags
+  " File system
   " ==========================================================================
 
   " Store accessed files in redis
   Plug 'neoclide/redismru.vim', PlugIf(executable('redis-cli'), {
         \   'do': 'npm install --force',
         \ })
-
-  "Plug 'ludovicchabant/vim-gutentags', PlugIf(executable('ctags'))
 
   " ==========================================================================
   " Commands
