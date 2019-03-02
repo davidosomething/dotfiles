@@ -40,11 +40,6 @@ __symlink() {
   dko-symlink  "shell/dot.profile" \
                 ".profile"
 
-  # REQUIRED in ~/ -- ag looks for ~/.agignore LAST and includes it.
-  # .ignore files are for project local only
-  dko-symlink  "ag/dot.ignore" \
-                ".agignore"
-
   # universal-ctags
   dko-symlink  "universal-ctags/dot.ctags" \
                 ".ctags.d/universal.ctags"
