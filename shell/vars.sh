@@ -190,7 +190,8 @@ export SHELLCHECK_OPTS="--exclude=SC1090,SC2148"
 export TRAVIS_CONFIG_PATH="${XDG_CONFIG_HOME}/travis"
 
 # vagrant
-export VAGRANT_HOME="${XDG_CONFIG_HOME}/vagrant"
+export VAGRANT_HOME="${XDG_DATA_HOME}/vagrant"
+export VAGRANT_ALIAS_FILE="${XDG_DATA_HOME}/vagrant/aliases"
 
 # weechat
 export WEECHAT_HOME="${DOTFILES}/weechat"
