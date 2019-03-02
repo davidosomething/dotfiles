@@ -45,8 +45,6 @@ __symlink() {
                 ".ctags.d/universal.ctags"
 
   # XDG-compatible
-  dko-symlink  "atom/config.cson" \
-                ".config/atom/config.cson"
   dko-symlink  "git/dot.gitconfig" \
                 ".config/git/config"
   dko-symlink  "git/dot.gitignore" \

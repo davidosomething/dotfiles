@@ -46,7 +46,6 @@ alias dps='docker ps'
 # editors
 # ----------------------------------------------------------------------------
 
-alias a='atom-beta'
 alias e='vim'
 alias ehosts='se /etc/hosts'
 alias etmux='e "${DOTFILES}/tmux/tmux.conf"'

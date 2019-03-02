@@ -103,7 +103,7 @@ export GIT_PAGER="$PAGER"
 export ACKRC="${DOTFILES}/ack/dot.ackrc"
 
 # atom editor
-export ATOM_HOME="${XDG_CONFIG_HOME}/atom"
+export ATOM_HOME="${XDG_DATA_HOME}/atom"
 
 # aws
 export AWS_CONFIG_FILE="${DOTFILES}/aws/config"
