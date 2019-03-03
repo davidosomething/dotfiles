@@ -1,20 +1,28 @@
 {
-  "coc.preferences.codeLens.enable": true,
-  "coc.preferences.diagnostic.enable": false,
-  "coc.preferences.diagnostic.locationlist": false,
-  "coc.preferences.diagnostic.errorSign": "⚑",
-  "coc.preferences.diagnostic.hintSign": "⚑",
-  "coc.preferences.diagnostic.infoSign": "⚑",
-  "coc.preferences.diagnostic.warningSign": "⚑",
-  "coc.preferences.echodocSupport": true,
-  //"coc.preferences.diagnostic.displayByAle": true,
+  "codeLens.enable": true,
+  "diagnostic.enable": false,
+  "diagnostic.enableMessage": false,
+  "diagnostic.locationlist": false,
+  "diagnostic.errorSign": "⚑",
+  "diagnostic.hintSign": "⚑",
+  "diagnostic.infoSign": "⚑",
+  "diagnostic.warningSign": "⚑",
+  "diagnostic.refreshAfterSave": true,
+  "diagnostic.virtualText": true
+
+  //"diagnostic.displayByAle": true,
   // When true, destroys loclist on insert (and kills neomake results)
-  "coc.preferences.minTriggerInputLength": 2,
-  "coc.preferences.snippetIndicator": " ⭐︎",
+  "suggest.echodocSupport": true,
+  "suggest.minTriggerInputLength": 2,
+  "suggest.snippetIndicator": " ⭐︎",
   "languageserver": {
     "lua": {
       "command": "lua-lsp",
       "filetypes": ["lua"]
     }
-  }
+  },
+
+  // https://github.com/neoclide/coc-tsserver#configuration-options
+  "typescript.preferences.quoteStyle": "single",
+  "javascript.preferences.quoteStyle": "single"
 }
