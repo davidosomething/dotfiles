@@ -8,7 +8,7 @@
   "diagnostic.infoSign": "⚑",
   "diagnostic.warningSign": "⚑",
   "diagnostic.refreshAfterSave": true,
-  "diagnostic.virtualText": true
+  "diagnostic.virtualText": true,
 
   //"diagnostic.displayByAle": true,
   // When true, destroys loclist on insert (and kills neomake results)
