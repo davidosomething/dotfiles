@@ -307,9 +307,9 @@ function! dkoplug#plugins#LoadAll() abort
         \ }
 
   " TypeScript
-  Plug 'leafgarland/typescript-vim'
+  "Plug 'leafgarland/typescript-vim'
   " Alternatively
-  "Plug 'HerringtonDarkholme/yats.vim'
+  Plug 'HerringtonDarkholme/yats.vim'
 
   " ----------------------------------------
   " Syntax
