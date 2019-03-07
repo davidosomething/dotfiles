@@ -53,6 +53,9 @@ command! Q q
 nnoremap  <silent><special>  <Leader>ecr
       \ :<C-U>call dko#edit#EditClosest('README.md')<CR>
 
+nnoremap  <silent><special>  <Leader>ei
+      \ :<C-U>call dko#edit#EditClosest('index.js')<CR>
+
 nnoremap  <silent><special>  <Leader>evr
       \ :<C-U>edit $VDOTDIR/vimrc<CR>
 nnoremap  <silent><special>  <Leader>evp
