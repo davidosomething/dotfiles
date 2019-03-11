@@ -26,6 +26,9 @@ inoreabbrev targetted   targeted
 inoreabbrev targetting  targeting
 inoreabbrev targetter   targeter
 
+inoreabbrev threshhold  threshold
+inoreabbrev threshholds thresholds
+
 inoreabbrev removeable  removable
 
 inoreabbrev d'' David O'Trakoun
