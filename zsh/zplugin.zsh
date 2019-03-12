@@ -25,6 +25,9 @@ zplugin light 'davidosomething/cdbk'
 zplugin ice wait"1" lucid as"program" pick"${ZPFX}/bin/git-*" \
   make"PREFIX=$ZPFX" nocompile
 zplugin light tj/git-extras
+# completions
+zplugin ice wait"1" lucid
+zplugin snippet "${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
 
 zplugin ice wait"1" lucid as"program" pick"git-open"
 zplugin light paulirish/git-open
