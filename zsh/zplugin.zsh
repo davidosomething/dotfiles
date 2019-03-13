@@ -38,6 +38,7 @@ zplugin ice lucid wait'0'
 zplugin load 'shannonmoeller/up'
 zplugin cdclear -q # forget completions for up
 
+export forgit_ignore='fgi'
 zplugin ice lucid wait'0'
 zplugin load 'wfxr/forgit'
 
