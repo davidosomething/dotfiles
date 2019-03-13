@@ -346,9 +346,10 @@ __dko_source "${LDOTDIR}/zshrc"
 # zplugin: after
 # ============================================================================
 
-autoload -Uz compinit
-compinit
-__dko_has 'zplugin' && zplugin cdreplay -q
+if ! __dko_has 'zplugin'; then
+  autoload -Uz compinit
+  compinit
+fi
 
 # ============================================================================
 # End profiling
