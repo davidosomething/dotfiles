@@ -24,5 +24,6 @@
 
   // https://github.com/neoclide/coc-tsserver#configuration-options
   "typescript.preferences.quoteStyle": "single",
-  "javascript.preferences.quoteStyle": "single"
+  "javascript.preferences.quoteStyle": "single",
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true
 }
