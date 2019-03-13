@@ -2,45 +2,49 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
 
-zplugin ice wait'0' lucid as"program" pick"git-ink"
-zplugin light davidosomething/git-ink
+zplugin ice lucid wait'0' as"program" pick"git-ink"
+zplugin load davidosomething/git-ink
 
-zplugin ice wait'0' lucid as"program" pick"git-my"
-zplugin light davidosomething/git-my
+zplugin ice lucid wait'0' as"program" pick"git-my"
+zplugin load davidosomething/git-my
 
-zplugin ice wait'0' lucid as"program" pick"git-take"
-zplugin light davidosomething/git-take
+zplugin ice lucid wait'0' as"program" pick"git-take"
+zplugin load davidosomething/git-take
 
 # my fork of cdbk, ZSH hash based directory bookmarking
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
-zplugin light 'davidosomething/cdbk'
+zplugin ice lucid wait'0' 
+zplugin load 'davidosomething/cdbk'
 
 # ----------------------------------------------------------------------------
 # Vendor: Commands
 # ----------------------------------------------------------------------------
 
-zplugin ice wait'0' lucid as"program" pick"${ZPFX}/bin/git-*" \
+zplugin ice lucid wait'0' as"program" pick"${ZPFX}/bin/git-*" \
   make"PREFIX=$ZPFX" nocompile
-zplugin light tj/git-extras
+zplugin load tj/git-extras
 # completions
-zplugin ice wait'0' lucid
+zplugin ice lucid wait'0'
 zplugin snippet "${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
 
-zplugin ice wait'0' lucid as"program" pick"git-open"
-zplugin light paulirish/git-open
+zplugin ice lucid wait'0' as"program" pick"git-open"
+zplugin load paulirish/git-open
 
-zplugin ice wait'0' lucid as"program" pick"git-recent"
-zplugin light paulirish/git-recent
+zplugin ice lucid wait'0' as"program" pick"git-recent"
+zplugin load paulirish/git-recent
 
 # replaces up() in shell/functions.sh
-zplugin light 'shannonmoeller/up'
+zplugin ice lucid wait'0'
+zplugin load 'shannonmoeller/up'
 
-zplugin light 'wfxr/forgit'
+zplugin ice lucid wait'0'
+zplugin load 'wfxr/forgit'
 
 # ----------------------------------------------------------------------------
 # Vendor: ZSH extension
 # ----------------------------------------------------------------------------
 
+zplugin ice lucid wait'[[ -n ${ZLAST_COMMANDS[(r)man*]} ]]'
 zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
 # In-line best history match suggestion
@@ -48,8 +52,8 @@ zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # as of v4.0 use ZSH/zpty module to async retrieve
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
-zplugin ice silent wait'0' atload'_zsh_autosuggest_start'
-zplugin light 'zsh-users/zsh-autosuggestions'
+zplugin ice lucid wait'0' atload'_zsh_autosuggest_start'
+zplugin load 'zsh-users/zsh-autosuggestions'
 # clear the suggestion when entering completion select menu
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
@@ -57,31 +61,30 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 # Vendor: Completion
 # ----------------------------------------------------------------------------
 
-zplugin light 'zsh-users/zsh-completions'
+zplugin ice lucid wait'0'
+zplugin load 'zsh-users/zsh-completions'
 
-zplugin ice as"completion" wait'[[ -n ${ZLAST_COMMANDS[(r)grad*]} ]]' nocompile
-zplugin light 'gradle/gradle-completion'
+zplugin ice lucid wait'[[ -n ${ZLAST_COMMANDS[(r)grad*]} ]]' as"completion" nocompile
+zplugin load 'gradle/gradle-completion'
 
-zplugin ice as"completion"
-zplugin light 'lukechilds/zsh-better-npm-completion'
+zplugin ice lucid wait'0'
+zplugin load 'lukechilds/zsh-better-npm-completion'
 
-[ "$DOTFILES_OS" = 'Darwin' ] \
-  && zplugin light 'vasyharan/zsh-brew-services'
-
-zplugin light 'voronkovich/phpcs.plugin.zsh'
+zplugin ice lucid wait'0'
+zplugin load 'voronkovich/phpcs.plugin.zsh'
 
 
 [[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] \
   && {
-    zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)trav*]} ]]'
-    zplugin light "${TRAVIS_CONFIG_PATH}"
+    zplugin ice lucid wait'0'
+    zplugin load "${TRAVIS_CONFIG_PATH}"
   }
 
 # ----------------------------------------------------------------------------
 # Syntax last, and compinit before it
 # ----------------------------------------------------------------------------
 
-zplugin ice wait"0" lucid atinit"zpcompinit; zpcdreplay"
-zplugin light 'zdharma/fast-syntax-highlighting'
+zplugin ice lucid wait"0" atinit"zpcompinit; zpcdreplay"
+zplugin load 'zdharma/fast-syntax-highlighting'
 
 export DKO_SOURCE="${DKO_SOURCE} }"
