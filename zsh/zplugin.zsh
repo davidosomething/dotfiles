@@ -34,9 +34,8 @@ zplugin ice lucid wait'0' as'program' pick'git-recent'
 zplugin load paulirish/git-recent
 
 # replaces up() in shell/functions.sh
-zplugin ice lucid wait'0'
+zplugin ice lucid wait'0' nocompletions
 zplugin load 'shannonmoeller/up'
-zplugin cdclear -q # forget completions for up
 
 export forgit_ignore='fgi'
 zplugin ice lucid wait'0'
