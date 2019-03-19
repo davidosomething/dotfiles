@@ -1,10 +1,5 @@
 {
-  "extends": [
-    "config:base"
-  ],
-  "baseBranch": "dev",
-  "pinVersions": false,
-  "peerDependencies": {
-    "enabled": true
-  }
+  "extends": ["config:base"],
+  "baseBranches": ["dev"],
+  "ignoreNpmrcFile": true
 }
