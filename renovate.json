@@ -1,5 +1,5 @@
 {
-  "extends": ["config:base"],
+  "extends": ["config:base", "config:preserveSemverRanges"],
   "baseBranches": ["dev"],
   "ignoreNpmrcFile": true
 }
