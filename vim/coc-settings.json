@@ -2,6 +2,7 @@
   "codeLens.enable": true,
   "diagnostic.enable": false,
   "diagnostic.enableMessage": false,
+  "diagnostic.enableSign": false,
   "diagnostic.locationlist": false,
   "diagnostic.errorSign": "⚑",
   "diagnostic.hintSign": "⚑",
