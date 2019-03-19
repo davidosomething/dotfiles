@@ -12,7 +12,7 @@
     "test": "tests"
   },
   "scripts": {
-    "_header": "source ./lib/pretty.bash && __dko_header",
+    "_header": ". ./lib/pretty.bash && __dko_header",
     "_markdownlint": "npx --ignore-existing --quiet markdownlint-cli --config ./markdownlint/dot.markdownlintrc",
     "_parallel": "npx --ignore-existing --quiet npm-run-all --silent --aggregate-output --continue-on-error --parallel",
     "lint": "npm run --silent _parallel -- lint:**",
