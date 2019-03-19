@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+PATH=".:${PATH}"
+dko-line
+dko-center "$1"
+dko-line

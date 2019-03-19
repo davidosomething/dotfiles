@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+columns="$(tput cols)"
+printf %"$columns"s | tr " " "="
+printf "\n"
