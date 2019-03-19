@@ -3,13 +3,16 @@
   "private": true,
   "version": "0.0.1",
   "description": "@davidosomething/dotfiles",
+  "engines": {
+    "node": ">=10.15.3"
+  },
   "main": "index.js",
   "directories": {
     "lib": "lib",
     "test": "tests"
   },
   "scripts": {
-    "_header": "npx --ignore-existing --quiet boxen-cli --padding 0",
+    "_header": "source ./lib/pretty.bash && __dko_header",
     "_markdownlint": "npx --ignore-existing --quiet markdownlint-cli --config ./markdownlint/dot.markdownlintrc",
     "_parallel": "npx --ignore-existing --quiet npm-run-all --silent --aggregate-output --continue-on-error --parallel",
     "lint": "npm run --silent _parallel -- lint:**",
@@ -65,8 +68,9 @@
       "xresources/**"
     ]
   },
+  "dependencies": {},
   "devDependencies": {
-    "eslint": "^5.12.0",
+    "eslint": "^5.15.3",
     "eslint-config-davidosomething": "^2.0.0"
   }
 }
