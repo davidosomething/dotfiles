@@ -25,10 +25,10 @@ let g:dko_rtp_original = &runtimepath
 let g:dko_tab_completion = 0 " use (s-)tab to navigate PUM?
 
 " Plugin settings
-let g:dko_use_completion = has('nvim-0.2.2') && has('python3')
-let g:dko_use_js_langserver = executable('javascript-typescript-stdio')
-let g:dko_use_tern_lsp = g:dko_use_completion && executable('npm')
-let g:dko_use_composer = g:dko_use_completion && executable('composer')
+let g:dko_autoinstall_vim_plug = !exists('veonim') && executable('git')
+let g:dko_use_completion = has('nvim-0.2.2')
+
+let g:vdotdir = empty($VDOTDIR) ? expand('$HOME/.vim') : $VDOTDIR
 
 " This must be a g: variable to access with the Plug command
 let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
@@ -480,7 +480,7 @@ let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
 " Plugins: autoinstall vim-plug, define plugins, install plugins if needed
 " ----------------------------------------------------------------------------
 
-if executable('git')
+if g:dko_autoinstall_vim_plug
   let s:has_plug = !empty(glob(expand(g:dko#vim_dir . '/autoload/plug.vim')))
   " Load vim-plug and its plugins?
   if !s:has_plug && executable('curl')

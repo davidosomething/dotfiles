@@ -60,9 +60,9 @@ nnoremap  <silent><special>  <Leader>ei
       \ :<C-U>call dko#edit#EditClosest('index.js')<CR>
 
 nnoremap  <silent><special>  <Leader>evr
-      \ :<C-U>edit $VDOTDIR/vimrc<CR>
+      \ :<C-U>execute 'edit ' . g:vdotdir . '/vimrc'<CR>
 nnoremap  <silent><special>  <Leader>evp
-      \ :<C-U>edit $VDOTDIR/autoload/dkoplug/plugins.vim<CR>
+      \ :<C-U>execute 'edit ' . g:vdotdir . '/autoload/dkoplug/plugins.vim'<CR>
 
 " ============================================================================
 " Run :make
