@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PATH=".:${PATH}"
-dko-line
-dko-center "$1"
-dko-line
+p=$(dirname "${BASH_SOURCE[0]}")
+"${p}/dko-line"
+"${p}/dko-center" "$1"
+"${p}/dko-line"
