@@ -51,20 +51,18 @@ DOTFILES=~/.dot ~/.dot/bootstrap/symlink
   `/etc/shells`); restart the terminal and zplugin will self-install
 - See OS specific notes in [mac/README.md](mac/README.md) and
   [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
-- Useful Chrome extensions are in [chromium/README.md](chromium/README.md)
-- Install node and the default npm packages; `rm` will then alias to the
-  [trash-cli] script.
 
 #### Dev environment setup
 
 Install these using the system package manager. For macOS/OS X there are helper
 scripts.
 
-- `chruby`, `ruby-install`, then use `ruby-install` to install a version of
+- [chruby], `ruby-install`, then use `ruby-install` to install a version of
   ruby (preferably latest, and into `~/.config/rubies/ruby-1.2.3` using flags)
-- Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
+- Install [nvm] MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
-  `npm install --global npm@latest`)
+  `npm install --global npm@latest`). Install the default npm packages using
+  scripts in `./node`.
 - `php`, `composer`, use composer to install `wp-cli`
 - Use [pyenv-installer] for [pyenv], [pyenv-virtualenv], then create a new env
   with a new python/pip.
@@ -76,22 +74,21 @@ These will assist in installing packages and dotfiles. Best to have the
 environment set up first.
 
 - `bootstrap/cleanup` moves some dotfiles into their XDG Base Directory
-  supported directories
+  supported directories and deletes unnecessary things (with confirmation).
 - `bootstrap/symlink` symlinks rc files for bash, ZSH, ack, (Neo)vim, etc.
 - `bootstrap/terminfo` will copy/compile terminfo files for user to
   `~/.terminfo/*`
 - `bootstrap/x11` symlinks `.xbindkeysrc`, `.xprofile`
-- `npm/install` install default packages, requires you set up nvm and
+- `npm/install` install default packages, requires you set up [nvm] and
   install node first
-- `ruby/install-default-gems` requires you set up chruby and install a ruby
+- `ruby/install-default-gems` requires you set up [chruby] and install a ruby
   first.
 - `python/install` installs default pip packages. Requires [pyenv] already set
   up,
 
 ## Updating
 
-The sourced `dko.dotfiles.main()` function is available as the alias `u`.
-Use `u` without arguments for usage.
+`u` is an alias to [dot](bin/dot). Use `u` without arguments for usage.
 
 ## Notes
 
@@ -122,9 +119,9 @@ Use `u` without arguments for usage.
 
 ### rc script source order
 
-If you have node installed, the `dkosourced`
-([bin/dkosourced](bin/dkosourced)) command will show you (not exhaustively)
-the order scripts get sourced. Without node `echo $DKO_SOURCE` works.
+If you have node installed, the [dkosourced](bin/dkosourced) command will show
+you (not exhaustively) the order scripts get sourced. Without node `echo
+$DKO_SOURCE` works.
 
 For X apps (no terminal) the value may be:
 
@@ -174,8 +171,8 @@ For X apps (no terminal) the value may be:
 [google shell style]: https://google.github.io/styleguide/shell.xml
 [grawity's dotfile notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
+[nvm]: https://github.com/creationix/nvm
 [pyenv-installer]: https://github.com/yyuu/pyenv-installer
 [pyenv-virtualenv]: https://github.com/pyenv/pyenv-virtualenv
 [pyenv]: https://github.com/pyenv/pyenv
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/0f8a58661c3a3c111d9cc1332d5ab3962aaf1dd9/meta/terminal-potatopro.png
-[trash-cli]: https://github.com/sindresorhus/trash-cli
