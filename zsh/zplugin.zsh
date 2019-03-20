@@ -11,9 +11,9 @@ zplugin load davidosomething/git-my
 zplugin ice lucid wait'0' as'program' pick'git-take'
 zplugin load davidosomething/git-take
 
-# my fork of cdbk, ZSH hash based directory bookmarking
+# my fork of cdbk, ZSH hash based directory bookmarking. No wait.
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
-zplugin ice lucid wait'0' 
+zplugin ice lucid
 zplugin load 'davidosomething/cdbk'
 
 # ----------------------------------------------------------------------------
@@ -33,10 +33,11 @@ zplugin load paulirish/git-open
 zplugin ice lucid wait'0' as'program' pick'git-recent'
 zplugin load paulirish/git-recent
 
-# replaces up() in shell/functions.sh
-zplugin ice lucid wait'0' nocompletions
+# replaces up() in shell/functions.sh. No wait.
+zplugin ice lucid nocompletions
 zplugin load 'shannonmoeller/up'
 
+# gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
 zplugin ice lucid wait'0'
 zplugin load 'wfxr/forgit'
@@ -88,7 +89,7 @@ zplugin load 'voronkovich/phpcs.plugin.zsh'
 # Syntax last, and compinit before it
 # ----------------------------------------------------------------------------
 
-zplugin ice lucid wait'0' atinit'zpcompinit; zpcdreplay'
+zplugin ice lucid wait'1' atinit'zpcompinit; zpcdreplay'
 zplugin load 'zdharma/fast-syntax-highlighting'
 
 export DKO_SOURCE="${DKO_SOURCE} }"
