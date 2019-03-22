@@ -6,8 +6,7 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 # fzf
 # ============================================================================
 
-fzfopts="--height=20 --inline-info --min-height=4 --preview 'head -100 {}'"
-export FZF_DEFAULT_OPTS="${fzfopts} --tiebreak=index"
+fzfopts="--height=20 --inline-info --min-height=4"
 
 # ** is globbing completion in ZSH, use tickticktab instead
 export FZF_COMPLETION_TRIGGER="\`\`"
@@ -31,7 +30,20 @@ else
   grepargs=''
 fi
 export FZF_DEFAULT_COMMAND="${grepper} ${grepargs}"
+
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+export FZF_CTRL_T_OPTS="
+  ${fzfopts}
+  --tiebreak=index
+  --preview='[[ ! \$(file --mime {}) =~ binary ]] &&
+    bat --color=always --decorations=never --paging=never {}'
+  "
+
+export FZF_ALT_C_OPTS="
+  ${fzfopts}
+  --tiebreak=index
+  --preview='tree -axi -L 2 --filelimit 100 --noreport {}'
+  "
 
 # ============================================================================
 # Use neovim
