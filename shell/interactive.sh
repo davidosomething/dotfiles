@@ -57,7 +57,7 @@ export FZF_CTRL_T_OPTS="
   ${fzfopts}
   --tiebreak=index
   --preview='[[ ! \$(file --mime {}) =~ binary ]] &&
-    bat --color=always --decorations=never --line-range :100 --paging=never {}'
+    bat --color=always --decorations=never --line-range :100 {}'
   "
 
 export FZF_ALT_C_OPTS="

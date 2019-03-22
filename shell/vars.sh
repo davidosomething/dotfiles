@@ -109,11 +109,6 @@ export ATOM_HOME="${XDG_DATA_HOME}/atom"
 export AWS_CONFIG_FILE="${DOTFILES}/aws/config"
 # credentials are per system
 
-# bat
-export BAT_PAGER=""
-export BAT_STYLE="numbers"
-export BAT_THEME="zenburn"
-
 # bazaar
 export BZRPATH="${XDG_CONFIG_HOME}/bazaar"
 export BZR_PLUGIN_PATH="${XDG_DATA_HOME}/bazaar"

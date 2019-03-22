@@ -45,6 +45,8 @@ __symlink() {
                 ".ctags.d/universal.ctags"
 
   # XDG-compatible
+  dko-symlink  "bat/config" \
+                ".config/bat/config"
   dko-symlink  "git/dot.gitconfig" \
                 ".config/git/config"
   dko-symlink  "git/dot.gitignore" \
