@@ -22,6 +22,8 @@ inoreabbrev :flip: (ﾉಥ益ಥ）ﾉ︵┻━┻
 inoreabbrev :yuno: ლ(ಠ益ಠლ)
 inoreabbrev :strong: ᕦ(ò_óˇ)ᕤ
 
+inoreabbrev unlabeled   unlabelled
+
 inoreabbrev targetted   targeted
 inoreabbrev targetting  targeting
 inoreabbrev targetter   targeter
