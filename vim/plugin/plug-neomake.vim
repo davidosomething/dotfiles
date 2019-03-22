@@ -7,7 +7,6 @@ if !dkoplug#IsLoaded('neomake') | finish | endif
 " Map
 " ============================================================================
 
-execute dko#MapAll({ 'key': '<F6>', 'command': 'Neomake' })
 execute dko#MapAll({ 'key': '<F7>', 'command': 'Neomake!' })
 
 " ============================================================================

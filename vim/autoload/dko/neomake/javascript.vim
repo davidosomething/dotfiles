@@ -43,30 +43,21 @@ function! dko#neomake#javascript#Setup() abort
         \             . ' && !empty(dko#project#GetFile(".jshintrc"))',
         \   }))
 
-  " flow disabled
-  " args overridden from defaults -- allow limiting returned entries
-  " call dko#neomake#NpxMaker(extend(
-  "       \   neomake#makers#ft#javascript#flow(), {
-  "       \     'ft': 'javascript',
-  "       \     'maker': 'flow',
-  "       \     'args': [ '--from=vim' ],
-  "       \     'cwd': dko#project#GetRoot(),
-  "       \     'when': '!empty(dko#project#GetFile(".flowconfig"))',
-  "       \   }))
-
   " ==========================================================================
   " Define which makers should be used
   " ==========================================================================
 
   call dko#InitList('b:neomake_javascript_enabled_makers')
 
-  if !empty(dko#project#javascript#GetEslintrc())
-    let b:neomake_javascript_enabled_makers += [ 'eslint' ]
-  elseif !empty(dko#project#GetFile('.jshintrc'))
-    let b:neomake_javascript_enabled_makers += [ 'jshint' ]
-  elseif get(b:, 'PJ_file') && pj#HasDevDependency('xo')
-    let b:neomake_javascript_enabled_makers += [ 'xo' ]
-  endif
+    if !empty(dko#project#javascript#GetEslintrc())
+      if !g:has_coc_eslint
+        let b:neomake_javascript_enabled_makers += [ 'eslint' ]
+      endif
+    elseif !empty(dko#project#GetFile('.jshintrc'))
+      let b:neomake_javascript_enabled_makers += [ 'jshint' ]
+    elseif get(b:, 'PJ_file') && pj#HasDevDependency('xo')
+      let b:neomake_javascript_enabled_makers += [ 'xo' ]
+    endif
 
   " flow disabled
   " if !empty(dko#project#GetFile('.flowconfig'))

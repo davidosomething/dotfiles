@@ -13,6 +13,19 @@ if dkoplug#IsLoaded('coc.nvim')
   let g:coc_snippet_next = '<C-f>'
   let g:coc_snippet_prev = '<C-b>'
 
+  function! s:MarkExtensions()
+    let s:extensions = CocAction('extensionStats')
+    let g:has_coc_eslint = 0
+    for l:extension in s:extensions
+      if l:extension.id ==# 'coc-eslint'
+        let g:has_coc_eslint = 1
+        call coc#config('javascript.validate.enable', 0)
+        break
+      endif
+    endfor
+  endfunction
+  autocmd dkocompletion User CocNvimInit call s:MarkExtensions()
+
   function! s:ShowDocumentation()
     if &filetype ==# 'vim'
       execute 'h '.expand('<cword>')
@@ -60,12 +73,20 @@ if dkoplug#IsLoaded('neosnippet')
 endif
 
 if dkoplug#IsLoaded('coc.nvim')
+  inoremap <silent><expr> <C-Space> coc#refresh()
+
   nmap <silent> <Leader>d <Plug>(coc-diagnostic-info)
   nmap <silent> ]d <Plug>(coc-diagnostic-next)
   nmap <silent> [d <Plug>(coc-diagnostic-prev)
+
   nmap <silent> gh <Plug>(coc-declaration)
+
+  " value
   nmap <silent> gd <Plug>(coc-definition)
+
+  " instance
   nmap <silent> gi <Plug>(coc-implementation)
+
   nmap <silent> <Leader>t <Plug>(coc-type-definition)
   nnoremap <silent> K :<C-U>call <SID>ShowDocumentation()<CR>
 

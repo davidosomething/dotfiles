@@ -258,5 +258,12 @@ nnoremap <Leader>; $r;
 
 " ============================================================================
 
+execute dko#MapAll({
+      \   'key': '<F6>',
+      \   'command': 'call dko#project#LintBuffer()'
+      \ })
+
+" ============================================================================
+
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

@@ -22,7 +22,7 @@ hi! DiffAdd             guibg=#2a332a guifg=#668844
 hi! DiffChange          guibg=#2c2b2a guifg=#7f6030
 hi! DiffDelete          guibg=#4a2a2a guifg=#aa6666
 hi! DiffText            guibg=#4a2a2a
-hi! Error               guibg=#4a2a2a guifg=#ee7777
+hi! Error               guibg=NONE    guifg=#ee6666
 hi! Function                          guifg=NONE
 hi! Identifier                        guifg=#dddddd
 hi! Ignore                            guifg=#40485a
@@ -49,7 +49,7 @@ hi! Type                              guifg=#dddddd gui=NONE
 hi! Underlined                        guifg=#88aaee gui=underline
 hi! Visual              guibg=#afa08f guifg=#1f1f1f
 hi! WarningMsg                        guifg=#ccaa88
-hi! Whitespace          guibg=#1c1c1c guifg=#333333
+hi! Whitespace          guibg=#1c1c1c guifg=#40485a gui=bold
 
 hi! link Character      Normal
 hi! link Conditional    Normal
@@ -78,7 +78,7 @@ hi! link dkoJavaDocType SpecialComment
 hi! link dkoJavaDocKey  SpecialComment
 
 " Signs
-hi! dkoSignError        guibg=#5a2a2a guifg=#cc4444
+hi! link dkoSignError   Error
 hi! dkoSignWarning                    guifg=#ddaa66
 hi! dkoSignInfo                       guifg=fg
 hi! dkoSignMessage                    guifg=#77aa88
@@ -370,6 +370,15 @@ hi! link zshOptStart          Identifier
 hi! link zshOption            Normal
 
 " ============================================================================
+" coc
+" ============================================================================
+
+hi! link CocErrorSign       dkoSignError
+hi! link CocWarningSign     dkoSignWarning
+hi! link CocInfoSign        dkoSignInfo
+hi! link CocHintSign        dkoSignMessage
+
+" ============================================================================
 " QuickFix
 " ============================================================================
 
@@ -383,10 +392,10 @@ hi! link qfSeparator  dkoDecorations
 " Neomake
 " ============================================================================
 
-hi! NeomakeError                guibg=#5a2a2a
-hi! NeomakeInfo                 guibg=#2a332a
-hi! NeomakeMessage              guibg=#2a332a
-hi! NeomakeWarning              guibg=#2c2b2a
+hi! link NeomakeError           dkoInlineError
+hi! link NeomakeInfo            dkoInlineInfo
+hi! link NeomakeMessage         dkoInlineInfo
+hi! link NeomakeWarning         dkoInlineWarning
 hi! link NeomakeErrorSign       dkoSignError
 hi! link NeomakeWarningSign     dkoSignWarning
 hi! link NeomakeInfoSign        dkoSignInfo

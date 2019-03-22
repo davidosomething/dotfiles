@@ -1,9 +1,9 @@
 {
   "codeLens.enable": true,
-  "diagnostic.enable": false,
-  "diagnostic.enableMessage": false,
-  "diagnostic.enableSign": false,
-  "diagnostic.locationlist": false,
+  "diagnostic.enable": true,
+  "diagnostic.enableMessage": "jump",
+  "diagnostic.enableSign": true,
+  "diagnostic.locationlist": true,
   "diagnostic.errorSign": "⚑",
   "diagnostic.hintSign": "⚑",
   "diagnostic.infoSign": "⚑",
@@ -16,15 +16,36 @@
   "suggest.echodocSupport": true,
   "suggest.minTriggerInputLength": 2,
   "suggest.snippetIndicator": " ⭐︎",
+
+  // =========================================================================
+  // Language Servers
+  // =========================================================================
+
   "languageserver": {
+
     "lua": {
       "command": "lua-lsp",
       "filetypes": ["lua"]
     }
+
   },
 
+  // =========================================================================
+  // coc-eslint
+  // =========================================================================
+
+  "eslint.enable": true,
+  "eslint.run": "onType",
+  "eslint.autoFixOnSave": true,
+  "eslint.packageManager": "npm",
+
+  // =========================================================================
+  // coc-tssserver
   // https://github.com/neoclide/coc-tsserver#configuration-options
+  // =========================================================================
+
   "typescript.preferences.quoteStyle": "single",
+
   "javascript.preferences.quoteStyle": "single",
-  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
 }

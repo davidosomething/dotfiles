@@ -287,6 +287,23 @@ function! dko#project#GetPrettierrc() abort
 endfunction
 
 " ============================================================================
+" linter
+" ============================================================================
+
+" Conditionally run Neomake if it is enabled for buffer
+function! dko#project#LintBuffer() abort
+  if dkoplug#IsLoaded('neomake')
+    let l:fts = neomake#utils#get_config_fts(&filetype)
+    for l:ft in l:fts
+      if !empty(b:neomake_{l:ft}_enabled_makers)
+        Neomake
+        return
+      endif
+    endfor
+  endif
+endfunction
+
+" ============================================================================
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
