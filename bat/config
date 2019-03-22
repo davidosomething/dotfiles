@@ -1,3 +1,5 @@
 --paging="never"
 --style="numbers"
 --theme="zenburn"
+
+--map-syntax .ignore:.gitignore
