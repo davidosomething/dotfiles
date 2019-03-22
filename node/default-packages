@@ -1,5 +1,6 @@
 ajv-cli
 commitizen
+echint
 http-server
 js-beautify
 jscpd

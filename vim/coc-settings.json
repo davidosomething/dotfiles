@@ -16,6 +16,7 @@
   "suggest.echodocSupport": true,
   "suggest.minTriggerInputLength": 2,
   "suggest.snippetIndicator": " ⭐︎",
+  "suggest.timeout": 5000,
 
   // =========================================================================
   // Language Servers

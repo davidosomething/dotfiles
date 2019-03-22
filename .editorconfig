@@ -7,11 +7,9 @@ indent_size = 2
 indent_style = space
 
 [.gitconfig]
-indent_size = 2
 indent_style = tab
 
 [*.gitconfig]
-indent_size = 2
 indent_style = tab
 
 [*.ini]
@@ -20,7 +18,6 @@ indent_size = 4
 # html is not minified so reduce character output by using real tabs
 # use indent size 4 for parity with PHP
 [*.{erb,hbs,html,marko,mustache,xml}]
-indent_size = 2
 indent_style = tab
 
 [*.{css,less,sass,scss}]
@@ -42,9 +39,3 @@ max_line_length = 78
 
 [*.py]
 indent_size = 4
-
-[*.vim]
-indent_size = 2
-
-[*.{yaml,yml}]
-indent_size = 2

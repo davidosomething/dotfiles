@@ -220,13 +220,7 @@ function! dkoplug#plugins#LoadAll() abort
   " For what langs are supported, see:
   " https://github.com/Shougo/neoinclude.vim/blob/master/autoload/neoinclude.vim
   Plug 'Shougo/neoinclude.vim', WithCompl()
-
-  " --------------------------------------------------------------------------
-  " Completion: Syntax
-  " --------------------------------------------------------------------------
-
-  " Full syntax completion. Keyed as [S]
-  Plug 'Shougo/neco-syntax', WithCompl()
+  Plug 'jsfaint/coc-neoinclude'
 
   " --------------------------------------------------------------------------
   " Completion: VimL
