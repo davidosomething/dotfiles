@@ -101,7 +101,7 @@ brew install ssh-copy-id
 brew install wget
 brew install wifi-password
 
-# Use the `gpgtools` cask instead (it also provides cli `gpg` and
+# Use the `gpg-suite-no-mail` cask instead (it also provides cli `gpg` and
 # `gpg-agent`). It provides a nicer gui prefpane and automatic integration
 # without having to configure all this stuff.
 #brew install gnupg2
@@ -130,6 +130,9 @@ brew install cloc
 
 # used by fzf grepper preview
 brew install highlight
+
+# generic linter, but mostly use for java
+brew install pmd
 
 # ----------------------------------------------------------------------------
 # git
@@ -162,8 +165,7 @@ brew install maven
 # PHP
 # ----------------------------------------------------------------------------
 
-brew install php71
-brew install pmd
+brew install php php-code-sniffer phpmd
 brew install homebrew/homebrew-php/composer
 
 # ----------------------------------------------------------------------------

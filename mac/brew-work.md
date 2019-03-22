@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-03-22T14:42:53.236Z
+Generated on 2019-03-22T14:46:15.019Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -12,12 +12,10 @@ Generated on 2019-03-22T14:42:53.236Z
 | [awscli](https://aws.amazon.com/cli/) | `Official Amazon AWS command-line interface` |
 | [bash](https://www.gnu.org/software/bash/) | `Bourne-Again SHell, a UNIX command interpreter` |
 | [bat](https://github.com/sharkdp/bat) | `Clone of cat(1) with syntax highlighting and Git integration` |
-| [bats](https://github.com/sstephenson/bats) | `TAP-compliant test framework for Bash scripts` |
 | [boost](https://www.boost.org/) | `Collection of portable C++ source libraries` |
 | [brew-cask-completion](https://github.com/xyb/homebrew-cask-completion) | `Fish completion for brew-cask` |
 | [checkbashisms](https://launchpad.net/ubuntu/+source/devscripts/) | `Checks for bashisms in shell scripts` |
 | [checkstyle](https://checkstyle.sourceforge.io/) | `Check Java source against a coding standard` |
-| [clang-format](https://clang.llvm.org/docs/ClangFormat.html) | `Formatting tools for C, C++, Obj-C, Java, JavaScript, TypeScript` |
 | [cmake](https://www.cmake.org/) | `Cross-platform make` |
 | [coreutils](https://www.gnu.org/software/coreutils) | `GNU File, Shell, and Text utilities` |
 | [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy) | `Good-lookin' diffs with diff-highlight and more` |
@@ -81,7 +79,6 @@ Generated on 2019-03-22T14:42:53.236Z
 | [ncurses](https://www.gnu.org/software/ncurses/) | `Text-based UI library` |
 | [neovim](https://neovim.io/) | `Ambitious Vim-fork focused on extensibility and agility` |
 | [node](https://nodejs.org/) | `Platform built on V8 to build network applications` |
-| [node@8](https://nodejs.org/) | `Platform built on V8 to build network applications` |
 | [oniguruma](https://github.com/kkos/oniguruma/) | `Regular expressions library` |
 | [openexr](https://www.openexr.com/) | `High dynamic-range image file format` |
 | [openjpeg](https://www.openjpeg.org/) | `Library for JPEG-2000 image manipulation` |
@@ -105,7 +102,6 @@ Generated on 2019-03-22T14:42:53.236Z
 | [tree](http://mama.indstate.edu/users/ice/tree/) | `Display directories as trees (with optional color/HTML output)` |
 | [uncrustify](https://uncrustify.sourceforge.io/) | `Source code beautifier` |
 | [unibilium](https://github.com/mauke/unibilium) | `Very basic terminfo library` |
-| [universal-ctags](https://github.com/universal-ctags/ctags) | `Maintained ctags implementation` |
 | [usbmuxd](https://www.libimobiledevice.org/) | `USB multiplexor daemon for iPhone and iPod Touch devices` |
 | [vale](https://github.com/errata-ai/vale) | `A customizable, syntax-aware linter for prose.` |
 | [watchman](https://github.com/facebook/watchman) | `Watch files and take action when they change` |
