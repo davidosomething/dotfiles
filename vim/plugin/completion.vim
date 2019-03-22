@@ -66,7 +66,11 @@ if dkoplug#IsLoaded('coc.nvim')
   nmap <silent> gh <Plug>(coc-declaration)
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> <Leader>t <Plug>(coc-type-definition)
   nnoremap <silent> K :<C-U>call <SID>ShowDocumentation()<CR>
+
+  nmap <silent> <Leader>= <Plug>(coc-format-selected)
+  vmap <silent> <Leader>= <Plug>(coc-format-selected)
 endif
 
 let &cpoptions = s:cpo_save
