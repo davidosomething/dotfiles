@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-02-11T23:49:46.495Z
+Generated on 2019-03-23T04:36:38.669Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -62,7 +62,7 @@ Generated on 2019-02-11T23:49:46.495Z
 | [icu4c](https://ssl.icu-project.org/) | `C/C++ and Java libraries for Unicode and globalization` |
 | [ilmbase](https://www.openexr.com/) | `OpenEXR ILM Base libraries (high dynamic-range image file format)` |
 | [imagemagick](https://www.imagemagick.org/) | `Tools and libraries to manipulate images in many formats` |
-| [isl](http://isl.gforge.inria.fr/) | `Integer Set Library for the polyhedral model` |
+| [isl](https://isl.gforge.inria.fr/) | `Integer Set Library for the polyhedral model` |
 | [jemalloc](http://jemalloc.net/) | `malloc implementation emphasizing fragmentation avoidance` |
 | [jenv](https://www.jenv.be/) | `Manage your Java environment` |
 | [joplin](https://joplin.cozic.net/) | `Note taking and to-do application with synchronisation capabilities` |
@@ -155,12 +155,13 @@ Generated on 2019-02-11T23:49:46.495Z
 | [tmux](https://tmux.github.io/) | `Terminal multiplexer` |
 | [trash](https://hasseg.org/trash/) | `CLI tool that moves files or folder to the trash` |
 | [tree](http://mama.indstate.edu/users/ice/tree/) | `Display directories as trees (with optional color/HTML output)` |
+| [unbound](https://www.unbound.net) | `Validating, recursive, caching DNS resolver` |
 | [uncrustify](https://uncrustify.sourceforge.io/) | `Source code beautifier` |
 | [unibilium](https://github.com/mauke/unibilium) | `Very basic terminfo library` |
-| [universal-ctags](https://github.com/universal-ctags/ctags) | `Maintained ctags implementation` |
 | [unixodbc](http://www.unixodbc.org/) | `ODBC 3 connectivity for UNIX` |
 | [utf8proc](https://juliastrings.github.io/utf8proc/) | `Clean C library for processing UTF-8 Unicode data` |
 | [vale](https://github.com/errata-ai/vale) | `A customizable, syntax-aware linter for prose.` |
+| [watchman](https://github.com/facebook/watchman) | `Watch files and take action when they change` |
 | [webp](https://developers.google.com/speed/webp/) | `Image format providing lossless and lossy compression for web images` |
 | [wget](https://www.gnu.org/software/wget/) | `Internet file retriever` |
 | [wifi-password](https://github.com/rauchg/wifi-password) | `Show the current WiFi network password` |
@@ -168,6 +169,6 @@ Generated on 2019-02-11T23:49:46.495Z
 | [x265](http://x265.org) | `H.265/HEVC encoder` |
 | [xz](https://tukaani.org/xz/) | `General-purpose data compression with high compression ratio` |
 | [yarn](https://yarnpkg.com/) | `JavaScript package manager` |
-| [youtube-dl](https://rg3.github.io/youtube-dl/) | `Download YouTube videos from the command-line` |
+| [youtube-dl](https://ytdl-org.github.io/youtube-dl/) | `Download YouTube videos from the command-line` |
 | [zlib](https://zlib.net/) | `General-purpose lossless data-compression library` |
 | [zsh](https://www.zsh.org/) | `UNIX shell (command interpreter)` |
