@@ -37,7 +37,6 @@
 
   "eslint.enable": true,
   "eslint.run": "onType",
-  "eslint.autoFixOnSave": true,
   "eslint.packageManager": "npm",
 
   // =========================================================================

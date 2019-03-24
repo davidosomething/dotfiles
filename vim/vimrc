@@ -539,6 +539,12 @@ augroup dkoreadonly
   autocmd BufEnter * call dko#readonly#Unmap()
 augroup END
 
+" https://github.com/neovim/neovim/issues/7994
+augroup dkoneovimfixes
+  autocmd!
+  autocmd InsertLeave * set nopaste
+augroup END
+
 " ============================================================================
 " Security
 " ============================================================================

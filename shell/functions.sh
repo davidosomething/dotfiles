@@ -29,10 +29,6 @@ cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
 }
 
-npmdiff() {
-  dko-open "https://diff.intrinsic.com/${1}/${2}/${3}"
-}
-
 # ============================================================================
 # Archiving
 # ============================================================================
@@ -43,17 +39,23 @@ gitexport() {
   rsync -a "${1:-./}" "$to_dir" --exclude "$to_dir" --exclude .git
 }
 
-
 # ============================================================================
 # Network tools
 # ============================================================================
 
+# Copy ssh key to clipboard
 mykey() {
-  cat "$HOME/.ssh/id_rsa.pub"
+  local enc="${1:-id_ed25519}"
+  local pubkey="${HOME}/.ssh/${enc}.pub"
+  [ ! -f "${pubkey}" ] && {
+    (echo >&2 "Could not find public key ${pubkey}")
+    exit 1
+  }
+
   if __dko_has "pbcopy"; then
-    pbcopy <"$HOME/.ssh/id_rsa.pub"
+    pbcopy <"$pubkey"
   elif __dko_has "xclip"; then
-    xclip "$HOME/.ssh/id_rsa.pub"
+    xclip "$pubkey"
   fi
 }
 
