@@ -45,8 +45,8 @@ gitexport() {
 
 # Copy ssh key to clipboard
 mykey() {
-  local enc="${1:-id_ed25519}"
-  local pubkey="${HOME}/.ssh/${enc}.pub"
+  enc="${1:-id_ed25519}"
+  pubkey="${HOME}/.ssh/${enc}.pub"
   [ ! -f "${pubkey}" ] && {
     (echo >&2 "Could not find public key ${pubkey}")
     exit 1

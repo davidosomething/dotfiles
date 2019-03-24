@@ -45,8 +45,14 @@ let g:neomake_sh_bashate_maker = {
       \   'args': ['--ignore=E003,E005,E006,E011'],
       \   'errorformat': '%f:%l:%c: %t%n %m',
       \ }
+let g:neomake_sh_shellcheck_args = [
+      \   '--format=gcc',
+      \   '--external-sources',
+      \   '--exclude=SC1090,SC2148',
+      \   '--shell=sh',
+      \ ]
 let g:neomake_sh_enabled_makers = neomake#makers#ft#sh#EnabledMakers() + [
-      \   'bashate'
+      \   'bashate',
       \ ]
 
 " ============================================================================
