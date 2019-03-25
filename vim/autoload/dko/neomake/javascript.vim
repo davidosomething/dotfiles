@@ -49,18 +49,13 @@ function! dko#neomake#javascript#Setup() abort
 
   call dko#InitList('b:neomake_javascript_enabled_makers')
 
-    if !empty(dko#project#javascript#GetEslintrc())
-      if !g:has_coc_eslint
-        let b:neomake_javascript_enabled_makers += [ 'eslint' ]
-      endif
-    elseif !empty(dko#project#GetFile('.jshintrc'))
-      let b:neomake_javascript_enabled_makers += [ 'jshint' ]
-    elseif get(b:, 'PJ_file') && pj#HasDevDependency('xo')
-      let b:neomake_javascript_enabled_makers += [ 'xo' ]
+  if !empty(dko#project#javascript#GetEslintrc())
+    if get(g:, 'has_coc_eslint', 0)
+      let b:neomake_javascript_enabled_makers += [ 'eslint' ]
     endif
-
-  " flow disabled
-  " if !empty(dko#project#GetFile('.flowconfig'))
-  "   let b:neomake_javascript_enabled_makers += [ 'flow' ]
-  " endif
+  elseif !empty(dko#project#GetFile('.jshintrc'))
+    let b:neomake_javascript_enabled_makers += [ 'jshint' ]
+  elseif get(b:, 'PJ_file') && pj#HasDevDependency('xo')
+    let b:neomake_javascript_enabled_makers += [ 'xo' ]
+  endif
 endfunction
