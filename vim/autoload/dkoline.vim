@@ -24,8 +24,9 @@ function! dkoline#GetTabline() abort
   " ==========================================================================
 
   " Search context
+  let l:lastpat = @/
   let l:contents .= dkoline#Format(
-        \ @/,
+        \ empty(l:lastpat) ? '' : ' ' . l:lastpat . ' ',
         \ '%#dkoStatusKey# ? %(%#Search#',
         \ '%)')
 
@@ -73,11 +74,6 @@ function! dkoline#GetStatusline(winnr) abort
 
   let l:contents .= '%#StatusLineNC# %3(' . dkoline#Mode(l:winnr) . '%)'
 
-  let l:contents .= dkoline#Format(
-        \ dkoline#GitBranch(l:bufnr),
-        \ '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
-        \ '%)')
-
   " Filebased
   let l:ft = dkoline#Filetype(l:bufnr)
   let l:contents .= dkoline#Format(
@@ -110,6 +106,11 @@ function! dkoline#GetStatusline(winnr) abort
   " ==========================================================================
 
   let l:contents .= '%*%='
+
+  let l:contents .= dkoline#Format(
+        \ dkoline#GitBranch(l:bufnr),
+        \ '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
+        \ '%)')
 
   " Linting
   if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
