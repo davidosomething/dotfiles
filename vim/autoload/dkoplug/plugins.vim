@@ -510,7 +510,8 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'junegunn/vader.vim'
 
   " Auto-prefix continuation lines with \
-  Plug 'lambdalisue/vim-backslash'
+  " Error: <CR> recursive mapping
+  " Plug 'lambdalisue/vim-backslash'
 
   "Plug 'syngan/vim-vimlint', PlugIf(executable('vimlparser'))
 

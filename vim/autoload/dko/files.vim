@@ -4,13 +4,14 @@
 " MRU based on v:oldfiles
 " ============================================================================
 
-let s:mru_blacklist = "v:val !~ '" . join([
-      \   'fugitive:',
-      \   'NERD_tree',
-      \   '^/tmp/',
+let s:mru_blacklist = join([
       \   '.git/',
+      \   'NERD_tree',
+      \   'NetrwTreeListing',
+      \   '^/tmp/',
+      \   'fugitive:',
       \   'vim/runtime/doc',
-      \ ], '\|') . "'"
+      \ ], '|')
 
 " @return {List} recently used and still-existing files
 function! dko#files#GetMru() abort
@@ -18,8 +19,12 @@ function! dko#files#GetMru() abort
 endfunction
 
 function! dko#files#RefreshMru() abort
-  let s:mru_cache = map(
-        \   filter(copy(v:oldfiles), s:mru_blacklist),
+  let s:mru_cache =
+        \ map(
+        \   filter(
+        \     copy(v:oldfiles),
+        \     'filereadable(v:val) && v:val !~ "\\v(' . s:mru_blacklist . ')"'
+        \   ),
         \   'expand(v:val)'
         \ )
   return s:mru_cache
