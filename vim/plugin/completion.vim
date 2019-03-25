@@ -24,7 +24,10 @@ if dkoplug#IsLoaded('coc.nvim')
       endif
     endfor
   endfunction
-  autocmd dkocompletion User CocNvimInit call s:MarkExtensions()
+
+  " @TODO this will effectively disable Neomake eslint and tsserver validation
+  " but don't do it until https://github.com/neoclide/coc-eslint/issues/8
+  "autocmd dkocompletion User CocNvimInit call s:MarkExtensions()
 
   function! s:ShowDocumentation()
     if &filetype ==# 'vim'

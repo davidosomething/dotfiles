@@ -35,7 +35,9 @@
   // coc-eslint
   // =========================================================================
 
-  "eslint.enable": true,
+  "eslint.enable": false,
+  "eslint.autoFix": false,
+  "eslint.autoFixOnSave": false,
   "eslint.run": "onType",
   "eslint.packageManager": "npm",
 
