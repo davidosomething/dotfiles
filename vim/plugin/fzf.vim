@@ -71,13 +71,14 @@ nnoremap  <silent><special>   <A-r>   :<C-U>FZFRelevant<CR>
 nnoremap  <silent><special>   <A-t>   :<C-U>FZFTests<CR>
 nnoremap  <silent><special>   <A-v>   :<C-U>FZFVim<CR>
 
-if dkoplug#IsLoaded('redismru.vim')
-  execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFRedisMRU' })
-  nnoremap  <silent><special>   <A-m>   :<C-U>FZFRedisMRU<CR>
-else
-  execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
-  nnoremap  <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
-endif
+execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
+nnoremap  <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
+
+" autocmd dkofzf VimEnter *
+"      \   if dkoplug#IsLoaded('redismru.vim')
+"      \|    execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFRedisMRU' })
+"      \|    nnoremap  <silent><special>   <A-m>   :<C-U>FZFRedisMRU<CR>
+"      \|  endif
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
