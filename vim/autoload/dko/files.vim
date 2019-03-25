@@ -25,9 +25,16 @@ function! dko#files#RefreshMru() abort
   return s:mru_cache
 endfunction
 
+function! dko#files#UpdateMru(file) abort
+  if dko#IsEditable('%')
+    let s:mru_cache = add(get(s:, 'mru_cache', []), a:file)
+  endif
+endfunction
+
 augroup dkomru
   autocmd!
-"  autocmd dkomru BufAdd,BufNew,BufFilePost * call dko#files#UpdateMru()
+  autocmd dkomru BufAdd,BufNew,BufFilePost *
+        \ call dko#files#UpdateMru(expand('<amatch>'))
 augroup END
 
 " ============================================================================
