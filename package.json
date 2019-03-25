@@ -69,7 +69,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "eslint": "^5.15.3",
-    "eslint-config-davidosomething": "^2.0.0"
+    "eslint": "5.15.3",
+    "eslint-config-davidosomething": "2.0.0"
   }
 }
