@@ -39,8 +39,8 @@ function! dkoline#GetTabline() abort
   let l:contents .= '%#StatusLine# %= '
 
   let l:project_root = dko#IsNonFile(l:bufnr)
-        \ ? '' : dko#ShortenPath(dko#project#GetRoot(l:bufnr), 0)
-  let l:lcd = dkoline#ShortPath(l:bufnr, l:cwd, 0)
+        \ ? '' : ' ' . dko#HomePath(dko#project#GetRoot(l:bufnr), 0)
+  let l:lcd = dkoline#BufferPath(l:bufnr, l:cwd, 0)
   let l:is_in_project_root = l:lcd ==# l:project_root 
   let l:cdkey = l:is_in_project_root ? 'ʟᴄᴅ/ᴘʀᴏᴊ' : 'ʟᴄᴅ'
 
@@ -286,17 +286,17 @@ function! dkoline#Anzu() abort
         \ : ' %{anzu#search_status()} '
 endfunction
 
-" Use dko#ShortenPath conditionally
+" Use dko#HomePath conditionally
 "
 " @param {Int} bufnr
 " @param {String} path
 " @param {Int} max
 " @return {String}
-function! dkoline#ShortPath(bufnr, path, max) abort
+function! dkoline#BufferPath(bufnr, path, max) abort
   if dko#IsNonFile(a:bufnr)
     return ''
   endif
-  let l:path = dko#ShortenPath(a:path, a:max)
+  let l:path = dko#HomePath(a:path, a:max)
   return empty(l:path)
         \ ? ''
         \ : l:path

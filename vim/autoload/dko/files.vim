@@ -20,13 +20,13 @@ endfunction
 
 function! dko#files#RefreshMru() abort
   let s:mru_cache =
-        \ map(
+        \ dko#ShortPaths(map(
         \   filter(
         \     copy(v:oldfiles),
         \     'filereadable(v:val) && v:val !~ "\\v(' . s:mru_blacklist . ')"'
         \   ),
         \   'expand(v:val)'
-        \ )
+        \ ))
   return s:mru_cache
 endfunction
 

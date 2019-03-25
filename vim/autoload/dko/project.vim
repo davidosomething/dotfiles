@@ -54,7 +54,7 @@ function! dko#project#MarkBuffer(...) abort
   let l:bufnr = s:BufnrFromArgs(a:000)
   call dko#project#SetRoot('')      " clear
   call dko#project#GetRoot(l:bufnr) " force reset
-  let b:dko_branch = dko#git#GetBranch(expand('%:p:h'))
+  call setbufvar(l:bufnr, 'dko_branch', dko#git#GetBranch(expand('%:p:h')))
 endfunction
 
 " ============================================================================
@@ -67,23 +67,25 @@ endfunction
 " @return {String} project root path or empty string
 function! dko#project#GetRoot(...) abort
   let l:bufnr = s:BufnrFromArgs(a:000)
-  let l:existing = getbufvar(l:bufnr, 'dko_project_root')
-  if !empty(l:existing) | return l:existing | endif
+  if empty(getbufvar(l:bufnr, 'dko_project_root', ''))
+    let l:existing = getbufvar(l:bufnr, 'dko_project_root')
+    if !empty(l:existing) | return l:existing | endif
 
-  " Look for markers FIRST, that way we support things like browsing through
-  " node_modules/ and monorepos
-  let l:root = dko#project#GetRootByFileMarker(s:markers)
+    " Look for markers FIRST, that way we support things like browsing through
+    " node_modules/ and monorepos
+    let l:root = dko#project#GetRootByFileMarker(s:markers)
 
-  " Try git root
-  let l:path = dko#project#GetFilePath(get(a:, 1, ''))
-  let l:gitroot = dko#project#GetGitRootByFile(l:path)
-  if !empty(l:gitroot)
-    let b:dko_project_gitroot = l:gitroot
-    if empty(l:root) | let l:root = l:gitroot | endif
+    " Try git root
+    let l:path = dko#project#GetFilePath(get(a:, 1, ''))
+    let l:gitroot = dko#project#GetGitRootByFile(l:path)
+    if !empty(l:gitroot)
+      call setbufvar(l:bufnr, 'dko_project_gitroot', l:gitroot)
+      if empty(l:root) | let l:root = l:gitroot | endif
+    endif
+
+    call setbufvar(l:bufnr, 'dko_project_root', l:root)
   endif
-
-  let b:dko_project_root = l:root
-  return b:dko_project_root
+  return getbufvar(l:bufnr, 'dko_project_root')
 endfunction
 
 function! dko#project#SetRoot(root) abort
