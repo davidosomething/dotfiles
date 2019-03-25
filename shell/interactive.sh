@@ -52,12 +52,17 @@ else
 fi
 export FZF_DEFAULT_COMMAND="${grepper} ${grepargs}"
 
+# This is used by fzf#vim#with_preview's preview.sh
+export FZF_PREVIEW_COMMAND="
+  bat --color=always --decorations=never --line-range :100 {}
+  "
+
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 export FZF_CTRL_T_OPTS="
   ${fzfopts}
   --tiebreak=index
   --preview='[[ ! \$(file --mime {}) =~ binary ]] &&
-    bat --color=always --decorations=never --line-range :100 {}'
+    ${FZF_PREVIEW_COMMAND}
   "
 
 export FZF_ALT_C_OPTS="

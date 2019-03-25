@@ -107,6 +107,7 @@ command! FZFVim
 " Regular :FZFHistory doesn't blacklist files
 " ----------------------------------------------------------------------------
 
+" @return {String} project root
 command! FZFMRU
       \ call fzf#run(fzf#wrap('MRU',
       \   fzf#vim#with_preview(extend({
@@ -122,7 +123,7 @@ command! FZFMRU
 command! FZFRedisMRU
       \ call fzf#run(fzf#wrap('RedisMRU',
       \   fzf#vim#with_preview(extend({
-      \     'source':  dko#ShortPaths(redismru#files()),
+      \     'source':  redismru#files(),
       \     'options': s:options . ' --no-sort --prompt="RedisMRU> "',
       \   }, g:fzf_layout), 'right:50%')
       \ ))
@@ -134,7 +135,7 @@ command! FZFRedisMRU
 command! FZFTests
       \ call fzf#run(fzf#wrap('Tests',
       \   fzf#vim#with_preview(extend({
-      \     'source':   dko#ShortPaths(dko#tests#FindTests()),
+      \     'source':   dko#tests#FindTests(),
       \     'options':  s:options . ' --prompt="Tests> "',
       \   }, g:fzf_layout), 'right:50%')
       \ ))

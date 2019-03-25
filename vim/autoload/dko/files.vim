@@ -18,13 +18,16 @@ function! dko#files#GetMru() abort
 endfunction
 
 function! dko#files#RefreshMru() abort
-  let s:mru_cache = dko#ShortPaths(filter(copy(v:oldfiles), s:mru_blacklist))
+  let s:mru_cache = map(
+        \   filter(copy(v:oldfiles), s:mru_blacklist),
+        \   'expand(v:val)'
+        \ )
   return s:mru_cache
 endfunction
 
 augroup dkomru
   autocmd!
-  autocmd dkomru BufAdd,BufNew,BufFilePost * call dko#files#RefreshMru()
+"  autocmd dkomru BufAdd,BufNew,BufFilePost * call dko#files#UpdateMru()
 augroup END
 
 " ============================================================================

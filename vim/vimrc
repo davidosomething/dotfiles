@@ -28,14 +28,8 @@ let g:dko_tab_completion = 0 " use (s-)tab to navigate PUM?
 let g:dko_autoinstall_vim_plug = executable('git')
 let g:dko_use_completion = has('nvim-0.2.2')
 
+" Fallback for vims with no env access like Veonim
 let g:vdotdir = empty($VDOTDIR) ? expand('$HOME/.vim') : $VDOTDIR
-
-" This must be a g: variable to access with the Plug command
-let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
-      \ ? '/usr/local/opt/fzf'
-      \ : isdirectory(expand('~/.fzf'))
-      \ ? '~/.fzf'
-      \ : ''
 
 " ============================================================================
 " My defaults

@@ -65,22 +65,22 @@ function! dkoplug#plugins#LoadAll() abort
   " Commands
   " ==========================================================================
 
-  let l:fzfable = !empty(g:fzf_dir)
-        \ && v:version >= 704
-        \ && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
-  if !empty(g:fzf_dir)
-    Plug g:fzf_dir, PlugIf(l:fzfable)
-    Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
-    Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(l:fzfable, { 'on': [
-          \   'FZFGrepper',
-          \   'FZFMRU',
-          \   'FZFProject',
-          \   'FZFRedisMRU',
-          \   'FZFRelevant',
-          \   'FZFTests',
-          \   'FZFVim',
-          \ ] })
-  endif
+  let l:fzfable = v:version >= 704
+        \ && (has('nvim')
+        \ || $TERM_PROGRAM ==# 'iTerm.app')
+  " Use the repo instead of the version in brew since it includes the help
+  " docs for fzf#run()
+  Plug 'junegunn/fzf', PlugIf(l:fzfable)
+  Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
+  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(l:fzfable, { 'on': [
+        \   'FZFGrepper',
+        \   'FZFMRU',
+        \   'FZFProject',
+        \   'FZFRedisMRU',
+        \   'FZFRelevant',
+        \   'FZFTests',
+        \   'FZFVim',
+        \ ] })
 
   " gK to lookup
   Plug 'keith/investigate.vim'
