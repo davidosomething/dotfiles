@@ -25,7 +25,7 @@ function! dkoline#GetTabline() abort
 
   " Search context
   let l:contents .= dkoline#Format(
-        \ dkoline#Anzu(),
+        \ @/,
         \ '%#dkoStatusKey# ? %(%#Search#',
         \ '%)')
 
@@ -38,32 +38,9 @@ function! dkoline#GetTabline() abort
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
   let l:contents .= '%#StatusLine# %= '
 
-  let l:project_root = dko#IsNonFile(l:bufnr)
-        \ ? '' : ' ' . dko#HomePath(dko#project#GetRoot(l:bufnr), 0)
-  let l:lcd = dkoline#BufferPath(l:bufnr, l:cwd, 0)
-  let l:is_in_project_root = l:lcd ==# l:project_root 
-  let l:cdkey = l:is_in_project_root ? 'ʟᴄᴅ/ᴘʀᴏᴊ' : 'ʟᴄᴅ'
-
-  " Replace project_root with ᴘʀᴏᴊ/ in lcd
-  if !l:is_in_project_root && dko#StartsWith(l:project_root, l:lcd)
-    let l:lcd = ' ᴘʀᴏᴊ/' . strcharpart(l:lcd, strchars(l:project_root))
-  endif
-
   let l:contents .= dkoline#Format(
-        \ l:lcd,
-        \ '%#dkoStatusKey# ' . l:cdkey . ' %(%#dkoStatusValue#%<',
-        \ '%)')
-
-  if !l:is_in_project_root
-    let l:contents .= dkoline#Format(
-          \ l:project_root,
-          \ '%#dkoStatusKey# ᴘʀᴏᴊ %(%#dkoStatusValue#%<',
-          \ '%)')
-  endif
-
-  let l:contents .= dkoline#Format(
-        \ dkoline#GitBranch(l:bufnr),
-        \ '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
+        \ ' ' . get(l:, 'cwd', '~') . ' ',
+        \ '%#dkoStatusKey# ʟᴄᴅ %(%#dkoStatusValue#%<',
         \ '%)')
 
   "let l:contents .= ''
@@ -95,6 +72,11 @@ function! dkoline#GetStatusline(winnr) abort
   " ==========================================================================
 
   let l:contents .= '%#StatusLineNC# %3(' . dkoline#Mode(l:winnr) . '%)'
+
+  let l:contents .= dkoline#Format(
+        \ dkoline#GitBranch(l:bufnr),
+        \ '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
+        \ '%)')
 
   " Filebased
   let l:ft = dkoline#Filetype(l:bufnr)
@@ -284,22 +266,6 @@ function! dkoline#Anzu() abort
   return empty(l:anzu)
         \ ? ''
         \ : ' %{anzu#search_status()} '
-endfunction
-
-" Use dko#HomePath conditionally
-"
-" @param {Int} bufnr
-" @param {String} path
-" @param {Int} max
-" @return {String}
-function! dkoline#BufferPath(bufnr, path, max) abort
-  if dko#IsNonFile(a:bufnr)
-    return ''
-  endif
-  let l:path = dko#HomePath(a:path, a:max)
-  return empty(l:path)
-        \ ? ''
-        \ : l:path
 endfunction
 
 " Uses fugitive or gita to get cached branch name, or b:dko_branch

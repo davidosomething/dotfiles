@@ -85,7 +85,7 @@ function! dko#project#GetRoot(...) abort
 
     call setbufvar(l:bufnr, 'dko_project_root', l:root)
   endif
-  return getbufvar(l:bufnr, 'dko_project_root')
+  return getbufvar(l:bufnr, 'dko_project_root', '')
 endfunction
 
 function! dko#project#SetRoot(root) abort
