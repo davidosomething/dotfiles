@@ -227,7 +227,8 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
 
   Plug 'Shougo/neco-vim', WithCompl()
-  Plug 'neoclide/coc-neco', WithCompl()
+  " CRASHES!
+  "Plug 'neoclide/coc-neco', WithCompl()
 
   " ==========================================================================
   " Multiple languages
