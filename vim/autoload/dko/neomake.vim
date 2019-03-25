@@ -28,9 +28,6 @@ endfunction
 " @param {mixed} [1] pass to just return the resulting dict, omit to set on b:
 " @return {dict}
 function! dko#neomake#NpxMaker(settings, ...) abort
-  " eval to runs with the buffer context
-  if has_key(a:settings, 'when') && !eval(a:settings['when']) | return | endif
-
   let l:bin = get(a:settings, 'npx', a:settings['maker'])
   let l:args = get(a:settings, 'args', [])
   let l:ft = get(a:settings, 'ft', neomake#utils#get_ft_confname(&filetype))
@@ -49,78 +46,50 @@ function! dko#neomake#NpxMaker(settings, ...) abort
   return l:maker
 endfunction
 
-function! dko#neomake#CanMake(...) abort
-  let l:bufnr = get(a:, 1, '%')
-  return !dko#IsNonFile(l:bufnr) && !empty(getbufvar(l:bufnr, '&filetype'))
+" @param  {String} name of maker
+" @param  {String} [a:1] ft of the maker, defaults to current buffers filetype
+" @return {Boolean} true when the maker exe exists or was registered as a local
+"         maker (so local exe exists)
+function! dko#neomake#IsMakerExecutable(name, ...) abort
+  let l:ft = get(a:, 1, &filetype)
+  if empty(l:ft) | return 0 | endif
+
+  " dko#neomake#LocalMaker successfully determined a project-local
+  " bin was executable, return that instead
+  if exists('b:neomake_' . l:ft . '_' . a:name . '_exe')
+        \ || exists('b:neomake_' . neomake#utils#get_ft_confname(l:ft)
+        \           . '_' . a:name . '_exe')
+    return executable(b:neomake_{l:ft}_{a:name}_exe)
+  endif
+
+  " Don't need to sanitize
+  " Use the default exe from maker definition
+  let l:maker = neomake#GetMaker(a:name, l:ft)
+  return !empty(l:maker) && executable(l:maker.exe)
 endfunction
 
-" @TODO can use neomake#configure#automake() when blacklist is implemented
-function! dko#neomake#MaybeRun() abort
-  if !dko#neomake#CanMake('%') | return | endif
-  Neomake
-endfunction
+" Override the _exe setting of a maker and add it to _enabled_makers
+"
+" @param {dict} settings
+" @param {string} [settings.exe] alternate exe path to use in the buffer
+" @param {string} settings.ft filetype for the maker
+" @param {Boolean} [settings.is_enabled] default true, auto-enable when defined
+" @param {string} settings.maker name
+function! dko#neomake#LocalMaker(settings) abort
+  " Override maker's exe for this buffer?
+  let l:exe = dko#project#GetBin(get(a:settings, 'exe', ''))
+  if !empty(l:exe)
+    let b:neomake_{a:settings['ft']}_{a:settings['maker']}_exe = l:exe
+  endif
 
-" ============================================================================
-" ECHint
-" ============================================================================
+  " Automatically enable the maker for this buffer?
+  let l:is_enabled = get(a:settings, 'is_enabled', 1)
+  let l:is_executable = !empty(l:exe)
+        \ || dko#neomake#IsMakerExecutable(a:settings['maker'], a:settings['ft'])
 
-function! g:PostprocessEchint(entry) abort
-  return a:entry.text =~# 'did not pass EditorConfig validation'
-        \ ? extend(a:entry, { 'valid': -1 })
-        \ : a:entry
-endfunction
-
-" Excludes things like python, which has pep8.
-let g:echint_whitelist = [
-      \   'gitconfig',
-      \   'dosini',
-      \   'javascript',
-      \   'json',
-      \   'lua',
-      \   'markdown',
-      \   'php',
-      \   'sh',
-      \   'vim',
-      \   'yaml',
-      \]
-
-function! dko#neomake#EchintCreate() abort
-  let l:fts = g:echint_whitelist
-  for l:ft in l:fts
-    let g:neomake_{l:ft}_echint_maker = dko#neomake#NpxMaker({
-          \   'maker': 'echint',
-          \   'ft': l:ft,
-          \   'errorformat': '%E%f:%l %m',
-          \   'postprocess': function('PostprocessEchint'),
-          \ }, 'global')
-  endfor
-endfunction
-
-" For each filetype in the above whitelist, try to setup echint as
-" a buffer-local maker, extending the current list of buffer-local makers (or
-" default list)
-function! dko#neomake#EchintSetup() abort
-  if !dko#neomake#CanMake('%') | return | endif
-  " @TODO also skip things that have automatic Neoformat enabled
-
-  let l:safeft = neomake#utils#get_ft_confname(&filetype)
-  if exists('b:did_echint_' . l:safeft) | return | endif
-  let b:did_echint_{l:safeft} = 1
-
-  let l:config = dko#project#GetFile('.editorconfig')
-  if empty(l:config) | return | endif
-
-  let l:cwd = fnamemodify(l:config, ':p:h')
-
-  let l:fts = neomake#utils#get_config_fts(&filetype)
-
-  let l:capable_fts = filter(l:fts, 'index(g:echint_whitelist, v:val) != -1')
-  for l:ft in l:capable_fts
-    if !exists('g:neomake_' . l:ft . '_echint_maker') | continue | endif
-    let b:neomake_{l:ft}_echint_maker = copy(g:neomake_{l:ft}_echint_maker)
-    let b:neomake_{l:ft}_echint_maker.cwd = l:cwd
-    if get(b:, 'echint_enabled', 1) " enabled by default
-      call dko#neomake#AddMaker(l:ft, 'echint')
-    endif
-  endfor
+  if l:is_enabled && l:is_executable
+    call add(
+          \ dko#InitList('b:neomake_' . a:settings['ft'] . '_enabled_makers'),
+          \ a:settings['maker'])
+  endif
 endfunction

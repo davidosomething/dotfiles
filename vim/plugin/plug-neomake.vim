@@ -61,7 +61,7 @@ let g:neomake_sh_enabled_makers = neomake#makers#ft#sh#EnabledMakers() + [
 " filetype. Setup functions should check filetype if not matching by extension
 " ============================================================================
 
-call dko#neomake#EchintCreate()
+call dko#neomake#echint#CreateMaker()
 
 augroup dkoneomake
   autocmd!
@@ -77,8 +77,5 @@ augroup dkoneomake
   autocmd FileType php          call dko#neomake#php#Setup()
   autocmd FileType scss         call dko#neomake#scss#Setup()
   autocmd FileType zsh          let b:neomake_zsh_enabled_makers = [ 'zsh' ]
-  autocmd FileType *            call dko#neomake#EchintSetup()
-
-  " Keep this last so all the other autocmds happen first
-  autocmd BufWritePost *        call dko#neomake#MaybeRun()
+  autocmd FileType *            call dko#neomake#echint#Setup()
 augroup END

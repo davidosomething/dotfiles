@@ -11,6 +11,7 @@ function! dko#neomake#scss#Setup() abort
         \     'ft': 'scss',
         \     'maker': 'sasslint',
         \     'npx': 'sass-lint',
+        \     'cwd': dko#project#GetRoot(),
         \   }))
 
   let l:config = dko#project#GetFile('.sass-lint.yml')

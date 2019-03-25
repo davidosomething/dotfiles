@@ -11,37 +11,38 @@ function! dko#neomake#javascript#Setup() abort
   let b:did_dkoneomake_{l:safeft} = 1
 
   " ==========================================================================
-  " eslint path override
+  " Configure makers to run using NPX and from the cwd
   " ==========================================================================
 
-  " ==========================================================================
-  " Configure NPX to run makers
-  " ==========================================================================
+  let b:dko_is_javascript_xo = get(b:, 'PJ_file') && pj#HasDevDependency('xo')
+  let b:dko_jshintrc = dko#project#GetFile('.jshintrc')
+  let b:dko_is_javascript_jshint = !empty(b:dko_jshintrc)
 
+  " Conditionally define these rarely used linters
+  if b:dko_is_javascript_xo
+    call dko#neomake#NpxMaker(extend(
+          \   neomake#makers#ft#javascript#xo(), {
+          \     'ft': 'javascript',
+          \     'maker': 'xo',
+          \     'cwd': dko#project#GetRoot(),
+          \   }))
+  elseif b:dko_is_javascript_jshint
+    call dko#neomake#NpxMaker(extend(
+          \   neomake#makers#ft#javascript#jshint(), {
+          \     'ft': 'javascript',
+          \     'maker': 'jshint',
+          \     'cwd': dko#project#GetRoot(),
+          \   }))
+  endif
+
+  " Always define eslint
   call dko#neomake#NpxMaker(extend(
         \   neomake#makers#ft#javascript#eslint(), {
         \     'ft': 'javascript',
         \     'maker': 'eslint',
         \     'cwd': dko#project#GetRoot(),
-        \     'when': '!empty(dko#project#javascript#GetEslintrc())',
         \   }))
 
-  call dko#neomake#NpxMaker(extend(
-        \   neomake#makers#ft#javascript#xo(), {
-        \     'ft': 'javascript',
-        \     'maker': 'xo',
-        \     'cwd': dko#project#GetRoot(),
-        \     'when': 'get(b:, "PJ_file") && pj#HasDevDependency("xo")',
-        \   }))
-
-  call dko#neomake#NpxMaker(extend(
-        \   neomake#makers#ft#javascript#jshint(), {
-        \     'ft': 'javascript',
-        \     'maker': 'jshint',
-        \     'cwd': dko#project#GetRoot(),
-        \     'when': 'empty(dko#project#javascript#GetEslintrc()) '
-        \             . ' && !empty(dko#project#GetFile(".jshintrc"))',
-        \   }))
 
   " ==========================================================================
   " Define which makers should be used
@@ -49,13 +50,15 @@ function! dko#neomake#javascript#Setup() abort
 
   call dko#InitList('b:neomake_javascript_enabled_makers')
 
+  if b:dko_is_javascript_xo
+    let b:neomake_javascript_enabled_makers += [ 'xo' ]
+  elseif b:dko_is_javascript_jshint
+    let b:neomake_javascript_enabled_makers += [ 'jshint' ]
+  endif
+
   if !empty(dko#project#javascript#GetEslintrc())
     if get(g:, 'has_coc_eslint', 0)
       let b:neomake_javascript_enabled_makers += [ 'eslint' ]
     endif
-  elseif !empty(dko#project#GetFile('.jshintrc'))
-    let b:neomake_javascript_enabled_makers += [ 'jshint' ]
-  elseif get(b:, 'PJ_file') && pj#HasDevDependency('xo')
-    let b:neomake_javascript_enabled_makers += [ 'xo' ]
   endif
 endfunction

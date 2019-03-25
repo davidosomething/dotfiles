@@ -169,6 +169,15 @@ function! dko#IsEditable(bufnr) abort
   return !getbufvar(a:bufnr, '&readonly') && !dko#IsNonFile(a:bufnr)
 endfunction
 
+" Usually to see if there's a linter/syntax
+"
+" @param {Int|String} bufnr
+" @return {Boolean}
+function! dko#IsTypedFile(...) abort
+  let l:bufnr = get(a:, 1, '%')
+  return !empty(getbufvar(l:bufnr, '&filetype')) && !dko#IsNonFile(l:bufnr)
+endfunction
+
 " ============================================================================
 " Whitespace settings
 " ============================================================================

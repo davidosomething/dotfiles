@@ -126,11 +126,13 @@ endfunction
 
 " Buffer-cached gitroot
 "
+" @cached
 " @param {String} path
 " @return {String} git root of file or empty string
 function! dko#project#GetGitRootByFile(path) abort
-  if exists('b:dko_project_gitroot') | return b:dko_project_gitroot | endif
-  let b:dko_project_gitroot = dko#git#GetRoot(a:path)
+  if !exists('b:dko_project_gitroot')
+    let b:dko_project_gitroot = dko#git#GetRoot(a:path)
+  endif
   return b:dko_project_gitroot
 endfunction
 
@@ -147,25 +149,33 @@ function! dko#project#GetRootByFileMarker(markers) abort
   return l:result
 endfunction
 
-" @return {String}
+" @cached
+" @return {String[]}
 function! dko#project#Type() abort
-  if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
-    return 'wordpress'
+  if !exists('b:dko_project_type')
+    let b:dko_project_type = []
+    if expand('%:p') =~? 'content/\(mu-plugins\|plugins\|themes\)'
+      let b:dko_project_type += 'wordpress'
+    endif
   endif
-  return ''
+  return b:dko_project_type
 endfunction
 
 " Get array of possible config file paths for a project -- any dirs where
 " files like .eslintrc, package.json, etc. might be stored. These will be
 " paths relative to the root from dko#project#GetRoot
 "
+" @cached
 " @return {String[]} config paths relative to dko#project#GetRoot
 function! dko#project#GetPaths() abort
-  return get(
-        \   b:, 'dko#project#roots', get(
-        \   g:, 'dko#project#roots',
-        \   s:default_roots
-        \ ))
+  if !exists('b:dko_project_paths')
+    let b:dko_project_paths = get(
+          \   b:, 'dko_project_roots', get(
+          \   g:, 'dko_project_roots',
+          \   s:default_roots
+          \ ))
+  endif
+  return b:dko_project_paths
 endfunction
 
 " Get full path to a dir in a project
@@ -273,6 +283,7 @@ let s:prettierrc_candidates = [
       \   'prettier.config.js',
       \ ]
 
+" @cached
 " @return {String} prettierrc filename
 function! dko#project#GetPrettierrc() abort
   if !exists('b:dko_project_prettierrc')
@@ -292,6 +303,7 @@ endfunction
 
 " Conditionally run Neomake if it is enabled for buffer
 function! dko#project#LintBuffer() abort
+  if !dko#IsTypedFile('%') | return | endif
   if dkoplug#IsLoaded('neomake')
     let l:fts = neomake#utils#get_config_fts(&filetype)
     for l:ft in l:fts

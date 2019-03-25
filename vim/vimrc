@@ -502,11 +502,10 @@ endif
 " Autocommands
 " ============================================================================
 
-" Disable linting and syntax highlighting for large and minified files
-augroup dkofile
-  autocmd BufReadPre *
-        \ if getfsize(expand("%")) > 10000000 | syntax off | endif
-  autocmd BufReadPre *.min.* syntax off
+" https://github.com/neovim/neovim/issues/7994
+augroup dkoneovimfixes
+  autocmd!
+  autocmd InsertLeave * set nopaste
 augroup END
 
 augroup dkowindow
@@ -514,9 +513,22 @@ augroup dkowindow
   autocmd VimResized * wincmd =
 augroup END
 
+augroup dkolines
+  autocmd!
+  autocmd VimEnter * nested call dkoline#Init()
+augroup END
+
 augroup dkoproject
   autocmd!
   autocmd BufNewFile,BufRead,BufWritePost * call dko#project#MarkBuffer()
+augroup END
+
+" @TODO set per buffer so can disable in dkofile
+augroup dkoautolint
+  autocmd!
+  " @TODO can use neomake#configure#automake() when blacklist is implemented
+  " Keep this last so all the other autocmds happen first
+  autocmd BufWritePost * call dko#project#LintBuffer()
 augroup END
 
 augroup dkocoloredit
@@ -528,21 +540,19 @@ augroup dkocoloredit
         \ | endif
 augroup END
 
-augroup dkolines
-  autocmd!
-  autocmd VimEnter * nested call dkoline#Init()
-augroup END
-
 " Read only mode (un)mappings
 augroup dkoreadonly
   autocmd!
   autocmd BufEnter * call dko#readonly#Unmap()
 augroup END
 
-" https://github.com/neovim/neovim/issues/7994
-augroup dkoneovimfixes
-  autocmd!
-  autocmd InsertLeave * set nopaste
+" Disable linting and syntax highlighting for large and minified files
+augroup dkohugefile
+  autocmd BufReadPre *
+        \   if getfsize(expand("%")) > 10000000
+        \|    syntax off
+        \|  endif
+  autocmd BufReadPre *.min.* syntax off
 augroup END
 
 " ============================================================================
