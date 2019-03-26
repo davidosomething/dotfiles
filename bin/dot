@@ -532,10 +532,6 @@ __dko_dotfiles__linux__arch__update() {
   if __dko_has "pacaur"; then
     # update system
     pacaur -Syu
-  elif __dko_has "yaourt"; then
-    # -Sy         -- get new file list
-    yaourt --sync --refresh
-    yaourt -Syua
   elif __dko_has "aura"; then
     aura -Syua
   else

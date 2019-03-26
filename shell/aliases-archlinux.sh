@@ -4,8 +4,6 @@ alias paclast="expac --timefmt='%Y-%m-%d %T' '%l\\t%n' | sort | tail -20"
 
 if command -v pacaur >/dev/null; then
   alias b='pacaur'
-elif command -v yaourt >/dev/null; then
-  alias b='yaourt'
 fi
 alias bi='b -S'
 alias bq='b -Qs'
