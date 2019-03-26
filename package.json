@@ -70,6 +70,6 @@
   "dependencies": {},
   "devDependencies": {
     "eslint": "5.15.3",
-    "eslint-config-davidosomething": "2.0.0"
+    "eslint-config-davidosomething": "3.0.0"
   }
 }
