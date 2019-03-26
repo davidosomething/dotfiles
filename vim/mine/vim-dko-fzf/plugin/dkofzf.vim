@@ -27,7 +27,6 @@ endfunction
 " Notes:
 " - Use fzf#wrap() instead of 'sink' option to get the <C-T/V/X> keybindings
 "   when the source is to open files
-"
 
 " Some default options.
 " --cycle through list

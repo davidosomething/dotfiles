@@ -6,8 +6,8 @@ augroup END
 
 if !dkoplug#IsLoaded('fzf.vim') | finish | endif
 
-let s:cpo_save = &cpoptions
-set cpoptions&vim
+autocmd dkofzf FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd dkofzf BufLeave <buffer> set laststatus=2 showmode ruler
 
 " ============================================================================
 " fzf.vim settings
@@ -31,6 +31,9 @@ let g:fzf_buffers_jump = 1
 " ============================================================================
 " Mappings
 " ============================================================================
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 
 " junegunn/fzf mappings for the neovim :term
 " Bind <fx> to abort FZF (<C-g> is one of the default abort keys in FZF)
