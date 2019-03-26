@@ -1,0 +1,7 @@
+p {
+  color: red;
+  background: blue;
+  border: 1px #ff00ff solid;
+  outline: 1px #0f0 solid;
+  box-shadow: 0 0 1 rgba(20, 100, 120, 0);
+}

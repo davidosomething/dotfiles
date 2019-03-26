@@ -482,11 +482,14 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss' ] }
 
   " Hex (et al) color highlighting
+  " All disabled -- coc-css does this for color names and hex
   "Plug 'Rykka/colorv.vim'    --  requires python
   "Plug 'chrisbra/Colorizer'  --  slower and not as complete but more features
   "                               like X11 colors and color translation for
   "                               degraded terminals
-  Plug 'ap/vim-css-color'
+  "Plug 'ap/vim-css-color'
+  " use signs or virtualtext to display color
+  "Plug 'RRethy/vim-hexokinase'
 
   " ==========================================================================
   " Language: .tmux.conf
