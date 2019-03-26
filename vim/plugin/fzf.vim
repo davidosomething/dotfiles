@@ -58,30 +58,31 @@ autocmd dkofzf FileType fzf call s:MapCloseFzf()
 
 " Map the commands -- the actual plugin is loaded by a vim-plug 'on' hook when
 " a command is run for the first time
-execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper!' })
-execute dko#MapAll({ 'key': '<F2>',
-      \ 'command': 'execute("FZFRelevant " . dko#project#GetRoot())' })
-execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFProject' })
-execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
+execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper' })
+nnoremap  <silent><special>   <A-g>   :<C-U>FZFGrepper<CR>
 
-" Start using meta mappings since I hate the Macbook touchbar
-nnoremap  <silent><special>   <A-b>   :<C-U>FZFBuffers<CR>
-nnoremap  <silent><special>   <A-c>   :<C-U>FZFCommands<CR>
-nnoremap  <silent><special>   <A-f>   :<C-U>FZFFiles<CR>
-nnoremap  <silent><special>   <A-g>   :<C-U>FZFGrepper!<CR>
-nnoremap  <silent><special>   <A-p>   :<C-U>FZFProject<CR>
+execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFRelevant' })
 nnoremap  <silent><special>   <A-r>   :<C-U>FZFRelevant<CR>
-nnoremap  <silent><special>   <A-t>   :<C-U>FZFTests<CR>
-nnoremap  <silent><special>   <A-v>   :<C-U>FZFVim<CR>
+
+execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFProject' })
+nnoremap  <silent><special>   <A-p>   :<C-U>FZFProject<CR>
 
 execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
 nnoremap  <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
-
 " autocmd dkofzf VimEnter *
 "      \   if dkoplug#IsLoaded('redismru.vim')
 "      \|    execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFRedisMRU' })
 "      \|    nnoremap  <silent><special>   <A-m>   :<C-U>FZFRedisMRU<CR>
 "      \|  endif
+
+execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
+nnoremap  <silent><special>   <A-f>   :<C-U>FZFFiles<CR>
+
+" Start using meta mappings since I hate the Macbook touchbar
+nnoremap  <silent><special>   <A-b>   :<C-U>FZFBuffers<CR>
+nnoremap  <silent><special>   <A-c>   :<C-U>FZFCommands<CR>
+nnoremap  <silent><special>   <A-t>   :<C-U>FZFTests<CR>
+nnoremap  <silent><special>   <A-v>   :<C-U>FZFVim<CR>
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
