@@ -210,7 +210,10 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion engine
   " --------------------------------------------------------------------------
 
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {
+        \   'tag': '*',
+        \   'do': { -> coc#util#install() && dko#coc#InstallExtensions() }
+        \ }
 
   " --------------------------------------------------------------------------
   " Completion libraries
