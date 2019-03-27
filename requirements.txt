@@ -1,6 +1,6 @@
 bashate==0.6.0
 pycodestyle==2.5.0
 safety==1.8.5
-tox==3.7.0
+tox==3.8.0
 vim-vint==0.3.18
 yamllint==1.15.0
