@@ -274,12 +274,9 @@ endfunction
 " @param {Int} bufnr
 " @return {String}
 function! dkoline#GitBranch(bufnr) abort
-  return dko#IsNonFile(a:bufnr)
+  return dko#IsNonFile(a:bufnr) || empty(get(b:, 'dko_branch'))
         \ ? ''
-        \ : dkoplug#IsLoaded('gina.vim') ? ' ' . gina#component#repo#branch() . ' '
-        \ : dkoplug#IsLoaded('fugitive.vim') ? ' ' . fugitive#head(7) . ' '
-        \ : !empty(get(b:, 'dko_branch')) ? ' ' . b:dko_branch . ' '
-        \ : ''
+        \ : ' ' . b:dko_branch . ' '
 endfunction
 
 " @return {string} job1,job2,job3
