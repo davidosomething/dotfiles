@@ -229,7 +229,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion: VimL
   " --------------------------------------------------------------------------
 
-  Plug 'Shougo/neco-vim', WithCompl()
+  "Plug 'Shougo/neco-vim', WithCompl()
   " CRASHES!
   "Plug 'neoclide/coc-neco', WithCompl()
 
