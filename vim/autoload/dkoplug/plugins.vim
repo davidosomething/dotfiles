@@ -242,6 +242,8 @@ function! dkoplug#plugins#LoadAll() abort
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
 
+  Plug 'suy/vim-context-commentstring'
+
   " ==========================================================================
   " Language: ansible config
   " ==========================================================================
