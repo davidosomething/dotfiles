@@ -1,12 +1,13 @@
 " autoload/dko/neomake/bash.vim
 
-function! dko#neomake#bash#Setup() abort
-  " Called on *.sh, so we check the shebang
-  let l:shebang = getline(1)
-  if l:shebang !~# '^#!.*/.*\s\+bash\>'
-    return
-  endif
+" Called on *.sh, so we check the shebang
+function! dko#neomake#bash#SetupShebang() abort
+  if !dko#IsShebangBash() | return | endif
+  call dko#neomake#bash#Setup()
+endfunction
 
+" Call any time to reconfigure makers in a buffer for bash
+function! dko#neomake#bash#Setup() abort
   let b:neomake_sh_shellcheck_args = [
         \   '--format=gcc',
         \   '--external-sources',

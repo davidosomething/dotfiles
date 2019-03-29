@@ -307,10 +307,21 @@ endfunction
 function! dko#project#LintBuffer() abort
   if !dko#IsTypedFile('%') | return | endif
   if dkoplug#IsLoaded('neomake')
+    if exists('b:dko_neomake_lint')
+      Neomake
+      return
+    endif
+
     let l:fts = neomake#utils#get_config_fts(&filetype)
     for l:ft in l:fts
+      " Makers disabled for this buffer + ft?
       if exists('b:neomake_' . l:ft . '_enabled_makers')
-            \ && !empty(b:neomake_{l:ft}_enabled_makers)
+            \ && empty(b:neomake_{l:ft}_enabled_makers)
+        continue
+      endif
+      " Has makers?
+      if len(neomake#GetMakers(l:ft))
+        let b:dko_neomake_lint = 1
         Neomake
         return
       endif

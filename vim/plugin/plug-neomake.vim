@@ -70,7 +70,7 @@ augroup dkoneomake
         \ call dko#neomake#python#ActivatedPyenv()
   autocmd User vim-pyenv-dectivate-post
         \ call dko#neomake#python#DeactivatedPyenv()
-  autocmd FileType sh           call dko#neomake#bash#Setup()
+  autocmd FileType sh           call dko#neomake#bash#SetupShebang()
   autocmd FileType javascript   call dko#neomake#javascript#Setup()
   autocmd FileType lua          call dko#neomake#lua#Setup()
   autocmd FileType markdown     call dko#neomake#markdown#Setup()
