@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-03-22T14:46:15.019Z
+Generated on 2019-03-29T15:25:43.365Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -29,6 +29,7 @@ Generated on 2019-03-22T14:46:15.019Z
 | [gdbm](https://www.gnu.org/software/gdbm/) | `GNU database manager` |
 | [gettext](https://www.gnu.org/software/gettext/) | `GNU internationalization (i18n) and localization (l10n) library` |
 | [git](https://git-scm.com) | `Distributed revision control system` |
+| [glib](https://developer.gnome.org/glib/) | `Core application library for C` |
 | [go](https://golang.org) | `Open source programming language to build simple/reliable/efficient software` |
 | [gradle](https://www.gradle.org/) | `Open-source build automation tool based on the Groovy and Kotlin DSL` |
 | [hadolint](https://github.com/hadolint/hadolint) | `Smarter Dockerfile linter to validate best practices` |
@@ -48,6 +49,7 @@ Generated on 2019-03-22T14:46:15.019Z
 | [launchctl-completion](https://github.com/CamJN/launchctl-completion) | `Bash completion for Launchctl` |
 | [libde265](https://github.com/strukturag/libde265) | `Open h.265 video codec implementation` |
 | [libevent](https://libevent.org/) | `Asynchronous event library` |
+| [libffi](https://sourceware.org/libffi/) | `Portable Foreign Function Interface library` |
 | [libheif](https://www.libde265.org/) | `ISO/IEC 23008-12:2017 HEIF file format decoder and encoder` |
 | [libidn2](https://www.gnu.org/software/libidn/#libidn2) | `International domain name library (IDNA2008, Punycode and TR46)` |
 | [libimobiledevice](https://www.libimobiledevice.org/) | `Library to communicate with iOS devices natively` |
@@ -73,7 +75,7 @@ Generated on 2019-03-22T14:46:15.019Z
 | [maven](https://maven.apache.org/) | `Java-based project management` |
 | [mercurial](https://mercurial-scm.org/) | `Scalable distributed version control system` |
 | [modd](https://github.com/cortesi/modd) | `Flexible tool for responding to filesystem changes` |
-| [mongodb@3.2](https://www.mongodb.org/) | `High-performance, schema-free, document-oriented database` |
+| [mongodb@3.6](https://www.mongodb.org/) | `High-performance, schema-free, document-oriented database` |
 | [moreutils](https://joeyh.name/code/moreutils/) | `Collection of tools that nobody wrote when UNIX was young` |
 | [msgpack](https://msgpack.org/) | `Library for a binary-based efficient data interchange format` |
 | [ncurses](https://www.gnu.org/software/ncurses/) | `Text-based UI library` |
@@ -92,6 +94,7 @@ Generated on 2019-03-22T14:46:15.019Z
 | [readline](https://tiswww.case.edu/php/chet/readline/rltop.html) | `Library for command-line editing` |
 | [redis](https://redis.io/) | `Persistent key-value database, with built-in net interface` |
 | [ripgrep](https://github.com/BurntSushi/ripgrep) | `Search tool like grep and The Silver Searcher` |
+| [shared-mime-info](https://wiki.freedesktop.org/www/Software/shared-mime-info) | `Database of common MIME types` |
 | [shellcheck](https://www.shellcheck.net/) | `Static analysis and lint tool, for (ba)sh scripts` |
 | [sqlite](https://sqlite.org/) | `Command-line interface for SQLite` |
 | [sshpass](http://sourceforge.net/projects/sshpass) | `null` |
