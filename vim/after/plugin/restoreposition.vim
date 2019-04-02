@@ -1,4 +1,4 @@
-" plugin/restoreposition.vim
+" after/plugin/restoreposition.vim
 
 " ============================================================================
 " From vim help docs on last-position-jump
@@ -8,8 +8,10 @@
 let s:excluded_ft = [ 'gitbranchdescription', 'gitcommit' ]
 
 function! s:RestorePosition() abort
-  if index(s:excluded_ft, &filetype) < 0
-        \ && line("'\"") > 1 && line("'\"") <= line('$')
+  if !dko#IsNonFile('%') || (
+        \   index(s:excluded_ft, &filetype) < 0
+        \   && line("'\"") > 1 && line("'\"") <= line('$')
+        \)
     normal! g`"
   endif
 endfunction
