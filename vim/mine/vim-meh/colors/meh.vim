@@ -290,6 +290,20 @@ hi! link shCommandSub         Function
 hi! link shOption             Normal
 
 " ============================================================================
+" Typescript - yats.vim
+" ============================================================================
+
+hi! link  typescriptAbstract                Operator
+hi! link  typescriptAccessibilityModifier   StorageClass
+hi! link  typescriptClassKeyword            Normal
+hi! link  typescriptClassName               Label
+hi! link  typescriptExport                  StorageClass
+hi! link  typescriptImport                  StorageClass
+hi! link  typescriptCastKeyword             StorageClass
+hi! link  typescriptTypeReference           Normal
+hi! link  typescriptVariable                StorageClass
+
+" ============================================================================
 " vim-plug
 " ============================================================================
 
