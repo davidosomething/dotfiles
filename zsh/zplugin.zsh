@@ -27,6 +27,10 @@ zplugin load tj/git-extras
 zplugin ice lucid wait'0'
 zplugin snippet "${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
 
+# `` compl for git commands
+zplugin ice lucid wait'0'
+zplugin load 'hschne/fzf-git'
+
 zplugin ice lucid wait'0' as'program' pick'git-open'
 zplugin load paulirish/git-open
 
