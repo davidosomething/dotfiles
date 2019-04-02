@@ -28,21 +28,13 @@ Keep `(g)vimrc` (no dot in filename) in `~/.vim/` -- Vim knows to look in there.
 - Using `pyenv`, install python 3+.
 - Set up a virtualenv using `pyenv-virtualenv`: `pyenv virtualenv neovim3`
 - Activate the virtualenv `pyenv activate neovim3`
-- `pip install neovim` in the virtualenv
-- `pip install jedi` for python completion while still in the virtualenv
+- `pip install pynvim` in the virtualenv
 - You can now switch back to whatever python (`pyenv deactivate`) you want,
   `init.vim` for Neovim startup is already configured to find the `neovim3`
   virtualenv.
 - `:UpdateRemotePlugins` if installing/upgrading python-based plugins
 - `:CheckHealth` to see if the python3 setup and plugins are working. iTerm
   should use xterm-256color-italic terminfo if the backspace message is there.
-
-### Ruby Settings
-
-- Not used for anything right now.
-- Using `chruby` install and use a ruby.
-- Install the `neovim` gem
-- `:CheckHealth` to see if Neovim can find the gem.
 
 ### JavaScript Settings
 
@@ -74,7 +66,7 @@ is generally a wrapper around them that checks for
 
 |                 Key | Desc                                                    |
 | ------------------: | :------------------------------------------------------ |
-|  `<F1>` or `<A-g>`  | :FZFGrepper! - custom, rg/ag with preview or git-grep |
+|  `<F1>` or `<A-g>`  | :FZFGrepper - custom, rg/ag with preview or git-grep |
 |  `<F2>`             | :FZFRelevant - custom, dirty/new files vs git master |
 |  `<F3>`             | :FZFProject - custom, :FZFFiles but from project root |
 |  `<F4>` or `<A-m>`  | :FZFMRU - custom MRU |
@@ -82,10 +74,10 @@ is generally a wrapper around them that checks for
 |  `<F6>`             | :Neomake  |
 |  `<F7>`             | :Neomake! |
 |  `<F8>`             | unused |
-|  `<F9>`             | UI - :QuickfixsignsToggle (on by default) |
+|  `<F9>`             | unused |
 | `<F10>`             | do not use -- gnome-terminal menu key |
-| `<F11>`             | UI - dkotabline#Toggle() |
-| `<F12>`             | UI - set pastetoggle |
+| `<F11>`             | unused |
+| `<F12>`             | unused |
 | `<A-b>`             | :FZFBuffers |
 | `<A-c>`             | :FZFCommands |
 | `<A-p>`             | :FZFProject |
@@ -94,7 +86,6 @@ is generally a wrapper around them that checks for
 | `<A-v>`             | :FZFVim - ~/.vim |
 | `<C-s>`             | Extract - cycle paste prev |
 | `<C-S>`             | Extract - cycle paste next |
-|    `/`              | UI - incsearch |
 |    `\`              | UI - :OverCommandLine |
 
 See `plugin/mappings.vim` (and other `plugin/*` files) for other mappings.
