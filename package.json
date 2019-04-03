@@ -16,7 +16,7 @@
     "mdfiles": "find . -type f -name \"*.md\" -not -path \"*/chromium/*\" -not -path \"*/node_modules/*\" -not -path \"*tmp/*\" -not -path \"./tmux/plugins*\" -not -path \"./vale/*\" -not -path \"*/vendor/*\" -not -path \"*.zplugin/*\"",
     "pyfiles": "find . -type f -name \"*.py\" -path \"*bitbar/mine/*\"",
     "shfiles": "find . -type f -name \"*.sh\" -not -path \"*/vendor/*\" -not -path \"*/tmux/plugins*\" -not -path \"*.zplugin/*\"",
-    "vimfiles": "find . -type f -name \"*.vim\" -path \"./vim/*\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\""
+    "vimfiles": "find . -type f -name \"*.vim\" -path \"./vim/*\" -not -name \"plug.vim\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\""
   },
   "scripts": {
     "_markdownlint": "npx --ignore-existing --quiet markdownlint-cli --config ./markdownlint/dot.markdownlintrc",
