@@ -195,7 +195,7 @@ let s:nonfilebuftypes = join([
       \], '|')
 
 let s:nonfilefiletypes = join([
-      \ 'git',
+      \ 'git$',
       \ 'netrw',
       \ 'vim-plug'
       \], '|')
