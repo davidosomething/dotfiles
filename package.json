@@ -12,8 +12,11 @@
     "test": "tests"
   },
   "config": {
-    "bashfiles": "find . -type f -name \"*.bash\" -not -path \"*vendor/*\" -not -path \"*tmp/*\" -not -path \"*.zplugin/*\"",
-    "shfiles": "find . -type f -name \"*.sh\" -not -path \"*vendor/*\" -not -path \"*tmux/plugins*\" -not -path \"*.zplugin/*\""
+    "bashfiles": "find . -type f -name \"*.bash\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\" -not -path \"*.zplugin/*\"",
+    "mdfiles": "find . -type f -name \"*.md\" -not -path \"*/chromium/*\" -not -path \"*/node_modules/*\" -not -path \"*tmp/*\" -not -path \"./tmux/plugins*\" -not -path \"./vale/*\" -not -path \"*/vendor/*\" -not -path \"*.zplugin/*\"",
+    "pyfiles": "find . -type f -name \"*.py\" -path \"*bitbar/mine/*\"",
+    "shfiles": "find . -type f -name \"*.sh\" -not -path \"*/vendor/*\" -not -path \"*/tmux/plugins*\" -not -path \"*.zplugin/*\"",
+    "vimfiles": "find . -type f -name \"*.vim\" -path \"./vim/*\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\""
   },
   "scripts": {
     "_markdownlint": "npx --ignore-existing --quiet markdownlint-cli --config ./markdownlint/dot.markdownlintrc",
@@ -22,13 +25,13 @@
     "lint:editorconfig": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && npx --ignore-existing --quiet echint && echo ' ✓ passed\n'",
     "lint:bash:bashate": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && bashate --ignore=E003,E005,E006 -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
     "lint:bash:shellcheck": "./bin/dko-header \"  ${npm_lifecycle_event}  \"             && shellcheck --shell=bash -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
-    "lint:python": "if [ -z \"$CI\" ]; then ./bin/dko-header \"  ${npm_lifecycle_event}  \"  && flake8 -- $(npx --ignore-existing --quiet glob-cli2 \"bitbar/mine/*.py\") && echo ' ✓ passed\n'; fi",
-    "lint:readmes": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                     && npm run --silent _markdownlint -- $(npx --ignore-existing --quiet glob-cli2 \"{.,*,vim/mine/*}/README.md\") && echo ' ✓ passed\n'",
+    "lint:python": "if [ -z \"$CI\" ]; then ./bin/dko-header \"  ${npm_lifecycle_event}  \"  && flake8 -- $(eval \"$npm_package_config_pyfiles\") && echo ' ✓ passed\n'; fi",
+    "lint:readmes": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                     && npm run --silent _markdownlint -- $(eval \"$npm_package_config_mdfiles\") && echo ' ✓ passed\n'",
     "lint:shell:shellcheck": "./bin/dko-header \"  ${npm_lifecycle_event}  \"            && shellcheck --exclude=SC2148 --shell=sh -- $(eval \"$npm_package_config_shfiles\") && echo ' ✓ passed\n'",
     "lint:vim:after": "./bin/dko-header \"  ${npm_lifecycle_event}  \"     && vint -- vim/after          && echo ' ✓ passed\n'",
     "lint:vim:autoload": "./bin/dko-header \"  ${npm_lifecycle_event}  \"  && vint -- vim/autoload/dko*  && echo ' ✓ passed\n'",
     "lint:vim:ftplugin": "./bin/dko-header \"  ${npm_lifecycle_event}  \"  && vint -- vim/ftplugin       && echo ' ✓ passed\n'",
-    "lint:vim:rc": "./bin/dko-header \"  ${npm_lifecycle_event}  \"        && vint -- $(npx --ignore-existing --quiet glob-cli2 \"vim/{gvimrc,vimrc,*.vim}\") && echo ' ✓ passed\n'",
+    "lint:vim:rc": "./bin/dko-header \"  ${npm_lifecycle_event}  \"        && vint -- $(eval \"$npm_package_config_vimfiles\") && echo ' ✓ passed\n'",
     "lint:vim:mine": "./bin/dko-header \"  ${npm_lifecycle_event}  \"      && vint -- vim/mine   && echo ' ✓ passed\n'",
     "lint:vim:plugin": "./bin/dko-header \"  ${npm_lifecycle_event}  \"    && vint -- vim/plugin && echo ' ✓ passed\n'",
     "lint:yaml": "./bin/dko-header \"  ${npm_lifecycle_event}  \"          && yamllint -- . && echo ' ✓ passed\n'",
