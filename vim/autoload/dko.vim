@@ -212,7 +212,9 @@ endfunction
 " @param {Int|String} bufnr or {expr} as in bufname()
 " @return {Boolean}
 function! dko#IsEditable(bufnr) abort
-  return !getbufvar(a:bufnr, '&readonly') && !dko#IsNonFile(a:bufnr)
+  return getbufvar(a:bufnr, '&modifiable')
+        \ && !getbufvar(a:bufnr, '&readonly')
+        \ && !dko#IsNonFile(a:bufnr)
 endfunction
 
 " Usually to see if there's a linter/syntax
