@@ -1,8 +1,6 @@
 # Linux dotfiles
 
 - See [ArchLinux](arch.md)
-- See [Openbox](../openbox/README.md) - I switched to gnome3 so the Openbox
-  readme is a bit out-of-date.
 
 Except for the dotfiles in this directory, the other paths should be symlinked
 into `$XDG_CONFIG_HOME`. Only `locale.conf` in this path is COPIED to
@@ -25,18 +23,3 @@ probably need `terminfo` installed. Run the bootstrap scripts
 ### ../bootstrap/linux/gsettings
 
 This flips some gnome shell settings I like.
-
-### Deprecated
-
-#### ../bootstrap/linux/thunar
-
-This flips some thunar settings I like. Only used in Openbox desktop so
-probably not up to date.
-
-#### startx
-
-My startx (no longer used, I use GDM now) is aliased to
-
-    startx > $DOTFILES/logs/startx.log 2>&1
-
-

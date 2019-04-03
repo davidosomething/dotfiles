@@ -119,10 +119,6 @@ Output list of file paths relevant to what you're working on. I.e., files that:
 
 > Make directory
 
-## ob-reconfigure
-
-> Reload openbox
-
 ## path
 
 > Pretty list path env
