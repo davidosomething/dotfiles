@@ -1,4 +1,4 @@
--- luacheck: globals Command history DefaultMapping
+-- luacheck: globals Command DefaultMapping history hs
 --
 local obj = {}
 obj.__index = obj

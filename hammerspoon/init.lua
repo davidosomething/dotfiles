@@ -13,8 +13,9 @@ hs.hotkey.bind({"cmd", "ctrl"}, "V", function()
 end)
 
 ---
--- reload config
+-- clear seal cache and reload config
 hs.hotkey.bind(hyper, "R", function()
+  spoon.Seal:refreshAllCommands()
   hs.reload()
   hs.notify.show("Hammerspoon config reloaded", "Manually", "")
 end)
@@ -32,6 +33,7 @@ spoon.Caffeine:start()
 -- http://www.hammerspoon.org/Spoons/Seal.html
 hs.loadSpoon("Seal")
 spoon.Seal:loadPlugins({ "calc", "myapps" })
+spoon.Seal:refreshAllCommands()
 spoon.Seal:bindHotkeys({
   show = {{"cmd"}, "Space"}
 })
