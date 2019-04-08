@@ -185,7 +185,8 @@ set noswapfile
 
 " Use backup files when writing (create new file, replace old one with new
 " one)
-set writebackup
+" Disabled for coc.nvim compat
+set nowritebackup
 " but do not leave around backup.xyz~ files after that
 set nobackup
 " backupcopy=yes is the default, just be explicit. We need this for
