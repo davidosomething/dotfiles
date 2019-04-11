@@ -13,9 +13,10 @@ addons:
 before_install:
   - nvm install --lts
 install:
-  - pip install tox
+  - pip install --requirement=requirements.txt
+  - npm ci
 script:
-  - tox
+  - npm test --silent
 deploy:
   skip_cleanup: true
   provider: script
