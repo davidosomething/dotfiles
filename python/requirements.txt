@@ -7,9 +7,10 @@ flake8-import-order==0.18.1
 flake8-quotes==1.0.0
 neovim==0.3.1
 neovim-remote==2.1.7
+pycodestyle==2.5.0
 pydocstyle==3.0.0
 pyflakes==2.1.1
 pylint==2.3.1
 yamllint==1.15.0
-vim-vint==0.3.19
+vim-vint==0.4a1
 vulture==1.0
