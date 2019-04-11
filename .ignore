@@ -1,4 +1,5 @@
 *.crt
+.tox/
 base16/
 certs/
 fonts/

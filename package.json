@@ -12,11 +12,12 @@
     "test": "tests"
   },
   "config": {
-    "bashfiles": "find . -type f -name \"*.bash\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\" -not -path \"*.zplugin/*\"",
-    "mdfiles": "find . -type f -name \"*.md\" -not -path \"*/chromium/*\" -not -path \"*/node_modules/*\" -not -path \"*tmp/*\" -not -path \"./tmux/plugins*\" -not -path \"./vale/*\" -not -path \"*/vendor/*\" -not -path \"*.zplugin/*\"",
+    "bashfiles": "find . -type f -name \"*.bash\" -not -path \"*.tox/*\" -not -path \"*.zplugin/*\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\"",
+    "mdfiles": "find . -type f -name \"*.md\" -not -path \"./tmux/plugins*\" -not -path \"./vale/*\"  -not -path \"*.zplugin/*\" -not -path \"*/chromium/*\" -not -path \"*/node_modules/*\" -not -path \"*tmp/*\" -not -path \"*/vendor/*\"",
     "pyfiles": "find . -type f -name \"*.py\" -path \"*bitbar/mine/*\"",
-    "shfiles": "find . -type f -name \"*.sh\" -not -path \"*/vendor/*\" -not -path \"*/tmux/plugins*\" -not -path \"*.zplugin/*\"",
-    "vimfiles": "find . -type f -name \"*.vim\" -path \"./vim/*\" -not -name \"plug.vim\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\""
+    "shfiles": "find . -type f -name \"*.sh\" -not -path \"*.tox/*\" -not -path \"*.zplugin/*\" -not -path \"*/vendor/*\" -not -path \"*/tmux/plugins*\"",
+    "vimfiles": "find . -type f -name \"*.vim\" -path \"./vim/*\" -not -name \"plug.vim\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\"",
+    "yamlfiles": "find . -type f -regex \".*\\.y\\(a\\)*ml\" -not -path \"*.tox/*\""
   },
   "scripts": {
     "_markdownlint": "npx --ignore-existing --quiet markdownlint-cli --config ./markdownlint/dot.markdownlintrc",
@@ -34,7 +35,7 @@
     "lint:vim:rc": "./bin/dko-header \"  ${npm_lifecycle_event}  \"        && vint -- $(eval \"$npm_package_config_vimfiles\") && echo ' ✓ passed\n'",
     "lint:vim:mine": "./bin/dko-header \"  ${npm_lifecycle_event}  \"      && vint -- vim/mine   && echo ' ✓ passed\n'",
     "lint:vim:plugin": "./bin/dko-header \"  ${npm_lifecycle_event}  \"    && vint -- vim/plugin && echo ' ✓ passed\n'",
-    "lint:yaml": "./bin/dko-header \"  ${npm_lifecycle_event}  \"          && yamllint -- . && echo ' ✓ passed\n'",
+    "lint:yaml": "./bin/dko-header \"  ${npm_lifecycle_event}  \"          && yamllint -- $(eval \"$npm_package_config_yamlfiles\") && echo ' ✓ passed\n'",
     "pretest": "npm run --silent lint",
     "test": "./bootstrap/symlink",
     "posttest": "echo DONE"
