@@ -257,20 +257,6 @@ function! dkoline#Dirty(bufnr) abort
   return getbufvar(a:bufnr, '&modified') ? ' + ' : ''
 endfunction
 
-" @return {String}
-function! dkoline#Anzu() abort
-  if !exists('*anzu#search_status')
-    return ''
-  endif
-
-  let l:anzu = anzu#search_status()
-  return empty(l:anzu)
-        \ ? ''
-        \ : ' %{anzu#search_status()} '
-endfunction
-
-" Uses fugitive or gita to get cached branch name, or b:dko_branch
-"
 " @param {Int} bufnr
 " @return {String}
 function! dkoline#GitBranch(bufnr) abort
