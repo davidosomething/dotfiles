@@ -36,9 +36,7 @@
     "lint:vim:mine": "./bin/dko-header \"  ${npm_lifecycle_event}  \"      && vint -- vim/mine   && echo ' ✓ passed\n'",
     "lint:vim:plugin": "./bin/dko-header \"  ${npm_lifecycle_event}  \"    && vint -- vim/plugin && echo ' ✓ passed\n'",
     "lint:yaml": "./bin/dko-header \"  ${npm_lifecycle_event}  \"          && yamllint -- $(eval \"$npm_package_config_yamlfiles\") && echo ' ✓ passed\n'",
-    "pretest": "npm run --silent lint",
-    "test": "./bootstrap/symlink",
-    "posttest": "echo DONE"
+    "test": "npm run --silent lint"
   },
   "repository": {
     "type": "git",

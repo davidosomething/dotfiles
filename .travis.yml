@@ -16,8 +16,8 @@ install:
   - pip install --requirement=requirements.txt
   - npm ci
 script:
-  - echo "$CI"
   - npm test --silent
+  - ./bootstrap/symlink
 deploy:
   skip_cleanup: true
   provider: script
