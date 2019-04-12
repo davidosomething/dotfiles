@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-03-29T15:25:43.365Z
+Generated on 2019-04-12T14:10:41.681Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -81,6 +81,7 @@ Generated on 2019-03-29T15:25:43.365Z
 | [ncurses](https://www.gnu.org/software/ncurses/) | `Text-based UI library` |
 | [neovim](https://neovim.io/) | `Ambitious Vim-fork focused on extensibility and agility` |
 | [node](https://nodejs.org/) | `Platform built on V8 to build network applications` |
+| [node@10](https://nodejs.org/) | `Platform built on V8 to build network applications` |
 | [oniguruma](https://github.com/kkos/oniguruma/) | `Regular expressions library` |
 | [openexr](https://www.openexr.com/) | `High dynamic-range image file format` |
 | [openjpeg](https://www.openjpeg.org/) | `Library for JPEG-2000 image manipulation` |
