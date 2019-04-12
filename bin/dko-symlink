@@ -24,9 +24,14 @@ __dko_symlink() {
     return
   elif (( result == 10 )); then
     __dko_status "Found different ${fulltargetpath}"
-    read -p "          Overwrite? [y/N] " -r
-    if [[ -n "$CI" ]] || [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      __dko_warn "Skipped ${fulltargetpath}"
+    if [[ -z "$CI" ]]; then
+      read -p "          Overwrite? [y/N] " -r
+      if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        __dko_warn "Skipped ${fulltargetpath}"
+        return
+      fi
+    else
+      __dko_ok_ "CI run: skipping ${fulltargetpath}"
       return
     fi
     # OVERWRITE!
