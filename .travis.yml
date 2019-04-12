@@ -16,6 +16,7 @@ install:
   - pip install --requirement=requirements.txt
   - npm ci
 script:
+  - echo "$CI"
   - npm test --silent
 deploy:
   skip_cleanup: true
