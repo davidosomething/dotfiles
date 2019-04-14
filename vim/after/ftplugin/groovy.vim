@@ -1,7 +1,3 @@
-" after/ftplugin/gitcommit.vim
-"
-" Nice big git commit message window
-" Only runs in a vim server named GIT (probably opened via my "e" script)
-"
+" after/ftplugin/groovy.vim
 
 call dko#TwoSpace()
