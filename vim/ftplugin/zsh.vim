@@ -1,3 +1,3 @@
-" ftplugin/coffee.vim
+" ftplugin/zsh.vim
 
 call dko#TwoSpace()
