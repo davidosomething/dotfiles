@@ -114,7 +114,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   "Plug 'sgur/vim-editorconfig'
 
-  " highlight matching html tag
+  " highlight matching html/xml tag
   Plug 'gregsexton/MatchTag'
 
   " add gS on char to smart split lines at char, like comma lists and html tags
