@@ -220,6 +220,8 @@ hi! link jsClassProperty      Normal
 " token 'componentWillMount'
 hi! link jsClassFuncName      Normal
 
+hi! link jsArrowFunction      Delimiter
+
 hi! link jsFuncCall           Function
 hi! link jsFuncArgs           Identifier
 
@@ -235,6 +237,11 @@ hi! link jsObjectProp         Normal
 hi! link jsxAttrib              dkoNormalKey
 hi! link jsxAttributeBraces     Noise
 hi! link jsxEqual               Noise
+
+hi! link jsxOpenPunct           Noise
+hi! link jsxComponentName       Statement
+hi! link jsxTagName             Statement
+hi! link jsxCloseString         Noise
 
 " ============================================================================
 " JSON
