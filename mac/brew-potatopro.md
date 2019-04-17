@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-04-13T03:09:34.232Z
+Generated on 2019-04-17T03:55:08.153Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -149,6 +149,7 @@ Generated on 2019-04-13T03:09:34.232Z
 | [sqlite](https://sqlite.org/) | `Command-line interface for SQLite` |
 | [ssh-copy-id](https://www.openssh.com/) | `Add a public key to a remote machine's authorized_keys file` |
 | [swiftlint](https://github.com/realm/SwiftLint) | `Tool to enforce Swift style and conventions` |
+| [switchaudio-osx](https://github.com/deweller/switchaudio-osx/) | `Change macOS audio source from the command-line` |
 | [telnet](https://opensource.apple.com/) | `User interface to the TELNET protocol (built from macOS Sierra sources)` |
 | [tidy-html5](https://www.html-tidy.org/) | `Granddaddy of HTML tools, with support for modern standards` |
 | [tig](https://jonas.github.io/tig/) | `Text interface for Git repositories` |
