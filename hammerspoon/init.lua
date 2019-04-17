@@ -16,6 +16,10 @@ end)
 -- Display audiosource
 -- setAudiosourceBarTitle(uid, event_name, event_scope, event_element)
 local audiosourceBar = hs.menubar.new()
+local function nextAudiosource (mods)
+  local result = hs.execute('/usr/local/bin/SwitchAudioSource -n')
+end
+audiosourceBar:setClickCallback(nextAudiosource)
 local function setAudiosourceBarTitle (e)
   if e ~= 'dOut' then return end
   local defaultDevice = hs.audiodevice.defaultOutputDevice()
