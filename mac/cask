@@ -14,22 +14,24 @@ echo "License in SpiderOak Hive"
 # ==============================================================================
 
 brew cask install betwixt
-
-brew cask install bitbar
-echo "Sync in SpiderOak Hive"
+brew cask install bitwarden
+brew cask install brave
 
 brew cask install cloudapp
+
+brew cask install dash
 
 # full socks5+DHT+blocklist support
 brew cask install deluge
 
 brew cask install discord
+brew cask install disk-inventory-x
 brew cask install docker
 brew cask install dropbox
 brew cask install firefox
 brew cask install gimp
 brew cask install gitter
-brew cask install google-chrome-beta
+brew cask install google-chrome
 brew cask install gpg-suite-no-mail
 brew cask install hammerspoon
 
@@ -39,7 +41,12 @@ brew cask install inkscape
 
 brew cask install iina
 brew cask install iterm2
-brew cask install java
+brew cask install itsycal
+
+#brew cask install java
+#brew cask install java8
+
+brew cask install joplin
 
 # ==============================================================================
 # Kaleidoscope
@@ -47,10 +54,6 @@ brew cask install java
 
 brew cask install kaleidoscope
 echo "License in SpiderOak Hive"
-
-# ==============================================================================
-
-brew cask install karabiner-elements
 
 # ==============================================================================
 # Marked
@@ -67,6 +70,9 @@ brew cask install skype
 brew cask install slack
 brew cask install spideroakone
 brew cask install spotify
+brew cask install synology-drive
+brew cask install synologyassistant
+brew cask install telegram
 # brew cask install switchresx
 brew cask install the-unarchiver
 
