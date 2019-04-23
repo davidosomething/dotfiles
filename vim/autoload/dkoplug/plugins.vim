@@ -514,9 +514,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'machakann/vim-vimhelplint'
 
-  " gf to go to where autoloaded function is defined
-  Plug 'kana/vim-gf-user', { 'for': [ 'vim' ] }
-  Plug 'sgur/vim-gf-autoload', { 'for': [ 'vim' ] }
+  Plug 'mhinz/vim-lookup'
 
   Plug 'junegunn/vader.vim'
 
