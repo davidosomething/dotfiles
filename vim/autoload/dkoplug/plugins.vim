@@ -277,6 +277,9 @@ function! dkoplug#plugins#LoadAll() abort
   " show diff when editing a COMMIT_EDITMSG
   Plug 'rhysd/committia.vim'
 
+  " committia for git rebase -i
+  Plug 'hotwatermorning/auto-git-diff'
+
   " ==========================================================================
   " Language: HTML, XML, and generators: mustache, handlebars
   " ==========================================================================
