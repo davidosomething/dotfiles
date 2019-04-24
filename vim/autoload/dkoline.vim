@@ -44,6 +44,11 @@ function! dkoline#GetTabline() abort
         \ '%#dkoStatusKey# ʟᴄᴅ %(%#dkoStatusValue#%<',
         \ '%)')
 
+  let l:contents .= dkoline#Format(
+        \ dkoline#GitBranch(l:bufnr),
+        \ '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
+        \ '%)')
+
   "let l:contents .= ''
 
   " ==========================================================================
@@ -106,11 +111,6 @@ function! dkoline#GetStatusline(winnr) abort
   " ==========================================================================
 
   let l:contents .= '%*%='
-
-  let l:contents .= dkoline#Format(
-        \ dkoline#GitBranch(l:bufnr),
-        \ '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
-        \ '%)')
 
   " Linting
   if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
