@@ -16,7 +16,8 @@ if [[ "$ITERM_PROFILE" == "PROFILE"* ]] \
   echo "==> Profiling ZSH startup"
   # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
   PS4=$'%D{%M%S%.} %N:%i> '
-  exec 3>&2 2>"${HOME}/.cache/zlog.$$"
+  export DKO_PROFILE_LOG="${HOME}/.cache/zlog.$$"
+  exec 3>&2 2>"$DKO_PROFILE_LOG"
   setopt xtrace prompt_subst
 fi
 

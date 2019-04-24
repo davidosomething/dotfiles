@@ -47,12 +47,13 @@ virtualenv_info() {
 
 # ==============================================================================
 # pip
+# SUPER SLOW
 # ==============================================================================
 
-__dko_has "pip" && {
-  [ -n "$ZSH_VERSION" ] && eval "$(pip completion --zsh)"
-  [ -n "$BASH" ] && eval "$(pip completion --bash)"
-}
+# __dko_has "pip" && {
+#   [ -n "$ZSH_VERSION" ] && eval "$(pip completion --zsh)"
+#   [ -n "$BASH" ] && eval "$(pip completion --bash)"
+# }
 
 # ============================================================================
 # pipenv

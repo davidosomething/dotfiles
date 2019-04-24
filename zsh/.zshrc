@@ -360,8 +360,7 @@ if [[ "$ITERM_PROFILE" == "PROFILE"* ]] \
   || [[ -n "$DKO_PROFILE_STARTUP" ]]; then
   unsetopt xtrace
   exec 2>&3 3>&-
-  echo "==> ZSH startup log written to"
-  echo "    ${HOME}/tmp/startlog.$$"
+  echo "==> ZSH startup log written to ${DKO_PROFILE_LOG}"
 fi
 
 # ============================================================================

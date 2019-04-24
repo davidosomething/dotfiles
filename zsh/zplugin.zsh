@@ -73,12 +73,6 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('expand-or-complete')
 zplugin ice lucid wait'0'
 zplugin load 'zsh-users/zsh-completions'
 
-zplugin ice lucid wait'[[ -n ${ZLAST_COMMANDS[(r)grad*]} ]]' as'completion' nocompile
-zplugin load 'gradle/gradle-completion'
-
-zplugin ice lucid wait'0'
-zplugin load 'lukechilds/zsh-better-npm-completion'
-
 zplugin ice lucid wait'0'
 zplugin load 'voronkovich/phpcs.plugin.zsh'
 
