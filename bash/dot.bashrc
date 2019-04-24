@@ -70,8 +70,6 @@ __dko_source "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bas
 # Plugins
 # ==============================================================================
 
-__dko_has "fasd" && eval "$(fasd --init auto)"
-
 __dko_source "${HOME}/.fzf.bash"
 
 # ============================================================================

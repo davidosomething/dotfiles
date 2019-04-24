@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-04-12T14:10:41.681Z
+Generated on 2019-04-24T18:36:05.013Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -21,7 +21,6 @@ Generated on 2019-04-12T14:10:41.681Z
 | [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy) | `Good-lookin' diffs with diff-highlight and more` |
 | [docker-completion](https://www.docker.com/) | `Bash, Zsh and Fish completion for Docker` |
 | [drone](https://github.com/drone/drone-cli) | `null` |
-| [fasd](https://github.com/clvv/fasd) | `CLI tool for quick access to files and directories` |
 | [fd](https://github.com/sharkdp/fd) | `Simple, fast and user-friendly alternative to find` |
 | [findutils](https://www.gnu.org/software/findutils/) | `Collection of GNU find, xargs, and locate` |
 | [freetype](https://www.freetype.org/) | `Software library to render fonts` |
@@ -33,6 +32,7 @@ Generated on 2019-04-12T14:10:41.681Z
 | [go](https://golang.org) | `Open source programming language to build simple/reliable/efficient software` |
 | [gradle](https://www.gradle.org/) | `Open-source build automation tool based on the Groovy and Kotlin DSL` |
 | [hadolint](https://github.com/hadolint/hadolint) | `Smarter Dockerfile linter to validate best practices` |
+| [htop](https://hisham.hm/htop/) | `Improved top (interactive process viewer)` |
 | [hub](https://hub.github.com/) | `Add GitHub support to git on the command-line` |
 | [icdiff](https://github.com/jeffkaufman/icdiff) | `Improved colored diff` |
 | [icu4c](https://ssl.icu-project.org/) | `C/C++ and Java libraries for Unicode and globalization` |

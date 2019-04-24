@@ -121,9 +121,6 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
-# fasd
-export _FASD_DATA="${HOME}/.local/fasd"
-
 # gnupg
 # This mirrors the value in mac/dotfiles.plist
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
@@ -197,3 +194,7 @@ export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
 # yarn cache
 # https://github.com/yarnpkg/yarn/issues/3208
 export YARN_CACHE_FOLDER="${XDG_CACHE_HOME}/yarn"
+
+# z.lua
+export _ZL_CMD='j'
+export _ZL_DATA="${XDG_DATA_HOME}/zlua"

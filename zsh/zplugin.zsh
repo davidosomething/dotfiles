@@ -41,6 +41,9 @@ zplugin load paulirish/git-recent
 zplugin ice lucid nocompletions
 zplugin load 'shannonmoeller/up'
 
+zplugin ice lucid nocompletions
+zplugin load 'skywind3000/z.lua'
+
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
 zplugin ice lucid wait'0'

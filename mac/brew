@@ -64,7 +64,6 @@ brew install neovim
 # ============================================================================
 
 brew install ack
-brew install fasd
 brew install fd
 brew install fzf
 # system version is SUPER old
