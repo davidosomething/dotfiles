@@ -57,6 +57,11 @@ augroup filetypedetect
 
   autocmd! BufNewFile,BufRead .eslintrc,.stylelintrc call s:SetJSONorYAML()
 
+  " Force javascript.jsx and typescript.tsx for coc.nvim tsserver to
+  " distinguish feature set
+  autocmd! BufNewFile,BufRead *.js,*.jsx setfiletype javascript.jsx
+  autocmd! BufNewFile,BufRead *.tsx setfiletype typescript.tsx
+
   autocmd! BufNewFile,BufRead */nginx*.conf,/*/nginx*.conf setfiletype nginx
 
   autocmd! BufNewFile,BufRead *.plist setfiletype xml
