@@ -491,7 +491,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Hex (et al) color highlighting
   " All disabled -- coc-css does this for color names and hex
-  "Plug 'Rykka/colorv.vim'    --  requires python
+  "Plug 'gu-fan/colorv.vim'    --  requires python
   "Plug 'chrisbra/Colorizer'  --  slower and not as complete but more features
   "                               like X11 colors and color translation for
   "                               degraded terminals
