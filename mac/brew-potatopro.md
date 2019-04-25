@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-04-22T05:14:51.408Z
+Generated on 2019-04-25T06:53:06.212Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -31,7 +31,6 @@ Generated on 2019-04-22T05:14:51.408Z
 | [curl](https://curl.haxx.se/) | `Get a file from an HTTP, HTTPS or FTP server` |
 | [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy) | `Good-lookin' diffs with diff-highlight and more` |
 | [docker-completion](https://www.docker.com/) | `Bash, Zsh and Fish completion for Docker` |
-| [fasd](https://github.com/clvv/fasd) | `CLI tool for quick access to files and directories` |
 | [fd](https://github.com/sharkdp/fd) | `Simple, fast and user-friendly alternative to find` |
 | [findutils](https://www.gnu.org/software/findutils/) | `Collection of GNU find, xargs, and locate` |
 | [fontconfig](https://wiki.freedesktop.org/www/Software/fontconfig/) | `XML-based font configuration API for X Windows` |
