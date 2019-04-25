@@ -61,4 +61,7 @@ function! dko#neomake#javascript#Setup() abort
       let b:neomake_javascript_enabled_makers += [ 'eslint' ]
     endif
   endif
+
+  let b:neomake_javascript_jsx_enabled_makers =
+        \ b:neomake_javascript_enabled_makers
 endfunction

@@ -46,6 +46,7 @@ if dkoplug#IsLoaded('neosnippet')
   let g:neosnippet#scope_aliases = {}
   let g:neosnippet#scope_aliases['javascript'] = join([
         \   'javascript',
+        \   'javascript.jsx',
         \   'javascript.es6.react',
         \ ], ',')
 
