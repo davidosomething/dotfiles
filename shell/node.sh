@@ -30,6 +30,8 @@ export NPMRC_STORE="${HOME}/.local/npmrcs"
 # nvm
 # ==============================================================================
 
+export NVM_SYMLINK_CURRENT=true
+
 # FNM_DIR="${XDG_CONFIG_HOME}/fnm"
 # if [ -d "$FNM_DIR" ]; then
 #   export FNM_DIR
