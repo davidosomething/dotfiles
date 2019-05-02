@@ -1,6 +1,6 @@
 # shell/path.sh
 #
-# Sourced in bash and ZSH by loader
+# Sourced in dot.profile on login shells
 #
 # Rebuild path starting from system path
 # Regarding tmux:
@@ -42,18 +42,10 @@ PATH="/usr/local/bin:/usr/local/sbin:${DKO_SYSTEM_PATH}"
 # Package managers
 # ----------------------------------------------------------------------------
 
-# GOROOT binaries
-[ "$DOTFILES_OS" = "Darwin" ] \
-  && [ -d "${DKO_BREW_PREFIX}/opt/go/libexec/bin" ] \
-  && PATH="${DKO_BREW_PREFIX}/opt/go/libexec/bin:${PATH}"
-
-[ "$DOTFILES_OS" = "Darwin" ] \
-  && PATH="${DKO_BREW_PREFIX}/opt/git/share/git-core/contrib/git-jump:${PATH}"
-
 # composer; COMPOSER_HOME is in shell/vars.sh
 PATH="${COMPOSER_HOME}/vendor/bin:${PATH}"
 
-# luarocks per-user rock tree
+# luarocks per-user rock tree (may be overridden by os-*.sh config)
 PATH="${HOME}/.luarocks/bin:${PATH}"
 
 # go -- prefer go binaries over composer; GOPATH is in shell/vars.sh

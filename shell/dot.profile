@@ -6,36 +6,39 @@
 # Sourced by $ZDOTDIR/.zprofile if in a ZSH login shell
 # NOTE: macOS always starts a login shell
 
-DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
-[ -z "$DKO_INIT" ] && . "${HOME}/.dotfiles/shell/init.sh"
+DKO_SOURCE="${DKO_SOURCE} -> dot.profile (login shell) {"
+[ -z "$DKO_INIT" ] && {
+  export DKO_INIT=1
+  . "${HOME}/.dotfiles/shell/vars.sh"
+  . "${DOTFILES}/shell/path.sh" # depends on vars
 
-# ==============================================================================
-# env management -- Node, PHP, Python, Ruby - These add to path
-# ==============================================================================
+  # ============================================================================
+  # Local path -- everything after the path setting this may use "command" to
+  # check for presence
+  # ============================================================================
 
-. "${DOTFILES}/lib/helpers.sh"
-. "${DOTFILES}/shell/go.sh"
-. "${DOTFILES}/shell/java.sh"
-. "${DOTFILES}/shell/node.sh"
-. "${DOTFILES}/shell/php.sh"
-. "${DOTFILES}/shell/python.sh"
-. "${DOTFILES}/shell/ruby.sh"
+  PATH="${HOME}/.local/bin:${PATH}"
+  PATH="${DOTFILES}/bin:${PATH}"
+  export PATH
 
-# ============================================================================
-# Local path
-# ============================================================================
+  # ==========================================================================
+  # os config
+  #
+  # OS specific overrides, OSTYPE is not POSIX so these won't run except in
+  # modern shells
+  #
+  # @TODO split out interactive parts in these files?
+  # ==========================================================================
 
-PATH="${HOME}/.local/bin:${PATH}"
-PATH="${DOTFILES}/bin:${PATH}"
-export PATH
+  case "$DOTFILES_OS" in
+  Darwin) . "${DOTFILES}/shell/os-darwin.sh" ;;
+  Linux) . "${DOTFILES}/shell/os-linux.sh" ;;
+  esac
+}
 
-# ============================================================================
-# POSIX sh support
-# ============================================================================
-
-[ -n "$DKO_SH" ] && . "${DOTFILES}/shell/interactive.sh"
+tty -s && . "${DOTFILES}/shell/interactive.sh"
 
 # ============================================================================
 
 export DKO_SOURCE="${DKO_SOURCE} }"
-# vim: ft=sh :
+# vim: ft=sh
