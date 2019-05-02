@@ -1,6 +1,6 @@
 # shell/interactive.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
+DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh[interactive] {"
 if [ -f "${HOME}/.dotfiles/local/dotfiles.lock" ]; then
   "${DOTFILES}/shell/dko-wait-for-dotfiles-lock"
 fi

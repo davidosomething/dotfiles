@@ -6,7 +6,7 @@
 # Sourced by $ZDOTDIR/.zprofile if in a ZSH login shell
 # NOTE: macOS always starts a login shell
 
-DKO_SOURCE="${DKO_SOURCE} -> dot.profile (login shell) {"
+DKO_SOURCE="${DKO_SOURCE} -> dot.profile[login] {"
 [ -z "$DKO_INIT" ] && {
   export DKO_INIT=1
   . "${HOME}/.dotfiles/shell/vars.sh"
