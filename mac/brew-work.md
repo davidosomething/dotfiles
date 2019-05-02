@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-04-24T18:36:05.013Z
+Generated on 2019-05-02T15:12:07.380Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -40,7 +40,6 @@ Generated on 2019-04-24T18:36:05.013Z
 | [imagemagick](https://www.imagemagick.org/) | `Tools and libraries to manipulate images in many formats` |
 | [ios-webkit-debug-proxy](https://github.com/google/ios-webkit-debug-proxy) | `DevTools proxy for iOS devices` |
 | [jemalloc](http://jemalloc.net/) | `malloc implementation emphasizing fragmentation avoidance` |
-| [joplin](https://joplin.cozic.net/) | `Note taking and to-do application with synchronisation capabilities` |
 | [jpeg](https://www.ijg.org/) | `Image manipulation library` |
 | [jq](https://stedolan.github.io/jq/) | `Lightweight and flexible command-line JSON processor` |
 | [jsonpp](https://jmhodges.github.io/jsonpp/) | `Command-line JSON pretty-printer` |
