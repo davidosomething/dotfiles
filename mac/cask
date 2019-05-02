@@ -13,6 +13,7 @@ echo "License in SpiderOak Hive"
 
 # ==============================================================================
 
+brew cask install balenaetcher
 brew cask install betwixt
 brew cask install bitwarden
 brew cask install brave
