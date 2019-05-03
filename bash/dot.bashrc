@@ -8,12 +8,13 @@
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
 DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 
-# Just in case...
-[[ -z "$DOTFILES" ]] && . "${HOME}/.dotfiles/shell/init.sh"
-
 # Non-interactive? Some shells/OS will source bashrc and bash_profile out of
 # order or skip one entirely
 [[ -z "$PS1" ]] && export DKO_SOURCE="${DKO_SOURCE} }" && return
+
+# dot.bashprofile was sourced instead, which sourced dot.bashrc, so we need
+# to define stuff here
+. "${HOME}/.dotfiles/shell/dot.profile"
 
 # ============================================================================
 # BASH settings

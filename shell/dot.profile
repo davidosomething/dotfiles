@@ -2,11 +2,13 @@
 
 # Used by /bin/sh shell
 # Sourced on login shells only
-# Sourced by ~/.bash_profile if in a BASH login shell
-# Sourced by $ZDOTDIR/.zprofile if in a ZSH login shell
-# NOTE: macOS always starts a login shell
+# Sourced by bash/dot.bashrc if in a BASH login shell
+# Sourced by zsh/.zshrc if in a ZSH login shell
+#
+# This file is sourced manually in the .*rc file so it loads when running
+# a nested shell, e.g. zsh from within bash
 
-DKO_SOURCE="${DKO_SOURCE} -> dot.profile[login] {"
+DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
 [ -z "$DKO_INIT" ] && {
   export DKO_INIT=1
   . "${HOME}/.dotfiles/shell/vars.sh"

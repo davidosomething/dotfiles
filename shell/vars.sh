@@ -5,7 +5,8 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.sh"
 
-DOTFILES_OS="$(uname)"
+# dot.bash_profile did this early
+DOTFILES_OS="${DOTFILES_OS:-$(uname)}"
 export DOTFILES_OS
 
 # ============================================================================
