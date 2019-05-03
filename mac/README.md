@@ -40,17 +40,20 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 - Install fonts - `~/.dotfiles/mac/fonts` to install via cask
 - spideroakone
     1. Create new backup folder `sync`
-    1. Sync with existing `sync` to get iTerm profile
 - iterm2
-    1. Load iTerm profile from oak sync
+    1. Load iTerm profile from synology drive
 - bettertouchtool
-    - License in oak
-    - Import from oak sync
+    - License in synology drive
     - Better trackpad swipe configs
 - dropbox
 - google-chrome
     - Login and sync google account for settings
-    - Provides `authy`
+- hammerspoon
+    - App launcher (cmd + space)
+    - Audio output device switch in menubar
+    - Auto-type from clipboard (cmd-ctrl + v)
+    - Caffeinate in menubar
+    - Window management (cmd-ctrl-shift + f/h/l/z)
 - java
 - kaleidoscope
     - Load license file
