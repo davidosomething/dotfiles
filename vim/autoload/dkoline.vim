@@ -1,32 +1,6 @@
 " autoload/dkoline.vim
 scriptencoding utf-8
 
-let s:view_cache = {}
-
-" Get cached properties for a window. Cleared on status line refresh
-"
-" @param {Int} winnr
-" @return {Dict} properties derived from the active window
-function! dkoline#GetView(winnr) abort
-  let l:cached_view = get(s:view_cache, a:winnr, {})
-  if !empty(l:cached_view)
-    return l:cached_view
-  endif
-  let l:bufnr = winbufnr(a:winnr)
-  let l:bufname = bufname(l:bufnr)
-  let l:cwd = has('nvim') ? getcwd(a:winnr) : getcwd()
-  let l:ft = getbufvar(l:bufnr, '&filetype')
-  let l:ww = winwidth(a:winnr)
-  let s:view_cache[a:winnr] = {
-        \   'bufnr': l:bufnr,
-        \   'bufname': l:bufname,
-        \   'cwd': l:cwd,
-        \   'ft': l:ft,
-        \   'ww':  l:ww,
-        \ }
-  return s:view_cache[a:winnr]
-endfunction
-
 " let g:dkoline#refresh = 0
 " let g:dkoline#trefresh = 0
 " let g:dkoline#srefresh = 0
@@ -145,6 +119,8 @@ endfunction
 " Output functions
 " ============================================================================
 
+" Display an atom if not empty with prefix/suffix
+"
 " @param {String} content
 " @param {String} [before]
 " @param {String} [after]
@@ -156,6 +132,7 @@ function! dkoline#Format(...) abort
   return empty(l:content) ? '' : l:before . l:content . l:after
 endfunction
 
+" Assert all conditions pass
 function! dkoline#If(conditions, values) abort
   if has_key(a:conditions, 'winnr')
     if winnr() != a:conditions.winnr | return 0 | endif
@@ -293,6 +270,32 @@ endfunction
 " ============================================================================
 " Utility
 " ============================================================================
+
+let s:view_cache = {}
+
+" Get cached properties for a window. Cleared on status line refresh
+"
+" @param {Int} winnr
+" @return {Dict} properties derived from the active window
+function! dkoline#GetView(winnr) abort
+  let l:cached_view = get(s:view_cache, a:winnr, {})
+  if !empty(l:cached_view)
+    return l:cached_view
+  endif
+  let l:bufnr = winbufnr(a:winnr)
+  let l:bufname = bufname(l:bufnr)
+  let l:cwd = has('nvim') ? getcwd(a:winnr) : getcwd()
+  let l:ft = getbufvar(l:bufnr, '&filetype')
+  let l:ww = winwidth(a:winnr)
+  let s:view_cache[a:winnr] = {
+        \   'bufnr': l:bufnr,
+        \   'bufname': l:bufname,
+        \   'cwd': l:cwd,
+        \   'ft': l:ft,
+        \   'ww':  l:ww,
+        \ }
+  return s:view_cache[a:winnr]
+endfunction
 
 function! dkoline#Init() abort
   let s:view_cache = {}
