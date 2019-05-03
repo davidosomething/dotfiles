@@ -13,11 +13,13 @@ function! dkoline#GetView(winnr) abort
     return l:cached_view
   endif
   let l:bufnr = winbufnr(a:winnr)
-  let l:cwd   = has('nvim') ? getcwd(a:winnr) : getcwd()
-  let l:ft    = getbufvar(l:bufnr, '&filetype')
-  let l:ww    = winwidth(a:winnr)
+  let l:bufname = bufname(l:bufnr)
+  let l:cwd = has('nvim') ? getcwd(a:winnr) : getcwd()
+  let l:ft = getbufvar(l:bufnr, '&filetype')
+  let l:ww = winwidth(a:winnr)
   let s:view_cache[a:winnr] = {
         \   'bufnr': l:bufnr,
+        \   'bufname': l:bufname,
         \   'cwd': l:cwd,
         \   'ft': l:ft,
         \   'ww':  l:ww,
@@ -98,7 +100,7 @@ function! dkoline#GetStatusline(winnr) abort
   let l:maxwidth = l:view.ww - 4 - len(l:view.ft) - 16
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 48
   let l:contents .= dkoline#Format(
-        \   dkoline#TailDirFilename(l:view.bufnr, l:view.cwd),
+        \   dkoline#TailDirFilename(l:view),
         \   '%0.' . l:maxwidth . '('
         \     . (dkoline#If({ 'winnr': l:winnr }, l:view)
         \       ? '%#StatusLine#'
@@ -213,52 +215,26 @@ function! dkoline#Filetype(ft) abort
         \ : ' ' . a:ft . ' '
 endfunction
 
-" File path of buffer, or just the helpfile name if it is a help file
-"
-" @param {Int} bufnr
-" @param {String} path
-" @return {String}
-function! dkoline#RelativeFilepath(bufnr, path) abort
-  if dko#IsNonFile(a:bufnr)
-    return ''
-  endif
-
-  let l:filename = bufname(a:bufnr)
-  if empty(l:filename)
-    let l:contents = '[No Name]'
-  else
-    let l:contents = dko#IsHelp(a:bufnr)
-          \ ? '%t'
-          \ : fnamemodify(substitute(l:filename, a:path, '.', ''), ':~:.')
-  endif
-
-  return ' ' . l:contents . ' '
-endfunction
-
 " Show buffer's filename and immediate parent directory
 "
-" @param {Int} bufnr
-" @param {String} cwd
+" @param {Dict} view
 " @return {String}
-function! dkoline#TailDirFilename(bufnr, cwd) abort
-  if dko#IsNonFile(a:bufnr)
+function! dkoline#TailDirFilename(view) abort
+  if dko#IsNonFile(a:view.bufnr)
     return ''
   endif
 
-  let l:filename = bufname(a:bufnr)
-  if empty(l:filename)
-    let l:contents = '[No Name]'
-  else
-    if dko#IsHelp(a:bufnr)
-      let l:contents = '%t'
-    else
-      let l:parent = fnamemodify(l:filename, ':h:t')
-      let l:parent = l:parent !=# '.' ? l:parent : fnamemodify(a:cwd, ':t')
-      let l:contents = l:parent . '/' . fnamemodify(l:filename, ':t')
-    endif
+  if empty(a:view.bufname)
+    return ' [No Name] '
   endif
 
-  return ' ' . l:contents . ' '
+  if dko#IsHelp(a:view.bufnr)
+    return ' ' . a:view.bufname . ' '
+  endif
+
+  let l:parent = fnamemodify(a:view.bufname, ':p:h:t')
+  let l:filename = fnamemodify(a:view.bufname, ':t')
+  return ' ' . l:parent . '/' . l:filename . ' '
 endfunction
 
 " @param {Int} bufnr
@@ -333,6 +309,7 @@ function! dkoline#Init() abort
   let l:refresh_hooks = [
         \   'BufEnter',
         \   'BufWinEnter',
+        \   'DirChanged',
         \ ]
         " \   'SessionLoadPost',
         " \   'TabEnter',
