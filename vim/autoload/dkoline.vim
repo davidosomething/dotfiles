@@ -1,6 +1,30 @@
 " autoload/dkoline.vim
 scriptencoding utf-8
 
+let s:view_cache = {}
+
+" Get cached properties for a window. Cleared on status line refresh
+"
+" @param {Int} winnr
+" @return {Dict} properties derived from the active window
+function! dkoline#GetView(winnr) abort
+  let l:cached_view = get(s:view_cache, a:winnr, {})
+  if !empty(l:cached_view)
+    return l:cached_view
+  endif
+  let l:bufnr = winbufnr(a:winnr)
+  let l:cwd   = has('nvim') ? getcwd(a:winnr) : getcwd()
+  let l:ft    = getbufvar(l:bufnr, '&filetype')
+  let l:ww    = winwidth(a:winnr)
+  let s:view_cache[a:winnr] = {
+        \   'bufnr': l:bufnr,
+        \   'cwd': l:cwd,
+        \   'ft': l:ft,
+        \   'ww':  l:ww,
+        \ }
+  return s:view_cache[a:winnr]
+endfunction
+
 " let g:dkoline#refresh = 0
 " let g:dkoline#trefresh = 0
 " let g:dkoline#srefresh = 0
@@ -9,13 +33,7 @@ function! dkoline#GetTabline() abort
   "let g:dkoline#trefresh += 1
   let l:tabnr = tabpagenr()
   let l:winnr = tabpagewinnr(l:tabnr)
-  let l:bufnr = winbufnr(l:winnr)
-  let l:cwd   = has('nvim') ? getcwd(l:winnr) : getcwd()
-
-  let l:x = {
-        \   'bufnr': l:bufnr,
-        \   'ww': 9999,
-        \ }
+  let l:view = dkoline#GetView(l:winnr)
 
   let l:contents = '%#StatusLine#'
 
@@ -40,16 +58,14 @@ function! dkoline#GetTabline() abort
   let l:contents .= '%#StatusLine# %= '
 
   let l:contents .= dkoline#Format(
-        \ ' ' . get(l:, 'cwd', '~') . ' ',
+        \ ' ' . get(l:view, 'cwd', '~') . ' ',
         \ '%#dkoStatusKey# ʟᴄᴅ %(%#dkoStatusValue#%<',
         \ '%)')
 
   let l:contents .= dkoline#Format(
-        \ dkoline#GitBranch(l:bufnr),
+        \ dkoline#GitBranch(l:view.bufnr),
         \ '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
         \ '%)')
-
-  "let l:contents .= ''
 
   " ==========================================================================
 
@@ -62,14 +78,7 @@ function! dkoline#GetStatusline(winnr) abort
   " let g:dkoline#srefresh += 1
 
   let l:winnr = a:winnr > winnr('$') ? 1 : a:winnr
-  let l:bufnr = winbufnr(l:winnr)
-  let l:ww    = winwidth(l:winnr)
-  let l:cwd   = has('nvim') ? getcwd(l:winnr) : getcwd()
-
-  let l:x = {
-        \   'bufnr': l:bufnr,
-        \   'ww': l:ww,
-        \ }
+  let l:view = dkoline#GetView(l:winnr)
 
   let l:contents = ''
 
@@ -80,31 +89,33 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%#StatusLineNC# %3(' . dkoline#Mode(l:winnr) . '%)'
 
   " Filebased
-  let l:ft = dkoline#Filetype(l:bufnr)
   let l:contents .= dkoline#Format(
-        \   dkoline#Filetype(l:bufnr),
-        \   (dkoline#If({ 'winnr': l:winnr }, l:x)
+        \   dkoline#Filetype(l:view.ft),
+        \   (dkoline#If({ 'winnr': l:winnr }, l:view)
         \     ? '%#dkoStatusValue#' : '%#StatusLineNC#' )
         \ )
 
-  let l:maxwidth = l:ww - 4 - len(l:ft) - 16
+  let l:maxwidth = l:view.ww - 4 - len(l:view.ft) - 16
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 48
   let l:contents .= dkoline#Format(
-        \   dkoline#TailDirFilename(l:bufnr, l:cwd),
+        \   dkoline#TailDirFilename(l:view.bufnr, l:view.cwd),
         \   '%0.' . l:maxwidth . '('
-        \     . (dkoline#If({ 'winnr': l:winnr }, l:x)
+        \     . (dkoline#If({ 'winnr': l:winnr }, l:view)
         \       ? '%#StatusLine#'
         \       : '%#StatusLineNC#'),
         \   '%)'
         \ )
-  let l:contents .= dkoline#Format(dkoline#Dirty(l:bufnr), '%#DiffAdded#')
+  let l:contents .= dkoline#Format(dkoline#Dirty(l:view.bufnr), '%#DiffAdded#')
 
   " Toggleable
   if !has('nvim')
     let l:contents .= dkoline#Format(dkoline#Paste(), '%#DiffText#')
   endif
 
-  let l:contents .= dkoline#Format(dkoline#Readonly(l:bufnr), '%#dkoLineImportant#')
+  let l:contents .= dkoline#Format(
+        \ dkoline#Readonly(l:view.bufnr),
+        \ '%#dkoLineImportant#'
+        \)
 
   " ==========================================================================
   " Right side
@@ -113,8 +124,14 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%*%='
 
   " Linting
-  if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
-    let l:contents .= dkoline#Neomake(l:winnr, l:bufnr)
+  if dkoplug#IsLoaded('neomake')
+    let l:contents .= dkoline#Format(
+          \ dkoline#NeomakeStatus(l:view),
+          \ '%#DiffText#'
+          \)
+    if exists('*neomake#GetJobs')
+      let l:contents .= dkoline#Neomake(l:winnr, l:view.bufnr)
+    endif
   endif
 
   let l:contents .= dkoline#Format(dkoline#Ruler(), '%#dkoStatusItem#')
@@ -188,19 +205,12 @@ function! dkoline#Readonly(bufnr) abort
   return getbufvar(a:bufnr, '&readonly') ? ' ʀ ' : ''
 endfunction
 
-" Ignore some filetypes
-"
 " @param {Int} bufnr
 " @return {String}
-function! dkoline#Filetype(bufnr) abort
-  let l:ft = getbufvar(a:bufnr, '&filetype')
-  return empty(l:ft) || index([
-        \   'javascript',
-        \   'java',
-        \   'vim',
-        \ ], l:ft) > -1
+function! dkoline#Filetype(ft) abort
+  return empty(a:ft)
         \ ? ''
-        \ : ' ' . l:ft . ' '
+        \ : ' ' . a:ft . ' '
 endfunction
 
 " File path of buffer, or just the helpfile name if it is a help file
@@ -242,9 +252,9 @@ function! dkoline#TailDirFilename(bufnr, cwd) abort
     if dko#IsHelp(a:bufnr)
       let l:contents = '%t'
     else
-      let l:parent_dir = fnamemodify(l:filename, ':h:t')
-      let l:parent_dir = l:parent_dir !=# '.' ? l:parent_dir : fnamemodify(a:cwd, ':t')
-      let l:contents = l:parent_dir . '/' . fnamemodify(l:filename, ':t')
+      let l:parent = fnamemodify(l:filename, ':h:t')
+      let l:parent = l:parent !=# '.' ? l:parent : fnamemodify(a:cwd, ':t')
+      let l:contents = l:parent . '/' . fnamemodify(l:filename, ':t')
     endif
   endif
 
@@ -263,6 +273,16 @@ function! dkoline#GitBranch(bufnr) abort
   return dko#IsNonFile(a:bufnr) || empty(get(b:, 'dko_branch'))
         \ ? ''
         \ : ' ' . b:dko_branch . ' '
+endfunction
+
+" Whether or not neomake is disabled
+" @param {Dict} view
+" @return {String}
+function! dkoline#NeomakeStatus(view) abort
+  return dko#IsNonFile(a:view.bufnr)
+        \ || !empty(neomake#GetEnabledMakers(a:view.ft))
+        \ ? ''
+        \ : ' ɴᴏ ᴍᴀᴋᴇʀs '
 endfunction
 
 " @return {string} job1,job2,job3
@@ -299,6 +319,7 @@ endfunction
 " ============================================================================
 
 function! dkoline#Init() abort
+  let s:view_cache = {}
   set statusline=%!dkoline#GetStatusline(1)
   call dkoline#RefreshTabline()
   set showtabline=2
@@ -343,6 +364,7 @@ function! dkoline#Init() abort
 endfunction
 
 function! dkoline#RefreshStatus() abort
+  let s:view_cache = {}
   " let g:dkoline#refresh += 1
   for l:winnr in range(1, winnr('$'))
     let l:fn = '%!dkoline#GetStatusline(' . l:winnr . ')'
