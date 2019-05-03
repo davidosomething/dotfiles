@@ -11,14 +11,9 @@ DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 # Just in case...
 [[ -z "$DOTFILES" ]] && . "${HOME}/.dotfiles/shell/init.sh"
 
-. "${DOTFILES}/shell/dot.profile"
-
 # Non-interactive? Some shells/OS will source bashrc and bash_profile out of
 # order or skip one entirely
 [[ -z "$PS1" ]] && export DKO_SOURCE="${DKO_SOURCE} }" && return
-
-# Interactive -- continue
-. "${DOTFILES}/shell/interactive.sh"
 
 # ============================================================================
 # BASH settings
@@ -86,4 +81,4 @@ __dko_source "${HOME}/.fzf.bash"
 __dko_source "${LDOTDIR}/bashrc"
 
 export DKO_SOURCE="${DKO_SOURCE} }"
-# vim: ft=sh :
+# vim: ft=sh

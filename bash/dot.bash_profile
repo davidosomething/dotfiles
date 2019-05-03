@@ -9,6 +9,7 @@
 # bashrc
 
 DKO_SOURCE="${DKO_SOURCE} -> .bash_profile {"
+. "${HOME}/.dotfiles/shell/dot.profile"
 . "${BDOTDIR}/dot.bashrc"
 export DKO_SOURCE="${DKO_SOURCE} }"
-# vim: ft=sh :
+# vim: ft=sh
