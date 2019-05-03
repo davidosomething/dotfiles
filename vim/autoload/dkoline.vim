@@ -157,6 +157,8 @@ function! dkoline#Mode(winnr) abort
   let l:modeflag = mode()
   if a:winnr != winnr()
     let l:modeflag = ' '
+  elseif l:modeflag ==# 'c'
+    let l:modecolor = '%#DiffDelete#'
   elseif l:modeflag ==# 'i'
     let l:modecolor = '%#dkoStatusItem#'
   elseif l:modeflag ==# 'R'
