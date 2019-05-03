@@ -13,11 +13,6 @@ autocmd dkofzf FileType fzf set laststatus=0 noshowmode noruler
 " fzf.vim settings
 " ============================================================================
 
-" iTerm can pipe from a spawned FZF back to Vim
-if !has('nvim') && $TERM_PROGRAM ==# 'iTerm.app'
-  let g:fzf_launcher = g:dko#vim_dir . '/bin/vim-fzf'
-endif
-
 let g:fzf_command_prefix = 'FZF'
 
 let g:fzf_layout = { 'down': '~40%' }
@@ -39,8 +34,6 @@ set cpoptions&vim
 " Bind <fx> to abort FZF (<C-g> is one of the default abort keys in FZF)
 " @see #f-keys
 function! s:MapCloseFzf() abort
-  if !has('nvim') | return | endif
-
   tnoremap <buffer><special> <F1> <C-g>
   tnoremap <buffer><special> <F2> <C-g>
   tnoremap <buffer><special> <F3> <C-g>
@@ -54,7 +47,9 @@ function! s:MapCloseFzf() abort
   tnoremap <buffer><special> <F11> <C-g>
   tnoremap <buffer><special> <F12> <C-g>
 endfunction
-autocmd dkofzf FileType fzf call s:MapCloseFzf()
+if has('nvim')
+  autocmd dkofzf FileType fzf call s:MapCloseFzf()
+endif
 
 " Map the commands -- the actual plugin is loaded by a vim-plug 'on' hook when
 " a command is run for the first time

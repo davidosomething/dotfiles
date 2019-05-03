@@ -22,11 +22,13 @@ let g:mapleader = "\<Space>"
 let g:dko_rtp_original = &runtimepath
 
 " flags
+let g:dko_is_iterm = $TERM_PROGRAM ==# 'iTerm.app'
 let g:dko_tab_completion = 0 " use (s-)tab to navigate PUM?
 
 " Plugin settings
 let g:dko_autoinstall_vim_plug = executable('git')
 let g:dko_use_completion = has('nvim-0.2.2')
+let g:dko_use_fzf = v:version >= 704 && (has('nvim') || g:dko_is_iterm)
 
 " Fallback for vims with no env access like Veonim
 let g:vdotdir = empty($VDOTDIR) ? expand('$HOME/.vim') : $VDOTDIR
@@ -452,8 +454,10 @@ let g:vimsyn_embed = 'lpPr'
 let g:loaded_2html_plugin = 1
 let g:loaded_getscriptPlugin = 1
 let g:loaded_gzip = 1
+let g:loaded_man = 1
 let g:loaded_LogiPat = 1
 let g:loaded_tarPlugin = 1
+let g:loaded_tutor_mode_plugin = 1
 let g:loaded_zipPlugin = 1
 
 " Upstream matchparen -- it is inaccurate.
@@ -469,7 +473,7 @@ let g:loaded_matchparen = 1
 " netrw in details format when no vimfiler
 let g:netrw_liststyle      = 3
 let g:netrw_home           = expand(g:dko#vim_dir . '/.tmp/cache')
-let g:netrw_browsex_viewer = has('mac') ? 'open' : 'xdg-open'
+let g:netrw_browsex_viewer = 'dko-open'
 
 " ----------------------------------------------------------------------------
 " Plugins: autoinstall vim-plug, define plugins, install plugins if needed

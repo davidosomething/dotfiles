@@ -65,14 +65,11 @@ function! dkoplug#plugins#LoadAll() abort
   " Commands
   " ==========================================================================
 
-  let l:fzfable = v:version >= 704
-        \ && (has('nvim')
-        \ || $TERM_PROGRAM ==# 'iTerm.app')
   " Use the repo instead of the version in brew since it includes the help
   " docs for fzf#run()
-  Plug 'junegunn/fzf', PlugIf(l:fzfable)
-  Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
-  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(l:fzfable, { 'on': [
+  Plug 'junegunn/fzf', PlugIf(g:dko_use_fzf)
+  Plug 'junegunn/fzf.vim', PlugIf(g:dko_use_fzf)
+  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(g:dko_use_fzf, { 'on': [
         \   'FZFGrepper',
         \   'FZFMRU',
         \   'FZFProject',
@@ -81,9 +78,6 @@ function! dkoplug#plugins#LoadAll() abort
         \   'FZFTests',
         \   'FZFVim',
         \ ] })
-
-  " gK to lookup
-  Plug 'keith/investigate.vim'
 
   "Plug 'lambdalisue/gina.vim', PlugIf(exists('v:null'))
 
@@ -104,9 +98,6 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'dhruvasagar/vim-zoom'
   " Better zoom plugin, accounts for command window and doesn't use sessions
   Plug 'troydm/zoomwintab.vim'
-
-  " in command mode, alt-f/b to go forward/back words
-  Plug 'vim-utils/vim-husk'
 
   " ==========================================================================
   " Input, syntax, spacing
