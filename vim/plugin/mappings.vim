@@ -231,8 +231,8 @@ nnoremap  <special> <Leader>ws  :<C-U>call dko#whitespace#clean()<CR>
 " Intentional system clipboard
 " ----------------------------------------------------------------------------
 
-nnoremap <special> <C-p> "*p
-vnoremap <special> <C-p> "*p
+" nnoremap <special> <C-p> "*p
+" vnoremap <special> <C-p> "*p
 
 nnoremap <special> <C-y> "*y
 xnoremap <special> <C-y> "*y

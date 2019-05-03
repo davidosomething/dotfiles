@@ -119,7 +119,8 @@ function! dkoplug#plugins#LoadAll() abort
   " Editing keys
   " ==========================================================================
 
-  Plug 'cyansprite/Extract', PlugIf(has('nvim'))
+  "Plug 'cyansprite/Extract', PlugIf(has('nvim'))
+  Plug 'svermeulen/vim-yoink'
 
   Plug 'godlygeek/tabular', { 'on': [ 'Tabularize' ] }
 
