@@ -150,7 +150,8 @@ __dko_dotfiles__pyenv_system() {
   # switch to brew's python (fallback to system if no brew python)
   __dko_has "pyenv" &&
     __dko_status "Switching to system python to upgrade brew packages" &&
-    pyenv shell system || exit 1
+    pyenv shell system || exit 1 &&
+  python --version
 }
 
 # probably don't need this as long as running updates in subshells
