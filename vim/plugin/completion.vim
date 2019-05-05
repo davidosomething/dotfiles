@@ -18,11 +18,11 @@ if dkoplug#IsLoaded('coc.nvim')
     let g:has_coc_eslint = 0
     let g:has_coc_highlight = 0
     for l:extension in s:extensions
-      if !g:has_coc_highlight && l:extension.id ==# 'coc-highlight'
+      if l:extension.id ==# 'coc-highlight' && !g:has_coc_highlight
         let g:has_coc_highlight = 1
         autocmd dkocompletion CursorHold *
               \ silent call CocActionAsync('highlight')
-      elseif !g:has_coc_eslint && l:extension.id ==# 'coc-eslint'
+      elseif l:extension.id ==# 'coc-eslint' && !g:has_coc_eslint
         let g:has_coc_eslint = 1
         call coc#config('javascript.validate.enable', 0)
       endif
