@@ -2,21 +2,12 @@
 "
 " This is an after/plugin since some plugins (in testing, like vim-searchant)
 " might set their own mappings.
-"
 
 if exists('g:loaded_dko_search') | finish | endif
 let g:loaded_dko_search = 1
 
 let s:cpo_save = &cpoptions
 set cpoptions&vim
-
-" ============================================================================
-" Clear search
-" ============================================================================
-
-nnoremap  <special>   <Plug>(DKOClearSearch)  :<C-U>nohlsearch<CR><C-l>
-silent!   nunmap      <Esc><Esc>
-nmap      <special>   <Esc><Esc>   <Plug>(DKOClearSearch)
 
 " ============================================================================
 " Native incsearch

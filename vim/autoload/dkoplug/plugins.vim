@@ -78,7 +78,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
 
-  Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_open_win'))
+  Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'))
 
   Plug 'sbdchd/neoformat'
 
