@@ -51,12 +51,6 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'Shougo/context_filetype.vim'
 
   " ==========================================================================
-  " File system
-  " ==========================================================================
-
-  Plug 'lambdalisue/gina.vim'
-
-  " ==========================================================================
   " Commands
   " ==========================================================================
 
@@ -73,7 +67,9 @@ function! dkoplug#plugins#LoadAll() abort
         \   'FZFVim',
         \ ] })
 
-  "Plug 'lambdalisue/gina.vim', PlugIf(exists('v:null'))
+  Plug 'lambdalisue/gina.vim', PlugIf(exists('v:null'), {
+        \   'on': [ 'Gina', '<Plug>(gina' ]
+        \ })
 
   " :Bdelete to preserve windows
   Plug 'moll/vim-bbye'
@@ -81,6 +77,8 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'nathanaelkane/vim-indent-guides'
 
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
+
+  Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_open_win'))
 
   Plug 'sbdchd/neoformat'
 

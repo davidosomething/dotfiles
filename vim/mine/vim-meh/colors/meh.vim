@@ -38,7 +38,7 @@ hi! PreProc                           guifg=#dddddd
 hi! Question                          guifg=#88aabb
 hi! Search              guibg=#dd99ff guifg=bg
 hi! Special                           guifg=#dd7766
-hi! SpecialComment      guifg=#707a8a               gui=NONE
+hi! SpecialComment                    guifg=#707a8a gui=NONE
 hi! SpecialKey                        guifg=#772222
 hi! Statement                         guifg=#777777 gui=NONE
 hi! StorageClass                      guifg=#777777
@@ -64,6 +64,9 @@ hi! link Keyword        Normal
 
 hi! dkoBgAlt            guibg=#24252a
 hi! dkoBgLight          guibg=#303135
+
+hi! dkoPopup            guibg=#2a2a2f guifg=#ccc0c0
+hi! dkoPopupBlank       guibg=#2a2a2f guifg=#2a2a2f
 
 hi! dkoDecorations                    guifg=#505a6a
 hi! dkoRegex                          guifg=#cc99cc
@@ -171,6 +174,26 @@ hi! link diffRemoved    DiffDelete
 hi! link gitKeyword         Identifier
 hi! link gitDate            String
 hi! link gitHash            Normal
+
+" ============================================================================
+" git-messenger
+" ============================================================================
+
+" Header such as 'Commit:', 'Author:'
+hi link gitmessengerHeader        Title
+
+" Commit hash at 'Commit:' header
+hi link gitmessengerHash          dkoPopup
+
+" History number at 'History:' header
+hi link gitmessengerHistory       dkoPopup
+
+" Normal color. This color is the most important
+hi link gitmessengerPopupNormal   dkoPopup
+
+" Color of 'end of buffer'. To hide '~' in popup window, I recommend to use the same background
+" color as gitmessengerPopupNormal.
+hi link gitmessengerEndOfBuffer   dkoPopupBlank
 
 " ============================================================================
 " vim-indentguides
