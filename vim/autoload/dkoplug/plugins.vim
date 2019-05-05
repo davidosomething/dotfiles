@@ -54,11 +54,6 @@ function! dkoplug#plugins#LoadAll() abort
   " File system
   " ==========================================================================
 
-  " Store accessed files in redis
-  Plug 'neoclide/redismru.vim', PlugIf(executable('redis-cli'), {
-        \   'do': 'npm install --force',
-        \ })
-
   Plug 'lambdalisue/gina.vim'
 
   " ==========================================================================
@@ -73,7 +68,6 @@ function! dkoplug#plugins#LoadAll() abort
         \   'FZFGrepper',
         \   'FZFMRU',
         \   'FZFProject',
-        \   'FZFRedisMRU',
         \   'FZFRelevant',
         \   'FZFTests',
         \   'FZFVim',

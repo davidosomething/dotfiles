@@ -64,11 +64,6 @@ nnoremap  <silent><special>   <A-p>   :<C-U>FZFProject<CR>
 
 execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
 nnoremap  <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
-" autocmd dkofzf VimEnter *
-"      \   if dkoplug#IsLoaded('redismru.vim')
-"      \|    execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFRedisMRU' })
-"      \|    nnoremap  <silent><special>   <A-m>   :<C-U>FZFRedisMRU<CR>
-"      \|  endif
 
 execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
 nnoremap  <silent><special>   <A-f>   :<C-U>FZFFiles<CR>

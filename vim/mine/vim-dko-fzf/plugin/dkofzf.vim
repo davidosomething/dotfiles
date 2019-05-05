@@ -116,18 +116,6 @@ command! FZFMRU
       \ ))
 
 " ----------------------------------------------------------------------------
-" neoclide/redismru.vim integration
-" ----------------------------------------------------------------------------
-
-command! FZFRedisMRU
-      \ call fzf#run(fzf#wrap('RedisMRU',
-      \   fzf#vim#with_preview(extend({
-      \     'source':  redismru#files(),
-      \     'options': s:options . ' --no-sort --prompt="RedisMRU> "',
-      \   }, g:fzf_layout), 'right:50%')
-      \ ))
-
-" ----------------------------------------------------------------------------
 " Test specs
 " ----------------------------------------------------------------------------
 

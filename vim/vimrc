@@ -71,7 +71,9 @@ set cursorline
 
 set synmaxcol=512                     " don't syntax highlight long lines
 
-if exists('+signcolumn') | set signcolumn=yes | endif
+if exists('+signcolumn')
+  let &signcolumn = has('nvim') ? 'auto:4' : 'yes'
+endif
 
 " ------------------------------------
 " Tab line
