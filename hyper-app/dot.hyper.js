@@ -69,8 +69,7 @@ module.exports = {
         },
         maximize: 'meta+shift+enter'
       },
-      showIndicators: true, // Show pane number
-      indicatorPrefix: '^⌥', // Will be completed with pane number
+      showIndicators: false, // Show pane number
       indicatorStyle: { // Added to indicator <div>
         position: 'absolute',
         top: 0,
@@ -78,7 +77,7 @@ module.exports = {
         fontSize: '10px'
       },
       focusOnMouseHover: false,
-      inactivePaneOpacity: 0.9 // Set to 1 to disable inactive panes dimming
+      inactivePaneOpacity: 1
     }
   },
 
