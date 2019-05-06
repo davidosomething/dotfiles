@@ -22,9 +22,6 @@ brew cask install cloudapp
 
 brew cask install dash
 
-# full socks5+DHT+blocklist support
-brew cask install deluge
-
 brew cask install discord
 brew cask install disk-inventory-x
 brew cask install docker
@@ -66,6 +63,7 @@ echo "License in SpiderOak Hive"
 # ==============================================================================
 
 brew cask install ngrok
+brew cask install qbittorrent
 brew cask install robo-3t
 brew cask install skype
 brew cask install slack
