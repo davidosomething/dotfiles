@@ -245,9 +245,12 @@ nnoremap sx "_x
 nnoremap sd "_d
 nnoremap sD "_D
 
-if g:dko_tab_completion
-  call dko#tabcomplete#Init()
-endif
+" ----------------------------------------------------------------------------
+" Conditional space/tab based on cursor position in line
+" Conditional pum navigation if pum open and g:dko_tab_completion
+" ----------------------------------------------------------------------------
+
+call dko#tabcomplete#Init()
 
 " ----------------------------------------------------------------------------
 " Swap comma and semicolon

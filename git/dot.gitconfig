@@ -65,6 +65,7 @@
 	pure    = pull --rebase
 	pum     = pull --ff-only upstream master
 
+	pf      = push --force-with-lease
 	poh     = push origin HEAD
 	puh     = push upstream HEAD
 
