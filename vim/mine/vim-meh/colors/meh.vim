@@ -15,7 +15,7 @@ set background=dark
 " ============================================================================
 
 hi! Boolean                           guifg=#cccccc gui=italic
-hi! Comment                           guifg=#50586a gui=italic
+hi! Comment                           guifg=#60687a gui=italic
 hi! Constant                          guifg=NONE    gui=italic
 hi! Delimiter                         guifg=#cc99cc
 hi! DiffAdd             guibg=#2a332a guifg=#668844

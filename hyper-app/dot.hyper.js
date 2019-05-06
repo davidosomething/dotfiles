@@ -27,13 +27,10 @@ module.exports = {
     // custom css to embed in the main window
     css: '',
 
-    // custom padding (css format, i.e.: `top right bottom left`)
-    termCSS: '',
-
     // custom padding
     padding: '12px 14px',
 
-    // some color overrides. see http://bit.ly/29k1iU2 for
+    // ansi color overrides. see http://bit.ly/29k1iU2 for
     // the full list
     colors: [
       '#000000',
@@ -53,6 +50,36 @@ module.exports = {
       '#00ffff',
       '#ffffff'
     ],
+
+    scrollback: 9999,
+
+    showWindowControls: false,
+
+    /**
+     * hyper-pane
+     */
+    paneNavigation: {
+      debug: false,
+      hotkeys: {
+        navigation: {
+          up: 'meta+alt+up',
+          down: 'meta+alt+down',
+          left: 'meta+alt+left',
+          right: 'meta+alt+right'
+        },
+        maximize: 'meta+shift+enter'
+      },
+      showIndicators: true, // Show pane number
+      indicatorPrefix: '^⌥', // Will be completed with pane number
+      indicatorStyle: { // Added to indicator <div>
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        fontSize: '10px'
+      },
+      focusOnMouseHover: false,
+      inactivePaneOpacity: 0.9 // Set to 1 to disable inactive panes dimming
+    }
   },
 
   // a list of plugins to fetch and install from npm
@@ -62,56 +89,21 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    //// Alt buffer scrolling broken in Hyper 2.0
-    //'hyperterm-alternatescroll',
-
-    //// blinking cursor
-    //'hyperterm-blink',
-
     'hyperterm-base16-tomorrow-night',
-
-    //'hyperterm-resboned',
-
-    //// fancy tabs
-    //'hyperterm-mactabs',
-
-    //// draggable tabs
-    //'hyperterm-tabs',
-
-    // bold active tab
-    // causes funky tab opening
-    //'hyperterm-bold-tab',
-
-    //// tab icons
-    //'hyperterm-tab-icons',
 
     //// add focus-gained/lost events
     'hyperterm-focus-reporting',
 
-    //// respect xterm titles
-    'hyperterm-title',
-
     'hyper-search',
 
-    //// status bar
-    //'hyperline',
+    // status bar
     'hyper-statusline',
-
-    // clickable links in same window... buggy
-    'hyperlinks',
 
     // Pane shortcuts
     // Doesn't seem to work
-    //'hyper-pane',
+    'hyper-pane',
     //'hyper-keymap',
 
-    // quit on close last pane
-    'hyper-quit',
   ],
-
-  // in development, you can create a directory under
-  // `~/.hyperterm_plugins/local/` and include it here
-  // to load it and avoid it being `npm install`ed
-  localPlugins: [],
 
 };
