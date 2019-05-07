@@ -65,7 +65,7 @@ members() {
 }
 
 proftoggle() {
-  if [[ -z "$ITERM_PROFILE" ]]; then
+  if [ -z "$ITERM_PROFILE" ]; then
     print "Not in iTerm" 1>&2
     return
   fi
@@ -77,14 +77,12 @@ proftoggle() {
   fi
   export ITERM_PROFILE
 
-  local seq
   seq="\e]1337;SetProfile=${ITERM_PROFILE}\x7"
   # shellcheck disable=SC2059
   printf "$seq"
 
   echo
   echo "Now using ${ITERM_PROFILE}"
-  echo
 }
 
 vol() {
