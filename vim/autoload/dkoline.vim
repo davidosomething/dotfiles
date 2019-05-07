@@ -314,7 +314,6 @@ function! dkoline#Init() abort
   let l:refresh_hooks = [
         \   'BufEnter',
         \   'BufWinEnter',
-        \   'DirChanged',
         \ ]
         " \   'SessionLoadPost',
         " \   'TabEnter',
@@ -326,6 +325,9 @@ function! dkoline#Init() abort
         " \   'BufEnter' for different buffer
         " \   'CursorMoved' is for updating anzu search status accurately,
         "     using Plug mapping instead.
+  if has('nvim')
+    call add(l:refresh_hooks, 'DirChanged')
+  endif
 
   let l:user_refresh_hooks = [
         \   'NeomakeFinished',

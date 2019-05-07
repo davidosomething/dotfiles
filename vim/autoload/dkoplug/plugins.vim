@@ -112,7 +112,7 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
 
   "Plug 'cyansprite/Extract', PlugIf(has('nvim'))
-  Plug 'svermeulen/vim-yoink'
+  Plug 'svermeulen/vim-yoink', PlugIf(has('nvim'))
 
   Plug 'godlygeek/tabular', { 'on': [ 'Tabularize' ] }
 
