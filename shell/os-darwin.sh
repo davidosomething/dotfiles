@@ -50,6 +50,11 @@ flushdns() {
   sudo killall -HUP mDNSResponder
 }
 
+# short version of what's provided by oh-my-zsh/xcode
+ios() {
+  open "$(xcode-select -p)/Applications/Simulator.app"
+}
+
 # list members for a group
 # http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
 members() {
@@ -59,9 +64,27 @@ members() {
   done | grep "is a member" | cut -d " " -f 1
 }
 
-# short version of what's provided by oh-my-zsh/xcode
-ios() {
-  open "$(xcode-select -p)/Applications/Simulator.app"
+proftoggle() {
+  if [[ -z "$ITERM_PROFILE" ]]; then
+    print "Not in iTerm" 1>&2
+    return
+  fi
+
+  if [[ "$ITERM_PROFILE" == "ZSH - base16 Tomorrow Night" ]]; then
+    ITERM_PROFILE='ZSH - Solarized Light'
+  else
+    ITERM_PROFILE='ZSH - base16 Tomorrow Night'
+  fi
+  export ITERM_PROFILE
+
+  local seq
+  seq="\e]1337;SetProfile=${ITERM_PROFILE}\x7"
+  # shellcheck disable=SC2059
+  printf "$seq"
+
+  echo
+  echo "Now using ${ITERM_PROFILE}"
+  echo
 }
 
 vol() {
