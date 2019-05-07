@@ -70,7 +70,7 @@ proftoggle() {
     return
   fi
 
-  if [[ "$ITERM_PROFILE" == "ZSH - base16 Tomorrow Night" ]]; then
+  if [ "$ITERM_PROFILE" = "ZSH - base16 Tomorrow Night" ]; then
     ITERM_PROFILE='ZSH - Solarized Light'
   else
     ITERM_PROFILE='ZSH - base16 Tomorrow Night'
