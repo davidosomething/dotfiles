@@ -21,6 +21,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/path.sh"
 # On macOS/OS X/BSD path_helper is run in /etc/profile, which generates paths
 # using /etc/paths and /etc/paths.d/* and defines the initial $PATH
 # Something like "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
+
+# Note that as of Mojave /usr/local/bin is in /etc/paths
 #
 # On arch, via /etc/profile, default path is:
 # /usr/local/sbin:/usr/local/bin:/usr/bin
@@ -36,6 +38,8 @@ export DKO_SYSTEM_PATH="${DKO_SYSTEM_PATH:-$PATH}"
 PATH="$DKO_SYSTEM_PATH"
 
 # enforce local bin and sbin order, they come before any system paths
+# For Mojave, we'll have /usr/local/bin twice. In zsh at least this gets
+# deduped.
 PATH="/usr/local/bin:/usr/local/sbin:${DKO_SYSTEM_PATH}"
 
 # ----------------------------------------------------------------------------
