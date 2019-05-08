@@ -4,7 +4,8 @@ base16/
 certs/
 fonts/
 logs/
-osx/base16-iterm2/
+mac/iterm2/
+mac/hammerspoon/Spoons/
 tmux/plugins/
 vale/styles/
 vim/.tmp/
