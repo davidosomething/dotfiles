@@ -7,6 +7,8 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 " Settings
 " ============================================================================
 
+set clipboard+=unnamedplus
+
 if $COLORTERM ==# 'truecolor' || $TERM ==# 'xterm-kitty'
   set termguicolors
 endif

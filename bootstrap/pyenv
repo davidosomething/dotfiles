@@ -33,10 +33,10 @@ __create_neovim_venv() {
   elif ! grep -q "$version" <<< "$__versions"; then
     __dko_warn "python version ${version} not found"
   else
-    __dko_status "Creating ${name} and installing neovim python client"
+    __dko_status "Creating ${name} and installing pynvim"
     pyenv virtualenv "$version" "$name" \
       && pyenv activate "$name" \
-      && pip install neovim \
+      && pip install pynvim \
       && pyenv deactivate
   fi
 }
