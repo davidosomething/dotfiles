@@ -90,15 +90,7 @@ operation. Use the `bi` alias for a clean room install if possible.
     1. `brew install openssl`
     1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
     1. Set up the global pyenv as the latest stable (3.x)
-    1. Set up python virtualenvs called `neovim{2,3}` -- the Neovim configuration expects to find those. E.g.,
-
-        ```sh
-        pyenv install 2.7.xx
-        pyenv virtualenv 2.7.xx neovim2
-        pyenv activate neovim2
-        pip install neovim
-        pyenv deactivate
-        ```
+    1. Set up python virtualenvs using [bootstrap/pyenv](../bootstrap/pyenv)
 
 - run [bootstrap/terminfo](../bootstrap/terminfo) (added terminfo for iTerm
   with italics support)

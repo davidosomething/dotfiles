@@ -42,11 +42,10 @@ __create_neovim_venv() {
 }
 
 __main() {
-  local p2="$1"
-  local p3="$2"
+  local p3="$1"
 
-  if [[ -z "$p2" ]] || [[ -z "$p3" ]]; then
-    __dko_usage "$0 2.7.14 3.7.0"
+  if [[ -z "$p3" ]]; then
+    __dko_usage "$0 3.7.2"
     return 1
   fi
 
@@ -63,10 +62,8 @@ __main() {
   fi
 
   __dko_status "pyenv-virtualenv setup"
-  __dko_echo "desired python2: ${p2}"
   __dko_echo "desired python3: ${p3}"
 
-  __create_neovim_venv "neovim2" "$p2"
   __create_neovim_venv "neovim3" "$p3"
 }
 
