@@ -112,7 +112,6 @@ set ttimeout
 " ----------------------------------------------------------------------------
 
 set browsedir=buffer                  " browse files in same dir as open file
-set wildmenu                          " Enhanced command line completion.
 set wildmode=list:longest,full        " Complete files using a menu AND list
 let &wildignorecase = v:version >= 704
 
@@ -151,9 +150,6 @@ set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
 " ----------------------------------------------------------------------------
 " File saving
 " ----------------------------------------------------------------------------
-
-" reload files if they were edited elsewhere?
-"set autoread
 
 set fileformats=unix,mac,dos
 " Not modifiable if no window (e.g. resourcing vimrc)
@@ -224,7 +220,6 @@ set undoreload=10000
 " Don't consider = symbol as part filename.
 set isfname-==
 
-set complete-=i                       " don't complete includes
 set complete-=t                       " don't complete tags
 set completeopt-=longest              " ncm2 requirement
 set completeopt-=preview              " don't open scratch (e.g. echodoc)
@@ -247,7 +242,6 @@ if has('patch-7.4.314') | set shortmess+=c | endif
 
 set splitbelow
 set splitright
-set fillchars=vert:│                  " Vertical sep between windows (unicode)
 
 set hidden                            " remember undo after quitting
 
@@ -296,19 +290,13 @@ set diffopt+=iwhite                   " Ignore whitespace changes
 " ----------------------------------------------------------------------------
 
 set formatoptions=
-set formatoptions+=c                  " Auto-wrap comments using textwidth
 set formatoptions+=r                  " Continue comments by default
 set formatoptions-=o                  " do not continue comment using o or O
-set formatoptions+=q                  " continue comments with gq
 set formatoptions-=a                  " auto-gq on type in comments?
 set formatoptions+=n                  " Recognize numbered lists
 set formatoptions+=2                  " Use indent from 2nd line of a paragraph
 set formatoptions-=l                  " break lines that are already long?
 set formatoptions+=1                  " Break before 1-letter words
-" Vim 7.4 only: no // comment when joining commented lines
-if v:version >= 704 | set formatoptions+=j | endif
-
-set nrformats-=octal                  " never use octal when <C-x> or <C-a>
 
 " ----------------------------------------------------------------------------
 " Whitespace
@@ -320,8 +308,6 @@ set nojoinspaces                      " J command doesn't add extra space
 " ----------------------------------------------------------------------------
 " Indenting - overridden by indent plugins
 " ----------------------------------------------------------------------------
-
-set autoindent                        " indent when creating newline
 
 " For autoindent, use same spaces/tabs mix as previous line, even if
 " tabs/spaces are mixed. Helps for docblock, where the block comments have a
@@ -356,20 +342,12 @@ set nocindent
 " this is OFF so block comments don't get fudged when using ">>" and "<<"
 set noshiftround
 
-" When on, a <Tab> in front of a line inserts blanks according to
-" 'shiftwidth'. 'tabstop' or 'softtabstop' is used in other places.
-set smarttab
-
-set backspace=indent,eol,start        " bs anything
-
 " ----------------------------------------------------------------------------
 " Match and search
 " ----------------------------------------------------------------------------
 
 set matchtime=1                       " tenths of a sec
 set showmatch                         " briefly jump to matching paren?
-set hlsearch
-set incsearch
 set wrapscan                          " Searches wrap around end of the file.
 set ignorecase
 " Follow smartcase and ignorecase when doing tag search
