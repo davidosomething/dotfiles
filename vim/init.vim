@@ -7,12 +7,7 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 " Settings
 " ============================================================================
 
-" Hyper.app does not truly support truecolor yet
-" @see https://github.com/zeit/hyper/issues/2846
-"\ || $TERM_PROGRAM ==# 'Hyper'
-if $COLORTERM ==# 'truecolor'
-      \ || $TERM ==# 'xterm-kitty'
-      \ || !empty($ITERM_PROFILE)
+if $COLORTERM ==# 'truecolor' || $TERM ==# 'xterm-kitty'
   set termguicolors
 endif
 
@@ -21,16 +16,14 @@ if $TERM ==# 'xterm-kitty'
   let &t_ut=''
 endif
 
+" The default blinking cursor leaves random artifacts in display like "q" in
+" old terminal emulators and some VTEs
+" @see https://github.com/neovim/neovim/issues?utf8=%E2%9C%93&q=is%3Aissue+cursor+shape+q
+set guicursor=
 augroup dkonvim
   autocmd!
   autocmd OptionSet guicursor noautocmd set guicursor=
 augroup END
-set guicursor=
-" @see https://github.com/neovim/neovim/issues?utf8=%E2%9C%93&q=is%3<Plug>(ncm2_auto_trigger)Aissue+cursor+shape+q
-" Leaves random artifacts in display like "q"
-" set guicursor=n-v-c:block,i-ci-ve:ver50,r-cr:hor20,o:hor50
-"       \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-"       \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 " New neovim feature, it's like vim-over but hides the thing being replaced
 " so it is not practical for now (makes it harder to remember what you're
@@ -84,13 +77,6 @@ let g:terminal_color_7 = '#a89984'
 let g:terminal_color_15 = '#ebdbb2'
 
 " ============================================================================
-" fzf fix
-" https://github.com/junegunn/fzf/issues/809#issuecomment-273226434
-" ============================================================================
-
-let $FZF_DEFAULT_OPTS .= ' --no-height'
-
-" ============================================================================
 " Neovim-only mappings
 " ============================================================================
 
@@ -125,24 +111,10 @@ function! s:FindExecutable(paths) abort
   return ''
 endfunction
 
-" ----------------------------------------------------------------------------
-" Python 2
-" ----------------------------------------------------------------------------
+" disable python 2
+let g:loaded_python_provider = 1
 
-let s:pyenv_py2 = s:FindExecutable([
-      \   '$PYENV_ROOT/versions/neovim2/bin/python',
-      \   '/usr/bin/python2',
-      \ ])
-if !empty(s:pyenv_py2)
-  let g:python_host_prog  = s:pyenv_py2
-else
-  let g:loaded_python_provider = 1
-endif
-
-" ----------------------------------------------------------------------------
-" Python 3
-" ----------------------------------------------------------------------------
-
+" python 3
 let s:pyenv_py3 = s:FindExecutable([
       \   '$PYENV_ROOT/versions/neovim3/bin/python',
       \   '/usr/bin/python3',
