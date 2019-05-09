@@ -2,6 +2,9 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
 
+export RUBY_VERSION='2.6.3'
+export RUBY_PATH="${XDG_CONFIG_HOME}/rubies/ruby-${RUBY_VERSION}"
+
 export GEMRC="${DOTFILES}/ruby/gemrc"
 
 # Ruby use brew openssl if available
@@ -20,19 +23,8 @@ openssl_dir="${DKO_BREW_PREFIX}/opt/openssl"
 # ==============================================================================
 
 export CHRUBY_PREFIX="${DKO_BREW_PREFIX:-/usr}"
-
-# chruby and auto-switcher for .ruby-version
 __dko_source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" &&
   DKO_SOURCE="${DKO_SOURCE} -> chruby"
-__dko_source "${CHRUBY_PREFIX}/share/chruby/auto.sh"
-
-ruby_version='2.6.3'
-__dko_has 'chruby' &&
-  ruby_path="${XDG_CONFIG_HOME}/rubies/ruby-${ruby_version}"
-[[ -d "$ruby_path" ]] &&
-  RUBIES+=("$ruby_path") &&
-  export RUBIES &&
-  chruby "ruby-${ruby_version}"
 
 # ==============================================================================
 
