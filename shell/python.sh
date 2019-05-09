@@ -19,11 +19,11 @@ export PYLINTRC="${DOTFILES}/python/pylintrc"
 # init once
 export PYENV_ROOT="${XDG_CONFIG_HOME}/pyenv"
 export PATH="${PYENV_ROOT}/bin:${PATH}"
-__dko_has "pyenv" && {
+__dko_has 'pyenv' && {
   DKO_SOURCE="${DKO_SOURCE} -> pyenv"
   eval "$(pyenv init -)"
   # should have pyenv-virtualenv plugin if installed via pyenv-installer
-  __dko_has "pyenv-virtualenv-init" && eval "$(pyenv virtualenv-init -)"
+  __dko_has 'pyenv-virtualenv-init' && eval "$(pyenv virtualenv-init -)"
 }
 
 # ==============================================================================
