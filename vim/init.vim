@@ -9,10 +9,6 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 set clipboard+=unnamedplus
 
-if $COLORTERM ==# 'truecolor' || $TERM ==# 'xterm-kitty'
-  set termguicolors
-endif
-
 if $TERM ==# 'xterm-kitty'
   " @see https://github.com/kovidgoyal/kitty#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
   let &t_ut=''
