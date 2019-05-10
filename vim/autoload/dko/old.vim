@@ -54,9 +54,7 @@ function! dko#old#Settings() abort
   " ----------------------------------------------------------------------------
 
   set formatoptions+=c                  " Auto-wrap comments using textwidth
-  if v:version >= 704 | set formatoptions+=j | endif
   set formatoptions+=q                  " continue comments with gq
-  " Vim 7.4 only: no // comment when joining commented lines
 
   set nrformats-=octal                  " never use octal when <C-x> or <C-a>
 
