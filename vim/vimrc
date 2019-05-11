@@ -40,6 +40,8 @@ let g:vdotdir = empty($VDOTDIR) ? expand('$HOME/.vim') : $VDOTDIR
 
 set modeline
 
+if exists('+pyxversion') | set pyxversion=3 | endif
+
 " Pretty quick... errorprone on old vim so only apply to nvim
 if has('nvim') | set updatetime=250 | endif
 
