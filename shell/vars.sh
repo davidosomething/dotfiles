@@ -176,8 +176,6 @@ export R_LIBS_USER="${HOME}/.local/lib/R/library/"
 # readline
 export INPUTRC="${DOTFILES}/shell/dot.inputrc"
 
-# ruby moved to shell/ruby loaded in shell/before
-
 # -shellcheck
 export SHELLCHECK_OPTS="--exclude=SC1090,SC2148"
 

@@ -2,6 +2,8 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
 
+export DKO_RUBIES="${XDG_DATA_HOME}/rubies"
+
 export GEMRC="${DOTFILES}/ruby/gemrc"
 
 # Ruby use brew openssl if available
@@ -22,6 +24,8 @@ openssl_dir="${DKO_BREW_PREFIX}/opt/openssl"
 export CHRUBY_PREFIX="${DKO_BREW_PREFIX:-/usr}"
 __dko_source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" &&
   DKO_SOURCE="${DKO_SOURCE} -> chruby"
+
+# actual chruby invocation in localrc only since it is non-posix
 
 # ==============================================================================
 

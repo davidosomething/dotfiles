@@ -186,6 +186,7 @@ alias getsubs="subliminal download -p opensubtitles -p shooter -p subscenter -p 
 alias bun='bundle'
 alias be='bun exec'
 alias cap='be cap'
+alias ruby-install='ruby-install --rubies-dir "$DKO_RUBIES"'
 
 # ----------------------------------------------------------------------------
 # shfmt
