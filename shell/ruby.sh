@@ -2,9 +2,6 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
 
-export RUBY_VERSION='2.6.3'
-export RUBY_PATH="${XDG_CONFIG_HOME}/rubies/ruby-${RUBY_VERSION}"
-
 export GEMRC="${DOTFILES}/ruby/gemrc"
 
 # Ruby use brew openssl if available
