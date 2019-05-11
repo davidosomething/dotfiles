@@ -27,7 +27,7 @@ let g:dko_tab_completion = 0 " use (s-)tab to navigate PUM?
 
 " Plugin settings
 let g:dko_autoinstall_vim_plug = executable('git')
-let g:dko_use_completion = has('nvim-0.2.2')
+let g:dko_use_completion = has('nvim-0.3')
 let g:dko_use_fzf = v:version >= 704 && (has('nvim') || g:dko_is_iterm)
 
 " Fallback for vims with no env access like Veonim
