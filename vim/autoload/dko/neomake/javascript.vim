@@ -56,10 +56,8 @@ function! dko#neomake#javascript#Setup() abort
     let b:neomake_javascript_enabled_makers += [ 'jshint' ]
   endif
 
-  if !empty(dko#project#javascript#GetEslintrc())
-    if get(g:, 'has_coc_eslint', 0)
-      let b:neomake_javascript_enabled_makers += [ 'eslint' ]
-    endif
+  if !get(g:, 'has_coc_eslint', 0) && !empty(dko#project#javascript#GetEslintrc())
+    let b:neomake_javascript_enabled_makers += [ 'eslint' ]
   endif
 
   let b:neomake_javascript_jsx_enabled_makers =
