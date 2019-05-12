@@ -125,10 +125,12 @@ $DKO_SOURCE` works.
 
 For X apps (no terminal) the value may be:
 
-    /etc/profile
-    .xprofile
-      shell/vars
-        shell/xdg
+```text
+/etc/profile
+.xprofile
+  shell/vars
+    shell/xdg
+```
 
 ## Shell script code style
 
