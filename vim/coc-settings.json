@@ -56,12 +56,12 @@
       "sourceName": "vint",
       "formatLines": 1,
       "formatPattern": [
-	"[^:]+:(\\d+):(\\d+):\\s*(.*$)",
-	{
-	  "line": 1,
-	  "column": 2,
-	  "message": 3
-	}
+        "[^:]+:(\\d+):(\\d+):\\s*(.*$)",
+        {
+          "line": 1,
+          "column": 2,
+          "message": 3
+        }
       ]
     }
   },
