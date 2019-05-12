@@ -211,6 +211,29 @@ vmap <special> <Tab>     >
 vmap <special> <S-Tab>   <
 
 " ----------------------------------------------------------------------------
+" <Tab> space or real tab based on line contents and cursor position
+" ----------------------------------------------------------------------------
+
+function! s:DKO_Tab() abort
+  " If characters all the way back to start of line were all whitespace,
+  " insert whatever expandtab setting is set to do.
+  if strpart(getline('.'), 0, col('.') - 1) =~? '^\s*$'
+    return "\<Tab>"
+  endif
+
+  " The PUM is closed and characters before the cursor are not all whitespace
+  " so we need to insert alignment spaces (always spaces)
+  " Calc how many spaces, support for negative &sts values
+  let l:sts = (&softtabstop <= 0) ? shiftwidth() : &softtabstop
+  let l:sp = (virtcol('.') % l:sts)
+  if l:sp == 0 | let l:sp = l:sts | endif
+  return repeat(' ', 1 + l:sts - l:sp)
+endfunction
+
+silent! iunmap <Tab>
+inoremap  <silent><special><expr>  <Tab>     <SID>DKO_Tab()
+
+" ----------------------------------------------------------------------------
 " Sort lines (use unix sort)
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
 " ----------------------------------------------------------------------------
@@ -244,13 +267,6 @@ xnoremap <special> <C-y> "*y
 nnoremap sx "_x
 nnoremap sd "_d
 nnoremap sD "_D
-
-" ----------------------------------------------------------------------------
-" Conditional space/tab based on cursor position in line
-" Conditional pum navigation if pum open and g:dko_tab_completion
-" ----------------------------------------------------------------------------
-
-call dko#tabcomplete#Init()
 
 " ----------------------------------------------------------------------------
 " Swap comma and semicolon

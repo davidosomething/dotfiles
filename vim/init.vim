@@ -4,15 +4,30 @@
 let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
 " ============================================================================
-" Settings
+" Temporary fixes
 " ============================================================================
-
-set clipboard+=unnamedplus
 
 if $TERM ==# 'xterm-kitty'
   " @see https://github.com/kovidgoyal/kitty#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
   let &t_ut=''
 endif
+
+" https://github.com/neovim/neovim/issues/7994
+augroup dkoneovimfixes
+  autocmd!
+  autocmd InsertLeave * set nopaste
+augroup END
+
+" ============================================================================
+" Settings
+" ============================================================================
+
+set clipboard+=unnamedplus
+
+" Bumped '100 to '1000 to save more previous files
+" Bumped <50 to <100 to save more register lines
+" Bumped s10 to s100 for to allow up to 100kb of data per item
+set shada=!,'1000,<100,s100,h
 
 " The default blinking cursor leaves random artifacts in display like "q" in
 " old terminal emulators and some VTEs
@@ -29,6 +44,9 @@ augroup END
 " disabled here, too.
 " @see https://github.com/neovim/neovim/pull/5226
 set inccommand=
+
+" Pretty quick... errorprone on old vim so only apply to nvim
+set updatetime=250
 
 " ============================================================================
 " :terminal emulator

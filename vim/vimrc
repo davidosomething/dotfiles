@@ -13,17 +13,12 @@ scriptencoding utf-8
 " Settings vars
 " ============================================================================
 
-" no longer using comma so I can reverse repeat fFtT searches
-" no longer using \ so I can type escaped chars :/
-" needs to be before bundle so plugins map correctly
 let g:mapleader = "\<Space>"
 
-" Just for debugging
 let g:dko_rtp_original = &runtimepath
 
 " flags
 let g:dko_is_iterm = $TERM_PROGRAM ==# 'iTerm.app'
-let g:dko_tab_completion = 0 " use (s-)tab to navigate PUM?
 
 " Plugin settings
 let g:dko_autoinstall_vim_plug = executable('git')
@@ -41,9 +36,6 @@ let g:vdotdir = empty($VDOTDIR) ? expand('$HOME/.vim') : $VDOTDIR
 set modeline
 
 if exists('+pyxversion') && has('python3') | set pyxversion=3 | endif
-
-" Pretty quick... errorprone on old vim so only apply to nvim
-if has('nvim') | set updatetime=250 | endif
 
 " ----------------------------------------------------------------------------
 " Display
@@ -156,18 +148,6 @@ set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
 set fileformats=unix,mac,dos
 " Not modifiable if no window (e.g. resourcing vimrc)
 if !&modifiable | set fileformat=unix | endif
-
-" ----------------------------------------------------------------------------
-" shada
-" viminfo is in autoload/dko/old.vim
-" ----------------------------------------------------------------------------
-
-if has('shada')
-  " Bumped '100 to '1000 to save more previous files
-  " Bumped <50 to <100 to save more register lines
-  " Bumped s10 to s100 for to allow up to 100kb of data per item
-  set shada=!,'1000,<100,s100,h
-endif
 
 " ----------------------------------------------------------------------------
 " Temp dirs
@@ -489,12 +469,6 @@ endif
 " Autocommands
 " ============================================================================
 
-" https://github.com/neovim/neovim/issues/7994
-augroup dkoneovimfixes
-  autocmd!
-  autocmd InsertLeave * set nopaste
-augroup END
-
 augroup dkowindow
   autocmd!
   autocmd VimResized * wincmd =
@@ -532,6 +506,7 @@ augroup dkohugefile
   autocmd BufReadPre *
         \   if getfsize(expand("%")) > 10000000
         \|    syntax off
+        \|    let b:dko_hugefile = 1
         \|  endif
   autocmd BufReadPre *.min.* syntax off
 augroup END
