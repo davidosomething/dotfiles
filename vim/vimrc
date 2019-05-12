@@ -446,7 +446,9 @@ let g:loaded_tarPlugin = 1
 let g:loaded_tutor_mode_plugin = 1
 let g:loaded_zipPlugin = 1
 
-" Upstream matchparen -- it is inaccurate.
+" % matching replaced by vim-matchup, which sets the following
+"let g:loaded_matchit = 1
+" Upstream matchparen -- it is inaccurate. Replaced by vim-matchup
 let g:loaded_matchparen = 1
 
 " used to download spellfile and enable gx mapping

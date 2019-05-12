@@ -98,7 +98,8 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'sgur/vim-editorconfig'
 
   " highlight matching html/xml tag
-  Plug 'gregsexton/MatchTag'
+  "Plug 'gregsexton/MatchTag'
+  Plug 'andymass/vim-matchup', PlugIf(has('patch-7.4.1689'))
 
   " add gS on char to smart split lines at char, like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
@@ -221,7 +222,8 @@ function! dkoplug#plugins#LoadAll() abort
   " Multiple languages
   " ==========================================================================
 
-  Plug 'itchyny/vim-parenmatch'
+  " Using andymass/vim-matchup intead
+  "Plug 'itchyny/vim-parenmatch'
 
   " special end syntax for various langs
   Plug 'tpope/vim-endwise'
