@@ -1,6 +1,7 @@
 function! dko#coc#InstallExtensions() abort
   let s:extensions = [
         \  'coc-css',
+        \  'coc-diagnostic',
         \  'coc-eslint',
         \  'coc-highlight',
         \  'coc-json',

@@ -57,6 +57,10 @@ let g:neomake_sh_enabled_makers = neomake#makers#ft#sh#EnabledMakers() + [
       \   'bashate',
       \ ]
 
+let g:neomake_vim_enabled_makers = dkoplug#IsLoaded('coc.nvim')
+      \ ? []
+      \ : [ 'vint' ]
+
 " ============================================================================
 " echint
 " ============================================================================
