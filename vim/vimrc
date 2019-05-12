@@ -69,25 +69,11 @@ if exists('+signcolumn')
   let &signcolumn = has('nvim') ? 'auto:4' : 'yes'
 endif
 
-" ------------------------------------
-" Tab line
-" ------------------------------------
-
 set showtabline=0                     " start OFF, toggle =2 to show tabline
-
-" ------------------------------------
-" Status line
-" ------------------------------------
-
 set laststatus=2                      " always show all statuslines
-
-" ------------------------------------
-" Command line
-" ------------------------------------
 
 " This is slow on some terminals and often gets hidden by msgs so leave it off
 set noshowcmd
-
 set noshowmode                        " don't show -- INSERT -- in cmdline
 
 " ----------------------------------------------------------------------------
@@ -149,21 +135,9 @@ set fileformats=unix,mac,dos
 " Not modifiable if no window (e.g. resourcing vimrc)
 if !&modifiable | set fileformat=unix | endif
 
-" ----------------------------------------------------------------------------
-" Temp dirs
-" ----------------------------------------------------------------------------
-
-" ----------------------------------------------------------------------------
-" Writing swaps
-" ----------------------------------------------------------------------------
-
 " If we have a swap conflict, FZF has issues opening the file (and doesn't
 " prompt correctly)
 set noswapfile
-
-" ----------------------------------------------------------------------------
-" Write backups
-" ----------------------------------------------------------------------------
 
 " Use backup files when writing (create new file, replace old one with new
 " one)
@@ -237,6 +211,7 @@ set nostartofline                     " don't jump to col1 on switch buffer
 " Code folding
 " ----------------------------------------------------------------------------
 
+set foldlevel=999                     " very high === all folds open
 set foldlevelstart=99                 " show all folds by default
 set nofoldenable
 
@@ -333,7 +308,7 @@ set noshiftround
 " ----------------------------------------------------------------------------
 
 set matchtime=1                       " tenths of a sec
-set showmatch                         " briefly jump to matching paren?
+set noshowmatch                       " briefly jump to matching paren?
 set wrapscan                          " Searches wrap around end of the file.
 set ignorecase
 " Follow smartcase and ignorecase when doing tag search
@@ -433,10 +408,6 @@ let g:loaded_matchparen = 1
 
 " used to download spellfile and enable gx mapping
 "let g:loaded_netrwPlugin = 0
-
-" ----------------------------------------------------------------------------
-" Plugins: netrw
-" ----------------------------------------------------------------------------
 
 " netrw in details format when no vimfiler
 let g:netrw_liststyle      = 3
