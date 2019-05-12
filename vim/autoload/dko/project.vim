@@ -25,15 +25,15 @@ set cpoptions&vim
 " Look for project config files in these paths
 let s:default_roots = [
       \   '',
-      \   'config/',
       \ ]
 
 " Look for project root using these file markers if not a git project
 let s:markers = [
-      \   'package.json',
-      \   'composer.json',
-      \   'requirements.txt',
       \   'Gemfile',
+      \   'composer.json',
+      \   'package.json',
+      \   'requirements.txt',
+      \   'tsconfig.json',
       \ ]
 
 " @param {mixed} { bufnr } or number/string bufnr

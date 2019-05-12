@@ -43,7 +43,7 @@
   // coc-eslint
   // =========================================================================
 
-  "eslint.enable": false,
+  "eslint.enable": true,
   "eslint.autoFix": false,
   "eslint.autoFixOnSave": false,
   "eslint.run": "onType",

@@ -1,7 +1,5 @@
 " after/plugin/plug-vim-parenmatch.vim
 
-if !dkoplug#IsLoaded('vim-parenmatch') | finish | endif
-
 " Disable resetting the colors on colorscheme change
 let g:parenmatch_highlight = 1
 
