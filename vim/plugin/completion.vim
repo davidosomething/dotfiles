@@ -13,21 +13,6 @@ if dkoplug#IsLoaded('coc.nvim')
   let g:coc_snippet_next = '<C-f>'
   let g:coc_snippet_prev = '<C-b>'
 
-  function! s:MarkExtensions()
-    let s:extensions = CocAction('extensionStats')
-    let g:has_coc_eslint = 0
-    let g:has_coc_highlight = 0
-    for l:extension in s:extensions
-      if l:extension.id ==# 'coc-highlight' && !g:has_coc_highlight
-        let g:has_coc_highlight = 1
-        autocmd dkocompletion CursorHold *
-              \ silent call CocActionAsync('highlight')
-      elseif l:extension.id ==# 'coc-eslint' && !g:has_coc_eslint
-        let g:has_coc_eslint = 1
-        call coc#config('javascript.validate.enable', 0)
-      endif
-    endfor
-  endfunction
   autocmd dkocompletion User CocNvimInit call s:MarkExtensions()
 
   function! s:ShowDocumentation()

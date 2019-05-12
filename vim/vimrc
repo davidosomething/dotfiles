@@ -506,14 +506,8 @@ augroup END
 augroup dkoproject
   autocmd!
   autocmd BufNewFile,BufRead,BufWritePost * call dko#project#MarkBuffer()
-augroup END
-
-" @TODO set per buffer so can disable in dkofile
-augroup dkoautolint
-  autocmd!
-  " @TODO can use neomake#configure#automake() when blacklist is implemented
-  " Keep this last so all the other autocmds happen first
-  autocmd BufWritePost * call dko#project#LintBuffer()
+  autocmd User CocNvimInit call dko#lint#SetupCoc()
+  autocmd User neomake call dko#lint#Setup()
 augroup END
 
 augroup dkocoloredit

@@ -263,7 +263,7 @@ nnoremap <Leader>; $r;
 
 execute dko#MapAll({
       \   'key': '<F6>',
-      \   'command': 'call dko#project#LintBuffer()'
+      \   'command': 'call dko#lint#LintBuffer()'
       \ })
 
 " ============================================================================

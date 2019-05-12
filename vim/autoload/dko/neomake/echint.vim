@@ -2,38 +2,6 @@
 " ECHint
 " ============================================================================
 
-function! g:PostprocessEchint(entry) abort
-  return a:entry.text =~# 'did not pass EditorConfig validation'
-        \ ? extend(a:entry, { 'valid': -1 })
-        \ : a:entry
-endfunction
-
-" Excludes things like python, which has pep8.
-let g:echint_whitelist = [
-      \   'gitconfig',
-      \   'dosini',
-      \   'javascript',
-      \   'json',
-      \   'lua',
-      \   'markdown',
-      \   'php',
-      \   'sh',
-      \   'vim',
-      \   'yaml',
-      \]
-
-function! dko#neomake#echint#CreateMaker() abort
-  let l:fts = g:echint_whitelist
-  for l:ft in l:fts
-    let g:neomake_{l:ft}_echint_maker = dko#neomake#NpxMaker({
-          \   'maker': 'echint',
-          \   'ft': l:ft,
-          \   'errorformat': '%E%f:%l %m',
-          \   'postprocess': function('PostprocessEchint'),
-          \ }, 'global')
-  endfor
-endfunction
-
 " For each filetype in the above whitelist, try to setup echint as
 " a buffer-local maker, extending the current list of buffer-local makers (or
 " default list)
@@ -54,9 +22,11 @@ function! dko#neomake#echint#Setup() abort
 
   let l:capable_fts = filter(l:fts, 'index(g:echint_whitelist, v:val) != -1')
   for l:ft in l:capable_fts
-    if !exists('g:neomake_' . l:ft . '_echint_maker') | continue | endif
-    let b:neomake_{l:ft}_echint_maker = copy(g:neomake_{l:ft}_echint_maker)
-    let b:neomake_{l:ft}_echint_maker.cwd = l:cwd
+    let l:safe_ft = neomake#utils#get_ft_confname(l:ft)
+    let l:neomake_var = 'neomake_' . l:safe_ft . '_echint_maker'
+    if !exists('g:' . l:neomake_var) | continue | endif
+    let b:neomake_{l:neomake_var} = copy(g:{l:neomake_var})
+    let b:neomake_{l:neomake_var}.cwd = l:cwd
     if get(b:, 'echint_enabled', 1) " enabled by default
       call dko#neomake#AddMaker(l:ft, 'echint')
     endif

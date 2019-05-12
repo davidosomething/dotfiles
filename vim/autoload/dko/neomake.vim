@@ -5,7 +5,8 @@
 " @param {string} ft
 " @param {string} maker
 function! dko#neomake#AddMaker(ft, maker) abort
-  let l:bmakers = 'b:neomake_' . a:ft . '_enabled_makers'
+  let l:bmakers = 'b:neomake_' . neomake#utils#get_ft_confname(a:ft)
+        \ . '_enabled_makers'
 
   " Append to buffer local settings if exists
   if exists(l:bmakers)
@@ -30,7 +31,7 @@ endfunction
 function! dko#neomake#NpxMaker(settings, ...) abort
   let l:bin = get(a:settings, 'npx', a:settings['maker'])
   let l:args = get(a:settings, 'args', [])
-  let l:ft = get(a:settings, 'ft', neomake#utils#get_ft_confname(&filetype))
+  let l:ft = neomake#utils#get_ft_confname(get(a:settings, 'ft', &filetype))
   let l:maker = extend(copy(a:settings), {
       \   'exe': 'npx',
       \   'args': [ '--quiet', l:bin ] + l:args,
@@ -51,15 +52,14 @@ endfunction
 " @return {Boolean} true when the maker exe exists or was registered as a local
 "         maker (so local exe exists)
 function! dko#neomake#IsMakerExecutable(name, ...) abort
-  let l:ft = get(a:, 1, &filetype)
+  let l:ft = neomake#utils#get_ft_confname(get(a:, 1, &filetype))
   if empty(l:ft) | return 0 | endif
 
   " dko#neomake#LocalMaker successfully determined a project-local
   " bin was executable, return that instead
-  if exists('b:neomake_' . l:ft . '_' . a:name . '_exe')
-        \ || exists('b:neomake_' . neomake#utils#get_ft_confname(l:ft)
-        \           . '_' . a:name . '_exe')
-    return executable(b:neomake_{l:ft}_{a:name}_exe)
+  let l:neomake_var = 'b:neomake_' . l:ft . '_' . a:name . '_exe'
+  if exists(l:neomake_var)
+    return executable(l:neomake_var)
   endif
 
   " Don't need to sanitize
@@ -78,8 +78,9 @@ endfunction
 function! dko#neomake#LocalMaker(settings) abort
   " Override maker's exe for this buffer?
   let l:exe = dko#project#GetBin(get(a:settings, 'exe', ''))
+  let l:safe_ft = neomake#utils#get_ft_confname(a:settings['ft'])
   if !empty(l:exe)
-    let b:neomake_{a:settings['ft']}_{a:settings['maker']}_exe = l:exe
+    let b:neomake_{l:safe_ft}_{a:settings['maker']}_exe = l:exe
   endif
 
   " Automatically enable the maker for this buffer?
@@ -89,7 +90,7 @@ function! dko#neomake#LocalMaker(settings) abort
 
   if l:is_enabled && l:is_executable
     call add(
-          \ dko#InitList('b:neomake_' . a:settings['ft'] . '_enabled_makers'),
+          \ dko#InitList('b:neomake_' . l:safe_ft . '_enabled_makers'),
           \ a:settings['maker'])
   endif
 endfunction
