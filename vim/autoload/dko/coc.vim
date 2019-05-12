@@ -7,6 +7,7 @@ function! dko#coc#InstallExtensions() abort
         \  'coc-neosnippet',
         \  'coc-snippets',
         \  'coc-tsserver',
+        \  'coc-vimlsp',
         \  'coc-yaml',
         \]
   for l:ext in s:extensions
