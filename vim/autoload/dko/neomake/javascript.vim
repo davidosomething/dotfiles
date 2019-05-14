@@ -56,8 +56,9 @@ function! dko#neomake#javascript#Setup() abort
     let b:neomake_javascript_enabled_makers += [ 'jshint' ]
   endif
 
-  if !dkoplug#IsLoaded('coc.nvim')
-        \ && !empty(dko#project#javascript#GetEslintrc())
+  if dkoplug#IsLoaded('coc.nvim')
+    let b:dko_is_coc = 1
+  elseif !empty(dko#project#javascript#GetEslintrc())
     let b:neomake_javascript_enabled_makers += [ 'eslint' ]
   endif
 

@@ -101,10 +101,7 @@ function! dkoline#GetStatusline(winnr) abort
 
   " Linting
   if dkoplug#IsLoaded('neomake')
-    let l:contents .= dkoline#Format(
-          \ dkoline#NeomakeStatus(l:view),
-          \ '%#DiffText#'
-          \)
+    let l:contents .= dkoline#NeomakeStatus(l:view)
     if exists('*neomake#GetJobs')
       let l:contents .= dkoline#Neomake(l:winnr, l:view.bufnr)
     endif
@@ -235,9 +232,10 @@ endfunction
 " @return {String}
 function! dkoline#NeomakeStatus(view) abort
   return dko#IsNonFile(a:view.bufnr)
+        \ || exists('b:dko_is_coc')
         \ || !empty(neomake#GetEnabledMakers(a:view.ft))
         \ ? ''
-        \ : ' ɴᴏ ᴍᴀᴋᴇʀs '
+        \ : '%#DiffText# ɴᴏ ᴍᴀᴋᴇʀs '
 endfunction
 
 " @return {string} job1,job2,job3

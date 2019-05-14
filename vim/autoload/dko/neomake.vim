@@ -1,4 +1,6 @@
 " autoload/dko/neomake.vim
+"
+" Utility functions for configuring neomake
 
 " Add maker to buffer-local enabled_makers
 "
