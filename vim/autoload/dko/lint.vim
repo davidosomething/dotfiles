@@ -54,6 +54,12 @@ endfunction
 " Conditionally run Neomake if it is enabled for buffer
 function! dko#lint#LintBuffer() abort
   if !dko#IsTypedFile('%') | return | endif
+  if dkoplug#IsLoaded('coc') && exists('b:dko_is_coc')
+    if &filetype =~# 'javascript'
+      call CocAction('reloadExtension', 'coc-eslint')
+    endif
+    return
+  endif
   if dkoplug#IsLoaded('neomake')
     if exists('b:dko_neomake_lint')
       Neomake

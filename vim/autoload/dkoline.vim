@@ -100,10 +100,15 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%*%='
 
   " Linting
+  if dkoplug#IsLoaded('coc.nvim')
+    let l:contents .= dkoline#Coc(l:view)
+  endif
   if dkoplug#IsLoaded('neomake')
-    let l:contents .= dkoline#NeomakeStatus(l:view)
+    let l:contents .= dkoline#If({ 'winnr': l:winnr }, l:view)
+          \ ? dkoline#NeomakeStatus(l:view)
+          \ : ''
     if exists('*neomake#GetJobs')
-      let l:contents .= dkoline#Neomake(l:winnr, l:view.bufnr)
+      let l:contents .= dkoline#Neomake(l:view)
     endif
   endif
 
@@ -227,12 +232,32 @@ function! dkoline#GitBranch(bufnr) abort
         \ : ' ' . b:dko_branch . ' '
 endfunction
 
+" @param {Dict} view
+" @return {String}
+function! dkoline#Coc(view) abort
+  if dko#IsNonFile(a:view.bufnr) | return '' | endif
+  let l:d = getbufvar(a:view.bufnr, 'coc_diagnostic_info')
+  return empty(l:d) ? '' :
+        \ dkoline#Format(
+        \   !l:d.error ? '' : ' ⚑' . l:d.error . ' ',
+        \   '%(%#dkoStatusError#', '%)') .
+        \ dkoline#Format(
+        \   !l:d.warning ? '' : ' ⚑' . l:d.warning . ' ',
+        \   '%(%#dkoStatusWarning#', '%)') .
+        \ dkoline#Format(
+        \   !l:d.information ? '' : ' ⚑' . l:d.information . ' ',
+        \   '%(%#dkoStatusInfo#', '%)') .
+        \ dkoline#Format(
+        \   !l:d.hint ? '' : ' ⚑' . l:d.hint . ' ',
+        \   '%(%#dkoStatusItem#', '%)')
+endfunction
+
 " Whether or not neomake is disabled
 " @param {Dict} view
 " @return {String}
 function! dkoline#NeomakeStatus(view) abort
   return dko#IsNonFile(a:view.bufnr)
-        \ || exists('b:dko_is_coc')
+        \ || !empty(getbufvar(a:view.bufnr, 'dko_is_coc'))
         \ || !empty(neomake#GetEnabledMakers(a:view.ft))
         \ ? ''
         \ : '%#DiffText# ɴᴏ ᴍᴀᴋᴇʀs '
@@ -248,11 +273,12 @@ function! dkoline#NeomakeJobs(bufnr) abort
   return join(map(l:running_jobs, 'v:val.name'), ',')
 endfunction
 
-function! dkoline#Neomake(winnr, bufnr) abort
-  if !a:bufnr | return '' | endif
-  let l:result = neomake#statusline#get(a:bufnr, {
+" @param {Dict} view
+" @return {String}
+function! dkoline#Neomake(view) abort
+  let l:result = neomake#statusline#get(a:view.bufnr, {
         \   'format_running':         '%#dkoLineNeomakeRunning# ᴍ:'
-        \                             . dkoline#NeomakeJobs(a:bufnr) . ' ',
+        \                             . dkoline#NeomakeJobs(a:view.bufnr) . ' ',
         \   'format_loclist_ok':      '%#dkoStatusGood# ⚑ ',
         \   'format_loclist_unknown': '',
         \   'format_loclist_type_E':  '%#dkoStatusError# ⚑{{count}} ',
@@ -288,6 +314,7 @@ function! dkoline#GetView(winnr) abort
   let l:ft = getbufvar(l:bufnr, '&filetype')
   let l:ww = winwidth(a:winnr)
   let s:view_cache[a:winnr] = {
+        \   'winnr': a:winnr,
         \   'bufnr': l:bufnr,
         \   'bufname': l:bufname,
         \   'cwd': l:cwd,
