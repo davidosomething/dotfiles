@@ -9,6 +9,19 @@ if !dkoplug#IsLoaded('coc.nvim') && !dkoplug#IsLoaded('neosnippet')
 endif
 
 if dkoplug#IsLoaded('coc.nvim')
+  call coc#add_extension(
+        \  'coc-css',
+        \  'coc-diagnostic',
+        \  'coc-eslint',
+        \  'coc-highlight',
+        \  'coc-json',
+        \  'coc-neosnippet',
+        \  'coc-snippets',
+        \  'coc-tsserver',
+        \  'coc-vimlsp',
+        \  'coc-yaml'
+        \)
+
   let g:coc_enable_locationlist = 0
   let g:coc_snippet_next = '<C-f>'
   let g:coc_snippet_prev = '<C-b>'
