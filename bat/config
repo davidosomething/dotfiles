@@ -1,5 +1,5 @@
 --paging="never"
 --style="numbers"
---theme="zenburn"
+--theme="base16"
 
 --map-syntax .ignore:.gitignore
