@@ -14,6 +14,7 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-diagnostic',
         \  'coc-eslint',
         \  'coc-highlight',
+        \  'coc-java',
         \  'coc-json',
         \  'coc-neosnippet',
         \  'coc-snippets',
