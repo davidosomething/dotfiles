@@ -225,9 +225,9 @@ function! dkoplug#plugins#LoadAll() abort
   " Using andymass/vim-matchup intead
   "Plug 'itchyny/vim-parenmatch'
 
-  " special end syntax for various langs
-  Plug 'cohama/lexima.vim'
+  " autoclose parens and blocks in various langs
   "Plug 'tpope/vim-endwise'
+  Plug 'cohama/lexima.vim'
 
   Plug 'suy/vim-context-commentstring'
 
