@@ -226,7 +226,8 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'itchyny/vim-parenmatch'
 
   " special end syntax for various langs
-  Plug 'tpope/vim-endwise'
+  Plug 'cohama/lexima.vim'
+  "Plug 'tpope/vim-endwise'
 
   Plug 'suy/vim-context-commentstring'
 
