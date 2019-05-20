@@ -13,6 +13,7 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-css',
         \  'coc-diagnostic',
         \  'coc-eslint',
+        \  'coc-git',
         \  'coc-highlight',
         \  'coc-java',
         \  'coc-json',
@@ -96,6 +97,10 @@ if dkoplug#IsLoaded('coc.nvim')
 
   nmap <silent> <Leader>= <Plug>(coc-format-selected)
   vmap <silent> <Leader>= <Plug>(coc-format-selected)
+
+  " coc-git
+  nmap [g <Plug>(coc-git-prevchunk)
+  nmap ]g <Plug>(coc-git-nextchunk)
 endif
 
 let &cpoptions = s:cpo_save

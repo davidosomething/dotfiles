@@ -78,6 +78,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
 
+  let g:git_messenger_max_popup_width = 60
   Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'))
 
   Plug 'sbdchd/neoformat'
@@ -286,7 +287,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug g:dko#vim_dir . '/mine/vim-pj'
 
   " Order of these two matters
-  Plug 'elzr/vim-json'
+  "Plug 'elzr/vim-json'
   Plug 'neoclide/jsonc.vim'
 
   " provides coffee ft
@@ -522,17 +523,6 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
   " UI -- load last!
   " ==========================================================================
-
-  " --------------------------------------------------------------------------
-  " VCS signs
-  " --------------------------------------------------------------------------
-
-  " Super slow start
-  "Plug 'chrisbra/changesPlugin', PlugIf(v:version >= 800)
-  " Slow start
-  "Plug 'airblade/vim-gitgutter', { 'on': [ 'GitGutterToggle' ] }
-  " Significatly faster than quickfixsigns_vim and the above
-  Plug 'mhinz/vim-signify'
 
   " --------------------------------------------------------------------------
   " Quickfix window

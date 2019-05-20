@@ -38,6 +38,8 @@ let g:neomake_javascript_enabled_makers = dkoplug#IsLoaded('coc.nvim')
       \ ? []
       \ : [ 'eslint' ]
 
+let g:neomake_markdown_enabled_makers = [ 'markdownlint', 'vale' ]
+
 " flake8 is pycodestyle(pep8)+pyflakes+pydocstyle
 " preferred over pylama (other multi-runner) for now
 let g:neomake_python_enabled_makers = [ 'flake8' ]

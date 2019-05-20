@@ -21,14 +21,5 @@ function! dko#neomake#markdown#Setup() abort
         \   }))
 
   let b:neomake_markdown_enabled_makers = [ 'markdownlint', 'vale' ]
-
-  " Enable other grammar checkers if not explicitly set up for vale
-  " (vale can provide a superset)
-  if empty(dko#project#GetFile('.vale.ini'))
-    let b:neomake_markdown_enabled_makers += [
-          \   'alex',
-          \   'writegood',
-          \ ]
-  endif
 endfunction
 
