@@ -18,6 +18,7 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-java',
         \  'coc-json',
         \  'coc-neosnippet',
+        \  'coc-prettier',
         \  'coc-snippets',
         \  'coc-tsserver',
         \  'coc-vimlsp',

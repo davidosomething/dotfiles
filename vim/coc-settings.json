@@ -21,14 +21,6 @@
   "diagnostic.virtualTextPrefix": "» ",
   "diagnostic.warningSign": "⚑",
 
-  "git.addedSign.hlGroup": "GitGutterAdd",
-  "git.changedSign.hlGroup": "GitGutterChange",
-  "git.removedSign.hlGroup": "GitGutterDelete",
-  "git.topRemovedSign.hlGroup": "GitGutterDelete",
-  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-
-  "highlight.disableLanguages": [ "vim-plug" ],
-
   //"diagnostic.displayByAle": true,
   // When true, destroys loclist on insert (and kills neomake results)
   "suggest.echodocSupport": true,
@@ -84,6 +76,36 @@
   "eslint.autoFixOnSave": false,
   "eslint.run": "onType",
   "eslint.packageManager": "npm",
+
+  // =========================================================================
+  // coc-git
+  // =========================================================================
+
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+
+  // =========================================================================
+  // coc-highlight
+  // =========================================================================
+
+  "highlight.disableLanguages": [ "vim-plug" ],
+
+  // =========================================================================
+  // coc-prettier
+  // =========================================================================
+
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "prettier.bracketSpacing": true,
+  "prettier.jsxBracketSameLine": false,
+  "prettier.semi": true,
+  "prettier.useTabs": false,
+  "prettier.proseWrap": "preserve",
+  "prettier.arrowParens": "always",
+  "prettier.eslintIntegration": true,
 
   // =========================================================================
   // coc-tssserver
