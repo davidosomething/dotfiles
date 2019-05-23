@@ -102,6 +102,7 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'gregsexton/MatchTag'
   let g:matchup_delim_noskips = 2
   let g:matchup_matchparen_deferred = 1
+  let g:matchup_matchparen_status_offscreen = 0
   Plug 'andymass/vim-matchup', PlugIf(has('patch-7.4.1689'))
 
   " add gS on char to smart split lines at char, like comma lists and html tags
