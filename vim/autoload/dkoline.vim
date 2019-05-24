@@ -200,7 +200,7 @@ function! dkoline#TailDirFilename(view) abort
   endif
 
   if empty(a:view.bufname)
-    return ' [No Name] '
+    return ' ᴜɴɴᴀᴍᴇᴅ '
   endif
 
   if dko#IsHelp(a:view.bufnr)
