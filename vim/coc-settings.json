@@ -1,4 +1,8 @@
 {
+  // Using hexokinase instead since it updates more forcefully
+  "coc.preferences.colorSupport": false,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+
   "codeLens.enable": true,
 
   "diagnostic.checkCurrentLine": false,
@@ -86,12 +90,6 @@
   "git.removedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-
-  // =========================================================================
-  // coc-highlight
-  // =========================================================================
-
-  "highlight.disableLanguages": [ "vim-plug" ],
 
   // =========================================================================
   // coc-prettier

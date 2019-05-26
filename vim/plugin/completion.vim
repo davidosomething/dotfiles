@@ -14,7 +14,6 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-diagnostic',
         \  'coc-eslint',
         \  'coc-git',
-        \  'coc-highlight',
         \  'coc-java',
         \  'coc-json',
         \  'coc-neosnippet',
@@ -24,6 +23,7 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-vimlsp',
         \  'coc-yaml'
         \)
+        "\  'coc-highlight',
 
   let g:coc_enable_locationlist = 0
   let g:coc_snippet_next = '<C-f>'

@@ -27,7 +27,7 @@ function! dko#lint#SetupCoc() abort
   if s:did_coc_setup | return | endif
   let s:did_coc_setup = 1
 
-  autocmd dkolint CursorHold * silent call CocActionAsync('highlight')
+  "autocmd dkolint CursorHold * silent call CocActionAsync('highlight')
   call coc#config('javascript.validate.enable', 0)
 
   call dko#lint#Setup()

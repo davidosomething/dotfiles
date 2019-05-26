@@ -486,8 +486,12 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'chrisbra/Colorizer'  --  slower and not as complete but more features
   "                               like X11 colors and color translation for
   "                               degraded terminals
-  "Plug 'ap/vim-css-color'
+  Plug 'ap/vim-css-color'
   " use signs or virtualtext to display color
+  " let g:Hexokinase_highlighters = [ 'virtual' ]
+  " let g:Hexokinase_refreshEvents = [ 'BufEnter', 'BufWinEnter', 'BufWritePost', 'TextChanged', 'TextChangedI' ]
+  " let g:Hexokinase_optInPatterns = [ 'full_hex', 'triple_hex', 'rgb', 'rgba', 'colour_names' ]
+  " let g:Hexokinase_ftAutoload = [ 'css', 'html', 'javascript', 'javascript.jsx', 'xml' ]
   "Plug 'RRethy/vim-hexokinase'
 
   " ==========================================================================
