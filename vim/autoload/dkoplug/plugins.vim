@@ -480,13 +480,19 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'hail2u/vim-css3-syntax'
   Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss' ] }
 
-  " Hex (et al) color highlighting
-  " All disabled -- coc-css does this for color names and hex
+  " ==========================================================================
+  " Color highlighting
+  " ==========================================================================
+  " The current choice is vim-css-color because it offers stability and
+  " completeness. It can do multiple css colors on one line, which hexokinase
+  " cannot, and it updates immediately, which coc-highlight has trouble
+  " keeping up with.
+
+  Plug 'ap/vim-css-color'
   "Plug 'gu-fan/colorv.vim'    --  requires python
   "Plug 'chrisbra/Colorizer'  --  slower and not as complete but more features
   "                               like X11 colors and color translation for
   "                               degraded terminals
-  Plug 'ap/vim-css-color'
   " use signs or virtualtext to display color
   " let g:Hexokinase_highlighters = [ 'virtual' ]
   " let g:Hexokinase_refreshEvents = [ 'BufEnter', 'BufWinEnter', 'BufWritePost', 'TextChanged', 'TextChangedI' ]

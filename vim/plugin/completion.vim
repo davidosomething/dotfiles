@@ -19,11 +19,13 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-neosnippet',
         \  'coc-prettier',
         \  'coc-snippets',
+        \  'coc-syntax',
         \  'coc-tsserver',
         \  'coc-vimlsp',
         \  'coc-yaml'
         \)
-        "\  'coc-highlight',
+  " Doesn't redraw in sync with edits
+  "\  'coc-highlight',
 
   let g:coc_enable_locationlist = 0
   let g:coc_snippet_next = '<C-f>'
