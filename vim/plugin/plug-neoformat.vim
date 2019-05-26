@@ -55,5 +55,3 @@ augroup dkoneoformat
   autocmd!
   autocmd BufWritePre *.json call s:MaybeNeoformat()
 augroup END
-
-nnoremap  <silent><special>   <A-=>   :<C-U>Neoformat<CR>
