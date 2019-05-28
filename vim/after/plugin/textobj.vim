@@ -44,11 +44,6 @@ if dkoplug#Exists('vim-textobj-indent')
   nmap <special> <Leader>s   vii:!sort<CR>
 endif
 
-if dkoplug#Exists('vim-signify')
-  omap ic <Plug>(signify-motion-inner-pending)
-  xmap ic <Plug>(signify-motion-inner-visual)
-endif
-
 " ============================================================================
 
 let &cpoptions = s:cpo_save
