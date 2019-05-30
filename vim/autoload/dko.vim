@@ -258,7 +258,6 @@ function! dko#GetGrepper() abort
         \     '--hidden',
         \     '--ignore-file ' . s:ignore,
         \     '--smart-case',
-        \     '--no-heading',
         \     '--vimgrep',
         \   ],
         \   'format': '%f:%l:%c:%m,%f:%l:%m,%f:%l%m,%f %l%m',
