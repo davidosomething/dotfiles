@@ -105,6 +105,7 @@ if dkoplug#IsLoaded('coc.nvim')
         \ :CocCommand eslint.executeAutofix<CR>
 
   " coc-git
+  nnoremap <silent> <Leader>g :<C-u>CocCommand git.toggleGutters<CR>
   nmap [g <Plug>(coc-git-prevchunk)
   nmap ]g <Plug>(coc-git-nextchunk)
 endif

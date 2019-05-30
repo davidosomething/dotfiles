@@ -114,4 +114,5 @@
 
   "javascript.preferences.quoteStyle": "single",
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+  "git.enableGutters": true,
 }

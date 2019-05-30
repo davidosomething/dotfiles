@@ -226,9 +226,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Multiple languages
   " ==========================================================================
 
-  " Using andymass/vim-matchup intead
-  "Plug 'itchyny/vim-parenmatch'
-
   " autoclose parens and blocks in various langs
   "Plug 'tpope/vim-endwise'
   Plug 'cohama/lexima.vim'
