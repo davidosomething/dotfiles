@@ -44,6 +44,10 @@ function! meh#LineColors() abort
 
   " kshenoy/vim-signature
   hi! link SignatureMarkText        dkoLineImportant
+
+  " showmarks
+  hi! link ShowMarksHLl             dkoLineImportant
+  hi! link ShowMarksHLu             dkoLineImportant
 endfunction
 
 " vim-pandoc colors load out of normal colorscheme order, this fn helps

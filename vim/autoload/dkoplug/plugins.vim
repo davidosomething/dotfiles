@@ -551,8 +551,14 @@ function! dkoplug#plugins#LoadAll() abort
   " Always show signs column with marks
   "Too many features, slow start
   "Plug 'tomtom/quickfixsigns_vim'
-  "Still slowish but better
-  Plug 'kshenoy/vim-signature'
+  "Still slowish but better 78ms
+  "Plug 'kshenoy/vim-signature'
+  " Fastest 91ms
+  let g:showmarks_auto_toggle = 0
+  let g:showmarks_no_mappings = 1
+  let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  let g:showmarks_ignore_type = 'hpq'
+  Plug 'bootleq/ShowMarks'
 
   " --------------------------------------------------------------------------
   " Window events

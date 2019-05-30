@@ -20,7 +20,7 @@
   "diagnostic.messageTarget": "float",
   "diagnostic.refreshAfterSave": false,
   "diagnostic.refreshOnInsertMode": true,
-  "diagnostic.signOffset": 1000,
+  "diagnostic.signOffset": 99999999,
   "diagnostic.virtualText": false,
   "diagnostic.virtualTextPrefix": "» ",
   "diagnostic.warningSign": "⚑",
