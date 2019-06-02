@@ -228,6 +228,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   " autoclose parens and blocks in various langs
   "Plug 'tpope/vim-endwise'
+  let g:lexima_enable_basic_rules = 0 " only on <CR>
   Plug 'cohama/lexima.vim'
 
   Plug 'suy/vim-context-commentstring'
