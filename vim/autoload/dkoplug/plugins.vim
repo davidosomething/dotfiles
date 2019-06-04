@@ -228,8 +228,12 @@ function! dkoplug#plugins#LoadAll() abort
 
   " autoclose parens and blocks in various langs
   "Plug 'tpope/vim-endwise'
-  let g:lexima_enable_basic_rules = 0 " only on <CR>
-  Plug 'cohama/lexima.vim'
+  " let g:lexima_enable_basic_rules = 0 " only on <CR>
+  "Plug 'cohama/lexima.vim' " Doesn't detect distant closer if whitespace
+  "Plug 'Raimondi/delimitMate' " Doesn't indent properly on <CR>
+  " let g:AutoPairsShortcutToggle = ''
+  " let g:AutoPairsShortcutFastWrap = ''
+  " Plug 'jiangmiao/auto-pairs'
 
   Plug 'suy/vim-context-commentstring'
 
