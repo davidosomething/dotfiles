@@ -33,7 +33,8 @@ let g:vdotdir = empty($VDOTDIR) ? expand('$HOME/.vim') : $VDOTDIR
 " May be overridden by **/plugins, after/plugins and **/ftplugins
 " ============================================================================
 
-set modeline
+" Prior versions are super dangerous
+if !has('patch-8.1.1365') && !has('nvim-0.3.6') | set nomodeline | endif
 
 if exists('+pyxversion') && has('python3') | set pyxversion=3 | endif
 
