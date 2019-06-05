@@ -33,6 +33,8 @@ let g:vdotdir = empty($VDOTDIR) ? expand('$HOME/.vim') : $VDOTDIR
 " May be overridden by **/plugins, after/plugins and **/ftplugins
 " ============================================================================
 
+" Only check one line
+if exists('+modelines') | set modelines=1 | endif
 " Prior versions are super dangerous
 if !has('patch-8.1.1365') && !has('nvim-0.3.6') | set nomodeline | endif
 
