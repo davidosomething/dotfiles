@@ -81,7 +81,7 @@ operation. Use the `bi` alias for a clean room install if possible.
     1. `ruby-install ruby` to install latest
     1. `chruby` to that version
     1. Install gems using [ruby/install-default-gems](../ruby/install-default-gems)
-- Install [nvm](https://github.com/creationix/nvm) MANUALLY via git clone into
+- Install [nvm](https://github.com/nvm-sh/nvm) MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and `npm`)
     1. Use nvm managed node
     1. Install the default packages using [node/install](../node/install)

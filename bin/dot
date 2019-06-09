@@ -276,7 +276,7 @@ __dko_dotfiles__node__require_nvm() {
 
   if (($# == 0)) && [[ ! -d "$NVM_DIR" ]]; then
     __dko_status "Installing nvm"
-    git clone https://github.com/creationix/nvm.git "$NVM_DIR" ||
+    git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR" ||
       { __dko_err "Could not install nvm" && return 1; }
   fi
 }

@@ -110,4 +110,6 @@ augroup dkoneomake
         \ call dko#neomake#python#ActivatedPyenv()
   autocmd User vim-pyenv-dectivate-post
         \ call dko#neomake#python#DeactivatedPyenv()
+  autocmd BufNewFile,BufReadPre *
+        \ call dko#neomake#bash#Setup()
 augroup END

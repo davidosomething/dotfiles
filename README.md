@@ -173,7 +173,7 @@ For X apps (no terminal) the value may be:
 [google shell style]: https://google.github.io/styleguide/shell.xml
 [grawity's dotfile notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
-[nvm]: https://github.com/creationix/nvm
+[nvm]: https://github.com/nvm-sh/nvm
 [pyenv-installer]: https://github.com/yyuu/pyenv-installer
 [pyenv-virtualenv]: https://github.com/pyenv/pyenv-virtualenv
 [pyenv]: https://github.com/pyenv/pyenv
