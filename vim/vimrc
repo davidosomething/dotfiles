@@ -69,7 +69,7 @@ set cursorline
 set synmaxcol=512                     " don't syntax highlight long lines
 
 if exists('+signcolumn')
-  let &signcolumn = has('nvim-0.4') ? 'yes:3' : 'yes'
+  let &signcolumn = has('nvim-0.4') ? 'auto:3' : 'yes'
 endif
 
 set showtabline=0                     " start OFF, toggle =2 to show tabline
