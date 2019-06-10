@@ -271,7 +271,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'rhysd/committia.vim'
 
   " committia for git rebase -i
-  Plug 'hotwatermorning/auto-git-diff'
+  "Plug 'hotwatermorning/auto-git-diff'
 
   " ==========================================================================
   " Language: HTML, XML, and generators: mustache, handlebars
