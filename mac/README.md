@@ -5,6 +5,13 @@
 User data on encrypted volumes other than the boot volume will not mount until
 login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
+### Disable some keyboard shortcuts
+
+Remove these using System Preferences:
+
+- `Mission Control` owns Control-left and Control-right
+- `Spotlight` owns Command-space
+
 ### Install headers
 
 Mojave no longer installs SDK headers for building certain things. It is
