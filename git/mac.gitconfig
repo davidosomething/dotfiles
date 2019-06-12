@@ -6,6 +6,9 @@
 	# https://stackoverflow.com/a/7552971/230473
 	token = !security find-generic-password -gs \"GitHub API Token\" 2>&1 >/dev/null | awk '/password/ {print $2}' | tr -d \\\"
 
+[gpg]
+	program = /usr/local/MacGPG2/bin/gpg2
+
 [web]
 	browser = open
 

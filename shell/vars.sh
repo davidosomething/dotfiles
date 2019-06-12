@@ -128,10 +128,6 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
-# gnupg
-# This mirrors the value in mac/dotfiles.plist
-export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
-
 # go
 # Used in shell/paths.sh so not in shell/go.sh
 export GOPATH="${HOME}/.local/go"

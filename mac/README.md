@@ -5,6 +5,15 @@
 User data on encrypted volumes other than the boot volume will not mount until
 login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
+### Install headers
+
+Mojave no longer installs SDK headers for building certain things. It is
+included with the OS, just run:
+
+```sh
+open /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg
+```
+
 ### App store
 
 1. iCloud sign in
@@ -15,6 +24,13 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
 1. `git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/`
 1. `~/.dotfiles/bootstrap/symlink`
+1. `~/.dotfiles/bootstrap/cleanup`
+1. `~/.dotfiles/bootstrap/terminfo`
+
+### Install GPGTools and import key
+
+1. Follow these instructions
+   <https://gist.github.com/danieleggert/b029d44d4a54b328c0bac65d46ba4c65>
 
 ### Install homebrew
 
@@ -22,11 +38,9 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 1. `brew install` programs via `~/.dotfiles/mac/brew`, or pick as desired
     - Of note are `git`, `fzf`
 1. Use ZSH as default
-    - Add `/usr/local/bin/zsh` to `/etc/shells`, then
-
-      ```sh
-      chsh -s /usr/local/bin/zsh
-      ```
+    - `brew install zsh`
+    - `sudo -e /etc/shells` and add `/usr/local/bin/zsh`
+    - `chsh -s /usr/local/bin/zsh`
 
 1. Restart shell
 
@@ -38,21 +52,27 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 ### Casks
 
 - Install fonts - `~/.dotfiles/mac/fonts` to install via cask
-- iterm2
-    1. Load iTerm profile from synology drive
-- bettertouchtool
-    - License in synology drive
-    - Better trackpad swipe configs
 - dropbox
+    1. Has app settings sync so wait for it to finish syncing.
+- iterm2
+    - Load iTerm profile from synology drive
+    - Or load colors from `~/.dotfiles/mac/iterm2` and set the TERM to
+      `xterm-256color-italic`
+- bettertouchtool
+    - License in synology drive or gmail
+    - Better trackpad swipe configs
+    - Synced to Dropbox
 - google-chrome
     - Login and sync google account for settings
 - hammerspoon
+    - Disable spotlight shortcut first
     - App launcher (cmd + space)
     - Audio output device switch in menubar
     - Auto-type from clipboard (cmd-ctrl + v)
     - Caffeinate in menubar
     - Window management (cmd-ctrl-shift + f/h/l/z)
 - java
+    - Or download from oracle if Java 8 or specific version needed
 - kaleidoscope
     - Load license file
 - gpg-suite-no-mail
@@ -90,9 +110,6 @@ operation. Use the `bi` alias for a clean room install if possible.
     1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
     1. Set up the global pyenv as the latest stable (3.x)
     1. Set up python virtualenvs using [bootstrap/pyenv](../bootstrap/pyenv)
-
-- run [bootstrap/terminfo](../bootstrap/terminfo) (added terminfo for iTerm
-  with italics support)
 
 ## Reduce desktop icon size
 

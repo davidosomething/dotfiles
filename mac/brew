@@ -100,12 +100,6 @@ brew install ssh-copy-id
 brew install wget
 brew install wifi-password
 
-# Use the `gpg-suite-no-mail` cask instead (it also provides cli `gpg` and
-# `gpg-agent`). It provides a nicer gui prefpane and automatic integration
-# without having to configure all this stuff.
-#brew install gnupg2
-#brew install gpg-agent pinentry-mac
-
 # ============================================================================
 # pretty print and processor
 # ============================================================================
