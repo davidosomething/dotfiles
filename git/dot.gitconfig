@@ -158,6 +158,10 @@
 	date = short
 	showEmail = true
 
+[branch]
+	autosetupmerge = always
+	autosetuprebase = always
+
 [commit]
 	template = "~/.dotfiles/git/commit-template"
 
@@ -217,10 +221,3 @@
 
 [pager]
 	status = true
-
-# ============================================================================
-# Local
-# ============================================================================
-
-[include]
-	path = "~/.dotfiles/local/gitconfig"
