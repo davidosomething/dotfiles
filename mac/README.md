@@ -38,8 +38,6 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 ### Casks
 
 - Install fonts - `~/.dotfiles/mac/fonts` to install via cask
-- spideroakone
-    1. Create new backup folder `sync`
 - iterm2
     1. Load iTerm profile from synology drive
 - bettertouchtool
@@ -85,8 +83,9 @@ operation. Use the `bi` alias for a clean room install if possible.
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and `npm`)
     1. Use nvm managed node
     1. Install the default packages using [node/install](../node/install)
-- Install `pyenv` using `pyenv-installer` (rm `~/.local/pyenv` directory for
-  clean install) and make sure to use the libs provided by `brew openssl`
+- Install [pyenv](https://github.com/pyenv/pyenv) using `pyenv-installer`
+  (rm `~/.local/pyenv` directory for clean install) and make sure to use the
+  libs provided by `brew openssl`
     1. `brew install openssl`
     1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
     1. Set up the global pyenv as the latest stable (3.x)
@@ -94,10 +93,6 @@ operation. Use the `bi` alias for a clean room install if possible.
 
 - run [bootstrap/terminfo](../bootstrap/terminfo) (added terminfo for iTerm
   with italics support)
-- Install `gpgtools` from `brew cask` (it provides `gpg-agent` and can store
-  passphrases in the OS keychain with minimal work)
-    - Import keybase public/private keys into gpg using the pref pane.
-    - Setup `local/gitconfig` to sign commits
 
 ## Reduce desktop icon size
 
