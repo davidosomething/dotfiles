@@ -1,6 +1,6 @@
 # brew packages
 
-Generated on 2019-04-25T06:53:06.212Z
+Generated on 2019-06-12T05:19:52.596Z
 
 | Package | Description |
 | ------- | ----------- |
@@ -64,7 +64,6 @@ Generated on 2019-04-25T06:53:06.212Z
 | [isl](https://isl.gforge.inria.fr/) | `Integer Set Library for the polyhedral model` |
 | [jemalloc](http://jemalloc.net/) | `malloc implementation emphasizing fragmentation avoidance` |
 | [jenv](https://www.jenv.be/) | `Manage your Java environment` |
-| [joplin](https://joplin.cozic.net/) | `Note taking and to-do application with synchronisation capabilities` |
 | [jpeg](https://www.ijg.org/) | `Image manipulation library` |
 | [jq](https://stedolan.github.io/jq/) | `Lightweight and flexible command-line JSON processor` |
 | [jsonpp](https://jmhodges.github.io/jsonpp/) | `Command-line JSON pretty-printer` |
@@ -88,7 +87,7 @@ Generated on 2019-04-25T06:53:06.212Z
 | [libssh2](https://libssh2.org/) | `C library implementing the SSH2 protocol` |
 | [libtasn1](https://www.gnu.org/software/libtasn1/) | `ASN.1 structure parser library` |
 | [libtermkey](http://www.leonerd.org.uk/code/libtermkey/) | `Library for processing keyboard entry from the terminal` |
-| [libtiff](http://libtiff.maptools.org/) | `TIFF library and utilities` |
+| [libtiff](https://libtiff.gitlab.io/libtiff/) | `TIFF library and utilities` |
 | [libtool](https://www.gnu.org/software/libtool/) | `Generic library support script` |
 | [libunistring](https://www.gnu.org/software/libunistring/) | `C string library for manipulating Unicode strings` |
 | [libusb](https://libusb.info/) | `Library for USB device access` |
@@ -147,6 +146,7 @@ Generated on 2019-04-25T06:53:06.212Z
 | [shellcheck](https://www.shellcheck.net/) | `Static analysis and lint tool, for (ba)sh scripts` |
 | [sqlite](https://sqlite.org/) | `Command-line interface for SQLite` |
 | [ssh-copy-id](https://www.openssh.com/) | `Add a public key to a remote machine's authorized_keys file` |
+| [sshfs](https://osxfuse.github.io/) | `File system client based on SSH File Transfer Protocol` |
 | [swiftlint](https://github.com/realm/SwiftLint) | `Tool to enforce Swift style and conventions` |
 | [switchaudio-osx](https://github.com/deweller/switchaudio-osx/) | `Change macOS audio source from the command-line` |
 | [telnet](https://opensource.apple.com/) | `User interface to the TELNET protocol (built from macOS Sierra sources)` |
