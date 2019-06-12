@@ -39,7 +39,7 @@ brew cask install inkscape
 brew cask install iina
 brew cask install iterm2
 
-# date format EEEEE MM-dd h:mm
+# date format EEEEEMM.dd h:mm
 brew cask install itsycal
 
 #brew cask install java
