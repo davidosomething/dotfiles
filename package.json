@@ -77,6 +77,6 @@
     "eslint": "5.16.0",
     "eslint-config-davidosomething": "3.0.0",
     "js-yaml": "3.13.1",
-    "plist": "^3.0.1"
+    "plist": "3.0.1"
   }
 }
