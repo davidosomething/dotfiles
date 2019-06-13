@@ -20,15 +20,15 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 
 _For mac, see full install details in [mac/README.md](mac/README.md)._
 
-Clone and run the symlink script:
+First, clone:
 
 ```sh
 git clone --recurse-submodules https://github.com/davidosomething/dotfiles ~/.dotfiles
-~/.dotfiles/bootstrap/symlink
 ```
 
+Then, run `symlink` or `mac` in `bootstrap/`.
 After symlinking, [bootstrap/cleanup](bootstrap/cleanup) can detect and move
-pre-existing dotfiles that conflict with these.
+pre-existing dotfiles that conflict with these (mac does this).
 
 ### Using a different repository path
 
@@ -43,14 +43,14 @@ DOTFILES=~/.dot ~/.dot/bootstrap/symlink
 
 #### Recommended steps
 
+- See OS specific notes in [mac/README.md](mac/README.md) and
+  [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 - Create XDG child directories (run `bootstrap/xdg`). The X Desktop will
   export them in `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
 - Install and use [Fira (Fura) Mono for Powerline] font (install
   to `${XDG_DATA_HOME}/fonts` on \*nix)
 - Install ZSH and set it as the default (ensure its presence in
   `/etc/shells`); restart the terminal and zplugin will self-install
-- See OS specific notes in [mac/README.md](mac/README.md) and
-  [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 
 #### Dev environment setup
 
