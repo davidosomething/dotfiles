@@ -257,7 +257,7 @@ __alias_ls() {
   __single_column='-1'
   __timestyle=''
 
-  if [ "$OSTYPE" = *'arwin'* ]; then
+  if [ "$DOTFILES_OS" = 'Darwin' ]; then
     #__almost_all='-A'
     #__classify='-F'
     __colorized='-G'
