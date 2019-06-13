@@ -12,20 +12,21 @@ Remove these using System Preferences:
 - `Mission Control` owns Control-left and Control-right
 - `Spotlight` owns Command-space
 
-### Install headers
+### Install headers and run bootstrap
 
-Mojave no longer installs SDK headers for building certain things. It is
-included with the OS, just run:
+Mojave no longer installs SDK headers for building certain things. It comes
+with mac OS but requires manual execution. The
+[bootstrap/mac](../bootstrap/mac) script will install it and run the rest of
+the mac bootstrapper.
 
-```sh
-open /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg
-```
+`./compile dotfiles.plist.json` generates the `dotfiles.plist` file in the
+`mac/LaunchAgents` directory. It depends on the `plist` package from npm.
 
 ### App store
 
 1. iCloud sign in
 1. Install App store apps
-    - `Display Menu` (free) - set higher/native resolutions on monitors
+   - `Display Menu` (free) - set higher/native resolutions on monitors
 
 ### Install dotfiles
 
@@ -43,11 +44,12 @@ open /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10
 
 1. Install according to <https://brew.sh/>
 1. `brew install` programs via `~/.dotfiles/mac/brew`, or pick as desired
-    - Of note are `git`, `fzf`
+   - Of note are `git`, `fzf`
 1. Use ZSH as default
-    - `brew install zsh`
-    - `sudo -e /etc/shells` and add `/usr/local/bin/zsh`
-    - `chsh -s /usr/local/bin/zsh`
+
+   - `brew install zsh`
+   - `sudo -e /etc/shells` and add `/usr/local/bin/zsh`
+   - `chsh -s /usr/local/bin/zsh`
 
 1. Restart shell
 
@@ -60,7 +62,7 @@ open /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10
 
 - Install fonts - `~/.dotfiles/mac/fonts` to install via cask
 - dropbox
-    1. Has app settings sync so wait for it to finish syncing.
+  1. Has app settings sync so wait for it to finish syncing.
 - iterm2
     - Load iTerm profile from synology drive
     - Or load colors from `~/.dotfiles/mac/iterm2` and set the TERM to
@@ -99,24 +101,24 @@ operation. Use the `bi` alias for a clean room install if possible.
 
 - Increase file limits a la
   <https://github.com/karma-runner/karma/issues/1979#issuecomment-260790451>
-    - See <https://gist.github.com/abernix/a7619b07b687bb97ab573b0dc30928a0> if
-      there are still file limit issues
+    - See <https://gist.github.com/abernix/a7619b07b687bb97ab573b0dc30928a0>
+      if there are still file limit issues
     - REBOOT for `ulimit -n` changes to take effect
 - Install `chruby`, `ruby-install`
-    1. `ruby-install ruby` to install latest
-    1. `chruby` to that version
-    1. Install gems using [ruby/install-default-gems](../ruby/install-default-gems)
+  1. `ruby-install ruby` to install latest
+  1. `chruby` to that version
+  1. Install gems using [ruby/install-default-gems](../ruby/install-default-gems)
 - Install [nvm](https://github.com/nvm-sh/nvm) MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and `npm`)
-    1. Use nvm managed node
-    1. Install the default packages using [node/install](../node/install)
+  1. Use nvm managed node
+  1. Install the default packages using [node/install](../node/install)
 - Install [pyenv](https://github.com/pyenv/pyenv) using `pyenv-installer`
   (rm `~/.local/pyenv` directory for clean install) and make sure to use the
   libs provided by `brew openssl`
-    1. `brew install openssl`
-    1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
-    1. Set up the global pyenv as the latest stable (3.x)
-    1. Set up python virtualenvs using [bootstrap/pyenv](../bootstrap/pyenv)
+  1. `brew install openssl`
+  1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
+  1. Set up the global pyenv as the latest stable (3.x)
+  1. Set up python virtualenvs using [bootstrap/pyenv](../bootstrap/pyenv)
 
 ## Reduce desktop icon size
 
@@ -143,5 +145,4 @@ This is an example -- see output of `dkosourced` for up-to-date version.
     - shell/after
     - .secret/local/shellrc
 
-
-[Unlock]: https://github.com/davidosomething/Unlock
+[unlock]: https://github.com/davidosomething/Unlock

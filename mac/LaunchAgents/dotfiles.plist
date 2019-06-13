@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>davidosomething.dotfiles</string>
+    <string>davidosomething.dotfiles.gnupg</string>
     <key>ProgramArguments</key>
     <array>
       <string>sh</string>

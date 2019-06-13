@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+const plist = require('plist');
+const fs = require('fs');
+
+const EXPECTED_ARGV_LENGTH = 3; // node compile [filename]
+function getFilename() {
+  if (process.argv.length < EXPECTED_ARGV_LENGTH) {
+    process.stderr.write('Missing filename\n');
+    process.exitCode = 1;
+    return '';
+  }
+  return process.argv[process.argv.length - 1];
+}
+
+const filename = getFilename();
+if (filename && fs.existsSync(filename)) {
+  const blob = fs.readFileSync(filename, 'utf8');
+  const plistJson = JSON.parse(blob);
+  const result = plist.build(plistJson);
+  process.stdout.write(result);
+}
