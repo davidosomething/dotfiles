@@ -70,7 +70,7 @@ brew "yarn"
 brew "zsh"
 brew "shyiko/ktlint/ktlint"
 brew "valelint/vale/vale"
-#cask "dropbox" no shasum!
+#cask "dropbox" # no shasum!
 cask "firefox"
 cask "font-firamono-nerd-font-mono"
 cask "google-chrome"
@@ -78,8 +78,8 @@ cask "hammerspoon"
 cask "iterm2"
 cask "itsycal"
 cask "joplin"
-cask "ngrok"
-cask "quicklook-json"
+#cask "ngrok" # no shasum!
+#cask "quicklook-json" # no shasum!
 cask "slack"
 cask "the-unarchiver"
 cask "virtualbox"
