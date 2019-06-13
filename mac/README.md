@@ -52,33 +52,6 @@ Bundle dumps for specific systems are in my `~/.secret` (not public).
 
 See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
 
-### ZSH
-
-1. Use ZSH as the default shell (default in Catalina)
-
-  ```sh
-  sudo -e /etc/shells # add /usr/local/bin/zsh (the brewed zsh)
-  chsh -s /usr/local/bin/zsh
-  ```
-
-1. Restart shell
-
-### Setup ssh keys
-
-1. `sshkeygen` (alias to generate new ed25519 keys)
-1. Add the public key to GitHub, GitLab, Bitbucket, keybasefs, etc.
-
-### Install GPGTools and import key
-
-1. Install the [dotfiles.plist](LaunchAgents/dotfiles.plist) first! It sets
-   `GNUPGHOME` in the env for all apps. See the bootstrapping section above.
-1. Follow these instructions
-   <https://gist.github.com/danieleggert/b029d44d4a54b328c0bac65d46ba4c65>  
-   then
-    - Export key from keybase
-    - Import key
-    - Add User ID to key
-
 ### Casks
 
 - dropbox
@@ -106,6 +79,33 @@ See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
 Install the rest of the packages from
 [bootstrap/mac/cask](../bootstrap/mac/cask) as desired.
 
+### Install GPGTools and import key
+
+1. Install the [dotfiles.plist](LaunchAgents/dotfiles.plist) first! It sets
+   `GNUPGHOME` in the env for all apps. See the bootstrapping section above.
+1. Follow these instructions
+   <https://gist.github.com/danieleggert/b029d44d4a54b328c0bac65d46ba4c65>  
+   then
+    - Export key from keybase
+    - Import key
+    - Add User ID to key
+
+### ZSH
+
+1. Use ZSH as the default shell (default in Catalina)
+
+    ```sh
+    sudo -e /etc/shells # add /usr/local/bin/zsh (the brewed zsh)
+    chsh -s /usr/local/bin/zsh
+    ```
+
+1. Restart the terminal (or start using iterm2)
+
+### Setup ssh keys
+
+1. `sshkeygen` (alias to generate new ed25519 keys)
+1. Add the public key to GitHub, GitLab, Bitbucket, keybasefs, etc.
+
 ### Install development tools
 
 Installed packages before development tools. After you start using `pyenv` it
@@ -131,6 +131,7 @@ operation. Use the `bi` alias for a clean room install if possible.
   1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
   1. Set up the global pyenv as the latest stable (3.x)
   1. Set up python virtualenvs using [bootstrap/pyenv](../bootstrap/pyenv)
+
 
 [nvm]: https://github.com/nvm-sh/nvm
 [pyenv]: https://github.com/pyenv/pyenv
