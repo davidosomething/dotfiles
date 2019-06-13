@@ -19,3 +19,4 @@ export PATH="${DOTFILES}/bin:${PATH}"
 
 dko-symlink "mac/LaunchAgents/dotfiles.plist" \
             "Library/LaunchAgents/dotfiles.plist"
+launchctl load "${HOME}/Library/LaunchAgents/dotfiles.plist"

@@ -37,6 +37,8 @@ the mac bootstrapper.
 
 ### Install GPGTools and import key
 
+1. Install the [dotfiles.plist](LaunchAgents/dotfiles.plist) first! It sets
+   `GNUPGHOME` in the env for all apps. See the bootstrapping section above.
 1. Follow these instructions
    <https://gist.github.com/danieleggert/b029d44d4a54b328c0bac65d46ba4c65>
 
