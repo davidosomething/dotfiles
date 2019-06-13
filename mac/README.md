@@ -12,7 +12,7 @@ Remove these using System Preferences:
 - `Mission Control` owns Control-left and Control-right
 - `Spotlight` owns Command-space
 
-## Reduce desktop icon size
+### Reduce desktop icon size
 
 Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
 
@@ -121,37 +121,17 @@ operation. Use the `bi` alias for a clean room install if possible.
   1. `ruby-install ruby` to install latest
   1. `chruby` to that version
   1. Install gems using [ruby/install-default-gems](../ruby/install-default-gems)
-- Install [nvm](https://github.com/nvm-sh/nvm) MANUALLY via git clone into
-  `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and `npm`)
+- Install [nvm] MANUALLY via git clone into `$XDG_CONFIG_HOME`, then use it to
+  install a version of `node` (and `npm`)
   1. Use nvm managed node
   1. Install the default packages using [node/install](../node/install)
-- Install [pyenv](https://github.com/pyenv/pyenv) using `pyenv-installer`
-  (rm `~/.local/pyenv` directory for clean install) and make sure to use the
-  libs provided by `brew openssl`
+- Install [pyenv] using `pyenv-installer` (rm `~/.local/pyenv` directory for
+  clean install) and make sure to use the libs provided by `brew openssl`
   1. `brew install openssl`
   1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
   1. Set up the global pyenv as the latest stable (3.x)
   1. Set up python virtualenvs using [bootstrap/pyenv](../bootstrap/pyenv)
 
-## Example source order
-
-This is an example -- see output of `dkosourced` for up-to-date version.
-
-- zshenv
-    - shell/init.bash
-        - shell/{xdg,vars,os}.bash
-- /etc/zprofile
-- zsh/.zprofile
-- zshrc
-    - shell/interactive.bash
-        - shell/{path,helpers,functions,aliases}.bash
-        - shell/{java,node,php,python,ruby}.bash
-    - prompt-{vcs,vimode}.zsh
-    - prompt.zsh
-    - title.zsh
-    - fzf.zsh
-    - zplugin
-    - shell/after
-    - .secret/local/shellrc
-
+[nvm]: https://github.com/nvm-sh/nvm
+[pyenv]: https://github.com/pyenv/pyenv
 [unlock]: https://github.com/davidosomething/Unlock
