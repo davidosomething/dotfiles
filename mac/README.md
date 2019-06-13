@@ -1,39 +1,37 @@
 # macOS/OS X
 
-## Full generic setup, in order
-
 User data on encrypted volumes other than the boot volume will not mount until
 login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
-### Disable some keyboard shortcuts
+## Disable some keyboard shortcuts
 
 Remove these using System Preferences:
 
 - `Mission Control` owns Control-left and Control-right
 - `Spotlight` owns Command-space
 
-### Reduce desktop icon size
+## Reduce desktop icon size
 
 Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
 
-### App store
+## App store
 
 1. iCloud sign in
 1. Install App store apps
    - `Display Menu` (free) - set higher/native resolutions on monitors
    - `Xcode` - select CLI tools in prefs
 
-### Install homebrew
+## Install homebrew
 
 1. Install according to <https://brew.sh/>. Install bundles in a later step.
 
-### Install dotfiles
+## Install dotfiles
 
 ```sh
 git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/
 ```
 
-### Install headers and run bootstrap
+## Install headers and run bootstrap
 
 This will run other bootstrappers too:
 
@@ -52,7 +50,7 @@ Bundle dumps for specific systems are in my `~/.secret` (not public).
 
 See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
 
-### Casks
+## Casks
 
 - dropbox
   1. Has app settings sync so wait for it to finish syncing.
@@ -79,7 +77,7 @@ See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
 Install the rest of the packages from
 [bootstrap/mac/cask](../bootstrap/mac/cask) as desired.
 
-### Install GPGTools and import key
+## Install GPGTools and import key
 
 1. Install the [dotfiles.plist](LaunchAgents/dotfiles.plist) first! It sets
    `GNUPGHOME` in the env for all apps. See the bootstrapping section above.
@@ -90,7 +88,7 @@ Install the rest of the packages from
     - Import key
     - Add User ID to key
 
-### ZSH
+## ZSH
 
 1. Use ZSH as the default shell (default in Catalina)
 
@@ -101,12 +99,12 @@ Install the rest of the packages from
 
 1. Restart the terminal (or start using iterm2)
 
-### Setup ssh keys
+## Setup ssh keys
 
 1. `sshkeygen` (alias to generate new ed25519 keys)
 1. Add the public key to GitHub, GitLab, Bitbucket, keybasefs, etc.
 
-### Install development tools
+## Install development tools
 
 Installed packages before development tools. After you start using `pyenv` it
 gets annoying to remember to switch back to system python for each `brew`
