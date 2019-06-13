@@ -21,6 +21,7 @@ Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
 1. iCloud sign in
 1. Install App store apps
    - `Display Menu` (free) - set higher/native resolutions on monitors
+   - `Xcode` - select CLI tools in prefs
 
 ### Install homebrew
 
@@ -28,12 +29,17 @@ Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
 
 ### Install dotfiles
 
-1. `git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/`
-1. `~/.dotfiles/bootstrap/symlink`
-1. `~/.dotfiles/bootstrap/cleanup`
-1. `~/.dotfiles/bootstrap/terminfo`
+```sh
+git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/
+```
 
 ### Install headers and run bootstrap
+
+This will run other bootstrappers too:
+
+```sh
+~/.dotfiles/bootstrap/mac
+```
 
 Mojave no longer installs SDK headers for building certain things. It comes
 with mac OS but requires manual execution. The
@@ -50,8 +56,10 @@ See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
 
 1. Use ZSH as the default shell (default in Catalina)
 
-   - `sudo -e /etc/shells` and add `/usr/local/bin/zsh` (the brewed zsh)
-   - `chsh -s /usr/local/bin/zsh`
+  ```sh
+  sudo -e /etc/shells # add /usr/local/bin/zsh (the brewed zsh)
+  chsh -s /usr/local/bin/zsh
+  ```
 
 1. Restart shell
 
@@ -73,7 +81,6 @@ See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
 
 ### Casks
 
-- Install fonts - `~/.dotfiles/mac/fonts` to install via cask
 - dropbox
   1. Has app settings sync so wait for it to finish syncing.
 - iterm2

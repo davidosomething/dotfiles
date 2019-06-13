@@ -20,6 +20,10 @@ export PATH="${DOTFILES}/bin:${PATH}"
 __dko_require 'brew' || exit 1
 __dko_require 'xcrun' || exit 1
 
+"${DOTFILES}/bootstrap/symlink" || exit 1
+"${DOTFILES}/bootstrap/cleanup" || exit 1
+"${DOTFILES}/bootstrap/terminfo" || exit 1
+
 # run bootstrap/symlink first!
 if [ -f "${HOME}/Library/LaunchAgents/dotfiles.plist" ]; then
   __dko_status "Reloading dotfiles.plist"
