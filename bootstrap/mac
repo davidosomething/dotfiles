@@ -24,10 +24,11 @@ __dko_require 'xcrun' || exit 1
 "${DOTFILES}/bootstrap/cleanup" || exit 1
 "${DOTFILES}/bootstrap/terminfo" || exit 1
 
-if [ -f "${HOME}/Library/LaunchAgents/dotfiles.plist" ]; then
+dotfiles_plist="${HOME}/Library/LaunchAgents/dotfiles.plist"
+if [ -f "$(readlink "$dotfiles_plist")" ]; then
   __dko_status "Reloading dotfiles.plist"
-  launchctl unload "${HOME}/Library/LaunchAgents/dotfiles.plist"
-  launchctl load "${HOME}/Library/LaunchAgents/dotfiles.plist"
+  launchctl unload "$dotfiles_plist" 2>/dev/null
+  launchctl load "$dotfiles_plist"
 else
   __dko_err "dotfiles.plist not symlinked. Run bootstrap/symlink!"
   exit 1
