@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "$DOTFILES_OS" = "Darwin" ]; then
+if [ "$OSTYPE" = *'arwin'* ]; then
   open "$@"
 else
   xdg-open "$@" >/dev/null

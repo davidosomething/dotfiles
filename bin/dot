@@ -684,7 +684,7 @@ __dko_dotfiles() {
   *)
     case "$OSTYPE" in
     linux*) __dko_dotfiles__linux__update "$@" ;;
-    darwin*) __dko_dotfiles__darwin__update "$@" ;;
+    *arwin*) __dko_dotfiles__darwin__update "$@" ;;
     esac
     ;;
   esac

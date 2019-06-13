@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "$DOTFILES_OS" = "Darwin" ]; then
+if [ "$OSTYLE" = *'arwin'* ]; then
   if [ "$(which apachectl)" = "/usr/sbin/apachectl" ]; then
     sudo apachectl -e info -k restart
   fi

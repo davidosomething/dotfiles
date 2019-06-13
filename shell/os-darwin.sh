@@ -14,14 +14,12 @@ export HOMEBREW_CASK_OPTS='--require-sha'
 export DKO_BREW_PREFIX="/usr/local"
 
 # GOROOT binaries
-[ "$DOTFILES_OS" = "Darwin" ] &&
+[ "$OSTYPE" = *"arwin"* ] && {
   [ -d "${DKO_BREW_PREFIX}/opt/go/libexec/bin" ] &&
   PATH="${DKO_BREW_PREFIX}/opt/go/libexec/bin:${PATH}"
-
-[ "$DOTFILES_OS" = "Darwin" ] &&
   PATH="${DKO_BREW_PREFIX}/opt/git/share/git-core/contrib/git-jump:${PATH}"
-
-export PATH
+  export PATH
+}
 
 # prefer homebrewed lua@5.1
 command -v luarocks >/dev/null &&

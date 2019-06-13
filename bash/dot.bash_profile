@@ -14,7 +14,7 @@ DOTFILES_OS="$(uname)"
 export DOTFILES_OS
 
 this="${BASH_SOURCE[0]}"
-if [[ "$DOTFILES_OS" == "Darwin" ]]; then
+if [[ "$OSTYPE" == *'arwin'* ]]; then
   BDOTDIR="$(dirname "$(realpath "$this")")"
 else
   BDOTDIR="$(dirname "$(readlink -f "$this")")"

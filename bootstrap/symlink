@@ -77,7 +77,7 @@ __symlink() {
     ".tern-config"
 
   case "$OSTYPE" in
-  darwin*)
+  *arwin*)
     dko-symlink "mac/hammerspoon" \
       ".hammerspoon"
     dko-symlink "mac/dot.hushlogin" \
