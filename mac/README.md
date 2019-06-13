@@ -12,11 +12,19 @@ Remove these using System Preferences:
 - `Mission Control` owns Control-left and Control-right
 - `Spotlight` owns Command-space
 
+## Reduce desktop icon size
+
+Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
+
 ### App store
 
 1. iCloud sign in
 1. Install App store apps
    - `Display Menu` (free) - set higher/native resolutions on monitors
+
+### Install homebrew
+
+1. Install according to <https://brew.sh/>. Install bundles in a later step.
 
 ### Install dotfiles
 
@@ -30,31 +38,19 @@ Remove these using System Preferences:
 Mojave no longer installs SDK headers for building certain things. It comes
 with mac OS but requires manual execution. The
 [bootstrap/mac](../bootstrap/mac) script will install it and run the rest of
-the mac bootstrapper.
+the mac bootstrapper including `brew bundle` for the default packages.
+Bundle dumps for specific systems are in my `~/.secret` (not public).
 
 `./compile dotfiles.plist.json` generates the `dotfiles.plist` file in the
 `mac/LaunchAgents` directory. It depends on the `plist` package from npm.
 
-### Install GPGTools and import key
-
-1. Install the [dotfiles.plist](LaunchAgents/dotfiles.plist) first! It sets
-   `GNUPGHOME` in the env for all apps. See the bootstrapping section above.
-1. Follow these instructions
-   <https://gist.github.com/danieleggert/b029d44d4a54b328c0bac65d46ba4c65>
-
-### Install homebrew
-
-1. Install according to <https://brew.sh/>
-1. `brew bundle` in `~/.dotfiles/mac` to get common packages
-1. See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
-   Bundle dumps for specific systems are in my `~/.secret` (not public).
+See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
 
 ### ZSH
 
 1. Use ZSH as the default shell (default in Catalina)
 
-   - `brew install zsh`
-   - `sudo -e /etc/shells` and add `/usr/local/bin/zsh`
+   - `sudo -e /etc/shells` and add `/usr/local/bin/zsh` (the brewed zsh)
    - `chsh -s /usr/local/bin/zsh`
 
 1. Restart shell
@@ -63,6 +59,17 @@ the mac bootstrapper.
 
 1. `sshkeygen` (alias to generate new ed25519 keys)
 1. Add the public key to GitHub, GitLab, Bitbucket, keybasefs, etc.
+
+### Install GPGTools and import key
+
+1. Install the [dotfiles.plist](LaunchAgents/dotfiles.plist) first! It sets
+   `GNUPGHOME` in the env for all apps. See the bootstrapping section above.
+1. Follow these instructions
+   <https://gist.github.com/danieleggert/b029d44d4a54b328c0bac65d46ba4c65>  
+   then
+    - Export key from keybase
+    - Import key
+    - Add User ID to key
 
 ### Casks
 
@@ -77,8 +84,6 @@ the mac bootstrapper.
     - License in synology drive or gmail
     - Better trackpad swipe configs
     - Synced to Dropbox
-- google-chrome
-    - Login and sync google account for settings
 - hammerspoon
     - Disable spotlight shortcut first
     - App launcher (cmd + space)
@@ -90,11 +95,6 @@ the mac bootstrapper.
     - Or download from oracle if Java 8 or specific version needed
 - kaleidoscope
     - Load license file
-- gpg-suite-no-mail
-    - Add device to keybase.io
-    - Export key from keybase
-    - Import key
-    - Add User ID to key
 
 Install the rest of the packages from
 [bootstrap/mac/cask](../bootstrap/mac/cask) as desired.
@@ -125,10 +125,6 @@ operation. Use the `bi` alias for a clean room install if possible.
   1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
   1. Set up the global pyenv as the latest stable (3.x)
   1. Set up python virtualenvs using [bootstrap/pyenv](../bootstrap/pyenv)
-
-## Reduce desktop icon size
-
-Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
 
 ## Example source order
 

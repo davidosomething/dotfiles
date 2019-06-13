@@ -17,12 +17,8 @@ export PATH="${DOTFILES}/bin:${PATH}"
 
 # ============================================================================
 
-if ! command -v xcrun >/dev/null; then
-  __dko_err "Missing xcrun. Install xcode and select CLI tools."
-  exit 1
-else
-  __dko_ok "Found xcrun"
-fi
+__dko_require 'brew' || exit 1
+__dko_require 'xcrun' || exit 1
 
 # run bootstrap/symlink first!
 if [ -f "${HOME}/Library/LaunchAgents/dotfiles.plist" ]; then
@@ -54,3 +50,6 @@ if [ ! -d "$sdk" ]; then
 else
   __dko_ok "Found SDK headers"
 fi
+
+__dko_status "Brewing"
+(cd "${DOTFILES}/mac" && TERM=xterm256-color \brew bundle)
