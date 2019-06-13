@@ -40,10 +40,20 @@ This will run other bootstrappers too:
 ```
 
 Mojave no longer installs SDK headers for building certain things. It comes
-with mac OS but requires manual execution. The
-[bootstrap/mac](../bootstrap/mac) script will install it and run the rest of
-the mac bootstrapper including `brew bundle` for the default packages.
+with mac OS but requires manual execution.
+
+Use [bootstrap/mac](../bootstrap/mac) to install it. The script will also:
+
+- load the `dotfiles.plist`
+- `brew bundle` some default packages
+- Run the fzf installer
+- Change the user's default shell to the brewed `zsh`
+
+### System-specific
+
 Bundle dumps for specific systems are in my `~/.secret` (not public).
+
+### the dotfiles.plist
 
 `./compile dotfiles.plist.json` generates the `dotfiles.plist` file in the
 `mac/LaunchAgents` directory. It depends on the `plist` package from npm.
@@ -87,17 +97,6 @@ Install the rest of the packages from
     - Export key from keybase
     - Import key
     - Add User ID to key
-
-## ZSH
-
-1. Use ZSH as the default shell (default in Catalina)
-
-    ```sh
-    sudo -e /etc/shells # add /usr/local/bin/zsh (the brewed zsh)
-    chsh -s /usr/local/bin/zsh
-    ```
-
-1. Restart the terminal (or start using iterm2)
 
 ## Setup ssh keys
 
