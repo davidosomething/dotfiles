@@ -54,6 +54,8 @@ brew cask install joplin
 brew cask install kaleidoscope
 echo "License in SpiderOak Hive"
 
+brew cask install kitematic
+
 # ==============================================================================
 # Marked
 # ==============================================================================
