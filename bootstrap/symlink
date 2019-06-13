@@ -37,71 +37,71 @@ __symlink() {
 
   # REQUIRED in ~/ -- ag looks for ~/.agignore LAST and includes it.
   # .ignore files are for project local only
-  dko-symlink  "shell/dot.profile" \
-                ".profile"
+  dko-symlink "shell/dot.profile" \
+    ".profile"
 
   # universal-ctags
-  dko-symlink  "universal-ctags/dot.ctags" \
-                ".ctags.d/universal.ctags"
+  dko-symlink "universal-ctags/dot.ctags" \
+    ".ctags.d/universal.ctags"
 
   # XDG-compatible
-  dko-symlink  "bat/config" \
-                ".config/bat/config"
-  dko-symlink  "git/dot.gitconfig" \
-                ".config/git/config"
-  dko-symlink  "git/dot.gitignore" \
-                ".config/git/ignore"
-  dko-symlink  "markdownlint/dot.markdownlintrc" \
-                ".config/markdownlint"
-  dko-symlink  "node/default-packages" \
-                ".config/nvm/default-packages"
-  dko-symlink  "shell/dot.inputrc" \
-                ".config/readline/inputrc"
-  dko-symlink  "kitty/kitty.conf" \
-                ".config/kitty/kitty.conf"
+  dko-symlink "bat/config" \
+    ".config/bat/config"
+  dko-symlink "git/dot.gitconfig" \
+    ".config/git/config"
+  dko-symlink "git/dot.gitignore" \
+    ".config/git/ignore"
+  dko-symlink "markdownlint/dot.markdownlintrc" \
+    ".config/markdownlint"
+  dko-symlink "node/default-packages" \
+    ".config/nvm/default-packages"
+  dko-symlink "shell/dot.inputrc" \
+    ".config/readline/inputrc"
+  dko-symlink "kitty/kitty.conf" \
+    ".config/kitty/kitty.conf"
 
   # (n)vim / intellij ideavim
-  dko-symlink  "vim" \
-                ".vim"
-  dko-symlink  "vim" \
-                ".config/nvim"
-  dko-symlink  "ideavim/dot.ideavimrc" \
-                ".ideavimrc"
+  dko-symlink "vim" \
+    ".vim"
+  dko-symlink "vim" \
+    ".config/nvim"
+  dko-symlink "ideavim/dot.ideavimrc" \
+    ".ideavimrc"
 
   # hyper.app
-  dko-symlink  "hyper-app/dot.hyper.js" \
-                ".hyper.js"
+  dko-symlink "hyper-app/dot.hyper.js" \
+    ".hyper.js"
 
   # default ~/.tern-config
-  dko-symlink  "ternjs/dot.tern-config" \
-                ".tern-config"
+  dko-symlink "ternjs/dot.tern-config" \
+    ".tern-config"
 
   case "$OSTYPE" in
-    darwin*)
-      dko-symlink  "mac/hammerspoon" \
-                   ".hammerspoon"
-      dko-symlink  "mac/dot.hushlogin" \
-                   ".hushlogin"
-      dko-symlink  "mac/LaunchAgents/dotfiles.plist" \
-                   "Library/LaunchAgents/dotfiles.plist"
-      dko-symlink  "subversion/config" \
-                   ".subversion/config"
-      dko-symlink  "mac/redshift.conf" \
-                   ".config/redshift/redshift.conf"
-      ;;
-    linux*)
-      dko-symlink  "linux/subversion/config" \
-                    ".subversion/config"
-      ;;
+  darwin*)
+    dko-symlink "mac/hammerspoon" \
+      ".hammerspoon"
+    dko-symlink "mac/dot.hushlogin" \
+      ".hushlogin"
+    dko-symlink "mac/LaunchAgents/dotfiles.plist" \
+      "Library/LaunchAgents/dotfiles.plist"
+    dko-symlink "subversion/config" \
+      ".subversion/config"
+    dko-symlink "mac/redshift.conf" \
+      ".config/redshift/redshift.conf"
+    ;;
+  linux*)
+    dko-symlink "linux/subversion/config" \
+      ".subversion/config"
+    ;;
   esac
 
   # Shell
-  dko-symlink  "bash/dot.bashrc" \
-                ".bashrc"
-  dko-symlink  "bash/dot.bash_profile" \
-                ".bash_profile"
-  dko-symlink  "zsh/dot.zshenv" \
-                ".zshenv"
+  dko-symlink "bash/dot.bashrc" \
+    ".bashrc"
+  dko-symlink "bash/dot.bash_profile" \
+    ".bash_profile"
+  dko-symlink "zsh/dot.zshenv" \
+    ".zshenv"
 
   __dko_status "Done! [symlink.sh]"
 }
