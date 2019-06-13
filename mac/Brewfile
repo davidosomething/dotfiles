@@ -70,7 +70,7 @@ brew "yarn"
 brew "zsh"
 brew "shyiko/ktlint/ktlint"
 brew "valelint/vale/vale"
-cask "dropbox"
+#cask "dropbox" no shasum!
 cask "firefox"
 cask "font-firamono-nerd-font-mono"
 cask "google-chrome"
