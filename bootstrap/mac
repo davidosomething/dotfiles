@@ -24,6 +24,10 @@ sudo installer \
   -pkg "/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg" \
   -target /
 
+# run bootstrap/symlink first!
+[ -f "${HOME}/Library/LaunchAgents/dotfiles.plist" ] && \
+  launchctl load "${HOME}/Library/LaunchAgents/dotfiles.plist"
+
 # ============================================================================
 
 "${DOTFILES}/bootstrap/symlink-mac"

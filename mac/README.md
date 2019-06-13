@@ -12,16 +12,6 @@ Remove these using System Preferences:
 - `Mission Control` owns Control-left and Control-right
 - `Spotlight` owns Command-space
 
-### Install headers and run bootstrap
-
-Mojave no longer installs SDK headers for building certain things. It comes
-with mac OS but requires manual execution. The
-[bootstrap/mac](../bootstrap/mac) script will install it and run the rest of
-the mac bootstrapper.
-
-`./compile dotfiles.plist.json` generates the `dotfiles.plist` file in the
-`mac/LaunchAgents` directory. It depends on the `plist` package from npm.
-
 ### App store
 
 1. iCloud sign in
@@ -34,6 +24,16 @@ the mac bootstrapper.
 1. `~/.dotfiles/bootstrap/symlink`
 1. `~/.dotfiles/bootstrap/cleanup`
 1. `~/.dotfiles/bootstrap/terminfo`
+
+### Install headers and run bootstrap
+
+Mojave no longer installs SDK headers for building certain things. It comes
+with mac OS but requires manual execution. The
+[bootstrap/mac](../bootstrap/mac) script will install it and run the rest of
+the mac bootstrapper.
+
+`./compile dotfiles.plist.json` generates the `dotfiles.plist` file in the
+`mac/LaunchAgents` directory. It depends on the `plist` package from npm.
 
 ### Install GPGTools and import key
 
