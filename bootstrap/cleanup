@@ -124,5 +124,7 @@ __remove "${HOME}/.tern-project"
 # should be ~/.config/tldr
 __remove "${HOME}/.tldr"
 
+"${DOTFILES}/bin/dko-fix-git-completion"
+
 # NVM
 __clean_nvm
