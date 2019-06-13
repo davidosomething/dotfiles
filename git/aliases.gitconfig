@@ -51,7 +51,7 @@
 	pum     = pull --ff-only upstream master
 
 	pf      = push --force-with-lease
-	poh     = push origin HEAD
+	poh     = push -u origin HEAD
 	puh     = push upstream HEAD
 
 	rb      = rebase
