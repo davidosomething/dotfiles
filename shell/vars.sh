@@ -128,6 +128,10 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
+# gpg
+# on mac this should already set by dotfiles.plist using launchd
+export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
+
 # go
 # Used in shell/paths.sh so not in shell/go.sh
 export GOPATH="${HOME}/.local/go"
