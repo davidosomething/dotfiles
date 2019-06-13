@@ -17,17 +17,40 @@ export PATH="${DOTFILES}/bin:${PATH}"
 
 # ============================================================================
 
+if ! command -v xcrun >/dev/null; then
+  __dko_err "Missing xcrun. Install xcode and select CLI tools."
+  exit 1
+else
+  __dko_ok "Found xcrun"
+fi
+
+# run bootstrap/symlink first!
+if [ -f "${HOME}/Library/LaunchAgents/dotfiles.plist" ]; then
+  __dko_status "Reloading dotfiles.plist"
+  launchctl unload "${HOME}/Library/LaunchAgents/dotfiles.plist"
+  launchctl load "${HOME}/Library/LaunchAgents/dotfiles.plist"
+else
+  __dko_err "dotfiles.plist not symlinked. Run bootstrap/symlink!"
+  exit 1
+fi
+
+# See https://github.com/postmodern/chruby/issues/196#issuecomment-23826171
+if [ -f /etc/zshenv ] && [ ! -f /etc/zprofile ]; then
+  __dko_status "Moving /etc/zshenv to /etc/zprofile"
+  sudo mv /etc/zshenv /etc/zprofile
+else
+  __dko_ok "/etc/zshenv not present"
+fi
+
 # See https://github.com/pyenv/pyenv/issues/1219#issuecomment-428700763
 # Xcode Command Line tools no longer installs needed headers in /include
 # https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes
-sudo installer \
-  -pkg "/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg" \
-  -target /
-
-# run bootstrap/symlink first!
-[ -f "${HOME}/Library/LaunchAgents/dotfiles.plist" ] && \
-  launchctl load "${HOME}/Library/LaunchAgents/dotfiles.plist"
-
-# ============================================================================
-
-"${DOTFILES}/bootstrap/symlink-mac"
+sdk=$(xcrun --show-sdk-path)
+if [ ! -d "$sdk" ]; then
+  __dko_status "SDK headers not found. Installing"
+  sudo installer \
+    -pkg "/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg" \
+    -target /
+else
+  __dko_ok "Found SDK headers"
+fi
