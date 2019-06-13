@@ -45,9 +45,13 @@ the mac bootstrapper.
 ### Install homebrew
 
 1. Install according to <https://brew.sh/>
-1. `brew install` programs via `~/.dotfiles/mac/brew`, or pick as desired
-   - Of note are `git`, `fzf`
-1. Use ZSH as default
+1. `brew bundle` in `~/.dotfiles/mac` to get common packages
+1. See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
+   Bundle dumps for specific systems are in my `~/.secret` (not public).
+
+### ZSH
+
+1. Use ZSH as the default shell (default in Catalina)
 
    - `brew install zsh`
    - `sudo -e /etc/shells` and add `/usr/local/bin/zsh`
