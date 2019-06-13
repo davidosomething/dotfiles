@@ -115,7 +115,8 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # Plugins: fzf (package install)
 # ----------------------------------------------------------------------------
 
-__dko_source "${HOME}/.fzf.zsh" && DKO_SOURCE="${DKO_SOURCE} -> fzf"
+__dko_source "${XDG_CONFIG_HOME}/fzf/fzf.zsh" &&
+  DKO_SOURCE="${DKO_SOURCE} -> fzf"
 
 # ============================================================================
 # Keybindings (after plugins since some are custom for fzf)

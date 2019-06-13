@@ -151,7 +151,7 @@ __dko_dotfiles__pyenv_system() {
   __dko_has "pyenv" &&
     __dko_status "Switching to system python to upgrade brew packages" &&
     pyenv shell system || exit 1 &&
-  python --version
+    python --version
 }
 
 # probably don't need this as long as running updates in subshells
@@ -168,9 +168,9 @@ __dko_dotfiles__pyenv_global() {
 __dko_dotfiles__update_fzf() {
   local installer
 
-  if [[ -x "/usr/local/opt/fzf/install" ]]; then
+  if [[ -x "${DKO_BREW_PREFIX}/opt/fzf/install" ]]; then
     __dko_status "fzf was installed via brew, re-running installer"
-    installer="/usr/local/opt/fzf/install"
+    installer="${DKO_BREW_PREFIX}/opt/fzf/install"
   elif [[ -d "${HOME}/.fzf" ]]; then
     __dko_status "fzf was installed in ~/.fzf"
     installer="${HOME}/.fzf/install"
@@ -188,7 +188,8 @@ __dko_dotfiles__update_fzf() {
   # Install/update shell extensions
   if [[ -n "$installer" ]]; then
     __dko_status "Updating fzf shell extensions"
-    "$installer" --bin || return 1
+    "$installer" --xdg --key-bindings --no-completion --no-update-rc --64 ||
+      return 1
   fi
 }
 

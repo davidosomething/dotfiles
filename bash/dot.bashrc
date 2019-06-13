@@ -66,7 +66,7 @@ __dko_source "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bas
 # Plugins
 # ==============================================================================
 
-__dko_source "${HOME}/.fzf.bash"
+__dko_source "${XDG_CONFIG_HOME}/fzf/fzf.bash"
 
 # ============================================================================
 # Prompt -- needs to be after plugins since it might use them
