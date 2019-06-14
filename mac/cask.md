@@ -12,6 +12,7 @@
 - dropbox
 - gimp
 - gitter
+- google-chrome
 - inkscape
     - inkscape requires xquartz
 - iina

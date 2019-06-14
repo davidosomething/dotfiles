@@ -74,7 +74,7 @@ brew "valelint/vale/vale"
 #cask "dropbox" # no shasum!
 cask "firefox"
 cask "font-firamono-nerd-font-mono"
-cask "google-chrome"
+#cask "google-chrome" # shasum invalidates frequently
 cask "hammerspoon"
 cask "iterm2"
 cask "itsycal"
