@@ -33,16 +33,15 @@ git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/
 
 ## Install headers and run bootstrap
 
-This will run other bootstrappers too:
+Mojave no longer installs SDK headers for building certain things. It comes
+with mac OS but requires manual execution. Use
+[bootstrap/mac](../bootstrap/mac) to install it:
 
 ```sh
 ~/.dotfiles/bootstrap/mac
 ```
 
-Mojave no longer installs SDK headers for building certain things. It comes
-with mac OS but requires manual execution.
-
-Use [bootstrap/mac](../bootstrap/mac) to install it. The script will also:
+The script will also:
 
 - load the `dotfiles.plist`
 - `brew bundle` some default packages
@@ -58,7 +57,7 @@ Bundle dumps for specific systems are in my `~/.secret` (not public).
 `./compile dotfiles.plist.json` generates the `dotfiles.plist` file in the
 `mac/LaunchAgents` directory. It depends on the `plist` package from npm.
 
-See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
+See homebrew notes in [brew.md](./brew.md) for other formulae I install.
 
 ## Casks
 
@@ -73,19 +72,13 @@ See homebrew notes in `~/.dotfiles/mac/brew.md` for other things I install.
     - Better trackpad swipe configs
     - Synced to Dropbox
 - hammerspoon
-    - Disable spotlight shortcut first
-    - App launcher (cmd + space)
+    - App launcher (cmd + space) - disable spotlight shortcut first
     - Audio output device switch in menubar
     - Auto-type from clipboard (cmd-ctrl + v)
     - Caffeinate in menubar
     - Window management (cmd-ctrl-shift + f/h/l/z)
-- java
-    - Or download from oracle if Java 8 or specific version needed
-- kaleidoscope
-    - Load license file
 
-Install the rest of the packages from
-[bootstrap/mac/cask](../bootstrap/mac/cask) as desired.
+Install the rest of the packages from [cask.md](./cask.md) as desired.
 
 ## Install GPGTools and import key
 

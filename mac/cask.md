@@ -1,0 +1,33 @@
+# Other casks of note
+
+- bettertouchtool
+- balenaetcher
+- betwixt
+- bitwarden
+- cloudapp
+- dash
+- discord
+- disk-inventory-x
+- docker
+- dropbox
+- gimp
+- gitter
+- inkscape
+    - inkscape requires xquartz
+- iina
+- itsycal
+    - date format EEEEEMM.dd h:mm
+- kaleidoscope
+- kitematic
+- marked
+- qbittorrent
+- robo-3t
+- skype
+- spideroakone
+- spotify
+- synology-drive
+- synologyassistant
+- telegram
+- transmit
+- tunnelblick
+- vagrant

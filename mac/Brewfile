@@ -78,8 +78,6 @@ cask "hammerspoon"
 cask "iterm2"
 cask "itsycal"
 cask "joplin"
-#cask "ngrok" # no shasum!
-#cask "quicklook-json" # no shasum!
 cask "slack"
 cask "the-unarchiver"
 cask "virtualbox"
