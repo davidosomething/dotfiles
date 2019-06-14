@@ -71,6 +71,8 @@ augroup filetypedetect
   " polkit rules files
   autocmd! BufNewFile,BufRead *.rules setfiletype javascript
 
+  autocmd! BufNewFile,BufRead Brewfile setfiletype ruby
+
   " ironic that it doesn't use a .yml/.yaml extension
   autocmd! BufNewFile,BufRead .yamllint setfiletype yaml
 
