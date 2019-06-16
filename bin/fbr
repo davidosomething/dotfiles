@@ -27,11 +27,11 @@ __get_local_branches() {
 __fbr() {
   local current
   local out
-  local branch
   local key
+  local branch
 
   current=$(git rev-parse --abbrev-ref HEAD)
-  [[ "$current" == "" ]] && return 1
+  [ -z "$current" ] && return 1
 
   out=$(__get_local_branches | fzf-tmux \
     +m \

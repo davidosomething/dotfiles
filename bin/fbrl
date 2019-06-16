@@ -7,25 +7,39 @@
 __fbrl() {
   local current
   local branches
+  local out
+  local key
   local branch
 
   current=$(git rev-parse --abbrev-ref HEAD)
-  [[ "$current" == "" ]] && return 1
+  [ -z "$current" ] && return 1
 
   branches=$(git for-each-ref \
     --count=30 \
     --sort=-committerdate \
     --format="%(refname:short)" \
-    refs/heads/ | grep -v "$current") \
-  && branch=$(fzf-tmux \
+    refs/heads/ | grep -v "$current")
+
+  out=$(fzf-tmux \
     +m \
     --cycle \
     --delimiter="$(( 2 + $(wc -l <<< "$branches") ))" \
     --exit-0 \
+    --expect=ctrl-y \
     --height=25% \
     --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
     --prompt="$current> " <<< "$branches") \
-  && git checkout "$(echo "$branch" \
-      | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
+
+  key="$(head -1 <<< "$out")"
+
+  branch="$(head -2 <<< "$out" | tail -1)"
+  # strip spaces
+  branch="$(echo "$branch" | xargs)"
+
+  if [[ -n "$branch" ]]; then
+    branch="$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
+    [[ "$key" == "ctrl-y" ]] && echo "$branch" | tr -d '\n' | pbcopy && return
+    git checkout "$branch"
+  fi
 }
 __fbrl
