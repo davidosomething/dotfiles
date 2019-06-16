@@ -38,7 +38,7 @@ __fbr() {
     --cycle \
     --exit-0 \
     --expect=ctrl-y \
-    --height=25% \
+    --height=25% --no-hscroll --no-multi \
     --nth=1 \
     --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
     --prompt="$current> ")

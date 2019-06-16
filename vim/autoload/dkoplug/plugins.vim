@@ -200,7 +200,7 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
 
   Plug 'neoclide/coc.nvim', {
-        \   'tag': '*',
+        \   'branch': 'release',
         \   'do': { -> coc#util#install() && dko#coc#InstallExtensions() }
         \ }
 
