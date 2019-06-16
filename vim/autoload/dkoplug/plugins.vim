@@ -199,10 +199,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion engine
   " --------------------------------------------------------------------------
 
-  Plug 'neoclide/coc.nvim', {
-        \   'branch': 'release',
-        \   'do': { -> coc#util#install() && dko#coc#InstallExtensions() }
-        \ }
+  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
   " --------------------------------------------------------------------------
   " Completion libraries
