@@ -95,6 +95,7 @@ Install the rest of the packages from [cask.md](./cask.md) as desired.
 
 1. `sshkeygen` (alias to generate new ed25519 keys)
 1. Add the public key to GitHub, GitLab, Bitbucket, keybasefs, etc.
+1. `ssh-add -K ~/.ssh/privatekeyfile` to store the key in Keychain.
 
 ## Install development tools
 
