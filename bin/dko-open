@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "$OSTYPE" = *'arwin'* ]; then
+if [[ "$OSTYPE" = *'arwin'* ]]; then
   open "$@"
 else
   xdg-open "$@" >/dev/null
