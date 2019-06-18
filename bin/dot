@@ -96,7 +96,9 @@ __dko_dotfiles__update_secret() {
 __dko_dotfiles__update_daily() {
   __dko_dotfiles__update_secret
 
-  if [[ -x "/usr/local/opt/fzf/install" ]] || [[ -d "${HOME}/.fzf" ]]; then
+  if [[ -x "/usr/local/opt/fzf/install" ]] ||
+    [[ -d "${XDG_CONFIG_HOME}/fzf" ]] ||
+    [[ -d "${HOME}/.fzf" ]]; then
     __dko_dotfiles__update_fzf
   else
     __dko_warn "fzf is not installed"
@@ -188,7 +190,7 @@ __dko_dotfiles__update_fzf() {
   # Install/update shell extensions
   if [[ -n "$installer" ]]; then
     __dko_status "Updating fzf shell extensions"
-    "$installer" --xdg --key-bindings --no-completion --no-update-rc --64 ||
+    "$installer" --xdg --key-bindings --completion --no-update-rc --64 ||
       return 1
   fi
 }
