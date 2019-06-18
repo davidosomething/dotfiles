@@ -20,19 +20,25 @@ export PATH="${DOTFILES}/bin:${PATH}"
 __dko_require 'brew' || exit 1
 __dko_require 'xcrun' || exit 1
 
+headers=/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg
+if [ ! -f "$headers" ]; then
+  __dko_err "Missing the Mojave Xcode SDK headers, you need to uninstall and reinstall Xcode"
+  exit 1
+fi
+
 "${DOTFILES}/bootstrap/symlink" || exit 1
 "${DOTFILES}/bootstrap/cleanup" || exit 1
 "${DOTFILES}/bootstrap/terminfo" || exit 1
 
 dotfiles_plist="${HOME}/Library/LaunchAgents/dotfiles.plist"
-if [ -f "$(readlink "$dotfiles_plist")" ]; then
-  __dko_status "Reloading dotfiles.plist"
-  launchctl unload "$dotfiles_plist" 2>/dev/null
-  launchctl load "$dotfiles_plist"
-else
+if [ ! -f "$(readlink "$dotfiles_plist")" ]; then
   __dko_err "dotfiles.plist not symlinked. Run bootstrap/symlink!"
   exit 1
 fi
+
+__dko_status "Reloading dotfiles.plist"
+launchctl unload "$dotfiles_plist" 2>/dev/null
+launchctl load "$dotfiles_plist"
 
 # See https://github.com/postmodern/chruby/issues/196#issuecomment-23826171
 if [ -f /etc/zshenv ] && [ ! -f /etc/zprofile ]; then
@@ -46,11 +52,9 @@ fi
 # Xcode Command Line tools no longer installs needed headers in /include
 # https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes
 sdk=$(xcrun --show-sdk-path)
-if [ ! -d "$sdk" ]; then
+if [ ! -d "$sdk" ] || [ ! -d "/usr/include" ]; then
   __dko_status "SDK headers not found. Installing"
-  sudo installer \
-    -pkg "/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg" \
-    -target /
+  sudo installer -pkg "$headers" -target /
 else
   __dko_ok "Found SDK headers"
 fi
