@@ -22,8 +22,12 @@ __dko_require 'xcrun' || exit 1
 
 headers=/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg
 if [ ! -f "$headers" ]; then
-  __dko_err "Missing the Mojave Xcode SDK headers, you need to uninstall and reinstall Xcode"
-  exit 1
+  xcode-select --install
+  if [ ! -f "$headers" ]; then
+    __dko_err "Incomplete installation of xcode command line tools detected."
+    __dko_err_ "Download from https://developer.apple.com/download/more/"
+    exit 1
+  fi
 fi
 
 "${DOTFILES}/bootstrap/symlink" || exit 1

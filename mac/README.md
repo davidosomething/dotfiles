@@ -20,6 +20,7 @@ Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
 1. Install App store apps
    - `Display Menu` (free) - set higher/native resolutions on monitors
    - `Xcode` - select CLI tools in prefs
+      - This is __required__ to build some apps like neovim@HEAD
 
 ## Install homebrew
 
@@ -31,7 +32,7 @@ Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
 git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/
 ```
 
-## Install headers and run bootstrap
+## Run bootstrap/mac
 
 Mojave no longer installs SDK headers for building certain things. It comes
 with mac OS but requires manual execution. Use
