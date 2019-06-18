@@ -1,9 +1,5 @@
 # Linux dotfiles
 
-`locale.conf` in this path is COPIED to `${XDG_CONFIG_HOME}/locale.conf` since
-`/etc/profile.d/locale.sh` checks if it is a regular file (non-symlink)
-before sourcing.
-
 - See [ArchLinux](arch.md)
 
 ## Setup
@@ -23,13 +19,23 @@ before sourcing.
 ## Terminal Emulators
 
 I am using [termite](https://github.com/thestinger/termite) for now. See the
-[termite readme](../termite/termite.md).
+[termite readme](./termite/termite.md).
 
 Terminator and urxvt are good as well, and there are configs for those. All
 of the terminal emulators are setup to use the base16-twilight-dark theme, and
 need `terminfo` installed. Run the bootstrap scripts
 [../bootstrap/termite](../bootstrap/termite) or
 [../bootstrap/urxvt](../bootstrap/urxvt) to get those installed.
+
+## termite config
+
+When SSH'ing into a remote host, the terminfo may not be present.
+The bootstrap script `bootstrap/termite.sh` will automatically:
+
+1. symlink the config file
+1. run `tic -x xterm-termite.terminfo` to compile and install the terminfo to
+   the user's home directory. (See the manpages for `terminfo`, `tic`, and
+   `ncurses5-config`)
 
 ## Other bootstrapping scripts
 

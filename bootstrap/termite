@@ -21,7 +21,7 @@ fi
 # ==============================================================================
 
 __dko_status "Symlinking termite config"
-dko-symlink "termite/config" ".config/termite/config"
+dko-symlink "linux/termite/config" ".config/termite/config"
 
 __dko_status "Installing terminfo"
-tic -x -- "${DOTFILES}/termite/termite.terminfo"
+tic -x -- "${DOTFILES}/linux/termite/termite.terminfo"
