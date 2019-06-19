@@ -31,7 +31,7 @@ OpenBSD) export DOTFILES_OS="OpenBSD" ;;
     # Setting $XENVIRONMENT is an option, but the -I flag here is more useful.
     # This also lets me keep .Xresources out of ~/
     [ -n "$DISPLAY" ] && __dko_has "xrdb" &&
-      xrdb -merge -I"$DOTFILES" "${DOTFILES}/xresources/.Xresources"
+      xrdb -merge -I"$DOTFILES" "${DOTFILES}/linux/xresources/.Xresources"
   fi
   ;;
 esac
