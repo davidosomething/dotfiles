@@ -105,9 +105,7 @@ environment set up first.
       also reflected in a custom Vim highlighting syntax in
       `vim/after/syntax/gitcommit.vim`.
 - `python/`
-    - Never `sudo pip`. Set up a [pyenv], and use a [pyenv-virtualenv] (which
-      will delegate to `pyvenv`) if doing project specific work, and
-      `pip install` into that userspace [pyenv] or virtualenv.
+    - Never `sudo pip`. Set up a [pyenv], and use a [pyenv-virtualenv].
 - `ruby/`
     - Never `sudo gem`. Set up a [chruby] env first, and then you can install
       gems into the userspace local to the active ruby env.

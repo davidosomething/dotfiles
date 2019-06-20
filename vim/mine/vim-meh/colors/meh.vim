@@ -1,6 +1,6 @@
 " ============================================================================
-" MEH
-" A dark truecolor Vim colorscheme
+" MEH - a dark Vim colorscheme
+" Best on truecolor, but with rudimentary 256-color support.
 " ============================================================================
 
 hi clear
@@ -40,7 +40,7 @@ hi! Normal              guibg=#202022 guifg=#aaaaaa           ctermbg=235   cter
 hi! Boolean                           guifg=#cccccc gui=italic
 hi! Comment                           guifg=#60687a gui=italic              ctermfg=240
 hi! Constant                          guifg=NONE    gui=italic
-hi! Delimiter                         guifg=#cc99cc
+hi! Delimiter                         guifg=#cc99cc                       ctermfg=139
 hi! DiffAdd             guibg=#2a332a guifg=#668844           ctermbg=235 ctermfg=22
 hi! DiffChange          guibg=#2c2b2a guifg=#7f6030           ctermbg=235 ctermfg=94
 hi! DiffDelete          guibg=#4a2a2a guifg=#aa6666           ctermbg=235 ctermfg=52
@@ -52,23 +52,26 @@ hi! Ignore                            guifg=#40485a
 hi! IncSearch           guibg=#dd77cc guifg=bg      gui=NONE  ctermbg=219   ctermfg=235
 hi! link Label dkoTextLight
 hi! MoreMsg                           guifg=#aa6666
-hi! Noise                             guifg=#888888
+hi! Noise                             guifg=#888888                         ctermfg=243
 hi! NonText                           guifg=#334455
 hi! Number                            guifg=#ee7777                         ctermfg=208
 hi! Operator                          guifg=#888888
 hi! link PreProc dkoTextLight
 hi! Question                          guifg=#88aabb
 hi! Search              guibg=#dd99ff guifg=bg                ctermbg=219   ctermfg=bg
+hi! SpellBad                                                  ctermbg=NONE
+hi! SpellCap                                                  ctermbg=NONE
+hi! SpellRare                                                 ctermbg=NONE
 hi! Special                           guifg=#dd7766                         ctermfg=172
 hi! SpecialComment                    guifg=#707a8a gui=NONE
 hi! SpecialKey                        guifg=#772222
 hi! Statement                         guifg=#777777 gui=NONE                ctermfg=245
 hi! StorageClass                      guifg=#777777
-hi! String                            guifg=#88aabb
+hi! String                            guifg=#88aabb                         ctermfg=110
 hi! link Title dkoTextLight
 hi! Todo                guibg=#303033 guifg=#ddaa66 gui=bold
 hi! Type                              guifg=#dddddd gui=NONE  ctermfg=253
-hi! Underlined                        guifg=#88aaee gui=underline
+hi! Underlined                        guifg=#88aaee gui=underline           ctermfg=110
 hi! Visual              guibg=#afa08f guifg=#1f1f1f
 hi! WarningMsg                        guifg=#ccaa88
 hi! Whitespace          guibg=#1c1c1c guifg=#40485a gui=bold
