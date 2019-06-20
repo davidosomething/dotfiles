@@ -3,7 +3,6 @@
 " A dark truecolor Vim colorscheme
 " ============================================================================
 
-if !has('termguicolors') || !&termguicolors | finish | endif
 hi clear
 if exists('syntax_on') | syntax reset | endif
 
@@ -11,41 +10,64 @@ let g:colors_name = 'meh'
 set background=dark
 
 " ============================================================================
+" My colors
+" ============================================================================
+
+hi! dkoBgAlt            guibg=#24252a               ctermbg=236
+hi! dkoBgLight          guibg=#303135               ctermbg=237
+hi! dkoTextLight        guifg=#dddddd                           ctermfg=253
+
+hi! dkoPopup            guibg=#2a2a2f guifg=#ccc0c0
+hi! dkoPopupBlank       guibg=#2a2a2f guifg=#2a2a2f
+
+hi! dkoDecorations                    guifg=#505a6a
+hi! dkoRegex                          guifg=#cc99cc
+hi! dkoReturn                         guifg=#cc8877 gui=italic
+hi! dkoQuote                          guifg=#77aa88 gui=italic
+hi! dkoWarningText      guibg=#2c2b2a guifg=#ddaa66 gui=bold
+hi! dkoNormalKey                      guifg=#ccccbb
+
+hi! dkoSignWarning                    guifg=#ddaa66
+hi! dkoSignInfo                       guifg=fg
+hi! dkoSignMessage                    guifg=#77aa88
+
+" ============================================================================
 " Vim base
 " ============================================================================
 
+hi! Normal              guibg=#202022 guifg=#aaaaaa           ctermbg=235   ctermfg=250
+
 hi! Boolean                           guifg=#cccccc gui=italic
-hi! Comment                           guifg=#60687a gui=italic
+hi! Comment                           guifg=#60687a gui=italic              ctermfg=240
 hi! Constant                          guifg=NONE    gui=italic
 hi! Delimiter                         guifg=#cc99cc
-hi! DiffAdd             guibg=#2a332a guifg=#668844
-hi! DiffChange          guibg=#2c2b2a guifg=#7f6030
-hi! DiffDelete          guibg=#4a2a2a guifg=#aa6666
+hi! DiffAdd             guibg=#2a332a guifg=#668844           ctermbg=235 ctermfg=22
+hi! DiffChange          guibg=#2c2b2a guifg=#7f6030           ctermbg=235 ctermfg=94
+hi! DiffDelete          guibg=#4a2a2a guifg=#aa6666           ctermbg=235 ctermfg=52
 hi! DiffText            guibg=#4a2a2a
-hi! Error               guibg=NONE    guifg=#ee6666
+hi! Error               guibg=NONE    guifg=#ee6666           ctermbg=NONE ctermfg=160
 hi! Function                          guifg=NONE
-hi! Identifier                        guifg=#dddddd
+hi! link Identifier dkoTextLight
 hi! Ignore                            guifg=#40485a
-hi! IncSearch           guibg=#dd77cc guifg=bg      gui=NONE
-hi! Label                             guifg=#dddddd
+hi! IncSearch           guibg=#dd77cc guifg=bg      gui=NONE  ctermbg=219   ctermfg=235
+hi! link Label dkoTextLight
 hi! MoreMsg                           guifg=#aa6666
 hi! Noise                             guifg=#888888
 hi! NonText                           guifg=#334455
-hi! Normal              guibg=#202022 guifg=#aaaaaa
-hi! Number                            guifg=#ee7777
+hi! Number                            guifg=#ee7777                         ctermfg=208
 hi! Operator                          guifg=#888888
-hi! PreProc                           guifg=#dddddd
+hi! link PreProc dkoTextLight
 hi! Question                          guifg=#88aabb
-hi! Search              guibg=#dd99ff guifg=bg
-hi! Special                           guifg=#dd7766
+hi! Search              guibg=#dd99ff guifg=bg                ctermbg=219   ctermfg=bg
+hi! Special                           guifg=#dd7766                         ctermfg=172
 hi! SpecialComment                    guifg=#707a8a gui=NONE
 hi! SpecialKey                        guifg=#772222
-hi! Statement                         guifg=#777777 gui=NONE
+hi! Statement                         guifg=#777777 gui=NONE                ctermfg=245
 hi! StorageClass                      guifg=#777777
 hi! String                            guifg=#88aabb
-hi! Title                             guifg=#dddddd
+hi! link Title dkoTextLight
 hi! Todo                guibg=#303033 guifg=#ddaa66 gui=bold
-hi! Type                              guifg=#dddddd gui=NONE
+hi! Type                              guifg=#dddddd gui=NONE  ctermfg=253
 hi! Underlined                        guifg=#88aaee gui=underline
 hi! Visual              guibg=#afa08f guifg=#1f1f1f
 hi! WarningMsg                        guifg=#ccaa88
@@ -62,19 +84,6 @@ hi! link Keyword        Normal
 " My colors
 " ============================================================================
 
-hi! dkoBgAlt            guibg=#24252a
-hi! dkoBgLight          guibg=#303135
-
-hi! dkoPopup            guibg=#2a2a2f guifg=#ccc0c0
-hi! dkoPopupBlank       guibg=#2a2a2f guifg=#2a2a2f
-
-hi! dkoDecorations                    guifg=#505a6a
-hi! dkoRegex                          guifg=#cc99cc
-hi! dkoReturn                         guifg=#cc8877 gui=italic
-hi! dkoQuote                          guifg=#77aa88 gui=italic
-hi! dkoWarningText      guibg=#2c2b2a guifg=#ddaa66 gui=bold
-hi! dkoNormalKey                      guifg=#ccccbb
-
 " JavaDoc
 hi! link dkoJavaDocTag  SpecialComment
 hi! link dkoJavaDocType SpecialComment
@@ -82,9 +91,6 @@ hi! link dkoJavaDocKey  SpecialComment
 
 " Signs
 hi! link dkoSignError   Error
-hi! dkoSignWarning                    guifg=#ddaa66
-hi! dkoSignInfo                       guifg=fg
-hi! dkoSignMessage                    guifg=#77aa88
 hi! link dkoSignAdded   DiffAdd
 hi! link dkoSignRemoved DiffDelete
 
@@ -93,9 +99,9 @@ hi! link dkoSignRemoved DiffDelete
 " ============================================================================
 
 " fg is thin line
-hi! VertSplit           guibg=#262631 guifg=#262631
-hi! LineNr              guibg=#222226 guifg=#404044
-hi! CursorLineNr        guibg=#303033 guifg=#a0a0aa
+hi! VertSplit           guibg=#262631 guifg=#262631 ctermbg=237 ctermfg=237
+hi! LineNr              guibg=#222226 guifg=#404044 ctermbg=235 ctermfg=238
+hi! CursorLineNr        guibg=#303033 guifg=#a0a0aa ctermbg=238 ctermfg=245
 hi! link FoldColumn     LineNr
 hi! link SignColumn     LineNr
 
@@ -103,7 +109,7 @@ hi! link ColorColumn    dkoBgAlt
 hi! link CursorColumn   dkoBgAlt
 
 " current line
-hi! link CursorLine     dkoBgLight
+hi! link CursorLine     dkoBgAlt
 
 " ============================================================================
 " Popup menu
@@ -143,7 +149,7 @@ hi! link ChangesSignTextCh        DiffChange
 hi! link ChangesSignTextDel       dkoSignRemoved
 
 " the head in <head></head>
-hi! MatchParen        guibg=#225588 guifg=#ddddcc
+hi! MatchParen        guibg=#225588 guifg=#ddddcc           ctermbg=18 ctermfg=fg
 " the <> in <head>
 hi! ParenMatch        guibg=#994433 guifg=#ddddcc gui=NONE
 

@@ -6,8 +6,8 @@ function! meh#LineColors() abort
   " Status and tab line
   " ============================================================================
 
-  hi! dkoStatus           guibg=#30313c guifg=#aaaaaa gui=NONE
-  hi! dkoStatusNC         guibg=#262631 guifg=#666666 gui=NONE
+  hi! dkoStatus           guibg=#30313c guifg=#aaaaaa gui=NONE  ctermbg=237
+  hi! dkoStatusNC         guibg=#262631 guifg=#666666 gui=NONE  ctermbg=235
   hi! dkoStatusKey        guibg=#40404c
   hi! dkoStatusValue      guibg=#50505c
   hi! dkoStatusItem       guibg=#242531
