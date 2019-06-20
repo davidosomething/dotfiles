@@ -46,7 +46,7 @@ let g:neomake_python_enabled_makers = [ 'flake8' ]
 
 let g:neomake_sh_bashate_maker = {
       \   'exe': 'bashate',
-      \   'args': ['--ignore=E003,E005,E006,E011'],
+      \   'args': ['--ignore=E003,E005,E006,E043'],
       \   'errorformat': '%f:%l:%c: %t%n %m',
       \ }
 let g:neomake_sh_shellcheck_args = [
