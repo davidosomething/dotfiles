@@ -74,12 +74,17 @@ __dko_status "Installing fzf shell extensions"
 
 # https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/
 __dko_status "Setting user shell to brewed zsh using dscl"
-if [ -x "${DKO_BREW_PREFIX}/bin/zsh" ]; then
-  sudo dscl . -create "/Users/${USER}" UserShell "${DKO_BREW_PREFIX}/bin/zsh"
+usershell="$(dscl . -read "/Users/${USER}" UserShell)"
+if [[ "$usershell" == "UserShell: ${DKO_BREW_PREFIX}/bin/zsh" ]]; then
+  __dko_ok "Already using brewed zsh"
 else
-  __dko_warn "Could not update the user's shell to ${DKO_BREW_PREFIX}/bin/zsh"
-  __dko_warn_ "Check the brew installation and refer to"
-  __dko_warn_ "https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/"
+  if [ -x "${DKO_BREW_PREFIX}/bin/zsh" ]; then
+    sudo dscl . -create "/Users/${USER}" UserShell "${DKO_BREW_PREFIX}/bin/zsh"
+  else
+    __dko_warn "Could not update the user's shell to ${DKO_BREW_PREFIX}/bin/zsh"
+    __dko_warn_ "Check the brew installation and refer to"
+    __dko_warn_ "https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/"
+  fi
 fi
 
 # ============================================================================
