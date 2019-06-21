@@ -10,16 +10,6 @@ let s:cpo_save = &cpoptions
 set cpoptions&vim
 
 " ============================================================================
-" Native incsearch
-" ============================================================================
-
-" Tab/S-Tab go to next match while still in cmdline
-cnoremap <special><expr> <Tab>    getcmdtype() =~ '[?/]'
-      \ ? '<C-g>' : feedkeys('<Tab>', 'int')[1]
-cnoremap <special><expr> <S-Tab>  getcmdtype() =~ '[?/]'
-      \ ? '<C-t>' : feedkeys('<S-Tab>', 'int')[1]
-
-" ============================================================================
 
 if !dkoplug#IsLoaded('vim-asterisk') | finish | endif
 

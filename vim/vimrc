@@ -95,7 +95,7 @@ set ttimeout
 " ----------------------------------------------------------------------------
 
 set browsedir=buffer                  " browse files in same dir as open file
-set wildmode=list:longest,full        " Complete files using a menu AND list
+set wildmode=longest:list,full        " Complete files using a menu AND list
 let &wildignorecase = v:version >= 704
 
 " wildignore prevents things from showing up in cmd completion
