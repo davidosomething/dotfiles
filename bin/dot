@@ -96,7 +96,7 @@ __dko_dotfiles__update_secret() {
 __dko_dotfiles__update_daily() {
   __dko_dotfiles__update_secret
 
-  if [[ -x "/usr/local/opt/fzf/install" ]] ||
+  if [[ -x "${DKO_BREW_PREFIX}/opt/fzf/install" ]] ||
     [[ -d "${XDG_CONFIG_HOME}/fzf" ]] ||
     [[ -d "${HOME}/.fzf" ]]; then
     __dko_dotfiles__update_fzf
@@ -411,7 +411,7 @@ __dko_dotfiles__php__update_composer() {
   __dko_status "Updating composer"
   __dko_dotfiles__php__require_composer || return 1
 
-  if [[ -x "/usr/local/bin/composer" ]]; then
+  if [[ -x "${DKO_BREW_PREFIX}/bin/composer" ]]; then
     __dko_ok "composer was installed via brew (yay)"
   else
     __dko_status_ "Updating composer itself"

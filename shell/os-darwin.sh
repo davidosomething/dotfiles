@@ -8,7 +8,6 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/os-darwin.sh"
 
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
-export HOMEBREW_CASK_OPTS='--require-sha'
 
 # just assume brew is in normal location, don't even check for it
 export DKO_BREW_PREFIX="/usr/local"
