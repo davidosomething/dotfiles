@@ -62,6 +62,7 @@
       "mac/iterm2/*.itermcolors",
       "mac/*.terminal",
       "meta/**",
+      "ruby/Gemfile.lock",
       "terminfo/**",
       "tests/**",
       "tmux/plugins/**",
