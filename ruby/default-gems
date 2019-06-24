@@ -1,6 +1,1 @@
 bundler
-gem-browse
-neovim
-puppet-lint
-travis
-travis-lint
