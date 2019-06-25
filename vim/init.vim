@@ -12,11 +12,13 @@ if $TERM ==# 'xterm-kitty'
   let &t_ut=''
 endif
 
-" https://github.com/neovim/neovim/issues/7994
-augroup dkoneovimfixes
-  autocmd!
-  autocmd InsertLeave * set nopaste
-augroup END
+if !has('nvim-0.4')
+  " https://github.com/neovim/neovim/issues/7994
+  augroup dkoneovimfixes
+    autocmd!
+    autocmd InsertLeave * set nopaste
+  augroup END
+endif
 
 " ============================================================================
 " Settings
