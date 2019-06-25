@@ -12,15 +12,15 @@ Remove these using System Preferences:
 
 ## Reduce desktop icon size
 
-Click desktop to focus Finder, <kbd>⌘</kbd><kbd>j<kbd> use smallest sizes for
+Click desktop to focus Finder, <kbd>⌘</kbd><kbd>j</kbd> use smallest sizes for
 everything.
 
 ## App store
 
 1. iCloud sign in
 1. Install App store apps
-   - `Display Menu` (free) - set higher/native resolutions on monitors
-   - `Xcode` - select CLI tools in prefs
+   - [Display Menu]: Set higher/native resolutions
+   - [Xcode]: select CLI tools in prefs
       - This is __required__ to build some apps like neovim@HEAD
 
 ## Install homebrew
@@ -132,3 +132,5 @@ operation. Use the `bi` alias for a clean room install if possible.
 [nvm]: https://github.com/nvm-sh/nvm
 [pyenv]: https://github.com/pyenv/pyenv
 [unlock]: https://github.com/davidosomething/Unlock
+[Display Menu]: https://apps.apple.com/us/app/display-menu/id549083868?mt=12
+[Xcode]: https://apps.apple.com/us/app/xcode/id497799835?mt=12
