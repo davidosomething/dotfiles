@@ -7,12 +7,13 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
 Remove these using System Preferences:
 
-- `Mission Control` owns Control-left and Control-right
-- `Spotlight` owns Command-space
+- `Mission Control` owns <kbd>⌃</kbd><kbd>←</kbd> and <kbd>⌃</kbd><kbd>→</kbd>
+- `Spotlight` owns <kbd>⌘</kbd><kbd>space</kbd>
 
 ## Reduce desktop icon size
 
-Click desktop to focus Finder, `cmd-j` use smallest sizes for everything.
+Click desktop to focus Finder, <kbd>⌘</kbd><kbd>j<kbd> use smallest sizes for
+everything.
 
 ## App store
 
@@ -63,21 +64,24 @@ See homebrew notes in [brew.md](./brew.md) for other formulae I install.
 ## Casks
 
 - dropbox
-  1. Has app settings sync so wait for it to finish syncing.
+    - Has app settings sync so wait for it to finish syncing.
 - iterm2
     - Load iTerm profile from synology drive
-    - Or load colors from `~/.dotfiles/mac/iterm2` and set the TERM to
-      `xterm-256color-italic`
+    - Or load colors from `~/.dotfiles/mac/iterm2`, set
+    `TERM=xterm-256color-italic` and map left <kbd>⌥</kbd> to `Esc+` for the
+    profile.
 - bettertouchtool
     - License in synology drive or gmail
     - Better trackpad swipe configs
     - Synced to Dropbox
 - hammerspoon
-    - App launcher (cmd + space) - disable spotlight shortcut first
+    - App launcher (<kbd>⌘</kbd><kbd>space</kbd>) - disable spotlight shortcut
+      first
     - Audio output device switch in menubar
-    - Auto-type from clipboard (cmd-ctrl + v)
+    - Auto-type from clipboard (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>v</kbd>)
     - Caffeinate in menubar
-    - Window management (cmd-ctrl-shift + f/h/l/z)
+    - Window management
+      (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z</kbd>)
 
 Install the rest of the packages from [cask.md](./cask.md) as desired.
 
