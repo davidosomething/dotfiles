@@ -4,23 +4,25 @@
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
-- macOS/OS X, Arch Linux, and Debian compatible
+- macOS, Arch Linux, and Debian compatible
 - [XDG] compliance wherever possible to keep `$HOME` clean
-    - See [Archlinux wiki for XDG Base Directory Support]
+    - See [Arch Linux wiki for XDG Base Directory Support]
     - See [Debian DotFilesList]
-    - See [grawity's dotfile notes] and [environ notes]
+    - See [grawity's notes] and [environ notes]
 - ZSH and BASH configs
 - VIM and Neovim configs
-- RC files for Lua, markdown, node, PHP, python, R, ruby, and others
+- Convenient shell scripts and FZF utilities
+- RC files for Lua, markdownlint, node, PHP, python, R, ruby, and others
 
 ![terminal screenshot][screenshot]
 > Screenshot of my ZSH prompt
 
 ## Installation
 
-_For mac, see full install details in [mac/README.md](mac/README.md)._
+See OS specific notes in [mac/README.md](mac/README.md) and
+[linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
 
-First, clone:
+Generally:
 
 ```sh
 git clone --recurse-submodules https://github.com/davidosomething/dotfiles ~/.dotfiles
@@ -39,20 +41,7 @@ path setting the `DOTFILES` environment variable beforehand:
 DOTFILES=~/.dot ~/.dot/bootstrap/symlink
 ```
 
-### Post-Installation
-
-#### Recommended steps
-
-- See OS specific notes in [mac/README.md](mac/README.md) and
-  [linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
-- Create XDG child directories (run `bootstrap/xdg`). The X Desktop will
-  export them in `/etc/xdg/autostart/user-dirs-update-gtk.desktop`.
-- Install and use [Fira (Fura) Mono for Powerline] font (install
-  to `${XDG_DATA_HOME}/fonts` on \*nix)
-- Install ZSH and set it as the default (ensure its presence in
-  `/etc/shells`); restart the terminal and zplugin will self-install
-
-#### Dev environment setup
+### Dev environment setup
 
 Install these using the system package manager. For macOS/OS X there are helper
 scripts.
@@ -60,9 +49,7 @@ scripts.
 - [chruby], `ruby-install`, then use `ruby-install` to install a version of
   ruby (preferably latest, and into `~/.config/rubies/ruby-1.2.3` using flags)
 - Install [nvm] MANUALLY via git clone into
-  `$XDG_CONFIG_HOME`, then use it to install a version of `node` (and
-  `npm install --global npm@latest`). Install the default npm packages using
-  scripts in `./node`.
+  `$XDG_CONFIG_HOME`, then use it to install a version of `node`
 - `php`, `composer`, use composer to install `wp-cli`
 - Use [pyenv-installer] for [pyenv], [pyenv-virtualenv], then create a new env
   with a new python/pip.
@@ -73,18 +60,22 @@ scripts.
 These will assist in installing packages and dotfiles. Best to have the
 environment set up first.
 
-- `bootstrap/cleanup` moves some dotfiles into their XDG Base Directory
-  supported directories and deletes unnecessary things (with confirmation).
-- `bootstrap/symlink` symlinks rc files for bash, ZSH, ack, (Neo)vim, etc.
-- `bootstrap/terminfo` will copy/compile terminfo files for user to
-  `~/.terminfo/*`
-- `bootstrap/x11` symlinks `.xbindkeysrc`, `.xprofile`
-- `npm/install` install default packages, requires you set up [nvm] and
-  install node first
-- `ruby/install-default-gems` requires you set up [chruby] and install a ruby
-  first.
-- `python/install` installs default pip packages. Requires [pyenv] already set
-  up,
+- [bootstrap/cleanup](bootstrap/cleanup) moves some dotfiles into their XDG
+  Base Directory supported directories and deletes unnecessary things (with
+  confirmation).
+- [bootstrap/pyenv](bootstrap/pyenv) creates a Neovim pyenv and installs
+  `pynvim`
+- [bootstrap/symlink](bootstrap/symlink) symlinks rc files for bash, ZSH,
+  ack, (Neo)vim, etc.
+- [bootstrap/terminfo](bootstrap/terminfo) will copy/compile terminfo files
+  for user to `~/.terminfo/*`
+- [bootstrap/x11](bootstrap/x11) symlinks `.xbindkeysrc`, `.xprofile`
+- [node/install](node/install) install default packages, requires you set up
+  [nvm] and install node first
+- [ruby/install-default-gems](ruby/install-default-gems) requires you set up
+  [chruby] and install a ruby first.
+- [python/install](python/install) installs default pip packages. Requires
+  [pyenv] already set up
 
 ## Updating
 
@@ -162,14 +153,14 @@ For X apps (no terminal) the value may be:
 
 > _Logo from [jglovier/dotfiles-logo]_
 
-[Archlinux wiki for XDG Base Directory Support]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
+[Arch Linux wiki for XDG Base Directory Support]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
 [Debian DotFilesList]: https://wiki.debian.org/DotFilesList
 [Fira (Fura) Mono for Powerline]: https://github.com/powerline/fonts
 [XDG]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 [chruby]: https://github.com/postmodern/chruby
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
 [google shell style]: https://google.github.io/styleguide/shell.xml
-[grawity's dotfile notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
+[grawity's notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
 [nvm]: https://github.com/nvm-sh/nvm
 [pyenv-installer]: https://github.com/yyuu/pyenv-installer

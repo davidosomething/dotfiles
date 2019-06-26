@@ -59,7 +59,7 @@ Bundle dumps for specific systems are in my `~/.secret` (not public).
 `./compile dotfiles.plist.json` generates the `dotfiles.plist` file in the
 `mac/LaunchAgents` directory. It depends on the `plist` package from npm.
 
-See homebrew notes in [brew.md](./brew.md) for other formulae I install.
+See homebrew notes in [brew.md](brew.md) for other formulae I install.
 
 ## Casks
 
