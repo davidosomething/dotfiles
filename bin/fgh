@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+#
+# fgh - fzf pick and clone a github repo from a user's list of repos.
+# Optionally provide a user, otherwise the current hub cli user is used.
+#
+
+__get_user() {
+  local github_user
+  if [ -n "${1}" ]; then
+    github_user="$1"
+  else
+    github_user="${GITHUB_USER:-$(hub api user | jq -r '.login')}"
+  fi
+  [ -z "$github_user" ] && return 1
+  echo "$github_user"
+}
+
+__get_repos() {
+  local repos
+  repos=$(hub api "users/${github_user}/repos" | jq -r 'map(.full_name)[]')
+  echo "$repos"
+}
+
+__fgh() {
+  local provided="${1}"
+  local github_user
+  github_user=$(__get_user "$provided")
+  if [ -z "$github_user" ]; then
+    >&2 echo "No GitHub user provided. Please provide a GitHub user name as an"
+    >&2 echo "argument, export GITHUB_USER, or login to the hub cli."
+    return 1
+  fi
+
+  local repos
+  repos="$(__get_repos "$github_user")"
+  if [ -z "$repos" ]; then
+    >&2 echo "No repos found for ${github_user}."
+    return 1
+  fi
+
+  local out
+  out=$(fzf-tmux \
+    +m \
+    --cycle \
+    --exit-0 \
+    --expect=ctrl-y \
+    --height=25% --no-hscroll --no-multi \
+    --prompt="repo> " <<< "$repos")
+
+  local key
+  local repo
+  key="$(head -1 <<< "$out")"
+  repo="$(head -2 <<< "$out" | tail -1)"
+  repo="$(echo "$repo" | xargs)" # strip spaces
+  [ -z "$repo" ] && return 1
+
+  if [[ "$key" == "ctrl-y" ]]; then
+    echo "$repo" | tr -d '\n' | pbcopy
+    echo "\"${repo}\" copied into clipboard"
+    return
+  fi
+
+  hub clone "$repo"
+}
+
+command -v hub >/dev/null || {
+  >&2 echo "This command requires the 'hub' cli."
+  exit 1
+}
+__fgh "$@"
