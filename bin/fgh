@@ -67,4 +67,8 @@ command -v hub >/dev/null || {
   >&2 echo "This command requires the 'hub' cli."
   exit 1
 }
+command -v jq >/dev/null || {
+  >&2 echo "This command requires the 'jq' cli."
+  exit 1
+}
 __fgh "$@"
