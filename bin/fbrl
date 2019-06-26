@@ -6,20 +6,24 @@
 
 __fbrl() {
   local current
-  local branches
-  local out
-  local key
-  local branch
-
   current=$(git rev-parse --abbrev-ref HEAD)
-  [ -z "$current" ] && return 1
+  if [ -z "$current" ]; then
+    >&2 echo "You must be in a git repo to get branches."
+    return 1
+  fi
 
+  local branches
   branches=$(git for-each-ref \
     --count=30 \
     --sort=-committerdate \
     --format="%(refname:short)" \
     refs/heads/ | grep -v "$current")
+  if [ -z "$branches" ]; then
+    >&2 echo "No branches found."
+    return 1
+  fi
 
+  local out
   out=$(fzf-tmux \
     +m \
     --cycle \
@@ -30,16 +34,20 @@ __fbrl() {
     --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
     --prompt="$current> " <<< "$branches") \
 
-  key="$(head -1 <<< "$out")"
-
+  local branch
   branch="$(head -2 <<< "$out" | tail -1)"
-  # strip spaces
-  branch="$(echo "$branch" | xargs)"
+  branch="$(echo "$branch" | xargs)" # strip spaces
+  branch="$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
+  [ -z "$branch" ] && return 1
 
-  if [[ -n "$branch" ]]; then
-    branch="$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
-    [[ "$key" == "ctrl-y" ]] && echo "$branch" | tr -d '\n' | pbcopy && return
-    git checkout "$branch"
+  local key
+  key="$(head -1 <<< "$out")"
+  if [[ "$key" == "ctrl-y" ]]; then
+    echo "$branch" | tr -d '\n' | pbcopy
+    echo "\"${branch}\" copied into clipboard"
+    return
   fi
+
+  git checkout "$branch"
 }
 __fbrl
