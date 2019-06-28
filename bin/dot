@@ -336,23 +336,23 @@ __dko_dotfiles__node__update_nvm() {
 
   (
     cd -- "$NVM_DIR" || exit 1
-
-    __dko_status "Updating nvm"
     readonly previous_nvm="$(git describe --abbrev=0 --tags)"
+    __dko_status "Current nvm: ${previous_nvm}"
 
-    __dko_status_ "Found nvm ${previous_nvm}"
-    { git checkout master && git pull --tags; } ||
-      { __dko_err "Could not fetch" && exit 1; }
+    git fetch origin --tags || {
+      __dko_err "Could not fetch tags"
+      exit 1
+    }
     readonly latest_nvm="$(git describe --abbrev=0 --tags)"
+
     # Already up to date
-    [[ "$previous_nvm" == "$latest_nvm" ]] &&
-      { __dko_ok "Already have nvm ${latest_nvm}" && exit 0; }
-
-    __dko_status "Fast-forwarding to nvm ${latest_nvm}"
-    git checkout --quiet --progress "$latest_nvm" ||
-      { __dko_err "Could not fast-forward" && exit 1; }
-
-    exit 0
+    [[ "$previous_nvm" != "$latest_nvm" ]] && {
+      git checkout --quiet --progress "$latest_nvm" || {
+        __dko_err "Could not fast-forward"
+        exit 1
+      }
+    }
+    __dko_ok "Latest nvm:  ${latest_nvm}"
   ) || return 1
 }
 
