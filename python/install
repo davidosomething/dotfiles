@@ -6,7 +6,7 @@
 
 if [[ -z "$DOTFILES" ]]; then
   cd -- "$(dirname "$0")/.." || exit 1
-  DOTFILES="$(pwd)"
+  DOTFILES="$PWD"
 fi
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
