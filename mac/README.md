@@ -65,6 +65,7 @@ See homebrew notes in [brew.md](brew.md) for other formulae I install.
 
 - dropbox
     - Has app settings sync so wait for it to finish syncing.
+        - Including some `mackup` backups
 - iterm2
     - Load iTerm profile from synology drive
     - Or load colors from `~/.dotfiles/mac/iterm2`, set
@@ -84,6 +85,12 @@ See homebrew notes in [brew.md](brew.md) for other formulae I install.
       (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z</kbd>)
 
 Install the rest of the packages from [cask.md](./cask.md) as desired.
+
+## mackup
+
+A `.mackup.cfg` defines some app settings (such as the itsycal plist) that
+I don't keep version controlled (just in dropbox). Run `mackup restore` to
+restore them (`mackup` is in the Brewfile).
 
 ## Install GPGTools and import key
 
