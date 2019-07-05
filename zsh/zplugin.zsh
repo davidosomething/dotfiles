@@ -73,7 +73,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('expand-or-complete')
 # Vendor: Completion
 # ----------------------------------------------------------------------------
 
-zplugin ice lucid wait'0'
+zplugin ice blockf lucid wait'0'
 zplugin load 'zsh-users/zsh-completions'
 
 zplugin ice lucid wait'0'
