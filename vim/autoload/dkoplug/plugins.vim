@@ -29,7 +29,10 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'AndrewRadev/bufferize.vim', { 'on': [ 'Bufferize' ] }
 
   Plug 'cocopon/colorswatch.vim'
-  Plug 'cocopon/pgmnt.vim'
+
+  silent! nunmap zs
+  nnoremap <silent> zs :<C-U>Inspecthi<CR>
+  Plug 'cocopon/inspecthi.vim'
 
   " Mostly for zS to debug highlight group (:Bufferize scriptnames is nicer
   " than :Scriptnames)
