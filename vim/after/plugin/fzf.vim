@@ -1,7 +1,13 @@
-" plugin/fzf.vim
-scriptencoding utf-8
+" after/plugin/fzf.vim
+
+augroup dkofzf
+  autocmd!
+augroup END
 
 if !dkoplug#IsLoaded('fzf.vim') | finish | endif
+
+autocmd dkofzf FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd dkofzf BufLeave <buffer> set laststatus=2 showmode ruler
 
 " ============================================================================
 " Local Helpers
@@ -33,6 +39,10 @@ endfunction
 " --multi select with <Tab>
 let s:options = ' --tiebreak=index --cycle --multi '
 
+function s:WithLayout(opts) abort
+  return extend(copy(a:opts), g:fzf_layout)
+endfunction
+
 " ----------------------------------------------------------------------------
 " git relevant
 " ----------------------------------------------------------------------------
@@ -58,11 +68,11 @@ function! s:FzfRelevant(...) abort
     return
   endif
   call fzf#run(fzf#wrap('Relevant',
-        \   fzf#vim#with_preview(extend({
+        \   fzf#vim#with_preview(s:WithLayout({
         \     'dir':      l:path,
         \     'source':   l:source,
         \     'options':  s:options . ' --prompt="' . l:prompt . '> "',
-        \   }, g:fzf_layout), 'right:50%')
+        \   }), 'right:50%')
         \ ))
 endfunction
 
@@ -94,11 +104,11 @@ endfunction
 
 command! FZFVim
       \ call fzf#run(fzf#wrap('Vim',
-      \   fzf#vim#with_preview(extend({
+      \   fzf#vim#with_preview(s:WithLayout({
       \     'dir':      s:GetRoot(),
       \     'source':   s:GetFzfVimSource(),
       \     'options':  s:options . ' --prompt="Vim> "',
-      \   }, g:fzf_layout), 'right:50%')
+      \   }), 'right:50%')
       \ ))
 
 " ----------------------------------------------------------------------------
@@ -109,10 +119,10 @@ command! FZFVim
 " @return {String} project root
 command! FZFMRU
       \ call fzf#run(fzf#wrap('MRU',
-      \   fzf#vim#with_preview(extend({
+      \   fzf#vim#with_preview(s:WithLayout({
       \     'source':  dko#files#GetMru(),
       \     'options': s:options . ' --no-sort --prompt="MRU> "',
-      \   }, g:fzf_layout), 'right:50%')
+      \   }), 'right:50%')
       \ ))
 
 " ----------------------------------------------------------------------------
@@ -121,10 +131,10 @@ command! FZFMRU
 
 command! FZFTests
       \ call fzf#run(fzf#wrap('Tests',
-      \   fzf#vim#with_preview(extend({
+      \   fzf#vim#with_preview(s:WithLayout({
       \     'source':   dko#tests#FindTests(),
       \     'options':  s:options . ' --prompt="Tests> "',
-      \   }, g:fzf_layout), 'right:50%')
+      \   }), 'right:50%')
       \ ))
 
 " ============================================================================
@@ -208,3 +218,57 @@ command! -bang FZFProject
       \   <bang>0 ? s:project_full : s:project_half,
       \   <bang>0
       \ )
+
+" ============================================================================
+" Mappings
+" ============================================================================
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
+" junegunn/fzf mappings for the neovim :term
+" Bind <fx> to abort FZF (<C-g> is one of the default abort keys in FZF)
+" @see #f-keys
+function! s:MapCloseFzf() abort
+  tnoremap <buffer><special> <F1> <C-g>
+  tnoremap <buffer><special> <F2> <C-g>
+  tnoremap <buffer><special> <F3> <C-g>
+  tnoremap <buffer><special> <F4> <C-g>
+  tnoremap <buffer><special> <F5> <C-g>
+  tnoremap <buffer><special> <F6> <C-g>
+  tnoremap <buffer><special> <F7> <C-g>
+  tnoremap <buffer><special> <F8> <C-g>
+  tnoremap <buffer><special> <F9> <C-g>
+  tnoremap <buffer><special> <F10> <C-g>
+  tnoremap <buffer><special> <F11> <C-g>
+  tnoremap <buffer><special> <F12> <C-g>
+endfunction
+if has('nvim')
+  autocmd dkofzf FileType fzf call s:MapCloseFzf()
+endif
+
+" Map the commands -- the actual plugin is loaded by a vim-plug 'on' hook when
+" a command is run for the first time
+execute dko#MapAll({ 'key': '<F1>', 'command': 'FZFGrepper' })
+nnoremap  <silent><special>   <A-g>   :<C-U>FZFGrepper<CR>
+
+execute dko#MapAll({ 'key': '<F2>', 'command': 'FZFRelevant' })
+nnoremap  <silent><special>   <A-r>   :<C-U>FZFRelevant<CR>
+
+execute dko#MapAll({ 'key': '<F3>', 'command': 'FZFProject' })
+nnoremap  <silent><special>   <A-p>   :<C-U>FZFProject<CR>
+
+execute dko#MapAll({ 'key': '<F4>', 'command': 'FZFMRU' })
+nnoremap  <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
+
+execute dko#MapAll({ 'key': '<F5>', 'command': 'FZFFiles' })
+nnoremap  <silent><special>   <A-f>   :<C-U>FZFFiles<CR>
+
+" Start using meta mappings since I hate the Macbook touchbar
+nnoremap  <silent><special>   <A-b>   :<C-U>FZFBuffers<CR>
+nnoremap  <silent><special>   <A-c>   :<C-U>FZFCommands<CR>
+nnoremap  <silent><special>   <A-t>   :<C-U>FZFTests<CR>
+nnoremap  <silent><special>   <A-v>   :<C-U>FZFVim<CR>
+
+let &cpoptions = s:cpo_save
+unlet s:cpo_save

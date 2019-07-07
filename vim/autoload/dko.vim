@@ -293,3 +293,36 @@ function! dko#GetGrepper() abort
 
   return s:grepper
 endfunction
+
+" ============================================================================
+" Floating windows
+" ============================================================================
+
+let s:DEFAULT_MODAL_HEIGHT_RATIO = 0.8
+let s:DEFAULT_MODAL_WIDTH_RATIO = 0.8
+function! dko#GetModalOptions() abort
+  let l:opts = {}
+  let l:opts.relative = 'editor'
+  let l:opts.height = max([
+        \   float2nr(&lines * s:DEFAULT_MODAL_HEIGHT_RATIO),
+        \   &lines - 20,
+        \   1,
+        \ ])
+  let l:opts.width = max([
+        \   float2nr(&columns * s:DEFAULT_MODAL_WIDTH_RATIO),
+        \   &columns - 20,
+        \   1,
+        \ ])
+  " centered
+  let l:opts.row = float2nr((&lines - l:opts.height) / 2)
+  let l:opts.col = float2nr((&columns - l:opts.width) / 2)
+  return l:opts
+endfunction
+
+" Adapted from https://github.com/junegunn/fzf.vim/issues/664
+function! dko#Modal() abort
+  let l:buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+  let l:opts = dko#GetModalOptions()
+  call nvim_open_win(l:buf, v:true, l:opts)
+endfunction

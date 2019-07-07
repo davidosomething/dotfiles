@@ -60,15 +60,15 @@ function! dkoplug#plugins#LoadAll() abort
   " Use the repo instead of the version in brew since it includes the help
   " docs for fzf#run()
   Plug 'junegunn/fzf', PlugIf(g:dko_use_fzf)
+
+  let g:dko_fzf_modal = 0 && has('nvim-0.4')
+  let g:fzf_command_prefix = 'FZF'
+  let g:fzf_layout = extend({ 'down': '~40%' }, g:dko_fzf_modal
+        \   ? { 'window': 'call dko#Modal()' }
+        \   : {}
+        \ )
+  let g:fzf_buffers_jump = 1
   Plug 'junegunn/fzf.vim', PlugIf(g:dko_use_fzf)
-  Plug g:dko#vim_dir . '/mine/vim-dko-fzf', PlugIf(g:dko_use_fzf, { 'on': [
-        \   'FZFGrepper',
-        \   'FZFMRU',
-        \   'FZFProject',
-        \   'FZFRelevant',
-        \   'FZFTests',
-        \   'FZFVim',
-        \ ] })
 
   Plug 'lambdalisue/gina.vim', PlugIf(exists('v:null'), {
         \   'on': [ 'Gina', '<Plug>(gina' ]
