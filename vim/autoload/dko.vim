@@ -316,6 +316,7 @@ function! dko#GetModalOptions() abort
   " centered
   let l:opts.row = float2nr((&lines - l:opts.height) / 2)
   let l:opts.col = float2nr((&columns - l:opts.width) / 2)
+  let l:opts.style = 'minimal'
   return l:opts
 endfunction
 
