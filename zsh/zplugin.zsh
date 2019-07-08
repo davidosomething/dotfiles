@@ -2,13 +2,13 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
 
-zplugin ice lucid wait'0' as'program' pick'git-ink'
+zplugin ice lucid wait as'program' pick'git-ink'
 zplugin load davidosomething/git-ink
 
-zplugin ice lucid wait'0' as'program' pick'git-my'
+zplugin ice lucid wait as'program' pick'git-my'
 zplugin load davidosomething/git-my
 
-zplugin ice lucid wait'0' as'program' pick'git-take'
+zplugin ice lucid wait as'program' pick'git-take'
 zplugin load davidosomething/git-take
 
 # my fork of cdbk, ZSH hash based directory bookmarking. No wait.
@@ -20,21 +20,21 @@ zplugin load 'davidosomething/cdbk'
 # Vendor: Commands
 # ----------------------------------------------------------------------------
 
-zplugin ice lucid wait'0' as'program' pick"${ZPFX}/bin/git-*" \
+zplugin ice lucid wait as'program' pick"${ZPFX}/bin/git-*" \
   make"PREFIX=$ZPFX" nocompile
 zplugin load tj/git-extras
 # completions
-zplugin ice lucid wait'0'
+zplugin ice lucid wait
 zplugin snippet "${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
 
 # `` compl for git commands
-zplugin ice lucid wait'0'
+zplugin ice lucid wait
 zplugin load 'hschne/fzf-git'
 
-zplugin ice lucid wait'0' as'program' pick'git-open'
+zplugin ice lucid wait as'program' pick'git-open'
 zplugin load paulirish/git-open
 
-zplugin ice lucid wait'0' as'program' pick'git-recent'
+zplugin ice lucid wait as'program' pick'git-recent'
 zplugin load paulirish/git-recent
 
 # replaces up() in shell/functions.sh. No wait.
@@ -46,10 +46,10 @@ zplugin load 'skywind3000/z.lua'
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
-zplugin ice lucid wait'0'
+zplugin ice lucid wait
 zplugin load 'wfxr/forgit'
 
-zplugin ice lucid wait'0' lucid as'program' pick'bin/git-dsf'
+zplugin ice lucid wait lucid as'program' pick'bin/git-dsf'
 zplugin light zdharma/zsh-diff-so-fancy
 
 # ----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # as of v4.0 use ZSH/zpty module to async retrieve
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
-zplugin ice lucid wait'0' atload'_zsh_autosuggest_start'
+zplugin ice lucid wait atload'_zsh_autosuggest_start'
 zplugin load 'zsh-users/zsh-autosuggestions'
 # clear the suggestion when entering completion select menu
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('expand-or-complete')
@@ -73,16 +73,16 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('expand-or-complete')
 # Vendor: Completion
 # ----------------------------------------------------------------------------
 
-zplugin ice blockf lucid wait'0'
+zplugin ice blockf lucid wait
 zplugin load 'zsh-users/zsh-completions'
 
-zplugin ice lucid wait'0'
+zplugin ice lucid wait
 zplugin load 'voronkovich/phpcs.plugin.zsh'
 
 
 [[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] \
   && {
-    zplugin ice lucid wait'0'
+    zplugin ice lucid wait
     zplugin load "${TRAVIS_CONFIG_PATH}"
   }
 
