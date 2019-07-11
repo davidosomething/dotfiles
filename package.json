@@ -70,7 +70,9 @@
     ]
   },
   "eslint": {
-    "extends": [ "davidosomething/lib/node.js" ],
+    "extends": [
+      "davidosomething/lib/node.js"
+    ],
     "env": {
       "es6": true
     },
@@ -83,6 +85,7 @@
     "eslint": "6.0.1",
     "eslint-config-davidosomething": "4.0.0",
     "js-yaml": "3.13.1",
+    "lodash": "4.17.13",
     "plist": "3.0.1"
   }
 }
