@@ -30,6 +30,12 @@ alias chrome-canary='open -a /Applications/Google\ Chrome\ Canary.app'
 alias chromium='open -a /Applications/Chromium.app'
 
 # ----------------------------------------------------------------------------
+# Docker.app
+# ----------------------------------------------------------------------------
+
+alias dockerrestart="osascript -e 'quit app \"Docker\"' && open -a Docker"
+
+# ----------------------------------------------------------------------------
 # Redshift
 # ----------------------------------------------------------------------------
 
