@@ -464,13 +464,10 @@ augroup dkoproject
   autocmd User neomake call dko#lint#Setup()
 augroup END
 
+" Auto-reload the colorscheme if it was edited in vim
 augroup dkocoloredit
   autocmd!
-  autocmd BufWritePost */colors/*.vim
-        \   so <afile>
-        \ | if dkoplug#IsLoaded('vim-css-color')
-        \ |   call css_color#reinit()
-        \ | endif
+  autocmd BufWritePost */colors/*.vim so <afile>
 augroup END
 
 " Read only mode (un)mappings
