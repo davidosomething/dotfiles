@@ -42,7 +42,11 @@ function! dkoplug#plugins#LoadAll() abort
   " Colorscheme
   " ==========================================================================
 
-  Plug g:dko#vim_dir . '/mine/vim-meh'
+  if isdirectory(expand('~/projects/vim-colors-meh'))
+    Plug expand('~/projects/vim-colors-meh')
+  else
+    Plug 'davidosomething/vim-colors-meh'
+  endif
   Plug 'rakr/vim-two-firewatch'
   Plug 'kamwitsta/flatwhite-vim'
 
