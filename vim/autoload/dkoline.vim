@@ -54,22 +54,20 @@ function! dkoline#GetStatusline(winnr) abort
 
   let l:contents .= '%#StatusLineNC# %3(' . dkoline#Mode(l:view.winnr) . '%)'
 
+  let l:activecolor = dkoline#IfWinActive(l:view.winnr)
+        \ ? '%#StatusLine#'
+        \ : '%#StatusLineNC#'
+
   " Filebased
   let l:contents .= dkoline#Format(
         \   dkoline#Filetype(l:view.ft),
-        \   (dkoline#IfWinActive(l:view.winnr)
-        \     ? '%#dkoStatusValue#' : '%#StatusLineNC#' )
+        \   l:activecolor
         \ )
 
-  let l:maxwidth = l:view.ww - 4 - len(l:view.ft) - 16
-  let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 48
+  " Parent dir and filename
   let l:contents .= dkoline#Format(
         \   dkoline#TailDirFilename(l:view),
-        \   '%0.' . l:maxwidth . '('
-        \     . (dkoline#IfWinActive(l:view.winnr)
-        \       ? '%#StatusLine#'
-        \       : '%#StatusLineNC#'),
-        \   '%)'
+        \   l:activecolor
         \ )
   let l:contents .= dkoline#Format(dkoline#Dirty(l:view.bufnr), '%#DiffAdded#')
 
