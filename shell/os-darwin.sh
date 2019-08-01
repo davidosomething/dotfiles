@@ -36,7 +36,8 @@ command -v luarocks >/dev/null &&
   export ANDROID_SDK_ROOT="${DKO_BREW_PREFIX}/share/android-sdk"
 
 # iTerm2 integration
-PATH="${HOME}/.iterm2:${PATH}"
+[ -f "${HOME}/.iterm2_shell_integration.zsh" ] &&
+  . "${HOME}/.iterm2_shell_integration.zsh"
 
 # ============================================================================
 
