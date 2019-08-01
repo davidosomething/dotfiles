@@ -16,7 +16,6 @@ export DKO_BREW_PREFIX="/usr/local"
 [ -d "${DKO_BREW_PREFIX}/opt/go/libexec/bin" ] &&
 PATH="${DKO_BREW_PREFIX}/opt/go/libexec/bin:${PATH}"
 PATH="${DKO_BREW_PREFIX}/opt/git/share/git-core/contrib/git-jump:${PATH}"
-export PATH
 
 # prefer homebrewed lua@5.1
 command -v luarocks >/dev/null &&
@@ -35,6 +34,13 @@ command -v luarocks >/dev/null &&
 
 [ -d "${DKO_BREW_PREFIX}/share/android-sdk" ] &&
   export ANDROID_SDK_ROOT="${DKO_BREW_PREFIX}/share/android-sdk"
+
+# iTerm2 integration
+PATH="${HOME}/.iterm2:${PATH}"
+
+# ============================================================================
+
+export PATH
 
 # ============================================================================
 # Functions

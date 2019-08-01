@@ -123,6 +123,8 @@ __remove "${HOME}/.wget-hsts"
 __remove "${HOME}/.tern-project"
 # should be ~/.config/tldr
 __remove "${HOME}/.tldr"
+# should be ~/.dotfiles/zsh/.zshrc
+__remove "${HOME}/.zshrc"
 
 "${DOTFILES}/bin/dko-fix-git-completion"
 

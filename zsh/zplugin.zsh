@@ -83,7 +83,7 @@ zplugin load 'voronkovich/phpcs.plugin.zsh'
 [[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] \
   && {
     zplugin ice lucid wait
-    zplugin load "${TRAVIS_CONFIG_PATH}"
+    zplugin load "$TRAVIS_CONFIG_PATH"
   }
 
 # ----------------------------------------------------------------------------
