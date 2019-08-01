@@ -68,9 +68,8 @@ See homebrew notes in [brew.md](brew.md) for other formulae I install.
         - Including some `mackup` backups
 - iterm2
     - Load iTerm profile from synology drive
-    - Or load colors from `~/.dotfiles/mac/iterm2`, set
-    `TERM=xterm-256color-italic` and map left <kbd>⌥</kbd> to `Esc+` for the
-    profile.
+    - Or load colors from `~/.dotfiles/mac/iterm2` and map left <kbd>⌥</kbd>
+      to `Esc+` for the profile.
 - bettertouchtool
     - License in synology drive or gmail
     - Better trackpad swipe configs

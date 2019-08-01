@@ -33,8 +33,7 @@ Keep `(g)vimrc` (no dot in filename) in `~/.vim/` -- Vim knows to look in there.
   `init.vim` for Neovim startup is already configured to find the `neovim3`
   virtualenv.
 - `:UpdateRemotePlugins` if installing/upgrading python-based plugins
-- `:CheckHealth` to see if the python3 setup and plugins are working. iTerm
-  should use xterm-256color-italic terminfo if the backspace message is there.
+- `:CheckHealth` to see if the python3 setup and plugins are working.
 
 ### JavaScript Settings
 
