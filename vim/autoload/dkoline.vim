@@ -332,8 +332,10 @@ function! dkoline#Init() abort
 
   " BufWinEnter will initialize the statusline for each buffer
   let l:refresh_hooks = [
+        \   'BufDelete',
         \   'BufEnter',
         \   'BufWinEnter',
+        \   'BufWritePost',
         \ ]
         " \   'SessionLoadPost',
         " \   'TabEnter',
