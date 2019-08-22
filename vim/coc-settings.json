@@ -93,6 +93,7 @@
   // coc-git
   // =========================================================================
 
+  "git.enableGutters": true,
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",
   "git.removedSign.hlGroup": "GitGutterDelete",
@@ -122,5 +123,4 @@
 
   "javascript.preferences.quoteStyle": "single",
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
-  "git.enableGutters": true,
 }
