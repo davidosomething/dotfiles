@@ -62,6 +62,7 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-syntax',
         \  'coc-tsserver',
         \  'coc-vimlsp',
+        \  'coc-webpack',
         \  'coc-yaml'
         \)
   " Doesn't redraw in sync with edits
