@@ -3,51 +3,50 @@
 DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
 
 zplugin ice lucid wait as'program' pick'git-ink'
-zplugin load davidosomething/git-ink
+zplugin light davidosomething/git-ink
 
 zplugin ice lucid wait as'program' pick'git-my'
-zplugin load davidosomething/git-my
+zplugin light davidosomething/git-my
 
 zplugin ice lucid wait as'program' pick'git-take'
-zplugin load davidosomething/git-take
+zplugin light davidosomething/git-take
 
 # my fork of cdbk, ZSH hash based directory bookmarking. No wait.
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
 zplugin ice lucid
-zplugin load 'davidosomething/cdbk'
+zplugin light 'davidosomething/cdbk'
 
 # ----------------------------------------------------------------------------
 # Vendor: Commands
 # ----------------------------------------------------------------------------
 
-zplugin ice lucid wait as'program' pick"${ZPFX}/bin/git-*" \
-  make"PREFIX=$ZPFX" nocompile
-zplugin load tj/git-extras
-# completions
-zplugin ice lucid wait
-zplugin snippet "${ZPLGM[PLUGINS_DIR]}/tj---git-extras/etc/git-extras-completion.zsh"
+zplugin ice lucid as'program' \
+  pick"${ZPFX}/bin/git-*" \
+  src"etc/git-extras-completion.zsh" \
+  make"PREFIX=$ZPFX"
+zplugin light tj/git-extras
 
 # `` compl for git commands
 zplugin ice lucid wait
-zplugin load 'hschne/fzf-git'
+zplugin light 'hschne/fzf-git'
 
 zplugin ice lucid wait as'program' pick'git-open'
-zplugin load paulirish/git-open
+zplugin light paulirish/git-open
 
 zplugin ice lucid wait as'program' pick'git-recent'
-zplugin load paulirish/git-recent
+zplugin light paulirish/git-recent
 
 # replaces up() in shell/functions.sh. No wait.
 zplugin ice lucid nocompletions
-zplugin load 'shannonmoeller/up'
+zplugin light 'shannonmoeller/up'
 
 zplugin ice lucid nocompletions
-zplugin load 'skywind3000/z.lua'
+zplugin light 'skywind3000/z.lua'
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
 zplugin ice lucid wait
-zplugin load 'wfxr/forgit'
+zplugin light 'wfxr/forgit'
 
 zplugin ice lucid wait lucid as'program' pick'bin/git-dsf'
 zplugin light zdharma/zsh-diff-so-fancy
@@ -77,13 +76,13 @@ zplugin ice blockf lucid wait
 zplugin load 'zsh-users/zsh-completions'
 
 zplugin ice lucid wait
-zplugin load 'voronkovich/phpcs.plugin.zsh'
+zplugin light 'voronkovich/phpcs.plugin.zsh'
 
 
 [[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] \
   && {
     zplugin ice lucid wait
-    zplugin load "$TRAVIS_CONFIG_PATH"
+    zplugin light "$TRAVIS_CONFIG_PATH"
   }
 
 # ----------------------------------------------------------------------------
