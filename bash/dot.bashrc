@@ -56,7 +56,7 @@ __dko_source "${NVM_DIR}/bash_completion"
 
 # Enable tab completion for `g` by marking it as an alias for `git`
 type _git &>/dev/null \
-  && [[ -f /usr/local/etc/bash_completion.d/git-completion.bash ]] \
+  && [[ -f "${DKO_BREW_PREFIX}/etc/bash_completion.d/git-completion.bash" ]] \
   && complete -o default -o nospace -F _git g
 
 # WP-CLI Bash completions
