@@ -95,11 +95,12 @@ set ttimeout
 " ----------------------------------------------------------------------------
 
 set browsedir=buffer                  " browse files in same dir as open file
-if has('nvim-0.4')
-  set wildoptions=pum
-else
-  set wildmode=longest:list,full      " Complete files using a menu AND list
-endif
+" Don't like the auto-select in PUM mode
+" if has('nvim-0.4')
+"   set wildoptions=pum
+" else
+set wildmode=longest:list,full      " Complete files using a menu AND list
+" endif
 let &wildignorecase = v:version >= 704
 
 " wildignore prevents things from showing up in cmd completion
