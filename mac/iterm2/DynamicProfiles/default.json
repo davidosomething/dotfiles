@@ -179,6 +179,16 @@
           "Action": 10,
           "Text": "[1;2C"
         },
+        "// ctrl shft cmd P": "Switch to Solarized Light",
+        "0x50-0x160000": {
+          "Action": 40,
+          "Text": "Solarized Light"
+        },
+        "// ctrl cmd P": "Switch to Tomorrow Night Dark",
+        "0x70-0x140000": {
+          "Action": 40,
+          "Text": "base16-tomorrownight.dark.256"
+        },
         "0xf701-0x240000": {
           "Action": 10,
           "Text": "[1;5B"
