@@ -67,9 +67,10 @@ See homebrew notes in [brew.md](brew.md) for other formulae I install.
     - Has app settings sync so wait for it to finish syncing.
         - Including some `mackup` backups
 - iterm2
-    - Load iTerm profile from synology drive
-    - Or load colors from `~/.dotfiles/mac/iterm2` and map left <kbd>⌥</kbd>
-      to `Esc+` for the profile.
+    - Run [bootstrap/iterm2](../bootstrap/iterm2) after installation to load
+      my standard [Dynamic Profile](https://www.iterm2.com/documentation-dynamic-profiles.html)
+      with base16-Tomorrow-Night colors, Fura Mono for Powerline font, and
+      some window settings and key mappings.
 - bettertouchtool
     - License in synology drive or gmail
     - Better trackpad swipe configs
