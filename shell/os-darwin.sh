@@ -65,27 +65,6 @@ members() {
   done | grep "is a member" | cut -d " " -f 1
 }
 
-proftoggle() {
-  if [ -z "$ITERM_PROFILE" ]; then
-    print "Not in iTerm" 1>&2
-    return
-  fi
-
-  if [ "$ITERM_PROFILE" = "ZSH - base16 Tomorrow Night" ]; then
-    ITERM_PROFILE='ZSH - Solarized Light'
-  else
-    ITERM_PROFILE='ZSH - base16 Tomorrow Night'
-  fi
-  export ITERM_PROFILE
-
-  seq="\e]1337;SetProfile=${ITERM_PROFILE}\x7"
-  # shellcheck disable=SC2059
-  printf "$seq"
-
-  echo
-  echo "Now using ${ITERM_PROFILE}"
-}
-
 vol() {
   __dko_has "osascript" && osascript -e "set volume ${1}"
 }
