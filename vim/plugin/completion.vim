@@ -54,7 +54,6 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-diagnostic',
         \  'coc-eslint',
         \  'coc-git',
-        \  'coc-java',
         \  'coc-json',
         \  'coc-neosnippet',
         \  'coc-prettier',
@@ -65,6 +64,8 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-webpack',
         \  'coc-yaml'
         \)
+  " Not working
+        \  'coc-java',
   " Doesn't redraw in sync with edits
   "\  'coc-highlight',
 
