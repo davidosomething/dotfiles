@@ -26,6 +26,14 @@ function! dkoline#GetTabline() abort
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
   let l:contents .= '%#StatusLine# %= '
 
+  if dkoplug#IsLoaded('coc.nvim')
+    let l:contents .= dkoline#Format(
+          \ dkoline#CocStatus(l:view),
+          \ '%(%#dkoStatusValue#',
+          \ ' %)'
+          \)
+  endif
+
   let l:contents .= dkoline#Format(
         \ ' ' . get(l:view, 'cwd', '~') . ' ',
         \ '%#dkoStatusKey# ʟᴄᴅ %(%#dkoStatusValue#%<',
@@ -89,7 +97,7 @@ function! dkoline#GetStatusline(winnr) abort
 
   " Linting
   if dkoplug#IsLoaded('coc.nvim')
-    let l:contents .= dkoline#Coc(l:view)
+    let l:contents .= dkoline#CocDiagnostics(l:view)
   endif
   if dkoplug#IsLoaded('neomake')
     let l:contents .= dkoline#IfWinActive(l:view.winnr)
@@ -229,7 +237,7 @@ endfunction
 
 " @param {Dict} view
 " @return {String}
-function! dkoline#Coc(view) abort
+function! dkoline#CocDiagnostics(view) abort
   if dko#IsNonFile(a:view.bufnr) | return '' | endif
   let l:d = getbufvar(a:view.bufnr, 'coc_diagnostic_info')
   return empty(l:d) ? '' :
@@ -245,6 +253,10 @@ function! dkoline#Coc(view) abort
         \ dkoline#Format(
         \   !l:d.hint ? '' : ' ⚑' . l:d.hint . ' ',
         \   '%(%#dkoStatusItem#', '%)')
+endfunction
+
+function! dkoline#CocStatus(view) abort
+  return get(g:, 'coc_status', '')
 endfunction
 
 " Whether or not neomake is disabled
@@ -332,10 +344,12 @@ function! dkoline#Init() abort
 
   " BufWinEnter will initialize the statusline for each buffer
   let l:refresh_hooks = [
-        \   'BufDelete',
-        \   'BufEnter',
-        \   'BufWinEnter',
-        \   'BufWritePost',
+        \   'BufDelete *',
+        \   'BufEnter *',
+        \   'BufWinEnter *',
+        \   'BufWritePost *',
+        \   'User NeomakeCountsChanged',
+        \   'User NeomakeFinished',
         \ ]
         " \   'SessionLoadPost',
         " \   'TabEnter',
@@ -347,24 +361,22 @@ function! dkoline#Init() abort
         " \   'BufEnter' for different buffer
         "     using Plug mapping instead.
   if has('nvim')
-    call add(l:refresh_hooks, 'DirChanged')
+    call add(l:refresh_hooks, 'DirChanged *')
   endif
 
-  let l:user_refresh_hooks = [
-        \   'NeomakeFinished',
+  let l:tab_refresh_hooks = [
+        \   'User CocStatusChange',
+        \   'DirChanged *',
         \ ]
-  " 'NeomakeCountsChanged',
 
   augroup dkoline
     autocmd!
-    if !empty(l:refresh_hooks)
-      execute 'autocmd dkoline ' . join(l:refresh_hooks, ',') . ' *'
-            \ . ' call dkoline#RefreshStatus()'
-    endif
-    if !empty(l:user_refresh_hooks)
-      execute 'autocmd dkoline User ' . join(l:user_refresh_hooks, ',')
-            \ . ' call dkoline#RefreshStatus()'
-    endif
+    for l:hook in l:refresh_hooks
+      execute 'autocmd dkoline ' . l:hook . ' call dkoline#RefreshStatus()'
+    endfor
+    for l:hook in l:tab_refresh_hooks
+      execute 'autocmd dkoline ' . l:hook . ' call dkoline#RefreshTabline()'
+    endfor
   augroup END
 endfunction
 
