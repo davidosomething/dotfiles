@@ -65,7 +65,7 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-yaml'
         \)
   " Not working
-        \  'coc-java',
+  "      \  'coc-java',
   " Doesn't redraw in sync with edits
   "\  'coc-highlight',
 
