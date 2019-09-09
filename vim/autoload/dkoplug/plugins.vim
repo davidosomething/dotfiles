@@ -123,6 +123,8 @@ function! dkoplug#plugins#LoadAll() abort
   " Editing keys
   " ==========================================================================
 
+  Plug 'arp242/jumpy.vim'
+
   "Plug 'cyansprite/Extract', PlugIf(has('nvim'))
   Plug 'svermeulen/vim-yoink', PlugIf(has('nvim'))
 
