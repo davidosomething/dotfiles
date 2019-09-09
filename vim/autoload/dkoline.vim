@@ -62,20 +62,20 @@ function! dkoline#GetStatusline(winnr) abort
 
   let l:contents .= '%#StatusLineNC# %3(' . dkoline#Mode(l:view.winnr) . '%)'
 
-  let l:activecolor = dkoline#IfWinActive(l:view.winnr)
-        \ ? '%#StatusLine#'
-        \ : '%#StatusLineNC#'
-
   " Filebased
   let l:contents .= dkoline#Format(
         \   dkoline#Filetype(l:view.ft),
-        \   l:activecolor
-        \ )
+        \   dkoline#IfWinActive(l:view.winnr)
+        \     ? '%(%#dkoStatusKey#'
+        \     : '%(%#StatusLineNC#',
+        \   '%)')
 
   " Parent dir and filename
   let l:contents .= dkoline#Format(
         \   dkoline#TailDirFilename(l:view),
-        \   l:activecolor
+        \   dkoline#IfWinActive(l:view.winnr)
+        \     ? '%#StatusLine#'
+        \     : '%#StatusLineNC#'
         \ )
   let l:contents .= dkoline#Format(dkoline#Dirty(l:view.bufnr), '%#DiffAdded#')
 
@@ -188,12 +188,10 @@ function! dkoline#Readonly(bufnr) abort
   return getbufvar(a:bufnr, '&readonly') ? ' ʀ ' : ''
 endfunction
 
-" @param {Int} bufnr
+" @param {String} ft
 " @return {String}
 function! dkoline#Filetype(ft) abort
-  return empty(a:ft)
-        \ ? ''
-        \ : ' ' . a:ft . ' '
+  return empty(a:ft) ? '' : ' ' . a:ft . ' '
 endfunction
 
 " Show buffer's filename and immediate parent directory
@@ -344,10 +342,11 @@ function! dkoline#Init() abort
 
   " BufWinEnter will initialize the statusline for each buffer
   let l:refresh_hooks = [
-        \   'BufDelete *',
-        \   'BufEnter *',
         \   'BufWinEnter *',
+        \   'BufDelete *',
         \   'BufWritePost *',
+        \   'BufEnter *',
+        \   'FileType *',
         \   'User NeomakeCountsChanged',
         \   'User NeomakeFinished',
         \ ]
@@ -355,11 +354,8 @@ function! dkoline#Init() abort
         " \   'TabEnter',
         " \   'VimResized',
         " \   'WinEnter',
-        " \   'FileType',
         " \   'FileWritePost',
         " \   'FileReadPost',
-        " \   'BufEnter' for different buffer
-        "     using Plug mapping instead.
   if has('nvim')
     call add(l:refresh_hooks, 'DirChanged *')
   endif
@@ -371,11 +367,11 @@ function! dkoline#Init() abort
 
   augroup dkoline
     autocmd!
-    for l:hook in l:refresh_hooks
-      execute 'autocmd dkoline ' . l:hook . ' call dkoline#RefreshStatus()'
-    endfor
     for l:hook in l:tab_refresh_hooks
       execute 'autocmd dkoline ' . l:hook . ' call dkoline#RefreshTabline()'
+    endfor
+    for l:hook in l:refresh_hooks
+      execute 'autocmd dkoline ' . l:hook . ' call dkoline#RefreshStatus()'
     endfor
   augroup END
 endfunction
