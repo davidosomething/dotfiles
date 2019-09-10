@@ -60,34 +60,32 @@ function! dkoline#GetStatusline(winnr) abort
   " Left side
   " ==========================================================================
 
-  let l:contents .= '%#StatusLineNC# %3(' . dkoline#Mode(l:view.winnr) . '%)'
+  let l:contents .= dkoline#Mode(l:view.winnr)
+
+  " Restore color to ensure parts aren't hidden on inactive buffers
+  let l:contents .= '%#StatusLine#'
 
   " Filebased
   let l:contents .= dkoline#Format(
-        \   dkoline#Filetype(l:view.ft),
-        \   dkoline#IfWinActive(l:view.winnr)
-        \     ? '%(%#dkoStatusKey#'
-        \     : '%(%#StatusLineNC#',
-        \   '%)')
+        \ dkoline#Filetype(l:view.ft),
+        \ dkoline#ActiveColor(l:view, '%#dkoStatusKey#'))
 
   " Parent dir and filename
   let l:contents .= dkoline#Format(
-        \   dkoline#TailDirFilename(l:view),
-        \   dkoline#IfWinActive(l:view.winnr)
-        \     ? '%#StatusLine#'
-        \     : '%#StatusLineNC#'
-        \ )
-  let l:contents .= dkoline#Format(dkoline#Dirty(l:view.bufnr), '%#DiffAdded#')
+        \ dkoline#TailDirFilename(l:view),
+        \ dkoline#ActiveColor(l:view, '%#StatusLine#'))
+  let l:contents .= dkoline#Format(
+        \ dkoline#Dirty(l:view.bufnr),
+        \ dkoline#ActiveColor(l:view, '%#DiffAdded#'))
 
   " Toggleable
-  if !has('nvim')
-    let l:contents .= dkoline#Format(dkoline#Paste(), '%#DiffText#')
-  endif
+  let l:contents .= dkoline#Format(
+        \ has('nvim') ? dkoline#Paste() : '',
+        \ dkoline#ActiveColor(l:view, '%#DiffText#'))
 
   let l:contents .= dkoline#Format(
         \ dkoline#Readonly(l:view.bufnr),
-        \ '%#dkoLineImportant#'
-        \)
+        \ dkoline#ActiveColor(l:view, '%#dkoLineImportant#'))
 
   " ==========================================================================
   " Right side
@@ -99,16 +97,13 @@ function! dkoline#GetStatusline(winnr) abort
   if dkoplug#IsLoaded('coc.nvim')
     let l:contents .= dkoline#CocDiagnostics(l:view)
   endif
-  if dkoplug#IsLoaded('neomake')
-    let l:contents .= dkoline#IfWinActive(l:view.winnr)
-          \ ? dkoline#NeomakeStatus(l:view)
-          \ : ''
-    if exists('*neomake#GetJobs')
-      let l:contents .= dkoline#Neomake(l:view)
-    endif
+  if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
+    let l:contents .= dkoline#Neomake(l:view)
   endif
 
-  let l:contents .= dkoline#Format(dkoline#Ruler(), '%#dkoStatusItem#')
+  let l:contents .= dkoline#Format(
+        \ dkoline#Ruler(),
+        \ dkoline#ActiveColor(l:view, '%#dkoStatusItem#'))
 
   return l:contents
 endfunction
@@ -130,27 +125,11 @@ function! dkoline#Format(...) abort
   return empty(l:content) ? '' : l:before . l:content . l:after
 endfunction
 
-function! dkoline#IfWinActive(winnr) abort
-  return a:winnr == winnr()
+function! dkoline#ActiveColor(view, color) abort
+  return a:view.winnr == winnr() ? a:color : '%#StatusLineNC#'
 endfunction
 
-" Assert all conditions pass
-function! dkoline#If(conditions, values) abort
-  if has_key(a:conditions, 'winnr')
-    if winnr() != a:conditions.winnr | return 0 | endif
-  endif
-
-  if has_key(a:conditions, 'ww')
-    if a:values.ww < a:conditions.ww | return 0 | endif
-  endif
-
-  if has_key(a:conditions, 'normal')
-    if !getbufvar(a:values.bufnr, '&buflisted') | return 0 | endif
-  endif
-
-  return 1
-endfunction
-
+" @param {Number} winnr
 " @return {String}
 function! dkoline#Mode(winnr) abort
   " blacklist
@@ -211,9 +190,10 @@ function! dkoline#TailDirFilename(view) abort
     return ' ' . a:view.bufname . ' '
   endif
 
-  let l:parent = fnamemodify(a:view.bufname, ':p:h:t')
+  let l:parent0 = fnamemodify(a:view.bufname, ':p:h:t')
+  let l:parent1 = fnamemodify(a:view.bufname, ':p:h:h:t')
   let l:filename = fnamemodify(a:view.bufname, ':t')
-  return ' ' . l:parent . '/' . l:filename . ' '
+  return ' ' . join([ l:parent1, l:parent0, l:filename ], '/') . ' '
 endfunction
 
 " @param {Int} bufnr
@@ -257,17 +237,6 @@ function! dkoline#CocStatus(view) abort
   return get(g:, 'coc_status', '')
 endfunction
 
-" Whether or not neomake is disabled
-" @param {Dict} view
-" @return {String}
-function! dkoline#NeomakeStatus(view) abort
-  return dko#IsNonFile(a:view.bufnr)
-        \ || !empty(getbufvar(a:view.bufnr, 'dko_is_coc'))
-        \ || !empty(neomake#GetEnabledMakers(a:view.ft))
-        \ ? ''
-        \ : '%#DiffText# ɴᴏ ᴍᴀᴋᴇʀs '
-endfunction
-
 " @return {string} job1,job2,job3
 function! dkoline#NeomakeJobs(bufnr) abort
   if !a:bufnr | return '' | endif
@@ -302,8 +271,6 @@ endfunction
 " Utility
 " ============================================================================
 
-let s:view_cache = {}
-
 " Get cached properties for a window. Cleared on status line refresh
 "
 " @param {Int} winnr
@@ -330,8 +297,8 @@ function! dkoline#GetView(winnr) abort
 endfunction
 
 function! dkoline#Init() abort
-  let s:view_cache = {}
-  set statusline=%!dkoline#GetStatusline(1)
+  call dkoline#SetStatus(winnr())
+
   call dkoline#RefreshTabline()
   set showtabline=2
 
@@ -342,18 +309,18 @@ function! dkoline#Init() abort
 
   " BufWinEnter will initialize the statusline for each buffer
   let l:refresh_hooks = [
-        \   'BufWinEnter *',
         \   'BufDelete *',
+        \   'BufWinEnter *',
         \   'BufWritePost *',
         \   'BufEnter *',
         \   'FileType *',
+        \   'WinEnter *',
         \   'User NeomakeCountsChanged',
         \   'User NeomakeFinished',
         \ ]
         " \   'SessionLoadPost',
         " \   'TabEnter',
         " \   'VimResized',
-        " \   'WinEnter',
         " \   'FileWritePost',
         " \   'FileReadPost',
   if has('nvim')
@@ -368,20 +335,17 @@ function! dkoline#Init() abort
   augroup dkoline
     autocmd!
     for l:hook in l:tab_refresh_hooks
-      execute 'autocmd dkoline ' . l:hook . ' call dkoline#RefreshTabline()'
+      execute 'autocmd ' . l:hook . ' call dkoline#RefreshTabline()'
     endfor
     for l:hook in l:refresh_hooks
-      execute 'autocmd dkoline ' . l:hook . ' call dkoline#RefreshStatus()'
+      execute 'autocmd ' . l:hook . ' call dkoline#SetStatus(winnr())'
     endfor
   augroup END
 endfunction
 
-function! dkoline#RefreshStatus() abort
+function! dkoline#SetStatus(winnr) abort
   let s:view_cache = {}
-  for l:winnr in range(1, winnr('$'))
-    let l:fn = '%!dkoline#GetStatusline(' . l:winnr . ')'
-    call setwinvar(l:winnr, '&statusline', l:fn)
-  endfor
+  exec 'setlocal statusline=%!dkoline#GetStatusline(' . a:winnr . ')'
 endfunction
 
 function! dkoline#RefreshTabline() abort
