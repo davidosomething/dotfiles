@@ -102,9 +102,12 @@ if dkoplug#IsLoaded('coc.nvim')
 
   nmap <silent> <Leader>= <Plug>(coc-format-selected)
   vmap <silent> <Leader>= <Plug>(coc-format-selected)
-  nmap <silent> <A-=>
-        \ :<C-u>CocCommand prettier.formatFile<CR>
-        \ :CocCommand eslint.executeAutofix<CR>
+
+  autocmd dkocompletion FileType
+        \ javascript,javascriptreact,typescript,typescriptreact,json,graphql
+        \ nmap <silent> <A-=>
+        \   :<C-u>CocCommand prettier.formatFile<CR>
+        "\   :CocCommand eslint.executeAutofix<CR>
 
   " coc-git
   nnoremap <silent> <Leader>g :<C-u>CocCommand git.toggleGutters<CR>

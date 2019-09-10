@@ -39,7 +39,7 @@
   "languageserver": {
     "lua": {
       "command": "lua-lsp",
-      "filetypes": ["lua"],
+      "filetypes": ["lua"]
     },
     "sorbet": {
       "command": "srb",
@@ -60,7 +60,7 @@
     "vint": {
       "command": "vint",
       "debounce": 100,
-      "args": [ "--enable-neovim", "-"],
+      "args": ["--enable-neovim", "-"],
       "offsetLine": 0,
       "offsetColumn": 0,
       "sourceName": "vint",
@@ -76,7 +76,7 @@
     }
   },
   "diagnostic-languageserver.filetypes": {
-    "vim": "vint",
+    "vim": "vint"
   },
 
   // =========================================================================
@@ -119,6 +119,8 @@
   "prettier.proseWrap": "preserve",
   "prettier.arrowParens": "always",
   "prettier.eslintIntegration": true,
+  "prettier.tslintIntegration": true,
+  "prettier.statusItemText": "<ᴀ-=> ᴘʀᴇᴛᴛɪᴇʀ",
 
   // =========================================================================
   // coc-tssserver
@@ -128,5 +130,5 @@
   "typescript.preferences.quoteStyle": "single",
 
   "javascript.preferences.quoteStyle": "single",
-  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true
 }
