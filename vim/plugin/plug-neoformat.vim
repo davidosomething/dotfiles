@@ -3,16 +3,13 @@ scriptencoding utf-8
 
 if !dkoplug#IsLoaded('neoformat') | finish | endif
 
-let g:neoformat_enabled_css = [ 'dkoprettier' ]
 let g:neoformat_enabled_java = [ 'uncrustify' ]
-let g:neoformat_enabled_javascript = [ 'dkoprettier', 'standard' ]
-let g:neoformat_enabled_json = [ 'jq', 'dkoprettier' ]
+let g:neoformat_enabled_javascript = [ 'standard' ]
 let g:neoformat_enabled_less = [ 'dkoprettier' ]
 let g:neoformat_enabled_lua = [ 'luaformatter' ]
 let g:neoformat_enabled_markdown = [ 'dkoremark' ]
 let g:neoformat_enabled_python = [ 'autopep8', 'isort' ]
 let g:neoformat_enabled_scss = [ 'dkoprettier' ]
-let g:neoformat_enabled_typescript = [ 'dkoprettier' ]
 
 function! s:MaybeNeoformat() abort
   if expand('%:t') ==# 'package.json'
