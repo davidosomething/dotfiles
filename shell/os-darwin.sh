@@ -46,6 +46,17 @@ export PATH
 # Functions
 # ============================================================================
 
+# Restart Docker.app and wait for daemon
+dockerrestart() {
+  osascript -e 'quit app \"Docker\"'
+  open -a Docker
+  while [ -z "$(docker info 2> /dev/null )" ]; do
+    printf "."
+    sleep 1
+  done
+  echo
+}
+
 flushdns() {
   dscacheutil -flushcache
   sudo killall -HUP mDNSResponder
