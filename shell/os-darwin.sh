@@ -48,13 +48,14 @@ export PATH
 
 # Restart Docker.app and wait for daemon
 dockerrestart() {
-  osascript -e 'quit app \"Docker\"'
-  open -a Docker
-  while [ -z "$(docker info 2> /dev/null )" ]; do
-    printf "."
-    sleep 1
-  done
-  echo
+  printf "Restarting Docker.app "
+  osascript -e 'quit app "Docker"' && open -a Docker && {
+    while ! docker info >/dev/null 2>&1 ; do
+      printf "."
+      sleep 1
+    done
+    echo
+  }
 }
 
 flushdns() {
