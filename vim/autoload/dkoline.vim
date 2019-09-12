@@ -192,8 +192,12 @@ function! dkoline#TailDirFilename(view) abort
 
   let l:parent0 = fnamemodify(a:view.bufname, ':p:h:t')
   let l:parent1 = fnamemodify(a:view.bufname, ':p:h:h:t')
+  let l:parent2 = fnamemodify(a:view.bufname, ':p:h:h:h:t')
   let l:filename = fnamemodify(a:view.bufname, ':t')
-  return ' ' . join([ l:parent1, l:parent0, l:filename ], '/') . ' '
+  return ' ' . substitute(
+        \   join([ l:parent2, l:parent1, l:parent0, l:filename ], '/'),
+        \   '//', '', 'g'
+        \ ) . ' '
 endfunction
 
 " @param {Int} bufnr
