@@ -51,7 +51,9 @@ function! dkoline#GetTabline() abort
 endfunction
 
 function! dkoline#GetStatusline(winnr) abort
-  if empty(a:winnr) | return | endif
+  if empty(a:winnr) || a:winnr > winnr('$')
+    return
+  endif
   let l:view = dkoline#GetView(a:winnr)
 
   let l:contents = ''
