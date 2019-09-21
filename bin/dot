@@ -8,6 +8,10 @@
 [[ -n "$NVM_DIR" ]] && __dko_source "${NVM_DIR}/nvm.sh"
 
 # ==============================================================================
+
+latest_xcode="11.0"
+
+# ==============================================================================
 # Command functions
 # ==============================================================================
 
@@ -570,9 +574,13 @@ __dko_dotfiles__darwin__update_mac() {
 
 # pass any arg to silence
 __dko_dotfiles__darwin__require_latest_xcode() {
-  local latest_xcode="10.3"
-  xcodebuild -version | grep -q "$latest_xcode" && return 0
-  __dko_err "Using an outdated Xcode, please install/switch to latest version."
+  local v
+  v="$(xcodebuild -version | awk 'NR==1{print $2}')"
+  if [[ "$v" == "$latest_xcode" ]]; then
+    __dko_status "Found Xcode ${latest_xcode}"
+    return 0
+  fi
+  __dko_err "Found Xcode ${v}, please install/switch to ${latest_xcode}"
   return 1
 }
 
