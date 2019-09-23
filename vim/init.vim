@@ -130,7 +130,7 @@ function! s:FindExecutable(paths) abort
 endfunction
 
 " disable python 2
-let g:loaded_python_provider = 1
+let g:loaded_python_provider = 0
 
 " python 3
 let s:pyenv_py3 = s:FindExecutable([
