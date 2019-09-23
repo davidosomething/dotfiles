@@ -335,8 +335,10 @@ function! dkoline#Init() abort
 
   let l:tab_refresh_hooks = [
         \   'User CocStatusChange',
-        \   'DirChanged *',
         \ ]
+  if has('nvim')
+    call add(l:tab_refresh_hooks, 'DirChanged *')
+  endif
 
   augroup dkoline
     autocmd!
