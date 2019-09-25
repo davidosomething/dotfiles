@@ -108,6 +108,7 @@ cscope.po.out
 
 .padawan/
 .phpcomplete_extended/
+.vim/
 *.orig
 *.sublime-project
 *.sublime-workspace
