@@ -28,15 +28,11 @@ function! dkoplug#plugins#LoadAll() abort
   let g:bufferize_command = 'tabnew'
   Plug 'AndrewRadev/bufferize.vim', { 'on': [ 'Bufferize' ] }
 
-  Plug 'cocopon/colorswatch.vim'
+  Plug 'cocopon/colorswatch.vim', { 'on': [ 'ColorSwatchGenerate' ] }
 
   silent! nunmap zs
   nnoremap <silent> zs :<C-U>Inspecthi<CR>
-  Plug 'cocopon/inspecthi.vim'
-
-  " Mostly for zS to debug highlight group (:Bufferize scriptnames is nicer
-  " than :Scriptnames)
-  Plug 'tpope/vim-scriptease'
+  Plug 'cocopon/inspecthi.vim', { 'on': [ 'Inspecthi' ] }
 
   " ==========================================================================
   " Colorscheme
@@ -78,7 +74,7 @@ function! dkoplug#plugins#LoadAll() abort
         \   'on': [ 'Gina', '<Plug>(gina' ]
         \ })
 
-  " :Bdelete to preserve windows
+  " :Bdelete to preserve windows (mapped to <Leader>x)
   Plug 'moll/vim-bbye'
 
   Plug 'nathanaelkane/vim-indent-guides'
@@ -86,7 +82,9 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
 
   let g:git_messenger_max_popup_width = 60
-  Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'))
+  Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'), {
+        \   'on': [ 'GitMessenger', '<Plug>(git-messenger' ],
+        \ })
 
   Plug 'sbdchd/neoformat'
 
@@ -220,14 +218,6 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'Shougo/neoinclude.vim', WithCompl()
   Plug 'jsfaint/coc-neoinclude'
 
-  " --------------------------------------------------------------------------
-  " Completion: VimL
-  " --------------------------------------------------------------------------
-
-  "Plug 'Shougo/neco-vim', WithCompl()
-  " CRASHES!
-  "Plug 'neoclide/coc-neco', WithCompl()
-
   " ==========================================================================
   " Multiple languages
   " ==========================================================================
@@ -351,9 +341,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Works with both pangloss/othree
   " Offers inline code highlighting in JSX blocks, as well as vim-jsx's hi
   Plug 'maxmellon/vim-jsx-pretty'
-
-  " ALTERNATE, original, seems dead?
-  "Plug 'mxw/vim-jsx'
 
   " ----------------------------------
   " Template strings
@@ -519,19 +506,16 @@ function! dkoplug#plugins#LoadAll() abort
 
   " ==========================================================================
   " Language: VimL
+  " vim-lookup and vim-vimlint replaced by coc-vimlsp
   " ==========================================================================
 
   Plug 'machakann/vim-vimhelplint'
-
-  Plug 'mhinz/vim-lookup'
 
   Plug 'junegunn/vader.vim'
 
   " Auto-prefix continuation lines with \
   " Error: <CR> recursive mapping
   " Plug 'lambdalisue/vim-backslash'
-
-  "Plug 'syngan/vim-vimlint', PlugIf(executable('vimlparser'))
 
   " ==========================================================================
   " Search
@@ -552,6 +536,7 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
 
   Plug 'blueyed/vim-qf_resize'
+
   Plug 'romainl/vim-qf'
 
   " --------------------------------------------------------------------------
@@ -564,7 +549,6 @@ function! dkoplug#plugins#LoadAll() abort
   "Still slowish but better 78ms
   "Plug 'kshenoy/vim-signature'
   " Fastest 91ms
-  let g:showmarks_auto_toggle = 0
   let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   let g:showmarks_ignore_type = 'hpq'
   Plug 'bootleq/ShowMarks'
