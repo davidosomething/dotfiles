@@ -9,6 +9,7 @@ __dko_has() { command -v "$1" >/dev/null 2>&1; }
 __dko_prefer() {
   __dko_has "$1" || {
     [ -n "$SSH_CLIENT" ] && echo "==> WARN: ${1} not found"
+    return 1
   }
 }
 
