@@ -44,7 +44,7 @@ __symlink() {
   dko-symlink "universal-ctags/dot.ctags" \
     ".ctags.d/universal.ctags"
 
-  # XDG-compatible
+  # XDG-compatible, not linux specific
   dko-symlink "bat/config" \
     ".config/bat/config"
   dko-symlink "git/dot.gitconfig" \
@@ -92,6 +92,8 @@ __symlink() {
       ".config/redshift/redshift.conf"
     ;;
   linux*)
+    dko-symlink "linux/terminator/config" \
+      ".config/terminator/config"
     dko-symlink "linux/subversion/config" \
       ".subversion/config"
     ;;
