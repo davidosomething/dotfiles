@@ -1,13 +1,8 @@
-# shell/os-linux.sh
+# shell/os-linux.bash
 
 # Linux and BSD
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/os-linux.bash"
-
-# https://gnunn1.github.io/tilix-web/manual/vteconfig/
-if [ "$TILIX_ID" ] || [ "$VTE_VERSION" ]; then
-  [ -f "/etc/profile.d/vte.sh" ] && . "/etc/profile.d/vte.sh"
-fi
 
 case "$(uname -s)" in
 FreeBSD) export DOTFILES_OS="FreeBSD" ;;
