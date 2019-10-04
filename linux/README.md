@@ -17,15 +17,6 @@
 1. [../bootstrap/install-ripgrep-linux](../bootstrap/install-ripgrep-linux) to
    install ripgrep in most Linux systems.
 
-## Terminal Emulators
-
-I am using [termite](https://github.com/thestinger/termite) for now. See the
-[termite readme](./termite/termite.md).
-
-Terminator and urxvt are good as well, and there are configs for those. All
-of the terminal emulators are setup to use the base16-twilight-dark theme, and
-need their respective terminfo installed. Check with the terminal emulator.
-
 ## Other bootstrapping scripts
 
 ### ../bootstrap/linux/gsettings
