@@ -60,6 +60,7 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-prettier',
         \  'coc-pyright',
         \  'coc-snippets',
+        \  'coc-solargraph',
         \  'coc-syntax',
         \  'coc-tsserver',
         \  'coc-vimlsp',

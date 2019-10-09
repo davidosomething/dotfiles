@@ -28,7 +28,8 @@ function! dkoplug#plugins#LoadAll() abort
   let g:bufferize_command = 'tabnew'
   Plug 'AndrewRadev/bufferize.vim', { 'on': [ 'Bufferize' ] }
 
-  Plug 'cocopon/colorswatch.vim', { 'on': [ 'ColorSwatchGenerate' ] }
+  " Required by Inspecthi, don't lazy
+  Plug 'cocopon/colorswatch.vim'
 
   silent! nunmap zs
   nnoremap <silent> zs :<C-U>Inspecthi<CR>
