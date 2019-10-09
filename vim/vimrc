@@ -482,6 +482,18 @@ augroup dkohugefile
   autocmd BufReadPre *.min.* syntax off
 augroup END
 
+" Automatically assign file marks for filetype when switch buffer so you can
+" easily go between e.g., css/html using `C `H
+" https://old.reddit.com/r/vim/comments/df4jac/how_do_you_use_marks/f317a1l/
+augroup dkoautomark
+  autocmd!
+  autocmd BufLeave *.css,*.less,*.scss  normal! mC
+  autocmd BufLeave *.html               normal! mH
+  autocmd BufLeave *.js*,*.ts*          normal! mJ
+  autocmd BufLeave *.md                 normal! mM
+  autocmd BufLeave *.yml,*.yaml         normal! mY
+augroup END
+
 " ============================================================================
 " Security
 " ============================================================================
