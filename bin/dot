@@ -9,7 +9,7 @@
 
 # ==============================================================================
 
-latest_xcode="11.1"
+latest_xcode_major="11"
 
 # ==============================================================================
 # Command functions
@@ -581,11 +581,11 @@ __dko_dotfiles__darwin__update_mac() {
 __dko_dotfiles__darwin__require_latest_xcode() {
   local v
   v="$(xcodebuild -version | awk 'NR==1{print $2}')"
-  if [[ "$v" == "$latest_xcode" ]]; then
-    __dko_status "Found Xcode ${latest_xcode}"
+  if [[ "$v" == "${latest_xcode_major}."* ]]; then
+    __dko_ok "Found Xcode ${v}"
     return 0
   fi
-  __dko_err "Found Xcode ${v}, please install/switch to ${latest_xcode}"
+  __dko_err "Found Xcode ${v}, please install ${latest_xcode_major}.x.x"
   return 1
 }
 
