@@ -25,8 +25,6 @@
   "diagnostic.virtualTextPrefix": "» ",
   "diagnostic.warningSign": "⚑",
 
-  //"diagnostic.displayByAle": true,
-  // When true, destroys loclist on insert (and kills neomake results)
   "suggest.echodocSupport": true,
   "suggest.minTriggerInputLength": 2,
   "suggest.snippetIndicator": " ⭐︎",
