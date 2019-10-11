@@ -517,14 +517,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Plug 'lambdalisue/vim-backslash'
 
   " ==========================================================================
-  " Search
-  " See after/plugin/search.vim for complex configuration
-  " ==========================================================================
-
-  " <Plug> to not move on * search function
-  Plug 'haya14busa/vim-asterisk'
-
-  " ==========================================================================
   " UI -- load last!
   " ==========================================================================
 
