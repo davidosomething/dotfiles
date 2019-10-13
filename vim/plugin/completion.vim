@@ -51,7 +51,6 @@ endif
 if dkoplug#IsLoaded('coc.nvim')
   call coc#add_extension(
         \  'coc-css',
-        \  'coc-diagnostic',
         \  'coc-eslint',
         \  'coc-git',
         \  'coc-html',
@@ -67,6 +66,10 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-webpack',
         \  'coc-yaml'
         \)
+
+  " Needs configuration
+  "     \  'coc-diagnostic',
+
   " Not working
   "      \  'coc-python',
   "      \  'coc-java',
@@ -76,8 +79,6 @@ if dkoplug#IsLoaded('coc.nvim')
   let g:coc_enable_locationlist = 0
   let g:coc_snippet_next = '<C-f>'
   let g:coc_snippet_prev = '<C-b>'
-
-  autocmd dkocompletion User CocNvimInit call s:MarkExtensions()
 
   function! s:ShowDocumentation()
     if &filetype ==# 'vim'

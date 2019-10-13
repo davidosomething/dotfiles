@@ -27,6 +27,9 @@ let g:neomake_info_sign     = { 'text': '⚑', 'texthl': 'NeomakeInfoSign' }
 " Global maker settings
 " ============================================================================
 
+" Disabled css makers, migrating to coc-diagnostic
+"let g:neomake_css_enabled_makers = [ 'stylelint' ]
+
 " Disabled java makers
 " https://github.com/neomake/neomake/issues/875
 let g:neomake_java_enabled_makers = [ 'checkstyle' ]
