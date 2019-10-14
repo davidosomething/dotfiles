@@ -51,6 +51,7 @@ endif
 if dkoplug#IsLoaded('coc.nvim')
   call coc#add_extension(
         \  'coc-css',
+        \  'coc-diagnostic',
         \  'coc-eslint',
         \  'coc-git',
         \  'coc-html',
@@ -68,7 +69,6 @@ if dkoplug#IsLoaded('coc.nvim')
         \)
 
   " Not working
-  "     \  'coc-diagnostic',
   "      \  'coc-python',
   "      \  'coc-java',
   " Doesn't redraw in sync with edits

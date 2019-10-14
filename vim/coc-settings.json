@@ -50,10 +50,21 @@
   },
 
   // =========================================================================
+  // coc-css
+  // =========================================================================
+
+  // Using coc-diagnostic + stylelint instead
+  "css.validate": false,
+
+  // =========================================================================
   // coc-diagnostic
   // =========================================================================
 
-  //"diagnostic-languageserver.enable": true,
+  "diagnostic-languageserver.enable": true,
+  "diagnostic-languageserver.filetypes": {
+    "vim": "vint",
+    "css": "stylelint",
+  },
 
   // =========================================================================
   // coc-eslint

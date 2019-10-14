@@ -13,7 +13,7 @@ augroup END
 function! dko#lint#SetupNeomake() abort
   if dko#IsNonFile('%') | return | endif
   if &filetype ==# 'sh' | call dko#neomake#bash#Setup() | endif
-  if &filetype ==# 'css' | call dko#neomake#css#Setup() | endif
+  "if &filetype ==# 'css' | call dko#neomake#css#Setup() | endif
   if &filetype =~# 'javascript' | call dko#neomake#javascript#Setup() | endif
   if &filetype ==# 'lua' | call dko#neomake#lua#Setup() | endif
   if &filetype ==# 'markdown' | call dko#neomake#markdown#Setup() | endif
