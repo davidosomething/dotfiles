@@ -62,7 +62,7 @@
 
   "diagnostic-languageserver.enable": true,
   "diagnostic-languageserver.filetypes": {
-    "vim": "vint",
+    //"vim": "vint", -- coc-vimlsp instead
     "css": "stylelint",
   },
 

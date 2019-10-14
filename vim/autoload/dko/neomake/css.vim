@@ -12,11 +12,7 @@ function! dko#neomake#css#Setup() abort
         \     'cwd': dko#project#GetRoot(),
         \   }))
 
-  " let l:config = dko#project#GetFile('.sass-lint.yml')
-  " let l:config = empty(l:config) ? s:sasslint_default : l:config
-  " let b:neomake_scss_sasslint_args =
-  "      \ dko#BorG(
-  "      \   'neomake_scss_sasslint_args',
-  "      \   neomake#GetMaker('sasslint', 'scss').args
-  "      \ ) + [ '--config=' . l:config ]
+  if dkoplug#IsLoaded('coc.nvim') && expand('%:t') =~# '.module.css'
+    let b:dko_is_coc = 1
+  endif
 endfunction
