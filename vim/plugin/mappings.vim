@@ -291,6 +291,13 @@ nnoremap sd "_d
 nnoremap sD "_D
 
 " ----------------------------------------------------------------------------
+" Don't jump on first * -- simpler vim-asterisk
+" https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump#comment91750564_4257175
+" ----------------------------------------------------------------------------
+
+nnoremap * m`:<C-U>keepjumps normal! *``<CR>
+
+" ----------------------------------------------------------------------------
 " Swap comma and semicolon
 " ----------------------------------------------------------------------------
 

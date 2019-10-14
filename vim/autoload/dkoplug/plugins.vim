@@ -540,6 +540,7 @@ function! dkoplug#plugins#LoadAll() abort
   "Still slowish but better 78ms
   "Plug 'kshenoy/vim-signature'
   " Fastest 91ms
+  let g:showmarks_enable = 0 " enable manually
   let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   let g:showmarks_ignore_type = 'hpq'
   Plug 'bootleq/ShowMarks'
