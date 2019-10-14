@@ -67,10 +67,8 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-yaml'
         \)
 
-  " Needs configuration
-  "     \  'coc-diagnostic',
-
   " Not working
+  "     \  'coc-diagnostic',
   "      \  'coc-python',
   "      \  'coc-java',
   " Doesn't redraw in sync with edits

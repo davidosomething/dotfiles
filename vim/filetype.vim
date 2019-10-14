@@ -52,7 +52,7 @@ augroup filetypedetect
 
   autocmd! BufNewFile,BufRead *.md setfiletype markdown
 
-  autocmd! BufNewFile,BufRead .babelrc,.bowerrc,.jshintrc setfiletype json
+  autocmd! BufNewFile,BufRead .babelrc,.bowerrc,.jshintrc,.prettierrc setfiletype json
   autocmd! BufNewFile,BufRead *.tern-*,.tern-* setfiletype json
 
   autocmd! BufNewFile,BufRead jsconfig.json,tsconfig.json setfiletype jsonc
