@@ -482,7 +482,10 @@ function! dkoplug#plugins#LoadAll() abort
   " cannot, and it updates immediately, which coc-highlight has trouble
   " keeping up with.
 
-  Plug 'ap/vim-css-color'
+  Plug 'ap/vim-css-color', PlugIf(!has('nvim'))
+
+  Plug 'norcalli/nvim-colorizer.lua', PlugIf(has('nvim'))
+
   "Plug 'gu-fan/colorv.vim'    --  requires python
   "Plug 'chrisbra/Colorizer'  --  slower and not as complete but more features
   "                               like X11 colors and color translation for
