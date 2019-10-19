@@ -477,21 +477,17 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
   " Color highlighting
   " ==========================================================================
-  " The current choice is vim-css-color because it offers stability and
+  " The vim fallback choice is vim-css-color because it offers stability and
   " completeness. It can do multiple css colors on one line, which hexokinase
   " cannot, and it updates immediately, which coc-highlight has trouble
   " keeping up with.
 
   Plug 'ap/vim-css-color', PlugIf(!has('nvim'))
 
+  " Pure lua implementation, covers most cases and is fastest in neovim
   Plug 'norcalli/nvim-colorizer.lua', PlugIf(has('nvim'))
 
-  "Plug 'gu-fan/colorv.vim'    --  requires python
-  "Plug 'chrisbra/Colorizer'  --  slower and not as complete but more features
-  "                               like X11 colors and color translation for
-  "                               degraded terminals
-  " use signs or virtualtext to display color
-  " let g:Hexokinase_highlighters = [ 'virtual' ]
+  " let g:Hexokinase_highlighters = [ 'foreground' ]  " colorname, (), #
   " let g:Hexokinase_refreshEvents = [ 'BufEnter', 'BufWinEnter', 'BufWritePost', 'TextChanged', 'TextChangedI' ]
   " let g:Hexokinase_optInPatterns = [ 'full_hex', 'triple_hex', 'rgb', 'rgba', 'colour_names' ]
   " let g:Hexokinase_ftAutoload = [ 'css', 'html', 'javascript', 'javascript.jsx', 'xml' ]
