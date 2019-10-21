@@ -49,7 +49,12 @@ export PATH
 # Restart Docker.app and wait for daemon
 dockerrestart() {
   printf "Restarting Docker.app "
-  osascript -e 'quit app "Docker"' && open -a Docker && {
+  osascript -e 'quit app "Docker"' &
+  pid=$!
+  wait $pid
+  sleep 1
+
+  open -a Docker && {
     while ! docker info >/dev/null 2>&1 ; do
       printf "."
       sleep 1
