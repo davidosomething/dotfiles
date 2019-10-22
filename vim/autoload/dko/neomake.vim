@@ -25,8 +25,6 @@ function! dko#neomake#AddMaker(ft, maker) abort
   endtry
 endfunction
 
-" Might as well be here since echint is created for all fts
-"
 " @param {dict} settings to make an npx maker with
 " @param {mixed} [1] pass to just return the resulting dict, omit to set on b:
 " @return {dict}
