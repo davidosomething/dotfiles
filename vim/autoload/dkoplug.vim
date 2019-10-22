@@ -17,7 +17,9 @@ endfunction
 " @param  {String} name
 " @return {String} path where plugin installed
 function! dkoplug#Dir(name) abort
-  return dkoplug#Exists(a:name) ? g:plugs[a:name].dir : ''
+  let l:dir = dkoplug#Exists(a:name) ? g:plugs[a:name].dir : ''
+  let l:dir = substitute(l:dir, '/$', '', '')
+  return l:dir
 endfunction
 
 " @param  {String} name
