@@ -20,6 +20,7 @@ function! dko#lint#SetupNeomake() abort
   if &filetype ==# 'php' | call dko#neomake#php#Setup() | endif
   if &filetype ==# 'scss' | call dko#neomake#scss#Setup() | endif
   if &filetype ==# 'zsh' | let b:neomake_zsh_enabled_makers = [ 'zsh' ] | endif
+  call dko#neomake#echint#Setup()
 endfunction
 
 " runs in autocmd
