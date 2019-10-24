@@ -69,12 +69,6 @@ alias ezr='e "${ZDOTDIR}/.zshrc"'
 alias gemrm='gem uninstall --all'
 
 # ----------------------------------------------------------------------------
-# geth
-# ----------------------------------------------------------------------------
-
-alias gethsync='geth --syncmode "fast" --cache 1024 console'
-
-# ----------------------------------------------------------------------------
 # git
 # ----------------------------------------------------------------------------
 
@@ -83,7 +77,7 @@ alias g-='g checkout -'
 alias gb='g branch --verbose'
 alias gi='g ink'
 alias gg='g grep --line-number --break --heading'
-alias gl='g l --max-count 25'
+alias gl='g l --max-count 20'
 alias gm='g checkout master'
 alias gp='g push'
 alias gpo='g push origin'
@@ -138,10 +132,8 @@ alias grunt='npx grunt'
 alias n='npm'
 alias ni='n install'
 alias no='n outdated --long'
-alias nolocks='n config set package-lock false'
 alias nomod='rm -rf ./node_modules'
 alias likereallynomod='find . -type d -iname node_modules -exec rm \-rf {} \;'
-alias packwipe='rm package-lock.json.*'
 alias nr='n run'
 alias nrm="n rm"
 alias ns='n start'
@@ -152,9 +144,6 @@ alias y='yarn'
 alias yi='yarn install'
 alias yr='yarn run'
 alias yt='yarn test'
-nused() {
-  ag '(require|import).*'"$1"
-}
 
 # ----------------------------------------------------------------------------
 # php
@@ -200,6 +189,7 @@ alias shfmt='shfmt -i 2 -bn -ci -kp'
 
 # useful for finding things like INSECURE keys (acceptable: RSA 4096 or Ed25519)
 alias sshlistkeys='for keyfile in ~/.ssh/id_*; do ssh-keygen -l -f "${keyfile}"; done | uniq'
+
 # Keep this up to date with latest security best practices
 alias sshkeygen='ssh-keygen -o -a 100 -t ed25519'
 

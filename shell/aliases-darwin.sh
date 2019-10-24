@@ -22,12 +22,12 @@ alias cask='brc'
 alias ci='brc install'
 
 # ----------------------------------------------------------------------------
-# Chrome
+# Apps
 # ----------------------------------------------------------------------------
 
-alias chrome='open -a /Applications/Google\ Chrome.app'
-alias chrome-canary='open -a /Applications/Google\ Chrome\ Canary.app'
-alias chromium='open -a /Applications/Chromium.app'
+alias canary='open -a "Google Chrome Canary.app"'
+alias chrome='open -a "Google Chrome.app"'
+alias slack='open -a Slack.app'
 
 # ----------------------------------------------------------------------------
 # Redshift
