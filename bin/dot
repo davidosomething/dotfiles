@@ -70,7 +70,7 @@ __dko_dotfiles__cd() {
 __dko_dotfiles__update() {
   __dko_status "Updating dotfiles"
 
-  local lockfile="${LDOTDIR}/dotfiles.lock"
+  local lockfile="${HOME}/.local/dotfiles.lock"
   # shellcheck disable=SC2064
   trap "rm -f \"$lockfile\"" EXIT
   touch "$lockfile"
