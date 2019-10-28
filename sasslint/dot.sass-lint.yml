@@ -76,13 +76,11 @@ rules:
   no-important: 0
   no-invalid-hex: 1
   no-mergeable-selectors: 0
-  no-misspelled-properties:
-    - 2
-    - extra-properties: [osx-font-smoothing, overflow-scrolling]
+  no-misspelled-properties: 0
   no-qualifying-elements: 1
   no-trailing-zero: 2
   no-url-protocols: 0
-  no-vendor-prefixes: 1
+  no-vendor-prefixes: 0
   one-declaration-per-line: 1
   placeholder-in-extend: 1
   placeholder-name-format:
