@@ -1,9 +1,8 @@
 # shell/interactive.sh
 
 DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh[interactive] {"
-if [ -f "${HOME}/.dotfiles/local/dotfiles.lock" ]; then
+[ -f "${HOME}/.local/dotfiles.lock" ] &&
   "${DOTFILES}/shell/dko-wait-for-dotfiles-lock"
-fi
 
 # need this here in case not starting a login shell
 . "${DOTFILES}/lib/helpers.sh"

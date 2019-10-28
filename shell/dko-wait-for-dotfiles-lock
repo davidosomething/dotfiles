@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-[[ -f "${HOME}/.dotfiles/local/dotfiles.lock" ]] && {
+[[ -f "${HOME}/.local/dotfiles.lock" ]] && {
   echo -e "\033[0;33m==> Found dotfiles.lock, waiting 3 secs or press [enter] to continue"
   # shellcheck disable=SC2162
   read -t 3
-  if rm "${HOME}/.dotfiles/local/dotfiles.lock" 2>/dev/null; then
+  if rm "${HOME}/.local/dotfiles.lock" 2>/dev/null; then
     echo -e "\033[0;33m==> Force cleared dotfiles.lock. Starting shell..."
   else
     echo -e "\033[0;32m==> Successfully cleared dotfiles.lock. Starting shell..."

@@ -18,8 +18,6 @@ export NPM_CONFIG_STRICT_SSL="TRUE"
 export NPM_CONFIG_MESSAGE="Cut %s (via npm version)"
 export NPM_CONFIG_SIGN_GIT_TAG="TRUE"
 
-# more user overrides in ~/.dotfiles/local/{bash,zsh}rc
-
 # ============================================================================
 # npmrc
 # ============================================================================
