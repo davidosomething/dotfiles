@@ -88,6 +88,12 @@ if dkoplug#IsLoaded('coc.nvim')
 
   inoremap <silent><expr> <C-Space> coc#refresh()
 
+  " Function textobjs
+  xmap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap if <Plug>(coc-funcobj-i)
+  omap af <Plug>(coc-funcobj-a)
+
   nmap <silent> <Leader>d <Plug>(coc-diagnostic-info)
   nmap <silent> ]d <Plug>(coc-diagnostic-next)
   nmap <silent> [d <Plug>(coc-diagnostic-prev)
@@ -111,6 +117,9 @@ if dkoplug#IsLoaded('coc.nvim')
         \ nmap <silent> <A-=>
         \   :<C-u>CocCommand prettier.formatFile<CR>
         "\   :CocCommand eslint.executeAutofix<CR>
+
+  autocmd dkocompletion FileType css,less,scss
+        \ let b:coc_additional_keywords = ['-']
 
   " coc-git
   nmap [g <Plug>(coc-git-prevchunk)
