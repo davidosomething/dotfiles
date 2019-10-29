@@ -321,6 +321,7 @@ function! dkoline#Init() abort
         \   'BufEnter *',
         \   'FileType *',
         \   'WinEnter *',
+        \   'User CocDiagnosticChange',
         \   'User NeomakeCountsChanged',
         \   'User NeomakeFinished',
         \ ]
