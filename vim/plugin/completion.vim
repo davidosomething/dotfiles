@@ -27,7 +27,6 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-pyright',
         \  'coc-snippets',
         \  'coc-solargraph',
-        \  'coc-syntax',
         \  'coc-tsserver',
         \  'coc-vimlsp',
         \  'coc-webpack',
