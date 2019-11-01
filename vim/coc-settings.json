@@ -109,7 +109,9 @@
   // =========================================================================
 
   "typescript.preferences.quoteStyle": "single",
+  "typescript.updateImportsOnFileMove.enable": false,
 
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
   "javascript.preferences.quoteStyle": "single",
-  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true
+  "javascript.updateImportsOnFileMove.enable": false,
 }
