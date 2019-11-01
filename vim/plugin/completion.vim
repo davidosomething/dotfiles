@@ -29,7 +29,6 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-solargraph',
         \  'coc-tsserver',
         \  'coc-vimlsp',
-        \  'coc-webpack',
         \  'coc-yaml'
         \)
 
