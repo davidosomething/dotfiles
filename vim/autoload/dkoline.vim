@@ -39,11 +39,13 @@ function! dkoline#GetTabline() abort
         \ '%#dkoStatusKey# ʟᴄᴅ %(%#dkoStatusValue#%<',
         \ '%)')
 
-  let l:contents .= dkoline#Format(
-        \ dkoline#GitBranch(l:view),
-        \ '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
-        \ '%)'
-        \)
+  let l:contents .= !empty(get(g:, 'coc_git_status', ''))
+        \ ? '%#dkoStatusKey# ' . g:coc_git_status . ' '
+        \ : dkoline#Format(
+        \     dkoline#GitBranch(l:view),
+        \     '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
+        \     '%)'
+        \   )
 
   " ==========================================================================
 
