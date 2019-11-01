@@ -195,10 +195,10 @@ function! dkoplug#plugins#LoadAll() abort
 
   " --------------------------------------------------------------------------
   " Snippet engine
+  " Now using coc-snippets
   " --------------------------------------------------------------------------
 
-  Plug 'Shougo/neosnippet', WithCompl()
-  Plug 'Shougo/neosnippet-snippets', WithCompl()
+  " Provides some ultisnips snippets for use with neosnippet or coc-snippets
   Plug 'honza/vim-snippets', WithCompl()
 
   " --------------------------------------------------------------------------
@@ -206,16 +206,6 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
 
   Plug 'neoclide/coc.nvim', WithCompl({ 'branch': 'release' })
-
-  " --------------------------------------------------------------------------
-  " Completion libraries
-  " --------------------------------------------------------------------------
-
-  " Include completion, include tags
-  " For what langs are supported, see:
-  " https://github.com/Shougo/neoinclude.vim/blob/master/autoload/neoinclude.vim
-  Plug 'Shougo/neoinclude.vim', WithCompl()
-  Plug 'jsfaint/coc-neoinclude'
 
   " ==========================================================================
   " Multiple languages

@@ -41,8 +41,9 @@ if dkoplug#IsLoaded('coc.nvim')
   "\  'coc-highlight',
 
   let g:coc_enable_locationlist = 0
-  let g:coc_snippet_next = '<C-f>'
-  let g:coc_snippet_prev = '<C-b>'
+  let g:coc_snippet_next = '' "'<C-f>'
+  let g:coc_snippet_prev = '' "'<C-b>'
+  imap <C-f> <Plug>(coc-snippets-expand-jump)
 
   function! s:ShowDocumentation()
     if &filetype ==# 'vim'
