@@ -58,7 +58,7 @@ is generally a wrapper around them that checks for
 
 #### Super-non-standard keys
 
-- `<C-f>` -- Expand neosnippet. I use `<C-u>`/`<C-d>` to jump pages instead.
+- `<C-f>` -- Expand snippet. I use `<C-u>`/`<C-d>` to jump pages instead.
 - `gs` no longer sleeps. It's an operator prefix for vim-operator-surround.
 
 #### Function Keys
