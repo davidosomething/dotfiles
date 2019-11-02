@@ -35,10 +35,10 @@ __install() {
   fi
 
   __dko_status "Updating global pip"
-  pip install --upgrade pip
+  python -m pip install --upgrade pip
 
   __dko_status "Updating global pip requirements"
-  pip install --upgrade --requirement "${DOTFILES}/python/requirements.txt"
+  python -m pip install --upgrade --requirement "${DOTFILES}/python/requirements.txt"
 }
 
 __install "$@"
