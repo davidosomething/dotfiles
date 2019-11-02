@@ -163,6 +163,8 @@ alias py2='python2'
 alias py3='python3'
 alias py='python'
 
+# https://snarky.ca/why-you-should-use-python-m-pip/
+alias pip='python -m pip'
 alias pir='pip install --requirement=requirements.txt'
 
 alias getsubs="subliminal download -p opensubtitles -p shooter -p subscenter -p thesubdb -p tvsubtitles --language en "
