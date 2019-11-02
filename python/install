@@ -18,7 +18,7 @@ export PATH="${DOTFILES}/bin:${PATH}"
 
 __install() {
   # Make sure not using system python and pip
-  if pip --version | grep -q /usr/lib; then
+  if python -m pip --version | grep -q /usr/lib; then
     __dko_err  "System pip detected, not running. Use a userspace python's pip."
     exit 1
   fi

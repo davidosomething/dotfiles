@@ -28,7 +28,7 @@ Keep `(g)vimrc` (no dot in filename) in `~/.vim/` -- Vim knows to look in there.
 - Using `pyenv`, install python 3+.
 - Set up a virtualenv using `pyenv-virtualenv`: `pyenv virtualenv neovim3`
 - Activate the virtualenv `pyenv activate neovim3`
-- `pip install pynvim` in the virtualenv
+- `python -m pip install pynvim` in the virtualenv
 - You can now switch back to whatever python (`pyenv deactivate`) you want,
   `init.vim` for Neovim startup is already configured to find the `neovim3`
   virtualenv.
