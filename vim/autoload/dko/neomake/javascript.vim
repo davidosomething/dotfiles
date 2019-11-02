@@ -1,5 +1,6 @@
 " autoload/dko/neomake/javascript.vim
 
+" For 'javascript' and 'javascriptreact'
 " Hook for BufWinEnter *
 " Sets b:neomake_javascript_enabled_makers based on what is present in the
 " project
@@ -62,6 +63,6 @@ function! dko#neomake#javascript#Setup() abort
     let b:neomake_javascript_enabled_makers += [ 'eslint' ]
   endif
 
-  let b:neomake_javascript_jsx_enabled_makers =
+  let b:neomake_javascriptreact_enabled_makers =
         \ b:neomake_javascript_enabled_makers
 endfunction

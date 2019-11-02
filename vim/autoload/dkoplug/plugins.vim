@@ -477,12 +477,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Pure lua implementation, covers most cases and is fastest in neovim
   Plug 'norcalli/nvim-colorizer.lua', PlugIf(has('nvim'))
 
-  " let g:Hexokinase_highlighters = [ 'foreground' ]  " colorname, (), #
-  " let g:Hexokinase_refreshEvents = [ 'BufEnter', 'BufWinEnter', 'BufWritePost', 'TextChanged', 'TextChangedI' ]
-  " let g:Hexokinase_optInPatterns = [ 'full_hex', 'triple_hex', 'rgb', 'rgba', 'colour_names' ]
-  " let g:Hexokinase_ftAutoload = [ 'css', 'html', 'javascript', 'javascript.jsx', 'xml' ]
-  "Plug 'RRethy/vim-hexokinase'
-
   " ==========================================================================
   " Language: .tmux.conf
   " ==========================================================================

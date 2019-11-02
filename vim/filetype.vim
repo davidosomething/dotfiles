@@ -38,9 +38,6 @@ augroup filetypedetect
 
   autocmd! BufNewFile,BufRead *.dump setfiletype sql
   autocmd! BufNewFile,BufRead .flake8 setfiletype dosini
-  autocmd! BufNewFile,BufRead *.gradle setfiletype groovy
-
-  autocmd! BufNewFile,BufRead *.gitconfig setfiletype gitconfig
 
   " git branch description (opened via `git branch --edit-description`)
   autocmd! BufNewFile,BufRead BRANCH_DESCRIPTION
@@ -50,31 +47,33 @@ augroup filetypedetect
   autocmd! BufNewFile,BufRead *.marko setfiletype html.marko
   autocmd! BufNewFile,BufRead *.template setfiletype html
 
-  autocmd! BufNewFile,BufRead *.md setfiletype markdown
-
-  autocmd! BufNewFile,BufRead .babelrc,.bowerrc,.jshintrc,.prettierrc setfiletype json
+  autocmd! BufNewFile,BufRead .babelrc,.bowerrc,.jshintrc setfiletype json
   autocmd! BufNewFile,BufRead *.tern-*,.tern-* setfiletype json
 
   autocmd! BufNewFile,BufRead jsconfig.json,tsconfig.json setfiletype jsonc
 
   autocmd! BufNewFile,BufRead .eslintrc,.stylelintrc call s:SetJSONorYAML()
 
-  " Force javascript.jsx and typescript.tsx for coc.nvim tsserver to
-  " distinguish feature set
-  autocmd! BufNewFile,BufRead *.js,*.jsx setfiletype javascript.jsx
-  autocmd! BufNewFile,BufRead *.tsx setfiletype typescript.tsx
-
   autocmd! BufNewFile,BufRead */nginx*.conf,/*/nginx*.conf setfiletype nginx
 
   autocmd! BufNewFile,BufRead *.plist setfiletype xml
 
-  " polkit rules files
-  autocmd! BufNewFile,BufRead *.rules setfiletype javascript
-
-  autocmd! BufNewFile,BufRead Brewfile setfiletype ruby
-
   " ironic that it doesn't use a .yml/.yaml extension
   autocmd! BufNewFile,BufRead .yamllint setfiletype yaml
-
-  autocmd! BufNewFile,BufRead .zprofile setfiletype zsh
 augroup END
+
+" most of these are added to $VIMRUNTIME/filetype.vim now
+if v:version < 800
+  augroup filetypedetect
+    autocmd! BufNewFile,BufRead *.gradle setfiletype groovy
+    autocmd! BufNewFile,BufRead *.md setfiletype markdown
+
+    autocmd! BufNewFile,BufRead *.js,*.jsx setfiletype javascriptreact
+    autocmd! BufNewFile,BufRead *.tsx setfiletype typescriptreact
+
+    " polkit rules files
+    autocmd! BufNewFile,BufRead *.rules setfiletype javascript
+
+    autocmd! BufNewFile,BufRead .zprofile setfiletype zsh
+  augroup END
+endif
