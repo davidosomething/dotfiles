@@ -143,7 +143,7 @@ __dko_dotfiles__update_daily() {
     __dko_warn "pyenv not found"
   else
     __dko_dotfiles__py__update_pyenv
-    __dko_dotfiles__py__update_pip "python -m pip"
+    __dko_dotfiles__py__update_pip
     __dko_dotfiles__py__update_neovim_python
   fi
 }
@@ -383,13 +383,12 @@ __dko_dotfiles__py__update_pyenv() {
 
 # $1 pip command (e.g. `pip2`)
 __dko_dotfiles__py__update_pip() {
-  local pip_command=${1:-"python -m pip"}
-  __dko_status "Updating $pip_command"
-  ! __dko_has "$pip_command" &&
-    __dko_warn "${pip_command} not found" && return 1
-  "$pip_command" install --upgrade setuptools || return 1
-  "$pip_command" install --upgrade pip || return 1
-  "$pip_command" install --upgrade \
+  __dko_status "Updating pip"
+  ! python -m pip --version >/dev/null 2>&1 &&
+    __dko_warn "pip not found" && return 1
+  python -m pip install --upgrade setuptools || return 1
+  python -m pip install --upgrade pip || return 1
+  python -m pip install --upgrade \
     --requirement "${DOTFILES}/python/requirements.txt"
 }
 
@@ -691,7 +690,7 @@ __dko_dotfiles() {
   go) __dko_dotfiles__go__update_go_packages ;;
   node) __dko_dotfiles__update_node "$2" ;;
   nvm) __dko_dotfiles__node__update_nvm ;;
-  pip) __dko_dotfiles__py__update_pip "python -m pip" ;;
+  pip) __dko_dotfiles__py__update_pip ;;
   pyenv) __dko_dotfiles__py__update_pyenv ;;
   neopy) __dko_dotfiles__py__update_neovim_python ;;
   wpcs) __dko_dotfiles__php__update_wpcs ;;
