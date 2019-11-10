@@ -20,6 +20,10 @@ if !has('nvim-0.4')
   augroup END
 endif
 
+if exists('g:fvim_loaded')
+  set termguicolors
+endif
+
 " ============================================================================
 " Settings
 " ============================================================================
@@ -140,7 +144,7 @@ let s:pyenv_py3 = s:FindExecutable([
 if !empty(s:pyenv_py3)
   let g:python3_host_prog = s:pyenv_py3
 else
-  let g:loaded_python3_provider = !exists('g:fvim_loaded')
+  let g:loaded_python3_provider = !exists('g:fvim_loaded') ? 2 : 0
 endif
 
 " =============================================================================

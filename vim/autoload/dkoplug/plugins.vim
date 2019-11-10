@@ -477,7 +477,9 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'ap/vim-css-color', PlugIf(!has('nvim'))
 
   " Pure lua implementation, covers most cases and is fastest in neovim
-  Plug 'norcalli/nvim-colorizer.lua', PlugIf(has('nvim') && &termguicolors)
+  Plug 'norcalli/nvim-colorizer.lua', PlugIf(
+        \ has('nvim') && exists('&termguicolors')
+        \)
 
   " ==========================================================================
   " Language: .tmux.conf
