@@ -140,7 +140,7 @@ let s:pyenv_py3 = s:FindExecutable([
 if !empty(s:pyenv_py3)
   let g:python3_host_prog = s:pyenv_py3
 else
-  let g:loaded_python3_provider = 2
+  let g:loaded_python3_provider = !exists('g:fvim_loaded')
 endif
 
 " =============================================================================
