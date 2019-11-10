@@ -18,8 +18,9 @@
 
 ## Installation
 
-Best used with rest of dotfiles. Should self-install plugins via curl and
-[vim-plug] on first load.
+Best used with rest of dotfiles. `coc/extensions/dot.npmrc` will enforce using
+the main npmjs package registry. Commands in `.vimrc` will auto-install
+plugins if curl is available.
 
 Keep `(g)vimrc` (no dot in filename) in `~/.vim/` -- Vim knows to look in there.
 
