@@ -104,13 +104,16 @@
   "prettier.statusItemText": "<ᴀ-=> ᴘʀᴇᴛᴛɪᴇʀ",
 
   // =========================================================================
-  // coc-tssserver
+  // coc-tssserver - typescript typings support, js and ts lang server
+  // Validation is disabled in favor of coc-eslint
   // https://github.com/neoclide/coc-tsserver#configuration-options
   // =========================================================================
 
+  "typescript.validate.enable": false,
   "typescript.preferences.quoteStyle": "single",
   "typescript.updateImportsOnFileMove.enable": false,
 
+  "javascript.validate.enable": false,
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
   "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enable": false,
