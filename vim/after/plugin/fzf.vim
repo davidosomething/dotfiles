@@ -161,7 +161,7 @@ let s:grepper_half = fzf#vim#with_preview(
       \   '?'
       \ )
 
-if dko#GetGrepper().command ==# 'rg'
+if dko#grepper#Get().command ==# 'rg'
   command! -bang -nargs=* FZFGrepper
         \ call fzf#vim#grep(
         \   'rg --color=always --column --line-number --no-heading '
@@ -173,7 +173,7 @@ if dko#GetGrepper().command ==# 'rg'
         \   <bang>0 ? s:grepper_full : s:grepper_half,
         \   <bang>0
         \ )
-elseif dko#GetGrepper().command ==# 'ag'
+elseif dko#grepper#Get().command ==# 'ag'
   " @see https://github.com/junegunn/fzf.vim/blob/abdf894edf5dbbe8eaa734a6a4dce39c9f174e33/autoload/fzf/vim.vim#L614
   " Default options are --nogroup --column --color
   let s:ag_options = ' --skip-vcs-ignores --smart-case '
