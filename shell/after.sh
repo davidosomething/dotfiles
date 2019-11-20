@@ -15,11 +15,11 @@ __dko_prefer 'nvim' && {
   export EDITOR='nvim'
   export VISUAL='nvim'
 
-  __dko_prefer 'nvr' && {
-    e() {
-      PYTHONWARNINGS=ignore nvr -s "$@"
-    }
-  }
+  # __dko_prefer 'nvr' && {
+  #   e() {
+  #     PYTHONWARNINGS=ignore nvr -s "$@"
+  #   }
+  # }
 }
 
 # ============================================================================
