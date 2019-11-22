@@ -58,6 +58,12 @@ Bundle dumps for specific systems are in my `~/.secret` (not public).
 
 `./compile dotfiles.plist.json` generates the `dotfiles.plist` file in the
 `mac/LaunchAgents` directory. It depends on the `plist` package from npm.
+Redirect the compiled output to the plist file to update.
+There is a limitation that it uses `$HOME/.dotfiles` instead of `$DOTFILES`
+so you may want to edit (e.g. hardcode) the dotfiles path if you changed it.
+
+The bootstrap script symlinks the plist. You'll have to manually use
+`launchctl` command to load it and reboot to start it if you opt in.
 
 See homebrew notes in [brew.md](brew.md) for other formulae I install.
 
