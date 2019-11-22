@@ -120,6 +120,8 @@ nnoremap <special> <A-j>      <C-w>j
 nnoremap <special> <A-h>      <C-w>h
 nnoremap <special> <A-l>      <C-w>l
 
+nnoremap <special> <Leader>vt :<C-U>vsplit term://$SHELL<CR>A
+
 " ============================================================================
 " Python setup
 " Skips if python is not installed in a pyenv virtualenv

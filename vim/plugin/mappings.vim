@@ -90,7 +90,7 @@ nnoremap  <special>   <Leader>mk  :<C-U>lmake!<CR>
 " Buffer manip
 " ============================================================================
 
-nnoremap <special>  <Leader>v :<C-U>vnew<CR>
+nnoremap <special>  <Leader>vn :<C-U>vnew<CR>
 
 " ----------------------------------------------------------------------------
 " Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)
