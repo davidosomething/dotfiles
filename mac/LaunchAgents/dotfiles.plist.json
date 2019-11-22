@@ -1,9 +1,10 @@
 {
-  "Label": "davidosomething.dotfiles.gnupg",
+  "Label": "davidosomething.dotfiles.env",
   "ProgramArguments": [
     "sh",
     "-c",
-    "launchctl setenv GNUPGHOME \"${HOME}/.config/gnupg\""
+    "launchctl setenv GNUPGHOME \"${HOME}/.config/gnupg\"",
+    "launchctl setenv KITTY_CONFIG_DIRECTORY \"${HOME}/.dotfiles/kitty\""
   ],
   "KeepAlive": false,
   "RunAtLoad": true

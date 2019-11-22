@@ -3,14 +3,13 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>davidosomething.dotfiles.gnupg</string>
+    <string>davidosomething.dotfiles.env</string>
     <key>ProgramArguments</key>
     <array>
       <string>sh</string>
       <string>-c</string>
-      <string>
-        launchctl setenv GNUPGHOME "${HOME}/.config/gnupg"
-      </string>
+      <string>launchctl setenv GNUPGHOME "${HOME}/.config/gnupg"</string>
+      <string>launchctl setenv KITTY_CONFIG_DIRECTORY "${HOME}/.dotfiles/kitty"</string>
     </array>
     <key>KeepAlive</key>
     <false/>
