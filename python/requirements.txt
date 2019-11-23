@@ -6,7 +6,7 @@ flake8-docstrings==1.5.0
 flake8-import-order==0.18.1
 flake8-quotes==2.1.1
 pynvim==0.4.0
-neovim-remote==2.3.0
+neovim-remote==2.3.2
 pycodestyle==2.5.0
 pydocstyle==4.0.1
 pyflakes==2.1.1
