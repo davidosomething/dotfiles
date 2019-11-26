@@ -1,4 +1,4 @@
-Pygments==2.4.2
+Pygments==2.5.0
 bashate==0.6.0
 flake8==3.7.9
 flake8-commas==2.0.0
