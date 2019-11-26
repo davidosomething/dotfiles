@@ -8,18 +8,11 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 # ============================================================================
 
 __dko_prefer 'nvim' && {
-  e() {
-    nvim "$@"
-  }
-
   export EDITOR='nvim'
   export VISUAL='nvim'
+  alias e='$EDITOR'
 
-  __dko_prefer 'nvr' && {
-    e() {
-      PYTHONWARNINGS=ignore nvr -s "$@"
-    }
-  }
+  __dko_prefer 'nvr' && alias e='nvr -s'
 }
 
 # ============================================================================
