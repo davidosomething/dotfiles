@@ -162,8 +162,9 @@ export MYSQL_HISTFILE="${XDG_CACHE_HOME}/mysql_histfile"
 # node moved to shell/node loaded in shell/before
 
 # neovim
-#export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
-export NVIM_LISTEN_ADDRESS="${HOME}/.local/nvimsocket"
+export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
+export NVIM_LISTEN_ADDRESS=localhost:90210
+#"${HOME}/.local/nvimsocket"
 
 # php moved to shell/php loaded in shell/before
 
