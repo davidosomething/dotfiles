@@ -12,7 +12,7 @@ __dko_prefer 'nvim' && {
   export VISUAL='nvim'
   alias e='$EDITOR'
 
-  #__dko_prefer 'nvr' && alias e='nvr --attach-retry=60 -s'
+  __dko_prefer 'nvr' && alias e='nvr -s'
 }
 
 # ============================================================================

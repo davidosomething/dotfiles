@@ -451,7 +451,13 @@ augroup END
 
 augroup dkolines
   autocmd!
-  autocmd VimEnter * nested call dkoline#Init()
+  if dkoplug#IsLoaded('coc.nvim')
+    autocmd User CocNvimInit ++nested call dkoline#Init()
+  elseif has('nvim')
+    autocmd VimEnter * ++nested call dkoline#Init()
+  else
+    autocmd VimEnter * nested call dkoline#Init()
+  endif
 augroup END
 
 augroup dkoproject
