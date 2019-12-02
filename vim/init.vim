@@ -20,8 +20,20 @@ if !has('nvim-0.4')
   augroup END
 endif
 
+" ============================================================================
+" GUI editors
+" ============================================================================
+
 if exists('g:fvim_loaded')
   set termguicolors
+elseif exists('g:vv')
+  VVset windowheight=100%
+  VVset windowwidth=40%
+  VVset windowleft=0
+  VVset windowtop=0
+  VVset fontfamily=FuraMonoNerdFontCompleteM-Medium
+  VVset fontsize=13
+  VVset lineheight=1.42
 endif
 
 " ============================================================================
