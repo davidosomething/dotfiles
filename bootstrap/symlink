@@ -75,10 +75,6 @@ __symlink() {
   dko-symlink "hyper-app/dot.hyper.js" \
     ".hyper.js"
 
-  # default ~/.tern-config
-  dko-symlink "ternjs/dot.tern-config" \
-    ".tern-config"
-
   case "$OSTYPE" in
   *arwin*)
     dko-symlink "mac/hammerspoon" \

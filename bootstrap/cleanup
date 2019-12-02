@@ -119,7 +119,8 @@ __remove "${HOME}/.gitconfig"
 __remove "${HOME}/.gitignore"
 # should be in .local; probably created on ZSH startup
 __remove "${HOME}/.wget-hsts"
-# should be .tern-config
+# stopped using tern
+__remove "${HOME}/.tern-config"
 __remove "${HOME}/.tern-project"
 # should be ~/.config/tldr
 __remove "${HOME}/.tldr"
