@@ -25,6 +25,9 @@ fi
 # ZSH settings
 # ============================================================================
 
+# XDG dirs are defined here
+. "${HOME}/.dotfiles/shell/vars.sh"
+
 # using prompt expansion and modifiers to get
 #   realpath(dirname(absolute path to this file)
 #   https://github.com/filipekiss/dotfiles/commit/c7288905178be3e6c378cc4dea86c1a80ca60660#r29121191

@@ -247,7 +247,7 @@ if [[ "$0" == *"zsh" ]]; then
   # --------------------------------------------------------------------------
 
   zstyle ':completion:*' use-cache true
-  zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/.zcache"
+  zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
 
   # --------------------------------------------------------------------------
   # Completion: Display
