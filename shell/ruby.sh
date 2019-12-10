@@ -6,10 +6,12 @@ export DKO_RUBIES="${XDG_DATA_HOME}/rubies"
 
 export GEMRC="${DOTFILES}/ruby/gemrc"
 
-# Ruby use brew openssl if available
-openssl_dir="${DKO_BREW_PREFIX}/opt/openssl"
-[ -d "$openssl_dir" ] &&
-  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${openssl_dir}"
+if [ "$DOTFILES_OS" = 'Darwin' ]; then
+  # Ruby use brew openssl if available
+  openssl_dir="${DKO_BREW_PREFIX}/opt/openssl"
+  [ -d "$openssl_dir" ] &&
+    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${openssl_dir}"
+fi
 
 # auto bundle exec to use gems in current ruby
 # see https://github.com/rvm/rubygems-bundler#note-for-rubygems--220

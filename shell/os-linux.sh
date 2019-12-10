@@ -21,17 +21,6 @@ OpenBSD) export DOTFILES_OS="OpenBSD" ;;
     export DOTFILES_DISTRO="debian"
   elif [ -f "/etc/arch-release" ]; then
     export DOTFILES_DISTRO="archlinux"
-
-    # for arch wiki lite, intentionally lowercase
-    export wiki_browser="chromium"
-
-    # On ArchLinux, GDM sources the user .Xresources with `-nocpp` so none of the
-    # includes are processed. Do a real load here (and leave /etc/gdm/Xsession
-    # alone).
-    # Setting $XENVIRONMENT is an option, but the -I flag here is more useful.
-    # This also lets me keep .Xresources out of ~/
-    [ -n "$DISPLAY" ] && __dko_has "xrdb" &&
-      xrdb -merge -I"$DOTFILES" "${DOTFILES}/linux/xresources/.Xresources"
   fi
   ;;
 esac
