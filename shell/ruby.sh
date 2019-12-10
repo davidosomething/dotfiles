@@ -2,6 +2,7 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
 
+# Used in local config, add to the RUBIES array
 export DKO_RUBIES="${XDG_DATA_HOME}/rubies"
 
 export GEMRC="${DOTFILES}/ruby/gemrc"
