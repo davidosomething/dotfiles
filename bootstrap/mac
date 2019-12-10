@@ -3,6 +3,8 @@
 # Idempotently set up mac OS
 #
 
+[ "$DOTFILES_OS" = 'Darwin' ] || exit 1
+
 # ============================================================================
 # initialize script and dependencies
 # ============================================================================
@@ -20,15 +22,38 @@ export PATH="${DOTFILES}/bin:${PATH}"
 __dko_require 'brew' || exit 1
 __dko_require 'xcrun' || exit 1
 
-headers=/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg
-if [ ! -f "$headers" ]; then
-  xcode-select --install
+_bootstrap_sdks() {
+  local product_version
+  local product_minor
+  local headers
+  local sdk
+
+  product_version="$(sw_vers -productVersion)"
+  product_minor="${product_version%.*}"
+  headers="/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_${product_minor}.pkg"
   if [ ! -f "$headers" ]; then
-    __dko_err "Incomplete installation of xcode command line tools detected."
-    __dko_err_ "Download from https://developer.apple.com/download/more/"
-    exit 1
+    xcode-select --install
+    if [ ! -f "$headers" ]; then
+      __dko_err "Incomplete installation of xcode command line tools detected."
+      __dko_err_ "Download from https://developer.apple.com/download/more/"
+      return 1
+    fi
   fi
-fi
+
+  # See https://github.com/pyenv/pyenv/issues/1219#issuecomment-428700763
+  # Xcode Command Line tools no longer installs needed headers in /include
+  # https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes
+  sdk=$(xcrun --show-sdk-path)
+  if [ ! -d "$sdk" ] || [ ! -d "/usr/include" ]; then
+    __dko_status "Installing SDK headers..."
+    sudo installer -allowUntrusted -pkg "$headers" -target / || {
+      __dko_warn "Could not install SDK headers"
+    }
+  else
+    __dko_ok "Found SDK headers"
+  fi
+}
+_bootstrap_sdks || exit 1
 
 "${DOTFILES}/bootstrap/symlink" || exit 1
 "${DOTFILES}/bootstrap/cleanup" || exit 1
@@ -51,17 +76,6 @@ else
   __dko_ok "/etc/zshenv not present"
 fi
 
-# See https://github.com/pyenv/pyenv/issues/1219#issuecomment-428700763
-# Xcode Command Line tools no longer installs needed headers in /include
-# https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes
-sdk=$(xcrun --show-sdk-path)
-if [ ! -d "$sdk" ] || [ ! -d "/usr/include" ]; then
-  __dko_status "SDK headers not found. Installing"
-  sudo installer -pkg "$headers" -target /
-else
-  __dko_ok "Found SDK headers"
-fi
-
 __dko_status "Brewing"
 [ -z "$DKO_BREW_PREFIX" ] && . "${DOTFILES}/shell/os-darwin"
 # prefer homebrew/cask-fonts
@@ -72,21 +86,27 @@ __dko_status "Installing fzf shell extensions"
 "${DOTFILES}/bin/dot" fzf
 
 # https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/
-__dko_status "Setting user shell to brewed zsh using dscl"
-usershell="$(dscl . -read "/Users/${USER}" UserShell)"
-if [[ "$usershell" == "UserShell: ${DKO_BREW_PREFIX}/bin/zsh" ]]; then
-  __dko_ok "Already using brewed zsh"
-else
-  if [ -x "${DKO_BREW_PREFIX}/bin/zsh" ]; then
-    sudo dscl . -create "/Users/${USER}" UserShell "${DKO_BREW_PREFIX}/bin/zsh"
+_bootstrap_shell() {
+  local usershell
+  local zshpath
+  __dko_status "Setting user shell to brewed zsh using dscl"
+
+  zshpath="${DKO_BREW_PREFIX}/bin/zsh"
+  usershell="$(dscl . -read "/Users/${USER}" UserShell)"
+  if [[ "$usershell" == "UserShell: ${zshpath}" ]]; then
+    __dko_ok "Already using brewed zsh"
   else
-    __dko_warn "Could not update the user's shell to ${DKO_BREW_PREFIX}/bin/zsh"
-    __dko_warn_ "Check the brew installation and refer to"
-    __dko_warn_ "https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/"
+    if [ -x "${zshpath}" ]; then
+      sudo dscl . -create "/Users/${USER}" UserShell "${zshpath}"
+    else
+      __dko_warn "Could not update the user's shell to ${zshpath}"
+      __dko_warn_ "Check the brew installation and refer to"
+      __dko_warn_ "https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/"
+    fi
   fi
-fi
+}
+_bootstrap_shell
 
 # ============================================================================
 
-__dko_ok "SUCCESS"
 __dko_status "Restart your terminal"
