@@ -5,7 +5,7 @@
 . "${DOTFILES}/lib/pretty.bash"
 
 [[ -d "$PYENV_ROOT" ]] && eval "$(pyenv init -)"
-[[ -n "$NVM_DIR" ]] && __dko_source "${NVM_DIR}/nvm.sh"
+[[ -s "${NVM_DIR}/nvm.sh" ]] && __dko_source "${NVM_DIR}/nvm.sh"
 
 # ==============================================================================
 
@@ -108,7 +108,7 @@ __dko_dotfiles__update_daily() {
     __dko_warn "fzf is not installed"
   fi
 
-  if __dko_dotfiles__node__require_nvm --silent; then
+  if __dko_dotfiles__node__require_nvm; then
     __dko_dotfiles__node__update_nvm
   else
     __dko_warn "NVM not found, skipping update NVM"
@@ -281,10 +281,14 @@ __dko_dotfiles__node__require_nvm() {
     return 1
   fi
 
-  if (($# == 0)) && [[ ! -d "$NVM_DIR" ]]; then
+  if (($# == 0)) && [[ ! -d "${NVM_DIR}/.git" ]]; then
     __dko_status "Installing nvm"
+    rm "${NVM_DIR}/default-packages"
     git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR" ||
       { __dko_err "Could not install nvm" && return 1; }
+    dko-symlink "node/default-packages" \
+      "${NVM_DIR}/default-packages"
+    [[ -s "${NVM_DIR}/nvm.sh" ]] && __dko_source "${NVM_DIR}/nvm.sh"
   fi
 }
 
