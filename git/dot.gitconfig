@@ -132,6 +132,10 @@
 
 # ============================================================================
 
+[includeIf "gitdir:/Users/"]
+	path = "~/.dotfiles/git/mac.gitconfig"
+	path = "~/.dotfiles/git/kaleidoscope.gitconfig"
+
 [include]
 	path = "~/.dotfiles/local/gitconfig"
 
