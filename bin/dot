@@ -284,8 +284,13 @@ __dko_dotfiles__node__require_nvm() {
   if (($# == 0)) && [[ ! -d "${NVM_DIR}/.git" ]]; then
     __dko_status "Installing nvm"
     rm "${NVM_DIR}/default-packages"
+
     git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR" ||
       { __dko_err "Could not install nvm" && return 1; }
+    pushd "$NVM_DIR" || return 1
+    git checkout "$(git describe --abbrev=0 --tags --match "v[0-9]*" "$(git rev-list --tags --max-count=1)")"
+    popd || return 1
+
     dko-symlink "node/default-packages" \
       "${NVM_DIR}/default-packages"
     [[ -s "${NVM_DIR}/nvm.sh" ]] && __dko_source "${NVM_DIR}/nvm.sh"
