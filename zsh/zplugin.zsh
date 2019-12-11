@@ -63,7 +63,7 @@ zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 # as of v4.0 use ZSH/zpty module to async retrieve
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
-zplugin lucid wait atload'_zsh_autosuggest_start'
+zplugin lucid wait'1' atload'_zsh_autosuggest_start'
 zplugin load 'zsh-users/zsh-autosuggestions'
 # clear the suggestion when entering completion select menu
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('expand-or-complete')
@@ -72,12 +72,8 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('expand-or-complete')
 # Vendor: Completion
 # ----------------------------------------------------------------------------
 
-zplugin blockf lucid wait
+zplugin lucid wait blockf atpull'zplugin creinstall -q .'
 zplugin load 'zsh-users/zsh-completions'
-
-zplugin lucid wait
-zplugin light 'voronkovich/phpcs.plugin.zsh'
-
 
 [[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] \
   && {
@@ -89,7 +85,7 @@ zplugin light 'voronkovich/phpcs.plugin.zsh'
 # Syntax last, and compinit before it
 # ----------------------------------------------------------------------------
 
-zplugin lucid wait'1' atinit'zpcompinit; zpcdreplay'
+zplugin lucid wait'1' atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
 zplugin load 'zdharma/fast-syntax-highlighting'
 
 export DKO_SOURCE="${DKO_SOURCE} }"
