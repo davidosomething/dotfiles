@@ -108,44 +108,23 @@ __dko_dotfiles__update_daily() {
     __dko_warn "fzf is not installed"
   fi
 
-  if __dko_dotfiles__node__require_nvm; then
-    __dko_dotfiles__node__update_nvm
-  else
-    __dko_warn "NVM not found, skipping update NVM"
-  fi
+  __dko_dotfiles__node__require_nvm && __dko_dotfiles__node__update_nvm
 
-  if __dko_dotfiles__go__require_go --silent; then
-    __dko_dotfiles__go__update_go_packages
-  else
-    __dko_warn "Go not found, skipping update Go dependencies"
-  fi
+  __dko_dotfiles__go__require_go && __dko_dotfiles__go__update_go_packages
 
-  if ! __dko_dotfiles__ruby__require_chruby --silent; then
-    __dko_warn "Chruby not found, skipping update ruby gems"
-  elif ! __dko_dotfiles__ruby__require_rubygems; then
-    __dko_warn "Rubygems not found, skipping update ruby gems"
-  else
-    __dko_dotfiles__ruby__update_gems
-  fi
+  __dko_dotfiles__ruby__require_chruby &&
+    __dko_dotfiles__ruby__require_rubygems && __dko_dotfiles__ruby__update_gems
 
-  if ! __dko_dotfiles__php__require_composer --silent; then
-    __dko_warn "Composer not found, skipping update composer and packages"
-  else
+  __dko_dotfiles__php__require_composer && {
     __dko_dotfiles__php__update_composer
-    if __dko_dotfiles__php__require_phpcs --silent; then
-      __dko_dotfiles__php__update_wpcs
-    else
-      __dko_warn "PHPCS not found, skipping update WPCS"
-    fi
-  fi
+    __dko_dotfiles__php__require_phpcs && __dko_dotfiles__php__update_wpcs
+  }
 
-  if ! __dko_has "pyenv"; then
-    __dko_warn "pyenv not found"
-  else
+  __dko_has "pyenv" && {
     __dko_dotfiles__py__update_pyenv
     __dko_dotfiles__py__update_pip
     __dko_dotfiles__py__update_neovim_python
-  fi
+  }
 }
 
 # ------------------------------------------------------------------------------
@@ -420,7 +399,7 @@ __dko_dotfiles__py__update_neovim_python() {
 # pass any arg to silence
 __dko_dotfiles__php__require_composer() {
   __dko_has "composer" && return 0
-  __dko_warn "composer is not installed"
+  (( $# == 0 )) && __dko_warn "composer is not installed"
   return 1
 }
 
@@ -450,8 +429,10 @@ __dko_dotfiles__php__update_composer() {
 # pass any arg to silence
 __dko_dotfiles__php__require_phpcs() {
   __dko_has "phpcs" && return 0
-  __dko_warn "phpcs is not installed. Install via composer global require"
-  __dko_warn_ "and run again, or set installed_paths manually"
+  (( $# == 0 )) && {
+    __dko_warn "phpcs is not installed. Install via composer global require"
+    __dko_warn_ "and run again, or set installed_paths manually"
+  }
   return 1
 }
 
@@ -600,7 +581,7 @@ __dko_dotfiles__darwin__require_latest_xcode() {
 # pass any arg to silence
 __dko_dotfiles__darwin__require_brew() {
   __dko_has "brew" && return 0
-  __dko_warn "Homebrew is not installed"
+  (( $# == 0 )) && __dko_warn "Homebrew is not installed"
   return 1
 }
 
