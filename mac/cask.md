@@ -24,11 +24,11 @@
 - qbittorrent
 - robo-3t
 - skype
-- spideroakone
 - spotify
 - synology-drive
 - synologyassistant
 - telegram
 - transmit
+- tresorit
 - tunnelblick
 - vagrant
