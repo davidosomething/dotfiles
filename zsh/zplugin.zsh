@@ -40,8 +40,10 @@ zplugin light paulirish/git-recent
 zplugin lucid nocompletions
 zplugin light 'shannonmoeller/up'
 
-zplugin lucid nocompletions
-zplugin light 'skywind3000/z.lua'
+__dko_has lua && {
+  zplugin lucid nocompletions
+  zplugin light 'skywind3000/z.lua'
+}
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
