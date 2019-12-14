@@ -100,7 +100,9 @@ __dko_dotfiles__update_secret() {
 __dko_dotfiles__update_daily() {
   __dko_dotfiles__update_secret
 
-  if [[ -x "${DKO_BREW_PREFIX}/opt/fzf/install" ]] ||
+  if [ -x /usr/bin/fzf ]; then
+    __dko_ok "fzf installed by system package manager"
+  elif [[ -x "${DKO_BREW_PREFIX}/opt/fzf/install" ]] ||
     [[ -d "${XDG_CONFIG_HOME}/fzf" ]] ||
     [[ -d "${HOME}/.fzf" ]]; then
     __dko_dotfiles__update_fzf
@@ -153,7 +155,9 @@ __dko_dotfiles__pyenv_global() {
 __dko_dotfiles__update_fzf() {
   local installer
 
-  if [[ -x "${DKO_BREW_PREFIX}/opt/fzf/install" ]]; then
+  if [ -x /usr/bin/fzf ]; then
+    __dko_ok "fzf installed by system package manager"
+  elif [[ -x "${DKO_BREW_PREFIX}/opt/fzf/install" ]]; then
     __dko_status "fzf was installed via brew, re-running installer"
     installer="${DKO_BREW_PREFIX}/opt/fzf/install"
   elif [[ -d "${HOME}/.fzf" ]]; then
