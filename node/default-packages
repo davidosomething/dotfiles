@@ -1,10 +1,7 @@
-ajv-cli
 commitizen
-echint
 http-server
 js-beautify
 jscpd
-jsinspect
 jsonlint
 less
 markdownlint-cli
