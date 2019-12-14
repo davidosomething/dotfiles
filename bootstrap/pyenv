@@ -31,21 +31,21 @@ __create_neovim_venv() {
   if grep -q "$name" <<< "$__venvs"; then
     __dko_ok "${name} exists"
   elif ! grep -q "$version" <<< "$__versions"; then
-    __dko_warn "python version ${version} not found"
-  else
-    __dko_status "Creating ${name} and installing pynvim"
-    pyenv virtualenv "$version" "$name" \
-      && pyenv activate "$name" \
-      && python -m pip install pynvim \
-      && pyenv deactivate
+    pyenv install "$version" || return 1
   fi
+
+  __dko_status "Creating ${name} and installing pynvim"
+  pyenv virtualenv "$version" "$name" \
+    && pyenv activate "$name" \
+    && python -m pip install pynvim \
+    && pyenv deactivate
 }
 
 __main() {
   local p3="$1"
 
   if [[ -z "$p3" ]]; then
-    __dko_usage "$0 3.7.2"
+    __dko_usage "$0 3.8.0"
     return 1
   fi
 
