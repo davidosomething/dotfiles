@@ -16,9 +16,11 @@ __dko_same() {
     local resolvedpath
 
     if __dko_has "realpath"; then
+      sourcepath=$(realpath "$sourcepath")
       resolvedpath=$(realpath "$targetpath")
     elif __dko_has "readlink" && [[ "${OSTYPE}" == *'arwin'* ]]; then
       # lazy case insensitive :p
+      sourcepath=$(readlink "$sourcepath")
       resolvedpath=$(readlink "$targetpath")
     else
       __dko_err   "$targetpath exists but unable to determine if it is properly linked."
