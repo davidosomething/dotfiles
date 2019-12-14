@@ -29,6 +29,5 @@
 - synologyassistant
 - telegram
 - transmit
-- tresorit
 - tunnelblick
 - vagrant
