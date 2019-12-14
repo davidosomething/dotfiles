@@ -510,7 +510,7 @@ function! dkoplug#plugins#LoadAll() abort
   " UI -- load last!
   " ==========================================================================
 
-  Plug 'delphinus/vim-auto-cursorline'
+  Plug 'delphinus/vim-auto-cursorline', PlugIf(exists('*timer_start'))
 
   " --------------------------------------------------------------------------
   " Quickfix window
