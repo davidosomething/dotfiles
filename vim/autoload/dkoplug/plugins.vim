@@ -84,9 +84,7 @@ function! dkoplug#plugins#LoadAll() abort
 
   let g:git_messenger_max_popup_width = 70
   let g:git_messenger_max_popup_height = 24
-  Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'), {
-        \   'on': [ 'GitMessenger', '<Plug>(git-messenger-' ]
-        \ })
+  Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'))
 
   Plug 'sbdchd/neoformat'
 
