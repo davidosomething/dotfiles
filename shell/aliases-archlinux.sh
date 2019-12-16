@@ -1,16 +1,6 @@
-# shell/aliases-archlinux.bash
+# shell/aliases-archlinux.sh
 
-alias paclast="expac --timefmt='%Y-%m-%d %T' '%l\\t%n' | sort | tail -20"
-
-if command -v pacaur >/dev/null; then
-  alias b='pacaur'
-fi
-alias bi='b -S'
-alias bq='b -Qs'
-alias bs='b -Ss'
+export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases-archlinux.sh"
 
 # Always create log file
 alias makepkg='makepkg --log'
-
-alias rphp='sudo systemctl restart php-fpm.service'
-alias rnginx='sudo systemctl restart nginx.service'
