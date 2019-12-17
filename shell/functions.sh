@@ -51,6 +51,15 @@ eu() {
 # dev
 # ============================================================================
 
+# git or git status
+g() {
+  if [ $# -gt 0 ]; then
+    git "$@"
+  else
+    git status --short --branch
+  fi
+}
+
 # Update composer packages without cache
 cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update

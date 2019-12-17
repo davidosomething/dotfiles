@@ -72,17 +72,16 @@ alias gemrm='gem uninstall --all'
 # git
 # ----------------------------------------------------------------------------
 
-alias g='git'
-alias g-='g checkout -'
-alias gb='g branch --verbose'
-alias gi='g ink'
-alias gg='g grep --line-number --break --heading'
-alias gl='g l --max-count 20'
-alias gm='g checkout master'
-alias gp='g push'
-alias gpo='g push origin'
-alias gs='g status'
-alias gt='g take'
+alias g-='git checkout -'
+alias gb='git branch --verbose'
+alias gi='git ink'
+alias gg='git grep --line-number --break --heading'
+alias gl='git l --max-count 20'
+alias gm='git checkout master'
+alias gp='git push'
+alias gpo='git push origin'
+alias gs='git status'
+alias gt='git take'
 
 # ----------------------------------------------------------------------------
 # gradle
