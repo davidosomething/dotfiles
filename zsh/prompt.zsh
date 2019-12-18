@@ -89,7 +89,7 @@ __dko_prompt::env::version() {
 # $3 optional version compute string
 # $4 optional color compute string
 __dko_prompt::env() {
-  __dko_has "$2" || return
+  __dko_has "$2" || return 1
   __dko_prompt::env::separator
   __dko_prompt::env::symbol "$1"
   (( $# == 2 )) && __dko_prompt::env::version "$2"
@@ -109,14 +109,26 @@ __dko_prompt::env "js" "nvm" '$(__dko_prompt::node_version)' \
 
 __dko_prompt::env "go" "goenv"
 
-__dko_prompt::env::py() {
-  if [ -n "$VIRTUAL_ENV" ]; then
-    echo "${VIRTUAL_ENV##*/}"
-  else
-    echo "${$(pyenv version-name 2>/dev/null):-sys}"
-  fi
+__dko_prompt::env::py::get_version() {
+  python -c 'import sys; print(".".join(map(str, sys.version_info[:3])))'
 }
-__dko_prompt::env "py" "pyenv" '$(__dko_prompt::env::py)'
+
+# virtualenv name if in one
+# sys(1.2.3) if using system python
+# 1.2.3 if using pyenv version
+__dko_prompt::env::py() {
+  [ -n "$VIRTUAL_ENV" ] && echo "${VIRTUAL_ENV##*/}" && return
+
+  # Not using pyenv version-name because it opens a slow bash subprocess
+  # https://github.com/pyenv/pyenv/blob/c3b17c4bbbeb0069a9528f326d5ebd9262435afb/libexec/pyenv-version-name#L18
+  grep -q "system" "${PYENV_ROOT}/version" 2>/dev/null && {
+    [ -z "$system_py" ] && system_py="$(__dko_prompt::env::py::get_version)"
+    echo "sys(${system_py})"
+    return
+  }
+  __dko_prompt::env::py::get_version
+}
+__dko_prompt::env "py" "python" '$(__dko_prompt::env::py)'
 
 __dko_prompt::env "rb" "chruby" '${RUBY_VERSION:-sys}'
 
