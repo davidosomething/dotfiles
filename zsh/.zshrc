@@ -350,9 +350,12 @@ __dko_source "${LDOTDIR}/zshrc"
 # zplugin: after
 # ============================================================================
 
-if ! __dko_has 'zplugin'; then
+if __dko_has 'zplugin'; then
+  zpcompdef g=git
+else
   autoload -Uz compinit
   compinit
+  compdef g=git
 fi
 
 # ============================================================================
