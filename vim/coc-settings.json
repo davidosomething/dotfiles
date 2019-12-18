@@ -68,29 +68,9 @@
     "css": "stylelint",
     "dockerfile": "hadolint",
   },
-  "diagnostic-languageserver.linters": {
-    "hadolint": {
-      "command": "hadolint",
-      "sourceName": "hadolint",
-      "args": [
-        "-f",
-        "json",
-        "-"
-      ],
-      "parseJson": {
-        "line": "line",
-        "column": "column",
-        "security": "level",
-        "message": "${message} [${code}]"
-      },
-      "securities": {
-        "error": "error",
-        "warning": "warning",
-        "info": "info",
-        "style": "hint"
-      }
-    }
-  },
+  // Most already defined
+  // @see https://github.com/iamcco/coc-diagnostic/blob/master/src/config.ts
+  //"diagnostic-languageserver.linters"
 
   // =========================================================================
   // coc-eslint
