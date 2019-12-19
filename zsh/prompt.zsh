@@ -144,8 +144,10 @@ __dko_prompt::precmd::state() {
   local left_len=${#left_raw}
   local right_raw=" ${(ej::)__dko_prompt_right_parts}"
   local right_len=${#right_raw}
-  # $COLUMNS is not always right on iterm so use modern tput
-  local cols=$(tput cols 2>/dev/null || echo "80")
+
+  local cols
+  cols=${COLUMNS:-$(tput cols 2>/dev/null)}
+  cols=${cols:-80}
 
   local left=''
   # colorize
