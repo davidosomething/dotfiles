@@ -97,15 +97,15 @@ __dko_prompt::env() {
   (( $# == 4 )) && __dko_prompt::env::version "$2" "$3" "$4"
 }
 
-__dko_prompt::node_version() {
+__dko_prompt::env::js::get_version() {
   __nodir="${NVM_BIN/$NVM_DIR\/versions\/node\/v}"
   echo "${__nodir%\/bin}"
 }
 
 # Get node version provided by NVM using the env vars instead of calling slow
 # NVM functions
-__dko_prompt::env "js" "nvm" '$(__dko_prompt::node_version)' \
-  '$( [[ "$(__dko_prompt::node_version)" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")'
+__dko_prompt::env "js" "nvm" '$(__dko_prompt::env::js::get_version)' \
+  '$( [[ "$(__dko_prompt::env::js::get_version)" = "$DKO_DEFAULT_NODE_VERSION" ]] && echo "%F{blue}" || echo "%F{red}")'
 
 __dko_prompt::env "go" "goenv"
 
