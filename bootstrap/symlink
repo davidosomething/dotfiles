@@ -93,8 +93,6 @@ __symlink() {
   linux*)
     dko-symlink "linux/terminator/config" \
       ".config/terminator/config"
-    dko-symlink "linux/subversion/config" \
-      ".subversion/config"
     ;;
   esac
 
