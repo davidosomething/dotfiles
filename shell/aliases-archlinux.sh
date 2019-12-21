@@ -4,3 +4,9 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases-archlinux.sh"
 
 # Always create log file
 alias makepkg='makepkg --log'
+
+# It keeps dying on lock!
+fixpulse() {
+  sudo rm -rf ~/.config/pulse
+  systemctl --user start pulseaudio
+}
