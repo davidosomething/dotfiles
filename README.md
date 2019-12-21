@@ -4,7 +4,7 @@
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
-- I actuall use macOS, Manjaro, and Debian. Limited Fedora support.
+- I use macOS, Manjaro, and Debian. Limited Fedora support.
 - [XDG] compliance wherever possible to keep `$HOME` clean
     - See [Arch Linux wiki for XDG Base Directory Support]
     - See [Debian DotFilesList]
