@@ -375,8 +375,7 @@ __dko_dotfiles__py__update_pyenv() {
 
 # $1 pip command (e.g. `pip2`)
 __dko_dotfiles__py__update_pip() {
-  pyenv version | grep system >/dev/null 2>&1 &&
-    __dko_warn "Not in a pyenv" && return 1
+  pyenv version | grep -q system && __dko_warn "Not in a pyenv" && return 1
 
   __dko_status "Updating pip"
   ! python -m pip --version >/dev/null 2>&1 &&

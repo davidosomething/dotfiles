@@ -4,14 +4,13 @@
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
-- macOS, Arch Linux, and Debian compatible
+- I actuall use macOS, Manjaro, and Debian. Limited Fedora support.
 - [XDG] compliance wherever possible to keep `$HOME` clean
     - See [Arch Linux wiki for XDG Base Directory Support]
     - See [Debian DotFilesList]
     - See [grawity's notes] and [environ notes]
-- ZSH and BASH configs
-- VIM and Neovim configs
-- Convenient shell scripts and FZF utilities
+- ZSH (preferred) and BASH configs
+- Neovim (preferred) and VIM configs
 - RC files for Lua, markdownlint, node, PHP, python, R, ruby, and others
 
 ![terminal screenshot][screenshot]
@@ -19,8 +18,7 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 
 ## Installation
 
-See OS specific notes in [mac/README.md](mac/README.md) and
-[linux/README.md](linux/README.md) and [linux/arch.md](linux/arch.md)
+See macOS specific notes in [mac/README.md](mac/README.md)
 
 Generally:
 
@@ -32,28 +30,20 @@ Then, run `symlink` or `mac` in `bootstrap/`.
 After symlinking, [bootstrap/cleanup](bootstrap/cleanup) can detect and move
 pre-existing dotfiles that conflict with these (mac does this).
 
-### Using a different repository path
-
-Installation assumes the repo is in `~/.dotfiles` but you can set a different
-path setting the `DOTFILES` environment variable beforehand:
-
-```sh
-DOTFILES=~/.dot ~/.dot/bootstrap/symlink
-```
-
 ### Dev environment setup
 
 Install these using the system package manager. For macOS/OS X there are helper
 scripts.
 
-- [chruby], `ruby-install`, then use `ruby-install` to install a version of
-  ruby (preferably latest, and into `~/.config/rubies/ruby-1.2.3` using flags)
-- Install [nvm] MANUALLY via git clone into
+- For user-land ruby, install [chruby] and `ruby-install`. Then, use
+  `ruby-install` to install a version of ruby (preferably latest, and into
+  `~/.config/rubies/ruby-1.2.3` using flags)
+- For user-land node, install [nvm] MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node`
 - `php`, `composer`, use composer to install `wp-cli`
-- Use [pyenv-installer] for [pyenv], [pyenv-virtualenv], then create a new env
-  with a new python/pip.
-    - Create virtualenvs for Neovim.
+- For user-land python, use [pyenv-installer] to install [pyenv] and
+  [pyenv-virtualenv].
+    - Create virtualenvs for Neovim using [bootstrap/pyenv](bootstrap/pyenv)
 
 ### Provisioning scripts
 

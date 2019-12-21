@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=NVIDIA Dock
-Comment=Tray icon launcher for NVIDIA settings
-Exec=nvdock 
-Icon=nvdock.png
-Categories=Application;System;

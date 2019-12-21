@@ -29,7 +29,7 @@ __install() {
     exit 1
   fi
 
-  if pyenv version | grep system >/dev/null; then
+  if pyenv version | grep -q system; then
     __dko_err  "Using system pyenv. Use real pyenv instead."
     exit 1
   fi
