@@ -16,6 +16,8 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 ![terminal screenshot][screenshot]
 > Screenshot of my ZSH prompt
 
+> My [/uses] post my be of interest to you!
+
 ## Installation
 
 See macOS specific notes in [mac/README.md](mac/README.md)
@@ -155,3 +157,4 @@ For X apps (no terminal) the value may be:
 [pyenv-virtualenv]: https://github.com/pyenv/pyenv-virtualenv
 [pyenv]: https://github.com/pyenv/pyenv
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/744f9dc096a240906d71af35cfe0eaad7d9c2abb/meta/terminal-potatonuc.png
+[/uses]: https://www.davidosomething.com/uses/
