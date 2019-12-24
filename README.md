@@ -16,7 +16,7 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 ![terminal screenshot][screenshot]
 > Screenshot of my ZSH prompt
 
-> My [/uses] post my be of interest to you!
+My [/uses] post my be of interest to you!
 
 ## Installation
 
