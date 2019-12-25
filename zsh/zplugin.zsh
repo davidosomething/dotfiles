@@ -36,13 +36,22 @@ zplugin light paulirish/git-open
 zplugin lucid wait as'program' pick'git-recent'
 zplugin light paulirish/git-recent
 
-# replaces up() in shell/functions.sh. No wait.
-zplugin lucid nocompletions
-zplugin light 'shannonmoeller/up'
-
 __dko_has lua && {
-  zplugin lucid nocompletions
-  zplugin light 'skywind3000/z.lua'
+  export _ZL_CMD='j'
+  export _ZL_DATA="${XDG_DATA_HOME}/zlua"
+  export _ZL_NO_ALIASES=1
+  zplugin lucid nocompletions ver'no-aliases'
+  zplugin light 'davidosomething/z.lua'
+
+  # redefine up to work like shannonmoeller/up
+  up() {
+    number='^[0-9]+$'
+    if [[ -z "$1" ]] || [[ "$1" =~ "$number" ]] ; then
+      eval "${_ZL_CMD} -b ..${1}"
+    else
+      eval "${_ZL_CMD} $@"
+    fi
+  }
 }
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
