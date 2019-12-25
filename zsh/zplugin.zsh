@@ -36,7 +36,7 @@ zplugin light paulirish/git-open
 zplugin lucid wait as'program' pick'git-recent'
 zplugin light paulirish/git-recent
 
-__dko_has lua && {
+if __dko_has lua; then
   export _ZL_CMD='j'
   export _ZL_DATA="${XDG_DATA_HOME}/zlua"
   export _ZL_NO_ALIASES=1
@@ -52,7 +52,10 @@ __dko_has lua && {
       eval "${_ZL_CMD} $@"
     fi
   }
-}
+else
+  zplugin lucid nocompletions
+  zplugin light 'shannonmoeller/up'
+fi
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
