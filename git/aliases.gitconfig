@@ -61,7 +61,7 @@
 	rso     = remote show origin
 	reorigin = remote set-url origin
 	reupstream = remote set-url upstream
-	rou     = "!f() { u="$(git config --get remote.origin.url)"; [ -n "$u" ] && { git remote add upstream "$u" || git remote set-url upstream "$u"; }; }; f"
+	rou     = "!f() { u="$(git remote get-url origin)"; [ -n "$u" ] && { git remote add upstream "$u" || git remote set-url upstream "$u"; }; }; f"
 
 	rehard  = reset --hard
 
