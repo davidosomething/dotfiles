@@ -40,8 +40,9 @@ if __dko_has lua; then
   export _ZL_CMD='j'
   export _ZL_DATA="${XDG_DATA_HOME}/zlua"
   export _ZL_NO_ALIASES=1
-  zplugin lucid nocompletions ver'no-aliases'
-  zplugin light 'davidosomething/z.lua'
+  zplugin lucid nocompletions
+  #zplugin light 'davidosomething/z.lua'
+  zplugin light 'skywind3000/z.lua'
 
   # redefine up to work like shannonmoeller/up
   up() {
