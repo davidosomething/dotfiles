@@ -59,7 +59,6 @@ environment set up first.
   `pynvim`
 - [bootstrap/symlink](bootstrap/symlink) symlinks rc files for bash, ZSH,
   ack, (Neo)vim, etc.
-- [bootstrap/x11](bootstrap/x11) symlinks `.xbindkeysrc`, `.xprofile`
 - [node/install](node/install) install default packages, requires you set up
   [nvm] and install node first
 - [ruby/install-default-gems](ruby/install-default-gems) requires you set up
