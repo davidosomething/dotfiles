@@ -39,6 +39,7 @@ zplugin light paulirish/git-recent
 if __dko_has lua; then
   export _ZL_CMD='j'
   export _ZL_DATA="${XDG_DATA_HOME}/zlua"
+  export _ZL_HYPHEN=1
   export _ZL_NO_ALIASES=1
   zplugin lucid nocompletions
   #zplugin light 'davidosomething/z.lua'
