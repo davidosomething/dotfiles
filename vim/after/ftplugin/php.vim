@@ -5,6 +5,8 @@ let b:did_after_ftplugin = 1
 
 setlocal omnifunc=
 
+setlocal iskeyword+=$
+
 " ============================================================================
 " Unmap terrible mappings from $VIMRUNTIME/ftplugin/php.vim
 " ============================================================================
