@@ -53,13 +53,13 @@ function! dko#float#Bordered() abort
   let l:border = [l:top] + repeat([l:mid], l:opts.height - 2) + [l:bot]
 
   " Draw frame
-  let s:modal = dko#float#Open('Ignore', {
+  let s:instance = dko#float#Open('Ignore', {
         \   'row': l:opts.row,
         \   'col': l:opts.col,
         \   'width': l:opts.width,
         \   'height': l:opts.height
         \ })
-  call nvim_buf_set_lines(s:modal.buf, 0, -1, v:true, l:border)
+  call nvim_buf_set_lines(s:instance.buf, 0, -1, v:true, l:border)
 
   " Draw viewport
   call dko#float#Open('Normal', {
@@ -68,5 +68,5 @@ function! dko#float#Bordered() abort
         \   'width': l:opts.width - 4,
         \   'height': l:opts.height - 2
         \ })
-  autocmd BufWipeout <buffer> execute 'bwipeout' s:modal.buf
+  autocmd BufWipeout <buffer> execute 'bwipeout' s:instance.buf
 endfunction
