@@ -65,7 +65,7 @@ function! dkoplug#plugins#LoadAll() abort
   let g:dko_fzf_modal = 0 && has('nvim-0.4')
   let g:fzf_command_prefix = 'FZF'
   let g:fzf_layout = extend({ 'down': '~40%' }, g:dko_fzf_modal
-        \   ? { 'window': 'call dko#Modal()' }
+        \   ? { 'window': 'call dko#BorderedModal()' }
         \   : {}
         \ )
   let g:fzf_buffers_jump = 1
