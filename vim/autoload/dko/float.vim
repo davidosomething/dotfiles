@@ -1,8 +1,9 @@
+scriptencoding utf-8
 " autoload/dko/float.vim
 
-" ============================================================================
-" Floating windows
-" ============================================================================
+augroup dkofloat
+  autocmd!
+augroup END
 
 let s:DEFAULT_HEIGHT_RATIO = 0.8
 let s:DEFAULT_WIDTH_RATIO = 0.8
@@ -68,5 +69,7 @@ function! dko#float#Bordered() abort
         \   'width': l:opts.width - 4,
         \   'height': l:opts.height - 2
         \ })
-  autocmd BufWipeout <buffer> execute 'bwipeout' s:instance.buf
+
+  " Close border float when viewport float closes
+  autocmd dkofloat BufWipeout <buffer> execute 'bwipeout' s:instance.buf
 endfunction
