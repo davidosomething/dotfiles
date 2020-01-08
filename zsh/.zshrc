@@ -320,23 +320,23 @@ if [[ "$0" == *"zsh" ]]; then
 fi
 
 # ============================================================================
-# zplugin
+# zplugin, auto-install with git if possible
 # ============================================================================
 
-# wget is a prerequisite
-if __dko_has 'wget'; then
-  __dko_source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" || {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)" \
-    && source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh"
+if __dko_has 'git'; then
+  dko_zplg_dest="${ZDOTDIR}/.zplugin/bin"
+  __dko_source "${dko_zplg_dest}/zplugin.zsh" || {
+    command git clone https://github.com/zdharma/zplugin "${dko_zplg_dest}" &&
+    source "${dko_zplg_dest}/zplugin.zsh"
   }
 
   __dko_has 'zplugin' && {
     autoload -Uz _zplugin
     (( ${+_comps} )) && _comps[zplugin]=_zplugin
+
+    # load plugins
     __dko_source "${ZDOTDIR}/zplugin.zsh"
   }
-else
-  __dko_warn 'wget is required for zplugin'
 fi
 
 # ============================================================================
