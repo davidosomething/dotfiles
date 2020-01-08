@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 #
 # Idempotently set up mac OS
 #
 
-[ "$DOTFILES_OS" = 'Darwin' ] || exit 1
+[ "$(uname)" = 'Darwin' ] || exit 1
 
 # ============================================================================
 # initialize script and dependencies
@@ -18,9 +18,24 @@ fi
 export PATH="${DOTFILES}/bin:${PATH}"
 
 # ============================================================================
+# check prereqs
+# ============================================================================
 
 __dko_require 'brew' || exit 1
 __dko_require 'xcrun' || exit 1
+
+"${DOTFILES}/bootstrap/symlink" || exit 1
+"${DOTFILES}/bootstrap/cleanup" || exit 1
+
+dotfiles_plist="${HOME}/Library/LaunchAgents/dotfiles.plist"
+if [ ! -f "$(readlink "$dotfiles_plist")" ]; then
+  __dko_err "dotfiles.plist not symlinked. Run bootstrap/symlink!"
+  exit 1
+fi
+
+# ============================================================================
+# sdks
+# ============================================================================
 
 _bootstrap_sdks() {
   local product_version
@@ -55,18 +70,17 @@ _bootstrap_sdks() {
 }
 _bootstrap_sdks || exit 1
 
-"${DOTFILES}/bootstrap/symlink" || exit 1
-"${DOTFILES}/bootstrap/cleanup" || exit 1
-
-dotfiles_plist="${HOME}/Library/LaunchAgents/dotfiles.plist"
-if [ ! -f "$(readlink "$dotfiles_plist")" ]; then
-  __dko_err "dotfiles.plist not symlinked. Run bootstrap/symlink!"
-  exit 1
-fi
+# ============================================================================
+# plist
+# ============================================================================
 
 __dko_status "Reloading dotfiles.plist"
 launchctl unload "$dotfiles_plist" 2>/dev/null
 launchctl load "$dotfiles_plist"
+
+# ============================================================================
+# zsh fixes
+# ============================================================================
 
 # See https://github.com/postmodern/chruby/issues/196#issuecomment-23826171
 if [ -f /etc/zshenv ] && [ ! -f /etc/zprofile ]; then
@@ -75,6 +89,10 @@ if [ -f /etc/zshenv ] && [ ! -f /etc/zprofile ]; then
 else
   __dko_ok "/etc/zshenv not present"
 fi
+
+# ============================================================================
+# vendor
+# ============================================================================
 
 __dko_status "Brewing"
 [ -z "$DKO_BREW_PREFIX" ] && . "${DOTFILES}/shell/os-darwin"
@@ -85,27 +103,32 @@ brew untap caskroom/fonts 2>/dev/null
 __dko_status "Installing fzf shell extensions"
 "${DOTFILES}/bin/dot" fzf
 
+# ============================================================================
+# use zsh
+# the /etc/shells method is for TTY users, Darwin can just read from dscl
 # https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/
+# ============================================================================
+
 _bootstrap_shell() {
   local usershell
   local zshpath
   __dko_status "Setting user shell to brewed zsh using dscl"
 
   zshpath="${DKO_BREW_PREFIX}/bin/zsh"
+  [ -x "$zshpath" ] || return 1
+
   usershell="$(dscl . -read "/Users/${USER}" UserShell)"
-  if [[ "$usershell" == "UserShell: ${zshpath}" ]]; then
+  if [[ "$usershell" != "UserShell: ${zshpath}" ]]; then
     __dko_ok "Already using brewed zsh"
   else
-    if [ -x "${zshpath}" ]; then
-      sudo dscl . -create "/Users/${USER}" UserShell "${zshpath}"
-    else
-      __dko_warn "Could not update the user's shell to ${zshpath}"
-      __dko_warn_ "Check the brew installation and refer to"
-      __dko_warn_ "https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/"
-    fi
+    sudo dscl . -create "/Users/${USER}" UserShell "${zshpath}"
   fi
 }
-_bootstrap_shell
+_bootstrap_shell || {
+  __dko_warn "Could not update the user's shell to ${zshpath}"
+  __dko_warn_ "Check the brew installation and refer to"
+  __dko_warn_ "https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/"
+}
 
 # ============================================================================
 
