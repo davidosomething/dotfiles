@@ -39,7 +39,7 @@ if dkoplug#Exists('vim-operator-surround')
 endif
 
 if dkoplug#Exists('operator-camelize.vim')
-  nmap <special> <Leader>c <Plug>(operator-camelize-toggle)
+  map <special> <Leader>c <Plug>(operator-camelize-toggle)
 endif
 
 " ============================================================================

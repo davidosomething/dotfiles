@@ -121,6 +121,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Editing keys
   " ==========================================================================
 
+  " filetype custom [[ and ]] jumping
   Plug 'arp242/jumpy.vim'
 
   "Plug 'cyansprite/Extract', PlugIf(has('nvim'))
@@ -145,9 +146,9 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'kana/vim-operator-user'
   " gcc to toggle comment
   Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
-  " <Leader>s(a/r/d) to modify surrounding the pending operator
+  " gs(a/r/d) to modify surrounding the pending operator
   Plug 'rhysd/vim-operator-surround', { 'on': [ '<Plug>(operator-surround' ] }
-  " <Leader>c to toggle CamelCase/snak_e the pending operator
+  " <Leader>c to toggle PascalCase/snak_e the pending operator
   Plug 'tyru/operator-camelize.vim', { 'on': [ '<Plug>(operator-camelize' ] }
 
   " Some textobjs are lazy loaded since they are ~4ms slow to load.
