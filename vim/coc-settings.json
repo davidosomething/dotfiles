@@ -5,7 +5,9 @@
   // This delays neovim process and nvr may fail to get instance
   "coc.preferences.extensionUpdateCheck": "never",
 
-  "codeLens.enable": true,
+  // Hide the super noisy Actions, # of References etc virtualText that
+  // appears at end of lines
+  "codeLens.enable": false,
 
   "diagnostic.checkCurrentLine": false,
   "diagnostic.displayByAle": false,
