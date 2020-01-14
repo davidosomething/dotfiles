@@ -1,6 +1,7 @@
 {
-  // Using hexokinase instead since it updates more forcefully
+  // Using vim-css-color instead since it is more accurate 2020-01-14
   "coc.preferences.colorSupport": false,
+
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   // This delays neovim process and nvr may fail to get instance
   "coc.preferences.extensionUpdateCheck": "never",
