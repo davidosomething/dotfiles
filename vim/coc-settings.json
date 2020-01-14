@@ -3,7 +3,8 @@
   "coc.preferences.colorSupport": false,
 
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  // This delays neovim process and nvr may fail to get instance
+
+  // Do it manually
   "coc.preferences.extensionUpdateCheck": "never",
 
   // Hide the super noisy Actions, # of References etc virtualText that
