@@ -4,6 +4,8 @@
 
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
+  "coc.preferences.enableFloatHighlight": false,
+
   // Do it manually
   "coc.preferences.extensionUpdateCheck": "never",
 
