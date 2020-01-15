@@ -20,6 +20,7 @@ if dkoplug#IsLoaded('coc.nvim')
         \  'coc-git',
         \  'coc-html',
         \  'coc-json',
+        \  'coc-markdownlint',
         \  'coc-prettier',
         \  'coc-pyright',
         \  'coc-snippets',

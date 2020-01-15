@@ -38,7 +38,7 @@ let g:neomake_java_checkstyle_xml =
 
 let g:neomake_javascript_enabled_makers = [ 'eslint' ]
 
-let g:neomake_markdown_enabled_makers = [ 'markdownlint', 'vale' ]
+let g:neomake_markdown_enabled_makers = [ 'vale' ]
 
 " flake8 is pycodestyle(pep8)+pyflakes+pydocstyle
 " preferred over pylama (other multi-runner) for now
