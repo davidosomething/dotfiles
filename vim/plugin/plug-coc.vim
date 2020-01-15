@@ -1,15 +1,12 @@
-" plugin/completion.vim
+" plugin/coc.vim
 
-augroup dkocompletion
+augroup dkococ
   autocmd!
 augroup END
 
 if !dkoplug#IsLoaded('coc.nvim')
   finish
 endif
-
-let s:cpo_save = &cpoptions
-set cpoptions&vim
 
 " ============================================================================
 " coc.nvim
@@ -38,20 +35,42 @@ if dkoplug#IsLoaded('coc.nvim')
   " Doesn't redraw in sync with edits
   "\  'coc-highlight',
 
+  " --------------------------------------------------------------------------
+  " Settings
+  " --------------------------------------------------------------------------
+
   let g:coc_enable_locationlist = 0
+
+  autocmd dkococ FileType css,less,scss
+        \ let b:coc_additional_keywords = ['-']
+
+  " coc-snippets
   let g:coc_snippet_next = '' "'<C-f>'
   let g:coc_snippet_prev = '' "'<C-b>'
-  imap <C-f> <Plug>(coc-snippets-expand-jump)
 
+  " --------------------------------------------------------------------------
+  " Utils
+  " --------------------------------------------------------------------------
+
+  let s:vim_help = ['vim', 'help']
   function! s:ShowDocumentation()
-    if &filetype ==# 'vim'
+    if (index(s:vim_help, &filetype) >= 0)
       execute 'h ' . expand('<cword>')
     else
       call CocActionAsync('doHover')
     endif
   endfunction
 
+  " --------------------------------------------------------------------------
+  " Mappings
+  " --------------------------------------------------------------------------
+
+  let s:cpo_save = &cpoptions
+  set cpoptions&vim
+
   inoremap <silent><expr> <C-Space> coc#refresh()
+
+  nnoremap <silent> K :<C-U>call <SID>ShowDocumentation()<CR>
 
   " Function textobjs
   xmap if <Plug>(coc-funcobj-i)
@@ -59,39 +78,42 @@ if dkoplug#IsLoaded('coc.nvim')
   omap if <Plug>(coc-funcobj-i)
   omap af <Plug>(coc-funcobj-a)
 
+  " Diagnostics
   nmap <silent> <Leader>d <Plug>(coc-diagnostic-info)
   nmap <silent> ]d <Plug>(coc-diagnostic-next)
   nmap <silent> [d <Plug>(coc-diagnostic-prev)
 
+  " Code navigation
   nmap <silent> gh <Plug>(coc-declaration)
-
-  " value
   nmap <silent> gd <Plug>(coc-definition)
-
-  " instance
   nmap <silent> gi <Plug>(coc-implementation)
-
   nmap <silent> <Leader>t <Plug>(coc-type-definition)
-  nnoremap <silent> K :<C-U>call <SID>ShowDocumentation()<CR>
 
+  " Formatting
   nmap <silent> <Leader>= <Plug>(coc-format-selected)
   vmap <silent> <Leader>= <Plug>(coc-format-selected)
 
-  autocmd dkocompletion FileType
+  " coc-git
+  nmap [g <Plug>(coc-git-prevchunk)
+  nmap ]g <Plug>(coc-git-nextchunk)
+
+  " coc-prettier
+  autocmd dkococ FileType
         \ javascript,javascriptreact,typescript,typescriptreact,json,graphql
         \ nmap <silent> <A-=>
         \   :<C-u>CocCommand prettier.formatFile<CR>
         "\   :CocCommand eslint.executeAutofix<CR>
 
-  autocmd dkocompletion FileType css,less,scss
-        \ let b:coc_additional_keywords = ['-']
+  " coc-snippets
+  imap <C-f> <Plug>(coc-snippets-expand-jump)
 
-  " coc-git
-  nmap [g <Plug>(coc-git-prevchunk)
-  nmap ]g <Plug>(coc-git-nextchunk)
+  let &cpoptions = s:cpo_save
+  unlet s:cpo_save
+
+  " --------------------------------------------------------------------------
+  " Autorun
+  " --------------------------------------------------------------------------
+
+  autocmd dkococ CursorHold * silent call CocActionAsync('highlight')
+
 endif
-
-" ============================================================================
-
-let &cpoptions = s:cpo_save
-unlet s:cpo_save
