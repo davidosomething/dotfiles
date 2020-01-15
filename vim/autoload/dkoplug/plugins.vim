@@ -197,6 +197,27 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion engine
   " --------------------------------------------------------------------------
 
+  let g:coc_global_extensions = [
+        \  'coc-css',
+        \  'coc-diagnostic',
+        \  'coc-eslint',
+        \  'coc-git',
+        \  'coc-html',
+        \  'coc-json',
+        \  'coc-markdownlint',
+        \  'coc-prettier',
+        \  'coc-pyright',
+        \  'coc-snippets',
+        \  'coc-solargraph',
+        \  'coc-tsserver',
+        \  'coc-vimlsp',
+        \  'coc-yaml'
+        \]
+  " Not working
+  "      \  'coc-python',
+  "      \  'coc-java',
+  " Doesn't redraw in sync with edits
+  "\  'coc-highlight',
   Plug 'neoclide/coc.nvim', WithCompl({ 'branch': 'release' })
 
   " ==========================================================================
