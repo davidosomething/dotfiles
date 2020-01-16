@@ -1,6 +1,6 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 #
-# Idempotently set up mac OS
+# Idempotently set up macOS
 #
 
 [ "$(uname)" = 'Darwin' ] || exit 1

@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-#
-# Idempotently set up mac OS
+#!/usr/bin/env zsh
 #
 
 # ============================================================================
