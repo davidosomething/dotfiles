@@ -3,6 +3,7 @@ scriptencoding utf-8
 
 if !dkoplug#IsLoaded('neoformat') | finish | endif
 
+let g:neoformat_enabled_json = [ 'dkoprettier', 'jq' ]
 let g:neoformat_enabled_java = [ 'uncrustify' ]
 let g:neoformat_enabled_javascript = [ 'standard' ]
 let g:neoformat_enabled_less = [ 'dkoprettier' ]

@@ -61,6 +61,15 @@ function! dko#lint#LintBuffer() abort
     endif
     return
   endif
+
+  " Go ahead and format instead of linting JSON
+  if dkoplug#IsLoaded('neoformat')
+    if &filetype ==# 'json'
+      Neoformat
+      return
+    endif
+  endif
+
   if dkoplug#IsLoaded('neomake')
     if exists('b:dko_neomake_lint')
       Neomake

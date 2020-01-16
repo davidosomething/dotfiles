@@ -15,6 +15,8 @@ function! dko#neomake#javascript#Setup() abort
   " Configure makers to run using NPX and from the cwd
   " ==========================================================================
 
+  call dko#InitList('b:neomake_javascript_enabled_makers')
+
   let b:dko_is_javascript_xo = get(b:, 'PJ_file') && pj#HasDevDependency('xo')
   let b:dko_jshintrc = dko#project#GetFile('.jshintrc')
   let b:dko_is_javascript_jshint = !empty(b:dko_jshintrc)
@@ -27,6 +29,7 @@ function! dko#neomake#javascript#Setup() abort
           \     'maker': 'xo',
           \     'cwd': dko#project#GetRoot(),
           \   }))
+    let b:neomake_javascript_enabled_makers += [ 'xo' ]
   elseif b:dko_is_javascript_jshint
     call dko#neomake#NpxMaker(extend(
           \   neomake#makers#ft#javascript#jshint(), {
@@ -34,33 +37,10 @@ function! dko#neomake#javascript#Setup() abort
           \     'maker': 'jshint',
           \     'cwd': dko#project#GetRoot(),
           \   }))
-  endif
-
-  " Always define eslint
-  call dko#neomake#NpxMaker(extend(
-        \   neomake#makers#ft#javascript#eslint(), {
-        \     'ft': 'javascript',
-        \     'maker': 'eslint',
-        \     'cwd': dko#project#GetRoot(),
-        \   }))
-
-
-  " ==========================================================================
-  " Define which makers should be used
-  " ==========================================================================
-
-  call dko#InitList('b:neomake_javascript_enabled_makers')
-
-  if b:dko_is_javascript_xo
-    let b:neomake_javascript_enabled_makers += [ 'xo' ]
-  elseif b:dko_is_javascript_jshint
     let b:neomake_javascript_enabled_makers += [ 'jshint' ]
-  endif
-
-  if dkoplug#IsLoaded('coc.nvim')
+  else
+    " Flag for autoload/dko/lint.vim to use coc-eslint
     let b:dko_is_coc = 1
-  elseif !empty(dko#project#javascript#GetEslintrc())
-    let b:neomake_javascript_enabled_makers += [ 'eslint' ]
   endif
 
   let b:neomake_javascriptreact_enabled_makers =
