@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#
+# Install python cli tools using pipx
+#
+
+# ============================================================================
+# initialize script and dependencies
+# ============================================================================
+
+if [[ -z "$DOTFILES" ]]; then
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$PWD"
+fi
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
+
+# ============================================================================
+
+__dko_has 'pipx' || {
+  __dko_error 'pipx is not installed'
+  exit 1
+}
+
+__main() {
+  [ -x bashate ] ||
+    pipx install bashate
+
+  [ -x nvr ] ||
+    pipx install neovim-remote
+
+  [ -x vint ] ||
+    pipx install vim-vint
+
+  [ -x yamllint ] ||
+    pipx install yamllint
+
+  pipx upgrade-all
+}
+
+__main "$@"

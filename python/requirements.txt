@@ -1,16 +1,12 @@
 Pygments==2.5.2
-bashate==0.6.0
 flake8==3.7.9
 flake8-commas==2.0.0
 flake8-docstrings==1.5.0
 flake8-import-order==0.18.1
 flake8-quotes==2.1.1
 pynvim==0.4.0
-neovim-remote==2.4.0
 pycodestyle==2.5.0
 pydocstyle==5.0.2
 pyflakes==2.1.1
 pylint==2.4.4
-yamllint==1.20.0
-vim-vint==0.4a1
 vulture==1.2
