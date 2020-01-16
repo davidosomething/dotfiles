@@ -1,13 +1,16 @@
-**Generated:** Sat, 21 Dec 2019 08:29:00 GMT
-**User Agent:** Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36
+**Generated:** Thu, 16 Jan 2020 07:18:06 GMT
+**User Agent:** Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36
 
-**Extensions:** 14
+**Extensions:** 15
 
  - [Share Extensions](https://chrome.google.com/webstore/detail/chdafcbnfkfenoeejpaeenpdamhmalhe) : *Export your favorite Google Chrome™ extensions as BBCode, HTML, Wiki, Markdown or text. Share extensions via Twitter, Google Mail™.*
  - [uBlock Origin](https://chrome.google.com/webstore/detail/cjpalhdlnbpafiamejdnhcphjbkeiagm) : *Finally, an efficient blocker. Easy on CPU and memory.*
+ - [React Developer Tools](https://chrome.google.com/webstore/detail/fmkadmapgofadopljbjfkapdkoienihi) : *Adds React debugging tools to the Chrome Developer Tools.
+
+Created from revision f749045a5 on 1/3/2020.*
  - [Feedly Subscribe Button](https://chrome.google.com/webstore/detail/gbbnddjfcllebfcnihfgmdplgaiejepc) : *Easily Subscribe RSS and Atom Feeds to Feedly.*
  - [HTTPS Everywhere](https://chrome.google.com/webstore/detail/gcbommkclmclpchllfjekcdonpmejbdp) : *Encrypt the Web! Automatically use HTTPS security on many sites.*
- - [Google Docs Offline](https://chrome.google.com/webstore/detail/ghbmnnjooekpmoecnnnilnnbdlolhkhi) : *Get things done offline with the Google Docs family of products.*
+ - [Google Docs Offline](https://chrome.google.com/webstore/detail/ghbmnnjooekpmoecnnnilnnbdlolhkhi) : *Edit, create, and view your documents, spreadsheets, and presentations — all without internet access.*
  - [Feedly Background Tab](https://chrome.google.com/webstore/detail/gjlijkhcebalcchkhgaiflaooghmoegk) : *Open Feedly Links in Background Tab using shortcut key*
  - [Extension Switch](https://chrome.google.com/webstore/detail/gnphfcibcphlpedmaccolafjonmckcdn) : *Provides a switch to toggle statuses of installed extensions.*
  - [Picture-in-Picture Extension (by Google)](https://chrome.google.com/webstore/detail/hkgfoiooedgoejojocmhlaklaeopbecg) : *Watch video using Picture-in-Picture*
@@ -18,18 +21,15 @@
  - [Save to Pocket](https://chrome.google.com/webstore/detail/niloccemoadcdkdjlinkgdfekeahmflj) : *The easiest, fastest way to capture articles, videos, and more.*
  - [Privacy Badger](https://chrome.google.com/webstore/detail/pkehgijcmpdhfbdbbnkijodmdjhbjlgp) : *Privacy Badger automatically learns to block invisible trackers.*
 
-**Disabled Extensions:** 16
+**Disabled Extensions:** 15
  - [Blue Button | the webpage X-ray](https://chrome.google.com/webstore/detail/ahbcoeleapdfhmlnjglbiaddohfncace) : *See title tags & meta description, scripts, stylesheets, images & fonts*
  - [Web Developer](https://chrome.google.com/webstore/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm) : *Adds a toolbar button with various web developer tools.*
  - [Octotree](https://chrome.google.com/webstore/detail/bkhaagjahfmjljalopjnoealnfndnagc) : *GitHub on steroids*
  - [Clear Cache](https://chrome.google.com/webstore/detail/cppjkneekbjaeellbfkmgnhonkkjfpdn) : *Clear your cache and browsing data with a single click of a button.*
- - [React Developer Tools](https://chrome.google.com/webstore/detail/fmkadmapgofadopljbjfkapdkoienihi) : *Adds React debugging tools to the Chrome Developer Tools.
-
-Created from revision 3816ae7c3 on 11/27/2019.*
  - [JSON Viewer](https://chrome.google.com/webstore/detail/gbmdgpbipfallnflgajpaliibnhdgobh) : *The most beautiful and customizable JSON/JSONP highlighter that your eyes have ever seen. Open source at https://goo.gl/fmphc7*
  - [Immutable.js Object Formatter](https://chrome.google.com/webstore/detail/hgldghadipiblonfkkicmgcbbijnpeog) : *Makes Immutable JS objects more readable when they are logged to the console.*
  - [Bookmark Sidebar](https://chrome.google.com/webstore/detail/jdbnofccmhefkmjbkkdkfiicjkgofkdh) : *Adds a toggleable sidebar with all your bookmarks at the edge of your browser window.*
- - [z-context](https://chrome.google.com/webstore/detail/jigamimbjojkdgnlldajknogfgncplbh) : *A Chrome DevTools Extension that displays stacking contexts and z-index values in the elements panel*
+ - [z-context](https://chrome.google.com/webstore/detail/jigamimbjojkdgnlldajknogfgncpbh) : *A Chrome DevTools Extension that displays stacking contexts and z-index values in the elements panel*
  - [Tag Assistant (by Google)](https://chrome.google.com/webstore/detail/kejbdjndbnbjgmefkgdddjlbokphdefk) : *Tag Assistant helps to troubleshoot installation of various Google tags including Google Analytics, Google Tag Manager and more.*
  - [Zhongwen: Chinese-English Dictionary](https://chrome.google.com/webstore/detail/kkmlkkjojmombglmlpbpapmhcaljjkde) : *Great tool for learning Chinese. Includes links to Chinese Grammar Wiki. Supports adding words to Skritter.*
  - [axe - Web Accessibility Testing](https://chrome.google.com/webstore/detail/lhdoppojpmngadmnindnejefpokejbdd) : *Accessibility Checker for Developers in Chrome*
