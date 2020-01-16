@@ -73,6 +73,8 @@
     "vim": "vint",
     "css": "stylelint",
     "dockerfile": "hadolint",
+    // neomake is still better for shellcheck and bashate since we can read
+    // shebang first
   },
   // Most already defined
   // @see https://github.com/iamcco/coc-diagnostic/blob/master/src/config.ts

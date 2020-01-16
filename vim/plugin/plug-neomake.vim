@@ -27,16 +27,11 @@ let g:neomake_info_sign     = { 'text': '⚑', 'texthl': 'NeomakeInfoSign' }
 " Global maker settings
 " ============================================================================
 
-" Disabled css makers, migrating to coc-diagnostic
-let g:neomake_css_enabled_makers = [ 'stylelint' ]
-
 " Disabled java makers
 " https://github.com/neomake/neomake/issues/875
 let g:neomake_java_enabled_makers = [ 'checkstyle' ]
 let g:neomake_java_checkstyle_xml =
       \ expand('$DOTFILES/checkstyle/google_checks.xml')
-
-let g:neomake_javascript_enabled_makers = [ 'eslint' ]
 
 let g:neomake_markdown_enabled_makers = [ 'vale' ]
 
@@ -59,13 +54,12 @@ let g:neomake_sh_enabled_makers = neomake#makers#ft#sh#EnabledMakers() + [
       \   'bashate',
       \ ]
 
-let g:neomake_vim_enabled_makers = [ 'vint' ]
-
 " ============================================================================
 " Prefer coc.nvim
 " ============================================================================
 
 if dkoplug#IsLoaded('coc.nvim')
+  let g:neomake_css_enabled_makers = []
   let g:neomake_dockerfile_enabled_makers = []
   let g:neomake_javascript_enabled_makers = []
   let g:neomake_vim_enabled_makers = []
@@ -84,9 +78,7 @@ endfunction
 let g:echint_whitelist = [
       \   'gitconfig',
       \   'dosini',
-      \   'json',
       \   'lua',
-      \   'markdown',
       \   'php',
       \   'sh',
       \   'vim',
