@@ -22,18 +22,9 @@ __dko_has 'pipx' || {
 }
 
 __main() {
-  [ -x bashate ] ||
-    pipx install bashate
-
-  [ -x nvr ] ||
-    pipx install neovim-remote
-
-  [ -x vint ] ||
-    pipx install vim-vint
-
-  [ -x yamllint ] ||
-    pipx install yamllint
-
+  while read -r package; do
+    pipx install "$package"
+  done < "${DOTFILES}/bootstrap/pipx-packages"
   pipx upgrade-all
 }
 
