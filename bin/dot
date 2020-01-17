@@ -45,6 +45,7 @@ __dko_dotfiles__usage() {
     gem         -- update rubygems and global gems for current ruby
     go          -- golang
     pip         -- update all versions of pip (OS dependent)
+    pipx        -- update pipx-installed cli tools
     neopy       -- update neovim pyenvs
     wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
 
@@ -125,6 +126,7 @@ __dko_dotfiles__update_daily() {
   __dko_has "pyenv" && {
     __dko_dotfiles__py__update_pyenv
     __dko_dotfiles__py__update_pip
+    __dko_dotfiles__py__update_pipx
     __dko_dotfiles__py__update_neovim_python
   }
 }
@@ -384,6 +386,13 @@ __dko_dotfiles__py__update_pip() {
   python -m pip install --upgrade pip || return 1
   python -m pip install --upgrade \
     --requirement "${DOTFILES}/python/requirements.txt"
+}
+
+__dko_dotfiles__py__update_pipx() {
+  __dko_status "Updating pipx tools"
+  ! __dko_has pipx &&
+    __dko_warn "pipx not found" && return 1
+  pipx upgrade-all
 }
 
 __dko_dotfiles__py__update_neovim_python() {
@@ -687,6 +696,7 @@ __dko_dotfiles() {
   node) __dko_dotfiles__update_node "$2" ;;
   nvm) __dko_dotfiles__node__update_nvm ;;
   pip) __dko_dotfiles__py__update_pip ;;
+  pipx) __dko_dotfiles__py__update_pipx ;;
   pyenv) __dko_dotfiles__py__update_pyenv ;;
   neopy) __dko_dotfiles__py__update_neovim_python ;;
   wpcs) __dko_dotfiles__php__update_wpcs ;;
