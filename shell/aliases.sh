@@ -54,6 +54,7 @@ alias dps='docker ps'
 
 alias ehosts='se /etc/hosts'
 alias etmux='e "${DOTFILES}/tmux/tmux.conf"'
+alias essh='e "${HOME}/.ssh/config"'
 alias esd='e "${DOTFILES}/bin/dot"'
 alias evr='e "${VDOTDIR}/vimrc"'
 alias evp='e "${VDOTDIR}/autoload/dkoplug/plugins.vim"'
@@ -184,13 +185,13 @@ alias ruby-install='ruby-install --rubies-dir "$DKO_RUBIES"'
 alias shfmt='shfmt -i 2 -bn -ci -kp'
 
 # ----------------------------------------------------------------------------
-# ssh keys
-# @see {@link https://blog.g3rt.nl/upgrade-your-ssh-keys.html}
+# ssh
 # ----------------------------------------------------------------------------
 
 # useful for finding things like INSECURE keys (acceptable: RSA 4096 or Ed25519)
 alias sshlistkeys='for keyfile in ~/.ssh/id_*; do ssh-keygen -l -f "${keyfile}"; done | uniq'
 
+# @see {@link https://blog.g3rt.nl/upgrade-your-ssh-keys.html}
 # Keep this up to date with latest security best practices
 alias sshkeygen='ssh-keygen -o -a 100 -t ed25519'
 
