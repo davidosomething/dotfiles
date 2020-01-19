@@ -324,10 +324,10 @@ fi
 # ============================================================================
 
 if __dko_has 'git'; then
-  dko_zplg_dest="${ZDOTDIR}/.zplugin/bin"
-  __dko_source "${dko_zplg_dest}/zplugin.zsh" || {
-    command git clone https://github.com/zdharma/zinit "${dko_zplg_dest}" &&
-    source "${dko_zplg_dest}/zplugin.zsh"
+  dko_zinig_dest="${ZDOTDIR}/.zplugin/bin"
+  __dko_source "${dko_zinig_dest}/zplugin.zsh" || {
+    command git clone https://github.com/zdharma/zinit "${dko_zinig_dest}" &&
+    source "${dko_zinig_dest}/zplugin.zsh"
   }
 
   __dko_has 'zplugin' && {
