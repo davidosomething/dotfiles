@@ -326,7 +326,7 @@ fi
 if __dko_has 'git'; then
   dko_zplg_dest="${ZDOTDIR}/.zplugin/bin"
   __dko_source "${dko_zplg_dest}/zplugin.zsh" || {
-    command git clone https://github.com/zdharma/zplugin "${dko_zplg_dest}" &&
+    command git clone https://github.com/zdharma/zinit "${dko_zplg_dest}" &&
     source "${dko_zplg_dest}/zplugin.zsh"
   }
 
