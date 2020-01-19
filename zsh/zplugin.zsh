@@ -101,7 +101,7 @@ zplugin load 'zsh-users/zsh-completions'
 # Syntax last, and compinit before it
 # ----------------------------------------------------------------------------
 
-zplugin lucid wait'1' atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
+zplugin lucid wait'1' atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
 zplugin load 'zdharma/fast-syntax-highlighting'
 
 export DKO_SOURCE="${DKO_SOURCE} }"
