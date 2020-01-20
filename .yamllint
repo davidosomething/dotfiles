@@ -11,4 +11,5 @@ ignore: |
   vale/styles/
   vim/vendor/
   vim/.tmp/
+  zsh/.zinit/
   zsh/.zplugin/

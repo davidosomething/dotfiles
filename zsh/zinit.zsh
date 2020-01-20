@@ -1,6 +1,6 @@
-# zplugin.zsh
+# zsh/zinit.zsh
 
-DKO_SOURCE="${DKO_SOURCE} -> zplugin.zsh {"
+DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 
 zplugin lucid wait as'program' pick'git-ink'
 zplugin light davidosomething/git-ink
