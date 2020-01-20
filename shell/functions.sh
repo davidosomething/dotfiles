@@ -88,9 +88,14 @@ mykey() {
     exit 1
   }
 
+  command cat "$pubkey"
+  echo
+
   if __dko_has "pbcopy"; then
     pbcopy <"$pubkey"
+    echo "Copied to clipboard"
   elif __dko_has "xclip"; then
     xclip "$pubkey"
+    echo "Copied to clipboard"
   fi
 }
