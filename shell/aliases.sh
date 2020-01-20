@@ -47,6 +47,8 @@ alias d='icdiff -line-numbers --tabsize=4 --numlines=8'
 # ----------------------------------------------------------------------------
 
 alias dps='docker ps'
+alias dockup='docker-compose up -d'
+alias dockdown='docker-compose down'
 
 # ----------------------------------------------------------------------------
 # editors
