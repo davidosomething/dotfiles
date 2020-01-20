@@ -112,7 +112,7 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # ----------------------------------------------------------------------------
-# Plugins: fzf (package install)
+# Plugins: fzf (package install, may not be available if using fzf-bin)
 # ----------------------------------------------------------------------------
 
 __dko_source "${XDG_CONFIG_HOME}/fzf/fzf.zsh" &&

@@ -26,6 +26,13 @@ zplugin lucid as'program' \
   make"PREFIX=$ZPFX"
 zplugin light tj/git-extras
 
+if ! __dko_has fzf; then
+  # Binary release in archive, from GitHub-releases page.
+  # After automatic unpacking it provides program "fzf".
+  zinit ice from"gh-r" as"program"
+  zinit load junegunn/fzf-bin
+fi
+
 # `` compl for git commands
 zplugin lucid wait
 zplugin light 'hschne/fzf-git'
