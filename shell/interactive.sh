@@ -19,24 +19,6 @@ DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh[interactive] {"
 . "${DOTFILES}/shell/ruby.sh"
 
 # ============================================================================
-# interactive aliases and functions
-# ============================================================================
-
-. "${DOTFILES}/shell/functions.sh" # shell functions
-. "${DOTFILES}/shell/aliases.sh"   # generic aliases
-
-if [ "$DOTFILES_OS" = 'Linux' ]; then
-  . "${DOTFILES}/shell/aliases-linux.sh"
-  case "$DOTFILES_DISTRO" in
-  "archlinux" | "debian" | "fedora")
-    . "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.sh"
-    ;;
-  esac
-else
-  . "${DOTFILES}/shell/aliases-darwin.sh"
-fi
-
-# ============================================================================
 # FZF settings
 # ============================================================================
 
@@ -98,6 +80,26 @@ if __dko_has "fd"; then
   _fzf_compgen_dir() {
     fd --type d --hidden --follow --exclude ".git" . "$1"
   }
+fi
+
+# ============================================================================
+# interactive aliases and functions
+# source aliases late so command -v (as in __dko_has) doesn't detect them
+# ============================================================================
+
+. "${DOTFILES}/shell/functions.sh" # shell functions
+
+. "${DOTFILES}/shell/aliases.sh"   # generic aliases
+
+if [ "$DOTFILES_OS" = 'Linux' ]; then
+  . "${DOTFILES}/shell/aliases-linux.sh"
+  case "$DOTFILES_DISTRO" in
+  "archlinux" | "debian" | "fedora")
+    . "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.sh"
+    ;;
+  esac
+else
+  . "${DOTFILES}/shell/aliases-darwin.sh"
 fi
 
 # ============================================================================
