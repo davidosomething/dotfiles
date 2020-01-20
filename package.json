@@ -65,7 +65,6 @@
       "vim/autoload/plug.vim*",
       "vim/spell/**",
       "vim/vendor/**",
-      "weechat/**",
       "xresources/**"
     ]
   },

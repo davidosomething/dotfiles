@@ -191,9 +191,6 @@ export TRAVIS_CONFIG_PATH="${XDG_CONFIG_HOME}/travis"
 export VAGRANT_HOME="${XDG_DATA_HOME}/vagrant"
 export VAGRANT_ALIAS_FILE="${XDG_DATA_HOME}/vagrant/aliases"
 
-# weechat
-export WEECHAT_HOME="${DOTFILES}/weechat"
-
 # wp cli
 export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
 

@@ -235,7 +235,6 @@ alias u='dot'
 alias vag='vagrant'
 alias vb='VBoxManage'
 alias vbm='vb'
-alias weechat='weechat -d "${DOTFILES}/weechat"'
 alias wget='wget --no-check-certificate --hsts-file="${XDG_DATA_HOME}/wget/.wget-hsts"'
 alias xit='exit' # dammit
 
