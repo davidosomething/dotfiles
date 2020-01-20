@@ -318,7 +318,7 @@ set ignorecase
 if exists('+tagcase') && has('patch-7.4.2230') | set tagcase=followscs | endif
 set smartcase
 
-if !empty(dko#grepper#Get())
+if !empty(dko#grepper#Get().command)
   let &g:grepprg = dko#grepper#Get().command . ' '
         \ . join(dko#grepper#Get().options, ' ')
   let &g:grepformat = dko#grepper#Get().format
