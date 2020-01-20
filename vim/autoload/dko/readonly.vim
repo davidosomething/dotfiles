@@ -7,7 +7,7 @@ function! s:Close() abort
 endfunction
 
 function! dko#readonly#Unmap() abort
-  if dko#IsEditable('%') || &filetype ==# 'vim-plug'
+  if dko#IsEditable('%') || index(['vim-plug', 'dosini']) > -1
     return
   endif
 
@@ -25,7 +25,6 @@ function! dko#readonly#Unmap() abort
   " Help navigation
   nnoremap <buffer><nowait>             < <C-o>
   " opposite of <C-o>
-  nnoremap <buffer>                     o <C-]>
   nnoremap <buffer><nowait>             > <C-]>
 
   let &cpoptions = s:cpo_save
