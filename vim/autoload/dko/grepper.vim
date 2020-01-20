@@ -44,7 +44,9 @@ function! dko#grepper#Get() abort
         \ : executable('ack') ? 'ack'
         \ : ''
 
-  let s:grepper = empty(l:grepper_name) ? {} : l:greppers[l:grepper_name]
+  let s:grepper = empty(l:grepper_name)
+        \ ? { 'command': '' }
+        \ : l:greppers[l:grepper_name]
 
   return s:grepper
 endfunction
