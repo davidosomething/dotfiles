@@ -320,37 +320,37 @@ if [[ "$0" == *"zsh" ]]; then
 fi
 
 # ============================================================================
-# zplugin, auto-install with git if possible
+# zinit, auto-install with git if possible
 # ============================================================================
 
 if __dko_has 'git'; then
-  dko_zinig_dest="${ZDOTDIR}/.zplugin/bin"
-  __dko_source "${dko_zinig_dest}/zplugin.zsh" || {
-    command git clone https://github.com/zdharma/zinit "${dko_zinig_dest}" &&
-    source "${dko_zinig_dest}/zplugin.zsh"
+  dko_zinit_dest="${ZDOTDIR}/.zplugin/bin"
+  dko_zinit_script="${dko_zinit_dest}/zinit.zsh"
+  __dko_source "$dko_zinit_script" || {
+    command git clone https://github.com/zdharma/zinit "${dko_zinit_dest}" &&
+    source "$dko_zinit_script"
   }
 
-  __dko_has 'zplugin' && {
-    autoload -Uz _zplugin
-    (( ${+_comps} )) && _comps[zplugin]=_zplugin
-
+  __dko_has 'zinit' && {
+    autoload -Uz _zinit
+    (( ${+_comps} )) && _comps[zinit]=_zinit
     # load plugins
-    __dko_source "${ZDOTDIR}/zplugin.zsh"
+    __dko_source "${ZDOTDIR}/zinit.zsh"
   }
 fi
 
 # ============================================================================
-# Local: can add more zplugins here
+# Local: can add more zinit plugins here
 # ============================================================================
 
 . "${DOTFILES}/shell/after.sh"
 __dko_source "${LDOTDIR}/zshrc"
 
 # ============================================================================
-# zplugin: after
+# zinit: after
 # ============================================================================
 
-if __dko_has 'zplugin'; then
+if __dko_has 'zinit'; then
   zpcompdef g=git
 else
   autoload -Uz compinit
