@@ -7,7 +7,7 @@ function! s:Close() abort
 endfunction
 
 function! dko#readonly#Unmap() abort
-  if dko#IsEditable('%') || index(['vim-plug', 'dosini']) > -1
+  if dko#IsEditable('%') || index(['vim-plug', 'dosini'], &filetype) > -1
     return
   endif
 
