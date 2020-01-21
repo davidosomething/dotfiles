@@ -75,9 +75,6 @@ function! dkoplug#plugins#LoadAll() abort
         \   'on': [ 'Gina', '<Plug>(gina' ]
         \ })
 
-  " :Bdelete to preserve windows (mapped to <Leader>x)
-  Plug 'moll/vim-bbye'
-
   Plug 'nathanaelkane/vim-indent-guides'
 
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }

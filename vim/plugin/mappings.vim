@@ -90,12 +90,10 @@ nnoremap  <special>   <Leader>mk  :<C-U>lmake!<CR>
 " Buffer manip
 " ============================================================================
 
-nnoremap <special>  <Leader>vn :<C-U>vnew<CR>
+" Close buffer without destroying window
+nnoremap  <silent><special>  <Leader>x  :<C-U>lclose<CR>:bp\|bd #<CR>
 
-" ----------------------------------------------------------------------------
 " Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)
-" ----------------------------------------------------------------------------
-
 nnoremap  <special>   <BS>  <C-^>
 
 " ============================================================================
