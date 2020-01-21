@@ -77,7 +77,7 @@
     // shebang first
   },
   // Most already defined
-  // @see https://github.com/iamcco/coc-diagnostic/blob/master/src/config.ts
+  // https://github.com/iamcco/coc-diagnostic/blob/master/src/config.ts
   //"diagnostic-languageserver.linters"
 
   // =========================================================================

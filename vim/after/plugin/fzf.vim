@@ -145,7 +145,7 @@ command! FZFTests
 " FZFGrepper
 " fzf.vim ripgrep or ag with preview (requires ruby, but safely checks for it)
 " Fallback to git-grep if rg and ag not installed (e.g. I'm ssh'ed somewhere)
-" @see https://github.com/junegunn/fzf.vim#advanced-customization
+" https://github.com/junegunn/fzf.vim#advanced-customization
 " ----------------------------------------------------------------------------
 
 " FZFGrepper! settings
@@ -174,7 +174,7 @@ if dko#grepper#Get().command ==# 'rg'
         \   <bang>0
         \ )
 elseif dko#grepper#Get().command ==# 'ag'
-  " @see https://github.com/junegunn/fzf.vim/blob/abdf894edf5dbbe8eaa734a6a4dce39c9f174e33/autoload/fzf/vim.vim#L614
+  " https://github.com/junegunn/fzf.vim/blob/abdf894edf5dbbe8eaa734a6a4dce39c9f174e33/autoload/fzf/vim.vim#L614
   " Default options are --nogroup --column --color
   let s:ag_options = ' --skip-vcs-ignores --smart-case '
 
@@ -228,7 +228,7 @@ set cpoptions&vim
 
 " junegunn/fzf mappings for the neovim :term
 " Bind <fx> to abort FZF (<C-g> is one of the default abort keys in FZF)
-" @see #f-keys
+" See #f-keys
 function! s:MapCloseFzf() abort
   tnoremap <buffer><special> <F1> <C-g>
   tnoremap <buffer><special> <F2> <C-g>

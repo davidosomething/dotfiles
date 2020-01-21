@@ -100,10 +100,10 @@ let &wildignorecase = v:version >= 704
 
 " wildignore prevents things from showing up in cmd completion
 " It's for things you'd NEVER open in Vim, like caches and binary files
-" @see https://github.com/tpope/vim-fugitive/issues/121#issuecomment-38720847
-" @see https://github.com/kien/ctrlp.vim/issues/63
-" @see https://github.com/tpope/vim-vinegar/issues/61#issuecomment-167432416
-" @see http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html#comment-1396330403
+" https://github.com/tpope/vim-fugitive/issues/121#issuecomment-38720847
+" https://github.com/kien/ctrlp.vim/issues/63
+" https://github.com/tpope/vim-vinegar/issues/61#issuecomment-167432416
+" http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html#comment-1396330403
 "
 " So don't do this! There are cases where you'd edit them or their contents
 "set wildignore+=.git
@@ -499,6 +499,11 @@ augroup dkoautomark
   autocmd BufLeave *.js*,*.ts*          normal! mJ
   autocmd BufLeave *.md                 normal! mM
   autocmd BufLeave *.yml,*.yaml         normal! mY
+augroup END
+
+augroup dkorestoreposition
+  autocmd!
+  autocmd BufWinEnter * call dko#RestorePosition()
 augroup END
 
 " ============================================================================

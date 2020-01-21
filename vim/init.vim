@@ -8,7 +8,7 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 " ============================================================================
 
 if $TERM ==# 'xterm-kitty'
-  " @see https://github.com/kovidgoyal/kitty#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
+  " https://github.com/kovidgoyal/kitty#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
   let &t_ut=''
 endif
 
@@ -49,7 +49,7 @@ set shada=!,'1000,<100,s100,h
 
 " The default blinking cursor leaves random artifacts in display like "q" in
 " old terminal emulators and some VTEs
-" @see https://github.com/neovim/neovim/issues?utf8=%E2%9C%93&q=is%3Aissue+cursor+shape+q
+" https://github.com/neovim/neovim/issues?utf8=%E2%9C%93&q=is%3Aissue+cursor+shape+q
 set guicursor=
 augroup dkonvim
   autocmd!
@@ -60,7 +60,7 @@ augroup END
 " so it is not practical for now (makes it harder to remember what you're
 " replacing/reference previous regex tokens). Default is off, but explicitly
 " disabled here, too.
-" @see https://github.com/neovim/neovim/pull/5226
+" https://github.com/neovim/neovim/pull/5226
 set inccommand=
 
 " Pretty quick... errorprone on old vim so only apply to nvim
@@ -75,8 +75,8 @@ let g:terminal_scrollback_buffer_size = 100000
 " ----------------------------------------------------------------------------
 " Use gruvbox's termcolors
 "
-" @see https://github.com/ianks/gruvbox/blob/c7b13d9872af9fe1f5588d6ec56759489b0d7864/colors/gruvbox.vim#L137-L169
-" @see https://github.com/morhetz/gruvbox/pull/93/files
+" https://github.com/ianks/gruvbox/blob/c7b13d9872af9fe1f5588d6ec56759489b0d7864/colors/gruvbox.vim#L137-L169
+" https://github.com/morhetz/gruvbox/pull/93/files
 
 " dark0 + gray
 let g:terminal_color_0 = '#282828'

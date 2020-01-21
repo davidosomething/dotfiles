@@ -331,7 +331,7 @@ function! dkoplug#plugins#LoadAll() abort
   "     jQuery,backbone,etc. and I've confirmed it is only compatible with
   "     yajs.vim as of 2016-11-03.
   " 3.  es.next support has possible jsx indent conflicts
-  "     @see https://github.com/othree/es.next.syntax.vim/issues/5
+  "     https://github.com/othree/es.next.syntax.vim/issues/5
   " Plug 'othree/yajs.vim'
   " Plug 'othree/javascript-libraries-syntax.vim'
   " Plug 'othree/es.next.syntax.vim'
@@ -382,7 +382,7 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'chr4/nginx.vim'
 
   " Same as in official upstream, @mhinz tends to update more often
-  " @see http://hg.nginx.org/nginx/file/tip/contrib/vim
+  " http://hg.nginx.org/nginx/file/tip/contrib/vim
   " Plug 'mhinz/vim-nginx'
   "Plug 'moskytw/nginx-contrib-vim'
 
@@ -552,7 +552,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Disabled, not worth the overhead.
   " Alternatively use sjl/vitality.vim -- but that has some cursor shape stuff
   " that Neovim doesn't need.
-  " @see <https://github.com/sjl/vitality.vim/issues/31>
+  " https://github.com/sjl/vitality.vim/issues/31
   "Plug 'tmux-plugins/vim-tmux-focus-events'
 
   Plug 'wellle/visual-split.vim', { 'on': [

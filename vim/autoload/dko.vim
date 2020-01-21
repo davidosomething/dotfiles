@@ -227,6 +227,36 @@ function! dko#IsTypedFile(...) abort
 endfunction
 
 " ============================================================================
+" Restore Position
+" From vim help docs on last-position-jump
+" ============================================================================
+
+" http://stackoverflow.com/questions/6496778/vim-run-autocmd-on-all-filetypes-except
+let s:excluded_ft = [
+      \   'gitbranchdescription',
+      \   'gitcommit',
+      \   'gitrebase',
+      \   'hgcommit',
+      \   'svn',
+      \ ]
+function! dko#RestorePosition() abort
+  if !dko#IsNonFile('%') || (
+        \   index(s:excluded_ft, &filetype) < 0
+        \   && line("'\"") > 1 && line("'\"") <= line('$')
+        \)
+
+    " Last check for file exists
+    " https://github.com/farmergreg/vim-lastplace/blob/48ba343c8c1ca3039224727096aae214f51327d1/plugin/vim-lastplace.vim#L38
+    try
+      if empty(glob(@%)) | return | endif
+    catch | return
+    endtry
+
+    normal! g`"
+  endif
+endfunction
+
+" ============================================================================
 " Whitespace settings
 " ============================================================================
 

@@ -6,7 +6,7 @@ scriptencoding utf-8
 " prior to binding. This way this file can be edited and sourced at any time
 " to rebind keys.
 "
-" @see after/plugin/search for search mappings like <Esc><Esc>
+" See after/plugin/search for search mappings like <Esc><Esc>
 "
 
 " cpoptions are reset but use <special> when mapping anyway

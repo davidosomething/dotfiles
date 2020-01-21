@@ -1,7 +1,7 @@
 " after/syntax/sh/embed-awk.vim
 "
 " Embed awk highlighting
-" @see :h *sh-embed*
+" See :h *sh-embed*
 
 if exists('b:current_syntax')
   unlet b:current_syntax
