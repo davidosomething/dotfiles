@@ -1,10 +1,6 @@
 scriptencoding utf-8
 " autoload/dko/float.vim
 
-augroup dkofloat
-  autocmd!
-augroup END
-
 let s:DEFAULT_HEIGHT_RATIO = 0.8
 let s:DEFAULT_WIDTH_RATIO = 0.8
 function! dko#float#GetOptions(params) abort
@@ -54,16 +50,16 @@ function! dko#float#Bordered() abort
   let l:border = [l:top] + repeat([l:mid], l:opts.height - 2) + [l:bot]
 
   " Draw frame
-  let s:instance = dko#float#Open('Ignore', {
+  let g:frame = dko#float#Open('Ignore', {
         \   'row': l:opts.row,
         \   'col': l:opts.col,
         \   'width': l:opts.width,
         \   'height': l:opts.height
         \ })
-  call nvim_buf_set_lines(s:instance.buf, 0, -1, v:true, l:border)
+  call nvim_buf_set_lines(g:frame.buf, 0, -1, v:true, l:border)
 
   " Draw viewport
-  call dko#float#Open('Normal', {
+  let s:viewport = dko#float#Open('Normal', {
         \   'row': l:opts.row + 1,
         \   'col': l:opts.col + 2,
         \   'width': l:opts.width - 4,
@@ -71,5 +67,8 @@ function! dko#float#Bordered() abort
         \ })
 
   " Close border float when viewport float closes
-  autocmd dkofloat BufWipeout <buffer> execute 'bwipeout' s:instance.buf
+  augroup dkofloat
+    autocmd!
+    autocmd BufWipeout <buffer> execute 'bwipeout' g:frame.buf
+  augroup END
 endfunction
