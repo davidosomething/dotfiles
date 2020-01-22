@@ -10,20 +10,6 @@ DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 . "${HOME}/.dotfiles/shell/dot.profile"
 
 # ============================================================================
-# Vars needed before plugins loaded
-# ============================================================================
-
-# davidosomething/cdbk
-export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
-
-# zsh-users/zsh-autosuggestions
-# don't suggest lines longer than
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
-# as of v4.0 use ZSH/zpty module to async retrieve
-#export ZSH_AUTOSUGGEST_USE_ASYNC=1
-
-
-# ============================================================================
 # zinit, auto-install with git if possible
 # ============================================================================
 
