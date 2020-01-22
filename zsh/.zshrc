@@ -9,18 +9,51 @@ DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 
 . "${HOME}/.dotfiles/shell/dot.profile"
 
-# dedupe these path arrays (they shadow PATH, FPATH, etc)
-typeset -gU cdpath path fpath manpath
-
 # ============================================================================
-# nocorrect aliases
-# These may be re-aliased later (e.g. rm=trash from trash-cli node module)
+# Vars needed before plugins loaded
 # ============================================================================
 
-alias cp="nocorrect cp"
-alias mv="nocorrect mv"
-alias rm="nocorrect rm"
-alias mkdir="nocorrect mkdir"
+# davidosomething/cdbk
+export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
+
+# zsh-users/zsh-autosuggestions
+# don't suggest lines longer than
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
+# as of v4.0 use ZSH/zpty module to async retrieve
+#export ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+
+# ============================================================================
+# zinit, auto-install with git if possible
+# ============================================================================
+
+__dko_has 'git' && {
+  ZINIT_HOME="${ZDOTDIR}/.zinit"
+
+  # part of zinit's install, found by compaudit
+  mkdir -p "$ZINIT_HOME"
+  chmod g-rwX "$ZINIT_HOME"
+
+  dko_zinit_dest="${ZINIT_HOME}/bin"
+  dko_zinit_script="${dko_zinit_dest}/zinit.zsh"
+  __dko_source "$dko_zinit_script" || {
+    command git clone https://github.com/zdharma/zinit "${dko_zinit_dest}" &&
+      __dko_source "$dko_zinit_script"
+  }
+
+  __dko_has 'zinit' && {
+    autoload -Uz _zinit
+    (( ${+_comps} )) && _comps[zinit]=_zinit
+    __dko_source "${ZDOTDIR}/zinit.zsh"
+  }
+}
+
+# ============================================================================
+# fzf bindings (package install, may not be available if using fzf-bin)
+# ============================================================================
+
+__dko_source "${XDG_CONFIG_HOME}/fzf/fzf.zsh" &&
+  DKO_SOURCE="${DKO_SOURCE} -> fzf"
 
 # ============================================================================
 # Options
@@ -93,30 +126,6 @@ autoload -Uz add-zsh-hook
 . "${ZDOTDIR}/prompt-vimode.zsh"
 . "${ZDOTDIR}/prompt.zsh"
 . "${ZDOTDIR}/title.zsh"
-
-# ============================================================================
-# Plugins
-# ============================================================================
-
-# ----------------------------------------------------------------------------
-# Plugins: Settings that must be defined before loading
-# ----------------------------------------------------------------------------
-
-# davidosomething/cdbk
-export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
-
-# zsh-users/zsh-autosuggestions
-# don't suggest lines longer than
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
-# as of v4.0 use ZSH/zpty module to async retrieve
-#export ZSH_AUTOSUGGEST_USE_ASYNC=1
-
-# ----------------------------------------------------------------------------
-# Plugins: fzf (package install, may not be available if using fzf-bin)
-# ----------------------------------------------------------------------------
-
-__dko_source "${XDG_CONFIG_HOME}/fzf/fzf.zsh" &&
-  DKO_SOURCE="${DKO_SOURCE} -> fzf"
 
 # ============================================================================
 # Keybindings (after plugins since some are custom for fzf)
@@ -226,121 +235,95 @@ if __dko_has "fzf"; then
 fi
 
 # ============================================================================
-# Custom widget: toggle iterm2 profile
-# ============================================================================
-
-if [ -n "$ITERM_PROFILE" ]; then
-  # <C-p> to toggle profile
-  zle     -N   proftoggle
-  bindkey '^P' proftoggle
-fi
-
-# ============================================================================
 # Completion settings
 # Order by * specificity
 # ============================================================================
 
-# check that we're in the shell and not in something like vim terminal
-if [[ "$0" == *"zsh" ]]; then
-  # --------------------------------------------------------------------------
-  # Completion: Caching
-  # --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# Completion: Caching
+# --------------------------------------------------------------------------
 
-  zstyle ':completion:*' use-cache true
-  zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
+zstyle ':completion:*' use-cache true
+zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
 
-  # --------------------------------------------------------------------------
-  # Completion: Display
-  # --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# Completion: Display
+# --------------------------------------------------------------------------
 
-  # group all by the description above
-  zstyle ':completion:*' group-name ''
+# group all by the description above
+zstyle ':completion:*' group-name ''
 
-  # colorful completion
-  #zstyle ':completion:*' list-colors ''
+# colorful completion
+#zstyle ':completion:*' list-colors ''
 
-  # Updated to respect LS_COLORS
-  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# Updated to respect LS_COLORS
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-  zstyle ':completion:*' list-dirs-first yes
+zstyle ':completion:*' list-dirs-first yes
 
-  # go into menu mode on second tab (like current vim wildmenu setting)
-  # only if there's more than two things to choose from
-  zstyle ':completion:*' menu select=2
+# go into menu mode on second tab (like current vim wildmenu setting)
+# only if there's more than two things to choose from
+zstyle ':completion:*' menu select=2
 
-  # show descriptions for options
-  zstyle ':completion:*' verbose yes
+# show descriptions for options
+zstyle ':completion:*' verbose yes
 
-  # in Bold, specify what type the completion is, e.g. a file or an alias or
-  # a cmd
-  zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
+# in Bold, specify what type the completion is, e.g. a file or an alias or
+# a cmd
+zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
 
-  # --------------------------------------------------------------------------
-  # Completion: Matching
-  # --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# Completion: Matching
+# --------------------------------------------------------------------------
 
-  # use case-insensitive completion if case-sensitive generated no hits
-  zstyle ':completion:*' matcher-list \
-    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
+# use case-insensitive completion if case-sensitive generated no hits
+zstyle ':completion:*' matcher-list \
+  'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 
-  # don't complete usernames
-  zstyle ':completion:*' users ''
+# don't complete usernames
+zstyle ':completion:*' users ''
 
-  # don't autocomplete homedirs
-  zstyle ':completion::complete:cd:*' tag-order '! users'
+# don't autocomplete homedirs
+zstyle ':completion::complete:cd:*' tag-order '! users'
 
-  # --------------------------------------------------------------------------
-  # Completion: Output transformation
-  # --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# Completion: Output transformation
+# --------------------------------------------------------------------------
 
-  # expand completions as much as possible on tab
-  # e.g. start expanding a path up to wherever it can be until error
-  zstyle ':completion:*' expand yes
+# expand completions as much as possible on tab
+# e.g. start expanding a path up to wherever it can be until error
+zstyle ':completion:*' expand yes
 
-  # process names
-  zstyle ':completion:*:processes-names' command \
-    'ps c -u ${USER} -o command | uniq'
+# process names
+zstyle ':completion:*:processes-names' command \
+  'ps c -u ${USER} -o command | uniq'
 
-  # rsync and SSH use hosts from ~/.ssh/config
-  [ -r "$HOME/.ssh/config" ] && {
-    # Vanilla parsing of config file :)
-    # @see {@link https://github.com/Eriner/zim/issues/46#issuecomment-219344931}
-    hosts=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
-    #hosts=($(egrep '^Host ' "$HOME/.ssh/config" | grep -v '*' | awk '{print $2}' ))
-    zstyle ':completion:*:ssh:*'    hosts $hosts
-    zstyle ':completion:*:rsync:*'  hosts $hosts
-  }
+# rsync and SSH use hosts from ~/.ssh/config
+[ -r "$HOME/.ssh/config" ] && {
+  # Vanilla parsing of config file :)
+  # @see {@link https://github.com/Eriner/zim/issues/46#issuecomment-219344931}
+  hosts=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+  #hosts=($(egrep '^Host ' "$HOME/.ssh/config" | grep -v '*' | awk '{print $2}' ))
+  zstyle ':completion:*:ssh:*'    hosts $hosts
+  zstyle ':completion:*:rsync:*'  hosts $hosts
+}
 
-  # colorful kill command completion -- probably overridden by fzf
-  zstyle ':completion:*:*:kill:*:processes' list-colors \
-    "=(#b) #([0-9]#)*=36=31"
+# colorful kill command completion -- probably overridden by fzf
+zstyle ':completion:*:*:kill:*:processes' list-colors \
+  "=(#b) #([0-9]#)*=36=31"
 
-  # complete .log filenames if redirecting stderr
-  zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
-fi
+# complete .log filenames if redirecting stderr
+zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 
 # ============================================================================
-# zinit, auto-install with git if possible
+# nocorrect aliases
+# These may be re-aliased later (e.g. rm=trash from trash-cli node module)
 # ============================================================================
 
-if __dko_has 'git'; then
-  dko_zinit_dest="${ZDOTDIR}/.zinit/bin"
-
-  # @TODO change to zinit.zsh when my systems all fully update to new name
-  dko_zinit_script="${dko_zinit_dest}/zinit.zsh"
-
-  __dko_source "$dko_zinit_script" || {
-    command git clone https://github.com/zdharma/zinit "${dko_zinit_dest}" &&
-    source "$dko_zinit_script"
-  }
-
-  __dko_has 'zinit' && {
-    autoload -Uz _zinit
-    (( ${+_comps} )) && _comps[zinit]=_zinit
-    # load plugins
-    __dko_source "${ZDOTDIR}/zinit.zsh"
-  }
-fi
+alias cp="nocorrect cp"
+alias mv="nocorrect mv"
+alias rm="nocorrect rm"
+alias mkdir="nocorrect mkdir"
 
 # ============================================================================
 # Local: can add more zinit plugins here
@@ -349,6 +332,9 @@ fi
 . "${DOTFILES}/shell/after.sh"
 __dko_source "${LDOTDIR}/zshrc"
 
+# dedupe these path arrays (they shadow PATH, FPATH, etc)
+typeset -gU cdpath path fpath manpath
+
 # ============================================================================
 # zinit: after
 # ============================================================================
@@ -356,9 +342,7 @@ __dko_source "${LDOTDIR}/zshrc"
 if __dko_has 'zinit'; then
   zpcompdef g=git
 else
-  autoload -Uz compinit
-  compinit
-  compdef g=git
+  autoload -Uz compinit && compinit && compdef g=git
 fi
 
 # ============================================================================
@@ -366,12 +350,11 @@ fi
 # ============================================================================
 
 # Started xtrace in dot.zshenv
-if [[ "$ITERM_PROFILE" == "PROFILE"* ]] \
-  || [[ -n "$DKO_PROFILE_STARTUP" ]]; then
+[[ "$ITERM_PROFILE" == "PROFILE"* ]] || [[ -n "$DKO_PROFILE_STARTUP" ]] && {
   unsetopt xtrace
   exec 2>&3 3>&-
-  echo "==> ZSH startup log written to ${DKO_PROFILE_LOG}"
-fi
+  __dko_ok "ZSH startup log written to ${DKO_PROFILE_LOG}"
+}
 
 # ============================================================================
 
