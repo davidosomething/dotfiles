@@ -11,6 +11,7 @@ logs/
 # deprecated
 z/.z
 z/.z.*
+zsh/.zinit
 zsh/.zplugin
 zsh/antibody
 

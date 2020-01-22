@@ -324,7 +324,7 @@ fi
 # ============================================================================
 
 if __dko_has 'git'; then
-  dko_zinit_dest="${ZDOTDIR}/.zplugin/bin"
+  dko_zinit_dest="${ZDOTDIR}/.zinit/bin"
 
   # @TODO change to zinit.zsh when my systems all fully update to new name
   dko_zinit_script="${dko_zinit_dest}/zinit.zsh"
