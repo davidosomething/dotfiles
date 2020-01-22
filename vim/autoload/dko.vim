@@ -251,8 +251,7 @@ function! dko#RestorePosition() abort
       if empty(glob(@%)) | return | endif
     catch | return
     endtry
-
-    normal! g`"
+    silent! normal! g`"
   endif
 endfunction
 
