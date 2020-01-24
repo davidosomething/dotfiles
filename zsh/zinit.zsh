@@ -2,6 +2,29 @@
 
 DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 
+# my fork of cdbk, ZSH hash based directory bookmarking. No wait.
+export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
+zinit lucid
+zinit light 'davidosomething/cdbk'
+
+# ----------------------------------------------------------------------------
+# Finders
+# ----------------------------------------------------------------------------
+
+if ! __dko_has fzf; then
+  # Binary release in archive, from GitHub-releases page.
+  # After automatic unpacking it provides program "fzf".
+  zinit from'gh-r' as'program'
+  zinit light junegunn/fzf-bin
+fi
+
+zinit from'gh-r' as'program' mv'fd* -> fd' pick'fd/fd'
+zinit light sharkdp/fd
+
+# ----------------------------------------------------------------------------
+# Git
+# ----------------------------------------------------------------------------
+
 zinit lucid wait as'program' pick'git-ink'
 zinit light davidosomething/git-ink
 
@@ -11,43 +34,48 @@ zinit light davidosomething/git-my
 zinit lucid wait as'program' pick'git-take'
 zinit light davidosomething/git-take
 
-# my fork of cdbk, ZSH hash based directory bookmarking. No wait.
-export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
-zinit lucid
-zinit light 'davidosomething/cdbk'
-
-# ----------------------------------------------------------------------------
-# Vendor: Commands
-# ----------------------------------------------------------------------------
-
-zinit from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat"
-zinit light sharkdp/bat
-
 zinit lucid as'program' \
   pick"${ZPFX}/bin/git-*" \
-  src"etc/git-extras-completion.zsh" \
-  make"PREFIX=$ZPFX"
+  src'etc/git-extras-completion.zsh' \
+  make"PREFIX=${ZPFX}"
 zinit light tj/git-extras
-
-if ! __dko_has fzf; then
-  # Binary release in archive, from GitHub-releases page.
-  # After automatic unpacking it provides program "fzf".
-  zinit from"gh-r" as"program"
-  zinit light junegunn/fzf-bin
-fi
-
-zinit from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd"
-zinit light sharkdp/fd
-
-# `` compl for git commands
-zinit lucid wait
-zinit light 'hschne/fzf-git'
 
 zinit lucid wait as'program' pick'git-open'
 zinit light paulirish/git-open
 
 zinit lucid wait as'program' pick'git-recent'
 zinit light paulirish/git-recent
+
+# gi is my git-ink alias, and i don't need a .gitignore generator
+export forgit_ignore='fgi'
+zinit lucid wait
+zinit light 'wfxr/forgit'
+
+zinit lucid wait as'program' pick'bin/git-dsf'
+zinit light zdharma/zsh-diff-so-fancy
+
+# `` compl for git commands
+zinit lucid wait
+zinit light 'hschne/fzf-git'
+
+# ----------------------------------------------------------------------------
+# Docker
+# ----------------------------------------------------------------------------
+
+if __dko_has docker; then
+  zinit as'completion'
+  zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+
+  zinit from'gh-r' as'program'
+  zinit light jesseduffield/lazydocker
+fi
+
+# ----------------------------------------------------------------------------
+# Misc
+# ----------------------------------------------------------------------------
+
+zinit from'gh-r' as'program' mv'bat* -> bat' pick'bat/bat'
+zinit light sharkdp/bat
 
 if __dko_has lua; then
   export _ZL_CMD='j'
@@ -72,21 +100,8 @@ else
   zinit light 'shannonmoeller/up'
 fi
 
-# gi is my git-ink alias, and i don't need a .gitignore generator
-export forgit_ignore='fgi'
-zinit lucid wait
-zinit light 'wfxr/forgit'
-
-zinit lucid wait as'program' pick'bin/git-dsf'
-zinit light zdharma/zsh-diff-so-fancy
-
-if __dko_has docker; then
-  zinit from"gh-r" as"program"
-  zinit light jesseduffield/lazydocker
-fi
-
 # ----------------------------------------------------------------------------
-# Vendor: ZSH extension
+# ZSH extensions
 # ----------------------------------------------------------------------------
 
 zinit lucid wait'[[ -n ${ZLAST_COMMANDS[(r)man*]} ]]'
