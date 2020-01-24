@@ -71,8 +71,13 @@ export forgit_ignore='fgi'
 zinit lucid wait
 zinit light 'wfxr/forgit'
 
-zinit lucid wait lucid as'program' pick'bin/git-dsf'
+zinit lucid wait as'program' pick'bin/git-dsf'
 zinit light zdharma/zsh-diff-so-fancy
+
+if __dko_has docker; then
+  zinit ice from"gh-r" as"program"
+  zinit load jesseduffield/lazydocker
+fi
 
 # ----------------------------------------------------------------------------
 # Vendor: ZSH extension
