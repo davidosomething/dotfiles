@@ -20,6 +20,9 @@ zinit light 'davidosomething/cdbk'
 # Vendor: Commands
 # ----------------------------------------------------------------------------
 
+zinit from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat"
+zinit light sharkdp/bat
+
 zinit lucid as'program' \
   pick"${ZPFX}/bin/git-*" \
   src"etc/git-extras-completion.zsh" \
@@ -29,9 +32,12 @@ zinit light tj/git-extras
 if ! __dko_has fzf; then
   # Binary release in archive, from GitHub-releases page.
   # After automatic unpacking it provides program "fzf".
-  zinit ice from"gh-r" as"program"
-  zinit load junegunn/fzf-bin
+  zinit from"gh-r" as"program"
+  zinit light junegunn/fzf-bin
 fi
+
+zinit from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd"
+zinit light sharkdp/fd
 
 # `` compl for git commands
 zinit lucid wait
@@ -75,8 +81,8 @@ zinit lucid wait as'program' pick'bin/git-dsf'
 zinit light zdharma/zsh-diff-so-fancy
 
 if __dko_has docker; then
-  zinit ice from"gh-r" as"program"
-  zinit load jesseduffield/lazydocker
+  zinit from"gh-r" as"program"
+  zinit light jesseduffield/lazydocker
 fi
 
 # ----------------------------------------------------------------------------
