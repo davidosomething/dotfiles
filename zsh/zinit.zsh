@@ -134,7 +134,7 @@ zinit load 'zsh-users/zsh-completions'
 # Syntax last, and compinit before it
 # ----------------------------------------------------------------------------
 
-zinit lucid wait'1' atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
+zinit lucid wait'1' atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
 zinit load 'zdharma/fast-syntax-highlighting'
 
 export DKO_SOURCE="${DKO_SOURCE} }"

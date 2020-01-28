@@ -326,7 +326,7 @@ typeset -gU cdpath path fpath manpath
 # ============================================================================
 
 if __dko_has 'zinit'; then
-  zpcompdef g=git
+  zicompdef g=git
 else
   autoload -Uz compinit && compinit && compdef g=git
 fi
