@@ -112,13 +112,18 @@ zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
 # In-line best history match suggestion
 # don't suggest lines longer than
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=78
 # as of v4.0 use ZSH/zpty module to async retrieve
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
+# Removed forward-char
+export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+  vi-end-of-line
+  vi-add-eol
+)
+bindkey '^k' autosuggest-accept
 zinit lucid wait'1' atload'_zsh_autosuggest_start'
 zinit load 'zsh-users/zsh-autosuggestions'
 # clear the suggestion when entering completion select menu
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('expand-or-complete')
 
 # ----------------------------------------------------------------------------
 # Vendor: Completion

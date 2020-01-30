@@ -197,11 +197,11 @@ bindkey '^[[5~' up-history
 bindkey '^[[6~' down-history
 
 # ----------------------------------------------------------------------------
-# Keybindings: Plugin - zsh-autosuggestions
+# Keybindings: Movement, also triggers zsh-autosuggest partials
 # ----------------------------------------------------------------------------
 
-# native forward-word in insert mode to partially accept autosuggestion
-bindkey '^K' forward-word
+bindkey '^e' vi-forward-word-end
+bindkey '^w' vi-forward-word
 
 # ============================================================================
 # Custom widget: fzf
