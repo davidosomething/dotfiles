@@ -46,6 +46,7 @@ __dko_dotfiles__usage() {
     go          -- golang
     pip         -- update all versions of pip (OS dependent)
     pipx        -- update pipx-installed cli tools
+    neovim      -- update neovim to latest prerelease build
     neopy       -- update neovim pyenvs
     wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
 
@@ -395,6 +396,21 @@ __dko_dotfiles__py__update_pipx() {
   pipx upgrade-all
 }
 
+__dko_dotfiles__py__update_neovim() {
+  if __dko_has "brew"; then
+    brew cask reinstall --force jason0x43/neovim-nightly
+  elif __dko_has "pamac"; then
+    pamac build neovim-git
+  fi
+  local res=$?
+  [ $res -ne 0 ] &&
+    __dko_err "Could not update to latest neovim prerelease build" &&
+    return 1
+
+  nvim --version
+  __dko_ok "Updated to latest neovim prerelease build"
+}
+
 __dko_dotfiles__py__update_neovim_python() {
   ! __dko_has "pyenv" &&
     __dko_err "pyenv is not installed" && return 1
@@ -611,11 +627,11 @@ __dko_dotfiles__darwin__update_brew() {
     # vendor bundle that will cause use of local gems
     __dko_dotfiles__cd || exit 1
     __dko_dotfiles__pyenv_system
+
     # Brew some makefiles like macvim use tput for output so need to reset
     # from xterm-256color-italic I use in iterm
-    TERM="xterm-256color"
 
-    brew update
+    TERM="xterm-256color" brew update
 
     # check if needed
     local outdated
@@ -628,7 +644,7 @@ __dko_dotfiles__darwin__update_brew() {
 
     # Upgrade remaining
     __dko_status "Upgrading packages"
-    brew upgrade
+    TERM="xterm-256color" brew upgrade
     __dko_dotfiles__darwin__update_brew_postupgrade "$outdated"
   ) && {
     __dko_status "Clean up old versions and prune dead symlinks"
@@ -663,14 +679,14 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
     readonly phpimagick="$(brew ls | grep 'php.*imagick')"
     if [[ -n "$phpimagick" ]]; then
       __dko_status "Rebuilding ${phpimagick} for new imagemagick"
-      brew reinstall --build-from-source "$phpimagick"
+      TERM="xterm-256color" brew reinstall --build-from-source "$phpimagick"
     fi
   fi
 
   # Detect if brew's python3 (not pyenv) was outdated
   if grep -q "python3" <<<"$outdated"; then
     __dko_status "Python3 was outdated, upgrading python3"
-    brew upgrade python3
+    TERM="xterm-256color" brew upgrade python3
   fi
 
   __dko_ok "Post-upgrade complete"
@@ -698,6 +714,7 @@ __dko_dotfiles() {
   pip) __dko_dotfiles__py__update_pip ;;
   pipx) __dko_dotfiles__py__update_pipx ;;
   pyenv) __dko_dotfiles__py__update_pyenv ;;
+  neovim) __dko_dotfiles__py__update_neovim ;;
   neopy) __dko_dotfiles__py__update_neovim_python ;;
   wpcs) __dko_dotfiles__php__update_wpcs ;;
 
