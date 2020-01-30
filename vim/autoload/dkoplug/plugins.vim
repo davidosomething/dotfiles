@@ -360,6 +360,8 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Override vim included markdown ft* and syntax
   " The git repo has a newer syntax file than the one that ships with vim
+  " I'm using jumpy.vim for [[ and ]]
+  let g:no_markdown_maps = 1
   Plug 'tpope/vim-markdown'
 
   " after/syntax for GitHub emoji, checkboxes
