@@ -14,11 +14,11 @@ zinit light 'davidosomething/cdbk'
 if ! __dko_has fzf; then
   # Binary release in archive, from GitHub-releases page.
   # After automatic unpacking it provides program "fzf".
-  zinit from'gh-r' as'program'
+  zinit lucid from'gh-r' as'program'
   zinit light junegunn/fzf-bin
 fi
 
-zinit from'gh-r' as'program' mv'fd* -> fd' pick'fd/fd'
+zinit lucid wait from'gh-r' as'program' mv'fd* -> fd' pick'fd/fd'
 zinit light sharkdp/fd
 
 # ----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ if __dko_has docker; then
   zinit as'completion'
   zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
-  zinit from'gh-r' as'program'
+  zinit lucid wait from'gh-r' as'program'
   zinit light jesseduffield/lazydocker
 fi
 
@@ -74,8 +74,11 @@ fi
 # Misc
 # ----------------------------------------------------------------------------
 
-zinit from'gh-r' as'program' mv'bat* -> bat' pick'bat/bat'
+zinit lucid wait from'gh-r' as'program' mv'bat* -> bat' pick'bat/bat'
 zinit light sharkdp/bat
+
+zinit lucid wait from'gh-r' as'program' mv'shfmt* -> shfmt' pick'mvdan/sh'
+zinit light mvdan/sh
 
 if __dko_has lua; then
   export _ZL_CMD='j'
