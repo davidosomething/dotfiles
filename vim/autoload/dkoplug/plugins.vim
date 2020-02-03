@@ -83,6 +83,14 @@ function! dkoplug#plugins#LoadAll() abort
   let g:git_messenger_max_popup_height = 24
   Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'))
 
+  let g:neoformat_enabled_json = [ 'dkoprettier', 'jq' ]
+  let g:neoformat_enabled_java = [ 'uncrustify' ]
+  let g:neoformat_enabled_javascript = [ 'standard' ]
+  let g:neoformat_enabled_less = [ 'dkoprettier' ]
+  let g:neoformat_enabled_lua = [ 'luafmt', 'luaformatter' ]
+  let g:neoformat_enabled_markdown = [ 'dkoremark' ]
+  let g:neoformat_enabled_python = [ 'autopep8', 'isort' ]
+  let g:neoformat_enabled_scss = [ 'dkoprettier' ]
   Plug 'sbdchd/neoformat'
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite
