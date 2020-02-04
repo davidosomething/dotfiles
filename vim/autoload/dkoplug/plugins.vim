@@ -62,7 +62,6 @@ function! dkoplug#plugins#LoadAll() abort
   " docs for fzf#run()
   Plug 'junegunn/fzf', PlugIf(g:dko_use_fzf)
 
-  let g:dko_fzf_float = 0 && has('nvim-0.4')
   let g:fzf_command_prefix = 'FZF'
   let g:fzf_layout = extend({ 'down': '~40%' }, g:dko_fzf_float
         \   ? { 'window': 'call dko#float#Bordered()' }
