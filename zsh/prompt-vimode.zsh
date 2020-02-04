@@ -25,7 +25,7 @@ zle-line-init zle-keymap-select() {
     (main|viins)  : "${__dko_prompt_vi_insert}" ;;
   esac
   DKO_PROMPT_VIMODE="$_"
-  export DKO_PROMPT_VIMODE
+  DKO_PROMPT_VIMODE
 
   # force redisplay
   zle reset-prompt
@@ -40,7 +40,7 @@ zle -N zle-keymap-select
 
 zle-line-finish() {
   # This will be the prompt for the current line that we're leaving.
-  export DKO_PROMPT_VIMODE="${__dko_prompt_vi_insert}"
+  DKO_PROMPT_VIMODE="${__dko_prompt_vi_insert}"
   # Redraw the current line's prompt before advancing to a readline.
   zle reset-prompt
   zle -R
@@ -52,7 +52,7 @@ zle -N zle-line-finish
 # ============================================================================
 
 TRAPINT() {
-  export DKO_PROMPT_VIMODE="${__dko_prompt_vi_insert}"
+  DKO_PROMPT_VIMODE="${__dko_prompt_vi_insert}"
   export DKO_PROMPT_IS_TRAPPED=1
   return $(( 128 + $1 ))
 }

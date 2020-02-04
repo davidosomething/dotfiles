@@ -1,6 +1,6 @@
 # shell/go.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/go.sh {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/go.sh {"
 
 # ==============================================================================
 # goenv
@@ -15,4 +15,4 @@ __dko_has "goenv" && {
 
 # ==============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"

@@ -8,7 +8,7 @@
 # This file is sourced manually in the .*rc file so it loads when running
 # a nested shell, e.g. zsh from within bash
 
-DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
+export DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
 [ -z "$DKO_INIT" ] && {
   export DKO_INIT=1
   . "${HOME}/.dotfiles/shell/vars.sh"
@@ -41,5 +41,5 @@ tty -s && . "${DOTFILES}/shell/interactive.sh"
 
 # ============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh

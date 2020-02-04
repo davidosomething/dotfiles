@@ -8,7 +8,7 @@
 # @FIXME There are discrepancies on some shells where this is sourced AFTER
 # bashrc
 
-DKO_SOURCE="${DKO_SOURCE} -> bash/dot.bash_profile[login] {"
+export DKO_SOURCE="${DKO_SOURCE} -> bash/dot.bash_profile[login] {"
 
 DOTFILES_OS="$(uname)"
 export DOTFILES_OS
@@ -23,5 +23,5 @@ export BDOTDIR
 
 . "$BDOTDIR/dot.bashrc"
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh

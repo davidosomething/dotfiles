@@ -1,6 +1,6 @@
 # shell/node.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/node.sh {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/node.sh {"
 
 # https://nodejs.org/api/repl.html#repl_environment_variable_options
 export NODE_REPL_HISTORY="${XDG_DATA_HOME}/node_repl_history"
@@ -56,4 +56,4 @@ export DKO_DEFAULT_NODE_VERSION
 
 # ==============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"

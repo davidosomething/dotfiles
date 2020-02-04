@@ -12,4 +12,4 @@ if [ -f "/etc/arch-release" ]; then
   . "${HOME}/.dotfiles/shell/dot.profile"
 fi
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"

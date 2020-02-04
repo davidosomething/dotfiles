@@ -5,7 +5,7 @@
 # sourced when you type ZSH
 
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
-DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
+export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 
 . "${HOME}/.dotfiles/shell/dot.profile"
 
@@ -344,4 +344,4 @@ fi
 
 # ============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"

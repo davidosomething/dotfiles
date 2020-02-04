@@ -1,6 +1,6 @@
 # shell/interactive.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh[interactive] {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh[interactive] {"
 [ -f "${HOME}/.local/dotfiles.lock" ] &&
   "${DOTFILES}/shell/dko-wait-for-dotfiles-lock"
 
@@ -104,4 +104,4 @@ fi
 
 # ============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"

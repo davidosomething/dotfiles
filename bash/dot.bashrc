@@ -6,11 +6,11 @@
 #
 
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
-DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
+export DKO_SOURCE="${DKO_SOURCE} -> .bashrc {"
 
 # Non-interactive? Some shells/OS will source bashrc and bash_profile out of
 # order or skip one entirely
-[[ -z "$PS1" ]] && export DKO_SOURCE="${DKO_SOURCE} }" && return
+[[ -z "$PS1" ]] && DKO_SOURCE="${DKO_SOURCE} }" && return
 
 # dot.bashprofile was sourced instead, which sourced dot.bashrc, so we need
 # to define stuff here
@@ -81,5 +81,5 @@ __dko_source "${XDG_CONFIG_HOME}/fzf/fzf.bash"
 . "${DOTFILES}/shell/after.sh"
 __dko_source "${LDOTDIR}/bashrc"
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh

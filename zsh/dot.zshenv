@@ -4,7 +4,7 @@
 # OUTPUT FORBIDDEN
 # zshenv is always sourced, even for bg jobs
 
-DKO_SOURCE="${DKO_SOURCE} -> .zshenv {"
+export DKO_SOURCE="${DKO_SOURCE} -> .zshenv {"
 
 # ============================================================================
 # Profiling -- see .zshrc for its execution
@@ -37,5 +37,5 @@ export HISTFILE="${HOME}/.local/zsh_history"
 
 # ============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=zsh

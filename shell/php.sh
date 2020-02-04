@@ -1,6 +1,6 @@
 # shell/php.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/php.sh {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/php.sh {"
 
 # ============================================================================
 # php-version
@@ -13,4 +13,4 @@ __dko_source "${DKO_BREW_PREFIX}/opt/php-version/php-version.sh" && {
 
 # ==============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"

@@ -1,6 +1,6 @@
 # shell/python.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/python.sh {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/python.sh {"
 
 # Let python guess where to `import` packages, or use pip instead
 unset PYTHONPATH
@@ -53,4 +53,4 @@ __dko_has 'pipenv' && eval "$(pipenv --completion)"
 
 # ==============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"

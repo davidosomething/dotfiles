@@ -1,6 +1,6 @@
 # shell/after.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 
 # ============================================================================
 # Use neovim
@@ -32,4 +32,4 @@ __dko_prefer 'trash' && alias rm=trash
 #__dko_has 'catimg' && echo && catimg "${DOTFILES}/meta/motd.png" && echo
 
 unset DKO_INIT
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"

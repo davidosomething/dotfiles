@@ -1,6 +1,6 @@
 # shell/ruby.sh
 
-DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
 
 # Used in local config, add to the RUBIES array
 export DKO_RUBIES="${XDG_DATA_HOME}/rubies"
@@ -32,4 +32,4 @@ __dko_source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" &&
 
 # ==============================================================================
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"

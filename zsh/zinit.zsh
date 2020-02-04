@@ -1,6 +1,6 @@
 # zsh/zinit.zsh
 
-DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
+export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 
 # my fork of cdbk, ZSH hash based directory bookmarking. No wait.
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
@@ -145,4 +145,4 @@ zinit load 'zsh-users/zsh-completions'
 zinit lucid wait'1' atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
 zinit load 'zdharma/fast-syntax-highlighting'
 
-export DKO_SOURCE="${DKO_SOURCE} }"
+DKO_SOURCE="${DKO_SOURCE} }"
