@@ -25,7 +25,6 @@ zle-line-init zle-keymap-select() {
     (main|viins)  : "${__dko_prompt_vi_insert}" ;;
   esac
   DKO_PROMPT_VIMODE="$_"
-  DKO_PROMPT_VIMODE
 
   # force redisplay
   zle reset-prompt
