@@ -33,7 +33,7 @@ export NVM_SYMLINK_CURRENT=true
 # FNM_DIR="${XDG_CONFIG_HOME}/fnm"
 # if [ -d "$FNM_DIR" ]; then
 #   export FNM_DIR
-#   export PATH="${FNM_DIR}:${PATH}"
+#   PATH="${FNM_DIR}:${PATH}"
 #   eval "$(fnm env)"
 # else
 # custom NVM_DIR so we don't pollute home

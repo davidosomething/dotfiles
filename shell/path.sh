@@ -54,9 +54,3 @@ PATH="${HOME}/.luarocks/bin:${PATH}"
 
 # go -- prefer go binaries over composer; GOPATH is in shell/vars.sh
 PATH="${GOPATH}/bin:${PATH}"
-
-# ============================================================================
-# DONE
-# ============================================================================
-
-export PATH

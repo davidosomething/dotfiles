@@ -17,7 +17,7 @@ else
     && JAVA_HOME="$(/usr/libexec/java_home -v"$__java_version" 2>/dev/null)"
   [ -n "$JAVA_HOME" ] \
     && export JAVA_HOME \
-    && export PATH="${JAVA_HOME}/bin:${PATH}"
+    && PATH="${JAVA_HOME}/bin:${PATH}"
 fi
 
 # java settings - mostly for minecraft launcher

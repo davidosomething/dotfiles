@@ -21,7 +21,6 @@ DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
 
   PATH="${HOME}/.local/bin:${PATH}"
   PATH="${DOTFILES}/bin:${PATH}"
-  export PATH
 
   # ==========================================================================
   # os config
