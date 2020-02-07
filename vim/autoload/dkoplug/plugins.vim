@@ -70,10 +70,6 @@ function! dkoplug#plugins#LoadAll() abort
   let g:fzf_buffers_jump = 1
   Plug 'junegunn/fzf.vim', PlugIf(g:dko_use_fzf)
 
-  Plug 'lambdalisue/gina.vim', PlugIf(exists('v:null'), {
-        \   'on': [ 'Gina', '<Plug>(gina' ]
-        \ })
-
   Plug 'nathanaelkane/vim-indent-guides'
 
   Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
