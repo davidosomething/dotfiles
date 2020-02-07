@@ -79,8 +79,6 @@ __clean_nvm() {
 # main
 # ============================================================================
 
-__move "${DOTFILES}/zsh/.zplugin" "${DOTFILES}/zsh/.zinit"
-
 __move "${HOME}/.bash_history" "${HOME}/.local/bash_history"
 __move "${HOME}/.zhistory" "${HOME}/.local/zsh_history"
 __move "${HOME}/.gimp-2.8" "${XDG_CONFIG_HOME}/GIMP/2.8"
@@ -128,6 +126,7 @@ __remove "${HOME}/.tern-project"
 __remove "${HOME}/.tldr"
 # should be ~/.dotfiles/zsh/.zshrc
 __remove "${HOME}/.zshrc"
+__remove "${DOTFILES}/zsh/.zplugin"
 
 "${DOTFILES}/bin/dko-fix-git-completion"
 
