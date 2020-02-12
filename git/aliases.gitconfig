@@ -44,6 +44,8 @@
 	new     = log --no-merges --abbrev-commit --oneline         ORIG_HEAD..
 	news    = log --no-merges --abbrev-commit --oneline --stat  ORIG_HEAD..
 
+	ls      = ls-tree -r --full-tree --name-only HEAD
+
 	m       = merge
 
 	pom     = pull --ff-only origin master
