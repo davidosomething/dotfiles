@@ -14,9 +14,7 @@ function! dko#lint#SetupNeomake() abort
   if dko#IsNonFile('%') | return | endif
   if &filetype ==# 'sh' | call dko#neomake#bash#Setup() | endif
   if &filetype ==# 'css' | call dko#neomake#css#Setup() | endif
-  if &filetype =~# 'javascript' | call dko#neomake#javascript#Setup() | endif
   if &filetype ==# 'lua' | call dko#neomake#lua#Setup() | endif
-  if &filetype ==# 'markdown' | call dko#neomake#markdown#Setup() | endif
   if &filetype ==# 'php' | call dko#neomake#php#Setup() | endif
   if &filetype ==# 'scss' | call dko#neomake#scss#Setup() | endif
   if &filetype ==# 'zsh' | let b:neomake_zsh_enabled_makers = [ 'zsh' ] | endif

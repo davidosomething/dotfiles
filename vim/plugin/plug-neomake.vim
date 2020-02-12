@@ -33,8 +33,6 @@ let g:neomake_java_enabled_makers = [ 'checkstyle' ]
 let g:neomake_java_checkstyle_xml =
       \ expand('$DOTFILES/checkstyle/google_checks.xml')
 
-let g:neomake_markdown_enabled_makers = [ 'vale' ]
-
 " flake8 is pycodestyle(pep8)+pyflakes+pydocstyle
 " preferred over pylama (other multi-runner) for now
 let g:neomake_python_enabled_makers = [ 'flake8' ]
@@ -62,6 +60,7 @@ if dkoplug#IsLoaded('coc.nvim')
   let g:neomake_css_enabled_makers = []
   let g:neomake_dockerfile_enabled_makers = []
   let g:neomake_javascript_enabled_makers = []
+  let g:neomake_markdown_enabled_makers = []
   let g:neomake_vim_enabled_makers = []
 endif
 
