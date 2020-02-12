@@ -70,9 +70,10 @@
 
   "diagnostic-languageserver.enable": true,
   "diagnostic-languageserver.filetypes": {
-    "vim": "vint",
-    "css": "stylelint",
-    "dockerfile": "hadolint",
+    "vim": [ "vint" ],
+    "css": [ "stylelint" ],
+    "dockerfile": [ "hadolint" ],
+    "markdown": [ "markdownlint" ],
     // neomake is still better for shellcheck and bashate since we can read
     // shebang first
   },
