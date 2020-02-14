@@ -1,6 +1,6 @@
 " ftplugin/json.vim
 
-call dko#TwoTabs()
+call dko#TwoSpace()
 setlocal nowrap
 
 if dkoplug#Exists('vim-json')
