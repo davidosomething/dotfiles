@@ -44,6 +44,7 @@
 	new     = log --no-merges --abbrev-commit --oneline         ORIG_HEAD..
 	news    = log --no-merges --abbrev-commit --oneline --stat  ORIG_HEAD..
 
+	loc     = "!f() { git ls-files | while read f; do git blame -w --line-porcelain -- "$f" | grep -I '^author '; done | sort -f | uniq -ic | sort -n; f"
 	ls      = ls-tree -r --full-tree --name-only HEAD
 
 	m       = merge
