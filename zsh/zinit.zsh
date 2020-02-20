@@ -25,13 +25,13 @@ zinit light sharkdp/fd
 # Git
 # ----------------------------------------------------------------------------
 
-zinit lucid wait as'program' pick'git-ink'
+zinit lucid wait as'program' pick
 zinit light davidosomething/git-ink
 
-zinit lucid wait as'program' pick'git-my'
+zinit lucid wait as'program' pick
 zinit light davidosomething/git-my
 
-zinit lucid wait as'program' pick'git-take'
+zinit lucid wait as'program' pick
 zinit light davidosomething/git-take
 
 zinit lucid as'program' \
@@ -40,10 +40,10 @@ zinit lucid as'program' \
   make"PREFIX=${ZPFX}"
 zinit light tj/git-extras
 
-zinit lucid wait as'program' pick'git-open'
+zinit lucid wait as'program' pick
 zinit light paulirish/git-open
 
-zinit lucid wait as'program' pick'git-recent'
+zinit lucid wait as'program' pick
 zinit light paulirish/git-recent
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
