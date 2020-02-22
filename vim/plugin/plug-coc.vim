@@ -51,6 +51,9 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
+" Action
+nmap <silent> <Leader>ca <Plug>(coc-codeaction)
+
 " Diagnostics
 nmap <silent> <Leader>d <Plug>(coc-diagnostic-info)
 nmap <silent> ]d <Plug>(coc-diagnostic-next)
