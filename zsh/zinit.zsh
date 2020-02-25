@@ -134,6 +134,6 @@ zinit load 'zsh-users/zsh-completions'
 
 # clear the suggestion when entering completion select menu
 zinit lucid wait atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
-zinit load 'zsh-users/zsh-completions'
+zinit load 'zdharma/fast-syntax-highlighting'
 
 DKO_SOURCE="${DKO_SOURCE} }"
