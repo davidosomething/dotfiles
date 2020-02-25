@@ -9,7 +9,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 if ! __dko_has fzf; then
   # Binary release in archive, from GitHub-releases page.
   # After automatic unpacking it provides program "fzf".
-  zinit lucid from'gh-r' as'program'
+  zinit lucid wait from'gh-r' as'program'
   zinit light junegunn/fzf-bin
 fi
 
@@ -27,7 +27,7 @@ zinit lucid wait as'program' pick for \
   paulirish/git-open \
   paulirish/git-recent
 
-zinit lucid as'program' \
+zinit lucid wait as'program' \
   pick"${ZPFX}/bin/git-*" \
   src'etc/git-extras-completion.zsh' \
   make"PREFIX=${ZPFX}"
@@ -63,7 +63,7 @@ fi
 
 # my fork of cdbk, ZSH hash based directory bookmarking. No wait.
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
-zinit lucid
+zinit lucid wait
 zinit light 'davidosomething/cdbk'
 
 zinit lucid wait from'gh-r' as'program' for \
@@ -89,7 +89,7 @@ if __dko_has lua; then
     fi
   }
 else
-  zinit lucid nocompletions
+  zinit lucid wait nocompletions
   zinit light 'shannonmoeller/up'
 fi
 
