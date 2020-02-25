@@ -2,13 +2,8 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 
-# my fork of cdbk, ZSH hash based directory bookmarking. No wait.
-export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
-zinit lucid
-zinit light 'davidosomething/cdbk'
-
 # ----------------------------------------------------------------------------
-# Finders
+# Grep / filter
 # ----------------------------------------------------------------------------
 
 if ! __dko_has fzf; then
@@ -25,26 +20,18 @@ zinit light sharkdp/fd
 # Git
 # ----------------------------------------------------------------------------
 
-zinit lucid wait as'program' pick
-zinit light davidosomething/git-ink
-
-zinit lucid wait as'program' pick
-zinit light davidosomething/git-my
-
-zinit lucid wait as'program' pick
-zinit light davidosomething/git-take
+zinit lucid wait as'program' pick for \
+  davidosomething/git-ink \
+  davidosomething/git-my \
+  davidosomething/git-take \
+  paulirish/git-open \
+  paulirish/git-recent
 
 zinit lucid as'program' \
   pick"${ZPFX}/bin/git-*" \
   src'etc/git-extras-completion.zsh' \
   make"PREFIX=${ZPFX}"
 zinit light tj/git-extras
-
-zinit lucid wait as'program' pick
-zinit light paulirish/git-open
-
-zinit lucid wait as'program' pick
-zinit light paulirish/git-recent
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
@@ -74,11 +61,14 @@ fi
 # Misc
 # ----------------------------------------------------------------------------
 
-zinit lucid wait from'gh-r' as'program' mv'bat* -> bat' pick'bat/bat'
-zinit light sharkdp/bat
+# my fork of cdbk, ZSH hash based directory bookmarking. No wait.
+export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
+zinit lucid
+zinit light 'davidosomething/cdbk'
 
-zinit lucid wait from'gh-r' as'program' mv'shfmt* -> shfmt' pick'mvdan/sh'
-zinit light mvdan/sh
+zinit lucid wait from'gh-r' as'program' for \
+  mv'bat* -> bat' pick'bat/bat' sharkdp/bat \
+  mv'shfmt* -> shfmt' pick'mvdan/sh' mvdan/sh
 
 if __dko_has lua; then
   export _ZL_CMD='j'
@@ -121,7 +111,8 @@ export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
   vi-add-eol
 )
 bindkey '^k' autosuggest-accept
-zinit lucid wait'1' atload'_zsh_autosuggest_start'
+# ! will track the loading since using zinit load
+zinit lucid wait atload'!_zsh_autosuggest_start'
 zinit load 'zsh-users/zsh-autosuggestions'
 # clear the suggestion when entering completion select menu
 
@@ -132,17 +123,17 @@ zinit load 'zsh-users/zsh-autosuggestions'
 zinit lucid wait blockf atpull'zinit creinstall -q .'
 zinit load 'zsh-users/zsh-completions'
 
-[[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] \
-  && {
-    zinit lucid wait
-    zinit light "$TRAVIS_CONFIG_PATH"
-  }
+[[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] && {
+  zinit lucid wait
+  zinit light "$TRAVIS_CONFIG_PATH"
+}
 
 # ----------------------------------------------------------------------------
 # Syntax last, and compinit before it
 # ----------------------------------------------------------------------------
 
-zinit lucid wait'1' atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
-zinit load 'zdharma/fast-syntax-highlighting'
+# clear the suggestion when entering completion select menu
+zinit lucid wait atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
+zinit load 'zsh-users/zsh-completions'
 
 DKO_SOURCE="${DKO_SOURCE} }"
