@@ -97,7 +97,7 @@ fi
 # ZSH extensions
 # ----------------------------------------------------------------------------
 
-zinit lucid wait'[[ -n ${ZLAST_COMMANDS[(r)man*]} ]]'
+zinit lucid trigger-load'!man'
 zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
 # In-line best history match suggestion
