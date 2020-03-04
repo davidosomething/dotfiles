@@ -14,7 +14,7 @@ if ! __dko_has fzf; then
 fi
 
 zinit lucid wait from'gh-r' as'program' mv'fd* -> fd' pick'fd/fd'
-zinit light sharkdp/fd
+zinit light @sharkdp/fd
 
 # ----------------------------------------------------------------------------
 # Git
@@ -67,7 +67,7 @@ zinit lucid wait
 zinit light 'davidosomething/cdbk'
 
 zinit lucid wait from'gh-r' as'program' for \
-  mv'bat* -> bat' pick'bat/bat' sharkdp/bat \
+  mv'bat* -> bat' pick'bat/bat' @sharkdp/bat \
   mv'shfmt* -> shfmt' pick'mvdan/sh' mvdan/sh
 
 if __dko_has lua; then
