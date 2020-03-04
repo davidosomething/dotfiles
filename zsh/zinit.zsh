@@ -3,18 +3,16 @@
 export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 
 # ----------------------------------------------------------------------------
-# Grep / filter
+# Docker
 # ----------------------------------------------------------------------------
 
-if ! __dko_has fzf; then
-  # Binary release in archive, from GitHub-releases page.
-  # After automatic unpacking it provides program "fzf".
-  zinit lucid wait from'gh-r' as'program'
-  zinit light junegunn/fzf-bin
-fi
+if __dko_has docker; then
+  zinit as'completion'
+  zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
-zinit lucid wait from'gh-r' as'program' mv'fd* -> fd' pick'fd/fd'
-zinit light @sharkdp/fd
+  zinit lucid wait from'gh-r' as'program'
+  zinit light jesseduffield/lazydocker
+fi
 
 # ----------------------------------------------------------------------------
 # Git
@@ -33,29 +31,28 @@ zinit lucid wait as'program' \
   make"PREFIX=${ZPFX}"
 zinit light tj/git-extras
 
+zinit lucid wait as'program' pick'bin/git-dsf'
+zinit light zdharma/zsh-diff-so-fancy
+
+# ----------------------------------------------------------------------------
+# FZF + Git
+# ----------------------------------------------------------------------------
+
+if ! __dko_has fzf; then
+  # Binary release in archive, from GitHub-releases page.
+  # After automatic unpacking it provides program "fzf".
+  zinit lucid wait from'gh-r' as'program'
+  zinit light junegunn/fzf-bin
+fi
+
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
 zinit lucid wait
 zinit light 'wfxr/forgit'
 
-zinit lucid wait as'program' pick'bin/git-dsf'
-zinit light zdharma/zsh-diff-so-fancy
-
 # `` compl for git commands
 zinit lucid wait
 zinit light 'hschne/fzf-git'
-
-# ----------------------------------------------------------------------------
-# Docker
-# ----------------------------------------------------------------------------
-
-if __dko_has docker; then
-  zinit as'completion'
-  zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
-
-  zinit lucid wait from'gh-r' as'program'
-  zinit light jesseduffield/lazydocker
-fi
 
 # ----------------------------------------------------------------------------
 # Misc
@@ -68,6 +65,7 @@ zinit light 'davidosomething/cdbk'
 
 zinit lucid wait from'gh-r' as'program' for \
   mv'bat* -> bat' pick'bat/bat' @sharkdp/bat \
+  mv'fd* -> fd' pick'fd/fd' @sharkdp/fd \
   mv'shfmt* -> shfmt' pick'mvdan/sh' mvdan/sh
 
 if __dko_has lua; then
@@ -89,7 +87,7 @@ if __dko_has lua; then
     fi
   }
 else
-  zinit lucid wait nocompletions
+  zinit lucid nocompletions
   zinit light 'shannonmoeller/up'
 fi
 
