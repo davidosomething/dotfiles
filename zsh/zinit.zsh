@@ -58,9 +58,9 @@ zinit light 'hschne/fzf-git'
 # Misc
 # ----------------------------------------------------------------------------
 
-# my fork of cdbk, ZSH hash based directory bookmarking. No wait.
+# my fork of cdbk, ZSH hash based directory bookmarking. No wait!
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
-zinit lucid wait
+zinit lucid
 zinit light 'davidosomething/cdbk'
 
 zinit lucid wait from'gh-r' as'program' for \
