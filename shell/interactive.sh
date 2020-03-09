@@ -17,6 +17,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh[interactive] {"
 . "${DOTFILES}/shell/php.sh"
 . "${DOTFILES}/shell/python.sh"
 . "${DOTFILES}/shell/ruby.sh"
+. "${DOTFILES}/shell/rust.sh"
 
 # ============================================================================
 # FZF settings

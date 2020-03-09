@@ -66,9 +66,14 @@ zinit light 'davidosomething/cdbk'
 zinit lucid wait from'gh-r' as'program' for \
   mv'bat* -> bat' pick'bat/bat' @sharkdp/bat \
   mv'fd* -> fd' pick'fd/fd' @sharkdp/fd \
-  mv'shfmt* -> shfmt' pick'mvdan/sh' mvdan/sh
+  mv'shfmt* -> shfmt' pick'mvdan/sh' @mvdan/sh
 
-if __dko_has lua; then
+if __dko_has cargo; then
+  export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
+  zinit lucid atpull'cargo install zoxide'
+  zinit light ajeetdsouza/zoxide
+  alias j=z
+elif __dko_has lua; then
   export _ZL_CMD='j'
   export _ZL_DATA="${XDG_DATA_HOME}/zlua"
   export _ZL_HYPHEN=1
