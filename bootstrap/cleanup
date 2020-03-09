@@ -86,6 +86,7 @@ __move "${HOME}/.inputrc" "${XDG_CONFIG_HOME}/readline/inputrc"
 __move "${HOME}/.vagrant.d" "${XDG_DATA_HOME}/vagrant"
 __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 
+[[ -n "$CARGO_HOME" ]] && __move "${HOME}/.cargo" "$CARGO_HOME"
 [[ -n "$COMPOSER_HOME" ]] && __move "${HOME}/.composer" "$COMPOSER_HOME"
 [[ -n "$GNUPGHOME" ]] && [[ -d "${HOME}/.gnupg" ]] && {
   rmdir "${HOME}/.gnupg" 2>/dev/null || __move "${HOME}/.gnupg" "$GNUPGHOME"

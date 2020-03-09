@@ -70,7 +70,7 @@ zinit lucid wait from'gh-r' as'program' for \
 
 if __dko_has cargo; then
   export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
-  zinit lucid atpull'cargo install zoxide'
+  zinit lucid atclone'cargo install zoxide' atpull'%atclone'
   zinit light ajeetdsouza/zoxide
   alias j=z
 elif __dko_has lua; then
