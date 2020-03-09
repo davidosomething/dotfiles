@@ -73,13 +73,14 @@ if __dko_has cargo; then
   zinit lucid atclone'cargo install zoxide' atpull'%atclone'
   zinit light ajeetdsouza/zoxide
   alias j=z
-elif __dko_has lua; then
+fi
+
+if ! __dko_has cargo && __dko_has lua; then
   export _ZL_CMD='j'
   export _ZL_DATA="${XDG_DATA_HOME}/zlua"
   export _ZL_HYPHEN=1
   export _ZL_NO_ALIASES=1
   zinit lucid nocompletions
-  #zinit light 'davidosomething/z.lua'
   zinit light 'skywind3000/z.lua'
 
   # redefine up to work like shannonmoeller/up
@@ -91,6 +92,7 @@ elif __dko_has lua; then
       eval "${_ZL_CMD} $@"
     fi
   }
+
 else
   zinit lucid nocompletions
   zinit light 'shannonmoeller/up'
