@@ -6,13 +6,13 @@ export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 # Docker
 # ----------------------------------------------------------------------------
 
-if __dko_has docker; then
+__dko_has docker && {
   zinit as'completion'
   zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
   zinit lucid wait from'gh-r' as'program'
   zinit light jesseduffield/lazydocker
-fi
+}
 
 # ----------------------------------------------------------------------------
 # Git
@@ -38,12 +38,12 @@ zinit light zdharma/zsh-diff-so-fancy
 # FZF + Git
 # ----------------------------------------------------------------------------
 
-if ! __dko_has fzf; then
+! __dko_has fzf && {
   # Binary release in archive, from GitHub-releases page.
   # After automatic unpacking it provides program "fzf".
   zinit lucid wait from'gh-r' as'program'
   zinit light junegunn/fzf-bin
-fi
+}
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
@@ -68,12 +68,12 @@ zinit lucid wait from'gh-r' as'program' for \
   mv'fd* -> fd' pick'fd/fd' @sharkdp/fd \
   mv'shfmt* -> shfmt' pick'mvdan/sh' @mvdan/sh
 
-if __dko_has cargo; then
+__dko_has cargo && {
   export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
   zinit lucid atclone'cargo install zoxide' atpull'%atclone'
   zinit light ajeetdsouza/zoxide
   alias j=z
-fi
+}
 
 __dko_has z || {
   export _ZL_CMD='j'
