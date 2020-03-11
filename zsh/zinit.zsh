@@ -75,7 +75,7 @@ if __dko_has cargo; then
   alias j=z
 fi
 
-if ! __dko_has cargo && __dko_has lua; then
+__dko_has z || {
   export _ZL_CMD='j'
   export _ZL_DATA="${XDG_DATA_HOME}/zlua"
   export _ZL_HYPHEN=1
@@ -92,11 +92,18 @@ if ! __dko_has cargo && __dko_has lua; then
       eval "${_ZL_CMD} $@"
     fi
   }
+}
 
-else
+__dko_has z || {
+  export ZSHZ_CMD=j
+  export ZSHZ_DATA="${XDG_DATA_HOME}/zshz"
+  zinit load agkozak/zsh-z
+}
+
+__dko_has up || {
   zinit lucid nocompletions
   zinit light 'shannonmoeller/up'
-fi
+}
 
 # ----------------------------------------------------------------------------
 # ZSH extensions
