@@ -21,7 +21,4 @@ __whats() {
     '
 }
 
-
 [ -n "$#" ] && __whats "$@" || echo "USAGE: git whats somealias"
-
-
