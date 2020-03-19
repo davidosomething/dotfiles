@@ -109,6 +109,8 @@ __dko_prompt::env "js" "nvm" '$(__dko_prompt::env::js::get_version)' \
 
 __dko_prompt::env "go" "goenv"
 
+__dko_prompt::env "j" "jenv"
+
 __dko_prompt::env::py::get_version() {
   python -c 'import sys; print(".".join(map(str, sys.version_info[:3])))'
 }
