@@ -6,9 +6,10 @@ export GRADLE_USER_HOME="${XDG_CONFIG_HOME}/gradle"
 
 export UNCRUSTIFY_CONFIG="${DOTFILES}/uncrustify/uncrustify"
 
-# Ruby use brew openssl if available
 if __dko_has 'jenv'; then
+  export JENV_ROOT="${XDG_CONFIG_HOME}/jenv"
   DKO_SOURCE="${DKO_SOURCE} -> jenv"
+  PATH="${JENV_ROOT}/bin:${PATH}"
   eval "$(jenv init -)"
 
 else
