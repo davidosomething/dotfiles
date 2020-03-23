@@ -1,8 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 export default [ 'nothing' ];
 
 const RED = 'red';
 const BURGUNDY = 'rgba(255, 101, 120, 0.5)';
+
+const expression = () => {};
 
 export function abc() {
   return (
