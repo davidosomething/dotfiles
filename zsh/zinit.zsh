@@ -11,7 +11,7 @@ __dko_has docker && {
   zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
   zinit lucid wait from'gh-r' as'program'
-  zinit light jesseduffield/lazydocker
+  zinit light 'jesseduffield/lazydocker'
 }
 
 # ----------------------------------------------------------------------------
@@ -29,10 +29,10 @@ zinit lucid wait as'program' \
   pick"${ZPFX}/bin/git-*" \
   src'etc/git-extras-completion.zsh' \
   make"PREFIX=${ZPFX}"
-zinit light tj/git-extras
+zinit light 'tj/git-extras'
 
 zinit lucid wait as'program' pick'bin/git-dsf'
-zinit light zdharma/zsh-diff-so-fancy
+zinit light 'zdharma/zsh-diff-so-fancy'
 
 # ----------------------------------------------------------------------------
 # FZF + Git
@@ -42,7 +42,7 @@ zinit light zdharma/zsh-diff-so-fancy
   # Binary release in archive, from GitHub-releases page.
   # After automatic unpacking it provides program "fzf".
   zinit lucid wait from'gh-r' as'program'
-  zinit light junegunn/fzf-bin
+  zinit light 'junegunn/fzf-bin'
 }
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
@@ -71,7 +71,7 @@ zinit lucid wait from'gh-r' as'program' for \
 __dko_has cargo && {
   export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
   zinit lucid atclone'cargo install zoxide' atpull'%atclone'
-  zinit light ajeetdsouza/zoxide
+  zinit light 'ajeetdsouza/zoxide'
   alias j=z
 }
 
@@ -97,7 +97,7 @@ __dko_has z || {
 __dko_has z || {
   export ZSHZ_CMD=j
   export ZSHZ_DATA="${XDG_DATA_HOME}/zshz"
-  zinit load agkozak/zsh-z
+  zinit load 'agkozak/zsh-z'
 }
 
 __dko_has up || {
