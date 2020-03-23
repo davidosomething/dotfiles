@@ -20,8 +20,8 @@
 	ca      = commit --amend
 	cm      = commit -m
 
-	get     = config --get
 	cfg     = config --global --edit
+	cls     = config --list --show-origin
 
 	lasttag = describe --tags --abbrev=0
 
@@ -33,7 +33,9 @@
 	fo      = fetch origin
 	fom     = fetch origin master
 
+	# https://caiustheory.com/git-git-git-git-git/
 	git     = !exec git
+
 	g       = grep --break --heading --line-number
 
 	l       = log --abbrev-commit --date=short --pretty=ld

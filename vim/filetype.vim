@@ -39,6 +39,8 @@ augroup filetypedetect
   autocmd! BufNewFile,BufRead *.dump setfiletype sql
   autocmd! BufNewFile,BufRead .flake8 setfiletype dosini
 
+  autocmd! BufNewFile,BufRead *.gitconfig setfiletype gitconfig
+
   " git branch description (opened via `git branch --edit-description`)
   autocmd! BufNewFile,BufRead BRANCH_DESCRIPTION
         \ setfiletype gitbranchdescription.markdown
