@@ -73,6 +73,8 @@
 
 	last    = show --show-signature
 
+	sha     = rev-parse HEAD
+
 	st      = status
 	s       = status --short --branch
 
