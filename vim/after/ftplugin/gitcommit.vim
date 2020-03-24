@@ -5,6 +5,7 @@
 "
 
 call dko#FourTabs()
+setlocal comments=:;
 setlocal wrap
 setlocal linebreak
 setlocal spell

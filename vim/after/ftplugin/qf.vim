@@ -13,11 +13,15 @@ setlocal nobuflisted
 " Quit with q
 nnoremap  <buffer>    Q   q
 
+" ----------------------------------------------------------------------------
+" These are mappings from vim-qf, but I don't want to turn on ALL of the
+" qf_mapping_ack_style settings
+" ----------------------------------------------------------------------------
+
 " Open result in horizontal split window
 nnoremap  <buffer>    s   <C-w><CR>
 
 " Open result in verical split window
-" https://github.com/romainl/vim-qf/blob/master/after/ftplugin/qf.vim
 nnoremap  <buffer><expr>
       \ v
       \ &splitright
