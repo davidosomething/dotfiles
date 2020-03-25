@@ -132,4 +132,5 @@
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
   "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enable": false,
+
 }

@@ -347,6 +347,8 @@ let g:markdown_fenced_languages = [
       \   'javascript', 'js=javascript', 'javascriptreact',
       \   'json',
       \   'bash=sh', 'sh',
+      \   'vim',
+      \   'help',
       \ ]
 
 " ----------------------------------------
