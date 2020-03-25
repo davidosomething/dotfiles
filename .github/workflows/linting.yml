@@ -1,5 +1,5 @@
 name: Linting
-on: [push]
+on: [push] # yamllint disable-line
 
 jobs:
   prose:
