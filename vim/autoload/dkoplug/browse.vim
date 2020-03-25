@@ -15,7 +15,7 @@ function! dkoplug#browse#gx() abort
   let l:url  = empty(l:sha)
         \ ? 'https://github.com/' . l:repo
         \ : printf('%s/commit/%s', l:repo, l:sha)
-  if $DOTFILES_OS ==# "Linux"
+  if $DOTFILES_OS ==# 'Linux'
     call system('xdg-open "' . l:url . '"')
   else
     call system('open "' . l:url . '"')
