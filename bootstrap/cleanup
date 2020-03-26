@@ -80,11 +80,13 @@ __clean_nvm() {
 # ============================================================================
 
 __move "${HOME}/.bash_history" "${HOME}/.local/bash_history"
-__move "${HOME}/.zhistory" "${HOME}/.local/zsh_history"
+__move "${HOME}/.ctags.d" "${XDG_CONFIG_HOME}/ctags"
 __move "${HOME}/.gimp-2.8" "${XDG_CONFIG_HOME}/GIMP/2.8"
 __move "${HOME}/.hyper.js" "${XDG_CONFIG_HOME}/hyper/.hyper.js"
 __move "${HOME}/.inputrc" "${XDG_CONFIG_HOME}/readline/inputrc"
 __move "${HOME}/.vagrant.d" "${XDG_DATA_HOME}/vagrant"
+__move "${HOME}/.zhistory" "${HOME}/.local/zsh_history"
+
 __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 
 [[ -n "$CARGO_HOME" ]] && __move "${HOME}/.cargo" "$CARGO_HOME"
@@ -104,7 +106,7 @@ __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
   __remove "${HOME}/.zshenv"
 # support dropped in 2.2.0
 __remove "${HOME}/.agignore"
-# should be ~/.ctags.d/universal.ctags
+# should be ~/.config/ctags/*.ctags
 __remove "${HOME}/.ctags"
 # should be in XDG_CONFIG_HOME/fzf/fzf.bash and fzf.zsh
 __remove "${HOME}/.fzf.bash"
