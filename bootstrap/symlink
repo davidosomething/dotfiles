@@ -53,6 +53,8 @@ __symlink() {
     ".config/git/config"
   dko-symlink "git/dot.gitignore" \
     ".config/git/ignore"
+  dko-symlink "hyper-app/dot.hyper.js" \
+    ".config/hyper/.hyper.js"
   dko-symlink "markdownlint/dot.markdownlintrc" \
     ".config/markdownlint"
   dko-symlink "node/default-packages" \
@@ -70,10 +72,6 @@ __symlink() {
     ".config/nvim"
   dko-symlink "ideavim/dot.ideavimrc" \
     ".ideavimrc"
-
-  # hyper.app
-  dko-symlink "hyper-app/dot.hyper.js" \
-    ".hyper.js"
 
   case "$OSTYPE" in
   *arwin*)
