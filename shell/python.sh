@@ -5,6 +5,13 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/python.sh {"
 # Let python guess where to `import` packages, or use pip instead
 unset PYTHONPATH
 
+# ============================================================================
+# Package settings
+# ============================================================================
+
+# python-grip
+export GRIPHOME="${XDG_CONFIG_HOME}/grip"
+
 # ==============================================================================
 # Pylint
 # ==============================================================================
