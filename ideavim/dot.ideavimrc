@@ -16,6 +16,9 @@ nnoremap / :action Find<CR>
 nnoremap n :action FindNext<CR>
 nnoremap N :action FindPrevious<CR>
 
+nnoremap [b :action PrevTab<CR>
+nnoremap ]b :action NextTab<CR>
+
 " ============================================================================
 " Mode and env
 " ============================================================================
