@@ -18,6 +18,7 @@
 
 	ci      = commit
 	ca      = commit --amend
+	cane    = commit --amend --no-edit
 	cm      = commit -m
 
 	cfg     = config --global --edit
