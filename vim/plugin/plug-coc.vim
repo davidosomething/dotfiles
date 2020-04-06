@@ -69,6 +69,8 @@ nmap <silent> <Leader>t <Plug>(coc-type-definition)
 nmap <silent> <Leader>= <Plug>(coc-format-selected)
 vmap <silent> <Leader>= <Plug>(coc-format-selected)
 
+nmap <silent> <Leader>bc <Plug>(coc-calc-result-replace)
+
 " coc-git
 nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)

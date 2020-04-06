@@ -197,6 +197,7 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
 
   let g:coc_global_extensions = [
+        \  'coc-calc',
         \  'coc-css',
         \  'coc-diagnostic',
         \  'coc-eslint',
