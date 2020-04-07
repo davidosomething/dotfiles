@@ -61,6 +61,10 @@ zinit for lucid wait from'gh-r' as'program' \
   mv'bat* -> bat' pick'bat/bat' \
   light-mode '@sharkdp/bat'
 zinit for lucid wait from'gh-r' as'program' \
+  pick'delta*/delta' \
+  atload'GIT_PAGER="delta --dark"' \
+  light-mode '@dandavison/delta'
+zinit for lucid wait from'gh-r' as'program' \
   mv'fd* -> fd' pick'fd/fd' \
   light-mode '@sharkdp/fd'
 zinit for lucid wait from'gh-r' as'program' \
@@ -119,9 +123,10 @@ export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
   vi-end-of-line
   vi-add-eol
 )
-bindkey '^k' autosuggest-accept
+
 # ! will track the loading since using zinit load
-zinit for lucid wait atload'!_zsh_autosuggest_start' \
+zinit for lucid wait \
+  atload'_zsh_autosuggest_start && bindkey "^k" autosuggest-accept' \
   'zsh-users/zsh-autosuggestions'
 # clear the suggestion when entering completion select menu
 
