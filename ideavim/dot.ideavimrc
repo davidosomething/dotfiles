@@ -1,5 +1,8 @@
 let g:mapleader = "\<Space>"
 
+" Use IntelliJ to cleverly merge constructs when doing a J
+set ideajoin
+
 set incsearch
 set smartcase
 
