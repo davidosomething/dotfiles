@@ -7,6 +7,6 @@ flake8-quotes==3.0.0
 pynvim==0.4.1
 pycodestyle==2.5.0
 pydocstyle==5.0.2
-pyflakes==2.1.1
+pyflakes==2.2.0
 pylint==2.4.4
 vulture==1.4
