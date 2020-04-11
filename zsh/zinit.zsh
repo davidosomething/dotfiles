@@ -57,14 +57,14 @@ zinit lucid light-mode for 'davidosomething/cdbk'
 
 zinit lucid wait from'gh-r' as'program' light-mode for \
   pick'bat/bat'             mv'bat* -> bat'             '@sharkdp/bat' \
+  pick'delta*/delta'                                    'dandavison/delta' \
   pick'fd/fd'               mv'fd* -> fd'               '@sharkdp/fd' \
   pick'chmln/nvim-ctrl'     mv'nvim-ctrol* -> nvctl'    'chmln/nvim-ctrl' \
   pick'mvdan/sh'            mv'shfmt* -> shfmt'         '@mvdan/sh' \
   pick'ajeetdsouza/zoxide'  mv'zoxide* -> zoxide' \
-  atload'eval "$(zoxide init zsh)"'                     'ajeetdsouza/zoxide' \
-  pick'delta*/delta' \
-  atload'GIT_PAGER="delta --dark"'                      'dandavison/delta'
+  atload'eval "$(zoxide init zsh)"'                     'ajeetdsouza/zoxide'
 
+export GIT_PAGER="delta --dark"
 export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
 alias j=z
 
