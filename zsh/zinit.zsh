@@ -101,6 +101,9 @@ zinit lucid wait blockf atpull'zinit creinstall -q .' for \
 [[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] &&
   zinit lucid wait light-mode for "$TRAVIS_CONFIG_PATH"
 
+zinit load'!__dko_has keybase' silent as'completion' is-snippet for \
+  'https://github.com/zeroryuki/zsh-keybase/blob/master/_keybase'
+
 # ----------------------------------------------------------------------------
 # Syntax last, and compinit before it
 # ----------------------------------------------------------------------------
