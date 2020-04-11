@@ -80,10 +80,9 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=78
 # as of v4.0 use ZSH/zpty module to async retrieve
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
 # Removed forward-char
-export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
-  vi-end-of-line
-  vi-add-eol
-)
+export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(vi-end-of-line)
+
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # ! will track the loading since using zinit load
 zinit lucid wait \
