@@ -87,7 +87,7 @@ export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
 
 # ! will track the loading since using zinit load
 zinit lucid wait \
-  atload'_zsh_autosuggest_start && bindkey "^k" autosuggest-accept' for \
+  atload'_zsh_autosuggest_start && bindkey "^n" autosuggest-accept' for \
   'zsh-users/zsh-autosuggestions'
 # clear the suggestion when entering completion select menu
 
