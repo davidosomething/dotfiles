@@ -87,7 +87,6 @@ export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 zinit lucid wait \
   atload'_zsh_autosuggest_start && bindkey "^n" autosuggest-accept' for \
   'zsh-users/zsh-autosuggestions'
-# clear the suggestion when entering completion select menu
 
 # ----------------------------------------------------------------------------
 # Vendor: Completion
@@ -106,8 +105,8 @@ __dko_has keybase && zinit silent as'completion' is-snippet for \
 # Syntax last, and compinit before it
 # ----------------------------------------------------------------------------
 
-# clear the suggestion when entering completion select menu
-zinit lucid wait atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" for \
+# don't add wait, messes with zsh-autosuggest
+zinit lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" for \
   'zdharma/fast-syntax-highlighting'
 
 DKO_SOURCE="${DKO_SOURCE} }"
