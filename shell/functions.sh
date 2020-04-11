@@ -25,7 +25,15 @@ cdr() {
 # This is usually overridden in ./after.sh
 # ============================================================================
 
-alias e='vim'
+e() {
+  if __dko_has nvim && __dko_has nvctl && pgrep nvim >/dev/null; then
+    for file in "$@"; do
+      nvctl "e ${file}" && wait
+    done
+  else
+    "$EDITOR" "$@"
+  fi
+}
 
 # ============================================================================
 # edit upwards

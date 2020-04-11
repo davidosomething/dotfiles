@@ -1,6 +1,5 @@
 ansible
 ansible-lint
 bashate
-neovim-remote
 vim-vint
 yamllint

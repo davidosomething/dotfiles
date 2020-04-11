@@ -10,9 +10,6 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 __dko_prefer 'nvim' && {
   export EDITOR='nvim'
   export VISUAL='nvim'
-  alias e='$EDITOR'
-
-  #__dko_prefer 'nvr' && alias e='nvr -s'
 }
 
 # ============================================================================

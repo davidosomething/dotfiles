@@ -6,23 +6,21 @@ export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 # Docker
 # ----------------------------------------------------------------------------
 
-__dko_has docker && {
-  zinit for silent as'completion' is-snippet \
-    'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker'
-  zinit lucid wait from'gh-r' as'program' light-mode for \
-    'jesseduffield/lazydocker'
-}
+zinit load'!__dko_has docker' for \
+  silent as'completion' is-snippet \
+  'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
+  lucid wait from'gh-r' as'program' light-mode 'jesseduffield/lazydocker'
 
 # ----------------------------------------------------------------------------
 # Git
 # ----------------------------------------------------------------------------
 
 zinit lucid wait as'program' pick light-mode for \
-  davidosomething/git-ink \
-  davidosomething/git-my \
-  davidosomething/git-take \
-  paulirish/git-open \
-  paulirish/git-recent
+  'davidosomething/git-ink' \
+  'davidosomething/git-my' \
+  'davidosomething/git-take' \
+  'paulirish/git-open' \
+  'paulirish/git-recent'
 
 zinit lucid wait as'program' \
   pick"${ZPFX}/bin/git-*" \
@@ -59,10 +57,10 @@ zinit lucid wait from'gh-r' as'program' light-mode for \
   pick'bat/bat'             mv'bat* -> bat'             '@sharkdp/bat' \
   pick'delta*/delta'                                    'dandavison/delta' \
   pick'fd/fd'               mv'fd* -> fd'               '@sharkdp/fd' \
-  pick'chmln/nvim-ctrl'     mv'nvim-ctrol* -> nvctl'    'chmln/nvim-ctrl' \
   pick'mvdan/sh'            mv'shfmt* -> shfmt'         '@mvdan/sh' \
   pick'ajeetdsouza/zoxide'  mv'zoxide* -> zoxide' \
-  atload'eval "$(zoxide init zsh)"'                     'ajeetdsouza/zoxide'
+  atload'eval "$(zoxide init zsh)"'                     'ajeetdsouza/zoxide' \
+                            mv'nvim-ctrl* -> nvctl'     'chmln/nvim-ctrl'
 
 export GIT_PAGER="delta --dark"
 export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
