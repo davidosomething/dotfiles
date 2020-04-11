@@ -40,10 +40,10 @@ zinit lucid wait as'program' \
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
-zinit lucid wait light-mode for 'wfxr/forgit'
-
-# `` compl for git commands
-zinit lucid wait light-mode for 'hschne/fzf-git'
+# fzf-git -- `` compl for git commands
+zinit lucid wait light-mode for \
+  'wfxr/forgit' \
+  'hschne/fzf-git'
 
 # ----------------------------------------------------------------------------
 # Misc
@@ -65,10 +65,7 @@ zinit lucid wait from'gh-r' as'program' light-mode for \
 export GIT_PAGER="delta --dark"
 export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
 alias j=z
-
-__dko_has up || {
-  zinit lucid nocompletions light-mode for '@shannonmoeller/up'
-}
+zinit lucid nocompletions light-mode for '@shannonmoeller/up'
 
 # ----------------------------------------------------------------------------
 # ZSH extensions
@@ -90,27 +87,26 @@ export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
 
 # ! will track the loading since using zinit load
 zinit lucid wait \
-  atload'_zsh_autosuggest_start && bindkey "^k" autosuggest-accept' \
-  for 'zsh-users/zsh-autosuggestions'
+  atload'_zsh_autosuggest_start && bindkey "^k" autosuggest-accept' for \
+  'zsh-users/zsh-autosuggestions'
 # clear the suggestion when entering completion select menu
 
 # ----------------------------------------------------------------------------
 # Vendor: Completion
 # ----------------------------------------------------------------------------
 
-zinit lucid wait blockf atpull'zinit creinstall -q .' \
-  for 'zsh-users/zsh-completions'
+zinit lucid wait blockf atpull'zinit creinstall -q .' for \
+  'zsh-users/zsh-completions'
 
-[[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] && {
+[[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] &&
   zinit lucid wait light-mode for "$TRAVIS_CONFIG_PATH"
-}
 
 # ----------------------------------------------------------------------------
 # Syntax last, and compinit before it
 # ----------------------------------------------------------------------------
 
 # clear the suggestion when entering completion select menu
-zinit lucid wait atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-  for 'zdharma/fast-syntax-highlighting'
+zinit lucid wait atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" for \
+  'zdharma/fast-syntax-highlighting'
 
 DKO_SOURCE="${DKO_SOURCE} }"
