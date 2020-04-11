@@ -6,7 +6,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 # Docker
 # ----------------------------------------------------------------------------
 
-zinit load'!__dko_has docker' for \
+__dko_has docker && zinit for \
   silent as'completion' is-snippet \
   'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
   lucid wait from'gh-r' as'program' light-mode 'jesseduffield/lazydocker'
@@ -32,11 +32,10 @@ zinit lucid wait as'program' \
 # FZF + Git
 # ----------------------------------------------------------------------------
 
-! __dko_has fzf && {
-  # Binary release in archive, from GitHub-releases page.
-  # After automatic unpacking it provides program "fzf".
-  zinit lucid wait from'gh-r' as'program' light-mode for 'junegunn/fzf-bin'
-}
+# Binary release in archive, from GitHub-releases page.
+# After automatic unpacking it provides program "fzf".
+! __dko_has fzf && zinit lucid wait from'gh-r' as'program' light-mode for \
+  'junegunn/fzf-bin'
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
@@ -100,7 +99,7 @@ zinit lucid wait blockf atpull'zinit creinstall -q .' for \
 [[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] &&
   zinit lucid wait light-mode for "$TRAVIS_CONFIG_PATH"
 
-zinit load'!__dko_has keybase' silent as'completion' is-snippet for \
+__dko_has keybase && zinit silent as'completion' is-snippet for \
   'https://github.com/zeroryuki/zsh-keybase/blob/master/_keybase'
 
 # ----------------------------------------------------------------------------
