@@ -77,7 +77,7 @@ zinit lucid trigger-load'!man' for is-snippet \
 # don't suggest lines longer than
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=78
 # as of v4.0 use ZSH/zpty module to async retrieve
-#export ZSH_AUTOSUGGEST_USE_ASYNC=1
+export ZSH_AUTOSUGGEST_USE_ASYNC=1
 # Removed forward-char
 export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(vi-end-of-line)
 
