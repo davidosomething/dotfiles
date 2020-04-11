@@ -28,7 +28,8 @@ cdr() {
 e() {
   if __dko_has nvim && __dko_has nvctl && pgrep nvim >/dev/null; then
     for file in "$@"; do
-      nvctl "e ${file}" && wait
+      fullfile="${PWD}/${file}"
+      nvctl "e ${fullfile}" && wait
     done
   else
     "$EDITOR" "$@"
