@@ -10,7 +10,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 . "${HOME}/.dotfiles/shell/dot.profile"
 
 # ============================================================================
-# zinit, auto-install with git if possible
+# zinit
 # ============================================================================
 
 __dko_has 'git' && {
@@ -23,28 +23,14 @@ __dko_has 'git' && {
   dko_zinit_dest="${ZINIT[HOME_DIR]}/bin"
   dko_zinit_script="${dko_zinit_dest}/zinit.zsh"
   __dko_source "$dko_zinit_script" || {
+    # install if needed
     command git clone https://github.com/zdharma/zinit "${dko_zinit_dest}" &&
       __dko_source "$dko_zinit_script"
   }
 
-  __dko_has 'zinit' && {
-    autoload -Uz _zinit
-    (( ${+_comps} )) && _comps[zinit]=_zinit
-    __dko_source "${ZDOTDIR}/zinit.zsh"
-  }
+  __dko_source "${ZDOTDIR}/zinit.zsh" &&
+    autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
 }
-
-# ============================================================================
-# fzf bindings (package install, may not be available if using fzf-bin)
-# ============================================================================
-
-if __dko_source "${XDG_CONFIG_HOME}/fzf/fzf.zsh" || {
-  # linux package managers throw it here
-  __dko_source "/usr/share/fzf/completion.zsh"
-  __dko_source "/usr/share/fzf/key-bindings.zsh"
-}; then
-  DKO_SOURCE="${DKO_SOURCE} -> fzf"
-fi
 
 # ============================================================================
 # Options
@@ -119,7 +105,7 @@ autoload -Uz add-zsh-hook
 . "${ZDOTDIR}/title.zsh"
 
 # ============================================================================
-# Keybindings (after plugins since some are custom for fzf)
+# Keybindings
 # These keys should also be set in shell/.inputrc
 #
 # `cat -e` to test out keys
@@ -206,18 +192,25 @@ bindkey '^e' vi-forward-word-end
 bindkey '^w' vi-forward-word
 
 # ============================================================================
-# Custom widget: fzf
+# FZF keybindings
 # ============================================================================
 
-__dkofzfbranch() {
-  if git rev-parse --git-dir >/dev/null 2>&1; then
-    fbr
-    zle accept-line
-  fi
-}
-
-# <C-b> to open git branch menu
 if __dko_has "fzf"; then
+  if __dko_source "${XDG_CONFIG_HOME}/fzf/fzf.zsh" || {
+    # linux package managers throw it here
+    __dko_source "/usr/share/fzf/completion.zsh"
+    __dko_source "/usr/share/fzf/key-bindings.zsh"
+  }; then
+    DKO_SOURCE="${DKO_SOURCE} -> fzf"
+  fi
+
+  # <C-b> to open git branch menu
+  __dkofzfbranch() {
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+      fbr
+      zle accept-line
+    fi
+  }
   zle     -N      __dkofzfbranch
   bindkey '^B'    __dkofzfbranch
 fi
@@ -341,8 +334,7 @@ fi
 # Started xtrace in dot.zshenv
 [[ "$ITERM_PROFILE" == "PROFILE"* ]] || [[ -n "$DKO_PROFILE_STARTUP" ]] && {
   unsetopt xtrace
-  exec 2>&3 3>&-
-  __dko_ok "ZSH startup log written to ${DKO_PROFILE_LOG}"
+  exec 2>&3 3>&- && __dko_ok "ZSH startup log written to ${DKO_PROFILE_LOG}"
 }
 
 # ============================================================================
