@@ -38,8 +38,13 @@ __dko_has 'git' && {
 # fzf bindings (package install, may not be available if using fzf-bin)
 # ============================================================================
 
-__dko_source "${XDG_CONFIG_HOME}/fzf/fzf.zsh" &&
+if __dko_source "${XDG_CONFIG_HOME}/fzf/fzf.zsh" || {
+  # linux package managers throw it here
+  __dko_source "/usr/share/fzf/completion.zsh"
+  __dko_source "/usr/share/fzf/key-bindings.zsh"
+}; then
   DKO_SOURCE="${DKO_SOURCE} -> fzf"
+fi
 
 # ============================================================================
 # Options
@@ -323,6 +328,7 @@ typeset -gU cdpath path fpath manpath
 # ============================================================================
 
 if __dko_has 'zinit'; then
+  # zicompinit does the autoload
   zicompdef g=git
 else
   autoload -Uz compinit && compinit && compdef g=git

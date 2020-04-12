@@ -9,13 +9,13 @@ export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 __dko_has docker && zinit for \
   silent as'completion' is-snippet \
   'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
-  lucid wait from'gh-r' as'program' light-mode 'jesseduffield/lazydocker'
+  lucid wait from'gh-r' as'program' 'jesseduffield/lazydocker'
 
 # ----------------------------------------------------------------------------
 # Git
 # ----------------------------------------------------------------------------
 
-zinit lucid wait as'program' pick light-mode for \
+zinit lucid wait as'program' pick for \
   'davidosomething/git-ink' \
   'davidosomething/git-my' \
   'davidosomething/git-take' \
@@ -26,7 +26,7 @@ zinit lucid wait as'program' \
   pick"${ZPFX}/bin/git-*" \
   src'etc/git-extras-completion.zsh' \
   make"PREFIX=${ZPFX}" \
-  light-mode for 'tj/git-extras'
+  for 'tj/git-extras'
 
 # ----------------------------------------------------------------------------
 # FZF + Git
@@ -34,13 +34,13 @@ zinit lucid wait as'program' \
 
 # Binary release in archive, from GitHub-releases page.
 # After automatic unpacking it provides program "fzf".
-! __dko_has fzf && zinit lucid wait from'gh-r' as'program' light-mode for \
+! __dko_has fzf && zinit lucid wait from'gh-r' as'program' for \
   'junegunn/fzf-bin'
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
 # fzf-git -- `` compl for git commands
-zinit lucid wait light-mode for \
+zinit lucid wait for \
   'wfxr/forgit' \
   'hschne/fzf-git'
 
@@ -52,7 +52,7 @@ zinit lucid wait light-mode for \
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
 zinit lucid light-mode for 'davidosomething/cdbk'
 
-zinit lucid wait from'gh-r' as'program' light-mode for \
+zinit lucid wait from'gh-r' as'program' for \
   pick'bat/bat'             mv'bat* -> bat'             '@sharkdp/bat' \
   pick'delta*/delta'                                    'dandavison/delta' \
   pick'fd/fd'               mv'fd* -> fd'               '@sharkdp/fd' \
@@ -96,7 +96,7 @@ zinit lucid wait blockf atpull'zinit creinstall -q .' for \
   'zsh-users/zsh-completions'
 
 [[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] &&
-  zinit lucid wait light-mode for "$TRAVIS_CONFIG_PATH"
+  zinit lucid wait for "$TRAVIS_CONFIG_PATH"
 
 __dko_has keybase && zinit silent as'completion' is-snippet for \
   'https://github.com/zeroryuki/zsh-keybase/blob/master/_keybase'
