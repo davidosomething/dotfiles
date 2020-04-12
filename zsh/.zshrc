@@ -14,13 +14,13 @@ export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 # ============================================================================
 
 __dko_has 'git' && {
-  ZINIT_HOME="${ZDOTDIR}/.zinit"
+  declare -A ZINIT
+  ZINIT[HOME_DIR]="${XDG_DATA_HOME}/zinit"
 
   # part of zinit's install, found by compaudit
-  mkdir -p "$ZINIT_HOME"
-  chmod g-rwX "$ZINIT_HOME"
+  mkdir -p "${ZINIT[HOME_DIR]}" && chmod g-rwX "${ZINIT[HOME_DIR]}"
 
-  dko_zinit_dest="${ZINIT_HOME}/bin"
+  dko_zinit_dest="${ZINIT[HOME_DIR]}/bin"
   dko_zinit_script="${dko_zinit_dest}/zinit.zsh"
   __dko_source "$dko_zinit_script" || {
     command git clone https://github.com/zdharma/zinit "${dko_zinit_dest}" &&
