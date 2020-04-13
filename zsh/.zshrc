@@ -99,10 +99,17 @@ zmodload -i zsh/complist
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
 
+# automatically fix things when pasted, works with url-quote-magic
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+
+# automatically quote URLs as they are typed
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
 . "${ZDOTDIR}/prompt-vcs.zsh"
 . "${ZDOTDIR}/prompt-vimode.zsh"
 . "${ZDOTDIR}/prompt.zsh"
-. "${ZDOTDIR}/title.zsh"
 
 # ============================================================================
 # Keybindings
