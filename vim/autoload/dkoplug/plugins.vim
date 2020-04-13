@@ -407,18 +407,12 @@ function! dkoplug#plugins#LoadAll() abort
   " changes. It does not support embedded HTML with Neovim
   "Plug '2072/vim-syntax-for-PHP'
 
-  " Updated for php 7.1, Apr 2018 (newer than neovim 3.0 runtime)
+  " Updated for php 7.3 Mar 2019 (newer than neovim 5.0 runtime)
   Plug 'StanAngeloff/php.vim', { 'for': [ 'php' ] }
 
   " Indent
   " 2072 is included with vim, this is upstream
   Plug '2072/PHP-Indenting-for-VIm'
-
-  " Fix indent of HTML in all PHP files -- basically adds indent/html.vim when
-  " outside of PHP block.
-  " This actually never loads since 2072 sets b:did_indent
-  " Also not needed since 2072 uses <script.*> style indenting for HTML
-  "Plug 'captbaritone/better-indent-support-for-php-with-html'
 
   " ==========================================================================
   " Language: Python
@@ -484,17 +478,16 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
   " Color highlighting
   " ==========================================================================
+
   " The vim fallback choice is vim-css-color because it offers stability and
   " completeness. It can do multiple css colors on one line, which hexokinase
   " cannot, and it updates immediately, which coc-highlight has trouble
   " keeping up with.
+  let l:use_fancy_colors = has('nvim') && exists('&termguicolors')
 
-  Plug 'ap/vim-css-color', PlugIf(!has('nvim'))
-
+  Plug 'ap/vim-css-color', PlugIf(!l:use_fancy_colors)
   " Pure lua implementation, covers most cases and is fastest in neovim
-  Plug 'norcalli/nvim-colorizer.lua', PlugIf(
-        \ has('nvim') && exists('&termguicolors')
-        \)
+  Plug 'norcalli/nvim-colorizer.lua', PlugIf(l:use_fancy_colors)
 
   " ==========================================================================
   " Language: .tmux.conf
