@@ -1,5 +1,7 @@
 ansible
 ansible-lint
 bashate
+pylint
 vim-vint
+vulture
 yamllint
