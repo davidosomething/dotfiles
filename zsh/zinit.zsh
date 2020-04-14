@@ -9,20 +9,20 @@ export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 __dko_has docker && zinit for \
   silent as'completion' is-snippet \
   'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
-  lucid wait from'gh-r' as'program' 'jesseduffield/lazydocker'
+  lucid from'gh-r' as'program' 'jesseduffield/lazydocker'
 
 # ----------------------------------------------------------------------------
 # Git
 # ----------------------------------------------------------------------------
 
-zinit lucid wait as'program' pick for \
+zinit lucid as'program' pick for \
   'davidosomething/git-ink' \
   'davidosomething/git-my' \
   'davidosomething/git-take' \
   'paulirish/git-open' \
   'paulirish/git-recent'
 
-zinit lucid wait as'program' \
+zinit lucid as'program' \
   pick"${ZPFX}/bin/git-*" \
   src'etc/git-extras-completion.zsh' \
   make"PREFIX=${ZPFX}" \
@@ -34,13 +34,13 @@ zinit lucid wait as'program' \
 
 # Binary release in archive, from GitHub-releases page.
 # After automatic unpacking it provides program "fzf".
-! __dko_has fzf && zinit lucid wait from'gh-r' as'program' for \
+! __dko_has fzf && zinit lucid from'gh-r' as'program' for \
   'junegunn/fzf-bin'
 
 # gi is my git-ink alias, and i don't need a .gitignore generator
 export forgit_ignore='fgi'
 # fzf-git -- `` compl for git commands
-zinit lucid wait for \
+zinit lucid for \
   'wfxr/forgit' \
   'hschne/fzf-git'
 
@@ -52,7 +52,8 @@ zinit lucid wait for \
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
 zinit lucid light-mode for 'davidosomething/cdbk'
 
-zinit lucid wait from'gh-r' as'program' for \
+# no wait, want programs available so i can type before prompt ready
+zinit lucid from'gh-r' as'program' for \
   pick'bat/bat'             mv'bat* -> bat'             '@sharkdp/bat' \
   pick'delta*/delta'                                    'dandavison/delta' \
   pick'fd/fd'               mv'fd* -> fd'               '@sharkdp/fd' \
