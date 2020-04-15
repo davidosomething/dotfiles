@@ -9,8 +9,8 @@
 
 - Custom statusline with minimal junk, showing short directory
 - FZF for Most Recently Used files and fuzzy file finder
-- Neomake + local use of eslint, custom detection of .eslint, .scss-lint,
-  etc.
+- CoC for language server and misc utilities
+- Neomake for non-language server makers/linters
 - Language emphasis: JavaScript, VimL, PHP, HTML, SCSS (but not exclusive)
 - Lazy loaded plugins and keybindings -- a brand new Vim instance opens in
   <200ms (without plugins Vim takes around 100ms)
@@ -26,6 +26,8 @@ Keep `(g)vimrc` (no dot in filename) in `~/.vim/` -- Vim knows to look in there.
 
 ### Python Settings
 
+See [bootstrap/pyenv] for a scripted version of this
+
 - Using `pyenv`, install python 3+.
 - Set up a virtualenv using `pyenv-virtualenv`: `pyenv virtualenv neovim3`
 - Activate the virtualenv `pyenv activate neovim3`
@@ -33,8 +35,11 @@ Keep `(g)vimrc` (no dot in filename) in `~/.vim/` -- Vim knows to look in there.
 - You can now switch back to whatever python (`pyenv deactivate`) you want,
   `init.vim` for Neovim startup is already configured to find the `neovim3`
   virtualenv.
+
+Finally
+
 - `:UpdateRemotePlugins` if installing/upgrading python-based plugins
-- `:CheckHealth` to see if the python3 setup and plugins are working.
+- `:checkhealth` to see if the python3 setup and plugins are working.
 
 ### JavaScript Settings
 
