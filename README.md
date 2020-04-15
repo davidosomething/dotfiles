@@ -28,7 +28,9 @@ Generally:
 git clone --recurse-submodules https://github.com/davidosomething/dotfiles ~/.dotfiles
 ```
 
-Then, run `symlink` or `mac` in `bootstrap/`.
+Then, run the [bootstrap/symlink](bootstrap/symlink) script for linux or
+[bootstrap/mac](bootstrap/mac) for macOS.
+
 After symlinking, [bootstrap/cleanup](bootstrap/cleanup) can detect and move
 pre-existing dotfiles that conflict with these (mac does this).
 
@@ -55,6 +57,7 @@ environment set up first.
 - [bootstrap/cleanup](bootstrap/cleanup) moves some dotfiles into their XDG
   Base Directory supported directories and deletes unnecessary things (with
   confirmation).
+- [bootstrap/mac](bootstrap/mac) provision macOS. Runs other bootstrappers.
 - [bootstrap/pipx](bootstrap/pipx) installs python CLI tools using `pipx`
 - [bootstrap/pyenv](bootstrap/pyenv) creates a Neovim pyenv and installs
   `pynvim`

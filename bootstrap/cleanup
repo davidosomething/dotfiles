@@ -109,7 +109,7 @@ __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 __remove "${HOME}/.agignore"
 # should be ~/.config/ctags/*.ctags
 __remove "${HOME}/.ctags"
-# should be in XDG_CONFIG_HOME/fzf/fzf.bash and fzf.zsh
+# should be in XDG_CONFIG_HOME/fzf/fzf.bash and fzf.zsh or /usr/share/fzf
 __remove "${HOME}/.fzf.bash"
 __remove "${HOME}/.fzf.zsh"
 # alias points to dotfile
@@ -131,6 +131,9 @@ __remove "${HOME}/.tern-project"
 __remove "${HOME}/.tldr"
 # should be ~/.dotfiles/zsh/.zshrc
 __remove "${HOME}/.zshrc"
+
+# should be XDG_DATA_HOME/zinit
+__remove "${DOTFILES}/zsh/.zinit"
 __remove "${DOTFILES}/zsh/.zplugin"
 
 "${DOTFILES}/bin/dko-fix-git-completion"
