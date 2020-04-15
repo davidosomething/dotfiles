@@ -6,7 +6,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 # Docker
 # ----------------------------------------------------------------------------
 
-__dko_has docker && zinit for \
+zinit has'docker' for \
   silent as'completion' is-snippet \
   'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
   lucid from'gh-r' as'program' 'jesseduffield/lazydocker'
@@ -15,14 +15,14 @@ __dko_has docker && zinit for \
 # Git
 # ----------------------------------------------------------------------------
 
-zinit lucid as'program' pick for \
+zinit lucid has'git' as'program' pick for \
   'davidosomething/git-ink' \
   'davidosomething/git-my' \
   'davidosomething/git-take' \
   'paulirish/git-open' \
   'paulirish/git-recent'
 
-zinit lucid as'program' \
+zinit lucid has'git' as'program' \
   pick"${ZPFX}/bin/git-*" \
   src'etc/git-extras-completion.zsh' \
   make"PREFIX=${ZPFX}" \
@@ -104,7 +104,7 @@ zinit lucid wait blockf atpull'zinit creinstall -q .' for \
 [[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] &&
   zinit lucid wait for "$TRAVIS_CONFIG_PATH"
 
-__dko_has keybase && zinit silent as'completion' is-snippet for \
+zinit silent has'keybase' as'completion' is-snippet for \
   'https://github.com/zeroryuki/zsh-keybase/blob/master/_keybase'
 
 # ----------------------------------------------------------------------------
