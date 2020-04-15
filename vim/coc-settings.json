@@ -23,6 +23,7 @@
   "diagnostic.hintSign": "⚑",
   "diagnostic.infoSign": "⚑",
   "diagnostic.joinMessageLines": false,
+  "diagnostic.separateRelatedInformationAsDiagnostics": true,
   "diagnostic.level": "hint",
   "diagnostic.locationlist": true,
   "diagnostic.messageTarget": "float",
