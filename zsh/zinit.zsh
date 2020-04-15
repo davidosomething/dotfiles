@@ -29,7 +29,7 @@ zinit lucid as'program' \
   for 'tj/git-extras'
 
 # ----------------------------------------------------------------------------
-# FZF + Git
+# FZF and friends
 # ----------------------------------------------------------------------------
 
 # Binary release in archive, from GitHub-releases page.
@@ -42,7 +42,8 @@ export forgit_ignore='fgi'
 # fzf-git -- `` compl for git commands
 zinit lucid for \
   'wfxr/forgit' \
-  'hschne/fzf-git'
+  'hschne/fzf-git' \
+  'torifat/npms'
 
 # ----------------------------------------------------------------------------
 # Misc
@@ -57,6 +58,7 @@ zinit lucid from'gh-r' as'program' for \
   pick'bat/bat'             mv'bat* -> bat'             '@sharkdp/bat' \
   pick'delta*/delta'                                    'dandavison/delta' \
   pick'fd/fd'               mv'fd* -> fd'               '@sharkdp/fd' \
+  pick'stedolan/jq'         mv'jq* -> jq'               'stedolan/jq' \
   pick'mvdan/sh'            mv'shfmt* -> shfmt'         '@mvdan/sh' \
   pick'ajeetdsouza/zoxide'  mv'zoxide* -> zoxide' \
   atload'eval "$(zoxide init zsh)"'                     'ajeetdsouza/zoxide' \
