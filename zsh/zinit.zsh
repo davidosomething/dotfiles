@@ -53,19 +53,23 @@ zinit lucid for \
 export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
 zinit lucid light-mode for 'davidosomething/cdbk'
 
+export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
+
 # no wait, want programs available so i can type before prompt ready
 zinit lucid from'gh-r' as'program' for \
   pick'bat/bat' mv'bat* -> bat' '@sharkdp/bat'  \
-  pick'delta*/delta'        'dandavison/delta'  \
+  pick'delta*/delta' \
+    atload'export GIT_PAGER="delta --dark"' \
+    'dandavison/delta' \
   pick'fd/fd' mv'fd* -> fd' '@sharkdp/fd'       \
   mv'jq* -> jq'             'stedolan/jq'       \
   mv'nvim-ctrl* -> nvctl'   'chmln/nvim-ctrl'   \
   mv'shfmt* -> shfmt'       '@mvdan/sh'         \
-  mv'zoxide* -> zoxide' atload'eval "$(zoxide init zsh)"' 'ajeetdsouza/zoxide'
+  mv'zoxide* -> zoxide' \
+    atload'eval "$(zoxide init zsh)"' \
+    atload'alias j=z' \
+    'ajeetdsouza/zoxide'
 
-export GIT_PAGER="delta --dark"
-export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
-alias j=z
 zinit lucid nocompletions light-mode for '@shannonmoeller/up'
 
 # ----------------------------------------------------------------------------
