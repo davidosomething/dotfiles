@@ -70,6 +70,9 @@ zinit lucid from'gh-r' as'program' for \
     atload'alias j=z' \
     'ajeetdsouza/zoxide'
 
+! __dko_has rg && zinit lucid from'gh-r' as'program' pick'ripgrep*/rg' for \
+  'BurntSushi/ripgrep'
+
 zinit lucid nocompletions light-mode for '@shannonmoeller/up'
 
 # ----------------------------------------------------------------------------
