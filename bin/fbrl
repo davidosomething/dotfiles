@@ -32,11 +32,11 @@ __fbrl() {
     --expect=ctrl-y \
     --height=25% --no-hscroll --no-multi \
     --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
-    --prompt="$current> " <<< "$branches") \
+    --prompt="${current}> " <<< "$branches") \
 
   local branch
   branch="$(head -2 <<< "$out" | tail -1)"
-  branch="$(echo "$branch" | xargs)" # strip spaces
+  branch="${branch//[[:blank:]]/}" # strip spaces
   branch="$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
   [ -z "$branch" ] && return 1
 

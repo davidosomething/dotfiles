@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#
+# fwt - switch to worktree directory
+# Uses fzf
+# @see <https://github.com/junegunn/fzf/wiki/examples>
+
+__fwt() {
+  local current
+  current=$(git rev-parse --abbrev-ref HEAD)
+  if [ -z "$current" ]; then
+    >&2 echo "You must be in a git repo to get worktrees."
+    return 1
+  fi
+
+  local out
+  out=$(fzf-tmux \
+    +m \
+    --cycle \
+    --exit-0 \
+    --expect=ctrl-y \
+    --height=25% --no-hscroll --no-multi \
+    --prompt="${current}> " <<< "$(git worktree list)")
+
+  local worktree
+  worktree="$(head -2 <<< "$out" | tail -1)"
+  worktree="$(cut -f 1 -d " " <<< "$worktree")"
+  [ -z "$worktree" ] && return 1
+
+  local key
+  key="$(head -1 <<< "$out")"
+
+  if [[ "$key" == "ctrl-y" ]]; then
+    echo "$worktree" | tr -d '\n' | pbcopy
+    echo "\"${worktree}\" copied into clipboard"
+    return
+  fi
+
+  # remember, can't cd inside a script!
+  echo "$worktree"
+}
+__fwt

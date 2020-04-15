@@ -224,15 +224,21 @@ if __dko_has "fzf"; then
     DKO_SOURCE="${DKO_SOURCE} -> fzf"
   fi
 
-  # <C-b> to open git branch menu
+  # <C-b> to open git branch menu and switch to one
   __dkofzfbranch() {
-    if git rev-parse --git-dir >/dev/null 2>&1; then
-      fbr
-      zle accept-line
-    fi
+    fbr
+    zle accept-line
   }
   zle     -N      __dkofzfbranch
   bindkey '^B'    __dkofzfbranch
+
+  # <A-w> to open git worktree list and cd into one
+  __dkofzfworktree() {
+    cd "$(fwt)"
+    zle accept-line
+  }
+  zle     -N      __dkofzfworktree
+  bindkey '^[w'   __dkofzfworktree
 fi
 
 # ============================================================================
