@@ -55,6 +55,7 @@ environment set up first.
 - [bootstrap/cleanup](bootstrap/cleanup) moves some dotfiles into their XDG
   Base Directory supported directories and deletes unnecessary things (with
   confirmation).
+- [bootstrap/pipx](bootstrap/pipx) installs python CLI tools using `pipx`
 - [bootstrap/pyenv](bootstrap/pyenv) creates a Neovim pyenv and installs
   `pynvim`
 - [bootstrap/symlink](bootstrap/symlink) symlinks rc files for bash, ZSH,
