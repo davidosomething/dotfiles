@@ -87,7 +87,10 @@
 
 	track   = branch -u
 
-	dsf     = "!f() { [ -z \"$GIT_PREFIX\" ] || cd -- \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX; }; f"
+	wt      = worktree
+	wta     = worktree add
+	wtl     = worktree list
+	wtr     = worktree remove
 
 	# ---------------------------------------------------------------------------
 	# aliases to git-extras provided

@@ -10,6 +10,16 @@ export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 . "${HOME}/.dotfiles/shell/dot.profile"
 
 # ============================================================================
+# nocorrect aliases
+# These may be re-aliased later (e.g. rm=trash from trash-cli node module)
+# ============================================================================
+
+alias cp="nocorrect cp"
+alias mv="nocorrect mv"
+alias rm="nocorrect rm"
+alias mkdir="nocorrect mkdir"
+
+# ============================================================================
 # zinit
 # ============================================================================
 
@@ -90,6 +100,9 @@ setopt VI
 # ============================================================================
 # Modules
 # ============================================================================
+
+__dko_has 'zinit' && autoload -Uz compinit && compinit
+compdef g=git
 
 # color complist
 zmodload -i zsh/complist
@@ -304,16 +317,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors \
 zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 
 # ============================================================================
-# nocorrect aliases
-# These may be re-aliased later (e.g. rm=trash from trash-cli node module)
-# ============================================================================
-
-alias cp="nocorrect cp"
-alias mv="nocorrect mv"
-alias rm="nocorrect rm"
-alias mkdir="nocorrect mkdir"
-
-# ============================================================================
 # Local: can add more zinit plugins here
 # ============================================================================
 
@@ -322,17 +325,6 @@ __dko_source "${LDOTDIR}/zshrc"
 
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
 typeset -gU cdpath path fpath manpath
-
-# ============================================================================
-# zinit: after
-# ============================================================================
-
-if __dko_has 'zinit'; then
-  # zicompinit does the autoload
-  zicompdef g=git
-else
-  autoload -Uz compinit && compinit && compdef g=git
-fi
 
 # ============================================================================
 # End profiling
