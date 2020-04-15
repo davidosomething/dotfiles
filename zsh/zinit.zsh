@@ -55,14 +55,13 @@ zinit lucid light-mode for 'davidosomething/cdbk'
 
 # no wait, want programs available so i can type before prompt ready
 zinit lucid from'gh-r' as'program' for \
-  pick'bat/bat'             mv'bat* -> bat'             '@sharkdp/bat' \
-  pick'delta*/delta'                                    'dandavison/delta' \
-  pick'fd/fd'               mv'fd* -> fd'               '@sharkdp/fd' \
-  pick'stedolan/jq'         mv'jq* -> jq'               'stedolan/jq' \
-  pick'mvdan/sh'            mv'shfmt* -> shfmt'         '@mvdan/sh' \
-  pick'ajeetdsouza/zoxide'  mv'zoxide* -> zoxide' \
-  atload'eval "$(zoxide init zsh)"'                     'ajeetdsouza/zoxide' \
-                            mv'nvim-ctrl* -> nvctl'     'chmln/nvim-ctrl'
+  pick'bat/bat' mv'bat* -> bat' '@sharkdp/bat'  \
+  pick'delta*/delta'        'dandavison/delta'  \
+  pick'fd/fd' mv'fd* -> fd' '@sharkdp/fd'       \
+  mv'jq* -> jq'             'stedolan/jq'       \
+  mv'nvim-ctrl* -> nvctl'   'chmln/nvim-ctrl'   \
+  mv'shfmt* -> shfmt'       '@mvdan/sh'         \
+  mv'zoxide* -> zoxide' atload'eval "$(zoxide init zsh)"' 'ajeetdsouza/zoxide'
 
 export GIT_PAGER="delta --dark"
 export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
