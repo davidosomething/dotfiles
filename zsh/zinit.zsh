@@ -19,7 +19,6 @@ zinit lucid has'git' as'program' pick for \
   'davidosomething/git-ink' \
   'davidosomething/git-my' \
   'davidosomething/git-take' \
-  atclone'cp -vf *.1 $ZPFX/share/man/man1' atpull'%atclone' \
   'paulirish/git-open' \
   'paulirish/git-recent'
 
