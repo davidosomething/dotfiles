@@ -19,6 +19,7 @@ zinit lucid has'git' as'program' pick for \
   'davidosomething/git-ink' \
   'davidosomething/git-my' \
   'davidosomething/git-take' \
+  atclone'cp -vf *.1 $ZPFX/share/man/man1' atpull'%atclone' \
   'paulirish/git-open' \
   'paulirish/git-recent'
 
@@ -57,18 +58,25 @@ export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
 
 # no wait, want programs available so i can type before prompt ready
 zinit lucid from'gh-r' as'program' for \
-  pick'bat/bat' mv'bat* -> bat' '@sharkdp/bat'  \
+  pick'bat/bat' mv'bat* -> bat' \
+  atclone'cp -vf bat/bat.1 $ZPFX/share/man/man1' atpull'%atclone' \
+  '@sharkdp/bat' \
+  \
   pick'delta*/delta' \
-    atload'export GIT_PAGER="delta --dark"' \
-    'dandavison/delta' \
-  pick'fd/fd' mv'fd* -> fd' '@sharkdp/fd'       \
-  mv'jq* -> jq'             'stedolan/jq'       \
+  atload'export GIT_PAGER="delta --dark"' \
+  'dandavison/delta' \
+  \
+  pick'fd/fd' mv'fd* -> fd' \
+  atclone'cp -vf fd/fd.1 $ZPFX/share/man/man1' atpull'%atclone' \
+  '@sharkdp/fd' \
+  \
+  mv'jq* -> jq'             'stedolan/jq' \
   mv'nvim-ctrl* -> nvctl'   'chmln/nvim-ctrl'   \
   mv'shfmt* -> shfmt'       '@mvdan/sh'         \
+  \
   mv'zoxide* -> zoxide' \
-    atload'eval "$(zoxide init zsh)"' \
-    atload'alias j=z' \
-    'ajeetdsouza/zoxide'
+  atload'eval "$(zoxide init zsh)" && alias j=z' \
+  'ajeetdsouza/zoxide'
 
 ! __dko_has rg && zinit lucid from'gh-r' as'program' pick'ripgrep*/rg' for \
   'BurntSushi/ripgrep'
