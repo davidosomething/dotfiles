@@ -102,14 +102,6 @@ alias gwr='gw run'
 alias f='find'
 alias grep='grep --color=auto'
 
-# prefer ripgrep, but I always type ag
-if command -v rg >/dev/null; then
-  alias ag='rg --hidden --smart-case --ignore-file "${DOTFILES}/ag/dot.ignore"'
-else
-  # --numbers is a default and not supported on old ag
-  # --one-device not supported on old ag
-  alias ag='ag --hidden --smart-case'
-fi
 # also see gg in git
 
 # ----------------------------------------------------------------------------

@@ -25,6 +25,19 @@ export REACT_EDITOR="$VISUAL"
 __dko_prefer 'trash' && alias rm=trash
 
 # ============================================================================
+# after zinit installation
+# ============================================================================
+
+# prefer ripgrep, but I always type ag
+if __dko_has 'rg'; then
+  alias ag='rg --hidden --smart-case --ignore-file "${DOTFILES}/ag/dot.ignore"'
+else
+  # --numbers is a default and not supported on old ag
+  # --one-device not supported on old ag
+  alias ag='ag --hidden --smart-case'
+fi
+
+# ============================================================================
 
 #__dko_has 'catimg' && echo && catimg "${DOTFILES}/meta/motd.png" && echo
 
