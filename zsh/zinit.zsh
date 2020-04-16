@@ -111,23 +111,22 @@ export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(vi-end-of-line)
 
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# ! will track the loading since using zinit load
-zinit lucid wait \
-  atload'_zsh_autosuggest_start && bindkey "^n" autosuggest-accept' for \
-  'zsh-users/zsh-autosuggestions'
-
 # ----------------------------------------------------------------------------
-# Vendor: Completion
+# Completion
 # ----------------------------------------------------------------------------
-
-zinit lucid wait blockf atpull'zinit creinstall -q .' for \
-  'zsh-users/zsh-completions'
-
-[[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] &&
-  zinit lucid wait for "$TRAVIS_CONFIG_PATH"
 
 zinit silent has'keybase' as'completion' is-snippet for \
   'https://github.com/zeroryuki/zsh-keybase/blob/master/_keybase'
+
+zinit lucid wait for \
+  if'[[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] ' \
+  "$TRAVIS_CONFIG_PATH" \
+  \
+  atload'_zsh_autosuggest_start && bindkey "^n" autosuggest-accept' \
+  'zsh-users/zsh-autosuggestions' \
+  \
+  blockf atpull'zinit creinstall -q .' \
+  'zsh-users/zsh-completions'
 
 # ----------------------------------------------------------------------------
 # Syntax last, and compinit before it
