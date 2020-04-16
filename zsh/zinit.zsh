@@ -16,11 +16,14 @@ zinit has'docker' for \
 # ----------------------------------------------------------------------------
 
 # Official GitHub CLI
-[[ "$DOTFILES_OS" == "Linux" ]] &&
-  zinit lucid from'gh-r' as'program' for \
-  bpick'*_linux_amd64.tar.gz' \
+cli_bpick=""
+# zinit gets the deb instead of the tar.gz
+[[ "$DOTFILES_OS" == "Linux" ]] && cli_bpick="bpick'*_linux_amd64.tar.gz'"
+zinit lucid from'gh-r' as'program' for \
+  "$cli_bpick" \
   pick'gh/bin/gh' mv'gh* -> gh' \
   '@cli/cli'
+unset cli_bpick
 
 zinit lucid has'git' as'program' pick for \
   'davidosomething/git-ink' \
