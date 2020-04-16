@@ -15,9 +15,17 @@ zinit has'docker' for \
 # Git
 # ----------------------------------------------------------------------------
 
+# Official GitHub CLI
+[[ "$DOTFILES_OS" == "Linux" ]] &&
+  zinit lucid from'gh-r' as'program' for \
+  bpick'*_linux_amd64.tar.gz' \
+  pick'gh/bin/gh' mv'gh* -> gh' \
+  '@cli/cli'
+
 zinit lucid has'git' as'program' pick for \
   'davidosomething/git-ink' \
   'davidosomething/git-my' \
+  'davidosomething/git-relevant' \
   'davidosomething/git-take' \
   'paulirish/git-open' \
   'paulirish/git-recent'

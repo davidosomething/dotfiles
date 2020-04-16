@@ -75,14 +75,6 @@ Is PWD in git repository?
 
 > List pull requests since last tag
 
-## git-relevant
-
-Output list of file paths relevant to what you're working on. I.e., files that:
-
-- are in the project but not tracked (new)
-- are modified (staged or not)
-- are not merged into a given branch (master by default)
-
 ## git-whats
 
 > Show git alias command
