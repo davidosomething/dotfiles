@@ -68,7 +68,7 @@ export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
 
 # no wait, want programs available so i can type before prompt ready
 zinit lucid from'gh-r' as'program' for \
-  pick'bat/bat' mv'bat* -> bat' \
+  mv'bat* -> bat' pick'bat/bat' \
   atclone'cp -vf bat/bat.1 $ZPFX/share/man/man1' atpull'%atclone' \
   '@sharkdp/bat' \
   \
@@ -76,7 +76,7 @@ zinit lucid from'gh-r' as'program' for \
   atload'export GIT_PAGER="delta --dark"' \
   'dandavison/delta' \
   \
-  pick'fd/fd' mv'fd* -> fd' \
+  mv'fd* -> fd' pick'fd/fd' \
   atclone'cp -vf fd/fd.1 $ZPFX/share/man/man1' atpull'%atclone' \
   '@sharkdp/fd' \
   \
@@ -86,9 +86,10 @@ zinit lucid from'gh-r' as'program' for \
   \
   mv'zoxide* -> zoxide' \
   atload'eval "$(zoxide init zsh)" && alias j=z' \
-  'ajeetdsouza/zoxide'
-
-! __dko_has rg && zinit lucid from'gh-r' as'program' pick'ripgrep*/rg' for \
+  'ajeetdsouza/zoxide' \
+  \
+  mv'ripgrep* -> rg' pick'rg/rg' \
+  atclone'cp -vf rg/doc/rg.1 $ZPFX/share/man/man1' atpull'%atclone' \
   'BurntSushi/ripgrep'
 
 zinit lucid nocompletions light-mode for '@shannonmoeller/up'
