@@ -10,10 +10,6 @@
 
 - For macOS/OS X
 
-```shell
-afk
-```
-
 ## brew-repair
 
 > `brew repair` to hard reset and brew update
@@ -79,10 +75,6 @@ Is PWD in git repository?
 
 > List pull requests since last tag
 
-## git-punish
-
-> Send URL to blame someone for crap code
-
 ## git-relevant
 
 Output list of file paths relevant to what you're working on. I.e., files that:
@@ -138,10 +130,6 @@ Output list of file paths relevant to what you're working on. I.e., files that:
 ## termcolors
 
 > Pretty show terminal color support
-
-## w510-touchpadtoggle
-
-> For w510 enable/disable touchpad
 
 ## wifi-passwords
 
