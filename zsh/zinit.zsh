@@ -16,7 +16,7 @@ zinit has'docker' for \
 # ----------------------------------------------------------------------------
 
 # Official GitHub CLI
-cli_bpick=""
+cli_bpick='bpick'
 # zinit gets the deb instead of the tar.gz
 [[ "$DOTFILES_OS" == "Linux" ]] && cli_bpick="bpick'*_linux_amd64.tar.gz'"
 zinit lucid from'gh-r' as'program' for \
