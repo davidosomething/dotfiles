@@ -38,8 +38,10 @@ __dko_has 'git' && {
       __dko_source "$dko_zinit_script"
   }
 
-  __dko_source "${ZDOTDIR}/zinit.zsh" &&
+  __dko_source "${ZDOTDIR}/zinit.zsh" && {
     autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
+    alias unzinit='rm -rf "${ZINIT[HOME_DIR]}"'
+  }
 }
 
 # ============================================================================

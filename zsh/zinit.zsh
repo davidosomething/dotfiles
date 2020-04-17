@@ -15,9 +15,13 @@ zinit has'docker' for \
 # Git
 # ----------------------------------------------------------------------------
 
+cli_bpick=''  
+# zinit gets the deb instead of the tar.gz    
+[[ "$DOTFILES_OS" == "Linux" ]] && cli_bpick="*linux_amd64.tar.gz"
+
 # Official GitHub CLI
 zinit lucid has'git' as'program' for \
-  pick'gh/bin/gh' mv'gh* -> gh' \
+  from'gh-r' mv'gh* -> gh' bpick"$cli_bpick" pick'gh/bin/gh' \
   '@cli/cli' \
   \
   'davidosomething/git-ink' \
@@ -27,8 +31,7 @@ zinit lucid has'git' as'program' for \
   'paulirish/git-open' \
   'paulirish/git-recent' \
   \
-  pick"${ZPFX}/bin/git-*" \
-  src'etc/git-extras-completion.zsh' \
+  pick"${ZPFX}/bin/git-*" src'etc/git-extras-completion.zsh' \
   make"PREFIX=${ZPFX}" \
   'tj/git-extras'
 
