@@ -96,8 +96,10 @@ zinit lucid nocompletions light-mode for '@shannonmoeller/up'
 # ZSH extensions
 # ----------------------------------------------------------------------------
 
-zinit lucid trigger-load'!man' for is-snippet \
-  'OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh'
+zinit lucid for \
+  'OMZP::cp' \
+  'OMZP::extract' \
+  trigger-load'!man' 'OMZP::colored-man-pages'
 
 # In-line best history match suggestion
 # don't suggest lines longer than

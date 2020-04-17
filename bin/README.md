@@ -43,10 +43,6 @@
 
 > Edit the php.ini file
 
-## extract
-
-> Extract any archive format
-
 ## fbr
 
 > FZF-interface for selecting a git branch
