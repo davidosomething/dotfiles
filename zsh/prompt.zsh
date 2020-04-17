@@ -117,6 +117,11 @@ __dko_prompt::env::py::get_version() {
 
 pyenv_version_file="${PYENV_ROOT}/version"
 
+__dko_prompt::env::py::system() {
+  [ -z "$system_py" ] && system_py="$(__dko_prompt::env::py::get_version)"
+  echo "sys(${system_py})"
+}
+
 # virtualenv name if in one
 # sys(1.2.3) if using system python
 # 1.2.3 if using pyenv version
@@ -125,12 +130,20 @@ __dko_prompt::env::py() {
 
   # Not using pyenv version-name because it opens a slow bash subprocess
   # https://github.com/pyenv/pyenv/blob/c3b17c4bbbeb0069a9528f326d5ebd9262435afb/libexec/pyenv-version-name#L18
-  if [ ! -f "$pyenv_version_file" ] ||
-    grep -q "system" "$pyenv_version_file" 2>/dev/null; then
-    [ -z "$system_py" ] && system_py="$(__dko_prompt::env::py::get_version)"
-    echo "sys(${system_py})"
+  [ ! -f "$pyenv_version_file" ] && {
+    __dko_prompt::env::py::system
     return
-  fi
+  }
+
+  declare -a lines
+  lines=( "${(@f)"$(<$pyenv_version_file)"}" )
+  declare -a grepped
+  grepped=( ${(M)lines:#*system*} )
+  [ -z "$grepped" ] && {
+    __dko_prompt::env::py::system
+    return
+  }
+
   __dko_prompt::env::py::get_version
 }
 __dko_prompt::env "py" "python" '$(__dko_prompt::env::py)'
