@@ -7,7 +7,6 @@ logs/
 mac/iterm2/
 mac/hammerspoon/Spoons/
 tmux/plugins/
-vale/styles/
 vim/.tmp/
 vim/autoload/plug.vim
 vim/plug/

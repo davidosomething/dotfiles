@@ -13,7 +13,7 @@
   },
   "config": {
     "bashfiles": "find . -type f -name \"*.bash\" -not -path \"*.tox/*\" -not -path \"*.zinit/*\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\"",
-    "mdfiles": "find . -type f -name \"*.md\" -not -path \"./tmux/plugins*\" -not -path \"./vale/*\" -not -path \"*.zinit/*\" -not -path \"*/chromium/*\" -not -path \"*/node_modules/*\" -not -path \"*tmp/*\" -not -path \"*/vendor/*\"",
+    "mdfiles": "find . -type f -name \"*.md\" -not -path \"./tmux/plugins*\" -not -path \"*.zinit/*\" -not -path \"*/chromium/*\" -not -path \"*/node_modules/*\" -not -path \"*tmp/*\" -not -path \"*/vendor/*\"",
     "shfiles": "find . -type f -name \"*.sh\" -not -path \"*/vim/.tmp/*\" -not -path \"*.tox/*\" -not -path \"*.zinit/*\" -not -path \"*/vendor/*\" -not -path \"*/tmux/plugins*\"",
     "vimfiles": "find . -type f -name \"*.vim\" -path \"./vim/*\" -not -name \"plug.vim\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\"",
     "yamlfiles": "find . -type f -regex \".*\\.y\\(a\\)*ml\" -not -path \".github/*\" -not -path \"*.tox/*\""
