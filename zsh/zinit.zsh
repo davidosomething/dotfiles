@@ -84,7 +84,7 @@ zinit lucid from'gh-r' as'program' for \
   atclone'cp -vf rg/doc/rg.1 $ZPFX/share/man/man1' atpull'%atclone' \
   'BurntSushi/ripgrep'
 
-zinit lucid nocompletions light-mode for '@shannonmoeller/up'
+zinit lucid light-mode for 'peterhurford/up.zsh'
 
 # ----------------------------------------------------------------------------
 # ZSH extensions
