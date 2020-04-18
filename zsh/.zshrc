@@ -334,6 +334,15 @@ __dko_source "${LDOTDIR}/zshrc"
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
 typeset -gU cdpath path fpath manpath
 
+# terse zsh-specific up
+up() {
+  local limit
+  local d=""
+  { [[ $1 =~ '^[0-9]+$' ]] && limit=$1 } || limit=1
+  while (( limit-- )); do d="${d}/.."; done
+  cd "${d#/}"
+}
+
 # ============================================================================
 # End profiling
 # ============================================================================
