@@ -2,11 +2,6 @@
 
 if !dkoplug#Exists('vim-over') | finish | endif
 
-let s:cpo_save = &cpoptions
-set cpoptions&vim
-
-" ============================================================================
-
 let g:over_command_line_prompt = 'over> '
 
 " <Fk> in OverCommandLine mode to exit
@@ -28,9 +23,10 @@ let g:over_command_line_key_mappings = {
       \   "\<A-p>": "\<Plug>(over-cmdline-substitute-jump-pattern)",
       \ }
 
-nnoremap <silent>  \   :<C-U>OverCommandLine<CR>
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 
-" ============================================================================
+nnoremap <silent>  \   :<C-U>OverCommandLine<CR>
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

@@ -2,11 +2,11 @@
 
 if !dkoplug#IsLoaded('vim-yoink') | finish | endif
 
-let s:cpo_save = &cpoptions
-set cpoptions&vim
-
 let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkSyncSystemClipboardOnFocus = 0
+
+let s:cpo_save = &cpoptions
+set cpoptions&vim
 
 nmap <special> <c-n> <plug>(YoinkPostPasteSwapForward)
 nmap <special> <c-p> <plug>(YoinkPostPasteSwapBack)

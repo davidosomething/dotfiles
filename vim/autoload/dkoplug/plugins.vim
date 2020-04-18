@@ -266,6 +266,8 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'tpope/vim-git'
 
   " show diff when editing a COMMIT_EDITMSG
+  let g:committia_open_only_vim_starting = 0
+  let g:committia_use_singlecolumn       = 'always'
   Plug 'rhysd/committia.vim'
 
   " committia for git rebase -i
