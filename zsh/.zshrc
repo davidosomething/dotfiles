@@ -330,9 +330,9 @@ zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 
 # terse zsh-specific up
 up() {
-  local limit
+  local limit=1
   local d=""
-  { [[ $1 =~ '^[0-9]+$' ]] && limit=$1 } || limit=1
+  [[ $1 =~ '^[0-9]+$' ]] && limit=$1
   while (( limit-- )); do d="../${d}"; done
   cd "$d"
 }
