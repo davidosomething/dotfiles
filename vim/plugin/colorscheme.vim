@@ -1,14 +1,5 @@
 " plugin/colorscheme.vim
 
-let s:cpo_save = &cpoptions
-set cpoptions&vim
-
-augroup dkocolorscheme
-  autocmd!
-augroup END
-
-" ============================================================================
-
 let s:truecolor = has('termguicolors')
       \ && $COLORTERM ==# 'truecolor'
       \ && $TERM_PROGRAM !=# 'Apple_Terminal'
@@ -19,14 +10,19 @@ if s:truecolor
     function! s:Firewatch() abort
       silent! colorscheme two-firewatch
     endfunction
+
+    let s:cpo_save = &cpoptions
+    set cpoptions&vim
+
     nnoremap <silent><special> <Leader>zt
           \ :<C-U>call <SID>Firewatch()<CR>:set bg=light<CR>
+
+    let &cpoptions = s:cpo_save
+    unlet s:cpo_save
+
   endif
 endif
 
-autocmd dkocolorscheme VimEnter * nested silent! execute 'colorscheme meh'
-
-" ============================================================================
-
-let &cpoptions = s:cpo_save
-unlet s:cpo_save
+augroup dkocolorscheme
+  autocmd! VimEnter * nested silent! execute 'colorscheme meh'
+augroup END
