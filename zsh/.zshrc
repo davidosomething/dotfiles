@@ -324,15 +324,9 @@ zstyle ':completion:*:*:kill:*:processes' list-colors \
 # complete .log filenames if redirecting stderr
 zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 
-# ============================================================================
-# Local: can add more zinit plugins here
-# ============================================================================
-
-. "${DOTFILES}/shell/after.sh"
-__dko_source "${LDOTDIR}/zshrc"
-
-# dedupe these path arrays (they shadow PATH, FPATH, etc)
-typeset -gU cdpath path fpath manpath
+# ----------------------------------------------------------------------------
+# Functions
+# ----------------------------------------------------------------------------
 
 # terse zsh-specific up
 up() {
@@ -342,6 +336,17 @@ up() {
   while (( limit-- )); do d="${d}/.."; done
   cd "${d#/}"
 }
+
+# ============================================================================
+# Local: can add more zinit plugins here
+# ============================================================================
+
+. "${DOTFILES}/shell/after.sh"
+
+__dko_source "${LDOTDIR}/zshrc"
+
+# dedupe these path arrays (they shadow PATH, FPATH, etc)
+typeset -gU cdpath path fpath manpath
 
 # ============================================================================
 # End profiling
