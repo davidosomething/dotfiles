@@ -9,14 +9,15 @@ export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 zinit has'docker' for \
   silent as'completion' is-snippet \
   'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
-  lucid from'gh-r' as'program' 'jesseduffield/lazydocker'
+  \
+  lucid from'gh-r' as'program' \
+  'jesseduffield/lazydocker'
 
 # ----------------------------------------------------------------------------
 # Git
 # ----------------------------------------------------------------------------
 
-# Official GitHub CLI
-zinit lucid has'git' as'program' for \
+zinit lucid as'program' for \
   from'gh-r' pick'**/gh' \
   '@cli/cli' \
   \
@@ -84,14 +85,17 @@ zinit lucid from'gh-r' as'program' for \
   atclone'cp -vf rg/doc/rg.1 $ZPFX/share/man/man1' atpull'%atclone' \
   'BurntSushi/ripgrep'
 
-# ----------------------------------------------------------------------------
-# ZSH extensions
-# ----------------------------------------------------------------------------
-
 zinit lucid for \
   'OMZP::cp' \
   'OMZP::extract' \
   trigger-load'!man' 'OMZP::colored-man-pages'
+
+# ----------------------------------------------------------------------------
+# Completion
+# ----------------------------------------------------------------------------
+
+zinit silent has'keybase' as'completion' is-snippet for \
+  'https://github.com/zeroryuki/zsh-keybase/blob/master/_keybase'
 
 # In-line best history match suggestion
 # don't suggest lines longer than
@@ -102,13 +106,6 @@ export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(vi-end-of-line)
 
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-
-# ----------------------------------------------------------------------------
-# Completion
-# ----------------------------------------------------------------------------
-
-zinit silent has'keybase' as'completion' is-snippet for \
-  'https://github.com/zeroryuki/zsh-keybase/blob/master/_keybase'
 
 zinit lucid wait for \
   if'[[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] ' \
