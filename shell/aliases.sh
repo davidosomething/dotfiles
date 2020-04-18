@@ -78,14 +78,10 @@ alias gemrm='gem uninstall --all'
 
 alias g-='git checkout -'
 alias gb='git branch --verbose'
-alias gi='git ink'
 alias gg='git grep --line-number --break --heading'
 alias gl='git l --max-count 20'
 alias gm='git checkout master'
 alias gp='git push'
-alias gpo='git push origin'
-alias gs='git status'
-alias gt='git take'
 
 # ----------------------------------------------------------------------------
 # gradle
@@ -99,7 +95,6 @@ alias gwr='gw run'
 # greppers
 # ----------------------------------------------------------------------------
 
-alias f='find'
 alias grep='grep --color=auto'
 
 # also see gg in git
@@ -130,7 +125,7 @@ alias no='n outdated --long'
 alias nomod='rm -rf ./node_modules'
 alias likereallynomod='find . -type d -iname node_modules -exec rm \-rf {} \;'
 alias nr='n run'
-alias nrm="n rm"
+alias nrm='n rm'
 alias ns='n start'
 alias nt='n test'
 alias nu='n update'
@@ -162,7 +157,7 @@ alias py='python'
 alias pip='python -m pip'
 alias pir='pip install --requirement=requirements.txt'
 
-alias getsubs="subliminal download -p opensubtitles -p shooter -p subscenter -p thesubdb -p tvsubtitles --language en "
+alias getsubs='pipx run subliminal download -p opensubtitles -p shooter -p subscenter -p thesubdb -p tvsubtitles --language en '
 
 # ----------------------------------------------------------------------------
 # ruby
