@@ -104,8 +104,8 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=78
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 # Removed forward-char
 export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(vi-end-of-line)
-
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 zinit lucid wait for \
   if'[[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] ' \
