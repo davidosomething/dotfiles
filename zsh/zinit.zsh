@@ -29,7 +29,7 @@ zinit lucid as'program' for \
   'davidosomething/git-my' \
   'davidosomething/git-relevant' \
   'davidosomething/git-take' \
-  'paulirish/git-open' \
+  cloneopts' ' 'paulirish/git-open' \
   'paulirish/git-recent' \
   \
   pick"${ZPFX}/bin/git-*" src'etc/git-extras-completion.zsh' \
