@@ -11,7 +11,11 @@ zinit has'docker' for \
   'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
   \
   lucid from'gh-r' as'program' \
-  'jesseduffield/lazydocker'
+  'jesseduffield/lazydocker' \
+  \
+  lucid from'gh-r' as'program' \
+  mv'hadolint* -> hadolint' \
+  'hadolint/hadolint'
 
 # ----------------------------------------------------------------------------
 # Git
