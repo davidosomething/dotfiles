@@ -40,7 +40,6 @@ alias c='bat --paging never'
 alias crm='bat --plain README.md'
 alias cpj='bat --plain package.json'
 alias pyg='pygmentize -O style=rrt -f console256 -g'
-alias d='icdiff -line-numbers --tabsize=4 --numlines=8'
 
 # ----------------------------------------------------------------------------
 # docker

@@ -32,7 +32,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> dot.profile {"
   # ==========================================================================
 
   case "$DOTFILES_OS" in
-  Darwin) . "${DOTFILES}/shell/os-darwin.sh" ;;
+  Darwin) . "${DOTFILES}/shell/os-darwin.zsh" ;;
   Linux) . "${DOTFILES}/shell/os-linux.sh" ;;
   esac
 }

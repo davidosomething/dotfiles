@@ -18,6 +18,8 @@ alias brc='b cask'
 alias bsvc='b services'
 alias bsvr='b services restart'
 
+alias bwhy='b uses --installed --recursive'
+
 alias cask='brc'
 alias ci='brc install'
 
