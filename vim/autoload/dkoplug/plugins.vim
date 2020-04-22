@@ -39,8 +39,9 @@ function! dkoplug#plugins#LoadAll() abort
   " Colorscheme
   " ==========================================================================
 
-  if isdirectory(expand('~/projects/vim-colors-meh'))
-    Plug expand('~/projects/vim-colors-meh')
+  let l:local_meh = expand('~/projects/davidosomething/vim-colors-meh')
+  if isdirectory(l:local_meh)
+    Plug l:local_meh
   else
     Plug 'davidosomething/vim-colors-meh'
   endif
