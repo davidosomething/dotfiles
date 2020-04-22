@@ -19,9 +19,12 @@ everything.
 
 1. iCloud sign in
 1. Install App store apps
-   - [Display Menu]: Set higher/native resolutions
-   - [Xcode]: select CLI tools in prefs
-      - This is __required__ to build some apps like neovim@HEAD
+
+    - [Delay Start]: Start programs after a timeout - use to delay starting
+      Dropbox when the shared folder is in an encrypted volume.
+    - [Display Menu]: Set higher/native resolutions
+    - [Xcode]: select CLI tools in prefs
+    - This is __required__ to build some apps like neovim@HEAD
 
 ## Install homebrew
 
@@ -88,7 +91,7 @@ See homebrew notes in [brew.md](brew.md) for other formulae I install.
     - Auto-type from clipboard (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>v</kbd>)
     - Caffeinate in menubar
     - Window management
-      (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z</kbd>)
+      (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z/[/]</kbd>)
 
 Install the rest of the packages from [cask.md](./cask.md) as desired.
 
@@ -145,5 +148,6 @@ operation. Use the `bi` alias for a clean room install if possible.
 [nvm]: https://github.com/nvm-sh/nvm
 [pyenv]: https://github.com/pyenv/pyenv
 [unlock]: https://github.com/davidosomething/Unlock
+[Delay Start]: https://apps.apple.com/us/app/delay-start/id591620786?mt=12
 [Display Menu]: https://apps.apple.com/us/app/display-menu/id549083868?mt=12
 [Xcode]: https://apps.apple.com/us/app/xcode/id497799835?mt=12
