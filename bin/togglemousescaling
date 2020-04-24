@@ -16,11 +16,11 @@ __togglemousescaling() {
   else
     current="$(defaults read .GlobalPreferences com.apple.mouse.scaling)"
     if [[ "$current" = -1 ]]; then
-      echo "Mouse scaling was was off, turning on"
-      desired=1
+      echo "Mouse scaling was was off, setting to default"
+      desired=""
     else
       echo "Mouse scaling was on, turning off"
-      desired=0
+      desired=-1
     fi
   fi
 
