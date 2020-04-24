@@ -2,8 +2,6 @@
 
 # List pull requests since last tag
 #
-# Copyright (c) 2015 David O'Trakoun <me@davidosomething.com>
-#
 
 set -eu
 

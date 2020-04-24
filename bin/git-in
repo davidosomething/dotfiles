@@ -4,8 +4,6 @@
 #
 # Show whether or not a given path is in a git repository
 #
-# Copyright (c) 2015 David O'Trakoun <me@davidosomething.com>
-#
 # Usage:
 #
 #   git in $some_path

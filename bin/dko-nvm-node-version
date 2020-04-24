@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
+set -e
+
 __nodir="${NVM_BIN/$NVM_DIR\/versions\/node\/v}"
 echo "${__nodir%\/bin}"

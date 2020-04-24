@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Repair brew repo via hard reset
 
-set -eu
-
-cd -- "$(brew --repo)" \
-  && git fetch \
-  && git reset --hard origin/master \
-  && brew update
+[[ "$OSTYPE" == *'arwin'* ]] &&
+  command -v brew >/dev/null &&
+  cd -- "$(brew --repo)" &&
+  git fetch &&
+  git reset --hard origin/master &&
+  brew update

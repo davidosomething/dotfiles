@@ -1,10 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-set -e
+[[ "$OSTYPE" == *'arwin'* ]] || exit 1
 
 if [[ -n $1 ]] && [[ -n $2 ]]; then
-  certutil -d "sql:$HOME/.pki/nssdb" -A -t TC -n "$1" -i "$2"
+  certutil -d "sql:${HOME}/.pki/nssdb" -A -t TC -n "$1" -i "$2"
 else
-  echo "Provide a nickname as arg1 and certfile.pem as arg2"
+  >&2 echo "Provide a nickname as arg1 and certfile.pem as arg2"
 fi
-

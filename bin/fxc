@@ -21,4 +21,5 @@ __fxc() {
   && sudo xcode-select --switch "${version}" \
   && echo "Now using ${version}"
 }
-__fxc
+
+[[ "$OSTYPE" == *'arwin'* ]] && __fxc

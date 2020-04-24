@@ -15,4 +15,5 @@ __xcw() {
 
   open -a "${xcode_app}" "$xcworkspace"
 }
-__xcw
+
+[[ "$OSTYPE" == *'arwin'* ]] && __xcw

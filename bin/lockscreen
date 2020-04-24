@@ -4,4 +4,4 @@
 # https://github.com/unixorn/tumult.plugin.zsh/blob/master/bin/lockscreen
 
 [[ "$OSTYPE" == *'arwin'* ]] && \
-  exec /System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend
+  exec "/System/Library/CoreServices/Menu Extras/User.menu/Contents/Resources/CGSession" -suspend

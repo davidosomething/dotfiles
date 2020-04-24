@@ -4,15 +4,13 @@
 
 set -e
 
-_maybe_git_root() {
+__maybe_git_root() {
   local git_root="."
 
   # check for git root
-  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 &&
     git_root="$(git rev-parse --show-toplevel)"
-  fi
 
   echo "${git_root}"
 }
-
-_maybe_git_root
+__maybe_git_root
