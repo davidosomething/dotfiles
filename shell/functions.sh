@@ -60,6 +60,10 @@ eu() {
 # dev
 # ============================================================================
 
+batdiff() {
+  git diff --name-only --diff-filter=d 2>/dev/null | xargs bat --diff
+}
+
 # git or git status
 g() {
   if [ $# -gt 0 ]; then
