@@ -1,6 +1,6 @@
-# shell/ruby.sh
+# shell/ruby.bash
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.bash {"
 
 export GEMRC="${DOTFILES}/ruby/gemrc"
 
