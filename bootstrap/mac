@@ -3,7 +3,7 @@
 # Idempotently set up macOS
 #
 
-[ "$(uname)" = 'Darwin' ] || exit 1
+[[ "$OSTYPE" == *'arwin'* ]] || exit 1
 
 # ============================================================================
 # initialize script and dependencies
