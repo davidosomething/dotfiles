@@ -138,11 +138,14 @@ operation. Use the `bi` alias for a clean room install if possible.
   1. Use nvm managed node
   1. Install the default packages using [node/install](../node/install)
 - Install [pyenv] using `pyenv-installer` (rm `~/.local/pyenv` directory for
-  clean install) and make sure to use the libs provided by `brew openssl`
-  1. `brew install openssl`
-  1. Follow <https://github.com/yyuu/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib>
+  clean install) and make sure to use the libs provided by brew. See the
+  packages marked "for pyenv" in the [Brewfile](./Brewfile)
+  1. Install the latest python using using
+     [bootstrap/pyenv](../bootstrap/pyenv). This will also create a `neovim3`
+     virtualenv. It uses [bin/mac-pyenv-install](../bin/mac-pyenv-install) to
+     correctly set the SDK (which should have been installed by the mac
+     bootstrapper).
   1. Set up the global pyenv as the latest stable (3.x)
-  1. Set up python virtualenvs using [bootstrap/pyenv](../bootstrap/pyenv)
 
 
 [nvm]: https://github.com/nvm-sh/nvm
