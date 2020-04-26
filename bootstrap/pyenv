@@ -45,8 +45,10 @@ __create_neovim_venv() {
   fi
 
   __dko_status "Creating ${name} and installing pynvim"
+  pyenv uninstall neovim3
   pyenv virtualenv "$version" "$name" \
     && pyenv activate "$name" \
+    && python -m pip install --upgrade pip \
     && python -m pip install pynvim \
     && pyenv deactivate
 }
