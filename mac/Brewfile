@@ -32,13 +32,16 @@ brew "moreutils"
 brew "multitail"
 brew "neofetch"
 brew "nmap"
+brew "openssl" # for pyenv
 brew "pandoc"
 brew "pipx"
 brew "pmd"
+brew "readline" # for pyenv
 brew "rsync"
 brew "rust"
 brew "shellcheck"
 brew "ssh-copy-id"
+brew "sqlite3" # for pyenv
 brew "swiftlint"
 brew "switchaudio-osx"
 brew "telnet"
@@ -50,7 +53,9 @@ brew "uncrustify"
 brew "watchman"
 brew "wget"
 brew "wifi-password"
+brew "xz" # for pyenv
 brew "yarn"
+brew "zlib" # for pyenv
 brew "zsh"
 #cask "dropbox" # no shasum!
 cask "firefox"
