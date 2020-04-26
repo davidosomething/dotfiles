@@ -1,3 +1,6 @@
+# locks
+Brewfile.lock.json
+
 # managed
 mac/bitbar/enabled/
 node_modules/

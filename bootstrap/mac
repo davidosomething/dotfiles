@@ -38,14 +38,19 @@ fi
 # ============================================================================
 
 _bootstrap_sdks() {
+  local clitools="/Library/Developer/CommandLineTools"
+  if [ -d "$clitools" ]; then
+    __dko_status "Wiping CLI tools to ensure package validation matches..."
+    sudo rm -rf "$clitools"
+  fi
+
   local product_version
   local product_minor
   local headers
-  local sdk
-
   product_version="$(sw_vers -productVersion)"
   product_minor="${product_version%.*}"
-  headers="/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_${product_minor}.pkg"
+  headers="${clitools}/Packages/macOS_SDK_headers_for_macOS_${product_minor}.pkg"
+
   if [ ! -f "$headers" ]; then
     xcode-select --install
     if [ ! -f "$headers" ]; then
@@ -58,16 +63,18 @@ _bootstrap_sdks() {
   # See https://github.com/pyenv/pyenv/issues/1219#issuecomment-428700763
   # Xcode Command Line tools no longer installs needed headers in /include
   # https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes
+  local sdk
   sdk=$(xcrun --show-sdk-path)
   if [ ! -d "$sdk" ] || [ ! -d "/usr/include" ]; then
     __dko_status "Installing SDK headers..."
-    sudo installer -allowUntrusted -pkg "$headers" -target / || {
+    sudo installer -allowUntrusted -verbose -pkg "$headers" -target / || {
       __dko_warn "Could not install SDK headers"
     }
   else
     __dko_ok "Found SDK headers"
   fi
 }
+__dko_status "Re-bootstrapping SDKs (required to install python on 10.14+)"
 _bootstrap_sdks || exit 1
 
 # ============================================================================
