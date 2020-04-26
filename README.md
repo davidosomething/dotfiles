@@ -40,8 +40,14 @@ Install these using the system package manager. For macOS/OS X there are helper
 scripts.
 
 - For user-land ruby, install [chruby] and `ruby-install`. Then, use
-  `ruby-install` to install a version of ruby (preferably latest, and into
-  `~/.config/rubies/ruby-1.2.3` using flags)
+  `ruby-install` to install a version of ruby. Preferably install the latest
+  ruby. The dotfiles alias ruby-install to use `${XDG_DATA_HOME}/rubies` as the
+  installation path.
+
+  ```sh
+  ruby-install --latest ruby
+  ```
+
 - For user-land node, install [nvm] MANUALLY via git clone into
   `$XDG_CONFIG_HOME`, then use it to install a version of `node`
 - `php`, `composer`, use composer to install `wp-cli`
