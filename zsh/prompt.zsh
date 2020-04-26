@@ -139,7 +139,7 @@ __dko_prompt::env::py() {
   lines=( "${(@f)"$(<$pyenv_version_file)"}" )
   declare -a grepped
   grepped=( ${(M)lines:#*system*} )
-  [ -z "$grepped" ] && {
+  [ -n "$grepped" ] && {
     __dko_prompt::env::py::system
     return
   }
