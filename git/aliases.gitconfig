@@ -27,7 +27,7 @@
 	lasttag = describe --tags --abbrev=0
 
 	d       = diff
-	dc      = diff --cached
+	ds      = diff --staged
 	dino    = diff --name-only
 	dns     = diff --ignore-all-space
 
