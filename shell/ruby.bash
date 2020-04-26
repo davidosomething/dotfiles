@@ -2,10 +2,13 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"
 
-# Used in local config, add to the RUBIES array
-export DKO_RUBIES="${XDG_DATA_HOME}/rubies"
-
 export GEMRC="${DOTFILES}/ruby/gemrc"
+
+# ============================================================================
+# ruby-install
+# ============================================================================
+
+export DKO_RUBIES="${XDG_DATA_HOME}/rubies"
 
 if [ "$DOTFILES_OS" = 'Darwin' ]; then
   # Ruby use brew openssl if available
@@ -24,11 +27,14 @@ fi
 # chruby
 # ==============================================================================
 
-export CHRUBY_PREFIX="${DKO_BREW_PREFIX:-/usr}"
-__dko_source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" &&
-  DKO_SOURCE="${DKO_SOURCE} -> chruby"
-
-# actual chruby invocation in localrc only since it is non-posix
+# Check for rubies first, don't load chruby if missing a stable version
+if [ -d "${DKO_RUBIES}/ruby-2.7.1" ] || [ -d "${DKO_RUBIES}/ruby-2.6.1" ]; then
+  export CHRUBY_PREFIX="${DKO_BREW_PREFIX:-/usr}"
+  __dko_source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" &&
+    DKO_SOURCE="${DKO_SOURCE} -> chruby" &&
+    RUBIES+=("${DKO_RUBIES}"/*) &&
+    export RUBIES
+fi
 
 # ==============================================================================
 

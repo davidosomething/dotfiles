@@ -16,7 +16,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh[interactive] {"
 . "${DOTFILES}/shell/node.sh"
 . "${DOTFILES}/shell/php.sh"
 . "${DOTFILES}/shell/python.sh"
-. "${DOTFILES}/shell/ruby.sh"
+. "${DOTFILES}/shell/ruby.bash"
 . "${DOTFILES}/shell/rust.sh"
 
 # ============================================================================
