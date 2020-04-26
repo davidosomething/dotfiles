@@ -21,17 +21,27 @@ __dko_has 'pyenv' || {
   exit 1
 }
 
-__versions=$(pyenv versions)
-__venvs=$(pyenv virtualenvs)
 
 __create_neovim_venv() {
-  local name="${1}"
+  local __versions
+  __versions=$(pyenv versions)
+
+  local __venvs
+  __venvs=$(pyenv virtualenvs)
+
+  local name="$1"
   local version="$2"
 
   if grep -q "$name" <<< "$__venvs"; then
     __dko_ok "${name} exists"
+
   elif ! grep -q "$version" <<< "$__versions"; then
-    pyenv install "$version" || return 1
+    local pyenv_install="pyenv install"
+
+    [[ "$OSTYPE" == *'arwin'* ]] &&
+      pyenv_install="${DOTFILES}/bin/mac-pyenv-install"
+
+    "$pyenv_install" "$version" || return 1
   fi
 
   __dko_status "Creating ${name} and installing pynvim"

@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+__mac_pyenv_install() {
+  local product_version
+  local product_minor
+  product_version="$(sw_vers -productVersion)"
+  product_minor="${product_version%.*}"
+
+  SDKROOT="/Library/Developer/CommandLineTools/SDKs/MacOSX${product_minor}.sdk" \
+    MACOSX_DEPLOYMENT_TARGET="$product_minor" \
+    pyenv install "$1"
+}
+__mac_pyenv_install "$1"

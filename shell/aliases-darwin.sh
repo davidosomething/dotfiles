@@ -39,12 +39,6 @@ alias redstart='bsvc start redshift'
 alias redstop='bsvc stop redshift'
 
 # ----------------------------------------------------------------------------
-# pyenv
-# ----------------------------------------------------------------------------
-
-alias pyenvmojave='SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk MACOSX_DEPLOYMENT_TARGET=10.14 pyenv'
-
-# ----------------------------------------------------------------------------
 # Misc
 # ----------------------------------------------------------------------------
 

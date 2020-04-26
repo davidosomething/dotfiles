@@ -161,6 +161,10 @@ Show user's local ip
 
 macOS. lock screen
 
+## mac-pyenv-install
+
+Install a python using pyenv with mac SDK headers specified. Fix for Mojave+
+
 ## maybe-git-root
 
 Echo the git root or pwd if not in git repo
