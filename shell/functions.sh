@@ -28,8 +28,12 @@ cdr() {
 e() {
   if __dko_has nvim && __dko_has nvctl && pgrep nvim >/dev/null; then
     for file in "$@"; do
-      fullfile="${PWD}/${file}"
-      nvctl "e ${fullfile}" && wait
+      # don't prepend PWD for absolute paths
+      case "$file" in
+        /*) ;;
+        *) file="${PWD}/${file}" ;;
+      esac
+      nvctl "e ${file}" && wait
     done
   else
     "$EDITOR" "$@"
