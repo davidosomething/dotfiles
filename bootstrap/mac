@@ -39,35 +39,30 @@ fi
 
 _bootstrap_sdks() {
   local clitools="/Library/Developer/CommandLineTools"
-  if [ -d "$clitools" ]; then
-    __dko_status "Wiping CLI tools to ensure package validation matches..."
-    sudo rm -rf "$clitools"
-  fi
-
-  local product_version
-  local product_minor
-  local headers
-  product_version="$(sw_vers -productVersion)"
-  product_minor="${product_version%.*}"
-  headers="${clitools}/Packages/macOS_SDK_headers_for_macOS_${product_minor}.pkg"
-
-  if [ ! -f "$headers" ]; then
-    xcode-select --install
-    if [ ! -f "$headers" ]; then
-      __dko_err "Incomplete installation of xcode command line tools detected."
-      __dko_err_ "Download from https://developer.apple.com/download/more/"
-      return 1
-    fi
-  fi
+  [ -d "$clitools" ] &&
+    __dko_status "Found CLI tools. If headers are missing, try deleting ${clitools} and redownload with xcode-seelct --install"
 
   # See https://github.com/pyenv/pyenv/issues/1219#issuecomment-428700763
   # Xcode Command Line tools no longer installs needed headers in /include
   # https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes
   local sdk
   sdk=$(xcrun --show-sdk-path)
-  if [ ! -d "$sdk" ] || [ ! -d "/usr/include" ]; then
+  if [ ! -d "$sdk" ]; then
+    local product_version
+    product_version="$(sw_vers -productVersion)"
+
+    local product_minor
+    product_minor="${product_version%.*}"
+
+    local headers_pkg="${clitools}/Packages/macOS_SDK_headers_for_macOS_${product_minor}.pkg"
+    if [ ! -f "$headers_pkg" ]; then
+      __dko_err "Incomplete installation of xcode command line tools detected."
+      __dko_err_ "Download from https://developer.apple.com/download/more/"
+      return 1
+    fi
+
     __dko_status "Installing SDK headers..."
-    sudo installer -allowUntrusted -verbose -pkg "$headers" -target / || {
+    sudo installer -allowUntrusted -verbose -pkg "$headers_pkg" -target / || {
       __dko_warn "Could not install SDK headers"
     }
   else
