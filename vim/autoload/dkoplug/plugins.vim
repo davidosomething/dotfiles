@@ -486,7 +486,9 @@ function! dkoplug#plugins#LoadAll() abort
   " completeness. It can do multiple css colors on one line, which hexokinase
   " cannot, and it updates immediately, which coc-highlight has trouble
   " keeping up with.
-  let l:use_fancy_colors = has('nvim') && exists('&termguicolors')
+  let l:use_fancy_colors = has('nvim')
+        \ && exists('&termguicolors')
+        \ && &termguicolors
 
   Plug 'ap/vim-css-color', PlugIf(!l:use_fancy_colors)
   " Pure lua implementation, covers most cases and is fastest in neovim
