@@ -399,7 +399,7 @@ __dko_dotfiles__py__update_pipx() {
 
 __dko_dotfiles__py__update_neovim() {
   if __dko_has "brew"; then
-    brew cask reinstall --force neovim-nightly
+    brew install --force --verbose --HEAD neovim
   elif __dko_has "pamac"; then
     pamac build neovim-git
   fi
