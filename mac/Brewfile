@@ -59,7 +59,7 @@ brew "zlib" # for pyenv
 brew "zsh"
 #cask "dropbox" # no shasum!
 cask "firefox"
-cask "font-firamono-nerd-font-mono"
+cask "font-firamono-nerd-font"
 #cask "google-chrome" # shasum invalidates frequently
 cask "hammerspoon"
 cask "iterm2"
