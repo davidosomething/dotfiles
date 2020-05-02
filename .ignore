@@ -1,9 +1,11 @@
 *.crt
+*.pub
 .tox/
 base16/
 certs/
 fonts/
 logs/
+mac/*.terminal
 mac/iterm2/
 mac/hammerspoon/Spoons/
 tmux/plugins/
