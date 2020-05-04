@@ -113,6 +113,11 @@ Recursively flatten a directory
 
 Get directory total filesize
 
+## fu
+
+Look upwards from $PWD for filename $1, output to stdout if found. Does not
+follow symlinks.
+
 ## fwt
 
 Switch to a different worktree using FZF

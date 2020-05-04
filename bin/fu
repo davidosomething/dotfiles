@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Look upwards from $PWD for filename $1, output to stdout if found.
+# Does not follow symlinks.
+#
+# MIT License
+#
+
+set -eu
+
+__fu() {
+  local current_path="$PWD"
+  local filename="$1"
+  local filepath
+  while :; do
+    filepath="${current_path}/${filename}"
+    [ -f "$filepath" ] && echo "$filepath" && break
+    if [[ "$current_path" == '/' ]] || [[ ! -e "$current_path" ]]; then
+      return 1
+    fi
+    current_path=$(dirname "$current_path")
+  done
+}
+__fu "$@"
