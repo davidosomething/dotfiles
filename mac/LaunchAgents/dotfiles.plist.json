@@ -3,8 +3,7 @@
   "ProgramArguments": [
     "sh",
     "-c",
-    "launchctl setenv GNUPGHOME \"${HOME}/.config/gnupg\"",
-    "launchctl setenv KITTY_CONFIG_DIRECTORY \"${HOME}/.dotfiles/kitty\""
+    "launchctl setenv GNUPGHOME \"${HOME}/.config/gnupg\""
   ],
   "KeepAlive": false,
   "RunAtLoad": true
