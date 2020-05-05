@@ -20,8 +20,6 @@ everything.
 1. iCloud sign in
 1. Install App store apps
 
-    - [Delay Start]: Start programs after a timeout - use to delay starting
-      Dropbox when the shared folder is in an encrypted volume.
     - [Display Menu]: Set higher/native resolutions
     - [Xcode]: select CLI tools in prefs
     - This is __required__ to build some apps like neovim@HEAD
@@ -68,29 +66,29 @@ so you may want to edit (e.g. hardcode) the dotfiles path if you changed it.
 The bootstrap script symlinks the plist. You'll have to manually use
 `launchctl` command to load it and reboot to start it if you opt in.
 
-See homebrew notes in [brew.md](brew.md) for other formulae I install.
-
-## Casks
+## Cask notes
 
 - dropbox
     - Has app settings sync so wait for it to finish syncing.
         - Including some `mackup` backups
-- iterm2
-    - Run [bootstrap/iterm2](../bootstrap/iterm2) after installation to load
-      my standard [Dynamic Profile](https://www.iterm2.com/documentation-dynamic-profiles.html)
-      with base16-Tomorrow-Night colors, Fura Mono for Powerline font, and
-      some window settings and key mappings.
+    - If the shared directory is on an external volume, disable autostart and
+      add [LoginItems/DelayedDropbox.app](LoginItems/DelayedDropbox.app) to
+      your login items instead. It is a generic app made using Script Editor.
 - bettertouchtool
     - License in synology drive or gmail
-    - Better trackpad swipe configs
+    - Provides better trackpad swipe configs, drag window snapping,
+      modifier-hold window resizing
     - Synced to Dropbox
 - hammerspoon
-    - App launcher (<kbd>⌘</kbd><kbd>space</kbd>) - disable spotlight shortcut
-      first
-    - Audio output device switch in menubar
-    - Auto-type from clipboard (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>v</kbd>)
+    - App launcher (<kbd>⌘</kbd><kbd>space</kbd>) to replace spotlight
+      (disable spotlight shortcut first)
+    - Audio output device switch in menubar, relies on `switchaudio-osx` which
+      is in homebrew
+    - Auto-type from clipboard (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>v</kbd>) for
+      paste blockers
     - Caffeinate in menubar
-    - Window management
+    - Window management keys to use sections of a monitor (try hitting the key
+      multiple times) and to throw apps to the next monitor
       (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z/[/]</kbd>)
 
 Install the rest of the packages from [cask.md](./cask.md) as desired.
@@ -145,12 +143,12 @@ operation. Use the `bi` alias for a clean room install if possible.
      virtualenv. It uses [bin/mac-pyenv-install](../bin/mac-pyenv-install) to
      correctly set the SDK (which should have been installed by the mac
      bootstrapper).
-  1. Set up the global pyenv as the latest stable (3.x)
+  1. Set up the global pyenv as the latest stable (3.x). Check ansible
+     compatibility first if it's needed (e.g. ansible is not 3.8.x ready).
 
 
 [nvm]: https://github.com/nvm-sh/nvm
 [pyenv]: https://github.com/pyenv/pyenv
 [unlock]: https://github.com/davidosomething/Unlock
-[Delay Start]: https://apps.apple.com/us/app/delay-start/id591620786?mt=12
 [Display Menu]: https://apps.apple.com/us/app/display-menu/id549083868?mt=12
 [Xcode]: https://apps.apple.com/us/app/xcode/id497799835?mt=12
