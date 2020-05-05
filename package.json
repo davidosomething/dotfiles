@@ -48,13 +48,13 @@
   "homepage": "https://github.com/davidosomething/dotfiles#readme",
   "echint": {
     "ignore": [
+      "**/*.app/**",
       "**/*.md",
       "**/*.py",
       "**/*.xml",
       "linux/**",
       "local/**",
       "logs/**",
-      "mac/LoginItems/**",
       "mac/hammerspoon/Spoons/**",
       "mac/iterm2/*.itermcolors",
       "mac/*.terminal",
