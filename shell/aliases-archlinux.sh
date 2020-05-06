@@ -7,6 +7,8 @@ alias makepkg='makepkg --log'
 
 alias pacunlock='sudo rm /var/lib/pacman/db.lck'
 
+alias sysreload='sudo systemctl daemon-reload'
+
 # It keeps dying on lock!
 fixpulse() {
   sudo rm -rf ~/.config/pulse
