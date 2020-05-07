@@ -101,9 +101,6 @@ zinit lucid for \
 # Completion
 # ----------------------------------------------------------------------------
 
-zinit silent has'keybase' as'completion' is-snippet for \
-  'https://github.com/zeroryuki/zsh-keybase/blob/master/_keybase'
-
 # In-line best history match suggestion
 # don't suggest lines longer than
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=78

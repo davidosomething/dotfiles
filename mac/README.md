@@ -105,15 +105,11 @@ restore them (`mackup` is in the Brewfile).
    `GNUPGHOME` in the env for all apps. See the bootstrapping section above.
 1. Follow these instructions
    <https://gist.github.com/danieleggert/b029d44d4a54b328c0bac65d46ba4c65>  
-   then
-    - Export key from keybase
-    - Import key
-    - Add User ID to key
 
 ## Setup ssh keys
 
 1. `sshkeygen` (alias to generate new ed25519 keys)
-1. Add the public key to GitHub, GitLab, Bitbucket, keybasefs, etc.
+1. Add the public key to GitHub, GitLab, Bitbucket, etc.
 1. `ssh-add -K ~/.ssh/privatekeyfile` to store the key in Keychain.
 
 ## Install development tools
