@@ -20,6 +20,8 @@ export NPM_CONFIG_SIGN_GIT_TAG="TRUE"
 
 # ============================================================================
 # npmrc
+# On my machine I actually have a per-hostname set of npmrcs, so this
+# particular export is overridden later
 # ============================================================================
 
 export NPMRC_STORE="${HOME}/.local/npmrcs"
