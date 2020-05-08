@@ -37,6 +37,8 @@ __dko_has 'git' && {
     command git clone https://github.com/zdharma/zinit "${dko_zinit_dest}" &&
       __dko_source "$dko_zinit_script"
   }
+  unset dko_zinit_dest
+  unset dko_zinit_script
 
   __dko_source "${ZDOTDIR}/zinit.zsh" && {
     autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
