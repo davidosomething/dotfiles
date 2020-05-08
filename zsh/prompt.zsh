@@ -115,8 +115,6 @@ __dko_prompt::env::py::get_version() {
   python -c 'import sys; print(".".join(map(str, sys.version_info[:3])))'
 }
 
-pyenv_version_file="${PYENV_ROOT}/version"
-
 __dko_prompt::env::py::system() {
   [ -z "$system_py" ] && system_py="$(__dko_prompt::env::py::get_version)"
   echo "sys(${system_py})"
@@ -128,6 +126,7 @@ __dko_prompt::env::py::system() {
 __dko_prompt::env::py() {
   [ -n "$VIRTUAL_ENV" ] && echo "${VIRTUAL_ENV##*/}" && return
 
+  local pyenv_version_file="${PYENV_ROOT}/version"
   # Not using pyenv version-name because it opens a slow bash subprocess
   # https://github.com/pyenv/pyenv/blob/c3b17c4bbbeb0069a9528f326d5ebd9262435afb/libexec/pyenv-version-name#L18
   [ ! -f "$pyenv_version_file" ] && {
