@@ -118,6 +118,8 @@ __remove "${HOME}/.mdlrc"
 __remove "${HOME}/.proselint"
 # should be in XDG
 __remove "${HOME}/.pulse-cookie"
+# should be "${XDG_DATA_HOME}/forgit"
+__remove "${HOME}/.forgit"
 # should be symlinked in XDG
 __remove "${HOME}/.gitconfig"
 # should be symlinked in XDG
