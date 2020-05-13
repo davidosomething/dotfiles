@@ -3,7 +3,7 @@ flake8==3.8.1
 flake8-commas==2.0.0
 flake8-docstrings==1.5.0
 flake8-import-order==0.18.1
-flake8-quotes==3.0.0
+flake8-quotes==3.2.0
 pycodestyle==2.6.0
 pydocstyle==5.0.2
 pyflakes==2.2.0
