@@ -1,5 +1,11 @@
 {
   "extends": ["config:base"],
   "baseBranches": ["dev"],
-  "ignoreNpmrcFile": true
+  "ignoreNpmrcFile": true,
+  "packageRules": [
+    {
+      "automerge": true,
+      "paths": ["requirements.txt"]
+    }
+  ]
 }
