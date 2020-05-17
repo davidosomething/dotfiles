@@ -85,6 +85,7 @@ __move "${HOME}/.gimp-2.8" "${XDG_CONFIG_HOME}/GIMP/2.8"
 __move "${HOME}/.grip" "${XDG_CONFIG_HOME}/grip"
 __move "${HOME}/.hyper.js" "${XDG_CONFIG_HOME}/hyper/.hyper.js"
 __move "${HOME}/.inputrc" "${XDG_CONFIG_HOME}/readline/inputrc"
+__move "${HOME}/.solargraph" "${XDG_CACHE_HOME}/solargraph"
 __move "${HOME}/.vagrant.d" "${XDG_DATA_HOME}/vagrant"
 __move "${HOME}/.zhistory" "${HOME}/.local/zsh_history"
 
