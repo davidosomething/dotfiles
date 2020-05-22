@@ -73,7 +73,7 @@
   "devDependencies": {
     "eslint": "7.0.0",
     "eslint-config-davidosomething": "4.1.0",
-    "js-yaml": "3.13.1",
+    "js-yaml": "3.14.0",
     "lodash": "4.17.15",
     "plist": "3.0.1"
   }
