@@ -23,6 +23,7 @@ zinit has'docker' for \
 
 zinit lucid as'program' for \
   from'gh-r' pick'**/gh' \
+  atclone'cp -vf **/*.1 $ZPFX/share/man/man1' atpull'%atclone' \
   '@cli/cli' \
   \
   'davidosomething/git-ink' \
