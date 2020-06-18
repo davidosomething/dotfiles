@@ -493,6 +493,9 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'ap/vim-css-color', PlugIf(!l:use_fancy_colors)
   " Pure lua implementation, covers most cases and is fastest in neovim
   Plug 'norcalli/nvim-colorizer.lua', PlugIf(l:use_fancy_colors)
+  augroup dkonvimcolorizer
+    autocmd! User nvim-colorizer.lua lua require 'colorizer'.setup({ '*' }, { css = true })
+  augroup END
 
   " ==========================================================================
   " Language: .tmux.conf

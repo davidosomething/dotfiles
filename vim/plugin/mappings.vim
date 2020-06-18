@@ -299,6 +299,11 @@ execute dko#MapAll({
       \   'command': 'call dko#lint#LintBuffer()'
       \ })
 
+execute dko#MapAll({
+      \   'key': '<F11>',
+      \   'command': 'call dkoline#ToggleTabline()'
+      \ })
+
 " ============================================================================
 
 let &cpoptions = s:cpo_save
