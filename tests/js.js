@@ -14,9 +14,11 @@ const A_CONSTANT = true;
 document.addEventListener('click', function namedFun(x, ...rest) {
   return (lab = {}, rat = {}) => {
     const [ x, y ] = [ y, x ];
+
     if (/abcxyz[123](123)/g.test(window.navigator)) {
       console.log('what\'s up %s', window.title);
     }
+
     return { lab, rat };
   };
 });
