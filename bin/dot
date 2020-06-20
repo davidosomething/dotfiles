@@ -169,7 +169,7 @@ __dko_dotfiles__update_fzf() {
     (
       cd -- "${HOME}/.fzf" || { __dko_err "Could not cd to ~/.fzf" && exit 1; }
       __dko_status "Updating fzf"
-      git pull || { __dko_err "Could not update ~/.fzf" && exit 1; }
+      git pull --rebase || { __dko_err "Could not update ~/.fzf" && exit 1; }
       git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     ) || return 1
   else
@@ -487,7 +487,7 @@ __dko_dotfiles__php__update_wpcs() {
   else
     (
       cd -- "$wpcs_path" || exit 1
-      git pull &&
+      git pull --rebase &&
         git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
     ) || return 1
   fi
