@@ -69,6 +69,13 @@ __dko_has 'bat' && export FZF_PREVIEW_COMMAND="
   bat --color=always --decorations=never --line-range :100 {}
   "
 
+cropts="--preview 'echo {}' --preview-window down:3:hidden:wrap"
+cropts="${cropts} --bind '?:toggle-preview'"
+cropts="${cropts} --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
+cropts="${cropts} --header 'Press CTRL-Y to copy command into clipboard'"
+export FZF_CTRL_R_OPTS="$cropts"
+unset cropts
+
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 export FZF_CTRL_T_OPTS="
   ${fzfopts}

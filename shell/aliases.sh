@@ -203,7 +203,6 @@ alias ta='tmux attach'
 # ----------------------------------------------------------------------------
 
 alias archey='archey --offline'
-alias bashate='bashate -i E003,E005,E006,E011,E043'
 alias brokensymlinks='find . -type l ! -exec test -e {} \; -print'
 alias cb='cdbk'
 alias curl='curl --config "${DOTFILES}/curl/dot.curlrc"'
