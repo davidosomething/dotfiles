@@ -25,6 +25,7 @@ export REACT_EDITOR="$VISUAL"
 __dko_prefer 'trash' && alias rm=trash
 
 # ============================================================================
+# FZF settings
 # after zinit installation
 # ============================================================================
 
@@ -46,14 +47,10 @@ else
   # using git paths only for FZF
   grepper='
     (git ls-tree -r --name-only HEAD ||
-      find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
-        sed s/^..//) 2> /dev/null'
+    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+    sed s/^..//) 2> /dev/null'
   grepargs=''
 fi
-
-# ============================================================================
-# FZF settings
-# ============================================================================
 
 fzfopts="--height=20 --inline-info --min-height=4"
 
@@ -61,34 +58,34 @@ fzfopts="--height=20 --inline-info --min-height=4"
 export FZF_COMPLETION_TRIGGER="\`\`"
 
 export FZF_DEFAULT_COMMAND="${grepper} ${grepargs}"
-unset grepper
-unset grepargs
 
-# This is used by fzf#vim#with_preview's preview.sh
-__dko_has 'bat' && export FZF_PREVIEW_COMMAND="
-  bat --color=always --decorations=never --line-range :100 {}
-  "
-
-cropts="--preview 'echo {}' --preview-window down:3:hidden:wrap"
-cropts="${cropts} --bind '?:toggle-preview'"
-cropts="${cropts} --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
-cropts="${cropts} --header 'Press CTRL-Y to copy command into clipboard'"
-export FZF_CTRL_R_OPTS="$cropts"
-unset cropts
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}' --preview-window down:3:hidden:wrap
+  --bind '?:toggle-preview'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --header 'Press CTRL-Y to copy command into clipboard'"
 
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
-export FZF_CTRL_T_OPTS="
-  ${fzfopts}
-  --tiebreak=index
-  --preview='[[ ! \$(file --mime {}) =~ binary ]] &&
-    ${FZF_PREVIEW_COMMAND}
-  "
+
+FZF_CTRL_T_OPTS="${fzfopts} --tiebreak=index"
+
+# This is used by fzf#vim#with_preview's preview.sh
+__dko_has 'bat' && {
+  export FZF_PREVIEW_COMMAND="
+    bat --color=always --decorations=never --line-range :100 {}
+    "
+
+  # shellcheck disable=SC2089
+  FZF_CTRL_T_OPTS="${FZF_CTRL_T_OPTS} --preview='${FZF_PREVIEW_COMMAND}'"
+}
+
+# shellcheck disable=SC2090
+export FZF_CTRL_T_OPTS
 
 export FZF_ALT_C_OPTS="
   ${fzfopts}
   --tiebreak=index
-  --preview='tree -axi -L 2 --filelimit 100 --noreport {}'
-  "
+  --preview='tree -axi -L 2 --filelimit 100 --noreport {}'"
 
 # This needs to happen before sourcing the default fzf bind scripts
 if __dko_has "fd"; then
@@ -109,6 +106,10 @@ fi
 # ============================================================================
 
 #__dko_has 'catimg' && echo && catimg "${DOTFILES}/meta/motd.png" && echo
+
+unset grepper
+unset grepargs
+unset fzfopts
 
 unset DKO_INIT
 DKO_SOURCE="${DKO_SOURCE} }"
