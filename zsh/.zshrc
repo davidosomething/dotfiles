@@ -23,7 +23,7 @@ alias mkdir="nocorrect mkdir"
 # zinit
 # ============================================================================
 
-__dko_has 'git' && {
+__dko_has 'git' && __dko_has 'tput' && {
   declare -A ZINIT
   ZINIT[HOME_DIR]="${XDG_DATA_HOME}/zinit"
 
