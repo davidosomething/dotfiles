@@ -201,6 +201,7 @@ function! dkoplug#plugins#LoadAll() abort
         \  'coc-calc',
         \  'coc-css',
         \  'coc-diagnostic',
+        \  'coc-docthis',
         \  'coc-eslint',
         \  'coc-git',
         \  'coc-html',

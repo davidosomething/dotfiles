@@ -14,3 +14,7 @@ let &l:makeprg = 'cd ' . dko#project#GetRoot() . ' && npx eslint'
 " Automatically try these file extensions when gf to a word without extension
 " .js is added by vim-jsx-improve
 setlocal suffixesadd+=.jsx,.ts,.tsx,.vue,.json
+
+if dkoplug#IsLoaded('coc.nvim')
+  nmap <silent> <Leader>pd :<C-u>CocCommand docthis.documentThis<CR>
+endif
