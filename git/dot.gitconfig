@@ -131,9 +131,6 @@
 [pager]
 	status = true
 
-[delta]
-	theme = 'base16'
-
 # ============================================================================
 
 [includeIf "gitdir:/Users/"]
