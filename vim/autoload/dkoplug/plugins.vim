@@ -213,7 +213,7 @@ function! dkoplug#plugins#LoadAll() abort
         \  'coc-solargraph',
         \  'coc-tsserver',
         \  'coc-vimlsp',
-        \  'coc-yaml'
+        \  'coc-yaml',
         \]
   " Not working
   "      \  'coc-python',
@@ -251,6 +251,7 @@ function! dkoplug#plugins#LoadAll() abort
   " Upstreams
   Plug 'chrisbra/vim-sh-indent'
   Plug 'chrisbra/vim-zsh'
+  Plug 'tjdevries/coc-zsh'
 
   " ==========================================================================
   " Language: D
