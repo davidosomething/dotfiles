@@ -97,7 +97,9 @@
   // coc-git
   // =========================================================================
 
-  "git.addGBlameToBufferVar": true,
+  // "true" makes things real slow
+  "git.addGBlameToBufferVar": false,
+
   "git.enableGutters": true,
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",

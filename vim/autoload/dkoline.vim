@@ -98,10 +98,10 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%*%='
 
   " Blame
-  let l:contents .= dkoline#Format(
-        \ ' ' . get(b:, 'coc_git_blame', '') . ' ',
-        \ '%(%#dkoStatusValue#%<',
-        \ '%)')
+  " let l:contents .= dkoline#Format(
+  "      \ ' ' . get(b:, 'coc_git_blame', '') . ' ',
+  "      \ '%(%#dkoStatusValue#%<',
+  "      \ '%)')
 
   " Linting
   if dkoplug#IsLoaded('coc.nvim')
