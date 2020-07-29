@@ -74,6 +74,7 @@ nmap <silent> <Leader>bc <Plug>(coc-calc-result-replace)
 " coc-git
 nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)
+nnoremap <silent> gsc :<C-U>CocCommand git.showCommit<CR>
 
 " coc-prettier
 autocmd dkococ FileType
