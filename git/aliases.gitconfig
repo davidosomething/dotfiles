@@ -41,7 +41,7 @@
 
 	l       = log --abbrev-commit --date=short --pretty=ld
 	ll      = log --abbrev-commit --oneline --decorate --all
-	lm      = ld --author="davidosomething"
+	lm      = l --author="davidosomething"
 	lb      = log --abbrev-commit --oneline --decorate --all --graph
 	lg      = log --abbrev-commit           --decorate --all --graph
 	new     = log --no-merges --abbrev-commit --oneline         ORIG_HEAD..

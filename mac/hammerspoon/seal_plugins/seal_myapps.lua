@@ -1,9 +1,15 @@
+--- My fork of seal_apps.lua
+--- See https://github.com/Hammerspoon/Spoons/blob/master/Source/Seal.spoon/seal_apps.lua
+--- A plugin to add launchable apps/scripts, making Seal act as a launch bar
+
 local obj = {}
 obj.__index = obj
 obj.__name = "seal_myapps"
 obj.appCache = {}
+
 obj.appSearchPaths = {
   "/Applications",
+  "/System/Applications",
   "~/Applications",
   "/Developer/Applications",
   "/Applications/Xcode.app/Contents/Applications",
@@ -11,31 +17,67 @@ obj.appSearchPaths = {
   "/System/Library/PreferencePanes",
   "/Library/PreferencePanes",
   "~/Library/PreferencePanes",
+  "/System/Library/CoreServices/Applications",
+  "/System/Library/CoreServices/",
+  "/usr/local/Cellar",
+  "/Library/Scripts",
+  "~/Library/Scripts"
 }
+
+local isPrefPane = function(item)
+  return string.find(item.kMDItemPath, "%.prefPane$")
+end
+
+local getAppDisplayName = function(item, isPrefPane)
+  local displayName = item.kMDItemDisplayName or hs.fs.displayName(item.kMDItemPath)
+  displayName = displayName:gsub("%.app$", "", 1)
+
+  if isPrefPane then
+    return displayName .. " preferences"
+  end
+
+  return displayName
+end
+
+local getAppIcon = function(item, isPrefPane)
+  if isPrefPane then
+    return hs.image.iconForFile(item.kMDItemPath)
+  end
+
+  local bundleID = item.kMDItemCFBundleIdentifier
+  if bundleID then
+    return hs.image.imageFromAppBundle(bundleID)
+  end
+
+  return nil
+end
+
+local addItem = function(item)
+  local isPrefPane = isPrefPane(item)
+  local icon = getAppIcon(item, isPrefPane)
+  local displayName = getAppDisplayName(item, isPrefPane)
+  local bundleID = item.kMDItemCFBundleIdentifier
+  obj.appCache[displayName] = {
+    path = item.kMDItemPath,
+    bundleID = bundleID,
+    icon = icon
+  }
+end
+
+local removeItem = function(item)
+  local isPrefPane = isPrefPane(item)
+  local displayName = getAppDisplayName(item, isPrefPane)
+  if displayName then
+    obj.appCache[displayName] = nil
+  end
+end
 
 local modifyNameMap = function(info, add)
   for _, item in ipairs(info) do
-    local displayname = item.kMDItemDisplayName
     if add then
-      local bundleID = item.kMDItemCFBundleIdentifier
-      local icon = nil
-      if bundleID then
-        icon = hs.image.imageFromAppBundle(bundleID)
-      end
-      displayname = displayname:gsub("%.app$", "", 1)
-      if string.find(item.kMDItemPath, "%.prefPane$") then
-        displayname = item.kMDItemDisplayName .. " preferences"
-        icon = hs.image.iconForFile(item.kMDItemPath)
-      end
-      obj.appCache[displayname] = {
-        path = item.kMDItemPath,
-        bundleID = bundleID,
-        icon = icon
-      }
+      addItem(item)
     else
-      if displayname then
-        obj.appCache[displayname] = nil
-      end
+      removeItem(item)
     end
   end
 end
@@ -43,28 +85,46 @@ end
 local updateNameMap = function(_, msg, info)
   if info then
     -- all three can occur in either message, so check them all!
-    if info.kMDQueryUpdateAddedItems   then modifyNameMap(info.kMDQueryUpdateAddedItems,   true)  end
-    if info.kMDQueryUpdateChangedItems then modifyNameMap(info.kMDQueryUpdateChangedItems, true)  end
-    if info.kMDQueryUpdateRemovedItems then modifyNameMap(info.kMDQueryUpdateRemovedItems, false) end
+    if info.kMDQueryUpdateAddedItems then
+      modifyNameMap(info.kMDQueryUpdateAddedItems, true)
+    end
+    if info.kMDQueryUpdateChangedItems then
+      modifyNameMap(info.kMDQueryUpdateChangedItems, true)
+    end
+    if info.kMDQueryUpdateRemovedItems then
+      modifyNameMap(info.kMDQueryUpdateRemovedItems, false)
+    end
   else
     -- shouldn't happen for didUpdate or inProgress
     print("~~~ userInfo from SpotLight was empty for " .. msg)
   end
 end
 
-hs.application.enableSpotlightForNameSearches(true)
-obj.spotlight = hs.spotlight.new():queryString(
-  [[
-  (kMDItemContentType = "com.apple.application-bundle") ||
-  (kMDItemContentType = "com.apple.systempreference.prefpane") ||
-  (kMDItemContentType = "com.apple.applescript.text") ||
-  (kMDItemContentType = "com.apple.applescript.script")
-  ]]
-)
-  :callbackMessages("didUpdate", "inProgress")
-  :setCallback(updateNameMap)
-  :searchScopes(obj.appSearchPaths)
-  :start()
+function obj:start()
+  obj.spotlight = hs.spotlight.new():queryString(
+    [[
+      (kMDItemContentType = "com.apple.application-bundle") ||
+      (kMDItemContentType = "com.apple.systempreference.prefpane") ||
+      (kMDItemContentType = "com.apple.applescript.text") ||
+      (kMDItemContentType = "com.apple.applescript.script")
+    ]]
+  )
+    :callbackMessages("didUpdate", "inProgress")
+    :setCallback(updateNameMap)
+    :searchScopes(obj.appSearchPaths)
+    :start()
+end
+
+function obj:stop()
+    obj.spotlight:stop()
+    obj.spotlight = nil
+    obj.appCache = {}
+end
+
+function obj:restart()
+  self:stop()
+  self:start()
+end
 
 function obj:commands()
   return {
@@ -169,9 +229,9 @@ end
 function obj.completionCallback(rowInfo)
   if rowInfo["type"] == "launchOrFocus" then
     if string.find(rowInfo["path"], "%.applescript$") or string.find(rowInfo["path"], "%.scpt$") then
-      hs.execute(string.format("/usr/bin/osascript '%s'", rowInfo["path"]))
+      hs.task.new("/usr/bin/osascript", nil, { rowInfo["path"] }):start()
     else
-      hs.execute(string.format("/usr/bin/open '%s'", rowInfo["path"]))
+      hs.task.new("/usr/bin/open", nil, { rowInfo["path"] }):start()
     end
   elseif rowInfo["type"] == "kill" then
     hs.application.get(rowInfo["pid"]):kill()
@@ -180,5 +240,12 @@ function obj.completionCallback(rowInfo)
     hs.application.launchOrFocus("Finder")
   end
 end
+
+-- ===========================================================================
+-- Immediate
+-- ===========================================================================
+
+hs.application.enableSpotlightForNameSearches(true)
+obj:start()
 
 return obj
