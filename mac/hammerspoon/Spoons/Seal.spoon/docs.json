@@ -102,20 +102,20 @@
         "type": "Method"
       },
       {
-        "def": "Seal:show()",
+        "def": "Seal:show(query)",
         "desc": "Shows the Seal UI",
-        "doc": "Shows the Seal UI\n\nParameters:\n * None\n\nReturns:\n * None\n\nNotes:\n * This may be useful if you wish to show Seal in response to something other than its hotkey",
+        "doc": "Shows the Seal UI\n\nParameters:\n * query - An optional string to pre-populate the query box with\n\nReturns:\n * None\n\nNotes:\n * This may be useful if you wish to show Seal in response to something other than its hotkey",
         "name": "show",
         "notes": [
           " * This may be useful if you wish to show Seal in response to something other than its hotkey"
         ],
         "parameters": [
-          " * None"
+          " * query - An optional string to pre-populate the query box with"
         ],
         "returns": [
           " * None"
         ],
-        "signature": "Seal:show()",
+        "signature": "Seal:show(query)",
         "stripped_doc": "",
         "type": "Method"
       },
@@ -153,17 +153,17 @@
         "type": "Method"
       },
       {
-        "def": "Seal:toggle()",
+        "def": "Seal:toggle(query)",
         "desc": "Shows or hides the Seal UI",
-        "doc": "Shows or hides the Seal UI\n\nParameters:\n * None\n\nReturns:\n * None",
+        "doc": "Shows or hides the Seal UI\n\nParameters:\n * query - An optional string to pre-populate the query box with\n\nReturns:\n * None",
         "name": "toggle",
         "parameters": [
-          " * None"
+          " * query - An optional string to pre-populate the query box with"
         ],
         "returns": [
           " * None"
         ],
-        "signature": "Seal:toggle()",
+        "signature": "Seal:toggle(query)",
         "stripped_doc": "",
         "type": "Method"
       }
@@ -176,6 +176,15 @@
         "name": "plugin_search_paths",
         "signature": "Seal.plugin_search_paths",
         "stripped_doc": "",
+        "type": "Variable"
+      },
+      {
+        "def": "Seal.queryChangedTimerDuration",
+        "desc": "Time between the last keystroke and the start of the recalculation of the choices to display, in seconds.",
+        "doc": "Time between the last keystroke and the start of the recalculation of the choices to display, in seconds.\nDefaults to 0.02s (20ms).",
+        "name": "queryChangedTimerDuration",
+        "signature": "Seal.queryChangedTimerDuration",
+        "stripped_doc": "Defaults to 0.02s (20ms).",
         "type": "Variable"
       }
     ],
@@ -250,6 +259,15 @@
         "type": "Variable"
       },
       {
+        "def": "Seal.queryChangedTimerDuration",
+        "desc": "Time between the last keystroke and the start of the recalculation of the choices to display, in seconds.",
+        "doc": "Time between the last keystroke and the start of the recalculation of the choices to display, in seconds.\nDefaults to 0.02s (20ms).",
+        "name": "queryChangedTimerDuration",
+        "signature": "Seal.queryChangedTimerDuration",
+        "stripped_doc": "Defaults to 0.02s (20ms).",
+        "type": "Variable"
+      },
+      {
         "def": "Seal:refreshAllCommands()",
         "desc": "Refresh the list of commands provided by all the currently loaded plugins.",
         "doc": "Refresh the list of commands provided by all the currently loaded plugins.\n\nParameters:\n * None\n\nReturns:\n * The Seal object\n\nNotes:\n * Most Seal plugins expose a static list of commands (if any), which are registered at the time the plugin is loaded. This method is used for plugins which expose a dynamic or changing (e.g. depending on configuration) list of commands.",
@@ -286,20 +304,20 @@
         "type": "Method"
       },
       {
-        "def": "Seal:show()",
+        "def": "Seal:show(query)",
         "desc": "Shows the Seal UI",
-        "doc": "Shows the Seal UI\n\nParameters:\n * None\n\nReturns:\n * None\n\nNotes:\n * This may be useful if you wish to show Seal in response to something other than its hotkey",
+        "doc": "Shows the Seal UI\n\nParameters:\n * query - An optional string to pre-populate the query box with\n\nReturns:\n * None\n\nNotes:\n * This may be useful if you wish to show Seal in response to something other than its hotkey",
         "name": "show",
         "notes": [
           " * This may be useful if you wish to show Seal in response to something other than its hotkey"
         ],
         "parameters": [
-          " * None"
+          " * query - An optional string to pre-populate the query box with"
         ],
         "returns": [
           " * None"
         ],
-        "signature": "Seal:show()",
+        "signature": "Seal:show(query)",
         "stripped_doc": "",
         "type": "Method"
       },
@@ -337,17 +355,17 @@
         "type": "Method"
       },
       {
-        "def": "Seal:toggle()",
+        "def": "Seal:toggle(query)",
         "desc": "Shows or hides the Seal UI",
-        "doc": "Shows or hides the Seal UI\n\nParameters:\n * None\n\nReturns:\n * None",
+        "doc": "Shows or hides the Seal UI\n\nParameters:\n * query - An optional string to pre-populate the query box with\n\nReturns:\n * None",
         "name": "toggle",
         "parameters": [
-          " * None"
+          " * query - An optional string to pre-populate the query box with"
         ],
         "returns": [
           " * None"
         ],
-        "signature": "Seal:toggle()",
+        "signature": "Seal:toggle(query)",
         "stripped_doc": "",
         "type": "Method"
       }
@@ -374,11 +392,190 @@
     "name": "Seal.plugins",
     "stripped_doc": "",
     "submodules": [
+      "apps",
+      "pasteboard",
       "safari_bookmarks",
       "screencapture",
       "urlformats",
       "useractions"
     ],
+    "type": "Module"
+  },
+  {
+    "Command": [],
+    "Constant": [],
+    "Constructor": [],
+    "Deprecated": [],
+    "Field": [],
+    "Function": [],
+    "Method": [
+      {
+        "def": "Seal.plugins.apps:restart()",
+        "desc": "Restarts the Spotlight app searcher",
+        "doc": "Restarts the Spotlight app searcher\n\nParamters:\n * None\n\nReturns:\n * None",
+        "name": "restart",
+        "returns": [
+          " * None"
+        ],
+        "signature": "Seal.plugins.apps:restart()",
+        "stripped_doc": "Paramters:\n * None",
+        "type": "Method"
+      },
+      {
+        "def": "Seal.plugins.apps:start()",
+        "desc": "Starts the Spotlight app searcher",
+        "doc": "Starts the Spotlight app searcher\n\nParamters:\n * None\n\nReturns:\n * None\n\nNotes:\n * This is called automatically when the plugin is loaded",
+        "name": "start",
+        "notes": [
+          " * This is called automatically when the plugin is loaded"
+        ],
+        "returns": [
+          " * None"
+        ],
+        "signature": "Seal.plugins.apps:start()",
+        "stripped_doc": "Paramters:\n * None",
+        "type": "Method"
+      },
+      {
+        "def": "Seal.plugins.apps:stop()",
+        "desc": "Stops the Spotlight app searcher",
+        "doc": "Stops the Spotlight app searcher\n\nParamters:\n * None\n\nReturns:\n * None",
+        "name": "stop",
+        "returns": [
+          " * None"
+        ],
+        "signature": "Seal.plugins.apps:stop()",
+        "stripped_doc": "Paramters:\n * None",
+        "type": "Method"
+      }
+    ],
+    "Variable": [
+      {
+        "def": "Seal.plugins.apps.appSearchPaths",
+        "desc": "Table containing the paths to search for launchable items",
+        "doc": "Table containing the paths to search for launchable items\n\nNotes:\n * If you change this, you will need to call `spoon.Seal.plugins.apps:restart()` to force Spotlight to search for new items.",
+        "name": "appSearchPaths",
+        "notes": [
+          " * If you change this, you will need to call `spoon.Seal.plugins.apps:restart()` to force Spotlight to search for new items."
+        ],
+        "signature": "Seal.plugins.apps.appSearchPaths",
+        "stripped_doc": "",
+        "type": "Variable"
+      }
+    ],
+    "desc": "A plugin to add launchable apps/scripts, making Seal act as a launch bar",
+    "doc": "A plugin to add launchable apps/scripts, making Seal act as a launch bar",
+    "items": [
+      {
+        "def": "Seal.plugins.apps.appSearchPaths",
+        "desc": "Table containing the paths to search for launchable items",
+        "doc": "Table containing the paths to search for launchable items\n\nNotes:\n * If you change this, you will need to call `spoon.Seal.plugins.apps:restart()` to force Spotlight to search for new items.",
+        "name": "appSearchPaths",
+        "notes": [
+          " * If you change this, you will need to call `spoon.Seal.plugins.apps:restart()` to force Spotlight to search for new items."
+        ],
+        "signature": "Seal.plugins.apps.appSearchPaths",
+        "stripped_doc": "",
+        "type": "Variable"
+      },
+      {
+        "def": "Seal.plugins.apps:restart()",
+        "desc": "Restarts the Spotlight app searcher",
+        "doc": "Restarts the Spotlight app searcher\n\nParamters:\n * None\n\nReturns:\n * None",
+        "name": "restart",
+        "returns": [
+          " * None"
+        ],
+        "signature": "Seal.plugins.apps:restart()",
+        "stripped_doc": "Paramters:\n * None",
+        "type": "Method"
+      },
+      {
+        "def": "Seal.plugins.apps:start()",
+        "desc": "Starts the Spotlight app searcher",
+        "doc": "Starts the Spotlight app searcher\n\nParamters:\n * None\n\nReturns:\n * None\n\nNotes:\n * This is called automatically when the plugin is loaded",
+        "name": "start",
+        "notes": [
+          " * This is called automatically when the plugin is loaded"
+        ],
+        "returns": [
+          " * None"
+        ],
+        "signature": "Seal.plugins.apps:start()",
+        "stripped_doc": "Paramters:\n * None",
+        "type": "Method"
+      },
+      {
+        "def": "Seal.plugins.apps:stop()",
+        "desc": "Stops the Spotlight app searcher",
+        "doc": "Stops the Spotlight app searcher\n\nParamters:\n * None\n\nReturns:\n * None",
+        "name": "stop",
+        "returns": [
+          " * None"
+        ],
+        "signature": "Seal.plugins.apps:stop()",
+        "stripped_doc": "Paramters:\n * None",
+        "type": "Method"
+      }
+    ],
+    "name": "Seal.plugins.apps",
+    "stripped_doc": "",
+    "submodules": [],
+    "type": "Module"
+  },
+  {
+    "Command": [],
+    "Constant": [],
+    "Constructor": [],
+    "Deprecated": [],
+    "Field": [],
+    "Function": [],
+    "Method": [],
+    "Variable": [
+      {
+        "def": "Seal.plugins.pasteboard.historySize",
+        "desc": "",
+        "doc": "\nThe number of history items to keep. Defaults to 50",
+        "name": "historySize",
+        "signature": "Seal.plugins.pasteboard.historySize",
+        "stripped_doc": "The number of history items to keep. Defaults to 50",
+        "type": "Variable"
+      },
+      {
+        "def": "Seal.plugins.pasteboard.saveHistory",
+        "desc": "",
+        "doc": "\nA boolean, true if Seal should automatically load/save clipboard history. Defaults to true",
+        "name": "saveHistory",
+        "signature": "Seal.plugins.pasteboard.saveHistory",
+        "stripped_doc": "A boolean, true if Seal should automatically load/save clipboard history. Defaults to true",
+        "type": "Variable"
+      }
+    ],
+    "desc": "Visual pasteboard (ie clipboard) history",
+    "doc": "Visual pasteboard (ie clipboard) history",
+    "items": [
+      {
+        "def": "Seal.plugins.pasteboard.historySize",
+        "desc": "",
+        "doc": "\nThe number of history items to keep. Defaults to 50",
+        "name": "historySize",
+        "signature": "Seal.plugins.pasteboard.historySize",
+        "stripped_doc": "The number of history items to keep. Defaults to 50",
+        "type": "Variable"
+      },
+      {
+        "def": "Seal.plugins.pasteboard.saveHistory",
+        "desc": "",
+        "doc": "\nA boolean, true if Seal should automatically load/save clipboard history. Defaults to true",
+        "name": "saveHistory",
+        "signature": "Seal.plugins.pasteboard.saveHistory",
+        "stripped_doc": "A boolean, true if Seal should automatically load/save clipboard history. Defaults to true",
+        "type": "Variable"
+      }
+    ],
+    "name": "Seal.plugins.pasteboard",
+    "stripped_doc": "",
+    "submodules": [],
     "type": "Module"
   },
   {

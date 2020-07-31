@@ -33,6 +33,12 @@ obj.queryChangedTimer = nil
 
 obj.spoonPath = hs.spoons.scriptPath()
 
+--- Seal.queryChangedTimerDuration
+--- Variable
+--- Time between the last keystroke and the start of the recalculation of the choices to display, in seconds.
+--- Defaults to 0.02s (20ms).
+obj.queryChangedTimerDuration = 0.02
+
 --- Seal.plugin_search_paths
 --- Variable
 --- List of directories where Seal will look for plugins. Defaults to `~/.hammerspoon/seal_plugins/` and the Seal Spoon directory.
@@ -222,37 +228,38 @@ function obj:stop()
     return self
 end
 
---- Seal:show()
+--- Seal:show(query)
 --- Method
 --- Shows the Seal UI
 ---
 --- Parameters:
----  * None
+---  * query - An optional string to pre-populate the query box with
 ---
 --- Returns:
 ---  * None
 ---
 --- Notes:
 ---  * This may be useful if you wish to show Seal in response to something other than its hotkey
-function obj:show()
+function obj:show(query)
     self.chooser:show()
+    if query then self.chooser:query(query) end
     return self
 end
 
---- Seal:toggle()
+--- Seal:toggle(query)
 --- Method
 --- Shows or hides the Seal UI
 ---
 --- Parameters:
----  * None
+---  * query - An optional string to pre-populate the query box with
 ---
 --- Returns:
 ---  * None
-function obj:toggle()
+function obj:toggle(query)
     if self.chooser:isVisible() then
         self.chooser:hide()
     else
-        self.chooser:show()
+        self:show(query)
     end
     return self
 end
@@ -333,7 +340,8 @@ function obj.queryChangedCallback(query)
     if obj.queryChangedTimer then
         obj.queryChangedTimer:stop()
     end
-    obj.queryChangedTimer = hs.timer.doAfter(0.2, function() obj.chooser:refreshChoicesCallback() end)
+    obj.queryChangedTimer = hs.timer.doAfter(obj.queryChangedTimerDuration,
+                                             function() obj.chooser:refreshChoicesCallback() end)
 end
 
 return obj
