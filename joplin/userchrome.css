@@ -4,6 +4,7 @@
  * ======================================================================== */
 
 :root {
+  --white: hsla(0, 0%, 100%, 1);
   --lighter-grey: hsla(0, 0%, 95%, 1);
   --light-grey: hsla(0, 0%, 85%, 1);
   --mid-grey: hsla(0, 0%, 70%, 1);
@@ -11,6 +12,8 @@
   --darker-grey: hsla(0, 0%, 25%, 1);
   --font-sans: "SF Pro Text", "Roboto", sans-serif;
   --font-mono: "Fira Code", monospace;
+
+  --mid-accent: hsla(200, 20%, 60%, 1);
 
   --notebook-section-size: 10px;
 }
@@ -49,30 +52,47 @@
 .side-bar .list-item-container {}
 /* Notebook chevron icon when has child notebooks */
 .side-bar .list-item-container > a:not(.list-item) {}
-/* Notebook name and item count aligned right */
+/* Notebook name and item count */
 .side-bar .folders .list-item {
-  justify-content: space-between;
+  opacity: 1 !important;
   padding-right: 12px;
+}
+/* Align the count to the right */
+.side-bar .folders .list-item > div {
+  margin-left: auto;
+  opacity: 1 !important;
 }
 /* Selected notebook */
 .side-bar .list-item-container[style*="background-color"] {
-  background-color: var(--mid-grey) !important;
+  background-color: var(--mid-accent) !important;
 }
+/* Selected notebook name and item count aligned right */
 .side-bar .list-item-container[style*="background-color"] > a:not(.list-item),
 .side-bar .list-item-container[style*="background-color"] .list-item {
-  color: var(--lighter-grey) !important;
+  color: var(--white) !important;
+  font-weight: bold;
 }
 
 /* ======================================================================== */
 /* Tags, align the item right */
 .side-bar .tags .list-item {
-  justify-content: space-between;
+  opacity: 1 !important;
+  padding-left: 26px !important;
   padding-right: 12px;
+}
+.side-bar .tags .list-item:before {
+  content: '#';
+  padding-right: 0.2em;
+}
+.side-bar .tags .list-item > div {
+  margin-left: auto;
+  opacity: 1 !important;
 }
 /* Selected tag */
 .side-bar .tags .list-item[style*="background-color"] {
-  background-color: var(--mid-grey) !important;
-  color: var(--lighter-grey) !important;
+  background-color: var(--mid-accent) !important;
+  color: var(--white) !important;
+  font-weight: bold;
 }
 
 /* ======================================================================== */
