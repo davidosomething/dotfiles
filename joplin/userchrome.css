@@ -1,49 +1,68 @@
-/* For styling the entire Joplin app (except the rendered Markdown, which is defined in `userstyle.css`) */
+/* ===========================================================================
+ * For styling the entire Joplin app (except the rendered Markdown, which is
+ * defined in `userstyle.css`)
+ * ======================================================================== */
 
 :root {
-    --lighter-grey: hsla(0, 0%, 95%, 1);
-    --light-grey: hsla(0, 0%, 85%, 1);
-    --mid-grey: hsla(0, 0%, 70%, 1);
-    --dark-grey: hsla(0, 0%, 45%, 1);
-    --darker-grey: hsla(0, 0%, 30%, 1);
-    --font-sans: "SF Pro Text", "Roboto", sans-serif;
-    --font-mono: "Fira Code", monospace;
+  --lighter-grey: hsla(0, 0%, 95%, 1);
+  --light-grey: hsla(0, 0%, 85%, 1);
+  --mid-grey: hsla(0, 0%, 70%, 1);
+  --dark-grey: hsla(0, 0%, 45%, 1);
+  --darker-grey: hsla(0, 0%, 25%, 1);
+  --font-sans: "SF Pro Text", "Roboto", sans-serif;
+  --font-mono: "Fira Code", monospace;
 }
 
+/* ======================================================================== */
+
 .side-bar {
-    background: var(--light-grey) !important;
+  background: var(--light-grey) !important;
 }
 
 /* All notes, Notebooks, Tags */
 .side-bar > div > div {
-    color: var(--dark-grey) !important;
+  color: var(--dark-grey) !important;
 }
-
-/* Notebook */
-.side-bar .list-item-container {}
-
-/* Notebook chevron icon when has child notebooks */
-.side-bar .list-item-container > a:not(.list-item) {}
-
-/* Notebook name */
-.side-bar .list-item {}
 
 .side-bar .list-item-container > a:not(.list-item),
 .side-bar .list-item {
-    color: var(--darker-grey) !important;
+  color: var(--darker-grey) !important;
 }
 
+/* ======================================================================== */
+/* Notebook */
+.side-bar .list-item-container {}
+/* Notebook chevron icon when has child notebooks */
+.side-bar .list-item-container > a:not(.list-item) {}
+/* Notebook name and item count aligned right */
+.side-bar .folders .list-item {
+  justify-content: space-between;
+  padding-right: 12px;
+}
 /* Selected notebook */
-.side-bar .list-item-container[style*="background-color"] { }
-
+.side-bar .list-item-container[style*="background-color"] {
+  background-color: var(--mid-grey) !important;
+}
 .side-bar .list-item-container[style*="background-color"] > a:not(.list-item),
 .side-bar .list-item-container[style*="background-color"] .list-item {
-    color: var(--lighter-grey) !important;
+  color: var(--lighter-grey) !important;
 }
 
-.side-bar .synchronize-button {
-    background: var(--mid-grey) !important;
-    border: 0 !important;
-    color: var(--dark-grey) !important;
-    margin: 10px !important;
+/* ======================================================================== */
+/* Tags, align the item right */
+.side-bar .tags .list-item {
+  justify-content: space-between;
+  padding-right: 12px;
+}
+/* Selected tag */
+.side-bar .tags .list-item[style*="background-color"] {
+  background-color: var(--mid-grey) !important;
+  color: var(--lighter-grey) !important;
+}
+
+/* ======================================================================== */
+.synchronize-button {
+  background: var(--mid-grey) !important;
+  border: 0 !important;
+  color: var(--darker-grey) !important;
 }
