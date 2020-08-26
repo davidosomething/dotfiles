@@ -11,6 +11,8 @@
   --darker-grey: hsla(0, 0%, 25%, 1);
   --font-sans: "SF Pro Text", "Roboto", sans-serif;
   --font-mono: "Fira Code", monospace;
+
+  --notebook-section-size: 10px;
 }
 
 /* ======================================================================== */
@@ -20,8 +22,21 @@
 }
 
 /* All notes, Notebooks, Tags */
-.side-bar > div > div {
+.side-bar > div > div:not(.folders):not(.tags) {
   color: var(--dark-grey) !important;
+  font-size: var(--notebook-section-size) !important;
+  font-weight: 700;
+  height: 32px !important;
+}
+/* All Notes: Selected */
+.side-bar > div > div[style*="background-color"]:not(.folders):not(.tags) {
+  background-color: var(--mid-grey) !important;
+}
+/* Icon */
+.side-bar > div > div:not(.folders):not(.tags) > i { }
+/* Text */
+.side-bar > div > div:not(.folders):not(.tags) > span {
+  text-transform: uppercase;
 }
 
 .side-bar .list-item-container > a:not(.list-item),
