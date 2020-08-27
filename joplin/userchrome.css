@@ -20,6 +20,13 @@
 
 /* ======================================================================== */
 
+.header {
+  background: var(--light-grey) !important;
+  border-bottom: 0 !important;
+}
+
+/* ======================================================================== */
+
 .side-bar {
   background: var(--light-grey) !important;
 }
@@ -102,3 +109,7 @@
   color: var(--darker-grey) !important;
 }
 
+/* ======================================================================== */
+.editor-toolbar {
+  display: none !important;
+}
