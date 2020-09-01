@@ -56,6 +56,7 @@
 
 /* ======================================================================== */
 /* Notebook */
+
 .side-bar .list-item-container {}
 /* Notebook chevron icon when has child notebooks */
 .side-bar .list-item-container > a:not(.list-item) {}
@@ -82,6 +83,7 @@
 
 /* ======================================================================== */
 /* Tags, align the item right */
+
 .side-bar .tags .list-item {
   opacity: 1 !important;
   padding-left: 26px !important;
@@ -103,10 +105,41 @@
 }
 
 /* ======================================================================== */
+
 .synchronize-button {
   background: var(--mid-grey) !important;
   border: 0 !important;
   color: var(--darker-grey) !important;
+}
+
+/* ======================================================================== */
+
+.side-bar + [draggable],
+.note-list + [draggable] {
+  width: 8px !important;
+  margin-left: -8px !important;
+}
+
+/* ======================================================================== */
+
+.note-list {}
+
+/* note container */
+.note-list .list-item-container {
+  height: auto !important;
+}
+
+
+/* checkbox on todo notes */
+.note-list .list-item-container > div {
+  height: auto !important;
+}
+
+/* note title */
+.note-list .list-item-container > a {
+  cursor: pointer !important;
+  font-size: 12px !important;
+  min-height: 2em;
 }
 
 /* ======================================================================== */
