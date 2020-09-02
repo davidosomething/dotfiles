@@ -71,7 +71,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "eslint": "7.8.0",
+    "eslint": "7.8.1",
     "eslint-config-davidosomething": "4.1.0",
     "js-yaml": "3.14.0",
     "lodash": "4.17.20",
