@@ -105,7 +105,7 @@ setopt VI
 # Modules
 # ============================================================================
 
-__dko_has 'zinit' && autoload -Uz compinit && compinit
+! __dko_has 'zinit' && autoload -Uz compinit && compinit
 compdef g=git
 
 # color complist
