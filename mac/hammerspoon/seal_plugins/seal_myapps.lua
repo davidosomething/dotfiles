@@ -25,22 +25,26 @@ obj.appSearchPaths = {
 }
 
 local isPrefPane = function(item)
-  return string.find(item.kMDItemPath, "%.prefPane$")
+  if item.kMDItemPath == nil then
+    return false
+  else
+    return item.kMDItemPath and string.find(item.kMDItemPath, "%.prefPane$")
+  end
 end
 
-local getAppDisplayName = function(item, isPrefPane)
+local getAppDisplayName = function(item, isItemPrefPane)
   local displayName = item.kMDItemDisplayName or hs.fs.displayName(item.kMDItemPath)
   displayName = displayName:gsub("%.app$", "", 1)
 
-  if isPrefPane then
+  if isItemPrefPane then
     return displayName .. " preferences"
   end
 
   return displayName
 end
 
-local getAppIcon = function(item, isPrefPane)
-  if isPrefPane then
+local getAppIcon = function(item, isItemPrefPane)
+  if isItemPrefPane then
     return hs.image.iconForFile(item.kMDItemPath)
   end
 
@@ -53,9 +57,9 @@ local getAppIcon = function(item, isPrefPane)
 end
 
 local addItem = function(item)
-  local isPrefPane = isPrefPane(item)
-  local icon = getAppIcon(item, isPrefPane)
-  local displayName = getAppDisplayName(item, isPrefPane)
+  local isItemPrefPane = isPrefPane(item)
+  local icon = getAppIcon(item, isItemPrefPane)
+  local displayName = getAppDisplayName(item, isItemPrefPane)
   local bundleID = item.kMDItemCFBundleIdentifier
   obj.appCache[displayName] = {
     path = item.kMDItemPath,
@@ -65,8 +69,8 @@ local addItem = function(item)
 end
 
 local removeItem = function(item)
-  local isPrefPane = isPrefPane(item)
-  local displayName = getAppDisplayName(item, isPrefPane)
+  local isItemPrefPane = isPrefPane(item)
+  local displayName = getAppDisplayName(item, isItemPrefPane)
   if displayName then
     obj.appCache[displayName] = nil
   end
@@ -101,7 +105,7 @@ local updateNameMap = function(_, msg, info)
 end
 
 function obj:start()
-  obj.spotlight = hs.spotlight.new():queryString(
+  self.spotlight = hs.spotlight.new():queryString(
     [[
       (kMDItemContentType = "com.apple.application-bundle") ||
       (kMDItemContentType = "com.apple.systempreference.prefpane") ||
@@ -111,14 +115,14 @@ function obj:start()
   )
     :callbackMessages("didUpdate", "inProgress")
     :setCallback(updateNameMap)
-    :searchScopes(obj.appSearchPaths)
+    :searchScopes(self.appSearchPaths)
     :start()
 end
 
 function obj:stop()
-    obj.spotlight:stop()
-    obj.spotlight = nil
-    obj.appCache = {}
+  self.spotlight:stop()
+  self.spotlight = nil
+  self.appCache = {}
 end
 
 function obj:restart()
@@ -126,7 +130,7 @@ function obj:restart()
   self:start()
 end
 
-function obj:commands()
+function obj.commands()
   return {
     kill = {
       cmd = "kill",
