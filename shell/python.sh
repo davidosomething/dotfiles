@@ -49,7 +49,7 @@ virtualenv_info() {
   venv=''
   # Strip out the path and just leave the env name
   [ -n "$VIRTUAL_ENV" ] && venv="${VIRTUAL_ENV##*/}"
-  [ -n "$venv" ] && echo "$venv"
+  [ -n "$venv" ] && printf '%s\n' "$venv"
 }
 
 # ============================================================================

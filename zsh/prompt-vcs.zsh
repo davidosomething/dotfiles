@@ -50,7 +50,7 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
     # bd69f0644eb9aa460da5de9ebf72e2e3c04b30f2 Merge branch 'x' (1 applied)
 
     # get merge_from branch name
-    from=$(echo ${hook_com[misc]} | awk '{print $4}' | tr -d "'")
+    from=$(printf '%s' "${hook_com[misc]}" | awk '{print $4}' | tr -d "'")
 
     # modify %m
     hook_com[misc]="${from}"

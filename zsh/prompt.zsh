@@ -99,7 +99,7 @@ __dko_prompt::env() {
 
 __dko_prompt::env::js::get_version() {
   __nodir="${NVM_BIN/$NVM_DIR\/versions\/node\/v}"
-  echo "${__nodir%\/bin}"
+  printf '%s' "${__nodir%\/bin}"
 }
 
 # Get node version provided by NVM using the env vars instead of calling slow
@@ -117,14 +117,14 @@ __dko_prompt::env::py::get_version() {
 
 __dko_prompt::env::py::system() {
   [ -z "$system_py" ] && system_py="$(__dko_prompt::env::py::get_version)"
-  echo "sys(${system_py})"
+  printf 'sys(%s)' "$system_py"
 }
 
 # virtualenv name if in one
 # sys(1.2.3) if using system python
 # 1.2.3 if using pyenv version
 __dko_prompt::env::py() {
-  [ -n "$VIRTUAL_ENV" ] && echo "${VIRTUAL_ENV##*/}" && return
+  [ -n "$VIRTUAL_ENV" ] && printf '%s' "${VIRTUAL_ENV##*/}" && return
 
   local pyenv_version_file="${PYENV_ROOT}/version"
   # Not using pyenv version-name because it opens a slow bash subprocess
