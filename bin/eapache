@@ -9,6 +9,6 @@ if apachectl -t >/dev/null 2>&1; then
     sudo -e "${apache_httpd_conf}"
   fi
 else
-  echo "Couldn't determine path to HTTPD conf file, check apachectl -t"
+  >&2 echo "Couldn't determine path to HTTPD conf file, check apachectl -t"
 fi
 

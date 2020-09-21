@@ -10,7 +10,7 @@ __maybe_git_root() {
     git_root="$(git rev-parse --show-toplevel)"
   fi
 
-  echo "${git_root}"
+  printf '%s\n' "$git_root"
 }
 
 # find and edit file from git root
@@ -23,7 +23,7 @@ __egr() {
   if [ -f "${git_root}/${filename}" ]; then
     eval "${EGR_EDITOR:-$EDITOR} \"${git_root}/${filename}\""
   else
-    echo "No file to edit."
+    >&2 echo "No file to edit."
     return 1
   fi
 }

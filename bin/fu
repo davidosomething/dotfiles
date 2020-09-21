@@ -14,7 +14,7 @@ __fu() {
   local filepath
   while :; do
     filepath="${current_path}/${filename}"
-    [ -f "$filepath" ] && echo "$filepath" && break
+    [ -f "$filepath" ] && printf '%s\n' "$filepath" && break
     if [[ "$current_path" == '/' ]] || [[ ! -e "$current_path" ]]; then
       return 1
     fi

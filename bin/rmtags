@@ -10,7 +10,7 @@ __maybe_git_root() {
     git_root="$(git rev-parse --show-toplevel)"
   fi
 
-  echo "${git_root}"
+  printf '%s' "$git_root"
 }
 
 # find and edit file from git root
@@ -22,7 +22,7 @@ __rmtags() {
   if [ -f "${git_root}/.git/tags" ]; then
     rm "${git_root}/.git/tags"
   else
-    echo "Not a git repository."
+    >&2 echo "Not a git repository."
     return 1
   fi
 }

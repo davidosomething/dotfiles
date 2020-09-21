@@ -19,7 +19,7 @@ __fxc() {
     --nth=1 \
     --prompt="$current> ") \
   && sudo xcode-select --switch "${version}" \
-  && echo "Now using ${version}"
+  && printf 'Now using %s' "$version"
 }
 
 [[ "$OSTYPE" == *'arwin'* ]] && __fxc

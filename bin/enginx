@@ -10,10 +10,10 @@ _enginx() {
 
   nginx_conf="$(sudo nginx -t 2>&1 | grep -Eom1 "configuration file (\S*) " | awk 'END { print $NF }')"
   if [ -f "$nginx_conf" ]; then
-    echo "Editing ${nginx_conf}..."
+    printf 'Editing %s...\n' "$nginx_conf"
     sudo -e "$nginx_conf"
   else
-    echo "No nginx.conf file found"
+    >&2 echo "No nginx.conf file found"
     exit 1
   fi
 }

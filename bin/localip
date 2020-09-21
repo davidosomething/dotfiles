@@ -24,11 +24,11 @@ __localip() {
   if [[ -n "$OSTYPE" && "$OSTYPE" == *'arwin'* ]]; then
     local ethernet
     ethernet=$(ipconfig getifaddr en0)
-    [ -n "$ethernet" ] && echo "$ethernet" && exit 0
+    [ -n "$ethernet" ] && printf '%s\n' "$ethernet" && exit 0
 
     local wireless
     wireless=$(ipconfig getifaddr en1)
-    [ -n "$wireless" ] && echo "$wireless" && exit 0
+    [ -n "$wireless" ] && printf '%s\n' "$wireless" && exit 0
 
     exit 1
   fi

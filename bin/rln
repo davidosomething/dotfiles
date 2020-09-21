@@ -33,15 +33,15 @@ _rln() {
   local new_source
   new_source="${original_dir}/${newname_for_source}"
 
-  echo "old source: $original_source"
-  echo "new source: $new_source"
+  printf 'old source: %s\n' "$original_source"
+  printf 'new source: %s\n' "$new_source"
 
   if [[ "$(basename "$original_source")" == "$(basename "$new_source")" ]]; then
-    echo "WARNING: new source \"${new_source}\""
-    echo "         and original source \"${original_source}\""
-    echo "         already have the same name. Skipping."
+    printf 'WARNING: new source "%s"\n' "$new_source"
+    printf '         and original source "%s"\n' "$original_source"
+    printf '         already have the same name. Skipping.\n'
   elif [ -e "$new_source" ]; then
-    echo "WARNING: new source \"${new_source}\" exists. Please remove it first. Skipping."
+    printf 'WARNING: new source "%s" exists. Please remove it first. Skipping.\n' "$new_source"
   else
     mv "$original_source" "$new_source" \
     && ln -sf "$new_source" "$target_file" \
@@ -53,7 +53,7 @@ _rln() {
 if [ -z "$1" ] || [ -z "$2" ]; then
   _usage;
 elif ! test -L "$1"; then
-  echo "ERROR: Invalid target_file $1"
+  >&2 printf 'ERROR: Invalid target_file %s\n' "$1"
   exit 1
 else
   _rln "$1" "$2"

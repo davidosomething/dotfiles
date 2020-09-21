@@ -19,14 +19,12 @@ __check_in_repository() {
 # exit with message if invalid usage
 __check_args() {
   if (( $# == 0 )); then
-    echo "ERROR: Please provide a path argument."
-    echo
+    >&2 echo "ERROR: Please provide a path argument."
     exit 1
   fi
 
   if [ ! -f "$1" ] && [ ! -d "$1" ]; then
-    echo "ERROR: Path does not exist."
-    echo
+    >&2 echo "ERROR: Path does not exist."
     exit 1
   fi
 }
@@ -44,19 +42,19 @@ __git_in() {
 
   dir_path="$(realpath "$dir_path")"
   cd -- "$dir_path" || {
-    echo "ERROR: Could not enter $dir_path"
+    >&2 printf 'ERROR: Could not enter %s\ns' "$dir_path"
     exit 1
   }
 
   if __check_in_repository; then
-    echo "local repo    $(git rev-parse --show-toplevel)"
+    printf 'local repo    %s\n' "$(git rev-parse --show-toplevel)"
 
     remote="$(git config --get remote.origin.url)"
     if [ -n "$remote" ]; then
-      echo "with origin   $remote"
+      printf 'with origin   %s\n' "$remote"
     fi
   else
-    echo "Path is not in a repo."
+    >&2 echo "ERROR: Path is not in a repo."
     exit 1
   fi
 }

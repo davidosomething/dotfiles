@@ -309,7 +309,7 @@ __dko_dotfiles__update_node() {
   fi
 
   __dko_status_ "Previous node version was $previous_node"
-  echo -n "Install and use new node ${wanted_with_minor} as default? [y/N] "
+  printf "Install and use new node %s as default? [y/N] " "$wanted_with_minor"
   read -r
   echo
   if [[ "$REPLY" == "y" ]] || [[ "$REPLY" == "Y" ]]; then
@@ -508,7 +508,7 @@ __dko_dotfiles__php__update_wpcs() {
   local standards=()
 
   for entry in "${possible[@]}"; do
-    [[ -d "$entry" ]] && echo "Found $entry" && standards+=("$entry")
+    [[ -d "$entry" ]] && printf 'Found %s\n' "$entry" && standards+=("$entry")
   done
   standards_path=$(
     IFS=','

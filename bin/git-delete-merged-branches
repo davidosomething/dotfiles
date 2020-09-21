@@ -3,5 +3,5 @@
 branches=$(git branch --no-color --merged | grep -v "\*" | grep -v master | grep -v svn)
 if [ -n "$branches" ]
 then
-    echo "$branches" | xargs -n 1 git branch -d
+    printf '%s' "$branches" | xargs -n 1 git branch -d
 fi

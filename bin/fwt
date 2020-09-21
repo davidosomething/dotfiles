@@ -30,12 +30,12 @@ __fwt() {
   key="$(head -1 <<< "$out")"
 
   if [[ "$key" == "ctrl-y" ]]; then
-    echo "$worktree" | tr -d '\n' | pbcopy
-    echo "\"${worktree}\" copied into clipboard"
+    printf '%s' "$worktree" | pbcopy
+    printf '"%s" copied into clipboard\n' "$worktree"
     return
   fi
 
   # remember, can't cd inside a script!
-  echo "$worktree"
+  printf '%s\n' "$worktree"
 }
 __fwt

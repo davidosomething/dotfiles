@@ -37,14 +37,14 @@ __fbrl() {
   local branch
   branch="$(head -2 <<< "$out" | tail -1)"
   branch="${branch//[[:blank:]]/}" # strip spaces
-  branch="$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
+  branch="$(printf '%s' "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
   [ -z "$branch" ] && return 1
 
   local key
   key="$(head -1 <<< "$out")"
   if [[ "$key" == "ctrl-y" ]]; then
-    echo "$branch" | tr -d '\n' | pbcopy
-    echo "\"${branch}\" copied into clipboard"
+    printf '%s' "$branch" | pbcopy
+    printf '"%s" copied into clipboard\n' "$branch"
     return
   fi
 
