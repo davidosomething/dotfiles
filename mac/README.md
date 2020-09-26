@@ -70,7 +70,6 @@ The bootstrap script symlinks the plist. You'll have to manually use
 
 - dropbox
     - Has app settings sync so wait for it to finish syncing.
-        - Including some `mackup` backups
     - If the shared directory is on an external volume, disable autostart and
       add [LoginItems/DelayedDropbox.app](LoginItems/DelayedDropbox.app) to
       your login items instead. It is a generic app made using Script Editor.
@@ -95,9 +94,16 @@ Install the rest of the packages from [cask.md](./cask.md) as desired.
 
 ## mackup
 
-A `.mackup.cfg` defines some app settings (such as the itsycal plist) that
-I don't keep version controlled (just in dropbox). Run `mackup restore` to
-restore them (`mackup` is in the Brewfile).
+`mackup` backs up application settings. It will be installed if using this
+repo's Brewfile.
+
+`dot.mackup.cfg` defines some app settings (such as the itsycal plist). It is
+symlinked to `~/.mackup.cfg` by `bootstrap/symlink`.
+
+Mackup is configured to use `~/.local/Mackup` as the storage location. On my
+system this is a symlink to a private settings repository.
+
+Run `mackup restore` to restore settings from that repository.
 
 ## Install GPGTools and import key
 
