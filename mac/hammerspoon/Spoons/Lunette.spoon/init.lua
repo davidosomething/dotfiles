@@ -82,19 +82,21 @@ DefaultMapping = {
 
 function obj.exec(commandName)
   local window = hs.window.focusedWindow()
+  if window == nil then
+    return
+  end
+
   local windowFrame = window:frame()
   local screen = window:screen()
   local screenFrame = screen:frame()
-  local currentFrame = window:frame()
   local newFrame
-
   if commandName == "undo" then
     newFrame = history.retrievePrevState()
   elseif commandName == "redo" then
     newFrame = history.retrieveNextState()
   else
     newFrame = Command[commandName](windowFrame, screenFrame)
-    history.push(currentFrame, newFrame)
+    history.push(windowFrame, newFrame)
   end
 
   window:setFrame(newFrame)
