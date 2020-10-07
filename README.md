@@ -165,6 +165,6 @@ For X apps (no terminal) the value may be:
 [pyenv-installer]: https://github.com/yyuu/pyenv-installer
 [pyenv-virtualenv]: https://github.com/pyenv/pyenv-virtualenv
 [pyenv]: https://github.com/pyenv/pyenv
-[screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/744f9dc096a240906d71af35cfe0eaad7d9c2abb/meta/terminal-potatonuc.png
+[screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/8fa3d6a738ed39ff2b8ba7a5d9126b59d895b538/meta/terminal-potatopro.png
 [/uses]: https://www.davidosomething.com/uses/
 
