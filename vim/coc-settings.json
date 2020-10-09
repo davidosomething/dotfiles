@@ -75,7 +75,7 @@
     "vim": [ "vint" ],
     "css": [ "stylelint" ],
     "dockerfile": [ "hadolint" ],
-    "markdown": [ "markdownlint" ],
+    "markdown": [ "markdownlint" ]
     // neomake is still better for shellcheck and bashate since we can read
     // shebang first
   },
@@ -144,6 +144,6 @@
   "javascript.validate.enable": false,
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
   "javascript.preferences.quoteStyle": "single",
-  "javascript.updateImportsOnFileMove.enable": false,
+  "javascript.updateImportsOnFileMove.enable": false
 
 }

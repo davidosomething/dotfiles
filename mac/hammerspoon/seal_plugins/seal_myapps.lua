@@ -33,13 +33,15 @@ local isPrefPane = function(item)
 end
 
 local getAppDisplayName = function(item, isItemPrefPane)
+  if item == nil then
+    return "(unknown)"
+  end
+
   local displayName = item.kMDItemDisplayName or hs.fs.displayName(item.kMDItemPath)
   displayName = displayName:gsub("%.app$", "", 1)
-
   if isItemPrefPane then
     return displayName .. " preferences"
   end
-
   return displayName
 end
 
