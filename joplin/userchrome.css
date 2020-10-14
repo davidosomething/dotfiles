@@ -16,6 +16,7 @@
   --mid-accent: hsla(200, 20%, 60%, 1);
 
   --notebook-section-size: 10px;
+  --sidebar-padding-x: 12px;
 }
 
 /* ======================================================================== */
@@ -27,20 +28,14 @@
 
 /* ======================================================================== */
 
-.side-bar {
-  background: var(--light-grey) !important;
-}
-
 /* All notes, Notebooks, Tags */
 .side-bar > div > div:not(.folders):not(.tags) {
-  color: var(--dark-grey) !important;
   font-size: var(--notebook-section-size) !important;
   font-weight: 700;
   height: 32px !important;
 }
 /* All Notes: Selected */
 .side-bar > div > div[style*="background-color"]:not(.folders):not(.tags) {
-  background-color: var(--mid-grey) !important;
 }
 /* Icon */
 .side-bar > div > div:not(.folders):not(.tags) > i { }
@@ -48,10 +43,8 @@
 .side-bar > div > div:not(.folders):not(.tags) > span {
   text-transform: uppercase;
 }
-
 .side-bar .list-item-container > a:not(.list-item),
 .side-bar .list-item {
-  color: var(--darker-grey) !important;
 }
 
 /* ======================================================================== */
@@ -63,7 +56,7 @@
 /* Notebook name and item count */
 .side-bar .folders .list-item {
   opacity: 1 !important;
-  padding-right: 12px;
+  padding-right: var(--sidebar-padding-x);
 }
 /* Align the count to the right */
 .side-bar .folders .list-item > div {
@@ -86,8 +79,7 @@
 
 .side-bar .tags .list-item {
   opacity: 1 !important;
-  padding-left: 26px !important;
-  padding-right: 12px;
+  padding-right: var(--sidebar-padding-x);
 }
 .side-bar .tags .list-item:before {
   content: '#';
@@ -105,11 +97,13 @@
 }
 
 /* ======================================================================== */
+/* Synchronize button */
 
-.synchronize-button {
-  background: var(--mid-grey) !important;
+.side-bar div:last-child button {
+  background: var(--darker-grey) !important;
   border: 0 !important;
-  color: var(--darker-grey) !important;
+  color: var(--mid-grey) !important;
+  cursor: pointer;
 }
 
 /* ======================================================================== */
