@@ -2,8 +2,6 @@
 	a       = add
 	aa      = add .
 
-	bl      = blame
-
 	b       = branch
 	be      = branch --edit-description
 	bv      = branch --verbose
@@ -13,8 +11,6 @@
 	co      = checkout
 	cb      = checkout -b
 	ct      = checkout --track
-	mas     = checkout master
-	master  = checkout master
 
 	ci      = commit
 	ca      = commit --amend
@@ -32,7 +28,6 @@
 	dns     = diff --ignore-all-space
 
 	fo      = fetch origin
-	fom     = fetch origin master
 
 	# https://caiustheory.com/git-git-git-git-git/
 	git     = !exec git
@@ -41,7 +36,6 @@
 
 	l       = log --abbrev-commit --date=short --pretty=ld
 	ll      = log --abbrev-commit --oneline --decorate --all
-	lm      = l --author="davidosomething"
 	lb      = log --abbrev-commit --oneline --decorate --all --graph
 	lg      = log --abbrev-commit           --decorate --all --graph
 	new     = log --no-merges --abbrev-commit --oneline         ORIG_HEAD..
@@ -51,10 +45,8 @@
 
 	m       = merge
 
-	pom     = pull --ff-only origin master
-	pullall = "!f() { git pull \"$@\" && git submodule update --init --recursive; }; f"
+	pullall = "!git pull \"$@\" && git submodule update --init --recursive"
 	pure    = pull --rebase
-	pum     = pull --ff-only upstream master
 
 	pf      = push --force-with-lease
 	poh     = push -u origin HEAD
@@ -63,10 +55,10 @@
 	rb      = rebase
 	rbc     = rebase --continue
 
-	rso     = remote show origin
+	rso = remote show origin
 	reorigin = remote set-url origin
 	reupstream = remote set-url upstream
-	rou     = "!f() { u="$(git remote get-url origin)"; [ -n "$u" ] && { git remote add upstream "$u" || git remote set-url upstream "$u"; }; }; f"
+	origin-to-upstream = "!f() { u="$(git remote get-url origin)"; [ -n "$u" ] && { git remote add upstream "$u" || git remote set-url upstream "$u"; }; }; f"
 
 	rehard  = reset --hard
 
