@@ -29,8 +29,10 @@ let s:vim_help = ['vim', 'help']
 function! s:ShowDocumentation()
   if (index(s:vim_help, &filetype) >= 0)
     execute 'h ' . expand('<cword>')
-  else
+  elseif (coc#rpc#ready())
     call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 

@@ -197,9 +197,11 @@ function! dkoplug#plugins#LoadAll() abort
   " Completion engine
   " --------------------------------------------------------------------------
 
+  " https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
   let g:coc_global_extensions = [
         \  'coc-calc',
         \  'coc-css',
+        \  'coc-cssmodules',
         \  'coc-diagnostic',
         \  'coc-docthis',
         \  'coc-eslint',
@@ -209,6 +211,7 @@ function! dkoplug#plugins#LoadAll() abort
         \  'coc-markdownlint',
         \  'coc-prettier',
         \  'coc-pyright',
+        \  'coc-sh',
         \  'coc-snippets',
         \  'coc-solargraph',
         \  'coc-tsserver',
@@ -329,6 +332,9 @@ function! dkoplug#plugins#LoadAll() abort
   "     it also has a node ftdetect
   " 2.  After syntax, ftplugin, indent for JSX
   Plug 'pangloss/vim-javascript'
+
+  " YUEZK MODE - same maintainer as maxmellon/vim-jsx-pretty
+  "Plug 'yuezk/vim-js'
 
   " YAJS MODE
   " 1.  yajs.vim highlighting is a little more robust than the pangloss one.
