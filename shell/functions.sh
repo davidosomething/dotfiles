@@ -116,3 +116,11 @@ mykey() {
     echo "Copied to clipboard"
   fi
 }
+
+# useful for finding things like INSECURE keys (acceptable: RSA 4096 or Ed25519)
+sshlistkeys() {
+  for keyfile in ~/.ssh/id_*; do
+    ssh-keygen -l -f "${keyfile}"
+  done | uniq
+}
+
