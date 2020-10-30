@@ -90,7 +90,7 @@ zinit lucid from'gh-r' as'program' for \
   mv'shfmt* -> shfmt'       '@mvdan/sh'         \
   \
   mv'zoxide* -> zoxide' \
-  atload'eval "$(zoxide init --cmd j --no-aliases zsh)"' \
+  atload'eval "$(zoxide init --no-aliases zsh)" && alias j=__zoxide_z' \
   'ajeetdsouza/zoxide' \
   \
   mv'ripgrep* -> rg' pick'rg/rg' \
