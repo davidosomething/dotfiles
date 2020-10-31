@@ -211,6 +211,7 @@ function! dkoplug#plugins#LoadAll() abort
         \  'coc-markdownlint',
         \  'coc-prettier',
         \  'coc-pyright',
+        \  'coc-sh',
         \  'coc-snippets',
         \  'coc-solargraph',
         \  'coc-tsserver',
@@ -253,7 +254,9 @@ function! dkoplug#plugins#LoadAll() abort
   " Upstreams
   Plug 'chrisbra/vim-sh-indent'
   Plug 'chrisbra/vim-zsh'
-  Plug 'tjdevries/coc-zsh'
+
+  " Freezes up on completion
+  "Plug 'tjdevries/coc-zsh'
 
   " ==========================================================================
   " Language: D
