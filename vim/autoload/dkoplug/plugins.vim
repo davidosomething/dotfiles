@@ -211,7 +211,6 @@ function! dkoplug#plugins#LoadAll() abort
         \  'coc-markdownlint',
         \  'coc-prettier',
         \  'coc-pyright',
-        \  'coc-sh',
         \  'coc-snippets',
         \  'coc-solargraph',
         \  'coc-tsserver',
