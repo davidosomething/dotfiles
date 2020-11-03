@@ -93,3 +93,19 @@ members() {
 vol() {
   __dko_has "osascript" && osascript -e "set volume ${1}"
 }
+
+# ============================================================================
+# Require ddcctl https://github.com/kfix/ddcctl
+# ============================================================================
+
+ddcctl-hdmi1() {
+  __dko_has ddcctl && ddcctl -d 1 -i 17
+}
+
+ddcctl-hdmi2() {
+  __dko_has ddcctl && ddcctl -d 1 -i 18
+}
+
+ddcctl-dp() {
+  __dko_has ddcctl && ddcctl -d 1 -i 15
+}
