@@ -47,7 +47,7 @@ PATH="${HOME}/.iterm2:${PATH}"
 # list installed brew and deps
 # https://zanshin.net/2014/02/03/how-to-list-brew-dependencies/
 bwhytree() {
-  brew list | while read c; do
+  brew list -1 | while read c; do
     echo -n "\e[1;34m${c} -> \e[0m"
     brew deps "$c" | awk '{printf(" %s ", $0)}'
     echo ""
