@@ -51,8 +51,6 @@ __symlink() {
     ".config/git/ignore"
   dko-symlink "hyper-app/dot.hyper.js" \
     ".config/hyper/.hyper.js"
-  dko-symlink "joplin/userchrome.css" \
-    ".config/joplin-desktop/userchrome.css"
   dko-symlink "markdownlint/dot.markdownlintrc" \
     ".config/markdownlint"
   dko-symlink "node/default-packages" \
