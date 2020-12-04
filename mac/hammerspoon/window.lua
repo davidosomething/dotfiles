@@ -1,6 +1,7 @@
 ---
 -- Spectacle.app style window management
 -- https://github.com/scottwhudson/Lunette
+print "== window"
 hs.loadSpoon("Lunette")
 spoon.Lunette:bindHotkeys({
   leftHalf = {
@@ -31,14 +32,6 @@ spoon.Lunette:bindHotkeys({
   shrink = {
     {hyper, "down"},
   },
-  undo = {
-    {hyper, "Z"},
-  },
-  redo = {
-    {hyper, "Y"},
-  },
-  nextDisplay = false,
-  prevDisplay = false,
 })
 
 hs.hotkey.bind(hyper, ']', function()

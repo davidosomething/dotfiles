@@ -208,6 +208,7 @@ function! dkoplug#plugins#LoadAll() abort
         \  'coc-git',
         \  'coc-html',
         \  'coc-json',
+        \  'coc-lua',
         \  'coc-markdownlint',
         \  'coc-prettier',
         \  'coc-pyright',

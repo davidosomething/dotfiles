@@ -148,28 +148,4 @@ function obj.prevThird(windowFrame, screenFrame)
   return Resize.leftThird(windowFrame, screenFrame)
 end
 
-function obj.nextDisplay(windowFrame, _)
-  local currentWindow = hs.window.focusedWindow()
-  local currentScreen = currentWindow:screen()
-  local nextScreen = currentScreen:next()
-  local nextScreenFrame = nextScreen:frame()
-
-  if Validate.inScreenBounds(windowFrame, nextScreenFrame) then
-    return Resize.center(windowFrame, nextScreenFrame)
-  end
-  return Resize.fullScreen(windowFrame, nextScreenFrame)
-end
-
-function obj.prevDisplay(windowFrame, _)
-  local currentWindow = hs.window.focusedWindow()
-  local currentScreen = currentWindow:screen()
-  local prevScreen = currentScreen:previous()
-  local prevScreenFrame = prevScreen:frame()
-
-  if Validate.inScreenBounds(windowFrame, prevScreenFrame) then
-    return Resize.center(windowFrame, prevScreenFrame)
-  end
-  return Resize.fullScreen(windowFrame, prevScreenFrame)
-end
-
 return obj

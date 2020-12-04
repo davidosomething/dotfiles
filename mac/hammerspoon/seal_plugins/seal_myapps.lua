@@ -33,12 +33,23 @@ local isPrefPane = function(item)
 end
 
 local getAppDisplayName = function(item, isItemPrefPane)
+  local unknown = "(unknown)"
+
   if item == nil then
-    return "(unknown)"
+    return unknown
   end
 
-  local displayName = item.kMDItemDisplayName or hs.fs.displayName(item.kMDItemPath)
+  local displayName = item.kMDItemDisplayName
+  if displayName == nil and item.kMDItemPath then
+    displayName = hs.fs.displayName(item.kMDItemPath)
+  end
+
+  if not displayName or displayName == '' then
+    return unknown
+  end
+
   displayName = displayName:gsub("%.app$", "", 1)
+
   if isItemPrefPane then
     return displayName .. " preferences"
   end
@@ -80,10 +91,12 @@ end
 
 local modifyNameMap = function(info, add)
   for _, item in ipairs(info) do
-    if add then
-      addItem(item)
-    else
-      removeItem(item)
+    if item then
+      if add then
+        addItem(item)
+      else
+        removeItem(item)
+      end
     end
   end
 end
