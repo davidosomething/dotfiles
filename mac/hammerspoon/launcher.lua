@@ -17,17 +17,25 @@ hs.hotkey.bind(hyper, 'b', function()
   hs.application.launchOrFocus("Bitwarden")
 end)
 
-hs.hotkey.bind(hyper, 'c', function()
-  hs.application.launchOrFocus("Google Chrome")
-end)
+-- C is for caffeine
 
 hs.hotkey.bind(hyper, 'd', function()
   hs.application.launchOrFocus("Discord")
 end)
 
+-- f for lunette
+
+hs.hotkey.bind(hyper, 'g', function()
+  hs.application.launchOrFocus("Google Chrome")
+end)
+
+-- h for lunette
+
 hs.hotkey.bind(hyper, 'i', function()
   hs.application.launchOrFocus("iTerm")
 end)
+
+-- jkl for lunette
 
 hs.hotkey.bind(hyper, 'n', function()
   hs.application.launchOrFocus("Joplin")
