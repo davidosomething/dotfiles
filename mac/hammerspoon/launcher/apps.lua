@@ -1,13 +1,7 @@
 ---
--- App launcher
--- http://www.hammerspoon.org/Spoons/Seal.html
-print "== launcher"
-hs.loadSpoon("Seal")
-spoon.Seal:loadPlugins({ "calc", "myapps" })
-spoon.Seal:bindHotkeys({
-  show = {{"cmd"}, "Space"}
-})
-spoon.Seal:start()
+-- Generic app keybinds
+
+print "== launcher.apps"
 
 hs.hotkey.bind(hyper, 'a', function()
   hs.application.launchOrFocus("Authy Desktop")
@@ -44,3 +38,5 @@ end)
 hs.hotkey.bind(hyper, 's', function()
   hs.application.launchOrFocus("Slack")
 end)
+
+return nil

@@ -25,8 +25,8 @@ function! dko#neomake#echint#Setup() abort
     let l:safe_ft = neomake#utils#get_ft_confname(l:ft)
     let l:neomake_var = 'neomake_' . l:safe_ft . '_echint_maker'
     if !exists('g:' . l:neomake_var) | continue | endif
-    let b:neomake_{l:neomake_var} = copy(g:{l:neomake_var})
-    let b:neomake_{l:neomake_var}.cwd = l:cwd
+    let b:{l:neomake_var} = copy(g:{l:neomake_var})
+    let b:{l:neomake_var}.cwd = l:cwd
     if get(b:, 'echint_enabled', 1) " enabled by default
       call dko#neomake#AddMaker(l:ft, 'echint')
     endif

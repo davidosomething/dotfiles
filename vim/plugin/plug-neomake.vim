@@ -60,7 +60,6 @@ if dkoplug#IsLoaded('coc.nvim')
   let g:neomake_css_enabled_makers = []
   let g:neomake_dockerfile_enabled_makers = []
   let g:neomake_javascript_enabled_makers = []
-  let g:neomake_lua_enabled_makers = []
   let g:neomake_markdown_enabled_makers = []
   let g:neomake_vim_enabled_makers = []
 endif

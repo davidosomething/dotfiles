@@ -5,8 +5,9 @@ setlocal nowrap
 
 setlocal comments-=:-- comments+=:---,:--
 
-let &l:makeprg = 'luacheck '
+let &l:makeprg = 'cd %:p:h && luacheck '
       \. '--no-color '
       \. '--formatter plain '
       \. '--ranges '
       \. '--codes '
+      \. '%'

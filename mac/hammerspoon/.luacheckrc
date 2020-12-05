@@ -1,12 +1,15 @@
 std = "max"
 
+globals = {
+	"hyper",
+}
+
 --
 -- Read-only globals
 --
 read_globals = {
 	"assertIsEqual",
 	"hs",
-	"hyper",
 	"ls",
 	"rawrequire",
 	"spoon",

@@ -45,10 +45,6 @@
   // =========================================================================
 
   "languageserver": {
-    "lua": {
-      "command": "lua-lsp",
-      "filetypes": ["lua"]
-    },
     "sorbet": {
       "command": "srb",
       "args": ["tc", "--lsp", "--enable-all-experimental-lsp-features"],
