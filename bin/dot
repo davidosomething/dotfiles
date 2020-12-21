@@ -633,15 +633,11 @@ __dko_dotfiles__darwin__update_brew() {
     __dko_dotfiles__cd || exit 1
     __dko_dotfiles__pyenv_system
 
-    # Brew some makefiles like macvim use tput for output so need to reset
-    # from xterm-256color-italic I use in iterm
-
-    TERM="xterm-256color" brew update
+    brew update
 
     # check if needed
     local outdated
     outdated="$(brew outdated --quiet)"
-
     [[ -z "$outdated" ]] && {
       __dko_ok "Packages up-to-date"
       exit
@@ -649,7 +645,9 @@ __dko_dotfiles__darwin__update_brew() {
 
     # Upgrade remaining
     __dko_status "Upgrading packages"
-    TERM="xterm-256color" brew upgrade
+    brew upgrade
+    __dko_ok "Upgrade complete"
+
     __dko_dotfiles__darwin__update_brew_postupgrade "$outdated"
   ) && {
     __dko_status "Clean up old versions and prune dead symlinks"
@@ -684,14 +682,14 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
     readonly phpimagick="$(brew list --formula -1 | grep 'php.*imagick')"
     if [[ -n "$phpimagick" ]]; then
       __dko_status "Rebuilding ${phpimagick} for new imagemagick"
-      TERM="xterm-256color" brew reinstall --build-from-source "$phpimagick"
+      brew reinstall --build-from-source "$phpimagick"
     fi
   fi
 
   # Detect if brew's python3 (not pyenv) was outdated
   if grep -q "python3" <<<"$outdated"; then
     __dko_status "Python3 was outdated, upgrading python3"
-    TERM="xterm-256color" brew upgrade python3
+    brew upgrade python3
   fi
 
   __dko_ok "Post-upgrade complete"
