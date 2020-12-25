@@ -4,6 +4,11 @@
 
 print("======================================================================")
 
+hs.autoLaunch(true)
+hs.consoleOnTop(false)
+hs.dockIcon(false)
+hs.menuIcon(true)
+
 hyper = {"⌘", "⌃", "⇧"}
 
 local mods = {}
