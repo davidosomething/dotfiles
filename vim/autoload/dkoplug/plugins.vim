@@ -18,6 +18,14 @@ function! dkoplug#plugins#LoadAll() abort
   " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
 
   " ==========================================================================
+  " Fixes
+  " ==========================================================================
+
+  " Fix CursorHold
+  " https://github.com/neovim/neovim/issues/12587
+  Plug 'antoinemadec/FixCursorHold.nvim', PlugIf(has('nvim'))
+
+  " ==========================================================================
   " Vim debugging
   " ==========================================================================
 
