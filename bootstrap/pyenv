@@ -17,7 +17,7 @@ fi
 # ============================================================================
 
 __dko_has 'pyenv' || {
-  __dko_error 'pyenv is not installed'
+  __dko_err 'pyenv is not installed'
   exit 1
 }
 
