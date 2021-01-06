@@ -21,8 +21,20 @@ export PATH="${DOTFILES}/bin:${PATH}"
 # check prereqs
 # ============================================================================
 
-__dko_require 'brew' || exit 1
-__dko_require 'xcrun' || exit 1
+open -Ra 'Xcode' || {
+  __dko_err "Missing Xcode, install from App Store"
+  exit 1
+}
+
+__dko_require 'xcrun' || {
+  __dko_err "Missing Xcode Command Line Tools, install via Xcode"
+  exit 1
+}
+
+__dko_require 'brew' || {
+  __dko_err "Missing brew, install as on https://brew.sh"
+  exit 1
+}
 
 "${DOTFILES}/bootstrap/symlink" || exit 1
 "${DOTFILES}/bootstrap/cleanup" || exit 1
@@ -113,12 +125,20 @@ __dko_status "Installing fzf shell extensions"
 
 _bootstrap_shell() {
   local usershell
-  local zshpath
-  __dko_status "Setting user shell to brewed zsh using dscl"
 
-  zshpath="${DKO_BREW_PREFIX}/bin/zsh"
+  local zshpath="${DKO_BREW_PREFIX}/bin/zsh"
   [ -x "$zshpath" ] || return 1
 
+  grep "$zshpath" /etc/shells || {
+    __dko_status "Add brewed zsh to /etc/shells"
+    sudo echo "$zshpath" >> /etc/shells
+  }
+  grep "$zshpath" /etc/shells || return 1
+
+  __dko_status "Set user shell to brewed zsh using chsh"
+  chsh -s "$zshpath" || return 1
+
+  __dko_status "Set user shell to brewed zsh using dscl"
   usershell="$(dscl . -read "/Users/${USER}" UserShell)"
   if [[ "$usershell" != "UserShell: ${zshpath}" ]]; then
     __dko_ok "Already using brewed zsh"

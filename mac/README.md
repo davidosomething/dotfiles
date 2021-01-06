@@ -22,7 +22,7 @@ everything.
 
     - [Display Menu]: Set higher/native resolutions
     - [Xcode]: select CLI tools in prefs
-    - This is __required__ to build some apps like neovim@HEAD
+        - This is __required__ to build some apps like neovim@HEAD
 
 ## Install homebrew
 
