@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# https://boinkor.net/2017/11/enabling-the-f4-key-in-macos/
-
-defaults write ~/Library/Preferences/com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add 96 '{enabled = 1; value = {parameters = (96); type = standard; }; }'

@@ -32,14 +32,15 @@ export NPMRC_STORE="${HOME}/.local/npmrcs"
 
 export NVM_SYMLINK_CURRENT=true
 
-# FNM_DIR="${XDG_CONFIG_HOME}/fnm"
-# if [ -d "$FNM_DIR" ]; then
-#   export FNM_DIR
-#   PATH="${FNM_DIR}:${PATH}"
-#   eval "$(fnm env)"
-# else
-# custom NVM_DIR so we don't pollute home
-export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
+FNM_DIR="${XDG_CONFIG_HOME}/fnm"
+if [ -d "$FNM_DIR" ]; then
+  export FNM_DIR
+  PATH="${FNM_DIR}:${PATH}"
+  eval "$(fnm env)"
+else
+  #custom NVM_DIR so we don't pollute home
+  export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
+fi
 
 # using nvm? -- store default version for prompt compare
 __dko_source "${NVM_DIR}/nvm.sh" && DKO_SOURCE="${DKO_SOURCE} -> nvm"

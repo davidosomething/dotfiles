@@ -21,7 +21,6 @@ brew "fzf"
 brew "git"
 brew "highlight"
 brew "jsonpp"
-brew "shyiko/ktlint/ktlint"
 brew "kubectx"
 brew "launchctl-completion"
 brew "lynx"
@@ -42,7 +41,7 @@ brew "rust"
 brew "shellcheck"
 brew "ssh-copy-id"
 brew "sqlite3" # for pyenv
-brew "swiftlint"
+#brew "swiftlint" # requires full xcode!
 brew "switchaudio-osx"
 brew "telnet"
 brew "tidy-html5"
@@ -59,7 +58,7 @@ brew "zlib" # for pyenv
 brew "zsh"
 #cask "dropbox" # no shasum!
 cask "firefox"
-cask "font-firamono-nerd-font"
+cask "font-fira-mono-nerd-font"
 #cask "google-chrome" # shasum invalidates frequently
 cask "hammerspoon"
 cask "iterm2"
