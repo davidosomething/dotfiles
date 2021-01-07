@@ -11,17 +11,12 @@ obj.appSearchPaths = {
   "/Applications",
   "/System/Applications",
   "~/Applications",
-  "/Developer/Applications",
   "/Applications/Xcode.app/Contents/Applications",
   "/Applications/Xcode.app/Contents/Developer/Applications",
   "/System/Library/PreferencePanes",
   "/Library/PreferencePanes",
   "~/Library/PreferencePanes",
-  "/System/Library/CoreServices/Applications",
-  "/System/Library/CoreServices/",
   "/usr/local/Cellar",
-  "/Library/Scripts",
-  "~/Library/Scripts"
 }
 
 local isPrefPane = function(item)
