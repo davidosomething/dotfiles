@@ -7,7 +7,7 @@
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
 export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 
-. "${HOME}/.dotfiles/shell/dot.profile"
+. "${DOTFILES}/shell/dot.profile"
 
 # ============================================================================
 # nocorrect aliases

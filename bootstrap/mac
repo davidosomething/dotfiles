@@ -3,8 +3,6 @@
 # Idempotently set up macOS
 #
 
-[[ "$OSTYPE" == *'arwin'* ]] || exit 1
-
 # ============================================================================
 # initialize script and dependencies
 # ============================================================================
@@ -17,12 +15,10 @@ fi
 . "${DOTFILES}/lib/pretty.bash"
 export PATH="${DOTFILES}/bin:${PATH}"
 
-# ============================================================================
-# Fix some perms
-# ============================================================================
-
-sudo chmod g-w /usr/local/share/zsh/site-functions
-sudo chmod g-w /usr/local/share/zsh
+[[ "$OSTYPE" == *'arwin'* ]] || {
+  __dko_err "This script is for Darwin only"
+  exit 1
+}
 
 # ============================================================================
 # check prereqs
@@ -46,11 +42,39 @@ __dko_require 'brew' || {
 "${DOTFILES}/bootstrap/symlink" || exit 1
 "${DOTFILES}/bootstrap/cleanup" || exit 1
 
-dotfiles_plist="${HOME}/Library/LaunchAgents/dotfiles.plist"
-if [ ! -f "$(readlink "$dotfiles_plist")" ]; then
-  __dko_err "dotfiles.plist not symlinked. Run bootstrap/symlink!"
-  exit 1
+# ============================================================================
+# zsh fixes
+# ============================================================================
+
+# compaudit will detect these
+__dko_status "Fixing zsh directory perms (sudo)"
+sudo chmod g-w /usr/local/share/zsh/site-functions
+sudo chmod g-w /usr/local/share/zsh
+
+# See https://github.com/postmodern/chruby/issues/196#issuecomment-23826171
+if [ -f /etc/zshenv ] && [ ! -f /etc/zprofile ]; then
+  __dko_status "Moving /etc/zshenv to /etc/zprofile (sudo)"
+  sudo mv /etc/zshenv /etc/zprofile
+else
+  __dko_ok "/etc/zshenv not present"
 fi
+
+# ============================================================================
+# plist
+# ============================================================================
+
+_bootstrap_plist() {
+  dotfiles_plist="${HOME}/Library/LaunchAgents/dotfiles.plist"
+  [ ! -f "$(readlink "$dotfiles_plist")" ] && {
+    __dko_err "dotfiles.plist not symlinked. Run bootstrap/symlink!"
+    return 1
+  }
+
+  __dko_status "Reloading dotfiles.plist"
+  launchctl unload "$dotfiles_plist" 2>/dev/null
+  launchctl load "$dotfiles_plist"
+}
+_bootstrap_plist || exit 1
 
 # ============================================================================
 # sdks
@@ -80,7 +104,7 @@ _bootstrap_sdks() {
       return 1
     fi
 
-    __dko_status "Installing SDK headers..."
+    __dko_status "Installing SDK headers... (sudo)"
     sudo installer -allowUntrusted -verbose -pkg "$headers_pkg" -target / || {
       __dko_warn "Could not install SDK headers"
     }
@@ -90,26 +114,6 @@ _bootstrap_sdks() {
 }
 __dko_status "Re-bootstrapping SDKs (required to install python on 10.14+)"
 _bootstrap_sdks || exit 1
-
-# ============================================================================
-# plist
-# ============================================================================
-
-__dko_status "Reloading dotfiles.plist"
-launchctl unload "$dotfiles_plist" 2>/dev/null
-launchctl load "$dotfiles_plist"
-
-# ============================================================================
-# zsh fixes
-# ============================================================================
-
-# See https://github.com/postmodern/chruby/issues/196#issuecomment-23826171
-if [ -f /etc/zshenv ] && [ ! -f /etc/zprofile ]; then
-  __dko_status "Moving /etc/zshenv to /etc/zprofile"
-  sudo mv /etc/zshenv /etc/zprofile
-else
-  __dko_ok "/etc/zshenv not present"
-fi
 
 # ============================================================================
 # vendor
@@ -137,7 +141,7 @@ _bootstrap_shell() {
   [ -x "$zshpath" ] || return 1
 
   grep "$zshpath" /etc/shells || {
-    __dko_status "Add brewed zsh to /etc/shells"
+    __dko_status "Add brewed zsh to /etc/shells (sudo)"
     sudo echo "$zshpath" >> /etc/shells
   }
   grep "$zshpath" /etc/shells || return 1
@@ -145,7 +149,7 @@ _bootstrap_shell() {
   __dko_status "Set user shell to brewed zsh using chsh"
   chsh -s "$zshpath" || return 1
 
-  __dko_status "Set user shell to brewed zsh using dscl"
+  __dko_status "Set user shell to brewed zsh using dscl (sudo)"
   usershell="$(dscl . -read "/Users/${USER}" UserShell)"
   if [[ "$usershell" != "UserShell: ${zshpath}" ]]; then
     __dko_ok "Already using brewed zsh"
