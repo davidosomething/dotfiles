@@ -20,7 +20,7 @@ PATH="${DKO_BREW_PREFIX}/opt/go/libexec/bin:${PATH}"
 PATH="${DKO_BREW_PREFIX}/opt/git/share/git-core/contrib/git-jump:${PATH}"
 
 # prefer homebrewed lua@5.1
-command -v luarocks >/dev/null &&
+[ -x ${DKO_BREW_PREFIX}/bin/luarocks ] &&
   [ -d "${DKO_BREW_PREFIX}/opt/lua@5.1" ] &&
   {
     export DKO_LUA_DIR="${DKO_BREW_PREFIX}/opt/lua@5.1"
@@ -28,6 +28,8 @@ command -v luarocks >/dev/null &&
     alias luarocks='luarocks --lua-dir="$DKO_LUA_DIR"'
   }
 
+# @TODO recheck this for Big Sur
+# https://github.com/pyenv/pyenv/issues/1746
 # Allow pyenv to use custom openssl from brew
 [ -d "${DKO_BREW_PREFIX}/opt/openssl/lib" ] &&
   export LDFLAGS="-L${DKO_BREW_PREFIX}/opt/openssl/lib"
@@ -82,7 +84,7 @@ ios() {
 }
 
 addjavas() {
-  command -v jenv || return 1
+  __dko_has "jenv" || return 1
   for path_to_jdk in $(ls -d /Library/Java/JavaVirtualMachines/*/Contents/Home); do
     jenv add $path_to_jdk
   done
