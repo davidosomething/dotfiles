@@ -143,7 +143,7 @@ command! FZFTests
 
 " ----------------------------------------------------------------------------
 " FZFGrepper
-" fzf.vim ripgrep or ag with preview (requires ruby, but safely checks for it)
+" fzf.vim ripgrep or ag with preview
 " Fallback to git-grep if rg and ag not installed (e.g. I'm ssh'ed somewhere)
 " https://github.com/junegunn/fzf.vim#advanced-customization
 " ----------------------------------------------------------------------------
