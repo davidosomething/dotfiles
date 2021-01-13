@@ -35,6 +35,7 @@ __dko_dotfiles__usage() {
     daily       -- secret, Packages / Developer Tools, fzf, nvm, pyenv
 
   Shell Tools
+    fnm         -- update fnm installation
     fzf         -- update fzf with flags to not update rc scripts
     node        -- install latest node via nvm
     nvm         -- update nvm installation
@@ -112,11 +113,8 @@ __dko_dotfiles__update_daily() {
     __dko_warn "fzf is not installed"
   fi
 
-  if [ -d "$FNM_DIR" ]; then
-    __dko_dotfiles__node__update_fnm
-  elif [ -d "$NVM_DIR" ]; then
-  __dko_dotfiles__node__update_nvm
-  fi
+  [ -d "$NVM_DIR" ] && __dko_dotfiles__node__update_nvm
+  [ -d "$FNM_DIR" ] && __dko_dotfiles__node__update_fnm
 
   __dko_dotfiles__go__require_go && __dko_dotfiles__go__update_go_packages
 
