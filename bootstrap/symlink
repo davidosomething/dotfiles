@@ -53,7 +53,8 @@ __symlink() {
     ".config/hyper/.hyper.js"
   dko-symlink "markdownlint/dot.markdownlintrc" \
     ".config/markdownlint"
-  dko-symlink "node/default-packages" \
+  [ ! -d "$FNM_DIR" ] &&
+    dko-symlink "node/default-packages" \
     ".config/nvm/default-packages"
   dko-symlink "shell/dot.inputrc" \
     ".config/readline/inputrc"
