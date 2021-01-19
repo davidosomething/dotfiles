@@ -11,6 +11,9 @@ OpenBSD) export DOTFILES_OS="OpenBSD" ;;
   # for pacdiff
   export DIFFPROG="nvim -d"
 
+  # for gnupg
+  export GPG_TTY="$(tty)"
+
   # X11 - for starting via xinit or startx
   export XINITRC="${DOTFILES}/linux/.xinitrc"
   export XAPPLRESDIR="${DOTFILES}/linux"
