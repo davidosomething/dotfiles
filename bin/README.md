@@ -53,10 +53,6 @@ Draw a terminal-width line using `=`
 
 Check for directory, prompt to create if it doesn't exist
 
-## dko-nvm-node-version
-
-Quickly get the node version in use by NVM by checking path
-
 ## dko-open
 
 `open` or `xdg-open`

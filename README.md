@@ -48,8 +48,7 @@ scripts.
   ruby-install --latest ruby
   ```
 
-- For user-land node, install [nvm] MANUALLY via git clone into
-  `$XDG_CONFIG_HOME`, then use it to install a version of `node`
+- For user-land node, install [fnm] using [bootstrap/fnm](bootstrap/fnm)
 - `php`, `composer`, use composer to install `wp-cli`
 - For user-land python, use [pyenv-installer] to install [pyenv] and
   [pyenv-virtualenv].
@@ -70,7 +69,7 @@ environment set up first.
 - [bootstrap/symlink](bootstrap/symlink) symlinks rc files for bash, ZSH,
   ack, (Neo)vim, etc.
 - [node/install](node/install) install default packages, requires you set up
-  [nvm] and install node first
+  [fnm] and install node first
 - [ruby/install-default-gems](ruby/install-default-gems) requires you set up
   [chruby] and install a ruby first.
 - [python/install](python/install) installs default pip packages. Requires
@@ -161,7 +160,7 @@ For X apps (no terminal) the value may be:
 [google shell style]: https://google.github.io/styleguide/shell.xml
 [grawity's notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
-[nvm]: https://github.com/nvm-sh/nvm
+[fnm]: https://github.com/Schniz/fnm
 [pyenv-installer]: https://github.com/yyuu/pyenv-installer
 [pyenv-virtualenv]: https://github.com/pyenv/pyenv-virtualenv
 [pyenv]: https://github.com/pyenv/pyenv
