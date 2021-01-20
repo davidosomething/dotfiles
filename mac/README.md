@@ -133,9 +133,9 @@ operation. Use the `bi` alias for a clean room install if possible.
   1. `ruby-install ruby` to install latest
   1. `chruby` to that version
   1. Install gems using [ruby/install-default-gems](../ruby/install-default-gems)
-- Install [nvm] MANUALLY via git clone into `$XDG_CONFIG_HOME`, then use it to
-  install a version of `node` (and `npm`)
-  1. Use nvm managed node
+- Install [fnm] using [bootstrap/fnm](../bootstrap/fnm) and install a version
+  of `node` (and `npm`)
+  1. Use fnm managed node
   1. Install the default packages using [node/install](../node/install)
 - Install [pyenv] using `pyenv-installer` (rm `~/.local/pyenv` directory for
   clean install) and make sure to use the libs provided by brew. See the
@@ -149,7 +149,7 @@ operation. Use the `bi` alias for a clean room install if possible.
      compatibility first if it's needed (e.g. ansible is not 3.8.x ready).
 
 
-[nvm]: https://github.com/nvm-sh/nvm
+[fnm]: https://github.com/Schniz/fnm
 [pyenv]: https://github.com/pyenv/pyenv
 [unlock]: https://github.com/davidosomething/Unlock
 [Display Menu]: https://apps.apple.com/us/app/display-menu/id549083868?mt=12
