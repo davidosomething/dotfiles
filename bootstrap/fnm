@@ -2,7 +2,7 @@
 
 FNM_DIR="${XDG_CONFIG_HOME}/fnm"
 export FNM_DIR
-if [ -z "$FNM_DIR" ]; then
+if [ ! -d "$FNM_DIR" ]; then
   curl https://raw.githubusercontent.com/Schniz/fnm/master/.ci/install.sh |
     bash -s -- \
       --install-dir "$FNM_DIR" \
