@@ -31,6 +31,7 @@ __dko_has 'pyenv' && {
   eval "$(pyenv init -)"
   # should have pyenv-virtualenv plugin if installed via pyenv-installer
   __dko_has 'pyenv-virtualenv-init' && eval "$(pyenv virtualenv-init -)"
+  export PIPX_DEFAULT_PYTHON="${PYENV_ROOT}/shims/python"
 }
 
 # ==============================================================================

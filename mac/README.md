@@ -142,9 +142,7 @@ operation. Use the `bi` alias for a clean room install if possible.
   packages marked "for pyenv" in the [Brewfile](./Brewfile)
   1. Install the latest python using using
      [bootstrap/pyenv](../bootstrap/pyenv). This will also create a `neovim3`
-     virtualenv. It uses [bin/mac-pyenv-install](../bin/mac-pyenv-install) to
-     correctly set the SDK (which should have been installed by the mac
-     bootstrapper).
+     virtualenv.
   1. Set up the global pyenv as the latest stable (3.x). Check ansible
      compatibility first if it's needed (e.g. ansible is not 3.8.x ready).
 

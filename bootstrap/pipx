@@ -16,12 +16,18 @@ fi
 
 # ============================================================================
 
+__dko_has 'pyenv' || {
+  __dko_err 'pyenv is not installed'
+  exit 1
+}
+
 __dko_has 'pipx' || {
-  __dko_error 'pipx is not installed'
+  __dko_err 'pipx is not installed'
   exit 1
 }
 
 __main() {
+  export PIPX_DEFAULT_PYTHON="${PYENV_ROOT}/shims/python"
   while read -r package; do
     pipx install "$package"
   done < "${DOTFILES}/bootstrap/pipx-packages"

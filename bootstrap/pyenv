@@ -21,6 +21,16 @@ __dko_has 'pyenv' || {
   exit 1
 }
 
+__mac_pyenv_install() {
+  local product_version
+  local product_minor
+  product_version="$(sw_vers -productVersion)"
+  product_minor="${product_version%.*}"
+
+  SDKROOT="/Library/Developer/CommandLineTools/SDKs/MacOSX${product_minor}.sdk" \
+    MACOSX_DEPLOYMENT_TARGET="$product_minor" \
+    pyenv install "$1"
+}
 
 __create_neovim_venv() {
   local __versions
@@ -36,12 +46,11 @@ __create_neovim_venv() {
     __dko_ok "${name} exists"
 
   elif ! grep -q "$version" <<< "$__versions"; then
-    local pyenv_install="pyenv install"
-
-    [[ "$OSTYPE" == *'arwin'* ]] &&
-      pyenv_install="${DOTFILES}/bin/mac-pyenv-install"
-
-    "$pyenv_install" "$version" || return 1
+    if [[ "$OSTYPE" == *'arwin'* ]]; then
+      __mac_pyenv_install "$version" || return 1
+    else
+      pyenv install "$version" || return 1
+    fi
   fi
 
   __dko_status "Creating ${name} and installing pynvim"
