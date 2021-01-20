@@ -70,6 +70,8 @@ __clean_nvm() {
     return 1
   }
 
+  [ -d "$FNM_DIR" ] && return 0
+
   dko-maybemkdir "${NVM_DIR}" || return 1
   __move "${XDG_CONFIG_HOME}/.nvm" "$NVM_DIR"
   __move "${HOME}/.nvm" "$NVM_DIR"
