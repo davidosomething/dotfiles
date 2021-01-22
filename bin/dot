@@ -354,7 +354,7 @@ __dko_dotfiles__node__update_fnm() {
 
       if __dko_has brew; then
         if __dko_has fnm; then
-          brew upgrade --verbose fnm
+          brew upgrade fnm
         else
           brew install --verbose fnm
         fi
@@ -680,7 +680,7 @@ __dko_dotfiles__darwin__update_brew() {
     # Upgrade remaining
     __dko_status "brew upgrade"
     # We'll manually cleanup later
-    HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade --verbose || exit 1
+    HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade || exit 1
     __dko_ok "Upgrade complete"
 
     __dko_dotfiles__darwin__update_brew_postupgrade "$outdated"
@@ -724,7 +724,7 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
   # Detect if brew's python3 (not pyenv) was outdated
   if grep -q "python3" <<<"$outdated"; then
     __dko_status "Python3 was outdated, upgrading python3"
-    brew upgrade --verbose python3
+    brew upgrade python3
   fi
 
   __dko_ok "Post-upgrade complete"
