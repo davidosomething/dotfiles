@@ -338,6 +338,8 @@ __dko_dotfiles__update_node() {
 # ----------------------------------------------------------------------------
 
 __dko_dotfiles__node__update_fnm() {
+  __dko_status "Updating fnm"
+
   [ -d "$FNM_DIR" ] || {
     __dko_err "FNM_DIR not set, install dotfiles first"
     return 1
