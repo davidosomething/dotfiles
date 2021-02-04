@@ -11,6 +11,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/os-darwin.zsh"
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 
+alias caskrm="brew uninstall --cask --force"
+
 # just assume brew is in normal location, don't even check for it
 export DKO_BREW_PREFIX="/usr/local"
 
@@ -54,6 +56,14 @@ bwhytree() {
     brew deps "$c" | awk '{printf(" %s ", $0)}'
     echo ""
   done
+}
+
+# fix old casks that error during uninstall from undent
+# https://github.com/Homebrew/homebrew-cask/issues/49716
+bfixcasks() {
+  find "$(brew --prefix)/Caskroom/"*'/.metadata' -type f -name '*.rb' |\
+    xargs grep 'EOS.undent' --files-with-matches |\
+    xargs sed -i '' 's/EOS.undent/EOS/'
 }
 
 # Restart Docker.app and wait for daemon
