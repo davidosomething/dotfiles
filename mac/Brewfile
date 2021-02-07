@@ -38,7 +38,6 @@ brew "readline" # for pyenv
 brew "rsync"
 brew "rust"
 brew "shellcheck"
-brew "ssh-copy-id"
 brew "sqlite3" # for pyenv
 #brew "swiftlint" # requires full xcode!
 brew "switchaudio-osx"
