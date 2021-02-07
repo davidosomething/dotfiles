@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-branches=$(git branch --no-color --merged | grep -v "\*" | grep -v master | grep -v svn)
-if [ -n "$branches" ]
-then
-    printf '%s' "$branches" | xargs -n 1 git branch -d
-fi
