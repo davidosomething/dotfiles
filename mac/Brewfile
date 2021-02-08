@@ -28,7 +28,6 @@ brew "mas"
 brew "mono"
 brew "moreutils"
 brew "multitail"
-brew "neofetch"
 brew "nmap"
 brew "openssl" # for pyenv
 brew "pandoc"
