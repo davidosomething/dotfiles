@@ -30,7 +30,7 @@ zinit lucid has'docker' for \
 #   testing repo nested inside it
 zinit lucid as'program' for \
   from'gh-r' pick'gh*/**/gh' \
-  atclone'mkdir "${ZPFX}/share/man/man1" && cp -vf **/*.1 "${ZPFX}/share/man/man1"' \
+  atclone'mkdir "${ZPFX}/share/man/man1" 2>/dev/null && cp -vf **/*.1 "${ZPFX}/share/man/man1"' \
   atpull'%atclone' \
   '@cli/cli' \
   \
