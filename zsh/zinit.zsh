@@ -24,12 +24,15 @@ zinit lucid has'docker' for \
 # Git
 # ----------------------------------------------------------------------------
 
+__gh_pick="gh*/**/gh"
+[ "$DOTFILES_OS" = 'Linux' ] && __gh_pick='**/bin/gh'
+
 # - In the pick for gh, must specify the gh* directory so we don't get old
 #   version in cli--cli/.backup
 # - git-open is cloned with no cloneopts because we don't want to get the bats
 #   testing repo nested inside it
 zinit lucid as'program' for \
-  from'gh-r' pick'gh*/**/gh' \
+  from'gh-r' pick"$__gh_pick" \
   atclone'mkdir "${ZPFX}/share/man/man1" 2>/dev/null && cp -vf **/*.1 "${ZPFX}/share/man/man1"' \
   atpull'%atclone' \
   '@cli/cli' \
