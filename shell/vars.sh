@@ -88,7 +88,11 @@ export CVSIGNORE="${DOTFILES}/git/.gitignore"
 # ----------------------------------------------------------------------------
 
 export EDITOR='vim'
-export VISUAL='vim'
+export VISUAL="$EDITOR"
+
+# this requires Defaults env_keep += "SYSTEMD_EDITOR" in your sudo settings to
+# take effect. See https://unix.stackexchange.com/a/408419
+export SYSTEMD_EDITOR="$EDITOR"
 
 # ----------------------------------------------------------------------------
 # pager
