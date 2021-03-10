@@ -13,6 +13,23 @@ obj.spoonPath = script_path()
 Validate = dofile(obj.spoonPath.."/validator.lua")
 Resize = dofile(obj.spoonPath.."/resize.lua")
 
+function obj.cycleWidth(window, screen)
+  -- e.g. when window is 900px wide out of 1080px screen ~= 8.3
+  local windowAsPercentOfScreen = (window.w / screen.w) * 10
+  -- 8.3 -> 8 (your 900px wide screen is roughly 80%)
+  local nearestTenthPercent = math.floor(windowAsPercentOfScreen)
+  local nextTenthPercent = nearestTenthPercent + 1
+  if nextTenthPercent > 10 then
+    nextTenthPercent = 1
+  end
+  local nextWindowWidth = (screen.w / 10) * nextTenthPercent
+  if window.x + nextWindowWidth > screen.w then
+    window.x = screen.w - nextWindowWidth
+  end
+  window.w = nextWindowWidth
+  return window
+end
+
 function obj.leftHalf(windowFrame, screenFrame)
   if Validate.leftHalf(windowFrame, screenFrame) then
     return Resize.leftTwoThirds(windowFrame, screenFrame)

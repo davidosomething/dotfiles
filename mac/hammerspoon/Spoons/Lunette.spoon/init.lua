@@ -23,6 +23,9 @@ obj.spoonPath = script_path()
 Command = dofile(obj.spoonPath.."/command.lua")
 
 DefaultMapping = {
+  cycleWidth = {
+    {{"ctrl", "cmd", "shift"}, "w"},
+  },
   leftHalf = {
     {{"cmd", "alt"}, "left"},
   },
