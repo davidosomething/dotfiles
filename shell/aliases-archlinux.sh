@@ -5,6 +5,9 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases-archlinux.sh"
 # Always create log file
 alias makepkg='makepkg --log'
 
+# Get a simple list of installed packages
+alias pacdump='pacman -Qqe'
+
 alias pacunlock='sudo rm /var/lib/pacman/db.lck'
 
 alias sysreload='sudo systemctl daemon-reload'
@@ -14,3 +17,4 @@ fixpulse() {
   sudo rm -rf ~/.config/pulse
   systemctl --user start pulseaudio
 }
+
