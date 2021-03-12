@@ -137,6 +137,8 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'cyansprite/Extract', PlugIf(has('nvim'))
   Plug 'svermeulen/vim-yoink', PlugIf(has('nvim'))
 
+  Plug 'tversteeg/registers.nvim', PlugIf(has('nvim-0.5'))
+
   Plug 'bootleq/vim-cycle', { 'on': [ '<Plug>Cycle' ] }
 
   Plug 'tpope/vim-repeat'
