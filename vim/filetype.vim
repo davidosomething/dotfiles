@@ -57,6 +57,8 @@ augroup filetypedetect
 
   autocmd! BufNewFile,BufRead */nginx*.conf,/*/nginx*.conf setfiletype nginx
 
+  autocmd! BufNewFile,BufRead *.njk setfiletype jinja
+
   autocmd! BufNewFile,BufRead *.plist setfiletype xml
 
   " ironic that it doesn't use a .yml/.yaml extension
