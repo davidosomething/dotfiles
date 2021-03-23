@@ -29,7 +29,7 @@ function! dkoline#GetTabline() abort
   if dkoplug#IsLoaded('coc.nvim')
     let l:contents .= dkoline#Format(
           \ dkoline#CocStatus(l:view),
-          \ '%(%#dkoStatusValue#',
+          \ '%(%#dkoStatusValue# ',
           \ ' %)'
           \)
   endif
@@ -248,7 +248,7 @@ function! dkoline#CocDiagnostics(view) abort
 endfunction
 
 function! dkoline#CocStatus(view) abort
-  return get(g:, 'coc_status', '')
+  return trim(get(g:, 'coc_status', ''))
 endfunction
 
 " @return {string} job1,job2,job3
