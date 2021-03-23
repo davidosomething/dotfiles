@@ -7,9 +7,3 @@ function! neoformat#formatters#markdown#dkoremark() abort
         \   'stdin': 1,
         \ }
 endfunction
-
-function! neoformat#formatters#markdown#dkoprettier() abort
-  let l:config = neoformat#formatters#javascript#dkoprettier()
-  let l:config.args += [ '--parser', 'markdown' ]
-  return l:config
-endfunction

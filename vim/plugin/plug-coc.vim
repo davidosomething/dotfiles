@@ -78,6 +78,11 @@ nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)
 nnoremap <silent> gsc :<C-U>CocCommand git.showCommit<CR>
 
+" coc-markdownlint
+autocmd dkococ FileType markdown
+      \ nmap <silent> <A-=>
+      \   :<C-u>CocCommand markdownlint.fixAll<CR>
+
 " coc-prettier
 autocmd dkococ FileType
       \ javascript,javascriptreact,typescript,typescriptreact,json,graphql

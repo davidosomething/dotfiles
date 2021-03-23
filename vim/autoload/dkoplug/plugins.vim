@@ -92,7 +92,7 @@ function! dkoplug#plugins#LoadAll() abort
   let g:neoformat_enabled_javascript = [ 'standard' ]
   let g:neoformat_enabled_less = [ 'dkoprettier' ]
   let g:neoformat_enabled_lua = [ 'luafmt', 'luaformatter' ]
-  let g:neoformat_enabled_markdown = [ 'dkoremark' ]
+  let g:neoformat_enabled_markdown = []
   let g:neoformat_enabled_python = [ 'autopep8', 'isort' ]
   let g:neoformat_enabled_scss = [ 'dkoprettier' ]
   Plug 'sbdchd/neoformat'

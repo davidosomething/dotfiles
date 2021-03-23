@@ -167,3 +167,4 @@ For X apps (no terminal) the value may be:
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/8fa3d6a738ed39ff2b8ba7a5d9126b59d895b538/meta/terminal-potatopro.png
 [/uses]: https://www.davidosomething.com/uses/
 
+
