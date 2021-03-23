@@ -19,10 +19,10 @@
     "yamlfiles": "find . -type f -regex \".*\\.y\\(a\\)*ml\" -not -path \".github/*\" -not -path \"*.tox/*\""
   },
   "scripts": {
-    "_markdownlint": "npx --ignore-existing --quiet markdownlint-cli --config ./markdownlint/dot.markdownlintrc",
-    "_parallel": "npx --ignore-existing --quiet npm-run-all --silent --aggregate-output --continue-on-error --parallel",
+    "_markdownlint": "npx --quiet markdownlint-cli",
+    "_parallel": "npx --quiet npm-run-all --silent --aggregate-output --continue-on-error --parallel",
     "lint": "npm run --silent _parallel -- lint:**",
-    "lint:editorconfig": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && npx --ignore-existing --quiet echint && echo ' ✓ passed\n'",
+    "lint:editorconfig": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && npx --quiet echint && echo ' ✓ passed\n'",
     "lint:bash:bashate": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && bashate --ignore=E003,E005,E006,E011,E043 -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
     "lint:bash:shellcheck": "./bin/dko-header \"  ${npm_lifecycle_event}  \"             && shellcheck --exclude=SC1090 --shell=bash -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
     "lint:readmes": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                     && npm run --silent _markdownlint -- $(eval \"$npm_package_config_mdfiles\") && echo ' ✓ passed\n'",
