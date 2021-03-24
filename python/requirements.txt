@@ -6,4 +6,4 @@ flake8-import-order==0.18.1
 flake8-quotes==3.2.0
 pycodestyle==2.7.0
 pydocstyle==6.0.0
-pyflakes==2.3.0
+pyflakes==2.3.1
