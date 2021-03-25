@@ -16,7 +16,6 @@ OpenBSD) export DOTFILES_OS="OpenBSD" ;;
   export GPG_TTY
 
   # X11 - for starting via xinit or startx
-  export XINITRC="${DOTFILES}/linux/.xinitrc"
   export XAPPLRESDIR="${DOTFILES}/linux"
 
   if [ -f "/etc/fedora-release" ]; then
