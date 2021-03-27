@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+__write_conf() {
+  local conf="/etc/modprobe.d/hid_apple.conf"
+  [ -f "$conf" ] && {
+    printf "[FOUND] %s\n" "$conf"
+    exit
+  }
+
+  printf "[NOT FOUND] %s -- creating...\n" "$conf"
+  sudo tee "$conf" >/dev/null <<'EOF'
+options hid_apple fnmode=2
+EOF
+  
+  echo "DONE"
+}
+__write_conf
