@@ -36,23 +36,30 @@ pre-existing dotfiles that conflict with these (mac does this).
 
 ### Dev environment setup
 
-Install these using the system package manager. For macOS/OS X there are helper
-scripts.
+After symlinking and restarting shell, aliases will be available.
+The `sshkeygen` alias will help in generating a new SSH key.
 
-- For user-land ruby, install [chruby] and `ruby-install`. Then, use
-  `ruby-install` to install a version of ruby. Preferably install the latest
-  ruby. The dotfiles alias ruby-install to use `${XDG_DATA_HOME}/rubies` as the
-  installation path.
+#### ruby
 
-  ```sh
-  ruby-install --latest ruby
-  ```
+For user-land ruby, install [chruby] and `ruby-install`. Then, use
+`ruby-install` to install a version of ruby. Preferably install the latest
+ruby. The dotfiles alias ruby-install to use `${XDG_DATA_HOME}/rubies` as the
+installation path.
 
-- For user-land node, install [fnm] using [bootstrap/fnm](bootstrap/fnm)
-- `php`, `composer`, use composer to install `wp-cli`
-- For user-land python, use [pyenv-installer] to install [pyenv] and
-  [pyenv-virtualenv].
-    - Create virtualenvs for Neovim using [bootstrap/pyenv](bootstrap/pyenv)
+```sh
+ruby-install --latest ruby
+```
+
+#### node
+
+For user-land node, install [fnm] using [bootstrap/fnm](bootstrap/fnm)
+
+### python
+
+For user-land python, use [pyenv-installer] to install [pyenv] and
+[pyenv-virtualenv].
+
+Create virtualenvs for Neovim using [bootstrap/pyenv](bootstrap/pyenv)
 
 ### Provisioning scripts
 
