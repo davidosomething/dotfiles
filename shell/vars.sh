@@ -30,14 +30,9 @@ export ZDOTDIR="${DOTFILES}/zsh"
 # XDG
 # ============================================================================
 
-# pretty much the defaults, but explicitly provide for my own use
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_DATA_HOME="${HOME}/.local/share"
-
-# ----------------------------------------------------------------------------
-# XDG: user-dirs
-# ----------------------------------------------------------------------------
 
 # user-dirs.dirs doesn't exist on macOS/OS X so check first.
 # Exporting is fine since the file is generated via xdg-user-dirs-update
@@ -57,11 +52,8 @@ export XDG_DATA_HOME="${HOME}/.local/share"
     XDG_VIDEOS_DIR &&
   DKO_SOURCE="${DKO_SOURCE} -> ${XDG_CONFIG_HOME}/user-dirs.dirs"
 
-# ----------------------------------------------------------------------------
-# Defaults if not set in user-dirs
-# ----------------------------------------------------------------------------
-
-export XDG_DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
+[ -z "$XDG_DOWNLOAD_DIR" ] && [ -d "${HOME}/Downloads" ] &&
+  export XDG_DOWNLOAD_DIR="${HOME}/Downloads"
 
 # ============================================================================
 # History -- except HISTFILE location is set by shell rc file
@@ -71,7 +63,7 @@ export HISTSIZE=50000
 export HISTFILESIZE=$HISTSIZE
 export SAVEHIST=$HISTSIZE
 export HISTCONTROL=ignoredups
-export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+export HISTIGNORE="ll:ls:cd:cd -:pwd:exit:date"
 
 # ============================================================================
 # program settings
