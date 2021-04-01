@@ -135,7 +135,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'arp242/jumpy.vim'
 
   "Plug 'cyansprite/Extract', PlugIf(has('nvim'))
-  Plug 'svermeulen/vim-yoink', PlugIf(has('nvim'))
+  "Plug 'svermeulen/vim-yoink', PlugIf(has('nvim'))
 
   Plug 'tversteeg/registers.nvim', PlugIf(has('nvim-0.5'))
 
