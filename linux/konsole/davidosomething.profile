@@ -1,12 +1,14 @@
 [Appearance]
 ColorScheme=base16-tomorrow-night
 DimmValue=18
-Font=Noto Mono,10,-1,0,50,0,0,0,0,0
+Font=FiraMono Nerd Font Mono,11,-1,5,50,0,0,0,0,0
 LineSpacing=2
+UseFontLineChararacters=false
 
 [General]
 DimWhenInactive=true
 Directory=~
+LocalTabTitleFormat=%d : %n - %w
 Name=davidosomething
 Parent=FALLBACK/
 StartInCurrentSessionDir=false
