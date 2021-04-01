@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -e
+
+__git_open() {
+  local origin
+  origin="$(git remote get-url origin)"
+  case "$origin" in
+    *github*)
+      if command -v gh >/dev/null; then
+        gh repo view --web >/dev/null
+      elif command -v hub >/dev/null; then
+        hub browse >/dev/null
+      else
+        >&2 echo "[ERROR] Install gh-cli or hub to open GitHub repos"
+        return 1
+      fi
+      ;;
+    *gitlab*)
+      if command -v lab >/dev/null; then
+        lab project browse >/dev/null
+      else
+        >&2 echo "[ERROR] Install zaquestion/lab to open GitLab repos"
+        return 1
+      fi
+      ;;
+    https://*)
+      dko-open "$origin" >/dev/null &
+      ;;
+    *)
+      printf "[ERROR] Unrecognized origin %s" "$origin" >&2
+      return 1
+      ;;
+  esac
+}
+__git_open

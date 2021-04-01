@@ -142,6 +142,11 @@ Get user's ssh public keys from GitHub
 
 List pull requests since last tag
 
+## git-open
+
+Use GitHub or GitLab cli tools to open current repo in browser.
+Fall back to dko-open if the repo origin is `https`.
+
 ## git-today
 
 Show commits since midnight
