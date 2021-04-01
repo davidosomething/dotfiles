@@ -1,17 +1,24 @@
 #!/usr/bin/env bash
 
 __write_conf() {
+  if setxkbmap -query | grep -q apple; then
+    echo "[FOUND] setxkbmap detected apple keyboard"
+  else
+    >&2 echo "[ERROR] setxkbmap did not detect an apple keyboard"
+    return 1
+  fi
+
   local conf="/etc/modprobe.d/hid_apple.conf"
   [ -f "$conf" ] && {
-    printf "[FOUND] %s\n" "$conf"
-    exit
+    printf "[FOUND] %s exists\n" "$conf"
+    return
   }
 
   printf "[NOT FOUND] %s -- creating...\n" "$conf"
   sudo tee "$conf" >/dev/null <<'EOF'
 options hid_apple fnmode=2
 EOF
-  
+
   echo "DONE"
 }
 __write_conf
