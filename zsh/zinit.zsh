@@ -42,14 +42,14 @@ zinit lucid as'program' for \
   'davidosomething/git-relevant' \
   'davidosomething/git-take' \
   \
-  cloneopts \
-  'paulirish/git-open' \
-  \
   'paulirish/git-recent' \
   \
   pick"${ZPFX}/bin/git-*" src'etc/git-extras-completion.zsh' \
   make"PREFIX=${ZPFX}" \
-  'tj/git-extras'
+  'tj/git-extras' \
+  \
+  from'gh-r' \
+  'zaquestion/lab'
 
 # ----------------------------------------------------------------------------
 # FZF and friends
