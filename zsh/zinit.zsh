@@ -26,24 +26,26 @@ __load_zinit_plugins() {
     \
     from'gh-r' as'program' \
     mv'hadolint* -> hadolint' \
-    'hadolint/hadolint'
+    'hadolint/hadolint' \
+    ;
 
   # ----------------------------------------------------------------------------
   # Git
   # ----------------------------------------------------------------------------
 
+  # must specify the gh* directory so we don't get old version in
+  # cli--cli/.backup
   local gh_pick="gh*/**/gh"
   [ "$DOTFILES_OS" = 'Linux' ] && gh_pick='usr/bin/gh'
 
-  # - In the pick for gh, must specify the gh* directory so we don't get old
-  #   version in cli--cli/.backup
-  # - git-open is cloned with no cloneopts because we don't want to get the bats
-  #   testing repo nested inside it
   zinit lucid as'program' for \
     from'gh-r' pick"$gh_pick" \
     atclone'cp -vf **/*.1 "${ZPFX}/share/man/man1"' \
-    atpull'%atclone' run-atpull \
+    atpull'%atclone' \
     '@cli/cli' \
+    \
+    from'gh-r' \
+    'zaquestion/lab' \
     \
     'davidosomething/git-ink' \
     'davidosomething/git-my' \
@@ -56,23 +58,17 @@ __load_zinit_plugins() {
     src'etc/git-extras-completion.zsh' \
     make"PREFIX=${ZPFX}" \
     'tj/git-extras' \
-    \
-    from'gh-r' \
-    'zaquestion/lab'
+    ;
 
   # ----------------------------------------------------------------------------
   # FZF and friends
   # ----------------------------------------------------------------------------
 
-  # Binary release in archive, from GitHub-releases page.
-  # After automatic unpacking it provides program "fzf".
-  ! __dko_has fzf && zinit lucid from'gh-r' as'program' for \
-    'junegunn/fzf-bin'
-
-  # fzf-git -- `` compl for git commands
   zinit lucid for \
+    if'! __dko_has fzf' from'gh-r' as'program' 'junegunn/fzf-bin' \
     'hschne/fzf-git' \
-    'torifat/npms'
+    'torifat/npms' \
+    ;
 
   # ----------------------------------------------------------------------------
   # Misc
@@ -84,14 +80,26 @@ __load_zinit_plugins() {
 
   export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
 
+  # Customized from instructions at https://github.com/sharkdp/bat#man
+  local bat_manpager="export MANPAGER=\"sh -c 'col -bx | bat --language man --style=grid'\""
+  local delta_gitpager="export GIT_PAGER='delta --dark'"
+
   zinit lucid from'gh-r' as'program' for \
+    mv'bat* -> bat' \
+    pick'bat/bat' \
+    atclone'cp -vf bat/bat.1 "${ZPFX}/share/man/man1"; cp -vf bat/autocomplete/bat.zsh "bat/autocomplete/_bat"' \
+    atpull'%atclone' \
+    atload"$bat_manpager" \
+    '@sharkdp/bat' \
+    \
     mv'delta* -> delta' \
     pick'delta/delta' \
-    atload'export GIT_PAGER="delta --dark"' \
+    atload"$delta_gitpager" \
     'dandavison/delta' \
     \
     mv'fd* -> fd' pick'fd/fd' \
-    atclone'cp -vf fd/fd.1 "${ZPFX}/share/man/man1"' atpull'%atclone' \
+    atclone'cp -vf fd/fd.1 "${ZPFX}/share/man/man1"' \
+    atpull'%atclone' \
     '@sharkdp/fd' \
     \
     mv'jq* -> jq'             'stedolan/jq' \
@@ -103,22 +111,13 @@ __load_zinit_plugins() {
     'ajeetdsouza/zoxide' \
     \
     mv'ripgrep* -> rg' pick'rg/rg' \
-    atclone'cp -vf rg/doc/rg.1 "${ZPFX}/share/man/man1"' atpull'%atclone' \
-    'BurntSushi/ripgrep'
+    atclone'cp -vf rg/doc/rg.1 "${ZPFX}/share/man/man1"' \
+    atpull'%atclone' \
+    'BurntSushi/ripgrep' \
+    ;
 
-  # Customized from instructions at https://github.com/sharkdp/bat#man
-  local batpager="export MANPAGER=\"sh -c 'col -bx | bat --language man --style=grid'\""
-  zinit lucid from'gh-r' as'program' for \
-    mv'bat* -> bat' \
-    pick'bat/bat' \
-    atclone'cp -vf bat/bat.1 "${ZPFX}/share/man/man1"; cp -vf bat/autocomplete/bat.zsh "bat/autocomplete/_bat"' \
-    atpull'%atclone' run-atpull \
-    atload"$batpager" \
-    '@sharkdp/bat' \
-
-  zinit lucid for \
-    'OMZP::cp' \
-    'OMZP::extract'
+  zinit snippet 'OMZP::cp'
+  zinit snippet 'OMZP::extract'
 
   # ----------------------------------------------------------------------------
   # Completion
@@ -142,7 +141,8 @@ __load_zinit_plugins() {
     'zsh-users/zsh-autosuggestions' \
     \
     blockf atpull'zinit creinstall -q .' \
-    'zsh-users/zsh-completions'
+    'zsh-users/zsh-completions' \
+    ;
 
   # ----------------------------------------------------------------------------
   # Syntax last, and compinit before it
