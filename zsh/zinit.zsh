@@ -152,6 +152,8 @@ __load_zinit_plugins() {
   zinit lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" for \
     'zdharma/fast-syntax-highlighting'
 }
-__load_zinit_plugins
+
+# file does not exist on busybox
+command -v file >/dev/null && __load_zinit_plugins
 
 DKO_SOURCE="${DKO_SOURCE} }"
