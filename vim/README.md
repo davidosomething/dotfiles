@@ -18,6 +18,9 @@
 
 ## Installation
 
+`vim-plug` plugins will be installed into `$XDG_DATA_HOME/vim/vendor`! Make
+sure you have XDG environment variables set up.
+
 Best used with rest of dotfiles. `coc/extensions/dot.npmrc` will enforce using
 the main npmjs package registry. Commands in `.vimrc` will auto-install
 plugins if curl is available.
