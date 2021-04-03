@@ -192,10 +192,7 @@ set completeopt+=menu,menuone         " show PUM, even for one thing
 " ----------------------------------------------------------------------------
 
 " Some of these are the defaults, but explicitly match vim and nvim-4.0
-set shortmess-=f
 set shortmess+=ilmnrxoOtWI
-" don't flash fileinfo on edit new file
-if v:version >= 704 | set shortmess+=F | endif
 " Disable "Pattern not found" messages
 if has('patch-7.4.314') | set shortmess+=c | endif
 
