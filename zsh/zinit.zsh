@@ -81,7 +81,7 @@ __load_zinit_plugins() {
   export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
 
   # Customized from instructions at https://github.com/sharkdp/bat#man
-  local bat_manpager="export MANPAGER=\"sh -c 'col -bx | bat --language man --style=grid'\""
+  local bat_manpager="export MANPAGER=\"sh -c 'col -bx | bat --language man --paging always --style=grid'\""
   local delta_gitpager="export GIT_PAGER='delta --dark'"
 
   zinit lucid from'gh-r' as'program' for \
