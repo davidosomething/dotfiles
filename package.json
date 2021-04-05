@@ -75,5 +75,6 @@
     "js-yaml": "4.0.0",
     "lodash": "4.17.21",
     "plist": "3.0.2"
-  }
+  },
+  "dependencies": {}
 }
