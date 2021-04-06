@@ -2,6 +2,11 @@
 
 Can be paired with Bluetooth. Turn off, turn on bt, turn on.
 
+## Getting it to pair with dual/multi-boot OS
+
+To use the same keyboard on both mac and linux on the same machine, [link the
+bluetooth device MACs](https://askubuntu.com/questions/948417/how-can-i-use-the-same-bluetooth-keyboard-and-mouse-with-both-macos-and-ubuntu)
+
 ## Defaulting Fn keys to F# instead of media
 
 Run the [write_hid_apple](./write_hid_apple) script to automatically create
