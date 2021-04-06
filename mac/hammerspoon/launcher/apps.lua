@@ -3,19 +3,15 @@
 
 print "== launcher.apps"
 
-hs.hotkey.bind(hyper, 'a', function()
-  hs.application.launchOrFocus("Authy Desktop")
-end)
+-- a is for lunette left
 
 hs.hotkey.bind(hyper, 'b', function()
   hs.application.launchOrFocus("Bitwarden")
 end)
 
 -- C is for caffeine
-
-hs.hotkey.bind(hyper, 'd', function()
-  hs.application.launchOrFocus("Discord")
-end)
+--
+-- d is for lunette right
 
 -- f for lunette
 
@@ -28,8 +24,6 @@ end)
 hs.hotkey.bind(hyper, 'i', function()
   hs.application.launchOrFocus("iTerm")
 end)
-
--- jkl for lunette
 
 hs.hotkey.bind(hyper, 'n', function()
   hs.application.launchOrFocus("Joplin")

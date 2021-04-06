@@ -10,10 +10,10 @@ spoon.Lunette:bindHotkeys({
     {hyper, "W"},
   },
   leftHalf = {
-    {hyper, "H"},
+    {hyper, "A"},
   },
   rightHalf = {
-    {hyper, "L"},
+    {hyper, "D"},
   },
   topHalf = {
     {hyper, "K"},
