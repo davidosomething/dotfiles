@@ -118,7 +118,7 @@ follow symlinks.
 
 Switch to a different worktree using FZF
 
-## fxc
+## fzf-xcode
 
 Switch to a different XCode version
 

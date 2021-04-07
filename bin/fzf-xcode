@@ -1,14 +1,15 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 #
-# fxc - XCode version switcher
+# fzf-xcode - XCode version switcher
 # Uses fzf
 # @see <https://github.com/junegunn/fzf/wiki/examples>
 
-__fxc() {
+__main() {
   local current
   local version
 
-  [[ -x "xcode-select" ]] && return 1
+  command -v fzf-tmux >/dev/null || return 1
+  command -v xcode-select >/dev/null || return 1
 
   current=$(xcode-select --print-path)
   version=$(find /Applications -maxdepth 1 -iname 'Xcode*.app' | fzf-tmux \
@@ -22,4 +23,4 @@ __fxc() {
   && printf 'Now using %s' "$version"
 }
 
-[[ "$OSTYPE" == *'arwin'* ]] && __fxc
+[[ "$OSTYPE" == *'arwin'* ]] && __main
