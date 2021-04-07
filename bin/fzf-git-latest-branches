@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 #
-# fbrl - checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
-# Uses fzf. This is a modified fbr() from the fzf examples
+# fzf-git-latest-branches - checkout git branch (including remote branches),
+# sorted by most recent commit, limit 30 last branches
+# Uses fzf. This is a modified fzf-git-branch from the fzf examples
 # @see <https://github.com/junegunn/fzf/wiki/examples>
 
-__fbrl() {
+__fzf-git-latest-branches() {
   local current
   current=$(git rev-parse --abbrev-ref HEAD)
   if [ -z "$current" ]; then
@@ -50,4 +51,4 @@ __fbrl() {
 
   git checkout "$branch"
 }
-__fbrl
+__fzf-git-latest-branches

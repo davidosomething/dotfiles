@@ -89,18 +89,6 @@ Find and edit the nginx.conf file
 
 Find and edit the php.ini file
 
-## fzf-audio
-
-macOS only, FZF + SwitchAudioSource
-
-## fzf-git-branch
-
-FZF-interface for selecting a git branch
-
-## fbrl
-
-FZF-interface for selecting a git branch including remotes, sorted by latest
-
 ## flatten
 
 Recursively flatten a directory
@@ -114,7 +102,19 @@ Get directory total filesize
 Look upwards from $PWD for filename $1, output to stdout if found. Does not
 follow symlinks.
 
-## fwt
+## fzf-audio
+
+macOS only, FZF + SwitchAudioSource
+
+## fzf-git-branch
+
+FZF-interface for selecting a git branch
+
+## fzf-git-latest-branches
+
+FZF-interface for selecting a git branch including remotes, sorted by latest
+
+## fzf-worktree
 
 Switch to a different worktree using FZF
 
