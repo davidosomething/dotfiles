@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# fzf-worktree - switch to worktree directory
+# fzf-git-worktree - switch to worktree directory
 # Uses fzf
 # @see <https://github.com/junegunn/fzf/wiki/examples>
 
-__fzf-worktree() {
+__fzf-git-worktree() {
   local current
   current=$(git rev-parse --abbrev-ref HEAD)
   if [ -z "$current" ]; then
@@ -38,4 +38,4 @@ __fzf-worktree() {
   # remember, can't cd inside a script!
   printf '%s\n' "$worktree"
 }
-__fzf-worktree
+__fzf-git-worktree

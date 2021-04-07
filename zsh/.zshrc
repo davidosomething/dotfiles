@@ -238,7 +238,9 @@ if __dko_has "fzf"; then
 
   # <A-w> to open git worktree list and cd into one
   __dkofzfworktree() {
-    cd "$(fwt)"
+    local wt
+    wt="$(fzf-git-worktree)"
+    [ -d "$wt" ] && cd "${wt}"
     zle accept-line
   }
   zle     -N      __dkofzfworktree

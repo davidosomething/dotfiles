@@ -114,7 +114,7 @@ FZF-interface for selecting a git branch
 
 FZF-interface for selecting a git branch including remotes, sorted by latest
 
-## fzf-worktree
+## fzf-git-worktree
 
 Switch to a different worktree using FZF
 
