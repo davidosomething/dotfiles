@@ -61,18 +61,11 @@ __load_zinit_plugins() {
     ;
 
   # ----------------------------------------------------------------------------
-  # FZF and friends
-  # ----------------------------------------------------------------------------
 
   zinit lucid for \
     if'! __dko_has fzf' from'gh-r' as'program' 'junegunn/fzf-bin' \
-    'hschne/fzf-git' \
     'torifat/npms' \
     ;
-
-  # ----------------------------------------------------------------------------
-  # Misc
-  # ----------------------------------------------------------------------------
 
   # my fork of cdbk, ZSH hash based directory bookmarking. No wait!
   export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
