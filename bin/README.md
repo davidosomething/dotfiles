@@ -89,6 +89,10 @@ Find and edit the nginx.conf file
 
 Find and edit the php.ini file
 
+## fzf-audio
+
+macOS only, FZF + SwitchAudioSource
+
 ## fzf-git-branch
 
 FZF-interface for selecting a git branch

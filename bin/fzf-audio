@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 #
-# faudio - fzf interface for SwitchAudioSource
+# fzf-audio - fzf interface for SwitchAudioSource
 
-__faudio() {
+__fzf-audio() {
   SwitchAudioSource -s \
     "$(SwitchAudioSource -a | grep "(output)" |\
     fzf-tmux --height=8 --cycle --no-multi |\
     cut -f1 -d'(' | xargs)"
 }
 
-command -v SwitchAudioSource >/dev/null && __faudio
+command -v SwitchAudioSource >/dev/null && __fzf-audio
