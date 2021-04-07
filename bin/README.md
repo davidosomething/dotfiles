@@ -97,10 +97,6 @@ FZF-interface for selecting a git branch
 
 FZF-interface for selecting a git branch including remotes, sorted by latest
 
-## fkill
-
-FZF-interface for `kill -9` a process
-
 ## flatten
 
 Recursively flatten a directory
