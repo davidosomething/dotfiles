@@ -89,7 +89,7 @@ Find and edit the nginx.conf file
 
 Find and edit the php.ini file
 
-## fbr
+## fzf-git-branch
 
 FZF-interface for selecting a git branch
 

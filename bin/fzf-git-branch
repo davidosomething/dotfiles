@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# fbr - checkout git branch
+# fzf-git-branch - checkout git branch
 # Uses fzf
 # @see <https://github.com/junegunn/fzf/wiki/examples>
 
@@ -24,7 +24,7 @@ __get_local_branches() {
   eval "$cmd_get_local_branches"
 }
 
-__fbr() {
+__fzf-git-branch() {
   local current
   current=$(git rev-parse --abbrev-ref HEAD)
   if [ -z "$current" ]; then
@@ -66,4 +66,4 @@ __fbr() {
 
   git checkout "$branch"
 }
-__fbr
+__fzf-git-branch

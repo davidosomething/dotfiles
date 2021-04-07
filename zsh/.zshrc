@@ -230,7 +230,7 @@ if __dko_has "fzf"; then
 
   # <C-b> to open git branch menu and switch to one
   __dkofzfbranch() {
-    fbr
+    fzf-git-branch
     zle accept-line
   }
   zle     -N      __dkofzfbranch
