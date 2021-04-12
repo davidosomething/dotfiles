@@ -100,6 +100,8 @@ __load_zinit_plugins() {
     mv'shfmt* -> shfmt'       '@mvdan/sh'         \
     \
     mv'zoxide* -> zoxide' \
+    atclone'chmod +x zoxide' \
+    atpull'%atclone' \
     atload'eval "$(zoxide init --no-aliases zsh)" && alias j=__zoxide_z' \
     'ajeetdsouza/zoxide' \
     \
