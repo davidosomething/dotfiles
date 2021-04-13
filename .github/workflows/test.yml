@@ -8,6 +8,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      TERM: xterm
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -33,5 +36,13 @@ jobs:
 
       - name: Test
         run: |
-          TERM=xterm npm test --silent
+          npm test --silent
           ./bootstrap/symlink
+
+      - name: Merge dev -> master
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          from_branch: dev
+          target_branch: master
+          github_token: ${{ github.token }}
