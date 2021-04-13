@@ -176,9 +176,6 @@ export SHELLCHECK_OPTS="--exclude=SC1090,SC2148"
 # DO NOT DO THIS, shells are fine, but tmux will not know where to look!
 #export TERMINFO="${XDG_DATA_HOME}/terminfo"
 
-# travis cli
-export TRAVIS_CONFIG_PATH="${XDG_CONFIG_HOME}/travis"
-
 # vagrant
 export VAGRANT_HOME="${XDG_DATA_HOME}/vagrant"
 export VAGRANT_ALIAS_FILE="${XDG_DATA_HOME}/vagrant/aliases"

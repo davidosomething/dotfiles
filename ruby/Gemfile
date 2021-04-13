@@ -9,5 +9,3 @@ gem 'neovim'
 gem 'puppet-lint'
 gem 'sorbet', :group => :development
 gem 'sorbet-runtime'
-gem 'travis'
-gem 'travis-lint'

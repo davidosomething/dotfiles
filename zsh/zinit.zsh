@@ -129,9 +129,6 @@ __load_zinit_plugins() {
   export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
   zinit lucid wait for \
-    if'[[ -f "${TRAVIS_CONFIG_PATH}/travis.sh" ]] ' \
-    "$TRAVIS_CONFIG_PATH" \
-    \
     atload'_zsh_autosuggest_start && bindkey "^n" autosuggest-accept' \
     'zsh-users/zsh-autosuggestions' \
     \
