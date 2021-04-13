@@ -1,0 +1,9 @@
+---
+extends: default
+rules:
+  comments:
+    ignore-shebangs: true
+    require-starting-space: true
+  document-start: disable
+  truthy:
+    check-keys: false
