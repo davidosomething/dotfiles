@@ -37,7 +37,7 @@ export FNM_DIR="${XDG_CONFIG_HOME}/fnm"
 
 if [ -d "$NVM_DIR" ]; then
   # using nvm? -- store default version for prompt compare
-  __dko_source "${NVM_DIR}/nvm.sh" && DKO_SOURCE="${DKO_SOURCE} -> nvm"
+  . "${NVM_DIR}/nvm.sh" 2>/dev/null && DKO_SOURCE="${DKO_SOURCE} -> nvm"
 
 elif [ -d "$FNM_DIR" ]; then
   PATH="${FNM_DIR}:${PATH}"

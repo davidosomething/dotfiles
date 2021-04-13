@@ -7,18 +7,13 @@
 __dko_has() { command -v "$1" >/dev/null 2>&1; }
 
 __dko_prefer() {
-  __dko_has "$1" || {
-    [ -n "$SSH_CLIENT" ] && echo "==> WARN: ${1} not found"
-    return 1
-  }
+  __dko_has "$1" && return
+  echo "==> WARN: ${1} not found"
+  return 1
 }
 
 # pipe into this to indent
 __dko_indent() { sed 's/^/    /'; }
-
-# source a file if it exists
-# $1 path to file
-__dko_source() { [ -f "$1" ] && . "$1"; }
 
 # require root
 __dko_requireroot() {

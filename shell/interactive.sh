@@ -8,13 +8,12 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh[interactive] {"
 . "${DOTFILES}/lib/helpers.sh"
 
 # ==============================================================================
-# env management -- Node, PHP, Python, Ruby - These add to path
+# env management -- Node, Python, Ruby - These add to path
 # ==============================================================================
 
 . "${DOTFILES}/shell/go.sh"
 . "${DOTFILES}/shell/java.sh"
 . "${DOTFILES}/shell/node.sh"
-. "${DOTFILES}/shell/php.sh"
 . "${DOTFILES}/shell/python.sh"
 . "${DOTFILES}/shell/ruby.bash"
 . "${DOTFILES}/shell/rust.sh"

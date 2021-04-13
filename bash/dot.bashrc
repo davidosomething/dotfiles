@@ -43,13 +43,13 @@ shopt -s no_empty_cmd_completion    # don't try to complete empty lines
 
 set completion-ignore-case on
 
-__dko_source "/etc/bash_completion"
-__dko_source "/usr/share/bash-completion/bash_completion"
+. "/etc/bash_completion" 2>/dev/null
+. "/usr/share/bash-completion/bash_completion" 2>/dev/null
 
 # homebrew's bash-completion package sources the rest of bash_completion.d
-__dko_source "${DKO_BREW_PREFIX}/etc/bash_completion"
+. "${DKO_BREW_PREFIX}/etc/bash_completion" 2>/dev/null
 
-__dko_source "${NVM_DIR}/bash_completion"
+. "${NVM_DIR}/bash_completion" 2>/dev/null
 
 # following are from
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_profile
@@ -60,13 +60,13 @@ type _git &>/dev/null \
   && complete -o default -o nospace -F _git g
 
 # WP-CLI Bash completions
-__dko_source "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bash"
+. "${WP_CLI_CONFIG_PATH}/vendor/wp-cli/wp-cli/utils/wp-completion.bash" 2>/dev/null
 
 # ==============================================================================
 # Plugins
 # ==============================================================================
 
-__dko_source "${XDG_CONFIG_HOME}/fzf/fzf.bash"
+. "${XDG_CONFIG_HOME}/fzf/fzf.bash" 2>/dev/null
 
 # ============================================================================
 # Prompt -- needs to be after plugins since it might use them
@@ -79,7 +79,7 @@ __dko_source "${XDG_CONFIG_HOME}/fzf/fzf.bash"
 # ==============================================================================
 
 . "${DOTFILES}/shell/after.sh"
-__dko_source "${LDOTDIR}/bashrc"
+. "${LDOTDIR}/bashrc" 2>/dev/null
 
 DKO_SOURCE="${DKO_SOURCE} }"
 # vim: ft=sh

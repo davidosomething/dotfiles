@@ -32,15 +32,15 @@ __dko_has 'git' && {
 
   dko_zinit_dest="${ZINIT[HOME_DIR]}/bin"
   dko_zinit_script="${dko_zinit_dest}/zinit.zsh"
-  __dko_source "$dko_zinit_script" || {
+  . "$dko_zinit_script" 2>/dev/null || {
     # install if needed
     command git clone https://github.com/zdharma/zinit "${dko_zinit_dest}" &&
-      __dko_source "$dko_zinit_script"
+      . "$dko_zinit_script"
   }
   unset dko_zinit_dest
   unset dko_zinit_script
 
-  __dko_source "${ZDOTDIR}/zinit.zsh" && {
+  . "${ZDOTDIR}/zinit.zsh" 2>/dev/null && {
     autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
     alias unzinit='rm -rf "${ZINIT[HOME_DIR]}"'
   }
@@ -220,10 +220,10 @@ bindkey '^w' vi-forward-word
 # ============================================================================
 
 if __dko_has "fzf"; then
-  if __dko_source "${XDG_CONFIG_HOME}/fzf/fzf.zsh" || {
+  if . "${XDG_CONFIG_HOME}/fzf/fzf.zsh" 2>/dev/null || {
     # linux package managers throw it here
-    __dko_source "/usr/share/fzf/completion.zsh"
-    __dko_source "/usr/share/fzf/key-bindings.zsh"
+    . "/usr/share/fzf/completion.zsh" 2>/dev/null
+    . "/usr/share/fzf/key-bindings.zsh" 2>/dev/null
   }; then
     DKO_SOURCE="${DKO_SOURCE} -> fzf"
   fi
@@ -346,8 +346,7 @@ up() {
 # ============================================================================
 
 . "${DOTFILES}/shell/after.sh"
-
-__dko_source "${LDOTDIR}/zshrc"
+. "${LDOTDIR}/zshrc" 2>/dev/null
 
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
 typeset -gU cdpath path fpath manpath

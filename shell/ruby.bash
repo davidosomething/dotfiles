@@ -28,9 +28,9 @@ fi
 # ==============================================================================
 
 # Check for rubies first, don't load chruby if missing a stable version
-if [ -d "${DKO_RUBIES}/ruby-2.7.1" ] || [ -d "${DKO_RUBIES}/ruby-2.6.1" ]; then
+if [ -d "${DKO_RUBIES}/ruby-3.0.1" ] || [ -d "${DKO_RUBIES}/ruby-2.7.3" ]; then
   export CHRUBY_PREFIX="${DKO_BREW_PREFIX:-/usr}"
-  __dko_source "${CHRUBY_PREFIX}/share/chruby/chruby.sh" &&
+  . "${CHRUBY_PREFIX}/share/chruby/chruby.sh" 2>/dev/null &&
     DKO_SOURCE="${DKO_SOURCE} -> chruby" &&
     RUBIES+=("${DKO_RUBIES}"/*) &&
     export RUBIES
