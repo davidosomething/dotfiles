@@ -31,13 +31,11 @@ __dko_dotfiles__usage() {
   Utility Commands
     dotfiles    -- update dotfiles (git pull)
     secret      -- update ~/.secret (git pull)
-    daily       -- secret, Packages / Developer Tools, fzf, nvm, pyenv
+    daily       -- secret, Packages / Developer Tools, fzf, pyenv
 
   Shell Tools
     fnm         -- update fnm installation
     fzf         -- update fzf with flags to not update rc scripts
-    node        -- install latest node via nvm
-    nvm         -- update nvm installation
     pyenv       -- update pyenv installation
 
   Packages / Developer Tools
@@ -112,7 +110,6 @@ __dko_dotfiles__update_daily() {
     __dko_warn "fzf is not installed"
   fi
 
-  [ -d "$NVM_DIR" ] && __dko_dotfiles__node__update_nvm
   [ -d "$FNM_DIR" ] && __dko_dotfiles__node__update_fnm
 
   __dko_dotfiles__go__require_go && __dko_dotfiles__go__update_go_packages
@@ -257,82 +254,6 @@ __dko_dotfiles__go__update_go_packages() {
 }
 
 # ----------------------------------------------------------------------------
-# Node.js: Introspection
-# ----------------------------------------------------------------------------
-
-# pass any arg to skip autoinstall
-# pass any arg to silence
-__dko_dotfiles__node__require_nvm() {
-  [ -d "$FNM_DIR" ] && {
-    __dko_warn "Found fnm, aborting"
-    return 1
-  }
-
-  [ -z "$NVM_DIR" ] && {
-    __dko_err "\$NVM_DIR is not defined, make sure rc files are linked"
-    return 1
-  }
-
-  if (($# == 0)) && [[ ! -d "${NVM_DIR}/.git" ]]; then
-    __dko_status "Installing nvm"
-    rm "${NVM_DIR}/default-packages"
-
-    git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR" ||
-      { __dko_err "Could not install nvm" && return 1; }
-    pushd "$NVM_DIR" || return 1
-    git checkout "$(git describe --abbrev=0 --tags --match "v[0-9]*" "$(git rev-list --tags --max-count=1)")"
-    popd || return 1
-
-    dko-symlink "node/default-packages" \
-      "${NVM_DIR}/default-packages"
-  fi
-
-  . "${NVM_DIR}/nvm.sh"
-}
-
-# ----------------------------------------------------------------------------
-# Node.js: Update node to latest stable
-# ----------------------------------------------------------------------------
-
-__dko_dotfiles__update_node() {
-  __dko_dotfiles__node__require_nvm || return 1
-
-  local wanted
-  wanted="${1:-"$(nvm version-remote --lts)"}"
-  [[ "$wanted" != "v"* ]] && wanted="v${wanted}"
-
-  __dko_status "Checking node versions against ${wanted}"
-
-  local wanted_with_minor
-  wanted_with_minor="$(nvm version-remote "$wanted")"
-
-  local previous_node
-  previous_node="$(nvm current)"
-
-  if [[ "$wanted_with_minor" == "$previous_node" ]]; then
-    __dko_ok "Node.js is already up-to-date"
-    return 0
-  fi
-
-  __dko_status_ "Previous node version was $previous_node"
-  printf "Install and use new node %s as default? [y/N] " "$wanted_with_minor"
-  read -r
-  echo
-  if [[ "$REPLY" == "y" ]] || [[ "$REPLY" == "Y" ]]; then
-    __dko_status "Installing node ${wanted_with_minor}..."
-    if nvm install "$wanted"; then
-      __dko_status "Updating default alias to ${wanted_with_minor}..."
-      nvm alias default "$wanted"
-      __dko_status "Switching to ${wanted_with_minor}..."
-      nvm use "$wanted"
-      __dko_status "install-latest-npm"
-      nvm install-latest-npm
-      __dko_ok "Node.js and npm updated, shell restart required"
-    fi
-  fi
-}
-
-# ----------------------------------------------------------------------------
 # Node.js
 # ----------------------------------------------------------------------------
 
@@ -360,36 +281,6 @@ __dko_dotfiles__node__update_fnm() {
       fi
       ;;
   esac
-}
-
-__dko_dotfiles__node__update_nvm() {
-  __dko_dotfiles__node__require_nvm || return 1
-
-  (
-    cd -- "$NVM_DIR" || exit 1
-    git fetch --tags origin || {
-      __dko_err "Could not fetch tags"
-      exit 1
-    }
-    readonly previous_nvm="v$(nvm --version)"
-    readonly latest_nvm="$(
-      git describe --abbrev=0 --tags --match "v[0-9]*" \
-        "$(git rev-list --tags --max-count=1)"
-    )"
-
-    # Already up to date
-    if [[ "$previous_nvm" != "$latest_nvm" ]]; then
-      __dko_status "Updating nvm from ${previous_nvm} to ${latest_nvm}"
-      git checkout --quiet --progress "$latest_nvm" || {
-        __dko_err "Could not fast-forward"
-        exit 1
-      }
-    else
-      __dko_ok "Using latest nvm ${previous_nvm}"
-    fi
-  ) || return 1
-
-  . "${NVM_DIR}/nvm.sh"
 }
 
 # ----------------------------------------------------------------------------
@@ -747,8 +638,6 @@ __dko_dotfiles() {
   fzf) __dko_dotfiles__update_fzf ;;
   gem) __dko_dotfiles__ruby__update_gems ;;
   go) __dko_dotfiles__go__update_go_packages ;;
-  node) __dko_dotfiles__update_node "$2" ;;
-  nvm) __dko_dotfiles__node__update_nvm ;;
   pip) __dko_dotfiles__py__update_pip ;;
   pipx) __dko_dotfiles__py__update_pipx ;;
   pyenv) __dko_dotfiles__py__update_pyenv ;;

@@ -9,9 +9,6 @@ export NODE_REPL_HISTORY="${XDG_DATA_HOME}/node_repl_history"
 # npm config
 # ============================================================================
 
-[ -f "${LDOTDIR}/npmrc" ] &&
-  export NPM_CONF_USERCONFIG="${LDOTDIR}/npmrc"
-
 export NPM_CONFIG_INIT_VERSION="0.0.1"
 export NPM_CONFIG_INIT_LICENSE="MIT"
 export NPM_CONFIG_STRICT_SSL="TRUE"
@@ -27,19 +24,11 @@ export NPM_CONFIG_SIGN_GIT_TAG="TRUE"
 export NPMRC_STORE="${HOME}/.local/npmrcs"
 
 # ==============================================================================
-# fnm / nvm
+# fnm
 # ==============================================================================
 
-export NVM_SYMLINK_CURRENT=true
-
-export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 export FNM_DIR="${XDG_CONFIG_HOME}/fnm"
-
-if [ -d "$NVM_DIR" ]; then
-  # using nvm? -- store default version for prompt compare
-  . "${NVM_DIR}/nvm.sh" 2>/dev/null && DKO_SOURCE="${DKO_SOURCE} -> nvm"
-
-elif [ -d "$FNM_DIR" ]; then
+if [ -d "$FNM_DIR" ]; then
   PATH="${FNM_DIR}:${PATH}"
   eval "$(fnm env)" && DKO_SOURCE="${DKO_SOURCE} -> fnm"
 fi

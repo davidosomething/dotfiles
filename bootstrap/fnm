@@ -1,10 +1,25 @@
 #!/usr/bin/env bash
 
-FNM_DIR="${XDG_CONFIG_HOME}/fnm"
-export FNM_DIR
-if [ ! -d "$FNM_DIR" ]; then
-  curl https://raw.githubusercontent.com/Schniz/fnm/master/.ci/install.sh |
-    bash -s -- \
-      --install-dir "$FNM_DIR" \
-      --skip-shell
+if [[ -z "$DOTFILES" ]]; then
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$PWD"
 fi
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
+
+__main() {
+  FNM_DIR="${XDG_CONFIG_HOME}/fnm"
+  export FNM_DIR
+  mkdir -p "$FNM_DIR"
+
+  [ ! -d "$FNM_DIR" ] && {
+    __dko_err "Could not create FNM_DIR ${FNM_DIR}"
+    return 1
+  }
+
+  curl -fsSL https://fnm.vercel.app/install |
+    bash -s -- \
+    --install-dir "$FNM_DIR" \
+    --skip-shell
+}
+__main
