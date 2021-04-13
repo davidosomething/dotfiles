@@ -33,5 +33,5 @@ jobs:
 
       - name: Test
         run: |
-          npm test --silent
+          TERM=xterm npm test --silent
           ./bootstrap/symlink
