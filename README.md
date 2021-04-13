@@ -1,7 +1,5 @@
 <img alt="dotfiles" width="200" src="https://cdn.rawgit.com/davidosomething/dotfiles/master/meta/dotfiles-logo.png">
 
-[![Build Status](https://travis-ci.org/davidosomething/dotfiles.svg?branch=dev)](https://travis-ci.org/davidosomething/dotfiles) [![Updates](https://pyup.io/repos/github/davidosomething/dotfiles/shield.svg)](https://pyup.io/repos/github/davidosomething/dotfiles/)
-
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
 - I use macOS, Manjaro, and Debian. Limited Fedora support.
