@@ -5,7 +5,6 @@
 . "${DOTFILES}/lib/pretty.bash"
 
 [[ -d "$PYENV_ROOT" ]] && eval "$(pyenv init -)"
-. "${NVM_DIR}/nvm.sh" 2>/dev/null
 
 # ==============================================================================
 
@@ -286,9 +285,9 @@ __dko_dotfiles__node__require_nvm() {
 
     dko-symlink "node/default-packages" \
       "${NVM_DIR}/default-packages"
-
-    . "${NVM_DIR}/nvm.sh"
   fi
+
+  . "${NVM_DIR}/nvm.sh"
 }
 
 # ----------------------------------------------------------------------------
@@ -302,7 +301,6 @@ __dko_dotfiles__update_node() {
   wanted="${1:-"$(nvm version-remote --lts)"}"
   [[ "$wanted" != "v"* ]] && wanted="v${wanted}"
 
-  . "${NVM_DIR}/nvm.sh"
   __dko_status "Checking node versions against ${wanted}"
 
   local wanted_with_minor
