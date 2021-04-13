@@ -62,7 +62,7 @@ augroup filetypedetect
   autocmd! BufNewFile,BufRead *.plist setfiletype xml
 
   " ironic that it doesn't use a .yml/.yaml extension
-  autocmd! BufNewFile,BufRead .yamllint setfiletype yaml
+  autocmd! BufNewFile,BufRead .yamllint,workflows setfiletype yaml
 augroup END
 
 " most of these are added to $VIMRUNTIME/filetype.vim now
