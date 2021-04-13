@@ -5,7 +5,7 @@
 . "${DOTFILES}/lib/pretty.bash"
 
 [[ -d "$PYENV_ROOT" ]] && eval "$(pyenv init -)"
-. "${NVM_DIR}/nvm.sh"
+. "${NVM_DIR}/nvm.sh" 2>/dev/null
 
 # ==============================================================================
 
