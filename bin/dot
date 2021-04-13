@@ -267,7 +267,8 @@ __dko_dotfiles__node__update_fnm() {
 
   case "$OSTYPE" in
     linux*)
-      __dko_status "Re-run installer from https://github.com/Schniz/fnm"
+      __dko_status_ "Using bootstrap/fnm"
+      "${DOTFILES}/bootstrap/fnm"
       ;;
     *arwin*)
       __dko_dotfiles__darwin__require_brew || return 1
