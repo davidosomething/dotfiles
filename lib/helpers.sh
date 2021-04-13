@@ -7,8 +7,8 @@
 __dko_has() { command -v "$1" >/dev/null 2>&1; }
 
 __dko_prefer() {
-  __dko_has "$1" && return
-  echo "==> WARN: ${1} not found"
+  __dko_has "$1" && return 0
+  printf "==> WARN: %s not found" "$1"
   return 1
 }
 
