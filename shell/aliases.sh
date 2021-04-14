@@ -44,9 +44,8 @@ alias pyg='pygmentize -O style=rrt -f console256 -g'
 # docker
 # ----------------------------------------------------------------------------
 
-alias dps='docker ps'
-alias dockup='docker-compose up -d'
-alias dockdown='docker-compose down'
+alias docc='docker-compose'
+alias sdocc='sudo docker-compose'
 
 # ----------------------------------------------------------------------------
 # editors
@@ -56,7 +55,6 @@ alias ehosts='se /etc/hosts'
 alias etmux='e "${DOTFILES}/tmux/tmux.conf"'
 alias essh='e "${HOME}/.ssh/config"'
 alias ega='e "${DOTFILES}/git/aliases.gitconfig"'
-alias esd='e "${DOTFILES}/bin/dot"'
 alias evr='e "${VDOTDIR}/vimrc"'
 alias evp='e "${VDOTDIR}/autoload/dkoplug/plugins.vim"'
 alias eze='e "${ZDOTDIR}/dot.zshenv"'
@@ -119,24 +117,14 @@ alias gulp='npx gulp'
 alias grunt='npx grunt'
 alias n='npm'
 alias ni='n install'
-alias no='n outdated --long'
 alias nomod='rm -rf ./node_modules'
 alias likereallynomod='find . -type d -iname node_modules -exec rm \-rf {} \;'
 alias nr='n run'
-alias nrm='n rm'
 alias ns='n start'
-alias nt='n test'
-alias nu='n update'
 alias y='yarn'
 alias yi='yarn install'
 alias yr='yarn run'
 alias yt='yarn test'
-
-# ----------------------------------------------------------------------------
-# php
-# ----------------------------------------------------------------------------
-
-alias cm='composer'
 
 # ----------------------------------------------------------------------------
 # python
@@ -162,7 +150,6 @@ alias getsubs='pipx run subliminal download -p opensubtitles -p shooter -p subsc
 
 alias bun='bundle'
 alias be='bun exec'
-alias cap='be cap'
 alias ruby-install='ruby-install --rubies-dir "$DKO_RUBIES"'
 
 # ----------------------------------------------------------------------------
@@ -183,7 +170,6 @@ alias sshkeygen='ssh-keygen -o -a 100 -t ed25519'
 # sudo ops
 # ----------------------------------------------------------------------------
 
-alias mine='sudo chown -R "$USER"'
 alias root='sudo -s'
 alias se='sudo -e'
 
@@ -198,9 +184,7 @@ alias ta='tmux attach'
 # rest of bins
 # ----------------------------------------------------------------------------
 
-alias archey='archey --offline'
 alias brokensymlinks='find . -type l ! -exec test -e {} \; -print'
-alias cb='cdbk'
 alias curl='curl --config "${DOTFILES}/curl/dot.curlrc"'
 alias df='df -h'
 alias gpgreload='gpg-connect-agent reloadagent /bye'
@@ -252,5 +236,8 @@ __alias_ls() {
   alias ll="l $__long"
   # shit
   alias kk='ll'
+
+  unset __almost_all __classify __colorized __groupdirs \
+    __literal __long __single_column __timestyle
 }
 __alias_ls
