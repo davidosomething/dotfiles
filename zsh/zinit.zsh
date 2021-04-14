@@ -11,25 +11,6 @@ __load_zinit_plugins() {
   mkdir -pv "${ZPFX}/share/man/man1"
 
   # ----------------------------------------------------------------------------
-  # Docker
-  # ----------------------------------------------------------------------------
-
-  zinit lucid has'docker' for \
-    as'completion' is-snippet \
-    'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
-    \
-    as'completion' is-snippet \
-    'https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose' \
-    \
-    from'gh-r' as'program' \
-    'jesseduffield/lazydocker' \
-    \
-    from'gh-r' as'program' \
-    mv'hadolint* -> hadolint' \
-    'hadolint/hadolint' \
-    ;
-
-  # ----------------------------------------------------------------------------
   # Git
   # ----------------------------------------------------------------------------
 
@@ -61,11 +42,21 @@ __load_zinit_plugins() {
     ;
 
   # ----------------------------------------------------------------------------
+  # FZF
+  # ----------------------------------------------------------------------------
 
   zinit lucid for \
     if'! __dko_has fzf' from'gh-r' as'program' 'junegunn/fzf-bin' \
+    \
     'torifat/npms' \
+    \
+    from'gh-r' as'program' \
+    'jesseduffield/lazydocker' \
     ;
+
+  # ----------------------------------------------------------------------------
+  # Utilities
+  # ----------------------------------------------------------------------------
 
   # my fork of cdbk, ZSH hash based directory bookmarking. No wait!
   export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
@@ -115,8 +106,13 @@ __load_zinit_plugins() {
   zinit snippet 'OMZP::extract'
 
   # ----------------------------------------------------------------------------
-  # Completion
+  # Completions
   # ----------------------------------------------------------------------------
+
+  zinit as'completion' is-snippet for \
+    'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
+    'https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose' \
+    ;
 
   # In-line best history match suggestion
   # don't suggest lines longer than
