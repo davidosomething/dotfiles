@@ -7,8 +7,11 @@
 export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 
 __load_zinit_plugins() {
+  local man_dir="${ZPFX}/share/man/man1"
+  local comp_dir="${ZPFX}/share/zsh/site-functions"
   # Make man dir in /polaris
-  mkdir -pv "${ZPFX}/share/man/man1"
+  mkdir -pv "$man_dir"
+  mkdir -pv "$comp_dir"
 
   # ----------------------------------------------------------------------------
   # Git
@@ -16,12 +19,9 @@ __load_zinit_plugins() {
 
   # must specify the gh* directory so we don't get old version in
   # cli--cli/.backup
-  local gh_pick="gh*/**/gh"
-  [ "$DOTFILES_OS" = 'Linux' ] && gh_pick='usr/bin/gh'
-
   zinit lucid as'program' for \
-    from'gh-r' pick"$gh_pick" \
-    atclone'cp -vf **/*.1 "${ZPFX}/share/man/man1"' \
+    from'gh-r' mv'gh* -> usr' pick"usr/bin/gh" \
+    atclone"cp -vf usr/**/*.1 \"${man_dir}\"; ./usr/bin/gh completion --shell zsh > \"${comp_dir}/_gh\"" \
     atpull'%atclone' \
     '@cli/cli' \
     \
