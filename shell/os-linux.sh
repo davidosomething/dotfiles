@@ -18,12 +18,15 @@ OpenBSD) export DOTFILES_OS="OpenBSD" ;;
   # X11 - for starting via xinit or startx
   export XAPPLRESDIR="${DOTFILES}/linux"
 
-  if [ -f "/etc/fedora-release" ]; then
+  if [ -f /etc/fedora-release ]; then
     export DOTFILES_DISTRO="fedora"
-  elif [ -f "/etc/debian_version" ]; then
+  elif [ -f /etc/debian_version ]; then
     export DOTFILES_DISTRO="debian"
-  elif [ -f "/etc/arch-release" ]; then
+  elif [ -f /etc/arch-release ]; then
+    # manjaro too
     export DOTFILES_DISTRO="archlinux"
+  elif [ -f /etc/synoinfo.conf ]; then
+    export DOTFILES_DISTRO="synology"
   fi
   ;;
 esac
