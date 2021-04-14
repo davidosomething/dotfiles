@@ -6,22 +6,23 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 
-__load_zinit_plugins() {
+function {
   local man_dir="${ZPFX}/share/man/man1"
-  local comp_dir="${ZPFX}/share/zsh/site-functions"
   # Make man dir in /polaris
   mkdir -pv "$man_dir"
-  mkdir -pv "$comp_dir"
 
   # ----------------------------------------------------------------------------
   # Git
   # ----------------------------------------------------------------------------
 
-  # must specify the gh* directory so we don't get old version in
-  # cli--cli/.backup
+  # Note: the mv for @cli/cli normalizes the macOS structure to be the same as
+  # the linux ones (there is also a .backup folder in the archive we want to
+  # ignore)
   zinit lucid as'program' for \
-    from'gh-r' mv'gh* -> usr' pick"usr/bin/gh" \
-    atclone"cp -vf usr/**/*.1 \"${man_dir}\"; ./usr/bin/gh completion --shell zsh > \"${comp_dir}/_gh\"" \
+    from'gh-r' \
+    mv'gh* -> usr' \
+    pick"usr/bin/gh" \
+    atclone"cp -vf usr/**/*.1 \"${man_dir}\"; ./usr/bin/gh completion --shell zsh > _gh" \
     atpull'%atclone' \
     '@cli/cli' \
     \
@@ -140,8 +141,5 @@ __load_zinit_plugins() {
   zinit lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" for \
     'zdharma/fast-syntax-highlighting'
 }
-
-# file does not exist on busybox
-command -v file >/dev/null && __load_zinit_plugins
 
 DKO_SOURCE="${DKO_SOURCE} }"
