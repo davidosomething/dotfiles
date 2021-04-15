@@ -28,13 +28,13 @@ alias mkdir="nocorrect mkdir"
 # Modules: compinit and more completion
 # ============================================================================
 
-__compdir="${LDOTDIR}/completions"
-mkdir -pv "$__compdir"
+export DOTFILES_ZSH_COMPDIR="${LDOTDIR}/completions"
+mkdir -pv "$DOTFILES_ZSH_COMPDIR"
 
 build_fnm_completions() {
-  fnm completions --shell zsh >"${__compdir}/_fnm" 2>/dev/null
+  fnm completions --shell zsh >"${DOTFILES_ZSH_COMPDIR}/_fnm" 2>/dev/null
 }
-[ ! -f "${__compdir}/_fnm" ] && build_fnm_completions
+[ ! -f "${DOTFILES_ZSH_COMPDIR}/_fnm" ] && build_fnm_completions
 
 # ============================================================================
 # zinit
@@ -47,6 +47,7 @@ __dko_has 'file' && __dko_has 'git' && {
 
   # part of zinit's install, found by compaudit
   mkdir -pv "${ZINIT[HOME_DIR]}" && chmod g-rwX "${ZINIT[HOME_DIR]}"
+  alias unzinit='rm -rf "${ZINIT[HOME_DIR]}"'
 
   function {
     local zinit_dest="${ZINIT[HOME_DIR]}/bin"
@@ -60,20 +61,17 @@ __dko_has 'file' && __dko_has 'git' && {
 }
 
 if __dko_has 'zinit'; then
-  zinit add-fpath "$__compdir"
-  . "${ZDOTDIR}/zinit.zsh" 2>/dev/null && {
-    autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
-    alias unzinit='rm -rf "${ZINIT[HOME_DIR]}"'
-  }
+  zinit add-fpath "$DOTFILES_ZSH_COMPDIR"
+  . "${ZDOTDIR}/zinit.zsh" 2>/dev/null
+  autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
 else
-  fpath+=($__compdir)
+  fpath+=($DOTFILES_ZSH_COMPDIR)
 fi
 
 # ============================================================================
 # Finish up managed completions
 # ============================================================================
 
-unset __compdir
 autoload -Uz compinit && compinit
 compdef g=git
 
