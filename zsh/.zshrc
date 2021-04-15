@@ -32,7 +32,8 @@ export DOTFILES_ZSH_COMPDIR="${LDOTDIR}/completions"
 mkdir -pv "$DOTFILES_ZSH_COMPDIR"
 
 build_fnm_completions() {
-  fnm completions --shell zsh >"${DOTFILES_ZSH_COMPDIR}/_fnm" 2>/dev/null
+  fnm completions --shell zsh >"${DOTFILES_ZSH_COMPDIR}/_fnm" 2>/dev/null &&
+    printf "Wrote fnm completions to %s\n" "${DOTFILES_ZSH_COMPDIR}/_fnm"
 }
 [ ! -f "${DOTFILES_ZSH_COMPDIR}/_fnm" ] && build_fnm_completions
 
