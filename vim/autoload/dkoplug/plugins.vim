@@ -125,7 +125,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Compatible with Neovim or Vim with this patch level
   Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
-  "Plug '~/projects/neomake'
 
   " ==========================================================================
   " Editing keys
@@ -404,18 +403,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Plug 'vim-pandoc/vim-pandoc-syntax'
 
   " ==========================================================================
-  " Language: Nginx
-  " Disabled, rarely used.
-  " ==========================================================================
-
-  "Plug 'chr4/nginx.vim'
-
-  " Same as in official upstream, @mhinz tends to update more often
-  " http://hg.nginx.org/nginx/file/tip/contrib/vim
-  " Plug 'mhinz/vim-nginx'
-  "Plug 'moskytw/nginx-contrib-vim'
-
-  " ==========================================================================
   " Language: PHP, twig
   " ==========================================================================
 
@@ -506,29 +493,17 @@ function! dkoplug#plugins#LoadAll() abort
   " Color highlighting
   " ==========================================================================
 
-  " The vim fallback choice is vim-css-color because it offers stability and
-  " completeness. It can do multiple css colors on one line, which hexokinase
-  " cannot, and it updates immediately, which coc-highlight has trouble
-  " keeping up with.
+  " Alternatives:
+  " - coc-highlight -- requires language server to support colors, can be slow
   let l:use_fancy_colors = has('nvim')
         \ && exists('&termguicolors')
         \ && &termguicolors
 
-  Plug 'ap/vim-css-color', PlugIf(!l:use_fancy_colors)
   " Pure lua implementation, covers most cases and is fastest in neovim
   Plug 'norcalli/nvim-colorizer.lua', PlugIf(l:use_fancy_colors)
   augroup dkonvimcolorizer
-    autocmd! User nvim-colorizer.lua lua require 'colorizer'.setup({ '*' }, { css = true })
+    autocmd! User nvim-colorizer.lua lua require 'colorizer'.setup({}, { css = true })
   augroup END
-
-  " ==========================================================================
-  " Language: .tmux.conf
-  " ==========================================================================
-
-  " Older syntax but has neat features
-  "Plug 'tmux-plugins/vim-tmux'
-  " Less feature filled but this is upstream for $VIMRUNTIME and more up-to-date
-  Plug 'ericpruitt/tmux.vim', { 'rtp': 'vim/' }
 
   " ==========================================================================
   " Language: TOML
@@ -543,8 +518,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'machakann/vim-vimhelplint'
 
-  Plug 'junegunn/vader.vim'
-
   " Auto-prefix continuation lines with \
   " Error: <CR> recursive mapping
   " Plug 'lambdalisue/vim-backslash'
@@ -553,7 +526,11 @@ function! dkoplug#plugins#LoadAll() abort
   " UI -- load last!
   " ==========================================================================
 
+  " Disable cursorline sometimes, for performance
   Plug 'delphinus/vim-auto-cursorline', PlugIf(exists('*timer_start'))
+
+  " Provides neat completion menu for command line, e.g. for :, /, ? modes
+  Plug 'gelguy/wilder.nvim'
 
   " --------------------------------------------------------------------------
   " Quickfix window
@@ -581,12 +558,6 @@ function! dkoplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
   " Window events
   " --------------------------------------------------------------------------
-
-  " Disabled, not worth the overhead.
-  " Alternatively use sjl/vitality.vim -- but that has some cursor shape stuff
-  " that Neovim doesn't need.
-  " https://github.com/sjl/vitality.vim/issues/31
-  "Plug 'tmux-plugins/vim-tmux-focus-events'
 
   Plug 'wellle/visual-split.vim', { 'on': [
         \   'VSResize', 'VSSplit',
