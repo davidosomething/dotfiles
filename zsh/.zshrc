@@ -9,6 +9,11 @@ export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 
 . "${DOTFILES}/shell/dot.profile"
 
+# export to global and dedupe entries (lowercase are arrays that shadow PATH,
+# FPATH, etc). zsh docs recommends setting the flag for both interfaces (i.e.,
+# add both PATH var and path array)
+typeset -gU cdpath PATH path FPATH fpath MANPATH manpath
+
 # ============================================================================
 # nocorrect aliases
 # These may be re-aliased later (e.g. rm=trash from trash-cli node module)
@@ -23,12 +28,13 @@ alias mkdir="nocorrect mkdir"
 # Modules: compinit and more completion
 # ============================================================================
 
-compdir="${LDOTDIR}/completions"
-mkdir -pv "$compdir"
+__compdir="${LDOTDIR}/completions"
+mkdir -pv "$__compdir"
 
-__dko_has 'fnm' &&
-  [ ! -f "${compdir}/_fnm" ] &&
-  fnm completions --shell zsh > "${compdir}/_fnm"
+build_fnm_completions() {
+  fnm completions --shell zsh >"${__compdir}/_fnm" 2>/dev/null
+}
+[ ! -f "${__compdir}/_fnm" ] && build_fnm_completions
 
 # ============================================================================
 # zinit
@@ -54,17 +60,20 @@ __dko_has 'file' && __dko_has 'git' && {
 }
 
 if __dko_has 'zinit'; then
-  zinit add-fpath "$compdir"
+  zinit add-fpath "$__compdir"
   . "${ZDOTDIR}/zinit.zsh" 2>/dev/null && {
     autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
     alias unzinit='rm -rf "${ZINIT[HOME_DIR]}"'
   }
 else
-  fpath+=($compdir)
+  fpath+=($__compdir)
 fi
 
-unset compdir
+# ============================================================================
+# Finish up managed completions
+# ============================================================================
 
+unset __compdir
 autoload -Uz compinit && compinit
 compdef g=git
 
@@ -132,8 +141,8 @@ zmodload -i zsh/complist
 #autoload -Uz colors; colors
 
 # hooks -- used for prompt too
-autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
+autoload -Uz vcs_info
 
 # automatically fix things when pasted, works with url-quote-magic
 autoload -Uz bracketed-paste-magic
@@ -331,7 +340,7 @@ zstyle ':completion:*:processes-names' command \
   'ps c -u ${USER} -o command | uniq'
 
 # rsync and SSH use hosts from ~/.ssh/config
-[ -r "$HOME/.ssh/config" ] && {
+[ -r "${HOME}/.ssh/config" ] && {
   # Vanilla parsing of config file :)
   # @see {@link https://github.com/Eriner/zim/issues/46#issuecomment-219344931}
   hosts=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
@@ -352,6 +361,7 @@ zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 # ----------------------------------------------------------------------------
 
 # terse zsh-specific up
+# skip synology because zsh compiled without regex
 if [[ "$DOTFILES_DISTRO" != "synology" ]]; then
   up() {
     local limit=1
@@ -368,9 +378,6 @@ fi
 
 . "${DOTFILES}/shell/after.sh"
 . "${LDOTDIR}/zshrc" 2>/dev/null
-
-# dedupe these path arrays (they shadow PATH, FPATH, etc)
-typeset -gU cdpath path fpath manpath
 
 # ============================================================================
 # End profiling
