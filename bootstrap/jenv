@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+command -v jenv >/dev/null || exit 1
+
+jenv enable-plugin export
+jenv enable-plugin gradle
