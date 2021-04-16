@@ -85,6 +85,10 @@ function! dkoplug#plugins#LoadAll() abort
 
   let g:git_messenger_max_popup_width = 70
   let g:git_messenger_max_popup_height = 24
+  " Can add borders, see api-floatwin
+  "if has('nvim-0.5')
+  "  let g:git_messenger_floating_win_opts = { 'border': 'shadow' }
+  "endif
   Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'))
 
   let g:neoformat_enabled_json = [ 'dkoprettier', 'jq' ]
