@@ -321,12 +321,19 @@ __dko_dotfiles__py__update_pipx() {
   pipx upgrade-all
 }
 
-__dko_dotfiles__py__update_neovim() {
+__dko_dotfiles__update_neovim() {
   if __dko_has "brew"; then
+    if __dko_has nvim; then
+      local version
+      version="$(nvim --version | head -n1)"
+      ! grep dev <<< "$version" && brew uninstall neovim
+    fi
     brew install --force --HEAD neovim
+
   elif __dko_has "pamac"; then
     pamac build neovim-git
   fi
+
   local res=$?
   [ $res -ne 0 ] &&
     __dko_err "Could not update to latest neovim prerelease build" &&
@@ -638,7 +645,7 @@ __dko_dotfiles() {
   pip) __dko_dotfiles__py__update_pip ;;
   pipx) __dko_dotfiles__py__update_pipx ;;
   pyenv) __dko_dotfiles__py__update_pyenv ;;
-  neovim) __dko_dotfiles__py__update_neovim ;;
+  neovim) __dko_dotfiles__update_neovim ;;
   neopy) __dko_dotfiles__py__update_neovim_python ;;
   wpcs) __dko_dotfiles__php__update_wpcs ;;
 
