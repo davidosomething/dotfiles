@@ -514,7 +514,7 @@ __dko_dotfiles__linux__deb__update() {
 
 __dko_dotfiles__darwin__update_mac() {
   __dko_status "macOS system update"
-  sudo softwareupdate --install --all
+  softwareupdate --install --all --force
 
   __dko_status "xcode and cli update"
   sudo xcode-select --install
