@@ -434,8 +434,16 @@ if g:dko_autoinstall_vim_plug
   endif
 
   if s:has_plug
-    command! PI PlugInstall | UpdateRemotePlugins
-    command! PU PlugUpgrade | PlugUpdate | UpdateRemotePlugins
+    augroup dkoplugupdates
+      autocmd User dko-plugins-installed,dko-plugins-updated
+            \   if exists(':UpdateRemotePlugins')
+            \|    UpdateRemotePlugins
+            \|  endif
+    augroup END
+
+    command! PI PlugInstall | doautocmd User dko-plugins-installed
+    command! PU PlugUpgrade | PlugUpdate | doautocmd User dko-plugins-updated
+
     let g:plug_window = 'tabnew'
     call plug#begin(g:dko#plug_absdir)
     if empty($VIMNOPLUGS) | call dkoplug#plugins#LoadAll() | endif
