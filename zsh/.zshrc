@@ -1,7 +1,6 @@
 # .zshrc
 
 # sourced only on interactive/TTY
-# sourced on login after zprofile
 # sourced when you type ZSH
 
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
