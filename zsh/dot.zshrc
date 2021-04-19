@@ -6,12 +6,12 @@
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
 export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 
-. "${DOTFILES}/shell/dot.profile"
-
 # export to global and dedupe entries (lowercase are arrays that shadow PATH,
 # FPATH, etc). zsh docs recommends setting the flag for both interfaces (i.e.,
 # add both PATH var and path array)
 typeset -gU cdpath PATH path FPATH fpath MANPATH manpath
+
+. "${DOTFILES}/shell/interactive.sh"
 
 # ============================================================================
 # nocorrect aliases
@@ -150,8 +150,6 @@ zle -N bracketed-paste bracketed-paste-magic
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-. "${ZDOTDIR}/prompt-vcs.zsh"
-. "${ZDOTDIR}/prompt-vimode.zsh"
 . "${ZDOTDIR}/prompt.zsh"
 
 # ============================================================================

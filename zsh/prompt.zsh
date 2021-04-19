@@ -4,7 +4,10 @@
 # Use add-zsh-hook for precmd or else the other ZSH prompt plugins may break
 #
 
-export DKO_SOURCE="${DKO_SOURCE} -> prompt.zsh"
+export DKO_SOURCE="${DKO_SOURCE} -> prompt.zsh {"
+
+. "${ZDOTDIR}/prompt-vcs.zsh"
+. "${ZDOTDIR}/prompt-vimode.zsh"
 
 # ============================================================================
 # Generic traps
@@ -115,3 +118,7 @@ __dko_prompt() {
 }
 
 __dko_prompt
+
+# ============================================================================
+
+DKO_SOURCE="${DKO_SOURCE} }"
