@@ -54,3 +54,14 @@ PATH="${HOME}/.luarocks/bin:${PATH}"
 
 # go -- prefer go binaries over composer; GOPATH is in shell/vars.sh
 PATH="${GOPATH}/bin:${PATH}"
+
+# iTerm2 bin
+PATH="${HOME}/.iterm2:${PATH}"
+
+# ============================================================================
+# Local path -- everything after the path setting this may use "command" to
+# check for presence
+# ============================================================================
+
+PATH="${HOME}/.local/bin:${PATH}"
+PATH="${DOTFILES}/bin:${PATH}"

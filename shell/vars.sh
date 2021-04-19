@@ -3,11 +3,37 @@
 # Some things from env are here since macOS/OS X doesn't start new env for each
 # term and we may need to reset the values
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.sh"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.sh {"
 
 # dot.bash_profile did this early
+# @TODO maybe dot.bash_profile needs to skip init
 DOTFILES_OS="${DOTFILES_OS:-$(uname)}"
 export DOTFILES_OS
+
+case "$DOTFILES_OS" in
+  Darwin*) ;;
+  FreeBSD*) export DOTFILES_DISTRO="FreeBSD" ;;
+  OpenBSD*) export DOTFILES_DISTRO="OpenBSD" ;;
+
+  *)
+    # for pacdiff
+    export DIFFPROG="nvim -d"
+
+    # X11 - for starting via xinit or startx
+    export XAPPLRESDIR="${DOTFILES}/linux"
+
+    if [ -f /etc/arch-release ]; then
+      # manjaro too
+      export DOTFILES_DISTRO="archlinux"
+    elif [ -f /etc/debian_version ]; then
+      export DOTFILES_DISTRO="debian"
+    elif [ -f /etc/fedora-release ]; then
+      export DOTFILES_DISTRO="fedora"
+    elif [ -f /etc/synoinfo.conf ]; then
+      export DOTFILES_DISTRO="synology"
+    fi
+  ;;
+esac
 
 # ============================================================================
 # Locale
@@ -188,3 +214,5 @@ export YAMLLINT_CONFIG_FILE="${DOTFILES}/yamllint/config"
 # yarn cache
 # https://github.com/yarnpkg/yarn/issues/3208
 export YARN_CACHE_FOLDER="${XDG_CACHE_HOME}/yarn"
+
+DKO_SOURCE="${DKO_SOURCE} }"

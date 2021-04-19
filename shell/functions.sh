@@ -77,19 +77,15 @@ g() {
   fi
 }
 
-# Update composer packages without cache
-cunt() {
-  COMPOSER_CACHE_DIR=/dev/null composer update
-}
-
-# ============================================================================
-# Archiving
-# ============================================================================
-
 # Export repo files to specified dir
 gitexport() {
   to_dir="${2:-./gitexport}"
   rsync -a "${1:-./}" "$to_dir" --exclude "$to_dir" --exclude .git
+}
+
+# Update composer packages without cache
+cunt() {
+  COMPOSER_CACHE_DIR=/dev/null composer update
 }
 
 # ============================================================================
@@ -123,4 +119,3 @@ sshlistkeys() {
     ssh-keygen -l -f "${keyfile}"
   done | uniq
 }
-

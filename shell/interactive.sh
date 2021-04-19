@@ -1,6 +1,6 @@
 # shell/interactive.sh
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh[interactive] {"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
 [ -f "${HOME}/.local/dotfiles.lock" ] &&
   "${DOTFILES}/shell/dko-wait-for-dotfiles-lock"
 
@@ -19,24 +19,26 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh[interactive] {"
 . "${DOTFILES}/shell/rust.sh"
 
 # ============================================================================
-# interactive aliases and functions
-# source aliases late so command -v (as in __dko_has) doesn't detect them
+# interactive shells
 # ============================================================================
 
 . "${DOTFILES}/shell/functions.sh" # shell functions
 
-. "${DOTFILES}/shell/aliases.sh"   # generic aliases
+case "$DOTFILES_OS" in
+  Darwin) . "${DOTFILES}/shell/interactive-darwin.zsh" ;;
+  Linux)
+    . "${DOTFILES}/shell/interactive-linux.sh"
+    ;;
+esac
 
-if [ "$DOTFILES_OS" = 'Linux' ]; then
-  . "${DOTFILES}/shell/aliases-linux.sh"
-  case "$DOTFILES_DISTRO" in
+# source aliases late so command -v (as in __dko_has) doesn't detect them
+
+. "${DOTFILES}/shell/aliases.sh"   # generic aliases
+case "$DOTFILES_DISTRO" in
   "archlinux" | "debian" | "fedora")
     . "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.sh"
     ;;
-  esac
-else
-  . "${DOTFILES}/shell/aliases-darwin.sh"
-fi
+esac
 
 # ============================================================================
 

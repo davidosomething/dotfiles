@@ -1,20 +1,18 @@
-# shell/os-darwin.zsh
+# shell/interactive-darwin.zsh
 
 # Counting on Darwin default shell to be zsh now, bashisms are okay!
 
-export DKO_SOURCE="${DKO_SOURCE} -> shell/os-darwin.zsh"
+export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive-darwin.zsh"
 
 # ============================================================================
 # homebrew
 # ============================================================================
 
-export HOMEBREW_NO_ANALYTICS=1
-export HOMEBREW_NO_INSECURE_REDIRECT=1
-
-alias caskrm="brew uninstall --cask --force"
-
 # just assume brew is in normal location, don't even check for it
 export DKO_BREW_PREFIX="/usr/local"
+
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_INSECURE_REDIRECT=1
 
 # GOROOT binaries
 [ -d "${DKO_BREW_PREFIX}/opt/go/libexec/bin" ] &&
@@ -40,9 +38,6 @@ PATH="${DKO_BREW_PREFIX}/opt/git/share/git-core/contrib/git-jump:${PATH}"
 
 [ -d "${DKO_BREW_PREFIX}/share/android-sdk" ] &&
   export ANDROID_SDK_ROOT="${DKO_BREW_PREFIX}/share/android-sdk"
-
-# iTerm2 bin
-PATH="${HOME}/.iterm2:${PATH}"
 
 # ============================================================================
 # Functions
@@ -113,9 +108,9 @@ vol() {
   __dko_has "osascript" && osascript -e "set volume ${1}"
 }
 
-# ============================================================================
+# ----------------------------------------------------------------------------
 # Require ddcctl https://github.com/kfix/ddcctl
-# ============================================================================
+# ----------------------------------------------------------------------------
 
 ddcctl-hdmi1() {
   __dko_has ddcctl && ddcctl -d 1 -i 17
@@ -128,3 +123,65 @@ ddcctl-hdmi2() {
 ddcctl-dp() {
   __dko_has ddcctl && ddcctl -d 1 -i 15
 }
+
+# ============================================================================
+# Aliases
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Homebrew
+# ----------------------------------------------------------------------------
+
+alias b='TERM=xterm-256color \brew'
+alias brew='b'
+
+alias bi='b install'
+alias bs='b search'
+alias blfn='b ls --full-name'
+
+alias brc='b cask'
+
+alias bsvc='b services'
+alias bsvr='b services restart'
+
+alias bwhy='b uses --installed --recursive'
+
+alias cask='brc'
+alias ci='brc install'
+alias caskrm="brew uninstall --cask --force"
+
+# ----------------------------------------------------------------------------
+# Apps
+# ----------------------------------------------------------------------------
+
+alias canary='open -a "Google Chrome Canary.app"'
+alias chrome='open -a "Google Chrome.app"'
+alias slack='open -a Slack.app'
+
+# ----------------------------------------------------------------------------
+# Redshift
+# ----------------------------------------------------------------------------
+
+alias redstart='bsvc start redshift'
+alias redstop='bsvc stop redshift'
+
+# ----------------------------------------------------------------------------
+# Misc
+# ----------------------------------------------------------------------------
+
+# sudo since we run nginx on port 80 so needs admin
+alias rnginx='sudo brew services restart nginx'
+
+# electron apps can't focus if started using Electron symlink
+alias elec='/Applications/Electron.app/Contents/MacOS/Electron'
+
+# Audio control - http://xkcd.com/530/
+alias stfu="osascript -e 'set volume output muted true'"
+
+# ----------------------------------------------------------------------------
+# xcode
+# ----------------------------------------------------------------------------
+
+alias cuios='XCODE_XCCONFIG_FILE="${PWD}/xcconfigs/swift31.xcconfig" carthage update --platform iOS'
+alias deletederived='rm -rf ~/Library/Developer/Xcode/DerivedData/*'
+alias xcimg='xcrun simctl addmedia booted'
