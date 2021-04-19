@@ -94,6 +94,10 @@ __symlink() {
       ".config/redshift/redshift.conf"
     ;;
   linux*)
+    dko-symlink "linux/dot.xprofile" \
+      ".xprofile" &&
+      __dko_status "May need to restart X session"
+
     dko-symlink "linux/terminator/config" \
       ".config/terminator/config"
     ;;

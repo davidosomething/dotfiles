@@ -2,7 +2,6 @@
 
 # Used by /bin/sh shell
 # - Sourced by login shells
-# - Sourced by .zprofile, which is be called by the SDDM's xsession script
 # - Sourced by bash/dot.bashrc if in a BASH login shell
 # - Sourced by zsh/.zshrc if in a ZSH login shell
 #

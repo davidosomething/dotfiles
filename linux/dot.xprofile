@@ -1,0 +1,10 @@
+# linux/dot.xprofile
+
+# Should be run by DM, e.g. /usr/share/sddm/scripts/Xsession
+
+export DKO_SOURCE="${DKO_SOURCE} -> linux/dot.xprofile"
+
+# Make XDG compat
+export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc"
+
+# vim: ft=sh

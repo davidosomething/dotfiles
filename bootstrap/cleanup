@@ -91,6 +91,9 @@ __move "${HOME}/.solargraph" "${XDG_CACHE_HOME}/solargraph"
 __move "${HOME}/.vagrant.d" "${XDG_DATA_HOME}/vagrant"
 __move "${HOME}/.zhistory" "${HOME}/.local/zsh_history"
 
+# .xprofile sets it to .config/gtk-2.0/gtkrc
+[[ -n "$GTK2_RC_FILES" ]] && __move "${HOME}/.gtkrc-2.0" "$GTK2_RC_FILES"
+
 __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 
 [[ -n "$CARGO_HOME" ]] && __move "${HOME}/.cargo" "$CARGO_HOME"
