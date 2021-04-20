@@ -86,6 +86,9 @@ compdef g=git
 # In the order of `man zshoptions`
 # ============================================================================
 
+# disable ^S and ^Q terminal freezing
+unsetopt flowcontrol
+
 # Changing Directories
 setopt AUTO_PUSHD                     # pushd instead of cd
 setopt PUSHD_IGNORE_DUPS
@@ -167,12 +170,9 @@ zle -N self-insert url-quote-magic
 # \e is the same as ^[ is the escape code for <Esc>
 # Prefer ^[ since it mixes better with the letter form [A
 #
-# Tested on macbook, iterm2 (default key codes), xterm-256color-italic
+# Tested on macbook iterm2 and magic keyboard+arch, xterm-256color
 # - Need both normal mode and vicmd mode
 # ============================================================================
-
-# disable ^S and ^Q terminal freezing
-unsetopt flowcontrol
 
 # VI mode
 bindkey -v
