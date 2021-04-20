@@ -14,6 +14,12 @@ typeset -gU cdpath PATH path FPATH fpath MANPATH manpath
 . "${DOTFILES}/shell/interactive.sh"
 
 # ============================================================================
+# Interactive vars
+# ============================================================================
+
+export HISTFILE="${HOME}/.local/zsh_history"
+
+# ============================================================================
 # nocorrect aliases
 # These may be re-aliased later (e.g. rm=trash from trash-cli node module)
 # ============================================================================
@@ -374,16 +380,6 @@ fi
 
 . "${DOTFILES}/shell/after.sh"
 . "${LDOTDIR}/zshrc" 2>/dev/null
-
-# ============================================================================
-# End profiling
-# ============================================================================
-
-# Started xtrace in dot.zshenv
-[[ "$ITERM_PROFILE" == "PROFILE"* ]] || [[ -n "$DKO_PROFILE_STARTUP" ]] && {
-  unsetopt xtrace
-  exec 2>&3 3>&- && __dko_ok "ZSH startup log written to ${DKO_PROFILE_LOG}"
-}
 
 # ============================================================================
 
