@@ -6,6 +6,7 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> prompt.zsh {"
 
+. "${ZDOTDIR}/prompt-linedrawing.zsh"
 . "${ZDOTDIR}/prompt-vcs.zsh"
 . "${ZDOTDIR}/prompt-vimode.zsh"
 
