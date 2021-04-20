@@ -24,6 +24,7 @@ alias cdv='cd -- "${VDOTDIR}"'
 alias dirs='dirs -v' # default to vert, use -l for list
 alias down='cd -- "${XDG_DOWNLOAD_DIR}"'
 alias tree='tree -CF'
+alias t="tree -a --noreport --dirsfirst -I '.git|node_modules|bower_components|.DS_Store'"
 
 # ----------------------------------------------------------------------------
 # ansible
@@ -73,11 +74,8 @@ alias gemrm='gem uninstall --all'
 # ----------------------------------------------------------------------------
 
 alias g-='git checkout -'
-alias gb='git branch --verbose'
-alias gg='git grep --line-number --break --heading'
 alias gl='git l --max-count 20'
 alias gm='git checkout "$(git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/)"'
-alias gp='git push'
 
 # ----------------------------------------------------------------------------
 # gradle
@@ -189,11 +187,9 @@ alias curl='curl --config "${DOTFILES}/curl/dot.curlrc"'
 alias df='df -h'
 alias gpgreload='gpg-connect-agent reloadagent /bye'
 alias ln='ln -v'
-alias mdl='mdl --config "${DOTFILES}/mdl/dot.mdlrc"'
 alias o='dko-open'
 alias publicip='\curl icanhazip.com'
 alias rsync='rsync --human-readable --partial --progress'
-alias t="tree -a --noreport --dirsfirst -I '.git|node_modules|bower_components|.DS_Store'"
 alias today='date +%Y-%m-%d'
 alias tpr='tput reset' # really clear the scrollback
 alias u='dot'
