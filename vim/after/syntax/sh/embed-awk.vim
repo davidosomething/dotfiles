@@ -3,6 +3,8 @@
 " Embed awk highlighting
 " See :h *sh-embed*
 
+" So we go back to "bash" instead of just "sh"
+let s:syntax_save = get(b:, 'current_syntax', '')
 if exists('b:current_syntax')
   unlet b:current_syntax
 endif
@@ -17,3 +19,5 @@ syn region AWKScriptCode matchgroup=AWKCommand start=+[=\\]\@<!'+ skip=+\\'+ end
 syn region AWKScriptEmbedded matchgroup=AWKCommand start=+\<awk\>+ skip=+\\$+ end=+[=\\]\@<!'+me=e-1 contains=@shIdList,@shExprList2 nextgroup=AWKScriptCode
 syn cluster shCommandSubList add=AWKScriptEmbedded
 hi def link AWKCommand Type
+
+let b:current_syntax = s:syntax_save
