@@ -437,7 +437,7 @@ if g:dko_autoinstall_vim_plug
     augroup dkoplugupdates
       autocmd User dko-plugins-installed,dko-plugins-updated
             \   if exists(':UpdateRemotePlugins')
-            \|    UpdateRemotePlugins
+            \|    silent! UpdateRemotePlugins
             \|  endif
     augroup END
 
