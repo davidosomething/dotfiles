@@ -9,9 +9,6 @@ set cpoptions&vim
 silent! unmap gc
 silent! unmap gcc
 silent! unmap gsc
-silent! unmap gsa
-silent! unmap gsd
-silent! unmap gsr
 silent! unmap <Leader>c
 
 " ============================================================================
@@ -27,15 +24,6 @@ if dkoplug#Exists('caw.vim')
   xmap gcc   <Plug>(caw:hatpos:toggle)
 
   map <silent> gsc   <Plug>(caw:hatpos:toggle:operator)
-endif
-
-if dkoplug#Exists('vim-operator-surround')
-  " note: gs is mapped to <NOP> in after/plugin/mappings.vim
-  map <silent>  gsa   <Plug>(operator-surround-append)
-  map <silent>  gsd   <Plug>(operator-surround-delete)
-  map <silent>  gsr   <Plug>(operator-surround-replace)
-  nmap <silent>  gs'   gsra"'
-  nmap <silent>  gs"   gsra'"
 endif
 
 if dkoplug#Exists('operator-camelize.vim')
