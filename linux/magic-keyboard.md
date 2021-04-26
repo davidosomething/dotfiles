@@ -2,6 +2,11 @@
 
 Can be paired with Bluetooth. Turn off, turn on bt, turn on.
 
+## Enable bluetooth in DM login screen
+
+Jump to the `[Policy]` section of `/etc/bluetooth/main.conf`
+Look for `AutoEnable`, set it to `true`.
+
 ## Getting it to pair with dual/multi-boot OS
 
 To use the same keyboard on both mac and linux on the same machine, [link the
