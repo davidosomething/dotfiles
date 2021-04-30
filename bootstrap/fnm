@@ -22,7 +22,8 @@ __main() {
   __dko_status "Installing ${script} to ${FNM_DIR}"
   curl -fsSL "$script" | bash -s -- \
     --install-dir "$FNM_DIR" \
-    --skip-shell
+    --skip-shell \
+    || return 1
 
   __dko_status "Loading"
   eval "$(fnm env)"
