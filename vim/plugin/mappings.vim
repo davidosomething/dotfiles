@@ -243,6 +243,9 @@ endfunction
 silent! iunmap <Tab>
 inoremap  <silent><special><expr>  <Tab>     <SID>DKO_Tab()
 
+" Tab inserts a tab, shift-tab should remove it
+inoremap <S-Tab> <C-d>
+
 " ----------------------------------------------------------------------------
 " Sort lines (use unix sort)
 " https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
