@@ -92,7 +92,7 @@ function {
     mv'shfmt* -> shfmt'       '@mvdan/sh'         \
     \
     mv'zoxide* -> zoxide' \
-    atclone'chmod +x zoxide' \
+    atclone'cp -vf zoxide/man/*.1 "${ZPFX}/share/man/man1"; chmod +x zoxide' \
     atpull'%atclone' \
     atload'eval "$(zoxide init --no-aliases zsh)" && alias j=__zoxide_z' \
     'ajeetdsouza/zoxide' \
