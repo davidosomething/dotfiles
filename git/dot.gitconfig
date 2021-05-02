@@ -98,12 +98,6 @@
 	required  = true
 	process = git-lfs filter-process
 
-[log]
-	mailmap = true
-
-[mailmap]
-	file = "~/.dotfiles/local/mailmap"
-
 [push]
 	default = simple
 
