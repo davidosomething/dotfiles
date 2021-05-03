@@ -326,10 +326,13 @@ __dko_dotfiles__update_neovim() {
     if __dko_has nvim; then
       local version
       version="$(nvim --version | head -n1)"
-      ! grep dev <<< "$version" && brew uninstall neovim
+      if ! grep dev <<< "$version"; then
+        brew uninstall neovim
+        brew install --force --HEAD neovim
+      else
+        brew reinstall neovim
+      fi
     fi
-    brew install --force --HEAD neovim
-
   elif __dko_has "pamac"; then
     pamac build neovim-git
   fi
@@ -608,7 +611,8 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
   # If imagemagick was outdated and php-imagick was not, force a reinstall
   # of php-imagick from source (using the new imagemagick)
   if grep -q "imagemagick" <<<"$outdated"; then
-    readonly phpimagick="$(brew list --formula -1 | grep 'php.*imagick')"
+    local phpimagick
+    phpimagick="$(brew list --formula -1 | grep 'php.*imagick')"
     if [[ -n "$phpimagick" ]]; then
       __dko_status "Rebuilding ${phpimagick} for new imagemagick"
       brew reinstall --build-from-source "$phpimagick"
