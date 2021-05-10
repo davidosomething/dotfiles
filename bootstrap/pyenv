@@ -70,11 +70,13 @@ __main() {
     return 1
   fi
 
-  . "${DOTFILES}/shell/python.sh"
+  eval "$(pyenv init -)" || return 1
+  eval "$(pyenv virtualenv-init -)" || return 1
 
   __dko_echo "\$PYENV_ROOT=${PYENV_ROOT}"
 
-  readonly virtualenvwrapperdest="$(pyenv root)/plugins/pyenv-virtualenvwrapper"
+  local virtualenvwrapperdest
+  virtualenvwrapperdest="$(pyenv root)/plugins/pyenv-virtualenvwrapper"
   if [[ ! -d "$virtualenvwrapperdest" ]]; then
     __dko_status "pyenv-virtualenvwrapper plugin installation"
     git clone \
