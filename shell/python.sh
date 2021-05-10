@@ -23,16 +23,13 @@ export PYLINTRC="${DOTFILES}/python/pylintrc"
 # pyenv for multiple Python binaries
 # ==============================================================================
 
-# init once
-export PYENV_ROOT="${XDG_CONFIG_HOME}/pyenv"
-PATH="${PYENV_ROOT}/bin:${PATH}"
-__dko_has 'pyenv' && {
-  DKO_SOURCE="${DKO_SOURCE} -> pyenv"
-  eval "$(pyenv init -)"
-  # should have pyenv-virtualenv plugin if installed via pyenv-installer
-  __dko_has 'pyenv-virtualenv-init' && eval "$(pyenv virtualenv-init -)"
+# should have pyenv-virtualenv plugin if installed via pyenv-installer
+__dko_has 'pyenv' &&
+  eval "$(pyenv init -)" &&
+  DKO_SOURCE="${DKO_SOURCE} -> pyenv" &&
+  __dko_has 'pyenv-virtualenv-init' &&
+  eval "$(pyenv virtualenv-init -)" &&
   export PIPX_DEFAULT_PYTHON="${PYENV_ROOT}/shims/python"
-}
 
 # ==============================================================================
 # VirtualEnv for python package isolation

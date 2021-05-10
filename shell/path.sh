@@ -58,6 +58,17 @@ PATH="${GOPATH}/bin:${PATH}"
 # iTerm2 bin
 PATH="${HOME}/.iterm2:${PATH}"
 
+# ----------------------------------------------------------------------------
+# pyenv
+# ----------------------------------------------------------------------------
+
+# bin
+export PYENV_ROOT="${XDG_CONFIG_HOME}/pyenv"
+PATH="${PYENV_ROOT}/bin:${PATH}"
+
+# shims (fails silently if bin not found)
+eval "$(pyenv init --path 2>/dev/null)"
+
 # ============================================================================
 # Local path -- everything after the path setting this may use "command" to
 # check for presence
