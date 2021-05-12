@@ -23,6 +23,13 @@ export PYLINTRC="${DOTFILES}/python/pylintrc"
 # pyenv for multiple Python binaries
 # ==============================================================================
 
+# bin
+export PYENV_ROOT="${XDG_CONFIG_HOME}/pyenv"
+PATH="${PYENV_ROOT}/bin:${PATH}"
+
+# shims (fails silently if bin not found)
+eval "$(pyenv init --path 2>/dev/null)"
+
 # should have pyenv-virtualenv plugin if installed via pyenv-installer
 __dko_has 'pyenv' &&
   eval "$(pyenv init -)" &&
