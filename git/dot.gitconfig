@@ -79,8 +79,8 @@
 	sharedRepository = 0664
 	commentchar = ";"
 # pager = less -x4 ; removed so git will use the env GIT_PAGER
+# pager = delta ; removed -- added as GIT_PAGER for zsh only
 	ignorecase = false
-	pager = delta
 
 [diff]
 	compactionHeuristic = true
