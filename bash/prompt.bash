@@ -60,7 +60,3 @@ __bash_prompt() {
 }
 
 __bash_prompt
-
-[[ "$SHELL" != *"/bash" ]] &&
-  command -v bash >/dev/null &&
-  echo "Currently using ${SHELL}, try bash -l"
