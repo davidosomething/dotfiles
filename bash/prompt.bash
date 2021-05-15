@@ -48,7 +48,7 @@ __bash_prompt() {
   local DIR="${Y}\\w"
 
   PS1="${USER}${B}@${HOST}${C}:${DIR}\\n"
-  PS1+="${P}(\$(__prompt_git))"   # git repository details
+  [[ "$SHELL" = *"/bash" ]] && PS1+="${P}(\$(__prompt_git))"   # git repository details
   PS1+="${Z} "
   export PS1
 }
