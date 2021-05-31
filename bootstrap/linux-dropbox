@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-wget https://linux.dropbox.com/fedora/rpm-public-key.asc -P ~/tmp/ &&
-gpg --import ~/tmp/rpm-public-key.asc

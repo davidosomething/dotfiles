@@ -550,7 +550,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'delphinus/vim-auto-cursorline', PlugIf(exists('*timer_start'))
 
   " Provides neat completion menu for command line, e.g. for :, /, ? modes
-  Plug 'gelguy/wilder.nvim', PlugIf(has('nvim'))
+  Plug 'gelguy/wilder.nvim', PlugIf(has('nvim') && has('python'))
 
   " --------------------------------------------------------------------------
   " Quickfix window

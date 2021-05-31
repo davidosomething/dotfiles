@@ -106,6 +106,7 @@ cscope.po.out
 # Editors
 # ----------------------------------------------------------------------------
 
+.nvimlog
 .padawan/
 .phpcomplete_extended/
 .vim/

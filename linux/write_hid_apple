@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 __write_conf() {
-  if setxkbmap -query | grep -q apple; then
+  if setxkbmap -query | grep -q apple || setxkbmap -query | grep -q macintosh; then
     echo "[FOUND] setxkbmap detected apple keyboard"
   else
     >&2 echo "[ERROR] setxkbmap did not detect an apple keyboard"

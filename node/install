@@ -10,6 +10,9 @@ if [ -z "$DOTFILES" ]; then
 fi
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
+. "${DOTFILES}/shell/node.sh"
+
+fnm use default
 
 # =============================================================================
 # Main
@@ -27,4 +30,4 @@ __install() {
   done < "${DOTFILES}/node/default-packages"
 }
 
-__install "$@"
+__dko_has npm && __install "$@"
