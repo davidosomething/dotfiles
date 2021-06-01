@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # =============================================================================
 # Require DOTFILES
 # =============================================================================
@@ -10,6 +12,7 @@ if [[ -z "$DOTFILES" ]]; then
 fi
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
+. "${DOTFILES}/shell/python.sh"
 export PATH="${DOTFILES}/bin:${PATH}"
 
 # =============================================================================
@@ -40,5 +43,4 @@ __install() {
   __dko_status "Updating global pip requirements"
   python -m pip install --upgrade --requirement "${DOTFILES}/python/requirements.txt"
 }
-
 __install "$@"
