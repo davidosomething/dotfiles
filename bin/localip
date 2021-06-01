@@ -35,7 +35,7 @@ __localip() {
 
   # this would be used for debian chroot
   if __has "ip"; then
-    ip addr | grep "inet 192"
+    ip addr | grep "inet 192" | awk '{print $2}' | cut -d'/' -f1
     exit
   fi
 
