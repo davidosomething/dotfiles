@@ -113,6 +113,11 @@ mykey() {
   fi
 }
 
+publicip() {
+  curl icanhazip.com 2>/dev/null ||
+    dig +short @resolver2.opendns.com myip.opendns.com 2>/dev/null
+}
+
 # useful for finding things like INSECURE keys (acceptable: RSA 4096 or Ed25519)
 sshlistkeys() {
   for keyfile in ~/.ssh/id_*; do

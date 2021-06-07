@@ -17,30 +17,30 @@ __localip() {
   # VERIFIED on Mavericks
   if __has "ifconfig"; then
     ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'
-    exit
+    return
   fi
 
   # OSTYPE is not set on debian chroot
   if [[ -n "$OSTYPE" && "$OSTYPE" == *'arwin'* ]]; then
     local ethernet
     ethernet=$(ipconfig getifaddr en0)
-    [ -n "$ethernet" ] && printf '%s\n' "$ethernet" && exit 0
+    [ -n "$ethernet" ] && printf '%s\n' "$ethernet" && return 0
 
     local wireless
     wireless=$(ipconfig getifaddr en1)
-    [ -n "$wireless" ] && printf '%s\n' "$wireless" && exit 0
+    [ -n "$wireless" ] && printf '%s\n' "$wireless" && return 0
 
-    exit 1
+    return 1
   fi
 
   # this would be used for debian chroot
   if __has "ip"; then
     ip addr | grep "inet 192" | awk '{print $2}' | cut -d'/' -f1
-    exit
+    return
   fi
 
   # on my debian chroot this yields internal IP, not unchroot'ed ip
-  __has "hostname" && hostname -i && exit
+  __has "hostname" && hostname -i && return
 }
 
 __localip

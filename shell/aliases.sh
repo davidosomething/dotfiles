@@ -189,7 +189,6 @@ alias df='df -h'
 alias gpgreload='gpg-connect-agent reloadagent /bye'
 alias ln='ln -v'
 alias o='dko-open'
-alias publicip='\curl icanhazip.com'
 alias rsync='rsync --human-readable --partial --progress'
 alias today='date +%Y-%m-%d'
 alias tpr='tput reset' # really clear the scrollback
