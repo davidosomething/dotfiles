@@ -490,8 +490,9 @@ __dko_dotfiles__darwin__update() {
 
 __dko_dotfiles__linux__arch__update() {
   __dko_status "Arch Linux system update"
-  if __dko_has "pacaur"; then
-    # update system
+  if __dko_has "yay"; then
+    yay
+  elif __dko_has "pacaur"; then
     pacaur -Syu
   elif __dko_has "aura"; then
     aura -Syua
