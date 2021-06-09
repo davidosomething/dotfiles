@@ -122,7 +122,7 @@ __dko_dotfiles__update_daily() {
     __dko_dotfiles__php__require_phpcs && __dko_dotfiles__php__update_wpcs
   }
 
-  __dko_has "pyenv" && {
+  __dko_has pyenv && {
     __dko_dotfiles__py__update_pyenv
     __dko_dotfiles__py__update_pip
     __dko_dotfiles__py__update_pipx
@@ -136,7 +136,7 @@ __dko_dotfiles__update_daily() {
 
 __dko_dotfiles__pyenv_system() {
   # switch to brew's python (fallback to system if no brew python)
-  __dko_has "pyenv" &&
+  __dko_has pyenv &&
     __dko_status "Switching to system python to upgrade brew packages" &&
     pyenv shell system || exit 1 &&
     python --version
@@ -144,7 +144,7 @@ __dko_dotfiles__pyenv_system() {
 
 # probably don't need this as long as running updates in subshells
 __dko_dotfiles__pyenv_global() {
-  __dko_has "pyenv" &&
+  __dko_has pyenv &&
     __dko_status_ "Switching back to global python" &&
     pyenv shell --unset || exit 1
 }
@@ -196,7 +196,7 @@ __dko_dotfiles__ruby__require_chruby() {
 
 # pass any arg to silence
 __dko_dotfiles__ruby__require_rubygems() {
-  __dko_has "gem" && return 0
+  __dko_has gem && return 0
   __dko_warn "rubygems is not installed"
   return 1
 }
@@ -228,14 +228,14 @@ __dko_dotfiles__ruby__update_gems() {
 
 # pass any arg to silence
 __dko_dotfiles__go__require_go() {
-  __dko_has "go" && return 0
+  __dko_has go && return 0
   __dko_warn "go is not installed"
   return 1
 }
 
 # pass any arg to silence
 __dko_dotfiles__go__require_goenv() {
-  __dko_has "goenv" && return 0
+  __dko_has goenv && return 0
   __dko_warn "goenv is not installed"
   return 1
 }
@@ -322,7 +322,7 @@ __dko_dotfiles__py__update_pipx() {
 }
 
 __dko_dotfiles__update_neovim() {
-  if __dko_has "brew"; then
+  if __dko_has brew; then
     if __dko_has nvim; then
       local version
       version="$(nvim --version | head -n1)"
@@ -333,7 +333,7 @@ __dko_dotfiles__update_neovim() {
         brew reinstall neovim
       fi
     fi
-  elif __dko_has "pamac"; then
+  elif __dko_has pamac; then
     pamac build neovim-git
   fi
 
@@ -347,7 +347,7 @@ __dko_dotfiles__update_neovim() {
 }
 
 __dko_dotfiles__py__update_neovim_python() {
-  ! __dko_has "pyenv" &&
+  ! __dko_has pyenv &&
     __dko_err "pyenv is not installed" && return 1
 
   __dko_status "Updating neovim3" &&
@@ -364,7 +364,7 @@ __dko_dotfiles__py__update_neovim_python() {
 
 # pass any arg to silence
 __dko_dotfiles__php__require_composer() {
-  __dko_has "composer" && return 0
+  __dko_has composer && return 0
   (( $# == 0 )) && __dko_warn "composer is not installed"
   return 1
 }
@@ -394,7 +394,7 @@ __dko_dotfiles__php__update_composer() {
 
 # pass any arg to silence
 __dko_dotfiles__php__require_phpcs() {
-  __dko_has "phpcs" && return 0
+  __dko_has phpcs && return 0
   (( $# == 0 )) && {
     __dko_warn "phpcs is not installed. Install via composer global require"
     __dko_warn_ "and run again, or set installed_paths manually"
@@ -490,11 +490,13 @@ __dko_dotfiles__darwin__update() {
 
 __dko_dotfiles__linux__arch__update() {
   __dko_status "Arch Linux system update"
-  if __dko_has "yay"; then
+  if __dko_has paru; then
+    paru
+  if __dko_has yay; then
     yay
-  elif __dko_has "pacaur"; then
+  elif __dko_has pacaur; then
     pacaur -Syu
-  elif __dko_has "aura"; then
+  elif __dko_has aura; then
     aura -Syua
   else
     pacman -Syu
@@ -508,7 +510,7 @@ __dko_dotfiles__linux__arch__update() {
 __dko_dotfiles__linux__deb__update() {
   __dko_status "Apt system update"
 
-  ! __dko_has "apt" &&
+  ! __dko_has apt &&
     __dko_err "apt not found, manually use 'apt-get' for crappy systems" &&
     return 1
 
@@ -530,7 +532,7 @@ __dko_dotfiles__darwin__update_mac() {
   __dko_status "xcode and cli update"
   sudo xcode-select --install
 
-  __dko_has "mas" && mas upgrade
+  __dko_has mas && mas upgrade
 }
 
 # pass any arg to silence
@@ -547,7 +549,7 @@ __dko_dotfiles__darwin__require_latest_xcode() {
 
 # pass any arg to silence
 __dko_dotfiles__darwin__require_brew() {
-  __dko_has "brew" && return 0
+  __dko_has brew && return 0
   (( $# == 0 )) && __dko_warn "Homebrew is not installed"
   return 1
 }
