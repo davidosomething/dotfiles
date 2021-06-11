@@ -492,7 +492,7 @@ __dko_dotfiles__linux__arch__update() {
   __dko_status "Arch Linux system update"
   if __dko_has paru; then
     paru
-  if __dko_has yay; then
+  elif __dko_has yay; then
     yay
   elif __dko_has pacaur; then
     pacaur -Syu
