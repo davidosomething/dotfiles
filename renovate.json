@@ -4,6 +4,11 @@
   "ignoreNpmrcFile": true,
   "packageRules": [
     {
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns": ["lint", "prettier"],
+      "automerge": true
+    },
+    {
       "automerge": true,
       "paths": ["requirements.txt"]
     }
