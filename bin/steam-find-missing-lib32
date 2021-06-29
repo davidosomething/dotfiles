@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+__main() {
+  cd "${XDG_DATA_HOME}/Steam/ubuntu12_32" || return 1
+  file ./* |
+    grep ELF |
+    cut -d: -f1 |
+    LD_LIBRARY_PATH=. xargs ldd |
+    grep 'not found' |
+    sort |
+    uniq
+}
+__main
