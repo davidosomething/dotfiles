@@ -154,7 +154,14 @@ function! dkoplug#plugins#LoadAll() abort
   " My fork has a lot of removals like line movement and entities
   Plug 'davidosomething/vim-unimpaired'
 
-  Plug 'machakann/vim-highlightedyank'
+  Plug 'machakann/vim-highlightedyank', PlugIf(!has('nvim-0.5'))
+  if has('nvim-0.5')
+    augroup dkohighlightyank
+      autocmd! TextYankPost *
+            \ lua vim.highlight.on_yank
+            \ {higroup="IncSearch", timeout=150, on_visual=true}
+    augroup END
+  endif
 
   " used for line bubbling commands (instead of unimpared!)
   " Consider also t9md/vim-textmanip

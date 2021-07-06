@@ -2,6 +2,7 @@
 Brewfile.lock.json
 
 # managed
+linux/konsole/bookmarks.xml*
 mac/bitbar/enabled/
 node_modules/
 tmux/plugins/
@@ -28,3 +29,4 @@ zsh/antibody
 .zsh_history
 .zshrc.zwc
 *.log
+*.tbcache
