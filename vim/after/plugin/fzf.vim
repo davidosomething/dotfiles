@@ -37,7 +37,7 @@ endfunction
 " Some default options.
 " --cycle through list
 " --multi select with <Tab>
-let s:options = ' --tiebreak=index --cycle --multi '
+let s:options = ' --tiebreak=index --cycle --multi --keep-right '
 
 function s:WithLayout(opts) abort
   return extend(copy(a:opts), g:fzf_layout)
