@@ -126,8 +126,10 @@ function! dkoplug#plugins#LoadAll() abort
   " filetype custom [[ and ]] jumping
   Plug 'arp242/jumpy.vim'
 
+  let g:registers_show_empty_registers = 0
+  let g:registers_hide_only_whitespace = 1
   Plug 'tversteeg/registers.nvim', PlugIf(
-        \ has('nvim-0.5'),
+        \ has('nvim-0.4.4'),
         \ { 'branch': 'main' }
         \)
 
