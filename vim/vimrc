@@ -258,10 +258,9 @@ set formatoptions+=n                  " Recognize numbered lists
 set formatoptions+=2                  " Use indent from 2nd line of a paragraph
 set formatoptions-=l                  " break lines that are already long?
 set formatoptions+=1                  " Break before 1-letter words
-" Vim >=7.4 only: no // comment when joining commented lines. This is not
-" a default neovim setting despite what :help says. Various filetypes override
-" it
-if v:version >= 704 | set formatoptions+=j | endif
+" no // comment when joining commented lines. This is not a default neovim
+" setting despite what :help says. Various filetypes override it
+if has('patch-7.3.541') | set formatoptions+=j | endif
 
 " ----------------------------------------------------------------------------
 " Whitespace
