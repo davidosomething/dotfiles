@@ -25,6 +25,9 @@ function! dkoplug#plugins#LoadAll() abort
   " https://github.com/neovim/neovim/issues/12587
   Plug 'antoinemadec/FixCursorHold.nvim', PlugIf(has('nvim'))
 
+  " Disable cursorline sometimes, for performance
+  Plug 'delphinus/vim-auto-cursorline', PlugIf(exists('*timer_start'))
+
   " ==========================================================================
   " Vim debugging
   " ==========================================================================
@@ -67,6 +70,10 @@ function! dkoplug#plugins#LoadAll() abort
   " Commands
   " ==========================================================================
 
+  " --------------------------------------------------------------------------
+  " FZF
+  " --------------------------------------------------------------------------
+
   " Use the repo instead of the version in brew since it includes the help
   " docs for fzf#run()
   Plug 'junegunn/fzf', PlugIf(g:dko_use_fzf)
@@ -76,18 +83,7 @@ function! dkoplug#plugins#LoadAll() abort
   let g:fzf_buffers_jump = 1
   Plug 'junegunn/fzf.vim', PlugIf(g:dko_use_fzf)
 
-  Plug 'nathanaelkane/vim-indent-guides'
-
-  Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
-
-  let g:git_messenger_max_popup_width = 70
-  let g:git_messenger_max_popup_height = 24
-  " Can add borders, see api-floatwin
-  "if has('nvim-0.5')
-    "let g:git_messenger_floating_win_opts = { 'border': 'shadow' }
-    "let g:git_messenger_popup_content_margins = v:false
-  "endif
-  Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'))
+  " --------------------------------------------------------------------------
 
   let g:neoformat_enabled_json = [ 'dkoprettier', 'jq' ]
   let g:neoformat_enabled_java = [ 'uncrustify' ]
@@ -102,11 +98,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   " Do not lazy load, tracks buffers
   Plug 'tpope/vim-eunuch'
-
-  " <C-w>o to zoom in/out of a window
-  "Plug 'dhruvasagar/vim-zoom'
-  " Better zoom plugin, accounts for command window and doesn't use sessions
-  Plug 'troydm/zoomwintab.vim'
 
   " ==========================================================================
   " Input, syntax, spacing
@@ -135,9 +126,6 @@ function! dkoplug#plugins#LoadAll() abort
   " filetype custom [[ and ]] jumping
   Plug 'arp242/jumpy.vim'
 
-  "Plug 'cyansprite/Extract', PlugIf(has('nvim'))
-  "Plug 'svermeulen/vim-yoink', PlugIf(has('nvim'))
-
   Plug 'tversteeg/registers.nvim', PlugIf(
         \ has('nvim-0.5'),
         \ { 'branch': 'main' }
@@ -145,20 +133,11 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'bootleq/vim-cycle', { 'on': [ '<Plug>Cycle' ] }
 
-  Plug 'tpope/vim-repeat'
+  "Plug 'tpope/vim-repeat'
 
   " []-bindings -- buffer switch, lnext/prev, etc.
   " My fork has a lot of removals like line movement and entities
   Plug 'davidosomething/vim-unimpaired'
-
-  Plug 'machakann/vim-highlightedyank', PlugIf(!has('nvim-0.5'))
-  if has('nvim-0.5')
-    augroup dkohighlightyank
-      autocmd! TextYankPost *
-            \ lua vim.highlight.on_yank
-            \ {higroup="IncSearch", timeout=150, on_visual=true}
-    augroup END
-  endif
 
   " used for line bubbling commands (instead of unimpared!)
   " Consider also t9md/vim-textmanip
@@ -254,15 +233,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Multiple languages
   " ==========================================================================
 
-  " autoclose parens and blocks in various langs
-  "Plug 'tpope/vim-endwise'
-  " let g:lexima_enable_basic_rules = 0 " only on <CR>
-  "Plug 'cohama/lexima.vim' " Doesn't detect distant closer if whitespace
-  "Plug 'Raimondi/delimitMate' " Doesn't indent properly on <CR>
-  " let g:AutoPairsShortcutToggle = ''
-  " let g:AutoPairsShortcutFastWrap = ''
-  " Plug 'jiangmiao/auto-pairs'
-
   Plug 'suy/vim-context-commentstring'
 
   " ==========================================================================
@@ -318,8 +288,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Syntax enhancements and htmlcomplete#CompleteTags function override
   "Plug 'othree/html5.vim'
-
-  "Plug 'tpope/vim-haml'
 
   " Creates html.handlebars and other fts and sets syn
   Plug 'mustache/vim-mustache-handlebars'
@@ -550,11 +518,16 @@ function! dkoplug#plugins#LoadAll() abort
   " UI -- load last!
   " ==========================================================================
 
-  " Disable cursorline sometimes, for performance
-  Plug 'delphinus/vim-auto-cursorline', PlugIf(exists('*timer_start'))
+  Plug 'nathanaelkane/vim-indent-guides'
 
-  " Provides neat completion menu for command line, e.g. for :, /, ? modes
-  Plug 'gelguy/wilder.nvim', PlugIf(has('nvim') && has('python'))
+  let g:git_messenger_max_popup_width = 70
+  let g:git_messenger_max_popup_height = 24
+  " Can add borders, see api-floatwin
+  "if has('nvim-0.5')
+    "let g:git_messenger_floating_win_opts = { 'border': 'shadow' }
+    "let g:git_messenger_popup_content_margins = v:false
+  "endif
+  Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'))
 
   " --------------------------------------------------------------------------
   " Quickfix window
@@ -565,23 +538,13 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'romainl/vim-qf'
 
   " --------------------------------------------------------------------------
-  " Multi sign column
-  " --------------------------------------------------------------------------
-
-  " Always show signs column with marks
-  "Too many features, slow start
-  "Plug 'tomtom/quickfixsigns_vim'
-  "Still slowish but better 78ms
-  "Plug 'kshenoy/vim-signature'
-  " Fastest 91ms
-  " let g:showmarks_enable = 0 " enable manually
-  " let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  " let g:showmarks_ignore_type = 'hpq'
-  " Plug 'bootleq/ShowMarks'
-
-  " --------------------------------------------------------------------------
   " Window events
   " --------------------------------------------------------------------------
+
+  " <C-w>o to zoom in/out of a window
+  "Plug 'dhruvasagar/vim-zoom'
+  " Better zoom plugin, accounts for command window and doesn't use sessions
+  Plug 'troydm/zoomwintab.vim'
 
   Plug 'wellle/visual-split.vim', { 'on': [
         \   'VSResize', 'VSSplit',
