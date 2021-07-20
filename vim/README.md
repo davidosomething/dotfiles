@@ -70,31 +70,20 @@ is generally a wrapper around them that checks for
 - `<C-f>` -- Expand snippet. I use `<C-u>`/`<C-d>` to jump pages instead.
 - `gs` no longer sleeps. It's an operator prefix for vim-operator-surround.
 
-#### Function Keys
-
-|                 Key | Desc                                                    |
-| ------------------: | :------------------------------------------------------ |
-|  `<F1>` or `<A-g>`  | :FZFGrepper - custom, rg/ag with preview or git-grep |
-|  `<F2>`             | :FZFRelevant - custom, dirty/new files vs git master |
-|  `<F3>`             | :FZFProject - custom, :FZFFiles but from project root |
-|  `<F4>` or `<A-m>`  | :FZFMRU - custom MRU |
-|  `<F5>` or `<A-f>`  | :FZFFiles - files from Vim's cwd |
-|  `<F6>`             | :Neomake  |
-|  `<F7>`             | :Neomake! |
-|  `<F8>`             | unused |
-|  `<F9>`             | unused |
-| `<F10>`             | do not use -- gnome-terminal menu key |
-| `<F11>`             | unused |
-| `<F12>`             | unused |
-| `<A-b>`             | :FZFBuffers |
-| `<A-c>`             | :FZFCommands |
-| `<A-p>`             | :FZFProject |
-| `<A-r>`             | :FZFRelevant |
-| `<A-t>`             | :FZFTests - custom find test files near current path |
-| `<A-v>`             | :FZFVim - ~/.vim |
-| `<C-s>`             | Extract - cycle paste prev |
-| `<C-S>`             | Extract - cycle paste next |
-|    `\`              | UI - :OverCommandLine |
+|      Key | Desc                                                    |
+| -------- | :------------------------------------------------------ |
+| `<A-b>`  | :FZFBuffers |
+| `<A-c>`  | :FZFCommands |
+| `<A-f>`  | :FZFFiles - files from Vim's cwd |
+| `<A-g>`  | :FZFGrepper - custom, rg/ag with preview or git-grep |
+| `<A-m>`  | :FZFMRU - custom MRU |
+| `<A-p>`  | :FZFProject |
+| `<A-p>`  | :FZFProject - custom, :FZFFiles but from project root |
+| `<A-r>`  | :FZFRelevant |
+| `<A-r>`  | :FZFRelevant - custom, dirty/new files vs git master |
+| `<A-t>`  | :FZFTests - custom find test files near current path |
+| `<A-v>`  | :FZFVim - ~/.vim |
+|    `\`   | UI - :OverCommandLine |
 
 See `plugin/mappings.vim` (and other `plugin/*` files) for other mappings.
 

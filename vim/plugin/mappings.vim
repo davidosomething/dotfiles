@@ -297,17 +297,5 @@ nnoremap <Leader>; $r;
 
 " ============================================================================
 
-execute dko#MapAll({
-      \   'key': '<F6>',
-      \   'command': 'call dko#lint#LintBuffer()'
-      \ })
-
-execute dko#MapAll({
-      \   'key': '<F11>',
-      \   'command': 'call dkoline#ToggleTabline()'
-      \ })
-
-" ============================================================================
-
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

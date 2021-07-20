@@ -127,50 +127,6 @@ function! dko#HomePath(path, ...) abort
 endfunction
 
 " ============================================================================
-" Factories
-" ============================================================================
-
-" Generate a string command to map keys in nvo&ic modes to a command
-"
-" @param  {Dict}    settings
-" @param  {String}  settings.key
-" @param  {String}  [settings.command]
-" @param  {Int}     [settings.special]
-" @param  {Int}     [settings.remap]
-" @return {String}  to execute (this way :verb map traces back to correct file)
-function! dko#MapAll(settings) abort
-  " Auto determine if special key was mapped
-  " Just in case I forgot to include cpoptions guards somewhere
-  let l:special = get(a:settings, 'special', 0) || a:settings.key[0] ==# '<'
-        \ ? '<special>'
-        \ : ''
-
-  let l:remap = get(a:settings, 'remap', 1)
-        \ ? 'nore'
-        \ : ''
-
-  " Key to map
-  let l:lhs = '<silent>'
-        \ . l:special
-        \ . ' ' . a:settings.key . ' '
-
-  " Command to map to
-  if !empty(get(a:settings, 'command', ''))
-    let l:rhs_nvo = ':<C-U>' . a:settings.command . '<CR>'
-    let l:rhs_ic  = '<Esc>' . l:rhs_nvo
-  else
-    " No command
-    " @TODO support non command mappings
-    return ''
-  endif
-
-  " Compose result
-  let l:mapping_nvo = l:remap . 'map '  . l:lhs . ' ' . l:rhs_nvo
-  let l:mapping_ic  = l:remap . 'map! ' . l:lhs . ' ' . l:rhs_ic
-  return l:mapping_nvo . '| ' . l:mapping_ic
-endfunction
-
-" ============================================================================
 " Filetype
 " ============================================================================
 

@@ -13,21 +13,17 @@ scriptencoding utf-8
 " Settings vars
 " ============================================================================
 
-let g:mapleader = "\<Space>"
+" Fallback for vims with no env access like Veonim
+let g:vdotdir = empty($VDOTDIR) ? expand('$HOME/.vim') : $VDOTDIR
 
 let g:dko_rtp_original = &runtimepath
 
-" flags
-let g:dko_is_iterm = $TERM_PROGRAM ==# 'iTerm.app'
+let g:mapleader = "\<Space>"
 
 " Plugin settings
 let g:dko_autoinstall_vim_plug = executable('git')
 let g:dko_use_completion = has('nvim-0.3') && executable('node')
 let g:dko_use_fzf = v:version >= 704 && exists('&autochdir')
-let g:dko_fzf_float = 0 && has('nvim-0.4')
-
-" Fallback for vims with no env access like Veonim
-let g:vdotdir = empty($VDOTDIR) ? expand('$HOME/.vim') : $VDOTDIR
 
 " ============================================================================
 " My defaults
