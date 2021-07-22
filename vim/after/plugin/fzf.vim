@@ -218,23 +218,3 @@ command! -bang FZFProject
       \   <bang>0 ? s:project_full : s:project_half,
       \   <bang>0
       \ )
-
-" ============================================================================
-" Mappings
-" ============================================================================
-
-let s:cpo_save = &cpoptions
-set cpoptions&vim
-
-nnoremap  <silent><special>   <A-b>   :<C-U>FZFBuffers<CR>
-nnoremap  <silent><special>   <A-c>   :<C-U>FZFCommands<CR>
-nnoremap  <silent><special>   <A-f>   :<C-U>FZFFiles<CR>
-nnoremap  <silent><special>   <A-g>   :<C-U>FZFGrepper<CR>
-nnoremap  <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
-nnoremap  <silent><special>   <A-p>   :<C-U>FZFProject<CR>
-nnoremap  <silent><special>   <A-r>   :<C-U>FZFRelevant<CR>
-nnoremap  <silent><special>   <A-t>   :<C-U>FZFTests<CR>
-nnoremap  <silent><special>   <A-v>   :<C-U>FZFVim<CR>
-
-let &cpoptions = s:cpo_save
-unlet s:cpo_save
