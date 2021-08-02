@@ -65,9 +65,9 @@ __remove() {
 # Logic for NVM
 __clean_nvm() {
   [ -d "$FNM_DIR" ] && return 0
+  [ -z "$NVM_DIR" ] && return 0
 
-  [[ -z "$NVM_DIR" ]] ||
-    [[ "${NVM_DIR}" != "${XDG_CONFIG_HOME}/nvm" ]] && {
+  [[ "${NVM_DIR}" != "${XDG_CONFIG_HOME}/nvm" ]] && {
     __dko_err "NVM_DIR not set properly. Should be ${XDG_CONFIG_HOME}/nvm"
     return 1
   }
