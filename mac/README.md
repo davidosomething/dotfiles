@@ -90,8 +90,6 @@ The bootstrap script symlinks the plist. You'll have to manually use
       multiple times) and to throw apps to the next monitor
       (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z/[/]</kbd>)
 
-Install the rest of the packages from [cask.md](./cask.md) as desired.
-
 ## mackup
 
 `mackup` backs up application settings. It will be installed if using this
