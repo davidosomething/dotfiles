@@ -51,6 +51,7 @@ with mac OS but requires manual execution. Use
 The script will also:
 
 - load the `dotfiles.plist`
+    - It sets `GNUPGHOME` in the env for all apps
 - `brew bundle` some default packages
 - Run the fzf installer
 - Change the user's default shell to the brewed `zsh`
@@ -104,14 +105,6 @@ Mackup is configured to use `~/.local/Mackup` as the storage location. On my
 system this is a symlink to a private settings repository.
 
 Run `mackup restore` to restore settings from that repository.
-
-## Install GPGTools and import key
-
-1. Install the [dotfiles.plist](LaunchAgents/dotfiles.plist) first! (This
-   should have been done during bootstrap step.) It sets `GNUPGHOME` in the
-   env for all apps. See the bootstrapping section above.
-1. Follow these instructions
-   <https://gist.github.com/danieleggert/b029d44d4a54b328c0bac65d46ba4c65>  
 
 ## Install development tools
 

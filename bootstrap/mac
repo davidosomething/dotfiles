@@ -119,11 +119,17 @@ _bootstrap_sdks || exit 1
 # vendor
 # ============================================================================
 
-__dko_status "Brewing"
-[ -z "$DKO_BREW_PREFIX" ] && . "${DOTFILES}/shell/interactive-darwin.zsh"
-# prefer homebrew/cask-fonts
-brew untap caskroom/fonts 2>/dev/null
-(cd "${DOTFILES}/mac" && TERM=xterm256-color \brew bundle;)
+_bootstrap_brew() {
+  __dko_status "Brewing"
+  [ -z "$DKO_BREW_PREFIX" ] && . "${DOTFILES}/shell/interactive-darwin.zsh"
+  # prefer homebrew/cask-fonts
+  brew untap caskroom/fonts 2>/dev/null
+  (
+    cd "${DOTFILES}/mac" || exit 1
+    GNUPGHOME="${HOME}/.config/gnupg" TERM=xterm256-color \brew bundle
+  )
+}
+_bootstrap_brew
 
 __dko_status "Installing fzf shell extensions"
 "${DOTFILES}/bin/dot" fzf
