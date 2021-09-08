@@ -22,14 +22,13 @@ brew "shellcheck"
 brew "sqlite3" # for pyenv
 brew "tree"
 brew "wget"
-brew "wifi-password"
 brew "xz" # for pyenv
 brew "zlib" # for pyenv
 brew "zsh"
+cask "bettertouchtool"
 cask "firefox"
 cask "font-fira-mono-nerd-font"
 cask "hammerspoon"
 cask "iterm2"
 cask "itsycal"
 cask "slack"
-cask "the-unarchiver"
