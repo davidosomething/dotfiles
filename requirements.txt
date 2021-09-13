@@ -1,4 +1,4 @@
-bashate==2.0.0
+bashate==2.1.0
 flake8==3.9.2
 flake8-commas==2.0.0
 flake8-docstrings==1.6.0
