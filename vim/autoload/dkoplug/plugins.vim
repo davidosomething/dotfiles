@@ -28,6 +28,17 @@ function! dkoplug#plugins#LoadAll() abort
   " Disable cursorline sometimes, for performance
   Plug 'delphinus/vim-auto-cursorline', PlugIf(exists('*timer_start'))
 
+  " Lua plugin to prevent new windows from shifting cursor position
+  Plug 'luukvbaal/stabilize.nvim', PlugIf(has('nvim'))
+  augroup dkostabilize
+    autocmd!
+    autocmd User stabilize.nvim lua require('stabilize').setup()
+    autocmd User stabilize.nvim 
+          \ autocmd QuickFixCmdPost [^l]* copen | doautocmd User StabilizeRestore
+    autocmd User stabilize.nvim
+          \ autocmd QuickFixCmdPost l* lopen | doautocmd User StabilizeRestore
+  augroup END
+
   " ==========================================================================
   " Vim debugging
   " ==========================================================================
@@ -496,7 +507,8 @@ function! dkoplug#plugins#LoadAll() abort
   " Pure lua implementation, covers most cases and is fastest in neovim
   Plug 'norcalli/nvim-colorizer.lua', PlugIf(l:use_fancy_colors)
   augroup dkonvimcolorizer
-    autocmd! User nvim-colorizer.lua lua require 'colorizer'.setup({}, { css = true })
+    autocmd! User nvim-colorizer.lua
+          \ lua require('colorizer').setup({}, { css = true })
   augroup END
 
   " ==========================================================================
