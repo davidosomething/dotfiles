@@ -147,7 +147,9 @@ let g:loaded_node_provider = 0
 function! s:FindExecutable(paths) abort
   for l:path in a:paths
     let l:executable = glob(expand(l:path))
-    if executable(l:executable) | return l:executable | endif
+    if !empty(l:executable) && executable(l:executable)
+      return l:executable
+    endif
   endfor
   return ''
 endfunction
