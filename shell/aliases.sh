@@ -59,7 +59,7 @@ alias ega='e "${DOTFILES}/git/aliases.gitconfig"'
 alias evr='e "${VDOTDIR}/vimrc"'
 alias evp='e "${VDOTDIR}/autoload/dkoplug/plugins.vim"'
 alias eze='e "${ZDOTDIR}/dot.zshenv"'
-alias ezi='e "${ZDOTDIR}/zinit.zsh"'
+alias ezp='e "${ZDOTDIR}/zplug.zsh"'
 alias ezl='e "${LDOTDIR}/zshrc"'
 alias ezr='e "${ZDOTDIR}/.zshrc"'
 

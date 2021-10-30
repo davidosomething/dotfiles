@@ -26,14 +26,16 @@ cdr() {
 # ============================================================================
 
 e() {
-  if __dko_has nvim && __dko_has nvctl && pgrep nvim >/dev/null; then
+  nvimctrl="nvim-ctrl.linux"
+  [ "$DOTFILES_OS" = 'Darwin' ] && nvimctrl="nvim-ctrl.macos"
+  if __dko_has nvim && pgrep nvim >/dev/null; then
     for file in "$@"; do
       # don't prepend PWD for absolute paths
       case "$file" in
         /*) ;;
         *) file="${PWD}/${file}" ;;
       esac
-      nvctl "e ${file}" && wait
+      "${DOTFILES}/bin/${nvimctrl}" "e ${file}" && wait
     done
   else
     "$EDITOR" "$@"

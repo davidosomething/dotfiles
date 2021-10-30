@@ -26,7 +26,6 @@ __dko_prefer 'trash' && alias rm=trash
 
 # ============================================================================
 # FZF settings
-# after zinit installation
 # ============================================================================
 
 # prefer ripgrep, but I always type ag

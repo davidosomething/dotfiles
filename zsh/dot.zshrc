@@ -43,36 +43,22 @@ build_fnm_completions() {
 [ ! -f "${DOTFILES_ZSH_COMPDIR}/_fnm" ] && build_fnm_completions
 
 # ============================================================================
-# zinit
+# zplug
 # ============================================================================
 
 # file is required and missing on busybox
-__dko_has 'file' && __dko_has 'git' && {
-  declare -A ZINIT
-  ZINIT[HOME_DIR]="${XDG_DATA_HOME}/zinit"
-
-  # part of zinit's install, found by compaudit
-  mkdir -pv "${ZINIT[HOME_DIR]}" && chmod g-rwX "${ZINIT[HOME_DIR]}"
-  alias unzinit='rm -rf "${ZINIT[HOME_DIR]}"'
-
+__dko_has 'awk' && __dko_has 'git' && {
+  export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
   function {
-    local zinit_dest="${ZINIT[HOME_DIR]}/bin"
-    local zinit_script="${zinit_dest}/zinit.zsh"
-    . "$zinit_script" 2>/dev/null || {
+    local zplug_script="${ZPLUG_HOME}/init.zsh"
+    . "$zplug_script" 2>/dev/null || {
       # install if needed
-      command git clone https://github.com/zdharma/zinit "${zinit_dest}" &&
-        . "$zinit_script"
+      command git clone https://github.com/zplug/zplug "$ZPLUG_HOME" &&
+        . "$zplug_script"
     }
   }
 }
-
-if __dko_has 'zinit'; then
-  zinit add-fpath "$DOTFILES_ZSH_COMPDIR"
-  . "${ZDOTDIR}/zinit.zsh" 2>/dev/null
-  autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
-else
-  fpath+=($DOTFILES_ZSH_COMPDIR)
-fi
+__dko_has 'zplug' && . "${ZDOTDIR}/zplug.zsh" 2>/dev/null
 
 # ============================================================================
 # Finish up managed completions
@@ -386,7 +372,7 @@ if [[ "$DOTFILES_DISTRO" != "synology" ]]; then
 fi
 
 # ============================================================================
-# Local: can add more zinit plugins here
+# Local
 # ============================================================================
 
 . "${DOTFILES}/shell/after.sh"

@@ -12,9 +12,9 @@
     "test": "tests"
   },
   "config": {
-    "bashfiles": "find . -type f -name \"*.bash\" -not -path \"*.tox/*\" -not -path \"*.zinit/*\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\"",
-    "mdfiles": "find . -type f -name \"*.md\" -not -path \"./tmux/plugins*\" -not -path \"*.zinit/*\" -not -path \"*/chromium/*\" -not -path \"*/node_modules/*\" -not -path \"*tmp/*\" -not -path \"*/vendor/*\"",
-    "shfiles": "find . -type f -name \"*.sh\" -not -path \"*/vim/.tmp/*\" -not -path \"*.tox/*\" -not -path \"*.zinit/*\" -not -path \"*/vendor/*\" -not -path \"*/tmux/plugins*\"",
+    "bashfiles": "find . -type f -name \"*.bash\" -not -path \"*.tox/*\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\"",
+    "mdfiles": "find . -type f -name \"*.md\" -not -path \"./tmux/plugins*\" -not -path \"*/chromium/*\" -not -path \"*/node_modules/*\" -not -path \"*tmp/*\" -not -path \"*/vendor/*\"",
+    "shfiles": "find . -type f -name \"*.sh\" -not -path \"*/vim/.tmp/*\" -not -path \"*.tox/*\" -not -path \"*/vendor/*\" -not -path \"*/tmux/plugins*\"",
     "vimfiles": "find . -type f -name \"*.vim\" -path \"./vim/*\" -not -name \"plug.vim\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\"",
     "yamlfiles": "find . -type f -regex \".*\\.y\\(a\\)*ml\" -not -path \".github/*\" -not -path \"*.tox/*\""
   },
@@ -24,7 +24,7 @@
     "lint": "npm run --silent _parallel -- lint:**",
     "lint:editorconfig": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && npx --quiet echint && echo ' ✓ passed\n'",
     "lint:bash:bashate": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && bashate --ignore=E003,E005,E006,E011,E043 -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
-    "lint:bash:shellcheck": "./bin/dko-header \"  ${npm_lifecycle_event}  \"             && shellcheck --exclude=SC1090 --shell=bash -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
+    "lint:bash:shellcheck": "./bin/dko-header \"  ${npm_lifecycle_event}  \"             && shellcheck --exclude=SC1090,SC1091 --shell=bash -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
     "lint:readmes": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                     && npm run --silent _markdownlint -- $(eval \"$npm_package_config_mdfiles\") && echo ' ✓ passed\n'",
     "lint:shell:shellcheck": "./bin/dko-header \"  ${npm_lifecycle_event}  \"            && shellcheck --exclude=SC1090,SC2148 --shell=sh -- $(eval \"$npm_package_config_shfiles\") && echo ' ✓ passed\n'",
     "lint:vim:after": "./bin/dko-header \"  ${npm_lifecycle_event}  \"     && vint -- vim/after          && echo ' ✓ passed\n'",
@@ -52,6 +52,7 @@
       "**/*.md",
       "**/*.py",
       "**/*.xml",
+      "bin/nvim-ctrl.*",
       "linux/**",
       "local/**",
       "logs/**",
