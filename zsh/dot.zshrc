@@ -49,16 +49,15 @@ build_fnm_completions() {
 # file is required and missing on busybox
 __dko_has 'awk' && __dko_has 'git' && {
   export ZPLUG_HOME="${XDG_DATA_HOME}/zplug"
-  function {
-    local zplug_script="${ZPLUG_HOME}/init.zsh"
-    . "$zplug_script" 2>/dev/null || {
-      # install if needed
-      command git clone https://github.com/zplug/zplug "$ZPLUG_HOME" &&
-        . "$zplug_script"
-    }
-  }
+  if ! . "${ZPLUG_HOME}/init.zsh" 2>/dev/null; then
+    command git clone https://github.com/zplug/zplug "$ZPLUG_HOME" &&
+      . "${ZPLUG_HOME}/init.zsh" &&
+      . "${ZDOTDIR}/zplug.zsh" &&
+      zplug install
+  else
+    __dko_has 'zplug' && . "${ZDOTDIR}/zplug.zsh"
+  fi
 }
-__dko_has 'zplug' && . "${ZDOTDIR}/zplug.zsh" 2>/dev/null
 
 # ============================================================================
 # Finish up managed completions
@@ -381,3 +380,4 @@ fi
 # ============================================================================
 
 DKO_SOURCE="${DKO_SOURCE} }"
+#vim: ft=zsh
