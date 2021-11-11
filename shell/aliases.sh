@@ -47,20 +47,24 @@ alias pyg='pygmentize -O style=rrt -f console256 -g'
 
 alias docc='docker-compose'
 alias sdocc='sudo docker-compose'
+alias dcud='docc up -d'
+alias dcpull='docc pull'
+alias dsprune='docker system prune'
 
 # ----------------------------------------------------------------------------
 # editors
 # ----------------------------------------------------------------------------
 
-alias ehosts='se /etc/hosts'
-alias etmux='e "${DOTFILES}/tmux/tmux.conf"'
-alias essh='e "${HOME}/.ssh/config"'
+alias edc='e docker-compose.yml'
 alias ega='e "${DOTFILES}/git/aliases.gitconfig"'
-alias evr='e "${VDOTDIR}/vimrc"'
+alias ehosts='se /etc/hosts'
+alias essh='e "${HOME}/.ssh/config"'
+alias etmux='e "${DOTFILES}/tmux/tmux.conf"'
 alias evp='e "${VDOTDIR}/autoload/dkoplug/plugins.vim"'
+alias evr='e "${VDOTDIR}/vimrc"'
 alias eze='e "${ZDOTDIR}/dot.zshenv"'
-alias ezp='e "${ZDOTDIR}/zplug.zsh"'
 alias ezl='e "${LDOTDIR}/zshrc"'
+alias ezp='e "${ZDOTDIR}/zplug.zsh"'
 alias ezr='e "${ZDOTDIR}/.zshrc"'
 
 # ----------------------------------------------------------------------------
