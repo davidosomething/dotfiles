@@ -28,14 +28,12 @@ function {
   local delta_use='*-x86_64-unknown-linux-musl*'
   [[ "$DOTFILES_OS" = 'Darwin' ]] && delta_use='*-darwin*'
   zplug "dandavison/delta", from:gh-r, as:command, rename-to:delta, \
-    use:"$delta_use", \
-    hook-load:"export GIT_PAGER='delta --dark'"
+    use:"$delta_use"
 
   zplug 'davidosomething/git-relevant', as:command
   zplug 'davidosomething/git-take', as:command
 
-  zplug 'junegunn/fzf-bin', from:gh-r, as:command, \
-    if:"! __dko_has fzf"
+  zplug 'junegunn/fzf-bin', from:gh-r, as:command, if:"! __dko_has fzf"
 
   # zplug "mvdan/sh", from:gh-r, as:command, \
   #   hook-build:"mv shfmt* shfmt && chmod +x shfmt"
@@ -44,10 +42,7 @@ function {
 
   local bat_use='*-x86_64-unknown-linux-musl*'
   [ "$DOTFILES_OS" = 'Darwin' ] && bat_use='*-x86_64-apple-darwin*'
-  local bat_load="export MANPAGER=\"sh -c 'col -bx | bat --language man --paging always --style=grid'\""
-  zplug "sharkdp/bat", from:gh-r, as:command, rename-to:bat, \
-    use:"$bat_use", \
-    hook-load:"$bat_load"
+  zplug "sharkdp/bat", from:gh-r, as:command, rename-to:bat, use:"$bat_use"
 
   zplug 'sharkdp/fd', from:gh-r, as:command, rename-to:fd
 
@@ -73,6 +68,9 @@ function {
 
   eval "$(zoxide init --no-aliases zsh)"
   alias j=__zoxide_z
+
+  export GIT_PAGER='delta --dark'
+  export MANPAGER="sh -c 'col -bx | bat --language man --paging always --style=grid'"
 }
 
 DKO_SOURCE="${DKO_SOURCE} }"
