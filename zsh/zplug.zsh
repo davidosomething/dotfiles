@@ -33,11 +33,6 @@ function {
   zplug 'davidosomething/git-relevant', as:command
   zplug 'davidosomething/git-take', as:command
 
-  zplug 'junegunn/fzf-bin', from:gh-r, as:command, if:"! __dko_has fzf"
-
-  # zplug "mvdan/sh", from:gh-r, as:command, \
-  #   hook-build:"mv shfmt* shfmt && chmod +x shfmt"
-
   zplug 'paulirish/git-recent', as:command
 
   local bat_use='*-x86_64-unknown-linux-musl*'
@@ -49,8 +44,6 @@ function {
   zplug 'stedolan/jq', from:gh-r, as:command, rename-to:jq
 
   zplug 'zsh-users/zsh-completions'
-
-  #zplug 'zsh-users/zsh-syntax-highlighting', defer:2
 
   # In-line best history match suggestion
   # don't suggest lines longer than
