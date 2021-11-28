@@ -11,6 +11,8 @@ alias sysreload='sudo systemctl daemon-reload'
 
 alias verifyfstab='sudo findmnt --verify --verbose'
 
+alias paru-clean-orphans='paru -Qtdq | paru -Rns -'
+
 # It keeps dying on lock!
 fixpulse() {
   sudo rm -rf ~/.config/pulse
