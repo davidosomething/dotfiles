@@ -8,7 +8,7 @@ fi
 . "${DOTFILES}/lib/pretty.bash"
 
 __main() {
-  FNM_DIR="${XDG_CONFIG_HOME}/fnm"
+  FNM_DIR="${XDG_DATA_HOME}/fnm"
   export FNM_DIR
 
   __dko_status "Checking for ${FNM_DIR}"

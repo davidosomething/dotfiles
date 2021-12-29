@@ -27,7 +27,7 @@ export NPMRC_STORE="${HOME}/.local/npmrcs"
 # fnm
 # ==============================================================================
 
-export FNM_DIR="${XDG_CONFIG_HOME}/fnm"
+export FNM_DIR="${XDG_DATA_HOME}/fnm"
 if [ -d "$FNM_DIR" ]; then
   PATH="${FNM_DIR}:${PATH}"
   eval "$(fnm env)" && DKO_SOURCE="${DKO_SOURCE} -> fnm"
