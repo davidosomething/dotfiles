@@ -1,4 +1,4 @@
-Pygments==2.11.1
+Pygments==2.11.2
 flake8==4.0.1
 flake8-commas==2.1.0
 flake8-docstrings==1.6.0
