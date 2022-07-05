@@ -29,7 +29,7 @@ __install() {
   while read -r package; do
     dko-header "$package"
     # npm ls --global --parseable --depth=0 "$package" ||
-    npm install --global --production "$package"
+    npm install --location=global --omit=dev "$package"
     echo
     echo
   done < "${DOTFILES}/node/default-packages"
