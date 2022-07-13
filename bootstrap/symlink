@@ -78,7 +78,7 @@ __symlink() {
   dko-symlink "vim" \
     ".config/nvim"
   dko-symlink "ideavim/dot.ideavimrc" \
-    ".ideavimrc"
+    ".config/ideavim/ideavimrc"
 
   case "$OSTYPE" in
   *arwin*)

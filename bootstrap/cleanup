@@ -115,6 +115,7 @@ __remove "${HOME}/.ctags"
 # should be in XDG_CONFIG_HOME/fzf/fzf.bash and fzf.zsh or /usr/share/fzf
 __remove "${HOME}/.fzf.bash"
 __remove "${HOME}/.fzf.zsh"
+__remove "${HOME}/.ideavimrc"
 # alias points to dotfile
 __remove "${HOME}/.mdlrc"
 # should be in XDG as of 0.9.0
