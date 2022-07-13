@@ -6,6 +6,7 @@
 
 set -eu
 
+mkdir -p -- "$XDG_STATE_HOME"
 mkdir -p -- "$BZR_PLUGIN_PATH"
 mkdir -p -- "$BZR_HOME"
 mkdir -p -- "$COMPOSER_CACHE_DIR"

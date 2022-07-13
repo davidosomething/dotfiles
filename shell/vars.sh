@@ -59,6 +59,7 @@ export ZDOTDIR="${DOTFILES}/zsh"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
 
 # user-dirs.dirs doesn't exist on macOS/OS X so check first.
 # Exporting is fine since the file is generated via xdg-user-dirs-update
