@@ -126,7 +126,4 @@ sparingly (typically for `setlocal` ftplugin settings).
 ----
 
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/d759d42f59b4f2be66aa6957bfd595e90096e223/meta/vim-potatonuc.png
-[Syntax-Checkers]: https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers
-[syntastic]: https://github.com/scrooloose/syntastic
-[neomake]: https://github.com/neomake/neomake
 [vim-plug]: https://github.com/junegunn/vim-plug

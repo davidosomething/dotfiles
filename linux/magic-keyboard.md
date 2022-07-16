@@ -26,7 +26,7 @@ page in ArchWiki for reference.
 
 - Do not use `shift:both_capslock` -- it (still, Feb 2021) breaks Shift in
   LWGJL.  
-      see [LWJGL #28][https://github.com/LWJGL/lwjgl/issues/28]
+      see [LWJGL #28](https://github.com/LWJGL/lwjgl/issues/28)
 - Using `ctrl:nocaps` => `Caps Lock as Ctrl`
     - Prefer this over `capslock(ctrl_modifier)` => `Make Caps Lock an
       Additional Ctrl` because LWGJL still reads additional ctrl as caps lock.

@@ -158,11 +158,9 @@ For X apps (no terminal) the value may be:
 
 [Arch Linux wiki for XDG Base Directory Support]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
 [Debian DotFilesList]: https://wiki.debian.org/DotFilesList
-[Fira (Fura) Mono for Powerline]: https://github.com/powerline/fonts
 [XDG]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 [chruby]: https://github.com/postmodern/chruby
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
-[google shell style]: https://google.github.io/styleguide/shell.xml
 [grawity's notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
 [fnm]: https://github.com/Schniz/fnm
