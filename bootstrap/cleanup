@@ -54,12 +54,12 @@ __merge_dir() {
 # Remove file or dir completely with confirmation
 # $1 path to completely remove
 __remove() {
-  [[ ! -e "$1" ]] && __dko_ok "${1} not found" && return 0
   if [[ -f "$1" ]] || [[ -L "$1" ]]; then
     rm -i -- "$1" && __dko_ok "${1} removed"
   elif [[ -d "$1" ]]; then
     rm -ir -- "$1" && __dko_ok "${1} removed"
   fi
+  [[ ! -e "$1" ]] && __dko_ok "${1} not found" && return 0
 }
 
 # Logic for NVM
@@ -130,6 +130,8 @@ __remove "${HOME}/.gitignore"
 # i will never use hyper terminal
 __remove "${HOME}/.hyper.js"
 __remove "${XDG_CONFIG_HOME}/hyper"
+# i will never use kitty terminal
+__remove "${XDG_CONFIG_HOME}/kitty"
 # should be in .local; probably created on ZSH startup
 __remove "${HOME}/.wget-hsts"
 # stopped using tern

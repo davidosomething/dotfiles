@@ -7,11 +7,6 @@ let g:dko_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 " Temporary fixes
 " ============================================================================
 
-if $TERM ==# 'xterm-kitty'
-  " https://github.com/kovidgoyal/kitty#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
-  let &t_ut=''
-endif
-
 if !has('nvim-0.4')
   " https://github.com/neovim/neovim/issues/7994
   augroup dkoneovimfixes

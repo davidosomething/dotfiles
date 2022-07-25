@@ -56,9 +56,6 @@ __symlink() {
     ".config/nvm/default-packages"
   dko-symlink "shell/dot.inputrc" \
     ".config/readline/inputrc"
-  [ -z "$KITTY_CONFIG_DIRECTORY" ] &&
-    dko-symlink "kitty" \
-    ".config/kitty"
   dko-symlink "universal-ctags/dot.ctags" \
     ".config/ctags/universal.ctags"
 
