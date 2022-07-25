@@ -85,7 +85,6 @@ __move "${HOME}/.bash_history" "${HOME}/.local/bash_history"
 __move "${HOME}/.ctags.d" "${XDG_CONFIG_HOME}/ctags"
 __move "${HOME}/.gimp-2.8" "${XDG_CONFIG_HOME}/GIMP/2.8"
 __move "${HOME}/.grip" "${XDG_CONFIG_HOME}/grip"
-__move "${HOME}/.hyper.js" "${XDG_CONFIG_HOME}/hyper/.hyper.js"
 __move "${HOME}/.inputrc" "${XDG_CONFIG_HOME}/readline/inputrc"
 __move "${HOME}/.solargraph" "${XDG_CACHE_HOME}/solargraph"
 __move "${HOME}/.vagrant.d" "${XDG_DATA_HOME}/vagrant"
@@ -128,6 +127,9 @@ __remove "${HOME}/.forgit"
 __remove "${HOME}/.gitconfig"
 # should be symlinked in XDG
 __remove "${HOME}/.gitignore"
+# i will never use hyper terminal
+__remove "${HOME}/.hyper.js"
+__remove "${XDG_CONFIG_HOME}/hyper"
 # should be in .local; probably created on ZSH startup
 __remove "${HOME}/.wget-hsts"
 # stopped using tern

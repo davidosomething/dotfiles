@@ -49,8 +49,6 @@ __symlink() {
     ".config/git/config"
   dko-symlink "git/dot.gitignore" \
     ".config/git/ignore"
-  dko-symlink "hyper-app/dot.hyper.js" \
-    ".config/hyper/.hyper.js"
   dko-symlink "markdownlint/dot.markdownlintrc" \
     ".config/markdownlint"
   [ ! -d "$FNM_DIR" ] &&
