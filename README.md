@@ -9,7 +9,7 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
     - See [grawity's notes] and [environ notes]
 - ZSH (preferred) and BASH configs
 - Neovim (preferred) and VIM configs
-- RC files for Lua, markdownlint, node, PHP, python, R, ruby, and others
+- RC files for Lua, markdownlint, node, PHP, python, R, and others
 
 ![terminal screenshot][screenshot]
 > Screenshot of my ZSH prompt
@@ -75,8 +75,6 @@ environment set up first.
   ack, (Neo)vim, etc.
 - [node/install](node/install) install default packages, requires you set up
   [fnm] and install node first
-- [ruby/install-default-gems](ruby/install-default-gems) requires you set up
-  [chruby] and install a ruby first.
 - [python/install](python/install) installs default pip packages. Requires
   [pyenv] already set up
 
@@ -100,9 +98,6 @@ environment set up first.
       `vim/after/syntax/gitcommit.vim`.
 - `python/`
     - Never `sudo pip`. Set up a [pyenv], and use a [pyenv-virtualenv].
-- `ruby/`
-    - Never `sudo gem`. Set up a [chruby] env first, and then you can install
-      gems into the userspace local to the active ruby env.
 - `vim/`
     - If `curl` and `git` are available,
       [vim-plug](https://github.com/junegunn/vim-plug) can automatically

@@ -1,5 +1,0 @@
-gem:              --no-document
-install:          --no-document
-update:           --no-document
-update_sources:   true
-
