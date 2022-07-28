@@ -224,7 +224,7 @@ bindkey '^[[5~' up-history
 bindkey '^[[6~' down-history
 
 # ----------------------------------------------------------------------------
-# Keybindings: Movement, also triggers zsh-autosuggest partials
+# Keybindings: Movement
 # ----------------------------------------------------------------------------
 
 bindkey '^e' vi-forward-word-end

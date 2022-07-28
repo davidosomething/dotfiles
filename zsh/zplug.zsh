@@ -45,18 +45,6 @@ function {
 
   zplug 'zsh-users/zsh-completions'
 
-  # In-line best history match suggestion
-  # don't suggest lines longer than
-  export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=78
-  # as of v4.0 use ZSH/zpty module to async retrieve
-  export ZSH_AUTOSUGGEST_USE_ASYNC=1
-  # Removed forward-char
-  export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(vi-end-of-line)
-  export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-  export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-  zplug 'zsh-users/zsh-autosuggestions', \
-    hook-load:'_zsh_autosuggest_start && bindkey "^n" autosuggest-accept'
-
   zplug load
 
   eval "$(zoxide init --no-aliases zsh)"
