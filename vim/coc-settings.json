@@ -1,10 +1,5 @@
 {
-  // Using vim-css-color instead since it is more accurate 2020-01-14
-  "coc.preferences.colorSupport": false,
-
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-
-  "coc.preferences.enableFloatHighlight": false,
 
   // Do it manually
   "coc.preferences.extensionUpdateCheck": "never",
@@ -22,7 +17,6 @@
   "diagnostic.enableMessage": "always",
   "diagnostic.enableSign": true,
   "diagnostic.errorSign": "⚑",
-  "diagnostic.highlightOffset": 1000,
   "diagnostic.hintSign": "⚑",
   "diagnostic.infoSign": "⚑",
   "diagnostic.separateRelatedInformationAsDiagnostics": true,
@@ -33,7 +27,6 @@
   "diagnostic.virtualTextPrefix": "» ",
   "diagnostic.warningSign": "⚑",
 
-  "suggest.echodocSupport": true,
   "suggest.minTriggerInputLength": 1,
   "suggest.snippetIndicator": " ⭐︎",
   "suggest.timeout": 2000, // down from 5000
@@ -107,13 +100,11 @@
   "prettier.singleQuote": true,
   "prettier.trailingComma": "es5",
   "prettier.bracketSpacing": true,
-  "prettier.jsxBracketSameLine": false,
+  "prettier.bracketSameLine": false,
   "prettier.semi": true,
   "prettier.useTabs": false,
   "prettier.proseWrap": "preserve",
   "prettier.arrowParens": "always",
-  "prettier.eslintIntegration": true,
-  "prettier.tslintIntegration": true,
   "prettier.statusItemText": "<ᴀ-=> ᴘʀᴇᴛᴛɪᴇʀ",
 
   // =========================================================================
@@ -130,5 +121,4 @@
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
   "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enable": false
-
 }
