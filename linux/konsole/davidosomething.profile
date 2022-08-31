@@ -1,9 +1,9 @@
 [Appearance]
 ColorScheme=base16-tomorrow-night
 DimmValue=18
-Font=FiraMono Nerd Font Mono,11,-1,5,50,0,0,0,0,0
+Font=FuraMono Nerd Font Mono,18,-1,5,50,0,0,0,0,0
 LineSpacing=2
-UseFontLineChararacters=false
+UseFontLineChararacters=true
 
 [General]
 DimWhenInactive=true
