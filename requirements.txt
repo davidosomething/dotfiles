@@ -6,4 +6,4 @@ flake8-import-order==0.18.1
 flake8-quotes==3.3.1
 pycodestyle==2.9.1
 vim-vint==0.4a3
-yamllint==1.27.1
+yamllint==1.28.0
