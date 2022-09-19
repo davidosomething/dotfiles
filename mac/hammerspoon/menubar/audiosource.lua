@@ -6,7 +6,7 @@ print "== menubar.audiosource"
 local audiosourceBar = hs.menubar.new()
 
 local function nextAudiosource()
-  hs.execute("/usr/local/bin/SwitchAudioSource -n")
+  hs.execute("/opt/homebrew/bin/SwitchAudioSource -n")
 end
 
 local function setAudiosourceBarTitle(e)

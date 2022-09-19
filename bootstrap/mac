@@ -24,16 +24,6 @@ export PATH="${DOTFILES}/bin:${PATH}"
 # check prereqs
 # ============================================================================
 
-open -Ra 'Xcode' || {
-  __dko_err "Missing Xcode, install from App Store"
-  exit 1
-}
-
-__dko_require 'xcrun' || {
-  __dko_err "Missing Xcode Command Line Tools, install via Xcode"
-  exit 1
-}
-
 __dko_require 'brew' || {
   __dko_err "Missing brew, install as on https://brew.sh"
   exit 1
@@ -75,45 +65,6 @@ _bootstrap_plist() {
   launchctl load "$dotfiles_plist"
 }
 _bootstrap_plist || exit 1
-
-# ============================================================================
-# sdks
-# ============================================================================
-
-_bootstrap_sdks() {
-  local clitools="/Library/Developer/CommandLineTools"
-  [ -d "$clitools" ] &&
-    __dko_status "Found CLI tools. If headers are missing, try deleting ${clitools} and redownload with xcode-seelct --install"
-
-  # See https://github.com/pyenv/pyenv/issues/1219#issuecomment-428700763
-  # Xcode Command Line tools no longer installs needed headers in /include
-  # https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes
-  local sdk
-  sdk=$(xcrun --show-sdk-path)
-  if [ ! -d "$sdk" ]; then
-    local product_version
-    product_version="$(sw_vers -productVersion)"
-
-    local product_minor
-    product_minor="${product_version%.*}"
-
-    local headers_pkg="${clitools}/Packages/macOS_SDK_headers_for_macOS_${product_minor}.pkg"
-    if [ ! -f "$headers_pkg" ]; then
-      __dko_err "Incomplete installation of xcode command line tools detected."
-      __dko_err_ "Download from https://developer.apple.com/download/more/"
-      return 1
-    fi
-
-    __dko_status "Installing SDK headers... (sudo)"
-    sudo installer -allowUntrusted -verbose -pkg "$headers_pkg" -target / || {
-      __dko_warn "Could not install SDK headers"
-    }
-  else
-    __dko_ok "Found SDK headers"
-  fi
-}
-__dko_status "Re-bootstrapping SDKs (required to install python on 10.14+)"
-_bootstrap_sdks || exit 1
 
 # ============================================================================
 # vendor
@@ -172,3 +123,53 @@ _bootstrap_shell || {
 # ============================================================================
 
 __dko_status "Restart your terminal"
+
+# ============================================================================
+# sdks
+# ============================================================================
+
+open -Ra 'Xcode' || {
+  __dko_err "Missing Xcode, install from App Store"
+  exit 1
+}
+
+__dko_require 'xcrun' || {
+  __dko_err "Missing Xcode Command Line Tools, install via Xcode"
+  exit 1
+}
+
+_bootstrap_sdks() {
+  local clitools="/Library/Developer/CommandLineTools"
+  [ -d "$clitools" ] &&
+    __dko_status "Found CLI tools. If headers are missing, try deleting ${clitools} and redownload with xcode-seelct --install"
+
+  # See https://github.com/pyenv/pyenv/issues/1219#issuecomment-428700763
+  # Xcode Command Line tools no longer installs needed headers in /include
+  # https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes
+  local sdk
+  sdk=$(xcrun --show-sdk-path)
+  if [ ! -d "$sdk" ]; then
+    local product_version
+    product_version="$(sw_vers -productVersion)"
+
+    local product_minor
+    product_minor="${product_version%.*}"
+
+    local headers_pkg="${clitools}/Packages/macOS_SDK_headers_for_macOS_${product_minor}.pkg"
+    if [ ! -f "$headers_pkg" ]; then
+      __dko_err "Incomplete installation of xcode command line tools detected."
+      __dko_err_ "Download from https://developer.apple.com/download/more/"
+      return 1
+    fi
+
+    __dko_status "Installing SDK headers... (sudo)"
+    sudo installer -allowUntrusted -verbose -pkg "$headers_pkg" -target / || {
+      __dko_warn "Could not install SDK headers"
+    }
+  else
+    __dko_ok "Found SDK headers"
+  fi
+}
+__dko_status "Re-bootstrapping SDKs (required to install python on 10.14+)"
+_bootstrap_sdks || exit 1
+

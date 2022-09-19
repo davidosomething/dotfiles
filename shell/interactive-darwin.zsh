@@ -9,7 +9,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive-darwin.zsh"
 # ============================================================================
 
 # just assume brew is in normal location, don't even check for it
-export DKO_BREW_PREFIX="/usr/local"
+export DKO_BREW_PREFIX="/opt/homebrew"
 
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
@@ -18,6 +18,9 @@ export HOMEBREW_NO_INSECURE_REDIRECT=1
 [ -d "${DKO_BREW_PREFIX}/opt/go/libexec/bin" ] &&
 PATH="${DKO_BREW_PREFIX}/opt/go/libexec/bin:${PATH}"
 PATH="${DKO_BREW_PREFIX}/opt/git/share/git-core/contrib/git-jump:${PATH}"
+
+[ -x "${DKO_BREW_PREFIX}/bin/brew" ] &&
+eval "$(${DKO_BREW_PREFIX}/bin/brew shellenv)"
 
 # prefer homebrewed lua@5.1
 [ -x ${DKO_BREW_PREFIX}/bin/luarocks ] &&
