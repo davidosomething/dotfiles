@@ -1,4 +1,3 @@
-commitizen
 http-server
 jscpd
 jsonlint
@@ -10,6 +9,4 @@ package-json-validator
 prettier
 prettier-eslint-cli
 remark-cli
-sass-lint
-trash-cli
 write-good
