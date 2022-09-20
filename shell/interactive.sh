@@ -7,21 +7,6 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
 # need this here in case not starting a login shell
 . "${DOTFILES}/lib/helpers.sh"
 
-# ==============================================================================
-# env management -- Node, Python, Ruby - These add to path
-# ==============================================================================
-
-. "${DOTFILES}/shell/go.sh"
-. "${DOTFILES}/shell/java.sh"
-. "${DOTFILES}/shell/node.sh"
-. "${DOTFILES}/shell/python.sh"
-. "${DOTFILES}/shell/ruby.bash"
-. "${DOTFILES}/shell/rust.sh"
-
-# ============================================================================
-# interactive shells
-# ============================================================================
-
 . "${DOTFILES}/shell/functions.sh" # shell functions
 
 case "$DOTFILES_OS" in
@@ -30,6 +15,18 @@ case "$DOTFILES_OS" in
     . "${DOTFILES}/shell/interactive-linux.sh"
     ;;
 esac
+
+# ==============================================================================
+# env management -- Node, Python, Ruby - These add to path
+# These may rely on things installed by brew so move after interactive-darwin
+# ==============================================================================
+
+. "${DOTFILES}/shell/go.sh"
+. "${DOTFILES}/shell/java.sh"
+. "${DOTFILES}/shell/node.sh"
+. "${DOTFILES}/shell/python.sh"
+. "${DOTFILES}/shell/ruby.bash"
+. "${DOTFILES}/shell/rust.sh"
 
 # source aliases late so command -v (as in __dko_has) doesn't detect them
 
