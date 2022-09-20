@@ -23,7 +23,8 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Fix CursorHold
   " https://github.com/neovim/neovim/issues/12587
-  Plug 'antoinemadec/FixCursorHold.nvim', PlugIf(has('nvim'))
+  Plug 'antoinemadec/FixCursorHold.nvim',
+        \ PlugIf(has('nvim') && !has('nvim-0.8'))
 
   " Disable cursorline sometimes, for performance
   Plug 'delphinus/vim-auto-cursorline', PlugIf(exists('*timer_start'))
