@@ -57,7 +57,7 @@ __remove() {
   if [[ -f "$1" ]] || [[ -L "$1" ]]; then
     rm -i -- "$1" && __dko_ok "${1} removed"
   elif [[ -d "$1" ]]; then
-    rm -ir -- "$1" && __dko_ok "${1} removed"
+    rm -I -r -- "$1" && __dko_ok "${1} removed"
   fi
   [[ ! -e "$1" ]] && __dko_ok "${1} not found" && return 0
 }
@@ -149,6 +149,8 @@ __remove "${HOME}/.zshrc"
 # should be XDG_DATA_HOME/zinit
 __remove "${DOTFILES}/zsh/.zinit"
 __remove "${DOTFILES}/zsh/.zplugin"
+
+__remove "${XDG_DATA_HOME}/zplug"
 
 "${DOTFILES}/bin/dko-fix-git-completion"
 
