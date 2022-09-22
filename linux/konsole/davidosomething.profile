@@ -1,7 +1,7 @@
 [Appearance]
 ColorScheme=base16-tomorrow-night
 DimmValue=18
-Font=FuraMono Nerd Font Mono,18,-1,5,50,0,0,0,0,0
+Font=FuraMono Nerd Font Mono,16,-1,5,50,0,0,0,0,0
 LineSpacing=2
 UseFontLineChararacters=true
 
@@ -18,6 +18,7 @@ TerminalMargin=8
 [Interaction Options]
 CopyTextAsHTML=false
 MiddleClickPasteMode=1
+TextEditorCmd=0
 TrimLeadingSpacesInSelectedText=true
 TrimTrailingSpacesInSelectedText=true
 
@@ -25,6 +26,7 @@ TrimTrailingSpacesInSelectedText=true
 KeyBindings=default
 
 [Scrolling]
+HistoryMode=2
 HistorySize=10000
 
 [Terminal Features]
