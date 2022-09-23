@@ -126,16 +126,10 @@ alias bi='b install'
 alias bs='b search'
 alias blfn='b ls --full-name'
 
-alias brc='b cask'
-
 alias bsvc='b services'
 alias bsvr='b services restart'
 
 alias bwhy='b uses --installed --recursive'
-
-alias cask='brc'
-alias ci='brc install'
-alias caskrm="brew uninstall --cask --force"
 
 # ----------------------------------------------------------------------------
 # Apps
