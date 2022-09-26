@@ -28,7 +28,8 @@ cdr() {
 e() {
   nvimctrl="nvim-ctrl.linux"
   [ "$DOTFILES_OS" = 'Darwin' ] && nvimctrl="nvim-ctrl.macos"
-  if __dko_has nvim && pgrep nvim >/dev/null; then
+  # shellcheck disable=SC2009
+  if __dko_has nvim && ps | grep "[n]vim" >/dev/null; then
     for file in "$@"; do
       # don't prepend PWD for absolute paths
       case "$file" in
