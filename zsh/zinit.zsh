@@ -104,6 +104,7 @@ function {
     'BurntSushi/ripgrep' \
     ;
 
+  zinit snippet 'OMZP::asdf'
   zinit snippet 'OMZP::cp'
   zinit snippet 'OMZP::extract'
 
