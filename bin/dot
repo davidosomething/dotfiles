@@ -8,7 +8,7 @@
 
 # ==============================================================================
 
-latest_xcode_major="13"
+latest_xcode_major="14"
 
 # ==============================================================================
 # Command functions
@@ -117,9 +117,9 @@ __dko_dotfiles__update_daily() {
   __dko_dotfiles__ruby__require_chruby &&
     __dko_dotfiles__ruby__require_rubygems && __dko_dotfiles__ruby__update_gems
 
-  __dko_dotfiles__php__require_composer && {
+  __dko_has composer && {
     __dko_dotfiles__php__update_composer
-    __dko_dotfiles__php__require_phpcs && __dko_dotfiles__php__update_wpcs
+    __dko_has phpcs && __dko_dotfiles__php__update_wpcs
   }
 
   __dko_has pyenv && {
@@ -263,7 +263,7 @@ __dko_dotfiles__node__update_fnm() {
       "${DOTFILES}/bootstrap/fnm"
       ;;
     *arwin*)
-      __dko_dotfiles__darwin__require_brew || return 1
+      __dko_has brew || return 1
 
       if __dko_has brew; then
         if __dko_has fnm; then
@@ -354,16 +354,9 @@ __dko_dotfiles__py__update_neovim_python() {
 # PHP
 # ----------------------------------------------------------------------------
 
-# pass any arg to silence
-__dko_dotfiles__php__require_composer() {
-  __dko_has composer && return 0
-  (( $# == 0 )) && __dko_warn "composer is not installed"
-  return 1
-}
-
 __dko_dotfiles__php__update_composer() {
   __dko_status "Updating composer"
-  __dko_dotfiles__php__require_composer || return 1
+  __dko_has composer || return 1
 
   if [[ -x "${DKO_BREW_PREFIX}/bin/composer" ]]; then
     __dko_ok "composer was installed via brew (yay)"
@@ -384,16 +377,6 @@ __dko_dotfiles__php__update_composer() {
   fi
 }
 
-# pass any arg to silence
-__dko_dotfiles__php__require_phpcs() {
-  __dko_has phpcs && return 0
-  (( $# == 0 )) && {
-    __dko_warn "phpcs is not installed. Install via composer global require"
-    __dko_warn_ "and run again, or set installed_paths manually"
-  }
-  return 1
-}
-
 __dko_dotfiles__php__update_wpcs() {
   readonly wpcs_repo="https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git"
   readonly sources_path="${HOME}/src"
@@ -404,8 +387,8 @@ __dko_dotfiles__php__update_wpcs() {
   # --------------------------------------------------------------------------
 
   __dko_status "Updating wpcs"
-  __dko_dotfiles__php__require_composer || return 1
-  __dko_dotfiles__php__require_phpcs || return 1
+  __dko_has composer || return 1
+  __dko_has phpcs || return 1
 
   if [[ ! -d "$wpcs_path" ]]; then
     mkdir -p "${sources_path}"
@@ -531,24 +514,17 @@ __dko_dotfiles__darwin__update_mac() {
 __dko_dotfiles__darwin__require_latest_xcode() {
   local v
   v="$(xcodebuild -version | awk 'NR==1{print $2}')"
-  if [[ "$v" == "${latest_xcode_major}."* ]]; then
-    __dko_ok "Found Xcode ${v}"
+  if (( "$v" <= "${latest_xcode_major}" )); then
+    __dko_ok "Found Xcode >= v${v}"
     return 0
   fi
   __dko_err "Found Xcode ${v}, please install ${latest_xcode_major}.x.x"
   return 1
 }
 
-# pass any arg to silence
-__dko_dotfiles__darwin__require_brew() {
-  __dko_has brew && return 0
-  (( $# == 0 )) && __dko_warn "Homebrew is not installed"
-  return 1
-}
-
 __dko_dotfiles__darwin__update_brew() {
   __dko_dotfiles__darwin__require_latest_xcode || return 1
-  __dko_dotfiles__darwin__require_brew || return 1
+  __dko_has brew || return 1
 
   __dko_status "Updating homebrew"
   (
