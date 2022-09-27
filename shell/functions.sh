@@ -91,6 +91,13 @@ cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
 }
 
+killport() {
+  # -t terse, just get pid
+  # -i by internet addr
+  pid=$(lsof -t -i tcp:"$1")
+  [ -n "$pid" ] && kill -9 "$pid"
+}
+
 # ============================================================================
 # Network tools
 # ============================================================================
