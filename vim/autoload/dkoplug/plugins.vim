@@ -75,6 +75,10 @@ function! dkoplug#plugins#LoadAll() abort
   " Embedded filetype support
   " ==========================================================================
 
+  if has('nvim-0.7')
+    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+  endif
+
   " tyru/caw.vim, some others use this to determine inline embedded filetypes
   Plug 'Shougo/context_filetype.vim'
 
