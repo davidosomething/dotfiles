@@ -28,6 +28,7 @@
   "diagnostic.warningSign": "⚑",
 
   "suggest.minTriggerInputLength": 1,
+  "suggest.noselect": true, // do not select first selection automatically
   "suggest.snippetIndicator": " ⭐︎",
   "suggest.timeout": 2000, // down from 5000
 
