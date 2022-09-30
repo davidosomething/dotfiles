@@ -53,5 +53,6 @@ PATH="${HOME}/.iterm2:${PATH}"
 # check for presence
 # ============================================================================
 
+# pipx uses this one by default
 PATH="${HOME}/.local/bin:${PATH}"
-PATH="${DOTFILES}/bin:${PATH}"
+PATH="${DOTFILES}/bin:${DOTFILES}/local/bin:${PATH}"

@@ -23,6 +23,7 @@ mkdir -p -- "${HOME}/.cache"
 mkdir -p -- "${HOME}/.config"
 
 # Mirror root in ~/.local
+# pipx uses this bin dir
 mkdir -p -- "${HOME}/.local/bin"
 mkdir -p -- "${HOME}/.local/man/man1"
 mkdir -p -- "${HOME}/.local/lib/R/library"
