@@ -143,6 +143,10 @@ __remove "${HOME}/.tldr"
 __remove "${HOME}/.zlogin"
 __remove "${HOME}/.zprofile"
 
+# Created by /etc/bashrc_Apple_Terminal -- apple's way of sharing session data
+# for a shell.
+__remove "${HOME}/.zsh_sessions"
+
 # should be ~/.dotfiles/zsh/.zshrc
 __remove "${HOME}/.zshrc"
 
