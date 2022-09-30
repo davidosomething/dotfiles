@@ -27,7 +27,7 @@ export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 . "${DOTFILES}/shell/java.sh"
 . "${DOTFILES}/shell/node.sh"
 . "${DOTFILES}/shell/python.sh"
-. "${DOTFILES}/shell/ruby.bash"
+. "${DOTFILES}/shell/ruby.sh"
 . "${DOTFILES}/shell/rust.sh"
 
 # source aliases late so command -v (as in __dko_has) doesn't detect them
