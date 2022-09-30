@@ -4,6 +4,9 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive-darwin.zsh"
 
+# disable /etc/*_Apple_Terminal Terminal.app session integration
+export SHELL_SESSIONS_DISABLE=1
+
 # ============================================================================
 # homebrew
 # ============================================================================
