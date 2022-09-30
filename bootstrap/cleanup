@@ -93,6 +93,7 @@ __move "${HOME}/.zhistory" "${HOME}/.local/zsh_history"
 
 __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 
+[[ -n "$ASDF_DATA_DIR" ]] && __move "${HOME}/.asdf" "${ASDF_DATA_DIR}"
 [[ -n "$CARGO_HOME" ]] && __move "${HOME}/.cargo" "$CARGO_HOME"
 [[ -n "$COMPOSER_HOME" ]] && __move "${HOME}/.composer" "$COMPOSER_HOME"
 [[ -n "$GNUPGHOME" ]] && [[ -d "${HOME}/.gnupg" ]] && {

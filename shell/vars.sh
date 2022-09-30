@@ -128,6 +128,9 @@ export PAGER='less'
 # ack
 export ACKRC="${DOTFILES}/ack/dot.ackrc"
 
+# asdf
+export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
+
 # aws
 export AWS_CONFIG_FILE="${DOTFILES}/aws/config"
 # credentials are per system
