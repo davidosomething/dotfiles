@@ -153,7 +153,6 @@ alias getsubs='pipx run subliminal download -p opensubtitles -p shooter -p subsc
 
 alias bun='bundle'
 alias be='bun exec'
-alias ruby-install='ruby-install --rubies-dir "$DKO_RUBIES"'
 
 # ----------------------------------------------------------------------------
 # shfmt

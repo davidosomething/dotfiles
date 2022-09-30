@@ -114,8 +114,7 @@ __dko_dotfiles__update_daily() {
 
   __dko_dotfiles__go__require_go && __dko_dotfiles__go__update_go_packages
 
-  __dko_dotfiles__ruby__require_chruby &&
-    __dko_dotfiles__ruby__require_rubygems && __dko_dotfiles__ruby__update_gems
+  __dko_dotfiles__ruby__require_rubygems && __dko_dotfiles__ruby__update_gems
 
   __dko_has composer && {
     __dko_dotfiles__php__update_composer
@@ -180,13 +179,6 @@ __dko_dotfiles__update_fzf() {
 # ----------------------------------------------------------------------------
 
 # pass any arg to silence
-__dko_dotfiles__ruby__require_chruby() {
-  [[ -n "$RUBY_VERSION" ]] && return 0
-  __dko_warn "System ruby detected! Please install and use chruby"
-  return 1
-}
-
-# pass any arg to silence
 __dko_dotfiles__ruby__require_rubygems() {
   __dko_has gem && return 0
   __dko_warn "rubygems is not installed"
@@ -199,7 +191,6 @@ __dko_dotfiles__ruby__require_rubygems() {
 
 __dko_dotfiles__ruby__update_gems() {
   __dko_status "Updating gems"
-  __dko_dotfiles__ruby__require_chruby || return 1
   __dko_dotfiles__ruby__require_rubygems || return 1
 
   __dko_status "Updating RubyGems itself for ruby: ${RUBY_VERSION}"

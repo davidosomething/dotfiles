@@ -117,10 +117,6 @@ operation. Use the `bi` alias for a clean room install if possible.
     - See <https://gist.github.com/abernix/a7619b07b687bb97ab573b0dc30928a0>
       if there are still file limit issues
     - REBOOT for `ulimit -n` changes to take effect
-- Install `chruby`, `ruby-install`
-  1. `ruby-install ruby` to install latest
-  1. `chruby` to that version
-  1. Install gems using [ruby/install-default-gems](../ruby/install-default-gems)
 - Install [fnm] using [bootstrap/fnm](../bootstrap/fnm) and install a version
   of `node` (and `npm`)
   1. Use fnm managed node
