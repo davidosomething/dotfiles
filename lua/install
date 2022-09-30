@@ -27,7 +27,7 @@ __install() {
     __dko_status "Using lua in ${DKO_LUA_DIR}"
   }
 
-  # loop through default-gems file and install each one
+  # loop through packages file and install each one
   __dko_status "Installing lua packages"
   while read -r pkg; do
     eval "$cmd install --local $pkg"
