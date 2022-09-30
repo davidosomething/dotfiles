@@ -21,6 +21,7 @@ esac
 # These may rely on things installed by brew so move after interactive-darwin
 # ==============================================================================
 
+# asdf is loaded from omzp using zinit
 . "${DOTFILES}/shell/go.sh"
 . "${DOTFILES}/shell/java.sh"
 . "${DOTFILES}/shell/node.sh"
