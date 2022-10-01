@@ -59,39 +59,6 @@ if dkoplug#IsLoaded('coc.nvim')
 endif
 
 " ============================================================================
-" echint
-" ============================================================================
-
-function! g:PostprocessEchint(entry) abort
-  return a:entry.text =~# 'did not pass EditorConfig validation'
-        \ ? extend(a:entry, { 'valid': -1 })
-        \ : a:entry
-endfunction
-
-let g:echint_whitelist = [
-      \   'gitconfig',
-      \   'dosini',
-      \   'lua',
-      \   'php',
-      \   'sh',
-      \   'vim',
-      \   'yaml',
-      \   'zsh',
-      \]
-" Excludes things like python, which has pep8.
-for s:ft in g:echint_whitelist
-  let s:safe_ft = neomake#utils#get_ft_confname(s:ft)
-  let g:neomake_{s:safe_ft}_echint_maker = dko#neomake#NpxMaker({
-        \   'maker': 'echint',
-        \   'ft': s:ft,
-        \   'errorformat': '%E%f:%l %m',
-        \   'postprocess': function('PostprocessEchint'),
-        \ }, 'global')
-endfor
-unlet s:ft
-unlet s:safe_ft
-
-" ============================================================================
 " Buffer filetype settings
 " Use BufWinEnter because it runs after modelines, which might change the
 " filetype. Setup functions should check filetype if not matching by extension
