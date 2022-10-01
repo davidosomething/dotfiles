@@ -508,7 +508,7 @@ __dko_dotfiles__darwin__require_latest_xcode() {
   v="$(xcodebuild -version | awk 'NR==1{print $2}')"
   # 14 (trim until .)
   v="${v%%.*}"
-  if (( "$v" <= "${latest_xcode_major}" )); then
+  if (( v <= latest_xcode_major )); then
     __dko_ok "Found Xcode >= v${v}"
     return 0
   fi

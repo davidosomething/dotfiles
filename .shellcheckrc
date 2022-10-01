@@ -1,0 +1,7 @@
+external-sources=false
+
+# https://github.com/koalaman/shellcheck/wiki/SC1090
+disable=SC1090
+
+# https://github.com/koalaman/shellcheck/wiki/SC1091
+disable=SC1091
