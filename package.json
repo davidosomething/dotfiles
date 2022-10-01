@@ -45,30 +45,6 @@
     "url": "https://github.com/davidosomething/dotfiles/issues"
   },
   "homepage": "https://github.com/davidosomething/dotfiles#readme",
-  "echint": {
-    "ignore": [
-      "**/*.app/**",
-      "**/*.md",
-      "**/*.py",
-      "**/*.xml",
-      "bin/nvim-ctrl.*",
-      "linux/**",
-      "local/**",
-      "logs/**",
-      "mac/hammerspoon/Spoons/**",
-      "mac/iterm2/*.itermcolors",
-      "mac/*.terminal",
-      "meta/**",
-      "ruby/Gemfile.lock",
-      "terminfo/**",
-      "tests/**",
-      "tmux/plugins/**",
-      "vim/autoload/plug.vim*",
-      "vim/spell/**",
-      "vim/vendor/**",
-      "xresources/**"
-    ]
-  },
   "devDependencies": {
     "eslint": "8.24.0",
     "eslint-config-davidosomething": "6.0.0",
