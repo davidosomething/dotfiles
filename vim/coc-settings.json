@@ -62,10 +62,7 @@
   "diagnostic-languageserver.filetypes": {
     "vim": [ "vint" ],
     "css": [ "stylelint" ],
-    "dockerfile": [ "hadolint" ],
-    "markdown": [ "markdownlint" ]
-    // neomake is still better for shellcheck and bashate since we can read
-    // shebang first
+    "dockerfile": [ "hadolint" ]
   },
   // Most already defined
   // https://github.com/iamcco/coc-diagnostic/blob/master/src/config.ts
