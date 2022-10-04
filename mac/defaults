@@ -14,7 +14,7 @@ sudo -v
 # https://github.com/postmodern/chruby/issues/196#issuecomment-23826171
 [[ -f "/etc/zshenv" ]] && mv /etc/zshenv /etc/zprofile
 
-# Keep-alive: update existing `sudo` time stamp until `.osx` has finished
+# Keep-alive: update existing `sudo` time stamp until this script has finished
 while true; do
   sudo -n true
   sleep 60
@@ -39,12 +39,8 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-# ----------------------------------------------------------------------------
-# Monitor
-# ----------------------------------------------------------------------------
-
-# Enable subpixel font rendering on non-Apple LCDs
-defaults write NSGlobalDomain AppleFontSmoothing -int 2
+# Key repeat on hold instead of the symbol UI
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # ============================================================================
 # App preferences
@@ -87,9 +83,6 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 # Disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
 
-# Show indicator lights for open applications in the Dock
-defaults write com.apple.dock show-process-indicators -bool true
-
 # Finder: show path bar
 defaults write com.apple.finder ShowPathbar -bool true
 
@@ -106,18 +99,8 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
   OpenWith -bool true \
   Privileges -bool true
 
-# Disable disk image verification
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
-
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-
-# Automatically open a new Finder window when a volume is mounted
-defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
-defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
-defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
 # Show item info near icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
@@ -168,9 +151,6 @@ defaults write com.apple.Preview NSQuitAlwaysKeepsWindows -bool false
 # QuickTime
 # ----------------------------------------------------------------------------
 
-# Auto-play videos when opened with QuickTime Player
-defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
-
 # Don't remember open files
 defaults write com.apple.QuickTimePlayerX NSQuitAlwaysKeepsWindows -bool false
 
@@ -180,13 +160,11 @@ defaults write com.apple.QuickTimePlayerX NSQuitAlwaysKeepsWindows -bool false
 
 # Privacy: don’t send search queries to Apple
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
+
 defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 
 # Show the full URL in the address bar (note: this still hides the scheme)
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
-
-# Set Safari’s home page to `about:blank` for faster loading
-defaults write com.apple.Safari HomePage -string "about:blank"
 
 # Prevent Safari from opening ‘safe’ files automatically after downloading
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
@@ -201,38 +179,6 @@ defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 
 # Add a context menu item for showing the Web Inspector in web views
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
-
-# ----------------------------------------------------------------------------
-# Spotlight
-# ----------------------------------------------------------------------------
-
-# Change indexing order and disable some file types
-defaults write com.apple.spotlight orderedItems -array \
-  '{"enabled" = 1;"name" = "APPLICATIONS";}' \
-  '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-  '{"enabled" = 1;"name" = "DIRECTORIES";}' \
-  '{"enabled" = 1;"name" = "PDF";}' \
-  '{"enabled" = 1;"name" = "FONTS";}' \
-  '{"enabled" = 0;"name" = "DOCUMENTS";}' \
-  '{"enabled" = 0;"name" = "MESSAGES";}' \
-  '{"enabled" = 0;"name" = "CONTACT";}' \
-  '{"enabled" = 0;"name" = "EVENT_TODO";}' \
-  '{"enabled" = 0;"name" = "IMAGES";}' \
-  '{"enabled" = 0;"name" = "BOOKMARKS";}' \
-  '{"enabled" = 0;"name" = "MUSIC";}' \
-  '{"enabled" = 0;"name" = "MOVIES";}' \
-  '{"enabled" = 0;"name" = "PRESENTATIONS";}' \
-  '{"enabled" = 0;"name" = "SPREADSHEETS";}' \
-  '{"enabled" = 0;"name" = "SOURCE";}'
-
-# Load new settings before rebuilding the index
-killall mds >/dev/null 2>&1
-
-# Make sure indexing is enabled for the main volume
-sudo mdutil -i on / >/dev/null
-
-# Rebuild the index from scratch
-sudo mdutil -E / >/dev/null
 
 # ----------------------------------------------------------------------------
 # Text Edit
@@ -250,40 +196,5 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
 # Don't ask to use every drive for Time Machine
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
-
-# ----------------------------------------------------------------------------
-# Transmission
-# ----------------------------------------------------------------------------
-
-defaults write org.m0k.transmission WarningDonate -bool false
-defaults write org.m0k.transmission WarningLegal -bool false
-defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
-defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
-defaults write org.m0k.transmission BlocklistNew -bool true
-
-# ============================================================================
-# Restart for changes
-# ============================================================================
-
-# Kill affected applications
-for app in \
-  "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-  Dashboard \
-  Dock \
-  Finder \
-  "Google Chrome Canary" \
-  "Google Chrome" \
-  Mail \
-  Messages \
-  Opera \
-  Photos \
-  Safari \
-  SystemUIServer \
-  Terminal \
-  Transmission \
-  Twitter \
-  iCal; do
-  killall "$app" >/dev/null 2>&1
-done
 
 # vim: ft=zsh :
