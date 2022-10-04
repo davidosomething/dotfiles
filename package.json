@@ -19,7 +19,7 @@
     "yamlfiles": "find . -type f -regex \".*\\.y\\(a\\)*ml\" -not -path \".github/*\" -not -path \"*.tox/*\""
   },
   "scripts": {
-    "_markdownlint": "npx --quiet markdownlint-cli",
+    "_markdownlint": "npx --quiet markdownlint-cli --config markdownlint/dot.markdownlintrc",
     "_parallel": "npx --quiet npm-run-all --silent --aggregate-output --continue-on-error --parallel",
     "lint": "npm run --silent _parallel -- lint:**",
     "lint:bash:bashate": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && bashate --ignore=E003,E005,E006,E011,E043 -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
