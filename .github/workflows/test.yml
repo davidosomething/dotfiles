@@ -36,8 +36,8 @@ jobs:
 
       - name: Test
         run: |
-          npm test --silent
           ./bootstrap/symlink
+          npm test --silent
 
       - name: Merge dev -> master
         uses: devmasx/merge-branch@1.4.0
