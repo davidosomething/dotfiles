@@ -18,7 +18,7 @@ function {
   # Note: the mv for @cli/cli normalizes the macOS structure to be the same as
   # the linux ones (there is also a .backup folder in the archive we want to
   # ignore)
-  zinit lucid as'program' for \
+  zinit lucid wait'0a' as'program' for \
     from'gh-r' \
     mv'gh* -> usr' \
     pick"usr/bin/gh" \
@@ -69,7 +69,7 @@ function {
   local bat_manpager="export MANPAGER=\"sh -c 'col -bx | bat --language man --paging always --style=grid'\""
   local delta_gitpager="export GIT_PAGER='delta --dark'"
 
-  zinit lucid from'gh-r' as'program' for \
+  zinit lucid wait'0a' from'gh-r' as'program' for \
     mv'bat* -> bat' \
     pick'bat/bat' \
     atclone'cp -vf bat/bat.1 "${ZPFX}/share/man/man1"; cp -vf bat/autocomplete/bat.zsh "bat/autocomplete/_bat"' \
