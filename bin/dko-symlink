@@ -23,7 +23,6 @@ __dko_symlink() {
     # properly symlinked
     return
   elif (( result == 10 )); then
-    __dko_status "Found different ${fulltargetpath}"
     if [[ -z "$CI" ]]; then
       read -p "          Overwrite? [y/N] " -r
       if [[ ! $REPLY =~ ^[Yy]$ ]]; then
