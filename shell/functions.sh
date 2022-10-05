@@ -26,21 +26,36 @@ cdr() {
 # ============================================================================
 
 e() {
-  nvimctrl="nvim-ctrl.linux"
-  [ "$DOTFILES_OS" = 'Darwin' ] && nvimctrl="nvim-ctrl.macos"
-  # shellcheck disable=SC2009
-  if __dko_has nvim && ps | grep "[n]vim" >/dev/null; then
-    for file in "$@"; do
-      # don't prepend PWD for absolute paths
-      case "$file" in
-        /*) ;;
-        *) file="${PWD}/${file}" ;;
-      esac
-      "${DOTFILES}/bin/${nvimctrl}" "e ${file}" && wait
-    done
-  else
-    "$EDITOR" "$@"
-  fi
+  ! __dko_has nvim && "$EDITOR" "$@" && return
+
+  __server="${HOME}/nvim.pipe"
+
+  # remote-expr outputs to /dev/stderr for some reason
+  __existing=$(nvim \
+    --server "$__server" \
+    --remote-expr "execute('echo v:servername')" \
+    2>&1)
+
+  [ "$__existing" != "$__server" ] && {
+    file="$1"
+    case "$file" in
+      /*) ;;
+      *) file="${PWD}/${file}" ;;
+    esac
+    #echo "starting server at ${__server} with file ${file}"
+    nvim --listen "$__server" "$file"
+    shift
+  }
+
+  for file in "$@"; do
+    # don't prepend PWD for absolute paths
+    case "$file" in
+      /*) ;;
+      *) file="${PWD}/${file}" ;;
+    esac
+    #echo "using server at ${__server} with file ${file}"
+    nvim --server "$__server" --remote "$file" && wait
+  done
 }
 
 # ============================================================================
