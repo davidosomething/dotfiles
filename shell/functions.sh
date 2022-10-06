@@ -38,13 +38,18 @@ e() {
 
   [ "$__existing" != "$__server" ] && {
     file="$1"
-    case "$file" in
-      /*) ;;
-      *) file="${PWD}/${file}" ;;
-    esac
-    #echo "starting server at ${__server} with file ${file}"
-    nvim --listen "$__server" "$file"
-    shift
+
+    if [ -z "$file" ]; then
+      nvim --listen "$__server" +enew
+    else
+      case "$file" in
+        /*) ;;
+        *) file="${PWD}/${file}" ;;
+      esac
+      #echo "starting server at ${__server} with file ${file}"
+      nvim --listen "$__server" "$file"
+      shift
+    fi
   }
 
   for file in "$@"; do
