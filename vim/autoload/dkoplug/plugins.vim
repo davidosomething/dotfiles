@@ -30,7 +30,7 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'delphinus/vim-auto-cursorline', PlugIf(exists('*timer_start'))
 
   " Lua plugin to prevent new windows from shifting cursor position
-  Plug 'luukvbaal/stabilize.nvim', PlugIf(has('nvim'))
+  Plug 'luukvbaal/stabilize.nvim', PlugIf(has('nvim') && !exists('+splitkeep'))
   augroup dkostabilize
     autocmd!
     autocmd User stabilize.nvim lua require('stabilize').setup()

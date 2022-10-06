@@ -198,6 +198,9 @@ if has('patch-7.4.314') | set shortmess+=c | endif
 
 set splitbelow
 set splitright
+if exists('+splitkeep')
+  set splitkeep=screen
+endif
 
 set hidden                            " remember undo after quitting
 
