@@ -23,7 +23,7 @@ See macOS specific notes in [mac/README.md](mac/README.md)
 Generally:
 
 ```sh
-git clone --recurse-submodules https://github.com/davidosomething/dotfiles ~/.dotfiles
+git clone https://github.com/davidosomething/dotfiles ~/.dotfiles
 ```
 
 Then, run the [bootstrap/symlink](bootstrap/symlink) script for linux or
