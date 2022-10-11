@@ -21,49 +21,6 @@ cdr() {
 }
 
 # ============================================================================
-# edit
-# This is usually overridden in ./after.sh
-# ============================================================================
-
-e() {
-  ! __dko_has nvim && "$EDITOR" "$@" && return
-
-  __server="${HOME}/nvim.pipe"
-
-  # remote-expr outputs to /dev/stderr for some reason
-  __existing=$(nvim \
-    --server "$__server" \
-    --remote-expr "execute('echo v:servername')" \
-    2>&1)
-
-  [ "$__existing" != "$__server" ] && {
-    file="$1"
-
-    if [ -z "$file" ]; then
-      nvim --listen "$__server" +enew
-    else
-      case "$file" in
-        /*) ;;
-        *) file="${PWD}/${file}" ;;
-      esac
-      #echo "starting server at ${__server} with file ${file}"
-      nvim --listen "$__server" "$file"
-      shift
-    fi
-  }
-
-  for file in "$@"; do
-    # don't prepend PWD for absolute paths
-    case "$file" in
-      /*) ;;
-      *) file="${PWD}/${file}" ;;
-    esac
-    #echo "using server at ${__server} with file ${file}"
-    nvim --server "$__server" --remote "$file" && wait
-  done
-}
-
-# ============================================================================
 # edit upwards
 # ============================================================================
 
