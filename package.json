@@ -19,9 +19,8 @@
     "yamlfiles": "find . -type f -regex \".*\\.y\\(a\\)*ml\" -not -path \".github/*\" -not -path \"*.tox/*\""
   },
   "scripts": {
-    "_markdownlint": "npx --quiet markdownlint-cli --config markdownlint/dot.markdownlintrc",
-    "_parallel": "npx --quiet npm-run-all --silent --aggregate-output --continue-on-error --parallel",
-    "lint": "npm run --silent _parallel -- lint:**",
+    "_markdownlint": "npx --quiet --yes markdownlint-cli --config markdownlint/dot.markdownlintrc",
+    "lint": "npx --quiet --yes concurrently --group --prefix=none 'npm:lint:* --silent'",
     "lint:bash:bashate": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && bashate --ignore=E003,E005,E006,E011,E043 -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
     "lint:bash:shellcheck": "./bin/dko-header \"  ${npm_lifecycle_event}  \"             && shellcheck --shell=bash -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
     "lint:readmes": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                     && npm run --silent _markdownlint -- $(eval \"$npm_package_config_mdfiles\") && echo ' ✓ passed\n'",
@@ -48,10 +47,6 @@
   "devDependencies": {
     "eslint": "8.25.0",
     "eslint-config-davidosomething": "6.0.0",
-    "js-yaml": "4.1.0",
-    "lodash": "4.17.21",
-    "markdownlint-cli": "0.32.2",
-    "npm-run-all": "4.1.5",
     "plist": "3.0.6"
   }
 }
