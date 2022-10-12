@@ -15,13 +15,11 @@ main() {
     --remote-expr "execute('echo v:servername')" \
     2>&1)
 
-  [ "$__existing" != "$__server" ] && {
-    file="$1"
-    if [ -z "$file" ]; then
-      #echo "New server with empty file"
-      nvim --listen "$__server" +enew
-      return
-    fi
+  local first="$1"
+  [ "$__existing" != "$__server" ] && [ -z "$first" ] && {
+    #echo "new server ${__server} with empty file"
+    nvim --listen "$__server" +enew
+    return
   }
 
   typeset -a files=()
@@ -35,12 +33,22 @@ main() {
   done
 
   [ "$__existing" != "$__server" ] && {
-    #echo "starting server at ${__server} with ${files[*]}"
+    #echo "new server ${__server} with ${files[*]}"
     nvim --listen "$__server" "${files[@]}"
     return
   }
 
-  #echo "using server at ${__server} with ${file[*]}"
+  # ==========================================================================
+  # use existing server
+  # ==========================================================================
+
+  if [ -z "$first" ]; then
+    #echo "no file given, surface existing server"
+    nvim --server "$__server" --remote-send '<C-\><C-N>:e<CR>'
+    return
+  fi
+
+  #echo "use server ${__server} with ${file[*]}"
   nvim --server "$__server" --remote-silent "${files[@]}"
 }
 
