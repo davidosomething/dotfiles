@@ -4,7 +4,9 @@
   // Do it manually
   "coc.preferences.extensionUpdateCheck": "never",
 
-  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact"],
+  // N.B. eslint.executeAutoFix fails with double comma problems 2022-10-12
+  // This will probably run prettier
+  "coc.preferences.formatOnSaveFiletypes": [],
 
   // Don't try to run on files larger than this. Reduced from 10mb
   "coc.preferences.maxFileSize": "1MB",

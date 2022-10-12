@@ -110,6 +110,13 @@ function! dkoplug#plugins#LoadAll() abort
   let g:neoformat_enabled_python = [ 'autopep8', 'isort' ]
   let g:neoformat_enabled_scss = [ 'dkoprettier' ]
   Plug 'sbdchd/neoformat'
+  augroup dkoneoformat
+    autocmd! FileType
+        \ javascript,javascriptreact,typescript,typescriptreact
+        \ nmap <silent> <A-e> :<C-u>Neoformat eslint_d<CR>
+    autocmd BufWritePre *.ts,*.tsx undojoin Neoformat eslint_d
+  augroup END
+
 
   " Add file manip commands like Remove, Move, Rename, SudoWrite
   " Do not lazy load, tracks buffers

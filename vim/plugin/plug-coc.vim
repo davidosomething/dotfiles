@@ -98,7 +98,6 @@ autocmd dkococ FileType
       \ javascript,javascriptreact,typescript,typescriptreact,json,graphql
       \ nmap <silent> <A-=>
       \   :<C-u>CocCommand prettier.formatFile<CR>
-      "\   :CocCommand eslint.executeAutofix<CR>
 
 " coc-snippets
 imap <C-f> <Plug>(coc-snippets-expand-jump)
