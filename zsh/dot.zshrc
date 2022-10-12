@@ -273,6 +273,11 @@ if __dko_has 'fzf'; then
   }
   zle     -N      __dkofzfworktree
   bindkey '^[w'   __dkofzfworktree
+
+  # <A-w> to run fzf npm scripts
+  __dkonpms() { npms; }
+  zle -N __dkonpms
+  bindkey '^[n'   __dkonpms
 fi
 
 # ============================================================================
