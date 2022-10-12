@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 
-git rev-parse --abbrev-ref HEAD | tr -d '[:space:]' | pbcopy
+main() {
+  if command -v pbcopy >/dev/null; then
+    git rev-parse --abbrev-ref HEAD | tr -d '[:space:]' | pbcopy
+  else
+    git rev-parse --abbrev-ref HEAD | tr -d '[:space:]' | xsel --clipboard
+  fi
+}
+main
