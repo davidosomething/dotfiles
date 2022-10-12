@@ -50,6 +50,7 @@ build_fnm_completions() {
 __dko_has 'file' && __dko_has 'git' && {
   declare -A ZINIT
   ZINIT[HOME_DIR]="${XDG_DATA_HOME}/zinit"
+  ZINIT[COMPINIT_OPTS]=-C;
 
   # part of zinit's install, found by compaudit
   mkdir -pv "${ZINIT[HOME_DIR]}" && chmod g-rwX "${ZINIT[HOME_DIR]}"
@@ -70,15 +71,16 @@ if __dko_has 'zinit'; then
   zinit add-fpath "$DOTFILES_ZSH_COMPDIR"
   . "${ZDOTDIR}/zinit.zsh" 2>/dev/null
   autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
+  # the last zinit plugin will run zicompinit which inits compinit
 else
   fpath+=($DOTFILES_ZSH_COMPDIR)
+  autoload -Uz compinit && compinit
 fi
 
 # ============================================================================
 # Finish up managed completions
 # ============================================================================
 
-autoload -Uz compinit && compinit
 compdef g=git
 
 # ============================================================================

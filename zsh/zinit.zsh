@@ -137,11 +137,12 @@ function {
     ;
 
   # ----------------------------------------------------------------------------
-  # Syntax last, and compinit before it
+  # Syntax last
+  # autoload and run compinit
   # ----------------------------------------------------------------------------
 
   # don't add wait, messes with zsh-autosuggest
-  zinit lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" for \
+  zinit lucid atinit"zicompinit; zicdreplay" for \
     'zdharma/fast-syntax-highlighting'
 }
 
