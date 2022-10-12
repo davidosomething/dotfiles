@@ -114,9 +114,8 @@ function {
   # ----------------------------------------------------------------------------
 
   zinit as'completion' is-snippet for \
-    'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
-    'https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose' \
-    ;
+    'OMZP::docker/_docker' \
+    'OMZP::docker-compose/_docker-compose'
 
   # In-line best history match suggestion
   # don't suggest lines longer than
