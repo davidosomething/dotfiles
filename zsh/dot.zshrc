@@ -40,7 +40,7 @@ __dko_has 'file' && __dko_has 'git' && {
   ZINIT[COMPINIT_OPTS]=-C;
 
   # part of zinit's install, found by compaudit
-  mkdir -pv "${ZINIT[HOME_DIR]}" && chmod g-rwX "${ZINIT[HOME_DIR]}"
+  mkdir -p "${ZINIT[HOME_DIR]}" && chmod g-rwX "${ZINIT[HOME_DIR]}"
   alias unzinit='rm -rf "${ZINIT[HOME_DIR]}"'
 
   function {

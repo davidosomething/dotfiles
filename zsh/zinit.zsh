@@ -9,7 +9,7 @@ export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 function {
   local man_dir="${ZPFX}/share/man/man1"
   # Make man dir in /polaris
-  mkdir -pv "$man_dir"
+  mkdir -p "$man_dir"
 
   # ----------------------------------------------------------------------------
   # Git

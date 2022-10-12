@@ -17,7 +17,7 @@ export DKO_INIT=1
 . "${HOME}/.dotfiles/shell/vars.sh"
 . "${DOTFILES}/shell/path.sh" # depends on vars
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zshcache"
-mkdir --parents "$ZSH_CACHE_DIR/completions"
+mkdir -p "$ZSH_CACHE_DIR/completions"
 
 # ============================================================================
 
