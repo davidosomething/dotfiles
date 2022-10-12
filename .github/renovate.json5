@@ -6,7 +6,7 @@
     {
       automerge: true,
       matchDepTypes: ["devDependencies"],
-      matchPackagePatterns: ["lint", "prettier"],
+      matchPackagePatterns: ["^eslint"],
       stabilityDays: 3,
     },
     {
