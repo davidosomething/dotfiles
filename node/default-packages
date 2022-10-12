@@ -2,7 +2,6 @@ http-server
 jscpd
 jsonlint
 less
-markdownlint-cli
 npm-check-updates
 npmrc
 package-json-validator

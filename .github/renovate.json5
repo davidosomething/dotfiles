@@ -1,0 +1,18 @@
+{
+  extends: ["config:base"],
+  baseBranches: ["dev"],
+  ignoreNpmrcFile: true,
+  packageRules: [
+    {
+      automerge: true,
+      matchDepTypes: ["devDependencies"],
+      matchPackagePatterns: ["lint", "prettier"],
+      stabilityDays: 3,
+    },
+    {
+      automerge: true,
+      paths: ["requirements.txt"],
+      stabilityDays: 3,
+    },
+  ],
+}

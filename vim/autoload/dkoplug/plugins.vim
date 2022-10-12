@@ -313,6 +313,8 @@ function! dkoplug#plugins#LoadAll() abort
   "Plug 'elzr/vim-json'
   Plug 'neoclide/jsonc.vim'
 
+  Plug 'gutenye/json5.vim'
+
   " provides coffee ft
   "Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
   " The upstream has after/* garbage that messes with <script> html blocks in
