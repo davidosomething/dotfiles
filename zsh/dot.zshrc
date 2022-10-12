@@ -30,19 +30,6 @@ alias rm="nocorrect rm"
 alias mkdir="nocorrect mkdir"
 
 # ============================================================================
-# Modules: compinit and more completion
-# ============================================================================
-
-export DOTFILES_ZSH_COMPDIR="${LDOTDIR}/completions"
-mkdir -pv "$DOTFILES_ZSH_COMPDIR"
-
-build_fnm_completions() {
-  fnm completions --shell zsh >"${DOTFILES_ZSH_COMPDIR}/_fnm" 2>/dev/null &&
-    printf "Wrote fnm completions to %s\n" "${DOTFILES_ZSH_COMPDIR}/_fnm"
-}
-[ ! -f "${DOTFILES_ZSH_COMPDIR}/_fnm" ] && build_fnm_completions
-
-# ============================================================================
 # zinit
 # ============================================================================
 
@@ -68,12 +55,10 @@ __dko_has 'file' && __dko_has 'git' && {
 }
 
 if __dko_has 'zinit'; then
-  zinit add-fpath "$DOTFILES_ZSH_COMPDIR"
   . "${ZDOTDIR}/zinit.zsh" 2>/dev/null
   autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
   # the last zinit plugin will run zicompinit which inits compinit
 else
-  fpath+=($DOTFILES_ZSH_COMPDIR)
   autoload -Uz compinit && compinit
 fi
 

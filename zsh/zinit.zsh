@@ -113,6 +113,10 @@ function {
   # Completions
   # ----------------------------------------------------------------------------
 
+  zinit snippet 'OMZP::fnm'
+  zinit as'completion' is-snippet for \
+    "$ZSH_CACHE_DIR/completions/_fnm"
+
   zinit as'completion' is-snippet for \
     'OMZP::docker/_docker' \
     'OMZP::docker-compose/_docker-compose'
@@ -141,7 +145,7 @@ function {
   # ----------------------------------------------------------------------------
 
   # don't add wait, messes with zsh-autosuggest
-  zinit lucid atinit"zicompinit; zicdreplay" for \
+  zinit lucid atload"zicompinit; zicdreplay" for \
     'zdharma/fast-syntax-highlighting'
 }
 
