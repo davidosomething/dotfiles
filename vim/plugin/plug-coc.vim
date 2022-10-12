@@ -29,11 +29,16 @@ let s:vim_help = ['vim', 'help']
 function! s:ShowDocumentation()
   if (index(s:vim_help, &filetype) >= 0)
     execute 'h ' . expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . ' ' . expand('<cword>')
+    return
   endif
+
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+    return
+  endif
+
+  call feedkeys('K', 'in')
+  "execute '!' . &keywordprg . ' ' . expand('<cword>')
 endfunction
 
 " --------------------------------------------------------------------------
@@ -54,7 +59,11 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Action
-nmap <silent> <Leader>ca <Plug>(coc-codeaction)
+nmap <silent> <Leader>cab <Plug>(coc-codeaction)
+xmap <leader>ca  <Plug>(coc-codeaction-selected)
+nmap <leader>ca  <Plug>(coc-codeaction-selected)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Diagnostics
 nmap <silent> <Leader>d <Plug>(coc-diagnostic-info)

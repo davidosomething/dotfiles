@@ -4,6 +4,8 @@
   // Do it manually
   "coc.preferences.extensionUpdateCheck": "never",
 
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact"],
+
   // Don't try to run on files larger than this. Reduced from 10mb
   "coc.preferences.maxFileSize": "1MB",
 
@@ -75,6 +77,12 @@
   "docthis.returnsTag": false,
   "docthis.includeMemberOfOnClassMembers": false,
   "docthis.inferTypesFromNames": true,
+
+  // =========================================================================
+  // coc-eslint
+  // =========================================================================
+
+  "eslint.autoFixOnSave": true,
 
   // =========================================================================
   // coc-git
