@@ -16,6 +16,10 @@ jobs:
       TERM: xterm
 
     steps:
+      - name: Brew
+        run: |
+          [ "$RUNNER_OS" == "macOS" ] && brew install shellcheck
+
       - name: Check out repository code
         uses: actions/checkout@v3
 
