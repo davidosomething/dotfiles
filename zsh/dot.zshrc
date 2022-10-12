@@ -261,8 +261,8 @@ if __dko_has 'fzf'; then
     fzf-git-branch
     zle accept-line
   }
-  zle     -N      __dkofzfbranch
-  bindkey '^B'    __dkofzfbranch
+  zle -N __dkofzfbranch
+  bindkey '^B' __dkofzfbranch
 
   # <A-w> to open git worktree list and cd into one
   __dkofzfworktree() {
@@ -271,13 +271,16 @@ if __dko_has 'fzf'; then
     [ -d "$wt" ] && cd "${wt}"
     zle accept-line
   }
-  zle     -N      __dkofzfworktree
-  bindkey '^[w'   __dkofzfworktree
+  zle -N __dkofzfworktree
+  bindkey '^[w' __dkofzfworktree
 
   # <A-w> to run fzf npm scripts
-  __dkonpms() { npms; }
+  __dkonpms() {
+    npms
+    zle reset-prompt
+  }
   zle -N __dkonpms
-  bindkey '^[n'   __dkonpms
+  bindkey '^[n' __dkonpms
 fi
 
 # ============================================================================
