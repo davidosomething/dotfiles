@@ -47,6 +47,15 @@ jobs:
           ./bootstrap/symlink
           npm test --silent
 
+  release:
+    needs: test
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
       - name: Merge dev -> master
         uses: devmasx/merge-branch@1.4.0
         with:
