@@ -89,7 +89,6 @@ function {
     '@sharkdp/fd' \
     \
     mv'jq* -> jq'             'stedolan/jq' \
-    mv'nvim-ctrl* -> nvctl'   'chmln/nvim-ctrl'   \
     mv'shfmt* -> shfmt'       '@mvdan/sh'         \
     \
     mv'zoxide* -> zoxide' \
