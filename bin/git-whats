@@ -9,7 +9,7 @@ set -e
 
 # @param {String} alias name
 __whats() {
-  git config --global --get-regexp alias | grep -i "$1" |\
+  git config --includes --global --get-regexp alias | grep -i "$1" |\
   awk -v nr=2 '
     { sub(/^alias\\./, "") };
     { printf "\033[31m%_20s\033[1;37m", $1 };
