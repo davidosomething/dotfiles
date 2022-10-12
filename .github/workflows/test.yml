@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Brew
         run: |
-          [ "$RUNNER_OS" == "macOS" ] && brew install shellcheck
+          if [ "$RUNNER_OS" == "macOS" ]; then brew install shellcheck; fi
 
       - name: Check out repository code
         uses: actions/checkout@v3
