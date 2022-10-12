@@ -5,6 +5,15 @@
 # Show my commits for today
 #
 
-git log --since=00:00:00 \
-  --all --no-merges --oneline \
-  --author="$GIT_AUTHOR_EMAIL"
+__main() {
+  local author
+  author="${1:-${GIT_AUTHOR_EMAIL:-${GIT_COMMITTER_EMAIL}}}"
+  [ -z "$author" ] &&
+    author="$(git config --global user.email)" ||
+    return 1
+
+  git log --since=00:00:00 \
+    --all --no-merges --oneline \
+    --author="$author"
+}
+__main "$@"
