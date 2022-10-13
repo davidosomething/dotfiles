@@ -560,9 +560,8 @@ EOF
   " Quickfix window
   " --------------------------------------------------------------------------
 
+  let g:qf_resize_min_height = 4
   Plug 'blueyed/vim-qf_resize'
-
-  Plug 'romainl/vim-qf'
 
   " --------------------------------------------------------------------------
   " Window events
