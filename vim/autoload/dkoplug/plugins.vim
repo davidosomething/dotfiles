@@ -75,9 +75,11 @@ function! dkoplug#plugins#LoadAll() abort
   " Embedded filetype support
   " ==========================================================================
 
-  if has('nvim-0.7')
-    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-  endif
+  Plug 'nvim-treesitter/nvim-treesitter', PlugIf(has('nvim-0.7'), { 'do': ':TSUpdate' })
+  augroup dkonvimtreesitter
+    autocmd! User nvim-treesitter
+          \ lua require('nvim-treesitter.configs').setup({ matchup = { enable = true } })
+  augroup END
 
   " tyru/caw.vim, some others use this to determine inline embedded filetypes
   Plug 'Shougo/context_filetype.vim'
@@ -132,15 +134,6 @@ function! dkoplug#plugins#LoadAll() abort
   let g:matchup_matchparen_deferred = 1
   let g:matchup_matchparen_status_offscreen = 0
   Plug 'andymass/vim-matchup', PlugIf(has('patch-7.4.1689'))
-  if has('nvim-0.7')
-    lua <<EOF
-    require'nvim-treesitter.configs'.setup {
-      matchup = {
-        enable = true,
-      },
-    }
-EOF
-  endif
 
   " add gS on char to smart split lines at char, like comma lists and html tags
   let g:splitjoin_trailing_comma = 0
