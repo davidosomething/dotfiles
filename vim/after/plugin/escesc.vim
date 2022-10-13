@@ -10,9 +10,6 @@ silent!   nunmap      <Esc><Esc>
 " ============================================================================
 
 function! g:DKOClearUI() abort
-  if exists(':GitMessengerClose')
-    GitMessengerClose
-  endif
   let @/ = ''
   nohlsearch
   redraw!

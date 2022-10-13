@@ -103,9 +103,9 @@ function! dkoplug#plugins#LoadAll() abort
 
   let g:neoformat_enabled_json = [ 'dkoprettier', 'jq' ]
   let g:neoformat_enabled_java = [ 'uncrustify' ]
-  let g:neoformat_enabled_javascript = [ 'standard' ]
+  let g:neoformat_enabled_javascript = [ 'eslint_d', 'standard' ]
   let g:neoformat_enabled_less = [ 'dkoprettier' ]
-  let g:neoformat_enabled_lua = [ 'luafmt', 'luaformatter' ]
+  let g:neoformat_enabled_lua = [ 'luafmt', 'luaformatter', 'stylua' ]
   let g:neoformat_enabled_markdown = []
   let g:neoformat_enabled_python = [ 'autopep8', 'isort' ]
   let g:neoformat_enabled_scss = [ 'dkoprettier' ]
@@ -132,6 +132,15 @@ function! dkoplug#plugins#LoadAll() abort
   let g:matchup_matchparen_deferred = 1
   let g:matchup_matchparen_status_offscreen = 0
   Plug 'andymass/vim-matchup', PlugIf(has('patch-7.4.1689'))
+  if has('nvim-0.7')
+    lua <<EOF
+    require'nvim-treesitter.configs'.setup {
+      matchup = {
+        enable = true,
+      },
+    }
+EOF
+  endif
 
   " add gS on char to smart split lines at char, like comma lists and html tags
   let g:splitjoin_trailing_comma = 0
@@ -546,15 +555,6 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
 
   Plug 'nathanaelkane/vim-indent-guides'
-
-  let g:git_messenger_max_popup_width = 70
-  let g:git_messenger_max_popup_height = 24
-  " Can add borders, see api-floatwin
-  "if has('nvim-0.5')
-    "let g:git_messenger_floating_win_opts = { 'border': 'shadow' }
-    "let g:git_messenger_popup_content_margins = v:false
-  "endif
-  Plug 'rhysd/git-messenger.vim', PlugIf(exists('*nvim_win_set_config'))
 
   " --------------------------------------------------------------------------
   " Quickfix window
