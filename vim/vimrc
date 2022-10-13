@@ -456,6 +456,11 @@ endif
 augroup dkowindow
   autocmd!
   autocmd VimResized * wincmd =
+
+  " automatically close corresponding loclist when quitting a window
+  if exists('##QuitPre')
+    autocmd QuitPre * nested if &filetype != 'qf' | silent! lclose | endif
+  endif
 augroup END
 
 augroup dkolines
