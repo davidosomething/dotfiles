@@ -7,7 +7,7 @@ main() {
     return
   }
 
-  __server="${HOME}/nvim.pipe"
+  __server="${XDG_CACHE_HOME}/nvim/nvim.sock"
 
   # remote-expr outputs to /dev/stderr for some reason
   __existing=$(nvim \
