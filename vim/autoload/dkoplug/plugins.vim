@@ -230,6 +230,7 @@ function! dkoplug#plugins#LoadAll() abort
         \  'coc-docthis',
         \  'coc-eslint',
         \  'coc-git',
+        \  'coc-go',
         \  'coc-html',
         \  'coc-json',
         \  'coc-markdownlint',
