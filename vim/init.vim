@@ -16,22 +16,6 @@ if !has('nvim-0.4')
 endif
 
 " ============================================================================
-" GUI editors
-" ============================================================================
-
-if exists('g:fvim_loaded')
-  set termguicolors
-elseif exists('g:vv')
-  VVset windowheight=100%
-  VVset windowwidth=40%
-  VVset windowleft=0
-  VVset windowtop=0
-  VVset fontfamily=FuraMonoNerdFontCompleteM-Medium
-  VVset fontsize=13
-  VVset lineheight=1.42
-endif
-
-" ============================================================================
 " Settings
 " ============================================================================
 
@@ -131,8 +115,12 @@ nnoremap <special> <Leader>vt :<C-U>vsplit term://$SHELL<CR>A
 
 " ============================================================================
 
-let g:loaded_ruby_provider = 0
 let g:loaded_node_provider = 0
+let g:loaded_ruby_provider = 0
+let g:loaded_perl_provider = 0
+
+" disable python 2
+let g:loaded_python_provider = 0
 
 " ============================================================================
 " Python setup
@@ -149,9 +137,6 @@ function! s:FindExecutable(paths) abort
   return ''
 endfunction
 
-" disable python 2
-let g:loaded_python_provider = 0
-
 " python 3
 let s:pyenv_py3 = s:FindExecutable([
       \   '$PYENV_ROOT/versions/neovim3/bin/python',
@@ -160,7 +145,7 @@ let s:pyenv_py3 = s:FindExecutable([
 if !empty(s:pyenv_py3)
   let g:python3_host_prog = s:pyenv_py3
 else
-  let g:loaded_python3_provider = !exists('g:fvim_loaded') ? 2 : 0
+  let g:loaded_python3_provider = 2
 endif
 
 " =============================================================================
