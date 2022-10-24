@@ -112,9 +112,11 @@ function {
   # Completions
   # ----------------------------------------------------------------------------
 
-  zinit snippet 'OMZP::fnm'
-  zinit as'completion' is-snippet for \
-    "$ZSH_CACHE_DIR/completions/_fnm"
+  if ! dko_has fnm; then
+    zinit snippet 'OMZP::fnm'
+    zinit as'completion' is-snippet for \
+      "$ZSH_CACHE_DIR/completions/_fnm"
+  fi
 
   zinit as'completion' is-snippet for \
     'OMZP::docker/_docker' \
