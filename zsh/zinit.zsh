@@ -112,10 +112,6 @@ function {
   # Completions
   # ----------------------------------------------------------------------------
 
-  zinit snippet 'OMZP::fnm'
-  zinit as'completion' is-snippet for \
-    "$ZSH_CACHE_DIR/completions/_fnm"
-
   zinit as'completion' is-snippet for \
     'OMZP::docker/_docker' \
     'OMZP::docker-compose/_docker-compose'
