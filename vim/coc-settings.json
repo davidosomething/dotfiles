@@ -6,7 +6,7 @@
 
   // N.B. eslint.executeAutoFix fails with double comma problems 2022-10-12
   // This will probably run prettier
-  "coc.preferences.formatOnSaveFiletypes": [],
+  "coc.preferences.formatOnSave": false,
 
   // Don't try to run on files larger than this. Reduced from 10mb
   "coc.preferences.maxFileSize": "1MB",
@@ -64,9 +64,9 @@
 
   "diagnostic-languageserver.enable": true,
   "diagnostic-languageserver.filetypes": {
-    "vim": [ "vint" ],
-    "css": [ "stylelint" ],
-    "dockerfile": [ "hadolint" ]
+    "vim": ["vint"],
+    "css": ["stylelint"],
+    "dockerfile": ["hadolint"]
   },
   // Most already defined
   // https://github.com/iamcco/coc-diagnostic/blob/master/src/config.ts
