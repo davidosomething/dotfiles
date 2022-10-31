@@ -12,15 +12,6 @@
 if exists('g:did_load_filetypes_user') | finish | endif
 let g:did_load_filetypes_user = 1
 
-" For files that might be JSON or YAML, read first line and use that
-function! s:SetJSONorYAML() abort
-  if getline(1) ==# '{'
-    setfiletype json
-    return
-  endif
-  setfiletype yaml
-endfunction
-
 function! s:SetByShebang() abort
   let l:shebang = getline(1)
   if l:shebang =~# '^#!.*/.*\s\+node\>' | setfiletype javascript | endif
@@ -48,12 +39,6 @@ augroup filetypedetect
   " marko templating, close enough to HTML
   autocmd! BufNewFile,BufRead *.marko setfiletype html.marko
   autocmd! BufNewFile,BufRead *.template setfiletype html
-
-  autocmd! BufNewFile,BufRead .babelrc,.bowerrc,.jshintrc setfiletype json
-
-  autocmd! BufNewFile,BufRead jsconfig.json,tsconfig.json setfiletype jsonc
-
-  autocmd! BufNewFile,BufRead .eslintrc,.stylelintrc call s:SetJSONorYAML()
 
   autocmd! BufNewFile,BufRead */nginx*.conf,/*/nginx*.conf setfiletype nginx
 
