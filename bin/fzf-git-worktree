@@ -18,7 +18,7 @@ __fzf-git-worktree() {
     --cycle \
     --exit-0 \
     --expect=ctrl-y \
-    --height=25% --no-hscroll --no-multi \
+    --height=25% --no-hscroll --no-mouse --no-multi \
     --prompt="${current}> " <<< "$(git worktree list)")
 
   local worktree

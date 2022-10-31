@@ -46,6 +46,7 @@ __fzf-git-branch() {
     --exit-0 \
     --expect=ctrl-y \
     --height=25% --no-hscroll --no-multi \
+    --no-mouse \
     --nth=1 \
     --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
     --prompt="${current}> " <<< "$branches")

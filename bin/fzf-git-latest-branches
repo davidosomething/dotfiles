@@ -31,7 +31,7 @@ __fzf-git-latest-branches() {
     --delimiter="$(( 2 + $(wc -l <<< "$branches") ))" \
     --exit-0 \
     --expect=ctrl-y \
-    --height=25% --no-hscroll --no-multi \
+    --height=25% --no-hscroll --no-mouse --no-multi \
     --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
     --prompt="${current}> " <<< "$branches") \
 

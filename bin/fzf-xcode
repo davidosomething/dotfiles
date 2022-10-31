@@ -16,7 +16,7 @@ __main() {
     +m \
     --cycle \
     --exit-0 \
-    --height=25% --no-hscroll --no-multi \
+    --height=25% --no-hscroll --no-mouse --no-multi \
     --nth=1 \
     --prompt="$current> ") \
   && sudo xcode-select --switch "${version}" \
