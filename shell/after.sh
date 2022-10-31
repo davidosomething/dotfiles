@@ -51,7 +51,7 @@ else
   grepargs=''
 fi
 
-fzfopts="--height=20 --inline-info --min-height=4"
+fzfopts="--height=20 --inline-info --min-height=4 --no-mouse"
 
 # ** is globbing completion in ZSH, use tickticktab instead
 export FZF_COMPLETION_TRIGGER="\`\`"
@@ -59,6 +59,7 @@ export FZF_COMPLETION_TRIGGER="\`\`"
 export FZF_DEFAULT_COMMAND="${grepper} ${grepargs}"
 
 export FZF_CTRL_R_OPTS="
+  --no-mouse
   --preview 'echo {}' --preview-window down:3:hidden:wrap
   --bind '?:toggle-preview'
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
