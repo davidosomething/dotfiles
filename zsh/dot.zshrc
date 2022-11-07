@@ -257,13 +257,14 @@ if __dko_has 'fzf'; then
     DKO_SOURCE="${DKO_SOURCE} -> fzf"
   fi
 
-  # <C-b> to open git branch menu and switch to one
+  # <A-b> to open git branch menu and switch to one
+  # changed from <C-b> since that's my tmux bind
   __dkofzfbranch() {
     fzf-git-branch
     zle accept-line
   }
   zle -N __dkofzfbranch
-  bindkey '^B' __dkofzfbranch
+  bindkey '^[b' __dkofzfbranch
 
   # <A-w> to open git worktree list and cd into one
   __dkofzfworktree() {
