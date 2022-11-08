@@ -11,6 +11,9 @@ __write_conf() {
   local conf="/etc/modprobe.d/hid_apple.conf"
   [ -f "$conf" ] && {
     printf "[FOUND] %s exists\n" "$conf"
+    echo
+    cat "$conf"
+    echo
     return
   }
 
