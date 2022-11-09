@@ -1,8 +1,8 @@
 " plugin/colorscheme.vim
 
 let s:truecolor = has('termguicolors')
-      \ && $COLORTERM ==# 'truecolor'
       \ && $TERM_PROGRAM !=# 'Apple_Terminal'
+      \ && ($COLORTERM ==# 'truecolor' || $DOTFILES_OS ==# 'Darwin')
 if s:truecolor | let &termguicolors = 1 | endif
 
 if s:truecolor
