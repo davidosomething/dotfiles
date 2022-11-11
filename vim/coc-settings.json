@@ -115,12 +115,11 @@
   // https://github.com/neoclide/coc-tsserver#configuration-options
   // =========================================================================
 
-  "typescript.validate.enable": true,
+  "typescript.autoClosingTags": false,
   "typescript.preferences.quoteStyle": "single",
-  "typescript.updateImportsOnFileMove.enable": false,
+  "typescript.validate.enable": true,
 
-  "javascript.validate.enable": true,
-  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+  "javascript.autoClosingTags": false,
   "javascript.preferences.quoteStyle": "single",
-  "javascript.updateImportsOnFileMove.enable": false
+  "javascript.validate.enable": true,
 }
