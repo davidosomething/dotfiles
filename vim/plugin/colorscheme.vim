@@ -1,11 +1,8 @@
 " plugin/colorscheme.vim
 
-let s:truecolor = has('termguicolors')
-      \ && $TERM_PROGRAM !=# 'Apple_Terminal'
-      \ && ($COLORTERM ==# 'truecolor' || $DOTFILES_OS ==# 'Darwin')
-if s:truecolor | let &termguicolors = 1 | endif
+if g:truecolor
+  let &termguicolors = 1
 
-if s:truecolor
   if dkoplug#Exists('vim-two-firewatch')
     function! s:Firewatch() abort
       silent! colorscheme two-firewatch

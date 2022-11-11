@@ -25,6 +25,10 @@ let g:dko_autoinstall_vim_plug = executable('git')
 let g:dko_use_completion = has('nvim-0.3') && executable('node')
 let g:dko_use_fzf = v:version >= 704 && exists('&autochdir')
 
+let g:truecolor = has('termguicolors')
+      \ && $TERM_PROGRAM !=# 'Apple_Terminal'
+      \ && ($COLORTERM ==# 'truecolor' || $DOTFILES_OS ==# 'Darwin')
+
 " ============================================================================
 " My defaults
 " May be overridden by **/plugins, after/plugins and **/ftplugins

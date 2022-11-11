@@ -522,12 +522,9 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Alternatives:
   " - coc-highlight -- requires language server to support colors, can be slow
-  let l:use_fancy_colors = has('nvim')
-        \ && exists('&termguicolors')
-        \ && &termguicolors
 
   " Pure lua implementation, covers most cases and is fastest in neovim
-  Plug 'norcalli/nvim-colorizer.lua', PlugIf(l:use_fancy_colors)
+  Plug 'norcalli/nvim-colorizer.lua', PlugIf(g:truecolor)
   augroup dkonvimcolorizer
     autocmd! User nvim-colorizer.lua
           \ lua require('colorizer').setup({}, { css = true })
