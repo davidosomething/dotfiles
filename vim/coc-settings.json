@@ -94,6 +94,8 @@
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
 
+  "git.showCommitInFloating": true,
+
   // =========================================================================
   // coc-prettier
   // =========================================================================
