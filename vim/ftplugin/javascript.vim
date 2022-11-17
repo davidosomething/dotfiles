@@ -1,7 +1,5 @@
 " ftplugin/javascript.vim
 
-call dko#TwoSpace()
-
 " Set up native eslint making so we can debug eslint configs
 setlocal errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
 setlocal errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
@@ -17,4 +15,8 @@ setlocal suffixesadd+=.jsx,.ts,.tsx,.vue,.json
 
 if dkoplug#IsLoaded('coc.nvim')
   nmap <silent> <Leader>pd :<C-u>CocCommand docthis.documentThis<CR>
+endif
+
+if !dko#PrettierSpace()
+  call dko#TwoSpace()
 endif

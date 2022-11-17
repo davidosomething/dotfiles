@@ -1,5 +1,7 @@
 " ftplugin/typescript.vim
 
-call dko#TwoSpace()
-
 setlocal suffixesadd+=.js,.jsx,.tsx,.vue,.json
+
+if !dko#PrettierSpace()
+  call dko#TwoSpace()
+endif
