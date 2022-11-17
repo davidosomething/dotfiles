@@ -1,5 +1,7 @@
 " after/ftplugin/typescriptreact.vim
 
-call dko#TwoSpace()
-
 setlocal formatoptions+=crj
+
+if !dko#PrettierSpace()
+  call dko#TwoSpace()
+endif
