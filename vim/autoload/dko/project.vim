@@ -281,6 +281,7 @@ let s:prettierrc_candidates = [
       \   '.prettierrc.yaml',
       \   '.prettierrc.yml',
       \   '.prettierrc.json',
+      \   '.prettierrc.json5',
       \   '.prettierrc.js',
       \   'prettier.config.js',
       \ ]
