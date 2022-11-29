@@ -57,8 +57,6 @@ __symlink() {
     ".config/nvm/default-packages"
   dko-symlink "shell/dot.inputrc" \
     ".config/readline/inputrc"
-  dko-symlink "universal-ctags/dot.ctags" \
-    ".config/ctags/universal.ctags"
 
   # konsole
   __dko_has konsole && {
