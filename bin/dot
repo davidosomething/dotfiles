@@ -88,13 +88,15 @@ __dko_dotfiles__update() {
 }
 
 __dko_dotfiles__update_secret() {
-  __dko_status "Updating ~/.secret/"
   (
-    cd -- "${HOME}/.secret" ||
-      { __dko_err "No ~/.secret directory" && exit 1; }
+    cd -- "${HOME}/.secret" || {
+      __dko_warn 'Skipping ~/.secret/ update -- directory not found'
+      exit 0
+    }
+    __dko_status "Updating ~/.secret/"
     git pull --rebase --recurse-submodules || exit 1
     git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
-  ) || __dko_err "Failed to update ~/.secret/"
+  )
 }
 
 __dko_dotfiles__update_daily() {
@@ -110,7 +112,7 @@ __dko_dotfiles__update_daily() {
     __dko_warn "fzf is not installed"
   fi
 
-  [ -d "$FNM_DIR" ] && __dko_dotfiles__node__update_fnm
+  __dko_dotfiles__node__update_fnm
 
   __dko_dotfiles__go__require_go && __dko_dotfiles__go__update_go_packages
 
