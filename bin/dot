@@ -89,7 +89,7 @@ __dko_dotfiles__update() {
 
 __dko_dotfiles__update_secret() {
   (
-    cd -- "${HOME}/.secret" || {
+    cd -- "${HOME}/.secret" 2>/dev/null || {
       __dko_warn 'Skipping ~/.secret/ update -- directory not found'
       exit 0
     }
