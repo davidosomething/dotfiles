@@ -242,6 +242,7 @@ function! dkoplug#plugins#LoadAll() abort
         \  'coc-tsserver',
         \  'coc-vimlsp',
         \  'coc-yaml',
+        \  '@yaegassy/coc-tailwindcss3',
         \]
   " Not working
   "      \  'coc-python',
