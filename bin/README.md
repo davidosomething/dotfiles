@@ -73,6 +73,10 @@ Pretty print the `$DKO_SOURCE` env variable to see sourced files
 
 Shortcuts to update dotfiles, packages, and general system maintenance.
 
+## e
+
+Open in single nvim socket instance or use $EDITOR
+
 ## eapache
 
 Find and edit the apache httpd.conf file
@@ -167,17 +171,9 @@ Show user's local ip
 
 macOS. lock screen
 
-## mac-pyenv-install
-
-Install a python using pyenv with mac SDK headers specified. Fix for Mojave+
-
 ## maybe-git-root
 
 Echo the git root or pwd if not in git repo
-
-## md
-
-Make directory and cd into it
 
 ## path
 
@@ -203,6 +199,14 @@ Start HTTP server in current directory
 
 Get current connected ssid
 
+## steam-find-missing-lib32
+
+Find missing steam libs in linux
+
+## steam-find-missing-lib64
+
+Find missing steam libs in linux
+
 ## termcolors
 
 Display terminal colors
@@ -214,10 +218,6 @@ Toggle macOS mouse acceleration (e.g. for gaming)
 ## wifi-passwords
 
 Get current wifi password in plaintext
-
-## wpp
-
-Open wordpress plugin homepage
 
 ## xcw
 

@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# https://github.com/jmcantrell/dotfiles-zsh/blob/master/zsh/conf.d/40-functions
-mkdir -p -- "$@" && cd -- "$@"
