@@ -72,7 +72,7 @@ _bootstrap_plist || exit 1
 
 _bootstrap_brew() {
   __dko_status "Brewing"
-  [ -z "$DKO_BREW_PREFIX" ] && . "${DOTFILES}/shell/interactive-darwin.zsh"
+  [ -z "$HOMEBREW_PREFIX" ] && . "${DOTFILES}/shell/interactive-darwin.zsh"
   # prefer homebrew/cask-fonts
   brew untap caskroom/fonts 2>/dev/null
   (
@@ -94,7 +94,7 @@ __dko_status "Installing fzf shell extensions"
 _bootstrap_shell() {
   local usershell
 
-  local zshpath="${DKO_BREW_PREFIX}/bin/zsh"
+  local zshpath="${HOMEBREW_PREFIX}/bin/zsh"
   [ -x "$zshpath" ] || return 1
 
   grep "$zshpath" /etc/shells || {

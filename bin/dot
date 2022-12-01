@@ -104,7 +104,7 @@ __dko_dotfiles__update_daily() {
 
   if [ -x /usr/bin/fzf ]; then
     __dko_ok "fzf installed by system package manager"
-  elif [[ -x "${DKO_BREW_PREFIX}/opt/fzf/install" ]] ||
+  elif [[ -x "${HOMEBREW_PREFIX}/opt/fzf/install" ]] ||
     [[ -d "${XDG_CONFIG_HOME}/fzf" ]] ||
     [[ -d "${HOME}/.fzf" ]]; then
     __dko_dotfiles__update_fzf
@@ -151,9 +151,9 @@ __dko_dotfiles__update_fzf() {
 
   if [ -x /usr/bin/fzf ]; then
     __dko_ok "fzf installed by system package manager"
-  elif [[ -x "${DKO_BREW_PREFIX}/opt/fzf/install" ]]; then
+  elif [[ -x "${HOMEBREW_PREFIX}/opt/fzf/install" ]]; then
     __dko_status "fzf was installed via brew, re-running installer"
-    installer="${DKO_BREW_PREFIX}/opt/fzf/install"
+    installer="${HOMEBREW_PREFIX}/opt/fzf/install"
   elif [[ -d "${HOME}/.fzf" ]]; then
     __dko_status "fzf was installed in ~/.fzf"
     installer="${HOME}/.fzf/install"
@@ -351,7 +351,7 @@ __dko_dotfiles__php__update_composer() {
   __dko_status "Updating composer"
   __dko_has composer || return 1
 
-  if [[ -x "${DKO_BREW_PREFIX}/bin/composer" ]]; then
+  if [[ -x "${HOMEBREW_PREFIX}/bin/composer" ]]; then
     __dko_ok "composer was installed via brew (yay)"
   else
     __dko_status_ "Updating composer itself"
@@ -361,7 +361,7 @@ __dko_dotfiles__php__update_composer() {
     }
   fi
 
-  if [[ -f "$COMPOSER_HOME/composer.json" ]]; then
+  if [[ -f "${COMPOSER_HOME}/composer.json" ]]; then
     __dko_status "Updating composer global packages"
     composer global update || {
       __dko_err "Could not update global packages"

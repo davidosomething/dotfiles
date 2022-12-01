@@ -11,61 +11,91 @@ export SHELL_SESSIONS_DISABLE=1
 # homebrew
 # ============================================================================
 
-# just assume brew is in normal location, don't even check for it
-export DKO_BREW_PREFIX="/opt/homebrew"
-
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 
-[ -x "${DKO_BREW_PREFIX}/bin/brew" ] &&
-eval "$(${DKO_BREW_PREFIX}/bin/brew shellenv)"
+__homebrew() {
+  # we gotta look in different places for ARM (M1/M2) vs intel macs now :(
+  local brew_prefix="/opt/homebrew"
+  [ ! -x "${brew_prefix}/bin/brew" ] && brew_prefix="/usr/local"
+  if [ -x "${brew_prefix}/bin/brew" ]; then
+    eval "$(${brew_prefix}/bin/brew shellenv)"
+  else
+    return
+  fi
 
-# GOROOT binaries
-[ -d "${DKO_BREW_PREFIX}/opt/go/libexec/bin" ] &&
-PATH="${DKO_BREW_PREFIX}/opt/go/libexec/bin:${PATH}"
-PATH="${DKO_BREW_PREFIX}/opt/git/share/git-core/contrib/git-jump:${PATH}"
+  # GOROOT binaries
+  [ -d "${HOMEBREW_PREFIX}/opt/go/libexec/bin" ] &&
+  PATH="${HOMEBREW_PREFIX}/opt/go/libexec/bin:${PATH}"
+  PATH="${HOMEBREW_PREFIX}/opt/git/share/git-core/contrib/git-jump:${PATH}"
 
-# prefer homebrewed lua@5.1
-[ -x ${DKO_BREW_PREFIX}/bin/luarocks ] &&
-  [ -d "${DKO_BREW_PREFIX}/opt/lua@5.1" ] &&
-  {
-    export DKO_LUA_DIR="${DKO_BREW_PREFIX}/opt/lua@5.1"
-    eval "$(luarocks --lua-dir="$DKO_LUA_DIR" path --bin)"
-    alias luarocks='luarocks --lua-dir="$DKO_LUA_DIR"'
+  # prefer homebrewed lua@5.1
+  [ -x ${HOMEBREW_PREFIX}/bin/luarocks ] &&
+    [ -d "${HOMEBREW_PREFIX}/opt/lua@5.1" ] &&
+    {
+      export DKO_LUA_DIR="${HOMEBREW_PREFIX}/opt/lua@5.1"
+      eval "$(luarocks --lua-dir="$DKO_LUA_DIR" path --bin)"
+      alias luarocks='luarocks --lua-dir="$DKO_LUA_DIR"'
+    }
+
+  # @TODO recheck this for Big Sur
+  # https://github.com/pyenv/pyenv/issues/1746
+  # Allow pyenv to use custom openssl from brew
+  [ -d "${HOMEBREW_PREFIX}/opt/openssl/lib" ] &&
+    export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/openssl/lib"
+  [ -d "${HOMEBREW_PREFIX}/opt/openssl/include" ] &&
+    export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/openssl/include"
+
+  [ -d "${HOMEBREW_PREFIX}/share/android-sdk" ] &&
+    export ANDROID_SDK_ROOT="${HOMEBREW_PREFIX}/share/android-sdk"
+
+  # ==========================================================================
+  # Homebrew Functions
+  # ==========================================================================
+
+  cask-upgrade() {
+    local outdated
+    outdated=$(brew outdated --cask --greedy --quiet)
+    [ -n $outdated ] && brew upgrade $outdated
   }
 
-# @TODO recheck this for Big Sur
-# https://github.com/pyenv/pyenv/issues/1746
-# Allow pyenv to use custom openssl from brew
-[ -d "${DKO_BREW_PREFIX}/opt/openssl/lib" ] &&
-  export LDFLAGS="-L${DKO_BREW_PREFIX}/opt/openssl/lib"
-[ -d "${DKO_BREW_PREFIX}/opt/openssl/include" ] &&
-  export CPPFLAGS="-I${DKO_BREW_PREFIX}/opt/openssl/include"
+  # fix old casks that error during uninstall from undent
+  # https://github.com/Homebrew/homebrew-cask/issues/49716
+  cask-fix-uninstalled() {
+    find "$(brew --prefix)/Caskroom/"*'/.metadata' -type f -name '*.rb' |\
+      xargs grep 'EOS.undent' --files-with-matches |\
+      xargs sed -i '' 's/EOS.undent/EOS/'
+  }
 
-[ -d "${DKO_BREW_PREFIX}/share/android-sdk" ] &&
-  export ANDROID_SDK_ROOT="${DKO_BREW_PREFIX}/share/android-sdk"
+  # list installed brew and deps
+  # https://zanshin.net/2014/02/03/how-to-list-brew-dependencies/
+  bwhytree() {
+    brew list -1 --formula | while read c; do
+      echo -n "\e[1;34m${c} -> \e[0m"
+      brew deps "$c" | awk '{printf(" %s ", $0)}'
+      echo ""
+    done
+  }
+
+  # ==========================================================================
+  # Homebrew Aliases
+  # ==========================================================================
+
+  alias b='TERM=xterm-256color \brew'
+  alias brew='b'
+
+  alias bi='b install'
+  alias bs='b search'
+  alias blfn='b ls --full-name'
+
+  alias bsvc='b services'
+  alias bsvr='b services restart'
+
+  alias bwhy='b uses --installed --recursive'
+}
+__homebrew
 
 # ============================================================================
-# Functions
-# ============================================================================
-
-# list installed brew and deps
-# https://zanshin.net/2014/02/03/how-to-list-brew-dependencies/
-bwhytree() {
-  brew list -1 --formula | while read c; do
-    echo -n "\e[1;34m${c} -> \e[0m"
-    brew deps "$c" | awk '{printf(" %s ", $0)}'
-    echo ""
-  done
-}
-
-# fix old casks that error during uninstall from undent
-# https://github.com/Homebrew/homebrew-cask/issues/49716
-bfixcasks() {
-  find "$(brew --prefix)/Caskroom/"*'/.metadata' -type f -name '*.rb' |\
-    xargs grep 'EOS.undent' --files-with-matches |\
-    xargs sed -i '' 's/EOS.undent/EOS/'
-}
 
 # Restart Docker.app and wait for daemon
 dockerrestart() {
@@ -84,10 +114,6 @@ dockerrestart() {
   }
 }
 
-flushdns() {
-  dscacheutil -flushcache
-  sudo killall -HUP mDNSResponder
-}
 
 # short version of what's provided by oh-my-zsh/xcode
 ios() {
@@ -114,44 +140,9 @@ vol() {
   __dko_has "osascript" && osascript -e "set volume ${1}"
 }
 
-# ============================================================================
-# Aliases
-# ============================================================================
-
-# ----------------------------------------------------------------------------
-# Homebrew
-# ----------------------------------------------------------------------------
-
-alias b='TERM=xterm-256color \brew'
-alias brew='b'
-
-alias bi='b install'
-alias bs='b search'
-alias blfn='b ls --full-name'
-
-alias bsvc='b services'
-alias bsvr='b services restart'
-
-alias bwhy='b uses --installed --recursive'
-
-# ----------------------------------------------------------------------------
-# Apps
-# ----------------------------------------------------------------------------
-
 alias canary='open -a "Google Chrome Canary.app"'
 alias chrome='open -a "Google Chrome.app"'
 alias slack='open -a Slack.app'
-
-# ----------------------------------------------------------------------------
-# Redshift
-# ----------------------------------------------------------------------------
-
-alias redstart='bsvc start redshift'
-alias redstop='bsvc stop redshift'
-
-# ----------------------------------------------------------------------------
-# Misc
-# ----------------------------------------------------------------------------
 
 # sudo since we run nginx on port 80 so needs admin
 alias rnginx='sudo brew services restart nginx'
@@ -161,6 +152,8 @@ alias elec='/Applications/Electron.app/Contents/MacOS/Electron'
 
 # Audio control - http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"
+
+alias flushdns="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 
 # ----------------------------------------------------------------------------
 # xcode
