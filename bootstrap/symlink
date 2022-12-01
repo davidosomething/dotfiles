@@ -84,8 +84,6 @@ __symlink() {
       ".mackup.cfg"
     dko-symlink "mac/LaunchAgents/dotfiles.plist" \
       "Library/LaunchAgents/dotfiles.plist"
-    dko-symlink "mac/redshift.conf" \
-      ".config/redshift/redshift.conf"
     ;;
   linux*)
     dko-symlink "linux/terminator/config" \
