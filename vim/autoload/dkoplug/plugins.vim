@@ -257,6 +257,8 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'suy/vim-context-commentstring'
 
+  Plug 'gpanders/editorconfig.nvim', PlugIf(has('nvim'))
+
   " ==========================================================================
   " Language: ansible config
   " ==========================================================================
