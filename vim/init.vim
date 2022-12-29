@@ -138,12 +138,13 @@ function! s:FindExecutable(paths) abort
 endfunction
 
 " python 3
-let s:pyenv_py3 = s:FindExecutable([
+let s:py3 = s:FindExecutable([
       \   '$PYENV_ROOT/versions/neovim3/bin/python',
+      \   '$ASDF_DIR/shims/python',
       \   '/usr/bin/python3',
       \ ])
-if !empty(s:pyenv_py3)
-  let g:python3_host_prog = s:pyenv_py3
+if !empty(s:py3)
+  let g:python3_host_prog = s:py3
 else
   let g:loaded_python3_provider = 2
 endif
