@@ -68,7 +68,6 @@ function {
 
   # Customized from instructions at https://github.com/sharkdp/bat#man
   local bat_manpager="export MANPAGER=\"sh -c 'col -bx | bat --language man --paging always --style=grid'\""
-  local delta_gitpager="export GIT_PAGER='delta --dark'"
 
   zinit lucid from'gh-r' as'program' for \
     mv'bat* -> bat' \
@@ -80,7 +79,6 @@ function {
     \
     mv'delta* -> delta' \
     pick'delta/delta' \
-    atload"$delta_gitpager" \
     'dandavison/delta' \
     \
     mv'fd* -> fd' pick'fd/fd' \
