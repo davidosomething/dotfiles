@@ -50,13 +50,6 @@ function! pj#commands#Run(name) abort
     execute 'split | terminal ' . l:command
     return
   endif
-
-  " @TODO -- delegate to Neomake#Sh or dispatch... too lazy to write out
-  if exists('*neomake#Sh')
-    return neomake#Sh(l:command, function('pj#commands#OpenQf'))
-  endif
-
-  return {}
 endfunction
 
 " ============================================================================

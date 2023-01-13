@@ -84,7 +84,7 @@ function! dkoline#GetStatusline(winnr) abort
 
   " Toggleable
   let l:contents .= dkoline#Format(
-        \ has('nvim') ? dkoline#Paste() : '',
+        \ dkoline#Paste(),
         \ dkoline#ActiveColor(l:view, '%#DiffText#'))
 
   let l:contents .= dkoline#Format(
@@ -296,7 +296,7 @@ function! dkoline#GetView(winnr) abort
   endif
   let l:bufnr = winbufnr(a:winnr)
   let l:bufname = bufname(l:bufnr)
-  let l:cwd = has('nvim') ? getcwd(a:winnr) : getcwd()
+  let l:cwd = getcwd(a:winnr)
   let l:ft = getbufvar(l:bufnr, '&filetype')
   let l:ww = winwidth(a:winnr)
   let s:view_cache[a:winnr] = {
@@ -338,16 +338,13 @@ function! dkoline#Init() abort
         " \   'VimResized',
         " \   'FileWritePost',
         " \   'FileReadPost',
-  if has('nvim')
-    call add(l:refresh_hooks, 'DirChanged *')
-  endif
+
+  call add(l:refresh_hooks, 'DirChanged *')
 
   let l:tab_refresh_hooks = [
         \   'User CocStatusChange',
         \ ]
-  if has('nvim')
-    call add(l:tab_refresh_hooks, 'DirChanged *')
-  endif
+  call add(l:tab_refresh_hooks, 'DirChanged *')
 
   augroup dkoline
     autocmd!

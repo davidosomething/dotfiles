@@ -328,12 +328,6 @@ if !empty(dko#grepper#Get().command)
 endif
 
 " ----------------------------------------------------------------------------
-" Old vim
-" ----------------------------------------------------------------------------
-
-if !has('nvim') | call dko#old#Settings() | endif
-
-" ----------------------------------------------------------------------------
 " Syntax
 " Needs to be in vimrc (or ftdetect) since syntax runs before ftplugin
 " ----------------------------------------------------------------------------
@@ -473,8 +467,6 @@ augroup dkolines
     autocmd User CocNvimInit ++nested call dkoline#Init()
   elseif has('nvim')
     autocmd VimEnter * ++nested call dkoline#Init()
-  else
-    autocmd VimEnter * nested call dkoline#Init()
   endif
 augroup END
 
