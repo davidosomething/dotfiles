@@ -69,7 +69,7 @@ __symlink() {
   # (n)vim / intellij ideavim
   dko-symlink "vim" \
     ".vim"
-  dko-symlink "vim" \
+  dko-symlink "nvim" \
     ".config/nvim"
   dko-symlink "ideavim/dot.ideavimrc" \
     ".config/ideavim/ideavimrc"

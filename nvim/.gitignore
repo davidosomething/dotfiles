@@ -1,0 +1,35 @@
+# plugin
+bundle/
+nplugged/
+plugged/
+plug/
+vendor/
+
+# cache
+*.*~
+.backup/
+.cache/
+.swp/
+.tmp/
+.undo/
+.colorv_cache_fav
+.colorv_cache_file
+.easyclip
+.netrwhist
+.nviminfo
+.viminfo
+
+# backup
+autoload/plug.vim*
+
+# generated secrets
+.tags/
+tags
+
+# dotfiles linked spellfile
+aspell.utf-8.add
+
+# local
+.gvimrc.local
+.vimrc.local
+squarespace.vim

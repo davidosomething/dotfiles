@@ -1,0 +1,127 @@
+{
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+
+  // Do it manually
+  "coc.preferences.extensionUpdateCheck": "never",
+
+  // N.B. eslint.executeAutoFix fails with double comma problems 2022-10-12
+  // This will probably run prettier
+  "coc.preferences.formatOnSave": false,
+
+  // Don't try to run on files larger than this. Reduced from 10mb
+  "coc.preferences.maxFileSize": "1MB",
+
+  // Hide the super noisy Actions, # of References etc virtualText that
+  // appears at end of lines
+  "codeLens.enable": false,
+
+  "diagnostic.checkCurrentLine": false,
+  "diagnostic.displayByAle": false,
+  "diagnostic.enable": true,
+  "diagnostic.enableMessage": "always",
+  "diagnostic.enableSign": true,
+  "diagnostic.errorSign": "⚑",
+  "diagnostic.hintSign": "⚑",
+  "diagnostic.infoSign": "⚑",
+  "diagnostic.separateRelatedInformationAsDiagnostics": true,
+  "diagnostic.level": "hint",
+  "diagnostic.messageTarget": "float",
+  "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.virtualText": false,
+  "diagnostic.virtualTextPrefix": "» ",
+  "diagnostic.warningSign": "⚑",
+
+  "suggest.minTriggerInputLength": 1,
+  "suggest.noselect": true, // do not select first selection automatically
+  "suggest.snippetIndicator": " ⭐︎",
+  "suggest.timeout": 2000, // down from 5000
+
+  // =========================================================================
+  // Language Servers
+  // =========================================================================
+
+  "languageserver": {
+    "sorbet": {
+      "command": "srb",
+      "args": ["tc", "--lsp", "--enable-all-experimental-lsp-features"],
+      "filetypes": ["ruby"],
+      "rootPatterns": ["sorbet/config"],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  },
+
+  // =========================================================================
+  // coc-css
+  // =========================================================================
+
+  // Using coc-diagnostic + stylelint instead
+  "css.validate": false,
+
+  // =========================================================================
+  // coc-diagnostic
+  // =========================================================================
+
+  "diagnostic-languageserver.enable": true,
+  "diagnostic-languageserver.filetypes": {
+    "vim": ["vint"],
+    "css": ["stylelint"],
+    "dockerfile": ["hadolint"]
+  },
+  // Most already defined
+  // https://github.com/iamcco/coc-diagnostic/blob/master/src/config.ts
+  //"diagnostic-languageserver.linters"
+
+  // =========================================================================
+  // coc-docthis
+  // =========================================================================
+
+  "docthis.returnsTag": false,
+  "docthis.includeMemberOfOnClassMembers": false,
+  "docthis.inferTypesFromNames": true,
+
+  // =========================================================================
+  // coc-git
+  // =========================================================================
+
+  // "true" makes things real slow
+  "git.addGBlameToBufferVar": false,
+
+  "git.enableGutters": true,
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+
+  "git.showCommitInFloating": true,
+
+  // =========================================================================
+  // coc-prettier
+  // =========================================================================
+
+  "prettier.disableLanguages": ["markdown"],
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "prettier.bracketSpacing": true,
+  "prettier.bracketSameLine": false,
+  "prettier.semi": true,
+  "prettier.useTabs": false,
+  "prettier.proseWrap": "preserve",
+  "prettier.arrowParens": "always",
+  "prettier.statusItemText": "<ᴀ-=> ᴘʀᴇᴛᴛɪᴇʀ",
+
+  // =========================================================================
+  // coc-tssserver - typescript typings support, js and ts lang server
+  // Validation is disabled in favor of coc-eslint
+  // https://github.com/neoclide/coc-tsserver#configuration-options
+  // =========================================================================
+
+  "typescript.autoClosingTags": false,
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.validate.enable": true,
+
+  "javascript.autoClosingTags": false,
+  "javascript.preferences.quoteStyle": "single",
+  "javascript.validate.enable": true,
+}
