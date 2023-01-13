@@ -5,7 +5,6 @@
 ## Features
 
 ![vim screenshot][screenshot]
-> Terminal Neovim
 
 - Custom statusline with minimal junk, showing short directory
 - FZF for Most Recently Used files and fuzzy file finder
@@ -26,18 +25,6 @@ the main npmjs package registry. Commands in `.vimrc` will auto-install
 plugins if curl is available.
 
 Keep `(g)vimrc` (no dot in filename) in `~/.vim/` -- Vim knows to look in there.
-
-### Python Settings
-
-See [bootstrap/pyenv] for a scripted version of this
-
-- Using `pyenv`, install python 3+.
-- Set up a virtualenv using `pyenv-virtualenv`: `pyenv virtualenv neovim3`
-- Activate the virtualenv `pyenv activate neovim3`
-- `python -m pip install pynvim` in the virtualenv
-- You can now switch back to whatever python (`pyenv deactivate`) you want,
-  `init.vim` for Neovim startup is already configured to find the `neovim3`
-  virtualenv.
 
 Finally
 

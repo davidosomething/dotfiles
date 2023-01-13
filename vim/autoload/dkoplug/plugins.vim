@@ -21,24 +21,8 @@ function! dkoplug#plugins#LoadAll() abort
   " Fixes
   " ==========================================================================
 
-  " Fix CursorHold
-  " https://github.com/neovim/neovim/issues/12587
-  Plug 'antoinemadec/FixCursorHold.nvim',
-        \ PlugIf(has('nvim') && !has('nvim-0.8'))
-
   " Disable cursorline sometimes, for performance
   Plug 'delphinus/vim-auto-cursorline', PlugIf(exists('*timer_start'))
-
-  " Lua plugin to prevent new windows from shifting cursor position
-  Plug 'luukvbaal/stabilize.nvim', PlugIf(has('nvim') && !exists('+splitkeep'))
-  augroup dkostabilize
-    autocmd!
-    autocmd User stabilize.nvim lua require('stabilize').setup()
-    autocmd User stabilize.nvim 
-          \ autocmd QuickFixCmdPost [^l]* copen | doautocmd User StabilizeRestore
-    autocmd User stabilize.nvim
-          \ autocmd QuickFixCmdPost l* lopen | doautocmd User StabilizeRestore
-  augroup END
 
   " ==========================================================================
   " Vim debugging
@@ -74,12 +58,6 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
   " Embedded filetype support
   " ==========================================================================
-
-  Plug 'nvim-treesitter/nvim-treesitter', PlugIf(has('nvim-0.7'), { 'do': ':TSUpdate' })
-  augroup dkonvimtreesitter
-    autocmd! User nvim-treesitter
-          \ lua require('nvim-treesitter.configs').setup({ matchup = { enable = true } })
-  augroup END
 
   " tyru/caw.vim, some others use this to determine inline embedded filetypes
   Plug 'Shougo/context_filetype.vim'
@@ -257,8 +235,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'suy/vim-context-commentstring'
 
-  Plug 'gpanders/editorconfig.nvim', PlugIf(has('nvim'))
-
   " ==========================================================================
   " Language: ansible config
   " ==========================================================================
@@ -433,12 +409,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Syntax
 
-  " Neovim comes with
-  "   https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD
-  " 2072 has a fork of an older version but has support for php 5.6 and other
-  " changes. It does not support embedded HTML with Neovim
-  "Plug '2072/vim-syntax-for-PHP'
-
   " Updated for php 7.3 Mar 2019 (newer than neovim 5.0 runtime)
   Plug 'StanAngeloff/php.vim', { 'for': [ 'php' ] }
 
@@ -492,10 +462,6 @@ function! dkoplug#plugins#LoadAll() abort
   " Syntax
   " ----------------------------------------
 
-  " Upstream Neovim uses https://github.com/genoma/vim-less
-  "   - more groups
-  "   - no conflict with vim-css-color
-
   "Plug 'groenewege/vim-less'
   " - the syntax file here is actually older than genoma
   " - creates less filetype
@@ -525,13 +491,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   " Alternatives:
   " - coc-highlight -- requires language server to support colors, can be slow
-
-  " Pure lua implementation, covers most cases and is fastest in neovim
-  Plug 'norcalli/nvim-colorizer.lua', PlugIf(g:truecolor)
-  augroup dkonvimcolorizer
-    autocmd! User nvim-colorizer.lua
-          \ lua require('colorizer').setup({}, { css = true })
-  augroup END
 
   " ==========================================================================
   " Language: TOML
