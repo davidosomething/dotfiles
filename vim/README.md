@@ -1,4 +1,9 @@
-# (g/n)vim config
+# (g)vim config
+
+This is my old vim config, I still use it where neovim is not available, but
+I will not be updating this any more.
+
+See the [nvim](../nvim) config for more up-to-date stuff.
 
 > Don't use what you don't understand.
 
