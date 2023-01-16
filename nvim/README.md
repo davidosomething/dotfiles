@@ -1,4 +1,6 @@
-# (g/n)vim config
+# nvim config
+
+Neovim-specific config.
 
 > Don't use what you don't understand.
 
@@ -11,7 +13,6 @@
 - FZF for Most Recently Used files and fuzzy file finder
 - CoC for language server and misc utilities
 - Neomake for non-language server makers/linters
-- Language emphasis: JavaScript, VimL, PHP, HTML, SCSS (but not exclusive)
 - Lazy loaded plugins and keybindings -- a brand new Vim instance opens in
   <200ms (without plugins Vim takes around 100ms)
 - Lots more but you shouldn't use any of it unless you know what you're doing.
@@ -24,8 +25,6 @@ sure you have XDG environment variables set up.
 Best used with rest of dotfiles. `coc/extensions/dot.npmrc` will enforce using
 the main npmjs package registry. Commands in `.vimrc` will auto-install
 plugins if curl is available.
-
-Keep `(g)vimrc` (no dot in filename) in `~/.vim/` -- Vim knows to look in there.
 
 ### Python Settings
 
@@ -82,7 +81,7 @@ is generally a wrapper around them that checks for
 | `<A-r>`  | :FZFRelevant |
 | `<A-r>`  | :FZFRelevant - custom, dirty/new files vs git master |
 | `<A-t>`  | :FZFTests - custom find test files near current path |
-| `<A-v>`  | :FZFVim - ~/.vim |
+| `<A-v>`  | :FZFVim - ~/.config/nvim |
 |    `\`   | UI - :OverCommandLine |
 
 See `plugin/mappings.vim` (and other `plugin/*` files) for other mappings.

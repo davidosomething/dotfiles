@@ -14,7 +14,7 @@ scriptencoding utf-8
 " ============================================================================
 
 " Fallback for vims with no env access like Veonim
-let g:vdotdir = empty($VDOTDIR) ? expand('$HOME/.vim') : $VDOTDIR
+let g:vdotdir = empty($VDOTDIR) ? expand('$XDG_CONFIG_DIR/nvim') : $VDOTDIR
 
 let g:dko_rtp_original = &runtimepath
 

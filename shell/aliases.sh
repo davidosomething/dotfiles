@@ -20,7 +20,6 @@ alias ....='cd -- ../..'
 alias cd-='cd -- -'
 alias cd..='cd -- ..'
 alias cdd='cd -- "${DOTFILES}"'
-alias cdv='cd -- "${VDOTDIR}"'
 alias dirs='dirs -v' # default to vert, use -l for list
 alias down='cd -- "${XDG_DOWNLOAD_DIR}"'
 alias tree='tree -CF'
