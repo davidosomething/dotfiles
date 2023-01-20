@@ -16,7 +16,6 @@ function! dko#lint#SetupNeomake() abort
   if &filetype ==# 'css' | call dko#neomake#css#Setup() | endif
   if &filetype ==# 'lua' | call dko#neomake#lua#Setup() | endif
   if &filetype ==# 'php' | call dko#neomake#php#Setup() | endif
-  if &filetype ==# 'scss' | call dko#neomake#scss#Setup() | endif
   if &filetype ==# 'zsh' | let b:neomake_zsh_enabled_makers = [ 'zsh' ] | endif
 endfunction
 

@@ -527,10 +527,11 @@ function! dkoplug#plugins#LoadAll() abort
   " - coc-highlight -- requires language server to support colors, can be slow
 
   " Pure lua implementation, covers most cases and is fastest in neovim
-  Plug 'norcalli/nvim-colorizer.lua', PlugIf(g:truecolor)
+  Plug 'NvChad/nvim-colorizer.lua'
   augroup dkonvimcolorizer
     autocmd! User nvim-colorizer.lua
-          \ lua require('colorizer').setup({}, { css = true })
+          \ lua require('colorizer').setup(nil, { css = true })
+    autocmd FileType scss ColorizerAttachToBuffer
   augroup END
 
   " ==========================================================================
