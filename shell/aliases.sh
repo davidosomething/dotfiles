@@ -20,7 +20,6 @@ alias ....='cd -- ../..'
 alias cd-='cd -- -'
 alias cd..='cd -- ..'
 alias cdd='cd -- "${DOTFILES}"'
-alias dirs='dirs -v' # default to vert, use -l for list
 alias down='cd -- "${XDG_DOWNLOAD_DIR}"'
 alias tree='tree -CF'
 alias t="tree -a --noreport --dirsfirst -I '.git|node_modules|bower_components|.DS_Store'"
@@ -39,15 +38,15 @@ alias c='bat --paging never'
 alias crm='bat --plain README.md'
 alias cpj='bat --plain package.json'
 alias pyg='pygmentize -O style=rrt -f console256 -g'
+alias cns='jq .scripts package.json'
 
 # ----------------------------------------------------------------------------
 # docker
 # ----------------------------------------------------------------------------
 
-alias docc='docker-compose'
-alias sdocc='sudo docker-compose'
-alias dcud='docc up -d'
-alias dcpull='docc pull'
+alias dcd='docker-compose down'
+alias dcud='docker-compose up -d'
+alias dcpull='docker-compose pull'
 alias dsprune='docker system prune'
 
 # ----------------------------------------------------------------------------
@@ -59,6 +58,7 @@ alias ega='e "${DOTFILES}/git/aliases.gitconfig"'
 alias ehosts='se /etc/hosts'
 alias essh='e "${HOME}/.ssh/config"'
 alias etmux='e "${DOTFILES}/tmux/tmux.conf"'
+alias evi='e "${VDOTDIR}/init.lua"'
 alias evp='e "${VDOTDIR}/autoload/dkoplug/plugins.vim"'
 alias evr='e "${VDOTDIR}/vimrc"'
 alias eze='e "${ZDOTDIR}/dot.zshenv"'
