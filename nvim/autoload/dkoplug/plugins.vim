@@ -116,7 +116,6 @@ function! dkoplug#plugins#LoadAll() abort
     autocmd! FileType
         \ javascript,javascriptreact,typescript,typescriptreact
         \ nmap <silent> <A-e> :<C-u>Neoformat eslint_d<CR>
-    autocmd BufWritePre *.ts* Neoformat eslint_d
   augroup END
 
 
