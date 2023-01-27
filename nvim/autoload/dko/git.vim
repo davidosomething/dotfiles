@@ -34,6 +34,14 @@ function! dko#git#GetBranch(...) abort
   return len(l:result) ? l:result[0] : ''
 endfunction
 
+" @param {String[]}
+" @return {String[]} list of relative files that are in git status
+function! dko#git#GetStatusFiles() abort
+  let l:cmd = system('git status --porcelain | cut -c4-')
+  if v:shell_error | return [] | endif
+  return split(l:cmd, '\n')
+endfunction
+
 " Depends on my `git-relevant` script, see:
 " https://github.com/davidosomething/dotfiles/blob/master/bin/git-relevant
 " Alternatively use git-extras' `git-delta` (though it doesn't get unstaged

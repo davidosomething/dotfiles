@@ -91,6 +91,7 @@ nnoremap  <silent><special>   <A-g>   :<C-U>FZFGrepper<CR>
 nnoremap  <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
 nnoremap  <silent><special>   <A-p>   :<C-U>FZFProject<CR>
 nnoremap  <silent><special>   <A-r>   :<C-U>FZFRelevant<CR>
+nnoremap  <silent><special>   <A-s>   :<C-U>FZFGitStatusFiles<CR>
 nnoremap  <silent><special>   <A-t>   :<C-U>FZFTests<CR>
 nnoremap  <silent><special>   <A-v>   :<C-U>FZFVim<CR>
 

@@ -44,6 +44,42 @@ function s:WithLayout(opts) abort
 endfunction
 
 " ----------------------------------------------------------------------------
+" git status files
+" ----------------------------------------------------------------------------
+
+function! s:FzfGitStatusFiles(...) abort
+  let l:path = dko#git#GetRoot(expand('%:p:h'))
+  if empty(l:path)
+    echo 'Not a git repository'
+    return
+  endif
+
+  let l:prompt = dko#git#GetBranch(l:path)
+
+  let l:filepaths = dko#git#GetStatusFiles()
+  let l:source =  filter(
+        \   l:filepaths,
+        \   "filereadable(l:path . '/' .v:val)"
+        \ )
+  if !len(l:source)
+    echo 'No files changed compared to ' . l:base
+    return
+  endif
+  call fzf#run(fzf#wrap('Status',
+        \   fzf#vim#with_preview(s:WithLayout({
+        \     'dir':      l:path,
+        \     'source':   l:source,
+        \     'options':  s:options . ' --prompt="' . l:prompt . '> "',
+        \   }), 'right:50%')
+        \ ))
+endfunction
+
+" List relevant and don't include anything .gitignored
+" Accepts args for `git-relevant`
+command! -nargs=* FZFGitStatusFiles call s:FzfGitStatusFiles(<f-args>)
+
+
+" ----------------------------------------------------------------------------
 " git relevant
 " ----------------------------------------------------------------------------
 
