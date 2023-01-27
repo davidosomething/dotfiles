@@ -51,7 +51,7 @@ __symlink() {
   dko-symlink "git/dot.gitignore" \
     ".config/git/ignore"
   dko-symlink "markdownlint/dot.markdownlintrc" \
-    ".config/markdownlint.json"
+    ".config/markdownlint/config"
   [ ! -d "$FNM_DIR" ] &&
     dko-symlink "node/default-packages" \
     ".config/nvm/default-packages"

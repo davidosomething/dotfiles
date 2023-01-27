@@ -91,6 +91,8 @@ __move "${HOME}/.solargraph" "${XDG_CACHE_HOME}/solargraph"
 __move "${HOME}/.vagrant.d" "${XDG_DATA_HOME}/vagrant"
 __move "${HOME}/.zhistory" "${HOME}/.local/zsh_history"
 
+__remove "${XDG_CONFIG_HOME}/markdownlint.json"
+
 __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 
 [[ -n "$ASDF_DATA_DIR" ]] && __move "${HOME}/.asdf" "${ASDF_DATA_DIR}"
