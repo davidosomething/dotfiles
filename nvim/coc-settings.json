@@ -124,4 +124,5 @@
   "javascript.autoClosingTags": false,
   "javascript.preferences.quoteStyle": "single",
   "javascript.validate.enable": true,
+  "snippets.ultisnips.pythonPrompt": false,
 }
