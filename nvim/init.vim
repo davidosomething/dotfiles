@@ -34,17 +34,6 @@ if !has('nvim-0.4')
   augroup END
 endif
 
-" ============================================================================
-" Settings
-" ============================================================================
-
-set clipboard+=unnamedplus
-
-" Bumped '100 to '1000 to save more previous files
-" Bumped <50 to <100 to save more register lines
-" Bumped s10 to s100 for to allow up to 100kb of data per item
-set shada=!,'1000,<100,s100,h
-
 " The default blinking cursor leaves random artifacts in display like "q" in
 " old terminal emulators and some VTEs
 " https://github.com/neovim/neovim/issues?utf8=%E2%9C%93&q=is%3Aissue+cursor+shape+q
@@ -54,53 +43,15 @@ augroup dkonvim
   autocmd OptionSet guicursor noautocmd set guicursor=
 augroup END
 
-" New neovim feature, it's like vim-over but hides the thing being replaced
-" so it is not practical for now (makes it harder to remember what you're
-" replacing/reference previous regex tokens). Default is off, but explicitly
-" disabled here, too.
-" https://github.com/neovim/neovim/pull/5226
-set inccommand=
-
-" Pretty quick... errorprone on old vim so only apply to nvim
-set updatetime=250
-
 " ============================================================================
-" My defaults
-" May be overridden by **/plugins, after/plugins and **/ftplugins
+" Settings
 " ============================================================================
 
-" Only check one line
-if exists('+modelines') | set modelines=1 | endif
-" Prior versions are super dangerous
-if !has('patch-8.1.1365') && !has('nvim-0.3.6') | set nomodeline | endif
-
-if exists('+pyxversion') && has('python3') | set pyxversion=3 | endif
+lua require('opt')
 
 " ----------------------------------------------------------------------------
 " Display
 " ----------------------------------------------------------------------------
-
-set title                             " wintitle = filename - vim
-
-" this is already set by modern terminal and removed from nvim
-"set ttyfast
-
-" no beeps or flashes
-set novisualbell
-set noerrorbells
-
-set number
-set numberwidth=5
-
-" show context around current cursor position
-set scrolloff=8
-set sidescrolloff=16
-
-set textwidth=78
-" the line will be right after column 80, &tw+3
-set colorcolumn=+3
-set colorcolumn+=120
-set cursorline
 
 set synmaxcol=512                     " don't syntax highlight long lines
 
