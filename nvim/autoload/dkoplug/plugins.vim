@@ -238,6 +238,7 @@ function! dkoplug#plugins#LoadAll() abort
         \  'coc-sh',
         \  'coc-snippets',
         \  'coc-solargraph',
+        \  'coc-sumneko-lua',
         \  'coc-tsserver',
         \  'coc-vimlsp',
         \  'coc-yaml',
