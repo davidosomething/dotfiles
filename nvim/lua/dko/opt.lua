@@ -94,3 +94,30 @@ vim.opt.backupcopy = 'yes'
 
 vim.opt.backupskip:append('/private/tmp/*') -- needed to edit crontab files
 vim.opt.backupskip:append('~/.secret/*')
+
+-- ===========================================================================
+-- Built-in completion
+-- ===========================================================================
+
+-- Don't consider = symbol as part filename.
+vim.opt.isfname:remove({ '=' })
+
+vim.opt.complete:remove({ 't' }) -- don't complete tags
+
+vim.opt.completeopt:remove({ 'longest' })
+vim.opt.completeopt:append({ 'menuone' }) -- show PUM, even for one thing
+vim.opt.completeopt:append({ 'noinsert' })
+vim.opt.completeopt:append({ 'noselect' })
+vim.opt.completeopt:remove({ 'preview' }) -- don't open scratch
+
+-- ===========================================================================
+-- Message output on vim actions
+-- ===========================================================================
+
+vim.opt.shortmess:append({
+  c = true, -- Disable "Pattern not found" messages
+  m = true, -- use "[+]" instead of "[Modified]"
+  r = true, -- use "[RO]" instead of "[readonly]"
+	I = true, -- don't give the intro message when starting Vim |:intro|.
+  W = true, -- don't give "written" or "[w]" when writing a file
+})

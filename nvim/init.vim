@@ -50,29 +50,6 @@ augroup END
 lua require('dko.opt')
 
 " ----------------------------------------------------------------------------
-" Built-in completion
-" ----------------------------------------------------------------------------
-
-" Don't consider = symbol as part filename.
-set isfname-==
-
-set complete-=t                       " don't complete tags
-set completeopt-=longest              " ncm2 requirement
-set completeopt-=preview              " don't open scratch (e.g. echodoc)
-set completeopt+=noinsert             " ncm2 requirement
-set completeopt+=noselect             " ncm2 don't select first thing
-set completeopt+=menu,menuone         " show PUM, even for one thing
-
-" ----------------------------------------------------------------------------
-" Message output on vim actions
-" ----------------------------------------------------------------------------
-
-" Some of these are the defaults, but explicitly match vim and nvim-4.0
-set shortmess+=ilmnrxoOtWI
-" Disable "Pattern not found" messages
-if has('patch-7.4.314') | set shortmess+=c | endif
-
-" ----------------------------------------------------------------------------
 " Window splitting and buffers
 " ----------------------------------------------------------------------------
 
