@@ -2,20 +2,15 @@
 -- Built-in plugins
 -- ===========================================================================
 
-local builtins = {
-  'loaded_2html_plugin',
-  'loaded_getscriptPlugin',
-  'loaded_gzip',
-  'loaded_man',
-  'loaded_matchparen', -- Replaced by vim-matchup
-  'loaded_LogiPat',
-  'loaded_tarPlugin',
-  'loaded_tutor_mode_plugin',
-  'loaded_zipPlugin',
-}
-for _, plugin in pairs(builtins) do
-  vim.g['loaded_' .. plugin] = 1
-end
+vim.g.loaded_2html_plugin = true
+vim.g.loaded_getscriptPlugin = true
+vim.g.loaded_gzip = true
+vim.g.loaded_man = true
+vim.g.loaded_matchparen = true -- Replaced by vim-matchup
+vim.g.loaded_LogiPat = true
+vim.g.loaded_tarPlugin = true
+vim.g.loaded_tutor_mode_plugin = true
+vim.g.loaded_zipPlugin = true
 
 vim.g.netrw_liststyle = 3 -- netrw in details format when no vimfiler
 vim.g.netrw_browsex_viewer = 'dko-open'
