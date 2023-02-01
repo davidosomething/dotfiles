@@ -3,7 +3,7 @@
 -- ---------------------------------------------------------------------------
 
 if vim.fn.exists('+pyxversion') == 1 and vim.fn.has('python3') == 1 then
-  vim.opt.pyxversion = 3
+  vim.o.pyxversion = 3
 end
 
 -- ===========================================================================
@@ -12,11 +12,11 @@ end
 
 -- Prior versions are super dangerous
 if vim.fn.has('patch-8.1.1365') == 0 and vim.fn.has('nvim-0.3.6') == 0 then
-  vim.opt.modeline = false
+  vim.o.modeline = false
 else
   -- Only check one line
   if vim.fn.exists('+modelines') == 1 then
-    vim.opt.modelines = 1
+    vim.o.modelines = 1
   end
 end
 
@@ -27,95 +27,95 @@ end
 -- Bumped '100 to '1000 to save more previous files
 -- Bumped <50 to <100 to save more register lines
 -- Bumped s10 to s100 for to allow up to 100kb of data per item
-vim.opt.shada = "!,'1000,<100,s100,h"
+vim.o.shada = "!,'1000,<100,s100,h"
 
-vim.opt.fileformats = 'unix,mac,dos'
+vim.o.fileformats = 'unix,mac,dos'
 
 -- If we have a swap conflict, FZF has issues opening the file (and doesn't
 -- prompt correctly)
-vim.opt.swapfile = false
+vim.o.swapfile = false
 
 -- writebackup: use backup files when writing (create new file, replace old
 -- one with new one)
 -- Disabled for coc.nvim compat!
 -- https://github.com/neoclide/coc.nvim/blob/f96b4364335760cb942ef73853d5f038b265ff16/README.md#example-lua-configuration
 -- https://github.com/neoclide/coc.nvim/issues/649
-vim.opt.writebackup = false
-vim.opt.backup = false -- do not leave around backup.xyz~ files after that
+vim.o.writebackup = false
+vim.o.backup = false -- do not leave around backup.xyz~ files after that
 
 -- need this for webpack-dev-server and hot module reloading -- preserves
 -- special file types like symlinks
-vim.opt.backupcopy = 'yes'
+vim.o.backupcopy = 'yes'
 
 vim.opt.backupskip:append('/private/tmp/*') -- needed to edit crontab files
 vim.opt.backupskip:append('~/.secret/*')
-vim.opt.clipboard = 'unnamedplus'
+vim.o.clipboard = 'unnamedplus'
 
 -- ===========================================================================
 -- Display
 -- ===========================================================================
 
-vim.opt.timeout = false -- don't wait
+vim.o.timeout = false -- don't wait
 
 -- Swap write and CursorHold timeout
 -- Pretty quick... errorprone on old vim so only apply to nvim
-vim.opt.updatetime = 250
+vim.o.updatetime = 250
 
-vim.opt.title = true -- wintitle = filename - vim
+vim.o.title = true -- wintitle = filename - vim
 
-vim.opt.number = true
-vim.opt.numberwidth = 5
+vim.o.number = true
+vim.o.numberwidth = 5
 
 -- show context around current cursor position
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 16
+vim.o.scrolloff = 8
+vim.o.sidescrolloff = 16
 
 if vim.fn.exists('+signcolumn') == 1 then
-  vim.opt.signcolumn = vim.fn.has('nvim-0.4') and 'auto:3' or 'yes'
+  vim.o.signcolumn = vim.fn.has('nvim-0.4') and 'auto:3' or 'yes'
 end
 
-vim.opt.synmaxcol = 512 -- don't syntax highlight long lines
+vim.o.synmaxcol = 512 -- don't syntax highlight long lines
 
-vim.opt.textwidth = 78
+vim.o.textwidth = 78
 
 -- the line will be right after column 80, &tw+3
 vim.opt.colorcolumn = { '+3', '120' }
-vim.opt.cursorline = true
+vim.o.cursorline = true
 
-vim.opt.showtabline = 0 -- start OFF, toggle =2 to show tabline
+vim.o.showtabline = 0 -- start OFF, toggle =2 to show tabline
 
 -- This is slow on some terminals and often gets hidden by msgs so leave it off
-vim.opt.showcmd = false
-vim.opt.showmode = false -- don't show -- INSERT -- in cmdline
+vim.o.showcmd = false
+vim.o.showmode = false -- don't show -- INSERT -- in cmdline
 
 -- like vim-over but hides the thing being replaced so it is not practical for
 -- now (makes it harder to remember what you're replacing/reference previous
 -- regex tokens).
 -- https://github.com/neovim/neovim/pull/5226
-vim.opt.inccommand = ''
+vim.o.inccommand = ''
 
 -- ===========================================================================
 -- Wild and file globbing stuff in command mode
 -- ===========================================================================
 
-vim.opt.browsedir = 'buffer' -- browse files in same dir as open file
-vim.opt.wildmode = 'list:longest,full'
-vim.opt.wildignorecase = true
+vim.o.browsedir = 'buffer' -- browse files in same dir as open file
+vim.o.wildmode = 'list:longest,full'
+vim.o.wildignorecase = true
 
 -- ===========================================================================
 -- Built-in completion
 -- ===========================================================================
 
 -- Don't consider = symbol as part filename.
-vim.opt.isfname:remove({ '=' })
+vim.opt.isfname:remove('=')
 
-vim.opt.complete:remove({ 't' }) -- don't complete tags
+vim.opt.complete:remove('t') -- don't complete tags
 
-vim.opt.completeopt:remove({ 'longest' })
-vim.opt.completeopt:append({ 'menuone' }) -- show PUM, even for one thing
-vim.opt.completeopt:append({ 'noinsert' })
-vim.opt.completeopt:append({ 'noselect' })
-vim.opt.completeopt:remove({ 'preview' }) -- don't open scratch
+vim.opt.completeopt:remove('longest')
+vim.opt.completeopt:append('menuone') -- show PUM, even for one thing
+vim.opt.completeopt:append('noinsert')
+vim.opt.completeopt:append('noselect')
+vim.opt.completeopt:remove('preview') -- don't open scratch
 
 -- ===========================================================================
 -- Message output on vim actions
@@ -133,31 +133,31 @@ vim.opt.shortmess:append({
 -- Window splitting and buffers
 -- ===========================================================================
 
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.o.splitbelow = true
+vim.o.splitright = true
 if vim.fn.exists('+splitkeep') == 1 then
-  vim.opt.splitkeep = 'screen'
+  vim.o.splitkeep = 'screen'
 end
 
-vim.opt.hidden = true -- remember undo after quitting
+vim.o.hidden = true -- remember undo after quitting
 
 -- reveal already opened files from the quickfix window instead of opening new
 -- buffers
-vim.opt.switchbuf = 'useopen'
+vim.o.switchbuf = 'useopen'
 
 -- ===========================================================================
 -- Code folding
 -- ===========================================================================
 
-vim.opt.foldlevel = 999 -- very high === all folds open
-vim.opt.foldlevelstart = 99 -- show all folds by default
-vim.opt.foldenable = false
+vim.o.foldlevel = 999 -- very high === all folds open
+vim.o.foldlevelstart = 99 -- show all folds by default
+vim.o.foldenable = false
 
 -- ===========================================================================
 -- Trailing whitespace
 -- ===========================================================================
 
-vim.opt.list = true
+vim.o.list = true
 vim.opt.listchars = {
   extends = '»',
   nbsp = '⣿',
@@ -170,7 +170,7 @@ vim.opt.listchars = {
 -- Diffing
 -- ===========================================================================
 
-vim.opt.fillchars:append({ diff = '⣿' })
+vim.opt.fillchars = { diff = '⣿' }
 vim.opt.diffopt = {
   vertical = true, -- Use in vertical diff mode
   filler = true, -- blank lines to keep sides aligned
@@ -195,8 +195,8 @@ vim.opt.formatoptions = {
 vim.opt.formatoptions:append('1') -- Break before 1-letter words
 vim.opt.formatoptions:append('2') -- Use indent from 2nd line of a paragraph
 
-vim.opt.wrap = false
-vim.opt.joinspaces = false -- J command doesn't add extra space
+vim.o.wrap = false
+vim.o.joinspaces = false -- J command doesn't add extra space
 
 -- ===========================================================================
 -- Indenting - overridden by indent plugins
@@ -210,20 +210,20 @@ vim.opt.joinspaces = false -- J command doesn't add extra space
 --     /**
 --      *
 -- Refer also to formatoptions+=o (copy comment indent to newline)
-vim.opt.copyindent = false
+vim.o.copyindent = false
 
 -- Try not to change the indent structure on "<<" and ">>" commands. I.e. keep
 -- block comments aligned with space if there is a space there.
-vim.opt.preserveindent = false
+vim.o.preserveindent = false
 
 -- Smart detect when in braces and parens. Has annoying side effect that it
 -- won't indent lines beginning with '#'. Relying on syntax indentexpr instead.
 -- 'smartindent' in general is a piece of garbage, never turn it on.
-vim.opt.smartindent = false
+vim.o.smartindent = false
 
 -- Global setting. I don't edit C-style code all the time so don't default to
 -- C-style indenting.
-vim.opt.cindent = false
+vim.o.cindent = false
 
 -- ===========================================================================
 -- Tabbing - overridden by editorconfig, after/ftplugin
@@ -231,17 +231,16 @@ vim.opt.cindent = false
 
 -- use multiple of shiftwidth when shifting indent levels.
 -- this is OFF so block comments don't get fudged when using ">>" and "<<"
-vim.opt.shiftround = false
+vim.o.shiftround = false
 
 -- ===========================================================================
 -- Match and search
 -- ===========================================================================
 
-vim.opt.matchtime = 1 -- tenths of a sec
-vim.opt.showmatch = false -- briefly jump to matching paren?
-vim.opt.wrapscan = true -- Searches wrap around end of the file.
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+vim.o.matchtime = 1 -- tenths of a sec
+vim.o.showmatch = false -- briefly jump to matching paren?
+vim.o.wrapscan = true -- Searches wrap around end of the file.
+vim.o.ignorecase = true
+vim.o.smartcase = true
 -- Follow smartcase and ignorecase when doing tag search
-vim.opt.tagcase = 'followscs'
-
+vim.o.tagcase = 'followscs'
