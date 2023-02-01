@@ -51,9 +51,9 @@ function! dkoplug#plugins#LoadAll() abort
   let g:bufferize_command = 'tabnew'
   Plug 'AndrewRadev/bufferize.vim', { 'on': [ 'Bufferize' ] }
 
+  " @TODO nvim 0.9 has :Inspect ?
   " Required by Inspecthi, don't lazy
   Plug 'cocopon/colorswatch.vim'
-
   silent! nunmap zs
   nnoremap <silent> zs :<C-U>Inspecthi<CR>
   Plug 'cocopon/inspecthi.vim', { 'on': [ 'Inspecthi' ] }
