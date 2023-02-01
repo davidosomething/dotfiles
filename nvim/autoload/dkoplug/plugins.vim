@@ -255,6 +255,8 @@ function! dkoplug#plugins#LoadAll() abort
   " Multiple languages
   " ==========================================================================
 
+  Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+
   Plug 'suy/vim-context-commentstring'
 
   Plug 'gpanders/editorconfig.nvim'
