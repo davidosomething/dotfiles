@@ -30,6 +30,8 @@ lua require('dko.opt')
 
 lua require('dko.builtin-plugins')
 
+lua require('dko.providers')
+
 if !empty(dko#grepper#Get().command)
   let &g:grepprg = dko#grepper#Get().command . ' '
         \ . join(dko#grepper#Get().options, ' ')
@@ -103,42 +105,6 @@ nnoremap <special> <A-h>      <C-w>h
 nnoremap <special> <A-l>      <C-w>l
 
 nnoremap <special> <Leader>vt :<C-U>vsplit term://$SHELL<CR>A
-
-" ============================================================================
-
-let g:loaded_node_provider = 0
-let g:loaded_ruby_provider = 0
-let g:loaded_perl_provider = 0
-
-" disable python 2
-let g:loaded_python_provider = 0
-
-" ============================================================================
-" Python setup
-" Skips if python is not installed in a pyenv virtualenv
-" ============================================================================
-
-function! s:FindExecutable(paths) abort
-  for l:path in a:paths
-    let l:executable = glob(expand(l:path))
-    if !empty(l:executable) && executable(l:executable)
-      return l:executable
-    endif
-  endfor
-  return ''
-endfunction
-
-" python 3
-let s:py3 = s:FindExecutable([
-      \   '$PYENV_ROOT/versions/neovim3/bin/python',
-      \   '$ASDF_DIR/shims/python',
-      \   '/usr/bin/python3',
-      \ ])
-if !empty(s:py3)
-  let g:python3_host_prog = s:py3
-else
-  let g:loaded_python3_provider = 2
-endif
 
 " ----------------------------------------------------------------------------
 " Syntax

@@ -75,11 +75,13 @@ function! dkoplug#plugins#LoadAll() abort
   " Embedded filetype support
   " ==========================================================================
 
-  Plug 'nvim-treesitter/nvim-treesitter', PlugIf(has('nvim-0.7'), { 'do': ':TSUpdate' })
-  augroup dkonvimtreesitter
-    autocmd! User nvim-treesitter
-          \ lua require('nvim-treesitter.configs').setup({ matchup = { enable = true } })
-  augroup END
+  " Broken lua treesitter nvim 0.8.2
+  " Plug 'nvim-treesitter/nvim-treesitter', PlugIf(has('nvim-0.7'), { 'do': ':TSUpdate' })
+  " lua require('nvim-treesitter.configs').setup({
+  "      \   ensure_installed = { 'lua' },
+  "      \   highlight = { enable = true },
+  "      \   matchup = { enable = false },
+  "      \ })
 
   " tyru/caw.vim, some others use this to determine inline embedded filetypes
   Plug 'Shougo/context_filetype.vim'
@@ -255,7 +257,9 @@ function! dkoplug#plugins#LoadAll() abort
   " Multiple languages
   " ==========================================================================
 
-  Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+  " not configurable for coc
+  "Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+  "lua vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
 
   Plug 'suy/vim-context-commentstring'
 
@@ -396,12 +400,6 @@ function! dkoplug#plugins#LoadAll() abort
   " ----------------------------------
 
   Plug 'jparise/vim-graphql'
-
-  " ==========================================================================
-  " Language: Lua
-  " ==========================================================================
-
-  Plug 'euclidianAce/BetterLua.vim'
 
   " ==========================================================================
   " Language: Markdown, Pandoc
