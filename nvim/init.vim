@@ -27,29 +27,10 @@ let g:truecolor = has('termguicolors')
 " ============================================================================
 
 lua require('dko.opt')
-
 lua require('dko.builtin-plugins')
-
 lua require('dko.providers')
-
 lua require('dko.terminal')
-
-if !empty(dko#grepper#Get().command)
-  let &g:grepprg = dko#grepper#Get().command . ' '
-        \ . join(dko#grepper#Get().options, ' ')
-  let &g:grepformat = dko#grepper#Get().format
-endif
-
-nnoremap <special> <A-Up>     <C-w>k
-nnoremap <special> <A-Down>   <C-w>j
-nnoremap <special> <A-Left>   <C-w>h
-nnoremap <special> <A-Right>  <C-w>l
-nnoremap <special> <A-k>      <C-w>k
-nnoremap <special> <A-j>      <C-w>j
-nnoremap <special> <A-h>      <C-w>h
-nnoremap <special> <A-l>      <C-w>l
-
-nnoremap <special> <Leader>vt :<C-U>vsplit term://$SHELL<CR>A
+lua require('dko.mappings')
 
 " ----------------------------------------------------------------------------
 " Syntax
