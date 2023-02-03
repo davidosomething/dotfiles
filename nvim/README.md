@@ -11,7 +11,7 @@ Neovim-specific config.
 
 - Custom statusline with minimal junk, showing short directory
 - FZF for Most Recently Used files and fuzzy file finder
-- CoC for language server and misc utilities
+- coc.nvim for language server and misc utilities
 - Neomake for non-language server makers/linters
 - Lazy loaded plugins and keybindings -- a brand new Vim instance opens in
   <200ms (without plugins Vim takes around 100ms)
