@@ -4,7 +4,7 @@ vim.g.loaded_perl_provider = false
 vim.g.loaded_python_provider = false -- disable python 2
 
 -- Skips if python is not installed in a pyenv virtualenv
-local findExecutable = function (paths)
+local function findExecutable(paths)
   for _, path in pairs(paths) do
     ---@diagnostic disable-next-line: missing-parameter
     local e = vim.fn.glob(vim.fn.expand(path))
