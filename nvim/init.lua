@@ -1,7 +1,7 @@
 -- Fallback for vims with no env access like Veonim
 -- used by plugin/*
 ---@diagnostic disable-next-line: missing-parameter
-vim.g.vdotdir = vim.fn.expand(vim.fn.empty('$VDOTDIR') == 1 and '$XDG_CONFIG_DIR/nvim' or '$VDOTDIR')
+vim.g.vdotdir = vim.fs.dirname(vim.env.MYVIMRC)
 vim.g.dko_rtp_original = vim.o.runtimepath
 vim.g.mapleader = ' '
 
