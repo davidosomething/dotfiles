@@ -23,3 +23,16 @@ vim.g.php_parentError = true
 vim.g.PHP_default_indenting = false
 -- Don't outdent the <?php tags to the first column
 vim.g.PHP_outdentphpescape  = false
+
+-- python
+-- $VIMRUNTIME/syntax/python.vim
+vim.g.python_highlight_all = 1
+
+-- sh
+-- $VIMRUNTIME/syntax/sh.vim - always assume bash
+vim.g.is_bash = 1
+
+-- vim
+-- $VIMRUNTIME/syntax/vim.vim
+-- disable mzscheme, tcl highlighting
+vim.g.vimsyn_embed = 'lpPr'
