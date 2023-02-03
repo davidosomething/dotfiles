@@ -29,46 +29,10 @@ let g:truecolor = has('termguicolors')
 lua require('dko.providers')
 lua require('dko.opt')
 lua require('dko.builtin-plugins')
+lua require('dko.builtin-syntax')
 lua require('dko.behaviors')
 lua require('dko.mappings')
 lua require('dko.terminal')
-
-" ----------------------------------------------------------------------------
-" Syntax
-" Needs to be in vimrc (or ftdetect) since syntax runs before ftplugin
-" ----------------------------------------------------------------------------
-
-" ----------------------------------------
-" Filetype: markdown
-" ----------------------------------------
-
-" Variable to highlight markdown fenced code properly -- uses tpope's
-" vim-markdown plugin (which is bundled with vim7.4 now)
-" There are more syntaxes, but checking for them makes editing md very slow
-let g:markdown_fenced_languages = [
-      \   'javascript', 'js=javascript', 'javascriptreact',
-      \   'json',
-      \   'bash=sh', 'sh',
-      \   'vim',
-      \   'help',
-      \ ]
-
-" ----------------------------------------
-" Filetype: php
-" ----------------------------------------
-
-" Additional syntax groups for php baselib
-let g:php_baselib = 1
-" Highlight unclosed ([]) - from $VIMRUNTIME/syntax/php.vim
-let g:php_parentError = 1
-" Assume strings contain HTML
-let g:php_htmlInStrings = 1
-
-" $VIMRUNTIME/indent/php.vim and 2072/
-" Don't indent after <?php opening
-let g:PHP_default_indenting = 0
-" Don't outdent the <?php tags to the first column
-let g:PHP_outdentphpescape  = 0
 
 " ----------------------------------------
 " Filetype: python

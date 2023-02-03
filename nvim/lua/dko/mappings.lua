@@ -13,5 +13,6 @@ vim.keymap.set('n', '<A-j>', '<C-w>j')
 vim.keymap.set('n', '<A-h>', '<C-w>h')
 vim.keymap.set('n', '<A-l>', '<C-w>l')
 
--- Open terminal
-vim.keymap.set('n', '<Leader>vt', ':<C-U>vsplit term://$SHELL<CR>A')
+vim.keymap.set('n', '<Leader>vt', ':<C-U>vsplit term://$SHELL<CR>A', {
+  desc = 'Open terminal in a vsplit',
+})

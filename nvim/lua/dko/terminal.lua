@@ -40,8 +40,10 @@ vim.g.terminal_color_14 = '#8ec07c'
 vim.g.terminal_color_7 = '#a89984'
 vim.g.terminal_color_15 = '#ebdbb2'
 
--- Special key to get back to vim
-vim.keymap.set('t', '<C-b>', '<C-\\><C-n>', { silent = true })
+vim.keymap.set('t', '<C-b>', '<C-\\><C-n>', {
+  desc = 'Get back to vim mode',
+  silent = true,
+})
 
 -- Move between windows using Alt-
 -- Ctrl- works only outside of terminal buffers
