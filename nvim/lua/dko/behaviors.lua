@@ -97,30 +97,27 @@ vim.api.nvim_create_autocmd('BufReadPre', {
 })
 
 local uiGroup = vim.api.nvim_create_augroup('dkoediting', { clear = true })
-
-local highlightOnYank = function ()
-  vim.highlight.on_yank({
-    higroup = "IncSearch",
-    timeout = 150,
-    on_visual = true
-  })
-end
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight yanked text after yanking',
-  callback = highlightOnYank,
+  callback = function ()
+    vim.highlight.on_yank({
+      higroup = "IncSearch",
+      timeout = 150,
+      on_visual = true
+    })
+  end,
   group = uiGroup,
 })
 
 local writingGroup = vim.api.nvim_create_augroup('dkoautomkdir', { clear = true })
-local automkdir = function (args)
-  ---@diagnostic disable-next-line: missing-parameter
-  local dir = vim.fs.dirname(args.file)
-  if vim.fn.isdirectory(dir) == 0 then
-    vim.fn.mkdir(dir, 'p')
-  end
-end
 vim.api.nvim_create_autocmd({ 'BufWritePre', 'FileWritePre' }, {
   desc = 'Create missing parent directories on write',
-  callback = automkdir,
+  callback = function (args)
+    ---@diagnostic disable-next-line: missing-parameter
+    local dir = vim.fs.dirname(args.file)
+    if vim.fn.isdirectory(dir) == 0 then
+      vim.fn.mkdir(dir, 'p')
+    end
+  end,
   group = writingGroup,
 })
