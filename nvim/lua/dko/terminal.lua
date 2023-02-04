@@ -51,3 +51,7 @@ vim.keymap.set('t', '<A-Up>', '<C-\\><C-n><C-w>k', { silent = true })
 vim.keymap.set('t', '<A-Down>', '<C-\\><C-n><C-w>j', { silent = true })
 vim.keymap.set('t', '<A-Left>', '<C-\\><C-n><C-w>h', { silent = true })
 vim.keymap.set('t', '<A-Right>', '<C-\\><C-n><C-w>l', { silent = true })
+
+vim.keymap.set('n', '<Leader>vt', '<Cmd>vsplit term://$SHELL<CR>A', {
+  desc = 'Open terminal in a vsplit',
+})

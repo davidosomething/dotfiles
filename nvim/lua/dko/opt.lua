@@ -1,3 +1,9 @@
+if vim.fn.getenv('TERM_PROGRAM') == 'Apple_Terminal' then
+  vim.o.termguicolors = 0
+elseif vim.fn.getenv('COLORTERM') == 'truecolor' or vim.fn.getenv('DOTFILES_OS') == 'Darwin' then
+  vim.o.termguicolors = 1
+end
+
 -- ===========================================================================
 -- Vim command engines
 -- ---------------------------------------------------------------------------
@@ -249,7 +255,7 @@ vim.o.tagcase = 'followscs'
 -- grep
 -- ===========================================================================
 
-local grepper = vim.fn['dko#grepper#Get']()
+local grepper = vim.call('dko#grepper#Get')
 if vim.fn.empty(grepper.command) == 0 then
   vim.o.grepprg = grepper.command .. ' ' .. vim.fn.join(grepper.options, ' ')
   vim.o.grepformat = grepper.format

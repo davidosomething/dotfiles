@@ -4,8 +4,6 @@ augroup dkofzf
   autocmd!
 augroup END
 
-if !dkoplug#IsLoaded('fzf.vim') | finish | endif
-
 autocmd dkofzf FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd dkofzf BufLeave <buffer> set laststatus=2 showmode ruler
 

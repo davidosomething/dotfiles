@@ -1,109 +1,6 @@
-" autoload/dkoplug/plugins.vim
-
-" Similar but safer than Cond() from
-" <https://github.com/junegunn/vim-plug/wiki/faq>
-" This is a global function for command access
-function! PlugIf(condition, ...) abort
-  let l:enabled = a:condition ? {} : { 'on': [], 'for': [] }
-  return a:0 ? extend(l:enabled, a:000[0]) : l:enabled
-endfunction
-
-" Shortcut
-function! WithCompl(...) abort
-  return call('PlugIf', [ g:dko_use_completion ] + a:000)
-endfunction
-
-function! dkoplug#plugins#LoadAll() abort
-  " Notes on adding plugins:
-  " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
-
-  " ==========================================================================
-  " Fixes
-  " ==========================================================================
-
-  " Fix CursorHold
-  " https://github.com/neovim/neovim/issues/12587
-  Plug 'antoinemadec/FixCursorHold.nvim',
-        \ PlugIf(!has('nvim-0.8'))
-
-  " Disable cursorline sometimes, for performance
-  Plug 'delphinus/vim-auto-cursorline', PlugIf(exists('*timer_start'))
-
-  " Lua plugin to prevent new windows from shifting cursor position
-  Plug 'luukvbaal/stabilize.nvim', PlugIf(!exists('+splitkeep'))
-  augroup dkostabilize
-    autocmd!
-    autocmd User stabilize.nvim lua require('stabilize').setup()
-    autocmd User stabilize.nvim 
-          \ autocmd QuickFixCmdPost [^l]* copen | doautocmd User StabilizeRestore
-    autocmd User stabilize.nvim
-          \ autocmd QuickFixCmdPost l* lopen | doautocmd User StabilizeRestore
-  augroup END
-
-  " ==========================================================================
-  " Vim debugging
-  " ==========================================================================
-
-  " Show slow plugins
-  Plug 'tweekmonster/startuptime.vim', { 'on': [ 'StartupTime' ] }
-
-  " `:Bufferize messages` to get messages (or any :command) in a new buffer
-  let g:bufferize_command = 'tabnew'
-  Plug 'AndrewRadev/bufferize.vim', { 'on': [ 'Bufferize' ] }
-
-  " @TODO nvim 0.9 has :Inspect ?
-  " Required by Inspecthi, don't lazy
-  Plug 'cocopon/colorswatch.vim'
-  silent! nunmap zs
-  nnoremap <silent> zs :<C-U>Inspecthi<CR>
-  Plug 'cocopon/inspecthi.vim', { 'on': [ 'Inspecthi' ] }
-
-  " ==========================================================================
-  " Colorscheme
-  " ==========================================================================
-
-  let l:local_meh = expand('~/projects/davidosomething/vim-colors-meh')
-  if isdirectory(l:local_meh)
-    Plug l:local_meh
-  else
-    Plug 'davidosomething/vim-colors-meh'
-  endif
-  Plug 'rakr/vim-two-firewatch'
-  Plug 'kamwitsta/flatwhite-vim'
-
-  " ==========================================================================
-  " Embedded filetype support
-  " ==========================================================================
-
-  " Broken lua treesitter nvim 0.8.2
-  " Plug 'nvim-treesitter/nvim-treesitter', PlugIf(has('nvim-0.7'), { 'do': ':TSUpdate' })
-  " lua require('nvim-treesitter.configs').setup({
-  "      \   ensure_installed = { 'lua' },
-  "      \   highlight = { enable = true },
-  "      \   matchup = { enable = false },
-  "      \ })
-
-  " tyru/caw.vim, some others use this to determine inline embedded filetypes
-  Plug 'Shougo/context_filetype.vim'
-
   " ==========================================================================
   " Commands
   " ==========================================================================
-
-  " --------------------------------------------------------------------------
-  " FZF
-  " --------------------------------------------------------------------------
-
-  " Use the repo instead of the version in brew since it includes the help
-  " docs for fzf#run()
-  Plug 'junegunn/fzf', PlugIf(g:dko_use_fzf)
-
-  let g:fzf_command_prefix = 'FZF'
-  let g:fzf_layout = extend({ 'down': '~40%' }, {})
-  let g:fzf_buffers_jump = 1
-  Plug 'junegunn/fzf.vim', PlugIf(g:dko_use_fzf)
-
-  " --------------------------------------------------------------------------
 
   let g:neoformat_enabled_json = [ 'dkoprettier', 'jq' ]
   let g:neoformat_enabled_java = [ 'uncrustify' ]
@@ -119,11 +16,6 @@ function! dkoplug#plugins#LoadAll() abort
         \ javascript,javascriptreact,typescript,typescriptreact
         \ nmap <silent> <A-e> :<C-u>Neoformat eslint_d<CR>
   augroup END
-
-
-  " Add file manip commands like Remove, Move, Rename, SudoWrite
-  " Do not lazy load, tracks buffers
-  Plug 'tpope/vim-eunuch'
 
   " ==========================================================================
   " Input, syntax, spacing
@@ -160,21 +52,6 @@ function! dkoplug#plugins#LoadAll() abort
   " My fork has a lot of removals like line movement and entities
   Plug 'davidosomething/vim-unimpaired'
 
-  " used for line bubbling commands (instead of unimpared!)
-  " Consider also t9md/vim-textmanip
-  Plug 'matze/vim-move'
-
-  " HR with <Leader>f[CHAR]
-  Plug g:dko#vim_dir . '/mine/vim-hr'
-
-  " <Leader>C <Plug>(dkosmallcaps)
-  Plug g:dko#vim_dir . '/mine/vim-smallcaps', { 'on': [
-        \   '<Plug>(dkosmallcaps)',
-        \ ] }
-
-  " Toggle movement mode line-wise/display-wise
-  Plug g:dko#vim_dir . '/mine/vim-movemode'
-
   " --------------------------------------------------------------------------
   " Operators and Textobjs
   " --------------------------------------------------------------------------
@@ -183,8 +60,6 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'machakann/vim-sandwich'
 
   Plug 'kana/vim-operator-user'
-  " gcc to toggle comment
-  Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
   " <Leader>c to toggle PascalCase/snak_e the pending operator
   Plug 'tyru/operator-camelize.vim', { 'on': [ '<Plug>(operator-camelize' ] }
 
@@ -202,12 +77,6 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
   " Completion
   " ==========================================================================
-
-  " --------------------------------------------------------------------------
-  " Signature preview
-  " --------------------------------------------------------------------------
-
-  Plug 'Shougo/echodoc.vim'
 
   " --------------------------------------------------------------------------
   " Snippet engine
@@ -263,7 +132,6 @@ function! dkoplug#plugins#LoadAll() abort
 
   Plug 'suy/vim-context-commentstring'
 
-  Plug 'gpanders/editorconfig.nvim'
 
   " ==========================================================================
   " Language: ansible config
@@ -303,11 +171,6 @@ function! dkoplug#plugins#LoadAll() abort
   " provides :DiffGitCached in gitcommit file type
   " vim 7.4-77 ships with 2013 version, this is newer
   Plug 'tpope/vim-git'
-
-  " show diff when editing a COMMIT_EDITMSG
-  let g:committia_open_only_vim_starting = 0
-  let g:committia_use_singlecolumn       = 'always'
-  Plug 'rhysd/committia.vim'
 
   " committia for git rebase -i
   "Plug 'hotwatermorning/auto-git-diff'
@@ -400,12 +263,6 @@ function! dkoplug#plugins#LoadAll() abort
   " ----------------------------------
 
   Plug 'jparise/vim-graphql'
-
-  " ==========================================================================
-  " Language: lua
-  " ==========================================================================
-
-  Plug 'sam4llis/nvim-lua-gf'
 
   " ==========================================================================
   " Language: Markdown, Pandoc
@@ -526,21 +383,6 @@ function! dkoplug#plugins#LoadAll() abort
   Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss' ] }
 
   " ==========================================================================
-  " Color highlighting
-  " ==========================================================================
-
-  " Alternatives:
-  " - coc-highlight -- requires language server to support colors, can be slow
-
-  " Pure lua implementation, covers most cases and is fastest in neovim
-  Plug 'NvChad/nvim-colorizer.lua'
-  augroup dkonvimcolorizer
-    autocmd! User nvim-colorizer.lua
-          \ lua require('colorizer').setup(nil, { css = true })
-    autocmd FileType scss ColorizerAttachToBuffer
-  augroup END
-
-  " ==========================================================================
   " Language: TOML
   " ==========================================================================
 
@@ -552,37 +394,5 @@ function! dkoplug#plugins#LoadAll() abort
   " ==========================================================================
 
   Plug 'machakann/vim-vimhelplint'
-
-  " Auto-prefix continuation lines with \
-  " Error: <CR> recursive mapping
-  " Plug 'lambdalisue/vim-backslash'
-
-  " ==========================================================================
-  " UI -- load last!
-  " ==========================================================================
-
-  Plug 'nathanaelkane/vim-indent-guides'
-
-  " --------------------------------------------------------------------------
-  " Quickfix window
-  " --------------------------------------------------------------------------
-
-  let g:qf_resize_min_height = 4
-  Plug 'blueyed/vim-qf_resize'
-
-  " --------------------------------------------------------------------------
-  " Window events
-  " --------------------------------------------------------------------------
-
-  " <C-w>o to zoom in/out of a window
-  "Plug 'dhruvasagar/vim-zoom'
-  " Better zoom plugin, accounts for command window and doesn't use sessions
-  Plug 'troydm/zoomwintab.vim'
-
-  Plug 'wellle/visual-split.vim', { 'on': [
-        \   'VSResize', 'VSSplit',
-        \   'VSSplitAbove', 'VSSplitBelow',
-        \   '<Plug>(Visual-Split',
-        \ ] }
 
 endfunction

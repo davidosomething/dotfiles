@@ -2,18 +2,21 @@
 -- Change vim behavior via autocommands
 -- ===========================================================================
 
-local windowGroup = vim.api.nvim_create_augroup('dkowindow', { clear = true })
+local function augroup(name)
+  return vim.api.nvim_create_augroup(name, { clear = true })
+end
+
+local windowGroup = augroup('dkowindow')
 vim.api.nvim_create_autocmd('VimResized', {
   desc = 'Automatically resize windows when resizing Vim',
   command = 'wincmd =',
   group = windowGroup,
 })
 
-local restorePositionGroup = vim.api.nvim_create_augroup('dkorestoreposition', { clear = true })
 vim.api.nvim_create_autocmd('BufWinEnter', {
   desc = 'Restore last cursor position when opening file',
   callback = 'dko#RestorePosition',
-  group = restorePositionGroup,
+  group = windowGroup,
 })
 
 vim.api.nvim_create_autocmd('QuitPre' , {
@@ -23,25 +26,14 @@ vim.api.nvim_create_autocmd('QuitPre' , {
   group = windowGroup,
 })
 
-local statusGroup = vim.api.nvim_create_augroup('dkostatusline', { clear = true })
-if vim.fn['dkoplug#IsLoaded']('coc.nvim') == 1 then
-  vim.api.nvim_create_autocmd('User', {
-    pattern = 'CocNvimInit',
-    desc = 'Initialize statusline after coc has started',
-    nested = true,
-    callback = 'dkoline#Init',
-    group = statusGroup,
-  })
-else
-  vim.api.nvim_create_autocmd('VimEnter', {
-    desc = 'Initialize statusline on VimEnter',
-    nested = true,
-    callback = 'dkoline#Init',
-    group = statusGroup,
-  })
-end
+vim.api.nvim_create_autocmd('VimEnter', {
+  desc = 'Initialize statusline on VimEnter',
+  nested = true,
+  callback = 'dkoline#Init',
+  group = augroup('dkostatusline'),
+})
 
-local projectGroup = vim.api.nvim_create_augroup('dkoproject', { clear = true })
+local projectGroup = augroup('dkoproject')
 vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufWritePost' }, {
   desc = 'Set dko#project variables on buffers',
   callback = 'dko#project#MarkBuffer',
@@ -62,22 +54,20 @@ vim.api.nvim_create_autocmd('User', {
   group = projectGroup,
 })
 
-local colorschemeGroup = vim.api.nvim_create_augroup('dkocoloredit', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = '*/colors/*.vim',
   desc = 'Auto-reload the colorscheme if it was edited in vim',
   command = [[so <afile>]],
-  group = colorschemeGroup,
+  group = augroup('dkocoloredit'),
 })
 
-local readonlyGroup = vim.api.nvim_create_augroup('dkoreadonly', { clear = true })
+local readingGroup = augroup('dkoreading')
 vim.api.nvim_create_autocmd('BufEnter', {
   desc = 'Read only mode (un)mappings',
   callback = 'dko#readonly#Unmap',
-  group = readonlyGroup,
+  group = readingGroup,
 })
 
-local hugefileGroup = vim.api.nvim_create_augroup('dkohugefile', { clear = true })
 vim.api.nvim_create_autocmd('BufReadPre', {
   desc = 'Disable linting and syntax highlighting for large and minified files',
   command = [[
@@ -86,38 +76,36 @@ vim.api.nvim_create_autocmd('BufReadPre', {
     let b:dko_hugefile = 1
   endif
   ]],
-  group = hugefileGroup,
+  group = readingGroup,
 })
 
 vim.api.nvim_create_autocmd('BufReadPre', {
   desc = 'Disable syntax on minified files',
   pattern = '*.min.*',
   command = 'syntax off',
-  group = hugefileGroup,
+  group = readingGroup,
 })
 
-local uiGroup = vim.api.nvim_create_augroup('dkoediting', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight yanked text after yanking',
-  callback = function ()
+  callback = function()
     vim.highlight.on_yank({
       higroup = "IncSearch",
       timeout = 150,
       on_visual = true
     })
   end,
-  group = uiGroup,
+  group = augroup('dkoediting'),
 })
 
-local writingGroup = vim.api.nvim_create_augroup('dkoautomkdir', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufWritePre', 'FileWritePre' }, {
   desc = 'Create missing parent directories on write',
-  callback = function (args)
+  callback = function(args)
     ---@diagnostic disable-next-line: missing-parameter
     local dir = vim.fs.dirname(args.file)
     if vim.fn.isdirectory(dir) == 0 then
       vim.fn.mkdir(dir, 'p')
     end
   end,
-  group = writingGroup,
+  group = augroup('dkosaving'),
 })

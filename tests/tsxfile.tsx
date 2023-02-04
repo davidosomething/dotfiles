@@ -4,6 +4,8 @@ export default [ 'nothing' ];
 const RED = 'red';
 const BURGUNDY = 'rgba(255, 101, 120, 0.5)';
 
+const arr = [ 1, 2, 3, 4 ];
+
 const expression = () => {};
 
 export function abc() {

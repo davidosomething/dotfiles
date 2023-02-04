@@ -55,9 +55,6 @@ inoreabbrev kbddown <kbd>↓</kbd>
 " Disable for reuse
 " ============================================================================
 
-" [n]gs normally waits for [n] seconds, totally useless
-noremap   gs    <NOP>
-
 noremap   <F1>  <NOP>
 
 " ============================================================================

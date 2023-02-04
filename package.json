@@ -47,6 +47,7 @@
   "devDependencies": {
     "eslint": "8.33.0",
     "eslint-config-davidosomething": "6.0.0",
-    "plist": "3.0.6"
+    "plist": "3.0.6",
+    "remark": "^14.0.2"
   }
 }
