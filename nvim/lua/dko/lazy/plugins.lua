@@ -27,6 +27,7 @@ return {
   -- @TODO nvim 0.9 has :Inspect ?
   {
     'cocopon/colorswatch.vim',
+    lazy = true,
     dependencies = {
       'cocopon/inspecthi.vim',
     },
@@ -210,6 +211,18 @@ return {
 
   {
     "ghillb/cybu.nvim",
+    keys = {
+      {
+        "[b",
+        "<Plug>(CybuPrev)",
+        desc = 'Previous buffer with cybu popup',
+      },
+      {
+        "]b",
+        "<Plug>(CybuNext)",
+        desc = 'Next buffer with cybu popup',
+      },
+    },
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "nvim-lua/plenary.nvim"
@@ -228,8 +241,6 @@ return {
           },
         },
       })
-      vim.keymap.set("n", "[b", "<Plug>(CybuPrev)")
-      vim.keymap.set("n", "]b", "<Plug>(CybuNext)")
     end,
   },
 
@@ -258,6 +269,25 @@ return {
           '!nofile', -- ignore nofile, e.g. :Mason buffer
         }
       })
+    end,
+  },
+
+  {
+    'rhysd/git-messenger.vim',
+    keys = {
+      {
+        'gb',
+        '<Plug>(git-messenger)',
+        desc = 'Open git-messenger popup'
+      },
+    },
+    cmd = 'GitMessenger',
+    init = function()
+      vim.g.git_messenger_include_diff = 'current'
+      vim.g.git_messenger_no_default_mappings = true
+      vim.g.git_messenger_floating_win_opts = { border = 'rounded' } --  :h api-win_config
+      vim.g.git_messenger_max_popup_height = 16
+      vim.g.git_messenger_popup_content_margins = true
     end,
   },
 
@@ -349,7 +379,7 @@ return {
     end
   },
 
-  -- gcc / gbc to comment with treesitter integration
+  -- gcc / <Leader>gbc to comment with treesitter integration
   {
     'numToStr/Comment.nvim',
     config = function()
@@ -359,6 +389,19 @@ return {
       end
       local pre_hook = mod and mod.create_pre_hook() or nil
       require('Comment').setup({
+        ---LHS of operator-pending mappings in NORMAL and VISUAL mode
+        opleader = {
+          ---Line-comment keymap (default gc)
+          line = 'gc',
+          ---Block-comment keymap (gb is my blame command)
+          block = '<Leader>gb',
+        },
+        toggler = {
+          ---Line-comment toggle keymap
+          line = 'gcc',
+          ---Block-comment toggle keymap
+          block = '<Leader>gbc',
+        },
         pre_hook = pre_hook,
       })
     end,
@@ -366,9 +409,16 @@ return {
 
   {
     'Wansmer/treesj',
+    keys = {
+      {
+        'gs',
+        '<Cmd>TSJToggle<CR>',
+        desc = 'Toggle treesitter split / join',
+        silent = true,
+      },
+    },
     config = function()
       require('treesj').setup() --{ use_default_keymaps = false, max_join_length = 255, })
-      vim.keymap.set('n', 'gs', '<Cmd>TSJToggle<CR>', { silent = true })
     end,
   },
 
@@ -511,10 +561,18 @@ return {
   -- nicer looking than built-in codeaction menu
   {
     'weilbith/nvim-code-action-menu',
+    keys = {
+      {
+        '<Leader>ca',
+        '<Cmd>CodeActionMenu<CR>',
+        desc = 'Open Code Action menu',
+        noremap = true,
+        silent = true
+      },
+    },
     cmd = 'CodeActionMenu',
     config = function()
       vim.g.code_action_menu_window_border = 'single'
-      vim.keymap.set('n', '<Leader>ca', '<Cmd>CodeActionMenu<CR>', { noremap = true, silent = true })
     end
   },
 
