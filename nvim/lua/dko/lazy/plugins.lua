@@ -106,6 +106,12 @@ return {
   },
 
   -- =========================================================================
+  -- utility
+  -- =========================================================================
+
+  { "nvim-lua/plenary.nvim" },
+
+  -- =========================================================================
   -- mine
   -- =========================================================================
 
@@ -153,18 +159,12 @@ return {
   -- colorscheme
   {
     "davidosomething/vim-colors-meh",
+    dev = vim.fn.getenv('USER') == 'davidosomething',
     lazy = false,
     priority = 1000,
     config = function()
       vim.cmd([[ colorscheme meh ]])
     end,
-  },
-
-  {
-    'nvim-tree/nvim-web-devicons',
-    dependencies = {
-      'folke/trouble.nvim',
-    },
   },
 
   -- indent guides
@@ -191,6 +191,36 @@ return {
     end,
   },
 
+  -- alternative UI for diagnostics / quickfix / loclist
+  {
+    "folke/trouble.nvim",
+    config = function()
+      require('trouble').setup({
+        auto_open = false, -- steals focus from mason.nvim :Mason
+        auto_close = true,
+        auto_preview = false,
+        padding = false,
+        use_diagnostic_signs = true, -- use built-in signs instead of trouble signs
+      })
+    end,
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+  },
+
+  {
+    "ghillb/cybu.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "nvim-lua/plenary.nvim"
+    },
+    config = function()
+      require('cybu').setup()
+      vim.keymap.set("n", "[b", "<Plug>(CybuPrev)")
+      vim.keymap.set("n", "]b", "<Plug>(CybuNext)")
+    end,
+  },
+
   -- zoom in/out of a window
   -- this plugin accounts for command window and doesn't use sessions
   -- overrides <C-w>o (originally does an :only)
@@ -210,7 +240,12 @@ return {
   {
     'NvChad/nvim-colorizer.lua',
     config = function()
-      require('colorizer').setup()
+      require('colorizer').setup({
+        buftypes = {
+          '*',
+          '!nofile', -- ignore nofile, e.g. :Mason buffer
+        }
+      })
     end,
   },
 
@@ -218,22 +253,23 @@ return {
   -- ui: fzf
   -- =========================================================================
 
-  -- Use the repo instead of the version in brew since it includes the help
-  -- docs for fzf#run()
-  {
-    'junegunn/fzf',
-    enabled = vim.fn.exists('&autochdir') == 1,
-    dependencies = {
-      {
-        'junegunn/fzf.vim',
-        init = function()
-          vim.g.fzf_command_prefix = 'FZF'
-          vim.g.fzf_layout = { down = '~40%' }
-          vim.g.fzf_buffers_jump = 1
-        end,
-      },
-    },
+-- Use the repo instead of the version in brew since it includes the help
+-- docs for fzf#run()
+{
+  'junegunn/fzf',
+  enabled = vim.fn.exists('&autochdir') == 1,
+  dependencies = {
+    'junegunn/fzf.vim',
   },
+},
+{
+  'junegunn/fzf.vim',
+  init = function()
+    vim.g.fzf_command_prefix = 'FZF'
+    vim.g.fzf_layout = { down = '~40%' }
+    vim.g.fzf_buffers_jump = 1
+  end,
+},
 
   -- =========================================================================
   -- File navigation
@@ -251,11 +287,36 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        highlight = { enable = true },
+        indent = { enable = true },
+        context_commentstring = { enable = true, enable_autocmd = false },
+        ensure_installed = {
+          "bash",
+          "help",
+          "html",
+          "javascript",
+          "json",
+          "lua",
+          "markdown",
+          "markdown_inline",
+          "python",
+          "query",
+          "regex",
+          "tsx",
+          "typescript",
+          "vim",
+          "yaml",
+        },
+      })
+    end,
     dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring',
-      -- 'Wansmer/treesj',
+      'Wansmer/treesj',
     },
   },
+
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
     config = function()
@@ -292,37 +353,57 @@ return {
   },
 
   -- @TODO NOT WORKING
-  -- {
-  --   'Wansmer/treesj',
-  --   config = function()
-  --     require('treesj').setup()--{ use_default_keymaps = false, max_join_length = 255, })
-  --     vim.keymap.set('n', 'gs', '<Cmd>TSJSplit<CR>', { silent = true })
-  --   end,
-  -- },
+  {
+    'Wansmer/treesj',
+    config = function()
+      require('treesj').setup()--{ use_default_keymaps = false, max_join_length = 255, })
+      vim.keymap.set('n', 'gs', '<Cmd>TSJSplit<CR>', { silent = true })
+    end,
+  },
 
   -- =========================================================================
   -- LSP
+  -- Scaffold dependencies like LazyVim
+  -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
   -- =========================================================================
 
   {
-    'williamboman/mason.nvim',
-    config = function()
-      require("mason").setup()
-    end,
+    'neovim/nvim-lspconfig',
     dependencies = {
+      "b0o/schemastore.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+      "jose-elias-alvarez/typescript.nvim",
+      "mason.nvim",
+      'weilbith/nvim-code-action-menu',
       "williamboman/mason-lspconfig.nvim",
-    },
+    }
+  },
+
+  {
+    'williamboman/mason.nvim',
+    cmd = "Mason",
+    config = true,
   },
 
   {
     "williamboman/mason-lspconfig.nvim",
     config = function()
+      -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
       local lsps = {
+        "ansiblels",
+        "bashls",
+        "cssls",
+        "cssmodules_ls",
         "dockerls",
         "eslint",
+        "html",
         "jsonls",
+        "remark_ls",
         "sumneko_lua",
+        "tailwindcss",
         "tsserver",
+        "vimls",
+        "yamlls",
       }
       if vim.fn.executable('go') == 1 then
         table.insert(lsps, 'gopls')
@@ -332,47 +413,73 @@ return {
         automatic_installation = true,
       })
 
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
       -- Note that instead of on_attach for each server setup,
       -- diagnostic-lsp.lua has an autocmd defined
       require('mason-lspconfig').setup_handlers({
-        function (server)
-          require("lspconfig")[server].setup({})
+        function(server)
+          require("lspconfig")[server].setup({
+            capabilities = capabilities,
+          })
         end,
-        ['sumneko_lua'] = function ()
+
+        ['jsonls'] = function()
+          require('lspconfig').jsonls.setup({
+            capabilities = capabilities,
+            settings = {
+              json = {
+                schemas = require('schemastore').json.schemas(),
+                validate = { enable = true },
+              },
+            },
+          })
+        end,
+
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
+        ['sumneko_lua'] = function()
           require("lspconfig").sumneko_lua.setup({
+            capabilities = capabilities,
             settings = {
               Lua = {
+                runtime = {
+                  -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                  version = 'LuaJIT',
+                },
                 diagnostics = {
                   globals = { 'vim' }
-                }
+                },
+                workspace = {
+                  -- shut up about luassert
+                  checkThirdParty = false,
+                  -- Make the server aware of Neovim runtime files
+                  library = vim.api.nvim_get_runtime_file("", true),
+                },
+                -- Do not send telemetry data containing a randomized but unique identifier
+                telemetry = {
+                  enable = false,
+                },
               }
             }
           })
+        end,
+
+        ['tsserver'] = function()
+          -- noop
+          -- use jose-elias-alvarez/typescript.nvim instead
         end
       })
     end,
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "folke/trouble.nvim",
-    },
   },
 
   {
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      'weilbith/nvim-code-action-menu',
-    }
-  },
-
-  {
-    "folke/trouble.nvim",
+    "jose-elias-alvarez/typescript.nvim",
     config = function()
-      require('trouble').setup({
-        auto_open = true,
-        auto_close = true,
-        auto_preview = false,
-        padding = false,
-        use_diagnostic_signs = true, -- use built-in signs instead of trouble signs
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      -- This will do lspconfig.tsserver.setup()
+      require("typescript").setup({
+        capabilities = capabilities,
       })
     end,
   },
@@ -381,7 +488,7 @@ return {
   -- Consider later if I want to switch to only float symbol
   -- {
   --   'kosayoda/nvim-lightbulb',
-  --   config = function ()
+  --   config = function()
   --     require('nvim-lightbulb').setup({
   --       autocmd = { enabled = true },
   --       sign = { enabled = false },
@@ -394,10 +501,73 @@ return {
   {
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu',
-    config = function ()
+    config = function()
       vim.g.code_action_menu_window_border = 'single'
       vim.keymap.set('n', '<Leader>ca', '<Cmd>CodeActionMenu<CR>', { noremap = true, silent = true })
     end
+  },
+
+  -- =========================================================================
+  -- Completion
+  -- =========================================================================
+
+  {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      local cmp = require('cmp')
+      cmp.setup({
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'nvim_lsp_signature_help' },
+          { name = 'nvim_lua' },
+        }),
+
+        mapping = {
+          ['<C-n>'] = function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end,
+
+          ['<C-p>'] = function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end
+        },
+      })
+
+      -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        })
+      })
+    end,
+
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-nvim-lua',
+    },
   },
 
   -- =========================================================================

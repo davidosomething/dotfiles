@@ -3,6 +3,7 @@
 -- ===========================================================================
 
 -- Symbols in signs column
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
@@ -10,7 +11,12 @@ for type, icon in pairs(signs) do
 end
 
 -- use trouble.nvim list instead
-vim.diagnostic.config({ virtual_text = false })
+vim.diagnostic.config({
+  virtual_text = false,
+  float = {
+    source = "always",  -- Or "if_many"
+  },
+})
 
 -- mappings
 local opts = { noremap = true, silent = true }
