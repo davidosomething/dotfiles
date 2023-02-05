@@ -4,8 +4,15 @@
 vim.g.vdotdir = vim.fs.dirname(vim.env.MYVIMRC)
 vim.g.mapleader = ' '
 
-require('dko.lazy.install')
+require('dko.providers')
+require('dko.opt')
+require('dko.builtin-plugins')
+require('dko.builtin-syntax')
+require('dko.behaviors')
+require('dko.diagnostic-lsp')
+require('dko.terminal')
 
+require('dko.lazy.install')
 local plugins = require('dko.lazy.plugins')
 local opts = {
   defaults = {
@@ -15,13 +22,6 @@ local opts = {
   }
 }
 require('lazy').setup(plugins, opts)
-
-require('dko.providers')
-require('dko.opt')
-require('dko.builtin-plugins')
-require('dko.builtin-syntax')
-require('dko.behaviors')
-require('dko.terminal')
 
 -- Disallow unsafe local vimrc commands
 -- Leave down here since it trims local settings

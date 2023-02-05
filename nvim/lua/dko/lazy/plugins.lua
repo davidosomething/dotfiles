@@ -78,13 +78,14 @@ return {
         nested = "QuickFixCmdPost,DiagnosticChanged *",
       })
       local stabilizeGroup = vim.api.nvim_create_augroup('dkostabilize', { clear = true })
-      vim.api.nvim_create_autocmd('DiagnosticChanged', {
+      -- @TODO fix for trouble
+      --[[ vim.api.nvim_create_autocmd('DiagnosticChanged', {
         callback = function()
           -- //vim.cmd('Trouble document_diagnostics')
           -- vim.cmd.doautocmd('User StabilizeRestore')
         end,
         group = stabilizeGroup,
-      })
+      }) ]]
       vim.api.nvim_create_autocmd('QuickFixCmdPost', {
         pattern = { '[^l]*' },
         command = [[
@@ -304,30 +305,6 @@ return {
   -- =========================================================================
 
   {
-    'neovim/nvim-lspconfig',
-    config = function ()
-      local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-      for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl= hl, numhl = hl })
-      end
-
-      -- use trouble.nvim list instead
-      vim.diagnostic.config({ virtual_text = false })
-
-      vim.keymap.set('n', '[d', function ()
-        vim.diagnostic.goto_prev({ float = false })
-      end, { noremap = true, silent = true })
-      vim.keymap.set('n', ']d', function ()
-        vim.diagnostic.goto_next({ float = false })
-      end, { noremap = true, silent = true })
-    end,
-    dependencies = {
-      'weilbith/nvim-code-action-menu',
-    }
-  },
-
-  {
     'williamboman/mason.nvim',
     config = function()
       require("mason").setup()
@@ -354,6 +331,9 @@ return {
         ensure_installed = lsps,
         automatic_installation = true,
       })
+
+      -- Note that instead of on_attach for each server setup,
+      -- diagnostic-lsp.lua has an autocmd defined
       require('mason-lspconfig').setup_handlers({
         function (server)
           require("lspconfig")[server].setup({})
@@ -378,6 +358,13 @@ return {
   },
 
   {
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      'weilbith/nvim-code-action-menu',
+    }
+  },
+
+  {
     "folke/trouble.nvim",
     config = function()
       require('trouble').setup({
@@ -391,6 +378,7 @@ return {
   },
 
   -- Redundant since builtin has sign column
+  -- Consider later if I want to switch to only float symbol
   -- {
   --   'kosayoda/nvim-lightbulb',
   --   config = function ()
