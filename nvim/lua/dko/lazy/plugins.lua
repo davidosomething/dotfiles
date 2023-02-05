@@ -43,7 +43,7 @@ return {
         silent = true,
       }
     },
-  },
+  }, 
 
   -- =========================================================================
   -- fixes
@@ -147,8 +147,8 @@ return {
       {
         '<Leader>mm',
         '<Cmd>call movemode#toggle()<CR>',
-        desc = 'vim-movemode swap between display and line movemodes'
-      ,}
+        desc = 'vim-movemode swap between display and line movemodes',
+      }
     }
   },
 
@@ -215,7 +215,19 @@ return {
       "nvim-lua/plenary.nvim"
     },
     config = function()
-      require('cybu').setup()
+      require('cybu').setup({
+        position = {
+          max_win_height = 8,
+          max_win_width = 0.8,
+        },
+        style = {
+          highlights = {
+            background = "dkoBgAlt",
+            current_buffer = "dkoQuote",
+            adjacent_buffers = "dkoType",
+          },
+        },
+      })
       vim.keymap.set("n", "[b", "<Plug>(CybuPrev)")
       vim.keymap.set("n", "]b", "<Plug>(CybuNext)")
     end,
@@ -253,23 +265,23 @@ return {
   -- ui: fzf
   -- =========================================================================
 
--- Use the repo instead of the version in brew since it includes the help
--- docs for fzf#run()
-{
-  'junegunn/fzf',
-  enabled = vim.fn.exists('&autochdir') == 1,
-  dependencies = {
-    'junegunn/fzf.vim',
+  -- Use the repo instead of the version in brew since it includes the help
+  -- docs for fzf#run()
+  {
+    'junegunn/fzf',
+    enabled = vim.fn.exists('&autochdir') == 1,
+    dependencies = {
+      'junegunn/fzf.vim',
+    },
   },
-},
-{
-  'junegunn/fzf.vim',
-  init = function()
-    vim.g.fzf_command_prefix = 'FZF'
-    vim.g.fzf_layout = { down = '~40%' }
-    vim.g.fzf_buffers_jump = 1
-  end,
-},
+  {
+    'junegunn/fzf.vim',
+    init = function()
+      vim.g.fzf_command_prefix = 'FZF'
+      vim.g.fzf_layout = { down = '~40%' }
+      vim.g.fzf_buffers_jump = 1
+    end,
+  },
 
   -- =========================================================================
   -- File navigation
@@ -352,12 +364,11 @@ return {
     end,
   },
 
-  -- @TODO NOT WORKING
   {
     'Wansmer/treesj',
     config = function()
-      require('treesj').setup()--{ use_default_keymaps = false, max_join_length = 255, })
-      vim.keymap.set('n', 'gs', '<Cmd>TSJSplit<CR>', { silent = true })
+      require('treesj').setup() --{ use_default_keymaps = false, max_join_length = 255, })
+      vim.keymap.set('n', 'gs', '<Cmd>TSJToggle<CR>', { silent = true })
     end,
   },
 
@@ -506,6 +517,23 @@ return {
       vim.keymap.set('n', '<Leader>ca', '<Cmd>CodeActionMenu<CR>', { noremap = true, silent = true })
     end
   },
+
+  -- Don't need it
+  --[[ {
+    "glepnir/lspsaga.nvim",
+    event = "BufRead",
+    config = function()
+      require("lspsaga").setup({
+        lightbulb = {
+          sign = false,
+          virtual_text = false,
+        }
+      })
+    end,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons"
+    },
+  }, ]]
 
   -- =========================================================================
   -- Completion
