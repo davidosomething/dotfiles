@@ -89,3 +89,54 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
   group = vim.api.nvim_create_augroup('dkolsp', { clear = true }),
 })
+
+-- ===========================================================================
+-- Borders
+-- ===========================================================================
+
+vim.cmd [[autocmd! ColorScheme * highlight link NormalFloat dkoBgAlt]]
+vim.cmd [[autocmd! ColorScheme * highlight link FloatBorder dkoType]]
+
+---@diagnostic disable-next-line: unused-local
+local solidBorder = {
+  {"🭽", "FloatBorder"},
+  {"▔", "FloatBorder"},
+  {"🭾", "FloatBorder"},
+  {"▕", "FloatBorder"},
+  {"🭿", "FloatBorder"},
+  {"▁", "FloatBorder"},
+  {"🭼", "FloatBorder"},
+  {"▏", "FloatBorder"},
+}
+
+-- local border_vertical   = "║"
+-- local border_horizontal = "═"
+-- local border_topleft    = "╔"
+-- local border_topright   = "╗"
+-- local border_botleft    = "╚"
+-- local border_botright   = "╝"
+-- local border_juncleft   = "╠"
+-- local border_juncright  = "╣"
+
+local roundedBorder = {
+  {"╭", "FloatBorder"},
+  {"─", "FloatBorder"},
+  {"╮", "FloatBorder"},
+  {"│", "FloatBorder"},
+  {"╯", "FloatBorder"},
+  {"─", "FloatBorder"},
+  {"╰", "FloatBorder"},
+  {"│", "FloatBorder"},
+}
+
+local borderOpts = {
+  border = roundedBorder
+}
+
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+---@diagnostic disable-next-line: redefined-local, duplicate-set-field
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or borderOpts.border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
