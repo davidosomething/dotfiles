@@ -586,6 +586,14 @@ return {
           { name = 'cmdline' }
         })
       })
+
+      cmp.setup({
+        formatting = {
+          format = require('lspkind').cmp_format({
+            mode = 'symbol_text', -- show only symbol annotations
+          })
+        }
+      })
     end,
 
     dependencies = {
@@ -595,6 +603,7 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lua',
+      'onsails/lspkind.nvim',
     },
   },
 
