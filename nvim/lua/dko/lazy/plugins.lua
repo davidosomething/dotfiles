@@ -1,6 +1,4 @@
 return {
-  { "folke/lazy.nvim", version = "*" },
-
   -- =========================================================================
   -- nvim dev
   -- =========================================================================
@@ -561,7 +559,7 @@ return {
         indicator_warnings = SIGNS.Warn,
         indicator_info = SIGNS.Info,
         indicator_hint = SIGNS.Hint,
-        indicator_ok = '😊',
+        indicator_ok = '✓',
         status_symbol = '',
       })
 

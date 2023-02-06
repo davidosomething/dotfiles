@@ -8,19 +8,18 @@ require('dko.providers')
 require('dko.opt')
 require('dko.builtin-plugins')
 require('dko.builtin-syntax')
-require('dko.behaviors')
 require('dko.diagnostic-lsp')
 require('dko.terminal')
 require('dko.mappings')
 
+require('dko.behaviors')
+
 require('dko.lazy.install')
 local plugins = require('dko.lazy.plugins')
 local opts = {
-  defaults = {
-    change_detection = {
-      enabled = false,
-    }
-  }
+  change_detection = {
+    enabled = false,
+  },
 }
 require('lazy').setup(plugins, opts)
 
