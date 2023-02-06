@@ -28,12 +28,6 @@
   let g:matchup_matchparen_status_offscreen = 0
   Plug 'andymass/vim-matchup', PlugIf(has('patch-7.4.1689'))
 
-  " add gS on char to smart split lines at char, like comma lists and html tags
-  let g:splitjoin_trailing_comma = 0
-  let g:splitjoin_ruby_trailing_comma = 1
-  let g:splitjoin_ruby_hanging_args = 1
-  Plug 'AndrewRadev/splitjoin.vim'
-
   " Compatible with Neovim or Vim with this patch level
   Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
 

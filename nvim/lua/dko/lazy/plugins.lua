@@ -17,7 +17,6 @@ return {
   -- `:Bufferize messages` to get messages (or any :command) in a new buffer
   {
     'AndrewRadev/bufferize.vim',
-    lazy = true,
     cmd = 'Bufferize',
     init = function()
       vim.g.bufferize_command = 'tabnew'
@@ -27,14 +26,13 @@ return {
   -- @TODO nvim 0.9 has :Inspect ?
   {
     'cocopon/colorswatch.vim',
-    lazy = true,
     dependencies = {
       'cocopon/inspecthi.vim',
     },
+    lazy = true,
   },
   {
     'cocopon/inspecthi.vim',
-    lazy = true,
     cmd = 'Inspecthi',
     keys = {
       {
@@ -44,7 +42,7 @@ return {
         silent = true,
       }
     },
-  }, 
+  },
 
   -- =========================================================================
   -- fixes
@@ -75,34 +73,7 @@ return {
     'luukvbaal/stabilize.nvim',
     enabled = vim.fn.exists('+splitkeep') == 0,
     config = function()
-      require('stabilize').setup({
-        nested = "QuickFixCmdPost,DiagnosticChanged *",
-      })
-      local stabilizeGroup = vim.api.nvim_create_augroup('dkostabilize', { clear = true })
-      -- @TODO fix for trouble
-      --[[ vim.api.nvim_create_autocmd('DiagnosticChanged', {
-        callback = function()
-          -- //vim.cmd('Trouble document_diagnostics')
-          -- vim.cmd.doautocmd('User StabilizeRestore')
-        end,
-        group = stabilizeGroup,
-      }) ]]
-      vim.api.nvim_create_autocmd('QuickFixCmdPost', {
-        pattern = { '[^l]*' },
-        command = [[
-          copen
-          doautocmd User StabilizeRestore
-        ]],
-        group = stabilizeGroup,
-      })
-      vim.api.nvim_create_autocmd('QuickFixCmdPost', {
-        pattern = { 'l*' },
-        command = [[
-          lopen
-          doautocmd User StabilizeRestore
-        ]],
-        group = stabilizeGroup,
-      })
+      require('stabilize').setup()
     end,
   },
 
@@ -120,11 +91,12 @@ return {
   {
     dir = vim.g.vdotdir .. '/mine/vim-hr',
     config = function()
-      vim.call('hr#map', '_')
-      vim.call('hr#map', '-')
-      vim.call('hr#map', '=')
-      vim.call('hr#map', '#')
-      vim.call('hr#map', '*')
+      local map = vim.fn['hr#map']
+      map('_')
+      map('-')
+      map( '=')
+      map( '#')
+      map( '*')
     end
   },
 
@@ -144,13 +116,10 @@ return {
   -- Toggle movement mode line-wise/display-wise
   {
     dir = vim.g.vdotdir .. '/mine/vim-movemode',
-    keys = {
-      {
-        '<Leader>mm',
-        '<Cmd>call movemode#toggle()<CR>',
-        desc = 'vim-movemode swap between display and line movemodes',
-      }
-    }
+    lazy = false, -- I use the autoload fns
+    config = function()
+      vim.keymap.set('n', '<Leader>mm', '<Cmd>call movemode#toggle()<CR>')
+    end
   },
 
   -- =========================================================================
@@ -193,8 +162,12 @@ return {
   },
 
   -- alternative UI for diagnostics / quickfix / loclist
-  {
+  -- I prefer using builtin vim.diagnostic.setloclist
+  --[[ {
     "folke/trouble.nvim",
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
     config = function()
       require('trouble').setup({
         auto_open = false, -- steals focus from mason.nvim :Mason
@@ -204,13 +177,14 @@ return {
         use_diagnostic_signs = true, -- use built-in signs instead of trouble signs
       })
     end,
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-  },
+  }, ]]
 
   {
     "ghillb/cybu.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "nvim-lua/plenary.nvim"
+    },
     keys = {
       {
         "[b",
@@ -222,10 +196,6 @@ return {
         "<Plug>(CybuNext)",
         desc = 'Next buffer with cybu popup',
       },
-    },
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-      "nvim-lua/plenary.nvim"
     },
     config = function()
       require('cybu').setup({
@@ -328,6 +298,10 @@ return {
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+      'Wansmer/treesj',
+    },
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
@@ -353,10 +327,6 @@ return {
         },
       })
     end,
-    dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      'Wansmer/treesj',
-    },
   },
 
   {
@@ -383,11 +353,6 @@ return {
   {
     'numToStr/Comment.nvim',
     config = function()
-      local ok, mod = pcall(require, 'ts_context_commentstring.integrations.comment_nvim')
-      if not ok then
-        mod = nil
-      end
-      local pre_hook = mod and mod.create_pre_hook() or nil
       require('Comment').setup({
         ---LHS of operator-pending mappings in NORMAL and VISUAL mode
         opleader = {
@@ -402,7 +367,7 @@ return {
           ---Block-comment toggle keymap
           block = '<Leader>gbc',
         },
-        pre_hook = pre_hook,
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
       })
     end,
   },
@@ -429,9 +394,15 @@ return {
   -- =========================================================================
 
   {
+    'folke/neodev.nvim',
+    config = true,
+  },
+
+  {
     'neovim/nvim-lspconfig',
     dependencies = {
       "b0o/schemastore.nvim",
+      'folke/neodev.nvim',
       "hrsh7th/cmp-nvim-lsp",
       "jose-elias-alvarez/typescript.nvim",
       "mason.nvim",
@@ -497,7 +468,8 @@ return {
           })
         end,
 
-        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
+        -- neodev
+        --[[ -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
         ['sumneko_lua'] = function()
           require("lspconfig").sumneko_lua.setup({
             capabilities = capabilities,
@@ -523,7 +495,7 @@ return {
               }
             }
           })
-        end,
+        end, ]]
 
         ['tsserver'] = function()
           -- noop
@@ -579,6 +551,9 @@ return {
   -- Don't need it
   --[[ {
     "glepnir/lspsaga.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons"
+    },
     event = "BufRead",
     config = function()
       require("lspsaga").setup({
@@ -588,9 +563,14 @@ return {
         }
       })
     end,
-    dependencies = {
-      "nvim-tree/nvim-web-devicons"
-    },
+  }, ]]
+
+  -- too disruptive
+  --[[ {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+      require("lsp_lines").setup()
+    end,
   }, ]]
 
   -- =========================================================================
@@ -599,6 +579,15 @@ return {
 
   {
     "hrsh7th/nvim-cmp",
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-nvim-lua',
+      'onsails/lspkind.nvim',
+    },
     config = function()
       local cmp = require('cmp')
       cmp.setup({
@@ -653,16 +642,6 @@ return {
         }
       })
     end,
-
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-nvim-lua',
-      'onsails/lspkind.nvim',
-    },
   },
 
   -- =========================================================================

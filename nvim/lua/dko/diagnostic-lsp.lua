@@ -4,38 +4,90 @@
 
 -- Symbols in signs column
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
+local SIGNS = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local SEVERITY_TO_SYMBOL = {}
+for type, icon in pairs(SIGNS) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+
+  local key = string.upper(type)
+  local code = vim.diagnostic.severity[key]
+  SEVERITY_TO_SYMBOL[code] = icon
 end
 
--- use trouble.nvim list instead
+-- how should diagnostics show up?
+local function floatFormat(diagnostic)
+  --[[ e.g.
+  {
+    bufnr = 1,
+    code = "trailing-space",
+    col = 4,
+    end_col = 5,
+    end_lnum = 44,
+    lnum = 44,
+    message = "Line with postspace.",
+    namespace = 12,
+    severity = 4,
+    source = "Lua Diagnostics.",
+    user_data = {
+      lsp = {
+        code = "trailing-space"
+      }
+    }
+  }
+  ]]
+
+  local symbol = SEVERITY_TO_SYMBOL[diagnostic.severity] or '- '
+
+  local source = diagnostic.source
+  -- strip period at end
+  if source.sub(source, -1, -1) == "." then
+    source = string.sub(source, 1, -2)
+  end
+  local sourceText = '[' .. source .. ']'
+
+  return ' ' .. symbol .. diagnostic.message .. ' ' .. sourceText .. ' '
+end
 vim.diagnostic.config({
+  -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
   virtual_text = false,
   float = {
-    source = "always",  -- Or "if_many"
+    header = false, -- remove the line that says 'Diagnostic:'
+    source = false,  -- hide it since my floatFormat will add it
+    format = floatFormat,
   },
+})
+
+
+local diagnosticGroup = vim.api.nvim_create_augroup('dkodiagnostic', { clear = true })
+vim.api.nvim_create_autocmd('DiagnosticChanged', {
+  desc = 'Sync diagnostics to loclist',
+  callback = function()
+    vim.diagnostic.setloclist({ open = false })
+  end,
+  group = diagnosticGroup
+})
+
+-- updatetime option is the delay until it opens
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+  desc = 'Show floating diagnostic under cursor',
+  callback = function()
+    vim.diagnostic.open_float({
+      focus = false,
+      scope = 'cursor',
+    })
+  end,
+  group = diagnosticGroup
 })
 
 -- mappings
 local opts = { noremap = true, silent = true }
-vim.keymap.set(
-  'n',
-  '[d',
-  function()
-    vim.diagnostic.goto_prev({ float = false })
-  end,
-  opts
-)
-vim.keymap.set(
-  'n',
-  ']d',
-  function()
-    vim.diagnostic.goto_next({ float = false })
-  end,
-  opts
-)
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.goto_prev({ float = false })
+end, opts)
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.goto_next({ float = false })
+end, opts)
 
 -- ===========================================================================
 -- LSP configuration
@@ -91,7 +143,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- ===========================================================================
--- Borders
+-- LSP borders
 -- ===========================================================================
 
 vim.cmd [[autocmd! ColorScheme * highlight link NormalFloat dkoBgAlt]]
