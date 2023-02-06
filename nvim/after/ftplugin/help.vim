@@ -18,13 +18,3 @@ setlocal iskeyword+=-
 
 " Use vim :help when you press K over a word
 setlocal keywordprg=:help
-
-let s:cpo_save = &cpoptions
-set cpoptions&vim
-
-if dkoplug#IsLoaded('vim-docopen')
-  nnoremap <buffer><silent> go :<C-U>DocOpen<CR>
-endif
-
-let &cpoptions = s:cpo_save
-unlet s:cpo_save

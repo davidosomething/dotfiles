@@ -21,7 +21,7 @@ return {
     init = function()
       vim.g.bufferize_command = 'tabnew'
     end,
-  },
+  }, 
 
   -- @TODO nvim 0.9 has :Inspect ?
   {
