@@ -308,6 +308,45 @@ return {
   },
 
   {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      local gs = require('gitsigns')
+      gs.setup({
+        on_attach = function(bufnr)
+          local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+          end
+
+          -- Navigation
+          map('n', ']c', function()
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+          end, {expr=true})
+
+          map('n', '[c', function()
+            if vim.wo.diff then return '[c' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
+          end, {expr=true})
+
+          -- Actions
+          map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+          map('n', 'gb', function()
+            gs.blame_line({ full=true })
+          end)
+
+          -- Text object
+          map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        end
+      })
+    end,
+  },
+
+  -- gitsigns.nvim is providing blame
+  --[[ {
     'rhysd/git-messenger.vim',
     keys = {
       {
@@ -324,7 +363,7 @@ return {
       vim.g.git_messenger_max_popup_height = 16
       vim.g.git_messenger_popup_content_margins = true
     end,
-  },
+  }, ]]
 
   -- =========================================================================
   -- ui: fzf
