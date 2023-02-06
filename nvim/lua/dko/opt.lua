@@ -43,9 +43,6 @@ vim.o.swapfile = false
 
 -- writebackup: use backup files when writing (create new file, replace old
 -- one with new one)
--- Disabled for coc.nvim compat!
--- https://github.com/neoclide/coc.nvim/blob/f96b4364335760cb942ef73853d5f038b265ff16/README.md#example-lua-configuration
--- https://github.com/neoclide/coc.nvim/issues/649
 vim.o.writebackup = false
 vim.o.backup = false -- do not leave around backup.xyz~ files after that
 

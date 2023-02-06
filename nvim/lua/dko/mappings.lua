@@ -73,7 +73,17 @@ map('n', '<F1>',
   function()
     local cexpr = vim.fn.expand('<cexpr>')
     local fn
-    if string.find(cexpr, "vim.fn.") then
+    if string.find(cexpr, "vim%.o%.") then
+      local quoted  = "'" .. cexpr:gsub("vim%.o%.(.-)$", "%1") .. "'"
+      print('Looking up vim.o ' .. quoted)
+      vim.cmd.help(quoted)
+      return
+    elseif string.find(cexpr, "vim%.opt%.") then
+      local quoted  = "'" .. cexpr:gsub("vim%.opt%.(.-)$", "%1"):gsub("(.*):.*$", "%1") .. "'"
+      print('Looking up vim.opt ' .. quoted)
+      vim.cmd.help(quoted)
+      return
+    elseif string.find(cexpr, "vim.fn.") then
       fn = cexpr:gsub("vim%.fn%.(.-)%(.*$", "%1")
     elseif string.find(cexpr, "vim.cmd.") then
       fn = cexpr:gsub("vim%.cmd%.(.-)%(.*$", "%1")
