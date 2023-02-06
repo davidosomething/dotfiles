@@ -415,15 +415,17 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
+      'andymass/vim-matchup',
       'JoosepAlviste/nvim-ts-context-commentstring',
       'Wansmer/treesj',
     },
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
+        context_commentstring = { enable = true, enable_autocmd = false },
         highlight = { enable = true },
         indent = { enable = true },
-        context_commentstring = { enable = true, enable_autocmd = false },
+        matchup = { enable = true },
         ensure_installed = {
           "bash",
           "help",
@@ -454,6 +456,16 @@ return {
           enable_autocmd = false, -- Comment.nvim wants this
         }
       })
+    end,
+  },
+
+  -- highlight matching html/xml tag
+  {
+    'andymass/vim-matchup',
+    init = function()
+      vim.g.matchup_delim_noskips = 2
+      vim.g.matchup_matchparen_deferred = 1
+      vim.g.matchup_matchparen_status_offscreen = 0
     end,
   },
 

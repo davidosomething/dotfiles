@@ -21,13 +21,6 @@
   " Input, syntax, spacing
   " ==========================================================================
 
-  " highlight matching html/xml tag
-  "Plug 'gregsexton/MatchTag'
-  let g:matchup_delim_noskips = 2
-  let g:matchup_matchparen_deferred = 1
-  let g:matchup_matchparen_status_offscreen = 0
-  Plug 'andymass/vim-matchup', PlugIf(has('patch-7.4.1689'))
-
   " Compatible with Neovim or Vim with this patch level
   Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
 
