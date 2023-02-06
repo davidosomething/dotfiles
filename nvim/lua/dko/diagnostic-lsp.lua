@@ -54,7 +54,7 @@ vim.diagnostic.config({
   float = {
     header = false, -- remove the line that says 'Diagnostic:'
     source = false,  -- hide it since my floatFormat will add it
-    format = floatFormat,
+    format = floatFormat, -- can customize more colors by using prefix/suffix instead
   },
 })
 

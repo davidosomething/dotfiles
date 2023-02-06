@@ -66,7 +66,7 @@ return {
   {
     'gpanders/editorconfig.nvim',
     enabled = vim.fn.has('nvim-0.9') == 0,
-  },
+  }, 
 
   -- prevent new windows from shifting cursor position
   {
@@ -161,6 +161,60 @@ return {
     end,
   },
 
+  -- pretty format quickfix and loclist
+  {
+    'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+    config = function()
+      require('pqf').setup({
+        signs = { error = "", warning = "", hint = "", info = "" },
+        --show_multiple_lines = false,
+      })
+    end,
+  },
+
+  -- super buggy
+  --[[ {
+    'ten3roberts/qf.nvim',
+    config = function()
+      require('qf').setup({
+        -- Location list configuration
+        l = {
+          auto_close = true, -- Automatically close location/quickfix list if empty
+          auto_follow = false, -- Follow current entry, possible values: prev,next,nearest, or false to disable
+          auto_follow_limit = 8, -- Do not follow if entry is further away than x lines
+          follow_slow = true, -- Only follow on CursorHold
+          auto_open = true, -- Automatically open list on QuickFixCmdPost
+          auto_resize = true, -- Auto resize and shrink location list if less than `max_height`
+          max_height = 8, -- Maximum height of location/quickfix list
+          min_height = 5, -- Minimum height of location/quickfix list
+          wide = false, -- Open list at the very bottom of the screen, stretching the whole width.
+          number = false, -- Show line numbers in list
+          relativenumber = false, -- Show relative line numbers in list
+          unfocus_close = false, -- Close list when window loses focus
+          focus_open = false, -- Auto open list on window focus if it contains items
+        },
+        -- Quickfix list configuration
+        c = {
+          auto_close = true, -- Automatically close location/quickfix list if empty
+          auto_follow = false, -- Follow current entry, possible values: prev,next,nearest, or false to disable
+          auto_follow_limit = 8, -- Do not follow if entry is further away than x lines
+          follow_slow = true, -- Only follow on CursorHold
+          auto_open = true, -- Automatically open list on QuickFixCmdPost
+          auto_resize = true, -- Auto resize and shrink location list if less than `max_height`
+          max_height = 8, -- Maximum height of location/quickfix list
+          min_height = 5, -- Minimum height of location/quickfix list
+          wide = false, -- Open list at the very bottom of the screen, stretching the whole width.
+          number = false, -- Show line numbers in list
+          relativenumber = false, -- Show relative line numbers in list
+          unfocus_close = false, -- Close list when window loses focus
+          focus_open = false, -- Auto open list on window focus if it contains items
+        },
+        close_other = false, -- Close location list when quickfix list opens
+        pretty = true, -- "Pretty print quickfix lists"
+      })
+    end,
+  }, ]]
+
   -- alternative UI for diagnostics / quickfix / loclist
   -- I prefer using builtin vim.diagnostic.setloclist
   --[[ {
@@ -217,7 +271,18 @@ return {
   -- zoom in/out of a window
   -- this plugin accounts for command window and doesn't use sessions
   -- overrides <C-w>o (originally does an :only)
-  { 'troydm/zoomwintab.vim' },
+  {
+    'troydm/zoomwintab.vim',
+    keys = {
+      '<C-w>o',
+      '<C-w><C-o>',
+    },
+    cmd = {
+      'ZoomWinTabIn',
+      'ZoomWinTabOut',
+      'ZoomWinTabToggle',
+    },
+  },
 
   -- resize window to selection, or split new window with selection size
   {
@@ -393,21 +458,15 @@ return {
   -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
   -- =========================================================================
 
-  {
-    'folke/neodev.nvim',
-    config = true,
-  },
 
   {
     'neovim/nvim-lspconfig',
+    event = "BufReadPre",
     dependencies = {
-      "b0o/schemastore.nvim",
-      'folke/neodev.nvim',
-      "hrsh7th/cmp-nvim-lsp",
+      { 'folke/neodev.nvim', config = true },
       "jose-elias-alvarez/typescript.nvim",
       "mason.nvim",
       'weilbith/nvim-code-action-menu',
-      "williamboman/mason-lspconfig.nvim",
     }
   },
 
@@ -419,6 +478,11 @@ return {
 
   {
     "williamboman/mason-lspconfig.nvim",
+    dependencies = {
+      "b0o/schemastore.nvim", -- wait for schemastore for jsonls
+      "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
+      'neovim/nvim-lspconfig', -- wait for lspconfig, which waits for neodev
+    },
     config = function()
       -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
       local lsps = {
