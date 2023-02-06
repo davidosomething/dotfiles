@@ -4,29 +4,18 @@ Neovim-specific config.
 
 > Don't use what you don't understand.
 
-## Features
+## Some features
 
 ![vim screenshot][screenshot]
 > Terminal Neovim
 
-- Custom statusline with minimal junk, showing short directory
-- FZF for Most Recently Used files and fuzzy file finder
-- coc.nvim for language server and misc utilities
-- Neomake for non-language server makers/linters
-- Lazy loaded plugins and keybindings -- a brand new Vim instance opens in
-  <200ms (without plugins Vim takes around 100ms)
-- Lots more but you shouldn't use any of it unless you know what you're doing.
+- Configured in lua. Using built-in LSP, diagnostic.
+- Plugins installed via [folke/lazy.nvim](https://github.com/folke/lazy.nvim)
+- Language servers managed via [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim)
+- Custom statusline with minimal junk, showing short directory (lua conversion WIP)
+- FZF for Most Recently Used files and fuzzy file finder (lua conversion WIP)
 
-## Installation
-
-`vim-plug` plugins will be installed into `$XDG_DATA_HOME/vim/vendor`! Make
-sure you have XDG environment variables set up.
-
-Best used with rest of dotfiles. `coc/extensions/dot.npmrc` will enforce using
-the main npmjs package registry. Commands in `.vimrc` will auto-install
-plugins if curl is available.
-
-### Python Settings
+### Python settings
 
 See [bootstrap/pyenv] for a scripted version of this
 
@@ -35,19 +24,8 @@ See [bootstrap/pyenv] for a scripted version of this
 - Activate the virtualenv `pyenv activate neovim3`
 - `python -m pip install pynvim` in the virtualenv
 - You can now switch back to whatever python (`pyenv deactivate`) you want,
-  `init.vim` for Neovim startup is already configured to find the `neovim3`
-  virtualenv.
-
-Finally
-
-- `:UpdateRemotePlugins` if installing/upgrading python-based plugins
-- `:checkhealth` to see if the python3 setup and plugins are working.
-
-### JavaScript Settings
-
-- Using `fnm` or `nvm` install and use a node.
-- When installing/updating plugins, [vim-plug] will automatically install the
-  associated dependencies.
+  `lua/dko/providers.lua` for Neovim startup is already configured to find the
+  `neovim3` virtualenv.
 
 ### Arch Linux
 
@@ -56,18 +34,9 @@ Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux
 
 ## Usage
 
-### Paths
-
-### Plugin settings
-
-Plugins settings are in `plugin/` and `after/*` as appropriate. There
-is generally a wrapper around them that checks for
-`dkoplug#IsLoaded('plugin-name')`.
-
 #### Super-non-standard keys
 
 - `<C-f>` -- Expand snippet. I use `<C-u>`/`<C-d>` to jump pages instead.
-- `gs` no longer sleeps. It's an operator prefix for vim-operator-surround.
 
 |      Key | Desc                                                    |
 | -------- | :------------------------------------------------------ |
@@ -82,9 +51,7 @@ is generally a wrapper around them that checks for
 | `<A-r>`  | :FZFRelevant - custom, dirty/new files vs git master |
 | `<A-t>`  | :FZFTests - custom find test files near current path |
 | `<A-v>`  | :FZFVim - ~/.config/nvim |
-|    `\`   | UI - :OverCommandLine |
-
-See `plugin/mappings.vim` (and other `plugin/*` files) for other mappings.
+| `<BS>`   | Switch to alternate file |
 
 ### Junk defaults and unmapped keys
 
@@ -94,16 +61,13 @@ Plan to remap these at some point
 - `n <C-f>` -- forward one screen (page)
 - `n zh/l`  -- useless wrap mode scroll
 
-## My Vim conventions
+## Conventions
 
-Adhere to [vint](https://github.com/Kuniwak/vint) and
-[vim-vimlint](https://github.com/syngan/vim-vimlint) linting rules.
-
-Always try to keep as much in the main runtime as possible, using `after/`
-sparingly (typically for `setlocal` ftplugin settings).
-
-### VimL Coding
-
+- Prefer lua where possible.
+- Adhere to [vint](https://github.com/Kuniwak/vint) and
+  [vim-vimlint](https://github.com/syngan/vim-vimlint) linting rules.
+- Always try to keep as much in the main runtime as possible, using `after/`
+  sparingly (typically for `setlocal` ftplugin settings).
 - Include `&cpoptions` guard if there are mappings
 - Use `<special>` if the mapping key is special (irrespective of `&cpoptions`)
 - Use `<A-` instead of `<M-` for alt/meta mappings
@@ -115,8 +79,6 @@ sparingly (typically for `setlocal` ftplugin settings).
 - `s:variable_name` - snake_case for script-local variables
 - `g:dko#variable_name` - prefixed autoload-provided global variable
 - `dkoautocommandgroup` - lowercasealphanumer1cnospaces
-- Include `dkoplug#Exists()` or `dkoplug#IsLoaded()` checks if
-  relying on plugins
 - `<Plug>(DKOMyPlugMapping)` - Parentheses around `<Plug>` mapping names
 - The `augroup` for `mine/` plugins should be `plugin-pluginname`
 - The `augroup` for plugin settings should be `dkopluginname`
@@ -125,4 +87,3 @@ sparingly (typically for `setlocal` ftplugin settings).
 ----
 
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/d759d42f59b4f2be66aa6957bfd595e90096e223/meta/vim-potatonuc.png
-[vim-plug]: https://github.com/junegunn/vim-plug
