@@ -13,10 +13,6 @@ let &l:makeprg = 'cd ' . dko#project#GetRoot() . ' && npx eslint'
 " .js is added by vim-jsx-improve
 setlocal suffixesadd+=.jsx,.ts,.tsx,.vue,.json
 
-if dkoplug#IsLoaded('coc.nvim')
-  nmap <silent> <Leader>pd :<C-u>CocCommand docthis.documentThis<CR>
-endif
-
 if !dko#PrettierSpace()
   call dko#TwoSpace()
 endif

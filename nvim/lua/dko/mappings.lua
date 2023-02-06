@@ -1,9 +1,5 @@
 local map = vim.keymap.set
 
-map({ 'i', 'n' }, '<F1>', '<NOP>', {
-  desc = 'Disable help shortcut key',
-})
-
 -- ===========================================================================
 -- Window / Buffer manip
 -- ===========================================================================
@@ -25,22 +21,6 @@ map('n', '<S-Left>', '<C-w><', resizeOpts)
 map('n', '<S-Right>', '<C-w>>', resizeOpts)
 
 -- ===========================================================================
--- Movement
--- ===========================================================================
-
-map('', 'H', '^', {
-  desc = 'Change H to alias ^',
-})
-map('', 'L', 'g_', {
-  desc = 'Change L to alias g_',
-})
-
--- https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump#comment91750564_4257175
-map('n', '*', 'm`<Cmd>keepjumps normal! *``<CR>', {
-  desc = "Don't jump on first * -- simpler vim-asterisk",
-})
-
--- ===========================================================================
 -- Switch mode
 -- ===========================================================================
 
@@ -55,8 +35,86 @@ map({ 'c', 'i' }, 'jj', '<Esc>', {
 })
 
 -- ===========================================================================
--- Editing buffer contents
+-- Visual mode tweaks
 -- ===========================================================================
+
+local visualArrowOpts = {
+  desc = "Visual move by display lines"
+}
+map('v', '<Down>', 'gj', visualArrowOpts)
+map('v', '<Up>', 'gk', visualArrowOpts)
+
+-- ===========================================================================
+-- cd shortcuts
+-- ===========================================================================
+
+map('n', '<Leader>cd', '<Cmd>cd! %:h<CR>', {
+  desc = "cd to current buffer path",
+})
+
+map('n', '<Leader>..', '<Cmd>cd! ..<CR>', {
+  desc = "cd up a level",
+})
+
+map('n', '<Leader>cr',
+  function() vim.fn.chdir(vim.fn['dko#project#GetRoot']()) end,
+  { desc = "cd to current buffer's git root" }
+)
+
+-- ===========================================================================
+-- Buffer: Reading
+-- ===========================================================================
+
+map({ 'i', 'n' }, '<F1>', '<NOP>', {
+  desc = 'Disable help shortcut key',
+})
+
+map('n', '<F1>',
+  function()
+    local cexpr = vim.fn.expand('<cexpr>')
+    local fn
+    if string.find(cexpr, "vim.fn.") then
+      fn = cexpr:gsub("vim%.fn%.(.-)%(.*$", "%1")
+    elseif string.find(cexpr, "vim.cmd.") then
+      fn = cexpr:gsub("vim%.cmd%.(.-)%(.*$", "%1")
+    else
+      fn = 'luaref-' .. cexpr:gsub("(.*)%(.*$","%1")
+    end
+    if fn ~= nil then
+      print('Looking up ' .. fn)
+      vim.cmd.help(fn)
+    end
+  end,
+  { desc = "Show vim help for <cexpr>" }
+)
+
+-- ===========================================================================
+-- Buffer: Movement
+-- ===========================================================================
+
+map('', 'H', '^', {
+  desc = 'Change H to alias ^',
+})
+map('', 'L', 'g_', {
+  desc = 'Change L to alias g_',
+})
+
+-- https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump#comment91750564_4257175
+map('n', '*', 'm`<Cmd>keepjumps normal! *``<CR>', {
+  desc = "Don't jump on first * -- simpler vim-asterisk",
+})
+
+
+-- ===========================================================================
+-- Buffer: Edit contents
+-- ===========================================================================
+
+local visualTabOpts = {
+  desc = "<Tab> indents selected lines in Visual",
+  remap = true,
+}
+map('v', '<Tab>', '>', visualTabOpts)
+map('v', '<S-Tab>', '<', visualTabOpts)
 
 map('n', '<Leader>q', '@q', {
   desc = "Quickly apply macro q",
@@ -86,36 +144,3 @@ map('x', '<Leader>s', '<Cmd>sort<CR>', {
   desc = "Sort selection",
 })
 
--- ===========================================================================
--- Visual mode tweaks
--- ===========================================================================
-
-local visualArrowOpts = {
-  desc = "Visual move by display lines"
-}
-map('v', '<Down>', 'gj', visualArrowOpts)
-map('v', '<Up>', 'gk', visualArrowOpts)
-
-local visualTabOpts = {
-  desc = "<Tab> indents lines in Visual",
-  remap = true,
-}
-map('v', '<Tab>', '>', visualTabOpts)
-map('v', '<S-Tab>', '<', visualTabOpts)
-
--- ===========================================================================
--- cd shortcuts
--- ===========================================================================
-
-map('n', '<Leader>cd', '<Cmd>cd! %:h<CR>', {
-  desc = "cd to current buffer path",
-})
-
-map('n', '<Leader>..', '<Cmd>cd! ..<CR>', {
-  desc = "cd up a level",
-})
-
-map('n', '<Leader>cr',
-  function() vim.fn.chdir(vim.fn['dko#project#GetRoot']()) end,
-  { desc = "cd to current buffer's git root" }
-)

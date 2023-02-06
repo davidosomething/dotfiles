@@ -11,8 +11,4 @@ function! dko#neomake#css#Setup() abort
         \     'npx': 'stylelint',
         \     'cwd': dko#project#GetRoot(),
         \   }))
-
-  if dkoplug#IsLoaded('coc.nvim') && expand('%:t') =~# '.module.css'
-    let b:dko_is_coc = 1
-  endif
 endfunction

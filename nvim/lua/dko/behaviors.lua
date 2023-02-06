@@ -34,20 +34,6 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufWritePost' }, {
   group = projectGroup,
 })
 
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'CocNvimInit',
-  desc = 'Auto lint buffers using coc.nvim and other plugins',
-  callback = 'dko#lint#SetupCoc',
-  group = projectGroup,
-})
-
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'neomake',
-  desc = 'Auto lint buffers using neomake and other plugins',
-  callback = 'dko#lint#Setup',
-  group = projectGroup,
-})
-
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = '*/colors/*.vim',
   desc = 'Auto-reload the colorscheme if it was edited in vim',
