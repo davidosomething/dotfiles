@@ -13,12 +13,6 @@ vim.api.nvim_create_autocmd('VimResized', {
   group = windowGroup,
 })
 
-vim.api.nvim_create_autocmd('BufWinEnter', {
-  desc = 'Restore last cursor position when opening file',
-  callback = 'dko#RestorePosition',
-  group = windowGroup,
-})
-
 vim.api.nvim_create_autocmd('QuitPre' , {
   desc = 'Auto close corresponding loclist when quitting a window',
   command = [[ if &filetype != 'qf' | silent! lclose | endif ]],

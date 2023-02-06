@@ -411,6 +411,13 @@ return {
   -- Editing
   -- =========================================================================
 
+  {
+    'ethanholz/nvim-lastplace',
+    config = function()
+      require('nvim-lastplace').setup({})
+    end,
+  },
+
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     'nvim-treesitter/nvim-treesitter',
