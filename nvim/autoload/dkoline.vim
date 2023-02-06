@@ -26,22 +26,12 @@ function! dkoline#GetTabline() abort
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
   let l:contents .= '%#StatusLine# %= '
 
-  if dkoplug#IsLoaded('coc.nvim')
-    let l:contents .= dkoline#Format(
-          \ dkoline#CocStatus(l:view),
-          \ '%(%#dkoStatusValue# ',
-          \ ' %)'
-          \)
-  endif
-
   let l:contents .= dkoline#Format(
         \ ' ' . get(l:view, 'cwd', '~') . ' ',
         \ '%#dkoStatusKey# ʟᴄᴅ %(%#dkoStatusValue#%<',
         \ '%)')
 
-  let l:contents .= !empty(get(g:, 'coc_git_status', ''))
-        \ ? '%#dkoStatusKey# ' . g:coc_git_status . ' '
-        \ : dkoline#Format(
+  let l:contents .= dkoline#Format(
         \     dkoline#GitBranch(l:view),
         \     '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
         \     '%)'
@@ -97,16 +87,15 @@ function! dkoline#GetStatusline(winnr) abort
 
   let l:contents .= '%*%='
 
-  " Blame
-  " let l:contents .= dkoline#Format(
-  "      \ ' ' . get(b:, 'coc_git_blame', '') . ' ',
-  "      \ '%(%#dkoStatusValue#%<',
-  "      \ '%)')
-
   " Linting
-  if dkoplug#IsLoaded('coc.nvim')
-    let l:contents .= dkoline#CocDiagnostics(l:view)
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    let l:contents .= dkoline#Format(
+          \ luaeval("require('lsp-status').status()"),
+          \ '%(%#dkoStatusValue# ',
+          \ ' %)'
+          \)
   endif
+
   if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
     let l:contents .= dkoline#Neomake(l:view)
   endif
@@ -227,30 +216,6 @@ function! dkoline#GitBranch(view) abort
         \ : ' ' . getbufvar(a:view.bufnr, 'dko_branch') . ' '
 endfunction
 
-" @param {Dict} view
-" @return {String}
-function! dkoline#CocDiagnostics(view) abort
-  if dko#IsNonFile(a:view.bufnr) | return '' | endif
-  let l:d = getbufvar(a:view.bufnr, 'coc_diagnostic_info')
-  return empty(l:d) ? '' :
-        \ dkoline#Format(
-        \   !l:d.error ? '' : ' ⚑' . l:d.error . ' ',
-        \   '%(%#dkoStatusError#', '%)') .
-        \ dkoline#Format(
-        \   !l:d.warning ? '' : ' ⚑' . l:d.warning . ' ',
-        \   '%(%#dkoStatusWarning#', '%)') .
-        \ dkoline#Format(
-        \   !l:d.information ? '' : ' ⚑' . l:d.information . ' ',
-        \   '%(%#dkoStatusInfo#', '%)') .
-        \ dkoline#Format(
-        \   !l:d.hint ? '' : ' ⚑' . l:d.hint . ' ',
-        \   '%(%#dkoStatusItem#', '%)')
-endfunction
-
-function! dkoline#CocStatus(view) abort
-  return trim(get(g:, 'coc_status', ''))
-endfunction
-
 " @return {string} job1,job2,job3
 function! dkoline#NeomakeJobs(bufnr) abort
   if !a:bufnr | return '' | endif
@@ -329,7 +294,6 @@ function! dkoline#Init() abort
         \   'BufEnter *',
         \   'FileType *',
         \   'WinEnter *',
-        \   'User CocDiagnosticChange',
         \   'User NeomakeCountsChanged',
         \   'User NeomakeFinished',
         \ ]
@@ -342,7 +306,6 @@ function! dkoline#Init() abort
   call add(l:refresh_hooks, 'DirChanged *')
 
   let l:tab_refresh_hooks = [
-        \   'User CocStatusChange',
         \ ]
   call add(l:tab_refresh_hooks, 'DirChanged *')
 

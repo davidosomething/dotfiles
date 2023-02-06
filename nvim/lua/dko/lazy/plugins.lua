@@ -172,8 +172,14 @@ return {
   {
     'https://gitlab.com/yorickpeterse/nvim-pqf.git',
     config = function()
+      local SIGNS = require('dko.diagnostic-lsp').SIGNS
       require('pqf').setup({
-        signs = { error = "", warning = "", hint = "", info = "" },
+        signs = {
+          error = SIGNS.Error,
+          warning = SIGNS.Warn,
+          hint = SIGNS.Hint,
+          info = SIGNS.Info,
+        },
         --show_multiple_lines = false,
       })
     end,
@@ -531,16 +537,36 @@ return {
   -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
   -- =========================================================================
 
-
   {
     'neovim/nvim-lspconfig',
     event = "BufReadPre",
     dependencies = {
       { 'folke/neodev.nvim', config = true },
       "jose-elias-alvarez/typescript.nvim",
-      "mason.nvim",
+      'nvim-lua/lsp-status.nvim',
       'weilbith/nvim-code-action-menu',
+      "williamboman/mason.nvim",
     }
+  },
+
+  {
+    'nvim-lua/lsp-status.nvim',
+    config = function()
+      local lsp_status = require('lsp-status')
+
+      local SIGNS = require('dko.diagnostic-lsp').SIGNS
+      lsp_status.config({
+        current_function = false,
+        indicator_errors = SIGNS.Error,
+        indicator_warnings = SIGNS.Warn,
+        indicator_info = SIGNS.Info,
+        indicator_hint = SIGNS.Hint,
+        indicator_ok = '😊',
+        status_symbol = '',
+      })
+
+      lsp_status.register_progress()
+    end,
   },
 
   {
@@ -555,6 +581,7 @@ return {
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
       'neovim/nvim-lspconfig', -- wait for lspconfig, which waits for neodev
+      'nvim-lua/lsp-status.nvim',
     },
     config = function()
       -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
@@ -582,27 +609,27 @@ return {
         automatic_installation = true,
       })
 
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local defaultOptions = {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        on_attach = require('lsp-status').on_attach,
+      }
 
       -- Note that instead of on_attach for each server setup,
       -- diagnostic-lsp.lua has an autocmd defined
       require('mason-lspconfig').setup_handlers({
         function(server)
-          require("lspconfig")[server].setup({
-            capabilities = capabilities,
-          })
+          require("lspconfig")[server].setup(defaultOptions)
         end,
 
         ['jsonls'] = function()
-          require('lspconfig').jsonls.setup({
-            capabilities = capabilities,
+          require('lspconfig').jsonls.setup(vim.tbl_extend('force', defaultOptions, {
             settings = {
               json = {
                 schemas = require('schemastore').json.schemas(),
                 validate = { enable = true },
               },
             },
-          })
+          }))
         end,
 
         -- neodev
@@ -645,11 +672,10 @@ return {
   {
     "jose-elias-alvarez/typescript.nvim",
     config = function()
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
       -- This will do lspconfig.tsserver.setup()
       require("typescript").setup({
-        capabilities = capabilities,
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        on_attach = require('lsp-status').on_attach,
       })
     end,
   },

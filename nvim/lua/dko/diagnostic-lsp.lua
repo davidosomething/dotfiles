@@ -1,3 +1,5 @@
+local M = {}
+
 local map = vim.keymap.set
 
 -- ===========================================================================
@@ -6,15 +8,15 @@ local map = vim.keymap.set
 
 -- Symbols in signs column
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
-local SIGNS = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-local SEVERITY_TO_SYMBOL = {}
-for type, icon in pairs(SIGNS) do
+M.SIGNS = { Error = "", Warn = "", Hint = "", Info = "" }
+M.SEVERITY_TO_SYMBOL = {}
+for type, icon in pairs(M.SIGNS) do
   local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  vim.fn.sign_define(hl, { text = icon .. ' ', texthl = hl, numhl = hl })
 
   local key = string.upper(type)
   local code = vim.diagnostic.severity[key]
-  SEVERITY_TO_SYMBOL[code] = icon
+  M.SEVERITY_TO_SYMBOL[code] = icon
 end
 
 -- how should diagnostics show up?
@@ -39,7 +41,7 @@ local function floatFormat(diagnostic)
   }
   ]]
 
-  local symbol = SEVERITY_TO_SYMBOL[diagnostic.severity] or '- '
+  local symbol = M.SEVERITY_TO_SYMBOL[diagnostic.severity] or '-'
 
   local source = diagnostic.source
   -- strip period at end
@@ -48,7 +50,7 @@ local function floatFormat(diagnostic)
   end
   local sourceText = '[' .. source .. ']'
 
-  return ' ' .. symbol .. diagnostic.message .. ' ' .. sourceText .. ' '
+  return ' ' .. symbol .. ' ' .. diagnostic.message .. ' ' .. sourceText .. ' '
 end
 vim.diagnostic.config({
   -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
@@ -212,3 +214,5 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts.border = opts.border or borderOpts.border
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
+
+return M
