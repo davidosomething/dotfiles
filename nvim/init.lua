@@ -11,6 +11,7 @@ require('dko.builtin-syntax')
 require('dko.behaviors')
 require('dko.diagnostic-lsp')
 require('dko.terminal')
+require('dko.mappings')
 
 require('dko.lazy.install')
 local plugins = require('dko.lazy.plugins')
