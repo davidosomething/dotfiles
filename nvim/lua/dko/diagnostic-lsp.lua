@@ -69,7 +69,8 @@ vim.api.nvim_create_autocmd('DiagnosticChanged', {
 })
 
 -- updatetime option is the delay until it opens
-vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+-- disable auto show float since it conflicts with lsp signatures
+--[[ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
   desc = 'Show floating diagnostic under cursor',
   callback = function()
     vim.diagnostic.open_float({
@@ -78,16 +79,30 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
     })
   end,
   group = diagnosticGroup
-})
+}) ]]
 
--- mappings
-local opts = { noremap = true, silent = true }
+-- ===========================================================================
+-- Diagnostic mappings
+-- ===========================================================================
+
+local gotoOpts = {
+  noremap = true,
+  silent = true,
+  desc = 'Go to diagnostic and open float'
+}
+local floatOpts = {
+  focus = false,
+  scope = 'cursor',
+}
 vim.keymap.set('n', '[d', function()
-  vim.diagnostic.goto_prev({ float = false })
-end, opts)
+  vim.diagnostic.goto_prev({ float = floatOpts })
+end, gotoOpts)
 vim.keymap.set('n', ']d', function()
-  vim.diagnostic.goto_next({ float = false })
-end, opts)
+  vim.diagnostic.goto_next({ float = floatOpts })
+end, gotoOpts)
+vim.keymap.set('n', '<Leader>d', function()
+  vim.diagnostic.open_float(floatOpts)
+end, { desc = "Open diagnostic float at cursor" })
 
 -- ===========================================================================
 -- LSP configuration
