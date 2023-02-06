@@ -22,7 +22,9 @@ return {
       vim.g.bufferize_command = 'tabnew'
     end,
     config = function()
-      vim.cmd([[ command! Bmessages Bufferize messages ]])
+      vim.api.nvim_create_user_command('Bmessages', 'Bufferize messages', {
+        desc = "Open messages in new buffer",
+      })
     end,
   }, 
 
@@ -121,7 +123,9 @@ return {
     dir = vim.g.vdotdir .. '/mine/vim-movemode',
     lazy = false, -- I use the autoload fns
     config = function()
-      vim.keymap.set('n', '<Leader>mm', '<Cmd>call movemode#toggle()<CR>')
+      vim.keymap.set('n', '<Leader>mm', '<Cmd>call movemode#toggle()<CR>', {
+        desc = 'Toggle move mode',
+      })
     end
   },
 
@@ -327,22 +331,27 @@ return {
             if vim.wo.diff then return ']c' end
             vim.schedule(function() gs.next_hunk() end)
             return '<Ignore>'
-          end, {expr=true})
+          end, { expr = true, desc = 'Next hunk' })
 
           map('n', '[c', function()
             if vim.wo.diff then return '[c' end
             vim.schedule(function() gs.prev_hunk() end)
             return '<Ignore>'
-          end, {expr=true})
+          end, { expr = true, desc = 'Prev hunk' })
 
           -- Actions
-          map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-          map('n', 'gb', function()
-            gs.blame_line({ full=true })
-          end)
+          map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>', {
+            desc = 'Reset hunk',
+          })
+          map('n', 'gb',
+            function() gs.blame_line({ full = true }) end,
+            { desc = 'Show blames' }
+          )
 
           -- Text object
-          map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>', {
+            desc = 'Select hunk',
+          })
         end
       })
     end,
