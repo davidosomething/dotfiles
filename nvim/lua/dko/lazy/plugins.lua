@@ -42,18 +42,6 @@ return {
     end,
   }, 
 
-  {
-    'nvim-treesitter/playground',
-    config = function()
-      vim.keymap.set('n', 'ss', '<Cmd>TSHighlightCapturesUnderCursor<CR>', {
-        desc = 'Show treesitter highlight group under cursor',
-      })
-      vim.keymap.set('n', 'sn', '<Cmd>TSNodeUnderCursor<CR>', {
-        desc = 'Show treesitter node under cursor',
-      })
-    end,
-  },
-
   -- =========================================================================
   -- fixes
   -- =========================================================================
@@ -476,7 +464,6 @@ return {
     dependencies = {
       'andymass/vim-matchup',
       'JoosepAlviste/nvim-ts-context-commentstring',
-      'nvim-treesitter/playground',
       'Wansmer/treesj',
     },
     build = ":TSUpdate",
@@ -486,8 +473,6 @@ return {
         context_commentstring = { enable = true, enable_autocmd = false },
         -- 'andymass/vim-matchup',
         matchup = { enable = true },
-        -- 'nvim-treesitter/playground'
-        playground = { enable = true },
 
         highlight = { enable = true },
         indent = { enable = true },
@@ -509,6 +494,20 @@ return {
           "yaml",
         },
       })
+
+      vim.keymap.set('n', 'sy',
+        function ()
+          local captures = vim.treesitter.get_captures_at_cursor()
+          local parsedCaptures = {}
+          for _, capture in ipairs(captures) do
+            table.insert(parsedCaptures, '@' .. capture)
+          end
+          local resultString = vim.inspect(parsedCaptures)
+          vim.fn.setreg('+', resultString .. '\n')
+          vim.notify('Copied ' .. resultString)
+        end,
+        { desc = 'Copy treesitter captures under cursor' }
+      )
     end,
   },
 
