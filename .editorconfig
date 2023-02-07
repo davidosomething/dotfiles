@@ -39,8 +39,5 @@ call_arg_parentheses = keep
 indent_size = 4
 insert_final_newline = true
 
-[*.{bash,sh,zsh}]
-max_line_length = 78
-
 [*.py]
 indent_size = 4
