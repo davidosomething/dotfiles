@@ -88,12 +88,15 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%*%='
 
   " Linting
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    let l:contents .= dkoline#Format(
-          \ luaeval("require('lsp-status').status()"),
-          \ '%(%#dkoStatusValue# ',
-          \ ' %)'
-          \)
+  " @TODO fix - only show on active buffer
+  if l:view.winnr == winnr()
+    if luaeval('#vim.lsp.buf_get_clients() > 0')
+      let l:contents .= dkoline#Format(
+            \ luaeval("require('lsp-status').status()"),
+            \ '%(%#dkoStatusValue# ',
+            \ ' %)'
+            \)
+    endif
   endif
 
   if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
