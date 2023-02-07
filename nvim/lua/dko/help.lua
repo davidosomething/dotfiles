@@ -20,6 +20,8 @@ return function()
     fn = cexpr:gsub("vim%.fn%.(.-)%(.*$", "%1")
   elseif string.find(cexpr, "vim.cmd.") then
     fn = cexpr:gsub("vim%.cmd%.(.-)%(.*$", "%1")
+  elseif string.find(cexpr, "vim%.[api|lsp]") then
+    fn = cexpr:gsub("(vim%..-)%(.*$", "%1")
   else
     fn = 'luaref-' .. cexpr:gsub("(.*)%(.*$","%1")
   end

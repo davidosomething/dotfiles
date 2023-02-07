@@ -156,10 +156,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
       args.buf,
       'LspFormat',
       function()
-        vim.lsp.buf.formatting_sync()
+        vim.lsp.buf.format({ async = false })
       end,
       { desc = "Synchronously format buffer using LSP" }
     )
+    lspmap('n', '<A-=>', '<Cmd>LspFormat<CR>', { desc = 'LSP: Format buffer' })
   end,
   group = vim.api.nvim_create_augroup('dkolsp', { clear = true }),
 })
