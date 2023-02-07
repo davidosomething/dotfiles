@@ -8,5 +8,4 @@ npmrc
 package-json-validator
 prettier
 prettier-eslint-cli
-remark-cli
 write-good

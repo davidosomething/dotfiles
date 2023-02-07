@@ -11,9 +11,21 @@ Neovim-specific config.
 
 - Configured in lua. Using built-in LSP, diagnostic.
 - Plugins installed via [folke/lazy.nvim](https://github.com/folke/lazy.nvim)
-- Language servers managed via [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim)
+- Language servers managed via
+  [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim)
+- Additional formatters and linters provided as pseudo-LSPs using
+  [jose-elias-alvarez/null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim)
 - Custom statusline with minimal junk, showing short directory (lua conversion WIP)
 - FZF for Most Recently Used files and fuzzy file finder (lua conversion WIP)
+
+### Installation
+
+1. lazy.nvim will auto-install itself
+1. mason.nvim is configured to auto-install some linters
+1. mason-lspconfig.nvim is configured to tell mason.nvim to auto-install some
+    LSPs
+1. run `:checkhealth` to see if you are missing anything
+    - null-ls linters can be installed using `:Mason`
 
 ### Python settings
 
@@ -34,7 +46,7 @@ Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux
 
 ## Usage
 
-#### Super-non-standard keys
+### Super-non-standard keys
 
 - `<C-f>` -- Expand snippet. I use `<C-u>`/`<C-d>` to jump pages instead.
 

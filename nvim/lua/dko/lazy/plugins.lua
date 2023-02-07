@@ -65,6 +65,7 @@ return {
   -- polyfills
   -- =========================================================================
 
+  -- apply editorconfig settings to buffer
   -- @TODO follow https://github.com/neovim/neovim/issues/21648
   {
     'gpanders/editorconfig.nvim',
@@ -150,7 +151,15 @@ return {
       require("indent_blankline").setup({
         -- char = "▏",
         char = "│",
-        filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+        filetype_exclude = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+        },
         show_trailing_blankline_indent = false,
         show_current_context = false,
         use_treesitter = true,
@@ -536,6 +545,29 @@ return {
   -- =========================================================================
 
   {
+    'jose-elias-alvarez/null-ls.nvim',
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      local null_ls = require("null-ls")
+      null_ls.setup({
+        border = 'rounded',
+        sources = {
+          null_ls.builtins.code_actions.shellcheck,
+          null_ls.builtins.diagnostics.editorconfig_checker,
+          null_ls.builtins.diagnostics.markdownlint,
+          null_ls.builtins.diagnostics.qmllint,
+          null_ls.builtins.diagnostics.shellcheck,
+          null_ls.builtins.formatting.qmlformat,
+          null_ls.builtins.formatting.markdownlint,
+          null_ls.builtins.formatting.shfmt,
+        },
+      })
+    end,
+  },
+
+  {
     'neovim/nvim-lspconfig',
     event = "BufReadPre",
     dependencies = {
@@ -570,7 +602,29 @@ return {
   {
     'williamboman/mason.nvim',
     cmd = "Mason",
-    config = true,
+    opts = {
+      ui = {
+        border = 'rounded',
+      },
+    },
+    config = function(_, opts)
+      require("mason").setup(opts)
+
+      local extras = {
+        'editorconfig-checker',
+        'markdownlint',
+      }
+      -- Auto-install some linters for null-ls
+      -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L157-L163
+
+      local mr = require("mason-registry")
+      for _, tool in ipairs(extras) do
+        local p = mr.get_package(tool)
+        if not p:is_installed() then
+          p:install()
+        end
+      end
+    end,
   },
 
   {
@@ -592,7 +646,6 @@ return {
         "eslint",
         "html",
         "jsonls",
-        "remark_ls",
         "sumneko_lua",
         "tailwindcss",
         "tsserver",
