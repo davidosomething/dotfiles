@@ -29,6 +29,11 @@ insert_final_newline = true
 [*.{js,json,jsx,ts,tsx}]
 insert_final_newline = true
 
+[*.lua]
+indent_style = space
+indent_size = 2
+call_arg_parentheses = keep
+
 # PHP http://make.wordpress.org/core/handbook/coding-standards/php/
 [*.{blade,php}]
 indent_size = 4
