@@ -1,3 +1,19 @@
+local function textobjMap(obj, char)
+  char = char or obj:sub(1, 1)
+  vim.keymap.set('o', 'a' .. char, '<Plug>(textobj-' .. obj .. '-a)', {
+    desc = 'Operator - around ' .. obj,
+  })
+  vim.keymap.set('x', 'a' .. char, '<Plug>(textobj-' .. obj .. '-a)', {
+    desc = 'Visual - around ' .. obj,
+  })
+  vim.keymap.set('o', 'i' .. char, '<Plug>(textobj-' .. obj .. '-i)', {
+    desc = 'Operator - inside ' .. obj,
+  })
+  vim.keymap.set('x', 'i' .. char, '<Plug>(textobj-' .. obj .. '-i)', {
+    desc = 'Visual - inside ' .. obj,
+  })
+end
+
 return {
   -- =========================================================================
   -- nvim dev
@@ -514,7 +530,7 @@ return {
     'echasnovski/mini.move',
     config = function()
       require('mini.move').setup()
-    end
+    end,
   },
 
   -- gcc / <Leader>gbc to comment with treesitter integration
@@ -556,6 +572,40 @@ return {
         max_join_length = 255,
       })
     end,
+  },
+
+  -- =========================================================================
+  -- Editing: textobj
+  -- =========================================================================
+
+  -- vim-sandwich provides a textobj!
+  -- sa/sr/sd operators and ib/ab textobjs
+  -- https://github.com/echasnovski/mini.surround -- no textobj
+  -- https://github.com/kylechui/nvim-surround -- no textobj
+  {
+    'machakann/vim-sandwich',
+  },
+
+  {
+    'kana/vim-textobj-indent',
+    dependencies = { 'kana/vim-textobj-user' },
+    config = function()
+      textobjMap('indent')
+      vim.keymap.set('n', '<Leader>s', 'vii:!sort<CR>', {
+        desc = "Auto select indent and sort",
+        remap = true, -- since ii is a mapping too
+      })
+    end,
+  },
+  {
+    'gilligan/textobj-lastpaste',
+    dependencies = { 'kana/vim-textobj-user' },
+    config = function() textobjMap('paste', 'P') end,
+  },
+  {
+    'mattn/vim-textobj-url',
+    dependencies = { 'kana/vim-textobj-user' },
+    config = function() textobjMap('url') end,
   },
 
   -- =========================================================================

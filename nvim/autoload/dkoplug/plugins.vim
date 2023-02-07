@@ -1,34 +1,3 @@
-  " ==========================================================================
-  " Editing keys
-  " ==========================================================================
-
-  " filetype custom [[ and ]] jumping
-  Plug 'arp242/jumpy.vim'
-
-  Plug 'bootleq/vim-cycle', { 'on': [ '<Plug>Cycle' ] }
-
-  " --------------------------------------------------------------------------
-  " Operators and Textobjs
-  " --------------------------------------------------------------------------
-
-  " sa/sr/sd operators and ib/ab textobjs
-  Plug 'machakann/vim-sandwich'
-
-  Plug 'kana/vim-operator-user'
-  " <Leader>c to toggle PascalCase/snak_e the pending operator
-  Plug 'tyru/operator-camelize.vim', { 'on': [ '<Plug>(operator-camelize' ] }
-
-  " Some textobjs are lazy loaded since they are ~4ms slow to load.
-  " See plugin/textobj.vim to see how they're mapped.
-  " -       Base textobj plugin
-  Plug 'kana/vim-textobj-user'
-  " - i     for indent level
-  Plug 'kana/vim-textobj-indent', { 'on': [ '<Plug>(textobj-indent' ] }
-  " - P     for last paste
-  Plug 'gilligan/textobj-lastpaste', { 'on': [ '<Plug>(textobj-lastpaste' ] }
-  " - u     for url
-  Plug 'mattn/vim-textobj-url', { 'on': [ '<Plug>(textobj-url' ] }
-
   " --------------------------------------------------------------------------
   " Snippet engine
   " --------------------------------------------------------------------------

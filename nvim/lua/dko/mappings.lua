@@ -138,12 +138,3 @@ map('n', '<Leader>ws',
   function() vim.fn['dko#whitespace#clean']() end,
   { desc = "Remove trailing whitespace from entire file", }
 )
-
--- https://bitbucket.org/sjl/dotfiles/src/2c4aba25376c6c5cb5d4610cf80109d99b610505/vim/vimrc?at=default#cl-288
-map('n', '<Leader>s', 'vip<Cmd>sort<CR>', {
-  desc = "Auto select paragraph (bounded by blank lines) and sort",
-})
-map('x', '<Leader>s', '<Cmd>sort<CR>', {
-  desc = "Sort selection",
-})
-
