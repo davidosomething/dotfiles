@@ -1,23 +1,4 @@
   " ==========================================================================
-  " Commands
-  " ==========================================================================
-
-  let g:neoformat_enabled_json = [ 'dkoprettier', 'jq' ]
-  let g:neoformat_enabled_java = [ 'uncrustify' ]
-  let g:neoformat_enabled_javascript = [ 'eslint_d', 'standard' ]
-  let g:neoformat_enabled_less = [ 'dkoprettier' ]
-  let g:neoformat_enabled_lua = [ 'luafmt', 'luaformatter', 'stylua' ]
-  let g:neoformat_enabled_markdown = []
-  let g:neoformat_enabled_python = [ 'autopep8', 'isort' ]
-  let g:neoformat_enabled_scss = [ 'dkoprettier' ]
-  Plug 'sbdchd/neoformat'
-  augroup dkoneoformat
-    autocmd! FileType
-        \ javascript,javascriptreact,typescript,typescriptreact
-        \ nmap <silent> <A-e> :<C-u>Neoformat eslint_d<CR>
-  augroup END
-
-  " ==========================================================================
   " Input, syntax, spacing
   " ==========================================================================
 
