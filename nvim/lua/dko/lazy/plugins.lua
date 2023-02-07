@@ -42,25 +42,16 @@ return {
     end,
   }, 
 
-  -- @TODO nvim 0.9 has :Inspect ?
   {
-    'cocopon/colorswatch.vim',
-    dependencies = {
-      'cocopon/inspecthi.vim',
-    },
-    lazy = true,
-  },
-  {
-    'cocopon/inspecthi.vim',
-    cmd = 'Inspecthi',
-    keys = {
-      {
-        'zs',
-        '<Cmd>Inspecthi<CR>',
-        desc = 'Show highlight groups under cursor',
-        silent = true,
-      }
-    },
+    'nvim-treesitter/playground',
+    config = function()
+      vim.keymap.set('n', 'ss', '<Cmd>TSHighlightCapturesUnderCursor<CR>', {
+        desc = 'Show treesitter highlight group under cursor',
+      })
+      vim.keymap.set('n', 'sn', '<Cmd>TSNodeUnderCursor<CR>', {
+        desc = 'Show treesitter node under cursor',
+      })
+    end,
   },
 
   -- =========================================================================
@@ -455,7 +446,7 @@ return {
   -- =========================================================================
 
   -- Add external modifications as new state in undofile
-  {
+  --[[ {
     'kevinhwang91/nvim-fundo',
     event = 'BufReadPost',
     dependencies = {
@@ -465,7 +456,7 @@ return {
     config = function()
       require('fundo').setup()
     end
-  },
+  },]] 
 
   -- Add file manip commands like Remove, Move, Rename, SudoWrite
   -- Do not lazy load, tracks buffers
@@ -485,6 +476,7 @@ return {
     dependencies = {
       'andymass/vim-matchup',
       'JoosepAlviste/nvim-ts-context-commentstring',
+      'nvim-treesitter/playground',
       'Wansmer/treesj',
     },
     build = ":TSUpdate",
@@ -494,6 +486,8 @@ return {
         context_commentstring = { enable = true, enable_autocmd = false },
         -- 'andymass/vim-matchup',
         matchup = { enable = true },
+        -- 'nvim-treesitter/playground'
+        playground = { enable = true },
 
         highlight = { enable = true },
         indent = { enable = true },
