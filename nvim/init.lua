@@ -18,9 +18,6 @@ require('dko.behaviors')
 require('dko.lazy.install')
 local plugins = require('dko.lazy.plugins')
 local opts = {
-  change_detection = {
-    enabled = false,
-  },
   ui = {
     border = 'rounded',
   },

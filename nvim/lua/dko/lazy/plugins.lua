@@ -159,6 +159,15 @@ return {
     end,
   },
 
+  {
+    'rcarriga/nvim-notify',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.notify = require("notify")
+    end,
+  },
+
   -- indent guides
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -478,10 +487,13 @@ return {
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
+        -- 'JoosepAlviste/nvim-ts-context-commentstring',
         context_commentstring = { enable = true, enable_autocmd = false },
+        -- 'andymass/vim-matchup',
+        matchup = { enable = true },
+
         highlight = { enable = true },
         indent = { enable = true },
-        matchup = { enable = true },
         ensure_installed = {
           "bash",
           "help",
@@ -870,6 +882,7 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lua',
+      --"roobert/tailwindcss-colorizer-cmp.nvim", -- @TODO formatter not chainable
       'onsails/lspkind.nvim',
     },
     config = function()
