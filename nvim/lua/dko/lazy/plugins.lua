@@ -394,7 +394,7 @@ return {
     'numtostr/FTerm.nvim',
     keys = {
       {
-        '<Leader>t',
+        '<A-i>',
         function()
           require('FTerm').toggle()
         end,
@@ -405,6 +405,7 @@ return {
       require('FTerm').setup({
         border = 'rounded',
       })
+      vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
     end,
   },
 
