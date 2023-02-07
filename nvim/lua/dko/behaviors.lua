@@ -11,7 +11,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local windowGroup = augroup('dkowindow')
 autocmd('VimResized', {
   desc = 'Automatically resize windows when resizing Vim',
-  command = 'wincmd =',
+  command = 'tabdo wincmd =',
   group = windowGroup,
 })
 
@@ -52,7 +52,20 @@ autocmd('BufWritePost', {
 local readingGroup = augroup('dkoreading')
 autocmd('BufEnter', {
   desc = 'Read only mode (un)mappings',
-  callback = 'dko#readonly#Unmap',
+  callback = function()
+    if vim.fn['dko#IsEditable']('%') == 1 or vim.tbl_contains({ 'vim-plug', 'dosini' }, vim.bo.filetype) then
+      return
+    end
+
+    local closebuf = function()
+      if vim.fn.winnr('$') > 1 then
+        vim.cmd.close()
+      else
+        vim.cmd.bprevious()
+      end
+    end
+    vim.keymap.set('n', 'q', closebuf, { buffer = true })
+  end,
   group = readingGroup,
 })
 
