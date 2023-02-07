@@ -1,5 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "eab2c83a0207369900e92783f56990808082eac2" },
+  "FTerm.nvim": { "branch": "master", "commit": "d1320892cc2ebab472935242d9d992a2c9570180" },
   "auto-cursorline.nvim": { "branch": "main", "commit": "5af3c4484525ae28dc3dea91a53337e10bbe0ac9" },
   "bufferize.vim": { "branch": "main", "commit": "013857c12340bc14e285727eaf7d0bfb9807c768" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },

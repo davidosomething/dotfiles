@@ -390,6 +390,24 @@ return {
     end,
   }, ]]
 
+  {
+    'numtostr/FTerm.nvim',
+    keys = {
+      {
+        '<Leader>t',
+        function()
+          require('FTerm').toggle()
+        end,
+        desc = 'Toggle FTerm',
+      },
+    },
+    config = function()
+      require('FTerm').setup({
+        border = 'rounded',
+      })
+    end,
+  },
+
   -- =========================================================================
   -- ui: fzf
   -- =========================================================================
@@ -434,6 +452,7 @@ return {
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     'nvim-treesitter/nvim-treesitter',
+    event = 'BufReadPost',
     dependencies = {
       'andymass/vim-matchup',
       'JoosepAlviste/nvim-ts-context-commentstring',
