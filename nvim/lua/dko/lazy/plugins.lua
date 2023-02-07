@@ -40,7 +40,7 @@ return {
         desc = "Open messages in new buffer",
       })
     end,
-  }, 
+  },
 
   -- =========================================================================
   -- fixes
@@ -138,7 +138,22 @@ return {
     priority = 1000,
     config = function()
       vim.notify = require("notify")
-      vim.notify.setup({ timeout = 2000 })
+      vim.notify.setup({ timeout = 3000 })
+
+      -- Show LSP messages via vim.notify (but only when using nvim-notify)
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
+        local lvl = ({ 'ERROR', 'WARN', 'INFO', 'DEBUG' })[result.type]
+        vim.notify(result.message, lvl, {
+          title = 'LSP | ' .. client.name,
+          timeout = 10000,
+          keep = function()
+            return lvl == 'ERROR' or lvl == 'WARN'
+          end,
+        })
+      end
+
     end,
   },
 
@@ -445,7 +460,7 @@ return {
     config = function()
       require('fundo').setup()
     end
-  },]] 
+  },]]
 
   -- Add file manip commands like Remove, Move, Rename, SudoWrite
   -- Do not lazy load, tracks buffers
@@ -658,6 +673,7 @@ return {
     event = "BufReadPre",
     dependencies = {
       { 'folke/neodev.nvim', config = true },
+      'j-hui/fidget.nvim',
       "jose-elias-alvarez/typescript.nvim",
       'nvim-lua/lsp-status.nvim',
       'weilbith/nvim-code-action-menu',
@@ -665,6 +681,13 @@ return {
     }
   },
 
+  -- LSP progress messages with virtual text in bottom right
+  {
+    'j-hui/fidget.nvim',
+    config = true,
+  },
+
+  -- Diagnostics in status (among other things I don't use)
   {
     'nvim-lua/lsp-status.nvim',
     config = function()
@@ -681,7 +704,8 @@ return {
         status_symbol = '',
       })
 
-      lsp_status.register_progress()
+      -- Using fidget.nvim instead
+      --lsp_status.register_progress()
     end,
   },
 

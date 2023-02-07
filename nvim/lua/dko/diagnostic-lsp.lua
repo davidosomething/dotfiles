@@ -2,10 +2,6 @@ local M = {}
 
 local map = vim.keymap.set
 
--- ===========================================================================
--- Diagnostic configuration
--- ===========================================================================
-
 -- Symbols in signs column
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
 M.SIGNS = { Error = "", Warn = "", Hint = "", Info = "" }
@@ -18,6 +14,10 @@ for type, icon in pairs(M.SIGNS) do
   local code = vim.diagnostic.severity[key]
   M.SEVERITY_TO_SYMBOL[code] = icon
 end
+
+-- ===========================================================================
+-- Diagnostic configuration
+-- ===========================================================================
 
 -- how should diagnostics show up?
 local function floatFormat(diagnostic)
@@ -60,6 +60,7 @@ vim.diagnostic.config({
     source = false,  -- hide it since my floatFormat will add it
     format = floatFormat, -- can customize more colors by using prefix/suffix instead
   },
+  update_in_insert = false, -- wait until insert leave to check diagnostics
 })
 
 
@@ -216,4 +217,7 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
+-- ===========================================================================
+
 return M
+
