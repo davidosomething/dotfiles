@@ -138,6 +138,7 @@ return {
     priority = 1000,
     config = function()
       vim.notify = require("notify")
+      vim.notify.setup({ timeout = 2000 })
     end,
   },
 
@@ -494,6 +495,13 @@ return {
           "yaml",
         },
       })
+
+      vim.keymap.set('n', 'ss',
+        function ()
+          vim.notify(vim.inspect(vim.treesitter.get_captures_at_cursor()))
+        end,
+        { desc = 'Copy treesitter captures under cursor' }
+      )
 
       vim.keymap.set('n', 'sy',
         function ()
