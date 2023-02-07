@@ -4,6 +4,7 @@
 vim.g.vdotdir = vim.fs.dirname(vim.env.MYVIMRC)
 vim.g.mapleader = ' '
 
+require('dko.external')
 require('dko.providers')
 require('dko.opt')
 require('dko.builtin-plugins')

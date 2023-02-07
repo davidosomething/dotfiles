@@ -42,9 +42,13 @@ main() {
   # use existing server
   # ==========================================================================
 
+  nvim \
+    --server "$__server" \
+    --remote-expr "execute('DKOExternal')"
+
   if [ -z "$first" ]; then
     #echo "no file given, surface existing server"
-    nvim --server "$__server" --remote-send '<C-\><C-N>:e<CR>'
+    nvim --server "$__server" --remote-send '<C-\><C-N><Cmd>e<CR>'
     return
   fi
 

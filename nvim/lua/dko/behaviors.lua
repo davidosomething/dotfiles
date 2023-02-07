@@ -17,7 +17,11 @@ autocmd('VimResized', {
 
 autocmd('QuitPre' , {
   desc = 'Auto close corresponding loclist when quitting a window',
-  command = [[ if &filetype != 'qf' | silent! lclose | endif ]],
+  callback = function()
+    if vim.bo.filetype ~= 'qf' then
+      vim.cmd('silent! lclose')
+    end
+  end,
   nested = true,
   group = windowGroup,
 })
