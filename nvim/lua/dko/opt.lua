@@ -26,6 +26,8 @@ else
   end
 end
 
+vim.o.undofile = true
+
 -- ===========================================================================
 -- File saving
 -- ===========================================================================
@@ -142,7 +144,7 @@ if vim.fn.exists('+splitkeep') == 1 then
   vim.o.splitkeep = 'screen'
 end
 
-vim.o.hidden = true -- remember undo after quitting
+vim.o.hidden = true
 
 -- reveal already opened files from the quickfix window instead of opening new
 -- buffers

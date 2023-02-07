@@ -98,12 +98,6 @@ return {
   },
 
   -- =========================================================================
-  -- utility
-  -- =========================================================================
-
-  { "nvim-lua/plenary.nvim" },
-
-  -- =========================================================================
   -- mine
   -- =========================================================================
 
@@ -457,16 +451,25 @@ return {
   },
 
   -- =========================================================================
-  -- File navigation
+  -- Editing
   -- =========================================================================
+
+  -- Add external modifications as new state in undofile
+  {
+    'kevinhwang91/nvim-fundo',
+    event = 'BufReadPost',
+    dependencies = {
+      'kevinhwang91/promise-async',
+    },
+    build = function() require('fundo').install() end,
+    config = function()
+      require('fundo').setup()
+    end
+  },
 
   -- Add file manip commands like Remove, Move, Rename, SudoWrite
   -- Do not lazy load, tracks buffers
   { 'tpope/vim-eunuch' },
-
-  -- =========================================================================
-  -- Editing
-  -- =========================================================================
 
   {
     'ethanholz/nvim-lastplace',
