@@ -1,11 +1,4 @@
   " ==========================================================================
-  " Input, syntax, spacing
-  " ==========================================================================
-
-  " Compatible with Neovim or Vim with this patch level
-  Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
-
-  " ==========================================================================
   " Editing keys
   " ==========================================================================
 
@@ -13,12 +6,6 @@
   Plug 'arp242/jumpy.vim'
 
   Plug 'bootleq/vim-cycle', { 'on': [ '<Plug>Cycle' ] }
-
-  "Plug 'tpope/vim-repeat'
-
-  " []-bindings -- buffer switch, lnext/prev, etc.
-  " My fork has a lot of removals like line movement and entities
-  Plug 'davidosomething/vim-unimpaired'
 
   " --------------------------------------------------------------------------
   " Operators and Textobjs
@@ -42,64 +29,12 @@
   " - u     for url
   Plug 'mattn/vim-textobj-url', { 'on': [ '<Plug>(textobj-url' ] }
 
-  " ==========================================================================
-  " Completion
-  " ==========================================================================
-
   " --------------------------------------------------------------------------
   " Snippet engine
-  " Now using coc-snippets
   " --------------------------------------------------------------------------
 
   " Provides some ultisnips snippets for use with neosnippet or coc-snippets
   Plug 'honza/vim-snippets', WithCompl()
-
-  " --------------------------------------------------------------------------
-  " Completion engine
-  " --------------------------------------------------------------------------
-
-  " https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
-  let g:coc_global_extensions = [
-        \  'coc-calc',
-        \  'coc-css',
-        \  'coc-cssmodules',
-        \  'coc-diagnostic',
-        \  'coc-docker',
-        \  'coc-docthis',
-        \  'coc-eslint',
-        \  'coc-git',
-        \  'coc-go',
-        \  'coc-html',
-        \  'coc-json',
-        \  'coc-markdownlint',
-        \  'coc-prettier',
-        \  'coc-pyright',
-        \  'coc-sh',
-        \  'coc-snippets',
-        \  'coc-solargraph',
-        \  'coc-sumneko-lua',
-        \  'coc-tsserver',
-        \  'coc-vimlsp',
-        \  'coc-yaml',
-        \  '@yaegassy/coc-tailwindcss3',
-        \]
-  " Not working
-  "      \  'coc-python',
-  "      \  'coc-java',
-  " Doesn't redraw in sync with edits
-  "\  'coc-highlight',
-  Plug 'neoclide/coc.nvim', WithCompl({ 'branch': 'release' })
-
-  " ==========================================================================
-  " Multiple languages
-  " ==========================================================================
-
-  " not configurable for coc
-  "Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
-  "lua vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
-
-  Plug 'suy/vim-context-commentstring'
-
 
   " ==========================================================================
   " Language: ansible config
