@@ -157,8 +157,6 @@
   " Language: JavaScript and derivatives, JSON
   " ==========================================================================
 
-  Plug g:dko#vim_dir . '/mine/vim-pj'
-
   " Order of these two matters
   "Plug 'elzr/vim-json'
   Plug 'neoclide/jsonc.vim'

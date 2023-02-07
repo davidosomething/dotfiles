@@ -126,6 +126,7 @@ function! s:GetFzfVimSource() abort
         \   'autoload',
         \   'colors',
         \   'ftplugin',
+        \   'lua',
         \   'mine',
         \   'plugin',
         \   'snippets',

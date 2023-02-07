@@ -99,10 +99,6 @@ function! dkoline#GetStatusline(winnr) abort
     endif
   endif
 
-  if dkoplug#IsLoaded('neomake') && exists('*neomake#GetJobs')
-    let l:contents .= dkoline#Neomake(l:view)
-  endif
-
   let l:contents .= dkoline#Format(
         \ dkoline#Ruler(),
         \ dkoline#ActiveColor(l:view, '%#dkoStatusItem#'))
@@ -219,31 +215,6 @@ function! dkoline#GitBranch(view) abort
         \ : ' ' . getbufvar(a:view.bufnr, 'dko_branch') . ' '
 endfunction
 
-" @return {string} job1,job2,job3
-function! dkoline#NeomakeJobs(bufnr) abort
-  if !a:bufnr | return '' | endif
-  let l:running_jobs = filter(copy(neomake#GetJobs()),
-        \ 'v:val.bufnr == ' . a:bufnr . ' && !get(v:val, "canceled", 0)')
-  if empty(l:running_jobs) | return | endif
-
-  return join(map(l:running_jobs, 'v:val.name'), ',')
-endfunction
-
-" @param {Dict} view
-" @return {String}
-function! dkoline#Neomake(view) abort
-  let l:result = neomake#statusline#get(a:view.bufnr, {
-        \   'format_running':         '%#dkoLineNeomakeRunning# ᴍ:'
-        \                             . dkoline#NeomakeJobs(a:view.bufnr) . ' ',
-        \   'format_loclist_ok':      '%#dkoStatusGood# ✓ ',
-        \   'format_loclist_unknown': '',
-        \   'format_loclist_type_E':  '%#dkoStatusError# ⚑{{count}} ',
-        \   'format_loclist_type_W':  '%#dkoStatusWarning# ⚑{{count}} ',
-        \   'format_loclist_type_I':  '%#dkoStatusInfo# ⚑{{count}} ',
-        \ })
-  return l:result
-endfunction
-
 " @return {String}
 function! dkoline#Ruler() abort
   return ' %5.(%c%) '
@@ -297,8 +268,6 @@ function! dkoline#Init() abort
         \   'BufEnter *',
         \   'FileType *',
         \   'WinEnter *',
-        \   'User NeomakeCountsChanged',
-        \   'User NeomakeFinished',
         \ ]
         " \   'SessionLoadPost',
         " \   'TabEnter',

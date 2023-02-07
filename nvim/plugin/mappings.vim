@@ -63,15 +63,6 @@ inoreabbrev kbddown <kbd>↓</kbd>
 
 command! Q q
 
-nnoremap  <silent><special>  <Leader>ecr
-      \ :<C-U>call dko#edit#EditClosest('README.md')<CR>
-
-nnoremap  <silent><special>  <Leader>epj
-      \ :<C-U>call dko#edit#EditClosest('package.json')<CR>
-
-nnoremap  <silent><special>  <Leader>evp
-      \ :<C-U>execute 'edit ' . g:vdotdir . '/autoload/dkoplug/plugins.vim'<CR>
-
 " ============================================================================
 " FZF
 " ============================================================================

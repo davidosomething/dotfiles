@@ -62,6 +62,25 @@ map('n', '<Leader>cr',
 )
 
 -- ===========================================================================
+-- :edit shortcuts
+-- ===========================================================================
+map('n', '<Leader>ecr', "<Cmd>call dko#edit#EditClosest('README.md')<CR>", {
+  desc = 'Edit closest README.md',
+})
+map('n', '<Leader>epj', "<Cmd>call dko#edit#EditClosest('package.json')<CR>", {
+  desc = 'Edit closest package.json',
+})
+map('n', '<Leader>evi', "<Cmd>edit " .. vim.g.vdotdir .. '/init.lua<CR>', {
+  desc = 'Edit init.lua'
+})
+map('n', '<Leader>evm', "<Cmd>edit " .. vim.g.vdotdir .. '/lua/dko/mappings.lua<CR>', {
+  desc = 'Edit mappings.lua'
+})
+map('n', '<Leader>evp', "<Cmd>edit " .. vim.g.vdotdir .. '/lua/dko/lazy/plugins.lua<CR>', {
+  desc = 'Edit plugins.lua'
+})
+
+-- ===========================================================================
 -- Buffer: Reading
 -- ===========================================================================
 
