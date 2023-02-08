@@ -288,7 +288,7 @@ return {
 
   {
     'NvChad/nvim-colorizer.lua',
-    event = 'FileType',
+    event = 'BufReadPost',
     config = function()
       require('colorizer').setup({
         buftypes = {
@@ -491,6 +491,7 @@ return {
 
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
+    event = "BufReadPost",
     config = function()
       require('nvim-treesitter.configs').setup({
         context_commentstring = {
@@ -504,6 +505,7 @@ return {
   -- highlight matching html/xml tag
   {
     'andymass/vim-matchup',
+    event = "BufReadPost",
     init = function()
       vim.g.matchup_delim_noskips = 2
       vim.g.matchup_matchparen_deferred = 1
@@ -522,7 +524,7 @@ return {
   -- gcc / <Leader>gbc to comment with treesitter integration
   {
     'numToStr/Comment.nvim',
-    event = "FileType",
+    event = "BufReadPost",
     config = function()
       require('Comment').setup({
         ---LHS of operator-pending mappings in NORMAL and VISUAL mode
