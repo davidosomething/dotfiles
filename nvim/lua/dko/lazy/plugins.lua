@@ -887,7 +887,7 @@ return {
                 luasnip = "sɴᴘ",
                 nvim_lsp = "ʟsᴘ",
                 --nvim_lua = "ʟᴜᴀ",
-                path = "ᴘᴛʜ",
+                path = "  ᴘ",
               }
             })(entry, vim_item)
             local strings = vim.split(formatted.kind, "%s", { trimempty = true })
