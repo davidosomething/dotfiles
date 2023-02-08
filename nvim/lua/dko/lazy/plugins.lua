@@ -927,7 +927,7 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-nvim-lua',
+      --'hrsh7th/cmp-nvim-lua', -- neodev adds to lsp already
       --"roobert/tailwindcss-colorizer-cmp.nvim", -- @TODO formatter not chainable
       'onsails/lspkind.nvim',
     },
@@ -935,9 +935,10 @@ return {
       local cmp = require('cmp')
       cmp.setup({
         sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
           { name = 'nvim_lsp_signature_help' },
+          { name = 'nvim_lsp' },
           { name = 'nvim_lua' },
+          { name = "path" },
         }),
 
         mapping = {
@@ -967,7 +968,20 @@ return {
             border = 'rounded',
             scrollbar = '║',
           },
-        }
+        },
+
+        formatting = {
+          format = require('lspkind').cmp_format({
+            mode = 'symbol_text', -- show only symbol annotations
+            menu = ({
+              buffer = "[Buffer]",
+              nvim_lsp = "[LSP]",
+              luasnip = "[LuaSnip]",
+              --nvim_lua = "[Lua]",
+              latex_symbols = "[Latex]",
+            })
+          })
+        },
       })
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
@@ -988,12 +1002,13 @@ return {
         })
       })
 
-      cmp.setup({
-        formatting = {
-          format = require('lspkind').cmp_format({
-            mode = 'symbol_text', -- show only symbol annotations
-          })
-        }
+      cmp.setup.filetype({ "markdown", "pandoc", "text", "tex" }, {
+        sources = {
+          { name = "nvim_lsp_signature_help" },
+          { name = "nvim_lsp" },
+          { name = "path" },
+          { name = "buffer" },
+        },
       })
     end,
   },
