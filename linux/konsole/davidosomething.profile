@@ -1,4 +1,5 @@
 [Appearance]
+AntiAliasFonts=true
 ColorScheme=base16-tomorrow-night
 DimmValue=18
 Font=FuraMono Nerd Font Mono,12,-1,5,50,0,0,0,0,0
