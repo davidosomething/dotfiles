@@ -227,67 +227,6 @@ return {
     end,
   },
 
-  -- super buggy
-  --[[ {
-    'ten3roberts/qf.nvim',
-    config = function()
-      require('qf').setup({
-        -- Location list configuration
-        l = {
-          auto_close = true, -- Automatically close location/quickfix list if empty
-          auto_follow = false, -- Follow current entry, possible values: prev,next,nearest, or false to disable
-          auto_follow_limit = 8, -- Do not follow if entry is further away than x lines
-          follow_slow = true, -- Only follow on CursorHold
-          auto_open = true, -- Automatically open list on QuickFixCmdPost
-          auto_resize = true, -- Auto resize and shrink location list if less than `max_height`
-          max_height = 8, -- Maximum height of location/quickfix list
-          min_height = 5, -- Minimum height of location/quickfix list
-          wide = false, -- Open list at the very bottom of the screen, stretching the whole width.
-          number = false, -- Show line numbers in list
-          relativenumber = false, -- Show relative line numbers in list
-          unfocus_close = false, -- Close list when window loses focus
-          focus_open = false, -- Auto open list on window focus if it contains items
-        },
-        -- Quickfix list configuration
-        c = {
-          auto_close = true, -- Automatically close location/quickfix list if empty
-          auto_follow = false, -- Follow current entry, possible values: prev,next,nearest, or false to disable
-          auto_follow_limit = 8, -- Do not follow if entry is further away than x lines
-          follow_slow = true, -- Only follow on CursorHold
-          auto_open = true, -- Automatically open list on QuickFixCmdPost
-          auto_resize = true, -- Auto resize and shrink location list if less than `max_height`
-          max_height = 8, -- Maximum height of location/quickfix list
-          min_height = 5, -- Minimum height of location/quickfix list
-          wide = false, -- Open list at the very bottom of the screen, stretching the whole width.
-          number = false, -- Show line numbers in list
-          relativenumber = false, -- Show relative line numbers in list
-          unfocus_close = false, -- Close list when window loses focus
-          focus_open = false, -- Auto open list on window focus if it contains items
-        },
-        close_other = false, -- Close location list when quickfix list opens
-        pretty = true, -- "Pretty print quickfix lists"
-      })
-    end,
-  }, ]]
-
-  -- alternative UI for diagnostics / quickfix / loclist
-  -- I prefer using builtin vim.diagnostic.setloclist
-  --[[ {
-    "folke/trouble.nvim",
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      require('trouble').setup({
-        auto_open = false, -- steals focus from mason.nvim :Mason
-        auto_close = true,
-        auto_preview = false,
-        padding = false,
-        use_diagnostic_signs = true, -- use built-in signs instead of trouble signs
-      })
-    end,
-  }, ]]
-
   {
     "ghillb/cybu.nvim",
     dependencies = {
@@ -677,8 +616,8 @@ return {
           null_ls.builtins.diagnostics.markdownlint,
           null_ls.builtins.diagnostics.qmllint,
           null_ls.builtins.diagnostics.shellcheck,
-          null_ls.builtins.formatting.qmlformat,
           null_ls.builtins.formatting.markdownlint,
+          null_ls.builtins.formatting.qmlformat,
           null_ls.builtins.formatting.shfmt,
         },
       })
@@ -691,7 +630,6 @@ return {
     dependencies = {
       { 'folke/neodev.nvim', config = true },
       -- 'j-hui/fidget.nvim',
-      "jose-elias-alvarez/typescript.nvim",
       'nvim-lua/lsp-status.nvim',
       'weilbith/nvim-code-action-menu',
       "williamboman/mason.nvim",
@@ -722,8 +660,7 @@ return {
         status_symbol = '',
       })
 
-      -- Using fidget.nvim instead
-      -- lsp_status.register_progress()
+      -- lsp_status.register_progress() -- too noisy
     end,
   },
 
@@ -731,9 +668,7 @@ return {
     'williamboman/mason.nvim',
     cmd = "Mason",
     opts = {
-      ui = {
-        border = 'rounded',
-      },
+      ui = { border = 'rounded' },
     },
     config = function(_, opts)
       require("mason").setup(opts)
@@ -850,6 +785,10 @@ return {
 
   {
     "jose-elias-alvarez/typescript.nvim",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      'nvim-lua/lsp-status.nvim',
+    },
     config = function()
       -- This will do lspconfig.tsserver.setup()
       require("typescript").setup({
@@ -858,19 +797,6 @@ return {
       })
     end,
   },
-
-  -- Redundant since builtin has sign column
-  -- Consider later if I want to switch to only float symbol
-  -- {
-  --   'kosayoda/nvim-lightbulb',
-  --   config = function()
-  --     require('nvim-lightbulb').setup({
-  --       autocmd = { enabled = true },
-  --       sign = { enabled = false },
-  --       float = { enabled = true },
-  --     })
-  --   end,
-  -- },
 
   -- nicer looking than built-in codeaction menu
   {
@@ -890,24 +816,7 @@ return {
     end
   },
 
-  -- Don't need it
-  --[[ {
-    "glepnir/lspsaga.nvim",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons"
-    },
-    event = "BufRead",
-    config = function()
-      require("lspsaga").setup({
-        lightbulb = {
-          sign = false,
-          virtual_text = false,
-        }
-      })
-    end,
-  }, ]]
-
-  -- too disruptive
+  -- too disruptive, shifts things around on screen
   --[[ {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     config = function()
@@ -974,11 +883,12 @@ return {
           format = require('lspkind').cmp_format({
             mode = 'symbol_text', -- show only symbol annotations
             menu = ({
-              buffer = "[Buffer]",
-              nvim_lsp = "[LSP]",
-              luasnip = "[LuaSnip]",
-              --nvim_lua = "[Lua]",
-              latex_symbols = "[Latex]",
+              buffer = "ʙᴜғ",
+              latex_symbols = "ʟᴛx",
+              luasnip = "sɴɪᴘ",
+              nvim_lsp = "ʟsᴘ",
+              --nvim_lua = "ʟᴜᴀ",
+              path = "ᴘᴀᴛʜ",
             })
           })
         },
@@ -995,11 +905,10 @@ return {
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path' }
-        }, {
-          { name = 'cmdline' }
-        })
+        sources = cmp.config.sources(
+          { { name = 'path' } },
+          { { name = 'cmdline' } }
+        )
       })
 
       cmp.setup.filetype({ "markdown", "pandoc", "text", "tex" }, {
