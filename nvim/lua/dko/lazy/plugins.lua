@@ -42,6 +42,27 @@ return {
     end,
   },
 
+    -- @TODO nvim 0.9 has :Inspect ?
+  {
+    'cocopon/colorswatch.vim',
+    dependencies = {
+      'cocopon/inspecthi.vim',
+    },
+    lazy = true,
+  },
+  {
+    'cocopon/inspecthi.vim',
+    cmd = 'Inspecthi',
+    keys = {
+      {
+        'zs',
+        '<Cmd>Inspecthi<CR>',
+        desc = 'Show highlight groups under cursor',
+        silent = true,
+      },
+    },
+  },
+
   -- =========================================================================
   -- fixes
   -- =========================================================================
@@ -384,26 +405,6 @@ return {
     end,
   },
 
-  -- gitsigns.nvim is providing blame
-  --[[ {
-    'rhysd/git-messenger.vim',
-    keys = {
-      {
-        'gb',
-        '<Plug>(git-messenger)',
-        desc = 'Open git-messenger popup'
-      },
-    },
-    cmd = 'GitMessenger',
-    init = function()
-      vim.g.git_messenger_include_diff = 'current'
-      vim.g.git_messenger_no_default_mappings = true
-      vim.g.git_messenger_floating_win_opts = { border = 'rounded' } --  :h api-win_config
-      vim.g.git_messenger_max_popup_height = 16
-      vim.g.git_messenger_popup_content_margins = true
-    end,
-  }, ]]
-
   {
     'numtostr/FTerm.nvim',
     keys = {
@@ -449,19 +450,6 @@ return {
   -- Editing
   -- =========================================================================
 
-  -- Add external modifications as new state in undofile
-  --[[ {
-    'kevinhwang91/nvim-fundo',
-    event = 'BufReadPost',
-    dependencies = {
-      'kevinhwang91/promise-async',
-    },
-    build = function() require('fundo').install() end,
-    config = function()
-      require('fundo').setup()
-    end
-  },]]
-
   -- Add file manip commands like Remove, Move, Rename, SudoWrite
   -- Do not lazy load, tracks buffers
   { 'tpope/vim-eunuch' },
@@ -485,12 +473,23 @@ return {
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
+        -- ===================================================================
+        -- 3rd party
+        -- ===================================================================
+
         -- 'JoosepAlviste/nvim-ts-context-commentstring',
         context_commentstring = { enable = true, enable_autocmd = false },
         -- 'andymass/vim-matchup',
         matchup = { enable = true },
 
-        highlight = { enable = true },
+        -- ===================================================================
+        -- Built-in
+        -- ===================================================================
+
+        highlight = {
+          -- @TODO until I update vim-colors-meh with treesitter @matches
+          enable = false,
+        },
         indent = { enable = true },
         ensure_installed = {
           "bash",
@@ -999,8 +998,11 @@ return {
   -- Language: Lua
   -- =========================================================================
 
-  -- @TODO temp
-  -- Fix gf on lua files when doing nvim config
-  { 'sam4llis/nvim-lua-gf' },
 
+  -- =========================================================================
+  -- Language: TypeScript
+  -- =========================================================================
+
+  -- @TODO temp
+  { 'HerringtonDarkholme/yats.vim' },
 }
