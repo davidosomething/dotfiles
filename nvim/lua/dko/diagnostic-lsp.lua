@@ -132,9 +132,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, bufopts) ]]
     lspmap('n', '<Leader>D', vim.lsp.buf.type_definition, { desc = 'LSP type_definition' })
     lspmap('n', '<Leader>rn', vim.lsp.buf.rename, { desc = 'LSP rename' })
-
-    --nvim-code-action-menu replaces this
-    --map('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
+    lspmap('n', '<Leader>ca', vim.lsp.buf.code_action, { desc = 'LSP Code Action' })
 
     lspmap('n', 'gr', vim.lsp.buf.references, { desc = 'LSP references' })
 

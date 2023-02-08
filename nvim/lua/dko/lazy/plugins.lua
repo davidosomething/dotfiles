@@ -150,6 +150,19 @@ return {
     end,
   },
 
+  -- Replace vim.ui.select and vim.ui.input, which are used by things like
+  -- vim.lsp.buf.code_action and rename
+  {
+    'stevearc/dressing.nvim',
+    config = function()
+      require('dressing').setup({
+        select = {
+          backend = { 'builtin' },
+        }
+      })
+    end,
+  }, 
+
   {
     'rcarriga/nvim-notify',
     lazy = false,
@@ -633,7 +646,6 @@ return {
       { 'folke/neodev.nvim', config = true },
       -- 'j-hui/fidget.nvim',
       'nvim-lua/lsp-status.nvim',
-      'weilbith/nvim-code-action-menu',
       "williamboman/mason.nvim",
     }
   },
@@ -798,24 +810,6 @@ return {
         on_attach = require('lsp-status').on_attach,
       })
     end,
-  },
-
-  -- nicer looking than built-in codeaction menu
-  {
-    'weilbith/nvim-code-action-menu',
-    keys = {
-      {
-        '<Leader>ca',
-        '<Cmd>CodeActionMenu<CR>',
-        desc = 'Open Code Action menu',
-        noremap = true,
-        silent = true
-      },
-    },
-    cmd = 'CodeActionMenu',
-    config = function()
-      vim.g.code_action_menu_window_border = 'single'
-    end
   },
 
   -- too disruptive, shifts things around on screen

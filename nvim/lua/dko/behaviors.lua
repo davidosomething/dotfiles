@@ -58,6 +58,9 @@ autocmd('BufEnter', {
     end
 
     local closebuf = function()
+      if vim.fn['dko#IsEditable']('%') == 1 then
+        return
+      end
       if vim.fn.winnr('$') > 1 then
         vim.cmd.close()
       else
