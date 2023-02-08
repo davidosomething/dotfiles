@@ -72,7 +72,8 @@ autocmd('BufEnter', {
 autocmd('BufReadPre', {
   desc = 'Disable linting and syntax highlighting for large and minified files',
   callback = function(args)
-    if vim.fn.getfsize(args.file) > 10000000 then
+    -- See the treesitter highlight config too
+    if vim.fn.getfsize(args.file) > 300 * 1024 then
       vim.cmd.syntax('off')
     end
   end,

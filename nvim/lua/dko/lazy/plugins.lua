@@ -489,6 +489,24 @@ return {
         highlight = {
           -- @TODO until I update vim-colors-meh with treesitter @matches
           enable = false,
+          disable = function(lang, buf)
+            if vim.tbl_contains({
+              -- treesitter language, not ft
+              -- see https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
+              "javascript", -- and jsx
+              "tsx",
+            }, lang) then
+                  return true
+            end
+
+            -- See behaviors.lua too
+            -- Disable for large files
+            local max_filesize = 300 * 1024 -- 300 KB
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+              return true
+            end
+          end,
         },
         indent = { enable = true },
         ensure_installed = {
@@ -512,7 +530,7 @@ return {
 
       vim.keymap.set('n', 'ss',
         function ()
-          vim.notify(vim.inspect(vim.treesitter.get_captures_at_cursor()))
+          vim.pretty_print(vim.treesitter.get_captures_at_cursor())
         end,
         { desc = 'Copy treesitter captures under cursor' }
       )
