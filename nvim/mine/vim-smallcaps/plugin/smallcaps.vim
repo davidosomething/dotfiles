@@ -9,16 +9,10 @@ set cpoptions&vim
 
 " ============================================================================
 
-let s:smallcaps  = 'ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ'
-let s:letters    = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-function! s:convert(text) abort
-  return tr(toupper(a:text), s:letters, s:smallcaps)
-endfunction
 
 vnoremap <silent><script><special>
       \ <Plug>(dkosmallcaps)
-      \ y:<C-U>call setreg('', <SID>convert(@"), getregtype(''))<CR>gv""P
+      \ y:<C-U>call setreg('', smallcaps#convert(@"), getregtype(''))<CR>gv""P
 
 " ============================================================================
 

@@ -86,7 +86,7 @@ return {
   {
     'gpanders/editorconfig.nvim',
     enabled = vim.fn.has('nvim-0.9') == 0,
-  }, 
+  },
 
   -- prevent new windows from shifting cursor position
   {
@@ -117,14 +117,11 @@ return {
   -- <Leader>C <Plug>(dkosmallcaps)
   {
     dir = vim.g.vdotdir .. '/mine/vim-smallcaps',
-    keys = {
-      {
-        '<Leader>C',
-        '<Plug>(dkosmallcaps)',
-        mode = 'v',
+    config = function()
+      vim.keymap.set('v', '<Leader>C', '<Plug>(dkosmallcaps)', {
         desc = 'Apply vim-smallcaps to visual selection',
-      },
-    },
+      })
+    end,
   },
 
   -- Toggle movement mode line-wise/display-wise
@@ -880,17 +877,25 @@ return {
         },
 
         formatting = {
-          format = require('lspkind').cmp_format({
-            mode = 'symbol_text', -- show only symbol annotations
-            menu = ({
-              buffer = "ʙᴜғ",
-              latex_symbols = "ʟᴛx",
-              luasnip = "sɴɪᴘ",
-              nvim_lsp = "ʟsᴘ",
-              --nvim_lua = "ʟᴜᴀ",
-              path = "ᴘᴀᴛʜ",
-            })
-          })
+          fields = { "kind", "abbr", "menu" },
+          format = function(entry, vim_item)
+            local formatted = require('lspkind').cmp_format({
+              mode = 'symbol_text', -- show only symbol annotations
+              menu = {
+                buffer = "ʙᴜғ",
+                latex_symbols = "ʟᴛx",
+                luasnip = "sɴᴘ",
+                nvim_lsp = "ʟsᴘ",
+                --nvim_lua = "ʟᴜᴀ",
+                path = "ᴘᴛʜ",
+              }
+            })(entry, vim_item)
+            local strings = vim.split(formatted.kind, "%s", { trimempty = true })
+            formatted.kind = (strings[1] or "")
+            local smallcapsType = vim.fn['smallcaps#convert'](strings[2]) or ""
+            formatted.menu = "  " .. (formatted.menu or "") .. " " .. smallcapsType
+            return formatted
+          end
         },
       })
 
