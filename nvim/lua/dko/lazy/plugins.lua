@@ -288,6 +288,7 @@ return {
 
   {
     'NvChad/nvim-colorizer.lua',
+    event = 'FileType',
     config = function()
       require('colorizer').setup({
         buftypes = {
@@ -300,6 +301,7 @@ return {
 
   {
     'lewis6991/gitsigns.nvim',
+    event = 'BufReadPost',
     config = function()
       local gs = require('gitsigns')
       gs.setup({
@@ -520,6 +522,7 @@ return {
   -- gcc / <Leader>gbc to comment with treesitter integration
   {
     'numToStr/Comment.nvim',
+    event = "FileType",
     config = function()
       require('Comment').setup({
         ---LHS of operator-pending mappings in NORMAL and VISUAL mode
@@ -828,6 +831,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
+      'vim-smallcaps',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-buffer',
