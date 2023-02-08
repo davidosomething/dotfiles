@@ -266,6 +266,7 @@ function! dkoline#Init() abort
         \   'BufWinEnter *',
         \   'BufWritePost *',
         \   'BufEnter *',
+        \   'DirChanged *',
         \   'FileType *',
         \   'WinEnter *',
         \ ]
@@ -275,11 +276,9 @@ function! dkoline#Init() abort
         " \   'FileWritePost',
         " \   'FileReadPost',
 
-  call add(l:refresh_hooks, 'DirChanged *')
-
   let l:tab_refresh_hooks = [
+        \   'DirChanged *',
         \ ]
-  call add(l:tab_refresh_hooks, 'DirChanged *')
 
   augroup dkoline
     autocmd!

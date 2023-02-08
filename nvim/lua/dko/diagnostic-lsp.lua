@@ -63,7 +63,6 @@ vim.diagnostic.config({
   update_in_insert = false, -- wait until insert leave to check diagnostics
 })
 
-
 local diagnosticGroup = vim.api.nvim_create_augroup('dkodiagnostic', { clear = true })
 vim.api.nvim_create_autocmd('DiagnosticChanged', {
   desc = 'Sync diagnostics to loclist',
@@ -72,19 +71,6 @@ vim.api.nvim_create_autocmd('DiagnosticChanged', {
   end,
   group = diagnosticGroup
 })
-
--- updatetime option is the delay until it opens
--- disable auto show float since it conflicts with lsp signatures
---[[ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-  desc = 'Show floating diagnostic under cursor',
-  callback = function()
-    vim.diagnostic.open_float({
-      focus = false,
-      scope = 'cursor',
-    })
-  end,
-  group = diagnosticGroup
-}) ]]
 
 -- ===========================================================================
 -- Diagnostic mappings
@@ -220,4 +206,3 @@ end
 -- ===========================================================================
 
 return M
-

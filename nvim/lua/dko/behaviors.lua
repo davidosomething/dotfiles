@@ -10,7 +10,7 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local windowGroup = augroup('dkowindow')
 autocmd('VimResized', {
-  desc = 'Automatically resize windows when resizing Vim',
+  desc = 'Automatically resize windows in all tabpages when resizing Vim',
   command = 'tabdo wincmd =',
   group = windowGroup,
 })
@@ -53,7 +53,7 @@ local readingGroup = augroup('dkoreading')
 autocmd('BufEnter', {
   desc = 'Read only mode (un)mappings',
   callback = function()
-    if vim.fn['dko#IsEditable']('%') == 1 or vim.tbl_contains({ 'vim-plug', 'dosini' }, vim.bo.filetype) then
+    if vim.fn['dko#IsEditable']('%') == 1 then
       return
     end
 

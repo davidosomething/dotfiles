@@ -673,7 +673,7 @@ return {
     event = "BufReadPre",
     dependencies = {
       { 'folke/neodev.nvim', config = true },
-      'j-hui/fidget.nvim',
+      -- 'j-hui/fidget.nvim',
       "jose-elias-alvarez/typescript.nvim",
       'nvim-lua/lsp-status.nvim',
       'weilbith/nvim-code-action-menu',
@@ -682,10 +682,11 @@ return {
   },
 
   -- LSP progress messages with virtual text in bottom right
-  {
+  -- Too noisy, keeps spamming Diagnosing progress
+  --[[ {
     'j-hui/fidget.nvim',
     config = true,
-  },
+  }, ]]
 
   -- Diagnostics in status (among other things I don't use)
   {
@@ -705,7 +706,7 @@ return {
       })
 
       -- Using fidget.nvim instead
-      --lsp_status.register_progress()
+      -- lsp_status.register_progress()
     end,
   },
 
