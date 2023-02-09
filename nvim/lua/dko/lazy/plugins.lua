@@ -635,6 +635,7 @@ return {
   {
     'jose-elias-alvarez/null-ls.nvim',
     dependencies = {
+      "jose-elias-alvarez/typescript.nvim",
       "nvim-lua/plenary.nvim",
     },
     config = function()
@@ -650,6 +651,9 @@ return {
           null_ls.builtins.formatting.markdownlint,
           null_ls.builtins.formatting.qmlformat,
           null_ls.builtins.formatting.shfmt,
+
+          -- provide the typescript.nvim commands as LSP actions
+          require("typescript.extensions.null-ls.code-actions"),
         },
       })
     end,
