@@ -75,7 +75,23 @@ return {
   },
 
   -- Disable cursorline when moving, for various perf reasons
-  { "delphinus/auto-cursorline.nvim", },
+  {
+    "yamatsum/nvim-cursorline", -- replaces delphinus/auto-cursorline.nvim",
+    config = function()
+      require('nvim-cursorline').setup({
+        cursorline = {
+          enable = true,
+          timeout = 300,
+          number = false,
+        },
+        cursorword = {
+          enable = true,
+          min_length = 3,
+          hl = { underline = true },
+        }
+      })
+    end,
+  },
 
   -- =========================================================================
   -- polyfills

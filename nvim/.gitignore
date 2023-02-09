@@ -4,7 +4,7 @@ nplugged/
 plugged/
 plug/
 vendor/
-./lazy-lock.json
+lazy-lock.json
 
 # cache
 *.*~
