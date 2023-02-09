@@ -840,12 +840,17 @@ return {
     config = function()
       local cmp = require('cmp')
       cmp.setup({
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp_signature_help' },
-          { name = 'nvim_lsp' },
-          { name = 'nvim_lua' },
-          { name = "path" },
-        }),
+        sources = cmp.config.sources(
+          {
+            { name = 'nvim_lsp_signature_help' },
+            { name = 'nvim_lsp' },
+            { name = 'nvim_lua' },
+            { name = "path" },
+          },
+          { -- group 2 only if nothing in above had results
+            { name = "buffer" },
+          }
+        ),
 
         mapping = {
           ['<C-n>'] = function(fallback)
@@ -883,11 +888,12 @@ return {
               mode = 'symbol_text', -- show only symbol annotations
               menu = {
                 buffer = "ʙᴜғ",
+                cmdline = "", -- cmp-cmdline used on cmdline
                 latex_symbols = "ʟᴛx",
-                luasnip = "sɴᴘ",
+                luasnip = "sɴɪᴘ",
                 nvim_lsp = "ʟsᴘ",
-                --nvim_lua = "ʟᴜᴀ",
-                path = "  ᴘ",
+                nvim_lua = "ʟᴜᴀ",
+                path = "ᴘᴀᴛʜ",
               }
             })(entry, vim_item)
             local strings = vim.split(formatted.kind, "%s", { trimempty = true })
@@ -911,9 +917,10 @@ return {
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
-          { { name = 'path' } },
-          { { name = 'cmdline' } }
-        )
+          { { name = 'path' } }, -- group 1
+          { { name = 'cmdline' } } -- group 2, only use if nothing in group 1
+        ),
+
       })
 
       cmp.setup.filetype({ "markdown", "pandoc", "text", "tex" }, {
