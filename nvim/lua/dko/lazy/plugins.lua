@@ -747,6 +747,7 @@ return {
         "eslint",
         "html",
         "jsonls",
+        "stylelint_lsp",
         "sumneko_lua",
         "tailwindcss",
         "tsserver",
