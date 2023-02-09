@@ -3,9 +3,9 @@ local M = {}
 local map = vim.keymap.set
 
 -- Symbols in signs column
---  
+--    ✕ ✖ ✘   ‼   ❢ ❦ ‽  ⁕
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
-M.SIGNS = { Error = "", Warn = "", Hint = "", Info = "" }
+M.SIGNS = { Error = "✘", Warn = "", Hint = "", Info = "ɪ" }
 M.SEVERITY_TO_SYMBOL = {}
 for type, icon in pairs(M.SIGNS) do
   local hl = "DiagnosticSign" .. type
