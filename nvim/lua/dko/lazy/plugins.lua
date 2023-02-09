@@ -655,6 +655,10 @@ return {
           -- provide the typescript.nvim commands as LSP actions
           require("typescript.extensions.null-ls.code-actions"),
         },
+
+        -- defaults to false, but lets just sync it in case I want to change
+        -- in my diagnostic-lsp.lua
+        update_in_insert = vim.diagnostic.config().update_in_insert,
       })
     end,
   },
