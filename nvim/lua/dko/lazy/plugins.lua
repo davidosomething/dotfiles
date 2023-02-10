@@ -420,6 +420,15 @@ return {
     end,
   },
 
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewFileHistory",
+    },
+  },
+
   -- =========================================================================
   -- ui: fzf
   -- =========================================================================
@@ -1039,6 +1048,5 @@ return {
   -- No treesitter grammar yet
   -- =========================================================================
 
-  { 'cappyzawa/starlark.vim' },
-
+  { "cappyzawa/starlark.vim" },
 }
