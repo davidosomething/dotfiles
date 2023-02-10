@@ -87,18 +87,6 @@ function! dkoline#GetStatusline(winnr) abort
 
   let l:contents .= '%*%='
 
-  " Linting
-  " @TODO fix - only show on active buffer
-  if l:view.winnr == winnr()
-    if luaeval('#vim.lsp.buf_get_clients() > 0')
-      let l:contents .= dkoline#Format(
-            \ luaeval("require('lsp-status').status()"),
-            \ '%(%#dkoStatusValue# ',
-            \ ' %)'
-            \)
-    endif
-  endif
-
   let l:contents .= dkoline#Format(
         \ dkoline#Ruler(),
         \ dkoline#ActiveColor(l:view, '%#dkoStatusItem#'))

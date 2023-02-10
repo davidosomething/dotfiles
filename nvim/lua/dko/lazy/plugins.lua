@@ -206,14 +206,6 @@ return {
     end,
   },
 
-  -- floating statusline
-  {
-    "b0o/incline.nvim",
-    config = function()
-      require("incline").setup()
-    end,
-  },
-
   -- =========================================================================
   -- ui: quickfix / loclist modifications
   -- =========================================================================
@@ -786,38 +778,8 @@ return {
     event = "BufReadPre",
     dependencies = {
       { "folke/neodev.nvim", config = true },
-      -- 'j-hui/fidget.nvim',
-      "nvim-lua/lsp-status.nvim",
       "williamboman/mason.nvim",
     },
-  },
-
-  -- LSP progress messages with virtual text in bottom right
-  -- Too noisy, keeps spamming Diagnosing progress
-  --[[ {
-    'j-hui/fidget.nvim',
-    config = true,
-  }, ]]
-
-  -- Diagnostics in status (among other things I don't use)
-  {
-    "nvim-lua/lsp-status.nvim",
-    config = function()
-      local lsp_status = require("lsp-status")
-
-      local SIGNS = require("dko.diagnostic-lsp").SIGNS
-      lsp_status.config({
-        current_function = false,
-        indicator_errors = SIGNS.Error,
-        indicator_warnings = SIGNS.Warn,
-        indicator_info = SIGNS.Info,
-        indicator_hint = SIGNS.Hint,
-        indicator_ok = "✓",
-        status_symbol = "",
-      })
-
-      lsp_status.register_progress() -- too noisy
-    end,
   },
 
   {
@@ -853,7 +815,6 @@ return {
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
       "jose-elias-alvarez/typescript.nvim",
       "neovim/nvim-lspconfig", -- wait for lspconfig, which waits for neodev
-      "nvim-lua/lsp-status.nvim",
     },
     config = function()
       -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
@@ -884,18 +845,9 @@ return {
       })
 
       local cmpNvimLsp = require("cmp_nvim_lsp")
-      local lspStatus = require("lsp-status")
-
-      local defaultCapabilities = cmpNvimLsp.default_capabilities()
-      defaultCapabilities = vim.tbl_extend(
-        "keep",
-        defaultCapabilities or {},
-        lspStatus.capabilities
-      )
 
       local defaultOptions = {
-        capabilities = defaultCapabilities,
-        on_attach = lspStatus.on_attach,
+        capabilities = cmpNvimLsp.default_capabilities(),
       }
 
       local lspconfig = require("lspconfig")
