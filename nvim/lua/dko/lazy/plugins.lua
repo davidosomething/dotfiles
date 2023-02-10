@@ -1032,4 +1032,13 @@ return {
       vim.g.committia_use_singlecolumn = "always"
     end,
   },
+
+  -- =========================================================================
+  -- Language: Starlark
+  -- E.g. Caddy 2 configs, Tilt, Drone, Bazel
+  -- No treesitter grammar yet
+  -- =========================================================================
+
+  { 'cappyzawa/starlark.vim' },
+
 }
