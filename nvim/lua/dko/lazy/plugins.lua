@@ -693,6 +693,25 @@ return {
   -- =========================================================================
 
   {
+    "davidosomething/lsp-progress.nvim",
+    dev = vim.fn.getenv("USER") == "davidosomething",
+    branch = "hide-cruft",
+    event = { "VimEnter" },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("lsp-progress").setup({
+        max_size = 3,
+        sign = "",
+        show_client_name = false,
+        show_message_text = false,
+        spinner = { "◢", "◣", "◤", "◥" },
+      })
+    end,
+  },
+
+  {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = {
       "jose-elias-alvarez/typescript.nvim",

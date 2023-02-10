@@ -37,6 +37,13 @@ function! dkoline#GetTabline() abort
         \     '%)'
         \   )
 
+  " lsp progress
+  let l:contents .= dkoline#Format(
+        \ luaeval('require("lsp-progress").progress()'),
+        \ '%(%#dkoStatusKey# ʟsᴘ %(%#dkoStatusValue#',
+        \ ' %)'
+        \)
+
   " ==========================================================================
 
   return l:contents
@@ -266,6 +273,7 @@ function! dkoline#Init() abort
 
   let l:tab_refresh_hooks = [
         \   'DirChanged *',
+        \   'User LspProgressStatusUpdated',
         \ ]
 
   augroup dkoline
