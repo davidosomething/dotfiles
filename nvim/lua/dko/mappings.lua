@@ -5,10 +5,6 @@ local map = vim.keymap.set
 -- Window / Buffer manip
 -- ===========================================================================
 
-map("n", "<Leader>x", "<Cmd>lclose<CR><Cmd>bp|bd #<CR>", {
-  desc = "Close buffer without destroying window",
-})
-
 map("n", "<BS>", "<C-^>", {
   desc = "Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)",
 })

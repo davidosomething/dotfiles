@@ -15,6 +15,23 @@ autocmd("VimResized", {
   group = windowGroup,
 })
 
+autocmd("BufEnter", {
+  desc = "When :q, close if quickfix is the only window",
+  callback = function()
+    if vim.bo.filetype == "qf" and vim.fn.winnr("$") < 2 then
+      vim.cmd.quit()
+    end
+  end,
+  group = windowGroup,
+})
+
+autocmd("FileType", {
+  pattern = "qf",
+  desc = "Skip quickfix windows when :bprevious and :bnext",
+  command = "set nobuflisted",
+  group = windowGroup,
+})
+
 autocmd("QuitPre", {
   desc = "Auto close corresponding loclist when quitting a window",
   callback = function()
@@ -41,6 +58,7 @@ autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
 })
 
 local readingGroup = augroup("dkoreading")
+
 autocmd("BufEnter", {
   desc = "Read only mode (un)mappings",
   callback = function()
@@ -52,9 +70,11 @@ autocmd("BufEnter", {
       if vim.fn["dko#IsEditable"]("%") == 1 then
         return
       end
-      if vim.fn.winnr("$") > 1 then
+      local totalWindows = vim.fn.winnr("$")
+      if totalWindows > 1 then
         vim.cmd.close()
       else
+        -- Requires nobuflisted on quickfix!
         vim.cmd.bprevious()
       end
     end
@@ -126,12 +146,3 @@ autocmd("DiagnosticChanged", {
   group = augroup("dkodiagnostic"),
 })
 
-autocmd("BufEnter", {
-  desc = "Close if quickfix is the only window",
-  callback = function()
-    if vim.bo.filetype == 'qf' and vim.fn.winnr('$') < 2 then
-      vim.cmd.quit()
-    end
-  end,
-  group = augroup("dkoqf"),
-})

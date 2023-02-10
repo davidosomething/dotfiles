@@ -251,6 +251,24 @@ return {
     end,
   },
 
+  -- remove buffers without messing up window layout
+  {
+    "echasnovski/mini.bufremove",
+    version = "*",
+    keys = {
+      {
+        "<Leader>x",
+        function ()
+          require("mini.bufremove").delete()
+        end,
+        desc = "Remove buffer without closing window",
+      },
+    },
+    config = function()
+      require("mini.bufremove").setup()
+    end,
+  },
+
   {
     "ghillb/cybu.nvim",
     dependencies = {
