@@ -5,7 +5,7 @@ local map = vim.keymap.set
 -- Symbols in signs column
 --    ✕ ✖ ✘   ‼   ❢ ❦ ‽  ⁕ ⚑
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
-M.SIGNS = { Error = "✘", Warn = "", Hint = "", Info = "⚑" }
+M.SIGNS = { Error = "✘", Warn = "", Info = "⚑", Hint = "" }
 M.SEVERITY_TO_SYMBOL = {}
 for type, icon in pairs(M.SIGNS) do
   local hl = "DiagnosticSign" .. type
@@ -68,7 +68,20 @@ local diagnosticGroup =
   vim.api.nvim_create_augroup("dkodiagnostic", { clear = true })
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
   desc = "Sync diagnostics to loclist",
-  callback = function()
+  callback = function(args)
+    if
+      #args.data.diagnostics > 0
+      and vim.fn.getbufvar(args.buf, "is_first_diagnostic") ~= true
+    then
+      vim.notify(
+        "Received " .. #args.data.diagnostics .. " diagnostic(s)",
+        vim.log.levels.WARN
+      )
+      vim.fn.setbufvar(args.buf, "is_first_diagnostic", true)
+      vim.diagnostic.setloclist({ open = true }) -- focuses loclist too
+      vim.cmd.wincmd("p") -- exit loclist back to previous window
+      return
+    end
     vim.diagnostic.setloclist({ open = false })
   end,
   group = diagnosticGroup,
@@ -106,6 +119,12 @@ end, { desc = "Open diagnostic float at cursor" })
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "Bind LSP in buffer",
   callback = function(args)
+    if vim.b.has_lsp then
+      return
+    end
+    vim.b.has_lsp = true
+
+    -- buffer local map
     local function lspmap(mode, lhs, rhs, additionalOpts)
       local opts = vim.tbl_extend("force", {
         noremap = true,
@@ -115,14 +134,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
       map(mode, lhs, rhs, opts)
     end
 
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-
     lspmap("n", "gD", vim.lsp.buf.declaration, { desc = "LSP declaration" })
     lspmap("n", "gd", vim.lsp.buf.definition, { desc = "LSP definition" })
-
-    if client.server_capabilities.hoverProvider then
-      lspmap("n", "K", vim.lsp.buf.hover, { desc = "LSP hover" })
-    end
+    lspmap("n", "K", vim.lsp.buf.hover, { desc = "LSP hover" })
 
     lspmap(
       "n",
@@ -156,6 +170,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
     )
 
     lspmap("n", "gr", vim.lsp.buf.references, { desc = "LSP references" })
+
+    vim.keymap.set("n", "<A-=>", function()
+      vim.lsp.buf.format({
+        async = false,
+        name = "null-ls",
+        --[[ filter = function(client)
+        return client.name == 'null-ls'
+      end, ]]
+      })
+    end, { desc = "Format with null-ls builtin stylua" })
   end,
   group = vim.api.nvim_create_augroup("dkolsp", { clear = true }),
 })
