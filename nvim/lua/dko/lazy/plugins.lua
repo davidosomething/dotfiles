@@ -1,16 +1,16 @@
 local function textobjMap(obj, char)
   char = char or obj:sub(1, 1)
-  vim.keymap.set('o', 'a' .. char, '<Plug>(textobj-' .. obj .. '-a)', {
-    desc = 'Operator - around ' .. obj,
+  vim.keymap.set("o", "a" .. char, "<Plug>(textobj-" .. obj .. "-a)", {
+    desc = "Operator - around " .. obj,
   })
-  vim.keymap.set('x', 'a' .. char, '<Plug>(textobj-' .. obj .. '-a)', {
-    desc = 'Visual - around ' .. obj,
+  vim.keymap.set("x", "a" .. char, "<Plug>(textobj-" .. obj .. "-a)", {
+    desc = "Visual - around " .. obj,
   })
-  vim.keymap.set('o', 'i' .. char, '<Plug>(textobj-' .. obj .. '-i)', {
-    desc = 'Operator - inside ' .. obj,
+  vim.keymap.set("o", "i" .. char, "<Plug>(textobj-" .. obj .. "-i)", {
+    desc = "Operator - inside " .. obj,
   })
-  vim.keymap.set('x', 'i' .. char, '<Plug>(textobj-' .. obj .. '-i)', {
-    desc = 'Visual - inside ' .. obj,
+  vim.keymap.set("x", "i" .. char, "<Plug>(textobj-" .. obj .. "-i)", {
+    desc = "Visual - inside " .. obj,
   })
 end
 
@@ -30,34 +30,34 @@ return {
 
   -- `:Bufferize messages` to get messages (or any :command) in a new buffer
   {
-    'AndrewRadev/bufferize.vim',
-    cmd = 'Bufferize',
+    "AndrewRadev/bufferize.vim",
+    cmd = "Bufferize",
     init = function()
-      vim.g.bufferize_command = 'tabnew'
+      vim.g.bufferize_command = "tabnew"
     end,
     config = function()
-      vim.api.nvim_create_user_command('Bmessages', 'Bufferize messages', {
+      vim.api.nvim_create_user_command("Bmessages", "Bufferize messages", {
         desc = "Open messages in new buffer",
       })
     end,
   },
 
-    -- @TODO nvim 0.9 has :Inspect ?
+  -- @TODO nvim 0.9 has :Inspect ?
   {
-    'cocopon/colorswatch.vim',
+    "cocopon/colorswatch.vim",
     dependencies = {
-      'cocopon/inspecthi.vim',
+      "cocopon/inspecthi.vim",
     },
     lazy = true,
   },
   {
-    'cocopon/inspecthi.vim',
-    cmd = 'Inspecthi',
+    "cocopon/inspecthi.vim",
+    cmd = "Inspecthi",
     keys = {
       {
-        'zs',
-        '<Cmd>Inspecthi<CR>',
-        desc = 'Show highlight groups under cursor',
+        "zs",
+        "<Cmd>Inspecthi<CR>",
+        desc = "Show highlight groups under cursor",
         silent = true,
       },
     },
@@ -70,15 +70,15 @@ return {
   -- Fix CursorHold
   -- https://github.com/neovim/neovim/issues/12587
   {
-    'antoinemadec/FixCursorHold.nvim',
-    enabled = vim.fn.has('nvim-0.8') == 0,
+    "antoinemadec/FixCursorHold.nvim",
+    enabled = vim.fn.has("nvim-0.8") == 0,
   },
 
   -- Disable cursorline when moving, for various perf reasons
   {
     "yamatsum/nvim-cursorline", -- replaces delphinus/auto-cursorline.nvim",
     config = function()
-      require('nvim-cursorline').setup({
+      require("nvim-cursorline").setup({
         cursorline = {
           enable = true,
           timeout = 300,
@@ -88,7 +88,7 @@ return {
           enable = true,
           min_length = 3,
           hl = { underline = true },
-        }
+        },
       })
     end,
   },
@@ -100,16 +100,16 @@ return {
   -- apply editorconfig settings to buffer
   -- @TODO follow https://github.com/neovim/neovim/issues/21648
   {
-    'gpanders/editorconfig.nvim',
-    enabled = vim.fn.has('nvim-0.9') == 0,
+    "gpanders/editorconfig.nvim",
+    enabled = vim.fn.has("nvim-0.9") == 0,
   },
 
   -- prevent new windows from shifting cursor position
   {
-    'luukvbaal/stabilize.nvim',
-    enabled = vim.fn.exists('+splitkeep') == 0,
+    "luukvbaal/stabilize.nvim",
+    enabled = vim.fn.exists("+splitkeep") == 0,
     config = function()
-      require('stabilize').setup()
+      require("stabilize").setup()
     end,
   },
 
@@ -119,36 +119,36 @@ return {
 
   -- HR with <Leader>f[CHAR]
   {
-    dir = vim.g.vdotdir .. '/mine/vim-hr',
+    dir = vim.g.vdotdir .. "/mine/vim-hr",
     config = function()
-      local map = vim.fn['hr#map']
-      map('_')
-      map('-')
-      map( '=')
-      map( '#')
-      map( '*')
-    end
+      local map = vim.fn["hr#map"]
+      map("_")
+      map("-")
+      map("=")
+      map("#")
+      map("*")
+    end,
   },
 
   -- <Leader>C <Plug>(dkosmallcaps)
   {
-    dir = vim.g.vdotdir .. '/mine/vim-smallcaps',
+    dir = vim.g.vdotdir .. "/mine/vim-smallcaps",
     config = function()
-      vim.keymap.set('v', '<Leader>C', '<Plug>(dkosmallcaps)', {
-        desc = 'Apply vim-smallcaps to visual selection',
+      vim.keymap.set("v", "<Leader>C", "<Plug>(dkosmallcaps)", {
+        desc = "Apply vim-smallcaps to visual selection",
       })
     end,
   },
 
   -- Toggle movement mode line-wise/display-wise
   {
-    dir = vim.g.vdotdir .. '/mine/vim-movemode',
+    dir = vim.g.vdotdir .. "/mine/vim-movemode",
     lazy = false, -- I use the autoload fns
     config = function()
-      vim.keymap.set('n', '<Leader>mm', '<Cmd>call movemode#toggle()<CR>', {
-        desc = 'Toggle move mode',
+      vim.keymap.set("n", "<Leader>mm", "<Cmd>call movemode#toggle()<CR>", {
+        desc = "Toggle move mode",
       })
-    end
+    end,
   },
 
   -- =========================================================================
@@ -158,7 +158,7 @@ return {
   -- colorscheme
   {
     "davidosomething/vim-colors-meh",
-    dev = vim.fn.getenv('USER') == 'davidosomething',
+    dev = vim.fn.getenv("USER") == "davidosomething",
     lazy = false,
     priority = 1000,
     config = function()
@@ -169,18 +169,18 @@ return {
   -- Replace vim.ui.select and vim.ui.input, which are used by things like
   -- vim.lsp.buf.code_action and rename
   {
-    'stevearc/dressing.nvim',
+    "stevearc/dressing.nvim",
     config = function()
-      require('dressing').setup({
+      require("dressing").setup({
         select = {
-          backend = { 'builtin' },
-        }
+          backend = { "builtin" },
+        },
       })
     end,
-  }, 
+  },
 
   {
-    'rcarriga/nvim-notify',
+    "rcarriga/nvim-notify",
     lazy = false,
     priority = 1000,
     config = function()
@@ -189,18 +189,17 @@ return {
 
       -- Show LSP messages via vim.notify (but only when using nvim-notify)
       ---@diagnostic disable-next-line: duplicate-set-field
-      vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
+      vim.lsp.handlers["window/showMessage"] = function(_, result, ctx)
         local client = vim.lsp.get_client_by_id(ctx.client_id)
-        local lvl = ({ 'ERROR', 'WARN', 'INFO', 'DEBUG' })[result.type]
+        local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[result.type]
         vim.notify(result.message, lvl, {
-          title = 'LSP | ' .. client.name,
+          title = "LSP | " .. client.name,
           timeout = 10000,
           keep = function()
-            return lvl == 'ERROR' or lvl == 'WARN'
+            return lvl == "ERROR" or lvl == "WARN"
           end,
         })
       end
-
     end,
   },
 
@@ -230,7 +229,7 @@ return {
 
   -- shrink quickfix to fit
   {
-    'blueyed/vim-qf_resize',
+    "blueyed/vim-qf_resize",
     init = function()
       vim.g.qf_resize_min_height = 4
     end,
@@ -238,10 +237,10 @@ return {
 
   -- pretty format quickfix and loclist
   {
-    'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+    "https://gitlab.com/yorickpeterse/nvim-pqf.git",
     config = function()
-      local SIGNS = require('dko.diagnostic-lsp').SIGNS
-      require('pqf').setup({
+      local SIGNS = require("dko.diagnostic-lsp").SIGNS
+      require("pqf").setup({
         signs = {
           error = SIGNS.Error,
           warning = SIGNS.Warn,
@@ -257,22 +256,22 @@ return {
     "ghillb/cybu.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
-      "nvim-lua/plenary.nvim"
+      "nvim-lua/plenary.nvim",
     },
     keys = {
       {
         "[b",
         "<Plug>(CybuPrev)",
-        desc = 'Previous buffer with cybu popup',
+        desc = "Previous buffer with cybu popup",
       },
       {
         "]b",
         "<Plug>(CybuNext)",
-        desc = 'Next buffer with cybu popup',
+        desc = "Next buffer with cybu popup",
       },
     },
     config = function()
-      require('cybu').setup({
+      require("cybu").setup({
         position = {
           max_win_height = 8,
           max_win_width = 0.8,
@@ -292,47 +291,47 @@ return {
   -- this plugin accounts for command window and doesn't use sessions
   -- overrides <C-w>o (originally does an :only)
   {
-    'troydm/zoomwintab.vim',
+    "troydm/zoomwintab.vim",
     keys = {
-      '<C-w>o',
-      '<C-w><C-o>',
+      "<C-w>o",
+      "<C-w><C-o>",
     },
     cmd = {
-      'ZoomWinTabIn',
-      'ZoomWinTabOut',
-      'ZoomWinTabToggle',
+      "ZoomWinTabIn",
+      "ZoomWinTabOut",
+      "ZoomWinTabToggle",
     },
   },
 
   -- resize window to selection, or split new window with selection size
   {
-    'wellle/visual-split.vim',
+    "wellle/visual-split.vim",
     cmd = {
-      'VSResize',
-      'VSSplit',
-      'VSSplitAbove',
-      'VSSplitBelow'
+      "VSResize",
+      "VSSplit",
+      "VSSplitAbove",
+      "VSSplitBelow",
     },
   },
 
   {
-    'NvChad/nvim-colorizer.lua',
-    event = 'BufReadPost',
+    "NvChad/nvim-colorizer.lua",
+    event = "BufReadPost",
     config = function()
-      require('colorizer').setup({
+      require("colorizer").setup({
         buftypes = {
-          '*',
-          '!nofile', -- ignore nofile, e.g. :Mason buffer
-        }
+          "*",
+          "!nofile", -- ignore nofile, e.g. :Mason buffer
+        },
       })
     end,
   },
 
   {
-    'lewis6991/gitsigns.nvim',
-    event = 'BufReadPost',
+    "lewis6991/gitsigns.nvim",
+    event = "BufReadPost",
     config = function()
-      local gs = require('gitsigns')
+      local gs = require("gitsigns")
       gs.setup({
         on_attach = function(bufnr)
           local function map(mode, l, r, opts)
@@ -342,52 +341,63 @@ return {
           end
 
           -- Navigation
-          map('n', ']c', function()
-            if vim.wo.diff then return ']c' end
-            vim.schedule(function() gs.next_hunk() end)
-            return '<Ignore>'
-          end, { expr = true, desc = 'Next hunk' })
+          map("n", "]c", function()
+            if vim.wo.diff then
+              return "]c"
+            end
+            vim.schedule(function()
+              gs.next_hunk()
+            end)
+            return "<Ignore>"
+          end, { expr = true, desc = "Next hunk" })
 
-          map('n', '[c', function()
-            if vim.wo.diff then return '[c' end
-            vim.schedule(function() gs.prev_hunk() end)
-            return '<Ignore>'
-          end, { expr = true, desc = 'Prev hunk' })
+          map("n", "[c", function()
+            if vim.wo.diff then
+              return "[c"
+            end
+            vim.schedule(function()
+              gs.prev_hunk()
+            end)
+            return "<Ignore>"
+          end, { expr = true, desc = "Prev hunk" })
 
           -- Actions
-          map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>', {
-            desc = 'Reset hunk',
+          map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", {
+            desc = "Reset hunk",
           })
-          map('n', 'gb',
-            function() gs.blame_line({ full = true }) end,
-            { desc = 'Show blames' }
-          )
+          map("n", "gb", function()
+            gs.blame_line({ full = true })
+          end, { desc = "Show blames" })
 
           -- Text object
-          map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>', {
-            desc = 'Select hunk',
+          map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", {
+            desc = "Select hunk",
           })
-        end
+        end,
       })
     end,
   },
 
   {
-    'numtostr/FTerm.nvim',
+    "numtostr/FTerm.nvim",
     keys = {
       {
-        '<A-i>',
+        "<A-i>",
         function()
-          require('FTerm').toggle()
+          require("FTerm").toggle()
         end,
-        desc = 'Toggle FTerm',
+        desc = "Toggle FTerm",
       },
     },
     config = function()
-      require('FTerm').setup({
-        border = 'rounded',
+      require("FTerm").setup({
+        border = "rounded",
       })
-      vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+      vim.keymap.set(
+        "t",
+        "<A-i>",
+        '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>'
+      )
     end,
   },
 
@@ -398,17 +408,17 @@ return {
   -- Use the repo instead of the version in brew since it includes the help
   -- docs for fzf#run()
   {
-    'junegunn/fzf',
-    enabled = vim.fn.exists('&autochdir') == 1,
+    "junegunn/fzf",
+    enabled = vim.fn.exists("&autochdir") == 1,
     dependencies = {
-      'junegunn/fzf.vim',
+      "junegunn/fzf.vim",
     },
   },
   {
-    'junegunn/fzf.vim',
+    "junegunn/fzf.vim",
     init = function()
-      vim.g.fzf_command_prefix = 'FZF'
-      vim.g.fzf_layout = { down = '~40%' }
+      vim.g.fzf_command_prefix = "FZF"
+      vim.g.fzf_layout = { down = "~40%" }
       vim.g.fzf_buffers_jump = 1
     end,
   },
@@ -419,23 +429,23 @@ return {
 
   -- Add file manip commands like Remove, Move, Rename, SudoWrite
   -- Do not lazy load, tracks buffers
-  { 'tpope/vim-eunuch' },
+  { "tpope/vim-eunuch" },
 
   {
-    'ethanholz/nvim-lastplace',
+    "ethanholz/nvim-lastplace",
     config = function()
-      require('nvim-lastplace').setup({})
+      require("nvim-lastplace").setup({})
     end,
   },
 
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
-    'nvim-treesitter/nvim-treesitter',
-    event = 'BufReadPost',
+    "nvim-treesitter/nvim-treesitter",
+    event = "BufReadPost",
     dependencies = {
-      'andymass/vim-matchup',
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      'Wansmer/treesj',
+      "andymass/vim-matchup",
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      "Wansmer/treesj",
     },
     build = ":TSUpdate",
     config = function()
@@ -457,83 +467,64 @@ return {
           -- @TODO until I update vim-colors-meh with treesitter @matches
           enable = false,
           disable = function(lang, buf)
-            if vim.tbl_contains({
-              -- treesitter language, not ft
-              -- see https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
-              "javascript", -- and jsx
-              "tsx",
-            }, lang) then
-                  return true
+            if
+              vim.tbl_contains({
+                -- treesitter language, not ft
+                -- see https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
+                "javascript", -- and jsx
+                "tsx",
+              }, lang)
+            then
+              return true
             end
 
             -- See behaviors.lua too
             -- Disable for large files
             local max_filesize = 300 * 1024 -- 300 KB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            local ok, stats =
+              pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
               return true
             end
           end,
         },
         indent = { enable = true },
-        ensure_installed = {
-          "bash",
-          "help",
-          "html",
-          "javascript",
-          "json",
-          "lua",
-          "markdown",
-          "markdown_inline",
-          "python",
-          "query",
-          "regex",
-          "tsx",
-          "typescript",
-          "vim",
-          "yaml",
-        },
+        ensure_installed = "all",
       })
 
-      vim.keymap.set('n', 'ss',
-        function ()
-          vim.pretty_print(vim.treesitter.get_captures_at_cursor())
-        end,
-        { desc = 'Copy treesitter captures under cursor' }
-      )
+      vim.keymap.set("n", "ss", function()
+        vim.pretty_print(vim.treesitter.get_captures_at_cursor())
+      end, { desc = "Copy treesitter captures under cursor" })
 
-      vim.keymap.set('n', 'sy',
-        function ()
-          local captures = vim.treesitter.get_captures_at_cursor()
-          local parsedCaptures = {}
-          for _, capture in ipairs(captures) do
-            table.insert(parsedCaptures, '@' .. capture)
-          end
-          local resultString = vim.inspect(parsedCaptures)
-          vim.fn.setreg('+', resultString .. '\n')
-          vim.notify('Copied ' .. resultString)
-        end,
-        { desc = 'Copy treesitter captures under cursor' }
-      )
+      vim.keymap.set("n", "sy", function()
+        local captures = vim.treesitter.get_captures_at_cursor()
+        local parsedCaptures = {}
+        for _, capture in ipairs(captures) do
+          table.insert(parsedCaptures, "@" .. capture)
+        end
+        local resultString = vim.inspect(parsedCaptures)
+        vim.fn.setreg("+", resultString .. "\n")
+        vim.notify("Copied " .. resultString)
+      end, { desc = "Copy treesitter captures under cursor" })
     end,
   },
 
   {
-    'JoosepAlviste/nvim-ts-context-commentstring',
+    "JoosepAlviste/nvim-ts-context-commentstring",
     event = "BufReadPost",
     config = function()
-      require('nvim-treesitter.configs').setup({
+      require("nvim-treesitter.configs").setup({
         context_commentstring = {
           enable = true, -- Comment.nvim wants this
           enable_autocmd = false, -- Comment.nvim wants this
-        }
+        },
       })
     end,
   },
 
   -- highlight matching html/xml tag
   {
-    'andymass/vim-matchup',
+    "andymass/vim-matchup",
     event = "BufReadPost",
     init = function()
       vim.g.matchup_delim_noskips = 2
@@ -544,48 +535,50 @@ return {
 
   -- <A-hjkl> to move lines in any mode
   {
-    'echasnovski/mini.move',
+    "echasnovski/mini.move",
     config = function()
-      require('mini.move').setup()
+      require("mini.move").setup()
     end,
   },
 
   -- gcc / <Leader>gbc to comment with treesitter integration
   {
-    'numToStr/Comment.nvim',
+    "numToStr/Comment.nvim",
     event = "BufReadPost",
     config = function()
-      require('Comment').setup({
+      require("Comment").setup({
         ---LHS of operator-pending mappings in NORMAL and VISUAL mode
         opleader = {
           ---Line-comment keymap (default gc)
-          line = 'gc',
+          line = "gc",
           ---Block-comment keymap (gb is my blame command)
-          block = '<Leader>gb',
+          block = "<Leader>gb",
         },
         toggler = {
           ---Line-comment toggle keymap
-          line = 'gcc',
+          line = "gcc",
           ---Block-comment toggle keymap
-          block = '<Leader>gbc',
+          block = "<Leader>gbc",
         },
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+        pre_hook = require(
+          "ts_context_commentstring.integrations.comment_nvim"
+        ).create_pre_hook(),
       })
     end,
   },
 
   {
-    'Wansmer/treesj',
+    "Wansmer/treesj",
     keys = {
       {
-        'gs',
-        '<Cmd>TSJToggle<CR>',
-        desc = 'Toggle treesitter split / join',
+        "gs",
+        "<Cmd>TSJToggle<CR>",
+        desc = "Toggle treesitter split / join",
         silent = true,
       },
     },
     config = function()
-      require('treesj').setup({
+      require("treesj").setup({
         use_default_keymaps = false,
         max_join_length = 255,
       })
@@ -601,29 +594,33 @@ return {
   -- https://github.com/echasnovski/mini.surround -- no textobj
   -- https://github.com/kylechui/nvim-surround -- no textobj
   {
-    'machakann/vim-sandwich',
+    "machakann/vim-sandwich",
   },
 
   {
-    'kana/vim-textobj-indent',
-    dependencies = { 'kana/vim-textobj-user' },
+    "kana/vim-textobj-indent",
+    dependencies = { "kana/vim-textobj-user" },
     config = function()
-      textobjMap('indent')
-      vim.keymap.set('n', '<Leader>s', 'vii:!sort<CR>', {
+      textobjMap("indent")
+      vim.keymap.set("n", "<Leader>s", "vii:!sort<CR>", {
         desc = "Auto select indent and sort",
         remap = true, -- since ii is a mapping too
       })
     end,
   },
   {
-    'gilligan/textobj-lastpaste',
-    dependencies = { 'kana/vim-textobj-user' },
-    config = function() textobjMap('paste', 'P') end,
+    "gilligan/textobj-lastpaste",
+    dependencies = { "kana/vim-textobj-user" },
+    config = function()
+      textobjMap("paste", "P")
+    end,
   },
   {
-    'mattn/vim-textobj-url',
-    dependencies = { 'kana/vim-textobj-user' },
-    config = function() textobjMap('url') end,
+    "mattn/vim-textobj-url",
+    dependencies = { "kana/vim-textobj-user" },
+    config = function()
+      textobjMap("url")
+    end,
   },
 
   -- =========================================================================
@@ -633,7 +630,7 @@ return {
   -- =========================================================================
 
   {
-    'jose-elias-alvarez/null-ls.nvim',
+    "jose-elias-alvarez/null-ls.nvim",
     dependencies = {
       "jose-elias-alvarez/typescript.nvim",
       "nvim-lua/plenary.nvim",
@@ -641,13 +638,33 @@ return {
     config = function()
       local null_ls = require("null-ls")
       null_ls.setup({
-        border = 'rounded',
+        border = "rounded",
         sources = {
           null_ls.builtins.code_actions.shellcheck,
           null_ls.builtins.diagnostics.editorconfig_checker,
+
+          --null_ls.builtins.diagnostics.luacheck, -- prefer selene
+          --
           null_ls.builtins.diagnostics.markdownlint,
           null_ls.builtins.diagnostics.qmllint,
+
+          -- selene not picking up config
+          --[[ null_ls.builtins.diagnostics.selene.with({
+            extra_args = function(params)
+              local results = vim.fs.find({ 'selene.toml' }, {
+                upward = true,
+                path = vim.api.nvim_buf_get_name(0)
+              })
+              if #results == 0 then
+                return params
+              end
+              vim.notify('Found selene.toml at ' .. results[1])
+              return { "--config", results[1] }
+            end
+          }), ]]
+
           null_ls.builtins.diagnostics.shellcheck,
+          null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.markdownlint,
           null_ls.builtins.formatting.qmlformat,
           null_ls.builtins.formatting.shfmt,
@@ -664,14 +681,14 @@ return {
   },
 
   {
-    'neovim/nvim-lspconfig',
+    "neovim/nvim-lspconfig",
     event = "BufReadPre",
     dependencies = {
-      { 'folke/neodev.nvim', config = true },
+      { "folke/neodev.nvim", config = true },
       -- 'j-hui/fidget.nvim',
-      'nvim-lua/lsp-status.nvim',
+      "nvim-lua/lsp-status.nvim",
       "williamboman/mason.nvim",
-    }
+    },
   },
 
   -- LSP progress messages with virtual text in bottom right
@@ -683,19 +700,19 @@ return {
 
   -- Diagnostics in status (among other things I don't use)
   {
-    'nvim-lua/lsp-status.nvim',
+    "nvim-lua/lsp-status.nvim",
     config = function()
-      local lsp_status = require('lsp-status')
+      local lsp_status = require("lsp-status")
 
-      local SIGNS = require('dko.diagnostic-lsp').SIGNS
+      local SIGNS = require("dko.diagnostic-lsp").SIGNS
       lsp_status.config({
         current_function = false,
         indicator_errors = SIGNS.Error,
         indicator_warnings = SIGNS.Warn,
         indicator_info = SIGNS.Info,
         indicator_hint = SIGNS.Hint,
-        indicator_ok = '✓',
-        status_symbol = '',
+        indicator_ok = "✓",
+        status_symbol = "",
       })
 
       -- lsp_status.register_progress() -- too noisy
@@ -703,17 +720,17 @@ return {
   },
 
   {
-    'williamboman/mason.nvim',
+    "williamboman/mason.nvim",
     cmd = "Mason",
     opts = {
-      ui = { border = 'rounded' },
+      ui = { border = "rounded" },
     },
     config = function(_, opts)
       require("mason").setup(opts)
 
       local extras = {
-        'editorconfig-checker',
-        'markdownlint',
+        "editorconfig-checker",
+        "markdownlint",
       }
       -- Auto-install some linters for null-ls
       -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L157-L163
@@ -733,8 +750,8 @@ return {
     dependencies = {
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
-      'neovim/nvim-lspconfig', -- wait for lspconfig, which waits for neodev
-      'nvim-lua/lsp-status.nvim',
+      "neovim/nvim-lspconfig", -- wait for lspconfig, which waits for neodev
+      "nvim-lua/lsp-status.nvim",
     },
     config = function()
       -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
@@ -754,8 +771,8 @@ return {
         "vimls",
         "yamlls",
       }
-      if vim.fn.executable('go') == 1 then
-        table.insert(lsps, 'gopls')
+      if vim.fn.executable("go") == 1 then
+        table.insert(lsps, "gopls")
       end
       require("mason-lspconfig").setup({
         ensure_installed = lsps,
@@ -763,26 +780,28 @@ return {
       })
 
       local defaultOptions = {
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
-        on_attach = require('lsp-status').on_attach,
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        on_attach = require("lsp-status").on_attach,
       }
 
       -- Note that instead of on_attach for each server setup,
       -- diagnostic-lsp.lua has an autocmd defined
-      require('mason-lspconfig').setup_handlers({
+      require("mason-lspconfig").setup_handlers({
         function(server)
           require("lspconfig")[server].setup(defaultOptions)
         end,
 
-        ['jsonls'] = function()
-          require('lspconfig').jsonls.setup(vim.tbl_extend('force', defaultOptions, {
-            settings = {
-              json = {
-                schemas = require('schemastore').json.schemas(),
-                validate = { enable = true },
+        ["jsonls"] = function()
+          require("lspconfig").jsonls.setup(
+            vim.tbl_extend("force", defaultOptions, {
+              settings = {
+                json = {
+                  schemas = require("schemastore").json.schemas(),
+                  validate = { enable = true },
+                },
               },
-            },
-          }))
+            })
+          )
         end,
 
         -- neodev
@@ -814,10 +833,10 @@ return {
           })
         end, ]]
 
-        ['tsserver'] = function()
+        ["tsserver"] = function()
           -- noop
           -- use jose-elias-alvarez/typescript.nvim instead
-        end
+        end,
       })
     end,
   },
@@ -826,13 +845,13 @@ return {
     "jose-elias-alvarez/typescript.nvim",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      'nvim-lua/lsp-status.nvim',
+      "nvim-lua/lsp-status.nvim",
     },
     config = function()
       -- This will do lspconfig.tsserver.setup()
       require("typescript").setup({
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
-        on_attach = require('lsp-status').on_attach,
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        on_attach = require("lsp-status").on_attach,
       })
     end,
   },
@@ -852,33 +871,30 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      'vim-smallcaps',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
+      "vim-smallcaps",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
       --'hrsh7th/cmp-nvim-lua', -- neodev adds to lsp already
       --"roobert/tailwindcss-colorizer-cmp.nvim", -- @TODO formatter not chainable
-      'onsails/lspkind.nvim',
+      "onsails/lspkind.nvim",
     },
     config = function()
-      local cmp = require('cmp')
+      local cmp = require("cmp")
       cmp.setup({
-        sources = cmp.config.sources(
-          {
-            { name = 'nvim_lsp_signature_help' },
-            { name = 'nvim_lsp' },
-            { name = 'nvim_lua' },
-            { name = "path" },
-          },
-          { -- group 2 only if nothing in above had results
-            { name = "buffer" },
-          }
-        ),
+        sources = cmp.config.sources({
+          { name = "nvim_lsp_signature_help" },
+          { name = "nvim_lsp" },
+          { name = "nvim_lua" },
+          { name = "path" },
+        }, { -- group 2 only if nothing in above had results
+          { name = "buffer" },
+        }),
 
         mapping = {
-          ['<C-n>'] = function(fallback)
+          ["<C-n>"] = function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
             else
@@ -886,31 +902,31 @@ return {
             end
           end,
 
-          ['<C-p>'] = function(fallback)
+          ["<C-p>"] = function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
             else
               fallback()
             end
-          end
+          end,
         },
 
         window = {
           completion = {
-            border = 'rounded',
-            scrollbar = '║',
+            border = "rounded",
+            scrollbar = "║",
           },
           documentation = {
-            border = 'rounded',
-            scrollbar = '║',
+            border = "rounded",
+            scrollbar = "║",
           },
         },
 
         formatting = {
           fields = { "kind", "abbr", "menu" },
           format = function(entry, vim_item)
-            local formatted = require('lspkind').cmp_format({
-              mode = 'symbol_text', -- show only symbol annotations
+            local formatted = require("lspkind").cmp_format({
+              mode = "symbol_text", -- show only symbol annotations
               menu = {
                 buffer = "ʙᴜғ",
                 cmdline = "", -- cmp-cmdline used on cmdline
@@ -919,33 +935,36 @@ return {
                 nvim_lsp = "ʟsᴘ",
                 nvim_lua = "ʟᴜᴀ",
                 path = "ᴘᴀᴛʜ",
-              }
+              },
             })(entry, vim_item)
-            local strings = vim.split(formatted.kind, "%s", { trimempty = true })
+            local strings =
+              vim.split(formatted.kind, "%s", { trimempty = true })
             formatted.kind = (strings[1] or "")
-            local smallcapsType = vim.fn['smallcaps#convert'](strings[2]) or ""
-            formatted.menu = "  " .. (formatted.menu or entry.source.name) .. " " .. smallcapsType
+            local smallcapsType = vim.fn["smallcaps#convert"](strings[2]) or ""
+            formatted.menu = "  "
+              .. (formatted.menu or entry.source.name)
+              .. " "
+              .. smallcapsType
             return formatted
-          end
+          end,
         },
       })
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline({ '/', '?' }, {
+      cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = 'buffer' }
-        }
+          { name = "buffer" },
+        },
       })
 
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(':', {
+      cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
-          { { name = 'path' } }, -- group 1
-          { { name = 'cmdline' } } -- group 2, only use if nothing in group 1
+          { { name = "path" } }, -- group 1
+          { { name = "cmdline" } } -- group 2, only use if nothing in group 1
         ),
-
       })
 
       cmp.setup.filetype({ "markdown", "pandoc", "text", "tex" }, {
@@ -965,12 +984,11 @@ return {
 
   -- show diff when editing a COMMIT_EDITMSG
   {
-    'rhysd/committia.vim',
+    "rhysd/committia.vim",
     lazy = false, -- just in case
     init = function()
       vim.g.committia_open_only_vim_starting = 0
-      vim.g.committia_use_singlecolumn = 'always'
+      vim.g.committia_use_singlecolumn = "always"
     end,
   },
-
 }

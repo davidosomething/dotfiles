@@ -1,6 +1,9 @@
-if vim.fn.getenv('TERM_PROGRAM') == 'Apple_Terminal' then
+if vim.fn.getenv("TERM_PROGRAM") == "Apple_Terminal" then
   vim.o.termguicolors = 0
-elseif vim.fn.getenv('COLORTERM') == 'truecolor' or vim.fn.getenv('DOTFILES_OS') == 'Darwin' then
+elseif
+  vim.fn.getenv("COLORTERM") == "truecolor"
+  or vim.fn.getenv("DOTFILES_OS") == "Darwin"
+then
   vim.o.termguicolors = 1
 end
 
@@ -8,7 +11,7 @@ end
 -- Vim command engines
 -- ---------------------------------------------------------------------------
 
-if vim.fn.exists('+pyxversion') == 1 and vim.fn.has('python3') == 1 then
+if vim.fn.exists("+pyxversion") == 1 and vim.fn.has("python3") == 1 then
   vim.o.pyxversion = 3
 end
 
@@ -17,11 +20,11 @@ end
 -- ===========================================================================
 
 -- Prior versions are super dangerous
-if vim.fn.has('patch-8.1.1365') == 0 and vim.fn.has('nvim-0.3.6') == 0 then
+if vim.fn.has("patch-8.1.1365") == 0 and vim.fn.has("nvim-0.3.6") == 0 then
   vim.o.modeline = false
 else
   -- Only check one line
-  if vim.fn.exists('+modelines') == 1 then
+  if vim.fn.exists("+modelines") == 1 then
     vim.o.modelines = 1
   end
 end
@@ -37,7 +40,7 @@ vim.o.undofile = true
 -- Bumped s10 to s100 for to allow up to 100kb of data per item
 vim.o.shada = "!,'1000,<100,s100,h"
 
-vim.o.fileformats = 'unix,mac,dos'
+vim.o.fileformats = "unix,mac,dos"
 
 -- If we have a swap conflict, FZF has issues opening the file (and doesn't
 -- prompt correctly)
@@ -50,11 +53,11 @@ vim.o.backup = false -- do not leave around backup.xyz~ files after that
 
 -- need this for webpack-dev-server and hot module reloading -- preserves
 -- special file types like symlinks
-vim.o.backupcopy = 'yes'
+vim.o.backupcopy = "yes"
 
-vim.opt.backupskip:append('/private/tmp/*') -- needed to edit crontab files
-vim.opt.backupskip:append('~/.secret/*')
-vim.o.clipboard = 'unnamedplus'
+vim.opt.backupskip:append("/private/tmp/*") -- needed to edit crontab files
+vim.opt.backupskip:append("~/.secret/*")
+vim.o.clipboard = "unnamedplus"
 
 -- ===========================================================================
 -- Display
@@ -75,8 +78,8 @@ vim.o.numberwidth = 5
 vim.o.scrolloff = 8
 vim.o.sidescrolloff = 16
 
-if vim.fn.exists('+signcolumn') == 1 then
-  vim.o.signcolumn = vim.fn.has('nvim-0.4') and 'auto:3' or 'yes'
+if vim.fn.exists("+signcolumn") == 1 then
+  vim.o.signcolumn = vim.fn.has("nvim-0.4") and "auto:3" or "yes"
 end
 
 vim.o.synmaxcol = 512 -- don't syntax highlight long lines
@@ -84,7 +87,7 @@ vim.o.synmaxcol = 512 -- don't syntax highlight long lines
 vim.o.textwidth = 78
 
 -- the line will be right after column 80, &tw+3
-vim.opt.colorcolumn = { '+3', '120' }
+vim.opt.colorcolumn = { "+3", "120" }
 vim.o.cursorline = true
 
 vim.o.showtabline = 0 -- start OFF, toggle =2 to show tabline
@@ -97,14 +100,14 @@ vim.o.showmode = false -- don't show -- INSERT -- in cmdline
 -- now (makes it harder to remember what you're replacing/reference previous
 -- regex tokens).
 -- https://github.com/neovim/neovim/pull/5226
-vim.o.inccommand = ''
+vim.o.inccommand = ""
 
 -- ===========================================================================
 -- Wild and file globbing stuff in command mode
 -- ===========================================================================
 
-vim.o.browsedir = 'buffer' -- browse files in same dir as open file
-vim.o.wildmode = 'list:longest,full'
+vim.o.browsedir = "buffer" -- browse files in same dir as open file
+vim.o.wildmode = "list:longest,full"
 vim.o.wildignorecase = true
 
 -- ===========================================================================
@@ -112,15 +115,15 @@ vim.o.wildignorecase = true
 -- ===========================================================================
 
 -- Don't consider = symbol as part filename.
-vim.opt.isfname:remove('=')
+vim.opt.isfname:remove("=")
 
-vim.opt.complete:remove('t') -- don't complete tags
+vim.opt.complete:remove("t") -- don't complete tags
 
-vim.opt.completeopt:remove('longest')
-vim.opt.completeopt:append('menuone') -- show PUM, even for one thing
-vim.opt.completeopt:append('noinsert')
-vim.opt.completeopt:append('noselect')
-vim.opt.completeopt:remove('preview') -- don't open scratch
+vim.opt.completeopt:remove("longest")
+vim.opt.completeopt:append("menuone") -- show PUM, even for one thing
+vim.opt.completeopt:append("noinsert")
+vim.opt.completeopt:append("noselect")
+vim.opt.completeopt:remove("preview") -- don't open scratch
 
 -- ===========================================================================
 -- Message output on vim actions
@@ -140,15 +143,15 @@ vim.opt.shortmess:append({
 
 vim.o.splitbelow = true
 vim.o.splitright = true
-if vim.fn.exists('+splitkeep') == 1 then
-  vim.o.splitkeep = 'screen'
+if vim.fn.exists("+splitkeep") == 1 then
+  vim.o.splitkeep = "screen"
 end
 
 vim.o.hidden = true
 
 -- reveal already opened files from the quickfix window instead of opening new
 -- buffers
-vim.o.switchbuf = 'useopen'
+vim.o.switchbuf = "useopen"
 
 -- ===========================================================================
 -- Code folding
@@ -164,22 +167,22 @@ vim.o.foldenable = false
 
 vim.o.list = true
 vim.opt.listchars = {
-  extends = '»',
-  nbsp = '⣿',
-  precedes = '«',
-  trail = '·',
-  tab = '▶ ', -- this must be two chars, see :h listchars
+  extends = "»",
+  nbsp = "⣿",
+  precedes = "«",
+  trail = "·",
+  tab = "▶ ", -- this must be two chars, see :h listchars
 }
 
 -- ===========================================================================
 -- Diffing
 -- ===========================================================================
 
-vim.opt.fillchars = { diff = '⣿' }
+vim.opt.fillchars = { diff = "⣿" }
 vim.opt.diffopt = {
   vertical = true, -- Use in vertical diff mode
   filler = true, -- blank lines to keep sides aligned
-  iwhite = true,  -- Ignore whitespace changes
+  iwhite = true, -- Ignore whitespace changes
 }
 
 -- ===========================================================================
@@ -197,8 +200,8 @@ vim.opt.formatoptions = {
   a = false, -- auto-gq paragraphs
   l = false, -- break lines that are already long?
 }
-vim.opt.formatoptions:append('1') -- Break before 1-letter words
-vim.opt.formatoptions:append('2') -- Use indent from 2nd line of a paragraph
+vim.opt.formatoptions:append("1") -- Break before 1-letter words
+vim.opt.formatoptions:append("2") -- Use indent from 2nd line of a paragraph
 
 vim.o.wrap = false
 vim.o.joinspaces = false -- J command doesn't add extra space
@@ -248,14 +251,14 @@ vim.o.wrapscan = true -- Searches wrap around end of the file.
 vim.o.ignorecase = true
 vim.o.smartcase = true
 -- Follow smartcase and ignorecase when doing tag search
-vim.o.tagcase = 'followscs'
+vim.o.tagcase = "followscs"
 
 -- ===========================================================================
 -- grep
 -- ===========================================================================
 
-local grepper = vim.fn['dko#grepper#Get']()
+local grepper = vim.fn["dko#grepper#Get"]()
 if vim.fn.empty(grepper.command) == 0 then
-  vim.o.grepprg = grepper.command .. ' ' .. vim.fn.join(grepper.options, ' ')
+  vim.o.grepprg = grepper.command .. " " .. vim.fn.join(grepper.options, " ")
   vim.o.grepformat = grepper.format
 end
