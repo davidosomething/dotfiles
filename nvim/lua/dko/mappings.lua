@@ -1,3 +1,4 @@
+local M = {}
 local map = vim.keymap.set
 
 -- ===========================================================================
@@ -146,3 +147,105 @@ map("n", "<Leader>;", "$r;", {
 map("n", "<Leader>ws", function()
   vim.fn["dko#whitespace#clean"]()
 end, { desc = "Remove trailing whitespace from entire file" })
+
+-- ===========================================================================
+-- Buffer: LSP integration
+-- Mix of https://github.com/neovim/nvim-lspconfig#suggested-configuration
+-- and :h lsp
+-- ===========================================================================
+
+-- buffer local map
+local function lspOpts(opts)
+  opts = vim.tbl_extend("force", {
+    noremap = true,
+    silent = true,
+    buffer = true,
+  }, opts)
+end
+
+local function bindLspMappings()
+  map("n", "gD", vim.lsp.buf.declaration, lspOpts({ desc = "LSP declaration" }))
+  map("n", "gd", vim.lsp.buf.definition, lspOpts({ desc = "LSP definition" }))
+  map("n", "K", vim.lsp.buf.hover, lspOpts({ desc = "LSP hover" }))
+
+  map(
+    "n",
+    "gi",
+    vim.lsp.buf.implementation,
+    lspOpts({ desc = "LSP implementation" })
+  )
+  map(
+    "n",
+    "<C-k>",
+    vim.lsp.buf.signature_help,
+    lspOpts({ desc = "LSP signature_help" })
+  )
+  --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  --map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  --[[ map('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts) ]]
+  map(
+    "n",
+    "<Leader>D",
+    vim.lsp.buf.type_definition,
+    lspOpts({ desc = "LSP type_definition" })
+  )
+  map("n", "<Leader>rn", vim.lsp.buf.rename, lspOpts({ desc = "LSP rename" }))
+  map(
+    "n",
+    "<Leader>ca",
+    vim.lsp.buf.code_action,
+    lspOpts({ desc = "LSP Code Action" })
+  )
+
+  map("n", "gr", vim.lsp.buf.references, lspOpts({ desc = "LSP references" }))
+
+  map("n", "<A-=>", function()
+    vim.lsp.buf.format({
+      async = false,
+      name = "null-ls",
+      --[[ filter = function(client)
+      return client.name == 'null-ls'
+    end, ]]
+    })
+  end, lspOpts({ desc = "Format with null-ls builtin stylua" }))
+end
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "Bind LSP in buffer",
+  callback = function()
+    if vim.b.has_lsp then
+      return
+    end
+    vim.b.has_lsp = true
+    bindLspMappings()
+  end,
+  group = vim.api.nvim_create_augroup("dkolsp", { clear = true }),
+})
+
+
+-- ===========================================================================
+-- Diagnostic mappings
+-- ===========================================================================
+
+local gotoOpts = {
+  noremap = true,
+  silent = true,
+  desc = "Go to diagnostic and open float",
+}
+local floatOpts = {
+  focus = false,
+  scope = "cursor",
+}
+map("n", "[d", function()
+  vim.diagnostic.goto_prev({ float = floatOpts })
+end, gotoOpts)
+map("n", "]d", function()
+  vim.diagnostic.goto_next({ float = floatOpts })
+end, gotoOpts)
+map("n", "<Leader>d", function()
+  vim.diagnostic.open_float(floatOpts)
+end, { desc = "Open diagnostic float at cursor" })
+
+return M
