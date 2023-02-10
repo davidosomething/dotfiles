@@ -40,15 +40,6 @@ autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
   group = projectGroup,
 })
 
-autocmd("BufWritePost", {
-  pattern = "*/colors/*.vim",
-  desc = "Auto-reload the colorscheme if it was edited in vim",
-  callback = function(args)
-    vim.cmd.source(args.file)
-  end,
-  group = augroup("dkocoloredit"),
-})
-
 local readingGroup = augroup("dkoreading")
 autocmd("BufEnter", {
   desc = "Read only mode (un)mappings",
@@ -67,6 +58,7 @@ autocmd("BufEnter", {
         vim.cmd.bprevious()
       end
     end
+    vim.keymap.set("n", "Q", closebuf, { buffer = true })
     vim.keymap.set("n", "q", closebuf, { buffer = true })
   end,
   group = readingGroup,
@@ -86,7 +78,7 @@ autocmd("BufReadPre", {
 autocmd("BufReadPre", {
   pattern = "*.min.*",
   desc = "Disable syntax on minified files",
-  command = "syntax off",
+  command = "syntax manual",
   group = readingGroup,
 })
 
@@ -112,6 +104,15 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
     end
   end,
   group = augroup("dkosaving"),
+})
+
+autocmd("BufWritePost", {
+  pattern = "*/colors/*.vim",
+  desc = "Auto-reload the colorscheme if it was edited in vim",
+  callback = function(args)
+    vim.cmd.source(args.file)
+  end,
+  group = augroup("dkocoloredit"),
 })
 
 autocmd("DiagnosticChanged", {
