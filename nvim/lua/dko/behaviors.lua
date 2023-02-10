@@ -135,14 +135,27 @@ autocmd("BufWritePost", {
   group = augroup("dkocoloredit"),
 })
 
+-- Having issues with this, :Lazy sync sets loclist?
 autocmd("DiagnosticChanged", {
   desc = "Sync diagnostics to loclist",
-  callback = function()
+  callback = function(args)
+    -- data = {
+    --   diagnostics = { {
+    --       bufnr = 5,
+
+    -- Don't sync diagnostics from unlisted buffers
+    if
+      #args.data.diagnostics > 0
+      and vim.fn.getbufvar(args.data.diagnostics[1].bufnr, "&buflisted") == 0
+    then
+      return
+    end
+
+    vim.diagnostic.setloclist({ open = false }) -- true would focus empty loclist
+
     local window = vim.api.nvim_get_current_win()
-    vim.diagnostic.setloclist({ open = false }) -- focuses loclist too
     vim.cmd.lwindow() -- open+focus loclist if has entries, else close
     vim.api.nvim_set_current_win(window)
   end,
   group = augroup("dkodiagnostic"),
 })
-

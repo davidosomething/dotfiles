@@ -12,7 +12,6 @@ require("dko.builtin-syntax")
 require("dko.diagnostic-lsp")
 require("dko.terminal")
 require("dko.mappings")
-
 require("dko.behaviors")
 
 require("dko.lazy.install")

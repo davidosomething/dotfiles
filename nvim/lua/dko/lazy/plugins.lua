@@ -152,10 +152,9 @@ return {
   },
 
   -- =========================================================================
-  -- ui
+  -- ui: colorscheme
   -- =========================================================================
 
-  -- colorscheme
   {
     "davidosomething/vim-colors-meh",
     dev = vim.fn.getenv("USER") == "davidosomething",
@@ -166,18 +165,9 @@ return {
     end,
   },
 
-  -- Replace vim.ui.select and vim.ui.input, which are used by things like
-  -- vim.lsp.buf.code_action and rename
-  {
-    "stevearc/dressing.nvim",
-    config = function()
-      require("dressing").setup({
-        select = {
-          backend = { "builtin" },
-        },
-      })
-    end,
-  },
+  -- =========================================================================
+  -- ui: components
+  -- =========================================================================
 
   {
     "rcarriga/nvim-notify",
@@ -203,28 +193,30 @@ return {
     end,
   },
 
-  -- indent guides
+  -- Replace vim.ui.select and vim.ui.input, which are used by things like
+  -- vim.lsp.buf.code_action and rename
   {
-    "lukas-reineke/indent-blankline.nvim",
+    "stevearc/dressing.nvim",
     config = function()
-      require("indent_blankline").setup({
-        -- char = "▏",
-        char = "│",
-        filetype_exclude = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "lazy",
-          "mason",
+      require("dressing").setup({
+        select = {
+          backend = { "builtin" },
         },
-        show_trailing_blankline_indent = false,
-        show_current_context = false,
-        use_treesitter = true,
       })
     end,
   },
+
+  -- floating statusline
+  {
+    "b0o/incline.nvim",
+    config = function()
+      require("incline").setup()
+    end,
+  },
+
+  -- =========================================================================
+  -- ui: quickfix / loclist modifications
+  -- =========================================================================
 
   -- shrink quickfix to fit
   {
@@ -250,6 +242,10 @@ return {
       })
     end,
   },
+
+  -- =========================================================================
+  -- ui: buffer and window manipulation
+  -- =========================================================================
 
   -- remove buffers without messing up window layout
   {
@@ -333,16 +329,52 @@ return {
     },
   },
 
+  -- remember/restore last cursor position in files
   {
-    "NvChad/nvim-colorizer.lua",
-    event = "BufReadPost",
+    "ethanholz/nvim-lastplace",
     config = function()
-      require("colorizer").setup({
-        buftypes = {
-          "*",
-          "!nofile", -- ignore nofile, e.g. :Mason buffer
-        },
+      require("nvim-lastplace").setup({})
+    end,
+  },
+
+  -- =========================================================================
+  -- ui: terminal
+  -- =========================================================================
+
+  {
+    "numtostr/FTerm.nvim",
+    keys = {
+      {
+        "<A-i>",
+        function()
+          require("FTerm").toggle()
+        end,
+        desc = "Toggle FTerm",
+      },
+    },
+    config = function()
+      require("FTerm").setup({
+        border = "rounded",
       })
+      vim.keymap.set(
+        "t",
+        "<A-i>",
+        '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>'
+      )
+    end,
+  },
+
+  -- =========================================================================
+  -- ui: diffing
+  -- =========================================================================
+
+  -- show diff when editing a COMMIT_EDITMSG
+  {
+    "rhysd/committia.vim",
+    lazy = false, -- just in case
+    init = function()
+      vim.g.committia_open_only_vim_starting = 0
+      vim.g.committia_use_singlecolumn = "always"
     end,
   },
 
@@ -398,29 +430,6 @@ return {
   },
 
   {
-    "numtostr/FTerm.nvim",
-    keys = {
-      {
-        "<A-i>",
-        function()
-          require("FTerm").toggle()
-        end,
-        desc = "Toggle FTerm",
-      },
-    },
-    config = function()
-      require("FTerm").setup({
-        border = "rounded",
-      })
-      vim.keymap.set(
-        "t",
-        "<A-i>",
-        '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>'
-      )
-    end,
-  },
-
-  {
     "sindrets/diffview.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = {
@@ -452,6 +461,46 @@ return {
   },
 
   -- =========================================================================
+  -- ui: editing helpers
+  -- =========================================================================
+
+  -- indent guides
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("indent_blankline").setup({
+        -- char = "▏",
+        char = "│",
+        filetype_exclude = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+        },
+        show_trailing_blankline_indent = false,
+        show_current_context = false,
+        use_treesitter = true,
+      })
+    end,
+  },
+
+  {
+    "NvChad/nvim-colorizer.lua",
+    event = "BufReadPost",
+    config = function()
+      require("colorizer").setup({
+        buftypes = {
+          "*",
+          "!nofile", -- ignore nofile, e.g. :Mason buffer
+        },
+      })
+    end,
+  },
+
+  -- =========================================================================
   -- Editing
   -- =========================================================================
 
@@ -459,10 +508,23 @@ return {
   -- Do not lazy load, tracks buffers
   { "tpope/vim-eunuch" },
 
+  -- highlight matching html/xml tag
+  -- % textobject
   {
-    "ethanholz/nvim-lastplace",
+    "andymass/vim-matchup",
+    event = "BufReadPost",
+    init = function()
+      vim.g.matchup_delim_noskips = 2
+      vim.g.matchup_matchparen_deferred = 1
+      vim.g.matchup_matchparen_status_offscreen = 0
+    end,
+  },
+
+  -- <A-hjkl> to move lines in any mode
+  {
+    "echasnovski/mini.move",
     config = function()
-      require("nvim-lastplace").setup({})
+      require("mini.move").setup()
     end,
   },
 
@@ -547,25 +609,6 @@ return {
           enable_autocmd = false, -- Comment.nvim wants this
         },
       })
-    end,
-  },
-
-  -- highlight matching html/xml tag
-  {
-    "andymass/vim-matchup",
-    event = "BufReadPost",
-    init = function()
-      vim.g.matchup_delim_noskips = 2
-      vim.g.matchup_matchparen_deferred = 1
-      vim.g.matchup_matchparen_status_offscreen = 0
-    end,
-  },
-
-  -- <A-hjkl> to move lines in any mode
-  {
-    "echasnovski/mini.move",
-    config = function()
-      require("mini.move").setup()
     end,
   },
 
@@ -1025,20 +1068,6 @@ return {
           { name = "buffer" },
         },
       })
-    end,
-  },
-
-  -- =========================================================================
-  -- Language: Git
-  -- =========================================================================
-
-  -- show diff when editing a COMMIT_EDITMSG
-  {
-    "rhysd/committia.vim",
-    lazy = false, -- just in case
-    init = function()
-      vim.g.committia_open_only_vim_starting = 0
-      vim.g.committia_use_singlecolumn = "always"
     end,
   },
 
