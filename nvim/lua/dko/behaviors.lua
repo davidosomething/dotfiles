@@ -76,8 +76,8 @@ autocmd("BufReadPre", {
   desc = "Disable linting and syntax highlighting for large and minified files",
   callback = function(args)
     -- See the treesitter highlight config too
-    if vim.fn.getfsize(args.file) > 300 * 1024 then
-      vim.cmd.syntax("off")
+    if vim.fn.getfsize(args.file) > 1000 * 1024 then
+      vim.cmd.syntax("manual")
     end
   end,
   group = readingGroup,

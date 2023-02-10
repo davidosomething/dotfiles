@@ -640,16 +640,25 @@ return {
       null_ls.setup({
         border = "rounded",
         sources = {
+          null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.code_actions.shellcheck,
-          null_ls.builtins.diagnostics.editorconfig_checker,
+
+          -- Switch ALL diagnostics to DIAGNOSTICS_ON_SAVE only
+          -- or null_ls will keep spamming LSP events
+          null_ls.builtins.diagnostics.editorconfig_checker.with({
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+          }),
 
           --null_ls.builtins.diagnostics.luacheck, -- prefer selene
           --
-          null_ls.builtins.diagnostics.markdownlint,
-          null_ls.builtins.diagnostics.qmllint,
+          null_ls.builtins.diagnostics.markdownlint_cli2,
+          null_ls.builtins.diagnostics.qmllint.with({
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+          }),
 
           -- selene not picking up config
           --[[ null_ls.builtins.diagnostics.selene.with({
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
             extra_args = function(params)
               local results = vim.fs.find({ 'selene.toml' }, {
                 upward = true,
@@ -663,8 +672,15 @@ return {
             end
           }), ]]
 
-          null_ls.builtins.diagnostics.shellcheck,
-          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.diagnostics.shellcheck.with({
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+          }),
+
+          null_ls.builtins.formatting.stylua.with({
+            condition = function(utils)
+              return utils.root_has_file({ "stylua.toml", ".stylua.toml" })
+            end,
+          }),
           null_ls.builtins.formatting.markdownlint,
           null_ls.builtins.formatting.qmlformat,
           null_ls.builtins.formatting.shfmt,
@@ -804,8 +820,8 @@ return {
           )
         end,
 
-        -- neodev
-        --[[ -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
+        --[[ neodev
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
         ['sumneko_lua'] = function()
           require("lspconfig").sumneko_lua.setup({
             capabilities = capabilities,
@@ -831,7 +847,8 @@ return {
               }
             }
           })
-        end, ]]
+        end,
+        ]]
 
         ["tsserver"] = function()
           -- noop

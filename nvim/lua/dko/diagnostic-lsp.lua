@@ -69,20 +69,10 @@ local diagnosticGroup =
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
   desc = "Sync diagnostics to loclist",
   callback = function(args)
-    if
-      #args.data.diagnostics > 0
-      and vim.fn.getbufvar(args.buf, "is_first_diagnostic") ~= true
-    then
-      vim.notify(
-        "Received " .. #args.data.diagnostics .. " diagnostic(s)",
-        vim.log.levels.WARN
-      )
-      vim.fn.setbufvar(args.buf, "is_first_diagnostic", true)
+    if #args.data.diagnostics > 0 then
       vim.diagnostic.setloclist({ open = true }) -- focuses loclist too
       vim.cmd.wincmd("p") -- exit loclist back to previous window
-      return
     end
-    vim.diagnostic.setloclist({ open = false })
   end,
   group = diagnosticGroup,
 })
