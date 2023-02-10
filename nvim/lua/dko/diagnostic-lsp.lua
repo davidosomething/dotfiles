@@ -64,19 +64,6 @@ vim.diagnostic.config({
   update_in_insert = false, -- wait until insert leave to check diagnostics
 })
 
-local diagnosticGroup =
-  vim.api.nvim_create_augroup("dkodiagnostic", { clear = true })
-vim.api.nvim_create_autocmd("DiagnosticChanged", {
-  desc = "Sync diagnostics to loclist",
-  callback = function(args)
-    if #args.data.diagnostics > 0 then
-      vim.diagnostic.setloclist({ open = true }) -- focuses loclist too
-      vim.cmd.wincmd("p") -- exit loclist back to previous window
-    end
-  end,
-  group = diagnosticGroup,
-})
-
 -- ===========================================================================
 -- Diagnostic mappings
 -- ===========================================================================

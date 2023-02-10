@@ -113,3 +113,24 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   end,
   group = augroup("dkosaving"),
 })
+
+autocmd("DiagnosticChanged", {
+  desc = "Sync diagnostics to loclist",
+  callback = function()
+    local window = vim.api.nvim_get_current_win()
+    vim.diagnostic.setloclist({ open = false }) -- focuses loclist too
+    vim.cmd.lwindow() -- open+focus loclist if has entries, else close
+    vim.api.nvim_set_current_win(window)
+  end,
+  group = augroup("dkodiagnostic"),
+})
+
+autocmd("BufEnter", {
+  desc = "Close if quickfix is the only window",
+  callback = function()
+    if vim.bo.filetype == 'qf' and vim.fn.winnr('$') < 2 then
+      vim.cmd.quit()
+    end
+  end,
+  group = augroup("dkoqf"),
+})

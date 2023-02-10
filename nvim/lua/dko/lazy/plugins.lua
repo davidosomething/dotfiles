@@ -206,7 +206,6 @@ return {
   -- indent guides
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPost",
     config = function()
       require("indent_blankline").setup({
         -- char = "▏",
@@ -640,18 +639,31 @@ return {
       null_ls.setup({
         border = "rounded",
         sources = {
+          -- provide the typescript.nvim commands as LSP actions
+          require("typescript.extensions.null-ls.code-actions"),
+
           null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.code_actions.shellcheck,
 
+          -- =================================================================
+          -- Diagnostics
+          -- =================================================================
+
           -- Switch ALL diagnostics to DIAGNOSTICS_ON_SAVE only
           -- or null_ls will keep spamming LSP events
+
           null_ls.builtins.diagnostics.editorconfig_checker.with({
             method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
           }),
 
-          --null_ls.builtins.diagnostics.luacheck, -- prefer selene
-          --
-          null_ls.builtins.diagnostics.markdownlint_cli2,
+          --[[ null_ls.builtins.diagnostics.luacheck.with({
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+          }), ]]
+
+          null_ls.builtins.diagnostics.markdownlint.with({
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+          }),
+
           null_ls.builtins.diagnostics.qmllint.with({
             method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
           }),
@@ -676,6 +688,10 @@ return {
             method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
           }),
 
+          -- =================================================================
+          -- Formatting
+          -- =================================================================
+
           null_ls.builtins.formatting.stylua.with({
             condition = function(utils)
               return utils.root_has_file({ "stylua.toml", ".stylua.toml" })
@@ -684,9 +700,6 @@ return {
           null_ls.builtins.formatting.markdownlint,
           null_ls.builtins.formatting.qmlformat,
           null_ls.builtins.formatting.shfmt,
-
-          -- provide the typescript.nvim commands as LSP actions
-          require("typescript.extensions.null-ls.code-actions"),
         },
 
         -- defaults to false, but lets just sync it in case I want to change
@@ -731,7 +744,7 @@ return {
         status_symbol = "",
       })
 
-      -- lsp_status.register_progress() -- too noisy
+      lsp_status.register_progress() -- too noisy
     end,
   },
 
@@ -766,6 +779,7 @@ return {
     dependencies = {
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
+      "jose-elias-alvarez/typescript.nvim",
       "neovim/nvim-lspconfig", -- wait for lspconfig, which waits for neodev
       "nvim-lua/lsp-status.nvim",
     },
@@ -790,40 +804,52 @@ return {
       if vim.fn.executable("go") == 1 then
         table.insert(lsps, "gopls")
       end
-      require("mason-lspconfig").setup({
+
+      local masonLspConfig = require("mason-lspconfig")
+      masonLspConfig.setup({
         ensure_installed = lsps,
         automatic_installation = true,
       })
 
+      local cmpNvimLsp = require("cmp_nvim_lsp")
+      local lspStatus = require("lsp-status")
+
+      local defaultCapabilities = cmpNvimLsp.default_capabilities()
+      defaultCapabilities = vim.tbl_extend(
+        "keep",
+        defaultCapabilities or {},
+        lspStatus.capabilities
+      )
+
       local defaultOptions = {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
-        on_attach = require("lsp-status").on_attach,
+        capabilities = defaultCapabilities,
+        on_attach = lspStatus.on_attach,
       }
+
+      local lspconfig = require("lspconfig")
 
       -- Note that instead of on_attach for each server setup,
       -- diagnostic-lsp.lua has an autocmd defined
-      require("mason-lspconfig").setup_handlers({
+      masonLspConfig.setup_handlers({
         function(server)
-          require("lspconfig")[server].setup(defaultOptions)
+          lspconfig[server].setup(defaultOptions)
         end,
 
         ["jsonls"] = function()
-          require("lspconfig").jsonls.setup(
-            vim.tbl_extend("force", defaultOptions, {
-              settings = {
-                json = {
-                  schemas = require("schemastore").json.schemas(),
-                  validate = { enable = true },
-                },
+          lspconfig.jsonls.setup(vim.tbl_extend("force", defaultOptions, {
+            settings = {
+              json = {
+                schemas = require("schemastore").json.schemas(),
+                validate = { enable = true },
               },
-            })
-          )
+            },
+          }))
         end,
 
         --[[ neodev
         -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
         ['sumneko_lua'] = function()
-          require("lspconfig").sumneko_lua.setup({
+          lspconfig.sumneko_lua.setup({
             capabilities = capabilities,
             settings = {
               Lua = {
@@ -851,35 +877,13 @@ return {
         ]]
 
         ["tsserver"] = function()
-          -- noop
           -- use jose-elias-alvarez/typescript.nvim instead
+          -- This will do lspconfig.tsserver.setup()
+          require("typescript").setup(defaultOptions)
         end,
       })
     end,
   },
-
-  {
-    "jose-elias-alvarez/typescript.nvim",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "nvim-lua/lsp-status.nvim",
-    },
-    config = function()
-      -- This will do lspconfig.tsserver.setup()
-      require("typescript").setup({
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
-        on_attach = require("lsp-status").on_attach,
-      })
-    end,
-  },
-
-  -- too disruptive, shifts things around on screen
-  --[[ {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    config = function()
-      require("lsp_lines").setup()
-    end,
-  }, ]]
 
   -- =========================================================================
   -- Completion
