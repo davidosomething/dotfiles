@@ -103,7 +103,7 @@ return {
 
   -- HR with <Leader>f[CHAR]
   {
-    dir = vim.fn.stdpath('config') .. "/mine/vim-hr",
+    dir = vim.fn.stdpath("config") .. "/mine/vim-hr",
     config = function()
       local map = vim.fn["hr#map"]
       map("_")
@@ -116,7 +116,7 @@ return {
 
   -- <Leader>C <Plug>(dkosmallcaps)
   {
-    dir = vim.fn.stdpath('config') .. "/mine/vim-smallcaps",
+    dir = vim.fn.stdpath("config") .. "/mine/vim-smallcaps",
     config = function()
       vim.keymap.set("v", "<Leader>C", "<Plug>(dkosmallcaps)", {
         desc = "Apply vim-smallcaps to visual selection",
@@ -126,7 +126,7 @@ return {
 
   -- Toggle movement mode line-wise/display-wise
   {
-    dir = vim.fn.stdpath('config') .. "/mine/vim-movemode",
+    dir = vim.fn.stdpath("config") .. "/mine/vim-movemode",
     lazy = false, -- I use the autoload fns
     config = function()
       vim.keymap.set("n", "<Leader>mm", "<Cmd>call movemode#toggle()<CR>", {
@@ -434,16 +434,16 @@ return {
       vim.g.fzf_buffers_jump = 1
     end,
     config = function()
-      vim.keymap.set('n', '<A-b>', '<Cmd>FZFBuffers<CR>')
-      vim.keymap.set('n', '<A-c>', '<Cmd>FZFCommands<CR>')
-      vim.keymap.set('n', '<A-f>', '<Cmd>FZFFiles<CR>')
-      vim.keymap.set('n', '<A-g>', '<Cmd>FZFGrepper<CR>')
-      vim.keymap.set('n', '<A-m>', '<Cmd>FZFMRU<CR>')
-      vim.keymap.set('n', '<A-p>', '<Cmd>FZFProject<CR>')
-      vim.keymap.set('n', '<A-r>', '<Cmd>FZFRelevant<CR>')
-      vim.keymap.set('n', '<A-s>', '<Cmd>FZFGitStatusFiles<CR>')
-      vim.keymap.set('n', '<A-t>', '<Cmd>FZFTests<CR>')
-      vim.keymap.set('n', '<A-v>', '<Cmd>FZFVim<CR>')
+      vim.keymap.set("n", "<A-b>", "<Cmd>FZFBuffers<CR>")
+      vim.keymap.set("n", "<A-c>", "<Cmd>FZFCommands<CR>")
+      vim.keymap.set("n", "<A-f>", "<Cmd>FZFFiles<CR>")
+      vim.keymap.set("n", "<A-g>", "<Cmd>FZFGrepper<CR>")
+      vim.keymap.set("n", "<A-m>", "<Cmd>FZFMRU<CR>")
+      vim.keymap.set("n", "<A-p>", "<Cmd>FZFProject<CR>")
+      vim.keymap.set("n", "<A-r>", "<Cmd>FZFRelevant<CR>")
+      vim.keymap.set("n", "<A-s>", "<Cmd>FZFGitStatusFiles<CR>")
+      vim.keymap.set("n", "<A-t>", "<Cmd>FZFTests<CR>")
+      vim.keymap.set("n", "<A-v>", "<Cmd>FZFVim<CR>")
     end,
   },
 
@@ -490,6 +490,21 @@ return {
   -- =========================================================================
   -- Editing
   -- =========================================================================
+
+  {
+    "gbprod/yanky.nvim",
+    config = function()
+      require("yanky").setup({
+        highlight = { timer = 300 },
+      })
+      vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+      vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+      vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+      vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
+      vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
+      vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+    end,
+  },
 
   -- Add file manip commands like Remove, Move, Rename, SudoWrite
   -- Do not lazy load, tracks buffers

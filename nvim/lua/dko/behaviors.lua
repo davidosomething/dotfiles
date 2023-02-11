@@ -102,17 +102,18 @@ autocmd("BufReadPre", {
   group = readingGroup,
 })
 
-autocmd("TextYankPost", {
-  desc = "Highlight yanked text after yanking",
-  callback = function()
-    vim.highlight.on_yank({
-      higroup = "IncSearch",
-      timeout = 150,
-      on_visual = true,
-    })
-  end,
-  group = augroup("dkoediting"),
-})
+-- yanky.nvim providing this
+-- autocmd("TextYankPost", {
+--   desc = "Highlight yanked text after yanking",
+--   callback = function()
+--     vim.highlight.on_yank({
+--       higroup = "IncSearch",
+--       timeout = 150,
+--       on_visual = true,
+--     })
+--   end,
+--   group = augroup("dkoediting"),
+-- })
 
 autocmd({ "BufWritePre", "FileWritePre" }, {
   desc = "Create missing parent directories on write",
