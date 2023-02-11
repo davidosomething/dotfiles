@@ -146,7 +146,8 @@ autocmd("DiagnosticChanged", {
 
     -- Don't sync diagnostics from unlisted buffers
     if
-      #args.data.diagnostics > 0
+      args.data
+      and #args.data.diagnostics > 0
       and vim.fn.getbufvar(args.data.diagnostics[1].bufnr, "&buflisted") == 0
     then
       return
