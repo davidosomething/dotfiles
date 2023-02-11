@@ -1,7 +1,6 @@
 -- Fallback for vims with no env access like Veonim
 -- used by plugin/*
 ---@diagnostic disable-next-line: missing-parameter
-vim.g.vdotdir = vim.fs.dirname(vim.env.MYVIMRC)
 vim.g.mapleader = " "
 
 require("dko.external")
@@ -14,13 +13,22 @@ require("dko.terminal")
 require("dko.mappings")
 require("dko.behaviors")
 
-require("dko.lazy.install")
-local plugins = require("dko.lazy.plugins")
-local opts = {
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup(require("dko.plugins"), {
   checker = { enabled = true },
   ui = { border = "rounded" },
-}
-require("lazy").setup(plugins, opts)
+})
 
 -- Disallow unsafe local vimrc commands
 -- Leave down here since it trims local settings

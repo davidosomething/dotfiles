@@ -63,25 +63,9 @@ inoreabbrev kbddown <kbd>↓</kbd>
 
 command! Q q
 
-" ============================================================================
-" FZF
-" ============================================================================
-
-nnoremap  <silent><special>   <A-b>   :<C-U>FZFBuffers<CR>
-nnoremap  <silent><special>   <A-c>   :<C-U>FZFCommands<CR>
-nnoremap  <silent><special>   <A-f>   :<C-U>FZFFiles<CR>
-nnoremap  <silent><special>   <A-g>   :<C-U>FZFGrepper<CR>
-nnoremap  <silent><special>   <A-m>   :<C-U>FZFMRU<CR>
-nnoremap  <silent><special>   <A-p>   :<C-U>FZFProject<CR>
-nnoremap  <silent><special>   <A-r>   :<C-U>FZFRelevant<CR>
-nnoremap  <silent><special>   <A-s>   :<C-U>FZFGitStatusFiles<CR>
-nnoremap  <silent><special>   <A-t>   :<C-U>FZFTests<CR>
-nnoremap  <silent><special>   <A-v>   :<C-U>FZFVim<CR>
-
 " ----------------------------------------------------------------------------
 " <Tab> space or real tab based on line contents and cursor position
 " ----------------------------------------------------------------------------
-
 function! s:DKO_Tab() abort
   " If characters all the way back to start of line were all whitespace,
   " insert whatever expandtab setting is set to do.
