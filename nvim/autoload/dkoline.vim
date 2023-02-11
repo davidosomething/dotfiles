@@ -72,7 +72,7 @@ function! dkoline#GetTabline() abort
         \ ' '
         \)
   let l:contents .= dkoline#Format(
-        \ l:total == 0 ? '✔' : '',
+        \ l:total == 0 ? '' : '',
         \ '%#dkoStatusGood# ',
         \ ' '
         \)
