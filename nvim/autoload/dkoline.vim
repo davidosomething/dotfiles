@@ -40,11 +40,13 @@ function! dkoline#GetTabline() abort
   let l:contents .= '%#dkoStatusKey# ʟsᴘ '
   " lsp progress
   let l:has_lsp_progress = empty(luaeval('package.loaded["lsp-progress"]'))
-  let l:contents .= dkoline#Format(
-        \ l:has_lsp_progress != v:null ? luaeval('require("lsp-progress").progress()') : '',
-        \ '%#dkoStatusValue#',
-        \ ' '
-        \)
+  if l:has_lsp_progress
+    let l:contents .= dkoline#Format(
+          \ luaeval('require("lsp-progress").progress()'),
+          \ '%#dkoStatusValue#',
+          \ ' '
+          \)
+  endif
 
   " diagnostics for current buffer
   let l:errors = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })'))
