@@ -5,6 +5,9 @@ local map = vim.keymap.set
 -- Window / Buffer manip
 -- ===========================================================================
 
+map("n", "]t", vim.cmd.tabn, { desc = "Next tab" })
+map("n", "[t", vim.cmd.tabp, { desc = "Prev tab" })
+
 map("n", "<BS>", "<C-^>", {
   desc = "Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)",
 })
