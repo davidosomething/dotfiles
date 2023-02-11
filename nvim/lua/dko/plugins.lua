@@ -541,6 +541,8 @@ return {
     },
     build = ":TSUpdate",
     config = function()
+      local highlight_enabled = false
+
       require("nvim-treesitter.configs").setup({
         -- ===================================================================
         -- 3rd party
@@ -557,7 +559,7 @@ return {
 
         highlight = {
           -- @TODO until I update vim-colors-meh with treesitter @matches
-          enable = false,
+          enable = highlight_enabled,
           disable = function(lang, buf)
             if
               vim.tbl_contains({
@@ -585,18 +587,32 @@ return {
       })
 
       vim.keymap.set("n", "ss", function()
+        if not highlight_enabled then
+          vim.notify("Treesitter highlight is disabled", "error")
+          return
+        end
+
         vim.pretty_print(vim.treesitter.get_captures_at_cursor())
       end, { desc = "Copy treesitter captures under cursor" })
 
       vim.keymap.set("n", "sy", function()
+        if not highlight_enabled then
+          vim.notify("Treesitter highlight is disabled", "error")
+          return
+        end
+
         local captures = vim.treesitter.get_captures_at_cursor()
         local parsedCaptures = {}
         for _, capture in ipairs(captures) do
           table.insert(parsedCaptures, "@" .. capture)
         end
+        if #parsedCaptures == 0 then
+          vim.notify("No treesitter captures under cursor", "error", { title = "Yank failed" })
+          return
+        end
         local resultString = vim.inspect(parsedCaptures)
         vim.fn.setreg("+", resultString .. "\n")
-        vim.notify("Copied " .. resultString)
+        vim.notify(resultString, "info", { title = "Yanked capture" })
       end, { desc = "Copy treesitter captures under cursor" })
     end,
   },
