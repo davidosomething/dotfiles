@@ -729,7 +729,7 @@ return {
 
   {
     "davidosomething/lsp-progress.nvim",
-    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/lsp-progress")) == 1,
+    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/lsp-progress.nvim")) == 1,
     branch = "hide-cruft",
     event = { "VimEnter" },
     dependencies = {
