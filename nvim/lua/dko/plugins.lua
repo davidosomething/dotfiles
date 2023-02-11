@@ -159,7 +159,10 @@ return {
     priority = 1000,
     config = function()
       vim.notify = require("notify")
-      vim.notify.setup({ timeout = 3000 })
+      vim.notify.setup({
+        timeout = 3000,
+        stages = vim.go.termguicolors and "fade_in_slide_out" or "slide",
+      })
 
       -- Show LSP messages via vim.notify (but only when using nvim-notify)
       ---@diagnostic disable-next-line: duplicate-set-field
