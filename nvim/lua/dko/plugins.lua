@@ -141,7 +141,7 @@ return {
 
   {
     "davidosomething/vim-colors-meh",
-    dev = vim.fn.getenv("USER") == "davidosomething",
+    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/vim-colors-meh")),
     lazy = false,
     priority = 1000,
     config = function()
