@@ -1,19 +1,3 @@
-local function textobjMap(obj, char)
-  char = char or obj:sub(1, 1)
-  vim.keymap.set("o", "a" .. char, "<Plug>(textobj-" .. obj .. "-a)", {
-    desc = "Operator - around " .. obj,
-  })
-  vim.keymap.set("x", "a" .. char, "<Plug>(textobj-" .. obj .. "-a)", {
-    desc = "Visual - around " .. obj,
-  })
-  vim.keymap.set("o", "i" .. char, "<Plug>(textobj-" .. obj .. "-i)", {
-    desc = "Operator - inside " .. obj,
-  })
-  vim.keymap.set("x", "i" .. char, "<Plug>(textobj-" .. obj .. "-i)", {
-    desc = "Visual - inside " .. obj,
-  })
-end
-
 return {
   -- =========================================================================
   -- nvim dev
@@ -405,7 +389,7 @@ return {
           end, { expr = true, desc = "Prev hunk" })
 
           -- Actions
-          map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", {
+          map({ "n", "v" }, "<leader>hr", "<Cmd>Gitsigns reset_hunk<CR>", {
             desc = "Reset hunk",
           })
           map("n", "gb", function()
@@ -413,7 +397,7 @@ return {
           end, { desc = "Show blames" })
 
           -- Text object
-          map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", {
+          map({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>", {
             desc = "Select hunk",
           })
         end,
@@ -661,27 +645,36 @@ return {
   },
 
   {
-    "kana/vim-textobj-indent",
-    dependencies = { "kana/vim-textobj-user" },
+    "kana/vim-textobj-user",
+    dependencies = {
+      "kana/vim-textobj-indent",
+      "gilligan/textobj-lastpaste",
+      "mattn/vim-textobj-url",
+    },
     config = function()
+      local function textobjMap(obj, char)
+        char = char or obj:sub(1, 1)
+        vim.keymap.set("o", "a" .. char, "<Plug>(textobj-" .. obj .. "-a)", {
+          desc = "Operator - around " .. obj,
+        })
+        vim.keymap.set("x", "a" .. char, "<Plug>(textobj-" .. obj .. "-a)", {
+          desc = "Visual - around " .. obj,
+        })
+        vim.keymap.set("o", "i" .. char, "<Plug>(textobj-" .. obj .. "-i)", {
+          desc = "Operator - inside " .. obj,
+        })
+        vim.keymap.set("x", "i" .. char, "<Plug>(textobj-" .. obj .. "-i)", {
+          desc = "Visual - inside " .. obj,
+        })
+      end
+
       textobjMap("indent")
       vim.keymap.set("n", "<Leader>s", "vii:!sort<CR>", {
         desc = "Auto select indent and sort",
         remap = true, -- since ii is a mapping too
       })
-    end,
-  },
-  {
-    "gilligan/textobj-lastpaste",
-    dependencies = { "kana/vim-textobj-user" },
-    config = function()
+
       textobjMap("paste", "P")
-    end,
-  },
-  {
-    "mattn/vim-textobj-url",
-    dependencies = { "kana/vim-textobj-user" },
-    config = function()
       textobjMap("url")
     end,
   },
