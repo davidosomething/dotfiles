@@ -69,7 +69,7 @@ return {
           number = false,
         },
         cursorword = {
-          enable = true,
+          enable = false, -- https://github.com/yamatsum/nvim-cursorline/issues/27
           min_length = 3,
           hl = { underline = true },
         },
