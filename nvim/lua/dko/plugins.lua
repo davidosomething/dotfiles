@@ -141,10 +141,7 @@ return {
 
   {
     "davidosomething/vim-colors-meh",
-    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/vim-colors-meh")),
-    opts = {
-      dev = { fallback = true },
-    },
+    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/vim-colors-meh")) == 1,
     lazy = false,
     priority = 1000,
     config = function()
