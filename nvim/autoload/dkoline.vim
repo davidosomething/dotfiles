@@ -39,8 +39,9 @@ function! dkoline#GetTabline() abort
 
   let l:contents .= '%#dkoStatusKey# ʟsᴘ '
   " lsp progress
+  let l:has_lsp_progress = empty(luaeval('package.loaded["lsp-progress"]'))
   let l:contents .= dkoline#Format(
-        \ luaeval('require("lsp-progress").progress()'),
+        \ l:has_lsp_progress != v:null ? luaeval('require("lsp-progress").progress()') : '',
         \ '%#dkoStatusValue#',
         \ ' '
         \)
