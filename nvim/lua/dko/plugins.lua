@@ -141,7 +141,8 @@ return {
 
   {
     "davidosomething/vim-colors-meh",
-    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/vim-colors-meh")) == 1,
+    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/vim-colors-meh"))
+      == 1,
     lazy = false,
     priority = 1000,
     config = function()
@@ -610,7 +611,11 @@ return {
           table.insert(parsedCaptures, "@" .. capture)
         end
         if #parsedCaptures == 0 then
-          vim.notify("No treesitter captures under cursor", "error", { title = "Yank failed" })
+          vim.notify(
+            "No treesitter captures under cursor",
+            "error",
+            { title = "Yank failed" }
+          )
           return
         end
         local resultString = vim.inspect(parsedCaptures)
@@ -732,7 +737,8 @@ return {
 
   {
     "davidosomething/lsp-progress.nvim",
-    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/lsp-progress.nvim")) == 1,
+    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/lsp-progress.nvim"))
+      == 1,
     branch = "hide-cruft",
     event = { "VimEnter" },
     dependencies = {
