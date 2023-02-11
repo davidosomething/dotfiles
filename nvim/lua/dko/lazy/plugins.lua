@@ -368,9 +368,9 @@ return {
           end
 
           -- Navigation
-          map("n", "]c", function()
+          map("n", "]h", function()
             if vim.wo.diff then
-              return "]c"
+              return "]h"
             end
             vim.schedule(function()
               gs.next_hunk()
@@ -378,9 +378,9 @@ return {
             return "<Ignore>"
           end, { expr = true, desc = "Next hunk" })
 
-          map("n", "[c", function()
+          map("n", "[h", function()
             if vim.wo.diff then
-              return "[c"
+              return "[h"
             end
             vim.schedule(function()
               gs.prev_hunk()
@@ -389,9 +389,14 @@ return {
           end, { expr = true, desc = "Prev hunk" })
 
           -- Actions
-          map({ "n", "v" }, "<leader>hr", "<Cmd>Gitsigns reset_hunk<CR>", {
-            desc = "Reset hunk",
-          })
+          -- the ones that use <Cmd> take a range, don't pass as gs.method
+          map(
+            { "n", "v" },
+            "<leader>hr",
+            "<Cmd>Gitsigns reset_hunk",
+            { desc = "Reset hunk" }
+          )
+          map("n", "<leader>hp", gs.preview_hunk, { desc = "Preview hunk" })
           map("n", "gb", function()
             gs.blame_line({ full = true })
           end, { desc = "Show blames" })
@@ -401,6 +406,9 @@ return {
             desc = "Select hunk",
           })
         end,
+        preview_config = {
+          border = "rounded",
+        },
       })
     end,
   },
