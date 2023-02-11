@@ -108,7 +108,11 @@ map("n", "<F1>", require("dko.help"), {
 map("n", "<Leader>yn", function()
   local res = vim.fn.expand("%:t")
   if res == "" then
-    vim.notify("Buffer has no filename", "error", { title = "Failed to yank filename" })
+    vim.notify(
+      "Buffer has no filename",
+      "error",
+      { title = "Failed to yank filename" }
+    )
     return
   end
   vim.fn.setreg("+", res)
@@ -123,6 +127,15 @@ map("n", "<Leader>yp", function()
   vim.fn.setreg("+", res)
   vim.notify(res, "info", { title = "Yanked filepath" })
 end, { desc = "Yank the full filepath of current buffer" })
+
+local function osc52copy(text)
+  local data = vim.fn.system([[base64 | tr -d '\n']], text)
+  io.stdout:write("\027]52;c;" .. data .. "\a")
+  vim.notify(text, "info", { title = "YEET OSC52" })
+end
+map("n", "<Leader>yo", function()
+  osc52copy(vim.fn.getreg('+'))
+end, { desc = "Yeet the unnamedplus register to OSC52" })
 
 -- ===========================================================================
 -- Buffer: Movement
