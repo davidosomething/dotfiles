@@ -1,4 +1,3 @@
-local M = {}
 local map = vim.keymap.set
 
 -- ===========================================================================
@@ -69,13 +68,18 @@ map("n", "<Leader>ecr", "<Cmd>call dko#edit#EditClosest('README.md')<CR>", {
 map("n", "<Leader>epj", "<Cmd>call dko#edit#EditClosest('package.json')<CR>", {
   desc = "Edit closest package.json",
 })
-map("n", "<Leader>evi", "<Cmd>edit " .. vim.fn.stdpath('config') .. "/init.lua<CR>", {
-  desc = "Edit init.lua",
-})
+map(
+  "n",
+  "<Leader>evi",
+  "<Cmd>edit " .. vim.fn.stdpath("config") .. "/init.lua<CR>",
+  {
+    desc = "Edit init.lua",
+  }
+)
 map(
   "n",
   "<Leader>evm",
-  "<Cmd>edit " .. vim.fn.stdpath('config') .. "/lua/dko/mappings.lua<CR>",
+  "<Cmd>edit " .. vim.fn.stdpath("config") .. "/lua/dko/mappings.lua<CR>",
   {
     desc = "Edit mappings.lua",
   }
@@ -83,7 +87,7 @@ map(
 map(
   "n",
   "<Leader>evp",
-  "<Cmd>edit " .. vim.fn.stdpath('config') .. "/lua/dko/plugins.lua<CR>",
+  "<Cmd>edit " .. vim.fn.stdpath("config") .. "/lua/dko/plugins.lua<CR>",
   {
     desc = "Edit plugins.lua",
   }
@@ -100,6 +104,25 @@ map({ "i", "n" }, "<F1>", "<NOP>", {
 map("n", "<F1>", require("dko.help"), {
   desc = "Show vim help for <cexpr>",
 })
+
+map("n", "<Leader>yn", function()
+  local res = vim.fn.expand("%:t")
+  if res == "" then
+    vim.notify("Buffer has no filename", "error", { title = "Failed to yank filename" })
+    return
+  end
+  vim.fn.setreg("+", res)
+  vim.notify(res, "info", { title = "Yanked filename" })
+end, { desc = "Yank the filename of current buffer" })
+
+map("n", "<Leader>yp", function()
+  local res = vim.fn.expand("%:p")
+  if res == "" then
+    res = vim.fn.getcwd()
+  end
+  vim.fn.setreg("+", res)
+  vim.notify(res, "info", { title = "Yanked filepath" })
+end, { desc = "Yank the full filepath of current buffer" })
 
 -- ===========================================================================
 -- Buffer: Movement
@@ -223,7 +246,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("dkolsp", { clear = true }),
 })
 
-
 -- ===========================================================================
 -- Diagnostic mappings
 -- ===========================================================================
@@ -246,5 +268,3 @@ end, gotoOpts)
 map("n", "<Leader>d", function()
   vim.diagnostic.open_float(floatOpts)
 end, { desc = "Open diagnostic float at cursor" })
-
-return M
