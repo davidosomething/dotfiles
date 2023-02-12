@@ -224,7 +224,7 @@ return {
   -- pretty format quickfix and loclist
   {
     "https://gitlab.com/yorickpeterse/nvim-pqf.git",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       local SIGNS = require("dko.diagnostic-lsp").SIGNS
       require("pqf").setup({
@@ -376,7 +376,7 @@ return {
 
   {
     "lewis6991/gitsigns.nvim",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       local gs = require("gitsigns")
       gs.setup({
@@ -496,7 +496,7 @@ return {
 
   {
     "NvChad/nvim-colorizer.lua",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("colorizer").setup({
         buftypes = {
@@ -534,7 +534,7 @@ return {
   -- % textobject
   {
     "andymass/vim-matchup",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     init = function()
       vim.g.matchup_delim_noskips = 2
       vim.g.matchup_matchparen_deferred = 1
@@ -553,7 +553,7 @@ return {
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       "andymass/vim-matchup",
       "JoosepAlviste/nvim-ts-context-commentstring",
@@ -643,7 +643,7 @@ return {
 
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("nvim-treesitter.configs").setup({
         context_commentstring = {
@@ -657,7 +657,7 @@ return {
   -- gcc / <Leader>gbc to comment with treesitter integration
   {
     "numToStr/Comment.nvim",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("Comment").setup({
         ---LHS of operator-pending mappings in NORMAL and VISUAL mode
@@ -755,7 +755,7 @@ return {
     "davidosomething/lsp-progress.nvim",
     dev = hasProject("$HOME/projects/lsp-progress.nvim"),
     branch = "support-table-return",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       "vim-smallcaps",
       "nvim-tree/nvim-web-devicons",
@@ -929,7 +929,7 @@ return {
     -- @TODO https://github.com/williamboman/mason-lspconfig.nvim/issues/147
     commit = "ee00aa22dc5254432ac4704e6761d2b127e14622",
 
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       { "folke/neodev.nvim", config = true },
       "williamboman/mason.nvim",
