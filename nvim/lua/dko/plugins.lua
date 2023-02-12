@@ -1,4 +1,4 @@
-local function hasproject(path)
+local function hasProject(path)
   return vim.fn.isdirectory(vim.fn.expand(path)) == 1
 end
 
@@ -145,7 +145,7 @@ return {
 
   {
     "davidosomething/vim-colors-meh",
-    dev = hasproject("$HOME/projects/vim-colors-meh"),
+    dev = hasProject("$HOME/projects/vim-colors-meh"),
     lazy = false,
     priority = 1000,
     config = function()
@@ -753,7 +753,7 @@ return {
 
   {
     "davidosomething/lsp-progress.nvim",
-    dev = hasproject("$HOME/projects/lsp-progress.nvim"),
+    dev = hasProject("$HOME/projects/lsp-progress.nvim"),
     branch = "support-table-return",
     event = "BufReadPost",
     dependencies = {
