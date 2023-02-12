@@ -261,3 +261,12 @@ if vim.fn.empty(grepper.command) == 0 then
   vim.o.grepprg = grepper.command .. " " .. vim.fn.join(grepper.options, " ")
   vim.o.grepformat = grepper.format
 end
+
+-- ===========================================================================
+-- netrw
+-- ===========================================================================
+
+vim.g.netrw_altfile = 1 -- never altfile back to netrw
+vim.g.netrw_hide = 0 -- show all files
+vim.g.netrw_liststyle = 3 -- netrw in details format when no vimfiler
+vim.g.netrw_browsex_viewer = "dko-open"

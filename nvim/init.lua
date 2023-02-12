@@ -6,7 +6,6 @@ vim.g.mapleader = " "
 require("dko.external")
 require("dko.providers")
 require("dko.opt")
-require("dko.builtin-plugins")
 require("dko.builtin-syntax")
 require("dko.diagnostic-lsp")
 require("dko.terminal")
@@ -28,6 +27,20 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(require("dko.plugins"), {
   checker = { enabled = true },
   ui = { border = "rounded" },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen", -- vim-matchup will re-load this anyway
+        --"netrwPlugin", -- sometimes i use this
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
 })
 
 -- Disallow unsafe local vimrc commands

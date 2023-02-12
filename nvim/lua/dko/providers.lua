@@ -4,19 +4,8 @@ vim.g.loaded_perl_provider = false
 vim.g.loaded_python_provider = false -- disable python 2
 
 -- Skips if python is not installed in a pyenv virtualenv
-local function findExecutable(paths)
-  for _, path in ipairs(paths) do
-    ---@diagnostic disable-next-line: missing-parameter
-    local e = vim.fn.glob(vim.fn.expand(path))
-    if vim.fn.empty(e) == 0 and vim.fn.executable(e) == 1 then
-      return e
-    end
-  end
-  return nil
-end
-
 -- python 3
-local py3 = findExecutable({
+local py3 = require('dko.utils.find_exists')({
   "$PYENV_ROOT/versions/neovim3/bin/python",
   "$ASDF_DIR/shims/python",
   "/usr/bin/python3",
