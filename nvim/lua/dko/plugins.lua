@@ -178,6 +178,15 @@ return {
           end,
         })
       end
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "EscEscEnd",
+        desc = "Dismiss notifications on <Esc><Esc>",
+        callback = function()
+          vim.notify.dismiss({ silent = true, pending = true })
+        end,
+        group = vim.api.nvim_create_augroup("dkonvimnotify", { clear = true }),
+      })
     end,
   },
 

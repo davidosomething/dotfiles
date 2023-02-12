@@ -1,5 +1,15 @@
 local map = vim.keymap.set
 
+map('n', '<Esc><Esc>', function()
+  vim.cmd.doautoall("User EscEscStart")
+  -- Clear / search term
+  vim.fn.setreg('/', '')
+  -- Stop highlighting searches
+  vim.cmd.nohlsearch()
+  vim.cmd.redraw({ bang = true })
+  vim.cmd.doautoall("User EscEscEnd")
+end, { desc = "Clear UI" })
+
 -- ===========================================================================
 -- Window / Buffer manip
 -- ===========================================================================
