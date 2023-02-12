@@ -802,10 +802,13 @@ return {
         local joinedClients = table.concat(clients, ", ")
         local clientsString = vim.fn["smallcaps#convert"](joinedClients)
 
-        -- spinner, space, busy client names
-        --local spinner = client_messages[1].spinner
-        --return spinner .. " " .. clientsString
+        -- multi clients, show indeterminate spinner, space, busy client names
+        if #client_messages > 1 then
+          local spinner = client_messages[1].spinner
+          return spinner .. " " .. clientsString
+        end
 
+        -- one client, show percentage of current series
         local percentage = client_messages[1].percentage
         local percentageBar = require('dko.utils.progress').vertical_character(percentage)
         return percentageBar .. " " .. clientsString
