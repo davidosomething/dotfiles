@@ -43,7 +43,7 @@ function! dkoline#GetTabline() abort
   if l:has_lsp_progress
     let l:contents .= dkoline#Format(
           \ luaeval('require("lsp-progress").progress()'),
-          \ '%#dkoStatusValue#',
+          \ '%#dkoStatusValue# ',
           \ ' '
           \)
   endif

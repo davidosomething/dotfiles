@@ -737,19 +737,80 @@ return {
 
   {
     "davidosomething/lsp-progress.nvim",
-    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/lsp-progress.nvim"))
-      == 1,
-    branch = "hide-cruft",
+    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/lsp-progress.nvim")),
+    branch = "support-table-return",
     event = { "VimEnter" },
     dependencies = {
+      "vim-smallcaps",
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
+      ---@return table|nil
+      local function series_format(title, message, percentage, done)
+        if done then
+          return nil
+        end
+        return {
+          title = title,
+          message = message,
+          percentage = percentage,
+          done = done,
+        }
+      end
+
+      ---@class ClientMessage
+      ---@field spinner string
+      ---@field client_name string
+      ---@field title string
+      ---@field message string
+      ---@field percentage number
+
+      ---@param client_name string
+      ---@param spinner string
+      ---@param series_messages table
+      ---@return ClientMessage|nil passed to format as item in client_messages[]
+      local function client_format(client_name, spinner, series_messages)
+        series_messages = vim.tbl_filter(function(t)
+          return t ~= nil
+        end, series_messages)
+        if #series_messages > 0 then
+          return {
+            spinner = spinner,
+            client_name = client_name,
+            title = series_messages[1].title,
+            message = series_messages[1].message,
+            percentage = series_messages[1].percentage,
+          }
+        end
+        return nil
+      end
+
+      ---@param client_messages ClientMessage[]
+      ---@return string that is output when calling .progress()
+      local function format(client_messages)
+        client_messages = vim.tbl_filter(function(t)
+          return t ~= nil
+        end, client_messages)
+        if #client_messages == 0 then
+          return ""
+        end
+
+        local spinner = client_messages[1].spinner
+        local clients = {}
+        for _, client_message in ipairs(client_messages) do
+          table.insert(clients, client_message.client_name)
+        end
+        local joinedClients = table.concat(clients, ", ")
+        local clientsString = vim.fn["smallcaps#convert"](joinedClients)
+
+        -- spinner, space, busy client names
+        return spinner .. " " .. clientsString
+      end
+
       require("lsp-progress").setup({
-        max_size = 3,
-        sign = "",
-        show_client_name = false,
-        show_message_text = false,
+        series_format = series_format,
+        client_format = client_format,
+        format = format,
         spinner = { "◢", "◣", "◤", "◥" },
       })
     end,

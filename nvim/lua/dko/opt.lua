@@ -78,9 +78,8 @@ vim.o.numberwidth = 5
 vim.o.scrolloff = 8
 vim.o.sidescrolloff = 16
 
-if vim.fn.exists("+signcolumn") == 1 then
-  vim.o.signcolumn = vim.fn.has("nvim-0.4") and "auto:3" or "yes"
-end
+-- min 1, max 4 signs
+vim.o.signcolumn = "auto:1-4"
 
 vim.o.synmaxcol = 512 -- don't syntax highlight long lines
 
