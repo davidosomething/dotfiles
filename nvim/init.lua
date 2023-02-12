@@ -26,6 +26,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(require("dko.plugins"), {
   checker = { enabled = true },
+  dev = { fallback = true, },
   ui = { border = "rounded" },
   performance = {
     rtp = {

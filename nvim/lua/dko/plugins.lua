@@ -1,7 +1,3 @@
-local function has_project(name)
-  return vim.loop.fs_stat(vim.fs.normalize("$HOME/projects/" .. name)) ~= nil
-end
-
 return {
   -- =========================================================================
   -- nvim dev
@@ -145,7 +141,7 @@ return {
 
   {
     "davidosomething/vim-colors-meh",
-    dev = has_project("vim-colors-meh"),
+    dev = true,
     lazy = false,
     priority = 1000,
     config = function()
@@ -752,9 +748,8 @@ return {
   -- =========================================================================
 
   {
-    "davidosomething/lsp-progress.nvim",
-    dev = has_project("lsp-progress.nvim"),
-    branch = "support-table-return",
+    "linrongbin16/lsp-progress.nvim",
+    branch = "main",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       "vim-smallcaps",
