@@ -810,7 +810,8 @@ return {
 
         -- one client, show percentage of current series
         local percentage = client_messages[1].percentage
-        local percentageBar = require('dko.utils.progress').vertical_character(percentage)
+        local percentageBar =
+          require("dko.utils.progress").vertical_character(percentage)
         return percentageBar .. " " .. clientsString
       end
 
