@@ -1,3 +1,7 @@
+local function hasproject(path)
+  return vim.fn.isdirectory(vim.fn.expand(path)) == 1
+end
+
 return {
   -- =========================================================================
   -- nvim dev
@@ -141,8 +145,7 @@ return {
 
   {
     "davidosomething/vim-colors-meh",
-    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/vim-colors-meh"))
-      == 1,
+    dev = hasproject("$HOME/projects/vim-colors-meh"),
     lazy = false,
     priority = 1000,
     config = function()
@@ -161,7 +164,9 @@ return {
     config = function()
       vim.notify = require("notify")
       vim.notify.setup({
-        timeout = 3000,
+        max_height = 8,
+        max_width = 40,
+        timeout = 2500,
         stages = vim.go.termguicolors and "fade_in_slide_out" or "slide",
       })
 
@@ -194,6 +199,7 @@ return {
   -- vim.lsp.buf.code_action and rename
   {
     "stevearc/dressing.nvim",
+    event = "VeryLazy",
     config = function()
       require("dressing").setup({
         select = {
@@ -218,6 +224,7 @@ return {
   -- pretty format quickfix and loclist
   {
     "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+    event = "BufReadPost",
     config = function()
       local SIGNS = require("dko.diagnostic-lsp").SIGNS
       require("pqf").setup({
@@ -746,10 +753,9 @@ return {
 
   {
     "davidosomething/lsp-progress.nvim",
-    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/lsp-progress.nvim"))
-      == 1,
+    dev = hasproject("$HOME/projects/lsp-progress.nvim"),
     branch = "support-table-return",
-    event = { "VimEnter" },
+    event = "BufReadPost",
     dependencies = {
       "vim-smallcaps",
       "nvim-tree/nvim-web-devicons",
