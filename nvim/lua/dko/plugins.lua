@@ -910,7 +910,10 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+
+    -- @TODO https://github.com/williamboman/mason-lspconfig.nvim/issues/147
     commit = 'ee00aa22dc5254432ac4704e6761d2b127e14622',
+
     event = "BufReadPre",
     dependencies = {
       { "folke/neodev.nvim", config = true },
