@@ -9,8 +9,7 @@ local M = {}
 
 ---@type FrameConfig[]
 local states = {
-  { frame = " ", min = 0, max = 0 },
-  { frame = "▁", min = 1, max = 9 },
+  { frame = "▁", min = 0, max = 9 },
   { frame = "▃", min = 10, max = 39 },
   { frame = "▄", min = 40, max = 69 }, -- nice
   { frame = "▅", min = 70, max = 79 },

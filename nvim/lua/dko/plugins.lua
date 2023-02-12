@@ -795,7 +795,6 @@ return {
           return ""
         end
 
-        local spinner = client_messages[1].spinner
         local clients = {}
         for _, client_message in ipairs(client_messages) do
           table.insert(clients, client_message.client_name)
@@ -804,7 +803,12 @@ return {
         local clientsString = vim.fn["smallcaps#convert"](joinedClients)
 
         -- spinner, space, busy client names
-        return spinner .. " " .. clientsString
+        --local spinner = client_messages[1].spinner
+        --return spinner .. " " .. clientsString
+
+        local percentage = client_messages[1].percentage
+        local percentageBar = require('dko.utils.progress').vertical_character(percentage)
+        return percentageBar .. " " .. clientsString
       end
 
       require("lsp-progress").setup({
