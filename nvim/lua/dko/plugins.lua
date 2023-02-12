@@ -912,7 +912,7 @@ return {
     "neovim/nvim-lspconfig",
 
     -- @TODO https://github.com/williamboman/mason-lspconfig.nvim/issues/147
-    commit = 'ee00aa22dc5254432ac4704e6761d2b127e14622',
+    commit = "ee00aa22dc5254432ac4704e6761d2b127e14622",
 
     event = "BufReadPre",
     dependencies = {
@@ -1077,23 +1077,13 @@ return {
           { name = "buffer" },
         }),
 
-        mapping = {
-          ["<C-n>"] = function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            else
-              fallback()
-            end
-          end,
+        mapping = cmp.mapping.preset.insert({
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
 
-          ["<C-p>"] = function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            else
-              fallback()
-            end
-          end,
-        },
+          ---@diagnostic disable-next-line: missing-parameter
+          ["<C-Space>"] = cmp.mapping.complete(),
+        }),
 
         window = {
           completion = {
@@ -1159,6 +1149,11 @@ return {
           { name = "buffer" },
         },
       })
+
+      vim.keymap.set("n", "<C-Space>", function()
+        vim.cmd.startinsert({ bang = true })
+        vim.schedule(cmp.complete)
+      end, { desc = "In normal mode, `A`ppend and start completion" })
     end,
   },
 
