@@ -111,7 +111,7 @@ map({ "i", "n" }, "<F1>", "<NOP>", {
   desc = "Disable help shortcut key",
 })
 
-map("n", "<F1>", require("dko.help"), {
+map("n", "<F1>", require("dko.utils.help"), {
   desc = "Show vim help for <cexpr>",
 })
 
