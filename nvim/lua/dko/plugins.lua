@@ -925,10 +925,6 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-
-    -- @TODO https://github.com/williamboman/mason-lspconfig.nvim/issues/147
-    commit = "ee00aa22dc5254432ac4704e6761d2b127e14622",
-
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       { "folke/neodev.nvim", config = true },
@@ -982,7 +978,7 @@ return {
         "html",
         "jsonls",
         "stylelint_lsp",
-        "sumneko_lua",
+        "lua_ls",
         "tailwindcss",
         "tsserver",
         "vimls",
@@ -1025,9 +1021,9 @@ return {
         end,
 
         --[[ neodev
-        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
-        ['sumneko_lua'] = function()
-          lspconfig.sumneko_lua.setup({
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
+        ['lua_ls'] = function()
+          lspconfig.lua_ls.setup({
             capabilities = capabilities,
             settings = {
               Lua = {
