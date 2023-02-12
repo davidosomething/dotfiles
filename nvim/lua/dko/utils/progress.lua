@@ -1,35 +1,20 @@
 local M = {}
 
----@alias Frame string
+M.VERTICAL = { "▁", "▃", "▄", "▅", "▆", "▇" }
+M.HORIZONTAL = { "▏", "▎", "▍", "▌", "▋", "▊", "▉" }
 
----@class FrameConfig
----@field frame Frame
----@field min number
----@field max number
-
----@type FrameConfig[]
-local states = {
-  { frame = "▁", min = 0, max = 9 },
-  { frame = "▃", min = 10, max = 39 },
-  { frame = "▄", min = 40, max = 69 }, -- nice
-  { frame = "▅", min = 70, max = 79 },
-  { frame = "▆", min = 80, max = 89 },
-  { frame = "▇", min = 90, max = 100 },
-}
-
+---@param frames table
 ---@param percent number
----@return Frame
-M.vertical_character = function(percent)
-  ---@param frameConfig FrameConfig
-  ---@return boolean
-  local function frameFilter(frameConfig)
-    return percent >= frameConfig.min and percent <= frameConfig.max
-  end
-
-  local filteredTable = vim.tbl_filter(frameFilter, states)
-
-  -- Fallback to empty
-  return #filteredTable and filteredTable[1].frame or states[1].frame
+---@return string
+M.character = function(frames, percent)
+  -- 17 for VERTICAL
+  local frameInterval = math.ceil(100 / #frames)
+  -- 0%, 0/17 = 0 -> max 1
+  -- 1%, 1/17 = 0.05 -> ceil 1
+  -- 30%, 30/17 = 1.76 -> 2
+  -- 100%, 30/17 = 5.88 -> 6
+  local frameIndex = math.max(1, math.ceil(percent / frameInterval))
+  return frames[frameIndex]
 end
 
 return M

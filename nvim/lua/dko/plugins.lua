@@ -737,7 +737,8 @@ return {
 
   {
     "davidosomething/lsp-progress.nvim",
-    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/lsp-progress.nvim")),
+    dev = vim.fn.isdirectory(vim.fn.expand("$HOME/projects/lsp-progress.nvim"))
+      == 1,
     branch = "support-table-return",
     event = { "VimEnter" },
     dependencies = {
@@ -810,8 +811,10 @@ return {
 
         -- one client, show percentage of current series
         local percentage = client_messages[1].percentage
+        local progressUtil = require("dko.utils.progress")
         local percentageBar =
-          require("dko.utils.progress").vertical_character(percentage)
+          progressUtil.character(progressUtil.VERTICAL, percentage)
+
         return percentageBar .. " " .. clientsString
       end
 
