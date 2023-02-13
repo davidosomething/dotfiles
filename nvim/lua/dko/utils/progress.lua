@@ -13,7 +13,7 @@ M.character = function(frames, percent)
   -- 1%, 1/17 = 0.05 -> ceil 1
   -- 30%, 30/17 = 1.76 -> 2
   -- 100%, 30/17 = 5.88 -> 6
-  local frameIndex = math.max(1, math.ceil(percent / frameInterval))
+  local frameIndex = math.max(1, math.ceil((percent or 0)/ frameInterval))
   return frames[frameIndex]
 end
 
