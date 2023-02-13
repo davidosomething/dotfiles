@@ -72,6 +72,7 @@ end, { desc = "cd to current buffer's git root" })
 -- ===========================================================================
 -- :edit shortcuts
 -- ===========================================================================
+
 map("n", "<Leader>ecr", "<Cmd>call dko#edit#EditClosest('README.md')<CR>", {
   desc = "Edit closest README.md",
 })
@@ -97,9 +98,9 @@ map(
 map(
   "n",
   "<Leader>evp",
-  "<Cmd>edit " .. vim.fn.stdpath("config") .. "/lua/dko/plugins.lua<CR>",
+  "<Cmd>edit " .. vim.fn.stdpath("config") .. "/lua/dko/plugins/<CR>",
   {
-    desc = "Edit plugins.lua",
+    desc = "Edit lua/dko/plugins/",
   }
 )
 
@@ -183,6 +184,12 @@ map("n", "<Leader>;", "$r;", {
 map("n", "<Leader>ws", function()
   vim.fn["dko#whitespace#clean"]()
 end, { desc = "Remove trailing whitespace from entire file" })
+
+for _, v in pairs({ "=", "-", "." }) do
+  map({ "n", "i" }, "<Leader>f" .. v, function()
+    require('dko.utils.hr').fill(v)
+  end, { desc = "Append horizontal rule of " .. v .. " up to &textwidth" })
+end
 
 -- ===========================================================================
 -- Buffer: LSP integration

@@ -24,9 +24,9 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup(require("dko.plugins"), {
+require("lazy").setup("dko.plugins", {
   checker = { enabled = true },
-  dev = { fallback = true, },
+  dev = { fallback = true },
   ui = { border = "rounded" },
   performance = {
     rtp = {
