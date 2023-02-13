@@ -188,6 +188,10 @@ return {
         end,
         group = vim.api.nvim_create_augroup("dkonvimnotify", { clear = true }),
       })
+
+      vim.keymap.set("n", "<A-\\>", "<Cmd>Notifications<CR>", {
+        desc = "Show recent notifications",
+      })
     end,
   },
 
