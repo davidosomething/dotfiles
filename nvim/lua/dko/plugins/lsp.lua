@@ -226,6 +226,7 @@ return {
         "cssls",
         "cssmodules_ls",
         "dockerls",
+        "dockerls",
         "eslint",
         "html",
         "jsonls",

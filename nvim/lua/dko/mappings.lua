@@ -260,8 +260,8 @@ local function bindLspMappings()
   map(
     "n",
     "<A-=>",
-    require("dko.lsp").format_buffer,
-    lspOpts({ desc = "Format buffer with dko.lsp.format_buffer" })
+    require('dko').autofix,
+    lspOpts({ desc = "Fix and format buffer with dko.lsp.format_buffer" })
   )
 end
 
