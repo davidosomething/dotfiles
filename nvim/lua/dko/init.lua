@@ -10,9 +10,6 @@ M.autofix = function()
       typescript.actions.addMissingImports({ sync = true })
       typescript.actions.organizeImports({ sync = true })
     end
-
-    vim.notify("Formatting with tsserver", "info", { title = "LSP" })
-    return true
   end
 
   require("dko.lsp").format_buffer()
