@@ -257,15 +257,12 @@ local function bindLspMappings()
 
   map("n", "gr", vim.lsp.buf.references, lspOpts({ desc = "LSP references" }))
 
-  map("n", "<A-=>", function()
-    vim.lsp.buf.format({
-      async = false,
-      name = "null-ls",
-      --[[ filter = function(client)
-      return client.name == 'null-ls'
-    end, ]]
-    })
-  end, lspOpts({ desc = "Format with null-ls builtin stylua" }))
+  map(
+    "n",
+    "<A-=>",
+    require("dko.lsp").format_buffer,
+    lspOpts({ desc = "Format buffer with dko.lsp.format_buffer" })
+  )
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
