@@ -387,6 +387,7 @@ return {
     dependencies = {
       "andymass/vim-matchup",
       "JoosepAlviste/nvim-ts-context-commentstring",
+      "rcarriga/nvim-notify",
       "Wansmer/treesj",
     },
     build = ":TSUpdate",
@@ -394,17 +395,10 @@ return {
       local highlight_enabled = false
 
       require("nvim-treesitter.configs").setup({
-        -- ===================================================================
-        -- 3rd party
-        -- ===================================================================
-
-        -- 'JoosepAlviste/nvim-ts-context-commentstring',
-        context_commentstring = { enable = true, enable_autocmd = false },
-        -- 'andymass/vim-matchup',
-        matchup = { enable = true },
+        ensure_installed = "all",
 
         -- ===================================================================
-        -- Built-in
+        -- Built-in modules
         -- ===================================================================
 
         highlight = {
@@ -432,8 +426,19 @@ return {
             end
           end,
         },
+
         indent = { enable = true },
-        ensure_installed = "all",
+
+        -- ===================================================================
+        -- 3rd party modules
+        -- ===================================================================
+
+        -- 'JoosepAlviste/nvim-ts-context-commentstring',
+        context_commentstring = { enable = true, enable_autocmd = false },
+
+        -- 'andymass/vim-matchup',
+        matchup = { enable = true },
+
       })
 
       vim.keymap.set("n", "ss", function()
