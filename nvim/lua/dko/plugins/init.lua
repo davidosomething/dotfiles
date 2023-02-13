@@ -22,17 +22,21 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      vim.notify = require("notify")
-      vim.notify.setup({
+      local notify = require("notify")
+      notify.setup({
         max_height = 8,
         max_width = 40,
         timeout = 2500,
         stages = vim.go.termguicolors and "fade_in_slide_out" or "slide",
       })
 
+      vim.notify = require('dko.utils.notifications').setup({
+        notify = notify
+      })
+
       -- Show LSP messages via vim.notify (but only when using nvim-notify)
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.lsp.handlers["window/showMessage"] = function(_, result, ctx)
+      ---@diagnostic disable-next-line: duplicate-set-field, unused-local
+      vim.lsp.handlers["window/showMessage"] = function(err, result, ctx, config)
         local client = vim.lsp.get_client_by_id(ctx.client_id)
         local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[result.type]
         vim.notify(result.message, lvl, {
