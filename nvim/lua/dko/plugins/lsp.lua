@@ -10,7 +10,6 @@ return {
     branch = "main",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      "vim-smallcaps",
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
@@ -69,7 +68,7 @@ return {
           table.insert(clients, client_message.client_name)
         end
         local joinedClients = table.concat(clients, ", ")
-        local clientsString = vim.fn["smallcaps#convert"](joinedClients)
+        local clientsString = joinedClients
 
         -- multi clients, show indeterminate spinner, space, busy client names
         if #client_messages > 1 then

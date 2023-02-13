@@ -6,7 +6,6 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "vim-smallcaps",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-buffer",
@@ -65,7 +64,7 @@ return {
             local strings =
               vim.split(formatted.kind, "%s", { trimempty = true })
             formatted.kind = (strings[1] or "")
-            local smallcapsType = vim.fn["smallcaps#convert"](strings[2]) or ""
+            local smallcapsType = require('dko.utils.smallcaps').convert(strings[2]) or ""
             formatted.menu = "  "
               .. (formatted.menu or entry.source.name)
               .. " "

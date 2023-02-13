@@ -1,9 +1,9 @@
 local map = vim.keymap.set
 
-map('n', '<Esc><Esc>', function()
+map("n", "<Esc><Esc>", function()
   vim.cmd.doautoall("User EscEscStart")
   -- Clear / search term
-  vim.fn.setreg('/', '')
+  vim.fn.setreg("/", "")
   -- Stop highlighting searches
   vim.cmd.nohlsearch()
   vim.cmd.redraw({ bang = true })
@@ -187,9 +187,18 @@ end, { desc = "Remove trailing whitespace from entire file" })
 
 for _, v in pairs({ "=", "-", "." }) do
   map({ "n", "i" }, "<Leader>f" .. v, function()
-    require('dko.utils.hr').fill(v)
+    require("dko.utils.hr").fill(v)
   end, { desc = "Append horizontal rule of " .. v .. " up to &textwidth" })
 end
+
+map("x", "<Leader>C", function()
+  -- @TODO replace with https://github.com/neovim/neovim/pull/13896
+  vim.api.nvim_feedkeys("y", "nx", false)
+  local selection = vim.fn.getreg('"')
+  local converted = require("dko.utils.smallcaps").convert(selection)
+  vim.fn.setreg('"', converted)
+  vim.api.nvim_feedkeys('gv""P', "nx", false)
+end, { desc = "Convert selection to smallcaps" })
 
 -- ===========================================================================
 -- Buffer: LSP integration

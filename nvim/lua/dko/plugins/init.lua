@@ -3,16 +3,6 @@ return {
   -- mine
   -- =========================================================================
 
-  -- <Leader>C <Plug>(dkosmallcaps)
-  {
-    dir = vim.fn.stdpath("config") .. "/mine/vim-smallcaps",
-    config = function()
-      vim.keymap.set("v", "<Leader>C", "<Plug>(dkosmallcaps)", {
-        desc = "Apply vim-smallcaps to visual selection",
-      })
-    end,
-  },
-
   -- Toggle movement mode line-wise/display-wise
   {
     dir = vim.fn.stdpath("config") .. "/mine/vim-movemode",
