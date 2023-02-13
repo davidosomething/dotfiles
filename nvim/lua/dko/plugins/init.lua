@@ -147,11 +147,14 @@ return {
     },
     config = function()
       require("cybu").setup({
+        display_time = 500,
         position = {
           max_win_height = 8,
           max_win_width = 0.8,
         },
         style = {
+          border = "rounded",
+          hide_buffer_id = true,
           highlights = {
             background = "dkoBgAlt",
             current_buffer = "dkoQuote",
@@ -304,6 +307,7 @@ return {
   -- indent guides
   {
     "lukas-reineke/indent-blankline.nvim",
+    event = "VeryLazy",
     config = function()
       require("indent_blankline").setup({
         -- char = "▏",
