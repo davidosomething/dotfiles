@@ -6,13 +6,38 @@ M.autofix = function()
   then
     local ok, typescript = pcall(require, "typescript")
     if ok then
-      typescript.actions.removeUnused({ sync = true })
-      typescript.actions.addMissingImports({ sync = true })
-      typescript.actions.organizeImports({ sync = true })
+      vim.schedule(function()
+        typescript.actions.removeUnused({ sync = true })
+      end)
+      vim.schedule(function()
+        typescript.actions.addMissingImports({ sync = true })
+      end)
+      vim.schedule(function()
+        typescript.actions.organizeImports({ sync = true })
+      end)
+      vim.schedule(function()
+        vim.notify("typescript.actions", "info", { title = "LSP" })
+      end)
     end
   end
 
-  require("dko.lsp").format_buffer()
+  vim.schedule(function()
+    require("dko.lsp").format_buffer()
+  end)
+
+  if
+    vim.bo.filetype == "typescript"
+    or vim.bo.filetype == "typescriptreact"
+    or vim.bo.filetype == "javascript"
+    or vim.bo.filetype == "javascriptreact"
+  then
+    vim.schedule(function()
+      local ok = pcall(vim.cmd.EslintFixAll)
+      if ok then
+        vim.notify("EslintFixAll", "info", { title = "LSP" })
+      end
+    end)
+  end
 end
 
 return M

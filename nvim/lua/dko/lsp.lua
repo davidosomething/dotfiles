@@ -1,10 +1,7 @@
 local M = {}
 
 M.format_buffer = function(options)
-  options = options or {}
-
-  -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L147-L187
-  vim.lsp.buf.format({
+  options = vim.tbl_deep_extend('force', options or {}, {
     async = false,
     filter = function(client)
       if not client.supports_method("textDocument/formatting") then
@@ -35,6 +32,9 @@ M.format_buffer = function(options)
       return true
     end,
   })
+
+  -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L147-L187
+  vim.lsp.buf.format(options)
 end
 
 return M
