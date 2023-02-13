@@ -14,6 +14,3 @@ setlocal complete+=kspell
 " override settings that were undone by @gtd in tpope/vim-git
 setlocal textwidth=80
 setlocal formatoptions+=croq
-
-" Always start in display movement mode for markdown
-silent! call movemode#Display()

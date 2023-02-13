@@ -1,20 +1,5 @@
 return {
   -- =========================================================================
-  -- mine
-  -- =========================================================================
-
-  -- Toggle movement mode line-wise/display-wise
-  {
-    dir = vim.fn.stdpath("config") .. "/mine/vim-movemode",
-    lazy = false, -- I use the autoload fns
-    config = function()
-      vim.keymap.set("n", "<Leader>mm", "<Cmd>call movemode#toggle()<CR>", {
-        desc = "Toggle move mode",
-      })
-    end,
-  },
-
-  -- =========================================================================
   -- ui: colorscheme
   -- =========================================================================
 

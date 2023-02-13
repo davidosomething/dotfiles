@@ -143,6 +143,10 @@ end, { desc = "Yank the full filepath of current buffer" })
 -- Buffer: Movement
 -- ===========================================================================
 
+map("n", "<Leader>mm", require("dko.utils.movemode").toggle, {
+  desc = "Toggle move mode",
+})
+
 map("", "H", "^", {
   desc = "Change H to alias ^",
 })

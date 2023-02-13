@@ -19,9 +19,6 @@ setlocal colorcolumn=+3
 " too slow
 "setlocal complete+=kspell
 
-" Always start in display movement mode for markdown
-silent! call movemode#Display()
-
 if exists('$ITERM_PROFILE') || has('gui_macvim')
   let s:cpo_save = &cpoptions
   set cpoptions&vim
