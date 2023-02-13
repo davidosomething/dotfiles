@@ -4,25 +4,21 @@ M.autofix = function()
   if
     vim.bo.filetype == "typescript" or vim.bo.filetype == "typescriptreact"
   then
-    local ok, typescript = pcall(require, "typescript")
-    if ok then
-      vim.schedule(function()
+    vim.schedule(function()
+      local ok, typescript = pcall(require, "typescript")
+      if ok then
         typescript.actions.removeUnused({ sync = true })
-      end)
-      vim.schedule(function()
         typescript.actions.addMissingImports({ sync = true })
-      end)
-      vim.schedule(function()
         typescript.actions.organizeImports({ sync = true })
-      end)
-      vim.schedule(function()
+        -- more like fixMisc, fixes things like unreachable code
+        typescript.actions.fixAll({ sync = true })
         vim.notify("typescript.actions", "info", { title = "LSP" })
-      end)
-    end
+      end
+    end)
   end
 
   vim.schedule(function()
-    require("dko.lsp").format_buffer()
+    require("dko.lsp").format_buffer({ async = false })
   end)
 
   if

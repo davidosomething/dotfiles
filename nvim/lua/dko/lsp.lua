@@ -1,8 +1,7 @@
 local M = {}
 
 M.format_buffer = function(options)
-  options = vim.tbl_deep_extend('force', options or {}, {
-    async = false,
+  options = vim.tbl_deep_extend("force", options or {}, {
     filter = function(client)
       if not client.supports_method("textDocument/formatting") then
         return false
@@ -13,22 +12,23 @@ M.format_buffer = function(options)
       -- @TODO move this somewhere better
       -- =====================================================================
 
-      if vim.bo.filetype == "lua" and client.name == "lua_ls" then
-        vim.notify("Skipping lua_ls", "info", { title = "LSP" })
+      if vim.tbl_contains({ "lua_ls", "tsserver" }, client.name) then
+        vim.notify(
+          "Skipping " .. client.name .. " formatting",
+          "info",
+          { title = "LSP" }
+        )
         return false
       end
 
-      if
-        vim.bo.filetype == "typescript"
-        or vim.bo.filetype == "typescriptreact" and client.name == "tsserver"
-      then
-        vim.notify("Formatting with tsserver", "info", { title = "LSP" })
-        return true
-      end
-
+      -- =====================================================================
+      -- My null-ls runtime_condition will notify
       -- =====================================================================
 
-      vim.notify("Formatting with " .. client.name, "info", { title = "LSP" })
+      if client.name ~= "null-ls" then
+        vim.notify("Formatting with " .. client.name, "info", { title = "LSP" })
+      end
+
       return true
     end,
   })

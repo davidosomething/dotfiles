@@ -102,40 +102,69 @@ return {
     },
     config = function()
       local null_ls = require("null-ls")
-      null_ls.setup({
-        border = "rounded",
-        sources = {
-          -- provide the typescript.nvim commands as LSP actions
-          require("typescript.extensions.null-ls.code-actions"),
 
-          null_ls.builtins.code_actions.gitsigns,
-          null_ls.builtins.code_actions.shellcheck,
+      local notify_on_format = function(params)
+        local source = params:get_source()
+        vim.notify(
+          "Formatting with null-ls/" .. source.name,
+          "info",
+          { title = "LSP" }
+        )
+      end
 
-          -- =================================================================
-          -- Diagnostics
-          -- =================================================================
+      local formatters = {
+        null_ls.builtins.formatting.stylua.with({
+          condition = function(utils)
+            return utils.root_has_file({ "stylua.toml", ".stylua.toml" })
+          end,
+        }),
+        null_ls.builtins.formatting.markdownlint,
+        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.qmlformat,
+        null_ls.builtins.formatting.shfmt,
+      }
+      for i, formatter in ipairs(formatters) do
+        -- @TODO handle existing runtime_condition?
+        formatters[i] = formatter.with({
+          runtime_condition = function(params)
+            notify_on_format(params)
+            return true
+          end,
+        })
+      end
 
-          -- Switch ALL diagnostics to DIAGNOSTICS_ON_SAVE only
-          -- or null_ls will keep spamming LSP events
+      local sources = vim.tbl_extend("force", {
+        -- provide the typescript.nvim commands as LSP actions
+        require("typescript.extensions.null-ls.code-actions"),
 
-          null_ls.builtins.diagnostics.editorconfig_checker.with({
-            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-          }),
+        null_ls.builtins.code_actions.gitsigns,
+        null_ls.builtins.code_actions.shellcheck,
 
-          --[[ null_ls.builtins.diagnostics.luacheck.with({
+        -- =================================================================
+        -- Diagnostics
+        -- =================================================================
+
+        -- Switch ALL diagnostics to DIAGNOSTICS_ON_SAVE only
+        -- or null_ls will keep spamming LSP events
+
+        null_ls.builtins.diagnostics.editorconfig_checker.with({
+          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+        }),
+
+        --[[ null_ls.builtins.diagnostics.luacheck.with({
           method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
         }), ]]
 
-          null_ls.builtins.diagnostics.markdownlint.with({
-            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-          }),
+        null_ls.builtins.diagnostics.markdownlint.with({
+          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+        }),
 
-          null_ls.builtins.diagnostics.qmllint.with({
-            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-          }),
+        null_ls.builtins.diagnostics.qmllint.with({
+          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+        }),
 
-          -- selene not picking up config
-          --[[ null_ls.builtins.diagnostics.selene.with({
+        -- selene not picking up config
+        --[[ null_ls.builtins.diagnostics.selene.with({
           method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
           extra_args = function(params)
             local results = vim.fs.find({ 'selene.toml' }, {
@@ -150,24 +179,14 @@ return {
           end
         }), ]]
 
-          null_ls.builtins.diagnostics.shellcheck.with({
-            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-          }),
+        null_ls.builtins.diagnostics.shellcheck.with({
+          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+        }),
+      }, formatters)
 
-          -- =================================================================
-          -- Formatting
-          -- =================================================================
-
-          null_ls.builtins.formatting.stylua.with({
-            condition = function(utils)
-              return utils.root_has_file({ "stylua.toml", ".stylua.toml" })
-            end,
-          }),
-          null_ls.builtins.formatting.markdownlint,
-          null_ls.builtins.formatting.qmlformat,
-          null_ls.builtins.formatting.shfmt,
-        },
-
+      null_ls.setup({
+        border = "rounded",
+        sources = sources,
         -- defaults to false, but lets just sync it in case I want to change
         -- in my diagnostic-lsp.lua
         update_in_insert = vim.diagnostic.config().update_in_insert,
@@ -196,6 +215,7 @@ return {
       local extras = {
         "editorconfig-checker",
         "markdownlint",
+        "prettier",
       }
       -- Auto-install some linters for null-ls
       -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L157-L163
