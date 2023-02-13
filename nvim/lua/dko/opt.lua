@@ -1,11 +1,4 @@
-if vim.fn.getenv("TERM_PROGRAM") == "Apple_Terminal" then
-  vim.o.termguicolors = 0
-elseif
-  vim.fn.getenv("COLORTERM") == "truecolor"
-  or vim.fn.getenv("DOTFILES_OS") == "Darwin"
-then
-  vim.o.termguicolors = 1
-end
+vim.go.termguicolors = vim.fn.getenv("TERM_PROGRAM") ~= "Apple_Terminal"
 
 -- ===========================================================================
 -- Vim command engines
