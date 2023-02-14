@@ -203,7 +203,15 @@ return {
       local sources = {
         -- provide the typescript.nvim commands as LSP actions
         require("typescript.extensions.null-ls.code-actions"),
-        null_ls.builtins.code_actions.gitsigns,
+
+        -- add gitsigns.nvim commands
+        null_ls.builtins.code_actions.gitsigns.with({
+          config = {
+            filter_actions = function(title)
+              return title:lower():match("blame") == nil -- filter out blame actions
+            end,
+          },
+        }),
       }
       require("dko.utils.table").concat(sources, formatters)
       require("dko.utils.table").concat(sources, diagnostics)

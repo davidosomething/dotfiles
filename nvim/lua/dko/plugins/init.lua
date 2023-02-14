@@ -48,7 +48,7 @@ return {
         pattern = "EscEscEnd",
         desc = "Dismiss notifications on <Esc><Esc>",
         callback = function()
-          vim.notify.dismiss({ silent = true, pending = true })
+          notify.dismiss({ silent = true, pending = true })
         end,
         group = vim.api.nvim_create_augroup("dkonvimnotify", { clear = true }),
       })
@@ -65,6 +65,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      "tsakirist/telescope-lazy.nvim",
     },
     config = function()
       require("telescope").setup({})
@@ -74,13 +75,23 @@ return {
 
   -- Replace vim.ui.select and vim.ui.input, which are used by things like
   -- vim.lsp.buf.code_action and rename
+  -- Alternatively could use nvim-telescope/telescope-ui-select.nvim
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
     config = function()
       require("dressing").setup({
         select = {
-          backend = { "builtin" },
+          get_config = function(opts)
+            if opts.kind == "codeaction" then
+              return {
+                telescope = require("telescope.themes").get_cursor(),
+              }
+            end
+          end,
         },
       })
     end,

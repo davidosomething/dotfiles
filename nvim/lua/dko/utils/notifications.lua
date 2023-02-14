@@ -14,6 +14,9 @@ M.override_builtin = function(notify)
       if starts_with(msg, "[LSP]") then
         msg = msg:gsub("^%[LSP%]", "")
         opts.title = "LSP"
+      elseif msg == "No code actions available" then
+        opts.title = "LSP"
+        opts.render = "compact"
       end
     end
     notify(msg, level, opts)
