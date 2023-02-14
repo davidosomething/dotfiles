@@ -12,7 +12,7 @@ M.override_builtin = function(notify)
     end
     if not opts.title then
       if starts_with(msg, "[LSP]") then
-        msg = msg:gsub("%[LSP%]", "")
+        msg = msg:gsub("^%[LSP%]", "")
         opts.title = "LSP"
       end
     end
@@ -30,7 +30,6 @@ M.override_lsp = function()
     local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[result.type]
     vim.notify(result.message, lvl, {
       title = "LSP | " .. client.name,
-      timeout = 10000,
       keep = function()
         return result.type == vim.lsp.protocol.MessageType.Error
           or result.type == vim.lsp.protocol.MessageType.Warning

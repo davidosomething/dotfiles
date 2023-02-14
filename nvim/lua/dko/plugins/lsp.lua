@@ -4,6 +4,36 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
+-- Non-lsp tools to install with mason, e.g. to use as a null-ls formatter or
+-- diagnostic provider
+local extras = {
+  "editorconfig-checker",
+  "markdownlint",
+  "stylua",
+}
+
+-- LSPs to install with mason
+-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
+local lsps = {
+  "ansiblels",
+  "bashls",
+  "cssls",
+  "dockerls",
+  "eslint",
+  "html",
+  "jsonls",
+  "stylelint_lsp",
+  "lua_ls",
+  "tailwindcss",
+  "tsserver",
+  "vimls",
+  "yamlls",
+}
+if vim.fn.executable("go") == 1 then
+  table.insert(lsps, "gopls")
+end
+
+-- Lazy.nvim specs
 return {
   {
     "linrongbin16/lsp-progress.nvim",
@@ -219,15 +249,8 @@ return {
           },
         },
       })
-
-      local extras = {
-        "editorconfig-checker",
-        "markdownlint",
-        "stylua",
-      }
       -- Auto-install some linters for null-ls
       -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L157-L163
-
       local mr = require("mason-registry")
       for _, tool in ipairs(extras) do
         local p = mr.get_package(tool)
@@ -247,26 +270,6 @@ return {
       "neovim/nvim-lspconfig", -- wait for lspconfig, which waits for neodev
     },
     config = function()
-      -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-      local lsps = {
-        "ansiblels",
-        "bashls",
-        "cssls",
-        "dockerls",
-        "eslint",
-        "html",
-        "jsonls",
-        "stylelint_lsp",
-        "lua_ls",
-        "tailwindcss",
-        "tsserver",
-        "vimls",
-        "yamlls",
-      }
-      if vim.fn.executable("go") == 1 then
-        table.insert(lsps, "gopls")
-      end
-
       local masonLspConfig = require("mason-lspconfig")
       masonLspConfig.setup({
         ensure_installed = lsps,
