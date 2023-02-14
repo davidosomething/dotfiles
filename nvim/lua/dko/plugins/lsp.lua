@@ -208,7 +208,9 @@ return {
         null_ls.builtins.code_actions.gitsigns.with({
           config = {
             filter_actions = function(title)
-              return title:lower():match("blame") == nil -- filter out blame actions
+              -- only want the "preview hunk" action, I do git stuff in
+              -- terminal
+              return title:lower():match("preview") ~= nil
             end,
           },
         }),

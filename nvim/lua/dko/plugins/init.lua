@@ -88,7 +88,9 @@ return {
           get_config = function(opts)
             if opts.kind == "codeaction" then
               return {
-                telescope = require("telescope.themes").get_cursor(),
+                telescope = require("telescope.themes").get_cursor({
+                  prompt_prefix = "🔍 ",
+                }),
               }
             end
           end,
