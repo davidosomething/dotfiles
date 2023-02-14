@@ -137,14 +137,6 @@ return {
       -- Configure formatters
       -- =====================================================================
 
-      local notify_on_format = function(params)
-        local source = params:get_source()
-        vim.notify({
-          "Formatting with null-ls [" .. source.name .. "]",
-          "via lua/dko/plugins/lsp.lua",
-        }, "info", { title = "LSP" })
-      end
-
       local formatters = {
         null_ls.builtins.formatting.beautysh,
         null_ls.builtins.formatting.markdownlint,
@@ -156,11 +148,14 @@ return {
           end,
         }),
       }
-      for i, provder in ipairs(formatters) do
-        -- @TODO handle existing runtime_condition?
-        formatters[i] = provder.with({
+      for i, provider in ipairs(formatters) do
+        formatters[i] = provider.with({
           runtime_condition = function(params)
-            notify_on_format(params)
+            require("dko.lsp").null_ls_notify_on_format(params)
+            local original = provider.runtime_condition
+            if original ~= nil then
+              return original()
+            end
             return true
           end,
         })

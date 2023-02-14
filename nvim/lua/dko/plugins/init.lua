@@ -1,3 +1,5 @@
+local SIGNS = require("dko.diagnostic-lsp").SIGNS
+
 return {
   -- =========================================================================
   -- ui: colorscheme
@@ -25,9 +27,17 @@ return {
       local notify = require("notify")
       notify.setup({
         max_height = 8,
-        max_width = 40,
+        max_width = 50,
+        minimum_width = 50,
         timeout = 2500,
         stages = vim.go.termguicolors and "fade_in_slide_out" or "slide",
+        icons = {
+          DEBUG = "",
+          ERROR = SIGNS.Error,
+          INFO = SIGNS.Info,
+          TRACE = "✎",
+          WARN = SIGNS.Warn,
+        },
       })
 
       local notifications = require("dko.utils.notifications")
@@ -80,7 +90,6 @@ return {
     "https://gitlab.com/yorickpeterse/nvim-pqf.git",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      local SIGNS = require("dko.diagnostic-lsp").SIGNS
       require("pqf").setup({
         signs = {
           error = SIGNS.Error,
@@ -436,7 +445,11 @@ return {
 
       vim.keymap.set("n", "ss", function()
         if not highlight_enabled then
-          vim.notify("Treesitter highlight is disabled", "error")
+          vim.notify(
+            "Treesitter highlight is disabled",
+            "error",
+            { render = "compact" }
+          )
           return
         end
 
@@ -445,7 +458,11 @@ return {
 
       vim.keymap.set("n", "sy", function()
         if not highlight_enabled then
-          vim.notify("Treesitter highlight is disabled", "error")
+          vim.notify(
+            "Treesitter highlight is disabled",
+            "error",
+            { render = "compact" }
+          )
           return
         end
 
@@ -458,13 +475,17 @@ return {
           vim.notify(
             "No treesitter captures under cursor",
             "error",
-            { title = "Yank failed" }
+            { title = "Yank failed", render = "compact" }
           )
           return
         end
         local resultString = vim.inspect(parsedCaptures)
         vim.fn.setreg("+", resultString .. "\n")
-        vim.notify(resultString, "info", { title = "Yanked capture" })
+        vim.notify(
+          resultString,
+          "info",
+          { title = "Yanked capture", render = "compact" }
+        )
       end, { desc = "Copy treesitter captures under cursor" })
     end,
   },

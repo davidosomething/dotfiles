@@ -1,5 +1,15 @@
 local M = {}
 
+local notify_opts = {
+  title = "LSP",
+  render = "compact",
+}
+
+M.null_ls_notify_on_format = function(params)
+  local source = params:get_source()
+  vim.notify("null-ls[" .. source.name .. "] format", "info", notify_opts)
+end
+
 M.format = function(options)
   if
     vim.tbl_contains(
@@ -24,10 +34,11 @@ M.format = function(options)
       -- =====================================================================
 
       if vim.tbl_contains({ "lua_ls", "tsserver" }, client.name) then
-        vim.notify({
-          "Skipping " .. client.name .. " formatting",
-          "via lua/dko/lsp.lua",
-        }, "info", { title = "LSP" })
+        vim.notify(
+          client.name .. " disabled in dko/lsp.lua",
+          "info",
+          notify_opts
+        )
         return false
       end
 
@@ -36,10 +47,7 @@ M.format = function(options)
       -- =====================================================================
 
       if client.name ~= "null-ls" then
-        vim.notify({
-          "Formatting with " .. client.name,
-          "via lua/dko/lsp.lua",
-        }, "info", { title = "LSP" })
+        vim.notify(client.name .. " format", "info", notify_opts)
       end
 
       return true
