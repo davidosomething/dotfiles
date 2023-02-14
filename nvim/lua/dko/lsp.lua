@@ -1,6 +1,17 @@
 local M = {}
 
-M.format_buffer = function(options)
+M.format = function(options)
+  if
+    vim.tbl_contains(
+      { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+      vim.bo.filetype
+    )
+  then
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/eslint.lua#L152-L159
+    vim.cmd("EslintFixAll")
+    return
+  end
+
   options = vim.tbl_deep_extend("force", options or {}, {
     filter = function(client)
       if not client.supports_method("textDocument/formatting") then

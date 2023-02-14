@@ -119,7 +119,6 @@ return {
           end,
         }),
         null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.prettier,
         null_ls.builtins.formatting.qmlformat,
         null_ls.builtins.formatting.shfmt,
       }
@@ -215,7 +214,7 @@ return {
       local extras = {
         "editorconfig-checker",
         "markdownlint",
-        "prettier",
+        "stylua",
       }
       -- Auto-install some linters for null-ls
       -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L157-L163
@@ -244,7 +243,6 @@ return {
         "ansiblels",
         "bashls",
         "cssls",
-        "cssmodules_ls",
         "dockerls",
         "dockerls",
         "eslint",
@@ -293,35 +291,24 @@ return {
           }))
         end,
 
-        --[[ neodev
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
-      ['lua_ls'] = function()
-        lspconfig.lua_ls.setup({
-          capabilities = capabilities,
-          settings = {
-            Lua = {
-              runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-              },
-              diagnostics = {
-                globals = { 'vim' }
-              },
-              workspace = {
-                -- shut up about luassert
-                checkThirdParty = false,
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-              },
-              -- Do not send telemetry data containing a randomized but unique identifier
-              telemetry = {
-                enable = false,
-              },
+        ['stylelint_lsp'] = function()
+          lspconfig.stylelint_lsp.setup(vim.tbl_extend("force", defaultOptions, {
+            -- Disable on some filetypes
+            -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/stylelint_lsp.lua
+            filetypes = {
+              'css',
+              'less',
+              'scss',
+              'sugarss',
+              -- 'vue',
+              'wxss',
+              -- 'javascript',
+              -- 'javascriptreact',
+              -- 'typescript',
+              -- 'typescriptreact',
             }
-          }
-        })
-      end,
-      ]]
+          }))
+        end,
 
         ["tsserver"] = function()
           -- use jose-elias-alvarez/typescript.nvim instead

@@ -257,12 +257,9 @@ local function bindLspMappings()
 
   map("n", "gr", vim.lsp.buf.references, lspOpts({ desc = "LSP references" }))
 
-  map(
-    "n",
-    "<A-=>",
-    require('dko').autofix,
-    lspOpts({ desc = "Fix and format buffer with dko.lsp.format_buffer" })
-  )
+  map("n", "<A-=>", function()
+    require("dko.lsp").format({ async = false })
+  end, lspOpts({ desc = "Fix and format buffer with dko.lsp.format_buffer" }))
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
