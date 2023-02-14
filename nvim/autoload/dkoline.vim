@@ -26,6 +26,12 @@ function! dkoline#GetTabline() abort
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
   let l:contents .= '%#StatusLine# %= '
 
+  if match(v:servername, '\V', 'v:sock') > -1
+    let l:contents .= '%#dkoStatusGood# SOCK '
+  else
+    let l:contents .= '%#dkoStatusError# SOCK '
+  endif
+
   let l:contents .= dkoline#Format(
         \ ' ' . get(l:view, 'cwd', '~') . ' ',
         \ '%#dkoStatusKey# ʟᴄᴅ %(%#dkoStatusValue#%<',
