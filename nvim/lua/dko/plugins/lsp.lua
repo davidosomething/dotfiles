@@ -103,13 +103,16 @@ return {
     config = function()
       local null_ls = require("null-ls")
 
+      -- =====================================================================
+      -- Configure formatters
+      -- =====================================================================
+
       local notify_on_format = function(params)
         local source = params:get_source()
-        vim.notify(
-          "Formatting with null-ls/" .. source.name,
-          "info",
-          { title = "LSP" }
-        )
+        vim.notify({
+          "Formatting with null-ls [" .. source.name .. "]",
+          "via lua/dko/plugins/lsp.lua",
+        }, "info", { title = "LSP" })
       end
 
       local formatters = {
@@ -132,6 +135,10 @@ return {
           end,
         })
       end
+
+      -- =====================================================================
+      -- Configure diagnostics
+      -- =====================================================================
 
       local diagnostics = {
         null_ls.builtins.diagnostics.editorconfig_checker,
@@ -164,15 +171,21 @@ return {
         })
       end
 
+      -- =====================================================================
+      -- Combine sources
+      -- =====================================================================
+
       local sources = {
         -- provide the typescript.nvim commands as LSP actions
         require("typescript.extensions.null-ls.code-actions"),
         null_ls.builtins.code_actions.gitsigns,
       }
-      require('dko.utils.table').concat(sources, formatters)
-      require('dko.utils.table').concat(sources, diagnostics)
-      -- table.move(formatters, 1, #formatters, #sources + 1, sources)
-      -- table.move(diagnostics, 1, #diagnostics, #sources + 1, sources)
+      require("dko.utils.table").concat(sources, formatters)
+      require("dko.utils.table").concat(sources, diagnostics)
+
+      -- =====================================================================
+      -- Apply config
+      -- =====================================================================
 
       null_ls.setup({
         border = "rounded",
@@ -189,18 +202,23 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       { "folke/neodev.nvim", config = true },
-      "williamboman/mason.nvim",
     },
   },
 
   {
     "williamboman/mason.nvim",
-    cmd = "Mason",
-    opts = {
-      ui = { border = "rounded" },
-    },
-    config = function(_, opts)
-      require("mason").setup(opts)
+    lazy = false,
+    config = function()
+      require("mason").setup({
+        ui = {
+          border = "rounded",
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗",
+          },
+        },
+      })
 
       local extras = {
         "editorconfig-checker",
@@ -234,7 +252,6 @@ return {
         "ansiblels",
         "bashls",
         "cssls",
-        "dockerls",
         "dockerls",
         "eslint",
         "html",

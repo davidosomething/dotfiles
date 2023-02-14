@@ -24,11 +24,10 @@ M.format = function(options)
       -- =====================================================================
 
       if vim.tbl_contains({ "lua_ls", "tsserver" }, client.name) then
-        vim.notify(
+        vim.notify({
           "Skipping " .. client.name .. " formatting",
-          "info",
-          { title = "LSP" }
-        )
+          "via lua/dko/lsp.lua",
+        }, "info", { title = "LSP" })
         return false
       end
 
@@ -37,7 +36,10 @@ M.format = function(options)
       -- =====================================================================
 
       if client.name ~= "null-ls" then
-        vim.notify("Formatting with " .. client.name, "info", { title = "LSP" })
+        vim.notify({
+          "Formatting with " .. client.name,
+          "via lua/dko/lsp.lua",
+        }, "info", { title = "LSP" })
       end
 
       return true
