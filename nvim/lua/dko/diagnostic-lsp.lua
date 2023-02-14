@@ -72,8 +72,8 @@ vim.cmd([[autocmd! ColorScheme * highlight link FloatBorder dkoType]])
 -- Add default rounded border
 -- To see example of this fn used, press K for LSP hover
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
----@diagnostic disable-next-line: redefined-local, duplicate-set-field
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+---@diagnostic disable-next-line: duplicate-set-field
+vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
   opts = opts or {}
   opts.border = opts.border or "rounded"
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
