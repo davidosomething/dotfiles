@@ -122,9 +122,9 @@ return {
         null_ls.builtins.formatting.qmlformat,
         null_ls.builtins.formatting.shfmt,
       }
-      for i, formatter in ipairs(formatters) do
+      for i, provder in ipairs(formatters) do
         -- @TODO handle existing runtime_condition?
-        formatters[i] = formatter.with({
+        formatters[i] = provder.with({
           runtime_condition = function(params)
             notify_on_format(params)
             return true
@@ -132,34 +132,11 @@ return {
         })
       end
 
-      local sources = vim.tbl_extend("force", {
-        -- provide the typescript.nvim commands as LSP actions
-        require("typescript.extensions.null-ls.code-actions"),
-
-        null_ls.builtins.code_actions.gitsigns,
-
-        -- =================================================================
-        -- Diagnostics
-        -- =================================================================
-
-        -- Switch ALL diagnostics to DIAGNOSTICS_ON_SAVE only
-        -- or null_ls will keep spamming LSP events
-
-        null_ls.builtins.diagnostics.editorconfig_checker.with({
-          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-        }),
-
-        --[[ null_ls.builtins.diagnostics.luacheck.with({
-          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-        }), ]]
-
-        null_ls.builtins.diagnostics.markdownlint.with({
-          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-        }),
-
-        null_ls.builtins.diagnostics.qmllint.with({
-          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-        }),
+      local diagnostics = {
+        null_ls.builtins.diagnostics.editorconfig_checker,
+        null_ls.builtins.diagnostics.markdownlint,
+        null_ls.builtins.diagnostics.qmllint,
+        null_ls.builtins.diagnostics.zsh,
 
         -- selene not picking up config
         --[[ null_ls.builtins.diagnostics.selene.with({
@@ -176,7 +153,21 @@ return {
             return { "--config", results[1] }
           end
         }), ]]
-      }, formatters)
+      }
+      -- Switch ALL diagnostics to DIAGNOSTICS_ON_SAVE only
+      -- or null_ls will keep spamming LSP events
+      for i, provider in ipairs(diagnostics) do
+        -- @TODO handle existing runtime_condition?
+        diagnostics[i] = provider.with({
+          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+        })
+      end
+
+      local sources = vim.tbl_extend("force", {
+        -- provide the typescript.nvim commands as LSP actions
+        require("typescript.extensions.null-ls.code-actions"),
+        null_ls.builtins.code_actions.gitsigns,
+      }, formatters, diagnostics)
 
       null_ls.setup({
         border = "rounded",
