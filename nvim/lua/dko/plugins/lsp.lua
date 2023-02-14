@@ -176,11 +176,6 @@ return {
             return { "--config", results[1] }
           end
         }), ]]
-
-        null_ls.builtins.diagnostics.shellcheck.with({
-          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-          extra_args = { "--exclude=SC1090,SC1091" },
-        }),
       }, formatters)
 
       null_ls.setup({
