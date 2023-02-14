@@ -30,23 +30,9 @@ return {
         stages = vim.go.termguicolors and "fade_in_slide_out" or "slide",
       })
 
-      vim.notify = require('dko.utils.notifications').setup({
-        notify = notify
-      })
-
-      -- Show LSP messages via vim.notify (but only when using nvim-notify)
-      ---@diagnostic disable-next-line: duplicate-set-field, unused-local
-      vim.lsp.handlers["window/showMessage"] = function(err, result, ctx, config)
-        local client = vim.lsp.get_client_by_id(ctx.client_id)
-        local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[result.type]
-        vim.notify(result.message, lvl, {
-          title = "LSP | " .. client.name,
-          timeout = 10000,
-          keep = function()
-            return lvl == "ERROR" or lvl == "WARN"
-          end,
-        })
-      end
+      local notifications = require("dko.utils.notifications")
+      notifications.override_builtin(notify)
+      notifications.override_lsp()
 
       vim.api.nvim_create_autocmd("User", {
         pattern = "EscEscEnd",
@@ -446,7 +432,6 @@ return {
 
         -- 'andymass/vim-matchup',
         matchup = { enable = true },
-
       })
 
       vim.keymap.set("n", "ss", function()
