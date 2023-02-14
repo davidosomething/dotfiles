@@ -121,13 +121,13 @@ map("n", "<Leader>yn", function()
   if res == "" then
     vim.notify(
       "Buffer has no filename",
-      "error",
-      { title = "Failed to yank filename" }
+      vim.log.levels.ERROR,
+      { title = "Failed to yank filename", render = "compact" }
     )
     return
   end
   vim.fn.setreg("+", res)
-  vim.notify(res, "info", { title = "Yanked filename" })
+  vim.notify(res, vim.log.levels.INFO, { title = "Yanked filename" })
 end, { desc = "Yank the filename of current buffer" })
 
 map("n", "<Leader>yp", function()
@@ -136,7 +136,7 @@ map("n", "<Leader>yp", function()
     res = vim.fn.getcwd()
   end
   vim.fn.setreg("+", res)
-  vim.notify(res, "info", { title = "Yanked filepath" })
+  vim.notify(res, vim.log.levels.INFO, { title = "Yanked filepath" })
 end, { desc = "Yank the full filepath of current buffer" })
 
 -- ===========================================================================

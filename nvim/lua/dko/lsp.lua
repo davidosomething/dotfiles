@@ -7,7 +7,11 @@ local notify_opts = {
 
 M.null_ls_notify_on_format = function(params)
   local source = params:get_source()
-  vim.notify("null-ls[" .. source.name .. "] format", "info", notify_opts)
+  vim.notify(
+    "null-ls[" .. source.name .. "] format",
+    vim.log.levels.INFO,
+    notify_opts
+  )
 end
 
 M.format = function(options)
@@ -36,7 +40,7 @@ M.format = function(options)
       if vim.tbl_contains({ "lua_ls", "tsserver" }, client.name) then
         vim.notify(
           client.name .. " disabled in dko/lsp.lua",
-          "info",
+          vim.log.levels.INFO,
           notify_opts
         )
         return false
@@ -47,7 +51,7 @@ M.format = function(options)
       -- =====================================================================
 
       if client.name ~= "null-ls" then
-        vim.notify(client.name .. " format", "info", notify_opts)
+        vim.notify(client.name .. " format", vim.log.levels.INFO, notify_opts)
       end
 
       return true

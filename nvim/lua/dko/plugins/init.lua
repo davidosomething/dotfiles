@@ -447,7 +447,7 @@ return {
         if not highlight_enabled then
           vim.notify(
             "Treesitter highlight is disabled",
-            "error",
+            vim.log.levels.ERROR,
             { render = "compact" }
           )
           return
@@ -460,7 +460,7 @@ return {
         if not highlight_enabled then
           vim.notify(
             "Treesitter highlight is disabled",
-            "error",
+            vim.log.levels.ERROR,
             { render = "compact" }
           )
           return
@@ -474,7 +474,7 @@ return {
         if #parsedCaptures == 0 then
           vim.notify(
             "No treesitter captures under cursor",
-            "error",
+            vim.log.levels.ERROR,
             { title = "Yank failed", render = "compact" }
           )
           return
@@ -483,7 +483,7 @@ return {
         vim.fn.setreg("+", resultString .. "\n")
         vim.notify(
           resultString,
-          "info",
+          vim.log.levels.INFO,
           { title = "Yanked capture", render = "compact" }
         )
       end, { desc = "Copy treesitter captures under cursor" })
