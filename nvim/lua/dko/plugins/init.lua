@@ -59,6 +59,19 @@ return {
     end,
   },
 
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.1",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    },
+    config = function()
+      require("telescope").setup({})
+      require("telescope").load_extension("fzf")
+    end,
+  },
+
   -- Replace vim.ui.select and vim.ui.input, which are used by things like
   -- vim.lsp.buf.code_action and rename
   {

@@ -220,14 +220,38 @@ local function lspOpts(opts)
 end
 
 local function bindLspMappings()
+  local function with_telescope(method)
+    local ok, telescope = pcall(require, "telescope.builtin")
+    if ok then
+      return telescope[method]()
+    end
+    return nil
+  end
+
+  local handlers = {
+    definition = function()
+      return with_telescope("lsp_definitions") or vim.lsp.buf.definition
+    end,
+    references = function()
+      return with_telescope("lsp_references") or vim.lsp.buf.references
+    end,
+    implementation = function()
+      return with_telescope("lsp_implementations") or vim.lsp.buf.implementation
+    end,
+    type_definition = function()
+      return with_telescope("lsp_type_definitions")
+        or vim.lsp.buf.type_definition
+    end,
+  }
+
   map("n", "gD", vim.lsp.buf.declaration, lspOpts({ desc = "LSP declaration" }))
-  map("n", "gd", vim.lsp.buf.definition, lspOpts({ desc = "LSP definition" }))
+  map("n", "gd", handlers.definition, lspOpts({ desc = "LSP definition" }))
   map("n", "K", vim.lsp.buf.hover, lspOpts({ desc = "LSP hover" }))
 
   map(
     "n",
     "gi",
-    vim.lsp.buf.implementation,
+    handlers.implementation,
     lspOpts({ desc = "LSP implementation" })
   )
   map(
@@ -244,7 +268,7 @@ local function bindLspMappings()
   map(
     "n",
     "<Leader>D",
-    vim.lsp.buf.type_definition,
+    handlers.type_definition,
     lspOpts({ desc = "LSP type_definition" })
   )
   map("n", "<Leader>rn", vim.lsp.buf.rename, lspOpts({ desc = "LSP rename" }))
@@ -255,7 +279,7 @@ local function bindLspMappings()
     lspOpts({ desc = "LSP Code Action" })
   )
 
-  map("n", "gr", vim.lsp.buf.references, lspOpts({ desc = "LSP references" }))
+  map("n", "gr", handlers.references, lspOpts({ desc = "LSP references" }))
 
   map("n", "<A-=>", function()
     require("dko.lsp").format({ async = false })
