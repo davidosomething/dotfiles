@@ -113,14 +113,15 @@ return {
       end
 
       local formatters = {
+        null_ls.builtins.formatting.beautysh,
+        null_ls.builtins.formatting.markdownlint,
+        null_ls.builtins.formatting.qmlformat,
+        null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.stylua.with({
           condition = function(utils)
             return utils.root_has_file({ "stylua.toml", ".stylua.toml" })
           end,
         }),
-        null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.qmlformat,
-        null_ls.builtins.formatting.shfmt,
       }
       for i, provder in ipairs(formatters) do
         -- @TODO handle existing runtime_condition?
@@ -163,11 +164,15 @@ return {
         })
       end
 
-      local sources = vim.tbl_extend("force", {
+      local sources = {
         -- provide the typescript.nvim commands as LSP actions
         require("typescript.extensions.null-ls.code-actions"),
         null_ls.builtins.code_actions.gitsigns,
-      }, formatters, diagnostics)
+      }
+      require('dko.utils.table').concat(sources, formatters)
+      require('dko.utils.table').concat(sources, diagnostics)
+      -- table.move(formatters, 1, #formatters, #sources + 1, sources)
+      -- table.move(diagnostics, 1, #diagnostics, #sources + 1, sources)
 
       null_ls.setup({
         border = "rounded",
@@ -271,7 +276,7 @@ return {
             settings = {
               bashIde = {
                 shellcheckArguments = "--exclude=SC1090,SC1091",
-              }
+              },
             },
           }))
         end,
@@ -287,23 +292,25 @@ return {
           }))
         end,
 
-        ['stylelint_lsp'] = function()
-          lspconfig.stylelint_lsp.setup(vim.tbl_extend("force", defaultOptions, {
-            -- Disable on some filetypes
-            -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/stylelint_lsp.lua
-            filetypes = {
-              'css',
-              'less',
-              'scss',
-              'sugarss',
-              -- 'vue',
-              'wxss',
-              -- 'javascript',
-              -- 'javascriptreact',
-              -- 'typescript',
-              -- 'typescriptreact',
-            }
-          }))
+        ["stylelint_lsp"] = function()
+          lspconfig.stylelint_lsp.setup(
+            vim.tbl_extend("force", defaultOptions, {
+              -- Disable on some filetypes
+              -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/stylelint_lsp.lua
+              filetypes = {
+                "css",
+                "less",
+                "scss",
+                "sugarss",
+                -- 'vue',
+                "wxss",
+                -- 'javascript',
+                -- 'javascriptreact',
+                -- 'typescript',
+                -- 'typescriptreact',
+              },
+            })
+          )
         end,
 
         ["tsserver"] = function()
