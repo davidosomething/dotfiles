@@ -137,7 +137,6 @@ return {
         require("typescript.extensions.null-ls.code-actions"),
 
         null_ls.builtins.code_actions.gitsigns,
-        null_ls.builtins.code_actions.shellcheck,
 
         -- =================================================================
         -- Diagnostics
@@ -180,6 +179,7 @@ return {
 
         null_ls.builtins.diagnostics.shellcheck.with({
           method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+          extra_args = { "--exclude=SC1090,SC1091" },
         }),
       }, formatters)
 
@@ -278,6 +278,16 @@ return {
       masonLspConfig.setup_handlers({
         function(server)
           lspconfig[server].setup(defaultOptions)
+        end,
+
+        ["bashls"] = function()
+          lspconfig.bashls.setup(vim.tbl_extend("force", defaultOptions, {
+            settings = {
+              bashIde = {
+                shellcheckArguments = "--exclude=SC1090,SC1091",
+              }
+            },
+          }))
         end,
 
         ["jsonls"] = function()
