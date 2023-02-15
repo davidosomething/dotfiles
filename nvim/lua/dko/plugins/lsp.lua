@@ -216,6 +216,9 @@ return {
             end,
           },
         }),
+
+        -- bashls does not provide these quick ignore actions
+        null_ls.builtins.code_actions.shellcheck
       }
       require("dko.utils.table").concat(sources, formatters)
       require("dko.utils.table").concat(sources, diagnostics)

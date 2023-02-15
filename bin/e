@@ -5,8 +5,9 @@ __server="${XDG_STATE_HOME}/nvim/nvim.sock"
 ctrl_c() {
   echo "Detected CTRL-C, removing nvim.sock"
   rm "$__server"
+
   echo "Possible orphan language server processes:"
-  # shellcheck disable=SC2009
+  # shellcheck disable=2009
   ps ux | grep -v grep | grep language-server
 }
 
