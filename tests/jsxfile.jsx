@@ -1,4 +1,3 @@
-import React from 'react';
 export default [ 'nothing' ];
 
 const RED = 'red';
@@ -6,7 +5,7 @@ const BURGUNDY = 'rgba(255, 101, 120, 0.5)';
 
 export function abc() {
   return (
-    <div style="color: red;">
+    <div className="text-blue-500" style="color: red;">
       {expression()}
       <Fragment>
         {`hi ${there}`}

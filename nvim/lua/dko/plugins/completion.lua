@@ -5,15 +5,6 @@
 return {
 
   {
-    "roobert/tailwindcss-colorizer-cmp.nvim",
-    config = function()
-      require("tailwindcss-colorizer-cmp").setup({
-        color_square_width = 2,
-      })
-    end,
-  },
-
-  {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
@@ -22,7 +13,7 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       --'hrsh7th/cmp-nvim-lua', -- neodev adds to lsp already
-      "roobert/tailwindcss-colorizer-cmp.nvim",
+      { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
       "onsails/lspkind.nvim",
     },
     config = function()
@@ -64,9 +55,6 @@ return {
             cmp.ItemField.Menu,
           },
           format = function(entry, vim_item)
-            local tailwind_colorized =
-              require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
-
             local kind_formatted = require("lspkind").cmp_format({
               mode = "symbol_text", -- show only symbol annotations
               menu = {
@@ -89,9 +77,13 @@ return {
               strings[2]
             ) or ""
 
+            local tailwind_colorized =
+              require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+
             if tailwind_colorized.kind == "XX" then
+              kind_formatted.kind = "X"
               kind_formatted.kind_hl_group = tailwind_colorized.kind_hl_group
-              kind_formatted.menu = "  " .. "ᴛᴡ" .. " " .. smallcapsType
+              kind_formatted.menu = "  " .. "ᴛᴡ  ᴄᴏʟᴏʀ"
             else
               kind_formatted.menu = "  "
                 .. (kind_formatted.menu or entry.source.name)
