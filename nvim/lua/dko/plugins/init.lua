@@ -361,7 +361,20 @@ return {
         buftypes = {
           "*",
           "!nofile", -- ignore nofile, e.g. :Mason buffer
+          "!popup",
+          "!prompt",
         },
+        filetypes = {
+          "css",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "scss",
+          "typescript",
+          "typescriptreact",
+        },
+        css = true,
+        tailwind = true,
       })
     end,
   },
