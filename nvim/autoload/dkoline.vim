@@ -26,12 +26,6 @@ function! dkoline#GetTabline() abort
   let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
   let l:contents .= '%#StatusLine# %= '
 
-  " Show remote connection status
-  let l:contents .= match(v:servername, 'nvim.sock') > -1
-        \ ? '%#dkoStatusGood#'
-        \ : '%#dkoStatusError#'
-  let l:contents .= ' sᴏᴄᴋ '
-
   let l:contents .= dkoline#Format(
         \ ' ' . get(l:view, 'cwd', '~') . ' ',
         \ '%#dkoStatusKey# ʟᴄᴅ %(%#dkoStatusValue#%<',
@@ -43,47 +37,16 @@ function! dkoline#GetTabline() abort
         \     '%)'
         \   )
 
-  " lsp progress
-  let l:has_lsp_progress = !empty(luaeval('package.loaded["lsp-progress"]'))
-  if l:has_lsp_progress
-    let l:contents .= dkoline#Format(
-          \ luaeval('require("lsp-progress").progress()'),
-          \ '%#dkoStatusKey# ',
-          \ ' '
-          \)
-  endif
+  " Show lazy.nvim updates
+  let l:contents .= luaeval("require('lazy.status').has_updates()")
+        \ ? '%#dkoStatusError# '. luaeval("require('lazy.status').updates()")
+        \ : ''
 
-  " diagnostics for current buffer
-  let l:errors = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })'))
-  let l:warnings = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })'))
-  let l:info = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })'))
-  let l:hint = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })'))
-  let l:total = l:errors + l:warnings + l:info + l:hint
-  let l:contents .= dkoline#Format(
-        \ l:errors ? '✘' .. l:errors : '',
-        \ '%#DiagnosticError# ',
-        \ l:warnings + l:info + l:hint > 0 ? '' : ' '
-        \)
-  let l:contents .= dkoline#Format(
-        \ l:warnings ? '' .. l:warnings : '',
-        \ '%#DiagnosticWarn# ',
-        \ l:info + l:hint > 0 ? '' : ' '
-        \)
-  let l:contents .= dkoline#Format(
-        \ l:info ? '⚑' .. l:info : '',
-        \ '%#DiagnosticInfo# ',
-        \ l:hint > 0 ? '' : ' '
-        \)
-  let l:contents .= dkoline#Format(
-        \ l:hint ? '' .. l:hint : '',
-        \ '%#DiagnosticHint# ',
-        \ ' '
-        \)
-  let l:contents .= dkoline#Format(
-        \ l:total == 0 ? '' : '',
-        \ '%#dkoStatusGood# ',
-        \ ' '
-        \)
+  " Show remote connection status
+  let l:contents .= match(v:servername, 'nvim.sock') > -1
+        \ ? '%#dkoStatusGood#'
+        \ : '%#dkoStatusError#'
+  let l:contents .= ' ⛖ ' " sᴏᴄᴋ '
 
   " ==========================================================================
 
@@ -134,6 +97,48 @@ function! dkoline#GetStatusline(winnr) abort
   " ==========================================================================
 
   let l:contents .= '%*%='
+
+  " lsp progress
+  let l:has_lsp_progress = !empty(luaeval('package.loaded["lsp-progress"]'))
+  if l:has_lsp_progress
+    let l:contents .= dkoline#Format(
+          \ luaeval('require("lsp-progress").progress()'),
+          \ '%#dkoStatusKey# ',
+          \ ' '
+          \)
+  endif
+
+  " diagnostics for current buffer
+  let l:errors = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })'))
+  let l:warnings = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })'))
+  let l:info = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })'))
+  let l:hint = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })'))
+  let l:total = l:errors + l:warnings + l:info + l:hint
+  let l:contents .= dkoline#Format(
+        \ l:errors ? '✘' .. l:errors : '',
+        \ '%#DiagnosticError# ',
+        \ l:warnings + l:info + l:hint > 0 ? '' : ' '
+        \)
+  let l:contents .= dkoline#Format(
+        \ l:warnings ? '' .. l:warnings : '',
+        \ '%#DiagnosticWarn# ',
+        \ l:info + l:hint > 0 ? '' : ' '
+        \)
+  let l:contents .= dkoline#Format(
+        \ l:info ? '⚑' .. l:info : '',
+        \ '%#DiagnosticInfo# ',
+        \ l:hint > 0 ? '' : ' '
+        \)
+  let l:contents .= dkoline#Format(
+        \ l:hint ? '' .. l:hint : '',
+        \ '%#DiagnosticHint# ',
+        \ ' '
+        \)
+  let l:contents .= dkoline#Format(
+        \ l:total == 0 ? '' : '',
+        \ '%#dkoStatusGood# ',
+        \ ' '
+        \)
 
   let l:contents .= dkoline#Format(
         \ dkoline#Ruler(),
@@ -302,6 +307,7 @@ function! dkoline#Init() abort
         \   'BufWinEnter *',
         \   'BufWritePost *',
         \   'BufEnter *',
+        \   'DiagnosticChanged *',
         \   'DirChanged *',
         \   'FileType *',
         \   'WinEnter *',
@@ -313,8 +319,11 @@ function! dkoline#Init() abort
         " \   'FileReadPost',
 
   let l:tab_refresh_hooks = [
-        \   'DiagnosticChanged *',
         \   'DirChanged *',
+        \   'User LazyDone',
+        \   'User LazyUpdate',
+        \   'User LazyCheck',
+        \   'User VeryLazy',
         \   'User LspProgressStatusUpdated',
         \ ]
 
