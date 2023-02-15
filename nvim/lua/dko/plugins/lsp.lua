@@ -12,18 +12,21 @@ local extras = {
   "stylua",
 }
 
--- LSPs to install with mason
+-- LSPs to install with mason AND auto-configure with mason-lspconfig
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 local lsps = {
   "ansiblels",
   "bashls",
   "cssls",
+  "cssmodules_ls", -- jumping into classnames from jsx/tsx
+  "docker_compose_language_service",
   "dockerls",
   "eslint",
   "html",
   "jsonls",
   "stylelint_lsp",
   "lua_ls",
+  --"pyright" -- eventually add this or ruff_lsp
   "tailwindcss",
   "tsserver",
   "vimls",
