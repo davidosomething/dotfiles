@@ -27,7 +27,7 @@ function! dkoline#GetTabline() abort
   let l:contents .= '%#StatusLine# %= '
 
   " Show remote connection status
-  let l:contents .= match(v:servername, '\V', 'v:sock') > -1
+  let l:contents .= match(v:servername, 'nvim.sock') > -1
         \ ? '%#dkoStatusGood#'
         \ : '%#dkoStatusError#'
   let l:contents .= ' sᴏᴄᴋ '
