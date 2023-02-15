@@ -4,15 +4,15 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
--- Non-lsp tools to install with mason, e.g. to use as a null-ls formatter or
--- diagnostic provider
+-- Tools to auto-install with mason
+-- Must then be configured, e.g. as null-ls formatter or diagnostic provider
 local extras = {
   "editorconfig-checker",
   "markdownlint",
   "stylua",
 }
 
--- LSPs to install with mason AND auto-configure with mason-lspconfig
+-- LSPs to install with mason via mason-lspconfig
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 local lsps = {
   "ansiblels",
