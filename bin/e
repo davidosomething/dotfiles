@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+__server="${XDG_STATE_HOME}/nvim/nvim.sock"
+
+ctrl_c() {
+  echo "Detected CTRL-C, removing nvim.sock"
+  rm "$__server"
+  echo "Possible orphan language server processes:"
+  # shellcheck disable=SC2009
+  ps ux | grep -v grep | grep language-server
+}
+
 main() {
   ! command -v nvim >/dev/null && {
     #echo "default editor"
@@ -7,16 +17,14 @@ main() {
     return
   }
 
-  __server="${XDG_STATE_HOME}/nvim/nvim.sock"
-
   # remote-expr outputs to /dev/stderr for some reason
-  __existing=$(nvim \
+  existing=$(nvim \
     --server "$__server" \
     --remote-expr "execute('echo v:servername')" \
     2>&1)
 
   local first="$1"
-  [ "$__existing" != "$__server" ] && [ -z "$first" ] && {
+  [ "$existing" != "$__server" ] && [ -z "$first" ] && {
     #echo "new server ${__server} with empty file"
     nvim --listen "$__server" +enew
     return
@@ -26,13 +34,13 @@ main() {
   for file in "$@"; do
     # don't prepend PWD for absolute paths
     case "$file" in
-      /*) ;;
-      *) file="${PWD}/${file}" ;;
+    /*) ;;
+    *) file="${PWD}/${file}" ;;
     esac
     files+=("$file")
   done
 
-  [ "$__existing" != "$__server" ] && {
+  [ "$existing" != "$__server" ] && {
     #echo "new server ${__server} with ${files[*]}"
     nvim --listen "$__server" "${files[@]}"
     return
@@ -56,4 +64,5 @@ main() {
   nvim --server "$__server" --remote-silent "${files[@]}"
 }
 
+trap ctrl_c INT
 main "$@"

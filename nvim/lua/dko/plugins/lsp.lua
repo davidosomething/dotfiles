@@ -141,7 +141,6 @@ return {
       -- =====================================================================
 
       local formatters = {
-        null_ls.builtins.formatting.beautysh,
         null_ls.builtins.formatting.markdownlint,
         null_ls.builtins.formatting.qmlformat,
         null_ls.builtins.formatting.shfmt,
