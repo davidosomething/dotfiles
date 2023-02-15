@@ -3,6 +3,16 @@
 -- =========================================================================
 
 return {
+
+  {
+    "roobert/tailwindcss-colorizer-cmp.nvim",
+    config = function()
+      require("tailwindcss-colorizer-cmp").setup({
+        color_square_width = 2,
+      })
+    end,
+  },
+
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -12,7 +22,7 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       --'hrsh7th/cmp-nvim-lua', -- neodev adds to lsp already
-      --"roobert/tailwindcss-colorizer-cmp.nvim", -- @TODO formatter not chainable
+      "roobert/tailwindcss-colorizer-cmp.nvim",
       "onsails/lspkind.nvim",
     },
     config = function()
@@ -47,9 +57,17 @@ return {
         },
 
         formatting = {
-          fields = { "kind", "abbr", "menu" },
+          -- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/types/cmp.lua#L35-L40
+          fields = {
+            cmp.ItemField.Kind,
+            cmp.ItemField.Abbr,
+            cmp.ItemField.Menu,
+          },
           format = function(entry, vim_item)
-            local formatted = require("lspkind").cmp_format({
+            local tailwind_colorized =
+              require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+
+            local kind_formatted = require("lspkind").cmp_format({
               mode = "symbol_text", -- show only symbol annotations
               menu = {
                 buffer = "ʙᴜғ",
@@ -61,15 +79,27 @@ return {
                 path = "ᴘᴀᴛʜ",
               },
             })(entry, vim_item)
+
             local strings =
-              vim.split(formatted.kind, "%s", { trimempty = true })
-            formatted.kind = (strings[1] or "")
-            local smallcapsType = require('dko.utils.smallcaps').convert(strings[2]) or ""
-            formatted.menu = "  "
-              .. (formatted.menu or entry.source.name)
-              .. " "
-              .. smallcapsType
-            return formatted
+              vim.split(kind_formatted.kind, "%s", { trimempty = true })
+
+            kind_formatted.kind = (strings[1] or "")
+
+            local smallcapsType = require("dko.utils.smallcaps").convert(
+              strings[2]
+            ) or ""
+
+            if tailwind_colorized.kind == "XX" then
+              kind_formatted.kind_hl_group = tailwind_colorized.kind_hl_group
+              kind_formatted.menu = "  " .. "ᴛᴡ" .. " " .. smallcapsType
+            else
+              kind_formatted.menu = "  "
+                .. (kind_formatted.menu or entry.source.name)
+                .. " "
+                .. smallcapsType
+            end
+
+            return kind_formatted
           end,
         },
       })
