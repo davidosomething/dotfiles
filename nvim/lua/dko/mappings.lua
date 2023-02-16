@@ -199,7 +199,7 @@ map("x", "<Leader>C", function()
   -- @TODO replace with https://github.com/neovim/neovim/pull/13896
   vim.api.nvim_feedkeys("y", "nx", false)
   local selection = vim.fn.getreg('"')
-  local converted = require("dko.utils.smallcaps").convert(selection)
+  local converted = require("dko.utils.string").smallcaps(selection)
   vim.fn.setreg('"', converted)
   vim.api.nvim_feedkeys('gv""P', "nx", false)
 end, { desc = "Convert selection to smallcaps" })

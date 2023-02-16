@@ -73,7 +73,7 @@ return {
 
             kind_formatted.kind = (strings[1] or "")
 
-            local smallcapsType = require("dko.utils.smallcaps").convert(
+            local smallcapsType = require("dko.utils.string").smallcaps(
               strings[2]
             ) or ""
 
