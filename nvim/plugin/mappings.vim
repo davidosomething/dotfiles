@@ -5,13 +5,6 @@ scriptencoding utf-8
 " There is no loaded guard on top, so any recursive maps need a silent unmap
 " prior to binding. This way this file can be edited and sourced at any time
 " to rebind keys.
-"
-" See after/plugin/search for search mappings like <Esc><Esc>
-"
-
-" cpoptions are reset but use <special> when mapping anyway
-let s:cpo_save = &cpoptions
-set cpoptions&vim
 
 " ============================================================================
 " My abbreviations and autocorrect
@@ -25,8 +18,8 @@ inoreabbrev :strong: ᕦ(ò_óˇ)ᕤ
 inoreabbrev unlabeled   unlabelled
 
 inoreabbrev targetted   targeted
-inoreabbrev targetting  targeting
 inoreabbrev targetter   targeter
+inoreabbrev targetting  targeting
 
 inoreabbrev threshhold  threshold
 inoreabbrev threshholds thresholds
@@ -51,18 +44,6 @@ inoreabbrev kbdup <kbd>↑</kbd>
 inoreabbrev kbdright <kbd>→</kbd>
 inoreabbrev kbddown <kbd>↓</kbd>
 
-
-" ============================================================================
-" Commands
-" ============================================================================
-
-" In normal mode, jump to command mode with <CR>
-" Don't map <CR>, it's a pain to unmap for various window types like quickfix
-" where <CR> should jump to the entry, or NetRW or unite or fzf.
-"nnoremap  <special>  <CR>  <Esc>:<C-U>
-
-command! Q q
-
 " ----------------------------------------------------------------------------
 " <Tab> space or real tab based on line contents and cursor position
 " ----------------------------------------------------------------------------
@@ -82,13 +63,15 @@ function! s:DKO_Tab() abort
   return repeat(' ', 1 + l:sts - l:sp)
 endfunction
 
+" cpoptions are reset but use <special> when mapping anyway
+let s:cpo_save = &cpoptions
+set cpoptions&vim
+
 silent! iunmap <Tab>
 inoremap  <silent><special><expr>  <Tab>     <SID>DKO_Tab()
 
 " Tab inserts a tab, shift-tab should remove it
 inoremap <S-Tab> <C-d>
-
-" ============================================================================
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

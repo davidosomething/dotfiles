@@ -59,6 +59,29 @@ autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
 
 local readingGroup = augroup("dkoreading")
 
+-- https://vi.stackexchange.com/questions/11892/populate-a-git-commit-template-with-variables
+autocmd("BufRead", {
+  pattern = "COMMIT_EDITMSG",
+  desc = "Replace tokens in commit-template",
+  callback = function()
+    local tokens = {
+      BRANCH = vim.fn.matchstr(
+        vim.fn.system("git rev-parse --abbrev-ref HEAD"),
+        "\\p\\+"
+      ),
+    }
+
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    for i, line in ipairs(lines) do
+      lines[i] = string.gsub(line, "%$%{(%w+)%}", function(s)
+        return string.len(s) > 0 and tokens[s] or ""
+      end)
+    end
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+  end,
+  group = readingGroup,
+})
+
 autocmd("BufEnter", {
   desc = "Read only mode (un)mappings",
   callback = function()
@@ -174,8 +197,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
     vim.b.has_lsp = true
 
-    require('dko.lsp').bind_lsp_mappings()
+    require("dko.lsp").bind_lsp_mappings()
   end,
   group = vim.api.nvim_create_augroup("dkolsp", { clear = true }),
 })
-

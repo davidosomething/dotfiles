@@ -4,12 +4,12 @@
 vim.g.mapleader = " "
 
 require("dko.polyfills.table")
-require("dko.external")
 require("dko.providers")
 require("dko.opt")
 require("dko.builtin-syntax")
 require("dko.diagnostic-lsp")
 require("dko.terminal")
+require("dko.commands")
 require("dko.mappings")
 require("dko.behaviors")
 

@@ -51,6 +51,7 @@ local function floatFormat(diagnostic)
 
   return " " .. symbol .. " " .. diagnostic.message .. " " .. sourceText .. " "
 end
+
 vim.diagnostic.config({
   -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
   virtual_text = false,
