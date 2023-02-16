@@ -161,3 +161,21 @@ autocmd("DiagnosticChanged", {
   end,
   group = augroup("dkodiagnostic"),
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "Bind LSP in buffer",
+  callback = function()
+    -- Need to unset this on EVERY LSP attach
+    -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
+    vim.bo.formatexpr = nil
+
+    if vim.b.has_lsp then
+      return
+    end
+    vim.b.has_lsp = true
+
+    require('dko.lsp').bind_lsp_mappings()
+  end,
+  group = vim.api.nvim_create_augroup("dkolsp", { clear = true }),
+})
+

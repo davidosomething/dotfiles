@@ -6,8 +6,8 @@ return function()
     print("Looking up vim.g " .. prefixed)
     vim.cmd.help(prefixed)
     return
-  elseif string.find(cexpr, "vim%.o%.") then
-    match = "'" .. cexpr:gsub("vim%.o%.(.-)$", "%1") .. "'"
+  elseif string.find(cexpr, "vim%.[b|g|t|w]?o%.") then
+    match = "'" .. cexpr:gsub("vim%.[b|g|t|w]o%.(.-)$", "%1") .. "'"
   elseif string.find(cexpr, "vim%.opt%.") then
     match = "'"
       .. cexpr:gsub("vim%.opt%.(.-)$", "%1"):gsub("(.*):.*$", "%1")

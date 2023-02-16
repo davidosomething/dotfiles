@@ -205,118 +205,24 @@ map("x", "<Leader>C", function()
 end, { desc = "Convert selection to smallcaps" })
 
 -- ===========================================================================
--- Buffer: LSP integration
--- Mix of https://github.com/neovim/nvim-lspconfig#suggested-configuration
--- and :h lsp
--- ===========================================================================
-
--- buffer local map
-local function lspOpts(opts)
-  opts = vim.tbl_extend("force", {
-    noremap = true,
-    silent = true,
-    buffer = true,
-  }, opts)
-end
-
-local function bindLspMappings()
-  local function with_telescope(method)
-    local ok, telescope = pcall(require, "telescope.builtin")
-    if ok then
-      return telescope[method]()
-    end
-    return nil
-  end
-
-  local handlers = {
-    definition = function()
-      return with_telescope("lsp_definitions") or vim.lsp.buf.definition
-    end,
-    references = function()
-      return with_telescope("lsp_references") or vim.lsp.buf.references
-    end,
-    implementation = function()
-      return with_telescope("lsp_implementations") or vim.lsp.buf.implementation
-    end,
-    type_definition = function()
-      return with_telescope("lsp_type_definitions")
-        or vim.lsp.buf.type_definition
-    end,
-  }
-
-  map("n", "gD", vim.lsp.buf.declaration, lspOpts({ desc = "LSP declaration" }))
-  map("n", "gd", handlers.definition, lspOpts({ desc = "LSP definition" }))
-  map("n", "K", vim.lsp.buf.hover, lspOpts({ desc = "LSP hover" }))
-
-  map(
-    "n",
-    "gi",
-    handlers.implementation,
-    lspOpts({ desc = "LSP implementation" })
-  )
-  map(
-    "n",
-    "<C-k>",
-    vim.lsp.buf.signature_help,
-    lspOpts({ desc = "LSP signature_help" })
-  )
-  --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  --map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  --[[ map('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts) ]]
-  map(
-    "n",
-    "<Leader>D",
-    handlers.type_definition,
-    lspOpts({ desc = "LSP type_definition" })
-  )
-  map("n", "<Leader>rn", vim.lsp.buf.rename, lspOpts({ desc = "LSP rename" }))
-  map(
-    "n",
-    "<Leader>ca",
-    vim.lsp.buf.code_action,
-    lspOpts({ desc = "LSP Code Action" })
-  )
-
-  map("n", "gr", handlers.references, lspOpts({ desc = "LSP references" }))
-
-  map("n", "<A-=>", function()
-    require("dko.lsp").format({ async = false })
-  end, lspOpts({ desc = "Fix and format buffer with dko.lsp.format_buffer" }))
-end
-
-vim.api.nvim_create_autocmd("LspAttach", {
-  desc = "Bind LSP in buffer",
-  callback = function()
-    if vim.b.has_lsp then
-      return
-    end
-    vim.b.has_lsp = true
-    bindLspMappings()
-  end,
-  group = vim.api.nvim_create_augroup("dkolsp", { clear = true }),
-})
-
--- ===========================================================================
 -- Diagnostic mappings
 -- ===========================================================================
 
-local gotoOpts = {
+local goto_opts = {
   noremap = true,
   silent = true,
   desc = "Go to diagnostic and open float",
 }
-local floatOpts = {
+local float_opts = {
   focus = false,
   scope = "cursor",
 }
 map("n", "[d", function()
-  vim.diagnostic.goto_prev({ float = floatOpts })
-end, gotoOpts)
+  vim.diagnostic.goto_prev({ float = float_opts })
+end, goto_opts)
 map("n", "]d", function()
-  vim.diagnostic.goto_next({ float = floatOpts })
-end, gotoOpts)
+  vim.diagnostic.goto_next({ float = float_opts })
+end, goto_opts)
 map("n", "<Leader>d", function()
-  vim.diagnostic.open_float(floatOpts)
+  vim.diagnostic.open_float(float_opts)
 end, { desc = "Open diagnostic float at cursor" })
