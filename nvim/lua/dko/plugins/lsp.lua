@@ -144,11 +144,7 @@ return {
         null_ls.builtins.formatting.markdownlint,
         null_ls.builtins.formatting.qmlformat,
         null_ls.builtins.formatting.shfmt,
-        null_ls.builtins.formatting.stylua.with({
-          condition = function(utils)
-            return utils.root_has_file({ "stylua.toml", ".stylua.toml" })
-          end,
-        }),
+        null_ls.builtins.formatting.stylua,
       }
       for i, provider in ipairs(formatters) do
         formatters[i] = provider.with({
@@ -218,7 +214,7 @@ return {
         }),
 
         -- bashls does not provide these quick ignore actions
-        null_ls.builtins.code_actions.shellcheck
+        null_ls.builtins.code_actions.shellcheck,
       }
       require("dko.utils.table").concat(sources, formatters)
       require("dko.utils.table").concat(sources, diagnostics)
