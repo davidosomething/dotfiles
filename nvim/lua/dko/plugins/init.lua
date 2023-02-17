@@ -67,8 +67,32 @@ return {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "tsakirist/telescope-lazy.nvim",
     },
+    keys = function()
+      local builtin = require("telescope.builtin")
+      return {
+        {
+          "<A-b>",
+          builtin.buffers,
+          desc = "Telescope: pick existing buffer",
+        },
+        {
+          "<A-f>",
+          builtin.find_files,
+          desc = "Telescope: pick files in CWD",
+        },
+        {
+          "<A-m>",
+          builtin.oldfiles,
+          desc = "Telescope: pick from previously opened files",
+        },
+      }
+    end,
     config = function()
-      require("telescope").setup({})
+      require("telescope").setup({
+        defaults = {
+          layout_strategy = "vertical",
+        },
+      })
       require("telescope").load_extension("fzf")
     end,
   },

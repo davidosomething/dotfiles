@@ -19,11 +19,7 @@ return {
       vim.g.fzf_buffers_jump = 1
     end,
     config = function()
-      vim.keymap.set("n", "<A-b>", "<Cmd>FZFBuffers<CR>")
-      vim.keymap.set("n", "<A-c>", "<Cmd>FZFCommands<CR>")
-      vim.keymap.set("n", "<A-f>", "<Cmd>FZFFiles<CR>")
       vim.keymap.set("n", "<A-g>", "<Cmd>FZFGrepper<CR>")
-      vim.keymap.set("n", "<A-m>", "<Cmd>FZFMRU<CR>")
       vim.keymap.set("n", "<A-p>", "<Cmd>FZFProject<CR>")
       vim.keymap.set("n", "<A-r>", "<Cmd>FZFRelevant<CR>")
       vim.keymap.set("n", "<A-s>", "<Cmd>FZFGitStatusFiles<CR>")

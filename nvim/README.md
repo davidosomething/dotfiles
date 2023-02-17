@@ -48,12 +48,9 @@ Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux
 
 ### Super-non-standard keys
 
-- `<C-f>` -- Expand snippet. I use `<C-u>`/`<C-d>` to jump pages instead.
-
 |      Key | Desc                                                    |
 | -------- | :------------------------------------------------------ |
-| `<A-b>`  | :FZFBuffers |
-| `<A-c>`  | :FZFCommands |
+| `<A-b>`  | Telescope buffers |
 | `<A-f>`  | :FZFFiles - files from Vim's cwd |
 | `<A-g>`  | :FZFGrepper - custom, rg/ag with preview or git-grep |
 | `<A-m>`  | :FZFMRU - custom MRU |
