@@ -16,7 +16,8 @@ Neovim-specific config.
 - Additional formatters and linters provided as pseudo-LSPs using
   [jose-elias-alvarez/null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim)
 - Custom statusline with minimal junk, showing short directory (lua conversion WIP)
-- FZF for Most Recently Used files and fuzzy file finder (lua conversion WIP)
+- FZF (lua conversion WIP) and Telescope finders depending on source and
+  performance
 
 ### Installation
 
@@ -43,32 +44,6 @@ See [bootstrap/pyenv] for a scripted version of this
 
 Comment out `runtime! archlinux.vim` from `/etc/vimrc` if you're on Arch Linux
 (despite its pleas not to.)
-
-## Usage
-
-### Super-non-standard keys
-
-|      Key | Desc                                                    |
-| -------- | :------------------------------------------------------ |
-| `<A-b>`  | Telescope buffers |
-| `<A-f>`  | :FZFFiles - files from Vim's cwd |
-| `<A-g>`  | :FZFGrepper - custom, rg/ag with preview or git-grep |
-| `<A-m>`  | :FZFMRU - custom MRU |
-| `<A-p>`  | :FZFProject |
-| `<A-p>`  | :FZFProject - custom, :FZFFiles but from project root |
-| `<A-r>`  | :FZFRelevant |
-| `<A-r>`  | :FZFRelevant - custom, dirty/new files vs git master |
-| `<A-t>`  | :FZFTests - custom find test files near current path |
-| `<A-v>`  | :FZFVim - ~/.config/nvim |
-| `<BS>`   | Switch to alternate file |
-
-### Junk defaults and unmapped keys
-
-Plan to remap these at some point
-
-- `n <C-b>` -- backward one screen (page)
-- `n <C-f>` -- forward one screen (page)
-- `n zh/l`  -- useless wrap mode scroll
 
 ## Conventions
 

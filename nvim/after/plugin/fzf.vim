@@ -147,20 +147,6 @@ command! FZFVim
       \ ))
 
 " ----------------------------------------------------------------------------
-" Whitelisted MRU/Buffer combined.
-" Regular :FZFHistory doesn't blacklist files
-" ----------------------------------------------------------------------------
-
-" @return {String} project root
-command! FZFMRU
-      \ call fzf#run(fzf#wrap('MRU',
-      \   fzf#vim#with_preview(s:WithLayout({
-      \     'source':  dko#files#GetMru(),
-      \     'options': s:options . ' --no-sort --prompt="MRU> "',
-      \   }), 'right:50%')
-      \ ))
-
-" ----------------------------------------------------------------------------
 " Test specs
 " ----------------------------------------------------------------------------
 

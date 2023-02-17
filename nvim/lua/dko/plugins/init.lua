@@ -81,6 +81,11 @@ return {
           desc = "Telescope: pick files in CWD",
         },
         {
+          "<A-g>",
+          builtin.live_grep,
+          desc = "Telescope: live grep CWD",
+        },
+        {
           "<A-m>",
           builtin.oldfiles,
           desc = "Telescope: pick from previously opened files",
