@@ -325,7 +325,8 @@ function! dkoline#Init() abort
         \   'User LazyUpdate',
         \   'User LazyCheck',
         \   'User VeryLazy',
-        \   'User LspProgressStatusUpdated',
+        \   'User LspProgressUpdate',
+        \   'User LspRequest',
         \ ]
 
   augroup dkoline
