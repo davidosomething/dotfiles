@@ -1,6 +1,56 @@
 local M = {}
 
 -- ===========================================================================
+-- LSP progress for bars
+-- ===========================================================================
+
+---@class ProgressMessage
+---@field name string client name e.g. lua_ls or null-ls
+---@field title string usually what the client is doing
+---@field message string sometimes filename, for null-ls it is the source name
+---@field percentage number
+---@field done boolean
+---@field progress boolean
+
+--- Hook this into
+--- LspAttach, LspDetach, User LspProgressUpdate, and User LspRequest
+M.status_progress = function()
+  ---@type ProgressMessage[]
+  local messages = vim.lsp.util.get_progress_messages()
+  if #messages == 0 then
+    return nil
+  end
+
+  local lowest = { percentage = 100 }
+  for _, data in pairs(messages) do
+    (function()
+      if
+        data.done
+        or not data.progress
+        or not data.percentage
+        or data.percentage == 100
+      then
+        return
+      end
+      if data.percentage < lowest.percentage then
+        lowest = data
+      end
+    end)()
+  end
+  if lowest.percentage == 100 then
+    return nil
+  end
+
+  if lowest.name == 'null-ls' then
+    lowest.name = 'null-ls[' .. lowest.message .. ']'
+  end
+
+  local util = require("dko.utils.progress")
+  local bar = util.character(util.VERTICAL, lowest.percentage)
+  return { messages = messages, lowest = lowest, bar = bar }
+end
+
+-- ===========================================================================
 -- LSP Notifications
 -- ===========================================================================
 
