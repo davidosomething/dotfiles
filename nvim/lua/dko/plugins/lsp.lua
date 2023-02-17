@@ -98,12 +98,12 @@ return {
       }
       -- Switch ALL diagnostics to DIAGNOSTICS_ON_SAVE only
       -- or null_ls will keep spamming LSP events
-      for i, provider in ipairs(diagnostics) do
+      --[[ for i, provider in ipairs(diagnostics) do
         -- @TODO handle existing runtime_condition?
         diagnostics[i] = provider.with({
           method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
         })
-      end
+      end ]]
 
       -- =====================================================================
       -- Combine sources

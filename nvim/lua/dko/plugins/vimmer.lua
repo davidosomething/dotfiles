@@ -26,6 +26,10 @@ return {
     end,
   },
 
+  -- for lua dev, require as needed
+  -- https://github.com/Tastyep/structlog.nvim
+  { "Tastyep/structlog.nvim" },
+
   -- @TODO nvim 0.9 has :Inspect ?
   {
     "cocopon/colorswatch.vim",

@@ -98,17 +98,8 @@ function! dkoline#GetStatusline(winnr) abort
 
   let l:contents .= '%*%='
 
-  " lsp progress
-  " let l:has_lsp_progress = !empty(luaeval('package.loaded["lsp-progress"]'))
-  " if l:has_lsp_progress
-  "   let l:contents .= dkoline#Format(
-  "         \ luaeval('require("lsp-progress").progress()'),
-  "         \ '%#dkoStatusKey# ',
-  "         \ ' '
-  "         \)
-  " endif
-  "
-  let l:progress = luaeval('require("dko.lsp").status_progress(' . l:view.bufnr . ')')
+  " update if active window, otherwise leave as whatever it was previously
+  let l:progress = luaeval('require("dko.lsp").status_progress({ bufnr = ' . l:view.bufnr . ' })')
   if type(l:progress) == v:t_dict
     let l:contents .= dkoline#Format(
     \ l:progress.bar . ' ' . l:progress.lowest.name,
@@ -118,10 +109,11 @@ function! dkoline#GetStatusline(winnr) abort
   endif
 
   " diagnostics for current buffer
-  let l:errors = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })'))
-  let l:warnings = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })'))
-  let l:info = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })'))
-  let l:hint = len(luaeval('vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })'))
+  let l:getter = 'vim.diagnostic.get(' . l:view.bufnr
+  let l:errors = len(luaeval(l:getter . ', { severity = vim.diagnostic.severity.ERROR })'))
+  let l:warnings = len(luaeval(l:getter . ', { severity = vim.diagnostic.severity.WARN })'))
+  let l:info = len(luaeval(l:getter . ', { severity = vim.diagnostic.severity.INFO })'))
+  let l:hint = len(luaeval(l:getter . ', { severity = vim.diagnostic.severity.HINT })'))
   let l:total = l:errors + l:warnings + l:info + l:hint
   let l:contents .= dkoline#Format(
         \ l:errors ? '✘' . l:errors : '',

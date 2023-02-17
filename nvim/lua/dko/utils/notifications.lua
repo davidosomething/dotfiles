@@ -23,7 +23,7 @@ M.lsp_messagetype_to_vim_log_level = function(mt)
 end
 
 ---Convert native vim.notify messages to nvim-notify
----@param notify function
+---@param notify function|table
 M.override_builtin = function(notify)
   local override = function(msg, level, opts)
     if not opts then
