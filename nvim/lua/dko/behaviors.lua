@@ -3,7 +3,7 @@
 -- ===========================================================================
 
 local function augroup(name)
-  return vim.api.nvim_create_augroup(name, { clear = true })
+  return vim.api.nvim_create_augroup(name, {})
 end
 
 local autocmd = vim.api.nvim_create_autocmd
@@ -199,5 +199,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     require("dko.lsp").bind_lsp_mappings()
   end,
-  group = vim.api.nvim_create_augroup("dkolsp", { clear = true }),
+  group = vim.api.nvim_create_augroup("dkolsp", {}),
 })
