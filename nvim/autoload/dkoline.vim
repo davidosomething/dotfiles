@@ -71,8 +71,14 @@ function! dkoline#GetStatusline(winnr) abort
   let l:contents .= '%#StatusLine#'
 
   " Filebased
+  let l:ftoutput = dkoline#Filetype(l:view.ft)
+  let l:filename = fnamemodify(l:view.bufname, ':t')
+  let l:devicon = luaeval("require('nvim-web-devicons').get_icon('" . l:filename . "')")
+  if !empty(l:devicon)
+    let l:ftoutput = ' ' . l:devicon . l:ftoutput
+  endif
   let l:contents .= dkoline#Format(
-        \ dkoline#Filetype(l:view.ft),
+        \ l:ftoutput,
         \ dkoline#ActiveColor(l:view, '%#dkoStatusKey#'))
 
   " Parent dir and filename

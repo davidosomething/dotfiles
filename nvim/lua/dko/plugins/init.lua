@@ -39,6 +39,11 @@ return {
   -- =========================================================================
 
   {
+    "nvim-tree/nvim-web-devicons",
+    config = true,
+  },
+
+  {
     "rcarriga/nvim-notify",
     lazy = false,
     priority = 1000,
