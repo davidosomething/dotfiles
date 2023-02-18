@@ -14,7 +14,6 @@ Then restart konsole, set `davidosomething` as the default profile.
 
 ## GPG and SSH
 
-- `keychain` handles adding the GPG and SSH key to `kwallet`.
 - Configure a `pinentry-program` in `$GNUPGHOME/gpg-agent.conf`
     - Use [gnupg/gpg-agent.conf](./gnupg/gpg-agent.conf) directly, or as
       a base template.
