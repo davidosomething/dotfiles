@@ -3,9 +3,6 @@
 -- =========================================================================
 
 return {
-
-  { "honza/vim-snippets" },
-
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
