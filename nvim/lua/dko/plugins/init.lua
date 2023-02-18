@@ -120,6 +120,9 @@ return {
       require("telescope").setup({
         defaults = {
           layout_strategy = "vertical",
+          file_ignore_patterns = {
+            "COMMIT_EDITMSG",
+          },
         },
       })
       require("telescope").load_extension("fzf")
