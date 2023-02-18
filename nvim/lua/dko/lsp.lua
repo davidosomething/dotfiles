@@ -30,7 +30,7 @@ function M.get_progress_messages(filter)
     for token, ctx in pairs(data.progress) do
       local new_report = {
         name = data.name,
-        title = ctx.title or 'empty title',
+        title = ctx.title or "empty title",
         message = ctx.message,
         percentage = ctx.percentage,
         done = ctx.done,
@@ -85,8 +85,8 @@ M.status_progress = function(filter)
     return nil
   end
 
-  if lowest.name == 'null-ls' then
-    lowest.name = 'null-ls[' .. lowest.message .. ']'
+  if lowest.name == "null-ls" then
+    lowest.name = "null-ls[" .. lowest.message .. "]"
   end
 
   local util = require("dko.utils.progress")
@@ -112,12 +112,14 @@ M.null_ls_notify_on_format = function(params)
   )
 end
 
+--- See options for vim.lsp.buf.format
 M.format = function(options)
   if
     vim.tbl_contains(
       { "typescript", "typescriptreact", "javascript", "javascriptreact" },
       vim.bo.filetype
     )
+    and require("lspconfig.util").get_active_client_by_name(0, "eslint")
   then
     -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/eslint.lua#L152-L159
     vim.cmd("EslintFixAll")
