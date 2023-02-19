@@ -486,7 +486,6 @@ return {
       "andymass/vim-matchup",
       "JoosepAlviste/nvim-ts-context-commentstring",
       "rcarriga/nvim-notify",
-      "Wansmer/treesj",
     },
     build = ":TSUpdate",
     config = function()
@@ -626,10 +625,15 @@ return {
 
   {
     "Wansmer/treesj",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
     keys = {
       {
         "gs",
-        "<Cmd>TSJToggle<CR>",
+        function()
+          require("treesj").toggle()
+        end,
         desc = "Toggle treesitter split / join",
         silent = true,
       },
