@@ -60,7 +60,7 @@ function! s:FzfGitStatusFiles(...) abort
         \   "filereadable(l:path . '/' .v:val)"
         \ )
   if !len(l:source)
-    echo 'No files changed compared to ' . l:base
+    echo 'No files changed'
     return
   endif
   call fzf#run(fzf#wrap('Status',
