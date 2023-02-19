@@ -257,6 +257,9 @@ endfunction
 " @param {Dict} view
 " @return {String}
 function! dkoline#GitBranch(view) abort
+  if !empty(get(b:, 'gitsigns_head', ''))
+    return ' ' . get(b:, 'gitsigns_head') . ' '
+  endif
   return dko#IsNonFile(a:view.bufnr)
         \ || empty(getbufvar(a:view.bufnr, 'dko_branch'))
         \ ? ''

@@ -10,6 +10,7 @@ local extras = {
   "editorconfig-checker",
   "markdownlint",
   "stylua",
+  "vint",
 }
 
 -- LSPs to install with mason via mason-lspconfig
@@ -78,6 +79,7 @@ return {
         null_ls.builtins.diagnostics.editorconfig_checker,
         null_ls.builtins.diagnostics.markdownlint,
         null_ls.builtins.diagnostics.qmllint,
+        null_ls.builtins.diagnostics.vint,
         null_ls.builtins.diagnostics.zsh,
 
         -- selene not picking up config
