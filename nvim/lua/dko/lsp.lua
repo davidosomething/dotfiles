@@ -220,8 +220,8 @@ M.bind_lsp_mappings = function()
     lsp_opts({ desc = "LSP implementation" })
   )
   map(
-    "n",
-    "<C-k>",
+    { "n", "i" },
+    "<C-g>",
     vim.lsp.buf.signature_help,
     lsp_opts({ desc = "LSP signature_help" })
   )
