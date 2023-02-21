@@ -1,58 +1,6 @@
 " autoload/dkoline.vim
 scriptencoding utf-8
 
-function! dkoline#GetTabline() abort
-  let l:view = dkoline#GetView(winnr())
-
-  let l:contents = '%#StatusLine#'
-
-  " ==========================================================================
-  " Left side
-  " ==========================================================================
-
-  " Search context
-  let l:lastpat = @/
-  let l:contents .= dkoline#Format(
-        \ empty(l:lastpat) ? '' : ' ' . l:lastpat . ' ',
-        \ '%#dkoStatusKey# ? %(%#Search#',
-        \ '%)')
-
-  " ==========================================================================
-  " Right side
-  " ==========================================================================
-
-  " Leave 24 chars for search
-  let l:maxwidth = float2nr(&columns) - 24
-  let l:maxwidth = l:maxwidth > 0 ? l:maxwidth : 0
-  let l:contents .= '%#StatusLine# %= '
-
-  let l:contents .= dkoline#Format(
-        \ ' ' . get(l:view, 'cwd', '~') . ' ',
-        \ '%#dkoStatusKey# ʟᴄᴅ %(%#dkoStatusValue#%<',
-        \ '%)')
-
-  let l:contents .= dkoline#Format(
-        \     dkoline#GitBranch(l:view),
-        \     '%#dkoStatusKey# ∆ %(%#dkoStatusValue#',
-        \     '%)'
-        \   )
-
-  " Show lazy.nvim updates
-  let l:contents .= luaeval("require('lazy.status').has_updates()")
-        \ ? '%#dkoStatusError# '. luaeval("require('lazy.status').updates()")
-        \ : ''
-
-  " Show remote connection status
-  let l:contents .= match(v:servername, 'nvim.sock') > -1
-        \ ? '%#dkoStatusGood#'
-        \ : '%#dkoStatusError#'
-  let l:contents .= ' ⛖ ' " sᴏᴄᴋ '
-
-  " ==========================================================================
-
-  return l:contents
-endfunction
-
 function! dkoline#GetStatusline(winnr) abort
   if empty(a:winnr) || a:winnr > winnr('$')
     return
@@ -300,16 +248,20 @@ function! dkoline#GetView(winnr) abort
   return s:view_cache[a:winnr]
 endfunction
 
+function! dkoline#InitTabline() abort
+  let l:tab_refresh_hooks = [
+        \   'DirChanged *',
+        \   'User LazyDone',
+        \   'User LazyUpdate',
+        \   'User LazyCheck',
+        \   'User VeryLazy',
+        \   'User LspProgressUpdate',
+        \   'User LspRequest',
+        \ ]
+endfunction
+
 function! dkoline#Init() abort
   call dkoline#SetStatus(winnr())
-
-  call dkoline#RefreshTabline()
-  set showtabline=2
-
-  silent! nunmap <special> <Plug>(dkoline-refresh-tabline)
-  nmap <silent><special>
-        \ <Plug>(dkoline-refresh-tabline)
-        \ :call dkoline#RefreshTabline()<CR>
 
   " BufWinEnter will initialize the statusline for each buffer
   let l:refresh_hooks = [
@@ -328,21 +280,8 @@ function! dkoline#Init() abort
         " \   'FileWritePost',
         " \   'FileReadPost',
 
-  let l:tab_refresh_hooks = [
-        \   'DirChanged *',
-        \   'User LazyDone',
-        \   'User LazyUpdate',
-        \   'User LazyCheck',
-        \   'User VeryLazy',
-        \   'User LspProgressUpdate',
-        \   'User LspRequest',
-        \ ]
-
   augroup dkoline
     autocmd!
-    for l:hook in l:tab_refresh_hooks
-      execute 'autocmd ' . l:hook . ' call dkoline#RefreshTabline()'
-    endfor
     for l:hook in l:refresh_hooks
       execute 'autocmd ' . l:hook . ' call dkoline#SetStatus(winnr())'
     endfor
@@ -352,13 +291,4 @@ endfunction
 function! dkoline#SetStatus(winnr) abort
   let s:view_cache = {}
   exec 'setlocal statusline=%!dkoline#GetStatusline(' . a:winnr . ')'
-endfunction
-
-function! dkoline#RefreshTabline() abort
-  set tabline=%!dkoline#GetTabline()
-endfunction
-
-" bound to <F11> - see ../plugin/mappings.vim
-function! dkoline#ToggleTabline() abort
-  let &showtabline = &showtabline ? 0 : 2
 endfunction

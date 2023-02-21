@@ -33,6 +33,32 @@ return {
     end,
   },
 
+  {
+    "NvChad/nvim-colorizer.lua",
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("colorizer").setup({
+        buftypes = {
+          "*",
+          "!nofile", -- ignore nofile, e.g. :Mason buffer
+          "!popup",
+          "!prompt",
+        },
+        filetypes = {
+          "css",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "scss",
+          "typescript",
+          "typescriptreact",
+        },
+        css = true,
+        tailwind = true,
+      })
+    end,
+  },
+
   -- =========================================================================
   -- ui: components
   -- =========================================================================
@@ -152,6 +178,25 @@ return {
           end,
         },
       })
+    end,
+  },
+
+  {
+    "rebelot/heirline.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("heirline").setup({
+        tabline = {
+          require("dko.heirline.searchterm"),
+          { provider = "%=", hl = "StatusLine" },
+          require("dko.heirline.cwd"),
+          require("dko.heirline.git"),
+          require("dko.heirline.lazy"),
+          require("dko.heirline.remote"),
+        },
+      })
+      local ALWAYS = 2
+      vim.o.showtabline = ALWAYS
     end,
   },
 
@@ -382,7 +427,7 @@ return {
   },
 
   -- =========================================================================
-  -- ui: editing helpers
+  -- Editing
   -- =========================================================================
 
   -- indent guides
@@ -408,36 +453,6 @@ return {
       })
     end,
   },
-
-  {
-    "NvChad/nvim-colorizer.lua",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("colorizer").setup({
-        buftypes = {
-          "*",
-          "!nofile", -- ignore nofile, e.g. :Mason buffer
-          "!popup",
-          "!prompt",
-        },
-        filetypes = {
-          "css",
-          "html",
-          "javascript",
-          "javascriptreact",
-          "scss",
-          "typescript",
-          "typescriptreact",
-        },
-        css = true,
-        tailwind = true,
-      })
-    end,
-  },
-
-  -- =========================================================================
-  -- Editing
-  -- =========================================================================
 
   {
     "gbprod/yanky.nvim",
