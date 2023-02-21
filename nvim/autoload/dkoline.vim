@@ -200,20 +200,6 @@ function! dkoline#Dirty(bufnr) abort
   return getbufvar(a:bufnr, '&modified') ? ' + ' : ''
 endfunction
 
-" Get the git branch for the file in buffer
-"
-" @param {Dict} view
-" @return {String}
-function! dkoline#GitBranch(view) abort
-  if !empty(get(b:, 'gitsigns_head', ''))
-    return ' ' . get(b:, 'gitsigns_head') . ' '
-  endif
-  return dko#IsNonFile(a:view.bufnr)
-        \ || empty(getbufvar(a:view.bufnr, 'dko_branch'))
-        \ ? ''
-        \ : ' ' . getbufvar(a:view.bufnr, 'dko_branch') . ' '
-endfunction
-
 " @return {String}
 function! dkoline#Ruler() abort
   return ' %5.(%c%) '

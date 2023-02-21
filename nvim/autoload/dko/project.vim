@@ -54,7 +54,6 @@ function! dko#project#MarkBuffer(...) abort
   let l:bufnr = s:BufnrFromArgs(a:000)
   call dko#project#SetRoot('')      " clear
   call dko#project#GetRoot(l:bufnr) " force reset
-  call setbufvar(l:bufnr, 'dko_branch', dko#git#GetBranch(expand('%:p:h')))
 endfunction
 
 " ============================================================================
