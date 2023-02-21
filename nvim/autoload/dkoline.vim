@@ -5,7 +5,7 @@ function! dkoline#GetStatusline(winnr) abort
   if empty(a:winnr) || a:winnr > winnr('$')
     return
   endif
-  let l:view = dkoline#GetView(a:winnr)
+  let l:view = {}
 
   let l:contents = ''
 
@@ -203,78 +203,4 @@ endfunction
 " @return {String}
 function! dkoline#Ruler() abort
   return ' %5.(%c%) '
-endfunction
-
-" ============================================================================
-" Utility
-" ============================================================================
-
-" Get cached properties for a window. Cleared on status line refresh
-"
-" @param {Int} winnr
-" @return {Dict} properties derived from the active window
-function! dkoline#GetView(winnr) abort
-  let l:cached_view = get(s:view_cache, a:winnr, {})
-  if !empty(l:cached_view)
-    return l:cached_view
-  endif
-  let l:bufnr = winbufnr(a:winnr)
-  let l:bufname = bufname(l:bufnr)
-  let l:cwd = getcwd(a:winnr)
-  let l:ft = getbufvar(l:bufnr, '&filetype')
-  let l:ww = winwidth(a:winnr)
-  let s:view_cache[a:winnr] = {
-        \   'winnr': a:winnr,
-        \   'bufnr': l:bufnr,
-        \   'bufname': l:bufname,
-        \   'cwd': l:cwd,
-        \   'ft': l:ft,
-        \   'ww':  l:ww,
-        \ }
-  return s:view_cache[a:winnr]
-endfunction
-
-function! dkoline#InitTabline() abort
-  let l:tab_refresh_hooks = [
-        \   'DirChanged *',
-        \   'User LazyDone',
-        \   'User LazyUpdate',
-        \   'User LazyCheck',
-        \   'User VeryLazy',
-        \   'User LspProgressUpdate',
-        \   'User LspRequest',
-        \ ]
-endfunction
-
-function! dkoline#Init() abort
-  call dkoline#SetStatus(winnr())
-
-  " BufWinEnter will initialize the statusline for each buffer
-  let l:refresh_hooks = [
-        \   'BufDelete *',
-        \   'BufWinEnter *',
-        \   'BufWritePost *',
-        \   'BufEnter *',
-        \   'DiagnosticChanged *',
-        \   'DirChanged *',
-        \   'FileType *',
-        \   'WinEnter *',
-        \ ]
-        " \   'SessionLoadPost',
-        " \   'TabEnter',
-        " \   'VimResized',
-        " \   'FileWritePost',
-        " \   'FileReadPost',
-
-  augroup dkoline
-    autocmd!
-    for l:hook in l:refresh_hooks
-      execute 'autocmd ' . l:hook . ' call dkoline#SetStatus(winnr())'
-    endfor
-  augroup END
-endfunction
-
-function! dkoline#SetStatus(winnr) abort
-  let s:view_cache = {}
-  exec 'setlocal statusline=%!dkoline#GetStatusline(' . a:winnr . ')'
 endfunction

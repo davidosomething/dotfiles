@@ -43,13 +43,6 @@ autocmd("QuitPre", {
   group = windowGroup,
 })
 
-autocmd("VimEnter", {
-  desc = "Initialize statusline on VimEnter",
-  callback = "dkoline#Init",
-  nested = true,
-  group = augroup("dkostatusline"),
-})
-
 local projectGroup = augroup("dkoproject")
 autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
   desc = "Set dko#project variables on buffers",

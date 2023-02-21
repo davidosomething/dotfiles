@@ -186,6 +186,13 @@ return {
     event = "VeryLazy",
     config = function()
       require("heirline").setup({
+        statusline = {
+          require("dko.heirline.file"),
+          { provider = "%=", hl = "StatusLine" },
+          require("dko.heirline.lsp"), 
+          require("dko.heirline.diagnostics"),
+          { provider = "%5.(%c%) ", hl = "dkoStatusItem" },
+        },
         tabline = {
           require("dko.heirline.searchterm"),
           { provider = "%=", hl = "StatusLine" },
