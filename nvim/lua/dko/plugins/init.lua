@@ -187,18 +187,16 @@ return {
     config = function()
       require("heirline").setup({
         statusline = {
-          require("dko.heirline.file"),
-          { provider = "%=", hl = "StatusLine" },
-          require("dko.heirline.lsp"), 
-          require("dko.heirline.diagnostics"),
-          { provider = "%5.(%c%) ", hl = "dkoStatusItem" },
+          fallthrough = false,
+          require("dko.heirline.special"),
+          require("dko.heirline.default"),
         },
         tabline = {
           require("dko.heirline.searchterm"),
           { provider = "%=", hl = "StatusLine" },
           require("dko.heirline.cwd"),
           require("dko.heirline.git"),
-          require("dko.heirline.lazy"),
+          --require("dko.heirline.lazy"),
           require("dko.heirline.remote"),
         },
       })

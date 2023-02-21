@@ -1,8 +1,4 @@
-local conditions = require("heirline.conditions")
-
 return {
-  condition = conditions.has_diagnostics,
-
   static = {
     error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
     warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
@@ -25,41 +21,44 @@ return {
   update = { "DiagnosticChanged", "BufEnter" },
 
   {
+    condition = function(self)
+      return self.errors > 0
+    end,
     provider = function(self)
-      if self.errors > 0 then
-        return " " .. self.error_icon .. self.errors .. " "
-      end
-      return self.total - self.errors > 0 and "" or " "
+      return " " .. self.error_icon .. self.errors
     end,
     hl = "DiagnosticError",
   },
   {
+    condition = function(self)
+      return self.warnings > 0
+    end,
     provider = function(self)
-      if self.warnings > 0 then
-        return " " .. self.warn_icon .. self.warnings
-      end
-      return self.info + self.hints > 0 and "" or " "
+      return " " .. self.warn_icon .. self.warnings
     end,
     hl = "DiagnosticWarn",
   },
   {
+    condition = function(self)
+      return self.info > 0
+    end,
     provider = function(self)
-      if self.info > 0 then
-        return " " .. self.info_icon .. self.info
-      end
-      return self.hints > 0 and "" or " "
+      return " " .. self.info_icon .. self.info
     end,
     hl = "DiagnosticInfo",
   },
   {
+    condition = function(self)
+      return self.hints > 0
+    end,
     provider = function(self)
-      return self.hints > 0 and (" " .. self.hint_icon .. self.hints .. " ")
+      return " " .. self.hint_icon .. self.hints
     end,
     hl = "DiagnosticHint",
   },
   {
     provider = function(self)
-      return self.total == 0 and "  "
+      return self.total == 0 and "  " or " "
     end,
     hl = "dkoStatusGood",
   },

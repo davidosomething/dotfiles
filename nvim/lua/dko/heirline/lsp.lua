@@ -1,3 +1,8 @@
+local keyOrOff = function()
+  return require("heirline.conditions").is_active() and "dkoStatusKey"
+    or "StatusLineNC"
+end
+
 return {
   condition = require("heirline.conditions").lsp_attached,
   update = {
@@ -13,5 +18,5 @@ return {
     end
     return ""
   end,
-  hl = "dkoStatusKey",
+  hl = keyOrOff
 }
