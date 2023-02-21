@@ -90,7 +90,20 @@ return {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "tsakirist/telescope-lazy.nvim",
     },
-    keys = function()
+    config = function()
+      local telescope = require("telescope")
+
+      telescope.setup({
+        defaults = {
+          layout_strategy = "vertical",
+          file_ignore_patterns = {
+            "COMMIT_EDITMSG",
+          },
+        },
+      })
+
+      telescope.load_extension("fzf")
+
       local builtin = require("telescope.builtin")
       return {
         {
@@ -114,17 +127,6 @@ return {
           desc = "Telescope: pick from previously opened files",
         },
       }
-    end,
-    config = function()
-      require("telescope").setup({
-        defaults = {
-          layout_strategy = "vertical",
-          file_ignore_patterns = {
-            "COMMIT_EDITMSG",
-          },
-        },
-      })
-      require("telescope").load_extension("fzf")
     end,
   },
 
