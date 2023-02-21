@@ -105,28 +105,27 @@ return {
       telescope.load_extension("fzf")
 
       local builtin = require("telescope.builtin")
-      return {
-        {
-          "<A-b>",
-          builtin.buffers,
-          desc = "Telescope: pick existing buffer",
-        },
-        {
-          "<A-f>",
-          builtin.find_files,
-          desc = "Telescope: pick files in CWD",
-        },
-        {
-          "<A-g>",
-          builtin.live_grep,
-          desc = "Telescope: live grep CWD",
-        },
-        {
-          "<A-m>",
-          builtin.oldfiles,
-          desc = "Telescope: pick from previously opened files",
-        },
-      }
+      vim.keymap.set(
+        "n",
+        "<A-b>",
+        builtin.buffers,
+        { desc = "Telescope: pick existing buffer" }
+      )
+      vim.keymap.set("n", "<A-f>", builtin.find_files, {
+        desc = "Telescope: pick files in CWD",
+      })
+      vim.keymap.set(
+        "n",
+        "<A-g>",
+        builtin.live_grep,
+        { desc = "Telescope: live grep CWD" }
+      )
+      vim.keymap.set(
+        "n",
+        "<A-m>",
+        builtin.oldfiles,
+        { desc = "Telescope: pick from previously opened files" }
+      )
     end,
   },
 
