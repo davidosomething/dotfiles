@@ -1,6 +1,30 @@
 local SIGNS = require("dko.diagnostic-lsp").SIGNS
 
 return {
+
+  {
+    "echasnovski/mini.bracketed",
+    version = false,
+    config = function()
+      require("mini.bracketed").setup({
+        buffer = { suffix = "", options = {} }, -- using cybu
+        comment = { suffix = "c", options = {} },
+        conflict = { suffix = "x", options = {} },
+        diagnostic = { suffix = "", options = {} }, -- don't want float, have in mappings.lua
+        file = { suffix = "f", options = {} },
+        indent = { suffix = "", options = {} }, -- confusing
+        jump = { suffix = "", options = {} }, -- redundant
+        location = { suffix = "l", options = {} },
+        oldfile = { suffix = "o", options = {} },
+        quickfix = { suffix = "q", options = {} },
+        treesitter = { suffix = "t", options = {} },
+        undo = { suffix = "", options = {} },
+        window = { suffix = "w", options = {} },
+        yank = { suffix = "", options = {} }, -- confusing
+      })
+    end,
+  },
+
   -- =========================================================================
   -- ui: colorscheme
   -- =========================================================================
