@@ -5,7 +5,7 @@ vim.g.loaded_python_provider = false -- disable python 2
 
 -- Skips if python is not installed in a pyenv virtualenv
 -- python 3
-local py3 = require('dko.utils.find_exists')({
+local py3 = require("dko.utils.find_exists")({
   "$PYENV_ROOT/versions/neovim3/bin/python",
   "$ASDF_DIR/shims/python",
   "/usr/bin/python3",
