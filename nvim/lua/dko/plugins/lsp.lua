@@ -83,20 +83,19 @@ return {
         null_ls.builtins.diagnostics.zsh,
 
         -- selene not picking up config
-        --[[ null_ls.builtins.diagnostics.selene.with({
-          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+        null_ls.builtins.diagnostics.selene.with({
           extra_args = function(params)
             local results = vim.fs.find({ 'selene.toml' }, {
               upward = true,
-              path = vim.api.nvim_buf_get_name(0)
+            path = vim.api.nvim_buf_get_name(0)
             })
             if #results == 0 then
               return params
             end
-            vim.notify('Found selene.toml at ' .. results[1])
             return { "--config", results[1] }
           end
-        }), ]]
+        }),
+
       }
       -- Switch ALL diagnostics to DIAGNOSTICS_ON_SAVE only
       -- or null_ls will keep spamming LSP events

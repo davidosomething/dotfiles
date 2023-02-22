@@ -1,0 +1,4 @@
+std = "vim"
+
+[rules]
+multiple_statements = "allow"

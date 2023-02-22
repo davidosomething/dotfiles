@@ -44,5 +44,4 @@ return {
       require("stabilize").setup()
     end,
   },
-
 }
