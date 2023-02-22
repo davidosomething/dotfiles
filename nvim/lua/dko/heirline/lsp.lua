@@ -12,7 +12,7 @@ return {
     "User LspRequest",
   },
   provider = function()
-    local data = require("dko.lsp").status_progress({ bufnr = 0 })
+    local data = require("everandever.lsp").status_progress({ bufnr = 0 })
     if data then
       return " " .. data.bar .. " " .. data.lowest.name .. " "
     end
