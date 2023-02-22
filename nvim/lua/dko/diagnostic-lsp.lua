@@ -65,21 +65,24 @@ vim.diagnostic.config({
 
 -- ===========================================================================
 -- LSP borders
--- ===========================================================================
-
-vim.cmd([[autocmd! ColorScheme * highlight link NormalFloat dkoBgAlt]])
-vim.cmd([[autocmd! ColorScheme * highlight link FloatBorder dkoType]])
-
--- Add default rounded border
+-- Add default rounded border and suppress no info messages
+-- E.g. used by /usr/share/nvim/runtime/lua/vim/lsp/handlers.lua
 -- To see example of this fn used, press K for LSP hover
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or "rounded"
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
-
+-- Overriding with vim.lsp.with is the way recommended by docs (as opposed to
+-- overriding vim.lsp.util.open_floating_preview entirely)
 -- ===========================================================================
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+  -- suppress 'No information available' notification (nvim-0.9 ?)
+  -- https://github.com/neovim/neovim/pull/21531/files#diff-728d3ae352b52f16b51a57055a3b20efc4e992efacbf1c34426dfccbba30037cR339
+  silent = true,
+})
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = "rounded",
+  -- suppress 'No information available' notification (nvim-0.8!)
+  silent = true,
+})
 
 return M
