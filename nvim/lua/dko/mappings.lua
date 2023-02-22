@@ -17,13 +17,15 @@ end, { desc = "Clear UI" })
 map("n", "]t", vim.cmd.tabn, { desc = "Next tab" })
 map("n", "[t", vim.cmd.tabp, { desc = "Prev tab" })
 
-map("n", "<BS>", "<C-^>", {
-  desc = "Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)",
-})
+map(
+  "n",
+  "<BS>",
+  "<C-^>",
+  { desc = "Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)" }
+)
 
-local resizeOpts = {
-  desc = "Resize window with Shift+DIR, can take a count #<S-Dir>",
-}
+local resizeOpts =
+  { desc = "Resize window with Shift+DIR, can take a count #<S-Dir>" }
 map("n", "<S-Up>", "<C-W>+", resizeOpts)
 map("n", "<S-Down>", "<C-W>-", resizeOpts)
 map("n", "<S-Left>", "<C-w><", resizeOpts)
@@ -39,17 +41,13 @@ local leaderLeaderOpts = {
 map("n", "<Leader><Leader>", "V", leaderLeaderOpts)
 map("x", "<Leader><Leader>", "<Esc>", leaderLeaderOpts)
 
-map({ "c", "i" }, "jj", "<Esc>", {
-  desc = "Back to normal mode",
-})
+map({ "c", "i" }, "jj", "<Esc>", { desc = "Back to normal mode" })
 
 -- ===========================================================================
 -- Visual mode tweaks
 -- ===========================================================================
 
-local visualArrowOpts = {
-  desc = "Visual move by display lines",
-}
+local visualArrowOpts = { desc = "Visual move by display lines" }
 map("v", "<Down>", "gj", visualArrowOpts)
 map("v", "<Up>", "gk", visualArrowOpts)
 
@@ -57,13 +55,14 @@ map("v", "<Up>", "gk", visualArrowOpts)
 -- cd shortcuts
 -- ===========================================================================
 
-map("n", "<Leader>cd", "<Cmd>cd! %:h<CR>", {
-  desc = "cd to current buffer path",
-})
+map(
+  "n",
+  "<Leader>cd",
+  "<Cmd>cd! %:h<CR>",
+  { desc = "cd to current buffer path" }
+)
 
-map("n", "<Leader>..", "<Cmd>cd! ..<CR>", {
-  desc = "cd up a level",
-})
+map("n", "<Leader>..", "<Cmd>cd! ..<CR>", { desc = "cd up a level" })
 
 map("n", "<Leader>cr", function()
   vim.fn.chdir(vim.fn["dko#project#GetRoot"]())
@@ -73,48 +72,49 @@ end, { desc = "cd to current buffer's git root" })
 -- :edit shortcuts
 -- ===========================================================================
 
-map("n", "<Leader>ecr", "<Cmd>call dko#edit#EditClosest('README.md')<CR>", {
-  desc = "Edit closest README.md",
-})
-map("n", "<Leader>epj", "<Cmd>call dko#edit#EditClosest('package.json')<CR>", {
-  desc = "Edit closest package.json",
-})
+map(
+  "n",
+  "<Leader>ecr",
+  "<Cmd>call dko#edit#EditClosest('README.md')<CR>",
+  { desc = "Edit closest README.md" }
+)
+map(
+  "n",
+  "<Leader>epj",
+  "<Cmd>call dko#edit#EditClosest('package.json')<CR>",
+  { desc = "Edit closest package.json" }
+)
 map(
   "n",
   "<Leader>evi",
   "<Cmd>edit " .. vim.fn.stdpath("config") .. "/init.lua<CR>",
-  {
-    desc = "Edit init.lua",
-  }
+  { desc = "Edit init.lua" }
 )
 map(
   "n",
   "<Leader>evm",
   "<Cmd>edit " .. vim.fn.stdpath("config") .. "/lua/dko/mappings.lua<CR>",
-  {
-    desc = "Edit mappings.lua",
-  }
+  { desc = "Edit mappings.lua" }
 )
 map(
   "n",
   "<Leader>evp",
   "<Cmd>edit " .. vim.fn.stdpath("config") .. "/lua/dko/plugins/<CR>",
-  {
-    desc = "Edit lua/dko/plugins/",
-  }
+  { desc = "Edit lua/dko/plugins/" }
 )
 
 -- ===========================================================================
 -- Buffer: Reading
 -- ===========================================================================
 
-map({ "i", "n" }, "<F1>", "<NOP>", {
-  desc = "Disable help shortcut key",
-})
+map({ "i", "n" }, "<F1>", "<NOP>", { desc = "Disable help shortcut key" })
 
-map("n", "<F1>", require("dko.utils.help"), {
-  desc = "Show vim help for <cexpr>",
-})
+map(
+  "n",
+  "<F1>",
+  require("dko.utils.help"),
+  { desc = "Show vim help for <cexpr>" }
+)
 
 map("n", "<Leader>yn", function()
   local res = vim.fn.expand("%:t")
@@ -143,21 +143,23 @@ end, { desc = "Yank the full filepath of current buffer" })
 -- Buffer: Movement
 -- ===========================================================================
 
-map("n", "<Leader>mm", require("dko.utils.movemode").toggle, {
-  desc = "Toggle move mode",
-})
+map(
+  "n",
+  "<Leader>mm",
+  require("dko.utils.movemode").toggle,
+  { desc = "Toggle move mode" }
+)
 
-map("", "H", "^", {
-  desc = "Change H to alias ^",
-})
-map("", "L", "g_", {
-  desc = "Change L to alias g_",
-})
+map("", "H", "^", { desc = "Change H to alias ^" })
+map("", "L", "g_", { desc = "Change L to alias g_" })
 
 -- https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump#comment91750564_4257175
-map("n", "*", "m`<Cmd>keepjumps normal! *``<CR>", {
-  desc = "Don't jump on first * -- simpler vim-asterisk",
-})
+map(
+  "n",
+  "*",
+  "m`<Cmd>keepjumps normal! *``<CR>",
+  { desc = "Don't jump on first * -- simpler vim-asterisk" }
+)
 
 -- ===========================================================================
 -- Buffer: Edit contents
@@ -170,20 +172,19 @@ local visualTabOpts = {
 map("v", "<Tab>", ">", visualTabOpts)
 map("v", "<S-Tab>", "<", visualTabOpts)
 
-map("n", "<Leader>q", "@q", {
-  desc = "Quickly apply macro q",
-})
+map("n", "<Leader>q", "@q", { desc = "Quickly apply macro q" })
 
 local reselectOpts = { desc = "Reselect visual block after indent" }
 map("x", "<", "<gv", reselectOpts)
 map("x", ">", ">gv", reselectOpts)
 
-map("n", "<Leader>,", "$r,", {
-  desc = "Replace last character with a comma",
-})
-map("n", "<Leader>;", "$r;", {
-  desc = "Replace last character with a semi-colon",
-})
+map("n", "<Leader>,", "$r,", { desc = "Replace last character with a comma" })
+map(
+  "n",
+  "<Leader>;",
+  "$r;",
+  { desc = "Replace last character with a semi-colon" }
+)
 
 map("n", "<Leader>ws", function()
   vim.fn["dko#whitespace#clean"]()

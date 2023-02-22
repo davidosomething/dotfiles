@@ -15,9 +15,7 @@ Neovim-specific config.
   [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim)
 - Additional formatters and linters provided as pseudo-LSPs using
   [jose-elias-alvarez/null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim)
-- Custom statusline with minimal junk, showing short directory (lua conversion WIP)
-- FZF (lua conversion WIP) and Telescope finders depending on source and
-  performance
+- Telescope pickers, custom heirline.nvim tab/statuslines
 
 ### Installation
 

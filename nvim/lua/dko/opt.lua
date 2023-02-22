@@ -27,10 +27,6 @@ vim.o.shada = "!,'1000,<100,s100,h"
 
 vim.o.fileformats = "unix,mac,dos"
 
--- If we have a swap conflict, FZF has issues opening the file (and doesn't
--- prompt correctly)
-vim.o.swapfile = false
-
 -- writebackup: use backup files when writing (create new file, replace old
 -- one with new one)
 vim.o.writebackup = false
