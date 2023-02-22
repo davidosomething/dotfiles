@@ -87,11 +87,11 @@ return {
             local kind_formatted = require("lspkind").cmp_format({
               mode = "symbol_text", -- show only symbol annotations
               menu = {
-                buffer = "ʙᴜғ",
+                buffer = "ʙᴜꜰ",
                 cmdline = "", -- cmp-cmdline used on cmdline
                 latex_symbols = "ʟᴛx",
-                luasnip = "ʟᴜᴀsɴɪᴘ",
-                snippy = "sɴɪᴘᴘʏ",
+                luasnip = "sɴɪᴘ",
+                snippy = "sɴɪᴘ",
                 nvim_lsp = "ʟsᴘ",
                 nvim_lua = "ʟᴜᴀ",
                 path = "ᴘᴀᴛʜ",

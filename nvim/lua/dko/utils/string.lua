@@ -7,9 +7,11 @@ M.starts_with = function(haystack, needle)
   return string.sub(haystack, 1, string.len(needle)) == needle
 end
 
+-- alt F ғ (ghayn)
+-- alt Q ꞯ (currently using ogonek)
 local smallcaps =
-  "ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ"
-local letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ‹›"
+local letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ<>"
 ---@param text string
 M.smallcaps = function(text)
   return vim.fn.tr(vim.fn.toupper(text), letters, smallcaps)

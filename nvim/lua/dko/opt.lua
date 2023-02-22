@@ -116,6 +116,7 @@ vim.opt.shortmess:append({
   m = true, -- use "[+]" instead of "[Modified]"
   r = true, -- use "[RO]" instead of "[readonly]"
   I = true, -- don't give the intro message when starting Vim |:intro|.
+  S = true, -- hide search info echoing (i have a statusline for that)
   W = true, -- don't give "written" or "[w]" when writing a file
 })
 

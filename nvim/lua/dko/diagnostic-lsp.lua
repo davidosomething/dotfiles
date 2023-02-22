@@ -47,9 +47,8 @@ local function floatFormat(diagnostic)
   if source.sub(source, -1, -1) == "." then
     source = string.sub(source, 1, -2)
   end
-  local sourceText = "[" .. source .. "]"
-
-  return " " .. symbol .. " " .. diagnostic.message .. " " .. sourceText .. " "
+  local sourceText = require("dko.utils.string").smallcaps("<" .. source .. ">")
+  return symbol .. " " .. diagnostic.message .. " " .. sourceText
 end
 
 vim.diagnostic.config({
@@ -79,10 +78,11 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   silent = true,
 })
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = "rounded",
-  -- suppress 'No information available' notification (nvim-0.8!)
-  silent = true,
-})
+vim.lsp.handlers["textDocument/signatureHelp"] =
+  vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = "rounded",
+    -- suppress 'No information available' notification (nvim-0.8!)
+    silent = true,
+  })
 
 return M
