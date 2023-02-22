@@ -11,7 +11,9 @@ return {
       t.load_extension("file_browser")
 
       vim.keymap.set("n", "<A-e>", function()
-        t.extensions.file_browser.file_browser()
+        t.extensions.file_browser.file_browser({
+          hidden = true, -- show hidden
+        })
       end, { desc = "Telescope: pick existing buffer" })
     end,
   },
