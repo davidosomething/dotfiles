@@ -72,18 +72,12 @@ end, { desc = "cd to current buffer's git root" })
 -- :edit shortcuts
 -- ===========================================================================
 
-map(
-  "n",
-  "<Leader>ecr",
-  "<Cmd>call dko#edit#EditClosest('README.md')<CR>",
-  { desc = "Edit closest README.md" }
-)
-map(
-  "n",
-  "<Leader>epj",
-  "<Cmd>call dko#edit#EditClosest('package.json')<CR>",
-  { desc = "Edit closest package.json" }
-)
+map("n", "<Leader>ecr", function()
+  require("dko.utils.edit_closest")("README.md")
+end, { desc = "Edit closest README.md" })
+map("n", "<Leader>epj", function()
+  require("dko.utils.edit_closest")("package.json")
+end, { desc = "Edit closest package.json" })
 map(
   "n",
   "<Leader>evi",
