@@ -3,7 +3,6 @@
 ---@diagnostic disable-next-line: missing-parameter
 vim.g.mapleader = " "
 
-require("dko.polyfills.table")
 require("dko.providers")
 require("dko.opt")
 require("dko.builtin-syntax")
