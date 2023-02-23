@@ -85,17 +85,16 @@ return {
         -- selene not picking up config
         null_ls.builtins.diagnostics.selene.with({
           extra_args = function(params)
-            local results = vim.fs.find({ 'selene.toml' }, {
+            local results = vim.fs.find({ "selene.toml" }, {
               upward = true,
-            path = vim.api.nvim_buf_get_name(0)
+              path = vim.api.nvim_buf_get_name(0),
             })
             if #results == 0 then
               return params
             end
             return { "--config", results[1] }
-          end
+          end,
         }),
-
       }
       -- Switch ALL diagnostics to DIAGNOSTICS_ON_SAVE only
       -- or null_ls will keep spamming LSP events
@@ -146,10 +145,24 @@ return {
   },
 
   {
+    "folke/neodev.nvim",
+    config = function()
+      require("neodev").setup({
+        override = function(root_dir, library)
+          if string.find(root_dir, ".nvim") then
+            library.enabled = true
+            library.plugins = true
+          end
+        end,
+      })
+    end,
+  },
+
+  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      { "folke/neodev.nvim", config = true },
+      "folke/neodev.nvim",
     },
   },
 
