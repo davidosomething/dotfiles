@@ -226,27 +226,30 @@ end, { desc = "Open diagnostic float at cursor" })
 -- Treesitter utils
 -- ===========================================================================
 
-local settings = require('dko.settings')
-vim.keymap.set("n", "ss", function()
-  if not settings.get('treesitter.highlight_enabled') then
+local settings = require("dko.settings")
+
+local function assert_highlighting_enabled()
+  if not settings.get("treesitter.highlight_enabled") then
     vim.notify(
       "Treesitter highlight is disabled",
-      vim.log.levels.ERROR,
+      vim.log.levels.WARN,
       { render = "compact" }
     )
+    return false
+  end
+  return true
+end
+
+vim.keymap.set("n", "ss", function()
+  if not assert_highlighting_enabled() then
     return
   end
 
   vim.pretty_print(vim.treesitter.get_captures_at_cursor())
-end, { desc = "Copy treesitter captures under cursor" })
+end, { desc = "Print treesitter captures under cursor" })
 
 vim.keymap.set("n", "sy", function()
-  if not settings.get('treesitter.highlight_enabled') then
-    vim.notify(
-      "Treesitter highlight is disabled",
-      vim.log.levels.ERROR,
-      { render = "compact" }
-    )
+  if not assert_highlighting_enabled() then
     return
   end
 
