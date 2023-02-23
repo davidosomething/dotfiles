@@ -221,3 +221,53 @@ end, goto_opts)
 map("n", "<Leader>d", function()
   vim.diagnostic.open_float(float_opts)
 end, { desc = "Open diagnostic float at cursor" })
+
+-- ===========================================================================
+-- Treesitter utils
+-- ===========================================================================
+
+local settings = require('dko.settings')
+vim.keymap.set("n", "ss", function()
+  if not settings.get('treesitter.highlight_enabled') then
+    vim.notify(
+      "Treesitter highlight is disabled",
+      vim.log.levels.ERROR,
+      { render = "compact" }
+    )
+    return
+  end
+
+  vim.pretty_print(vim.treesitter.get_captures_at_cursor())
+end, { desc = "Copy treesitter captures under cursor" })
+
+vim.keymap.set("n", "sy", function()
+  if not settings.get('treesitter.highlight_enabled') then
+    vim.notify(
+      "Treesitter highlight is disabled",
+      vim.log.levels.ERROR,
+      { render = "compact" }
+    )
+    return
+  end
+
+  local captures = vim.treesitter.get_captures_at_cursor()
+  local parsedCaptures = {}
+  for _, capture in ipairs(captures) do
+    table.insert(parsedCaptures, "@" .. capture)
+  end
+  if #parsedCaptures == 0 then
+    vim.notify(
+      "No treesitter captures under cursor",
+      vim.log.levels.ERROR,
+      { title = "Yank failed", render = "compact" }
+    )
+    return
+  end
+  local resultString = vim.inspect(parsedCaptures)
+  vim.fn.setreg("+", resultString .. "\n")
+  vim.notify(
+    resultString,
+    vim.log.levels.INFO,
+    { title = "Yanked capture", render = "compact" }
+  )
+end, { desc = "Copy treesitter captures under cursor" })

@@ -472,12 +472,9 @@ return {
     dependencies = {
       "andymass/vim-matchup",
       "JoosepAlviste/nvim-ts-context-commentstring",
-      "rcarriga/nvim-notify",
     },
     build = ":TSUpdate",
     config = function()
-      local highlight_enabled = false
-
       require("nvim-treesitter.configs").setup({
         ensure_installed = "all",
 
@@ -487,7 +484,7 @@ return {
 
         highlight = {
           -- @TODO until I update vim-colors-meh with treesitter @matches
-          enable = highlight_enabled,
+          enable = require('dko.settings').get('treesitter.highlight_enabled'),
           disable = function(lang, buf)
             if
               vim.tbl_contains({
@@ -524,50 +521,6 @@ return {
         matchup = { enable = true },
       })
 
-      vim.keymap.set("n", "ss", function()
-        if not highlight_enabled then
-          vim.notify(
-            "Treesitter highlight is disabled",
-            vim.log.levels.ERROR,
-            { render = "compact" }
-          )
-          return
-        end
-
-        vim.pretty_print(vim.treesitter.get_captures_at_cursor())
-      end, { desc = "Copy treesitter captures under cursor" })
-
-      vim.keymap.set("n", "sy", function()
-        if not highlight_enabled then
-          vim.notify(
-            "Treesitter highlight is disabled",
-            vim.log.levels.ERROR,
-            { render = "compact" }
-          )
-          return
-        end
-
-        local captures = vim.treesitter.get_captures_at_cursor()
-        local parsedCaptures = {}
-        for _, capture in ipairs(captures) do
-          table.insert(parsedCaptures, "@" .. capture)
-        end
-        if #parsedCaptures == 0 then
-          vim.notify(
-            "No treesitter captures under cursor",
-            vim.log.levels.ERROR,
-            { title = "Yank failed", render = "compact" }
-          )
-          return
-        end
-        local resultString = vim.inspect(parsedCaptures)
-        vim.fn.setreg("+", resultString .. "\n")
-        vim.notify(
-          resultString,
-          vim.log.levels.INFO,
-          { title = "Yanked capture", render = "compact" }
-        )
-      end, { desc = "Copy treesitter captures under cursor" })
     end,
   },
 
