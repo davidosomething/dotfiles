@@ -1,0 +1,9 @@
+---
+base: lua53 # hammerspoon actually has 5.4 but this is what selene has
+
+globals:
+  hs:
+    any: true
+  hyper:
+    any: true
+

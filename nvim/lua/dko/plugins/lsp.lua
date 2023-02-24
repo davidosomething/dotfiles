@@ -243,6 +243,20 @@ return {
           }))
         end,
 
+        ['lua_ls'] = function()
+          lspconfig.lua_ls.setup(vim.tbl_extend("force", defaultOptions, {
+            settings = {
+              Lua = {
+                workspace = {
+                  maxPreload = 1000,
+                  preloadFileSize = 500,
+                  checkThirdParty = false,
+                },
+              },
+            }
+          }))
+        end,
+
         ["stylelint_lsp"] = function()
           lspconfig.stylelint_lsp.setup(
             vim.tbl_extend("force", defaultOptions, {
