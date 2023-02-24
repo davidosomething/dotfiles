@@ -1,6 +1,0 @@
-checks 		# formatter requires
-formatter
-lanes 		# threading
-ldoc
---server=http://luarocks.org/dev lua-lsp
-luacheck
