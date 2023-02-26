@@ -10,7 +10,8 @@ return {
         buffer = { suffix = "", options = {} }, -- using cybu
         comment = { suffix = "c", options = {} },
         conflict = { suffix = "x", options = {} },
-        diagnostic = { suffix = "", options = {} }, -- don't want float, have in mappings.lua
+        -- don't want diagnostic float focus, have in mappings.lua
+        diagnostic = { suffix = "", options = {} },
         file = { suffix = "f", options = {} },
         indent = { suffix = "", options = {} }, -- confusing
         jump = { suffix = "", options = {} }, -- redundant
