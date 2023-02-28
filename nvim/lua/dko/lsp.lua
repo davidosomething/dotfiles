@@ -28,6 +28,11 @@ M.format = function(options)
     and require("lspconfig.util").get_active_client_by_name(0, "eslint")
   then
     -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/eslint.lua#L152-L159
+    vim.notify(
+      "EslintFixAll ONLY",
+      vim.log.levels.INFO,
+      notify_opts
+    )
     vim.cmd("EslintFixAll")
     return
   end

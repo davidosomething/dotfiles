@@ -85,8 +85,8 @@ return {
           return
         end
 
-        builtin.oldfiles(themes.get_ivy({
-          prompt_title = "Oldfiles in " .. project_root,
+        builtin.find_files(themes.get_ivy({
+          prompt_title = "Files in " .. project_root,
           cwd = project_root,
         }))
       end, { desc = "Telescope: pick from previously opened files in current project root" })
