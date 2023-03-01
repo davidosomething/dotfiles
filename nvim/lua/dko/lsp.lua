@@ -25,16 +25,26 @@ M.format = function(options)
       { "typescript", "typescriptreact", "javascript", "javascriptreact" },
       vim.bo.filetype
     )
-    and require("lspconfig.util").get_active_client_by_name(0, "eslint")
   then
-    -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/eslint.lua#L152-L159
-    vim.notify(
-      "EslintFixAll ONLY",
-      vim.log.levels.INFO,
-      notify_opts
-    )
-    vim.cmd("EslintFixAll")
-    return
+    local nullls_sources =
+      require("null-ls.sources").get_available(vim.bo.filetype)
+    local has_prettier = false
+    for _, source in pairs(nullls_sources) do
+      if source.name == "prettier" then
+        has_prettier = true
+      end
+    end
+    if has_prettier then
+      -- @TODO skip this if eslint-prettier-plugin is found
+      vim.lsp.buf.format({ async = false, name = 'null-ls' })
+    end
+
+    if require("lspconfig.util").get_active_client_by_name(0, "eslint") then
+      -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/eslint.lua#L152-L159
+      vim.notify("EslintFixAll", vim.log.levels.INFO, notify_opts)
+      vim.cmd("EslintFixAll")
+      return
+    end
   end
 
   options = vim.tbl_deep_extend("force", options or {}, {

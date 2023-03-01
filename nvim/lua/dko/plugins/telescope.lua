@@ -49,8 +49,7 @@ return {
       local builtin = require("telescope.builtin")
 
       vim.keymap.set("n", "<A-b>", function()
-        builtin.buffers(themes.get_ivy({
-        }))
+        builtin.buffers(themes.get_ivy({}))
       end, { desc = "Telescope: pick existing buffer" })
 
       vim.keymap.set("n", "<A-f>", function()
@@ -58,42 +57,49 @@ return {
         vim.fn.system("git rev-parse --is-inside-work-tree")
         local finder = vim.v.shell_error == 0 and builtin.git_files
           or builtin.find_files
-        finder(themes.get_ivy({
-        }))
+        finder(themes.get_ivy({}))
       end, { desc = "Telescope: pick files in CWD" })
 
       vim.keymap.set("n", "<A-g>", function()
-        builtin.live_grep(themes.get_ivy({
-        }))
+        builtin.live_grep(themes.get_ivy({}))
       end, { desc = "Telescope: live grep CWD" })
 
       vim.keymap.set("n", "<A-m>", function()
-        builtin.oldfiles(themes.get_ivy({
-        }))
+        builtin.oldfiles(themes.get_ivy({}))
       end, { desc = "Telescope: pick from previously opened files" })
 
-      vim.keymap.set("n", "<A-p>", function()
-        local project_root = vim.fn['dko#project#GetRoot']()
+      vim.keymap.set(
+        "n",
+        "<A-p>",
+        function()
+          local project_root = vim.fn["dko#project#GetRoot"]()
 
-        -- fallback to cwd git root
-        if not project_root or string.len(project_root) == 0 then
-          project_root = vim.fn['dko#git#GetRoot'](vim.fn.getcwd())
-        end
+          -- fallback to cwd git root
+          if not project_root or string.len(project_root) == 0 then
+            project_root = vim.fn["dko#git#GetRoot"](vim.fn.getcwd())
+          end
 
-        if not project_root or string.len(project_root) == 0 then
-          vim.notify('Not in a project', vim.log.levels.ERROR, { title = '<A-p>'})
-          return
-        end
+          if not project_root or string.len(project_root) == 0 then
+            vim.notify(
+              "Not in a project",
+              vim.log.levels.ERROR,
+              { title = "<A-p>" }
+            )
+            return
+          end
 
-        builtin.find_files(themes.get_ivy({
-          prompt_title = "Files in " .. project_root,
-          cwd = project_root,
-        }))
-      end, { desc = "Telescope: pick from previously opened files in current project root" })
+          builtin.find_files(themes.get_ivy({
+            prompt_title = "Files in " .. project_root,
+            cwd = project_root,
+          }))
+        end,
+        {
+          desc = "Telescope: pick from previously opened files in current project root",
+        }
+      )
 
       vim.keymap.set("n", "<A-s>", function()
-        builtin.git_status(themes.get_ivy({
-        }))
+        builtin.git_status(themes.get_ivy({}))
       end, { desc = "Telescope: pick from git status files" })
 
       vim.keymap.set("n", "<A-t>", function()
@@ -114,6 +120,10 @@ return {
           cwd = vim.fn.stdpath("config"),
           hidden = true,
         }))
+      end, { desc = "Telescope: pick from vim config files" })
+
+      vim.keymap.set("n", "<A-x>", function()
+        t.extensions.file_browser.file_browser()
       end, { desc = "Telescope: pick from vim config files" })
     end,
   },
