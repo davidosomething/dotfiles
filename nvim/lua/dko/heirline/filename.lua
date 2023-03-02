@@ -23,7 +23,7 @@ return {
 
       -- '/abc/123/def/345'
       -- '123/def/345' if you are already in /abc
-      local short_ancestors = vim.fn.fnamemodify(filename, ":.:h")
+      local short_ancestors = vim.fn.fnamemodify(filename, ":~:.:h")
       -- '12/de/34'
       short_ancestors = vim.fn.pathshorten(short_ancestors, amount)
       -- '12/de'
