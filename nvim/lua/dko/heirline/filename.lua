@@ -12,8 +12,9 @@ return {
     local filetype = vim.bo.filetype or ''
     local extrachars = 3 + 3 + string.len(filetype) + 20
     local remaining = win_width - extrachars
-    if string.len(self.filename) < remaining then
-      return " " .. self.filename .. " "
+    local relative = vim.fn.fnamemodify(self.filename, ':~:.')
+    if string.len(relative) < remaining then
+      return " " .. relative .. " "
     end
 
     -- '/abc/123/def/345/file.tsx'
