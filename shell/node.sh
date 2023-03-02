@@ -3,7 +3,7 @@
 export DKO_SOURCE="${DKO_SOURCE} -> shell/node.sh {"
 
 # https://nodejs.org/api/repl.html#repl_environment_variable_options
-export NODE_REPL_HISTORY="${XDG_DATA_HOME}/node_repl_history"
+export NODE_REPL_HISTORY="${XDG_STATE_HOME}/node_repl_history"
 
 # ============================================================================
 # npm config

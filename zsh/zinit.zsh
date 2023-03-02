@@ -125,6 +125,8 @@ function {
   export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
   zinit lucid wait for \
+    'lukechilds/zsh-better-npm-completion' \
+    \
     atload'_zsh_autosuggest_start && bindkey "^n" autosuggest-accept' \
     'zsh-users/zsh-autosuggestions' \
     \
