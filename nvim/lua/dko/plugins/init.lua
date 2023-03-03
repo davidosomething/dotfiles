@@ -485,7 +485,7 @@ return {
 
         highlight = {
           -- @TODO until I update vim-colors-meh with treesitter @matches
-          enable = require('dko.settings').get('treesitter.highlight_enabled'),
+          enable = require("dko.settings").get("treesitter.highlight_enabled"),
           disable = function(lang, buf)
             if
               vim.tbl_contains({
@@ -521,7 +521,6 @@ return {
         -- 'andymass/vim-matchup',
         matchup = { enable = true },
       })
-
     end,
   },
 
@@ -600,38 +599,25 @@ return {
   },
 
   {
-    "kana/vim-textobj-user",
-    dependencies = {
-      "kana/vim-textobj-indent",
-      "gilligan/textobj-lastpaste",
-      "mattn/vim-textobj-url",
-    },
+    "chrisgrieser/nvim-various-textobjs",
     config = function()
-      local function textobjMap(obj, char)
-        char = char or obj:sub(1, 1)
-        vim.keymap.set("o", "a" .. char, "<Plug>(textobj-" .. obj .. "-a)", {
-          desc = "Operator - around " .. obj,
-        })
-        vim.keymap.set("x", "a" .. char, "<Plug>(textobj-" .. obj .. "-a)", {
-          desc = "Visual - around " .. obj,
-        })
-        vim.keymap.set("o", "i" .. char, "<Plug>(textobj-" .. obj .. "-i)", {
-          desc = "Operator - inside " .. obj,
-        })
-        vim.keymap.set("x", "i" .. char, "<Plug>(textobj-" .. obj .. "-i)", {
-          desc = "Visual - inside " .. obj,
-        })
-      end
-
-      textobjMap("indent")
-      vim.keymap.set("n", "<Leader>s", "vii:!sort<CR>", {
-        desc = "Auto select indent and sort",
-        remap = true, -- since ii is a mapping too
-      })
-
-      textobjMap("paste", "P")
-      textobjMap("url")
+      require("various-textobjs").setup({ useDefaultKeymaps = false })
+      vim.keymap.set({ "o", "x" }, "ii", function()
+        require("various-textobjs").indentation(true, true)
+        vim.cmd.normal('$') -- jump to end of line like vim-textobj-indent
+      end)
+      vim.keymap.set({ "o", "x" }, "ik", function()
+        require("various-textobjs").key(true)
+      end)
+      vim.keymap.set({ "o", "x" }, "iv", function()
+        require("various-textobjs").value(true)
+      end)
+      vim.keymap.set({ "o", "x" }, "is", function()
+        require("various-textobjs").subword(true)
+      end)
+      vim.keymap.set({ "o", "x" }, "iu", function()
+        require("various-textobjs").url()
+      end)
     end,
   },
-
 }

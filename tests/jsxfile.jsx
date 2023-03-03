@@ -3,6 +3,13 @@ export default [ 'nothing' ];
 const RED = 'red';
 const BURGUNDY = 'rgba(255, 101, 120, 0.5)';
 
+const o = {
+  alpha: 'numeric',
+  beta: 'carotene',
+  gamma: 'rays',
+  delta: 'airlines',
+}
+
 export function abc() {
   return (
     <div className="text-blue-500" style="color: red;">
