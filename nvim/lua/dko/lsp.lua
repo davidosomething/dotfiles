@@ -34,17 +34,31 @@ M.format = function(options)
         has_prettier = true
       end
     end
+
+    local queue = {}
+
     if has_prettier then
       -- @TODO skip this if eslint-prettier-plugin is found
-      vim.lsp.buf.format({ async = false, name = 'null-ls' })
+      table.insert(queue, function()
+        vim.lsp.buf.format({ async = false, name = "null-ls" })
+      end)
     end
 
     if require("lspconfig.util").get_active_client_by_name(0, "eslint") then
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/eslint.lua#L152-L159
-      vim.notify("EslintFixAll", vim.log.levels.INFO, notify_opts)
-      vim.cmd("EslintFixAll")
-      return
+      table.insert(queue, function()
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/eslint.lua#L152-L159
+        vim.notify("EslintFixAll", vim.log.levels.INFO, notify_opts)
+        vim.cmd("EslintFixAll")
+      end)
     end
+
+    for i, formatter in ipairs(queue) do
+      -- defer with increasing time to ensure eslint runs after prettier
+      ---@diagnostic disable-next-line: param-type-mismatch
+      vim.defer_fn(formatter, 500 * (i - 1))
+    end
+
+    return
   end
 
   options = vim.tbl_deep_extend("force", options or {}, {
