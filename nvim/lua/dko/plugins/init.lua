@@ -400,17 +400,29 @@ return {
   },
 
   -- =========================================================================
-  -- Editing
+  -- Reading
   -- =========================================================================
+
+  -- https://github.com/axieax/urlview.nvim
+  {
+    "axieax/urlview.nvim",
+    config = function()
+      require("urlview")
+      vim.keymap.set("n", "<A-u>", "<Cmd>UrlView<CR>", { desc = "Open URLs" })
+    end,
+  },
 
   -- indent guides
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
     config = function()
+      vim.cmd([[highlight IndentBlanklineIndent2 guibg=#242424 gui=nocombine]])
+      vim.cmd(
+        [[highlight IndentBlanklineContextChar guifg=#664422 gui=nocombine]]
+      )
+
       require("indent_blankline").setup({
-        -- char = "▏",
-        char = "│",
         filetype_exclude = {
           "help",
           "alpha",
@@ -420,12 +432,30 @@ return {
           "lazy",
           "mason",
         },
+
+        -- char = "▏",
+        --char = "│",
+        -- as bg colors
+        char = "",
+        char_highlight_list = {
+          "IndentBlanklineIndent1",
+          "IndentBlanklineIndent2",
+        },
+        space_char_highlight_list = {
+          "IndentBlanklineIndent1",
+          "IndentBlanklineIndent2",
+        },
+
         show_trailing_blankline_indent = false,
-        show_current_context = false,
+        show_current_context = true,
         use_treesitter = true,
       })
     end,
   },
+
+  -- =========================================================================
+  -- Editing
+  -- =========================================================================
 
   {
     "gbprod/yanky.nvim",
@@ -586,10 +616,6 @@ return {
     end,
   },
 
-  -- =========================================================================
-  -- Editing: textobj
-  -- =========================================================================
-
   -- vim-sandwich provides a textobj!
   -- sa/sr/sd operators and ib/ab textobjs
   -- https://github.com/echasnovski/mini.surround -- no textobj
@@ -604,7 +630,7 @@ return {
       require("various-textobjs").setup({ useDefaultKeymaps = false })
       vim.keymap.set({ "o", "x" }, "ii", function()
         require("various-textobjs").indentation(true, true)
-        vim.cmd.normal('$') -- jump to end of line like vim-textobj-indent
+        vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
       end)
       vim.keymap.set({ "o", "x" }, "ik", function()
         require("various-textobjs").key(true)
