@@ -68,35 +68,30 @@ return {
         builtin.oldfiles(themes.get_ivy({}))
       end, { desc = "Telescope: pick from previously opened files" })
 
-      vim.keymap.set(
-        "n",
-        "<A-p>",
-        function()
-          local project_root = vim.fn["dko#project#GetRoot"]()
+      vim.keymap.set("n", "<A-p>", function()
+        local project_root = vim.fn["dko#project#GetRoot"]()
 
-          -- fallback to cwd git root
-          if not project_root or string.len(project_root) == 0 then
-            project_root = vim.fn["dko#git#GetRoot"](vim.fn.getcwd())
-          end
+        -- fallback to cwd git root
+        if not project_root or string.len(project_root) == 0 then
+          project_root = vim.fn["dko#git#GetRoot"](vim.fn.getcwd())
+        end
 
-          if not project_root or string.len(project_root) == 0 then
-            vim.notify(
-              "Not in a project",
-              vim.log.levels.ERROR,
-              { title = "<A-p>" }
-            )
-            return
-          end
+        if not project_root or string.len(project_root) == 0 then
+          vim.notify(
+            "Not in a project",
+            vim.log.levels.ERROR,
+            { title = "<A-p>" }
+          )
+          return
+        end
 
-          builtin.find_files(themes.get_ivy({
-            prompt_title = "Files in " .. project_root,
-            cwd = project_root,
-          }))
-        end,
-        {
-          desc = "Telescope: pick from previously opened files in current project root",
-        }
-      )
+        builtin.find_files(themes.get_ivy({
+          prompt_title = "Files in " .. project_root,
+          cwd = project_root,
+        }))
+      end, {
+        desc = "Telescope: pick from previously opened files in current project root",
+      })
 
       vim.keymap.set("n", "<A-s>", function()
         builtin.git_status(themes.get_ivy({}))

@@ -15,18 +15,24 @@ return {
     init = function(self)
       local filename = self.filename
       local extension = vim.fn.fnamemodify(filename, ":e")
-      self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(
-        filename,
-        extension,
-        { default = true }
-      )
+      local ok, nvim_web_devicons = pcall(require, "nvim-web-devicons")
+      if ok then
+        self.icon, self.icon_color = nvim_web_devicons.get_icon_color(
+          filename,
+          extension,
+          { default = true }
+        )
+      end
     end,
     provider = function(self)
-      return self.icon and (" " .. self.icon)
+      return " " .. (self.icon and self.icon or "")
     end,
-    hl = icon_color_enabled and function(self)
-      return { fg = self.icon_color }
-    end or keyOrOff,
+    hl = function(self)
+      if icon_color_enabled and self.icon_color then
+        return { fg = self.icon_color }
+      end
+      return keyOrOff()
+    end,
   },
 
   { -- filetype

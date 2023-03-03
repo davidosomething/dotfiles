@@ -11,7 +11,7 @@ return {
       cwd = vim.fn.fnamemodify(cwd, ":~")
       cwd = vim.fn.pathshorten(cwd)
       local trail = cwd:sub(-1) == "/" and "" or "/"
-      return ' ' .. cwd .. trail .. " "
+      return " " .. cwd .. trail .. " "
     end,
     hl = "dkoStatusValue",
   },
