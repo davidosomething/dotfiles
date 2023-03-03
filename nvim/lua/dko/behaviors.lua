@@ -143,15 +143,6 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   group = augroup("dkosaving"),
 })
 
-autocmd("BufWritePost", {
-  pattern = "*/colors/*.vim",
-  desc = "Auto-reload the colorscheme if it was edited in vim",
-  callback = function(args)
-    vim.cmd.source(args.file)
-  end,
-  group = augroup("dkocoloredit"),
-})
-
 -- Having issues with this, :Lazy sync sets loclist?
 autocmd("DiagnosticChanged", {
   desc = "Sync diagnostics to loclist",
