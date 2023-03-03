@@ -417,10 +417,19 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
     config = function()
-      vim.cmd([[highlight IndentBlanklineIndent2 guibg=#242424 gui=nocombine]])
-      vim.cmd(
-        [[highlight IndentBlanklineContextChar guifg=#664422 gui=nocombine]]
-      )
+      local function apply_highlights()
+        vim.cmd([[highlight IndentBlanklineIndent2 guibg=#242424 gui=nocombine]])
+        vim.cmd(
+          [[highlight IndentBlanklineContextChar guifg=#664422 gui=nocombine]]
+        )
+      end
+      apply_highlights()
+
+      vim.api.nvim_create_autocmd("colorscheme", {
+        desc = "Re-apply my indent-blankline highlights",
+        callback = apply_highlights,
+        group = vim.api.nvim_create_augroup("dkoindentblankline", {}),
+      })
 
       require("indent_blankline").setup({
         filetype_exclude = {
