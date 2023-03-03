@@ -41,6 +41,17 @@ return {
           },
           results_title = false,
         },
+        extensions = {
+          file_browser = {
+            layout_strategy = "vertical",
+            layout_config = {
+              vertical = {
+                height = 0.8,
+                width = 0.9
+              }
+            }
+          },
+        },
       })
 
       t.load_extension("fzf")
@@ -115,10 +126,6 @@ return {
           cwd = vim.fn.stdpath("config"),
           hidden = true,
         }))
-      end, { desc = "Telescope: pick from vim config files" })
-
-      vim.keymap.set("n", "<A-x>", function()
-        t.extensions.file_browser.file_browser()
       end, { desc = "Telescope: pick from vim config files" })
     end,
   },
