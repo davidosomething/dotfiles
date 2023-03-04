@@ -9,6 +9,8 @@ local notify_opts = {
   render = "compact",
 }
 
+---Hooked into null_ls runtime_conditions to notify on run
+---@param params table
 M.null_ls_notify_on_format = function(params)
   local source = params:get_source()
   vim.notify(
@@ -18,13 +20,25 @@ M.null_ls_notify_on_format = function(params)
   )
 end
 
+-- ===========================================================================
+-- LSP coordination - make sure null-ls and real lsps play nice
+-- ===========================================================================
+
 local format_timeout = 500
 
-M.get_prettier_source = function()
+M.get_active_client = function(needle)
+  local ok, lutil = pcall(require, "lspconfig.util")
+  return ok and lutil.get_active_client_by_name(0, needle)
+end
+
+---Find a null-ls source
+---@param needle string
+---@return table|nil source
+M.get_source = function(needle)
   local ok, ns = pcall(require, "null-ls.sources")
   local sources = ok and ns.get_available(vim.bo.filetype) or {}
   for _, source in pairs(sources) do
-    if source.name == "prettier" then
+    if source.name == needle then
       return source
     end
   end
@@ -35,94 +49,23 @@ M.format_with_null_ls = function()
   vim.lsp.buf.format({ async = false, name = "null-ls" })
 end
 
--- returns instance of vim.lsp.client, see doc in lua/vim/lsp.lua
-M.get_eslint = function()
-  local ok, lutil = pcall(require, "lspconfig.util")
-  return ok and lutil.get_active_client_by_name(0, "eslint")
-end
-
-M.format_with_eslint = function(eslint)
-  eslint = eslint or M.get_eslint()
-  -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/eslint.lua#L152-L159
-  vim.notify("eslint.applyAllFixes", vim.log.levels.INFO, notify_opts)
-  eslint.request_sync(
-    "workspace/executeCommand", -- method
-    { -- params
-      command = "eslint.applyAllFixes",
-      arguments = {
-        {
-          uri = vim.uri_from_bufnr(0),
-          version = vim.lsp.util.buf_versions[0],
-        },
-      },
-    },
-    format_timeout, -- timeout
-    0 -- bufnr
-  )
-end
-
-M.get_eslint_root = function()
-  -- Must call this to init cache table first
-  local ok, cache = pcall(require, "null-ls.helpers.cache")
-  if not ok then
-    return nil
-  end
-
-  local u = require("null-ls.utils")
-
-  local getter = cache.by_bufnr(function(params)
-    return u.root_pattern(
-      -- https://eslint.org/docs/latest/user-guide/configuring/configuration-files-new
-      "eslint.config.js",
-      -- https://eslint.org/docs/user-guide/configuring/configuration-files#configuration-file-formats
-      ".eslintrc",
-      ".eslintrc.js",
-      ".eslintrc.cjs",
-      ".eslintrc.yaml",
-      ".eslintrc.yml",
-      ".eslintrc.json",
-      "package.json"
-    )(params.bufname)
-  end)
-
-  return getter({ bufname = vim.api.nvim_buf_get_name(0) })
-end
-
+-- Check if resolved eslint config for bufname contains prettier/prettier
 M.has_eslint_plugin_prettier = function()
-  -- Must call this to init cache table first
-  local ok, cache = pcall(require, "null-ls.helpers.cache")
-  if not ok then
-    return false
-  end
-
-  local cr = require("null-ls.helpers.command_resolver")
-
-  -- cached by bufnr
-  local resolver = cr.from_node_modules()
-  local params = {
-    command = "eslint",
-    bufnr = vim.api.nvim_get_current_buf(),
-    bufname = vim.api.nvim_buf_get_name(0),
-  }
-  -- on next run the buffer will know the result of resolver from cache
-  local eslint = resolver(params)
+  local eslint = require('dko.node').get_bin("eslint")
   if not eslint then
     return false
   end
 
-  -- on next run the buffer will know if has prettier plugin from cache
-  local get_result = cache.by_bufnr(function(p)
-    local matches = vim.fn.systemlist(eslint .. " --print-config " .. p.bufname .. " | grep prettier/prettier")
-    return #matches > 0
-  end)
-
-  return get_result(params)
+  -- No benefit to doing this async because formatting synchronously anyway
+  return #vim.fn.systemlist(eslint .. " --print-config " .. vim.api.nvim_buf_get_name(0) .. " | grep prettier/prettier") > 0
 end
 
+-- NO eslint-plugin-prettier? maybe run prettier
+-- then, maybe run eslint --fix
 M.format_jsts = function()
   local queue = {}
 
-  local prettier_source = M.get_prettier_source()
+  local prettier_source = M.get_source("prettier")
   if prettier_source then
     -- skip null-ls prettier formatting if has eslint-plugin-prettier
     local has_epp = M.has_eslint_plugin_prettier()
@@ -137,10 +80,11 @@ M.format_jsts = function()
     end
   end
 
-  local eslint = M.get_eslint()
+  local eslint = M.get_active_client('eslint')
   if eslint then
     table.insert(queue, function()
-      M.format_with_eslint(eslint)
+      vim.notify("eslint.applyAllFixes", vim.log.levels.INFO, notify_opts)
+      vim.cmd.EslintFixAll()
     end)
   end
 
@@ -184,6 +128,7 @@ M.format = function(options)
 
       -- =====================================================================
       -- My null-ls runtime_condition will notify
+      -- This will notify for other LSPs
       -- =====================================================================
 
       if client.name ~= "null-ls" then
