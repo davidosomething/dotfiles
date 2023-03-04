@@ -54,7 +54,7 @@ return {
 
       local formatters = {
         null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.prettier_eslint,
         null_ls.builtins.formatting.qmlformat,
         null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.stylua,
