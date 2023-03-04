@@ -418,7 +418,9 @@ return {
     event = "VeryLazy",
     config = function()
       local function apply_highlights()
-        vim.cmd([[highlight IndentBlanklineIndent2 guibg=#242424 gui=nocombine]])
+        vim.cmd(
+          [[highlight IndentBlanklineIndent2 guibg=#242424 gui=nocombine]]
+        )
         vim.cmd(
           [[highlight IndentBlanklineContextChar guifg=#664422 gui=nocombine]]
         )
@@ -633,26 +635,64 @@ return {
     "machakann/vim-sandwich",
   },
 
+  -- Still using these over nvim-various-textobjs because they are dot
+  -- repeatable.
+  -- see https://github.com/chrisgrieser/nvim-various-textobjs/issues/7
+  {
+    "kana/vim-textobj-user",
+    dependencies = {
+      "kana/vim-textobj-indent",
+      "gilligan/textobj-lastpaste",
+      "mattn/vim-textobj-url",
+    },
+    config = function()
+      local function textobjMap(obj, char)
+        char = char or obj:sub(1, 1)
+        vim.keymap.set(
+          { "o", "x" },
+          "a" .. char,
+          "<Plug>(textobj-" .. obj .. "-a)",
+          { desc = "textobj: around " .. obj }
+        )
+        vim.keymap.set(
+          { "o", "x" },
+          "i" .. char,
+          "<Plug>(textobj-" .. obj .. "-i)",
+          { desc = "textobj: inside " .. obj }
+        )
+      end
+
+      textobjMap("indent")
+      vim.keymap.set("n", "<Leader>s", "vii:!sort<CR>", {
+        desc = "Auto select indent and sort",
+        remap = true, -- since ii is a mapping too
+      })
+
+      textobjMap("paste", "P")
+      textobjMap("url")
+    end,
+  },
+
   {
     "chrisgrieser/nvim-various-textobjs",
     config = function()
       require("various-textobjs").setup({ useDefaultKeymaps = false })
-      vim.keymap.set({ "o", "x" }, "ii", function()
-        require("various-textobjs").indentation(true, true)
-        vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
-      end)
+      -- vim.keymap.set({ "o", "x" }, "ii", function()
+      --   require("various-textobjs").indentation(true, true)
+      --   vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
+      -- end, { desc = "textobj: indent" })
       vim.keymap.set({ "o", "x" }, "ik", function()
         require("various-textobjs").key(true)
-      end)
+      end, { desc = "textobj: key" })
       vim.keymap.set({ "o", "x" }, "iv", function()
         require("various-textobjs").value(true)
-      end)
+      end, { desc = "textobj: value" })
       vim.keymap.set({ "o", "x" }, "is", function()
         require("various-textobjs").subword(true)
-      end)
-      vim.keymap.set({ "o", "x" }, "iu", function()
-        require("various-textobjs").url()
-      end)
+      end, { desc = "textobj: camel-_Snake" })
+      -- vim.keymap.set({ "o", "x" }, "iu", function()
+      --   require("various-textobjs").url()
+      -- end, { desc = "textobj: url" })
     end,
   },
 }
