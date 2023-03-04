@@ -21,9 +21,9 @@ end
 local format_timeout = 500
 
 M.has_prettier = function()
-  local null_ls_sources =
-    require("null-ls.sources").get_available(vim.bo.filetype)
-  for _, source in pairs(null_ls_sources) do
+  local ok, ns = pcall(require, "null-ls.sources")
+  local sources = ok and ns.get_available(vim.bo.filetype) or {}
+  for _, source in pairs(sources) do
     if source.name == "prettier" then
       return true
     end
@@ -37,7 +37,8 @@ end
 
 -- returns instance of vim.lsp.client, see doc in lua/vim/lsp.lua
 M.get_eslint = function()
-  return require("lspconfig.util").get_active_client_by_name(0, "eslint")
+  local ok, lutil = pcall(require, "lspconfig.util")
+  return ok and lutil.get_active_client_by_name(0, "eslint")
 end
 
 M.format_with_eslint = function(eslint)
@@ -70,7 +71,9 @@ M.format_jsts = function()
 
   local eslint = M.get_eslint()
   if eslint then
-    table.insert(queue, function() M.format_with_eslint(eslint) end)
+    table.insert(queue, function()
+      M.format_with_eslint(eslint)
+    end)
   end
 
   for i, formatter in ipairs(queue) do

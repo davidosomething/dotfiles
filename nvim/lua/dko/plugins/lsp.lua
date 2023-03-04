@@ -9,6 +9,7 @@
 local extras = {
   "editorconfig-checker",
   "markdownlint",
+  "selene",
   "stylua",
   "vint",
 }
@@ -54,7 +55,7 @@ return {
 
       local formatters = {
         null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.prettier_eslint,
+        null_ls.builtins.formatting.prettier,
         null_ls.builtins.formatting.qmlformat,
         null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.stylua,
@@ -244,7 +245,7 @@ return {
           }))
         end,
 
-        ['lua_ls'] = function()
+        ["lua_ls"] = function()
           lspconfig.lua_ls.setup(vim.tbl_extend("force", defaultOptions, {
             settings = {
               Lua = {
@@ -254,7 +255,7 @@ return {
                   checkThirdParty = false,
                 },
               },
-            }
+            },
           }))
         end,
 
