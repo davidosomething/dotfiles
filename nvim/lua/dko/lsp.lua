@@ -20,15 +20,15 @@ end
 
 local format_timeout = 500
 
-M.has_prettier = function()
+M.get_prettier_source = function()
   local ok, ns = pcall(require, "null-ls.sources")
   local sources = ok and ns.get_available(vim.bo.filetype) or {}
   for _, source in pairs(sources) do
     if source.name == "prettier" then
-      return true
+      return source
     end
   end
-  return false
+  return nil
 end
 
 M.format_with_null_ls = function()
@@ -122,10 +122,19 @@ end
 M.format_jsts = function()
   local queue = {}
 
-  -- skip null-ls prettier formatting if has eslint-plugin-prettier
-  local has_epp = M.has_eslint_plugin_prettier()
-  if not has_epp and M.has_prettier() then
-    table.insert(queue, M.format_with_null_ls)
+  local prettier_source = M.get_prettier_source()
+  if prettier_source then
+    -- skip null-ls prettier formatting if has eslint-plugin-prettier
+    local has_epp = M.has_eslint_plugin_prettier()
+    if has_epp then
+      vim.notify(
+        "null-ls[prettier] prefer eslint-plugin-prettier",
+        vim.log.levels.INFO,
+        notify_opts
+      )
+    else
+      table.insert(queue, M.format_with_null_ls)
+    end
   end
 
   local eslint = M.get_eslint()
