@@ -9,6 +9,7 @@
 local extras = {
   "editorconfig-checker",
   "markdownlint",
+  "prettier",
   "selene",
   "stylua",
   "vint",

@@ -61,11 +61,70 @@ M.format_with_eslint = function(eslint)
   )
 end
 
+M.get_eslint_root = function()
+  -- Must call this to init cache table first
+  local ok, cache = pcall(require, "null-ls.helpers.cache")
+  if not ok then
+    return nil
+  end
+
+  local u = require("null-ls.utils")
+
+  local getter = cache.by_bufnr(function(params)
+    return u.root_pattern(
+      -- https://eslint.org/docs/latest/user-guide/configuring/configuration-files-new
+      "eslint.config.js",
+      -- https://eslint.org/docs/user-guide/configuring/configuration-files#configuration-file-formats
+      ".eslintrc",
+      ".eslintrc.js",
+      ".eslintrc.cjs",
+      ".eslintrc.yaml",
+      ".eslintrc.yml",
+      ".eslintrc.json",
+      "package.json"
+    )(params.bufname)
+  end)
+
+  return getter({ bufname = vim.api.nvim_buf_get_name(0) })
+end
+
+M.has_eslint_plugin_prettier = function()
+  -- Must call this to init cache table first
+  local ok, cache = pcall(require, "null-ls.helpers.cache")
+  if not ok then
+    return false
+  end
+
+  local cr = require("null-ls.helpers.command_resolver")
+
+  -- cached by bufnr
+  local resolver = cr.from_node_modules()
+  local params = {
+    command = "eslint",
+    bufnr = vim.api.nvim_get_current_buf(),
+    bufname = vim.api.nvim_buf_get_name(0),
+  }
+  -- on next run the buffer will know the result of resolver from cache
+  local eslint = resolver(params)
+  if not eslint then
+    return false
+  end
+
+  -- on next run the buffer will know if has prettier plugin from cache
+  local get_result = cache.by_bufnr(function(p)
+    local matches = vim.fn.systemlist(eslint .. " --print-config " .. p.bufname .. " | grep prettier/prettier")
+    return #matches > 0
+  end)
+
+  return get_result(params)
+end
+
 M.format_jsts = function()
   local queue = {}
 
-  -- @TODO skip this if eslint-prettier-plugin is found?
-  if M.has_prettier() then
+  -- skip null-ls prettier formatting if has eslint-plugin-prettier
+  local has_epp = M.has_eslint_plugin_prettier()
+  if not has_epp and M.has_prettier() then
     table.insert(queue, M.format_with_null_ls)
   end
 
