@@ -186,6 +186,7 @@ return {
       })
       -- Auto-install some linters for null-ls
       -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L157-L163
+      -- https://github.com/jay-babu/mason-null-ls.nvim/blob/main/lua/mason-null-ls/automatic_installation.lua#LL68C19-L75C7
       local mr = require("mason-registry")
       for _, tool in ipairs(extras) do
         local p = mr.get_package(tool)
