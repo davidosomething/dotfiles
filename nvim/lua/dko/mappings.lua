@@ -427,7 +427,7 @@ M.bind_gitsigns = function(bufnr)
   local function bufmap(mode, l, r, opts)
     opts = opts or {}
     opts.buffer = bufnr
-    vim.keymap.set(mode, l, r, opts)
+    map(mode, l, r, opts)
   end
 
   -- Navigation
@@ -527,7 +527,7 @@ end
 -- ===========================================================================
 
 M.bind_nvim_various_textobjs = function()
-  -- vim.keymap.set({ "o", "x" }, "ii", function()
+  -- map({ "o", "x" }, "ii", function()
   --   require("various-textobjs").indentation(true, true)
   --   vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   -- end, { desc = "textobj: indent" })
@@ -540,7 +540,7 @@ M.bind_nvim_various_textobjs = function()
   map({ "o", "x" }, "is", function()
     require("various-textobjs").subword(true)
   end, { desc = "textobj: camel-_Snake" })
-  -- vim.keymap.set({ "o", "x" }, "iu", function()
+  -- map({ "o", "x" }, "iu", function()
   --   require("various-textobjs").url()
   -- end, { desc = "textobj: url" })
 end
@@ -553,7 +553,7 @@ M.bind_telescope = function()
   local t = require("telescope")
   local builtin = require("telescope.builtin")
 
-  vim.keymap.set("n", "<A-e>", function()
+  map("n", "<A-e>", function()
     if t.extensions.file_browser then
       t.extensions.file_browser.file_browser({
         hidden = true, -- show hidden
@@ -561,11 +561,11 @@ M.bind_telescope = function()
     end
   end, { desc = "Telescope: pick existing buffer" })
 
-  vim.keymap.set("n", "<A-b>", function()
+  map("n", "<A-b>", function()
     builtin.buffers({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick existing buffer" })
 
-  vim.keymap.set("n", "<A-f>", function()
+  map("n", "<A-f>", function()
     -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#falling-back-to-find_files-if-git_files-cant-find-a-git-directory
     vim.fn.system("git rev-parse --is-inside-work-tree")
     local finder = vim.v.shell_error == 0 and builtin.git_files
@@ -573,15 +573,15 @@ M.bind_telescope = function()
     finder({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick files in CWD" })
 
-  vim.keymap.set("n", "<A-g>", function()
+  map("n", "<A-g>", function()
     builtin.live_grep({ layout_strategy = "vertical" })
   end, { desc = "Telescope: live grep CWD" })
 
-  vim.keymap.set("n", "<A-m>", function()
+  map("n", "<A-m>", function()
     builtin.oldfiles({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick from previously opened files" })
 
-  vim.keymap.set("n", "<A-p>", function()
+  map("n", "<A-p>", function()
     local project_root = vim.fn["dko#project#GetRoot"]()
 
     -- fallback to cwd git root
@@ -603,11 +603,11 @@ M.bind_telescope = function()
     desc = "Telescope: pick from previously opened files in current project root",
   })
 
-  vim.keymap.set("n", "<A-s>", function()
+  map("n", "<A-s>", function()
     builtin.git_status({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick from git status files" })
 
-  vim.keymap.set("n", "<A-t>", function()
+  map("n", "<A-t>", function()
     builtin.find_files({
       layout_strategy = "vertical",
       prompt_title = "Find tests",
@@ -620,7 +620,7 @@ M.bind_telescope = function()
     })
   end, { desc = "Telescope: pick files in CWD" })
 
-  vim.keymap.set("n", "<A-v>", function()
+  map("n", "<A-v>", function()
     builtin.find_files({
       layout_strategy = "vertical",
       prompt_title = "Find in neovim configs",
