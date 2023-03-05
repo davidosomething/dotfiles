@@ -76,7 +76,7 @@ function! dko#project#GetRoot(...) abort
 
     " Try git root
     let l:path = dko#project#GetFilePath(get(a:, 1, ''))
-    let l:gitroot = dko#project#GetGitRootByFile(l:path)
+    let l:gitroot = v:lua.require('dko.project').git_root(l:path)
     if !empty(l:gitroot)
       call setbufvar(l:bufnr, 'dko_project_gitroot', l:gitroot)
       if empty(l:root) | let l:root = l:gitroot | endif
@@ -123,18 +123,6 @@ function! dko#project#GetFilePath(file) abort
         \ : l:path
 
   return l:path
-endfunction
-
-" Buffer-cached gitroot
-"
-" @cached
-" @param {String} path
-" @return {String} git root of file or empty string
-function! dko#project#GetGitRootByFile(path) abort
-  if !exists('b:dko_project_gitroot')
-    let b:dko_project_gitroot = dko#git#GetRoot(a:path)
-  endif
-  return b:dko_project_gitroot
 endfunction
 
 " @param {String[]} markers
