@@ -67,7 +67,7 @@ map(
 map("n", "<Leader>..", "<Cmd>cd! ..<CR>", { desc = "cd up a level" })
 
 map("n", "<Leader>cr", function()
-  vim.fn.chdir(vim.fn["dko#project#GetRoot"]())
+  vim.fn.chdir(require("dko.project").git_root())
 end, { desc = "cd to current buffer's git root" })
 
 -- ===========================================================================
@@ -77,27 +77,22 @@ end, { desc = "cd to current buffer's git root" })
 map("n", "<Leader>ecr", function()
   require("dko.utils.edit_closest")("README.md")
 end, { desc = "Edit closest README.md" })
+
 map("n", "<Leader>epj", function()
   require("dko.utils.edit_closest")("package.json")
 end, { desc = "Edit closest package.json" })
-map(
-  "n",
-  "<Leader>evi",
-  "<Cmd>edit " .. vim.fn.stdpath("config") .. "/init.lua<CR>",
-  { desc = "Edit init.lua" }
-)
-map(
-  "n",
-  "<Leader>evm",
-  "<Cmd>edit " .. vim.fn.stdpath("config") .. "/lua/dko/mappings.lua<CR>",
-  { desc = "Edit mappings.lua" }
-)
-map(
-  "n",
-  "<Leader>evp",
-  "<Cmd>edit " .. vim.fn.stdpath("config") .. "/lua/dko/plugins/<CR>",
-  { desc = "Edit lua/dko/plugins/" }
-)
+
+map("n", "<Leader>evi", function()
+  vim.cmd.edit(vim.fn.stdpath("config") .. "/init.lua")
+end, { desc = "Edit init.lua" })
+
+map("n", "<Leader>evm", function()
+  vim.cmd.edit(vim.fn.stdpath("config") .. "/lua/dko/mappings.lua")
+end, { desc = "Edit mappings.lua" })
+
+map("n", "<Leader>evp", function()
+  vim.cmd.edit(vim.fn.stdpath("config") .. "/lua/dko/plugins/")
+end, { desc = "Edit lua/dko/plugins/" })
 
 -- ===========================================================================
 -- Buffer: Reading
@@ -139,12 +134,9 @@ end, { desc = "Yank the full filepath of current buffer" })
 -- Buffer: Movement
 -- ===========================================================================
 
-map(
-  "n",
-  "<Leader>mm",
-  require("dko.utils.movemode").toggle,
-  { desc = "Toggle move mode" }
-)
+map("n", "<Leader>mm", function()
+  require("dko.utils.movemode").toggle()
+end, { desc = "Toggle move mode" })
 
 map("", "H", "^", { desc = "Change H to alias ^" })
 map("", "L", "g_", { desc = "Change L to alias g_" })
@@ -267,10 +259,8 @@ end, { desc = "Open diagnostic float at cursor" })
 -- Treesitter utils
 -- ===========================================================================
 
-local settings = require("dko.settings")
-
 local function assert_highlighting_enabled()
-  if not settings.get("treesitter.highlight_enabled") then
+  if not require("dko.settings").get("treesitter.highlight_enabled") then
     vim.notify(
       "Treesitter highlight is disabled",
       vim.log.levels.WARN,

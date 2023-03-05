@@ -17,6 +17,7 @@ M.ESLINT_ROOTS = {
 M.PROJECT_ROOTS = {
   "composer.json",
   "Gemfile",
+  "Makefile",
   "package.json",
   "requirements.txt",
   "tsconfig.json",
@@ -41,13 +42,17 @@ M.get_root_by_patterns = function(patterns)
     return nil
   end
 
-  local u = require("null-ls.utils")
-
   local getter = cache.by_bufnr(function(params)
-    return u.root_pattern(unpack(patterns))(params.bufname)
+    return require("null-ls.utils").root_pattern(unpack(patterns))(
+      params.bufname
+    )
   end)
 
-  return getter({ bufname = vim.api.nvim_buf_get_name(0) })
+  return getter({ bufname = vim.api.nvim_buf_get_name(0), bufnr = 0 })
+end
+
+M.git_root = function()
+  return M.get_root_by_patterns({ ".git" })
 end
 
 return M
