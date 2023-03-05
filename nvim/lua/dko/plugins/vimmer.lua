@@ -41,13 +41,7 @@ return {
   {
     "cocopon/inspecthi.vim",
     cmd = "Inspecthi",
-    keys = {
-      {
-        "zs",
-        "<Cmd>Inspecthi<CR>",
-        desc = "Show highlight groups under cursor",
-        silent = true,
-      },
-    },
+    keys = "zs",
+    config = require("dko.mappings").bind_inspecthi,
   },
 }

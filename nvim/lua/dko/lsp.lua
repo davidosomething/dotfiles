@@ -14,7 +14,7 @@ local notify_opts = {
 M.null_ls_notify_on_format = function(params)
   local source = params:get_source()
   vim.notify(
-    "null-ls[" .. source.name .. "] format",
+    ("null-ls[%s] format"):format(source.name),
     vim.log.levels.INFO,
     notify_opts
   )
@@ -51,13 +51,18 @@ end
 
 -- Check if resolved eslint config for bufname contains prettier/prettier
 M.has_eslint_plugin_prettier = function()
-  local eslint = require('dko.node').get_bin("eslint")
+  local eslint = require("dko.node").get_bin("eslint")
   if not eslint then
     return false
   end
 
   -- No benefit to doing this async because formatting synchronously anyway
-  return #vim.fn.systemlist(eslint .. " --print-config " .. vim.api.nvim_buf_get_name(0) .. " | grep prettier/prettier") > 0
+  return #vim.fn.systemlist(
+    eslint
+      .. " --print-config "
+      .. vim.api.nvim_buf_get_name(0)
+      .. " | grep prettier/prettier"
+  ) > 0
 end
 
 -- NO eslint-plugin-prettier? maybe run prettier
@@ -80,7 +85,7 @@ M.format_jsts = function()
     end
   end
 
-  local eslint = M.get_active_client('eslint')
+  local eslint = M.get_active_client("eslint")
   if eslint then
     table.insert(queue, function()
       vim.notify("eslint.applyAllFixes", vim.log.levels.INFO, notify_opts)
@@ -119,7 +124,7 @@ M.format = function(options)
 
       if vim.tbl_contains({ "lua_ls", "tsserver" }, client.name) then
         vim.notify(
-          client.name .. " disabled in dko/lsp.lua",
+          ("%s disabled in dko/lsp.lua"):format(client.name),
           vim.log.levels.INFO,
           notify_opts
         )
@@ -132,7 +137,11 @@ M.format = function(options)
       -- =====================================================================
 
       if client.name ~= "null-ls" then
-        vim.notify(client.name .. " format", vim.log.levels.INFO, notify_opts)
+        vim.notify(
+          ("%s format"):format(client.name),
+          vim.log.levels.INFO,
+          notify_opts
+        )
       end
 
       return true

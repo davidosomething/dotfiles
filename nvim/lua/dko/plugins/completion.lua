@@ -151,10 +151,7 @@ return {
         },
       })
 
-      vim.keymap.set("n", "<C-Space>", function()
-        vim.cmd.startinsert({ bang = true })
-        vim.schedule(cmp.complete)
-      end, { desc = "In normal mode, `A`ppend and start completion" })
+      require('dko.mappings').bind_cmp()
     end,
   },
 }
