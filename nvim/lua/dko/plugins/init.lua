@@ -109,9 +109,7 @@ return {
         group = vim.api.nvim_create_augroup("dkonvimnotify", {}),
       })
 
-      vim.keymap.set("n", "<A-\\>", "<Cmd>Notifications<CR>", {
-        desc = "Show recent notifications",
-      })
+      require("dko.mappings").bind_notify()
     end,
   },
 
@@ -211,19 +209,11 @@ return {
   {
     "echasnovski/mini.bufremove",
     version = "*",
-    keys = {
-      {
-        "<Leader>x",
-        function()
-          ---@diagnostic disable-next-line: missing-parameter
-          require("mini.bufremove").delete()
-        end,
-        desc = "Remove buffer without closing window",
-      },
-    },
+    keys = "<Leader>x",
     config = function()
       ---@diagnostic disable-next-line: missing-parameter
       require("mini.bufremove").setup()
+      require("dko.mappings").bind_bufremove()
     end,
   },
 
@@ -234,16 +224,8 @@ return {
       "nvim-lua/plenary.nvim",
     },
     keys = {
-      {
-        "[b",
-        "<Plug>(CybuPrev)",
-        desc = "Previous buffer with cybu popup",
-      },
-      {
-        "]b",
-        "<Plug>(CybuNext)",
-        desc = "Next buffer with cybu popup",
-      },
+      "[b",
+      "]b",
     },
     config = function()
       require("cybu").setup({
@@ -262,6 +244,7 @@ return {
           },
         },
       })
+      require("dko.mappings").bind_cybu()
     end,
   },
 
@@ -306,24 +289,12 @@ return {
 
   {
     "numtostr/FTerm.nvim",
-    keys = {
-      {
-        "<A-i>",
-        function()
-          require("FTerm").toggle()
-        end,
-        desc = "Toggle FTerm",
-      },
-    },
+    keys = "<A-i>",
     config = function()
       require("FTerm").setup({
         border = "rounded",
       })
-      vim.keymap.set(
-        "t",
-        "<A-i>",
-        '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>'
-      )
+      require("dko.mappings").bind_fterm()
     end,
   },
 
@@ -345,54 +316,8 @@ return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      local gs = require("gitsigns")
-      gs.setup({
-        on_attach = function(bufnr)
-          local function map(mode, l, r, opts)
-            opts = opts or {}
-            opts.buffer = bufnr
-            vim.keymap.set(mode, l, r, opts)
-          end
-
-          -- Navigation
-          map("n", "]h", function()
-            if vim.wo.diff then
-              return "]h"
-            end
-            vim.schedule(function()
-              gs.next_hunk()
-            end)
-            return "<Ignore>"
-          end, { expr = true, desc = "Next hunk" })
-
-          map("n", "[h", function()
-            if vim.wo.diff then
-              return "[h"
-            end
-            vim.schedule(function()
-              gs.prev_hunk()
-            end)
-            return "<Ignore>"
-          end, { expr = true, desc = "Prev hunk" })
-
-          -- Actions
-          -- the ones that use <Cmd> take a range, don't pass as gs.method
-          map(
-            { "n", "v" },
-            "<leader>hr",
-            "<Cmd>Gitsigns reset_hunk",
-            { desc = "Reset hunk" }
-          )
-          map("n", "<leader>hp", gs.preview_hunk, { desc = "Preview hunk" })
-          map("n", "gb", function()
-            gs.blame_line({ full = true })
-          end, { desc = "Show blames" })
-
-          -- Text object
-          map({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>", {
-            desc = "Select hunk",
-          })
-        end,
+      require("gitsigns").setup({
+        on_attach = require("dko.mappings").bind_gitsigns,
         preview_config = {
           border = "rounded",
         },
@@ -407,9 +332,10 @@ return {
   -- https://github.com/axieax/urlview.nvim
   {
     "axieax/urlview.nvim",
+    keys = "<A-u>",
     config = function()
       require("urlview")
-      vim.keymap.set("n", "<A-u>", "<Cmd>UrlView<CR>", { desc = "Open URLs" })
+      require("dko.mappings").bind_urlview()
     end,
   },
 
@@ -475,12 +401,7 @@ return {
       require("yanky").setup({
         highlight = { timer = 300 },
       })
-      vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-      vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
-      vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
-      vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
-      vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
-      vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+      require("dko.mappings").bind_yanky()
     end,
   },
 
@@ -610,21 +531,13 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
-    keys = {
-      {
-        "gs",
-        function()
-          require("treesj").toggle()
-        end,
-        desc = "Toggle treesitter split / join",
-        silent = true,
-      },
-    },
+    keys = "gs",
     config = function()
       require("treesj").setup({
         use_default_keymaps = false,
         max_join_length = 255,
       })
+      require("dko.mappings").bind_treesj()
     end,
   },
 
@@ -647,30 +560,7 @@ return {
       "mattn/vim-textobj-url",
     },
     config = function()
-      local function textobjMap(obj, char)
-        char = char or obj:sub(1, 1)
-        vim.keymap.set(
-          { "o", "x" },
-          "a" .. char,
-          "<Plug>(textobj-" .. obj .. "-a)",
-          { desc = "textobj: around " .. obj }
-        )
-        vim.keymap.set(
-          { "o", "x" },
-          "i" .. char,
-          "<Plug>(textobj-" .. obj .. "-i)",
-          { desc = "textobj: inside " .. obj }
-        )
-      end
-
-      textobjMap("indent")
-      vim.keymap.set("n", "<Leader>s", "vii:!sort<CR>", {
-        desc = "Auto select indent and sort",
-        remap = true, -- since ii is a mapping too
-      })
-
-      textobjMap("paste", "P")
-      textobjMap("url")
+      require("dko.mappings").bind_textobj()
     end,
   },
 
@@ -678,22 +568,7 @@ return {
     "chrisgrieser/nvim-various-textobjs",
     config = function()
       require("various-textobjs").setup({ useDefaultKeymaps = false })
-      -- vim.keymap.set({ "o", "x" }, "ii", function()
-      --   require("various-textobjs").indentation(true, true)
-      --   vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
-      -- end, { desc = "textobj: indent" })
-      vim.keymap.set({ "o", "x" }, "ik", function()
-        require("various-textobjs").key(true)
-      end, { desc = "textobj: key" })
-      vim.keymap.set({ "o", "x" }, "iv", function()
-        require("various-textobjs").value(true)
-      end, { desc = "textobj: value" })
-      vim.keymap.set({ "o", "x" }, "is", function()
-        require("various-textobjs").subword(true)
-      end, { desc = "textobj: camel-_Snake" })
-      -- vim.keymap.set({ "o", "x" }, "iu", function()
-      --   require("various-textobjs").url()
-      -- end, { desc = "textobj: url" })
+      require("dko.mappings").bind_nvim_various_textobjs()
     end,
   },
 }

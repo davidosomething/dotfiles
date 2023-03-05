@@ -190,7 +190,21 @@ return {
       for _, tool in ipairs(extras) do
         local p = mr.get_package(tool)
         if not p:is_installed() then
-          p:install()
+          vim.notify(
+            ("Installing %s"):format(p.name),
+            { title = "mason", render = "compact" }
+          )
+          p:install():once(
+            "closed",
+            vim.schedule_wrap(function()
+              if p:is_installed() then
+                vim.notify(
+                  ("Successfully installed %s"):format(p.name),
+                  { title = "mason", render = "compact" }
+                )
+              end
+            end)
+          )
         end
       end
     end,

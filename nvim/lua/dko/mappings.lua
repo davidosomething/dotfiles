@@ -398,4 +398,331 @@ M.bind_lsp = function()
   end, lsp_opts({ desc = "Fix and format buffer with dko.lsp.format_buffer" }))
 end
 
+-- ===========================================================================
+-- Plugin: cybu.nvim
+-- ===========================================================================
+
+M.bind_cybu = function()
+  map("n", "[b", "<Plug>(CybuPrev)", {
+    desc = "Previous buffer with cybu popup",
+  })
+  map("n", "]b", "<Plug>(CybuNext)", { desc = "Next buffer with cybu popup" })
+end
+
+-- ===========================================================================
+-- Plugin: FTerm.nvim
+-- ===========================================================================
+
+M.bind_fterm = function()
+  map(
+    "t",
+    "<A-i>",
+    '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>',
+    { desc = "Toggle floating terminal" }
+  )
+end
+
+-- ===========================================================================
+-- Plugin: gitsigns.nvim
+-- ===========================================================================
+
+M.bind_gitsigns = function(bufnr)
+  local function bufmap(mode, l, r, opts)
+    opts = opts or {}
+    opts.buffer = bufnr
+    vim.keymap.set(mode, l, r, opts)
+  end
+
+  -- Navigation
+  bufmap("n", "]h", function()
+    if vim.wo.diff then
+      return "]h"
+    end
+    vim.schedule(function()
+      require("gitsigns").next_hunk()
+    end)
+    return "<Ignore>"
+  end, { expr = true, desc = "Next hunk" })
+
+  bufmap("n", "[h", function()
+    if vim.wo.diff then
+      return "[h"
+    end
+    vim.schedule(function()
+      require("gitsigns").prev_hunk()
+    end)
+    return "<Ignore>"
+  end, { expr = true, desc = "Prev hunk" })
+
+  -- Actions
+  -- the ones that use <Cmd> take a range, don't pass as gs.method
+  bufmap(
+    { "n", "v" },
+    "<leader>hr",
+    "<Cmd>Gitsigns reset_hunk",
+    { desc = "Reset hunk" }
+  )
+  bufmap(
+    "n",
+    "<leader>hp",
+    require("gitsigns").preview_hunk,
+    { desc = "Preview hunk" }
+  )
+  bufmap("n", "gb", function()
+    require("gitsigns").blame_line({ full = true })
+  end, { desc = "Show blames" })
+
+  -- Text object
+  bufmap({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>", {
+    desc = "Select hunk",
+  })
+end
+
+-- ===========================================================================
+-- Plugin: inspecthi
+-- ===========================================================================
+
+M.bind_inspecthi = function()
+  map("n", "zs", "<Cmd>Inspecthi<CR>", {
+    desc = "Show highlight groups under cursor",
+    silent = true,
+  })
+end
+
+-- ===========================================================================
+-- Plugin: mini.bufremove
+-- ===========================================================================
+
+M.bind_bufremove = function()
+  map("n", "<Leader>x", function()
+    ---@diagnostic disable-next-line: missing-parameter
+    require("mini.bufremove").delete()
+  end, { desc = "Remove buffer without closing window" })
+end
+
+-- ===========================================================================
+-- Plugin: nvim-cmp
+-- ===========================================================================
+
+M.bind_cmp = function()
+  -- More mappings are done in plugin config
+  map("n", "<C-Space>", function()
+    vim.cmd.startinsert({ bang = true })
+    vim.schedule(require("cmp").complete)
+  end, { desc = "In normal mode, `A`ppend and start completion" })
+end
+
+-- ===========================================================================
+-- Plugin: nvim-notify
+-- ===========================================================================
+
+M.bind_notify = function()
+  map(
+    "n",
+    "<A-\\>",
+    "<Cmd>Notifications<CR>",
+    { desc = "Show recent notifications" }
+  )
+end
+
+-- ===========================================================================
+-- Plugin: nvim-various-textobjs
+-- ===========================================================================
+
+M.bind_nvim_various_textobjs = function()
+  -- vim.keymap.set({ "o", "x" }, "ii", function()
+  --   require("various-textobjs").indentation(true, true)
+  --   vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
+  -- end, { desc = "textobj: indent" })
+  map({ "o", "x" }, "ik", function()
+    require("various-textobjs").key(true)
+  end, { desc = "textobj: key" })
+  map({ "o", "x" }, "iv", function()
+    require("various-textobjs").value(true)
+  end, { desc = "textobj: value" })
+  map({ "o", "x" }, "is", function()
+    require("various-textobjs").subword(true)
+  end, { desc = "textobj: camel-_Snake" })
+  -- vim.keymap.set({ "o", "x" }, "iu", function()
+  --   require("various-textobjs").url()
+  -- end, { desc = "textobj: url" })
+end
+
+-- ===========================================================================
+-- Plugin: telescope.nvim
+-- ===========================================================================
+
+M.bind_telescope = function()
+  local t = require("telescope")
+  local themes = require("telescope.themes")
+  local builtin = require("telescope.builtin")
+
+  vim.keymap.set("n", "<A-e>", function()
+    if t.extensions.file_browser then
+      t.extensions.file_browser.file_browser({
+        hidden = true, -- show hidden
+      })
+    end
+  end, { desc = "Telescope: pick existing buffer" })
+
+
+  vim.keymap.set("n", "<A-b>", function()
+    builtin.buffers(themes.get_ivy({}))
+  end, { desc = "Telescope: pick existing buffer" })
+
+  vim.keymap.set("n", "<A-f>", function()
+    -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#falling-back-to-find_files-if-git_files-cant-find-a-git-directory
+    vim.fn.system("git rev-parse --is-inside-work-tree")
+    local finder = vim.v.shell_error == 0 and builtin.git_files
+    or builtin.find_files
+    finder(themes.get_ivy({}))
+  end, { desc = "Telescope: pick files in CWD" })
+
+  vim.keymap.set("n", "<A-g>", function()
+    builtin.live_grep(themes.get_ivy({}))
+  end, { desc = "Telescope: live grep CWD" })
+
+  vim.keymap.set("n", "<A-m>", function()
+    builtin.oldfiles(themes.get_ivy({}))
+  end, { desc = "Telescope: pick from previously opened files" })
+
+  vim.keymap.set("n", "<A-p>", function()
+    local project_root = vim.fn["dko#project#GetRoot"]()
+
+    -- fallback to cwd git root
+    if not project_root or string.len(project_root) == 0 then
+      project_root = vim.fn["dko#git#GetRoot"](vim.fn.getcwd())
+    end
+
+    if not project_root or string.len(project_root) == 0 then
+      vim.notify(
+        "Not in a project",
+        vim.log.levels.ERROR,
+        { title = "<A-p>" }
+      )
+      return
+    end
+
+    builtin.find_files(themes.get_ivy({
+      prompt_title = "Files in " .. project_root,
+      cwd = project_root,
+    }))
+  end, {
+      desc = "Telescope: pick from previously opened files in current project root",
+    })
+
+  vim.keymap.set("n", "<A-s>", function()
+    builtin.git_status(themes.get_ivy({}))
+  end, { desc = "Telescope: pick from git status files" })
+
+  vim.keymap.set("n", "<A-t>", function()
+    builtin.find_files(themes.get_ivy({
+      prompt_title = "Find tests",
+      search_dirs = {
+        "./test/",
+        "./tests/",
+        "./spec/",
+        "./specs/",
+      },
+    }))
+  end, { desc = "Telescope: pick files in CWD" })
+
+  vim.keymap.set("n", "<A-v>", function()
+    builtin.find_files(themes.get_ivy({
+      prompt_title = "Find in neovim configs",
+      cwd = vim.fn.stdpath("config"),
+      hidden = true,
+    }))
+  end, { desc = "Telescope: pick from vim config files" })
+end
+
+-- ===========================================================================
+-- Plugin: textobjs
+-- ===========================================================================
+
+M.bind_textobj = function()
+  local function textobjMap(obj, char)
+    char = char or obj:sub(1, 1)
+    map(
+      { "o", "x" },
+      "a" .. char,
+      "<Plug>(textobj-" .. obj .. "-a)",
+      { desc = "textobj: around " .. obj }
+    )
+    map(
+      { "o", "x" },
+      "i" .. char,
+      "<Plug>(textobj-" .. obj .. "-i)",
+      { desc = "textobj: inside " .. obj }
+    )
+  end
+
+  textobjMap("indent")
+  map("n", "<Leader>s", "vii:!sort<CR>", {
+    desc = "Auto select indent and sort",
+    remap = true, -- since ii is a mapping too
+  })
+
+  textobjMap("paste", "P")
+  textobjMap("url")
+end
+
+-- ===========================================================================
+-- Plugin: treesj
+-- ===========================================================================
+
+M.bind_treesj = function()
+  map("n", "gs", function()
+    require("treesj").toggle()
+  end, { desc = "Toggle treesitter split / join", silent = true })
+end
+
+-- ===========================================================================
+-- Plugin: urlview.nvim
+-- ===========================================================================
+
+M.bind_urlview = function()
+  map("n", "<A-u>", "<Cmd>UrlView<CR>", { desc = "Open URLs" })
+end
+
+-- ===========================================================================
+-- Plugin: yanky.nvim
+-- ===========================================================================
+
+M.bind_yanky = function()
+  map({ "n", "x" }, "p", "<Plug>(YankyPutAfter)", { desc = "yanky put after" })
+  map(
+    { "n", "x" },
+    "P",
+    "<Plug>(YankyPutBefore)",
+    { desc = "yanky put before" }
+  )
+  map(
+    { "n", "x" },
+    "gp",
+    "<Plug>(YankyGPutAfter)",
+    { desc = "yanky gput after" }
+  )
+  map(
+    { "n", "x" },
+    "gP",
+    "<Plug>(YankyGPutBefore)",
+    { desc = "yanky gput before" }
+  )
+  map(
+    "n",
+    "<c-n>",
+    "<Plug>(YankyCycleForward)",
+    { desc = "yanky cycle forward" }
+  )
+  map(
+    "n",
+    "<c-p>",
+    "<Plug>(YankyCycleBackward)",
+    { desc = "yanky cycle backward" }
+  )
+end
+
+-- ===========================================================================
+
 return M
