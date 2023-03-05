@@ -55,6 +55,7 @@ vim.diagnostic.config({
   -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
   virtual_text = false,
   float = {
+    border = "rounded",
     header = false, -- remove the line that says 'Diagnostic:'
     source = false, -- hide it since my floatFormat will add it
     format = floatFormat, -- can customize more colors by using prefix/suffix instead
