@@ -330,26 +330,21 @@ M.bind_lsp = function()
     }, opts)
   end
 
-  local function with_telescope(method)
-    local ok, telescope = pcall(require, "telescope.builtin")
-    return ok and telescope[method]() or nil
+  ---@param method string
+  ---@return boolean whether or not telescope was succesfully called
+  local function telescope_builtin(method)
+    local ok, builtin = pcall(require, "telescope.builtin")
+    if ok then
+      builtin[method]({
+        -- always show in picker so i can choose how to open it (e.g. split,
+        -- vsplit)
+        jump_type = "never",
+        layout_strategy = "vertical",
+      })
+      return true
+    end
+    return false
   end
-
-  local handlers = {
-    definition = function()
-      return with_telescope("lsp_definitions") or vim.lsp.buf.definition
-    end,
-    references = function()
-      return with_telescope("lsp_references") or vim.lsp.buf.references
-    end,
-    implementation = function()
-      return with_telescope("lsp_implementations") or vim.lsp.buf.implementation
-    end,
-    type_definition = function()
-      return with_telescope("lsp_type_definitions")
-        or vim.lsp.buf.type_definition
-    end,
-  }
 
   map(
     "n",
@@ -357,15 +352,15 @@ M.bind_lsp = function()
     vim.lsp.buf.declaration,
     lsp_opts({ desc = "LSP declaration" })
   )
-  map("n", "gd", handlers.definition, lsp_opts({ desc = "LSP definition" }))
+  map("n", "gd", function()
+    return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
+  end, lsp_opts({ desc = "LSP definition" }))
   map("n", "K", vim.lsp.buf.hover, lsp_opts({ desc = "LSP hover" }))
 
-  map(
-    "n",
-    "gi",
-    handlers.implementation,
-    lsp_opts({ desc = "LSP implementation" })
-  )
+  map("n", "gi", function()
+    return telescope_builtin("lsp_implementations")
+      or vim.lsp.buf.implementation()
+  end, lsp_opts({ desc = "LSP implementation" }))
   map(
     { "n", "i" },
     "<C-g>",
@@ -377,12 +372,10 @@ M.bind_lsp = function()
   --[[ map('n', '<space>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts) ]]
-  map(
-    "n",
-    "<Leader>D",
-    handlers.type_definition,
-    lsp_opts({ desc = "LSP type_definition" })
-  )
+  map("n", "<Leader>D", function()
+    return telescope_builtin("lsp_type_definitions")
+      or vim.lsp.buf.type_definition()
+  end, lsp_opts({ desc = "LSP type_definition" }))
   map("n", "<Leader>rn", vim.lsp.buf.rename, lsp_opts({ desc = "LSP rename" }))
   map(
     "n",
@@ -391,7 +384,11 @@ M.bind_lsp = function()
     lsp_opts({ desc = "LSP Code Action" })
   )
 
-  map("n", "gr", handlers.references, lsp_opts({ desc = "LSP references" }))
+  map("n", "gr", function()
+    return telescope_builtin("lsp_references")
+      ---@diagnostic disable-next-line: missing-parameter
+      or vim.lsp.buf.references()
+  end, lsp_opts({ desc = "LSP references" }))
 
   map("n", "<A-=>", function()
     require("dko.lsp").format({ async = false })
@@ -554,7 +551,6 @@ end
 
 M.bind_telescope = function()
   local t = require("telescope")
-  local themes = require("telescope.themes")
   local builtin = require("telescope.builtin")
 
   vim.keymap.set("n", "<A-e>", function()
@@ -565,25 +561,24 @@ M.bind_telescope = function()
     end
   end, { desc = "Telescope: pick existing buffer" })
 
-
   vim.keymap.set("n", "<A-b>", function()
-    builtin.buffers(themes.get_ivy({}))
+    builtin.buffers({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick existing buffer" })
 
   vim.keymap.set("n", "<A-f>", function()
     -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#falling-back-to-find_files-if-git_files-cant-find-a-git-directory
     vim.fn.system("git rev-parse --is-inside-work-tree")
     local finder = vim.v.shell_error == 0 and builtin.git_files
-    or builtin.find_files
-    finder(themes.get_ivy({}))
+      or builtin.find_files
+    finder({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick files in CWD" })
 
   vim.keymap.set("n", "<A-g>", function()
-    builtin.live_grep(themes.get_ivy({}))
+    builtin.live_grep({ layout_strategy = "vertical" })
   end, { desc = "Telescope: live grep CWD" })
 
   vim.keymap.set("n", "<A-m>", function()
-    builtin.oldfiles(themes.get_ivy({}))
+    builtin.oldfiles({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick from previously opened files" })
 
   vim.keymap.set("n", "<A-p>", function()
@@ -595,28 +590,26 @@ M.bind_telescope = function()
     end
 
     if not project_root or string.len(project_root) == 0 then
-      vim.notify(
-        "Not in a project",
-        vim.log.levels.ERROR,
-        { title = "<A-p>" }
-      )
+      vim.notify("Not in a project", vim.log.levels.ERROR, { title = "<A-p>" })
       return
     end
 
-    builtin.find_files(themes.get_ivy({
+    builtin.find_files({
+      layout_strategy = "vertical",
       prompt_title = "Files in " .. project_root,
       cwd = project_root,
-    }))
-  end, {
-      desc = "Telescope: pick from previously opened files in current project root",
     })
+  end, {
+    desc = "Telescope: pick from previously opened files in current project root",
+  })
 
   vim.keymap.set("n", "<A-s>", function()
-    builtin.git_status(themes.get_ivy({}))
+    builtin.git_status({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick from git status files" })
 
   vim.keymap.set("n", "<A-t>", function()
-    builtin.find_files(themes.get_ivy({
+    builtin.find_files({
+      layout_strategy = "vertical",
       prompt_title = "Find tests",
       search_dirs = {
         "./test/",
@@ -624,15 +617,16 @@ M.bind_telescope = function()
         "./spec/",
         "./specs/",
       },
-    }))
+    })
   end, { desc = "Telescope: pick files in CWD" })
 
   vim.keymap.set("n", "<A-v>", function()
-    builtin.find_files(themes.get_ivy({
+    builtin.find_files({
+      layout_strategy = "vertical",
       prompt_title = "Find in neovim configs",
       cwd = vim.fn.stdpath("config"),
       hidden = true,
-    }))
+    })
   end, { desc = "Telescope: pick from vim config files" })
 end
 
