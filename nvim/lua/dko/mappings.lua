@@ -1,3 +1,5 @@
+local M = {}
+
 local map = vim.keymap.set
 
 map("n", "<Esc><Esc>", function()
@@ -213,7 +215,7 @@ end, { desc = "Convert selection to smallcaps" })
   return repeat(' ', 1 + l:sts - l:sp)
 endfunction ]]
 
-vim.keymap.set("i", "<Tab>", function()
+map("i", "<Tab>", function()
   -- If characters all the way back to start of line were all whitespace,
   -- insert whatever expandtab setting is set to do.
   local current_line = require("dko.utils.buffer").get_cursorline_contents()
@@ -243,7 +245,7 @@ vim.keymap.set("i", "<Tab>", function()
   return string.rep(" ", 1 + sts - spaces_from_cursor_to_next_sts)
 end, { expr = true, desc = "Tab should insert spaces" })
 
-vim.keymap.set("i", "<S-Tab>", "<C-d>", {
+map("i", "<S-Tab>", "<C-d>", {
   desc = "Tab inserts a tab, shift-tab should remove it",
 })
 
@@ -251,23 +253,14 @@ vim.keymap.set("i", "<S-Tab>", "<C-d>", {
 -- Diagnostic mappings
 -- ===========================================================================
 
-local goto_opts = {
-  noremap = true,
-  silent = true,
-  desc = "Go to diagnostic and open float",
-}
-local float_opts = {
-  focus = false,
-  scope = "cursor",
-}
 map("n", "[d", function()
-  vim.diagnostic.goto_prev({ float = float_opts })
-end, goto_opts)
+  vim.diagnostic.goto_prev({})
+end, { desc = "Go to prev diagnostic and open float" })
 map("n", "]d", function()
-  vim.diagnostic.goto_next({ float = float_opts })
-end, goto_opts)
+  vim.diagnostic.goto_next({})
+end, { desc = "Go to next diagnostic and open float" })
 map("n", "<Leader>d", function()
-  vim.diagnostic.open_float(float_opts)
+  vim.diagnostic.open_float()
 end, { desc = "Open diagnostic float at cursor" })
 
 -- ===========================================================================
@@ -288,7 +281,7 @@ local function assert_highlighting_enabled()
   return true
 end
 
-vim.keymap.set("n", "ss", function()
+map("n", "ss", function()
   if not assert_highlighting_enabled() then
     return
   end
@@ -296,7 +289,7 @@ vim.keymap.set("n", "ss", function()
   vim.pretty_print(vim.treesitter.get_captures_at_cursor())
 end, { desc = "Print treesitter captures under cursor" })
 
-vim.keymap.set("n", "sy", function()
+map("n", "sy", function()
   if not assert_highlighting_enabled() then
     return
   end
@@ -322,3 +315,87 @@ vim.keymap.set("n", "sy", function()
     { title = "Yanked capture", render = "compact" }
   )
 end, { desc = "Copy treesitter captures under cursor" })
+
+-- ===========================================================================
+-- Buffer: LSP integration
+-- Mix of https://github.com/neovim/nvim-lspconfig#suggested-configuration
+-- and :h lsp
+-- ===========================================================================
+
+M.bind_lsp = function()
+  local function lsp_opts(opts)
+    opts = vim.tbl_extend("force", {
+      silent = true,
+      buffer = true,
+    }, opts)
+  end
+
+  local function with_telescope(method)
+    local ok, telescope = pcall(require, "telescope.builtin")
+    return ok and telescope[method]() or nil
+  end
+
+  local handlers = {
+    definition = function()
+      return with_telescope("lsp_definitions") or vim.lsp.buf.definition
+    end,
+    references = function()
+      return with_telescope("lsp_references") or vim.lsp.buf.references
+    end,
+    implementation = function()
+      return with_telescope("lsp_implementations") or vim.lsp.buf.implementation
+    end,
+    type_definition = function()
+      return with_telescope("lsp_type_definitions")
+        or vim.lsp.buf.type_definition
+    end,
+  }
+
+  map(
+    "n",
+    "gD",
+    vim.lsp.buf.declaration,
+    lsp_opts({ desc = "LSP declaration" })
+  )
+  map("n", "gd", handlers.definition, lsp_opts({ desc = "LSP definition" }))
+  map("n", "K", vim.lsp.buf.hover, lsp_opts({ desc = "LSP hover" }))
+
+  map(
+    "n",
+    "gi",
+    handlers.implementation,
+    lsp_opts({ desc = "LSP implementation" })
+  )
+  map(
+    { "n", "i" },
+    "<C-g>",
+    vim.lsp.buf.signature_help,
+    lsp_opts({ desc = "LSP signature_help" })
+  )
+  --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  --map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  --[[ map('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts) ]]
+  map(
+    "n",
+    "<Leader>D",
+    handlers.type_definition,
+    lsp_opts({ desc = "LSP type_definition" })
+  )
+  map("n", "<Leader>rn", vim.lsp.buf.rename, lsp_opts({ desc = "LSP rename" }))
+  map(
+    "n",
+    "<Leader>ca",
+    vim.lsp.buf.code_action,
+    lsp_opts({ desc = "LSP Code Action" })
+  )
+
+  map("n", "gr", handlers.references, lsp_opts({ desc = "LSP references" }))
+
+  map("n", "<A-=>", function()
+    require("dko.lsp").format({ async = false })
+  end, lsp_opts({ desc = "Fix and format buffer with dko.lsp.format_buffer" }))
+end
+
+return M

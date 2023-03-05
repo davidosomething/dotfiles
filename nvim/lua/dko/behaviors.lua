@@ -78,7 +78,7 @@ autocmd("BufRead", {
 autocmd("BufEnter", {
   desc = "Read only mode (un)mappings",
   callback = function()
-    local is_editable = require('dko.utils.buffer').is_editable
+    local is_editable = require("dko.utils.buffer").is_editable
     if is_editable(0) then
       return
     end
@@ -173,6 +173,8 @@ autocmd("DiagnosticChanged", {
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "Bind LSP in buffer",
   callback = function()
+    -- @TODO
+    -- https://github.com/davidosomething/dotfiles/issues/508
     -- Need to unset this on EVERY LSP attach
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
     vim.bo.formatexpr = nil
@@ -182,7 +184,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
     vim.b.has_lsp = true
 
-    require("dko.lsp").bind_lsp_mappings()
+    require("dko.mappings").bind_lsp()
   end,
   group = vim.api.nvim_create_augroup("dkolsp", {}),
 })
