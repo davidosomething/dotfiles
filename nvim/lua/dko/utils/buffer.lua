@@ -9,25 +9,35 @@ M.SPECIAL_BUFTYPES = {
   "terminal",
 }
 
+M.SPECIAL_FILETYPES = {
+  "^git.*",
+  "fugitive",
+}
+
 ---@param bufnr integer
 M.is_special = function(bufnr)
-  -- @TODO might need this back, recreate SPECIAL_FILETYPES
-  -- local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
-
-  local bt = vim.api.nvim_buf_get_option(bufnr, 'buftype')
+  local bt = vim.api.nvim_buf_get_option(bufnr, "buftype")
   if vim.tbl_contains(M.SPECIAL_BUFTYPES, bt) then
     return true
   end
+
+  local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+  for _, t in pairs(M.SPECIAL_FILETYPES) do
+    if string.match(ft, t) then
+      return true
+    end
+  end
+
   return false
 end
 
 ---@param bufnr integer
 M.is_editable = function(bufnr)
   -- buffer not editable at all
-  local modifiable = vim.api.nvim_buf_get_option(bufnr, 'modifiable')
+  local modifiable = vim.api.nvim_buf_get_option(bufnr, "modifiable")
 
   -- buffer editable, :w locked
-  local readonly = vim.api.nvim_buf_get_option(bufnr, 'readonly')
+  local readonly = vim.api.nvim_buf_get_option(bufnr, "readonly")
 
   return modifiable and not readonly and not M.is_special(bufnr)
 end

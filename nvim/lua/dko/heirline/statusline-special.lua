@@ -1,8 +1,8 @@
 return {
   condition = function()
     return require("heirline.conditions").buffer_matches({
-      buftype = { "nofile", "prompt", "quickfix" },
-      filetype = { "^git.*", "fugitive" },
+      buftype = require('dko.utils.buffer').SPECIAL_BUFTYPES,
+      filetype = require('dko.utils.buffer').SPECIAL_FILETYPES,
     })
   end,
   require("dko.heirline.filetype"),
