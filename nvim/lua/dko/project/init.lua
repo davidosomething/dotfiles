@@ -51,8 +51,11 @@ M.get_root_by_patterns = function(patterns)
   return getter({ bufname = vim.api.nvim_buf_get_name(0), bufnr = 0 })
 end
 
-M.git_root = function()
-  return M.get_root_by_patterns({ ".git" })
+M.git_root = function(from)
+  from = from or vim.api.nvim_buf_get_name(0)
+  return require("null-ls.utils").root_pattern(".git")(
+    from
+  )
 end
 
 return M
