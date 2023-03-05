@@ -78,12 +78,13 @@ autocmd("BufRead", {
 autocmd("BufEnter", {
   desc = "Read only mode (un)mappings",
   callback = function()
-    if vim.fn["dko#IsEditable"]("%") == 1 then
+    local is_editable = require('dko.utils.buffer').is_editable
+    if is_editable(0) then
       return
     end
 
     local closebuf = function()
-      if vim.fn["dko#IsEditable"]("%") == 1 then
+      if is_editable(0) then
         return
       end
       local totalWindows = vim.fn.winnr("$")

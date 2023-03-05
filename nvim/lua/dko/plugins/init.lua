@@ -47,9 +47,9 @@ return {
       require("colorizer").setup({
         buftypes = {
           "*",
-          "!nofile", -- ignore nofile, e.g. :Mason buffer
-          "!popup",
-          "!prompt",
+          unpack(vim.tbl_map(function(v)
+            return "!" .. v
+          end, require("dko.utils.buffer").SPECIAL_BUFTYPES)),
         },
         filetypes = {
           "css",
