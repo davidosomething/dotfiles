@@ -200,6 +200,54 @@ map("x", "<Leader>C", function()
 end, { desc = "Convert selection to smallcaps" })
 
 -- ===========================================================================
+-- <Tab> behavior
+-- ===========================================================================
+
+--[[ " <Tab> space or real tab based on line contents and cursor position
+  " The PUM is closed and characters before the cursor are not all whitespace
+  " so we need to insert alignment spaces (always spaces)
+  " Calc how many spaces, support for negative &sts values
+  let l:sts = (&softtabstop <= 0) ? shiftwidth() : &softtabstop
+  let l:sp = (virtcol('.') % l:sts)
+  if l:sp == 0 | let l:sp = l:sts | endif
+  return repeat(' ', 1 + l:sts - l:sp)
+endfunction ]]
+
+vim.keymap.set("i", "<Tab>", function()
+  -- If characters all the way back to start of line were all whitespace,
+  -- insert whatever expandtab setting is set to do.
+  local current_line = require("dko.utils.buffer").get_cursorline_contents()
+  local all_spaces_regex = "^%s*$"
+  if string.match(current_line, all_spaces_regex) then
+    return "<Tab>"
+  end
+
+  -- Insert appropriate amount of spaces instead of real tabs
+  local sts = vim.bo.softtabstop <= 0 and vim.fn.shiftwidth()
+    or vim.bo.softtabstop
+  -- How many spaces to insert after the current cursor to get to the next sts
+  local spaces_from_cursor_to_next_sts = vim.fn.virtcol(".") % sts
+  if spaces_from_cursor_to_next_sts == 0 then
+    spaces_from_cursor_to_next_sts = sts
+  end
+
+  -- Insert whitespace to next softtabstop
+  -- E.g. sts = 4, cursor at _,
+  --          1234123412341234
+  -- before   abc_
+  -- after    abc _
+  -- before   abc _
+  -- after    abc     _
+  -- before   abc    _
+  -- after    abc     _
+  return string.rep(" ", 1 + sts - spaces_from_cursor_to_next_sts)
+end, { expr = true, desc = "Tab should insert spaces" })
+
+vim.keymap.set("i", "<S-Tab>", "<C-d>", {
+  desc = "Tab inserts a tab, shift-tab should remove it",
+})
+
+-- ===========================================================================
 -- Diagnostic mappings
 -- ===========================================================================
 
