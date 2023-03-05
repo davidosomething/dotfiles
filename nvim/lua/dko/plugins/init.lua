@@ -47,9 +47,9 @@ return {
       require("colorizer").setup({
         buftypes = {
           "*",
-          "!nofile", -- ignore nofile, e.g. :Mason buffer
-          "!popup",
-          "!prompt",
+          unpack(vim.tbl_map(function(v)
+            return "!" .. v
+          end, require("dko.utils.buffer").SPECIAL_BUFTYPES)),
         },
         filetypes = {
           "css",
@@ -156,8 +156,9 @@ return {
       require("heirline").setup({
         statusline = {
           fallthrough = false,
-          require("dko.heirline.special"),
-          require("dko.heirline.default"),
+          require("dko.heirline.statusline-help"),
+          require("dko.heirline.statusline-special"),
+          require("dko.heirline.statusline-default"),
         },
         tabline = {
           require("dko.heirline.searchterm"),

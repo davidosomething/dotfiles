@@ -24,40 +24,6 @@ function! dko#InitDict(var) abort
 endfunction
 
 " ============================================================================
-" Buffer info
-" ============================================================================
-
-let s:nonfilebuftypes = join([
-      \ 'help',
-      \ 'nofile',
-      \ 'quickfix',
-      \ 'terminal',
-      \], '|')
-
-let s:nonfilefiletypes = join([
-      \ 'git$',
-      \ 'netrw',
-      \ 'vim-plug'
-      \], '|')
-
-" @param {Int|String} bufnr or {expr} as in bufname()
-" @return {Boolean}
-function! dko#IsNonFile(bufnr) abort
-  let l:ft = getbufvar(a:bufnr, '&filetype')
-  let l:bt = getbufvar(a:bufnr, '&buftype')
-  return l:bt =~# '\v(' . s:nonfilebuftypes . ')'
-        \ || l:ft =~# '\v(' . s:nonfilefiletypes . ')'
-endfunction
-
-" @param {Int|String} bufnr or {expr} as in bufname()
-" @return {Boolean}
-function! dko#IsEditable(bufnr) abort
-  return getbufvar(a:bufnr, '&modifiable')
-        \ && !getbufvar(a:bufnr, '&readonly')
-        \ && !dko#IsNonFile(a:bufnr)
-endfunction
-
-" ============================================================================
 " Whitespace settings
 " ============================================================================
 

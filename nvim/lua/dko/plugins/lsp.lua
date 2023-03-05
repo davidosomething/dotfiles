@@ -11,6 +11,7 @@ local extras = {
   "markdownlint",
   "prettier",
   "selene",
+  "shellcheck", -- used by null_ls AND bashls
   "stylua",
   "vint",
 }
