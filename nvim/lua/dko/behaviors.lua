@@ -22,6 +22,12 @@ autocmd("FileType", {
   group = windowGroup,
 })
 
+autocmd("BufLeave", {
+  desc = "Close associated quickfix window",
+  command = "lclose | cclose",
+  group = windowGroup,
+})
+
 autocmd("QuitPre", {
   desc = "Auto close corresponding loclist when quitting a window",
   callback = function()
