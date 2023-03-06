@@ -31,6 +31,7 @@
     "lint:vim:rc": "./bin/dko-header \"  ${npm_lifecycle_event}  \"        && vint -- $(eval \"$npm_package_config_vimfiles\") && echo ' ✓ passed\n'",
     "lint:vim:mine": "./bin/dko-header \"  ${npm_lifecycle_event}  \"      && vint -- vim/mine   && echo ' ✓ passed\n'",
     "lint:vim:plugin": "./bin/dko-header \"  ${npm_lifecycle_event}  \"    && vint -- vim/plugin && echo ' ✓ passed\n'",
+    "lint:nvim": "./bin/dko-header \"  ${npm_lifecycle_event}  \"          && [[ $(grep -c Error <<< $(nvim --headless +'redir>>/dev/stdout | messages | redir END' +q)) == 0 ]] && echo ' ✓ passed\n'",
     "lint:yaml": "./bin/dko-header \"  ${npm_lifecycle_event}  \"          && yamllint -- $(eval \"$npm_package_config_yamlfiles\") && echo ' ✓ passed\n'",
     "test": "npm run --silent lint"
   },
