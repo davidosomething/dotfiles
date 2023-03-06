@@ -1,10 +1,11 @@
 return {
-  init = function (self)
+  init = function(self)
     self.cwd = vim.fn.getcwd(0)
   end,
   {
     provider = function(self)
-      local is_project_root = vim.b['dko_project_root'] == self.cwd
+      local is_project_root = vim.api.nvim_buf_get_var(0, "dko_project_root")
+        == self.cwd
       if is_project_root then
         return "  ʀᴏᴏᴛ "
       end
