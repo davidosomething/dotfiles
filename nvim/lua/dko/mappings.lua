@@ -491,12 +491,45 @@ end
 -- Plugin: nvim-cmp
 -- ===========================================================================
 
-M.bind_cmp = function()
-  -- More mappings are done in plugin config
+---@return table used in cmp.setup({})
+M.setup_cmp = function()
+  local snippy_ok, snippy = pcall(require, "snippy")
+  local cmp = require("cmp")
+
   map("n", "<C-Space>", function()
     vim.cmd.startinsert({ bang = true })
-    vim.schedule(require("cmp").complete)
+    vim.schedule(cmp.complete)
   end, { desc = "In normal mode, `A`ppend and start completion" })
+
+  local snippy_mappings = snippy_ok and {
+    -- snippy: previous field
+    ["<C-b>"] = cmp.mapping(function()
+      if snippy.can_jump(-1) then
+        snippy.previous()
+      end
+      -- DO NOT FALLBACK (i.e. do not insert ^B)
+    end, { "i", "s" }),
+
+    -- snippy: expand or next field
+    ["<C-f>"] = cmp.mapping(function(fallback)
+      -- If a snippet is highlighted in PUM, expand it
+      if cmp.confirm({ select = false }) then
+        return
+      end
+      -- If in a snippet, jump to next field
+      if snippy.can_expand_or_advance() then
+        snippy.expand_or_advance()
+        return
+      end
+      fallback()
+    end, { "i", "s" }),
+  } or {}
+
+  return cmp.mapping.preset.insert(vim.tbl_extend('force', {
+    ["<C-k>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-j>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+  }, snippy_mappings))
 end
 
 -- ===========================================================================
