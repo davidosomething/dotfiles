@@ -34,6 +34,9 @@ indent_style = space
 indent_size = 2
 call_arg_parentheses = keep
 
+[*.md]
+indent_style = space
+
 # PHP http://make.wordpress.org/core/handbook/coding-standards/php/
 [*.{blade,php}]
 indent_size = 4
