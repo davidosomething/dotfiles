@@ -67,7 +67,16 @@ map(
 map("n", "<Leader>..", "<Cmd>cd! ..<CR>", { desc = "cd up a level" })
 
 map("n", "<Leader>cr", function()
-  vim.fn.chdir(require("dko.project").git_root())
+  local root = require("dko.project").git_root()
+  if root then
+    if vim.loop.chdir(root) == 0 then
+      vim.notify(
+        root,
+        vim.log.levels.INFO,
+        { title = "Changed directory" }
+      )
+    end
+  end
 end, { desc = "cd to current buffer's git root" })
 
 -- ===========================================================================
@@ -123,11 +132,11 @@ end, { desc = "Yank the filename of current buffer" })
 
 map("n", "<Leader>yp", function()
   local res = vim.fn.expand("%:p")
-  if res == "" then
-    res = vim.fn.getcwd()
+  res = res == "" and vim.loop.cwd() or res
+  if string.len(res) then
+    vim.fn.setreg("+", res)
+    vim.notify(res, vim.log.levels.INFO, { title = "Yanked filepath" })
   end
-  vim.fn.setreg("+", res)
-  vim.notify(res, vim.log.levels.INFO, { title = "Yanked filepath" })
 end, { desc = "Yank the full filepath of current buffer" })
 
 -- ===========================================================================
