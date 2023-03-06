@@ -193,6 +193,7 @@ return {
         if not p:is_installed() then
           vim.notify(
             ("Installing %s"):format(p.name),
+            vim.log.levels.INFO,
             { title = "mason", render = "compact" }
           )
           p:install():once(
@@ -201,6 +202,7 @@ return {
               if p:is_installed() then
                 vim.notify(
                   ("Successfully installed %s"):format(p.name),
+                  vim.log.levels.INFO,
                   { title = "mason", render = "compact" }
                 )
               end
