@@ -501,31 +501,33 @@ M.setup_cmp = function()
     vim.schedule(cmp.complete)
   end, { desc = "In normal mode, `A`ppend and start completion" })
 
-  local snippy_mappings = snippy_ok and {
-    -- snippy: previous field
-    ["<C-b>"] = cmp.mapping(function()
-      if snippy.can_jump(-1) then
-        snippy.previous()
-      end
-      -- DO NOT FALLBACK (i.e. do not insert ^B)
-    end, { "i", "s" }),
+  local snippy_mappings = snippy_ok
+      and {
+        -- snippy: previous field
+        ["<C-b>"] = cmp.mapping(function()
+          if snippy.can_jump(-1) then
+            snippy.previous()
+          end
+          -- DO NOT FALLBACK (i.e. do not insert ^B)
+        end, { "i", "s" }),
 
-    -- snippy: expand or next field
-    ["<C-f>"] = cmp.mapping(function(fallback)
-      -- If a snippet is highlighted in PUM, expand it
-      if cmp.confirm({ select = false }) then
-        return
-      end
-      -- If in a snippet, jump to next field
-      if snippy.can_expand_or_advance() then
-        snippy.expand_or_advance()
-        return
-      end
-      fallback()
-    end, { "i", "s" }),
-  } or {}
+        -- snippy: expand or next field
+        ["<C-f>"] = cmp.mapping(function(fallback)
+          -- If a snippet is highlighted in PUM, expand it
+          if cmp.confirm({ select = false }) then
+            return
+          end
+          -- If in a snippet, jump to next field
+          if snippy.can_expand_or_advance() then
+            snippy.expand_or_advance()
+            return
+          end
+          fallback()
+        end, { "i", "s" }),
+      }
+    or {}
 
-  return cmp.mapping.preset.insert(vim.tbl_extend('force', {
+  return cmp.mapping.preset.insert(vim.tbl_extend("force", {
     ["<C-k>"] = cmp.mapping.scroll_docs(-4),
     ["<C-j>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
@@ -574,7 +576,6 @@ end
 
 M.bind_telescope = function()
   local t = require("telescope")
-  local builtin = require("telescope.builtin")
 
   map("n", "<A-e>", function()
     if t.extensions.file_browser then
@@ -585,23 +586,24 @@ M.bind_telescope = function()
   end, { desc = "Telescope: pick existing buffer" })
 
   map("n", "<A-b>", function()
-    builtin.buffers({ layout_strategy = "vertical" })
+    require("telescope.builtin").buffers({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick existing buffer" })
 
   map("n", "<A-f>", function()
     -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#falling-back-to-find_files-if-git_files-cant-find-a-git-directory
     vim.fn.system("git rev-parse --is-inside-work-tree")
-    local finder = vim.v.shell_error == 0 and builtin.git_files
-      or builtin.find_files
+    local finder = vim.v.shell_error == 0
+        and require("telescope.builtin").git_files
+      or require("telescope.builtin").find_files
     finder({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick files in CWD" })
 
   map("n", "<A-g>", function()
-    builtin.live_grep({ layout_strategy = "vertical" })
+    require("telescope.builtin").live_grep({ layout_strategy = "vertical" })
   end, { desc = "Telescope: live grep CWD" })
 
   map("n", "<A-m>", function()
-    builtin.oldfiles({ layout_strategy = "vertical" })
+    require("telescope.builtin").oldfiles({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick from previously opened files" })
 
   map("n", "<A-p>", function()
@@ -617,7 +619,7 @@ M.bind_telescope = function()
       return
     end
 
-    builtin.find_files({
+    require("telescope.builtin").find_files({
       layout_strategy = "vertical",
       prompt_title = "Files in " .. project_root,
       cwd = project_root,
@@ -627,11 +629,11 @@ M.bind_telescope = function()
   })
 
   map("n", "<A-s>", function()
-    builtin.git_status({ layout_strategy = "vertical" })
+    require("telescope.builtin").git_status({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick from git status files" })
 
   map("n", "<A-t>", function()
-    builtin.find_files({
+    require("telescope.builtin").find_files({
       layout_strategy = "vertical",
       prompt_title = "Find tests",
       search_dirs = {
@@ -644,7 +646,7 @@ M.bind_telescope = function()
   end, { desc = "Telescope: pick files in CWD" })
 
   map("n", "<A-v>", function()
-    builtin.find_files({
+    require("telescope.builtin").find_files({
       layout_strategy = "vertical",
       prompt_title = "Find in neovim configs",
       cwd = vim.fn.stdpath("config"),
