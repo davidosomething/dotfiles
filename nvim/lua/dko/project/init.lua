@@ -43,19 +43,19 @@ M.get_root_by_patterns = function(patterns)
   end
 
   local getter = cache.by_bufnr(function(params)
-    return require("null-ls.utils").root_pattern(unpack(patterns))(
-      params.bufname
-    )
+    vim.pretty_print(params)
+    return require("null-ls.utils").root_pattern(unpack(patterns))(params.start)
   end)
 
-  return getter({ bufname = vim.api.nvim_buf_get_name(0), bufnr = 0 })
+  local bufname = vim.api.nvim_buf_get_name(0)
+  local start = string.len(bufname) > 0 and bufname or vim.loop.cwd()
+  return getter({ start = start, bufnr = 0 })
 end
 
 M.git_root = function(from)
   from = from or vim.api.nvim_buf_get_name(0)
-  return require("null-ls.utils").root_pattern(".git")(
-    from
-  )
+  local start = string.len(from) > 0 and from or vim.loop.cwd()
+  return require("null-ls.utils").root_pattern(".git")(start)
 end
 
 return M

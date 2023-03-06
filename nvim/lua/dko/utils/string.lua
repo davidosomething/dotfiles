@@ -14,7 +14,7 @@ local smallcaps =
 local letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ<>"
 ---@param text string
 M.smallcaps = function(text)
-  return vim.fn.tr(vim.fn.toupper(text), letters, smallcaps)
+  return vim.fn.tr(string.upper(text), letters, smallcaps)
 end
 
 return M
