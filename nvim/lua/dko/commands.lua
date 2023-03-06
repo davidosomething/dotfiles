@@ -28,7 +28,7 @@ command("Delete", function()
     )
     vim.cmd.edit()
   else
-    vim.cmd.bdelete()
+    vim.cmd.bdelete({ bang = true })
     vim.notify(fp, vim.log.levels.INFO, { title = ":Delete succeeded" })
   end
 end, { desc = "Delete current file" })
