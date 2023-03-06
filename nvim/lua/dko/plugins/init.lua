@@ -400,10 +400,6 @@ return {
     end,
   },
 
-  -- Add file manip commands like Remove, Move, Rename, SudoWrite
-  -- Do not lazy load, tracks buffers
-  { "tpope/vim-eunuch" },
-
   -- highlight matching html/xml tag
   -- % textobject
   {
