@@ -6,6 +6,8 @@ return {
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
     },
+    event = "VeryLazy",
+    keys = "<A-e>",
     config = function()
       require("telescope").load_extension("file_browser")
     end,
@@ -16,6 +18,7 @@ return {
     dependencies = {
       "nvim-telescope/telescope.nvim",
     },
+    event = "VeryLazy",
     config = function()
       require("telescope").load_extension("lazy")
     end,
@@ -27,6 +30,7 @@ return {
     dependencies = {
       "nvim-telescope/telescope.nvim",
     },
+    event = "VeryLazy",
     config = function()
       require("telescope").load_extension("fzf")
     end,
@@ -35,6 +39,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.1",
+    lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -46,7 +51,7 @@ return {
           },
           mappings = {
             i = {
-              ["<Esc>"] = require("telescope.actions").close,
+              ["<Esc>"] = 'close'
             },
           },
           results_title = false,
