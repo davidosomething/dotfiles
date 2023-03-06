@@ -15,16 +15,6 @@ autocmd("VimResized", {
   group = windowGroup,
 })
 
-autocmd("BufEnter", {
-  desc = "When :q, close if quickfix is the only window",
-  callback = function()
-    if vim.bo.filetype == "qf" and vim.fn.winnr("$") < 2 then
-      vim.cmd.quit()
-    end
-  end,
-  group = windowGroup,
-})
-
 autocmd("FileType", {
   pattern = "qf",
   desc = "Skip quickfix windows when :bprevious and :bnext",
