@@ -197,7 +197,7 @@ autocmd("DiagnosticChanged", {
   group = augroup("dkodiagnostic"),
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
+autocmd("LspAttach", {
   desc = "Bind LSP in buffer",
   callback = function()
     -- @TODO
