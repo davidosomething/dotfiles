@@ -4,10 +4,9 @@ local M = {}
 ---@param pat string
 M.fill = function(pat)
   local patlen = string.len(pat)
-  local tw = vim.fn.getbufvar(0, "&textwidth", 78)
   local lastcol = vim.fn.col("$")
   -- how many characters left from end of line to textwidth
-  local available = math.max(tw - (lastcol - 2), 0)
+  local available = math.max(vim.bo.textwidth - (lastcol - 2), 0)
   -- how many repititions of pat can we append before hitting &textwidth
   local reps = math.floor(available / patlen) - 1
   if reps < 1 then

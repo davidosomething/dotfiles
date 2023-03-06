@@ -105,7 +105,7 @@ autocmd("BufReadPre", {
   desc = "Disable linting and syntax highlighting for large and minified files",
   callback = function(args)
     -- See the treesitter highlight config too
-    if vim.fn.getfsize(args.file) > 1000 * 1024 then
+    if vim.loop.fs_stat(args.file).size > 1000 * 1024 then
       vim.cmd.syntax("manual")
     end
   end,
@@ -137,8 +137,14 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   callback = function(args)
     ---@diagnostic disable-next-line: missing-parameter
     local dir = vim.fs.dirname(args.file)
-    if vim.fn.isdirectory(dir) == 0 then
-      vim.fn.mkdir(dir, "p")
+    if not vim.loop.fs_stat(dir) then
+      if vim.fn.mkdir(dir, "p") then
+        vim.notify(
+          vim.fn.fnamemodify(dir, ":p:~"),
+          vim.log.levels.INFO,
+          { title = "Created dir on write" }
+        )
+      end
     end
   end,
   group = augroup("dkosaving"),
