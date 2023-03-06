@@ -154,24 +154,55 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 autocmd("DiagnosticChanged", {
   desc = "Sync diagnostics to loclist",
   callback = function(args)
-    -- data = {
-    --   diagnostics = { {
-    --       bufnr = 5,
+    --[[ args = {
+      buf = 1,
+      data = {
+        diagnostics = { {
+            bufnr = 1,
+            code = "trailing-space",
+            col = 28,
+            end_col = 29,
+            end_lnum = 161,
+            lnum = 161,
+            message = "Line with postspace.",
+            namespace = 34,
+            severity = 4,
+            source = "Lua Diagnostics.",
+            user_data = {
+              lsp = {
+                code = "trailing-space"
+              }
+            }
+          } }
+      },
+      event = "DiagnosticChanged",
+      file = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua",
+      group = 10,
+      id = 12,
+      match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
+    } ]]
 
     -- Don't sync diagnostics from unlisted buffers
-    if
-      args.data
-      and #args.data.diagnostics > 0
-      and vim.fn.getbufvar(args.data.diagnostics[1].bufnr, "&buflisted") == 0
-    then
+    if not vim.api.nvim_buf_get_option(args.buf, "buflisted") then
       return
     end
 
-    vim.diagnostic.setloclist({ open = false }) -- true would focus empty loclist
+    local original = vim.api.nvim_get_current_win()
 
-    local window = vim.api.nvim_get_current_win()
-    vim.cmd.lwindow() -- open+focus loclist if has entries, else close
-    vim.api.nvim_set_current_win(window)
+    -- Make sure all windows showing the buffer are updated
+    local wins = vim.tbl_filter(function(winnr)
+      local bufnr = vim.api.nvim_win_get_buf(winnr)
+      local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+      return ft ~= "qf" and bufnr == args.buf
+    end, vim.api.nvim_tabpage_list_wins(0))
+    for _, winnr in pairs(wins) do
+      vim.diagnostic.setloclist({ open = false, winnr = winnr }) -- true would focus empty loclist
+      -- open+focus loclist if has entries, else close
+      vim.api.nvim_set_current_win(winnr)
+      vim.cmd.lwindow()
+    end
+
+    vim.api.nvim_set_current_win(original)
   end,
   group = augroup("dkodiagnostic"),
 })
