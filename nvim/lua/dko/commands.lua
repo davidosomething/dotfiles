@@ -15,6 +15,7 @@ end, { desc = "Prepare to receive an external command" })
 command("Delete", function()
   local fp = vim.api.nvim_buf_get_name(0)
 
+  -- @TODO do this in ALL windows where buffer is shown
   vim.cmd.cclose()
   vim.cmd.lclose()
 
@@ -28,6 +29,6 @@ command("Delete", function()
     vim.cmd.edit()
   else
     vim.cmd.bdelete()
+    vim.notify(fp, vim.log.levels.INFO, { title = ":Delete succeeded" })
   end
-
 end, { desc = "Delete current file" })
