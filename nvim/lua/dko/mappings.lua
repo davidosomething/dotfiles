@@ -70,11 +70,7 @@ map("n", "<Leader>cr", function()
   local root = require("dko.project").git_root()
   if root then
     if vim.loop.chdir(root) == 0 then
-      vim.notify(
-        root,
-        vim.log.levels.INFO,
-        { title = "Changed directory" }
-      )
+      vim.notify(root, vim.log.levels.INFO, { title = "Changed directory" })
     end
   end
 end, { desc = "cd to current buffer's git root" })
@@ -410,6 +406,10 @@ end
 -- ===========================================================================
 
 M.bind_fterm = function()
+  map("n", "<A-i>", function()
+    require("FTerm").toggle()
+  end, { desc = "Toggle FTerm" })
+
   map(
     "t",
     "<A-i>",
