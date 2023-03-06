@@ -15,10 +15,6 @@ end, { desc = "Prepare to receive an external command" })
 command("Delete", function()
   local fp = vim.api.nvim_buf_get_name(0)
 
-  -- @TODO do this in ALL windows where buffer is shown
-  vim.cmd.cclose()
-  vim.cmd.lclose()
-
   local ok, err = vim.loop.fs_unlink(fp)
   if not ok then
     vim.notify(
@@ -28,6 +24,7 @@ command("Delete", function()
     )
     vim.cmd.edit()
   else
+    -- BufLeave autocmd will close associated qf wins first, then...
     vim.cmd.bdelete({ bang = true })
     vim.notify(fp, vim.log.levels.INFO, { title = ":Delete succeeded" })
   end
