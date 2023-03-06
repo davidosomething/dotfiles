@@ -6,9 +6,14 @@ ctrl_c() {
   echo "Detected CTRL-C, removing nvim.sock"
   rm "$__server"
 
+  local orphans
+  orphans=$(
+    # shellcheck disable=2009
+    ps ux | grep -v grep | grep language-server
+  )
+  [[ -n $orphans ]] && 
   echo "Possible orphan language server processes:"
-  # shellcheck disable=2009
-  ps ux | grep -v grep | grep language-server
+  echo "$orphans"
 }
 
 main() {
