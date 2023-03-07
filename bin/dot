@@ -294,9 +294,7 @@ __dko_dotfiles__py__update_pip() {
     __dko_warn "pip not found" && return 1
   python -m pip install --upgrade setuptools || return 1
   python -m pip install --upgrade wheel || return 1
-  python -m pip install --upgrade pip || return 1
-  python -m pip install --upgrade \
-    --requirement "${DOTFILES}/python/requirements.txt"
+  python -m pip install --upgrade pip
 }
 
 __dko_dotfiles__py__update_pipx() {
@@ -434,10 +432,7 @@ __dko_dotfiles__linux__update() {
   case "$1" in
   arch) __dko_dotfiles__linux__arch__update ;;
   deb) __dko_dotfiles__linux__deb__update ;;
-  *)
-    __dko_dotfiles__command_not_found "$1"
-    return 1
-    ;;
+  *) __dko_dotfiles__command_not_found "$1" ;;
   esac
 }
 
@@ -445,10 +440,7 @@ __dko_dotfiles__darwin__update() {
   case "$1" in
   brew) __dko_dotfiles__darwin__update_brew ;;
   mac) __dko_dotfiles__darwin__update_mac ;;
-  *)
-    __dko_dotfiles__command_not_found "$1"
-    return 1
-    ;;
+  *) __dko_dotfiles__command_not_found "$1" ;;
   esac
 }
 
