@@ -10,5 +10,9 @@ return {
   require("dko.heirline.align"),
   require("dko.heirline.lsp"),
   require("dko.heirline.diagnostics"),
-  { provider = "%5.(%c%) ", hl = "dkoStatusItem" },
+  {
+    condition = require("heirline.conditions").is_active,
+    provider = "%5.(%c%) ",
+    hl = "dkoStatusItem",
+  },
 }

@@ -5,10 +5,7 @@ return {
   {
     provider = function(self)
       local is_project_root = vim.b['dko_project_root'] == self.cwd
-      if is_project_root then
-        return "  ʀᴏᴏᴛ "
-      end
-      return "  "
+      return is_project_root and "  ʀᴏᴏᴛ " or "  "
     end,
     hl = "dkoStatusKey",
   },
@@ -16,16 +13,12 @@ return {
     provider = function(self)
       local uis = vim.api.nvim_list_uis()
       local ui = uis[1] or { width = 80 }
-
       local searchterm = vim.fn.getreg("/")
       local extrachars = 32 + string.len(searchterm)
       local remaining = ui.width - extrachars
-
       local cwd = vim.fn.fnamemodify(self.cwd, ":~")
-      if string.len(cwd) < remaining then
-        return " " .. cwd .. " "
-      end
-      return " " .. vim.fn.pathshorten(cwd) .. " "
+      local output = string.len(cwd) < remaining and cwd or  vim.fn.pathshorten(cwd)
+      return (" %s "):format(output)
     end,
     hl = "dkoStatusValue",
   },
