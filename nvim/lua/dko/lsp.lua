@@ -122,9 +122,9 @@ M.format = function(options)
       -- @TODO move this somewhere better
       -- =====================================================================
 
-      if vim.tbl_contains({ "lua_ls", "tsserver" }, client.name) then
+      if vim.tbl_contains({ "lua_ls" }, client.name) then
         vim.notify(
-          ("%s disabled in dko/lsp.lua"):format(client.name),
+          ("%s formatting skipped"):format(client.name),
           vim.log.levels.INFO,
           notify_opts
         )
