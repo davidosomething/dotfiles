@@ -1,4 +1,6 @@
 return {
+    condition = require("heirline.conditions").is_active,
+
   -- get vim current mode, this information will be required by the provider
   -- and the highlight functions, so we compute it only once per component
   -- evaluation and store it as a component attribute
