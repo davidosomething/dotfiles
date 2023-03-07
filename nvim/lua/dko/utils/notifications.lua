@@ -37,6 +37,7 @@ M.override_builtin = function(notify)
         msg = msg:gsub("^%[LSP%]", "")
         opts.title = "LSP"
       elseif msg == "No code actions available" then
+        -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#LL629C39-L629C39
         opts.title = "LSP"
         opts.render = "compact"
       end
