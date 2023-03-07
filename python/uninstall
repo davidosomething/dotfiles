@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-python -m pip freeze > unins && python -m pip uninstall -y -r unins && rm unins
-
