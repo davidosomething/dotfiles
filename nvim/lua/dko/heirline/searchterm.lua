@@ -6,19 +6,21 @@ return {
   end,
 
   {
-    provider = function(self)
-      if self.count.current > 0 then
-        return " " .. self.count.current .. "/" .. self.count.total .. " "
-      end
-      return " ? "
-    end,
+    provider = " ? ",
     hl = "dkoStatusKey",
   },
 
   {
     provider = function(self)
-      return " " .. self.contents .. " "
+      return (" %s "):format(self.contents)
     end,
     hl = "Search",
+  },
+
+  {
+    provider = function(self)
+      return (" %d/%d "):format(self.count.current, self.count.total)
+    end,
+    hl = "dkoStatusValue",
   },
 }

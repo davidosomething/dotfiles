@@ -9,13 +9,13 @@ return {
     end
 
     local win_width = require("dko.utils.window").status_width()
-    local filetype = vim.bo.filetype or ''
+    local filetype = vim.bo.filetype or ""
     local extrachars = 3 + 3 + string.len(filetype) + 20
     local remaining = win_width - extrachars
 
-    local relative = vim.fn.fnamemodify(self.filename, ':~:.')
+    local relative = vim.fn.fnamemodify(self.filename, ":~:.")
     if string.len(relative) < remaining then
-      return " " .. relative .. " "
+      return (" %s "):format(relative)
     end
 
     local function shorten(filename, amount)
@@ -27,7 +27,7 @@ return {
       -- '12/de/34'
       short_ancestors = vim.fn.pathshorten(short_ancestors, amount)
       -- '12/de'
-      short_ancestors = vim.fn.fnamemodify(short_ancestors, ':h')
+      short_ancestors = vim.fn.fnamemodify(short_ancestors, ":h")
 
       -- '345'
       local parent_dir = vim.fn.fnamemodify(filename, ":p:h:t")
@@ -35,13 +35,7 @@ return {
       -- file.tsx
       local just_filename = vim.fn.fnamemodify(filename, ":t")
 
-      return " "
-        .. short_ancestors
-        .. "/"
-        .. parent_dir
-        .. "/"
-        .. just_filename
-        .. " "
+      return (" %s/%s/%s "):format(short_ancestors, parent_dir, just_filename)
     end
 
     local twoshort = shorten(self.filename, 2)
