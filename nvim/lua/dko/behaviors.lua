@@ -203,21 +203,42 @@ autocmd("DiagnosticChanged", {
   group = augroup("dkodiagnostic"),
 })
 
+-- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
 autocmd("LspAttach", {
   desc = "Bind LSP in buffer",
-  callback = function()
-    -- @TODO
-    -- https://github.com/davidosomething/dotfiles/issues/508
-    -- Need to unset this on EVERY LSP attach
+  callback = function(args)
+    --[[
+    {
+      buf = 1,
+      data = {
+        client_id = 1
+      },
+      event = "LspAttach",
+      file = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua",
+      group = 11,
+      id = 13,
+      match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
+    }
+    ]]
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    -- null-ls hijacks formatexpr, unset it if not tied to a formatter
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
-    vim.bo.formatexpr = nil
-
-    if vim.b.has_lsp then
-      return
+    if
+      client.name == "null-ls"
+      and not require("null-ls.generators").can_run(
+        vim.bo[bufnr].filetype,
+        require("null-ls.methods").lsp.FORMATTING
+      )
+    then
+      vim.bo[bufnr].formatexpr = nil
     end
-    vim.b.has_lsp = true
 
-    require("dko.mappings").bind_lsp()
+    if not vim.b[bufnr].has_lsp then
+      vim.b[bufnr].has_lsp = true
+      require("dko.mappings").bind_lsp(bufnr)
+    end
   end,
   group = vim.api.nvim_create_augroup("dkolsp", {}),
 })

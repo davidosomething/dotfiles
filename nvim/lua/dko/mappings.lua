@@ -317,11 +317,11 @@ end, { desc = "Copy treesitter captures under cursor" })
 -- and :h lsp
 -- ===========================================================================
 
-M.bind_lsp = function()
+M.bind_lsp = function(bufnr)
   local function lsp_opts(opts)
     opts = vim.tbl_extend("force", {
       silent = true,
-      buffer = true,
+      buffer = bufnr,
     }, opts)
   end
 
