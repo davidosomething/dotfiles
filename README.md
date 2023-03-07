@@ -67,10 +67,6 @@ environment set up first.
   `pynvim`
 - [bootstrap/symlink](bootstrap/symlink) symlinks rc files for bash, ZSH,
   ack, (Neo)vim, etc.
-- [node/install](node/install) install default packages, requires you set up
-  [fnm] and install node first
-- [python/install](python/install) installs default pip packages. Requires
-  [pyenv] already set up
 
 ## Updating
 
@@ -81,22 +77,24 @@ environment set up first.
 - `bin/`
     - There's a [readme](bin/README.md) in `bin/` describing each
       script/binary. This directory is in the `$PATH`.
-- `local/`
-    - Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
-      and they will be automatically sourced, LAST, by the default scripts. _No
-      dots on the filenames._
 - `git/`
     - The comment character is `#` instead of `;` so I can use Markdown
       in my commit messages without trimming the headers as comments. This is
       also reflected in a custom Vim highlighting syntax in
       `vim/after/syntax/gitcommit.vim`.
+- `local/`
+    - Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
+      and they will be automatically sourced, LAST, by the default scripts. _No
+      dots on the filenames._
+- `neovim/`
+    - [nvim/README.md](nvim/README.md) for more information.
 - `python/`
     - Never `sudo pip`. Set up a [pyenv], and use a [pyenv-virtualenv].
 - `vim/`
     - If `curl` and `git` are available,
       [vim-plug](https://github.com/junegunn/vim-plug) can automatically
-      download and install itself on first run. See
-      [vim/README.md](vim/README.md) for more information.
+      download and install itself on first run.
+    - See [vim/README.md](vim/README.md) for more information.
 
 ### rc script source order
 
