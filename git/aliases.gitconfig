@@ -20,6 +20,10 @@
 
 	lasttag = describe --tags --abbrev=0
 
+	# default branch
+	db      = "!f() { git branch -a | sed -n '/HEAD ->/s/.*\\///p'; }; f"
+	def     = "!f() { git switch "$(git db)"; }; f"
+
 	d       = diff
 	ds      = diff --staged
 	dino    = diff --name-only
