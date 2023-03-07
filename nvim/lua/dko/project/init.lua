@@ -43,7 +43,6 @@ M.get_root_by_patterns = function(patterns)
   end
 
   local getter = cache.by_bufnr(function(params)
-    vim.pretty_print(params)
     return require("null-ls.utils").root_pattern(unpack(patterns))(params.start)
   end)
 
