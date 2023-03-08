@@ -392,8 +392,7 @@ M.bind_tsserver_lsp = function(bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the
   -- type declaration files.
   map("n", "gd", function()
-    local ok, ts = pcall(require, "typescript")
-    if ok and ts.goToSourceDefinition() then
+    if require('dko.typescript').source_definition(bufnr) then
       return
     end
     return telescope_builtin("lsp_definitions")
