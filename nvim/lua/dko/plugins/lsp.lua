@@ -45,7 +45,6 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = {
-      "jose-elias-alvarez/typescript.nvim",
       "nvim-lua/plenary.nvim",
     },
     config = function()
@@ -114,10 +113,6 @@ return {
       -- =====================================================================
 
       local sources = {
-        -- provide the typescript.nvim commands as LSP actions
-        -- Don't want these, they're redundant with eslint and tsserver
-        -- require("typescript.extensions.null-ls.code-actions"),
-
         -- add gitsigns.nvim commands
         null_ls.builtins.code_actions.gitsigns.with({
           config = {
@@ -219,7 +214,6 @@ return {
     dependencies = {
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
-      "jose-elias-alvarez/typescript.nvim",
       "neovim/nvim-lspconfig", -- wait for lspconfig, which waits for neodev
     },
     config = function()
@@ -301,19 +295,13 @@ return {
         end,
 
         ["tsserver"] = function()
-          -- use jose-elias-alvarez/typescript.nvim instead
-          -- This will do lspconfig.tsserver.setup()
-          require("typescript").setup(vim.tbl_extend("force", defaultOptions, {
-            disable_commands = true,
-            server = {
-              ---@param _ table client
-              ---@param bufnr number
-              on_attach = function(_, bufnr)
-                require("dko.mappings").bind_tsserver_lsp(bufnr)
-              end
-
-            }
-          }))
+          require('lspconfig')['tsserver'].setup({
+            ---@param _ table client
+            ---@param bufnr number
+            on_attach = function(_, bufnr)
+              require("dko.mappings").bind_tsserver_lsp(bufnr)
+            end
+          })
         end,
       })
     end,
