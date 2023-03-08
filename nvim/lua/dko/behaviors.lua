@@ -11,7 +11,16 @@ local autocmd = vim.api.nvim_create_autocmd
 local windowGroup = augroup("dkowindow")
 autocmd("VimResized", {
   desc = "Automatically resize windows in all tabpages when resizing Vim",
-  command = "tabdo wincmd =",
+  callback = function()
+    local ok, notify = pcall(require, 'notify')
+    if ok then
+      notify.dismiss({ silent = true, pending = true })
+    end
+    vim.cmd([[
+      tabdo wincmd =
+      QfResizeWindows
+    ]])
+  end,
   group = windowGroup,
 })
 
@@ -19,12 +28,6 @@ autocmd("FileType", {
   pattern = "qf",
   desc = "Skip quickfix windows when :bprevious and :bnext",
   command = "set nobuflisted",
-  group = windowGroup,
-})
-
-autocmd("BufLeave", {
-  desc = "Close associated quickfix window",
-  command = "lclose | cclose",
   group = windowGroup,
 })
 
