@@ -204,6 +204,8 @@ autocmd("DiagnosticChanged", {
 })
 
 -- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
+-- Happens before on_attach, so can still use on_attach to do more stuff or
+-- override this
 autocmd("LspAttach", {
   desc = "Bind LSP in buffer",
   callback = function(args)
