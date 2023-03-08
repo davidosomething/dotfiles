@@ -20,7 +20,7 @@ return {
         quickfix = { suffix = "q", options = {} },
         treesitter = { suffix = "t", options = {} },
         undo = { suffix = "", options = {} },
-        window = { suffix = "w", options = {} },
+        window = { suffix = "", options = {} }, -- broken going to unlisted
         yank = { suffix = "", options = {} }, -- confusing
       })
     end,
