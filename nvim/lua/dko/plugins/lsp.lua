@@ -225,7 +225,7 @@ return {
 
       local cmpNvimLsp = require("cmp_nvim_lsp")
 
-      local defaultOptions = {
+      local default_opts = {
         capabilities = cmpNvimLsp.default_capabilities(),
       }
 
@@ -235,11 +235,11 @@ return {
       -- diagnostic-lsp.lua has an autocmd defined
       masonLspConfig.setup_handlers({
         function(server)
-          lspconfig[server].setup(defaultOptions)
+          lspconfig[server].setup(default_opts)
         end,
 
         ["bashls"] = function()
-          lspconfig.bashls.setup(vim.tbl_extend("force", defaultOptions, {
+          lspconfig.bashls.setup(vim.tbl_extend("force", default_opts, {
             settings = {
               bashIde = {
                 shellcheckArguments = "--exclude=SC1090,SC1091",
@@ -249,7 +249,7 @@ return {
         end,
 
         ["jsonls"] = function()
-          lspconfig.jsonls.setup(vim.tbl_extend("force", defaultOptions, {
+          lspconfig.jsonls.setup(vim.tbl_extend("force", default_opts, {
             settings = {
               json = {
                 schemas = require("schemastore").json.schemas(),
@@ -260,7 +260,7 @@ return {
         end,
 
         ["lua_ls"] = function()
-          lspconfig.lua_ls.setup(vim.tbl_extend("force", defaultOptions, {
+          lspconfig.lua_ls.setup(vim.tbl_extend("force", default_opts, {
             settings = {
               Lua = {
                 workspace = {
@@ -275,7 +275,7 @@ return {
 
         ["stylelint_lsp"] = function()
           lspconfig.stylelint_lsp.setup(
-            vim.tbl_extend("force", defaultOptions, {
+            vim.tbl_extend("force", default_opts, {
               -- Disable on some filetypes
               -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/stylelint_lsp.lua
               filetypes = {
@@ -295,13 +295,13 @@ return {
         end,
 
         ["tsserver"] = function()
-          require('lspconfig')['tsserver'].setup({
+          lspconfig.tsserver.setup(vim.tbl_extend("force", default_opts, {
             ---@param _ table client
             ---@param bufnr number
             on_attach = function(_, bufnr)
               require("dko.mappings").bind_tsserver_lsp(bufnr)
             end
-          })
+          }))
         end,
       })
     end,

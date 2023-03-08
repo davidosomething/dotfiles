@@ -7,8 +7,7 @@ M.source_definition = function()
     return false
   end
 
-  local positionParams =
-    vim.lsp.util.make_position_params(0, client.offset_encoding)
+  local position = vim.lsp.util.make_position_params(0, client.offset_encoding)
 
   local callback = function(...)
     local args = { ... }
@@ -18,22 +17,18 @@ M.source_definition = function()
       return false
     end
 
+    ---@TODO put results into telescope list instead
+    --this will immediately jump to source definition
     local handler = client.handlers["textDocument/definition"]
       or vim.lsp.handlers["textDocument/definition"]
-    if not handler then
-      print(
-        "failed to go to source definition: could not resolve definition handler"
-      )
-      return
-    end
     handler(unpack(args))
   end
 
   return client.request("workspace/executeCommand", {
     command = "_typescript.goToSourceDefinition",
     arguments = {
-      positionParams.textDocument.uri,
-      positionParams.position,
+      position.textDocument.uri,
+      position.position,
     },
   }, callback)
 end
