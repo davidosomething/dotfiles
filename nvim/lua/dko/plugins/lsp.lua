@@ -115,7 +115,8 @@ return {
 
       local sources = {
         -- provide the typescript.nvim commands as LSP actions
-        require("typescript.extensions.null-ls.code-actions"),
+        -- Don't want these, they're redundant with eslint and tsserver
+        -- require("typescript.extensions.null-ls.code-actions"),
 
         -- add gitsigns.nvim commands
         null_ls.builtins.code_actions.gitsigns.with({
@@ -302,7 +303,17 @@ return {
         ["tsserver"] = function()
           -- use jose-elias-alvarez/typescript.nvim instead
           -- This will do lspconfig.tsserver.setup()
-          require("typescript").setup(defaultOptions)
+          require("typescript").setup(vim.tbl_extend("force", defaultOptions, {
+            disable_commands = true,
+            server = {
+              ---@param _ table client
+              ---@param bufnr number
+              on_attach = function(_, bufnr)
+                require("dko.mappings").bind_tsserver_lsp(bufnr)
+              end
+
+            }
+          }))
         end,
       })
     end,

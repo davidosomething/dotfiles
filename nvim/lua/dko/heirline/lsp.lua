@@ -1,10 +1,8 @@
-local keyOrOff = function()
-  return require("heirline.conditions").is_active() and "dkoStatusKey"
-    or "StatusLineNC"
-end
-
 return {
-  condition = require("heirline.conditions").lsp_attached,
+  condition = function()
+    local conditions = require("heirline.conditions")
+    return conditions.lsp_attached() and conditions.is_active()
+  end,
   update = {
     "LspAttach",
     "LspDetach",
@@ -13,10 +11,7 @@ return {
   },
   provider = function()
     local data = require("everandever.lsp").status_progress({ bufnr = 0 })
-    if data then
-      return " " .. data.bar .. " " .. data.lowest.name .. " "
-    end
-    return ""
+    return data and (" %s %s "):format(data.bar, data.lowest.name) or ""
   end,
-  hl = keyOrOff
+  hl = "dkoStatusKey",
 }

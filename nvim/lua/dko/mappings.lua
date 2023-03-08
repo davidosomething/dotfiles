@@ -37,12 +37,6 @@ map("n", "<S-Right>", "<C-w>>", resizeOpts)
 -- Switch mode
 -- ===========================================================================
 
-local leaderLeaderOpts = {
-  desc = "Toggle visual/normal mode with space-space",
-}
-map("n", "<Leader><Leader>", "V", leaderLeaderOpts)
-map("x", "<Leader><Leader>", "<Esc>", leaderLeaderOpts)
-
 map({ "c", "i" }, "jj", "<Esc>", { desc = "Back to normal mode" })
 
 -- ===========================================================================
@@ -317,28 +311,29 @@ end, { desc = "Copy treesitter captures under cursor" })
 -- and :h lsp
 -- ===========================================================================
 
+---@param method string
+---@return boolean whether or not telescope was succesfully called
+local function telescope_builtin(method)
+  local ok, builtin = pcall(require, "telescope.builtin")
+  if ok then
+    builtin[method]({
+      -- always show in picker so i can choose how to open it (e.g. split,
+      -- vsplit)
+      jump_type = "never",
+      layout_strategy = "vertical",
+    })
+    return true
+  end
+  return false
+end
+
+-- LspAttach autocmd callback
 M.bind_lsp = function(bufnr)
   local function lsp_opts(opts)
     opts = vim.tbl_extend("force", {
       silent = true,
       buffer = bufnr,
     }, opts)
-  end
-
-  ---@param method string
-  ---@return boolean whether or not telescope was succesfully called
-  local function telescope_builtin(method)
-    local ok, builtin = pcall(require, "telescope.builtin")
-    if ok then
-      builtin[method]({
-        -- always show in picker so i can choose how to open it (e.g. split,
-        -- vsplit)
-        jump_type = "never",
-        layout_strategy = "vertical",
-      })
-      return true
-    end
-    return false
   end
 
   map(
@@ -378,6 +373,8 @@ M.bind_lsp = function(bufnr)
     vim.lsp.buf.code_action,
     lsp_opts({ desc = "LSP Code Action" })
   )
+  map("n", "<Leader><Leader>", require('dko.lsp').code_action)
+
 
   map("n", "gr", function()
     return telescope_builtin("lsp_references")
@@ -388,6 +385,24 @@ M.bind_lsp = function(bufnr)
   map("n", "<A-=>", function()
     require("dko.lsp").format({ async = false })
   end, lsp_opts({ desc = "Fix and format buffer with dko.lsp.format_buffer" }))
+end
+
+-- on_attach binding for tsserver
+M.bind_tsserver_lsp = function(bufnr)
+  -- Use TypeScript's Go To Source Definition so we don't end up in the
+  -- type declaration files.
+  map("n", "gd", function()
+    local ok, ts = pcall(require, "typescript")
+    if ok and ts.goToSourceDefinition() then
+      return
+    end
+    return telescope_builtin("lsp_definitions")
+      or vim.lsp.buf.definition()
+  end, {
+    desc = "Go To Source Definition (typescript.nvim)",
+    silent = true,
+    buffer = bufnr,
+  })
 end
 
 -- ===========================================================================
