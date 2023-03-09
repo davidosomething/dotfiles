@@ -7,7 +7,7 @@ return {
     version = false,
     config = function()
       require("mini.bracketed").setup({
-        buffer = { suffix = "", options = {} }, -- using cybu
+        buffer = { suffix = "b", options = {} }, -- using cybu
         comment = { suffix = "c", options = {} },
         conflict = { suffix = "x", options = {} },
         -- don't want diagnostic float focus, have in mappings.lua
@@ -146,6 +146,34 @@ return {
   {
     "davidosomething/bufhavior.nvim",
     dev = true,
+    config = function()
+      local bufhavior = require("bufhavior")
+      bufhavior.setup({
+        close_qf_with_parent = false,
+      })
+
+      local group = vim.api.nvim_create_augroup("dkobufhavior", {})
+
+      vim.api.nvim_create_autocmd("BufEnter", {
+        callback = function ()
+          bufhavior.toggle()
+        end,
+        group = group,
+      })
+
+      --[[ vim.api.nvim_create_autocmd("BufWinEnter", {
+        callback = function()
+          print "bufwinenter"
+        end,
+        group = group
+      }) ]]
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "DKOLoclistUpdated",
+        callback = bufhavior.toggle,
+        group = group,
+      })
+    end,
   },
 
   -- pretty format quickfix and loclist
@@ -177,7 +205,7 @@ return {
     end,
   },
 
-  {
+  --[[ {
     "ghillb/cybu.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
@@ -206,7 +234,7 @@ return {
       })
       require("dko.mappings").bind_cybu()
     end,
-  },
+  }, ]]
 
   -- zoom in/out of a window
   -- this plugin accounts for command window and doesn't use sessions

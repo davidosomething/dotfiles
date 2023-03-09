@@ -25,6 +25,20 @@ return {
           require("dko.heirline.lazy"),
           require("dko.heirline.remote"),
         },
+        winbar = {
+          condition = function()
+            return true
+          end,
+          require("dko.heirline.bufnr"),
+          { provider = "/" },
+          require("dko.heirline.buftype"),
+          {
+            provider = function()
+              local res = vim.fn.getloclist(0, { winid = 0, size = 0 })
+              return ("qf.winid[%d] qf.size[%d]"):format(res.winid, res.size)
+            end,
+          }
+        },
       })
       local ALWAYS = 2
       vim.o.showtabline = ALWAYS

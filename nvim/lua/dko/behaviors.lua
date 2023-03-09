@@ -28,7 +28,7 @@ autocmd("FileType", {
   group = windowGroup,
 })
 
-autocmd("QuitPre", {
+--[[ autocmd("QuitPre", {
   desc = "Auto close corresponding loclist when quitting a window",
   callback = function()
     if vim.bo.filetype ~= "qf" then
@@ -37,7 +37,7 @@ autocmd("QuitPre", {
   end,
   nested = true,
   group = windowGroup,
-})
+}) ]]
 
 local projectGroup = augroup("dkoproject")
 autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
@@ -183,8 +183,6 @@ autocmd("DiagnosticChanged", {
       return
     end
 
-    local original = vim.api.nvim_get_current_win()
-
     -- Make sure all windows showing the buffer are updated
     local wins = vim.tbl_filter(function(winnr)
       local bufnr = vim.api.nvim_win_get_buf(winnr)
@@ -194,11 +192,8 @@ autocmd("DiagnosticChanged", {
     for _, winnr in pairs(wins) do
       vim.diagnostic.setloclist({ open = false, winnr = winnr }) -- true would focus empty loclist
       -- open+focus loclist if has entries, else close
-      vim.api.nvim_set_current_win(winnr)
-      vim.cmd.lwindow()
     end
-
-    vim.api.nvim_set_current_win(original)
+    vim.cmd.doautocmd("User DKOLoclistUpdated")
   end,
   group = augroup("dkodiagnostic"),
 })
