@@ -1,4 +1,7 @@
 local settings = {
+  heirline = {
+    show_buftype = false,
+  },
   treesitter = {
     highlight_enabled = false,
   },
