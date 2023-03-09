@@ -99,12 +99,14 @@ end, { desc = "Edit lua/dko/plugins/" })
 
 map({ "i", "n" }, "<F1>", "<NOP>", { desc = "Disable help shortcut key" })
 
-map(
-  "n",
-  "<F1>",
-  require("dko.utils.help"),
-  { desc = "Show vim help for <cexpr>" }
-)
+map("n", "<F1>", function()
+  local h = require("dko.utils.help")
+  local res = h.find(vim.fn.expand("<cexpr>"))
+  vim.pretty_print(res)
+  if res then
+    vim.cmd.help(res.match)
+  end
+end, { desc = "Show vim help for <cexpr>" })
 
 map("n", "<Leader>yn", function()
   local res = vim.fn.expand("%:t")
@@ -373,8 +375,7 @@ M.bind_lsp = function(bufnr)
     vim.lsp.buf.code_action,
     lsp_opts({ desc = "LSP Code Action" })
   )
-  map("n", "<Leader><Leader>", require('dko.lsp').code_action)
-
+  map("n", "<Leader><Leader>", require("dko.lsp").code_action)
 
   map("n", "gr", function()
     return telescope_builtin("lsp_references")
@@ -392,11 +393,10 @@ M.bind_tsserver_lsp = function(bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the
   -- type declaration files.
   map("n", "gd", function()
-    if require('dko.typescript').source_definition() then
+    if require("dko.typescript").source_definition() then
       return
     end
-    return telescope_builtin("lsp_definitions")
-      or vim.lsp.buf.definition()
+    return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
   end, {
     desc = "Go To Source Definition (typescript.nvim)",
     silent = true,

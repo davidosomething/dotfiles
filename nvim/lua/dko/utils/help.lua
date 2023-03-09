@@ -1,32 +1,63 @@
-return function()
-  local cexpr = vim.fn.expand("<cexpr>")
+local M = {}
+
+M.find = function(haystack)
+  if not haystack then
+    return nil
+  end
+
   local match
-  if string.find(cexpr, "vim%.g%.") then
-    local prefixed = "g:" .. cexpr:gsub("vim%.g%.(.-)$", "%1")
-    print("Looking up vim.g " .. prefixed)
-    vim.cmd.help(prefixed)
-    return
-  elseif string.find(cexpr, "vim%.[b|g|t|w]?o%.") then
-    match = "'" .. cexpr:gsub("vim%.[b|g|t|w]o%.(.-)$", "%1") .. "'"
-  elseif string.find(cexpr, "vim%.opt%.") then
-    match = "'"
-      .. cexpr:gsub("vim%.opt%.(.-)$", "%1"):gsub("(.*):.*$", "%1")
-      .. "'"
-  elseif string.find(cexpr, "vim%.[cmd|fn]") then
+
+  if haystack:find("vim%.g%.") then
+    match = ("g:%s"):format(haystack:gsub("vim%.g%.(.-)$", "%1"))
+    return { group = "vim.g", haystack = haystack, match = match }
+  end
+
+  if haystack:find("vim%.[b|g|t|w]?o%.") then
+    match = ("'%s'"):format(haystack:gsub("vim%.[b|g|t|w]o%.(.-)$", "%1"))
+    return { group = "vim.b|g|t|w", haystack = haystack, match = match }
+  end
+
+  if haystack:find("vim%.opt%.") then
+    match = ("'%s'"):format(
+      haystack:gsub("vim%.opt%.(.-)$", "%1"):gsub("(.*):.*$", "%1")
+    )
+    return { group = "vim.opt", haystack = haystack, match = match }
+  end
+
+  if haystack:find("vim%.[cmd|fn|nvim]") then
     -- vim.xyz.this(abc) -> this
-    match = cexpr:gsub("vim%..-%.(.*)", "%1")
+    match = haystack:gsub("vim%..-%.(.*)", "%1")
     match = match:gsub("(.*)%(.*", "%1")
-  elseif string.find(cexpr, "vim%.[api|diagnostic|keymap|lsp]") then
+    return { group = "vim.cmd|fn", haystack = haystack, match = match }
+  end
+
+  if haystack:find("vim%.api%.nvim") then
+    match = haystack:gsub("vim%.api%.(.-)$", "%1")
+    return { group = "vim.api.nvim*", haystack = haystack, match = match }
+  end
+
+  if haystack:find("vim%.[api|diagnostic|keymap|lsp]") then
     -- vim.xyz.this(abc) -> vim.xyz.this
-    match = cexpr:gsub("(vim%..-)%(.*$", "%1")
-  elseif string.find(cexpr, "string%.") then
+    match = haystack:gsub("(vim%..-)%(.*$", "%1")
+    return {
+      group = "vim.api|diagnostic|keymap|lsp",
+      haystack = haystack,
+      match = match,
+    }
+  end
+
+  if haystack:find("[string|table]%.") then
     -- string.xyz(abc) -> string.xyz
-    match = cexpr:gsub("(%a%..-)%(.*$", "%1")
-  else
-    match = "luaref-" .. cexpr:gsub("(.*)%(.*$", "%1")
+    match = haystack:gsub("(%a%..-)%(.*$", "%1")
+    return { group = "lua builtin", haystack = haystack, match = match }
   end
-  if match ~= nil then
-    print("Looking up " .. match)
-    vim.cmd.help(match)
+
+  if vim.bo.filetype == "lua" then
+    match = "luaref-" .. haystack:gsub("(.*)%(.*$", "%1")
+    return { group = "luaref", haystack = haystack, match = match }
   end
+
+  return { group = "fallback", haystack = haystack, match = haystack }
 end
+
+return M

@@ -7,7 +7,6 @@ return {
       filetype = require('dko.utils.buffer').SPECIAL_FILETYPES,
     })
   end,
-  require("dko.heirline.buftype"),
   require("dko.heirline.filetype"),
   require("dko.heirline.align"),
 }

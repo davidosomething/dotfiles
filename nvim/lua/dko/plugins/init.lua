@@ -143,11 +143,6 @@ return {
   -- ui: buffer and window manipulation
   -- =========================================================================
 
-  {
-    "davidosomething/bufhavior.nvim",
-    dev = true,
-  },
-
   -- pretty format quickfix and loclist
   {
     "https://gitlab.com/yorickpeterse/nvim-pqf.git",
@@ -238,7 +233,7 @@ return {
   -- remember/restore last cursor position in files
   {
     "ethanholz/nvim-lastplace",
-    config = true
+    config = true,
   },
 
   -- =========================================================================
