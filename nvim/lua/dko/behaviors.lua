@@ -12,14 +12,11 @@ local windowGroup = augroup("dkowindow")
 autocmd("VimResized", {
   desc = "Automatically resize windows in all tabpages when resizing Vim",
   callback = function()
-    local ok, notify = pcall(require, 'notify')
+    local ok, notify = pcall(require, "notify")
     if ok then
       notify.dismiss({ silent = true, pending = true })
     end
-    vim.cmd([[
-      tabdo wincmd =
-      QfResizeWindows
-    ]])
+    vim.cmd([[tabdo wincmd =]])
   end,
   group = windowGroup,
 })

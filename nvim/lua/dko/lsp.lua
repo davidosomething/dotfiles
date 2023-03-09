@@ -1,6 +1,29 @@
 local M = {}
 
 -- ===========================================================================
+-- LSP borders
+-- Add default rounded border and suppress no info messages
+-- E.g. used by /usr/share/nvim/runtime/lua/vim/lsp/handlers.lua
+-- To see example of this fn used, press K for LSP hover
+-- Overriding with vim.lsp.with is the way recommended by docs (as opposed to
+-- overriding vim.lsp.util.open_floating_preview entirely)
+-- ===========================================================================
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+  -- suppress 'No information available' notification (nvim-0.9 ?)
+  -- https://github.com/neovim/neovim/pull/21531/files#diff-728d3ae352b52f16b51a57055a3b20efc4e992efacbf1c34426dfccbba30037cR339
+  silent = true,
+})
+
+vim.lsp.handlers["textDocument/signatureHelp"] =
+  vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = "rounded",
+    -- suppress 'No information available' notification (nvim-0.8!)
+    silent = true,
+  })
+
+-- ===========================================================================
 -- LSP Notifications
 -- ===========================================================================
 
@@ -170,8 +193,8 @@ local function range_from_selection()
   -- TODO: Use `vim.region()` instead https://github.com/neovim/neovim/pull/13896
 
   -- [bufnum, lnum, col, off]; both row and column 1-indexed
-  local start = vim.fn.getpos('v')
-  local end_ = vim.fn.getpos('.')
+  local start = vim.fn.getpos("v")
+  local end_ = vim.fn.getpos(".")
   local start_row = start[2]
   local start_col = start[3]
   local end_row = end_[2]
@@ -186,12 +209,10 @@ local function range_from_selection()
     start_col, end_col = end_col, start_col
   end
   return {
-    ['start'] = { start_row, start_col - 1 },
-    ['end'] = { end_row, end_col - 1 },
+    ["start"] = { start_row, start_col - 1 },
+    ["end"] = { end_row, end_col - 1 },
   }
 end
-
-
 
 -- taken from vim.lsp.buf
 ---@param options table|nil Optional table which holds the following optional fields:
@@ -217,9 +238,9 @@ end
 ---           using mark-like indexing. See |api-indexing|
 ---
 ---@see https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_codeAction
-function M.code_action(options)
-  local util = require('vim.lsp.util')
-  vim.validate({ options = { options, 't', true } })
+M.code_action = function(options)
+  local util = require("vim.lsp.util")
+  vim.validate({ options = { options, "t", true } })
   options = options or {}
   -- Detect old API call code_action(context) which should now be
   -- code_action({ context = context} )
@@ -229,18 +250,21 @@ function M.code_action(options)
   local context = options.context or {}
   if not context.diagnostics then
     local bufnr = vim.api.nvim_get_current_buf()
-    context.diagnostics = vim.lsp.diagnostic.get_line_diagnostics(bufnr, nil, nil, nil)
+    context.diagnostics =
+      vim.lsp.diagnostic.get_line_diagnostics(bufnr, nil, nil, nil)
   end
   local params
   local mode = vim.api.nvim_get_mode().mode
   if options.range then
-    assert(type(options.range) == 'table', 'code_action range must be a table')
-    local start = assert(options.range.start, 'range must have a `start` property')
-    local end_ = assert(options.range['end'], 'range must have a `end` property')
+    assert(type(options.range) == "table", "code_action range must be a table")
+    local start =
+      assert(options.range.start, "range must have a `start` property")
+    local end_ =
+      assert(options.range["end"], "range must have a `end` property")
     params = util.make_given_range_params(start, end_)
-  elseif mode == 'v' or mode == 'V' then
+  elseif mode == "v" or mode == "V" then
     local range = range_from_selection()
-    params = util.make_given_range_params(range.start, range['end'])
+    params = util.make_given_range_params(range.start, range["end"])
   else
     params = util.make_range_params()
   end
@@ -248,9 +272,8 @@ function M.code_action(options)
 
   --code_action_request
   local bufnr = vim.api.nvim_get_current_buf()
-  local method = 'textDocument/codeAction'
+  local method = "textDocument/codeAction"
   vim.lsp.buf_request_all(bufnr, method, params, function(results)
-
     local action_tuples = {}
     for client_id, result in pairs(results) do
       for _, action in pairs(result.result or {}) do
@@ -258,11 +281,10 @@ function M.code_action(options)
       end
     end
     if #action_tuples == 0 then
-      vim.notify('No code actions available', vim.log.levels.INFO)
+      vim.notify("No code actions available", vim.log.levels.INFO)
       return
     end
     vim.pretty_print(action_tuples)
-
   end)
 end
 

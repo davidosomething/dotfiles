@@ -240,8 +240,16 @@ vim.o.tagcase = "followscs"
 -- grep
 -- ===========================================================================
 
-local grepper = vim.fn["dko#grepper#Get"]()
-if string.len(grepper.command) > 0 then
+local grepper = (
+  vim.fn.executable(require("dko.grepper.rg").command) == 1
+    and require("dko.grepper.rg")
+  or vim.fn.executable(require("dko.grepper.ag").command) == 1 and require(
+    "dko.grepper.ag"
+  )
+  or vim.fn.executable(require("dko.grepper.ack").command) == 1
+    and require("dko.grepper.ack")
+)
+if grepper then
   vim.o.grepprg = grepper.command .. " " .. table.concat(grepper.options, " ")
   vim.o.grepformat = grepper.format
 end
