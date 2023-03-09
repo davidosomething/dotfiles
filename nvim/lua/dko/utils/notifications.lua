@@ -26,7 +26,7 @@ end
 ---@param notify function|table
 M.override_builtin = function(notify)
   ---@param msg string
-  ---@param level number vim.log.levels.*
+  ---@param level? number vim.log.levels.*
   ---@param opts? table
   local override = function(msg, level, opts)
     if not opts then

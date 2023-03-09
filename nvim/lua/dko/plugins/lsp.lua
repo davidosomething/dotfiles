@@ -138,7 +138,7 @@ return {
         border = "rounded",
         sources = sources,
         -- defaults to false, but lets just sync it in case I want to change
-        -- in my diagnostic-lsp.lua
+        -- in my diagnostic.lua
         update_in_insert = vim.diagnostic.config().update_in_insert,
       })
     end,
@@ -232,7 +232,7 @@ return {
       local lspconfig = require("lspconfig")
 
       -- Note that instead of on_attach for each server setup,
-      -- diagnostic-lsp.lua has an autocmd defined
+      -- behaviors.lua has an autocmd LspAttach defined
       masonLspConfig.setup_handlers({
         function(server)
           lspconfig[server].setup(default_opts)

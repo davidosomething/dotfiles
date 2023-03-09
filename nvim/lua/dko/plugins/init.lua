@@ -1,4 +1,4 @@
-local SIGNS = require("dko.diagnostic-lsp").SIGNS
+local SIGNS = require("dko.diagnostic").SIGNS
 
 return {
 
@@ -140,15 +140,12 @@ return {
   },
 
   -- =========================================================================
-  -- ui: quickfix / loclist modifications
+  -- ui: buffer and window manipulation
   -- =========================================================================
 
-  -- shrink quickfix to fit
   {
-    "blueyed/vim-qf_resize",
-    init = function()
-      vim.g.qf_resize_min_height = 3
-    end,
+    "davidosomething/bufhavior.nvim",
+    dev = true,
   },
 
   -- pretty format quickfix and loclist
@@ -167,10 +164,6 @@ return {
       })
     end,
   },
-
-  -- =========================================================================
-  -- ui: buffer and window manipulation
-  -- =========================================================================
 
   -- remove buffers without messing up window layout
   {

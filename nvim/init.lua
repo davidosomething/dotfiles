@@ -23,7 +23,8 @@ end
 
 require("dko.opt")
 require("dko.builtin-syntax")
-require("dko.diagnostic-lsp")
+require("dko.diagnostic")
+require("dko.lsp")
 require("dko.terminal")
 require("dko.commands")
 require("dko.mappings")
