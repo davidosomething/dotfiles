@@ -1,6 +1,5 @@
 return {
   require("dko.heirline.mode"),
-  require("dko.heirline.buftype"),
   require("dko.heirline.filetype"),
   require("dko.heirline.filename"),
   require("dko.heirline.fileflags"),

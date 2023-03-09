@@ -2,10 +2,10 @@
 -- Change vim behavior via autocommands
 -- ===========================================================================
 
-local function augroup(name)
-  return vim.api.nvim_create_augroup(name, {})
+local augroup = function(name, opts)
+  opts = opts or {}
+  return vim.api.nvim_create_augroup(name, opts)
 end
-
 local autocmd = vim.api.nvim_create_autocmd
 
 local windowGroup = augroup("dkowindow")
@@ -242,5 +242,5 @@ autocmd("LspAttach", {
       require("dko.mappings").bind_lsp(bufnr)
     end
   end,
-  group = vim.api.nvim_create_augroup("dkolsp", {}),
+  group = augroup("dkolsp"),
 })
