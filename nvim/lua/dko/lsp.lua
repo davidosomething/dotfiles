@@ -56,7 +56,7 @@ M.bind_notify = function()
   vim.lsp.handlers["window/showMessage"] = function(_, result, ctx, _)
     local client = vim.lsp.get_client_by_id(ctx.client_id)
     local client_name = client and client.name or ctx.client_id
-    local title = ("LSP | %s"):format(client_name)
+    local title = ("LSP > %s"):format(client_name)
     if not client then
       vim.notify(result.message, vim.log.levels.ERROR, { title = title })
     else
@@ -65,26 +65,6 @@ M.bind_notify = function()
     end
     return result
   end
-end
-
--- ===========================================================================
--- LSP Notifications
--- ===========================================================================
-
-local notify_opts = {
-  title = "LSP",
-  render = "compact",
-}
-
----Hooked into null_ls runtime_conditions to notify on run
----@param params table
-M.null_ls_notify_on_format = function(params)
-  local source = params:get_source()
-  vim.notify(
-    ("null-ls[%s] format"):format(source.name),
-    vim.log.levels.INFO,
-    notify_opts
-  )
 end
 
 -- ===========================================================================
@@ -150,9 +130,9 @@ M.format_jsts = function()
     local has_epp = M.has_eslint_plugin_prettier()
     if has_epp then
       vim.notify(
-        "null-ls[prettier] prefer eslint-plugin-prettier",
+        "skip: prefer eslint-plugin-prettier",
         vim.log.levels.INFO,
-        notify_opts
+        { title = "LSP > null-ls > prettier" }
       )
     else
       table.insert(queue, M.format_with_null_ls)
@@ -162,7 +142,9 @@ M.format_jsts = function()
   local eslint = M.get_active_client("eslint")
   if eslint then
     table.insert(queue, function()
-      vim.notify("eslint.applyAllFixes", vim.log.levels.INFO, notify_opts)
+      vim.notify("eslint.applyAllFixes", vim.log.levels.INFO, {
+        title = "LSP > eslint",
+      })
       vim.cmd.EslintFixAll()
     end)
   end
@@ -198,23 +180,20 @@ M.format = function(options)
 
       if vim.tbl_contains({ "lua_ls" }, client.name) then
         vim.notify(
-          ("%s formatting skipped"):format(client.name),
+          ("skip"):format(client.name),
           vim.log.levels.INFO,
-          notify_opts
+          { title = ("LSP > %s"):format(client.name) }
         )
         return false
       end
 
-      -- =====================================================================
-      -- My null-ls runtime_condition will notify
-      -- This will notify for other LSPs
-      -- =====================================================================
-
+      -- This will notify for non-null-ls
+      -- null-ls runtime_condition notifies on its own
       if client.name ~= "null-ls" then
         vim.notify(
-          ("%s format"):format(client.name),
+          "format",
           vim.log.levels.INFO,
-          notify_opts
+          { title = ("LSP > %s"):format(client.name) }
         )
       end
 
@@ -224,6 +203,15 @@ M.format = function(options)
 
   -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L147-L187
   vim.lsp.buf.format(options)
+end
+
+---Hooked into null_ls runtime_conditions to notify on run
+---@param params table
+M.null_ls_notify_on_format = function(params)
+  local source = params:get_source()
+  vim.notify("format", vim.log.levels.INFO, {
+    title = ("LSP > null-ls > %s"):format(source.name),
+  })
 end
 
 -- ===========================================================================
