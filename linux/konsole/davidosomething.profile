@@ -1,10 +1,11 @@
 [Appearance]
 AntiAliasFonts=true
+BoldIntense=true
 ColorScheme=base16-tomorrow-night
 DimmValue=18
 Font=FuraMono Nerd Font Mono,12,-1,5,50,0,0,0,0,0
 LineSpacing=0
-UseFontLineChararacters=true
+UseFontLineChararacters=false
 
 [General]
 DimWhenInactive=true
