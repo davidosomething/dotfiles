@@ -24,8 +24,7 @@ command("Delete", function()
     )
     vim.cmd.edit()
   else
-    -- BufLeave autocmd will close associated qf wins first, then...
-    vim.cmd.bdelete({ bang = true })
+    require('dko.utils.buffer').close()
     vim.notify(fp, vim.log.levels.INFO, { title = ":Delete succeeded" })
   end
 end, { desc = "Delete current file" })
