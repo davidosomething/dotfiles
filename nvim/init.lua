@@ -31,6 +31,12 @@ require("dko.mappings")
 require("dko.behaviors")
 require("dko.lazy")
 
+vim.filetype.add({
+  extension = {
+    conf = 'conf',
+  }
+})
+
 -- Disallow unsafe local vimrc commands
 -- Leave down here since it trims local settings
 vim.o.secure = true
