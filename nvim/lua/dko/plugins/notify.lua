@@ -35,8 +35,8 @@ return {
         end
         if not opts.title then
           if require("dko.utils.string").starts_with(msg, "[LSP]") then
-            local client = msg:match("^%[LSP%]%[(.*)%]", "%1")
-            if client then
+            local client, found_client = msg:gsub("^%[LSP%]%[(.-)%] .*", "%1")
+            if found_client > 0 then
               opts.title = ("LSP > %s"):format(client)
             else
               opts.title = "LSP"
@@ -50,7 +50,7 @@ return {
         notify(msg, level, opts)
       end
       vim.notify = override
-      require('dko.lsp').bind_notify()
+      require("dko.lsp").bind_notify()
 
       -- =====================================================================
       -- Clear notifications on <Esc><Esc>

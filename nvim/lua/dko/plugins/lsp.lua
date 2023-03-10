@@ -7,7 +7,6 @@
 -- Tools to auto-install with mason
 -- Must then be configured, e.g. as null-ls formatter or diagnostic provider
 local extras = {
-  "editorconfig-checker",
   "markdownlint",
   "prettier",
   "selene",
@@ -79,7 +78,6 @@ return {
       -- =====================================================================
 
       local diagnostics = {
-        null_ls.builtins.diagnostics.editorconfig_checker,
         null_ls.builtins.diagnostics.markdownlint,
         null_ls.builtins.diagnostics.qmllint,
         null_ls.builtins.diagnostics.vint,
