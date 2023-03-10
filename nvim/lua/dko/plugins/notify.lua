@@ -50,7 +50,7 @@ return {
         notify(msg, level, opts)
       end
       vim.notify = override
-      require('dko.lsp').bind_notify()
+      require("dko.lsp").bind_notify()
 
       -- =====================================================================
       -- Clear notifications on <Esc><Esc>
