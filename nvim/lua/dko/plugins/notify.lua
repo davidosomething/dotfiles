@@ -35,12 +35,16 @@ return {
         end
         if not opts.title then
           if require("dko.utils.string").starts_with(msg, "[LSP]") then
-            msg = msg:gsub("^%[LSP%]", "")
-            opts.title = "LSP"
+            local client = msg:match("^%[LSP%]%[(.*)%]", "%1")
+            if client then
+              opts.title = ("LSP > %s"):format(client)
+            else
+              opts.title = "LSP"
+            end
+            msg = msg:gsub("^%[.*%] (.*)", "%1")
           elseif msg == "No code actions available" then
             -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#LL629C39-L629C39
             opts.title = "LSP"
-            opts.render = "compact"
           end
         end
         notify(msg, level, opts)
