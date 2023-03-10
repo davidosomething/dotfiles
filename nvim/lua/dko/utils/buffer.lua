@@ -21,7 +21,7 @@ M.is_special = function(bufnr)
     return true
   end
 
-  local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+  local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
   for _, t in pairs(M.SPECIAL_FILETYPES) do
     if string.match(ft, t) then
       return true
@@ -45,6 +45,19 @@ end
 M.get_cursorline_contents = function()
   local linenr = vim.api.nvim_win_get_cursor(0)[1]
   return vim.api.nvim_buf_get_lines(0, linenr - 1, linenr, false)[1]
+end
+
+---Close quickfix and loclist, then switch any active windows, then delete
+---buffer from buffer list
+M.close = function()
+  vim.cmd.cclose()
+  vim.cmd.lclose()
+  local ok, bufremove = pcall(require, "mini.bufremove")
+  if ok then
+    bufremove.delete()
+  else
+    vim.cmd.bdelete({ bang = true })
+  end
 end
 
 return M
