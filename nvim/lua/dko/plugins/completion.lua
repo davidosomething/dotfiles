@@ -12,7 +12,6 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
-      --'hrsh7th/cmp-nvim-lua', -- neodev adds to lsp already
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
       "onsails/lspkind.nvim",
     },
@@ -30,7 +29,6 @@ return {
           { name = "snippy" },
           { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
-          { name = "nvim_lua" },
           { name = "path" },
         }, { -- group 2 only if nothing in above had results
           { name = "buffer" },
