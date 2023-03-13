@@ -126,7 +126,6 @@ return {
   {
     "echasnovski/mini.bufremove",
     version = "*",
-    keys = "<Leader>x",
     config = function()
       ---@diagnostic disable-next-line: missing-parameter
       require("mini.bufremove").setup()
