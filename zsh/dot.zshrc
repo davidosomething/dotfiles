@@ -253,6 +253,10 @@ if __dko_has 'fzf'; then
     # linux package managers throw it here
     . "/usr/share/fzf/completion.zsh" 2>/dev/null
     . "/usr/share/fzf/key-bindings.zsh" 2>/dev/null
+  } || {
+    # apt / debian
+    . "/usr/share/doc/fzf/examples/completion.zsh" 2>/dev/null
+    . "/usr/share/doc/fzf/examples/key-bindings.zsh" 2>/dev/null
   }; then
     DKO_SOURCE="${DKO_SOURCE} -> fzf"
   fi
