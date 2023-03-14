@@ -120,13 +120,6 @@ ios() {
   open "$(xcode-select -p)/Applications/Simulator.app"
 }
 
-addjavas() {
-  __dko_has "jenv" || return 1
-  for path_to_jdk in $(ls -d /Library/Java/JavaVirtualMachines/*/Contents/Home); do
-    jenv add $path_to_jdk
-  done
-}
-
 # list members for a group
 # http://www.commandlinefu.com/commands/view/10771/osx-function-to-list-all-members-for-a-given-group
 members() {
