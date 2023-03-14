@@ -26,6 +26,7 @@ local lsps = {
   "dockerls",
   "eslint",
   "html",
+  "jdtls",
   "jsonls",
   "stylelint_lsp",
   "lua_ls",
