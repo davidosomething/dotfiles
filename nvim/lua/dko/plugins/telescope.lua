@@ -7,7 +7,6 @@ return {
       "nvim-lua/plenary.nvim",
     },
     event = "VeryLazy",
-    keys = "<A-e>",
     config = function()
       require("telescope").load_extension("file_browser")
     end,
