@@ -243,9 +243,7 @@ return {
   -- https://github.com/axieax/urlview.nvim
   {
     "axieax/urlview.nvim",
-    keys = "<A-u>",
     config = function()
-      require("urlview")
       require("dko.mappings").bind_urlview()
     end,
   },
