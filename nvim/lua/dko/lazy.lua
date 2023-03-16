@@ -23,7 +23,7 @@ require("lazy").setup("dko.plugins", {
         "gzip",
         "matchit",
         "matchparen", -- vim-matchup will re-load this anyway
-        --"netrwPlugin", -- sometimes i use this
+        "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
