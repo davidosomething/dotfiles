@@ -68,6 +68,9 @@ fi
 
 compdef g=git
 
+# tabtab provided, e.g. pnpm
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
 # ============================================================================
 # Options
 # In the order of `man zshoptions`
