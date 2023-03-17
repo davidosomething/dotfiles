@@ -79,6 +79,10 @@ return {
       -- =====================================================================
 
       local diagnostics = {
+        null_ls.builtins.diagnostics.dotenv_linter.with({
+          filetypes = { "dotenv" },
+          extra_args = { "--skip", "UnorderedKey" },
+        }),
         null_ls.builtins.diagnostics.markdownlint,
         null_ls.builtins.diagnostics.qmllint,
         null_ls.builtins.diagnostics.vint,
@@ -273,24 +277,22 @@ return {
         end,
 
         ["stylelint_lsp"] = function()
-          lspconfig.stylelint_lsp.setup(
-            vim.tbl_extend("force", default_opts, {
-              -- Disable on some filetypes
-              -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/stylelint_lsp.lua
-              filetypes = {
-                "css",
-                "less",
-                "scss",
-                "sugarss",
-                -- 'vue',
-                "wxss",
-                -- 'javascript',
-                -- 'javascriptreact',
-                -- 'typescript',
-                -- 'typescriptreact',
-              },
-            })
-          )
+          lspconfig.stylelint_lsp.setup(vim.tbl_extend("force", default_opts, {
+            -- Disable on some filetypes
+            -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/stylelint_lsp.lua
+            filetypes = {
+              "css",
+              "less",
+              "scss",
+              "sugarss",
+              -- 'vue',
+              "wxss",
+              -- 'javascript',
+              -- 'javascriptreact',
+              -- 'typescript',
+              -- 'typescriptreact',
+            },
+          }))
         end,
 
         ["tsserver"] = function()
@@ -299,7 +301,7 @@ return {
             ---@param bufnr number
             on_attach = function(_, bufnr)
               require("dko.mappings").bind_tsserver_lsp(bufnr)
-            end
+            end,
           }))
         end,
       })

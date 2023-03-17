@@ -37,6 +37,12 @@ vim.filetype.add({
   }
 })
 
+vim.filetype.add({
+  filename = {
+    ['.env'] = 'dotenv',
+  }
+})
+
 -- Disallow unsafe local vimrc commands
 -- Leave down here since it trims local settings
 vim.o.secure = true
