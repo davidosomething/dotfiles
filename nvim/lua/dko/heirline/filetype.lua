@@ -37,7 +37,7 @@ return {
 
   { -- filetype
     provider = function()
-      if string.len(vim.bo.filetype) == 0 then
+      if vim.bo.filetype:len() == 0 then
         return " "
       end
       return " "

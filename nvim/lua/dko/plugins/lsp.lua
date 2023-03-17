@@ -152,7 +152,7 @@ return {
     config = function()
       require("neodev").setup({
         override = function(root_dir, library)
-          if string.find(root_dir, ".nvim") then
+          if root_dir:find(".nvim") then
             library.enabled = true
             library.plugins = true
           end

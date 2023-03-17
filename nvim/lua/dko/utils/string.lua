@@ -4,7 +4,7 @@ local M = {}
 ---@param needle string
 ---@return boolean found true if needle in haystack
 M.starts_with = function(haystack, needle)
-  return string.sub(haystack, 1, string.len(needle)) == needle
+  return haystack:sub(1, needle:len()) == needle
 end
 
 -- alt F ғ (ghayn)
@@ -14,7 +14,7 @@ local smallcaps =
 local letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ<>"
 ---@param text string
 M.smallcaps = function(text)
-  return vim.fn.tr(string.upper(text), letters, smallcaps)
+  return vim.fn.tr(text:upper(), letters, smallcaps)
 end
 
 return M

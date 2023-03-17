@@ -62,8 +62,8 @@ autocmd("BufRead", {
 
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
     for i, line in ipairs(lines) do
-      lines[i] = string.gsub(line, "%$%{(%w+)%}", function(s)
-        return string.len(s) > 0 and tokens[s] or ""
+      lines[i] = line:gsub("%$%{(%w+)%}", function(s)
+        return s:len() > 0 and tokens[s] or ""
       end)
     end
     vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)

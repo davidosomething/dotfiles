@@ -47,13 +47,13 @@ M.get_root_by_patterns = function(patterns)
   end)
 
   local bufname = vim.api.nvim_buf_get_name(0)
-  local start = string.len(bufname) > 0 and bufname or vim.loop.cwd()
+  local start = bufname:len() > 0 and bufname or vim.loop.cwd()
   return getter({ start = start, bufnr = 0 })
 end
 
 M.git_root = function(from)
   from = from or vim.api.nvim_buf_get_name(0)
-  local start = string.len(from) > 0 and from or vim.loop.cwd()
+  local start = from:len() > 0 and from or vim.loop.cwd()
   return require("null-ls.utils").root_pattern(".git")(start)
 end
 
