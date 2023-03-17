@@ -14,10 +14,10 @@ return {
       local uis = vim.api.nvim_list_uis()
       local ui = uis[1] or { width = 80 }
       local searchterm = vim.fn.getreg("/")
-      local extrachars = 32 + string.len(searchterm)
+      local extrachars = 32 + searchterm:len()
       local remaining = ui.width - extrachars
       local cwd = vim.fn.fnamemodify(self.cwd, ":~")
-      local output = string.len(cwd) < remaining and cwd or  vim.fn.pathshorten(cwd)
+      local output = cwd:len() < remaining and cwd or  vim.fn.pathshorten(cwd)
       return (" %s "):format(output)
     end,
     hl = "dkoStatusValue",

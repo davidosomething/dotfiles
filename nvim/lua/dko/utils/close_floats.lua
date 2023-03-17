@@ -10,8 +10,7 @@ local function close_floats()
   end
   if #closed_windows > 0 then
     print(
-      string.format(
-        "Closed %d windows: %s",
+      ("Closed %d windows: %s"):format(
         #closed_windows,
         vim.inspect(closed_windows)
       )

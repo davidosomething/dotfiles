@@ -82,7 +82,7 @@ return {
 
     -- Same goes for the highlight. Now the foreground will change according to the current mode.
     hl = function(self)
-      local mode = string.lower(self.mode:sub(1, 1)) -- get only the first mode character
+      local mode = self.mode:sub(1, 1):lower() -- get only the first mode character
 
       -- My hardcoded settings
       if mode == "n" then

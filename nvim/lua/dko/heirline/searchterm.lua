@@ -2,7 +2,7 @@ return {
   condition = function(self)
     self.contents = vim.fn.getreg("/")
     self.count = vim.fn.searchcount({ recompute = 1, maxcount = -1 })
-    return self.contents and string.len(self.contents) > 0
+    return self.contents and self.contents:len() > 0
   end,
 
   {

@@ -3,7 +3,7 @@ local M = {}
 -- Generate a line of pattern pat end of line to &textwidth
 ---@param pat string
 M.fill = function(pat)
-  local patlen = string.len(pat)
+  local patlen = pat:len()
   local lastcol = vim.fn.col("$")
   -- how many characters left from end of line to textwidth
   local available = math.max(vim.bo.textwidth - (lastcol - 2), 0)

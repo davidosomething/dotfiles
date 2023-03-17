@@ -23,7 +23,7 @@ M.is_special = function(bufnr)
 
   local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
   for _, t in pairs(M.SPECIAL_FILETYPES) do
-    if string.match(ft, t) then
+    if ft:match(t) then
       return true
     end
   end

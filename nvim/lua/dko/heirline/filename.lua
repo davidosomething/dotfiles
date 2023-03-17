@@ -10,11 +10,11 @@ return {
 
     local win_width = require("dko.utils.window").status_width()
     local filetype = vim.bo.filetype or ""
-    local extrachars = 3 + 3 + string.len(filetype) + 20
+    local extrachars = 3 + 3 + filetype:len() + 20
     local remaining = win_width - extrachars
 
     local relative = vim.fn.fnamemodify(self.filename, ":~:.")
-    if string.len(relative) < remaining then
+    if relative:len() < remaining then
       return (" %s "):format(relative)
     end
 
@@ -39,7 +39,7 @@ return {
     end
 
     local twoshort = shorten(self.filename, 2)
-    if string.len(twoshort) < remaining then
+    if twoshort:len() < remaining then
       return twoshort
     end
 

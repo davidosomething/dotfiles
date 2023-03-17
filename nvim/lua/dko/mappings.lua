@@ -129,7 +129,7 @@ end, { desc = "Yank the filename of current buffer" })
 map("n", "<Leader>yp", function()
   local res = vim.fn.expand("%:p")
   res = res == "" and vim.loop.cwd() or res
-  if string.len(res) then
+  if res:len() then
     vim.fn.setreg("+", res)
     vim.notify(res, vim.log.levels.INFO, { title = "Yanked filepath" })
   end
@@ -217,7 +217,7 @@ map("i", "<Tab>", function()
   -- insert whatever expandtab setting is set to do.
   local current_line = require("dko.utils.buffer").get_cursorline_contents()
   local all_spaces_regex = "^%s*$"
-  if string.match(current_line, all_spaces_regex) then
+  if current_line:match(all_spaces_regex) then
     return "<Tab>"
   end
 
@@ -239,7 +239,7 @@ map("i", "<Tab>", function()
   -- after    abc     _
   -- before   abc    _
   -- after    abc     _
-  return string.rep(" ", 1 + sts - spaces_from_cursor_to_next_sts)
+  return (" "):rep(1 + sts - spaces_from_cursor_to_next_sts)
 end, { expr = true, desc = "Tab should insert spaces" })
 
 map("i", "<S-Tab>", "<C-d>", {
@@ -653,11 +653,11 @@ M.bind_telescope = function()
     local project_root = vim.fn["dko#project#GetRoot"]()
 
     -- fallback to cwd git root
-    if not project_root or string.len(project_root) == 0 then
+    if not project_root or project_root:len() == 0 then
       project_root = vim.fn["dko#git#GetRoot"](vim.fn.getcwd())
     end
 
-    if not project_root or string.len(project_root) == 0 then
+    if not project_root or project_root:len() == 0 then
       vim.notify("Not in a project", vim.log.levels.ERROR, { title = "<A-p>" })
       return
     end

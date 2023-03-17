@@ -9,7 +9,7 @@ for type, icon in pairs(M.SIGNS) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon .. " ", texthl = hl, numhl = hl })
 
-  local key = string.upper(type)
+  local key = type:upper()
   local code = vim.diagnostic.severity[key]
   M.SEVERITY_TO_SYMBOL[code] = icon
 end
@@ -45,7 +45,7 @@ local function floatFormat(diagnostic)
   local source = diagnostic.source
   -- strip period at end
   if source.sub(source, -1, -1) == "." then
-    source = string.sub(source, 1, -2)
+    source = source:sub(1, -2)
   end
   local sourceText = require("dko.utils.string").smallcaps("<" .. source .. ">")
   return symbol .. " " .. diagnostic.message .. " " .. sourceText
