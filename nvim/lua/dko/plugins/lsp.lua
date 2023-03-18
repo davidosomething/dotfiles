@@ -304,6 +304,17 @@ return {
             end,
           }))
         end,
+
+        ["yamlls"] = function()
+          lspconfig.yamlls.setup(vim.tbl_extend("force", default_opts, {
+            settings = {
+              yaml = {
+                schemas = require("schemastore").yaml.schemas(),
+              },
+            },
+          }))
+        end,
+
       })
     end,
   },
