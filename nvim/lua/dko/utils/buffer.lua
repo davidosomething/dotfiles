@@ -54,7 +54,7 @@ M.close = function()
   vim.cmd.lclose()
   local ok, bufremove = pcall(require, "mini.bufremove")
   if ok then
-    bufremove.delete()
+    bufremove.delete(nil, true)
   else
     vim.cmd.bdelete({ bang = true })
   end
