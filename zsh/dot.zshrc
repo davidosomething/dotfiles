@@ -192,12 +192,15 @@ bindkey           '^[[F'    end-of-line
 bindkey -M vicmd  '^[[F'    end-of-line
 
 # Left and right should jump through words
+# The 1;3 variants are for wezterm and kitty
 # Opt-Left
 bindkey           '^[^[[D'  backward-word
 bindkey -M vicmd  '^[^[[D'  backward-word
+bindkey           '^[[1;3D' backward-word
 # Opt-Right
 bindkey           '^[^[[C'  forward-word
 bindkey -M vicmd  '^[^[[C'  forward-word
+bindkey           '^[[1;3C' forward-word
 # C-Left
 bindkey           '^[[1;5D' vi-backward-word
 bindkey -M vicmd  '^[[1;5D' vi-backward-word

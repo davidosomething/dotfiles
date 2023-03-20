@@ -57,6 +57,8 @@ __symlink() {
     ".config/nvm/default-packages"
   dko-symlink "shell/dot.inputrc" \
     ".config/readline/inputrc"
+  dko-symlink "wezterm/wezterm.lua" \
+    ".config/wezterm/wezterm.lua"
 
   # konsole
   __dko_has konsole && {
