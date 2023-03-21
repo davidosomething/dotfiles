@@ -36,8 +36,13 @@ local lsps = {
   "vimls",
   "yamlls",
 }
-if vim.fn.executable("go") == 1 then
-  table.insert(lsps, "gopls")
+local when_executable = {
+  go = "gopls",
+}
+for bin, lsp in pairs(when_executable) do
+  if vim.fn.executable(bin) == 1 then
+    table.insert(lsps, lsp)
+  end
 end
 
 -- Lazy.nvim specs
@@ -168,6 +173,9 @@ return {
     dependencies = {
       "folke/neodev.nvim",
     },
+    config = function ()
+      require('lspconfig').tilt_ls.setup({})
+    end,
   },
 
   {

@@ -6,6 +6,7 @@ local settings = {
     show_buftype = false,
   },
   treesitter = {
+    -- @TODO until I update vim-colors-meh with treesitter @matches
     highlight_enabled = false,
   },
 }
