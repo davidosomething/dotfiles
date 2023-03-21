@@ -26,7 +26,9 @@ config.font = wezterm.font_with_fallback({
   "Monaco", -- mac smallcaps
   "Noto Color Emoji",
 })
-config.font_size = 9.0
+
+config.font_size = wezterm.hostname() == "Dotrakoun-Macbook-Pro" and 24.0
+  or 12.0
 
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
