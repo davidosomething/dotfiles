@@ -79,6 +79,7 @@ return {
       -- =====================================================================
 
       local diagnostics = {
+        -- dotenv-linter will have to be installed manually
         null_ls.builtins.diagnostics.dotenv_linter.with({
           filetypes = { "dotenv" },
           extra_args = { "--skip", "UnorderedKey" },
