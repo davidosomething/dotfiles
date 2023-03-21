@@ -27,9 +27,22 @@ config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
 config.hide_tab_bar_if_only_one_tab = true
 
+config.inactive_pane_hsb = {
+  brightness = 1.5,
+  saturation = 0.5,
+}
+
 config.scrollback_lines = 9999
 
 config.window_decorations = "RESIZE"
+config.window_padding = {
+  left = "1.5cell",
+  right = "1.5cell",
+  top = "0.5cell",
+  bottom = "0.5cell",
+}
+
+-- ===========================================================================
 
 config.keys = {
   { -- like konsole
@@ -49,5 +62,4 @@ config.keys = {
   },
 }
 
--- and finally, return the configuration to wezterm
 return config
