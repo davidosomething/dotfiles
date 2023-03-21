@@ -19,6 +19,11 @@ config.enable_scroll_bar = true
 config.font = wezterm.font_with_fallback({
   "FuraMono Nerd Font",
   "FuraMono Nerd Font Mono",
+  "Roboto Mono",
+  "DejaVu Sans Mono",
+  "SF Mono",
+  "Consolas",
+  "Monaco", -- mac smallcaps
   "Noto Color Emoji",
 })
 config.font_size = 9.0
