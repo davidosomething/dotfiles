@@ -23,7 +23,7 @@ config.font = wezterm.font_with_fallback({
 })
 config.font_size = 9.0
 
-config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
 config.hide_tab_bar_if_only_one_tab = true
 
@@ -43,9 +43,9 @@ config.keys = {
     action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
   },
   { -- like konsole
-    key = 'w',
-    mods = 'CMD',
-    action = wezterm.action.CloseCurrentPane { confirm = true },
+    key = "w",
+    mods = "CMD",
+    action = wezterm.action.CloseCurrentPane({ confirm = true }),
   },
 }
 
