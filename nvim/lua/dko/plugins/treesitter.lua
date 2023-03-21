@@ -1,3 +1,24 @@
+local HIGHLIGHTING_DISABLED = {
+  -- treesitter language, not ft
+  -- see https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
+  "javascript", -- and jsx
+  "tsx",
+}
+
+-- table of filetypes
+local HIGHLIGHTING_ENABLED = {
+  "dotenv",
+  "starlark",
+  "tiltfile",
+}
+
+local FT_ALIASES = {
+  dotenv = "bash",
+  tiltfile = "starlark",
+}
+
+local HIGHLIGHTING_MAX_FILESIZE = 300 * 1024 -- 300 KB
+
 return {
 
   -- https://github.com/nvim-treesitter/nvim-treesitter/
@@ -80,28 +101,31 @@ return {
         -- ===================================================================
 
         highlight = {
-          -- @TODO until I update vim-colors-meh with treesitter @matches
-          enable = require("dko.settings").get("treesitter.highlight_enabled"),
+          enable = true,
           disable = function(lang, buf)
-            if
-              vim.tbl_contains({
-                -- treesitter language, not ft
-                -- see https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
-                "javascript", -- and jsx
-                "tsx",
-              }, lang)
-            then
+            -- Always disable these
+            if vim.tbl_contains(HIGHLIGHTING_DISABLED, lang) then
               return true
             end
 
-            -- See behaviors.lua too
             -- Disable for large files
-            local max_filesize = 300 * 1024 -- 300 KB
+            -- See behaviors.lua too
             local ok, stats =
               pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
+            if ok and stats and stats.size > HIGHLIGHTING_MAX_FILESIZE then
               return true
             end
+
+            -- Enable for these
+            local ft = vim.api.nvim_buf_get_option(buf, "filetype")
+            if vim.tbl_contains(HIGHLIGHTING_ENABLED, ft) then
+              return false
+            end
+
+            -- Global setting
+            return not require("dko.settings").get(
+              "treesitter.highlight_enabled"
+            )
           end,
         },
 
@@ -117,6 +141,15 @@ return {
         -- 'andymass/vim-matchup',
         matchup = { enable = true },
       })
+
+
+      -- =====================================================================
+      -- Aliases
+      -- =====================================================================
+
+      for ft, parser in pairs(FT_ALIASES) do
+        require("nvim-treesitter.parsers").filetype_to_parsername[ft] = parser
+      end
     end,
   },
 

@@ -21,6 +21,7 @@ else
   vim.g.loaded_python3_provider = 2
 end
 
+require("dko.filetypes")
 require("dko.opt")
 require("dko.builtin-syntax")
 require("dko.diagnostic")
@@ -30,18 +31,6 @@ require("dko.commands")
 require("dko.mappings")
 require("dko.behaviors")
 require("dko.lazy")
-
-vim.filetype.add({
-  extension = {
-    conf = 'conf',
-  }
-})
-
-vim.filetype.add({
-  filename = {
-    ['.env'] = 'dotenv',
-  }
-})
 
 -- Disallow unsafe local vimrc commands
 -- Leave down here since it trims local settings
