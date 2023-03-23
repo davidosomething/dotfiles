@@ -1,23 +1,14 @@
 return {
-  condition = require("heirline.conditions").is_git_repo,
-
-  init = function(self)
-    self.branch = vim.api.nvim_buf_get_var(0, 'gitsigns_head')
+  condition = function(self)
+    return self.branch and self.branch:len() > 0
   end,
-
   {
-    condition = function(self)
-      return self.branch
-    end,
     provider = "  ",
     hl = "dkoStatusKey",
   },
   {
-    condition = function(self)
-      return self.branch
-    end,
     provider = function(self)
-      return " " .. self.branch .. " "
+      return (" %s "):format(self.branch)
     end,
     hl = "dkoStatusValue",
   },

@@ -1,25 +1,20 @@
 return {
   condition = function(self)
-    self.contents = vim.fn.getreg("/")
-    self.count = vim.fn.searchcount({ recompute = 1, maxcount = -1 })
-    return self.contents and self.contents:len() > 0
+    return self.search_contents and self.search_contents:len() > 0
   end,
-
   {
     provider = " ? ",
     hl = "dkoStatusKey",
   },
-
   {
     provider = function(self)
       return (" %s "):format(self.contents)
     end,
     hl = "Search",
   },
-
   {
     provider = function(self)
-      return (" %d/%d "):format(self.count.current, self.count.total)
+      return (" %d/%d "):format(self.search_count.current, self.search_count.total)
     end,
     hl = "dkoStatusValue",
   },
