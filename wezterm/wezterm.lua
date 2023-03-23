@@ -54,7 +54,7 @@ config.window_padding = {
 
 -- ===========================================================================
 
-local k = {}
+local k = setmetatable({}, { __index = table })
 
 -- Disable some default keys
 -- Use cli:
@@ -85,25 +85,25 @@ local defaults_to_disable = {
 }
 for _, cfg in pairs(defaults_to_disable) do
   cfg.action = act.DisableDefaultAssignment
-  k[#k + 1] = cfg
+  k:insert(cfg)
 end
 
 -- Add my keys, modeled after konsole
-k[#k + 1] = {
+k:insert({
   key = "(",
   mods = "CTRL|SHIFT",
   action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
-}
-k[#k + 1] = {
+})
+k:insert({
   key = ")",
   mods = "CTRL|SHIFT",
   action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
-}
-k[#k + 1] = {
+})
+k:insert({
   key = "w",
   mods = "CMD",
   action = act.CloseCurrentPane({ confirm = true }),
-}
+})
 
 config.keys = k
 
