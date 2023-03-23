@@ -292,7 +292,7 @@ return {
         },
 
         show_trailing_blankline_indent = false,
-        show_current_context = true,
+        -- show_current_context = true, -- disable, makes hard to see tabchar
         use_treesitter = true,
       })
     end,
