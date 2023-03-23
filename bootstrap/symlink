@@ -60,14 +60,6 @@ __symlink() {
   dko-symlink "wezterm/wezterm.lua" \
     ".config/wezterm/wezterm.lua"
 
-  # konsole
-  __dko_has konsole && {
-    dko-symlink "linux/konsole/davidosomething.profile" \
-      ".local/share/konsole/davidosomething.profile"
-    dko-symlink "linux/konsole/base16-tomorrow-night.colorscheme" \
-      ".local/share/konsole/base16-tomorrow-night.colorscheme"
-  }
-
   # (n)vim / intellij ideavim
   dko-symlink "vim" \
     ".vim"

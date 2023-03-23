@@ -2,11 +2,12 @@
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>
 
-- I use macOS, Manjaro, and Debian. Limited Fedora support.
+- I use macOS, Arch Linux, and Debian. Limited Fedora support.
 - [XDG] compliance wherever possible to keep `$HOME` clean
     - See [Arch Linux wiki for XDG Base Directory Support]
     - See [Debian DotFilesList]
     - See [grawity's notes] and [environ notes]
+- Wezterm as preferred cross-platform terminal
 - ZSH (preferred) and BASH configs
 - Neovim (preferred) and VIM configs
 - RC files for Lua, markdownlint, node, PHP, python, R, and others

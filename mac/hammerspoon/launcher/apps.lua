@@ -21,10 +21,6 @@ end)
 
 -- h for lunette
 
-hs.hotkey.bind(hyper, 'i', function()
-  hs.application.launchOrFocus("iTerm")
-end)
-
 hs.hotkey.bind(hyper, 'n', function()
   hs.application.launchOrFocus("Joplin")
 end)

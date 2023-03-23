@@ -34,7 +34,6 @@ cask "bettertouchtool"
 cask "firefox"
 cask "font-fira-mono-nerd-font"
 cask "hammerspoon"
-cask "iterm2"
 cask "itsycal"
 cask "slack"
 mas "EasyRes", id: 688211836
