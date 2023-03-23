@@ -20,7 +20,8 @@ config.enable_scroll_bar = true
 -- test: ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ
 -- cjk: (ﾉಥ益ಥ）ﾉ︵┻━┻
 config.font = wezterm.font_with_fallback({
-  "FuraMono Nerd Font",
+  -- "FuraMono Nerd Font", -- folder icon is double size, use mono version
+  -- instead. See https://github.com/polybar/polybar/issues/991#issue-293786329
   "FuraMono Nerd Font Mono",
   "Noto Sans Mono", -- linux + smallcaps
   "Roboto Mono",
