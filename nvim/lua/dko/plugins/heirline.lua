@@ -17,18 +17,10 @@ return {
           require("dko.heirline.statusline-special"),
           require("dko.heirline.statusline-default"),
         },
-        tabline = {
-          require("dko.heirline.searchterm"),
-          { provider = "%=", hl = "StatusLine" },
-          require("dko.heirline.cwd"),
-          require("dko.heirline.git"),
-          require("dko.heirline.lazy"),
-          require("dko.heirline.remote"),
-        },
+        tabline = require("dko.heirline.tabline"),
       })
       local ALWAYS = 2
       vim.o.showtabline = ALWAYS
     end,
   },
-
 }
