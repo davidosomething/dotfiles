@@ -19,7 +19,7 @@ local extras = {
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 local lsps = {
   "ansiblels",
-  "bashls",
+  --"bashls", -- use shellcheck: can't configure output to show code
   "cssls",
   "cssmodules_ls", -- jumping into classnames from jsx/tsx
   "docker_compose_language_service",
@@ -91,6 +91,9 @@ return {
         }),
         null_ls.builtins.diagnostics.markdownlint,
         null_ls.builtins.diagnostics.qmllint,
+        null_ls.builtins.diagnostics.shellcheck.with({
+          diagnostics_format = "SC#{c}: #{m}",
+        }),
         null_ls.builtins.diagnostics.vint,
         null_ls.builtins.diagnostics.zsh,
 
@@ -248,16 +251,6 @@ return {
       masonLspConfig.setup_handlers({
         function(server)
           lspconfig[server].setup(default_opts)
-        end,
-
-        ["bashls"] = function()
-          lspconfig.bashls.setup(vim.tbl_extend("force", default_opts, {
-            settings = {
-              bashIde = {
-                shellcheckArguments = "--exclude=SC1090,SC1091",
-              },
-            },
-          }))
         end,
 
         ["jsonls"] = function()
