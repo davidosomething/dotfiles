@@ -16,14 +16,16 @@ config.color_scheme = "Tomorrow Night"
 
 config.enable_scroll_bar = true
 
+-- test: ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ
 config.font = wezterm.font_with_fallback({
   "FuraMono Nerd Font",
   "FuraMono Nerd Font Mono",
+  "Noto Sans Mono", -- linux + smallcaps
   "Roboto Mono",
   "DejaVu Sans Mono",
   "SF Mono",
   "Consolas",
-  "Monaco", -- mac smallcaps
+  "Monaco", -- mac + smallcaps
   "Noto Color Emoji",
 })
 
