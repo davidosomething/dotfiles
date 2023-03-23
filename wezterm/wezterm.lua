@@ -64,6 +64,7 @@ local k = setmetatable({}, { __index = table })
 -- wezterm show-keys --lua
 -- to see current mappings
 local defaults_to_disable = {
+  { key = 'Enter', mods = "ALT" }, -- ToggleFullScreen bleh native fullscreen
   { key = 'Tab', mods = "CTRL" }, -- ActivateTabRelative
   { key = 'Tab', mods = "SHIFT|CTRL" }, -- ActivateTabRelative
   { key = '"', mods = "ALT|CTRL" }, -- SplitVertical
