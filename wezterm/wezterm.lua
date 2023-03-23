@@ -1,5 +1,6 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
+local act = wezterm.action
 
 -- This table will hold the configuration.
 local config = {}
@@ -53,22 +54,57 @@ config.window_padding = {
 
 -- ===========================================================================
 
-config.keys = {
-  { -- like konsole
-    key = "(",
-    mods = "CTRL|SHIFT",
-    action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
-  },
-  { -- like konsole
-    key = ")",
-    mods = "CTRL|SHIFT",
-    action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
-  },
-  { -- like konsole
-    key = "w",
-    mods = "CMD",
-    action = wezterm.action.CloseCurrentPane({ confirm = true }),
-  },
+local k = {}
+
+-- Disable some default keys
+-- Use cli:
+-- wezterm show-keys --lua
+-- to see current mappings
+local defaults_to_disable = {
+  { key = 'Tab', mods = "CTRL" }, -- ActivateTabRelative
+  { key = 'Tab', mods = "SHIFT|CTRL" }, -- ActivateTabRelative
+  { key = '"', mods = "ALT|CTRL" }, -- SplitVertical
+  { key = '"', mods = "CTRL|SHIFT|ALT" }, -- SplitVertical
+  { key = "'", mods = "CTRL|SHIFT|ALT" }, -- SplitVertical
+  { key = "%", mods = "ALT|CTRL" }, -- SplitHorizontal
+  { key = "%", mods = "CTRL|SHIFT|ALT" }, -- SplitHorizontal
+  { key = "5", mods = "CTRL|SHIFT|ALT" }, -- SplitHorizontal
+  { key = "K", mods = "CTRL" }, -- ClearScrollback
+  { key = "L", mods = "CTRL" }, -- ShowDebugOverlay
+  { key = "M", mods = "CTRL" }, -- Hide
+  { key = "M", mods = "SHIFT|CTRL" }, -- Hide
+  { key = "N", mods = "CTRL" }, -- SpawnWindow
+  { key = "R", mods = "CTRL" }, -- ReloadConfiguration
+  { key = "R", mods = "SHIFT|CTRL" }, -- ReloadConfiguration
+  { key = "P", mods = "CTRL" }, -- ActivateCommandPalette
+  { key = "T", mods = "CTRL" }, -- SpawnTab
+  { key = "U", mods = "CTRL" }, -- CharSelect
+  { key = "X", mods = "CTRL" }, -- ActivateCopyMode
+  { key = "^", mods = "CTRL" }, -- ActivateTab
+  { key = "Z", mods = "CTRL" }, -- TogglePaneZoomState
 }
+for _, cfg in pairs(defaults_to_disable) do
+  cfg.action = act.DisableDefaultAssignment
+  k[#k + 1] = cfg
+end
+
+-- Add my keys, modeled after konsole
+k[#k + 1] = {
+  key = "(",
+  mods = "CTRL|SHIFT",
+  action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+}
+k[#k + 1] = {
+  key = ")",
+  mods = "CTRL|SHIFT",
+  action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
+}
+k[#k + 1] = {
+  key = "w",
+  mods = "CMD",
+  action = act.CloseCurrentPane({ confirm = true }),
+}
+
+config.keys = k
 
 return config
