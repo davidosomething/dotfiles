@@ -18,6 +18,7 @@ config.color_scheme = "Tomorrow Night"
 config.enable_scroll_bar = true
 
 -- test: ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ
+-- cjk: (ﾉಥ益ಥ）ﾉ︵┻━┻
 config.font = wezterm.font_with_fallback({
   "FuraMono Nerd Font",
   "FuraMono Nerd Font Mono",
@@ -28,6 +29,7 @@ config.font = wezterm.font_with_fallback({
   "Consolas",
   "Monaco", -- mac + smallcaps
   "Noto Color Emoji",
+  "Unifont", -- bitmap fallback with a lot of unicode
 })
 
 config.font_size = wezterm.hostname() == "Dotrakoun-Macbook-Pro" and 18.0
@@ -76,7 +78,6 @@ local defaults_to_disable = {
   { key = "N", mods = "CTRL" }, -- SpawnWindow
   { key = "R", mods = "CTRL" }, -- ReloadConfiguration
   { key = "R", mods = "SHIFT|CTRL" }, -- ReloadConfiguration
-  { key = "P", mods = "CTRL" }, -- ActivateCommandPalette
   { key = "T", mods = "CTRL" }, -- SpawnTab
   { key = "U", mods = "CTRL" }, -- CharSelect
   { key = "X", mods = "CTRL" }, -- ActivateCopyMode
