@@ -82,17 +82,12 @@ M.get_active_client = function(needle)
 end
 
 ---Find null-ls source by name
----@param needle string
+---@param query table
 ---@return table|nil source
-M.get_source = function(needle)
-  local ok, ns = pcall(require, "null-ls.sources")
-  local sources = ok and ns.get_available(vim.bo.filetype) or {}
-  for _, source in pairs(sources) do
-    if source.name == needle then
-      return source
-    end
-  end
-  return nil
+M.get_null_ls_source = function(query)
+  local ok, ns = pcall(require, "null-ls")
+  local result = ok and ns.get_source(query) or {}
+  return result
 end
 
 M.format_with_null_ls = function()
@@ -124,8 +119,11 @@ end
 M.format_jsts = function()
   local queue = {}
 
-  local prettier_source = M.get_source("prettier")
-  if prettier_source then
+  local prettier_source = M.get_null_ls_source({
+    name = "prettier",
+    filetype = vim.bo.filetype,
+  })
+  if #prettier_source > 0 then
     -- skip null-ls prettier formatting if has eslint-plugin-prettier
     local has_epp = M.has_eslint_plugin_prettier()
     if has_epp then
