@@ -8,7 +8,7 @@ return {
   },
   {
     provider = function(self)
-      return (" %s "):format(self.contents)
+      return (" %s "):format(self.search_contents)
     end,
     hl = "Search",
   },
