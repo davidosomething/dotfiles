@@ -347,24 +347,14 @@ return {
     "numToStr/Comment.nvim",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("Comment").setup({
-        ---LHS of operator-pending mappings in NORMAL and VISUAL mode
-        opleader = {
-          ---Line-comment keymap (default gc)
-          line = "gc",
-          ---Block-comment keymap (gb is my blame command)
-          block = "<Leader>gb",
-        },
-        toggler = {
-          ---Line-comment toggle keymap
-          line = "gcc",
-          ---Block-comment toggle keymap
-          block = "<Leader>gbc",
-        },
-        pre_hook = require(
-          "ts_context_commentstring.integrations.comment_nvim"
-        ).create_pre_hook(),
-      })
+      require("Comment").setup(vim.tbl_extend("force",
+        require('dko.mappings').get_commentnvim_mappings(),
+        {
+          pre_hook = require(
+            "ts_context_commentstring.integrations.comment_nvim"
+          ).create_pre_hook(),
+        }
+      ))
     end,
   },
 

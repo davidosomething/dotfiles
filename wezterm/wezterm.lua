@@ -13,7 +13,7 @@ end
 
 config.adjust_window_size_when_changing_font_size = false
 
-config.color_scheme = "Tomorrow Night"
+config.color_scheme = "Twilight (base16)"
 
 config.enable_scroll_bar = true
 
@@ -41,7 +41,7 @@ config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 config.hide_tab_bar_if_only_one_tab = true
 
 config.inactive_pane_hsb = {
-  brightness = 1.5,
+  brightness = 0.5,
   saturation = 0.5,
 }
 
@@ -64,9 +64,9 @@ local k = setmetatable({}, { __index = table })
 -- wezterm show-keys --lua
 -- to see current mappings
 local defaults_to_disable = {
-  { key = 'Enter', mods = "ALT" }, -- ToggleFullScreen bleh native fullscreen
-  { key = 'Tab', mods = "CTRL" }, -- ActivateTabRelative
-  { key = 'Tab', mods = "SHIFT|CTRL" }, -- ActivateTabRelative
+  { key = "Enter", mods = "ALT" }, -- ToggleFullScreen bleh native fullscreen
+  { key = "Tab", mods = "CTRL" }, -- ActivateTabRelative
+  { key = "Tab", mods = "SHIFT|CTRL" }, -- ActivateTabRelative
   { key = '"', mods = "ALT|CTRL" }, -- SplitVertical
   { key = '"', mods = "CTRL|SHIFT|ALT" }, -- SplitVertical
   { key = "'", mods = "CTRL|SHIFT|ALT" }, -- SplitVertical
