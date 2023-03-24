@@ -21,6 +21,12 @@ config.color_scheme = "Twilight (base16)"
 
 config.command_palette_font_size = hidpi and 24.0 or 16.0
 
+config.cursor_blink_ease_in = "Linear"
+config.cursor_blink_ease_out = "EaseIn"
+config.cursor_blink_rate = 400
+
+config.default_cursor_style = hidpi and "SteadyBlock" or "BlinkingBlock"
+
 config.enable_scroll_bar = true
 
 -- test: ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ
@@ -51,6 +57,9 @@ config.inactive_pane_hsb = {
 }
 
 config.scrollback_lines = 9999
+
+config.swallow_mouse_click_on_pane_focus = true
+config.swallow_mouse_click_on_window_focus = true
 
 config.window_decorations = "RESIZE"
 config.window_padding = {
