@@ -389,6 +389,28 @@ M.bind_tsserver_lsp = function(bufnr)
 end
 
 -- ===========================================================================
+-- Plugin: Comment.nvim
+-- ===========================================================================
+
+M.get_commentnvim_mappings = function()
+  return {
+    ---LHS of operator-pending mappings in NORMAL and VISUAL mode
+    opleader = {
+      ---Line-comment keymap (default gc)
+      line = "gc",
+      ---Block-comment keymap (gb is my blame command)
+      block = "gb",
+    },
+    toggler = {
+      ---Line-comment toggle keymap
+      line = "gcc",
+      ---Block-comment toggle keymap
+      block = "gbb",
+    },
+  }
+end
+
+-- ===========================================================================
 -- Plugin: cybu.nvim
 -- ===========================================================================
 
@@ -462,7 +484,7 @@ M.bind_gitsigns = function(bufnr)
     require("gitsigns").preview_hunk,
     { desc = "Preview hunk" }
   )
-  bufmap("n", "gb", function()
+  bufmap("n", "<Leader>gb", function()
     require("gitsigns").blame_line({ full = true })
   end, { desc = "Show blames" })
 
@@ -728,7 +750,7 @@ M.bind_urlview = function()
     jump = {
       prev = "[u",
       next = "]u",
-    }
+    },
   })
   map("n", "<A-u>", "<Cmd>UrlView<CR>", { desc = "Open URLs" })
 end

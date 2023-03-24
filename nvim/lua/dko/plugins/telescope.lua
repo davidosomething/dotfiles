@@ -6,7 +6,6 @@ return {
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
     },
-    event = "VeryLazy",
     config = function()
       require("telescope").load_extension("file_browser")
     end,
@@ -38,7 +37,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.1",
-    lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -50,13 +48,14 @@ return {
           },
           mappings = {
             i = {
-              ["<Esc>"] = 'close'
+              ["<Esc>"] = "close",
             },
           },
           results_title = false,
         },
         extensions = {
           file_browser = {
+            hijack_netrw = true,
             layout_strategy = "vertical",
             layout_config = {
               vertical = {
