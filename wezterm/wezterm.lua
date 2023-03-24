@@ -2,6 +2,8 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
+local hidpi = wezterm.hostname() == "Dotrakoun-Macbook-Pro"
+
 -- This table will hold the configuration.
 local config = {}
 
@@ -16,6 +18,8 @@ config.adjust_window_size_when_changing_font_size = false
 config.audible_bell = "Disabled"
 
 config.color_scheme = "Twilight (base16)"
+
+config.command_palette_font_size = hidpi and 24.0 or 16.0
 
 config.enable_scroll_bar = true
 
@@ -35,8 +39,7 @@ config.font = wezterm.font_with_fallback({
   "Unifont", -- bitmap fallback with a lot of unicode
 })
 
-config.font_size = wezterm.hostname() == "Dotrakoun-Macbook-Pro" and 18.0
-  or 12.0
+config.font_size = hidpi and 18.0 or 12.0
 
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
