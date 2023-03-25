@@ -34,7 +34,12 @@ config.enable_scroll_bar = true
 config.font = wezterm.font_with_fallback({
   -- "FuraMono Nerd Font", -- folder icon is double size, use mono version
   -- instead. See https://github.com/polybar/polybar/issues/991#issue-293786329
+
+  -- wez recommends against using patched nerd font because of mangled
+  -- metadata, but the builtin Nerd Font Symbols Font has that big double wide
+  -- folder too :(
   "FuraMono Nerd Font Mono",
+
   "Noto Sans Mono", -- linux + smallcaps
   "Roboto Mono",
   "DejaVu Sans Mono",
