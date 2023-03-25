@@ -59,11 +59,25 @@ config.command_palette_font_size = hidpi and 24.0 or 16.0
 config.font = wezterm.font_with_fallback({
   -- wez recommends against using patched nerd fonts because of mangled
   -- metadata so don't use these:
-  --  "FuraMono Nerd Font"
-  --      -- folder icon is double size, use mono version instead.
-  --         See https://github.com/polybar/polybar/issues/991#issue-293786329
-  --  "FuraMono Nerd Font Mono",
-  "Fira Mono",
+  --  - "FuraMono Nerd Font" disabled
+  --      - folder icon is double size, use mono version instead.
+  --        See https://github.com/polybar/polybar/issues/991#issue-293786329
+  --  - "FuraMono Nerd Font Mono" disabled
+
+  --  - "Fira Mono" disabled
+  -- Prefer stylistic updates from Fira Code but with ligatures disabled
+  -- a g i l r 3 ~ $ % * () {} |
+  {
+    family = "Fira Code",
+    harfbuzz_features = {
+      "calt=0", -- no ligatures => ===
+      "clig=0", -- no contextual ligatures ft
+      "ss03", -- & clarified
+      "ss05", -- @ rounded
+      "ss06", -- \\ \n dimmed char escapes
+      "zero", -- dotted 0
+    },
+  },
 
   -- charset fallbacks ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ (ﾉಥ益ಥ）ﾉ︵┻━┻
   "Noto Sans Mono", -- linux + smallcaps
@@ -74,11 +88,9 @@ config.font = wezterm.font_with_fallback({
   "Noto Color Emoji",
 })
 
-config.font_dirs = { 'fonts' }
+config.font_dirs = { "fonts" }
 
 config.font_size = hidpi and 18.0 or 12.0
-
-config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
 config.line_height = 1.2
 
