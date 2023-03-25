@@ -57,8 +57,9 @@ __symlink() {
     ".config/nvm/default-packages"
   dko-symlink "shell/dot.inputrc" \
     ".config/readline/inputrc"
-  dko-symlink "wezterm/wezterm.lua" \
-    ".config/wezterm/wezterm.lua"
+  # whole wezterm directory
+  dko-symlink "wezterm" \
+    ".config/wezterm"
 
   # (n)vim / intellij ideavim
   dko-symlink "vim" \

@@ -13,6 +13,9 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
+-- Fix double-wide nerd fonts when using builtin Nerd Font Symbols
+config.allow_square_glyphs_to_overflow_width = "Never"
+
 config.adjust_window_size_when_changing_font_size = false
 
 config.audible_bell = "Disabled"
@@ -32,13 +35,13 @@ config.enable_scroll_bar = true
 -- test: ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ
 -- cjk: (ﾉಥ益ಥ）ﾉ︵┻━┻
 config.font = wezterm.font_with_fallback({
-  -- "FuraMono Nerd Font", -- folder icon is double size, use mono version
-  -- instead. See https://github.com/polybar/polybar/issues/991#issue-293786329
-
-  -- wez recommends against using patched nerd font because of mangled
-  -- metadata, but the builtin Nerd Font Symbols Font has that big double wide
-  -- folder too :(
-  "FuraMono Nerd Font Mono",
+  -- wez recommends against using patched nerd fonts because of mangled
+  -- metadata so don't use these:
+  --  "FuraMono Nerd Font"
+  --      -- folder icon is double size, use mono version instead.
+  --         See https://github.com/polybar/polybar/issues/991#issue-293786329
+  --  "FuraMono Nerd Font Mono",
+  "Fira Mono",
 
   "Noto Sans Mono", -- linux + smallcaps
   "Roboto Mono",
@@ -50,6 +53,8 @@ config.font = wezterm.font_with_fallback({
   "Unifont", -- bitmap fallback with a lot of unicode
 })
 
+config.font_dirs = { 'fonts' }
+
 config.font_size = hidpi and 18.0 or 12.0
 
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
@@ -60,6 +65,8 @@ config.inactive_pane_hsb = {
   brightness = 0.5,
   saturation = 0.5,
 }
+
+config.line_height = 1.2
 
 config.scrollback_lines = 9999
 
