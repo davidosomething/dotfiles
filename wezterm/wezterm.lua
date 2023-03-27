@@ -1,5 +1,6 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
+
 local act = wezterm.action
 
 local hidpi = wezterm.hostname() == "Dotrakoun-Macbook-Pro"
@@ -96,18 +97,47 @@ config.line_height = 1.2
 -- Theme
 -- ===========================================================================
 
+local xdg_state_home = os.getenv("XDG_STATE_HOME")
+local colorscheme_file = ("%s/wezterm-colorscheme.txt"):format(xdg_state_home)
+local nvimsock = ("%s/nvim/nvim.sock"):format(xdg_state_home)
+
+---@param next_mode string
+local sync_colorscheme = function(next_mode)
+  local handler = io.open(colorscheme_file, "w")
+  if handler then
+    handler:write(next_mode)
+    handler:close()
+  end
+
+  -- sock file cannot be iopen
+  local found = wezterm.run_child_process({ "test", "-e", nvimsock })
+  if found then
+    local command = next_mode == "light" and "DKOLight" or "DKODark"
+    os.execute(
+      ("nvim --server %s --remote-expr %s"):format(
+        wezterm.shell_quote_arg(nvimsock),
+        wezterm.shell_quote_arg(("execute('%s')"):format(command))
+      )
+    )
+  end
+end
+
 local colorschemes = {
   dark = "Twilight (base16)",
   light = "Solarized (light) (terminal.sexy)",
 }
 config.color_scheme = colorschemes.dark
+sync_colorscheme("dark")
 
-local toggle_theme = function(win)
+local toggle_colorscheme = function(win)
   local ecfg = win:effective_config()
-  local next = ecfg.color_scheme == colorschemes.light and colorschemes.dark or colorschemes.light
+  local next_mode = ecfg.color_scheme == colorschemes.light and "dark"
+    or "light"
+  local next_colorscheme = colorschemes[next_mode]
   local overrides = win:get_config_overrides() or {}
-  overrides.color_scheme = next
+  overrides.color_scheme = next_colorscheme
   win:set_config_overrides(overrides)
+  sync_colorscheme(next_mode)
 end
 
 -- ===========================================================================
@@ -166,7 +196,7 @@ k:insert({
 k:insert({
   key = "T",
   mods = "CTRL|SHIFT",
-  action = wezterm.action_callback(toggle_theme),
+  action = wezterm.action_callback(toggle_colorscheme),
 })
 
 config.keys = k

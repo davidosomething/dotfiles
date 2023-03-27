@@ -28,3 +28,13 @@ command("Delete", function()
     vim.notify(fp, vim.log.levels.INFO, { title = ":Delete succeeded" })
   end
 end, { desc = "Delete current file" })
+
+command("DKOLight", function()
+  vim.o.bg = "light"
+  vim.cmd([[ colorscheme two-firewatch ]])
+end, { desc = "Set light colorscheme" })
+
+command("DKODark", function()
+  vim.o.bg = "dark"
+  vim.cmd([[ colorscheme meh ]])
+end, { desc = "Set dark colorscheme" })
