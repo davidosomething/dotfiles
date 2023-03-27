@@ -241,23 +241,22 @@ return {
       "neovim/nvim-lspconfig", -- wait for lspconfig, which waits for neodev
     },
     config = function()
-      local masonLspConfig = require("mason-lspconfig")
-      masonLspConfig.setup({
+      local ml = require("mason-lspconfig")
+      ml.setup({
         ensure_installed = lsps,
         automatic_installation = true,
       })
 
-      local cmpNvimLsp = require("cmp_nvim_lsp")
-
+      local cnl = require("cmp_nvim_lsp")
       local default_opts = {
-        capabilities = cmpNvimLsp.default_capabilities(),
+        capabilities = cnl.default_capabilities(),
       }
 
       local lspconfig = require("lspconfig")
 
       -- Note that instead of on_attach for each server setup,
       -- behaviors.lua has an autocmd LspAttach defined
-      masonLspConfig.setup_handlers({
+      ml.setup_handlers({
         function(server)
           lspconfig[server].setup(default_opts)
         end,
@@ -313,6 +312,30 @@ return {
             on_attach = function(_, bufnr)
               require("dko.mappings").bind_tsserver_lsp(bufnr)
             end,
+
+            handlers = {
+              ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+                if result.diagnostics == nil then
+                  return
+                end
+
+                local idx = 1
+                while idx <= #result.diagnostics do
+                  local entry = result.diagnostics[idx]
+                  result.diagnostics[idx].message = ("[%s] %s"):format(entry.code, entry.message)
+
+                  -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
+                  if entry.code == 80001 then
+                    -- { message = "File is a CommonJS module; it may be converted to an ES module.", }
+                    table.remove(result.diagnostics, idx)
+                  else
+                    idx = idx + 1
+                  end
+                end
+                vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+              end,
+            },
+
           }))
         end,
 
