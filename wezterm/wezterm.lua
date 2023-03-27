@@ -15,8 +15,6 @@ end
 
 config.audible_bell = "Disabled"
 
-config.color_scheme = "Twilight (base16)"
-
 config.cursor_blink_ease_in = "Linear"
 config.cursor_blink_ease_out = "EaseIn"
 config.cursor_blink_rate = 400
@@ -95,6 +93,24 @@ config.font_size = hidpi and 18.0 or 12.0
 config.line_height = 1.2
 
 -- ===========================================================================
+-- Theme
+-- ===========================================================================
+
+local colorschemes = {
+  dark = "Twilight (base16)",
+  light = "Solarized (light) (terminal.sexy)",
+}
+config.color_scheme = colorschemes.dark
+
+local toggle_theme = function(win)
+  local ecfg = win:effective_config()
+  local next = ecfg.color_scheme == colorschemes.light and colorschemes.dark or colorschemes.light
+  local overrides = win:get_config_overrides() or {}
+  overrides.color_scheme = next
+  win:set_config_overrides(overrides)
+end
+
+-- ===========================================================================
 
 local k = setmetatable({}, { __index = table })
 
@@ -145,6 +161,12 @@ k:insert({
   key = "w",
   mods = "CMD",
   action = act.CloseCurrentPane({ confirm = true }),
+})
+
+k:insert({
+  key = "T",
+  mods = "CTRL|SHIFT",
+  action = wezterm.action_callback(toggle_theme),
 })
 
 config.keys = k
