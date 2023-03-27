@@ -108,6 +108,7 @@ setopt HIST_VERIFY                    # verify when using history cmds/params
 # Input/Output
 setopt ALIASES                        # autocomplete switches for aliases
 setopt AUTO_PARAM_SLASH               # append slash if autocompleting a dir
+setopt COMBINING_CHARS                # unicode allowed when using wezterm
 setopt CORRECT
 
 # Job Control
