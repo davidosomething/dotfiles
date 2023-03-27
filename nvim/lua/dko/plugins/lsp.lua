@@ -12,8 +12,15 @@ local extras = {
   "selene",
   "shellcheck", -- used by null_ls AND bashls
   "stylua",
-  "vint",
 }
+local when_executable = {
+  vint = "python",
+}
+for lsp, bin in pairs(when_executable) do
+  if vim.fn.executable(bin) == 1 then
+    table.insert(extras, lsp)
+  end
+end
 
 -- LSPs to install with mason via mason-lspconfig
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
@@ -36,10 +43,10 @@ local lsps = {
   "vimls",
   "yamlls",
 }
-local when_executable = {
-  go = "gopls",
+when_executable = {
+  gopls = "go",
 }
-for bin, lsp in pairs(when_executable) do
+for lsp, bin in pairs(when_executable) do
   if vim.fn.executable(bin) == 1 then
     table.insert(lsps, lsp)
   end
@@ -178,8 +185,8 @@ return {
     dependencies = {
       "folke/neodev.nvim",
     },
-    config = function ()
-      require('lspconfig').tilt_ls.setup({})
+    config = function()
+      require("lspconfig").tilt_ls.setup({})
     end,
   },
 
@@ -318,7 +325,6 @@ return {
             },
           }))
         end,
-
       })
     end,
   },
