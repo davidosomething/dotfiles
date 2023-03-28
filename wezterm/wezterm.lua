@@ -105,8 +105,18 @@ local nvimsock = ("%s/nvim/nvim.sock"):format(xdg_state_home)
 local sync_colorscheme = function(next_mode)
   local handler = io.open(colorscheme_file, "w")
   if handler then
+    os.execute(
+      ('notify-send "updated %s with %s"'):format(colorscheme_file, next_mode)
+    )
     handler:write(next_mode)
     handler:close()
+  else
+    os.execute(
+      ('notify-send "could not update %s with %s"'):format(
+        colorscheme_file,
+        next_mode
+      )
+    )
   end
 
   -- sock file cannot be iopen
@@ -127,14 +137,13 @@ local colorschemes = {
   light = "Solarized (light) (terminal.sexy)",
 }
 config.color_scheme = colorschemes.dark
-sync_colorscheme("dark")
 
 local toggle_colorscheme = function(win)
   local ecfg = win:effective_config()
   local next_mode = ecfg.color_scheme == colorschemes.light and "dark"
     or "light"
-  local next_colorscheme = colorschemes[next_mode]
   local overrides = win:get_config_overrides() or {}
+  local next_colorscheme = colorschemes[next_mode]
   overrides.color_scheme = next_colorscheme
   win:set_config_overrides(overrides)
   sync_colorscheme(next_mode)

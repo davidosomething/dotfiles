@@ -258,27 +258,6 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
     config = function()
-      local function apply_highlights()
-        if vim.g.colors_name == 'meh' then
-          vim.cmd([[
-            highlight IndentBlanklineIndent2 guibg=#242424 gui=nocombine
-            highlight IndentBlanklineContextChar guifg=#664422 gui=nocombine
-          ]])
-        else
-          vim.cmd([[
-            highlight IndentBlanklineIndent2 guibg=#fafafa gui=nocombine
-            highlight IndentBlanklineContextChar guifg=#eeeeee gui=nocombine
-          ]])
-        end
-      end
-      apply_highlights()
-
-      vim.api.nvim_create_autocmd("colorscheme", {
-        desc = "Re-apply my indent-blankline highlights",
-        callback = apply_highlights,
-        group = vim.api.nvim_create_augroup("dkoindentblankline", {}),
-      })
-
       require("indent_blankline").setup({
         filetype_exclude = {
           "help",
