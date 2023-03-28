@@ -244,3 +244,32 @@ autocmd("LspAttach", {
   end,
   group = augroup("dkolsp"),
 })
+
+autocmd("colorscheme", {
+  desc = "Re-apply my indent-blankline highlights",
+  callback = function()
+    if vim.g.colors_name == "meh" then
+      vim.cmd([[
+        highlight IndentBlanklineIndent2 guibg=#242424 gui=nocombine
+        highlight IndentBlanklineContextChar guifg=#664422 gui=nocombine
+      ]])
+    else
+      vim.cmd([[
+        highlight IndentBlanklineIndent2 guibg=#fafafa gui=nocombine
+        highlight IndentBlanklineContextChar guifg=#eeeeee gui=nocombine
+      ]])
+    end
+  end,
+  group = augroup("dkoindentblankline"),
+})
+
+autocmd("colorscheme", {
+  desc = "Clear heirline color cache",
+  callback = function()
+    local ok, heirline = pcall(require, "heirline")
+    if ok then
+      heirline.reset_highlights()
+    end
+  end,
+  group = augroup("dkoheirline"),
+})
