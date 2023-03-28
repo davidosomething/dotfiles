@@ -135,15 +135,17 @@ local sync_colorscheme = function(next_mode)
   end
 
   -- sock file cannot be iopen
-  local found = wezterm.run_child_process({ "test", "-e", nvimsock })
-  if found then
-    local command = next_mode == "light" and "DKOLight" or "DKODark"
+  if wezterm.run_child_process({ "test", "-e", nvimsock }) then
+    -- uses my .dotfiles/bin/elight / edark scripts
+    local bin = os.getenv('HOME') .. "/.dotfiles/bin/e" .. next_mode
     os.execute(
-      ("nvim --server %s --remote-expr %s"):format(
-        wezterm.shell_quote_arg(nvimsock),
-        wezterm.shell_quote_arg(("execute('%s')"):format(command))
+      ('%s "%s"%s'):format(
+        notifier,
+        bin,
+        close
       )
     )
+    os.execute(bin)
   end
 end
 
