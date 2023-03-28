@@ -98,23 +98,38 @@ config.line_height = 1.2
 -- ===========================================================================
 
 local xdg_state_home = os.getenv("XDG_STATE_HOME")
+  or os.getenv("HOME") .. "/.local/state"
 local colorscheme_file = ("%s/wezterm-colorscheme.txt"):format(xdg_state_home)
 local nvimsock = ("%s/nvim/nvim.sock"):format(xdg_state_home)
+
+local notifier = "osascript -e 'display notification"
+local close = "'"
+if wezterm.target_triple == "x86_64-unknown-linux-gnu - Linux" then
+  notifier = "notify-send"
+  close = ""
+end
 
 ---@param next_mode string
 local sync_colorscheme = function(next_mode)
   local handler = io.open(colorscheme_file, "w")
   if handler then
     os.execute(
-      ('notify-send "updated %s with %s"'):format(colorscheme_file, next_mode)
+      ('%s "updated %s with %s"%s'):format(
+        notifier,
+        colorscheme_file,
+        next_mode,
+        close
+      )
     )
     handler:write(next_mode)
     handler:close()
   else
     os.execute(
-      ('notify-send "could not update %s with %s"'):format(
+      ('%s "could not update %s with %s"%s'):format(
+        notifier,
         colorscheme_file,
-        next_mode
+        next_mode,
+        close
       )
     )
   end
