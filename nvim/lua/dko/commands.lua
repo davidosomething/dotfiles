@@ -54,23 +54,27 @@ end, { desc = "Delete current file" })
 
 command("Rename", function()
   local prev = vim.fn.expand('%')
-  local next = vim.fn.input({
-    prompt = 'New file name: ',
-    default = prev,
-    completion = 'file'
-  })
-  if next and next ~= '' and next ~= prev then
-    vim.cmd.saveas(next)
+  vim.ui.input(
+    {
+      prompt = 'New file name: ',
+      default = prev,
+      completion = 'file'
+    },
+    function(next)
+      if not next or next == '' or next == prev then
+        return
+      end
 
-    local ok, err = vim.loop.fs_unlink(prev)
-    if not ok then
-      vim.notify(
-        table.concat({ prev, err }, "\n"),
-        vim.log.levels.ERROR,
-        { title = ":Rename failed to delete orig" }
-      )
+      vim.cmd.saveas(next)
+      local ok, err = vim.loop.fs_unlink(prev)
+      if not ok then
+        vim.notify(
+          table.concat({ prev, err }, "\n"),
+          vim.log.levels.ERROR,
+          { title = ":Rename failed to delete orig" }
+        )
+      end
+      vim.cmd.redraw({ bang = true })
     end
-
-    vim.cmd.redraw({ bang = true })
-  end
+  )
 end, { desc = "Rename current file" })
