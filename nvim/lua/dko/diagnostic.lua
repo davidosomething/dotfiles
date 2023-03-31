@@ -41,14 +41,19 @@ local function floatFormat(diagnostic)
   ]]
 
   local symbol = M.SEVERITY_TO_SYMBOL[diagnostic.severity] or "-"
-
   local source = diagnostic.source
-  -- strip period at end
-  if source.sub(source, -1, -1) == "." then
-    source = source:sub(1, -2)
+  if source then
+    if source.sub(source, -1, -1) == "." then
+      -- strip period at end
+      source = source:sub(1, -2)
+    end
+  else
+    source = "NIL.SOURCE"
+    vim.pretty_print(diagnostic)
   end
-  local sourceText = require("dko.utils.string").smallcaps("<" .. source .. ">")
-  return symbol .. " " .. diagnostic.message .. " " .. sourceText
+  local source_tag =
+    require("dko.utils.string").smallcaps(("<%s>"):format(source))
+  return ("%s %s %s"):format(symbol, diagnostic.message, source_tag)
 end
 
 vim.diagnostic.config({
