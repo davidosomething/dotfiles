@@ -570,24 +570,42 @@ end
 -- ===========================================================================
 
 M.bind_nvim_various_textobjs = function()
+  -- Note: use <cmd> mapping format for dot-repeatability
+  -- https://github.com/chrisgrieser/nvim-various-textobjs/commit/363dbb7#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5R5
+
   -- map({ "o", "x" }, "ii", function()
   --   require("various-textobjs").indentation(true, true)
   --   vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   -- end, { desc = "textobj: indent" })
-  map({ "o", "x" }, "ik", function()
-    require("various-textobjs").key(true)
-  end, { desc = "textobj: key" })
-  map({ "o", "x" }, "iv", function()
-    require("various-textobjs").value(true)
-  end, { desc = "textobj: value" })
-  map({ "o", "x" }, "is", function()
-    require("various-textobjs").subword(true)
-  end, { desc = "textobj: camel-_Snake" })
-  -- map({ "o", "x" }, "iu", function()
-  --   require("various-textobjs").url()
-  -- end, { desc = "textobj: url" })
 
-  vim.keymap.set("n", "gx", function()
+  map(
+    { "o", "x" },
+    "ik",
+    "<cmd>lua require('various-textobjs').key(true)<CR>",
+    { desc = "textobj: object key" }
+  )
+  map(
+    { "o", "x" },
+    "iv",
+    "<cmd>lua require('various-textobjs').value(true)<CR>",
+    { desc = "textobj: object value" }
+  )
+  map(
+    { "o", "x" },
+    "is",
+    "<cmd>lua require('various-textobjs').subword(true)<CR>",
+    { desc = "textobj: camel-_Snake" }
+  )
+
+  --[[ map(
+    { "o", "x" },
+    "iu",
+    "<cmd>lua require('various-textobjs').url()<CR>",
+    { desc = "textobj: url" }
+  ) ]]
+
+  -- replaces netrw's gx
+  map("n", "gx", function()
     require("various-textobjs").url() -- select URL
     -- this works since the plugin switched to visual mode
     -- if the textobj has been found

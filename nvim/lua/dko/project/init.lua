@@ -51,7 +51,7 @@ M.get_root_by_patterns = function(patterns)
   return getter({ start = start, bufnr = 0 })
 end
 
----@param from string
+---@param from? string
 ---@return string|nil git root
 M.git_root = function(from)
   from = from or vim.api.nvim_buf_get_name(0)
