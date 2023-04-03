@@ -14,6 +14,7 @@ return {
       "hrsh7th/cmp-cmdline",
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
       "onsails/lspkind.nvim",
+      { 'buschco/nvim-cmp-ts-tag-close', opts = { skip_tags = { 'img' } } },
     },
 
     config = function()
@@ -26,6 +27,7 @@ return {
         },
 
         sources = cmp.config.sources({
+          { name = 'nvim-cmp-ts-tag-close' },
           { name = "snippy" },
           { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
