@@ -742,9 +742,10 @@ M.terminal_keys = {
 }
 
 M.bind_terminal = function()
+  local height = 16
   local horizontal = require("terminal").terminal:new({
     autoclose = true,
-    layout = { open_cmd = "botright new" },
+    layout = { open_cmd = ("botright %s new"):format(height) },
   })
   map('n', M.terminal_keys.horizontal, function ()
     horizontal:toggle(nil, true)
