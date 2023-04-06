@@ -212,10 +212,10 @@ return {
     cmd = "ToggleTerm",
     config = function()
       require("toggleterm").setup({
-        direction = "horizontal",
-        float_opts = { border = "rounded" },
-        open_mapping = require("dko.mappings").toggleterm.open,
-        insert_mappings = true,
+        float_opts = { border = "curved" },
+        -- built-in mappings only work on LAST USED terminal, so it confuses
+        -- the buffer terminal with the floating terminal
+        open_mapping = nil --
       })
       require("dko.mappings").bind_toggleterm()
     end,
