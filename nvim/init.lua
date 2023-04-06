@@ -3,10 +3,11 @@
 ---@diagnostic disable-next-line: missing-parameter
 vim.g.mapleader = " "
 
-vim.g.loaded_node_provider = false
-vim.g.loaded_ruby_provider = false
-vim.g.loaded_perl_provider = false
-vim.g.loaded_python_provider = false -- disable python 2
+-- Must be 0 and not false
+vim.g.loaded_node_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python_provider = 0 -- disable python 2
 
 -- Skips if python is not installed in a pyenv virtualenv
 -- python 3
