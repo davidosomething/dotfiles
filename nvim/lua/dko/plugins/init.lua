@@ -208,13 +208,16 @@ return {
   {
     "akinsho/toggleterm.nvim",
     version = "*",
-    keys = require("dko.mappings").toggleterm.open,
+    keys = vim.tbl_values(require("dko.mappings").toggleterm),
+    cmd = "ToggleTerm",
     config = function()
       require("toggleterm").setup({
         direction = "horizontal",
+        float_opts = { border = "rounded" },
         open_mapping = require("dko.mappings").toggleterm.open,
         insert_mappings = true,
       })
+      require("dko.mappings").bind_toggleterm()
     end,
   },
 
