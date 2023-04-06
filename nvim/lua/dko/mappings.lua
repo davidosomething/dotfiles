@@ -738,7 +738,27 @@ end
 
 M.toggleterm = {
   open = "<A-i>",
+  float = "<C-A-i>",
 }
+
+M.bind_toggleterm = function()
+  local floating = require("toggleterm.terminal").Terminal:new({
+    direction = "float",
+    on_open = function()
+      vim.keymap.set(
+        "t",
+        M.toggleterm.float,
+        "<Cmd>close<CR>",
+        { noremap = true, silent = true }
+      )
+    end,
+  })
+  map("n", M.toggleterm.float, function()
+    floating:toggle()
+  end, {
+    desc = "Open a big floating terminal",
+  })
+end
 
 -- ===========================================================================
 -- Plugin: treesj
