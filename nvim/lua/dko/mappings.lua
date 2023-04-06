@@ -738,7 +738,7 @@ end
 
 M.toggleterm = {
   open = "<A-i>",
-  float = "<C-A-i>",
+  float = "<C-i>",
 }
 
 M.bind_toggleterm = function()
