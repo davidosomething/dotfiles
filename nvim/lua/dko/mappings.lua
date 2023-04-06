@@ -733,50 +733,38 @@ M.bind_textobj = function()
 end
 
 -- ===========================================================================
--- Plugin: toggleterm.nvim
+-- Plugin: terminal.nvim
 -- ===========================================================================
 
-M.toggleterm = {
+M.terminal_keys = {
   horizontal = "<A-i>",
   float = "<C-i>",
 }
 
-M.bind_toggleterm = function()
-  local horizontal = require("toggleterm.terminal").Terminal:new({
-    count = 88888,
-    direction = "horizontal",
-    on_open = function()
-      vim.keymap.set(
-        "t",
-        M.toggleterm.horizontal,
-        "<Cmd>close<CR>",
-        { buffer = true, noremap = true, silent = true }
-      )
-    end,
+M.bind_terminal = function()
+  local horizontal = require("terminal").terminal:new({
+    autoclose = true,
+    layout = { open_cmd = "botright new" },
   })
-  map("n", M.toggleterm.horizontal, function()
-    horizontal:toggle()
-  end, {
-    desc = "Open a horizontal floating terminal",
-  })
+  map('n', M.terminal_keys.horizontal, function ()
+    horizontal:toggle(nil, true)
+    local bufnr = vim.api.nvim_get_current_buf()
+    map("t", M.terminal_keys.horizontal, function()
+      horizontal:close()
+    end, { buffer = bufnr, desc = "Close the active terminal" })
+  end, { desc = "Open a horizontal terminal" })
 
-  local floating = require("toggleterm.terminal").Terminal:new({
-    count = 99999,
-    direction = "float",
-    on_open = function()
-      vim.keymap.set(
-        "t",
-        M.toggleterm.float,
-        "<Cmd>close<CR>",
-        { buffer = true, noremap = true, silent = true }
-      )
-    end,
+  local float = require("terminal").terminal:new({
+    autoclose = true,
+    layout = { open_cmd = "float", height = 0.8, width = 0.8 },
   })
-  map("n", M.toggleterm.float, function()
-    floating:toggle()
-  end, {
-    desc = "Open a big floating terminal",
-  })
+  map('n', M.terminal_keys.float, function ()
+    float:toggle(nil, true)
+    local bufnr = vim.api.nvim_get_current_buf()
+    map("t", M.terminal_keys.float, function()
+      float:close()
+    end, { buffer = bufnr, desc = "Close the active terminal" })
+  end, { desc = "Open a floating terminal" })
 end
 
 -- ===========================================================================

@@ -18,10 +18,9 @@ command("Q", "q", { bang = true, desc = ":Q same as :q" })
 -- existing server (e.g. --remote-send files to edit)
 command("DKOExternal", function()
   require("dko.utils.close_floats")()
-
-  local is_toggleterm = vim.api.nvim_buf_get_name(0):find('#toggleterm')
-  if is_toggleterm then
-    vim.cmd.close()
+  local ok, terminal = pcall(require, 'terminal')
+  if ok then
+    terminal.close()
   end
 end, { desc = "Prepare to receive an external command" })
 

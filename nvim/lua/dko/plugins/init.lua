@@ -206,18 +206,12 @@ return {
   -- =========================================================================
 
   {
-    "akinsho/toggleterm.nvim",
-    version = "*",
-    keys = vim.tbl_values(require("dko.mappings").toggleterm),
-    cmd = "ToggleTerm",
+    "rebelot/terminal.nvim",
+    keys = vim.tbl_values(require("dko.mappings").terminal_keys),
+    cmd = { "TermRun", "TermOpen", "TermToggle" },
     config = function()
-      require("toggleterm").setup({
-        float_opts = { border = "curved" },
-        -- built-in mappings only work on LAST USED terminal, so it confuses
-        -- the buffer terminal with the floating terminal
-        open_mapping = nil --
-      })
-      require("dko.mappings").bind_toggleterm()
+      require("terminal").setup()
+      require("dko.mappings").bind_terminal()
     end,
   },
 
