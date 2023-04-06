@@ -206,11 +206,15 @@ return {
   -- =========================================================================
 
   {
-    "numtostr/FTerm.nvim",
-    keys = "<A-i>",
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    keys = require("dko.mappings").toggleterm.open,
     config = function()
-      require("FTerm").setup({ border = "rounded" })
-      require("dko.mappings").bind_fterm()
+      require("toggleterm").setup({
+        direction = "horizontal",
+        open_mapping = require("dko.mappings").toggleterm.open,
+        insert_mappings = true,
+      })
     end,
   },
 
