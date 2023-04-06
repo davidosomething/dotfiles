@@ -217,7 +217,7 @@ return {
         open_mapping = require("dko.mappings").toggleterm.open,
         insert_mappings = true,
       })
-      require('dko.mappings').bind_toggleterm()
+      require("dko.mappings").bind_toggleterm()
     end,
   },
 
