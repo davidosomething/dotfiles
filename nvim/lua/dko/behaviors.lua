@@ -39,6 +39,16 @@ autocmd("QuitPre", {
   group = windowGroup,
 })
 
+autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
+  desc = "Start in insert mode when entering a terminal",
+  callback = function(args)
+    if vim.startswith(vim.api.nvim_buf_get_name(args.buf), "term://") then
+      vim.cmd("startinsert")
+    end
+  end,
+  group = windowGroup,
+})
+
 local projectGroup = augroup("dkoproject")
 autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
   desc = "Set dko#project variables on buffers",
