@@ -106,7 +106,7 @@ map({ "i", "n" }, "<F1>", "<NOP>", { desc = "Disable help shortcut key" })
 map("n", "<F1>", function()
   local h = require("dko.utils.help")
   local res = h.find(vim.fn.expand("<cexpr>"))
-  vim.pretty_print(res)
+  vim.print(res)
   if res then
     vim.cmd.help(res.match)
   end
@@ -265,7 +265,7 @@ end, { desc = "Open diagnostic float at cursor" })
 -- ===========================================================================
 
 map("n", "ss", function()
-  vim.pretty_print(vim.treesitter.get_captures_at_cursor())
+  vim.print(vim.treesitter.get_captures_at_cursor())
 end, { desc = "Print treesitter captures under cursor" })
 
 map("n", "sy", function()

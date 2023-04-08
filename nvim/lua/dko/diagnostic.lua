@@ -49,7 +49,7 @@ local function floatFormat(diagnostic)
     end
   else
     source = "NIL.SOURCE"
-    vim.pretty_print(diagnostic)
+    vim.print(diagnostic)
   end
   local source_tag =
     require("dko.utils.string").smallcaps(("<%s>"):format(source))
