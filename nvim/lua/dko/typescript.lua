@@ -11,7 +11,7 @@ M.source_definition = function()
 
   local callback = function(...)
     local args = { ... }
-    vim.pretty_print(args)
+    vim.print(args)
     local res = args[2] or {}
     if vim.tbl_isempty(res) then
       return false

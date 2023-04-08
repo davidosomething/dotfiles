@@ -1,3 +1,6 @@
+-- polyfill nvim 0.9 change
+vim.print = vim.print or vim.pretty_print
+
 -- Fallback for vims with no env access like Veonim
 -- used by plugin/*
 ---@diagnostic disable-next-line: missing-parameter

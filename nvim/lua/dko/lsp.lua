@@ -314,7 +314,7 @@ M.code_action = function(options)
       vim.notify("No code actions available", vim.log.levels.INFO)
       return
     end
-    vim.pretty_print(action_tuples)
+    vim.print(action_tuples)
   end)
 end
 
