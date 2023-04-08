@@ -747,7 +747,7 @@ M.bind_terminal = function()
     autoclose = true,
     layout = { open_cmd = ("botright %s new"):format(height) },
   })
-  map('n', M.terminal_keys.horizontal, function ()
+  map("n", M.terminal_keys.horizontal, function()
     horizontal:toggle(nil, true)
     local bufnr = vim.api.nvim_get_current_buf()
     map("t", M.terminal_keys.horizontal, function()
@@ -757,9 +757,14 @@ M.bind_terminal = function()
 
   local float = require("terminal").terminal:new({
     autoclose = true,
-    layout = { open_cmd = "float", height = 0.8, width = 0.8 },
+    layout = {
+      border = "rounded",
+      open_cmd = "float",
+      height = 0.8,
+      width = 0.8,
+    },
   })
-  map('n', M.terminal_keys.float, function ()
+  map("n", M.terminal_keys.float, function()
     float:toggle(nil, true)
     local bufnr = vim.api.nvim_get_current_buf()
     map("t", M.terminal_keys.float, function()
