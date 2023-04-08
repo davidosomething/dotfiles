@@ -12,6 +12,7 @@ local HIGHLIGHTING_ENABLED = {
   "tiltfile",
 }
 
+-- ft to treesitter parser
 local FT_ALIASES = {
   dotenv = "bash",
   tiltfile = "starlark",
@@ -147,7 +148,7 @@ return {
       -- =====================================================================
 
       for ft, parser in pairs(FT_ALIASES) do
-        require("nvim-treesitter.parsers").filetype_to_parsername[ft] = parser
+        vim.treesitter.language.register(parser, ft)
       end
     end,
   },
@@ -174,5 +175,4 @@ return {
       require("tree-sitter-just").setup({})
     end,
   },
-
 }
