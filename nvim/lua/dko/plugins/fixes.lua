@@ -21,7 +21,9 @@ return {
           number = false,
         },
         cursorword = {
-          enable = false, -- https://github.com/yamatsum/nvim-cursorline/issues/27
+          -- known issue https://github.com/yamatsum/nvim-cursorline/issues/27
+          -- but i don't use netrw, so maybe non-issue
+          enable = true,
           min_length = 3,
           hl = { underline = true },
         },
