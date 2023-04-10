@@ -215,7 +215,7 @@ return {
         float_opts = { border = "curved" },
         -- built-in mappings only work on LAST USED terminal, so it confuses
         -- the buffer terminal with the floating terminal
-        open_mapping = nil --
+        open_mapping = nil, --
       })
       require("dko.mappings").bind_toggleterm()
     end,
@@ -293,6 +293,15 @@ return {
         -- show_current_context = true, -- disable, makes hard to see tabchar
         use_treesitter = true,
       })
+    end,
+  },
+
+  -- package diff
+  {
+    "vuki656/package-info.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    config = function()
+      require("package-info").setup()
     end,
   },
 
