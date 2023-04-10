@@ -92,9 +92,7 @@ environment set up first.
 - `python/`
     - Never `sudo pip`. Set up a [pyenv], and use a [pyenv-virtualenv].
 - `vim/`
-    - If `curl` and `git` are available,
-      [vim-plug](https://github.com/junegunn/vim-plug) can automatically
-      download and install itself on first run.
+    - Not really maintained, I use neovim on all my systems now
     - See [vim/README.md](vim/README.md) for more information.
 
 ### rc script source order
