@@ -11,27 +11,45 @@ ctrl_c() {
     # shellcheck disable=2009
     ps ux | grep -v grep | grep language-server
   )
-  [[ -n $orphans ]] && 
-  echo "Possible orphan language server processes:"
+  [[ -n $orphans ]] &&
+    echo "Possible orphan language server processes:"
   echo "$orphans"
 }
 
 main() {
   ! command -v nvim >/dev/null && {
-    #echo "default editor"
+    [[ "$E_DEBUG" != "" ]] && echo "default editor"
     "$EDITOR" "$@"
     return
   }
 
-  # remote-expr outputs to /dev/stderr for some reason
-  existing=$(nvim \
-    --server "$__server" \
-    --remote-expr "execute('echo v:servername')" \
-    2>&1)
-
   local first="$1"
+
+  local existing
+  local running
+  running=$(pgrep nvim)
+
+  # invalid nvim.sock
+  if [ -z "$running" ]; then
+    [[ "$E_DEBUG" != "" ]] && echo "Not running"
+    [ -e "$__server" ] && {
+      [[ "$E_DEBUG" != "" ]] && echo "Removing dead nvim.sock"
+      rm "$__server"
+    }
+  else
+    # remote-expr outputs to /dev/stderr for some reason
+    # 0.9.0 needs headless https://github.com/neovim/neovim/issues/22970
+    existing=$(nvim \
+      --headless \
+      --server "$__server" \
+      --remote-expr "execute('echo v:servername')" \
+      2>&1)
+    [[ "$E_DEBUG" != "" ]] && echo "Found running $existing"
+  fi
+
+  # New server, empty
   [ "$existing" != "$__server" ] && [ -z "$first" ] && {
-    #echo "new server ${__server} with empty file"
+    [[ "$E_DEBUG" != "" ]] && echo "new server ${__server} with empty file"
     nvim --listen "$__server" +enew
     return
   }
@@ -46,8 +64,9 @@ main() {
     files+=("$file")
   done
 
+  # New server with files
   [ "$existing" != "$__server" ] && {
-    #echo "new server ${__server} with ${files[*]}"
+    [[ "$E_DEBUG" != "" ]] && echo "new server ${__server} with ${files[*]}"
     nvim --listen "$__server" "${files[@]}"
     return
   }
@@ -56,17 +75,19 @@ main() {
   # use existing server
   # ==========================================================================
 
+  # 0.9.0 needs headless https://github.com/neovim/neovim/issues/22970
   nvim \
+    --headless \
     --server "$__server" \
     --remote-expr "execute('DKOExternal')"
 
   if [ -z "$first" ]; then
-    #echo "no file given, surface existing server"
+    [[ "$E_DEBUG" != "" ]] && echo "no file given, surface existing server"
     nvim --server "$__server" --remote-send '<C-\><C-N><Cmd>e<CR>'
     return
   fi
 
-  #echo "use server ${__server} with ${file[*]}"
+  [[ "$E_DEBUG" != "" ]] && echo "use server ${__server} with ${file[*]}"
   nvim --server "$__server" --remote-silent "${files[@]}"
 }
 
