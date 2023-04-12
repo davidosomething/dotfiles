@@ -148,8 +148,11 @@ return {
       -- Aliases
       -- =====================================================================
 
-      for ft, parser in pairs(FT_ALIASES) do
-        vim.treesitter.language.register(parser, ft)
+      -- Only in nvim 0.9+
+      if vim.treesitter.language.register then
+        for ft, parser in pairs(FT_ALIASES) do
+          vim.treesitter.language.register(parser, ft)
+        end
       end
     end,
   },
