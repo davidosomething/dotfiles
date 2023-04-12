@@ -352,19 +352,17 @@ return {
   -- gcc / <Leader>gbc to comment with treesitter integration
   {
     "numToStr/Comment.nvim",
+    dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("Comment").setup(
-        vim.tbl_extend(
-          "force",
-          require("dko.mappings").get_commentnvim_mappings(),
-          {
-            pre_hook = require(
-              "ts_context_commentstring.integrations.comment_nvim"
-            ).create_pre_hook(),
-          }
-        )
-      )
+      local ok, tscc_integration = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
+      local pre_hook = ok and tscc_integration.create_pre_hook()
+      require("Comment").setup(require("dko.mappings").with_commentnvim_mappings(
+        {
+          -- add treesitter support, want tsx/jsx in particular
+          pre_hook = pre_hook,
+        }
+      ))
     end,
   },
 

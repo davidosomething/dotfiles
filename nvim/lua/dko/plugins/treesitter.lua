@@ -137,6 +137,7 @@ return {
         -- ===================================================================
 
         -- 'JoosepAlviste/nvim-ts-context-commentstring',
+        -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring#commentnvim
         context_commentstring = { enable = true, enable_autocmd = false },
 
         -- 'andymass/vim-matchup',
