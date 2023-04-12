@@ -11,7 +11,13 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("dko.plugins", {
-  checker = { enabled = string.find(vim.v.servername, "nvim.sock") },
+  change_detection = {
+    enabled = false,
+  },
+  checker = {
+    enabled = string.find(vim.v.servername, "nvim.sock"), -- hide in gina
+    notify = false, -- use tabline indicator
+  },
   dev = {
     fallback = true,
     patterns = { "davidosomething" },
