@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+printf "\e]9;%s\e\\" "${1}"
