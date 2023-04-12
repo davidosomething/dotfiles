@@ -2,6 +2,7 @@ vim.filetype.add({
   extension = {
     conf = 'conf',
     tiltfile = 'tiltfile',
+    Tiltfile = 'tiltfile',
   },
   filename = {
     ['Tiltfile'] = 'tiltfile',
