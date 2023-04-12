@@ -314,12 +314,14 @@ local function telescope_builtin(method)
 end
 
 -- LspAttach autocmd callback
+---@param bufnr number
 M.bind_lsp = function(bufnr)
+  ---@param opts table
+  ---@return table opts with silent and buffer set
   local function lsp_opts(opts)
-    opts = vim.tbl_extend("force", {
-      silent = true,
-      buffer = bufnr,
-    }, opts)
+    opts.silent = true
+    opts.buffer = bufnr
+    return opts
   end
 
   map(
@@ -392,22 +394,23 @@ end
 -- Plugin: Comment.nvim
 -- ===========================================================================
 
-M.get_commentnvim_mappings = function()
-  return {
-    ---LHS of operator-pending mappings in NORMAL and VISUAL mode
-    opleader = {
-      ---Line-comment keymap (default gc)
-      line = "gc",
-      ---Block-comment keymap (gb is my blame command)
-      block = "gb",
-    },
-    toggler = {
-      ---Line-comment toggle keymap
-      line = "gcc",
-      ---Block-comment toggle keymap
-      block = "gbb",
-    },
+---@param tbl table
+---@return table
+M.with_commentnvim_mappings = function(tbl)
+  ---LHS of operator-pending mappings in NORMAL and VISUAL mode
+  tbl.opleader = {
+    ---Line-comment keymap (default gc)
+    line = "gc",
+    ---Block-comment keymap (gb is my blame command)
+    block = "gb",
   }
+  tbl.toggler = {
+    ---Line-comment toggle keymap
+    line = "gcc",
+    ---Block-comment toggle keymap
+    block = "gbb",
+  }
+  return tbl
 end
 
 -- ===========================================================================
