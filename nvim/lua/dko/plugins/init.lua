@@ -320,6 +320,26 @@ return {
   -- =========================================================================
 
   {
+    "ojroques/nvim-osc52",
+    enabled = function()
+      return os.getenv("SSH_CLIENT") ~= ""
+    end,
+    config = function()
+      local function copy(lines, _)
+        require("osc52").copy(table.concat(lines, "\n"))
+      end
+      local function paste()
+        return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
+      end
+      vim.g.clipboard = {
+        name = "osc52",
+        copy = { ["+"] = copy, ["*"] = copy },
+        paste = { ["+"] = paste, ["*"] = paste },
+      }
+    end,
+  },
+
+  {
     "gbprod/yanky.nvim",
     config = function()
       require("yanky").setup({
@@ -355,14 +375,15 @@ return {
     dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      local ok, tscc_integration = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
+      local ok, tscc_integration =
+        pcall(require, "ts_context_commentstring.integrations.comment_nvim")
       local pre_hook = ok and tscc_integration.create_pre_hook()
-      require("Comment").setup(require("dko.mappings").with_commentnvim_mappings(
-        {
+      require("Comment").setup(
+        require("dko.mappings").with_commentnvim_mappings({
           -- add treesitter support, want tsx/jsx in particular
           pre_hook = pre_hook,
-        }
-      ))
+        })
+      )
     end,
   },
 
