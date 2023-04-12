@@ -39,6 +39,8 @@ main() {
   else
     # remote-expr outputs to /dev/stderr for some reason
     # 0.9.0 needs headless https://github.com/neovim/neovim/issues/22970
+    # @TODO detect multiple instances and pick correct server
+    # https://github.com/neovim/neovim/issues/21600
     existing=$(nvim \
       --headless \
       --server "$__server" \
