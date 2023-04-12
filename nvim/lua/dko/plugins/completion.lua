@@ -14,7 +14,7 @@ return {
       "hrsh7th/cmp-cmdline",
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
       "onsails/lspkind.nvim",
-      { 'buschco/nvim-cmp-ts-tag-close', opts = { skip_tags = { 'img' } } },
+      { "buschco/nvim-cmp-ts-tag-close", opts = { skip_tags = { "img" } } },
     },
 
     config = function()
@@ -27,7 +27,7 @@ return {
         },
 
         sources = cmp.config.sources({
-          { name = 'nvim-cmp-ts-tag-close' },
+          { name = "nvim-cmp-ts-tag-close" },
           { name = "snippy" },
           { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
@@ -36,7 +36,7 @@ return {
           { name = "buffer" },
         }),
 
-        mapping = require('dko.mappings').setup_cmp(),
+        mapping = require("dko.mappings").setup_cmp(),
 
         window = {
           completion = {
@@ -76,7 +76,7 @@ return {
 
             kind_formatted.kind = (strings[1] or "")
 
-            local smallcapsType = require("dko.utils.string").smallcaps(
+            local smallcaps_type = require("dko.utils.string").smallcaps(
               strings[2]
             ) or ""
 
@@ -86,11 +86,12 @@ return {
             if tailwind_colorized.kind == "XX" then
               kind_formatted.kind = "X"
               kind_formatted.kind_hl_group = tailwind_colorized.kind_hl_group
-              kind_formatted.menu = "  " .. "ᴛᴡ  ᴄᴏʟᴏʀ"
+              kind_formatted.menu = ("  %s"):format("ᴛᴡ  ᴄᴏʟᴏʀ")
             else
-              kind_formatted.menu = "  "
-                .. (kind_formatted.menu or entry.source.name)
-                .. "." .. smallcapsType
+              kind_formatted.menu = ("  %s.%s"):format(
+                kind_formatted.menu or entry.source.name,
+                smallcaps_type
+              )
             end
 
             return kind_formatted
