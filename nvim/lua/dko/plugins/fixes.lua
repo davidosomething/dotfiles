@@ -37,13 +37,4 @@ return {
     "gpanders/editorconfig.nvim",
     enabled = vim.fn.has("nvim-0.9") == 0,
   },
-
-  -- prevent new windows from shifting cursor position
-  {
-    "luukvbaal/stabilize.nvim",
-    enabled = vim.fn.exists("+splitkeep") == 0,
-    config = function()
-      require("stabilize").setup()
-    end,
-  },
 }

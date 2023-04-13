@@ -126,10 +126,6 @@ vim.opt.shortmess:append({
 
 vim.o.splitbelow = true
 vim.o.splitright = true
-if vim.fn.exists("+splitkeep") == 1 then
-  vim.o.splitkeep = "screen"
-end
-
 vim.o.hidden = true
 
 -- reveal already opened files from the quickfix window instead of opening new
