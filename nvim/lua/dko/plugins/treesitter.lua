@@ -130,7 +130,17 @@ return {
           end,
         },
 
-        indent = { enable = true },
+        -- @TODO Indent breaks comment continuation is JS/TS.
+        -- @see https://github.com/nvim-treesitter/nvim-treesitter/issues/2544
+        --
+        -- E.g. make a new jsfile.js and enter:
+        --   /**
+        --    */
+        -- From the end of /**, press "o" to open a new line.
+        -- EXPECTED: " * " with spaces before and after
+        -- OBSERVED: "* " no preceding space (so the value of s1 in 'comments'
+        -- was no respected.)
+        indent = { enable = false },
 
         -- ===================================================================
         -- 3rd party modules
