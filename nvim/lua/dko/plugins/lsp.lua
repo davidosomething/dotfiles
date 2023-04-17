@@ -247,10 +247,12 @@ return {
         automatic_installation = true,
       })
 
-      local cnl = require("cmp_nvim_lsp")
-      local default_opts = {
-        capabilities = cnl.default_capabilities(),
-      }
+      local function with_lsp_capabilities(opts)
+        opts = opts or {}
+        return vim.tbl_extend("force", {
+          capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        }, opts)
+      end
 
       local lspconfig = require("lspconfig")
 
@@ -258,11 +260,11 @@ return {
       -- behaviors.lua has an autocmd LspAttach defined
       ml.setup_handlers({
         function(server)
-          lspconfig[server].setup(default_opts)
+          lspconfig[server].setup(with_lsp_capabilities())
         end,
 
         ["jsonls"] = function()
-          lspconfig.jsonls.setup(vim.tbl_extend("force", default_opts, {
+          lspconfig.jsonls.setup(with_lsp_capabilities({
             settings = {
               json = {
                 schemas = require("schemastore").json.schemas(),
@@ -273,7 +275,7 @@ return {
         end,
 
         ["lua_ls"] = function()
-          lspconfig.lua_ls.setup(vim.tbl_extend("force", default_opts, {
+          lspconfig.lua_ls.setup(with_lsp_capabilities({
             settings = {
               Lua = {
                 workspace = {
@@ -287,7 +289,7 @@ return {
         end,
 
         ["stylelint_lsp"] = function()
-          lspconfig.stylelint_lsp.setup(vim.tbl_extend("force", default_opts, {
+          lspconfig.stylelint_lsp.setup(with_lsp_capabilities({
             -- Disable on some filetypes
             -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/stylelint_lsp.lua
             filetypes = {
@@ -306,7 +308,7 @@ return {
         end,
 
         ["tsserver"] = function()
-          lspconfig.tsserver.setup(vim.tbl_extend("force", default_opts, {
+          lspconfig.tsserver.setup(with_lsp_capabilities({
             ---@param _ table client
             ---@param bufnr number
             on_attach = function(_, bufnr)
@@ -314,16 +316,20 @@ return {
             end,
 
             handlers = {
-              ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+              ["textDocument/publishDiagnostics"] = function(
+                _,
+                result,
+                ctx,
+                config
+              )
                 if result.diagnostics == nil then
                   return
                 end
 
+                -- ignore some tsserver diagnostics
                 local idx = 1
                 while idx <= #result.diagnostics do
                   local entry = result.diagnostics[idx]
-                  result.diagnostics[idx].message = ("[%s] %s"):format(entry.code, entry.message)
-
                   -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
                   if entry.code == 80001 then
                     -- { message = "File is a CommonJS module; it may be converted to an ES module.", }
@@ -332,15 +338,20 @@ return {
                     idx = idx + 1
                   end
                 end
-                vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+
+                vim.lsp.diagnostic.on_publish_diagnostics(
+                  _,
+                  result,
+                  ctx,
+                  config
+                )
               end,
             },
-
           }))
         end,
 
         ["yamlls"] = function()
-          lspconfig.yamlls.setup(vim.tbl_extend("force", default_opts, {
+          lspconfig.yamlls.setup(with_lsp_capabilities({
             settings = {
               yaml = {
                 schemas = require("schemastore").yaml.schemas(),
