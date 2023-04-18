@@ -253,11 +253,18 @@ return {
   },
 
   {
+    "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
+    dev = true,
+    lazy = true,
+  },
+
+  {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
       "neovim/nvim-lspconfig", -- wait for lspconfig, which waits for neodev
+      "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
     },
     config = function()
       local ml = require("mason-lspconfig")
@@ -349,6 +356,10 @@ return {
                 local idx = 1
                 while idx <= #result.diagnostics do
                   local entry = result.diagnostics[idx]
+
+                  local formatter = require('format-ts-errors')[entry.code]
+                  entry.message = formatter and formatter(entry.message) or entry.message
+
                   -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
                   if entry.code == 80001 then
                     -- { message = "File is a CommonJS module; it may be converted to an ES module.", }
