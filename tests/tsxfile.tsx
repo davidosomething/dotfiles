@@ -1,6 +1,27 @@
 import * as React from 'react';
 export default [ 'nothing' ];
 
+interface Deep {
+  first: {
+    second: {
+      str: string
+      int: number
+    }
+  }
+}
+
+const a: Deep = {
+  first: {
+    third: {
+      fail: null
+    }
+  }
+}
+
+const b: Deep = {}
+
+console.log(a)
+
 const RED = 'red';
 const BURGUNDY = 'rgba(255, 101, 120, 0.5)';
 
