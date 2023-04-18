@@ -104,12 +104,32 @@ return {
         null_ls.builtins.diagnostics.vint,
         null_ls.builtins.diagnostics.zsh,
 
-        -- selene not picking up config
         null_ls.builtins.diagnostics.selene.with({
+          root_dir = require("null-ls.utils").root_pattern(
+            "selene.toml",
+            ".null-ls-root",
+            "Makefile",
+            ".git"
+          ),
+          condition = function()
+            local homedir = vim.loop.os_homedir()
+            local is_in_homedir = homedir
+              and vim.api.nvim_buf_get_name(0):find(homedir)
+            if not is_in_homedir then
+              return false
+            end
+            local results = vim.fs.find({ "selene.toml" }, {
+              path = vim.api.nvim_buf_get_name(0),
+              upward = true,
+              stop = vim.loop.os_homedir(),
+            })
+            return #results > 0
+          end,
           extra_args = function(params)
             local results = vim.fs.find({ "selene.toml" }, {
-              upward = true,
               path = vim.api.nvim_buf_get_name(0),
+              stop = vim.loop.os_homedir(),
+              upward = true,
             })
             if #results == 0 then
               return params
@@ -170,9 +190,8 @@ return {
     config = function()
       require("neodev").setup({
         override = function(root_dir, library)
-          if root_dir:find(".nvim") then
+          if root_dir:find("nvim") then
             library.enabled = true
-            library.plugins = true
           end
         end,
       })
