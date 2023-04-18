@@ -4,6 +4,8 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
+local ENABLED = true
+
 -- Tools to auto-install with mason
 -- Must then be configured, e.g. as null-ls formatter or diagnostic provider
 local extras = {
@@ -59,6 +61,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    lazy = true,
     config = function()
       local null_ls = require("null-ls")
 
@@ -187,6 +190,7 @@ return {
 
   {
     "folke/neodev.nvim",
+    lazy = true,
     config = function()
       require("neodev").setup({
         override = function(root_dir, library)
@@ -200,6 +204,7 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    enabled = ENABLED,
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "folke/neodev.nvim",
@@ -260,6 +265,7 @@ return {
 
   {
     "williamboman/mason-lspconfig.nvim",
+    enabled = ENABLED,
     dependencies = {
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
