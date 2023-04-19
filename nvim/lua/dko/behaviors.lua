@@ -8,6 +8,17 @@ local augroup = function(name, opts)
 end
 local autocmd = vim.api.nvim_create_autocmd
 
+local appGroup = augroup("dkonvimapp")
+autocmd("VimLeavePre", {
+  desc = "Remove the remote socket file",
+  callback = function()
+    if vim.v.servername:find("nvim.sock") then
+      vim.loop.fs_unlink(vim.v.servername)
+    end
+  end,
+  group = appGroup,
+})
+
 local windowGroup = augroup("dkowindow")
 autocmd("VimResized", {
   desc = "Automatically resize windows in all tabpages when resizing Vim",
