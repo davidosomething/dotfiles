@@ -28,9 +28,7 @@ main() {
   local existing
   local running
 
-  # disable rule for mac compatibility
-  # shellcheck disable=2009
-  running=$(ps | grep nvim.sock)
+  running=$(pgrep -f "nvim\.sock")
 
   # invalid nvim.sock
   if [ -z "$running" ]; then
