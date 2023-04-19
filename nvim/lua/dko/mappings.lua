@@ -179,10 +179,6 @@ map(
   { desc = "Replace last character with a semi-colon" }
 )
 
-map("n", "<Leader>ws", function()
-  vim.fn["dko#whitespace#clean"]()
-end, { desc = "Remove trailing whitespace from entire file" })
-
 for _, v in pairs({ "=", "-", "." }) do
   map({ "n", "i" }, "<Leader>f" .. v, function()
     require("dko.utils.hr").fill(v)
