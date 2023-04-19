@@ -27,16 +27,16 @@ main() {
 
   local existing
   local running
-
   running=$(pgrep -f "nvim\.sock")
-
-  # invalid nvim.sock
   if [ -z "$running" ]; then
     [[ "$E_DEBUG" != "" ]] && echo "Not running"
+
+    # this happens if my neovim crashes/killed without VimLeavePre
     [ -e "$__server" ] && {
       [[ "$E_DEBUG" != "" ]] && echo "Removing dead nvim.sock"
       rm "$__server"
     }
+
   else
     # remote-expr outputs to /dev/stderr for some reason
     # 0.9.0 needs headless https://github.com/neovim/neovim/issues/22970
