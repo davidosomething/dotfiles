@@ -65,6 +65,7 @@ alias eze='e "${ZDOTDIR}/dot.zshenv"'
 alias ezi='e "${ZDOTDIR}/zinit.zsh"'
 alias ezl='e "${LDOTDIR}/zshrc"'
 alias ezr='e "${ZDOTDIR}/.zshrc"'
+alias ke="pkill -f 'nvim.sock'"
 
 # ----------------------------------------------------------------------------
 # gem
