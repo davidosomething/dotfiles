@@ -1,5 +1,7 @@
 local M = {}
 
+vim.lsp.set_log_level("INFO")
+
 -- ===========================================================================
 -- LSP borders
 -- Add default rounded border and suppress no info messages

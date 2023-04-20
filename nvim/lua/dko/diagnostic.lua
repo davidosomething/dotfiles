@@ -19,7 +19,7 @@ end
 -- ===========================================================================
 
 -- how should diagnostics show up?
-local function floatFormat(diagnostic)
+local function float_format(diagnostic)
   --[[ e.g.
   {
     bufnr = 1,
@@ -40,6 +40,10 @@ local function floatFormat(diagnostic)
   }
   ]]
 
+  -- diagnostic.message may be pre-parsed in an lspconfig's handlers
+  -- ["textDocument/publishDiagnostics"]
+  -- e.g. tsserver in dko/plugins/lsp.lua
+
   local symbol = M.SEVERITY_TO_SYMBOL[diagnostic.severity] or "-"
   local source = diagnostic.source
   if source then
@@ -52,8 +56,13 @@ local function floatFormat(diagnostic)
     vim.print(diagnostic)
   end
   local source_tag =
-    require("dko.utils.string").smallcaps(("<%s>"):format(source))
-  return ("%s %s %s"):format(symbol, diagnostic.message, source_tag)
+    require("dko.utils.string").smallcaps(("%s"):format(source))
+  return ("%s %s [%s]\n%s"):format(
+    symbol,
+    source_tag,
+    diagnostic.code,
+    diagnostic.message
+  )
 end
 
 vim.diagnostic.config({
@@ -62,8 +71,9 @@ vim.diagnostic.config({
   float = {
     border = "rounded",
     header = false, -- remove the line that says 'Diagnostic:'
-    source = false, -- hide it since my floatFormat will add it
-    format = floatFormat, -- can customize more colors by using prefix/suffix instead
+    source = false, -- hide it since my float_format will add it
+    format = float_format, -- can customize more colors by using prefix/suffix instead
+    suffix = '', -- default is error code. Moved to message via float_format
   },
   update_in_insert = false, -- wait until insert leave to check diagnostics
 })
