@@ -37,6 +37,10 @@ map("n", "<Leader>x", function()
   require("dko.utils.buffer").close()
 end, { desc = "Remove buffer (try without closing window)" })
 
+map("n", "<Leader>l", function()
+  require('dko.utils.loclist').toggle()
+end, { desc = "Toggle location list" })
+
 -- ===========================================================================
 -- Switch mode
 -- ===========================================================================
