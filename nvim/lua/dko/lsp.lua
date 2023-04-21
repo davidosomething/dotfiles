@@ -175,17 +175,7 @@ M.format = function(options)
 
       -- =====================================================================
       -- Filetype specific choices
-      -- @TODO move this somewhere better
       -- =====================================================================
-
-      if vim.tbl_contains({ "lua_ls" }, client.name) then
-        vim.notify(
-          ("skip"):format(client.name),
-          vim.log.levels.INFO,
-          { title = ("LSP > %s"):format(client.name) }
-        )
-        return false
-      end
 
       -- This will notify for non-null-ls
       -- null-ls runtime_condition notifies on its own

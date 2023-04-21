@@ -295,6 +295,18 @@ return {
           lspconfig[server].setup(with_lsp_capabilities())
         end,
 
+        ["cssmodules_ls"] = function()
+          lspconfig.cssmodules_ls.setup(with_lsp_capabilities({
+            ---@param client table
+            on_attach = function(client)
+              -- https://github.com/davidosomething/dotfiles/issues/521
+              -- https://github.com/antonk52/cssmodules-language-server#neovim
+              -- avoid accepting `definitionProvider` responses from this LSP
+              client.server_capabilities.definitionProvider = false
+            end,
+          }))
+        end,
+
         ["jsonls"] = function()
           lspconfig.jsonls.setup(with_lsp_capabilities({
             settings = {
@@ -308,8 +320,17 @@ return {
 
         ["lua_ls"] = function()
           lspconfig.lua_ls.setup(with_lsp_capabilities({
+            ---@param client table
+            on_attach = function(client)
+              -- stylua or NOTHING
+              client.server_capabilities.documentFormattingProvider = false
+              client.server_capabilities.documentRangeFormattingProvider = false
+            end,
             settings = {
               Lua = {
+                format = {
+                  enable = false,
+                },
                 workspace = {
                   maxPreload = 1000,
                   preloadFileSize = 500,
