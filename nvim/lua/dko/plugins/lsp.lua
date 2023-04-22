@@ -108,12 +108,6 @@ return {
         null_ls.builtins.diagnostics.zsh,
 
         null_ls.builtins.diagnostics.selene.with({
-          root_dir = require("null-ls.utils").root_pattern(
-            "selene.toml",
-            ".null-ls-root",
-            "Makefile",
-            ".git"
-          ),
           condition = function()
             local homedir = vim.loop.os_homedir()
             local is_in_homedir = homedir
