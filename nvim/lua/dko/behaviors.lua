@@ -149,6 +149,7 @@ autocmd("BufReadPre", {
 --   group = augroup("dkoediting"),
 -- })
 
+-- @TODO as of nvim-0.9, replace this with ++p somehow? :h :write
 autocmd({ "BufWritePre", "FileWritePre" }, {
   desc = "Create missing parent directories on write",
   callback = function(args)
