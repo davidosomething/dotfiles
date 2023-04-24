@@ -24,6 +24,8 @@ config.default_cursor_style = hidpi and "SteadyBlock" or "BlinkingBlock"
 
 config.enable_scroll_bar = true
 
+config.enable_wayland = false
+
 config.hide_tab_bar_if_only_one_tab = true
 
 config.inactive_pane_hsb = {
