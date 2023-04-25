@@ -361,7 +361,10 @@ M.bind_lsp = function(bufnr)
     vim.lsp.buf.code_action,
     lsp_opts({ desc = "LSP Code Action" })
   )
-  map("n", "<Leader><Leader>", require("dko.lsp").code_action)
+
+  map("n", "<Leader><Leader>", require("dko.lsp").code_action, {
+    desc = "Single code action"
+  })
 
   map("n", "gr", function()
     return telescope_builtin("lsp_references")
@@ -741,7 +744,7 @@ end
 
 M.toggleterm = {
   horizontal = "<A-i>",
-  float = "<C-i>",
+  float = "<A-S-i>",
 }
 
 M.bind_toggleterm = function()
