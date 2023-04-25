@@ -205,6 +205,8 @@ return {
     },
     config = function()
       require("lspconfig").tilt_ls.setup({})
+      -- border on :LspInfo window
+      require('lspconfig.ui.windows').default_options.border = 'rounded'
     end,
   },
 
