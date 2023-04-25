@@ -267,12 +267,6 @@ return {
       "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
     },
     config = function()
-      local ml = require("mason-lspconfig")
-      ml.setup({
-        ensure_installed = lsps,
-        automatic_installation = true,
-      })
-
       local function with_lsp_capabilities(opts)
         opts = opts or {}
         return vim.tbl_extend("force", {
@@ -284,7 +278,8 @@ return {
 
       -- Note that instead of on_attach for each server setup,
       -- behaviors.lua has an autocmd LspAttach defined
-      ml.setup_handlers({
+      ---@type table<string, fun(server_name: string)>?
+      local handlers = {
         function(server)
           lspconfig[server].setup(with_lsp_capabilities())
         end,
@@ -422,6 +417,12 @@ return {
             },
           }))
         end,
+      }
+
+      require("mason-lspconfig").setup({
+        automatic_installation = true,
+        ensure_installed = lsps,
+        handlers = handlers,
       })
     end,
   },
