@@ -204,6 +204,14 @@ return {
       "folke/neodev.nvim",
     },
     config = function()
+      local TRACE = false
+      if TRACE then
+        vim.lsp.set_log_level('trace')
+        if vim.fn.has('nvim-0.5.1') == 1 then
+          require('vim.lsp.log').set_format_func(vim.inspect)
+        end
+      end
+
       require("lspconfig").tilt_ls.setup({})
       -- border on :LspInfo window
       require('lspconfig.ui.windows').default_options.border = 'rounded'
