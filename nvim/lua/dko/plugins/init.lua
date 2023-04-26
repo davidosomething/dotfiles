@@ -322,7 +322,7 @@ return {
   {
     "ojroques/nvim-osc52",
     enabled = function()
-      return os.getenv("SSH_CLIENT") ~= ""
+      return os.getenv("SSH_CLIENT")
     end,
     config = function()
       local function copy(lines, _)
@@ -336,11 +336,15 @@ return {
         copy = { ["+"] = copy, ["*"] = copy },
         paste = { ["+"] = paste, ["*"] = paste },
       }
+      vim.notify('Using osc52 clipboard')
     end,
   },
 
   {
     "gbprod/yanky.nvim",
+    enabled = function()
+      return not os.getenv("SSH_CLIENT")
+    end,
     config = function()
       require("yanky").setup({
         highlight = { timer = 300 },
