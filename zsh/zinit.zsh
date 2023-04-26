@@ -29,12 +29,8 @@ function {
     from'gh-r' \
     'zaquestion/lab' \
     \
-    'davidosomething/git-ink' \
-    'davidosomething/git-my' \
     'davidosomething/git-relevant' \
     'davidosomething/git-take' \
-    \
-    'paulirish/git-recent' \
     \
     pick"${ZPFX}/bin/git-*" \
     src'etc/git-extras-completion.zsh' \
@@ -49,8 +45,6 @@ function {
   zinit lucid for \
     if'! __dko_has fzf' from'gh-r' as'program' \
     'junegunn/fzf-bin' \
-    \
-    'torifat/npms' \
     \
     from'gh-r' as'program' \
     'jesseduffield/lazydocker' \
