@@ -172,6 +172,12 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 autocmd("DiagnosticChanged", {
   desc = "Sync diagnostics to loclist",
   callback = function(args)
+    -- REQUIRED or else neovim will freeze on quit -- some LSP will do a final
+    -- DiagnosticChanged before shutdown
+    if vim.v.exiting ~= vim.NIL then
+      return
+    end
+
     --[[ args = {
       buf = 1,
       data = {

@@ -38,7 +38,7 @@ map("n", "<Leader>x", function()
 end, { desc = "Remove buffer (try without closing window)" })
 
 map("n", "<Leader>l", function()
-  require('dko.utils.loclist').toggle()
+  require("dko.utils.loclist").toggle()
 end, { desc = "Toggle location list" })
 
 -- ===========================================================================
@@ -355,16 +355,17 @@ M.bind_lsp = function(bufnr)
       or vim.lsp.buf.type_definition()
   end, lsp_opts({ desc = "LSP type_definition" }))
   map("n", "<Leader>rn", vim.lsp.buf.rename, lsp_opts({ desc = "LSP rename" }))
+
+  map("n", "<Leader>ca", require("dko.lsp").code_action, {
+    desc = "Single code action",
+  })
+
   map(
     "n",
-    "<Leader>ca",
+    "<Leader><Leader>",
     vim.lsp.buf.code_action,
     lsp_opts({ desc = "LSP Code Action" })
   )
-
-  map("n", "<Leader><Leader>", require("dko.lsp").code_action, {
-    desc = "Single code action"
-  })
 
   map("n", "gr", function()
     return telescope_builtin("lsp_references")
