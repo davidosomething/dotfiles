@@ -4,11 +4,18 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
-local TRACE = false
+-- Debugging flags
 local ENABLED = true
 local NULL_LS_ENABLED = true
 local TSSERVER_ENABLED = true
 local CSSMODULES_ENABLED = true
+local TRACE = false
+if TRACE then
+  vim.lsp.set_log_level("trace")
+  if vim.fn.has("nvim-0.5.1") == 1 then
+    require("vim.lsp.log").set_format_func(vim.inspect)
+  end
+end
 
 -- Tools to auto-install with mason
 -- Must then be configured, e.g. as null-ls formatter or diagnostic provider
@@ -32,7 +39,7 @@ end
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 local lsps = {
   "ansiblels",
-  --"bashls", -- use shellcheck: can't configure output to show code
+  --"bashls", -- prefer null_ls shellcheck, has code_actions and code inline
   "cssls",
   "cssmodules_ls", -- jumping into classnames from jsx/tsx
   "docker_compose_language_service",
@@ -209,13 +216,6 @@ return {
       "folke/neodev.nvim",
     },
     config = function()
-      if TRACE then
-        vim.lsp.set_log_level("trace")
-        if vim.fn.has("nvim-0.5.1") == 1 then
-          require("vim.lsp.log").set_format_func(vim.inspect)
-        end
-      end
-
       require("lspconfig").tilt_ls.setup({})
       -- border on :LspInfo window
       require("lspconfig.ui.windows").default_options.border = "rounded"
@@ -371,19 +371,6 @@ return {
             return
           end
           lspconfig.tsserver.setup(with_lsp_capabilities({
-            -- Disabled on JS
-            filetypes = {
-              "typescript",
-              "typescriptreact",
-              "typescript.tsx",
-            },
-
-            root_dir = function(fname)
-              return require("lspconfig.util").root_pattern("tsconfig.json")(
-                fname
-              )
-            end,
-
             ---@param _ table client
             ---@param bufnr number
             on_attach = function(_, bufnr)
@@ -426,17 +413,6 @@ return {
                   config
                 )
               end,
-            },
-
-            init_options = {
-              disableAutomaticTypingAcquisition = true,
-              hostInfo = "neovim",
-              -- debugging
-              -- tsserver = {
-              --   logVerbosity = "verbose",
-              --   trace = "verbose",
-              --   useSyntaxServer = "never",
-              -- },
             },
           }))
         end,
