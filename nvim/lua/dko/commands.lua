@@ -19,7 +19,7 @@ command("Q", "q", { bang = true, desc = ":Q same as :q" })
 command("DKOExternal", function()
   require("dko.utils.close_floats")()
 
-  local is_toggleterm = vim.api.nvim_buf_get_name(0):find('#toggleterm')
+  local is_toggleterm = vim.api.nvim_buf_get_name(0):find("#toggleterm")
   if is_toggleterm then
     vim.cmd.close()
   end
@@ -34,7 +34,6 @@ command("DKODark", function()
   vim.o.bg = "dark"
   vim.cmd([[ colorscheme meh ]])
 end, { desc = "Set dark colorscheme" })
-
 
 -- ===========================================================================
 -- File ops
@@ -52,34 +51,31 @@ command("Delete", function()
     )
     vim.cmd.edit()
   else
-    require('dko.utils.buffer').close()
+    require("dko.utils.buffer").close()
     vim.notify(fp, vim.log.levels.INFO, { title = ":Delete succeeded" })
   end
 end, { desc = "Delete current file" })
 
 command("Rename", function()
-  local prev = vim.fn.expand('%')
-  vim.ui.input(
-    {
-      prompt = 'New file name: ',
-      default = prev,
-      completion = 'file'
-    },
-    function(next)
-      if not next or next == '' or next == prev then
-        return
-      end
-
-      vim.cmd.saveas(next)
-      local ok, err = vim.loop.fs_unlink(prev)
-      if not ok then
-        vim.notify(
-          table.concat({ prev, err }, "\n"),
-          vim.log.levels.ERROR,
-          { title = ":Rename failed to delete orig" }
-        )
-      end
-      vim.cmd.redraw({ bang = true })
+  local prev = vim.fn.expand("%")
+  vim.ui.input({
+    prompt = "New file name: ",
+    default = prev,
+    completion = "file",
+  }, function(next)
+    if not next or next == "" or next == prev then
+      return
     end
-  )
+
+    vim.cmd.saveas(next)
+    local ok, err = vim.loop.fs_unlink(prev)
+    if not ok then
+      vim.notify(
+        table.concat({ prev, err }, "\n"),
+        vim.log.levels.ERROR,
+        { title = ":Rename failed to delete orig" }
+      )
+    end
+    vim.cmd.redraw({ bang = true })
+  end)
 end, { desc = "Rename current file" })

@@ -4,7 +4,11 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
+local TRACE = false
 local ENABLED = true
+local NULL_LS_ENABLED = true
+local TSSERVER_ENABLED = true
+local CSSMODULES_ENABLED = true
 
 -- Tools to auto-install with mason
 -- Must then be configured, e.g. as null-ls formatter or diagnostic provider
@@ -58,6 +62,7 @@ end
 return {
   {
     "jose-elias-alvarez/null-ls.nvim",
+    enabled = NULL_LS_ENABLED,
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -204,17 +209,16 @@ return {
       "folke/neodev.nvim",
     },
     config = function()
-      local TRACE = false
       if TRACE then
-        vim.lsp.set_log_level('trace')
-        if vim.fn.has('nvim-0.5.1') == 1 then
-          require('vim.lsp.log').set_format_func(vim.inspect)
+        vim.lsp.set_log_level("trace")
+        if vim.fn.has("nvim-0.5.1") == 1 then
+          require("vim.lsp.log").set_format_func(vim.inspect)
         end
       end
 
       require("lspconfig").tilt_ls.setup({})
       -- border on :LspInfo window
-      require('lspconfig.ui.windows').default_options.border = 'rounded'
+      require("lspconfig.ui.windows").default_options.border = "rounded"
     end,
   },
 
@@ -295,6 +299,9 @@ return {
         end,
 
         ["cssmodules_ls"] = function()
+          if not CSSMODULES_ENABLED then
+            return
+          end
           lspconfig.cssmodules_ls.setup(with_lsp_capabilities({
             ---@param client table
             on_attach = function(client)
@@ -360,7 +367,23 @@ return {
         end,
 
         ["tsserver"] = function()
+          if not TSSERVER_ENABLED then
+            return
+          end
           lspconfig.tsserver.setup(with_lsp_capabilities({
+            -- Disabled on JS
+            filetypes = {
+              "typescript",
+              "typescriptreact",
+              "typescript.tsx",
+            },
+
+            root_dir = function(fname)
+              return require("lspconfig.util").root_pattern("tsconfig.json")(
+                fname
+              )
+            end,
+
             ---@param _ table client
             ---@param bufnr number
             on_attach = function(_, bufnr)
