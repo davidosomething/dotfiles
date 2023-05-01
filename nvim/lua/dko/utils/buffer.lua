@@ -10,7 +10,8 @@ M.SPECIAL_BUFTYPES = {
 }
 
 M.SPECIAL_FILETYPES = {
-  "^git.*",
+  "gitcommit",
+  "gitrebase",
   "fugitive",
 }
 
