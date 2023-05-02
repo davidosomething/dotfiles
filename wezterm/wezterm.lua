@@ -154,7 +154,15 @@ local colorschemes = {
   dark = "Twilight (base16)",
   light = "Solarized (light) (terminal.sexy)",
 }
-config.color_scheme = colorschemes.dark
+
+local handler = io.open(colorscheme_file, "r")
+if handler then
+  local key = handler:read()
+  config.color_scheme = colorschemes[key]
+  handler:close()
+else
+  config.color_scheme = colorschemes.dark
+end
 
 local toggle_colorscheme = function(win)
   local ecfg = win:effective_config()
