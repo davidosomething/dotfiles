@@ -21,6 +21,8 @@ end
 -- Tools to auto-install with mason
 -- Must then be configured, e.g. as null-ls formatter or diagnostic provider
 local extras = {
+  "black",
+  "isort",
   "markdownlint",
   "prettier",
   "selene",
@@ -90,6 +92,8 @@ return {
       -- =====================================================================
 
       local formatters = {
+        null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.isort,
         null_ls.builtins.formatting.markdownlint,
         null_ls.builtins.formatting.prettier,
         null_ls.builtins.formatting.qmlformat,
