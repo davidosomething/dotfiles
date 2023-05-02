@@ -13,6 +13,7 @@ local TRACE = false
 if TRACE then
   vim.lsp.set_log_level("trace")
   if vim.fn.has("nvim-0.5.1") == 1 then
+    ---@diagnostic disable-next-line: param-type-mismatch
     require("vim.lsp.log").set_format_func(vim.inspect)
   end
 end
@@ -50,7 +51,11 @@ local lsps = {
   "jsonls",
   "stylelint_lsp",
   "lua_ls",
-  --"pyright" -- eventually add this or ruff_lsp
+  "pyright",
+
+  -- do :PylspInstall <tab> after to install plugins!!
+  "pylsp",
+
   "tailwindcss",
   "tsserver",
   "vimls",
@@ -341,6 +346,35 @@ return {
                   maxPreload = 1000,
                   preloadFileSize = 500,
                   checkThirdParty = false,
+                },
+              },
+            },
+          }))
+        end,
+
+        ["pylsp"] = function()
+          lspconfig.pylsp.setup(with_lsp_capabilities({
+            settings = {
+              pylsp = {
+                plugins = {
+                  flake8 = {
+                    enabled = true,
+                  },
+                  mccabe = {
+                    enabled = true,
+                  },
+                  pycodestyle = {
+                    enabled = true,
+                  },
+                  pydocstyle = {
+                    enabled = true,
+                  },
+                  pyflakes = {
+                    enabled = true,
+                  },
+                  pylint = {
+                    enabled = true,
+                  },
                 },
               },
             },
