@@ -48,13 +48,16 @@ local lsps = {
   "eslint",
   "html",
   "jdtls",
+  "jedi_language_server",
   "jsonls",
   "stylelint_lsp",
   "lua_ls",
   "pyright",
 
+  -- temporary -- using jedi instead of futzing around with venvs ?
+  -- https://github.com/neovim/nvim-lspconfig/issues/500
   -- do :PylspInstall <tab> after to install plugins!!
-  "pylsp",
+  --"pylsp",
 
   "tailwindcss",
   "tsserver",
@@ -346,35 +349,6 @@ return {
                   maxPreload = 1000,
                   preloadFileSize = 500,
                   checkThirdParty = false,
-                },
-              },
-            },
-          }))
-        end,
-
-        ["pylsp"] = function()
-          lspconfig.pylsp.setup(with_lsp_capabilities({
-            settings = {
-              pylsp = {
-                plugins = {
-                  flake8 = {
-                    enabled = true,
-                  },
-                  mccabe = {
-                    enabled = true,
-                  },
-                  pycodestyle = {
-                    enabled = true,
-                  },
-                  pydocstyle = {
-                    enabled = true,
-                  },
-                  pyflakes = {
-                    enabled = true,
-                  },
-                  pylint = {
-                    enabled = true,
-                  },
                 },
               },
             },
