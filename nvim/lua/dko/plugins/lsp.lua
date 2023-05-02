@@ -54,7 +54,7 @@ local lsps = {
   "jsonls",
   "stylelint_lsp",
   "lua_ls",
-  "pyright",
+  --"pyright",
 
   -- temporary -- using jedi instead of futzing around with venvs ?
   -- https://github.com/neovim/nvim-lspconfig/issues/500
