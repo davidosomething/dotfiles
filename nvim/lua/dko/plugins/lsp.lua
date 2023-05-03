@@ -21,8 +21,6 @@ end
 -- Tools to auto-install with mason
 -- Must then be configured, e.g. as null-ls formatter or diagnostic provider
 local extras = {
-  "black",
-  "isort",
   "markdownlint",
   "prettier",
   "selene",
@@ -30,6 +28,8 @@ local extras = {
   "stylua",
 }
 local when_executable = {
+  black = "python",
+  isort = "python",
   vint = "python",
 }
 for lsp, bin in pairs(when_executable) do
