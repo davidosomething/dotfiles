@@ -236,6 +236,13 @@ k:insert({
   action = wezterm.action_callback(toggle_colorscheme),
 })
 
+-- Pick pane, swap with active
+k:insert({
+  key = "8",
+  mods = "CTRL|SHIFT",
+  action = act.PaneSelect({ mode = "SwapWithActive" }),
+})
+
 config.keys = k
 
 return config
