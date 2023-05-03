@@ -260,38 +260,28 @@ return {
     end,
   },
 
+  -- https://github.com/shellRaining/hlchunk.nvim
   -- indent guides
   {
-    "lukas-reineke/indent-blankline.nvim",
+    "shellRaining/hlchunk.nvim",
     event = "VeryLazy",
     config = function()
-      require("indent_blankline").setup({
-        filetype_exclude = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "lazy",
-          "mason",
+      require("hlchunk").setup({
+        blank = {
+          chars = { "◦" },
+          -- @TODO get alternating background working again
         },
-
-        -- char = "▏",
-        --char = "│",
-        -- as bg colors
-        char = "",
-        char_highlight_list = {
-          "IndentBlanklineIndent1",
-          "IndentBlanklineIndent2",
+        chunk = {
+          -- distracting
+          enable = false,
         },
-        space_char_highlight_list = {
-          "IndentBlanklineIndent1",
-          "IndentBlanklineIndent2",
+        indent = {
+          use_treesitter = true,
         },
-
-        show_trailing_blankline_indent = false,
-        -- show_current_context = true, -- disable, makes hard to see tabchar
-        use_treesitter = true,
+        line_num = {
+          -- using highlighted number for my cursor
+          enable = false,
+        },
       })
     end,
   },
@@ -336,7 +326,7 @@ return {
         copy = { ["+"] = copy, ["*"] = copy },
         paste = { ["+"] = paste, ["*"] = paste },
       }
-      vim.notify('Using osc52 clipboard')
+      vim.notify("Using osc52 clipboard")
     end,
   },
 
