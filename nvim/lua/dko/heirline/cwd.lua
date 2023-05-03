@@ -18,6 +18,7 @@ return {
         8, -- icon and root text
         2 + 1, -- branch indicator
         self.branch:len(), -- branch
+        2 + 7, -- clipboard indicator
         2 + 1, -- remote indicator
       }
       local extrachars = 0

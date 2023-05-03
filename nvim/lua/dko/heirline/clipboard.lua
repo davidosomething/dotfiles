@@ -1,9 +1,9 @@
 return {
   condition = function()
-    return vim.g.clipboard
+    return vim.g.clipboard ~= nil
   end,
-  {
-    provider = (" ✂ %s "):format(vim.g.clipboard.name),
-    hl = "dkoStatusKey",
-  }
+  provider = function()
+    return (" ✂ %s "):format(vim.g.clipboard.name)
+  end,
+  hl = "dkoStatusKey",
 }
