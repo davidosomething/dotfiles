@@ -50,11 +50,9 @@ local lsps = {
   "eslint",
   "html",
   "jdtls",
-  "jedi_language_server",
   "jsonls",
   "stylelint_lsp",
   "lua_ls",
-  --"pyright",
 
   -- temporary -- using jedi instead of futzing around with venvs ?
   -- https://github.com/neovim/nvim-lspconfig/issues/500
@@ -68,6 +66,7 @@ local lsps = {
 }
 when_executable = {
   gopls = "go",
+  jedi_language_server = "python",
 }
 for lsp, bin in pairs(when_executable) do
   if vim.fn.executable(bin) == 1 then
