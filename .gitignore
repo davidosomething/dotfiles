@@ -27,6 +27,7 @@ zsh/antibody
 .zcompdump*
 .zhistory
 .zsh_history
+.zsh_sessions
 .zshrc.zwc
 *.log
 *.tbcache
