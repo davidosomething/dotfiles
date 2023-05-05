@@ -752,6 +752,7 @@ M.bind_toggleterm = function()
   local horizontal = require("toggleterm.terminal").Terminal:new({
     count = 88888,
     direction = "horizontal",
+    display_name = "hterm",
     on_open = function()
       vim.keymap.set(
         "t",
@@ -764,12 +765,13 @@ M.bind_toggleterm = function()
   map("n", M.toggleterm.horizontal, function()
     horizontal:toggle()
   end, {
-    desc = "Open a horizontal floating terminal",
+    desc = "Open a horizontal terminal",
   })
 
   local floating = require("toggleterm.terminal").Terminal:new({
     count = 99999,
     direction = "float",
+    display_name = "fterm",
     on_open = function()
       vim.keymap.set(
         "t",
