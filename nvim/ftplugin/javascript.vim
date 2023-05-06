@@ -9,7 +9,3 @@ setlocal errorformat+=%-G\s%#%\\d%\\+\ problems%#
 " Automatically try these file extensions when gf to a word without extension
 " .js is added by vim-jsx-improve
 setlocal suffixesadd+=.jsx,.ts,.tsx,.vue,.json
-
-if !dko#PrettierSpace()
-  call dko#TwoSpace()
-endif

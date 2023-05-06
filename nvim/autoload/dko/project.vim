@@ -230,7 +230,7 @@ function! dko#project#GetBin(bin) abort
   if empty(a:bin) | return '' | endif
 
   " Use cached
-  let l:bins = dko#InitDict('b:dko_project_bins')
+  let l:bins = get(b:, 'dko_project_bins',  {})
   if !empty(get(l:bins, a:bin)) | return l:bins[a:bin] | endif
 
   " Use found
