@@ -189,6 +189,9 @@ export MYSQL_HISTFILE="${XDG_CACHE_HOME}/mysql_histfile"
 # neovim
 export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
 
+# gnu parallel
+export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
+
 # php moved to shell/php loaded in shell/before
 
 # python moved to shell/python loaded in shell/before
