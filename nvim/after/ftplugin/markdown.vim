@@ -8,7 +8,6 @@
 "
 
 setlocal nomodeline
-setlocal expandtab
 setlocal spell
 
 " Override pandoc

@@ -3,8 +3,6 @@
 
 if exists('b:did_after_ftplugin') | finish | endif
 
-call dko#TwoSpace()
-
 " Don't hide formatting symbols since I write vim helpfiles
 " Vim default is conceallevel=2
 if !&readonly && has('conceal')
