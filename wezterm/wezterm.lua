@@ -101,7 +101,6 @@ config.line_height = 1.2
 local xdg_state_home = os.getenv("XDG_STATE_HOME")
   or os.getenv("HOME") .. "/.local/state"
 local colorscheme_file = ("%s/wezterm-colorscheme.txt"):format(xdg_state_home)
-local nvimsock = ("%s/nvim/nvim.sock"):format(xdg_state_home)
 
 local notifier = "osascript -e 'display notification"
 local close = "'"
@@ -133,20 +132,6 @@ local sync_colorscheme = function(next_mode)
         close
       )
     )
-  end
-
-  -- sock file cannot be iopen
-  if wezterm.run_child_process({ "test", "-e", nvimsock }) then
-    -- uses my .dotfiles/bin/elight / edark scripts
-    local bin = os.getenv('HOME') .. "/.dotfiles/bin/e" .. next_mode
-    os.execute(
-      ('%s "%s"%s'):format(
-        notifier,
-        bin,
-        close
-      )
-    )
-    os.execute(bin)
   end
 end
 
