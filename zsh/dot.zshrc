@@ -382,16 +382,13 @@ zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
 # ----------------------------------------------------------------------------
 
 # terse zsh-specific up
-# skip synology because zsh compiled without regex
-if [[ "$DOTFILES_DISTRO" != "synology" ]]; then
-  up() {
-    local limit=1
-    local d=""
-    [[ $1 =~ '^[0-9]+$' ]] && limit=$1
-    while (( limit-- )); do d="../${d}"; done
-    cd "$d"
-  }
-fi
+up() {
+  local limit=1
+  local d=""
+  [[ $1 =~ '^[0-9]+$' ]] && limit=$1
+  while (( limit-- )); do d="../${d}"; done
+  cd "$d"
+}
 
 . "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" 2>/dev/null
 

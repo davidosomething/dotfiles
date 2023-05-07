@@ -32,8 +32,6 @@ case "$DOTFILES_OS" in
       export DOTFILES_DISTRO="debian"
     elif [ -f /etc/fedora-release ]; then
       export DOTFILES_DISTRO="fedora"
-    elif [ -f /etc/synoinfo.conf ]; then
-      export DOTFILES_DISTRO="synology"
     fi
   ;;
 esac
