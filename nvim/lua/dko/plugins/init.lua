@@ -259,29 +259,49 @@ return {
     end,
   },
 
-  -- https://github.com/shellRaining/hlchunk.nvim
   -- indent guides
   {
-    "shellRaining/hlchunk.nvim",
+    "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
     config = function()
-      require("hlchunk").setup({
-        blank = {
-          chars = { "◦" },
-          -- @TODO get alternating background working again
+      require("indent_blankline").setup({
+        filetype_exclude = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
         },
-        chunk = {
-          -- distracting
-          enable = false,
+
+        -- char = "▏",
+        --char = "│",
+        -- as bg colors
+        char = "",
+        char_highlight_list = {
+          "IndentBlanklineIndent1",
+          "IndentBlanklineIndent2",
         },
-        indent = {
-          use_treesitter = true,
+        space_char_highlight_list = {
+          "IndentBlanklineIndent1",
+          "IndentBlanklineIndent2",
         },
-        line_num = {
-          -- using highlighted number for my cursor
-          enable = false,
-        },
+
+        show_trailing_blankline_indent = false,
+        -- show_current_context = true, -- disable, makes hard to see tabchar
+        use_treesitter = true,
       })
+
+      vim.api.nvim_create_autocmd("colorscheme", {
+        desc = "Re-apply my indent-blankline highlights",
+        callback = function()
+          require('dko.colors').indent_blankline()
+        end,
+        group = vim.api.nvim_create_augroup("dkoindentblankline", {}),
+      })
+
+      require('dko.colors').indent_blankline()
     end,
   },
 
