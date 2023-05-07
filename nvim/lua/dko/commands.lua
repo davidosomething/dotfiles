@@ -26,13 +26,17 @@ command("DKOExternal", function()
 end, { desc = "Prepare to receive an external command" })
 
 command("DKOLight", function()
-  vim.o.bg = "light"
-  vim.cmd([[ colorscheme two-firewatch ]])
+  vim.schedule(function ()
+    vim.o.bg = "light"
+    vim.cmd([[ colorscheme two-firewatch ]])
+  end)
 end, { desc = "Set light colorscheme" })
 
 command("DKODark", function()
-  vim.o.bg = "dark"
-  vim.cmd([[ colorscheme meh ]])
+  vim.schedule(function ()
+    vim.o.bg = "dark"
+    vim.cmd([[ colorscheme meh ]])
+  end)
 end, { desc = "Set dark colorscheme" })
 
 -- ===========================================================================
