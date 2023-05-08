@@ -28,7 +28,7 @@ end, { desc = "Prepare to receive an external command" })
 command("DKOLight", function()
   vim.schedule(function ()
     vim.o.bg = "light"
-    vim.cmd([[ colorscheme two-firewatch ]])
+    vim.cmd([[ colorscheme rose-pine ]])
   end)
 end, { desc = "Set light colorscheme" })
 
