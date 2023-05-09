@@ -85,7 +85,7 @@ function {
     \
     mv'zoxide* -> zoxide' \
     pick'zoxide/zoxide' \
-    atload'eval "$(zoxide init --no-cmd zsh)" && alias j=__zoxide_z && alias ji=__zoxide_zi' \
+    atload'eval "$(zoxide init --cmd j zsh)"' \
     'ajeetdsouza/zoxide' \
     \
     mv'ripgrep* -> rg' pick'rg/rg' \
