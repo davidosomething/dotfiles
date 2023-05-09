@@ -85,9 +85,9 @@ function {
     \
     mv'zoxide* -> zoxide' \
     pick'zoxide/zoxide' \
-    atclone'[ -d zoxide/main ] && cp -vf zoxide/man/*.1 "${ZPFX}/share/man/man1"' \
+    atclone'[ -d zoxide/man ] && cp -vf zoxide/man/*.1 "${ZPFX}/share/man/man1"' \
     atpull'%atclone' \
-    atload'eval "$(zoxide init --no-aliases zsh)" && alias j=__zoxide_z && alias ji=__zoxide_zi' \
+    atload'eval "$(zoxide init --no-cmd zsh)" && alias j=__zoxide_z && alias ji=__zoxide_zi' \
     'ajeetdsouza/zoxide' \
     \
     mv'ripgrep* -> rg' pick'rg/rg' \
