@@ -24,7 +24,19 @@ return {
           require("dko.heirline.statusline-default"),
         },
         tabline = require("dko.heirline.tabline"),
+
         winbar = require("dko.heirline.winbar"),
+        opts = {
+          -- if the callback returns true, the winbar will be disabled for that window
+          -- the args parameter corresponds to the table argument passed to autocommand callbacks. :h nvim_lua_create_autocmd()
+          disable_winbar_cb = function(args)
+            return require("heirline.conditions").buffer_matches({
+              buftype = vim.tbl_filter(function(bt)
+                return bt ~= "help"
+              end, require('dko.utils.buffer').SPECIAL_BUFTYPES),
+            }, args.buf)
+          end,
+        }
       })
     end,
   },
