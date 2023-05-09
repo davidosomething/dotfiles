@@ -1,18 +1,20 @@
 return {
   require("dko.heirline.mode"),
-  require("dko.heirline.filetype"),
-  require("dko.heirline.filename"),
-  require("dko.heirline.fileflags"),
+  require("dko.heirline.searchterm"),
 
   -- this means that the statusline is cut here when there's not enough space
   { provider = "%<" },
 
-  require("dko.heirline.align"),
-  require("dko.heirline.lsp"),
-  require("dko.heirline.diagnostics"),
+  -- spacer with inactive color
+  {
+    provider = "%=",
+    hl = "StatusLineNC"
+  },
+
+  -- ruler
   {
     condition = require("heirline.conditions").is_active,
     provider = "%5.(%c%) ",
-    hl = "dkoStatusItem",
+    hl = "StatusLine",
   },
 }

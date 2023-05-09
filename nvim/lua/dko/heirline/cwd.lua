@@ -4,7 +4,7 @@ return {
       local is_project_root = vim.b["dko_project_root"] == self.cwd
       return is_project_root and "  ʀᴏᴏᴛ " or "  "
     end,
-    hl = "dkoStatusKey",
+    hl = "StatusLineNC",
   },
   {
     provider = function(self)
@@ -12,8 +12,8 @@ return {
       local ui = uis[1] or { width = 80 }
 
       local extraparts = {
-        2 + 1, -- search symbol
-        2 + self.search_contents:len(), -- term padding
+        --2 + 1, -- search symbol
+        --2 + self.search_contents:len(), -- term padding
         2 + 5, -- counts
         8, -- icon and root text
         2 + 1, -- branch indicator
@@ -31,6 +31,6 @@ return {
       local output = cwd:len() < remaining and cwd or vim.fn.pathshorten(cwd)
       return (" %s "):format(output)
     end,
-    hl = "dkoStatusValue",
+    hl = "StatusLineNC",
   },
 }
