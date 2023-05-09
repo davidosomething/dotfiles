@@ -11,6 +11,12 @@ return {
     },
     event = "VeryLazy",
     config = function()
+      local ALWAYS = 2
+      vim.o.showtabline = ALWAYS
+
+      local GLOBAL = 3
+      vim.o.laststatus = GLOBAL
+
       require("heirline").setup({
         statusline = {
           fallthrough = false,
@@ -18,9 +24,8 @@ return {
           require("dko.heirline.statusline-default"),
         },
         tabline = require("dko.heirline.tabline"),
+        winbar = require("dko.heirline.winbar"),
       })
-      local ALWAYS = 2
-      vim.o.showtabline = ALWAYS
     end,
   },
 }

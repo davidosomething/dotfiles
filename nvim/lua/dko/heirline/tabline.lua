@@ -6,15 +6,13 @@ return {
       or ""
 
     self.cwd = vim.loop.cwd()
-
-    self.search_contents = vim.fn.getreg("/")
-    self.search_count = vim.fn.searchcount({ recompute = 1, maxcount = -1 })
   end,
 
-  require("dko.heirline.searchterm"),
-  { provider = "%=", hl = "StatusLine" },
   require("dko.heirline.cwd"),
   require("dko.heirline.git"),
+
+  { provider = "%=", hl = "StatusLineNC" },
+
   require("dko.heirline.lazy"),
   require("dko.heirline.clipboard"),
   require("dko.heirline.remote"),

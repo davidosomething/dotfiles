@@ -4,12 +4,12 @@ return {
   end,
   {
     provider = "  ",
-    hl = "dkoStatusKey",
+    hl = "StatusLineNC",
   },
   {
     provider = function(self)
       return (" %s "):format(self.branch)
     end,
-    hl = "dkoStatusValue",
+    hl = "StatusLineNC",
   },
 }

@@ -151,7 +151,7 @@ vim.opt.listchars = {
   precedes = "«",
   trail = "·",
   -- removed tab, it's too noisy
-  -- tab = "▶ ", -- this must be two chars, see :h listchars
+  tab = "  ", -- this must be two chars, see :h listchars
 }
 
 -- ===========================================================================
