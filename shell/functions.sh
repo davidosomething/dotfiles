@@ -71,7 +71,7 @@ cunt() {
 killport() {
   # -t terse, just get pid
   # -i by internet addr
-  pid=$(lsof -t -i tcp:"$1")
+  pid=$(lsof -t -i tcp:"$1" | head -n1)
   [ -n "$pid" ] && kill -9 "$pid"
 }
 
