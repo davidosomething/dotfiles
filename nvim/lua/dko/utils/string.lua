@@ -10,11 +10,12 @@ end
 -- alt F ғ (ghayn)
 -- alt Q ꞯ (currently using ogonek)
 local smallcaps =
-  "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ‹›"
-local letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ<>"
+  "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ‹›⁰¹²³⁴⁵⁶⁷⁸⁹"
+local normal = "ABCDEFGHIJKLMNOPQRSTUVWXYZ<>0123456789"
+
 ---@param text string
 M.smallcaps = function(text)
-  return vim.fn.tr(text:upper(), letters, smallcaps)
+  return vim.fn.tr(text:upper(), normal, smallcaps)
 end
 
 return M
