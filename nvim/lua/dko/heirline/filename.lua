@@ -46,6 +46,9 @@ return {
     return shorten(self.filename, 1)
   end,
   hl = function()
+    if vim.bo.modified then
+      return "Todo"
+    end
     return require("heirline.conditions").is_active() and "StatusLine"
       or "StatusLineNC"
   end,
