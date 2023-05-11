@@ -25,6 +25,7 @@ local extras = {
   "prettier",
   "selene",
   "shellcheck", -- used by null_ls AND bashls
+  "shfmt", -- null_ls formatting
   "stylua",
 }
 local when_executable = {
