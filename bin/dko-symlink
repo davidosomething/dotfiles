@@ -23,15 +23,16 @@ __dko_symlink() {
     # properly symlinked
     return
   elif (( result == 10 )); then
-    if [[ -z "$CI" ]]; then
+    if [[ -n "$CI" ]]; then
+      __dko_ok_ "CI run: skipping ${fulltargetpath}"
+      return
+    fi
+    if [[ -z "$DKO_AUTO" ]]; then
       read -p "          Overwrite? [y/N] " -r
       if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         __dko_warn "Skipped ${fulltargetpath}"
         return
       fi
-    else
-      __dko_ok_ "CI run: skipping ${fulltargetpath}"
-      return
     fi
     # OVERWRITE!
   elif (( result != 20 )); then
