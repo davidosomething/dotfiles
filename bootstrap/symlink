@@ -80,10 +80,6 @@ __symlink() {
     dko-symlink "mac/LaunchAgents/dotfiles.plist" \
       "Library/LaunchAgents/dotfiles.plist"
     ;;
-  linux*)
-    dko-symlink "linux/terminator/config" \
-      ".config/terminator/config"
-    ;;
   esac
 
   # Shell
