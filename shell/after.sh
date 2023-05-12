@@ -3,7 +3,7 @@
 export DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 
 # use xdg trash replacement
-__dko_prefer 'trash' && alias rm=trash
+__dko_has 'trash' && alias rm=trash
 
 # Use neovim
 # Now that path is available, use neovim instead of vim if it is installed
