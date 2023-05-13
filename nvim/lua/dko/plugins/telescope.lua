@@ -12,33 +12,11 @@ return {
   },
 
   {
-    "tsakirist/telescope-lazy.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-    event = "VeryLazy",
-    config = function()
-      require("telescope").load_extension("lazy")
-    end,
-  },
-
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build = "make",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-    event = "VeryLazy",
-    config = function()
-      require("telescope").load_extension("fzf")
-    end,
-  },
-
-  {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.1",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     config = function()
       require("telescope").setup({
@@ -66,6 +44,8 @@ return {
           },
         },
       })
+
+      require("telescope").load_extension("fzf")
 
       require("dko.mappings").bind_telescope()
     end,

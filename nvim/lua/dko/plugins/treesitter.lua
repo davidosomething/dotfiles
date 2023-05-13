@@ -31,6 +31,10 @@ return {
     cmd = { "TSUpdate" },
     event = { "BufReadPost", "BufNewFile" }, -- this cuts 20ms
     config = function()
+      if vim.g.needs_ts_update == 1 then
+        vim.cmd('TSUpdate')
+      end
+
       require("nvim-treesitter.configs").setup({
         ensure_installed = "all",
         ignore_install = {
@@ -148,10 +152,6 @@ return {
         -- 'andymass/vim-matchup',
         matchup = { enable = true },
       })
-
-      if vim.g.needs_ts_update == 1 then
-        vim.cmd('TSUpdate')
-      end
 
       -- =====================================================================
       -- Aliases
