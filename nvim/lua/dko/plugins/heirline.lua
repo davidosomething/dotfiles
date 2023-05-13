@@ -33,10 +33,18 @@ return {
             return require("heirline.conditions").buffer_matches({
               buftype = vim.tbl_filter(function(bt)
                 return bt ~= "help"
-              end, require('dko.utils.buffer').SPECIAL_BUFTYPES),
+              end, require("dko.utils.buffer").SPECIAL_BUFTYPES),
             }, args.buf)
           end,
-        }
+        },
+      })
+
+      vim.api.nvim_create_autocmd("colorscheme", {
+        desc = "Clear heirline color cache",
+        callback = function()
+          require("heirline").reset_highlights()
+        end,
+        group = vim.api.nvim_create_augroup("dkoheirline", {}),
       })
     end,
   },
