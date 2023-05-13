@@ -1,3 +1,5 @@
+local HAS_GUI = #vim.api.nvim_list_uis() > 0
+
 local HIGHLIGHTING_DISABLED = {
   -- treesitter language, not ft
   -- see https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
@@ -30,9 +32,10 @@ return {
     end,
     cmd = { "TSUpdate" },
     event = { "BufReadPost", "BufNewFile" }, -- this cuts 20ms
-    lazy =  #vim.api.nvim_list_uis() > 0,
+    lazy = HAS_GUI,
     config = function()
       require("nvim-treesitter.configs").setup({
+        sync_install = HAS_GUI,
         ensure_installed = "all",
         ignore_install = {
           "ada",
