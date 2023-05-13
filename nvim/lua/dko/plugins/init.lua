@@ -331,7 +331,7 @@ return {
   {
     "ojroques/nvim-osc52",
     enabled = function()
-      return os.getenv("SSH_CLIENT")
+      return os.getenv("SSH_CLIENT") or vim.fn.filereadable('/.dockerenv') == 1
     end,
     config = function()
       local function copy(lines, _)
