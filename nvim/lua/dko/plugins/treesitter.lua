@@ -25,11 +25,9 @@ return {
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" }, -- this cuts 20ms
-    dependencies = {
-      "andymass/vim-matchup",
-    },
     build = ":TSUpdate",
+    cmd = { "TSUpdate" },
+    event = { "BufReadPost", "BufNewFile" }, -- this cuts 20ms
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = "all",
