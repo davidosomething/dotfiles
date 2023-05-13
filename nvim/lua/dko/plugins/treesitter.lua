@@ -25,16 +25,12 @@ return {
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     "nvim-treesitter/nvim-treesitter",
-    build = function ()
-      vim.g.needs_ts_update = 1
+    build = function()
+      require("nvim-treesitter.install").update({ with_sync = true })
     end,
     cmd = { "TSUpdate" },
     event = { "BufReadPost", "BufNewFile" }, -- this cuts 20ms
     config = function()
-      if vim.g.needs_ts_update == 1 then
-        vim.cmd('TSUpdate')
-      end
-
       require("nvim-treesitter.configs").setup({
         ensure_installed = "all",
         ignore_install = {
