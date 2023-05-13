@@ -12,67 +12,7 @@ local CSSMODULES_ENABLED = true
 local TRACE = false
 if TRACE then
   vim.lsp.set_log_level("trace")
-  if vim.fn.has("nvim-0.5.1") == 1 then
-    ---@diagnostic disable-next-line: param-type-mismatch
-    require("vim.lsp.log").set_format_func(vim.inspect)
-  end
-end
-
--- Tools to auto-install with mason
--- Must then be configured, e.g. as null-ls formatter or diagnostic provider
-local extras = {
-  "markdownlint",
-  "prettier",
-  "selene",
-  "shellcheck", -- used by null_ls AND bashls
-  "shfmt", -- null_ls formatting
-  "stylua",
-}
-local when_executable = {
-  black = "python",
-  isort = "python",
-  vint = "python",
-}
-for lsp, bin in pairs(when_executable) do
-  if vim.fn.executable(bin) == 1 then
-    table.insert(extras, lsp)
-  end
-end
-
--- LSPs to install with mason via mason-lspconfig
--- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-local lsps = {
-  "ansiblels",
-  --"bashls", -- prefer null_ls shellcheck, has code_actions and code inline
-  "cssls",
-  "cssmodules_ls", -- jumping into classnames from jsx/tsx
-  "docker_compose_language_service",
-  "dockerls",
-  "eslint",
-  "html",
-  "jdtls",
-  "jsonls",
-  "stylelint_lsp",
-  "lua_ls",
-
-  -- temporary -- using jedi instead of futzing around with venvs ?
-  -- https://github.com/neovim/nvim-lspconfig/issues/500
-  -- do :PylspInstall <tab> after to install plugins!!
-  --"pylsp",
-
-  "tailwindcss",
-  "tsserver",
-  "vimls",
-  "yamlls",
-}
-when_executable = {
-  gopls = "go",
-  jedi_language_server = "python",
-}
-for lsp, bin in pairs(when_executable) do
-  if vim.fn.executable(bin) == 1 then
-    table.insert(lsps, lsp)
-  end
+  require("vim.lsp.log").set_format_func(vim.inspect)
 end
 
 -- Lazy.nvim specs
@@ -252,7 +192,7 @@ return {
       -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L157-L163
       -- https://github.com/jay-babu/mason-null-ls.nvim/blob/main/lua/mason-null-ls/automatic_installation.lua#LL68C19-L75C7
       local mr = require("mason-registry")
-      for _, tool in ipairs(extras) do
+      for _, tool in ipairs(require('dko.lsp').get_tools_to_auto_install()) do
         local p = mr.get_package(tool)
         if not p:is_installed() then
           vim.notify(
@@ -442,7 +382,7 @@ return {
 
       require("mason-lspconfig").setup({
         automatic_installation = true,
-        ensure_installed = lsps,
+        ensure_installed = require('dko.lsp').get_lsps_to_auto_install(),
         handlers = handlers,
       })
     end,

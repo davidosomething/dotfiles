@@ -366,4 +366,69 @@ end
 
 -- ===========================================================================
 
+---@return string[]
+M.get_tools_to_auto_install = function ()
+  -- Tools to auto-install with mason
+  -- Must then be configured, e.g. as null-ls formatter or diagnostic provider
+  return vim.tbl_flatten(vim.tbl_values(require('dko.utils.table').filter({
+    ["_"] = {
+      "selene",
+      "shellcheck", -- used by null_ls AND bashls
+      "shfmt", -- null_ls formatting
+      "stylua",
+    },
+    ["npm"] = {
+      "markdownlint",
+      "prettier",
+    },
+    ["python"] = {
+      "black",
+      "isort",
+      "vint",
+    }
+  }, function (_, bin)
+    return bin == "_" or vim.fn.executable(bin) == 1
+  end)))
+end
+
+---@return string[]
+M.get_lsps_to_auto_install = function()
+  -- LSPs to install with mason via mason-lspconfig
+  -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
+  return vim.tbl_flatten(vim.tbl_values(require("dko.utils.table").filter({
+    ["_"] = {
+      --"bashls", -- prefer null_ls shellcheck, has code_actions and code inline
+      "jdtls",
+      "lua_ls",
+      -- temporary -- using jedi instead of futzing around with venvs ?
+      -- https://github.com/neovim/nvim-lspconfig/issues/500
+      -- do :PylspInstall <tab> after to install plugins!!
+      --"pylsp",
+    },
+    ["npm"] = {
+      "ansiblels",
+      "cssls",
+      "cssmodules_ls", -- jumping into classnames from jsx/tsx
+      "docker_compose_language_service",
+      "dockerls",
+      "eslint",
+      "html",
+      "jsonls",
+      "stylelint_lsp",
+      "tailwindcss",
+      "tsserver",
+      "vimls",
+      "yamlls",
+    },
+    ["go"] = { "gopls" },
+    ["python"] = { "jedi_language_server" },
+  }, function(_, bin)
+    if bin ~= "_" and vim.fn.executable(bin) == 0 then
+      vim.cmd.echomsg(('"%s not found, skipping some lsps"'):format(bin))
+      return false
+    end
+    return true
+  end)))
+end
+
 return M

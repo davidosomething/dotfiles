@@ -12,4 +12,12 @@ M.concat = function(t1, t2)
   return t1
 end
 
+M.filter = function(t, func)
+  local res = {}
+  for k, v in pairs(t) do
+    if func(v, k, t) then res[k] = v end
+  end
+  return res
+end
+
 return M
