@@ -272,14 +272,3 @@ autocmd("LspAttach", {
   end,
   group = augroup("dkolsp"),
 })
-
-autocmd("colorscheme", {
-  desc = "Clear heirline color cache",
-  callback = function()
-    local ok, heirline = pcall(require, "heirline")
-    if ok then
-      heirline.reset_highlights()
-    end
-  end,
-  group = augroup("dkoheirline"),
-})
