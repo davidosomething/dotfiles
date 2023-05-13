@@ -30,6 +30,7 @@ return {
     end,
     cmd = { "TSUpdate" },
     event = { "BufReadPost", "BufNewFile" }, -- this cuts 20ms
+    lazy =  #vim.api.nvim_list_uis() > 0,
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = "all",
