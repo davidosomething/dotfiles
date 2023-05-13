@@ -35,6 +35,7 @@ return {
     lazy = HAS_GUI,
     config = function()
       require("nvim-treesitter.configs").setup({
+        -- https://github.com/nvim-treesitter/nvim-treesitter/issues/3579#issuecomment-1278662119
         sync_install = HAS_GUI,
         ensure_installed = "all",
         ignore_install = {
