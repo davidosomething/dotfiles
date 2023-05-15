@@ -3,9 +3,9 @@ return {
     provider = " ⛖ ",
     hl = function()
       if vim.v.servername:find("nvim.sock") then
-        return "dkoStatusGood"
+        return "String"
       end
-      return "dkoStatusError"
+      return "Error"
     end,
   },
 }
