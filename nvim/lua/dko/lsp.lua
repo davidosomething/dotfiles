@@ -367,10 +367,10 @@ end
 -- ===========================================================================
 
 ---@return string[]
-M.get_tools_to_auto_install = function ()
+M.get_tools_to_auto_install = function()
   -- Tools to auto-install with mason
   -- Must then be configured, e.g. as null-ls formatter or diagnostic provider
-  return vim.tbl_flatten(vim.tbl_values(require('dko.utils.table').filter({
+  return vim.tbl_flatten(vim.tbl_values(require("dko.utils.table").filter({
     ["_"] = {
       "selene",
       "shellcheck", -- used by null_ls AND bashls
@@ -385,8 +385,8 @@ M.get_tools_to_auto_install = function ()
       "black",
       "isort",
       "vint",
-    }
-  }, function (_, bin)
+    },
+  }, function(_, bin)
     return bin == "_" or vim.fn.executable(bin) == 1
   end)))
 end
@@ -424,7 +424,10 @@ M.get_lsps_to_auto_install = function()
     ["python"] = { "jedi_language_server" },
   }, function(_, bin)
     if bin ~= "_" and vim.fn.executable(bin) == 0 then
-      vim.cmd.echomsg(('"%s not found, skipping some lsps"'):format(bin))
+      require("dko.doctor").warn({
+        category = "LSP",
+        message = ("%s not found, will skip installation of some LSPs"):format(bin),
+      })
       return false
     end
     return true
