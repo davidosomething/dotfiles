@@ -1,0 +1,23 @@
+name: 'Dispatch workflow event to other repos'
+
+on:
+  status
+
+jobs:
+  dispatch:
+    if: >-
+      github.event.state == 'success'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repo: ['davidosomething/devcon']
+    steps:
+      - name: dispatch to devcon
+        run: |
+          curl \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            -H "Authorization: token ${{ secrets.DISPATCH_TOKEN }}" \
+            --request POST \
+            --data '{"event_type": "dotfiles_update", "client_payload": { "doit": true }}' \
+            https://api.github.com/repos/${{ matrix.repo }}/dispatches
+
