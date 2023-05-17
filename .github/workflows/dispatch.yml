@@ -15,6 +15,7 @@ jobs:
         repo: ['davidosomething/devcon']
     steps:
       - name: dispatch to devcon
+        # yamllint disable rule:line-length
         run: |
           curl \
             -H "Accept: application/vnd.github.everest-preview+json" \
