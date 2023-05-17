@@ -1,12 +1,14 @@
-name: 'Dispatch workflow event to other repos'
+name: dispatch
 
 on:
-  status
+  workflow_run:
+    workflows: [release]
+    types:
+      - completed
 
 jobs:
-  dispatch:
-    if: >-
-      github.event.state == 'success'
+  dispatch-on-release-success:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -20,4 +22,3 @@ jobs:
             --request POST \
             --data '{"event_type": "dotfiles_update", "client_payload": { "doit": true }}' \
             https://api.github.com/repos/${{ matrix.repo }}/dispatches
-

@@ -37,7 +37,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install npm packages
         run: npm ci
@@ -46,20 +46,3 @@ jobs:
         run: |
           ./bootstrap/symlink
           npm test --silent
-
-  release:
-    needs: test
-
-    runs-on: "ubuntu-latest"
-
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-
-      - name: Merge dev -> master
-        uses: devmasx/merge-branch@1.4.0
-        with:
-          type: now
-          from_branch: dev
-          target_branch: master
-          github_token: ${{ github.token }}
