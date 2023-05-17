@@ -69,6 +69,7 @@ return {
           diagnostics_format = "SC#{c}: #{m}",
         }),
         null_ls.builtins.diagnostics.vint,
+        null_ls.builtins.diagnostics.yamllint,
         null_ls.builtins.diagnostics.zsh,
 
         null_ls.builtins.diagnostics.selene.with({

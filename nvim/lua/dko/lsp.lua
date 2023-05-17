@@ -385,6 +385,7 @@ M.get_tools_to_auto_install = function()
       "black",
       "isort",
       "vint",
+      "yamllint",
     },
   }, function(_, bin)
     return bin == "_" or vim.fn.executable(bin) == 1
