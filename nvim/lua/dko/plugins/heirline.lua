@@ -9,7 +9,6 @@ return {
     dependencies = {
       "davidosomething/everandever.nvim",
     },
-    event = "VeryLazy",
     config = function()
       local ALWAYS = 2
       vim.o.showtabline = ALWAYS

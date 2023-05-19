@@ -151,6 +151,11 @@ List pull requests since last tag
 Use GitHub or GitLab cli tools to open current repo in browser.
 Fall back to dko-open if the repo origin is `https`.
 
+## git-sbs
+
+Side-by-side `git diff` using `delta` as the pager.
+Takes regular `git diff` options.
+
 ## git-today
 
 Show commits since midnight
