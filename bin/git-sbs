@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+GIT_PAGER=delta DELTA_FEATURES='+side-by-side' git diff "$@"
