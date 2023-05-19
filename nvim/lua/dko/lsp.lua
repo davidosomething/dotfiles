@@ -422,7 +422,14 @@ M.get_lsps_to_auto_install = function()
       "yamlls",
     },
     ["go"] = { "gopls" },
-    ["python"] = { "jedi_language_server" },
+    ["python"] = {
+      -- python hover and some diagnostics from jedi
+      -- https://github.com/pappasam/jedi-language-server#capabilities
+      "jedi_language_server",
+
+      -- python lint and format from ruff
+      "ruff_lsp",
+    },
   }, function(_, bin)
     if bin ~= "_" and vim.fn.executable(bin) == 0 then
       require("dko.doctor").warn({
