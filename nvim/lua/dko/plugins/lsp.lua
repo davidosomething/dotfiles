@@ -274,6 +274,7 @@ return {
             settings = {
               json = {
                 schemas = require("schemastore").json.schemas(),
+                -- https://github.com/b0o/SchemaStore.nvim/issues/8#issuecomment-1129528787
                 validate = { enable = true },
               },
             },
@@ -377,6 +378,11 @@ return {
           lspconfig.yamlls.setup(with_lsp_capabilities({
             settings = {
               yaml = {
+                schemaStore = {
+                  -- disable fetching schemastore schemas, using
+                  -- schemastore.nvim for that
+                  enable = false,
+                },
                 schemas = require("schemastore").yaml.schemas({
                   ignore = {
                     'Cheatsheets',
