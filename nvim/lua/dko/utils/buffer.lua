@@ -43,6 +43,20 @@ M.is_editable = function(bufnr)
   return modifiable and not readonly and not M.is_special(bufnr)
 end
 
+local HIGHLIGHTING_MAX_FILESIZE = 300 * 1024 -- 300 KB
+
+---@param query string|table
+---@return boolean|nil true if filesize is bigger than HIGHLIGHTING_MAX_FILESIZE
+M.is_huge = function(query)
+  local filename = query
+  if type(query) == 'table' and query.bufnr then
+    filename = vim.api.nvim_buf_get_name(query.bufnr)
+  end
+  local ok, stats = pcall(vim.loop.fs_stat, filename)
+  return ok and stats and stats.size > HIGHLIGHTING_MAX_FILESIZE
+end
+
+
 M.get_cursorline_contents = function()
   local linenr = vim.api.nvim_win_get_cursor(0)[1]
   return vim.api.nvim_buf_get_lines(0, linenr - 1, linenr, false)[1]

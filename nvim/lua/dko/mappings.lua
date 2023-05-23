@@ -421,11 +421,17 @@ end
 -- Plugin: cybu.nvim
 -- ===========================================================================
 
+M.cybu = {
+  prev = "[b",
+  next = "]b",
+}
 M.bind_cybu = function()
-  map("n", "[b", "<Plug>(CybuPrev)", {
+  map("n", M.cybu.prev, "<Plug>(CybuPrev)", {
     desc = "Previous buffer with cybu popup",
   })
-  map("n", "]b", "<Plug>(CybuNext)", { desc = "Next buffer with cybu popup" })
+  map("n", M.cybu.next, "<Plug>(CybuNext)", {
+    desc = "Next buffer with cybu popup",
+  })
 end
 
 -- ===========================================================================
@@ -792,8 +798,9 @@ end
 -- Plugin: treesj
 -- ===========================================================================
 
+M.treesj = "gs"
 M.bind_treesj = function()
-  map("n", "gs", function()
+  map("n", M.treesj, function()
     require("treesj").toggle()
   end, { desc = "Toggle treesitter split / join", silent = true })
 end
