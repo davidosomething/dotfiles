@@ -377,7 +377,11 @@ return {
           lspconfig.yamlls.setup(with_lsp_capabilities({
             settings = {
               yaml = {
-                schemas = require("schemastore").yaml.schemas(),
+                schemas = require("schemastore").yaml.schemas({
+                  ignore = {
+                    'Cheatsheets',
+                  },
+                }),
               },
             },
           }))
