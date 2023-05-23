@@ -143,10 +143,7 @@ return {
       "nvim-tree/nvim-web-devicons",
       "nvim-lua/plenary.nvim",
     },
-    keys = {
-      "[b",
-      "]b",
-    },
+    keys = vim.tbl_values(require("dko.mappings").cybu),
     config = function()
       require("cybu").setup({
         display_time = 500,
@@ -296,12 +293,12 @@ return {
       vim.api.nvim_create_autocmd("colorscheme", {
         desc = "Re-apply my indent-blankline highlights",
         callback = function()
-          require('dko.colors').indent_blankline()
+          require("dko.colors").indent_blankline()
         end,
         group = vim.api.nvim_create_augroup("dkoindentblankline", {}),
       })
 
-      require('dko.colors').indent_blankline()
+      require("dko.colors").indent_blankline()
     end,
   },
 
@@ -331,7 +328,7 @@ return {
   {
     "ojroques/nvim-osc52",
     enabled = function()
-      return os.getenv("SSH_CLIENT") or vim.fn.filereadable('/.dockerenv') == 1
+      return os.getenv("SSH_CLIENT") or vim.fn.filereadable("/.dockerenv") == 1
     end,
     config = function()
       local function copy(lines, _)
@@ -365,7 +362,8 @@ return {
   -- % textobject
   {
     "andymass/vim-matchup",
-    event = { "BufReadPost", "BufNewFile" },
+    -- author recommends against lazy loading
+    lazy = false,
     init = function()
       vim.g.matchup_delim_noskips = 2
       vim.g.matchup_matchparen_deferred = 1
@@ -404,7 +402,7 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
-    keys = "gs",
+    keys = require("dko.mappings").trees,
     config = function()
       require("treesj").setup({
         use_default_keymaps = false,

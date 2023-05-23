@@ -7,6 +7,7 @@ local HIGHLIGHTING_DISABLED = {
 
 -- table of filetypes
 local HIGHLIGHTING_ENABLED = {
+  "just",
   "dotenv",
   "starlark",
   "tiltfile",
@@ -18,18 +19,21 @@ local FT_ALIASES = {
   tiltfile = "starlark",
 }
 
-local HIGHLIGHTING_MAX_FILESIZE = 300 * 1024 -- 300 KB
-
 return {
 
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     "nvim-treesitter/nvim-treesitter",
+    -- can't lazy, otherwise vim-matchup will originate errors when you first
+    -- open a file before the ts syntax is installed
+    lazy = false,
+    -- don't use this plugin when headless (lazy.nvim tends to try to install
+    -- markdown support async)
+    cond = #vim.api.nvim_list_uis() > 0,
     build = function()
       require("nvim-treesitter.install").update({ with_sync = true })
     end,
-    cmd = { "TSUpdate" },
-    event = { "BufReadPost", "BufNewFile" }, -- this cuts 20ms
+    -- event = { "BufReadPost", "BufNewFile" }, -- this cuts 20ms
     config = function()
       require("nvim-treesitter.configs").setup({
         -- https://github.com/nvim-treesitter/nvim-treesitter/issues/3579#issuecomment-1278662119
@@ -41,36 +45,32 @@ return {
 
         highlight = {
           enable = true,
-          disable = function(lang, buf)
-            -- Always disable these
-            if vim.tbl_contains(HIGHLIGHTING_DISABLED, lang) then
-              return true
-            end
+          disable = function(lang, bufnr)
+            local ENABLED = false
+            local DISABLED = true
 
-            -- Disable for large files
-            -- See behaviors.lua too
-            local ok, stats =
-              pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > HIGHLIGHTING_MAX_FILESIZE then
-              return true
+            if
+              not require("dko.settings").get("treesitter.highlight_enabled")
+              or vim.tbl_contains(HIGHLIGHTING_DISABLED, lang)
+              or require('dko.utils.buffer').is_huge({ bufnr = bufnr })
+            then
+              return DISABLED
             end
 
             -- Enable for these
-            local ft = vim.api.nvim_buf_get_option(buf, "filetype")
+            -- @TODO remove this ignore when signature fixed in neovim
+            ---@diagnostic disable-next-line: redundant-parameter
+            local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
             if vim.tbl_contains(HIGHLIGHTING_ENABLED, ft) then
-              return false
+              return ENABLED
             end
 
-            -- Global setting
-            return not require("dko.settings").get(
-              "treesitter.highlight_enabled"
-            )
+            return DISABLED
           end,
         },
 
         indent = { enable = true },
 
-        -- 'andymass/vim-matchup',
         matchup = { enable = true },
       })
 
@@ -106,10 +106,11 @@ return {
 
   {
     "IndianBoy42/tree-sitter-just",
+    -- registers filetypes, no lazy
+    lazy = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
-    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("tree-sitter-just").setup({})
     end,
