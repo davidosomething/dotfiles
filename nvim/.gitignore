@@ -33,4 +33,5 @@ aspell.utf-8.add
 # local
 .gvimrc.local
 .vimrc.local
+.luarc.json
 squarespace.vim
