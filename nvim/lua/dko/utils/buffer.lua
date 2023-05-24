@@ -17,16 +17,12 @@ M.SPECIAL_FILETYPES = {
 
 ---@param bufnr integer
 M.is_special = function(bufnr)
-  local bt = vim.api.nvim_buf_get_option(bufnr, "buftype")
-  if vim.tbl_contains(M.SPECIAL_BUFTYPES, bt) then
+  if vim.tbl_contains(M.SPECIAL_BUFTYPES, vim.bo[bufnr].buftype) then
     return true
   end
 
-  local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
-  for _, t in pairs(M.SPECIAL_FILETYPES) do
-    if ft:match(t) then
-      return true
-    end
+  if vim.tbl_contains(M.SPECIAL_FILETYPES, vim.bo[bufnr].filetype) then
+    return true
   end
 
   return false
@@ -34,13 +30,9 @@ end
 
 ---@param bufnr integer
 M.is_editable = function(bufnr)
-  -- buffer not editable at all
-  local modifiable = vim.api.nvim_buf_get_option(bufnr, "modifiable")
-
-  -- buffer editable, :w locked
-  local readonly = vim.api.nvim_buf_get_option(bufnr, "readonly")
-
-  return modifiable and not readonly and not M.is_special(bufnr)
+  return vim.bo[bufnr].modifiable -- modifiable - buffer not editable at all
+    and not vim.bo[bufnr].readonly -- readonly - buffer editable, :w locked
+    and not M.is_special(bufnr)
 end
 
 local HIGHLIGHTING_MAX_FILESIZE = 300 * 1024 -- 300 KB
@@ -49,13 +41,12 @@ local HIGHLIGHTING_MAX_FILESIZE = 300 * 1024 -- 300 KB
 ---@return boolean|nil true if filesize is bigger than HIGHLIGHTING_MAX_FILESIZE
 M.is_huge = function(query)
   local filename = query
-  if type(query) == 'table' and query.bufnr then
+  if type(query) == "table" and query.bufnr then
     filename = vim.api.nvim_buf_get_name(query.bufnr)
   end
   local ok, stats = pcall(vim.loop.fs_stat, filename)
   return ok and stats and stats.size > HIGHLIGHTING_MAX_FILESIZE
 end
-
 
 M.get_cursorline_contents = function()
   local linenr = vim.api.nvim_win_get_cursor(0)[1]
