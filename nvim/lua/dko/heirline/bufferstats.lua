@@ -7,7 +7,7 @@ return {
     end, self.all)
 
     self.modified = vim.tbl_filter(function(bufnr)
-      return vim.api.nvim_buf_get_option(bufnr, "modified")
+      return vim.bo[bufnr].modified
     end, self.normal)
   end,
   {

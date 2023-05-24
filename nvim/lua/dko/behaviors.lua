@@ -8,17 +8,6 @@ local augroup = function(name, opts)
 end
 local autocmd = vim.api.nvim_create_autocmd
 
-local appGroup = augroup("dkonvimapp")
-autocmd("VimLeavePre", {
-  desc = "Remove the remote socket file",
-  callback = function()
-    if vim.v.servername:find("nvim.sock") then
-      vim.loop.fs_unlink(vim.v.servername)
-    end
-  end,
-  group = appGroup,
-})
-
 local windowGroup = augroup("dkowindow")
 autocmd("VimResized", {
   desc = "Automatically resize windows in all tabpages when resizing Vim",
@@ -207,7 +196,7 @@ autocmd("DiagnosticChanged", {
     } ]]
 
     -- Don't sync diagnostics from unlisted buffers
-    if not vim.api.nvim_buf_get_option(args.buf, "buflisted") then
+    if not vim.bo[args.buf].buflisted then
       return
     end
 
@@ -216,8 +205,7 @@ autocmd("DiagnosticChanged", {
     -- Make sure all windows showing the buffer are updated
     local wins = vim.tbl_filter(function(winnr)
       local bufnr = vim.api.nvim_win_get_buf(winnr)
-      local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
-      return ft ~= "qf" and bufnr == args.buf
+      return vim.bo[bufnr].filetype ~= "qf" and bufnr == args.buf
     end, vim.api.nvim_tabpage_list_wins(0))
     for _, winnr in pairs(wins) do
       vim.diagnostic.setloclist({ open = false, winnr = winnr }) -- true would focus empty loclist

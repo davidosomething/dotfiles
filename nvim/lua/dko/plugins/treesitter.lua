@@ -52,7 +52,7 @@ return {
             if
               not require("dko.settings").get("treesitter.highlight_enabled")
               or vim.tbl_contains(HIGHLIGHTING_DISABLED, lang)
-              or require('dko.utils.buffer').is_huge({ bufnr = bufnr })
+              or require("dko.utils.buffer").is_huge({ bufnr = bufnr })
             then
               return DISABLED
             end
@@ -60,8 +60,9 @@ return {
             -- Enable for these
             -- @TODO remove this ignore when signature fixed in neovim
             ---@diagnostic disable-next-line: redundant-parameter
-            local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
-            if vim.tbl_contains(HIGHLIGHTING_ENABLED, ft) then
+            if
+              vim.tbl_contains(HIGHLIGHTING_ENABLED, vim.bo[bufnr].filetype)
+            then
               return ENABLED
             end
 
