@@ -38,10 +38,13 @@ return {
           extra_args = { "--profile black" },
         }),
         null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.prettier.with({
+          disabled_filetypes = { "yaml" },
+        }),
         null_ls.builtins.formatting.qmlformat,
         null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.stylua,
+        null_ls.builtins.formatting.yq,
       }
       for i, provider in ipairs(formatters) do
         formatters[i] = provider.with({
