@@ -376,6 +376,7 @@ M.get_tools_to_auto_install = function()
       "shellcheck", -- used by null_ls AND bashls
       "shfmt", -- null_ls formatting
       "stylua",
+      "yq",
     },
     ["npm"] = {
       "markdownlint",
