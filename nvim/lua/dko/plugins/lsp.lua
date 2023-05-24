@@ -44,7 +44,7 @@ return {
         null_ls.builtins.formatting.qmlformat,
         null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.yq,
+        null_ls.builtins.formatting.yamlfmt,
       }
       for i, provider in ipairs(formatters) do
         formatters[i] = provider.with({
