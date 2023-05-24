@@ -45,7 +45,8 @@ For user-land ruby, install [ruby-build], [its dependencies], and [asdf] and
 
 #### node
 
-For user-land node, install [fnm] using [bootstrap/fnm](bootstrap/fnm)
+Use `asdf` OR [fnm] using [bootstrap/fnm](bootstrap/fnm) if speed is
+a concern.
 
 ### python
 
@@ -87,7 +88,7 @@ environment set up first.
     - Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
       and they will be automatically sourced, LAST, by the default scripts. _No
       dots on the filenames._
-- `neovim/`
+- `nvim/`
     - [nvim/README.md](nvim/README.md) for more information.
 - `python/`
     - Never `sudo pip`. Set up a [pyenv], and use a [pyenv-virtualenv].
