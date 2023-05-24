@@ -269,6 +269,16 @@ return {
           }))
         end,
 
+        ["docker_compose_language_service"] = function()
+          lspconfig.docker_compose_language_service.setup(with_lsp_capabilities({
+            on_attach = function(client)
+              -- stylua or NOTHING
+              client.server_capabilities.documentFormattingProvider = false
+              client.server_capabilities.documentRangeFormattingProvider = false
+            end,
+          }))
+        end,
+
         ["jsonls"] = function()
           lspconfig.jsonls.setup(with_lsp_capabilities({
             settings = {
