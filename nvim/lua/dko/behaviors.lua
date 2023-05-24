@@ -272,3 +272,11 @@ autocmd("LspAttach", {
   end,
   group = augroup("dkolsp"),
 })
+
+-- temporary fix, winbars not updating
+autocmd(require('dko.heirline.lsp').update, {
+  desc = "Bind LSP in buffer",
+  callback = function()
+    vim.cmd.redrawstatus({ bang = true })
+  end
+})
