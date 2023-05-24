@@ -12,6 +12,7 @@ vim.filetype.add({
     ['.env.localkube'] = 'dotenv',
     ['.env.production'] = 'dotenv',
     ['tsconfig.json'] = 'jsonc',
+    ['.yamlfmt'] = 'yaml',
   }
 })
 

@@ -3,158 +3,113 @@
 linters:
   BorderZero:
     enabled: true
-
   CapitalizationInSelector:
     enabled: false
-
   ColorKeyword:
     enabled: false
-
   ColorVariable:
     enabled: false
-
   Comment:
     enabled: false
-
   Compass::*:
     enabled: false
-
   DebugStatement:
     enabled: true
-
   DeclarationOrder:
     enabled: true
-
   DuplicateProperty:
     enabled: false
-
   ElsePlacement:
     enabled: false
-
   EmptyLineBetweenBlocks:
     enabled: false
     ignore_single_line_blocks: true
-
   EmptyRule:
     enabled: false
-
   FinalNewline:
     enabled: true
     present: true
-
   HexLength:
     enabled: false
     style: short  # or 'long'
-
   HexNotation:
     enabled: true
     style: lowercase  # or 'uppercase'
-
   HexValidation:
     enabled: true
-
   ImportantRule:
     enabled: false
-
   # we want to explicitly show that a partial is being imported
   ImportPath:
     leading_underscore: true
     enabled: false
-
   IdSelector:
     enabled: false
-
   IdWithExtraneousSelector:
     enabled: false
-
   Indentation:
     enabled: true
     character: 'spaces'
     width: 2
-
   LeadingZero:
     enabled: false
-    style: exclude_zero   # or 'include_zero'
-
+    style: exclude_zero  # or 'include_zero'
   MergeableSelector:
     enabled: false
     force_nesting: true
-
   NameFormat:
     enabled: false
     convention: BEM
-
   NestingDepth:
     enabled: true
     max_depth: 7
-
   PlaceholderInExtend:
     enabled: false
-
   PropertySortOrder:
     enabled: true
-
   PropertySpelling:
     enabled: true
     extra_properties: []
-
   QualifyingElement:
     enabled: false
-
   SelectorDepth:
     enabled: true
     max_depth: 7
-
   SelectorFormat:
     enabled: false  # I WANT IT
     convention: BEM
     severity: warning
-
   Shorthand:
     enabled: false
-
   SingleLinePerSelector:
     enabled: false
-
   SpaceAfterComma:
     enabled: false
-
   SpaceAfterPropertyColon:
     enabled: true
-
   SpaceAfterPropertyName:
     enabled: true
-
   SpaceBeforeBrace:
     enabled: true
     allow_single_line_padding: false
-
   SpaceBetweenParens:
     enabled: true
     spaces: 0
-
   StringQuotes:
     enabled: true
     style: single_quotes  # or double_quotes
-
   TrailingSemicolon:
     enabled: false
-
   UnnecessaryMantissa:
     enabled: true
-
   UnnecessaryParentReference:
     enabled: false
-
   UrlFormat:
     enabled: false
-
   UrlQuotes:
     enabled: true
-
   VendorPrefixes:
     enabled: false
     identifier_list: base
-
   ZeroUnit:
     enabled: true
