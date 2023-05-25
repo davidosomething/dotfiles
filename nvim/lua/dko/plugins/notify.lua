@@ -50,7 +50,6 @@ return {
         notify(msg, level, opts)
       end
       vim.notify = override
-      require("dko.lsp").bind_notify()
 
       -- =====================================================================
       -- Clear notifications on <Esc><Esc>
@@ -65,6 +64,8 @@ return {
         group = vim.api.nvim_create_augroup("dkonvimnotify", {}),
       })
       require("dko.mappings").bind_notify()
+
+      require("dko.lsp.logging").bind_notify()
     end,
   },
 }
