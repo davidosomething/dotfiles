@@ -4,29 +4,29 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
--- Debugging flags
-local ENABLED = true
-local NULL_LS_ENABLED = true
-local TSSERVER_ENABLED = true
-local CSSMODULES_ENABLED = true
-local TRACE = false
-if TRACE then
-  vim.lsp.set_log_level("trace")
-  ---@diagnostic disable-next-line: param-type-mismatch
-  require("vim.lsp.log").set_format_func(vim.inspect)
-end
-
 -- Lazy.nvim specs
 return {
   {
     "jose-elias-alvarez/null-ls.nvim",
-    enabled = NULL_LS_ENABLED,
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
     lazy = true,
     config = function()
       local null_ls = require("null-ls")
+
+      null_ls.setup({
+        border = "rounded",
+        -- defaults to false, but lets just sync it in case I want to change
+        -- in my diagnostic.lua
+        update_in_insert = vim.diagnostic.config().update_in_insert,
+      })
+
+      null_ls.register({
+        null_ls.builtins.hover.printenv,
+        -- bashls does not provide these quick ignore actions
+        null_ls.builtins.code_actions.shellcheck,
+      })
 
       -- =====================================================================
       -- Configure formatters
@@ -44,20 +44,17 @@ return {
         null_ls.builtins.formatting.qmlformat,
         null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.stylua,
+
+        -- yamlls formatting is disabled in favor of this
         null_ls.builtins.formatting.yamlfmt,
       }
+
+      -- bind notify when a null_ls formatter has run
       for i, provider in ipairs(formatters) do
-        formatters[i] = provider.with({
-          runtime_condition = function(params)
-            require("dko.lsp").null_ls_notify_on_format(params)
-            local original = provider.runtime_condition
-            if original ~= nil then
-              return original()
-            end
-            return true
-          end,
-        })
+        formatters[i] = require('dko.lsp').bind_formatter_notifications(provider)
       end
+
+      null_ls.register(formatters)
 
       -- =====================================================================
       -- Configure diagnostics
@@ -75,7 +72,10 @@ return {
           diagnostics_format = "SC#{c}: #{m}",
         }),
         null_ls.builtins.diagnostics.vint,
+
+        -- yamlls linting is disabled in favor of this
         null_ls.builtins.diagnostics.yamllint,
+
         null_ls.builtins.diagnostics.zsh,
 
         null_ls.builtins.diagnostics.selene.with({
@@ -88,15 +88,15 @@ return {
             end
             local results = vim.fs.find({ "selene.toml" }, {
               path = vim.api.nvim_buf_get_name(0),
+              type = "file",
               upward = true,
-              stop = vim.loop.os_homedir(),
             })
             return #results > 0
           end,
           extra_args = function(params)
             local results = vim.fs.find({ "selene.toml" }, {
               path = vim.api.nvim_buf_get_name(0),
-              stop = vim.loop.os_homedir(),
+              type = "file",
               upward = true,
             })
             if #results == 0 then
@@ -115,41 +115,7 @@ return {
         })
       end ]]
 
-      -- =====================================================================
-      -- Combine sources
-      -- =====================================================================
-
-      local sources = {
-        null_ls.builtins.hover.printenv,
-
-        -- add gitsigns.nvim commands
-        null_ls.builtins.code_actions.gitsigns.with({
-          config = {
-            filter_actions = function(title)
-              -- only want the "preview hunk" action, I do git stuff in
-              -- terminal
-              return title:lower():match("preview") ~= nil
-            end,
-          },
-        }),
-
-        -- bashls does not provide these quick ignore actions
-        null_ls.builtins.code_actions.shellcheck,
-      }
-      require("dko.utils.table").concat(sources, formatters)
-      require("dko.utils.table").concat(sources, diagnostics)
-
-      -- =====================================================================
-      -- Apply config
-      -- =====================================================================
-
-      null_ls.setup({
-        border = "rounded",
-        sources = sources,
-        -- defaults to false, but lets just sync it in case I want to change
-        -- in my diagnostic.lua
-        update_in_insert = vim.diagnostic.config().update_in_insert,
-      })
+      null_ls.register(diagnostics)
     end,
   },
 
@@ -169,7 +135,6 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    enabled = ENABLED,
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "folke/neodev.nvim",
@@ -232,7 +197,6 @@ return {
 
   {
     "williamboman/mason-lspconfig.nvim",
-    enabled = ENABLED,
     dependencies = {
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
@@ -258,10 +222,8 @@ return {
         end,
 
         ["cssmodules_ls"] = function()
-          if not CSSMODULES_ENABLED then
-            return
-          end
           lspconfig.cssmodules_ls.setup(with_lsp_capabilities({
+            ---note: local on_attach happens AFTER autocmd LspAttach
             ---@param client table
             on_attach = function(client)
               -- https://github.com/davidosomething/dotfiles/issues/521
@@ -340,9 +302,6 @@ return {
         end,
 
         ["tsserver"] = function()
-          if not TSSERVER_ENABLED then
-            return
-          end
           lspconfig.tsserver.setup(with_lsp_capabilities({
             ---@param _ table client
             ---@param bufnr number
@@ -394,11 +353,10 @@ return {
           lspconfig.yamlls.setup(with_lsp_capabilities({
             settings = {
               yaml = {
-                schemaStore = {
-                  -- disable fetching schemastore schemas, using
-                  -- schemastore.nvim for that
-                  enable = false,
-                },
+                format = { enable = false }, -- prefer yamlfmt
+                validate = { enable = false }, -- prefer yamllint
+                -- disable built-in fetch schemas, prefer schemastore.nvim
+                schemaStore = { enable = false },
                 schemas = require("schemastore").yaml.schemas({
                   ignore = {
                     "Cheatsheets",

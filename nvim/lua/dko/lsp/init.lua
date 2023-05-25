@@ -1,73 +1,7 @@
 local M = {}
 
-vim.lsp.set_log_level("INFO")
-
--- ===========================================================================
--- LSP borders
--- Add default rounded border and suppress no info messages
--- E.g. used by /usr/share/nvim/runtime/lua/vim/lsp/handlers.lua
--- To see example of this fn used, press K for LSP hover
--- Overriding with vim.lsp.with is the way recommended by docs (as opposed to
--- overriding vim.lsp.util.open_floating_preview entirely)
--- ===========================================================================
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-  -- suppress 'No information available' notification (nvim-0.9 ?)
-  -- https://github.com/neovim/neovim/pull/21531/files#diff-728d3ae352b52f16b51a57055a3b20efc4e992efacbf1c34426dfccbba30037cR339
-  silent = true,
-})
-
-vim.lsp.handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-    -- suppress 'No information available' notification (nvim-0.8!)
-    silent = true,
-  })
-
--- ===========================================================================
--- LSP Notifications
--- ===========================================================================
-
----@alias MessageType
----| 1 # Error
----| 2 # Warning
----| 3 # Info
----| 4 # Log
-
----@alias LogLevel
----| 0 # TRACE
----| 1 # DEBUG
----| 2 # INFO
----| 3 # WARN
----| 4 # ERROR
----| 5 # OFF
-
----Convert an LSP MessageType to a vim.notify log level
----@param mt MessageType https://github.com/neovim/neovim/blob/7ef5e363d360f86c5d8d403e90ed256f4de798ec/runtime/lua/vim/lsp/protocol.lua
----@return LogLevel level https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_editor.lua#L44-L53
-M.lsp_messagetype_to_vim_log_level = function(mt)
-  local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[mt]
-  return vim.log.levels[lvl]
-end
-
-M.bind_notify = function()
-  ---Show LSP messages via vim.notify (but only when using nvim-notify)
-  ---https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/handlers.lua
-  ---@diagnostic disable-next-line: duplicate-set-field
-  vim.lsp.handlers["window/showMessage"] = function(_, result, ctx, _)
-    local client = vim.lsp.get_client_by_id(ctx.client_id)
-    local client_name = client and client.name or ctx.client_id
-    local title = ("LSP > %s"):format(client_name)
-    if not client then
-      vim.notify(result.message, vim.log.levels.ERROR, { title = title })
-    else
-      local level = M.lsp_messagetype_to_vim_log_level(result.type)
-      vim.notify(result.message, level, { title = title })
-    end
-    return result
-  end
-end
+require("dko.lsp.logging")
+require("dko.lsp.floats")
 
 -- ===========================================================================
 -- LSP coordination - make sure null-ls and real lsps play nice
@@ -115,6 +49,21 @@ end
 -- ===========================================================================
 -- Formatting
 -- ===========================================================================
+
+---Hook into null_ls runtime_conditions to notify on run
+M.bind_formatter_notifications = function(provider)
+  return provider.with({
+    runtime_condition = function(params)
+      local source = params:get_source()
+      vim.notify("format", vim.log.levels.INFO, {
+        title = ("LSP > null-ls > %s"):format(source.name),
+      })
+
+      local original = provider.runtime_condition
+      return type(original) == "function" and original() or true
+    end,
+  })
+end
 
 -- NO eslint-plugin-prettier? maybe run prettier
 -- then, maybe run eslint --fix
@@ -193,15 +142,6 @@ M.format = function(options)
 
   -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L147-L187
   vim.lsp.buf.format(options)
-end
-
----Hooked into null_ls runtime_conditions to notify on run
----@param params table
-M.null_ls_notify_on_format = function(params)
-  local source = params:get_source()
-  vim.notify("format", vim.log.levels.INFO, {
-    title = ("LSP > null-ls > %s"):format(source.name),
-  })
 end
 
 -- ===========================================================================
