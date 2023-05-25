@@ -1,4 +1,4 @@
-return function (filename)
+return function(filename)
   local match = vim.fs.find(filename, {
     upward = true,
     limit = 1,

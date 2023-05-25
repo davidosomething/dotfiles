@@ -111,7 +111,7 @@ autocmd("BufReadPre", {
   desc = "Disable linting and syntax highlighting for large and minified files",
   callback = function(args)
     -- See the treesitter highlight config too
-    if require('dko.utils.buffer').is_huge(args.file) then
+    if require("dko.utils.buffer").is_huge(args.file) then
       vim.cmd.syntax("manual")
     end
   end,
@@ -262,9 +262,9 @@ autocmd("LspAttach", {
 })
 
 -- temporary fix, winbars not updating
-autocmd(require('dko.heirline.lsp').update, {
+autocmd(require("dko.heirline.lsp").update, {
   desc = "Bind LSP in buffer",
   callback = function()
     vim.cmd.redrawstatus({ bang = true })
-  end
+  end,
 })

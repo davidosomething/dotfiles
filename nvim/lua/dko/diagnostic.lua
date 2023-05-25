@@ -73,7 +73,7 @@ vim.diagnostic.config({
     header = false, -- remove the line that says 'Diagnostic:'
     source = false, -- hide it since my float_format will add it
     format = float_format, -- can customize more colors by using prefix/suffix instead
-    suffix = '', -- default is error code. Moved to message via float_format
+    suffix = "", -- default is error code. Moved to message via float_format
   },
   update_in_insert = false, -- wait until insert leave to check diagnostics
 })

@@ -35,7 +35,7 @@ require("dko.commands")
 require("dko.mappings")
 require("dko.behaviors")
 require("dko.lazy")
-if os.getenv('TERM_PROGRAM') == 'WezTerm' then
+if os.getenv("TERM_PROGRAM") == "WezTerm" then
   require("dko.wezterm").setup()
 end
 

@@ -16,9 +16,12 @@ return {
     },
     {
       provider = function(self)
-        return (" %d/%d "):format(self.search_count.current, self.search_count.total)
+        return (" %d/%d "):format(
+          self.search_count.current,
+          self.search_count.total
+        )
       end,
       hl = "StatusLine",
     },
-  }
+  },
 }

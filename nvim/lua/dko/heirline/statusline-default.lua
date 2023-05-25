@@ -8,7 +8,7 @@ return {
   -- spacer with inactive color
   {
     provider = "%=",
-    hl = "StatusLineNC"
+    hl = "StatusLineNC",
   },
 
   -- ruler
