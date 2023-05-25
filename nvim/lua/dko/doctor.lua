@@ -3,11 +3,11 @@ local M = {}
 M.warnings = {}
 M.errors = {}
 
-M.error = function (params)
+M.error = function(params)
   table.insert(M.errors, params)
 end
 
-M.warn = function (params)
+M.warn = function(params)
   table.insert(M.warnings, params)
 end
 

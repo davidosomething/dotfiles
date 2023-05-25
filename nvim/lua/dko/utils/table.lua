@@ -15,7 +15,9 @@ end
 M.filter = function(t, func)
   local res = {}
   for k, v in pairs(t) do
-    if func(v, k, t) then res[k] = v end
+    if func(v, k, t) then
+      res[k] = v
+    end
   end
   return res
 end
