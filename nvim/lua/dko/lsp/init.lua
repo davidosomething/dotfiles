@@ -312,6 +312,7 @@ M.get_tools_to_auto_install = function()
   -- Must then be configured, e.g. as null-ls formatter or diagnostic provider
   return vim.tbl_flatten(vim.tbl_values(require("dko.utils.table").filter({
     ["_"] = {
+      "actionlint",
       "selene",
       "shellcheck", -- used by null_ls AND bashls
       "shfmt", -- null_ls formatting

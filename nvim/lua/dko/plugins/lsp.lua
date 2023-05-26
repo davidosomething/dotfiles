@@ -61,6 +61,7 @@ return {
       -- =====================================================================
 
       local diagnostics = {
+        null_ls.builtins.diagnostics.actionlint,
         -- dotenv-linter will have to be installed manually
         null_ls.builtins.diagnostics.dotenv_linter.with({
           filetypes = { "dotenv" },
