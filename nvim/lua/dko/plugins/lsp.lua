@@ -61,6 +61,7 @@ return {
       -- =====================================================================
 
       local diagnostics = {
+        null_ls.builtins.diagnostics.actionlint,
         -- dotenv-linter will have to be installed manually
         null_ls.builtins.diagnostics.dotenv_linter.with({
           filetypes = { "dotenv" },
@@ -75,8 +76,6 @@ return {
 
         -- yamlls linting is disabled in favor of this
         null_ls.builtins.diagnostics.yamllint,
-
-        null_ls.builtins.diagnostics.zsh,
 
         null_ls.builtins.diagnostics.selene.with({
           condition = function()
@@ -105,6 +104,8 @@ return {
             return { "--config", results[1] }
           end,
         }),
+
+        null_ls.builtins.diagnostics.zsh,
       }
       -- Switch ALL diagnostics to DIAGNOSTICS_ON_SAVE only
       -- or null_ls will keep spamming LSP events
