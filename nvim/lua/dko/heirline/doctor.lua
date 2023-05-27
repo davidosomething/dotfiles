@@ -4,7 +4,7 @@ return {
       return #require("dko.doctor").errors > 0
     end,
     {
-      provider = "  ",
+      provider = "  ",
       hl = "Error",
     },
   },
@@ -13,7 +13,7 @@ return {
       return #require("dko.doctor").warnings > 0
     end,
     {
-      provider = "  ",
+      provider = "  ",
       hl = "Comment",
     },
   },
