@@ -49,23 +49,3 @@ set completion-query-items 200
 
 # Show extra file information when completing, like `ls -F` does
 set visible-stats on
-
-# ============================================================================
-# Keys
-# ============================================================================
-
-"\e[1;5D": backward-word
-"\e[1;5C": forward-word
-
-# Use the text that has already been typed as the prefix for searching through
-# commands (i.e. more intelligent Up/Down behavior)
-"\e[B": history-search-forward
-"\e[A": history-search-backward
-
-# Make TAB cycle through possible completions
-# "\t": menu-complete
-# Make SHIFT-TAB reverse cycle through possible completions
-# "\e[Z": "\e-1\C-i"
-
-# Use Alt/Meta + Delete to delete the preceding word
-"\e[3;3~": kill-word
