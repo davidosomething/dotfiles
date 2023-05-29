@@ -3,6 +3,7 @@ return {
     local ok, lazy_status = pcall(require, "lazy.status")
     return ok and lazy_status.has_updates()
   end,
+  update = 'LazyCheck',
   provider = function()
     return " " .. require("lazy.status").updates() .. " "
   end,
