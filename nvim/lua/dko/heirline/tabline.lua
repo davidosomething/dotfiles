@@ -14,7 +14,6 @@ return {
 
   { provider = "%=", hl = "StatusLineNC" },
 
-  require("dko.heirline.lazy"),
   require("dko.heirline.clipboard"),
   require("dko.heirline.remote"),
   require("dko.heirline.doctor"),
