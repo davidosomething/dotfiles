@@ -15,8 +15,7 @@ require("lazy").setup("dko.plugins", {
     enabled = false,
   },
   checker = {
-    enabled = string.find(vim.v.servername, "nvim.sock"), -- hide in gina
-    notify = false, -- use tabline indicator
+    enabled = false,
   },
   dev = {
     fallback = true,
