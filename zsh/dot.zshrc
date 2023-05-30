@@ -58,6 +58,7 @@ if __dko_has 'zinit'; then
   . "${ZDOTDIR}/zinit.zsh" 2>/dev/null
   autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
   # the last zinit plugin will run zicompinit which inits compinit
+  alias zup='zini update --parallel'
 else
   autoload -Uz compinit && compinit
 fi
