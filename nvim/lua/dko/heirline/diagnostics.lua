@@ -58,7 +58,7 @@ return {
   },
   {
     provider = function(self)
-      return self.total == 0 and "  " or " "
+      return self.total == 0 and "  " or " "
     end,
     hl = "dkoStatusGood",
   },

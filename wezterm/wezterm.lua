@@ -104,8 +104,8 @@ local colorscheme_file = ("%s/wezterm-colorscheme.txt"):format(xdg_state_home)
 
 local notifier = "osascript -e 'display notification"
 local close = "'"
-if wezterm.target_triple == "x86_64-unknown-linux-gnu - Linux" then
-  notifier = "notify-send"
+if string.find(wezterm.target_triple, "linux") then
+  notifier = "notify-send --app-name=WezTerm --urgency=low --expire-time=500"
   close = ""
 end
 
@@ -171,6 +171,7 @@ end
 ---@param dir "Left"|"Up"
 local scaled_split = function(dir)
   return function(win, pane)
+    --wezterm.log_info("split " .. dir)
     local tab = win:active_tab()
 
     local opposite = dir == "Left" and "Right" or "Down"
@@ -197,6 +198,9 @@ local scaled_split = function(dir)
     pane:split({ direction = dir == "Left" and "Right" or "Bottom" })
   end
 end
+
+local split_horz = scaled_split("Left")
+local split_vert = scaled_split("Up")
 
 -- ===========================================================================
 -- Key bindings
@@ -238,34 +242,31 @@ end
 
 -- Add my keys, modeled after konsole
 k:insert({
-  key = "(",
-  mods = "CTRL|SHIFT",
-  action = wezterm.action_callback(scaled_split("Left")),
-})
-k:insert({
-  key = ")",
-  mods = "CTRL|SHIFT",
-  action = wezterm.action_callback(scaled_split("Up")),
-})
-k:insert({
   key = "w",
   mods = "CMD",
   action = act.CloseCurrentPane({ confirm = true }),
 })
-
 k:insert({
-  key = "T",
+  key = "t",
   mods = "CTRL|SHIFT",
   action = wezterm.action_callback(toggle_colorscheme),
 })
-
 -- Pick pane, swap with active
 k:insert({
   key = "8",
   mods = "CTRL|SHIFT",
   action = act.PaneSelect({ mode = "SwapWithActive" }),
 })
+k:insert({
+  key = "9",
+  mods = "CTRL|SHIFT",
+  action = wezterm.action_callback(split_horz),
+})
+k:insert({
+  key = "0",
+  mods = "CTRL|SHIFT",
+  action = wezterm.action_callback(split_vert),
+})
 
 config.keys = k
-
 return config

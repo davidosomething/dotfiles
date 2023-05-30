@@ -1,6 +1,6 @@
 return {
   {
-    provider = " ⛖ ",
+    provider = " 󰴽 ",
     hl = function()
       if vim.v.servername:find("nvim.sock") then
         return "String"
