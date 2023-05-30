@@ -3,11 +3,7 @@ return {
     return not require("dko.utils.buffer").is_special(0)
   end,
   init = function(self)
-    self.all = vim.api.nvim_list_bufs()
-
-    self.normal = vim.tbl_filter(function(bufnr)
-      return vim.api.nvim_buf_is_loaded(bufnr) and not require("dko.utils.buffer").is_special(bufnr)
-    end, self.all)
+    self.normal = require("dko.utils.buffers").get_normal()
 
     self.modified = vim.tbl_filter(function(bufnr)
       return vim.bo[bufnr].modified
