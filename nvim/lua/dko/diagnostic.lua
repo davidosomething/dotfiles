@@ -1,7 +1,7 @@
 local M = {}
 
 -- Symbols in signs column
---    ✕ ✖ ✘   ‼   ❢ ❦ ‽   ⁕ ⚑ ✔   ✎
+--  ✕ ✖ ✘ ‼   ❢ ❦ ‽    ⁕ ⚑ ✔  ✎
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
 M.SIGNS = { Error = "✘", Warn = "", Info = "⚑", Hint = "" }
 M.SEVERITY_TO_SYMBOL = {}
