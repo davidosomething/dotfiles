@@ -257,6 +257,9 @@ k:insert({
   mods = "CTRL|SHIFT",
   action = act.PaneSelect({ mode = "SwapWithActive" }),
 })
+
+-- Yes both number and ( ) bindings are needed, one for wezterm-git on arch
+-- and one on wezterm stable from brew on mac
 k:insert({
   key = "9",
   mods = "CTRL|SHIFT",
@@ -264,6 +267,16 @@ k:insert({
 })
 k:insert({
   key = "0",
+  mods = "CTRL|SHIFT",
+  action = wezterm.action_callback(split_vert),
+})
+k:insert({
+  key = "(",
+  mods = "CTRL|SHIFT",
+  action = wezterm.action_callback(split_horz),
+})
+k:insert({
+  key = ")",
   mods = "CTRL|SHIFT",
   action = wezterm.action_callback(split_vert),
 })
