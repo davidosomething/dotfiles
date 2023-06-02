@@ -4,7 +4,7 @@ local M = {}
 ---@param needle string
 ---@return boolean found true if needle in haystack
 M.starts_with = function(haystack, needle)
-  return haystack:sub(1, needle:len()) == needle
+  return type(haystack) == "string" and haystack:sub(1, needle:len()) == needle
 end
 
 -- alt F ғ (ghayn)
