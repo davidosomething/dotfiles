@@ -755,6 +755,8 @@ M.toggleterm = {
 }
 
 M.bind_toggleterm = function()
+  local original
+
   local horizontal = require("toggleterm.terminal").Terminal:new({
     count = 88888,
     direction = "horizontal",
@@ -763,16 +765,18 @@ M.bind_toggleterm = function()
       vim.keymap.set(
         "t",
         M.toggleterm.horizontal,
-        "<Cmd>close<CR>",
+        function()
+          vim.cmd.close()
+          vim.api.nvim_set_current_win(original)
+        end,
         { buffer = true, noremap = true, silent = true }
       )
     end,
   })
   map("n", M.toggleterm.horizontal, function()
+    original = vim.api.nvim_get_current_win()
     horizontal:toggle()
-  end, {
-    desc = "Open a horizontal terminal",
-  })
+  end, { desc = "Open a horizontal terminal" })
 
   local floating = require("toggleterm.terminal").Terminal:new({
     count = 99999,
@@ -782,16 +786,21 @@ M.bind_toggleterm = function()
       vim.keymap.set(
         "t",
         M.toggleterm.float,
-        "<Cmd>close<CR>",
+        function()
+          vim.cmd.close()
+          vim.api.nvim_set_current_win(original)
+        end,
         { buffer = true, noremap = true, silent = true }
       )
     end,
+    on_close = function()
+      vim.schedule_wrap(vim.api.nvim_set_current_win)(original)
+    end,
   })
   map("n", M.toggleterm.float, function()
+    original = vim.api.nvim_get_current_win()
     floating:toggle()
-  end, {
-    desc = "Open a big floating terminal",
-  })
+  end, { desc = "Open a big floating terminal" })
 end
 
 -- ===========================================================================
