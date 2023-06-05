@@ -34,11 +34,10 @@ alias ap='ansible-playbook -vvv'
 # cat (prefer bat)
 # ----------------------------------------------------------------------------
 
-alias c='bat --paging never'
 alias crm='bat --plain README.md'
 alias cpj='bat --plain package.json'
+alias cps='jq .scripts package.json'
 alias pyg='pygmentize -O style=rrt -f console256 -g'
-alias cns='jq .scripts package.json'
 
 # ----------------------------------------------------------------------------
 # docker
@@ -47,7 +46,6 @@ alias cns='jq .scripts package.json'
 alias dcd='docker-compose down'
 alias dcud='docker-compose up -d'
 alias dcpull='docker-compose pull'
-alias dsprune='docker system prune'
 
 # ----------------------------------------------------------------------------
 # editors
@@ -78,7 +76,6 @@ alias gemrm='gem uninstall --all'
 # ----------------------------------------------------------------------------
 
 alias g-='git checkout -'
-alias gb='git b'
 alias gl='git l --max-count 20'
 alias gm='git checkout "$(git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/)"'
 
