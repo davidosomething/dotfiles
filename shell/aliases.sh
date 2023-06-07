@@ -76,6 +76,8 @@ alias gemrm='gem uninstall --all'
 # ----------------------------------------------------------------------------
 
 alias g-='git checkout -'
+alias gb='git branch'
+alias gbd='git branch -D'
 alias gl='git l --max-count 20'
 alias gm='git checkout "$(git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/)"'
 
