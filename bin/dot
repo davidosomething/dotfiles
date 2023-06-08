@@ -112,7 +112,9 @@ __dko_dotfiles__update_daily() {
     __dko_warn "fzf is not installed"
   fi
 
-  __dko_dotfiles__node__update_fnm
+  __dko_has fnm && {
+    __dko_dotfiles__node__update_fnm
+  }
 
   __dko_dotfiles__go__require_go && __dko_dotfiles__go__update_go_packages
 

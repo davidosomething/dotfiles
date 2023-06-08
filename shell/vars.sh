@@ -152,7 +152,6 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
 # gpg
-# on mac this should already set by dotfiles.plist using launchd
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
 
 # go
