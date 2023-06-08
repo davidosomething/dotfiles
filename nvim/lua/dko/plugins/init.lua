@@ -258,48 +258,42 @@ return {
   },
 
   -- indent guides
+  -- https://github.com/shellRaining/hlchunk.nvim
   {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "VeryLazy",
+    "shellRaining/hlchunk.nvim",
+    event = { "UIEnter" },
     config = function()
-      require("indent_blankline").setup({
-        filetype_exclude = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "lazy",
-          "mason",
-        },
+      local exclude_filetype = {
+        "help",
+        "plugin",
+        "alpha",
+        "dashboard",
+        "neo-tree",
+        "Trouble",
+        "lazy",
+        "mason",
+      }
 
-        -- char = "▏",
-        --char = "│",
-        -- as bg colors
-        char = "",
-        char_highlight_list = {
-          "IndentBlanklineIndent1",
-          "IndentBlanklineIndent2",
+      require("hlchunk").setup({
+        blank = {
+          enable = true,
+          exclude_filetype = exclude_filetype,
+          chars = { " " },
+          style = {
+            { bg = "", fg = "" },
+            {
+              bg = vim.fn.synIDattr(
+                vim.fn.synIDtrans(vim.fn.hlID("dkoHlchunkAlt")),
+                "bg",
+                "gui"
+              ),
+            },
+          },
         },
-        space_char_highlight_list = {
-          "IndentBlanklineIndent1",
-          "IndentBlanklineIndent2",
-        },
-
-        show_trailing_blankline_indent = false,
-        -- show_current_context = true, -- disable, makes hard to see tabchar
-        use_treesitter = true,
+        --chunk = { enable = true },
+        indent = { enable = false },
+        line_num = { enable = false },
       })
-
-      vim.api.nvim_create_autocmd("colorscheme", {
-        desc = "Re-apply my indent-blankline highlights",
-        callback = function()
-          require("dko.colors").indent_blankline()
-        end,
-        group = vim.api.nvim_create_augroup("dkoindentblankline", {}),
-      })
-
-      require("dko.colors").indent_blankline()
     end,
   },
 

@@ -77,6 +77,14 @@ autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
 
 local readingGroup = augroup("dkoreading")
 
+autocmd('ColorScheme', {
+  desc = "(Re-)apply indent highlights",
+  callback = function()
+    require("dko.colors").indent()
+  end,
+  group = readingGroup,
+})
+
 -- https://vi.stackexchange.com/questions/11892/populate-a-git-commit-template-with-variables
 autocmd("BufRead", {
   pattern = "COMMIT_EDITMSG",
