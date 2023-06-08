@@ -40,9 +40,9 @@ return {
       if vim.bo.filetype:len() == 0 then
         return " "
       end
-      return " "
-        .. require("dko.utils.string").smallcaps(vim.bo.filetype)
-        .. " "
+      return (" %s "):format(
+        require("dko.utils.string").smallcaps(vim.bo.filetype)
+      )
     end,
     hl = keyOrOff,
   },

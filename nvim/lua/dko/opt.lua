@@ -247,7 +247,10 @@ local grepper = (
     and require("dko.grepper.ack")
 )
 if grepper then
-  vim.o.grepprg = grepper.command .. " " .. table.concat(grepper.options, " ")
+  vim.o.grepprg = ("%s %s"):format(
+    grepper.command,
+    table.concat(grepper.options, " ")
+  )
   vim.o.grepformat = grepper.format
 end
 
