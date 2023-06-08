@@ -9,7 +9,7 @@ return {
       local notify = require("notify")
       notify.setup({
         max_height = 8,
-        max_width = 50,
+        max_width = 100,
         minimum_width = 50,
         timeout = 2500,
         stages = "static",
