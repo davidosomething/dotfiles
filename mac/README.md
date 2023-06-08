@@ -20,7 +20,7 @@ everything.
 1. iCloud sign in
 1. Install App store apps
 
-    - [Display Menu]: Set higher/native resolutions
+    - [Display Menu] or EasyRes: Set higher/native resolutions
     - [Xcode]: select CLI tools in prefs
         - This is __required__ to build some apps like neovim@HEAD
 
@@ -50,24 +50,11 @@ with mac OS but requires manual execution. Use
 
 The script will also:
 
-- load the `dotfiles.plist`
-    - It sets `GNUPGHOME` in the env for all apps
 - `brew bundle` some default packages
 - Run the fzf installer
 - Change the user's default shell to the brewed `zsh`
 
 Bundle dumps for specific systems are in my `~/.secret` (not public).
-
-### the dotfiles.plist
-
-`./compile dotfiles.plist.json` generates the `dotfiles.plist` file in the
-`mac/LaunchAgents` directory. It depends on the `plist` package from npm.
-Redirect the compiled output to the plist file to update.
-There is a limitation that it uses `$HOME/.dotfiles` instead of `$DOTFILES`
-so you may want to edit (e.g. hardcode) the dotfiles path if you changed it.
-
-The bootstrap script symlinks the plist. You'll have to manually use
-`launchctl` command to load it and reboot to start it if you opt in.
 
 ## Cask notes
 
@@ -77,7 +64,7 @@ The bootstrap script symlinks the plist. You'll have to manually use
       add [LoginItems/DelayedDropbox.app](LoginItems/DelayedDropbox.app) to
       your login items instead. It is a generic app made using Script Editor.
 - bettertouchtool
-    - License in synology drive or gmail
+    - License in gmail
     - Provides better trackpad swipe configs, drag window snapping,
       modifier-hold window resizing
     - Synced to Dropbox
@@ -117,13 +104,11 @@ operation. Use the `bi` alias for a clean room install if possible.
     - See <https://gist.github.com/abernix/a7619b07b687bb97ab573b0dc30928a0>
       if there are still file limit issues
     - REBOOT for `ulimit -n` changes to take effect
-- Install [fnm] using [bootstrap/fnm](../bootstrap/fnm) and install a version
-  of `node` (and `npm`)
-  1. Use fnm managed node
-  1. Install the default packages using [node/install](../node/install)
-- Install [pyenv] using `pyenv-installer` (rm `~/.local/pyenv` directory for
-  clean install) and make sure to use the libs provided by brew. See the
-  packages marked "for pyenv" in the [Brewfile](./Brewfile)
+- Install asdf or [fnm] using [bootstrap/fnm](../bootstrap/fnm) and install
+  a version of `node` (and `npm`)
+- Install asdf or [pyenv] using `pyenv-installer` (rm `~/.local/pyenv`
+  directory for clean install) and make sure to use the libs provided by brew.
+  See the packages marked "for pyenv" in the [Brewfile](./Brewfile)
   1. Install the latest python using using
      [bootstrap/pyenv](../bootstrap/pyenv). This will also create a `neovim3`
      virtualenv.
