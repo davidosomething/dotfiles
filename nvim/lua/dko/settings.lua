@@ -1,10 +1,10 @@
 local settings = {
   colors = {
-    dark = 'meh',
-    light = 'two-firewatch',
+    dark = "meh",
+    light = "two-firewatch",
   },
   grepper = {
-    ignore_file = vim.fn.expand("$DOTFILES") .. "/" .. "ag/dot.ignore",
+    ignore_file = ("%s/%s"):format(vim.fn.expand("$DOTFILES"), "ag/dot.ignore"),
   },
   heirline = {
     show_buftype = false,

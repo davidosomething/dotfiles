@@ -39,10 +39,10 @@ M.has_eslint_plugin_prettier = function()
 
   -- No benefit to doing this async because formatting synchronously anyway
   return #vim.fn.systemlist(
-    eslint
-      .. " --print-config "
-      .. vim.api.nvim_buf_get_name(0)
-      .. " | grep prettier/prettier"
+    ("%s --print-config %s | grep prettier/prettier"):format(
+      eslint,
+      vim.api.nvim_buf_get_name(0)
+    )
   ) > 0
 end
 
@@ -377,7 +377,9 @@ M.get_lsps_to_auto_install = function()
     if bin ~= "_" and vim.fn.executable(bin) == 0 then
       require("dko.doctor").warn({
         category = "LSP",
-        message = ("%s not found, will skip installation of some LSPs"):format(bin),
+        message = ("%s not found, will skip installation of some LSPs"):format(
+          bin
+        ),
       })
       return false
     end
