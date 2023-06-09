@@ -25,16 +25,20 @@ else
   vim.g.loaded_python3_provider = 2
 end
 
-require("dko.filetypes")
 require("dko.opt")
-require("dko.builtin-syntax")
-require("dko.diagnostic")
-require("dko.lsp")
-require("dko.terminal")
 require("dko.commands")
-require("dko.mappings")
 require("dko.behaviors")
+require("dko.diagnostic")
+require("dko.mappings")
+
+-- plugins might rely or trigger things from my settings above
 require("dko.lazy")
+
+-- for things not handled by plugins, or that plugins did wrong
+require("dko.builtin-syntax")
+require("dko.filetypes")
+require("dko.lsp.floats")
+require("dko.terminal")
 
 -- Disallow unsafe local vimrc commands
 -- Leave down here since it trims local settings
