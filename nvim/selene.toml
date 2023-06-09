@@ -2,3 +2,4 @@ std = "vim"
 
 [rules]
 multiple_statements = "allow"
+unused_variable = "allow" # conflicts with luals

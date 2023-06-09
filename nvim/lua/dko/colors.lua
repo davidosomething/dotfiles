@@ -27,28 +27,9 @@ end
 local colorscheme_file_path = os.getenv("XDG_STATE_HOME")
   .. "/wezterm-colorscheme.txt"
 M.apply_from_file = function()
-  --
-  -- turns out readfile is faster
-  -- when reading a single line (skip stat)
-  -- and still synchronous
-  --
-  ---@diagnostic disable-next-line: missing-parameter
-  -- local start_time = vim.fn.reltime() --[[@as number]]
-  -- local fd = assert(vim.loop.fs_open(colorscheme_file_path, "r", 438))
-  -- local stat = assert(vim.loop.fs_fstat(fd))
-  -- local data = assert(vim.loop.fs_read(fd, stat.size, 0))
-  -- vim.loop.fs_close(fd)
-  ---@diagnostic disable-next-line: missing-parameter
-  -- local elapsed_time = vim.fn.reltimestr(vim.fn.reltime(start_time))
-  -- vim.print(elapsed_time)
-
-  ---@diagnostic disable-next-line: missing-parameter
-  --start_time = vim.fn.reltime() --[[@as number]]
-  local data = vim.fn.readfile(colorscheme_file_path, "", 1)
-  M[(data[1] or "dark") .. "mode"]()
-  ---@diagnostic disable-next-line: missing-parameter
-  --elapsed_time = vim.fn.reltimestr(vim.fn.reltime(start_time))
-  --vim.print({ data, elapsed_time })
+  -- see ./bench/readfile.lua - io.input was consistently fastest for me
+  local file = io.input(colorscheme_file_path)
+  M[(file and (file:lines()()) or "dark") .. "mode"]()
 end
 
 local colorscheme_handle = nil
