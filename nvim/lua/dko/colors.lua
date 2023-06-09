@@ -27,23 +27,15 @@ end
 local colorscheme_file_path = os.getenv("XDG_STATE_HOME")
   .. "/wezterm-colorscheme.txt"
 M.apply_from_file = function()
-  vim.loop.fs_open(colorscheme_file_path, "r", 438, function(_, fd)
-    if fd == nil then
-      return
-    end
-    vim.loop.fs_fstat(fd, function(_, stat)
-      if stat == nil then
-        return
-      end
-      vim.loop.fs_read(fd, stat.size, 0, function(_, data)
-        local nextmode = M[data .. "mode"]
-        if nextmode then
-          vim.schedule(nextmode)
-        end
-        vim.loop.fs_close(fd)
-      end)
-    end)
-  end)
+  local fd = assert(vim.loop.fs_open(colorscheme_file_path, "r", 438))
+  local stat = assert(vim.loop.fs_fstat(fd))
+  local data = assert(vim.loop.fs_read(fd, stat.size, 0))
+  vim.loop.fs_close(fd)
+
+  local nextmode = M[data .. "mode"]
+  if nextmode then
+    vim.schedule(nextmode)
+  end
 end
 
 local colorscheme_handle = nil

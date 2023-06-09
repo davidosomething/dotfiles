@@ -17,6 +17,11 @@ M.find = function(haystack)
     return { group = "vim.b|g|t|w", haystack = haystack, match = match }
   end
 
+  if haystack:find("vim%.loop%.") then
+    match = ("uv.%s"):format(haystack:gsub("vim%.loop%.(.-)$", "%1"))
+    return { group = "vim.b|g|t|w", haystack = haystack, match = match }
+  end
+
   if haystack:find("vim%.opt%.") then
     match = ("'%s'"):format(
       haystack:gsub("vim%.opt%.(.-)$", "%1"):gsub("(.*):.*$", "%1")
