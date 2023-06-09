@@ -1,7 +1,5 @@
 local M = {}
 
-require("dko.lsp.logging")
-require("dko.lsp.floats")
 
 -- ===========================================================================
 -- LSP coordination - make sure null-ls and real lsps play nice

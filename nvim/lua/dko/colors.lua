@@ -34,7 +34,7 @@ M.apply_from_file = function()
 
   local nextmode = M[data .. "mode"]
   if nextmode then
-    vim.schedule(nextmode)
+    nextmode()
   end
 end
 
