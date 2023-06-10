@@ -74,6 +74,9 @@ M.reset_hlchunk = function()
     },
     chunk = {
       enable = true,
+      exclude_filetypes = {
+        sh = true
+      },
       notify = false,
     },
     indent = { enable = false },
