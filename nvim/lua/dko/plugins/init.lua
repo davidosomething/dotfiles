@@ -262,6 +262,7 @@ return {
   {
     "shellRaining/hlchunk.nvim",
     event = { "UIEnter" },
+    branch = "dev",
     config = function()
       local exclude_filetype = {
         "help",
@@ -279,6 +280,7 @@ return {
           enable = true,
           exclude_filetype = exclude_filetype,
           chars = { " " },
+          notify = false,
           style = {
             { bg = "", fg = "" },
             {
@@ -290,7 +292,10 @@ return {
             },
           },
         },
-        --chunk = { enable = true },
+        chunk = {
+          enable = true,
+          notify = false,
+        },
         indent = { enable = false },
         line_num = { enable = false },
       })

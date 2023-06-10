@@ -80,7 +80,25 @@ local readingGroup = augroup("dkoreading")
 autocmd('ColorScheme', {
   desc = "(Re-)apply indent highlights",
   callback = function()
-    require("dko.colors").indent()
+    if vim.g.colors_name == "meh" then
+      vim.cmd([[
+                highlight IndentBlanklineIndent2 guibg=#242424 gui=nocombine
+                highlight IndentBlanklineContextChar guifg=#664422 gui=nocombine
+              ]])
+      if package.loaded.hlchunk ~= nil then
+        vim.cmd([[ highlight dkoHlchunkAlt guibg=#242426 gui=nocombine ]])
+        vim.cmd('EnableHL')
+      end
+    else -- two-firewatch
+      vim.cmd([[
+                highlight IndentBlanklineIndent2 guibg=#fafafa gui=nocombine
+                highlight IndentBlanklineContextChar guifg=#eeeeee gui=nocombine
+              ]])
+      if package.loaded.hlchunk ~= nil then
+        vim.cmd('DisableHL')
+      end
+      --vim.cmd([[ highlight dkoHlchunkAlt guibg=#f4f2ef gui=nocombine ]])
+    end
   end,
   group = readingGroup,
 })
