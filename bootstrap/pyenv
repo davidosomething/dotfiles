@@ -42,10 +42,10 @@ __create_neovim_venv() {
   local name="$1"
   local version="$2"
 
-  if grep -q "$name" <<< "$__venvs"; then
+  if grep -q "$name" <<<"$__venvs"; then
     __dko_ok "${name} exists"
 
-  elif ! grep -q "$version" <<< "$__versions"; then
+  elif ! grep -q "$version" <<<"$__versions"; then
     if [[ "$OSTYPE" == *'arwin'* ]]; then
       __mac_pyenv_install "$version" || return 1
     else
@@ -55,11 +55,11 @@ __create_neovim_venv() {
 
   __dko_status "Creating ${name} and installing pynvim"
   pyenv uninstall neovim3
-  pyenv virtualenv "$version" "$name" \
-    && pyenv activate "$name" \
-    && python -m pip install --upgrade pip \
-    && python -m pip install pynvim \
-    && pyenv deactivate
+  pyenv virtualenv "$version" "$name" &&
+    pyenv activate "$name" &&
+    python -m pip install --upgrade pip &&
+    python -m pip install pynvim &&
+    pyenv deactivate
 }
 
 __main() {

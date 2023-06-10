@@ -44,3 +44,8 @@ insert_final_newline = true
 
 [*.py]
 indent_size = 4
+
+# shfmt
+# https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd#examples
+[*.sh]
+switch_case_indent = true  # --case-indent

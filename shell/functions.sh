@@ -29,7 +29,7 @@ eu() {
   gitroot=$(git rev-parse --show-cdup || echo '')
   [ -d "$gitroot" ] && end="$gitroot"
   x=$(pwd)
-  while [ "$x" != "$end" ] ; do
+  while [ "$x" != "$end" ]; do
     result="$(find "$x" -maxdepth 1 -name "$1")"
     [ -f "$result" ] && {
       e "$result"

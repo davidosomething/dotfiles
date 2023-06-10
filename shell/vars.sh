@@ -33,7 +33,7 @@ case "$DOTFILES_OS" in
     elif [ -f /etc/fedora-release ]; then
       export DOTFILES_DISTRO="fedora"
     fi
-  ;;
+    ;;
 esac
 
 # ============================================================================

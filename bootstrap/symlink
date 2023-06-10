@@ -54,7 +54,7 @@ __symlink() {
     ".config/markdownlint/config"
   [ ! -d "$FNM_DIR" ] &&
     dko-symlink "node/default-packages" \
-    ".config/nvm/default-packages"
+      ".config/nvm/default-packages"
   dko-symlink "shell/dot.inputrc" \
     ".config/readline/inputrc"
   # whole wezterm directory
