@@ -263,8 +263,8 @@ return {
     "shellRaining/hlchunk.nvim",
     event = { "UIEnter" },
     config = function()
-      require('hlchunk')
-      require('dko.colors').reset_hlchunk()
+      require("hlchunk")
+      require("dko.colors").reset_hlchunk()
     end,
   },
 
@@ -369,6 +369,14 @@ return {
         highlight = { timer = 300 },
       })
       require("dko.mappings").bind_yanky()
+    end,
+  },
+
+  -- highlight undo/redo text change
+  {
+    "tzachar/highlight-undo.nvim",
+    config = function()
+      require("highlight-undo").setup({})
     end,
   },
 
