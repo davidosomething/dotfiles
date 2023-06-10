@@ -30,7 +30,7 @@ __main() {
   export PIPX_DEFAULT_PYTHON="${PYENV_ROOT}/shims/python"
   while read -r package; do
     pipx install "$package"
-  done < "${DOTFILES}/bootstrap/pipx-packages"
+  done <"${DOTFILES}/bootstrap/pipx-packages"
   pipx upgrade-all
 }
 

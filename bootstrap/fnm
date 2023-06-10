@@ -22,8 +22,8 @@ __main() {
   __dko_status "Installing ${script} to ${FNM_DIR}"
   curl -fsSL "$script" | bash -s -- \
     --install-dir "$FNM_DIR" \
-    --skip-shell \
-    || return 1
+    --skip-shell ||
+    return 1
 
   __dko_status "Loading"
   eval "$(fnm env)"
@@ -31,7 +31,7 @@ __main() {
   __dko_status "Installing LTS version"
   fnm install --lts
 
-  __dko_status  "To set a version as default, use"
+  __dko_status "To set a version as default, use"
   __dko_status_ "fnm default VERSION"
 }
 __main

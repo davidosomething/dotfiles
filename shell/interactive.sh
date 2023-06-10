@@ -32,7 +32,7 @@ export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 
 # source aliases late so command -v (as in __dko_has) doesn't detect them
 
-. "${DOTFILES}/shell/aliases.sh"   # generic aliases
+. "${DOTFILES}/shell/aliases.sh" # generic aliases
 case "$DOTFILES_DISTRO" in
   "archlinux" | "debian" | "fedora")
     . "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.sh"
