@@ -10,9 +10,11 @@ M.SPECIAL_BUFTYPES = {
 }
 
 M.SPECIAL_FILETYPES = {
+  "fugitive",
   "gitcommit",
   "gitrebase",
-  "fugitive",
+  "lazy",
+  "mason",
 }
 
 ---@param bufnr integer

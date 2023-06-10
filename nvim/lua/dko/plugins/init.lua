@@ -258,8 +258,20 @@ return {
   },
 
   -- indent guides
+  -- https://github.com/shellRaining/hlchunk.nvim
+  {
+    "shellRaining/hlchunk.nvim",
+    event = { "UIEnter" },
+    config = function()
+      require('hlchunk')
+      require('dko.colors').reset_hlchunk()
+    end,
+  },
+
+  -- @TODO remove -- this is disabled now
   {
     "lukas-reineke/indent-blankline.nvim",
+    enabled = false,
     event = "VeryLazy",
     config = function()
       require("indent_blankline").setup({

@@ -10,20 +10,6 @@ M.darkmode = function()
   vim.cmd("colorscheme " .. require("dko.settings").get("colors.dark"))
 end
 
-M.indent_blankline = function()
-  if vim.g.colors_name == "meh" then
-    vim.cmd([[
-              highlight IndentBlanklineIndent2 guibg=#242424 gui=nocombine
-              highlight IndentBlanklineContextChar guifg=#664422 gui=nocombine
-            ]])
-  else -- two-firewatch
-    vim.cmd([[
-              highlight IndentBlanklineIndent2 guibg=#fafafa gui=nocombine
-              highlight IndentBlanklineContextChar guifg=#eeeeee gui=nocombine
-            ]])
-  end
-end
-
 local colorscheme_file_path = os.getenv("XDG_STATE_HOME")
   .. "/wezterm-colorscheme.txt"
 M.apply_from_file = function()
@@ -56,6 +42,43 @@ end
 M.wezterm_sync = function()
   M.apply_from_file()
   M.monitor_colorscheme()
+end
+
+M.reset_hlchunk = function()
+  if package.loaded.hlchunk == nil then
+    --vim.notify('reset_hlchunk not loaded')
+    return
+  end
+
+  if
+    not vim.tbl_contains(
+      vim.tbl_values(require("dko.settings").get("colors")),
+      vim.g.colors_name
+    )
+  then
+    --vim.notify('reset_hlchunk colorscheme not ready')
+    return
+  end
+
+  --vim.notify('reset_hlchunk init')
+  require("hlchunk").setup({
+    blank = {
+      chars = { " " },
+      enable = true,
+      exclude_filetype = require("dko.utils.buffer").SPECIAL_FILETYPES,
+      notify = false,
+      style = {
+        { bg = "", fg = "" },
+        { bg = vim.g.colors_name == "meh" and "#242426" or "#f4f2ef" },
+      },
+    },
+    chunk = {
+      enable = true,
+      notify = false,
+    },
+    indent = { enable = false },
+    line_num = { enable = false },
+  })
 end
 
 return M
