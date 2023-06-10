@@ -78,7 +78,6 @@ M.reset_hlchunk = function()
         sh = true
       },
       notify = false,
-      use_treesitter = false,
     },
     indent = { enable = false },
     line_num = { enable = false },
