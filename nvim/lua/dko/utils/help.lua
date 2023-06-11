@@ -17,16 +17,18 @@ M.find = function(haystack)
     return { group = "vim.b|g|t|w", haystack = haystack, match = match }
   end
 
-  if haystack:find("vim%.loop%.") then
-    match = ("uv.%s"):format(haystack:gsub("vim%.loop%.(.-)$", "%1"))
-    return { group = "vim.b|g|t|w", haystack = haystack, match = match }
-  end
-
   if haystack:find("vim%.opt%.") then
     match = ("'%s'"):format(
       haystack:gsub("vim%.opt%.(.-)$", "%1"):gsub("(.*):.*$", "%1")
     )
     return { group = "vim.opt", haystack = haystack, match = match }
+  end
+
+  if haystack:find("vim%.[loop|uv]") then
+    -- vim.uv.this(abc) -> uv.this
+    match = haystack:gsub("vim%..-%.(.*)", "%1")
+    match = match:gsub("(.*)%(.*", "uv.%1")
+    return { group = "vim.loop|uv", haystack = haystack, match = match }
   end
 
   if haystack:find("vim%.[cmd|fn|nvim]") then
