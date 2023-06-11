@@ -46,7 +46,7 @@ M.is_huge = function(query)
   if type(query) == "table" and query.bufnr then
     filename = vim.api.nvim_buf_get_name(query.bufnr)
   end
-  local ok, stats = pcall(vim.loop.fs_stat, filename)
+  local ok, stats = pcall(vim.uv.fs_stat, filename)
   return ok and stats and stats.size > HIGHLIGHTING_MAX_FILESIZE
 end
 

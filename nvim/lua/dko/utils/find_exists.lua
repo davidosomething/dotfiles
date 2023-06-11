@@ -4,7 +4,7 @@ local function find_exists(paths)
   for _, path in ipairs(paths) do
     ---@diagnostic disable-next-line: missing-parameter
     local normalized = vim.fs.normalize(path)
-    local stat = vim.loop.fs_stat(normalized)
+    local stat = vim.uv.fs_stat(normalized)
     if stat ~= nil then
       return normalized
     end

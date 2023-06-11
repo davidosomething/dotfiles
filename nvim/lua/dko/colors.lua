@@ -40,12 +40,12 @@ M.monitor_colorscheme = function()
     return colorscheme_handle
   end
 
-  colorscheme_handle = vim.loop.new_fs_event()
+  colorscheme_handle = vim.uv.new_fs_event()
   if not colorscheme_handle then
     return nil
   end
 
-  vim.loop.fs_event_start(
+  vim.uv.fs_event_start(
     colorscheme_handle,
     colorscheme_file_path,
     {},

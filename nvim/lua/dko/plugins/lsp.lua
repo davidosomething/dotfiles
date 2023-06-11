@@ -79,7 +79,7 @@ return {
 
         null_ls.builtins.diagnostics.selene.with({
           condition = function()
-            local homedir = vim.loop.os_homedir()
+            local homedir = vim.uv.os_homedir()
             local is_in_homedir = homedir
               and vim.api.nvim_buf_get_name(0):find(homedir)
             if not is_in_homedir then
