@@ -261,7 +261,7 @@ return {
   -- https://github.com/shellRaining/hlchunk.nvim
   {
     "shellRaining/hlchunk.nvim",
-    event = { "UIEnter" },
+    event = "UIEnter",
     config = function()
       require('hlchunk')
       require('dko.colors').reset_hlchunk()
@@ -302,16 +302,6 @@ return {
         -- show_current_context = true, -- disable, makes hard to see tabchar
         use_treesitter = true,
       })
-
-      vim.api.nvim_create_autocmd("colorscheme", {
-        desc = "Re-apply my indent-blankline highlights",
-        callback = function()
-          require("dko.colors").indent_blankline()
-        end,
-        group = vim.api.nvim_create_augroup("dkoindentblankline", {}),
-      })
-
-      require("dko.colors").indent_blankline()
     end,
   },
 

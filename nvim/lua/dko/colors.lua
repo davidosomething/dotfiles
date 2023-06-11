@@ -1,13 +1,29 @@
 local M = {}
 
+local settings = require("dko.settings")
+
+M.is_dark = function()
+  return vim.g.colors_name == settings.get("colors.dark")
+end
+
+M.is_light = function()
+  return vim.g.colors_name == settings.get("colors.light")
+end
+
 M.lightmode = function()
+  if M.is_light() then
+    return
+  end
   vim.o.bg = "light"
-  vim.cmd("colorscheme " .. require("dko.settings").get("colors.light"))
+  vim.cmd("colorscheme " .. settings.get("colors.light"))
 end
 
 M.darkmode = function()
+  if M.is_dark() then
+    return
+  end
   vim.o.bg = "dark"
-  vim.cmd("colorscheme " .. require("dko.settings").get("colors.dark"))
+  vim.cmd("colorscheme " .. settings.get("colors.dark"))
 end
 
 local colorscheme_file_path = os.getenv("XDG_STATE_HOME")
@@ -52,7 +68,7 @@ M.reset_hlchunk = function()
 
   if
     not vim.tbl_contains(
-      vim.tbl_values(require("dko.settings").get("colors")),
+      vim.tbl_values(settings.get("colors")),
       vim.g.colors_name
     )
   then
@@ -75,7 +91,7 @@ M.reset_hlchunk = function()
     chunk = {
       enable = true,
       exclude_filetypes = {
-        sh = true
+        sh = true,
       },
       notify = false,
     },
