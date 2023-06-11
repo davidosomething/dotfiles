@@ -183,7 +183,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   callback = function(args)
     ---@diagnostic disable-next-line: missing-parameter
     local dir = vim.fs.dirname(args.file)
-    if not vim.loop.fs_stat(dir) then
+    if not vim.uv.fs_stat(dir) then
       if vim.fn.mkdir(dir, "p") then
         vim.notify(
           vim.fn.fnamemodify(dir, ":p:~"),

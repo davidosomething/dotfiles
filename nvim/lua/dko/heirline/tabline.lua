@@ -5,7 +5,7 @@ return {
         and vim.api.nvim_buf_get_var(0, "gitsigns_head")
       or ""
 
-    self.cwd = vim.loop.cwd()
+    self.cwd = vim.uv.cwd()
   end,
 
   require("dko.heirline.cwd"),

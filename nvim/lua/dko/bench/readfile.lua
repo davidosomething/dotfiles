@@ -26,12 +26,12 @@ local function bench()
 
   -- skip stat on the file, just check 5 bytes
   start_time = vim.fn.reltime() --[[@as number]]
-  local fd = assert(vim.loop.fs_open(os.getenv("MYVIMRC"), "r", 438))
-  line = vim.loop.fs_read(fd, 5)
+  local fd = assert(vim.uv.fs_open(os.getenv("MYVIMRC"), "r", 438))
+  line = vim.uv.fs_read(fd, 5)
   elapsed_time = vim.fn.reltimestr(vim.fn.reltime(start_time))
   vim.print("      uv: " .. elapsed_time)
   vim.print()
-  vim.loop.fs_close(fd)
+  vim.uv.fs_close(fd)
 
 end
 

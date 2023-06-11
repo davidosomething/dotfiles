@@ -44,7 +44,7 @@ command(
 command("Delete", function()
   local fp = vim.api.nvim_buf_get_name(0)
 
-  local ok, err = vim.loop.fs_unlink(fp)
+  local ok, err = vim.uv.fs_unlink(fp)
   if not ok then
     vim.notify(
       table.concat({ fp, err }, "\n"),
@@ -70,7 +70,7 @@ command("Rename", function()
     end
 
     vim.cmd.saveas(next)
-    local ok, err = vim.loop.fs_unlink(prev)
+    local ok, err = vim.uv.fs_unlink(prev)
     if not ok then
       vim.notify(
         table.concat({ prev, err }, "\n"),
