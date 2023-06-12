@@ -70,7 +70,7 @@ vim.o.textwidth = 78
 vim.opt.colorcolumn = { "+3", "120" }
 vim.o.cursorline = true
 
-vim.o.ruler = 0
+vim.o.ruler = false
 
 vim.o.showtabline = 0 -- start OFF, toggle =2 to show tabline
 
