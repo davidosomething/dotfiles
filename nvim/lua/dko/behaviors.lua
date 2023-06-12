@@ -10,22 +10,6 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local windowGroup = augroup("dkowindow")
 
--- FIXME temporary fix for bug introduced in
--- https://github.com/neovim/neovim/commit/d52cc668c736ef6ca7ee3655a7eb7fe6475afadc
-autocmd("WinLeave", {
-  callback = function()
-    if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
-      vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
-        "i",
-        false
-      )
-    end
-  end,
-  desc = "https://github.com/nvim-telescope/telescope.nvim/issues/2027",
-  group = windowGroup,
-})
-
 autocmd("VimResized", {
   desc = "Automatically resize windows in all tabpages when resizing Vim",
   callback = function()
