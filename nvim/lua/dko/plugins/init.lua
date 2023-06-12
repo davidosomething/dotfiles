@@ -261,7 +261,6 @@ return {
   -- https://github.com/shellRaining/hlchunk.nvim
   {
     "shellRaining/hlchunk.nvim",
-    branch = "dev",
     event = "UIEnter",
     config = function()
       require("hlchunk").setup({
