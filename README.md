@@ -38,16 +38,9 @@ pre-existing dotfiles that conflict with these (mac does this).
 After symlinking and restarting shell, aliases will be available.
 The `sshkeygen` alias will help in generating a new SSH key.
 
-#### node and ruby
+#### node, python, and ruby
 
 Use `rtx` or `asdf`
-
-### python
-
-For user-land python, use [pyenv-installer] to install [pyenv] and
-[pyenv-virtualenv].
-
-Create virtualenvs for Neovim using [bootstrap/pyenv](bootstrap/pyenv)
 
 ### Provisioning scripts
 
@@ -59,8 +52,6 @@ environment set up first.
   confirmation).
 - [bootstrap/mac](bootstrap/mac) provision macOS. Runs other bootstrappers.
 - [bootstrap/pipx](bootstrap/pipx) installs python CLI tools using `pipx`
-- [bootstrap/pyenv](bootstrap/pyenv) creates a Neovim pyenv and installs
-  `pynvim`
 - [bootstrap/symlink](bootstrap/symlink) symlinks rc files for bash, ZSH,
   ack, (Neo)vim, etc.
 
@@ -85,7 +76,7 @@ environment set up first.
 - `nvim/`
     - [nvim/README.md](nvim/README.md) for more information.
 - `python/`
-    - Never `sudo pip`. Set up a [pyenv], and use a [pyenv-virtualenv].
+    - Never `sudo pip`. Set up a python virtual environment.
 - `vim/`
     - Not really maintained, I use neovim on all my systems now
     - See [vim/README.md](vim/README.md) for more information.
@@ -143,8 +134,5 @@ For X apps (no terminal) the value may be:
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
 [grawity's notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
-[pyenv-installer]: https://github.com/yyuu/pyenv-installer
-[pyenv-virtualenv]: https://github.com/pyenv/pyenv-virtualenv
-[pyenv]: https://github.com/pyenv/pyenv
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/8fa3d6a738ed39ff2b8ba7a5d9126b59d895b538/meta/terminal-potatopro.png
 [/uses]: https://www.davidosomething.com/uses/

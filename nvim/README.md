@@ -19,24 +19,11 @@ Neovim-specific config.
 
 ### Installation
 
-1. lazy.nvim will auto-install itself
-1. mason.nvim is configured to auto-install some linters
-1. mason-lspconfig.nvim is configured to tell mason.nvim to auto-install some
-    LSPs
+1. `lazy.nvim` will auto-install itself
+1. `mason.nvim` is configured to auto-install linters
+1. `mason-lspconfig.nvim` is configured to tell `mason.nvim` to auto-install
+   some LSPs
 1. run `:checkhealth` to see if you are missing anything
-    - null-ls linters can be installed using `:Mason`
-
-### Python settings
-
-See [bootstrap/pyenv] for a scripted version of this
-
-- Using `pyenv`, install python 3+.
-- Set up a virtualenv using `pyenv-virtualenv`: `pyenv virtualenv neovim3`
-- Activate the virtualenv `pyenv activate neovim3`
-- `python -m pip install pynvim` in the virtualenv
-- You can now switch back to whatever python (`pyenv deactivate`) you want,
-  `lua/dko/providers.lua` for Neovim startup is already configured to find the
-  `neovim3` virtualenv.
 
 ### Arch Linux
 

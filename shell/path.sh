@@ -8,7 +8,7 @@
 #
 # shell/vars.sh on the other hand just get inherited.
 # XDG is set up in init.sh, which should already have been sourced
-# pyenv, chphp pathing is done in shell/after
+# envs, chphp pathing is done in zshrc, zinit, or shell/after
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/path.sh"
 

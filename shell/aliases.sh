@@ -140,10 +140,6 @@ alias yt='yarn test'
 # python
 # ----------------------------------------------------------------------------
 
-alias pea='pyenv activate'
-alias ped='pyenv deactivate'
-alias pss='pyenv shell system'
-
 alias py2='python2'
 alias py3='python3'
 alias py='python'
