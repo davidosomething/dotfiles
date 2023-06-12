@@ -81,7 +81,7 @@ function {
     '@sharkdp/fd' \
     \
     mv'jq* -> jq' \
-    'stedolan/jq' \
+    'jqlang/jq' \
     \
     pick'zoxide/zoxide' \
     atload'eval "$(zoxide init --cmd j zsh)"' \
