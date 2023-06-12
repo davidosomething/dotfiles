@@ -95,9 +95,8 @@ Run `mackup restore` to restore settings from that repository.
 
 ## Install development tools
 
-Installed packages before development tools. After you start using `pyenv` it
-gets annoying to remember to switch back to system python for each `brew`
-operation. Use the `bi` alias for a clean room install if possible.
+Installed packages before development tools.  
+Use the `bi` alias for a clean room install.
 
 - Increase file limits a la
   <https://github.com/karma-runner/karma/issues/1979#issuecomment-260790451>

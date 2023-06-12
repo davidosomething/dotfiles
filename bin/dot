@@ -4,8 +4,6 @@
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
 
-[[ -d "$PYENV_ROOT" ]] && eval "$(pyenv init -)"
-
 # ==============================================================================
 
 latest_xcode_major="14"
@@ -31,11 +29,10 @@ __dko_dotfiles__usage() {
   Utility Commands
     dotfiles    -- update dotfiles (git pull)
     secret      -- update ~/.secret (git pull)
-    daily       -- secret, Packages / Developer Tools, fzf, pyenv
+    daily       -- secret, Packages / Developer Tools, fzf
 
   Shell Tools
     fzf         -- update fzf with flags to not update rc scripts
-    pyenv       -- update pyenv installation
 
   Packages / Developer Tools
     composer    -- update composer and global packages
@@ -44,7 +41,6 @@ __dko_dotfiles__usage() {
     pip         -- update all versions of pip (OS dependent)
     pipx        -- update pipx-installed cli tools
     neovim      -- update neovim to latest prerelease build
-    neopy       -- update neovim pyenvs
     wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
 
   System: Arch Linux
@@ -119,24 +115,6 @@ __dko_dotfiles__update_daily() {
     __dko_dotfiles__php__update_composer
     __dko_has phpcs && __dko_dotfiles__php__update_wpcs
   }
-
-  __dko_has pyenv && {
-    __dko_dotfiles__py__update_pyenv
-    __dko_dotfiles__py__update_pip
-    __dko_dotfiles__py__update_pipx
-    __dko_dotfiles__py__update_neovim_python
-  }
-}
-
-# ------------------------------------------------------------------------------
-# Private utilities
-# ------------------------------------------------------------------------------
-
-# probably don't need this as long as running updates in subshells
-__dko_dotfiles__pyenv_global() {
-  __dko_has pyenv &&
-    __dko_status_ "Switching back to global python" &&
-    pyenv shell --unset || exit 1
 }
 
 # ------------------------------------------------------------------------------
@@ -239,22 +217,8 @@ __dko_dotfiles__go__update_go_packages() {
 # Python
 # ----------------------------------------------------------------------------
 
-__dko_dotfiles__py__update_pyenv() {
-  if [[ -n "$PYENV_ROOT" ]] && [[ -d "${PYENV_ROOT}/.git" ]]; then
-    __dko_status "Updating pyenv"
-    (
-      cd -- "${PYENV_ROOT}" || exit 1
-      pyenv update
-    ) || return 1
-  else
-    __dko_warn "pyenv was not installed using pyenv-installer"
-  fi
-}
-
 # $1 pip command (e.g. `pip2`)
 __dko_dotfiles__py__update_pip() {
-  pyenv version | grep -q system && __dko_warn "Not in a pyenv" && return 1
-
   __dko_status "Updating pip"
   ! python -m pip --version >/dev/null 2>&1 &&
     __dko_warn "pip not found" && return 1
@@ -293,18 +257,6 @@ __dko_dotfiles__update_neovim() {
 
   nvim --version
   __dko_ok "Updated to latest neovim prerelease build"
-}
-
-__dko_dotfiles__py__update_neovim_python() {
-  ! __dko_has pyenv &&
-    __dko_err "pyenv is not installed" && return 1
-
-  __dko_status "Updating neovim3" &&
-    pyenv activate neovim3 &&
-    __dko_dotfiles__py__update_pip &&
-    python -m pip install --upgrade pynvim
-
-  pyenv deactivate
 }
 
 # ----------------------------------------------------------------------------
@@ -571,7 +523,6 @@ __dko_dotfiles() {
   go) __dko_dotfiles__go__update_go_packages ;;
   pip) __dko_dotfiles__py__update_pip ;;
   pipx) __dko_dotfiles__py__update_pipx ;;
-  pyenv) __dko_dotfiles__py__update_pyenv ;;
   neovim) __dko_dotfiles__update_neovim ;;
   neopy) __dko_dotfiles__py__update_neovim_python ;;
   wpcs) __dko_dotfiles__php__update_wpcs ;;
