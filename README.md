@@ -51,7 +51,6 @@ environment set up first.
   Base Directory supported directories and deletes unnecessary things (with
   confirmation).
 - [bootstrap/mac](bootstrap/mac) provision macOS. Runs other bootstrappers.
-- [bootstrap/pipx](bootstrap/pipx) installs python CLI tools using `pipx`
 - [bootstrap/symlink](bootstrap/symlink) symlinks rc files for bash, ZSH,
   ack, (Neo)vim, etc.
 
