@@ -261,10 +261,35 @@ return {
   -- https://github.com/shellRaining/hlchunk.nvim
   {
     "shellRaining/hlchunk.nvim",
+    branch = "dev",
     event = "UIEnter",
     config = function()
-      require('hlchunk')
-      require('dko.colors').reset_hlchunk()
+      require("hlchunk").setup({
+        blank = {
+          chars = { " " },
+          enable = true,
+          exclude_filetype = require("dko.utils.buffer").SPECIAL_FILETYPES,
+          notify = false,
+          style = {
+            { bg = "", fg = "" },
+            {
+              bg = function()
+                return require("dko.colors").is_dark() and "#242426"
+                  or "#f4f2ef"
+              end,
+            },
+          },
+        },
+        chunk = {
+          enable = true,
+          exclude_filetypes = {
+            sh = true,
+          },
+          notify = false,
+        },
+        indent = { enable = false },
+        line_num = { enable = false },
+      })
     end,
   },
 

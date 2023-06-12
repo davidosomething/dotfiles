@@ -60,44 +60,4 @@ M.wezterm_sync = function()
   M.monitor_colorscheme()
 end
 
-M.reset_hlchunk = function()
-  if package.loaded.hlchunk == nil then
-    --vim.notify('reset_hlchunk not loaded')
-    return
-  end
-
-  if
-    not vim.tbl_contains(
-      vim.tbl_values(settings.get("colors")),
-      vim.g.colors_name
-    )
-  then
-    --vim.notify('reset_hlchunk colorscheme not ready')
-    return
-  end
-
-  --vim.notify('reset_hlchunk init')
-  require("hlchunk").setup({
-    blank = {
-      chars = { " " },
-      enable = true,
-      exclude_filetype = require("dko.utils.buffer").SPECIAL_FILETYPES,
-      notify = false,
-      style = {
-        { bg = "", fg = "" },
-        { bg = vim.g.colors_name == "meh" and "#242426" or "#f4f2ef" },
-      },
-    },
-    chunk = {
-      enable = true,
-      exclude_filetypes = {
-        sh = true,
-      },
-      notify = false,
-    },
-    indent = { enable = false },
-    line_num = { enable = false },
-  })
-end
-
 return M
