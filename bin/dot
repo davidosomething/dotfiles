@@ -34,7 +34,6 @@ __dko_dotfiles__usage() {
     daily       -- secret, Packages / Developer Tools, fzf, pyenv
 
   Shell Tools
-    fnm         -- update fnm installation
     fzf         -- update fzf with flags to not update rc scripts
     pyenv       -- update pyenv installation
 
@@ -111,10 +110,6 @@ __dko_dotfiles__update_daily() {
   else
     __dko_warn "fzf is not installed"
   fi
-
-  __dko_has fnm && {
-    __dko_dotfiles__node__update_fnm
-  }
 
   __dko_dotfiles__go__require_go && __dko_dotfiles__go__update_go_packages
 
@@ -238,37 +233,6 @@ __dko_dotfiles__go__update_go_packages() {
     __dko_err "Could not update go packages"
     return 1
   }
-}
-
-# ----------------------------------------------------------------------------
-# Node.js
-# ----------------------------------------------------------------------------
-
-__dko_dotfiles__node__update_fnm() {
-  __dko_status "Updating fnm"
-
-  [ -d "$FNM_DIR" ] || {
-    __dko_err "FNM_DIR not set, install dotfiles first"
-    return 1
-  }
-
-  case "$OSTYPE" in
-    linux*)
-      __dko_status_ "Using bootstrap/fnm"
-      "${DOTFILES}/bootstrap/fnm"
-      ;;
-    *arwin*)
-      __dko_has brew || return 1
-
-      if __dko_has brew; then
-        if __dko_has fnm; then
-          brew upgrade fnm
-        else
-          brew install --verbose fnm
-        fi
-      fi
-      ;;
-  esac
 }
 
 # ----------------------------------------------------------------------------
@@ -602,7 +566,6 @@ __dko_dotfiles() {
   secret) __dko_dotfiles__update_secret ;;
   daily) __dko_dotfiles__update_daily ;;
   composer) __dko_dotfiles__php__update_composer ;;
-  fnm) __dko_dotfiles__node__update_fnm ;;
   fzf) __dko_dotfiles__update_fzf ;;
   gem) __dko_dotfiles__ruby__update_gems ;;
   go) __dko_dotfiles__go__update_go_packages ;;

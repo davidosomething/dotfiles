@@ -38,7 +38,7 @@ Finally
 
 ### JavaScript Settings
 
-- Using `fnm` or `nvm` install and use a node.
+- Using `rtx` to install and use a node.
 - When installing/updating plugins, [vim-plug] will automatically install the
   associated dependencies.
 

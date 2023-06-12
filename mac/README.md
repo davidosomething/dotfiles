@@ -104,20 +104,7 @@ operation. Use the `bi` alias for a clean room install if possible.
     - See <https://gist.github.com/abernix/a7619b07b687bb97ab573b0dc30928a0>
       if there are still file limit issues
     - REBOOT for `ulimit -n` changes to take effect
-- Install asdf or [fnm] using [bootstrap/fnm](../bootstrap/fnm) and install
-  a version of `node` (and `npm`)
-- Install asdf or [pyenv] using `pyenv-installer` (rm `~/.local/pyenv`
-  directory for clean install) and make sure to use the libs provided by brew.
-  See the packages marked "for pyenv" in the [Brewfile](./Brewfile)
-  1. Install the latest python using using
-     [bootstrap/pyenv](../bootstrap/pyenv). This will also create a `neovim3`
-     virtualenv.
-  1. Set up the global pyenv as the latest stable (3.x). Check ansible
-     compatibility first if it's needed (e.g. ansible is not 3.8.x ready).
 
-
-[fnm]: https://github.com/Schniz/fnm
-[pyenv]: https://github.com/pyenv/pyenv
 [unlock]: https://github.com/davidosomething/Unlock
 [Display Menu]: https://apps.apple.com/us/app/display-menu/id549083868?mt=12
 [Xcode]: https://apps.apple.com/us/app/xcode/id497799835?mt=12

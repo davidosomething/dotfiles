@@ -80,7 +80,8 @@ function {
     atpull'%atclone' \
     '@sharkdp/fd' \
     \
-    mv'jq* -> jq'             'stedolan/jq' \
+    mv'jq* -> jq' \
+    'stedolan/jq' \
     \
     pick'zoxide/zoxide' \
     atload'eval "$(zoxide init --cmd j zsh)"' \
@@ -90,9 +91,13 @@ function {
     atclone'cp -vf rg/doc/rg.1 "${ZPFX}/share/man/man1"' \
     atpull'%atclone' \
     'BurntSushi/ripgrep' \
+    \
+    mv'rtx* -> rtx' \
+    atload'eval "$(rtx activate zsh)"' \
+    'jdxcode/rtx' \
     ;
 
-  zinit snippet 'OMZP::asdf'
+  [[ -d "$ASDF_DATA_DIR" ]] && zinit snippet 'OMZP::asdf'
   zinit snippet 'OMZP::cp'
   zinit snippet 'OMZP::extract'
 
