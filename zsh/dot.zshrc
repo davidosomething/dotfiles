@@ -378,7 +378,14 @@ up() {
   cd "$d"
 }
 
-. "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" 2>/dev/null
+# ============================================================================
+# version managers
+# ============================================================================
+
+# asdf actually added by omz in zinit
+(( $+commands[asdf] )) && {
+  . "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" 2>/dev/null
+}
 
 # ============================================================================
 # Local

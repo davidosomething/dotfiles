@@ -38,15 +38,9 @@ pre-existing dotfiles that conflict with these (mac does this).
 After symlinking and restarting shell, aliases will be available.
 The `sshkeygen` alias will help in generating a new SSH key.
 
-#### ruby
+#### node and ruby
 
-For user-land ruby, install [ruby-build], [its dependencies], and [asdf] and
-[asdf-ruby]. Use `asdf` to install ruby.
-
-#### node
-
-Use `asdf` OR [fnm] using [bootstrap/fnm](bootstrap/fnm) if speed is
-a concern.
+Use `rtx` or `asdf`
 
 ### python
 
@@ -143,19 +137,14 @@ For X apps (no terminal) the value may be:
 
 > _Logo from [jglovier/dotfiles-logo]_
 
-[asdf]: https://github.com/asdf-vm/asdf
-[asdf-ruby]: https://github.com/asdf-vm/asdf-ruby
 [Arch Linux wiki for XDG Base Directory Support]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
 [Debian DotFilesList]: https://wiki.debian.org/DotFilesList
 [XDG]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
 [grawity's notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
-[its dependencies]: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
-[fnm]: https://github.com/Schniz/fnm
 [pyenv-installer]: https://github.com/yyuu/pyenv-installer
 [pyenv-virtualenv]: https://github.com/pyenv/pyenv-virtualenv
 [pyenv]: https://github.com/pyenv/pyenv
-[ruby-build]: https://github.com/rbenv/ruby-build
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/8fa3d6a738ed39ff2b8ba7a5d9126b59d895b538/meta/terminal-potatopro.png
 [/uses]: https://www.davidosomething.com/uses/
