@@ -77,26 +77,6 @@ autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
 
 local readingGroup = augroup("dkoreading")
 
-autocmd('ColorScheme', {
-  desc = "(Re-)apply indent highlights",
-  callback = function()
-    local colors = require('dko.colors')
-    if colors.is_light() then
-      vim.cmd([[
-                highlight IndentBlanklineIndent2 guibg=#242424 gui=nocombine
-                highlight IndentBlanklineContextChar guifg=#664422 gui=nocombine
-              ]])
-    else
-      vim.cmd([[
-                highlight IndentBlanklineIndent2 guibg=#fafafa gui=nocombine
-                highlight IndentBlanklineContextChar guifg=#eeeeee gui=nocombine
-              ]])
-    end
-    colors.reset_hlchunk()
-  end,
-  group = readingGroup,
-})
-
 -- https://vi.stackexchange.com/questions/11892/populate-a-git-commit-template-with-variables
 autocmd("BufRead", {
   pattern = "COMMIT_EDITMSG",
