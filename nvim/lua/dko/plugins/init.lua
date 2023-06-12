@@ -293,40 +293,12 @@ return {
     end,
   },
 
-  -- @TODO remove -- this is disabled now
+  -- highlight undo/redo text change
+  -- https://github.com/tzachar/highlight-undo.nvim
   {
-    "lukas-reineke/indent-blankline.nvim",
-    enabled = false,
-    event = "VeryLazy",
+    "tzachar/highlight-undo.nvim",
     config = function()
-      require("indent_blankline").setup({
-        filetype_exclude = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "lazy",
-          "mason",
-        },
-
-        -- char = "▏",
-        --char = "│",
-        -- as bg colors
-        char = "",
-        char_highlight_list = {
-          "IndentBlanklineIndent1",
-          "IndentBlanklineIndent2",
-        },
-        space_char_highlight_list = {
-          "IndentBlanklineIndent1",
-          "IndentBlanklineIndent2",
-        },
-
-        show_trailing_blankline_indent = false,
-        -- show_current_context = true, -- disable, makes hard to see tabchar
-        use_treesitter = true,
-      })
+      require("highlight-undo").setup({})
     end,
   },
 
