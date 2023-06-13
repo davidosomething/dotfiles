@@ -63,12 +63,17 @@ config.font = wezterm.font_with_fallback({
   --      - folder icon is double size, use mono version instead.
   --        See https://github.com/polybar/polybar/issues/991#issue-293786329
   --  - "FuraMono Nerd Font Mono" disabled
-
   --  - "Fira Mono" disabled
+
   -- Prefer stylistic updates from Fira Code but with ligatures disabled
   -- a g i l r 3 ~ $ % * () {} |
+
+  -- Firple is Fira Code with IBM Plex Sans JP glyphs
+  -- https://github.com/negset/Firple
+  --  - https://github.com/tonsky/FiraCode
+  --  - https://github.com/IBM/plex
   {
-    family = "Fira Code",
+    family = "Firple",
     harfbuzz_features = {
       "calt=0", -- no ligatures => ===
       "clig=0", -- no contextual ligatures ft
@@ -92,7 +97,7 @@ config.font_dirs = { "fonts" }
 
 config.font_size = hidpi and 18.0 or 12.0
 
-config.line_height = 1.2
+config.line_height = 1.24
 
 -- ===========================================================================
 -- Theme
