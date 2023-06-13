@@ -141,6 +141,8 @@ autocmd("BufReadPre", {
 --   group = augroup("dkoediting"),
 -- })
 
+local savingGroup = augroup("dkosaving")
+
 -- @TODO as of nvim-0.9, replace this with ++p somehow? :h :write
 autocmd({ "BufWritePre", "FileWritePre" }, {
   desc = "Create missing parent directories on write",
@@ -157,7 +159,15 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
       end
     end
   end,
-  group = augroup("dkosaving"),
+  group = savingGroup,
+})
+
+autocmd({ "BufWritePre", "FileWritePre" }, {
+  desc = "Format on save",
+  callback = function()
+    require("dko.lsp").format({ async = false })
+  end,
+  group = savingGroup,
 })
 
 -- Having issues with this, :Lazy sync sets loclist?
