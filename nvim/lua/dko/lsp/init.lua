@@ -1,6 +1,5 @@
 local M = {}
 
-
 -- ===========================================================================
 -- LSP coordination - make sure null-ls and real lsps play nice
 -- ===========================================================================
@@ -138,7 +137,7 @@ M.format = function(options)
     end,
   })
 
-  -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L147-L187
+  -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L156-L196
   vim.lsp.buf.format(options)
 end
 
