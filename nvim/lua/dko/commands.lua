@@ -58,18 +58,22 @@ command("Delete", function()
   end
 end, { desc = "Delete current file" })
 
-command("Rename", function()
-  local prev = vim.fn.expand("%")
+command("Rename", function(opts)
+  local prev = vim.fn.expand("%:p")
+  local prevname = vim.fn.expand("%:t")
+  local prevdir = vim.fn.expand("%:p:h")
   vim.ui.input({
     prompt = "New file name: ",
-    default = prev,
+    default = opts.fargs[1] or prevname,
     completion = "file",
   }, function(next)
-    if not next or next == "" or next == prev then
+    if not next or next == "" or next == prevname then
       return
     end
 
-    vim.cmd.saveas(next)
+    local nextpath = ("%s/%s"):format(prevdir, next)
+    vim.cmd.file(nextpath) -- rename buffer, preserving undo
+    vim.cmd.write() -- save
     local ok, err = vim.uv.fs_unlink(prev)
     if not ok then
       vim.notify(
@@ -78,6 +82,11 @@ command("Rename", function()
         { title = ":Rename failed to delete orig" }
       )
     end
-    vim.cmd.redraw({ bang = true })
   end)
-end, { desc = "Rename current file" })
+end, {
+  desc = "Rename current file",
+  nargs = "?",
+  complete = function()
+    return { vim.fn.expand("%") }
+  end,
+})
