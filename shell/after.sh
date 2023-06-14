@@ -40,7 +40,13 @@ else
   grepargs=''
 fi
 
-fzfopts="--height=20 --inline-info --min-height=4 --no-mouse"
+fzfopts="--height=50% --min-height=4 --no-mouse --padding=0,2,0,2"
+
+# show count (8/50) right aligned, on same line as query input
+fzfopts="${fzfopts} --info=inline-right"
+
+# preview window customization - add some space left of scrollbar, border it
+fzfopts="${fzfopts} --scrollbar=▏▕ --preview-window=border-left"
 
 # ** is globbing completion in ZSH, use tickticktab instead
 export FZF_COMPLETION_TRIGGER="\`\`"
