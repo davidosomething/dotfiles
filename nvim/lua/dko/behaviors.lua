@@ -18,7 +18,7 @@ autocmd("VimResized", {
       notify.dismiss({ silent = true, pending = true })
     end
     vim.schedule(function()
-      vim.cmd([[tabdo wincmd =]])
+      vim.cmd("tabdo wincmd =")
     end)
   end,
   group = windowGroup,
