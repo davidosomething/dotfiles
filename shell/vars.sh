@@ -14,6 +14,8 @@ case "$DOTFILES_OS" in
   Darwin*)
     # disable Terminal.app session saving in /etc/zshrc_Apple_Terminal
     export SHELL_SESSIONS_DISABLE=1
+    # distro is arm64 or x86_64
+    export DOTFILES_DISTRO="${DOTFILES_DISTRO:-$(uname -m)}"
     ;;
   FreeBSD*) export DOTFILES_DISTRO="FreeBSD" ;;
   OpenBSD*) export DOTFILES_DISTRO="OpenBSD" ;;
