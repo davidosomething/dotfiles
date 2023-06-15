@@ -161,6 +161,10 @@ return {
             adjacent_buffers = "dkoType",
           },
         },
+        exclude = { -- filetypes
+          "qf",
+          "help",
+        },
       })
       require("dko.mappings").bind_cybu()
     end,

@@ -27,13 +27,6 @@ autocmd("VimResized", {
   group = augroup("dkowindow"),
 })
 
-autocmd("FileType", {
-  pattern = "qf",
-  desc = "Skip quickfix windows when :bprevious and :bnext",
-  command = "set nobuflisted",
-  group = augroup("dkowindow"),
-})
-
 autocmd("QuitPre", {
   desc = "Auto close corresponding loclist when quitting a window",
   callback = function()
