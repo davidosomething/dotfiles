@@ -91,9 +91,9 @@ function {
     ;
 
   local rtx_bpick=""
-  [[ $DOTFILES_OS == "Linux" ]] && rtx_bpick="*-linux-x64.tar.gz"
-  zinit ice lucid from'gh-r' as'program' bpick"$rtx_bpick" \
-    mv'rtx* -> rtx' pick'rtx/bin/rtx' \
+  [[ $DOTFILES_OS == "Linux" ]] && rtx_bpick="*-linux-x64"
+  zinit ice lucid from'gh-r' as'program' \
+    bpick"$rtx_bpick" mv'rtx* -> rtx' \
     atload'eval "$(rtx activate zsh)"'
   zinit light 'jdxcode/rtx'
 
