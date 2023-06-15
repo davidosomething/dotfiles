@@ -102,9 +102,7 @@ function {
   # Completions
   # ----------------------------------------------------------------------------
 
-  zinit as'completion' is-snippet for \
-    'OMZP::docker/_docker' \
-    'OMZP::docker-compose/_docker-compose'
+  zinit as'completion' is-snippet for 'OMZP::docker-compose/_docker-compose'
 
   # In-line best history match suggestion
   # don't suggest lines longer than
