@@ -54,6 +54,24 @@ autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
   group = augroup("dkoproject"),
 })
 
+autocmd("BufReadPre", {
+  desc = "Disable linting and syntax highlighting for large and minified files",
+  callback = function(args)
+    -- See the treesitter highlight config too
+    if require("dko.utils.buffer").is_huge(args.file) then
+      vim.cmd.syntax("manual")
+    end
+  end,
+  group = augroup("dkoreading"),
+})
+
+autocmd("BufReadPre", {
+  pattern = "*.min.*",
+  desc = "Disable syntax on minified files",
+  command = "syntax manual",
+  group = augroup("dkoreading"),
+})
+
 -- https://vi.stackexchange.com/questions/11892/populate-a-git-commit-template-with-variables
 autocmd("BufRead", {
   pattern = "COMMIT_EDITMSG",
@@ -100,24 +118,6 @@ autocmd("BufEnter", {
     vim.keymap.set("n", "Q", closebuf, { buffer = true })
     vim.keymap.set("n", "q", closebuf, { buffer = true })
   end,
-  group = augroup("dkoreading"),
-})
-
-autocmd("BufReadPre", {
-  desc = "Disable linting and syntax highlighting for large and minified files",
-  callback = function(args)
-    -- See the treesitter highlight config too
-    if require("dko.utils.buffer").is_huge(args.file) then
-      vim.cmd.syntax("manual")
-    end
-  end,
-  group = augroup("dkoreading"),
-})
-
-autocmd("BufReadPre", {
-  pattern = "*.min.*",
-  desc = "Disable syntax on minified files",
-  command = "syntax manual",
   group = augroup("dkoreading"),
 })
 
@@ -256,27 +256,30 @@ autocmd("LspAttach", {
     end
 
     if
-      not vim.b.has_format_on_save
+      not vim.b.enable_format_on_save
       and client.supports_method("textDocument/formatting")
     then
-      vim.b.has_format_on_save = true
-      autocmd({ "BufWritePre", "FileWritePre" }, {
-        desc = "Format with LSP on save",
-        buffer = bufnr,
-        callback = function()
-          -- callback gets arg
-          -- {
-          --   buf = 1,
-          --   event = "BufWritePre",
-          --   file = "nvim/lua/dko/behaviors.lua",
-          --   id = 127,
-          --   match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
-          -- }
-          require("dko.lsp").format({ async = false })
-        end,
-        group = augroup("dkolsp"),
-      })
+      vim.b.enable_format_on_save = true
     end
+  end,
+  group = augroup("dkolsp"),
+})
+
+autocmd({ "BufWritePre", "FileWritePre" }, {
+  desc = "Format with LSP on save",
+  callback = function()
+    -- callback gets arg
+    -- {
+    --   buf = 1,
+    --   event = "BufWritePre",
+    --   file = "nvim/lua/dko/behaviors.lua",
+    --   id = 127,
+    --   match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
+    -- }
+    if not vim.b.enable_format_on_save then
+      return
+    end
+    require("dko.lsp").format({ async = false })
   end,
   group = augroup("dkolsp"),
 })
