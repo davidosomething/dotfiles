@@ -51,7 +51,8 @@ return {
 
       -- bind notify when a null_ls formatter has run
       for i, provider in ipairs(formatters) do
-        formatters[i] = require('dko.lsp').bind_formatter_notifications(provider)
+        formatters[i] =
+          require("dko.lsp").bind_formatter_notifications(provider)
       end
 
       null_ls.register(formatters)

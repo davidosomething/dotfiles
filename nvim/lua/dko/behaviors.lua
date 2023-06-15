@@ -162,14 +162,6 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   group = savingGroup,
 })
 
-autocmd({ "BufWritePre", "FileWritePre" }, {
-  desc = "Format on save",
-  callback = function()
-    require("dko.lsp").format({ async = false })
-  end,
-  group = savingGroup,
-})
-
 -- Having issues with this, :Lazy sync sets loclist?
 autocmd("DiagnosticChanged", {
   desc = "Sync diagnostics to loclist",
@@ -266,6 +258,31 @@ autocmd("LspAttach", {
       vim.bo[bufnr].formatexpr = nil
     end
 
+    -- Bind format on save on first capable LSP
+    if
+      not vim.b[bufnr].has_format_on_save
+      and client.supports_method("textDocument/formatting")
+    then
+      vim.b[bufnr].has_format_on_save = true
+      autocmd({ "BufWritePre", "FileWritePre" }, {
+        desc = "Format with LSP on save",
+        buffer = bufnr,
+        callback = function()
+          -- callback gets arg
+          -- {
+          --   buf = 1,
+          --   event = "BufWritePre",
+          --   file = "nvim/lua/dko/behaviors.lua",
+          --   id = 127,
+          --   match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
+          -- }
+          require("dko.lsp").format({ async = false })
+        end,
+        group = augroup("dkolsp"),
+      })
+    end
+
+    -- First LSP attached
     if not vim.b[bufnr].has_lsp then
       vim.b[bufnr].has_lsp = true
       require("dko.mappings").bind_lsp(bufnr)
