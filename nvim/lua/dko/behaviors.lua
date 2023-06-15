@@ -2,8 +2,8 @@
 -- Change vim behavior via autocommands
 -- ===========================================================================
 
+local groups = {}
 local augroup = function(name, opts)
-  local groups = {}
   if not groups[name] then
     opts = opts or {}
     groups[name] = vim.api.nvim_create_augroup(name, opts)
@@ -222,9 +222,6 @@ autocmd("DiagnosticChanged", {
   group = augroup("dkodiagnostic"),
 })
 
--- Need to create this one outside because it is nested
-local lspGroup = augroup("dkolsp")
-
 -- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
 -- Happens before on_attach, so can still use on_attach to do more stuff or
 -- override this
@@ -284,11 +281,11 @@ autocmd("LspAttach", {
           -- }
           require("dko.lsp").format({ async = false })
         end,
-        group = lspGroup,
+        group = augroup("dkolsp"),
       })
     end
   end,
-  group = lspGroup,
+  group = augroup("dkolsp"),
 })
 
 -- temporary fix, winbars not updating
