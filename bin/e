@@ -46,7 +46,7 @@ main() {
       --headless \
       --server "$__server" \
       --remote-expr "execute('echo v:servername')" \
-      2>&1)
+      2>&1 | xargs)
     [[ "$E_DEBUG" != "" ]] && echo "Found running $existing"
   fi
 
@@ -69,7 +69,8 @@ main() {
 
   # New server with files
   [ "$existing" != "$__server" ] && {
-    [[ "$E_DEBUG" != "" ]] && echo "new server ${__server} with ${files[*]}"
+    [[ "$E_DEBUG" != "" ]] &&
+      echo "new server ${__server} (did not match ${existing}) with ${files[*]}"
     nvim --listen "$__server" "${files[@]}"
     return
   }

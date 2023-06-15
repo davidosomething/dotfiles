@@ -44,4 +44,13 @@ return {
     keys = "zs",
     config = require("dko.mappings").bind_inspecthi,
   },
+
+  -- eval lua in markdown blocks with :CarrotEval
+  {
+    "jbyuki/carrot.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    cmd = "CarrotEval",
+  },
 }
