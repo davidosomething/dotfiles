@@ -8,42 +8,21 @@ return {
       return " ᴜɴɴᴀᴍᴇᴅ "
     end
 
-    local win_width = require("dko.utils.window").status_width()
+    local win_width = vim.api.nvim_win_get_width(0)
     local filetype = vim.bo.filetype or ""
     local extrachars = 3 + 3 + filetype:len() + 20
     local remaining = win_width - extrachars
 
+    local final
     local relative = vim.fn.fnamemodify(self.filename, ":~:.")
     if relative:len() < remaining then
-      return (" %s "):format(relative)
+      final = relative
+    else
+      local shorten = require("dko.utils.path").shorten
+      local two = shorten(self.filename, 2)
+      final = two:len() < remaining and two or shorten(self.filename, 1)
     end
-
-    local function shorten(filename, amount)
-      -- GIVEN '/abc/123/def/345/file.tsx'
-
-      -- '/abc/123/def/345'
-      -- '123/def/345' if you are already in /abc
-      local short_ancestors = vim.fn.fnamemodify(filename, ":~:.:h")
-      -- '12/de/34'
-      short_ancestors = vim.fn.pathshorten(short_ancestors, amount)
-      -- '12/de'
-      short_ancestors = vim.fn.fnamemodify(short_ancestors, ":h")
-
-      -- '345'
-      local parent_dir = vim.fn.fnamemodify(filename, ":p:h:t")
-
-      -- file.tsx
-      local just_filename = vim.fn.fnamemodify(filename, ":t")
-
-      return (" %s/%s/%s "):format(short_ancestors, parent_dir, just_filename)
-    end
-
-    local twoshort = shorten(self.filename, 2)
-    if twoshort:len() < remaining then
-      return twoshort
-    end
-
-    return shorten(self.filename, 1)
+    return " %<" .. final .. " "
   end,
   hl = function()
     if vim.bo.modified then
