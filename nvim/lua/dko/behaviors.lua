@@ -3,12 +3,15 @@
 -- ===========================================================================
 
 local augroup = function(name, opts)
-  opts = opts or {}
-  return vim.api.nvim_create_augroup(name, opts)
+  local groups = {}
+  if not groups[name] then
+    opts = opts or {}
+    groups[name] = vim.api.nvim_create_augroup(name, opts)
+  end
+  return groups[name]
 end
-local autocmd = vim.api.nvim_create_autocmd
 
-local windowGroup = augroup("dkowindow")
+local autocmd = vim.api.nvim_create_autocmd
 
 autocmd("VimResized", {
   desc = "Automatically resize windows in all tabpages when resizing Vim",
@@ -21,14 +24,14 @@ autocmd("VimResized", {
       vim.cmd("tabdo wincmd =")
     end)
   end,
-  group = windowGroup,
+  group = augroup("dkowindow"),
 })
 
 autocmd("FileType", {
   pattern = "qf",
   desc = "Skip quickfix windows when :bprevious and :bnext",
   command = "set nobuflisted",
-  group = windowGroup,
+  group = augroup("dkowindow"),
 })
 
 autocmd("QuitPre", {
@@ -39,7 +42,7 @@ autocmd("QuitPre", {
     end
   end,
   nested = true,
-  group = windowGroup,
+  group = augroup("dkowindow"),
 })
 
 autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
@@ -49,17 +52,14 @@ autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
       vim.cmd("startinsert")
     end
   end,
-  group = windowGroup,
+  group = augroup("dkowindow"),
 })
 
-local projectGroup = augroup("dkoproject")
 autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
   desc = "Set dko#project variables on buffers",
   callback = "dko#project#MarkBuffer",
-  group = projectGroup,
+  group = augroup("dkoproject"),
 })
-
-local readingGroup = augroup("dkoreading")
 
 -- https://vi.stackexchange.com/questions/11892/populate-a-git-commit-template-with-variables
 autocmd("BufRead", {
@@ -81,7 +81,7 @@ autocmd("BufRead", {
     end
     vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
   end,
-  group = readingGroup,
+  group = augroup("dkoreading"),
 })
 
 autocmd("BufEnter", {
@@ -107,7 +107,7 @@ autocmd("BufEnter", {
     vim.keymap.set("n", "Q", closebuf, { buffer = true })
     vim.keymap.set("n", "q", closebuf, { buffer = true })
   end,
-  group = readingGroup,
+  group = augroup("dkoreading"),
 })
 
 autocmd("BufReadPre", {
@@ -118,14 +118,14 @@ autocmd("BufReadPre", {
       vim.cmd.syntax("manual")
     end
   end,
-  group = readingGroup,
+  group = augroup("dkoreading"),
 })
 
 autocmd("BufReadPre", {
   pattern = "*.min.*",
   desc = "Disable syntax on minified files",
   command = "syntax manual",
-  group = readingGroup,
+  group = augroup("dkoreading"),
 })
 
 -- yanky.nvim providing this
@@ -140,8 +140,6 @@ autocmd("BufReadPre", {
 --   end,
 --   group = augroup("dkoediting"),
 -- })
-
-local savingGroup = augroup("dkosaving")
 
 -- @TODO as of nvim-0.9, replace this with ++p somehow? :h :write
 autocmd({ "BufWritePre", "FileWritePre" }, {
@@ -159,7 +157,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
       end
     end
   end,
-  group = savingGroup,
+  group = augroup("dkosaving"),
 })
 
 -- Having issues with this, :Lazy sync sets loclist?
@@ -224,6 +222,9 @@ autocmd("DiagnosticChanged", {
   group = augroup("dkodiagnostic"),
 })
 
+-- Need to create this one outside because it is nested
+local lspGroup = augroup("dkolsp")
+
 -- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
 -- Happens before on_attach, so can still use on_attach to do more stuff or
 -- override this
@@ -251,19 +252,24 @@ autocmd("LspAttach", {
     if
       client.name == "null-ls"
       and not require("null-ls.generators").can_run(
-        vim.bo[bufnr].filetype,
+        vim.bo.filetype,
         require("null-ls.methods").lsp.FORMATTING
       )
     then
-      vim.bo[bufnr].formatexpr = nil
+      vim.bo.formatexpr = nil
     end
 
-    -- Bind format on save on first capable LSP
+    -- First LSP attached
+    if not vim.b.has_lsp then
+      vim.b.has_lsp = true
+      require("dko.mappings").bind_lsp(bufnr)
+    end
+
     if
-      not vim.b[bufnr].has_format_on_save
+      not vim.b.has_format_on_save
       and client.supports_method("textDocument/formatting")
     then
-      vim.b[bufnr].has_format_on_save = true
+      vim.b.has_format_on_save = true
       autocmd({ "BufWritePre", "FileWritePre" }, {
         desc = "Format with LSP on save",
         buffer = bufnr,
@@ -278,17 +284,11 @@ autocmd("LspAttach", {
           -- }
           require("dko.lsp").format({ async = false })
         end,
-        group = augroup("dkolsp"),
+        group = lspGroup,
       })
     end
-
-    -- First LSP attached
-    if not vim.b[bufnr].has_lsp then
-      vim.b[bufnr].has_lsp = true
-      require("dko.mappings").bind_lsp(bufnr)
-    end
   end,
-  group = augroup("dkolsp"),
+  group = lspGroup,
 })
 
 -- temporary fix, winbars not updating
