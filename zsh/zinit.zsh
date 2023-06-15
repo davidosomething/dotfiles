@@ -93,8 +93,13 @@ function {
   [[ ! -d "$ASDF_DATA_DIR" ]] && {
     local rtx_bpick=""
     [[ $DOTFILES_OS == "Linux" ]] && rtx_bpick="*-linux-x64.tar.gz"
+    [[ $DOTFILES_OS == "Darwin" ]] && {
+      rtx_bpick="*-macos-x64.tar.gz"
+      [[ $DOTFILES_DISTRO == "arm64" ]] && rtx_bpick="*-macos-arm64.tar.gz"
+    }
     zinit ice lucid from'gh-r' as'program' bpick"$rtx_bpick" \
-      mv'rtx* -> rtx' pick'rtx/bin/rtx' \
+      pick'rtx/bin/rtx' \
+      atclone"cp -vf rtx/man/man1/rtx.1 $ZINIT[MAN_DIR]/man1" \
       atload'eval "$(rtx activate zsh)"'
     zinit light 'jdxcode/rtx'
   }
