@@ -90,14 +90,17 @@ function {
     \
     ;
 
-  local rtx_bpick=""
-  [[ $DOTFILES_OS == "Linux" ]] && rtx_bpick="*-linux-x64.tar.gz"
-  zinit ice lucid from'gh-r' as'program' bpick"$rtx_bpick" \
-    mv'rtx* -> rtx' pick'rtx/bin/rtx' \
-    atload'eval "$(rtx activate zsh)"'
-  zinit light 'jdxcode/rtx'
+  [[ ! -d "$ASDF_DATA_DIR" ]] && {
+    local rtx_bpick=""
+    [[ $DOTFILES_OS == "Linux" ]] && rtx_bpick="*-linux-x64.tar.gz"
+    zinit ice lucid from'gh-r' as'program' bpick"$rtx_bpick" \
+      mv'rtx* -> rtx' pick'rtx/bin/rtx' \
+      atload'eval "$(rtx activate zsh)"'
+    zinit light 'jdxcode/rtx'
+  }
 
   [[ -d "$ASDF_DATA_DIR" ]] && zinit snippet 'OMZP::asdf'
+
   zinit snippet 'OMZP::cp'
   zinit snippet 'OMZP::extract'
 
