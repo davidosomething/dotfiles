@@ -24,7 +24,11 @@ M.get_null_ls_source = function(query)
 end
 
 M.format_with_null_ls = function()
-  vim.lsp.buf.format({ async = false, name = "null-ls" })
+  local opts = { async = false, name = "null-ls" }
+  if os.getenv("SSH_CLIENT") then
+    opts.timeout_ms = 3000
+  end
+  vim.lsp.buf.format(opts)
 end
 
 -- Check if resolved eslint config for bufname contains prettier/prettier
