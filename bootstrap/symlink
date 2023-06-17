@@ -57,6 +57,8 @@ __symlink() {
   # whole wezterm directory
   dko-symlink "wezterm" \
     ".config/wezterm"
+  dko-symlink "yamlfmt" \
+    ".config/yamlfmt"
 
   # (n)vim / intellij ideavim
   dko-symlink "vim" \
