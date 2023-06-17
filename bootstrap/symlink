@@ -44,8 +44,6 @@ __symlink() {
   # XDG-compatible, not linux specific
   dko-symlink "bat/config" \
     ".config/bat/config"
-  dko-symlink "coc/extensions/dot.npmrc" \
-    ".config/coc/extensions/.npmrc"
   dko-symlink "git/dot.gitconfig" \
     ".config/git/config"
   dko-symlink "git/dot.gitignore" \
