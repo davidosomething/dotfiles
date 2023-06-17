@@ -67,13 +67,16 @@ config.font = wezterm.font_with_fallback({
 
   -- Prefer stylistic updates from Fira Code but with ligatures disabled
   -- a g i l r 3 ~ $ % * () {} |
+  -- :> :- :=
 
   -- Firple is Fira Code with IBM Plex Sans JP glyphs
   -- https://github.com/negset/Firple
   --  - https://github.com/tonsky/FiraCode
   --  - https://github.com/IBM/plex
+  -- had some issues with some letters like E so back to fira code
+
   {
-    family = "Firple",
+    family = "Fira Code",
     harfbuzz_features = {
       "calt=0", -- no ligatures => ===
       "clig=0", -- no contextual ligatures ft
