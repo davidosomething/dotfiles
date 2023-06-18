@@ -76,6 +76,17 @@ config.font = wezterm.font_with_fallback({
   -- had some issues with some letters like E so back to fira code
 
   {
+    family = "Maple Mono",
+    harfbuzz_features = {
+      "cv01", -- no detached
+      --"cv02", -- curly i
+      "cv03", -- upper arm on a
+      "cv04", -- @ rounded
+      "ss05", -- {{}} tight
+    },
+  },
+
+  {
     family = "Fira Code",
     harfbuzz_features = {
       "calt=0", -- no ligatures => ===
