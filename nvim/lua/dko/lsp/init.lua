@@ -80,7 +80,7 @@ M.format_jsts = function()
     local has_epp = M.has_eslint_plugin_prettier()
     if has_epp then
       vim.notify(
-        "skip: prefer eslint-plugin-prettier",
+        "Found eslint-plugin-prettier, will skip native prettier format",
         vim.log.levels.INFO,
         { title = "LSP > null-ls > prettier" }
       )
