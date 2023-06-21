@@ -109,7 +109,7 @@ config.font = wezterm.font_with_fallback({
 
 config.font_dirs = { "fonts" }
 
-config.font_size = hidpi and 18.0 or 12.0
+config.font_size = hidpi and 18.0 or 16.0
 
 config.freetype_load_flags = "NO_HINTING|NO_AUTOHINT"
 
