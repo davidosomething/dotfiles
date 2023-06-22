@@ -21,6 +21,7 @@ autocmd("VimResized", {
       notify.dismiss({ silent = true, pending = true })
     end
     vim.schedule(function()
+      notify("autosizing", vim.log.levels.INFO, { render = "compact" })
       vim.cmd("tabdo wincmd =")
     end)
   end,
@@ -156,7 +157,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 -- Having issues with this, :Lazy sync sets loclist?
 autocmd("DiagnosticChanged", {
   desc = "Sync diagnostics to loclist",
-  callback = function(args)
+  callback = function()
     -- REQUIRED or else neovim will freeze on quit -- some LSP will do a final
     -- DiagnosticChanged before shutdown
     if vim.v.exiting ~= vim.NIL then
@@ -191,25 +192,11 @@ autocmd("DiagnosticChanged", {
       match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
     } ]]
 
-    -- Don't sync diagnostics from unlisted buffers
-    if not vim.bo[args.buf].buflisted then
-      return
-    end
-
+    vim.diagnostic.setloclist({ open = false }) -- true would focus empty loclist
     local original = vim.api.nvim_get_current_win()
-
-    -- Make sure all windows showing the buffer are updated
-    local wins = vim.tbl_filter(function(winnr)
-      local bufnr = vim.api.nvim_win_get_buf(winnr)
-      return vim.bo[bufnr].filetype ~= "qf" and bufnr == args.buf
-    end, vim.api.nvim_tabpage_list_wins(0))
-    for _, winnr in pairs(wins) do
-      vim.diagnostic.setloclist({ open = false, winnr = winnr }) -- true would focus empty loclist
-      -- open+focus loclist if has entries, else close
-      vim.api.nvim_set_current_win(winnr)
-      vim.cmd.lwindow()
-    end
-
+    -- open+focus loclist for CURRENT WINDOW ONLY (if has entries, else close)
+    vim.cmd.lwindow()
+    -- restore focus to window, not loclist
     vim.api.nvim_set_current_win(original)
   end,
   group = augroup("dkodiagnostic"),
