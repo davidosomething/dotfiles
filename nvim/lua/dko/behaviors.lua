@@ -154,13 +154,17 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   group = augroup("dkosaving"),
 })
 
--- Having issues with this, :Lazy sync sets loclist?
 autocmd("DiagnosticChanged", {
   desc = "Sync diagnostics to loclist",
   callback = function()
     -- REQUIRED or else neovim will freeze on quit -- some LSP will do a final
     -- DiagnosticChanged before shutdown
     if vim.v.exiting ~= vim.NIL then
+      return
+    end
+
+    -- E.g. :Lazy sync uses diagnostics, ignore it
+    if not vim.bo.buflisted then
       return
     end
 
