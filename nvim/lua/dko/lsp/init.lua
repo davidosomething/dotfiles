@@ -4,8 +4,6 @@ local M = {}
 -- LSP coordination - make sure null-ls and real lsps play nice
 -- ===========================================================================
 
-local format_timeout = 500
-
 ---Find lsp client by name
 ---@param needle string
 ---@return boolean|table lsp client
@@ -66,44 +64,68 @@ M.bind_formatter_notifications = function(provider)
   })
 end
 
+M.format_with_eslint = function()
+  vim.cmd.EslintFixAll()
+end
+
 -- NO eslint-plugin-prettier? maybe run prettier
 -- then, maybe run eslint --fix
 M.format_jsts = function()
-  local queue = {}
+  vim.b.has_eslint = vim.b.has_eslint or M.get_active_client("eslint") ~= nil
 
-  local prettier_source = M.get_null_ls_source({
-    name = "prettier",
-    filetype = vim.bo.filetype,
-  })
-  if #prettier_source > 0 then
-    -- skip null-ls prettier formatting if has eslint-plugin-prettier
-    local has_epp = M.has_eslint_plugin_prettier()
-    if has_epp then
+  if vim.b.has_prettier == nil then
+    local prettier_source = M.get_null_ls_source({
+      name = "prettier",
+      filetype = vim.bo.filetype,
+    })
+    vim.b.has_prettier = #prettier_source > 0
+  end
+
+  if vim.b.has_prettier and not vim.b.has_eslint then
+    vim.notify(
+      "prettier only: no eslint",
+      vim.log.levels.INFO,
+      { title = "LSP Format", render = "compact" }
+    )
+    M.format_with_null_ls()
+  end
+
+  if vim.b.has_eslint then
+    if not vim.b.has_prettier then
       vim.notify(
-        "Found eslint-plugin-prettier, will skip native prettier format",
+        "eslint only: no prettier",
         vim.log.levels.INFO,
-        { title = "LSP > null-ls > prettier" }
+        { title = "LSP Format", render = "compact" }
       )
-    else
-      table.insert(queue, M.format_with_null_ls)
+      M.format_with_eslint()
+      return
+    end
+
+    if vim.b.has_eslint_plugin_prettier == nil then
+      vim.b.has_eslint_plugin_prettier = M.has_eslint_plugin_prettier()
     end
   end
 
-  local eslint = M.get_active_client("eslint")
-  if eslint then
-    table.insert(queue, function()
-      vim.notify("eslint.applyAllFixes", vim.log.levels.INFO, {
-        title = "LSP > eslint",
-      })
-      vim.cmd.EslintFixAll()
-    end)
+  -- skip null-ls prettier formatting if has eslint-plugin-prettier
+  if vim.b.has_eslint_plugin_prettier then
+    vim.notify(
+      "eslint only: found eslint-plugin-prettier",
+      vim.log.levels.INFO,
+      { title = "LSP Format", render = "compact" }
+    )
+    M.format_with_eslint()
+    return
   end
 
-  for i, formatter in ipairs(queue) do
-    -- defer with increasing time to ensure eslint runs after prettier
-    ---@diagnostic disable-next-line: param-type-mismatch
-    vim.defer_fn(formatter, format_timeout * (i - 1))
+  if vim.b.has_eslint then
+    vim.notify(
+      "running eslint, then prettier",
+      vim.log.levels.INFO,
+      { title = "LSP Format", render = "compact" }
+    )
+    M.format_with_eslint()
   end
+  M.format_with_null_ls()
 end
 
 --- See options for vim.lsp.buf.format

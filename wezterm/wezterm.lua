@@ -78,7 +78,8 @@ config.font = wezterm.font_with_fallback({
   {
     family = "Maple Mono",
     harfbuzz_features = {
-      "cv01", -- no detached
+      "calt=0", -- no ligatures => ===
+      "cv01", -- fully attached @ # $ etc.
       --"cv02", -- curly i
       "cv03", -- upper arm on a
       "cv04", -- @ rounded
