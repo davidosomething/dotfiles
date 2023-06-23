@@ -142,9 +142,15 @@ return {
       "folke/neodev.nvim",
     },
     config = function()
-      require("lspconfig").tilt_ls.setup({})
       -- border on :LspInfo window
       require("lspconfig.ui.windows").default_options.border = "rounded"
+
+      -- =====================================================================
+      -- manual lsp setup
+      -- The following are LSPs that are not managed by mason-lspconfig
+      -- =====================================================================
+      require("lspconfig").dartls.setup({})
+      require("lspconfig").tilt_ls.setup({})
     end,
   },
 

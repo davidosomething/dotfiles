@@ -17,28 +17,26 @@ M.ESLINT_ROOTS = {
 M.PROJECT_ROOTS = {
   "composer.json",
   "Gemfile",
+  "justfile",
   "Makefile",
   "package.json",
+  "pubspec.yaml", -- flutter / dart
   "requirements.txt",
   "tsconfig.json",
 }
 
 ---Look upwards dirs for a file match
----@param patterns table
+---@param patterns? table
 ---@return string|nil root
 M.get_root_by_patterns = function(patterns)
-  if not patterns or #patterns == 0 then
-    return nil
-  end
-
-  -- @TODO port over old dko#project#GetRootByFileMakrer
-  -- if null-ls ever screws this up
-  -- or if i change up lazy loading
-  -- otherwise let's not re-invent the wheel
+  patterns = patterns or M.PROJECT_ROOTS
 
   -- Must call this to init cache table first
   local ok, cache = pcall(require, "null-ls.helpers.cache")
   if not ok then
+    vim.notify("Could not load null-ls cache", vim.log.levels.ERROR, {
+      title = "dko/project/get_root_by_patterns",
+    })
     return nil
   end
 
@@ -62,5 +60,7 @@ M.git_root = function(from)
   local ok, utils = pcall(require, "null-ls.utils")
   return ok and utils.root_pattern(".git")(start) or nil
 end
+
+-- ===========================================================================
 
 return M
