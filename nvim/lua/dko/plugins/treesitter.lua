@@ -55,10 +55,7 @@ return {
 
             if vim.tbl_contains(HIGHLIGHTING_DISABLED, lang) then
               vim.notify(
-                "ts highlight always disabled for "
-                  .. vim.bo[bufnr].filetype
-                  .. " "
-                  .. DISABLED
+                "ts highlight always disabled for " .. vim.bo[bufnr].filetype
               )
               return DISABLED
             end
