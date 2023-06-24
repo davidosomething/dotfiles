@@ -74,6 +74,7 @@ command("Rename", function(opts)
     local nextpath = ("%s/%s"):format(prevdir, next)
     vim.cmd.file(nextpath) -- rename buffer, preserving undo
     vim.cmd("noautocmd write") -- save
+    vim.cmd("edit") -- update file syntax if you changed extension
     local ok, err = vim.uv.fs_unlink(prev)
     if not ok then
       vim.notify(

@@ -7,7 +7,6 @@ local HIGHLIGHTING_DISABLED = {
 
 -- table of filetypes
 local HIGHLIGHTING_ENABLED = {
-  "just",
   "dotenv",
   "starlark",
   "tiltfile",
@@ -68,6 +67,10 @@ return {
 
             return DISABLED
           end,
+
+          -- additional_vim_regex_highlighting = {
+          --   "just",
+          -- },
         },
 
         indent = { enable = true },
@@ -102,18 +105,6 @@ return {
           enable_autocmd = false, -- Comment.nvim wants this
         },
       })
-    end,
-  },
-
-  {
-    "IndianBoy42/tree-sitter-just",
-    -- registers filetypes, no lazy
-    lazy = false,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("tree-sitter-just").setup({})
     end,
   },
 }
