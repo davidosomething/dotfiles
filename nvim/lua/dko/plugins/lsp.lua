@@ -149,7 +149,13 @@ return {
       -- manual lsp setup
       -- The following are LSPs that are not managed by mason-lspconfig
       -- =====================================================================
-      require("lspconfig").dartls.setup({})
+      require("lspconfig").dartls.setup({
+        settings = {
+          dart = {
+            showTodos = false,
+          },
+        },
+      })
       require("lspconfig").tilt_ls.setup({})
     end,
   },

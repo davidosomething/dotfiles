@@ -48,11 +48,18 @@ return {
             local ENABLED = false
             local DISABLED = true
 
-            if
-              not require("dko.settings").get("treesitter.highlight_enabled")
-              or vim.tbl_contains(HIGHLIGHTING_DISABLED, lang)
-              or require("dko.utils.buffer").is_huge({ bufnr = bufnr })
-            then
+            if require("dko.utils.buffer").is_huge({ bufnr = bufnr }) then
+              vim.notify("ts highlight disabled for huge file")
+              return DISABLED
+            end
+
+            if vim.tbl_contains(HIGHLIGHTING_DISABLED, lang) then
+              vim.notify(
+                "ts highlight always disabled for "
+                  .. vim.bo[bufnr].filetype
+                  .. " "
+                  .. DISABLED
+              )
               return DISABLED
             end
 
@@ -62,6 +69,7 @@ return {
             if
               vim.tbl_contains(HIGHLIGHTING_ENABLED, vim.bo[bufnr].filetype)
             then
+              vim.notify("ts highlight enabled for " .. vim.bo[bufnr].filetype)
               return ENABLED
             end
 

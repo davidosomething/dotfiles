@@ -9,10 +9,6 @@ local settings = {
   heirline = {
     show_buftype = false,
   },
-  treesitter = {
-    -- @TODO until I update vim-colors-meh with treesitter @matches
-    highlight_enabled = false,
-  },
 }
 
 local M = {}
