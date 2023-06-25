@@ -149,8 +149,9 @@ return {
       require("cybu").setup({
         display_time = 500,
         position = {
+          anchor = "centerright",
           max_win_height = 8,
-          max_win_width = 0.8,
+          max_win_width = 0.5,
         },
         style = {
           border = "rounded",
