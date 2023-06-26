@@ -1,2 +1,4 @@
+---
 formatter:
   pad_line_comments: 2
+  retain_line_breaks: true
