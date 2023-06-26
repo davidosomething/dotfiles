@@ -246,8 +246,10 @@ autocmd("LspAttach", {
       require("dko.mappings").bind_lsp(bufnr)
     end
 
+    -- Maybe enable format on save if currently unset
+    -- (you can set false manually)
     if
-      not vim.b.enable_format_on_save
+      vim.b.enable_format_on_save == nil
       and client.supports_method("textDocument/formatting")
     then
       vim.b.enable_format_on_save = true
