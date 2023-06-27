@@ -1,6 +1,5 @@
 return {
-  require("dko.heirline.filetype"),
-  require("dko.heirline.filename"),
+  require("dko.heirline.filetypepath"),
   require("dko.heirline.fileflags"),
 
   -- this means that the statusline is cut here when there's not enough space

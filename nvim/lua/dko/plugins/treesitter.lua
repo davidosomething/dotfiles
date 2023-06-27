@@ -45,29 +45,25 @@ return {
         highlight = {
           enable = true,
           disable = function(lang, bufnr)
+            -- N.B. sometimes the buffer is special, like Telescope preview!
+            -- Or a hover float!
+
             local ENABLED = false
             local DISABLED = true
 
             if require("dko.utils.buffer").is_huge({ bufnr = bufnr }) then
-              vim.notify("disabled for huge file", vim.log.levels.INFO, {
-                title = "ts highlight",
-                render = "compact",
-              })
+              vim.b[bufnr].ts_highlight = {
+                enabled = false,
+                reason = "hugefile",
+              }
               return DISABLED
             end
 
             if vim.tbl_contains(HIGHLIGHTING_DISABLED, lang) then
-              vim.notify(
-                ("highlight[%s] always disabled for ft[%s]"):format(
-                  lang,
-                  vim.bo[bufnr].filetype
-                ),
-                vim.log.levels.INFO,
-                {
-                  title = "ts highlight",
-                  render = "compact",
-                }
-              )
+              vim.b[bufnr].ts_highlight = {
+                enabled = false,
+                reason = "blacklisted",
+              }
               return DISABLED
             end
 
@@ -77,17 +73,17 @@ return {
             if
               vim.tbl_contains(HIGHLIGHTING_ENABLED, vim.bo[bufnr].filetype)
             then
-              vim.notify(
-                ("%s enabled for %s"):format(lang, vim.bo[bufnr].filetype),
-                vim.log.levels.INFO,
-                {
-                  title = "ts highlight",
-                  render = "compact",
-                }
-              )
+              vim.b[bufnr].ts_highlight = {
+                enabled = true,
+                reason = "whitelisted",
+              }
               return ENABLED
             end
 
+            vim.b[bufnr].ts_highlight = {
+              enabled = false,
+              reason = "default",
+            }
             return DISABLED
           end,
 
