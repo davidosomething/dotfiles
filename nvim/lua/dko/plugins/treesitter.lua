@@ -58,7 +58,7 @@ return {
 
             if vim.tbl_contains(HIGHLIGHTING_DISABLED, lang) then
               vim.notify(
-                ("%s always disabled for %s"):format(
+                ("highlight[%s] always disabled for ft[%s]"):format(
                   lang,
                   vim.bo[bufnr].filetype
                 ),
