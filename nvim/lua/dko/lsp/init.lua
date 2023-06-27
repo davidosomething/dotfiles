@@ -374,7 +374,7 @@ M.get_lsps_to_auto_install = function()
     },
     ["npm"] = {
       "ansiblels",
-      "cssls",
+      --"cssls", -- conflicts with tailwindcss
       "cssmodules_ls", -- jumping into classnames from jsx/tsx
       "docker_compose_language_service",
       "dockerls",
