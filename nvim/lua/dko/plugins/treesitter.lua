@@ -12,12 +12,6 @@ local HIGHLIGHTING_ENABLED = {
   "tiltfile",
 }
 
--- ft to treesitter parser
-local FT_ALIASES = {
-  dotenv = "bash",
-  tiltfile = "starlark",
-}
-
 return {
 
   -- https://github.com/nvim-treesitter/nvim-treesitter/
@@ -103,7 +97,9 @@ return {
 
       -- Only in nvim 0.9+
       if vim.treesitter.language.register then
-        for ft, parser in pairs(FT_ALIASES) do
+        for ft, parser in
+          pairs(require("dko.settings").get("treesitter.aliases"))
+        do
           vim.treesitter.language.register(parser, ft)
         end
       end

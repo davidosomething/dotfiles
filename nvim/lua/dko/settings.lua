@@ -9,6 +9,13 @@ local settings = {
   heirline = {
     show_buftype = false,
   },
+  treesitter = {
+    -- ft to treesitter parser
+    aliases = {
+      dotenv = "bash",
+      tiltfile = "starlark",
+    },
+  },
 }
 
 local M = {}
