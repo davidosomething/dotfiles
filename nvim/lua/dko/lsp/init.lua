@@ -128,15 +128,43 @@ M.format_jsts = function()
   M.format_with_null_ls()
 end
 
+-- prettier? run prettier
+-- else try jsonls
+M.format_json = function()
+  if vim.b.has_prettier == nil then
+    local prettier_source = M.get_null_ls_source({
+      name = "prettier",
+      filetype = vim.bo.filetype,
+    })
+    vim.b.has_prettier = #prettier_source > 0
+  end
+
+  if vim.b.has_prettier then
+    vim.notify(
+      "prettier for json",
+      vim.log.levels.INFO,
+      { title = "LSP Format", render = "compact" }
+    )
+    M.format_with_null_ls()
+    return
+  end
+
+  vim.lsp.buf.format({ name = "jsonls" })
+end
+
+local pipelines = {
+  typescript = M.format_jsts,
+  typescriptreact = M.format_jsts,
+  javascript = M.format_jsts,
+  javascriptreact = M.format_jsts,
+  json = M.format_json,
+}
+
 --- See options for vim.lsp.buf.format
 M.format = function(options)
-  if
-    vim.tbl_contains(
-      { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-      vim.bo.filetype
-    )
-  then
-    return M.format_jsts()
+  local pipeline = pipelines[vim.bo.filetype]
+  if type(pipeline) == "function" then
+    return pipeline()
   end
 
   options = vim.tbl_deep_extend("force", options or {}, {
