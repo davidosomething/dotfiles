@@ -21,11 +21,12 @@ M.get_null_ls_source = function(query)
   return result
 end
 
-M.format_with_null_ls = function()
-  local opts = { async = false, name = "null-ls" }
-  if os.getenv("SSH_CLIENT") then
-    opts.timeout_ms = 3000
-  end
+M.format_with = function(name)
+  local opts = {
+    async = false,
+    name = name or "null-ls",
+    timeout_ms = os.getenv("SSH_CLIENT") and 3000 or 1000,
+  }
   vim.lsp.buf.format(opts)
 end
 
@@ -56,6 +57,7 @@ M.bind_formatter_notifications = function(provider)
       local source = params:get_source()
       vim.notify("format", vim.log.levels.INFO, {
         title = ("LSP > null-ls > %s"):format(source.name),
+        render = "compact",
       })
 
       local original = provider.runtime_condition
@@ -87,7 +89,7 @@ M.format_jsts = function()
       vim.log.levels.INFO,
       { title = "LSP Format", render = "compact" }
     )
-    M.format_with_null_ls()
+    M.format_with("null-ls")
   end
 
   if vim.b.has_eslint then
@@ -125,7 +127,7 @@ M.format_jsts = function()
     )
     M.format_with_eslint()
   end
-  M.format_with_null_ls()
+  M.format_with("null-ls")
 end
 
 -- prettier? run prettier
@@ -138,18 +140,12 @@ M.format_json = function()
     })
     vim.b.has_prettier = #prettier_source > 0
   end
-
   if vim.b.has_prettier then
-    vim.notify(
-      "prettier for json",
-      vim.log.levels.INFO,
-      { title = "LSP Format", render = "compact" }
-    )
-    M.format_with_null_ls()
+    M.format_with("null-ls")
     return
   end
 
-  vim.lsp.buf.format({ name = "jsonls" })
+  M.format_with("jsonls")
 end
 
 local pipelines = {
