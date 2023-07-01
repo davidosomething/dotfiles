@@ -154,6 +154,7 @@ local pipelines = {
   javascript = M.format_jsts,
   javascriptreact = M.format_jsts,
   json = M.format_json,
+  jsonc = M.format_json,
 }
 
 --- See options for vim.lsp.buf.format
