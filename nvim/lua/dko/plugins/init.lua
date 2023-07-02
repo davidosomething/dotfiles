@@ -302,6 +302,7 @@ return {
   {
     "vuki656/package-info.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },
+    event = { "BufReadPost package.json" },
     config = function()
       require("package-info").setup()
     end,
@@ -431,7 +432,7 @@ return {
   {
     "kana/vim-textobj-user",
     dependencies = {
-      "kana/vim-textobj-indent",
+      --"kana/vim-textobj-indent",
       "gilligan/textobj-lastpaste",
       "mattn/vim-textobj-url",
     },
