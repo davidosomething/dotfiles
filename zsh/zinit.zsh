@@ -87,10 +87,15 @@ function {
     pick'zoxide/zoxide' \
     atload'eval "$(zoxide init --cmd j zsh)"' \
     'ajeetdsouza/zoxide' \
-    \
     ;
 
-  [[ ! -d "$ASDF_DATA_DIR" ]] && {
+  zinit snippet 'OMZP::cp'
+  zinit snippet 'OMZP::extract'
+
+  if [[ -d "$ASDF_DATA_DIR" ]]; then
+    # loads asdf.sh
+    zinit snippet 'OMZP::asdf'
+  else
     local rtx_bpick=""
     [[ $DOTFILES_OS == "Linux" ]] && rtx_bpick="*-linux-x64.tar.gz"
     [[ $DOTFILES_OS == "Darwin" ]] && {
@@ -103,12 +108,7 @@ function {
       atpull'%atclone' \
       atload'eval "$(rtx activate zsh)"'
     zinit light 'jdxcode/rtx'
-  }
-
-  [[ -d "$ASDF_DATA_DIR" ]] && zinit snippet 'OMZP::asdf'
-
-  zinit snippet 'OMZP::cp'
-  zinit snippet 'OMZP::extract'
+  fi
 
   # ----------------------------------------------------------------------------
   # Completions
