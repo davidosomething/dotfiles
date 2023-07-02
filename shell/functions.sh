@@ -3,14 +3,6 @@
 export DKO_SOURCE="${DKO_SOURCE} -> shell/functions.sh"
 
 # ============================================================================
-# Scripting
-# ============================================================================
-
-current_shell() {
-  ps -p $$ | awk 'NR==2 { print $4 }'
-}
-
-# ============================================================================
 # Directory
 # ============================================================================
 
@@ -44,10 +36,6 @@ eu() {
 # dev
 # ============================================================================
 
-batdiff() {
-  git diff --name-only --diff-filter=d 2>/dev/null | xargs bat --diff
-}
-
 # git or git status
 g() {
   if [ $# -gt 0 ]; then
@@ -69,10 +57,13 @@ cunt() {
 }
 
 killport() {
+  command -v gruyere >/dev/null && gruyere && return
+
   # -t terse, just get pid
   # -i by internet addr
-  pid=$(lsof -t -i tcp:"$1" | head -n1)
-  [ -n "$pid" ] && kill -9 "$pid"
+  # -sTCP:LISTEN  only the server listening, not clients connecting/browsers
+  #               viewing
+  lsof -t -iTCP:"$1" -sTCP:LISTEN | xargs -r kill -9
 }
 
 # ============================================================================
@@ -89,14 +80,17 @@ mykey() {
   }
 
   command cat "$pubkey"
-  echo
 
+  # osc52 is a thing too...
   if __dko_has "pbcopy"; then
     pbcopy <"$pubkey"
-    echo "Copied to clipboard"
+    echo "Copied to clipboard using pbcopy"
+  elif __dko_has "xsel"; then
+    xsel --clipboard <"$pubkey"
+    echo "Copied to clipboard using xsel"
   elif __dko_has "xclip"; then
     xclip "$pubkey"
-    echo "Copied to clipboard"
+    echo "Copied to clipboard using xclip"
   fi
 }
 
