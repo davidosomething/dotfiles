@@ -76,7 +76,7 @@ mykey() {
   pubkey="${HOME}/.ssh/${enc}.pub"
   [ ! -f "${pubkey}" ] && {
     (echo >&2 "Could not find public key ${pubkey}")
-    exit 1
+    return 1
   }
 
   command cat "$pubkey"
