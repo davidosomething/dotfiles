@@ -9,6 +9,13 @@ return {
   {
     init = function(self)
       self.filename = vim.api.nvim_buf_get_name(0)
+
+      self.filetype_text = vim.tbl_contains(
+        { "javascript", "markdown" },
+        vim.bo.filetype
+      ) and "" or " " .. require("dko.utils.string").smallcaps(
+        vim.bo.filetype
+      )
     end,
     hl = function()
       return active_highlight()
@@ -37,7 +44,7 @@ return {
     },
 
     -- =========================================================================
-    -- icon
+    -- filetype icon and text
     -- =========================================================================
 
     {
@@ -56,12 +63,9 @@ return {
         end
       end,
       provider = function(self)
-        return self.icon
-            and (" %s %s "):format(
-              self.icon,
-              require("dko.utils.string").smallcaps(vim.bo.filetype)
-            )
-          or ""
+        -- Don't bother outputting these, the nerd icon is sufficient
+        return self.icon and (" %s%s "):format(self.icon, self.filetype_text)
+          or self.filetype_text .. " "
       end,
       hl = function(self)
         if icon_color_enabled and self.icon_color then
@@ -82,8 +86,7 @@ return {
         end
 
         local win_width = vim.api.nvim_win_get_width(0)
-        local filetype = vim.bo.filetype or ""
-        local extrachars = 3 + 3 + filetype:len() + 20
+        local extrachars = 3 + 3 + self.filetype_text:len() + 16
         local remaining = win_width - extrachars
 
         local final
@@ -92,8 +95,15 @@ return {
           final = relative
         else
           local shorten = require("dko.utils.path").shorten
-          local two = shorten(self.filename, 2)
-          final = two:len() < remaining and two or shorten(self.filename, 1)
+          local len = 5
+          while len > 0 and type(final) ~= "string" do
+            local attempt = shorten(self.filename, len)
+            final = attempt:len() < remaining and attempt
+            len = len - 1
+          end
+          if not final then
+            final = shorten(self.filename, 1)
+          end
         end
         return " %<" .. final .. " "
       end,
