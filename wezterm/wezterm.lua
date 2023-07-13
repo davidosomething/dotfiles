@@ -112,7 +112,12 @@ config.font_dirs = { "fonts" }
 
 config.font_size = hidpi and 18.0 or 16.0
 
-config.freetype_load_flags = "NO_HINTING|NO_AUTOHINT"
+-- this is the default if using latest nightly
+--config.front_end = "WebGpu"
+
+-- Now that the default rasterizer is WebGpu, this looks funny
+-- (at least using Vulkan). Check render of letter "f" in Maple Mono.
+--config.freetype_load_flags = "NO_HINTING|NO_AUTOHINT"
 
 config.line_height = 1.24
 
