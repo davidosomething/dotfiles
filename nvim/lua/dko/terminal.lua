@@ -40,7 +40,7 @@ vim.g.terminal_color_14 = "#8ec07c"
 vim.g.terminal_color_7 = "#a89984"
 vim.g.terminal_color_15 = "#ebdbb2"
 
-vim.keymap.set("t", "<C-b>", "<C-\\><C-n>", {
+vim.keymap.set("t", "<A-x>", "<C-\\><C-n>", {
   desc = "Get back to vim mode",
   silent = true,
 })
