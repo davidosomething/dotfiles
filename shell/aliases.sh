@@ -20,6 +20,7 @@ alias ....='cd -- ../..'
 alias cd-='cd -- -'
 alias cd..='cd -- ..'
 alias cdd='cd -- "${DOTFILES}"'
+alias cdnvim='cd -- "${DOTFILES}/nvim"'
 alias down='cd -- "${XDG_DOWNLOAD_DIR}"'
 alias tree='tree -CF'
 alias t="tree -a --noreport --dirsfirst -I '.git|node_modules|bower_components|.DS_Store'"
