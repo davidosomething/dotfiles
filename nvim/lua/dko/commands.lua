@@ -51,7 +51,7 @@ command("Delete", function()
       vim.log.levels.ERROR,
       { title = ":Delete failed" }
     )
-    vim.cmd.edit()
+    vim.cmd.bwipeout()
   else
     require("dko.utils.buffer").close()
     vim.notify(fp, vim.log.levels.INFO, { title = ":Delete succeeded" })
