@@ -110,7 +110,7 @@ config.font = wezterm.font_with_fallback({
 
 config.font_dirs = { "fonts" }
 
-config.font_size = hidpi and 18.0 or 16.0
+config.font_size = hidpi and 18.0 or 14.0
 
 -- this is the default if using latest nightly
 --config.front_end = "WebGpu"
