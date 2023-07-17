@@ -217,7 +217,7 @@ return {
         float_opts = { border = "curved" },
         -- built-in mappings only work on LAST USED terminal, so it confuses
         -- the buffer terminal with the floating terminal
-        open_mapping = nil, --
+        open_mapping = nil,
       })
       require("dko.mappings").bind_toggleterm()
     end,
