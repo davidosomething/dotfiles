@@ -764,54 +764,61 @@ end
 -- Plugin: toggleterm.nvim
 -- ===========================================================================
 
-M.toggleterm = {
-  horizontal = "<A-i>",
-  vertical = "<A-C-i>",
-  float = "<A-S-i>",
+local toggleterm_modes = {
+  horizontal = {
+    keybind = "<A-i>",
+    count = 88888,
+    name = "common",
+  },
+  vertical = {
+    keybind = "<A-C-i>",
+    count = 88888,
+    name = "common",
+    sizefn = function()
+      return math.max(vim.o.columns * 0.4, 20)
+    end,
+  },
+  float = {
+    keybind = "<A-S-i>",
+    count = 99999,
+    name = "fterm",
+  },
+}
+
+M.toggleterm_all_keys = {
+  toggleterm_modes.horizontal.keybind,
+  toggleterm_modes.vertical.keybind,
+  toggleterm_modes.float.keybind,
 }
 
 M.bind_toggleterm = function()
   local original
+  local terms = {}
+  for mode, settings in pairs(toggleterm_modes) do
+    -- in ANY terminal, if you press ANY toggleterm keybind, term will close
+    -- and refocus prev win if possible
+    map("t", settings.keybind, function()
+      vim.cmd.close()
+    end, { desc = "Close terminal and restore focus" })
 
-  local modes = {
-    horizontal = { count = 77777, name = "hterm" },
-    vertical = {
-      count = 88888,
-      name = "vterm",
-      toggle = function(t)
-        t:toggle(math.max(vim.o.columns * 0.4, 20))
-      end,
-    },
-    float = {
-      count = 99999,
-      name = "fterm",
-      on_close = function()
-        vim.schedule_wrap(vim.api.nvim_set_current_win)(original)
-      end,
-    },
-  }
-  for mode, settings in pairs(modes) do
-    local keybind = M.toggleterm[mode]
-    local opts = {
-      count = settings.count,
-      direction = mode,
-      display_name = settings.name,
-      on_open = function()
-        vim.keymap.set("t", keybind, function()
-          vim.cmd.close()
-          vim.api.nvim_set_current_win(original)
-        end, { buffer = true, noremap = true, silent = true })
-      end,
-      on_close = settings.on_close,
-    }
-    local t = require("toggleterm.terminal").Terminal:new(opts)
-    map("n", keybind, function()
+    -- =======================================================================
+
+    terms[settings.name] = terms[settings.name]
+      or require("toggleterm.terminal").Terminal:new({
+        count = settings.count,
+        direction = mode,
+        display_name = settings.name,
+        on_close = vim.schedule_wrap(function()
+          if original then
+            vim.api.nvim_set_current_win(original)
+            original = nil
+          end
+        end),
+      })
+    map("n", settings.keybind, function()
       original = vim.api.nvim_get_current_win()
-      if settings.toggle then
-        settings.toggle(t)
-      else
-        t:toggle()
-      end
+      local size = settings.sizefn and settings.sizefn() or 15
+      terms[settings.name]:toggle(size, mode)
     end, { desc = "Open a " .. mode .. " terminal" })
   end
 end
