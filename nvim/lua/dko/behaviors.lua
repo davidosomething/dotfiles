@@ -141,7 +141,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   callback = function(args)
     ---@diagnostic disable-next-line: missing-parameter
     local dir = vim.fs.dirname(args.file)
-    if not vim.uv.fs_stat(dir) then
+    if dir and not vim.uv.fs_stat(dir) then
       if vim.fn.mkdir(dir, "p") then
         vim.notify(
           vim.fn.fnamemodify(dir, ":p:~"),
@@ -227,6 +227,9 @@ autocmd("LspAttach", {
     ]]
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then
+      return
+    end
 
     -- null-ls hijacks formatexpr, unset it if not tied to a formatter
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131

@@ -264,31 +264,6 @@ return {
     end,
   },
 
-  -- indent guides
-  -- hlchunk.nvim and indent-blankline.nvim both have issues
-  -- so now using: https://github.com/nvimdev/indentmini.nvim
-  {
-    "nvimdev/indentmini.nvim",
-    event = "BufEnter",
-    config = function()
-      require("indentmini").setup({
-        char = "█",
-      })
-      local function color()
-        vim.cmd.highlight(
-          ("default IndentLine guifg=%s"):format(
-            require("dko.colors").is_dark() and "#242426" or "#f4f2ef"
-          )
-        )
-      end
-      vim.api.nvim_create_autocmd("colorscheme", {
-        callback = color,
-        desc = "change indent guide colors with colorscheme",
-      })
-      color()
-    end,
-  },
-
   -- highlight undo/redo text change
   -- https://github.com/tzachar/highlight-undo.nvim
   {
