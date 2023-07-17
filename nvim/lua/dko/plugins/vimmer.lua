@@ -16,10 +16,8 @@ return {
   {
     "AndrewRadev/bufferize.vim",
     cmd = "Bufferize",
-    init = function()
-      vim.g.bufferize_command = "tabnew"
-    end,
     config = function()
+      vim.g.bufferize_command = "tabnew"
       vim.api.nvim_create_user_command("Bmessages", "Bufferize messages", {
         desc = "Open messages in new buffer",
       })
