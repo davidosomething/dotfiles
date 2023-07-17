@@ -766,46 +766,54 @@ end
 
 M.toggleterm = {
   horizontal = "<A-i>",
+  vertical = "<A-C-i>",
   float = "<A-S-i>",
 }
 
 M.bind_toggleterm = function()
   local original
 
-  local horizontal = require("toggleterm.terminal").Terminal:new({
-    count = 88888,
-    direction = "horizontal",
-    display_name = "hterm",
-    on_open = function()
-      vim.keymap.set("t", M.toggleterm.horizontal, function()
-        vim.cmd.close()
-        vim.api.nvim_set_current_win(original)
-      end, { buffer = true, noremap = true, silent = true })
-    end,
-  })
-  map("n", M.toggleterm.horizontal, function()
-    original = vim.api.nvim_get_current_win()
-    horizontal:toggle()
-  end, { desc = "Open a horizontal terminal" })
-
-  local floating = require("toggleterm.terminal").Terminal:new({
-    count = 99999,
-    direction = "float",
-    display_name = "fterm",
-    on_open = function()
-      vim.keymap.set("t", M.toggleterm.float, function()
-        vim.cmd.close()
-        vim.api.nvim_set_current_win(original)
-      end, { buffer = true, noremap = true, silent = true })
-    end,
-    on_close = function()
-      vim.schedule_wrap(vim.api.nvim_set_current_win)(original)
-    end,
-  })
-  map("n", M.toggleterm.float, function()
-    original = vim.api.nvim_get_current_win()
-    floating:toggle()
-  end, { desc = "Open a big floating terminal" })
+  local modes = {
+    horizontal = { count = 77777, name = "hterm" },
+    vertical = {
+      count = 88888,
+      name = "vterm",
+      toggle = function(t)
+        t:toggle(math.max(vim.o.columns * 0.4, 20))
+      end,
+    },
+    float = {
+      count = 99999,
+      name = "fterm",
+      on_close = function()
+        vim.schedule_wrap(vim.api.nvim_set_current_win)(original)
+      end,
+    },
+  }
+  for mode, settings in pairs(modes) do
+    local keybind = M.toggleterm[mode]
+    local opts = {
+      count = settings.count,
+      direction = mode,
+      display_name = settings.name,
+      on_open = function()
+        vim.keymap.set("t", keybind, function()
+          vim.cmd.close()
+          vim.api.nvim_set_current_win(original)
+        end, { buffer = true, noremap = true, silent = true })
+      end,
+      on_close = settings.on_close,
+    }
+    local t = require("toggleterm.terminal").Terminal:new(opts)
+    map("n", keybind, function()
+      original = vim.api.nvim_get_current_win()
+      if settings.toggle then
+        settings.toggle(t)
+      else
+        t:toggle()
+      end
+    end, { desc = "Open a " .. mode .. " terminal" })
+  end
 end
 
 -- ===========================================================================
