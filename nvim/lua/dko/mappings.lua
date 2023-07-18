@@ -373,9 +373,14 @@ M.bind_lsp = function(bufnr)
       or vim.lsp.buf.references()
   end, lsp_opts({ desc = "LSP references" }))
 
-  map("n", "<A-=>", function()
-    require("dko.lsp").format({ async = false })
-  end, lsp_opts({ desc = "Fix and format buffer with dko.lsp.format_buffer" }))
+  map(
+    "n",
+    "<A-=>",
+    function()
+      require("dko.format").run_pipeline({ async = false })
+    end,
+    lsp_opts({ desc = "Fix and format buffer with dko.format.run_pipeline" })
+  )
 end
 
 -- on_attach binding for tsserver
