@@ -1,3 +1,5 @@
+-- General info about current config and buffers
+
 local M = {}
 
 M.warnings = {}

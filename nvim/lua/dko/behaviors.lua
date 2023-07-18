@@ -275,7 +275,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
     if not vim.b.enable_format_on_save then
       return
     end
-    require("dko.lsp").format({ async = false })
+    require("dko.format").run_pipeline({ async = false })
   end,
   group = augroup("dkolsp"),
 })

@@ -1,3 +1,5 @@
+-- Typescript specific
+
 local M = {}
 
 M.source_definition = function()

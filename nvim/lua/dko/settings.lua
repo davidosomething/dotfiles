@@ -1,3 +1,5 @@
+-- Observable settings object
+
 local settings = {
   colors = {
     dark = "meh",
