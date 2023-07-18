@@ -34,10 +34,11 @@ end
 -- NO eslint-plugin-prettier? maybe run prettier
 -- then, maybe run eslint --fix
 local format_jsts = function()
-  vim.b.has_eslint = vim.b.has_eslint or M.get_active_client("eslint") ~= nil
+  vim.b.has_eslint = vim.b.has_eslint
+    or require("dko.lsp").get_active_client("eslint") ~= nil
 
   if vim.b.has_prettier == nil then
-    local prettier_source = M.get_null_ls_source({
+    local prettier_source = require("dko.lsp").get_null_ls_source({
       name = "prettier",
       filetype = vim.bo.filetype,
     })
@@ -95,7 +96,7 @@ end
 -- else try jsonls
 local format_json = function()
   if vim.b.has_prettier == nil then
-    local prettier_source = M.get_null_ls_source({
+    local prettier_source = require("dko.lsp").get_null_ls_source({
       name = "prettier",
       filetype = vim.bo.filetype,
     })
