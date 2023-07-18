@@ -8,6 +8,7 @@ local HIGHLIGHTING_DISABLED = {
 -- table of filetypes
 local HIGHLIGHTING_ENABLED = {
   "dotenv",
+  "markdown",
   "starlark",
   "tiltfile",
 }
