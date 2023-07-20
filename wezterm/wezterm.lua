@@ -237,10 +237,21 @@ local function balance_panes(axis)
           adj_dir
         )
       )
-      win:perform_action(
-        wezterm.action.AdjustPaneSize({ adj_dir, adj_amount }),
-        p
-      )
+      -- This does not work if you spawn a new term
+      -- os.execute(
+      --   string.format(
+      --     "wezterm cli adjust-pane-size --pane-id %s --amount %s %s",
+      --     tostring(p:pane_id()),
+      --     tostring(adj_amount),
+      --     adj_dir
+      --   )
+      -- )
+      -- p:activate()
+      -- win:perform_action(
+      --   -- AdjustPaneSize only acts on active pane
+      --   wezterm.action.AdjustPaneSize({ adj_dir, adj_amount }),
+      --   p -- this does not affect anything
+      -- )
     end
     initial:activate()
   end
@@ -251,6 +262,10 @@ wezterm.on("augment-command-palette", function()
     {
       brief = "Balance panes horizontally",
       action = wezterm.action_callback(balance_panes("x")),
+    },
+    {
+      brief = "Balance panes vertically",
+      action = wezterm.action_callback(balance_panes("y")),
     },
   }
 end)
