@@ -186,31 +186,45 @@ local function toggle_colorscheme(win)
   sync_colorscheme(next_mode)
 end
 
+--- Get panes that are on the same axis as the tab's active pane
+---@param axis 'y'|'x'
+---@param tab table
+---@return table siblings
+local function get_axis_siblings(axis, tab)
+  local initial = tab:active_pane()
+  local siblings = { initial }
+  local prev_dir = axis == "x" and "Left" or "Up"
+  local next_dir = axis == "x" and "Right" or "Down"
+
+  local prev = tab:get_pane_direction(prev_dir)
+  while prev do
+    table.insert(siblings, 1, prev)
+    prev:activate()
+    prev = tab:get_pane_direction(prev_dir)
+  end
+
+  initial:activate() -- annoying
+  local next = tab:get_pane_direction(next_dir)
+  while next do
+    table.insert(siblings, next)
+    next:activate()
+    next = tab:get_pane_direction(next_dir)
+  end
+
+  initial:activate() -- restore
+  return siblings
+end
+
+--- Attempt to resize axis siblings to all the same size
 ---@param axis 'y'|'x'
 local function balance_panes(axis)
   ---@param win table
   return function(win)
     local tab = win:active_tab()
     local initial = tab:active_pane()
-    local siblings = { initial }
-
     local prev_dir = axis == "x" and "Left" or "Up"
-    local prev = tab:get_pane_direction(prev_dir)
-    while prev do
-      prev:activate()
-      table.insert(siblings, 1, prev)
-      prev = tab:get_pane_direction(prev_dir)
-    end
-
     local next_dir = axis == "x" and "Right" or "Down"
-    initial:activate()
-    local next = tab:get_pane_direction(next_dir)
-    while next do
-      next:activate()
-      table.insert(siblings, next)
-      next = tab:get_pane_direction(next_dir)
-    end
-
+    local siblings = get_axis_siblings(axis, tab)
     local tab_size = tab:get_size()[axis == "x" and "cols" or "rows"]
     local balanced_size = math.floor(tab_size / #siblings)
     local pane_size_key = axis == "x" and "cols" or "viewport_rows"
@@ -237,6 +251,7 @@ local function balance_panes(axis)
           adj_dir
         )
       )
+
       -- This does not work if you spawn a new term
       -- os.execute(
       --   string.format(
@@ -246,13 +261,15 @@ local function balance_panes(axis)
       --     adj_dir
       --   )
       -- )
-      -- p:activate()
-      -- win:perform_action(
-      --   -- AdjustPaneSize only acts on active pane
-      --   wezterm.action.AdjustPaneSize({ adj_dir, adj_amount }),
-      --   p -- this does not affect anything
-      -- )
+      p:activate()
+      win:perform_action(
+        -- AdjustPaneSize only acts on active pane
+        wezterm.action.AdjustPaneSize({ adj_dir, adj_amount }),
+        p -- this does not affect anything
+      )
     end
+
+    -- restore initial since we had to activate each pane to resize it
     initial:activate()
   end
 end
