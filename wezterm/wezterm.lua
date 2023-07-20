@@ -230,8 +230,9 @@ local function balance_panes(axis)
       adj_amount = math.abs(adj_amount)
       wezterm.log_info(
         string.format(
-          "adjusting pane %s size by %s cells %s",
+          "adjusting pane %s from %s by %s cells %s",
           tostring(i),
+          tostring(pane_size),
           tostring(adj_amount),
           adj_dir
         )
