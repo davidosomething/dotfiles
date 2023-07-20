@@ -1,8 +1,6 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
-local act = wezterm.action
-
 local hidpi = wezterm.hostname() == "Dotrakoun-Macbook-Pro"
 
 -- This table will hold the configuration.
@@ -176,7 +174,8 @@ else
   config.color_scheme = colorschemes.dark
 end
 
-local toggle_colorscheme = function(win)
+---@param win table
+local function toggle_colorscheme(win)
   local ecfg = win:effective_config()
   local next_mode = ecfg.color_scheme == colorschemes.light and "dark"
     or "light"
@@ -186,6 +185,74 @@ local toggle_colorscheme = function(win)
   win:set_config_overrides(overrides)
   sync_colorscheme(next_mode)
 end
+
+---@param axis 'y'|'x'
+local function balance_panes(axis)
+  ---@param win table
+  return function(win)
+    local tab = win:active_tab()
+    local initial = tab:active_pane()
+    local siblings = { initial }
+
+    local prev_dir = axis == "x" and "Left" or "Up"
+    local prev = tab:get_pane_direction(prev_dir)
+    while prev do
+      prev:activate()
+      table.insert(siblings, 1, prev)
+      prev = tab:get_pane_direction(prev_dir)
+    end
+
+    local next_dir = axis == "x" and "Right" or "Down"
+    initial:activate()
+    local next = tab:get_pane_direction(next_dir)
+    while next do
+      next:activate()
+      table.insert(siblings, next)
+      next = tab:get_pane_direction(next_dir)
+    end
+
+    local tab_size = tab:get_size()[axis == "x" and "cols" or "rows"]
+    local balanced_size = math.floor(tab_size / #siblings)
+    local pane_size_key = axis == "x" and "cols" or "viewport_rows"
+    wezterm.log_info(
+      string.format(
+        "resizing %s panes on %s axis to %s cells",
+        #siblings,
+        axis,
+        balanced_size
+      )
+    )
+
+    for i, p in ipairs(siblings) do
+      local pane_size = p:get_dimensions()[pane_size_key]
+      local adj_amount = pane_size - balanced_size
+      local adj_dir = adj_amount < 0 and next_dir or prev_dir
+      adj_amount = math.abs(adj_amount)
+      wezterm.log_info(
+        string.format(
+          "adjusting pane %s size by %s cells %s",
+          tostring(i),
+          tostring(adj_amount),
+          adj_dir
+        )
+      )
+      win:perform_action(
+        wezterm.action.AdjustPaneSize({ adj_dir, adj_amount }),
+        p
+      )
+    end
+    initial:activate()
+  end
+end
+
+wezterm.on("augment-command-palette", function()
+  return {
+    {
+      brief = "Balance panes horizontally",
+      action = wezterm.action_callback(balance_panes("x")),
+    },
+  }
+end)
 
 -- Change split behavior
 -- If this is a middle split, default behavior
@@ -218,7 +285,10 @@ local scaled_split = function(dir)
         -- - grow pane by 4, i.e. shrink prev by 4
         local difference = prev_width < onethird and 0 or prev_width - onethird
         --wezterm.log_info(string.format('%s %s %s', onethird, prev_width, self_width))
-        win:perform_action(act.AdjustPaneSize({ dir, difference }), pane)
+        win:perform_action(
+          wezterm.action.AdjustPaneSize({ dir, difference }),
+          pane
+        )
       end
     end
 
@@ -263,7 +333,7 @@ local defaults_to_disable = {
   { key = "Z", mods = "CTRL" }, -- TogglePaneZoomState
 }
 for _, cfg in pairs(defaults_to_disable) do
-  cfg.action = act.DisableDefaultAssignment
+  cfg.action = wezterm.action.DisableDefaultAssignment
   k:insert(cfg)
 end
 
@@ -271,7 +341,7 @@ end
 k:insert({
   key = "w",
   mods = "CMD",
-  action = act.CloseCurrentPane({ confirm = true }),
+  action = wezterm.action.CloseCurrentPane({ confirm = true }),
 })
 k:insert({
   key = "t",
@@ -282,7 +352,7 @@ k:insert({
 k:insert({
   key = "8",
   mods = "CTRL|SHIFT",
-  action = act.PaneSelect({ mode = "SwapWithActive" }),
+  action = wezterm.action.PaneSelect({ mode = "SwapWithActive" }),
 })
 
 -- Yes both number and ( ) bindings are needed, one for wezterm-git on arch
