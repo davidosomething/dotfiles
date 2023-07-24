@@ -88,7 +88,7 @@ vim.o.inccommand = ""
 -- Wild and file globbing stuff in command mode
 -- ===========================================================================
 
-vim.o.browsedir = "buffer" -- browse files in same dir as open file
+--vim.o.browsedir = "buffer" -- browse files in same dir as open file
 vim.o.wildmode = "list:longest,full"
 vim.o.wildignorecase = true
 
