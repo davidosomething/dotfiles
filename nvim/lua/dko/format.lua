@@ -110,9 +110,28 @@ local format_json = function()
   format_with("jsonls")
 end
 
+-- prettier? run prettier
+-- else try html lsp
+local format_html = function()
+  if vim.b.has_prettier == nil then
+    local prettier_source = require("dko.lsp").get_null_ls_source({
+      name = "prettier",
+      filetype = vim.bo.filetype,
+    })
+    vim.b.has_prettier = #prettier_source > 0
+  end
+  if vim.b.has_prettier then
+    format_with("null-ls")
+    return
+  end
+
+  format_with("html")
+end
+
 -- ===========================================================================
 
 local pipelines = {
+  html = format_html,
   typescript = format_jsts,
   typescriptreact = format_jsts,
   javascript = format_jsts,
