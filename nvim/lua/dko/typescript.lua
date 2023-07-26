@@ -3,7 +3,7 @@
 local M = {}
 
 M.source_definition = function()
-  local client = vim.lsp.get_clients({ name = "tsserver" })
+  local client = vim.lsp.get_clients({ bufnr = 0, name = "tsserver" })
   if #client == 0 then
     vim.notify("could not get tsserver", vim.log.levels.ERROR)
     return false

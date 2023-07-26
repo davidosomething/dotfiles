@@ -35,7 +35,7 @@ end
 -- then, maybe run eslint --fix
 local format_jsts = function()
   vim.b.has_eslint = vim.b.has_eslint
-    or #vim.lsp.get_clients({ name = "eslint" }) > 0
+    or #vim.lsp.get_clients({ bufnr = 0, name = "eslint" }) > 0
 
   if vim.b.has_prettier == nil then
     local prettier_source = require("dko.lsp").get_null_ls_source({
