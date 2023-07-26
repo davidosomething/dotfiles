@@ -3,11 +3,13 @@
 local M = {}
 
 M.source_definition = function()
-  local client = vim.lsp.get_clients({ bufnr = 0, name = "tsserver" })
-  if #client == 0 then
+  local clients = vim.lsp.get_clients({ bufnr = 0, name = "tsserver" })
+  if #clients == 0 then
     vim.notify("could not get tsserver", vim.log.levels.ERROR)
     return false
   end
+
+  local client = clients[1]
 
   local position = vim.lsp.util.make_position_params(0, client.offset_encoding)
 
@@ -32,7 +34,7 @@ M.source_definition = function()
       position.textDocument.uri,
       position.position,
     },
-  }, callback)
+  }, callback, 0)
 end
 
 return M
