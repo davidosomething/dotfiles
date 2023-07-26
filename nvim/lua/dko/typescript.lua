@@ -3,8 +3,8 @@
 local M = {}
 
 M.source_definition = function()
-  local client = require("dko.lsp").get_active_client("tsserver")
-  if not client then
+  local client = vim.lsp.get_clients({ name = "tsserver" })
+  if #client == 0 then
     vim.notify("could not get tsserver", vim.log.levels.ERROR)
     return false
   end

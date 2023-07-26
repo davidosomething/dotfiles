@@ -4,14 +4,6 @@ local M = {}
 -- LSP coordination - make sure null-ls and real lsps play nice
 -- ===========================================================================
 
----Find lsp client by name
----@param needle string
----@return boolean|table lsp client
-M.get_active_client = function(needle)
-  local ok, lutil = pcall(require, "lspconfig.util")
-  return ok and lutil.get_active_client_by_name(0, needle)
-end
-
 ---Find null-ls source by name
 ---@param query table
 ---@return table|nil source
