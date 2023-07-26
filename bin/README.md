@@ -126,6 +126,10 @@ Switch to a different worktree using FZF
 
 Switch to a different XCode version
 
+## get-nvim
+
+Download nightly `nvim.appimage` to `~/.local/bin/`
+
 ## git-committers
 
 List git committers and number of commits
@@ -227,4 +231,3 @@ Get current wifi password in plaintext
 ## xcw
 
 Open nearest *.xcworkspace
-
