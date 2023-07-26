@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+curl -L -o ~/.local/bin/nvim \
+  https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+chmod ug+x ~/.local/bin/nvim
