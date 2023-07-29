@@ -33,8 +33,6 @@ return {
             table.insert(results, selection[1])
           end)
 
-          vim.print(results)
-
           -- load the selections into buffers list without switching to them
           for _, filepath in ipairs(results) do
             -- not the same as vim.fn.bufadd!
@@ -44,7 +42,7 @@ return {
           require("telescope.pickers").on_close_prompt(prompt_bufnr)
 
           -- switch to newly loaded buffers if on an empty buffer
-          if vim.fn.bufname() == "" then
+          if vim.fn.bufname() == "" and not vim.bo.modified then
             vim.cmd.bwipeout()
             vim.cmd.buffer(results[1])
           end
