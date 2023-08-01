@@ -53,6 +53,15 @@ return {
         require("telescope.actions").file_edit(prompt_bufnr)
       end
 
+      local function with_multiselect_mapping()
+        -- @TODO tbl extend
+        return {
+          i = {
+            ["<CR>"] = single_or_multi_select,
+          },
+        }
+      end
+
       require("telescope").setup({
         defaults = {
           file_ignore_patterns = {
@@ -61,7 +70,6 @@ return {
           mappings = {
             i = {
               ["<Esc>"] = "close",
-              ["<CR>"] = single_or_multi_select,
             },
           },
           results_title = false,
@@ -76,6 +84,24 @@ return {
                 width = 0.9,
               },
             },
+            mappings = with_multiselect_mapping(),
+          },
+        },
+        pickers = {
+          find_files = {
+            mappings = with_multiselect_mapping(),
+          },
+          git_files = {
+            mappings = with_multiselect_mapping(),
+          },
+          git_status = {
+            mappings = with_multiselect_mapping(),
+          },
+          live_grep = {
+            mappings = with_multiselect_mapping(),
+          },
+          oldfiles = {
+            mappings = with_multiselect_mapping(),
           },
         },
       })
