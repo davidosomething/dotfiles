@@ -4,6 +4,6 @@ flake8-commas==2.1.0
 flake8-docstrings==1.7.0
 flake8-import-order==0.18.2
 flake8-quotes==3.3.2
-pycodestyle==2.10.0
+pycodestyle==2.11.0
 vim-vint==0.4a3
 yamllint==1.32.0
