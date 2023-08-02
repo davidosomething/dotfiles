@@ -210,6 +210,18 @@ return {
   },
 
   {
+    "MaximilianLloyd/tw-values.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("tw-values").setup()
+      require("dko.mappings").bind_twvalues()
+    end,
+  },
+
+  {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
@@ -280,9 +292,6 @@ return {
               -- stylua or NOTHING
               client.server_capabilities.documentFormattingProvider = false
               client.server_capabilities.documentRangeFormattingProvider = false
-
-              -- auto-enable inlay hint
-              vim.lsp.inlay_hint(0)
             end,
             settings = {
               Lua = {
