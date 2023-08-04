@@ -321,6 +321,15 @@ return {
         copy = { ["+"] = copy, ["*"] = copy },
         paste = { ["+"] = paste, ["*"] = paste },
       }
+
+      vim.api.nvim_create_autocmd("TextYankPost", {
+        callback = function()
+          if vim.v.event.operator == "y" and vim.v.event.regname == "+" then
+            require("osc52").copy_register("+")
+          end
+        end,
+        desc = "copy + yanks into osc52",
+      })
     end,
   },
 
