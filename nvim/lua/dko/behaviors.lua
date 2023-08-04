@@ -139,16 +139,25 @@ autocmd("BufEnter", {
 autocmd({ "BufWritePre", "FileWritePre" }, {
   desc = "Create missing parent directories on write",
   callback = function(args)
-    ---@diagnostic disable-next-line: missing-parameter
-    local dir = vim.fs.dirname(args.file)
-    if dir and not vim.uv.fs_stat(dir) then
-      if vim.fn.mkdir(dir, "p") then
-        vim.notify(
-          vim.fn.fnamemodify(dir, ":p:~"),
-          vim.log.levels.INFO,
-          { title = "Created dir on write" }
-        )
+    local status, result = pcall(function()
+      local dir = assert(
+        vim.fs.dirname(args.file),
+        ("could not get dirname: %s"):format(args.file)
+      )
+      if vim.uv.fs_stat(dir) then
+        -- dir already exists
+        return
       end
+      assert(vim.fn.mkdir(dir, "p"), ("could not mkdir: %s"):format(dir))
+      return assert(
+        vim.fn.fnamemodify(dir, ":p:~"),
+        ("could not resolve full path: %s"):format(dir)
+      )
+    end)
+    if result then
+      vim.notify(result, vim.log.levels[status and "INFO" or "ERROR"], {
+        title = "Create dir on write",
+      })
     end
   end,
   group = augroup("dkosaving"),
