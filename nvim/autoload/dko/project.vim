@@ -15,9 +15,6 @@
 " g:dko_project_roots [array] - global overrides
 " ============================================================================
 
-let s:cpo_save = &cpoptions
-set cpoptions&vim
-
 " ============================================================================
 " Default Settings
 " ============================================================================
@@ -26,26 +23,6 @@ set cpoptions&vim
 let s:default_roots = [
       \   '',
       \ ]
-
-" @param {mixed} { bufnr } or number/string bufnr
-" @return {Number|String| bufnr
-function! s:BufnrFromArgs(...) abort
-  if a:0
-    return type(a:1) == type(0) || type(a:1) == type('')
-          \ ? a:1
-          \ : type(a:1) == type({}) && a:1['bufnr']
-          \ ? a:1['bufnr']
-          \ : '%'
-  endif
-  return '%'
-endfunction
-
-" Mark buffer -- set up buffer local variables or update a buffer's meta data
-function! dko#project#MarkBuffer(...) abort
-  let l:bufnr = s:BufnrFromArgs(a:000)
-  let b:dko_project_root = ''
-  call dko#project#GetRoot(l:bufnr) " force reset
-endfunction
 
 " ============================================================================
 " Project root resolution
@@ -56,7 +33,7 @@ endfunction
 " @param {String} [file] from which to look upwards
 " @return {String} project root path or empty string
 function! dko#project#GetRoot(...) abort
-  let l:bufnr = s:BufnrFromArgs(a:000)
+  let l:bufnr = a:0 > 0 ? a:1 : 0
   if empty(getbufvar(l:bufnr, 'dko_project_root', ''))
     let l:existing = getbufvar(l:bufnr, 'dko_project_root')
     if !empty(l:existing) | return l:existing | endif
@@ -124,8 +101,3 @@ function! dko#project#GetRootByFileMarker(markers) abort
   endfor
   return l:result
 endfunction
-
-" ============================================================================
-
-let &cpoptions = s:cpo_save
-unlet s:cpo_save
