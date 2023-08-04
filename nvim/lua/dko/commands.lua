@@ -75,6 +75,10 @@ command("Rename", function(opts)
     vim.cmd.file(nextpath) -- rename buffer, preserving undo
     vim.cmd("noautocmd write") -- save
     vim.cmd("edit") -- update file syntax if you changed extension
+
+    if type(prev) ~= "string" then
+      return
+    end
     local ok, err = vim.uv.fs_unlink(prev)
     if not ok then
       vim.notify(
