@@ -140,21 +140,25 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   desc = "Create missing parent directories on write",
   callback = function(args)
     local status, result = pcall(function()
+      -- this is a remote url
+      if args.file:find("://") then
+        return
+      end
       local dir = assert(
         vim.fs.dirname(args.file),
         ("could not get dirname: %s"):format(args.file)
       )
+      -- dir already exists
       if vim.uv.fs_stat(dir) then
-        -- dir already exists
         return
       end
-      assert(vim.fn.mkdir(dir, "p"), ("could not mkdir: %s"):format(dir))
+      assert(vim.fn.mkdir(dir, "p") == 1, ("could not mkdir: %s"):format(dir))
       return assert(
         vim.fn.fnamemodify(dir, ":p:~"),
         ("could not resolve full path: %s"):format(dir)
       )
     end)
-    if result then
+    if type(result) == "string" then
       vim.notify(result, vim.log.levels[status and "INFO" or "ERROR"], {
         title = "Create dir on write",
       })
