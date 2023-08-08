@@ -13,6 +13,40 @@ end
 
 local autocmd = vim.api.nvim_create_autocmd
 
+-- @TODO keep an eye on https://github.com/neovim/neovim/issues/23581
+autocmd("WinLeave", {
+  desc = "Toggle close->open loclist so it is always under the correct window",
+  callback = function()
+    if vim.bo.buftype == "quickfix" then
+      -- Was in loclist already
+      return
+    end
+    local loclist_winid = vim.fn.getloclist(0, { winid = 0 }).winid
+    if loclist_winid == 0 then
+      return
+    end
+
+    local leaving = vim.api.nvim_get_current_win()
+    autocmd("WinEnter", {
+      callback = function()
+        if vim.bo.buftype == "quickfix" then
+          -- Left main window and went into the loclist
+          return
+        end
+        local entering = vim.api.nvim_get_current_win()
+        vim.o.eventignore = "all"
+        vim.api.nvim_set_current_win(leaving)
+        vim.cmd.lclose()
+        vim.cmd.lwindow()
+        vim.api.nvim_set_current_win(entering)
+        vim.o.eventignore = ""
+      end,
+      once = true,
+    })
+  end,
+  group = augroup("dkowindow"),
+})
+
 autocmd("VimResized", {
   desc = "Automatically resize windows in all tabpages when resizing Vim",
   callback = function()
@@ -169,58 +203,6 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
     end
   end,
   group = augroup("dkosaving"),
-})
-
-autocmd("DiagnosticChanged", {
-  desc = "Sync diagnostics to loclist",
-  callback = function()
-    -- REQUIRED or else neovim will freeze on quit -- some LSP will do a final
-    -- DiagnosticChanged before shutdown
-    if vim.v.exiting ~= vim.NIL then
-      return
-    end
-
-    -- E.g. :Lazy sync uses diagnostics, ignore it
-    if not vim.bo.buflisted then
-      return
-    end
-
-    --[[ args = {
-      buf = 1,
-      data = {
-        diagnostics = { {
-            bufnr = 1,
-            code = "trailing-space",
-            col = 28,
-            end_col = 29,
-            end_lnum = 161,
-            lnum = 161,
-            message = "Line with postspace.",
-            namespace = 34,
-            severity = 4,
-            source = "Lua Diagnostics.",
-            user_data = {
-              lsp = {
-                code = "trailing-space"
-              }
-            }
-          } }
-      },
-      event = "DiagnosticChanged",
-      file = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua",
-      group = 10,
-      id = 12,
-      match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
-    } ]]
-
-    vim.diagnostic.setloclist({ open = false }) -- true would focus empty loclist
-    local original = vim.api.nvim_get_current_win()
-    -- open+focus loclist for CURRENT WINDOW ONLY (if has entries, else close)
-    vim.cmd.lwindow()
-    -- restore focus to window, not loclist
-    vim.api.nvim_set_current_win(original)
-  end,
-  group = augroup("dkodiagnostic"),
 })
 
 -- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
