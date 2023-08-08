@@ -827,6 +827,7 @@ M.bind_toggleterm = function()
             vim.api.nvim_set_current_win(original)
             original = nil
           end
+          vim.cmd.doautocmd("WinLeave")
         end),
       })
     map("n", settings.keybind, function()

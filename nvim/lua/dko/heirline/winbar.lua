@@ -80,6 +80,9 @@ return {
     -- =========================================================================
 
     {
+      condition = function()
+        return vim.bo.buftype ~= "quickfix"
+      end,
       provider = function(self)
         if self.filename == "" then
           return " ᴜɴɴᴀᴍᴇᴅ "
@@ -90,7 +93,7 @@ return {
         local remaining = win_width - extrachars
 
         local final
-        local relative = vim.fn.fnamemodify(self.filename, ":~:.")
+        local relative = vim.fn.fnamemodify(self.filename, ":~:.") or ""
         if relative:len() < remaining then
           final = relative
         else
@@ -113,10 +116,14 @@ return {
     },
   },
 
-  require("dko.heirline.fileflags"),
-
-  -- this means that the statusline is cut here when there's not enough space
-  { provider = "%<" },
+  {
+    condition = function()
+      return vim.bo.buftype ~= "quickfix"
+        and (not vim.bo.modifiable or vim.bo.readonly)
+    end,
+    provider = "  ",
+    hl = "dkoLineImportant",
+  },
 
   -- spacer with active bg color
   {

@@ -6,6 +6,10 @@ return {
     hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
   },
 
+  condition = function()
+    return vim.bo.buftype ~= "quickfix"
+  end,
+
   init = function(self)
     self.errors =
       #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
