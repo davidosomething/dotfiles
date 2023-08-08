@@ -122,25 +122,8 @@ return {
   },
 
   {
-    "folke/neodev.nvim",
-    lazy = true,
-    config = function()
-      require("neodev").setup({
-        override = function(root_dir, library)
-          if root_dir:find("nvim") then
-            library.enabled = true
-          end
-        end,
-      })
-    end,
-  },
-
-  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "folke/neodev.nvim",
-    },
     config = function()
       -- border on :LspInfo window
       require("lspconfig.ui.windows").default_options.border = "rounded"
@@ -226,7 +209,7 @@ return {
     dependencies = {
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
-      "neovim/nvim-lspconfig", -- wait for lspconfig, which waits for neodev
+      "neovim/nvim-lspconfig", -- wait for lspconfig
       "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
     },
     config = function()
@@ -293,6 +276,35 @@ return {
               client.server_capabilities.documentFormattingProvider = false
               client.server_capabilities.documentRangeFormattingProvider = false
             end,
+
+            -- no more neodev https://github.com/neovim/neovim/pull/24592
+            on_init = function(client)
+              local path = client.workspace_folders[1].name
+              if
+                not vim.loop.fs_stat(path .. "/.luarc.json")
+                and not vim.loop.fs_stat(path .. "/.luarc.jsonc")
+              then
+                local settings =
+                  vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                    runtime = {
+                      -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                      version = "LuaJIT",
+                    },
+                    -- Make the server aware of Neovim runtime files
+                    workspace = {
+                      library = { vim.env.VIMRUNTIME },
+                      -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                      --library = vim.api.nvim_get_runtime_file("", true),
+                    },
+                  })
+                client.notify(
+                  "workspace/didChangeConfiguration",
+                  { settings = settings }
+                )
+              end
+              return true
+            end,
+
             settings = {
               Lua = {
                 format = { enable = false },
