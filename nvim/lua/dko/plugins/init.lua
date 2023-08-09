@@ -322,9 +322,16 @@ return {
         paste = { ["+"] = paste, ["*"] = paste },
       }
 
+      local registers_to_copy = {
+        "", -- unnamed, e.g. yy
+        "+",
+      }
       vim.api.nvim_create_autocmd("TextYankPost", {
         callback = function()
-          if vim.v.event.operator == "y" and vim.v.event.regname == "+" then
+          if
+            vim.v.event.operator == "y"
+            and vim.tbl_contains(registers_to_copy, vim.v.event.regname)
+          then
             require("osc52").copy_register("+")
           end
         end,
