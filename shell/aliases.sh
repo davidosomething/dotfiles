@@ -48,6 +48,8 @@ alias dcd='docker-compose down'
 alias dcud='docker-compose up -d'
 alias dcpull='docker-compose pull'
 
+alias docker_rm_dead_volumes='docker volume rm $(docker volume ls -qf dangling=true)'
+
 # ----------------------------------------------------------------------------
 # editors
 # ----------------------------------------------------------------------------

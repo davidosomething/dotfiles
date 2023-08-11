@@ -1,7 +1,7 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
-local hidpi = wezterm.hostname() == "Dotrakoun-Macbook-Pro"
+local hidpi = wezterm.hostname() == "dotrakoun-mac"
 
 -- This table will hold the configuration.
 local config = {}
@@ -108,7 +108,7 @@ config.font = wezterm.font_with_fallback({
 
 config.font_dirs = { "fonts" }
 
-config.font_size = hidpi and 18.0 or 14.0
+config.font_size = hidpi and 16.0 or 14.0
 
 -- this is the default if using latest nightly
 --config.front_end = "WebGpu"
