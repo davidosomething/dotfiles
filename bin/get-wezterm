@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+curl -L -o ~/.local/bin/wezterm \
+  https://github.com/wez/wezterm/releases/download/nightly/WezTerm-nightly-Ubuntu20.04.AppImage
+chmod ug+x ~/.local/bin/wezterm
