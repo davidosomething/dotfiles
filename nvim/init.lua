@@ -2,7 +2,9 @@
 vim.print = vim.print or vim.pretty_print
 
 -- polyfill nvim 0.10 change :(
-vim.uv = vim.uv or vim.loop
+if not vim.uv then
+  vim.uv = vim.loop
+end
 
 -- Fallback for vims with no env access like Veonim
 -- used by plugin/*

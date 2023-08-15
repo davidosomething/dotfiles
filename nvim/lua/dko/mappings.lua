@@ -432,13 +432,13 @@ M.with_commentnvim_mappings = function(tbl)
     ---Line-comment keymap (default gc)
     line = "gc",
     ---Block-comment keymap (gb is my blame command)
-    block = "gb",
+    block = "<Leader>b",
   }
   tbl.toggler = {
     ---Line-comment toggle keymap
-    line = "gcc",
+    line = "gC",
     ---Block-comment toggle keymap
-    block = "gbb",
+    block = "<Leader>B",
   }
   return tbl
 end
@@ -492,22 +492,9 @@ M.bind_gitsigns = function(bufnr)
     return "<Ignore>"
   end, { expr = true, desc = "Prev hunk" })
 
-  -- Actions
-  -- the ones that use <Cmd> take a range, don't pass as gs.method
-  bufmap(
-    { "n", "v" },
-    "<leader>hr",
-    "<Cmd>Gitsigns reset_hunk",
-    { desc = "Reset hunk" }
-  )
-  bufmap(
-    "n",
-    "<leader>hp",
-    require("gitsigns").preview_hunk,
-    { desc = "Preview hunk" }
-  )
-  bufmap("n", "<Leader>gb", function()
-    require("gitsigns").blame_line({ full = true })
+  -- Action
+  bufmap("n", "gb", function()
+    require("gitsigns").blame_line()
   end, { desc = "Show blames" })
 
   -- Text object

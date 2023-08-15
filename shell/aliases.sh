@@ -193,7 +193,6 @@ alias ta='tmux attach'
 # ----------------------------------------------------------------------------
 
 alias brokensymlinks='find . -type l ! -exec test -e {} \; -print'
-alias curl='curl --config "${DOTFILES}/curl/dot.curlrc"'
 alias df='df -h'
 alias gpgreload='gpg-connect-agent reloadagent /bye'
 alias ln='ln -v'
