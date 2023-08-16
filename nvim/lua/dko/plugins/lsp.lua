@@ -43,7 +43,6 @@ return {
         }),
         null_ls.builtins.formatting.qmlformat,
         null_ls.builtins.formatting.shfmt,
-        null_ls.builtins.formatting.stylua,
 
         -- yamlls formatting is disabled in favor of this
         null_ls.builtins.formatting.yamlfmt,
@@ -123,6 +122,9 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "creativenull/efmls-configs-nvim",
+    },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       -- border on :LspInfo window
@@ -239,8 +241,9 @@ return {
       local handlers = {
         function(server)
           lspconfig[server].setup(with_lsp_capabilities())
-        end
+        end,
       }
+
       handlers["cssmodules_ls"] = function()
         lspconfig.cssmodules_ls.setup(with_lsp_capabilities({
           ---note: local on_attach happens AFTER autocmd LspAttach
@@ -255,16 +258,28 @@ return {
       end
 
       handlers["docker_compose_language_service"] = function()
-        lspconfig.docker_compose_language_service.setup(
-          with_lsp_capabilities({
-            on_attach = function(client)
-              -- stylua or NOTHING
-              client.server_capabilities.documentFormattingProvider = false
-              client.server_capabilities.documentRangeFormattingProvider =
-                false
-            end,
-          })
-        )
+        lspconfig.docker_compose_language_service.setup(with_lsp_capabilities({
+          on_attach = function(client)
+            -- yamlfmt or NOTHING
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
+        }))
+      end
+
+      handlers["efm"] = function()
+        lspconfig.efm.setup({
+          filetypes = { "lua" },
+          single_file_support = true,
+          init_options = { documentFormatting = true },
+          settings = {
+            languages = {
+              lua = {
+                require("efmls-configs.formatters.stylua"),
+              },
+            },
+          },
+        })
       end
 
       handlers["jsonls"] = function()
@@ -396,12 +411,7 @@ return {
                 end
               end
 
-              vim.lsp.diagnostic.on_publish_diagnostics(
-                _,
-                result,
-                ctx,
-                config
-              )
+              vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
             end,
           },
 
@@ -433,7 +443,6 @@ return {
           },
         }))
       end
-      }
 
       require("mason-lspconfig").setup({
         automatic_installation = true,
