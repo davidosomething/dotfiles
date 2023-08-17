@@ -1,6 +1,6 @@
 local M = {}
 
-M.find = function(haystack)
+M.cexpr = function(haystack)
   if not haystack then
     return nil
   end
@@ -82,6 +82,24 @@ M.find = function(haystack)
   end
 
   return { group = "fallback", haystack = haystack, match = haystack }
+end
+
+M.line = function(haystack)
+  if not haystack then
+    return nil
+  end
+
+  local match
+
+  if haystack:find("autocmd%(") then
+    match = haystack:match([[autocmd."([^"]+)"]])
+    if match then
+      vim.notify("match autocmd")
+      return { group = "autocmd", haystack = haystack, match = match }
+    end
+  end
+
+  return nil
 end
 
 return M

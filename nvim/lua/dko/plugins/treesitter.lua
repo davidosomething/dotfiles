@@ -8,6 +8,7 @@ local HIGHLIGHTING_DISABLED = {
 -- table of filetypes
 local HIGHLIGHTING_ENABLED = {
   "dotenv",
+  "lua",
   "markdown",
   "starlark",
   "tiltfile",
@@ -64,8 +65,6 @@ return {
             end
 
             -- Enable for these
-            -- @TODO remove this ignore when signature fixed in neovim
-            ---@diagnostic disable-next-line: redundant-parameter
             if
               vim.tbl_contains(HIGHLIGHTING_ENABLED, vim.bo[bufnr].filetype)
             then

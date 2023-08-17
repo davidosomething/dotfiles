@@ -39,7 +39,7 @@ end
 
 local HIGHLIGHTING_MAX_FILESIZE = 300 * 1024 -- 300 KB
 
----@param query string|table
+---@param query string|table can be a filename or a { bufnr }
 ---@return boolean|nil true if filesize is bigger than HIGHLIGHTING_MAX_FILESIZE
 M.is_huge = function(query)
   local filename = query
