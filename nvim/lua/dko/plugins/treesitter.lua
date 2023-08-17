@@ -10,6 +10,7 @@ local HIGHLIGHTING_ENABLED = {
   "dotenv",
   "lua",
   "markdown",
+  "sh",
   "starlark",
   "tiltfile",
 }

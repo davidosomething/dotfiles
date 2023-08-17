@@ -127,11 +127,11 @@ return {
             final = relative
           else
             local shorten = require("dko.utils.path").shorten
-            local len = 5
+            local len = 8
             while len > 0 and type(final) ~= "string" do
               local attempt = shorten(self.filename, len)
               final = attempt:len() < remaining and attempt
-              len = len - 1
+              len = len - 2
             end
             if not final then
               final = shorten(self.filename, 1)
