@@ -84,11 +84,9 @@ autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
 })
 
 autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
-  desc = "Set dko#project variables on buffers",
-  callback = function(args)
-    local bufnr = args.buf
-    vim.b[bufnr].dko_project_root = ""
-    vim.fn["dko#project#GetRoot"](bufnr)
+  desc = "Set vim.b.dko_project_root on buffer",
+  callback = function()
+    require("dko.project").init()
   end,
   group = augroup("dkoproject"),
 })

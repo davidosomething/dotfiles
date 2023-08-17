@@ -20,9 +20,6 @@ lazy-lock.json
 .nviminfo
 .viminfo
 
-# backup
-autoload/plug.vim*
-
 # generated secrets
 .tags/
 tags
@@ -33,4 +30,3 @@ aspell.utf-8.add
 # local
 .gvimrc.local
 .vimrc.local
-squarespace.vim

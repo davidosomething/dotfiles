@@ -15,6 +15,7 @@ M.ESLINT_ROOTS = {
 }
 
 M.PROJECT_ROOTS = {
+  ".luarc.json",
   "composer.json",
   "Gemfile",
   "justfile",
@@ -49,16 +50,45 @@ M.get_root_by_patterns = function(patterns)
   return getter({ start = start, bufnr = 0 })
 end
 
----@param from? string
----@return string|nil git root
-M.git_root = function(from)
-  from = from or vim.api.nvim_buf_get_name(0)
-  local start = from:len() > 0 and from or vim.uv.cwd()
-  if not start then
-    return nil
+---@param opts? table vim.fs.find opts
+---@return string|nil -- git root
+M.get_git_root = function(opts)
+  -- gitsigns did the work for us!
+  if not opts then
+    local from_gitsigns =
+      require("dko.utils.object").get(vim.b, "gitsigns_status_dict.root")
+    if from_gitsigns then
+      return from_gitsigns
+    end
   end
-  local ok, utils = pcall(require, "null-ls.utils")
-  return ok and utils.root_pattern(".git")(start) or nil
+
+  local find_opts = vim.tbl_extend("force", {
+    limit = 1,
+    upward = true,
+    type = "directory",
+  }, opts or {})
+  local res = vim.fs.find(".git", find_opts)
+  return res[1]
+end
+
+--- Impure function that sets up root if needed, returns with cwd fallback
+---@return string -- git root
+M.root = function()
+  if not vim.b.dko_project_root then
+    M.init()
+  end
+
+  -- never explicitly set the root to cwd, just return it as a fallback
+  return vim.b.dko_project_root or vim.uv.cwd()
+end
+
+--- Impure function that sets up roots, can call again to re-init
+M.init = function()
+  -- Look for markers FIRST, that way we support things like browsing through
+  -- node_modules/ and monorepos
+  vim.b.dko_project_root = M.get_root_by_patterns(M.PROJECT_ROOTS)
+  vim.b.dko_git_root = M.get_git_root()
+  vim.b.dko_project_root = vim.b.dko_project_root or vim.b.dko_git_root
 end
 
 -- ===========================================================================

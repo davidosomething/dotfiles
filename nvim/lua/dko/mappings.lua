@@ -695,15 +695,13 @@ M.bind_telescope = function()
   end, { desc = "Telescope: pick from previously opened files" })
 
   map("n", "<A-p>", function()
-    local project_root = vim.fn["dko#project#GetRoot"]()
-
-    -- fallback to cwd git root
+    local project_root = require("dko.project").get_root()
     if not project_root or project_root:len() == 0 then
-      project_root = vim.fn["dko#git#GetRoot"](vim.fn.getcwd())
-    end
-
-    if not project_root or project_root:len() == 0 then
-      vim.notify("Not in a project", vim.log.levels.ERROR, { title = "<A-p>" })
+      vim.notify(
+        "Not in a project",
+        vim.log.levels.ERROR,
+        { render = "compact", title = "<A-p>" }
+      )
       return
     end
 
