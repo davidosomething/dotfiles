@@ -1,8 +1,5 @@
 return {
   condition = function()
-    if vim.bo.buftype == "quickfix" then
-      return false
-    end
     local conditions = require("heirline.conditions")
     return conditions.lsp_attached() and conditions.is_active()
   end,

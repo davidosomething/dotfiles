@@ -31,7 +31,10 @@ return {
           disable_winbar_cb = function(args)
             return require("heirline.conditions").buffer_matches({
               buftype = vim.tbl_filter(function(bt)
-                return bt ~= "help" and bt ~= "quickfix"
+                return not vim.tbl_contains(
+                  { "help", "quickfix", "terminal" },
+                  bt
+                )
               end, require("dko.utils.buffer").SPECIAL_BUFTYPES),
             }, args.buf)
           end,

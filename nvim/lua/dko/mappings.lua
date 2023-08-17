@@ -776,11 +776,20 @@ end
 -- Plugin: toggleterm.nvim
 -- ===========================================================================
 
+local common_winbar = {
+  enabled = true,
+  ---@diagnostic disable-next-line: unused-local
+  name_formatter = function(term)
+    return "<A-x>"
+  end,
+}
+
 local toggleterm_modes = {
   horizontal = {
     keybind = "<A-i>",
     count = 88888,
     name = "common",
+    winbar = common_winbar,
   },
   vertical = {
     keybind = "<A-C-i>",
@@ -789,6 +798,7 @@ local toggleterm_modes = {
     sizefn = function()
       return math.max(vim.o.columns * 0.4, 20)
     end,
+    winbar = common_winbar,
   },
   float = {
     keybind = "<A-S-i>",
@@ -811,6 +821,7 @@ M.bind_toggleterm = function()
     -- and refocus prev win if possible
     map("t", settings.keybind, function()
       vim.cmd.close()
+      -- on_close fires
     end, { desc = "Close terminal and restore focus" })
 
     -- =======================================================================
@@ -827,9 +838,12 @@ M.bind_toggleterm = function()
           end
           vim.cmd.doautocmd("WinLeave")
         end),
+        winbar = settings.winbar,
       })
     map("n", settings.keybind, function()
-      original = vim.api.nvim_get_current_win()
+      if vim.bo.buftype ~= "terminal" then
+        original = vim.api.nvim_get_current_win()
+      end
       local size = settings.sizefn and settings.sizefn() or 15
       terms[settings.name]:toggle(size, mode)
     end, { desc = "Open a " .. mode .. " terminal" })
