@@ -19,6 +19,7 @@ return {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     config = function()
+      local t = require("telescope")
       local action_state = require("telescope.actions.state")
       local action_utils = require("telescope.actions.utils")
       local function single_or_multi_select(prompt_bufnr)
@@ -62,7 +63,7 @@ return {
         }
       end
 
-      require("telescope").setup({
+      t.setup({
         defaults = {
           file_ignore_patterns = {
             "COMMIT_EDITMSG",
@@ -106,7 +107,7 @@ return {
         },
       })
 
-      require("telescope").load_extension("fzf")
+      t.load_extension("fzf")
 
       require("dko.mappings").bind_telescope()
     end,
