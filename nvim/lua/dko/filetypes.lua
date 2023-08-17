@@ -12,6 +12,12 @@ vim.filetype.add({
   },
   pattern = {
     ["%.env%.[%w_.-]+"] = "dotenv",
+    -- ["env%.(%a+)"] = function(_path, _bufnr, ext)
+    --   vim.print(ext)
+    --   if vim.tbl_contains({ "local", "example", "dev", "prod" }, ext) then
+    --     return "dotenv"
+    --   end
+    -- end,
   },
 })
 
