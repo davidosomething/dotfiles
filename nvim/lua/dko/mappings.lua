@@ -729,6 +729,13 @@ M.bind_telescope = function()
       hidden = true,
     })
   end, { desc = "Telescope: pick from vim config files" })
+
+  map("n", "<A-y>", function()
+    if not t.extensions.yank_history then
+      t.load_extension("yank_history")
+    end
+    t.extensions.yank_history.yank_history()
+  end, { desc = "Telescope: yanky.nvim" })
 end
 
 -- ===========================================================================
