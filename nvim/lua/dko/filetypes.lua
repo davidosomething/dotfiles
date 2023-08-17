@@ -1,18 +1,17 @@
 vim.filetype.add({
   extension = {
     conf = "conf",
+    env = "dotenv",
     tiltfile = "tiltfile",
     Tiltfile = "tiltfile",
   },
   filename = {
-    ["Tiltfile"] = "tiltfile",
     [".env"] = "dotenv",
-    [".env.development"] = "dotenv",
-    [".env.local"] = "dotenv",
-    [".env.localkube"] = "dotenv",
-    [".env.production"] = "dotenv",
     ["tsconfig.json"] = "jsonc",
     [".yamlfmt"] = "yaml",
+  },
+  pattern = {
+    ["%.env%.[%w_.-]+"] = "dotenv",
   },
 })
 
