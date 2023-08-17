@@ -108,13 +108,21 @@ end, { desc = "Edit lua/dko/plugins/" })
 map({ "i", "n" }, "<F1>", "<NOP>", { desc = "Disable help shortcut key" })
 
 map("n", "<F1>", function()
-  local h = require("dko.utils.help")
-  local res = h.find(vim.fn.expand("<cexpr>"))
-  vim.print(res)
+  local help = require("dko.utils.help")
+  local cexpr = vim.fn.expand("<cexpr>")
+  local res = help.cexpr(cexpr)
+  vim.print({ cexpr, res })
+  if res and pcall(vim.cmd.help, res.match) then
+    return
+  end
+
+  local line = vim.api.nvim_get_current_line()
+  res = help.line(line)
+  vim.print({ line, res })
   if res then
     vim.cmd.help(res.match)
   end
-end, { desc = "Show vim help for <cexpr>" })
+end, { desc = "Show vim help for <cexpr> or current line" })
 
 map("n", "<Leader>yn", function()
   local res = vim.fn.expand("%:t", false, false)
@@ -430,13 +438,13 @@ M.with_commentnvim_mappings = function(tbl)
   ---LHS of operator-pending mappings in NORMAL and VISUAL mode
   tbl.opleader = {
     ---Line-comment keymap (default gc)
-    line = "gc",
+    line = "<Tab>",
     ---Block-comment keymap (gb is my blame command)
     block = "<Leader>b",
   }
   tbl.toggler = {
     ---Line-comment toggle keymap
-    line = "gC",
+    line = "<Tab><Tab>",
     ---Block-comment toggle keymap
     block = "<Leader>B",
   }
