@@ -71,15 +71,13 @@ M.get_git_root = function(opts)
   return res[1]
 end
 
---- Impure function that sets up root if needed, returns with cwd fallback
+--- Impure function that sets up root if needed
 ---@return string -- git root
 M.root = function()
   if not vim.b.dko_project_root then
     M.init()
   end
-
-  -- never explicitly set the root to cwd, just return it as a fallback
-  return vim.b.dko_project_root or vim.uv.cwd()
+  return vim.b.dko_project_root
 end
 
 --- Impure function that sets up roots, can call again to re-init
