@@ -333,6 +333,11 @@ return {
             and vim.tbl_contains(registers_to_copy, vim.v.event.regname)
           then
             require("osc52").copy_register("+")
+
+            local ok, yanky = pcall(require, "yanky")
+            if ok then
+              yanky.on_yank()
+            end
           end
         end,
         desc = "copy + yanks into osc52",
@@ -342,14 +347,25 @@ return {
 
   {
     "gbprod/yanky.nvim",
-    enabled = function()
-      return not os.getenv("SSH_CLIENT")
-    end,
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("yanky").setup({
         highlight = { timer = 300 },
       })
+
+      -- Remove TextYankPost - will be rebound in osc52
+      if os.getenv("SSH_CLIENT") then
+        ---@type table[]
+        local yanky_textyankpost_autocmds = vim.api.nvim_get_autocmds({
+          group = "Yanky",
+          event = "TextYankPost",
+          pattern = "*",
+        })
+        for _, autocmd in pairs(yanky_textyankpost_autocmds) do
+          vim.api.nvim_del_autocmd(autocmd.id)
+        end
+      end
+
       require("dko.mappings").bind_yanky()
     end,
   },

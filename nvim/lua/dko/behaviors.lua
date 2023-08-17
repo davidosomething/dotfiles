@@ -2,16 +2,18 @@
 -- Change vim behavior via autocommands
 -- ===========================================================================
 
-local groups = {}
-local augroup = function(name, opts)
-  if not groups[name] then
-    opts = opts or {}
-    groups[name] = vim.api.nvim_create_augroup(name, opts)
-  end
-  return groups[name]
+---@param name string
+---@param opts? table
+---@return integer -- get existing or create new augroup id
+local function augroup(name, opts)
+  -- clear is true by default
+  opts = opts or { clear = false }
+  return vim.api.nvim_create_augroup(name, opts)
 end
 
 local autocmd = vim.api.nvim_create_autocmd
+
+-- ===========================================================================
 
 -- @TODO keep an eye on https://github.com/neovim/neovim/issues/23581
 autocmd("WinLeave", {
@@ -50,12 +52,15 @@ autocmd("WinLeave", {
 autocmd("VimResized", {
   desc = "Automatically resize windows in all tabpages when resizing Vim",
   callback = function()
-    local ok, notify = pcall(require, "notify")
-    if ok then
-      notify.dismiss({ silent = true, pending = true })
+    if vim.notify.dismiss then
+      vim.notify.dismiss({ silent = true, pending = true })
     end
     vim.schedule(function()
-      notify("autosizing", vim.log.levels.INFO, { render = "compact" })
+      vim.notify(
+        "autosizing",
+        vim.log.levels.INFO,
+        { title = "VimResized", render = "compact" }
+      )
       vim.cmd("tabdo wincmd =")
     end)
   end,
@@ -63,13 +68,12 @@ autocmd("VimResized", {
 })
 
 autocmd("QuitPre", {
-  desc = "Auto close corresponding loclist when quitting a window",
+  desc = "Auto-close window's loclist when :q quits/closes window",
   callback = function()
-    if vim.bo.filetype ~= "qf" then
+    if vim.bo.buftype == "" then
       vim.cmd("silent! lclose")
     end
   end,
-  nested = true,
   group = augroup("dkowindow"),
 })
 
@@ -160,20 +164,19 @@ autocmd("BufEnter", {
   group = augroup("dkoreading"),
 })
 
--- yanky.nvim providing this
 -- autocmd("TextYankPost", {
 --   desc = "Highlight yanked text after yanking",
 --   callback = function()
+--     -- yanky.nvim providing this
 --     vim.highlight.on_yank({
 --       higroup = "IncSearch",
---       timeout = 150,
+--       timeout = 300,
 --       on_visual = true,
 --     })
 --   end,
 --   group = augroup("dkoediting"),
 -- })
 
--- @TODO as of nvim-0.9, replace this with ++p somehow? :h :write
 autocmd({ "BufWritePre", "FileWritePre" }, {
   desc = "Create missing parent directories on write",
   callback = function(args)
