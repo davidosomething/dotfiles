@@ -1,5 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "runtime": {
+    "version": "LuaJIT"
+  },
   "workspace": {
     "library": ["$VIMRUNTIME", "$XDG_DATA_HOME/nvim/lazy/nvim-cmp/lua"]
   }
