@@ -27,18 +27,21 @@ return {
 
     {
       condition = function()
-        return not require("heirline.conditions").buffer_matches({
-          buftype = require("dko.utils.buffer").SPECIAL_BUFTYPES,
-          filetype = require("dko.utils.buffer").SPECIAL_FILETYPES,
-        })
+        return vim.bo.filetype ~= ""
       end,
-      provider = function(self)
-        return self.filename == "" and "" or "  "
+      provider = function()
+        if
+          require("heirline.conditions").buffer_matches({
+            buftype = require("dko.utils.buffer").SPECIAL_BUFTYPES,
+            filetype = require("dko.utils.buffer").SPECIAL_FILETYPES,
+          })
+        then
+          return ""
+        end
+        return "  "
       end,
       hl = function()
-        -- local enabled =
-        --   require("dko.utils.object").get(vim.b, "ts_highlight.enabled")
-        local enabled = require("dko.treesitter").is_treesitter_enabled()
+        local enabled = require("dko.treesitter").is_highlight_enabled()
         return active_highlight(enabled and "DiffAdd" or "DiffDelete")
       end,
     },
