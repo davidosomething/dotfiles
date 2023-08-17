@@ -1,6 +1,7 @@
 vim.filetype.add({
   extension = {
     conf = "conf",
+    env = "dotenv",
     tiltfile = "tiltfile",
     Tiltfile = "tiltfile",
   },
