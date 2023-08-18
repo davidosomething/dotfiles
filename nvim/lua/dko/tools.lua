@@ -58,7 +58,6 @@ M.get_auto_installable_lsps = function()
   return M.filter_executable("LSP", {
     ["_"] = {
       --"bashls", -- prefer null_ls shellcheck, has code_actions and code inline
-      "efm",
       "jdtls",
       "lua_ls",
       -- temporary -- using jedi instead of futzing around with venvs ?
@@ -81,7 +80,10 @@ M.get_auto_installable_lsps = function()
       "vimls",
       "yamlls",
     },
-    ["go"] = { "gopls" },
+    ["go"] = {
+      "efm",
+      "gopls",
+    },
     ["python"] = {
       -- python hover and some diagnostics from jedi
       -- https://github.com/pappasam/jedi-language-server#capabilities
