@@ -47,6 +47,11 @@ return {
   },
 
   {
+    "mcchrish/zenbones.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
+  },
+
+  {
     "NvChad/nvim-colorizer.lua",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
