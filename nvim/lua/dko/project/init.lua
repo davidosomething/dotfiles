@@ -75,18 +75,10 @@ end
 ---@return string -- git root
 M.root = function()
   if not vim.b.dko_project_root then
-    M.init()
+    vim.b.dko_project_root = M.get_root_by_patterns(M.PROJECT_ROOTS)
+    vim.b.dko_project_root = vim.b.dko_project_root or M.get_git_root()
   end
   return vim.b.dko_project_root
-end
-
---- Impure function that sets up roots, can call again to re-init
-M.init = function()
-  -- Look for markers FIRST, that way we support things like browsing through
-  -- node_modules/ and monorepos
-  vim.b.dko_project_root = M.get_root_by_patterns(M.PROJECT_ROOTS)
-  vim.b.dko_git_root = M.get_git_root()
-  vim.b.dko_project_root = vim.b.dko_project_root or vim.b.dko_git_root
 end
 
 -- ===========================================================================

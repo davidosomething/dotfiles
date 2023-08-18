@@ -1,7 +1,7 @@
 return {
   {
     provider = function(self)
-      local is_project_root = vim.b["dko_project_root"] == self.cwd
+      local is_project_root = require("dko.project").root() == self.cwd
       return is_project_root and "  ʀᴏᴏᴛ " or "  "
     end,
     hl = "StatusLineNC",
