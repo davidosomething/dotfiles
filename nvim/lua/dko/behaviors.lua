@@ -83,14 +83,6 @@ autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
   group = augroup("dkowindow"),
 })
 
-autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
-  desc = "Set vim.b.dko_project_root on buffer",
-  callback = function()
-    require("dko.project").init()
-  end,
-  group = augroup("dkoproject"),
-})
-
 autocmd("BufReadPre", {
   desc = "Disable linting and syntax highlighting for large and minified files",
   callback = function(args)
