@@ -22,7 +22,10 @@ function {
     from'gh-r' \
     mv'gh* -> usr' \
     pick"usr/bin/gh" \
-    atclone"cp -vf usr/**/*.1 \"${man_dir}\"; ./usr/bin/gh completion --shell zsh > _gh" \
+    atclone"
+      cp -vf usr/**/*.1 \"${man_dir}\";
+      ./usr/bin/gh completion --shell zsh > _gh
+      " \
     atpull'%atclone' \
     '@cli/cli' \
     \
@@ -59,7 +62,10 @@ function {
   zinit lucid from'gh-r' as'program' for \
     mv'bat* -> bat' \
     pick'bat/bat' \
-    atclone"cp -vf bat/bat.1 \"${man_dir}\"; cp -vf bat/autocomplete/bat.zsh \"bat/autocomplete/_bat\"" \
+    atclone"
+      cp -vf bat/bat.1 \"${man_dir}\";
+      cp -vf bat/autocomplete/bat.zsh \"bat/autocomplete/_bat\"
+      " \
     atpull'%atclone' \
     atload"$bat_manpager" \
     '@sharkdp/bat' \
@@ -104,7 +110,10 @@ function {
     }
     zinit ice lucid from'gh-r' as'program' bpick"$rtx_bpick" \
       pick'rtx/bin/rtx' \
-      atclone"cp -vf rtx/man/man1/rtx.1 $ZINIT[MAN_DIR]/man1" \
+      atclone"
+          cp -vf rtx/man/man1/rtx.1 $ZINIT[MAN_DIR]/man1;
+          ./rtx/bin/rtx completion zsh > _rtx
+          " \
       atpull'%atclone' \
       atload'eval "$(rtx activate zsh)"'
     zinit light 'jdxcode/rtx'
