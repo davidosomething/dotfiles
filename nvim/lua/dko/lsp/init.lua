@@ -148,7 +148,7 @@ M.code_action = function(options)
     -- if
     --   not action.edit
     --   and client
-    --   and vim.tbl_get(client.server_capabilities, 'codeActionProvider', 'resolveProvider')
+    --   and client.supports_method('codeActionProvider', 'resolveProvider') -- fix me
     -- then
     --   client.request(vim.lsp.protocol.Methods.codeAction_resolve, action, function(err, resolved_action)
     --     if err then
