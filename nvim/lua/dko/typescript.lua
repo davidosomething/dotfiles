@@ -23,12 +23,12 @@ M.source_definition = function()
 
     ---@TODO put results into telescope list instead
     --this will immediately jump to source definition
-    local handler = client.handlers["textDocument/definition"]
-      or vim.lsp.handlers["textDocument/definition"]
+    local method = vim.lsp.protocol.Methods.textDocument_definition
+    local handler = client.handlers[method] or vim.lsp.handlers[method]
     handler(unpack(args))
   end
 
-  return client.request("workspace/executeCommand", {
+  return client.request(vim.lsp.protocol.Methods.workspace_executeCommand, {
     command = "_typescript.goToSourceDefinition",
     arguments = {
       position.textDocument.uri,

@@ -90,7 +90,12 @@ return {
       ---Show LSP messages via vim.notify (but only when using nvim-notify)
       ---https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/handlers.lua
       ---@diagnostic disable-next-line: duplicate-set-field
-      vim.lsp.handlers["window/showMessage"] = function(_, result, ctx, _)
+      vim.lsp.handlers[vim.lsp.protocol.Methods.window_showMessage] = function(
+        _,
+        result,
+        ctx,
+        _
+      )
         local client = vim.lsp.get_client_by_id(ctx.client_id)
         local client_name = client and client.name or ctx.client_id
         local title = ("LSP > %s"):format(client_name)

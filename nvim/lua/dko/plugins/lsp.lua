@@ -383,7 +383,7 @@ return {
           end,
 
           handlers = {
-            ["textDocument/publishDiagnostics"] = function(
+            [vim.lsp.protocol.Methods.textDocument_publishDiagnostics] = function(
               _,
               result,
               ctx,
