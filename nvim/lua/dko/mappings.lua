@@ -644,17 +644,7 @@ M.bind_nvim_various_textobjs = function()
     -- retrieve URL with the z-register as intermediary
     vim.cmd.normal({ '"zy', bang = true })
     local url = vim.fn.getreg("z")
-    -- open with the OS-specific shell command
-    local opener
-    if vim.fn.has("macunix") == 1 then
-      opener = "open"
-    elseif vim.fn.has("linux") == 1 then
-      opener = "xdg-open"
-    elseif vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 then
-      opener = "start"
-    end
-    local openCommand = string.format("%s '%s' >/dev/null 2>&1", opener, url)
-    os.execute(openCommand)
+    require("lazy.util").open(url)
   end, { desc = "Smart URL Opener" })
 end
 
