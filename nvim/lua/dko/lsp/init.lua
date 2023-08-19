@@ -129,7 +129,7 @@ M.code_action = function(options)
 
   --code_action_request
   local bufnr = vim.api.nvim_get_current_buf()
-  local method = "textDocument/codeAction"
+  local method = vim.lsp.protocol.Methods.textDocument_codeAction
   vim.lsp.buf_request_all(bufnr, method, params, function(results)
     --local ctx = { bufnr = bufnr, method = method, params = params }
     local action_tuples = {}
@@ -150,7 +150,7 @@ M.code_action = function(options)
     --   and client
     --   and vim.tbl_get(client.server_capabilities, 'codeActionProvider', 'resolveProvider')
     -- then
-    --   client.request('codeAction/resolve', action, function(err, resolved_action)
+    --   client.request(vim.lsp.protocol.Methods.codeAction_resolve, action, function(err, resolved_action)
     --     if err then
     --       vim.notify(err.code .. ': ' .. err.message, vim.log.levels.ERROR)
     --       return
@@ -184,7 +184,12 @@ M.apply_code_action = function(ctx, action, client)
         arguments = command.arguments,
         workDoneToken = command.workDoneToken,
       }
-      client.request("workspace/executeCommand", params, nil, ctx.bufnr)
+      client.request(
+        vim.lsp.protocol.Methods.workspace_executeCommand,
+        params,
+        nil,
+        ctx.bufnr
+      )
     end
   end
 end

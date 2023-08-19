@@ -240,7 +240,9 @@ autocmd("LspAttach", {
     -- (you can set false manually)
     if
       vim.b.enable_format_on_save == nil
-      and client.supports_method("textDocument/formatting")
+      and client.supports_method(
+        vim.lsp.protocol.Methods.textDocument_formatting
+      )
     then
       vim.b.enable_format_on_save = true
     end
