@@ -1,6 +1,6 @@
 # nvim config
 
-Neovim-specific config.
+nvim config, crafted for nightly builds only!
 
 > Don't use what you don't understand.
 

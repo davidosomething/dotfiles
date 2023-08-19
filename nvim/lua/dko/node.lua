@@ -19,4 +19,33 @@ M.get_bin = function(command)
   return resolver(params)
 end
 
+M.get_eslint = function()
+  return M.get_bin("eslint")
+end
+
+---@return table|nil -- lua table
+M.get_eslint_config = function()
+  local json = vim
+    .system({
+      M.get_eslint(),
+      "--print-config",
+      vim.api.nvim_buf_get_name(0),
+    })
+    :wait().stdout
+
+  if json and json:len() then
+    return vim.json.decode(json)
+  end
+
+  return nil
+end
+
+---@param name string like "prettier/prettier"
+---@return boolean -- if found in eslint config
+M.has_eslint_plugin = function(name)
+  local config = M.get_eslint_config()
+  return config and config.plugins and vim.list_contains(config.plugins, name)
+    or false
+end
+
 return M

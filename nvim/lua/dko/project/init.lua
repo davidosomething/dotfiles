@@ -62,13 +62,28 @@ M.get_git_root = function(opts)
     end
   end
 
+  -- naively look upwards (doesn't work on complex things like worktrees or
+  -- setting git workdir)
   local find_opts = vim.tbl_extend("force", {
     limit = 1,
     upward = true,
     type = "directory",
   }, opts or {})
   local res = vim.fs.find(".git", find_opts)
-  return res[1] and vim.fs.dirname(res[1]) or nil
+  local from_find = res[1] and vim.fs.dirname(res[1]) or nil
+  if from_find then
+    return from_find
+  end
+
+  local from_system = vim
+    .system({ "git", "rev-parse", "--show-cdup" })
+    :wait().stdout
+    :gsub("\n", "")
+  if from_system then
+    return vim.fn.fnamemodify(from_system, ":p:h")
+  end
+
+  return nil
 end
 
 --- Impure function that sets up root if needed

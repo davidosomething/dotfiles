@@ -11,22 +11,6 @@ local format_with = function(name)
   vim.lsp.buf.format(opts)
 end
 
--- Check if resolved eslint config for bufname contains prettier/prettier
-local has_eslint_plugin_prettier = function()
-  local eslint = require("dko.node").get_bin("eslint")
-  if not eslint then
-    return false
-  end
-
-  -- No benefit to doing this async because formatting synchronously anyway
-  return #vim.fn.systemlist(
-    ("%s --print-config %s | grep prettier/prettier"):format(
-      eslint,
-      vim.api.nvim_buf_get_name(0)
-    )
-  ) > 0
-end
-
 local format_with_eslint = function()
   vim.cmd.EslintFixAll()
 end
@@ -66,7 +50,8 @@ local format_jsts = function()
     end
 
     if vim.b.has_eslint_plugin_prettier == nil then
-      vim.b.has_eslint_plugin_prettier = has_eslint_plugin_prettier()
+      vim.b.has_eslint_plugin_prettier =
+        require("dko.node").has_eslint_plugin("prettier/prettier")
     end
   end
 
