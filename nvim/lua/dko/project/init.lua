@@ -68,7 +68,7 @@ M.get_git_root = function(opts)
     type = "directory",
   }, opts or {})
   local res = vim.fs.find(".git", find_opts)
-  return res[1]
+  return res[1] and vim.fs.dirname(res[1]) or nil
 end
 
 --- Impure function that sets up root if needed
