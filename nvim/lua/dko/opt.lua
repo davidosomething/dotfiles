@@ -1,19 +1,10 @@
-vim.go.termguicolors = vim.fn.getenv("TERM_PROGRAM") ~= "Apple_Terminal"
+vim.go.termguicolors = vim.uv.os_getenv("TERM_PROGRAM") ~= "Apple_Terminal"
 
 -- ===========================================================================
 -- File reading
 -- ===========================================================================
 
--- Prior versions are super dangerous
-if vim.fn.has("patch-8.1.1365") == 0 and vim.fn.has("nvim-0.3.6") == 0 then
-  vim.o.modeline = false
-else
-  -- Only check one line
-  if vim.fn.exists("+modelines") == 1 then
-    vim.o.modelines = 1
-  end
-end
-
+vim.o.modelines = 1
 vim.o.undofile = true
 
 -- ===========================================================================

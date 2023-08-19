@@ -3,13 +3,6 @@
 -- =========================================================================
 
 return {
-  -- Fix CursorHold
-  -- https://github.com/neovim/neovim/issues/12587
-  {
-    "antoinemadec/FixCursorHold.nvim",
-    enabled = vim.fn.has("nvim-0.8") == 0,
-  },
-
   -- Disable cursorline when moving, for various perf reasons
   {
     "yamatsum/nvim-cursorline", -- replaces delphinus/auto-cursorline.nvim",
@@ -29,12 +22,5 @@ return {
         },
       })
     end,
-  },
-
-  -- apply editorconfig settings to buffer
-  -- @TODO follow https://github.com/neovim/neovim/issues/21648
-  {
-    "gpanders/editorconfig.nvim",
-    enabled = vim.fn.has("nvim-0.9") == 0,
   },
 }

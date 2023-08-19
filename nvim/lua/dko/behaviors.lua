@@ -106,12 +106,11 @@ autocmd("BufRead", {
   pattern = "COMMIT_EDITMSG",
   desc = "Replace tokens in commit-template",
   callback = function()
-    local tokens = {
-      BRANCH = vim.fn.matchstr(
-        vim.fn.system("git rev-parse --abbrev-ref HEAD"),
-        "\\p\\+"
-      ),
-    }
+    local tokens = {}
+    tokens.BRANCH = vim
+      .system({ "git", "rev-parse", "--abbrev-ref", "HEAD" })
+      :wait().stdout
+      :gsub("\n", "")
 
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
     for i, line in ipairs(lines) do
@@ -163,7 +162,6 @@ autocmd("BufEnter", {
 --   group = augroup("dkoediting"),
 -- })
 
--- @TODO as of nvim-0.9, replace this with ++p somehow? :h :write
 autocmd({ "BufWritePre", "FileWritePre" }, {
   desc = "Create missing parent directories on write",
   callback = function(args)

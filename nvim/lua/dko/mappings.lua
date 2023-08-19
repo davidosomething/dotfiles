@@ -679,9 +679,9 @@ M.bind_telescope = function()
 
   map("n", "<A-f>", function()
     -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#falling-back-to-find_files-if-git_files-cant-find-a-git-directory
-    vim.fn.system("git rev-parse --is-inside-work-tree")
-    local finder = vim.v.shell_error == 0
-        and require("telescope.builtin").git_files
+    local res =
+      vim.system({ "git", "rev-parse", "--is-inside-work-tree" }):wait()
+    local finder = res.code == 0 and require("telescope.builtin").git_files
       or require("telescope.builtin").find_files
     finder({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick files in CWD" })
