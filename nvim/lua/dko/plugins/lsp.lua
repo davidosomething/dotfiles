@@ -18,7 +18,6 @@ return {
   {
     "creativenull/efmls-configs-nvim",
     lazy = true,
-    version = "v1.x.x",
     config = function()
       -- noop
     end,

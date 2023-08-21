@@ -22,13 +22,11 @@ languages["typescript"] = { prettier }
 languages["typescriptreact"] = { prettier }
 languages["vim"] = { require("efmls-configs.linters.vint") }
 languages["yaml"] = {
-  -- @TODO track https://github.com/creativenull/efmls-configs-nvim/pull/37
-  -- root marker will narrow to .github/
-  vim.tbl_extend(
-    "force",
-    require("efmls-configs.linters.actionlint"),
-    { requireMarker = true, rootMarkers = { ".github/" } }
-  ),
+  -- @TODO still getting a false positive match on this...
+  -- rootMarkers and requireMarker are suppsoed to narrow to files in .github/ only
+  -- @SEE https://github.com/mattn/efm-langserver/issues/257
+  -- require("efmls-configs.linters.actionlint"),
+
   -- yamlls linting is disabled in favor of this
   require("efmls-configs.linters.yamllint"),
 }
