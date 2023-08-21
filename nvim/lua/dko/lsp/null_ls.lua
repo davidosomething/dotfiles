@@ -29,9 +29,9 @@ for i, provider in ipairs(formatters) do
   formatters[i] = provider.with({
     runtime_condition = function(params)
       local source = params:get_source()
-      vim.notify("format", vim.log.levels.INFO, {
-        title = ("LSP > null-ls > %s"):format(source.name),
+      vim.notify(("format with %s"):format(source.name), vim.log.levels.INFO, {
         render = "compact",
+        title = "LSP > null-ls",
       })
 
       local original = provider.runtime_condition
