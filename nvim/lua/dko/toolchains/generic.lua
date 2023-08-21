@@ -2,13 +2,12 @@ local tools = require("dko.tools")
 
 tools.register({
   type = "tool",
-  require = "python",
-  name = "vint",
-  runner = "efm",
+  require = "_",
+  name = "tree-sitter-cli",
 })
 
 tools.register({
   type = "lsp",
-  require = "npm",
-  name = "vimls",
+  require = "go",
+  name = "efm",
 })

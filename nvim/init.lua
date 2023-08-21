@@ -23,17 +23,17 @@ else
 end
 
 require("dko.opt")
+require("dko.commands")
+require("dko.behaviors")
+require("dko.diagnostic")
+require("dko.mappings")
 
+require("dko.toolchains.generic")
 require("dko.toolchains.lua")
 require("dko.toolchains.python")
 require("dko.toolchains.sh")
 require("dko.toolchains.vim")
 require("dko.toolchains.yaml")
-
-require("dko.commands")
-require("dko.behaviors")
-require("dko.diagnostic")
-require("dko.mappings")
 
 -- plugins might rely or trigger things from my settings above
 require("dko.lazy")
