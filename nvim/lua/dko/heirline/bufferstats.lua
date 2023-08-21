@@ -1,7 +1,4 @@
 return {
-  condition = function()
-    return not require("dko.utils.buffer").is_special(0)
-  end,
   init = function(self)
     self.normal = require("dko.utils.buffers").get_normal()
 
