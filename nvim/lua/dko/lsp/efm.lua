@@ -30,7 +30,11 @@ languages["vim"] = {
 }
 languages["yaml"] = {
   -- root marker will narrow to .github/
-  require("efmls-configs.linters.actionlint"),
+  vim.tbl_extend(
+    "force",
+    require("efmls-configs.linters.actionlint"),
+    { requireMarker = true, rootMarkers = { ".github/" } }
+  ),
   -- yamlls linting is disabled in favor of this
   require("efmls-configs.linters.yamllint"),
 }
