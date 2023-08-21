@@ -2,19 +2,14 @@
 
 ---@type { [ft]: table }
 local languages = {}
-languages["html"] = {
-  require("efmls-configs.formatters.prettier"),
-}
-languages["javascript"] = {
-  require("efmls-configs.formatters.prettier"),
-}
-languages["javascriptreact"] = languages["javascript"]
-languages["json"] = {
-  require("efmls-configs.formatters.prettier"),
-}
-languages["lua"] = {
-  require("efmls-configs.formatters.stylua"),
-}
+
+local prettier = require("efmls-configs.formatters.prettier")
+
+languages["html"] = { prettier }
+languages["javascript"] = { prettier }
+languages["javascriptreact"] = { prettier }
+languages["json"] = { prettier }
+languages["lua"] = { require("efmls-configs.formatters.stylua") }
 languages["python"] = {
   require("efmls-configs.formatters.black"),
 }
@@ -23,12 +18,11 @@ languages["sh"] = {
   require("efmls-configs.linters.shellcheck"),
   require("efmls-configs.formatters.shfmt"),
 }
-languages["typescript"] = languages["javascript"]
-languages["typescriptreact"] = languages["typescript"]
-languages["vim"] = {
-  require("efmls-configs.linters.vint"),
-}
+languages["typescript"] = { prettier }
+languages["typescriptreact"] = { prettier }
+languages["vim"] = { require("efmls-configs.linters.vint") }
 languages["yaml"] = {
+  -- @TODO track https://github.com/creativenull/efmls-configs-nvim/pull/37
   -- root marker will narrow to .github/
   vim.tbl_extend(
     "force",
