@@ -2,13 +2,35 @@
 
 local M = {}
 
+local efm_notify = function()
+  local configs = require("dko.lsp.efm").languages[vim.bo.filetype]
+  local formatters = require("dko.utils.table").filter(configs, function(v)
+    return v.formatCommand ~= nil
+  end)
+  local formatCommand = #formatters > 0 and formatters[1].formatCommand
+    or "unknown"
+  local formatter = vim.fn.fnamemodify(formatCommand:match("%S+"), ":t")
+  vim.notify(("format with %s"):format(formatter), vim.log.levels.INFO, {
+    render = "compact",
+    title = "LSP > efm",
+  })
+end
+
 local format_with = function(name)
   local opts = {
     async = false,
     name = name or "null-ls",
     timeout_ms = os.getenv("SSH_CLIENT") and 3000 or 1000,
   }
+
+  if name == "efm" then
+    efm_notify()
+  end
   vim.lsp.buf.format(opts)
+end
+
+local format_efm = function()
+  format_with("efm")
 end
 
 local format_with_eslint = function()
@@ -21,108 +43,39 @@ local format_jsts = function()
   vim.b.has_eslint = vim.b.has_eslint
     or #vim.lsp.get_clients({ bufnr = 0, name = "eslint" }) > 0
 
-  if vim.b.has_prettier == nil then
-    local prettier_source = require("dko.lsp").get_null_ls_source({
-      name = "prettier",
-      filetype = vim.bo.filetype,
-    })
-    vim.b.has_prettier = #prettier_source > 0
-  end
-
-  if vim.b.has_prettier and not vim.b.has_eslint then
-    vim.notify(
-      "prettier only: no eslint",
-      vim.log.levels.INFO,
-      { title = "LSP Format", render = "compact" }
-    )
-    format_with("null-ls")
-  end
-
   if vim.b.has_eslint then
-    if not vim.b.has_prettier then
-      vim.notify(
-        "eslint only: no prettier",
-        vim.log.levels.INFO,
-        { title = "LSP Format", render = "compact" }
-      )
-      format_with_eslint()
-      return
-    end
-
     if vim.b.has_eslint_plugin_prettier == nil then
       vim.b.has_eslint_plugin_prettier =
         require("dko.node").has_eslint_plugin("prettier/prettier")
     end
-  end
-
-  -- skip null-ls prettier formatting if has eslint-plugin-prettier
-  if vim.b.has_eslint_plugin_prettier then
-    vim.notify(
-      "eslint only: found eslint-plugin-prettier",
-      vim.log.levels.INFO,
-      { title = "LSP Format", render = "compact" }
-    )
     format_with_eslint()
-    return
+    if vim.b.has_eslint_plugin_prettier then
+      vim.notify("format with eslint+prettier/prettier", vim.log.levels.INFO, {
+        render = "compact",
+        title = "LSP > eslint",
+      })
+      return
+    else
+      vim.notify("format", vim.log.levels.INFO, {
+        render = "compact",
+        title = "LSP > eslint",
+      })
+    end
   end
 
-  if vim.b.has_eslint then
-    vim.notify(
-      "running eslint, then prettier",
-      vim.log.levels.INFO,
-      { title = "LSP Format", render = "compact" }
-    )
-    format_with_eslint()
-  end
-  format_with("null-ls")
-end
-
--- prettier? run prettier
--- else try jsonls
-local format_json = function()
-  if vim.b.has_prettier == nil then
-    local prettier_source = require("dko.lsp").get_null_ls_source({
-      name = "prettier",
-      filetype = vim.bo.filetype,
-    })
-    vim.b.has_prettier = #prettier_source > 0
-  end
-  if vim.b.has_prettier then
-    format_with("null-ls")
-    return
-  end
-
-  format_with("jsonls")
-end
-
--- prettier? run prettier
--- else try html lsp
-local format_html = function()
-  if vim.b.has_prettier == nil then
-    local prettier_source = require("dko.lsp").get_null_ls_source({
-      name = "prettier",
-      filetype = vim.bo.filetype,
-    })
-    vim.b.has_prettier = #prettier_source > 0
-  end
-  if vim.b.has_prettier then
-    format_with("null-ls")
-    return
-  end
-
-  format_with("html")
+  format_efm()
 end
 
 -- ===========================================================================
 
 local pipelines = {
-  html = format_html,
+  html = format_efm,
   typescript = format_jsts,
   typescriptreact = format_jsts,
   javascript = format_jsts,
   javascriptreact = format_jsts,
-  json = format_json,
-  jsonc = format_json,
+  json = format_efm,
+  jsonc = format_efm,
 }
 
 --- See options for vim.lsp.buf.format
@@ -142,18 +95,17 @@ M.run_pipeline = function(options)
         return false
       end
 
-      -- =====================================================================
-      -- Filetype specific choices
-      -- =====================================================================
-
       -- This will notify for non-null-ls
       -- null-ls runtime_condition notifies on its own
       if client.name ~= "null-ls" then
-        vim.notify(
-          "format",
-          vim.log.levels.INFO,
-          { title = ("LSP > %s"):format(client.name) }
-        )
+        if client.name == "efm" then
+          efm_notify()
+        else
+          vim.notify("format", vim.log.levels.INFO, {
+            render = "compact",
+            title = ("LSP > %s"):format(client.name),
+          })
+        end
       end
 
       return true

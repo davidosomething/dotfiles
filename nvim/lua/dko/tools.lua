@@ -30,23 +30,23 @@ end
 M.get_auto_installable = function()
   return M.filter_executable("TOOL", {
     ["_"] = {
-      "actionlint",
+      "actionlint", -- efm
       "selene",
-      "shellcheck", -- used by null_ls AND bashls
-      "shfmt", -- null_ls formatting
-      "stylua",
+      "shellcheck", -- efm AND bashls
+      "shfmt", -- efm
+      "stylua", -- efm
       "tree-sitter-cli",
       "yamlfmt",
     },
     ["npm"] = {
       "markdownlint",
-      "prettier",
+      "prettier", -- efm
     },
     ["python"] = {
-      "black",
+      "black", -- efm
       "isort",
-      "vint",
-      "yamllint",
+      "vint", -- efm
+      "yamllint", -- efm
     },
   })
 end
