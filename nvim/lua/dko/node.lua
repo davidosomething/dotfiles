@@ -1,5 +1,6 @@
 local M = {}
 
+---@deprecated
 ---@param command string executable name to look for in node_modules/.bin
 ---@return string|nil full path to executable
 M.get_bin = function(command)

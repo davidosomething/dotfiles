@@ -23,6 +23,13 @@ else
 end
 
 require("dko.opt")
+
+require("dko.toolchains.lua")
+require("dko.toolchains.python")
+require("dko.toolchains.sh")
+require("dko.toolchains.vim")
+require("dko.toolchains.yaml")
+
 require("dko.commands")
 require("dko.behaviors")
 require("dko.diagnostic")
