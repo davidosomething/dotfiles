@@ -1,5 +1,7 @@
 -- Observable settings object
 
+local object = require("dko.utils.object")
+
 local settings = {
   colors = {
     dark = "meh",
@@ -25,12 +27,12 @@ local M = {}
 M.watchers = {}
 
 M.get = function(path)
-  return require("dko.utils.object").get(settings, path)
+  return object.get(settings, path)
 end
 
 M.set = function(path, value)
   local current = M.get(path)
-  local success = require("dko.utils.object").set(settings, path, value)
+  local success = object.set(settings, path, value)
   if success and value ~= current then
     local watchers = M.watchers[path]
     for _, cb in pairs(watchers) do
