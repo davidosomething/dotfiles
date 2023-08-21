@@ -1,7 +1,11 @@
 -- External tool management
 
+---@alias ToolType
+---|'"lsp"'
+---|'"tool"'
+
 ---@class Tool
----@field type 'lsp'|'tool'
+---@field type ToolType
 ---@field require string
 ---@field name string
 ---@field runner? string|string[]
