@@ -1,35 +1,6 @@
 local M = {}
 
 -- ===========================================================================
--- LSP coordination - make sure null-ls and real lsps play nice
--- ===========================================================================
-
----Find null-ls source by name
----@param query table
----@return table|nil source
-M.get_null_ls_source = function(query)
-  local ok, ns = pcall(require, "null-ls")
-  local result = ok and ns.get_source(query) or {}
-  return result
-end
-
----Hook into null_ls runtime_conditions to notify on run
-M.bind_formatter_notifications = function(provider)
-  return provider.with({
-    runtime_condition = function(params)
-      local source = params:get_source()
-      vim.notify("format", vim.log.levels.INFO, {
-        title = ("LSP > null-ls > %s"):format(source.name),
-        render = "compact",
-      })
-
-      local original = provider.runtime_condition
-      return type(original) == "function" and original() or true
-    end,
-  })
-end
-
--- ===========================================================================
 -- Code Actions
 -- ===========================================================================
 

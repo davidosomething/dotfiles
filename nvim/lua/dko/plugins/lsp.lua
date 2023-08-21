@@ -22,27 +22,18 @@ return {
         update_in_insert = vim.diagnostic.config().update_in_insert,
       })
 
-      null_ls.register({
-        null_ls.builtins.hover.printenv,
-        -- bashls does not provide these quick ignore actions
-        null_ls.builtins.code_actions.shellcheck,
-      })
+      null_ls.register({ null_ls.builtins.hover.printenv })
 
       -- =====================================================================
       -- Configure formatters
       -- =====================================================================
 
       local formatters = {
-        null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.isort.with({
           extra_args = { "--profile black" },
         }),
         null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.prettier.with({
-          disabled_filetypes = { "yaml" },
-        }),
         null_ls.builtins.formatting.qmlformat,
-        null_ls.builtins.formatting.shfmt,
 
         -- yamlls formatting is disabled in favor of this
         null_ls.builtins.formatting.yamlfmt,
@@ -50,8 +41,18 @@ return {
 
       -- bind notify when a null_ls formatter has run
       for i, provider in ipairs(formatters) do
-        formatters[i] =
-          require("dko.lsp").bind_formatter_notifications(provider)
+        formatters[i] = provider.with({
+          runtime_condition = function(params)
+            local source = params:get_source()
+            vim.notify("format", vim.log.levels.INFO, {
+              title = ("LSP > null-ls > %s"):format(source.name),
+              render = "compact",
+            })
+
+            local original = provider.runtime_condition
+            return type(original) == "function" and original() or true
+          end,
+        })
       end
 
       null_ls.register(formatters)
@@ -61,7 +62,6 @@ return {
       -- =====================================================================
 
       local diagnostics = {
-        null_ls.builtins.diagnostics.actionlint,
         -- dotenv-linter will have to be installed manually
         null_ls.builtins.diagnostics.dotenv_linter.with({
           filetypes = { "dotenv" },
@@ -69,13 +69,6 @@ return {
         }),
         null_ls.builtins.diagnostics.markdownlint,
         null_ls.builtins.diagnostics.qmllint,
-        null_ls.builtins.diagnostics.shellcheck.with({
-          diagnostics_format = "SC#{c}: #{m}",
-        }),
-        null_ls.builtins.diagnostics.vint,
-
-        -- yamlls linting is disabled in favor of this
-        null_ls.builtins.diagnostics.yamllint,
 
         null_ls.builtins.diagnostics.selene.with({
           condition = function()
@@ -118,6 +111,11 @@ return {
 
       null_ls.register(diagnostics)
     end,
+  },
+
+  {
+    "creativenull/efmls-configs-nvim",
+    version = "v1.x.x",
   },
 
   {
@@ -269,16 +267,13 @@ return {
 
       handlers["efm"] = function()
         lspconfig.efm.setup({
-          filetypes = { "lua" },
+          filetypes = require("dko.lsp.efm").filetypes,
           single_file_support = true,
-          init_options = { documentFormatting = true },
-          settings = {
-            languages = {
-              lua = {
-                require("efmls-configs.formatters.stylua"),
-              },
-            },
+          init_options = {
+            documentFormatting = true,
+            documentRangeFormatting = true,
           },
+          settings = { languages = require("dko.lsp.efm").languages },
         })
       end
 
