@@ -1,18 +1,21 @@
 local tools = require("dko.tools")
 
-tools.register_tool({
+tools.register({
+  type = "tool",
   require = "_",
   name = "selene",
   runner = "null_ls",
 })
 
-tools.register_tool({
+tools.register({
+  type = "tool",
   require = "_",
   name = "stylua",
   runner = "efm",
 })
 
-tools.register_lsp({
+tools.register({
+  type = "lsp",
   require = "_",
   name = "lua_ls",
 })
