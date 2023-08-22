@@ -275,12 +275,8 @@ return {
           },
 
           settings = {
-            typescript = {
-              inlayHints = inlay_hint_settings,
-            },
-            javascript = {
-              inlayHints = inlay_hint_settings,
-            },
+            typescript = { inlayHints = inlay_hint_settings },
+            javascript = { inlayHints = inlay_hint_settings },
           },
         }))
       end
