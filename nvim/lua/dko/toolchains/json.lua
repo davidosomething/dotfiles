@@ -12,3 +12,9 @@ tools.register({
     }
   end,
 })
+
+tools.register({
+  type = "lsp",
+  require = "npm",
+  name = "jsonls",
+})
