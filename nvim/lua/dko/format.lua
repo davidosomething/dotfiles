@@ -2,7 +2,7 @@
 
 local M = {}
 
-local efm_notify = function()
+local function efm_notify()
   local configs = require("dko.tools").get_efm_languages()[vim.bo.filetype]
   local formatters = require("dko.utils.table").filter(configs, function(v)
     return v.formatCommand ~= nil
@@ -16,25 +16,13 @@ local efm_notify = function()
   })
 end
 
-local format_with = function(name)
-  local opts = {
+local function format_efm()
+  efm_notify()
+  vim.lsp.buf.format({
     async = false,
-    name = name or "null-ls",
+    name = "efm",
     timeout_ms = os.getenv("SSH_CLIENT") and 3000 or 1000,
-  }
-
-  if name == "efm" then
-    efm_notify()
-  end
-  vim.lsp.buf.format(opts)
-end
-
-local format_efm = function()
-  format_with("efm")
-end
-
-local format_with_eslint = function()
-  vim.cmd.EslintFixAll()
+  })
 end
 
 -- NO eslint-plugin-prettier? maybe run prettier
@@ -48,7 +36,9 @@ local format_jsts = function()
       vim.b.has_eslint_plugin_prettier =
         require("dko.node").has_eslint_plugin("prettier/prettier")
     end
-    format_with_eslint()
+
+    vim.cmd.EslintFixAll()
+
     if vim.b.has_eslint_plugin_prettier then
       vim.notify("format with eslint+prettier/prettier", vim.log.levels.INFO, {
         render = "compact",

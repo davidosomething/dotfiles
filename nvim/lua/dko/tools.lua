@@ -97,7 +97,9 @@ end
 
 local efm_languages = nil
 
----@return table -- fit for efm lsp settings.languages
+---@alias ft string
+
+---@return table<ft, table> -- fit for efm lsp settings.languages
 M.get_efm_languages = function()
   if efm_languages ~= nil then
     return efm_languages
