@@ -82,11 +82,11 @@ end, { desc = "cd to current buffer's git root" })
 -- ===========================================================================
 
 map("n", "<Leader>ecr", function()
-  require("dko.utils.edit_closest")("README.md")
+  require("dko.utils.file").edit_closest("README.md")
 end, { desc = "Edit closest README.md" })
 
 map("n", "<Leader>epj", function()
-  require("dko.utils.edit_closest")("package.json")
+  require("dko.utils.file").edit_closest("package.json")
 end, { desc = "Edit closest package.json" })
 
 map("n", "<Leader>evi", function()
