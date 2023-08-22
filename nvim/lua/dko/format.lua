@@ -3,7 +3,7 @@
 local M = {}
 
 local efm_notify = function()
-  local configs = require("dko.lsp.efm").languages[vim.bo.filetype]
+  local configs = require("dko.tools").get_efm_languages()[vim.bo.filetype]
   local formatters = require("dko.utils.table").filter(configs, function(v)
     return v.formatCommand ~= nil
   end)

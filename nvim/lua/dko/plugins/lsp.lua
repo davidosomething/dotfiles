@@ -127,15 +127,17 @@ return {
         }))
       end
 
+      local efm_languages = require("dko.tools").get_efm_languages()
+      local efm_filetypes = vim.tbl_keys(efm_languages)
       handlers["efm"] = function()
         lspconfig.efm.setup({
-          filetypes = require("dko.lsp.efm").filetypes,
+          filetypes = efm_filetypes,
           single_file_support = true,
           init_options = {
             documentFormatting = true,
             documentRangeFormatting = true,
           },
-          settings = { languages = require("dko.lsp.efm").languages },
+          settings = { languages = efm_languages },
         })
       end
 
@@ -273,12 +275,8 @@ return {
           },
 
           settings = {
-            typescript = {
-              inlayHints = inlay_hint_settings,
-            },
-            javascript = {
-              inlayHints = inlay_hint_settings,
-            },
+            typescript = { inlayHints = inlay_hint_settings },
+            javascript = { inlayHints = inlay_hint_settings },
           },
         }))
       end
@@ -303,7 +301,7 @@ return {
 
       require("mason-lspconfig").setup({
         automatic_installation = true,
-        ensure_installed = require("dko.tools").get_auto_installable_lsps(),
+        ensure_installed = require("dko.tools").get_lsps(),
         handlers = handlers,
       })
     end,

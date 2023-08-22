@@ -12,6 +12,12 @@ tools.register({
   require = "_",
   name = "stylua",
   runner = "efm",
+  efm = function()
+    return {
+      languages = { "lua" },
+      config = require("efmls-configs.formatters.stylua"),
+    }
+  end,
 })
 
 tools.register({
