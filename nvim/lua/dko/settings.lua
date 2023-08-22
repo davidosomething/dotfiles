@@ -17,7 +17,9 @@ local settings = {
     -- ft to treesitter parser
     aliases = {
       dotenv = "bash",
+      javascriptreact = "jsx",
       tiltfile = "starlark",
+      typescriptreact = "tsx",
     },
   },
 }

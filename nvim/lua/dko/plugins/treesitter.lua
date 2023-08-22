@@ -1,18 +1,23 @@
 local HIGHLIGHTING_DISABLED = {
   -- treesitter language, not ft
   -- see https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
-  "javascript", -- and jsx
-  "tsx",
+  --"javascript", -- and jsx
+  --"tsx",
 }
 
--- table of filetypes
+-- table of filetypes (not treesitter lang)
 local HIGHLIGHTING_ENABLED = {
   "dotenv",
+  "javascript",
+  "javascriptreact",
   "lua",
   "markdown",
   "sh",
   "starlark",
   "tiltfile",
+  "typescript",
+  "typescriptreact",
+  "yaml",
 }
 
 return {
