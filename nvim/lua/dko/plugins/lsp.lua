@@ -285,7 +285,7 @@ return {
         lspconfig.yamlls.setup(with_lsp_capabilities({
           settings = {
             yaml = {
-              format = { enable = false }, -- prefer yamlfmt
+              format = { enable = false }, -- prefer stylua
               validate = { enable = false }, -- prefer yamllint
               -- disable built-in fetch schemas, prefer schemastore.nvim
               schemaStore = { enable = false },

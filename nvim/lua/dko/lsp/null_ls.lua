@@ -19,9 +19,6 @@ local formatters = {
   }),
   null_ls.builtins.formatting.markdownlint,
   null_ls.builtins.formatting.qmlformat,
-
-  -- yamlls formatting is disabled in favor of this
-  null_ls.builtins.formatting.yamlfmt,
 }
 
 -- bind notify when a null_ls formatter has run
