@@ -47,6 +47,10 @@ null_ls.register(formatters)
 -- =====================================================================
 
 local diagnostics = {
+  -- @TODO https://github.com/mattn/efm-langserver/issues/257
+  -- can replace with efm after this
+  null_ls.builtins.diagnostics.actionlint,
+
   -- dotenv-linter will have to be installed manually
   null_ls.builtins.diagnostics.dotenv_linter.with({
     filetypes = { "dotenv" },

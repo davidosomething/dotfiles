@@ -5,6 +5,12 @@ tools.register({
   require = "python",
   name = "black",
   runner = "efm",
+  efm = function()
+    return {
+      languages = { "python" },
+      config = require("efmls-configs.formatters.black"),
+    }
+  end,
 })
 
 tools.register({

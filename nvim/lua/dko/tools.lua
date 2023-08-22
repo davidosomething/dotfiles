@@ -9,10 +9,10 @@
 ---@field require string
 ---@field name string
 ---@field runner? string|string[]
+---@field efm? function
 
----@alias ToolGroup table<string, Tool>
-
----@alias ToolGroups table<string, ToolGroup|table<string, boolean>>
+---@alias ToolGroup table<string, boolean>
+---@alias ToolGroups table<string, ToolGroup>
 
 local M = {}
 
@@ -20,7 +20,6 @@ local M = {}
 M.tools = {
   ["npm"] = {
     ["markdownlint"] = true,
-    ["prettier"] = true, -- efm
   },
 }
 
@@ -30,26 +29,27 @@ M.lsps = {
     ["jdtls"] = true,
   },
   ["npm"] = {
-    --"cssls", -- conflicts with tailwindcss
-    ["cssmodules_ls"] = true, -- jumping into classnames from jsx/tsx
     ["dockerls"] = true,
-    ["eslint"] = true,
     ["html"] = true,
     ["jsonls"] = true,
     ["stylelint_lsp"] = true,
-    ["tailwindcss"] = true,
-    ["tsserver"] = true,
   },
   ["go"] = {
     ["gopls"] = true,
   },
 }
 
+local efm_resolvers = {}
+
 ---@param config Tool
 M.register = function(config)
   local map = config.type == "tool" and M.tools or M.lsps
   map[config.require] = map[config.require] or {}
-  map[config.require][config.name] = config
+  map[config.require][config.name] = true
+
+  if type(config.efm) == "function" then
+    table.insert(efm_resolvers, config.efm)
+  end
 end
 
 ---Get a list of tools that CAN be installed because required binary available
@@ -84,15 +84,34 @@ end
 -- Tools to auto-install with mason
 -- Must then be configured, e.g. as null-ls formatter or diagnostic provider
 ---@return string[]
-M.get_auto_installable = function()
+M.get_tools = function()
   return M.groups_to_tools(M.filter_executable_groups("tool", M.tools))
 end
 
 -- LSPs to install with mason via mason-lspconfig
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 ---@return string[]
-M.get_auto_installable_lsps = function()
+M.get_lsps = function()
   return M.groups_to_tools(M.filter_executable_groups("lsp", M.lsps))
+end
+
+local efm_languages = nil
+
+---@return table -- fit for efm lsp settings.languages
+M.get_efm_languages = function()
+  if efm_languages ~= nil then
+    return efm_languages
+  end
+
+  efm_languages = {}
+  for _, resolver in pairs(efm_resolvers) do
+    local resolved = resolver()
+    for _, lang in pairs(resolved.languages) do
+      efm_languages[lang] = efm_languages[lang] or {}
+      table.insert(efm_languages[lang], resolved.config)
+    end
+  end
+  return efm_languages
 end
 
 return M
