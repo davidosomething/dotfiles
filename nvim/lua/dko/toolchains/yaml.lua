@@ -17,13 +17,6 @@ tools.register({
   -- end,
 })
 
-tools.register({
-  type = "tool",
-  require = "_",
-  name = "yamlfmt",
-  runner = "null_ls",
-})
-
 -- yamlls linting is disabled in favor of this
 tools.register({
   type = "tool",
