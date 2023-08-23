@@ -129,7 +129,7 @@ M.get_efm_formatters = function()
   if not vim.b.efm_formatters then
     local configs = M.get_efm_languages()[vim.bo.filetype]
     vim.b.efm_formatters = vim.tbl_filter(function(v)
-      return v.formatCommand ~= nil
+      return v.formatCommand ~= nil and v.formatCommand:sub(1, 1) ~= " "
     end, configs)
   end
   return vim.b.efm_formatters
