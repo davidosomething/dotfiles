@@ -14,7 +14,6 @@ M.cexpr = function(haystack)
   end
 
   if haystack:find("vim%.[o|opt]%.") then
-    vim.print("vim.o/opt")
     match = ("'%s'"):format(
       haystack:gsub("vim%.[o|opt]%.(.-)$", "%1"):gsub("(.*):.*$", "%1")
     )
