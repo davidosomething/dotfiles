@@ -63,6 +63,8 @@ local pipelines = {
   typescriptreact = format_jsts,
   javascript = format_jsts,
   javascriptreact = format_jsts,
+
+  -- prettier-only for json(c)
   json = format_efm,
   jsonc = format_efm,
 }

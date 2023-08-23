@@ -6,12 +6,14 @@ tools.register({
   name = "prettier",
   efm = function()
     return {
-      languages = { "json" },
+      languages = { "json", "jsonc" },
       config = require("efmls-configs.formatters.prettier"),
     }
   end,
 })
 
+-- not used for formatting - prefer prettier since it does one-line arrays
+-- when they fit
 tools.register({
   type = "lsp",
   require = "npm",
