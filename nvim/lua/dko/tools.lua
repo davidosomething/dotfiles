@@ -22,6 +22,7 @@ local dkotable = require("dko.utils.table")
 ---@field name string
 ---@field runner? string|string[]
 ---@field efm? fun(): EfmDef
+---@field lspconfig? fun(middleware: fun(table)): nil
 
 ---@alias ToolGroup table<string, boolean>
 ---@alias ToolGroups table<string, ToolGroup>
@@ -35,6 +36,8 @@ M.lsps_group = {}
 local efm_resolvers = {}
 local efm_languages = nil
 
+local lspconfig_resolvers = {}
+
 ---@param config Tool
 M.register = function(config)
   local map = config.type == "tool" and M.tools_group or M.lsps_group
@@ -43,6 +46,10 @@ M.register = function(config)
 
   if type(config.efm) == "function" then
     table.insert(efm_resolvers, config.efm)
+  end
+
+  if type(config.lspconfig) == "function" then
+    lspconfig_resolvers[config.name] = config.lspconfig
   end
 end
 
@@ -131,6 +138,15 @@ M.get_efm_linters = function()
     end, configs)
   end
   return vim.b.efm_linters
+end
+
+---@return table -- { [lsp_name]: resolved_config }
+M.get_lspconfig_handlers = function(middleware)
+  local handlers = {}
+  for name, resolver in pairs(lspconfig_resolvers) do
+    handlers[name] = resolver(middleware)
+  end
+  return handlers
 end
 
 return M

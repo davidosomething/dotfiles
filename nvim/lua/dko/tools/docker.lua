@@ -6,3 +6,5 @@ tools.register({
   name = "dockerls",
   runner = "lspconfig",
 })
+
+-- note: "docker_compose_language_service" is yaml!
