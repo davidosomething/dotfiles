@@ -8,20 +8,21 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 
 > pictured: neovim running in [Wezterm](https://github.com/wez/wezterm)
 > using font [Maple Mono](https://github.com/subframe7536/maple-font)
-> and colorscheme [vim-colors-meh](https://github.com/davidosomething/vim-colors-meh).  
+> and colorscheme [vim-colors-meh].  
 > Tabline: the cwd is a project root; `dev` branch; there is one dirty buffer out of four total; and we are connected to nvim.sock  
 > Winbar: Treesitter highlighting is enabled, orange filenames are dirty files, and there are no diagnostic issues.  
 > Signs: [gitsigns](https://github.com/lewis6991/gitsigns.nvim) is active.  
 > Indent: [hlchunk](https://github.com/shellRaining/hlchunk.nvim) is displaying the current indent chunk.  
 > Status: Normal mode; `type` is searched with one occurrence found; ruler  
 
-| Tool              | Link |
-| ----------------- | ------------------------------------------------------------- |
-| Plugin manager    | [lazy.nvim](https://github.com/folke/lazy.nvim)               |
-| LSP/tool manager  | [mason.nvim](https://github.com/williamboman/mason.nvim)      |
-| Local LSP         | [efm-langserver](https://github.com/mattn/efm-langserver)     |
-| File finder       | [telescope](https://github.com/nvim-telescope/telescope.nvim) |
-| Status/tab/winbar | [heirline](https://github.com/rebelot/heirline.nvim)          |
+| Tool              | Link              |
+| ----------------- | ----------------- |
+| Plugin manager    | [lazy.nvim]       |
+| Colorscheme       | [vim-colors-meh]  |
+| LSP/tool manager  | [mason.nvim]      |
+| Local LSP         | [efm-langserver]  |
+| File finder       | [telescope]       |
+| Status/tab/winbar | [heirline]        |
 
 ## custom things
 
@@ -40,3 +41,9 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 ----
 
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/dev/meta/nvim-potatosff.png
+[lazy.nvim]: https://github.com/folke/lazy.nvim
+[vim-colors-meh]: https://github.com/davidosomething/vim-colors-meh
+[mason.nvim]: https://github.com/williamboman/mason.nvim
+[efm-langserver]: https://github.com/mattn/efm-langserver
+[telescope]: https://github.com/nvim-telescope/telescope.nvim
+[heirline]: https://github.com/rebelot/heirline.nvim
