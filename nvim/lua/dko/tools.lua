@@ -158,7 +158,7 @@ M.get_efm_formatters = function()
     local configs = M.get_efm_languages()[vim.bo.filetype]
     vim.b.efm_formatters = vim.tbl_filter(function(v)
       return v.formatCommand ~= nil and v.formatCommand:sub(1, 1) ~= " "
-    end, configs)
+    end, configs or {})
   end
   return vim.b.efm_formatters
 end
@@ -168,7 +168,7 @@ M.get_efm_linters = function()
     local configs = M.get_efm_languages()[vim.bo.filetype]
     vim.b.efm_linters = vim.tbl_filter(function(v)
       return v.lintCommand ~= nil
-    end, configs)
+    end, configs or {})
   end
   return vim.b.efm_linters
 end
