@@ -6,7 +6,6 @@ tools.register({
   type = "tool",
   require = "_",
   name = "shellcheck",
-  runner = { "efm", "bashls" },
   efm = function()
     return {
       languages = { "sh" },
@@ -19,7 +18,6 @@ tools.register({
   type = "tool",
   require = "_",
   name = "shfmt",
-  runner = "efm",
   efm = function()
     return {
       languages = { "sh" },

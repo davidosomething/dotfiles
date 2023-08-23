@@ -4,7 +4,6 @@ tools.register({
   type = "tool",
   require = "python",
   name = "black",
-  runner = "efm",
   efm = function()
     return {
       languages = { "python" },
@@ -17,7 +16,6 @@ tools.register({
   type = "tool",
   require = "python",
   name = "isort",
-  runner = "efm",
   efm = function()
     return {
       languages = { "python" },
@@ -35,6 +33,7 @@ tools.register({
   type = "lsp",
   require = "python",
   name = "jedi_language_server",
+  runner = "mason-lspconfig",
 })
 
 -- python lint and format from ruff
@@ -42,4 +41,5 @@ tools.register({
   type = "lsp",
   require = "python",
   name = "ruff_lsp",
+  runner = "mason-lspconfig",
 })

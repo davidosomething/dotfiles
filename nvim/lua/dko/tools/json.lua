@@ -4,7 +4,6 @@ tools.register({
   type = "tool",
   require = "npm",
   name = "prettier",
-  runner = "efm",
   efm = function()
     return {
       languages = { "json" },
@@ -17,20 +16,16 @@ tools.register({
   type = "lsp",
   require = "npm",
   name = "jsonls",
-  lspconfig = function(middleware)
-    middleware = middleware or function(config)
-      return config
-    end
-    return function()
-      require("lspconfig").jsonls.setup(middleware({
-        settings = {
-          json = {
-            schemas = require("schemastore").json.schemas(),
-            -- https://github.com/b0o/SchemaStore.nvim/issues/8#issuecomment-1129528787
-            validate = { enable = true },
-          },
+  runner = "mason-lspconfig",
+  lspconfig = function()
+    return {
+      settings = {
+        json = {
+          schemas = require("schemastore").json.schemas(),
+          -- https://github.com/b0o/SchemaStore.nvim/issues/8#issuecomment-1129528787
+          validate = { enable = true },
         },
-      }))
-    end
+      },
+    }
   end,
 })

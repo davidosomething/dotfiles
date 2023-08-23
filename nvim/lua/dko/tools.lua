@@ -16,17 +16,16 @@ local dkotable = require("dko.utils.table")
 ---@field languages string[]
 ---@field config EfmConfig
 
----@alias LspconfigMiddleware fun(table): table
----@alias LspconfigDef fun(): nil
----@alias LspconfigResolver fun(middleware?: LspconfigMiddleware): LspconfigDef
+---@alias LspconfigDef fun(): table gets passed to lsp's setup()
 
 ---@class Tool
 ---@field type ToolType
----@field require string
----@field name string
----@field runner? string|string[]
+---@field name string -- tool or lspconfig name
+---@field install? boolean -- nil = true
+---@field require? string -- an executable name or _
+---@field runner? 'lspconfig' | 'mason-lspconfig'
 ---@field efm? fun(): EfmDef
----@field lspconfig? LspconfigResolver
+---@field lspconfig? LspconfigDef
 
 ---@alias ToolGroup table<string, boolean>
 ---@alias ToolGroups table<string, ToolGroup>
@@ -35,31 +34,58 @@ local M = {}
 ---@type ToolGroups
 M.tools_group = {}
 ---@type ToolGroups
-M.lsps_group = {}
+M.mason_lsps_group = {}
 
 local efm_resolvers = {}
 local efm_languages = nil
 
+---@alias LspconfigMiddleware fun(table): table
+---@alias LspconfigResolver fun(middleware?: LspconfigMiddleware): LspconfigDef
+
 ---@type table<string, LspconfigResolver>
-M.lspconfig_resolvers = {}
+local mason_lspconfig_resolvers = {}
+
+---@type table<string, LspconfigResolver>
+local lspconfig_resolvers = {}
 
 ---@param config Tool
 M.register = function(config)
-  local map = config.type == "tool" and M.tools_group or M.lsps_group
-  map[config.require] = map[config.require] or {}
-  map[config.require][config.name] = true
+  if config.install ~= false then
+    local map = {} -- throwaway map
+    if config.type == "tool" then
+      map = M.tools_group
+    elseif config.type == "lsp" then
+      map = M.mason_lsps_group
+    end
+    map[config.require] = map[config.require] or {}
+    map[config.require][config.name] = true
+  end
 
   if type(config.efm) == "function" then
     table.insert(efm_resolvers, config.efm)
   end
 
   if type(config.lspconfig) == "function" then
-    M.lspconfig_resolvers[config.name] = config.lspconfig
+    local config_map
+    if config.runner == "lspconfig" then
+      config_map = lspconfig_resolvers
+    else
+      config_map = mason_lspconfig_resolvers
+    end
+    config_map[config.name] = function(middleware)
+      middleware = middleware
+        or function(lspconfig)
+          return lspconfig or {}
+        end
+      return function()
+        require("lspconfig")[config.name].setup(middleware(config.lspconfig()))
+      end
+    end
   end
 end
 
 ---Get a list of tools that CAN be installed because required binary available
----@param groups ToolGroups M.tools_group or M.lsps_group
+---@param groups ToolGroups M.tools_group or M.mason_lsps_group
 ---@param category string for logging only
 ---@return ToolGroups --- { ["npm"] = { "prettier" = {...config} } if npm is executable
 M.filter_executable_groups = function(category, groups)
@@ -97,15 +123,17 @@ M.get_tools = function()
   return tools
 end
 
-local lsps = nil
+local mason_lsps = nil
 -- LSPs to install with mason via mason-lspconfig
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 ---@return string[]
-M.get_lsps = function()
-  if lsps == nil then
-    lsps = M.groups_to_tools(M.filter_executable_groups("lsp", M.lsps_group))
+M.get_mason_lsps = function()
+  if mason_lsps == nil then
+    mason_lsps = M.groups_to_tools(
+      M.filter_executable_groups("mason-lsp", M.mason_lsps_group)
+    )
   end
-  return lsps
+  return mason_lsps
 end
 
 ---@alias ft string
@@ -146,13 +174,20 @@ M.get_efm_linters = function()
 end
 
 ---@param middleware? LspconfigMiddleware
-M.get_lspconfig_handlers = function(middleware)
+M.get_mason_lspconfig_handlers = function(middleware)
   ---@type table<string, LspconfigDef>
   local handlers = {}
-  for name, resolver in pairs(M.lspconfig_resolvers) do
+  for name, resolver in pairs(mason_lspconfig_resolvers) do
     handlers[name] = resolver(middleware)
   end
   return handlers
+end
+
+---@param middleware? LspconfigMiddleware
+M.setup_unmanaged_lsps = function(middleware)
+  for _, resolver in pairs(lspconfig_resolvers) do
+    resolver(middleware)()
+  end
 end
 
 return M

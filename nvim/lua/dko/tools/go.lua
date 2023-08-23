@@ -4,5 +4,5 @@ tools.register({
   type = "lsp",
   require = "go",
   name = "gopls",
-  runner = "lspconfig",
+  runner = "mason-lspconfig",
 })

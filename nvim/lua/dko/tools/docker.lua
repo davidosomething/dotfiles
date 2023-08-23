@@ -2,9 +2,9 @@ local tools = require("dko.tools")
 
 tools.register({
   type = "lsp",
+  runner = "mason-lspconfig",
   require = "npm",
   name = "dockerls",
-  runner = "lspconfig",
 })
 
 -- note: "docker_compose_language_service" is yaml!
