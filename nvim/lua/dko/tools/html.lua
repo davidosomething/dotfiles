@@ -4,7 +4,6 @@ tools.register({
   type = "tool",
   require = "npm",
   name = "prettier",
-  runner = "efm",
   efm = function()
     return {
       languages = { "html" },
@@ -17,4 +16,5 @@ tools.register({
   type = "lsp",
   require = "npm",
   name = "html",
+  runner = "mason-lspconfig",
 })

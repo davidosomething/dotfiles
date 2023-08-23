@@ -4,7 +4,6 @@ tools.register({
   type = "tool",
   require = "python",
   name = "vint",
-  runner = "efm",
   efm = function()
     return {
       languages = { "vim" },
@@ -17,4 +16,5 @@ tools.register({
   type = "lsp",
   require = "npm",
   name = "vimls",
+  runner = "mason-lspconfig",
 })

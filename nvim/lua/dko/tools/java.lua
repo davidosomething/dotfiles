@@ -4,5 +4,5 @@ tools.register({
   type = "lsp",
   require = "_",
   name = "jdtls",
-  runner = "lspconfig",
+  runner = "mason-lspconfig",
 })

@@ -4,6 +4,7 @@ tools.register({
   type = "tool",
   require = "_",
   name = "qmlformat",
+  install = false,
   efm = function()
     return {
       languages = { "qml" },
@@ -19,6 +20,7 @@ tools.register({
   type = "tool",
   require = "_",
   name = "qmllint",
+  install = false,
   efm = function()
     return {
       languages = { "qml" },

@@ -19,7 +19,6 @@ tools.register({
   type = "tool",
   require = "npm",
   name = "prettier",
-  runner = "efm",
   efm = function()
     return {
       languages = { "markdown" },
