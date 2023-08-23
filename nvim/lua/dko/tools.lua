@@ -16,13 +16,17 @@ local dkotable = require("dko.utils.table")
 ---@field languages string[]
 ---@field config EfmConfig
 
+---@alias LspconfigMiddleware fun(table): table
+---@alias LspconfigDef fun(): nil
+---@alias LspconfigResolver fun(middleware?: LspconfigMiddleware): LspconfigDef
+
 ---@class Tool
 ---@field type ToolType
 ---@field require string
 ---@field name string
 ---@field runner? string|string[]
 ---@field efm? fun(): EfmDef
----@field lspconfig? fun(middleware: fun(table)): nil
+---@field lspconfig? LspconfigResolver
 
 ---@alias ToolGroup table<string, boolean>
 ---@alias ToolGroups table<string, ToolGroup>
@@ -36,7 +40,8 @@ M.lsps_group = {}
 local efm_resolvers = {}
 local efm_languages = nil
 
-local lspconfig_resolvers = {}
+---@type table<string, LspconfigResolver>
+M.lspconfig_resolvers = {}
 
 ---@param config Tool
 M.register = function(config)
@@ -49,7 +54,7 @@ M.register = function(config)
   end
 
   if type(config.lspconfig) == "function" then
-    lspconfig_resolvers[config.name] = config.lspconfig
+    M.lspconfig_resolvers[config.name] = config.lspconfig
   end
 end
 
@@ -140,10 +145,11 @@ M.get_efm_linters = function()
   return vim.b.efm_linters
 end
 
----@return table -- { [lsp_name]: resolved_config }
+---@param middleware? LspconfigMiddleware
 M.get_lspconfig_handlers = function(middleware)
+  ---@type table<string, LspconfigDef>
   local handlers = {}
-  for name, resolver in pairs(lspconfig_resolvers) do
+  for name, resolver in pairs(M.lspconfig_resolvers) do
     handlers[name] = resolver(middleware)
   end
   return handlers

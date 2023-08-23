@@ -319,7 +319,7 @@ return {
         require("osc52").copy(table.concat(lines, "\n"))
       end
       local function paste()
-        return { vim.fn.getreg("", true), vim.fn.getregtype("") }
+        return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
       end
       vim.g.clipboard = {
         name = "osc52",
