@@ -7,7 +7,11 @@ tools.register({
   efm = function()
     return {
       languages = { "vim" },
-      config = require("efmls-configs.linters.vint"),
+      config = vim.tbl_extend(
+        "force",
+        require("efmls-configs.linters.vint"),
+        { lintSource = "efmls", prefix = "vint" }
+      ),
     }
   end,
 })

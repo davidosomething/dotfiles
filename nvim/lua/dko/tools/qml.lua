@@ -26,7 +26,9 @@ tools.register({
       languages = { "qml" },
       config = {
         lintCommand = "qmllint ${INPUT}",
+        lintSource = "efm",
         lintStdin = false,
+        prefix = "qmllint",
       },
     }
   end,

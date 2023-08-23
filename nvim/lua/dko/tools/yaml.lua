@@ -8,7 +8,11 @@ tools.register({
   efm = function()
     return {
       languages = { "yaml" },
-      config = require("efmls-configs.linters.yamllint"),
+      config = vim.tbl_extend(
+        "force",
+        require("efmls-configs.linters.yamllint"),
+        { lintSource = "efmls", prefix = "yamllint" }
+      ),
     }
   end,
 })

@@ -12,7 +12,11 @@ tools.register({
         "typescript",
         "typescriptreact",
       },
-      config = require("efmls-configs.formatters.prettier"),
+      config = vim.tbl_extend(
+        "force",
+        require("efmls-configs.formatters.prettier"),
+        { lintSource = "efmls", prefix = "prettier" }
+      ),
     }
   end,
 })

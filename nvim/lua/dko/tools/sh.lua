@@ -9,7 +9,16 @@ tools.register({
   efm = function()
     return {
       languages = { "sh" },
-      config = require("efmls-configs.linters.shellcheck"),
+      -- @TODO https://github.com/creativenull/efmls-configs-nvim/pull/44
+      config = vim.tbl_extend(
+        "force",
+        require("efmls-configs.linters.shellcheck"),
+        {
+          lintSource = "efmls",
+          prefix = "shellcheck",
+          rootMarkers = { ".shellcheckrc" },
+        }
+      ),
     }
   end,
 })

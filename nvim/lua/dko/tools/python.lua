@@ -7,7 +7,11 @@ tools.register({
   efm = function()
     return {
       languages = { "python" },
-      config = require("efmls-configs.formatters.black"),
+      config = vim.tbl_extend(
+        "force",
+        require("efmls-configs.formatters.black"),
+        { lintSource = "efmls", prefix = "black" }
+      ),
     }
   end,
 })

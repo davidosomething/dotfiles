@@ -7,7 +7,11 @@ tools.register({
   efm = function()
     return {
       languages = { "json", "jsonc" },
-      config = require("efmls-configs.formatters.prettier"),
+      config = vim.tbl_extend(
+        "force",
+        require("efmls-configs.formatters.prettier"),
+        { lintSource = "efmls", prefix = "prettier" }
+      ),
     }
   end,
 })
