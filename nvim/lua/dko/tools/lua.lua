@@ -41,7 +41,6 @@ tools.register({
     return function()
       require("lspconfig").lua_ls.setup(middleware({
         on_attach = function(client)
-          vim.print("disable lua_ls fmt")
           -- stylua only!
           client.server_capabilities.documentFormattingProvider = false
           client.server_capabilities.documentRangeFormattingProvider = false
