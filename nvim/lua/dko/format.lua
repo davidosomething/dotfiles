@@ -3,12 +3,11 @@
 local M = {}
 
 local function efm_notify()
-  local configs = require("dko.tools").get_efm_languages()[vim.bo.filetype]
-  local formatters = require("dko.utils.table").filter(configs, function(v)
-    return v.formatCommand ~= nil
-  end)
-  local formatCommand = #formatters > 0 and formatters[1].formatCommand
-    or "unknown"
+  local formatters = require("dko.tools").get_efm_formatters()
+  if not formatters or #formatters == 0 then
+    return
+  end
+  local formatCommand = formatters[1].formatCommand
   local formatter = vim.fn.fnamemodify(formatCommand:match("%S+"), ":t")
   vim.notify(("format with %s"):format(formatter), vim.log.levels.INFO, {
     render = "compact",
@@ -85,17 +84,13 @@ M.run_pipeline = function(options)
         return false
       end
 
-      -- This will notify for non-null-ls
-      -- null-ls runtime_condition notifies on its own
-      if client.name ~= "null-ls" then
-        if client.name == "efm" then
-          efm_notify()
-        else
-          vim.notify("format", vim.log.levels.INFO, {
-            render = "compact",
-            title = ("LSP > %s"):format(client.name),
-          })
-        end
+      if client.name == "efm" then
+        efm_notify()
+      else
+        vim.notify("format", vim.log.levels.INFO, {
+          render = "compact",
+          title = ("LSP > %s"):format(client.name),
+        })
       end
 
       return true

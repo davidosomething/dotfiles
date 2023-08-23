@@ -1,19 +1,27 @@
+local dkotable = require("dko.utils.table")
+
 -- External tool management
 
 ---@alias ToolType
 ---|'"lsp"'
 ---|'"tool"'
 
----@class EfmLanguageConfig
+---@class EfmConfig
+---@field formatCommand? string
+---@field formatStdIn? boolean
+---@field lintCommand? string
+---@field lintStdIn? boolean
+
+---@class EfmDef
 ---@field languages string[]
----@field config table
+---@field config EfmConfig
 
 ---@class Tool
 ---@field type ToolType
 ---@field require string
 ---@field name string
 ---@field runner? string|string[]
----@field efm? fun(): EfmLanguageConfig
+---@field efm? fun(): EfmDef
 
 ---@alias ToolGroup table<string, boolean>
 ---@alias ToolGroups table<string, ToolGroup>
@@ -43,7 +51,7 @@ end
 ---@param category string for logging only
 ---@return ToolGroups --- { ["npm"] = { "prettier" = {...config} } if npm is executable
 M.filter_executable_groups = function(category, groups)
-  return require("dko.utils.table").filter(groups, function(_, bin)
+  return dkotable.filter(groups, function(_, bin)
     if bin ~= "_" and vim.fn.executable(bin) == 0 then
       require("dko.doctor").warn({
         category = category,
@@ -69,7 +77,6 @@ end
 
 local tools = nil
 -- Tools to auto-install with mason
--- Must then be configured, e.g. as null-ls formatter or diagnostic provider
 ---@return string[]
 M.get_tools = function()
   if tools == nil then
@@ -104,6 +111,26 @@ M.get_efm_languages = function()
     end
   end
   return efm_languages
+end
+
+M.get_efm_formatters = function()
+  if not vim.b.efm_formatters then
+    local configs = M.get_efm_languages()[vim.bo.filetype]
+    vim.b.efm_formatters = vim.tbl_filter(function(v)
+      return v.formatCommand ~= nil
+    end, configs)
+  end
+  return vim.b.efm_formatters
+end
+
+M.get_efm_linters = function()
+  if not vim.b.efm_linters then
+    local configs = M.get_efm_languages()[vim.bo.filetype]
+    vim.b.efm_linters = vim.tbl_filter(function(v)
+      return v.lintCommand ~= nil
+    end, configs)
+  end
+  return vim.b.efm_linters
 end
 
 return M

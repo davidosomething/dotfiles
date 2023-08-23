@@ -17,7 +17,16 @@ tools.register({
   type = "tool",
   require = "python",
   name = "isort",
-  runner = "null-ls",
+  runner = "efm",
+  efm = function()
+    return {
+      languages = { "python" },
+      config = {
+        formatCommand = "isort --profile black --quiet -",
+        formatStdin = true,
+      },
+    }
+  end,
 })
 
 -- python hover and some diagnostics from jedi
