@@ -16,12 +16,12 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 > Status: Normal mode; `type` is searched with one occurrence found; ruler  
 
 | Tool              | Link |
-| ----------------- | ------------------------------------------------------- |
-| Plugin manager    | [lazy.nvim](https://github.com/folke/lazy.nvim) |
-| LSP/tool manager  | [mason.nvim](https://github.com/williamboman/mason.nvim)
-| Local LSP         | [efm-langserver](https://github.com/mattn/efm-langserver) and [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim) |
+| ----------------- | ------------------------------------------------------------- |
+| Plugin manager    | [lazy.nvim](https://github.com/folke/lazy.nvim)               |
+| LSP/tool manager  | [mason.nvim](https://github.com/williamboman/mason.nvim)      |
+| Local LSP         | [efm-langserver](https://github.com/mattn/efm-langserver)     |
 | File finder       | [telescope](https://github.com/nvim-telescope/telescope.nvim) |
-| Status/tab/winbar | [heirline](https://github.com/rebelot/heirline.nvim) |
+| Status/tab/winbar | [heirline](https://github.com/rebelot/heirline.nvim)          |
 
 ## custom things
 

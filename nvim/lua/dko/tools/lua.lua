@@ -4,7 +4,17 @@ tools.register({
   type = "tool",
   require = "_",
   name = "selene",
-  runner = "null_ls",
+  efm = function()
+    return {
+      languages = { "lua" },
+      config = {
+        lintCommand = "selene --display-style quiet -",
+        lintSource = "selene",
+        lintStdin = true,
+        rootMarkers = {"selene.toml" }
+      },
+    }
+  end,
 })
 
 tools.register({

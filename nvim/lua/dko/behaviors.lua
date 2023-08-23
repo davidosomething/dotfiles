@@ -218,18 +218,6 @@ autocmd("LspAttach", {
       return
     end
 
-    -- null-ls hijacks formatexpr, unset it if not tied to a formatter
-    -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
-    if
-      client.name == "null-ls"
-      and not require("null-ls.generators").can_run(
-        vim.bo.filetype,
-        require("null-ls.methods").lsp.FORMATTING
-      )
-    then
-      vim.bo.formatexpr = nil
-    end
-
     -- First LSP attached
     if not vim.b.has_lsp then
       vim.b.has_lsp = true

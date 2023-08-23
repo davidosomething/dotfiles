@@ -7,15 +7,6 @@
 -- Lazy.nvim specs
 return {
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    lazy = true,
-    config = function()
-      require("dko.lsp.null_ls")
-    end,
-  },
-
-  {
     "creativenull/efmls-configs-nvim",
     lazy = true,
     config = function()

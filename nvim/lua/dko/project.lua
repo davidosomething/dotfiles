@@ -31,23 +31,18 @@ M.PROJECT_ROOTS = {
 ---@return string|nil root
 M.get_root_by_patterns = function(patterns)
   patterns = patterns or M.PROJECT_ROOTS
-
-  -- Must call this to init cache table first
-  local ok, cache = pcall(require, "null-ls.helpers.cache")
-  if not ok then
-    vim.notify("Could not load null-ls cache", vim.log.levels.ERROR, {
-      title = "dko/project/get_root_by_patterns",
-    })
-    return nil
-  end
-
-  local getter = cache.by_bufnr(function(params)
-    return require("null-ls.utils").root_pattern(unpack(patterns))(params.start)
-  end)
-
   local bufname = vim.api.nvim_buf_get_name(0)
   local start = bufname:len() > 0 and bufname or vim.uv.cwd()
-  return getter({ start = start, bufnr = 0 })
+  for dir in vim.fs.parents(start) do
+    for _, file in pairs(patterns) do
+      local filepath = vim.fs.joinpath(dir, file)
+      if vim.uv.fs_stat(filepath) then
+        vim.print({ marker = file, root = dir })
+        return dir
+      end
+    end
+  end
+  return nil
 end
 
 ---@param opts? table vim.fs.find opts
