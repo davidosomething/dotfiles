@@ -9,7 +9,9 @@ tools.register({
       languages = { "markdown" },
       config = {
         lintCommand = "markdownlint --stdin",
+        lintSource = "efm",
         lintStdin = true,
+        prefix = "markdownlint",
       },
     }
   end,
@@ -22,7 +24,11 @@ tools.register({
   efm = function()
     return {
       languages = { "markdown" },
-      config = require("efmls-configs.formatters.prettier"),
+      config = vim.tbl_extend(
+        "force",
+        require("efmls-configs.formatters.prettier"),
+        { lintSource = "efmls", prefix = "prettier" }
+      ),
     }
   end,
 })

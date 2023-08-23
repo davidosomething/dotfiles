@@ -57,12 +57,8 @@ local function float_format(diagnostic)
   end
   local source_tag =
     require("dko.utils.string").smallcaps(("%s"):format(source))
-  return ("%s %s [%s]\n%s"):format(
-    symbol,
-    source_tag,
-    diagnostic.code,
-    diagnostic.message
-  )
+  local code = diagnostic.code and ("[%s]"):format(diagnostic.code) or ""
+  return ("%s %s %s\n%s"):format(symbol, source_tag, code, diagnostic.message)
 end
 
 vim.diagnostic.config({

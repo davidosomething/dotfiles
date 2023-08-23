@@ -9,8 +9,9 @@ tools.register({
       languages = { "lua" },
       config = {
         lintCommand = "selene --display-style quiet -",
-        lintSource = "selene",
+        lintSource = "efm",
         lintStdin = true,
+        prefix = "selene",
         rootMarkers = { "selene.toml" },
       },
     }
@@ -24,7 +25,11 @@ tools.register({
   efm = function()
     return {
       languages = { "lua" },
-      config = require("efmls-configs.formatters.stylua"),
+      config = vim.tbl_extend(
+        "force",
+        require("efmls-configs.formatters.stylua"),
+        { lintSource = "efmls", prefix = "stylua" }
+      ),
     }
   end,
 })
