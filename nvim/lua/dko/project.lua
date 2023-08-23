@@ -16,6 +16,7 @@ M.ESLINT_ROOTS = {
 
 M.PROJECT_ROOTS = {
   ".luarc.json",
+  ".luarc.jsonc",
   "composer.json",
   "Gemfile",
   "justfile",
@@ -23,6 +24,7 @@ M.PROJECT_ROOTS = {
   "package.json",
   "pubspec.yaml", -- flutter / dart
   "requirements.txt",
+  "stylua.toml",
   "tsconfig.json",
 }
 
@@ -37,7 +39,6 @@ M.get_root_by_patterns = function(patterns)
     for _, file in pairs(patterns) do
       local filepath = vim.fs.joinpath(dir, file)
       if vim.uv.fs_stat(filepath) then
-        vim.print({ marker = file, root = dir })
         return dir
       end
     end
@@ -51,7 +52,7 @@ M.get_git_root = function(opts)
   -- gitsigns did the work for us!
   if not opts then
     local from_gitsigns =
-      require("dko.utils.object").get(vim.b, "gitsigns_status_dict.root")
+        require("dko.utils.object").get(vim.b, "gitsigns_status_dict.root")
     if from_gitsigns then
       return from_gitsigns
     end
@@ -71,9 +72,9 @@ M.get_git_root = function(opts)
   end
 
   local from_system = vim
-    .system({ "git", "rev-parse", "--show-cdup" })
-    :wait().stdout
-    :gsub("\n", "")
+      .system({ "git", "rev-parse", "--show-cdup" })
+      :wait().stdout
+      :gsub("\n", "")
   if from_system then
     return vim.fn.fnamemodify(from_system, ":p:h")
   end
