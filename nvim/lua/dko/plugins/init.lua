@@ -259,11 +259,17 @@ return {
   -- Reading
   -- =========================================================================
 
+  -- jump to :line:column in filename:3:20
+  -- https://github.com/lewis6991/fileline.nvim/
   { "lewis6991/fileline.nvim" },
 
+  -- ]u [u mappings to jump to urls
+  -- <A-u> to open link picker
   -- https://github.com/axieax/urlview.nvim
   {
     "axieax/urlview.nvim",
+    keys = vim.tbl_values(require("dko.mappings").urlview),
+    cmd = "UrlView",
     config = function()
       require("dko.mappings").bind_urlview()
     end,
@@ -273,6 +279,7 @@ return {
   -- https://github.com/tzachar/highlight-undo.nvim
   {
     "tzachar/highlight-undo.nvim",
+    keys = { "u", "<c-r>" },
     config = function()
       require("highlight-undo").setup({})
     end,
@@ -312,7 +319,8 @@ return {
   {
     "ojroques/nvim-osc52",
     enabled = function()
-      return os.getenv("SSH_CLIENT") or vim.fn.filereadable("/.dockerenv") == 1
+      -- yes .dockerenv is in root /
+      return os.getenv("SSH_CLIENT") or vim.uv.fs_stat("/.dockerenv")
     end,
     config = function()
       local function copy(lines, _)

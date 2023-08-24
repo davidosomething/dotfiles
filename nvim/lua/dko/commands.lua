@@ -17,7 +17,7 @@ command("Q", "q", { bang = true, desc = ":Q same as :q" })
 -- This is a command run by ~/.dotfiles/bin/e before sending events to
 -- existing server (e.g. --remote-send files to edit)
 command("DKOExternal", function()
-  require("dko.utils.close_floats")()
+  require("dko.utils.ui").close_floats()
   local is_toggleterm = vim.api.nvim_buf_get_name(0):find("#toggleterm")
   if is_toggleterm then
     vim.cmd.close()

@@ -52,7 +52,7 @@ M.get_git_root = function(opts)
   -- gitsigns did the work for us!
   if not opts then
     local from_gitsigns =
-        require("dko.utils.object").get(vim.b, "gitsigns_status_dict.root")
+      require("dko.utils.object").get(vim.b, "gitsigns_status_dict.root")
     if from_gitsigns then
       return from_gitsigns
     end
@@ -66,15 +66,15 @@ M.get_git_root = function(opts)
     type = "directory",
   }, opts or {})
   local res = vim.fs.find(".git", find_opts)
-  local from_find = res[1] and vim.fs.dirname(res[1]) or nil
+  local from_find = res[1] and vim.fn.fnamemodify(res[1], ":h") or nil
   if from_find then
     return from_find
   end
 
   local from_system = vim
-      .system({ "git", "rev-parse", "--show-cdup" })
-      :wait().stdout
-      :gsub("\n", "")
+    .system({ "git", "rev-parse", "--show-cdup" })
+    :wait().stdout
+    :gsub("\n", "")
   if from_system then
     return vim.fn.fnamemodify(from_system, ":p:h")
   end

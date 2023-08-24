@@ -185,9 +185,9 @@ end
 
 ---@param middleware? LspconfigMiddleware
 M.setup_unmanaged_lsps = function(middleware)
-  for _, resolver in pairs(lspconfig_resolvers) do
+  vim.iter(lspconfig_resolvers):each(function(name, resolver)
     resolver(middleware)()
-  end
+  end)
 end
 
 return M

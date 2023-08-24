@@ -1,17 +1,12 @@
 local M = {}
 
 ---Given a list of paths, return the first one that exists
----@param paths table
----@return string|nil path to first file
+---@param paths string[]
+---@return string|nil -- normalized path to first found file
 M.find_exists = function(paths)
-  for _, path in ipairs(paths) do
-    local normalized = vim.fs.normalize(path)
-    local stat = vim.uv.fs_stat(normalized)
-    if stat ~= nil then
-      return normalized
-    end
-  end
-  return nil
+  return vim.iter(paths):find(function(path)
+    return vim.uv.fs_stat(vim.fs.normalize(path)) ~= nil
+  end)
 end
 
 ---Edit file with name, look upwards from current buffer
@@ -20,7 +15,7 @@ end
 M.edit_closest = function(filename, opts)
   opts = vim.tbl_extend("force", {
     -- need to specify closest to current file or else cwd is used
-    path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+    path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h"),
     upward = true,
     type = "file",
   }, opts or {})

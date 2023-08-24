@@ -171,7 +171,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
         return
       end
       local dir = assert(
-        vim.fs.dirname(args.file),
+        vim.fn.fnamemodify(args.file, ":h"),
         ("could not get dirname: %s"):format(args.file)
       )
       -- dir already exists
