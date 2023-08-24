@@ -32,12 +32,14 @@ return {
     lazy = true,
   },
 
+  -- https://github.com/MaximilianLloyd/tw-values.nvim
   {
     "MaximilianLloyd/tw-values.nvim",
     dependencies = {
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
+    keys = { "<leader>tw" },
     config = function()
       require("tw-values").setup()
       require("dko.mappings").bind_twvalues()
