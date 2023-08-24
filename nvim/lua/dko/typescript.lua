@@ -2,16 +2,25 @@
 
 local M = {}
 
-M.source_definition = function()
-  local clients = vim.lsp.get_clients({ bufnr = 0, name = "tsserver" })
-  if #clients == 0 then
-    vim.notify("could not get tsserver", vim.log.levels.ERROR)
-    return false
+---@alias LocationHandler fun(unused: nil, result: table, ctx: table, config: table): nil
+--- result of LSP method; a location or a list of locations.
+--- ctx table containing the context of the request, including the method
+---(`textDocument/definition` can return `Location` or `Location[]`
+
+---@param client? lsp.Client tsserver client
+---@param handler? LocationHandler
+M.source_definition = function(client, handler)
+  client = client or vim.lsp.get_clients({ bufnr = 0, name = "tsserver" })[1]
+  if not client then
+    vim.notify("no tsserver", vim.log.levels.WARN)
+    return
   end
 
-  local client = clients[1]
-
-  local position = vim.lsp.util.make_position_params(0, client.offset_encoding)
+  ---@TODO put results into telescope list instead
+  ---see https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/builtin/__lsp.lua#L172-L227
+  --this will immediately jump to source definition
+  local method = vim.lsp.protocol.Methods.textDocument_definition
+  handler = handler or client.handlers[method] or vim.lsp.handlers[method]
 
   local callback = function(...)
     local args = { ... }
@@ -20,14 +29,10 @@ M.source_definition = function()
     if vim.tbl_isempty(res) then
       return false
     end
-
-    ---@TODO put results into telescope list instead
-    --this will immediately jump to source definition
-    local method = vim.lsp.protocol.Methods.textDocument_definition
-    local handler = client.handlers[method] or vim.lsp.handlers[method]
     handler(unpack(args))
   end
 
+  local position = vim.lsp.util.make_position_params(0, client.offset_encoding)
   return client.request(vim.lsp.protocol.Methods.workspace_executeCommand, {
     command = "_typescript.goToSourceDefinition",
     arguments = {

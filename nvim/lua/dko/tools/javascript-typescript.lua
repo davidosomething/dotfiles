@@ -72,10 +72,10 @@ tools.register({
       includeInlayEnumMemberValueHints = true,
     }
     return {
-      ---@param _ table client
+      ---@param client lsp.Client
       ---@param bufnr number
-      on_attach = function(_, bufnr)
-        require("dko.mappings").bind_tsserver_lsp(bufnr)
+      on_attach = function(client, bufnr)
+        require("dko.mappings").bind_tsserver_lsp(client, bufnr)
       end,
 
       handlers = {

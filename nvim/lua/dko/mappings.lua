@@ -404,11 +404,11 @@ M.bind_lsp = function(bufnr)
 end
 
 -- on_attach binding for tsserver
-M.bind_tsserver_lsp = function(bufnr)
+M.bind_tsserver_lsp = function(client, bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the
   -- type declaration files.
   map("n", "gd", function()
-    if require("dko.typescript").source_definition() then
+    if require("dko.typescript").source_definition(client) then
       return
     end
     return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
