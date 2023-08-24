@@ -1,19 +1,5 @@
 local M = {}
 
--- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/lua/null-ls/builtins/formatting/eslint.lua#L48-L58
-M.ESLINT_ROOTS = {
-  -- https://eslint.org/docs/latest/user-guide/configuring/configuration-files-new
-  "eslint.config.js",
-  -- https://eslint.org/docs/user-guide/configuring/configuration-files#configuration-file-formats
-  ".eslintrc",
-  ".eslintrc.js",
-  ".eslintrc.cjs",
-  ".eslintrc.yaml",
-  ".eslintrc.yml",
-  ".eslintrc.json",
-  "package.json",
-}
-
 M.PROJECT_ROOTS = {
   ".luarc.json",
   ".luarc.jsonc",
