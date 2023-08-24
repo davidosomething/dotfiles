@@ -8,7 +8,7 @@ local settings = {
     light = "two-firewatch",
   },
   grepper = {
-    ignore_file = ("%s/%s"):format(vim.fn.expand("$DOTFILES"), "ag/dot.ignore"),
+    ignore_file = ("%s/%s"):format(os.getenv("DOTFILES"), "ag/dot.ignore"),
   },
   heirline = {
     show_buftype = false,
@@ -37,13 +37,13 @@ M.set = function(path, value)
   local success = object.set(settings, path, value)
   if success and value ~= current then
     local watchers = M.watchers[path]
-    for _, cb in pairs(watchers) do
+    vim.iter(watchers):each(function(cb)
       cb({
         path = path,
         prev = current,
         value = value,
       })
-    end
+    end)
   end
 end
 

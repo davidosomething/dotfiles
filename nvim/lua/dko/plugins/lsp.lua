@@ -63,12 +63,13 @@ return {
         }, config)
       end
 
-      --require("dko.tools").setup_unmanaged_lsps(middleware)
+      require("dko.tools").setup_unmanaged_lsps(middleware)
 
       -- Note that instead of on_attach for each server setup,
       -- behaviors.lua has an autocmd LspAttach defined
       ---@type table<string, fun(server_name: string)>?
-      local handlers = require("dko.tools").get_mason_lspconfig_handlers(middleware)
+      local handlers =
+        require("dko.tools").get_mason_lspconfig_handlers(middleware)
       -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/init.lua#L62
       handlers[1] = function(server)
         lspconfig[server].setup(middleware())

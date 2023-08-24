@@ -4,7 +4,7 @@ M.get_node_modules_dir = function(opts)
   if vim.b.node_modules_dir == nil then
     local find_opts = vim.tbl_extend("force", {
       limit = 1,
-      path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+      path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h"),
       type = "directory",
       upward = true,
     }, opts or {})

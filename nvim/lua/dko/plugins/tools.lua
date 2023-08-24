@@ -17,28 +17,26 @@ return {
       -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L157-L163
       -- https://github.com/jay-babu/mason-null-ls.nvim/blob/main/lua/mason-null-ls/automatic_installation.lua#LL68C19-L75C7
       local mr = require("mason-registry")
-      for _, tool in ipairs(require("dko.tools").get_tools()) do
+      vim.iter(require("dko.tools").get_tools()):each(function(tool)
         local p = mr.get_package(tool)
-        if not p:is_installed() then
-          vim.notify(
-            ("Installing %s"):format(p.name),
-            vim.log.levels.INFO,
-            { title = "mason", render = "compact" }
-          )
-          p:install():once(
-            "closed",
-            vim.schedule_wrap(function()
-              if p:is_installed() then
-                vim.notify(
-                  ("Successfully installed %s"):format(p.name),
-                  vim.log.levels.INFO,
-                  { title = "mason", render = "compact" }
-                )
-              end
-            end)
-          )
+        if p:is_installed() then
+          return
         end
-      end
+        vim.notify(
+          ("Installing %s"):format(p.name),
+          vim.log.levels.INFO,
+          { title = "mason", render = "compact" }
+        )
+        local handle_closed = vim.schedule_wrap(function()
+          return p:is_installed()
+            and vim.notify(
+              ("Successfully installed %s"):format(p.name),
+              vim.log.levels.INFO,
+              { title = "mason", render = "compact" }
+            )
+        end)
+        p:install():once("closed", handle_closed)
+      end)
     end,
   },
 }

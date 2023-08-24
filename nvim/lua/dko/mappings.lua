@@ -287,11 +287,7 @@ end, { desc = "Print treesitter captures under cursor" })
 
 map("n", "sy", function()
   local captures = vim.treesitter.get_captures_at_cursor()
-  local parsedCaptures = {}
-  for _, capture in ipairs(captures) do
-    table.insert(parsedCaptures, "@" .. capture)
-  end
-  if #parsedCaptures == 0 then
+  if #captures == 0 then
     vim.notify(
       "No treesitter captures under cursor",
       vim.log.levels.ERROR,
@@ -299,6 +295,13 @@ map("n", "sy", function()
     )
     return
   end
+
+  local parsedCaptures = vim
+    .iter(captures)
+    :map(function(capture)
+      return ("@%s"):format(capture)
+    end)
+    :totable()
   local resultString = vim.inspect(parsedCaptures)
   vim.fn.setreg("+", resultString .. "\n")
   vim.notify(
@@ -860,11 +863,16 @@ end
 -- Plugin: urlview.nvim
 -- ===========================================================================
 
+M.urlview = {
+  prev = "[u",
+  next = "]u",
+}
+
 M.bind_urlview = function()
   require("urlview").setup({
     jump = {
-      prev = "[u",
-      next = "]u",
+      prev = M.urlview.prev,
+      next = M.urlview.next,
     },
   })
   map("n", "<A-u>", "<Cmd>UrlView<CR>", { desc = "Open URLs" })
