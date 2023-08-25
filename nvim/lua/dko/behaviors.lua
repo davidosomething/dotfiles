@@ -258,8 +258,14 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 })
 
 -- temporary fix, winbars not updating
-autocmd(require("dko.heirline.lsp").update, {
-  desc = "Bind LSP in buffer",
+local fix_winbar_events = vim.tbl_extend(
+  "keep",
+  require("dko.heirline.lsp").update,
+  { "User PackageInfoProgress" } -- clear winbar status msg when done
+)
+
+autocmd(fix_winbar_events, {
+  desc = "FIX - heirline does not always update winbars",
   callback = function()
     vim.cmd.redrawstatus({ bang = true })
   end,
