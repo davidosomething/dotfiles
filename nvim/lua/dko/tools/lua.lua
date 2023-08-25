@@ -36,7 +36,7 @@ tools.register({
         formatCanRange = true,
         formatCommand = "stylua --color Never ${--range-start:charStart} ${--range-end:charEnd} -",
         formatStdin = true,
-        rootMarkers = { "stylua.toml", ".stylua.toml" },
+        rootMarkers = { "stylua.toml", ".stylua.toml", ".editorconfig" },
       },
     }
   end,
