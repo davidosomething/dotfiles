@@ -284,16 +284,16 @@ return {
   },
 
   -- package diff
+  -- https://github.com/vuki656/package-info.nvim
   {
     "davidosomething/package-info.nvim",
-    dependencies = { "MunifTanjim/nui.nvim" },
     dev = true,
+    dependencies = { "MunifTanjim/nui.nvim" },
     event = { "BufReadPost package.json" },
     config = function()
       require("package-info").setup({
-        hide_up_to_date = true
+        hide_up_to_date = true,
       })
-      require('dko.mappings').bind_package_info()
     end,
   },
 
