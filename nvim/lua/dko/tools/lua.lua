@@ -4,14 +4,17 @@ tools.register({
   type = "tool",
   require = "_",
   name = "selene",
+  ---@return EfmDef
   efm = function()
     return {
       languages = { "lua" },
+      ---@type EfmLinter
       config = {
         lintCommand = "selene --display-style quiet -",
         lintSource = "efm",
         lintStdin = true,
         prefix = "selene",
+        requireMarker = true,
         rootMarkers = { "selene.toml" },
       },
     }
@@ -22,14 +25,18 @@ tools.register({
   type = "tool",
   require = "_",
   name = "stylua",
+  ---@return EfmDef
   efm = function()
     return {
       languages = { "lua" },
-      config = vim.tbl_extend(
-        "force",
-        require("efmls-configs.formatters.stylua"),
-        { lintSource = "efmls", prefix = "stylua" }
-      ),
+      -- custom since efmls has bad override
+      -- @see https://github.com/creativenull/efmls-configs-nvim/pull/54
+      ---@type EfmFormatter
+      config = {
+        formatCommand = "stylua --color Never ${--range-start:charStart} '${--range-end:charEnd} -",
+        formatCanRange = true,
+        formatStdin = true,
+      },
     }
   end,
 })
@@ -39,6 +46,7 @@ tools.register({
   require = "_",
   name = "lua_ls",
   runner = "mason-lspconfig",
+  ---@return LspconfigDef
   lspconfig = function()
     return {
       on_attach = function(client)
