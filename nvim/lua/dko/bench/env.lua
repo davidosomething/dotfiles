@@ -46,3 +46,4 @@ vim.print({
   uvres = uvres,
   expandres = expandres,
 })
+-- os.getenv fastest 2023-08-25
