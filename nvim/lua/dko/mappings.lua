@@ -656,6 +656,16 @@ M.bind_nvim_various_textobjs = function()
 end
 
 -- ===========================================================================
+-- Plugin: package-info.nvim
+-- ===========================================================================
+
+M.bind_package_info = function()
+  map("n", "<Leader>pu", function()
+    require("package-info").update()
+  end, { desc = "package-info: update package on line" })
+end
+
+-- ===========================================================================
 -- Plugin: telescope.nvim
 -- ===========================================================================
 

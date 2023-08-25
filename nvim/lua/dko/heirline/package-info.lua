@@ -1,4 +1,5 @@
 return {
+  update = { "User PackageInfoProgress" },
   provider = function()
     local ok, package_info = pcall(require, "package-info")
     if ok then

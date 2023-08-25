@@ -34,3 +34,4 @@ end
 local fn = avg(times)
 
 vim.print(uv > fn and "fn is faster" or "uv is faster")
+-- uv is faster 2023-08-25
