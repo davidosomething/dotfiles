@@ -6,15 +6,24 @@ local dkotable = require("dko.utils.table")
 ---|'"lsp"'
 ---|'"tool"'
 
----@class EfmConfig
----@field formatCommand? string
+---@class EfmToolConfig
+---@field requireMarker? boolean
+---@field rootMarkers? string[]
+
+---@class EfmFormatter: EfmToolConfig
+---@field formatCommand string -- executable and args
+---@field formatCanRange? boolean
 ---@field formatStdIn? boolean
----@field lintCommand? string
+
+---@class EfmLinter: EfmToolConfig
+---@field lintCommand string -- executable and args
+---@field lintSource? 'efm' | 'efmls' -- displays above float
 ---@field lintStdIn? boolean
+---@field prefix? string
 
 ---@class EfmDef
 ---@field languages string[]
----@field config EfmConfig
+---@field config EfmFormatter|EfmLinter
 
 ---@alias LspconfigDef fun(): table gets passed to lsp's setup()
 
