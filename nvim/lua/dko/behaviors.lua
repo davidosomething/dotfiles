@@ -149,6 +149,19 @@ autocmd("BufEnter", {
   group = augroup("dkoreading"),
 })
 
+autocmd({ "BufNewFile", "BufRead", "BufFilePost" }, {
+  pattern = { "*.lua" },
+  desc = "Apply stylua.toml spacing if no editorconfig",
+  callback = function()
+    vim.schedule(function ()
+      if not vim.b.editorconfig or vim.tbl_isempty(vim.b.editorconfig) then
+        require('dko.editing').from_stylua_toml()
+      end
+    end)
+  end,
+  group = augroup("dkoediting"),
+})
+
 -- yanky.nvim providing this
 -- autocmd("TextYankPost", {
 --   desc = "Highlight yanked text after yanking",

@@ -33,9 +33,10 @@ tools.register({
       -- @see https://github.com/creativenull/efmls-configs-nvim/pull/54
       ---@type EfmFormatter
       config = {
-        formatCommand = "stylua --color Never ${--range-start:charStart} '${--range-end:charEnd} -",
         formatCanRange = true,
+        formatCommand = "stylua --color Never ${--range-start:charStart} ${--range-end:charEnd} -",
         formatStdin = true,
+        rootMarkers = { "stylua.toml", ".stylua.toml" },
       },
     }
   end,
