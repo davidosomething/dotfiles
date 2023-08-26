@@ -14,7 +14,7 @@ M.format_efm = function(hide_notification)
           return v.formatCommand ~= nil
         end)
         :map(function(v)
-          return v.formatCommand:match("(%w+)")
+          return vim.fn.fnamemodify(v.formatCommand:match("([^%s]+)"), ":t")
         end)
         :totable(),
       ", "
@@ -120,6 +120,7 @@ local format_jsts = function()
   M.format_efm()
 end
 
+-- @TODO WIP not used yet
 local format_markdown = function()
   if vim.b.has_markdownlint == nil then
     vim.b.has_markdownlint = #vim.fs.find({
@@ -152,7 +153,9 @@ local pipelines = {
     M.efm_format_with("stylua")
   end,
 
-  markdown = format_markdown,
+  markdown = function()
+    M.efm_format_with("prettier")
+  end,
 }
 
 --- See options for vim.lsp.buf.format

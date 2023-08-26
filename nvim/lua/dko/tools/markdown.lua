@@ -16,18 +16,19 @@ tools.register({
   end,
 })
 
-tools.register({
-  mason_type = "tool",
-  require = "npm",
-  name = "markdownlint",
-  fts = { "markdown" },
-  efm = function()
-    return {
-      formatCommand = "markdownlint --fix --quiet",
-      formatStdin = false,
-    }
-  end,
-})
+-- needs temp file to handle
+-- tools.register({
+--   mason_type = "tool",
+--   require = "npm",
+--   name = "markdownlint",
+--   fts = { "markdown" },
+--   efm = function()
+--     return {
+--       formatCommand = "markdownlint --fix --quiet ${INPUT}",
+--       formatStdin = false,
+--     }
+--   end,
+-- })
 
 tools.register({
   mason_type = "tool",
