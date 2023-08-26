@@ -2,30 +2,28 @@ local tools = require("dko.tools")
 
 -- yamlls linting is disabled in favor of this
 tools.register({
-  type = "tool",
+  mason_type = "tool",
   require = "python",
   name = "yamllint",
+  fts = { "yaml" },
   efm = function()
-    return {
-      languages = { "yaml" },
-      config = vim.tbl_extend(
-        "force",
-        require("efmls-configs.linters.yamllint"),
-        { lintSource = "efmls", prefix = "yamllint" }
-      ),
-    }
+    return vim.tbl_extend(
+      "force",
+      require("efmls-configs.linters.yamllint"),
+      { lintSource = "efmls", prefix = "yamllint" }
+    )
   end,
 })
 
 tools.register({
-  type = "lsp",
+  mason_type = "lsp",
   require = "npm",
   name = "ansiblels",
 })
 
 -- https://www.npmjs.com/package/@microsoft/compose-language-service
 tools.register({
-  type = "lsp",
+  mason_type = "lsp",
   require = "npm",
   name = "docker_compose_language_service",
   runner = "mason-lspconfig",
@@ -41,7 +39,7 @@ tools.register({
 })
 
 tools.register({
-  type = "lsp",
+  mason_type = "lsp",
   require = "npm",
   name = "yamlls",
   runner = "mason-lspconfig",

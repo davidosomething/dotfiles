@@ -1,32 +1,24 @@
 local tools = require("dko.tools")
 
 tools.register({
-  type = "tool",
+  mason_type = "tool",
   require = "python",
   name = "black",
+  fts = { "python" },
   efm = function()
-    return {
-      languages = { "python" },
-      config = vim.tbl_extend(
-        "force",
-        require("efmls-configs.formatters.black"),
-        { lintSource = "efmls", prefix = "black" }
-      ),
-    }
+    return require("efmls-configs.formatters.black")
   end,
 })
 
 tools.register({
-  type = "tool",
+  mason_type = "tool",
   require = "python",
   name = "isort",
+  fts = { "python" },
   efm = function()
     return {
-      languages = { "python" },
-      config = {
-        formatCommand = "isort --profile black --quiet -",
-        formatStdin = true,
-      },
+      formatCommand = "isort --profile black --quiet -",
+      formatStdin = true,
     }
   end,
 })
@@ -34,7 +26,7 @@ tools.register({
 -- python hover and some diagnostics from jedi
 -- https://github.com/pappasam/jedi-language-server#capabilities
 tools.register({
-  type = "lsp",
+  mason_type = "lsp",
   require = "python",
   name = "jedi_language_server",
   runner = "mason-lspconfig",
@@ -42,7 +34,7 @@ tools.register({
 
 -- python lint and format from ruff
 tools.register({
-  type = "lsp",
+  mason_type = "lsp",
   require = "python",
   name = "ruff_lsp",
   runner = "mason-lspconfig",

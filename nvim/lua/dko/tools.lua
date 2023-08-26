@@ -1,10 +1,6 @@
 local dkotable = require("dko.utils.table")
 
--- External tool management
-
----@alias ToolType
----|'"lsp"'
----|'"tool"'
+---@alias ft string -- filetype
 
 ---@class EfmToolConfig
 ---@field requireMarker? boolean
@@ -21,32 +17,29 @@ local dkotable = require("dko.utils.table")
 ---@field lintStdIn? boolean
 ---@field prefix? string
 
----@class EfmDef
----@field languages string[]
----@field config EfmFormatter|EfmLinter
-
 ---@alias LspconfigDef fun(): table gets passed to lsp's setup()
 
+---@alias MasonToolType
+---|'"lsp"'
+---|'"tool"'
+
+---@alias ToolName string
+
 ---@class Tool
----@field type ToolType
----@field name string -- tool or lspconfig name
----@field install? boolean -- nil = true
----@field require? string -- an executable name or _
+---@field name ToolName -- tool or lspconfig name
+---@field mason_type? MasonToolType -- if present, try to install with mason
+---@field require? string -- an executable name or _, for mason install
 ---@field runner? 'lspconfig' | 'mason-lspconfig'
----@field efm? fun(): EfmDef
+---@field fts? ft[] -- for efm, list of filetypes to register
+---@field efm? fun(): EfmFormatter|EfmLinter
 ---@field lspconfig? LspconfigDef
 
 ---@alias ToolGroup table<string, boolean>
 ---@alias ToolGroups table<string, ToolGroup>
 
 local M = {}
----@type ToolGroups
-M.tools_group = {}
----@type ToolGroups
-M.mason_lsps_group = {}
-
-local efm_resolvers = {}
-local efm_languages = nil
+---@type { tool: ToolGroups[], lsp: ToolGroups[] }
+M.install_groups = { tool = {}, lsp = {} }
 
 ---@alias LspconfigMiddleware fun(table): table
 ---@alias LspconfigResolver fun(middleware?: LspconfigMiddleware): LspconfigDef
@@ -57,24 +50,26 @@ local mason_lspconfig_resolvers = {}
 ---@type table<string, LspconfigResolver>
 local lspconfig_resolvers = {}
 
+---@type Tool[] with efm defined
+local efm_configs = {}
+
+---@type table<ft, boolean>
+local efm_filetypes = {}
+
 ---@param config Tool
 M.register = function(config)
-  if config.install ~= false then
-    local map = {} -- throwaway map
-    if config.type == "tool" then
-      map = M.tools_group
-    elseif config.type == "lsp" then
-      map = M.mason_lsps_group
-    end
-    map[config.require] = map[config.require] or {}
-    map[config.require][config.name] = true
+  if config.mason_type then
+    M.install_groups[config.mason_type][config.require] = M.install_groups[config.mason_type][config.require]
+      or {}
+    M.install_groups[config.mason_type][config.require][config.name] = true
   end
 
-  if type(config.efm) == "function" then
-    table.insert(efm_resolvers, config.efm)
-  end
-
-  if type(config.lspconfig) == "function" then
+  if config.efm then
+    vim.iter(config.fts or {}):each(function(ft)
+      efm_filetypes[ft] = true
+    end)
+    table.insert(efm_configs, config)
+  elseif config.lspconfig then
     local config_map
     if config.runner == "lspconfig" then
       config_map = lspconfig_resolvers
@@ -93,8 +88,29 @@ M.register = function(config)
   end
 end
 
+M.get_efm_filetypes = function()
+  return vim.tbl_keys(efm_filetypes)
+end
+
+---@param filter? fun(Tool): boolean -- for iter:filter
+---@return table<ft, (EfmLinter|EfmFormatter)[]>
+M.get_efm_languages = function(filter)
+  local it = vim.iter(efm_configs)
+  local filtered = it
+  if filter then
+    filtered = it:filter(filter)
+  end
+  return filtered:fold({}, function(acc, config)
+    for _, ft in ipairs(config.fts) do
+      acc[ft] = acc[ft] or {}
+      table.insert(acc[ft], config.efm())
+    end
+    return acc
+  end)
+end
+
 ---Get a list of tools that CAN be installed because required binary available
----@param groups ToolGroups M.tools_group or M.mason_lsps_group
+---@param groups ToolGroups
 ---@param category string for logging only
 ---@return ToolGroups --- { ["npm"] = { "prettier" = {...config} } if npm is executable
 M.filter_executable_groups = function(category, groups)
@@ -127,7 +143,9 @@ local tools = nil
 ---@return string[]
 M.get_tools = function()
   if tools == nil then
-    tools = M.groups_to_tools(M.filter_executable_groups("tool", M.tools_group))
+    tools = M.groups_to_tools(
+      M.filter_executable_groups("tool", M.install_groups.tool)
+    )
   end
   return tools
 end
@@ -139,47 +157,10 @@ local mason_lsps = nil
 M.get_mason_lsps = function()
   if mason_lsps == nil then
     mason_lsps = M.groups_to_tools(
-      M.filter_executable_groups("mason-lsp", M.mason_lsps_group)
+      M.filter_executable_groups("mason-lsp", M.install_groups.lsp)
     )
   end
   return mason_lsps
-end
-
----@alias ft string
-
----@return table<ft, table> -- fit for efm lsp settings.languages
-M.get_efm_languages = function()
-  if efm_languages == nil then
-    efm_languages = {}
-    for _, resolver in pairs(efm_resolvers) do
-      local resolved = resolver()
-      for _, lang in pairs(resolved.languages) do
-        efm_languages[lang] = efm_languages[lang] or {}
-        table.insert(efm_languages[lang], resolved.config)
-      end
-    end
-  end
-  return efm_languages
-end
-
-M.get_efm_formatters = function()
-  if not vim.b.efm_formatters then
-    local configs = M.get_efm_languages()[vim.bo.filetype]
-    vim.b.efm_formatters = vim.tbl_filter(function(v)
-      return v.formatCommand ~= nil and v.formatCommand:sub(1, 1) ~= " "
-    end, configs or {})
-  end
-  return vim.b.efm_formatters
-end
-
-M.get_efm_linters = function()
-  if not vim.b.efm_linters then
-    local configs = M.get_efm_languages()[vim.bo.filetype]
-    vim.b.efm_linters = vim.tbl_filter(function(v)
-      return v.lintCommand ~= nil
-    end, configs or {})
-  end
-  return vim.b.efm_linters
 end
 
 ---@param middleware? LspconfigMiddleware
@@ -194,7 +175,7 @@ end
 
 ---@param middleware? LspconfigMiddleware
 M.setup_unmanaged_lsps = function(middleware)
-  vim.iter(lspconfig_resolvers):each(function(name, resolver)
+  vim.iter(lspconfig_resolvers):each(function(_, resolver)
     resolver(middleware)()
   end)
 end

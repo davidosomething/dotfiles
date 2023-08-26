@@ -1,31 +1,25 @@
 local tools = require("dko.tools")
 
 tools.register({
-  type = "tool",
-  require = "npm",
   name = "prettier",
+  mason_type = "tool",
+  require = "npm",
+  fts = {
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  },
   efm = function()
-    return {
-      languages = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-      },
-      config = vim.tbl_extend(
-        "force",
-        require("efmls-configs.formatters.prettier"),
-        { lintSource = "efmls", prefix = "prettier" }
-      ),
-    }
+    return require("efmls-configs.formatters.prettier")
   end,
 })
 
 -- jumping into classnames from jsx/tsx
 tools.register({
-  type = "lsp",
-  require = "npm",
   name = "cssmodules_ls",
+  mason_type = "lsp",
+  require = "npm",
   lspconfig = function()
     return {
       ---note: local on_attach happens AFTER autocmd LspAttach
@@ -41,24 +35,24 @@ tools.register({
 })
 
 tools.register({
-  type = "lsp",
-  require = "npm",
   name = "eslint",
+  mason_type = "lsp",
+  require = "npm",
   runner = "mason-lspconfig",
 })
 
 --"cssls", -- conflicts with tailwindcss
 tools.register({
-  type = "lsp",
-  require = "npm",
   name = "tailwindcss",
+  mason_type = "lsp",
+  require = "npm",
   runner = "mason-lspconfig",
 })
 
 tools.register({
-  type = "lsp",
-  require = "npm",
   name = "tsserver",
+  mason_type = "lsp",
+  require = "npm",
   runner = "mason-lspconfig",
   lspconfig = function()
     local inlay_hint_settings = {
