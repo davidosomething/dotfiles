@@ -1,62 +1,49 @@
 local tools = require("dko.tools")
 
 tools.register({
-  type = "tool",
+  mason_type = "tool",
   require = "_",
   name = "selene",
-  ---@return EfmDef
+  fts = { "lua" },
   efm = function()
     return {
-      languages = { "lua" },
-      ---@type EfmLinter
-      config = {
-        lintCommand = "selene --display-style quiet -",
-        lintIgnoreExitCode = true,
-        lintSource = "efm",
-        lintStdin = true,
-        prefix = "selene",
-        requireMarker = true,
-        rootMarkers = { "selene.toml" },
-      },
+      lintCommand = "selene --display-style quiet -",
+      lintIgnoreExitCode = true,
+      lintSource = "efm",
+      lintStdin = true,
+      prefix = "selene",
+      requireMarker = true,
+      rootMarkers = { "selene.toml" },
     }
   end,
 })
 
 tools.register({
-  type = "tool",
+  mason_type = "tool",
   require = "_",
   name = "stylua",
-  ---@return EfmDef
+  fts = { "lua" },
   efm = function()
+    -- custom since efmls has bad override
+    -- @see https://github.com/creativenull/efmls-configs-nvim/pull/54
+    ---@type EfmFormatter
     return {
-      languages = { "lua" },
-      -- custom since efmls has bad override
-      -- @see https://github.com/creativenull/efmls-configs-nvim/pull/54
-      ---@type EfmFormatter
-      config = {
-        formatCanRange = true,
-        formatCommand = "stylua --color Never ${--range-start:charStart} ${--range-end:charEnd} -",
-        formatStdin = true,
-        rootMarkers = { "stylua.toml", ".stylua.toml", ".editorconfig" },
-      },
+      formatCanRange = true,
+      formatCommand = "stylua --color Never ${--range-start:charStart} ${--range-end:charEnd} -",
+      formatStdin = true,
+      rootMarkers = { "stylua.toml", ".stylua.toml", ".editorconfig" },
     }
   end,
 })
 
 tools.register({
-  type = "lsp",
+  mason_type = "lsp",
   require = "_",
   name = "lua_ls",
   runner = "mason-lspconfig",
   ---@return LspconfigDef
   lspconfig = function()
     return {
-      on_attach = function(client)
-        -- stylua only!
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-      end,
-
       -- no more neodev https://github.com/neovim/neovim/pull/24592
       on_init = function(client)
         local path = client.workspace_folders[1].name

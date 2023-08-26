@@ -153,9 +153,9 @@ autocmd({ "BufNewFile", "BufRead", "BufFilePost" }, {
   pattern = { "*.lua" },
   desc = "Apply stylua.toml spacing if no editorconfig",
   callback = function()
-    vim.schedule(function ()
+    vim.schedule(function()
       if not vim.b.editorconfig or vim.tbl_isempty(vim.b.editorconfig) then
-        require('dko.editing').from_stylua_toml()
+        require("dko.editing").from_stylua_toml()
       end
     end)
   end,

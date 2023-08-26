@@ -1,25 +1,19 @@
 local tools = require("dko.tools")
 
 tools.register({
-  type = "tool",
+  mason_type = "tool",
   require = "npm",
   name = "prettier",
+  fts = { "json", "jsonc" },
   efm = function()
-    return {
-      languages = { "json", "jsonc" },
-      config = vim.tbl_extend(
-        "force",
-        require("efmls-configs.formatters.prettier"),
-        { lintSource = "efmls", prefix = "prettier" }
-      ),
-    }
+    return require("efmls-configs.formatters.prettier")
   end,
 })
 
 -- not used for formatting - prefer prettier since it does one-line arrays
 -- when they fit
 tools.register({
-  type = "lsp",
+  mason_type = "lsp",
   require = "npm",
   name = "jsonls",
   runner = "mason-lspconfig",
