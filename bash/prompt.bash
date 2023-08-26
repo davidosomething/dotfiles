@@ -4,12 +4,12 @@
 # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
 # Otherwise, just give up.
 __branch_name() {
-  git symbolic-ref --quiet --short HEAD 2>/dev/null \
-    || git rev-parse --short HEAD 2>/dev/null \
-    || echo '(unknown)'
+  git symbolic-ref --quiet --short HEAD 2>/dev/null ||
+    git rev-parse --short HEAD 2>/dev/null ||
+    echo '(unknown)'
 }
 
-__symbol_dirty()    { git diff --no-ext-diff --quiet || echo '*'; }
+__symbol_dirty() { git diff --no-ext-diff --quiet || echo '*'; }
 __symbol_unstaged() { git diff --no-ext-diff --cached --quiet || echo '+'; }
 
 # __prompt_git

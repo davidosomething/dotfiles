@@ -11,6 +11,7 @@ tools.register({
       ---@type EfmLinter
       config = {
         lintCommand = "selene --display-style quiet -",
+        lintIgnoreExitCode = true,
         lintSource = "efm",
         lintStdin = true,
         prefix = "selene",

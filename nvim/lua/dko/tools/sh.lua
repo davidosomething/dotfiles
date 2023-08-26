@@ -1,7 +1,5 @@
 local tools = require("dko.tools")
 
---no "bashls", -- prefer shellcheck, has code_actions and code inline
-
 tools.register({
   type = "tool",
   require = "_",
@@ -14,8 +12,8 @@ tools.register({
         "force",
         require("efmls-configs.linters.shellcheck"),
         {
+          lintIgnoreExitCode = true,
           lintSource = "efmls",
-          prefix = "shellcheck",
           rootMarkers = { ".shellcheckrc" },
         }
       ),
