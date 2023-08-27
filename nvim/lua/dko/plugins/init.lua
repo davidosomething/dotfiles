@@ -46,6 +46,7 @@ return {
 
   {
     "mcchrish/zenbones.nvim",
+    lazy = true,
     dependencies = { "rktjmp/lush.nvim" },
   },
 
@@ -136,7 +137,6 @@ return {
     "echasnovski/mini.bufremove",
     version = "*",
     config = function()
-      ---@diagnostic disable-next-line: missing-parameter
       require("mini.bufremove").setup()
     end,
   },
@@ -246,9 +246,7 @@ return {
     config = function()
       require("gitsigns").setup({
         on_attach = require("dko.mappings").bind_gitsigns,
-        preview_config = {
-          border = "rounded",
-        },
+        preview_config = { border = "rounded" },
       })
     end,
   },
@@ -376,9 +374,9 @@ return {
     -- author recommends against lazy loading
     lazy = false,
     init = function()
-      vim.g.matchup_delim_noskips = 2
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_status_offscreen = 0
+      -- see behaviors.lua for treesitter integration
     end,
   },
 
@@ -398,11 +396,17 @@ return {
     config = function()
       local ok, tscc_integration =
         pcall(require, "ts_context_commentstring.integrations.comment_nvim")
-      local pre_hook = ok and tscc_integration.create_pre_hook()
+      if not ok then
+        vim.notify(
+          "Comment.nvim could not find nvim-ts-context-commentstring",
+          vim.log.levels.ERROR
+        )
+        return
+      end
       require("Comment").setup(
         require("dko.mappings").with_commentnvim_mappings({
           -- add treesitter support, want tsx/jsx in particular
-          pre_hook = pre_hook,
+          pre_hook = tscc_integration.create_pre_hook(),
         })
       )
     end,
@@ -438,7 +442,6 @@ return {
   {
     "kana/vim-textobj-user",
     dependencies = {
-      --"kana/vim-textobj-indent",
       "gilligan/textobj-lastpaste",
       "mattn/vim-textobj-url",
     },

@@ -13,6 +13,27 @@ end
 
 local autocmd = vim.api.nvim_create_autocmd
 
+local treesitter_loaded = false
+local matchup_loaded = false
+autocmd("User", {
+  pattern = "LazyLoad",
+  callback = function(ev)
+    if ev.data == "nvim-treesitter" then
+      treesitter_loaded = true
+    end
+    if ev.data == "vim-matchup" then
+      matchup_loaded = true
+    end
+    if treesitter_loaded and matchup_loaded then
+      require("nvim-treesitter.configs").setup({
+        matchup = { enable = true },
+      })
+      return true -- delete this autocmd
+    end
+  end,
+  group = augroup("dkoplugins"),
+})
+
 -- @TODO keep an eye on https://github.com/neovim/neovim/issues/23581
 autocmd("WinLeave", {
   desc = "Toggle close->open loclist so it is always under the correct window",
