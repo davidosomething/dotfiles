@@ -1,5 +1,20 @@
 local tools = require("dko.tools")
 
+tools.register({
+  mason_type = "tool",
+  require = "go",
+  name = "yamlfmt",
+  fts = { "yaml" },
+  efm = function()
+    return {
+      formatCanRange = false,
+      formatCommand = "yamlfmt -",
+      formatStdin = true,
+      rootMarkers = { ".yamlfmt" },
+    }
+  end,
+})
+
 -- yamlls linting is disabled in favor of this
 tools.register({
   mason_type = "tool",
@@ -27,15 +42,6 @@ tools.register({
   require = "npm",
   name = "docker_compose_language_service",
   runner = "mason-lspconfig",
-  lspconfig = function()
-    return {
-      on_attach = function(client)
-        -- yamlfmt or NOTHING
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-      end,
-    }
-  end,
 })
 
 tools.register({
@@ -47,8 +53,8 @@ tools.register({
     return {
       settings = {
         yaml = {
-          format = { enable = false }, -- prefer stylua
-          validate = { enable = false }, -- prefer yamllint
+          format = { enable = true },
+          validate = { enable = true }, -- prefer yamllint
           -- disable built-in fetch schemas, prefer schemastore.nvim
           schemaStore = { enable = false },
           schemas = require("schemastore").yaml.schemas({

@@ -1,5 +1,16 @@
 -- Code formatting pipelines
 
+---@param names string[]
+local function notify(names)
+  if #names == 0 then
+    return
+  end
+  vim.notify("format", vim.log.levels.INFO, {
+    render = "compact",
+    title = ("LSP > %s"):format(table.concat(names, ", ")),
+  })
+end
+
 local M = {}
 
 -- NO eslint-plugin-prettier? maybe run prettier
@@ -22,12 +33,9 @@ local format_jsts = function()
         title = "LSP > eslint",
       })
       return
-    else
-      vim.notify("format", vim.log.levels.INFO, {
-        render = "compact",
-        title = "LSP > eslint",
-      })
     end
+
+    notify({ "eslint" })
   end
 
   require("dko.format.efm").format()
@@ -73,6 +81,18 @@ local pipelines = {
     -- @see https://github.com/mattn/efm-langserver/issues/258
     require("dko.format.efm").format_with("prettier")
   end,
+
+  yaml = function()
+    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
+    if
+      filename == "docker-compose.yml" or filename == "docker-compose.yaml"
+    then
+      vim.lsp.buf.format({ name = "docker_compose_language_service" })
+      notify({ "docker_compose_language_service" })
+      return
+    end
+    require("dko.format.efm").format_with("yamlfmt")
+  end,
 }
 
 --- See options for vim.lsp.buf.format
@@ -82,6 +102,7 @@ M.run_pipeline = function(options)
     return pipeline()
   end
 
+  local names = {}
   options = vim.tbl_deep_extend("force", options or {}, {
     filter = function(client)
       if
@@ -92,37 +113,32 @@ M.run_pipeline = function(options)
         return false
       end
 
-      local notify_name = client.name
       if client.name == "efm" then
         local configs =
           require("dko.tools").get_efm_languages()[vim.bo.filetype]
-        notify_name = "efm > "
-          .. table.concat(
-            vim.iter(configs):fold({}, function(acc, config)
-              if config.formatCommand then
-                table.insert(
-                  acc,
-                  vim.fn.fnamemodify(
-                    config.formatCommand:match("([^%s]+)"),
-                    ":t"
-                  )
-                )
-              end
-              return acc
-            end),
-            ", "
-          )
+        local filtered = vim.tbl_filter(function(config)
+          if config.formatCommand ~= nil then
+            table.insert(
+              names,
+              ("efm[%s]"):format(
+                vim.fn.fnamemodify(config.formatCommand:match("([^%s]+)"), ":t")
+              )
+            )
+            return true
+          end
+          return false
+        end, configs)
+        return #filtered ~= 0
       end
-      vim.notify("format", vim.log.levels.INFO, {
-        render = "compact",
-        title = ("LSP > %s"):format(notify_name),
-      })
+
+      table.insert(names, client.name)
       return true
     end,
   })
 
   -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L156-L196
   vim.lsp.buf.format(options)
+  notify(names)
 end
 
 return M
