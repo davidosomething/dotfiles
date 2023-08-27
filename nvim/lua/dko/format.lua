@@ -2,93 +2,6 @@
 
 local M = {}
 
-M.format_efm = function(hide_notification)
-  if not hide_notification then
-    local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
-    local languages = client.config.settings.languages
-    local configs = languages[vim.bo.filetype]
-    local formatters = table.concat(
-      vim
-        .iter(configs)
-        :filter(function(v)
-          return v.formatCommand ~= nil
-        end)
-        :map(function(v)
-          return vim.fn.fnamemodify(v.formatCommand:match("([^%s]+)"), ":t")
-        end)
-        :totable(),
-      ", "
-    )
-    vim.notify(("%s"):format(formatters), vim.log.levels.INFO, {
-      render = "compact",
-      title = "LSP > efm",
-    })
-  end
-
-  vim.lsp.buf.format({
-    async = false,
-    name = "efm",
-    timeout_ms = os.getenv("SSH_CLIENT") and 3000 or 1000,
-  })
-end
-
---- Assuming each
---- Temporarily removes all efm configs except the one named
---- Runs lsp format synchronously
---- Then restores the original efm configs
----@param name string formatter name, e.g. markdownlint
-M.efm_format_with = function(name)
-  local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
-  if not client then
-    vim.notify("efm not attached", vim.log.levels.ERROR, {
-      render = "compact",
-      title = "LSP > efm_format_with",
-    })
-    return
-  end
-
-  local configs = require("dko.tools").get_efm_languages(function(tool)
-    return tool.name == name and vim.tbl_contains(tool.fts, vim.bo.filetype)
-  end)
-  if vim.tbl_count(configs) == 0 then
-    vim.notify(
-      ("no formatter %s for %s"):format(name, vim.bo.filetype),
-      vim.log.levels.ERROR,
-      {
-        render = "compact",
-        title = "LSP > efm_format_with",
-      }
-    )
-    return
-  end
-
-  ---@type (EfmFormatter|EfmLinter)[]
-  local original = client.config.settings.languages
-  local only = configs
-
-  -- Set to only the efm tool we named
-  client.config.settings.languages = only
-  client.notify(
-    vim.lsp.protocol.Methods.workspace_didChangeConfiguration,
-    { settings = client.config.settings }
-  )
-
-  -- Do the deed
-  vim.notify(("%s only"):format(name), vim.log.levels.INFO, {
-    render = "compact",
-    title = "LSP > efm_format_with",
-  })
-  local HIDE_NOTIFICATION = true
-  M.format_efm(HIDE_NOTIFICATION)
-
-  -- Restore original config
-  client.config.settings.languages = original
-  client.notify(
-    vim.lsp.protocol.Methods.workspace_didChangeConfiguration,
-    { settings = client.config.settings }
-  )
-end
-
 -- NO eslint-plugin-prettier? maybe run prettier
 -- then, maybe run eslint --fix
 local format_jsts = function()
@@ -117,7 +30,7 @@ local format_jsts = function()
     end
   end
 
-  M.format_efm()
+  require("dko.format.efm").format()
 end
 
 -- @TODO WIP not used yet
@@ -129,39 +42,43 @@ local format_markdown = function()
       ".markdownlint.yaml",
     }, { limit = 1, upward = true, type = "file" })
   end
-  if vim.b.has_markdownlint == true then
-    M.efm_format_with("markdownlint")
-  else
-    M.efm_format_with("prettier")
-  end
+  require("dko.format.efm").format_with(
+    vim.b.has_markdownlint == true and "markdownlint" or "prettier"
+  )
 end
 
 -- ===========================================================================
 
 local pipelines = {
-  html = M.format_efm,
+  html = require("dko.format.efm").format,
+
   typescript = format_jsts,
   typescriptreact = format_jsts,
   javascript = format_jsts,
   javascriptreact = format_jsts,
 
-  -- prettier-only for json(c)
-  json = M.format_efm,
-  jsonc = M.format_efm,
+  json = function()
+    require("dko.format.efm").format_with("prettier")
+  end,
+  jsonc = function()
+    require("dko.format.efm").format_with("prettier")
+  end,
 
   lua = function()
-    M.efm_format_with("stylua")
+    require("dko.format.efm").format_with("stylua")
   end,
 
   markdown = function()
-    M.efm_format_with("prettier")
+    -- @TODO use the pipeline, but markdownlint formatter not working
+    -- @see https://github.com/mattn/efm-langserver/issues/258
+    require("dko.format.efm").format_with("prettier")
   end,
 }
 
 --- See options for vim.lsp.buf.format
 M.run_pipeline = function(options)
   local pipeline = pipelines[vim.bo.filetype]
-  if type(pipeline) == "function" then
+  if pipeline then
     return pipeline()
   end
 
@@ -175,9 +92,30 @@ M.run_pipeline = function(options)
         return false
       end
 
+      local notify_name = client.name
+      if client.name == "efm" then
+        local configs =
+          require("dko.tools").get_efm_languages()[vim.bo.filetype]
+        notify_name = "efm > "
+          .. table.concat(
+            vim.iter(configs):fold({}, function(acc, config)
+              if config.formatCommand then
+                table.insert(
+                  acc,
+                  vim.fn.fnamemodify(
+                    config.formatCommand:match("([^%s]+)"),
+                    ":t"
+                  )
+                )
+              end
+              return acc
+            end),
+            ", "
+          )
+      end
       vim.notify("format", vim.log.levels.INFO, {
         render = "compact",
-        title = ("LSP > %s"):format(client.name),
+        title = ("LSP > %s"):format(notify_name),
       })
       return true
     end,
