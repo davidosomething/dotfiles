@@ -10,7 +10,7 @@ return {
     init = function(self)
       self.filename = vim.api.nvim_buf_get_name(0)
 
-      self.filetype_text = vim.tbl_contains(
+      self.filetype_text = vim.list_contains(
         { "javascript", "markdown" },
         vim.bo.filetype
       ) and "" or " " .. require("dko.utils.string").smallcaps(

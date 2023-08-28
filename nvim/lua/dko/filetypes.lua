@@ -14,7 +14,7 @@ vim.filetype.add({
     ["%.env%.[%w_.-]+"] = "dotenv",
     -- ["env%.(%a+)"] = function(_path, _bufnr, ext)
     --   vim.print(ext)
-    --   if vim.tbl_contains({ "local", "example", "dev", "prod" }, ext) then
+    --   if vim.list_contains({ "local", "example", "dev", "prod" }, ext) then
     --     return "dotenv"
     --   end
     -- end,
