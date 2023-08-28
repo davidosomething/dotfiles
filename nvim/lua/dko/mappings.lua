@@ -318,7 +318,7 @@ end, { desc = "Copy treesitter captures under cursor" })
 -- ===========================================================================
 
 ---@param method string
----@return boolean whether or not telescope was succesfully called
+---@return boolean -- true if telescope was succesfully called
 local function telescope_builtin(method)
   local ok, builtin = pcall(require, "telescope.builtin")
   if ok then
@@ -344,12 +344,9 @@ M.bind_lsp = function(bufnr)
     return opts
   end
 
-  map(
-    "n",
-    "gD",
-    vim.lsp.buf.declaration,
-    lsp_opts({ desc = "LSP declaration" })
-  )
+  map("n", "gD", function()
+    vim.lsp.buf.declaration()
+  end, lsp_opts({ desc = "LSP declaration" }))
   map("n", "gd", function()
     return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
   end, lsp_opts({ desc = "LSP definition" }))
@@ -362,12 +359,9 @@ M.bind_lsp = function(bufnr)
     return telescope_builtin("lsp_implementations")
       or vim.lsp.buf.implementation()
   end, lsp_opts({ desc = "LSP implementation" }))
-  map(
-    { "n", "i" },
-    "<C-g>",
-    vim.lsp.buf.signature_help,
-    lsp_opts({ desc = "LSP signature_help" })
-  )
+  map({ "n", "i" }, "<C-g>", function()
+    vim.lsp.buf.signature_help()
+  end, lsp_opts({ desc = "LSP signature_help" }))
   --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   --map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
   --[[ map('n', '<space>wl', function()
@@ -377,18 +371,17 @@ M.bind_lsp = function(bufnr)
     return telescope_builtin("lsp_type_definitions")
       or vim.lsp.buf.type_definition()
   end, lsp_opts({ desc = "LSP type_definition" }))
-  map("n", "<Leader>rn", vim.lsp.buf.rename, lsp_opts({ desc = "LSP rename" }))
+  map("n", "<Leader>rn", function()
+    vim.lsp.buf.rename()
+  end, lsp_opts({ desc = "LSP rename" }))
 
   map("n", "<Leader>ca", require("dko.lsp").code_action, {
-    desc = "Single code action",
+    desc = "NOT IMPLEMENTED Single code action",
   })
 
-  map(
-    "n",
-    "<Leader><Leader>",
-    vim.lsp.buf.code_action,
-    lsp_opts({ desc = "LSP Code Action" })
-  )
+  map("n", "<Leader><Leader>", function()
+    vim.lsp.buf.code_action()
+  end, lsp_opts({ desc = "LSP Code Action" }))
 
   map("n", "gr", function()
     return telescope_builtin("lsp_references")
