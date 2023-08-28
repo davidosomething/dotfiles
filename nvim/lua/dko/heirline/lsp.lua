@@ -10,8 +10,8 @@ return {
   update = {
     "LspAttach",
     "LspDetach",
-    "User LspProgressUpdate",
-    "User LspRequest",
+    "LspProgress",
+    "LspRequest",
   },
 
   provider = function()
