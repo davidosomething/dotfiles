@@ -6,15 +6,11 @@ tools.register({
   name = "selene",
   fts = { "lua" },
   efm = function()
-    return {
-      lintCommand = "selene --display-style quiet -",
-      lintIgnoreExitCode = true,
-      lintSource = "efm",
-      lintStdin = true,
-      prefix = "selene",
-      requireMarker = true,
-      rootMarkers = { "selene.toml" },
-    }
+    return vim.tbl_extend(
+      "force",
+      require("efmls-configs.linters.selene"),
+      { lintSource = "efmls" }
+    )
   end,
 })
 
