@@ -10,6 +10,7 @@ return {
   update = {
     "LspAttach",
     "LspDetach",
+    "LspNotify",
     "LspProgress",
     "LspRequest",
   },
