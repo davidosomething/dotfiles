@@ -297,10 +297,9 @@ local fix_winbar_events = vim.tbl_extend(
   require("dko.heirline.lsp").update,
   { "User PackageInfoProgress" } -- clear winbar status msg when done
 )
-
 autocmd(fix_winbar_events, {
   desc = "FIX - heirline does not always update winbars",
-  callback = function()
+  callback = vim.schedule_wrap(function()
     vim.cmd.redrawstatus({ bang = true })
-  end,
+  end),
 })
