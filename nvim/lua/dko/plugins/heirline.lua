@@ -31,7 +31,7 @@ return {
           disable_winbar_cb = function(args)
             return require("heirline.conditions").buffer_matches({
               buftype = vim.tbl_filter(function(bt)
-                return not vim.tbl_contains(
+                return not vim.list_contains(
                   { "help", "quickfix", "terminal" },
                   bt
                 )

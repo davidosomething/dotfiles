@@ -19,15 +19,8 @@ M.SPECIAL_FILETYPES = {
 
 ---@param bufnr integer
 M.is_special = function(bufnr)
-  if vim.tbl_contains(M.SPECIAL_BUFTYPES, vim.bo[bufnr].buftype) then
-    return true
-  end
-
-  if vim.tbl_contains(M.SPECIAL_FILETYPES, vim.bo[bufnr].filetype) then
-    return true
-  end
-
-  return false
+  return vim.list_contains(M.SPECIAL_BUFTYPES, vim.bo[bufnr].buftype)
+    or vim.list_contains(M.SPECIAL_FILETYPES, vim.bo[bufnr].filetype)
 end
 
 ---@param bufnr integer
