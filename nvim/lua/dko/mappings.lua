@@ -353,7 +353,10 @@ M.bind_lsp = function(bufnr)
   map("n", "gd", function()
     return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
   end, lsp_opts({ desc = "LSP definition" }))
-  map("n", "K", vim.lsp.buf.hover, lsp_opts({ desc = "LSP hover" }))
+
+  -- This is done for us in
+  -- $VIMRUNTIME/lua/vim/lsp.lua
+  --map("n", "K", vim.lsp.buf.hover, lsp_opts({ desc = "LSP hover" }))
 
   map("n", "gi", function()
     return telescope_builtin("lsp_implementations")
