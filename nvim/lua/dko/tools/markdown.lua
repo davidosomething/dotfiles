@@ -6,13 +6,11 @@ tools.register({
   name = "markdownlint",
   fts = { "markdown" },
   efm = function()
-    return {
-      lintCommand = "markdownlint --stdin",
-      lintIgnoreExitCode = true,
-      lintSource = "efm",
-      lintStdin = true,
-      prefix = "markdownlint",
-    }
+    return vim.tbl_extend(
+      "force",
+      require("efmls-configs.linters.markdownlint"),
+      { lintSource = "efm" }
+    )
   end,
 })
 
