@@ -21,7 +21,7 @@ jobs:
           if [ "$RUNNER_OS" == "macOS" ]; then brew install shellcheck; fi
 
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.x
         uses: actions/setup-python@v4
