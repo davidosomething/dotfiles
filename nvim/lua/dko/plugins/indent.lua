@@ -1,5 +1,4 @@
---- @type 'hlchunk'|'indentmini'
-local enabled = "hlchunk"
+local enabled = "ibl"
 
 local hlchunk_blank = false
 local hlchunk_chunk = true
@@ -9,6 +8,15 @@ return {
   -- indent guides
   -- every plugin has issues, leave a bunch of configs here and swapping as
   -- needed
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = enabled == "ibl",
+    branch = "v3",
+    config = function()
+      require("ibl").setup()
+    end,
+  },
 
   -- =========================================================================
   -- https://github.com/nvimdev/indentmini.nvim
