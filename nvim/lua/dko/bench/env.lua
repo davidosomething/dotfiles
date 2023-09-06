@@ -20,7 +20,7 @@ end
 local times = {}
 for j = 1, RUNS, 1 do
   times[j] = b(function()
-    os.getenv("DOTFILES")
+    return os.getenv("DOTFILES")
   end)
 end
 local osres = avg(times)
@@ -28,7 +28,7 @@ local osres = avg(times)
 times = {}
 for j = 1, RUNS, 1 do
   times[j] = b(function()
-    vim.uv.os_getenv("DOTFILES")
+    return vim.uv.os_getenv("DOTFILES")
   end)
 end
 local uvres = avg(times)
@@ -36,14 +36,23 @@ local uvres = avg(times)
 times = {}
 for j = 1, RUNS, 1 do
   times[j] = b(function()
-    vim.fn.expand("$DOTFILES")
+    return vim.fn.expand("$DOTFILES")
   end)
 end
 local expandres = avg(times)
+
+times = {}
+for j = 1, RUNS, 1 do
+  times[j] = b(function()
+    return vim.env.DOTFILES
+  end)
+end
+local envres = avg(times)
 
 vim.print({
   osres = osres,
   uvres = uvres,
   expandres = expandres,
+  envres = envres,
 })
 -- os.getenv fastest 2023-08-25

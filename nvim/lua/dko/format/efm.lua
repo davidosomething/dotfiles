@@ -26,7 +26,7 @@ M.format = function(hide_notification)
   vim.lsp.buf.format({
     async = false,
     name = "efm",
-    timeout_ms = os.getenv("SSH_CLIENT") and 3000 or 1000,
+    timeout_ms = vim.env.SSH_CLIENT and 3000 or 1000,
   })
 end
 
