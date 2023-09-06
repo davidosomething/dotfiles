@@ -1,4 +1,4 @@
-vim.go.termguicolors = os.getenv("TERM_PROGRAM") ~= "Apple_Terminal"
+vim.go.termguicolors = vim.env.TERM_PROGRAM ~= "Apple_Terminal"
 
 -- ===========================================================================
 -- File reading

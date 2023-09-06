@@ -26,7 +26,7 @@ M.darkmode = function()
   vim.cmd.colorscheme(settings.get("colors.dark"))
 end
 
-local colorscheme_file_path = os.getenv("XDG_STATE_HOME")
+local colorscheme_file_path = vim.env.XDG_STATE_HOME
   .. "/wezterm-colorscheme.txt"
 M.apply_from_file = function()
   -- see ./bench/readfile.lua - io.input was consistently fastest for me

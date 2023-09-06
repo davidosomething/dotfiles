@@ -8,7 +8,7 @@ local settings = {
     light = "two-firewatch",
   },
   grepper = {
-    ignore_file = ("%s/%s"):format(os.getenv("DOTFILES"), "ag/dot.ignore"),
+    ignore_file = ("%s/%s"):format(vim.env.DOTFILES, "ag/dot.ignore"),
   },
   heirline = {
     show_buftype = false,
