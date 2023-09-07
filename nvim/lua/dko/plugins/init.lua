@@ -296,10 +296,10 @@ return {
   {
     "ojroques/nvim-osc52",
     enabled = function()
+      local is_remote = vim.env.SSH_CLIENT or vim.uv.fs_stat("/.dockerenv")
       -- yes .dockerenv is in root /
-      return vim.env.SSH_CLIENT
+      return (is_remote and (vim.env.DISPLAY == nil or vim.env.DISPLAY == ""))
         or vim.env.NVIM_INSTALL_ALL
-        or vim.uv.fs_stat("/.dockerenv")
     end,
     config = function()
       local function copy(lines, _)
