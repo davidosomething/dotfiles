@@ -74,6 +74,9 @@ return {
             },
           },
           results_title = false,
+
+          -- @TODO telescope is broken in nvim HEAD
+          sorting_strategy = "ascending",
         },
         extensions = {
           file_browser = {
