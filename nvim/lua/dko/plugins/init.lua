@@ -27,56 +27,6 @@ return {
   },
 
   -- =========================================================================
-  -- ui: colorscheme
-  -- =========================================================================
-
-  {
-    "davidosomething/vim-colors-meh",
-    dependencies = { "rakr/vim-two-firewatch" },
-    dev = true,
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme("meh")
-      if vim.env.TERM_PROGRAM == "WezTerm" then
-        require("dko.colors").wezterm_sync()
-      end
-    end,
-  },
-
-  {
-    "mcchrish/zenbones.nvim",
-    lazy = true,
-    dependencies = { "rktjmp/lush.nvim" },
-  },
-
-  {
-    "NvChad/nvim-colorizer.lua",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("colorizer").setup({
-        buftypes = {
-          "*",
-          unpack(vim.tbl_map(function(v)
-            return "!" .. v
-          end, require("dko.utils.buffer").SPECIAL_BUFTYPES)),
-        },
-        filetypes = {
-          "css",
-          "html",
-          "javascript",
-          "javascriptreact",
-          "scss",
-          "typescript",
-          "typescriptreact",
-        },
-        css = true,
-        tailwind = true,
-      })
-    end,
-  },
-
-  -- =========================================================================
   -- ui: components
   -- =========================================================================
 
@@ -302,6 +252,32 @@ return {
 
   -- Works better than https://github.com/IndianBoy42/tree-sitter-just
   { "NoahTheDuke/vim-just" },
+
+  {
+    "NvChad/nvim-colorizer.lua",
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("colorizer").setup({
+        buftypes = {
+          "*",
+          unpack(vim.tbl_map(function(v)
+            return "!" .. v
+          end, require("dko.utils.buffer").SPECIAL_BUFTYPES)),
+        },
+        filetypes = {
+          "css",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "scss",
+          "typescript",
+          "typescriptreact",
+        },
+        css = true,
+        tailwind = true,
+      })
+    end,
+  },
 
   -- =========================================================================
   -- Writing
