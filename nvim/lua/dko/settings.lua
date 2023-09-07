@@ -5,7 +5,7 @@ local object = require("dko.utils.object")
 local settings = {
   colors = {
     dark = "meh",
-    light = "two-firewatch",
+    light = "zenbones",
   },
   grepper = {
     ignore_file = ("%s/%s"):format(vim.env.DOTFILES, "ag/dot.ignore"),
