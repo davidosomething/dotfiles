@@ -1,22 +1,26 @@
 <img alt="dotfiles" width="200" src="https://cdn.rawgit.com/davidosomething/dotfiles/master/meta/dotfiles-logo.png">
 
-My dotfiles. <https://github.com/davidosomething/dotfiles>
-
-- I use macOS, Arch Linux, and Debian. Limited Fedora support.
-- [XDG] compliance wherever possible to keep `$HOME` clean
-  - See [Arch Linux wiki for XDG Base Directory Support]
-  - See [Debian DotFilesList]
-  - See [grawity's notes] and [environ notes]
-- Wezterm as preferred cross-platform terminal
-- ZSH (preferred) and BASH configs
-- Neovim (preferred) and VIM configs
-- RC files for Lua, markdownlint, node, PHP, python, R, and others
+My dotfiles. <https://github.com/davidosomething/dotfiles>  
+My [/uses] post my be of interest to you!
 
 ![terminal screenshot][screenshot]
 
 > Screenshot of my ZSH prompt
 
-My [/uses] post my be of interest to you!
+| Tool              | Link                        |
+| ----------------- | --------------------------- |
+| OS support        | Arch, macOS, Debian, Ubuntu |
+| Terminal emulator | [wezterm]                   |
+| Shell             | zsh                         |
+| Shell plugins     | [zinit]                     |
+| Editor            | [neovim]                    |
+| Tooling/env       | [rtx]                       |
+
+- [XDG] compliance wherever possible to keep `$HOME` clean
+  - See [Arch Linux wiki for XDG Base Directory Support]
+  - See [Debian DotFilesList]
+  - See [grawity's notes] and [environ notes]
+- RC files for Lua, markdownlint, node, PHP, python, R, and others
 
 ## Installation
 
@@ -41,7 +45,7 @@ The `sshkeygen` alias will help in generating a new SSH key.
 
 #### node, python, and ruby
 
-Use `rtx` or `asdf`
+Use `rtx` (`asdf` is also acceptable, but not explicitly supported)
 
 ### Provisioning scripts
 
@@ -53,7 +57,7 @@ environment set up first.
   confirmation).
 - [bootstrap/mac](bootstrap/mac) provision macOS. Runs other bootstrappers.
 - [bootstrap/symlink](bootstrap/symlink) symlinks rc files for bash, ZSH,
-  ack, (Neo)vim, etc.
+  ack, Neovim, etc.
 
 ## Updating
 
@@ -130,9 +134,13 @@ For X apps (no terminal) the value may be:
 
 [Arch Linux wiki for XDG Base Directory Support]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
 [Debian DotFilesList]: https://wiki.debian.org/DotFilesList
-[XDG]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
 [grawity's notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
+[neovim]: https://neovim.io/
+[rtx]: https://github.com/jdx/rtx
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/8fa3d6a738ed39ff2b8ba7a5d9126b59d895b538/meta/terminal-potatopro.png
 [/uses]: https://www.davidosomething.com/uses/
+[wezterm]: https://wezfurlong.org/wezterm/
+[XDG]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+[zinit]: https://github.com/zdharma-continuum/zinit
