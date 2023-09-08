@@ -17,7 +17,9 @@ local M = {}
 
 ---@type table<ft, function>
 local pipelines = {}
-pipelines["html"] = require("dko.format.efm").format
+pipelines["html"] = function()
+  require("dko.format.efm").format({ pipeline = "html" })
+end
 pipelines["javascript"] = function()
   require("dko.format.javascript")(notify)
 end
@@ -25,11 +27,11 @@ pipelines["javascriptreact"] = pipelines["javascript"]
 pipelines["typescript"] = pipelines["javascript"]
 pipelines["typescriptreact"] = pipelines["javascript"]
 pipelines["json"] = function()
-  require("dko.format.efm").format_with("prettier")
+  require("dko.format.efm").format_with("prettier", { pipeline = "json" })
 end
 pipelines["jsonc"] = pipelines["json"]
 pipelines["lua"] = function()
-  require("dko.format.efm").format_with("stylua")
+  require("dko.format.efm").format_with("stylua", { pipeline = "lua" })
 end
 pipelines["markdown"] = require("dko.format.markdown")
 pipelines["yaml"] = function()
@@ -39,7 +41,7 @@ pipelines["yaml"] = function()
     notify({ "docker_compose_language_service" })
     return
   end
-  require("dko.format.efm").format_with("yamlfmt")
+  require("dko.format.efm").format_with("yamlfmt", { pipeline = "yamlfmt" })
 end
 
 --- See options for vim.lsp.buf.format
