@@ -54,7 +54,6 @@ return {
       "neovim/nvim-lspconfig", -- wait for lspconfig
       "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
     },
-    event = "VeryLazy",
     config = function()
       local lspconfig = require("lspconfig")
 
