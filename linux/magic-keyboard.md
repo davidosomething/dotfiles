@@ -26,10 +26,10 @@ page in ArchWiki for reference.
 
 - Do not use `shift:both_capslock` -- it (still, Feb 2021) breaks Shift in
   LWGJL.  
-      see [LWJGL #28](https://github.com/LWJGL/lwjgl/issues/28)
+   see [LWJGL #28](https://github.com/LWJGL/lwjgl/issues/28)
 - Using `ctrl:nocaps` => `Caps Lock as Ctrl`
-    - Prefer this over `capslock(ctrl_modifier)` => `Make Caps Lock an
-      Additional Ctrl` because LWGJL still reads additional ctrl as caps lock.
+  - Prefer this over `capslock(ctrl_modifier)` => `Make Caps Lock an
+Additional Ctrl` because LWGJL still reads additional ctrl as caps lock.
 - `cat /usr/share/X11/xkb/rules/base.lst` for a full list of modifiers.
 
 - KDE's `Input Devices > Keyboard` system settings will tell KDE to run
@@ -39,26 +39,26 @@ page in ArchWiki for reference.
   dropdown is Apple | Apple.  
   Running `setxkbmap -print -verbose 10` should yield:
 
-    ```plain
-    rules:      evdev
-    model:      apple
-    layout:     us
-    variant:    mac
-    options:    ctrl:nocaps
-    Trying to build keymap using the following components:
-    keycodes:   evdev+aliases(qwerty)
-    types:      complete
-    compat:     complete
-    symbols:    pc+us(mac)+inet(evdev)+ctrl(nocaps)
-    geometry:   pc(pc104)
-    xkb_keymap {
-            xkb_keycodes  { include "evdev+aliases(qwerty)" };
-            xkb_types     { include "complete"      };
-            xkb_compat    { include "complete"      };
-            xkb_symbols   { include "pc+us(mac)+inet(evdev)+ctrl(nocaps)"      };
-            xkb_geometry  { include "pc(pc104)"     };
-    };
-    ```
+  ```plain
+  rules:      evdev
+  model:      apple
+  layout:     us
+  variant:    mac
+  options:    ctrl:nocaps
+  Trying to build keymap using the following components:
+  keycodes:   evdev+aliases(qwerty)
+  types:      complete
+  compat:     complete
+  symbols:    pc+us(mac)+inet(evdev)+ctrl(nocaps)
+  geometry:   pc(pc104)
+  xkb_keymap {
+          xkb_keycodes  { include "evdev+aliases(qwerty)" };
+          xkb_types     { include "complete"      };
+          xkb_compat    { include "complete"      };
+          xkb_symbols   { include "pc+us(mac)+inet(evdev)+ctrl(nocaps)"      };
+          xkb_geometry  { include "pc(pc104)"     };
+  };
+  ```
 
 - I manually mirror this setup for all of X11 via
   `/etc/X11/xorg.conf.d/00-keyboard.conf`. The command
@@ -68,4 +68,3 @@ page in ArchWiki for reference.
   ```
 
   will generate the conf file automatically.
-

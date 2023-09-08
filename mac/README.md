@@ -20,9 +20,9 @@ everything.
 1. iCloud sign in
 1. Install App store apps
 
-    - [Display Menu] or EasyRes: Set higher/native resolutions
-    - [Xcode]: select CLI tools in prefs
-        - This is __required__ to build some apps like neovim@HEAD
+   - [Display Menu] or EasyRes: Set higher/native resolutions
+   - [Xcode]: select CLI tools in prefs
+     - This is **required** to build some apps like neovim@HEAD
 
 ## Setup ssh keys
 
@@ -59,26 +59,26 @@ Bundle dumps for specific systems are in my `~/.secret` (not public).
 ## Cask notes
 
 - dropbox
-    - Has app settings sync so wait for it to finish syncing.
-    - If the shared directory is on an external volume, disable autostart and
-      add [LoginItems/DelayedDropbox.app](LoginItems/DelayedDropbox.app) to
-      your login items instead. It is a generic app made using Script Editor.
+  - Has app settings sync so wait for it to finish syncing.
+  - If the shared directory is on an external volume, disable autostart and
+    add [LoginItems/DelayedDropbox.app](LoginItems/DelayedDropbox.app) to
+    your login items instead. It is a generic app made using Script Editor.
 - bettertouchtool
-    - License in gmail
-    - Provides better trackpad swipe configs, drag window snapping,
-      modifier-hold window resizing
-    - Synced to Dropbox
+  - License in gmail
+  - Provides better trackpad swipe configs, drag window snapping,
+    modifier-hold window resizing
+  - Synced to Dropbox
 - hammerspoon
-    - App launcher (<kbd>⌘</kbd><kbd>space</kbd>) to replace spotlight
-      (disable spotlight shortcut first)
-    - Audio output device switch in menubar, relies on `switchaudio-osx` which
-      is in homebrew
-    - Auto-type from clipboard (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>v</kbd>) for
-      paste blockers
-    - Caffeinate in menubar
-    - Window management keys to use sections of a monitor (try hitting the key
-      multiple times) and to throw apps to the next monitor
-      (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z/[/]</kbd>)
+  - App launcher (<kbd>⌘</kbd><kbd>space</kbd>) to replace spotlight
+    (disable spotlight shortcut first)
+  - Audio output device switch in menubar, relies on `switchaudio-osx` which
+    is in homebrew
+  - Auto-type from clipboard (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>v</kbd>) for
+    paste blockers
+  - Caffeinate in menubar
+  - Window management keys to use sections of a monitor (try hitting the key
+    multiple times) and to throw apps to the next monitor
+    (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z/[/]</kbd>)
 
 ## mackup
 
@@ -100,9 +100,9 @@ Use the `bi` alias for a clean room install.
 
 - Increase file limits a la
   <https://github.com/karma-runner/karma/issues/1979#issuecomment-260790451>
-    - See <https://gist.github.com/abernix/a7619b07b687bb97ab573b0dc30928a0>
-      if there are still file limit issues
-    - REBOOT for `ulimit -n` changes to take effect
+  - See <https://gist.github.com/abernix/a7619b07b687bb97ab573b0dc30928a0>
+    if there are still file limit issues
+  - REBOOT for `ulimit -n` changes to take effect
 
 [unlock]: https://github.com/davidosomething/Unlock
 [Display Menu]: https://apps.apple.com/us/app/display-menu/id549083868?mt=12
