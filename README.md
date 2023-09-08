@@ -4,15 +4,16 @@ My dotfiles. <https://github.com/davidosomething/dotfiles>
 
 - I use macOS, Arch Linux, and Debian. Limited Fedora support.
 - [XDG] compliance wherever possible to keep `$HOME` clean
-    - See [Arch Linux wiki for XDG Base Directory Support]
-    - See [Debian DotFilesList]
-    - See [grawity's notes] and [environ notes]
+  - See [Arch Linux wiki for XDG Base Directory Support]
+  - See [Debian DotFilesList]
+  - See [grawity's notes] and [environ notes]
 - Wezterm as preferred cross-platform terminal
 - ZSH (preferred) and BASH configs
 - Neovim (preferred) and VIM configs
 - RC files for Lua, markdownlint, node, PHP, python, R, and others
 
 ![terminal screenshot][screenshot]
+
 > Screenshot of my ZSH prompt
 
 My [/uses] post my be of interest to you!
@@ -61,24 +62,24 @@ environment set up first.
 ## Notes
 
 - `bin/`
-    - There's a [readme](bin/README.md) in `bin/` describing each
-      script/binary. This directory is in the `$PATH`.
+  - There's a [readme](bin/README.md) in `bin/` describing each
+    script/binary. This directory is in the `$PATH`.
 - `git/`
-    - The comment character is `#` instead of `;` so I can use Markdown
-      in my commit messages without trimming the headers as comments. This is
-      also reflected in a custom Vim highlighting syntax in
-      `vim/after/syntax/gitcommit.vim`.
+  - The comment character is `#` instead of `;` so I can use Markdown
+    in my commit messages without trimming the headers as comments. This is
+    also reflected in a custom Vim highlighting syntax in
+    `vim/after/syntax/gitcommit.vim`.
 - `local/`
-    - Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
-      and they will be automatically sourced, LAST, by the default scripts. _No
-      dots on the filenames._
+  - Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
+    and they will be automatically sourced, LAST, by the default scripts. _No
+    dots on the filenames._
 - `nvim/`
-    - [nvim/README.md](nvim/README.md) for more information.
+  - [nvim/README.md](nvim/README.md) for more information.
 - `python/`
-    - Never `sudo pip`. Set up a python virtual environment.
+  - Never `sudo pip`. Set up a python virtual environment.
 - `vim/`
-    - Not really maintained, I use neovim on all my systems now
-    - See [vim/README.md](vim/README.md) for more information.
+  - Not really maintained, I use neovim on all my systems now
+  - See [vim/README.md](vim/README.md) for more information.
 
 ### rc script source order
 
@@ -98,30 +99,30 @@ For X apps (no terminal) the value may be:
 ## Shell script code style
 
 - **Script architecture**
-    - Use the `#!/usr/bin/env bash` shebang and write with bash compatibility
-    - Create a private main function with the same name as the shell script.
-      E.g. for a script called `fun`, there should be a `__fun()` that gets
-      called with the original arguments `__fun $@`
-    - Two space indents
-    - Prefer `.` over `source`
+  - Use the `#!/usr/bin/env bash` shebang and write with bash compatibility
+  - Create a private main function with the same name as the shell script.
+    E.g. for a script called `fun`, there should be a `__fun()` that gets
+    called with the original arguments `__fun $@`
+  - Two space indents
+  - Prefer `.` over `source`
 - **Function names**
-    - For private functions in a script, use two underscores `__private_func()`
-      These function names are safe to reuse after running the script once. When
-      namespaced, they are in the form of `__dko_function_name()`.
+  - For private functions in a script, use two underscores `__private_func()`
+    These function names are safe to reuse after running the script once. When
+    namespaced, they are in the form of `__dko_function_name()`.
 - **Variable interpolation**
-    - Always use curly braces around the variable name when interpolating in
-      double quotes.
+  - Always use curly braces around the variable name when interpolating in
+    double quotes.
 - **Variable names**
-    - Stick to nouns, lower camel case
+  - Stick to nouns, lower camel case
 - **Variable scope**
-    - Use `local` and `readonly` variables as much as possible over
-      global/shell-scoped variables.
+  - Use `local` and `readonly` variables as much as possible over
+    global/shell-scoped variables.
 - **Comparison**
-    - Not strict on POSIX, but portability
-    - Do NOT use BASH arrays, use ZSH or Python if need something complicated
-    - Use BASH `==` for string comparison
-    - Use BASH `(( A == 2 ))` for integer comparison (note not `$A`, `$` not
-      needed)
+  - Not strict on POSIX, but portability
+  - Do NOT use BASH arrays, use ZSH or Python if need something complicated
+  - Use BASH `==` for string comparison
+  - Use BASH `(( A == 2 ))` for integer comparison (note not `$A`, `$` not
+    needed)
 
 ## Credits
 
