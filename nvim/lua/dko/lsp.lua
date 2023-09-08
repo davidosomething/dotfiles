@@ -78,8 +78,7 @@ M.code_action = function(options)
   end
   if not context.diagnostics then
     local bufnr = vim.api.nvim_get_current_buf()
-    context.diagnostics =
-      vim.lsp.diagnostic.get_line_diagnostics(bufnr, nil, nil, nil)
+    context.diagnostics = vim.lsp.diagnostic.get_line_diagnostics(bufnr)
   end
   local params
   local mode = vim.api.nvim_get_mode().mode
