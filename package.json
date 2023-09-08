@@ -48,8 +48,5 @@
   "devDependencies": {
     "eslint": "8.48.0",
     "eslint-config-davidosomething": "6.0.0"
-  },
-  "prettier": {
-    "editorconfig": true
   }
 }
