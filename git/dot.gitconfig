@@ -98,6 +98,9 @@
 	required  = true
 	process = git-lfs filter-process
 
+[init]
+  defaultBranch = main
+
 [push]
 	default = simple
 
