@@ -11,6 +11,7 @@ vim.filetype.add({
     [".yamlfmt"] = "yaml",
   },
   pattern = {
+    ["docker%-compose%.y.?ml"] = "yaml.docker-compose",
     ["%.env%.[%w_.-]+"] = "dotenv",
     -- ["env%.(%a+)"] = function(_path, _bufnr, ext)
     --   vim.print(ext)
