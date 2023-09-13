@@ -8,7 +8,7 @@ end
 return {
   {
     init = function(self)
-      self.filename = vim.api.nvim_buf_get_name(0)
+      self.filepath = vim.api.nvim_buf_get_name(0)
 
       self.filetype_text = vim.list_contains(
         { "javascript", "markdown" },
@@ -60,11 +60,11 @@ return {
             self.icon = ""
             self.icon_color = ""
           else
-            local extension = vim.fn.fnamemodify(self.filename, ":e")
+            local extension = vim.fn.fnamemodify(self.filepath, ":e")
             local ok, nvim_web_devicons = pcall(require, "nvim-web-devicons")
             if ok then
               self.icon, self.icon_color = nvim_web_devicons.get_icon_color(
-                self.filename,
+                self.filepath,
                 extension,
                 { default = true }
               )
@@ -103,9 +103,8 @@ return {
     },
 
     -- =========================================================================
-    -- file path and readonly indicator
+    -- filename
     -- =========================================================================
-
     {
       condition = function()
         return vim.bo.buftype == "" or vim.bo.buftype == "help"
@@ -113,31 +112,12 @@ return {
 
       {
         provider = function(self)
-          if self.filename == "" then
+          if self.filepath == "" then
             return " ᴜɴɴᴀᴍᴇᴅ "
           end
 
-          local win_width = vim.api.nvim_win_get_width(0)
-          local extrachars = 3 + 3 + self.filetype_text:len() + 16
-          local remaining = win_width - extrachars
-
-          local final
-          local relative = vim.fn.fnamemodify(self.filename, ":~:.") or ""
-          if relative:len() < remaining then
-            final = relative
-          else
-            local shorten = require("dko.utils.path").shorten
-            local len = 8
-            while len > 0 and type(final) ~= "string" do
-              local attempt = shorten(self.filename, len)
-              final = attempt:len() < remaining and attempt
-              len = len - 2
-            end
-            if not final then
-              final = shorten(self.filename, 1)
-            end
-          end
-          return " %<" .. final .. " "
+          local filename = vim.fn.fnamemodify(self.filepath, ":t")
+          return (" %s "):format(filename)
         end,
         hl = function()
           return vim.bo.modified and "Todo" or active_highlight("StatusLine")
@@ -150,6 +130,49 @@ return {
         end,
         provider = "  ",
         hl = "dkoLineImportant",
+      },
+    },
+
+    -- =========================================================================
+    -- path
+    -- =========================================================================
+
+    {
+      condition = function()
+        return vim.bo.buftype == "" or vim.bo.buftype == "help"
+      end,
+
+      {
+        provider = function(self)
+          if self.filepath == "" then
+            return ""
+          end
+
+          local path = vim.fn.fnamemodify(self.filepath, ":h")
+
+          local win_width = vim.api.nvim_win_get_width(0)
+          local extrachars = 3 + 3 + self.filetype_text:len() + 16
+          local remaining = win_width - extrachars
+
+          local final
+          local relative = vim.fn.fnamemodify(path, ":~:.") or ""
+          if relative:len() < remaining then
+            final = relative
+          else
+            local shorten = require("dko.utils.path").shorten
+            local len = 8
+            while len > 0 and type(final) ~= "string" do
+              local attempt = shorten(path, len)
+              final = attempt:len() < remaining and attempt
+              len = len - 2
+            end
+            if not final then
+              final = shorten(path, 1)
+            end
+          end
+          return ("in %s%s "):format("%<", final)
+        end,
+        hl = "Comment",
       },
     },
   },
