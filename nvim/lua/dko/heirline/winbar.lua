@@ -148,10 +148,10 @@ return {
             return ""
           end
 
-          local path = vim.fn.fnamemodify(self.filepath, ":h")
+          local path = vim.fn.fnamemodify(self.filepath, ":~:h")
 
           local win_width = vim.api.nvim_win_get_width(0)
-          local extrachars = 3 + 3 + self.filetype_text:len() + 16
+          local extrachars = 3 + 3 + self.filetype_text:len()
           local remaining = win_width - extrachars
 
           local final
@@ -159,15 +159,14 @@ return {
           if relative:len() < remaining then
             final = relative
           else
-            local shorten = require("dko.utils.path").shorten
             local len = 8
             while len > 0 and type(final) ~= "string" do
-              local attempt = shorten(path, len)
+              local attempt = vim.fn.pathshorten(path, len)
               final = attempt:len() < remaining and attempt
               len = len - 2
             end
             if not final then
-              final = shorten(path, 1)
+              final = vim.fn.pathshorten(path, 1)
             end
           end
           return ("in %s%s "):format("%<", final)
