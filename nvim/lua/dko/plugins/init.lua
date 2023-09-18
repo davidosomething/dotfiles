@@ -68,7 +68,7 @@ return {
 
   -- pretty format quickfix and loclist
   {
-    "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+    "yorickpeterse/nvim-pqf",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("pqf").setup({
@@ -150,6 +150,14 @@ return {
       "VSSplitAbove",
       "VSSplitBelow",
     },
+  },
+
+  {
+    "yorickpeterse/nvim-window",
+    config = function()
+      require("nvim-window").setup({})
+      require("dko.mappings").bind_nvim_window()
+    end,
   },
 
   -- remember/restore last cursor position in files
