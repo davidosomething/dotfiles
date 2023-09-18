@@ -10,8 +10,8 @@ M.find_exists = function(paths)
 end
 
 ---Edit file with name, look upwards from current buffer
----@param opts table for vim.fs.find
 ---@param filename string needle
+---@param opts? table for vim.fs.find
 M.edit_closest = function(filename, opts)
   opts = vim.tbl_extend("force", {
     -- need to specify closest to current file or else cwd is used
