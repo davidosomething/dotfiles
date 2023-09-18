@@ -33,9 +33,9 @@ tools.register({
 })
 
 -- python lint and format from ruff
-tools.register({
-  mason_type = "lsp",
-  require = "python",
-  name = "ruff_lsp",
-  runner = "mason-lspconfig",
-})
+-- tools.register({
+--   mason_type = "lsp",
+--   require = "python",
+--   name = "ruff_lsp",
+--   runner = "mason-lspconfig",
+-- })
