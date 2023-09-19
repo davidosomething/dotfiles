@@ -6,7 +6,7 @@
 
 # ==============================================================================
 
-latest_xcode_major="14"
+latest_xcode_major="15"
 
 # ==============================================================================
 # Command functions
@@ -239,7 +239,7 @@ __dko_dotfiles__update_neovim() {
     if __dko_has nvim; then
       local version
       version="$(nvim --version | head -n1)"
-      if ! grep dev <<< "$version"; then
+      if ! grep dev <<<"$version"; then
         brew uninstall neovim
         brew install --force --HEAD neovim
       else
@@ -420,7 +420,7 @@ __dko_dotfiles__darwin__require_latest_xcode() {
   v="$(xcodebuild -version | awk 'NR==1{print $2}')"
   # 14 (trim until .)
   v="${v%%.*}"
-  if (( v <= latest_xcode_major )); then
+  if ((v <= latest_xcode_major)); then
     __dko_ok "Found Xcode >= v${v}"
     return 0
   fi
