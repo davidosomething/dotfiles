@@ -680,14 +680,29 @@ M.bind_telescope = function()
     require("telescope.builtin").buffers({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick existing buffer" })
 
+  map("n", "<A-c>", function()
+    require("telescope.builtin").find_files({
+      hidden = true,
+      layout_strategy = "vertical",
+    })
+  end, { desc = "Telescope: files in cwd" })
+
   map("n", "<A-f>", function()
     -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#falling-back-to-find_files-if-git_files-cant-find-a-git-directory
     local res =
       vim.system({ "git", "rev-parse", "--is-inside-work-tree" }):wait()
-    local finder = res.code == 0 and require("telescope.builtin").git_files
-      or require("telescope.builtin").find_files
-    finder({ layout_strategy = "vertical" })
-  end, { desc = "Telescope: pick files in CWD" })
+    if res.code == 0 then
+      require("telescope.builtin").git_files({
+        layout_strategy = "vertical",
+        show_untracked = true,
+      })
+    else
+      require("telescope.builtin").find_files({
+        hidden = true,
+        layout_strategy = "vertical",
+      })
+    end
+  end, { desc = "Telescope: files in git work files or CWD" })
 
   map("n", "<A-g>", function()
     require("telescope.builtin").live_grep({ layout_strategy = "vertical" })
@@ -699,8 +714,9 @@ M.bind_telescope = function()
 
   map("n", "<A-p>", function()
     require("telescope.builtin").find_files({
+      hidden = true,
       layout_strategy = "vertical",
-      prompt_title = "Files in project",
+      prompt_title = "Files in buffer's project",
       cwd = require("dko.project").root(),
     })
   end, {

@@ -1,8 +1,10 @@
 local icon_color_enabled = false
 
+local conditions = require("heirline.conditions")
+
 local function active_highlight(active)
   active = active or "StatusLine"
-  return require("heirline.conditions").is_active() and active or "StatusLineNC"
+  return conditions.is_active() and active or "StatusLineNC"
 end
 
 return {
@@ -33,7 +35,7 @@ return {
       {
         provider = function()
           if
-            require("heirline.conditions").buffer_matches({
+            conditions.buffer_matches({
               buftype = require("dko.utils.buffer").SPECIAL_BUFTYPES,
               filetype = require("dko.utils.buffer").SPECIAL_FILETYPES,
             })
@@ -128,8 +130,13 @@ return {
         condition = function()
           return not vim.bo.modifiable or vim.bo.readonly
         end,
-        provider = "  ",
-        hl = "dkoLineImportant",
+        {
+          provider = "  ",
+          hl = "dkoLineImportant",
+        },
+        {
+          provider = " ",
+        },
       },
     },
 
@@ -169,9 +176,11 @@ return {
               final = vim.fn.pathshorten(path, 1)
             end
           end
-          return ("in %s%s "):format("%<", final)
+          return ("in %s%s/ "):format("%<", final)
         end,
-        hl = "Comment",
+        hl = function()
+          return active_highlight("Comment")
+        end,
       },
     },
   },
