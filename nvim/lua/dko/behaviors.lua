@@ -71,12 +71,7 @@ autocmd("WinLeave", {
 autocmd("VimResized", {
   desc = "Automatically resize windows in all tabpages when resizing Vim",
   callback = function()
-    local ok, notify = pcall(require, "notify")
-    if ok then
-      notify.dismiss({ silent = true, pending = true })
-    end
     vim.schedule(function()
-      notify("autosizing", vim.log.levels.INFO, { render = "compact" })
       vim.cmd("tabdo wincmd =")
     end)
   end,
