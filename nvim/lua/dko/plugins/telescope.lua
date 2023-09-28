@@ -89,6 +89,7 @@ return {
               },
             },
             mappings = with_multiselect_mapping(),
+            prompt_title = "Explorer ? <C-/> ls mappings / <A-d> del / <A-m> mv / <A-r> ren",
           },
         },
         pickers = {
@@ -106,6 +107,7 @@ return {
           },
           oldfiles = {
             mappings = with_multiselect_mapping(),
+            prompt_title = "MRU",
           },
         },
       })
