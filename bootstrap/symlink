@@ -59,8 +59,6 @@ __symlink() {
     ".config/yamlfmt"
 
   # (n)vim / intellij ideavim
-  dko-symlink "vim" \
-    ".vim"
   dko-symlink "nvim" \
     ".config/nvim"
   dko-symlink "ideavim/dot.ideavimrc" \

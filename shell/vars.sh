@@ -52,7 +52,6 @@ export LC_ALL="$LANG"
 export DOTFILES="${HOME}/.dotfiles"
 export BDOTDIR="${DOTFILES}/bash"
 export LDOTDIR="${DOTFILES}/local"
-export VDOTDIR="${DOTFILES}/vim"
 export ZDOTDIR="${DOTFILES}/zsh"
 
 # ============================================================================

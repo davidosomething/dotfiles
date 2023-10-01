@@ -9,8 +9,4 @@ mac/*.terminal
 mac/iterm2/
 mac/hammerspoon/Spoons/
 tmux/plugins/
-vim/.tmp/
-vim/autoload/plug.vim
-vim/plug/
-vim/vendor/
 weechat/

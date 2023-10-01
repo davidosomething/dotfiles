@@ -12,6 +12,4 @@ rules:
 ignore: |
   node_modules/
   tmux/plugins/
-  vim/vendor/
-  vim/.tmp/
   zsh/.zinit/
