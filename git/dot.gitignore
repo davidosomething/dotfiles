@@ -124,6 +124,7 @@ workbench.xmi
 # real junk, temp files
 # ----------------------------------------------------------------------------
 
+dump.rdb
 .jscpd/
 .sass-cache/
 package-lock.json.*
