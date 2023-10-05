@@ -34,49 +34,51 @@ autocmd("User", {
   group = augroup("dkoplugins"),
 })
 
--- @TODO keep an eye on https://github.com/neovim/neovim/issues/23581
-autocmd("WinLeave", {
-  desc = "Toggle close->open loclist so it is always under the correct window",
-  callback = function()
-    if vim.bo.buftype == "quickfix" then
-      -- Was in loclist already
-      return
-    end
-    local loclist_winid = vim.fn.getloclist(0, { winid = 0 }).winid
-    if loclist_winid == 0 then
-      return
-    end
+if #vim.api.nvim_list_uis() > 0 then
+  -- @TODO keep an eye on https://github.com/neovim/neovim/issues/23581
+  autocmd("WinLeave", {
+    desc = "Toggle close->open loclist so it is always under the correct window",
+    callback = function()
+      if vim.bo.buftype == "quickfix" then
+        -- Was in loclist already
+        return
+      end
+      local loclist_winid = vim.fn.getloclist(0, { winid = 0 }).winid
+      if loclist_winid == 0 then
+        return
+      end
 
-    local leaving = vim.api.nvim_get_current_win()
-    autocmd("WinEnter", {
-      callback = function()
-        if vim.bo.buftype == "quickfix" then
-          -- Left main window and went into the loclist
-          return
-        end
-        local entering = vim.api.nvim_get_current_win()
-        vim.o.eventignore = "all"
-        vim.api.nvim_set_current_win(leaving)
-        vim.cmd.lclose()
-        vim.cmd.lwindow()
-        vim.api.nvim_set_current_win(entering)
-        vim.o.eventignore = ""
-      end,
-      once = true,
-    })
-  end,
-  group = augroup("dkowindow"),
-})
+      local leaving = vim.api.nvim_get_current_win()
+      autocmd("WinEnter", {
+        callback = function()
+          if vim.bo.buftype == "quickfix" then
+            -- Left main window and went into the loclist
+            return
+          end
+          local entering = vim.api.nvim_get_current_win()
+          vim.o.eventignore = "all"
+          vim.api.nvim_set_current_win(leaving)
+          vim.cmd.lclose()
+          vim.cmd.lwindow()
+          vim.api.nvim_set_current_win(entering)
+          vim.o.eventignore = ""
+        end,
+        once = true,
+      })
+    end,
+    group = augroup("dkowindow"),
+  })
 
-autocmd("VimResized", {
-  desc = "Automatically resize windows in all tabpages when resizing Vim",
-  callback = function()
-    vim.schedule(function()
-      vim.cmd("tabdo wincmd =")
-    end)
-  end,
-  group = augroup("dkowindow"),
-})
+  autocmd("VimResized", {
+    desc = "Automatically resize windows in all tabpages when resizing Vim",
+    callback = function()
+      vim.schedule(function()
+        vim.cmd("tabdo wincmd =")
+      end)
+    end,
+    group = augroup("dkowindow"),
+  })
+end
 
 autocmd("QuitPre", {
   desc = "Auto close corresponding loclist when quitting a window",
@@ -89,15 +91,17 @@ autocmd("QuitPre", {
   group = augroup("dkowindow"),
 })
 
-autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
-  desc = "Start in insert mode when entering a terminal",
-  callback = function(args)
-    if vim.startswith(vim.api.nvim_buf_get_name(args.buf), "term://") then
-      vim.cmd("startinsert")
-    end
-  end,
-  group = augroup("dkowindow"),
-})
+if #vim.api.nvim_list_uis() > 0 then
+  autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
+    desc = "Start in insert mode when entering a terminal",
+    callback = function(args)
+      if vim.startswith(vim.api.nvim_buf_get_name(args.buf), "term://") then
+        vim.cmd("startinsert")
+      end
+    end,
+    group = augroup("dkowindow"),
+  })
+end
 
 autocmd("BufReadPre", {
   desc = "Disable linting and syntax highlighting for large and minified files",
@@ -139,31 +143,33 @@ autocmd("BufRead", {
   group = augroup("dkoreading"),
 })
 
-autocmd("BufEnter", {
-  desc = "Read only mode (un)mappings",
-  callback = function()
-    local is_editable = require("dko.utils.buffer").is_editable
-    if is_editable(0) then
-      return
-    end
-
-    local closebuf = function()
+if #vim.api.nvim_list_uis() > 0 then
+  autocmd("BufEnter", {
+    desc = "Read only mode (un)mappings",
+    callback = function()
+      local is_editable = require("dko.utils.buffer").is_editable
       if is_editable(0) then
         return
       end
-      local totalWindows = vim.fn.winnr("$")
-      if totalWindows > 1 then
-        vim.cmd.close()
-      else
-        -- Requires nobuflisted on quickfix!
-        vim.cmd.bprevious()
+
+      local closebuf = function()
+        if is_editable(0) then
+          return
+        end
+        local totalWindows = vim.fn.winnr("$")
+        if totalWindows > 1 then
+          vim.cmd.close()
+        else
+          -- Requires nobuflisted on quickfix!
+          vim.cmd.bprevious()
+        end
       end
-    end
-    vim.keymap.set("n", "Q", closebuf, { buffer = true })
-    vim.keymap.set("n", "q", closebuf, { buffer = true })
-  end,
-  group = augroup("dkoreading"),
-})
+      vim.keymap.set("n", "Q", closebuf, { buffer = true })
+      vim.keymap.set("n", "q", closebuf, { buffer = true })
+    end,
+    group = augroup("dkoreading"),
+  })
+end
 
 autocmd({ "BufNewFile", "BufRead", "BufFilePost" }, {
   pattern = { "*.lua" },
@@ -222,13 +228,14 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   group = augroup("dkosaving"),
 })
 
--- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
--- Happens before on_attach, so can still use on_attach to do more stuff or
--- override this
-autocmd("LspAttach", {
-  desc = "Bind LSP in buffer",
-  callback = function(args)
-    --[[
+if #vim.api.nvim_list_uis() > 0 then
+  -- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
+  -- Happens before on_attach, so can still use on_attach to do more stuff or
+  -- override this
+  autocmd("LspAttach", {
+    desc = "Bind LSP in buffer",
+    callback = function(args)
+      --[[
     {
       buf = 1,
       data = {
@@ -241,60 +248,61 @@ autocmd("LspAttach", {
       match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
     }
     ]]
-    local bufnr = args.buf
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if not client then
-      return
-    end
+      local bufnr = args.buf
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if not client then
+        return
+      end
 
-    -- First LSP attached
-    if not vim.b.has_lsp then
-      vim.b.has_lsp = true
-      require("dko.mappings").bind_lsp(bufnr)
-    end
+      -- First LSP attached
+      if not vim.b.has_lsp then
+        vim.b.has_lsp = true
+        require("dko.mappings").bind_lsp(bufnr)
+      end
 
-    -- Maybe enable format on save if currently unset
-    -- (you can set false manually)
-    if
-      vim.b.enable_format_on_save == nil
-      and client.supports_method(
-        vim.lsp.protocol.Methods.textDocument_formatting
-      )
-    then
-      vim.b.enable_format_on_save = true
-    end
-  end,
-  group = augroup("dkolsp"),
-})
+      -- Maybe enable format on save if currently unset
+      -- (you can set false manually)
+      if
+        vim.b.enable_format_on_save == nil
+        and client.supports_method(
+          vim.lsp.protocol.Methods.textDocument_formatting
+        )
+      then
+        vim.b.enable_format_on_save = true
+      end
+    end,
+    group = augroup("dkolsp"),
+  })
 
-autocmd({ "BufWritePre", "FileWritePre" }, {
-  desc = "Format with LSP on save",
-  callback = function()
-    -- callback gets arg
-    -- {
-    --   buf = 1,
-    --   event = "BufWritePre",
-    --   file = "nvim/lua/dko/behaviors.lua",
-    --   id = 127,
-    --   match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
-    -- }
-    if not vim.b.enable_format_on_save then
-      return
-    end
-    require("dko.format").run_pipeline({ async = false })
-  end,
-  group = augroup("dkolsp"),
-})
+  autocmd({ "BufWritePre", "FileWritePre" }, {
+    desc = "Format with LSP on save",
+    callback = function()
+      -- callback gets arg
+      -- {
+      --   buf = 1,
+      --   event = "BufWritePre",
+      --   file = "nvim/lua/dko/behaviors.lua",
+      --   id = 127,
+      --   match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
+      -- }
+      if not vim.b.enable_format_on_save then
+        return
+      end
+      require("dko.format").run_pipeline({ async = false })
+    end,
+    group = augroup("dkolsp"),
+  })
 
--- temporary fix, winbars not updating
-local fix_winbar_events = vim.tbl_extend(
-  "keep",
-  require("dko.heirline.lsp").update,
-  { "User PackageInfoProgress" } -- clear winbar status msg when done
-)
-autocmd(fix_winbar_events, {
-  desc = "FIX - heirline does not always update winbars",
-  callback = vim.schedule_wrap(function()
-    vim.cmd.redrawstatus({ bang = true })
-  end),
-})
+  -- temporary fix, winbars not updating
+  local fix_winbar_events = vim.tbl_extend(
+    "keep",
+    require("dko.heirline.lsp").update,
+    { "User PackageInfoProgress" } -- clear winbar status msg when done
+  )
+  autocmd(fix_winbar_events, {
+    desc = "FIX - heirline does not always update winbars",
+    callback = vim.schedule_wrap(function()
+      vim.cmd.redrawstatus({ bang = true })
+    end),
+  })
+end
