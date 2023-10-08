@@ -259,7 +259,11 @@ return {
   -- =========================================================================
 
   -- Works better than https://github.com/IndianBoy42/tree-sitter-just
-  { "NoahTheDuke/vim-just" },
+  {
+    "NoahTheDuke/vim-just",
+    event = { "BufReadPre", "BufNewFile" },
+    ft = { "\\cjustfile", "*.just", ".justfile" },
+  },
 
   {
     "NvChad/nvim-colorizer.lua",
