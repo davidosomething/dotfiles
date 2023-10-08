@@ -420,18 +420,6 @@ M.bind_tsserver_lsp = function(client, bufnr)
 end
 
 -- ===========================================================================
--- textobj
--- ===========================================================================
-
--- Requires ii to select indent, any textobj plugin can provide
-local function bind_sort_indent()
-  map("n", "<Leader>s", "vii:!sort<CR>", {
-    desc = "Auto select indent and sort",
-    remap = true, -- since ii is a mapping too
-  })
-end
-
--- ===========================================================================
 -- Plugin: Comment.nvim
 -- ===========================================================================
 
@@ -607,14 +595,25 @@ M.bind_nvim_various_textobjs = function()
   -- https://github.com/chrisgrieser/nvim-various-textobjs/commit/363dbb7#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5R5
 
   map({ "o", "x" }, "ai", function()
-    require("various-textobjs").indentation(false, false)
+    local START = "outer"
+    local END = "outer"
+    local BLANKS = "noBlanks"
+    require("various-textobjs").indentation(START, END, BLANKS)
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   end, { desc = "textobj: indent" })
+
   map({ "o", "x" }, "ii", function()
-    require("various-textobjs").indentation(true, true)
+    local START = "inner"
+    local END = "inner"
+    local BLANKS = "noBlanks"
+    require("various-textobjs").indentation(START, END, BLANKS)
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   end, { desc = "textobj: indent" })
-  bind_sort_indent()
+
+  map("n", "<Leader>s", "vii:!sort<CR>", {
+    desc = "Auto select indent and sort",
+    remap = true, -- since ii is a mapping too
+  })
 
   map(
     { "o", "x" },
@@ -777,10 +776,6 @@ M.bind_textobj = function()
       { desc = "textobj: inside " .. obj }
     )
   end
-
-  --[[ textobjMap("indent")
-  bind_sort_indent()
-  ]]
 
   textobjMap("paste", "P")
   textobjMap("url")
