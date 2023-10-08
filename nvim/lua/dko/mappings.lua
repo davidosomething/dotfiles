@@ -595,16 +595,22 @@ M.bind_nvim_various_textobjs = function()
   -- https://github.com/chrisgrieser/nvim-various-textobjs/commit/363dbb7#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5R5
 
   map({ "o", "x" }, "ai", function()
+    ---@type "inner"|"outer" exclude the startline
     local START = "outer"
+    ---@type "inner"|"outer" exclude the endline
     local END = "outer"
+    ---@type "withBlanks"|"noBlanks"
     local BLANKS = "noBlanks"
     require("various-textobjs").indentation(START, END, BLANKS)
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   end, { desc = "textobj: indent" })
 
   map({ "o", "x" }, "ii", function()
+    ---@type "inner"|"outer" exclude the startline
     local START = "inner"
+    ---@type "inner"|"outer" exclude the endline
     local END = "inner"
+    ---@type "withBlanks"|"noBlanks"
     local BLANKS = "noBlanks"
     require("various-textobjs").indentation(START, END, BLANKS)
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
