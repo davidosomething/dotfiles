@@ -308,10 +308,8 @@ return {
   {
     "ojroques/nvim-osc52",
     enabled = function()
-      local is_remote = vim.env.SSH_CLIENT or vim.uv.fs_stat("/.dockerenv")
-      -- yes .dockerenv is in root /
-      return (is_remote and (vim.env.DISPLAY == nil or vim.env.DISPLAY == ""))
-        or vim.env.NVIM_INSTALL_ALL
+      -- has built-in osc52? https://github.com/neovim/neovim/pull/25872/files
+      return not vim.clipboard and require("dko.utils.vte").is_remote()
     end,
     config = function()
       local function copy(lines, _)
