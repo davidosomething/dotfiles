@@ -306,10 +306,13 @@ return {
   -- =========================================================================
 
   {
+    -- @TODO remove after nvim 0.11 released
     "ojroques/nvim-osc52",
     enabled = function()
       -- has built-in osc52? https://github.com/neovim/neovim/pull/25872/files
-      return not vim.clipboard and require("dko.utils.vte").is_remote()
+      -- was moved to vim.ui.clipboard in https://github.com/neovim/neovim/pull/26040
+      return (vim.clipboard == nil and vim.ui.clipboard == nil)
+        and require("dko.utils.vte").is_remote()
     end,
     config = function()
       local function copy(lines, _)
