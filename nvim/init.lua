@@ -54,7 +54,6 @@ require("dko.builtin-syntax")
 require("dko.filetypes")
 require("dko.lsp.floats")
 require("dko.terminal")
-require("dko.clipboard")
 
 -- Disallow unsafe local vimrc commands
 -- Leave down here since it trims local settings

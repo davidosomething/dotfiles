@@ -29,7 +29,9 @@ vim.o.backupcopy = "yes"
 
 vim.opt.backupskip:append("/private/tmp/*") -- needed to edit crontab files
 vim.opt.backupskip:append("~/.secret/*")
-vim.o.clipboard = "unnamedplus"
+
+-- Moved to after/plugin/clipboard.lua
+--vim.o.clipboard = "unnamedplus"
 
 -- ===========================================================================
 -- Display
