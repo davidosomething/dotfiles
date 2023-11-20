@@ -378,10 +378,24 @@ return {
     end,
   },
 
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    -- No longer needs nvim-treesitter after https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/80
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("ts_context_commentstring").setup({
+        -- Disable for Comment.nvim https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#commentnvim
+        enable_autocmd = false,
+      })
+    end,
+  },
+
   -- gcc / <Leader>gbc to comment with treesitter integration
   {
     "numToStr/Comment.nvim",
-    dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    },
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       local ok, tscc_integration =

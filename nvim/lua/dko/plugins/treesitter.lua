@@ -57,13 +57,4 @@ return {
       end
     end,
   },
-
-  {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    -- No longer needs nvim-treesitter after https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/80
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("ts_context_commentstring").setup({})
-    end,
-  },
 }
