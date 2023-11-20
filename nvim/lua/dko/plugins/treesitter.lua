@@ -60,19 +60,10 @@ return {
 
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
+    -- No longer needs nvim-treesitter after https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/80
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring#commentnvim
-      ---@diagnostic disable-next-line: missing-fields
-      require("nvim-treesitter.configs").setup({
-        context_commentstring = {
-          enable = true, -- Comment.nvim wants this
-          enable_autocmd = false, -- Comment.nvim wants this
-        },
-      })
+      require("ts_context_commentstring").setup({})
     end,
   },
 }
