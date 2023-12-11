@@ -932,14 +932,14 @@ M.bind_yanky = function()
   map(
     "n",
     "<c-n>",
-    "<Plug>(YankyCycleForward)",
-    { desc = "yanky cycle forward" }
+    "<Plug>(YankyPreviousEntry)",
+    { desc = "yanky previous entry" }
   )
   map(
     "n",
     "<c-p>",
-    "<Plug>(YankyCycleBackward)",
-    { desc = "yanky cycle backward" }
+    "<Plug>(YankyNextEntry)",
+    { desc = "yanky next entry backward" }
   )
 end
 
