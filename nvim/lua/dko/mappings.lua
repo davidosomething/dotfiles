@@ -19,12 +19,15 @@ end, { desc = "Clear UI" })
 map("n", "]t", vim.cmd.tabn, { desc = "Next tab" })
 map("n", "[t", vim.cmd.tabp, { desc = "Prev tab" })
 
-map(
-  "n",
-  "<BS>",
-  "<C-^>",
-  { desc = "Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)" }
-)
+map("n", "<BS>", function()
+  -- only in non-floating
+  if vim.api.nvim_win_get_config(0).relative == "" then
+    return "<C-^>"
+  end
+end, {
+  expr = true,
+  desc = "Prev buffer with <BS> backspace in normal (C-^ is kinda awkward)",
+})
 
 local resizeOpts =
   { desc = "Resize window with Shift+DIR, can take a count #<S-Dir>" }
