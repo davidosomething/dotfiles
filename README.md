@@ -14,7 +14,7 @@ My [/uses] post my be of interest to you!
 | Shell             | zsh                         |
 | Shell plugins     | [zinit]                     |
 | Editor            | [neovim]                    |
-| Tooling/env       | [rtx]                       |
+| Tooling/env       | [mise]                      |
 
 - [XDG] compliance wherever possible to keep `$HOME` clean
   - See [Arch Linux wiki for XDG Base Directory Support]
@@ -45,7 +45,7 @@ The `sshkeygen` alias will help in generating a new SSH key.
 
 #### node, python, and ruby
 
-Use `rtx` (`asdf` is also acceptable, but not explicitly supported)
+Use [mise]
 
 ### Provisioning scripts
 
@@ -134,7 +134,7 @@ For X apps (no terminal) the value may be:
 [grawity's notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
 [neovim]: https://neovim.io/
-[rtx]: https://github.com/jdx/rtx
+[mise]: https://github.com/jdx/mise
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/8fa3d6a738ed39ff2b8ba7a5d9126b59d895b538/meta/terminal-potatopro.png
 [/uses]: https://www.davidosomething.com/uses/
 [wezterm]: https://wezfurlong.org/wezterm/
