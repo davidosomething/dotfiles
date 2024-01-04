@@ -102,21 +102,21 @@ function {
     # loads asdf.sh
     zinit snippet 'OMZP::asdf'
   else
-    local rtx_bpick=""
-    [[ $DOTFILES_OS == "Linux" ]] && rtx_bpick="*-linux-x64.tar.gz"
+    local mise_bpick=""
+    [[ $DOTFILES_OS == "Linux" ]] && mise_bpick="*-linux-x64.tar.gz"
     [[ $DOTFILES_OS == "Darwin" ]] && {
-      rtx_bpick="*-macos-x64.tar.gz"
-      [[ $DOTFILES_DISTRO == "arm64" ]] && rtx_bpick="*-macos-arm64.tar.gz"
+      mise_bpick="*-macos-x64.tar.gz"
+      [[ $DOTFILES_DISTRO == "arm64" ]] && mise_bpick="*-macos-arm64.tar.gz"
     }
-    zinit ice lucid from'gh-r' as'program' bpick"$rtx_bpick" \
-      pick'rtx/bin/rtx' \
+    zinit ice lucid from'gh-r' as'program' bpick"$mise_bpick" \
+      pick'mise/bin/mise' \
       atclone"
-          cp -vf rtx/man/man1/rtx.1 $ZINIT[MAN_DIR]/man1;
-          ./rtx/bin/rtx completion zsh > _rtx
+          cp -vf mise/man/man1/mise.1 $ZINIT[MAN_DIR]/man1;
+          ./mise/bin/mise completion zsh > _mise
           " \
       atpull'%atclone' \
-      atload'eval "$(rtx activate zsh)"'
-    zinit light 'jdx/rtx'
+      atload'eval "$(mise activate zsh)"'
+    zinit light 'jdx/mise'
   fi
 
   # ----------------------------------------------------------------------------

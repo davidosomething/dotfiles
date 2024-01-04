@@ -12,6 +12,7 @@ vim.g.loaded_python_provider = 0 -- disable python 2
 -- Skips if python is not installed in a pyenv virtualenv
 -- python 3
 local py3 = require("dko.utils.file").find_exists({
+  "$XDG_DATA_HOME/mise/shims/python",
   "$XDG_DATA_HOME/rtx/shims/python",
   "$ASDF_DIR/shims/python",
   "/usr/bin/python3",
