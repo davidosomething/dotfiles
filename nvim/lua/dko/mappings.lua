@@ -619,8 +619,15 @@ M.bind_nvim_various_textobjs = function()
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   end, { desc = "textobj: indent" })
 
-  map("n", "<Leader>s", "vii:!sort<CR>", {
+  map("n", "<Leader>s", function()
+    if vim.fn.indent(".") == 0 then
+      return "vapk:!sort<CR>"
+    else
+      return "vii:!sort<CR>"
+    end
+  end, {
     desc = "Auto select indent and sort",
+    expr = true,
     remap = true, -- since ii is a mapping too
   })
 
