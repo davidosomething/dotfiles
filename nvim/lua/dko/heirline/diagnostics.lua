@@ -1,3 +1,10 @@
+-- polyfill as of https://github.com/neovim/neovim/pull/26807
+function get_diagnostic_count(opts)
+  opts = opts or {}
+  return vim.diagnostic.count and vim.diagnostic.count(0, opts)
+    or #vim.diagnostic.get(0, opts)
+end
+
 return {
   static = {
     error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
@@ -8,13 +15,13 @@ return {
 
   init = function(self)
     self.errors =
-      #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+      get_diagnostic_count({ severity = vim.diagnostic.severity.ERROR })
     self.warnings =
-      #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+      get_diagnostic_count({ severity = vim.diagnostic.severity.WARN })
     self.hints =
-      #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+      get_diagnostic_count({ severity = vim.diagnostic.severity.HINT })
     self.info =
-      #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+      get_diagnostic_count({ severity = vim.diagnostic.severity.INFO })
     self.total = self.errors + self.warnings + self.hints + self.info
   end,
 
