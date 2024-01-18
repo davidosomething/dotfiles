@@ -16,6 +16,7 @@ return {
 
   {
     "cocopon/colorswatch.vim",
+    cond = #vim.api.nvim_list_uis() > 0,
     lazy = true,
     dependencies = {
       {

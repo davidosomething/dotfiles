@@ -33,6 +33,7 @@ return {
   {
     "nvim-tree/nvim-web-devicons",
     lazy = true,
+    cond = #vim.api.nvim_list_uis() > 0,
     config = true,
   },
 
@@ -41,6 +42,7 @@ return {
   -- Alternatively could use nvim-telescope/telescope-ui-select.nvim
   {
     "stevearc/dressing.nvim",
+    cond = #vim.api.nvim_list_uis() > 0,
     event = "VeryLazy",
     -- dependencies = {
     --   "nvim-telescope/telescope.nvim",
@@ -70,6 +72,7 @@ return {
   {
     "yorickpeterse/nvim-pqf",
     event = { "BufReadPost", "BufNewFile" },
+    cond = #vim.api.nvim_list_uis() > 0,
     config = function()
       require("pqf").setup({
         signs = {
@@ -94,6 +97,7 @@ return {
 
   {
     "ghillb/cybu.nvim",
+    cond = #vim.api.nvim_list_uis() > 0,
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "nvim-lua/plenary.nvim",
@@ -130,6 +134,7 @@ return {
   -- overrides <C-w>o (originally does an :only)
   {
     "troydm/zoomwintab.vim",
+    cond = #vim.api.nvim_list_uis() > 0,
     keys = {
       "<C-w>o",
       "<C-w><C-o>",
@@ -144,6 +149,7 @@ return {
   -- resize window to selection, or split new window with selection size
   {
     "wellle/visual-split.vim",
+    cond = #vim.api.nvim_list_uis() > 0,
     cmd = {
       "VSResize",
       "VSSplit",
@@ -174,6 +180,7 @@ return {
     "akinsho/toggleterm.nvim",
     keys = require("dko.mappings").toggleterm_all_keys,
     cmd = "ToggleTerm",
+    cond = #vim.api.nvim_list_uis() > 0,
     config = function()
       require("toggleterm").setup({
         float_opts = { border = "curved" },
@@ -202,6 +209,7 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPost", "BufNewFile" },
+    cond = #vim.api.nvim_list_uis() > 0,
     config = function()
       require("gitsigns").setup({
         on_attach = require("dko.mappings").bind_gitsigns,
@@ -225,6 +233,7 @@ return {
     "axieax/urlview.nvim",
     keys = vim.tbl_values(require("dko.mappings").urlview),
     cmd = "UrlView",
+    cond = #vim.api.nvim_list_uis() > 0,
     config = function()
       require("dko.mappings").bind_urlview()
     end,
@@ -234,6 +243,7 @@ return {
   -- https://github.com/tzachar/highlight-undo.nvim
   {
     "tzachar/highlight-undo.nvim",
+    cond = #vim.api.nvim_list_uis() > 0,
     keys = { "u", "<c-r>" },
     config = function()
       require("highlight-undo").setup({})
@@ -244,6 +254,7 @@ return {
   -- https://github.com/vuki656/package-info.nvim
   {
     "davidosomething/package-info.nvim",
+    cond = #vim.api.nvim_list_uis() > 0,
     dev = true,
     dependencies = { "MunifTanjim/nui.nvim" },
     event = { "BufReadPost package.json" },
@@ -267,6 +278,7 @@ return {
 
   {
     "NvChad/nvim-colorizer.lua",
+    cond = #vim.api.nvim_list_uis() > 0,
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("colorizer").setup({
@@ -298,6 +310,7 @@ return {
   -- because https://github.com/neovim/neovim/issues/1496
   {
     "lambdalisue/suda.vim",
+    cond = #vim.api.nvim_list_uis() > 0,
     cmd = "SudaWrite",
   },
 
@@ -308,6 +321,7 @@ return {
   {
     -- @TODO remove after nvim 0.11 released
     "ojroques/nvim-osc52",
+    cond = #vim.api.nvim_list_uis() > 0,
     enabled = function()
       -- has built-in osc52? https://github.com/neovim/neovim/pull/25872/files
       -- was moved to vim.ui.clipboard in https://github.com/neovim/neovim/pull/26040
@@ -348,6 +362,7 @@ return {
 
   {
     "gbprod/yanky.nvim",
+    cond = #vim.api.nvim_list_uis() > 0,
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("yanky").setup({
@@ -361,6 +376,7 @@ return {
   -- % textobject
   {
     "andymass/vim-matchup",
+    cond = #vim.api.nvim_list_uis() > 0,
     -- author recommends against lazy loading
     lazy = false,
     init = function()
@@ -393,6 +409,7 @@ return {
   -- gcc / <Leader>gbc to comment with treesitter integration
   {
     "numToStr/Comment.nvim",
+    cond = #vim.api.nvim_list_uis() > 0,
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
     },
@@ -418,6 +435,7 @@ return {
 
   {
     "Wansmer/treesj",
+    cond = #vim.api.nvim_list_uis() > 0,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
@@ -438,6 +456,7 @@ return {
   -- https://github.com/kylechui/nvim-surround -- no textobj
   {
     "machakann/vim-sandwich",
+    cond = #vim.api.nvim_list_uis() > 0,
   },
 
   -- Still using these over nvim-various-textobjs because they are dot
@@ -445,6 +464,7 @@ return {
   -- see https://github.com/chrisgrieser/nvim-various-textobjs/issues/7
   {
     "kana/vim-textobj-user",
+    cond = #vim.api.nvim_list_uis() > 0,
     dependencies = {
       "gilligan/textobj-lastpaste",
       "mattn/vim-textobj-url",
@@ -456,6 +476,7 @@ return {
 
   {
     "chrisgrieser/nvim-various-textobjs",
+    cond = #vim.api.nvim_list_uis() > 0,
     config = function()
       require("various-textobjs").setup({ useDefaultKeymaps = false })
       require("dko.mappings").bind_nvim_various_textobjs()

@@ -2,6 +2,7 @@ return {
 
   {
     "nvim-telescope/telescope-file-browser.nvim",
+    cond = #vim.api.nvim_list_uis() > 0,
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
@@ -14,6 +15,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.2",
+    cond = #vim.api.nvim_list_uis() > 0,
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },

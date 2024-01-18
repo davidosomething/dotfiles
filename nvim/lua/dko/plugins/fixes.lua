@@ -6,6 +6,7 @@ return {
   -- Disable cursorline when moving, for various perf reasons
   {
     "yamatsum/nvim-cursorline", -- replaces delphinus/auto-cursorline.nvim",
+    cond = #vim.api.nvim_list_uis() > 0,
     config = function()
       require("nvim-cursorline").setup({
         cursorline = {

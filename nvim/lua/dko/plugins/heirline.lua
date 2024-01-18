@@ -1,11 +1,13 @@
 return {
   {
     "davidosomething/everandever.nvim",
+    cond = #vim.api.nvim_list_uis() > 0,
     dev = true,
   },
 
   {
     "rebelot/heirline.nvim",
+    cond = #vim.api.nvim_list_uis() > 0,
     dependencies = {
       "davidosomething/everandever.nvim",
     },
