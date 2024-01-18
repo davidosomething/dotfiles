@@ -78,6 +78,9 @@ M.code_action = function(options)
   end
   if not context.diagnostics then
     local bufnr = vim.api.nvim_get_current_buf()
+    -- note from davidosomething:
+    -- get_line_diagnostics is deprecated, but wait until updated here
+    -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L765
     context.diagnostics = vim.lsp.diagnostic.get_line_diagnostics(bufnr)
   end
   local params
