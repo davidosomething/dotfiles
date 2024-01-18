@@ -5,6 +5,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
+    cond = #vim.api.nvim_list_uis() > 0,
     dependencies = {
       { "dcampos/cmp-snippy", dependencies = { "dcampos/nvim-snippy" } },
       "hrsh7th/cmp-nvim-lsp",

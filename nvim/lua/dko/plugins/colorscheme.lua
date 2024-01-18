@@ -1,6 +1,7 @@
 return {
   {
     "davidosomething/vim-colors-meh",
+    cond = #vim.api.nvim_list_uis() > 0,
     dependencies = {
       --"rakr/vim-two-firewatch",
       {

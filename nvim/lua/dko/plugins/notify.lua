@@ -3,6 +3,7 @@ local SIGNS = require("dko.diagnostic").SIGNS
 return {
   {
     "rcarriga/nvim-notify",
+    cond = #vim.api.nvim_list_uis() > 0,
     lazy = false,
     priority = 1000,
     config = function()
