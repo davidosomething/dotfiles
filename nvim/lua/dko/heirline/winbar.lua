@@ -7,17 +7,20 @@ local function active_highlight(active)
   return conditions.is_active() and active or "StatusLineNC"
 end
 
+local hidden_filetypes = {
+  "javascript",
+  "markdown",
+  "typescript",
+  "typescriptreact",
+}
+
 return {
   {
     init = function(self)
       self.filepath = vim.api.nvim_buf_get_name(0)
-
-      self.filetype_text = vim.list_contains(
-        { "javascript", "markdown" },
-        vim.bo.filetype
-      ) and "" or " " .. require("dko.utils.string").smallcaps(
-        vim.bo.filetype
-      )
+      self.filetype_text = vim.list_contains(hidden_filetypes, vim.bo.filetype)
+          and ""
+        or " " .. require("dko.utils.string").smallcaps(vim.bo.filetype)
     end,
     hl = function()
       return active_highlight()
