@@ -6,12 +6,12 @@ tools.register({
   name = "shellcheck",
   fts = { "sh" },
   efm = function()
-    -- @TODO https://github.com/creativenull/efmls-configs-nvim/pull/44
+    ---@type EfmLinter
     return vim.tbl_extend(
       "force",
+      -- https://github.com/creativenull/efmls-configs-nvim/blob/main/lua/efmls-configs/linters/shellcheck.lua
       require("efmls-configs.linters.shellcheck"),
       {
-        lintIgnoreExitCode = true,
         lintSource = "efmls",
         rootMarkers = { ".shellcheckrc" },
       }
@@ -25,6 +25,7 @@ tools.register({
   name = "shfmt",
   fts = { "sh" },
   efm = function()
+    ---@type EfmFormatter
     return require("efmls-configs.formatters.shfmt")
   end,
 })

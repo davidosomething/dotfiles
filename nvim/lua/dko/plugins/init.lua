@@ -308,6 +308,8 @@ return {
   -- =========================================================================
 
   -- because https://github.com/neovim/neovim/issues/1496
+  -- once https://github.com/neovim/neovim/pull/10842 is merged, there will
+  -- probably be a better implementation for this
   {
     "lambdalisue/suda.vim",
     cond = #vim.api.nvim_list_uis() > 0,
@@ -459,9 +461,6 @@ return {
     cond = #vim.api.nvim_list_uis() > 0,
   },
 
-  -- Still using these over nvim-various-textobjs because they are dot
-  -- repeatable.
-  -- see https://github.com/chrisgrieser/nvim-various-textobjs/issues/7
   {
     "kana/vim-textobj-user",
     cond = #vim.api.nvim_list_uis() > 0,

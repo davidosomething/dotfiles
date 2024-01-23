@@ -30,6 +30,7 @@ return {
       require("nvim-treesitter.configs").setup({
         -- https://github.com/nvim-treesitter/nvim-treesitter/issues/3579#issuecomment-1278662119
         auto_install = true,
+        sync_install = #vim.api.nvim_list_uis() == 0,
 
         -- Built-in modules configured here
         -- see behaviors.lua for treesitter integration with other plugins
