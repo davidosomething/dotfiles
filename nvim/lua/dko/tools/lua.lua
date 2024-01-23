@@ -6,6 +6,7 @@ tools.register({
   name = "selene",
   fts = { "lua" },
   efm = function()
+    ---@type EfmLinter
     return vim.tbl_extend(
       "force",
       require("efmls-configs.linters.selene"),
@@ -20,15 +21,10 @@ tools.register({
   name = "stylua",
   fts = { "lua" },
   efm = function()
-    -- custom since efmls has bad override
-    -- @see https://github.com/creativenull/efmls-configs-nvim/pull/54
     ---@type EfmFormatter
-    return {
-      formatCanRange = true,
-      formatCommand = "stylua --color Never ${--range-start:charStart} ${--range-end:charEnd} -",
-      formatStdin = true,
+    return vim.tbl_extend("force", require("efmls-configs.formatters.stylua"), {
       rootMarkers = { "stylua.toml", ".stylua.toml", ".editorconfig" },
-    }
+    })
   end,
 })
 
@@ -41,6 +37,8 @@ tools.register({
   lspconfig = function()
     return {
       -- no more neodev https://github.com/neovim/neovim/pull/24592
+      -- but uv and vim.cmd still not defined
+      -- https://github.com/folke/neodev.nvim/issues/175
       on_init = function(client)
         local path = client.workspace_folders[1].name
         if

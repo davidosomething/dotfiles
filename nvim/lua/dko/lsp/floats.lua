@@ -8,14 +8,11 @@
 vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_hover] =
   vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
-    -- suppress 'No information available' notification (nvim-0.9 ?)
-    -- https://github.com/neovim/neovim/pull/21531/files#diff-728d3ae352b52f16b51a57055a3b20efc4e992efacbf1c34426dfccbba30037cR339
     silent = true,
   })
 
 vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_signatureHelp] =
   vim.lsp.with(vim.lsp.handlers.signature_help, {
     border = "rounded",
-    -- suppress 'No information available' notification (nvim-0.8!)
     silent = true,
   })

@@ -5,6 +5,7 @@ local M = {}
 -- ===========================================================================
 
 -- taken from vim.lsp.buf
+-- @see {@link https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L129}
 ---@private
 ---@param bufnr integer
 ---@param mode "v"|"V"
@@ -83,6 +84,13 @@ M.code_action = function(options)
     -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L765
     context.diagnostics = vim.lsp.diagnostic.get_line_diagnostics(bufnr)
   end
+
+  -- 8< ------------------------------------------------------------------------
+  -- EDITED HERE, just prints the action_tuples instead of requesting the code
+  -- action
+  -- @see original at {@link https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#L767-L811}
+  -- ---------------------------------------------------------------------------
+
   local params
   local mode = vim.api.nvim_get_mode().mode
   if options.range then
@@ -116,55 +124,7 @@ M.code_action = function(options)
       return
     end
     vim.print(action_tuples)
-    -- local client = vim.lsp.get_client_by_id(action_tuple[1])
-    -- local action = action_tuple[2]
-    -- if
-    --   not action.edit
-    --   and client
-    --   and client.supports_method('codeActionProvider', 'resolveProvider') -- fix me
-    -- then
-    --   client.request(vim.lsp.protocol.Methods.codeAction_resolve, action, function(err, resolved_action)
-    --     if err then
-    --       vim.notify(err.code .. ': ' .. err.message, vim.log.levels.ERROR)
-    --       return
-    --     end
-    --     apply_code_action(ctx, resolved_action, client)
-    --   end)
-    -- else
-    --   apply_code_action(ctx, action, client)
-    -- end
   end)
-end
-
----@private
-M.apply_code_action = function(ctx, action, client)
-  if action.edit then
-    vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
-  end
-  if action.command then
-    local command = type(action.command) == "table" and action.command or action
-    local fn = client.commands[command.command]
-      or vim.lsp.commands[command.command]
-    if fn then
-      local enriched_ctx = vim.deepcopy(ctx)
-      enriched_ctx.client_id = client.id
-      fn(command, enriched_ctx)
-    else
-      -- Not using command directly to exclude extra properties,
-      -- see https://github.com/python-lsp/python-lsp-server/issues/146
-      local params = {
-        command = command.command,
-        arguments = command.arguments,
-        workDoneToken = command.workDoneToken,
-      }
-      client.request(
-        vim.lsp.protocol.Methods.workspace_executeCommand,
-        params,
-        nil,
-        ctx.bufnr
-      )
-    end
-  end
 end
 
 -- ===========================================================================
