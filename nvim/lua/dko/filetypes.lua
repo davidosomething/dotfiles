@@ -7,12 +7,13 @@ vim.filetype.add({
   },
   filename = {
     [".env"] = "dotenv",
-    ["tsconfig.json"] = "jsonc",
+    ["project.json"] = "jsonc", -- assuming nx project.json
     [".yamlfmt"] = "yaml",
   },
   pattern = {
     ["docker%-compose%.y.?ml"] = "yaml.docker-compose",
     ["%.env%.[%w_.-]+"] = "dotenv",
+    ["tsconfig%."] = "jsonc",
     -- ["env%.(%a+)"] = function(_path, _bufnr, ext)
     --   vim.print(ext)
     --   if vim.list_contains({ "local", "example", "dev", "prod" }, ext) then
