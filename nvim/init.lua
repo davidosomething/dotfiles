@@ -1,5 +1,7 @@
 if vim.fn.has("nvim-0.10") == 0 then
   vim.iter = require("polyfill.iter")
+  require("polyfill.lsp_methods")
+  vim.uv = vim.loop
 end
 
 -- Fallback for vims with no env access like Veonim
