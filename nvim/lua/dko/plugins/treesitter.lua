@@ -40,7 +40,7 @@ return {
           disable = function(lang, bufnr)
             return (
               require("dko.utils.buffer").is_huge({ bufnr = bufnr })
-              or vim.list_contains(HIGHLIGHTING_DISABLED, lang)
+              or vim.tbl_contains(HIGHLIGHTING_DISABLED, lang)
             )
           end,
 

@@ -58,7 +58,7 @@ M.format_with = function(name, opts)
   end
 
   local configs = require("dko.tools").get_efm_languages(function(tool)
-    return tool.name == name and vim.list_contains(tool.fts, vim.bo.filetype)
+    return tool.name == name and vim.tbl_contains(tool.fts, vim.bo.filetype)
   end)
   if vim.tbl_count(configs) == 0 then
     vim.notify(

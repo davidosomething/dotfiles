@@ -18,7 +18,7 @@ return {
   {
     init = function(self)
       self.filepath = vim.api.nvim_buf_get_name(0)
-      self.filetype_text = vim.list_contains(hidden_filetypes, vim.bo.filetype)
+      self.filetype_text = vim.tbl_contains(hidden_filetypes, vim.bo.filetype)
           and ""
         or " " .. require("dko.utils.string").smallcaps(vim.bo.filetype)
     end,

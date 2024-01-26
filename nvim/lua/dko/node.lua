@@ -70,7 +70,7 @@ M.has_eslint_plugin = function(plugin_name)
   local config = M.get_eslint_config()
   return config
       and config.plugins
-      and vim.list_contains(config.plugins, plugin_name)
+      and vim.tbl_contains(config.plugins, plugin_name)
     or false
 end
 
