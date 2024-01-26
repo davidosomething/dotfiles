@@ -1,5 +1,5 @@
 if vim.fn.has("nvim-0.10") == 0 then
-  require("polyfill.iter")
+  vim.iter = require("polyfill.iter")
 end
 
 -- Fallback for vims with no env access like Veonim
