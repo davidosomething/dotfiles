@@ -218,6 +218,14 @@ map("x", "<Leader>C", function()
   vim.api.nvim_feedkeys('gv""P', "nx", false)
 end, { desc = "Convert selection to smallcaps" })
 
+map("n", "dd", function()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return '"_dd'
+  else
+    return "dd"
+  end
+end, { desc = "Smart dd, don't yank empty lines", expr = true })
+
 -- ===========================================================================
 -- <Tab> behavior
 -- ===========================================================================
