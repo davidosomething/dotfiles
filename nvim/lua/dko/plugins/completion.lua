@@ -11,7 +11,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
+      "FelipeLema/cmp-async-path",
       "hrsh7th/cmp-cmdline",
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
       "onsails/lspkind.nvim",
@@ -33,7 +33,13 @@ return {
           { name = "snippy" },
           { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
-          { name = "path" },
+          {
+            name = "async_path",
+            option = {
+              trailing_slash = true,
+              label_trailing_slash = true,
+            },
+          },
         }, { -- group 2 only if nothing in above had results
           { name = "buffer" },
         }),
@@ -62,6 +68,7 @@ return {
             local kind_formatted = require("lspkind").cmp_format({
               mode = "symbol_text", -- show only symbol annotations
               menu = {
+                async_path = "ᴘᴀᴛʜ",
                 buffer = "ʙᴜꜰ",
                 cmdline = "", -- cmp-cmdline used on cmdline
                 latex_symbols = "ʟᴛx",
