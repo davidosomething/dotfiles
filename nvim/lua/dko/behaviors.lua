@@ -299,6 +299,9 @@ if #vim.api.nvim_list_uis() > 0 then
     require("dko.heirline.lsp").update,
     { "User PackageInfoProgress" } -- clear winbar status msg when done
   )
+  fix_winbar_events = vim.tbl_filter(function(event)
+    return vim.fn.exists(("##%s"):format(event)) == 1
+  end, fix_winbar_events)
   autocmd(fix_winbar_events, {
     desc = "FIX - heirline does not always update winbars",
     callback = vim.schedule_wrap(function()
