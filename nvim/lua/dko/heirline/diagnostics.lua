@@ -1,5 +1,5 @@
 -- polyfill as of https://github.com/neovim/neovim/pull/26807
----@param opts? { severity?: vim.diagnostic.Severity }
+---@param opts? { severity?: number }
 local function get_diagnostic_count(opts)
   opts = opts or {}
   if vim.diagnostic.count then
@@ -28,7 +28,6 @@ return {
     })
     self.info =
       get_diagnostic_count({ severity = vim.diagnostic.severity.INFO })
-    vim.print(self.errors)
     self.total = self.errors + self.warnings + self.hints + self.info
   end,
 
