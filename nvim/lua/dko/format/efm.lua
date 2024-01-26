@@ -3,8 +3,13 @@ local M = {}
 M.format = function(opts)
   opts = opts or {}
 
+  -- need to check for client in case we did :LspStop or something
+  local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
+  if not client then
+    return
+  end
+
   if not opts.hide_notification then
-    local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
     local languages = client.config.settings.languages
     local configs = languages[vim.bo.filetype]
     local formatters = table.concat(
