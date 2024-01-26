@@ -1,4 +1,4 @@
-if not vim.fn.has("nvim-0.10") then
+if vim.fn.has("nvim-0.10") == 0 then
   require("vendor.iter")
 end
 
