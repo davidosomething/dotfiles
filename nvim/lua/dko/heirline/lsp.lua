@@ -1,19 +1,21 @@
+local update = {
+  "LspAttach",
+  "LspDetach",
+}
+if vim.fn.has('nvim-0.10') == 1 then
+  table.insert(update, "LspNotify")
+  table.insert(update, "LspProgress")
+  table.insert(update, "LspRequest")
+end
+
 return {
   condition = function()
     local conditions = require("heirline.conditions")
     return conditions.lsp_attached() and conditions.is_active()
   end,
 
-  --
   -- There's a temporary fix to force redraw for these autocmds in bahviors.lua
-  --
-  update = {
-    "LspAttach",
-    "LspDetach",
-    "LspNotify",
-    "LspProgress",
-    "LspRequest",
-  },
+  update = update,
 
   provider = function()
     local data = require("everandever.lsp").status_progress({ bufnr = 0 })
