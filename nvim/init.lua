@@ -60,7 +60,10 @@ require("dko.lazy")
 -- for things not handled by plugins, or that plugins did wrong
 require("dko.builtin-syntax")
 require("dko.filetypes")
+
+vim.lsp.set_log_level("DEBUG")
 require("dko.lsp.floats")
+
 require("dko.terminal")
 
 -- Disallow unsafe local vimrc commands
