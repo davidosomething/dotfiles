@@ -50,6 +50,7 @@ tools.register({
   name = "yamlls",
   runner = "mason-lspconfig",
   lspconfig = function()
+    ---@type lspconfig.Config
     return {
       settings = {
         yaml = {

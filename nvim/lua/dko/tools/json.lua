@@ -18,6 +18,7 @@ tools.register({
   name = "jsonls",
   runner = "mason-lspconfig",
   lspconfig = function()
+    ---@type lspconfig.Config
     return {
       settings = {
         json = {

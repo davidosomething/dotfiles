@@ -4,6 +4,8 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
+local mappings = require("dko.mappings")
+
 -- Lazy.nvim specs
 return {
   {
@@ -39,10 +41,10 @@ return {
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
-    keys = { "<leader>tw" },
+    keys = mappings.twvalues,
     config = function()
       require("tw-values").setup()
-      require("dko.mappings").bind_twvalues()
+      mappings.bind_twvalues()
     end,
   },
 

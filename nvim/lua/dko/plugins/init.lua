@@ -288,15 +288,11 @@ return {
             return "!" .. v
           end, require("dko.utils.buffer").SPECIAL_BUFTYPES)),
         },
-        filetypes = {
+        filetypes = vim.tbl_extend("keep", {
           "css",
           "html",
-          "javascript",
-          "javascriptreact",
           "scss",
-          "typescript",
-          "typescriptreact",
-        },
+        }, require("dko.jsts").fts),
         css = true,
         tailwind = true,
       })

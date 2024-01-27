@@ -33,8 +33,8 @@ tools.register({
   require = "_",
   name = "lua_ls",
   runner = "mason-lspconfig",
-  ---@return LspconfigDef
   lspconfig = function()
+    ---@type lspconfig.Config
     return {
       -- no more neodev https://github.com/neovim/neovim/pull/24592
       -- but uv and vim.cmd still not defined

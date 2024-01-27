@@ -6,6 +6,7 @@ tools.register({
   require = "npm",
   runner = "mason-lspconfig",
   lspconfig = function()
+    ---@type lspconfig.Config
     return {
       -- Disable on some filetypes
       -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/stylelint_lsp.lua

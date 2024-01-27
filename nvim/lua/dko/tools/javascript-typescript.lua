@@ -4,12 +4,7 @@ tools.register({
   name = "prettier",
   mason_type = "tool",
   require = "npm",
-  fts = {
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-  },
+  fts = require("dko.jsts").fts,
   efm = function()
     return require("efmls-configs.formatters.prettier")
   end,
@@ -20,10 +15,14 @@ tools.register({
   name = "cssmodules_ls",
   mason_type = "lsp",
   require = "npm",
+
   lspconfig = function()
+    ---@type lspconfig.Config
     return {
+      --- Use :LspStart cssmodules_ls to start this
+      autostart = false,
+
       ---note: local on_attach happens AFTER autocmd LspAttach
-      ---@param client table
       on_attach = function(client)
         -- https://github.com/davidosomething/dotfiles/issues/521
         -- https://github.com/antonk52/cssmodules-language-server#neovim
@@ -65,9 +64,9 @@ tools.register({
       includeInlayFunctionLikeReturnTypeHints = true,
       includeInlayEnumMemberValueHints = true,
     }
+
+    ---@type lspconfig.Config
     return {
-      ---@param client lsp.Client
-      ---@param bufnr number
       on_attach = function(client, bufnr)
         require("dko.mappings").bind_tsserver_lsp(client, bufnr)
       end,
