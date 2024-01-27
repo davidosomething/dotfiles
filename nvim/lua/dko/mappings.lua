@@ -358,6 +358,7 @@ M.bind_lsp = function(bufnr)
   map("n", "gD", function()
     vim.lsp.buf.declaration()
   end, lsp_opts({ desc = "LSP declaration" }))
+
   map("n", "gd", function()
     return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
   end, lsp_opts({ desc = "LSP definition" }))
@@ -370,18 +371,22 @@ M.bind_lsp = function(bufnr)
     return telescope_builtin("lsp_implementations")
       or vim.lsp.buf.implementation()
   end, lsp_opts({ desc = "LSP implementation" }))
+
   map({ "n", "i" }, "<C-g>", function()
     vim.lsp.buf.signature_help()
   end, lsp_opts({ desc = "LSP signature_help" }))
+
   --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   --map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
   --[[ map('n', '<space>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts) ]]
+
   map("n", "<Leader>D", function()
     return telescope_builtin("lsp_type_definitions")
       or vim.lsp.buf.type_definition()
   end, lsp_opts({ desc = "LSP type_definition" }))
+
   map("n", "<Leader>rn", function()
     vim.lsp.buf.rename()
   end, lsp_opts({ desc = "LSP rename" }))
@@ -898,6 +903,7 @@ end
 -- Plugin: tw-values.nvim
 -- ===========================================================================
 
+M.twvalues = "<leader>tw"
 M.bind_twvalues = function()
   map("n", "<leader>tw", "<Cmd>TWValues<CR>", {
     desc = "Show tailwind CSS values",

@@ -1,4 +1,5 @@
 local dkotable = require("dko.utils.table")
+local lsp = vim.lsp
 
 ---@alias ft string -- filetype
 
@@ -17,7 +18,17 @@ local dkotable = require("dko.utils.table")
 ---@field lintStdIn? boolean
 ---@field prefix? string
 
----@alias LspconfigDef fun(): table gets passed to lsp's setup()
+-- copypasta https://github.com/neovim/nvim-lspconfig/blob/8917d2c830e04bf944a699b8c41f097621283828/lua/lspconfig/configs.lua#L8C1-L15C71
+--- @class lspconfig.Config : lsp.ClientConfig
+--- @field enabled? boolean
+--- @field single_file_support? boolean
+--- @field filetypes? string[]
+--- @field filetype? string
+--- @field on_new_config? function
+--- @field autostart? boolean
+--- @field package _on_attach? fun(client: lsp.Client, bufnr: integer)
+
+---@alias LspconfigDef fun(): lspconfig.Config gets passed to lsp's setup()
 
 ---@alias MasonToolType
 ---|'"lsp"'

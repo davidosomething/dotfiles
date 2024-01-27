@@ -15,6 +15,7 @@ local M = {}
 
 -- ===========================================================================
 
+---@TODO move this to individual ftplugins ?
 ---@type table<ft, function>
 local pipelines = {}
 pipelines["html"] = function()

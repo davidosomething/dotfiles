@@ -7,12 +7,9 @@ local function active_highlight(active)
   return conditions.is_active() and active or "StatusLineNC"
 end
 
-local hidden_filetypes = {
-  "javascript",
+local hidden_filetypes = vim.tbl_extend("keep", {
   "markdown",
-  "typescript",
-  "typescriptreact",
-}
+}, require("dko.jsts").fts)
 
 return {
   {
