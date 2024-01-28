@@ -16,6 +16,30 @@ return {
     end,
   },
 
+  -- This has a cursor based code_action instead line based, so you get more
+  -- specific actions.
+  {
+    "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons", -- optional
+    },
+    config = function()
+      require("lspsaga").setup({
+        implement = {
+          enable = false,
+        },
+        lightbulb = {
+          enable = false,
+        },
+        symbol_in_winbar = {
+          enable = false,
+        },
+      })
+    end,
+  },
+
   {
     "neovim/nvim-lspconfig",
     dependencies = {

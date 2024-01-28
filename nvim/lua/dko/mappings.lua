@@ -396,7 +396,8 @@ M.bind_lsp = function(bufnr)
   })
 
   map("n", "<Leader><Leader>", function()
-    vim.lsp.buf.code_action()
+    vim.cmd.Lspsaga("code_action")
+    --vim.lsp.buf.code_action()
   end, lsp_opts({ desc = "LSP Code Action" }))
 
   map("n", "gr", function()
