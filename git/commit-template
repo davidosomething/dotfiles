@@ -1,6 +1,6 @@
 ${BRANCH}
 
-; tokens are replaced in ~/.dotfiles/vim/plugin/commitmsg.vim
+; tokens are replaced in ~/.dotfiles/nvim/lua/dko/behaviors.lua
 
 ; [ci skip]
 ; [skip Scrutinizer]
