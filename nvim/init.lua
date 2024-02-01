@@ -62,7 +62,6 @@ require("dko.lazy")
 require("dko.builtin-syntax")
 require("dko.filetypes")
 
-vim.lsp.set_log_level("DEBUG")
 require("dko.lsp.floats")
 
 require("dko.terminal")
