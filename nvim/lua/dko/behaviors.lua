@@ -13,26 +13,29 @@ end
 
 local autocmd = vim.api.nvim_create_autocmd
 
+local ENABLE_TREESITTER_MATCHUP = false
 local treesitter_loaded = false
 local matchup_loaded = false
-autocmd("User", {
-  pattern = "LazyLoad",
-  callback = function(ev)
-    if ev.data == "nvim-treesitter" then
-      treesitter_loaded = true
-    end
-    if ev.data == "vim-matchup" then
-      matchup_loaded = true
-    end
-    if treesitter_loaded and matchup_loaded then
-      require("nvim-treesitter.configs").setup({
-        matchup = { enable = true },
-      })
-      return true -- delete this autocmd
-    end
-  end,
-  group = augroup("dkoplugins"),
-})
+if ENABLE_TREESITTER_MATCHUP then
+  autocmd("User", {
+    pattern = "LazyLoad",
+    callback = function(ev)
+      if ev.data == "nvim-treesitter" then
+        treesitter_loaded = true
+      end
+      if ev.data == "vim-matchup" then
+        matchup_loaded = true
+      end
+      if treesitter_loaded and matchup_loaded then
+        require("nvim-treesitter.configs").setup({
+          matchup = { enable = true },
+        })
+        return true -- delete this autocmd
+      end
+    end,
+    group = augroup("dkoplugins"),
+  })
+end
 
 if #vim.api.nvim_list_uis() > 0 then
   -- @TODO keep an eye on https://github.com/neovim/neovim/issues/23581
