@@ -19,13 +19,8 @@ return {
       vim.o.laststatus = GLOBAL
 
       require("heirline").setup({
-        statusline = {
-          fallthrough = false,
-          require("dko.heirline.statusline-special"),
-          require("dko.heirline.statusline-default"),
-        },
+        statusline = require("dko.heirline.statusline-default"),
         tabline = require("dko.heirline.tabline"),
-
         winbar = require("dko.heirline.winbar"),
         opts = {
           -- if the callback returns true, the winbar will be disabled for that window

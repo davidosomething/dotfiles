@@ -17,7 +17,10 @@ require("lazy").setup("dko.plugins", {
     enabled = false,
   },
   checker = {
-    enabled = false,
+    -- needed to get the output of require("lazy.status").updates()
+    enabled = true,
+    -- get a notification when new updates are found?
+    notify = false,
   },
   dev = {
     fallback = true,
