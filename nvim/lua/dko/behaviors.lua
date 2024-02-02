@@ -13,7 +13,7 @@ end
 
 local autocmd = vim.api.nvim_create_autocmd
 
-local ENABLE_TREESITTER_MATCHUP = false
+local ENABLE_TREESITTER_MATCHUP = true
 local treesitter_loaded = false
 local matchup_loaded = false
 if ENABLE_TREESITTER_MATCHUP then

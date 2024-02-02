@@ -374,10 +374,6 @@ return {
   -- % textobject
   {
     "andymass/vim-matchup",
-    enabled = function()
-      -- currently broken
-      return false
-    end,
     cond = #vim.api.nvim_list_uis() > 0,
     -- author recommends against lazy loading
     lazy = false,
