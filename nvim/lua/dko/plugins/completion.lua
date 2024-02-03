@@ -11,7 +11,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-buffer",
-      "FelipeLema/cmp-async-path",
+      "https://codeberg.org/FelipeLema/cmp-async-path.git",
       "hrsh7th/cmp-cmdline",
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
       "onsails/lspkind.nvim",
