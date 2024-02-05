@@ -1,11 +1,12 @@
 -- Observable settings object
 
-local object = require("dko.utils.object")
+local dkoobject = require("dko.utils.object")
 
 local settings = {
   colors = {
-    dark = "meh",
-    light = "zenbones",
+    -- set in ./plugins/colorscheme.lua
+    --   dark = "meh",
+    --   light = "zenbones",
   },
   grepper = {
     ignore_file = ("%s/%s"):format(vim.env.DOTFILES, "ag/dot.ignore"),
@@ -20,15 +21,15 @@ local M = {}
 M.watchers = {}
 
 M.get = function(path)
-  return object.get(settings, path)
+  return dkoobject.get(settings, path)
 end
 
 M.set = function(path, value)
   local current = M.get(path)
-  local success = object.set(settings, path, value)
+  local success = dkoobject.set(settings, path, value)
   if success and value ~= current then
-    local watchers = M.watchers[path]
-    vim.iter(watchers):each(function(cb)
+    M.watchers[path] = M.watchers[path] or {}
+    vim.iter(M.watchers[path]):each(function(cb)
       cb({
         path = path,
         prev = current,
