@@ -36,8 +36,7 @@ pipelines["lua"] = function()
 end
 pipelines["markdown"] = require("dko.format.markdown")
 pipelines["yaml"] = function()
-  local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
-  if filename == "docker-compose.yml" or filename == "docker-compose.yaml" then
+  if vim.bo.filetype == "yaml.docker-compose" then
     vim.lsp.buf.format({ name = "docker_compose_language_service" })
     notify({ "docker_compose_language_service" })
     return
