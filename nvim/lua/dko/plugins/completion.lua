@@ -36,8 +36,9 @@ return {
           {
             name = "async_path",
             option = {
-              trailing_slash = true,
               label_trailing_slash = true,
+              show_hidden_files_by_default = true,
+              trailing_slash = true,
             },
           },
         }, { -- group 2 only if nothing in above had results
@@ -120,7 +121,7 @@ return {
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
-          { { name = "path" } }, -- group 1
+          { { name = "async_path" } }, -- group 1
           { { name = "cmdline" } } -- group 2, only use if nothing in group 1
         ),
       })
@@ -129,7 +130,7 @@ return {
         sources = {
           { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
-          { name = "path" },
+          { name = "async_path" },
           { name = "buffer" },
         },
       })
