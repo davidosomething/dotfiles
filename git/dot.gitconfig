@@ -55,9 +55,6 @@
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
 
-[url "git@heroku.com:"]
-	insteadOf = "heroku:"
-
 # ============================================================================
 # Repo settings and command options
 # ============================================================================
@@ -83,6 +80,7 @@
 	ignorecase = false
 
 [diff]
+	algorithm = histogram
 	compactionHeuristic = true
 	renames = true
 	renameLimit = 12650
