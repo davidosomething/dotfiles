@@ -365,6 +365,7 @@ M.bind_lsp = function(bufnr)
 
   -- This is done for us in
   -- $VIMRUNTIME/lua/vim/lsp.lua
+  -- as of https://github.com/neovim/neovim/pull/24331
   --map("n", "K", vim.lsp.buf.hover, lsp_opts({ desc = "LSP hover" }))
 
   map("n", "gi", function()
