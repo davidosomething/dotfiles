@@ -72,13 +72,26 @@ return {
     end,
   },
 
+  -- https://github.com/marilari88/twoslash-queries.nvim
+  {
+    "marilari88/twoslash-queries.nvim",
+    config = function()
+      require("twoslash-queries").setup({
+        multi_line = true,
+      })
+    end,
+  },
+
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
-      "b0o/schemastore.nvim", -- wait for schemastore for jsonls
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
       "neovim/nvim-lspconfig", -- wait for lspconfig
+
+      -- @TODO move these somewhere else
+      "b0o/schemastore.nvim", -- wait for schemastore for jsonls
       "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
+      "marilari88/twoslash-queries.nvim", -- tsserver comment with  ^? comment
     },
     config = function()
       local lspconfig = require("lspconfig")
