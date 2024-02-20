@@ -69,6 +69,10 @@ tools.register({
     return {
       on_attach = function(client, bufnr)
         require("dko.mappings").bind_tsserver_lsp(client, bufnr)
+        local twoslashok, twoslash = pcall(require, "twoslash-queries")
+        if twoslashok then
+          twoslash.attach(client, bufnr)
+        end
       end,
 
       handlers = {
