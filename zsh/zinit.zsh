@@ -79,9 +79,6 @@ function {
     atpull'%atclone' \
     '@sharkdp/fd' \
     \
-    mv'gruyere* -> gruyere' \
-    'savannahostrowski/gruyere' \
-    \
     mv'jq* -> jq' \
     'jqlang/jq' \
     \
