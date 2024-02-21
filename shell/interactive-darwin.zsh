@@ -25,9 +25,13 @@ __homebrew() {
   fi
 
   # GOROOT binaries
-  [ -d "${HOMEBREW_PREFIX}/opt/go/libexec/bin" ] &&
   PATH="${HOMEBREW_PREFIX}/opt/go/libexec/bin:${PATH}"
   PATH="${HOMEBREW_PREFIX}/opt/git/share/git-core/contrib/git-jump:${PATH}"
+
+  # icu4c
+  PATH="${HOMEBREW_PREFIX}/opt/icu4c/bin:${PATH}"
+  PATH="${HOMEBREW_PREFIX}/opt/icu4c/sbin:${PATH}"
+
 
   # prefer homebrewed lua@5.1
   [ -x ${HOMEBREW_PREFIX}/bin/luarocks ] &&
@@ -41,10 +45,10 @@ __homebrew() {
   # @TODO recheck this for Big Sur
   # https://github.com/pyenv/pyenv/issues/1746
   # Allow pyenv to use custom openssl from brew
-  [ -d "${HOMEBREW_PREFIX}/opt/openssl/lib" ] &&
-    export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/openssl/lib"
-  [ -d "${HOMEBREW_PREFIX}/opt/openssl/include" ] &&
-    export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/openssl/include"
+  # [ -d "${HOMEBREW_PREFIX}/opt/openssl/lib" ] &&
+  #   export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/openssl/lib"
+  # [ -d "${HOMEBREW_PREFIX}/opt/openssl/include" ] &&
+  #   export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/openssl/include"
 
   [ -d "${HOMEBREW_PREFIX}/share/android-sdk" ] &&
     export ANDROID_SDK_ROOT="${HOMEBREW_PREFIX}/share/android-sdk"
