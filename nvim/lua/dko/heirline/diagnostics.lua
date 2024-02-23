@@ -9,6 +9,11 @@ local function get_diagnostic_count(opts)
 end
 
 return {
+  condition = function()
+    local has_filetype = vim.bo.filetype ~= ""
+    return has_filetype
+  end,
+
   static = {
     error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
     warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
