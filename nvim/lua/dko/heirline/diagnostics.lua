@@ -1,3 +1,5 @@
+local dkodiag = require("dko.diagnostic")
+
 -- polyfill as of https://github.com/neovim/neovim/pull/26807
 ---@param opts? { severity?: number }
 local function get_diagnostic_count(opts)
@@ -13,13 +15,6 @@ return {
     local has_filetype = vim.bo.filetype ~= ""
     return has_filetype
   end,
-
-  static = {
-    error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
-    warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-    info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-    hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
-  },
 
   init = function(self)
     self.errors = get_diagnostic_count({
@@ -43,7 +38,10 @@ return {
       return self.errors > 0
     end,
     provider = function(self)
-      return " " .. self.error_icon .. self.errors
+      return (" %s %d"):format(
+        dkodiag.SEVERITY_TO_SYMBOL[vim.diagnostic.severity.ERROR],
+        self.errors
+      )
     end,
     hl = "DiagnosticError",
   },
@@ -52,7 +50,10 @@ return {
       return self.warnings > 0
     end,
     provider = function(self)
-      return " " .. self.warn_icon .. self.warnings
+      return (" %s %d"):format(
+        dkodiag.SEVERITY_TO_SYMBOL[vim.diagnostic.severity.WARN],
+        self.warnings
+      )
     end,
     hl = "DiagnosticWarn",
   },
@@ -61,7 +62,10 @@ return {
       return self.info > 0
     end,
     provider = function(self)
-      return " " .. self.info_icon .. self.info
+      return (" %s %d"):format(
+        dkodiag.SEVERITY_TO_SYMBOL[vim.diagnostic.severity.INFO],
+        self.info
+      )
     end,
     hl = "DiagnosticInfo",
   },
@@ -70,7 +74,10 @@ return {
       return self.hints > 0
     end,
     provider = function(self)
-      return " " .. self.hint_icon .. self.hints
+      return (" %s %d"):format(
+        dkodiag.SEVERITY_TO_SYMBOL[vim.diagnostic.severity.HINT],
+        self.hints
+      )
     end,
     hl = "DiagnosticHint",
   },
