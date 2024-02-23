@@ -1,5 +1,9 @@
 local M = {}
 
+M.capitalize = function(str)
+  return (str:gsub("^%l", string.upper))
+end
+
 ---@param haystack string
 ---@param needle string
 ---@return boolean found true if needle in haystack
