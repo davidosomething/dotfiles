@@ -72,7 +72,7 @@ map(
 map("n", "<Leader>..", "<Cmd>cd! ..<CR>", { desc = "cd up a level" })
 
 map("n", "<Leader>cr", function()
-  local root = require("dko.project").git_root()
+  local root = require("dko.project").get_git_root()
   if root then
     if vim.uv.chdir(root) == 0 then
       vim.notify(root, vim.log.levels.INFO, { title = "Changed directory" })
@@ -698,6 +698,7 @@ end
 
 M.bind_telescope = function()
   local t = require("telescope")
+  local tb = require("telescope.builtin")
 
   map("n", "<A-e>", function()
     if t.extensions.file_browser then
@@ -708,11 +709,11 @@ M.bind_telescope = function()
   end, { desc = "Telescope: pick existing buffer" })
 
   map("n", "<A-b>", function()
-    require("telescope.builtin").buffers({ layout_strategy = "vertical" })
+    tb.buffers({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick existing buffer" })
 
   map("n", "<A-c>", function()
-    require("telescope.builtin").find_files({
+    tb.find_files({
       hidden = true,
       layout_strategy = "vertical",
     })
@@ -723,12 +724,12 @@ M.bind_telescope = function()
     local res =
       vim.system({ "git", "rev-parse", "--is-inside-work-tree" }):wait()
     if res.code == 0 then
-      require("telescope.builtin").git_files({
+      tb.git_files({
         layout_strategy = "vertical",
         show_untracked = true,
       })
     else
-      require("telescope.builtin").find_files({
+      tb.find_files({
         hidden = true,
         layout_strategy = "vertical",
       })
@@ -736,15 +737,15 @@ M.bind_telescope = function()
   end, { desc = "Telescope: files in git work files or CWD" })
 
   map("n", "<A-g>", function()
-    require("telescope.builtin").live_grep({ layout_strategy = "vertical" })
+    tb.live_grep({ layout_strategy = "vertical" })
   end, { desc = "Telescope: live grep CWD" })
 
   map("n", "<A-m>", function()
-    require("telescope.builtin").oldfiles({ layout_strategy = "vertical" })
+    tb.oldfiles({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick from previously opened files" })
 
   map("n", "<A-p>", function()
-    require("telescope.builtin").find_files({
+    tb.find_files({
       hidden = true,
       layout_strategy = "vertical",
       prompt_title = "Files in buffer's project",
@@ -754,12 +755,16 @@ M.bind_telescope = function()
     desc = "Telescope: pick from previously opened files in current project root",
   })
 
+  map("n", "<A-r>", function()
+    tb.resume()
+  end, { desc = "Telescope: re-open last picker" })
+
   map("n", "<A-s>", function()
-    require("telescope.builtin").git_status({ layout_strategy = "vertical" })
+    tb.git_status({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick from git status files" })
 
   map("n", "<A-t>", function()
-    require("telescope.builtin").find_files({
+    tb.find_files({
       layout_strategy = "vertical",
       prompt_title = "Find tests",
       search_dirs = {
@@ -772,13 +777,13 @@ M.bind_telescope = function()
   end, { desc = "Telescope: pick files in CWD" })
 
   map("n", "<A-v>", function()
-    require("telescope.builtin").find_files({
+    tb.find_files({
       layout_strategy = "vertical",
       prompt_title = "Find in neovim configs",
       cwd = vim.fn.stdpath("config"),
       hidden = true,
     })
-  end, { desc = "Telescope: pick from vim config files" })
+  end, { desc = "Telescope: nvim/ files" })
 
   map("n", "<A-y>", function()
     if not t.extensions.yank_history then
