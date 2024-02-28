@@ -2,22 +2,34 @@
 -- Completion
 -- =========================================================================
 
+local USE_ASYNC_PATH = false
+
+local cmp_dependencies = {
+  { "dcampos/cmp-snippy", dependencies = { "dcampos/nvim-snippy" } },
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-nvim-lsp-signature-help",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-cmdline",
+  { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
+  "onsails/lspkind.nvim",
+  -- slow start
+  --{ "buschco/nvim-cmp-ts-tag-close", opts = { skip_tags = { "img" } } },
+}
+
+if USE_ASYNC_PATH then
+  table.insert(
+    cmp_dependencies,
+    "https://codeberg.org/FelipeLema/cmp-async-path.git"
+  )
+else
+  table.insert(cmp_dependencies, "hrsh7th/cmp-path")
+end
+
 return {
   {
     "hrsh7th/nvim-cmp",
     cond = #vim.api.nvim_list_uis() > 0,
-    dependencies = {
-      { "dcampos/cmp-snippy", dependencies = { "dcampos/nvim-snippy" } },
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "hrsh7th/cmp-buffer",
-      "https://codeberg.org/FelipeLema/cmp-async-path.git",
-      "hrsh7th/cmp-cmdline",
-      { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
-      "onsails/lspkind.nvim",
-      -- slow start
-      --{ "buschco/nvim-cmp-ts-tag-close", opts = { skip_tags = { "img" } } },
-    },
+    dependencies = cmp_dependencies,
 
     config = function()
       local cmp = require("cmp")
@@ -33,14 +45,14 @@ return {
           { name = "snippy" },
           { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
-          {
-            name = "async_path",
-            option = {
-              label_trailing_slash = true,
-              show_hidden_files_by_default = true,
-              trailing_slash = true,
-            },
-          },
+          -- {
+          --   name = "async_path",
+          --   option = {
+          --     label_trailing_slash = true,
+          --     show_hidden_files_by_default = true,
+          --     trailing_slash = true,
+          --   },
+          -- },
         }, { -- group 2 only if nothing in above had results
           { name = "buffer" },
         }),
@@ -121,7 +133,10 @@ return {
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
-          { { name = "async_path" } }, -- group 1
+          {
+            { name = "async_path" },
+            { name = "path" },
+          }, -- group 1
           { { name = "cmdline" } } -- group 2, only use if nothing in group 1
         ),
       })
@@ -131,6 +146,7 @@ return {
           { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
           { name = "async_path" },
+          { name = "path" },
           { name = "buffer" },
         },
       })
