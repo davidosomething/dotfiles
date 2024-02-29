@@ -4,7 +4,12 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
-local mappings = require("dko.mappings")
+--local dkomappings = require("dko.mappings")
+local dkolsp = require("dko.lsp")
+local dkotools = require("dko.tools")
+
+local uis = vim.api.nvim_list_uis()
+local has_ui = #uis > 0
 
 -- Lazy.nvim specs
 return {
@@ -58,27 +63,27 @@ return {
     lazy = true,
   },
 
-  -- https://github.com/MaximilianLloyd/tw-values.nvim
-  {
-    "MaximilianLloyd/tw-values.nvim",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    keys = mappings.twvalues,
-    config = function()
-      require("tw-values").setup()
-      mappings.bind_twvalues()
-    end,
-  },
-
   -- https://github.com/marilari88/twoslash-queries.nvim
   {
     "marilari88/twoslash-queries.nvim",
+    cond = has_ui,
     config = function()
       require("twoslash-queries").setup({
         multi_line = true,
       })
+    end,
+  },
+
+  {
+    "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
+    config = function()
+      local cnl = require("cmp_nvim_lsp")
+      cnl.setup()
+      dkolsp.base_config.capabilities = vim.tbl_deep_extend(
+        "force",
+        dkolsp.base_config.capabilities,
+        cnl.default_capabilities()
+      )
     end,
   },
 
@@ -99,18 +104,15 @@ return {
       ---@param config? table
       local function middleware(config)
         config = config or {}
-        return vim.tbl_deep_extend("force", {
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
-        }, config)
+        return vim.tbl_deep_extend("force", dkolsp.base_config, config)
       end
 
-      require("dko.tools").setup_unmanaged_lsps(middleware)
+      dkotools.setup_unmanaged_lsps(middleware)
 
       -- Note that instead of on_attach for each server setup,
       -- behaviors.lua has an autocmd LspAttach defined
       ---@type table<string, fun(server_name: string)>?
-      local handlers =
-        require("dko.tools").get_mason_lspconfig_handlers(middleware)
+      local handlers = dkotools.get_mason_lspconfig_handlers(middleware)
       -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/init.lua#L62
       handlers[1] = function(server)
         lspconfig[server].setup(middleware())
@@ -118,7 +120,7 @@ return {
 
       require("mason-lspconfig").setup({
         automatic_installation = #vim.api.nvim_list_uis() > 0,
-        ensure_installed = require("dko.tools").get_mason_lsps(),
+        ensure_installed = dkotools.get_mason_lsps(),
         handlers = handlers,
       })
     end,

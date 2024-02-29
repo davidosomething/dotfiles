@@ -82,11 +82,14 @@ M.register = function(config)
     table.insert(efm_configs, config)
   elseif config.lspconfig then
     local config_map
+
     if config.runner == "lspconfig" then
       config_map = lspconfig_resolvers
-    else
+    else -- probably "mason-lspconfig"
       config_map = mason_lspconfig_resolvers
     end
+
+    -- set up the lspconfig with the lspconfig() function from tool registration
     config_map[config.name] = function(middleware)
       middleware = middleware
         or function(lspconfig)
