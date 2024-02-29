@@ -1,13 +1,16 @@
+local uis = vim.api.nvim_list_uis()
+local has_ui = #uis > 0
+
 return {
   {
     "davidosomething/everandever.nvim",
-    cond = #vim.api.nvim_list_uis() > 0,
+    cond = has_ui,
     dev = true,
   },
 
   {
     "rebelot/heirline.nvim",
-    cond = #vim.api.nvim_list_uis() > 0,
+    cond = has_ui,
     dependencies = {
       "davidosomething/everandever.nvim",
     },

@@ -1,3 +1,8 @@
+local dkomappings = require("dko.mappings")
+
+local uis = vim.api.nvim_list_uis()
+local has_ui = #uis > 0
+
 local FT_TO_LANG_ALIASES = {
   dotenv = "bash",
   javascriptreact = "jsx",
@@ -14,13 +19,12 @@ local HIGHLIGHTING_DISABLED = {
 }
 
 return {
-
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     "nvim-treesitter/nvim-treesitter",
     -- don't use this plugin when headless (lazy.nvim tends to try to install
     -- markdown support async)
-    cond = #vim.api.nvim_list_uis() > 0,
+    cond = has_ui,
     build = function()
       require("nvim-treesitter.install").update({ with_sync = true })
     end,
@@ -29,8 +33,8 @@ return {
       ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({
         -- https://github.com/nvim-treesitter/nvim-treesitter/issues/3579#issuecomment-1278662119
-        auto_install = true,
-        sync_install = #vim.api.nvim_list_uis() == 0,
+        auto_install = has_ui,
+        sync_install = not has_ui,
 
         -- Built-in modules configured here
         -- see behaviors.lua for treesitter integration with other plugins
@@ -56,6 +60,19 @@ return {
       for ft, parser in pairs(FT_TO_LANG_ALIASES) do
         vim.treesitter.language.register(parser, ft)
       end
+    end,
+  },
+
+  -- https://github.com/MaximilianLloyd/tw-values.nvim
+  {
+    "MaximilianLloyd/tw-values.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    keys = dkomappings.twvalues,
+    config = function()
+      require("tw-values").setup()
+      dkomappings.bind_twvalues()
     end,
   },
 }
