@@ -2,8 +2,6 @@
 -- Completion
 -- =========================================================================
 
-local USE_ASYNC_PATH = false
-
 local cmp_dependencies = {
   { "dcampos/cmp-snippy", dependencies = { "dcampos/nvim-snippy" } },
   "hrsh7th/cmp-nvim-lsp",
@@ -15,6 +13,8 @@ local cmp_dependencies = {
   -- slow start
   --{ "buschco/nvim-cmp-ts-tag-close", opts = { skip_tags = { "img" } } },
 }
+
+local USE_ASYNC_PATH = false
 
 if USE_ASYNC_PATH then
   table.insert(
@@ -30,7 +30,6 @@ return {
     "hrsh7th/nvim-cmp",
     cond = #vim.api.nvim_list_uis() > 0,
     dependencies = cmp_dependencies,
-
     config = function()
       local cmp = require("cmp")
       cmp.setup({
