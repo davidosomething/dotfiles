@@ -2,6 +2,9 @@
 -- Change vim behavior via autocommands
 -- ===========================================================================
 
+local uis = vim.api.nvim_list_uis()
+local has_ui = #uis > 0
+
 local groups = {}
 local augroup = function(name, opts)
   if not groups[name] then
@@ -37,7 +40,7 @@ if ENABLE_TREESITTER_MATCHUP then
   })
 end
 
-if #vim.api.nvim_list_uis() > 0 then
+if has_ui then
   -- @TODO keep an eye on https://github.com/neovim/neovim/issues/23581
   autocmd("WinLeave", {
     desc = "Toggle close->open loclist so it is always under the correct window",
@@ -94,7 +97,7 @@ autocmd("QuitPre", {
   group = augroup("dkowindow"),
 })
 
-if #vim.api.nvim_list_uis() > 0 then
+if has_ui then
   autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
     desc = "Start in insert mode when entering a terminal",
     callback = function(args)
@@ -146,7 +149,7 @@ autocmd("BufRead", {
   group = augroup("dkoreading"),
 })
 
-if #vim.api.nvim_list_uis() > 0 then
+if has_ui then
   autocmd("BufEnter", {
     desc = "Read only mode (un)mappings",
     callback = function()
@@ -231,7 +234,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   group = augroup("dkosaving"),
 })
 
-if #vim.api.nvim_list_uis() > 0 then
+if has_ui then
   -- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
   -- Happens before on_attach, so can still use on_attach to do more stuff or
   -- override this
