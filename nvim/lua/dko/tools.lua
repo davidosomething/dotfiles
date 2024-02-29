@@ -3,22 +3,26 @@ local lsp = vim.lsp
 
 ---@alias ft string -- filetype
 
+---Abstract class for efm tools
 ---@class EfmToolConfig
 ---@field requireMarker? boolean
 ---@field rootMarkers? string[]
 
+---Return type for a tool's efm function that is a formatter
 ---@class EfmFormatter: EfmToolConfig
 ---@field formatCommand string -- executable and args
 ---@field formatCanRange? boolean
 ---@field formatStdIn? boolean
 
+---Return type for a tool's efm function that is a linter
 ---@class EfmLinter: EfmToolConfig
 ---@field lintCommand string -- executable and args
 ---@field lintSource? 'efm' | 'efmls' -- displays above float
 ---@field lintStdIn? boolean
 ---@field prefix? string
 
--- copypasta https://github.com/neovim/nvim-lspconfig/blob/8917d2c830e04bf944a699b8c41f097621283828/lua/lspconfig/configs.lua#L8C1-L15C71
+-- nvim-lspconfig config object
+-- copypasta from https://github.com/neovim/nvim-lspconfig/blob/8917d2c830e04bf944a699b8c41f097621283828/lua/lspconfig/configs.lua#L8C1-L15C71
 --- @class lspconfig.Config : lsp.ClientConfig
 --- @field enabled? boolean
 --- @field single_file_support? boolean

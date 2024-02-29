@@ -119,7 +119,7 @@ return {
       end
 
       require("mason-lspconfig").setup({
-        automatic_installation = #vim.api.nvim_list_uis() > 0,
+        automatic_installation = has_ui,
         ensure_installed = dkotools.get_mason_lsps(),
         handlers = handlers,
       })
