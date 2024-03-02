@@ -271,6 +271,16 @@ return {
   -- Syntax
   -- =========================================================================
 
+  {
+    "lukas-reineke/headlines.nvim",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    opts = {
+      markdown = {
+        bullets = {},
+      },
+    }, -- or `opts = {}`
+  },
+
   -- Works better than https://github.com/IndianBoy42/tree-sitter-just
   {
     "NoahTheDuke/vim-just",
