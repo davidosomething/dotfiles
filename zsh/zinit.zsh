@@ -11,6 +11,14 @@ function {
   # Make man dir in /polaris
   mkdir -p "$man_dir"
 
+  zinit lucid as"program" from"gh-r" \
+    atclone'./direnv hook zsh > zhook.zsh' \
+    atpull'%atclone' \
+    mv"direnv* -> direnv" \
+    pick"direnv" \
+    src="zhook.zsh" \
+    for direnv/direnv
+
   # ----------------------------------------------------------------------------
   # Git
   # ----------------------------------------------------------------------------
