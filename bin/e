@@ -1,9 +1,19 @@
 #!/usr/bin/env bash
 
+# e - Custom EDITOR provider
+# Uses nvim, fallback to vim, fallback to vi
+#
+# Supported environment variables:
+# - E_DEBUG=true enable debug logging
+
 __server="${XDG_STATE_HOME}/nvim/nvim.sock"
 
+log() {
+  echo "[e] ${1}"
+}
+
 ctrl_c() {
-  echo "Detected CTRL-C, removing nvim.sock"
+  log "Detected CTRL-C, removing nvim.sock"
   rm "$__server"
 
   local orphans
@@ -11,15 +21,20 @@ ctrl_c() {
     # shellcheck disable=2009
     ps ux | grep -v grep | grep language-server
   )
-  [[ -n $orphans ]] &&
-    echo "Possible orphan language server processes:"
-  echo "$orphans"
+  [[ -n $orphans ]] && {
+    log "Possible orphan language server processes:"
+    log "${orphans}"
+  }
 }
 
 main() {
   ! command -v nvim >/dev/null && {
-    [[ "$E_DEBUG" != "" ]] && echo "default editor"
-    "$EDITOR" "$@"
+    local fallback
+    fallback="vim"
+    ! command -v vim >/dev/null && fallback="vi"
+
+    [[ "$E_DEBUG" != "" ]] && log "Use fallback editor ${fallback}"
+    "$fallback" "$@"
     return
   }
 
@@ -29,11 +44,11 @@ main() {
   local running
   running=$(pgrep -f "nvim\.sock")
   if [ -z "$running" ]; then
-    [[ "$E_DEBUG" != "" ]] && echo "Not running"
+    [[ "$E_DEBUG" != "" ]] && log "Not running"
 
     # this happens if my neovim crashes/killed without VimLeavePre
     [ -e "$__server" ] && {
-      [[ "$E_DEBUG" != "" ]] && echo "Removing dead nvim.sock"
+      [[ "$E_DEBUG" != "" ]] && log "Removing dead nvim.sock"
       rm "$__server"
     }
 
@@ -47,12 +62,12 @@ main() {
       --server "$__server" \
       --remote-expr "execute('echo v:servername')" \
       2>&1 | xargs)
-    [[ "$E_DEBUG" != "" ]] && echo "Found running $existing"
+    [[ "$E_DEBUG" != "" ]] && log "Found running $existing"
   fi
 
   # New server, empty
   [ "$existing" != "$__server" ] && [ -z "$first" ] && {
-    [[ "$E_DEBUG" != "" ]] && echo "new server ${__server} with empty file"
+    [[ "$E_DEBUG" != "" ]] && log "New server ${__server} with empty file"
     nvim --listen "$__server" +enew
     return
   }
@@ -70,7 +85,7 @@ main() {
   # New server with files
   [ "$existing" != "$__server" ] && {
     [[ "$E_DEBUG" != "" ]] &&
-      echo "new server ${__server} (did not match ${existing}) with ${files[*]}"
+      log "New server ${__server} (did not match ${existing}) with ${files[*]}"
     nvim --listen "$__server" "${files[@]}"
     return
   }
@@ -86,12 +101,12 @@ main() {
     --remote-expr "execute('DKOExternal')"
 
   if [ -z "$first" ]; then
-    [[ "$E_DEBUG" != "" ]] && echo "no file given, surface existing server"
+    [[ "$E_DEBUG" != "" ]] && log "No file given, surface existing server"
     nvim --server "$__server" --remote-send '<C-\><C-N><Cmd>e<CR>'
     return
   fi
 
-  [[ "$E_DEBUG" != "" ]] && echo "use server ${__server} with ${file[*]}"
+  [[ "$E_DEBUG" != "" ]] && log "Use server ${__server} with ${file[*]}"
   nvim --server "$__server" --remote-silent "${files[@]}"
 }
 
