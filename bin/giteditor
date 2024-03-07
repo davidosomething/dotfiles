@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# giteditor - Custom EDITOR provider
+# Uses nvim, fallback to vim, fallback to vi
+
+main() {
+  ! command -v nvim >/dev/null && {
+    local fallback
+    fallback="vim"
+    ! command -v vim >/dev/null && fallback="vi"
+
+    [[ "$E_DEBUG" != "" ]] && log "Use fallback editor ${fallback}"
+    "$fallback" "$@"
+    return
+  }
+
+  typeset -a files=()
+  for file in "$@"; do
+    # don't prepend PWD for absolute paths
+    case "$file" in
+    /*) ;;
+    *) file="${PWD}/${file}" ;;
+    esac
+    files+=("$file")
+  done
+
+  nvim "${files[@]}"
+}
+
+main "$@"

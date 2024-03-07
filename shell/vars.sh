@@ -111,6 +111,8 @@ export CVSIGNORE="${DOTFILES}/git/.gitignore"
 export EDITOR='e'
 export VISUAL="$EDITOR"
 
+export GIT_EDITOR="giteditor"
+
 # create-react-app
 export REACT_EDITOR="$VISUAL"
 
