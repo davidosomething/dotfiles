@@ -108,8 +108,11 @@ export CVSIGNORE="${DOTFILES}/git/.gitignore"
 # editor
 # ----------------------------------------------------------------------------
 
-export EDITOR='vim'
+export EDITOR='e'
 export VISUAL="$EDITOR"
+
+# create-react-app
+export REACT_EDITOR="$VISUAL"
 
 # this requires Defaults env_keep += "SYSTEMD_EDITOR" in your sudo settings to
 # take effect. See https://unix.stackexchange.com/a/408419
@@ -186,6 +189,7 @@ export MYSQL_HISTFILE="${XDG_CACHE_HOME}/mysql_histfile"
 
 # neovim
 export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
+export VDOTDIR="${XDG_CONFIG_HOME}/nvim"
 
 # gnu parallel
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel

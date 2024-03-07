@@ -2,17 +2,6 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
 
-# Use neovim
-# Now that path is available, use neovim instead of vim if it is installed
-__dko_prefer 'nvim' && {
-  export EDITOR='nvim'
-  export VISUAL='nvim'
-  export VDOTDIR="${XDG_CONFIG_HOME}/nvim"
-}
-
-# create-react-app
-export REACT_EDITOR="$VISUAL"
-
 # ============================================================================
 # FZF settings
 # ============================================================================
