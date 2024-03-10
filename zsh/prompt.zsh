@@ -33,7 +33,7 @@ fi
 __dko_prompt_left_parts+=('%n')  # User
 __dko_prompt_left_colors+=('%F{blue}')
 __dko_prompt_left_parts+=('@')
-if [[ -n "$SSH_CONNECTION" ]] || [[ "$WEZTERM_EXECUTABLE" == *"mux-server" ]]
+if [[ -n "$SSH_CONNECTION" ]] || [[ -n "$IN_DOCKER" ]] || [[ "$WEZTERM_EXECUTABLE" == *"mux-server" ]]
 then __dko_prompt_left_colors+=('%F{red}')
 else __dko_prompt_left_colors+=('%F{green}')
 fi
