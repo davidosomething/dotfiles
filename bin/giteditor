@@ -3,6 +3,10 @@
 # giteditor - Custom EDITOR provider
 # Uses nvim, fallback to vim, fallback to vi
 
+log() {
+  echo "[e] ${1}"
+}
+
 main() {
   ! command -v nvim >/dev/null && {
     local fallback
@@ -24,6 +28,7 @@ main() {
     files+=("$file")
   done
 
+  [[ "$E_DEBUG" != "" ]] && log "nvim ${files[*]}"
   nvim "${files[@]}"
 }
 
