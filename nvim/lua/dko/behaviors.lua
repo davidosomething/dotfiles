@@ -175,6 +175,17 @@ if has_ui then
     end,
     group = augroup("dkoreading"),
   })
+
+  autocmd("FileType", {
+    desc = "Lock buffers when committia opened",
+    callback = function()
+      if vim.fn.exists("&winfixbuf") ~= 1 then
+        return
+      end
+      vim.fn.winfixbuf()
+    end,
+    group = augroup("dkoreading"),
+  })
 end
 
 autocmd({ "BufNewFile", "BufRead", "BufFilePost" }, {
