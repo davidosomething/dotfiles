@@ -21,6 +21,10 @@ return {
     end,
   },
 
+  {
+    "deathbeam/lspecho.nvim",
+  },
+
   -- This has a cursor based code_action instead line based, so you get more
   -- specific actions.
   -- {
