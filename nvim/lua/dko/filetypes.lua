@@ -7,6 +7,7 @@ vim.filetype.add({
   },
   filename = {
     [".env"] = "dotenv",
+    [".eslintrc.json"] = "jsonc", -- assuming nx project.json
     ["project.json"] = "jsonc", -- assuming nx project.json
     [".yamlfmt"] = "yaml",
   },
