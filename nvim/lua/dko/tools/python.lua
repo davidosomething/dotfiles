@@ -24,12 +24,10 @@ tools.register({
 })
 
 tools.register({
-  -- https://github.com/mason-org/mason-registry/pull/4996
-  -- @TODO switch to lsp https://github.com/williamboman/mason-lspconfig.nvim/pull/379/files
-  mason_type = "tool", -- "lsp",
+  mason_type = "lsp",
   require = "python",
   name = "basedpyright",
-  -- runner = "mason-lspconfig",
+  runner = "mason-lspconfig",
 })
 
 -- python hover and some diagnostics from jedi
