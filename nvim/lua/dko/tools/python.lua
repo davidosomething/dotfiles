@@ -28,6 +28,22 @@ tools.register({
   require = "python",
   name = "basedpyright",
   runner = "mason-lspconfig",
+  lspconfig = function()
+    return {
+      settings = {
+        pyright = {
+          -- Using Ruff's import organizer
+          disableOrganizeImports = true,
+        },
+        python = {
+          analysis = {
+            -- Ignore all files for analysis to exclusively use Ruff for linting
+            ignore = { "*" },
+          },
+        },
+      },
+    }
+  end,
 })
 
 -- python hover and some diagnostics from jedi
@@ -45,4 +61,13 @@ tools.register({
   require = "python",
   name = "ruff_lsp",
   runner = "mason-lspconfig",
+  lspconfig = function()
+    return {
+      ---note: local on_attach happens AFTER autocmd LspAttach
+      on_attach = function(client)
+        -- basedpyright instead
+        client.server_capabilities.hoverProvider = false
+      end,
+    }
+  end,
 })
