@@ -675,20 +675,40 @@ M.bind_nvim_various_textobjs = function()
 
   -- replaces netrw's gx
   map("n", "gx", function()
-    require("various-textobjs").url() -- select URL
-    -- this works since the plugin switched to visual mode
-    -- if the textobj has been found
-    local foundURL = vim.fn.mode():find("v")
-    -- if not found in proximity, search whole buffer via urlview.nvim instead
-    if not foundURL then
-      vim.cmd.UrlView("buffer")
+    -- -------------------------------------------------------------------------
+    -- use lsplinks textDocument/documentLink if available
+    -- -------------------------------------------------------------------------
+    local lsplinks = require("lsplinks")
+    local lsp_url = lsplinks.current()
+    -- alternatively use lazy.util's open on lsplinks.current()
+    if lsp_url then
+      vim.print(("found lsp_url %s"):format(lsp_url))
+      require("lazy.util").open(lsp_url)
       return
     end
 
-    -- retrieve URL with the z-register as intermediary
-    vim.cmd.normal({ '"zy', bang = true })
-    local url = vim.fn.getreg("z")
-    require("lazy.util").open(url)
+    -- -------------------------------------------------------------------------
+    -- otherwise find nearest url
+    -- -------------------------------------------------------------------------
+    require("various-textobjs").url() -- select URL
+    -- this works since the plugin switched to visual mode
+    -- if the textobj has been found
+    local textobj_url = vim.fn.mode():find("v")
+    if textobj_url then
+      vim.print(("found textobj_url %s"):format(textobj_url))
+      -- if not found in proximity, search whole buffer via urlview.nvim instead
+      -- retrieve URL with the z-register as intermediary
+      vim.cmd.normal({ '"zy', bang = true })
+      local url = vim.fn.getreg("z")
+      require("lazy.util").open(url)
+      return
+    end
+
+    -- -------------------------------------------------------------------------
+    -- Popup menu of all urls in buffer
+    -- -------------------------------------------------------------------------
+    vim.cmd.UrlView("buffer")
+    return
   end, { desc = "Smart URL Opener" })
 end
 
