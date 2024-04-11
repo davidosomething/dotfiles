@@ -22,6 +22,16 @@ return {
   },
 
   {
+    "icholy/lsplinks.nvim",
+    config = function()
+      require("lsplinks").setup({
+        highlight = true,
+        hl_group = "Underlined",
+      })
+    end,
+  },
+
+  {
     "deathbeam/lspecho.nvim",
   },
 
