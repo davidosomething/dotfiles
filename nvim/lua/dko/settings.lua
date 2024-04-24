@@ -8,9 +8,6 @@ local settings = {
     --   dark = "meh",
     --   light = "zenbones",
   },
-  grepper = {
-    ignore_file = ("%s/%s"):format(vim.env.DOTFILES, "ag/dot.ignore"),
-  },
   heirline = {
     show_buftype = false,
   },
