@@ -278,15 +278,24 @@ map("i", "<S-Tab>", "<C-d>", {
 -- Diagnostic mappings
 -- ===========================================================================
 
+-- @TODO remove - default as of https://github.com/neovim/neovim/commit/73034611c25d16df5e87c8afb2d339a03a91bd0d/
 map("n", "[d", function()
-  vim.diagnostic.goto_prev({})
+  vim.diagnostic.goto_prev()
 end, { desc = "Go to prev diagnostic and open float" })
+
+-- @TODO remove - default as of https://github.com/neovim/neovim/commit/73034611c25d16df5e87c8afb2d339a03a91bd0d/
 map("n", "]d", function()
-  vim.diagnostic.goto_next({})
+  vim.diagnostic.goto_next()
 end, { desc = "Go to next diagnostic and open float" })
-map("n", "<Leader>d", function()
+
+-- @TODO start using <c-w><c-d> as of https://github.com/neovim/neovim/commit/73034611c25d16df5e87c8afb2d339a03a91bd0d/
+map("n", "<C-W>d", function()
   vim.diagnostic.open_float()
 end, { desc = "Open diagnostic float at cursor" })
+map("n", "<C-W><C-D>", "<C-W>d", {
+  remap = true,
+  desc = "Open diagnostic float at cursor",
+})
 
 -- ===========================================================================
 -- Treesitter utils
