@@ -288,30 +288,48 @@ return {
     ft = { "\\cjustfile", "*.just", ".justfile" },
   },
 
+  -- https://github.com/brenoprata10/nvim-highlight-colors
+  -- see output comparison here https://www.reddit.com/r/neovim/comments/1b5gw12/nvimhighlightcolors_now_supports_virtual_text/kt8gog6/?share_id=aUVLJ5zC3yMKjFuHqumGE
   {
-    "NvChad/nvim-colorizer.lua",
+    "brenoprata10/nvim-highlight-colors",
     cond = has_ui,
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("colorizer").setup({
-        buftypes = {
-          "*",
-          unpack(vim.tbl_map(function(v)
-            return "!" .. v
-          end, require("dko.utils.buffer").SPECIAL_BUFTYPES)),
-        },
-        filetypes = vim.tbl_extend("keep", {
-          "css",
-          "html",
-          "scss",
-        }, require("dko.jsts").fts),
-        user_default_options = {
-          css = true,
-          tailwind = true,
-        },
+      require("nvim-highlight-colors").setup({
+        ---@usage 'background'|'foreground'|'virtual'
+        render = "background",
+        ---Highlight named colors, e.g. 'green'
+        enable_named_colors = true,
+        ---Highlight tailwind colors, e.g. 'bg-blue-500'
+        enable_tailwind = true,
       })
     end,
   },
+
+  -- {
+  --   "NvChad/nvim-colorizer.lua",
+  --   cond = has_ui,
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   config = function()
+  --     require("colorizer").setup({
+  --       buftypes = {
+  --         "*",
+  --         unpack(vim.tbl_map(function(v)
+  --           return "!" .. v
+  --         end, require("dko.utils.buffer").SPECIAL_BUFTYPES)),
+  --       },
+  --       filetypes = vim.tbl_extend("keep", {
+  --         "css",
+  --         "html",
+  --         "scss",
+  --       }, require("dko.jsts").fts),
+  --       user_default_options = {
+  --         css = true,
+  --         tailwind = true,
+  --       },
+  --     })
+  --   end,
+  -- },
 
   -- =========================================================================
   -- Writing
