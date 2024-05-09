@@ -153,7 +153,7 @@ M.groups_to_tools = function(groups)
   local mapped_tools = vim.tbl_map(function(group)
     return vim.tbl_keys(group)
   end, groups)
-  return vim.tbl_flatten(vim.tbl_values(mapped_tools))
+  return vim.iter(vim.tbl_values(mapped_tools)):flatten()
 end
 
 local tools = nil
