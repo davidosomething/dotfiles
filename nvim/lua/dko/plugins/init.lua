@@ -226,7 +226,12 @@ return {
 
   -- jump to :line:column in filename:3:20
   -- https://github.com/lewis6991/fileline.nvim/
-  { "lewis6991/fileline.nvim" },
+  -- indexing errors
+  --{ "lewis6991/fileline.nvim" },
+
+  -- jump to :line:column in filename:3:20, better support
+  -- https://github.com/wsdjeg/vim-fetch
+  { "wsdjeg/vim-fetch" },
 
   -- ]u [u mappings to jump to urls
   -- <A-u> to open link picker
