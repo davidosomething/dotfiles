@@ -1,9 +1,2 @@
 bashate==2.1.1
-flake8==7.0.0
-flake8-commas==2.1.0
-flake8-docstrings==1.7.0
-flake8-import-order==0.18.2
-flake8-quotes==3.4.0
-pycodestyle==2.11.1
-vim-vint==0.4a3
 yamllint==1.35.1
