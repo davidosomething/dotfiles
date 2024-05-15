@@ -151,6 +151,9 @@ function {
     'zsh-users/zsh-completions' \
     ;
 
+  zinit ice atload"zpcdreplay" atclone"./zplug.zsh" atpull"%atclone"
+  zinit light g-plane/pnpm-shell-completion
+
   # ----------------------------------------------------------------------------
   # Syntax last
   # autoload and run compinit
