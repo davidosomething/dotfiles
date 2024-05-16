@@ -53,9 +53,8 @@ tools.register({
 -- using typescript-tools.nvim instead
 tools.register({
   name = "tsserver",
-  mason_type = "lsp",
+  mason_type = "tool", -- not lsp! Just installing it for typescript-tools.nvim to use
   require = "npm",
-  runner = "mason-lspconfig",
   -- NOOP -- typescript-tools.nvim will init
   skip_init = true,
 })

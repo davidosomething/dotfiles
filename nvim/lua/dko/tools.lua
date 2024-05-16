@@ -178,10 +178,11 @@ M.groups_to_tools = function(groups)
   local mapped_tools = vim.tbl_map(function(group)
     return vim.tbl_keys(group)
   end, groups)
+  if vim.version().minor >= 11 then
+    return vim.iter(vim.tbl_values(mapped_tools)):flatten():totable()
+  end
   if vim.tbl_flatten ~= nil then
     return vim.tbl_flatten(mapped_tools)
-  else
-    return vim.iter(vim.tbl_values(mapped_tools)):flatten()
   end
 end
 
