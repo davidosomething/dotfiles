@@ -688,10 +688,10 @@ M.bind_nvim_various_textobjs = function()
     -- -------------------------------------------------------------------------
     local lsplinks = require("lsplinks")
     local lsp_url = lsplinks.current()
-    -- alternatively use lazy.util's open on lsplinks.current()
+    -- alternatively use vim.ui.open on lsplinks.current()
     if lsp_url then
       vim.print(("found lsp_url %s"):format(lsp_url))
-      require("lazy.util").open(lsp_url)
+      vim.ui.open(lsp_url)
       return
     end
 
@@ -707,8 +707,8 @@ M.bind_nvim_various_textobjs = function()
       -- if not found in proximity, search whole buffer via urlview.nvim instead
       -- retrieve URL with the z-register as intermediary
       vim.cmd.normal({ '"zy', bang = true })
-      local url = vim.fn.getreg("z")
-      require("lazy.util").open(url)
+      local url = vim.fn.getreg("z", false) --[[@as string]]
+      vim.ui.open(url)
       return
     end
 
@@ -716,7 +716,6 @@ M.bind_nvim_various_textobjs = function()
     -- Popup menu of all urls in buffer
     -- -------------------------------------------------------------------------
     vim.cmd.UrlView("buffer")
-    return
   end, { desc = "Smart URL Opener" })
 end
 
