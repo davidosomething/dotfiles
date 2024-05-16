@@ -48,6 +48,7 @@ local lsp = vim.lsp
 ---@field fts? ft[] -- for efm, list of filetypes to register
 ---@field efm? fun(): EfmFormatter|EfmLinter
 ---@field lspconfig? LspconfigDef
+---@field skip_init? boolean -- e.g. for tsserver, we use typescript-tools.nvim to init and not mason-lspconfig
 
 ---@alias ToolGroup table<string, boolean>
 ---@alias ToolGroups table<string, ToolGroup>
@@ -79,26 +80,50 @@ M.register = function(config)
     M.install_groups[config.mason_type][config.require][config.name] = true
   end
 
+  -- ===========================================================================
+  -- Register EFM
+  -- ===========================================================================
   if config.efm then
     vim.iter(config.fts or {}):each(function(ft)
       efm_filetypes[ft] = true
     end)
     table.insert(efm_configs, config)
-  elseif config.lspconfig then
-    local config_map
+    return
+  end
 
-    if config.runner == "lspconfig" then
-      config_map = lspconfig_resolvers
-    else -- probably "mason-lspconfig"
-      config_map = mason_lspconfig_resolvers
+  -- ===========================================================================
+  -- Register LSP
+  -- ===========================================================================
+  local config_map
+  if config.runner == "lspconfig" then
+    config_map = lspconfig_resolvers
+  elseif config.runner == "mason-lspconfig" then
+    config_map = mason_lspconfig_resolvers
+  end
+  if config_map == nil then
+    return
+  end
+
+  -- make sure mason-lspconfig does not try to automatically setup this lsp
+  if config.skip_init ~= nil then
+    config_map[config.name] = function()
+      return function()
+        -- noop
+      end
     end
+  end
 
+  -- this lsp has a custom setup function
+  if config.lspconfig then
     -- set up the lspconfig with the lspconfig() function from tool registration
     config_map[config.name] = function(middleware)
+      -- middleware or noop middleware
       middleware = middleware
         or function(lspconfig)
           return lspconfig or {}
         end
+
+      -- set up lsp
       return function()
         require("lspconfig")[config.name].setup(middleware(config.lspconfig()))
       end
