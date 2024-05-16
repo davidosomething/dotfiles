@@ -72,6 +72,26 @@ return {
   },
 
   {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    config = function()
+      local tsserver_config =
+        require("dko.tools.javascript-typescript").tsserver.config
+
+      require("typescript-tools").setup({
+        on_attach = tsserver_config.on_attach,
+        handlers = tsserver_config.handlers,
+        settings = {
+          tsserver_file_preferences = {
+            -- https://github.com/microsoft/TypeScript/blob/v5.0.4/src/server/protocol.ts#L3487C1-L3488C1
+            importModuleSpecifierPreference = "non-relative", -- "project-relative",
+          },
+        },
+      })
+    end,
+  },
+
+  {
     "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
     dev = true,
     lazy = true,
@@ -132,7 +152,8 @@ return {
         lspconfig[server].setup(middleware())
       end
 
-      require("mason-lspconfig").setup({
+      local ml = require("mason-lspconfig")
+      ml.setup({
         automatic_installation = has_ui,
         ensure_installed = dkotools.get_mason_lsps(),
         handlers = handlers,

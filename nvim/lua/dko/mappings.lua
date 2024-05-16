@@ -100,10 +100,6 @@ map("n", "<Leader>evm", function()
   vim.cmd.edit(vim.fn.stdpath("config") .. "/lua/dko/mappings.lua")
 end, { desc = "Edit mappings.lua" })
 
-map("n", "<Leader>evp", function()
-  vim.cmd.edit(vim.fn.stdpath("config") .. "/lua/dko/plugins/")
-end, { desc = "Edit lua/dko/plugins/" })
-
 -- ===========================================================================
 -- Buffer: Reading
 -- ===========================================================================
@@ -432,6 +428,9 @@ M.bind_tsserver_lsp = function(client, bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the
   -- type declaration files.
   map("n", "gd", function()
+    if vim.fn.exists(":TSToolsGoToSourceDefinition") ~= 0 then
+      vim.cmd.TSToolsGoToSourceDefinition()
+    end
     if require("dko.typescript").source_definition(client) then
       return
     end
