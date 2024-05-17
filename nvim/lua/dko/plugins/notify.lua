@@ -14,39 +14,50 @@ local icons = require("dko.icons")
 ---| 4 # ERROR
 ---| 5 # OFF
 
-return {
-  {
-    "ObserverOfTime/notifications.nvim",
-    opts = {
-      -- override_notify = true,
-      hist_command = "TNotifications",
-      -- or set `icons = false` to disable all icons
-      icons = {
-        TRACE = icons.Trace,
-        DEBUG = icons.Debug,
-        INFO = icons.Info,
-        WARN = icons.Warn,
-        ERROR = icons.Error,
-        OFF = icons.Off,
-      },
-      hl_groups = {
-        TRACE = "DiagnosticFloatingHint",
-        DEBUG = "DiagnosticFloatingHint",
-        INFO = "DiagnosticFloatingInfo",
-        WARN = "DiagnosticFloatingWarn",
-        ERROR = "DiagnosticFloatingError",
-        OFF = "DiagnosticFloatingOk",
-      },
-    },
-    -- to use OSC 777/99/9:
-    --[[
-    config = function(_, opts)
-      vim.g.nvimcord_use_osc = '777'
-      require('nvimcord').setup(opts)
-    end
-    --]]
-  },
+---Convert an LSP MessageType to a vim.notify vim.log.levels int
+---@param mt dkonotify.MessageType https://github.com/neovim/neovim/blob/7ef5e363d360f86c5d8d403e90ed256f4de798ec/runtime/lua/vim/lsp/protocol.lua#L50-L60
+---@return dkonotify.LogLevel level https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_editor.lua#L59-L69
+local function lsp_messagetype_to_vim_log_level(mt)
+  local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[mt]
+  return vim.log.levels[lvl]
+end
 
+return {
+  -- Let terminal handle notification via OSC 777, persists until closed
+  -- https://github.com/ObserverOfTime/notifications.nvim
+  -- {
+  --   "ObserverOfTime/notifications.nvim",
+  --   cond = #vim.api.nvim_list_uis() > 0,
+  --   config = function()
+  --     vim.g.nvimcord_use_osc = "777"
+  --     require("notifications").setup({
+  --       -- don't take over vim.notify, use with require().notify() instead
+  --       override_notify = false,
+  --       -- raw with require()._history
+  --       hist_command = "TNotifications",
+  --       -- or set `icons = false` to disable all icons
+  --       icons = {
+  --         TRACE = icons.Trace,
+  --         DEBUG = icons.Debug,
+  --         INFO = icons.Info,
+  --         WARN = icons.Warn,
+  --         ERROR = icons.Error,
+  --         OFF = icons.Off,
+  --       },
+  --       hl_groups = {
+  --         TRACE = "DiagnosticFloatingHint",
+  --         DEBUG = "DiagnosticFloatingHint",
+  --         INFO = "DiagnosticFloatingInfo",
+  --         WARN = "DiagnosticFloatingWarn",
+  --         ERROR = "DiagnosticFloatingError",
+  --         OFF = "DiagnosticFloatingOk",
+  --       },
+  --     })
+  --   end,
+  -- },
+
+  -- vim ui notification
+  -- https://github.com/rcarriga/nvim-notify
   {
     "rcarriga/nvim-notify",
     cond = #vim.api.nvim_list_uis() > 0,
@@ -111,14 +122,6 @@ return {
         group = vim.api.nvim_create_augroup("dkonvimnotify", {}),
       })
       require("dko.mappings").bind_notify()
-
-      ---Convert an LSP MessageType to a vim.notify log level
-      ---@param mt dkonotify.MessageType https://github.com/neovim/neovim/blob/7ef5e363d360f86c5d8d403e90ed256f4de798ec/runtime/lua/vim/lsp/protocol.lua
-      ---@return dkonotify.LogLevel level https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_editor.lua#L44-L53
-      local function lsp_messagetype_to_vim_log_level(mt)
-        local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[mt]
-        return vim.log.levels[lvl]
-      end
 
       ---Show LSP messages via vim.notify (but only when using nvim-notify)
       ---https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/handlers.lua
