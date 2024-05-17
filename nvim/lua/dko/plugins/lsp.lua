@@ -31,9 +31,9 @@ return {
     end,
   },
 
-  {
-    "deathbeam/lspecho.nvim",
-  },
+  { "deathbeam/lspecho.nvim" },
+
+  { "aznhe21/actions-preview.nvim" },
 
   -- This has a cursor based code_action instead line based, so you get more
   -- specific actions.
@@ -152,10 +152,10 @@ return {
         lspconfig[server].setup(middleware())
       end
 
-      local ml = require("mason-lspconfig")
-      ml.setup({
+      local lsps = dkotools.get_mason_lsps()
+      require("mason-lspconfig").setup({
         automatic_installation = has_ui,
-        ensure_installed = dkotools.get_mason_lsps(),
+        ensure_installed = lsps,
         handlers = handlers,
       })
     end,
