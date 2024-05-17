@@ -1,4 +1,4 @@
-local SIGNS = require("dko.diagnostic").SIGNS
+local icons = require("dko.icons")
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
@@ -60,10 +60,10 @@ return {
     config = function()
       require("pqf").setup({
         signs = {
-          error = SIGNS.Error,
-          warning = SIGNS.Warn,
-          hint = SIGNS.Hint,
-          info = SIGNS.Info,
+          error = icons.Error,
+          warning = icons.Warn,
+          hint = icons.Hint,
+          info = icons.Info,
         },
         --show_multiple_lines = false,
       })
@@ -415,6 +415,7 @@ return {
     end,
   },
 
+  -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
     -- No longer needs nvim-treesitter after https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/80
@@ -428,6 +429,10 @@ return {
   },
 
   -- gcc / <Leader>gbc to comment with treesitter integration
+  -- 0.10 has built-in treesitter comments, see :h commenting
+  -- BUT it does not properly do jsx/tsx which is provided by
+  -- ts_context_commentstring
+  -- https://github.com/numToStr/Comment.nvim
   {
     "numToStr/Comment.nvim",
     cond = has_ui,

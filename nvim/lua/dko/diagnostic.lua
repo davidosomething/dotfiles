@@ -1,17 +1,21 @@
+local icons = require("dko.icons")
+
 local M = {}
 
 -- Symbols in signs column
---  ✕ ✖ ✘ ‼   ❢ ❦ ‽    ⁕ ⚑ ✔  ✎
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
-M.SIGNS = { Error = "✘", Warn = "", Info = "⚑", Hint = "" }
-M.SEVERITY_TO_SYMBOL = {}
-for type, icon in pairs(M.SIGNS) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon .. " ", texthl = hl, numhl = hl })
-
+local sev_to_icon = {}
+local sign_types = { "Error", "Warn", "Info", "Hint" }
+for _, type in ipairs(sign_types) do
+  local hl = ("DiagnosticSign%s"):format(type)
+  local icon = icons[type]
+  vim.fn.sign_define(
+    hl,
+    { text = ("%s "):format(icon), texthl = hl, numhl = hl }
+  )
   local key = type:upper()
   local code = vim.diagnostic.severity[key]
-  M.SEVERITY_TO_SYMBOL[code] = icon
+  sev_to_icon[code] = icon
 end
 
 -- ===========================================================================
@@ -44,7 +48,7 @@ local function float_format(diagnostic)
   -- ["textDocument/publishDiagnostics"]
   -- e.g. tsserver in dko/plugins/lsp.lua
 
-  local symbol = M.SEVERITY_TO_SYMBOL[diagnostic.severity] or "-"
+  local symbol = sev_to_icon[diagnostic.severity] or "-"
   local source = diagnostic.source
   if source then
     if source.sub(source, -1, -1) == "." then
@@ -66,7 +70,7 @@ vim.diagnostic.config({
   virtual_text = false,
   float = {
     border = "rounded",
-    header = false, -- remove the line that says 'Diagnostic:'
+    header = "", -- remove the line that says 'Diagnostic:'
     source = false, -- hide it since my float_format will add it
     format = float_format, -- can customize more colors by using prefix/suffix instead
     suffix = "", -- default is error code. Moved to message via float_format
