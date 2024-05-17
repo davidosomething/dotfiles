@@ -31,7 +31,8 @@ return {
     end,
   },
 
-  { "deathbeam/lspecho.nvim" },
+  -- https://github.com/deathbeam/lspecho.nvim
+  -- { "deathbeam/lspecho.nvim" },
 
   { "aznhe21/actions-preview.nvim" },
 
