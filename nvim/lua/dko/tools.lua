@@ -1,5 +1,4 @@
 local dkotable = require("dko.utils.table")
-local lsp = vim.lsp
 
 ---@alias ft string -- filetype
 
@@ -75,9 +74,17 @@ local efm_filetypes = {}
 ---@param config Tool
 M.register = function(config)
   if config.mason_type then
-    M.install_groups[config.mason_type][config.require] = M.install_groups[config.mason_type][config.require]
-      or {}
-    M.install_groups[config.mason_type][config.require][config.name] = true
+    if config.mason_type ~= "lsp" and config.mason_type ~= "tool" then
+      vim.notify(
+        ("Invalid mason_type %s for %s"):format(config.mason_type, config.name),
+        vim.log.levels.ERROR
+      )
+    else
+      local req = config.require or "_"
+      local group = M.install_groups[config.mason_type]
+      group[req] = group[req] or {}
+      group[req][config.name] = true
+    end
   end
 
   -- ===========================================================================
@@ -175,15 +182,13 @@ end
 ---@param groups ToolGroups { ["npm"] = { "black" = {...config},... }
 ---@return string[] --- { "black", "isort", "shellcheck", ... }
 M.groups_to_tools = function(groups)
-  local mapped_tools = vim.tbl_map(function(group)
-    return vim.tbl_keys(group)
-  end, groups)
-  if vim.version().major > 0 or vim.version().minor >= 11 then
-    return vim.iter(vim.tbl_values(mapped_tools)):flatten():totable()
+  local result = {}
+  for _, items in pairs(groups) do
+    for name in pairs(items) do
+      table.insert(result, name)
+    end
   end
-  if vim.tbl_flatten ~= nil then
-    return vim.tbl_flatten(mapped_tools)
-  end
+  return result
 end
 
 local tools = nil
@@ -198,17 +203,13 @@ M.get_tools = function()
   return tools
 end
 
-local mason_lsps = nil
 -- LSPs to install with mason via mason-lspconfig
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 ---@return string[]
 M.get_mason_lsps = function()
-  if mason_lsps == nil then
-    mason_lsps = M.groups_to_tools(
-      M.filter_executable_groups("mason-lsp", M.install_groups.lsp)
-    )
-  end
-  return mason_lsps
+  return M.groups_to_tools(
+    M.filter_executable_groups("mason-lsp", M.install_groups.lsp)
+  )
 end
 
 ---@param middleware? LspconfigMiddleware
