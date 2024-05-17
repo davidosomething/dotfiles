@@ -29,7 +29,7 @@ return {
   --   "ObserverOfTime/notifications.nvim",
   --   cond = #vim.api.nvim_list_uis() > 0,
   --   config = function()
-  --     vim.g.nvimcord_use_osc = "777"
+  --     vim.g.notifications_use_osc = "777"
   --     require("notifications").setup({
   --       -- don't take over vim.notify, use with require().notify() instead
   --       override_notify = false,
