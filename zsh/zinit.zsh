@@ -151,9 +151,6 @@ function {
     'zsh-users/zsh-completions' \
     ;
 
-  zinit ice atload"zpcdreplay" atclone"./zplug.zsh" atpull"%atclone"
-  zinit light g-plane/pnpm-shell-completion
-
   # ----------------------------------------------------------------------------
   # Syntax last
   # autoload and run compinit
@@ -162,6 +159,11 @@ function {
   # don't add wait, messes with zsh-autosuggest
   zinit lucid atload"zicompinit; zicdreplay" for \
     'zdharma/fast-syntax-highlighting'
+
+  # completion that wants compinit
+  zinit ice atload"zpcdreplay" atclone"./zplug.zsh" atpull"%atclone"
+  zinit light g-plane/pnpm-shell-completion
+
 }
 
 DKO_SOURCE="${DKO_SOURCE} }"
