@@ -1,4 +1,4 @@
-local dkodiag = require("dko.diagnostic")
+local icons = require("dko.icons")
 
 -- polyfill as of https://github.com/neovim/neovim/pull/26807
 ---@param opts? { severity?: number }
@@ -38,10 +38,7 @@ return {
       return self.errors > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(
-        dkodiag.SEVERITY_TO_SYMBOL[vim.diagnostic.severity.ERROR],
-        self.errors
-      )
+      return (" %s %d"):format(icons.Error, self.errors)
     end,
     hl = "DiagnosticError",
   },
@@ -50,10 +47,7 @@ return {
       return self.warnings > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(
-        dkodiag.SEVERITY_TO_SYMBOL[vim.diagnostic.severity.WARN],
-        self.warnings
-      )
+      return (" %s %d"):format(icons.Warn, self.warnings)
     end,
     hl = "DiagnosticWarn",
   },
@@ -62,10 +56,7 @@ return {
       return self.info > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(
-        dkodiag.SEVERITY_TO_SYMBOL[vim.diagnostic.severity.INFO],
-        self.info
-      )
+      return (" %s %d"):format(icons.Info, self.info)
     end,
     hl = "DiagnosticInfo",
   },
@@ -74,16 +65,13 @@ return {
       return self.hints > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(
-        dkodiag.SEVERITY_TO_SYMBOL[vim.diagnostic.severity.HINT],
-        self.hints
-      )
+      return (" %s %d"):format(icons.Hint, self.hints)
     end,
     hl = "DiagnosticHint",
   },
   {
     provider = function(self)
-      return self.total == 0 and "  " or " "
+      return self.total == 0 and (" %s "):format(icons.Ok) or " "
     end,
     hl = "dkoStatusGood",
   },
