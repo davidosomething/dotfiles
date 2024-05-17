@@ -402,8 +402,13 @@ M.bind_lsp = function(bufnr)
   })
 
   map("n", "<Leader><Leader>", function()
+    local ap_ok, ap = pcall(require, "actions-preview")
+    if ap_ok then
+      ap.code_actions()
+      return
+    end
     -- don't like the UI for lspsaga
-    --vim.cmd.Lspsaga("code_action")
+    -- vim.cmd.Lspsaga("code_action")
     vim.lsp.buf.code_action()
   end, lsp_opts({ desc = "LSP Code Action" }))
 
