@@ -46,23 +46,6 @@ return {
     "stevearc/dressing.nvim",
     cond = has_ui,
     event = "VeryLazy",
-    -- dependencies = {
-    --   "nvim-telescope/telescope.nvim",
-    -- },
-    config = function()
-      require("dressing").setup({
-        select = {
-          -- the telescope backend is broken in nvim 0.10 for code_action
-          -- something about the new ctx arg format
-          -- builtin is actually a custom floating win, not the default nvim
-          -- commandline picker
-          backend = { "builtin" },
-          builtin = {
-            min_height = 2,
-          },
-        },
-      })
-    end,
   },
 
   -- =========================================================================
