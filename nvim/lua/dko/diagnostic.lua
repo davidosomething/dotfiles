@@ -2,20 +2,24 @@ local icons = require("dko.icons")
 
 local M = {}
 
--- Symbols in signs column
--- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
 local sev_to_icon = {}
+local signs = { linehl = {}, numhl = {}, text = {} }
+
 local sign_types = { "Error", "Warn", "Info", "Hint" }
 for _, type in ipairs(sign_types) do
   local hl = ("DiagnosticSign%s"):format(type)
   local icon = icons[type]
-  vim.fn.sign_define(
-    hl,
-    { text = ("%s "):format(icon), texthl = hl, numhl = hl }
-  )
+
   local key = type:upper()
   local code = vim.diagnostic.severity[key]
+
+  -- for vim.notify icon
   sev_to_icon[code] = icon
+
+  -- vim.diagnostic.config signs
+  signs.text[code] = ("%s "):format(icon)
+  signs.numhl[code] = hl
+  signs.linehl[code] = hl
 end
 
 -- ===========================================================================
@@ -66,6 +70,7 @@ local function float_format(diagnostic)
 end
 
 vim.diagnostic.config({
+  signs = signs,
   -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
   virtual_text = false,
   float = {
