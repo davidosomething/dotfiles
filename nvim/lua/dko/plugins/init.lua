@@ -58,15 +58,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     cond = has_ui,
     config = function()
-      require("pqf").setup({
-        signs = {
-          error = icons.Error,
-          warning = icons.Warn,
-          hint = icons.Hint,
-          info = icons.Info,
-        },
-        --show_multiple_lines = false,
-      })
+      require("pqf").setup()
     end,
   },
 
