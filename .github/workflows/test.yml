@@ -37,6 +37,12 @@ jobs:
       - name: Install npm packages
         run: npm ci
 
+      - name: Install neovim nightly
+        uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: nightly
+
       - name: Test
         run: |
           if [ "$RUNNER_OS" == "macOS" ]; then

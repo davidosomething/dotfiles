@@ -18,8 +18,9 @@ return {
       -- https://github.com/jay-babu/mason-null-ls.nvim/blob/main/lua/mason-null-ls/automatic_installation.lua#LL68C19-L75C7
       local mr = require("mason-registry")
       vim.iter(require("dko.tools").get_tools()):each(function(tool)
-        local p = mr.get_package(tool)
-        if p:is_installed() then
+        -- read package data from registry
+        local p_ok, p = pcall(mr.get_package, tool)
+        if not p_ok or p:is_installed() then
           return
         end
         vim.notify(
