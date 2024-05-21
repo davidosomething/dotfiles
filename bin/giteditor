@@ -28,8 +28,9 @@ main() {
     files+=("$file")
   done
 
-  [[ "$E_DEBUG" != "" ]] && log "nvim ${files[*]}"
-  nvim "${files[@]}"
+  # -i means no shada
+  [[ "$E_DEBUG" != "" ]] && log "nvim -i NONE ${files[*]}"
+  nvim -i NONE "${files[@]}"
 }
 
 main "$@"
