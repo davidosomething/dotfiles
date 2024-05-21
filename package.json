@@ -15,12 +15,12 @@
   "scripts": {
     "_markdownlint": "npx --quiet --yes markdownlint-cli@0.33.0 --config markdownlint/dot.markdownlintrc",
     "lint": "npx --quiet --yes concurrently --group --prefix=none 'npm:lint:* --silent'",
-    "lint:bash:bashate": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && bashate --ignore=E003,E005,E006,E011,E043 -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
+    "lint:bash:bashate": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                && pipx run bashate --ignore=E003,E005,E006,E011,E043 -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
     "lint:bash:shellcheck": "./bin/dko-header \"  ${npm_lifecycle_event}  \"             && shellcheck --shell=bash -- $(eval \"$npm_package_config_bashfiles\") && echo ' ✓ passed\n'",
     "lint:readmes": "./bin/dko-header \"  ${npm_lifecycle_event}  \"                     && npm run --silent _markdownlint -- $(eval \"$npm_package_config_mdfiles\") && echo ' ✓ passed\n'",
     "lint:shell:shellcheck": "./bin/dko-header \"  ${npm_lifecycle_event}  \"            && shellcheck --shell=sh -- $(eval \"$npm_package_config_shfiles\") && echo ' ✓ passed\n'",
     "lint:nvim": "./bin/dko-header \"  ${npm_lifecycle_event}  \"          && [ \"$(nvim --headless +'redir>>/dev/stdout | messages | redir END' +q | grep -c Error)\" -eq 0 ] && echo ' ✓ passed\n'",
-    "lint:yaml": "./bin/dko-header \"  ${npm_lifecycle_event}  \"          && yamllint -- $(eval \"$npm_package_config_yamlfiles\") && echo ' ✓ passed\n'",
+    "lint:yaml": "./bin/dko-header \"  ${npm_lifecycle_event}  \"          && pipx run yamllint -- $(eval \"$npm_package_config_yamlfiles\") && echo ' ✓ passed\n'",
     "test": "npm run --silent lint"
   },
   "repository": {
