@@ -1,2 +1,0 @@
-bashate==2.1.1
-yamllint==1.35.1
