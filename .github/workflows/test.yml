@@ -39,5 +39,9 @@ jobs:
 
       - name: Test
         run: |
+          if [ "$RUNNER_OS" == "macOS" ]; then
+            export PIPX_HOME="$HOME/Library/Application Support/pipx"
+            export PIPX_BIN_DIR="$HOME/.local/bin"
+          fi
           ./bootstrap/symlink
           npm test --silent
