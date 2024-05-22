@@ -16,6 +16,7 @@ return {
   {
     "creativenull/efmls-configs-nvim",
     lazy = true,
+    cond = has_ui,
     config = function()
       -- noop
     end,
@@ -23,6 +24,7 @@ return {
 
   {
     "icholy/lsplinks.nvim",
+    cond = has_ui,
     config = function()
       require("lsplinks").setup({
         highlight = true,
@@ -74,6 +76,7 @@ return {
 
   {
     "pmizio/typescript-tools.nvim",
+    cond = has_ui,
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     config = function()
       local tsserver_config =
@@ -101,7 +104,6 @@ return {
   -- https://github.com/marilari88/twoslash-queries.nvim
   {
     "marilari88/twoslash-queries.nvim",
-    cond = has_ui,
     config = function()
       require("twoslash-queries").setup({
         multi_line = true,
