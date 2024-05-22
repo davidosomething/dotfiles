@@ -18,16 +18,13 @@ jobs:
     steps:
       - name: Brew
         run: |
-          if [ "$RUNNER_OS" == "macOS" ]; then brew install shellcheck; fi
+          if [ "$RUNNER_OS" == "macOS" ]; then
+            brew install pipx
+            brew install shellcheck
+          fi
 
       - name: Check out repository code
         uses: actions/checkout@v4
-
-      - name: Set up Python 3.x
-        uses: actions/setup-python@v5
-        with:
-          # Semantic version range syntax or exact version of a Python version
-          python-version: '3.x'
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -45,9 +42,5 @@ jobs:
 
       - name: Test
         run: |
-          if [ "$RUNNER_OS" == "macOS" ]; then
-            export PIPX_HOME="$HOME/Library/Application Support/pipx"
-            export PIPX_BIN_DIR="$HOME/.local/bin"
-          fi
           ./bootstrap/symlink
           npm test --silent
