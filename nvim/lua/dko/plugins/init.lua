@@ -281,8 +281,9 @@ return {
       require("nvim-highlight-colors").setup({
         ---@usage 'background'|'foreground'|'virtual'
         render = "background",
-        ---Highlight named colors, e.g. 'green'
-        enable_named_colors = true,
+        -- virtual_symbol_position = 'eow',
+        -- virtual_symbol_prefix = ' ',
+        -- virtual_symbol_suffix = '',
         ---Highlight tailwind colors, e.g. 'bg-blue-500'
         enable_tailwind = true,
       })
