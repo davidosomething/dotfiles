@@ -879,7 +879,7 @@ local toggleterm_modes = {
   float = {
     keybind = "<A-S-i>",
     count = 99999,
-    name = "fterm",
+    name = "floating",
   },
 }
 
@@ -906,7 +906,7 @@ M.bind_toggleterm = function()
       or require("toggleterm.terminal").Terminal:new({
         count = settings.count,
         direction = mode,
-        display_name = settings.name,
+        display_name = "", -- using winbar for name
         on_close = vim.schedule_wrap(function()
           if original then
             vim.api.nvim_set_current_win(original)
