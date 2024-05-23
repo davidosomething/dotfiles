@@ -122,6 +122,7 @@ M.register = function(config)
 
   -- this lsp has a custom setup function
   if config.lspconfig then
+    -- define resolver for a tool
     -- set up the lspconfig with the lspconfig() function from tool registration
     config_map[config.name] = function(middleware)
       -- middleware or noop middleware
@@ -222,6 +223,10 @@ M.get_mason_lspconfig_handlers = function(middleware)
   return handlers
 end
 
+-- calling resolver() eventually calls the lsp_resolver from appropriate
+-- config_map, i.e. it does
+-- require("lspconfig")[config.name].setup(middleware(config.lspconfig()))
+-- to initialize the lsp
 ---@param middleware? LspconfigMiddleware
 M.setup_unmanaged_lsps = function(middleware)
   vim.iter(lspconfig_resolvers):each(function(_, resolver)

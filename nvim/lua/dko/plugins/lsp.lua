@@ -13,14 +13,9 @@ local has_ui = #uis > 0
 
 -- Lazy.nvim specs
 return {
-  {
-    "creativenull/efmls-configs-nvim",
-    lazy = true,
-    cond = has_ui,
-    config = function()
-      -- noop
-    end,
-  },
+  -- provides modules only
+  -- https://github.com/creativenull/efmls-configs-nvim
+  { "creativenull/efmls-configs-nvim" },
 
   {
     "icholy/lsplinks.nvim",
@@ -34,7 +29,7 @@ return {
   },
 
   -- https://github.com/deathbeam/lspecho.nvim
-  -- { "deathbeam/lspecho.nvim" },
+  { "deathbeam/lspecho.nvim" },
 
   { "aznhe21/actions-preview.nvim" },
 
@@ -104,6 +99,7 @@ return {
   -- https://github.com/marilari88/twoslash-queries.nvim
   {
     "marilari88/twoslash-queries.nvim",
+    cond = has_ui,
     config = function()
       require("twoslash-queries").setup({
         multi_line = true,
@@ -138,21 +134,15 @@ return {
     config = function()
       local lspconfig = require("lspconfig")
 
-      ---@param config? table
-      local function middleware(config)
-        config = config or {}
-        return vim.tbl_deep_extend("force", dkolsp.base_config, config)
-      end
-
-      dkotools.setup_unmanaged_lsps(middleware)
+      dkotools.setup_unmanaged_lsps(dkolsp.middleware)
 
       -- Note that instead of on_attach for each server setup,
       -- behaviors.lua has an autocmd LspAttach defined
       ---@type table<string, fun(server_name: string)>?
-      local handlers = dkotools.get_mason_lspconfig_handlers(middleware)
+      local handlers = dkotools.get_mason_lspconfig_handlers(dkolsp.middleware)
       -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/init.lua#L62
       handlers[1] = function(server)
-        lspconfig[server].setup(middleware())
+        lspconfig[server].setup(dkolsp.middleware())
       end
 
       local lsps = dkotools.get_mason_lsps()

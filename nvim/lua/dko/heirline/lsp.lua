@@ -2,7 +2,7 @@ local update = {
   "LspAttach",
   "LspDetach",
 }
-if vim.fn.has('nvim-0.10') == 1 then
+if vim.fn.has("nvim-0.10") == 1 then
   table.insert(update, "LspNotify")
   table.insert(update, "LspProgress")
   table.insert(update, "LspRequest")
@@ -18,7 +18,8 @@ return {
   update = update,
 
   provider = function()
-    local data = require("everandever.lsp").status_progress({ bufnr = 0 })
+    local ok, everandever = pcall(require, "everandever.lsp")
+    local data = ok and everandever.status_progress({ bufnr = 0 })
     return data and (" %s %s "):format(data.bar, data.lowest.name) or ""
   end,
   hl = "dkoStatusKey",
