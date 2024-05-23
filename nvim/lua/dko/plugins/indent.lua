@@ -62,7 +62,7 @@ return {
       }
 
       require("hlchunk").setup({
-        blank = {
+        Blank = {
           enable = hlchunk_blank,
           exclude_filetype = exclude_filetype,
           chars = { " " },
@@ -77,7 +77,7 @@ return {
             },
           },
         },
-        chunk = {
+        Chunk = {
           enable = hlchunk_chunk,
           exclude_filetypes = {
             sh = true,
