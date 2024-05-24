@@ -17,6 +17,8 @@ return {
   -- https://github.com/creativenull/efmls-configs-nvim
   { "creativenull/efmls-configs-nvim" },
 
+  -- e.g. for go.mod and swagger yaml
+  -- https://github.com/icholy/lsplinks.nvim
   {
     "icholy/lsplinks.nvim",
     cond = has_ui,
