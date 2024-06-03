@@ -17,6 +17,18 @@ return {
   -- https://github.com/creativenull/efmls-configs-nvim
   { "creativenull/efmls-configs-nvim" },
 
+  -- trying this out
+  -- https://github.com/hsaker312/diagnostics-details.nvim/
+  {
+    "hsaker312/diagnostics-details.nvim",
+    cmd = "DiagnosticsDetailsOpenFloat",
+    config = function()
+      require("diagnostics-details").setup({
+        -- Your configuration here
+      })
+    end,
+  },
+
   -- e.g. for go.mod and swagger yaml
   -- https://github.com/icholy/lsplinks.nvim
   {
