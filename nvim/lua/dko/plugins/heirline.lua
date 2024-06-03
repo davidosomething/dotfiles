@@ -2,18 +2,18 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 return {
-  {
-    "davidosomething/everandever.nvim",
-    cond = has_ui,
-    dev = true,
-  },
+  -- {
+  --   "davidosomething/everandever.nvim",
+  --   cond = has_ui,
+  --   dev = true,
+  -- },
 
   {
     "rebelot/heirline.nvim",
     cond = has_ui,
-    dependencies = {
-      "davidosomething/everandever.nvim",
-    },
+    -- dependencies = {
+    --   "davidosomething/everandever.nvim",
+    -- },
     config = function()
       local ALWAYS = 2
       vim.o.showtabline = ALWAYS

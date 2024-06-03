@@ -20,16 +20,11 @@ M.PROJECT_ROOTS = {
 M.get_root_by_patterns = function(patterns)
   patterns = patterns or M.PROJECT_ROOTS
   local bufname = vim.api.nvim_buf_get_name(0)
-  local start = bufname:len() > 0 and bufname or vim.uv.cwd()
-  for dir in vim.fs.parents(start) do
-    for _, file in pairs(patterns) do
-      local filepath = vim.fs.joinpath(dir, file)
-      if vim.uv.fs_stat(filepath) then
-        return dir
-      end
-    end
+  local start = bufname ~= "" and 0 or vim.uv.cwd()
+  if start == nil then
+    return nil
   end
-  return nil
+  return vim.fs.root(start, patterns)
 end
 
 ---@param opts? table vim.fs.find opts
