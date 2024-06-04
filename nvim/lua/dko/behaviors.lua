@@ -278,6 +278,7 @@ if has_ui then
   -- temporary fix, winbars not updating
   local fix_winbar_events = vim.tbl_extend(
     "keep",
+    require("dko.heirline.diagnostics").update,
     require("dko.heirline.lsp").update,
     { "User PackageInfoProgress" } -- clear winbar status msg when done
   )

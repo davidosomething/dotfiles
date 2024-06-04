@@ -5,7 +5,7 @@ local icons = require("dko.icons")
 local function get_diagnostic_count(opts)
   opts = opts or {}
   if vim.diagnostic.count then
-    return vim.diagnostic.count(0, opts)[0] or 0
+    return vim.diagnostic.count(0, opts)[opts.severity] or 0
   end
   return #vim.diagnostic.get(0, opts)
 end
