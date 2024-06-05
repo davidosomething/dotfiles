@@ -43,7 +43,8 @@ return {
   },
 
   -- https://github.com/deathbeam/lspecho.nvim
-  { "deathbeam/lspecho.nvim" },
+  -- using fidget.nvim instead
+  --{ "deathbeam/lspecho.nvim" },
 
   { "aznhe21/actions-preview.nvim" },
 
