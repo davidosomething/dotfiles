@@ -19,10 +19,7 @@ local normal = "ABCDEFGHIJKLMNOPQRSTUVWXYZ<>0123456789"
 
 ---@param text string
 M.smallcaps = function(text)
-  if text == nil then
-    return ""
-  end
-  return vim.fn.tr(text:upper(), normal, smallcaps)
+  return text and vim.fn.tr(text:upper(), normal, smallcaps)
 end
 
 return M
