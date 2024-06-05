@@ -42,11 +42,11 @@ return {
 
         window = {
           completion = {
-            border = "rounded",
+            border = require("dko.settings").get("border"),
             scrollbar = "║",
           },
           documentation = {
-            border = "rounded",
+            border = require("dko.settings").get("border"),
             scrollbar = "║",
           },
         },

@@ -80,7 +80,8 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       -- border on :LspInfo window
-      require("lspconfig.ui.windows").default_options.border = "rounded"
+      require("lspconfig.ui.windows").default_options.border =
+        require("dko.settings").get("border")
     end,
   },
 

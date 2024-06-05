@@ -73,6 +73,6 @@ return {
     provider = function(self)
       return self.total == 0 and (" %s "):format(icons.Ok) or " "
     end,
-    hl = "dkoStatusGood",
+    hl = "dkoTextGood",
   },
 }

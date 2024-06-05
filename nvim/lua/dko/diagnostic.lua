@@ -78,7 +78,7 @@ vim.diagnostic.config({
   -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
   virtual_text = false,
   float = {
-    border = "rounded",
+    border = require("dko.settings").get("border"),
     header = "", -- remove the line that says 'Diagnostic:'
     source = false, -- hide it since my float_format will add it
     format = float_format, -- can customize more colors by using prefix/suffix instead
