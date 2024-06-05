@@ -3,7 +3,7 @@
 local M = {
   Ok = "",
   Debug = "",
-  Error = "✘", -- "",
+  Error = "✖", -- "",
   Warn = "", -- "",
   Info = "⚑", -- ""
   Hint = "",
