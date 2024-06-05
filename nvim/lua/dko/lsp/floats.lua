@@ -5,14 +5,15 @@
 -- Overriding with vim.lsp.with is the way recommended by docs (as opposed to
 -- overriding vim.lsp.util.open_floating_preview entirely)
 
-vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_hover] =
-  vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-    silent = true,
-  })
+local lsp = vim.lsp
+local handlers = lsp.handlers
+local Methods = lsp.protocol.Methods
 
-vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_signatureHelp] =
-  vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-    silent = true,
-  })
+local config = {
+  border = require("dko.settings").get("border"),
+  silent = true,
+}
+
+handlers[Methods.textDocument_hover] = lsp.with(handlers.hover, config)
+handlers[Methods.textDocument_signatureHelp] =
+  lsp.with(handlers.signature_help, config)

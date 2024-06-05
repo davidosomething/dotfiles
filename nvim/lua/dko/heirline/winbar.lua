@@ -17,9 +17,7 @@ return {
       self.filepath = vim.api.nvim_buf_get_name(0)
       self.filetype_text = vim.tbl_contains(hidden_filetypes, vim.bo.filetype)
           and ""
-        or (" %s "):format(
-          require("dko.utils.string").smallcaps(vim.bo.filetype)
-        )
+        or require("dko.utils.string").smallcaps(vim.bo.filetype)
     end,
     hl = function()
       return active_highlight()
@@ -78,8 +76,8 @@ return {
         provider = function(self)
           -- Don't bother outputting these, the nerd icon is sufficient
           return self.icon ~= ""
-              and (" %s%s "):format(self.icon, self.filetype_text)
-            or ("%s "):format(self.filetype_text)
+              and (" %s %s "):format(self.icon, self.filetype_text)
+            or (" %s "):format(self.filetype_text)
         end,
         hl = function(self)
           if icon_color_enabled and self.icon_color then

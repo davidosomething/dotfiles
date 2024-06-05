@@ -26,7 +26,7 @@ require("lazy").setup("dko.plugins", {
     fallback = true,
     patterns = { "davidosomething" },
   },
-  ui = { border = "rounded" },
+  ui = { border = require("dko.settings").get("border") },
   performance = {
     rtp = {
       disabled_plugins = {

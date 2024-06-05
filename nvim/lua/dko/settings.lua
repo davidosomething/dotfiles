@@ -3,6 +3,8 @@
 local dkoobject = require("dko.utils.object")
 
 local settings = {
+  --"none" | "single" | "double" | "shadow" | "rounded"
+  border = "rounded",
   colors = {
     -- set in ./plugins/colorscheme.lua
     --   dark = "meh",

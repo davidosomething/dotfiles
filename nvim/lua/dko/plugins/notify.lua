@@ -1,4 +1,5 @@
 local icons = require("dko.icons")
+local dkostring = require("dko.utils.string")
 
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
@@ -63,6 +64,55 @@ return {
   {
     "j-hui/fidget.nvim",
     cond = has_ui,
+    dependencies = { "rcarriga/nvim-notify" },
+    config = function()
+      local fidget = require("fidget")
+      local notify = require("notify")
+      fidget.setup()
+
+      -- =====================================================================
+      -- Override vim.notify builtin
+      -- =====================================================================
+
+      ---@param msg string
+      ---@param level? number vim.log.levels.*
+      ---@param opts? table
+      local override = function(msg, level, opts)
+        if not opts then
+          opts = {}
+        end
+        if
+          opts.title == "nvim-treesitter"
+          or opts.title == "mason.nvim"
+          or opts.title == "mason-lspconfig.nvim"
+        then
+          return fidget.notify(msg, level, opts)
+        end
+
+        if not opts.title then
+          if dkostring.starts_with(msg, "[LSP]") then
+            opts.render = "wrapped-compact"
+            local client, found_client = msg:gsub("^%[LSP%]%[(.-)%] .*", "%1")
+            if found_client > 0 then
+              opts.title = ("[LSP] %s"):format(client)
+            else
+              opts.title = "[LSP]"
+            end
+            msg = msg:gsub("^%[.*%] (.*)", "%1")
+          elseif msg == "No code actions available" then
+            -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#LL629C39-L629C39
+            opts.title = "[LSP]"
+          end
+        end
+
+        if opts.title and dkostring.starts_with(opts.title, "[LSP]") then
+          opts.render = "wrapped-compact"
+        end
+
+        return notify(msg, level, opts)
+      end
+      vim.notify = override
+    end,
   },
 
   -- vim ui notification
@@ -90,35 +140,6 @@ return {
       })
 
       -- =====================================================================
-      -- Override vim.notify builtin
-      -- =====================================================================
-
-      ---@param msg string
-      ---@param level? number vim.log.levels.*
-      ---@param opts? table
-      local override = function(msg, level, opts)
-        if not opts then
-          opts = {}
-        end
-        if not opts.title then
-          if require("dko.utils.string").starts_with(msg, "[LSP]") then
-            local client, found_client = msg:gsub("^%[LSP%]%[(.-)%] .*", "%1")
-            if found_client > 0 then
-              opts.title = ("LSP > %s"):format(client)
-            else
-              opts.title = "LSP"
-            end
-            msg = msg:gsub("^%[.*%] (.*)", "%1")
-          elseif msg == "No code actions available" then
-            -- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/buf.lua#LL629C39-L629C39
-            opts.title = "LSP"
-          end
-        end
-        notify(msg, level, opts)
-      end
-      vim.notify = override
-
-      -- =====================================================================
       -- Clear notifications on <Esc><Esc>
       -- =====================================================================
 
@@ -143,7 +164,7 @@ return {
       )
         local client = vim.lsp.get_client_by_id(ctx.client_id)
         local client_name = client and client.name or ctx.client_id
-        local title = ("LSP > %s"):format(client_name)
+        local title = ("[LSP] %s"):format(client_name)
         if not client then
           vim.notify(result.message, vim.log.levels.ERROR, { title = title })
         else
