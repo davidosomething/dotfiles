@@ -40,7 +40,7 @@ return {
     provider = function(self)
       return (" %s %d"):format(icons.Error, self.errors)
     end,
-    hl = "DiagnosticError",
+    hl = "DiagnosticSignError",
   },
   {
     condition = function(self)
@@ -49,7 +49,7 @@ return {
     provider = function(self)
       return (" %s %d"):format(icons.Warn, self.warnings)
     end,
-    hl = "DiagnosticWarn",
+    hl = "DiagnosticSignWarn",
   },
   {
     condition = function(self)
@@ -58,7 +58,7 @@ return {
     provider = function(self)
       return (" %s %d"):format(icons.Info, self.info)
     end,
-    hl = "DiagnosticInfo",
+    hl = "DiagnosticSignInfo",
   },
   {
     condition = function(self)
@@ -67,7 +67,7 @@ return {
     provider = function(self)
       return (" %s %d"):format(icons.Hint, self.hints)
     end,
-    hl = "DiagnosticHint",
+    hl = "DiagnosticSignHint",
   },
   {
     provider = function(self)
