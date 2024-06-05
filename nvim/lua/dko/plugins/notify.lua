@@ -1,5 +1,8 @@
 local icons = require("dko.icons")
 
+local uis = vim.api.nvim_list_uis()
+local has_ui = #uis > 0
+
 ---@alias dkonotify.MessageType
 ---| 1 # Error
 ---| 2 # Warning
@@ -27,7 +30,7 @@ return {
   -- https://github.com/ObserverOfTime/notifications.nvim
   -- {
   --   "ObserverOfTime/notifications.nvim",
-  --   cond = #vim.api.nvim_list_uis() > 0,
+  --   cond = has_ui,
   --   config = function()
   --     vim.g.notifications_use_osc = "777"
   --     require("notifications").setup({
@@ -56,11 +59,17 @@ return {
   --   end,
   -- },
 
+  -- https://github.com/j-hui/fidget.nvim
+  {
+    "j-hui/fidget.nvim",
+    cond = has_ui,
+  },
+
   -- vim ui notification
   -- https://github.com/rcarriga/nvim-notify
   {
     "rcarriga/nvim-notify",
-    cond = #vim.api.nvim_list_uis() > 0,
+    cond = has_ui,
     lazy = false,
     priority = 1000,
     config = function()
