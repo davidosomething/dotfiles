@@ -7,7 +7,7 @@ local function notify(names)
   end
   vim.notify("format", vim.log.levels.INFO, {
     render = "compact",
-    title = ("LSP > %s"):format(table.concat(names, ", ")),
+    title = ("[LSP] %s"):format(table.concat(names, ", ")),
   })
 end
 

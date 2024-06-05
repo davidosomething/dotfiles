@@ -25,9 +25,9 @@ M.format = function(opts)
       ", "
     )
 
-    local title = "LSP > efm"
+    local title = "[LSP] efm"
     if opts.pipeline then
-      title = ("LSP > %s > efm"):format(opts.pipeline)
+      title = ("[LSP] %s > efm"):format(opts.pipeline)
     end
     vim.notify(("%s"):format(formatters), vim.log.levels.INFO, {
       title = title,
@@ -52,9 +52,9 @@ M.format_with = function(name, opts)
 
   local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
 
-  local title = "LSP > efm_format_with"
+  local title = "[LSP] efm_format_with"
   if opts.pipeline then
-    title = ("LSP > %s > efm_format_with"):format(opts.pipeline)
+    title = ("[LSP] %s > efm_format_with"):format(opts.pipeline)
   end
 
   if not client then

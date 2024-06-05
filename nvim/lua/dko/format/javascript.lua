@@ -13,14 +13,9 @@ return function(notify)
     vim.cmd.EslintFixAll()
 
     if vim.b.has_eslint_plugin_prettier then
-      vim.notify("format with eslint-plugin-prettier", vim.log.levels.INFO, {
-        render = "compact",
-        title = "LSP > eslint",
-      })
-      return
+      return notify({ "eslint--plugin-prettier " })
     end
-
-    notify({ "eslint" })
+    return notify({ "eslint" })
   end
 
   require("dko.format.efm").format({ pipeline = "javascript" })
