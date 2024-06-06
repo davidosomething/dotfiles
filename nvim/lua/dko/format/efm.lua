@@ -1,10 +1,16 @@
+local Methods = vim.lsp.protocol.Methods
+
 local M = {}
+
+M.get_efm_client = function(bufnr)
+  return vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
+end
 
 M.format = function(opts)
   opts = opts or {}
 
   -- need to check for client in case we did :LspStop or something
-  local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
+  local client = M.get_efm_client(0)
   if not client then
     return
   end
@@ -50,13 +56,12 @@ end
 M.format_with = function(name, opts)
   opts = opts or {}
 
-  local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
-
   local title = "[LSP] efm_format_with"
   if opts.pipeline then
     title = ("[LSP] %s > efm_format_with"):format(opts.pipeline)
   end
 
+  local client = M.get_efm_client(0)
   if not client then
     vim.notify("efm not attached", vim.log.levels.ERROR, { title = title })
     return
@@ -81,7 +86,7 @@ M.format_with = function(name, opts)
   -- Set to only the efm tool we named
   client.config.settings.languages = only
   client.notify(
-    vim.lsp.protocol.Methods.workspace_didChangeConfiguration,
+    Methods.workspace_didChangeConfiguration,
     { settings = client.config.settings }
   )
 
@@ -92,7 +97,7 @@ M.format_with = function(name, opts)
   -- Restore original config
   client.config.settings.languages = original
   client.notify(
-    vim.lsp.protocol.Methods.workspace_didChangeConfiguration,
+    Methods.workspace_didChangeConfiguration,
     { settings = client.config.settings }
   )
 end
