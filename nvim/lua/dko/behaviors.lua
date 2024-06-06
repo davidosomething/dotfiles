@@ -60,20 +60,18 @@ if has_ui then
     end,
     group = augroup("dkowindow"),
   })
-end
 
-autocmd("QuitPre", {
-  desc = "Auto close corresponding loclist when quitting a window",
-  callback = function()
-    if vim.bo.filetype ~= "qf" then
-      vim.cmd("silent! lclose")
-    end
-  end,
-  nested = true,
-  group = augroup("dkowindow"),
-})
+  autocmd("QuitPre", {
+    desc = "Auto close corresponding loclist when quitting a window",
+    callback = function()
+      if vim.bo.filetype ~= "qf" then
+        vim.cmd("silent! lclose")
+      end
+    end,
+    nested = true,
+    group = augroup("dkowindow"),
+  })
 
-if has_ui then
   autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
     desc = "Start in insert mode when entering a terminal",
     callback = function(args)
@@ -83,49 +81,47 @@ if has_ui then
     end,
     group = augroup("dkowindow"),
   })
-end
 
-autocmd("BufReadPre", {
-  desc = "Disable linting and syntax highlighting for large and minified files",
-  callback = function(args)
-    -- See the treesitter highlight config too
-    if require("dko.utils.buffer").is_huge(args.file) then
-      vim.cmd.syntax("manual")
-    end
-  end,
-  group = augroup("dkoreading"),
-})
+  autocmd("BufReadPre", {
+    desc = "Disable linting and syntax highlighting for large and minified files",
+    callback = function(args)
+      -- See the treesitter highlight config too
+      if require("dko.utils.buffer").is_huge(args.file) then
+        vim.cmd.syntax("manual")
+      end
+    end,
+    group = augroup("dkoreading"),
+  })
 
-autocmd("BufReadPre", {
-  pattern = "*.min.*",
-  desc = "Disable syntax on minified files",
-  command = "syntax manual",
-  group = augroup("dkoreading"),
-})
+  autocmd("BufReadPre", {
+    pattern = "*.min.*",
+    desc = "Disable syntax on minified files",
+    command = "syntax manual",
+    group = augroup("dkoreading"),
+  })
 
--- https://vi.stackexchange.com/questions/11892/populate-a-git-commit-template-with-variables
-autocmd("BufRead", {
-  pattern = "COMMIT_EDITMSG",
-  desc = "Replace tokens in commit-template",
-  callback = function()
-    local tokens = {}
-    tokens.BRANCH = vim
-      .system({ "git", "rev-parse", "--abbrev-ref", "HEAD" })
-      :wait().stdout
-      :gsub("\n", "")
+  -- https://vi.stackexchange.com/questions/11892/populate-a-git-commit-template-with-variables
+  autocmd("BufRead", {
+    pattern = "COMMIT_EDITMSG",
+    desc = "Replace tokens in commit-template",
+    callback = function()
+      local tokens = {}
+      tokens.BRANCH = vim
+        .system({ "git", "rev-parse", "--abbrev-ref", "HEAD" })
+        :wait().stdout
+        :gsub("\n", "")
 
-    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-    for i, line in ipairs(lines) do
-      lines[i] = line:gsub("%$%{(%w+)%}", function(s)
-        return s:len() > 0 and tokens[s] or ""
-      end)
-    end
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
-  end,
-  group = augroup("dkoreading"),
-})
+      local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+      for i, line in ipairs(lines) do
+        lines[i] = line:gsub("%$%{(%w+)%}", function(s)
+          return s:len() > 0 and tokens[s] or ""
+        end)
+      end
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+    end,
+    group = augroup("dkoreading"),
+  })
 
-if has_ui then
   autocmd("BufEnter", {
     desc = "Read only mode (un)mappings",
     callback = function()
@@ -151,20 +147,20 @@ if has_ui then
     end,
     group = augroup("dkoreading"),
   })
-end
 
-autocmd({ "BufNewFile", "BufRead", "BufFilePost" }, {
-  pattern = { "*.lua" },
-  desc = "Apply stylua.toml spacing if no editorconfig",
-  callback = function()
-    vim.schedule(function()
-      if not vim.b.editorconfig or vim.tbl_isempty(vim.b.editorconfig) then
-        require("dko.editing").from_stylua_toml()
-      end
-    end)
-  end,
-  group = augroup("dkoediting"),
-})
+  autocmd({ "BufNewFile", "BufRead", "BufFilePost" }, {
+    pattern = { "*.lua" },
+    desc = "Apply stylua.toml spacing if no editorconfig",
+    callback = function()
+      vim.schedule(function()
+        if not vim.b.editorconfig or vim.tbl_isempty(vim.b.editorconfig) then
+          require("dko.editing").from_stylua_toml()
+        end
+      end)
+    end,
+    group = augroup("dkoediting"),
+  })
+end
 
 -- yanky.nvim providing this
 -- autocmd("TextYankPost", {
@@ -212,66 +208,36 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 
 if has_ui then
   -- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
-  -- Happens before on_attach, so can still use on_attach to do more stuff or
+  -- LspAttach happens before on_attach, so can still use on_attach to do more stuff or
   -- override this
+
   autocmd("LspAttach", {
-    desc = "Bind LSP in buffer",
-    callback = function(args)
-      --[[
-    {
-      buf = 1,
-      data = {
-        client_id = 1
-      },
-      event = "LspAttach",
-      file = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua",
-      group = 11,
-      id = 13,
-      match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
-    }
-    ]]
-      local bufnr = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if not client then
-        return
-      end
+    desc = "Bind LSP related mappings",
+    callback = require("dko.mappings").bind_on_lspattach,
+    group = augroup("dkolsp"),
+  })
 
-      -- First LSP attached
-      if not vim.b.has_lsp then
-        vim.b.has_lsp = true
-        require("dko.mappings").bind_lsp(bufnr)
-      end
+  autocmd("LspAttach", {
+    desc = "Set flag to format on save when first capable LSP attaches to buffer",
+    callback = require("dko.format").enable_on_lspattach,
+    group = augroup("dkolsp"),
+  })
 
-      -- Maybe enable format on save if currently unset
-      -- (you can set false manually)
-      if
-        vim.b.enable_format_on_save == nil
-        and client.supports_method(
-          vim.lsp.protocol.Methods.textDocument_formatting
-        )
-      then
-        vim.b.enable_format_on_save = true
-      end
-    end,
+  autocmd("LspDetach", {
+    desc = "Unbind LSP related mappings on last client detach",
+    callback = require("dko.mappings").unbind_on_lspdetach,
+    group = augroup("dkolsp"),
+  })
+
+  autocmd("LspDetach", {
+    desc = "Unset flag to format on save when last capable LSP detaches from buffer",
+    callback = require("dko.format").disable_on_lspdetach,
     group = augroup("dkolsp"),
   })
 
   autocmd({ "BufWritePre", "FileWritePre" }, {
     desc = "Format with LSP on save",
-    callback = function()
-      -- callback gets arg
-      -- {
-      --   buf = 1,
-      --   event = "BufWritePre",
-      --   file = "nvim/lua/dko/behaviors.lua",
-      --   id = 127,
-      --   match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
-      -- }
-      if not vim.b.enable_format_on_save then
-        return
-      end
-      require("dko.format").run_pipeline({ async = false })
-    end,
+    callback = require("dko.format").format_on_save,
     group = augroup("dkolsp"),
   })
 

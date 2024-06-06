@@ -426,6 +426,43 @@ M.bind_lsp = function(bufnr)
   )
 end
 
+-- autocmd callback
+M.bind_on_lspattach = function(args)
+  --[[
+    {
+      buf = 1,
+      data = {
+        client_id = 1
+      },
+      event = "LspAttach",
+      file = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua",
+      group = 11,
+      id = 13,
+      match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
+    }
+    ]]
+  local bufnr = args.buf
+  local client = vim.lsp.get_client_by_id(args.data.client_id)
+  if not client then -- just to shut up type checking
+    return
+  end
+
+  if not vim.b.did_bind_mappings then -- First LSP attached
+    M.bind_lsp(bufnr)
+    vim.b.did_bind_mappings = true
+  end
+end
+
+-- @TODO
+M.unbind_on_lspdetach = function(args)
+  -- local bufnr = args.buf
+  -- local clients = vim.lsp.get_clients({ bufnr = bufnr })
+  -- if #clients == 0 then -- Last LSP attached
+  -- unbind mappings...
+  -- vim.b.did_bind_mappings = false
+  -- end
+end
+
 -- on_attach binding for tsserver
 M.bind_tsserver_lsp = function(client, bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the
