@@ -81,11 +81,14 @@ return {
         if not opts then
           opts = {}
         end
-        if
-          opts.title == "nvim-treesitter"
-          or opts.title == "mason.nvim"
-          or opts.title == "mason-lspconfig.nvim"
-        then
+
+        -- known special titles
+        -- mason ones should not go to fidget because mason window will cover it
+        -- - "mason.nvim"
+        -- - "mason-lspconfig.nvim"
+        -- - "nvim-treesitter"
+
+        if opts.title == "nvim-treesitter" then
           return fidget.notify(msg, level, opts)
         end
 
