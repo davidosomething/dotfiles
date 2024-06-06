@@ -135,23 +135,17 @@ M.disable_on_lspdetach = function(args)
   local bufnr = args.buf
   local detached_client_id = args.data.client_id
 
-  local has_formatter = false
+  -- @TODO could i just check using { bufnr, and method } here? Or does it still
+  -- include in the client being detached?
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
-  for _, client in ipairs(clients) do
-    if client.id ~= detached_client_id then
-      if
-        client.supports_method(
-          Methods.textDocument_formatting,
-          { bufnr = bufnr }
-        )
-      then
-        has_formatter = true
-      end
-    end
-  end
-  if not has_formatter then
-    vim.b.enable_format_on_save = false
-  end
+  local still_has_formatter = vim.iter(clients):any(function(client)
+    return client.id ~= detached_client_id
+      and client.supports_method(
+        Methods.textDocument_formatting,
+        { bufnr = bufnr }
+      )
+  end)
+  vim.b.enable_format_on_save = still_has_formatter
 end
 
 -- autocmd callback for *WritePre
