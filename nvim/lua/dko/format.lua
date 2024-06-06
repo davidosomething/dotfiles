@@ -113,7 +113,7 @@ M.enable_on_lspattach = function(args)
   vim.notify(
     ("Format on save enabled using %s"):format(clients[1].name),
     vim.log.levels.INFO,
-    { render = "compact" }
+    { title = "[LSP]", render = "compact" }
   )
 end
 
@@ -144,7 +144,7 @@ M.disable_on_lspdetach = function(args)
   vim.notify(
     "Format on save disabled, no capable clients attached",
     vim.log.levels.INFO,
-    { render = "compact" }
+    { title = "[LSP]", render = "compact" }
   )
 end
 

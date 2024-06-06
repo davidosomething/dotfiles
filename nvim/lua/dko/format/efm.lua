@@ -37,6 +37,7 @@ M.format = function(opts)
     end
     vim.notify(("%s"):format(formatters), vim.log.levels.INFO, {
       title = title,
+      render = "compact",
     })
   end
 
@@ -63,7 +64,11 @@ M.format_with = function(name, opts)
 
   local client = M.get_efm_client(0)
   if not client then
-    vim.notify("efm not attached", vim.log.levels.ERROR, { title = title })
+    vim.notify(
+      "efm not attached",
+      vim.log.levels.ERROR,
+      { title = title, render = "compact" }
+    )
     return
   end
 
@@ -74,7 +79,7 @@ M.format_with = function(name, opts)
     vim.notify(
       ("no formatter %s for %s"):format(name, vim.bo.filetype),
       vim.log.levels.ERROR,
-      { title = title }
+      { title = title, render = "compact" }
     )
     return
   end
@@ -91,7 +96,11 @@ M.format_with = function(name, opts)
   )
 
   -- Do the deed
-  vim.notify(("%s only"):format(name), vim.log.levels.INFO, { title = title })
+  vim.notify(
+    ("%s only"):format(name),
+    vim.log.levels.INFO,
+    { title = title, render = "compact" }
+  )
   M.format({ hide_notification = true })
 
   -- Restore original config
