@@ -63,9 +63,10 @@ return {
   },
 
   -- remove buffers without messing up window layout
+  -- https://github.com/echasnovski/mini.bufremove
   {
     "echasnovski/mini.bufremove",
-    version = "*",
+    version = false, -- dev version
     config = function()
       require("mini.bufremove").setup()
     end,
