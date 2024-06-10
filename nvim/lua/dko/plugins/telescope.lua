@@ -85,6 +85,7 @@ return {
         },
         extensions = {
           file_browser = {
+            hidden = { file_browser = true, folder_browser = true },
             hijack_netrw = true,
             layout_strategy = "vertical",
             layout_config = {
