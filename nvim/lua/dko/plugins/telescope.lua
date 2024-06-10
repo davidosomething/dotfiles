@@ -1,8 +1,11 @@
+local uis = vim.api.nvim_list_uis()
+local has_ui = #uis > 0
+
 return {
 
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    cond = #vim.api.nvim_list_uis() > 0,
+    cond = has_ui,
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
@@ -14,8 +17,8 @@ return {
 
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.2",
-    cond = #vim.api.nvim_list_uis() > 0,
+    tag = "0.1.8",
+    cond = has_ui,
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
