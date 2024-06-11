@@ -169,7 +169,14 @@ return {
           if
             cwd_relative.levels < 4 and cwd_relative.root:len() < remaining
           then
-            final = ("[..%d]/%s"):format(cwd_relative.levels, cwd_relative.b)
+            if cwd_relative.levels == 0 then
+              if cwd_relative.b == "" then
+                return smallcaps("[cwd]")
+              end
+              final = ("in %s"):format(cwd_relative.b)
+            else
+              final = ("↑%d/%s"):format(cwd_relative.levels, cwd_relative.b)
+            end
           elseif relative:len() < remaining then
             final = relative
           else
