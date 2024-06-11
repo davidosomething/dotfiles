@@ -1,6 +1,7 @@
-local icon_color_enabled = false
-
+local smallcaps = require("dko.utils.string").smallcaps
 local conditions = require("heirline.conditions")
+
+local icon_color_enabled = false
 
 local function active_highlight(active)
   active = active or "StatusLine"
@@ -17,7 +18,7 @@ return {
       self.filepath = vim.api.nvim_buf_get_name(0)
       self.filetype_text = vim.tbl_contains(hidden_filetypes, vim.bo.filetype)
           and ""
-        or require("dko.utils.string").smallcaps(vim.bo.filetype)
+        or smallcaps(vim.bo.filetype)
     end,
     hl = function()
       return active_highlight()
@@ -155,15 +156,21 @@ return {
             return ""
           end
 
-          local path = vim.fn.fnamemodify(self.filepath, ":~:h")
-
           local win_width = vim.api.nvim_win_get_width(0)
           local extrachars = 3 + 3 + self.filetype_text:len()
           local remaining = win_width - extrachars
 
           local final
+          local cwd = vim.fn.fnamemodify(vim.uv.cwd() or "", ":~")
+          local path = vim.fn.fnamemodify(self.filepath, ":~:h")
+          local cwd_relative = require("dko.utils.path").common_root(cwd, path)
           local relative = vim.fn.fnamemodify(path, ":~:.") or ""
-          if relative:len() < remaining then
+
+          if
+            cwd_relative.levels < 4 and cwd_relative.root:len() < remaining
+          then
+            final = ("[..%d]/%s"):format(cwd_relative.levels, cwd_relative.b)
+          elseif relative:len() < remaining then
             final = relative
           else
             local len = 8
