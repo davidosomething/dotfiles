@@ -2,6 +2,14 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 return {
+  {
+    "2kabhishek/nerdy.nvim",
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    cmd = "Nerdy",
+  },
 
   {
     "nvim-telescope/telescope-file-browser.nvim",

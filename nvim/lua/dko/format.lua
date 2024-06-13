@@ -2,6 +2,13 @@
 
 local Methods = vim.lsp.protocol.Methods
 
+vim.api.nvim_create_autocmd("User", {
+  pattern = "FormatterAdded",
+  desc = "Notify neovim a formatter has been added for the buffer",
+  callback = function() end,
+  group = vim.api.nvim_create_augroup("dkoformatter", {}),
+})
+
 ---@param names string[]
 local function notify(names)
   if #names == 0 then
@@ -109,12 +116,15 @@ M.enable_on_lspattach = function(args)
     return
   end
 
+  local name = clients[1].name
+
   vim.b.enable_format_on_save = true
-  vim.notify(
-    ("Format on save enabled using %s"):format(clients[1].name),
-    vim.log.levels.INFO,
-    { title = "[LSP]", render = "compact" }
-  )
+
+  if vim.b.formatters == nil then
+    vim.b.formatters = {}
+  end
+  vim.b.formatters = vim.tbl_extend("keep", vim.b.formatters, { name })
+  vim.cmd.doautocmd("User", "FormatterAdded")
 end
 
 -- LspDetach autocmd callback
