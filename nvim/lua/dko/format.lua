@@ -15,7 +15,7 @@ local function notify(names)
     return
   end
   vim.notify("format", vim.log.levels.INFO, {
-    render = "compact",
+    render = "wrapped-compact",
     title = ("[LSP] %s"):format(table.concat(names, ", ")),
   })
 end
@@ -101,11 +101,6 @@ end
 
 -- LspAttach autocmd callback
 M.enable_on_lspattach = function(args)
-  -- already enabled from a previous client
-  if vim.b.enable_format_on_save then
-    return
-  end
-
   local bufnr = args.buf
   local clients = vim.lsp.get_clients({
     id = args.data.client_id,
@@ -116,10 +111,11 @@ M.enable_on_lspattach = function(args)
     return
   end
 
-  local name = clients[1].name
-
   vim.b.enable_format_on_save = true
 
+  -- Track formatters, non-exclusively, non-LSPs might add to this table
+  -- or fire the autocmd
+  local name = clients[1].name
   if vim.b.formatters == nil then
     vim.b.formatters = {}
   end

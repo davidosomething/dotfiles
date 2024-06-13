@@ -13,7 +13,7 @@ return function(notify)
     vim.cmd.EslintFixAll()
 
     if vim.b.has_eslint_plugin_prettier then
-      return notify({ "eslint--plugin-prettier " })
+      return notify({ "eslint-plugin-prettier" })
     end
     return notify({ "eslint" })
   end
