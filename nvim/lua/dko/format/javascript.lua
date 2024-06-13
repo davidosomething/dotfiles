@@ -7,7 +7,7 @@ return function(notify)
   if vim.b.has_eslint then
     if vim.b.has_eslint_plugin_prettier == nil then
       vim.b.has_eslint_plugin_prettier =
-        require("dko.node").has_eslint_plugin("prettier")
+        require("dko.utils.node").has_eslint_plugin("prettier")
     end
 
     vim.cmd.EslintFixAll()

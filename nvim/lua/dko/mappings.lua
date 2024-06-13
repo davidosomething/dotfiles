@@ -74,7 +74,7 @@ map(
 map("n", "<Leader>..", "<Cmd>cd! ..<CR>", { desc = "cd up a level" })
 
 map("n", "<Leader>cr", function()
-  local root = require("dko.project").get_git_root()
+  local root = require("dko.utils.project").get_git_root()
   if root then
     if vim.uv.chdir(root) == 0 then
       vim.notify(root, vim.log.levels.INFO, { title = "Changed directory" })
@@ -399,7 +399,7 @@ M.bind_lsp = function(bufnr)
     vim.lsp.buf.rename()
   end, lsp_opts({ desc = "LSP rename" }))
 
-  map("n", "<Leader>ca", require("dko.lsp").code_action, {
+  map("n", "<Leader>ca", require("dko.utils.lsp").code_action, {
     desc = "NOT IMPLEMENTED Single code action",
   })
 
@@ -473,7 +473,7 @@ M.bind_tsserver_lsp = function(client, bufnr)
     if vim.fn.exists(":TSToolsGoToSourceDefinition") ~= 0 then
       vim.cmd.TSToolsGoToSourceDefinition()
     end
-    if require("dko.typescript").source_definition(client) then
+    if require("dko.utils.typescript").source_definition(client) then
       return
     end
     return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
@@ -818,7 +818,7 @@ M.bind_telescope = function()
       hidden = true,
       layout_strategy = "vertical",
       prompt_title = "Files in buffer's project",
-      cwd = require("dko.project").root(),
+      cwd = require("dko.utils.project").root(),
     })
   end, {
     desc = "Telescope: pick from previously opened files in current project root",

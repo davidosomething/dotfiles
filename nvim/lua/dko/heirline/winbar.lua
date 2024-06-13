@@ -47,7 +47,7 @@ return {
         end,
         hl = function()
           return active_highlight(
-            require("dko.treesitter").is_highlight_enabled() and "DiffAdd"
+            require("dko.utils.treesitter").is_highlight_enabled() and "DiffAdd"
               or "DiffDelete"
           )
         end,
