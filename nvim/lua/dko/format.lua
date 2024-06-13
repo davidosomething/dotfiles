@@ -116,10 +116,17 @@ M.enable_on_lspattach = function(args)
   -- Track formatters, non-exclusively, non-LSPs might add to this table
   -- or fire the autocmd
   local name = clients[1].name
-  if vim.b.formatters == nil then
-    vim.b.formatters = {}
+
+  -- NOTE: You cannot table.insert(vim.b.formatters, name) -- need to have a
+  -- temp var and assign full table at once because the vim.b vars are special
+  local formatters = vim.b.formatters
+  if formatters == nil then
+    formatters = { name }
+  else
+    table.insert(formatters, name)
   end
-  vim.b.formatters = vim.tbl_extend("keep", vim.b.formatters, { name })
+  vim.b.formatters = formatters
+
   vim.cmd.doautocmd("User", "FormatterAdded")
 end
 
