@@ -6,7 +6,7 @@ M.has_builtin_osc52 = function()
 end
 
 M.should_use_osc52 = function()
-  return vim.env.SSH_TTY ~= nil or require("dko.utils.vte").is_remote()
+  return require("dko.utils.vte").is_remote()
 end
 
 return M
