@@ -12,7 +12,7 @@ if require("dko.utils.clipboard").should_use_osc52() then
   -- BUT for docker exec shells we need to manually enable
   if require("dko.utils.vte").is_docker_exec() then
     vim.g.clipboard = {
-      name = "OSC 52",
+      name = "OSC 52 (docker)",
       copy = {
         ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
         ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
