@@ -2,13 +2,6 @@
 
 local Methods = vim.lsp.protocol.Methods
 
-vim.api.nvim_create_autocmd("User", {
-  pattern = "FormatterAdded",
-  desc = "Notify neovim a formatter has been added for the buffer",
-  callback = function() end,
-  group = vim.api.nvim_create_augroup("dkoformatter", {}),
-})
-
 ---@param names string[]
 local function notify(names)
   if #names == 0 then
@@ -28,29 +21,32 @@ local M = {}
 ---@type table<ft, function>
 local pipelines = {}
 pipelines["html"] = function()
-  require("dko.format.efm").format({ pipeline = "html" })
+  require("dko.utils.format.efm").format({ pipeline = "html" })
 end
 pipelines["javascript"] = function()
-  require("dko.format.javascript")(notify)
+  require("dko.utils.format.javascript")(notify)
 end
 pipelines["javascriptreact"] = pipelines["javascript"]
 pipelines["typescript"] = pipelines["javascript"]
 pipelines["typescriptreact"] = pipelines["javascript"]
 pipelines["json"] = function()
-  require("dko.format.efm").format_with("prettier", { pipeline = "json" })
+  require("dko.utils.format.efm").format_with("prettier", { pipeline = "json" })
 end
 pipelines["jsonc"] = pipelines["json"]
 pipelines["lua"] = function()
-  require("dko.format.efm").format_with("stylua", { pipeline = "lua" })
+  require("dko.utils.format.efm").format_with("stylua", { pipeline = "lua" })
 end
-pipelines["markdown"] = require("dko.format.markdown")
+pipelines["markdown"] = require("dko.utils.format.markdown")
 pipelines["yaml"] = function()
   if vim.bo.filetype == "yaml.docker-compose" then
     vim.lsp.buf.format({ name = "docker_compose_language_service" })
     notify({ "docker_compose_language_service" })
     return
   end
-  require("dko.format.efm").format_with("yamlfmt", { pipeline = "yamlfmt" })
+  require("dko.utils.format.efm").format_with(
+    "yamlfmt",
+    { pipeline = "yamlfmt" }
+  )
 end
 
 --- See options for vim.lsp.buf.format

@@ -12,7 +12,6 @@ vim.g.loaded_python3_provider = 0 -- disable python 3 also, who's still using th
 
 require("dko.opt")
 require("dko.commands")
-require("dko.format") -- defines autocmd
 require("dko.behaviors")
 require("dko.diagnostic")
 require("dko.mappings")
@@ -42,7 +41,7 @@ require("dko.lazy")
 require("dko.builtin-syntax")
 require("dko.filetypes")
 
-require("dko.lsp.floats")
+require("dko.lsp") -- override some lsp handlers
 
 require("dko.terminal")
 

@@ -34,7 +34,7 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
   theme between light and dark mode.
 - lsp/tool config is done in [dko/tools/](https://github.com/davidosomething/dotfiles/tree/dev/nvim/lua/dko/tools)
   - lspconfig, efm, and null-ls all handled in one place
-- formatting is handled in [dko/format.lua](https://github.com/davidosomething/dotfiles/blob/dev/nvim/lua/dko/format.lua)
+- formatting is handled in [dko/utils/format.lua](https://github.com/davidosomething/dotfiles/blob/dev/nvim/lua/dko/utils/format.lua)
   - of note is a pipeline that can run eslint only, eslint and then
     prettier, or prettier only as needed
 

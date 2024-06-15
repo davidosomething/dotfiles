@@ -1,16 +1,14 @@
 local Methods = vim.lsp.protocol.Methods
 
-local M = {}
+local toast = require("dko.utils.notify").toast
 
-M.get_efm_client = function(bufnr)
-  return vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
-end
+local M = {}
 
 M.format = function(opts)
   opts = opts or {}
 
   -- need to check for client in case we did :LspStop or something
-  local client = M.get_efm_client(0)
+  local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
   if not client then
     return
   end
@@ -35,7 +33,8 @@ M.format = function(opts)
     if opts.pipeline then
       title = ("[LSP] %s > efm"):format(opts.pipeline)
     end
-    vim.notify(("%s"):format(formatters), vim.log.levels.INFO, {
+    toast(("%s"):format(formatters), vim.log.levels.INFO, {
+      group = "format",
       title = title,
       render = "compact",
     })
@@ -57,17 +56,15 @@ end
 M.format_with = function(name, opts)
   opts = opts or {}
 
-  local title = "[LSP] efm_format_with"
-  if opts.pipeline then
-    title = ("[LSP] %s > efm_format_with"):format(opts.pipeline)
-  end
+  local title = opts.pipeline and ("[LSP] %s > efm"):format(opts.pipeline)
+    or "[LSP] efm"
 
-  local client = M.get_efm_client(0)
+  local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
   if not client then
-    vim.notify(
+    toast(
       "efm not attached",
       vim.log.levels.ERROR,
-      { title = title, render = "compact" }
+      { title = title, group = "format", render = "compact" }
     )
     return
   end
@@ -76,10 +73,10 @@ M.format_with = function(name, opts)
     return tool.name == name and vim.tbl_contains(tool.fts, vim.bo.filetype)
   end)
   if vim.tbl_count(configs) == 0 then
-    vim.notify(
-      ("no formatter %s for %s"):format(name, vim.bo.filetype),
+    toast(
+      ("No formatter %s for %s"):format(name, vim.bo.filetype),
       vim.log.levels.ERROR,
-      { title = title, render = "compact" }
+      { title = title, group = "format", render = "compact" }
     )
     return
   end
@@ -96,10 +93,10 @@ M.format_with = function(name, opts)
   )
 
   -- Do the deed
-  vim.notify(
-    ("%s only"):format(name),
+  toast(
+    ("Formatting with %s"):format(name),
     vim.log.levels.INFO,
-    { title = title, render = "compact" }
+    { title = title, group = "format", render = "compact" }
   )
   M.format({ hide_notification = true })
 

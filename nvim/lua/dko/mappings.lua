@@ -422,9 +422,11 @@ M.bind_lsp = function(bufnr)
     "n",
     "<A-=>",
     function()
-      require("dko.format").run_pipeline({ async = false })
+      require("dko.utils.format").run_pipeline({ async = false })
     end,
-    lsp_opts({ desc = "Fix and format buffer with dko.format.run_pipeline" })
+    lsp_opts({
+      desc = "Fix and format buffer with dko.utils.format.run_pipeline",
+    })
   )
 end
 
@@ -456,7 +458,7 @@ M.bind_on_lspattach = function(args)
 end
 
 -- @TODO
-M.unbind_on_lspdetach = function(args)
+M.unbind_on_lspdetach = function(_args)
   -- local bufnr = args.buf
   -- local clients = vim.lsp.get_clients({ bufnr = bufnr })
   -- if #clients == 0 then -- Last LSP attached
@@ -630,19 +632,6 @@ M.setup_cmp = function()
     ["<C-j>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
   }, snippy_mappings))
-end
-
--- ===========================================================================
--- Plugin: nvim-notify
--- ===========================================================================
-
-M.bind_notify = function()
-  map(
-    "n",
-    "<A-\\>",
-    "<Cmd>Notifications<CR>",
-    { desc = "Show recent notifications" }
-  )
 end
 
 -- =============================================================================
