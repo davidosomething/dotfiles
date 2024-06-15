@@ -6,7 +6,7 @@ return function()
       ".markdownlint.yaml",
     }, { limit = 1, upward = true, type = "file" })
   end
-  require("dko.format.efm").format_with(
+  require("dko.utils.format.efm").format_with(
     vim.b.has_markdownlint == true and "markdownlint" or "prettier",
     { pipeline = "markdown" }
   )

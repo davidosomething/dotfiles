@@ -18,5 +18,5 @@ return function(notify)
     return notify({ "eslint" })
   end
 
-  require("dko.format.efm").format({ pipeline = "javascript" })
+  require("dko.utils.format.efm").format({ pipeline = "javascript" })
 end
