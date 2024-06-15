@@ -6,7 +6,7 @@ tools.register({
   name = "prettier",
   mason_type = "tool",
   require = "npm",
-  fts = require("dko.jsts").fts,
+  fts = require("dko.utils.jsts").fts,
   efm = function()
     return require("efmls-configs.formatters.prettier")
   end,

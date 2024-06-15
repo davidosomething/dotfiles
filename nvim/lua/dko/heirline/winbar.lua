@@ -10,7 +10,7 @@ end
 
 local hidden_filetypes = vim.tbl_extend("keep", {
   "markdown",
-}, require("dko.jsts").fts)
+}, require("dko.utils.jsts").fts)
 
 return {
   {
