@@ -1,4 +1,6 @@
 return {
+
+  -- https://github.com/tadmccorkle/markdown.nvim
   {
     "tadmccorkle/markdown.nvim",
     ft = "markdown", -- or 'event = "VeryLazy"'
@@ -15,6 +17,11 @@ return {
         go_next_heading = "]]", -- (string|boolean) set cursor to next section heading
         go_prev_heading = "[[", -- (string|boolean) set cursor to previous section heading
       },
+      on_attach = function(bufnr)
+        local map = vim.keymap.set
+        local opts = { buffer = bufnr }
+        map("n", "<c-x>", "<Cmd>MDTaskToggle<CR>", opts)
+      end,
     },
   },
 }
