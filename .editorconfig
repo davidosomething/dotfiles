@@ -6,10 +6,7 @@ end_of_line = LF
 indent_size = 2
 indent_style = space
 
-[.gitconfig]
-indent_style = tab
-
-[*.gitconfig]
+[{.gitconfig,*.gitconfig}]
 indent_style = tab
 
 [*.ini]
@@ -23,10 +20,7 @@ indent_style = tab
 [*.{css,less,sass,scss}]
 insert_final_newline = true
 
-[*.coffee]
-insert_final_newline = true
-
-[*.{js,json,jsx,ts,tsx}]
+[*.{coffee,js,json,jsx,ts,tsx}]
 insert_final_newline = true
 
 [*.lua]

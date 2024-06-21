@@ -7,16 +7,16 @@ return function(notify)
   if vim.b.has_eslint then
     if vim.b.has_eslint_plugin_prettier == nil then
       vim.b.has_eslint_plugin_prettier =
-        require("dko.node").has_eslint_plugin("prettier")
+        require("dko.utils.node").has_eslint_plugin("prettier")
     end
 
     vim.cmd.EslintFixAll()
 
     if vim.b.has_eslint_plugin_prettier then
-      return notify({ "eslint--plugin-prettier " })
+      return notify({ "eslint-plugin-prettier" })
     end
     return notify({ "eslint" })
   end
 
-  require("dko.format.efm").format({ pipeline = "javascript" })
+  require("dko.utils.format.efm").format({ pipeline = "javascript" })
 end

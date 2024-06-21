@@ -207,6 +207,15 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 })
 
 if has_ui then
+  autocmd("User", {
+    pattern = "FormatterAdded",
+    desc = "Notify neovim a formatter has been added for the buffer",
+    callback = function()
+      -- noop - heirline listens for this event
+    end,
+    group = augroup("dkoformatter"),
+  })
+
   -- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
   -- LspAttach happens before on_attach, so can still use on_attach to do more stuff or
   -- override this
@@ -219,7 +228,7 @@ if has_ui then
 
   autocmd("LspAttach", {
     desc = "Set flag to format on save when first capable LSP attaches to buffer",
-    callback = require("dko.format").enable_on_lspattach,
+    callback = require("dko.utils.format").enable_on_lspattach,
     group = augroup("dkolsp"),
   })
 
@@ -231,13 +240,13 @@ if has_ui then
 
   autocmd("LspDetach", {
     desc = "Unset flag to format on save when last capable LSP detaches from buffer",
-    callback = require("dko.format").disable_on_lspdetach,
+    callback = require("dko.utils.format").disable_on_lspdetach,
     group = augroup("dkolsp"),
   })
 
   autocmd({ "BufWritePre", "FileWritePre" }, {
     desc = "Format with LSP on save",
-    callback = require("dko.format").format_on_save,
+    callback = require("dko.utils.format").format_on_save,
     group = augroup("dkolsp"),
   })
 

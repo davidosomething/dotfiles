@@ -48,8 +48,7 @@ M.get_cursorline_contents = function()
   return vim.api.nvim_buf_get_lines(0, linenr - 1, linenr, false)[1]
 end
 
----Close quickfix and loclist, then switch any active windows, then delete
----buffer from buffer list
+---Close quickfix and loclist, then delete buffer from buffer list
 M.close = function()
   vim.cmd.cclose()
   vim.cmd.lclose()
@@ -58,6 +57,22 @@ M.close = function()
     bufremove.delete(nil, true)
   else
     vim.cmd.bdelete({ bang = true })
+  end
+  -- user will be on the previous buffer now
+  -- BUT the alt buffer (<C-^>) is the one we just deleted!
+  -- Set the alt buffer to the previous listed buffer in buflist, or to current
+  -- buffer (as if switching back to undeleted buffer)
+  local curr = vim.fn.bufnr()
+  local prev = nil
+  for _, nr in ipairs(vim.api.nvim_list_bufs()) do
+    if nr == curr then
+      -- set alt buffer to previous listed, or current (no alt)
+      vim.cmd(("let @# = %d"):format(prev or curr))
+      return
+    end
+    if vim.bo[nr].buflisted then
+      prev = nr
+    end
   end
 end
 

@@ -7,6 +7,7 @@ local M = {}
 --- ctx table containing the context of the request, including the method
 ---(`textDocument/definition` can return `Location` or `Location[]`
 
+---@deprecated using TSToolsGoToSourceDefinition instead
 ---@param client? lsp.Client tsserver client
 ---@param handler? LocationHandler
 M.source_definition = function(client, handler)

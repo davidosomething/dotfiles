@@ -8,7 +8,7 @@ local function notify(names)
     return
   end
   vim.notify("format", vim.log.levels.INFO, {
-    render = "compact",
+    render = "wrapped-compact",
     title = ("[LSP] %s"):format(table.concat(names, ", ")),
   })
 end
@@ -21,29 +21,32 @@ local M = {}
 ---@type table<ft, function>
 local pipelines = {}
 pipelines["html"] = function()
-  require("dko.format.efm").format({ pipeline = "html" })
+  require("dko.utils.format.efm").format({ pipeline = "html" })
 end
 pipelines["javascript"] = function()
-  require("dko.format.javascript")(notify)
+  require("dko.utils.format.javascript")(notify)
 end
 pipelines["javascriptreact"] = pipelines["javascript"]
 pipelines["typescript"] = pipelines["javascript"]
 pipelines["typescriptreact"] = pipelines["javascript"]
 pipelines["json"] = function()
-  require("dko.format.efm").format_with("prettier", { pipeline = "json" })
+  require("dko.utils.format.efm").format_with("prettier", { pipeline = "json" })
 end
 pipelines["jsonc"] = pipelines["json"]
 pipelines["lua"] = function()
-  require("dko.format.efm").format_with("stylua", { pipeline = "lua" })
+  require("dko.utils.format.efm").format_with("stylua", { pipeline = "lua" })
 end
-pipelines["markdown"] = require("dko.format.markdown")
+pipelines["markdown"] = require("dko.utils.format.markdown")
 pipelines["yaml"] = function()
   if vim.bo.filetype == "yaml.docker-compose" then
     vim.lsp.buf.format({ name = "docker_compose_language_service" })
     notify({ "docker_compose_language_service" })
     return
   end
-  require("dko.format.efm").format_with("yamlfmt", { pipeline = "yamlfmt" })
+  require("dko.utils.format.efm").format_with(
+    "yamlfmt",
+    { pipeline = "yamlfmt" }
+  )
 end
 
 --- See options for vim.lsp.buf.format
@@ -94,11 +97,6 @@ end
 
 -- LspAttach autocmd callback
 M.enable_on_lspattach = function(args)
-  -- already enabled from a previous client
-  if vim.b.enable_format_on_save then
-    return
-  end
-
   local bufnr = args.buf
   local clients = vim.lsp.get_clients({
     id = args.data.client_id,
@@ -110,11 +108,22 @@ M.enable_on_lspattach = function(args)
   end
 
   vim.b.enable_format_on_save = true
-  vim.notify(
-    ("Format on save enabled using %s"):format(clients[1].name),
-    vim.log.levels.INFO,
-    { title = "[LSP]", render = "compact" }
-  )
+
+  -- Track formatters, non-exclusively, non-LSPs might add to this table
+  -- or fire the autocmd
+  local name = clients[1].name
+
+  -- NOTE: You cannot table.insert(vim.b.formatters, name) -- need to have a
+  -- temp var and assign full table at once because the vim.b vars are special
+  local formatters = vim.b.formatters
+  if formatters == nil then
+    formatters = { name }
+  else
+    table.insert(formatters, name)
+  end
+  vim.b.formatters = formatters
+
+  vim.cmd.doautocmd("User", "FormatterAdded")
 end
 
 -- LspDetach autocmd callback

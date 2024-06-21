@@ -5,7 +5,7 @@
 -- =========================================================================
 
 --local dkomappings = require("dko.mappings")
-local dkolsp = require("dko.lsp")
+local dkolsp = require("dko.utils.lsp")
 local dkotools = require("dko.tools")
 
 local uis = vim.api.nvim_list_uis()

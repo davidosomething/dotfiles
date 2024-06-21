@@ -1,9 +1,7 @@
 local conditions = require("heirline.conditions")
 return {
   init = function(self)
-    self.branch = conditions.is_git_repo()
-        and vim.api.nvim_buf_get_var(0, "gitsigns_head")
-      or ""
+    self.branch = conditions.is_git_repo() and vim.g.gitsigns_head or ""
 
     self.cwd = vim.uv.cwd()
   end,

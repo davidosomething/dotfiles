@@ -74,7 +74,7 @@ map(
 map("n", "<Leader>..", "<Cmd>cd! ..<CR>", { desc = "cd up a level" })
 
 map("n", "<Leader>cr", function()
-  local root = require("dko.project").get_git_root()
+  local root = require("dko.utils.project").get_git_root()
   if root then
     if vim.uv.chdir(root) == 0 then
       vim.notify(root, vim.log.levels.INFO, { title = "Changed directory" })
@@ -399,7 +399,7 @@ M.bind_lsp = function(bufnr)
     vim.lsp.buf.rename()
   end, lsp_opts({ desc = "LSP rename" }))
 
-  map("n", "<Leader>ca", require("dko.lsp").code_action, {
+  map("n", "<Leader>ca", require("dko.utils.lsp").code_action, {
     desc = "NOT IMPLEMENTED Single code action",
   })
 
@@ -422,9 +422,11 @@ M.bind_lsp = function(bufnr)
     "n",
     "<A-=>",
     function()
-      require("dko.format").run_pipeline({ async = false })
+      require("dko.utils.format").run_pipeline({ async = false })
     end,
-    lsp_opts({ desc = "Fix and format buffer with dko.format.run_pipeline" })
+    lsp_opts({
+      desc = "Fix and format buffer with dko.utils.format.run_pipeline",
+    })
   )
 end
 
@@ -456,7 +458,7 @@ M.bind_on_lspattach = function(args)
 end
 
 -- @TODO
-M.unbind_on_lspdetach = function(args)
+M.unbind_on_lspdetach = function(_args)
   -- local bufnr = args.buf
   -- local clients = vim.lsp.get_clients({ bufnr = bufnr })
   -- if #clients == 0 then -- Last LSP attached
@@ -473,7 +475,7 @@ M.bind_tsserver_lsp = function(client, bufnr)
     if vim.fn.exists(":TSToolsGoToSourceDefinition") ~= 0 then
       vim.cmd.TSToolsGoToSourceDefinition()
     end
-    if require("dko.typescript").source_definition(client) then
+    if require("dko.utils.typescript").source_definition(client) then
       return
     end
     return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
@@ -483,9 +485,12 @@ M.bind_tsserver_lsp = function(client, bufnr)
     buffer = bufnr,
   })
 
+  -- For typescript only (i.e. not JSON files)
   -- use go to def for gf, lazy way of getting it to map import dir/ to
   -- dir/index.ts automatically
-  map("n", "gf", "gd", { remap = true })
+  if vim.startswith(vim.bo.filetype, "t") then
+    map("n", "gf", "gd", { remap = true })
+  end
 end
 
 -- ===========================================================================
@@ -630,19 +635,6 @@ M.setup_cmp = function()
     ["<C-j>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
   }, snippy_mappings))
-end
-
--- ===========================================================================
--- Plugin: nvim-notify
--- ===========================================================================
-
-M.bind_notify = function()
-  map(
-    "n",
-    "<A-\\>",
-    "<Cmd>Notifications<CR>",
-    { desc = "Show recent notifications" }
-  )
 end
 
 -- =============================================================================
@@ -818,7 +810,7 @@ M.bind_telescope = function()
       hidden = true,
       layout_strategy = "vertical",
       prompt_title = "Files in buffer's project",
-      cwd = require("dko.project").root(),
+      cwd = require("dko.utils.project").root(),
     })
   end, {
     desc = "Telescope: pick from previously opened files in current project root",

@@ -14,6 +14,14 @@ tools.register({
   end,
 })
 
+-- code actions for link completion
+tools.register({
+  mason_type = "lsp",
+  name = "marksman",
+  fts = { "markdown" },
+  runner = "mason-lspconfig",
+})
+
 -- needs temp file to handle
 -- tools.register({
 --   mason_type = "tool",
@@ -37,3 +45,19 @@ tools.register({
     return require("efmls-configs.formatters.prettier")
   end,
 })
+
+-- Vale not working
+--
+-- tools.register({
+--   mason_type = "tool",
+--   name = "vale",
+--   fts = { "markdown" },
+-- })
+--
+-- -- vale_ls needs vale cli tool!
+-- tools.register({
+--   mason_type = "lsp",
+--   name = "vale_ls",
+--   fts = { "markdown" },
+--   runner = "mason-lspconfig",
+-- })

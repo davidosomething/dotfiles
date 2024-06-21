@@ -65,7 +65,7 @@ function {
   export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
 
   # Customized from instructions at https://github.com/sharkdp/bat#man
-  local bat_manpager="export MANPAGER=\"sh -c 'col -bx | bat --language man --paging always --style=grid'\""
+  local bat_manpager="export MANPAGER=\"sh -c 'col -bx | bat --language man --paging always --style=grid'\"; export MANROFFOPT="-c""
 
   zinit lucid from'gh-r' as'program' for \
     mv'bat* -> bat' \
