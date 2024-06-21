@@ -173,7 +173,7 @@ return {
               if cwd_relative.b == "" then
                 return smallcaps("[cwd]")
               end
-              final = ("in %s"):format(cwd_relative.b)
+              final = ("%s"):format(cwd_relative.b)
             else
               final = ("↑%d/%s"):format(cwd_relative.levels, cwd_relative.b)
             end

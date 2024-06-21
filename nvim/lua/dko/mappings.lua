@@ -485,9 +485,12 @@ M.bind_tsserver_lsp = function(client, bufnr)
     buffer = bufnr,
   })
 
+  -- For typescript only (i.e. not JSON files)
   -- use go to def for gf, lazy way of getting it to map import dir/ to
   -- dir/index.ts automatically
-  map("n", "gf", "gd", { remap = true })
+  if vim.startswith(vim.bo.filetype, "t") then
+    map("n", "gf", "gd", { remap = true })
+  end
 end
 
 -- ===========================================================================
