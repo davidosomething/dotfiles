@@ -10,10 +10,6 @@ Show truecolor colors in terminal
 
 Show 8-bit colors in terminal
 
-## a2r
-
-Restart apache2
-
 ## addcert
 
 Add a certificate
@@ -76,10 +72,6 @@ Shortcuts to update dotfiles, packages, and general system maintenance.
 ## e
 
 Open in single nvim socket instance or use $EDITOR
-
-## eapache
-
-Find and edit the apache httpd.conf file
 
 ## egr
 
@@ -230,4 +222,5 @@ Get current wifi password in plaintext
 
 ## xcw
 
-Open nearest *.xcworkspace
+Open nearest \*.xcworkspace
+
