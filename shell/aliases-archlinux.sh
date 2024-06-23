@@ -2,20 +2,22 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases-archlinux.sh"
 
+alias biosinfo='run0 dmidecode -t bios -q'
+
 # Always create log file
 alias makepkg='makepkg --log'
 
-alias pacunlock='sudo rm /var/lib/pacman/db.lck'
+alias pacunlock='run0 rm /var/lib/pacman/db.lck'
 
-alias sysreload='sudo systemctl daemon-reload'
+alias sysreload='run0 systemctl daemon-reload'
 
-alias verifyfstab='sudo findmnt --verify --verbose'
+alias verifyfstab='run0 findmnt --verify --verbose'
 
 alias paru-clean-orphans='paru -Qtdq | paru -Rns -'
 
 # It keeps dying on lock!
 fixpulse() {
-  sudo rm -rf ~/.config/pulse
+  run0 rm -rf ~/.config/pulse
   systemctl --user start pulseaudio
 }
 
