@@ -11,6 +11,7 @@ My [/uses] post my be of interest to you!
 | ----------------- | --------------------------- |
 | OS support        | Arch, macOS, Debian, Ubuntu |
 | Terminal emulator | [wezterm]                   |
+| Font              | [Maple Mono]                |
 | Shell             | zsh                         |
 | Shell plugins     | [zinit]                     |
 | Editor            | [neovim]                    |
@@ -133,10 +134,11 @@ For X apps (no terminal) the value may be:
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
 [grawity's notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
-[neovim]: https://neovim.io/
 [mise]: https://github.com/jdx/mise
+[neovim]: https://neovim.io/
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/meta/meta/terminal-potatosff.png
 [/uses]: https://www.davidosomething.com/uses/
 [wezterm]: https://wezfurlong.org/wezterm/
 [XDG]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 [zinit]: https://github.com/zdharma-continuum/zinit
+[Maple Mono]: https://github.com/subframe7536/maple-font
