@@ -44,10 +44,6 @@ pre-existing dotfiles that conflict with these (mac does this).
 After symlinking and restarting shell, aliases will be available.
 The `sshkeygen` alias will help in generating a new SSH key.
 
-#### node, python, and ruby
-
-Use [mise]
-
 ### Provisioning scripts
 
 These will assist in installing packages and dotfiles. Best to have the
