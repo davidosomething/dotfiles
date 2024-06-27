@@ -15,14 +15,14 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 > Indent: [hlchunk](https://github.com/shellRaining/hlchunk.nvim) is displaying the current indent chunk.  
 > Status: Normal mode; `type` is searched with one occurrence found; ruler
 
-| Tool              | Link                          |
-| ----------------- | ----------------------------- |
-| Plugin manager    | [lazy.nvim]                   |
-| Colorscheme       | [vim-colors-meh] / [zenbones] |
-| Status/tab/winbar | [heirline]                    |
-| LSP/tool manager  | [mason.nvim]                  |
-| Local LSP         | [efm-langserver]              |
-| File finder       | [telescope]                   |
+| Tool              | Link             |
+| ----------------- | ---------------- |
+| Plugin manager    | [lazy.nvim]      |
+| Colorscheme       | [vim-colors-meh] |
+| Status/tab/winbar | [heirline]       |
+| LSP/tool manager  | [mason.nvim]     |
+| Local LSP         | [efm-langserver] |
+| File finder       | [telescope]      |
 
 ## custom things
 
@@ -32,7 +32,7 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
   - it will use a single nvim instance over the socket otherwise
 - if using my wezterm config, `<C-S-t>` will toggle the terminal and neovim
   theme between light and dark mode.
-- lsp/tool config is done in [dko/tools/](https://github.com/davidosomething/dotfiles/tree/dev/nvim/lua/dko/tools)
+- lsp/tool config is done in [dko/tools.lua](https://github.com/davidosomething/dotfiles/tree/dev/nvim/lua/dko/tools.lua)
   - lspconfig, efm, and null-ls all handled in one place
 - formatting is handled in [dko/utils/format.lua](https://github.com/davidosomething/dotfiles/blob/dev/nvim/lua/dko/utils/format.lua)
   - of note is a pipeline that can run eslint only, eslint and then
@@ -47,4 +47,3 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 [efm-langserver]: https://github.com/mattn/efm-langserver
 [telescope]: https://github.com/nvim-telescope/telescope.nvim
 [heirline]: https://github.com/rebelot/heirline.nvim
-[zenbones]: https://github.com/mcchrish/zenbones.nvim
