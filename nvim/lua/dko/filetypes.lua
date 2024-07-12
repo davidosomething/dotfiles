@@ -1,6 +1,7 @@
 vim.filetype.add({
   extension = {
     conf = "conf",
+    container = "systemd",
     env = "dotenv",
     tiltfile = "tiltfile",
     Tiltfile = "tiltfile",
