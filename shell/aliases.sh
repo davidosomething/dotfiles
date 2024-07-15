@@ -44,9 +44,9 @@ alias pyg='pygmentize -O style=rrt -f console256 -g'
 # docker
 # ----------------------------------------------------------------------------
 
-alias dcd='docker-compose down'
-alias dcud='docker-compose up -d'
-alias dcpull='docker-compose pull'
+alias dcd='docker compose down'
+alias dcud='docker compose up -d'
+alias dcpull='docker compose pull'
 
 alias docker_rm_dead_volumes='docker volume rm $(docker volume ls -qf dangling=true)'
 
@@ -54,7 +54,14 @@ alias docker_rm_dead_volumes='docker volume rm $(docker volume ls -qf dangling=t
 # editors
 # ----------------------------------------------------------------------------
 
-alias edc='e docker-compose.yml'
+edc() {
+  if [ -f 'compose.yaml' ]; then
+    e compose.yaml
+  elif [ -f 'docker-compose.yml' ]; then
+    e docker-compose.yaml
+  fi
+}
+
 alias ega='e "${DOTFILES}/git/aliases.gitconfig"'
 alias ehosts='se /etc/hosts'
 alias essh='e "${HOME}/.ssh/config"'
