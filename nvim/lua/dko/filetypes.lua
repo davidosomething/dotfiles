@@ -16,6 +16,7 @@ vim.filetype.add({
     [".yamlfmt"] = "yaml",
   },
   pattern = {
+    ["compose.y.?ml"] = "yaml.docker-compose",
     ["docker%-compose%.y.?ml"] = "yaml.docker-compose",
     ["%.env%.[%w_.-]+"] = "dotenv",
     ["tsconfig%."] = "jsonc",
