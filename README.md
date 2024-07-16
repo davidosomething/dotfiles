@@ -11,6 +11,7 @@ My [/uses] post my be of interest to you!
 | ----------------- | --------------------------- |
 | OS support        | Arch, macOS, Debian, Ubuntu |
 | Terminal emulator | [wezterm]                   |
+| Font              | [Maple Mono]                |
 | Shell             | zsh                         |
 | Shell plugins     | [zinit]                     |
 | Editor            | [neovim]                    |
@@ -35,29 +36,12 @@ git clone https://github.com/davidosomething/dotfiles ~/.dotfiles
 Then, run the [bootstrap/symlink](bootstrap/symlink) script for linux or
 [bootstrap/mac](bootstrap/mac) for macOS.
 
-After symlinking, [bootstrap/cleanup](bootstrap/cleanup) can detect and move
-pre-existing dotfiles that conflict with these (mac does this).
-
-### Dev environment setup
+After symlinking, [bootstrap/cleanup](bootstrap/cleanup) can move dotfiles into
+their XDG Base Directory supported directories and deletes unnecessary things
+(with confirmation).
 
 After symlinking and restarting shell, aliases will be available.
 The `sshkeygen` alias will help in generating a new SSH key.
-
-#### node, python, and ruby
-
-Use [mise]
-
-### Provisioning scripts
-
-These will assist in installing packages and dotfiles. Best to have the
-environment set up first.
-
-- [bootstrap/cleanup](bootstrap/cleanup) moves some dotfiles into their XDG
-  Base Directory supported directories and deletes unnecessary things (with
-  confirmation).
-- [bootstrap/mac](bootstrap/mac) provision macOS. Runs other bootstrappers.
-- [bootstrap/symlink](bootstrap/symlink) symlinks rc files for bash, ZSH,
-  ack, Neovim, etc.
 
 ## Updating
 
@@ -133,10 +117,11 @@ For X apps (no terminal) the value may be:
 [environ notes]: https://github.com/grawity/dotfiles/blob/master/.environ.notes
 [grawity's notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
-[neovim]: https://neovim.io/
 [mise]: https://github.com/jdx/mise
-[screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/8fa3d6a738ed39ff2b8ba7a5d9126b59d895b538/meta/terminal-potatopro.png
+[neovim]: https://neovim.io/
+[screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/meta/meta/terminal-potatosff.png
 [/uses]: https://www.davidosomething.com/uses/
 [wezterm]: https://wezfurlong.org/wezterm/
 [XDG]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 [zinit]: https://github.com/zdharma-continuum/zinit
+[Maple Mono]: https://github.com/subframe7536/maple-font
