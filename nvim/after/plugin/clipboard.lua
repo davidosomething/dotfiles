@@ -1,4 +1,4 @@
-local smallcaps = require('dko.utils.string').smallcaps
+local smallcaps = require("dko.utils.string").smallcaps
 
 -- neovim supports built-in osc52 as of
 --  https://github.com/neovim/neovim/pull/25872/files
@@ -12,7 +12,7 @@ if require("dko.utils.clipboard").should_use_osc52() then
     return
   end
 
-  local tag = vim.env.SSH_TTY and " (" ..smallcaps("ssh")..")" or ""
+  local tag = vim.env.SSH_TTY and " (" .. smallcaps("ssh") .. ")" or ""
 
   -- neovim automatically does this as long as 'clipboard' is not set
   vim.g.clipboard = {
@@ -23,10 +23,10 @@ if require("dko.utils.clipboard").should_use_osc52() then
     },
     -- wezterm no paste support yet
     -- https://github.com/wez/wezterm/issues/2050
-    -- paste = {
-    --   ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    --   ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-    -- },
+    paste = {
+      --   ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+      --   ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
   }
 
   -- add this now
