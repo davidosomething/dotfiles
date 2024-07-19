@@ -10,6 +10,9 @@ local settings = {
     --   dark = "meh",
     --   light = "zenbones",
   },
+  diagnostics = {
+    goto_float = true,
+  },
   heirline = {
     show_buftype = false,
   },

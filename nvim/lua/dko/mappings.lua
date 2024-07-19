@@ -1,4 +1,5 @@
 local dkobuffer = require("dko.utils.buffer")
+local dkosettings = require("dko.settings")
 
 local map = vim.keymap.set
 
@@ -278,12 +279,16 @@ map("i", "<S-Tab>", "<C-d>", {
 
 -- @TODO remove - default as of https://github.com/neovim/neovim/commit/73034611c25d16df5e87c8afb2d339a03a91bd0d/
 map("n", "[d", function()
-  vim.diagnostic.goto_prev()
+  vim.diagnostic.goto_prev({
+    float = dkosettings.get("diagnostics.goto_float"),
+  })
 end, { desc = "Go to prev diagnostic and open float" })
 
 -- @TODO remove - default as of https://github.com/neovim/neovim/commit/73034611c25d16df5e87c8afb2d339a03a91bd0d/
 map("n", "]d", function()
-  vim.diagnostic.goto_next()
+  vim.diagnostic.goto_next({
+    float = dkosettings.get("diagnostics.goto_float"),
+  })
 end, { desc = "Go to next diagnostic and open float" })
 
 -- @TODO start using <c-w><c-d> as of https://github.com/neovim/neovim/commit/73034611c25d16df5e87c8afb2d339a03a91bd0d/
