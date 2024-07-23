@@ -1,5 +1,8 @@
 local smallcaps = require("dko.utils.string").smallcaps
 
+-- Too lazy to switch registers, just use system plus as default
+vim.o.clipboard = "unnamedplus"
+
 -- neovim supports built-in osc52 as of
 --  https://github.com/neovim/neovim/pull/25872/files
 -- and it is used if we are on a remote connection by default as of
@@ -24,11 +27,8 @@ if require("dko.utils.clipboard").should_use_osc52() then
     -- wezterm no paste support yet
     -- https://github.com/wez/wezterm/issues/2050
     paste = {
-      --   ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-      --   ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+      ["+"] = function() end,
+      ["*"] = function() end,
     },
   }
-
-  -- add this now
-  vim.o.clipboard = "unnamedplus"
 end
