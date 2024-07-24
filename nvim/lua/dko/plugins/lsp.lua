@@ -46,11 +46,26 @@ return {
   -- using fidget.nvim instead
   --{ "deathbeam/lspecho.nvim" },
 
+  -- https://github.com/aznhe21/actions-preview.nvim
+  -- {
+  --   "aznhe21/actions-preview.nvim",
+  --   dependencies = {
+  --     "nvim-telescope/telescope.nvim",
+  --   },
+  -- },
+
+  -- https://github.com/rachartier/tiny-code-action.nvim
+  -- https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
   {
-    "aznhe21/actions-preview.nvim",
+    "rachartier/tiny-code-action.nvim",
     dependencies = {
-      "nvim-telescope/telescope.nvim",
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim" },
     },
+    event = "LspAttach",
+    config = function()
+      require("tiny-code-action").setup()
+    end,
   },
 
   -- This has a cursor based code_action instead line based, so you get more

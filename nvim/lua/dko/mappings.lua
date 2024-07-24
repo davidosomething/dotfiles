@@ -414,6 +414,13 @@ M.bind_lsp = function(bufnr)
       ap.code_actions()
       return
     end
+
+    local tca_ok, tca = pcall(require, "tiny-code-action")
+    if tca_ok then
+      tca.code_action()
+      return
+    end
+
     vim.lsp.buf.code_action()
   end, lsp_opts({ desc = "LSP Code Action" }))
 
