@@ -105,13 +105,14 @@ return {
     end,
   },
 
+  -- @TODO remove?
+  -- https://github.com/pmizio/typescript-tools.nvim
   {
     "pmizio/typescript-tools.nvim",
-    cond = has_ui,
+    cond = has_ui and vim.tbl_contains(dkotools.get_mason_lsps(), "tsserver"), -- I'm using vtsls now instead
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     config = function()
-      local tsserver_config =
-        require("dko.tools.javascript-typescript").tsserver.config
+      local tsserver_config = require("dko.utils.typescript").tsserver.config
 
       require("typescript-tools").setup({
         on_attach = tsserver_config.on_attach,

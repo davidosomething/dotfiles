@@ -126,6 +126,7 @@ workbench.xmi
 
 dump.rdb
 .jscpd/
+.nx/
 .sass-cache/
 package-lock.json.*
 containerlog.txt

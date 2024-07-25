@@ -483,19 +483,27 @@ end
 M.bind_tsserver_lsp = function(client, bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the
   -- type declaration files.
-  map("n", "gd", function()
-    if vim.fn.exists(":TSToolsGoToSourceDefinition") ~= 0 then
-      vim.cmd.TSToolsGoToSourceDefinition()
-    end
-    if require("dko.utils.typescript").source_definition(client) then
-      return
-    end
-    return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
-  end, {
-    desc = "Go To Source Definition (typescript.nvim)",
-    silent = true,
-    buffer = bufnr,
-  })
+  -- map("n", "gd", function()
+  --   if vim.fn.exists(":TSToolsGoToSourceDefinition") ~= 0 then
+  --     vim.cmd.TSToolsGoToSourceDefinition()
+  --     return
+  --   end
+  --
+  --   if vim.tbl_contains(require("dko.tools").get_mason_lsps(), "vtsls") then
+  --     require("dko.utils.typescript").vtsls_source_definition()
+  --     return
+  --   end
+  --
+  --   if require("dko.utils.typescript").source_definition(client) then
+  --     return
+  --   end
+  --
+  --   return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
+  -- end, {
+  --   desc = "Go To Source Definition (typescript.nvim)",
+  --   silent = true,
+  --   buffer = bufnr,
+  -- })
 
   -- For typescript only (i.e. not JSON files)
   -- use go to def for gf, lazy way of getting it to map import dir/ to
