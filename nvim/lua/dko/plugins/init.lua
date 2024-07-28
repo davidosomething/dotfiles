@@ -312,6 +312,9 @@ return {
         -- virtual_symbol_suffix = '',
         ---Highlight tailwind colors, e.g. 'bg-blue-500'
         enable_tailwind = true,
+        exclude_filetypes = {
+          "lazy",
+        },
       })
     end,
   },
