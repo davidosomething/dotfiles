@@ -345,6 +345,10 @@ return {
   -- Writing
   -- =========================================================================
 
+  -- reconcile filename when using sudoedit
+  -- https://github.com/HE7086/sudoedit.nvim
+  { "HE7086/sudoedit.nvim" },
+
   -- because https://github.com/neovim/neovim/issues/1496
   -- once https://github.com/neovim/neovim/pull/10842 is merged, there will
   -- probably be a better implementation for this
