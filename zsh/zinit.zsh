@@ -47,14 +47,6 @@ function {
     ;
 
   # ----------------------------------------------------------------------------
-  # FZF
-  # ----------------------------------------------------------------------------
-
-  zinit lucid for \
-    if'! __dko_has fzf' from'gh-r' as'program' \
-    'junegunn/fzf-bin';
-
-  # ----------------------------------------------------------------------------
   # Utilities
   # ----------------------------------------------------------------------------
 
@@ -78,6 +70,8 @@ function {
     atload"$bat_manpager" \
     '@sharkdp/bat' \
     \
+    atclone'delta/delta --generate-completion zsh > delta/_delta' \
+    atpull'%atclone' \
     mv'delta* -> delta' \
     pick'delta/delta' \
     'dandavison/delta' \
@@ -86,6 +80,9 @@ function {
     atclone"cp -vf fd/fd.1 \"${man_dir}\"" \
     atpull'%atclone' \
     '@sharkdp/fd' \
+    \
+    atload'source <(fzf --zsh)' \
+    'junegunn/fzf';
     \
     mv'jq* -> jq' \
     'jqlang/jq' \
