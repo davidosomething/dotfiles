@@ -8,11 +8,11 @@ __main() {
   local current
   local version
 
-  command -v fzf-tmux >/dev/null || return 1
+  command -v fzf >/dev/null || return 1
   command -v xcode-select >/dev/null || return 1
 
   current=$(xcode-select --print-path)
-  version=$(find /Applications -maxdepth 1 -iname 'Xcode*.app' | fzf-tmux \
+  version=$(find /Applications -maxdepth 1 -iname 'Xcode*.app' | fzf \
     +m \
     --cycle \
     --exit-0 \
