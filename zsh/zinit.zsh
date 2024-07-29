@@ -92,6 +92,7 @@ function {
     atpull'%atclone' \
     'BurntSushi/ripgrep' \
     \
+    atload'eval "$(zoxide init --cmd j zsh)"' \
     pick'zoxide/zoxide' \
     'ajeetdsouza/zoxide' \
     ;
