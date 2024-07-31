@@ -46,6 +46,7 @@ return {
   -- using fidget.nvim instead
   --{ "deathbeam/lspecho.nvim" },
 
+  -- using tiny-code-action instead
   -- https://github.com/aznhe21/actions-preview.nvim
   -- {
   --   "aznhe21/actions-preview.nvim",
@@ -54,7 +55,6 @@ return {
   --   },
   -- },
 
-  -- This keeps timing out with vtsls
   -- https://github.com/rachartier/tiny-code-action.nvim
   -- https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
   {
