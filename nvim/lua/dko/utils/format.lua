@@ -150,11 +150,13 @@ M.disable_on_lspdetach = function(args)
   end
 
   vim.b.enable_format_on_save = false
-  vim.notify(
-    "Format on save disabled, no capable clients attached",
-    vim.log.levels.INFO,
-    { title = "[LSP]", render = "compact" }
-  )
+  vim.schedule(function()
+    vim.notify(
+      "Format on save disabled, no capable clients attached",
+      vim.log.levels.INFO,
+      { title = "[LSP]", render = "compact" }
+    )
+  end)
 end
 
 -- autocmd callback for *WritePre
