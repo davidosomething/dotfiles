@@ -408,19 +408,34 @@ M.bind_lsp = function(bufnr)
     desc = "NOT IMPLEMENTED Single code action",
   })
 
-  map("n", "<Leader><Leader>", function()
-    local ap_ok, ap = pcall(require, "actions-preview")
-    if ap_ok then
-      ap.code_actions()
-      return
-    end
+  local code_action = {}
 
+  code_action.tca = function()
     local tca_ok, tca = pcall(require, "tiny-code-action")
     if tca_ok then
       tca.code_action()
+      return true
+    end
+    return false
+  end
+
+  code_action.ap = function()
+    local ap_ok, ap = pcall(require, "actions-preview")
+    if ap_ok then
+      ap.code_actions()
+      return true
+    end
+    return false
+  end
+
+  map("n", "<Leader><Leader>", function()
+    if dkosettings.get("lsp.code_action") == "tiny-code-action" then
+      if code_action.tca() or code_action.ap() then
+        return
+      end
+    elseif code_action.ap() or code_action.tca() then
       return
     end
-
     vim.lsp.buf.code_action()
   end, lsp_opts({ desc = "LSP Code Action" }))
 
