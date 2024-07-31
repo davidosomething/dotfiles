@@ -350,7 +350,12 @@ return {
 
   -- reconcile filename when using sudoedit
   -- https://github.com/HE7086/sudoedit.nvim
-  { "HE7086/sudoedit.nvim" },
+  {
+    "HE7086/sudoedit.nvim",
+    enabled = function()
+      return vim.fn.has("linux") == 1
+    end,
+  },
 
   -- because https://github.com/neovim/neovim/issues/1496
   -- once https://github.com/neovim/neovim/pull/10842 is merged, there will
