@@ -65,9 +65,7 @@ return {
     },
     event = "LspAttach",
     config = function()
-      require("tiny-code-action").setup({
-        lsp_timeout = 4000,
-      })
+      require("tiny-code-action").setup()
     end,
   },
 
