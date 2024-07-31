@@ -47,27 +47,27 @@ return {
   --{ "deathbeam/lspecho.nvim" },
 
   -- https://github.com/aznhe21/actions-preview.nvim
-  {
-    "aznhe21/actions-preview.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-  },
+  -- {
+  --   "aznhe21/actions-preview.nvim",
+  --   dependencies = {
+  --     "nvim-telescope/telescope.nvim",
+  --   },
+  -- },
 
   -- This keeps timing out with vtsls
   -- https://github.com/rachartier/tiny-code-action.nvim
   -- https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
-  -- {
-  --   "rachartier/tiny-code-action.nvim",
-  --   dependencies = {
-  --     { "nvim-lua/plenary.nvim" },
-  --     { "nvim-telescope/telescope.nvim" },
-  --   },
-  --   event = "LspAttach",
-  --   config = function()
-  --     require("tiny-code-action").setup()
-  --   end,
-  -- },
+  {
+    "rachartier/tiny-code-action.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim" },
+    },
+    event = "LspAttach",
+    config = function()
+      require("tiny-code-action").setup()
+    end,
+  },
 
   -- This has a cursor based code_action instead line based, so you get more
   -- specific actions.
