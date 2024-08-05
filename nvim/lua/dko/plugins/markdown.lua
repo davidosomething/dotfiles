@@ -1,5 +1,7 @@
-return {
+local uis = vim.api.nvim_list_uis()
+local has_ui = #uis > 0
 
+return {
   -- https://github.com/tadmccorkle/markdown.nvim
   {
     "tadmccorkle/markdown.nvim",
@@ -23,5 +25,40 @@ return {
         map("n", "<c-x>", "<Cmd>MDTaskToggle<CR>", opts)
       end,
     },
+  },
+
+  -- off until fix https://github.com/OXY2DEV/markview.nvim/issues/75
+  -- https://github.com/OXY2DEV/markview.nvim
+  -- {
+  --   "OXY2DEV/markview.nvim",
+  --   lazy = false, -- Recommended
+  --   -- ft = "markdown" -- If you decide to lazy-load anyway
+  --   dependencies = {
+  --     -- You will not need this if you installed the
+  --     -- parsers manually
+  --     -- Or if the parsers are in your $RUNTIMEPATH
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   config = function()
+  --     local markview = require("markview")
+  --     local presets = require("markview.presets")
+  --     markview.setup({
+  --       -- headings color bg only, no icon no conceal content
+  --       headings = presets.headings.simple,
+  --       tables = { enable = false },
+  --     })
+  --   end,
+  -- },
+
+  {
+    "lukas-reineke/headlines.nvim",
+    cond = has_ui,
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    opts = {
+      markdown = {
+        bullets = {},
+      },
+    }, -- or `opts = {}`
   },
 }
