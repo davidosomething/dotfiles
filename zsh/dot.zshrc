@@ -69,6 +69,7 @@ fi
 
 compdef g=git
 compdef e=nvim
+__dko_has 'pipx' && eval "$(register-python-argcomplete pipx)"
 
 # ============================================================================
 # Options

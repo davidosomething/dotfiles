@@ -32,11 +32,8 @@ jobs:
         run: npm ci
 
       - name: Install pipx via Brew
-        run: |
-          if [ "$RUNNER_OS" == "macOS" ]; then
-            brew install pipx
-            brew install shellcheck
-          fi
+        if: matrix.os == 'macos-latest'
+        run: brew install pipx && pipx ensurepath
 
       - name: Install neovim nightly
         uses: rhysd/action-setup-vim@v1
