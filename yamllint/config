@@ -5,5 +5,12 @@ rules:
     ignore-shebangs: true
     require-starting-space: true
   document-start: disable
+  empty-lines:
+    max-end: 1
   truthy:
     check-keys: false
+ignore: |
+  node_modules/
+  tmux/plugins/
+  zsh/.zinit/
+  pnpm-lock.yaml
