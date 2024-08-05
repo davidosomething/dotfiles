@@ -40,13 +40,14 @@ return {
   --     "nvim-treesitter/nvim-treesitter",
   --     "nvim-tree/nvim-web-devicons",
   --   },
+  --   commit = "5488c07", -- links in tables fixed
   --   config = function()
   --     local markview = require("markview")
   --     local presets = require("markview.presets")
   --     markview.setup({
   --       -- headings color bg only, no icon no conceal content
   --       headings = presets.headings.simple,
-  --       tables = { enable = false },
+  --       -- tables = { enable = false },
   --     })
   --   end,
   -- },
