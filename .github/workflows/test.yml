@@ -1,3 +1,4 @@
+---
 name: test
 
 on:
@@ -16,23 +17,26 @@ jobs:
       TERM: xterm
 
     steps:
-      - name: Brew
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Provision dotfiles
+        run: ./bootstrap/symlink
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+
+      - name: Install node packages via npm
+        run: npm ci
+
+      - name: Install pipx via Brew
         run: |
           if [ "$RUNNER_OS" == "macOS" ]; then
             brew install pipx
             brew install shellcheck
           fi
-
-      - name: Check out repository code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: 'package.json'
-
-      - name: Install npm packages
-        run: npm ci
 
       - name: Install neovim nightly
         uses: rhysd/action-setup-vim@v1
@@ -40,7 +44,5 @@ jobs:
           neovim: true
           version: nightly
 
-      - name: Test
-        run: |
-          ./bootstrap/symlink
-          npm test --silent
+      - name: Run tests
+        run: npm test --silent
