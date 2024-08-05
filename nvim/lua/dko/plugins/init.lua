@@ -48,6 +48,27 @@ return {
     event = "VeryLazy",
   },
 
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("tiny-inline-diagnostic").setup({
+        blend = {
+          factor = 0.3,
+        },
+        options = {
+          break_line = {
+            enabled = true,
+            after = 80,
+          },
+          multiple_diag_under_cursor = true,
+          show_source = true,
+        },
+      })
+      dkosettings.set("diagnostics.goto_float", false)
+    end,
+  },
+
   -- =========================================================================
   -- ui: buffer and window manipulation
   -- =========================================================================
@@ -291,6 +312,9 @@ return {
         -- virtual_symbol_suffix = '',
         ---Highlight tailwind colors, e.g. 'bg-blue-500'
         enable_tailwind = true,
+        exclude_filetypes = {
+          "lazy",
+        },
       })
     end,
   },
@@ -324,6 +348,15 @@ return {
   -- Writing
   -- =========================================================================
 
+  -- reconcile filename when using sudoedit
+  -- https://github.com/HE7086/sudoedit.nvim
+  {
+    "HE7086/sudoedit.nvim",
+    enabled = function()
+      return vim.fn.has("linux") == 1
+    end,
+  },
+
   -- because https://github.com/neovim/neovim/issues/1496
   -- once https://github.com/neovim/neovim/pull/10842 is merged, there will
   -- probably be a better implementation for this
@@ -332,10 +365,6 @@ return {
     cond = has_ui,
     cmd = "SudaWrite",
   },
-
-  -- =========================================================================
-  -- Editing
-  -- =========================================================================
 
   {
     "gbprod/yanky.nvim",

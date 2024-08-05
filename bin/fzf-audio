@@ -5,7 +5,7 @@
 __fzf-audio() {
   SwitchAudioSource -s \
     "$(SwitchAudioSource -a | grep "(output)" |\
-    fzf-tmux --height=8 --cycle --no-mouse --no-multi |\
+    fzf --height=8 --cycle --no-mouse --no-multi |\
     cut -f1 -d'(' | xargs)"
 }
 

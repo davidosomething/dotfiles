@@ -40,7 +40,7 @@ __fzf-git-branch() {
   fi
 
   local out
-  out=$(fzf-tmux \
+  out=$(fzf \
     +m \
     --cycle \
     --exit-0 \
@@ -49,15 +49,15 @@ __fzf-git-branch() {
     --no-mouse \
     --nth=1 \
     --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
-    --prompt="${current}> " <<< "$branches")
+    --prompt="${current}> " <<<"$branches")
 
   local branch
-  branch="$(head -2 <<< "$out" | tail -1)"
+  branch="$(head -2 <<<"$out" | tail -1)"
   branch="${branch//[[:blank:]]/}" # strip spaces
   [ -z "$branch" ] && return 1
 
   local key
-  key="$(head -1 <<< "$out")"
+  key="$(head -1 <<<"$out")"
 
   if [[ "$key" == "ctrl-y" ]]; then
     printf '%s' "$branch" | pbcopy

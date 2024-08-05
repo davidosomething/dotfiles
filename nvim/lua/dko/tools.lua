@@ -160,24 +160,28 @@ M.get_efm_languages = function(filter)
   end)
 end
 
+local fegcache = {}
 ---Get a list of tools that CAN be installed because required binary available
 ---@param groups ToolGroups
 ---@param category string for logging only
 ---@return ToolGroups --- { ["npm"] = { "prettier" = {...config} } if npm is executable
 M.filter_executable_groups = function(category, groups)
-  return dkotable.filter(groups, function(_, bin)
-    if bin ~= "_" and vim.fn.executable(bin) == 0 then
-      require("dko.doctor").warn({
-        category = category,
-        message = ("[%s] %s not found, skip installation"):format(
-          category,
-          bin
-        ),
-      })
-      return false
-    end
-    return true
-  end)
+  if not fegcache[category] then
+    fegcache[category] = dkotable.filter(groups, function(_, bin)
+      if bin ~= "_" and vim.fn.executable(bin) == 0 then
+        require("dko.doctor").warn({
+          category = category,
+          message = ("[%s] %s not found, skip installation"):format(
+            category,
+            bin
+          ),
+        })
+        return false
+      end
+      return true
+    end)
+  end
+  return fegcache[category]
 end
 
 ---@param groups ToolGroups { ["npm"] = { "black" = {...config},... }

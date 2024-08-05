@@ -46,11 +46,27 @@ return {
   -- using fidget.nvim instead
   --{ "deathbeam/lspecho.nvim" },
 
+  -- https://github.com/aznhe21/actions-preview.nvim
   {
     "aznhe21/actions-preview.nvim",
     dependencies = {
       "nvim-telescope/telescope.nvim",
     },
+  },
+
+  -- This keeps timing out on initial open
+  -- https://github.com/rachartier/tiny-code-action.nvim
+  -- https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
+  {
+    "rachartier/tiny-code-action.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim" },
+    },
+    event = "LspAttach",
+    config = function()
+      require("tiny-code-action").setup()
+    end,
   },
 
   -- This has a cursor based code_action instead line based, so you get more
@@ -90,13 +106,14 @@ return {
     end,
   },
 
+  -- @TODO remove?
+  -- https://github.com/pmizio/typescript-tools.nvim
   {
     "pmizio/typescript-tools.nvim",
-    cond = has_ui,
+    cond = has_ui and vim.tbl_contains(dkotools.get_mason_lsps(), "tsserver"), -- I'm using vtsls now instead
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     config = function()
-      local tsserver_config =
-        require("dko.tools.javascript-typescript").tsserver.config
+      local tsserver_config = require("dko.utils.typescript").tsserver.config
 
       require("typescript-tools").setup({
         on_attach = tsserver_config.on_attach,

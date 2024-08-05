@@ -44,8 +44,10 @@ alias pyg='pygmentize -O style=rrt -f console256 -g'
 # docker
 # ----------------------------------------------------------------------------
 
-alias dcd='docker compose down'
-alias dcud='docker compose up -d'
+alias dcd='docker compose down --remove-orphans'
+alias dcr='docker compose restart'
+alias dcud='docker compose up -d --remove-orphans'
+alias dclogs='docker compose logs -f --timestamps'
 alias dcpull='docker compose pull'
 
 alias docker_rm_dead_volumes='docker volume rm $(docker volume ls -qf dangling=true)'

@@ -10,8 +10,17 @@ local settings = {
     --   dark = "meh",
     --   light = "zenbones",
   },
+  diagnostics = {
+    goto_float = true,
+  },
   heirline = {
     show_buftype = false,
+  },
+  lsp = {
+    -- Which code action UI should we try first?
+    -- The alternative will be tried second
+    code_action = "tiny-code-action",
+    --code_action = 'actions-preview',
   },
 }
 

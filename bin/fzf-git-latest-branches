@@ -25,7 +25,7 @@ __fzf-git-latest-branches() {
   fi
 
   local out
-  out=$(fzf-tmux \
+  out=$(fzf \
     +m \
     --cycle \
     --delimiter="$(( 2 + $(wc -l <<< "$branches") ))" \

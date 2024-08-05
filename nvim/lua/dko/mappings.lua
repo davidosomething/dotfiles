@@ -1,4 +1,5 @@
 local dkobuffer = require("dko.utils.buffer")
+local dkosettings = require("dko.settings")
 
 local map = vim.keymap.set
 
@@ -278,12 +279,16 @@ map("i", "<S-Tab>", "<C-d>", {
 
 -- @TODO remove - default as of https://github.com/neovim/neovim/commit/73034611c25d16df5e87c8afb2d339a03a91bd0d/
 map("n", "[d", function()
-  vim.diagnostic.goto_prev()
+  vim.diagnostic.goto_prev({
+    float = dkosettings.get("diagnostics.goto_float"),
+  })
 end, { desc = "Go to prev diagnostic and open float" })
 
 -- @TODO remove - default as of https://github.com/neovim/neovim/commit/73034611c25d16df5e87c8afb2d339a03a91bd0d/
 map("n", "]d", function()
-  vim.diagnostic.goto_next()
+  vim.diagnostic.goto_next({
+    float = dkosettings.get("diagnostics.goto_float"),
+  })
 end, { desc = "Go to next diagnostic and open float" })
 
 -- @TODO start using <c-w><c-d> as of https://github.com/neovim/neovim/commit/73034611c25d16df5e87c8afb2d339a03a91bd0d/
@@ -403,10 +408,32 @@ M.bind_lsp = function(bufnr)
     desc = "NOT IMPLEMENTED Single code action",
   })
 
-  map("n", "<Leader><Leader>", function()
+  local code_action = {}
+
+  code_action.tca = function()
+    local tca_ok, tca = pcall(require, "tiny-code-action")
+    if tca_ok then
+      tca.code_action()
+      return true
+    end
+    return false
+  end
+
+  code_action.ap = function()
     local ap_ok, ap = pcall(require, "actions-preview")
     if ap_ok then
       ap.code_actions()
+      return true
+    end
+    return false
+  end
+
+  map("n", "<Leader><Leader>", function()
+    if dkosettings.get("lsp.code_action") == "tiny-code-action" then
+      if code_action.tca() or code_action.ap() then
+        return
+      end
+    elseif code_action.ap() or code_action.tca() then
       return
     end
     vim.lsp.buf.code_action()
@@ -472,12 +499,34 @@ M.bind_tsserver_lsp = function(client, bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the
   -- type declaration files.
   map("n", "gd", function()
+    -- typescript-tools.nvim
     if vim.fn.exists(":TSToolsGoToSourceDefinition") ~= 0 then
       vim.cmd.TSToolsGoToSourceDefinition()
-    end
-    if require("dko.utils.typescript").source_definition(client) then
       return
     end
+
+    -- vtsls
+    if vim.tbl_contains(require("dko.tools").get_mason_lsps(), "vtsls") then
+      if
+        require("dko.utils.typescript").go_to_source_definition(
+          "vtsls",
+          "typescript.goToSourceDefinition"
+        )
+      then
+        return
+      end
+
+    -- tsserver
+    elseif
+      require("dko.utils.typescript").go_to_source_definition(
+        "tsserver",
+        "_typescript.goToSourceDefinition"
+      )
+    then
+      return
+    end
+
+    -- fallback to telescope and default lsp definitions
     return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
   end, {
     desc = "Go To Source Definition (typescript.nvim)",

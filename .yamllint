@@ -13,3 +13,4 @@ ignore: |
   node_modules/
   tmux/plugins/
   zsh/.zinit/
+  pnpm-lock.yaml

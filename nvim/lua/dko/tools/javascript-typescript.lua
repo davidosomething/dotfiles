@@ -1,4 +1,5 @@
 local tools = require("dko.tools")
+local dkots = require("dko.utils.typescript")
 
 local M = {}
 
@@ -50,83 +51,51 @@ tools.register({
   runner = "mason-lspconfig",
 })
 
-tools.register({
-  name = "tsserver",
-  mason_type = "lsp",
-  require = "npm",
-  runner = "mason-lspconfig",
-  skip_init = true,
-})
-
-M.tsserver = {}
-M.tsserver.inlay_hint_settings = {
-  includeInlayParameterNameHints = "all",
-  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-  includeInlayFunctionParameterTypeHints = true,
-  includeInlayVariableTypeHints = true,
-  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-  includeInlayPropertyDeclarationTypeHints = true,
-  includeInlayFunctionLikeReturnTypeHints = true,
-  includeInlayEnumMemberValueHints = true,
-}
-
----@type lspconfig.Config
-M.tsserver.config = {
-  on_attach = function(client, bufnr)
-    require("dko.mappings").bind_tsserver_lsp(client, bufnr)
-    local twoslashok, twoslash = pcall(require, "twoslash-queries")
-    if twoslashok then
-      twoslash.attach(client, bufnr)
-    end
-  end,
-
-  handlers = {
-    [vim.lsp.protocol.Methods.textDocument_publishDiagnostics] = function(
-      _,
-      result,
-      ctx,
-      config
-    )
-      if not result.diagnostics then
-        return
-      end
-
-      -- ignore some tsserver diagnostics
-      local idx = 1
-      while idx <= #result.diagnostics do
-        local entry = result.diagnostics[idx]
-
-        local formatter = require("format-ts-errors")[entry.code]
-        entry.message = formatter and formatter(entry.message) or entry.message
-
-        -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
-        if entry.code == 80001 then
-          -- { message = "File is a CommonJS module; it may be converted to an ES module.", }
-          table.remove(result.diagnostics, idx)
-        else
-          idx = idx + 1
-        end
-      end
-
-      vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
-    end,
-  },
-
-  settings = {
-    typescript = { inlayHints = M.tsserver.inlay_hint_settings },
-    javascript = { inlayHints = M.tsserver.inlay_hint_settings },
-  },
-}
-
--- using typescript-tools.nvim instead
+-- mason-lspconfig tsserver config
 -- tools.register({
 --   name = "tsserver",
 --   mason_type = "lsp",
 --   require = "npm",
 --   runner = "mason-lspconfig",
 --   lspconfig = function()
---    return M.tsserver.config
+--    return dkots.tsserver.config
 --   end,
+-- })
+
+tools.register({
+  name = "vtsls",
+  mason_type = "lsp",
+  require = "npm",
+  runner = "mason-lspconfig",
+  lspconfig = function()
+    return {
+      on_attach = dkots.tsserver.config.on_attach,
+      handlers = dkots.tsserver.config.handlers,
+
+      -- importModuleSpecifier https://github.com/LazyVim/LazyVim/discussions/3623#discussioncomment-10089949
+      settings = {
+        javascript = {
+          preferences = {
+            importModuleSpecifier = "non-relative", -- "project-relative",
+          },
+        },
+        typescript = {
+          preferences = {
+            importModuleSpecifier = "non-relative", -- "project-relative",
+          },
+        },
+      },
+    }
+  end,
+})
+
+-- tsserver with no integration, used for "pmizio/typescript-tools.nvim"
+-- tools.register({
+--   name = "tsserver",
+--   mason_type = "lsp",
+--   require = "npm",
+--   runner = "mason-lspconfig",
+--   skip_init = true,
 -- })
 
 return M
