@@ -31,7 +31,7 @@ tools.register({
   lspconfig = function()
     return {
       settings = {
-        pyright = {
+        basedpyright = {
           -- Using Ruff's import organizer
           disableOrganizeImports = true,
         },
