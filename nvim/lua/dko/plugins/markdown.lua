@@ -48,7 +48,8 @@ return {
       markview.setup({
         -- headings color bg only, no icon no conceal content
         headings = presets.headings.simple,
-        -- tables = { enable = false },
+        links = { enable = false },
+        list_items = { enable = false },
         tables = { block_decorator = false },
       })
     end,
