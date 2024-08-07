@@ -27,42 +27,41 @@ return {
     },
   },
 
-  -- off until fix https://github.com/OXY2DEV/markview.nvim/issues/75
+  -- off until we can have buffer specific conceallevel
   -- https://github.com/OXY2DEV/markview.nvim
-  {
-    "OXY2DEV/markview.nvim",
-    lazy = false, -- Recommended
-    -- ft = "markdown" -- If you decide to lazy-load anyway
-    dependencies = {
-      -- You will not need this if you installed the
-      -- parsers manually
-      -- Or if the parsers are in your $RUNTIMEPATH
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
-    -- commit = "5488c07", -- links in tables fixed
-    branch = "dev",
-    config = function()
-      local markview = require("markview")
-      local presets = require("markview.presets")
-      markview.setup({
-        -- headings color bg only, no icon no conceal content
-        headings = presets.headings.simple,
-        links = { enable = false },
-        list_items = { enable = false },
-        tables = { block_decorator = false },
-      })
-    end,
-  },
-
   -- {
-  --   "lukas-reineke/headlines.nvim",
-  --   cond = has_ui,
-  --   dependencies = "nvim-treesitter/nvim-treesitter",
-  --   opts = {
-  --     markdown = {
-  --       bullets = {},
-  --     },
-  --   }, -- or `opts = {}`
+  --   "OXY2DEV/markview.nvim",
+  --   lazy = false, -- Recommended
+  --   -- ft = "markdown" -- If you decide to lazy-load anyway
+  --   dependencies = {
+  --     -- You will not need this if you installed the
+  --     -- parsers manually
+  --     -- Or if the parsers are in your $RUNTIMEPATH
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   -- commit = "5488c07", -- links in tables fixed
+  --   branch = "dev",
+  --   config = function()
+  --     local markview = require("markview")
+  --     local presets = require("markview.presets")
+  --     markview.setup({
+  --       -- headings color bg only, no icon no conceal content
+  --       headings = presets.headings.simple,
+  --       list_items = { enable = false },
+  --       tables = { block_decorator = false },
+  --     })
+  --   end,
   -- },
+
+  {
+    "lukas-reineke/headlines.nvim",
+    cond = has_ui,
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    opts = {
+      markdown = {
+        bullets = {},
+      },
+    }, -- or `opts = {}`
+  },
 }
