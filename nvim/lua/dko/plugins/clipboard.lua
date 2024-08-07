@@ -5,6 +5,21 @@ local has_ui = #uis > 0
 
 return {
   {
+    "gbprod/yanky.nvim",
+    cond = has_ui,
+    enabled = function()
+      return not dkoclipboard.should_use_osc52()
+    end,
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("yanky").setup({
+        highlight = { timer = 300 },
+      })
+      require("dko.mappings").bind_yanky()
+    end,
+  },
+
+  {
     -- @TODO remove after nvim 0.11 released
     "ojroques/nvim-osc52",
     cond = has_ui,

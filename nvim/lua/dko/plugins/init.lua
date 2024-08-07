@@ -355,18 +355,6 @@ return {
     cmd = "SudaWrite",
   },
 
-  {
-    "gbprod/yanky.nvim",
-    cond = has_ui,
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("yanky").setup({
-        highlight = { timer = 300 },
-      })
-      require("dko.mappings").bind_yanky()
-    end,
-  },
-
   -- highlight matching html/xml tag
   -- % textobject
   {
