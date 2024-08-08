@@ -10,7 +10,7 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 > using font [Maple Mono](https://github.com/subframe7536/maple-font)
 > and colorscheme [vim-colors-meh].  
 > Tabline: the cwd is a project root; `dev` branch; there is one dirty buffer out of four total; and we are connected to nvim.sock  
-> Winbar: Treesitter highlighting is enabled, orange filenames are dirty files, and there are no diagnostic issues.  
+> Winbar: Tree-sitter highlighting is enabled, orange filenames are dirty files, and there are no diagnostic issues.  
 > Signs: [gitsigns](https://github.com/lewis6991/gitsigns.nvim) is active.  
 > Indent: [hlchunk](https://github.com/shellRaining/hlchunk.nvim) is displaying the current indent chunk.  
 > Status: Normal mode; `type` is searched with one occurrence found; ruler
