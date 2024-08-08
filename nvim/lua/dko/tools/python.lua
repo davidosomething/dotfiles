@@ -1,15 +1,18 @@
 local tools = require("dko.tools")
 
 -- just use ruff, it's >99.99% compatible with black
--- tools.register({
---   mason_type = "tool",
---   require = "python",
---   name = "black",
---   fts = { "python" },
---   efm = function()
---     return require("efmls-configs.formatters.black")
---   end,
--- })
+-- @TODO mac+mise having trouble installing
+if vim.fn.has("macunix") == 1 then
+  tools.register({
+    mason_type = "tool",
+    require = "python",
+    name = "black",
+    fts = { "python" },
+    efm = function()
+      return require("efmls-configs.formatters.black")
+    end,
+  })
+end
 
 -- ruff can also sort, but does it in two passes,
 -- see https://docs.astral.sh/ruff/formatter/#sorting-imports
@@ -38,6 +41,7 @@ tools.register({
       settings = {
         basedpyright = {
           disableOrganizeImports = true, -- prefer ruff or isort
+          typeCheckingMode = "standard",
         },
         python = {
           analysis = {
