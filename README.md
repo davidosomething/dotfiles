@@ -1,7 +1,7 @@
 <img alt="dotfiles" width="200" src="https://cdn.rawgit.com/davidosomething/dotfiles/master/meta/dotfiles-logo.png">
 
 My dotfiles. <https://github.com/davidosomething/dotfiles>  
-My [/uses] post my be of interest to you!
+My [/uses] post may be of interest to you!
 
 ![terminal screenshot][screenshot]
 
