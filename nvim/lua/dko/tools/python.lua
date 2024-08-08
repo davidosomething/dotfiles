@@ -62,17 +62,20 @@ tools.register({
 -- python lint and format from ruff using "ruff server", configuration
 -- (newer than ruff-lsp standalone project)
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/ruff.lua
-tools.register({
-  name = "ruff",
-  mason_type = "lsp",
-  require = "python",
-  lspconfig = function()
-    return {
-      ---note: local on_attach happens AFTER autocmd LspAttach
-      on_attach = function(client)
-        -- basedpyright instead
-        client.server_capabilities.hoverProvider = false
-      end,
-    }
-  end,
-})
+-- @TODO mac+mise having trouble installing
+if vim.fn.has("macunix") == 0 then
+  tools.register({
+    name = "ruff",
+    mason_type = "lsp",
+    require = "python",
+    lspconfig = function()
+      return {
+        ---note: local on_attach happens AFTER autocmd LspAttach
+        on_attach = function(client)
+          -- basedpyright instead
+          client.server_capabilities.hoverProvider = false
+        end,
+      }
+    end,
+  })
+end
