@@ -15,7 +15,7 @@ tools.register({
             sentence_capitalization = false,
             unclosed_quotes = true,
             wrong_quotes = false,
-            long_sentences = true,
+            long_sentences = false,
             repeated_words = true,
             spaces = true,
             matcher = true,

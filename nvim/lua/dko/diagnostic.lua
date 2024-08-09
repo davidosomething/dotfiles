@@ -52,7 +52,7 @@ local function float_format(diagnostic)
   }
   ]]
 
-  -- diagnostic.message may be pre-parsed in an lspconfig's handlers
+  -- diagnostic.message may be pre-parsed in lspconfig's handlers
   -- ["textDocument/publishDiagnostics"]
   -- e.g. tsserver in dko/plugins/lsp.lua
 
