@@ -301,7 +301,7 @@ map("n", "<C-W><C-D>", "<C-W>d", {
 })
 
 -- ===========================================================================
--- Treesitter utils
+-- Tree-sitter utils
 -- ===========================================================================
 
 map("n", "ss", function()
@@ -403,10 +403,6 @@ M.bind_lsp = function(bufnr)
   map("n", "<Leader>rn", function()
     vim.lsp.buf.rename()
   end, lsp_opts({ desc = "LSP rename" }))
-
-  map("n", "<Leader>ca", require("dko.utils.lsp").code_action, {
-    desc = "NOT IMPLEMENTED Single code action",
-  })
 
   local code_action = {}
 
