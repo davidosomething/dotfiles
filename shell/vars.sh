@@ -5,57 +5,16 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.sh {"
 
-# dot.bash_profile did this early
-# @TODO maybe dot.bash_profile needs to skip init
-DOTFILES_OS="${DOTFILES_OS:-$(uname)}"
-export DOTFILES_OS
-
-case "$DOTFILES_OS" in
-  Darwin*)
-    # disable Terminal.app session saving in /etc/zshrc_Apple_Terminal
-    export SHELL_SESSIONS_DISABLE=1
-    # distro is arm64 or x86_64
-    export DOTFILES_DISTRO="${DOTFILES_DISTRO:-$(uname -m)}"
-    ;;
-  FreeBSD*) export DOTFILES_DISTRO="FreeBSD" ;;
-  OpenBSD*) export DOTFILES_DISTRO="OpenBSD" ;;
-
-  *)
-    # for pacdiff
-    export DIFFPROG="nvim -d"
-
-    # X11 - for starting via xinit or startx
-    export XAPPLRESDIR="${DOTFILES}/linux"
-
-    if [ -f /etc/arch-release ]; then
-      # manjaro too
-      export DOTFILES_DISTRO="archlinux"
-    elif [ -f /etc/debian_version ]; then
-      export DOTFILES_DISTRO="debian"
-    elif [ -f /etc/fedora-release ]; then
-      export DOTFILES_DISTRO="fedora"
-    fi
-    ;;
-esac
-
 # ============================================================================
-# Locale
+# Shared: Locale
 # ============================================================================
 
 export LANG="en_US.UTF-8"
 export LC_ALL="$LANG"
+export LC_COLLATE="C"
 
 # ============================================================================
-# Dotfile paths
-# ============================================================================
-
-export DOTFILES="${HOME}/.dotfiles"
-export BDOTDIR="${DOTFILES}/bash"
-export LDOTDIR="${DOTFILES}/local"
-export ZDOTDIR="${DOTFILES}/zsh"
-
-# ============================================================================
-# XDG
+# Shared: XDG
 # ============================================================================
 
 export XDG_CACHE_HOME="${HOME}/.cache"
@@ -85,18 +44,57 @@ export XDG_STATE_HOME="${HOME}/.local/state"
   export XDG_DOWNLOAD_DIR="${HOME}/Downloads"
 
 # ============================================================================
-# History -- except HISTFILE location is set by shell rc file
+# Dotfiles
 # ============================================================================
+
+# dot.bash_profile did this early
+# @TODO maybe dot.bash_profile needs to skip init
+export DOTFILES_OS="${DOTFILES_OS:-$(uname)}"
+
+case "$DOTFILES_OS" in
+  Darwin*) export DOTFILES_DISTRO="${DOTFILES_DISTRO:-$(uname -m)}" ;;
+  FreeBSD*) export DOTFILES_DISTRO="FreeBSD" ;;
+  OpenBSD*) export DOTFILES_DISTRO="OpenBSD" ;;
+  *)
+    # for pacdiff
+    export DIFFPROG="nvim -d"
+
+    # X11 - for starting via xinit or startx
+    export XAPPLRESDIR="${DOTFILES}/linux"
+
+    if [ -f /etc/arch-release ]; then
+      # manjaro too
+      export DOTFILES_DISTRO="archlinux"
+    elif [ -f /etc/debian_version ]; then
+      export DOTFILES_DISTRO="debian"
+    elif [ -f /etc/fedora-release ]; then
+      export DOTFILES_DISTRO="fedora"
+    fi
+    ;;
+esac
+
+# ----------------------------------------------------------------------------
+# Dotfiles: Paths
+# ----------------------------------------------------------------------------
+
+export DOTFILES="${HOME}/.dotfiles"
+export BDOTDIR="${DOTFILES}/bash"
+export LDOTDIR="${DOTFILES}/local"
+export ZDOTDIR="${DOTFILES}/zsh"
+
+# ============================================================================
+# program settings
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Shell history -- except HISTFILE location is set by shell rc file
+# ----------------------------------------------------------------------------
 
 export HISTSIZE=50000
 export HISTFILESIZE=$HISTSIZE
 export SAVEHIST=$HISTSIZE
 export HISTCONTROL=ignoredups
 export HISTIGNORE="ll:ls:cd:cd -:pwd:exit:date"
-
-# ============================================================================
-# program settings
-# ============================================================================
 
 # ----------------------------------------------------------------------------
 # for rsync and cvs
