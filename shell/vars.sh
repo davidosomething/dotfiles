@@ -11,6 +11,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/vars.sh {"
 
 export LANG="en_US.UTF-8"
 export LC_ALL="$LANG"
+# LC_COLLATE affects sorting, e.g. when using `sort` command. When using C as
+# the lang, it will sort by byte order, so ABCabc (C) instead of AaBbCc (en_US)
 export LC_COLLATE="C"
 
 # ============================================================================
@@ -44,7 +46,7 @@ export XDG_STATE_HOME="${HOME}/.local/state"
   export XDG_DOWNLOAD_DIR="${HOME}/Downloads"
 
 # ============================================================================
-# Dotfiles
+# dotfiles
 # ============================================================================
 
 # dot.bash_profile did this early
@@ -74,7 +76,7 @@ case "$DOTFILES_OS" in
 esac
 
 # ----------------------------------------------------------------------------
-# Dotfiles: Paths
+# dotfiles: Paths
 # ----------------------------------------------------------------------------
 
 export DOTFILES="${HOME}/.dotfiles"
@@ -189,7 +191,6 @@ export MYSQL_HISTFILE="${XDG_CACHE_HOME}/mysql_histfile"
 
 # neovim
 export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
-export VDOTDIR="${XDG_CONFIG_HOME}/nvim"
 
 # gnu parallel
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
