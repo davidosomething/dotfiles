@@ -36,6 +36,7 @@ config.scrollback_lines = 9999
 config.swallow_mouse_click_on_pane_focus = true
 config.swallow_mouse_click_on_window_focus = true
 
+config.window_decorations = "RESIZE"
 config.window_padding = {
   left = "1.5cell",
   right = "1.5cell",
