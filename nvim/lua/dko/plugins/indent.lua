@@ -36,7 +36,10 @@ return {
       color()
 
       require("indentmini").setup({
-        -- char = "█",
+        --char = "█",
+
+        -- only draw the last level of indent lines for the block
+        only_current = true,
       })
     end,
   },
