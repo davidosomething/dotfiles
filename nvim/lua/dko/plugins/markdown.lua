@@ -58,6 +58,7 @@ return {
     "lukas-reineke/headlines.nvim",
     cond = has_ui,
     dependencies = "nvim-treesitter/nvim-treesitter",
+    ft = "markdown",
     opts = {
       markdown = {
         bullets = {},
