@@ -17,6 +17,7 @@ require("dko.diagnostic")
 require("dko.mappings")
 
 require("dko.tools.css")
+require("dko.tools.csharp")
 require("dko.tools.dart")
 require("dko.tools.docker")
 require("dko.tools.generic")
