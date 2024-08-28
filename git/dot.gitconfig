@@ -78,7 +78,7 @@
 	process = git-lfs filter-process
 
 [init]
-  defaultBranch = main
+	defaultBranch = main
 
 [push]
 	default = simple
@@ -88,6 +88,9 @@
 
 [rerere]
 	enabled = 1
+
+[url "ssh://git@github.com/"]
+        insteadOf = https://github.com/
 
 # ============================================================================
 # Programs (assumes may be overridden by OS settings)
