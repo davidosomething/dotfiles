@@ -39,6 +39,9 @@ PATH="$DKO_SYSTEM_PATH"
 # composer; COMPOSER_HOME is in shell/vars.sh
 PATH="${COMPOSER_HOME}/vendor/bin:${PATH}"
 
+# dotnet .NET Core SDK tools (e.g. for csharp_ls)
+PATH="${HOME}/.dotnet/tools:${PATH}"
+
 # luarocks per-user rock tree (may be overridden by os-*.sh config)
 PATH="${HOME}/.luarocks/bin:${PATH}"
 
