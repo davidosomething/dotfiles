@@ -491,7 +491,7 @@ M.unbind_on_lspdetach = function(_args)
 end
 
 -- on_attach binding for ts_ls
-M.bind_ts_ls_lsp = function(client, bufnr)
+M.bind_ts_ls_lsp = function(_client, bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the
   -- type declaration files.
   map("n", "gd", function()
