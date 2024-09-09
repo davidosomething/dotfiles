@@ -2,7 +2,7 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 --- @type 'hlchunk'|'indentmini'
-local enabled = "indentmini"
+local provider = "hlchunk"
 
 return {
   -- indent guides
@@ -13,7 +13,7 @@ return {
   {
     "nvimdev/indentmini.nvim",
     cond = has_ui,
-    enabled = enabled == "indentmini",
+    enabled = provider == "indentmini",
     event = "BufEnter",
     config = function()
       local function color()
@@ -48,7 +48,7 @@ return {
   {
     "shellRaining/hlchunk.nvim",
     cond = has_ui,
-    enabled = enabled == "hlchunk",
+    enabled = provider == "hlchunk",
     event = "UIEnter",
     config = function()
       -- local exclude_filetype = {
