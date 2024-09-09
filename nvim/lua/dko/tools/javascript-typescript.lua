@@ -51,14 +51,14 @@ tools.register({
   runner = "mason-lspconfig",
 })
 
--- mason-lspconfig tsserver config
+-- mason-lspconfig ts_ls config
 -- tools.register({
---   name = "tsserver",
+--   name = "ts_ls",
 --   mason_type = "lsp",
 --   require = "npm",
 --   runner = "mason-lspconfig",
 --   lspconfig = function()
---    return dkots.tsserver.config
+--    return dkots.ts_ls.config
 --   end,
 -- })
 
@@ -69,8 +69,8 @@ tools.register({
   runner = "mason-lspconfig",
   lspconfig = function()
     return {
-      on_attach = dkots.tsserver.config.on_attach,
-      handlers = dkots.tsserver.config.handlers,
+      on_attach = dkots.ts_ls.config.on_attach,
+      handlers = dkots.ts_ls.config.handlers,
 
       -- importModuleSpecifier https://github.com/LazyVim/LazyVim/discussions/3623#discussioncomment-10089949
       settings = {
@@ -89,9 +89,9 @@ tools.register({
   end,
 })
 
--- tsserver with no integration, used for "pmizio/typescript-tools.nvim"
+-- ts_ls with no integration, used for "pmizio/typescript-tools.nvim"
 -- tools.register({
---   name = "tsserver",
+--   name = "ts_ls",
 --   mason_type = "lsp",
 --   require = "npm",
 --   runner = "mason-lspconfig",

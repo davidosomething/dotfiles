@@ -15,7 +15,7 @@ end
 local M = {}
 
 ---Go to source definition using LSP command
----@param name 'vtsls'|'tsserver'
+---@param name 'vtsls'|'ts_ls'
 ---@param command "typescript.goToSourceDefinition"|"_typescript.goToSourceDefinition"
 ---@return boolean
 M.go_to_source_definition = function(name, command)
@@ -33,8 +33,8 @@ M.go_to_source_definition = function(name, command)
   }, definition_handler, 0)
 end
 
-M.tsserver = {}
-M.tsserver.inlay_hint_settings = {
+M.ts_ls = {}
+M.ts_ls.inlay_hint_settings = {
   includeInlayParameterNameHints = "all",
   includeInlayParameterNameHintsWhenArgumentMatchesName = false,
   includeInlayFunctionParameterTypeHints = true,
@@ -46,9 +46,9 @@ M.tsserver.inlay_hint_settings = {
 }
 
 ---@type lspconfig.Config
-M.tsserver.config = {
+M.ts_ls.config = {
   on_attach = function(client, bufnr)
-    require("dko.mappings").bind_tsserver_lsp(client, bufnr)
+    require("dko.mappings").bind_ts_ls(client, bufnr)
     local twoslashok, twoslash = pcall(require, "twoslash-queries")
     if twoslashok then
       twoslash.attach(client, bufnr)
@@ -66,7 +66,7 @@ M.tsserver.config = {
         return
       end
 
-      -- ignore some tsserver diagnostics
+      -- ignore some ts_ls diagnostics
       local idx = 1
       while idx <= #result.diagnostics do
         local entry = result.diagnostics[idx]
@@ -88,8 +88,8 @@ M.tsserver.config = {
   },
 
   settings = {
-    typescript = { inlayHints = M.tsserver.inlay_hint_settings },
-    javascript = { inlayHints = M.tsserver.inlay_hint_settings },
+    typescript = { inlayHints = M.ts_ls.inlay_hint_settings },
+    javascript = { inlayHints = M.ts_ls.inlay_hint_settings },
   },
 }
 

@@ -47,7 +47,7 @@ local dkotable = require("dko.utils.table")
 ---@field fts? ft[] -- for efm, list of filetypes to register
 ---@field efm? fun(): EfmFormatter|EfmLinter
 ---@field lspconfig? LspconfigDef
----@field skip_init? boolean -- e.g. for tsserver, we use typescript-tools.nvim to init and not mason-lspconfig
+---@field skip_init? boolean -- e.g. for ts_ls, we use typescript-tools.nvim to init and not mason-lspconfig
 
 ---@alias ToolGroup table<string, boolean>
 ---@alias ToolGroups table<string, ToolGroup>

@@ -490,8 +490,8 @@ M.unbind_on_lspdetach = function(_args)
   -- end
 end
 
--- on_attach binding for tsserver
-M.bind_tsserver_lsp = function(client, bufnr)
+-- on_attach binding for ts_ls
+M.bind_ts_ls_lsp = function(client, bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the
   -- type declaration files.
   map("n", "gd", function()
@@ -512,10 +512,10 @@ M.bind_tsserver_lsp = function(client, bufnr)
         return
       end
 
-    -- tsserver
+    -- ts_ls
     elseif
       require("dko.utils.typescript").go_to_source_definition(
-        "tsserver",
+        "ts_ls",
         "_typescript.goToSourceDefinition"
       )
     then

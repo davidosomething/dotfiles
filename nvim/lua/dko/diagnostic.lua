@@ -54,7 +54,7 @@ local function float_format(diagnostic)
 
   -- diagnostic.message may be pre-parsed in lspconfig's handlers
   -- ["textDocument/publishDiagnostics"]
-  -- e.g. tsserver in dko/plugins/lsp.lua
+  -- e.g. ts_ls in dko/plugins/lsp.lua
 
   local symbol = sev_to_icon[diagnostic.severity] or "-"
   local source = diagnostic.source
