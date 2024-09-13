@@ -157,6 +157,8 @@ export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer"
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 
+export DOTNET_CLI_HOME="${XDG_DATA_HOME}/dotnet"
+
 # gpg
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
 
@@ -217,8 +219,14 @@ export SHELLCHECK_OPTS="--exclude=SC1090,SC2148"
 export VAGRANT_HOME="${XDG_DATA_HOME}/vagrant"
 export VAGRANT_ALIAS_FILE="${XDG_DATA_HOME}/vagrant/aliases"
 
+# w3m
+export W3M_DIR="${XDG_DATA_HOME}/w3m"
+
 # wp cli
 export WP_CLI_CONFIG_PATH="${XDG_CONFIG_HOME}/wp-cli"
+
+# x11
+export XCURSOR_PATH="/usr/share/icons:${XDG_DATA_HOME}/icons"
 
 export YAMLLINT_CONFIG_FILE="${DOTFILES}/yamllint/config"
 
