@@ -498,6 +498,12 @@ end
 --   match = "typescriptreact"
 -- }
 M.bind_coc = function(opts)
+  map("n", "<Leader><Leader>", "<Plug>(coc-codeaction-cursor)", {
+    desc = "coc.nvim code action",
+    silent = true,
+    buffer = opts.buf,
+  })
+
   map("n", "gd", "<Plug>(coc-definition)", {
     desc = "Go To Definition",
     silent = true,
