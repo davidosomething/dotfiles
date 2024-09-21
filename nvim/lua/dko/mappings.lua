@@ -498,6 +498,12 @@ end
 --   match = "typescriptreact"
 -- }
 M.bind_coc = function(opts)
+  map("n", "gd", "<Plug>(coc-definition)", {
+    desc = "Go To Definition",
+    silent = true,
+    buffer = opts.buf,
+  })
+
   -- ===========================================================================
   -- diagnostic jump
   -- ===========================================================================
@@ -541,6 +547,9 @@ M.bind_coc = function(opts)
     [[coc#pum#visible() ? coc#pum#prev(1) : coc#refresh() ]],
     { expr = true, buffer = opts.buf, silent = true }
   )
+
+  -- make sure bind_lsp doesn't overwrite mappings later
+  vim.b.did_bind_mappings = true
 end
 
 -- on_attach binding for ts_ls
