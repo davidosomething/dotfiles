@@ -1,8 +1,25 @@
 {
+  "diagnostic.hintSign": "",
+  "diagnostic.infoSign": "⚑",
+  "diagnostic.warningSign": "",
+  "diagnostic.errorSign": "✖",
+  "diagnostic.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "focusable": true
+  },
+  "inlayHint.enable": false,
+  "hover.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "focusable": true
+  },
   "suggest.noselect": true,
-  "## coc-json": "",
+  "suggest.pumFloatConfig": {
+    "border": true,
+    "rounded": true
+  },
   "json.format.enable": false,
-  "## coc-tsserver": "",
   "javascript.autoClosingTags": false,
   "javascript.preferGoToSourceDefinition": true,
   "typescript.autoClosingTags": false,

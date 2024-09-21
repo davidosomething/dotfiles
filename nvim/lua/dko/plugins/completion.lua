@@ -133,7 +133,11 @@ return {
 
       if dkosettings.get("coc.enabled") then
         cmp.setup.filetype(dkosettings.get("coc.fts"), {
+          completion = {
+            autocomplete = false,
+          },
           enabled = false,
+          mapping = {},
           sources = {},
         })
       end
