@@ -12,7 +12,11 @@ local settings = {
   },
   coc = {
     enabled = true,
-    fts = require("dko.utils.jsts").fts,
+    fts = vim.tbl_extend(
+      "force",
+      require("dko.utils.jsts").fts,
+      { "json", "jsonc" }
+    ),
   },
   diagnostics = {
     goto_float = true,

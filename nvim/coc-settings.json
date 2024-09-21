@@ -1,0 +1,10 @@
+{
+  "suggest.noselect": true,
+  "## coc-json": "",
+  "json.format.enable": false,
+  "## coc-tsserver": "",
+  "javascript.autoClosingTags": false,
+  "javascript.preferGoToSourceDefinition": true,
+  "typescript.autoClosingTags": false,
+  "typescript.preferGoToSourceDefinition": true
+}

@@ -20,7 +20,7 @@ return {
     cond = has_ui and dkosettings.get("use_coc"),
     init = function()
       vim.g.coc_global_extensions =
-        { "coc-eslint", "coc-prettier", "coc-tsserver" }
+        { "coc-eslint", "coc-json", "coc-prettier", "coc-tsserver" }
     end,
   },
 

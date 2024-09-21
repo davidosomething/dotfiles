@@ -269,7 +269,7 @@ if has_ui then
 
   autocmd("FileType", {
     desc = "Set mappings for specific filetypes if coc.nvim is enabled",
-    pattern = require("dko.utils.jsts").fts,
+    pattern = require("dko.settings").get("coc.fts"),
     callback = require("dko.mappings").bind_coc,
   })
 end

@@ -1,3 +1,5 @@
+local dkosettings = require("dko.settings")
+
 -- =========================================================================
 -- Completion
 -- =========================================================================
@@ -128,6 +130,13 @@ return {
           { name = "buffer" },
         },
       })
+
+      if dkosettings.get("coc.enabled") then
+        cmp.setup.filetype(dkosettings.get("coc.fts"), {
+          enabled = false,
+          sources = {},
+        })
+      end
     end,
   },
 }

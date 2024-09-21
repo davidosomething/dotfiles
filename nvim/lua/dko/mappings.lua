@@ -498,6 +498,10 @@ end
 --   match = "typescriptreact"
 -- }
 M.bind_coc = function(opts)
+  -- ===========================================================================
+  -- diagnostic jump
+  -- ===========================================================================
+
   map(
     "n",
     "[d",
@@ -511,11 +515,32 @@ M.bind_coc = function(opts)
     { desc = "Go to next diagnostic", buffer = opts.buf, silent = true }
   )
 
+  -- ===========================================================================
+  -- hover
+  -- ===========================================================================
+
   map("n", "K", function()
     if vim.api.nvim_eval("coc#rpc#ready()") then
       vim.fn.CocActionAsync("doHover")
     end
   end, { desc = "coc hover action", buffer = opts.buf, silent = true })
+
+  -- ===========================================================================
+  -- coc has a custom PUM
+  -- ===========================================================================
+
+  map(
+    "i",
+    "<c-n>",
+    [[coc#pum#visible() ? coc#pum#next(1) : coc#refresh() ]],
+    { expr = true, buffer = opts.buf, silent = true }
+  )
+  map(
+    "i",
+    "<c-p>",
+    [[coc#pum#visible() ? coc#pum#prev(1) : coc#refresh() ]],
+    { expr = true, buffer = opts.buf, silent = true }
+  )
 end
 
 -- on_attach binding for ts_ls
