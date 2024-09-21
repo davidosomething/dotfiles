@@ -14,6 +14,15 @@
     "rounded": true,
     "focusable": true
   },
+  "signature.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "focusable": true
+  },
+  "suggest.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
   "suggest.noselect": true,
   "suggest.pumFloatConfig": {
     "border": true,

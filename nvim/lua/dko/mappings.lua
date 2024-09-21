@@ -549,6 +549,7 @@ M.bind_coc = function(opts)
   )
 
   -- make sure bind_lsp doesn't overwrite mappings later
+  vim.b.did_bind_coc = true
   vim.b.did_bind_mappings = true
 end
 
@@ -701,8 +702,11 @@ end
 -- Plugin: nvim-cmp
 -- ===========================================================================
 
----@return table used in cmp.setup({})
-M.setup_cmp = function()
+M.bind_cmp = function(opts)
+  if vim.b.did_bind_coc then
+    return
+  end
+
   local snippy_ok, snippy = pcall(require, "snippy")
   local cmp = require("cmp")
 
@@ -711,37 +715,51 @@ M.setup_cmp = function()
     vim.schedule(cmp.complete)
   end, { desc = "In normal mode, `A`ppend and start completion" })
 
-  local snippy_mappings = snippy_ok
-      and {
-        -- snippy: previous field
-        ["<C-b>"] = cmp.mapping(function()
-          if snippy.can_jump(-1) then
-            snippy.previous()
-          end
-          -- DO NOT FALLBACK (i.e. do not insert ^B)
-        end, { "i", "s" }),
+  if snippy_ok then
+    map({ "i", "s" }, "<C-b>", function()
+      if snippy.can_jump(-1) then
+        snippy.previous()
+      end
+      -- DO NOT FALLBACK (i.e. do not insert ^B)
+    end, { desc = "snippy: previous field" })
 
-        -- snippy: expand or next field
-        ["<C-f>"] = cmp.mapping(function(fallback)
-          -- If a snippet is highlighted in PUM, expand it
-          if cmp.confirm({ select = false }) then
-            return
-          end
-          -- If in a snippet, jump to next field
-          if snippy.can_expand_or_advance() then
-            snippy.expand_or_advance()
-            return
-          end
-          fallback()
-        end, { "i", "s" }),
-      }
-    or {}
+    map({ "i", "s" }, "<C-f>", function()
+      -- If a snippet is highlighted in PUM, expand it
+      if cmp.confirm({ select = false }) then
+        return
+      end
+      -- If in a snippet, jump to next field
+      if snippy.can_expand_or_advance() then
+        snippy.expand_or_advance()
+        return
+      end
+    end, {
+      desc = "snippy: expand or next field",
+    })
+  end
 
-  return cmp.mapping.preset.insert(vim.tbl_extend("force", {
-    ["<C-k>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-j>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-  }, snippy_mappings))
+  map("i", "<C-n>", function()
+    if cmp.visible() then
+      cmp.select_next_item()
+    end
+  end)
+  map("i", "<C-p>", function()
+    if cmp.visible() then
+      cmp.select_prev_item()
+    end
+  end)
+
+  map("i", "<C-k>", function()
+    if cmp.visible() then
+      cmp.mapping.scroll_docs(-4)
+    end
+  end)
+
+  map("i", "<C-j>", function()
+    if cmp.visible() then
+      cmp.mapping.scroll_docs(4)
+    end
+  end)
 end
 
 -- =============================================================================

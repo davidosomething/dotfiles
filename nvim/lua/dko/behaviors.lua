@@ -267,9 +267,21 @@ if has_ui then
     end),
   })
 
+  if require("dko.settings").get("coc.enabled") then
+    autocmd("FileType", {
+      desc = "Set mappings for specific filetypes if coc.nvim is enabled",
+      pattern = require("dko.settings").get("coc.fts"),
+      callback = function(opts)
+        vim.cmd.CocStart()
+        require("dko.mappings").bind_coc(opts)
+      end,
+    })
+  end
+
   autocmd("FileType", {
-    desc = "Set mappings for specific filetypes if coc.nvim is enabled",
-    pattern = require("dko.settings").get("coc.fts"),
-    callback = require("dko.mappings").bind_coc,
+    desc = "Set nvim-cmp mappings",
+    callback = function(opts)
+      require("dko.mappings").bind_cmp(opts)
+    end,
   })
 end
