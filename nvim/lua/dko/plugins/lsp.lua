@@ -5,6 +5,7 @@
 -- =========================================================================
 
 --local dkomappings = require("dko.mappings")
+local dkosettings = require("dko.settings")
 local dkolsp = require("dko.utils.lsp")
 local dkotools = require("dko.tools")
 
@@ -13,6 +14,16 @@ local has_ui = #uis > 0
 
 -- Lazy.nvim specs
 return {
+  {
+    "neoclide/coc.nvim",
+    branch = "release",
+    cond = has_ui and dkosettings.get("use_coc"),
+    init = function()
+      vim.g.coc_global_extensions =
+        { "coc-eslint", "coc-prettier", "coc-tsserver" }
+    end,
+  },
+
   -- provides modules only
   -- https://github.com/creativenull/efmls-configs-nvim
   { "creativenull/efmls-configs-nvim" },
@@ -110,25 +121,25 @@ return {
 
   -- @TODO remove?
   -- https://github.com/pmizio/typescript-tools.nvim
-  {
-    "pmizio/typescript-tools.nvim",
-    cond = has_ui and vim.tbl_contains(dkotools.get_mason_lsps(), "ts_ls"), -- I'm using vtsls now instead
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    config = function()
-      local ts_ls_config = require("dko.utils.typescript").ts_ls.config
-
-      require("typescript-tools").setup({
-        on_attach = ts_ls_config.on_attach,
-        handlers = ts_ls_config.handlers,
-        settings = {
-          ts_ls_file_preferences = {
-            -- https://github.com/microsoft/TypeScript/blob/v5.0.4/src/server/protocol.ts#L3487C1-L3488C1
-            importModuleSpecifierPreference = "non-relative", -- "project-relative",
-          },
-        },
-      })
-    end,
-  },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   cond = has_ui and vim.tbl_contains(dkotools.get_mason_lsps(), "ts_ls"), -- I'm using vtsls now instead
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   config = function()
+  --     local ts_ls_config = require("dko.utils.typescript").ts_ls.config
+  --
+  --     require("typescript-tools").setup({
+  --       on_attach = ts_ls_config.on_attach,
+  --       handlers = ts_ls_config.handlers,
+  --       settings = {
+  --         ts_ls_file_preferences = {
+  --           -- https://github.com/microsoft/TypeScript/blob/v5.0.4/src/server/protocol.ts#L3487C1-L3488C1
+  --           importModuleSpecifierPreference = "non-relative", -- "project-relative",
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
 
   {
     "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter

@@ -490,6 +490,34 @@ M.unbind_on_lspdetach = function(_args)
   -- end
 end
 
+-- opts = {
+--   buf = 1,
+--   event = "FileType",
+--   file = "app/components/Navigation.tsx",
+--   id = 26,
+--   match = "typescriptreact"
+-- }
+M.bind_coc = function(opts)
+  map(
+    "n",
+    "[d",
+    "<Plug>(coc-diagnostic-prev)",
+    { desc = "Go to prev diagnostic", buffer = opts.buf, silent = true }
+  )
+  map(
+    "n",
+    "]d",
+    "<Plug>(coc-diagnostic-next)",
+    { desc = "Go to next diagnostic", buffer = opts.buf, silent = true }
+  )
+
+  map("n", "K", function()
+    if vim.api.nvim_eval("coc#rpc#ready()") then
+      vim.fn.CocActionAsync("doHover")
+    end
+  end, { desc = "coc hover action", buffer = opts.buf, silent = true })
+end
+
 -- on_attach binding for ts_ls
 M.bind_ts_ls_lsp = function(_client, bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the

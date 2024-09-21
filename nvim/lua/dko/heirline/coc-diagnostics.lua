@@ -1,14 +1,27 @@
 local icons = require("dko.icons")
-local settings = require("dko.settings")
 
--- polyfill as of https://github.com/neovim/neovim/pull/26807
----@param opts? { severity?: number }
+-- example vim.b.coc_diagnostic_info
+-- {
+--   error = 2,
+--   hint = 0,
+--   information = 0,
+--   lnums = { 8, 0, 0, 0 },
+--   warning = 0
+-- }
+
+---@param opts? { severity?: 'error' | 'hint' | 'information' | 'warning' }
 local function get_diagnostic_count(opts)
-  opts = opts or {}
-  if vim.diagnostic.count then
-    return vim.diagnostic.count(0, opts)[opts.severity] or 0
+  if vim.b.coc_diagnostic_info == nil then
+    return 0
   end
-  return #vim.diagnostic.get(0, opts)
+
+  opts = opts or {}
+  if opts.severity then
+    return vim.b.coc_diagnostic_info ~= nil
+      and vim.b.coc_diagnostic_info[opts.severity]
+  end
+  local d = vim.b.coc_diagnostic_info
+  return d.error + d.warning + d.information + d.hint
 end
 
 return {
@@ -17,28 +30,24 @@ return {
     if not has_filetype then
       return false
     end
-    if settings.get("coc.enabled") then
-      return not vim.tbl_contains(settings.get("coc.fts"), vim.bo.filetype)
-    end
-    return true
+    return vim.b.coc_diagnostic_info ~= nil
   end,
 
   init = function(self)
     self.errors = get_diagnostic_count({
-      severity = vim.diagnostic.severity.ERROR,
+      severity = "error",
     })
     self.warnings = get_diagnostic_count({
-      severity = vim.diagnostic.severity.WARN,
+      severity = "warning",
     })
     self.hints = get_diagnostic_count({
-      severity = vim.diagnostic.severity.HINT,
+      severity = "hint",
     })
-    self.info =
-      get_diagnostic_count({ severity = vim.diagnostic.severity.INFO })
+    self.info = get_diagnostic_count({ severity = "information" })
     self.total = self.errors + self.warnings + self.hints + self.info
   end,
 
-  update = { "DiagnosticChanged", "BufEnter" },
+  update = { "User", pattern = "CocDiagnosticChange" },
 
   {
     condition = function(self)
