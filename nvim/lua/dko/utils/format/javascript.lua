@@ -15,6 +15,9 @@ return function(notify)
       return
     end
     notify({ "coc-eslint" })
+
+    vim.cmd.CocCommand("prettier.formatFile")
+    notify({ "coc-prettier" })
     return
   end
 
