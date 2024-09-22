@@ -10,7 +10,7 @@ M.format = function(opts)
   -- need to check for client in case we did :LspStop or something
   local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
   if not client then
-    return
+    return false
   end
 
   if not opts.hide_notification then
