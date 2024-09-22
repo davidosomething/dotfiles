@@ -474,9 +474,9 @@ M.bind_on_lspattach = function(args)
     return
   end
 
-  if not vim.b.did_bind_mappings then -- First LSP attached
+  if not vim.b.did_bind_lsp then -- First LSP attached
     M.bind_lsp(bufnr)
-    vim.b.did_bind_mappings = true
+    vim.b.did_bind_lsp = true
   end
 end
 
@@ -486,7 +486,7 @@ M.unbind_on_lspdetach = function(_args)
   -- local clients = vim.lsp.get_clients({ bufnr = bufnr })
   -- if #clients == 0 then -- Last LSP attached
   -- unbind mappings...
-  -- vim.b.did_bind_mappings = false
+  -- vim.b.did_bind_lsp = false
   -- end
 end
 
@@ -498,6 +498,14 @@ end
 --   match = "typescriptreact"
 -- }
 M.bind_coc = function(opts)
+  if vim.b.did_bind_cmp then
+    vim.notify("Buffer already has nvim-cmp bindings!", vim.log.levels.WARN)
+    return
+  end
+  -- make sure bind_lsp doesn't overwrite mappings later
+  vim.b.did_bind_coc = true
+  vim.b.did_bind_lsp = true
+
   map("n", "<Leader><Leader>", "<Plug>(coc-codeaction-cursor)", {
     desc = "coc.nvim code action",
     silent = true,
@@ -553,10 +561,6 @@ M.bind_coc = function(opts)
     [[coc#pum#visible() ? coc#pum#prev(1) : coc#refresh() ]],
     { expr = true, buffer = opts.buf, silent = true }
   )
-
-  -- make sure bind_lsp doesn't overwrite mappings later
-  vim.b.did_bind_coc = true
-  vim.b.did_bind_mappings = true
 end
 
 -- on_attach binding for ts_ls
@@ -710,8 +714,10 @@ end
 
 M.bind_cmp = function(opts)
   if vim.b.did_bind_coc then
+    vim.notify("Buffer already has coc.nvim bindings!", vim.log.levels.WARN)
     return
   end
+  vim.b.did_bind_cmp = true
 
   local snippy_ok, snippy = pcall(require, "snippy")
   local cmp = require("cmp")

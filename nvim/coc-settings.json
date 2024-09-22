@@ -5,19 +5,22 @@
   "diagnostic.errorSign": "✖",
   "diagnostic.floatConfig": {
     "border": true,
+    "focusable": true,
     "rounded": true,
-    "focusable": true
+    "title": " ᴄᴏᴄ.ɴᴠɪᴍ :: ᴅɪᴀɢɴᴏsᴛɪᴄ"
   },
   "inlayHint.enable": false,
   "hover.floatConfig": {
     "border": true,
+    "focusable": true,
     "rounded": true,
-    "focusable": true
+    "title": " ᴄᴏᴄ.ɴᴠɪᴍ :: ʜᴏᴠᴇʀ"
   },
   "signature.floatConfig": {
     "border": true,
+    "focusable": true,
     "rounded": true,
-    "focusable": true
+    "title": " ᴄᴏᴄ.ɴᴠɪᴍ :: sɪɢɴᴀᴛᴜʀᴇ"
   },
   "suggest.floatConfig": {
     "border": true,

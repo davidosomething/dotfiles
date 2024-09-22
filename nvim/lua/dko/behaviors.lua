@@ -1,3 +1,4 @@
+local dkosettings = require("dko.settings")
 -- ===========================================================================
 -- Change vim behavior via autocommands
 -- ===========================================================================
@@ -267,21 +268,22 @@ if has_ui then
     end),
   })
 
-  if require("dko.settings").get("coc.enabled") then
-    autocmd("FileType", {
-      desc = "Set mappings for specific filetypes if coc.nvim is enabled",
-      pattern = require("dko.settings").get("coc.fts"),
-      callback = function(opts)
+  autocmd("FileType", {
+    desc = "Set mappings for specific filetypes if coc.nvim is enabled",
+    callback = function(opts)
+      if
+        dkosettings.get("coc.enabled")
+        and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
+      then
         vim.cmd.CocStart()
         require("dko.mappings").bind_coc(opts)
-      end,
-    })
-  end
-
-  autocmd("FileType", {
-    desc = "Set nvim-cmp mappings",
-    callback = function(opts)
-      require("dko.mappings").bind_cmp(opts)
+      else
+        -- explicitly disable coc
+        vim.b.coc_enabled = 0
+        vim.b.coc_diagnostic_disable = 1
+        vim.b.coc_suggest_disable = 1
+        require("dko.mappings").bind_cmp(opts)
+      end
     end,
   })
 end
