@@ -277,6 +277,8 @@ if has_ui then
       then
         vim.cmd.CocStart()
         require("dko.mappings").bind_coc(opts)
+        require("dko.utils.format").add_formatter("coc")
+        vim.b.enable_format_on_save = true
       else
         -- explicitly disable coc
         vim.b.coc_enabled = 0

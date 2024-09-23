@@ -1,3 +1,5 @@
+local dkotable = require("dko.utils.table")
+
 -- Code formatting pipelines
 
 local Methods = vim.lsp.protocol.Methods
@@ -91,6 +93,15 @@ M.run_pipeline = function(options)
   notify(names)
 end
 
+-- Add formatter to vim.b.formatters and fire autocmd (e.g. update heirline)
+M.add_formatter = function(name)
+  -- NOTE: You cannot table.insert(vim.b.formatters, name) -- need to have a
+  -- temp var and assign full table at once because the vim.b vars are special
+  local copy = vim.tbl_extend("force", {}, vim.b.formatters or {})
+  vim.b.formatters = dkotable.append(copy, name)
+  vim.cmd.doautocmd("User", "FormatterAdded")
+end
+
 -- =============================================================================
 -- Autocmd handlers
 -- =============================================================================
@@ -107,23 +118,11 @@ M.enable_on_lspattach = function(args)
     return
   end
 
-  vim.b.enable_format_on_save = true
-
   -- Track formatters, non-exclusively, non-LSPs might add to this table
   -- or fire the autocmd
   local name = clients[1].name
-
-  -- NOTE: You cannot table.insert(vim.b.formatters, name) -- need to have a
-  -- temp var and assign full table at once because the vim.b vars are special
-  local formatters = vim.b.formatters
-  if formatters == nil then
-    formatters = { name }
-  else
-    table.insert(formatters, name)
-  end
-  vim.b.formatters = formatters
-
-  vim.cmd.doautocmd("User", "FormatterAdded")
+  M.add_formatter(name)
+  vim.b.enable_format_on_save = true
 end
 
 -- LspDetach autocmd callback

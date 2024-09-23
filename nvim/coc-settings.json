@@ -35,5 +35,6 @@
   "javascript.autoClosingTags": false,
   "javascript.preferGoToSourceDefinition": true,
   "typescript.autoClosingTags": false,
-  "typescript.preferGoToSourceDefinition": true
+  "typescript.preferGoToSourceDefinition": true,
+  "snippets.ultisnips.pythonPrompt": false
 }

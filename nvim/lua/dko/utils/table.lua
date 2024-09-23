@@ -22,4 +22,13 @@ M.filter = function(t, func)
   return res
 end
 
+--- Append or create table with val
+M.append = function(t, val)
+  if t == nil then
+    return { val }
+  end
+  table.insert(t, val)
+  return t
+end
+
 return M
