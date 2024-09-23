@@ -158,20 +158,4 @@ M.disable_on_lspdetach = function(args)
   end)
 end
 
--- autocmd callback for *WritePre
-M.format_on_save = function()
-  -- callback gets arg
-  -- {
-  --   buf = 1,
-  --   event = "BufWritePre",
-  --   file = "nvim/lua/dko/behaviors.lua",
-  --   id = 127,
-  --   match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
-  -- }
-  if not vim.b.enable_format_on_save then
-    return
-  end
-  M.run_pipeline({ async = false })
-end
-
 return M

@@ -1,4 +1,6 @@
+local dkomappings = require("dko.mappings")
 local dkosettings = require("dko.settings")
+
 -- ===========================================================================
 -- Change vim behavior via autocommands
 -- ===========================================================================
@@ -223,7 +225,7 @@ if has_ui then
 
   autocmd("LspAttach", {
     desc = "Bind LSP related mappings",
-    callback = require("dko.mappings").bind_on_lspattach,
+    callback = dkomappings.bind_on_lspattach,
     group = augroup("dkolsp"),
   })
 
@@ -235,7 +237,7 @@ if has_ui then
 
   autocmd("LspDetach", {
     desc = "Unbind LSP related mappings on last client detach",
-    callback = require("dko.mappings").unbind_on_lspdetach,
+    callback = dkomappings.unbind_on_lspdetach,
     group = augroup("dkolsp"),
   })
 
@@ -245,15 +247,50 @@ if has_ui then
     group = augroup("dkolsp"),
   })
 
+  autocmd("FileType", {
+    desc = "Set mappings/format on save for specific filetypes if coc.nvim is enabled",
+    callback = function(opts)
+      if
+        dkosettings.get("coc.enabled")
+        and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
+      then
+        vim.cmd.CocStart()
+        dkomappings.bind_coc(opts)
+        require("dko.utils.format").add_formatter("coc")
+        vim.b.enable_format_on_save = true
+      else
+        -- explicitly disable coc
+        vim.b.coc_enabled = 0
+        vim.b.coc_diagnostic_disable = 1
+        vim.b.coc_suggest_disable = 1
+        dkomappings.bind_cmp(opts)
+      end
+    end,
+  })
+
   autocmd({ "BufWritePre", "FileWritePre" }, {
     desc = "Format with LSP on save",
-    callback = require("dko.utils.format").format_on_save,
+    callback = function()
+      -- callback gets arg
+      -- {
+      --   buf = 1,
+      --   event = "BufWritePre",
+      --   file = "nvim/lua/dko/behaviors.lua",
+      --   id = 127,
+      --   match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
+      -- }
+      if not vim.b.enable_format_on_save then
+        return
+      end
+      require("dko.utils.format").run_pipeline({ async = false })
+    end,
     group = augroup("dkolsp"),
   })
 
   -- temporary fix, winbars not updating
   local fix_winbar_events = vim.tbl_extend(
     "keep",
+    require("dko.heirline.coc-diagnostics").update,
     require("dko.heirline.diagnostics").update,
     require("dko.heirline.lsp").update,
     { "User PackageInfoProgress" } -- clear winbar status msg when done
@@ -266,26 +303,5 @@ if has_ui then
     callback = vim.schedule_wrap(function()
       vim.cmd.redrawstatus({ bang = true })
     end),
-  })
-
-  autocmd("FileType", {
-    desc = "Set mappings for specific filetypes if coc.nvim is enabled",
-    callback = function(opts)
-      if
-        dkosettings.get("coc.enabled")
-        and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
-      then
-        vim.cmd.CocStart()
-        require("dko.mappings").bind_coc(opts)
-        require("dko.utils.format").add_formatter("coc")
-        vim.b.enable_format_on_save = true
-      else
-        -- explicitly disable coc
-        vim.b.coc_enabled = 0
-        vim.b.coc_diagnostic_disable = 1
-        vim.b.coc_suggest_disable = 1
-        require("dko.mappings").bind_cmp(opts)
-      end
-    end,
   })
 end
