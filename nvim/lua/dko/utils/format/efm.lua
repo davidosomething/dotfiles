@@ -45,6 +45,7 @@ M.format = function(opts)
     name = "efm",
     timeout_ms = vim.env.SSH_CLIENT and 3000 or 1000,
   })
+  return true
 end
 
 --- Assuming each
