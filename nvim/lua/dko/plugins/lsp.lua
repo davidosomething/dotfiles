@@ -23,7 +23,6 @@ return {
       vim.g.coc_global_extensions = {
         "coc-eslint",
         "coc-json",
-        "coc-prettier",
         "coc-tsserver",
       }
     end,
@@ -65,6 +64,7 @@ return {
   -- https://github.com/aznhe21/actions-preview.nvim
   {
     "aznhe21/actions-preview.nvim",
+    enabled = dkosettings.get("lsp.code_action") == "actions-preview",
     dependencies = {
       "nvim-telescope/telescope.nvim",
     },
@@ -75,15 +75,14 @@ return {
   -- https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
   {
     "rachartier/tiny-code-action.nvim",
+    enabled = dkosettings.get("lsp.code_action") == "tiny-code-action",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope.nvim" },
     },
     event = "LspAttach",
     config = function()
-      require("tiny-code-action").setup({
-        lsp_timeout = 4000,
-      })
+      require("tiny-code-action").setup({ lsp_timeout = 4000 })
     end,
   },
 
@@ -120,7 +119,7 @@ return {
     config = function()
       -- border on :LspInfo window
       require("lspconfig.ui.windows").default_options.border =
-        require("dko.settings").get("border")
+        dkosettings.get("border")
     end,
   },
 
@@ -146,22 +145,20 @@ return {
   --   end,
   -- },
 
-  {
-    "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
-    dev = true,
-    lazy = true,
-  },
+  -- {
+  --   "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
+  --   dev = true,
+  --   lazy = true,
+  -- },
 
   -- https://github.com/marilari88/twoslash-queries.nvim
-  {
-    "marilari88/twoslash-queries.nvim",
-    cond = has_ui,
-    config = function()
-      require("twoslash-queries").setup({
-        multi_line = true,
-      })
-    end,
-  },
+  -- {
+  --   "marilari88/twoslash-queries.nvim",
+  --   cond = has_ui,
+  --   config = function()
+  --     require("twoslash-queries").setup({ multi_line = true })
+  --   end,
+  -- },
 
   {
     "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
@@ -184,8 +181,8 @@ return {
 
       -- @TODO move these somewhere else
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
-      "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
-      "marilari88/twoslash-queries.nvim", -- ts_ls comment with  ^? comment
+      -- "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
+      -- "marilari88/twoslash-queries.nvim", -- ts_ls comment with  ^? comment
     },
     config = function()
       local lspconfig = require("lspconfig")
