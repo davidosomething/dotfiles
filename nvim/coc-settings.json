@@ -35,6 +35,9 @@
     "border": true,
     "rounded": true
   },
+
+  "eslint.trace.server": "verbose",
+
   "json.format.enable": false,
   "json.schemas": [
     {
@@ -42,8 +45,13 @@
       "url": "https://json.schemastore.org/tsconfig.json"
     }
   ],
+
   "javascript.autoClosingTags": false,
   "javascript.preferGoToSourceDefinition": true,
   "typescript.autoClosingTags": false,
-  "typescript.preferGoToSourceDefinition": true
+  "typescript.preferGoToSourceDefinition": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+  "tsserver.disableAutomaticTypeAcquisition": true,
+  "tsserver.log": "verbose"
 }
