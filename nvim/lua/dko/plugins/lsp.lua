@@ -12,8 +12,8 @@ local dkotools = require("dko.tools")
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
--- Lazy.nvim specs
 return {
+  -- Using this for tsserver specifically, faster results than nvim-lsp
   {
     "neoclide/coc.nvim",
     branch = "release",
@@ -28,6 +28,10 @@ return {
     end,
   },
 
+  -- https://github.com/dense-analysis/ale
+  -- coc.nvim configured to pipe its diagnostics to ALE
+  -- ALE then pipes the diagnostics to vim.diagnostic
+  -- We define diagnostic signs in dko.diagnostic
   {
     "dense-analysis/ale",
     init = function()

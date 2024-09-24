@@ -39,19 +39,6 @@ for _, type in ipairs(SIGN_TYPES) do
   end
 end
 
-vim.fn.sign_define(
-  "DiagnosticSignWarn",
-  { text = "!", texthl = "DiagnosticSignWarn" }
-)
-vim.fn.sign_define(
-  "DiagnosticSignInformation",
-  { text = "", texthl = "DiagnosticSignInfo" }
-)
-vim.fn.sign_define(
-  "DiagnosticSignHint",
-  { text = "", texthl = "DiagnosticSignHint" }
-)
-
 -- ===========================================================================
 -- Diagnostic configuration
 -- ===========================================================================
