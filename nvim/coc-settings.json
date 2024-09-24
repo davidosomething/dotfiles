@@ -35,6 +35,12 @@
     "rounded": true
   },
   "json.format.enable": false,
+  "json.schemas": [
+    {
+      "fileMatch": ["tsconfig.*.json"],
+      "url": "https://json.schemastore.org/tsconfig.json"
+    }
+  ],
   "javascript.autoClosingTags": false,
   "javascript.preferGoToSourceDefinition": true,
   "typescript.autoClosingTags": false,
