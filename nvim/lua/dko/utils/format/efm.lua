@@ -4,6 +4,8 @@ local toast = require("dko.utils.notify").toast
 
 local M = {}
 
+---@param opts? table
+---@return boolean true
 M.format = function(opts)
   opts = opts or {}
 
