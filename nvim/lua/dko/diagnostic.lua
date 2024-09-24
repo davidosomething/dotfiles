@@ -3,7 +3,7 @@ local icons = require("dko.icons")
 local M = {}
 
 local sev_to_icon = {}
-local signs = { linehl = {}, numhl = {}, text = {} }
+M.signs = { linehl = {}, numhl = {}, text = {} }
 
 local SIGN_TYPES = { "Error", "Warn", "Info", "Hint" }
 for _, type in ipairs(SIGN_TYPES) do
@@ -17,14 +17,40 @@ for _, type in ipairs(SIGN_TYPES) do
   sev_to_icon[code] = icon
 
   -- vim.diagnostic.config signs
-  signs.text[code] = ("%s "):format(icon)
-  signs.numhl[code] = hl
+  local sign = ("%s "):format(icon)
+  M.signs.text[code] = sign
+  M.signs.numhl[code] = hl
 
-  -- Only colorize entire line for errors
   if code == vim.diagnostic.severity.ERROR then
-    signs.linehl[code] = hl
+    -- Only colorize entire line for errors
+    M.signs.linehl[code] = hl
+    -- define actual sign, ALE uses it
+    vim.fn.sign_define(hl, {
+      linehl = hl,
+      numhl = hl,
+      text = M.signs.text[code],
+    })
+  else
+    -- define actual sign, ALE uses it
+    vim.fn.sign_define(hl, {
+      numhl = hl,
+      text = M.signs.text[code],
+    })
   end
 end
+
+vim.fn.sign_define(
+  "DiagnosticSignWarn",
+  { text = "!", texthl = "DiagnosticSignWarn" }
+)
+vim.fn.sign_define(
+  "DiagnosticSignInformation",
+  { text = "", texthl = "DiagnosticSignInfo" }
+)
+vim.fn.sign_define(
+  "DiagnosticSignHint",
+  { text = "", texthl = "DiagnosticSignHint" }
+)
 
 -- ===========================================================================
 -- Diagnostic configuration
@@ -74,9 +100,16 @@ local function float_format(diagnostic)
 end
 
 vim.diagnostic.config({
-  signs = signs,
+  -- This is a map used by vim.diagnostic but not by ALE signs
+  signs = M.signs,
+
+  -- don't create DiagnosticUnderlineWarn et al, which coc.nvim uses
+  -- and looks ugly
+  underline = false,
+
   -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
   virtual_text = false,
+
   float = {
     border = require("dko.settings").get("border"),
     header = "", -- remove the line that says 'Diagnostic:'
@@ -84,6 +117,7 @@ vim.diagnostic.config({
     format = float_format, -- can customize more colors by using prefix/suffix instead
     suffix = "", -- default is error code. Moved to message via float_format
   },
+
   update_in_insert = false, -- wait until insert leave to check diagnostics
 })
 

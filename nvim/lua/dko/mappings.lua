@@ -577,18 +577,18 @@ M.bind_coc = function(opts)
   -- diagnostic jump
   -- ===========================================================================
 
-  map(
-    "n",
-    "[d",
-    "<Plug>(coc-diagnostic-prev)",
-    { desc = "Go to prev diagnostic", buffer = opts.buf, silent = true }
-  )
-  map(
-    "n",
-    "]d",
-    "<Plug>(coc-diagnostic-next)",
-    { desc = "Go to next diagnostic", buffer = opts.buf, silent = true }
-  )
+  -- map(
+  --   "n",
+  --   "[d",
+  --   "<Plug>(coc-diagnostic-prev)",
+  --   { desc = "Go to prev diagnostic", buffer = opts.buf, silent = true }
+  -- )
+  -- map(
+  --   "n",
+  --   "]d",
+  --   "<Plug>(coc-diagnostic-next)",
+  --   { desc = "Go to next diagnostic", buffer = opts.buf, silent = true }
+  -- )
 
   -- ===========================================================================
   -- hover

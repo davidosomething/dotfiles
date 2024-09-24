@@ -2,6 +2,7 @@
   "coc.preferences.willSaveHandlerTimeout": 1000,
   "snippets.ultisnips.pythonPrompt": false,
 
+  "diagnostic.displayByAle": true,
   "diagnostic.hintSign": "",
   "diagnostic.infoSign": "⚑",
   "diagnostic.warningSign": "",

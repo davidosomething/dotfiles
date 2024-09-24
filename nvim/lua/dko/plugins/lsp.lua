@@ -28,6 +28,30 @@ return {
     end,
   },
 
+  {
+    "dense-analysis/ale",
+    init = function()
+      vim.g.ale_disable_lsp = 1
+      -- only use explicitly enabled linters
+      vim.g.ale_linters_explicit = 1
+
+      -- coc
+      vim.g.ale_use_neovim_diagnostics_api = 1
+
+      -- diagnostic display
+      vim.g.ale_echo_cursor = 0
+      vim.g.ale_set_balloons = 0
+      vim.g.ale_set_highlights = 0
+      vim.g.ale_set_loclist = 0
+      vim.g.ale_set_quickfix = 0
+      vim.g.ale_set_signs = 1
+      vim.g.ale_sign_error = "✖"
+      vim.g.ale_sign_warning = ""
+      vim.g.ale_sign_info = "⚑"
+      vim.g.ale_virtualtext_cursor = "disabled"
+    end,
+  },
+
   -- provides modules only
   -- https://github.com/creativenull/efmls-configs-nvim
   { "creativenull/efmls-configs-nvim" },
