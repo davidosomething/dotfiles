@@ -3,15 +3,15 @@ local dkots = require("dko.utils.typescript")
 
 local M = {}
 
--- tools.register({
---   name = "prettier",
---   mason_type = "tool",
---   require = "npm",
---   fts = require("dko.utils.jsts").fts,
---   efm = function()
---     return require("efmls-configs.formatters.prettier")
---   end,
--- })
+tools.register({
+  name = "prettier",
+  mason_type = "tool",
+  require = "npm",
+  fts = require("dko.utils.jsts").fts,
+  efm = function()
+    return require("efmls-configs.formatters.prettier")
+  end,
+})
 
 -- jumping into classnames from jsx/tsx
 -- tools.register({
@@ -44,12 +44,12 @@ local M = {}
 -- })
 
 --"cssls", -- conflicts with tailwindcss
--- tools.register({
---   name = "tailwindcss",
---   mason_type = "lsp",
---   require = "npm",
---   runner = "mason-lspconfig",
--- })
+tools.register({
+  name = "tailwindcss",
+  mason_type = "lsp",
+  require = "npm",
+  runner = "mason-lspconfig",
+})
 
 -- mason-lspconfig ts_ls config
 -- tools.register({

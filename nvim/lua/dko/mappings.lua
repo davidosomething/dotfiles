@@ -485,6 +485,59 @@ M.unbind_on_lspdetach = function(_args)
   -- end
 end
 
+M.bind_completion = function(opts)
+  local cmp = require("cmp")
+
+  map("n", "<C-Space>", function()
+    vim.cmd.startinsert({ bang = true })
+    vim.schedule(cmp.complete)
+  end, { desc = "In normal mode, `A`ppend and start nvim-cmp completion" })
+
+  map("i", "<C-Space>", function()
+    vim.schedule(cmp.complete)
+  end, { desc = "In insert mode, start nvim-cmp completion" })
+
+  map("i", "<Plug>(DkoCmpNext)", function()
+    cmp.select_next_item()
+  end)
+
+  map("i", "<Plug>(DkoCmpPrev)", function()
+    cmp.select_prev_item()
+  end)
+
+  map("i", "<C-n>", function()
+    if cmp.visible() then
+      return "<Plug>(DkoCmpNext)"
+    end
+    if vim.b.did_bind_coc then
+      return vim.fn["coc#pum#visible"]() == 0 and vim.fn["coc#refresh"]()
+        or vim.fn["coc#pum#next"](1)
+    end
+  end, { expr = true, buffer = opts.buf, remap = true, silent = true })
+
+  map("i", "<C-p>", function()
+    if cmp.visible() then
+      return "<Plug>(DkoCmpPrev)"
+    end
+    if vim.b.did_bind_coc then
+      return vim.fn["coc#pum#visible"]() == 0 and vim.fn["coc#refresh"]()
+        or vim.fn["coc#pum#prev"](1)
+    end
+  end, { expr = true, buffer = opts.buf, remap = true, silent = true })
+
+  map("i", "<C-k>", function()
+    if cmp.visible() then
+      cmp.mapping.scroll_docs(-4)
+    end
+  end)
+
+  map("i", "<C-j>", function()
+    if cmp.visible() then
+      cmp.mapping.scroll_docs(4)
+    end
+  end)
+end
+
 -- opts = {
 --   buf = 1,
 --   event = "FileType",
@@ -545,23 +598,6 @@ M.bind_coc = function(opts)
       vim.fn.CocActionAsync("doHover")
     end
   end, { desc = "coc hover action", buffer = opts.buf, silent = true })
-
-  -- ===========================================================================
-  -- coc has a custom PUM
-  -- ===========================================================================
-
-  map(
-    "i",
-    "<c-n>",
-    [[coc#pum#visible() ? coc#pum#next(1) : coc#refresh() ]],
-    { expr = true, buffer = opts.buf, silent = true }
-  )
-  map(
-    "i",
-    "<c-p>",
-    [[coc#pum#visible() ? coc#pum#prev(1) : coc#refresh() ]],
-    { expr = true, buffer = opts.buf, silent = true }
-  )
 end
 
 -- on_attach binding for ts_ls
@@ -721,14 +757,8 @@ M.bind_cmp = function(opts)
   vim.b.did_bind_cmp = true
 
   local snippy_ok, snippy = pcall(require, "snippy")
-  local cmp = require("cmp")
-
-  map("n", "<C-Space>", function()
-    vim.cmd.startinsert({ bang = true })
-    vim.schedule(cmp.complete)
-  end, { desc = "In normal mode, `A`ppend and start completion" })
-
   if snippy_ok then
+    local cmp = require("cmp")
     map({ "i", "s" }, "<C-b>", function()
       if snippy.can_jump(-1) then
         snippy.previous()
@@ -750,29 +780,6 @@ M.bind_cmp = function(opts)
       desc = "snippy: expand or next field",
     })
   end
-
-  map("i", "<C-n>", function()
-    if cmp.visible() then
-      cmp.select_next_item()
-    end
-  end)
-  map("i", "<C-p>", function()
-    if cmp.visible() then
-      cmp.select_prev_item()
-    end
-  end)
-
-  map("i", "<C-k>", function()
-    if cmp.visible() then
-      cmp.mapping.scroll_docs(-4)
-    end
-  end)
-
-  map("i", "<C-j>", function()
-    if cmp.visible() then
-      cmp.mapping.scroll_docs(4)
-    end
-  end)
 end
 
 -- =============================================================================

@@ -265,6 +265,7 @@ if has_ui then
         vim.b.coc_suggest_disable = 1
         dkomappings.bind_cmp(opts)
       end
+      dkomappings.bind_completion(opts)
     end,
   })
 
