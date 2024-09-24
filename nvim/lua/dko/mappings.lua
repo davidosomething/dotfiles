@@ -494,7 +494,8 @@ M.bind_completion = function(opts)
   end, { desc = "In normal mode, `A`ppend and start nvim-cmp completion" })
 
   map("i", "<C-Space>", function()
-    vim.schedule(cmp.complete)
+    vim.fn["coc#pum#close"]("cancel")
+    cmp.complete()
   end, { desc = "In insert mode, start nvim-cmp completion" })
 
   map("i", "<Plug>(DkoCmpNext)", function()
