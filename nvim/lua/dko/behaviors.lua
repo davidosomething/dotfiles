@@ -271,6 +271,17 @@ if has_ui then
     end,
   })
 
+  autocmd("User", {
+    pattern = "EscEscEnd",
+    desc = "Close coc.nvim floats on <Esc><Esc>",
+    callback = function()
+      if dkosettings.get("coc.enabled") then
+        vim.fn["coc#float#close_all"]()
+      end
+    end,
+    group = augroup("dkolsp"),
+  })
+
   autocmd({ "BufWritePre", "FileWritePre" }, {
     desc = "Format with LSP on save",
     callback = function()
