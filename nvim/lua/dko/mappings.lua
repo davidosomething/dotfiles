@@ -362,9 +362,15 @@ local function telescope_builtin(method)
   return false
 end
 
+-- Bindings for vim.lsp. Conflicts with bind_coc
 -- LspAttach autocmd callback
 ---@param bufnr number
 M.bind_lsp = function(bufnr)
+  if vim.b.did_bind_lsp then -- First LSP attached
+    return
+  end
+  vim.b.did_bind_lsp = true
+
   ---@param opts table
   ---@return table opts with silent and buffer set
   local function lsp_opts(opts)
@@ -380,11 +386,6 @@ M.bind_lsp = function(bufnr)
   map("n", "gd", function()
     return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
   end, lsp_opts({ desc = "LSP definition" }))
-
-  -- This is done for us in
-  -- $VIMRUNTIME/lua/vim/lsp.lua
-  -- as of https://github.com/neovim/neovim/pull/24331
-  --map("n", "K", vim.lsp.buf.hover, lsp_opts({ desc = "LSP hover" }))
 
   map("n", "gi", function()
     return telescope_builtin("lsp_implementations")
@@ -465,13 +466,8 @@ M.bind_on_lspattach = function(args)
     ]]
   local bufnr = args.buf
   local client = vim.lsp.get_client_by_id(args.data.client_id)
-  if not client then -- just to shut up type checking
-    return
-  end
-
-  if not vim.b.did_bind_lsp then -- First LSP attached
+  if client then -- just to shut up type checking
     M.bind_lsp(bufnr)
-    vim.b.did_bind_lsp = true
   end
 end
 
@@ -485,6 +481,36 @@ M.unbind_on_lspdetach = function(_args)
   -- end
 end
 
+-- Bind "K" to
+-- jump into active coc float, or
+-- show definition float, or
+-- jump/show LSP float
+M.bind_hover = function(opts)
+  -- default vim.ksp is done for us in $VIMRUNTIME/lua/vim/lsp.lua
+  -- as of https://github.com/neovim/neovim/pull/24331
+  --map("n", "K", vim.lsp.buf.hover, lsp_opts({ desc = "LSP hover" }))
+
+  map("n", "K", function()
+    -- Jump into active coc float OR do a definitionHover
+    -- This part is taken from coc#float$jump
+    -- https://github.com/neoclide/coc.nvim/blob/master/autoload/coc/float.vim#L28C1-L35C12
+    if vim.b.did_bind_coc then
+      local winids = vim.fn["coc#float#get_float_win_list"]()
+      if #winids > 0 then
+        vim.fn.win_gotoid(winids[1]) --- 1 indexed !
+      elseif vim.api.nvim_eval("coc#rpc#ready()") then
+        -- Same as doHover but includes definition contents from definition provider when possible
+        vim.fn.CocActionAsync("definitionHover")
+      end
+    else
+      vim.lsp.buf.hover()
+    end
+  end, { desc = "coc hover action", buffer = opts.buf, silent = true })
+end
+
+-- Bind <C-Space> to open nvim-cmp
+-- Bind <C-n> <C-p> to pick based on coc or nvim-cmp open
+-- Bind <C-j> <C-k> to scroll coc or nvim-cmp attached docs window
 M.bind_completion = function(opts)
   local cmp = require("cmp")
 
@@ -501,11 +527,9 @@ M.bind_completion = function(opts)
   map("i", "<Plug>(DkoCmpNext)", function()
     cmp.select_next_item()
   end)
-
   map("i", "<Plug>(DkoCmpPrev)", function()
     cmp.select_prev_item()
   end)
-
   map("i", "<C-n>", function()
     if cmp.visible() then
       return "<Plug>(DkoCmpNext)"
@@ -515,7 +539,6 @@ M.bind_completion = function(opts)
         or vim.fn["coc#pum#next"](1)
     end
   end, { expr = true, buffer = opts.buf, remap = true, silent = true })
-
   map("i", "<C-p>", function()
     if cmp.visible() then
       return "<Plug>(DkoCmpPrev)"
@@ -526,19 +549,65 @@ M.bind_completion = function(opts)
     end
   end, { expr = true, buffer = opts.buf, remap = true, silent = true })
 
+  map("i", "<Plug>(DkoCmpScrollUp)", function()
+    cmp.mapping.scroll_docs(-4)
+  end)
+  map("i", "<Plug>(DkoCmpScrollDown)", function()
+    cmp.mapping.scroll_docs(4)
+  end)
   map("i", "<C-k>", function()
     if cmp.visible() then
-      cmp.mapping.scroll_docs(-4)
+      return "<Plug>(DkoCmpScrollUp)"
     end
-  end)
-
+    if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
+      return vim.fn["coc#float#scroll"](1)
+    end
+  end, {
+    expr = true,
+    buffer = opts.buf,
+    nowait = true,
+    remap = true,
+    silent = true,
+  })
   map("i", "<C-j>", function()
     if cmp.visible() then
-      cmp.mapping.scroll_docs(4)
+      return "<Plug>(DkoCmpScrollDown)"
     end
-  end)
+    if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
+      return vim.fn["coc#float#scroll"](0)
+    end
+  end, {
+    expr = true,
+    buffer = opts.buf,
+    nowait = true,
+    remap = true,
+    silent = true,
+  })
+  map("n", "<C-j>", function()
+    if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
+      return vim.fn["coc#float#scroll"](1)
+    end
+  end, {
+    expr = true,
+    buffer = opts.buf,
+    nowait = true,
+    remap = true,
+    silent = true,
+  })
+  map("n", "<C-k>", function()
+    if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
+      return vim.fn["coc#float#scroll"](0)
+    end
+  end, {
+    expr = true,
+    buffer = opts.buf,
+    nowait = true,
+    remap = true,
+    silent = true,
+  })
 end
 
+-- Bindings for coc.nvim. Conflicts with bind_lsp.
 -- opts = {
 --   buf = 1,
 --   event = "FileType",
@@ -547,8 +616,11 @@ end
 --   match = "typescriptreact"
 -- }
 M.bind_coc = function(opts)
-  if vim.b.did_bind_cmp then
-    vim.notify("Buffer already has nvim-cmp bindings!", vim.log.levels.WARN)
+  if vim.b.did_bind_lsp then
+    vim.notify(
+      "Tried to bind_coc but bind_lsp was already called",
+      vim.log.levels.ERROR
+    )
     return
   end
   -- make sure bind_lsp doesn't overwrite mappings later
@@ -574,9 +646,8 @@ M.bind_coc = function(opts)
   })
 
   -- ===========================================================================
-  -- diagnostic jump
+  -- diagnostic jump -- using vim.diagnostic instead since we pipe coc into ALE
   -- ===========================================================================
-
   -- map(
   --   "n",
   --   "[d",
@@ -589,17 +660,11 @@ M.bind_coc = function(opts)
   --   "<Plug>(coc-diagnostic-next)",
   --   { desc = "Go to next diagnostic", buffer = opts.buf, silent = true }
   -- )
-
-  -- ===========================================================================
-  -- hover
-  -- ===========================================================================
-
-  map("n", "K", function()
-    if vim.api.nvim_eval("coc#rpc#ready()") then
-      vim.fn.CocActionAsync("doHover")
-    end
-  end, { desc = "coc hover action", buffer = opts.buf, silent = true })
 end
+
+-- =============================================================================
+-- ts_ls
+-- =============================================================================
 
 -- on_attach binding for ts_ls
 M.bind_ts_ls_lsp = function(_client, bufnr)
@@ -747,16 +812,10 @@ M.bind_inspecthi = function()
 end
 
 -- ===========================================================================
--- Plugin: nvim-cmp
+-- Plugin: nvim-cmp + cmp-snippy
 -- ===========================================================================
 
-M.bind_cmp = function(opts)
-  if vim.b.did_bind_coc then
-    vim.notify("Buffer already has coc.nvim bindings!", vim.log.levels.WARN)
-    return
-  end
-  vim.b.did_bind_cmp = true
-
+M.bind_snippy = function()
   local snippy_ok, snippy = pcall(require, "snippy")
   if snippy_ok then
     local cmp = require("cmp")
@@ -801,13 +860,14 @@ M.bind_nvim_various_textobjs = function()
   -- Note: use <cmd> mapping format for dot-repeatability
   -- https://github.com/chrisgrieser/nvim-various-textobjs/commit/363dbb7#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5R5
 
+  local BLANKS = "noBlanks"
+
   map({ "o", "x" }, "ai", function()
     ---@type "inner"|"outer" exclude the startline
     local START = "outer"
     ---@type "inner"|"outer" exclude the endline
     local END = "outer"
     ---@type "withBlanks"|"noBlanks"
-    local BLANKS = "noBlanks"
     require("various-textobjs").indentation(START, END, BLANKS)
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   end, { desc = "textobj: indent" })
@@ -818,7 +878,6 @@ M.bind_nvim_various_textobjs = function()
     ---@type "inner"|"outer" exclude the endline
     local END = "inner"
     ---@type "withBlanks"|"noBlanks"
-    local BLANKS = "noBlanks"
     require("various-textobjs").indentation(START, END, BLANKS)
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   end, { desc = "textobj: indent" })

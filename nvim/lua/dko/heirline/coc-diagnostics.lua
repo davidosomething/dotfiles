@@ -1,3 +1,7 @@
+-- =============================================================================
+-- NOT USED since we pipe to vim.diagnostic through ALE now
+-- =============================================================================
+
 local icons = require("dko.icons")
 
 -- example vim.b.coc_diagnostic_info

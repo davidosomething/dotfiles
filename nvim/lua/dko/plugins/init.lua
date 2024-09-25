@@ -254,17 +254,6 @@ return {
     end,
   },
 
-  -- highlight undo/redo text change
-  -- https://github.com/tzachar/highlight-undo.nvim
-  {
-    "tzachar/highlight-undo.nvim",
-    cond = has_ui,
-    keys = { "u", "<c-r>" },
-    config = function()
-      require("highlight-undo").setup({})
-    end,
-  },
-
   -- package diff
   -- https://github.com/vuki656/package-info.nvim
   {

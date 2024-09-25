@@ -250,6 +250,7 @@ if has_ui then
   autocmd("FileType", {
     desc = "Set mappings/format on save for specific filetypes if coc.nvim is enabled",
     callback = function(opts)
+      --- order matters here
       if
         dkosettings.get("coc.enabled")
         and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
@@ -263,9 +264,10 @@ if has_ui then
         vim.b.coc_enabled = 0
         vim.b.coc_diagnostic_disable = 1
         vim.b.coc_suggest_disable = 1
-        dkomappings.bind_cmp(opts)
       end
+      dkomappings.bind_snippy()
       dkomappings.bind_completion(opts)
+      dkomappings.bind_hover(opts)
     end,
   })
 

@@ -1,5 +1,4 @@
 local icons = require("dko.icons")
-local settings = require("dko.settings")
 
 -- polyfill as of https://github.com/neovim/neovim/pull/26807
 ---@param opts? { severity?: number }
@@ -16,9 +15,6 @@ return {
     local has_filetype = vim.bo.filetype ~= ""
     if not has_filetype then
       return false
-    end
-    if settings.get("coc.enabled") then
-      return not vim.tbl_contains(settings.get("coc.fts"), vim.bo.filetype)
     end
     return true
   end,
