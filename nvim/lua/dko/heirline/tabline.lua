@@ -1,13 +1,13 @@
 local conditions = require("heirline.conditions")
 return {
   init = function(self)
+    -- Need to check if is_git_repo because vim.g.gitsigns_head is stale if you
+    -- switch to an untracked file
     self.branch = conditions.is_git_repo() and vim.g.gitsigns_head or ""
-
-    self.cwd = vim.uv.cwd()
   end,
 
-  require("dko.heirline.cwd"),
-  require("dko.heirline.git"),
+  require("dko.heirline.cwd"), -- uses branch
+  require("dko.heirline.git"), -- uses branch
   require("dko.heirline.bufferstats"),
 
   { provider = "%=", hl = "StatusLineNC" },

@@ -25,9 +25,7 @@ local pipelines = {}
 pipelines["html"] = function()
   require("dko.utils.format.efm").format({ pipeline = "html" })
 end
-pipelines["javascript"] = function()
-  require("dko.utils.format.javascript")(notify)
-end
+pipelines["javascript"] = require("dko.utils.format.javascript")
 pipelines["javascriptreact"] = pipelines["javascript"]
 pipelines["typescript"] = pipelines["javascript"]
 pipelines["typescriptreact"] = pipelines["javascript"]

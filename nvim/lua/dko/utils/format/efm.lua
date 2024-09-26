@@ -9,9 +9,22 @@ local M = {}
 M.format = function(opts)
   opts = opts or {}
 
+  -- notification settings for this function
+  local title = "[LSP] efm"
+  if opts.pipeline then
+    title = ("[LSP] %s > efm"):format(opts.pipeline)
+  end
+
   -- need to check for client in case we did :LspStop or something
   local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
   if not client then
+    if not opts.hide_notification then
+      toast("efm not attached", vim.log.levels.WARN, {
+        group = "format",
+        title = title,
+        render = "compact",
+      })
+    end
     return false
   end
 
@@ -30,11 +43,6 @@ M.format = function(opts)
         :totable(),
       ", "
     )
-
-    local title = "[LSP] efm"
-    if opts.pipeline then
-      title = ("[LSP] %s > efm"):format(opts.pipeline)
-    end
     toast(("%s"):format(formatters), vim.log.levels.INFO, {
       group = "format",
       title = title,
@@ -50,7 +58,6 @@ M.format = function(opts)
   return true
 end
 
---- Assuming each
 --- Temporarily removes all efm configs except the one named
 --- Runs lsp format synchronously
 --- Then restores the original efm configs
