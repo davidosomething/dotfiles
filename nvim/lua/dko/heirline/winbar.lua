@@ -18,7 +18,7 @@ return {
       self.filepath = vim.api.nvim_buf_get_name(0)
       self.filetype_text = vim.tbl_contains(hidden_filetypes, vim.bo.filetype)
           and ""
-        or smallcaps(vim.bo.filetype)
+        or smallcaps(vim.bo.filetype, { numbers = false })
     end,
     hl = function()
       return active_highlight()
