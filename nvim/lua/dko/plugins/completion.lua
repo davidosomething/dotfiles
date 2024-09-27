@@ -1,8 +1,31 @@
 local dkosettings = require("dko.settings")
+local smallcaps = require("dko.utils.string").smallcaps
 
 -- =========================================================================
 -- Completion
 -- =========================================================================
+
+--- More info at https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/entry.lua#L286-L293}
+---@class CmpItem
+---@field kind string e.g. "Text" or "Method" or "Color" or "File"
+---@field kind_hl_group string
+---@field abbr string
+---@field abbr_hl_group string
+---@field menu string the source, shown at end of entry
+
+local SOURCE_MAP = {
+  buffer = "ʙᴜꜰ",
+  cmdline = "", -- cmp-cmdline used on cmdline
+  latex_symbols = "ʟᴛx",
+  luasnip = "sɴɪᴘ",
+  snippy = "sɴɪᴘ",
+  nvim_lsp = "ʟsᴘ",
+  nvim_lua = "ʟᴜᴀ",
+  path = "ᴘᴀᴛʜ",
+}
+
+-- plugin caches
+local nhc_ok, nhc
 
 local cmp_dependencies = {
   { "dcampos/cmp-snippy", dependencies = { "dcampos/nvim-snippy" } },
@@ -14,7 +37,10 @@ local cmp_dependencies = {
   "hrsh7th/cmp-path",
 
   { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
-  "onsails/lspkind.nvim",
+
+  --- init creates the symbol_map, but also modifies
+  --- vim.lsp.protocol.CompletionItemKind :(
+  -- "onsails/lspkind.nvim",
 }
 
 return {
@@ -58,45 +84,66 @@ return {
             cmp.ItemField.Abbr,
             cmp.ItemField.Menu,
           },
-          format = function(entry, vim_item)
-            local kind_formatted = require("lspkind").cmp_format({
-              mode = "symbol_text", -- show only symbol annotations
-              menu = {
-                buffer = "ʙᴜꜰ",
-                cmdline = "", -- cmp-cmdline used on cmdline
-                latex_symbols = "ʟᴛx",
-                luasnip = "sɴɪᴘ",
-                snippy = "sɴɪᴘ",
-                nvim_lsp = "ʟsᴘ",
-                nvim_lua = "ʟᴜᴀ",
-                path = "ᴘᴀᴛʜ",
-              },
-            })(entry, vim_item)
 
-            local strings =
-              vim.split(kind_formatted.kind, "%s", { trimempty = true })
+          ---@param item CmpItem
+          format = function(entry, item)
+            local raw_kind = item.kind
 
-            kind_formatted.kind = (strings[1] or "")
-
-            local smallcaps_type = require("dko.utils.string").smallcaps(
-              strings[2]
-            ) or ""
-
-            local tailwind_colorized =
-              require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
-
-            if tailwind_colorized.kind == "XX" then
-              kind_formatted.kind = "X"
-              kind_formatted.kind_hl_group = tailwind_colorized.kind_hl_group
-              kind_formatted.menu = ("  %s"):format("ᴛᴡ  ᴄᴏʟᴏʀ")
-            else
-              kind_formatted.menu = ("  %s.%s"):format(
-                kind_formatted.menu or entry.source.name,
-                smallcaps_type
-              )
+            -- convert item.kind into a symbol
+            local sym, symhl, did_fallback
+            ---@diagnostic disable-next-line: undefined-field
+            if _G.MiniIcons then
+              ---@diagnostic disable-next-line: undefined-field
+              sym, symhl, did_fallback = _G.MiniIcons.get("lsp", item.kind)
+              -- else
+              -- sym = require("lspkind").symbol_map[item.kind]
             end
 
-            return kind_formatted
+            -- =================================================================
+            -- customize source text at end of entry
+            -- =================================================================
+
+            --- printed at end, sᴏᴜʀᴄᴇ of sᴏᴜʀᴄᴇ.ᴛʏᴘᴇ
+            local source
+            --- printed at end, ᴛʏᴘᴇ of sᴏᴜʀᴄᴇ.ᴛʏᴘᴇ
+            local itemtype = ""
+
+            -- [color] thing    ᴄᴏʟᴏʀ
+            if nhc_ok == nil then
+              nhc_ok, nhc = pcall(require, "nvim-highlight-colors")
+            end
+            if nhc then
+              local color_item = nhc.format(entry, { kind = item.kind })
+              if color_item.abbr_hl_group then
+                item.kind = color_item.abbr
+                item.kind_hl_group = color_item.abbr_hl_group
+                source = "ᴄᴏʟᴏʀ"
+              end
+            end
+
+            -- [color] thing    ᴛᴡ
+            if not source then
+              local tw_colorized =
+                require("tailwindcss-colorizer-cmp").formatter(entry, item)
+              if tw_colorized.kind == "XX" then
+                item.kind = "X"
+                item.kind_hl_group = tw_colorized.kind_hl_group
+                source = "ᴛᴡ"
+              end
+            end
+
+            -- [icon] thing    sᴏᴜʀᴄᴇ.ᴛʏᴘᴇ
+            if not source then
+              item.kind = sym
+              item.kind_hl_group = symhl
+              source =
+                smallcaps(SOURCE_MAP[entry.source.name] or entry.source.name)
+              itemtype = (".%s"):format(smallcaps(raw_kind))
+            end
+
+            -- =================================================================
+            item.menu = ("  %s%s"):format(source, itemtype)
+            return item
           end,
         },
       })
