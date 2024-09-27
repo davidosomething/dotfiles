@@ -64,7 +64,7 @@ return {
             self.icon_color = ""
           else
             local extension = vim.fn.fnamemodify(self.filepath, ":e")
-            local ok, nvim_web_devicons = pcall(require, "nvim-web-devicons")
+            local ok, nvim_web_devicons = pcall(require, "nvim-web-devicons") -- should resolve to mini.icons
             if ok then
               self.icon, self.icon_color = nvim_web_devicons.get_icon_color(
                 self.filepath,
