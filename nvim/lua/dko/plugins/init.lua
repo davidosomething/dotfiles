@@ -33,11 +33,24 @@ return {
   -- ui: components
   -- =========================================================================
 
+  -- use mini.icons instead
+  -- {
+  --   "nvim-tree/nvim-web-devicons",
+  --   lazy = true,
+  --   cond = has_ui,
+  --   config = true,
+  -- },
   {
-    "nvim-tree/nvim-web-devicons",
+    "echasnovski/mini.icons",
     lazy = true,
     cond = has_ui,
-    config = true,
+    opts = {},
+    init = function()
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
+    end,
   },
 
   -- Replace vim.ui.select and vim.ui.input, which are used by things like
