@@ -19,21 +19,23 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 | ----------------- | ---------------- |
 | Plugin manager    | [lazy.nvim]      |
 | Colorscheme       | [vim-colors-meh] |
-| Status/tab/winbar | [heirline]       |
+| Status/tab/winbar | [heirline.nvim]  |
 | LSP/tool manager  | [mason.nvim]     |
 | Local LSP         | [efm-langserver] |
 | File finder       | [telescope]      |
 
 ## custom things
 
-- all mappings in mappings.lua
+- all mappings in [mappings.lua](./lua/dko/mappings.lua)
 - if using my dotfiles, [e](https://github.com/davidosomething/dotfiles/blob/dev/bin/e) is the preferred way to open files.
-  - it will create a new nvim.sock if one does not exist
+  - it will create a new `nvim.sock` if one does not exist
   - it will use a single nvim instance over the socket otherwise
 - if using my wezterm config, `<C-S-t>` will toggle the terminal and neovim
   theme between light and dark mode.
 - lsp/tool config is done in [dko/tools.lua](https://github.com/davidosomething/dotfiles/tree/dev/nvim/lua/dko/tools.lua)
-  - lspconfig, efm, and null-ls all handled in one place
+  - coc.nvim for JS/TS(x) and JSON as it runs much faster for large codebases
+    - can still trigger regular nvim-cmp completions for other LSPs using
+      `<C-Space>`
 - formatting is handled in [dko/utils/format.lua](https://github.com/davidosomething/dotfiles/blob/dev/nvim/lua/dko/utils/format.lua)
   - of note is a pipeline that can run eslint only, eslint and then
     prettier, or prettier only as needed
@@ -46,4 +48,4 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 [mason.nvim]: https://github.com/williamboman/mason.nvim
 [efm-langserver]: https://github.com/mattn/efm-langserver
 [telescope]: https://github.com/nvim-telescope/telescope.nvim
-[heirline]: https://github.com/rebelot/heirline.nvim
+[heirline.nvim]: https://github.com/rebelot/heirline.nvim
