@@ -121,6 +121,7 @@ return {
   --   event = "LspAttach",
   --   dependencies = {
   --     "nvim-treesitter/nvim-treesitter", -- optional
+  --     "echasnovski/mini.icons",
   --     "nvim-tree/nvim-web-devicons", -- optional (and using mini.icons)
   --   },
   --   config = function()

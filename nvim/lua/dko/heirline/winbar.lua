@@ -1,8 +1,6 @@
 local smallcaps = require("dko.utils.string").smallcaps
 local conditions = require("heirline.conditions")
 
-local icon_color_enabled = false
-
 local function active_highlight(active)
   active = active or "StatusLine"
   return conditions.is_active() and active or "StatusLineNC"
@@ -61,29 +59,22 @@ return {
         init = function(self)
           if vim.bo.buftype ~= "" then
             self.icon = ""
-            self.icon_color = ""
+            self.icon_not_found = true
           else
-            local extension = vim.fn.fnamemodify(self.filepath, ":e")
-            local ok, nvim_web_devicons = pcall(require, "nvim-web-devicons") -- should resolve to mini.icons
-            if ok then
-              self.icon, self.icon_color = nvim_web_devicons.get_icon_color(
-                self.filepath,
-                extension,
-                { default = true }
-              )
-            end
+            ---@diagnostic disable-next-line: undefined-field
+            self.icon = _G.MiniIcons and _G.MiniIcons.get("file", self.filepath)
+              or ""
           end
         end,
         provider = function(self)
-          -- Don't bother outputting these, the nerd icon is sufficient
-          return self.icon ~= ""
-              and (" %s %s "):format(self.icon, self.filetype_text)
-            or (" %s "):format(self.filetype_text)
+          -- don't add a space if we're hiding the filetype in the interest of
+          -- space saving
+          local spaced_filetype = self.filetype_text ~= ""
+              and (" " .. self.filetype_text)
+            or ""
+          return (" %s%s "):format(self.icon, spaced_filetype)
         end,
         hl = function(self)
-          if icon_color_enabled and self.icon_color then
-            return { fg = self.icon_color }
-          end
           return active_highlight("dkoStatusKey")
         end,
       },
