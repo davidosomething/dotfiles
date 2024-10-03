@@ -4,7 +4,6 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
---local dkomappings = require("dko.mappings")
 local dkosettings = require("dko.settings")
 local dkolsp = require("dko.utils.lsp")
 local dkotools = require("dko.tools")
@@ -19,7 +18,7 @@ return {
     branch = "release",
     cond = has_ui and dkosettings.get("use_coc"),
     init = function()
-      vim.g.coc_start_at_startup = false
+      vim.g.coc_start_at_startup = true
       vim.g.coc_global_extensions = {
         "coc-json",
         "coc-tsserver",
