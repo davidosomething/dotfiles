@@ -1,5 +1,6 @@
 local dkomappings = require("dko.mappings")
 local dkosettings = require("dko.settings")
+local dkoformat = require("dko.utils.format")
 
 -- ===========================================================================
 -- Change vim behavior via autocommands
@@ -231,7 +232,7 @@ if has_ui then
 
   autocmd("LspAttach", {
     desc = "Set flag to format on save when first capable LSP attaches to buffer",
-    callback = require("dko.utils.format").enable_on_lspattach,
+    callback = dkoformat.enable_on_lspattach,
     group = augroup("dkolsp"),
   })
 
@@ -243,7 +244,7 @@ if has_ui then
 
   autocmd("LspDetach", {
     desc = "Unset flag to format on save when last capable LSP detaches from buffer",
-    callback = require("dko.utils.format").disable_on_lspdetach,
+    callback = dkoformat.disable_on_lspdetach,
     group = augroup("dkolsp"),
   })
 
@@ -257,8 +258,9 @@ if has_ui then
       then
         vim.cmd.CocStart()
         dkomappings.bind_coc(opts)
-        require("dko.utils.format").add_formatter("coc")
-        vim.b.enable_format_on_save = true
+        --- @TODO move this to a tools-based registration
+        -- dkoformat.add_formatter("coc")
+        -- vim.b.enable_format_on_save = true
       else
         -- explicitly disable coc
         vim.b.coc_enabled = 0
@@ -296,7 +298,7 @@ if has_ui then
       if not vim.b.enable_format_on_save then
         return
       end
-      require("dko.utils.format").run_pipeline({ async = false })
+      dkoformat.run_pipeline({ async = false })
     end,
     group = augroup("dkolsp"),
   })

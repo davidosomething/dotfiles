@@ -21,7 +21,6 @@ return {
     init = function()
       vim.g.coc_start_at_startup = false
       vim.g.coc_global_extensions = {
-        "coc-eslint",
         "coc-json",
         "coc-tsserver",
       }
