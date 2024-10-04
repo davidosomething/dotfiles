@@ -7,15 +7,15 @@ My [/uses] post may be of interest to you!
 
 > Screenshot of my ZSH prompt
 
-| Tool              | Link                        |
-| ----------------- | --------------------------- |
-| OS support        | Arch, macOS, Debian, Ubuntu |
-| Terminal emulator | [wezterm]                   |
-| Font              | [Maple Mono]                |
-| Shell             | zsh                         |
-| Shell plugins     | [zinit]                     |
-| Editor            | [neovim]                    |
-| Tooling/env       | [mise]                      |
+| Tool              | Link                             |
+| ----------------- | -------------------------------- |
+| OS support        | Arch, macOS, Debian, Ubuntu      |
+| Terminal emulator | [wezterm](./wezterm/wezterm.lua) |
+| Font              | [Maple Mono]                     |
+| Shell             | [zsh](./zsh/dot.zshrc)           |
+| Shell plugins     | [zinit](./zsh/zinit.zsh)         |
+| Editor            | [neovim](./nvim/README.md)       |
+| Tooling/env       | [mise]                           |
 
 - [XDG] compliance wherever possible to keep `$HOME` clean
   - See [Arch Linux wiki for XDG Base Directory Support]
@@ -25,7 +25,7 @@ My [/uses] post may be of interest to you!
 
 ## Installation
 
-See macOS specific notes in [mac/README.md](mac/README.md)
+See macOS specific notes in [mac/README.md](./mac/README.md)
 
 Generally:
 
@@ -33,24 +33,24 @@ Generally:
 git clone https://github.com/davidosomething/dotfiles ~/.dotfiles
 ```
 
-Then, run the [bootstrap/symlink](bootstrap/symlink) script for linux or
-[bootstrap/mac](bootstrap/mac) for macOS.
+Then, run the [bootstrap/symlink](./bootstrap/symlink) script for linux or
+[bootstrap/mac](./bootstrap/mac) for macOS.
 
-After symlinking, [bootstrap/cleanup](bootstrap/cleanup) can move dotfiles into
-their XDG Base Directory supported directories and deletes unnecessary things
-(with confirmation).
+After symlinking, [bootstrap/cleanup](./bootstrap/cleanup) can move dotfiles
+into their XDG Base Directory supported directories and deletes unnecessary
+things (with confirmation).
 
 After symlinking and restarting shell, aliases will be available.
 The `sshkeygen` alias will help in generating a new SSH key.
 
 ## Updating
 
-`u` is an alias to [dot](bin/dot). Use `u` without arguments for usage.
+`u` is an alias to [dot](./bin/dot). Use `u` without arguments for usage.
 
 ## Notes
 
 - `bin/`
-  - There's a [readme](bin/README.md) in `bin/` describing each
+  - There's a [readme](./bin/README.md) in `bin/` describing each
     script/binary. This directory is in the `$PATH`.
 - `git/`
   - The comment character is `#` instead of `;` so I can use Markdown
@@ -61,13 +61,13 @@ The `sshkeygen` alias will help in generating a new SSH key.
     and they will be automatically sourced, LAST, by the default scripts. _No
     dots on the filenames._
 - `nvim/`
-  - [nvim/README.md](nvim/README.md) for more information.
+  - [nvim/README.md](./nvim/README.md) for more information.
 - `python/`
   - Never `sudo pip`. Set up a python virtual environment.
 
 ### rc script source order
 
-If you have node installed, the [dkosourced](bin/dkosourced) command will show
+If you have node installed, the [dkosourced](./bin/dkosourced) command will show
 you (not exhaustively) the order scripts get sourced. Without node `echo
 $DKO_SOURCE` works.
 
@@ -118,10 +118,7 @@ For X apps (no terminal) the value may be:
 [grawity's notes]: https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 [jglovier/dotfiles-logo]: https://github.com/jglovier/dotfiles-logo
 [mise]: https://github.com/jdx/mise
-[neovim]: https://neovim.io/
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/meta/meta/terminal-potatosff.png
 [/uses]: https://www.davidosomething.com/uses/
-[wezterm]: https://wezfurlong.org/wezterm/
 [XDG]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
-[zinit]: https://github.com/zdharma-continuum/zinit
 [Maple Mono]: https://github.com/subframe7536/maple-font
