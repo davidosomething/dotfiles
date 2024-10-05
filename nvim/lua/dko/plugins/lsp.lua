@@ -19,6 +19,7 @@ return {
     cond = has_ui and dkosettings.get("use_coc"),
     dependencies = {
       { "davidosomething/format-ts-errors.nvim", dev = true },
+      { "davidosomething/coc-diagnostics-shim.nvim", dev = true },
     },
     init = function()
       vim.g.coc_start_at_startup = true
@@ -28,7 +29,7 @@ return {
         -- "coc-pretty-ts-errors" -- using format-ts-errors instead
       }
 
-      require("ale-shim").setup({
+      require("coc-diagnostics-shim").setup({
         formatters = {
           coctsserver = {
             ---@diagnostic disable-next-line: unused-local
