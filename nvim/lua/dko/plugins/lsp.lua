@@ -17,43 +17,68 @@ return {
     "neoclide/coc.nvim",
     branch = "release",
     cond = has_ui and dkosettings.get("use_coc"),
+    dependencies = {
+      { "davidosomething/format-ts-errors.nvim", dev = true },
+    },
     init = function()
       vim.g.coc_start_at_startup = true
       vim.g.coc_global_extensions = {
         "coc-json",
         "coc-tsserver",
-        "coc-pretty-ts-errors",
+        -- "coc-pretty-ts-errors" -- using format-ts-errors instead
       }
+
+      require("ale-shim").setup({
+        formatters = {
+          coctsserver = {
+            ---@diagnostic disable-next-line: unused-local
+            function(linter_name, item, formatted)
+              local prettifier = require("format-ts-errors")[item.code]
+              if not prettifier then
+                vim.print("no prettifier for " .. item.code)
+                return formatted
+              end
+              local prettified = prettifier(item.text)
+              return ("%s%s"):format(
+                prettified,
+                "ꜰᴏʀᴍᴀᴛᴛᴇᴅ ᴡɪᴛʜ ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ"
+              )
+            end,
+          },
+        },
+      })
     end,
   },
 
+  -- Using my ale-shim instead
   -- https://github.com/dense-analysis/ale
   -- coc.nvim configured to pipe its diagnostics to ALE
   -- ALE then pipes the diagnostics to vim.diagnostic
   -- We define diagnostic signs in dko.diagnostic
-  {
-    "dense-analysis/ale",
-    init = function()
-      vim.g.ale_disable_lsp = 1
-      -- only use explicitly enabled linters
-      vim.g.ale_linters_explicit = 1
-
-      -- coc
-      vim.g.ale_use_neovim_diagnostics_api = 1
-
-      -- diagnostic display
-      vim.g.ale_echo_cursor = 0
-      vim.g.ale_set_balloons = 0
-      vim.g.ale_set_highlights = 0
-      vim.g.ale_set_loclist = 0
-      vim.g.ale_set_quickfix = 0
-      vim.g.ale_set_signs = 1
-      vim.g.ale_sign_error = "✖"
-      vim.g.ale_sign_warning = ""
-      vim.g.ale_sign_info = "⚑"
-      vim.g.ale_virtualtext_cursor = "disabled"
-    end,
-  },
+  -- {
+  --   "dense-analysis/ale",
+  --   enabled = false,
+  --   init = function()
+  --     vim.g.ale_disable_lsp = 1
+  --     -- only use explicitly enabled linters
+  --     vim.g.ale_linters_explicit = 1
+  --
+  --     -- coc
+  --     vim.g.ale_use_neovim_diagnostics_api = 1
+  --
+  --     -- diagnostic display
+  --     vim.g.ale_echo_cursor = 0
+  --     vim.g.ale_set_balloons = 0
+  --     vim.g.ale_set_highlights = 0
+  --     vim.g.ale_set_loclist = 0
+  --     vim.g.ale_set_quickfix = 0
+  --     vim.g.ale_set_signs = 1
+  --     vim.g.ale_sign_error = "✖"
+  --     vim.g.ale_sign_warning = ""
+  --     vim.g.ale_sign_info = "⚑"
+  --     vim.g.ale_virtualtext_cursor = "disabled"
+  --   end,
+  -- },
 
   -- provides modules only
   -- https://github.com/creativenull/efmls-configs-nvim
@@ -176,7 +201,6 @@ return {
   -- {
   --   "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
   --   dev = true,
-  --   lazy = true,
   -- },
 
   -- https://github.com/marilari88/twoslash-queries.nvim
