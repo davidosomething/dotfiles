@@ -113,6 +113,9 @@ return {
               nhc_ok, nhc = pcall(require, "nvim-highlight-colors")
             end
             if nhc then
+              -- nhc.format() mutates the item (second param) so don't pass
+              -- original item
+              -- https://github.com/brenoprata10/nvim-highlight-colors/compare/96bd582..f4b6593#diff-b75cdeeaf82700637d57dda632e5d493ae9d90c6ab4ee0735d120e1eb1b0c617R176-R204
               local color_item = nhc.format(entry, { kind = item.kind })
               if color_item.abbr_hl_group then
                 item.kind = color_item.abbr
