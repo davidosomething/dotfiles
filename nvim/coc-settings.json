@@ -1,6 +1,5 @@
 {
   "coc.preferences.willSaveHandlerTimeout": 1000,
-  "snippets.ultisnips.pythonPrompt": false,
 
   "diagnostic.displayByAle": true,
   "diagnostic.hintSign": "",
@@ -13,19 +12,27 @@
     "rounded": true,
     "title": " ᴄᴏᴄ.ɴᴠɪᴍ :: ᴅɪᴀɢɴᴏsᴛɪᴄ"
   },
-  "inlayHint.enable": false,
+
+  "inlayHint.display": true,
+  "inlayHint.enable": true,
+  "inlayHint.position": "eol",
+
   "hover.floatConfig": {
     "border": true,
     "focusable": true,
     "rounded": true,
     "title": " ᴄᴏᴄ.ɴᴠɪᴍ :: ʜᴏᴠᴇʀ"
   },
+
   "signature.floatConfig": {
     "border": true,
     "focusable": true,
     "rounded": true,
     "title": " ᴄᴏᴄ.ɴᴠɪᴍ :: sɪɢɴᴀᴛᴜʀᴇ"
   },
+
+  "snippets.ultisnips.pythonPrompt": false,
+
   "suggest.floatConfig": {
     "border": true,
     "rounded": true
@@ -35,8 +42,6 @@
     "border": true,
     "rounded": true
   },
-
-  "eslint.trace.server": "verbose",
 
   "json.format.enable": false,
   "json.schemas": [
@@ -52,6 +57,5 @@
   "typescript.preferGoToSourceDefinition": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
-  "tsserver.disableAutomaticTypeAcquisition": true,
-  "tsserver.log": "verbose"
+  "tsserver.disableAutomaticTypeAcquisition": true
 }
