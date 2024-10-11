@@ -36,8 +36,13 @@ return {
             function(linter_name, item, formatted)
               local prettifier = require("format-ts-errors")[item.code]
               if not prettifier then
-                vim.print("no prettifier for " .. item.code)
-                return formatted
+                vim.print(
+                  ("format-ts-errors no formatter for [%d] %s"):format(
+                    item.code,
+                    item.text
+                  )
+                )
+                return item.text
               end
               local prettified = prettifier(item.text)
               return ("%s%s"):format(
