@@ -43,6 +43,9 @@
     "rounded": true
   },
 
+  "eslint.quiet": true,
+  "eslint.alwaysShowStatus": true,
+
   "json.format.enable": false,
   "json.schemas": [
     {

@@ -24,6 +24,7 @@ return {
     init = function()
       vim.g.coc_start_at_startup = true
       vim.g.coc_global_extensions = {
+        "coc-eslint", -- since it gives code actions unified with tsserver
         "coc-json",
         "coc-tsserver",
         -- "coc-pretty-ts-errors" -- using format-ts-errors instead
@@ -122,7 +123,6 @@ return {
   -- https://github.com/aznhe21/actions-preview.nvim
   {
     "aznhe21/actions-preview.nvim",
-    enabled = dkosettings.get("lsp.code_action") == "actions-preview",
     dependencies = {
       "nvim-telescope/telescope.nvim",
     },
@@ -133,7 +133,6 @@ return {
   -- https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
   {
     "rachartier/tiny-code-action.nvim",
-    enabled = dkosettings.get("lsp.code_action") == "tiny-code-action",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope.nvim" },
