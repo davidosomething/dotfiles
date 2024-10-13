@@ -6,12 +6,15 @@
   "diagnostic.infoSign": "⚑",
   "diagnostic.warningSign": "",
   "diagnostic.errorSign": "✖",
+
   "diagnostic.floatConfig": {
     "border": true,
+    "borderhighlight": "FloatBorder",
     "focusable": true,
     "rounded": true,
     "title": " ᴄᴏᴄ.ɴᴠɪᴍ :: ᴅɪᴀɢɴᴏsᴛɪᴄ"
   },
+  "dialog.floatBorderHighlight": "FloatBorder",
 
   "inlayHint.display": true,
   "inlayHint.enable": true,
@@ -19,6 +22,7 @@
 
   "hover.floatConfig": {
     "border": true,
+    "borderhighlight": "FloatBorder",
     "focusable": true,
     "rounded": true,
     "title": " ᴄᴏᴄ.ɴᴠɪᴍ :: ʜᴏᴠᴇʀ"
@@ -26,6 +30,7 @@
 
   "signature.floatConfig": {
     "border": true,
+    "borderhighlight": "FloatBorder",
     "focusable": true,
     "rounded": true,
     "title": " ᴄᴏᴄ.ɴᴠɪᴍ :: sɪɢɴᴀᴛᴜʀᴇ"
@@ -35,13 +40,10 @@
 
   "suggest.floatConfig": {
     "border": true,
+    "borderhighlight": "FloatBorder",
     "rounded": true
   },
   "suggest.noselect": true,
-  "suggest.pumFloatConfig": {
-    "border": true,
-    "rounded": true
-  },
 
   "eslint.quiet": true,
   "eslint.alwaysShowStatus": true,
