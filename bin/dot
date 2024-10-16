@@ -370,7 +370,7 @@ __dko_dotfiles__darwin__update_mac() {
 __dko_dotfiles__darwin__require_latest_xcode() {
   local v
   # 14.0.0
-  v="$(xcodebuild -version | awk 'NR==1{print $2}')"
+  v="$(xcodebuild -version 2>/dev/null | awk 'NR==1{print $2}')"
   # 14 (trim until .)
   v="${v%%.*}"
   if ((v <= latest_xcode_major)); then
@@ -382,7 +382,6 @@ __dko_dotfiles__darwin__require_latest_xcode() {
 }
 
 __dko_dotfiles__darwin__update_brew() {
-  __dko_dotfiles__darwin__require_latest_xcode || return 1
   __dko_has brew || return 1
 
   __dko_status "Updating homebrew"
