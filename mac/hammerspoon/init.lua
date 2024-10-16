@@ -9,7 +9,8 @@ hs.consoleOnTop(false)
 hs.dockIcon(false)
 hs.menuIcon(true)
 
-hyper = {"⌘", "⌃", "⇧"}
+_G.mc = { "⌘", "⌃" }
+_G.hyper = { "⌘", "⌃", "⇧" }
 
 local mods = {}
 table.insert(mods, require("clipboard.type"))
@@ -20,7 +21,7 @@ table.insert(mods, require("launcher.seal"))
 table.insert(mods, require("window.lunette"))
 table.insert(mods, require("window.throw"))
 
-print "== reload"
+print("== reload")
 hs.hotkey.bind(hyper, "R", function()
   for _, mod in ipairs(mods) do
     if type(mod) == "table" and mod["destructor"] then

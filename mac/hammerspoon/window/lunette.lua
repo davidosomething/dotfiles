@@ -1,42 +1,37 @@
----
+--
 -- Spectacle.app style window management
 -- https://github.com/scottwhudson/Lunette
-print "== window.lunette"
+print("== window.lunette")
 
 hs.loadSpoon("Lunette")
 
 spoon.Lunette:bindHotkeys({
-  cycleWidth = {
-    {hyper, "W"},
-  },
   leftHalf = {
-    {hyper, "A"},
+    { mc, "A" },
   },
   rightHalf = {
-    {hyper, "D"},
+    { mc, "D" },
   },
   topHalf = {
-    {hyper, "K"},
+    { mc, "K" },
   },
   bottomHalf = {
-    {hyper, "J"},
+    { mc, "J" },
   },
   topLeft = false,
   topRight = false,
   bottomLeft = false,
   bottomRight = false,
   fullScreen = {
-    {hyper, "F"},
+    { mc, "F" },
   },
-  center = false,
+  center = {
+    { mc, "S" },
+  },
   nextThird = false,
   prevThird = false,
-  enlarge = {
-    {hyper, "up"},
-  },
-  shrink = {
-    {hyper, "down"},
-  },
+  enlarge = false,
+  shrink = false,
 })
 
 return nil
