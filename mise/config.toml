@@ -1,4 +1,4 @@
 [tools]
 node = "20"
 pnpm = "9"
-go = "1"
+go = "1.23.2"
