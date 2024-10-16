@@ -1,6 +1,4 @@
 brew "mackup"
-brew "mas"
-brew "moreutils"
 brew "neovim"
 cask "bettertouchtool"
 cask "firefox"
