@@ -31,8 +31,12 @@ local colorscheme_file_path = ("%s/wezterm-colorscheme.txt"):format(
 )
 M.apply_from_file = function()
   -- see ./bench/readfile.lua - io.input was consistently fastest for me
-  local _, file = pcall(io.input, colorscheme_file_path)
-  M[(file and (file:lines()()) or "dark") .. "mode"]()
+  local ok, file = pcall(io.input, colorscheme_file_path)
+  if ok then
+    M[(file and (file:lines()()) or "dark") .. "mode"]()
+  else
+    M.darkmode()
+  end
 end
 
 local colorscheme_handle = nil
