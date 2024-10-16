@@ -50,7 +50,6 @@ return {
     "iguanacucumber/magazine.nvim",
     name = "nvim-cmp", -- Otherwise highlighting gets messed up
     cond = #vim.api.nvim_list_uis() > 0,
-    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = cmp_dependencies,
     config = function()
       local cmp = require("cmp")

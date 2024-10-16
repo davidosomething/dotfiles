@@ -525,7 +525,7 @@ end
 -- Bind <C-n> <C-p> to pick based on coc or nvim-cmp open
 -- Bind <C-j> <C-k> to scroll coc or nvim-cmp attached docs window
 M.bind_completion = function(opts)
-  local cmp = require("cmp")
+  local cmp_ok, cmp = pcall(require, "cmp")
 
   map("n", "<C-Space>", function()
     vim.cmd.startinsert({ bang = true })
