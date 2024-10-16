@@ -50,6 +50,8 @@ __symlink() {
     ".config/git/ignore"
   dko-symlink "markdownlint/dot.markdownlintrc" \
     ".config/markdownlint/config"
+  dko-symlink "mise/config.toml" \
+    ".config/mise/config.toml"
   dko-symlink "shell/dot.inputrc" \
     ".config/readline/inputrc"
   # whole wezterm directory
