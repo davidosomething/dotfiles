@@ -33,15 +33,14 @@ Generally:
 git clone https://github.com/davidosomething/dotfiles ~/.dotfiles
 ```
 
-Then, run the [bootstrap/symlink](./bootstrap/symlink) script for linux or
-[bootstrap/mac](./bootstrap/mac) for macOS.
+Then, run the [bootstrap/symlink](./bootstrap/symlink) script.
 
-After symlinking, [bootstrap/cleanup](./bootstrap/cleanup) can move dotfiles
-into their XDG Base Directory supported directories and deletes unnecessary
-things (with confirmation).
-
-After symlinking and restarting shell, aliases will be available.
+After symlinking, **restart the shell**. Aliases will be available.
 The `sshkeygen` alias will help in generating a new SSH key.
+
+Run [bootstrap/cleanup](./bootstrap/cleanup) to clean up stray dotfiles, moving
+into their XDG Base Directory supported directories and deleting unnecessary
+things (with confirmation).
 
 ## Updating
 

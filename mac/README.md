@@ -1,73 +1,59 @@
-# macOS/OS X
+# macOS
 
 User data on encrypted volumes other than the boot volume will not mount until
 login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
-## Disable some keyboard shortcuts
-
-Remove these using System Preferences:
-
-- `Mission Control` owns <kbd>⌃</kbd><kbd>←</kbd> and <kbd>⌃</kbd><kbd>→</kbd>
-- `Spotlight` owns <kbd>⌘</kbd><kbd>space</kbd>
-
-## Reduce desktop icon size
-
-Click desktop to focus Finder, <kbd>⌘</kbd><kbd>j</kbd> use smallest sizes for
-everything.
-
 ## App store
 
 1. iCloud sign in
-1. Install App store apps
+1. Install App store apps, XCode
 
-   - [Display Menu] or EasyRes: Set higher/native resolutions
-   - [Xcode]: select CLI tools in prefs
-     - This is **required** to build some apps like neovim@HEAD
+## Install homebrew and bootstrap
+
+Install homebrew according to <https://brew.sh/>.
+
+## Install dotfiles
+
+```sh
+git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/
+cd ~/.dotfiles
+./bootstrap/symlink
+# restart terminal
+```
 
 ## Setup ssh keys
 
 1. `sshkeygen` (alias to generate new ed25519 keys)
 1. Add the public key to GitHub, GitLab, Bitbucket, etc.
 1. `ssh-add -K ~/.ssh/privatekeyfile` to store the key in Keychain.
+1. Optionally change the `~/.dotfiles` origin protocol to SSH
 
-## Install dotfiles
-
-```sh
-git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/
-```
-
-## Install homebrew and bootstrap
-
-Install homebrew according to <https://brew.sh/>.
-
-Mojave no longer installs SDK headers for building certain things. It comes
-with mac OS but requires manual execution. Use
-[bootstrap/mac](../bootstrap/mac) to install it:
+## Brew
 
 ```sh
-~/.dotfiles/bootstrap/mac
+cd ~/.dotfiles/mac
+brew bundle
 ```
 
-The script will also:
+This installs some packages I would use on every mac, whether it's a personal
+or work machine. For personal machines I also install:
 
-- `brew bundle` some default packages
-- Run the fzf installer
-- Change the user's default shell to the brewed `zsh`
+- bitwarden
+- discord
+- notion-calendar
+- standard-notes
+- syncthing
+- tailscale
 
 Bundle dumps for specific systems are in my `~/.secret` (not public).
 
 ## Cask notes
 
-- dropbox
-  - Has app settings sync so wait for it to finish syncing.
-  - If the shared directory is on an external volume, disable autostart and
-    add [LoginItems/DelayedDropbox.app](LoginItems/DelayedDropbox.app) to
-    your login items instead. It is a generic app made using Script Editor.
 - bettertouchtool
-  - License in gmail
+  - I keep my license in syncthing/gmail/bitwarden
+  - Most important thing is three-finger click to middle click
   - Provides better trackpad swipe configs, drag window snapping,
     modifier-hold window resizing
-  - Synced to Dropbox
 - hammerspoon
   - App launcher (<kbd>⌘</kbd><kbd>space</kbd>) to replace spotlight
     (disable spotlight shortcut first)
@@ -93,17 +79,12 @@ system this is a symlink to a private settings repository.
 
 Run `mackup restore` to restore settings from that repository.
 
-## Install development tools
+## Manually disable some keyboard shortcuts
 
-Installed packages before development tools.  
-Use the `bi` alias for a clean room install.
+Remove these using System Preferences:
 
-- Increase file limits a la
-  <https://github.com/karma-runner/karma/issues/1979#issuecomment-260790451>
-  - See <https://gist.github.com/abernix/a7619b07b687bb97ab573b0dc30928a0>
-    if there are still file limit issues
-  - REBOOT for `ulimit -n` changes to take effect
+- `Mission Control` owns <kbd>⌃</kbd><kbd>←</kbd> and <kbd>⌃</kbd><kbd>→</kbd>
+- `Spotlight` owns <kbd>⌘</kbd><kbd>space</kbd>
+  - I map this to hammerspoon's seal instead.
 
 [unlock]: https://github.com/davidosomething/Unlock
-[Display Menu]: https://apps.apple.com/us/app/display-menu/id549083868?mt=12
-[Xcode]: https://apps.apple.com/us/app/xcode/id497799835?mt=12
