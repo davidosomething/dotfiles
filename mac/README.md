@@ -64,6 +64,7 @@ brew bundle --file=~/.dotfiles/mac/Brewfile
 
 Remove these using System Preferences:
 
+- `Keyboard` disable a bunch of things in `Text Replacements`
 - `Mission Control` owns <kbd>⌃</kbd><kbd>←</kbd> and <kbd>⌃</kbd><kbd>→</kbd>
 - `Spotlight` owns <kbd>⌘</kbd><kbd>space</kbd>
   - I remap this to hammerspoon's seal instead.
