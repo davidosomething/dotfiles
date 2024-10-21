@@ -89,3 +89,6 @@ __symlink() {
 }
 
 __symlink
+if [ -z "${GIT_AUTHOR_NAME}" ]; then
+  __dko_echo "Don't forget to set up GIT_xxx ENV variables"
+fi
