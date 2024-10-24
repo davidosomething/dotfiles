@@ -68,5 +68,8 @@
   "typescript.preferGoToSourceDefinition": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
-  "tsserver.disableAutomaticTypeAcquisition": true
+  "tsserver.disableAutomaticTypeAcquisition": true,
+
+  // coc-tsserver still uses old version of typescript, so use local one instead
+  "tsserver.useLocalTsdk": true
 }
