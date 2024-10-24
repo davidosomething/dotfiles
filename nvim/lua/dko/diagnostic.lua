@@ -20,23 +20,7 @@ for _, type in ipairs(SIGN_TYPES) do
   local sign = ("%s "):format(icon)
   M.signs.text[code] = sign
   M.signs.numhl[code] = hl
-
-  if code == vim.diagnostic.severity.ERROR then
-    -- Only colorize entire line for errors
-    M.signs.linehl[code] = hl
-    -- define actual sign, ALE uses it
-    vim.fn.sign_define(hl, {
-      linehl = hl,
-      numhl = hl,
-      text = M.signs.text[code],
-    })
-  else
-    -- define actual sign, ALE uses it
-    vim.fn.sign_define(hl, {
-      numhl = hl,
-      text = M.signs.text[code],
-    })
-  end
+  vim.fn.sign_define(hl, { numhl = hl, text = sign })
 end
 
 -- ===========================================================================
@@ -90,9 +74,7 @@ vim.diagnostic.config({
   -- This is a map used by vim.diagnostic but not by ALE signs
   signs = M.signs,
 
-  -- don't create DiagnosticUnderlineWarn et al, which coc.nvim uses
-  -- and looks ugly
-  underline = false,
+  underline = true,
 
   -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
   virtual_text = false,
