@@ -116,6 +116,14 @@ map("n", "<Leader>evm", function()
   vim.cmd.edit(vim.fn.stdpath("config") .. "/lua/dko/mappings.lua")
 end, { desc = "Edit mappings.lua" })
 
+-- =============================================================================
+-- doctor
+-- =============================================================================
+
+map("n", "<A-\\>", function()
+  require("dko.doctor").toggle_float()
+end, { desc = "Toggle dko.doctor float" })
+
 -- ===========================================================================
 -- Buffer: Reading
 -- ===========================================================================
@@ -525,7 +533,7 @@ end
 -- Bind <C-n> <C-p> to pick based on coc or nvim-cmp open
 -- Bind <C-j> <C-k> to scroll coc or nvim-cmp attached docs window
 M.bind_completion = function(opts)
-  local cmp_ok, cmp = pcall(require, "cmp")
+  local _, cmp = pcall(require, "cmp")
 
   map("n", "<C-Space>", function()
     vim.cmd.startinsert({ bang = true })

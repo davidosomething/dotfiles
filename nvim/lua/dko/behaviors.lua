@@ -55,6 +55,15 @@ if has_ui then
     group = augroup("dkowindow"),
   })
 
+  autocmd("User", {
+    pattern = "EscEscEnd",
+    desc = "Close DKODoctor floats on <Esc><Esc>",
+    callback = function()
+      require("dko.doctor").close_float()
+    end,
+    group = augroup("dkodoctor"),
+  })
+
   autocmd("VimResized", {
     desc = "Automatically resize windows in all tabpages when resizing Vim",
     callback = function()

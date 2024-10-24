@@ -24,34 +24,109 @@ local tobuf = function(lines)
   vim.opt_local.modified = false
 end
 
+M.get_all = function()
+  return vim.split(
+    vim.inspect({
+      errors = require("dko.doctor").errors,
+      warnings = require("dko.doctor").warnings,
+    }),
+    "\n",
+    { plain = true }
+  )
+end
+
+M.get_errors = function()
+  return vim.split(
+    vim.inpsect({ errors = require("dko.doctor").errors }),
+    "\n",
+    { plain = true }
+  )
+end
+
+M.get_warnings = function()
+  return vim.split(
+    vim.inspect({ warnings = require("dko.doctor").warnings }),
+    "\n",
+    { plain = true }
+  )
+end
+
+---@type integer
+local floatwin = -1
+
+M.show_float = function()
+  local LISTED = false
+  local SCRATCH = true
+  local buf = vim.api.nvim_create_buf(LISTED, SCRATCH)
+
+  local START = 0
+  local END = -1
+  local STRICT_INDEXING = false
+  vim.api.nvim_buf_set_lines(buf, START, END, STRICT_INDEXING, M.get_all())
+
+  local position = {
+    relative = "editor",
+    anchor = "NE",
+    col = vim.o.columns,
+    row = 1,
+  }
+  local size = {
+    height = 16,
+    width = 48,
+  }
+  local opts = vim.tbl_extend("force", {
+    style = "minimal",
+    border = "single",
+    title = "  doctor ",
+    title_pos = "right",
+  }, position, size)
+  local ENTER = false
+  floatwin = vim.api.nvim_open_win(buf, ENTER, opts)
+end
+
+M.close_float = function()
+  if M.is_float_open() then
+    vim.api.nvim_win_close(floatwin, true)
+    floatwin = -1
+  end
+end
+
+M.is_float_open = function()
+  if floatwin > -1 and vim.api.nvim_win_is_valid(floatwin) then
+    return true
+  end
+  floatwin = -1
+  return false
+end
+
+M.enter_float = function()
+  if M.is_float_open() then
+    vim.api.nvim_set_current_win(floatwin)
+  end
+end
+
+--- Open float if not open
+--- Enter float if open and not focused
+--- Close float if currently inside it
+M.toggle_float = function()
+  if M.is_float_open() then
+    if vim.api.nvim_get_current_win() ~= floatwin then
+      return M.enter_float()
+    end
+    return M.close_float()
+  end
+  return M.show_float()
+end
+
 local subcommands = {
   errors = function()
-    tobuf(
-      vim.split(
-        vim.inpsect({ errors = require("dko.doctor").errors }),
-        "\n",
-        { plain = true }
-      )
-    )
+    tobuf(M.get_errors())
   end,
   warnings = function()
-    tobuf(
-      vim.split(
-        vim.inspect({ warnings = require("dko.doctor").warnings }),
-        "\n",
-        { plain = true }
-      )
-    )
+    tobuf(M.get_warnings())
   end,
   all = function()
-    tobuf(vim.split(
-      vim.inspect({
-        errors = require("dko.doctor").errors,
-        warnings = require("dko.doctor").warnings,
-      }),
-      "\n",
-      { plain = true }
-    ))
+    tobuf(M.get_all())
   end,
 }
 
