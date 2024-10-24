@@ -82,6 +82,11 @@ M.show_float = function()
   }, position, size)
   local ENTER = false
   floatwin = vim.api.nvim_open_win(buf, ENTER, opts)
+  vim.api.nvim_set_option_value(
+    "wrap",
+    true,
+    { scope = "local", win = floatwin }
+  )
 end
 
 M.close_float = function()
