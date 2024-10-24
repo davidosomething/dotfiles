@@ -58,6 +58,7 @@ M.show_float = function()
   local LISTED = false
   local SCRATCH = true
   local buf = vim.api.nvim_create_buf(LISTED, SCRATCH)
+  vim.api.nvim_set_option_value("filetype", "lua", { buf = buf })
 
   local START = 0
   local END = -1
