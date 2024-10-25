@@ -946,39 +946,24 @@ M.bind_nvim_various_textobjs = function()
 
   -- replaces netrw's gx
   map("n", "gx", function()
-    -- -------------------------------------------------------------------------
-    -- use lsplinks textDocument/documentLink if available
-    -- -------------------------------------------------------------------------
-    local lsplinks = require("lsplinks")
-    local lsp_url = lsplinks.current()
-    -- alternatively use vim.ui.open on lsplinks.current()
-    if lsp_url then
-      vim.print(("found lsp_url %s"):format(lsp_url))
-      vim.ui.open(lsp_url)
+    if require("dko.utils.lsp").follow_documentLink() then
       return
     end
 
-    -- -------------------------------------------------------------------------
-    -- otherwise find nearest url
-    -- -------------------------------------------------------------------------
-    require("various-textobjs").url() -- select URL
-    -- this works since the plugin switched to visual mode
-    -- if the textobj has been found
-    local textobj_url = vim.fn.mode():find("v")
-    if textobj_url then
-      vim.print(("found textobj_url %s"):format(textobj_url))
-      -- if not found in proximity, search whole buffer via urlview.nvim instead
-      -- retrieve URL with the z-register as intermediary
-      vim.cmd.normal({ '"zy', bang = true })
-      local url = vim.fn.getreg("z", false) --[[@as string]]
-      vim.ui.open(url)
-      return
+    if require("dko.utils.url").select_nearest() then
+      local url = require("dko.utils.selection").get()
+      if url then
+        vim.ui.open(url)
+        return
+      end
     end
 
     -- -------------------------------------------------------------------------
     -- Popup menu of all urls in buffer
     -- -------------------------------------------------------------------------
-    vim.cmd.UrlView("buffer")
+    if vim.fn.exists(":UrlView") then
+      vim.cmd.UrlView("buffer")
+    end
   end, { desc = "Smart URL Opener" })
 end
 
