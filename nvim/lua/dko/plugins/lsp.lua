@@ -205,11 +205,6 @@ return {
   --   end,
   -- },
 
-  -- {
-  --   "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
-  --   dev = true,
-  -- },
-
   -- https://github.com/marilari88/twoslash-queries.nvim
   -- {
   --   "marilari88/twoslash-queries.nvim",
