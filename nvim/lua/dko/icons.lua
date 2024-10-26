@@ -10,6 +10,7 @@ local M = {
   Hint = "",
   Trace = "", -- "✎",
   Off = "",
+  Bullet = "•",
 }
 
 return M

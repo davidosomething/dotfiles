@@ -36,31 +36,24 @@ M.get_all = function()
 
   local errors = M.get_errors()
   if #errors > 0 then
-    table.insert(output, "ᴇʀʀᴏʀs")
+    table.insert(output, ("%s ᴇʀʀᴏʀs"):format(dkoicons.Error))
     table.insert(output, table.concat(errors, "\n"))
   end
 
   local warnings = M.get_warnings()
   if #warnings > 0 then
-    table.insert(output, "ᴡᴀʀɴɪɴɢs")
+    table.insert(output, ("%s ᴡᴀʀɴɪɴɢs"):format(dkoicons.Warn))
     table.insert(output, table.concat(warnings, "\n"))
   end
 
   return output
 end
 
----@param icon DKOIcon
----@param entry DKODoctorEntry
----@return string
-M.format_entry = function(icon, entry)
-  return ("%s %s"):format(dkoicons[icon], entry.message)
-end
-
 M.get_errors = function()
   return vim
     .iter(M.errors)
     :map(function(entry)
-      return M.format_entry("Error", entry)
+      return ("%s %s"):format(dkoicons.Bullet, entry.message)
     end)
     :totable()
 end
@@ -69,7 +62,7 @@ M.get_warnings = function()
   return vim
     .iter(M.warnings)
     :map(function(entry)
-      return M.format_entry("Warn", entry)
+      return ("%s %s"):format(dkoicons.Bullet, entry.message)
     end)
     :totable()
 end
@@ -103,7 +96,7 @@ M.show_float = function()
   local opts = vim.tbl_extend("force", {
     style = "minimal",
     border = "single",
-    title = "  doctor ",
+    title = "  ᴅᴏᴄᴛᴏʀ ",
     title_pos = "right",
   }, position, size)
   local ENTER = false
