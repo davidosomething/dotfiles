@@ -113,6 +113,11 @@ M.show_float = function()
     true,
     { scope = "local", win = floatwin }
   )
+  vim.api.nvim_set_option_value(
+    "winfixbuf",
+    true,
+    { scope = "local", win = floatwin }
+  )
 end
 
 M.close_float = function()
