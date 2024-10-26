@@ -1,5 +1,6 @@
 --  ✕ ✖ ✘ ‼   ❢ ❦ ‽    ⁕ ⚑ ✔  ✎
 
+---@enum (key) DKOIcon
 local M = {
   Ok = "",
   Debug = "",

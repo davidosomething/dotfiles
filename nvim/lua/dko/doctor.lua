@@ -1,8 +1,15 @@
--- General info about current config and buffers
+local dkoicons = require("dko.icons")
+
+---@class DKODoctorEntry
+---@field category string
+---@field message string
 
 local M = {}
 
+---@type DKODoctorEntry[]
 M.warnings = {}
+
+---@type DKODoctorEntry[]
 M.errors = {}
 
 --- Add an error
@@ -19,36 +26,52 @@ local tobuf = function(lines)
   vim.cmd("new")
   vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
   vim.opt_local.buftype = "nofile"
-  vim.opt_local.filetype = "lua"
+  -- vim.opt_local.filetype = "lua"
   vim.opt_local.readonly = true
   vim.opt_local.modified = false
 end
 
 M.get_all = function()
-  return vim.split(
-    vim.inspect({
-      errors = require("dko.doctor").errors,
-      warnings = require("dko.doctor").warnings,
-    }),
-    "\n",
-    { plain = true }
-  )
+  local output = {}
+
+  local errors = M.get_errors()
+  if #errors > 0 then
+    table.insert(output, "ᴇʀʀᴏʀs")
+    table.insert(output, table.concat(errors, "\n"))
+  end
+
+  local warnings = M.get_warnings()
+  if #warnings > 0 then
+    table.insert(output, "ᴡᴀʀɴɪɴɢs")
+    table.insert(output, table.concat(warnings, "\n"))
+  end
+
+  return output
+end
+
+---@param icon DKOIcon
+---@param entry DKODoctorEntry
+---@return string
+M.format_entry = function(icon, entry)
+  return ("%s %s"):format(dkoicons[icon], entry.message)
 end
 
 M.get_errors = function()
-  return vim.split(
-    vim.inpsect({ errors = require("dko.doctor").errors }),
-    "\n",
-    { plain = true }
-  )
+  return vim
+    .iter(M.errors)
+    :map(function(entry)
+      return M.format_entry("Error", entry)
+    end)
+    :totable()
 end
 
 M.get_warnings = function()
-  return vim.split(
-    vim.inspect({ warnings = require("dko.doctor").warnings }),
-    "\n",
-    { plain = true }
-  )
+  return vim
+    .iter(M.warnings)
+    :map(function(entry)
+      return M.format_entry("Warn", entry)
+    end)
+    :totable()
 end
 
 ---@type integer
@@ -58,12 +81,14 @@ M.show_float = function()
   local LISTED = false
   local SCRATCH = true
   local buf = vim.api.nvim_create_buf(LISTED, SCRATCH)
-  vim.api.nvim_set_option_value("filetype", "lua", { buf = buf })
+  -- vim.api.nvim_set_option_value("filetype", "lua", { buf = buf })
 
   local START = 0
   local END = -1
   local STRICT_INDEXING = false
-  vim.api.nvim_buf_set_lines(buf, START, END, STRICT_INDEXING, M.get_all())
+
+  local contents = M.get_all()
+  vim.api.nvim_buf_set_lines(buf, START, END, STRICT_INDEXING, contents)
 
   local position = {
     relative = "editor",
@@ -72,8 +97,8 @@ M.show_float = function()
     row = 1,
   }
   local size = {
-    height = 16,
-    width = 48,
+    height = math.min(#contents, vim.o.lines),
+    width = math.floor(vim.o.columns / 2),
   }
   local opts = vim.tbl_extend("force", {
     style = "minimal",
