@@ -92,6 +92,9 @@ For X apps (no terminal) the value may be:
   - For private functions in a script, use two underscores `__private_func()`
     These function names are safe to reuse after running the script once. When
     namespaced, they are in the form of `__dko_function_name()`.
+- **Function bodies**
+  - Never use the `fn() ( subshell body in parentheses )` format, always use
+    curly braces first for consistency: `fn() { ( subshell body ); }`.
 - **Variable interpolation**
   - Always use curly braces around the variable name when interpolating in
     double quotes.
