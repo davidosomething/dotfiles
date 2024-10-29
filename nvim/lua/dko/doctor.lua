@@ -46,6 +46,10 @@ M.get_all = function()
     table.insert(output, table.concat(warnings, "\n"))
   end
 
+  if #errors + #warnings == 0 then
+    table.insert(output, ("%s ᴀʟʟ ɢᴏᴏᴅ"):format(dkoicons.Ok))
+  end
+
   return output
 end
 
@@ -90,8 +94,8 @@ M.show_float = function()
     row = 1,
   }
   local size = {
-    height = math.min(#contents, vim.o.lines),
-    width = math.floor(vim.o.columns / 2),
+    height = math.max(math.min(#contents, vim.o.lines), 1),
+    width = math.max(math.floor(vim.o.columns / 2), 1),
   }
   local opts = vim.tbl_extend("force", {
     style = "minimal",
