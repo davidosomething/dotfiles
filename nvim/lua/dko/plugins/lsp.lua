@@ -12,13 +12,24 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 return {
+  {
+    "davidosomething/format-ts-errors.nvim",
+    dev = true,
+    config = function()
+      require("format-ts-errors").setup({
+        add_markdown = true,
+        start_indent_level = 0,
+      })
+    end,
+  },
+
   -- Using this for tsserver specifically, faster results than nvim-lsp
   {
     "neoclide/coc.nvim",
     branch = "release",
     cond = has_ui and dkosettings.get("use_coc"),
     dependencies = {
-      { "davidosomething/format-ts-errors.nvim", dev = true },
+      { "davidosomething/format-ts-errors.nvim" },
       { "davidosomething/coc-diagnostics-shim.nvim", dev = true },
     },
     init = function()
@@ -35,6 +46,7 @@ return {
           coctsserver = {
             ---@diagnostic disable-next-line: unused-local
             function(linter_name, item, formatted)
+              ---@type (fun(message: string):string) | nil
               local prettifier = require("format-ts-errors")[item.code]
               if not prettifier then
                 vim.schedule(function()
