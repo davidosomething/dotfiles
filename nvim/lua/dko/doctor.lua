@@ -1,4 +1,5 @@
 local dkoicons = require("dko.icons")
+local dkotable = require("dko.utils.table")
 
 ---@class DKODoctorEntry
 ---@field category string
@@ -37,16 +38,17 @@ M.get_all = function()
   local errors = M.get_errors()
   if #errors > 0 then
     table.insert(output, ("%s ᴇʀʀᴏʀs"):format(dkoicons.Error))
-    table.insert(output, table.concat(errors, "\n"))
+    dkotable.concat(output, errors)
   end
 
   local warnings = M.get_warnings()
   if #warnings > 0 then
+    if #errors > 0 then
+      table.insert(output, "")
+    end
     table.insert(output, ("%s ᴡᴀʀɴɪɴɢs"):format(dkoicons.Warn))
-    table.insert(output, table.concat(warnings, "\n"))
-  end
-
-  if #errors + #warnings == 0 then
+    dkotable.concat(output, warnings)
+  elseif #errors == 0 then
     table.insert(output, ("%s ᴀʟʟ ɢᴏᴏᴅ"):format(dkoicons.Ok))
   end
 
