@@ -153,8 +153,7 @@ M.get_efm_languages = function(filter)
   end
   return filtered:fold({}, function(acc, config)
     for _, ft in ipairs(config.fts) do
-      acc[ft] = acc[ft] or {}
-      table.insert(acc[ft], config.efm())
+      acc[ft] = dkotable.append(acc[ft], config.efm())
     end
     return acc
   end)
