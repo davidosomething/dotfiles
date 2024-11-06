@@ -313,20 +313,35 @@ if has_ui then
   })
 
   -- temporary fix, winbars not updating
-  local fix_winbar_events = vim.tbl_extend(
-    "keep",
-    require("dko.heirline.coc-diagnostics").update,
-    require("dko.heirline.diagnostics").update,
-    require("dko.heirline.lsp").update,
-    { "User PackageInfoProgress" } -- clear winbar status msg when done
-  )
-  fix_winbar_events = vim.tbl_filter(function(event)
-    return vim.fn.exists(("##%s"):format(event)) == 1
-  end, fix_winbar_events)
-  autocmd(fix_winbar_events, {
-    desc = "FIX - heirline does not always update winbars",
-    callback = vim.schedule_wrap(function()
-      vim.cmd.redrawstatus({ bang = true })
-    end),
-  })
+  vim
+    .iter({
+      require("dko.heirline.coc-diagnostics").update,
+      require("dko.heirline.diagnostics").update,
+      require("dko.heirline.lsp").update,
+    })
+    :each(function(events)
+      if events[1] == "User" and events["pattern"] then
+        autocmd("User", {
+          group = events["group"],
+          pattern = events["pattern"],
+          desc = "FIX - heirline does not always update winbars",
+          callback = function()
+            vim.print("xxx")
+            vim.cmd.redrawstatus({ bang = true })
+          end,
+        })
+      else
+        for _, event in ipairs(events) do
+          local autocmd_exists = vim.fn.exists(("##%s"):format(event)) == 1
+          if autocmd_exists then
+            autocmd(event, {
+              desc = "FIX - heirline does not always update winbars",
+              callback = vim.schedule_wrap(function()
+                vim.cmd.redrawstatus({ bang = true })
+              end),
+            })
+          end
+        end
+      end
+    end)
 end

@@ -202,6 +202,7 @@ return {
     condition = function()
       return vim.bo.buftype == "" -- normal
     end,
+    -- require("dko.heirline.dko-heirline-package-info"),
     require("dko.heirline.lsp"),
     require("dko.heirline.formatters"),
     require("dko.heirline.diagnostics"),

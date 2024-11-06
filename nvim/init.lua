@@ -44,6 +44,7 @@ require("dko.builtin-syntax")
 require("dko.filetypes")
 
 require("dko.lsp") -- override some lsp handlers
+require("dko.notify") -- override some vim.notify with plugins
 
 require("dko.terminal")
 

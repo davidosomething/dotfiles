@@ -10,7 +10,7 @@ local function format_with_coc()
   toast(formatter, vim.log.levels.INFO, {
     group = "format",
     title = "[coc.nvim]",
-    render = "compact",
+    render = "wrapped-compact",
   })
   vim.cmd.call("CocAction('runCommand', 'eslint.executeAutofix')")
   vim.cmd.sleep(vim.b.has_eslint_plugin_prettier and "100m" or "1m")
@@ -22,7 +22,7 @@ local function format_with_lsp()
     toast("eslint-lsp not attached", vim.log.levels.WARN, {
       group = "format",
       title = "[LSP] eslint-lsp",
-      render = "compact",
+      render = "wrapped-compact",
     })
     return false
   end
@@ -34,7 +34,7 @@ local function format_with_lsp()
   toast(formatter, vim.log.levels.INFO, {
     group = "format",
     title = "[LSP] eslint-lsp",
-    render = "compact",
+    render = "wrapped-compact",
   })
   return true
 end
@@ -63,7 +63,7 @@ return function()
       toast("Did not format with efm/prettier", vim.log.levels.WARN, {
         group = "format",
         title = "[LSP] efm",
-        render = "compact",
+        render = "wrapped-compact",
       })
     end
     return did_efm_format

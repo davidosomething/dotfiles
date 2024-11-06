@@ -151,7 +151,7 @@ M.disable_on_lspdetach = function(args)
     vim.notify(
       "Format on save disabled, no capable clients attached",
       vim.log.levels.INFO,
-      { title = "[LSP]", render = "compact" }
+      { title = "[LSP]", render = "wrapped-compact" }
     )
   end)
 end

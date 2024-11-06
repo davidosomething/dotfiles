@@ -22,7 +22,7 @@ M.format = function(opts)
       toast("efm not attached", vim.log.levels.WARN, {
         group = "format",
         title = title,
-        render = "compact",
+        render = "wrapped-compact",
       })
     end
     return false
@@ -46,7 +46,7 @@ M.format = function(opts)
     toast(("%s"):format(formatters), vim.log.levels.INFO, {
       group = "format",
       title = title,
-      render = "compact",
+      render = "wrapped-compact",
     })
   end
 
@@ -74,7 +74,7 @@ M.format_with = function(name, opts)
     toast(
       "efm not attached",
       vim.log.levels.ERROR,
-      { title = title, group = "format", render = "compact" }
+      { title = title, group = "format", render = "wrapped-compact" }
     )
     return
   end
@@ -86,7 +86,7 @@ M.format_with = function(name, opts)
     toast(
       ("No formatter %s for %s"):format(name, vim.bo.filetype),
       vim.log.levels.ERROR,
-      { title = title, group = "format", render = "compact" }
+      { title = title, group = "format", render = "wrapped-compact" }
     )
     return
   end
@@ -106,7 +106,7 @@ M.format_with = function(name, opts)
   toast(
     ("Formatting with %s"):format(name),
     vim.log.levels.INFO,
-    { title = title, group = "format", render = "compact" }
+    { title = title, group = "format", render = "wrapped-compact" }
   )
   M.format({ hide_notification = true })
 

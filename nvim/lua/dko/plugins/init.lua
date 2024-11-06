@@ -280,6 +280,17 @@ return {
       require("package-info").setup({
         hide_up_to_date = true,
       })
+
+      local c = require("package-info/utils/constants")
+      vim.api.nvim_create_autocmd("User", {
+        nested = true,
+        group = c.AUTOGROUP,
+        pattern = c.LOAD_EVENT,
+        callback = function()
+          -- execute a groupless autocmd so heirline can update
+          vim.cmd.doautocmd("User", "DkoPackageInfoStatusUpdate")
+        end,
+      })
     end,
   },
 
