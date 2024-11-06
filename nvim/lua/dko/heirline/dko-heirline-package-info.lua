@@ -1,13 +1,3 @@
-local tick = 0
-
----@see https://github.com/j-hui/fidget.nvim/blob/main/lua/fidget/spinner/patterns.lua
-local triangle = {
-  "◢",
-  "◣",
-  "◤",
-  "◥",
-}
-
 return {
   condition = function()
     local filename = vim.fn.expand("%:t")
@@ -17,11 +7,13 @@ return {
   update = { "User", pattern = "DkoPackageInfoStatusUpdate" },
 
   provider = function()
-    tick = tick + 1
-    if tick > #triangle then
-      tick = 1
+    local pok, pi = pcall(require, "package-info.ui.generic.loading-status")
+    if not pok then
+      return ""
     end
-    return (" %s "):format(triangle[tick])
+    return pi.state.current_spinner == "" and ""
+      or (" %s "):format(pi.state.current_spinner)
   end,
-  hl = "dkoStatusValue",
+
+  hl = "Comment",
 }

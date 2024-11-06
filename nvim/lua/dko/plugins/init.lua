@@ -283,7 +283,6 @@ return {
 
       local c = require("package-info/utils/constants")
       vim.api.nvim_create_autocmd("User", {
-        nested = true,
         group = c.AUTOGROUP,
         pattern = c.LOAD_EVENT,
         callback = function()

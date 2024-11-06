@@ -74,7 +74,7 @@ return {
             or ""
           return (" %s%s "):format(self.icon, spaced_filetype)
         end,
-        hl = function(self)
+        hl = function()
           return active_highlight("dkoStatusKey")
         end,
       },
@@ -202,9 +202,9 @@ return {
     condition = function()
       return vim.bo.buftype == "" -- normal
     end,
-    -- require("dko.heirline.dko-heirline-package-info"),
     require("dko.heirline.lsp"),
     require("dko.heirline.formatters"),
     require("dko.heirline.diagnostics"),
+    require("dko.heirline.dko-heirline-package-info"),
   },
 }
