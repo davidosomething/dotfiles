@@ -37,8 +37,10 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
     - can still trigger regular nvim-cmp completions for other LSPs using
       `<C-Space>`
 - formatting is handled in [dko/utils/format.lua](https://github.com/davidosomething/dotfiles/blob/dev/nvim/lua/dko/utils/format.lua)
-  - of note is a pipeline that can run eslint only, eslint and then
-    prettier, or prettier only as needed
+  - of note is a pipeline that runs, based on project configuration one of:
+    - eslint exclusively
+    - eslint followed by prettier, or
+    - prettier exclusively
 
 ---
 
