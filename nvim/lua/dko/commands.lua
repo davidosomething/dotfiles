@@ -1,8 +1,6 @@
--- ===========================================================================
--- Commands
--- ===========================================================================
-
 local command = vim.api.nvim_create_user_command
+
+local Methods = vim.lsp.protocol.Methods
 
 -- ===========================================================================
 -- Command aliases
@@ -58,7 +56,7 @@ command("Delete", function()
 end, { desc = "Delete current file" })
 
 command("Rename", function(opts)
-  local prev = vim.fn.expand("%:p")
+  local prevpath = vim.fn.expand("%:p")
   local prevname = vim.fn.expand("%:t")
   local prevdir = vim.fn.expand("%:p:h")
   vim.ui.input({
@@ -69,19 +67,56 @@ command("Rename", function(opts)
     if not next or next == "" or next == prevname then
       return
     end
-
     local nextpath = ("%s/%s"):format(prevdir, next)
+
+    local changes, clients
+    if type(prevpath) == "string" then
+      clients = vim.lsp.get_clients()
+      changes = {
+        files = {
+          {
+            oldUri = vim.uri_from_fname(prevpath),
+            newUri = vim.uri_from_fname(nextpath),
+          },
+        },
+      }
+
+      for _, client in ipairs(clients) do
+        if client.supports_method(Methods.workspace_willRenameFiles) then
+          local resp = client.request_sync(
+            Methods.workspace_willRenameFiles,
+            changes,
+            1000,
+            0
+          )
+          if resp and resp.result ~= nil then
+            vim.lsp.util.apply_workspace_edit(
+              resp.result,
+              client.offset_encoding
+            )
+          end
+        end
+      end
+    end
+
     vim.cmd.file(nextpath) -- rename buffer, preserving undo
     vim.cmd("noautocmd write") -- save
     vim.cmd("edit") -- update file syntax if you changed extension
 
-    if type(prev) ~= "string" then
+    if changes ~= nil and #clients and type(prevpath) == "string" then
+      for _, client in ipairs(clients) do
+        if client.supports_method(Methods.workspace_didRenameFiles) then
+          client.notify(Methods.workspace_didRenameFiles, changes)
+        end
+      end
+    else
       return
     end
-    local ok, err = vim.uv.fs_unlink(prev)
+
+    local ok, err = vim.uv.fs_unlink(prevpath)
     if not ok then
       vim.notify(
-        table.concat({ prev, err }, "\n"),
+        table.concat({ prevpath, err }, "\n"),
         vim.log.levels.ERROR,
         { title = ":Rename failed to delete orig" }
       )
