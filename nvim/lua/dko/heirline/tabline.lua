@@ -16,4 +16,7 @@ return {
   require("dko.heirline.remote"),
   require("dko.heirline.lazy"),
   require("dko.heirline.doctor"),
+
+  -- still buggy on their side
+  -- require("dko.heirline.dko-heirline-package-info"),
 }

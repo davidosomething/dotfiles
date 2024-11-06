@@ -1,12 +1,8 @@
 return {
-  condition = function()
-    local filename = vim.fn.expand("%:t")
-    return filename == "package.json"
-  end,
-
   update = { "User", pattern = "DkoPackageInfoStatusUpdate" },
 
   provider = function()
+    -- still buggy on their side
     local pok, pi = pcall(require, "package-info.ui.generic.loading-status")
     if not pok then
       return ""
