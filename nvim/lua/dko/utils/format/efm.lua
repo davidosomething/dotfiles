@@ -5,7 +5,7 @@ local toast = require("dko.utils.notify").toast
 local M = {}
 
 ---@param opts? table
----@return boolean true
+---@return boolean
 M.format = function(opts)
   opts = opts or {}
 
@@ -59,10 +59,11 @@ M.format = function(opts)
 end
 
 --- Temporarily removes all efm configs except the one named
---- Runs lsp format synchronously
+--- Runs lsp format synchronously using M.format
 --- Then restores the original efm configs
 ---@param name string formatter name, e.g. markdownlint
 ---@param opts? table
+---@return boolean
 M.format_with = function(name, opts)
   opts = opts or {}
 
@@ -76,7 +77,16 @@ M.format_with = function(name, opts)
       vim.log.levels.ERROR,
       { title = title, group = "format", render = "wrapped-compact" }
     )
-    return
+    return false
+  end
+
+  if name == "" then
+    toast(
+      ("No formatter configured for %s"):format(vim.bo.filetype),
+      vim.log.levels.WARN,
+      { title = title, group = "format", render = "wrapped-compact" }
+    )
+    return false
   end
 
   local configs = require("dko.tools").get_efm_languages(function(tool)
@@ -84,11 +94,11 @@ M.format_with = function(name, opts)
   end)
   if vim.tbl_count(configs) == 0 then
     toast(
-      ("No formatter %s for %s"):format(name, vim.bo.filetype),
+      ('No formatter "%s" for %s'):format(name, vim.bo.filetype),
       vim.log.levels.ERROR,
       { title = title, group = "format", render = "wrapped-compact" }
     )
-    return
+    return false
   end
 
   ---@type (EfmFormatter|EfmLinter)[]
@@ -108,7 +118,7 @@ M.format_with = function(name, opts)
     vim.log.levels.INFO,
     { title = title, group = "format", render = "wrapped-compact" }
   )
-  M.format({ hide_notification = true })
+  local result = M.format({ hide_notification = true })
 
   -- Restore original config
   client.config.settings.languages = original
@@ -116,6 +126,8 @@ M.format_with = function(name, opts)
     Methods.workspace_didChangeConfiguration,
     { settings = client.config.settings }
   )
+
+  return result
 end
 
 return M
