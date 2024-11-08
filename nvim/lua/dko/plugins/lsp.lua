@@ -17,7 +17,7 @@ return {
     dev = true,
     config = function()
       require("format-ts-errors").setup({
-        add_markdown = true,
+        add_markdown = false,
         start_indent_level = 0,
       })
     end,
@@ -60,10 +60,10 @@ return {
                 return item.text
               end
               local prettified = prettifier(item.text)
-              return ("%s%s"):format(
+              return table.concat({
                 prettified,
-                "ꜰᴏʀᴍᴀᴛᴛᴇᴅ ᴡɪᴛʜ ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ"
-              )
+                "ꜰᴏʀᴍᴀᴛᴛᴇᴅ ᴡɪᴛʜ ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ",
+              }, "\n")
             end,
           },
         },
