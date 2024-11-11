@@ -870,10 +870,18 @@ end
 -- Plugin: nvim-window
 -- =============================================================================
 
+M.nvim_window = {
+  "<Leader>w",
+  "<C-w>e",
+  "<C-w><C-e>",
+}
+
 M.bind_nvim_window = function()
-  map("n", "<leader>w", function()
-    require("nvim-window").pick()
-  end, { desc = "nvim-window picker" })
+  vim.iter(M.nvim_window):each(function(k)
+    map("n", k, function()
+      require("nvim-window").pick()
+    end, { desc = "nvim-window picker" })
+  end)
 end
 
 -- ===========================================================================

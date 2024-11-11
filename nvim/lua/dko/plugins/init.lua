@@ -177,11 +177,12 @@ return {
     },
   },
 
-  -- <C-w> hjkl or <leader>w for picker
+  -- <leader>w for picker
   -- https://github.com/yorickpeterse/nvim-window
   {
     "yorickpeterse/nvim-window",
     cond = has_ui,
+    keys = vim.tbl_values(dkomappings.nvim_window),
     config = function()
       require("nvim-window").setup({})
       dkomappings.bind_nvim_window()
