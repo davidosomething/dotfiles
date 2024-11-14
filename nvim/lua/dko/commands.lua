@@ -7,6 +7,7 @@ local Methods = vim.lsp.protocol.Methods
 -- ===========================================================================
 
 command("Q", "q", { bang = true, desc = ":Q same as :q" })
+command("Qa", "qa", { bang = true, desc = ":Qa same as :qa" })
 
 -- ===========================================================================
 -- External interaction
