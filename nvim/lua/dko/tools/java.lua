@@ -1,8 +1,9 @@
-local tools = require("dko.tools")
+-- local tools = require("dko.tools")
 
-tools.register({
-  mason_type = "lsp",
-  require = "java",
-  name = "jdtls",
-  runner = "mason-lspconfig",
-})
+-- Don't use, prefer https://github.com/mfussenegger/nvim-jdtls
+-- tools.register({
+--   mason_type = "lsp",
+--   require = "java",
+--   name = "jdtls",
+--   runner = "mason-lspconfig",
+-- })
