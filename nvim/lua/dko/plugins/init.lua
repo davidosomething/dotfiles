@@ -402,7 +402,9 @@ return {
     end,
   },
 
-  -- <A-hjkl> to move lines in any mode
+  -- Override <A-hjkl> to move lines in any mode
+  -- NB: Normally in insert mode, <A-hjkl> will exit insert and move cursor.
+  -- You can use arrow keys in insert mode, so it's a little redundant.
   {
     "echasnovski/mini.move",
     config = function()

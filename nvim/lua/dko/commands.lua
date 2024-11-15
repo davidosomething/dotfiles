@@ -6,8 +6,9 @@ local Methods = vim.lsp.protocol.Methods
 -- Command aliases
 -- ===========================================================================
 
-command("Q", "q", { bang = true, desc = ":Q same as :q" })
-command("Qa", "qa", { bang = true, desc = ":Qa same as :qa" })
+vim.cmd.cabbrev("Wq", "wq")
+vim.cmd.cabbrev("Q", "q")
+vim.cmd.cabbrev("Qa", "qa")
 
 -- ===========================================================================
 -- External interaction
