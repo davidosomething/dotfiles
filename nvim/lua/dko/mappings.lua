@@ -841,8 +841,13 @@ end
 
 M.bind_snippy = function()
   local snippy_ok, snippy = pcall(require, "snippy")
-  if snippy_ok then
-    local cmp = require("cmp")
+  if not snippy_ok then
+	  return
+  end
+local cmp_ok, cmp = pcall(require, "cmp")
+if not cmp_ok then
+    return
+end
     map({ "i", "s" }, "<C-b>", function()
       if snippy.can_jump(-1) then
         snippy.previous()
@@ -863,7 +868,6 @@ M.bind_snippy = function()
     end, {
       desc = "snippy: expand or next field",
     })
-  end
 end
 
 -- =============================================================================

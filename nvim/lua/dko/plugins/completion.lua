@@ -53,6 +53,7 @@ return {
     -- https://github.com/iguanacucumber/magazine.nvim
     "iguanacucumber/magazine.nvim",
     name = "nvim-cmp", -- Otherwise highlighting gets messed up
+    tag = "0.3",
     cond = #vim.api.nvim_list_uis() > 0,
     dependencies = cmp_dependencies,
     config = function()
