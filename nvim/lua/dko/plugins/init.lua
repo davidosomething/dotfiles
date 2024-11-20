@@ -298,6 +298,7 @@ return {
     end,
   },
 
+  -- @TODO maybe replace with `require('snacks.gitbrowse').open()` ?
   {
     "Almo7aya/openingh.nvim",
     cmd = {
