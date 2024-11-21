@@ -842,32 +842,32 @@ end
 M.bind_snippy = function()
   local snippy_ok, snippy = pcall(require, "snippy")
   if not snippy_ok then
-	  return
-  end
-local cmp_ok, cmp = pcall(require, "cmp")
-if not cmp_ok then
     return
-end
-    map({ "i", "s" }, "<C-b>", function()
-      if snippy.can_jump(-1) then
-        snippy.previous()
-      end
-      -- DO NOT FALLBACK (i.e. do not insert ^B)
-    end, { desc = "snippy: previous field" })
+  end
+  local cmp_ok, cmp = pcall(require, "cmp")
+  if not cmp_ok then
+    return
+  end
+  map({ "i", "s" }, "<C-b>", function()
+    if snippy.can_jump(-1) then
+      snippy.previous()
+    end
+    -- DO NOT FALLBACK (i.e. do not insert ^B)
+  end, { desc = "snippy: previous field" })
 
-    map({ "i", "s" }, "<C-f>", function()
-      -- If a snippet is highlighted in PUM, expand it
-      if cmp.confirm({ select = false }) then
-        return
-      end
-      -- If in a snippet, jump to next field
-      if snippy.can_expand_or_advance() then
-        snippy.expand_or_advance()
-        return
-      end
-    end, {
-      desc = "snippy: expand or next field",
-    })
+  map({ "i", "s" }, "<C-f>", function()
+    -- If a snippet is highlighted in PUM, expand it
+    if cmp.confirm({ select = false }) then
+      return
+    end
+    -- If in a snippet, jump to next field
+    if snippy.can_expand_or_advance() then
+      snippy.expand_or_advance()
+      return
+    end
+  end, {
+    desc = "snippy: expand or next field",
+  })
 end
 
 -- =============================================================================
@@ -1210,6 +1210,7 @@ end
 -- ===========================================================================
 
 M.urlview = {
+  menu = "<A-u>",
   prev = "[u",
   next = "]u",
 }
@@ -1221,7 +1222,7 @@ M.bind_urlview = function()
       next = M.urlview.next,
     },
   })
-  map("n", "<A-u>", "<Cmd>UrlView<CR>", { desc = "Open URLs" })
+  map("n", M.urlview.menu, "<Cmd>UrlView<CR>", { desc = "Open URLs" })
 end
 
 -- ===========================================================================
