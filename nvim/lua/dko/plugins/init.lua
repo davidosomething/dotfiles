@@ -31,6 +31,31 @@ return {
 
   {
     "folke/snacks.nvim",
+    config = function()
+      vim.api.nvim_create_user_command("Gitbrowse", function()
+        local gbok, gb = pcall(require, "snacks.gitbrowse")
+        if not gbok then
+          return
+        end
+        gb.open()
+      end, { desc = "Open branch, file, line in origin git site" })
+
+      vim.api.nvim_create_user_command("Gitbranch", function()
+        local gbok, gb = pcall(require, "snacks.gitbrowse")
+        if not gbok then
+          return
+        end
+        gb.open({ what = "branch" })
+      end, { desc = "Open branch in origin git site" })
+
+      vim.api.nvim_create_user_command("Gitrepo", function()
+        local gbok, gb = pcall(require, "snacks.gitbrowse")
+        if not gbok then
+          return
+        end
+        gb.open({ what = "repo" })
+      end, { desc = "Open repo root in origin git site" })
+    end,
   },
 
   -- =========================================================================
@@ -296,16 +321,6 @@ return {
         end,
       })
     end,
-  },
-
-  -- @TODO maybe replace with `require('snacks.gitbrowse').open()` ?
-  {
-    "Almo7aya/openingh.nvim",
-    cmd = {
-      "OpenInGHRepo",
-      "OpenInGHFile",
-      "OpenInGHFileLines",
-    },
   },
 
   -- =========================================================================
