@@ -58,6 +58,11 @@ command("Delete", function()
 end, { desc = "Delete current file" })
 
 command("Rename", function(opts)
+  if vim.b.did_bind_coc then
+    vim.cmd.CocCommand("workspace.renameCurrentFile")
+    return
+  end
+
   local prevpath = vim.fn.expand("%:p")
   local prevname = vim.fn.expand("%:t")
   local prevdir = vim.fn.expand("%:p:h")
