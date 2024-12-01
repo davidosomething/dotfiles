@@ -201,7 +201,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
         ("could not get dirname: %s"):format(args.file)
       )
       -- dir already exists
-      if vim.uv.fs_stat(dir) then
+      if vim.fn.getftype(dir) == "dir" then
         return
       end
       assert(vim.fn.mkdir(dir, "p") == 1, ("could not mkdir: %s"):format(dir))

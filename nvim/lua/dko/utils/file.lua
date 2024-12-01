@@ -5,7 +5,7 @@ local M = {}
 ---@return string|nil -- normalized path to first found file
 M.find_exists = function(paths)
   return vim.iter(paths):find(function(path)
-    return vim.uv.fs_stat(vim.fs.normalize(path)) ~= nil
+    return vim.fn.getftype(vim.fs.normalize(path)) ~= ""
   end)
 end
 
