@@ -93,11 +93,30 @@ end
 
 -- Add formatter to vim.b.formatters and fire autocmd (e.g. update heirline)
 M.add_formatter = function(name)
+  if vim.b.formatters ~= nil and vim.tbl_contains(vim.b.formatters, name) then
+    return
+  end
+
   -- NOTE: You cannot table.insert(vim.b.formatters, name) -- need to have a
   -- temp var and assign full table at once because the vim.b vars are special
   local copy = vim.tbl_extend("force", {}, vim.b.formatters or {})
   vim.b.formatters = dkotable.append(copy, name)
-  vim.cmd.doautocmd("User", "FormatterAdded")
+  vim.cmd.doautocmd("User", "FormattersChanged")
+end
+
+M.remove_formatter = function(name)
+  if vim.b.formatters == nil then
+    return
+  end
+  for i, needle in pairs(vim.b.formatters) do
+    if needle == name then
+      local copy = vim.tbl_extend("force", {}, vim.b.formatters or {})
+      table.remove(copy, i)
+      vim.b.formatters = copy
+      vim.cmd.doautocmd("User", "FormattersChanged")
+      return
+    end
+  end
 end
 
 -- =============================================================================
@@ -133,27 +152,23 @@ M.disable_on_lspdetach = function(args)
   local bufnr = args.buf
   local detached_client_id = args.data.client_id
 
-  -- @TODO could i just check using { bufnr, and method } here? Or does it still
-  -- include in the client being detached?
-  local capable_clients = vim.lsp.get_clients({
-    bufnr = bufnr,
-    method = Methods.textDocument_formatting,
-  })
-  local still_has_formatter = vim.iter(capable_clients):any(function(client)
-    return client.id ~= detached_client_id
-  end)
-  if still_has_formatter then
-    return
+  -- Unregister the client from formatters (and update heirline)
+  local detached_client = vim.lsp.get_client_by_id(detached_client_id)
+  if detached_client ~= nil then
+    local name = detached_client.name
+    M.remove_formatter(name)
   end
 
-  vim.b.enable_format_on_save = false
-  vim.schedule(function()
-    vim.notify(
-      "Format on save disabled, no capable clients attached",
-      vim.log.levels.INFO,
-      { title = "[LSP]", render = "wrapped-compact" }
-    )
-  end)
+  vim.b.enable_format_on_save = vim.b.formatters == nil or #vim.b.formatters > 0
+  if vim.b.enable_format_on_save then
+    vim.schedule(function()
+      vim.notify(
+        "Format on save disabled, no capable clients attached",
+        vim.log.levels.INFO,
+        { title = "[LSP]", render = "wrapped-compact" }
+      )
+    end)
+  end
 end
 
 return M

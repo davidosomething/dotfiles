@@ -4,7 +4,7 @@ return {
     return vim.b.formatters ~= nil
   end,
 
-  update = { "User", pattern = "FormatterAdded" },
+  update = { "User", pattern = "FormattersChanged" },
 
   provider = function()
     return (" 󰳻 %s "):format(table.concat(vim.b.formatters, ", "))

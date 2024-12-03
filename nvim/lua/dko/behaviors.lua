@@ -221,7 +221,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 
 if has_ui then
   autocmd("User", {
-    pattern = "FormatterAdded",
+    pattern = "FormattersChanged",
     desc = "Notify neovim a formatter has been added for the buffer",
     callback = function()
       -- noop - heirline listens for this event
