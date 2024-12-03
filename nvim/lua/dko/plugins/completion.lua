@@ -76,10 +76,12 @@ return {
           completion = {
             border = require("dko.settings").get("border"),
             scrollbar = "║",
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
           documentation = {
             border = require("dko.settings").get("border"),
             scrollbar = "║",
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
         },
 
