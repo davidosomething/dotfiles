@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/davidosomething/dotfiles#readme",
   "devDependencies": {
-    "eslint": "9.15.0",
+    "eslint": "9.16.0",
     "eslint-config-davidosomething": "6.0.0"
   }
 }
