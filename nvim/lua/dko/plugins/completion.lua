@@ -76,11 +76,13 @@ return {
           completion = {
             border = require("dko.settings").get("border"),
             scrollbar = "║",
+            -- the default winhighlight is weird https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua#L111-L122
             winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
           documentation = {
             border = require("dko.settings").get("border"),
             scrollbar = "║",
+            -- the default winhighlight is weird https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua#L111-L122
             winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
         },
