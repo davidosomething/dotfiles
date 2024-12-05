@@ -535,6 +535,13 @@ M.unbind_on_lspdetach = function(args)
     }
   ]]
   local bufnr = args.buf
+  local key = "b" .. bufnr
+
+  -- No mappings on buffer
+  if M.lsp_bindings[key] == nil then
+    vim.b.did_bind_lsp = false -- just in case
+    return
+  end
 
   -- check for clients with definition support, since that's one of the primary
   -- purposes of keybinding...
@@ -546,7 +553,7 @@ M.unbind_on_lspdetach = function(args)
     vim.notify(
       ("No %s providers remaining. Unbinding %d lsp mappings"):format(
         vim.lsp.protocol.Methods.textDocument_definition,
-        #M.lsp_bindings["b" .. bufnr]
+        #M.lsp_bindings[key]
       ),
       vim.log.levels.INFO,
       { title = "[LSP]", render = "wrapped-compact" }
