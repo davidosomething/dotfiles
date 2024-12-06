@@ -467,7 +467,11 @@ return {
     "chrisgrieser/nvim-various-textobjs",
     cond = has_ui,
     config = function()
-      require("various-textobjs").setup({ useDefaultKeymaps = false })
+      require("various-textobjs").setup({
+        keymaps = {
+          useDefaults = false,
+        },
+      })
       dkomappings.bind_nvim_various_textobjs()
     end,
   },
