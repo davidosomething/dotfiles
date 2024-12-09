@@ -23,6 +23,7 @@ local dkotable = require("dko.utils.table")
 -- nvim-lspconfig config object
 -- copypasta from https://github.com/neovim/nvim-lspconfig/blob/8917d2c830e04bf944a699b8c41f097621283828/lua/lspconfig/configs.lua#L8C1-L15C71
 ---@class lspconfig.Config : vim.lsp.ClientConfig
+---@field cmd? string[]|fun(dispatchers: vim.lsp.rpc.Dispatchers): vim.lsp.rpc.PublicClient
 ---@field enabled? boolean
 ---@field single_file_support? boolean
 ---@field filetypes? ft[]
