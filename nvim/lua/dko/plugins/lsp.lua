@@ -15,12 +15,10 @@ return {
   {
     "davidosomething/format-ts-errors.nvim",
     dev = true,
-    config = function()
-      require("format-ts-errors").setup({
-        add_markdown = false,
-        start_indent_level = 0,
-      })
-    end,
+    opts = {
+      add_markdown = false,
+      start_indent_level = 0,
+    },
   },
 
   -- Using this for tsserver specifically, faster results than nvim-lsp
@@ -109,12 +107,9 @@ return {
   -- https://github.com/hsaker312/diagnostics-details.nvim/
   {
     "hsaker312/diagnostics-details.nvim",
+    cond = has_ui,
     cmd = "DiagnosticsDetailsOpenFloat",
-    config = function()
-      require("diagnostics-details").setup({
-        -- Your configuration here
-      })
-    end,
+    opts = {},
   },
 
   -- e.g. for go.mod and swagger yaml
@@ -122,12 +117,10 @@ return {
   {
     "icholy/lsplinks.nvim",
     cond = has_ui,
-    config = function()
-      require("lsplinks").setup({
-        highlight = true,
-        hl_group = "Underlined",
-      })
-    end,
+    opts = {
+      highlight = true,
+      hl_group = "Underlined",
+    },
   },
 
   -- https://github.com/deathbeam/lspecho.nvim
@@ -137,6 +130,7 @@ return {
   -- https://github.com/aznhe21/actions-preview.nvim
   {
     "aznhe21/actions-preview.nvim",
+    cond = has_ui,
     dependencies = {
       "nvim-telescope/telescope.nvim",
     },
@@ -147,14 +141,13 @@ return {
   -- https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
   {
     "rachartier/tiny-code-action.nvim",
+    cond = has_ui,
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope.nvim" },
     },
     event = "LspAttach",
-    config = function()
-      require("tiny-code-action").setup({ lsp_timeout = 4000 })
-    end,
+    opts = { lsp_timeout = 4000 },
   },
 
   -- This has a cursor based code_action instead line based, so you get more

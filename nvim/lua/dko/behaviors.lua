@@ -101,6 +101,7 @@ if has_ui then
       -- See the treesitter highlight config too
       if require("dko.utils.buffer").is_huge(args.file) then
         vim.cmd.syntax("manual")
+        vim.cmd([[NoMatchParen]])
       end
     end,
     group = augroup("dkoreading"),

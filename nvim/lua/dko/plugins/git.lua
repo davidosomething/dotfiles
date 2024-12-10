@@ -19,13 +19,11 @@ return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPost", "BufNewFile" },
     cond = has_ui,
-    config = function()
-      require("gitsigns").setup({
-        on_attach = dkomappings.bind_gitsigns,
-        preview_config = {
-          border = dkosettings.get("border"),
-        },
-      })
-    end,
+    opts = {
+      on_attach = dkomappings.bind_gitsigns,
+      preview_config = {
+        border = dkosettings.get("border"),
+      },
+    },
   },
 }

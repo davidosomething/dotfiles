@@ -1,13 +1,22 @@
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
---- @type 'hlchunk'|'indentmini'
+--- @type 'hlchunk'|'indentmini'|'snacks'
 local provider = "hlchunk"
 
 return {
   -- indent guides
   -- every plugin has issues, leave a bunch of configs here and swapping as
   -- needed
+
+  {
+    "folke/snacks.nvim",
+    cond = has_ui,
+    enabled = provider == "snacks",
+    opts = {
+      indent = {},
+    },
+  },
 
   -- https://github.com/nvimdev/indentmini.nvim
   {

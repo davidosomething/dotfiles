@@ -1,30 +1,33 @@
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
---- @type 'dressing'|'snacks'
-local select = "snacks"
+--- Also consider https://github.com/nvim-telescope/telescope-ui-select.nvim ?
+--- @type ''|'dressing'|'snacks'
+local select = ""
+
+--- @type ''|'dressing'|'snacks'
+local input = "snacks"
 
 return {
+  -- https://github.com/folke/snacks.nvim/blob/main/docs/input.md
   {
     "folke/snacks.nvim",
     cond = has_ui,
-    enabled = select == "snacks",
+    enabled = input == "snacks",
     opts = {
       input = {},
     },
   },
 
-  -- Replace vim.ui.select and vim.ui.input, which are used by things like
-  -- vim.lsp.buf.code_action and rename
-  -- Alternatively could use https://github.com/nvim-telescope/telescope-ui-select.nvim
+  -- Replace vim.ui.input used for rename
+  -- Replace vim.ui.select, used for code action and some other things,
+  -- but I'm probably using one of the code action specific plugins with preview
   -- https://github.com/stevearc/dressing.nvim
   {
     "stevearc/dressing.nvim",
     cond = has_ui,
-    enabled = select == "dressing",
+    enabled = input == "dressing" or select == "dressing",
     event = "VeryLazy",
-    config = function()
-      require("dressing").setup({})
-    end,
+    opts = {},
   },
 }

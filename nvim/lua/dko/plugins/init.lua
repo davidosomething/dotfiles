@@ -8,26 +8,24 @@ return {
   {
     "echasnovski/mini.bracketed",
     version = false,
-    config = function()
-      require("mini.bracketed").setup({
-        buffer = { suffix = "", options = {} }, -- using cybu
-        comment = { suffix = "c", options = {} },
-        conflict = { suffix = "x", options = {} },
-        -- don't want diagnostic float focus, have in mappings.lua with coc
-        -- support too
-        diagnostic = { suffix = "", options = {} },
-        file = { suffix = "f", options = {} },
-        indent = { suffix = "", options = {} }, -- confusing
-        jump = { suffix = "", options = {} }, -- redundant
-        location = { suffix = "l", options = {} },
-        oldfile = { suffix = "o", options = {} },
-        quickfix = { suffix = "q", options = {} },
-        treesitter = { suffix = "t", options = {} },
-        undo = { suffix = "", options = {} },
-        window = { suffix = "", options = {} }, -- broken going to unlisted
-        yank = { suffix = "", options = {} }, -- confusing
-      })
-    end,
+    opts = {
+      buffer = { suffix = "", options = {} }, -- using cybu
+      comment = { suffix = "c", options = {} },
+      conflict = { suffix = "x", options = {} },
+      -- don't want diagnostic float focus, have in mappings.lua with coc
+      -- support too
+      diagnostic = { suffix = "", options = {} },
+      file = { suffix = "f", options = {} },
+      indent = { suffix = "", options = {} }, -- confusing
+      jump = { suffix = "", options = {} }, -- redundant
+      location = { suffix = "l", options = {} },
+      oldfile = { suffix = "o", options = {} },
+      quickfix = { suffix = "q", options = {} },
+      treesitter = { suffix = "t", options = {} },
+      undo = { suffix = "", options = {} },
+      window = { suffix = "", options = {} }, -- broken going to unlisted
+      yank = { suffix = "", options = {} }, -- confusing
+    },
   },
 
   {
@@ -57,7 +55,9 @@ return {
         gb.open({ what = "repo" })
       end, { desc = "Open repo root in origin git site" })
 
-      --- opts will be merged from other specs, e.g. from ./select.lua
+      --- opts will be merged from other specs, e.g. from
+      --- ./indent.lua
+      --- ./select.lua
       require("snacks").setup(opts)
     end,
   },
@@ -83,9 +83,7 @@ return {
         return package.loaded["nvim-web-devicons"]
       end
     end,
-    config = function()
-      require("mini.icons").setup()
-    end,
+    config = true,
   },
 
   -- Show diagnostic as virtual text at EOL
@@ -120,19 +118,15 @@ return {
     "yorickpeterse/nvim-pqf",
     event = { "BufReadPost", "BufNewFile" },
     cond = has_ui,
-    config = function()
-      require("pqf").setup()
-    end,
+    config = true,
   },
 
   -- remove buffers without messing up window layout
   -- https://github.com/echasnovski/mini.bufremove
   {
     "echasnovski/mini.bufremove",
+    config = true,
     version = false, -- dev version
-    config = function()
-      require("mini.bufremove").setup()
-    end,
   },
 
   {
@@ -320,21 +314,19 @@ return {
     "brenoprata10/nvim-highlight-colors",
     cond = has_ui,
     event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("nvim-highlight-colors").setup({
-        ---@usage 'background'|'foreground'|'virtual'
-        render = "background",
-        -- virtual_symbol_position = 'eow',
-        -- virtual_symbol_prefix = ' ',
-        -- virtual_symbol_suffix = '',
-        ---Highlight tailwind colors, e.g. 'bg-blue-500'
-        enable_tailwind = true,
-        enable_var_usage = true,
-        exclude_filetypes = {
-          "lazy",
-        },
-      })
-    end,
+    opts = {
+      ---@usage 'background'|'foreground'|'virtual'
+      render = "background",
+      -- virtual_symbol_position = 'eow',
+      -- virtual_symbol_prefix = ' ',
+      -- virtual_symbol_suffix = '',
+      ---Highlight tailwind colors, e.g. 'bg-blue-500'
+      enable_tailwind = true,
+      enable_var_usage = true,
+      exclude_filetypes = {
+        "lazy",
+      },
+    },
   },
 
   -- {
@@ -371,9 +363,7 @@ return {
   -- You can use arrow keys in insert mode, so it's a little redundant.
   {
     "echasnovski/mini.move",
-    config = function()
-      require("mini.move").setup()
-    end,
+    config = true,
   },
 
   -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
@@ -381,12 +371,10 @@ return {
     "JoosepAlviste/nvim-ts-context-commentstring",
     -- No longer needs nvim-treesitter after https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/80
     event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("ts_context_commentstring").setup({
-        -- Disable for Comment.nvim https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#commentnvim
-        enable_autocmd = false,
-      })
-    end,
+    opts = {
+      -- Disable for Comment.nvim https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#commentnvim
+      enable_autocmd = false,
+    },
   },
 
   -- gcc / <Leader>gbc to comment with treesitter integration

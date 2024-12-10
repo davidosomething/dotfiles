@@ -6,6 +6,7 @@ return {
   -- https://github.com/HE7086/sudoedit.nvim
   {
     "HE7086/sudoedit.nvim",
+    cond = has_ui,
     enabled = function()
       return vim.fn.has("linux") == 1
     end,
