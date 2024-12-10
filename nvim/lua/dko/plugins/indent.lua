@@ -11,10 +11,9 @@ return {
 
   {
     "folke/snacks.nvim",
-    cond = has_ui,
-    enabled = provider == "snacks",
+    --- merged
     opts = {
-      indent = {},
+      indent = { enabled = provider == "snacks" },
     },
   },
 

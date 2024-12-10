@@ -12,10 +12,9 @@ return {
   -- https://github.com/folke/snacks.nvim/blob/main/docs/input.md
   {
     "folke/snacks.nvim",
-    cond = has_ui,
-    enabled = input == "snacks",
     opts = {
-      input = {},
+      --- merge spec
+      input = { enabled = input == "snacks" },
     },
   },
 
@@ -29,5 +28,25 @@ return {
     enabled = input == "dressing" or select == "dressing",
     event = "VeryLazy",
     opts = {},
+  },
+
+  -- use mini.icons instead
+  -- {
+  --   "nvim-tree/nvim-web-devicons",
+  --   lazy = true,
+  --   cond = has_ui,
+  --   config = true,
+  -- },
+  {
+    "echasnovski/mini.icons",
+    lazy = true,
+    cond = has_ui,
+    init = function()
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
+    end,
+    config = true,
   },
 }
