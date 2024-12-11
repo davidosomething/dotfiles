@@ -27,14 +27,14 @@ return {
         only_current = true,
         --- Only the current scope, not all indents
         only_scope = indent ~= "snacks",
-      },
-      scope = {
-        enabled = true,
-        animate = {
-          enabled = false,
-          duration = {
-            step = 1,
-            total = 1,
+        scope = {
+          enabled = true,
+          animate = {
+            enabled = false,
+            duration = {
+              step = 1,
+              total = 1,
+            },
           },
         },
       },
