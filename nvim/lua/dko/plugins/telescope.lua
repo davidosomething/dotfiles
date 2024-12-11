@@ -7,11 +7,13 @@ return {
   -- https://github.com/2KAbhishek/nerdy.nvim
   {
     "2kabhishek/nerdy.nvim",
-    cmd = "Nerdy",
     dependencies = {
       "stevearc/dressing.nvim",
       "nvim-telescope/telescope.nvim",
     },
+    config = function()
+      require("telescope").load_extension("nerdy")
+    end,
   },
 
   {
