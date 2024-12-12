@@ -957,15 +957,13 @@ M.bind_nvim_various_textobjs = function()
   -- Note: use <cmd> mapping format for dot-repeatability
   -- https://github.com/chrisgrieser/nvim-various-textobjs/commit/363dbb7#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5R5
 
-  local BLANKS = "noBlanks"
-
   map({ "o", "x" }, "ai", function()
     ---@type "inner"|"outer" exclude the startline
     local START = "outer"
     ---@type "inner"|"outer" exclude the endline
     local END = "outer"
     ---@type "withBlanks"|"noBlanks"
-    require("various-textobjs").indentation(START, END, BLANKS)
+    require("various-textobjs").indentation(START, END)
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   end, { desc = "textobj: indent" })
 
@@ -975,7 +973,7 @@ M.bind_nvim_various_textobjs = function()
     ---@type "inner"|"outer" exclude the endline
     local END = "inner"
     ---@type "withBlanks"|"noBlanks"
-    require("various-textobjs").indentation(START, END, BLANKS)
+    require("various-textobjs").indentation(START, END)
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   end, { desc = "textobj: indent" })
 
@@ -983,10 +981,19 @@ M.bind_nvim_various_textobjs = function()
     if vim.fn.indent(".") == 0 then
       return "vapk:!sort<CR>"
     else
+      --- uses various-textobjs ii .indentation
       return "vii:!sort<CR>"
     end
   end, {
     desc = "Auto select indent and sort",
+    expr = true,
+    remap = true, -- since ii is a mapping too
+  })
+
+  map("v", "<Leader>s", function()
+    return ":!sort<CR>"
+  end, {
+    desc = "Sort selection",
     expr = true,
     remap = true, -- since ii is a mapping too
   })

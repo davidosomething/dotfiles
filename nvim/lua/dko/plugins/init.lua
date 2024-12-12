@@ -435,6 +435,13 @@ return {
         keymaps = {
           useDefaults = false,
         },
+        textobjs = {
+          indentation = {
+            -- `false`: only indentation decreases delimit the text object
+            -- `true`: indentation decreases as well as blank lines serve as delimiter
+            blanksAreDelimiter = false,
+          },
+        },
       })
       dkomappings.bind_nvim_various_textobjs()
     end,
