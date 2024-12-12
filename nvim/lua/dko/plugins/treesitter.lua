@@ -27,12 +27,7 @@ return {
     -- don't use this plugin when headless (lazy.nvim tends to try to install
     -- markdown support async)
     cond = has_ui,
-    build = function()
-      require("nvim-treesitter.install").update({ with_sync = true })
-    end,
-    event = { "BufReadPost", "BufNewFile" },
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({
         -- https://github.com/nvim-treesitter/nvim-treesitter/issues/3579#issuecomment-1278662119
         auto_install = has_ui,
