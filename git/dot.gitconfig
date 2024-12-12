@@ -89,9 +89,6 @@
 [rerere]
 	enabled = 1
 
-[url "ssh://git@github.com/"]
-        insteadOf = https://github.com/
-
 # ============================================================================
 # Programs (assumes may be overridden by OS settings)
 # ============================================================================
