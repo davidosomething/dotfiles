@@ -38,7 +38,8 @@ return {
   --     -- parsers manually
   --     -- Or if the parsers are in your $RUNTIMEPATH
   --     "nvim-treesitter/nvim-treesitter",
-  --     "nvim-tree/nvim-web-devicons",
+  --      "echasnovski/mini.icons",
+  --     "nvim-tree/nvim-web-devicons", -- use mini.icons
   --   },
   --   -- commit = "5488c07", -- links in tables fixed
   --   branch = "dev",
@@ -46,7 +47,7 @@ return {
   --     local markview = require("markview")
   --     local presets = require("markview.presets")
   --     markview.setup({
-  --       -- headings color bg only, no icon no conceal content
+  --       -- headings color bg only. no icon no conceal content
   --       headings = presets.headings.simple,
   --       list_items = { enable = false },
   --       tables = { block_decorator = false },

@@ -1,19 +1,19 @@
 -- luacheck: globals hs Validate Resize
-local obj = {}
-obj.__index = obj
-obj.name = "Command"
+local M = {}
+M.__index = M
+M.name = "Command"
 
 -- Load dependencies
 local function script_path()
   local str = debug.getinfo(2, "S").source:sub(2)
   return str:match("(.*/)")
 end
-obj.spoonPath = script_path()
+M.spoonPath = script_path()
 
-Validate = dofile(obj.spoonPath.."/validator.lua")
-Resize = dofile(obj.spoonPath.."/resize.lua")
+Validate = dofile(M.spoonPath .. "/validator.lua")
+Resize = dofile(M.spoonPath .. "/resize.lua")
 
-function obj.cycleWidth(window, screen)
+M.cycleWidth = function(window, screen)
   -- e.g. when window is 900px wide out of 1080px screen ~= 8.3
   local windowAsPercentOfScreen = (window.w / screen.w) * 10
   -- 8.3 -> 8 (your 900px wide screen is roughly 80%)
@@ -30,7 +30,7 @@ function obj.cycleWidth(window, screen)
   return window
 end
 
-function obj.leftHalf(windowFrame, screenFrame)
+M.leftHalf = function(windowFrame, screenFrame)
   if Validate.leftHalf(windowFrame, screenFrame) then
     return Resize.leftTwoThirds(windowFrame, screenFrame)
   end
@@ -40,15 +40,24 @@ function obj.leftHalf(windowFrame, screenFrame)
   return Resize.leftHalf(windowFrame, screenFrame)
 end
 
-function obj.fullScreen(windowFrame, screenFrame)
+M.fullScreen = function(windowFrame, screenFrame)
   return Resize.fullScreen(windowFrame, screenFrame)
 end
 
-function obj.center(windowFrame, screenFrame)
-  return Resize.center(windowFrame, screenFrame)
+M.center = function(windowFrame, screenFrame)
+  if Validate.centerHalf(windowFrame, screenFrame) then
+    print("validated center half")
+    return Resize.centerTwoThirds(windowFrame, screenFrame)
+  end
+  if Validate.centerTwoThirds(windowFrame, screenFrame) then
+    print("validated center 2/3s")
+    return Resize.centerThird(windowFrame, screenFrame)
+  end
+  print("validated center nothing")
+  return Resize.centerHalf(windowFrame, screenFrame)
 end
 
-function obj.topHalf(windowFrame, screenFrame)
+M.topHalf = function(windowFrame, screenFrame)
   if Validate.topHalf(windowFrame, screenFrame) then
     return Resize.topTwoThirds(windowFrame, screenFrame)
   end
@@ -58,7 +67,7 @@ function obj.topHalf(windowFrame, screenFrame)
   return Resize.topHalf(windowFrame, screenFrame)
 end
 
-function obj.bottomHalf(windowFrame, screenFrame)
+M.bottomHalf = function(windowFrame, screenFrame)
   if Validate.bottomHalf(windowFrame, screenFrame) then
     return Resize.bottomTwoThirds(windowFrame, screenFrame)
   end
@@ -68,7 +77,7 @@ function obj.bottomHalf(windowFrame, screenFrame)
   return Resize.bottomHalf(windowFrame, screenFrame)
 end
 
-function obj.topLeft(windowFrame, screenFrame)
+M.topLeft = function(windowFrame, screenFrame)
   if Validate.topLeftHalf(windowFrame, screenFrame) then
     return Resize.topLeftTwoThirds(windowFrame, screenFrame)
   end
@@ -78,7 +87,7 @@ function obj.topLeft(windowFrame, screenFrame)
   return Resize.topLeftHalf(windowFrame, screenFrame)
 end
 
-function obj.topRight(windowFrame, screenFrame)
+M.topRight = function(windowFrame, screenFrame)
   if Validate.topRightHalf(windowFrame, screenFrame) then
     return Resize.topRightTwoThirds(windowFrame, screenFrame)
   end
@@ -88,7 +97,7 @@ function obj.topRight(windowFrame, screenFrame)
   return Resize.topRightHalf(windowFrame, screenFrame)
 end
 
-function obj.bottomRight(windowFrame, screenFrame)
+M.bottomRight = function(windowFrame, screenFrame)
   if Validate.bottomRightHalf(windowFrame, screenFrame) then
     return Resize.bottomRightTwoThirds(windowFrame, screenFrame)
   end
@@ -98,7 +107,7 @@ function obj.bottomRight(windowFrame, screenFrame)
   return Resize.bottomRightHalf(windowFrame, screenFrame)
 end
 
-function obj.bottomLeft(windowFrame, screenFrame)
+M.bottomLeft = function(windowFrame, screenFrame)
   if Validate.bottomLeftHalf(windowFrame, screenFrame) then
     return Resize.bottomLeftTwoThirds(windowFrame, screenFrame)
   end
@@ -108,7 +117,7 @@ function obj.bottomLeft(windowFrame, screenFrame)
   return Resize.bottomLeftHalf(windowFrame, screenFrame)
 end
 
-function obj.rightHalf(windowFrame, screenFrame)
+M.rightHalf = function(windowFrame, screenFrame)
   if Validate.rightHalf(windowFrame, screenFrame) then
     return Resize.rightTwoThirds(windowFrame, screenFrame)
   end
@@ -118,16 +127,15 @@ function obj.rightHalf(windowFrame, screenFrame)
   return Resize.rightHalf(windowFrame, screenFrame)
 end
 
-function obj.enlarge(windowFrame, screenFrame)
+M.enlarge = function(windowFrame, screenFrame)
   return Resize.enlarge(windowFrame, screenFrame)
 end
 
-function obj.shrink(windowFrame, screenFrame)
+M.shrink = function(windowFrame, screenFrame)
   return Resize.shrink(windowFrame, screenFrame)
 end
 
-
-function obj.nextThird(windowFrame, screenFrame)
+M.nextThird = function(windowFrame, screenFrame)
   if Validate.leftThird(windowFrame, screenFrame) then
     return Resize.centerVerticalThird(windowFrame, screenFrame)
   end
@@ -146,7 +154,7 @@ function obj.nextThird(windowFrame, screenFrame)
   return Resize.leftThird(windowFrame, screenFrame)
 end
 
-function obj.prevThird(windowFrame, screenFrame)
+M.prevThird = function(windowFrame, screenFrame)
   if Validate.leftThird(windowFrame, screenFrame) then
     return Resize.bottomThird(windowFrame, screenFrame)
   end
@@ -165,4 +173,4 @@ function obj.prevThird(windowFrame, screenFrame)
   return Resize.leftThird(windowFrame, screenFrame)
 end
 
-return obj
+return M

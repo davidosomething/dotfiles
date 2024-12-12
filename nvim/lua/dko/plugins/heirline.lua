@@ -11,16 +11,17 @@ return {
   {
     "rebelot/heirline.nvim",
     cond = has_ui,
-    -- dependencies = {
-    --   "davidosomething/everandever.nvim",
-    -- },
-    config = function()
+    dependencies = {
+      "echasnovski/mini.icons",
+      -- "davidosomething/everandever.nvim",
+    },
+    init = function()
       local ALWAYS = 2
       vim.o.showtabline = ALWAYS
-
       local GLOBAL = 3
       vim.o.laststatus = GLOBAL
-
+    end,
+    config = function()
       require("heirline").setup({
         statusline = require("dko.heirline.statusline-default"),
         tabline = require("dko.heirline.tabline"),

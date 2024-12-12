@@ -1,3 +1,8 @@
+local toast = require("dko.utils.notify").toast
+
+---@type string
+local FALLBACK_FORMATTER = "" -- "prettier"
+
 return function()
   if vim.b.has_markdownlint == nil then
     vim.b.has_markdownlint = #vim.fs.find({
@@ -6,8 +11,14 @@ return function()
       ".markdownlint.yaml",
     }, { limit = 1, upward = true, type = "file" })
   end
-  require("dko.utils.format.efm").format_with(
-    vim.b.has_markdownlint == true and "markdownlint" or "prettier",
+
+  local formatter = FALLBACK_FORMATTER
+  if vim.b.has_markdownlint == true then
+    formatter = "markdownlint"
+  end
+  local did_efm_format = require("dko.utils.format.efm").format_with(
+    formatter,
     { pipeline = "markdown" }
   )
+  return did_efm_format
 end

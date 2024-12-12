@@ -26,14 +26,14 @@ return {
         vim.notify(
           ("Installing %s"):format(p.name),
           vim.log.levels.INFO,
-          { title = "mason", render = "compact" }
+          { title = "mason", render = "wrapped-compact" }
         )
         local handle_closed = vim.schedule_wrap(function()
           return p:is_installed()
             and vim.notify(
               ("Successfully installed %s"):format(p.name),
               vim.log.levels.INFO,
-              { title = "mason", render = "compact" }
+              { title = "mason", render = "wrapped-compact" }
             )
         end)
         p:install():once("closed", handle_closed)

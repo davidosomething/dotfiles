@@ -2,13 +2,18 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 return {
+
+  -- find nerd font glyphs
+  -- https://github.com/2KAbhishek/nerdy.nvim
   {
     "2kabhishek/nerdy.nvim",
     dependencies = {
       "stevearc/dressing.nvim",
       "nvim-telescope/telescope.nvim",
     },
-    cmd = "Nerdy",
+    config = function()
+      require("telescope").load_extension("nerdy")
+    end,
   },
 
   {

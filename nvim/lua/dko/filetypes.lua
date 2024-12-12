@@ -10,6 +10,7 @@ vim.filetype.add({
     volume = "systemd",
   },
   filename = {
+    [".dockerignore"] = "gitignore",
     [".env"] = "dotenv",
     [".eslintrc.json"] = "jsonc", -- assuming nx project.json
     ["project.json"] = "jsonc", -- assuming nx project.json

@@ -18,6 +18,8 @@ local HIGHLIGHTING_DISABLED = {
   --"tsx",
 }
 
+local ENSURE_INSTALLED = { "html", "json", "lua", "markdown", "yaml" }
+
 return {
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
@@ -25,16 +27,11 @@ return {
     -- don't use this plugin when headless (lazy.nvim tends to try to install
     -- markdown support async)
     cond = has_ui,
-    build = function()
-      require("nvim-treesitter.install").update({ with_sync = true })
-    end,
-    event = { "BufReadPost", "BufNewFile" },
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({
         -- https://github.com/nvim-treesitter/nvim-treesitter/issues/3579#issuecomment-1278662119
         auto_install = has_ui,
-        ensure_installed = has_ui and { "html" } or {},
+        ensure_installed = has_ui and ENSURE_INSTALLED or {},
         sync_install = true,
 
         -- Built-in modules configured here

@@ -1,3 +1,7 @@
+local dkomappings = require("dko.mappings")
+local dkosettings = require("dko.settings")
+local dkoformat = require("dko.utils.format")
+
 -- ===========================================================================
 -- Change vim behavior via autocommands
 -- ===========================================================================
@@ -51,6 +55,15 @@ if has_ui then
     group = augroup("dkowindow"),
   })
 
+  autocmd("User", {
+    pattern = "EscEscEnd",
+    desc = "Close DKODoctor floats on <Esc><Esc>",
+    callback = function()
+      require("dko.doctor").close_float()
+    end,
+    group = augroup("dkodoctor"),
+  })
+
   autocmd("VimResized", {
     desc = "Automatically resize windows in all tabpages when resizing Vim",
     callback = function()
@@ -88,6 +101,7 @@ if has_ui then
       -- See the treesitter highlight config too
       if require("dko.utils.buffer").is_huge(args.file) then
         vim.cmd.syntax("manual")
+        vim.cmd([[NoMatchParen]])
       end
     end,
     group = augroup("dkoreading"),
@@ -188,7 +202,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
         ("could not get dirname: %s"):format(args.file)
       )
       -- dir already exists
-      if vim.uv.fs_stat(dir) then
+      if vim.fn.getftype(dir) == "dir" then
         return
       end
       assert(vim.fn.mkdir(dir, "p") == 1, ("could not mkdir: %s"):format(dir))
@@ -208,7 +222,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 
 if has_ui then
   autocmd("User", {
-    pattern = "FormatterAdded",
+    pattern = "FormattersChanged",
     desc = "Notify neovim a formatter has been added for the buffer",
     callback = function()
       -- noop - heirline listens for this event
@@ -222,48 +236,113 @@ if has_ui then
 
   autocmd("LspAttach", {
     desc = "Bind LSP related mappings",
-    callback = require("dko.mappings").bind_on_lspattach,
+    callback = dkomappings.bind_on_lspattach,
     group = augroup("dkolsp"),
   })
 
   autocmd("LspAttach", {
     desc = "Set flag to format on save when first capable LSP attaches to buffer",
-    callback = require("dko.utils.format").enable_on_lspattach,
+    callback = dkoformat.enable_on_lspattach,
     group = augroup("dkolsp"),
   })
 
   autocmd("LspDetach", {
     desc = "Unbind LSP related mappings on last client detach",
-    callback = require("dko.mappings").unbind_on_lspdetach,
+    callback = dkomappings.unbind_on_lspdetach,
     group = augroup("dkolsp"),
   })
 
   autocmd("LspDetach", {
     desc = "Unset flag to format on save when last capable LSP detaches from buffer",
-    callback = require("dko.utils.format").disable_on_lspdetach,
+    callback = dkoformat.disable_on_lspdetach,
+    group = augroup("dkolsp"),
+  })
+
+  autocmd("FileType", {
+    desc = "Set mappings/format on save for specific filetypes if coc.nvim is enabled",
+    callback = function(opts)
+      --- order matters here
+      if
+        dkosettings.get("coc.enabled")
+        and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
+      then
+        vim.cmd.CocStart()
+        dkomappings.bind_coc(opts)
+        --- @TODO move this to a tools-based registration
+        -- dkoformat.add_formatter("coc")
+        -- vim.b.enable_format_on_save = true
+      else
+        -- explicitly disable coc
+        vim.b.coc_enabled = 0
+        vim.b.coc_diagnostic_disable = 1
+        vim.b.coc_suggest_disable = 1
+      end
+      dkomappings.bind_snippy()
+      dkomappings.bind_completion(opts)
+      dkomappings.bind_hover(opts)
+    end,
+  })
+
+  autocmd("User", {
+    pattern = "EscEscEnd",
+    desc = "Close coc.nvim floats on <Esc><Esc>",
+    callback = function()
+      if dkosettings.get("coc.enabled") then
+        vim.fn["coc#float#close_all"]()
+      end
+    end,
     group = augroup("dkolsp"),
   })
 
   autocmd({ "BufWritePre", "FileWritePre" }, {
     desc = "Format with LSP on save",
-    callback = require("dko.utils.format").format_on_save,
+    callback = function()
+      -- callback gets arg
+      -- {
+      --   buf = 1,
+      --   event = "BufWritePre",
+      --   file = "nvim/lua/dko/behaviors.lua",
+      --   id = 127,
+      --   match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
+      -- }
+      if not vim.b.enable_format_on_save then
+        return
+      end
+      dkoformat.run_pipeline({ async = false })
+    end,
     group = augroup("dkolsp"),
   })
 
   -- temporary fix, winbars not updating
-  local fix_winbar_events = vim.tbl_extend(
-    "keep",
-    require("dko.heirline.diagnostics").update,
-    require("dko.heirline.lsp").update,
-    { "User PackageInfoProgress" } -- clear winbar status msg when done
-  )
-  fix_winbar_events = vim.tbl_filter(function(event)
-    return vim.fn.exists(("##%s"):format(event)) == 1
-  end, fix_winbar_events)
-  autocmd(fix_winbar_events, {
-    desc = "FIX - heirline does not always update winbars",
-    callback = vim.schedule_wrap(function()
-      vim.cmd.redrawstatus({ bang = true })
-    end),
-  })
+  vim
+    .iter({
+      require("dko.heirline.coc-diagnostics").update,
+      require("dko.heirline.diagnostics").update,
+      require("dko.heirline.lsp").update,
+    })
+    :each(function(events)
+      if events[1] == "User" and events["pattern"] then
+        autocmd("User", {
+          group = events["group"],
+          pattern = events["pattern"],
+          desc = "FIX - heirline does not always update winbars",
+          callback = function()
+            vim.print("xxx")
+            vim.cmd.redrawstatus({ bang = true })
+          end,
+        })
+      else
+        for _, event in ipairs(events) do
+          local autocmd_exists = vim.fn.exists(("##%s"):format(event)) == 1
+          if autocmd_exists then
+            autocmd(event, {
+              desc = "FIX - heirline does not always update winbars",
+              callback = vim.schedule_wrap(function()
+                vim.cmd.redrawstatus({ bang = true })
+              end),
+            })
+          end
+        end
+      end
+    end)
 end

@@ -1,5 +1,6 @@
 .git/
 .jscpd/
+.next/
 .tox/
 build/
 compass-css/

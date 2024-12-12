@@ -26,10 +26,11 @@ M.from_stylua_toml = function()
     return
   end
 
+  local filename = vim.fn.expand("%:t")
   vim.notify(
-    "Using settings from stylua.toml",
+    ("Using stylua.toml settings for file:\n%s"):format(filename),
     vim.log.levels.INFO,
-    { render = "compact", title = "dko.editing" }
+    { title = "dko.editing" }
   )
   for line in io.lines(toml) do
     if line:find("Spaces") then

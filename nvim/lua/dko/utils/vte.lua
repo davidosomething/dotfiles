@@ -4,7 +4,7 @@ local M = {}
 
 M.is_docker_exec = function()
   -- yes .dockerenv is in root /
-  return vim.uv.fs_stat("/.dockerenv") ~= nil
+  return vim.fn.getftype("/.dockerenv") == "file"
 end
 
 M.is_remote = function()

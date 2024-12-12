@@ -19,7 +19,7 @@ M.PROJECT_ROOTS = {
 ---@return string|nil root
 M.get_root_by_patterns = function(patterns)
   patterns = patterns or M.PROJECT_ROOTS
-  local bufname = vim.api.nvim_buf_get_name(0)
+  local bufname = vim.fn.bufname()
   local start = bufname ~= "" and 0 or vim.uv.cwd()
   if start == nil then
     return nil

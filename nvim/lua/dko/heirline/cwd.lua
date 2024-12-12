@@ -19,7 +19,7 @@ return {
     end
 
     local remaining = ui.width - extrachars
-    local cwd = vim.fn.fnamemodify(self.cwd, ":~")
+    local cwd = vim.fn.fnamemodify(vim.uv.cwd() or "", ":~")
     local output = cwd:len() < remaining and cwd or vim.fn.pathshorten(cwd)
     return ("  %s "):format(output)
   end,

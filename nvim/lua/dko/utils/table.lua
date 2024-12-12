@@ -12,6 +12,7 @@ M.concat = function(t1, t2)
   return t1
 end
 
+---@deprecated use Iter:filter()
 M.filter = function(t, func)
   local res = {}
   for k, v in pairs(t) do
@@ -20,6 +21,15 @@ M.filter = function(t, func)
     end
   end
   return res
+end
+
+--- Append or create table with val
+M.append = function(t, val)
+  if t == nil then
+    return { val }
+  end
+  table.insert(t, val)
+  return t
 end
 
 return M

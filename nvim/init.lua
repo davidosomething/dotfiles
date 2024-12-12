@@ -17,6 +17,7 @@ require("dko.diagnostic")
 require("dko.mappings")
 
 require("dko.tools.css")
+require("dko.tools.csharp")
 require("dko.tools.dart")
 require("dko.tools.docker")
 require("dko.tools.generic")
@@ -43,6 +44,7 @@ require("dko.builtin-syntax")
 require("dko.filetypes")
 
 require("dko.lsp") -- override some lsp handlers
+require("dko.notify") -- override some vim.notify with plugins
 
 require("dko.terminal")
 

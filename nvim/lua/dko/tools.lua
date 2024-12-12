@@ -22,14 +22,15 @@ local dkotable = require("dko.utils.table")
 
 -- nvim-lspconfig config object
 -- copypasta from https://github.com/neovim/nvim-lspconfig/blob/8917d2c830e04bf944a699b8c41f097621283828/lua/lspconfig/configs.lua#L8C1-L15C71
---- @class lspconfig.Config : vim.lsp.ClientConfig
---- @field enabled? boolean
---- @field single_file_support? boolean
---- @field filetypes? string[]
---- @field filetype? string
---- @field on_new_config? function
---- @field autostart? boolean
---- @field package _on_attach? fun(client: vim.lsp.Client, bufnr: integer)
+---@class lspconfig.Config : vim.lsp.ClientConfig
+---@field cmd? string[]|fun(dispatchers: vim.lsp.rpc.Dispatchers): vim.lsp.rpc.PublicClient
+---@field enabled? boolean
+---@field single_file_support? boolean
+---@field filetypes? ft[]
+---@field filetype? ft
+---@field on_new_config? function
+---@field autostart? boolean
+---@field package _on_attach? fun(client: vim.lsp.Client, bufnr: integer)
 
 ---@alias LspconfigDef fun(): lspconfig.Config gets passed to lsp's setup()
 
@@ -47,7 +48,7 @@ local dkotable = require("dko.utils.table")
 ---@field fts? ft[] -- for efm, list of filetypes to register
 ---@field efm? fun(): EfmFormatter|EfmLinter
 ---@field lspconfig? LspconfigDef
----@field skip_init? boolean -- e.g. for tsserver, we use typescript-tools.nvim to init and not mason-lspconfig
+---@field skip_init? boolean -- e.g. for ts_ls, we use typescript-tools.nvim to init and not mason-lspconfig
 
 ---@alias ToolGroup table<string, boolean>
 ---@alias ToolGroups table<string, ToolGroup>
@@ -153,27 +154,30 @@ M.get_efm_languages = function(filter)
   end
   return filtered:fold({}, function(acc, config)
     for _, ft in ipairs(config.fts) do
-      acc[ft] = acc[ft] or {}
-      table.insert(acc[ft], config.efm())
+      acc[ft] = dkotable.append(acc[ft], config.efm())
     end
     return acc
   end)
 end
 
+--- cache for filter_executable_groups
 local fegcache = {}
+
 ---Get a list of tools that CAN be installed because required binary available
 ---@param groups ToolGroups
 ---@param category string for logging only
 ---@return ToolGroups --- { ["npm"] = { "prettier" = {...config} } if npm is executable
 M.filter_executable_groups = function(category, groups)
   if not fegcache[category] then
-    fegcache[category] = dkotable.filter(groups, function(_, bin)
+    fegcache[category] = dkotable.filter(groups, function(tool_configs, bin)
       if bin ~= "_" and vim.fn.executable(bin) == 0 then
+        local tool_names = table.concat(vim.tbl_keys(tool_configs), ", ")
         require("dko.doctor").warn({
           category = category,
-          message = ("[%s] %s not found, skip installation"):format(
+          message = ("[%s] Executable `%s` not found, skipping: %s"):format(
             category,
-            bin
+            bin,
+            tool_names
           ),
         })
         return false

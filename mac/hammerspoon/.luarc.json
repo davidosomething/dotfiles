@@ -2,7 +2,8 @@
   "diagnostics": {
     "globals": [
       "hs",
-      "hyper"
+      "hyper",
+            "spoon"
     ]
   }
 }

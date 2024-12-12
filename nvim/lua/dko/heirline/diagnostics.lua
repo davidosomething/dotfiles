@@ -13,7 +13,10 @@ end
 return {
   condition = function()
     local has_filetype = vim.bo.filetype ~= ""
-    return has_filetype
+    if not has_filetype then
+      return false
+    end
+    return true
   end,
 
   init = function(self)

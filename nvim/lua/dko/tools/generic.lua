@@ -1,10 +1,13 @@
 local tools = require("dko.tools")
 
-tools.register({
-  mason_type = "tool",
-  require = "_",
-  name = "tree-sitter-cli",
-})
+-- use brew'ed tree-sitter since it will be properly compiled for M1 macs
+if vim.env.DOTFILES_OS ~= "Darwin" then
+  tools.register({
+    mason_type = "tool",
+    require = "_",
+    name = "tree-sitter-cli",
+  })
+end
 
 tools.register({
   mason_type = "lsp",

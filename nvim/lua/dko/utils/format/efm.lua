@@ -4,13 +4,28 @@ local toast = require("dko.utils.notify").toast
 
 local M = {}
 
+---@param opts? table
+---@return boolean
 M.format = function(opts)
   opts = opts or {}
+
+  -- notification settings for this function
+  local title = "[LSP] efm"
+  if opts.pipeline then
+    title = ("[LSP] %s > efm"):format(opts.pipeline)
+  end
 
   -- need to check for client in case we did :LspStop or something
   local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
   if not client then
-    return
+    if not opts.hide_notification then
+      toast("efm not attached", vim.log.levels.WARN, {
+        group = "format",
+        title = title,
+        render = "wrapped-compact",
+      })
+    end
+    return false
   end
 
   if not opts.hide_notification then
@@ -28,15 +43,10 @@ M.format = function(opts)
         :totable(),
       ", "
     )
-
-    local title = "[LSP] efm"
-    if opts.pipeline then
-      title = ("[LSP] %s > efm"):format(opts.pipeline)
-    end
     toast(("%s"):format(formatters), vim.log.levels.INFO, {
       group = "format",
       title = title,
-      render = "compact",
+      render = "wrapped-compact",
     })
   end
 
@@ -45,14 +55,15 @@ M.format = function(opts)
     name = "efm",
     timeout_ms = vim.env.SSH_CLIENT and 3000 or 1000,
   })
+  return true
 end
 
---- Assuming each
 --- Temporarily removes all efm configs except the one named
---- Runs lsp format synchronously
+--- Runs lsp format synchronously using M.format
 --- Then restores the original efm configs
 ---@param name string formatter name, e.g. markdownlint
 ---@param opts? table
+---@return boolean
 M.format_with = function(name, opts)
   opts = opts or {}
 
@@ -64,9 +75,18 @@ M.format_with = function(name, opts)
     toast(
       "efm not attached",
       vim.log.levels.ERROR,
-      { title = title, group = "format", render = "compact" }
+      { title = title, group = "format", render = "wrapped-compact" }
     )
-    return
+    return false
+  end
+
+  if name == "" then
+    toast(
+      ("No formatter configured for %s"):format(vim.bo.filetype),
+      vim.log.levels.WARN,
+      { title = title, group = "format", render = "wrapped-compact" }
+    )
+    return false
   end
 
   local configs = require("dko.tools").get_efm_languages(function(tool)
@@ -74,11 +94,11 @@ M.format_with = function(name, opts)
   end)
   if vim.tbl_count(configs) == 0 then
     toast(
-      ("No formatter %s for %s"):format(name, vim.bo.filetype),
+      ('No formatter "%s" for %s'):format(name, vim.bo.filetype),
       vim.log.levels.ERROR,
-      { title = title, group = "format", render = "compact" }
+      { title = title, group = "format", render = "wrapped-compact" }
     )
-    return
+    return false
   end
 
   ---@type (EfmFormatter|EfmLinter)[]
@@ -96,9 +116,9 @@ M.format_with = function(name, opts)
   toast(
     ("Formatting with %s"):format(name),
     vim.log.levels.INFO,
-    { title = title, group = "format", render = "compact" }
+    { title = title, group = "format", render = "wrapped-compact" }
   )
-  M.format({ hide_notification = true })
+  local result = M.format({ hide_notification = true })
 
   -- Restore original config
   client.config.settings.languages = original
@@ -106,6 +126,8 @@ M.format_with = function(name, opts)
     Methods.workspace_didChangeConfiguration,
     { settings = client.config.settings }
   )
+
+  return result
 end
 
 return M

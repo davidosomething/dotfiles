@@ -2,6 +2,7 @@
 local wezterm = require("wezterm")
 
 local hidpi = wezterm.hostname() == "dotrakoun-mac"
+  or wezterm.hostname() == "potatoair"
 
 -- This table will hold the configuration.
 local config = {}

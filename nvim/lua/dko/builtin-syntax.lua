@@ -5,14 +5,15 @@
 -- vim-markdown plugin (which is bundled with vim7.4 now)
 -- There are more syntaxes, but checking for them makes editing md very slow
 vim.g.markdown_fenced_languages = {
-  "javascript",
-  "js=javascript",
-  "javascriptreact",
-  "json",
   "bash=sh",
-  "sh",
-  "vim",
   "help",
+  "javascript",
+  "javascriptreact",
+  "js=javascript",
+  "json",
+  "sh",
+  "ts=typescript",
+  "vim",
 }
 
 -- php

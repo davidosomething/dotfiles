@@ -14,27 +14,27 @@ tools.register({
 })
 
 -- jumping into classnames from jsx/tsx
-tools.register({
-  name = "cssmodules_ls",
-  mason_type = "lsp",
-  require = "npm",
-
-  lspconfig = function()
-    ---@type lspconfig.Config
-    return {
-      --- Use :LspStart cssmodules_ls to start this
-      autostart = false,
-
-      ---note: local on_attach happens AFTER autocmd LspAttach
-      on_attach = function(client)
-        -- https://github.com/davidosomething/dotfiles/issues/521
-        -- https://github.com/antonk52/cssmodules-language-server#neovim
-        -- avoid accepting `definitionProvider` responses from this LSP
-        client.server_capabilities.definitionProvider = false
-      end,
-    }
-  end,
-})
+-- tools.register({
+--   name = "cssmodules_ls",
+--   mason_type = "lsp",
+--   require = "npm",
+--
+--   lspconfig = function()
+--     ---@type lspconfig.Config
+--     return {
+--       --- Use :LspStart cssmodules_ls to start this
+--       autostart = false,
+--
+--       ---note: local on_attach happens AFTER autocmd LspAttach
+--       on_attach = function(client)
+--         -- https://github.com/davidosomething/dotfiles/issues/521
+--         -- https://github.com/antonk52/cssmodules-language-server#neovim
+--         -- avoid accepting `definitionProvider` responses from this LSP
+--         client.server_capabilities.definitionProvider = false
+--       end,
+--     }
+--   end,
+-- })
 
 tools.register({
   name = "eslint",
@@ -51,47 +51,47 @@ tools.register({
   runner = "mason-lspconfig",
 })
 
--- mason-lspconfig tsserver config
+-- mason-lspconfig ts_ls config
 -- tools.register({
---   name = "tsserver",
+--   name = "ts_ls",
 --   mason_type = "lsp",
 --   require = "npm",
 --   runner = "mason-lspconfig",
 --   lspconfig = function()
---    return dkots.tsserver.config
+--    return dkots.ts_ls.config
 --   end,
 -- })
 
-tools.register({
-  name = "vtsls",
-  mason_type = "lsp",
-  require = "npm",
-  runner = "mason-lspconfig",
-  lspconfig = function()
-    return {
-      on_attach = dkots.tsserver.config.on_attach,
-      handlers = dkots.tsserver.config.handlers,
-
-      -- importModuleSpecifier https://github.com/LazyVim/LazyVim/discussions/3623#discussioncomment-10089949
-      settings = {
-        javascript = {
-          preferences = {
-            importModuleSpecifier = "non-relative", -- "project-relative",
-          },
-        },
-        typescript = {
-          preferences = {
-            importModuleSpecifier = "non-relative", -- "project-relative",
-          },
-        },
-      },
-    }
-  end,
-})
-
--- tsserver with no integration, used for "pmizio/typescript-tools.nvim"
 -- tools.register({
---   name = "tsserver",
+--   name = "vtsls",
+--   mason_type = "lsp",
+--   require = "npm",
+--   runner = "mason-lspconfig",
+--   lspconfig = function()
+--     return {
+--       on_attach = dkots.ts_ls.config.on_attach,
+--       handlers = dkots.ts_ls.config.handlers,
+--
+--       -- importModuleSpecifier https://github.com/LazyVim/LazyVim/discussions/3623#discussioncomment-10089949
+--       settings = {
+--         javascript = {
+--           preferences = {
+--             importModuleSpecifier = "non-relative", -- "project-relative",
+--           },
+--         },
+--         typescript = {
+--           preferences = {
+--             importModuleSpecifier = "non-relative", -- "project-relative",
+--           },
+--         },
+--       },
+--     }
+--   end,
+-- })
+
+-- ts_ls with no integration, used for "pmizio/typescript-tools.nvim"
+-- tools.register({
+--   name = "ts_ls",
 --   mason_type = "lsp",
 --   require = "npm",
 --   runner = "mason-lspconfig",

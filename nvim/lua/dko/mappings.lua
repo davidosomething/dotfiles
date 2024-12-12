@@ -1,7 +1,34 @@
 local dkobuffer = require("dko.utils.buffer")
 local dkosettings = require("dko.settings")
 
-local map = vim.keymap.set
+---@class LspAutocmdArgs
+---@field buf number
+---@field data { client_id: number }
+---@field event "LspAttach"|"LspDetach"
+---@field file string e.g. "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
+
+---Map and return with unbind function
+---@return function # unbind
+local function map(modes, lhs, rhs, opts)
+  vim.keymap.set(modes, lhs, rhs, opts)
+  return function()
+    vim.keymap.del(modes, lhs, opts)
+  end
+end
+
+---wrap handler with buffer assertions
+---@return function # unbind
+local function emap(modes, keys, handler, opts)
+  return map(modes, keys, function()
+    if vim.bo.buftype == "nofile" then
+      return ""
+    end
+    if type(handler) == "function" then
+      return handler()
+    end
+    return handler
+  end, opts)
+end
 
 local M = {}
 
@@ -103,6 +130,14 @@ map("n", "<Leader>evm", function()
   vim.cmd.edit(vim.fn.stdpath("config") .. "/lua/dko/mappings.lua")
 end, { desc = "Edit mappings.lua" })
 
+-- =============================================================================
+-- doctor
+-- =============================================================================
+
+map("n", "<A-\\>", function()
+  require("dko.doctor").toggle_float()
+end, { desc = "Toggle dko.doctor float" })
+
 -- ===========================================================================
 -- Buffer: Reading
 -- ===========================================================================
@@ -135,7 +170,7 @@ map("n", "<Leader>yn", function()
     vim.notify(
       "Buffer has no filename",
       vim.log.levels.ERROR,
-      { title = "Failed to yank filename", render = "compact" }
+      { title = "Failed to yank filename", render = "wrapped-compact" }
     )
     return
   end
@@ -177,6 +212,12 @@ map(
 -- ===========================================================================
 -- Buffer: Edit contents
 -- ===========================================================================
+
+map("n", "<A-=>", function()
+  require("dko.utils.format").run_pipeline({ async = false })
+end, {
+  desc = "Fix and format buffer with dko.utils.format.run_pipeline",
+})
 
 local visualTabOpts = {
   desc = "<Tab> indents selected lines in Visual",
@@ -314,7 +355,7 @@ map("n", "sy", function()
     vim.notify(
       "No treesitter captures under cursor",
       vim.log.levels.ERROR,
-      { title = "Yank failed", render = "compact" }
+      { title = "Yank failed", render = "wrapped-compact" }
     )
     return
   end
@@ -330,7 +371,7 @@ map("n", "sy", function()
   vim.notify(
     resultString,
     vim.log.levels.INFO,
-    { title = "Yanked capture", render = "compact" }
+    { title = "Yanked capture", render = "wrapped-compact" }
   )
 end, { desc = "Copy treesitter captures under cursor" })
 
@@ -356,38 +397,51 @@ local function telescope_builtin(method)
   return false
 end
 
+---List of unbind functions, keyed by "b"..bufnr
+---@type table<string, fun()[]>
+M.lsp_bindings = {}
+
+---Run all the unbind functions for the bufnr
+---@param bufnr number
+M.unbind_lsp = function(bufnr)
+  local key = "b" .. bufnr
+  for _, unbind in ipairs(M.lsp_bindings[key]) do
+    unbind()
+  end
+  M.lsp_bindings[key] = nil
+  vim.b.did_bind_lsp = false
+end
+
+-- Bindings for vim.lsp. Conflicts with bind_coc
 -- LspAttach autocmd callback
 ---@param bufnr number
 M.bind_lsp = function(bufnr)
-  ---@param opts table
-  ---@return table opts with silent and buffer set
-  local function lsp_opts(opts)
+  if vim.b.did_bind_lsp then -- First LSP attached
+    return
+  end
+  vim.b.did_bind_lsp = true
+
+  local function lspmap(modes, lhs, rhs, opts)
     opts.silent = true
     opts.buffer = bufnr
-    return opts
+    local unbind = map(modes, lhs, rhs, opts)
+    local key = "b" .. bufnr
+    M.lsp_bindings[key] = M.lsp_bindings[key] or {}
+    table.insert(M.lsp_bindings[key], unbind)
   end
 
-  map("n", "gD", function()
-    vim.lsp.buf.declaration()
-  end, lsp_opts({ desc = "LSP declaration" }))
-
-  map("n", "gd", function()
+  lspmap("n", "gd", function()
     return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
-  end, lsp_opts({ desc = "LSP definition" }))
+  end, { desc = "LSP definition" })
 
-  -- This is done for us in
-  -- $VIMRUNTIME/lua/vim/lsp.lua
-  -- as of https://github.com/neovim/neovim/pull/24331
-  --map("n", "K", vim.lsp.buf.hover, lsp_opts({ desc = "LSP hover" }))
-
-  map("n", "gi", function()
+  lspmap("n", "gi", function()
     return telescope_builtin("lsp_implementations")
       or vim.lsp.buf.implementation()
-  end, lsp_opts({ desc = "LSP implementation" }))
+  end, { desc = "LSP implementation" })
 
-  map({ "n", "i" }, "<C-g>", function()
+  lspmap({ "n", "i" }, "<C-g>", function()
     vim.lsp.buf.signature_help()
-  end, lsp_opts({ desc = "LSP signature_help" }))
+  end, { desc = "LSP signature_help" })
 
   --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   --map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -395,14 +449,14 @@ M.bind_lsp = function(bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts) ]]
 
-  map("n", "<Leader>D", function()
+  lspmap("n", "<Leader>D", function()
     return telescope_builtin("lsp_type_definitions")
       or vim.lsp.buf.type_definition()
-  end, lsp_opts({ desc = "LSP type_definition" }))
+  end, { desc = "LSP type_definition" })
 
-  map("n", "<Leader>rn", function()
+  lspmap("n", "<Leader>rn", function()
     vim.lsp.buf.rename()
-  end, lsp_opts({ desc = "LSP rename" }))
+  end, { desc = "LSP rename" })
 
   local code_action = {}
 
@@ -424,7 +478,7 @@ M.bind_lsp = function(bufnr)
     return false
   end
 
-  map("n", "<Leader><Leader>", function()
+  lspmap("n", "<Leader><Leader>", function()
     if dkosettings.get("lsp.code_action") == "tiny-code-action" then
       if code_action.tca() or code_action.ap() then
         return
@@ -433,27 +487,17 @@ M.bind_lsp = function(bufnr)
       return
     end
     vim.lsp.buf.code_action()
-  end, lsp_opts({ desc = "LSP Code Action" }))
+  end, { desc = "LSP Code Action" })
 
-  map("n", "gr", function()
+  lspmap("n", "gr", function()
     return telescope_builtin("lsp_references")
       ---@diagnostic disable-next-line: missing-parameter
       or vim.lsp.buf.references()
-  end, lsp_opts({ desc = "LSP references" }))
-
-  map(
-    "n",
-    "<A-=>",
-    function()
-      require("dko.utils.format").run_pipeline({ async = false })
-    end,
-    lsp_opts({
-      desc = "Fix and format buffer with dko.utils.format.run_pipeline",
-    })
-  )
+  end, { desc = "LSP references" })
 end
 
--- autocmd callback
+---autocmd callback
+---@param args LspAutocmdArgs
 M.bind_on_lspattach = function(args)
   --[[
     {
@@ -470,28 +514,245 @@ M.bind_on_lspattach = function(args)
     ]]
   local bufnr = args.buf
   local client = vim.lsp.get_client_by_id(args.data.client_id)
-  if not client then -- just to shut up type checking
+  if client then -- just to shut up type checking
+    M.bind_lsp(bufnr)
+  end
+end
+
+---@param args LspAutocmdArgs
+M.unbind_on_lspdetach = function(args)
+  --[[
+    {
+      buf = 1,
+      data = {
+        client_id = 4
+      },
+      event = "LspDetach",
+      file = "/home/davidosomething/.dotfiles/README.md",
+      group = 13,
+      id = 23,
+      match = "/home/davidosomething/.dotfiles/README.md"
+    }
+  ]]
+  local bufnr = args.buf
+  local key = "b" .. bufnr
+
+  -- No mappings on buffer
+  if M.lsp_bindings[key] == nil then
+    vim.b.did_bind_lsp = false -- just in case
     return
   end
 
-  if not vim.b.did_bind_mappings then -- First LSP attached
-    M.bind_lsp(bufnr)
-    vim.b.did_bind_mappings = true
+  -- check for clients with definition support, since that's one of the primary
+  -- purposes of keybinding...
+  local clients = vim.lsp.get_clients({
+    bufnr = bufnr,
+    method = vim.lsp.protocol.Methods.textDocument_definition,
+  })
+  if #clients == 0 then -- Last LSP attached
+    vim.notify(
+      ("No %s providers remaining. Unbinding %d lsp mappings"):format(
+        vim.lsp.protocol.Methods.textDocument_definition,
+        #M.lsp_bindings[key]
+      ),
+      vim.log.levels.INFO,
+      { title = "[LSP]", render = "wrapped-compact" }
+    )
+    M.unbind_lsp(bufnr)
   end
 end
 
--- @TODO
-M.unbind_on_lspdetach = function(_args)
-  -- local bufnr = args.buf
-  -- local clients = vim.lsp.get_clients({ bufnr = bufnr })
-  -- if #clients == 0 then -- Last LSP attached
-  -- unbind mappings...
-  -- vim.b.did_bind_mappings = false
-  -- end
+-- Bind "K" to
+-- jump into active coc float, or
+-- show definition float, or
+-- jump/show LSP float
+M.bind_hover = function(opts)
+  -- default vim.ksp is done for us in $VIMRUNTIME/lua/vim/lsp.lua
+  -- as of https://github.com/neovim/neovim/pull/24331
+  --map("n", "K", vim.lsp.buf.hover, lsp_opts({ desc = "LSP hover" }))
+
+  map("n", "K", function()
+    -- Jump into active coc float OR do a definitionHover
+    -- This part is taken from coc#float$jump
+    -- https://github.com/neoclide/coc.nvim/blob/master/autoload/coc/float.vim#L28C1-L35C12
+    if vim.b.did_bind_coc then
+      local winids = vim.fn["coc#float#get_float_win_list"]()
+      if #winids > 0 then
+        vim.fn.win_gotoid(winids[1]) --- 1 indexed !
+      elseif vim.api.nvim_eval("coc#rpc#ready()") then
+        -- Same as doHover but includes definition contents from definition provider when possible
+        vim.fn.CocActionAsync("definitionHover")
+      end
+    else
+      vim.lsp.buf.hover()
+    end
+  end, { desc = "coc hover action", buffer = opts.buf, silent = true })
 end
 
--- on_attach binding for tsserver
-M.bind_tsserver_lsp = function(client, bufnr)
+-- Bind <C-Space> to open nvim-cmp
+-- Bind <C-n> <C-p> to pick based on coc or nvim-cmp open
+-- Bind <C-j> <C-k> to scroll coc or nvim-cmp attached docs window
+M.bind_completion = function(opts)
+  local _, cmp = pcall(require, "cmp")
+
+  map("n", "<C-Space>", function()
+    vim.cmd.startinsert({ bang = true })
+    vim.schedule(cmp.complete)
+  end, { desc = "In normal mode, `A`ppend and start nvim-cmp completion" })
+
+  map("i", "<C-Space>", function()
+    vim.fn["coc#pum#close"]("cancel")
+    cmp.complete()
+  end, { desc = "In insert mode, start nvim-cmp completion" })
+
+  map("i", "<Plug>(DkoCmpNext)", function()
+    cmp.select_next_item()
+  end)
+  map("i", "<Plug>(DkoCmpPrev)", function()
+    cmp.select_prev_item()
+  end)
+  map("i", "<C-n>", function()
+    if cmp.visible() then
+      return "<Plug>(DkoCmpNext)"
+    end
+    if vim.b.did_bind_coc then
+      return vim.fn["coc#pum#visible"]() == 0 and vim.fn["coc#refresh"]()
+        or vim.fn["coc#pum#next"](1)
+    end
+  end, { expr = true, buffer = opts.buf, remap = true, silent = true })
+  map("i", "<C-p>", function()
+    if cmp.visible() then
+      return "<Plug>(DkoCmpPrev)"
+    end
+    if vim.b.did_bind_coc then
+      return vim.fn["coc#pum#visible"]() == 0 and vim.fn["coc#refresh"]()
+        or vim.fn["coc#pum#prev"](1)
+    end
+  end, { expr = true, buffer = opts.buf, remap = true, silent = true })
+
+  map("i", "<Plug>(DkoCmpScrollUp)", function()
+    cmp.mapping.scroll_docs(-4)
+  end)
+  map("i", "<Plug>(DkoCmpScrollDown)", function()
+    cmp.mapping.scroll_docs(4)
+  end)
+  map("i", "<C-k>", function()
+    if cmp.visible() then
+      return "<Plug>(DkoCmpScrollUp)"
+    end
+    if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
+      return vim.fn["coc#float#scroll"](1)
+    end
+  end, {
+    expr = true,
+    buffer = opts.buf,
+    nowait = true,
+    remap = true,
+    silent = true,
+  })
+  map("i", "<C-j>", function()
+    if cmp.visible() then
+      return "<Plug>(DkoCmpScrollDown)"
+    end
+    if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
+      return vim.fn["coc#float#scroll"](0)
+    end
+  end, {
+    expr = true,
+    buffer = opts.buf,
+    nowait = true,
+    remap = true,
+    silent = true,
+  })
+  map("n", "<C-j>", function()
+    if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
+      return vim.fn["coc#float#scroll"](1)
+    end
+  end, {
+    expr = true,
+    buffer = opts.buf,
+    nowait = true,
+    remap = true,
+    silent = true,
+  })
+  map("n", "<C-k>", function()
+    if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
+      return vim.fn["coc#float#scroll"](0)
+    end
+  end, {
+    expr = true,
+    buffer = opts.buf,
+    nowait = true,
+    remap = true,
+    silent = true,
+  })
+end
+
+-- Bindings for coc.nvim. Conflicts with bind_lsp.
+-- opts = {
+--   buf = 1,
+--   event = "FileType",
+--   file = "app/components/Navigation.tsx",
+--   id = 26,
+--   match = "typescriptreact"
+-- }
+M.bind_coc = function(opts)
+  if vim.b.did_bind_lsp then
+    vim.notify(
+      "Tried to bind_coc but bind_lsp was already called",
+      vim.log.levels.ERROR,
+      { title = "[COC]", render = "wrapped-compact" }
+    )
+    return
+  end
+  -- make sure bind_lsp doesn't overwrite mappings later
+  vim.b.did_bind_coc = true
+  vim.b.did_bind_lsp = true
+
+  map("n", "<Leader><Leader>", "<Plug>(coc-codeaction-cursor)", {
+    desc = "coc.nvim code action",
+    silent = true,
+    buffer = opts.buf,
+  })
+
+  map("n", "gd", "<Plug>(coc-definition)", {
+    desc = "Go To Definition",
+    silent = true,
+    buffer = opts.buf,
+  })
+
+  map("n", "<C-]>", "<Plug>(coc-definition)", {
+    desc = "Go To Definition (tagfunc binding override)",
+    silent = true,
+    buffer = opts.buf,
+  })
+
+  -- ===========================================================================
+  -- diagnostic jump -- using vim.diagnostic instead since we pipe coc into ALE
+  -- ===========================================================================
+  -- map(
+  --   "n",
+  --   "[d",
+  --   "<Plug>(coc-diagnostic-prev)",
+  --   { desc = "Go to prev diagnostic", buffer = opts.buf, silent = true }
+  -- )
+  -- map(
+  --   "n",
+  --   "]d",
+  --   "<Plug>(coc-diagnostic-next)",
+  --   { desc = "Go to next diagnostic", buffer = opts.buf, silent = true }
+  -- )
+end
+
+-- =============================================================================
+-- ts_ls
+-- =============================================================================
+
+-- on_attach binding for ts_ls
+---@param client table
+---@param bufnr integer
+---@diagnostic disable-next-line: unused-local
+M.bind_ts_ls_lsp = function(client, bufnr)
   -- Use TypeScript's Go To Source Definition so we don't end up in the
   -- type declaration files.
   map("n", "gd", function()
@@ -512,10 +773,10 @@ M.bind_tsserver_lsp = function(client, bufnr)
         return
       end
 
-    -- tsserver
+    -- ts_ls
     elseif
       require("dko.utils.typescript").go_to_source_definition(
-        "tsserver",
+        "ts_ls",
         "_typescript.goToSourceDefinition"
       )
     then
@@ -636,60 +897,56 @@ M.bind_inspecthi = function()
 end
 
 -- ===========================================================================
--- Plugin: nvim-cmp
+-- Plugin: nvim-cmp + cmp-snippy
 -- ===========================================================================
 
----@return table used in cmp.setup({})
-M.setup_cmp = function()
+M.bind_snippy = function()
   local snippy_ok, snippy = pcall(require, "snippy")
-  local cmp = require("cmp")
+  if not snippy_ok then
+    return
+  end
+  local cmp_ok, cmp = pcall(require, "cmp")
+  if not cmp_ok then
+    return
+  end
+  map({ "i", "s" }, "<C-b>", function()
+    if snippy.can_jump(-1) then
+      snippy.previous()
+    end
+    -- DO NOT FALLBACK (i.e. do not insert ^B)
+  end, { desc = "snippy: previous field" })
 
-  map("n", "<C-Space>", function()
-    vim.cmd.startinsert({ bang = true })
-    vim.schedule(cmp.complete)
-  end, { desc = "In normal mode, `A`ppend and start completion" })
-
-  local snippy_mappings = snippy_ok
-      and {
-        -- snippy: previous field
-        ["<C-b>"] = cmp.mapping(function()
-          if snippy.can_jump(-1) then
-            snippy.previous()
-          end
-          -- DO NOT FALLBACK (i.e. do not insert ^B)
-        end, { "i", "s" }),
-
-        -- snippy: expand or next field
-        ["<C-f>"] = cmp.mapping(function(fallback)
-          -- If a snippet is highlighted in PUM, expand it
-          if cmp.confirm({ select = false }) then
-            return
-          end
-          -- If in a snippet, jump to next field
-          if snippy.can_expand_or_advance() then
-            snippy.expand_or_advance()
-            return
-          end
-          fallback()
-        end, { "i", "s" }),
-      }
-    or {}
-
-  return cmp.mapping.preset.insert(vim.tbl_extend("force", {
-    ["<C-k>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-j>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-  }, snippy_mappings))
+  map({ "i", "s" }, "<C-f>", function()
+    -- If a snippet is highlighted in PUM, expand it
+    if cmp.confirm({ select = false }) then
+      return
+    end
+    -- If in a snippet, jump to next field
+    if snippy.can_expand_or_advance() then
+      snippy.expand_or_advance()
+      return
+    end
+  end, {
+    desc = "snippy: expand or next field",
+  })
 end
 
 -- =============================================================================
 -- Plugin: nvim-window
 -- =============================================================================
 
+M.nvim_window = {
+  "<Leader>w",
+  "<C-w>e",
+  "<C-w><C-e>",
+}
+
 M.bind_nvim_window = function()
-  map("n", "<leader>w", function()
-    require("nvim-window").pick()
-  end, { desc = "nvim-window picker" })
+  vim.iter(M.nvim_window):each(function(k)
+    map("n", k, function()
+      require("nvim-window").pick()
+    end, { desc = "nvim-window picker" })
+  end)
 end
 
 -- ===========================================================================
@@ -700,13 +957,14 @@ M.bind_nvim_various_textobjs = function()
   -- Note: use <cmd> mapping format for dot-repeatability
   -- https://github.com/chrisgrieser/nvim-various-textobjs/commit/363dbb7#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5R5
 
+  local BLANKS = "noBlanks"
+
   map({ "o", "x" }, "ai", function()
     ---@type "inner"|"outer" exclude the startline
     local START = "outer"
     ---@type "inner"|"outer" exclude the endline
     local END = "outer"
     ---@type "withBlanks"|"noBlanks"
-    local BLANKS = "noBlanks"
     require("various-textobjs").indentation(START, END, BLANKS)
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   end, { desc = "textobj: indent" })
@@ -717,7 +975,6 @@ M.bind_nvim_various_textobjs = function()
     ---@type "inner"|"outer" exclude the endline
     local END = "inner"
     ---@type "withBlanks"|"noBlanks"
-    local BLANKS = "noBlanks"
     require("various-textobjs").indentation(START, END, BLANKS)
     vim.cmd.normal("$") -- jump to end of line like vim-textobj-indent
   end, { desc = "textobj: indent" })
@@ -762,39 +1019,24 @@ M.bind_nvim_various_textobjs = function()
 
   -- replaces netrw's gx
   map("n", "gx", function()
-    -- -------------------------------------------------------------------------
-    -- use lsplinks textDocument/documentLink if available
-    -- -------------------------------------------------------------------------
-    local lsplinks = require("lsplinks")
-    local lsp_url = lsplinks.current()
-    -- alternatively use vim.ui.open on lsplinks.current()
-    if lsp_url then
-      vim.print(("found lsp_url %s"):format(lsp_url))
-      vim.ui.open(lsp_url)
+    if require("dko.utils.lsp").follow_documentLink() then
       return
     end
 
-    -- -------------------------------------------------------------------------
-    -- otherwise find nearest url
-    -- -------------------------------------------------------------------------
-    require("various-textobjs").url() -- select URL
-    -- this works since the plugin switched to visual mode
-    -- if the textobj has been found
-    local textobj_url = vim.fn.mode():find("v")
-    if textobj_url then
-      vim.print(("found textobj_url %s"):format(textobj_url))
-      -- if not found in proximity, search whole buffer via urlview.nvim instead
-      -- retrieve URL with the z-register as intermediary
-      vim.cmd.normal({ '"zy', bang = true })
-      local url = vim.fn.getreg("z", false) --[[@as string]]
-      vim.ui.open(url)
-      return
+    if require("dko.utils.url").select_nearest() then
+      local url = require("dko.utils.selection").get()
+      if url then
+        vim.ui.open(url)
+        return
+      end
     end
 
     -- -------------------------------------------------------------------------
     -- Popup menu of all urls in buffer
     -- -------------------------------------------------------------------------
-    vim.cmd.UrlView("buffer")
+    if vim.fn.exists(":UrlView") then
+      vim.cmd.UrlView("buffer")
+    end
   end, { desc = "Smart URL Opener" })
 end
 
@@ -806,7 +1048,7 @@ M.bind_telescope = function()
   local t = require("telescope")
   local tb = require("telescope.builtin")
 
-  map("n", "<A-e>", function()
+  emap("n", "<A-e>", function()
     if t.extensions.file_browser then
       t.extensions.file_browser.file_browser({
         hidden = true, -- show hidden
@@ -814,18 +1056,18 @@ M.bind_telescope = function()
     end
   end, { desc = "Telescope: pick existing buffer" })
 
-  map("n", "<A-b>", function()
+  emap("n", "<A-b>", function()
     tb.buffers({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick existing buffer" })
 
-  map("n", "<A-c>", function()
+  emap("n", "<A-c>", function()
     tb.find_files({
       hidden = true,
       layout_strategy = "vertical",
     })
   end, { desc = "Telescope: files in cwd" })
 
-  map("n", "<A-f>", function()
+  emap("n", "<A-f>", function()
     -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#falling-back-to-find_files-if-git_files-cant-find-a-git-directory
     local res =
       vim.system({ "git", "rev-parse", "--is-inside-work-tree" }):wait()
@@ -842,15 +1084,15 @@ M.bind_telescope = function()
     end
   end, { desc = "Telescope: files in git work files or CWD" })
 
-  map("n", "<A-g>", function()
+  emap("n", "<A-g>", function()
     tb.live_grep({ layout_strategy = "vertical" })
   end, { desc = "Telescope: live grep CWD" })
 
-  map("n", "<A-m>", function()
+  emap("n", "<A-m>", function()
     tb.oldfiles({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick from previously opened files" })
 
-  map("n", "<A-p>", function()
+  emap("n", "<A-p>", function()
     tb.find_files({
       hidden = true,
       layout_strategy = "vertical",
@@ -861,15 +1103,15 @@ M.bind_telescope = function()
     desc = "Telescope: pick from previously opened files in current project root",
   })
 
-  map("n", "<A-r>", function()
+  emap("n", "<A-r>", function()
     tb.resume()
   end, { desc = "Telescope: re-open last picker" })
 
-  map("n", "<A-s>", function()
+  emap("n", "<A-s>", function()
     tb.git_status({ layout_strategy = "vertical" })
   end, { desc = "Telescope: pick from git status files" })
 
-  map("n", "<A-t>", function()
+  emap("n", "<A-t>", function()
     tb.find_files({
       layout_strategy = "vertical",
       prompt_title = "Find tests",
@@ -882,7 +1124,7 @@ M.bind_telescope = function()
     })
   end, { desc = "Telescope: pick files in CWD" })
 
-  map("n", "<A-v>", function()
+  emap("n", "<A-v>", function()
     tb.find_files({
       layout_strategy = "vertical",
       prompt_title = "Find in neovim configs",
@@ -891,7 +1133,7 @@ M.bind_telescope = function()
     })
   end, { desc = "Telescope: nvim/ files" })
 
-  map("n", "<A-y>", function()
+  emap("n", "<A-y>", function()
     if not t.extensions.yank_history then
       t.load_extension("yank_history")
     end
@@ -1019,7 +1261,7 @@ end
 
 M.twvalues = "<leader>tw"
 M.bind_twvalues = function()
-  map("n", "<leader>tw", "<Cmd>TWValues<CR>", {
+  map("n", M.twvalues, "<Cmd>TWValues<CR>", {
     desc = "Show tailwind CSS values",
   })
 end
@@ -1029,6 +1271,7 @@ end
 -- ===========================================================================
 
 M.urlview = {
+  menu = "<A-u>",
   prev = "[u",
   next = "]u",
 }
@@ -1040,7 +1283,7 @@ M.bind_urlview = function()
       next = M.urlview.next,
     },
   })
-  map("n", "<A-u>", "<Cmd>UrlView<CR>", { desc = "Open URLs" })
+  map("n", M.urlview.menu, "<Cmd>UrlView<CR>", { desc = "Open URLs" })
 end
 
 -- ===========================================================================

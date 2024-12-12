@@ -1,4 +1,6 @@
+local dkomappings = require("dko.mappings")
 local dkosettings = require("dko.settings")
+
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
@@ -6,48 +8,69 @@ return {
   {
     "echasnovski/mini.bracketed",
     version = false,
-    config = function()
-      require("mini.bracketed").setup({
-        buffer = { suffix = "", options = {} }, -- using cybu
-        comment = { suffix = "c", options = {} },
-        conflict = { suffix = "x", options = {} },
-        -- don't want diagnostic float focus, have in mappings.lua
-        diagnostic = { suffix = "", options = {} },
-        file = { suffix = "f", options = {} },
-        indent = { suffix = "", options = {} }, -- confusing
-        jump = { suffix = "", options = {} }, -- redundant
-        location = { suffix = "l", options = {} },
-        oldfile = { suffix = "o", options = {} },
-        quickfix = { suffix = "q", options = {} },
-        treesitter = { suffix = "t", options = {} },
-        undo = { suffix = "", options = {} },
-        window = { suffix = "", options = {} }, -- broken going to unlisted
-        yank = { suffix = "", options = {} }, -- confusing
-      })
+    opts = {
+      buffer = { suffix = "", options = {} }, -- using cybu
+      comment = { suffix = "c", options = {} },
+      conflict = { suffix = "x", options = {} },
+      -- don't want diagnostic float focus, have in mappings.lua with coc
+      -- support too
+      diagnostic = { suffix = "", options = {} },
+      file = { suffix = "f", options = {} },
+      indent = { suffix = "", options = {} }, -- confusing
+      jump = { suffix = "", options = {} }, -- redundant
+      location = { suffix = "l", options = {} },
+      oldfile = { suffix = "o", options = {} },
+      quickfix = { suffix = "q", options = {} },
+      treesitter = { suffix = "t", options = {} },
+      undo = { suffix = "", options = {} },
+      window = { suffix = "", options = {} }, -- broken going to unlisted
+      yank = { suffix = "", options = {} }, -- confusing
+    },
+  },
+
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {},
+    config = function(_, opts)
+      vim.api.nvim_create_user_command("Gitbrowse", function()
+        local gbok, gb = pcall(require, "snacks.gitbrowse")
+        if not gbok then
+          return
+        end
+        gb.open()
+      end, { desc = "Open branch, file, line in origin git site" })
+
+      vim.api.nvim_create_user_command("Gitbranch", function()
+        local gbok, gb = pcall(require, "snacks.gitbrowse")
+        if not gbok then
+          return
+        end
+        gb.open({ what = "branch" })
+      end, { desc = "Open branch in origin git site" })
+
+      vim.api.nvim_create_user_command("Gitrepo", function()
+        local gbok, gb = pcall(require, "snacks.gitbrowse")
+        if not gbok then
+          return
+        end
+        gb.open({ what = "repo" })
+      end, { desc = "Open repo root in origin git site" })
+
+      --- opts will be merged from other specs, e.g. from
+      --- ./indent.lua
+      --- ./components.lua
+      require("snacks").setup(opts)
     end,
   },
 
   -- =========================================================================
-  -- ui: components
+  -- ui: diagnostic
   -- =========================================================================
 
-  {
-    "nvim-tree/nvim-web-devicons",
-    lazy = true,
-    cond = has_ui,
-    config = true,
-  },
-
-  -- Replace vim.ui.select and vim.ui.input, which are used by things like
-  -- vim.lsp.buf.code_action and rename
-  -- Alternatively could use https://github.com/nvim-telescope/telescope-ui-select.nvim
-  -- https://github.com/stevearc/dressing.nvim
-  {
-    "stevearc/dressing.nvim",
-    cond = has_ui,
-    event = "VeryLazy",
-  },
-
+  -- Show diagnostic as virtual text at EOL
+  -- https://github.com/rachartier/tiny-inline-diagnostic.nvim
   -- {
   --   "rachartier/tiny-inline-diagnostic.nvim",
   --   -- event = "VeryLazy",
@@ -78,29 +101,26 @@ return {
     "yorickpeterse/nvim-pqf",
     event = { "BufReadPost", "BufNewFile" },
     cond = has_ui,
-    config = function()
-      require("pqf").setup()
-    end,
+    config = true,
   },
 
   -- remove buffers without messing up window layout
   -- https://github.com/echasnovski/mini.bufremove
   {
     "echasnovski/mini.bufremove",
+    config = true,
     version = false, -- dev version
-    config = function()
-      require("mini.bufremove").setup()
-    end,
   },
 
   {
     "ghillb/cybu.nvim",
     cond = has_ui,
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
+      "echasnovski/mini.icons",
+      -- "nvim-tree/nvim-web-devicons", -- mini icons instead
       "nvim-lua/plenary.nvim",
     },
-    keys = vim.tbl_values(require("dko.mappings").cybu),
+    keys = vim.tbl_values(dkomappings.cybu),
     config = function()
       require("cybu").setup({
         display_time = 500,
@@ -123,7 +143,7 @@ return {
           "help",
         },
       })
-      require("dko.mappings").bind_cybu()
+      dkomappings.bind_cybu()
     end,
   },
 
@@ -133,7 +153,7 @@ return {
   {
     "troydm/zoomwintab.vim",
     cond = has_ui,
-    keys = require("dko.mappings").zoomwintab,
+    keys = dkomappings.zoomwintab,
     cmd = {
       "ZoomWinTabIn",
       "ZoomWinTabOut",
@@ -153,13 +173,15 @@ return {
     },
   },
 
+  -- <leader>w for picker
   -- https://github.com/yorickpeterse/nvim-window
   {
     "yorickpeterse/nvim-window",
     cond = has_ui,
+    keys = vim.tbl_values(dkomappings.nvim_window),
     config = function()
       require("nvim-window").setup({})
-      require("dko.mappings").bind_nvim_window()
+      dkomappings.bind_nvim_window()
     end,
   },
 
@@ -176,7 +198,7 @@ return {
 
   {
     "akinsho/toggleterm.nvim",
-    keys = require("dko.mappings").toggleterm_all_keys,
+    keys = dkomappings.toggleterm_all_keys,
     cmd = "ToggleTerm",
     cond = has_ui,
     config = function()
@@ -188,35 +210,7 @@ return {
         -- the buffer terminal with the floating terminal
         open_mapping = nil,
       })
-      require("dko.mappings").bind_toggleterm()
-    end,
-  },
-
-  -- =========================================================================
-  -- ui: diffing
-  -- =========================================================================
-
-  -- show diff when editing a COMMIT_EDITMSG
-  {
-    "rhysd/committia.vim",
-    lazy = false, -- just in case
-    init = function()
-      vim.g.committia_open_only_vim_starting = 0
-      vim.g.committia_use_singlecolumn = "always"
-    end,
-  },
-
-  {
-    "lewis6991/gitsigns.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    cond = has_ui,
-    config = function()
-      require("gitsigns").setup({
-        on_attach = require("dko.mappings").bind_gitsigns,
-        preview_config = {
-          border = dkosettings.get("border"),
-        },
-      })
+      dkomappings.bind_toggleterm()
     end,
   },
 
@@ -241,36 +235,33 @@ return {
   -- https://github.com/axieax/urlview.nvim
   {
     "axieax/urlview.nvim",
-    keys = vim.tbl_values(require("dko.mappings").urlview),
+    keys = vim.tbl_values(dkomappings.urlview),
     cmd = "UrlView",
     cond = has_ui,
     config = function()
-      require("dko.mappings").bind_urlview()
+      dkomappings.bind_urlview()
     end,
   },
 
-  -- highlight undo/redo text change
-  -- https://github.com/tzachar/highlight-undo.nvim
-  {
-    "tzachar/highlight-undo.nvim",
-    cond = has_ui,
-    keys = { "u", "<c-r>" },
-    config = function()
-      require("highlight-undo").setup({})
-    end,
-  },
-
-  -- package diff
   -- https://github.com/vuki656/package-info.nvim
   {
-    "davidosomething/package-info.nvim",
+    "vuki656/package-info.nvim",
     cond = has_ui,
-    dev = true,
     dependencies = { "MunifTanjim/nui.nvim" },
     event = { "BufReadPost package.json" },
     config = function()
       require("package-info").setup({
         hide_up_to_date = true,
+      })
+
+      local c = require("package-info/utils/constants")
+      vim.api.nvim_create_autocmd("User", {
+        group = c.AUTOGROUP,
+        pattern = c.LOAD_EVENT,
+        callback = function()
+          -- execute a groupless autocmd so heirline can update
+          vim.cmd.doautocmd("User", "DkoPackageInfoStatusUpdate")
+        end,
       })
     end,
   },
@@ -278,6 +269,20 @@ return {
   -- =========================================================================
   -- Syntax
   -- =========================================================================
+
+  -- highlight matching html/xml tag
+  -- % textobject
+  {
+    "andymass/vim-matchup",
+    cond = has_ui,
+    -- author recommends against lazy loading
+    lazy = false,
+    init = function()
+      vim.g.matchup_matchparen_deferred = 1
+      vim.g.matchup_matchparen_status_offscreen = 0
+      -- see behaviors.lua for treesitter integration
+    end,
+  },
 
   -- Works better than https://github.com/IndianBoy42/tree-sitter-just
   {
@@ -292,20 +297,19 @@ return {
     "brenoprata10/nvim-highlight-colors",
     cond = has_ui,
     event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("nvim-highlight-colors").setup({
-        ---@usage 'background'|'foreground'|'virtual'
-        render = "background",
-        -- virtual_symbol_position = 'eow',
-        -- virtual_symbol_prefix = ' ',
-        -- virtual_symbol_suffix = '',
-        ---Highlight tailwind colors, e.g. 'bg-blue-500'
-        enable_tailwind = true,
-        exclude_filetypes = {
-          "lazy",
-        },
-      })
-    end,
+    opts = {
+      ---@usage 'background'|'foreground'|'virtual'
+      render = "background",
+      -- virtual_symbol_position = 'eow',
+      -- virtual_symbol_prefix = ' ',
+      -- virtual_symbol_suffix = '',
+      ---Highlight tailwind colors, e.g. 'bg-blue-500'
+      enable_tailwind = true,
+      enable_var_usage = true,
+      exclude_filetypes = {
+        "lazy",
+      },
+    },
   },
 
   -- {
@@ -337,44 +341,12 @@ return {
   -- Writing
   -- =========================================================================
 
-  -- reconcile filename when using sudoedit
-  -- https://github.com/HE7086/sudoedit.nvim
-  {
-    "HE7086/sudoedit.nvim",
-    enabled = function()
-      return vim.fn.has("linux") == 1
-    end,
-  },
-
-  -- because https://github.com/neovim/neovim/issues/1496
-  -- once https://github.com/neovim/neovim/pull/10842 is merged, there will
-  -- probably be a better implementation for this
-  {
-    "lambdalisue/suda.vim",
-    cond = has_ui,
-    cmd = "SudaWrite",
-  },
-
-  -- highlight matching html/xml tag
-  -- % textobject
-  {
-    "andymass/vim-matchup",
-    cond = has_ui,
-    -- author recommends against lazy loading
-    lazy = false,
-    init = function()
-      vim.g.matchup_matchparen_deferred = 1
-      vim.g.matchup_matchparen_status_offscreen = 0
-      -- see behaviors.lua for treesitter integration
-    end,
-  },
-
-  -- <A-hjkl> to move lines in any mode
+  -- Override <A-hjkl> to move lines in any mode
+  -- NB: Normally in insert mode, <A-hjkl> will exit insert and move cursor.
+  -- You can use arrow keys in insert mode, so it's a little redundant.
   {
     "echasnovski/mini.move",
-    config = function()
-      require("mini.move").setup()
-    end,
+    config = true,
   },
 
   -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
@@ -382,12 +354,10 @@ return {
     "JoosepAlviste/nvim-ts-context-commentstring",
     -- No longer needs nvim-treesitter after https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/80
     event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("ts_context_commentstring").setup({
-        -- Disable for Comment.nvim https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#commentnvim
-        enable_autocmd = false,
-      })
-    end,
+    opts = {
+      -- Disable for Comment.nvim https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#commentnvim
+      enable_autocmd = false,
+    },
   },
 
   -- gcc / <Leader>gbc to comment with treesitter integration
@@ -412,12 +382,10 @@ return {
         )
         return
       end
-      require("Comment").setup(
-        require("dko.mappings").with_commentnvim_mappings({
-          -- add treesitter support, want tsx/jsx in particular
-          pre_hook = tscc_integration.create_pre_hook(),
-        })
-      )
+      require("Comment").setup(dkomappings.with_commentnvim_mappings({
+        -- add treesitter support, want tsx/jsx in particular
+        pre_hook = tscc_integration.create_pre_hook(),
+      }))
     end,
   },
 
@@ -428,13 +396,13 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     event = { "BufReadPost", "BufNewFile" },
-    keys = require("dko.mappings").trees,
+    keys = dkomappings.trees,
     config = function()
       require("treesj").setup({
         use_default_keymaps = false,
         max_join_length = 255,
       })
-      require("dko.mappings").bind_treesj()
+      dkomappings.bind_treesj()
     end,
   },
 
@@ -455,7 +423,7 @@ return {
       "mattn/vim-textobj-url",
     },
     config = function()
-      require("dko.mappings").bind_textobj()
+      dkomappings.bind_textobj()
     end,
   },
 
@@ -463,8 +431,12 @@ return {
     "chrisgrieser/nvim-various-textobjs",
     cond = has_ui,
     config = function()
-      require("various-textobjs").setup({ useDefaultKeymaps = false })
-      require("dko.mappings").bind_nvim_various_textobjs()
+      require("various-textobjs").setup({
+        keymaps = {
+          useDefaults = false,
+        },
+      })
+      dkomappings.bind_nvim_various_textobjs()
     end,
   },
 }
