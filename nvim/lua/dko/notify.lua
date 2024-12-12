@@ -19,8 +19,8 @@ local override = function(msg, level, opts)
     return
   end
 
-  local fok, fidget = pcall(require, "fidget")
   if opts.title == "nvim-treesitter" then
+    local fok, fidget = pcall(require, "fidget")
     if fok then
       fidget.notify(msg, level, opts)
     else
