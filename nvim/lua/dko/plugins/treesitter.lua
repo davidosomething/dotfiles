@@ -66,9 +66,7 @@ return {
   -- https://github.com/MaximilianLloyd/tw-values.nvim
   {
     "MaximilianLloyd/tw-values.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
+    dependencies = "nvim-treesitter/nvim-treesitter",
     keys = dkomappings.twvalues,
     config = function()
       require("tw-values").setup()

@@ -2,25 +2,19 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 return {
-  -- {
-  --   "davidosomething/everandever.nvim",
-  --   cond = has_ui,
-  --   dev = true,
-  -- },
-
   {
     "rebelot/heirline.nvim",
     cond = has_ui,
-    dependencies = {
-      "echasnovski/mini.icons",
-      -- "davidosomething/everandever.nvim",
-    },
+    dependencies = "echasnovski/mini.icons",
     init = function()
       local ALWAYS = 2
       vim.o.showtabline = ALWAYS
       local GLOBAL = 3
       vim.o.laststatus = GLOBAL
     end,
+    --- Needs to be a config function, the various dko.heirline modules loaded
+    --- all call heirline functions so expect the rtp setup and plugin to have
+    --- loaded already
     config = function()
       require("heirline").setup({
         statusline = require("dko.heirline.statusline-default"),
@@ -40,14 +34,6 @@ return {
             }, args.buf)
           end,
         },
-      })
-
-      vim.api.nvim_create_autocmd("colorscheme", {
-        desc = "Clear heirline color cache",
-        callback = function()
-          require("heirline").reset_highlights()
-        end,
-        group = vim.api.nvim_create_augroup("dkoheirline", {}),
       })
     end,
   },

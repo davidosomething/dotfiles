@@ -7,8 +7,18 @@ local has_ui = #uis > 0
 local BRACKETED_DISABLED = ""
 
 return {
+  -- because https://github.com/neovim/neovim/issues/1496
+  -- once https://github.com/neovim/neovim/pull/10842 is merged, there will
+  -- probably be a better implementation for this
+  {
+    "lambdalisue/vim-suda",
+    cmd = "SudaWrite",
+    cond = has_ui,
+  },
+
   {
     "echasnovski/mini.bracketed",
+    cond = has_ui,
     version = false,
     opts = {
       buffer = { suffix = BRACKETED_DISABLED }, -- using cybu
@@ -41,6 +51,17 @@ return {
     --- ./indent.lua
     --- ./components.lua
     config = true,
+  },
+
+  -- https://github.com/AndrewRadev/bufferize.vim
+  -- `:Bufferize messages` to get messages (or any :command) in a new buffer
+  {
+    "AndrewRadev/bufferize.vim",
+    cmd = "Bufferize",
+    config = function()
+      vim.g.bufferize_command = "tabnew"
+      vim.g.bufferize_keep_buffers = 1
+    end,
   },
 
   -- =========================================================================
@@ -86,6 +107,7 @@ return {
   -- https://github.com/echasnovski/mini.bufremove
   {
     "echasnovski/mini.bufremove",
+    cond = has_ui,
     config = true,
     version = false, -- dev version
   },
@@ -225,8 +247,8 @@ return {
   {
     "vuki656/package-info.nvim",
     cond = has_ui,
-    dependencies = { "MunifTanjim/nui.nvim" },
-    event = { "BufReadPost package.json" },
+    dependencies = "MunifTanjim/nui.nvim",
+    event = "BufReadPost package.json",
     config = function()
       require("package-info").setup({
         hide_up_to_date = true,
@@ -324,12 +346,14 @@ return {
   -- You can use arrow keys in insert mode, so it's a little redundant.
   {
     "echasnovski/mini.move",
+    cond = has_ui,
     config = true,
   },
 
   -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
+    cond = has_ui,
     -- No longer needs nvim-treesitter after https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/80
     event = { "BufReadPost", "BufNewFile" },
     opts = {
@@ -346,9 +370,7 @@ return {
   {
     "numToStr/Comment.nvim",
     cond = has_ui,
-    dependencies = {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-    },
+    dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       local ok, tscc_integration =
@@ -370,9 +392,7 @@ return {
   {
     "Wansmer/treesj",
     cond = has_ui,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
+    dependencies = "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
     keys = dkomappings.trees,
     config = function()

@@ -25,7 +25,7 @@ local SOURCE_MAP = {
 }
 
 local cmpWindowSettings = {
-  border = require("dko.settings").get("border"),
+  border = dkosettings.get("border"),
   scrollbar = "║",
   -- the default winhighlight is weird https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua#L111-L122
   winhighlight = table.concat({
@@ -40,10 +40,10 @@ local cmpWindowSettings = {
 local nhc_ok, nhc
 
 local cmp_dependencies = {
-  { "dcampos/cmp-snippy", dependencies = { "dcampos/nvim-snippy" } },
+  { "dcampos/cmp-snippy", dependencies = "dcampos/nvim-snippy" },
 
   -- "hrsh7th/cmp-nvim-lsp",
-  { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+  { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp" },
   -- { "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
   -- "hrsh7th/cmp-buffer",
   { "iguanacucumber/mag-buffer", name = "cmp-buffer" },
@@ -52,7 +52,7 @@ local cmp_dependencies = {
   "hrsh7th/cmp-nvim-lsp-signature-help",
   "hrsh7th/cmp-path",
 
-  { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
+  "roobert/tailwindcss-colorizer-cmp.nvim",
 
   --- init creates the symbol_map, but also modifies
   --- vim.lsp.protocol.CompletionItemKind :(

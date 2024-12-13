@@ -2,15 +2,11 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 return {
-  -- It's not working https://github.com/aduros/ai.vim/issues/29
   -- https://github.com/aduros/ai.vim
   {
     "aduros/ai.vim",
-    cond = has_ui,
-    enabled = function()
-      return false
-      -- return vim.env.OPENAI_API_KEY ~= nil
-    end,
+    -- It's not working https://github.com/aduros/ai.vim/issues/29
+    cond = has_ui and vim.env.OPENAI_API_KEY ~= nil and false,
     cmd = { "AI" },
     init = function()
       vim.g.ai_no_mappings = true
@@ -20,6 +16,12 @@ return {
   -- https://github.com/olimorris/codecompanion.nvim
   {
     "olimorris/codecompanion.nvim",
+    cmd = {
+      "CodeCompanion",
+      "CodeCompanionActions",
+      "CodeCompanionChat",
+      "CodeCompanionCmd",
+    },
     cond = has_ui,
     dependencies = {
       "nvim-lua/plenary.nvim",
