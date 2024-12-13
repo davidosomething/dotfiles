@@ -25,8 +25,7 @@ return {
   -- https://github.com/stevearc/dressing.nvim
   {
     "stevearc/dressing.nvim",
-    cond = has_ui,
-    enabled = input == "dressing" or select == "dressing",
+    cond = has_ui and input == "dressing" or select == "dressing",
     event = "VeryLazy",
     opts = {
       input = {

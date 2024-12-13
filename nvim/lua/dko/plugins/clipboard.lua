@@ -6,10 +6,7 @@ local has_ui = #uis > 0
 return {
   {
     "gbprod/yanky.nvim",
-    cond = has_ui,
-    enabled = function()
-      return not dkoclipboard.should_use_osc52()
-    end,
+    cond = has_ui and not dkoclipboard.should_use_osc52(),
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("yanky").setup({
@@ -22,12 +19,10 @@ return {
   {
     -- @TODO remove after nvim 0.11 released
     "ojroques/nvim-osc52",
-    cond = has_ui,
-    enabled = function()
-      -- Prefer builtin osc52. Will be initialized in after/plugin/clipboard.lua
-      return not dkoclipboard.has_builtin_osc52()
-        and dkoclipboard.should_use_osc52()
-    end,
+    -- Prefer builtin osc52. Will be initialized in after/plugin/clipboard.lua
+    cond = has_ui
+      and not dkoclipboard.has_builtin_osc52()
+      and dkoclipboard.should_use_osc52(),
     config = function()
       local function copy(lines, _)
         require("osc52").copy(table.concat(lines, "\n"))

@@ -48,8 +48,7 @@ return {
   -- https://github.com/nvimdev/indentmini.nvim
   {
     "nvimdev/indentmini.nvim",
-    cond = has_ui,
-    enabled = chunk == "indentmini" or indent == "indentmini",
+    cond = has_ui and chunk == "indentmini" or indent == "indentmini",
     event = "BufEnter",
     config = function()
       local function color()
@@ -82,8 +81,7 @@ return {
   -- https://github.com/shellRaining/hlchunk.nvim
   {
     "shellRaining/hlchunk.nvim",
-    cond = has_ui,
-    enabled = chunk == "hlchunk",
+    cond = has_ui and chunk == "hlchunk",
     event = "UIEnter",
     config = function()
       -- local exclude_filetype = {

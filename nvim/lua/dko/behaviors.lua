@@ -221,6 +221,17 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 })
 
 if has_ui then
+  autocmd("ColorScheme", {
+    desc = "Clear heirline color cache",
+    callback = function()
+      local _, heirline = pcall(require, "heirline")
+      if heirline then
+        heirline.reset_highlights()
+      end
+    end,
+    group = augroup("dkoheirline"),
+  })
+
   autocmd("User", {
     pattern = "FormattersChanged",
     desc = "Notify neovim a formatter has been added for the buffer",
