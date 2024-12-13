@@ -51,6 +51,9 @@ return {
     --- ./indent.lua
     --- ./components.lua
     config = true,
+    init = function()
+      vim.g.snacks_animate = false
+    end,
   },
 
   -- https://github.com/AndrewRadev/bufferize.vim
