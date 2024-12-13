@@ -1261,6 +1261,18 @@ M.bind_treesj = function()
   end, { desc = "Toggle treesitter split / join", silent = true })
 end
 
+-- =============================================================================
+-- Plugin: treewalker
+-- =============================================================================
+
+M.bind_treewalker = function()
+  local tw = require("treewalker")
+  map("n", "<A-Down>", tw.move_down, { noremap = true })
+  map("n", "<A-Left>", tw.move_out, { noremap = true })
+  map("n", "<A-Right>", tw.move_in, { noremap = true })
+  map("n", "<A-Up>", tw.move_up, { noremap = true })
+end
+
 -- ===========================================================================
 -- Plugin: tw-values.nvim
 -- ===========================================================================
