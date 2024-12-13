@@ -6,7 +6,7 @@ local has_ui = #uis > 0
 
 --- Provider to show indent levels
 --- @type ''|'hlchunk'|'indentmini'|'snacks'
-local indent = "snacks"
+local indent = ""
 
 --- Provider to show current chunk
 --- As of 2024-12-11, indentmini is still much faster than the rest and no
@@ -20,12 +20,13 @@ return {
     "folke/snacks.nvim",
     opts = {
       indent = {
+        enabled = indent == "snacks" or chunk == "snacks",
         -- yes there's an indent nested inside
         indent = {
-          enabled = indent == "snacks" or chunk == "snacks",
           char = indent ~= "snacks" and " " or chunk_char,
         },
-        chunk = {},
+        -- chunk is the rounded border outside scope, I just want active indent
+        -- chunk = {},
       },
     },
   },
