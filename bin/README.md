@@ -95,12 +95,12 @@ Get directory total filesize
 
 ## fu
 
-Look upwards from $PWD for filename $1, output to stdout if found. Does not
+Look upwards from $PWD for filename $1, output to `stdout` if found. Does not
 follow symlinks.
 
 ## fzf-audio
 
-macOS only, FZF + SwitchAudioSource
+macOS, FZF + SwitchAudioSource
 
 ## fzf-git-branch
 
@@ -155,10 +155,6 @@ Takes regular `git diff` options.
 ## git-today
 
 Show commits since midnight
-
-## git-whats
-
-Show git alias command
 
 ## joingroup
 

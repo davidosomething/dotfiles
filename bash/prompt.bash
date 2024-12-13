@@ -27,6 +27,7 @@ __prompt_git() {
 # __bash_prompt
 #
 __bash_prompt() {
+  # @TODO replace with tput as in lib/pretty.bash
   local Z='\[\033[0m\]'
   #local K='\[\033[0;30m\]'
   #local R='\[\033[0;31m\]'

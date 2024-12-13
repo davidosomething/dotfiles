@@ -30,24 +30,23 @@ __path() {
 }
 
 __colorize() {
-  local Z="\033[0m"
-  local K="\033[0;30m"
-  local R="\033[0;31m"
-  local G="\033[0;32m"
-  local Y="\033[0;33m"
-  local B="\033[0;34m"
-  local P="\033[0;35m"
-  local C="\033[0;36m"
-  local W="\033[0;37m"
+  local reset=$(tput sgr0)
+  local red=$(tput setaf 1 || tput AF 1)
+  local green=$(tput setaf 2 || tput AF 2)
+  local yellow=$(tput setaf 3 || tput AF 3)
+  local blue=$(tput setaf 4 || tput AF 4)
+  local magenta=$(tput setaf 5 || tput AF 5)
+  local cyan=$(tput setaf 6 || tput AF 6)
+  local white=$(tput setaf 7 || tput AF 7)
 
   # exception for /opt since may have /options
-  awk "{ sub(\"/usr\",   \"$G/usr$Z\"); \
-    sub(\"/bin\",   \"$B/bin$Z\"); \
-    sub(\"/sbin\",  \"$P/sbin$Z\"); \
-    sub(\"/local\", \"$Y/local$Z\"); \
-    sub(\"/opt/\",   \"$C/opt$Z/\"); \
-    sub(\"/Users\", \"$R/Users$Z\"); \
-    sub(\"/home\",  \"$R/home$Z\"); \
+  awk "{ sub(\"/usr\", \"${green}/usr${reset}\"); \
+    sub(\"/bin\", \"${blue}/bin${reset}\"); \
+    sub(\"/sbin\", \"${blue}/sbin${reset}\"); \
+    sub(\"/local\", \"${yellow}/local${reset}\"); \
+    sub(\"/opt/\", \"${cyan}/opt${reset}/\"); \
+    sub(\"/Users\", \"${red}/Users${reset}\"); \
+    sub(\"/home\", \"${red}/home${reset}\"); \
     print }"
 }
 
