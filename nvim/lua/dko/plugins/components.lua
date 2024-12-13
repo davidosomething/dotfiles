@@ -3,10 +3,11 @@ local has_ui = #uis > 0
 
 --- Also consider https://github.com/nvim-telescope/telescope-ui-select.nvim ?
 --- @type ''|'dressing'|'snacks'
-local select = ""
+local select = "dressing"
 
+--- Probably using dressing instead snacks also handles vim.ui.select
 --- @type ''|'dressing'|'snacks'
-local input = "snacks"
+local input = "dressing"
 
 return {
   -- https://github.com/folke/snacks.nvim/blob/main/docs/input.md
@@ -27,7 +28,15 @@ return {
     cond = has_ui,
     enabled = input == "dressing" or select == "dressing",
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      input = {
+        mappings = {
+          n = {
+            ["q"] = "Close",
+          },
+        },
+      },
+    },
   },
 
   -- use mini.icons instead

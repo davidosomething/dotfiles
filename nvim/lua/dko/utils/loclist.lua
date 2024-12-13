@@ -1,7 +1,7 @@
 local M = {}
 
 --- Toggle loclist open or closed
----@param opts { focus?: boolean }
+---@param opts? { focus?: boolean }
 M.toggle = function(opts)
   opts = vim.tbl_extend("keep", opts or {}, { focus = true })
 

@@ -4,27 +4,32 @@ local dkosettings = require("dko.settings")
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
+local BRACKETED_DISABLED = ""
+
 return {
   {
     "echasnovski/mini.bracketed",
     version = false,
     opts = {
-      buffer = { suffix = "", options = {} }, -- using cybu
-      comment = { suffix = "c", options = {} },
-      conflict = { suffix = "x", options = {} },
-      -- don't want diagnostic float focus, have in mappings.lua with coc
-      -- support too
-      diagnostic = { suffix = "", options = {} },
-      file = { suffix = "f", options = {} },
-      indent = { suffix = "", options = {} }, -- confusing
-      jump = { suffix = "", options = {} }, -- redundant
-      location = { suffix = "l", options = {} },
-      oldfile = { suffix = "o", options = {} },
-      quickfix = { suffix = "q", options = {} },
-      treesitter = { suffix = "t", options = {} },
-      undo = { suffix = "", options = {} },
-      window = { suffix = "", options = {} }, -- broken going to unlisted
-      yank = { suffix = "", options = {} }, -- confusing
+      buffer = { suffix = BRACKETED_DISABLED }, -- using cybu
+      -- comment = { suffix = "c" },
+      -- conflict = { suffix = "x" },
+      diagnostic = {
+        --- something weird about the cursor positioning of this compared to the
+        --- built-in ]d [d
+        suffix = BRACKETED_DISABLED,
+        options = { float = dkosettings.get("diagnostics.goto_float") },
+      },
+      -- file = { suffix = "f" },
+      indent = { suffix = BRACKETED_DISABLED }, -- confusing
+      jump = { suffix = BRACKETED_DISABLED }, -- redundant
+      -- location = { suffix = "l" },
+      -- oldfile = { suffix = "o" },
+      -- quickfix = { suffix = "q" },
+      -- treesitter = { suffix = "t" },
+      undo = { suffix = BRACKETED_DISABLED }, -- i'm using for url
+      window = { suffix = BRACKETED_DISABLED }, -- broken going to unlisted
+      yank = { suffix = BRACKETED_DISABLED }, -- confusing
     },
   },
 
@@ -32,37 +37,10 @@ return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
-    opts = {},
-    config = function(_, opts)
-      vim.api.nvim_create_user_command("Gitbrowse", function()
-        local gbok, gb = pcall(require, "snacks.gitbrowse")
-        if not gbok then
-          return
-        end
-        gb.open()
-      end, { desc = "Open branch, file, line in origin git site" })
-
-      vim.api.nvim_create_user_command("Gitbranch", function()
-        local gbok, gb = pcall(require, "snacks.gitbrowse")
-        if not gbok then
-          return
-        end
-        gb.open({ what = "branch" })
-      end, { desc = "Open branch in origin git site" })
-
-      vim.api.nvim_create_user_command("Gitrepo", function()
-        local gbok, gb = pcall(require, "snacks.gitbrowse")
-        if not gbok then
-          return
-        end
-        gb.open({ what = "repo" })
-      end, { desc = "Open repo root in origin git site" })
-
-      --- opts will be merged from other specs, e.g. from
-      --- ./indent.lua
-      --- ./components.lua
-      require("snacks").setup(opts)
-    end,
+    --- opts will be merged from other specs, e.g. from
+    --- ./indent.lua
+    --- ./components.lua
+    config = true,
   },
 
   -- =========================================================================
@@ -231,7 +209,7 @@ return {
   },
 
   -- ]u [u mappings to jump to urls
-  -- <A-u> to open link picker
+  -- <A-u> to open link picker -- optionally uses dressing for vim.ui.select
   -- https://github.com/axieax/urlview.nvim
   {
     "axieax/urlview.nvim",

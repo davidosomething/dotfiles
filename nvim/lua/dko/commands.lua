@@ -136,3 +136,31 @@ end, {
     return { vim.fn.expand("%") }
   end,
 })
+
+-- =============================================================================
+-- Git
+-- =============================================================================
+
+command("Gitbrowse", function()
+  local gbok, gb = pcall(require, "snacks.gitbrowse")
+  if not gbok then
+    return
+  end
+  gb.open()
+end, { desc = "Open branch, file, line in origin git site" })
+
+command("Gitbranch", function()
+  local gbok, gb = pcall(require, "snacks.gitbrowse")
+  if not gbok then
+    return
+  end
+  gb.open({ what = "branch" })
+end, { desc = "Open branch in origin git site" })
+
+command("Gitrepo", function()
+  local gbok, gb = pcall(require, "snacks.gitbrowse")
+  if not gbok then
+    return
+  end
+  gb.open({ what = "repo" })
+end, { desc = "Open repo root in origin git site" })
