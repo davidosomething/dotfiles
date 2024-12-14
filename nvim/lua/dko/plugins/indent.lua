@@ -12,7 +12,7 @@ local indent = ""
 --- As of 2024-12-11, indentmini is still much faster than the rest and no
 --- stupid animations.
 --- @type ''|'hlchunk'|'indentmini'|'snacks'
-local chunk = "snacks"
+local chunk = "indentmini"
 local chunk_char = "│"
 
 return {
