@@ -49,7 +49,9 @@ local override = function(msg, level, opts)
     if opts.title and dkostring.starts_with(opts.title, "[LSP]") then
       opts.render = "wrapped-compact"
     end
-    notify(msg, level, opts)
+    vim.schedule(function()
+      notify(msg, level, opts)
+    end)
     return
   end
 

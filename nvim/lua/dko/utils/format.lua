@@ -160,14 +160,12 @@ M.disable_on_lspdetach = function(args)
   end
 
   vim.b.enable_format_on_save = vim.b.formatters == nil or #vim.b.formatters > 0
-  if vim.b.enable_format_on_save then
-    vim.schedule(function()
-      vim.notify(
-        "Format on save disabled, no capable clients attached",
-        vim.log.levels.INFO,
-        { title = "[LSP]", render = "wrapped-compact" }
-      )
-    end)
+  if not vim.b.enable_format_on_save then
+    vim.notify(
+      "Format on save disabled, no capable clients attached",
+      vim.log.levels.INFO,
+      { title = "[LSP]", render = "wrapped-compact" }
+    )
   end
 end
 
