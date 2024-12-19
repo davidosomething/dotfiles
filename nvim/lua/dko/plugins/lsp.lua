@@ -14,71 +14,26 @@ local has_ui = #uis > 0
 local dev = vim.env.NVIM_DEV ~= nil
 
 return {
-  {
-    "davidosomething/format-ts-errors.nvim",
-    cond = has_ui and dkosettings.get("use_coc"),
-    dev = dev,
-    opts = {
-      add_markdown = false,
-      start_indent_level = 0,
-    },
-  },
+  -- ===========================================================================
+  -- $/progress
+  -- ===========================================================================
 
-  {
-    "davidosomething/coc-diagnostics-shim.nvim",
-    cond = has_ui and dkosettings.get("use_coc"),
-    dev = dev,
-    dependencies = "davidosomething/format-ts-errors.nvim",
-    opts = {
-      formatters = {
-        coctsserver = {
-          ---@diagnostic disable-next-line: unused-local
-          function(linter_name, item, formatted)
-            ---@type (fun(message: string):string) | nil
-            local prettifier = require("format-ts-errors")[item.code]
-            if not prettifier then
-              vim.schedule(function()
-                vim.print(
-                  ("format-ts-errors no formatter for [%d] %s"):format(
-                    item.code,
-                    item.text
-                  )
-                )
-              end)
-              return item.text
-            end
-            local prettified = prettifier(item.text)
-            return table.concat({
-              prettified,
-              "ꜰᴏʀᴍᴀᴛᴛᴇᴅ ᴡɪᴛʜ ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ",
-            }, "\n")
-          end,
-        },
-      },
-    },
-  },
+  -- https://github.com/deathbeam/lspecho.nvim
+  -- using fidget.nvim instead
+  --{ "deathbeam/lspecho.nvim" },
 
-  -- Using this for tsserver specifically, faster results than nvim-lsp
-  {
-    "neoclide/coc.nvim",
-    branch = "release",
-    cond = has_ui and dkosettings.get("use_coc"),
-    dependencies = "davidosomething/coc-diagnostics-shim.nvim",
-    init = function()
-      vim.g.coc_start_at_startup = true
-      vim.g.coc_global_extensions = {
-        "coc-eslint", -- since it gives code actions unified with tsserver
-        "coc-json",
-        "coc-tsserver",
-        -- "coc-pretty-ts-errors" -- using format-ts-errors instead
-      }
-    end,
-  },
+  -- ===========================================================================
+  -- textDocument/codeAction
+  -- ===========================================================================
 
-  -- just provides lua objects to config lspconfig, doesn't call or access other
-  -- plugins fns
-  -- https://github.com/creativenull/efmls-configs-nvim
-  { "creativenull/efmls-configs-nvim" },
+  -- Decided on fzf-lua instead of these individual plugins
+  -- https://github.com/aznhe21/actions-preview.nvim
+  -- https://github.com/rachartier/tiny-code-action.nvim keeps timing out on initial open https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
+  -- "nvimdev/lspsaga.nvim" for cursor-based action
+
+  -- ===========================================================================
+  -- textDocument/documentLink
+  -- ===========================================================================
 
   -- e.g. for go.mod and swagger yaml
   -- https://github.com/icholy/lsplinks.nvim
@@ -91,55 +46,14 @@ return {
     },
   },
 
-  -- https://github.com/deathbeam/lspecho.nvim
-  -- using fidget.nvim instead
-  --{ "deathbeam/lspecho.nvim" },
+  -- ===========================================================================
+  -- Multi LSP
+  -- ===========================================================================
 
-  -- https://github.com/aznhe21/actions-preview.nvim
-  {
-    "aznhe21/actions-preview.nvim",
-    cond = has_ui and dkosettings.get("lsp.code_action") == "actions-preview",
-    dependencies = "nvim-telescope/telescope.nvim",
-  },
-
-  -- This keeps timing out on initial open
-  -- https://github.com/rachartier/tiny-code-action.nvim
-  -- https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
-  {
-    "rachartier/tiny-code-action.nvim",
-    cond = has_ui and dkosettings.get("lsp.code_action") == "tiny-code-action",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    event = "LspAttach",
-    opts = { lsp_timeout = 4000 },
-  },
-
-  -- This has a cursor based code_action instead line based, so you get more
-  -- specific actions.
-  -- {
-  --   "nvimdev/lspsaga.nvim",
-  --   event = "LspAttach",
-  --   dependencies = {
-  --     "nvim-treesitter/nvim-treesitter", -- optional
-  --     "echasnovski/mini.icons",
-  --     "nvim-tree/nvim-web-devicons", -- optional (and using mini.icons)
-  --   },
-  --   config = function()
-  --     require("lspsaga").setup({
-  --       implement = {
-  --         enable = false,
-  --       },
-  --       lightbulb = {
-  --         enable = false,
-  --       },
-  --       symbol_in_winbar = {
-  --         enable = false,
-  --       },
-  --     })
-  --   end,
-  -- },
+  -- just provides lua objects to config lspconfig, doesn't call or access other
+  -- plugins fns
+  -- https://github.com/creativenull/efmls-configs-nvim
+  { "creativenull/efmls-configs-nvim" },
 
   {
     "neovim/nvim-lspconfig",
@@ -226,6 +140,71 @@ return {
         ensure_installed = lsps,
         handlers = handlers,
       })
+    end,
+  },
+
+  -- ===========================================================================
+  -- coc / TypeScript
+  -- ===========================================================================
+
+  {
+    "davidosomething/format-ts-errors.nvim",
+    cond = has_ui and dkosettings.get("use_coc"),
+    dev = dev,
+    opts = {
+      add_markdown = false,
+      start_indent_level = 0,
+    },
+  },
+
+  {
+    "davidosomething/coc-diagnostics-shim.nvim",
+    cond = has_ui and dkosettings.get("use_coc"),
+    dev = dev,
+    dependencies = "davidosomething/format-ts-errors.nvim",
+    opts = {
+      formatters = {
+        coctsserver = {
+          ---@diagnostic disable-next-line: unused-local
+          function(linter_name, item, formatted)
+            ---@type (fun(message: string):string) | nil
+            local prettifier = require("format-ts-errors")[item.code]
+            if not prettifier then
+              vim.schedule(function()
+                vim.print(
+                  ("format-ts-errors no formatter for [%d] %s"):format(
+                    item.code,
+                    item.text
+                  )
+                )
+              end)
+              return item.text
+            end
+            local prettified = prettifier(item.text)
+            return table.concat({
+              prettified,
+              "ꜰᴏʀᴍᴀᴛᴛᴇᴅ ᴡɪᴛʜ ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ",
+            }, "\n")
+          end,
+        },
+      },
+    },
+  },
+
+  -- Using this for tsserver specifically, faster results than nvim-lsp
+  {
+    "neoclide/coc.nvim",
+    branch = "release",
+    cond = has_ui and dkosettings.get("use_coc"),
+    dependencies = "davidosomething/coc-diagnostics-shim.nvim",
+    init = function()
+      vim.g.coc_start_at_startup = true
+      vim.g.coc_global_extensions = {
+        "coc-eslint", -- since it gives code actions unified with tsserver
+        "coc-json",
+        "coc-tsserver",
+        -- "coc-pretty-ts-errors" -- using format-ts-errors instead
+      }
     end,
   },
 }
