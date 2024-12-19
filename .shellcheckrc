@@ -5,3 +5,7 @@ disable=SC1090
 
 # https://github.com/koalaman/shellcheck/wiki/SC1091
 disable=SC1091
+
+# pgrep is NOT all that great
+# https://github.com/koalaman/shellcheck/wiki/SC2009
+disable=SC2009
