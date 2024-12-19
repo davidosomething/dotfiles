@@ -1,4 +1,5 @@
 local dkomappings = require("dko.mappings")
+local dkosettings = require("dko.settings")
 
 return {
   {
@@ -6,10 +7,10 @@ return {
     -- optional for icon support
     dependencies = "echasnovski/mini.icons",
     config = function()
-      local actions = require("fzf-lua.actions")
+      local fzf = require("fzf-lua")
 
       -- https://github.com/ibhagwan/fzf-lua/blob/main/doc/fzf-lua.txt#L643
-      require("fzf-lua").setup({
+      fzf.setup({
         winopts = {
           height = 0.90, -- window height
           width = 0.90, -- window width
@@ -33,8 +34,8 @@ return {
           -- the defaults, to inherit from the defaults change [1] from `false` to `true`
           files = {
             true, -- inherit from defaults, rest are overrides:
-            ["enter"] = actions.file_edit,
-            ["ctrl-x"] = actions.file_split,
+            ["enter"] = fzf.actions.file_edit,
+            ["ctrl-x"] = fzf.actions.file_split,
           },
         },
 
@@ -46,6 +47,10 @@ return {
         },
       })
       dkomappings.bind_fzf()
+
+      if dkosettings.get("select") == "fzf" then
+        fzf.register_ui_select()
+      end
     end,
   },
 }

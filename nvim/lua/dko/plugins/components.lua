@@ -1,13 +1,10 @@
+local dkosettings = require("dko.settings")
+
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
---- Also consider https://github.com/nvim-telescope/telescope-ui-select.nvim ?
---- @type ''|'dressing'|'snacks'
-local select = "dressing"
-
---- Probably using dressing instead snacks also handles vim.ui.select
---- @type ''|'dressing'|'snacks'
-local input = "dressing"
+local select = dkosettings.get("select")
+local input = dkosettings.get("input")
 
 return {
   -- https://github.com/folke/snacks.nvim/blob/main/docs/input.md
