@@ -1,3 +1,5 @@
+local conditions = require("heirline.conditions")
+
 -- List format-on-save clients for the buffer
 return {
   condition = function()
@@ -5,12 +7,16 @@ return {
   end,
   {
     provider = " 󰳻 ",
-    hl = "dkoStatusKey",
+    hl = function()
+      return conditions.is_active() and "dkoStatusKey" or "StatusLineNC"
+    end,
   },
   {
     provider = function()
       return (" %s "):format(table.concat(vim.b.formatters, ", "))
     end,
-    hl = "dkoStatusItem",
+    hl = function()
+      return conditions.is_active() and "StatusLine" or "StatusLineNC"
+    end,
   },
 }
