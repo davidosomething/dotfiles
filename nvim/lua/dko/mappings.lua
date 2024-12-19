@@ -493,13 +493,6 @@ M.bind_lsp = function(bufnr)
   end
 
   lspmap("n", "<Leader><Leader>", function()
-    if dkosettings.get("lsp.code_action") == "tiny-code-action" then
-      if code_action.tca() or code_action.ap() then
-        return
-      end
-    elseif code_action.ap() or code_action.tca() then
-      return
-    end
     vim.lsp.buf.code_action()
   end, { desc = "LSP Code Action" })
 
@@ -1070,6 +1063,7 @@ end
 
 M.picker = {
   buffers = "<A-b>",
+  code_actions = "<A-a>",
   files = "<A-c>",
   git_files = "<A-f>",
   git_status = "<A-s>",
@@ -1095,14 +1089,18 @@ M.bind_fzf_terminal_mappings = function()
 end
 
 M.bind_fzf = function()
+  local fzf = require("fzf-lua")
+
   if dkosettings.get("finder") ~= "fzf" then
     return
   end
 
-  local fzf = require("fzf-lua")
-
   emap("n", M.picker.buffers, function()
     fzf.buffers()
+  end, { desc = "fzf: pick existing buffer" })
+
+  emap("n", M.picker.code_actions, function()
+    fzf.lsp_code_actions()
   end, { desc = "fzf: pick existing buffer" })
 
   emap("n", M.picker.files, function()

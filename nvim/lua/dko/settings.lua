@@ -26,12 +26,6 @@ local settings = {
   heirline = {
     show_buftype = false,
   },
-  lsp = {
-    -- Which code action UI should we try first?
-    -- The alternative will be tried second
-    ---@type 'actions-preview' | 'tiny-code-action'
-    code_action = "tiny-code-action",
-  },
 }
 
 local M = {}
