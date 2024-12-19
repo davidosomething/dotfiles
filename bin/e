@@ -18,6 +18,7 @@ ctrl_c() {
 
   local orphans
   orphans=$(
+    # pgrep does NOT return all results
     # shellcheck disable=2009
     ps ux | grep -v grep | grep language-server
   )
@@ -42,7 +43,9 @@ main() {
 
   local existing
   local running
-  running=$(pgrep -f "nvim\.sock")
+  # pgrep does NOT return all results
+  # shellcheck disable=2009
+  running=$(ps ux | grep -v grep | grep "nvim\.sock")
   if [ -z "$running" ]; then
     [[ "$E_DEBUG" != "" ]] && log "Not running"
 
