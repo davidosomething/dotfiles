@@ -1064,9 +1064,35 @@ M.bind_nvim_various_textobjs = function()
   end, { desc = "Smart URL Opener" })
 end
 
+-- =============================================================================
+-- picker / finder
+-- =============================================================================
+
+M.picker = {
+  buffers = "<A-b>",
+  files = "<A-c>",
+  git_files = "<A-f>",
+  git_status = "<A-s>",
+  grep = "<A-g>",
+  mru = "<A-m>",
+  project = "<A-p>",
+  vim = "<A-v>",
+}
+
 -- ===========================================================================
 -- Plugin: fzf-lua
 -- ===========================================================================
+
+M.bind_fzf_terminal_mappings = function()
+  for _, mapping in pairs(M.picker) do
+    map("t", mapping, function()
+      vim.cmd.close()
+    end, {
+      buffer = true,
+      desc = "Use any picker mapping to close active picker",
+    })
+  end
+end
 
 M.bind_fzf = function()
   if dkosettings.get("finder") ~= "fzf" then
@@ -1075,30 +1101,30 @@ M.bind_fzf = function()
 
   local fzf = require("fzf-lua")
 
-  emap("n", "<A-b>", function()
+  emap("n", M.picker.buffers, function()
     fzf.buffers()
   end, { desc = "fzf: pick existing buffer" })
 
-  emap("n", "<A-c>", function()
+  emap("n", M.picker.files, function()
     fzf.files()
   end, { desc = "fzf: files in cwd" })
 
-  emap("n", "<A-f>", function()
+  emap("n", M.picker.git_files, function()
     fzf.git_files()
   end, { desc = "fzf: git files" })
 
-  emap("n", "<A-g>", function()
+  emap("n", M.picker.grep, function()
     fzf.live_grep_resume()
   end, { desc = "fzf: live grep CWD" })
 
-  emap("n", "<A-m>", function()
+  emap("n", M.picker.mru, function()
     fzf.oldfiles({
       include_current_session = true,
       stat_file = true, -- verify files exist on disk
     })
   end, { desc = "fzf: pick from previously opened files" })
 
-  emap("n", "<A-p>", function()
+  emap("n", M.picker.project, function()
     fzf.files({
       cwd = require("dko.utils.project").root(),
     })
@@ -1106,11 +1132,11 @@ M.bind_fzf = function()
     desc = "fzf: project root",
   })
 
-  emap("n", "<A-s>", function()
+  emap("n", M.picker.git_status, function()
     fzf.git_status()
   end, { desc = "fzf: pick from git status files" })
 
-  emap("n", "<A-v>", function()
+  emap("n", M.picker.vim, function()
     fzf.files({
       cwd = vim.fn.stdpath("config"),
     })
@@ -1125,6 +1151,10 @@ M.bind_telescope = function()
   local t = require("telescope")
   local tb = require("telescope.builtin")
 
+  -- ---------------------------------------------------------------------------
+  -- Extension mappings
+  -- ---------------------------------------------------------------------------
+
   emap("n", "<A-e>", function()
     if t.extensions.file_browser then
       t.extensions.file_browser.file_browser({
@@ -1133,10 +1163,18 @@ M.bind_telescope = function()
     end
   end, { desc = "Telescope: pick existing buffer" })
 
-  emap("n", "<A-r>", function()
-    tb.resume()
-  end, { desc = "Telescope: re-open last picker" })
+  emap("n", "<A-y>", function()
+    if not t.extensions.yank_history then
+      t.load_extension("yank_history")
+    end
+    t.extensions.yank_history.yank_history()
+  end, { desc = "Telescope: yanky.nvim" })
 
+  -- ---------------------------------------------------------------------------
+  -- Main mappings
+  -- ---------------------------------------------------------------------------
+
+  -- no fzf-lua equivalent
   emap("n", "<A-t>", function()
     tb.find_files({
       layout_strategy = "vertical",
@@ -1151,22 +1189,22 @@ M.bind_telescope = function()
   end, { desc = "Telescope: pick files in CWD" })
 
   if dkosettings.get("finder") == "telescope" then
-    emap("n", "<A-b>", function()
+    emap("n", M.picker.buffers, function()
       tb.buffers({ layout_strategy = "vertical" })
     end, { desc = "Telescope: pick existing buffer" })
 
-    emap("n", "<A-c>", function()
+    emap("n", M.picker.files, function()
       tb.find_files({
         hidden = true,
         layout_strategy = "vertical",
       })
     end, { desc = "Telescope: files in cwd" })
 
-    emap("n", "<A-g>", function()
+    emap("n", M.picker.grep, function()
       tb.live_grep({ layout_strategy = "vertical" })
     end, { desc = "Telescope: live grep CWD" })
 
-    emap("n", "<A-f>", function()
+    emap("n", M.picker.git_files, function()
       -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#falling-back-to-find_files-if-git_files-cant-find-a-git-directory
       local res =
         vim.system({ "git", "rev-parse", "--is-inside-work-tree" }):wait()
@@ -1183,11 +1221,11 @@ M.bind_telescope = function()
       end
     end, { desc = "Telescope: files in git work files or CWD" })
 
-    emap("n", "<A-m>", function()
+    emap("n", M.picker.mru, function()
       tb.oldfiles({ layout_strategy = "vertical" })
     end, { desc = "Telescope: pick from previously opened files" })
 
-    emap("n", "<A-p>", function()
+    emap("n", M.picker.project, function()
       tb.find_files({
         hidden = true,
         layout_strategy = "vertical",
@@ -1198,11 +1236,11 @@ M.bind_telescope = function()
       desc = "Telescope: project root",
     })
 
-    emap("n", "<A-s>", function()
+    emap("n", M.picker.git_status, function()
       tb.git_status({ layout_strategy = "vertical" })
     end, { desc = "Telescope: pick from git status files" })
 
-    emap("n", "<A-v>", function()
+    emap("n", M.picker.vim, function()
       tb.find_files({
         layout_strategy = "vertical",
         prompt_title = "Find in neovim configs",
@@ -1211,13 +1249,6 @@ M.bind_telescope = function()
       })
     end, { desc = "Telescope: nvim/ files" })
   end
-
-  emap("n", "<A-y>", function()
-    if not t.extensions.yank_history then
-      t.load_extension("yank_history")
-    end
-    t.extensions.yank_history.yank_history()
-  end, { desc = "Telescope: yanky.nvim" })
 end
 
 -- ===========================================================================
