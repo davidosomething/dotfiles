@@ -11,11 +11,13 @@ local dkotools = require("dko.tools")
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
+local dev = vim.env.NVIM_DEV ~= nil
+
 return {
   {
     "davidosomething/format-ts-errors.nvim",
     cond = has_ui and dkosettings.get("use_coc"),
-    dev = true,
+    dev = dev,
     opts = {
       add_markdown = false,
       start_indent_level = 0,
@@ -25,7 +27,7 @@ return {
   {
     "davidosomething/coc-diagnostics-shim.nvim",
     cond = has_ui and dkosettings.get("use_coc"),
-    dev = true,
+    dev = dev,
     dependencies = "davidosomething/format-ts-errors.nvim",
     opts = {
       formatters = {

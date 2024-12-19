@@ -1,5 +1,7 @@
 local dkosettings = require("dko.settings")
 
+local dev = vim.env.NVIM_DEV ~= nil
+
 return {
   {
     "davidosomething/vim-colors-meh",
@@ -13,7 +15,7 @@ return {
       -- },
       "ntk148v/komau.vim",
     },
-    dev = true,
+    dev = dev,
     lazy = false,
     priority = 1000,
     init = function()
