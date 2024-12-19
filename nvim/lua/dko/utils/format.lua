@@ -91,28 +91,36 @@ M.run_pipeline = function(options)
   notify(names)
 end
 
--- Add formatter to vim.b.formatters and fire autocmd (e.g. update heirline)
-M.add_formatter = function(name)
-  if vim.b.formatters ~= nil and vim.tbl_contains(vim.b.formatters, name) then
+---Add formatter to vim.b.formatters and fire autocmd (e.g. update heirline)
+---@param bufnr number
+---@param name string like "lua_ls" or "efm"
+M.add_formatter = function(bufnr, name)
+  if
+    vim.b[bufnr].formatters ~= nil
+    and vim.list_contains(vim.b[bufnr].formatters, name)
+  then
     return
   end
 
   -- NOTE: You cannot table.insert(vim.b.formatters, name) -- need to have a
   -- temp var and assign full table at once because the vim.b vars are special
-  local copy = vim.tbl_extend("force", {}, vim.b.formatters or {})
-  vim.b.formatters = dkotable.append(copy, name)
+  local copy = vim.tbl_extend("force", {}, vim.b[bufnr].formatters or {})
+  vim.b[bufnr].formatters = dkotable.append(copy, name)
   vim.cmd.doautocmd("User", "FormattersChanged")
 end
 
-M.remove_formatter = function(name)
-  if vim.b.formatters == nil then
+---Remove formatter from vim.b.formatters and fire autocmd (e.g. update heirline)
+---@param bufnr number
+---@param name string like "lua_ls" or "efm"
+M.remove_formatter = function(bufnr, name)
+  if vim.b[bufnr].formatters == nil then
     return
   end
-  for i, needle in pairs(vim.b.formatters) do
+  for i, needle in ipairs(vim.b[bufnr].formatters) do
     if needle == name then
-      local copy = vim.tbl_extend("force", {}, vim.b.formatters or {})
+      local copy = vim.tbl_extend("force", {}, vim.b[bufnr].formatters or {})
       table.remove(copy, i)
-      vim.b.formatters = copy
+      vim.b[bufnr].formatters = copy
       vim.cmd.doautocmd("User", "FormattersChanged")
       return
     end
@@ -138,7 +146,7 @@ M.enable_on_lspattach = function(args)
   -- Track formatters, non-exclusively, non-LSPs might add to this table
   -- or fire the autocmd
   local name = clients[1].name
-  M.add_formatter(name)
+  M.add_formatter(bufnr, name)
   vim.b.enable_format_on_save = true
 end
 
@@ -156,7 +164,7 @@ M.disable_on_lspdetach = function(args)
   local detached_client = vim.lsp.get_client_by_id(detached_client_id)
   if detached_client ~= nil then
     local name = detached_client.name
-    M.remove_formatter(name)
+    M.remove_formatter(bufnr, name)
   end
 
   vim.b.enable_format_on_save = vim.b.formatters == nil or #vim.b.formatters > 0

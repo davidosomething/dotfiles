@@ -3,7 +3,6 @@ return {
   condition = function()
     return vim.b.formatters ~= nil and #vim.b.formatters > 0
   end,
-  update = { "User", pattern = "FormattersChanged" },
   {
     provider = " 󰳻 ",
     hl = "dkoStatusKey",
