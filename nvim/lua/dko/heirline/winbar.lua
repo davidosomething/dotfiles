@@ -1,3 +1,4 @@
+local dkobuffer = require("dko.utils.buffer")
 local smallcaps = require("dko.utils.string").smallcaps
 local conditions = require("heirline.conditions")
 
@@ -13,7 +14,12 @@ local hidden_filetypes = vim.tbl_extend("keep", {
 return {
   {
     init = function(self)
+      -- for toggleterm this is something like
+      -- term://~/.dotfiles/nvim//96469:/bin/zsh;#toggleterm#88888
       self.filepath = vim.api.nvim_buf_get_name(0)
+      ---@diagnostic disable-next-line: undefined-field
+      self.icon = _G.MiniIcons.get("file", self.filepath)
+
       self.filetype_text = vim.tbl_contains(hidden_filetypes, vim.bo.filetype)
           and ""
         or smallcaps(vim.bo.filetype, { numbers = false })
@@ -32,17 +38,13 @@ return {
       -- =======================================================================
 
       {
-        provider = function()
-          if
-            conditions.buffer_matches({
-              buftype = require("dko.utils.buffer").SPECIAL_BUFTYPES,
-              filetype = require("dko.utils.buffer").SPECIAL_FILETYPES,
-            })
-          then
-            return ""
-          end
-          return "  "
+        condition = function()
+          return conditions.buffer_matches({
+            buftype = dkobuffer.SPECIAL_BUFTYPES,
+            filetype = dkobuffer.SPECIAL_FILETYPES,
+          })
         end,
+        provider = "  ",
         hl = function()
           return active_highlight(
             require("dko.utils.treesitter").is_highlight_enabled() and "DiffAdd"
@@ -56,23 +58,15 @@ return {
       -- =======================================================================
 
       {
-        init = function(self)
-          if vim.bo.buftype ~= "" then
-            self.icon = ""
-            self.icon_not_found = true
-          else
-            ---@diagnostic disable-next-line: undefined-field
-            self.icon = _G.MiniIcons and _G.MiniIcons.get("file", self.filepath)
-              or ""
-          end
-        end,
         provider = function(self)
-          -- don't add a space if we're hiding the filetype in the interest of
-          -- space saving
-          local spaced_filetype = self.filetype_text ~= ""
-              and (" " .. self.filetype_text)
-            or ""
-          return (" %s%s "):format(self.icon, spaced_filetype)
+          local parts = {}
+          if self.icon ~= "" then
+            table.insert(parts, self.icon)
+          end
+          if self.filetype_text ~= "" then
+            table.insert(parts, self.filetype_text)
+          end
+          return (" %s "):format(table.concat(parts, " "))
         end,
         hl = function()
           return active_highlight("dkoStatusKey")
@@ -84,17 +78,7 @@ return {
     -- terminal help
     -- =========================================================================
 
-    {
-      condition = function()
-        return vim.bo.buftype == "terminal"
-      end,
-      provider = function()
-        return " [<A-i> hide] [<A-x> mode] "
-      end,
-      hl = function()
-        return active_highlight()
-      end,
-    },
+    require("dko.heirline.winbar-terminal"),
 
     -- =========================================================================
     -- filename
@@ -137,16 +121,13 @@ return {
     -- =========================================================================
 
     {
-      condition = function()
-        return vim.bo.buftype == "" or vim.bo.buftype == "help"
+      condition = function(self)
+        return self.filepath ~= "" and vim.bo.buftype == ""
+          or vim.bo.buftype == "help"
       end,
 
       {
         provider = function(self)
-          if self.filepath == "" then
-            return ""
-          end
-
           local win_width = vim.api.nvim_win_get_width(0)
           local extrachars = 3 + 3 + self.filetype_text:len()
           local remaining = win_width - extrachars

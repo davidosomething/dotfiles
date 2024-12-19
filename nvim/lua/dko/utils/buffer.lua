@@ -1,14 +1,17 @@
 local M = {}
 
+--- Toggles heirline components, statusline, winbar, maybe disable colorizer
 M.SPECIAL_BUFTYPES = {
+  "fzf", -- fzf-lua
   "help",
-  "nofile",
+  "nofile", -- e.g. notifications, :Lazy, :Mason
   "popup",
-  "prompt",
+  "prompt", -- e.g. telescope prompt
   "quickfix",
   "terminal",
 }
 
+--- Toggles heirline components, statusline, winbar, maybe disable colorizer
 M.SPECIAL_FILETYPES = {
   "fugitive",
   "gitcommit",

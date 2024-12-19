@@ -5,9 +5,7 @@ return {
   end,
   update = { "User", pattern = "FormattersChanged" },
   {
-    provider = function()
-      return " 󰳻 "
-    end,
+    provider = " 󰳻 ",
     hl = "dkoStatusKey",
   },
   {

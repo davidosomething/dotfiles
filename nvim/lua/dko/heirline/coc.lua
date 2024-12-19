@@ -3,9 +3,7 @@ return {
     return vim.b.did_bind_coc
   end,
   {
-    provider = function()
-      return " ᴄᴏᴄ "
-    end,
+    provider = " ᴄᴏᴄ ",
     hl = "dkoStatusKey",
   },
   {

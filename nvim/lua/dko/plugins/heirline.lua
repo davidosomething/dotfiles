@@ -1,5 +1,31 @@
+local dkobuffer = require("dko.utils.buffer")
+
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
+
+---Special buftypes hash where the winbar should be enabled
+local WINBAR_ENABLED_BUFTYPES = {
+  help = true,
+  quickfix = true,
+  ---fzf-lua uses a terminal buffer, so we need to do more filtering...
+  terminal = true,
+}
+
+local WINBAR_DISABLED_BUFTYPES = {}
+for _, buftype in pairs(dkobuffer.SPECIAL_BUFTYPES) do
+  if not WINBAR_ENABLED_BUFTYPES[buftype] then
+    table.insert(WINBAR_DISABLED_BUFTYPES, buftype)
+  end
+end
+
+---@param args { buf: number }
+local function disable_winbar_cb(args)
+  local hc = require("heirline.conditions")
+  return hc.buffer_matches({
+    buftype = WINBAR_DISABLED_BUFTYPES,
+    filetype = { "fzf" },
+  }, args.buf)
+end
 
 return {
   {
@@ -23,16 +49,7 @@ return {
         opts = {
           -- if the callback returns true, the winbar will be disabled for that window
           -- the args parameter corresponds to the table argument passed to autocommand callbacks. :h nvim_lua_create_autocmd()
-          disable_winbar_cb = function(args)
-            return require("heirline.conditions").buffer_matches({
-              buftype = vim.tbl_filter(function(bt)
-                return not vim.tbl_contains(
-                  { "help", "quickfix", "terminal" },
-                  bt
-                )
-              end, require("dko.utils.buffer").SPECIAL_BUFTYPES),
-            }, args.buf)
-          end,
+          disable_winbar_cb = disable_winbar_cb,
         },
       })
     end,
