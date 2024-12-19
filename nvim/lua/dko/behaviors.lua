@@ -325,13 +325,25 @@ if has_ui then
   })
 
   -- temporary fix, winbars not updating
+
   vim
     .iter({
-      require("dko.heirline.coc-diagnostics").update,
-      require("dko.heirline.diagnostics").update,
-      --require("dko.heirline.formatters").update,
-      require("dko.heirline.lsp").update,
+      "dko.heirline.diagnostics",
     })
+    :map(function(name)
+      local ok, m = pcall(require, name)
+      if ok then
+        return m.update
+      end
+      require("dko.doctor").warn({
+        category = "behaviors.nvim",
+        message = ("[%s] Lua module `%s` not found"):format(
+          "behaviors.nvim",
+          name
+        ),
+      })
+      return {}
+    end)
     :each(function(events)
       if events[1] == "User" and events["pattern"] then
         autocmd("User", {
