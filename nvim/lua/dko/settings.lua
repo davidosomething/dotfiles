@@ -26,6 +26,12 @@ local settings = {
   heirline = {
     show_buftype = false,
   },
+
+  --- @type ''|'dressing'|'snacks'
+  input = "dressing", -- snacks has issues with treesitter
+
+  --- @type ''|'dressing'|'fzf'|'snacks'
+  select = "fzf",
 }
 
 local M = {}
