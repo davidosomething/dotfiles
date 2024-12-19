@@ -235,9 +235,9 @@ if has_ui then
   autocmd("User", {
     pattern = "FormattersChanged",
     desc = "Notify neovim a formatter has been added for the buffer",
-    callback = function()
+    callback = vim.schedule_wrap(function()
       vim.cmd.redrawstatus({ bang = true })
-    end,
+    end),
     group = augroup("dkoformatter"),
   })
 
@@ -350,10 +350,10 @@ if has_ui then
           group = events["group"],
           pattern = events["pattern"],
           desc = "FIX - heirline does not always update winbars",
-          callback = function()
+          callback = vim.schedule_wrap(function()
             vim.print("xxx")
             vim.cmd.redrawstatus({ bang = true })
-          end,
+          end),
         })
       else
         for _, event in ipairs(events) do
