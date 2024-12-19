@@ -6,9 +6,7 @@ return {
       return vim.bo[bufnr].modified
     end, self.normal)
   end,
-  hl = function()
-    return "StatusLineNC"
-  end,
+  hl = "StatusLineNC",
   {
     provider = function(self)
       return (" 󰤌 %d"):format(#self.modified)

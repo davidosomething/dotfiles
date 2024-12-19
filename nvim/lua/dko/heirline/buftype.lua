@@ -1,7 +1,11 @@
 return {
+  condition = function()
+    return vim.bo.buftype:len() > 0
+  end,
   provider = function()
-    return vim.bo.buftype:len() == 0 and ""
-      or (" %s "):format(require("dko.utils.string").smallcaps(vim.bo.filetype))
+    return (" %s "):format(
+      require("dko.utils.string").smallcaps(vim.bo.filetype)
+    )
   end,
   hl = "dkoStatusItem",
 }
