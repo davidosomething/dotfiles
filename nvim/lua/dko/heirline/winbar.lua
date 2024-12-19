@@ -39,7 +39,7 @@ return {
 
       {
         condition = function()
-          return conditions.buffer_matches({
+          return not conditions.buffer_matches({
             buftype = dkobuffer.SPECIAL_BUFTYPES,
             filetype = dkobuffer.SPECIAL_FILETYPES,
           })
