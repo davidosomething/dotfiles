@@ -1,4 +1,4 @@
--- local dkomappings = require("dko.mappings")
+local dkomappings = require("dko.mappings")
 
 return {
   {
@@ -18,7 +18,7 @@ return {
           },
         },
       })
-      -- dkomappings.bind_fzf()
+      dkomappings.bind_fzf()
     end,
   },
 }

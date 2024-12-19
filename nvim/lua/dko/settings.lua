@@ -3,7 +3,7 @@
 local dkoobject = require("dko.utils.object")
 
 local settings = {
-  --"none" | "single" | "double" | "shadow" | "rounded"
+  ---@type "none" | "single" | "double" | "shadow" | "rounded"
   border = "rounded",
   colors = {
     -- set in ./plugins/colorscheme.lua
@@ -21,14 +21,16 @@ local settings = {
   diagnostics = {
     goto_float = true,
   },
+  ---@type 'fzf' | 'telescope'
+  finder = "fzf",
   heirline = {
     show_buftype = false,
   },
   lsp = {
     -- Which code action UI should we try first?
     -- The alternative will be tried second
+    ---@type 'actions-preview' | 'tiny-code-action'
     code_action = "tiny-code-action",
-    -- code_action = "actions-preview",
   },
 }
 
