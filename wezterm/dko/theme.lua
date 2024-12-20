@@ -1,43 +1,10 @@
-local wezterm = require("wezterm")
+local notifier = require("dko/notifier")
 
 --- Theme
 
 local xdg_state_home = os.getenv("XDG_STATE_HOME")
   or os.getenv("HOME") .. "/.local/state"
 local colorscheme_file = ("%s/wezterm-colorscheme.txt"):format(xdg_state_home)
-
-local notifier = "osascript -e 'display notification"
-local close = "'"
-if string.find(wezterm.target_triple, "linux") then
-  notifier = "notify-send --app-name=WezTerm --urgency=low --expire-time=500"
-  close = ""
-end
-
----@param next_mode string
-local sync_colorscheme = function(next_mode)
-  local file_handle = io.open(colorscheme_file, "w")
-  if file_handle then
-    os.execute(
-      ('%s "updated %s with %s"%s'):format(
-        notifier,
-        colorscheme_file,
-        next_mode,
-        close
-      )
-    )
-    file_handle:write(next_mode)
-    file_handle:close()
-  else
-    os.execute(
-      ('%s "could not update %s with %s"%s'):format(
-        notifier,
-        colorscheme_file,
-        next_mode,
-        close
-      )
-    )
-  end
-end
 
 local colorschemes = {
   dark = "Twilight (base16)",
@@ -61,6 +28,21 @@ M.read = function()
   return colorschemes.dark
 end
 
+---@param next_mode string
+M.write = function(next_mode)
+  local file_handle = io.open(colorscheme_file, "w")
+  if file_handle then
+    file_handle:write(next_mode)
+    file_handle:close()
+    local message = ("updated %s with %s"):format(colorscheme_file, next_mode)
+    notifier.os(message)
+    return
+  end
+  notifier.os(
+    ("could not update %s with %s"):format(colorscheme_file, next_mode)
+  )
+end
+
 ---@param win table
 M.toggle = function(win)
   local ecfg = win:effective_config()
@@ -70,7 +52,7 @@ M.toggle = function(win)
   local next_colorscheme = colorschemes[next_mode]
   overrides.color_scheme = next_colorscheme
   win:set_config_overrides(overrides)
-  sync_colorscheme(next_mode)
+  M.write(next_mode)
 end
 
 return M
