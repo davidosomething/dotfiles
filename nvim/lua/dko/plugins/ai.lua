@@ -2,17 +2,6 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 return {
-  -- https://github.com/aduros/ai.vim
-  {
-    "aduros/ai.vim",
-    -- It's not working https://github.com/aduros/ai.vim/issues/29
-    cond = has_ui and vim.env.OPENAI_API_KEY ~= nil and false,
-    cmd = { "AI" },
-    init = function()
-      vim.g.ai_no_mappings = true
-    end,
-  },
-
   -- https://github.com/olimorris/codecompanion.nvim
   {
     "olimorris/codecompanion.nvim",
