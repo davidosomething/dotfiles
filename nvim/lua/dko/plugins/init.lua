@@ -241,7 +241,7 @@ return {
   },
 
   -- ]u [u mappings to jump to urls
-  -- <A-u> to open link picker -- optionally uses dressing for vim.ui.select
+  -- <A-u> to open link picker
   -- https://github.com/axieax/urlview.nvim
   {
     "axieax/urlview.nvim",

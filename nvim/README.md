@@ -12,7 +12,6 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 > Tabline: the cwd is a project root; `dev` branch; there is one dirty buffer out of four total; and we are connected to nvim.sock  
 > Winbar: Tree-sitter highlighting is enabled, orange filenames are dirty files, and there are no diagnostic issues.  
 > Signs: [gitsigns](https://github.com/lewis6991/gitsigns.nvim) is active.  
-> Indent: [hlchunk](https://github.com/shellRaining/hlchunk.nvim) is displaying the current indent chunk.  
 > Status: Normal mode; `type` is searched with one occurrence found; ruler
 
 | Tool              | Link             |
@@ -22,7 +21,7 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 | Status/tab/winbar | [heirline.nvim]  |
 | LSP/tool manager  | [mason.nvim]     |
 | Local LSP         | [efm-langserver] |
-| File finder       | [telescope]      |
+| File finder       | [fzf-lua]      |
 
 ## custom things
 
@@ -49,5 +48,6 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 [vim-colors-meh]: https://github.com/davidosomething/vim-colors-meh
 [mason.nvim]: https://github.com/williamboman/mason.nvim
 [efm-langserver]: https://github.com/mattn/efm-langserver
+[fzf-lua]: https://github.com/ibhagwan/fzf-lua
 [telescope]: https://github.com/nvim-telescope/telescope.nvim
 [heirline.nvim]: https://github.com/rebelot/heirline.nvim

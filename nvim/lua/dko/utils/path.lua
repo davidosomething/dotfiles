@@ -1,6 +1,6 @@
 local M = {}
 
----Find the common root between two thats
+---Find the common root between two paths
 ---@param a string
 ---@param b string
 ---@return { levels: integer, root: string, a: string, b: string }
@@ -9,7 +9,7 @@ M.common_root = function(a, b)
   local bp = vim.split(b, "/")
 
   local root = {}
-  for i = 1, #ap do
+  for _ = 1, #ap do
     if ap[1] == bp[1] then
       table.insert(root, ap[1])
       table.remove(ap, 1)
