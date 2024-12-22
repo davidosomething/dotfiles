@@ -135,4 +135,19 @@ end
 M.split_horz = scaled_split("Left")
 M.split_vert = scaled_split("Up")
 
+M.setup = function()
+  wezterm.on("augment-command-palette", function()
+    return {
+      {
+        brief = "Balance panes horizontally",
+        action = wezterm.action_callback(M.balance("x")),
+      },
+      {
+        brief = "Balance panes vertically",
+        action = wezterm.action_callback(M.balance("y")),
+      },
+    }
+  end)
+end
+
 return M

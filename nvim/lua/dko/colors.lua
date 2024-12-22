@@ -29,6 +29,8 @@ end
 local colorscheme_file_path = ("%s/wezterm-colorscheme.txt"):format(
   vim.env.XDG_STATE_HOME or "~/.local/state"
 )
+
+---@see M.read in wezterm/dko/theme.lua, should do similar
 M.apply_from_file = function()
   -- see ./bench/readfile.lua - io.input was consistently fastest for me
   local ok, file = pcall(io.input, colorscheme_file_path)

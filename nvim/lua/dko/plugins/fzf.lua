@@ -15,6 +15,7 @@ return {
           height = 0.90, -- window height
           width = 0.90, -- window width
           preview = {
+            default = "bat",
             ---@type 'horizontal'|'vertical'|'flex'
             layout = "vertical",
             vertical = "up:70%", -- up|down:size -- preview goes above the list
@@ -43,6 +44,7 @@ return {
           builtin = {
             -- disable tree-sitter syntax highlighting files larger than 100KB
             syntax_limit_b = 1024 * 100, -- 100KB
+            treesitter = { enabled = false },
           },
         },
       })
