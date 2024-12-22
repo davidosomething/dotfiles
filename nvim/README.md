@@ -49,5 +49,4 @@ nvim config, crafted for **nightly builds only**! Configured in lua.
 [mason.nvim]: https://github.com/williamboman/mason.nvim
 [efm-langserver]: https://github.com/mattn/efm-langserver
 [fzf-lua]: https://github.com/ibhagwan/fzf-lua
-[telescope]: https://github.com/nvim-telescope/telescope.nvim
 [heirline.nvim]: https://github.com/rebelot/heirline.nvim
