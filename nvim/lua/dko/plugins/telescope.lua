@@ -3,18 +3,6 @@ local has_ui = #uis > 0
 
 return {
   {
-    "nvim-telescope/telescope-file-browser.nvim",
-    cond = has_ui,
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim",
-    },
-    config = function()
-      require("telescope").load_extension("file_browser")
-    end,
-  },
-
-  {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
     cond = has_ui,

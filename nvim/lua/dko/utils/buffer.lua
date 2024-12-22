@@ -2,6 +2,7 @@ local M = {}
 
 --- Toggles heirline components, statusline, winbar, maybe disable colorizer
 M.SPECIAL_BUFTYPES = {
+  "acwrite", -- oil
   "fzf", -- fzf-lua
   "help",
   "nofile", -- e.g. notifications, :Lazy, :Mason
