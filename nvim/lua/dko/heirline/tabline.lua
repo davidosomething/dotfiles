@@ -5,12 +5,13 @@ return {
     -- switch to an untracked file
     self.branch = conditions.is_git_repo() and vim.g.gitsigns_head or ""
   end,
+  hl = "StatusLineNC",
 
   require("dko.heirline.cwd"), -- uses branch
   require("dko.heirline.git"), -- uses branch
   require("dko.heirline.bufferstats"),
 
-  { provider = "%=", hl = "StatusLineNC" },
+  { provider = "%=" },
 
   require("dko.heirline.clipboard"),
   require("dko.heirline.remote"),
