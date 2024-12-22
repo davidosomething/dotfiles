@@ -1,6 +1,8 @@
 local dkobuffer = require("dko.utils.buffer")
 local dkosettings = require("dko.settings")
 
+local Methods = vim.lsp.protocol.Methods
+
 ---@class LspAutocmdArgs
 ---@field buf number
 ---@field data { client_id: number }
@@ -557,12 +559,12 @@ M.unbind_on_lspdetach = function(args)
   -- purposes of keybinding...
   local clients = vim.lsp.get_clients({
     bufnr = bufnr,
-    method = vim.lsp.protocol.Methods.textDocument_definition,
+    method = Methods.textDocument_definition,
   })
   if #clients == 0 then -- Last LSP attached
     vim.notify(
       ("No %s providers remaining. Unbinding %d lsp mappings"):format(
-        vim.lsp.protocol.Methods.textDocument_definition,
+        Methods.textDocument_definition,
         #M.lsp_bindings[key]
       ),
       vim.log.levels.INFO,
