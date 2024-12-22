@@ -423,18 +423,7 @@ return {
     cond = has_ui,
   },
 
-  {
-    "kana/vim-textobj-user",
-    cond = has_ui,
-    dependencies = {
-      "gilligan/textobj-lastpaste",
-      "mattn/vim-textobj-url",
-    },
-    config = function()
-      dkomappings.bind_textobj()
-    end,
-  },
-
+  -- https://github.com/chrisgrieser/nvim-various-textobj
   {
     "chrisgrieser/nvim-various-textobjs",
     cond = has_ui,
