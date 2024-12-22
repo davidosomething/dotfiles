@@ -56,7 +56,7 @@ M.ts_ls.config = {
   end,
 
   handlers = {
-    [vim.lsp.protocol.Methods.textDocument_publishDiagnostics] = function(
+    [Methods.textDocument_publishDiagnostics] = function(
       _,
       result,
       ctx,
