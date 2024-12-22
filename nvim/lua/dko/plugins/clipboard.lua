@@ -4,6 +4,7 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 return {
+  -- https://github.com/gbprod/yanky.nvim
   {
     "gbprod/yanky.nvim",
     cond = has_ui and not dkoclipboard.should_use_osc52(),
