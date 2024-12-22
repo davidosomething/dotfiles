@@ -1,4 +1,5 @@
-local icons = require("dko.icons")
+local dkoicons = require("dko.icons")
+local hl = require("dko.heirline.utils").hl
 
 -- polyfill as of https://github.com/neovim/neovim/pull/26807
 ---@param opts? { severity?: number }
@@ -12,11 +13,7 @@ end
 
 return {
   condition = function()
-    local has_filetype = vim.bo.filetype ~= ""
-    if not has_filetype then
-      return false
-    end
-    return true
+    return vim.bo.buftype == "" and vim.bo.filetype ~= ""
   end,
 
   init = function(self)
@@ -41,41 +38,51 @@ return {
       return self.errors > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(icons.Error, self.errors)
+      return (" %s %d"):format(dkoicons.Error, self.errors)
     end,
-    hl = "DiagnosticSignError",
+    hl = function()
+      return hl("DiagnosticSignError")
+    end,
   },
   {
     condition = function(self)
       return self.warnings > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(icons.Warn, self.warnings)
+      return (" %s %d"):format(dkoicons.Warn, self.warnings)
     end,
-    hl = "DiagnosticSignWarn",
+    hl = function()
+      return hl("DiagnosticSignWarn")
+    end,
   },
   {
     condition = function(self)
       return self.info > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(icons.Info, self.info)
+      return (" %s %d"):format(dkoicons.Info, self.info)
     end,
-    hl = "DiagnosticSignInfo",
+    hl = function()
+      return hl("DiagnosticSignInfo")
+    end,
   },
   {
     condition = function(self)
       return self.hints > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(icons.Hint, self.hints)
+      return (" %s %d"):format(dkoicons.Hint, self.hints)
     end,
-    hl = "DiagnosticSignHint",
+    hl = function()
+      return hl("DiagnosticSignHint")
+    end,
   },
   {
     provider = function(self)
-      return self.total == 0 and (" %s "):format(icons.Ok) or " "
+      return self.total == 0 and (" %s "):format(dkoicons.Ok) or " "
     end,
-    hl = "dkoTextGood",
+    hl = function()
+      return hl("dkoTextGood")
+    end,
   },
 }

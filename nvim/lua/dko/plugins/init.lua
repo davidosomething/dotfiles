@@ -241,7 +241,7 @@ return {
   },
 
   -- ]u [u mappings to jump to urls
-  -- <A-u> to open link picker -- optionally uses dressing for vim.ui.select
+  -- <A-u> to open link picker
   -- https://github.com/axieax/urlview.nvim
   {
     "axieax/urlview.nvim",
@@ -423,18 +423,7 @@ return {
     cond = has_ui,
   },
 
-  {
-    "kana/vim-textobj-user",
-    cond = has_ui,
-    dependencies = {
-      "gilligan/textobj-lastpaste",
-      "mattn/vim-textobj-url",
-    },
-    config = function()
-      dkomappings.bind_textobj()
-    end,
-  },
-
+  -- https://github.com/chrisgrieser/nvim-various-textobj
   {
     "chrisgrieser/nvim-various-textobjs",
     cond = has_ui,

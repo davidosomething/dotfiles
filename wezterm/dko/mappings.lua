@@ -79,4 +79,12 @@ k:insert({
   action = wezterm.action_callback(panes.split_vert),
 })
 
-return k
+-- =============================================================================
+
+local M = {}
+
+M.setup = function(config)
+  config.keys = k
+end
+
+return M
