@@ -14,7 +14,7 @@ M.setup = function(config, opts)
 
   config.adjust_window_size_when_changing_font_size = false
 
-  config.command_palette_font_size = opts.hidpi and 24.0 or 16.0
+  config.command_palette_font_size = 24.0
 
   config.font = wezterm.font_with_fallback({
     -- wez recommends against using patched nerd fonts because of mangled
@@ -70,7 +70,7 @@ M.setup = function(config, opts)
 
   config.font_dirs = { "fonts" }
 
-  config.font_size = opts.hidpi and 16.0 or 14.0
+  config.font_size = 16.0
 
   -- this is the default if using latest nightly
   --config.front_end = "WebGpu"
