@@ -1,8 +1,5 @@
 local wezterm = require("wezterm")
 
-local hidpi = wezterm.hostname() == "dotrakoun-mac"
-  or wezterm.hostname() == "potatoair"
-
 -- This table will hold the configuration.
 local config = {}
 
@@ -18,7 +15,7 @@ config.cursor_blink_ease_in = "Linear"
 config.cursor_blink_ease_out = "EaseIn"
 config.cursor_blink_rate = 400
 
-config.default_cursor_style = hidpi and "SteadyBlock" or "BlinkingBlock"
+config.default_cursor_style = "BlinkingBlock"
 
 config.enable_scroll_bar = true
 
@@ -44,7 +41,7 @@ config.window_padding = {
   bottom = "0.5cell",
 }
 
-require("dko/typography").setup(config, { hidpi = hidpi })
+require("dko/typography").setup(config)
 require("dko/mappings").setup(config)
 require("dko/theme").setup(config)
 require("dko/panes").setup()
