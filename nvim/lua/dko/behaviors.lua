@@ -9,52 +9,10 @@ local dkoformat = require("dko.utils.format")
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
-local groups = {}
-local augroup = function(name, opts)
-  if not groups[name] then
-    opts = opts or {}
-    groups[name] = vim.api.nvim_create_augroup(name, opts)
-  end
-  return groups[name]
-end
-
+local augroup = require("dko.utils.autocmd").augroup
 local autocmd = vim.api.nvim_create_autocmd
 
 if has_ui then
-  -- @TODO keep an eye on https://github.com/neovim/neovim/issues/23581
-  autocmd("WinLeave", {
-    desc = "Toggle close->open loclist so it is always under the correct window",
-    callback = function()
-      if vim.bo.buftype == "quickfix" then
-        -- Was in loclist already
-        return
-      end
-      local loclist_winid = vim.fn.getloclist(0, { winid = 0 }).winid
-      if loclist_winid == 0 then
-        return
-      end
-
-      local leaving = vim.api.nvim_get_current_win()
-      autocmd("WinEnter", {
-        callback = function()
-          if vim.bo.buftype == "quickfix" then
-            -- Left main window and went into the loclist
-            return
-          end
-          local entering = vim.api.nvim_get_current_win()
-          vim.o.eventignore = "all"
-          vim.api.nvim_set_current_win(leaving)
-          vim.cmd.lclose()
-          vim.cmd.lwindow()
-          vim.api.nvim_set_current_win(entering)
-          vim.o.eventignore = ""
-        end,
-        once = true,
-      })
-    end,
-    group = augroup("dkowindow"),
-  })
-
   autocmd("User", {
     pattern = "EscEscEnd",
     desc = "Close DKODoctor floats on <Esc><Esc>",
@@ -71,17 +29,6 @@ if has_ui then
         vim.cmd("tabdo wincmd =")
       end)
     end,
-    group = augroup("dkowindow"),
-  })
-
-  autocmd("QuitPre", {
-    desc = "Auto close corresponding loclist when quitting a window",
-    callback = function()
-      if vim.bo.filetype ~= "qf" then
-        vim.cmd("silent! lclose")
-      end
-    end,
-    nested = true,
     group = augroup("dkowindow"),
   })
 
@@ -111,28 +58,6 @@ if has_ui then
     pattern = "*.min.*",
     desc = "Disable syntax on minified files",
     command = "syntax manual",
-    group = augroup("dkoreading"),
-  })
-
-  -- https://vi.stackexchange.com/questions/11892/populate-a-git-commit-template-with-variables
-  autocmd("BufRead", {
-    pattern = "COMMIT_EDITMSG",
-    desc = "Replace tokens in commit-template",
-    callback = function()
-      local tokens = {}
-      tokens.BRANCH = vim
-        .system({ "git", "rev-parse", "--abbrev-ref", "HEAD" })
-        :wait().stdout
-        :gsub("\n", "")
-
-      local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-      for i, line in ipairs(lines) do
-        lines[i] = line:gsub("%$%{(%w+)%}", function(s)
-          return s:len() > 0 and tokens[s] or ""
-        end)
-      end
-      vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
-    end,
     group = augroup("dkoreading"),
   })
 
@@ -370,3 +295,6 @@ if has_ui then
       end
     end)
 end
+
+require("dko.behaviors.git")
+require("dko.behaviors.qfloclist")
