@@ -9,10 +9,11 @@ local hl = require("dko.heirline.utils").hl
 
 return {
   condition = function()
-    return not conditions.buffer_matches({
-      buftype = dkobuffer.SPECIAL_BUFTYPES,
-      filetype = dkobuffer.SPECIAL_FILETYPES,
-    })
+    return vim.bo.filetype ~= ""
+      and not conditions.buffer_matches({
+        buftype = dkobuffer.SPECIAL_BUFTYPES,
+        filetype = dkobuffer.SPECIAL_FILETYPES,
+      })
   end,
   provider = "  ",
   hl = function()

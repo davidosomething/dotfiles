@@ -12,9 +12,11 @@ vim.filetype.add({
   filename = {
     [".dockerignore"] = "gitignore",
     [".env"] = "dotenv",
-    [".eslintrc.json"] = "jsonc", -- assuming nx project.json
-    ["project.json"] = "jsonc", -- assuming nx project.json
+    [".eslintrc.json"] = "jsonc",
+    [".ignore"] = "gitignore",
     [".yamlfmt"] = "yaml",
+    [".yamllint"] = "yaml",
+    ["project.json"] = "jsonc", -- assuming nx project.json
   },
   pattern = {
     ["compose.y.?ml"] = "yaml.docker-compose",
@@ -30,4 +32,4 @@ vim.filetype.add({
   },
 })
 
--- check ../plugins/treesitter.lua to enable ts highlighting for new filetypes
+-- check ./plugins/treesitter.lua to enable ts highlighting for new filetypes
