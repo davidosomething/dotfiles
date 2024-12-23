@@ -37,3 +37,5 @@ GTAGS
 GRTAGS
 GPATH
 tags.log
+
+# vim: ft=gitignore
