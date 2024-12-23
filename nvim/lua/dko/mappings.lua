@@ -1341,7 +1341,8 @@ M.bind_toggleterm = function()
         end),
         winbar = settings.winbar,
       })
-    map("n", settings.keybind, function()
+
+    emap("n", settings.keybind, function()
       if vim.bo.buftype ~= "terminal" then
         original = vim.api.nvim_get_current_win()
       end
