@@ -15,6 +15,7 @@ return {
     -- Always has color, even on inactive pane
     hl = DIRTY,
   },
+
   {
     provider = function(self)
       if self.filepath == "" then

@@ -1,14 +1,6 @@
 local dkobuffer = require("dko.utils.buffer")
 local dkosettings = require("dko.settings")
 
-local Methods = vim.lsp.protocol.Methods
-
----@class LspAutocmdArgs
----@field buf number
----@field data { client_id: number }
----@field event "LspAttach"|"LspDetach"
----@field file string e.g. "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
-
 ---Map and return with unbind function
 ---@return function # unbind
 local function map(modes, lhs, rhs, opts)
@@ -40,12 +32,14 @@ local M = {}
 
 map("n", "<Esc><Esc>", function()
   vim.cmd.doautoall("User EscEscStart")
+
   -- Clear / search term
   vim.fn.setreg("/", "")
   -- Stop highlighting searches
   vim.cmd.nohlsearch()
-  vim.cmd.redraw({ bang = true })
+
   vim.cmd.doautoall("User EscEscEnd")
+  vim.cmd.redraw({ bang = true })
 end, { desc = "Clear UI" })
 
 -- ===========================================================================
@@ -425,7 +419,6 @@ local function handle_lsp_defintions()
 end
 
 -- Bindings for vim.lsp. Conflicts with bind_coc
--- LspAttach autocmd callback
 ---@param bufnr number
 M.bind_lsp = function(bufnr)
   if vim.b.did_bind_lsp then -- First LSP attached
@@ -474,26 +467,6 @@ M.bind_lsp = function(bufnr)
     vim.lsp.buf.rename()
   end, { desc = "LSP rename" })
 
-  local code_action = {}
-
-  code_action.tca = function()
-    local tca_ok, tca = pcall(require, "tiny-code-action")
-    if tca_ok then
-      tca.code_action()
-      return true
-    end
-    return false
-  end
-
-  code_action.ap = function()
-    local ap_ok, ap = pcall(require, "actions-preview")
-    if ap_ok then
-      ap.code_actions()
-      return true
-    end
-    return false
-  end
-
   lspmap("n", "<Leader><Leader>", function()
     vim.lsp.buf.code_action()
   end, { desc = "LSP Code Action" })
@@ -506,72 +479,6 @@ M.bind_lsp = function(bufnr)
       ---@diagnostic disable-next-line: missing-parameter
       or vim.lsp.buf.references()
   end, { desc = "LSP references" })
-end
-
----autocmd callback
----@param args LspAutocmdArgs
-M.bind_on_lspattach = function(args)
-  --[[
-    {
-      buf = 1,
-      data = {
-        client_id = 1
-      },
-      event = "LspAttach",
-      file = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua",
-      group = 11,
-      id = 13,
-      match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
-    }
-    ]]
-  local bufnr = args.buf
-  local client = vim.lsp.get_client_by_id(args.data.client_id)
-  if client then -- just to shut up type checking
-    M.bind_lsp(bufnr)
-  end
-end
-
----@param args LspAutocmdArgs
-M.unbind_on_lspdetach = function(args)
-  --[[
-    {
-      buf = 1,
-      data = {
-        client_id = 4
-      },
-      event = "LspDetach",
-      file = "/home/davidosomething/.dotfiles/README.md",
-      group = 13,
-      id = 23,
-      match = "/home/davidosomething/.dotfiles/README.md"
-    }
-  ]]
-  local bufnr = args.buf
-  local key = "b" .. bufnr
-
-  -- No mappings on buffer
-  if M.lsp_bindings[key] == nil then
-    vim.b.did_bind_lsp = false -- just in case
-    return
-  end
-
-  -- check for clients with definition support, since that's one of the primary
-  -- purposes of keybinding...
-  local clients = vim.lsp.get_clients({
-    bufnr = bufnr,
-    method = Methods.textDocument_definition,
-  })
-  if #clients == 0 then -- Last LSP attached
-    vim.notify(
-      ("No %s providers remaining. Unbinding %d lsp mappings"):format(
-        Methods.textDocument_definition,
-        #M.lsp_bindings[key]
-      ),
-      vim.log.levels.INFO,
-      { title = "[LSP]", render = "wrapped-compact" }
-    )
-    M.unbind_lsp(bufnr)
-  end
 end
 
 -- Bind "K" to

@@ -94,7 +94,11 @@ end
 ---Add formatter to vim.b.formatters and fire autocmd (e.g. update heirline)
 ---@param bufnr number
 ---@param name string like "lua_ls" or "efm"
-M.add_formatter = function(bufnr, name)
+---@param autoenable? boolean default true, autoenable when first formatter added
+M.add_formatter = function(bufnr, name, autoenable)
+  autoenable = autoenable ~= false
+
+  -- Already added
   if
     vim.b[bufnr].formatters ~= nil
     and vim.list_contains(vim.b[bufnr].formatters, name)
@@ -102,11 +106,16 @@ M.add_formatter = function(bufnr, name)
     return
   end
 
-  -- NOTE: You cannot table.insert(vim.b.formatters, name) -- need to have a
-  -- temp var and assign full table at once because the vim.b vars are special
+  -- NOTE: You cannot table.insert(vim.b.formatters, name).
+  -- Need to have a temp var and assign full table. vim.b vars are special
   local copy = vim.tbl_extend("force", {}, vim.b[bufnr].formatters or {})
   vim.b[bufnr].formatters = dkotable.append(copy, name)
-  vim.cmd.doautocmd("User", "FormattersChanged")
+
+  -- Auto-enable format on save if it was not explicitly disabled (false)
+  vim.b.enable_format_on_save = autoenable
+    and vim.b.enable_format_on_save ~= false
+
+  vim.cmd.doautocmd("User", "FormattersChanged") -- Should trigger ui redraw
 end
 
 ---Remove formatter from vim.b.formatters and fire autocmd (e.g. update heirline)
@@ -118,10 +127,12 @@ M.remove_formatter = function(bufnr, name)
   end
   for i, needle in ipairs(vim.b[bufnr].formatters) do
     if needle == name then
+      -- NOTE: You cannot table.remove(vim.b.formatters, i).
+      -- Need to have a temp var and assign full table. vim.b vars are special
       local copy = vim.tbl_extend("force", {}, vim.b[bufnr].formatters or {})
       table.remove(copy, i)
       vim.b[bufnr].formatters = copy
-      vim.cmd.doautocmd("User", "FormattersChanged")
+      vim.cmd.doautocmd("User", "FormattersChanged") -- Should trigger ui redraw
       return
     end
   end
@@ -130,51 +141,5 @@ end
 -- =============================================================================
 -- Autocmd handlers
 -- =============================================================================
-
--- LspAttach autocmd callback
-M.enable_on_lspattach = function(args)
-  local bufnr = args.buf
-  local clients = vim.lsp.get_clients({
-    id = args.data.client_id,
-    bufnr = bufnr,
-    method = Methods.textDocument_formatting,
-  })
-  if #clients == 0 then -- just to shut up type checking
-    return
-  end
-
-  -- Track formatters, non-exclusively, non-LSPs might add to this table
-  -- or fire the autocmd
-  local name = clients[1].name
-  M.add_formatter(bufnr, name)
-  vim.b.enable_format_on_save = true
-end
-
--- LspDetach autocmd callback
-M.disable_on_lspdetach = function(args)
-  -- was already disabled manually?
-  if not vim.b.enable_format_on_save then
-    return
-  end
-
-  local bufnr = args.buf
-  local detached_client_id = args.data.client_id
-
-  -- Unregister the client from formatters (and update heirline)
-  local detached_client = vim.lsp.get_client_by_id(detached_client_id)
-  if detached_client ~= nil then
-    local name = detached_client.name
-    M.remove_formatter(bufnr, name)
-  end
-
-  vim.b.enable_format_on_save = vim.b.formatters == nil or #vim.b.formatters > 0
-  if not vim.b.enable_format_on_save then
-    vim.notify(
-      "Format on save disabled, no capable clients attached",
-      vim.log.levels.INFO,
-      { title = "[LSP]", render = "wrapped-compact" }
-    )
-  end
-end
 
 return M

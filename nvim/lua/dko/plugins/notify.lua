@@ -79,15 +79,9 @@ return {
           WARN = icons.Warn,
         },
       })
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "EscEscEnd",
-        desc = "Dismiss notifications on <Esc><Esc>",
-        callback = function()
-          notify.dismiss({ silent = true, pending = true })
-        end,
-        group = vim.api.nvim_create_augroup("dkonvimnotify", {}),
-      })
+      require("dko.behaviors.escesc").add(function()
+        notify.dismiss({ silent = true, pending = true })
+      end, "Dismiss notifications on <Esc><Esc>")
     end,
   },
 }
