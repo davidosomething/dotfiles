@@ -1,27 +1,12 @@
 local dkomappings = require("dko.mappings")
 local dkosettings = require("dko.settings")
 local dkoformat = require("dko.utils.format")
-
--- ===========================================================================
--- Change vim behavior via autocommands
--- ===========================================================================
-
+local augroup = require("dko.utils.autocmd").augroup
+local autocmd = vim.api.nvim_create_autocmd
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
-local augroup = require("dko.utils.autocmd").augroup
-local autocmd = vim.api.nvim_create_autocmd
-
 if has_ui then
-  autocmd("User", {
-    pattern = "EscEscEnd",
-    desc = "Close DKODoctor floats on <Esc><Esc>",
-    callback = function()
-      require("dko.doctor").close_float()
-    end,
-    group = augroup("dkodoctor"),
-  })
-
   autocmd("VimResized", {
     desc = "Automatically resize windows in all tabpages when resizing Vim",
     callback = function()
@@ -86,19 +71,6 @@ if has_ui then
     end,
     group = augroup("dkoreading"),
   })
-
-  autocmd({ "BufNewFile", "BufRead", "BufFilePost" }, {
-    pattern = { "*.lua" },
-    desc = "Apply stylua.toml spacing if no editorconfig",
-    callback = function()
-      vim.schedule(function()
-        if not vim.b.editorconfig or vim.tbl_isempty(vim.b.editorconfig) then
-          require("dko.editing").from_stylua_toml()
-        end
-      end)
-    end,
-    group = augroup("dkoediting"),
-  })
 end
 
 -- yanky.nvim providing this
@@ -157,99 +129,9 @@ if has_ui then
     group = augroup("dkoheirline"),
   })
 
-  autocmd("User", {
-    pattern = "FormattersChanged",
-    desc = "Notify neovim a formatter has been added for the buffer",
-    callback = vim.schedule_wrap(function()
-      vim.cmd.redrawstatus({ bang = true })
-    end),
-    group = augroup("dkoformatter"),
-  })
-
-  -- https://github.com/neovim/neovim/blob/7a44231832fbeb0fe87553f75519ca46e91cb7ab/runtime/lua/vim/lsp.lua#L1529-L1533
-  -- LspAttach happens before on_attach, so can still use on_attach to do more stuff or
-  -- override this
-
-  autocmd("LspAttach", {
-    desc = "Bind LSP related mappings",
-    callback = dkomappings.bind_on_lspattach,
-    group = augroup("dkolsp"),
-  })
-
-  autocmd("LspAttach", {
-    desc = "Set flag to format on save when first capable LSP attaches to buffer",
-    callback = dkoformat.enable_on_lspattach,
-    group = augroup("dkolsp"),
-  })
-
-  autocmd("LspDetach", {
-    desc = "Unbind LSP related mappings on last client detach",
-    callback = dkomappings.unbind_on_lspdetach,
-    group = augroup("dkolsp"),
-  })
-
-  autocmd("LspDetach", {
-    desc = "Unset flag to format on save when last capable LSP detaches from buffer",
-    callback = dkoformat.disable_on_lspdetach,
-    group = augroup("dkolsp"),
-  })
-
-  autocmd("FileType", {
-    desc = "Set mappings/format on save for specific filetypes if coc.nvim is enabled",
-    callback = function(opts)
-      --- order matters here
-      if
-        dkosettings.get("coc.enabled")
-        and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
-      then
-        vim.cmd.CocStart()
-        dkomappings.bind_coc(opts)
-        --- @TODO move this to a tools-based registration
-        -- dkoformat.add_formatter("coc")
-        -- vim.b.enable_format_on_save = true
-      else
-        -- explicitly disable coc
-        vim.b.coc_enabled = 0
-        vim.b.coc_diagnostic_disable = 1
-        vim.b.coc_suggest_disable = 1
-      end
-      dkomappings.bind_snippy()
-      dkomappings.bind_completion(opts)
-      dkomappings.bind_hover(opts)
-    end,
-  })
-
-  autocmd("User", {
-    pattern = "EscEscEnd",
-    desc = "Close coc.nvim floats on <Esc><Esc>",
-    callback = function()
-      if dkosettings.get("coc.enabled") then
-        vim.fn["coc#float#close_all"]()
-      end
-    end,
-    group = augroup("dkolsp"),
-  })
-
-  autocmd({ "BufWritePre", "FileWritePre" }, {
-    desc = "Format with LSP on save",
-    callback = function()
-      -- callback gets arg
-      -- {
-      --   buf = 1,
-      --   event = "BufWritePre",
-      --   file = "nvim/lua/dko/behaviors.lua",
-      --   id = 127,
-      --   match = "/home/davidosomething/.dotfiles/nvim/lua/dko/behaviors.lua"
-      -- }
-      if not vim.b.enable_format_on_save then
-        return
-      end
-      dkoformat.run_pipeline({ async = false })
-    end,
-    group = augroup("dkolsp"),
-  })
-
+  -- ===========================================================================
   -- temporary fix, winbars not updating
+  -- ===========================================================================
 
   vim
     .iter({
@@ -297,4 +179,5 @@ if has_ui then
 end
 
 require("dko.behaviors.git")
+require("dko.behaviors.lsp")
 require("dko.behaviors.qfloclist")

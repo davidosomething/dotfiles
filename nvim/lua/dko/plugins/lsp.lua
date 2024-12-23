@@ -203,7 +203,6 @@ return {
         "coc-eslint", -- since it gives code actions unified with tsserver
         "coc-json",
         "coc-tsserver",
-        -- "coc-pretty-ts-errors" -- using format-ts-errors instead
       }
     end,
   },

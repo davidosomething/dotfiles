@@ -179,4 +179,8 @@ end, {
   complete = complete,
 })
 
+require("dko.behaviors.escesc").add(function()
+  M.close_float()
+end, "Close DKODoctor floats on <Esc><Esc>")
+
 return M
