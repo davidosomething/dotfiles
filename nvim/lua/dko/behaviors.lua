@@ -7,6 +7,17 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 if has_ui then
+  autocmd("ColorScheme", {
+    desc = "Clear heirline color cache",
+    callback = function()
+      local _, heirline = pcall(require, "heirline")
+      if heirline then
+        heirline.reset_highlights()
+      end
+    end,
+    group = augroup("dkoheirline"),
+  })
+
   autocmd("VimResized", {
     desc = "Automatically resize windows in all tabpages when resizing Vim",
     callback = function()
@@ -116,68 +127,6 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   end,
   group = augroup("dkosaving"),
 })
-
-if has_ui then
-  autocmd("ColorScheme", {
-    desc = "Clear heirline color cache",
-    callback = function()
-      local _, heirline = pcall(require, "heirline")
-      if heirline then
-        heirline.reset_highlights()
-      end
-    end,
-    group = augroup("dkoheirline"),
-  })
-
-  -- ===========================================================================
-  -- temporary fix, winbars not updating
-  -- ===========================================================================
-
-  vim
-    .iter({
-      "dko.heirline.diagnostics",
-      "dko.heirline.mode",
-    })
-    :map(function(name)
-      local ok, m = pcall(require, name)
-      if ok then
-        return m.update
-      end
-      require("dko.doctor").warn({
-        category = "behaviors.nvim",
-        message = ("[%s] Lua module `%s` not found"):format(
-          "behaviors.nvim",
-          name
-        ),
-      })
-      return {}
-    end)
-    :each(function(events)
-      if events and events[1] == "User" and events["pattern"] then
-        autocmd("User", {
-          group = events["group"],
-          pattern = events["pattern"],
-          desc = "FIX - heirline does not always update winbars",
-          callback = vim.schedule_wrap(function()
-            vim.print("xxx")
-            vim.cmd.redrawstatus({ bang = true })
-          end),
-        })
-      else
-        for _, event in ipairs(events or {}) do
-          local autocmd_exists = vim.fn.exists(("##%s"):format(event)) == 1
-          if autocmd_exists then
-            autocmd(event, {
-              desc = "FIX - heirline does not always update winbars",
-              callback = vim.schedule_wrap(function()
-                vim.cmd.redrawstatus({ bang = true })
-              end),
-            })
-          end
-        end
-      end
-    end)
-end
 
 require("dko.behaviors.git")
 require("dko.behaviors.lsp")

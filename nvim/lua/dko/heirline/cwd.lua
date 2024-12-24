@@ -1,8 +1,7 @@
-local uis = vim.api.nvim_list_uis()
-local ui = uis[1] or { width = 80 }
-
 return {
   provider = function(self)
+    local uis = vim.api.nvim_list_uis()
+    local ui = uis[1] or { width = 80 }
     local extraparts = {
       --2 + 1, -- search symbol
       --2 + self.search_contents:len(), -- term padding
