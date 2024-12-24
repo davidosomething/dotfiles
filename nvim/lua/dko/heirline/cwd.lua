@@ -20,8 +20,17 @@ return {
 
     local remaining = ui.width - extrachars
     local cwd = vim.fn.fnamemodify(vim.uv.cwd() or "", ":~")
-    local output = cwd:len() < remaining and cwd or vim.fn.pathshorten(cwd)
-    return ("  %s "):format(output)
+    local shortened = cwd
+    local dirs = vim.split(shortened, "/")
+    local longest = 1
+    for _, dir in pairs(dirs) do
+      longest = dir:len() > longest and dir:len() or longest
+    end
+    while longest > 0 and shortened:len() > remaining do
+      longest = longest - 1
+      shortened = vim.fn.pathshorten(cwd, longest)
+    end
+    return ("  %s "):format(shortened)
   end,
   hl = "StatusLineNC",
 }
