@@ -7,9 +7,10 @@ return {
   end,
   hl = "StatusLineNC",
 
+  require("dko.heirline.bufferstats"),
+
   require("dko.heirline.cwd"), -- uses branch
   require("dko.heirline.git"), -- uses branch
-  require("dko.heirline.bufferstats"),
 
   { provider = "%=" },
 
