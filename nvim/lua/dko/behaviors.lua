@@ -136,6 +136,7 @@ if has_ui then
   vim
     .iter({
       "dko.heirline.diagnostics",
+      "dko.heirline.mode",
     })
     :map(function(name)
       local ok, m = pcall(require, name)
@@ -152,7 +153,7 @@ if has_ui then
       return {}
     end)
     :each(function(events)
-      if events[1] == "User" and events["pattern"] then
+      if events and events[1] == "User" and events["pattern"] then
         autocmd("User", {
           group = events["group"],
           pattern = events["pattern"],
@@ -163,7 +164,7 @@ if has_ui then
           end),
         })
       else
-        for _, event in ipairs(events) do
+        for _, event in ipairs(events or {}) do
           local autocmd_exists = vim.fn.exists(("##%s"):format(event)) == 1
           if autocmd_exists then
             autocmd(event, {
