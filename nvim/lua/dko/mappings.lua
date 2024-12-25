@@ -981,7 +981,7 @@ end
 -- =============================================================================
 
 M.bind_oil = function()
-  map("n", "<A-o>", function()
+  map("n", "\\\\", function()
     local _, oil = pcall(require, "oil")
     if oil then
       oil.toggle_float()

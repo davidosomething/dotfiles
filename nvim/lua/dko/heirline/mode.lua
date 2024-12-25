@@ -70,7 +70,7 @@ return {
   end,
 
   provider = function(self)
-    return (" %s "):format(mode_names[self.mode])
+    return mode_names[self.mode]
   end,
 
   -- Same goes for the highlight. Now the foreground will change according to the current mode.

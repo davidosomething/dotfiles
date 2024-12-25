@@ -23,10 +23,7 @@ return {
 
     if cwd_relative.levels < 4 and cwd_relative.root:len() < remaining then
       if cwd_relative.levels == 0 then
-        if cwd_relative.b == "" then
-          return "[ᴄᴡᴅ]"
-        end
-        final = ("%s"):format(cwd_relative.b)
+        final = ("./%s"):format(cwd_relative.b)
       else
         local first = cwd_relative.b:sub(1, 1)
         --- if path starts with slash, it's completely rooted

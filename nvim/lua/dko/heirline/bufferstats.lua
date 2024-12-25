@@ -1,3 +1,5 @@
+local utils = require("heirline.utils")
+
 return {
   init = function(self)
     self.normal = require("dko.utils.buffers").get_normal()
@@ -6,18 +8,21 @@ return {
       return vim.bo[bufnr].modified
     end, self.normal)
   end,
-  hl = "StatusLineNC",
   {
     provider = function(self)
-      return (" 󰤌 %d"):format(#self.modified)
+      return ("󰤌 %d"):format(#self.modified)
     end,
     hl = function(self)
-      return #self.modified > 0 and "WarningMsg" or "StatusLineNC"
+      return {
+        fg = utils.get_highlight(
+          #self.modified > 0 and "WarningMsg" or "StatusLineNC"
+        ).fg,
+      }
     end,
   },
   {
     provider = function(self)
-      return ("/%d "):format(#self.normal)
+      return ("/%d"):format(#self.normal)
     end,
   },
 }
