@@ -1,5 +1,12 @@
+local utils = require("heirline.utils")
+
 return {
-  require("dko.heirline.mode"),
+  utils.surround({ "█", "" }, function()
+    return utils.get_highlight("StatusLine").bg
+  end, {
+    require("dko.heirline.mode"),
+  }),
+
   require("dko.heirline.searchterm"),
 
   -- this means that the statusline is cut here when there's not enough space
@@ -14,7 +21,11 @@ return {
   -- ruler
   {
     condition = require("heirline.conditions").is_active,
-    provider = "%5.(%c%) ",
-    hl = "StatusLine",
+    utils.surround({ "", "█" }, function()
+      return utils.get_highlight("StatusLine").bg
+    end, {
+      provider = "%5.(%c%)",
+      hl = "StatusLine",
+    }),
   },
 }

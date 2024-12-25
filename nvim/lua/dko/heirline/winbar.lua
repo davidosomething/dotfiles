@@ -22,7 +22,6 @@ return {
   hl = function()
     return hl()
   end,
-  require("dko.heirline.winbar-readonly"),
   require("dko.heirline.winbar-treesitter"),
   require("dko.heirline.winbar-filetype"),
   require("dko.heirline.winbar-filename"),

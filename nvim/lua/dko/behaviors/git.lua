@@ -25,4 +25,16 @@ if has_ui then
     end,
     group = augroup("dkogit"),
   })
+
+  -- Bug fix for stale branch name in tabline
+  -- Gitsigns updates the value of vim.g.gitsigns_head AFTER calling the autocmd
+  -- so sometimes we get a stale value depending on vim scheduler
+  -- https://github.com/lewis6991/gitsigns.nvim/blob/5f808b5e4fef30bd8aca1b803b4e555da07fc412/lua/gitsigns.lua#L60-L65
+  autocmd("User", {
+    pattern = "GitSignsUpdate",
+    callback = vim.schedule_wrap(function()
+      vim.cmd.redrawtabline()
+    end),
+    group = augroup("dkogit"),
+  })
 end
