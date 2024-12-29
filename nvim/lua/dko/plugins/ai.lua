@@ -32,9 +32,6 @@ return {
         inline = {
           adapter = "ollama",
         },
-        agent = {
-          adapter = "ollama",
-        },
       },
     },
   },
