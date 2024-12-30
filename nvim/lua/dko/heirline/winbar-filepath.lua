@@ -1,4 +1,5 @@
 local dkopath = require("dko.utils.path")
+local dkostring = require("dko.utils.string")
 local hl = require("dko.heirline.utils").hl
 
 -- =========================================================================
@@ -15,35 +16,30 @@ return {
     local extrachars = 3 + 3 + self.filetype_text:len()
     local remaining = win_width - extrachars
 
-    local final
     local cwd = vim.fn.fnamemodify(vim.uv.cwd() or "", ":~")
     local path = vim.fn.fnamemodify(self.filepath, ":~:h")
     local cwd_relative = dkopath.common_root(cwd, path)
-    local relative = vim.fn.fnamemodify(path, ":~:.") or ""
 
-    if cwd_relative.levels < 4 and cwd_relative.root:len() < remaining then
-      if cwd_relative.levels == 0 then
-        final = ("./%s"):format(cwd_relative.b)
-      else
-        local first = cwd_relative.b:sub(1, 1)
-        --- if path starts with slash, it's completely rooted
-        if first == "/" then
-          final = cwd_relative.b
-        else
-          final = ("(..%d)/%s"):format(cwd_relative.levels, cwd_relative.b)
-        end
-      end
-    elseif relative:len() < remaining then
-      final = relative
+    vim.b.cwd_relative_levels = cwd_relative.levels
+    vim.b.cwd_relative_b = cwd_relative.b
+
+    local final
+    local no_common_root = cwd_relative.root == ""
+    if no_common_root then
+      final = dkopath.fit(remaining, path)
     else
-      local len = 8
-      while len > 0 and type(final) ~= "string" do
-        local attempt = vim.fn.pathshorten(path, len)
-        final = attempt:len() < remaining and attempt
-        len = len - 2
-      end
-      if not final then
-        final = vim.fn.pathshorten(path, 1)
+      local in_cwd = cwd_relative.b == ""
+      if in_cwd then
+        final = "."
+      else
+        local up = cwd_relative.levels == 0 and "."
+          or ("…%d"):format(cwd_relative.levels)
+        local slash = dkostring.starts_with(cwd_relative.b, "/") and "" or "/"
+        final = ("%s%s%s"):format(
+          up,
+          slash,
+          dkopath.fit(remaining, cwd_relative.b)
+        )
       end
     end
     return ("in %s%s/ "):format("%<", final)
