@@ -13,7 +13,7 @@ return {
   end,
   provider = function(self)
     local win_width = vim.api.nvim_win_get_width(0)
-    local extrachars = 3 + 3 + self.filetype_text:len()
+    local extrachars = 3 + self.filetype_text:len()
     local remaining = win_width - extrachars
 
     local cwd = vim.fn.fnamemodify(vim.uv.cwd() or "", ":~")

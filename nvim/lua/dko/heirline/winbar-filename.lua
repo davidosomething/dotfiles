@@ -1,5 +1,5 @@
+local dkohl = require("dko.heirline.utils").hl
 local utils = require("heirline.utils")
-local hl = require("dko.heirline.utils").hl
 
 local DIRTY = { fg = utils.get_highlight("Todo").fg }
 
@@ -17,7 +17,7 @@ return {
     end,
     provider = " ",
     hl = function()
-      return hl("Special")
+      return dkohl("Special")
     end,
   },
 
@@ -37,7 +37,7 @@ return {
       return vim.fn.fnamemodify(self.filepath, ":t")
     end,
     hl = function()
-      return hl(vim.bo.modified and DIRTY or "StatusLine")
+      return dkohl(vim.bo.modified and DIRTY or "StatusLine")
     end,
   },
   { provider = " " },
