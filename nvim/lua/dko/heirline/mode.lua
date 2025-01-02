@@ -1,3 +1,5 @@
+local utils = require("heirline.utils")
+
 -- Now we define some dictionaries to map the output of mode() to the
 -- corresponding string and color. We can put these into `static` to compute
 -- them at initialisation time.
@@ -51,6 +53,25 @@ local mode_colors = {
   t = "red",
 }
 
+local function mode_hl()
+  local mode = vim.fn.mode(1):sub(1, 1):lower() -- get only the first mode character
+
+  -- My hardcoded settings
+  if mode == "n" then
+    return "StatusLine"
+  elseif mode == "c" then
+    return "DiffDelete"
+  elseif mode == "i" then
+    return "dkoStatusItem"
+  elseif mode == "r" then
+    return "dkoLineModeReplace"
+  elseif mode == "v" then
+    return "Cursor"
+  end
+
+  return { fg = mode_colors[mode] }
+end
+
 return {
   -- get vim current mode, this information will be required by the provider
   -- and the highlight functions, so we compute it only once per component
@@ -69,32 +90,25 @@ return {
     end
   end,
 
-  provider = function(self)
-    return mode_names[self.mode]
-  end,
-
-  -- Same goes for the highlight. Now the foreground will change according to the current mode.
-  hl = function(self)
-    local mode = self.mode:sub(1, 1):lower() -- get only the first mode character
-
-    -- My hardcoded settings
-    if mode == "n" then
-      return "StatusLine"
-    elseif mode == "c" then
-      return "DiffDelete"
-    elseif mode == "i" then
-      return "dkoStatusItem"
-    elseif mode == "r" then
-      return "dkoLineModeReplace"
-    elseif mode == "v" then
-      return "Cursor"
+  utils.surround({ "█", "" }, function()
+    local hl = mode_hl()
+    if type(hl) == "string" then
+      return utils.get_highlight(hl).bg
     end
+    return utils.get_highlight("StatusLine").bg
+  end, {
+    provider = function(self)
+      return mode_names[self.mode]
+    end,
 
-    return { fg = mode_colors[mode] }
-  end,
+    -- Same goes for the highlight. Now the foreground will change according to the current mode.
+    hl = function()
+      return mode_hl()
+    end,
 
-  -- Re-evaluate the component only on ModeChanged event!
-  -- This is not required in any way, but it's there, and it's a small
-  -- performance improvement.
-  update = { "ModeChanged", "TermLeave" },
+    -- Re-evaluate the component only on ModeChanged event!
+    -- This is not required in any way, but it's there, and it's a small
+    -- performance improvement.
+    update = { "ModeChanged", "TermLeave" },
+  }),
 }
