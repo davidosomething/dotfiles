@@ -6,30 +6,28 @@ local utils = require("heirline.utils")
 -- filetype icon and text
 -- =======================================================================
 
+local function hl()
+  if dkots.is_highlight_enabled() then
+    return {
+      bg = utils.get_highlight("dkoStatusKey").bg
+        or utils.get_highlight("StatusLine").bg,
+      fg = utils.get_highlight("StatusLine").fg,
+    }
+  end
+  return utils.get_highlight("DiffDelete")
+end
+
 return {
   condition = function()
     return vim.bo.filetype ~= ""
   end,
 
-  init = function(self)
-    self.bg = dkots.is_highlight_enabled()
-        and utils.get_highlight("dkoStatusKey").bg
-      or utils.get_highlight("DiffDelete").bg
-    self.fg = dkots.is_highlight_enabled()
-        and utils.get_highlight("StatusLine").fg
-      or utils.get_highlight("DiffDelete").fg
-    self.treesitter_active = {
-      fg = self.fg,
-      bg = self.bg,
-    }
-  end,
-
   utils.surround({ "█", "" }, function()
-    local bg = dkots.is_highlight_enabled()
-        and utils.get_highlight("dkoStatusKey").bg
-      or utils.get_highlight("DiffDelete").bg
     --- red if no treesitter
-    return dkohl(bg, utils.get_highlight("dkoStatusKey").bg)
+    local active = hl().bg
+    local inactive = utils.get_highlight("dkoStatusKey").bg
+      or utils.get_highlight("StatusLineNC").bg
+    return dkohl(active, inactive)
   end, {
     {
       condition = function(self)
@@ -38,12 +36,12 @@ return {
       provider = function(self)
         return self.icon
       end,
-      hl = function(self)
+      hl = function()
         local _, icons = pcall(require, "nvim-web-devicons")
         if icons then
           local _, color = icons.get_icon_color_by_filetype(vim.bo.filetype)
           if color then
-            return dkohl({ fg = color, bg = self.bg }, "dkoStatusKey")
+            return dkohl({ fg = color, bg = hl().bg }, "dkoStatusKey")
           end
         end
         return ""
@@ -56,8 +54,8 @@ return {
       provider = function(self)
         return (self.icon ~= "" and " " or "") .. self.filetype_text
       end,
-      hl = function(self)
-        return dkohl(self.treesitter_active, "dkoStatusKey")
+      hl = function()
+        return dkohl(hl(), "dkoStatusKey")
       end,
     },
   }),
