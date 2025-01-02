@@ -19,12 +19,15 @@ return {
     condition = function(self)
       return self.branch:len() > 0
     end,
-    update = { "User", pattern = "GitSignsUpdate", "DirChanged" },
     utils.surround({ "", "" }, function()
       return utils.get_highlight("StatusLine").bg
     end, {
       provider = function(self)
         return self.branch and (" %s"):format(self.branch)
+      end,
+      hl = function()
+        local hl = utils.get_highlight("StatusLine")
+        return { fg = hl.fg, bg = hl.bg }
       end,
     }),
   },

@@ -7,17 +7,6 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 if has_ui then
-  autocmd("ColorScheme", {
-    desc = "Clear heirline color cache",
-    callback = function()
-      local _, heirline = pcall(require, "heirline")
-      if heirline then
-        heirline.reset_highlights()
-      end
-    end,
-    group = augroup("dkoheirline"),
-  })
-
   autocmd("VimResized", {
     desc = "Automatically resize windows in all tabpages when resizing Vim",
     callback = function()

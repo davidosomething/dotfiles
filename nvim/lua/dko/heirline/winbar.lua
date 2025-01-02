@@ -28,5 +28,5 @@ return {
   require("dko.heirline.winbar-terminal"),
   { provider = "%=" },
   require("dko.heirline.formatters"),
-  -- require("dko.heirline.diagnostics"),
+  require("dko.heirline.diagnostics"),
 }
