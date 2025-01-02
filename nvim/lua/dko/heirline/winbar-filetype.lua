@@ -24,7 +24,7 @@ return {
     }
   end,
 
-  utils.surround({ "", "" }, function()
+  utils.surround({ "█", "" }, function()
     local bg = dkots.is_highlight_enabled()
         and utils.get_highlight("dkoStatusKey").bg
       or utils.get_highlight("DiffDelete").bg
