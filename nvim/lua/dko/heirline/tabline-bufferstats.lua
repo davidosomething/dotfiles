@@ -10,7 +10,7 @@ return {
   end,
   {
     provider = function(self)
-      return ("󰤌 %d"):format(#self.modified)
+      return (" 󰤌 %d"):format(#self.modified)
     end,
     hl = function(self)
       return {
@@ -23,6 +23,15 @@ return {
   {
     provider = function(self)
       return ("/%d"):format(#self.normal)
+    end,
+  },
+  {
+    provider = "█",
+    hl = function()
+      return {
+        fg = utils.get_highlight("StatusLineNC").bg,
+        bg = utils.get_highlight("StatusLine").bg,
+      }
     end,
   },
 }

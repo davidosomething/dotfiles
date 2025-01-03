@@ -90,7 +90,7 @@ return {
     end
   end,
 
-  utils.surround({ "█", "" }, function()
+  utils.surround({ "█", "█" }, function()
     local hl = mode_hl()
     if type(hl) == "string" then
       return utils.get_highlight(hl).bg

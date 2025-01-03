@@ -1,5 +1,3 @@
-local utils = require("heirline.utils")
-
 return {
   init = function(self)
     -- Need to check if is_git_repo because vim.g.gitsigns_head is stale if you
@@ -9,28 +7,9 @@ return {
 
   hl = "StatusLineNC",
 
-  utils.surround({ "█", "" }, function()
-    return utils.get_highlight("StatusLine").bg
-  end, require("dko.heirline.bufferstats")),
-
-  require("dko.heirline.cwd"), -- uses branch
-
-  {
-    condition = function(self)
-      return self.branch:len() > 0
-    end,
-    utils.surround({ "", "" }, function()
-      return utils.get_highlight("StatusLine").bg
-    end, {
-      provider = function(self)
-        return self.branch and (" %s"):format(self.branch)
-      end,
-      hl = function()
-        local hl = utils.get_highlight("StatusLine")
-        return { fg = hl.fg, bg = hl.bg }
-      end,
-    }),
-  },
+  require("dko.heirline.tabline-bufferstats"),
+  require("dko.heirline.tabline-cwd"), -- uses branch
+  require("dko.heirline.tabline-branch"), -- uses branch
 
   { provider = "%=" },
 
