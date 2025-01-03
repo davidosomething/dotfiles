@@ -22,16 +22,7 @@ return {
   },
   {
     provider = function(self)
-      return ("/%d"):format(#self.normal)
-    end,
-  },
-  {
-    provider = "█",
-    hl = function()
-      return {
-        fg = utils.get_highlight("StatusLineNC").bg,
-        bg = utils.get_highlight("StatusLine").bg,
-      }
+      return ("/%d "):format(#self.normal)
     end,
   },
 }

@@ -1,6 +1,6 @@
 local utils = require("heirline.utils")
 
-return utils.surround({ "█", "█" }, function()
+return utils.surround({ "█", "" }, function()
   return utils.get_highlight("StatusLine").bg
 end, {
   hl = function()
