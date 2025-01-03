@@ -1,5 +1,5 @@
 local dkoicons = require("dko.icons")
-local hl = require("dko.heirline.utils").hl
+local dkohl = require("dko.heirline.utils").hl
 
 -- polyfill as of https://github.com/neovim/neovim/pull/26807
 ---@param opts? { severity?: number }
@@ -41,7 +41,7 @@ return {
       return (" %s %d"):format(dkoicons.Error, self.errors)
     end,
     hl = function()
-      return hl("DiagnosticSignError")
+      return dkohl("DiagnosticSignError")
     end,
   },
   {
@@ -52,7 +52,7 @@ return {
       return (" %s %d"):format(dkoicons.Warn, self.warnings)
     end,
     hl = function()
-      return hl("DiagnosticSignWarn")
+      return dkohl("DiagnosticSignWarn")
     end,
   },
   {
@@ -63,7 +63,7 @@ return {
       return (" %s %d"):format(dkoicons.Info, self.info)
     end,
     hl = function()
-      return hl("DiagnosticSignInfo")
+      return dkohl("DiagnosticSignInfo")
     end,
   },
   {
@@ -74,7 +74,7 @@ return {
       return (" %s %d"):format(dkoicons.Hint, self.hints)
     end,
     hl = function()
-      return hl("DiagnosticSignHint")
+      return dkohl("DiagnosticSignHint")
     end,
   },
   {
@@ -82,7 +82,7 @@ return {
       return self.total == 0 and (" %s "):format(dkoicons.Ok) or " "
     end,
     hl = function()
-      return hl("dkoTextGood")
+      return dkohl("dkoTextGood")
     end,
   },
 }

@@ -1,5 +1,5 @@
 local smallcaps = require("dko.utils.string").smallcaps
-local hl = require("dko.heirline.utils").hl
+local dkohl = require("dko.heirline.utils").hl
 
 local hidden_filetypes = vim.tbl_extend("keep", {
   "markdown",
@@ -20,7 +20,7 @@ return {
       or smallcaps(vim.bo.filetype, { numbers = false })
   end,
   hl = function()
-    return hl()
+    return dkohl()
   end,
   require("dko.heirline.winbar-filetype"),
   require("dko.heirline.winbar-filename"),

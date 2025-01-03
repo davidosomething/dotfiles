@@ -7,7 +7,6 @@ return {
     condition = function(self)
       return self.search_contents and self.search_contents:len() > 0
     end,
-
     {
       provider = function(self)
         return (" %s "):format(self.search_contents)

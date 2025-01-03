@@ -1,6 +1,6 @@
 local dkopath = require("dko.utils.path")
 local dkostring = require("dko.utils.string")
-local hl = require("dko.heirline.utils").hl
+local dkohl = require("dko.heirline.utils").hl
 
 -- =========================================================================
 -- path
@@ -45,6 +45,6 @@ return {
     return ("in %s%s/ "):format("%<", final)
   end,
   hl = function()
-    return hl("Comment")
+    return dkohl("Comment")
   end,
 }
