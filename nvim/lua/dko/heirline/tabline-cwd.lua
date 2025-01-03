@@ -1,14 +1,4 @@
-local utils = require("heirline.utils")
-
-return utils.surround({ "█", "" }, function()
-  return utils.get_highlight("StatusLine").bg
-end, {
-  hl = function()
-    return {
-      fg = utils.get_highlight("StatusLineNC").fg,
-      bg = utils.get_highlight("StatusLine").bg,
-    }
-  end,
+return {
   provider = function(self)
     local uis = vim.api.nvim_list_uis()
     local ui = uis[1] or { width = 80 }
@@ -41,4 +31,4 @@ end, {
     end
     return (" %s"):format(shortened)
   end,
-})
+}

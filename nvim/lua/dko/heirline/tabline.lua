@@ -8,9 +8,10 @@ return {
   hl = "StatusLineNC",
 
   require("dko.heirline.tabline-bufferstats"),
+  { provider = " " },
   require("dko.heirline.tabline-cwd"), -- uses branch
+  { provider = "" },
   require("dko.heirline.tabline-branch"), -- uses branch
-
   { provider = "%=" },
 
   -- ===========================================================================
