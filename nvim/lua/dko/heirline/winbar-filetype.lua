@@ -2,15 +2,10 @@ local dkohl = require("dko.heirline.utils").hl
 local dkots = require("dko.utils.treesitter")
 local utils = require("heirline.utils")
 
--- =======================================================================
--- filetype icon and text
--- =======================================================================
-
 local function hl()
   if dkots.is_highlight_enabled() then
     return {
-      bg = utils.get_highlight("dkoStatusKey").bg
-        or utils.get_highlight("StatusLine").bg,
+      bg = utils.get_highlight("StatusLineNC").bg,
       fg = utils.get_highlight("StatusLine").fg,
     }
   end
@@ -22,11 +17,10 @@ return {
     return vim.bo.filetype ~= ""
   end,
 
-  utils.surround({ "█", "" }, function()
+  utils.surround({ "█", "█" }, function()
     --- red if no treesitter
     local active = hl().bg
-    local inactive = utils.get_highlight("dkoStatusKey").bg
-      or utils.get_highlight("StatusLineNC").bg
+    local inactive = utils.get_highlight("StatusLineNC").bg
     return dkohl(active, inactive)
   end, {
     {
@@ -41,7 +35,7 @@ return {
         if icons then
           local _, color = icons.get_icon_color_by_filetype(vim.bo.filetype)
           if color then
-            return dkohl({ fg = color, bg = hl().bg }, "dkoStatusKey")
+            return dkohl({ fg = color, bg = hl().bg }, "StatusLineNC")
           end
         end
         return ""
@@ -55,7 +49,7 @@ return {
         return (self.icon ~= "" and " " or "") .. self.filetype_text
       end,
       hl = function()
-        return dkohl(hl(), "dkoStatusKey")
+        return dkohl(hl(), "StatusLineNC")
       end,
     },
   }),
