@@ -22,7 +22,7 @@ return {
   },
   {
     provider = function(self)
-      return ("/%d "):format(#self.normal)
+      return ("/%d"):format(#self.normal)
     end,
   },
 }
