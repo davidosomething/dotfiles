@@ -157,44 +157,44 @@ return {
     },
   },
 
-  {
-    "davidosomething/coc-diagnostics-shim.nvim",
-    cond = has_ui and dkosettings.get("use_coc"),
-    dev = dev,
-    dependencies = "davidosomething/format-ts-errors.nvim",
-    opts = {
-      formatters = {
-        coctsserver = {
-          ---@diagnostic disable-next-line: unused-local
-          function(linter_name, item, formatted)
-            ---@type (fun(message: string):string) | nil
-            local prettifier = require("format-ts-errors")[item.code]
-            if not prettifier then
-              vim.schedule(function()
-                vim.print(
-                  ("format-ts-errors no formatter for [%d] %s"):format(
-                    item.code,
-                    item.text
-                  )
-                )
-              end)
-              return item.text
-            end
-            local prettified = prettifier(item.text)
-            return table.concat({
-              prettified,
-              "ꜰᴏʀᴍᴀᴛᴛᴇᴅ ᴡɪᴛʜ ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ",
-            }, "\n")
-          end,
-        },
-      },
-    },
-  },
+  -- {
+  --   "davidosomething/coc-diagnostics-shim.nvim",
+  --   cond = has_ui and dkosettings.get("use_coc"),
+  --   dev = dev,
+  --   dependencies = "davidosomething/format-ts-errors.nvim",
+  --   opts = {
+  --     formatters = {
+  --       coctsserver = {
+  --         ---@diagnostic disable-next-line: unused-local
+  --         function(linter_name, item, formatted)
+  --           ---@type (fun(message: string):string) | nil
+  --           local prettifier = require("format-ts-errors")[item.code]
+  --           if not prettifier then
+  --             vim.schedule(function()
+  --               vim.print(
+  --                 ("format-ts-errors no formatter for [%d] %s"):format(
+  --                   item.code,
+  --                   item.text
+  --                 )
+  --               )
+  --             end)
+  --             return item.text
+  --           end
+  --           local prettified = prettifier(item.text)
+  --           return table.concat({
+  --             prettified,
+  --             "ꜰᴏʀᴍᴀᴛᴛᴇᴅ ᴡɪᴛʜ ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ",
+  --           }, "\n")
+  --         end,
+  --       },
+  --     },
+  --   },
+  -- },
 
   -- Using this for tsserver specifically, faster results than nvim-lsp
   {
     "neoclide/coc.nvim",
-    branch = "release",
+    branch = "feat/sync-to-vim-diagnostic",
     cond = has_ui and dkosettings.get("use_coc"),
     dependencies = "davidosomething/coc-diagnostics-shim.nvim",
     init = function()
