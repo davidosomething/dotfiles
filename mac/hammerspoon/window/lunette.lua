@@ -6,6 +6,7 @@ print("== window.lunette")
 hs.loadSpoon("Lunette")
 
 spoon.Lunette:bindHotkeys({
+  cycleWidth = false,
   leftHalf = {
     { mc, "A" },
   },
