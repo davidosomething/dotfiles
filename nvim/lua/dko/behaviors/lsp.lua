@@ -95,15 +95,14 @@ autocmd("LspDetach", {
       method = Methods.textDocument_definition,
     })
     if #clients == 0 then -- Last LSP attached
-      vim.notify(
-        ("No %s providers remaining. Unbinding %d lsp mappings"):format(
-          Methods.textDocument_definition,
-          dkomappings.lsp_bindings[key]
-        ),
-        vim.log.levels.INFO,
-        { title = "[LSP]", render = "wrapped-compact" }
-      )
-      dkomappings.unbind_lsp(bufnr)
+      if vim.fn.bufwinnr(bufnr) > -1 then
+        vim.notify(
+          ("No %s providers remaining."):format(Methods.textDocument_definition),
+          vim.log.levels.INFO,
+          { title = "[LSP]", render = "wrapped-compact" }
+        )
+        dkomappings.unbind_lsp(bufnr)
+      end
     end
   end,
   group = augroup("dkolsp"),
