@@ -17,6 +17,9 @@ return {
 
       -- https://github.com/ibhagwan/fzf-lua/blob/main/doc/fzf-lua.txt#L643
       fzf.setup({
+        -- too slow, especially for large repo
+        git_icons = false,
+
         winopts = {
           height = 0.90, -- window height
           width = 0.90, -- window width
