@@ -27,10 +27,11 @@ local settings = {
     show_buftype = false,
   },
 
-  --- @type ''|'dressing'|'snacks'
-  input = "dressing", -- snacks has issues with treesitter
+  --- @type ''|'snacks'
+  input = "snacks", -- snacks has issues with treesitter
 
-  --- @type ''|'dressing'|'fzf'|'snacks'
+  --- Also the picker for vim.lsp.buf.code_action() / <leader><leader>
+  --- @type ''|'fzf'|'snacks'
   select = "fzf",
 }
 
