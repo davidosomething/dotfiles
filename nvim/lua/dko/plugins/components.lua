@@ -22,28 +22,8 @@ return {
           only_scope = true, -- only show indent guides of the scope
         },
       },
-      -- =======================================================================
-      -- vim.ui.input replacement
       input = { enabled = input == "snacks" },
-    },
-  },
-
-  -- Replace vim.ui.input used for rename
-  -- Replace vim.ui.select, used for code action and some other things,
-  -- but I'm probably using one of the code action specific plugins with preview
-  -- https://github.com/stevearc/dressing.nvim
-  {
-    "stevearc/dressing.nvim",
-    cond = has_ui and input == "dressing" or select == "dressing",
-    event = "VeryLazy",
-    opts = {
-      input = {
-        mappings = {
-          n = {
-            ["q"] = "Close",
-          },
-        },
-      },
+      picker = { ui_select = select == "snacks" },
     },
   },
 
