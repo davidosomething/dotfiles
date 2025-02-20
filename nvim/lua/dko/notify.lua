@@ -1,4 +1,5 @@
 local dkostring = require("dko.utils.string")
+local dkosettings = require("dko.settings")
 
 -- =====================================================================
 -- Override vim.notify builtin
@@ -44,17 +45,30 @@ local override = function(msg, level, opts)
     end
   end
 
-  local nok, notify = pcall(require, "notify")
-  if nok then
-    if opts.title and dkostring.starts_with(opts.title, "[LSP]") then
-      opts.render = "wrapped-compact"
-    end
+  if dkosettings.get("notify") == "snacks" then
     vim.schedule(function()
-      notify(msg, level, opts)
+      _G["Snacks"].notifier.notify(msg, level, opts)
     end)
     return
+  else
+    local nok, notify = pcall(require, "notify")
+    if nok then
+      if opts.title and dkostring.starts_with(opts.title, "[LSP]") then
+        opts.render = "wrapped-compact"
+      end
+      vim.schedule(function()
+        notify(msg, level, opts)
+      end)
+      return
+    end
   end
 
   vim.print(("%s: %s"):format(opts.title, msg))
 end
 vim.notify = override
+
+if dkosettings.get("notify") == "snacks" then
+  require("dko.behaviors.escesc").add(function()
+    _G["Snacks"].notifier.hide()
+  end, "Dismiss notifications on <Esc><Esc>")
+end
