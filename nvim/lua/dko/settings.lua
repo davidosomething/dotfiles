@@ -30,6 +30,9 @@ local settings = {
   --- @type ''|'snacks'
   input = "snacks", -- snacks has issues with treesitter
 
+  --- @type ''|'notify'|'snacks'
+  notify = 'snacks',
+
   --- Also the picker for vim.lsp.buf.code_action() / <leader><leader>
   --- @type ''|'fzf'|'snacks'
   select = "fzf",

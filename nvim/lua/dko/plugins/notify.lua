@@ -1,7 +1,11 @@
-local icons = require("dko.icons")
+local dkosettings = require("dko.settings")
+local dkoicons = require("dko.icons")
+local dkoescesc = require("dko.behaviors.escesc")
 
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
+
+local notifier = dkosettings.get("notify")
 
 return {
   -- Let terminal handle notification via OSC 777, persists until closed
@@ -18,12 +22,12 @@ return {
   --       hist_command = "TNotifications",
   --       -- or set `icons = false` to disable all icons
   --       icons = {
-  --         TRACE = icons.Trace,
-  --         DEBUG = icons.Debug,
-  --         INFO = icons.Info,
-  --         WARN = icons.Warn,
-  --         ERROR = icons.Error,
-  --         OFF = icons.Off,
+  --         TRACE = dkoicons.Trace,
+  --         DEBUG = dkoicons.Debug,
+  --         INFO = dkoicons.Info,
+  --         WARN = dkoicons.Warn,
+  --         ERROR = dkoicons.Error,
+  --         OFF = dkoicons.Off,
   --       },
   --       hl_groups = {
   --         TRACE = "DiagnosticFloatingHint",
@@ -37,6 +41,13 @@ return {
   --   end,
   -- },
 
+  {
+    "folke/snacks.nvim",
+    opts = {
+      notifier = { enabled = notifier == "snacks" },
+    },
+  },
+
   -- https://github.com/j-hui/fidget.nvim
   {
     "j-hui/fidget.nvim",
@@ -44,15 +55,9 @@ return {
     config = function()
       local fidget = require("fidget")
       fidget.setup()
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "EscEscEnd",
-        desc = "Dismiss notifications on <Esc><Esc>",
-        callback = function()
-          fidget.notification.clear()
-        end,
-        group = vim.api.nvim_create_augroup("dkofidget", {}),
-      })
+      dkoescesc.add(function()
+        fidget.notification.clear()
+      end, "Dismiss notifications on <Esc><Esc>")
     end,
   },
 
@@ -60,7 +65,7 @@ return {
   -- https://github.com/rcarriga/nvim-notify
   {
     "rcarriga/nvim-notify",
-    cond = has_ui,
+    cond = has_ui and notifier == "notify",
     lazy = false,
     priority = 1000,
     config = function()
@@ -72,14 +77,14 @@ return {
         timeout = 2500,
         stages = "static",
         icons = {
-          DEBUG = icons.Debug,
-          ERROR = icons.Error,
-          INFO = icons.Info,
-          TRACE = icons.Trace,
-          WARN = icons.Warn,
+          DEBUG = dkoicons.Debug,
+          ERROR = dkoicons.Error,
+          INFO = dkoicons.Info,
+          TRACE = dkoicons.Trace,
+          WARN = dkoicons.Warn,
         },
       })
-      require("dko.behaviors.escesc").add(function()
+      dkoescesc.add(function()
         notify.dismiss({ silent = true, pending = true })
       end, "Dismiss notifications on <Esc><Esc>")
     end,
