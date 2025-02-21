@@ -4,6 +4,7 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
+local dkodiagnostic = require("dko.diagnostic")
 local dkosettings = require("dko.settings")
 local dkolsp = require("dko.utils.lsp")
 local dkotools = require("dko.tools")
@@ -151,44 +152,33 @@ return {
     "davidosomething/format-ts-errors.nvim",
     cond = has_ui and dkosettings.get("use_coc"),
     dev = dev,
-    opts = {
-      add_markdown = false,
-      start_indent_level = 0,
-    },
-  },
-
-  {
-    "davidosomething/coc-diagnostics-shim.nvim",
-    cond = has_ui and dkosettings.get("use_coc"),
-    dev = dev,
-    dependencies = "davidosomething/format-ts-errors.nvim",
-    opts = {
-      formatters = {
-        coctsserver = {
-          ---@diagnostic disable-next-line: unused-local
-          function(linter_name, item, formatted)
-            ---@type (fun(message: string):string) | nil
-            local prettifier = require("format-ts-errors")[item.code]
-            if not prettifier then
-              vim.schedule(function()
-                vim.print(
-                  ("format-ts-errors no formatter for [%d] %s"):format(
-                    item.code,
-                    item.text
-                  )
-                )
-              end)
-              return item.text
-            end
-            local prettified = prettifier(item.text)
-            return table.concat({
-              prettified,
-              "ꜰᴏʀᴍᴀᴛᴛᴇᴅ ᴡɪᴛʜ ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ",
-            }, "\n")
-          end,
-        },
-      },
-    },
+    config = function()
+      local f = require("format-ts-errors")
+      f.setup({
+        add_markdown = false,
+        start_indent_level = 0,
+      })
+      -- register a new message formatter for tsserver
+      dkodiagnostic.message_formatters["tsserver"] = function(diagnostic)
+        local formatter = f[diagnostic.code]
+        if not formatter then
+          vim.schedule(function()
+            vim.print(
+              ("format-ts-errors no formatter for [%d] %s"):format(
+                diagnostic.code,
+                diagnostic.message
+              )
+            )
+          end)
+          return diagnostic.message
+        end
+        local formatted = formatter(diagnostic.message)
+        return table.concat({
+          formatted,
+          "==== ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ ====",
+        }, "\n")
+      end
+    end,
   },
 
   -- Using this for tsserver specifically, faster results than nvim-lsp
@@ -196,7 +186,6 @@ return {
     "neoclide/coc.nvim",
     branch = "release",
     cond = has_ui and dkosettings.get("use_coc"),
-    dependencies = "davidosomething/coc-diagnostics-shim.nvim",
     init = function()
       vim.g.coc_start_at_startup = true
       vim.g.coc_global_extensions = {
