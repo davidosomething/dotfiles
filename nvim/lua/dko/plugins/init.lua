@@ -64,6 +64,15 @@ return {
     --- opts will be merged from other specs, e.g. from
     --- ./indent.lua
     --- ./components.lua
+    opts = {
+      styles = {
+        notification = {
+          wo = {
+            winblend = 0,
+          },
+        },
+      },
+    },
     config = true,
     init = function()
       vim.g.snacks_animate = false
