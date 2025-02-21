@@ -1,42 +1,49 @@
--- Observable settings object
-
 local dkoobject = require("dko.utils.object")
 
-local settings = {
-  ---@type "none" | "single" | "double" | "shadow" | "rounded"
-  border = "rounded",
-  colors = {
-    -- set in ./plugins/colorscheme.lua
-    --   dark = "meh",
-    --   light = "zenbones",
-  },
-  coc = {
-    enabled = true,
-    fts = vim.tbl_extend(
-      "force",
-      require("dko.utils.jsts").fts,
-      { "json", "jsonc" }
-    ),
-  },
-  diagnostics = {
-    goto_float = true,
-  },
-  ---@type 'fzf' | 'telescope'
-  finder = "fzf",
-  heirline = {
-    show_buftype = false,
-  },
+-- Observable settings object
+local settings = {}
 
-  --- @type ''|'snacks'
-  input = "snacks", -- snacks has issues with treesitter
+---@type "none" | "single" | "double" | "shadow" | "rounded"
+settings.border = "rounded"
 
-  --- @type ''|'notify'|'snacks'
-  notify = 'snacks',
-
-  --- Also the picker for vim.lsp.buf.code_action() / <leader><leader>
-  --- @type ''|'fzf'|'snacks'
-  select = "fzf",
+settings.colors = {
+  -- set in ./plugins/colorscheme.lua
+  --   dark = "meh",
+  --   light = "zenbones",
 }
+
+settings.coc = {
+  enabled = true,
+  fts = vim.tbl_extend(
+    "force",
+    require("dko.utils.jsts").fts,
+    { "json", "jsonc" }
+  ),
+}
+
+settings.diagnostics = {
+  goto_float = true,
+}
+
+---@type 'fzf' | 'telescope'
+settings.finder = "fzf"
+
+settings.heirline = {
+  show_buftype = false,
+}
+
+--- @type ''|'snacks'
+settings.input = "snacks" -- snacks has issues with treesitter
+
+--- vim.print or Snacks.notifier.notify()
+--- @type ''|'snacks'
+settings.notify = "snacks"
+
+--- Also the picker for vim.lsp.buf.code_action() / <leader><leader>
+--- @type ''|'fzf'|'snacks'
+settings.select = "fzf"
+
+-- =============================================================================
 
 local M = {}
 
