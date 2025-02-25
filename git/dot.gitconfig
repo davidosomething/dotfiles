@@ -62,6 +62,7 @@
 
 [diff]
 	algorithm = histogram
+	colorMoved = plain
 	compactionHeuristic = true
 	renames = true
 	renameLimit = 12650
@@ -81,6 +82,7 @@
 	defaultBranch = main
 
 [push]
+	autoSetupRemote = true
 	default = simple
 
 [rebase]
@@ -88,6 +90,9 @@
 
 [rerere]
 	enabled = 1
+
+[tag]
+	sort = version:refname
 
 # ============================================================================
 # Programs (assumes may be overridden by OS settings)
