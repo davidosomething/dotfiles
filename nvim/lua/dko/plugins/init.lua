@@ -50,7 +50,7 @@ return {
       -- location = { suffix = "l" },
       -- oldfile = { suffix = "o" },
       -- quickfix = { suffix = "q" },
-      -- treesitter = { suffix = "t" },
+      treesitter = { suffix = "n" }, -- n for node, default was t, using it for tab
       undo = { suffix = BRACKETED_DISABLED }, -- i'm using for url
       window = { suffix = BRACKETED_DISABLED }, -- broken going to unlisted
       yank = { suffix = BRACKETED_DISABLED }, -- confusing
