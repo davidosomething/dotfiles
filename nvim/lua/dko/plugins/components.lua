@@ -47,6 +47,12 @@ return {
         return package.loaded["nvim-web-devicons"]
       end
     end,
-    config = true,
+    opts = {
+      file = {
+        -- bad glyph for maple mono
+        -- https://github.com/echasnovski/mini.icons/blob/ec61af6e606fc89ee3b1d8f2f20166a3ca917a36/lua/mini/icons.lua#L932C36-L932C37
+        [".prettierignore"] = { glyph = "", hl = "MiniIconsOrange" },
+      },
+    },
   },
 }
