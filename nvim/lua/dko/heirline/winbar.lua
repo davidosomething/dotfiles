@@ -1,7 +1,8 @@
 local smallcaps = require("dko.utils.string").smallcaps
 local dkohl = require("dko.heirline.utils").hl
+local dkotable = require("dko.utils.table")
 
-local hidden_filetypes = vim.tbl_extend("keep", {
+local hidden_filetypes = dkotable.concat({
   "markdown",
 }, require("dko.utils.jsts").fts)
 
