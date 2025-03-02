@@ -6,6 +6,8 @@
   // since https://github.com/neoclide/coc.nvim/pull/5236
   "diagnostic.displayByVimDiagnostic": true,
 
+  "diagnostic.refreshOnInsertMode": true,
+
   "diagnostic.hintSign": "",
   "diagnostic.infoSign": "⚑",
   "diagnostic.warningSign": "",
