@@ -19,6 +19,8 @@ return {
       notifier = {
         enabled = notifier == "snacks",
         style = "compact",
+        width = { min = 56, max = 0.4 },
+        margin = { top = 1, right = 1, bottom = 2 },
       },
     },
   },
