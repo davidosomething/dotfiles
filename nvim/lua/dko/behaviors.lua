@@ -1,6 +1,3 @@
-local dkomappings = require("dko.mappings")
-local dkosettings = require("dko.settings")
-local dkoformat = require("dko.utils.format")
 local augroup = require("dko.utils.autocmd").augroup
 local autocmd = vim.api.nvim_create_autocmd
 local uis = vim.api.nvim_list_uis()

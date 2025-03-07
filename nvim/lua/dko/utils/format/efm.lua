@@ -30,7 +30,7 @@ M.format = function(opts)
 
   if not opts.hide_notification then
     local languages = client.config.settings.languages
-    local configs = languages[vim.bo.filetype]
+    local configs = languages and languages[vim.bo.filetype] or {}
     local formatters = table.concat(
       vim
         .iter(configs)
@@ -101,13 +101,12 @@ M.format_with = function(name, opts)
     return false
   end
 
-  ---@type (EfmFormatter|EfmLinter)[]
   local original = client.config.settings.languages
   local only = configs
 
   -- Set to only the efm tool we named
   client.config.settings.languages = only
-  client.notify(
+  client:notify(
     Methods.workspace_didChangeConfiguration,
     { settings = client.config.settings }
   )
@@ -122,7 +121,7 @@ M.format_with = function(name, opts)
 
   -- Restore original config
   client.config.settings.languages = original
-  client.notify(
+  client:notify(
     Methods.workspace_didChangeConfiguration,
     { settings = client.config.settings }
   )

@@ -58,8 +58,9 @@ M.run_pipeline = function(options)
 
   local names = {}
   options = vim.tbl_deep_extend("force", options or {}, {
+    ---@param client vim.lsp.Client
     filter = function(client)
-      if not client.supports_method(Methods.textDocument_formatting) then
+      if not client:supports_method(Methods.textDocument_formatting) then
         return false
       end
 
