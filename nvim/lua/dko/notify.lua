@@ -60,4 +60,5 @@ if dkosettings.get("notify") == "snacks" then
   dkoescesc.add(function()
     _G["Snacks"].notifier.hide()
   end, "Dismiss notifications on <Esc><Esc>")
+  require("dko.mappings").bind_snacks_notifier()
 end

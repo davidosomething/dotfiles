@@ -311,19 +311,6 @@ map("i", "<S-Tab>", "<C-d>", {
 -- Diagnostic mappings
 -- ===========================================================================
 
--- override default mapping with float enabled
-map("n", "[d", function()
-  vim.diagnostic.goto_prev({
-    float = dkosettings.get("diagnostics.goto_float"),
-  })
-end, { desc = "Go to prev diagnostic and open float" })
--- override default mapping with float enabled
-map("n", "]d", function()
-  vim.diagnostic.goto_next({
-    float = dkosettings.get("diagnostics.goto_float"),
-  })
-end, { desc = "Go to next diagnostic and open float" })
-
 -- @TODO start using <c-w><c-d> as of https://github.com/neovim/neovim/commit/73034611c25d16df5e87c8afb2d339a03a91bd0d/
 map("n", "<C-W>d", function()
   vim.diagnostic.open_float()
@@ -1108,6 +1095,19 @@ M.bind_fzf = function()
       cwd = vim.fn.stdpath("config"),
     })
   end, { desc = "fzf: nvim/ files" })
+end
+
+-- =============================================================================
+-- Plugin: snacks.nvim
+-- =============================================================================
+
+M.bind_snacks_notifier = function()
+  map("n", "<A-n>", function()
+    _G["Snacks"].notifier.show_history()
+  end, {
+    desc = "Open the snacks notifier history window",
+    nowait = true,
+  })
 end
 
 -- ===========================================================================

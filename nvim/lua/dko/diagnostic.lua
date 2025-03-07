@@ -1,4 +1,5 @@
 local dkoicons = require("dko.icons")
+local dkosettings = require("dko.settings")
 local dkostring = require("dko.utils.string")
 local smallcaps = dkostring.smallcaps
 
@@ -95,6 +96,10 @@ vim.diagnostic.config({
 
   -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
   virtual_text = false,
+
+  jump = {
+    float = dkosettings.get("diagnostics.goto_float"),
+  },
 
   float = {
     border = require("dko.settings").get("border"),
