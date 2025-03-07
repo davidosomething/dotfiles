@@ -20,9 +20,7 @@ return {
         go_prev_heading = "[[", -- (string|boolean) set cursor to previous section heading
       },
       on_attach = function(bufnr)
-        local map = vim.keymap.set
-        local opts = { buffer = bufnr }
-        map("n", "<c-x>", "<Cmd>MDTaskToggle<CR>", opts)
+        require("dko.mappings").bind_markdown(bufnr)
       end,
     },
   },
