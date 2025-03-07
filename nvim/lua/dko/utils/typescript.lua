@@ -27,7 +27,7 @@ M.go_to_source_definition = function(name, command)
 
   local position_params =
     vim.lsp.util.make_position_params(0, client.offset_encoding)
-  return client.request(Methods.workspace_executeCommand, {
+  return client:request(Methods.workspace_executeCommand, {
     command = command,
     arguments = { position_params.textDocument.uri, position_params.position },
   }, definition_handler, 0)
@@ -56,12 +56,7 @@ M.ts_ls.config = {
   end,
 
   handlers = {
-    [Methods.textDocument_publishDiagnostics] = function(
-      _,
-      result,
-      ctx,
-      config
-    )
+    [Methods.textDocument_publishDiagnostics] = function(_, result, ctx)
       if not result.diagnostics then
         return
       end
@@ -83,7 +78,7 @@ M.ts_ls.config = {
         end
       end
 
-      vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+      vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx)
     end,
   },
 
