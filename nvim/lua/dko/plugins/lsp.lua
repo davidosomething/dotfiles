@@ -185,9 +185,7 @@ return {
   {
     "neoclide/coc.nvim",
     branch = "release",
-    cond = has_ui
-      and dkosettings.get("use_coc")
-      and vim.fn.executable("node") == 1,
+    cond = has_ui and dkosettings.get("use_coc"),
     init = function()
       vim.g.coc_start_at_startup = true
       vim.g.coc_global_extensions = {
