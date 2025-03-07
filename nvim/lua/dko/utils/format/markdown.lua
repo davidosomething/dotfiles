@@ -1,5 +1,3 @@
-local toast = require("dko.utils.notify").toast
-
 ---@type string
 local FALLBACK_FORMATTER = "" -- "prettier"
 
