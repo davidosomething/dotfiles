@@ -94,25 +94,28 @@ add-zsh-hook precmd __dko_prompt::precmd::state
 
 # Actual prompt (single line prompt)
 __dko_prompt() {
-  PS1=''
+  # Send OSC 133 start of prompt so we get special features like Neovim [[ ]]
+  # bindings to jump to prev/prompt in scrollback
+  # See https://github.com/neovim/neovim/pull/32771/files
+  # See https://sw.kovidgoyal.net/kitty/shell-integration/#how-it-works
+  # See https://gitlab.freedesktop.org/Per_Bothner/specifications/-/blob/master/proposals/prompts-data/shell-integration.zsh
+  # See https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
+  # \e is same as \033, \007 same as BEL, so ESC A BEL
+  PS1=$'%{\e]133;A;k=i\a%}'
 
-  # Time
-  #PS1+='%f'
-
-  # VI mode
-  PS1+='${DKO_PROMPT_VIMODE}'
-
-  PS1+='%{$reset_color%} '
-
-  # VCS
+  PS1+='${DKO_PROMPT_VIMODE}%{$reset_color%} '
   PS1+='${vcs_info_msg_0_}'
-
-  # Continuation mode
-  PS2="$PS1"
-  PS2+='%F{green}.%f '
-
   # Symbol on PS1 only - NOT on PS2 though
   PS1+='%F{yellow}%#%f %{$reset_color%}'
+
+  # Send OSC 133 end of prompt
+  PS1+=$'%{\e]133;B;\a%}'
+
+  # Continuation mode
+  PS2=$'%{\e]133;A;k=s\a%}'
+  PS2+='${DKO_PROMPT_VIMODE}%{$reset_color%} '
+  PS2+='%F{green}.%f '
+  PS2+=$'%{\e]133;B;\a%}'
 
   # Exit code if non-zero
   RPROMPT='%F{red}%(?..[%?])'
