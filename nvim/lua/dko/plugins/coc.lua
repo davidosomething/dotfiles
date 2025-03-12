@@ -46,16 +46,12 @@ return {
     branch = "release",
     cond = has_ui and dkosettings.get("use_coc"),
     init = function()
-      --- Look for watchman and report if not found
-      local on_exit = function(obj)
-        if obj.code > 0 then
-          require("dko.doctor").warn({
-            category = "coc",
-            message = "`watchman` not found (for coc.nvim)",
-          })
-        end
+      if vim.fn.executable("watchman") == 0 then
+        require("dko.doctor").warn({
+          category = "coc",
+          message = "[coc] `watchman` not found",
+        })
       end
-      vim.system({ "command", "-v", "watchman" }, { text = true }, on_exit)
 
       vim.g.coc_start_at_startup = true
       vim.g.coc_global_extensions = {
