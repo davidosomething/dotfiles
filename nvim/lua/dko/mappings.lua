@@ -145,14 +145,18 @@ map("n", "<F1>", function()
   local help = require("dko.utils.help")
   local cexpr = vim.fn.expand("<cexpr>")
   local res = help.cexpr(cexpr)
-  vim.print({ cexpr, res })
+  if vim.env.NVIM_DEV ~= nil then
+    vim.print({ cexpr, res })
+  end
   if res and pcall(vim.cmd.help, res.match) then
     return
   end
 
   local line = vim.api.nvim_get_current_line()
   res = help.line(line)
-  vim.print({ line, res })
+  if vim.env.NVIM_DEV ~= nil then
+    vim.print({ line, res })
+  end
   if res then
     vim.cmd.help(res.match)
   end

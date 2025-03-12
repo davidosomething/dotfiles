@@ -56,14 +56,18 @@ M.cexpr = function(haystack)
   if
     haystack:find("vim%.api")
     or haystack:find("vim%.diagnostic")
+    or haystack:find("vim%.env")
     or haystack:find("vim%.keymap")
     or haystack:find("vim%.lsp")
+    or haystack:find("vim%.notify")
+    or haystack:find("vim%.print")
+    or haystack:find("vim%.system")
   then
     -- vim.xyz.this(abc) -> vim.xyz.this
     match = haystack:gsub("(vim%..-)%(.*$", "%1")
     vim.notify("match adkl")
     return {
-      group = "vim.api|diagnostic|keymap|lsp",
+      group = "vim.[exact]",
       haystack = haystack,
       match = match,
     }
