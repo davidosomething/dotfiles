@@ -66,6 +66,7 @@
   "javascript.autoClosingTags": false,
   "javascript.preferGoToSourceDefinition": true,
   "typescript.autoClosingTags": false,
+  "typescript.format.semicolons": "ignore",
   "typescript.inlayHints.enumMemberValues.enabled": true,
   "typescript.inlayHints.variableTypes.enabled": true,
   "typescript.inlayHints.parameterNames.enabled": "all",
