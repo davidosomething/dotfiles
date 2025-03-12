@@ -3,6 +3,12 @@ tap "homebrew/services"
 brew "mackup"
 brew "tree-sitter"
 brew "neovim"
+
+# watchman used by coc.nvim for file watching
+# This is the preferred way to install watchman, there are no binaries on
+# github
+brew "watchman"
+
 brew "tree"
 cask "bettertouchtool"
 cask "firefox"
