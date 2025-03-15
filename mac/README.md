@@ -6,7 +6,7 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 ## App store
 
 1. iCloud sign in
-1. Install App store apps, XCode
+1. Install App store apps, Xcode
 
 ## Install dotfiles
 
@@ -19,7 +19,7 @@ cd ~/.dotfiles
 
 ## Setup ssh keys
 
-1. Use `sshkeygen` alias to generate new ed25519 keys
+1. Use `sshkeygen` alias to generate new Ed25519 keys
 1. Add the public key to GitHub, GitLab, Bitbucket, etc.
 1. `ssh-add -K ~/.ssh/privatekeyfile` to store the key in Keychain.
 1. Optionally change the `~/.dotfiles` origin protocol to SSH
@@ -43,11 +43,11 @@ brew bundle --file=~/.dotfiles/mac/Brewfile
 - hammerspoon
   - App launcher (<kbd>⌘</kbd><kbd>space</kbd>) to replace spotlight
     (disable spotlight shortcut first)
-  - Audio output device switch in menubar, relies on `switchaudio-osx` which
+  - Audio output device switch in menu bar, relies on `switchaudio-osx` which
     is in homebrew
   - Auto-type from clipboard (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>v</kbd>) for
     paste blockers
-  - Caffeinate in menubar
+  - Caffeinate icon in menu bar
   - Window management keys to use sections of a monitor (try hitting the key
     multiple times) and to throw apps to the next monitor
     (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z/[/]</kbd>)
