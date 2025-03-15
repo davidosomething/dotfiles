@@ -10,7 +10,7 @@ My [/uses] post may be of interest to you!
 | Tool              | Link                             |
 | ----------------- | -------------------------------- |
 | OS support        | Arch, macOS, Debian, Ubuntu      |
-| Terminal emulator | [wezterm](./wezterm/wezterm.lua) |
+| Terminal emulator | [WezTerm](./wezterm/wezterm.lua) |
 | Font              | [Maple Mono]                     |
 | Shell             | [zsh](./zsh/dot.zshrc)           |
 | Shell plugins     | [zinit](./zsh/zinit.zsh)         |
