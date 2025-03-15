@@ -9,6 +9,9 @@ tools.register({
       settings = {
         ["harper-ls"] = {
           userDictPath = os.getenv("DOTFILES") .. "/harper-ls/dictionary.txt",
+          codeActions = {
+            ForceStable = true,
+          },
         },
       },
     }

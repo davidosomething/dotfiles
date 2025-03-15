@@ -5,16 +5,16 @@ My [/uses] post may be of interest to you!
 
 ![terminal screenshot][screenshot]
 
-> Screenshot of my ZSH prompt
+> Screenshot of my Zsh prompt
 
 | Tool              | Link                             |
 | ----------------- | -------------------------------- |
 | OS support        | Arch, macOS, Debian, Ubuntu      |
 | Terminal emulator | [WezTerm](./wezterm/wezterm.lua) |
 | Font              | [Maple Mono]                     |
-| Shell             | [zsh](./zsh/dot.zshrc)           |
-| Shell plugins     | [zinit](./zsh/zinit.zsh)         |
-| Editor            | [neovim](./nvim/README.md)       |
+| Shell             | [Zsh](./zsh/dot.zshrc)           |
+| Shell plugins     | [Zinit](./zsh/zinit.zsh)         |
+| Editor            | [Neovim](./nvim/README.md)       |
 | Tooling/env       | [mise]                           |
 
 - [XDG] compliance wherever possible to keep `$HOME` clean
@@ -60,7 +60,7 @@ things (with confirmation).
     and they will be automatically sourced, LAST, by the default scripts. _No
     dots on the filenames._
 - `nvim/`
-  - [nvim/README.md](./nvim/README.md) for more information.
+  - See [nvim/README.md](./nvim/README.md) for more information.
 - `python/`
   - Never `sudo pip`. Set up a python virtual environment.
 
@@ -105,7 +105,7 @@ For X apps (no terminal) the value may be:
     global/shell-scoped variables.
 - **Comparison**
   - Not strict on POSIX, but portability
-  - Do NOT use BASH arrays, use ZSH or Python if need something complicated
+  - Do NOT use BASH arrays, use Zsh or Python if need something complicated
   - Use BASH `==` for string comparison
   - Use BASH `(( A == 2 ))` for integer comparison (note not `$A`, `$` not
     needed)
