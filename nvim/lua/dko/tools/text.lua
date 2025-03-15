@@ -8,10 +8,14 @@ tools.register({
     return {
       settings = {
         ["harper-ls"] = {
-          userDictPath = os.getenv("DOTFILES") .. "/harper-ls/dictionary.txt",
           codeActions = {
             ForceStable = true,
           },
+          linters = {
+            SentenceCapitalization = false,
+            SpellCheck = false,
+          },
+          userDictPath = os.getenv("DOTFILES") .. "/harper-ls/dictionary.txt",
         },
       },
     }
