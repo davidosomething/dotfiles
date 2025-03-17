@@ -12,6 +12,7 @@ tools.register({
             ForceStable = true,
           },
           linters = {
+            Matcher = false, -- e.g. deps to dependencies
             SentenceCapitalization = false,
             SpellCheck = false,
           },
