@@ -397,22 +397,6 @@ end
 -- and :h lsp
 -- =============================================================================
 
----@param method string
----@return boolean -- true if telescope was succesfully called
-local function telescope_builtin(method)
-  local ok, builtin = pcall(require, "telescope.builtin")
-  if ok then
-    builtin[method]({
-      -- always show in picker so i can choose how to open it (e.g. split,
-      -- vsplit)
-      jump_type = "never",
-      layout_strategy = "vertical",
-    })
-    return true
-  end
-  return false
-end
-
 ---List of unbind functions, keyed by "b"..bufnr
 ---@type table<string, fun()[]>
 M.lsp_bindings = {}
@@ -432,7 +416,7 @@ local function handle_lsp_defintions()
   if dkosettings.get("finder") == "fzf" then
     return require("fzf-lua").lsp_definitions()
   end
-  return telescope_builtin("lsp_definitions") or vim.lsp.buf.definition()
+  return vim.lsp.buf.definition()
 end
 
 -- Bindings for vim.lsp. Conflicts with bind_coc
@@ -454,17 +438,13 @@ M.bind_lsp = function(bufnr)
 
   lspmap("n", "gd", handle_lsp_defintions, { desc = "LSP definition" })
 
-  lspmap("n", "gi", function()
+  -- gri is default as of 0.11
+  lspmap("n", "gri", function()
     if dkosettings.get("finder") == "fzf" then
       return require("fzf-lua").lsp_implementations()
     end
-    return telescope_builtin("lsp_implementations")
-      or vim.lsp.buf.implementation()
+    return vim.lsp.buf.implementation()
   end, { desc = "LSP implementation" })
-
-  lspmap({ "n", "i" }, "<C-g>", function()
-    vim.lsp.buf.signature_help()
-  end, { desc = "LSP signature_help" })
 
   --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   --map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -476,25 +456,19 @@ M.bind_lsp = function(bufnr)
     if dkosettings.get("finder") == "fzf" then
       return require("fzf-lua").lsp_typedefs()
     end
-    return telescope_builtin("lsp_type_definitions")
-      or vim.lsp.buf.type_definition()
+    return vim.lsp.buf.type_definition()
   end, { desc = "LSP type_definition" })
 
-  lspmap("n", "<Leader>rn", function()
-    vim.lsp.buf.rename()
-  end, { desc = "LSP rename" })
-
+  -- gra is default in 0.11, can use either
   lspmap("n", "<Leader><Leader>", function()
     vim.lsp.buf.code_action()
   end, { desc = "LSP Code Action" })
 
-  lspmap("n", "gr", function()
+  lspmap("n", "grr", function()
     if dkosettings.get("finder") == "fzf" then
       return require("fzf-lua").lsp_references()
     end
-    return telescope_builtin("lsp_references")
-      ---@diagnostic disable-next-line: missing-parameter
-      or vim.lsp.buf.references()
+    return vim.lsp.buf.references()
   end, { desc = "LSP references" })
 end
 
@@ -717,7 +691,7 @@ M.bind_ts_ls_lsp = function(client, bufnr)
       return
     end
 
-    -- fallback to telescope and default lsp definitions
+    -- fallback to default lsp definitions
     return handle_lsp_defintions()
   end, {
     desc = "Go To Source Definition (typescript.nvim)",
@@ -1112,106 +1086,6 @@ M.bind_snacks_notifier = function()
     desc = "Open the snacks notifier history window",
     nowait = true,
   })
-end
-
--- ===========================================================================
--- Plugin: telescope.nvim
--- ===========================================================================
-
-M.bind_telescope = function()
-  local t = require("telescope")
-  local tb = require("telescope.builtin")
-
-  -- ---------------------------------------------------------------------------
-  -- Extension mappings
-  -- ---------------------------------------------------------------------------
-
-  emap("n", "<A-y>", function()
-    if not t.extensions.yank_history then
-      t.load_extension("yank_history")
-    end
-    t.extensions.yank_history.yank_history()
-  end, { desc = "Telescope: yanky.nvim" })
-
-  -- ---------------------------------------------------------------------------
-  -- Main mappings
-  -- ---------------------------------------------------------------------------
-
-  -- no fzf-lua equivalent
-  emap("n", "<A-t>", function()
-    tb.find_files({
-      layout_strategy = "vertical",
-      prompt_title = "Find tests",
-      search_dirs = {
-        "./test/",
-        "./tests/",
-        "./spec/",
-        "./specs/",
-      },
-    })
-  end, { desc = "Telescope: pick files in CWD" })
-
-  if dkosettings.get("finder") == "telescope" then
-    emap("n", M.picker.buffers, function()
-      tb.buffers({ layout_strategy = "vertical" })
-    end, { desc = "Telescope: pick existing buffer" })
-
-    emap("n", M.picker.files, function()
-      tb.find_files({
-        hidden = true,
-        layout_strategy = "vertical",
-      })
-    end, { desc = "Telescope: files in cwd" })
-
-    emap("n", M.picker.grep, function()
-      tb.live_grep({ layout_strategy = "vertical" })
-    end, { desc = "Telescope: live grep CWD" })
-
-    emap("n", M.picker.git_files, function()
-      -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#falling-back-to-find_files-if-git_files-cant-find-a-git-directory
-      local res =
-        vim.system({ "git", "rev-parse", "--is-inside-work-tree" }):wait()
-      if res.code == 0 then
-        tb.git_files({
-          layout_strategy = "vertical",
-          show_untracked = true,
-        })
-      else
-        tb.find_files({
-          hidden = true,
-          layout_strategy = "vertical",
-        })
-      end
-    end, { desc = "Telescope: files in git work files or CWD" })
-
-    emap("n", M.picker.mru, function()
-      tb.oldfiles({ layout_strategy = "vertical" })
-    end, { desc = "Telescope: pick from previously opened files" })
-
-    emap("n", M.picker.project, function()
-      tb.find_files({
-        hidden = true,
-        layout_strategy = "vertical",
-        prompt_title = "Files in buffer's project",
-        cwd = require("dko.utils.project").root(),
-      })
-    end, {
-      desc = "Telescope: project root",
-    })
-
-    emap("n", M.picker.git_status, function()
-      tb.git_status({ layout_strategy = "vertical" })
-    end, { desc = "Telescope: pick from git status files" })
-
-    emap("n", M.picker.vim, function()
-      tb.find_files({
-        layout_strategy = "vertical",
-        prompt_title = "Find in neovim configs",
-        cwd = vim.fn.stdpath("config"),
-        hidden = true,
-      })
-    end, { desc = "Telescope: nvim/ files" })
-  end
 end
 
 -- ===========================================================================
