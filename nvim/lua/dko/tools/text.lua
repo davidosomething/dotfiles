@@ -15,6 +15,7 @@ tools.register({
             Matcher = false, -- e.g. deps to dependencies
             SentenceCapitalization = false,
             SpellCheck = false,
+            ToDoHyphen = false,
           },
           userDictPath = os.getenv("DOTFILES") .. "/harper-ls/dictionary.txt",
         },
