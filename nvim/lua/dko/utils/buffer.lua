@@ -7,7 +7,7 @@ M.SPECIAL_BUFTYPES = {
   "help",
   "nofile", -- e.g. notifications, :Lazy, :Mason
   "popup",
-  "prompt", -- e.g. telescope prompt
+  "prompt",
   "quickfix",
   "terminal",
 }
