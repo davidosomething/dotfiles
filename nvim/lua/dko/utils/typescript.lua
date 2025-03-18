@@ -3,6 +3,7 @@
 local Methods = vim.lsp.protocol.Methods
 local handle_definition = vim.lsp.handlers[Methods.textDocument_definition]
 
+---@deprecated
 local definition_handler = function(...)
   local args = { ... }
   local res = args[2] or {}
