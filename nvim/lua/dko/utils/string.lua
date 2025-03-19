@@ -4,11 +4,16 @@ M.capitalize = function(str)
   return (str:gsub("^%l", string.upper))
 end
 
----@param haystack string
----@param needle string
----@return boolean found true if needle in haystack
-M.starts_with = function(haystack, needle)
-  return type(haystack) == "string" and haystack:sub(1, needle:len()) == needle
+M.longest = function(strs)
+  local len = 1
+  local match
+  for _, str in pairs(strs) do
+    if str:len() > len then
+      len = str:len()
+      match = str
+    end
+  end
+  return match, len
 end
 
 local smallcaps_mappings = {

@@ -1,6 +1,5 @@
 local dkoescesc = require("dko.behaviors.escesc")
 local dkosettings = require("dko.settings")
-local dkostring = require("dko.utils.string")
 
 -- =====================================================================
 -- Override vim.notify builtin
@@ -32,7 +31,7 @@ local override = function(msg, level, opts)
   end
 
   if not opts.title then
-    if dkostring.starts_with(msg, "[LSP]") then
+    if vim.startswith(msg, "[LSP]") then
       local client, found_client = msg:gsub("^%[LSP%]%[(.-)%] .*", "%1")
       if found_client > 0 then
         opts.title = ("[LSP] %s"):format(client)

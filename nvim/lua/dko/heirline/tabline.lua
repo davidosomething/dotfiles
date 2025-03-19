@@ -3,6 +3,8 @@ return {
     -- Need to check if is_git_repo because vim.g.gitsigns_head is stale if you
     -- switch to an untracked file
     self.branch = vim.g.gitsigns_head or ""
+    local uis = vim.api.nvim_list_uis()
+    self.ui = uis[1] or { width = 80 }
   end,
 
   hl = "StatusLineNC",
