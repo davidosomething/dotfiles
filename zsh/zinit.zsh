@@ -134,7 +134,7 @@ function {
   export ZSH_AUTOSUGGEST_USE_ASYNC=1
   # Removed forward-char
   export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(vi-end-of-line)
-  export ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(forward-word)
+  export ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(forward-word vi-forward-word)
   export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
   #export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
