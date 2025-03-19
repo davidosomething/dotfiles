@@ -1,5 +1,4 @@
 local dkopath = require("dko.utils.path")
-local dkostring = require("dko.utils.string")
 local dkohl = require("dko.heirline.utils").hl
 
 -- =========================================================================
@@ -34,7 +33,7 @@ return {
       else
         local up = cwd_relative.levels == 0 and "."
           or ("…%d"):format(cwd_relative.levels)
-        local slash = dkostring.starts_with(cwd_relative.b, "/") and "" or "/"
+        local slash = vim.startswith(cwd_relative.b, "/") and "" or "/"
         final = ("%s%s%s"):format(
           up,
           slash,

@@ -30,8 +30,16 @@ M.async_get_named_dirs = function(bookmarks_file)
   end)
 end
 
-M.init = function()
-  M.async_get_named_dirs(os.getenv("HOME") .. "/.local/zshbookmarks")
+M.find = function(path)
+  for shortname, prefix in pairs(M.nameddirs) do
+    if vim.startswith(path, prefix) then
+      return shortname, prefix
+    end
+  end
+  return nil, nil
 end
+
+-- run immediately
+M.async_get_named_dirs(os.getenv("HOME") .. "/.local/zshbookmarks")
 
 return M
