@@ -72,8 +72,14 @@ return {
           },
         },
       },
+      picker = {
+        layout = "ivy",
+      },
     },
-    config = true,
+    config = function(plugin, opts)
+      require("snacks").setup(opts)
+      dkomappings.bind_snacks_picker()
+    end,
     init = function()
       vim.g.snacks_animate = false
     end,
