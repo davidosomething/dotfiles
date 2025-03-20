@@ -3,6 +3,8 @@ local dkosettings = require("dko.settings")
 
 local Methods = vim.lsp.protocol.Methods
 
+local M = {}
+
 ---Map and return with unbind function
 ---@return function # unbind
 local function map(modes, lhs, rhs, opts)
@@ -11,6 +13,8 @@ local function map(modes, lhs, rhs, opts)
     vim.keymap.del(modes, lhs, opts)
   end
 end
+
+M.map = map
 
 ---wrap handler with buffer assertions
 ---@return function # unbind
@@ -362,8 +366,6 @@ end, { desc = "Copy treesitter captures under cursor" })
 -- External mappings
 -- =============================================================================
 
-local M = {}
-
 -- =============================================================================
 -- FT
 -- =============================================================================
@@ -389,87 +391,6 @@ M.ft.lua = function()
     expr = true,
     remap = true, -- follow into gd mapping
   })
-end
-
--- =============================================================================
--- Buffer: LSP integration
--- Mix of https://github.com/neovim/nvim-lspconfig#suggested-configuration
--- and :h lsp
--- =============================================================================
-
----List of unbind functions, keyed by "b"..bufnr
----@type table<string, fun()[]>
-M.lsp_bindings = {}
-
----Run all the unbind functions for the bufnr
----@param bufnr number
-M.unbind_lsp = function(bufnr)
-  local key = "b" .. bufnr
-  for _, unbind in ipairs(M.lsp_bindings[key]) do
-    unbind()
-  end
-  M.lsp_bindings[key] = nil
-  vim.b.did_bind_lsp = false
-end
-
-local function handle_lsp_defintions()
-  if dkosettings.get("finder") == "fzf" then
-    return require("fzf-lua").lsp_definitions()
-  end
-  return vim.lsp.buf.definition()
-end
-
--- Bindings for vim.lsp. Conflicts with bind_coc
----@param bufnr number
-M.bind_lsp = function(bufnr)
-  if vim.b.did_bind_lsp then -- First LSP attached
-    return
-  end
-  vim.b.did_bind_lsp = true
-
-  local function lspmap(modes, lhs, rhs, opts)
-    opts.silent = true
-    opts.buffer = bufnr
-    local unbind = map(modes, lhs, rhs, opts)
-    local key = "b" .. bufnr
-    M.lsp_bindings[key] = M.lsp_bindings[key] or {}
-    table.insert(M.lsp_bindings[key], unbind)
-  end
-
-  lspmap("n", "gd", handle_lsp_defintions, { desc = "LSP definition" })
-
-  -- gri is default as of 0.11
-  lspmap("n", "gri", function()
-    if dkosettings.get("finder") == "fzf" then
-      return require("fzf-lua").lsp_implementations()
-    end
-    return vim.lsp.buf.implementation()
-  end, { desc = "LSP implementation" })
-
-  --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  --map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  --[[ map('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts) ]]
-
-  lspmap("n", "<Leader>D", function()
-    if dkosettings.get("finder") == "fzf" then
-      return require("fzf-lua").lsp_typedefs()
-    end
-    return vim.lsp.buf.type_definition()
-  end, { desc = "LSP type_definition" })
-
-  -- gra is default in 0.11, can use either
-  lspmap("n", "<Leader><Leader>", function()
-    vim.lsp.buf.code_action()
-  end, { desc = "LSP Code Action" })
-
-  lspmap("n", "grr", function()
-    if dkosettings.get("finder") == "fzf" then
-      return require("fzf-lua").lsp_references()
-    end
-    return vim.lsp.buf.references()
-  end, { desc = "LSP references" })
 end
 
 -- Bind "K" to
@@ -596,115 +517,6 @@ M.bind_completion = function(opts)
     remap = true,
     silent = true,
   })
-end
-
--- Bindings for coc.nvim. Conflicts with bind_lsp.
--- opts = {
---   buf = 1,
---   event = "FileType",
---   file = "app/components/Navigation.tsx",
---   id = 26,
---   match = "typescriptreact"
--- }
-M.bind_coc = function(opts)
-  if vim.b.did_bind_lsp then
-    vim.notify(
-      "Tried to bind_coc but bind_lsp was already called",
-      vim.log.levels.ERROR,
-      { title = "[COC]", render = "wrapped-compact" }
-    )
-    return
-  end
-  -- make sure bind_lsp doesn't overwrite mappings later
-  vim.b.did_bind_coc = true
-  vim.b.did_bind_lsp = true
-
-  map("n", "<Leader><Leader>", "<Plug>(coc-codeaction-cursor)", {
-    desc = "coc.nvim code action",
-    silent = true,
-    buffer = opts.buf,
-  })
-
-  map("n", "gd", "<Plug>(coc-definition)", {
-    desc = "Go To Definition",
-    silent = true,
-    buffer = opts.buf,
-  })
-
-  map("n", "<C-]>", "<Plug>(coc-definition)", {
-    desc = "Go To Definition (tagfunc binding override)",
-    silent = true,
-    buffer = opts.buf,
-  })
-
-  -- ===========================================================================
-  -- diagnostic jump -- using vim.diagnostic instead since we pipe coc into ALE
-  -- ===========================================================================
-  -- map("n", "[d", "<Plug>(coc-diagnostic-prev)", {
-  --   desc = "Go to prev diagnostic",
-  --   buffer = opts.buf,
-  --   silent = true,
-  -- })
-  -- map("n", "]d", "<Plug>(coc-diagnostic-next)", {
-  --   desc = "Go to next diagnostic",
-  --   buffer = opts.buf,
-  --   silent = true,
-  -- })
-end
-
--- =============================================================================
--- ts_ls
--- =============================================================================
-
--- on_attach binding for ts_ls
----@param client table
----@param bufnr integer
----@diagnostic disable-next-line: unused-local
-M.bind_ts_ls_lsp = function(client, bufnr)
-  -- Use TypeScript's Go To Source Definition so we don't end up in the
-  -- type declaration files.
-  map("n", "gd", function()
-    -- typescript-tools.nvim
-    if vim.fn.exists(":TSToolsGoToSourceDefinition") ~= 0 then
-      vim.cmd.TSToolsGoToSourceDefinition()
-      return
-    end
-
-    -- vtsls
-    if vim.tbl_contains(require("dko.tools").get_mason_lsps(), "vtsls") then
-      if
-        require("dko.utils.typescript").go_to_source_definition(
-          "vtsls",
-          "typescript.goToSourceDefinition"
-        )
-      then
-        return
-      end
-
-    -- ts_ls
-    elseif
-      require("dko.utils.typescript").go_to_source_definition(
-        "ts_ls",
-        "_typescript.goToSourceDefinition"
-      )
-    then
-      return
-    end
-
-    -- fallback to default lsp definitions
-    return handle_lsp_defintions()
-  end, {
-    desc = "Go To Source Definition (typescript.nvim)",
-    silent = true,
-    buffer = bufnr,
-  })
-
-  -- For typescript only (i.e. not JSON files)
-  -- use go to def for gf, lazy way of getting it to map import dir/ to
-  -- dir/index.ts automatically
-  if vim.startswith(vim.bo.filetype, "t") then
-    map("n", "gf", "gd", { remap = true })
-  end
 end
 
 -- ===========================================================================
