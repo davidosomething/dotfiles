@@ -1,4 +1,5 @@
 local dkosettings = require("dko.settings")
+local dkolspmappings = require("dko.mappings.lsp")
 local dkomappings = require("dko.mappings")
 local dkoformat = require("dko.utils.format")
 local augroup = require("dko.utils.autocmd").augroup
@@ -36,7 +37,7 @@ autocmd("LspAttach", {
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client then -- just to shut up type checking
-      dkomappings.bind_lsp(bufnr)
+      dkolspmappings.bind_lsp(bufnr)
     end
   end,
   group = augroup("dkolsp"),
@@ -83,7 +84,7 @@ autocmd("LspDetach", {
     local key = "b" .. bufnr
 
     -- No mappings on buffer
-    if dkomappings.lsp_bindings[key] == nil then
+    if dkolspmappings.bound.lsp[key] == nil then
       vim.b.did_bind_lsp = false -- just in case
       return
     end
@@ -101,7 +102,7 @@ autocmd("LspDetach", {
           vim.log.levels.INFO,
           { title = "[LSP]", render = "wrapped-compact" }
         )
-        dkomappings.unbind_lsp(bufnr)
+        dkolspmappings.unbind_lsp(bufnr, "lsp")
       end
     end
   end,
@@ -138,7 +139,7 @@ autocmd("FileType", {
       and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
     then
       vim.cmd.CocStart()
-      dkomappings.bind_coc(opts)
+      dkolspmappings.bind_coc(opts)
       --- @TODO move this to a tools-based registration
       -- dkoformat.add_formatter("coc")
       -- vim.b.enable_format_on_save = true
