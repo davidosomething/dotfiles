@@ -26,7 +26,7 @@ settings.diagnostics = {
 }
 
 ---@type 'fzf' | 'snacks'
-settings.finder = "fzf"
+settings.finder = "snacks"
 
 settings.heirline = {
   show_buftype = false,
