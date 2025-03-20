@@ -2,15 +2,9 @@ local dkosettings = require("dko.settings")
 
 local M = {}
 
-local function fzflua(method)
+local function plugin(name, method)
   return function()
-    return require("fzf-lua")[method]
-  end
-end
-
-local function snacks(method)
-  return function()
-    return require("snacks").picker[method]
+    return require(name)[method]
   end
 end
 
@@ -23,12 +17,22 @@ local features = {
       default = vim.lsp.buf.code_action,
     },
   },
-  lsp_defintions = {
+  lsp_declarations = {
+    shortcut = "gD",
+    providers = {
+      coc = "<Plug>(coc-declaration)",
+      default = vim.lsp.buf.declaration,
+      fzf = plugin("fzf-lua", "lsp_declarations"),
+      snacks = plugin("snacks", "lsp_declarations"),
+    },
+  },
+  lsp_definitions = {
     shortcut = "gd",
     providers = {
       coc = "<Plug>(coc-definition)",
       default = vim.lsp.buf.definition,
-      fzf = fzflua("lsp_definitions"),
+      fzf = plugin("fzf-lua", "lsp_definitions"),
+      snacks = plugin("snacks", "lsp_definitions"),
     },
   },
   lsp_definitions_tagfunc = {
@@ -36,7 +40,8 @@ local features = {
     providers = {
       coc = "<Plug>(coc-definition)",
       default = vim.lsp.buf.definition,
-      fzf = fzflua("lsp_definitions"),
+      fzf = plugin("fzf-lua", "lsp_definitions"),
+      snacks = plugin("snacks", "lsp_definitions"),
     },
   },
   lsp_implementations = {
@@ -44,24 +49,33 @@ local features = {
     providers = {
       coc = "<Plug>(coc-implementation)",
       default = vim.lsp.buf.implementation,
-      fzf = fzflua("lsp_implementations"),
-      snacks = snacks("lsp_implementations"),
+      fzf = plugin("fzf-lua", "lsp_implementations"),
+      snacks = plugin("snacks", "lsp_implementations"),
     },
   },
   lsp_references = {
     shortcut = "grr",
     providers = {
+      coc = "<Plug>(coc-references)",
       default = vim.lsp.buf.references,
-      fzf = fzflua("lsp_references"),
-      snacks = snacks("lsp_references"),
+      fzf = plugin("fzf-lua", "lsp_references"),
+      snacks = plugin("snacks", "lsp_references"),
+    },
+  },
+  symbol_rename = {
+    shortcut = "grn",
+    providers = {
+      coc = "<Plug>(coc-rename)",
+      default = vim.lsp.buf.rename,
     },
   },
   type_definition = {
     shortcut = "<Leader>D",
     providers = {
+      coc = "<Plug>(coc-type-definition)",
       default = vim.lsp.buf.type_definition,
-      fzf = fzflua("lsp_typedefs"),
-      snaks = snacks("lsp_type_definitions"),
+      fzf = plugin("fzf-lua", "lsp_typedefs"),
+      snacks = plugin("snacks", "lsp_type_definitions"),
     },
   },
 }
