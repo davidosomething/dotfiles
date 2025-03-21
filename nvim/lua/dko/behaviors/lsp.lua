@@ -151,7 +151,6 @@ autocmd("FileType", {
     end
     dkomappings.bind_snippy()
     dkomappings.bind_completion(opts)
-    dkomappings.bind_hover(opts)
   end,
   group = augroup("dkolsp"),
 })
