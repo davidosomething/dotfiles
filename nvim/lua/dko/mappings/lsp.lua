@@ -1,22 +1,11 @@
+local dkomappings = require("dko.mappings")
 local dkosettings = require("dko.settings")
 
----@class Feature
----@field shortcut string -- the lhs of a vim mapping
----@field providers table<'coc'|'default'|'fzf'|'snacks', string|fun()>
+local plugin = dkomappings.plugin
 
 local M = {}
 
----@param name 'fzf-lua'|'snacks'
----@param method string
----@return function -- fun()
-local function plugin(name, method)
-  return function()
-    return name == "snacks" and _G["Snacks"]["picker"][method]()
-      or require(name)[method]()
-  end
-end
-
----@type Feature[]
+---@type FeatureMapping[]
 local features = {
   code_action = {
     -- gra is default in 0.11, can use either
@@ -152,7 +141,7 @@ M.bind_lsp = function(bufnr, group)
     opts.silent = true
     opts.remap = true
 
-    local unbind = require("dko.mappings").map(modes, lhs, rhs, opts)
+    local unbind = dkomappings.map(modes, lhs, rhs, opts)
     local key = "b" .. bufnr
     M.bound[group][key] = M.bound[group][key] or {}
     table.insert(M.bound[group][key], unbind)

@@ -1,0 +1,3 @@
+---@class FeatureMapping
+---@field shortcut string -- the lhs of a vim mapping
+---@field providers table<'coc'|'default'|'fzf'|'snacks', string|fun()>
