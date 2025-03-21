@@ -96,7 +96,6 @@ return {
           },
         },
       })
-      dkomappings.bind_fzf()
 
       if dkosettings.get("select") == "fzf" then
         fzf.register_ui_select()

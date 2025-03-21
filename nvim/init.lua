@@ -15,6 +15,7 @@ require("dko.commands")
 require("dko.behaviors")
 require("dko.diagnostic")
 require("dko.mappings")
+require("dko.mappings.finder").bind_finder()
 
 require("dko.tools.csharp")
 require("dko.tools.dart")
