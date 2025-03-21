@@ -4,7 +4,9 @@ local dkopath = require("dko.utils.path")
 return {
   provider = function(self)
     local full_cwd = vim.uv.cwd() or ""
-    local shortname, prefix = dkozshnameddirs.find(full_cwd)
+    local found = dkozshnameddirs.find(full_cwd)
+    local shortname = found and found.name
+    local prefix = found and found.path
 
     -- remove prefix and trailing slash
     local compact = (shortname and prefix and full_cwd:sub(prefix:len() + 2))

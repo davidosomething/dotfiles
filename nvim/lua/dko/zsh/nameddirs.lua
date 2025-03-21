@@ -30,13 +30,26 @@ M.async_get_named_dirs = function(bookmarks_file)
   end)
 end
 
-M.find = function(path)
-  for shortname, prefix in pairs(M.nameddirs) do
-    if vim.startswith(path, prefix) then
-      return shortname, prefix
+---@param fullpath string
+---@return { name: string; path: string }|nil -- for the longest matching path found
+M.find = function(fullpath)
+  local longest_path_name = ""
+  local longest_path = ""
+  for name, path in pairs(M.nameddirs) do
+    if vim.startswith(fullpath, path) then
+      if path:len() > longest_path:len() then
+        longest_path_name = name
+        longest_path = path
+      end
     end
   end
-  return nil, nil
+  if longest_path == "" then
+    return nil
+  end
+  return {
+    name = longest_path_name,
+    path = longest_path,
+  }
 end
 
 -- run immediately
