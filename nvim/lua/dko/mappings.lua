@@ -324,8 +324,8 @@ map("n", "<C-W>d", function()
   vim.diagnostic.open_float()
 end, { desc = "Open diagnostic float at cursor" })
 map("n", "<C-W><C-D>", "<C-W>d", {
-  remap = true,
   desc = "Open diagnostic float at cursor",
+  remap = true,
 })
 
 -- ===========================================================================
@@ -365,33 +365,6 @@ end, { desc = "Copy treesitter captures under cursor" })
 -- =============================================================================
 -- External mappings
 -- =============================================================================
-
--- =============================================================================
--- FT
--- =============================================================================
-
-M.ft = {}
-
-M.ft.lua = function()
-  map("n", "gf", function()
-    local line = vim.api.nvim_get_current_line()
-    if line:match("require%(") then
-      local bufnr = vim.api.nvim_get_current_buf()
-      local has_definition_handler = #vim.lsp.get_clients({
-        bufnr = bufnr,
-        method = Methods.textDocument_definition,
-      }) > 0
-      if has_definition_handler then
-        return "gd"
-      end
-    end
-  end, {
-    buffer = true,
-    desc = "[ft.lua] Use gd if lsp bound and line line contains 'require('",
-    expr = true,
-    remap = true, -- follow into gd mapping
-  })
-end
 
 -- Bind <C-Space> to open nvim-cmp
 -- Bind <C-n> <C-p> to pick based on coc or nvim-cmp open
@@ -548,9 +521,7 @@ M.bind_gitsigns = function(bufnr)
     if vim.wo.diff then
       return "]h"
     end
-    vim.schedule(function()
-      require("gitsigns").next_hunk()
-    end)
+    vim.schedule_wrap(require("gitsigns").next_hunk)
     return "<Ignore>"
   end, { expr = true, desc = "Next hunk" })
 
@@ -558,9 +529,7 @@ M.bind_gitsigns = function(bufnr)
     if vim.wo.diff then
       return "[h"
     end
-    vim.schedule(function()
-      require("gitsigns").prev_hunk()
-    end)
+    vim.schedule_wrap(require("gitsigns").prev_hunk)
     return "<Ignore>"
   end, { expr = true, desc = "Prev hunk" })
 
@@ -685,7 +654,7 @@ M.bind_nvim_various_textobjs = function()
     if vim.fn.indent(".") == 0 then
       return "vapk:!sort<CR>"
     else
-      --- uses various-textobjs ii .indentation
+      --- uses various-textobjs ii indentation
       return "vii:!sort<CR>"
     end
   end, {
@@ -883,10 +852,6 @@ M.bind_snacks_picker = function()
   emap("n", M.picker.buffers, function()
     sp.buffers()
   end, { desc = "snacks: pick existing buffer" })
-
-  emap("n", M.picker.code_actions, function()
-    sp.code_actions()
-  end, { desc = "snacks: pick code action" })
 
   emap("n", M.picker.files, function()
     sp.files()

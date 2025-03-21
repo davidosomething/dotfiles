@@ -12,8 +12,10 @@ tools.register({
             ForceStable = true,
           },
           linters = {
+            LongSentences = false,
             Matcher = false, -- e.g. deps to dependencies
             SentenceCapitalization = false,
+            Spaces = false,
             SpellCheck = false,
             ToDoHyphen = false,
           },
