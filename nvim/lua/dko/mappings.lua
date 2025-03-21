@@ -393,33 +393,6 @@ M.ft.lua = function()
   })
 end
 
--- Bind "K" to
--- jump into active coc float, or
--- show definition float, or
--- jump/show LSP float
-M.bind_hover = function(opts)
-  -- default vim.ksp is done for us in $VIMRUNTIME/lua/vim/lsp.lua
-  -- as of https://github.com/neovim/neovim/pull/24331
-  --map("n", "K", vim.lsp.buf.hover, lsp_opts({ desc = "LSP hover" }))
-
-  map("n", "K", function()
-    -- Jump into active coc float OR do a definitionHover
-    -- This part is taken from coc#float$jump
-    -- https://github.com/neoclide/coc.nvim/blob/master/autoload/coc/float.vim#L28C1-L35C12
-    if vim.b.did_bind_coc then
-      local winids = vim.fn["coc#float#get_float_win_list"]()
-      if #winids > 0 then
-        vim.fn.win_gotoid(winids[1]) --- 1 indexed !
-      elseif vim.api.nvim_eval("coc#rpc#ready()") then
-        -- Same as doHover but includes definition contents from definition provider when possible
-        vim.fn.CocActionAsync("definitionHover")
-      end
-    else
-      vim.lsp.buf.hover()
-    end
-  end, { desc = "coc hover action", buffer = opts.buf, silent = true })
-end
-
 -- Bind <C-Space> to open nvim-cmp
 -- Bind <C-n> <C-p> to pick based on coc or nvim-cmp open
 -- Bind <C-j> <C-k> to scroll coc or nvim-cmp attached docs window

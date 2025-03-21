@@ -1,13 +1,21 @@
 local dkosettings = require("dko.settings")
 
+---@class Feature
+---@field shortcut string -- the lhs of a vim mapping
+---@field providers table<'coc'|'default'|'fzf'|'snacks', string|fun()>
+
 local M = {}
 
+---@param name 'fzf-lua'|'snacks'
+---@param method string
+---@return function -- fun()
 local function plugin(name, method)
   return function()
     return require(name)[method]
   end
 end
 
+---@type Feature[]
 local features = {
   code_action = {
     -- gra is default in 0.11, can use either
@@ -15,6 +23,27 @@ local features = {
     providers = {
       coc = "<Plug>(coc-codeaction-cursor)",
       default = vim.lsp.buf.code_action,
+    },
+  },
+  hover = {
+    shortcut = "K",
+    providers = {
+      coc = function()
+        --- enter the hover window or pop one up
+        local winids = vim.fn["coc#float#get_float_win_list"]()
+        if #winids > 0 then
+          vim.fn.win_gotoid(winids[1]) --- 1 indexed !
+          return
+        end
+        if vim.fn.CocAction("hasProvider", "hover") then
+          -- Same as doHover but includes definition contents from
+          -- definition provider when possible
+          vim.fn.CocAction("definitionHover")
+          return
+        end
+        vim.lsp.buf.hover()
+      end,
+      default = vim.lsp.buf.hover,
     },
   },
   lsp_declarations = {
