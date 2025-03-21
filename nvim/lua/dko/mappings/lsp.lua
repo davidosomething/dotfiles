@@ -11,7 +11,8 @@ local M = {}
 ---@return function -- fun()
 local function plugin(name, method)
   return function()
-    return require(name)[method]
+    return name == "snacks" and _G["Snacks"]["picker"][method]()
+      or require(name)[method]()
   end
 end
 
@@ -23,6 +24,15 @@ local features = {
     providers = {
       coc = "<Plug>(coc-codeaction-cursor)",
       default = vim.lsp.buf.code_action,
+    },
+  },
+  documentLink = {
+    shortcut = "grl",
+    providers = {
+      coc = "<Plug>(coc-openlink)",
+      default = function()
+        require("dko.utils.lsp").follow_documentLink()
+      end,
     },
   },
   hover = {
@@ -138,8 +148,10 @@ M.bind_lsp = function(bufnr, group)
   vim.b.did_bind_lsp = group
 
   local function lspmap(modes, lhs, rhs, opts)
-    opts.silent = true
     opts.buffer = bufnr
+    opts.silent = true
+    opts.remap = true
+
     local unbind = require("dko.mappings").map(modes, lhs, rhs, opts)
     local key = "b" .. bufnr
     M.bound[group][key] = M.bound[group][key] or {}
