@@ -1,12 +1,12 @@
 local dkomappings = require("dko.mappings")
 local dkosettings = require("dko.settings")
 
-local plugin = dkomappings.plugin
+local picker = dkomappings.picker
 
 local M = {}
 
 ---@type FeatureMapping[]
-local features = {
+M.features = {
   code_action = {
     -- gra is default in 0.11, can use either
     shortcut = "<Leader><Leader>",
@@ -50,8 +50,8 @@ local features = {
     providers = {
       coc = "<Plug>(coc-declaration)",
       default = vim.lsp.buf.declaration,
-      fzf = plugin("fzf-lua", "lsp_declarations"),
-      snacks = plugin("snacks", "lsp_declarations"),
+      fzf = picker("fzf-lua", "lsp_declarations"),
+      snacks = picker("snacks", "lsp_declarations"),
     },
   },
   lsp_definitions = {
@@ -59,8 +59,8 @@ local features = {
     providers = {
       coc = "<Plug>(coc-definition)",
       default = vim.lsp.buf.definition,
-      fzf = plugin("fzf-lua", "lsp_definitions"),
-      snacks = plugin("snacks", "lsp_definitions"),
+      fzf = picker("fzf-lua", "lsp_definitions"),
+      snacks = picker("snacks", "lsp_definitions"),
     },
   },
   lsp_definitions_tagfunc = {
@@ -68,8 +68,8 @@ local features = {
     providers = {
       coc = "<Plug>(coc-definition)",
       default = vim.lsp.buf.definition,
-      fzf = plugin("fzf-lua", "lsp_definitions"),
-      snacks = plugin("snacks", "lsp_definitions"),
+      fzf = picker("fzf-lua", "lsp_definitions"),
+      snacks = picker("snacks", "lsp_definitions"),
     },
   },
   lsp_implementations = {
@@ -77,8 +77,8 @@ local features = {
     providers = {
       coc = "<Plug>(coc-implementation)",
       default = vim.lsp.buf.implementation,
-      fzf = plugin("fzf-lua", "lsp_implementations"),
-      snacks = plugin("snacks", "lsp_implementations"),
+      fzf = picker("fzf-lua", "lsp_implementations"),
+      snacks = picker("snacks", "lsp_implementations"),
     },
   },
   lsp_references = {
@@ -86,8 +86,8 @@ local features = {
     providers = {
       coc = "<Plug>(coc-references)",
       default = vim.lsp.buf.references,
-      fzf = plugin("fzf-lua", "lsp_references"),
-      snacks = plugin("snacks", "lsp_references"),
+      fzf = picker("fzf-lua", "lsp_references"),
+      snacks = picker("snacks", "lsp_references"),
     },
   },
   symbol_rename = {
@@ -102,8 +102,8 @@ local features = {
     providers = {
       coc = "<Plug>(coc-type-definition)",
       default = vim.lsp.buf.type_definition,
-      fzf = plugin("fzf-lua", "lsp_typedefs"),
-      snacks = plugin("snacks", "lsp_type_definitions"),
+      fzf = picker("fzf-lua", "lsp_typedefs"),
+      snacks = picker("snacks", "lsp_type_definitions"),
     },
   },
 }
@@ -147,7 +147,7 @@ M.bind_lsp = function(bufnr, group)
     table.insert(M.bound[group][key], unbind)
   end
 
-  for feature, config in pairs(features) do
+  for feature, config in pairs(M.features) do
     local provider_key = group == "coc" and "coc" or dkosettings.get("finder")
     provider_key = config.providers[provider_key] and provider_key or "default"
     local provider = config.providers[provider_key]

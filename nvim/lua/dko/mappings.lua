@@ -6,7 +6,7 @@ local M = {}
 ---@param method string
 ---@param args? any
 ---@return function -- fun()
-M.plugin = function(name, method, args)
+M.picker = function(name, method, args)
   return function()
     return name == "snacks" and _G["Snacks"]["picker"][method](args)
       or require(name)[method](args)
@@ -751,34 +751,23 @@ M.bind_oil = function()
   end, { desc = "Toggle floating oil.nvim" })
 end
 
--- =============================================================================
--- picker / finder
--- =============================================================================
-
-M.picker = {
-  buffers = "<A-b>",
-  code_actions = "<A-a>",
-  files = "<A-c>",
-  git_files = "<A-f>",
-  git_status = "<A-s>",
-  grep = "<A-g>",
-  mru = "<A-m>",
-  project = "<A-p>",
-  vim = "<A-v>",
-}
-
 -- ===========================================================================
 -- Plugin: fzf-lua
 -- ===========================================================================
 
 M.bind_fzf_terminal_mappings = function()
-  for _, mapping in pairs(M.picker) do
-    map("t", mapping, function()
-      vim.cmd.close()
-    end, {
-      buffer = true,
-      desc = "Use any picker mapping to close active picker",
-    })
+  for _, features in pairs({
+    require("dko.mappings.finder").features,
+    require("dko.mappings.lsp").features,
+  }) do
+    for _, config in pairs(features) do
+      map("t", config.shortcut, function()
+        vim.cmd.close()
+      end, {
+        buffer = true,
+        desc = "Use any picker mapping to close active picker",
+      })
+    end
   end
 end
 

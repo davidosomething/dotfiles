@@ -74,6 +74,21 @@ return {
       },
       picker = {
         layout = "ivy",
+        win = {
+          input = {
+            keys = vim
+              .iter({
+                require("dko.mappings.finder").features,
+                require("dko.mappings.lsp").features,
+              })
+              :fold({}, function(acc, features)
+                vim.iter(features):each(function(_, config)
+                  acc[config.shortcut] = { "close", mode = { "n", "i" } }
+                end)
+                return acc
+              end),
+          },
+        },
       },
     },
     config = true,
