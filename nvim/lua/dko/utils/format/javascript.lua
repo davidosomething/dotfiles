@@ -12,7 +12,7 @@ local function format_with_coc()
     title = "[coc.nvim]",
     render = "wrapped-compact",
   })
-  vim.cmd.call("CocAction('runCommand', 'eslint.executeAutofix')")
+  vim.fn.CocAction("runCommand", "eslint.executeAutofix")
   vim.cmd.sleep(vim.b.has_eslint_plugin_prettier and "100m" or "1m")
   return true
 end

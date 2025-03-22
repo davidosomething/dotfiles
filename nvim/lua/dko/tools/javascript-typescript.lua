@@ -36,12 +36,13 @@ tools.register({
 --   end,
 -- })
 
-tools.register({
-  name = "eslint",
-  mason_type = "lsp",
-  require = "npm",
-  runner = "mason-lspconfig",
-})
+-- using coc-eslint
+-- tools.register({
+--   name = "eslint",
+--   mason_type = "lsp",
+--   require = "npm",
+--   runner = "mason-lspconfig",
+-- })
 
 --"cssls", -- conflicts with tailwindcss
 tools.register({
