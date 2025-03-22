@@ -11,7 +11,7 @@ local features = {
   buffers = {
     shortcut = "<A-b>",
     providers = {
-      fzf = plugin("fzf-lua", "buffers"),
+      fzf = plugin("fzf-lua", "buffers", { current = false }),
       snacks = plugin("snacks", "buffers"),
     },
   },
@@ -61,7 +61,9 @@ local features = {
         include_current_session = true,
         stat_file = true, -- verify files exist on disk
       }),
-      snacks = plugin("snacks", "smart"),
+      snacks = plugin("snacks", "smart", {
+        multi = { "recent", "buffers" },
+      }),
     },
   },
   project = {
@@ -74,6 +76,13 @@ local features = {
       snacks = plugin("snacks", "files", {
         dirs = { dkoproject.root() },
       }),
+    },
+  },
+  resume = {
+    shortcut = "<A-.>",
+    providers = {
+      fzf = plugin("fzf-lua", "resume"),
+      snacks = plugin("snacks", "resume"),
     },
   },
   vim = {
