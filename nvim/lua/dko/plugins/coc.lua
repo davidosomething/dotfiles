@@ -46,12 +46,14 @@ return {
     branch = "release",
     cond = has_ui and dkosettings.get("use_coc"),
     init = function()
-      if vim.fn.executable("watchman") == 0 then
-        require("dko.doctor").warn({
-          category = "coc",
-          message = "[coc] `watchman` not found",
-        })
-      end
+      -- Don't use watchman until this is properly resolved
+      -- https://github.com/neoclide/coc.nvim/issues/4490
+      -- if vim.fn.executable("watchman") == 0 then
+      --   require("dko.doctor").warn({
+      --     category = "coc",
+      --     message = "[coc] `watchman` not found",
+      --   })
+      -- end
 
       vim.g.coc_start_at_startup = true
       vim.g.coc_global_extensions = {

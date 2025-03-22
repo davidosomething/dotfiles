@@ -5,9 +5,12 @@ brew "tree-sitter"
 brew "neovim"
 
 # watchman used by coc.nvim for file watching
+# 2025-03-21 -- but it has issues with long paths, so don't bother
+# https://github.com/neoclide/coc.nvim/issues/4490
+#
 # This is the preferred way to install watchman, there are no binaries on
 # github
-brew "watchman"
+#brew "watchman"
 
 brew "tree"
 cask "bettertouchtool"
