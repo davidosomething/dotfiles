@@ -214,6 +214,8 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
   group = augroup("dkolsp"),
 })
 
+--- Need to restart coc-eslint for newly created files
+--- https://github.com/neoclide/coc-eslint#features
 autocmd({ "BufWritePost", "FileWritePost" }, {
   desc = "Restart coc-eslint if saved file for first time",
   callback = function()
