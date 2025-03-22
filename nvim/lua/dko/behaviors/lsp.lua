@@ -194,7 +194,10 @@ autocmd("User", {
 
 autocmd({ "BufWritePre", "FileWritePre" }, {
   desc = "Format with LSP on save",
-  callback = function()
+  callback = function(args)
+    if not vim.uv.fs_stat(args.file) then
+      vim.b.newfile = 1
+    end
     -- callback gets arg
     -- {
     --   buf = 1,
@@ -207,6 +210,19 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
       return
     end
     dkoformat.run_pipeline({ async = false })
+  end,
+  group = augroup("dkolsp"),
+})
+
+--- Need to restart coc-eslint for newly created files
+--- https://github.com/neoclide/coc-eslint#features
+autocmd({ "BufWritePost", "FileWritePost" }, {
+  desc = "Restart coc-eslint if saved file for first time",
+  callback = function()
+    if vim.b.newfile == 1 then
+      vim.b.newfile = nil
+      vim.cmd.CocCommand("eslint.restart")
+    end
   end,
   group = augroup("dkolsp"),
 })
