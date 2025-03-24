@@ -101,7 +101,6 @@ M.features = {
 M.bind_finder = function()
   local function map(modes, lhs, rhs, opts)
     opts.silent = true
-    opts.remap = true
     dkomappings.map(modes, lhs, rhs, opts)
   end
 
