@@ -139,8 +139,6 @@ M.bind_lsp = function(bufnr, group)
   local function lspmap(modes, lhs, rhs, opts)
     opts.buffer = bufnr
     opts.silent = true
-    opts.remap = true
-
     local unbind = dkomappings.map(modes, lhs, rhs, opts)
     local key = "b" .. bufnr
     M.bound[group][key] = M.bound[group][key] or {}
