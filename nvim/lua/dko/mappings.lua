@@ -104,7 +104,7 @@ map("v", "<Up>", "gk", visualArrowOpts)
 -- cd shortcuts
 -- ===========================================================================
 
-map("n", "<Leader>cd", "<Cmd>cd! %:h<CR>", {
+map("n", "<Leader>cd", "<Cmd>cd! %:p:h<CR>", {
   desc = "cd to current buffer path",
 })
 
