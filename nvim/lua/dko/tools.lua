@@ -171,6 +171,7 @@ M.filter_executable_groups = function(category, groups)
   if not fegcache[category] then
     fegcache[category] = dkotable.filter(groups, function(tool_configs, bin)
       if bin ~= "_" and vim.fn.executable(bin) == 0 then
+        ---@TODO maybe don't report here
         local tool_names = table.concat(vim.tbl_keys(tool_configs), ", ")
         require("dko.doctor").warn({
           category = category,
