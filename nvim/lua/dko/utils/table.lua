@@ -12,7 +12,8 @@ M.concat = function(t1, t2)
   return t1
 end
 
----@deprecated use Iter:filter()
+---Not deprecated since much simpler than Iter:filter():fold()
+---(:totable() makes pair lists, doesn't make a hash)
 M.filter = function(t, func)
   local res = {}
   for k, v in pairs(t) do
