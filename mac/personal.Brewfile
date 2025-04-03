@@ -1,16 +1,18 @@
+# ==========================================================================
+# brew'd apps I only use on my personal devices
+# ==========================================================================
+
 tap "homebrew/bundle"
 tap "homebrew/services"
+
 brew "mackup"
-brew "tree-sitter"
-brew "neovim"
-brew "ollama", restart_service: true
-brew "tree"
-cask "bettertouchtool"
+
+# ==========================================================================
+# casks
+# ==========================================================================
+
 cask "bitwarden"
 cask "discord"
-cask "firefox"
-cask "google-chrome"
-cask "hammerspoon"
 cask "notion-calendar"
 cask "standard-notes"
 cask "syncthing"
