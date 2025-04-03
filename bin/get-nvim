@@ -1,5 +1,20 @@
 #!/usr/bin/env bash
 
-curl -L -o ~/.local/bin/nvim \
-  https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-chmod ug+x ~/.local/bin/nvim
+__main() {
+  local image
+
+  local architecture
+  architecture="$(dpkg-architecture -q DEB_BUILD_ARCH)"
+  case "$architecture" in
+  amd64)
+    image="https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.appimage"
+    ;;
+  *)
+    image="https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-arm64.appimage"
+    ;;
+  esac
+
+  curl -L -o ~/.local/bin/nvim "$image"
+  chmod ug+x ~/.local/bin/nvim
+}
+__main
