@@ -9,6 +9,10 @@ unset PYTHONPATH
 # Package settings
 # ============================================================================
 
+# pip
+# https://pip.pypa.io/en/stable/topics/configuration/#pip-config-file
+export PIP_CONFIG_FILE="${XDG_CONFIG_HOME}/pip/pip.conf"
+
 # python-grip
 export GRIPHOME="${XDG_CONFIG_HOME}/grip"
 
