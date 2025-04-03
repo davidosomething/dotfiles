@@ -44,6 +44,7 @@ tools.register({
 --   runner = "mason-lspconfig",
 -- })
 
+-- using @yaegassy/coc-tailwindcss3
 --"cssls", -- conflicts with tailwindcss
 tools.register({
   name = "tailwindcss",
