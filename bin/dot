@@ -198,6 +198,8 @@ __dko_dotfiles__update_neovim() {
       else
         brew reinstall neovim
       fi
+    else
+      brew install --HEAD neovim
     fi
   elif __dko_has pamac; then
     pamac build neovim-git
@@ -208,7 +210,10 @@ __dko_dotfiles__update_neovim() {
     __dko_err "Could not update to latest neovim prerelease build" &&
     return 1
 
-  nvim --version
+  nvim --version 2>&1 || {
+    __dko_err "Could not get nvim version" &&
+      return 1
+  }
   __dko_ok "Updated to latest neovim prerelease build"
 }
 
