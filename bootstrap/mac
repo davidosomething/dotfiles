@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+echo "Use scutil --set XName newname to update these:"
+echo "- HostName:       $(scutil --get HostName)"
+echo "- LocalHostName:  $(scutil --get LocalHostName)"
+echo "- ComputerName:   $(scutil --get ComputerName)"
+echo "Ideally they should all be the same"
