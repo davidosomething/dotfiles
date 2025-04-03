@@ -48,7 +48,9 @@ return function()
   -- Run eslint via coc or nvim-lsp eslint-lsp
   if
     dkosettings.get("coc.enabled")
-    and vim.list_contains(vim.g.coc_global_extensions, "coc-eslint")
+    and vim.iter(vim.g.coc_global_extensions):find(function(v)
+      return string.find(v, "coc%-eslint")
+    end)
   then
     format_with_coc()
   else
