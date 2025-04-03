@@ -1,7 +1,11 @@
+# ==========================================================================
+# brew'd apps I use on ALL macs
+# ==========================================================================
+
 tap "homebrew/bundle"
 tap "homebrew/services"
-brew "mackup"
-brew "tree-sitter"
+
+brew "git"
 brew "neovim"
 
 # watchman used by coc.nvim for file watching
@@ -12,9 +16,19 @@ brew "neovim"
 # github
 #brew "watchman"
 
+# my hammerspoon config uses this
+brew "switchaudio-osx"
+
 brew "tree"
+brew "tree-sitter"
+
+# ==========================================================================
+# casks
+# ==========================================================================
+
 cask "bettertouchtool"
 cask "firefox"
 cask "google-chrome"
 cask "hammerspoon"
+cask "meetingbar"
 cask "wezterm"
