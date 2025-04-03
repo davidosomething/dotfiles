@@ -57,8 +57,12 @@ return {
 
       vim.g.coc_start_at_startup = true
       vim.g.coc_global_extensions = {
-        "coc-eslint@1.7.0", -- since it gives code actions unified with tsserver
+        -- since it gives code actions unified with tsserver
+        "coc-eslint@1.7.0",
         "coc-json",
+        -- for K and completion, but we still use the nvim lsp one too
+        -- until I can figure out how to rebuild TWValues
+        "@yaegassy/coc-tailwindcss3",
         "coc-tsserver",
       }
     end,
