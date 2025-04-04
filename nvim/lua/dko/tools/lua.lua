@@ -1,10 +1,10 @@
 local tools = require("dko.tools")
 
 tools.register({
-  mason_type = "tool",
-  require = "_",
   name = "selene",
   fts = { "lua" },
+  mason_type = "tool",
+  require = "_",
   efm = function()
     ---@type EfmLinter
     return vim.tbl_extend(
