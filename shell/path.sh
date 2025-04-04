@@ -48,6 +48,9 @@ PATH="${HOME}/.luarocks/bin:${PATH}"
 # go -- prefer go binaries over composer; GOPATH is in shell/vars.sh
 PATH="${GOPATH}/bin:${PATH}"
 
+# asdf shims, but usually we use mise shims
+PATH="${ASDF_DATA_DIR}/shims:${PATH}"
+
 # ============================================================================
 # Local path -- everything after the path setting this may use "command" to
 # check for presence

@@ -136,6 +136,7 @@ export PAGER='less'
 export ACKRC="${DOTFILES}/ack/dot.ackrc"
 
 # asdf
+# asdf is loaded from omzp using zinit
 export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 
 # aws
