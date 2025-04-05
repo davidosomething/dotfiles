@@ -51,14 +51,6 @@ brew bundle --file=~/.dotfiles/mac/Brewfile
   - Window management keys to use sections of a monitor (try hitting the key
     multiple times) and to throw apps to the next monitor
     (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z/[/]</kbd>)
-- mackup
-  - `mackup` backs up application settings. It will be installed if using this
-    repo's Brewfile.
-    `dot.mackup.cfg` defines some app settings (such as the itsycal plist). It
-    is symlinked to `~/.mackup.cfg` by `bootstrap/symlink`.
-  - Mackup is configured to use `~/.local/Mackup` as the storage location. On
-    my system this is a symlink to a private settings repository.
-  - Run `mackup restore` to restore settings from that repository.
 
 ## Manually disable some keyboard shortcuts
 

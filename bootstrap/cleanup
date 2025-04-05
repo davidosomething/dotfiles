@@ -135,6 +135,8 @@ __remove "${HOME}/.hyper.js"
 __remove "${XDG_CONFIG_HOME}/hyper"
 # i will never use kitty terminal
 __remove "${XDG_CONFIG_HOME}/kitty"
+# mackup doesn't work any more
+__remove "${HOME}/.mackup.cfg"
 # should be in .local; probably created on ZSH startup
 __remove "${HOME}/.wget-hsts"
 # stopped using tern

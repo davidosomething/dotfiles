@@ -72,8 +72,6 @@ __symlink() {
       ".hammerspoon"
     dko-symlink "mac/dot.hushlogin" \
       ".hushlogin"
-    dko-symlink "mac/dot.mackup.cfg" \
-      ".mackup.cfg"
     ;;
   esac
 
