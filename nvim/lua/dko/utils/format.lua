@@ -78,7 +78,7 @@ M.run_pipeline = function(options)
             return true
           end
           return false
-        end, configs)
+        end, configs or {})
         return #filtered ~= 0
       end
 
