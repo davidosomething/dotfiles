@@ -104,7 +104,7 @@ For X apps (no terminal) the value may be:
   - Use `local` and `readonly` variables as much as possible over
     global/shell-scoped variables.
 - **Comparison**
-  - Not strict on POSIX, but portability
+  - Not strict on POSIX (e.g. assume my interactive shells are at least BASH)
   - Do NOT use BASH arrays, use Zsh or Python if need something complicated
   - Use BASH `==` for string comparison
   - Use BASH `(( A == 2 ))` for integer comparison (note not `$A`, `$` not

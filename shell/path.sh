@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/path.sh
 #
 # Sourced in dot.profile on login shells

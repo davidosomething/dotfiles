@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/java.sh
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/java.sh {"

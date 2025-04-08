@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/node.sh
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/node.sh {"
