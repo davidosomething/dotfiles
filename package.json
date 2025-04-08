@@ -8,7 +8,7 @@
   },
   "config": {
     "shfiles": "find . -type f -name \"*.bash\" -o -name \"*.sh\" -not -path \"*.tox/*\" -not -path \"./local/*\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\"",
-    "mdfiles": "find . -type f -name \"*.md\" -not -path \"./tmux/plugins*\" -not -path \"*/chromium/*\" -not -path \"./local/*\" -not -path \"*/node_modules/*\" -not -path \"*tmp/*\" -not -path \"*/vendor/*\"",
+    "mdfiles": "find . -type f -name \"*.md\" -not -path \"./tmux/plugins*\" -not -path \"./local/*\" -not -path \"*/node_modules/*\" -not -path \"*tmp/*\" -not -path \"*/vendor/*\"",
     "yamlfiles": "find . -type f -regex \".*\\.y\\(a\\)*ml\" -not -path \".github/*\" -not -path \"*.tox/*\"  -not -path \"./local/*\""
   },
   "scripts": {
