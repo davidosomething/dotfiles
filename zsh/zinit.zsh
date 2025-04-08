@@ -81,7 +81,6 @@ function {
     atpull'%atclone' \
     '@sharkdp/fd' \
     \
-    atload'source <(fzf --zsh)' \
     'junegunn/fzf' \
     \
     mv'jq* -> jq' \

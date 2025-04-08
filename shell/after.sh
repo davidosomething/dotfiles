@@ -87,6 +87,8 @@ if __dko_has "fd"; then
   }
 fi
 
+__dko_has "fzf" && source <(fzf --zsh)
+
 # ============================================================================
 
 #__dko_has 'catimg' && echo && catimg "${DOTFILES}/meta/motd.png" && echo
