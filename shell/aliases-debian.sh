@@ -1,4 +1,5 @@
-# shell/aliases-debian.bash
+# shellcheck shell=bash
+# shell/aliases-debian.sh
 
 alias b='sudo apt'
 alias bi='b install'

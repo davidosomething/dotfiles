@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/aliases-archlinux.sh
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases-archlinux.sh"

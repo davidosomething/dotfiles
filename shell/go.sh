@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/go.sh
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/go.sh {"

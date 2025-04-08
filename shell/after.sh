@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/after.sh
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/after.sh {"
@@ -55,15 +56,15 @@ FZF_CTRL_T_OPTS="${fzfopts} --tiebreak=index"
 
 # This is used by fzf#vim#with_preview's preview.sh
 __dko_has 'bat' && {
-  export FZF_PREVIEW_COMMAND="
-    bat --color=always --decorations=never --line-range :100 {}
-    "
-
-  # shellcheck disable=SC2089
-  FZF_CTRL_T_OPTS="${FZF_CTRL_T_OPTS} --preview='${FZF_PREVIEW_COMMAND}'"
+  export FZF_PREVIEW_COMMAND='bat --line-range :100 {}'
+  FZF_CTRL_T_OPTS="$(
+    printf \
+      "%s --preview=%q" \
+      "${FZF_CTRL_T_OPTS}" \
+      "${FZF_PREVIEW_COMMAND:Q}"
+  )"
 }
 
-# shellcheck disable=SC2090
 export FZF_CTRL_T_OPTS
 
 export FZF_ALT_C_OPTS="

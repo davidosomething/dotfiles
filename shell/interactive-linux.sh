@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/interactive-linux.sh
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive-linux.sh"

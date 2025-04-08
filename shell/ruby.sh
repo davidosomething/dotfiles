@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/ruby.sh
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/ruby.sh {"

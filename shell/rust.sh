@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/rust.sh
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/rust.sh {"

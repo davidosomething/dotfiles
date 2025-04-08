@@ -1,6 +1,7 @@
+# shellcheck shell=bash
 # shell/aliases.sh
 # Not run by loader
-# Sourced by both .zshrc and .bashrc, so keep it POSIX compatible
+# Sourced by both .zshrc and .bashrc, so keep it BASH compatible
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases.sh"
 

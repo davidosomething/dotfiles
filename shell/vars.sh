@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/vars.sh
 
 # Some things from env are here since macOS/OS X doesn't start new env for each

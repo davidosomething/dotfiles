@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/python.sh
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/python.sh {"

@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # shell/dot.profile
 
 # Used by /bin/sh shell
