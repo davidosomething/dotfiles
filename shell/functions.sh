@@ -46,6 +46,10 @@ g() {
   fi
 }
 
+xman() {
+  xdg-open "man:${1}"
+}
+
 # Export repo files to specified dir
 gitexport() {
   to_dir="${2:-./gitexport}"
@@ -100,7 +104,7 @@ publicip() {
     dig +short @resolver2.opendns.com myip.opendns.com 2>/dev/null
 }
 
-# useful for finding things like INSECURE keys (acceptable: RSA 4096 or Ed25519)
+# useful for finding things like INSECURE keys (only Ed25519 acceptable)
 sshlistkeys() {
   for keyfile in ~/.ssh/id_*; do
     ssh-keygen -l -f "${keyfile}"
