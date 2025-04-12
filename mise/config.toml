@@ -1,4 +1,5 @@
 [tools]
+"aqua:junegunn/fzf" = "latest"
 go = "1.24.1"
 node = "22"
 pnpm = "9"
