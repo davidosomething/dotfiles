@@ -4,9 +4,7 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
-local dkosettings = require("dko.settings")
 local dkolsp = require("dko.utils.lsp")
-local dkotools = require("dko.tools")
 
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
@@ -59,7 +57,7 @@ return {
     config = function()
       -- border on :LspInfo window
       require("lspconfig.ui.windows").default_options.border =
-        dkosettings.get("border")
+        require("dko.settings").get("border")
     end,
   },
 
@@ -108,36 +106,39 @@ return {
   },
 
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
       "neovim/nvim-lspconfig", -- wait for lspconfig
 
       -- @TODO move these somewhere else
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
-      -- "davidosomething/format-ts-errors.nvim", -- extracted ts error formatter
       -- "marilari88/twoslash-queries.nvim", -- ts_ls comment with  ^? comment
     },
     config = function()
-      local lspconfig = require("lspconfig")
-
-      dkotools.setup_unmanaged_lsps(dkolsp.middleware)
-
-      -- Note that instead of on_attach for each server setup,
-      -- behaviors.lua has an autocmd LspAttach defined
-      ---@type table<string, fun(server_name: string)>?
-      local handlers = dkotools.get_mason_lspconfig_handlers(dkolsp.middleware)
-      -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/init.lua#L62
-      handlers[1] = function(server)
-        lspconfig[server].setup(dkolsp.middleware())
-      end
+      local dkotools = require("dko.tools")
 
       local lsps = dkotools.get_mason_lsps()
       require("mason-lspconfig").setup({
-        automatic_installation = has_ui,
+        automatic_enable = false,
         ensure_installed = lsps,
-        handlers = handlers,
       })
+
+      -- =====================================================================
+      -- Enable lsps
+      -- =====================================================================
+      local function resolve_config_and_enable(configs)
+        local middleware = dkolsp.middleware
+        for name, resolver in pairs(configs) do
+          if resolver then
+            local config = resolver(middleware)
+            vim.lsp.config(name, config)
+          end
+          vim.lsp.enable(name)
+        end
+      end
+      resolve_config_and_enable(dkotools.lspconfig_resolvers)
+      resolve_config_and_enable(dkotools.mason_lspconfig_resolvers)
     end,
   },
 }
