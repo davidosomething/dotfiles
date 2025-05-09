@@ -61,9 +61,7 @@ M.features = {
         include_current_session = true,
         stat_file = true, -- verify files exist on disk
       }),
-      snacks = picker("snacks", "smart", {
-        multi = { "recent", "buffers" },
-      }),
+      snacks = picker("snacks", "recent"),
     },
   },
   project = {
