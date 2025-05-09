@@ -60,8 +60,6 @@ M.install_groups = { tool = {}, lsp = {} }
 ---@alias LspconfigMiddleware fun(table): table
 ---@alias LspconfigResolver fun(middleware?: LspconfigMiddleware): LspconfigDef
 
-
-
 ---@type table<string, LspconfigResolver>
 M.mason_lspconfig_resolvers = {}
 
@@ -70,7 +68,7 @@ M.lspconfig_resolvers = {}
 
 local runner_to_resolvers_map = {
   ["lspconfig"] = M.lspconfig_resolvers,
-  ["mason-lspconfig"] = M.mason_lspconfig_resolvers
+  ["mason-lspconfig"] = M.mason_lspconfig_resolvers,
 }
 
 ---@type Tool[] with efm defined
@@ -121,7 +119,7 @@ M.register = function(config)
   -- ===========================================================================
   if config.runner then
     local config_map = runner_to_resolvers_map[config.runner]
-    config_map[config.name] = function (middleware)
+    config_map[config.name] = function(middleware)
       middleware = middleware or middleware_pass
       local lspconfig = config.lspconfig and config.lspconfig() or {}
       local middleware_applied = middleware(lspconfig)
@@ -137,7 +135,9 @@ end
 ---@param filter? fun(Tool): boolean -- for iter:filter
 ---@return table<ft, (EfmLinter|EfmFormatter)[]>
 M.get_efm_languages = function(filter)
-  filter = filter or function() return true end
+  filter = filter or function()
+    return true
+  end
   local filtered_efm_configs = vim.iter(efm_configs):filter(filter)
   return filtered_efm_configs:fold({}, function(acc, config)
     for _, ft in ipairs(config.fts) do
@@ -201,7 +201,6 @@ M.get_tools = function()
 end
 
 -- LSPs to install with mason via mason-lspconfig
--- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 ---@return string[]
 M.get_mason_lsps = function()
   return M.groups_to_tools(

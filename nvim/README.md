@@ -46,7 +46,7 @@ Neovim config, crafted for **nightly builds only**! Configured in Lua.
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/dev/meta/nvim-potatosff.png
 [lazy.nvim]: https://github.com/folke/lazy.nvim
 [vim-colors-meh]: https://github.com/davidosomething/vim-colors-meh
-[mason.nvim]: https://github.com/williamboman/mason.nvim
+[mason.nvim]: https://github.com/mason-org/mason.nvim
 [efm-langserver]: https://github.com/mattn/efm-langserver
 [fzf-lua]: https://github.com/ibhagwan/fzf-lua
 [heirline.nvim]: https://github.com/rebelot/heirline.nvim
