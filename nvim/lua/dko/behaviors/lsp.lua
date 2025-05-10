@@ -172,9 +172,10 @@ autocmd("User", {
         dkosettings.get("coc.enabled")
         and vim.fn.exists("*coc#float#close_all")
       then
-        vim.fn["coc#float#close_all"]()
+        vim.fn["coc#float#close_all"](1)
+        vim.fn["coc#notify#close_all"]()
       end
-    end, "Close coc.nvim floats on <Esc><Esc>")
+    end, "Close coc.nvim floats and notifications on <Esc><Esc>")
   end,
   group = augroup("dkolsp"),
 })

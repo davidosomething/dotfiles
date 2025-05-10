@@ -1,6 +1,3 @@
-local dkodiagnostic = require("dko.diagnostic")
-local dkosettings = require("dko.settings")
-
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
@@ -9,7 +6,7 @@ local dev = vim.env.NVIM_DEV ~= nil
 return {
   {
     "davidosomething/format-ts-errors.nvim",
-    cond = has_ui and dkosettings.get("use_coc"),
+    cond = has_ui and require("dko.settings").get("use_coc"),
     dev = dev,
     config = function()
       local f = require("format-ts-errors")
@@ -18,7 +15,9 @@ return {
         start_indent_level = 0,
       })
       -- register a new message formatter for tsserver
-      dkodiagnostic.message_formatters["tsserver"] = function(diagnostic)
+      require("dko.diagnostic").message_formatters["tsserver"] = function(
+        diagnostic
+      )
         local formatter = f[diagnostic.code]
         if not formatter then
           vim.schedule(function()
@@ -44,7 +43,7 @@ return {
   {
     "neoclide/coc.nvim",
     branch = "release",
-    cond = has_ui and dkosettings.get("use_coc"),
+    cond = has_ui and require("dko.settings").get("use_coc"),
     init = function()
       -- Don't use watchman until this is properly resolved
       -- https://github.com/neoclide/coc.nvim/issues/4490
