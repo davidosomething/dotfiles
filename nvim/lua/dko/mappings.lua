@@ -378,7 +378,7 @@ end, { desc = "Copy treesitter captures under cursor" })
 -- Bind <C-n> <C-p> to pick based on coc or nvim-cmp open
 -- Bind <C-j> <C-k> to scroll coc or nvim-cmp attached docs window
 M.bind_completion = function(opts)
-  local _, cmp = pcall(require, "cmp")
+  local cmp_ok, cmp = pcall(require, "cmp")
 
   map("n", "<C-Space>", function()
     vim.cmd.startinsert({ bang = true })
@@ -387,17 +387,28 @@ M.bind_completion = function(opts)
 
   map("i", "<C-Space>", function()
     vim.fn["coc#pum#close"]("cancel")
-    cmp.complete()
+    if cmp_ok then
+      cmp.complete()
+    end
   end, { desc = "In insert mode, start nvim-cmp completion" })
 
-  map("i", "<Plug>(DkoCmpNext)", function()
-    cmp.select_next_item()
-  end)
-  map("i", "<Plug>(DkoCmpPrev)", function()
-    cmp.select_prev_item()
-  end)
+  if cmp_ok then
+    map("i", "<Plug>(DkoCmpNext)", function()
+      cmp.select_next_item()
+    end)
+    map("i", "<Plug>(DkoCmpPrev)", function()
+      cmp.select_prev_item()
+    end)
+    map("i", "<Plug>(DkoCmpScrollUp)", function()
+      cmp.mapping.scroll_docs(-4)
+    end)
+    map("i", "<Plug>(DkoCmpScrollDown)", function()
+      cmp.mapping.scroll_docs(4)
+    end)
+  end
+
   map("i", "<C-n>", function()
-    if cmp.visible() then
+    if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpNext)"
     end
     if vim.b.did_bind_coc then
@@ -406,7 +417,7 @@ M.bind_completion = function(opts)
     end
   end, { expr = true, buffer = opts.buf, remap = true, silent = true })
   map("i", "<C-p>", function()
-    if cmp.visible() then
+    if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpPrev)"
     end
     if vim.b.did_bind_coc then
@@ -415,14 +426,8 @@ M.bind_completion = function(opts)
     end
   end, { expr = true, buffer = opts.buf, remap = true, silent = true })
 
-  map("i", "<Plug>(DkoCmpScrollUp)", function()
-    cmp.mapping.scroll_docs(-4)
-  end)
-  map("i", "<Plug>(DkoCmpScrollDown)", function()
-    cmp.mapping.scroll_docs(4)
-  end)
   map("i", "<C-k>", function()
-    if cmp.visible() then
+    if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpScrollUp)"
     end
     if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
@@ -436,7 +441,7 @@ M.bind_completion = function(opts)
     silent = true,
   })
   map("i", "<C-j>", function()
-    if cmp.visible() then
+    if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpScrollDown)"
     end
     if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then

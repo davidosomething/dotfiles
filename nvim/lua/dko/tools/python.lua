@@ -36,22 +36,6 @@ tools.register({
   require = "python",
   name = "basedpyright",
   runner = "mason-lspconfig",
-  lspconfig = function()
-    return {
-      settings = {
-        basedpyright = {
-          disableOrganizeImports = true, -- prefer ruff or isort
-          typeCheckingMode = "standard",
-        },
-        python = {
-          analysis = {
-            -- Ignore all files for analysis to exclusively use Ruff for linting
-            ignore = { "*" },
-          },
-        },
-      },
-    }
-  end,
 })
 
 -- syntax checker, python hover and some diagnostics from jedi
@@ -72,14 +56,5 @@ if vim.fn.has("macunix") == 0 then
     name = "ruff",
     mason_type = "lsp",
     require = "python",
-    lspconfig = function()
-      return {
-        ---note: local on_attach happens AFTER autocmd LspAttach
-        on_attach = function(client)
-          -- basedpyright instead
-          client.server_capabilities.hoverProvider = false
-        end,
-      }
-    end,
   })
 end

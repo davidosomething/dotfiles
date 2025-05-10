@@ -57,31 +57,18 @@ local M = {}
 ---@type { tool: ToolGroups[], lsp: ToolGroups[] }
 M.install_groups = { tool = {}, lsp = {} }
 
----@alias LspconfigMiddleware fun(table): table
+---@alias LspconfigMiddleware fun(table): LspconfigDef
 ---@alias LspconfigResolver fun(middleware?: LspconfigMiddleware): LspconfigDef
 
----@type table<string, LspconfigResolver>
-M.mason_lspconfig_resolvers = {}
-
----@type table<string, LspconfigResolver>
-M.lspconfig_resolvers = {}
-
-local runner_to_resolvers_map = {
-  ["lspconfig"] = M.lspconfig_resolvers,
-  ["mason-lspconfig"] = M.mason_lspconfig_resolvers,
-}
+---List of tool names that are lsps according to the tool config.runner
+---@type string[]
+M.lsps = {}
 
 ---@type Tool[] with efm defined
 local efm_configs = {}
 
 ---@type table<ft, boolean>
 local efm_filetypes = {}
-
-local function noop_resolver()
-  return function()
-    -- noop
-  end
-end
 
 local function middleware_pass(lspconfig)
   return lspconfig or {}
@@ -117,14 +104,8 @@ M.register = function(config)
   -- ===========================================================================
   -- Register LSP
   -- ===========================================================================
-  if config.runner then
-    local config_map = runner_to_resolvers_map[config.runner]
-    config_map[config.name] = function(middleware)
-      middleware = middleware or middleware_pass
-      local lspconfig = config.lspconfig and config.lspconfig() or {}
-      local middleware_applied = middleware(lspconfig)
-      return middleware_applied
-    end
+  if config.runner == "lspconfig" then
+    table.insert(M.lsps, config.name)
   end
 end
 

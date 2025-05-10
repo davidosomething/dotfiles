@@ -14,16 +14,4 @@ dkotools.register({
   require = "go",
   name = "efm",
   runner = "mason-lspconfig",
-  lspconfig = function()
-    ---@type lspconfig.Config
-    return {
-      filetypes = dkotools.get_efm_filetypes(),
-      single_file_support = true,
-      init_options = {
-        documentFormatting = true,
-        documentRangeFormatting = true,
-      },
-      settings = { languages = dkotools.get_efm_languages() },
-    }
-  end,
 })
