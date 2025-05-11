@@ -1,4 +1,5 @@
 local dkosettings = require("dko.settings")
+local smallcaps = require("dko.utils.string").smallcaps
 
 -- =========================================================================
 -- Completion
@@ -35,7 +36,7 @@ local cmpWindowSettings = {
   }, ","),
 }
 
--- caches
+-- plugin caches
 local nhc_ok, nhc
 
 local cmp_dependencies = {
@@ -151,7 +152,6 @@ return {
             if not source then
               item.kind = sym
               item.kind_hl_group = symhl
-              local smallcaps = require("dko.utils.string").smallcaps
               source =
                 smallcaps(SOURCE_MAP[entry.source.name] or entry.source.name)
               itemtype = (".%s"):format(smallcaps(raw_kind))
