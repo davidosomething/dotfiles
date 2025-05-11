@@ -10,6 +10,7 @@ tools.register({
   end,
 })
 
+-- Using coc-json instead
 -- not used for formatting - prefer prettier since it does one-line arrays
 -- when they fit
 -- tools.register({
