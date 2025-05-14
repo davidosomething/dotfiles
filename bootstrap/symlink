@@ -77,13 +77,18 @@ __symlink() {
   # Shell
   dko-symlink "zsh/dot.zshenv" \
     ".zshenv"
-
-  __dko_status "Done! [symlink.sh]"
 }
 
 __symlink
 if [ -z "${GIT_AUTHOR_NAME}" ]; then
-  __dko_echo "Don't forget to set up GIT_xxx ENV variables"
+  __dko_warn "Don't forget to set up GIT_xxx ENV variables"
 fi
 
-__dko_echo "Run symlink-bash if you need .bashrc and .bash_profile"
+if [ -f "${HOME}/.bashrc" ] || [ -f "${HOME}/.bash_profile" ]; then
+  __dko_warn "Found .bashrc and .bash_profile"
+  __dko_echo "Run symlink-bash if you need .bashrc and .bash_profile"
+else
+  __dko_status "Skipping .bashrc and .bash_profile"
+fi
+
+__dko_status "Done! [${0}]"
