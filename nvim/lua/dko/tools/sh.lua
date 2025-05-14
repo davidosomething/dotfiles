@@ -29,3 +29,12 @@ tools.register({
     return require("efmls-configs.formatters.shfmt")
   end,
 })
+
+-- this lsp just runs shellcheck and shfmt
+-- tools.register({
+--   mason_type = "lsp",
+--   require = "npm",
+--   runner = "lspconfig",
+--   name = "bashls",
+--   fts = { "bash", "sh" },
+-- })
