@@ -23,7 +23,6 @@ mkdir -p -- "${HOME}/.cache"
 mkdir -p -- "${HOME}/.config"
 
 # Mirror root in ~/.local
-# pipx uses this bin dir
 mkdir -p -- "${HOME}/.local/bin"
 mkdir -p -- "${HOME}/.local/man/man1"
 mkdir -p -- "${HOME}/.local/lib/R/library"
@@ -76,10 +75,6 @@ __symlink() {
   esac
 
   # Shell
-  dko-symlink "bash/dot.bashrc" \
-    ".bashrc"
-  dko-symlink "bash/dot.bash_profile" \
-    ".bash_profile"
   dko-symlink "zsh/dot.zshenv" \
     ".zshenv"
 
@@ -90,3 +85,5 @@ __symlink
 if [ -z "${GIT_AUTHOR_NAME}" ]; then
   __dko_echo "Don't forget to set up GIT_xxx ENV variables"
 fi
+
+__dko_echo "Run symlink-bash if you need .bashrc and .bash_profile"
