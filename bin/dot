@@ -76,6 +76,12 @@ __dko_dotfiles__update() {
     return 1
   }
 
+  [[ -n "$LDOTDIR" ]] && [[ -d "${LDOTDIR}/.git" ]] && __dko_status "Updating ${LDOTDIR}" && (
+    cd -- "${LDOTDIR}" || exit 1
+    git pull --rebase || exit 1
+    git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
+  )
+
   __dko_ok "Successfully updated dotfiles"
 }
 
