@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#
+# BASH symlinks, safe to run on any system
+#
+
+# ============================================================================
+# initialize script and dependencies
+# ============================================================================
+
+if [[ -z "$DOTFILES" ]]; then
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$PWD"
+fi
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
+export PATH="${DOTFILES}/bin:${PATH}"
+
+# ============================================================================
+# Create paths (slow)
+# ============================================================================
+
+mkdir -p -- "${HOME}/.cache"
+mkdir -p -- "${HOME}/.config"
+
+# ============================================================================
+# Main
+# ============================================================================
+
+__symlink() {
+  __dko_status "Symlinking dotfiles for bash"
+  dko-symlink "bash/dot.bashrc" \
+    ".bashrc"
+  dko-symlink "bash/dot.bash_profile" \
+    ".bash_profile"
+
+  __dko_status "Done! [${0}.sh]"
+}
+__symlink
