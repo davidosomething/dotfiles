@@ -53,6 +53,9 @@ __symlink() {
     ".config/mise/config.toml"
   dko-symlink "shell/dot.inputrc" \
     ".config/readline/inputrc"
+  # tmux as of 3.1 supports XDG https://github.com/tmux/tmux/commit/15d7e564ddab575dd3ac803989cc99ac13b57198
+  dko-symlink "tmux/tmux.conf" \
+    ".config/tmux/tmux.conf"
   # whole wezterm directory
   dko-symlink "wezterm" \
     ".config/wezterm"
