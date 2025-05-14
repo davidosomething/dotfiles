@@ -916,6 +916,7 @@ M.urlview = {
 
 M.bind_urlview = function()
   require("urlview").setup({
+    default_action = "system",
     jump = {
       prev = M.urlview.prev,
       next = M.urlview.next,
