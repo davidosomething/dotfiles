@@ -21,7 +21,7 @@ Neovim config, crafted for **nightly builds only**! Configured in Lua.
 | Status/tab/winbar | [heirline.nvim]  |
 | LSP/tool manager  | [mason.nvim]     |
 | Local LSP         | [efm-langserver] |
-| File finder       | [fzf-lua]      |
+| File finder       | [fzf-lua]        |
 
 ## custom things
 

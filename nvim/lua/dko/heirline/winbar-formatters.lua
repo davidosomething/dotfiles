@@ -27,18 +27,25 @@ return {
     end,
     provider = function()
       local items = {}
-      local pipelines = require("dko.utils.format").pipelines[vim.bo.filetype]
-      if pipelines[2] then
-        table.insert(items, pipelines[2])
+      if vim.b.formatter then
+        table.insert(items, vim.b.formatter)
       else
-        for _, name in ipairs(vim.b.formatters) do
-          if vim.bo.filetype ~= "" and name == "efm" then
-            local efm_keys = vim.tbl_keys(
-              require("dko.tools").efm_filetypes[vim.bo.filetype] or {}
-            )
-            table.insert(items, ("efm[%s]"):format(table.concat(efm_keys, ",")))
-          else
-            table.insert(items, name)
+        local pipelines = require("dko.utils.format").pipelines[vim.bo.filetype]
+        if pipelines[2] then
+          table.insert(items, pipelines[2])
+        else
+          for _, name in ipairs(vim.b.formatters) do
+            if vim.bo.filetype ~= "" and name == "efm" then
+              local efm_keys = vim.tbl_keys(
+                require("dko.tools").efm_filetypes[vim.bo.filetype] or {}
+              )
+              table.insert(
+                items,
+                ("efm[%s]"):format(table.concat(efm_keys, ","))
+              )
+            else
+              table.insert(items, name)
+            end
           end
         end
       end
