@@ -30,9 +30,10 @@ return {
       if vim.b.formatter then
         table.insert(items, vim.b.formatter)
       else
-        local pipelines = require("dko.utils.format").pipelines[vim.bo.filetype]
-        if pipelines[2] then
-          table.insert(items, pipelines[2])
+        local pipelines = require("dko.utils.format").pipelines
+        local pipeline = pipelines[vim.bo.filetype] or {}
+        if pipeline[2] then
+          table.insert(items, pipeline[2])
         else
           for _, name in ipairs(vim.b.formatters) do
             if vim.bo.filetype ~= "" and name == "efm" then
