@@ -93,19 +93,6 @@ return {
   -- },
 
   {
-    "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
-    config = function()
-      local cnl = require("cmp_nvim_lsp")
-      cnl.setup()
-      dkolsp.base_config.capabilities = vim.tbl_deep_extend(
-        "force",
-        dkolsp.base_config.capabilities,
-        cnl.default_capabilities()
-      )
-    end,
-  },
-
-  {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp", -- provides some capabilities
@@ -127,13 +114,10 @@ return {
       -- =====================================================================
       -- Enable lsps
       -- =====================================================================
+      local cnl = require("cmp_nvim_lsp")
       local function resolve_config_and_enable(configs)
-        local middleware = dkolsp.middleware
-        for name, resolver in pairs(configs) do
-          if resolver then
-            local config = resolver(middleware)
-            vim.lsp.config(name, config)
-          end
+        for name in pairs(configs) do
+          vim.lsp.config(name, cnl.default_capabilities())
           vim.lsp.enable(name)
         end
       end
