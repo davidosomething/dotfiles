@@ -1,6 +1,6 @@
 local smallcaps = require("dko.utils.string").smallcaps
-local dkohl = require("dko.heirline.utils").hl
 
+-- see ../utils/format.lua for vim.b.formatters definition
 -- List format-on-save clients for the buffer
 return {
   condition = function()
@@ -14,7 +14,7 @@ return {
     provider = " 󱃖 ",
     hl = function()
       -- empty table means probably LspStop happened
-      return dkohl("DiffDelete")
+      return require("dko.heirline.utils").hl("DiffDelete")
     end,
   },
 
@@ -23,10 +23,26 @@ return {
       return #vim.b.formatters > 0
     end,
     hl = function()
-      return dkohl()
+      return require("dko.heirline.utils").hl()
     end,
     provider = function()
-      return "󱃖 " .. smallcaps(table.concat(vim.b.formatters, ",")) .. " "
+      local items = {}
+      local pipelines = require("dko.utils.format").pipelines[vim.bo.filetype]
+      if pipelines[2] then
+        table.insert(items, pipelines[2])
+      else
+        for _, name in ipairs(vim.b.formatters) do
+          if vim.bo.filetype ~= "" and name == "efm" then
+            local efm_keys = vim.tbl_keys(
+              require("dko.tools").efm_filetypes[vim.bo.filetype] or {}
+            )
+            table.insert(items, ("efm[%s]"):format(table.concat(efm_keys, ",")))
+          else
+            table.insert(items, name)
+          end
+        end
+      end
+      return "󱃖 " .. smallcaps(table.concat(items, ",")) .. " "
     end,
   },
 }

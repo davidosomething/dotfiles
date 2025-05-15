@@ -66,13 +66,8 @@ local runner_to_resolvers_map = {
 ---@type Tool[] with efm defined
 local efm_configs = {}
 
----@type table<ft, boolean>
-local efm_filetypes = {}
-
----@return lspconfig.Config
-local function middleware_pass(lspconfig)
-  return lspconfig or {}
-end
+---@type table<ft, Tool[]>
+M.efm_filetypes = {}
 
 ---@param config Tool
 M.register = function(config)
@@ -95,7 +90,8 @@ M.register = function(config)
   -- ===========================================================================
   if config.efm then
     vim.iter(config.fts or {}):each(function(ft)
-      efm_filetypes[ft] = true
+      M.efm_filetypes[ft] = M.efm_filetypes[ft] or {}
+      M.efm_filetypes[ft][config.name] = config
     end)
     table.insert(efm_configs, config)
     return
@@ -108,10 +104,6 @@ M.register = function(config)
     local config_map = runner_to_resolvers_map[config.runner]
     config_map[config.name] = true
   end
-end
-
-M.get_efm_filetypes = function()
-  return vim.tbl_keys(efm_filetypes)
 end
 
 ---@param filter? fun(Tool): boolean -- for iter:filter

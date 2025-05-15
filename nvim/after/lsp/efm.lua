@@ -2,7 +2,7 @@ local dkotools = require("dko.tools")
 
 ---@type lspconfig.Config
 return {
-  filetypes = dkotools.get_efm_filetypes(),
+  filetypes = vim.tbl_keys(dkotools.efm_filetypes),
   single_file_support = true,
   init_options = {
     documentFormatting = true,
