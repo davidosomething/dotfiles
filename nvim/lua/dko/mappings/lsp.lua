@@ -12,7 +12,11 @@ M.features = {
     shortcut = "<Leader><Leader>",
     providers = {
       coc = "<Plug>(coc-codeaction-cursor)",
-      default = vim.lsp.buf.code_action,
+      -- read settings.select instead of settings.finder
+      default = dkosettings.get("select") == "fzf"
+          and picker("fzf-lua", "lsp_code_actions")
+        or vim.lsp.buf.code_action,
+      fzf = picker("fzf-lua", "lsp_code_actions"),
     },
   },
   documentLink = {

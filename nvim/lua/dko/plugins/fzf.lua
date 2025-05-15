@@ -1,12 +1,12 @@
-local dkomappings = require("dko.mappings")
-local dkosettings = require("dko.settings")
-
 return {
   {
     "ibhagwan/fzf-lua",
     -- optional for icon support
     dependencies = "echasnovski/mini.icons",
+    lazy = true,
     config = function()
+      local dkomappings = require("dko.mappings")
+      local dkosettings = require("dko.settings")
       local fzf = require("fzf-lua")
       local actions = require("fzf-lua").actions
       local utils = require("fzf-lua").utils
@@ -47,7 +47,7 @@ return {
           preview_normal = hl_validate("TelescopeNormal"),
           preview_border = hl_validate("TelescopeBorder"),
           preview_title = hl_validate("TelescopePreviewTitle"),
-          -- builtin preview only
+          -- built-in preview only
           cursor = hl_validate("Cursor"),
           cursorline = hl_validate("TelescopeSelection"),
           cursorlinenr = hl_validate("TelescopeSelection"),
