@@ -51,7 +51,15 @@ M.pipelines["lua"] = {
   end,
   "efm:stylua",
 }
-M.pipelines["markdown"] = { require("dko.utils.format.markdown") }
+M.pipelines["markdown"] = {
+  function()
+    -- setup in ftplugin/markdown.lua
+    require("dko.utils.format.efm").format_with(
+      vim.b.formatter,
+      { pipeline = "markdown" }
+    )
+  end,
+}
 M.pipelines["yaml"] = {
   function()
     if vim.bo.filetype == "yaml.docker-compose" then
