@@ -59,7 +59,7 @@ autocmd("LspAttach", {
     -- Track formatters, non-exclusively, non-LSPs might add to this table
     -- or fire the autocmd
     local name = clients[1].name
-    dkoformat.add_formatter(bufnr, name)
+    dkoformat.add_formatter(bufnr, name, {})
   end,
   group = augroup("dkolsp"),
 })

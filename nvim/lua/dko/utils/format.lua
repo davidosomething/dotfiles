@@ -20,40 +20,57 @@ local M = {}
 -- ===========================================================================
 
 ---@TODO move this to individual ftplugins?
----@type table<ft, function>
-local pipelines = {}
-pipelines["html"] = function()
-  require("dko.utils.format.efm").format({ pipeline = "html" })
-end
-pipelines["javascript"] = require("dko.utils.format.javascript")
-pipelines["javascriptreact"] = pipelines["javascript"]
-pipelines["typescript"] = pipelines["javascript"]
-pipelines["typescriptreact"] = pipelines["javascript"]
-pipelines["json"] = function()
-  require("dko.utils.format.efm").format_with("prettier", { pipeline = "json" })
-end
-pipelines["jsonc"] = pipelines["json"]
-pipelines["lua"] = function()
-  require("dko.utils.format.efm").format_with("stylua", { pipeline = "lua" })
-end
-pipelines["markdown"] = require("dko.utils.format.markdown")
-pipelines["yaml"] = function()
-  if vim.bo.filetype == "yaml.docker-compose" then
-    vim.lsp.buf.format({ name = "docker_compose_language_service" })
-    notify({ "docker_compose_language_service" })
-    return
-  end
-  require("dko.utils.format.efm").format_with(
-    "yamlfmt",
-    { pipeline = "yamlfmt" }
-  )
-end
+---@type table<ft, { [1]: function, [2]: string }>
+M.pipelines = {}
+M.pipelines["html"] = {
+  function()
+    require("dko.utils.format.efm").format_with(
+      "prettier",
+      { pipeline = "html" }
+    )
+  end,
+  "efm:prettier",
+}
+M.pipelines["javascript"] = { require("dko.utils.format.javascript") }
+M.pipelines["javascriptreact"] = M.pipelines["javascript"]
+M.pipelines["typescript"] = M.pipelines["javascript"]
+M.pipelines["typescriptreact"] = M.pipelines["javascript"]
+M.pipelines["json"] = {
+  function()
+    require("dko.utils.format.efm").format_with(
+      "prettier",
+      { pipeline = "json" }
+    )
+  end,
+  "efm:prettier",
+}
+M.pipelines["jsonc"] = M.pipelines["json"]
+M.pipelines["lua"] = {
+  function()
+    require("dko.utils.format.efm").format_with("stylua", { pipeline = "lua" })
+  end,
+  "efm:stylua",
+}
+M.pipelines["markdown"] = { require("dko.utils.format.markdown") }
+M.pipelines["yaml"] = {
+  function()
+    if vim.bo.filetype == "yaml.docker-compose" then
+      vim.lsp.buf.format({ name = "docker_compose_language_service" })
+      notify({ "docker_compose_language_service" })
+      return
+    end
+    require("dko.utils.format.efm").format_with(
+      "yamlfmt",
+      { pipeline = "yamlfmt" }
+    )
+  end,
+}
 
 --- See options for vim.lsp.buf.format
 M.run_pipeline = function(options)
-  local pipeline = pipelines[vim.bo.filetype]
-  if pipeline then
-    return pipeline()
+  local pipelinedef = M.pipelines[vim.bo.filetype]
+  if pipelinedef then
+    return pipelinedef[1]()
   end
 
   local names = {}
@@ -92,12 +109,18 @@ M.run_pipeline = function(options)
   notify(names)
 end
 
+---@class AddFormatterOptions
+---@field autoenable? boolean -- default true, autoenable when first formatter added
+---@field heirline? string -- name to show in heirline winbar
+
 ---Add formatter to vim.b.formatters and fire autocmd (e.g. update heirline)
 ---@param bufnr number
 ---@param name string like "lua_ls" or "efm"
----@param autoenable? boolean default true, autoenable when first formatter added
-M.add_formatter = function(bufnr, name, autoenable)
-  autoenable = autoenable ~= false
+---@param opts? AddFormatterOptions
+M.add_formatter = function(bufnr, name, opts)
+  opts = vim.tbl_extend("force", {
+    autoenable = true,
+  }, opts)
 
   -- Already added
   if
@@ -113,7 +136,7 @@ M.add_formatter = function(bufnr, name, autoenable)
   vim.b[bufnr].formatters = dkotable.append(copy, name)
 
   -- Auto-enable format on save if it was not explicitly disabled (false)
-  vim.b.enable_format_on_save = autoenable
+  vim.b.enable_format_on_save = opts.autoenable
     and vim.b.enable_format_on_save ~= false
 
   vim.cmd.doautocmd("User", "FormattersChanged") -- Should trigger ui redraw
