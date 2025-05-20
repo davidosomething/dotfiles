@@ -58,7 +58,6 @@ if __dko_has 'zinit'; then
   . "${ZDOTDIR}/zinit.zsh" 2>/dev/null
   autoload -Uz _zinit && (( ${+_comps} )) && _comps[zinit]=_zinit
   # the last zinit plugin will run zicompinit which inits compinit
-  alias zup='zini update --parallel'
 else
   autoload -Uz compinit && compinit
 fi
@@ -69,7 +68,11 @@ fi
 
 compdef g=git
 compdef e=nvim
-__dko_has 'pipx' && eval "$(register-python-argcomplete pipx)"
+
+if __dko_has 'pipx' && ! eval "$(register-python-argcomplete pipx)"; then
+  __dko_warn  "Failed to run register-python-argcomplete!"
+  __dko_warn_ "Was pytthon upgraded? Maybe do a 'pipx reinstall-all'"
+fi
 
 # ============================================================================
 # Options
