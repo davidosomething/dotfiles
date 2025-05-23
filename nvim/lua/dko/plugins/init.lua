@@ -1,6 +1,3 @@
-local dkomappings = require("dko.mappings")
-local dkosettings = require("dko.settings")
-
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
@@ -17,7 +14,7 @@ return {
           show_hidden = true,
         },
       })
-      dkomappings.bind_oil()
+      require("dko.mappings").bind_oil()
     end,
   },
 
@@ -42,7 +39,9 @@ return {
         --- something weird about the cursor positioning of this compared to the
         --- built-in ]d [d
         suffix = BRACKETED_DISABLED,
-        options = { float = dkosettings.get("diagnostics.goto_float") },
+        options = {
+          float = require("dko.settings").get("diagnostics.goto_float"),
+        },
       },
       -- file = { suffix = "f" },
       indent = { suffix = BRACKETED_DISABLED }, -- confusing
@@ -131,7 +130,7 @@ return {
   --       --   show_source = true,
   --       -- },
   --     })
-  --     dkosettings.set("diagnostics.goto_float", false)
+  --     require("dko.settings").set("diagnostics.goto_float", false)
   --   end,
   -- },
 
@@ -164,7 +163,7 @@ return {
       -- "nvim-tree/nvim-web-devicons", -- mini icons instead
       "nvim-lua/plenary.nvim",
     },
-    keys = vim.tbl_values(dkomappings.cybu),
+    keys = vim.tbl_values(require("dko.mappings").cybu),
     config = function()
       require("cybu").setup({
         display_time = 500,
@@ -174,7 +173,7 @@ return {
           max_win_width = 0.5,
         },
         style = {
-          border = dkosettings.get("border"),
+          border = require("dko.settings").get("border"),
           hide_buffer_id = true,
           highlights = {
             background = "dkoBgAlt",
@@ -187,7 +186,7 @@ return {
           "help",
         },
       })
-      dkomappings.bind_cybu()
+      require("dko.mappings").bind_cybu()
     end,
   },
 
@@ -197,7 +196,7 @@ return {
   {
     "troydm/zoomwintab.vim",
     cond = has_ui,
-    keys = dkomappings.zoomwintab,
+    keys = require("dko.mappings").zoomwintab,
     cmd = {
       "ZoomWinTabIn",
       "ZoomWinTabOut",
@@ -222,10 +221,10 @@ return {
   {
     "yorickpeterse/nvim-window",
     cond = has_ui,
-    keys = vim.tbl_values(dkomappings.nvim_window),
+    keys = vim.tbl_values(require("dko.mappings").nvim_window),
     config = function()
       require("nvim-window").setup({})
-      dkomappings.bind_nvim_window()
+      require("dko.mappings").bind_nvim_window()
     end,
   },
 
@@ -242,19 +241,19 @@ return {
 
   {
     "akinsho/toggleterm.nvim",
-    keys = dkomappings.toggleterm_all_keys,
+    keys = require("dko.mappings").toggleterm_all_keys,
     cmd = "ToggleTerm",
     cond = has_ui,
     config = function()
       require("toggleterm").setup({
         float_opts = {
-          border = dkosettings.get("border"),
+          border = require("dko.settings").get("border"),
         },
         -- built-in mappings only work on LAST USED terminal, so it confuses
         -- the buffer terminal with the floating terminal
         open_mapping = nil,
       })
-      dkomappings.bind_toggleterm()
+      require("dko.mappings").bind_toggleterm()
     end,
   },
 
@@ -265,7 +264,7 @@ return {
   {
     "aaronik/treewalker.nvim",
     config = function()
-      dkomappings.bind_treewalker()
+      require("dko.mappings").bind_treewalker()
     end,
   },
 
@@ -286,11 +285,11 @@ return {
   -- https://github.com/axieax/urlview.nvim
   {
     "axieax/urlview.nvim",
-    keys = vim.tbl_values(dkomappings.urlview),
+    keys = vim.tbl_values(require("dko.mappings").urlview),
     cmd = "UrlView",
     cond = has_ui,
     config = function()
-      dkomappings.bind_urlview()
+      require("dko.mappings").bind_urlview()
     end,
   },
 
@@ -434,10 +433,12 @@ return {
         )
         return
       end
-      require("Comment").setup(dkomappings.with_commentnvim_mappings({
-        -- add treesitter support, want tsx/jsx in particular
-        pre_hook = tscc_integration.create_pre_hook(),
-      }))
+      require("Comment").setup(
+        require("dko.mappings").with_commentnvim_mappings({
+          -- add treesitter support, want tsx/jsx in particular
+          pre_hook = tscc_integration.create_pre_hook(),
+        })
+      )
     end,
   },
 
@@ -446,13 +447,13 @@ return {
     cond = has_ui,
     dependencies = "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
-    keys = dkomappings.trees,
+    keys = require("dko.mappings").trees,
     config = function()
       require("treesj").setup({
         use_default_keymaps = false,
         max_join_length = 255,
       })
-      dkomappings.bind_treesj()
+      require("dko.mappings").bind_treesj()
     end,
   },
 
@@ -482,7 +483,7 @@ return {
           },
         },
       })
-      dkomappings.bind_nvim_various_textobjs()
+      require("dko.mappings").bind_nvim_various_textobjs()
     end,
   },
 }

@@ -1,6 +1,3 @@
-local dkomappings = require("dko.mappings")
-local dkosettings = require("dko.settings")
-
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
@@ -20,9 +17,9 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     cond = has_ui,
     opts = {
-      on_attach = dkomappings.bind_gitsigns,
+      on_attach = require("dko.mappings").bind_gitsigns,
       preview_config = {
-        border = dkosettings.get("border"),
+        border = require("dko.settings").get("border"),
       },
     },
   },

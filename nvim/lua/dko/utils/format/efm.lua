@@ -1,7 +1,5 @@
 local Methods = vim.lsp.protocol.Methods
 
-local toast = require("dko.utils.notify").toast
-
 local M = {}
 
 ---@param opts? table
@@ -19,11 +17,15 @@ M.format = function(opts)
   local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
   if not client then
     if not opts.hide_notification then
-      toast("efm not attached", vim.log.levels.WARN, {
-        group = "format",
-        title = title,
-        render = "wrapped-compact",
-      })
+      require("dko.utils.notify").toast(
+        "efm not attached",
+        vim.log.levels.WARN,
+        {
+          group = "format",
+          title = title,
+          render = "wrapped-compact",
+        }
+      )
     end
     return false
   end
@@ -43,11 +45,15 @@ M.format = function(opts)
         :totable(),
       ", "
     )
-    toast(("%s"):format(formatters), vim.log.levels.INFO, {
-      group = "format",
-      title = title,
-      render = "wrapped-compact",
-    })
+    require("dko.utils.notify").toast(
+      ("%s"):format(formatters),
+      vim.log.levels.INFO,
+      {
+        group = "format",
+        title = title,
+        render = "wrapped-compact",
+      }
+    )
   end
 
   vim.lsp.buf.format({
@@ -72,7 +78,7 @@ M.format_with = function(name, opts)
 
   local client = vim.lsp.get_clients({ bufnr = 0, name = "efm" })[1]
   if not client then
-    toast(
+    require("dko.utils.notify").toast(
       "efm not attached",
       vim.log.levels.ERROR,
       { title = title, group = "format", render = "wrapped-compact" }
@@ -81,7 +87,7 @@ M.format_with = function(name, opts)
   end
 
   if name == "" then
-    toast(
+    require("dko.utils.notify").toast(
       ("No formatter configured for %s"):format(vim.bo.filetype),
       vim.log.levels.WARN,
       { title = title, group = "format", render = "wrapped-compact" }
@@ -93,7 +99,7 @@ M.format_with = function(name, opts)
     return tool.name == name and vim.tbl_contains(tool.fts, vim.bo.filetype)
   end)
   if vim.tbl_count(configs) == 0 then
-    toast(
+    require("dko.utils.notify").toast(
       ('No formatter "%s" for %s'):format(name, vim.bo.filetype),
       vim.log.levels.ERROR,
       { title = title, group = "format", render = "wrapped-compact" }
@@ -112,7 +118,7 @@ M.format_with = function(name, opts)
   )
 
   -- Do the deed
-  toast(
+  require("dko.utils.notify").toast(
     ("Formatting with %s"):format(name),
     vim.log.levels.INFO,
     { title = title, group = "format", render = "wrapped-compact" }

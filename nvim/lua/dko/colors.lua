@@ -1,13 +1,11 @@
 local M = {}
 
-local settings = require("dko.settings")
-
 M.is_dark = function()
-  return vim.g.colors_name == settings.get("colors.dark")
+  return vim.g.colors_name == require("dko.settings").get("colors.dark")
 end
 
 M.is_light = function()
-  return vim.g.colors_name == settings.get("colors.light")
+  return vim.g.colors_name == require("dko.settings").get("colors.light")
 end
 
 M.lightmode = function()
@@ -15,7 +13,7 @@ M.lightmode = function()
     return
   end
   vim.o.bg = "light"
-  vim.cmd.colorscheme(settings.get("colors.light"))
+  vim.cmd.colorscheme(require("dko.settings").get("colors.light"))
 end
 
 M.darkmode = function()
@@ -23,7 +21,7 @@ M.darkmode = function()
     return
   end
   vim.o.bg = "dark"
-  vim.cmd.colorscheme(settings.get("colors.dark"))
+  vim.cmd.colorscheme(require("dko.settings").get("colors.dark"))
 end
 
 local colorscheme_file_path = ("%s/wezterm-colorscheme.txt"):format(

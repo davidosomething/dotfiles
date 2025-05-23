@@ -1,11 +1,9 @@
-local dkomappings = require("dko.mappings")
-
 local Methods = vim.lsp.protocol.Methods
 
 local M = {}
 
 M.bind_gf = function()
-  dkomappings.map("n", "gf", function()
+  require("dko.mappings").map("n", "gf", function()
     local line = vim.api.nvim_get_current_line()
     if line:match("require%(") then
       local bufnr = vim.api.nvim_get_current_buf()

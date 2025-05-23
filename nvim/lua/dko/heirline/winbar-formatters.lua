@@ -1,5 +1,3 @@
-local smallcaps = require("dko.utils.string").smallcaps
-
 -- see ../utils/format.lua for vim.b.formatters definition
 -- List format-on-save clients for the buffer
 return {
@@ -50,7 +48,9 @@ return {
           end
         end
       end
-      return "󱃖 " .. smallcaps(table.concat(items, ",")) .. " "
+      return "󱃖 "
+        .. require("dko.utils.string").smallcaps(table.concat(items, ","))
+        .. " "
     end,
   },
 }

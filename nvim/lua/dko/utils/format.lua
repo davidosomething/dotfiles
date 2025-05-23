@@ -1,5 +1,3 @@
-local dkotable = require("dko.utils.table")
-
 -- Code formatting pipelines
 
 local Methods = vim.lsp.protocol.Methods
@@ -141,7 +139,7 @@ M.add_formatter = function(bufnr, name, opts)
   -- NOTE: You cannot table.insert(vim.b.formatters, name).
   -- Need to have a temp var and assign full table. vim.b vars are special
   local copy = vim.tbl_extend("force", {}, vim.b[bufnr].formatters or {})
-  vim.b[bufnr].formatters = dkotable.append(copy, name)
+  vim.b[bufnr].formatters = require("dko.utils.table").append(copy, name)
 
   -- Auto-enable format on save if it was not explicitly disabled (false)
   vim.b.enable_format_on_save = opts.autoenable

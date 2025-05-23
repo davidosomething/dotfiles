@@ -1,8 +1,4 @@
-local smallcaps = require("dko.utils.string").smallcaps
-local dkohl = require("dko.heirline.utils").hl
-local dkotable = require("dko.utils.table")
-
-local hidden_filetypes = dkotable.concat({
+local hidden_filetypes = require("dko.utils.table").concat({
   "markdown",
 }, require("dko.utils.jsts").fts)
 
@@ -18,10 +14,13 @@ return {
 
     self.filetype_text = vim.list_contains(hidden_filetypes, vim.bo.filetype)
         and ""
-      or smallcaps(vim.bo.filetype, { numbers = false })
+      or require("dko.utils.string").smallcaps(
+        vim.bo.filetype,
+        { numbers = false }
+      )
   end,
   hl = function()
-    return dkohl()
+    return require("dko.heirline.utils").hl()
   end,
   require("dko.heirline.winbar-filetype"),
   require("dko.heirline.winbar-filename"),

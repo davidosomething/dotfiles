@@ -1,5 +1,3 @@
-local dkoobject = require("dko.utils.object")
-
 -- Observable settings object
 local settings = {}
 
@@ -50,12 +48,12 @@ local M = {}
 M.watchers = {}
 
 M.get = function(path)
-  return dkoobject.get(settings, path)
+  return require("dko.utils.object").get(settings, path)
 end
 
 M.set = function(path, value)
   local current = M.get(path)
-  local success = dkoobject.set(settings, path, value)
+  local success = require("dko.utils.object").set(settings, path, value)
   if success and value ~= current then
     M.watchers[path] = M.watchers[path] or {}
     vim.iter(M.watchers[path]):each(function(cb)

@@ -1,13 +1,11 @@
-local dkoclipboard = require("dko.utils.clipboard")
-
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 return {
-  -- https://github.com/gbprod/yanky.nvim
+  --- https://github.com/gbprod/yanky.nvim
   {
     "gbprod/yanky.nvim",
-    cond = has_ui and not dkoclipboard.should_use_osc52(),
+    cond = has_ui and not require("dko.utils.clipboard").should_use_osc52(),
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("yanky").setup({
@@ -22,8 +20,8 @@ return {
     "ojroques/nvim-osc52",
     -- Prefer builtin osc52. Will be initialized in after/plugin/clipboard.lua
     cond = has_ui
-      and not dkoclipboard.has_builtin_osc52()
-      and dkoclipboard.should_use_osc52(),
+      and not require("dko.utils.clipboard").has_builtin_osc52()
+      and require("dko.utils.clipboard").should_use_osc52(),
     config = function()
       local function copy(lines, _)
         require("osc52").copy(table.concat(lines, "\n"))

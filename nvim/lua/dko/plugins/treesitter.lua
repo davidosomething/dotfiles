@@ -1,5 +1,3 @@
-local dkomappings = require("dko.mappings")
-
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
@@ -67,10 +65,10 @@ return {
   {
     "MaximilianLloyd/tw-values.nvim",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    keys = dkomappings.twvalues,
+    keys = require("dko.mappings").twvalues,
     config = function()
       require("tw-values").setup()
-      dkomappings.bind_twvalues()
+      require("dko.mappings").bind_twvalues()
     end,
   },
 }

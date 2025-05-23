@@ -1,8 +1,5 @@
-local dkosettings = require("dko.settings")
-local dkolspmappings = require("dko.mappings.lsp")
-local dkomappings = require("dko.mappings")
-local dkoformat = require("dko.utils.format")
 local augroup = require("dko.utils.autocmd").augroup
+
 local autocmd = vim.api.nvim_create_autocmd
 local Methods = vim.lsp.protocol.Methods
 
@@ -37,7 +34,7 @@ autocmd("LspAttach", {
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client then -- just to shut up type checking
-      dkolspmappings.bind_lsp(bufnr)
+      require("dko.mappings.lsp").bind_lsp(bufnr)
     end
   end,
   group = augroup("dkolsp"),
@@ -59,7 +56,7 @@ autocmd("LspAttach", {
     -- Track formatters, non-exclusively, non-LSPs might add to this table
     -- or fire the autocmd
     local name = clients[1].name
-    dkoformat.add_formatter(bufnr, name, {})
+    require("dko.utils.format").add_formatter(bufnr, name, {})
   end,
   group = augroup("dkolsp"),
 })
@@ -84,7 +81,7 @@ autocmd("LspDetach", {
     local key = "b" .. bufnr
 
     -- No mappings on buffer
-    if dkolspmappings.bound.lsp[key] == nil then
+    if require("dko.mappings.lsp").bound.lsp[key] == nil then
       vim.b.did_bind_lsp = false -- just in case
       return
     end
@@ -102,7 +99,7 @@ autocmd("LspDetach", {
           vim.log.levels.INFO,
           { title = "[LSP]", render = "wrapped-compact" }
         )
-        dkolspmappings.unbind_lsp(bufnr, "lsp")
+        require("dko.mappings.lsp").unbind_lsp(bufnr, "lsp")
       end
     end
   end,
@@ -124,7 +121,7 @@ autocmd("LspDetach", {
     local detached_client = vim.lsp.get_client_by_id(detached_client_id)
     if detached_client ~= nil then
       local name = detached_client.name
-      dkoformat.remove_formatter(bufnr, name)
+      require("dko.utils.format").remove_formatter(bufnr, name)
     end
   end,
   group = augroup("dkolsp"),
@@ -135,13 +132,16 @@ autocmd("FileType", {
   callback = function(opts)
     --- order matters here
     if
-      dkosettings.get("coc.enabled")
-      and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
+      require("dko.settings").get("coc.enabled")
+      and vim.tbl_contains(
+        require("dko.settings").get("coc.fts"),
+        vim.bo.filetype
+      )
     then
       vim.cmd.CocStart()
-      dkolspmappings.bind_coc(opts)
+      require("dko.mappings.lsp").bind_coc(opts)
       --- @TODO move this to a tools-based registration
-      -- dkoformat.add_formatter("coc")
+      -- require("dko.utils.format").add_formatter("coc")
       -- vim.b.enable_format_on_save = true
     else
       -- explicitly disable coc
@@ -149,8 +149,8 @@ autocmd("FileType", {
       vim.b.coc_diagnostic_disable = 1
       vim.b.coc_suggest_disable = 1
     end
-    dkomappings.bind_snippy()
-    dkomappings.bind_completion(opts)
+    require("dko.mappings").bind_snippy()
+    require("dko.mappings").bind_completion(opts)
 
     if opts.match == "lua" then
       -- In 0.11 it's supposed to jump to module in same repo/rtp/package path, but not
@@ -169,7 +169,7 @@ autocmd("User", {
   callback = function()
     require("dko.behaviors.escesc").add(function()
       if
-        dkosettings.get("coc.enabled")
+        require("dko.settings").get("coc.enabled")
         and vim.fn.exists("*coc#float#close_all")
       then
         vim.fn["coc#float#close_all"](1)
@@ -210,7 +210,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
     if not vim.b.enable_format_on_save then
       return
     end
-    dkoformat.run_pipeline({ async = false })
+    require("dko.utils.format").run_pipeline({ async = false })
   end,
   group = augroup("dkolsp"),
 })

@@ -1,6 +1,3 @@
-local dkoescesc = require("dko.behaviors.escesc")
-local dkosettings = require("dko.settings")
-
 -- =====================================================================
 -- Override vim.notify builtin
 -- known special titles
@@ -45,7 +42,7 @@ local override = function(msg, level, opts)
     end
   end
 
-  if dkosettings.get("notify") == "snacks" then
+  if require("dko.settings").get("notify") == "snacks" then
     vim.schedule(function()
       _G["Snacks"].notifier.notify(msg, level, opts)
     end)
@@ -55,8 +52,8 @@ local override = function(msg, level, opts)
 end
 vim.notify = override
 
-if dkosettings.get("notify") == "snacks" then
-  dkoescesc.add(function()
+if require("dko.settings").get("notify") == "snacks" then
+  require("dko.behaviors.escesc").add(function()
     _G["Snacks"].notifier.hide()
   end, "Dismiss notifications on <Esc><Esc>")
   require("dko.mappings").bind_snacks_notifier()

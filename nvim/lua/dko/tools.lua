@@ -1,5 +1,3 @@
-local dkotable = require("dko.utils.table")
-
 ---@alias ft string -- filetype
 
 ---Abstract class for efm tools
@@ -115,7 +113,7 @@ M.get_efm_languages = function(filter)
   local filtered_efm_configs = vim.iter(efm_configs):filter(filter)
   return filtered_efm_configs:fold({}, function(acc, config)
     for _, ft in ipairs(config.fts) do
-      acc[ft] = dkotable.append(acc[ft], config.efm())
+      acc[ft] = require("dko.utils.table").append(acc[ft], config.efm())
     end
     return acc
   end)
@@ -130,22 +128,25 @@ local fegcache = {}
 ---@return ToolGroups --- { ["npm"] = { "prettier" = {...config} } if npm is executable
 M.filter_executable_groups = function(category, groups)
   if not fegcache[category] then
-    fegcache[category] = dkotable.filter(groups, function(tool_configs, bin)
-      if bin ~= "_" and vim.fn.executable(bin) == 0 then
-        ---@TODO maybe don't report here
-        local tool_names = table.concat(vim.tbl_keys(tool_configs), ", ")
-        require("dko.doctor").warn({
-          category = category,
-          message = ("[%s] Executable `%s` not found, skipping: %s"):format(
-            category,
-            bin,
-            tool_names
-          ),
-        })
-        return false
+    fegcache[category] = require("dko.utils.table").filter(
+      groups,
+      function(tool_configs, bin)
+        if bin ~= "_" and vim.fn.executable(bin) == 0 then
+          ---@TODO maybe don't report here
+          local tool_names = table.concat(vim.tbl_keys(tool_configs), ", ")
+          require("dko.doctor").warn({
+            category = category,
+            message = ("[%s] Executable `%s` not found, skipping: %s"):format(
+              category,
+              bin,
+              tool_names
+            ),
+          })
+          return false
+        end
+        return true
       end
-      return true
-    end)
+    )
   end
   return fegcache[category]
 end

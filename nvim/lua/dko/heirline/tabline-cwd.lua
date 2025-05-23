@@ -1,8 +1,7 @@
-local dkozshnameddirs = require("dko.zsh.nameddirs")
-local dkopath = require("dko.utils.path")
-
 return {
   provider = function(self)
+    local dkozshnameddirs = require("dko.zsh.nameddirs")
+    local dkopath = require("dko.utils.path")
     local full_cwd = vim.uv.cwd() or ""
     local found = dkozshnameddirs.find(full_cwd)
     local shortname = found and found.name

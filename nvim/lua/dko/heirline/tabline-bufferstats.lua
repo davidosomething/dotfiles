@@ -1,5 +1,3 @@
-local utils = require("heirline.utils")
-
 return {
   init = function(self)
     self.normal = require("dko.utils.buffers").get_normal()
@@ -14,7 +12,7 @@ return {
     end,
     hl = function(self)
       return {
-        fg = utils.get_highlight(
+        fg = require("heirline.utils").get_highlight(
           #self.modified > 0 and "WarningMsg" or "StatusLineNC"
         ).fg,
       }

@@ -1,8 +1,3 @@
-local dkoicons = require("dko.icons")
-local dkosettings = require("dko.settings")
-local dkostring = require("dko.utils.string")
-local smallcaps = dkostring.smallcaps
-
 local M = {
   message_formatters = {},
 }
@@ -13,7 +8,7 @@ M.signs = { linehl = {}, numhl = {}, text = {} }
 local SIGN_TYPES = { "Error", "Warn", "Info", "Hint" }
 for _, type in ipairs(SIGN_TYPES) do
   local hl = ("DiagnosticSign%s"):format(type)
-  local icon = dkoicons[type]
+  local icon = require("dko.icons")[type]
 
   local key = type:upper()
   local code = vim.diagnostic.severity[key]
@@ -71,7 +66,8 @@ local function float_format(diagnostic)
     vim.print(diagnostic)
   end
 
-  local source_tag = smallcaps(("%s"):format(source))
+  local source_tag =
+    require("dko.utils.string").smallcaps(("%s"):format(source))
   local code = diagnostic.code and ("[%s]"):format(diagnostic.code) or ""
 
   local message = diagnostic.message
@@ -98,7 +94,7 @@ vim.diagnostic.config({
   virtual_text = false,
 
   jump = {
-    float = dkosettings.get("diagnostics.goto_float"),
+    float = require("dko.settings").get("diagnostics.goto_float"),
   },
 
   float = {
