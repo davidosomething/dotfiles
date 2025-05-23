@@ -1,5 +1,3 @@
-local utils = require("heirline.utils")
-
 local Tabpage = {
   provider = function(self)
     return "%" .. self.tabnr .. "T " .. self.tabpage .. " %T"
@@ -17,5 +15,5 @@ return {
   condition = function()
     return #vim.api.nvim_list_tabpages() >= 2
   end,
-  utils.make_tablist(Tabpage),
+  require("heirline.utils").make_tablist(Tabpage),
 }

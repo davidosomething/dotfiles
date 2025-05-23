@@ -1,6 +1,3 @@
-local dkoicons = require("dko.icons")
-local dkohl = require("dko.heirline.utils").hl
-
 -- polyfill as of https://github.com/neovim/neovim/pull/26807
 ---@param opts? { severity?: number }
 local function get_diagnostic_count(opts)
@@ -38,10 +35,10 @@ return {
       return self.errors > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(dkoicons.Error, self.errors)
+      return (" %s %d"):format(require("dko.icons").Error, self.errors)
     end,
     hl = function()
-      return dkohl("DiagnosticSignError")
+      return require("dko.heirline.utils").hl("DiagnosticSignError")
     end,
   },
   {
@@ -49,10 +46,10 @@ return {
       return self.warnings > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(dkoicons.Warn, self.warnings)
+      return (" %s %d"):format(require("dko.icons").Warn, self.warnings)
     end,
     hl = function()
-      return dkohl("DiagnosticSignWarn")
+      return require("dko.heirline.utils").hl("DiagnosticSignWarn")
     end,
   },
   {
@@ -60,10 +57,10 @@ return {
       return self.info > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(dkoicons.Info, self.info)
+      return (" %s %d"):format(require("dko.icons").Info, self.info)
     end,
     hl = function()
-      return dkohl("DiagnosticSignInfo")
+      return require("dko.heirline.utils").hl("DiagnosticSignInfo")
     end,
   },
   {
@@ -71,18 +68,18 @@ return {
       return self.hints > 0
     end,
     provider = function(self)
-      return (" %s %d"):format(dkoicons.Hint, self.hints)
+      return (" %s %d"):format(require("dko.icons").Hint, self.hints)
     end,
     hl = function()
-      return dkohl("DiagnosticSignHint")
+      return require("dko.heirline.utils").hl("DiagnosticSignHint")
     end,
   },
   {
     provider = function(self)
-      return self.total == 0 and (" %s "):format(dkoicons.Ok) or " "
+      return self.total == 0 and (" %s "):format(require("dko.icons").Ok) or " "
     end,
     hl = function()
-      return dkohl("dkoTextGood")
+      return require("dko.heirline.utils").hl("dkoTextGood")
     end,
   },
 }

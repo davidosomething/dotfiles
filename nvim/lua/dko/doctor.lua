@@ -1,6 +1,3 @@
-local dkoicons = require("dko.icons")
-local dkotable = require("dko.utils.table")
-
 ---@class DKODoctorEntry
 ---@field category string
 ---@field message string
@@ -37,8 +34,11 @@ M.get_all = function()
 
   local errors = M.get_errors()
   if #errors > 0 then
-    table.insert(output, ("%s ᴇʀʀᴏʀs"):format(dkoicons.Error))
-    dkotable.concat(output, errors)
+    table.insert(
+      output,
+      ("%s ᴇʀʀᴏʀs"):format(require("dko.icons").Error)
+    )
+    require("dko.utils.table").concat(output, errors)
   end
 
   local warnings = M.get_warnings()
@@ -46,10 +46,16 @@ M.get_all = function()
     if #errors > 0 then
       table.insert(output, "")
     end
-    table.insert(output, ("%s ᴡᴀʀɴɪɴɢs"):format(dkoicons.Warn))
-    dkotable.concat(output, warnings)
+    table.insert(
+      output,
+      ("%s ᴡᴀʀɴɪɴɢs"):format(require("dko.icons").Warn)
+    )
+    require("dko.utils.table").concat(output, warnings)
   elseif #errors == 0 then
-    table.insert(output, ("%s ᴀʟʟ ɢᴏᴏᴅ"):format(dkoicons.Ok))
+    table.insert(
+      output,
+      ("%s ᴀʟʟ ɢᴏᴏᴅ"):format(require("dko.icons").Ok)
+    )
   end
 
   return output
@@ -59,7 +65,7 @@ M.get_errors = function()
   return vim
     .iter(M.errors)
     :map(function(entry)
-      return ("%s %s"):format(dkoicons.Bullet, entry.message)
+      return ("%s %s"):format(require("dko.icons").Bullet, entry.message)
     end)
     :totable()
 end
@@ -68,7 +74,7 @@ M.get_warnings = function()
   return vim
     .iter(M.warnings)
     :map(function(entry)
-      return ("%s %s"):format(dkoicons.Bullet, entry.message)
+      return ("%s %s"):format(require("dko.icons").Bullet, entry.message)
     end)
     :totable()
 end

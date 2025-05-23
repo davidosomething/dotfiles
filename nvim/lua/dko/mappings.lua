@@ -1,5 +1,3 @@
-local dkobuffer = require("dko.utils.buffer")
-
 local M = {}
 
 ---@param name 'fzf-lua'|'snacks'
@@ -79,7 +77,7 @@ map("n", "<S-Left>", "<C-w><", resizeOpts)
 map("n", "<S-Right>", "<C-w>>", resizeOpts)
 
 map("n", "<Leader>x", function()
-  dkobuffer.close()
+  require("dko.utils.buffer").close()
 end, { desc = "Remove buffer (try without closing window)" })
 
 map("n", "<Leader>l", function()
@@ -292,7 +290,7 @@ endfunction ]]
 map("i", "<Tab>", function()
   -- If characters all the way back to start of line were all whitespace,
   -- insert whatever expandtab setting is set to do.
-  local current_line = dkobuffer.get_cursorline_contents()
+  local current_line = require("dko.utils.buffer").get_cursorline_contents()
   local all_spaces_regex = "^%s*$"
   if current_line:match(all_spaces_regex) then
     return "<Tab>"

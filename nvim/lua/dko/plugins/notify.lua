@@ -1,4 +1,3 @@
-local dkoescesc = require("dko.behaviors.escesc")
 local dkosettings = require("dko.settings")
 
 local uis = vim.api.nvim_list_uis()
@@ -33,7 +32,7 @@ return {
     config = function()
       local fidget = require("fidget")
       fidget.setup()
-      dkoescesc.add(function()
+      require("dko.behaviors.escesc").add(function()
         fidget.notification.clear()
       end, "Dismiss notifications on <Esc><Esc>")
     end,

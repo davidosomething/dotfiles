@@ -1,5 +1,4 @@
 local dkosettings = require("dko.settings")
-local smallcaps = require("dko.utils.string").smallcaps
 
 -- =========================================================================
 -- Completion
@@ -152,9 +151,12 @@ return {
             if not source then
               item.kind = sym
               item.kind_hl_group = symhl
-              source =
-                smallcaps(SOURCE_MAP[entry.source.name] or entry.source.name)
-              itemtype = (".%s"):format(smallcaps(raw_kind))
+              source = require("dko.utils.string").smallcaps(
+                SOURCE_MAP[entry.source.name] or entry.source.name
+              )
+              itemtype = (".%s"):format(
+                require("dko.utils.string").smallcaps(raw_kind)
+              )
             end
 
             -- =================================================================

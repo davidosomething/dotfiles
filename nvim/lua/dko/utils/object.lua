@@ -4,8 +4,8 @@ local M = {}
 ---@param tbl table
 ---@param path string with path.dot.delimited
 ---@return any value in table at that path
-M.get = function (tbl, path)
-  local parts = vim.split(path, '.', { plain = true })
+M.get = function(tbl, path)
+  local parts = vim.split(path, ".", { plain = true })
   return vim.tbl_get(tbl, unpack(parts))
 end
 
@@ -25,10 +25,9 @@ M.set = function(tbl, path, value)
     local is_last_part = i == #parts
     if is_last_part then
       prev[key] = value
-
-    elseif type(prev) ~= 'table' then
+    elseif type(prev) ~= "table" then
       vim.notify(
-        ('Could not set deep path %s at %s'):format(path, key),
+        ("Could not set deep path %s at %s"):format(path, key),
         vim.log.levels.ERROR
       )
       return false

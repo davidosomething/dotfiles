@@ -1,5 +1,3 @@
-local smallcaps = require("dko.utils.string").smallcaps
-
 -- Too lazy to switch registers, just use system plus as default
 vim.o.clipboard = "unnamedplus"
 
@@ -15,11 +13,13 @@ if require("dko.utils.clipboard").should_use_osc52() then
     return
   end
 
-  local tag = vim.env.SSH_TTY and " (" .. smallcaps("ssh") .. ")" or ""
+  local tag = vim.env.SSH_TTY
+      and " (" .. require("dko.utils.string").smallcaps("ssh") .. ")"
+    or ""
 
   -- neovim automatically does this as long as 'clipboard' is not set
   vim.g.clipboard = {
-    name = (smallcaps("osc") .. "52%s"):format(tag),
+    name = (require("dko.utils.string").smallcaps("osc") .. "52%s"):format(tag),
     copy = {
       ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
       ["*"] = require("vim.ui.clipboard.osc52").copy("*"),

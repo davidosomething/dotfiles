@@ -1,9 +1,10 @@
-local augroup = require("dko.utils.autocmd").augroup
 local autocmd = vim.api.nvim_create_autocmd
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 if has_ui then
+  local augroup = require("dko.utils.autocmd").augroup
+
   -- https://vi.stackexchange.com/questions/11892/populate-a-git-commit-template-with-variables
   autocmd("BufRead", {
     pattern = "COMMIT_EDITMSG",

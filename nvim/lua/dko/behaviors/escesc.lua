@@ -1,4 +1,3 @@
-local augroup = require("dko.utils.autocmd").augroup
 local autocmd = vim.api.nvim_create_autocmd
 
 local M = {}
@@ -21,7 +20,7 @@ autocmd("User", {
       listener()
     end
   end,
-  group = augroup("dkoescescesc"),
+  group = require("dko.utils.autocmd").augroup("dkoescescesc"),
 })
 
 return M

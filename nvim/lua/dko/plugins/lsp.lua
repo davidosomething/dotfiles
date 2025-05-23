@@ -4,8 +4,6 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
-local dkolsp = require("dko.utils.lsp")
-
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 

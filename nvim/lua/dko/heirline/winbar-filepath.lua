@@ -1,6 +1,3 @@
-local dkopath = require("dko.utils.path")
-local dkohl = require("dko.heirline.utils").hl
-
 -- =========================================================================
 -- path
 -- =========================================================================
@@ -11,6 +8,7 @@ return {
       and self.filepath ~= ""
   end,
   provider = function(self)
+    local dkopath = require("dko.utils.path")
     local win_width = vim.api.nvim_win_get_width(0)
     local extrachars = 3 + self.filetype_text:len()
     local remaining = win_width - extrachars
@@ -44,6 +42,6 @@ return {
     return ("in %s%s/ "):format("%<", final)
   end,
   hl = function()
-    return dkohl("Comment")
+    return require("dko.heirline.utils").hl("Comment")
   end,
 }

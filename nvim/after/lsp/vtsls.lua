@@ -1,4 +1,5 @@
 local dkots = require("dko.utils.typescript")
+
 return {
   on_attach = dkots.ts_ls.config.on_attach,
   handlers = dkots.ts_ls.config.handlers,

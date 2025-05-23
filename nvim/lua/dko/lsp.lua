@@ -5,8 +5,6 @@
 -- Overriding with vim.lsp.with is the way recommended by docs (as opposed to
 -- overriding vim.lsp.util.open_floating_preview entirely)
 
-local toast = require("dko.utils.notify").toast
-
 local lsp = vim.lsp
 local handlers = lsp.handlers
 local Methods = lsp.protocol.Methods
@@ -57,10 +55,14 @@ handlers[Methods.window_showMessage] = function(_, result, ctx, _)
   local client_name = client and client.name or ctx.client_id
   local title = ("[LSP] %s"):format(client_name)
   if not client then
-    toast(result.message, vim.log.levels.ERROR, { title = title })
+    require("dko.utils.notify").toast(
+      result.message,
+      vim.log.levels.ERROR,
+      { title = title }
+    )
   else
     local level = lsp_messagetype_to_vim_log_level(result.type)
-    toast(result.message, level, { title = title })
+    require("dko.utils.notify").toast(result.message, level, { title = title })
   end
   return result
 end

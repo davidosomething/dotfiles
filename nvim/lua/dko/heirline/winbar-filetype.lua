@@ -1,9 +1,7 @@
-local dkohl = require("dko.heirline.utils").hl
-local dkots = require("dko.utils.treesitter")
 local utils = require("heirline.utils")
 
 local function hl()
-  if dkots.is_highlight_enabled() then
+  if require("dko.utils.treesitter").is_highlight_enabled() then
     return {
       bg = utils.get_highlight("StatusLineNC").bg,
       fg = utils.get_highlight("StatusLine").fg,
@@ -21,7 +19,7 @@ return {
     --- red if no treesitter
     local active = hl().bg
     local inactive = utils.get_highlight("StatusLineNC").bg
-    return dkohl(active, inactive)
+    return require("dko.heirline.utils").hl(active, inactive)
   end, {
     {
       condition = function(self)
@@ -35,7 +33,10 @@ return {
         if icons then
           local _, color = icons.get_icon_color_by_filetype(vim.bo.filetype)
           if color then
-            return dkohl({ fg = color, bg = hl().bg }, "StatusLineNC")
+            return require("dko.heirline.utils").hl(
+              { fg = color, bg = hl().bg },
+              "StatusLineNC"
+            )
           end
         end
         return ""
@@ -49,7 +50,7 @@ return {
         return (self.icon ~= "" and " " or "") .. self.filetype_text
       end,
       hl = function()
-        return dkohl(hl(), "StatusLineNC")
+        return require("dko.heirline.utils").hl(hl(), "StatusLineNC")
       end,
     },
   }),

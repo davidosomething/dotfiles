@@ -1,5 +1,3 @@
-local dkosettings = require("dko.settings")
-
 local dev = vim.env.NVIM_DEV ~= nil
 
 return {
@@ -19,8 +17,8 @@ return {
     lazy = false,
     priority = 1000,
     init = function()
-      dkosettings.set("colors.dark", "meh")
-      dkosettings.set("colors.light", "komau")
+      require("dko.settings").set("colors.dark", "meh")
+      require("dko.settings").set("colors.light", "komau")
     end,
     config = function()
       vim.cmd.colorscheme("meh")
