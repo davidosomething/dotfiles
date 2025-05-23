@@ -50,7 +50,7 @@ return {
       -- oldfile = { suffix = "o" },
       -- quickfix = { suffix = "q" },
       treesitter = { suffix = "n" }, -- n for node, default was t, using it for tab
-      undo = { suffix = BRACKETED_DISABLED }, -- i'm using for url
+      undo = { suffix = BRACKETED_DISABLED }, -- I'm using for url
       window = { suffix = BRACKETED_DISABLED }, -- broken going to unlisted
       yank = { suffix = BRACKETED_DISABLED }, -- confusing
     },
@@ -447,7 +447,7 @@ return {
     cond = has_ui,
     dependencies = "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
-    keys = require("dko.mappings").trees,
+    cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
     config = function()
       require("treesj").setup({
         use_default_keymaps = false,

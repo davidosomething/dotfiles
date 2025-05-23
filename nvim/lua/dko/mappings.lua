@@ -372,30 +372,44 @@ end, { desc = "Copy treesitter captures under cursor" })
 -- External mappings
 -- =============================================================================
 
+-- This is run on FileType, so every buffer gets it (sometimes multiple times if
+-- filetype changes).
+-- Call externals using pcall in case I remove cmp for testing.
 -- Bind <C-Space> to open nvim-cmp
 -- Bind <C-n> <C-p> to pick based on coc or nvim-cmp open
 -- Bind <C-j> <C-k> to scroll coc or nvim-cmp attached docs window
 M.bind_completion = function(opts)
-  local _, cmp = pcall(require, "cmp")
-
   map("n", "<C-Space>", function()
     vim.cmd.startinsert({ bang = true })
-    vim.schedule(cmp.complete)
+    local cmp_ok, cmp = pcall(require, "cmp")
+    if cmp_ok then
+      vim.schedule(cmp.complete)
+    end
   end, { desc = "In normal mode, `A`ppend and start nvim-cmp completion" })
 
   map("i", "<C-Space>", function()
     vim.fn["coc#pum#close"]("cancel")
-    cmp.complete()
+    local cmp_ok, cmp = pcall(require, "cmp")
+    if cmp_ok then
+      cmp.complete()
+    end
   end, { desc = "In insert mode, start nvim-cmp completion" })
 
   map("i", "<Plug>(DkoCmpNext)", function()
-    cmp.select_next_item()
+    local cmp_ok, cmp = pcall(require, "cmp")
+    if cmp_ok then
+      cmp.select_next_item()
+    end
   end)
   map("i", "<Plug>(DkoCmpPrev)", function()
-    cmp.select_prev_item()
+    local cmp_ok, cmp = pcall(require, "cmp")
+    if cmp_ok then
+      cmp.select_prev_item()
+    end
   end)
   map("i", "<C-n>", function()
-    if cmp.visible() then
+    local cmp_ok, cmp = pcall(require, "cmp")
+    if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpNext)"
     end
     if vim.b.did_bind_coc then
@@ -404,7 +418,8 @@ M.bind_completion = function(opts)
     end
   end, { expr = true, buffer = opts.buf, remap = true, silent = true })
   map("i", "<C-p>", function()
-    if cmp.visible() then
+    local cmp_ok, cmp = pcall(require, "cmp")
+    if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpPrev)"
     end
     if vim.b.did_bind_coc then
@@ -414,13 +429,20 @@ M.bind_completion = function(opts)
   end, { expr = true, buffer = opts.buf, remap = true, silent = true })
 
   map("i", "<Plug>(DkoCmpScrollUp)", function()
-    cmp.mapping.scroll_docs(-4)
+    local cmp_ok, cmp = pcall(require, "cmp")
+    if cmp_ok then
+      cmp.mapping.scroll_docs(-4)
+    end
   end)
   map("i", "<Plug>(DkoCmpScrollDown)", function()
-    cmp.mapping.scroll_docs(4)
+    local cmp_ok, cmp = pcall(require, "cmp")
+    if cmp_ok then
+      cmp.mapping.scroll_docs(4)
+    end
   end)
   map("i", "<C-k>", function()
-    if cmp.visible() then
+    local cmp_ok, cmp = pcall(require, "cmp")
+    if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpScrollUp)"
     end
     if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
@@ -434,7 +456,8 @@ M.bind_completion = function(opts)
     silent = true,
   })
   map("i", "<C-j>", function()
-    if cmp.visible() then
+    local cmp_ok, cmp = pcall(require, "cmp")
+    if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpScrollDown)"
     end
     if vim.b.did_bind_coc and vim.fn["coc#float#has_scroll"]() == 1 then
@@ -515,40 +538,49 @@ end
 -- Plugin: gitsigns.nvim
 -- ===========================================================================
 
-M.bind_gitsigns = function(bufnr)
-  local function bufmap(mode, l, r, opts)
-    opts = opts or {}
-    opts.buffer = bufnr
-    map(mode, l, r, opts)
-  end
-
+M.bind_gitsigns = function()
   -- Navigation
-  bufmap("n", "]h", function()
+  map("n", "]h", function()
     if vim.wo.diff then
       return "]h"
     end
     vim.schedule_wrap(require("gitsigns").next_hunk)
     return "<Ignore>"
-  end, { expr = true, desc = "Next hunk" })
+  end, {
+    buffer = true,
+    expr = true,
+    desc = "Next hunk",
+  })
 
-  bufmap("n", "[h", function()
+  map("n", "[h", function()
     if vim.wo.diff then
       return "[h"
     end
     vim.schedule_wrap(require("gitsigns").prev_hunk)
     return "<Ignore>"
-  end, { expr = true, desc = "Prev hunk" })
+  end, {
+    buffer = true,
+    expr = true,
+    desc = "Prev hunk",
+  })
 
   -- Action
-  bufmap("n", "gb", function()
+  map("n", "gb", function()
     require("gitsigns").blame_line()
-  end, { desc = "Popup blame for line" })
-  bufmap("n", "gB", function()
+  end, {
+    buffer = true,
+    desc = "Popup blame for line",
+  })
+  map("n", "gB", function()
     require("gitsigns").blame_line({ full = true })
-  end, { desc = "Popul full blame for line" })
+  end, {
+    buffer = true,
+    desc = "Popul full blame for line",
+  })
 
   -- Text object
-  bufmap({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>", {
+  map({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>", {
+    buffer = true,
     desc = "Select hunk",
   })
 end
@@ -579,6 +611,8 @@ end
 -- Plugin: nvim-cmp + cmp-snippy
 -- ===========================================================================
 
+--- Bound in FileType autocmd
+--- No guarantee snippy is present use pcall
 M.bind_snippy = function()
   local snippy_ok, snippy = pcall(require, "snippy")
   if not snippy_ok then
@@ -742,10 +776,7 @@ end
 
 M.bind_oil = function()
   map("n", "\\\\", function()
-    local _, oil = pcall(require, "oil")
-    if oil then
-      oil.toggle_float()
-    end
+    require("oil").toggle_float()
   end, { desc = "Toggle floating oil.nvim" })
 end
 
@@ -874,9 +905,7 @@ end
 
 M.treesj = "gs"
 M.bind_treesj = function()
-  map("n", M.treesj, function()
-    require("treesj").toggle()
-  end, { desc = "Toggle treesitter split / join", silent = true })
+  map("n", M.treesj, "<Cmd>TSJToggle<CR>", { silent = true })
 end
 
 -- =============================================================================
@@ -884,11 +913,14 @@ end
 -- =============================================================================
 
 M.bind_treewalker = function()
-  local tw = require("treewalker")
-  map("n", "<A-Down>", tw.move_down, { noremap = true })
-  map("n", "<A-Left>", tw.move_out, { noremap = true })
-  map("n", "<A-Right>", tw.move_in, { noremap = true })
-  map("n", "<A-Up>", tw.move_up, { noremap = true })
+  for _, dir in pairs({ "Up", "Down", "Left", "Right" }) do
+    map(
+      { "n", "v" },
+      ("<A-%s>"):format(dir),
+      ("<Cmd>Treewalker %s<CR>"):format(dir),
+      { silent = true }
+    )
+  end
 end
 
 -- ===========================================================================
@@ -897,9 +929,7 @@ end
 
 M.twvalues = "<Leader>tw"
 M.bind_twvalues = function()
-  map("n", M.twvalues, "<Cmd>TWValues<CR>", {
-    desc = "Show tailwind CSS values",
-  })
+  map("n", M.twvalues, "<Cmd>TWValues<CR>")
 end
 
 -- ===========================================================================
@@ -920,7 +950,7 @@ M.bind_urlview = function()
       next = M.urlview.next,
     },
   })
-  map("n", M.urlview.menu, "<Cmd>UrlView<CR>", { desc = "Open URLs" })
+  map("n", M.urlview.menu, "<Cmd>UrlView<CR>")
 end
 
 -- ===========================================================================

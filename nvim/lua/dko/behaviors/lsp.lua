@@ -130,13 +130,11 @@ autocmd("LspDetach", {
 autocmd("FileType", {
   desc = "Set mappings/format on save for specific filetypes if coc.nvim is enabled",
   callback = function(opts)
+    local dkosettings = require("dko.settings")
     --- order matters here
     if
-      require("dko.settings").get("coc.enabled")
-      and vim.tbl_contains(
-        require("dko.settings").get("coc.fts"),
-        vim.bo.filetype
-      )
+      dkosettings.get("coc.enabled")
+      and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
     then
       vim.cmd.CocStart()
       require("dko.mappings.lsp").bind_coc(opts)
@@ -149,8 +147,10 @@ autocmd("FileType", {
       vim.b.coc_diagnostic_disable = 1
       vim.b.coc_suggest_disable = 1
     end
-    require("dko.mappings").bind_snippy()
-    require("dko.mappings").bind_completion(opts)
+
+    local dkomappings = require("dko.mappings")
+    dkomappings.bind_snippy()
+    dkomappings.bind_completion(opts)
 
     if opts.match == "lua" then
       -- In 0.11 it's supposed to jump to module in same repo/rtp/package path, but not
