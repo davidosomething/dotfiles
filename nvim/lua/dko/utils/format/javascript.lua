@@ -2,7 +2,7 @@ local function format_with_coc()
   local formatter = ("coc-eslint%s"):format(
     vim.b.has_eslint_plugin_prettier and " + eslint-plugin-prettier" or ""
   )
-  require("dko.utils.node")(formatter, vim.log.levels.INFO, {
+  require("dko.utils.notify").toast(formatter, vim.log.levels.INFO, {
     group = "format",
     title = "[coc.nvim]",
     render = "wrapped-compact",
@@ -14,11 +14,15 @@ end
 
 local function format_with_lsp()
   if vim.lsp.get_clients({ bufnr = 0, name = "eslint" }) == 0 then
-    require("dko.utils.node")("eslint-lsp not attached", vim.log.levels.WARN, {
-      group = "format",
-      title = "[LSP] eslint-lsp",
-      render = "wrapped-compact",
-    })
+    require("dko.utils.notify").toast(
+      "eslint-lsp not attached",
+      vim.log.levels.WARN,
+      {
+        group = "format",
+        title = "[LSP] eslint-lsp",
+        render = "wrapped-compact",
+      }
+    )
     return false
   end
 
@@ -26,7 +30,7 @@ local function format_with_lsp()
   local formatter = vim.b.has_eslint_plugin_prettier
       and "eslint-plugin-prettier"
     or "eslint-lsp"
-  require("dko.utils.node")(formatter, vim.log.levels.INFO, {
+  require("dko.utils.notify").toast(formatter, vim.log.levels.INFO, {
     group = "format",
     title = "[LSP] eslint-lsp",
     render = "wrapped-compact",
@@ -58,7 +62,7 @@ return function()
     local did_efm_format =
       require("dko.utils.format.efm").format({ pipeline = "javascript" })
     if not did_efm_format then
-      require("dko.utils.node")(
+      require("dko.utils.notify").toast(
         "Did not format with efm/prettier",
         vim.log.levels.WARN,
         {
