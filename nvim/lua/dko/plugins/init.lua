@@ -261,13 +261,6 @@ return {
   -- Reading
   -- =========================================================================
 
-  {
-    "aaronik/treewalker.nvim",
-    config = function()
-      require("dko.mappings").bind_treewalker()
-    end,
-  },
-
   -- jump to :line:column in filename:3:20
   --
   -- has indexing errors
@@ -334,12 +327,8 @@ return {
     end,
   },
 
-  -- Works better than https://github.com/IndianBoy42/tree-sitter-just
-  {
-    "NoahTheDuke/vim-just",
-    event = { "BufReadPre", "BufNewFile" },
-    ft = { "\\cjustfile", "*.just", ".justfile" },
-  },
+  -- Better highlighting than treesitter
+  { "NoahTheDuke/vim-just" },
 
   -- https://github.com/brenoprata10/nvim-highlight-colors
   -- see output comparison here https://www.reddit.com/r/neovim/comments/1b5gw12/nvimhighlightcolors_now_supports_virtual_text/kt8gog6/?share_id=aUVLJ5zC3yMKjFuHqumGE
@@ -401,18 +390,6 @@ return {
     config = true,
   },
 
-  -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
-  {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    cond = has_ui,
-    -- No longer needs nvim-treesitter after https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/80
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      -- Disable for Comment.nvim https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#commentnvim
-      enable_autocmd = false,
-    },
-  },
-
   -- gcc / <Leader>gbc to comment with treesitter integration
   -- 0.10 has built-in treesitter comments, see :h commenting
   -- BUT it does not properly do jsx/tsx which is provided by
@@ -421,39 +398,27 @@ return {
   {
     "numToStr/Comment.nvim",
     cond = has_ui,
-    dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
     event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      {
+        -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        -- No longer needs nvim-treesitter after https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/80
+        opts = {
+          -- Disable for Comment.nvim https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#commentnvim
+          enable_autocmd = false,
+        },
+      },
+    },
     config = function()
-      local ok, tscc_integration =
-        pcall(require, "ts_context_commentstring.integrations.comment_nvim")
-      if not ok then
-        vim.notify(
-          "Comment.nvim could not find nvim-ts-context-commentstring",
-          vim.log.levels.ERROR
-        )
-        return
-      end
       require("Comment").setup(
         require("dko.mappings").with_commentnvim_mappings({
           -- add treesitter support, want tsx/jsx in particular
-          pre_hook = tscc_integration.create_pre_hook(),
+          pre_hook = require(
+            "ts_context_commentstring.integrations.comment_nvim"
+          ).create_pre_hook(),
         })
       )
-    end,
-  },
-
-  {
-    "Wansmer/treesj",
-    cond = has_ui,
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
-    config = function()
-      require("treesj").setup({
-        use_default_keymaps = false,
-        max_join_length = 255,
-      })
-      require("dko.mappings").bind_treesj()
     end,
   },
 
