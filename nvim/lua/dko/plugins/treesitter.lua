@@ -8,23 +8,19 @@ local FT_TO_LANG_ALIASES = {
   typescriptreact = "tsx",
 }
 
--- blacklist if highlighting doesn't look right or is worse than vim regex
-local HIGHLIGHTING_DISABLED = {
-  -- treesitter language, not ft
-  -- see https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
-  --"javascript", -- and jsx
-  --"tsx",
-}
-
+-- Some other plugins use treesitter features, so need these even if never
+-- opened a buffer with the corresponding ft
 local ENSURE_INSTALLED = { "html", "json", "lua", "markdown", "yaml" }
 
 return {
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     -- don't use this plugin when headless (lazy.nvim tends to try to install
     -- markdown support async)
     cond = has_ui,
+    lazy = false,
     config = function()
       require("nvim-treesitter.configs").setup({
         -- https://github.com/nvim-treesitter/nvim-treesitter/issues/3579#issuecomment-1278662119
@@ -38,15 +34,12 @@ return {
         highlight = {
           enable = true,
           disable = function(lang, bufnr)
-            return (
-              require("dko.utils.buffer").is_huge({ bufnr = bufnr })
-              or vim.tbl_contains(HIGHLIGHTING_DISABLED, lang)
-            )
+            --- prefer NoahTheDuke/vim-just for syntax highlighting
+            if lang == "just" then
+              return true
+            end
+            return (require("dko.utils.buffer").is_huge({ bufnr = bufnr }))
           end,
-
-          -- additional_vim_regex_highlighting = {
-          --   "just",
-          -- },
         },
 
         indent = { enable = true },
@@ -64,11 +57,35 @@ return {
   -- https://github.com/MaximilianLloyd/tw-values.nvim
   {
     "MaximilianLloyd/tw-values.nvim",
+    cmd = "TWValues",
     dependencies = "nvim-treesitter/nvim-treesitter",
     keys = require("dko.mappings").twvalues,
     config = function()
       require("tw-values").setup()
       require("dko.mappings").bind_twvalues()
+    end,
+  },
+
+  -- https://github.com/Wansmer/treesj
+  {
+    "Wansmer/treesj",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
+    config = function()
+      require("treesj").setup({
+        use_default_keymaps = false,
+        max_join_length = 255,
+      })
+      require("dko.mappings").bind_treesj()
+    end,
+  },
+
+  -- https://github.com/aaronik/treewalker.nvim
+  {
+    "aaronik/treewalker.nvim",
+    config = function()
+      require("dko.mappings").bind_treewalker()
     end,
   },
 }
