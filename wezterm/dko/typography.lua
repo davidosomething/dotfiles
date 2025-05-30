@@ -36,7 +36,7 @@ M.setup = function(config)
     -- had some issues with some letters like E so back to fira code
 
     -- https://github.com/subframe7536/maple-font
-    "Maple Mono Normal NL",
+    "Maple Mono Normal NL NF CN",
 
     {
       family = "Fira Code",
