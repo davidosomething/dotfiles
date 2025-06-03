@@ -85,14 +85,13 @@ __move "${HOME}/.bash_history" "${HOME}/.local/bash_history"
 __move "${HOME}/.ctags.d" "${XDG_CONFIG_HOME}/ctags"
 __move "${HOME}/.gimp-2.8" "${XDG_CONFIG_HOME}/GIMP/2.8"
 __move "${HOME}/.grip" "${XDG_CONFIG_HOME}/grip"
+__move "${HOME}/.fonts.conf" "${XDG_DATA_HOME}/fontconfig/fonts.conf"
 __move "${HOME}/.inputrc" "${XDG_CONFIG_HOME}/readline/inputrc"
 __move "${HOME}/.parallel" "${XDG_CONFIG_HOME}/parallel"
 __move "${HOME}/.pulse-cookie" "${XDG_CONFIG_HOME}/pulse/cookie"
 __move "${HOME}/.solargraph" "${XDG_CACHE_HOME}/solargraph"
 __move "${HOME}/.vagrant.d" "${XDG_DATA_HOME}/vagrant"
 __move "${HOME}/.zhistory" "${HOME}/.local/zsh_history"
-
-__remove "${XDG_CONFIG_HOME}/markdownlint.json"
 
 __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 
@@ -130,11 +129,14 @@ __remove "${HOME}/.forgit"
 __remove "${HOME}/.gitconfig"
 # should be symlinked in XDG
 __remove "${HOME}/.gitignore"
+# garbage, old xdg-utils made it, maybe has .desktop entries
+__remove "${HOME}/.gnome"
 # i will never use hyper terminal
 __remove "${HOME}/.hyper.js"
 __remove "${XDG_CONFIG_HOME}/hyper"
 # i will never use kitty terminal
 __remove "${XDG_CONFIG_HOME}/kitty"
+__remove "${XDG_CONFIG_HOME}/markdownlint.json"
 # mackup doesn't work any more
 __remove "${HOME}/.mackup.cfg"
 # should be in .local; probably created on ZSH startup
