@@ -1,10 +1,21 @@
 #!/usr/bin/env bash
 #
-# Initially create XDG dirs
-# Run after shell/vars sourced
+# Create XDG dirs
 #
 
 set -eu
+
+if [[ -z "$DOTFILES" ]]; then
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$PWD"
+fi
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
+
+[[ $DKO_SOURCE == *"shell/vars"* ]] || {
+  echo "Must source shell/vars.sh first"
+  exit 1
+}
 
 mkdir -p -- "$XDG_STATE_HOME"
 mkdir -p -- "$BZR_PLUGIN_PATH"
