@@ -1,5 +1,6 @@
 [tools]
 "aqua:junegunn/fzf" = "latest"
+"aqua:neovim/neovim" = "latest"
 go = "1.24.3"
 node = "22"
 pnpm = "9"
