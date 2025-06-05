@@ -32,16 +32,10 @@ __dko_dotfiles__usage() {
     daily       -- secret, Packages / Developer Tools
 
   Packages / Developer Tools
-    composer    -- update composer and global packages
     gem         -- update rubygems and global gems for current ruby
     go          -- golang
     pip         -- update all versions of pip (OS dependent)
     pipx        -- update pipx-installed cli tools
-    neovim      -- update neovim to latest prerelease build
-    wpcs        -- update the WordPress-Coding-Standards git repo in src/wpcs
-
-  System: Arch Linux
-    arch        -- update arch packages
 
   System: Debian/Ubuntu
     deb         -- update apt packages
@@ -103,11 +97,6 @@ __dko_dotfiles__update_daily() {
   __dko_dotfiles__go__require_go && __dko_dotfiles__go__update_go_packages
 
   __dko_dotfiles__ruby__require_rubygems && __dko_dotfiles__ruby__update_gems
-
-  __dko_has composer && {
-    __dko_dotfiles__php__update_composer
-    __dko_has phpcs && __dko_dotfiles__php__update_wpcs
-  }
 }
 
 # ----------------------------------------------------------------------------
@@ -193,126 +182,12 @@ __dko_dotfiles__py__update_pipx() {
   pipx upgrade-all
 }
 
-__dko_dotfiles__update_neovim() {
-  if __dko_has brew; then
-    if __dko_has nvim; then
-      local version
-      version="$(nvim --version | head -n1)"
-      if ! grep dev <<<"$version"; then
-        brew uninstall neovim
-        brew install --force --HEAD neovim
-      else
-        brew reinstall neovim
-      fi
-    else
-      brew install --HEAD neovim
-    fi
-  elif __dko_has pamac; then
-    pamac build neovim-git
-  fi
-
-  local res=$?
-  [ $res -ne 0 ] &&
-    __dko_err "Could not update to latest neovim prerelease build" &&
-    return 1
-
-  nvim --version 2>&1 || {
-    __dko_err "Could not get nvim version" &&
-      return 1
-  }
-  __dko_ok "Updated to latest neovim prerelease build"
-}
-
-# ----------------------------------------------------------------------------
-# PHP
-# ----------------------------------------------------------------------------
-
-__dko_dotfiles__php__update_composer() {
-  __dko_status "Updating composer"
-  __dko_has composer || return 1
-
-  if [[ -x "${HOMEBREW_PREFIX}/bin/composer" ]]; then
-    __dko_ok "composer was installed via brew (yay)"
-  else
-    __dko_status_ "Updating composer itself"
-    composer self-update || {
-      __dko_err "Could not update composer"
-      return 1
-    }
-  fi
-
-  if [[ -f "${COMPOSER_HOME}/composer.json" ]]; then
-    __dko_status "Updating composer global packages"
-    composer global update || {
-      __dko_err "Could not update global packages"
-      return 1
-    }
-  fi
-}
-
-__dko_dotfiles__php__update_wpcs() {
-  readonly wpcs_repo="https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git"
-  readonly sources_path="${HOME}/src"
-  readonly wpcs_path="${sources_path}/wpcs"
-
-  # --------------------------------------------------------------------------
-  # Create and clone wpcs if not exists
-  # --------------------------------------------------------------------------
-
-  __dko_status "Updating wpcs"
-  __dko_has composer || return 1
-  __dko_has phpcs || return 1
-
-  if [[ ! -d "$wpcs_path" ]]; then
-    mkdir -p "${sources_path}"
-    git clone -b master "$wpcs_repo" "$wpcs_path"
-  else
-    (
-      cd -- "$wpcs_path" || exit 1
-      git pull --rebase &&
-        git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
-    ) || return 1
-  fi
-
-  # --------------------------------------------------------------------------
-  # Determine installed standards
-  # --------------------------------------------------------------------------
-
-  __dko_status "Looking for standards"
-  readonly possible=(
-    "${COMPOSER_HOME}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards"
-    "$wpcs_path"
-  )
-  local standards=()
-
-  for entry in "${possible[@]}"; do
-    [[ -d "$entry" ]] && printf 'Found %s\n' "$entry" && standards+=("$entry")
-  done
-  standards_path=$(
-    IFS=','
-    echo "${standards[*]}"
-  )
-
-  # --------------------------------------------------------------------------
-  # Update config
-  # --------------------------------------------------------------------------
-
-  __dko_status "Updating standards path to:"
-  __dko_echo "${standards_path}"
-  phpcs --config-set installed_paths "$standards_path"
-
-  # List installed standards:
-  phpcs -i
-  phpcs --config-set default_standard PSR2
-}
-
 # ------------------------------------------------------------------------------
 # OS-specific commands
 # ------------------------------------------------------------------------------
 
 __dko_dotfiles__linux__update() {
   case "$1" in
-  arch) __dko_dotfiles__linux__arch__update ;;
   deb) __dko_dotfiles__linux__deb__update ;;
   *) __dko_dotfiles__command_not_found "$1" ;;
   esac
@@ -324,25 +199,6 @@ __dko_dotfiles__darwin__update() {
   mac) __dko_dotfiles__darwin__update_mac ;;
   *) __dko_dotfiles__command_not_found "$1" ;;
   esac
-}
-
-# ------------------------------------------------------------------------------
-# OS: GNU/Linux: Arch Linux
-# ------------------------------------------------------------------------------
-
-__dko_dotfiles__linux__arch__update() {
-  __dko_status "Arch Linux system update"
-  if __dko_has paru; then
-    paru
-  elif __dko_has yay; then
-    yay
-  elif __dko_has pacaur; then
-    pacaur -Syu
-  elif __dko_has aura; then
-    aura -Syua
-  else
-    pacman -Syu
-  fi
 }
 
 # ------------------------------------------------------------------------------
@@ -480,14 +336,10 @@ __dko_dotfiles() {
   dotfiles) __dko_dotfiles__update ;;
   secret) __dko_dotfiles__update_secret ;;
   daily) __dko_dotfiles__update_daily ;;
-  composer) __dko_dotfiles__php__update_composer ;;
   gem) __dko_dotfiles__ruby__update_gems ;;
   go) __dko_dotfiles__go__update_go_packages ;;
   pip) __dko_dotfiles__py__update_pip ;;
   pipx) __dko_dotfiles__py__update_pipx ;;
-  neovim) __dko_dotfiles__update_neovim ;;
-  neopy) __dko_dotfiles__py__update_neovim_python ;;
-  wpcs) __dko_dotfiles__php__update_wpcs ;;
 
   *)
     case "$OSTYPE" in
