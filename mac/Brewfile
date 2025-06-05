@@ -6,7 +6,6 @@ tap "homebrew/bundle"
 tap "homebrew/services"
 
 brew "git"
-brew "neovim"
 
 # watchman used by coc.nvim for file watching
 # 2025-03-21 -- but it has issues with long paths, so don't bother
@@ -20,7 +19,6 @@ brew "neovim"
 brew "switchaudio-osx"
 
 brew "tree"
-brew "tree-sitter"
 
 # ==========================================================================
 # casks

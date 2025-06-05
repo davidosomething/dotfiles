@@ -12,8 +12,7 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
 ```sh
 git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/
-cd ~/.dotfiles
-./bootstrap/symlink
+~/.dotfiles/bootstrap/symlink
 # restart terminal
 ```
 
@@ -21,7 +20,6 @@ cd ~/.dotfiles
 
 1. Use `sshkeygen` alias to generate new Ed25519 keys
 1. Add the public key to GitHub, GitLab, Bitbucket, etc.
-1. `ssh-add -K ~/.ssh/privatekeyfile` to store the key in Keychain.
 1. Optionally change the `~/.dotfiles` origin protocol to SSH
 
 ## Install homebrew and install packages
