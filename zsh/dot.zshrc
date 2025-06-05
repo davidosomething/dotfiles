@@ -17,7 +17,7 @@ typeset -gU cdpath PATH path FPATH fpath MANPATH manpath
 # Interactive vars
 # ============================================================================
 
-export HISTFILE="${HOME}/.local/zsh_history"
+export HISTFILE="${XDG_STATE_HOME}/zsh_history"
 
 # ============================================================================
 # nocorrect aliases
@@ -399,4 +399,4 @@ up() {
 # ============================================================================
 
 DKO_SOURCE="${DKO_SOURCE} }"
-#vim: ft=zsh
+# vim: ft=zsh

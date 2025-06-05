@@ -81,7 +81,6 @@ __clean_nvm() {
 # main
 # ============================================================================
 
-__move "${HOME}/.bash_history" "${HOME}/.local/bash_history"
 __move "${HOME}/.ctags.d" "${XDG_CONFIG_HOME}/ctags"
 __move "${HOME}/.gimp-2.8" "${XDG_CONFIG_HOME}/GIMP/2.8"
 __move "${HOME}/.grip" "${XDG_CONFIG_HOME}/grip"
@@ -91,7 +90,6 @@ __move "${HOME}/.parallel" "${XDG_CONFIG_HOME}/parallel"
 __move "${HOME}/.pulse-cookie" "${XDG_CONFIG_HOME}/pulse/cookie"
 __move "${HOME}/.solargraph" "${XDG_CACHE_HOME}/solargraph"
 __move "${HOME}/.vagrant.d" "${XDG_DATA_HOME}/vagrant"
-__move "${HOME}/.zhistory" "${HOME}/.local/zsh_history"
 
 __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 
@@ -104,7 +102,16 @@ __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 [[ -n "$PYLINTHOME" ]] && __move "${HOME}/.pylint.d" "$PYLINTHOME"
 [[ -n "$YARN_CACHE_FOLDER" ]] && __move "${HOME}/.yarn-cache" "$YARN_CACHE_FOLDER"
 
-# Removes
+# ==========================================================================
+# Removals
+# ==========================================================================
+
+# delete shell history not in XDG_STATE_HOME
+__remove "${HOME}/.bash_history"
+__remove "${HOME}/.zhistory"
+__remove "${HOME}/.local/bash_history"
+__remove "${HOME}/.local/zsh_history"
+
 ! dko-same "${HOME}/.dotfiles/bash/dot.bash_profile" "${HOME}/.bash_profile" &&
   __remove "${HOME}/.bash_profile"
 ! dko-same "${HOME}/.dotfiles/bash/dot.bashrc" "${HOME}/.bashrc" \
