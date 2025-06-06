@@ -518,23 +518,6 @@ M.with_commentnvim_mappings = function(tbl)
 end
 
 -- ===========================================================================
--- Plugin: cybu.nvim
--- ===========================================================================
-
-M.cybu = {
-  prev = "[b",
-  next = "]b",
-}
-M.bind_cybu = function()
-  map("n", M.cybu.prev, "<Plug>(CybuPrev)", {
-    desc = "Previous buffer with cybu popup",
-  })
-  map("n", M.cybu.next, "<Plug>(CybuNext)", {
-    desc = "Next buffer with cybu popup",
-  })
-end
-
--- ===========================================================================
 -- Plugin: gitsigns.nvim
 -- ===========================================================================
 
