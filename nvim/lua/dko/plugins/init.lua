@@ -8,6 +8,7 @@ return {
   {
     "stevearc/oil.nvim",
     dependencies = "echasnovski/mini.icons",
+    keys = "\\\\",
     config = function()
       require("oil").setup({
         view_options = {
