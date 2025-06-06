@@ -31,11 +31,11 @@ return {
 
   -- e.g. for go.mod and swagger yaml
   -- https://github.com/icholy/lsplinks.nvim
-  -- Used in dko.utils.lsp
+  -- Used in dko.utils.links as first-line gx handler
   {
     "icholy/lsplinks.nvim",
     cond = has_ui,
-
+    event = "LspAttach",
     opts = {
       highlight = true,
       hl_group = "Underlined",
