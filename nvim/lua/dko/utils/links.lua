@@ -25,6 +25,18 @@ M.get_documentLink = function()
 end
 
 M.open_link = function()
+  if vim.b.did_bind_coc then
+    local result = vim.fn.CocAction("openLink")
+    if result then
+      vim.notify(
+        "Opening via coc openLink",
+        vim.log.levels.INFO,
+        { title = "gx" }
+      )
+      return
+    end
+  end
+
   local url = M.get_documentLink()
   if url then
     vim.notify(
