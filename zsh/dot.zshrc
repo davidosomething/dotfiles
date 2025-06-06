@@ -13,10 +13,7 @@ typeset -gU cdpath PATH path FPATH fpath MANPATH manpath
 
 . "${DOTFILES}/shell/interactive.sh"
 
-# ============================================================================
-# Interactive vars
-# ============================================================================
-
+# Doesn't need export for current shell, but do want in subshells
 export HISTFILE="${XDG_STATE_HOME}/zsh_history"
 
 # ============================================================================

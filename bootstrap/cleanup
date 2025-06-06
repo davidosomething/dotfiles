@@ -110,6 +110,7 @@ __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 case $HISTFILE in
 "${HOME}/.bash_history" | \
   "${HOME}/.zhistory" | \
+  "${HOME}/.zsh_history" | \
   "${HOME}/.local/bash_history" | \
   "${HOME}/.local/zsh_history")
   dko_warn "Symlink and restart shell to set HISTFILE location properly."
@@ -118,6 +119,7 @@ case $HISTFILE in
 esac
 __remove "${HOME}/.bash_history"
 __remove "${HOME}/.zhistory"
+__remove "${HOME}/.zsh_history"
 __remove "${HOME}/.local/bash_history"
 __remove "${HOME}/.local/zsh_history"
 
