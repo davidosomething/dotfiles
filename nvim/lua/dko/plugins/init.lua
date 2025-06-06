@@ -31,16 +31,16 @@ return {
     cond = has_ui,
     version = false,
     opts = {
-      buffer = { suffix = BRACKETED_DISABLED }, -- using cybu
+      -- buffer = { suffix = "b" },
       -- comment = { suffix = "c" },
       -- conflict = { suffix = "x" },
       diagnostic = {
         --- something weird about the cursor positioning of this compared to the
         --- built-in ]d [d
         suffix = BRACKETED_DISABLED,
-        options = {
-          float = require("dko.settings").get("diagnostics.goto_float"),
-        },
+        -- options = {
+        --   float = require("dko.settings").get("diagnostics.goto_float"),
+        -- },
       },
       -- file = { suffix = "f" },
       indent = { suffix = BRACKETED_DISABLED }, -- confusing
@@ -153,40 +153,6 @@ return {
     version = false, -- dev version
   },
 
-  {
-    "ghillb/cybu.nvim",
-    dependencies = {
-      "echasnovski/mini.icons",
-      -- "nvim-tree/nvim-web-devicons", -- mini icons instead
-      "nvim-lua/plenary.nvim",
-    },
-    keys = vim.tbl_values(require("dko.mappings").cybu),
-    config = function()
-      require("cybu").setup({
-        display_time = 500,
-        position = {
-          anchor = "centerright",
-          max_win_height = 8,
-          max_win_width = 0.5,
-        },
-        style = {
-          border = require("dko.settings").get("border"),
-          hide_buffer_id = true,
-          highlights = {
-            background = "dkoBgAlt",
-            current_buffer = "dkoQuote",
-            adjacent_buffers = "dkoType",
-          },
-        },
-        exclude = { -- filetypes
-          "qf",
-          "help",
-        },
-      })
-      require("dko.mappings").bind_cybu()
-    end,
-  },
-
   -- zoom in/out of a window
   -- this plugin accounts for command window and doesn't use sessions
   -- overrides <C-w>o (originally does an :only)
@@ -222,7 +188,12 @@ return {
     end,
   },
 
-  -- remember/restore last cursor position in files
+  -- Remember/restore last cursor position in files
+  --
+  -- https://github.com/ethanholz/nvim-lastplace
+  -- this plugin is archived by author
+  -- maybe switch to https://github.com/vladdoster/remember.nvim if there are
+  -- ever issues
   {
     "ethanholz/nvim-lastplace",
     cond = has_ui,
