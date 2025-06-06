@@ -107,6 +107,15 @@ __merge_dir "${HOME}/.fonts" "${XDG_DATA_HOME}/fonts"
 # ==========================================================================
 
 # delete shell history not in XDG_STATE_HOME
+case $HISTFILE in
+"${HOME}/.bash_history" | \
+  "${HOME}/.zhistory" | \
+  "${HOME}/.local/bash_history" | \
+  "${HOME}/.local/zsh_history")
+  dko_warn "Symlink and restart shell to set HISTFILE location properly."
+  dko_warn "Then run cleanup again to remove old histfile paths."
+  ;;
+esac
 __remove "${HOME}/.bash_history"
 __remove "${HOME}/.zhistory"
 __remove "${HOME}/.local/bash_history"
