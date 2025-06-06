@@ -731,36 +731,7 @@ M.bind_nvim_various_textobjs = function()
   )
 
   -- replaces netrw's gx
-  map("n", "gx", function()
-    if require("dko.utils.lsp").follow_documentLink() then
-      return
-    end
-
-    if require("dko.utils.url").select_nearest() then
-      local url = require("dko.utils.selection").get()
-      if url then
-        vim.ui.open(url)
-        return
-      end
-    end
-
-    -- -------------------------------------------------------------------------
-    -- Popup menu of all urls in buffer
-    -- -------------------------------------------------------------------------
-    if vim.fn.exists(":UrlView") then
-      vim.cmd.UrlView("buffer")
-    end
-  end, { desc = "Smart URL Opener" })
-end
-
--- =============================================================================
--- Plugin: oil.nvim
--- =============================================================================
-
-M.bind_oil = function()
-  map("n", "\\\\", function()
-    require("oil").toggle_float()
-  end, { desc = "Toggle floating oil.nvim" })
+  map("n", "gx", require("dko.utils.links").open_link)
 end
 
 -- ===========================================================================
