@@ -3,7 +3,6 @@ return {
     "ibhagwan/fzf-lua",
     -- optional for icon support
     dependencies = "echasnovski/mini.icons",
-    lazy = true,
     config = function()
       local dkomappings = require("dko.mappings")
       local dkosettings = require("dko.settings")
