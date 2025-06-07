@@ -142,18 +142,9 @@ __dko_dotfiles__go__require_go() {
 }
 
 # pass any arg to silence
-__dko_dotfiles__go__require_goenv() {
-  __dko_has goenv && return 0
-  __dko_warn "goenv is not installed"
-  return 1
-}
 __dko_dotfiles__go__update_go_packages() {
   __dko_status "Updating go packages"
-  __dko_dotfiles__go__require_goenv || return 1
   __dko_dotfiles__go__require_go || return 1
-
-  # in case go was updated recently, the go shim needs to be reset
-  goenv rehash
 
   go get -u all || {
     __dko_err "Could not update go packages"
@@ -291,11 +282,6 @@ __dko_dotfiles__darwin__update_brew_postupgrade() {
   # link curl
   if grep -q "curl" <<<"$outdated"; then
     brew unlink curl && brew link --force curl
-  fi
-
-  # re-init goenv
-  if grep -q "goenv" <<<"$outdated"; then
-    goenv rehash
   fi
 
   # do not use zsh git completion, the bash one is better
