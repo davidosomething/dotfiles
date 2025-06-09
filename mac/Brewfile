@@ -2,9 +2,6 @@
 # brew'd apps I use on ALL macs
 # ==========================================================================
 
-tap "homebrew/bundle"
-tap "homebrew/services"
-
 brew "git"
 
 # watchman used by coc.nvim for file watching
