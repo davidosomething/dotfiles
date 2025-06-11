@@ -52,7 +52,7 @@
   },
   "suggest.noselect": true,
 
-  "eslint.quiet": true,
+  "eslint.quiet": false,
   "eslint.alwaysShowStatus": true,
   "eslint.validate": [
     "javascript",
