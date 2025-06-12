@@ -13,11 +13,24 @@ return {
     },
     typescript = {
       inlayHints = {
-        parameterNames = { enabled = "all" },
-        parameterTypes = { enabled = true },
-        variableTypes = { enabled = true },
-        propertyDeclarationTypes = { enabled = true },
-        functionLikeReturnTypes = { enabled = true },
+        parameterNames = {
+          --- @type 'none' | 'literals' | 'all'
+          enabled = "literals",
+        },
+        parameterTypes = {
+          enabled = true,
+        },
+        variableTypes = {
+          --- just use hover to see it
+          enabled = false,
+        },
+        propertyDeclarationTypes = {
+          enabled = true,
+        },
+        functionLikeReturnTypes = {
+          --- just use hover to see it
+          enabled = false,
+        },
         enumMemberValues = { enabled = true },
       },
       preferences = {
