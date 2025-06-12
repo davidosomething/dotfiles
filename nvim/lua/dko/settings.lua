@@ -11,7 +11,7 @@ settings.colors = {
 }
 
 settings.coc = {
-  enabled = false,
+  enabled = true,
   fts = vim.tbl_extend(
     "force",
     require("dko.utils.jsts").fts,
