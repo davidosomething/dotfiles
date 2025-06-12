@@ -10,7 +10,7 @@ tools.register({
   end,
 })
 
-if not require("dko.settings").get("use_coc") then
+if not require("dko.settings").get("coc.enabled") then
   -- not used for formatting - prefer prettier since it does one-line arrays
   -- when they fit
   tools.register({

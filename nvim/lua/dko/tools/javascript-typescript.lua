@@ -31,7 +31,7 @@ tools.register({
   runner = "mason-lspconfig",
 })
 
-if not require("dko.settings").get("use_coc") then
+if not require("dko.settings").get("coc.enabled") then
   -- using coc-eslint
   tools.register({
     name = "eslint",
