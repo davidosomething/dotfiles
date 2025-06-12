@@ -259,6 +259,7 @@ return {
   -- https://github.com/brenoprata10/nvim-highlight-colors
   -- see output comparison here https://www.reddit.com/r/neovim/comments/1b5gw12/nvimhighlightcolors_now_supports_virtual_text/kt8gog6/?share_id=aUVLJ5zC3yMKjFuHqumGE
   -- can request and colorize from LSP textDocument/documentColor if available
+  -- integrated into nvim-cmp in ./completion.lua
   {
     "brenoprata10/nvim-highlight-colors",
     cond = has_ui,
@@ -278,6 +279,7 @@ return {
     },
   },
 
+  -- https://github.com/catgoose/nvim-colorizer.lua
   -- {
   --   "catgoose/nvim-colorizer.lua",
   --   cond = has_ui,
