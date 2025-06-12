@@ -3,16 +3,6 @@
 local Methods = vim.lsp.protocol.Methods
 local handle_definition = vim.lsp.handlers[Methods.textDocument_definition]
 
----@deprecated
-local definition_handler = function(...)
-  local args = { ... }
-  local res = args[2] or {}
-  if vim.tbl_isempty(res) then
-    return false
-  end
-  handle_definition(unpack(args))
-end
-
 local M = {}
 
 ---Go to source definition using LSP command
@@ -28,6 +18,17 @@ M.go_to_source_definition = function(name, command)
 
   local position_params =
     vim.lsp.util.make_position_params(0, client.offset_encoding)
+
+  local definition_handler = function(...)
+    local args = { ... }
+    local res = args[2] or {}
+    -- local client = args[3] or {}
+    if not vim.tbl_isempty(res) then
+      local location = res[#res]
+      vim.lsp.util.show_document(location, client.offset_encoding)
+    end
+  end
+
   return client:request(Methods.workspace_executeCommand, {
     command = command,
     arguments = { position_params.textDocument.uri, position_params.position },
@@ -44,7 +45,7 @@ M.ts_ls.config = {
       twoslash.attach(client, bufnr)
     end
 
-    vim.lsp.inlay_hint.enable()
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end,
 
   handlers = {
