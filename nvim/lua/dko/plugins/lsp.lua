@@ -84,13 +84,12 @@ return {
   -- },
 
   -- https://github.com/marilari88/twoslash-queries.nvim
-  -- {
-  --   "marilari88/twoslash-queries.nvim",
-  --   cond = has_ui,
-  --   config = function()
-  --     require("twoslash-queries").setup({ multi_line = true })
-  --   end,
-  -- },
+  -- attached in ../utils/typescript.lua
+  {
+    "marilari88/twoslash-queries.nvim",
+    cond = has_ui,
+    opts = { multi_line = true },
+  },
 
   {
     "mason-org/mason-lspconfig.nvim",
@@ -100,7 +99,7 @@ return {
 
       -- @TODO move these somewhere else
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
-      -- "marilari88/twoslash-queries.nvim", -- ts_ls comment with  ^? comment
+      "marilari88/twoslash-queries.nvim", -- ts_ls comment with  ^? comment
     },
     config = function()
       local dkotools = require("dko.tools")
