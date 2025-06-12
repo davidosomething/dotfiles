@@ -1,13 +1,6 @@
 -- see ../utils/format.lua for vim.b.formatters definition
 -- List format-on-save clients for the buffer
 return {
-  update = {
-    "User",
-    pattern = "FormattersChanged",
-    callback = vim.schedule_wrap(function()
-      vim.cmd.redrawstatus({ bang = true })
-    end),
-  },
   condition = function()
     -- nil means NEVER registered
     return vim.b.formatters ~= nil

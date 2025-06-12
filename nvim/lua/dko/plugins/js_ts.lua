@@ -1,7 +1,44 @@
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
+local dev = vim.env.NVIM_DEV ~= nil
+
 return {
+  {
+    "davidosomething/format-ts-errors.nvim",
+    cond = has_ui,
+    dev = dev,
+    config = function()
+      local f = require("format-ts-errors")
+      f.setup({
+        add_markdown = false,
+        start_indent_level = 0,
+      })
+      -- register a new message formatter for tsserver
+      require("dko.diagnostic").message_formatters["tsserver"] = function(
+        diagnostic
+      )
+        local formatter = f[diagnostic.code]
+        if not formatter then
+          vim.schedule(function()
+            vim.print(
+              ("format-ts-errors no formatter for [%d] %s"):format(
+                diagnostic.code,
+                diagnostic.message
+              )
+            )
+          end)
+          return diagnostic.message
+        end
+        local formatted = formatter(diagnostic.message)
+        return table.concat({
+          formatted,
+          "==== ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ ====",
+        }, "\n")
+      end
+    end,
+  },
+
   -- https://github.com/angelinuxx/npm-lens.nvim
   -- Parses JSON output of npm outdated --json
   -- Has BufReadPost autocmd

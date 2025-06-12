@@ -20,14 +20,6 @@ tools.register({
 --   require = "npm",
 -- })
 
--- using coc-eslint
--- tools.register({
---   name = "eslint",
---   mason_type = "lsp",
---   require = "npm",
---   runner = "mason-lspconfig",
--- })
-
 -- Provides textDocument/documentColor that nvim-highlight-colors can use
 -- Trigger tailwind completion manually using <C-Space> since coc is probably
 -- handling default completion using @yaegassy/coc-tailwindcss3
@@ -39,28 +31,33 @@ tools.register({
   runner = "mason-lspconfig",
 })
 
--- mason-lspconfig ts_ls config
--- tools.register({
---   name = "ts_ls",
---   mason_type = "lsp",
---   require = "npm",
---   runner = "mason-lspconfig",
--- })
+if not require("dko.settings").get("use_coc") then
+  -- using coc-eslint
+  tools.register({
+    name = "eslint",
+    mason_type = "lsp",
+    require = "npm",
+    runner = "mason-lspconfig",
+  })
 
--- tools.register({
---   name = "vtsls",
---   mason_type = "lsp",
---   require = "npm",
---   runner = "mason-lspconfig",
--- })
+  tools.register({
+    name = "vtsls",
+    mason_type = "lsp",
+    require = "npm",
+    runner = "mason-lspconfig",
+  })
 
--- ts_ls with no integration, used for "pmizio/typescript-tools.nvim"
--- tools.register({
---   name = "ts_ls",
---   mason_type = "lsp",
---   require = "npm",
---   runner = "mason-lspconfig",
---   skip_init = true,
--- })
+  -- mason-lspconfig ts_ls config
+  -- tools.register({
+  --   name = "ts_ls",
+  --   mason_type = "lsp",
+  --   require = "npm",
+  --   runner = "mason-lspconfig",
+  --   ---
+  --   ts_ls binary only for "pmizio/typescript-tools.nvim", add:
+  --   skip_init = true,
+  --   ---
+  -- })
+end
 
 return M

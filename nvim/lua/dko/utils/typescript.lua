@@ -49,7 +49,6 @@ M.ts_ls.inlay_hint_settings = {
 ---@type lspconfig.Config
 M.ts_ls.config = {
   on_attach = function(client, bufnr)
-    require("dko.mappings").bind_ts_ls_lsp(client, bufnr)
     local twoslashok, twoslash = pcall(require, "twoslash-queries")
     if twoslashok then
       twoslash.attach(client, bufnr)
