@@ -35,16 +35,6 @@ M.go_to_source_definition = function(name, command)
 end
 
 M.ts_ls = {}
-M.ts_ls.inlay_hint_settings = {
-  includeInlayParameterNameHints = "all",
-  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-  includeInlayFunctionParameterTypeHints = true,
-  includeInlayVariableTypeHints = true,
-  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-  includeInlayPropertyDeclarationTypeHints = true,
-  includeInlayFunctionLikeReturnTypeHints = true,
-  includeInlayEnumMemberValueHints = true,
-}
 
 ---@type lspconfig.Config
 M.ts_ls.config = {
@@ -53,6 +43,8 @@ M.ts_ls.config = {
     if twoslashok then
       twoslash.attach(client, bufnr)
     end
+
+    vim.lsp.inlay_hint.enable()
   end,
 
   handlers = {
@@ -80,11 +72,6 @@ M.ts_ls.config = {
 
       vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx)
     end,
-  },
-
-  settings = {
-    typescript = { inlayHints = M.ts_ls.inlay_hint_settings },
-    javascript = { inlayHints = M.ts_ls.inlay_hint_settings },
   },
 }
 
