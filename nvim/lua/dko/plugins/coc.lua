@@ -1,49 +1,12 @@
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
-local dev = vim.env.NVIM_DEV ~= nil
-
 return {
-  {
-    "davidosomething/format-ts-errors.nvim",
-    cond = has_ui and require("dko.settings").get("use_coc"),
-    dev = dev,
-    config = function()
-      local f = require("format-ts-errors")
-      f.setup({
-        add_markdown = false,
-        start_indent_level = 0,
-      })
-      -- register a new message formatter for tsserver
-      require("dko.diagnostic").message_formatters["tsserver"] = function(
-        diagnostic
-      )
-        local formatter = f[diagnostic.code]
-        if not formatter then
-          vim.schedule(function()
-            vim.print(
-              ("format-ts-errors no formatter for [%d] %s"):format(
-                diagnostic.code,
-                diagnostic.message
-              )
-            )
-          end)
-          return diagnostic.message
-        end
-        local formatted = formatter(diagnostic.message)
-        return table.concat({
-          formatted,
-          "==== ꜰᴏʀᴍᴀᴛ-ᴛs-ᴇʀʀᴏʀs.ɴᴠɪᴍ ====",
-        }, "\n")
-      end
-    end,
-  },
-
   -- Using this for tsserver specifically, faster results than nvim-lsp
   {
     "neoclide/coc.nvim",
     branch = "release",
-    cond = has_ui and require("dko.settings").get("use_coc"),
+    cond = has_ui and require("dko.settings").get("coc.enabled"),
     init = function()
       -- Don't use watchman until this is properly resolved
       -- https://github.com/neoclide/coc.nvim/issues/4490

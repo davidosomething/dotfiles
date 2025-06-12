@@ -47,19 +47,13 @@ autocmd("LspAttach", {
   desc = "Add capable LSP as formatter when attaches to buffer",
   callback = function(args)
     local bufnr = args.buf
-    local clients = vim.lsp.get_clients({
-      id = args.data.client_id,
-      bufnr = bufnr,
-      method = Methods.textDocument_formatting,
-    })
-    if #clients == 0 then -- just to shut up type checking
-      return
-    end
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    -- Track formatters, non-exclusively, non-LSPs might add to this table
-    -- or fire the autocmd
-    local name = clients[1].name
-    require("dko.utils.format").add_formatter(bufnr, name, {})
+    --- Not all formatters claim to support the method at the time of this
+    --- autocmd. See Methods.client_registerCapability in ../dko/lsp.lua
+    if client and client:supports_method(Methods.textDocument_formatting) then
+      require("dko.utils.format").add_formatter(bufnr, client.name, {})
+    end
   end,
   group = augroup("dkolsp"),
 })
@@ -116,15 +110,13 @@ autocmd("LspDetach", {
     if not vim.b.enable_format_on_save then
       return
     end
-
-    local bufnr = args.buf
-    local detached_client_id = args.data.client_id
-
     -- Unregister the client from formatters (and update heirline)
-    local detached_client = vim.lsp.get_client_by_id(detached_client_id)
+    local detached_client = vim.lsp.get_client_by_id(args.data.client_id)
     if detached_client ~= nil then
-      local name = detached_client.name
-      require("dko.utils.format").remove_formatter(bufnr, name)
+      require("dko.utils.format").remove_formatter(
+        args.buf,
+        detached_client.name
+      )
     end
   end,
   group = augroup("dkolsp"),
