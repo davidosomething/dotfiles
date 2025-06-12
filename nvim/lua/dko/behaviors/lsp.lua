@@ -187,15 +187,6 @@ autocmd("User", {
 -- Formatting
 -- ===========================================================================
 
-autocmd("User", {
-  pattern = "FormattersChanged",
-  desc = "Notify neovim a formatter has been added for the buffer",
-  callback = vim.schedule_wrap(function()
-    vim.cmd.redrawstatus({ bang = true })
-  end),
-  group = augroup("dkolsp"),
-})
-
 autocmd({ "BufWritePre", "FileWritePre" }, {
   desc = "Format with LSP on save",
   callback = function(args)
