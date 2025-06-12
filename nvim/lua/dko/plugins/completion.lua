@@ -51,7 +51,9 @@ local cmp_dependencies = {
   "hrsh7th/cmp-nvim-lsp-signature-help",
   "hrsh7th/cmp-path",
 
-  "roobert/tailwindcss-colorizer-cmp.nvim",
+  -- https://github.com/roobert/tailwindcss-colorizer-cmp.nvim
+  -- Using "brenoprata10/nvim-highlight-colors" instead
+  -- "roobert/tailwindcss-colorizer-cmp.nvim",
 
   --- init creates the symbol_map, but also modifies
   --- vim.lsp.protocol.CompletionItemKind :(
@@ -138,12 +140,14 @@ return {
 
             -- [color] thing    ᴛᴡ
             if not source then
-              local tw_colorized =
-                require("tailwindcss-colorizer-cmp").formatter(entry, item)
-              if tw_colorized.kind == "XX" then
-                item.kind = "X"
-                item.kind_hl_group = tw_colorized.kind_hl_group
-                source = "ᴛᴡ"
+              local twc_ok, twc = pcall(require, "tailwindcss-colorizer-cmp")
+              if twc_ok then
+                local twc_item = twc.formatter(entry, item)
+                if twc_item.kind == "XX" then
+                  item.kind = "X"
+                  item.kind_hl_group = twc_item.kind_hl_group
+                  source = "ᴛᴡ"
+                end
               end
             end
 

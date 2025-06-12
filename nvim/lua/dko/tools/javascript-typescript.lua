@@ -28,7 +28,9 @@ tools.register({
 --   runner = "mason-lspconfig",
 -- })
 
--- using @yaegassy/coc-tailwindcss3
+-- Provides textDocument/documentColor that nvim-highlight-colors can use
+-- Trigger tailwind completion manually using <C-Space> since coc is probably
+-- handling default completion using @yaegassy/coc-tailwindcss3
 --"cssls", -- conflicts with tailwindcss
 tools.register({
   name = "tailwindcss",
