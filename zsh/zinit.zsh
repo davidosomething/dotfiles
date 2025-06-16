@@ -116,8 +116,6 @@ function {
   # Completions
   # ----------------------------------------------------------------------------
 
-  zinit as'completion' is-snippet for 'OMZP::docker-compose/_docker-compose'
-
   # In-line best history match suggestion
   # don't suggest lines longer than
   export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=78
