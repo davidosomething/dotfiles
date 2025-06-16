@@ -1,4 +1,5 @@
 [tools]
+"aqua:dandavison/delta" = "latest"
 "aqua:hashicorp/vault" = "latest"
 "aqua:junegunn/fzf" = "latest"
 "aqua:neovim/neovim" = "latest"
