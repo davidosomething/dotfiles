@@ -26,6 +26,16 @@ alias mv="nocorrect mv"
 alias rm="nocorrect rm"
 alias mkdir="nocorrect mkdir"
 
+# ==========================================================================
+# noglob
+# makes it easier to edit files in next.js and stuff
+# e.g. /[...slug].tsx should not be a pattern
+# ==========================================================================
+
+alias e="noglob e"
+# with glob
+alias eg="\e"
+
 # ============================================================================
 # zinit
 # ============================================================================
