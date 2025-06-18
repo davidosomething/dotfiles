@@ -45,6 +45,10 @@ return {
   {
     "angelinuxx/npm-lens.nvim",
     cond = has_ui,
+    cmd = "NpmLensToggle",
+    opts = {
+      enabled = false, -- If false, info in `package.json` won't display until `:NpmLensToggle` is used
+    },
   },
 
   -- https://github.com/vuki656/package-info.nvim
