@@ -126,13 +126,16 @@ autocmd("FileType", {
   desc = "Set mappings/format on save for specific filetypes if coc.nvim is enabled",
   callback = function(opts)
     local dkosettings = require("dko.settings")
-    --- order matters here
-    if
-      dkosettings.get("coc.enabled")
+
+    local use_coc = dkosettings.get("coc.enabled")
       and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
-    then
+
+    --- order matters here
+    if use_coc then
       vim.cmd.CocStart()
       require("dko.mappings.lsp").bind_coc(opts)
+      vim.bo.formatexpr = "CocAction('formatSelected')"
+
       --- @TODO move this to a tools-based registration
       -- require("dko.utils.format").add_formatter("coc")
       -- vim.b.enable_format_on_save = true
