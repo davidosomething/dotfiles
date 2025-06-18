@@ -68,6 +68,17 @@ if has_ui then
     end,
     group = augroup("dkoreading"),
   })
+
+  autocmd("BufReadPost", {
+    desc = "Show NPM lens via npm-lens.nvim",
+    pattern = "package.json",
+    callback = function()
+      if vim.fn.exists(":NpmLensToggle") then
+        vim.cmd.NpmLensToggle()
+      end
+    end,
+    group = augroup("dkoreading"),
+  })
 end
 
 -- yanky.nvim providing this
