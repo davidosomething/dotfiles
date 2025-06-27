@@ -59,14 +59,18 @@ case "$DOTFILES_OS" in
   FreeBSD*) export DOTFILES_DISTRO="FreeBSD" ;;
   OpenBSD*) export DOTFILES_DISTRO="OpenBSD" ;;
   *)
+    # assume linux
     # for pacdiff
     export DIFFPROG="nvim -d"
+
+    # fontconfig
+    # https://www.freedesktop.org/software/fontconfig/fontconfig-user.html
+    export FONTCONFIG_PATH="/etc/fonts"
 
     # X11 - for starting via xinit or startx
     export XAPPLRESDIR="${DOTFILES}/linux"
 
     if [ -f /etc/arch-release ]; then
-      # manjaro too
       export DOTFILES_DISTRO="archlinux"
     elif [ -f /etc/debian_version ]; then
       export DOTFILES_DISTRO="debian"
