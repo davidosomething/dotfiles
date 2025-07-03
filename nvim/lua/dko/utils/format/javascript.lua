@@ -35,37 +35,29 @@ end
 
 ---@return boolean
 M.format_with_coc = function()
+  local toast_opts = {
+    group = "format",
+    title = "[coc.nvim]",
+    render = "wrapped-compact",
+  }
+  local toast = require("dko.utils.notify").toast
+
   local did_format = false
 
   if not M.has_eslint_plugin_prettier() and M.has_coc_prettier() then
     vim.cmd.CocCommand("prettier.forceFormatDocument")
-    require("dko.utils.notify").toast("coc-prettier", vim.log.levels.INFO, {
-      group = "format",
-      title = "[coc.nvim]",
-      render = "wrapped-compact",
-    })
+    toast("coc-prettier", vim.log.levels.INFO, toast_opts)
     vim.cmd.sleep("100m") -- m is milliseconds
     did_format = true
   end
 
   if M.has_coc_eslint() then
-    local delay = "1m" -- m is milliseconds
-    local message = ""
-    if M.has_eslint_plugin_prettier() then
-      delay = "100m" -- m is milliseconds
-      message = " + eslint-plugin-prettier"
-    end
-    require("dko.utils.notify").toast(
-      ("coc-eslint%s"):format(message),
-      vim.log.levels.INFO,
-      {
-        group = "format",
-        title = "[coc.nvim]",
-        render = "wrapped-compact",
-      }
-    )
-    vim.fn.CocAction("runCommand", "eslint.executeAutofix")
-    vim.cmd.sleep(delay)
+    local message = M.has_eslint_plugin_prettier()
+        and " + eslint-plugin-prettier"
+      or ""
+    toast(("coc-eslint%s"):format(message), vim.log.levels.INFO, toast_opts)
+    vim.cmd.CocCommand("eslint.executeAutofix")
+    vim.cmd.sleep("100m")
     did_format = true
   end
 
