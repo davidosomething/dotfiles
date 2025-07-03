@@ -1,5 +1,6 @@
 local M = {}
 
+---Detect eslint-plugin-prettier is installed
 M.has_eslint_plugin_prettier = function()
   if vim.b.has_eslint_plugin_prettier == nil then
     vim.b.has_eslint_plugin_prettier =
@@ -8,6 +9,7 @@ M.has_eslint_plugin_prettier = function()
   return vim.b.has_eslint_plugin_prettier
 end
 
+---Detect coc-eslint is installed
 M.has_coc_eslint = function()
   if vim.g.has_coc_eslint == nil then
     vim.g.has_coc_eslint = vim
@@ -19,30 +21,55 @@ M.has_coc_eslint = function()
   return vim.g.has_coc_eslint
 end
 
+---Detect coc-prettier is installed
+M.has_coc_prettier = function()
+  if vim.g.has_coc_prettier == nil then
+    vim.g.has_coc_prettier = vim
+      .iter(vim.g.coc_global_extensions)
+      :find(function(v)
+        return string.find(v, "coc%-prettier")
+      end)
+  end
+  return vim.g.has_coc_prettier
+end
+
 ---@return boolean
 M.format_with_coc = function()
-  if not M.has_coc_eslint() then
-    return false
-  end
+  local did_format = false
 
-  local delay = "1m"
-  local message = ""
-  if M.has_eslint_plugin_prettier() then
-    delay = "100m"
-    message = " + eslint-plugin-prettier"
-  end
-  require("dko.utils.notify").toast(
-    ("coc-eslint%s"):format(message),
-    vim.log.levels.INFO,
-    {
+  if not M.has_eslint_plugin_prettier() and M.has_coc_prettier() then
+    vim.cmd.CocCommand("prettier.forceFormatDocument")
+    require("dko.utils.notify").toast("coc-prettier", vim.log.levels.INFO, {
       group = "format",
       title = "[coc.nvim]",
       render = "wrapped-compact",
-    }
-  )
-  vim.fn.CocAction("runCommand", "eslint.executeAutofix")
-  vim.cmd.sleep(delay)
-  return true
+    })
+    vim.cmd.sleep("100m") -- m is milliseconds
+    did_format = true
+  end
+
+  if M.has_coc_eslint() then
+    local delay = "1m" -- m is milliseconds
+    local message = ""
+    if M.has_eslint_plugin_prettier() then
+      delay = "100m" -- m is milliseconds
+      message = " + eslint-plugin-prettier"
+    end
+    require("dko.utils.notify").toast(
+      ("coc-eslint%s"):format(message),
+      vim.log.levels.INFO,
+      {
+        group = "format",
+        title = "[coc.nvim]",
+        render = "wrapped-compact",
+      }
+    )
+    vim.fn.CocAction("runCommand", "eslint.executeAutofix")
+    vim.cmd.sleep(delay)
+    did_format = true
+  end
+
+  return did_format
 end
 
 ---@return boolean

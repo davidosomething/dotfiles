@@ -22,6 +22,8 @@ return {
         -- since it gives code actions unified with tsserver
         "coc-eslint",
         "coc-json",
+        -- use when prettier config is present but eslint-plugin-prettier is NOT
+        "coc-prettier",
         -- for K and completion, but we still use the nvim lsp one too
         -- until I can figure out how to rebuild TWValues
         "@yaegassy/coc-tailwindcss3",
