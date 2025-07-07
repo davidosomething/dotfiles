@@ -46,32 +46,38 @@ end
 
 local eslints = {}
 
--- Return eslint config, cached by path of the eslint binary so multiple files
--- in same project won't have to repeat json decode.
----@param bin? string path to eslint
----@return table|nil -- lua table
-M.get_eslint_config = function(bin)
-  local eslint = bin or M.get_eslint()
-  if not eslint then
-    return nil
+---@return string
+M.read_package_json = function()
+  if vim.b.package_json_contents == nil then
+    local path = vim.api.nvim_buf_get_name(0)
+        and vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+      or nil
+    local pjs = vim.fs.find("package.json", {
+      path = path,
+      limit = 1,
+      type = "file",
+      upward = true,
+    })
+    if #pjs > 0 then
+      local f = io.input(pjs[1])
+      if f then
+        vim.b.package_json_contents = f:read("*a")
+        f:close()
+        return vim.b.package_json_contents
+      end
+    end
+    vim.b.package_json_contents = ""
   end
-  if eslints[eslint] == nil then
-    local json = vim
-      .system({ eslint, "--print-config", vim.api.nvim_buf_get_name(0) })
-      :wait().stdout
-    eslints[eslint] = json and json:len() > 0 and vim.json.decode(json)
-  end
-  return eslints[eslint]
+  return vim.b.package_json_contents
 end
 
----@param plugin_name string e.g. "prettier"
+---@param pkg string e.g. "prettier"
 ---@return boolean -- true if found in eslint config
-M.has_eslint_plugin = function(plugin_name)
-  local config = M.get_eslint_config()
-  return config
-      and config.plugins
-      and vim.tbl_contains(config.plugins, plugin_name)
-    or false
+M.has_package = function(pkg)
+  local package_json_contents = M.read_package_json()
+  -- treat dashes as plain chars
+  local PLAIN = true
+  return package_json_contents:find(pkg, 1, PLAIN) ~= nil
 end
 
 return M
