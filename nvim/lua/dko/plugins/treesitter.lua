@@ -43,8 +43,6 @@ return {
         },
 
         indent = { enable = true },
-
-        matchup = { enable = true },
       })
 
       -- Aliases

@@ -249,7 +249,6 @@ return {
     init = function()
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_status_offscreen = 0
-      -- see behaviors.lua for treesitter integration
     end,
   },
 
