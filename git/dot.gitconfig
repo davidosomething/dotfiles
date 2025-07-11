@@ -92,6 +92,12 @@
 # Programs (assumes may be overridden by OS settings)
 # ============================================================================
 
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+
 [gui]
 	fontui = -family \"Fira Sans\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
 	fontdiff = -family \"Fira Mono for Powerline\" -size -10 -weight normal -slant roman -underline 0 -overstrike 0
