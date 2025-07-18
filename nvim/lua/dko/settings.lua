@@ -12,10 +12,9 @@ settings.colors = {
 
 settings.coc = {
   enabled = true,
-  fts = vim.tbl_extend(
-    "force",
+  fts = require("dko.utils.table").concat(
     require("dko.utils.jsts").fts,
-    { "json", "jsonc" }
+    { "json", "jsonc", "mdx" }
   ),
 }
 
