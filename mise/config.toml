@@ -1,3 +1,6 @@
+[settings]
+gpg_verify = false
+
 [tools]
 "aqua:dandavison/delta" = "latest"
 "aqua:hashicorp/vault" = "latest"
