@@ -76,12 +76,6 @@ alias ezr='e "${ZDOTDIR}/.zshrc"'
 alias ke="pkill -f 'nvim.sock'"
 
 # ----------------------------------------------------------------------------
-# gem
-# ----------------------------------------------------------------------------
-
-alias gemrm='gem uninstall --all'
-
-# ----------------------------------------------------------------------------
 # git
 # ----------------------------------------------------------------------------
 
@@ -98,14 +92,6 @@ alias gm='git checkout "$(git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d
 alias gw='./gradlew -DUseMemcached=true'
 alias gwc='gw compileJava'
 alias gwr='gw run'
-
-# ----------------------------------------------------------------------------
-# greppers
-# ----------------------------------------------------------------------------
-
-alias grep='grep --color=auto'
-
-# also see gg in git
 
 # ----------------------------------------------------------------------------
 # java
@@ -133,14 +119,8 @@ alias kns='kubens'
 # node / JS
 # ----------------------------------------------------------------------------
 
-alias gulp='npx gulp'
-alias grunt='npx grunt'
 alias n='npm'
-alias ni='n install'
-alias nomod='rm -rf ./node_modules'
-alias likereallynomod='find . -type d -iname node_modules -exec rm \-rf {} \;'
-alias nr='n run'
-alias ns='n start'
+alias p='pnpm'
 alias y='yarn'
 alias yi='yarn install'
 alias yr='yarn run'
