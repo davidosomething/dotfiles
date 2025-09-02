@@ -13,7 +13,7 @@ return {
   },
 
   {
-    "echasnovski/mini.bracketed",
+    "nvim-mini/mini.bracketed",
     cond = has_ui,
     version = false,
     opts = {
@@ -131,9 +131,9 @@ return {
   },
 
   -- remove buffers without messing up window layout
-  -- https://github.com/echasnovski/mini.bufremove
+  -- https://github.com/nvim-mini/mini.bufremove
   {
-    "echasnovski/mini.bufremove",
+    "nvim-mini/mini.bufremove",
     cond = has_ui,
     config = true,
     version = false, -- dev version
@@ -312,7 +312,7 @@ return {
   -- NB: Normally in insert mode, <A-hjkl> will exit insert and move cursor.
   -- You can use arrow keys in insert mode, so it's a little redundant.
   {
-    "echasnovski/mini.move",
+    "nvim-mini/mini.move",
     cond = has_ui,
     config = true,
   },
@@ -351,7 +351,7 @@ return {
 
   -- vim-sandwich provides a textobj!
   -- sa/sr/sd operators and ib/ab textobjs
-  -- https://github.com/echasnovski/mini.surround -- no textobj
+  -- https://github.com/nvim-mini/mini.surround -- no textobj
   -- https://github.com/kylechui/nvim-surround -- no textobj
   {
     "machakann/vim-sandwich",

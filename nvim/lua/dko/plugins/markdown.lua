@@ -36,7 +36,7 @@ return {
   --     -- parsers manually
   --     -- Or if the parsers are in your $RUNTIMEPATH
   --     "nvim-treesitter/nvim-treesitter",
-  --      "echasnovski/mini.icons",
+  --      "nvim-mini/mini.icons",
   --     "nvim-tree/nvim-web-devicons", -- use mini.icons
   --   },
   --   -- commit = "5488c07", -- links in tables fixed
