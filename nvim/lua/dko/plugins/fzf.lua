@@ -2,7 +2,7 @@ return {
   {
     "ibhagwan/fzf-lua",
     -- optional for icon support
-    dependencies = "echasnovski/mini.icons",
+    dependencies = "nvim-mini/mini.icons",
     config = function()
       local dkomappings = require("dko.mappings")
       local dkosettings = require("dko.settings")
