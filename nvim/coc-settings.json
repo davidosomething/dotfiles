@@ -81,6 +81,7 @@
   "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
   "typescript.preferGoToSourceDefinition": true,
   "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "typescript.preferences.importModuleSpecifier": "project-relative",
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
   "tsserver.disableAutomaticTypeAcquisition": true,
