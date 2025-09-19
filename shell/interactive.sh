@@ -11,7 +11,9 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
 . "${DOTFILES}/shell/functions.sh" # shell functions
 
 case "$DOTFILES_OS" in
-  Darwin) . "${DOTFILES}/shell/interactive-darwin.zsh" ;;
+  Darwin)
+    . "${DOTFILES}/shell/interactive-darwin.zsh"
+    ;;
   Linux)
     . "${DOTFILES}/shell/interactive-linux.sh"
     ;;
