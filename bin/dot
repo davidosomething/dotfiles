@@ -32,8 +32,6 @@ __dko_dotfiles__usage() {
     daily       -- secret, Packages / Developer Tools
 
   Packages / Developer Tools
-    gem         -- update rubygems and global gems for current ruby
-    go          -- golang
     pip         -- update all versions of pip (OS dependent)
     pipx        -- update pipx-installed cli tools
 
@@ -93,63 +91,6 @@ __dko_dotfiles__update_secret() {
 
 __dko_dotfiles__update_daily() {
   __dko_dotfiles__update_secret
-
-  __dko_dotfiles__go__require_go && __dko_dotfiles__go__update_go_packages
-
-  __dko_dotfiles__ruby__require_rubygems && __dko_dotfiles__ruby__update_gems
-}
-
-# ----------------------------------------------------------------------------
-# Ruby: Introspection
-# ----------------------------------------------------------------------------
-
-# pass any arg to silence
-__dko_dotfiles__ruby__require_rubygems() {
-  __dko_has gem && return 0
-  __dko_warn "rubygems is not installed"
-  return 1
-}
-
-# ----------------------------------------------------------------------------
-# Ruby: Update Gems
-# ----------------------------------------------------------------------------
-
-__dko_dotfiles__ruby__update_gems() {
-  __dko_status "Updating gems"
-  __dko_dotfiles__ruby__require_rubygems || return 1
-
-  __dko_status "Updating RubyGems itself for ruby: ${RUBY_VERSION}"
-  gem update --system || {
-    __dko_err "Could not update RubyGems"
-    return 1
-  }
-
-  gem update || {
-    __dko_err "Could not update gems"
-    return 1
-  }
-}
-
-# ----------------------------------------------------------------------------
-# Go
-# ----------------------------------------------------------------------------
-
-# pass any arg to silence
-__dko_dotfiles__go__require_go() {
-  __dko_has go && return 0
-  __dko_warn "go is not installed"
-  return 1
-}
-
-# pass any arg to silence
-__dko_dotfiles__go__update_go_packages() {
-  __dko_status "Updating go packages"
-  __dko_dotfiles__go__require_go || return 1
-
-  go get -u all || {
-    __dko_err "Could not update go packages"
-    return 1
-  }
 }
 
 # ----------------------------------------------------------------------------
@@ -322,8 +263,6 @@ __dko_dotfiles() {
   dotfiles) __dko_dotfiles__update ;;
   secret) __dko_dotfiles__update_secret ;;
   daily) __dko_dotfiles__update_daily ;;
-  gem) __dko_dotfiles__ruby__update_gems ;;
-  go) __dko_dotfiles__go__update_go_packages ;;
   pip) __dko_dotfiles__py__update_pip ;;
   pipx) __dko_dotfiles__py__update_pipx ;;
 
