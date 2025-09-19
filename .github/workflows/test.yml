@@ -31,7 +31,7 @@ jobs:
         run: brew install pipx && pipx ensurepath
 
       - name: Install mise and tools including neovim and nodejs
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@v3
 
       - name: Install node packages via npm
         run: npm ci
