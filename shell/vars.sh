@@ -214,9 +214,6 @@ export R_LIBS_USER="${HOME}/.local/lib/R/library/"
 # readline
 export INPUTRC="${DOTFILES}/shell/dot.inputrc"
 
-# -shellcheck
-export SHELLCHECK_OPTS="--exclude=SC1090,SC2148"
-
 # terminfo
 # DO NOT DO THIS, shells are fine, but tmux will not know where to look!
 #export TERMINFO="${XDG_DATA_HOME}/terminfo"

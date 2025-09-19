@@ -22,26 +22,19 @@ jobs:
         with:
           ref: dev
 
-      - name: Provision dotfiles
+      - name: Provision dotfiles (including mise.toml)
         run: ./bootstrap/symlink
 
-      - name: Install Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version-file: 'package.json'
-
-      - name: Install node packages via npm
-        run: npm ci
-
+      # mise might use pipx, and yamllint certainly needs it
       - name: Install pipx via Brew
         if: matrix.os == 'macos-latest'
         run: brew install pipx && pipx ensurepath
 
-      - name: Install neovim nightly
-        uses: rhysd/action-setup-vim@v1
-        with:
-          neovim: true
-          version: stable
+      - name: Install mise and tools including neovim and nodejs
+        uses: jdx/mise-action@v2
+
+      - name: Install node packages via npm
+        run: npm ci
 
       - name: Run tests
         run: npm test --silent
