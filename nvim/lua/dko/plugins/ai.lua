@@ -2,6 +2,7 @@ local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
 return {
+  -- https://github.com/coder/claudecode.nvim
   {
     "coder/claudecode.nvim",
     dependencies = { "folke/snacks.nvim" },
@@ -39,6 +40,38 @@ return {
       { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
     },
   },
+
+  -- https://github.com/jim-at-jibba/nvim-redraft
+  {
+    "jim-at-jibba/nvim-redraft",
+    dependencies = { "folke/snacks.nvim" },
+    event = "VeryLazy",
+    build = "cd ts && npm install && npm run build",
+    config = true,
+    keys = {
+      -- "AI Edit Selection"
+      "<leader>aes",
+      -- "Select AI Model"
+      "<leader>aem",
+    },
+    opts = {
+      llm = {
+        models = {
+          {
+            provider = "openai", -- "openai", "anthropic", or "xai"
+            model = "gpt-4o-mini",
+          },
+          {
+            provider = "anthropic",
+            model = "claude-3-5-sonnet-20241022",
+            label = "Claude 3.5 Sonnet",
+          },
+        },
+      },
+      -- See Configuration section for options
+    },
+  },
+
   -- https://github.com/olimorris/codecompanion.nvim
   {
     "olimorris/codecompanion.nvim",
