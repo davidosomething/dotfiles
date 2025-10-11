@@ -5,6 +5,8 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/aliases-archlinux.sh"
 
 alias biosinfo='run0 dmidecode -t bios -q'
 
+alias boot_params='cat /proc/cmdline'
+
 # Always create log file
 alias makepkg='makepkg --log'
 
