@@ -1,5 +1,6 @@
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
+local mappings = require("dko.mappings")
 
 return {
   -- https://github.com/coder/claudecode.nvim
@@ -48,13 +49,25 @@ return {
     event = "VeryLazy",
     build = "cd ts && npm install && npm run build",
     config = true,
-    keys = {
-      -- "AI Edit Selection"
-      "<leader>aes",
-      -- "Select AI Model"
-      "<leader>aem",
-    },
+    keys = vim.tbl_values(mappings.nvim_redraft),
     opts = {
+      keys = {
+        {
+          mappings.nvim_redraft.edit,
+          function()
+            require("nvim-redraft").edit()
+          end,
+          mode = "v",
+          desc = "AI Edit Selection",
+        },
+        {
+          mappings.nvim_redraft.select_model,
+          function()
+            require("nvim-redraft").select_model()
+          end,
+          desc = "Select AI Model",
+        },
+      },
       llm = {
         models = {
           {
