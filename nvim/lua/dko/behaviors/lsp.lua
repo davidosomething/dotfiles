@@ -213,7 +213,7 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 autocmd({ "BufWritePost", "FileWritePost" }, {
   desc = "Restart coc-eslint if saved file for first time",
   callback = function()
-    if vim.b.newfile == 1 then
+    if vim.b.coc_enabled ~= 0 and vim.b.newfile == 1 then
       vim.b.newfile = nil
       vim.cmd.CocCommand("eslint.restart")
     end
