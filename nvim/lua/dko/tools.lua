@@ -50,10 +50,10 @@ local M = {}
 ---@type { tool: ToolGroups[], lsp: ToolGroups[] }
 M.install_groups = { tool = {}, lsp = {} }
 
----@type table<string, boolean>
+---@type string[]
 M.mason_lspconfig_resolvers = {}
 
----@type table<string, boolean>
+---@type string[]
 M.lspconfig_resolvers = {}
 
 local runner_to_resolvers_map = {
@@ -99,8 +99,7 @@ M.register = function(config)
   -- Register LSP
   -- ===========================================================================
   if config.runner then
-    local config_map = runner_to_resolvers_map[config.runner]
-    config_map[config.name] = true
+    table.insert(runner_to_resolvers_map[config.runner], config.name)
   end
 end
 
