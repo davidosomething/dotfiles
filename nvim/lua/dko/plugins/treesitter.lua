@@ -12,6 +12,10 @@ local FT_TO_LANG_ALIASES = {
 -- opened a buffer with the corresponding ft
 local ENSURE_INSTALLED = { "html", "json", "lua", "markdown", "yaml" }
 
+local HIGHLIGHT_DISABLED = {
+  "just", --- prefer NoahTheDuke/vim-just for syntax highlighting
+}
+
 return {
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
@@ -34,11 +38,13 @@ return {
         highlight = {
           enable = true,
           disable = function(lang, bufnr)
-            --- prefer NoahTheDuke/vim-just for syntax highlighting
-            if lang == "just" then
+            if require("dko.utils.buffer").is_huge({ bufnr = bufnr }) then
               return true
             end
-            return (require("dko.utils.buffer").is_huge({ bufnr = bufnr }))
+            if vim.list_contains(HIGHLIGHT_DISABLED, lang) then
+              return true
+            end
+            return false
           end,
         },
 

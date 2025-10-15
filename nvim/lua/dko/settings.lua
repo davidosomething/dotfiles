@@ -4,6 +4,11 @@ local settings = {}
 ---@type "none" | "single" | "double" | "shadow" | "rounded"
 settings.border = "rounded"
 
+settings.completion = {
+  --- @type "blink" | "built-in" | "cmp"
+  engine = "blink",
+}
+
 settings.colors = {
   -- set in ./plugins/colorscheme.lua
   --   dark = "meh",
