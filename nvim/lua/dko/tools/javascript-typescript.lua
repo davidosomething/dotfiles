@@ -32,7 +32,6 @@ tools.register({
 })
 
 if not require("dko.settings").get("coc.enabled") then
-  -- using coc-eslint
   tools.register({
     name = "eslint",
     mason_type = "lsp",

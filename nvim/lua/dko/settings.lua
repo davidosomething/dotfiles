@@ -16,7 +16,7 @@ settings.colors = {
 }
 
 settings.coc = {
-  enabled = true,
+  enabled = false,
   fts = require("dko.utils.table").concat(
     require("dko.utils.jsts").fts,
     { "json", "jsonc", "mdx" }
