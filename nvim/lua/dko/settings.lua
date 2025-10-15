@@ -4,6 +4,11 @@ local settings = {}
 ---@type "none" | "single" | "double" | "shadow" | "rounded"
 settings.border = "rounded"
 
+settings.completion = {
+  --- @type "blink" | "built-in" | "cmp"
+  engine = "blink",
+}
+
 settings.colors = {
   -- set in ./plugins/colorscheme.lua
   --   dark = "meh",
@@ -11,7 +16,7 @@ settings.colors = {
 }
 
 settings.coc = {
-  enabled = true,
+  enabled = false,
   fts = require("dko.utils.table").concat(
     require("dko.utils.jsts").fts,
     { "json", "jsonc", "mdx" }

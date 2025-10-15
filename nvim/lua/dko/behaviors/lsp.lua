@@ -132,6 +132,10 @@ autocmd("FileType", {
 
     --- order matters here
     if use_coc then
+      --- Disable blink.nvim
+      --- https://cmp.saghen.dev/recipes.html#disable-per-filetype-buffer
+      vim.b.completion = false
+
       vim.cmd.CocStart()
       require("dko.mappings.lsp").bind_coc(opts)
       vim.bo.formatexpr = "CocAction('formatSelected')"

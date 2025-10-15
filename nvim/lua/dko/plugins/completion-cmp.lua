@@ -66,7 +66,8 @@ return {
     -- https://github.com/iguanacucumber/magazine.nvim
     "iguanacucumber/magazine.nvim",
     name = "nvim-cmp", -- Otherwise highlighting gets messed up
-    cond = #vim.api.nvim_list_uis() > 0,
+    cond = dkosettings.get("completion.engine") == "cmp"
+      and #vim.api.nvim_list_uis() > 0,
     dependencies = cmp_dependencies,
     config = function()
       local cmp = require("cmp")
