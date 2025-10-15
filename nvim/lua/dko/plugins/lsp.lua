@@ -98,16 +98,17 @@ return {
       -- =====================================================================
       -- Enable lsps
       -- =====================================================================
-      local function resolve_config_and_enable(configs)
-        for name in pairs(configs) do
-          if require("dko.settings").get("completion.engine") == "cmp" then
+      if require("dko.settings").get("completion.engine") == "cmp" then
+        local function resolve_config_and_enable(configs)
+          for _, name in pairs(configs) do
             vim.lsp.config(name, require("cmp_nvim_lsp").default_capabilities())
           end
-          vim.lsp.enable(name)
         end
+        resolve_config_and_enable()
+        resolve_config_and_enable(dkotools.mason_lspconfig_resolvers)
       end
-      resolve_config_and_enable(dkotools.lspconfig_resolvers)
-      resolve_config_and_enable(dkotools.mason_lspconfig_resolvers)
+      vim.lsp.enable(dkotools.lspconfig_resolvers)
+      vim.lsp.enable(dkotools.mason_lspconfig_resolvers)
     end,
   },
 }
