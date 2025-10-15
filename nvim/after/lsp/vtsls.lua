@@ -32,9 +32,11 @@ return {
           enabled = true,
         },
         functionLikeReturnTypes = {
-          enabled = false, --- just use hover to see it
+          enabled = false, --- use K
         },
-        enumMemberValues = { enabled = true },
+        enumMemberValues = {
+          enabled = true,
+        },
       },
       preferences = {
         importModuleSpecifier = "non-relative", -- "project-relative",
