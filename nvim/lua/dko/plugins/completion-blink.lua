@@ -41,6 +41,12 @@ return {
 
       cmdline = {
         completion = {
+          list = {
+            selection = {
+              -- https://github.com/Saghen/blink.cmp/blob/5037cfa645a9c4f5d6e2a3f6a44e096df86c8093/lua/blink/cmp/config/modes/cmdline.lua#L11
+              preselect = false,
+            },
+          },
           menu = {
             -- https://cmp.saghen.dev/modes/cmdline.html#show-menu-automatically
             auto_show = true,
