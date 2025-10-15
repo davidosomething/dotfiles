@@ -20,21 +20,19 @@ return {
       inlayHints = {
         parameterNames = {
           --- @type 'none' | 'literals' | 'all'
-          enabled = "literals",
+          enabled = "all",
         },
         parameterTypes = {
-          enabled = true,
+          enabled = false, --- use K
         },
         variableTypes = {
-          --- just use hover to see it
-          enabled = false,
+          enabled = false, --- use K
         },
         propertyDeclarationTypes = {
           enabled = true,
         },
         functionLikeReturnTypes = {
-          --- just use hover to see it
-          enabled = false,
+          enabled = false, --- just use hover to see it
         },
         enumMemberValues = { enabled = true },
       },
