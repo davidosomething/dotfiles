@@ -4,17 +4,10 @@
 -- Variable to highlight markdown fenced code properly -- uses tpope's
 -- vim-markdown plugin (which is bundled with vim7.4 now)
 -- There are more syntaxes, but checking for them makes editing md very slow
-vim.g.markdown_fenced_languages = {
-  "bash=sh",
-  "help",
-  "javascript",
-  "javascriptreact",
-  "js=javascript",
-  "json",
-  "sh",
-  "ts=typescript",
-  "vim",
-}
+-- IMPORTANT: Populating this causes E403 on lsp hover since the hover window
+-- uses vim syntax highlighting
+-- We should only be using tree-sitter going forward.
+vim.g.markdown_fenced_languages = {}
 
 -- php
 -- Additional syntax groups for php baselib
