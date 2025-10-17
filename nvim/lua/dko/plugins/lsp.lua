@@ -20,10 +20,22 @@ return {
   -- textDocument/codeAction
   -- ===========================================================================
 
-  -- Decided on fzf-lua instead of these individual plugins
-  -- https://github.com/aznhe21/actions-preview.nvim
-  -- https://github.com/rachartier/tiny-code-action.nvim keeps timing out on initial open https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
+  -- Options:
+  -- fzf-lua
   -- "nvimdev/lspsaga.nvim" for cursor-based action
+  -- https://github.com/aznhe21/actions-preview.nvim
+
+  -- https://github.com/rachartier/tiny-code-action.nvim
+  -- keeps timing out on initial open https://www.reddit.com/r/neovim/comments/1eaxity/rachartiertinycodeactionnvim_a_simple_way_to_run/
+  {
+    "rachartier/tiny-code-action.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "folke/snacks.nvim", opts = { terminal = {} } },
+    },
+    event = "LspAttach",
+    opts = {},
+  },
 
   -- ===========================================================================
   -- textDocument/documentLink
