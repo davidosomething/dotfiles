@@ -18,12 +18,14 @@ for _, buftype in pairs(dkobuffer.SPECIAL_BUFTYPES) do
   end
 end
 
----@param args { buf: number }
+---@param args { buf: number } table argument passed to autocommand callbacks. :h nvim_lua_create_autocmd()
+---@return boolean -- true to hide winbar
 local function disable_winbar_cb(args)
-  local hc = require("heirline.conditions")
-  return hc.buffer_matches({
+  return require("heirline.conditions").buffer_matches({
     buftype = WINBAR_DISABLED_BUFTYPES,
-    filetype = { "fzf" },
+    -- diff and snacks_picker_preview are used by the picker for
+    -- tiny-code-action
+    filetype = { "diff", "fzf", "snacks_picker_preview" },
   }, args.buf)
 end
 
@@ -46,11 +48,7 @@ return {
         statusline = require("dko.heirline.statusline-default"),
         tabline = require("dko.heirline.tabline"),
         winbar = require("dko.heirline.winbar"),
-        opts = {
-          -- if the callback returns true, the winbar will be disabled for that window
-          -- the args parameter corresponds to the table argument passed to autocommand callbacks. :h nvim_lua_create_autocmd()
-          disable_winbar_cb = disable_winbar_cb,
-        },
+        opts = { disable_winbar_cb = disable_winbar_cb },
       })
     end,
   },

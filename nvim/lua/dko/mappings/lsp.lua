@@ -8,15 +8,16 @@ local M = {}
 ---@type FeatureMapping[]
 M.features = {
   code_action = {
+    finder_key = "code_action_finder",
     -- gra is default in 0.11, can use either
     shortcut = "<Leader><Leader>",
     providers = {
       coc = "<Plug>(coc-codeaction-cursor)",
-      -- read settings.select instead of settings.finder
-      default = dkosettings.get("select") == "fzf"
-          and picker("fzf-lua", "lsp_code_actions")
-        or vim.lsp.buf.code_action,
+      default = vim.lsp.buf.code_action, -- uses the vim.ui.select under the hood, which might be fzf or snacks
       fzf = picker("fzf-lua", "lsp_code_actions"),
+      ["tiny-code-action"] = function()
+        require("tiny-code-action").code_action()
+      end,
     },
   },
   documentLink = {
@@ -131,7 +132,29 @@ M.unbind_lsp = function(bufnr, group)
   vim.b.did_bind_lsp = false
 end
 
+---@param config FeatureMapping
+---@param group FeatureGroup
+---@return FeatureProviderKey,FeatureProvider -- tuple of provider_key and provider config
+local function get_provider(config, group)
+  if group == "coc" and config.providers["coc"] then
+    return "coc", config.providers["coc"]
+  end
+  local finder_key = config.finder_key or "finder"
+  local finder = dkosettings.get(finder_key)
+  local provider_key = config.providers[finder] and finder or "default"
+  return provider_key, config.providers[provider_key]
+end
+
+local function lspmap(modes, lhs, rhs, opts, group)
+  opts.silent = true
+  local unbind = dkomappings.map(modes, lhs, rhs, opts)
+  local key = "b" .. opts.buffer
+  M.bound[group][key] = M.bound[group][key] or {}
+  table.insert(M.bound[group][key], unbind)
+end
+
 ---@param bufnr number
+---@param group? FeatureGroup
 M.bind_lsp = function(bufnr, group)
   if vim.b.did_bind_lsp then -- First LSP attached
     return
@@ -140,24 +163,12 @@ M.bind_lsp = function(bufnr, group)
   group = group or "lsp"
   vim.b.did_bind_lsp = group
 
-  local function lspmap(modes, lhs, rhs, opts)
-    opts.buffer = bufnr
-    opts.silent = true
-    local unbind = dkomappings.map(modes, lhs, rhs, opts)
-    local key = "b" .. bufnr
-    M.bound[group][key] = M.bound[group][key] or {}
-    table.insert(M.bound[group][key], unbind)
-  end
-
   for feature, config in pairs(M.features) do
-    local provider_key = group == "coc" and "coc" or dkosettings.get("finder")
-    provider_key = config.providers[provider_key] and provider_key or "default"
-    local provider = config.providers[provider_key]
-    if provider then
-      lspmap("n", config.shortcut, provider, {
-        desc = ("%s [%s]"):format(feature, provider_key),
-      })
-    end
+    local provider_key, provider = get_provider(config, group)
+    lspmap("n", config.shortcut, provider, {
+      buffer = bufnr,
+      desc = ("%s [%s]"):format(feature, provider_key),
+    }, group)
   end
 
   --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)

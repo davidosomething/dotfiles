@@ -1,11 +1,24 @@
+local dkosettings = require("dko.settings")
+
 return {
   {
     "ibhagwan/fzf-lua",
     -- optional for icon support
     dependencies = "nvim-mini/mini.icons",
+    enabled = function()
+      for _, setting in ipairs({
+        "code_action_finder",
+        "finder",
+        "select",
+      }) do
+        if dkosettings.get(setting) == "fzf" then
+          return true
+        end
+      end
+      return false
+    end,
     config = function()
       local dkomappings = require("dko.mappings")
-      local dkosettings = require("dko.settings")
       local fzf = require("fzf-lua")
       local actions = require("fzf-lua").actions
       local utils = require("fzf-lua").utils
