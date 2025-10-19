@@ -1,13 +1,19 @@
 local dkosettings = require("dko.settings")
 
+local uis = vim.api.nvim_list_uis()
+local has_ui = #uis > 0
+
 return {
   {
     "saghen/blink.cmp",
-    cond = dkosettings.get("completion.engine") == "blink"
-      and #vim.api.nvim_list_uis() > 0,
+    cond = has_ui and dkosettings.get("completion.engine") == "blink",
 
     -- optional: provides snippets for the snippet source
-    dependencies = { "rafamadriz/friendly-snippets" },
+    dependencies = {
+      "nvim-mini/mini.icons",
+      -- https://cmp.saghen.dev/configuration/snippets#friendly-snippets
+      -- "rafamadriz/friendly-snippets",
+    },
 
     -- use a release tag to download pre-built binaries
     version = "1.*",
@@ -31,7 +37,13 @@ return {
       -- C-k: Toggle signature help (if signature.enabled = true)
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
-      keymap = { preset = "default" },
+      keymap = {
+        preset = "default",
+        ["<Up>"] = false,
+        ["<Down>"] = false,
+        ["<Tab>"] = false,
+        ["<S-Tab>"] = false,
+      },
 
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -55,12 +67,45 @@ return {
       },
 
       completion = {
-        documentation = {
-          -- (Default) Only show the documentation popup when manually triggered
-          auto_show = false,
-        },
+        documentation = { auto_show = true },
         list = {
           selection = { preselect = false },
+        },
+        menu = {
+          draw = {
+            columns = {
+              { "label", "label_description", gap = 1 },
+              { "kind_icon", "kind", gap = 1 },
+              { "source_name" },
+            },
+            components = {
+              kind_icon = {
+                text = function(ctx)
+                  local kind_icon, _, _ =
+                    require("mini.icons").get("lsp", ctx.kind)
+                  return kind_icon
+                end,
+                highlight = function(ctx)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return hl
+                end,
+              },
+              kind = {
+                text = function(ctx)
+                  return require("dko.utils.string").smallcaps(ctx.kind)
+                end,
+                highlight = function(ctx)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return hl
+                end,
+              },
+              source_name = {
+                text = function(ctx)
+                  return require("dko.utils.string").smallcaps(ctx.source_name)
+                end,
+              },
+            },
+          },
         },
       },
 
@@ -68,6 +113,9 @@ return {
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
+        providers = {
+          snippets = { opts = { friendly_snippets = false } },
+        },
       },
 
       -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
