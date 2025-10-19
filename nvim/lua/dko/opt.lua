@@ -227,12 +227,3 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 -- Follow smartcase and ignorecase when doing tag search
 vim.o.tagcase = "followscs"
-
--- ===========================================================================
--- netrw
--- ===========================================================================
-
-vim.g.netrw_altfile = 1 -- never altfile back to netrw
-vim.g.netrw_hide = 0 -- show all files
-vim.g.netrw_liststyle = 3 -- netrw in details format when no vimfiler
-vim.g.netrw_browsex_viewer = "dko-open"
