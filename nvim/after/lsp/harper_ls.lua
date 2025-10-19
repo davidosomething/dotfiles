@@ -13,7 +13,6 @@ return {
         SpellCheck = false,
         ToDoHyphen = false,
       },
-      userDictPath = os.getenv("DOTFILES") .. "/harper-ls/dictionary.txt",
     },
   },
 }
