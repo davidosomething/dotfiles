@@ -16,15 +16,16 @@ Neovim config, crafted for **nightly builds only**! Configured in Lua.
 | ----------------- | ---------------- |
 | Plugin manager    | [lazy.nvim]      |
 | Colorscheme       | [vim-colors-meh] |
+| Completions       | [blink.nvim]     |
 | Status/tab/winbar | [heirline.nvim]  |
 | LSP/tool manager  | [mason.nvim]     |
 | Local LSP         | [efm-langserver] |
-| File finder       | [fzf-lua]        |
+| File finder       | [snacks.nvim]    |
 
 ## custom things
 
 - all mappings in [mappings.lua](./lua/dko/mappings.lua)
-- if using my dotfiles, [e](../bin/e) is the preferred way to open files.
+- the preferred way command to open files is with [e](../bin/e)
   - it will create a new `nvim.sock` if one does not exist
   - it will use a single Neovim instance over the socket otherwise
 - if using my WezTerm config, `<C-S-t>` will toggle the terminal and Neovim
@@ -44,12 +45,13 @@ Neovim config, crafted for **nightly builds only**! Configured in Lua.
 ---
 
 [screenshot]: https://raw.githubusercontent.com/davidosomething/dotfiles/dev/meta/nvim-potatosff.png
+[blink.nvim]: https://github.com/Saghen/blink.cmp
 [Maple Mono]: https://github.com/subframe7536/maple-font
 [lazy.nvim]: https://github.com/folke/lazy.nvim
 [gitsigns]: https://github.com/lewis6991/gitsigns.nvim
 [vim-colors-meh]: https://github.com/davidosomething/vim-colors-meh
 [mason.nvim]: https://github.com/mason-org/mason.nvim
 [efm-langserver]: https://github.com/mattn/efm-langserver
-[fzf-lua]: https://github.com/ibhagwan/fzf-lua
 [heirline.nvim]: https://github.com/rebelot/heirline.nvim
 [WezTerm]: https://github.com/wez/wezterm
+[snacks.nvim]: https://github.com/folke/snacks.nvim
