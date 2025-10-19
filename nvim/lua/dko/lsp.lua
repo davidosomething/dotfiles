@@ -1,29 +1,5 @@
--- LSP floating window borders
--- Add default rounded border and suppress no info messages
--- E.g. used by /usr/share/nvim/runtime/lua/vim/lsp/handlers.lua
--- To see example of this fn used, press K for LSP hover
--- Overriding with vim.lsp.with is the way recommended by docs (as opposed to
--- overriding vim.lsp.util.open_floating_preview entirely)
-
 local lsp = vim.lsp
 local Methods = lsp.protocol.Methods
-
-local config = {
-  border = require("dko.settings").get("border"),
-  silent = true,
-}
-
--- @see https://github.com/neovim/neovim/issues/32242
--- Replaces the deprecated lsp.with way
---    vim.lsp.handlers[Methods.textDocument_signatureHelp] =
---      lsp.with(vim.lsp.handlers.signature_help, config)
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
----@diagnostic disable-next-line: duplicate-set-field
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or config.border
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
 
 ---@alias dkonotify.MessageType
 ---| 1 # Error

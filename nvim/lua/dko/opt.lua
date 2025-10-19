@@ -24,7 +24,7 @@ vim.o.writebackup = false
 vim.o.backup = false -- do not leave around backup.xyz~ files after that
 
 -- need this for webpack-dev-server and hot module reloading -- preserves
--- special file types like symlinks
+-- special filetypes like symlinks
 vim.o.backupcopy = "yes"
 
 vim.opt.backupskip:append("/private/tmp/*") -- needed to edit crontab files
@@ -36,6 +36,8 @@ vim.opt.backupskip:append("~/.secret/*")
 -- ===========================================================================
 -- Display
 -- ===========================================================================
+
+vim.o.winborder = "bold"
 
 vim.o.timeout = false -- don't wait
 

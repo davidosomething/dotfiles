@@ -1,8 +1,8 @@
 -- Observable settings object
 local settings = {}
 
----@type "none" | "single" | "double" | "shadow" | "rounded"
-settings.border = "rounded"
+---@type "none" | "bold" | "single" | "double" | "shadow" | "rounded" | "solid"
+settings.border = "bold"
 
 settings.completion = {
   --- @type "blink" | "built-in" | "cmp"
