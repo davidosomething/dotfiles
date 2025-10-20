@@ -35,7 +35,7 @@ require("lazy").setup("dko.plugins", {
     patterns = { "davidosomething" },
   },
   rocks = { enabled = false, hererocks = false },
-  ui = { border = require("dko.settings").get("border") },
+  ui = { border = require("dko.settings").get("winborder") },
   performance = {
     rtp = {
       disabled_plugins = {

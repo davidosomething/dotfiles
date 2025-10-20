@@ -197,7 +197,7 @@ return {
     config = function()
       require("toggleterm").setup({
         float_opts = {
-          border = require("dko.settings").get("border"),
+          border = require("dko.settings").get("winborder"),
         },
         -- built-in mappings only work on LAST USED terminal, so it confuses
         -- the buffer terminal with the floating terminal

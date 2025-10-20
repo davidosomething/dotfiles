@@ -98,7 +98,7 @@ vim.diagnostic.config({
   },
 
   float = {
-    border = require("dko.settings").get("border"),
+    border = require("dko.settings").get("pumborder"),
     header = "", -- remove the line that says 'Diagnostic:'
     source = false, -- hide it since my float_format will add it
     format = float_format, -- can customize more colors by using prefix/suffix instead

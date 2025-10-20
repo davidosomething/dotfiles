@@ -24,7 +24,7 @@ local SOURCE_MAP = {
 }
 
 local cmpWindowSettings = {
-  border = dkosettings.get("border"),
+  border = dkosettings.get("pumborder"),
   scrollbar = "║",
   -- the default winhighlight is weird https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua#L111-L122
   winhighlight = table.concat({

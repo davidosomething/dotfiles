@@ -5,7 +5,7 @@ return {
     config = function()
       require("mason").setup({
         ui = {
-          border = require("dko.settings").get("border"),
+          border = require("dko.settings").get("winborder"),
           icons = {
             package_installed = "",
             package_pending = "󱍷",

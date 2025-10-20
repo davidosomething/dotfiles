@@ -41,7 +41,7 @@ vim.opt.backupskip:append("~/.secret/*")
 -- When this is enabled, the lazy.nvim backdrop gets a border too
 -- winborder also affects blink's pum.
 -- @TODO https://github.com/davidosomething/dotfiles/issues/643
--- vim.go.winborder = "bold"
+-- vim.go.winborder = require('dko.settings').get('winborder')
 
 vim.go.timeout = false -- don't wait
 

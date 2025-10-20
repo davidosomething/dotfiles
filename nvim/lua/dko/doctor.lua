@@ -107,7 +107,7 @@ M.show_float = function()
   }
   local opts = vim.tbl_extend("force", {
     style = "minimal",
-    border = "single",
+    border = require("dko.settings").get("winborder"),
     title = "  ᴅᴏᴄᴛᴏʀ ",
     title_pos = "right",
   }, position, size)

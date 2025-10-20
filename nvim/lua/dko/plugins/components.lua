@@ -26,7 +26,7 @@ return {
       picker = { ui_select = select == "snacks" },
       styles = {
         input = {
-          border = dkosettings.get("border"),
+          border = dkosettings.get("pumborder"),
         },
       },
     },
