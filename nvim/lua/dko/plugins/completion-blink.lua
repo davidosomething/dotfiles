@@ -69,13 +69,13 @@ return {
       completion = {
         documentation = {
           auto_show = true,
-          window = { border = "single" },
+          window = { border = dkosettings.get("pumborder") },
         },
         list = {
           selection = { preselect = false },
         },
         menu = {
-          border = "single",
+          border = dkosettings.get("pumborder"),
           draw = {
             columns = {
               { "label", "label_description", gap = 1 },

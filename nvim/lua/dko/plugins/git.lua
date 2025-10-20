@@ -20,7 +20,7 @@ return {
     opts = {
       on_attach = require("dko.mappings").bind_gitsigns,
       preview_config = {
-        border = dkosettings.get("border"),
+        border = dkosettings.get("pumborder"),
       },
     },
   },
@@ -32,7 +32,7 @@ return {
     opts = {
       styles = {
         blame_line = {
-          border = dkosettings.get("border"),
+          border = dkosettings.get("winborder"),
         },
       },
     },

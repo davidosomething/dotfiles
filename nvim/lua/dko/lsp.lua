@@ -1,6 +1,14 @@
 local lsp = vim.lsp
 local Methods = lsp.protocol.Methods
 
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+---@diagnostic disable-next-line: duplicate-set-field
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = require("dko.settings").get("pumborder")
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
 ---@alias dkonotify.MessageType
 ---| 1 # Error
 ---| 2 # Warning

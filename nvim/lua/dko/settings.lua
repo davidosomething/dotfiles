@@ -2,7 +2,10 @@
 local settings = {}
 
 ---@type "none" | "bold" | "single" | "double" | "shadow" | "rounded" | "solid"
-settings.border = "bold"
+settings.pumborder = "single"
+
+---@type "none" | "bold" | "single" | "double" | "shadow" | "rounded" | "solid"
+settings.winborder = "bold"
 
 settings.completion = {
   --- @type "blink" | "built-in" | "cmp"

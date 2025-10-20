@@ -23,10 +23,10 @@ return {
       },
       styles = {
         notification = {
-          border = dkosettings.get("border"),
+          border = dkosettings.get("winborder"),
         },
         notification_history = {
-          border = dkosettings.get("border"),
+          border = dkosettings.get("winborder"),
         },
       },
     },
