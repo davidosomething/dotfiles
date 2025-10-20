@@ -67,11 +67,15 @@ return {
       },
 
       completion = {
-        documentation = { auto_show = true },
+        documentation = {
+          auto_show = true,
+          window = { border = "single" },
+        },
         list = {
           selection = { preselect = false },
         },
         menu = {
+          border = "single",
           draw = {
             columns = {
               { "label", "label_description", gap = 1 },
