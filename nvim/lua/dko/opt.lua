@@ -4,7 +4,8 @@ vim.go.termguicolors = vim.env.TERM_PROGRAM ~= "Apple_Terminal"
 -- File reading
 -- ===========================================================================
 
-vim.o.modelines = 1
+vim.go.modelines = 1
+
 vim.o.undofile = true
 
 -- ===========================================================================
@@ -14,14 +15,14 @@ vim.o.undofile = true
 -- Bumped '100 to '1000 to save more previous files
 -- Bumped <50 to <100 to save more register lines
 -- Bumped s10 to s100 for to allow up to 100kb of data per item
-vim.o.shada = "!,'1000,<100,s100,h"
+vim.go.shada = "!,'1000,<100,s100,h"
 
-vim.o.fileformats = "unix,mac,dos"
+vim.go.fileformats = "unix,mac,dos"
 
 -- writebackup: use backup files when writing (create new file, replace old
 -- one with new one)
-vim.o.writebackup = false
-vim.o.backup = false -- do not leave around backup.xyz~ files after that
+vim.go.writebackup = false
+vim.go.backup = false -- do not leave around backup.xyz~ files after that
 
 -- need this for webpack-dev-server and hot module reloading -- preserves
 -- special filetypes like symlinks
@@ -37,22 +38,25 @@ vim.opt.backupskip:append("~/.secret/*")
 -- Display
 -- ===========================================================================
 
-vim.o.winborder = "bold"
+-- When this is enabled, the lazy.nvim backdrop gets a border too
+-- winborder also affects blink's pum.
+-- @TODO https://github.com/davidosomething/dotfiles/issues/643
+-- vim.go.winborder = "bold"
 
-vim.o.timeout = false -- don't wait
+vim.go.timeout = false -- don't wait
 
 -- Swap write and CursorHold timeout
 -- Pretty quick... errorprone on old vim so only apply to nvim
-vim.o.updatetime = 250
+vim.go.updatetime = 250
 
-vim.o.title = true -- wintitle = filename - vim
+vim.go.title = true -- wintitle = filename - vim
 
 vim.o.number = true
 vim.o.numberwidth = 5
 
 -- show context around current cursor position
-vim.o.scrolloff = 8
-vim.o.sidescrolloff = 16
+vim.go.scrolloff = 8
+vim.go.sidescrolloff = 16
 
 -- min 1, max 4 signs
 vim.o.signcolumn = "auto:1-4"
@@ -65,27 +69,27 @@ vim.o.textwidth = 78
 vim.opt.colorcolumn = { "+3", "120" }
 vim.o.cursorline = true
 
-vim.o.ruler = false
+vim.go.ruler = false
 
-vim.o.showtabline = 0 -- start OFF, toggle =2 to show tabline
+vim.go.showtabline = 0 -- start OFF, toggle =2 to show tabline
 
 -- This is slow on some terminals and often gets hidden by msgs so leave it off
-vim.o.showcmd = false
-vim.o.showmode = false -- don't show -- INSERT -- in cmdline
+vim.go.showcmd = false
+vim.go.showmode = false -- don't show -- INSERT -- in cmdline
 
 -- like vim-over but hides the thing being replaced so it is not practical for
 -- now (makes it harder to remember what you're replacing/reference previous
 -- regex tokens).
 -- https://github.com/neovim/neovim/pull/5226
-vim.o.inccommand = ""
+vim.go.inccommand = ""
 
 -- ===========================================================================
 -- Wild and file globbing stuff in command mode
 -- ===========================================================================
 
 --vim.o.browsedir = "buffer" -- browse files in same dir as open file
-vim.o.wildmode = "list:longest,full"
-vim.o.wildignorecase = true
+vim.go.wildmode = "list:longest,full"
+vim.go.wildignorecase = true
 
 -- ===========================================================================
 -- Built-in completion
@@ -119,20 +123,20 @@ vim.opt.shortmess:append({
 -- Window splitting and buffers
 -- ===========================================================================
 
-vim.o.splitbelow = true
-vim.o.splitright = true
-vim.o.hidden = true
+vim.go.splitbelow = true
+vim.go.splitright = true
+vim.go.hidden = true
 
 -- reveal already opened files from the quickfix window instead of opening new
 -- buffers
-vim.o.switchbuf = "useopen"
+vim.go.switchbuf = "useopen"
 
 -- ===========================================================================
 -- Code folding
 -- ===========================================================================
 
 vim.o.foldlevel = 999 -- very high === all folds open
-vim.o.foldlevelstart = 99 -- show all folds by default
+vim.go.foldlevelstart = 99 -- show all folds by default
 vim.o.foldenable = false
 
 -- ===========================================================================
@@ -179,7 +183,7 @@ vim.opt.formatoptions:append("1") -- Break before 1-letter words
 vim.opt.formatoptions:append("2") -- Use indent from 2nd line of a paragraph
 
 vim.o.wrap = false
-vim.o.joinspaces = false -- J command doesn't add extra space
+vim.go.joinspaces = false -- J command doesn't add extra space
 
 -- ===========================================================================
 -- Indenting - overridden by indent plugins
@@ -214,16 +218,16 @@ vim.o.cindent = false
 
 -- use multiple of shiftwidth when shifting indent levels.
 -- this is OFF so block comments don't get fudged when using ">>" and "<<"
-vim.o.shiftround = false
+vim.go.shiftround = false
 
 -- ===========================================================================
 -- Match and search
 -- ===========================================================================
 
-vim.o.matchtime = 1 -- tenths of a sec
-vim.o.showmatch = false -- briefly jump to matching paren?
-vim.o.wrapscan = true -- Searches wrap around end of the file.
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.go.matchtime = 1 -- tenths of a sec
+vim.go.showmatch = false -- briefly jump to matching paren?
+vim.go.wrapscan = true -- Searches wrap around end of the file.
+vim.go.ignorecase = true
+vim.go.smartcase = true
 -- Follow smartcase and ignorecase when doing tag search
-vim.o.tagcase = "followscs"
+vim.go.tagcase = "followscs"

@@ -21,6 +21,14 @@ return {
         width = { min = 56, max = 0.4 },
         margin = { top = 1, right = 1, bottom = 2 },
       },
+      styles = {
+        notification = {
+          border = dkosettings.get("border"),
+        },
+        notification_history = {
+          border = dkosettings.get("border"),
+        },
+      },
     },
   },
 

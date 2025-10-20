@@ -1,3 +1,4 @@
+local dkosettings = require("dko.settings")
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
@@ -19,10 +20,21 @@ return {
     opts = {
       on_attach = require("dko.mappings").bind_gitsigns,
       preview_config = {
-        border = require("dko.settings").get("border"),
+        border = dkosettings.get("border"),
       },
     },
   },
 
   { "sindrets/diffview.nvim" },
+
+  {
+    "folke/snacks.nvim",
+    opts = {
+      styles = {
+        blame_line = {
+          border = dkosettings.get("border"),
+        },
+      },
+    },
+  },
 }
