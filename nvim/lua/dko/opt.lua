@@ -115,7 +115,7 @@ vim.opt.shortmess:append({
   m = true, -- use "[+]" instead of "[Modified]"
   r = true, -- use "[RO]" instead of "[readonly]"
   I = true, -- don't give the intro message when starting Vim |:intro|.
-  S = true, -- hide search info echoing (i have a statusline for that)
+  S = true, -- hide search info echoing (I have a statusline for that)
   W = true, -- don't give "written" or "[w]" when writing a file
 })
 
@@ -203,7 +203,7 @@ vim.o.copyindent = false
 -- block comments aligned with space if there is a space there.
 vim.o.preserveindent = false
 
--- Smart detect when in braces and parens. Has annoying side effect that it
+-- Smart detect when in braces and parens. Has annoying side-effect that it
 -- won't indent lines beginning with '#'. Relying on syntax indentexpr instead.
 -- 'smartindent' in general is a piece of garbage, never turn it on.
 vim.o.smartindent = false
