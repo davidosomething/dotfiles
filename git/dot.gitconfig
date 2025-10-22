@@ -120,6 +120,6 @@
 	path = "~/.dotfiles/git/kaleidoscope.gitconfig"
 
 [include]
-	path = "~/.dotfiles/local/gitconfig"
+	path = "~/.local/share/ldotdir/gitconfig"
 
 # vim: ft=gitconfig
