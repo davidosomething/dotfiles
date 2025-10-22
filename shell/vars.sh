@@ -86,7 +86,7 @@ esac
 
 export DOTFILES="${HOME}/.dotfiles"
 export BDOTDIR="${DOTFILES}/bash"
-export LDOTDIR="${DOTFILES}/local"
+export LDOTDIR="${XDG_DATA_HOME}/ldotdir"
 export ZDOTDIR="${DOTFILES}/zsh"
 
 # ============================================================================
