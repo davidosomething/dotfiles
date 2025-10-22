@@ -55,14 +55,16 @@ things (with confirmation).
   - The comment character is `#` instead of `;` so I can use Markdown
     in my commit messages without trimming the headers as comments. This is
     also reflected in a custom Vim highlighting syntax
-- `local/`
-  - Unversioned folder, put `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
-    and they will be automatically sourced, LAST, by the default scripts. _No
-    dots on the filenames._
 - `nvim/`
   - See [nvim/README.md](./nvim/README.md) for more information.
 - `python/`
   - Never `sudo pip`. Set up a python virtual environment.
+
+Local dotfiles are read from `$LDOTDIR`.
+
+- Put files `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
+  and they will be automatically sourced, LAST, by the default scripts.
+  _No dots on the filenames (i.e. not `.zshrc`)._
 
 ### rc script source order
 
