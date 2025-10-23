@@ -39,7 +39,7 @@ return {
     cond = has_ui,
     config = function()
       local fidget = require("fidget")
-      fidget.setup()
+      fidget.setup({})
       require("dko.behaviors.escesc").add(function()
         fidget.notification.clear()
       end, "Dismiss notifications on <Esc><Esc>")
