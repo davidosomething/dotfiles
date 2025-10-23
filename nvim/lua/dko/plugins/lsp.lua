@@ -4,6 +4,9 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
 -- =========================================================================
 
+local dkosettings = require("dko.settings")
+local wants_cmp = dkosettings.get("completion.engine") == "cmp"
+
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
@@ -33,6 +36,8 @@ return {
       "nvim-lua/plenary.nvim",
       { "folke/snacks.nvim", opts = { terminal = {} } },
     },
+    cond = has_ui
+      and dkosettings.get("code_action_finder") == "tiny-code-action",
     event = "LspAttach",
     opts = {},
   },
@@ -91,7 +96,7 @@ return {
       {
         -- provides some capabilities
         "hrsh7th/cmp-nvim-lsp",
-        cond = require("dko.settings").get("completion.engine") == "cmp",
+        cond = wants_cmp,
       },
       "neovim/nvim-lspconfig", -- wait for lspconfig
 
@@ -110,7 +115,7 @@ return {
       -- =====================================================================
       -- Enable lsps
       -- =====================================================================
-      if require("dko.settings").get("completion.engine") == "cmp" then
+      if wants_cmp then
         local function resolve_config_and_enable(configs)
           for _, name in pairs(configs) do
             vim.lsp.config(name, require("cmp_nvim_lsp").default_capabilities())
