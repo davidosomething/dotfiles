@@ -7,7 +7,6 @@ local select = dkosettings.get("select")
 local input = dkosettings.get("input")
 
 return {
-  -- https://github.com/folke/snacks.nvim/blob/main/docs/input.md
   {
     "folke/snacks.nvim",
     opts = {
@@ -23,6 +22,7 @@ return {
           only_scope = true,
         },
       },
+      -- https://github.com/folke/snacks.nvim/blob/main/docs/input.md
       input = { enabled = input == "snacks" },
       picker = { ui_select = select == "snacks" },
       styles = {
