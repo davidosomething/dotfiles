@@ -1,4 +1,5 @@
 local dkosettings = require("dko.settings")
+local winborder = dkosettings.get("winborder")
 
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
@@ -22,12 +23,8 @@ return {
         margin = { top = 1, right = 1, bottom = 2 },
       },
       styles = {
-        notification = {
-          border = dkosettings.get("winborder"),
-        },
-        notification_history = {
-          border = dkosettings.get("winborder"),
-        },
+        notification = { border = winborder },
+        notification_history = { border = winborder },
       },
     },
   },

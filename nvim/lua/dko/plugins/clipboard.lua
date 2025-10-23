@@ -18,7 +18,7 @@ return {
   {
     -- @TODO remove after nvim 0.11 released
     "ojroques/nvim-osc52",
-    -- Prefer builtin osc52. Will be initialized in after/plugin/clipboard.lua
+    -- Prefer built-in osc52. Will be initialized in after/plugin/clipboard.lua
     cond = has_ui
       and not require("dko.utils.clipboard").has_builtin_osc52()
       and require("dko.utils.clipboard").should_use_osc52(),

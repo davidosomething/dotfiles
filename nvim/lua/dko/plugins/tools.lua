@@ -1,3 +1,4 @@
+local notify_opts = { title = "mason", render = "wrapped-compact" }
 return {
   {
     "mason-org/mason.nvim",
@@ -26,14 +27,14 @@ return {
         vim.notify(
           ("Installing %s"):format(p.name),
           vim.log.levels.INFO,
-          { title = "mason", render = "wrapped-compact" }
+          notify_opts
         )
         local handle_closed = vim.schedule_wrap(function()
           return p:is_installed()
             and vim.notify(
               ("Successfully installed %s"):format(p.name),
               vim.log.levels.INFO,
-              { title = "mason", render = "wrapped-compact" }
+              notify_opts
             )
         end)
         p:install():once("closed", handle_closed)

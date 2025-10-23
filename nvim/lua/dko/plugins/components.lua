@@ -7,7 +7,6 @@ local select = dkosettings.get("select")
 local input = dkosettings.get("input")
 
 return {
-  -- https://github.com/folke/snacks.nvim/blob/main/docs/input.md
   {
     "folke/snacks.nvim",
     opts = {
@@ -19,9 +18,11 @@ return {
       indent = {
         -- yes there's an indent nested inside
         indent = {
-          only_scope = true, -- only show indent guides of the scope
+          -- only show indent guides of the scope
+          only_scope = true,
         },
       },
+      -- https://github.com/folke/snacks.nvim/blob/main/docs/input.md
       input = { enabled = input == "snacks" },
       picker = { ui_select = select == "snacks" },
       styles = {
