@@ -39,13 +39,7 @@ M.pipelines["javascriptreact"] = M.pipelines["javascript"]
 M.pipelines["typescript"] = M.pipelines["javascript"]
 M.pipelines["typescriptreact"] = M.pipelines["javascript"]
 M.pipelines["json"] = {
-  function()
-    require("dko.utils.format.efm").format_with(
-      "prettier",
-      { pipeline = "json" }
-    )
-  end,
-  "efm:prettier",
+  require("dko.utils.format.json").format,
 }
 M.pipelines["jsonc"] = M.pipelines["json"]
 M.pipelines["lua"] = {

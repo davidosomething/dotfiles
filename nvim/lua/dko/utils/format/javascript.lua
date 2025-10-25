@@ -1,14 +1,5 @@
 local M = {}
 
----Detect eslint-plugin-prettier is installed
-M.has_eslint_plugin_prettier = function()
-  if vim.b.has_eslint_plugin_prettier == nil then
-    vim.b.has_eslint_plugin_prettier =
-      require("dko.utils.node").has_package("eslint-plugin-prettier")
-  end
-  return vim.b.has_eslint_plugin_prettier
-end
-
 ---Detect coc-eslint is installed
 M.has_coc_eslint = function()
   if vim.g.has_coc_eslint == nil then
@@ -19,18 +10,6 @@ M.has_coc_eslint = function()
       end)
   end
   return vim.g.has_coc_eslint
-end
-
----Detect coc-prettier is installed
-M.has_coc_prettier = function()
-  if vim.g.has_coc_prettier == nil then
-    vim.g.has_coc_prettier = vim
-      .iter(vim.g.coc_global_extensions)
-      :find(function(v)
-        return string.find(v, "coc%-prettier")
-      end)
-  end
-  return vim.g.has_coc_prettier
 end
 
 ---@return boolean
@@ -44,7 +23,13 @@ M.format_with_coc = function()
 
   local did_format = false
 
-  if not M.has_eslint_plugin_prettier() and M.has_coc_prettier() then
+  local has_eslint_plugin_prettier =
+    require("dko.utils.format.eslint").has_eslint_plugin_prettier()
+
+  if
+    not has_eslint_plugin_prettier
+    and require("dko.utils.format.coc").has_coc_prettier()
+  then
     vim.cmd.CocCommand("prettier.forceFormatDocument")
     toast("coc-prettier", vim.log.levels.INFO, toast_opts)
     vim.cmd.sleep("100m") -- m is milliseconds
@@ -52,8 +37,7 @@ M.format_with_coc = function()
   end
 
   if M.has_coc_eslint() then
-    local message = M.has_eslint_plugin_prettier()
-        and " + eslint-plugin-prettier"
+    local message = has_eslint_plugin_prettier and " + eslint-plugin-prettier"
       or ""
     toast(("coc-eslint%s"):format(message), vim.log.levels.INFO, toast_opts)
     vim.cmd.CocCommand("eslint.executeAutofix")
@@ -64,21 +48,22 @@ M.format_with_coc = function()
   return did_format
 end
 
----@return boolean
+---@return boolean, boolean -- success, formatted
 M.format_with_lsp = function()
   local level = vim.log.levels.ERROR
   local message = "eslint-lsp"
 
+  local has_eslint_plugin_prettier =
+    require("dko.utils.format.eslint").has_eslint_plugin_prettier()
+
   local eslint_lsps = vim.lsp.get_clients({ bufnr = 0, name = "eslint" })
   if #eslint_lsps == 0 then
     message = ("eslint-lsp not attached %s"):format(
-      vim.b.has_eslint_plugin_prettier and "and eslint-plugin-prettier present"
-        or ""
+      has_eslint_plugin_prettier and "and eslint-plugin-prettier present" or ""
     )
   elseif vim.fn.exists(":LspEslintFixAll") then
     vim.cmd.LspEslintFixAll()
-    message = M.has_eslint_plugin_prettier() and "eslint-plugin-prettier"
-      or message
+    message = has_eslint_plugin_prettier and "eslint-plugin-prettier" or message
     level = vim.log.levels.INFO
   else
     message = "Missing :LspEslintFixAll from nvim-lspconfig"
@@ -89,7 +74,7 @@ M.format_with_lsp = function()
     title = "[LSP] eslint-lsp",
     render = "wrapped-compact",
   })
-  return level ~= vim.log.levels.ERROR
+  return level ~= vim.log.levels.ERROR, has_eslint_plugin_prettier
 end
 
 M.format = function()
@@ -98,12 +83,12 @@ M.format = function()
     return M.format_with_coc()
   end
 
-  if M.format_with_lsp() then
+  local _, is_lsp_formatted = M.format_with_lsp()
+  if is_lsp_formatted then
     return true
   end
 
-  -- Finally, run prettier via efm if eslint-plugin-prettier not found
-  if not M.has_eslint_plugin_prettier() then
+  if require("dko.utils.format.biome").has_biome() then
     local did_efm_format =
       require("dko.utils.format.efm").format({ pipeline = "javascript" })
     if not did_efm_format then
@@ -119,6 +104,22 @@ M.format = function()
     end
     return did_efm_format
   end
+
+  -- Finally, run prettier via efm if eslint-plugin-prettier not found
+  local did_efm_format =
+    require("dko.utils.format.efm").format({ pipeline = "javascript" })
+  if not did_efm_format then
+    require("dko.utils.notify").toast(
+      "Did not format with efm/prettier",
+      vim.log.levels.WARN,
+      {
+        group = "format",
+        title = "[LSP] efm",
+        render = "wrapped-compact",
+      }
+    )
+  end
+  return did_efm_format
 end
 
 return M

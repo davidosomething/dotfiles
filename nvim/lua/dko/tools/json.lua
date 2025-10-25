@@ -10,6 +10,16 @@ tools.register({
   end,
 })
 
+tools.register({
+  mason_type = "tool",
+  require = "npm",
+  name = "biome",
+  fts = { "json", "jsonc" },
+  efm = function()
+    return require("efmls-configs.formatters.biome")
+  end,
+})
+
 if not require("dko.settings").get("coc.enabled") then
   -- not used for formatting - prefer prettier since it does one-line arrays
   -- when they fit
