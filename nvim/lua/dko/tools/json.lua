@@ -15,9 +15,7 @@ tools.register({
   require = "npm",
   name = "biome",
   fts = { "json", "jsonc" },
-  efm = function()
-    return require("efmls-configs.formatters.biome")
-  end,
+  efm = require("dko.tools.biome"),
 })
 
 if not require("dko.settings").get("coc.enabled") then
