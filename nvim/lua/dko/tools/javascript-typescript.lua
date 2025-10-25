@@ -18,20 +18,7 @@ tools.register({
   mason_type = "tool",
   require = "npm",
   fts = require("dko.utils.jsts").fts,
-  efm = function()
-    local fs = require("efmls-configs.fs")
-
-    local formatter = "biome"
-    local args = "format --apply --stdin-file-path '${INPUT}'"
-    local command =
-      string.format("%s %s", fs.executable(formatter, fs.Scope.NODE), args)
-
-    return {
-      formatCommand = command,
-      formatStdin = true,
-      rootMarkers = { "rome.json", "biome.json", "package.json" },
-    }
-  end,
+  efm = require("dko.tools.biome"),
 })
 
 -- jumping into classnames from jsx/tsx
