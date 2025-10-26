@@ -8,15 +8,11 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
 # need this here in case not starting a login shell
 . "${DOTFILES}/lib/helpers.sh"
 
-. "${DOTFILES}/shell/functions.sh" # shell functions
+. "${DOTFILES}/shell/functions.sh"
 
 case "$DOTFILES_OS" in
-  Darwin)
-    . "${DOTFILES}/shell/interactive-darwin.zsh"
-    ;;
-  Linux)
-    . "${DOTFILES}/shell/interactive-linux.sh"
-    ;;
+  Darwin) . "${DOTFILES}/shell/interactive-darwin.zsh" ;;
+  Linux) . "${DOTFILES}/shell/interactive-linux.sh" ;;
 esac
 
 # ==============================================================================
