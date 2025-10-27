@@ -68,7 +68,7 @@ end
 --- Runs lsp format synchronously using M.format
 --- Then restores the original efm configs
 ---@param name string formatter name, e.g. markdownlint
----@param opts? table
+---@param opts? { pipeline: string }
 ---@return boolean
 M.format_with = function(name, opts)
   opts = opts or {}

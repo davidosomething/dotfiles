@@ -366,9 +366,13 @@ end, { desc = "Copy treesitter captures under cursor" })
 -- Bind <C-n> <C-p> to pick based on coc or nvim-cmp open
 -- Bind <C-j> <C-k> to scroll coc or nvim-cmp attached docs window
 M.bind_completion = function(opts)
+  local cmp_ok, cmp = pcall(require, "cmp")
+  if not cmp_ok and not vim.b.did_bind_coc then
+    return
+  end
+
   map("n", "<C-Space>", function()
     vim.cmd.startinsert({ bang = true })
-    local cmp_ok, cmp = pcall(require, "cmp")
     if cmp_ok then
       vim.schedule(cmp.complete)
     end
@@ -376,26 +380,22 @@ M.bind_completion = function(opts)
 
   map("i", "<C-Space>", function()
     vim.fn["coc#pum#close"]("cancel")
-    local cmp_ok, cmp = pcall(require, "cmp")
     if cmp_ok then
       cmp.complete()
     end
   end, { desc = "In insert mode, start nvim-cmp completion" })
 
   map("i", "<Plug>(DkoCmpNext)", function()
-    local cmp_ok, cmp = pcall(require, "cmp")
     if cmp_ok then
       cmp.select_next_item()
     end
   end)
   map("i", "<Plug>(DkoCmpPrev)", function()
-    local cmp_ok, cmp = pcall(require, "cmp")
     if cmp_ok then
       cmp.select_prev_item()
     end
   end)
   map("i", "<C-n>", function()
-    local cmp_ok, cmp = pcall(require, "cmp")
     if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpNext)"
     end
@@ -405,7 +405,6 @@ M.bind_completion = function(opts)
     end
   end, { expr = true, buffer = opts.buf, remap = true, silent = true })
   map("i", "<C-p>", function()
-    local cmp_ok, cmp = pcall(require, "cmp")
     if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpPrev)"
     end
@@ -416,19 +415,16 @@ M.bind_completion = function(opts)
   end, { expr = true, buffer = opts.buf, remap = true, silent = true })
 
   map("i", "<Plug>(DkoCmpScrollUp)", function()
-    local cmp_ok, cmp = pcall(require, "cmp")
     if cmp_ok then
       cmp.mapping.scroll_docs(-4)
     end
   end)
   map("i", "<Plug>(DkoCmpScrollDown)", function()
-    local cmp_ok, cmp = pcall(require, "cmp")
     if cmp_ok then
       cmp.mapping.scroll_docs(4)
     end
   end)
   map("i", "<C-k>", function()
-    local cmp_ok, cmp = pcall(require, "cmp")
     if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpScrollUp)"
     end
@@ -443,7 +439,6 @@ M.bind_completion = function(opts)
     silent = true,
   })
   map("i", "<C-j>", function()
-    local cmp_ok, cmp = pcall(require, "cmp")
     if cmp_ok and cmp.visible() then
       return "<Plug>(DkoCmpScrollDown)"
     end
@@ -514,7 +509,8 @@ M.bind_gitsigns = function()
     if vim.wo.diff then
       return "]h"
     end
-    vim.schedule_wrap(require("gitsigns").next_hunk)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    require("gitsigns").nav_hunk("next")
     return "<Ignore>"
   end, {
     buffer = true,
@@ -526,7 +522,8 @@ M.bind_gitsigns = function()
     if vim.wo.diff then
       return "[h"
     end
-    vim.schedule_wrap(require("gitsigns").prev_hunk)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    require("gitsigns").nav_hunk("prev")
     return "<Ignore>"
   end, {
     buffer = true,
@@ -588,10 +585,12 @@ M.bind_snippy = function()
   if not snippy_ok then
     return
   end
+
   local cmp_ok, cmp = pcall(require, "cmp")
   if not cmp_ok then
     return
   end
+
   map({ "i", "s" }, "<C-b>", function()
     if snippy.can_jump(-1) then
       snippy.previous()
