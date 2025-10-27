@@ -85,41 +85,47 @@ M.format = function()
 
   local _, is_lsp_formatted = M.format_with_lsp()
   if is_lsp_formatted then
+    -- eslint-plugin-prettier found
     return true
   end
 
-  if require("dko.utils.format.biome").has_biome() then
-    local did_efm_format =
-      require("dko.utils.format.efm").format({ pipeline = "javascript" })
-    if not did_efm_format then
-      require("dko.utils.notify").toast(
-        "Did not format with efm/prettier",
-        vim.log.levels.WARN,
-        {
-          group = "format",
-          title = "[LSP] efm",
-          render = "wrapped-compact",
-        }
-      )
+  -- eslint-plugin-prettier not found
+  for _, config in ipairs({
+    {
+      name = "biome",
+      detected = function()
+        return require("dko.utils.format.biome").has_biome()
+      end,
+    },
+    {
+      name = "prettier",
+      detected = function()
+        -- Fallback to prettier via efm
+        return true
+      end,
+    },
+  }) do
+    if config.detected() then
+      if
+        not require("dko.utils.format.efm").format_with(
+          config.name,
+          { pipeline = "javascript" }
+        )
+      then
+        require("dko.utils.notify").toast(
+          ("Did not format with efm/%s"):format(config.name),
+          vim.log.levels.WARN,
+          {
+            group = "format",
+            title = "[LSP] efm",
+            render = "wrapped-compact",
+          }
+        )
+        return false
+      end
+      return true
     end
-    return did_efm_format
   end
-
-  -- Finally, run prettier via efm if eslint-plugin-prettier not found
-  local did_efm_format =
-    require("dko.utils.format.efm").format({ pipeline = "javascript" })
-  if not did_efm_format then
-    require("dko.utils.notify").toast(
-      "Did not format with efm/prettier",
-      vim.log.levels.WARN,
-      {
-        group = "format",
-        title = "[LSP] efm",
-        render = "wrapped-compact",
-      }
-    )
-  end
-  return did_efm_format
 end
 
 return M

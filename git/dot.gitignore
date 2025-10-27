@@ -211,3 +211,5 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 .factorypath
+
+**/.claude/settings.local.json
