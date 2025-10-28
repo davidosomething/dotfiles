@@ -38,6 +38,13 @@ for _, cfg in pairs(defaults_to_disable) do
   k:insert(cfg)
 end
 
+-- from claude code, allow multi-line with shift-enter
+k:insert({
+  key = "Enter",
+  mods = "SHIFT",
+  action = wezterm.action({ SendString = "\x1b\r" }),
+})
+
 -- Add my keys, modeled after konsole
 k:insert({
   key = "w",
