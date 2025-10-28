@@ -27,7 +27,6 @@ local defaults_to_disable = {
   { key = "N", mods = "CTRL" }, -- SpawnWindow
   { key = "R", mods = "CTRL" }, -- ReloadConfiguration
   { key = "R", mods = "SHIFT|CTRL" }, -- ReloadConfiguration
-  { key = "T", mods = "CTRL" }, -- SpawnTab
   { key = "U", mods = "CTRL" }, -- CharSelect
   { key = "X", mods = "CTRL" }, -- ActivateCopyMode
   { key = "^", mods = "CTRL" }, -- ActivateTab
@@ -52,7 +51,7 @@ k:insert({
   action = wezterm.action.CloseCurrentPane({ confirm = true }),
 })
 k:insert({
-  key = "t",
+  key = "d",
   mods = "CTRL|SHIFT",
   action = wezterm.action_callback(theme.toggle),
 })
