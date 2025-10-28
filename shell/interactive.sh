@@ -16,12 +16,11 @@ case "$DOTFILES_OS" in
 esac
 
 # ==============================================================================
-# env management -- Node, Python, Ruby - These add to path
+# env management -- Python, Ruby - These add to path
 # These may rely on things installed by brew so move after interactive-darwin
 # ==============================================================================
 
 . "${DOTFILES}/shell/java.sh"
-. "${DOTFILES}/shell/node.sh"
 . "${DOTFILES}/shell/python.sh"
 . "${DOTFILES}/shell/ruby.sh"
 . "${DOTFILES}/shell/rust.sh"
