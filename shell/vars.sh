@@ -195,7 +195,38 @@ export MANPAGER="$PAGER"
 # mysql
 export MYSQL_HISTFILE="${XDG_CACHE_HOME}/mysql_histfile"
 
-# node moved to shell/node loaded in shell/before
+# node and npm
+# https://nodejs.org/api/repl.html#repl_environment_variable_options
+export NODE_REPL_HISTORY="${XDG_STATE_HOME}/node_repl_history"
+
+# ============================================================================
+# npm config
+# ============================================================================
+
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export NPM_CONFIG_INIT_VERSION="0.0.1"
+export NPM_CONFIG_INIT_LICENSE="MIT"
+export NPM_CONFIG_STRICT_SSL="TRUE"
+export NPM_CONFIG_MESSAGE="Cut %s (via npm version)"
+export NPM_CONFIG_SIGN_GIT_TAG="TRUE"
+
+# ============================================================================
+# npmrc
+# https://www.npmjs.com/package/npmrc
+# ============================================================================
+
+export NPMRC_STORE="${HOME}/.local/npmrcs"
+export NPMRC="$NPM_CONFIG_USERCONFIG"
+
+# ============================================================================
+# pnpm
+# ============================================================================
+
+export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 # neovim
 export NVIM_PYTHON_LOG_FILE="${DOTFILES}/logs/nvim_python.log"
