@@ -9,6 +9,7 @@ gpg_verify = false
 "aqua:tree-sitter/tree-sitter" = "latest"
 go = "latest"
 node = "24"
+"npm:@anthropic-ai/claude-code" = "latest"
 "npm:npmrc" = "latest"
 pnpm = "latest"
 python = "latest"
