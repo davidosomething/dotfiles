@@ -19,6 +19,7 @@ zsh/.zinit/
 *.min.*
 *.po
 *.svg
+*.tsbuildinfo
 *.vim.old
 *-min.*
 *.xcbkptlist

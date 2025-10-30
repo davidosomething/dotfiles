@@ -118,6 +118,10 @@ return {
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
         providers = {
+          lsp = {
+            -- https://cmp.saghen.dev/configuration/sources.html#show-buffer-completions-with-lsp
+            fallbacks = {},
+          },
           snippets = { opts = { friendly_snippets = false } },
         },
       },
