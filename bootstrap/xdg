@@ -3,7 +3,7 @@
 # Create XDG dirs
 #
 
-set -eu
+set -e
 
 if [[ -z "$DOTFILES" ]]; then
   cd -- "$(dirname "$0")/.." || exit 1
@@ -21,6 +21,6 @@ mkdir -p -- "$XDG_STATE_HOME"
 mkdir -p -- "$BZR_PLUGIN_PATH"
 mkdir -p -- "$BZR_HOME"
 mkdir -p -- "$COMPOSER_CACHE_DIR"
-mkdir -p -- "$FONTCONFIG_PATH"
+[[ "$FONTCONFIG_PATH" != "" ]] && mkdir -p -- "$FONTCONFIG_PATH"
 mkdir -p -- "$GNUPGHOME"
 mkdir -p -- "$(dirname $NPM_CONFIG_USERCONFIG)"
