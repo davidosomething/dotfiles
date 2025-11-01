@@ -26,6 +26,7 @@ return {
     cond = has_ui,
     lazy = false,
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({
         -- https://github.com/nvim-treesitter/nvim-treesitter/issues/3579#issuecomment-1278662119
         auto_install = has_ui,

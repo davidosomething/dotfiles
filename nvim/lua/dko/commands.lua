@@ -111,7 +111,7 @@ command("Rename", function(opts)
     vim.cmd("noautocmd write") -- save
     vim.cmd("edit") -- update file syntax if you changed extension
 
-    if changes ~= nil and #clients and type(prevpath) == "string" then
+    if changes ~= nil and #clients > 0 and type(prevpath) == "string" then
       for _, client in ipairs(clients) do
         if client:supports_method(Methods.workspace_didRenameFiles) then
           client:notify(Methods.workspace_didRenameFiles, changes)

@@ -72,7 +72,7 @@ return {
   -- https://github.com/pmizio/typescript-tools.nvim
   -- {
   --   "pmizio/typescript-tools.nvim",
-  --   cond = has_ui and vim.tbl_contains(dkotools.get_mason_lsps(), "ts_ls"), -- I'm using vtsls now instead
+  --   cond = has_ui and vim.list_contains(dkotools.get_mason_lsps(), "ts_ls"), -- I'm using vtsls now instead
   --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
   --   config = function()
   --     local ts_ls_config = require("dko.utils.typescript").ts_ls.config
