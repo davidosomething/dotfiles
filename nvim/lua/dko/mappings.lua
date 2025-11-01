@@ -299,6 +299,11 @@ map("i", "<Tab>", function()
   -- Insert appropriate amount of spaces instead of real tabs
   local sts = vim.bo.softtabstop <= 0 and vim.fn.shiftwidth()
     or vim.bo.softtabstop
+  if sts == 0 then
+    -- untabbable
+    return ""
+  end
+
   -- How many spaces to insert after the current cursor to get to the next sts
   local spaces_from_cursor_to_next_sts = vim.fn.virtcol(".") % sts
   if spaces_from_cursor_to_next_sts == 0 then

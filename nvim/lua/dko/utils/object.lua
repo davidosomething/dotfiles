@@ -25,15 +25,19 @@ M.set = function(tbl, path, value)
     local is_last_part = i == #parts
     if is_last_part then
       prev[key] = value
-    elseif type(prev) ~= "table" then
+      return true
+    end
+    if type(prev) == "table" then
+      -- continue diving into next path part
+      prev = prev[key]
+    else
+      -- error
       vim.notify(
         ("Could not set deep path %s at %s"):format(path, key),
         vim.log.levels.ERROR
       )
       return false
     end
-
-    prev = prev[key]
   end
   return true
 end

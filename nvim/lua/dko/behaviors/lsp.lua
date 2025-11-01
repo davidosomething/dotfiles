@@ -128,7 +128,7 @@ autocmd("FileType", {
     local dkosettings = require("dko.settings")
 
     local use_coc = dkosettings.get("coc.enabled")
-      and vim.tbl_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
+      and vim.list_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
 
     --- order matters here
     if use_coc then
