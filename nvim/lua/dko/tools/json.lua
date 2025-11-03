@@ -5,7 +5,7 @@ tools.register({
   require = "npm",
   name = "prettier",
   fts = { "json", "jsonc" },
-  efm = require("dko.tools.prettier"),
+  efm = require("dko.tools.prettier").efm,
 })
 
 tools.register({

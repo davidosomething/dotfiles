@@ -5,9 +5,7 @@ tools.register({
   require = "npm",
   name = "prettier",
   fts = { "html" },
-  efm = function()
-    return require("efmls-configs.formatters.prettier")
-  end,
+  efm = require("dko.tools.prettier").efm,
 })
 
 tools.register({
