@@ -8,7 +8,7 @@ tools.register({
   mason_type = "tool",
   require = "npm",
   fts = require("dko.utils.jsts").fts,
-  efm = require("dko.tools.prettier"),
+  efm = require("dko.tools.prettier").efm,
 })
 
 tools.register({

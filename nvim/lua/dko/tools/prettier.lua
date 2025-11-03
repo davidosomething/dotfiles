@@ -1,4 +1,13 @@
-return function()
+local M = {}
+
+---@return EfmFormatter
+M.efm = function()
+  return require("efmls-configs.formatters.prettier")
+end
+
+--@TODO remove after  fixed
+--https://github.com/creativenull/efmls-configs-nvim/issues/161#issuecomment-3481523557
+M.working_snapshot = function()
   local fs = require("efmls-configs.fs")
 
   local formatter = "prettier"
@@ -28,3 +37,5 @@ return function()
     },
   }
 end
+
+return M
