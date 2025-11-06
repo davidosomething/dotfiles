@@ -30,12 +30,12 @@ tools.register({
   end,
 })
 
--- type checker, go to def
+-- type checker, go-to definition support
 tools.register({
-  mason_type = "lsp",
-  require = "python",
   name = "basedpyright",
-  runner = "mason-lspconfig",
+  -- installed via mise now (using uvx)
+  require = "basedpyright",
+  runner = "lspconfig",
 })
 
 -- syntax checker, python hover and some diagnostics from jedi
