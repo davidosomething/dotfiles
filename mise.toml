@@ -1,2 +1,3 @@
 [tools]
 "aqua:koalaman/shellcheck" = "latest"
+node = "24"
