@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "@davidosomething/dotfiles",
   "engines": {
-    "node": ">=22.19"
+    "node": ">=24.11"
   },
   "config": {
     "shfiles": "find . -type f -name \"*.bash\" -o -name \"*.sh\" -not -path \"*.tox/*\" -not -path \"./local/*\" -not -path \"*/vendor/*\" -not -path \"*tmp/*\"",
