@@ -32,8 +32,9 @@ collapse_simple_statement = Never
 max_line_length = 80
 quote_type = double
 
-[*.md]
+[*.{md,mdx}]
 indent_style = space
+trim_trailing_whitespace = false
 
 # PHP http://make.wordpress.org/core/handbook/coding-standards/php/
 [*.{blade,php}]

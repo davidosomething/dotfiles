@@ -16,7 +16,16 @@ M.features = {
       default = vim.lsp.buf.code_action, -- uses the vim.ui.select under the hood, which might be fzf or snacks
       fzf = picker("fzf-lua", "lsp_code_actions"),
       ["tiny-code-action"] = function()
-        require("tiny-code-action").code_action()
+        if
+          vim.list_contains(require("dko.utils.jsts").fts, vim.bo.filetype)
+        then
+          vim.print("code_action_with_sorted")
+          require("tiny-code-action").code_action({
+            sort = require("dko.utils.jsts").sort_code_actions,
+          })
+        else
+          require("tiny-code-action").code_action({})
+        end
       end,
     },
   },

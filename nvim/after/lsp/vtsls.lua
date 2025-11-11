@@ -1,5 +1,8 @@
 local dkots = require("dko.utils.typescript")
 
+--- importModuleSpecifier https://github.com/LazyVim/LazyVim/discussions/3623#discussioncomment-10089949
+local importModuleSpecifier = "relative" -- "relative", "project-relative",
+
 ---@type lspconfig.Config
 return {
   on_attach = function(client, bufnr)
@@ -12,8 +15,7 @@ return {
   settings = {
     javascript = {
       preferences = {
-        -- importModuleSpecifier https://github.com/LazyVim/LazyVim/discussions/3623#discussioncomment-10089949
-        importModuleSpecifier = "non-relative", -- "project-relative",
+        importModuleSpecifier = importModuleSpecifier,
       },
     },
     typescript = {
@@ -39,7 +41,7 @@ return {
         },
       },
       preferences = {
-        importModuleSpecifier = "non-relative", -- "project-relative",
+        importModuleSpecifier = importModuleSpecifier,
       },
     },
     vtsls = {
