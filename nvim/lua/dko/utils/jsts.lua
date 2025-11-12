@@ -9,34 +9,39 @@ M.fts = {
   "typescriptreact",
 }
 
+---Each item is weighted exponentially higher than the next
+M.code_action_priority_list = {
+  "Update import",
+  'Add import from "@',
+  "for this line",
+  "for the entire file",
+  "Show documentation",
+  "Add all missing imports",
+  "Move to a new file",
+}
+
 ---@see https://github.com/rachartier/tiny-code-action.nvim#sorting
 ---@return boolean
 M.sort_code_actions = function(a, b)
-  -- local DISABLE = "Disable "
-  -- local DISABLE_PRIORITY = 100
-
-  local SCOPED_IMPORT = 'Add import from "@'
-  local SCOPED_IMPORT_PRIORITY = 10
-
   local a_priority = 0
   local b_priority = 0
-
-  -- Prioritize scoped imports actions
-  local a_is_scoped_import = string.match(a.action.title, SCOPED_IMPORT) ~= nil
-  local b_is_scoped_import = string.match(b.action.title, SCOPED_IMPORT) ~= nil
-  if a_is_scoped_import and not b_is_scoped_import then
-    a_priority = a_priority - SCOPED_IMPORT_PRIORITY
-  elseif not a_is_scoped_import and b_is_scoped_import then
-    b_priority = b_priority - SCOPED_IMPORT_PRIORITY
-  elseif a_is_scoped_import and b_is_scoped_import then
-    if a.action.title:len() > b.action.title:len() then
-      a_priority = a_priority + 1
-    else
-      a_priority = a_priority - 1
+  for weight, substr in ipairs(M.code_action_priority_list) do
+    local a_match = string.match(a.action.title, substr)
+    local b_match = string.match(b.action.title, substr)
+    if a_match ~= nil then
+      a_priority = a_priority + math.pow(10, weight)
+    end
+    if b_match ~= nil then
+      b_priority = b_priority + math.pow(10, weight)
+    end
+    if a_match and b_match then
+      if a.action.title:len() > b.action.title:len() then
+        a_priority = a_priority + 1
+      else
+        b_priority = b_priority + 1
+      end
     end
   end
-
-  -- 1 is higher priority than 2
   return a_priority < b_priority
 end
 
