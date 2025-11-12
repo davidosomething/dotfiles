@@ -1,4 +1,4 @@
--- JavaScript / Typescript stuff
+-- JavaScript / TypeScript stuff
 
 local M = {}
 
@@ -13,7 +13,9 @@ M.fts = {
 M.code_action_priority_list = {
   "Update import",
   'Add import from "@',
-  "Add import",
+  'Add import from "%.',
+  "Fix this prettier",
+  "Fix all",
   "for this line",
   "for the entire file",
   "Convert parameters",
