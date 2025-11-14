@@ -12,6 +12,7 @@ gpg_verify = false
 go = "latest"
 node = "24"
 "npm:@anthropic-ai/claude-code" = "latest"
+"npm:@mdx-js/language-server" = "latest"
 "npm:npmrc" = "latest"
 "npm:vibe-rules" = "latest"
 "pipx:basedpyright" = "latest"
