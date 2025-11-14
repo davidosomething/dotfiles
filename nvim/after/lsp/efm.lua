@@ -1,6 +1,6 @@
 local dkotools = require("dko.tools")
 
----@type lspconfig.Config
+---@type vim.lsp.Config
 return {
   filetypes = vim.tbl_keys(dkotools.efm_filetypes),
   single_file_support = true,

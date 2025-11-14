@@ -1,4 +1,10 @@
+---@type vim.lsp.Config
 return {
+  filetypes = {
+    "gitcommit",
+    "md",
+    "mdx",
+  },
   settings = {
     ["harper-ls"] = {
       codeActions = {
@@ -6,6 +12,7 @@ return {
       },
       linters = {
         Dashes = false,
+        ExpandDependencies = false,
         LongSentences = false,
         Matcher = false, -- e.g. deps to dependencies
         SentenceCapitalization = false,
