@@ -1,6 +1,6 @@
 local dkots = require("dko.utils.typescript")
 
----@type lspconfig.Config
+---@type vim.lsp.Config
 return {
   on_attach = dkots.ts_ls.config.on_attach,
   handlers = dkots.ts_ls.config.handlers,

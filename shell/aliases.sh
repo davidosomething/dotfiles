@@ -68,6 +68,8 @@ edc() {
 
 alias ega='e "${DOTFILES}/git/aliases.gitconfig"'
 alias ehosts='se /etc/hosts'
+alias epj='e package.json'
+alias epw='e pnpm-workspace.yaml'
 alias essh='e "${HOME}/.ssh/config"'
 alias etmux='e "${DOTFILES}/tmux/tmux.conf"'
 alias eze='e "${ZDOTDIR}/dot.zshenv"'

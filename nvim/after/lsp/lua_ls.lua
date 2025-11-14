@@ -60,6 +60,7 @@ return {
       end
     end
   end,
+  ---@type vim.lsp.Config
   settings = {
     Lua = {
       format = { enable = false },

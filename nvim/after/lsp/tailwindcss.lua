@@ -1,4 +1,4 @@
----@type lspconfig.Config
+---@type vim.lsp.Config
 return {
   settings = {
     tailwindCSS = {

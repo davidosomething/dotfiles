@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
   --- Use :LspStart cssmodules_ls to start this
   autostart = false,
