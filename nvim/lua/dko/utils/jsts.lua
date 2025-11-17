@@ -26,6 +26,7 @@ M.code_action_priority_list = {
   "Fix all detected spelling errors",
   "Show documentation",
   "Add all missing imports",
+  "Generate",
   "Move to a new file",
 }
 
