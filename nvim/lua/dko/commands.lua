@@ -171,8 +171,10 @@ end, { desc = "Open repo root in origin git site" })
 -- VTSLS
 -- ===========================================================================
 
+---@see vscode docs <https://github.com/microsoft/vscode/blob/570f7da3b52bde576d6bba5f71cb44ddda1460a8/extensions/typescript-language-features/src/languageFeatures/fileConfigurationManager.ts#L309-L316>
 ---@enum importModuleSpecifier
 local import_module_specifiers = {
+  "relative",
   "non-relative",
   "project-relative",
 }
