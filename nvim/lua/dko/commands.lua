@@ -166,3 +166,47 @@ command("Gitrepo", function()
   end
   gb.open({ what = "repo" })
 end, { desc = "Open repo root in origin git site" })
+
+-- ===========================================================================
+-- VTSLS
+-- ===========================================================================
+
+---@enum importModuleSpecifier
+local import_module_specifiers = {
+  "non-relative",
+  "project-relative",
+}
+
+command("ChangeImportModuleSpecifier", function()
+  local clients = vim.lsp.get_clients({ name = "vtsls" })
+  if #clients == 0 then
+    require("dko.utils.notify").toast(
+      "vtsls not attached",
+      vim.log.levels.ERROR,
+      { group = "typescript", render = "wrapped-compact" }
+    )
+    return
+  end
+  local client = clients[1]
+  local prefs = client.config.settings.typescript.preferences --[[@as table]]
+  local current = prefs.importModuleSpecifier --[[@as importModuleSpecifier]]
+  local current_index =
+    require("dko.utils.table").index(import_module_specifiers, current)
+  local next_index = current_index + 1
+  if next_index > #import_module_specifiers then
+    next_index = 1
+  end
+  local next = import_module_specifiers[next_index]
+  local success = require("dko.lsp").change_client_settings(client, {
+    typescript = {
+      preferences = { importModuleSpecifier = next },
+    },
+  })
+  if success then
+    require("dko.utils.notify").toast(
+      ("Changed importModuleSpecifier to %s"):format(next),
+      vim.log.levels.INFO,
+      { group = "typescript", render = "wrapped-compact" }
+    )
+  end
+end, { desc = "Cycle through importModuleSpecifier" })

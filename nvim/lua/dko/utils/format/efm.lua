@@ -107,14 +107,11 @@ M.format_with = function(name, opts)
     return false
   end
 
-  local original = client.config.settings.languages
-  local only = configs
-
   -- Set to only the efm tool we named
-  client.config.settings.languages = only
-  client:notify(
-    Methods.workspace_didChangeConfiguration,
-    { settings = client.config.settings }
+  local _, restore = require("dko.lsp").change_client_settings(
+    client,
+    { languages = configs },
+    { silent = true }
   )
 
   -- Do the deed
@@ -125,13 +122,7 @@ M.format_with = function(name, opts)
   )
   local result = M.format({ hide_notification = true })
 
-  -- Restore original config
-  client.config.settings.languages = original
-  client:notify(
-    Methods.workspace_didChangeConfiguration,
-    { settings = client.config.settings }
-  )
-
+  restore()
   return result
 end
 

@@ -69,3 +69,54 @@ vim.lsp.handlers[Methods.client_registerCapability] = (function(overridden)
     return result
   end
 end)(vim.lsp.handlers[Methods.client_registerCapability])
+
+local M = {}
+
+---@param client vim.lsp.Client
+---@param overrides table
+---@param options? table
+---@return boolean -- success
+---@return function -- call to restore original settings
+M.change_client_settings = function(client, overrides, options)
+  local opts = options or {}
+  local original = client.config.settings or {}
+  local next = vim.tbl_deep_extend("force", {}, original, overrides)
+  local success =
+    client:notify(Methods.workspace_didChangeConfiguration, { settings = next })
+  if not success then
+    if not opts.silent then
+      require("dko.utils.notify").toast(
+        "Failed to update client settings",
+        vim.log.levels.ERROR,
+        { group = "lsp", render = "wrapped-compact" }
+      )
+    end
+    return false, function() end
+  end
+
+  --- Need to update local cache (or else call the lsp method to get updated
+  --- settings)
+  client.config.settings = next
+
+  --- For debugging purposes, can print this out to see what we updated to
+  if not opts.internal then
+    vim.b.change_client_settings = next
+  end
+  if not opts.silent then
+    require("dko.utils.notify").toast(
+      "Successfully updated client settings",
+      vim.log.levels.INFO,
+      { group = "lsp", render = "wrapped-compact" }
+    )
+  end
+  local restore = function()
+    M.change_client_settings(
+      client,
+      original,
+      { silent = true, internal = true }
+    )
+  end
+  return true, restore
+end
+
+return M

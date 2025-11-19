@@ -1,7 +1,7 @@
 local dkots = require("dko.utils.typescript")
 
 --- importModuleSpecifier https://github.com/LazyVim/LazyVim/discussions/3623#discussioncomment-10089949
-local importModuleSpecifier = "relative" -- "relative", "project-relative",
+local importModuleSpecifier = "non-relative" -- "relative", "project-relative",
 
 ---@type vim.lsp.Config
 return {
