@@ -361,6 +361,23 @@ map("n", "sy", function()
 end, { desc = "Copy treesitter captures under cursor" })
 
 -- =============================================================================
+-- LSP: vtsls
+-- =============================================================================
+
+M.bind_vtsls = function()
+  map("n", "<Leader>ti", "<Cmd>ChangeImportModuleSpecifier<CR>", {
+    desc = "vtsls: cycle importModuleSpecifier",
+  })
+
+  map("n", "gd", function()
+    require("dko.utils.typescript").go_to_source_definition(
+      "vtsls",
+      "typescript.goToSourceDefinition"
+    )
+  end, { desc = "vtsls typescript.goToSourceDefinition", buffer = true })
+end
+
+-- =============================================================================
 -- External mappings
 -- =============================================================================
 

@@ -7,9 +7,7 @@ local importModuleSpecifier = "non-relative" -- "relative", "project-relative",
 return {
   on_attach = function(client, bufnr)
     dkots.ts_ls.config.on_attach(client, bufnr)
-    vim.keymap.set("n", "gd", function()
-      dkots.go_to_source_definition("vtsls", "typescript.goToSourceDefinition")
-    end, { desc = "vtsls typescript.goToSourceDefinition", buffer = true })
+    require("dko.mappings").bind_vtsls()
   end,
   handlers = dkots.ts_ls.config.handlers,
   settings = {
