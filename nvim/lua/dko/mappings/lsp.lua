@@ -21,6 +21,7 @@ M.features = {
         then
           vim.print("code_action_with_sorted")
           require("tiny-code-action").code_action({
+            filter = require("dko.utils.jsts").filter_code_actions,
             sort = require("dko.utils.jsts").sort_code_actions,
           })
         else
