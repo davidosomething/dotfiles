@@ -72,6 +72,50 @@ end)(vim.lsp.handlers[Methods.client_registerCapability])
 
 local M = {}
 
+---@see vscode docs <https://github.com/microsoft/vscode/blob/570f7da3b52bde576d6bba5f71cb44ddda1460a8/extensions/typescript-language-features/src/languageFeatures/fileConfigurationManager.ts#L309-L316>
+---@enum importModuleSpecifier
+local import_module_specifiers = {
+  "relative",
+  "non-relative",
+  "project-relative",
+}
+
+---Set the import module specifier preference for vtsls client
+---@param client vim.lsp.Client
+---@param specifier importModuleSpecifier
+---@return boolean -- success
+M.set_import_module_specifier = function(client, specifier)
+  local success = M.change_client_settings(client, {
+    typescript = {
+      preferences = { importModuleSpecifier = specifier },
+    },
+  })
+  if success then
+    require("dko.utils.notify").toast(
+      ("Changed importModuleSpecifier to %s"):format(specifier),
+      vim.log.levels.INFO,
+      { group = "typescript", render = "wrapped-compact" }
+    )
+  end
+  return success
+end
+
+---Cycle to the next import module specifier for vtsls client
+---@param client vim.lsp.Client
+---@return boolean -- success
+M.cycle_import_module_specifier = function(client)
+  local prefs = client.config.settings.typescript.preferences --[[@as table]]
+  local current = prefs.importModuleSpecifier --[[@as importModuleSpecifier]]
+  local current_index =
+    require("dko.utils.table").index(import_module_specifiers, current)
+  local next_index = current_index + 1
+  if next_index > #import_module_specifiers then
+    next_index = 1
+  end
+  local next = import_module_specifiers[next_index] --[[@as importModuleSpecifier]]
+  return M.set_import_module_specifier(client, next)
+end
+
 ---@param client vim.lsp.Client
 ---@param overrides table
 ---@param options? table

@@ -48,27 +48,10 @@ local eslints = {}
 
 ---@return string
 M.read_package_json = function()
-  if vim.b.package_json_contents == nil then
-    local path = vim.api.nvim_buf_get_name(0)
-        and vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
-      or nil
-    local pjs = vim.fs.find("package.json", {
-      path = path,
-      limit = 1,
-      type = "file",
-      upward = true,
-    })
-    if #pjs > 0 then
-      local f = io.input(pjs[1])
-      if f then
-        vim.b.package_json_contents = f:read("*a")
-        f:close()
-        return vim.b.package_json_contents
-      end
-    end
-    vim.b.package_json_contents = ""
-  end
-  return vim.b.package_json_contents
+  return require("dko.utils.file").read_into_vimb(
+    "package_json_contents",
+    "package.json"
+  )
 end
 
 ---@param pkg string e.g. "prettier"

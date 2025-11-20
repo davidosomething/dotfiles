@@ -25,4 +25,32 @@ M.edit_closest = function(filename, opts)
   end
 end
 
+---Read file(s) contents into a buffer variable (cached)
+---@param cache_key string -- buffer variable name (e.g. "package_json_contents")
+---@param filenames string|string[] -- filename(s) to search for, in priority order
+---@return string -- file contents or empty string if not found
+M.read_into_vimb = function(cache_key, filenames)
+  if vim.b[cache_key] == nil then
+    local path = vim.api.nvim_buf_get_name(0)
+        and vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+      or nil
+    local files = vim.fs.find(filenames, {
+      path = path,
+      limit = 1,
+      type = "file",
+      upward = true,
+    })
+    if #files > 0 then
+      local f = io.input(files[1])
+      if f then
+        vim.b[cache_key] = f:read("*a")
+        f:close()
+        return vim.b[cache_key]
+      end
+    end
+    vim.b[cache_key] = ""
+  end
+  return vim.b[cache_key]
+end
+
 return M
