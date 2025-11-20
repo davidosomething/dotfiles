@@ -9,6 +9,15 @@ M.fts = {
   "typescriptreact",
 }
 
+---@see https://github.com/rachartier/tiny-code-action.nvim#filters
+M.filter_code_actions = function(action, client)
+  ---Don't suggest importing from node_modules/
+  if action.title:find('Add import from "node_modules/') then
+    return false
+  end
+  return true
+end
+
 ---Each item is weighted exponentially higher than the next
 M.code_action_priority_list = {
   "Update import",
