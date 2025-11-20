@@ -171,14 +171,6 @@ end, { desc = "Open repo root in origin git site" })
 -- VTSLS
 -- ===========================================================================
 
----@see vscode docs <https://github.com/microsoft/vscode/blob/570f7da3b52bde576d6bba5f71cb44ddda1460a8/extensions/typescript-language-features/src/languageFeatures/fileConfigurationManager.ts#L309-L316>
----@enum importModuleSpecifier
-local import_module_specifiers = {
-  "relative",
-  "non-relative",
-  "project-relative",
-}
-
 command("ChangeImportModuleSpecifier", function()
   local clients = vim.lsp.get_clients({ name = "vtsls" })
   if #clients == 0 then
@@ -190,25 +182,5 @@ command("ChangeImportModuleSpecifier", function()
     return
   end
   local client = clients[1]
-  local prefs = client.config.settings.typescript.preferences --[[@as table]]
-  local current = prefs.importModuleSpecifier --[[@as importModuleSpecifier]]
-  local current_index =
-    require("dko.utils.table").index(import_module_specifiers, current)
-  local next_index = current_index + 1
-  if next_index > #import_module_specifiers then
-    next_index = 1
-  end
-  local next = import_module_specifiers[next_index]
-  local success = require("dko.lsp").change_client_settings(client, {
-    typescript = {
-      preferences = { importModuleSpecifier = next },
-    },
-  })
-  if success then
-    require("dko.utils.notify").toast(
-      ("Changed importModuleSpecifier to %s"):format(next),
-      vim.log.levels.INFO,
-      { group = "typescript", render = "wrapped-compact" }
-    )
-  end
+  require("dko.lsp").cycle_import_module_specifier(client)
 end, { desc = "Cycle through importModuleSpecifier" })

@@ -1,19 +1,24 @@
 local dkots = require("dko.utils.typescript")
 
 --- importModuleSpecifier https://github.com/LazyVim/LazyVim/discussions/3623#discussioncomment-10089949
-local importModuleSpecifier = "non-relative" -- "relative", "project-relative",
+local defaultImportModuleSpecifier = "non-relative" -- "relative", "project-relative",
 
 ---@type vim.lsp.Config
 return {
   on_attach = function(client, bufnr)
     dkots.ts_ls.config.on_attach(client, bufnr)
     require("dko.mappings").bind_vtsls()
+
+    -- Set import module specifier based on tsconfig path aliases
+    local uses_aliases = dkots.uses_path_aliases()
+    local specifier = uses_aliases and "non-relative" or "project-relative" --[[@as importModuleSpecifier]]
+    require("dko.lsp").set_import_module_specifier(client, specifier)
   end,
   handlers = dkots.ts_ls.config.handlers,
   settings = {
     javascript = {
       preferences = {
-        importModuleSpecifier = importModuleSpecifier,
+        importModuleSpecifier = defaultImportModuleSpecifier,
       },
     },
     typescript = {
@@ -39,7 +44,7 @@ return {
         },
       },
       preferences = {
-        importModuleSpecifier = importModuleSpecifier,
+        importModuleSpecifier = defaultImportModuleSpecifier,
       },
     },
     vtsls = {

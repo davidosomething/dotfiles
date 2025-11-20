@@ -34,6 +34,22 @@ M.go_to_source_definition = function(name, command)
   }, definition_handler, 0)
 end
 
+---@return string
+M.read_tsconfig = function()
+  return require("dko.utils.file").read_into_vimb(
+    "tsconfig_contents",
+    { "tsconfig.app.json", "tsconfig.json" }
+  )
+end
+
+---@return boolean -- true if paths mapping is configured
+M.uses_path_aliases = function()
+  local tsconfig_contents = M.read_tsconfig()
+  -- treat special chars as plain chars
+  local PLAIN = true
+  return tsconfig_contents:find('"paths": {', 1, PLAIN) ~= nil
+end
+
 M.ts_ls = {}
 
 ---@type vim.lsp.Config
