@@ -17,46 +17,35 @@ M.setup = function(config)
   config.command_palette_font_size = 24.0
 
   config.font = wezterm.font_with_fallback({
-    -- wez recommends against using patched nerd fonts because of mangled
-    -- metadata so don't use these:
-    --  - "FuraMono Nerd Font" disabled
-    --      - folder icon is double size, use mono version instead.
-    --        See https://github.com/polybar/polybar/issues/991#issue-293786329
-    --  - "FuraMono Nerd Font Mono" disabled
-    --  - "Fira Mono" disabled
+    -- For other font considerations see:
+    -- https://github.com/davidosomething/dotfiles/issues/652
 
-    -- Prefer stylistic updates from Fira Code but with ligatures disabled
-    -- a g i l r 3 ~ $ % * () {} |
-    -- :> :- :=
-
-    -- Firple is Fira Code with IBM Plex Sans JP glyphs
-    -- https://github.com/negset/Firple
-    --  - https://github.com/tonsky/FiraCode
-    --  - https://github.com/IBM/plex
-    -- had some issues with some letters like E so back to fira code
-
+    -- == Primary Font =======================================================
     -- https://github.com/subframe7536/maple-font
     "Maple Mono Normal NL NF CN",
+    -- =======================================================================
 
-    {
-      family = "Fira Code",
-      harfbuzz_features = {
-        "calt=0", -- no ligatures => ===
-        "clig=0", -- no contextual ligatures ft
-        "ss03", -- & clarified
-        "ss05", -- @ rounded
-        "ss06", -- \\ \n dimmed char escapes
-        "zero", -- dotted 0
-      },
-    },
-
+    -- == Smallcaps ==========================================================
     -- charset fallbacks ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ (ﾉಥ益ಥ）ﾉ︵┻━┻
+    -- keep both of these -- has complete bold smallcaps that looks nicer than
+    -- unifont
     "Noto Sans Mono", -- linux + smallcaps
     "Monaco", -- mac + smallcaps
-    { family = "Unifont", scale = 1.2 }, -- bitmap fallback with a lot of unicode
+    -- =======================================================================
 
-    -- emoji fallback 👉 👀 😁 💩 ✅
-    "Noto Color Emoji",
+    -- == Unicode ============================================================
+    -- bitmap fallback with a lot of unicode, fork of unifont
+    -- https://github.com/stgiga/UnifontEX
+    {
+      family = "UnifontExMono",
+      scale = 1.2,
+    },
+
+    -- > WezTerm bundles JetBrains Mono, Nerd Font Symbols and Noto Color Emoji
+    -- > fonts and uses those for the default font configuration.
+    --   - https://wezterm.org/config/fonts.html#font-related-configuration
+    -- The defaults are automatically appended.
+    -- Use `wezterm ls-fonts` to see the final actual list of fonts used.
   })
 
   config.font_dirs = { "fonts" }
