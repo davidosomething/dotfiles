@@ -10,6 +10,7 @@ return function()
   return {
     formatCommand = command,
     formatStdin = true,
-    rootMarkers = { "rome.json", "biome.json", "package.json" },
+    --- only when explicitly configured for biome
+    rootMarkers = { "biome.json" },
   }
 end
