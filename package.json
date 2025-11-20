@@ -1,8 +1,12 @@
 {
   "name": "dotfiles",
+  "version": "1.0.0",
+  "license": "MIT",
+  "homepage": "https://github.com/davidosomething/dotfiles",
+  "author": "David O'Trakoun <me@davidosomething.com> (https://davidosomething.com/)",
+  "description": "@davidosomething/dotfiles - wezterm, zsh, neovim",
+  "bugs": "https://github.com/davidosomething/dotfiles/issues",
   "private": true,
-  "version": "0.0.1",
-  "description": "@davidosomething/dotfiles",
   "engines": {
     "node": ">=24.11"
   },
@@ -24,15 +28,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/davidosomething/dotfiles.git"
-  },
-  "author": "David O'Trakoun <me@davidosomething.com> (https://davidosomething.com/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/davidosomething/dotfiles/issues"
-  },
-  "homepage": "https://github.com/davidosomething/dotfiles#readme",
-  "devDependencies": {
-    "eslint": "9.39.1",
-    "eslint-config-davidosomething": "6.0.0"
   }
 }

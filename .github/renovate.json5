@@ -1,18 +1,28 @@
 {
-  extends: ["config:base"],
-  baseBranches: ["dev"],
-  ignoreNpmrcFile: true,
+  extends: [
+    'config:recommended',
+  ],
+  baseBranchPatterns: [
+    'dev',
+  ],
+  npmrc: '',
   packageRules: [
     {
       automerge: true,
-      matchDepTypes: ["devDependencies"],
-      matchPackagePatterns: ["^eslint"],
-      stabilityDays: 3,
+      matchDepTypes: [
+        'devDependencies',
+      ],
+      minimumReleaseAge: '3 days',
+      matchPackageNames: [
+        '/^eslint/',
+      ],
     },
     {
       automerge: true,
-      paths: ["requirements.txt"],
-      stabilityDays: 3,
+      matchFileNames: [
+        'requirements.txt',
+      ],
+      minimumReleaseAge: '3 days',
     },
   ],
 }

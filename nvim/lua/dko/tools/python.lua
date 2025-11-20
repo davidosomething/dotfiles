@@ -49,12 +49,9 @@ tools.register({
 
 -- python lint and format from ruff using "ruff server", configuration
 -- (newer than ruff-lsp standalone project)
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/ruff.lua
--- @TODO mac+mise having trouble installing
-if vim.fn.has("macunix") == 0 then
-  tools.register({
-    name = "ruff",
-    mason_type = "lsp",
-    require = "python",
-  })
-end
+-- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ruff.lua
+tools.register({
+  name = "ruff",
+  require = "ruff",
+  runner = "lspconfig",
+})

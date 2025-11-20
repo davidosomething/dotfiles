@@ -2,6 +2,7 @@
 gpg_verify = false
 
 [tools]
+"aqua:astral-sh/ruff" = "latest"
 "aqua:astral-sh/uv" = "latest"
 "aqua:dandavison/delta" = "latest"
 "aqua:hashicorp/vault" = "latest"
