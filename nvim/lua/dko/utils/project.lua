@@ -1,24 +1,26 @@
 local M = {}
 
-M.PROJECT_ROOTS = {
-  ".luarc.json",
-  ".luarc.jsonc",
-  "composer.json",
-  "Gemfile",
-  "justfile",
-  "Makefile",
-  "package.json",
-  "pubspec.yaml", -- flutter / dart
-  "requirements.txt",
-  "stylua.toml",
-  "tsconfig.json",
+local PROJECT_ROOTS = {
+  { "nx.json" },
+  {
+    ".luarc.json",
+    ".luarc.jsonc",
+    "composer.json",
+    "Gemfile",
+    "justfile",
+    "Makefile",
+    "package.json",
+    "pubspec.yaml", -- flutter / dart
+    "requirements.txt",
+    "stylua.toml",
+  },
 }
 
 ---Look upwards dirs for a file match
 ---@param patterns? table
 ---@return string|nil root
 M.get_root_by_patterns = function(patterns)
-  patterns = patterns or M.PROJECT_ROOTS
+  patterns = patterns or PROJECT_ROOTS
   local bufname = vim.fn.bufname()
   local start = bufname ~= "" and 0 or vim.uv.cwd()
   if start == nil then
@@ -67,7 +69,7 @@ end
 ---@return string -- git root
 M.root = function()
   if not vim.b.dko_project_root then
-    vim.b.dko_project_root = M.get_root_by_patterns(M.PROJECT_ROOTS)
+    vim.b.dko_project_root = M.get_root_by_patterns()
     vim.b.dko_project_root = vim.b.dko_project_root or M.get_git_root()
   end
   return vim.b.dko_project_root
