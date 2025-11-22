@@ -3,7 +3,7 @@ local after_dir = ("%s/after"):format(nvim_dir)
 
 -- @TODO using this because of https://github.com/neovim/nvim-lspconfig/issues/3189
 -- Need to call this after plugins loaded since they change runtime files
-function get_runtime_files()
+local function get_runtime_files()
   return vim
     .iter(vim.api.nvim_get_runtime_file("", true))
     :filter(function(v)
@@ -12,51 +12,52 @@ function get_runtime_files()
     :totable()
 end
 
+---@type vim.lsp.Config
 return {
   on_init = function(client)
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
       print(path)
       if path:sub(-5) == "/nvim" then
-        client.config.settings.Lua =
-          vim.tbl_deep_extend("force", client.config.settings.Lua, {
-            runtime = {
-              -- Tell the language server which version of Lua you're using (most
-              -- likely LuaJIT in the case of Neovim)
-              version = "LuaJIT",
-              -- Tell the language server how to find Lua modules same way as Neovim
-              -- (see `:h lua-module-load`)
-              path = {
-                "lua/?.lua",
-                "lua/?/init.lua",
-              },
+        local original = client.config.settings.Lua --[[@as table]]
+        client.config.settings.Lua = vim.tbl_deep_extend("force", original, {
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most
+            -- likely LuaJIT in the case of Neovim)
+            version = "LuaJIT",
+            -- Tell the language server how to find Lua modules same way as Neovim
+            -- (see `:h lua-module-load`)
+            path = {
+              "lua/?.lua",
+              "lua/?/init.lua",
             },
-            -- Make the server aware of Neovim runtime files
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-                -- Depending on the usage, you might want to add additional paths
-                -- here.
+          },
+          -- Make the server aware of Neovim runtime files
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.env.VIMRUNTIME,
+              -- Depending on the usage, you might want to add additional paths
+              -- here.
 
-                "${3rd}/luv/library",
-                -- '${3rd}/busted/library'
+              "${3rd}/luv/library",
+              -- '${3rd}/busted/library'
 
-                -- provide plugin completions and types
-                -- pull in all of 'runtimepath'. NOTE: this is a lot slower
-                -- unpack(vim.api.nvim_get_runtime_file("", true)),
-                -- @TODO using this because of https://github.com/neovim/nvim-lspconfig/issues/3189
-                unpack(get_runtime_files()),
-              },
-              -- Or pull in all of 'runtimepath'.
-              -- NOTE: this is a lot slower and will cause issues when working on
-              -- your own configuration.
-              -- See https://github.com/neovim/nvim-lspconfig/issues/3189
-              -- library = {
-              --   vim.api.nvim_get_runtime_file('', true),
-              -- }
+              -- provide plugin completions and types
+              -- pull in all of 'runtimepath'. NOTE: this is a lot slower
+              -- unpack(vim.api.nvim_get_runtime_file("", true)),
+              -- @TODO using this because of https://github.com/neovim/nvim-lspconfig/issues/3189
+              unpack(get_runtime_files()),
             },
-          })
+            -- Or pull in all of 'runtimepath'.
+            -- NOTE: this is a lot slower and will cause issues when working on
+            -- your own configuration.
+            -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+            -- library = {
+            --   vim.api.nvim_get_runtime_file('', true),
+            -- }
+          },
+        })
       end
     end
   end,
@@ -64,7 +65,6 @@ return {
   settings = {
     Lua = {
       format = { enable = false },
-      hint = { enable = true },
     },
   },
 }

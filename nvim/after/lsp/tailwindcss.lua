@@ -2,7 +2,13 @@
 return {
   settings = {
     tailwindCSS = {
-      classFunctions = { "cva", "cx" },
+      classFunctions = {
+        "clsx",
+        "cn",
+        "cva",
+        "cx",
+        "twMerge",
+      },
     },
   },
 }
