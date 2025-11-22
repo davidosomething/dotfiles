@@ -78,7 +78,7 @@ compdef e=nvim
 
 if __dko_has 'pipx' && ! eval "$(register-python-argcomplete pipx)"; then
   __dko_warn  "Failed to run register-python-argcomplete!"
-  __dko_warn_ "Was pytthon upgraded? Maybe do a 'pipx reinstall-all'"
+  __dko_warn_ "Was python upgraded? Maybe do a 'pipx reinstall-all'"
 fi
 
 # ============================================================================
