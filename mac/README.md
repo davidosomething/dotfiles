@@ -3,10 +3,10 @@
 User data on encrypted volumes other than the boot volume will not mount until
 login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
-## App store
+## App Store
 
 1. iCloud sign in
-1. Install App store apps, Xcode
+1. Install App Store apps, Xcode
 
 ## Install dotfiles
 
