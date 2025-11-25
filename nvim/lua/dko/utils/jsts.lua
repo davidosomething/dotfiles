@@ -22,6 +22,7 @@ end
 ---Each item is weighted exponentially higher than the next
 M.code_action_priority_list = {
   "Update import",
+  "Add all missing imports",
   'Add import from "@',
   'Add import from "%.',
   "Fix this prettier",
@@ -37,7 +38,7 @@ M.code_action_priority_list = {
   "Extract to",
   "Change spelling",
   "Fix all detected spelling errors",
-  "Add all missing imports",
+  "Show documentation",
   "Add all missing function",
   "Generate",
   "Show documentation",
