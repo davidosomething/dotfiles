@@ -40,6 +40,7 @@ M.code_action_priority_list = {
   "Fix all detected spelling errors",
   "Show documentation",
   "Add all missing function",
+  "Add braces",
   "Generate",
   "Show documentation",
   "Move to a new file",
