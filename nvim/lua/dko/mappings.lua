@@ -172,6 +172,22 @@ map("n", "<F1>", function()
   end
 end, { desc = "Show vim help for <cexpr> or current line" })
 
+map("n", "<Leader>yg", function()
+  local res = require("dko.utils.file").real_filepath()
+  if res then
+    local gr = require("dko.utils.project").get_git_root()
+    if gr then
+      res = res:gsub(gr .. "/", "")
+    end
+    vim.fn.setreg("+", res)
+    vim.notify(
+      res,
+      vim.log.levels.INFO,
+      { title = "Yanked git relative filepath" }
+    )
+  end
+end, { desc = "Yank the filepath of current buffer relative to its git root" })
+
 map("n", "<Leader>yn", function()
   local res = vim.fn.expand("%:t", false, false)
   if type(res) ~= "string" then
@@ -190,12 +206,8 @@ map("n", "<Leader>yn", function()
 end, { desc = "Yank the filename of current buffer" })
 
 map("n", "<Leader>yp", function()
-  local res = vim.fn.expand("%:p", false, false)
-  if type(res) ~= "string" then
-    return
-  end
-  res = res == "" and vim.uv.cwd() or res
-  if res:len() then
+  local res = require("dko.utils.file").real_filepath()
+  if res then
     vim.fn.setreg("+", res)
     vim.notify(res, vim.log.levels.INFO, { title = "Yanked filepath" })
   end
