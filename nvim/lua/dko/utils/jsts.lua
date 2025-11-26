@@ -25,6 +25,7 @@ M.code_action_priority_list = {
   "Add all missing imports",
   'Add import from "@',
   'Add import from "%.',
+  'Add import from "',
   "Fix this prettier",
   "Fix all",
   "for this line",
