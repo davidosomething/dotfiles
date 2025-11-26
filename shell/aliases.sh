@@ -143,6 +143,12 @@ alias pir='pip install --requirement=requirements.txt'
 
 alias getsubs='pipx run subliminal download -p opensubtitles -p shooter -p subscenter -p thesubdb -p tvsubtitles --language en '
 
+# --------------------------------------------------------------------------
+# rovodev
+# --------------------------------------------------------------------------
+
+alias rovodev='acli rovodev run --shadow'
+
 # ----------------------------------------------------------------------------
 # ruby
 # ----------------------------------------------------------------------------

@@ -1,5 +1,21 @@
 local M = {}
 
+---Get filepath and resolve symlinks for the current buffer
+---@return string|nil
+M.real_filepath = function()
+  local res = vim.fn.expand("%:p", false, false)
+  if type(res) ~= "string" then
+    return
+  end
+  res = res == "" and vim.uv.cwd() or res
+  if res:len() then
+    --- resolve symlink
+    local resolved = vim.uv.fs_realpath(res)
+    return resolved
+  end
+  return nil
+end
+
 ---Given a list of paths, return the first one that exists
 ---@param paths string[]
 ---@return string|nil -- normalized path to first found file
