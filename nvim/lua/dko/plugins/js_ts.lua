@@ -54,13 +54,14 @@ return {
   --- https://github.com/ryoppippi/nvim-pnpm-catalog-lens
   --- In package.json, show the actual version by dereferencing the catalog tag
   --- when using pnpm catalogs
-  {
-    "ryoppippi/nvim-pnpm-catalog-lens",
-    cond = has_ui,
-    init = function()
-      vim.g.pnpm_catalog_display = "overlay"
-    end,
-  },
+  --- tracking https://github.com/ryoppippi/nvim-pnpm-catalog-lens/issues/8
+  -- {
+  --   "ryoppippi/nvim-pnpm-catalog-lens",
+  --   cond = has_ui,
+  --   init = function()
+  --     vim.g.pnpm_catalog_display = "overlay"
+  --   end,
+  -- },
 
   -- https://github.com/vuki656/package-info.nvim
   -- Parses string output of npm outdated
