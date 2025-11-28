@@ -123,11 +123,24 @@ end
 ---@return function -- call to restore original settings
 M.change_client_settings = function(client, overrides, options)
   local opts = options or {}
-  local original = client.config.settings or {}
+
+  local original =
+    vim.tbl_deep_extend("force", client.config.settings or {}, {})
+
   local next = vim.tbl_deep_extend("force", {}, original, overrides)
+
+  --- Need to update local cache (or else call the lsp method to get updated
+  --- settings)
+  --- See https://github.com/neovim/neovim/issues/31684#issuecomment-2559693729
+  client.config.settings = next
+
+  --- It's an lsp notify because it does not expect a response
   local success =
     client:notify(Methods.workspace_didChangeConfiguration, { settings = next })
+
+  --- Fails if can't talk to client (detached or crashed?)
   if not success then
+    client.config.settings = original
     if not opts.silent then
       require("dko.utils.notify").toast(
         "Failed to update client settings",
@@ -137,10 +150,6 @@ M.change_client_settings = function(client, overrides, options)
     end
     return false, function() end
   end
-
-  --- Need to update local cache (or else call the lsp method to get updated
-  --- settings)
-  client.config.settings = next
 
   --- For debugging purposes, can print this out to see what we updated to
   if not opts.internal then
