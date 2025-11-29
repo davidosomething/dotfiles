@@ -1,8 +1,8 @@
 [settings]
 gpg_verify = false
 
+# tombi: format.rules.table-keys-order = "ascending"
 [tools]
-
 "aqua:Automattic/harper/harper-ls" = "latest"
 "aqua:JohnnyMorganz/StyLua" = "latest"
 "aqua:LuaLS/lua-language-server" = "latest"
@@ -22,15 +22,19 @@ gpg_verify = false
 "aqua:neovim/neovim" = "latest"
 "aqua:pnpm/pnpm" = "latest"
 "aqua:rust-lang/rust-analyzer" = "latest"
+"aqua:tombi-toml/tombi" = "latest"
 "aqua:tree-sitter/tree-sitter" = "latest"
 "cargo:codebook-lsp" = "latest"
 "cargo:selene" = "latest"
+go = "latest"
 "go:github.com/mattn/efm-langserver" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
+node = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
 "npm:@google/gemini-cli" = "latest"
 "npm:@mdx-js/language-server" = "latest"
 "npm:@microsoft/compose-language-service" = "latest"
+"npm:@qwen-code/qwen-code" = "latest"
 "npm:@tailwindcss/language-server" = "latest"
 "npm:@vtsls/language-server" = "latest"
 "npm:dockerfile-language-server-nodejs" = "latest"
@@ -45,9 +49,6 @@ gpg_verify = false
 "pipx:isort" = "latest"
 "pipx:jedi-language-server" = "latest"
 "pipx:yamllint" = "latest"
-go = "latest"
-node = "latest"
 python = "latest"
 rust = "latest"
 usage = "latest"
-"npm:@qwen-code/qwen-code" = "latest"
