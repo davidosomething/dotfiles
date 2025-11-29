@@ -1,10 +1,8 @@
 local tools = require("dko.tools")
 
 tools.register({
-  mason_type = "tool",
-  require = "npm",
-  name = "markdownlint",
   fts = { "markdown" },
+  name = "markdownlint",
   efm = function()
     return vim.tbl_extend(
       "force",
@@ -16,46 +14,27 @@ tools.register({
 
 -- code actions for link completion
 tools.register({
-  mason_type = "lsp",
-  name = "marksman",
   fts = { "markdown" },
-  runner = "mason-lspconfig",
+  name = "marksman",
+  runner = "lspconfig",
 })
 
--- needs temp file to handle
--- tools.register({
---   mason_type = "tool",
---   require = "npm",
---   name = "markdownlint",
---   fts = { "markdown" },
---   efm = function()
---     return {
---       formatCommand = "markdownlint --fix --quiet ${INPUT}",
---       formatStdin = false,
---     }
---   end,
--- })
-
 tools.register({
-  mason_type = "tool",
-  require = "npm",
-  name = "prettier",
   fts = { "markdown" },
+  name = "prettier",
   efm = require("dko.tools.prettier").efm,
 })
 
 -- Vale not working
 --
 -- tools.register({
---   mason_type = "tool",
 --   name = "vale",
 --   fts = { "markdown" },
 -- })
 --
 -- -- vale_ls needs vale cli tool!
 -- tools.register({
---   mason_type = "lsp",
 --   name = "vale_ls",
 --   fts = { "markdown" },
---   runner = "mason-lspconfig",
+--   runner = "lspconfig",
 -- })

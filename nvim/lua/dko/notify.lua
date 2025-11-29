@@ -1,9 +1,6 @@
 -- =====================================================================
 -- Override vim.notify builtin
 -- known special titles
--- mason ones should not go to fidget because mason window will cover it
--- - "mason.nvim"
--- - "mason-lspconfig.nvim"
 -- - "nvim-treesitter"
 -- =====================================================================
 

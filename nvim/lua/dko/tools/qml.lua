@@ -1,8 +1,8 @@
 local tools = require("dko.tools")
 
 tools.register({
-  name = "qmlformat",
   fts = { "qml" },
+  name = "qmlformat",
   efm = function()
     return {
       formatCommand = "qmlformat --inplace ${INPUT}",
@@ -12,8 +12,8 @@ tools.register({
 })
 
 tools.register({
-  name = "qmllint",
   fts = { "qml" },
+  name = "qmllint",
   efm = function()
     return {
       lintCommand = "qmllint ${INPUT}",

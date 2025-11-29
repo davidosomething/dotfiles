@@ -1,10 +1,8 @@
 local tools = require("dko.tools")
 
 tools.register({
-  name = "selene",
   fts = { "lua" },
-  mason_type = "tool",
-  require = "_",
+  name = "selene",
   efm = function()
     ---@type EfmLinter
     return vim.tbl_extend(
@@ -16,10 +14,8 @@ tools.register({
 })
 
 tools.register({
-  mason_type = "tool",
-  require = "_",
-  name = "stylua",
   fts = { "lua" },
+  name = "stylua",
   efm = function()
     ---@type EfmFormatter
     return vim.tbl_extend("force", require("efmls-configs.formatters.stylua"), {
@@ -29,8 +25,6 @@ tools.register({
 })
 
 tools.register({
-  mason_type = "lsp",
-  require = "_",
   name = "lua_ls",
-  runner = "mason-lspconfig",
+  runner = "lspconfig",
 })

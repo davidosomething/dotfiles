@@ -4,26 +4,20 @@ local tools = require("dko.tools")
 local M = {}
 
 tools.register({
-  name = "prettier",
-  mason_type = "tool",
-  require = "npm",
   fts = require("dko.utils.jsts").fts,
+  name = "prettier",
   efm = require("dko.tools.prettier").efm,
 })
 
 tools.register({
-  name = "biome",
-  mason_type = "tool",
-  require = "npm",
   fts = require("dko.utils.jsts").fts,
+  name = "biome",
   efm = require("dko.tools.biome"),
 })
 
 -- jumping into classnames from jsx/tsx
 -- tools.register({
 --   name = "cssmodules_ls",
---   mason_type = "lsp",
---   require = "npm",
 -- })
 
 -- Provides textDocument/documentColor that nvim-highlight-colors can use
@@ -32,32 +26,23 @@ tools.register({
 --"cssls", -- conflicts with tailwindcss
 tools.register({
   name = "tailwindcss",
-  mason_type = "lsp",
-  require = "npm",
-  runner = "mason-lspconfig",
+  runner = "lspconfig",
 })
 
 if not require("dko.settings").get("coc.enabled") then
   tools.register({
     name = "eslint",
-    mason_type = "lsp",
-    require = "npm",
-    runner = "mason-lspconfig",
+    runner = "lspconfig",
   })
 
   tools.register({
     name = "vtsls",
-    mason_type = "lsp",
-    require = "npm",
-    runner = "mason-lspconfig",
+    runner = "lspconfig",
   })
 
-  -- mason-lspconfig ts_ls config
   -- tools.register({
   --   name = "ts_ls",
-  --   mason_type = "lsp",
-  --   require = "npm",
-  --   runner = "mason-lspconfig",
+  --   runner = "lspconfig",
   --   ---
   --   ts_ls binary only for "pmizio/typescript-tools.nvim", add:
   --   skip_init = true,

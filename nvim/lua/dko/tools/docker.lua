@@ -1,17 +1,14 @@
 local tools = require("dko.tools")
 
+--- https://github.com/rcjsuen/dockerfile-language-server
 tools.register({
   name = "dockerls",
-  mason_type = "lsp",
-  runner = "mason-lspconfig",
-  require = "npm",
+  runner = "lspconfig",
 })
 
 tools.register({
-  name = "hadolint",
   fts = { "Dockerfile" },
-  mason_type = "tool",
-  require = "_",
+  name = "hadolint",
   efm = function()
     ---@type EfmLinter
     return require("efmls-configs.linters.hadolint")

@@ -1,10 +1,8 @@
 local tools = require("dko.tools")
 
 tools.register({
-  mason_type = "tool",
-  require = "go",
-  name = "yamlfmt",
   fts = { "yaml" },
+  name = "yamlfmt",
   efm = function()
     return {
       formatCanRange = false,
@@ -17,8 +15,6 @@ tools.register({
 
 -- yamlls linting is disabled in favor of this
 tools.register({
-  mason_type = "tool",
-  require = "python",
   name = "yamllint",
   fts = { "yaml" },
   efm = function()
@@ -30,23 +26,13 @@ tools.register({
   end,
 })
 
-tools.register({
-  mason_type = "lsp",
-  require = "npm",
-  name = "ansiblels",
-})
-
 -- https://www.npmjs.com/package/@microsoft/compose-language-service
 tools.register({
-  mason_type = "lsp",
-  require = "npm",
   name = "docker_compose_language_service",
-  runner = "mason-lspconfig",
+  runner = "lspconfig",
 })
 
 tools.register({
-  mason_type = "lsp",
-  require = "npm",
   name = "yamlls",
-  runner = "mason-lspconfig",
+  runner = "lspconfig",
 })
