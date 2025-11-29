@@ -18,13 +18,16 @@ Neovim config, crafted for **nightly builds only**! Configured in Lua.
 | Colorscheme       | [vim-colors-meh] |
 | Completions       | [blink.nvim]     |
 | Status/tab/winbar | [heirline.nvim]  |
-| LSP/tool manager  | [mason.nvim]     |
 | Local LSP         | [efm-langserver] |
 | File finder       | [snacks.nvim]    |
 
 ## custom things
 
-- all mappings in [mappings.lua](./lua/dko/mappings.lua)
+- LSPs and external tools are expected to be installed via mise (as opposed to
+  something like mason.nvim). This allows them to be used in neovim, in the
+  CLI, and by coding agents alike.
+- mappings should be defined in [mappings.lua](./lua/dko/mappings.lua) or the
+  mappings subdirectory.
 - the preferred way command to open files is with [e](../bin/e)
   - it will create a new `nvim.sock` if one does not exist
   - it will use a single Neovim instance over the socket otherwise
@@ -50,7 +53,6 @@ Neovim config, crafted for **nightly builds only**! Configured in Lua.
 [lazy.nvim]: https://github.com/folke/lazy.nvim
 [gitsigns]: https://github.com/lewis6991/gitsigns.nvim
 [vim-colors-meh]: https://github.com/davidosomething/vim-colors-meh
-[mason.nvim]: https://github.com/mason-org/mason.nvim
 [efm-langserver]: https://github.com/mattn/efm-langserver
 [heirline.nvim]: https://github.com/rebelot/heirline.nvim
 [WezTerm]: https://github.com/wez/wezterm

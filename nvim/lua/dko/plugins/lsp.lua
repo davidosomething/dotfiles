@@ -72,7 +72,7 @@ return {
   -- https://github.com/pmizio/typescript-tools.nvim
   -- {
   --   "pmizio/typescript-tools.nvim",
-  --   cond = has_ui and vim.list_contains(dkotools.get_mason_lsps(), "ts_ls"), -- I'm using vtsls now instead
+  --   cond = has_ui
   --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
   --   config = function()
   --     local ts_ls_config = require("dko.utils.typescript").ts_ls.config
@@ -91,30 +91,23 @@ return {
   -- },
 
   {
-    "mason-org/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
     dependencies = {
       {
         -- provides some capabilities
         "hrsh7th/cmp-nvim-lsp",
         cond = wants_cmp,
       },
-      "neovim/nvim-lspconfig", -- wait for lspconfig
-
       -- @TODO move these somewhere else
       "b0o/schemastore.nvim", -- wait for schemastore for jsonls
     },
     config = function()
       local dkotools = require("dko.tools")
 
-      local lsps = dkotools.get_mason_lsps()
-      require("mason-lspconfig").setup({
-        automatic_enable = false,
-        ensure_installed = lsps,
-      })
-
       -- =====================================================================
       -- Enable lsps
       -- =====================================================================
+
       if wants_cmp then
         local function resolve_config_and_enable(configs)
           for _, name in pairs(configs) do
@@ -122,10 +115,8 @@ return {
           end
         end
         resolve_config_and_enable()
-        resolve_config_and_enable(dkotools.mason_lspconfig_resolvers)
       end
       vim.lsp.enable(dkotools.lspconfig_resolvers)
-      vim.lsp.enable(dkotools.mason_lspconfig_resolvers)
     end,
   },
 }

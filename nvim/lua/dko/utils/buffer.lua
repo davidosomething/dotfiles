@@ -5,7 +5,7 @@ M.SPECIAL_BUFTYPES = {
   "acwrite", -- oil
   "fzf", -- fzf-lua
   "help",
-  "nofile", -- e.g. notifications, :Lazy, :Mason
+  "nofile", -- e.g. notifications, :Lazy
   "popup",
   "prompt",
   "quickfix",
@@ -18,7 +18,6 @@ M.SPECIAL_FILETYPES = {
   "gitcommit",
   "gitrebase",
   "lazy",
-  "mason",
 }
 
 ---@param bufnr integer

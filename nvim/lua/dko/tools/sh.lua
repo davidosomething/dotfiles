@@ -1,10 +1,8 @@
 local tools = require("dko.tools")
 
 tools.register({
-  mason_type = "tool",
-  require = "_",
-  name = "shellcheck",
   fts = { "sh" },
+  name = "shellcheck",
   efm = function()
     ---@type EfmLinter
     return vim.tbl_extend(
@@ -20,10 +18,8 @@ tools.register({
 })
 
 tools.register({
-  mason_type = "tool",
-  require = "_",
-  name = "shfmt",
   fts = { "sh" },
+  name = "shfmt",
   efm = function()
     ---@type EfmFormatter
     return require("efmls-configs.formatters.shfmt")
@@ -32,8 +28,6 @@ tools.register({
 
 -- this lsp just runs shellcheck and shfmt
 -- tools.register({
---   mason_type = "lsp",
---   require = "npm",
 --   runner = "lspconfig",
 --   name = "bashls",
 --   fts = { "bash", "sh" },
