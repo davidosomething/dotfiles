@@ -11,6 +11,7 @@ gpg_verify = false
 "aqua:neovim/neovim" = "latest"
 "aqua:pnpm/pnpm" = "latest"
 "aqua:tree-sitter/tree-sitter" = "latest"
+"cargo:codebook-lsp" = "latest"
 go = "latest"
 node = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
