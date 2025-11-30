@@ -180,6 +180,8 @@ __remove "${HOME}/.zshrc"
 __remove "${DOTFILES}/zsh/.zinit"
 __remove "${DOTFILES}/zsh/.zplugin"
 
+# obsolete
+__remove "${XDG_DATA_HOME}/nvim/mason"
 __remove "${XDG_DATA_HOME}/zplug"
 
 "${DOTFILES}/bin/dko-fix-git-completion"
