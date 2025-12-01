@@ -13,16 +13,17 @@ if require("dko.utils.clipboard").should_use_osc52() then
     return
   end
 
-  local tag = vim.env.SSH_TTY
-      and " (" .. require("dko.utils.string").smallcaps("ssh") .. ")"
+  local dkostring = require("dko.utils.string")
+  local tag = vim.env.SSH_TTY and (" (%s)"):format(dkostring.smallcaps("ssh"))
     or ""
 
   -- neovim automatically does this as long as 'clipboard' is not set
+  local vim_osc52 = require("vim.ui.clipboard.osc52")
   vim.g.clipboard = {
-    name = (require("dko.utils.string").smallcaps("osc") .. "52%s"):format(tag),
+    name = ("%s52%s"):format(dkostring.smallcaps("osc"), tag),
     copy = {
-      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+      ["+"] = vim_osc52.copy("+"),
+      ["*"] = vim_osc52.copy("*"),
     },
     -- wezterm no paste support yet
     -- https://github.com/wez/wezterm/issues/2050
