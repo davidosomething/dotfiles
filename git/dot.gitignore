@@ -213,4 +213,4 @@ fabric.properties
 .factorypath
 
 **/.claude/settings.local.json
-codebook.yaml
+codebook.toml
