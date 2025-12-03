@@ -213,4 +213,6 @@ fabric.properties
 .factorypath
 
 **/.claude/settings.local.json
+
+# codebook lsp dictionary
 codebook.toml
