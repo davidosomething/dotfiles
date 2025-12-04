@@ -46,4 +46,20 @@ require("dko/mappings").setup(config)
 require("dko/theme").setup(config)
 require("dko/panes").setup()
 
+wezterm.on("gui-startup", function(cmd)
+  local _tab, _pane, window = wezterm.mux.spawn_window(cmd or {})
+  local w = window:gui_window()
+  w:maximize()
+
+  -- =========================================================================
+  -- DPI-based overrides
+  -- =========================================================================
+  local d = w:get_dimensions()
+  if d.dpi == 72 then
+    local overrides = w:get_config_overrides() or {}
+    overrides.font_size = 18
+    w:set_config_overrides(overrides)
+  end
+end)
+
 return config
