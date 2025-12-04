@@ -5,6 +5,9 @@ local M = {}
 -- =============================================================================
 
 M.setup = function(config)
+  -- May be overridden on gui-startup -- see ./wezterm.lua
+  config.font_size = 14.0
+
   -- ===========================================================================
   -- Fonts
   -- ===========================================================================
@@ -49,8 +52,6 @@ M.setup = function(config)
   })
 
   config.font_dirs = { "fonts" }
-
-  config.font_size = 12.0
 
   -- this is the default if using latest nightly
   --config.front_end = "WebGpu"
