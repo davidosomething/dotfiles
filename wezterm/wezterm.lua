@@ -57,7 +57,7 @@ wezterm.on("gui-startup", function(cmd)
   local d = w:get_dimensions()
   if d.dpi == 72 then
     local overrides = w:get_config_overrides() or {}
-    overrides.font_size = 18
+    overrides.font_size = 16
     w:set_config_overrides(overrides)
   end
 end)
