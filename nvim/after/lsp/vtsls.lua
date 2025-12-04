@@ -47,7 +47,7 @@ return {
         importModuleSpecifier = defaultImportModuleSpecifier,
         autoImportSpecifierExcludeRegexes = {
           --- Exclude imports from lucide-react that do not have the word Icon
-          "(?!.*Icon).*lucide-react",
+          -- "(?!.*Icon).*lucide-react",
           "(?!.*Button).*react-day-picker",
         },
       },
