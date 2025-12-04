@@ -63,7 +63,7 @@ wezterm.on("gui-startup", function(cmd)
 
   local DPI_MAP = {
     [72] = 16,
-    [96] = 12,
+    [96] = 11,
   }
   local override_size = DPI_MAP[d.dpi]
   if override_size ~= nil then
