@@ -1,5 +1,0 @@
-ansible-lint
-bashate
-pylint
-vulture
-yamllint
