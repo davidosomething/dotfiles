@@ -5,6 +5,6 @@
 cask "bitwarden"
 cask "discord"
 cask "notion-calendar"
-cask "standard-notes"
+cask "obsidian"
 cask "syncthing"
 cask "tailscale"
