@@ -12,45 +12,22 @@ local FT_TO_LANG_ALIASES = {
 -- opened a buffer with the corresponding ft
 local ENSURE_INSTALLED = { "html", "json", "lua", "markdown", "yaml" }
 
-local HIGHLIGHT_DISABLED = {
-  "just", --- prefer NoahTheDuke/vim-just for syntax highlighting
-}
-
 return {
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
     -- don't use this plugin when headless (lazy.nvim tends to try to install
     -- markdown support async)
     cond = has_ui,
     lazy = false,
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require("nvim-treesitter.configs").setup({
-        -- https://github.com/nvim-treesitter/nvim-treesitter/issues/3579#issuecomment-1278662119
-        auto_install = has_ui,
-        ensure_installed = has_ui and ENSURE_INSTALLED or {},
-        sync_install = true,
+      local ts = require("nvim-treesitter")
+      ts.setup()
 
-        -- Built-in modules configured here
-        -- see behaviors.lua for treesitter integration with other plugins
-        -- or the plugin lazy config itself, like nvim-ts-context-commentstring
-        highlight = {
-          enable = true,
-          disable = function(lang, bufnr)
-            if require("dko.utils.buffer").is_huge({ bufnr = bufnr }) then
-              return true
-            end
-            if vim.list_contains(HIGHLIGHT_DISABLED, lang) then
-              return true
-            end
-            return false
-          end,
-        },
-
-        indent = { enable = true },
-      })
+      if has_ui then
+        ts.install(ENSURE_INSTALLED):wait(300000) --- :wait makes it synchronous
+      end
 
       -- Aliases
       for ft, parser in pairs(FT_TO_LANG_ALIASES) do
