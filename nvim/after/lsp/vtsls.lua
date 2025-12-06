@@ -22,6 +22,10 @@ return {
       },
     },
     typescript = {
+      hover = {
+        --- https://github.com/microsoft/TypeScript/pull/61662
+        maximumLength = 99999,
+      },
       inlayHints = {
         parameterNames = {
           --- @type 'none' | 'literals' | 'all'
