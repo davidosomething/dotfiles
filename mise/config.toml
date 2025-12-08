@@ -24,7 +24,6 @@ gpg_verify = false
 "aqua:rust-lang/rust-analyzer" = "latest"
 "aqua:tombi-toml/tombi" = "latest"
 "aqua:tree-sitter/tree-sitter" = "latest"
-"cargo:codebook-lsp" = "latest"
 "cargo:selene" = "latest"
 go = "1"
 "go:github.com/mattn/efm-langserver" = "latest"

@@ -26,19 +26,15 @@ M.code_action_priority_list = {
   'Add import from "@',
   'Add import from "%.',
   'Add import from "',
-  "Fix this prettier",
-  "Fix all",
+  "Fix ",
   "for this line",
   "for the entire file",
-  "Remove braces",
-  "Remove unused",
-  "Convert parameters",
-  "Convert to anonymous",
+  "Remove ",
+  "Convert ",
   "Add missing function",
   "Infer function",
   "Extract to",
-  "Change spelling",
-  "Fix all detected spelling errors",
+  "spelling",
   "Show documentation",
   "Add all missing function",
   "Add braces",
@@ -52,7 +48,13 @@ M.code_action_priority_list = {
 M.sort_code_actions = function(a, b)
   local a_priority = 0
   local b_priority = 0
-  for weight, substr in ipairs(M.code_action_priority_list) do
+  local weight = 1
+  for _, substr in ipairs(M.code_action_priority_list) do
+    --- gettin too big
+    if weight > 19 then
+      return false
+    end
+
     local a_match = string.match(a.action.title, substr)
     local b_match = string.match(b.action.title, substr)
     if a_match ~= nil then
@@ -60,6 +62,9 @@ M.sort_code_actions = function(a, b)
     end
     if b_match ~= nil then
       b_priority = b_priority + math.pow(10, weight)
+    end
+    if a_match or b_match then
+      weight = weight + 1
     end
     if a_match and b_match then
       if a.action.title:len() > b.action.title:len() then
