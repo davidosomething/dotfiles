@@ -23,6 +23,7 @@ return {
   -- textDocument/codeAction
   -- ===========================================================================
 
+  -- https://github.com/kosayoda/nvim-lightbulb
   {
     "kosayoda/nvim-lightbulb",
     config = function()
