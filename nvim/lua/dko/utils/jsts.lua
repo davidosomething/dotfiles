@@ -43,38 +43,40 @@ M.code_action_priority_list = {
   "Move to a new file",
 }
 
+M._sort_code_actions = function(a, b)
+  if type(a.action.title) ~= "string" or type(b.action.title) ~= "string" then
+    return false
+  end
+  if a.action.title == b.action.title then
+    return false
+  end
+
+  local a_priority = 0
+  local b_priority = 0
+  for i, substr in ipairs(M.code_action_priority_list) do
+    local a_match = a.action.title:match(substr)
+    local b_match = b.action.title:match(substr)
+    if a_match ~= nil then
+      a_priority = i
+    end
+    if b_match ~= nil then
+      b_priority = i
+    end
+    if a_priority > 0 or b_priority > 0 then
+      return a_priority > b_priority
+    end
+  end
+  return false
+end
+
 ---@see https://github.com/rachartier/tiny-code-action.nvim#sorting
 ---@return boolean
 M.sort_code_actions = function(a, b)
-  local a_priority = 0
-  local b_priority = 0
-  local weight = 1
-  for _, substr in ipairs(M.code_action_priority_list) do
-    --- gettin too big
-    if weight > 19 then
-      return false
-    end
-
-    local a_match = string.match(a.action.title, substr)
-    local b_match = string.match(b.action.title, substr)
-    if a_match ~= nil then
-      a_priority = a_priority + math.pow(10, weight)
-    end
-    if b_match ~= nil then
-      b_priority = b_priority + math.pow(10, weight)
-    end
-    if a_match or b_match then
-      weight = weight + 1
-    end
-    if a_match and b_match then
-      if a.action.title:len() > b.action.title:len() then
-        a_priority = a_priority + 1
-      else
-        b_priority = b_priority + 1
-      end
-    end
+  local ok, result = pcall(M._sort_code_actions, a, b)
+  if not ok then
+    return false
   end
-  return a_priority < b_priority
+  return result
 end
 
 return M
