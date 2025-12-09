@@ -59,8 +59,6 @@ M.ts_ls.config = {
     if twoslashok then
       twoslash.attach(client, bufnr)
     end
-
-    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end,
 
   handlers = {
