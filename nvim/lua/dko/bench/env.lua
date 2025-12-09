@@ -2,7 +2,7 @@
 
 local RUNS = 10000
 
----@param callback fun()
+---@param callback fun(): any
 local function b(callback)
   local start_time = vim.fn.reltime() --[[@as number]]
   callback()

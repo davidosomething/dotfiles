@@ -23,6 +23,45 @@ return {
   -- textDocument/codeAction
   -- ===========================================================================
 
+  {
+    "kosayoda/nvim-lightbulb",
+    config = function()
+      require("nvim-lightbulb").setup({
+        autocmd = {
+          enabled = true,
+          updatetime = 1000,
+        },
+        code_lenses = true,
+
+        float = { enabled = false },
+        sign = { enabled = false },
+        --- via NvimLightbulb.get_status_text only
+        status_text = { enabled = true },
+
+        ---@type (fun(client_name:string, result:lsp.CodeAction|lsp.Command):boolean)|nil
+        filter = function(client, action)
+          -- common action.kind prefixes:
+          --  quickfix: For fixing diagnostics (errors/warnings).
+          --  refactor: For code transformations like extract/inline.
+          --  source: For code cleanup, sorting imports, etc..
+          --  test: For running or debugging tests.
+          --  other: For general or language-specific actions.
+          -- pretty much we only want a lightbulb on quickfix
+          if
+            (action.command and action.command.title == "Disable diagnostics")
+            or vim.startswith(action.kind, "refactor")
+          then
+            return false
+          end
+          if vim.g.debug_code_actions then
+            vim.print(action)
+          end
+          return true
+        end,
+      })
+    end,
+  },
+
   -- Options:
   -- fzf-lua
   -- "nvimdev/lspsaga.nvim" for cursor-based action
