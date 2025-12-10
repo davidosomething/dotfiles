@@ -40,6 +40,7 @@ return {
         status_text = { enabled = true },
 
         ---@type (fun(client_name:string, result:lsp.CodeAction|lsp.Command):boolean)|nil
+        ---@diagnostic disable-next-line: unused-local
         filter = function(client, action)
           -- common action.kind prefixes:
           --  quickfix: For fixing diagnostics (errors/warnings).
@@ -79,7 +80,20 @@ return {
     cond = has_ui
       and dkosettings.get("code_action_finder") == "tiny-code-action",
     event = "LspAttach",
-    opts = {},
+    opts = {
+      ---@type (fun(action:lsp.CodeAction|lsp.Command,client_name:string, ):string)|nil
+      ---@diagnostic disable-next-line: unused-local
+      format_title = function(action, client)
+        if action.kind then
+          return string.format(
+            "%s (%s)",
+            action.title,
+            require("dko.utils.string").smallcaps(action.kind)
+          )
+        end
+        return action.title
+      end,
+    },
   },
 
   -- ===========================================================================
