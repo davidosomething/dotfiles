@@ -1,13 +1,14 @@
 local dkomappings = require("dko.mappings")
-local dkosettings = require("dko.settings")
 
 local picker = dkomappings.picker
+
+local Methods = vim.lsp.protocol.Methods
 
 local M = {}
 
 ---@type FeatureMapping[]
 M.features = {
-  code_action = {
+  [Methods.textDocument_codeAction] = {
     finder_key = "code_action_finder",
     -- gra is default in 0.11, can use either
     shortcut = "<Leader><Leader>",
@@ -19,7 +20,6 @@ M.features = {
         if
           vim.list_contains(require("dko.utils.jsts").fts, vim.bo.filetype)
         then
-          vim.print("code_action_with_sorted")
           require("tiny-code-action").code_action({
             filter = require("dko.utils.jsts").filter_code_actions,
             sort = require("dko.utils.jsts").sort_code_actions,
@@ -30,16 +30,23 @@ M.features = {
       end,
     },
   },
-  documentLink = {
+  [Methods.textDocument_documentLink] = {
     shortcut = "grl",
     providers = {
       coc = "<Plug>(coc-openlink)",
       default = function()
-        require("dko.utils.lsp").follow_documentLink()
+        local _, lsplinks = pcall(require, "lsplinks")
+        if lsplinks then
+          lsplinks.gx()
+        else
+          require("dko.utils.notify").toast(
+            ("No handler for %s"):format(Methods.textDocument_documentLink)
+          )
+        end
       end,
     },
   },
-  hover = {
+  [Methods.textDocument_hover] = {
     shortcut = "K",
     providers = {
       coc = function()
@@ -60,7 +67,21 @@ M.features = {
       default = vim.lsp.buf.hover,
     },
   },
-  lsp_declarations = {
+  [Methods.textDocument_inlayHint] = {
+    shortcut = "<leader>i",
+    providers = {
+      default = function()
+        require("dko.utils.notify").toast(
+          ("Toggling %s"):format(Methods.textDocument_inlayHint)
+        )
+        vim.lsp.inlay_hint.enable(
+          not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }),
+          { bufnr = 0 }
+        )
+      end,
+    },
+  },
+  [Methods.textDocument_declaration] = {
     shortcut = "gD",
     providers = {
       coc = "<Plug>(coc-declaration)",
@@ -69,7 +90,7 @@ M.features = {
       snacks = picker("snacks", "lsp_declarations"),
     },
   },
-  lsp_definitions = {
+  [Methods.textDocument_definition] = {
     shortcut = "gd",
     providers = {
       coc = "<Plug>(coc-definition)",
@@ -87,7 +108,7 @@ M.features = {
       snacks = picker("snacks", "lsp_definitions"),
     },
   },
-  lsp_implementations = {
+  [Methods.textDocument_implementation] = {
     shortcut = "gri",
     providers = {
       coc = "<Plug>(coc-implementation)",
@@ -96,7 +117,7 @@ M.features = {
       snacks = picker("snacks", "lsp_implementations"),
     },
   },
-  lsp_references = {
+  [Methods.textDocument_references] = {
     shortcut = "grr",
     providers = {
       coc = "<Plug>(coc-references)",
@@ -105,14 +126,14 @@ M.features = {
       snacks = picker("snacks", "lsp_references"),
     },
   },
-  symbol_rename = {
+  [Methods.textDocument_rename] = {
     shortcut = "grn",
     providers = {
       coc = "<Plug>(coc-rename)",
       default = vim.lsp.buf.rename,
     },
   },
-  type_definition = {
+  [Methods.textDocument_typeDefinition] = {
     shortcut = "<Leader>D",
     providers = {
       coc = "<Plug>(coc-type-definition)",
@@ -145,12 +166,12 @@ end
 ---@param config FeatureMapping
 ---@param group FeatureGroup
 ---@return FeatureProviderKey,FeatureProvider -- tuple of provider_key and provider config
-local function get_provider(config, group)
+M.get_provider = function(config, group)
   if group == "coc" and config.providers["coc"] then
     return "coc", config.providers["coc"]
   end
   local finder_key = config.finder_key or "finder"
-  local finder = dkosettings.get(finder_key)
+  local finder = require("dko.settings").get(finder_key)
   local provider_key = config.providers[finder] and finder or "default"
   return provider_key, config.providers[provider_key]
 end
@@ -174,18 +195,12 @@ M.bind_lsp = function(bufnr, group)
   vim.b.did_bind_lsp = group
 
   for feature, config in pairs(M.features) do
-    local provider_key, provider = get_provider(config, group)
+    local provider_key, provider = M.get_provider(config, group)
     lspmap("n", config.shortcut, provider, {
       buffer = bufnr,
       desc = ("%s [%s]"):format(feature, provider_key),
     }, group)
   end
-
-  --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  --map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  --[[ map('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts) ]]
 end
 
 -- =============================================================================

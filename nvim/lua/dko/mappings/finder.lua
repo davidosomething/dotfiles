@@ -4,6 +4,8 @@ local dkosettings = require("dko.settings")
 
 local picker = dkomappings.picker
 
+local Methods = vim.lsp.protocol.Methods
+
 local M = {}
 
 ---@type FeatureMapping[]
@@ -20,9 +22,16 @@ M.features = {
     -- This way I can access regular lsp code actions alongside coc
     shortcut = "<A-a>",
     providers = {
-      -- folke has no plans to implement code_action so fallback to fzf
+      -- no snacks one
       -- https://github.com/folke/snacks.nvim/issues/626#issuecomment-2600919588
-      default = picker("fzf-lua", "lsp_code_actions"),
+      -- @TODO use
+      default = function()
+        local dkolspmappings = require("dko.mappings.lsp")
+        local feature = Methods.textDocument_codeAction
+        local config = dkolspmappings.features[feature]
+        local _, provider = dkolspmappings.get_provider(config, "lsp")
+        provider()
+      end,
     },
   },
   files = {

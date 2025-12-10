@@ -36,11 +36,24 @@ autocmd("LspAttach", {
       return
     end
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client then -- just to shut up type checking
+    if client then
       require("dko.mappings.lsp").bind_lsp(bufnr)
     end
   end,
   group = augroup("dkolsp"),
+})
+
+autocmd("LspAttach", {
+  desc = "Enable inlayHint",
+  callback = function(args)
+    local bufnr = args.buf ---@type number
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if
+      client and client:supports_method(Methods.textDocument_inlayHint, bufnr)
+    then
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
+  end,
 })
 
 autocmd("LspAttach", {
@@ -112,7 +125,7 @@ autocmd("LspDetach", {
     end
     -- Unregister the client from formatters (and update heirline)
     local detached_client = vim.lsp.get_client_by_id(args.data.client_id)
-    if detached_client ~= nil then
+    if detached_client then
       require("dko.utils.format").remove_formatter(
         args.buf,
         detached_client.name
