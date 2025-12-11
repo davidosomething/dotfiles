@@ -1,4 +1,5 @@
 local dkomappings = require("dko.mappings")
+local shared = require("dko.mappings.shared")
 
 local picker = dkomappings.picker
 
@@ -6,7 +7,7 @@ local Methods = vim.lsp.protocol.Methods
 
 local M = {}
 
----@type FeatureMapping[]
+---@type { [string]: FeatureMapping }
 M.features = {
   [Methods.textDocument_codeAction] = {
     finder_key = "code_action_finder",
@@ -17,16 +18,14 @@ M.features = {
       default = vim.lsp.buf.code_action, -- uses the vim.ui.select under the hood, which might be fzf or snacks
       fzf = picker("fzf-lua", "lsp_code_actions"),
       ["tiny-code-action"] = function()
-        if
-          vim.list_contains(require("dko.utils.jsts").fts, vim.bo.filetype)
-        then
-          require("tiny-code-action").code_action({
-            filter = require("dko.utils.jsts").filter_code_actions,
-            sort = require("dko.utils.jsts").sort_code_actions,
-          })
-        else
-          require("tiny-code-action").code_action({})
-        end
+        local jsts = require("dko.utils.jsts")
+        local opts = vim.list_contains(jsts.fts, vim.bo.filetype)
+            and {
+              filter = jsts.filter_code_actions,
+              sort = jsts.sort_code_actions,
+            }
+          or {}
+        require("tiny-code-action").code_action(opts)
       end,
     },
   },
@@ -39,8 +38,9 @@ M.features = {
         if lsplinks then
           lsplinks.gx()
         else
-          require("dko.utils.notify").toast(
-            ("No handler for %s"):format(Methods.textDocument_documentLink)
+          vim.notify(
+            ("No handler for %s"):format(Methods.textDocument_documentLink),
+            vim.log.levels.WARN
           )
         end
       end,
@@ -68,11 +68,12 @@ M.features = {
     },
   },
   [Methods.textDocument_inlayHint] = {
-    shortcut = "<leader>i",
+    shortcut = "<Leader>i",
     providers = {
       default = function()
-        require("dko.utils.notify").toast(
-          ("Toggling %s"):format(Methods.textDocument_inlayHint)
+        vim.notify(
+          ("Toggling %s"):format(Methods.textDocument_inlayHint),
+          vim.log.levels.DEBUG
         )
         vim.lsp.inlay_hint.enable(
           not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }),
@@ -163,21 +164,9 @@ M.unbind_lsp = function(bufnr, group)
   vim.b.did_bind_lsp = false
 end
 
----@param config FeatureMapping
----@param group FeatureGroup
----@return FeatureProviderKey,FeatureProvider -- tuple of provider_key and provider config
-M.get_provider = function(config, group)
-  if group == "coc" and config.providers["coc"] then
-    return "coc", config.providers["coc"]
-  end
-  local finder_key = config.finder_key or "finder"
-  local finder = require("dko.settings").get(finder_key)
-  local provider_key = config.providers[finder] and finder or "default"
-  return provider_key, config.providers[provider_key]
-end
-
+--- Maps and captures the returned cleanup function so we can unbind if the lsp
+--- is detached.
 local function lspmap(modes, lhs, rhs, opts, group)
-  opts.silent = true
   local unbind = dkomappings.map(modes, lhs, rhs, opts)
   local key = "b" .. opts.buffer
   M.bound[group][key] = M.bound[group][key] or {}
@@ -195,10 +184,11 @@ M.bind_lsp = function(bufnr, group)
   vim.b.did_bind_lsp = group
 
   for feature, config in pairs(M.features) do
-    local provider_key, provider = M.get_provider(config, group)
+    local provider_key, provider = shared.get_provider(config, group)
     lspmap("n", config.shortcut, provider, {
       buffer = bufnr,
-      desc = ("%s [%s]"):format(feature, provider_key),
+      desc = shared.format_desc(feature, provider_key),
+      silent = true,
     }, group)
   end
 end
