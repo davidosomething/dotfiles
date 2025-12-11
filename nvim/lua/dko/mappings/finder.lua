@@ -1,6 +1,6 @@
 local dkomappings = require("dko.mappings")
 local dkoproject = require("dko.utils.project")
-local dkosettings = require("dko.settings")
+local shared = require("dko.mappings.shared")
 
 local picker = dkomappings.picker
 
@@ -8,7 +8,7 @@ local Methods = vim.lsp.protocol.Methods
 
 local M = {}
 
----@type FeatureMapping[]
+---@type { [string]: FeatureMapping }
 M.features = {
   buffers = {
     shortcut = "<A-b>",
@@ -106,27 +106,15 @@ M.features = {
 }
 
 M.bind_finder = function()
-  local function map(modes, lhs, rhs, opts)
-    opts.silent = true
-    dkomappings.map(modes, lhs, rhs, opts)
-  end
-
   for feature, config in pairs(M.features) do
-    local provider_key = dkosettings.get("finder")
-    provider_key = config.providers[provider_key] and provider_key or "default"
-    local provider = config.providers[provider_key]
+    local provider_key, provider = shared.get_provider(config, nil, "finder")
     if provider then
-      map("n", config.shortcut, provider, {
-        desc = ("%s [%s]"):format(feature, provider_key),
+      dkomappings.map("n", config.shortcut, provider, {
+        desc = shared.format_desc(feature, provider_key),
+        silent = true,
       })
     end
   end
-
-  --map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  --map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  --[[ map('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts) ]]
 end
 
 return M

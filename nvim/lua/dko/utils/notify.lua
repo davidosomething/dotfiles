@@ -5,6 +5,8 @@ local M = {}
 ---@param level? integer vim.log.levels.*
 ---@param opts? table
 M.toast = function(msg, level, opts)
+  opts = opts or {}
+
   -- use title as fidget's annote option
   opts.annote = opts and opts.title
 
