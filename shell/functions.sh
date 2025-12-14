@@ -100,8 +100,8 @@ mykey() {
 }
 
 publicip() {
-  curl icanhazip.com 2>/dev/null ||
-    dig +short @resolver2.opendns.com myip.opendns.com 2>/dev/null
+  curl icanhazip.com 2>/dev/null \
+    || dig +short @resolver2.opendns.com myip.opendns.com 2>/dev/null
 }
 
 # useful for finding things like INSECURE keys (only Ed25519 acceptable)

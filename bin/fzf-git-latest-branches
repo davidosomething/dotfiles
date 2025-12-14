@@ -28,21 +28,21 @@ __fzf-git-latest-branches() {
   out=$(fzf \
     +m \
     --cycle \
-    --delimiter="$(( 2 + $(wc -l <<< "$branches") ))" \
+    --delimiter="$((2 + $(wc -l <<<"$branches")))" \
     --exit-0 \
     --expect=ctrl-y \
     --height=25% --no-hscroll --no-mouse --no-multi \
     --preview="git log {1} --abbrev-commit --oneline --max-count 25" \
-    --prompt="${current}> " <<< "$branches") \
+    --prompt="${current}> " <<<"$branches")
 
   local branch
-  branch="$(head -2 <<< "$out" | tail -1)"
+  branch="$(head -2 <<<"$out" | tail -1)"
   branch="${branch//[[:blank:]]/}" # strip spaces
   branch="$(printf '%s' "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
   [ -z "$branch" ] && return 1
 
   local key
-  key="$(head -1 <<< "$out")"
+  key="$(head -1 <<<"$out")"
   if [[ "$key" == "ctrl-y" ]]; then
     printf '%s' "$branch" | pbcopy
     printf '"%s" copied into clipboard\n' "$branch"
