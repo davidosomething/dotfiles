@@ -9,16 +9,16 @@ __serve() {
   local port
   port="${1:-8888}"
 
-  __dko_has 'python3' && __dko_status "Using python3 http.server" && \
-    python3 -m http.server "$port" && \
+  __dko_has 'python3' && __dko_status "Using python3 http.server" &&
+    python3 -m http.server "$port" &&
     return 0
 
-  __dko_has 'python2' && __dko_status "Using python2 SimpleHTTPServer" && \
-    python2 -m SimpleHTTPServer "$port" && \
+  __dko_has 'python2' && __dko_status "Using python2 SimpleHTTPServer" &&
+    python2 -m SimpleHTTPServer "$port" &&
     return 0
 
-  __dko_has 'http-server' && __dko_status "Using node http-server" && \
-    http-server -p "$port" && \
+  __dko_has 'http-server' && __dko_status "Using node http-server" &&
+    http-server -p "$port" &&
     return 0
 }
 

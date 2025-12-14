@@ -19,10 +19,10 @@ __dko_symlink() {
   dko-same "$sourcepath" "$fulltargetpath"
   local result=$?
 
-  if (( result == 0 )); then
+  if ((result == 0)); then
     # properly symlinked
     return
-  elif (( result == 10 )); then
+  elif ((result == 10)); then
     if [[ -n "$CI" ]]; then
       __dko_ok_ "CI run: skipping ${fulltargetpath}"
       return
@@ -35,7 +35,7 @@ __dko_symlink() {
       fi
     fi
     # OVERWRITE!
-  elif (( result != 20 )); then
+  elif ((result != 20)); then
     # could not determine status
     return
   fi

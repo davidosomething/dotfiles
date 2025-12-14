@@ -5,7 +5,6 @@
 # Rename symlink's original file and re-symlink
 #
 
-
 _usage() {
   cat <<SAUSAGE
 USAGE: rln target_file newname_for_source
@@ -17,7 +16,6 @@ The target_file's source_file (see LN(1)) will be force updated.
 
 SAUSAGE
 }
-
 
 _rln() {
   local target_file="$1"
@@ -43,19 +41,17 @@ _rln() {
   elif [ -e "$new_source" ]; then
     printf 'WARNING: new source "%s" exists. Please remove it first. Skipping.\n' "$new_source"
   else
-    mv "$original_source" "$new_source" \
-    && ln -sf "$new_source" "$target_file" \
-    && echo "SUCCESS"
+    mv "$original_source" "$new_source" &&
+      ln -sf "$new_source" "$target_file" &&
+      echo "SUCCESS"
   fi
 }
 
-
 if [ -z "$1" ] || [ -z "$2" ]; then
-  _usage;
+  _usage
 elif ! test -L "$1"; then
   >&2 printf 'ERROR: Invalid target_file %s\n' "$1"
   exit 1
 else
   _rln "$1" "$2"
 fi
-

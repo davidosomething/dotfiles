@@ -9,16 +9,14 @@
 #   git in $some_path
 #
 
-
 # Exits with error if not a git repository
 __check_in_repository() {
-  git rev-parse --git-dir > /dev/null 2>&1
+  git rev-parse --git-dir >/dev/null 2>&1
 }
-
 
 # exit with message if invalid usage
 __check_args() {
-  if (( $# == 0 )); then
+  if (($# == 0)); then
     >&2 echo "ERROR: Please provide a path argument."
     exit 1
   fi
@@ -28,7 +26,6 @@ __check_args() {
     exit 1
   fi
 }
-
 
 # cd into path's directory and exit with check_in_repository status
 # so either 0 (in git) or 128 (not in git)
@@ -58,7 +55,6 @@ __git_in() {
     exit 1
   fi
 }
-
 
 __check_args "$@"
 __git_in "$1"

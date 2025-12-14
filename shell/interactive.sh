@@ -2,8 +2,8 @@
 # shell/interactive.sh
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive.sh {"
-[ -f "${HOME}/.local/dotfiles.lock" ] &&
-  "${DOTFILES}/shell/dko-wait-for-dotfiles-lock"
+[ -f "${HOME}/.local/dotfiles.lock" ] \
+  && "${DOTFILES}/shell/dko-wait-for-dotfiles-lock"
 
 # need this here in case not starting a login shell
 . "${DOTFILES}/lib/helpers.sh"
@@ -29,8 +29,8 @@ esac
 
 . "${DOTFILES}/shell/aliases.sh"
 
-[ -f "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.sh" ] &&
-  . "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.sh"
+[ -f "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.sh" ] \
+  && . "${DOTFILES}/shell/aliases-${DOTFILES_DISTRO}.sh"
 
 # ============================================================================
 
