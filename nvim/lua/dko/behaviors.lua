@@ -87,6 +87,7 @@ if has_ui then
       if
         vim.list_contains({
           "checkhealth",
+          "git", -- gitcommit
           "justfile",
           "lazy",
           "mason",
