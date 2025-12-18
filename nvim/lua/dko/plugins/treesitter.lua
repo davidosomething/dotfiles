@@ -8,27 +8,32 @@ local FT_TO_LANG_ALIASES = {
   typescriptreact = "tsx",
 }
 
--- Some other plugins use treesitter features, so need these even if never
--- opened a buffer with the corresponding ft
-local ENSURE_INSTALLED = { "html", "json", "lua", "markdown", "yaml" }
-
 return {
+  { "nvim-treesitter/nvim-treesitter-context" },
+
+  -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/tree/main
+  { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
+
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
+    build = ":TSUpdate",
     -- don't use this plugin when headless (lazy.nvim tends to try to install
     -- markdown support async)
-    cond = has_ui,
     lazy = false,
     config = function()
-      local ts = require("nvim-treesitter")
-      ts.setup()
-
-      if has_ui then
-        ts.install(ENSURE_INSTALLED):wait(300000) --- :wait makes it synchronous
-      end
-
+      -- Some other plugins use treesitter features, so need these even if never
+      -- opened a buffer with the corresponding ft
+      require("nvim-treesitter")
+        .install({
+          "html",
+          "json",
+          "lua",
+          "markdown",
+          "yaml",
+        })
+        :wait(300000) --- :wait makes it synchronous
       -- Aliases
       for ft, parser in pairs(FT_TO_LANG_ALIASES) do
         vim.treesitter.language.register(parser, ft)
