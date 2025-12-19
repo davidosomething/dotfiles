@@ -9,7 +9,7 @@ local FT_TO_LANG_ALIASES = {
 }
 
 return {
-  { "nvim-treesitter/nvim-treesitter-context" },
+  -- { "nvim-treesitter/nvim-treesitter-context" },
 
   -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/tree/main
   { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
