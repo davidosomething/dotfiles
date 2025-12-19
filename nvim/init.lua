@@ -44,6 +44,7 @@ require("dko.lazy")
 -- for things not handled by plugins, or that plugins did wrong
 require("dko.builtin-syntax")
 require("dko.filetypes")
+require("dko.treesitter")
 
 require("dko.lsp") -- override some lsp handlers
 require("dko.notify") -- override some vim.notify with plugins
