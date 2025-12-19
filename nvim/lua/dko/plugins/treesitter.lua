@@ -29,8 +29,10 @@ return {
         .install({
           "html",
           "json",
+          "jsx",
           "lua",
           "markdown",
+          "tsx",
           "yaml",
         })
         :wait(300000) --- :wait makes it synchronous
