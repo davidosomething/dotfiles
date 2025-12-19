@@ -28,3 +28,8 @@ tools.register({
   name = "lua_ls",
   runner = "lspconfig",
 })
+
+tools.register({
+  name = "emmylua_ls",
+  runner = "lspconfig",
+})
