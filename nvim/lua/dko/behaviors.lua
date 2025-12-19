@@ -108,6 +108,7 @@ if has_ui then
         return
       end
 
+      require("nvim-treesitter").install(args.match):wait(30000)
       vim.treesitter.start()
       vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
       vim.wo[0][0].foldmethod = "expr"
