@@ -63,6 +63,15 @@ return {
   --   end,
   -- },
 
+  --- https://github.com/andromediano/pnpm-catalog-info.nvim
+  {
+    "andromediano/pnpm-catalog-info.nvim",
+    ft = { "yaml" },
+    config = function()
+      require("pnpm-catalog-info").setup()
+    end,
+  },
+
   -- https://github.com/vuki656/package-info.nvim
   -- Parses string output of npm outdated
   -- {

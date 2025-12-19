@@ -79,6 +79,42 @@ if has_ui then
     end,
     group = augroup("dkoreading"),
   })
+
+  autocmd("FileType", {
+    -- args.match will be "lua"
+    -- args.buf will be the buffer number (e.g., 1, 2, etc.)
+    callback = function(args)
+      if
+        vim.list_contains({
+          "checkhealth",
+          "git", -- gitcommit
+          "justfile",
+          "lazy",
+          "mason",
+          "snacks",
+          "snacks_dashboard",
+          "snacks_notif",
+          "snacks_picker_input",
+          "snacks_win",
+        }, args.match)
+      then
+        return
+      end
+      local dkobuffer = require("dko.utils.buffer")
+      if
+        dkobuffer.is_special(args.buf)
+        or dkobuffer.is_huge({ bufnr = args.buf })
+      then
+        return
+      end
+
+      vim.treesitter.start()
+      vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.wo[0][0].foldmethod = "expr"
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+    group = augroup("dkotreesitter"),
+  })
 end
 
 -- yanky.nvim providing this
