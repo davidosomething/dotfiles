@@ -108,18 +108,12 @@ if has_ui then
         return
       end
 
-      require("nvim-treesitter").install(args.match):wait(30000)
-      if vim.treesitter.get_parser(nil, nil, { error = false }) == nil then
-        vim.notify(
-          ("No treesitter parser for %s"):format(args.match),
-          vim.log.levels.WARN
-        )
-      else
-        vim.treesitter.start()
+      require("nvim-treesitter").install(args.match):await(function()
         vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.wo[0][0].foldmethod = "expr"
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      end
+        vim.treesitter.start()
+      end)
     end,
     group = augroup("dkotreesitter"),
   })
