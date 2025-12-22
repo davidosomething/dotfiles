@@ -25,6 +25,7 @@ gpg_verify = false
 "aqua:tombi-toml/tombi" = "latest"
 "aqua:tree-sitter/tree-sitter" = "latest"
 "cargo:selene" = "latest"
+"github:skanehira/version-lsp" = "latest"
 go = "1"
 "go:github.com/mattn/efm-langserver" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"

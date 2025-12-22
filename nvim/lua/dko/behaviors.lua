@@ -73,7 +73,7 @@ if has_ui then
     desc = "Show NPM lens via npm-lens.nvim",
     pattern = "package.json",
     callback = function()
-      if vim.fn.exists(":NpmLensToggle") then
+      if vim.fn.exists(":NpmLensToggle") ~= 0 then
         vim.cmd.NpmLensToggle()
       end
     end,
@@ -96,6 +96,7 @@ if has_ui then
           "snacks_notif",
           "snacks_picker_input",
           "snacks_win",
+          "toggleterm",
         }, args.match)
       then
         return
