@@ -44,7 +44,6 @@ return {
   -- Has BufReadPost autocmd
   {
     "angelinuxx/npm-lens.nvim",
-    enabled = false,
     cond = has_ui,
     cmd = "NpmLensToggle",
     opts = {
@@ -67,7 +66,6 @@ return {
   --- https://github.com/andromediano/pnpm-catalog-info.nvim
   {
     "andromediano/pnpm-catalog-info.nvim",
-    enabled = false,
     ft = { "yaml" },
     config = function()
       require("pnpm-catalog-info").setup()

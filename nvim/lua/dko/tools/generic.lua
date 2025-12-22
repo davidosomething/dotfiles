@@ -30,7 +30,10 @@ vim.lsp.config["version-lsp"] = {
     },
   },
 }
-dkotools.register({
-  name = "version-lsp",
-  runner = "lspconfig",
-})
+-- Disabled for now, using nvim plugins instead until
+-- - https://github.com/skanehira/version-lsp/issues/14
+-- - https://github.com/skanehira/version-lsp/issues/15
+-- dkotools.register({
+--   name = "version-lsp",
+--   runner = "lspconfig",
+-- })
