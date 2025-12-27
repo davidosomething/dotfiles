@@ -42,14 +42,14 @@ return {
   -- https://github.com/angelinuxx/npm-lens.nvim
   -- Parses JSON output of npm outdated --json
   -- Has BufReadPost autocmd
-  {
-    "angelinuxx/npm-lens.nvim",
-    cond = has_ui,
-    cmd = "NpmLensToggle",
-    opts = {
-      enabled = false, -- If false, info in `package.json` won't display until `:NpmLensToggle` is used
-    },
-  },
+  -- {
+  --   "angelinuxx/npm-lens.nvim",
+  --   cond = has_ui,
+  --   cmd = "NpmLensToggle",
+  --   opts = {
+  --     enabled = false, -- If false, info in `package.json` won't display until `:NpmLensToggle` is used
+  --   },
+  -- },
 
   --- https://github.com/ryoppippi/nvim-pnpm-catalog-lens
   --- In package.json, show the actual version by dereferencing the catalog tag
@@ -64,13 +64,13 @@ return {
   -- },
 
   --- https://github.com/andromediano/pnpm-catalog-info.nvim
-  {
-    "andromediano/pnpm-catalog-info.nvim",
-    ft = { "yaml" },
-    config = function()
-      require("pnpm-catalog-info").setup()
-    end,
-  },
+  -- {
+  --   "andromediano/pnpm-catalog-info.nvim",
+  --   ft = { "yaml" },
+  --   config = function()
+  --     require("pnpm-catalog-info").setup()
+  --   end,
+  -- },
 
   -- https://github.com/vuki656/package-info.nvim
   -- Parses string output of npm outdated

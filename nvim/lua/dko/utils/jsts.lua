@@ -21,6 +21,7 @@ end
 
 ---Each item is weighted exponentially higher than the next
 M.code_action_priority_list = {
+  "Bump to", -- version_lsp
   "Update import",
   "Add all missing imports",
   'Add import from "@',
