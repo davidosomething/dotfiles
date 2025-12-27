@@ -69,17 +69,6 @@ if has_ui then
     group = augroup("dkoreading"),
   })
 
-  autocmd("BufReadPost", {
-    desc = "Show NPM lens via npm-lens.nvim",
-    pattern = "package.json",
-    callback = function()
-      if vim.fn.exists(":NpmLensToggle") ~= 0 then
-        vim.cmd.NpmLensToggle()
-      end
-    end,
-    group = augroup("dkoreading"),
-  })
-
   autocmd("FileType", {
     -- args.match will be "lua"
     -- args.buf will be the buffer number (e.g., 1, 2, etc.)
