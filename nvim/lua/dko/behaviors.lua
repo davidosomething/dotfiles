@@ -73,21 +73,8 @@ if has_ui then
     -- args.match will be "lua"
     -- args.buf will be the buffer number (e.g., 1, 2, etc.)
     callback = function(args)
-      if
-        vim.list_contains({
-          "checkhealth",
-          "git", -- gitcommit
-          "justfile",
-          "lazy",
-          "mason",
-          "snacks",
-          "snacks_dashboard",
-          "snacks_notif",
-          "snacks_picker_input",
-          "snacks_win",
-          "toggleterm",
-        }, args.match)
-      then
+      local dkots = require("dko.treesitter")
+      if vim.list_contains(dkots.treesitter_ignores, args.match) then
         return
       end
       local dkobuffer = require("dko.utils.buffer")
@@ -98,12 +85,12 @@ if has_ui then
         return
       end
 
-      require("nvim-treesitter").install(args.match):await(function()
-        vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.wo[0][0].foldmethod = "expr"
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        vim.treesitter.start()
-      end)
+      local ok, ts = pcall(require, "nvim-treesitter")
+      if ok then
+        ts.install(args.match):await(dkots.bind_buffer)
+      else
+        require("dko.treesitter").enqueue(args.buf)
+      end
     end,
     group = augroup("dkotreesitter"),
   })
