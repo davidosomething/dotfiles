@@ -18,6 +18,7 @@ return {
           "yaml",
         })
         :wait(300000) --- :wait makes it synchronous
+      require("dko.treesitter").flush()
     end,
     -- don't use this plugin when headless (lazy.nvim tends to try to install
     -- markdown support async)
