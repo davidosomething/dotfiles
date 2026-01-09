@@ -226,6 +226,10 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
 autocmd({ "BufWritePost", "FileWritePost" }, {
   desc = "Restart coc-eslint if saved file for first time",
   callback = function()
+    if not require("dko.settings").get("coc.enabled") then
+      return
+    end
+    -- you must explicitly set to 0 to disable on a buffer when coc is running
     if vim.b.coc_enabled ~= 0 and vim.b.newfile == 1 then
       vim.b.newfile = nil
       vim.cmd.CocCommand("eslint.restart")
