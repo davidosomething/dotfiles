@@ -2,6 +2,7 @@ local dkosettings = require("dko.settings")
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
+---@type LazySpec
 return {
   -- show diff when editing a COMMIT_EDITMSG
   {

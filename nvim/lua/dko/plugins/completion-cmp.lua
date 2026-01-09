@@ -38,6 +38,7 @@ local cmpWindowSettings = {
 -- plugin caches
 local nhc_ok, nhc
 
+---@type LazySpec
 local cmp_dependencies = {
   { "dcampos/cmp-snippy", dependencies = "dcampos/nvim-snippy" },
 
@@ -60,6 +61,7 @@ local cmp_dependencies = {
   -- "onsails/lspkind.nvim",
 }
 
+---@type LazySpec
 return {
   {
     -- "hrsh7th/nvim-cmp",

@@ -10,6 +10,7 @@ local wants_cmp = dkosettings.get("completion.engine") == "cmp"
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
+---@type LazySpec
 return {
   -- ===========================================================================
   -- $/progress

@@ -6,6 +6,7 @@ local has_ui = #uis > 0
 
 local notifier = dkosettings.get("notify")
 
+---@type LazySpec
 return {
   -- Some alternatives I have used before
   -- https://github.com/ObserverOfTime/notifications.nvim

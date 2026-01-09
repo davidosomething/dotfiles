@@ -1,5 +1,6 @@
 local dev = vim.env.NVIM_DEV ~= nil
 
+---@type LazySpec
 return {
   {
     "davidosomething/vim-colors-meh",
