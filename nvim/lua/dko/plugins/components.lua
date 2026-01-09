@@ -6,6 +6,7 @@ local has_ui = #uis > 0
 local select = dkosettings.get("select")
 local input = dkosettings.get("input")
 
+---@type LazySpec
 return {
   {
     "folke/snacks.nvim",

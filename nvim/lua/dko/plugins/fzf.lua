@@ -1,5 +1,6 @@
 local dkosettings = require("dko.settings")
 
+---@type LazySpec
 return {
   {
     "ibhagwan/fzf-lua",

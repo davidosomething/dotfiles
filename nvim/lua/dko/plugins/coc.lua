@@ -1,6 +1,7 @@
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
+---@type LazySpec
 return {
   -- Using this for tsserver specifically, faster results than nvim-lsp
   {

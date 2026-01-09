@@ -29,6 +29,7 @@ local function disable_winbar_cb(args)
   }, args.buf)
 end
 
+---@type LazySpec
 return {
   {
     "rebelot/heirline.nvim",

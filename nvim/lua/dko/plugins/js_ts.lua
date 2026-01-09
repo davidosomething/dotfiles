@@ -3,6 +3,7 @@ local has_ui = #uis > 0
 
 local dev = vim.env.NVIM_DEV ~= nil
 
+---@type LazySpec
 return {
   {
     "davidosomething/format-ts-errors.nvim",

@@ -1,6 +1,7 @@
 local uis = vim.api.nvim_list_uis()
 local has_ui = #uis > 0
 
+---@type LazySpec
 return {
   --- A yank-ring
   --- https://github.com/gbprod/yanky.nvim
