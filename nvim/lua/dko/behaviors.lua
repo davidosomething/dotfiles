@@ -87,9 +87,14 @@ if has_ui then
 
       local ok, ts = pcall(require, "nvim-treesitter")
       if ok then
-        ts.install(args.match):await(dkots.bind_buffer)
+        local filetype = args.match
+        local filetype_parser = dkots.filetype_to_parser[filetype]
+        local parser = filetype_parser or filetype
+        ts.install(parser):await(function()
+          dkots.bind_buffer()
+        end)
       else
-        require("dko.treesitter").enqueue(args.buf)
+        dkots.enqueue(args.buf)
       end
     end,
     group = augroup("dkotreesitter"),
