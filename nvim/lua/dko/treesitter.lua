@@ -3,7 +3,9 @@ local buffer_queue = {}
 local M = {}
 
 M.filetype_to_parser = {
+  dosini = "ini",
   dotenv = "bash",
+  fstab = "ini",
   javascriptreact = "jsx",
   tiltfile = "starlark",
   typescriptreact = "tsx",
