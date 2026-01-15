@@ -1,16 +1,19 @@
-for ft, parser in pairs({
-  dotenv = "bash",
-  javascriptreact = "jsx",
-  tiltfile = "starlark",
-  typescriptreact = "tsx",
-}) do
-  vim.treesitter.language.register(parser, ft)
-end
-
 local buffer_queue = {}
 
 local M = {}
 
+M.filetype_to_parser = {
+  dotenv = "bash",
+  javascriptreact = "jsx",
+  tiltfile = "starlark",
+  typescriptreact = "tsx",
+  udevrules = "udev",
+}
+for ft, parser in pairs(M.filetype_to_parser) do
+  vim.treesitter.language.register(parser, ft)
+end
+
+---@type string[] -- list of filetypes to skip parser installation
 M.treesitter_ignores = {
   "checkhealth",
   "git", -- gitcommit

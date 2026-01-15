@@ -8,10 +8,9 @@ return {
   -- because https://github.com/neovim/neovim/issues/1496
   -- once https://github.com/neovim/neovim/pull/10842 is merged, there will
   -- probably be a better implementation for this
-  {
-    "lambdalisue/vim-suda",
-    cmd = "SudaWrite",
-  },
+  -- { "lambdalisue/vim-suda", cmd = "SudaWrite" },
+  --- https://github.com/gnsfujiwara/suda.nvim
+  { "gnsfujiwara/suda.nvim", event = "VeryLazy" },
 
   {
     "nvim-mini/mini.bracketed",
