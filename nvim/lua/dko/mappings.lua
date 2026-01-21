@@ -907,12 +907,17 @@ M.bind_treewalker = function()
 end
 
 -- ===========================================================================
--- Plugin: tw-values.nvim
+-- Plugin: tw-values.nvim / tailwind-hover.nvim
 -- ===========================================================================
 
 M.twvalues = "<Leader>tw"
 M.bind_twvalues = function()
   map("n", M.twvalues, "<Cmd>TWValues<CR>")
+end
+
+M.tailwind_hover = "<Leader>tw"
+M.bind_tailwind_hover = function()
+  map("n", M.tailwind_hover, "<Cmd>TailwindHover<CR>")
 end
 
 -- ===========================================================================
