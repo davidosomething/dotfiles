@@ -26,12 +26,28 @@ gpg_verify = false
 "aqua:tombi-toml/tombi" = "latest"
 "aqua:tree-sitter/tree-sitter" = "latest"
 "cargo:selene" = "latest"
+claude = { version = "latest", bin = "claude", platforms = """
+[linux-arm64]
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{{ version }}/linux-arm64/claude"
+
+[linux-x64]
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{{ version }}/linux-x64/claude"
+
+[macos-arm64]
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{{ version }}/darwin-arm64/claude"
+
+[macos-x64]
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{{ version }}/darwin-x64/claude"
+
+[windows-x64]
+bin = "claude.exe"
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{{ version }}/win32-x64/claude.exe"
+""", version_list_url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest" }
 "github:skanehira/version-lsp" = "latest"
 go = "1.25.6"
 "go:github.com/mattn/efm-langserver" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 node = "latest"
-"npm:@anthropic-ai/claude-code" = "latest"
 "npm:@google/gemini-cli" = "latest"
 "npm:@mdx-js/language-server" = "latest"
 "npm:@microsoft/compose-language-service" = "latest"
