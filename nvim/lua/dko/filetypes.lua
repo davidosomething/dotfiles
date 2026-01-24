@@ -33,4 +33,4 @@ vim.filetype.add({
   },
 })
 
--- check ./plugins/treesitter.lua to enable ts highlighting for new filetypes
+-- check filetype_to_parser in ./treesitter.lua for treesitter syntax mappings
