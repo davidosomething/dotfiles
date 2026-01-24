@@ -10,6 +10,7 @@ M.filetype_to_parser = {
   tiltfile = "starlark",
   typescriptreact = "tsx",
   udevrules = "udev",
+  ["yaml.docker-compose"] = "yaml",
 }
 for ft, parser in pairs(M.filetype_to_parser) do
   vim.treesitter.language.register(parser, ft)
