@@ -3,6 +3,7 @@ return {
   -- https://github.com/nvim-treesitter/nvim-treesitter/
   {
     "nvim-treesitter/nvim-treesitter",
+    enabled = vim.env.DKO_TREESITTER == nil,
     branch = "main",
     build = ":TSUpdate",
     config = function()
