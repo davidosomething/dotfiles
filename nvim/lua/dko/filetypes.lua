@@ -22,6 +22,7 @@ vim.filetype.add({
   pattern = {
     ["compose.y.?ml"] = "yaml.docker-compose",
     ["docker%-compose%.y.?ml"] = "yaml.docker-compose",
+    ["gitconfig"] = "gitconfig",
     ["%.env%.[%w_.-]+"] = "dotenv",
     ["tsconfig%."] = "jsonc",
     -- ["env%.(%a+)"] = function(_path, _bufnr, ext)
