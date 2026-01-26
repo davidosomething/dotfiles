@@ -8,6 +8,7 @@ M.filetype_to_parser = {
   fstab = "ini",
   gitconfig = "git_config",
   javascriptreact = "jsx",
+  sshconfig = "ssh_config",
   tiltfile = "starlark",
   typescriptreact = "tsx",
   udevrules = "udev",
