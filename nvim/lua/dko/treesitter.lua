@@ -3,6 +3,7 @@ local buffer_queue = {}
 local M = {}
 
 M.filetype_to_parser = {
+  ["yaml.docker-compose"] = "yaml",
   dosini = "ini",
   dotenv = "bash",
   fstab = "ini",
@@ -12,7 +13,6 @@ M.filetype_to_parser = {
   tiltfile = "starlark",
   typescriptreact = "tsx",
   udevrules = "udev",
-  ["yaml.docker-compose"] = "yaml",
 }
 for ft, parser in pairs(M.filetype_to_parser) do
   vim.treesitter.language.register(parser, ft)
