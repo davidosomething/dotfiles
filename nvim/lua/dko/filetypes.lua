@@ -11,6 +11,7 @@ vim.filetype.add({
     volume = "systemd",
   },
   filename = {
+    -- dotfiles do not count as extensions, they are exact filename only
     [".dockerignore"] = "gitignore",
     [".env"] = "dotenv",
     [".eslintrc.json"] = "jsonc",
@@ -23,7 +24,7 @@ vim.filetype.add({
   pattern = {
     ["compose.y.?ml"] = "yaml.docker-compose",
     ["docker%-compose%.y.?ml"] = "yaml.docker-compose",
-    ["gitconfig"] = "gitconfig",
+    ["[%w_.-]*%.gitconfig"] = "gitconfig",
     ["%.env%.[%w_.-]+"] = "dotenv",
     ["tsconfig%."] = "jsonc",
     -- ["env%.(%a+)"] = function(_path, _bufnr, ext)

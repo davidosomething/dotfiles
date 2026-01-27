@@ -9,6 +9,12 @@ M.filetype_to_parser = {
   fstab = "ini",
   gitconfig = "git_config",
   javascriptreact = "jsx",
+
+  -- tree-sitter-json supports comments, so good enough
+  -- https://github.com/tree-sitter/tree-sitter-json/issues/59
+  jsonc = "json",
+
+  sh = "bash",
   sshconfig = "ssh_config",
   tiltfile = "starlark",
   typescriptreact = "tsx",
