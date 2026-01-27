@@ -15,6 +15,7 @@ vim.filetype.add({
     [".env"] = "dotenv",
     [".eslintrc.json"] = "jsonc",
     [".ignore"] = "gitignore",
+    [".nxignore"] = "gitignore",
     [".yamlfmt"] = "yaml",
     [".yamllint"] = "yaml",
     ["project.json"] = "jsonc", -- assuming nx project.json
