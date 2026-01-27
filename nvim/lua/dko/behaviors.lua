@@ -91,7 +91,9 @@ if has_ui then
         local filetype_parser = dkots.filetype_to_parser[filetype]
         local parser = filetype_parser or filetype
         ts.install(parser):await(function()
-          dkots.bind_buffer()
+          if vim.list_contains(ts.get_installed("parser"), parser) then
+            dkots.bind_buffer()
+          end
         end)
       else
         dkots.enqueue(args.buf)
