@@ -27,3 +27,6 @@ alias testnotification="notify-send \
 
 # systemd
 alias logboot='sudo journalctl -b0'
+
+alias plasmadebugger='plasma-interactiveconsole --kwin || qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.showInteractiveKWinConsole'
+alias kwinlogs='journalctl -f QT_CATEGORY=js QT_CATEGORY=kwin_scripting'
