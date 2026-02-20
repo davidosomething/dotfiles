@@ -59,17 +59,13 @@ M.pipelines["markdown"] = {
 }
 M.pipelines["yaml"] = {
   function()
-    if vim.bo.filetype == "yaml.docker-compose" then
-      vim.lsp.buf.format({ name = "docker_compose_language_service" })
-      notify({ "docker_compose_language_service" })
-      return
-    end
     require("dko.utils.format.efm").format_with(
       "yamlfmt",
       { pipeline = "yamlfmt" }
     )
   end,
 }
+M.pipelines["yaml.docker-compose"] = M.pipelines["yaml"]
 
 --- See options for vim.lsp.buf.format
 M.run_pipeline = function(options)
