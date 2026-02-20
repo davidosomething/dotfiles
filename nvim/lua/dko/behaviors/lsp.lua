@@ -62,11 +62,10 @@ autocmd("LspAttach", {
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    --- Not all formatters claim to support the method at the time of this
-    --- autocmd. See Methods.client_registerCapability in ../dko/lsp.lua
-    if client and client:supports_method(Methods.textDocument_formatting) then
-      require("dko.utils.format").add_formatter(bufnr, client.name, {})
-    end
+    --- Not all formatters register capabilities at the time of this autocmd
+    --- See the lsp handler overrides in ../lsp.lua for adding formatters during
+    --- dynamic registration
+    require("dko.lsp").add_formatter(bufnr, client)
   end,
   group = augroup("dkolsp"),
 })

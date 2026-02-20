@@ -1,75 +1,6 @@
 local lsp = vim.lsp
 local Methods = lsp.protocol.Methods
 
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
----@diagnostic disable-next-line: duplicate-set-field
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = require("dko.settings").get("pumborder")
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
-
----@alias dkonotify.MessageType
----| 1 # Error
----| 2 # Warning
----| 3 # Info
----| 4 # Log
-
----@alias dkonotify.LogLevel
----| 0 # TRACE
----| 1 # DEBUG
----| 2 # INFO
----| 3 # WARN
----| 4 # ERROR
----| 5 # OFF
-
----Convert an LSP MessageType to a vim.notify vim.log.levels int
----@param mt dkonotify.MessageType https://github.com/neovim/neovim/blob/7ef5e363d360f86c5d8d403e90ed256f4de798ec/runtime/lua/vim/lsp/protocol.lua#L50-L60
----@return dkonotify.LogLevel level https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_editor.lua#L59-L69
-local function lsp_messagetype_to_vim_log_level(mt)
-  local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[mt]
-  return vim.log.levels[lvl]
-end
-
----Show LSP messages via toast (default is vim.notify or nvim_out_write)
--- https://github.com/neovim/neovim/blob/199d852d9f8584217be38efb56b725aa3db62931/runtime/lua/vim/lsp/handlers.lua#L635-L654
-vim.lsp.handlers[Methods.window_showMessage] = function(_, result, ctx, _)
-  local client = lsp.get_client_by_id(ctx.client_id)
-  local client_name = client and client.name or ctx.client_id
-  local title = ("[LSP] %s"):format(client_name)
-  if not client then
-    require("dko.utils.notify").toast(
-      result.message,
-      vim.log.levels.ERROR,
-      { title = title }
-    )
-  else
-    local level = lsp_messagetype_to_vim_log_level(result.type)
-    require("dko.utils.notify").toast(result.message, level, { title = title })
-  end
-  return result
-end
-
---- Register formatters that were dynamically registered (capability added later
---- than the LspAttach autocmd).
---- see :h LspAttach
-vim.lsp.handlers[Methods.client_registerCapability] = (function(overridden)
-  return function(err, res, ctx)
-    local result = overridden(err, res, ctx)
-    local client = vim.lsp.get_client_by_id(ctx.client_id)
-    if not client then
-      return
-    end
-    for bufnr, _ in pairs(client.attached_buffers) do
-      if client:supports_method(Methods.textDocument_formatting) then
-        -- vim.notify("Dynamically registered formatter " .. client.name)
-        require("dko.utils.format").add_formatter(bufnr, client.name, {})
-      end
-    end
-    return result
-  end
-end)(vim.lsp.handlers[Methods.client_registerCapability])
-
 local M = {}
 
 ---@see vscode docs <https://github.com/microsoft/vscode/blob/570f7da3b52bde576d6bba5f71cb44ddda1460a8/extensions/typescript-language-features/src/languageFeatures/fileConfigurationManager.ts#L309-L316>
@@ -171,5 +102,91 @@ M.change_client_settings = function(client, overrides, options)
   end
   return true, restore
 end
+
+--- ==========================================================================
+--- Overrides
+--- ==========================================================================
+
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+---@diagnostic disable-next-line: duplicate-set-field
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = require("dko.settings").get("pumborder")
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
+---@alias dkonotify.MessageType
+---| 1 # Error
+---| 2 # Warning
+---| 3 # Info
+---| 4 # Log
+
+---@alias dkonotify.LogLevel
+---| 0 # TRACE
+---| 1 # DEBUG
+---| 2 # INFO
+---| 3 # WARN
+---| 4 # ERROR
+---| 5 # OFF
+
+---Convert an LSP MessageType to a vim.notify vim.log.levels int
+---@param mt dkonotify.MessageType https://github.com/neovim/neovim/blob/7ef5e363d360f86c5d8d403e90ed256f4de798ec/runtime/lua/vim/lsp/protocol.lua#L50-L60
+---@return dkonotify.LogLevel level https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_editor.lua#L59-L69
+local function lsp_messagetype_to_vim_log_level(mt)
+  local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[mt]
+  return vim.log.levels[lvl]
+end
+
+---Show LSP messages via toast (default is vim.notify or nvim_out_write)
+-- https://github.com/neovim/neovim/blob/199d852d9f8584217be38efb56b725aa3db62931/runtime/lua/vim/lsp/handlers.lua#L635-L654
+vim.lsp.handlers[Methods.window_showMessage] = function(_, result, ctx, _)
+  local client = lsp.get_client_by_id(ctx.client_id)
+  local client_name = client and client.name or ctx.client_id
+  local title = ("[LSP] %s"):format(client_name)
+  if not client then
+    require("dko.utils.notify").toast(
+      result.message,
+      vim.log.levels.ERROR,
+      { title = title }
+    )
+  else
+    local level = lsp_messagetype_to_vim_log_level(result.type)
+    require("dko.utils.notify").toast(result.message, level, { title = title })
+  end
+  return result
+end
+
+---@param bufnr number
+---@param client vim.lsp.Client
+M.add_formatter = function(bufnr, client)
+  local disabled = vim.b[bufnr].disabled_formatters or {}
+  if
+    client:supports_method(Methods.textDocument_formatting)
+    and not vim.list_contains(disabled, client.name)
+  then
+    require("dko.utils.format").add_formatter(bufnr, client.name, {})
+  end
+end
+
+--- Register formatters that were dynamically registered (capability added later
+--- than the LspAttach autocmd).
+--- efm is one LSP that dynamically registers formatters
+--- see :h LspAttach
+vim.lsp.handlers[Methods.client_registerCapability] = (function(overridden)
+  --- @param res lsp.RegistrationParams
+  return function(err, res, ctx)
+    local result = overridden(err, res, ctx)
+    --- ^ as of this call the client will now have the capability registered
+
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    if client then
+      for bufnr, _ in pairs(client.attached_buffers) do
+        M.add_formatter(bufnr, client)
+      end
+    end
+
+    return result
+  end
+end)(vim.lsp.handlers[Methods.client_registerCapability])
 
 return M

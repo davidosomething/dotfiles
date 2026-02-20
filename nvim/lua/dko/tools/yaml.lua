@@ -1,7 +1,7 @@
 local tools = require("dko.tools")
 
 tools.register({
-  fts = { "yaml" },
+  fts = { "yaml", "yaml.docker-compose" },
   name = "yamlfmt",
   efm = function()
     return {
