@@ -52,7 +52,7 @@ return {
           -- pretty much we only want a lightbulb on quickfix
           if
             (action.command and action.command.title == "Disable diagnostics")
-            or vim.startswith(action.kind, "refactor")
+            or vim.startswith(action.kind or "", "refactor")
           then
             return false
           end
