@@ -90,25 +90,24 @@ function {
   zinit snippet 'OMZP::extract'
 
   if [[ -d "$ASDF_DATA_DIR" ]]; then
-    # loads asdf.sh
-    zinit snippet 'OMZP::asdf'
-  else
-    local mise_bpick=""
-    [[ $DOTFILES_OS == "Linux" ]] && mise_bpick="*-linux-x64.tar.gz"
-    [[ $DOTFILES_OS == "Darwin" ]] && {
-      mise_bpick="*-macos-x64.tar.gz"
-      [[ $DOTFILES_DISTRO == "arm64" ]] && mise_bpick="*-macos-arm64.tar.gz"
-    }
-    zinit ice lucid from'gh-r' as'program' bpick"$mise_bpick" \
-      pick'mise/bin/mise' \
-      atclone"
-          cp -vf **/*.1 \"$man1\";
-          ./mise/bin/mise completion zsh > _mise
-          " \
-      atpull'%atclone' \
-      atload'eval "$(mise activate zsh)"'
-    zinit light 'jdx/mise'
+    __dko_warn "ASDF_DATA_DIR found, please migrate to mise"
   fi
+
+  local mise_bpick=""
+  [[ $DOTFILES_OS == "Linux" ]] && mise_bpick="*-linux-x64.tar.gz"
+  [[ $DOTFILES_OS == "Darwin" ]] && {
+    mise_bpick="*-macos-x64.tar.gz"
+    [[ $DOTFILES_DISTRO == "arm64" ]] && mise_bpick="*-macos-arm64.tar.gz"
+  }
+  zinit ice lucid from'gh-r' as'program' bpick"$mise_bpick" \
+    pick'mise/bin/mise' \
+    atclone"
+        cp -vf **/*.1 \"$man1\";
+        ./mise/bin/mise completion zsh > _mise
+        " \
+    atpull'%atclone' \
+    atload'eval "$(mise activate zsh)"'
+  zinit light 'jdx/mise'
 
   # ----------------------------------------------------------------------------
   # Completions
