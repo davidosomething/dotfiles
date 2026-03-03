@@ -1,3 +1,2 @@
 [tools]
-"npm:@qwen-code/qwen-code" = "latest"
 "aqua:koalaman/shellcheck" = "latest"
