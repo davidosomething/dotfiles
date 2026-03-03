@@ -61,14 +61,19 @@ cunt() {
   COMPOSER_CACHE_DIR=/dev/null composer update
 }
 
+# 1: port
 killport() {
-  command -v gruyere >/dev/null && gruyere && return
-
   # -t terse, just get pid
   # -i by internet addr
   # -sTCP:LISTEN  only the server listening, not clients connecting/browsers
   #               viewing
-  lsof -t -iTCP:"$1" -sTCP:LISTEN | xargs -r kill -9
+  local pid
+  pid=$(lsof -t -iTCP:"$1" -sTCP:LISTEN)
+  if [[ -z $pid ]]; then
+    __dko_warn "Could not find a process on port $1"
+  else
+    kill -9 "$pid"
+  fi
 }
 
 # ============================================================================
