@@ -18,7 +18,10 @@ tools.register({
 })
 
 tools.register({
-  fts = { "sh" },
+  fts = {
+    "sh",
+    "zsh", -- zsh as of https://github.com/mvdan/sh/releases/tag/v3.13.0
+  },
   name = "shfmt",
   efm = function()
     ---@type EfmFormatter

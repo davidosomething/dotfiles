@@ -2,6 +2,7 @@
 Brewfile.lock.json
 
 # managed
+mise.local.toml
 linux/konsole/bookmarks.xml*
 mac/bitbar/enabled/
 node_modules/
