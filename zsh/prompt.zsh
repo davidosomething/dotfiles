@@ -56,10 +56,6 @@ __dko_prompt::precmd::state() {
   local right_raw=" ${(ej::)__dko_prompt_right_parts}"
   local right_len=${#right_raw}
 
-  local cols
-  cols=${COLUMNS:-$(tput cols 2>/dev/null)}
-  cols=${cols:-80}
-
   local left=''
   # colorize
   for (( i = 1; i <= ${#__dko_prompt_left_parts}; i++ )) do
@@ -69,6 +65,7 @@ __dko_prompt::precmd::state() {
   local result="${left}"
 
   # Right side if has room
+  local cols=${COLUMNS:-80}
   local spaces=$(( $cols - $left_len - $right_len ))
   if (( spaces > 4 )); then
     local right=' '
@@ -76,7 +73,7 @@ __dko_prompt::precmd::state() {
     for (( i = 1; i <= ${#__dko_prompt_right_parts}; i++ )) do
       right="${right}${(%)__dko_prompt_right_colors[i]}${(e)__dko_prompt_right_parts[i]}"
     done
-    result="${result}%F{black}${(l:spaces-1::═:)}%F{blue}${(e)right}%F{blue}"
+    result="${result}%F{black}${(l:spaces-1::═:)}%F{blue}${(e)right}%f"
   fi
 
   # <C-c> to just output a prompt without the statusline above it
