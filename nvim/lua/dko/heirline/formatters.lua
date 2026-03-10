@@ -1,9 +1,7 @@
-local conditions = require("heirline.conditions")
-
 -- see ../utils/format.lua for vim.b.formatters definition
 -- List format-on-save clients for the buffer
 return {
-  condition = function(self)
+  condition = function()
     -- nil means NEVER registered
     return vim.b.formatters ~= nil
   end,
