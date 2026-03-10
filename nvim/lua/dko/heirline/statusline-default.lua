@@ -11,5 +11,6 @@ return {
     hl = "StatusLineNC",
   },
 
+  require("dko.heirline.formatters"),
   require("dko.heirline.ruler"),
 }
