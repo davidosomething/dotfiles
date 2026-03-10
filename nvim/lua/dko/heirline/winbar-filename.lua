@@ -28,10 +28,7 @@ return {
 
   {
     provider = function(self)
-      if self.filepath == "" then
-        return "ᴜɴɴᴀᴍᴇᴅ"
-      end
-      return vim.fn.fnamemodify(self.filepath, ":t")
+      return self.filename
     end,
     hl = function()
       return require("dko.heirline.utils").hl(

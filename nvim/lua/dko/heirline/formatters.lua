@@ -1,7 +1,9 @@
+local conditions = require("heirline.conditions")
+
 -- see ../utils/format.lua for vim.b.formatters definition
 -- List format-on-save clients for the buffer
 return {
-  condition = function()
+  condition = function(self)
     -- nil means NEVER registered
     return vim.b.formatters ~= nil
   end,
@@ -21,7 +23,7 @@ return {
       return #vim.b.formatters > 0
     end,
     hl = function()
-      return require("dko.heirline.utils").hl()
+      return require("dko.heirline.utils").hl("dkoStatusKey")
     end,
     provider = function()
       local items = {}
@@ -48,7 +50,7 @@ return {
           end
         end
       end
-      return "󱃖 "
+      return " 󱃖 "
         .. require("dko.utils.string").smallcaps(table.concat(items, ","))
         .. " "
     end,
