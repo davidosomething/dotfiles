@@ -23,11 +23,20 @@ gpg_verify = false
 "aqua:rust-lang/rust-analyzer" = "latest"
 "aqua:tombi-toml/tombi" = "latest"
 "aqua:tree-sitter/tree-sitter" = "latest"
+# @TODO fix completions for bat
 "cargo:selene" = "latest"
+# @TODO fix completions for fd
+fd = "latest"
+# @TODO fix completions for cli
+github-cli = "latest"
 "github:skanehira/version-lsp" = "latest"
 go = "1.26.1"
 "go:github.com/mattn/efm-langserver" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
+"http:git-relevant" = { version = "0.0.0", url = "https://raw.githubusercontent.com/davidosomething/git-relevant/refs/heads/master/git-relevant" }
+"http:git-take" = { version = "0.0.0", url = "https://raw.githubusercontent.com/davidosomething/git-take/refs/heads/master/git-take" }
+# @TODO fix completions for jq
+jq = "latest"
 node = "latest"
 "npm:@mdx-js/language-server" = "latest"
 "npm:@microsoft/compose-language-service" = "latest"
@@ -45,4 +54,6 @@ node = "latest"
 "pipx:jedi-language-server" = "latest"
 "pipx:yamllint" = "latest"
 python = "latest"
+# @TODO fix completions for ripgrep
+ripgrep = "latest"
 rust = "latest"
