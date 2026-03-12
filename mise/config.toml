@@ -19,7 +19,6 @@ gpg_verify = false
 "aqua:koalaman/shellcheck" = "latest"
 "aqua:mvdan/sh" = "latest"
 "aqua:neovim/neovim" = "latest"
-"aqua:pnpm/pnpm" = "latest"
 "aqua:rust-lang/rust-analyzer" = "latest"
 "aqua:tombi-toml/tombi" = "latest"
 "aqua:tree-sitter/tree-sitter" = "latest"

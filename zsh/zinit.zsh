@@ -74,18 +74,10 @@ function {
   zinit ice from'gh-r' as'program' bpick"$mise_bpick" \
     pick'mise/bin/mise' \
     atclone'
-        cp -vf **/*.1 "$man1";
-	echo "==> Activating mise" && eval "$(./mise/bin/mise activate zsh)" &&
-	echo "==> Generating zsh completions" && mise completion zsh > _mise &&
-	echo "==> Trust $DOTFILES" && mise trust "$DOTFILES" &&
-	echo "==> OK Don't forget to mise install";
-        ' \
-    atpull'
         cp -vf **/*.1 \"$man1\";
-	echo "==> Activating mise" && eval "$(./mise/bin/mise activate zsh)" &&
-	echo "==> Re-generating zsh completions" && mise completion zsh > _mise &&
-	echo "==> OK Don't forget to mise upgrade";
+	./mise/bin/mise completion zsh > _mise;
         ' \
+    atpull'%atclone' \
     atload'eval "$(mise activate zsh)"'
   zinit light 'jdx/mise'
 
