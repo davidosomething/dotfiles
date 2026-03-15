@@ -15,11 +15,6 @@ end
 ---@param finder_key? string Optional finder key override
 ---@return string provider_key, any provider
 M.get_provider = function(config, group, finder_key)
-  -- Handle COC-specific logic for LSP
-  if group == "coc" and config.providers["coc"] then
-    return "coc", config.providers["coc"]
-  end
-
   -- Determine which finder key to use
   finder_key = finder_key or config.finder_key or "finder"
   local finder = require("dko.settings").get(finder_key)
@@ -30,4 +25,3 @@ M.get_provider = function(config, group, finder_key)
 end
 
 return M
-

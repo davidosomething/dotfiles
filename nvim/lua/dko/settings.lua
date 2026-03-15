@@ -18,14 +18,6 @@ settings.colors = {
   --   light = "zenbones",
 }
 
-settings.coc = {
-  enabled = false,
-  fts = require("dko.utils.table").concat(
-    require("dko.utils.jsts").fts,
-    { "json", "jsonc", "mdx" }
-  ),
-}
-
 settings.diagnostics = {
   goto_float = true,
 }

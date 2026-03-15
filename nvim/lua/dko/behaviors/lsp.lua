@@ -65,7 +65,9 @@ autocmd("LspAttach", {
     --- Not all formatters register capabilities at the time of this autocmd
     --- See the lsp handler overrides in ../lsp.lua for adding formatters during
     --- dynamic registration
-    require("dko.lsp").add_formatter(bufnr, client)
+    if client then
+      require("dko.lsp").add_formatter(bufnr, client)
+    end
   end,
   group = augroup("dkolsp"),
 })
@@ -135,33 +137,8 @@ autocmd("LspDetach", {
 })
 
 autocmd("FileType", {
-  desc = "Set mappings/format on save for specific filetypes if coc.nvim is enabled",
+  desc = "Set mappings/format on save for specific filetypes",
   callback = function(opts)
-    local dkosettings = require("dko.settings")
-
-    local use_coc = dkosettings.get("coc.enabled")
-      and vim.list_contains(dkosettings.get("coc.fts"), vim.bo.filetype)
-
-    --- order matters here
-    if use_coc then
-      --- Disable blink.nvim
-      --- https://cmp.saghen.dev/recipes.html#disable-per-filetype-buffer
-      vim.b.completion = false
-
-      vim.cmd.CocStart()
-      require("dko.mappings.lsp").bind_coc(opts)
-      vim.bo.formatexpr = "CocAction('formatSelected')"
-
-      --- @TODO move this to a tools-based registration
-      -- require("dko.utils.format").add_formatter("coc")
-      -- vim.b.enable_format_on_save = true
-    else
-      -- explicitly disable coc
-      vim.b.coc_enabled = 0
-      vim.b.coc_diagnostic_disable = 1
-      vim.b.coc_suggest_disable = 1
-    end
-
     local dkomappings = require("dko.mappings")
     dkomappings.bind_snippy()
     dkomappings.bind_completion(opts)
@@ -171,25 +148,6 @@ autocmd("FileType", {
       -- quite the way I want it.
       require("dko.mappings.lua").bind_gf()
     end
-  end,
-  group = augroup("dkolsp"),
-})
-
--- Triggered after the coc services have started.
--- If you want to trigger an action of coc after Vim has started, this
--- autocmd should be used because coc is always started asynchronously.
-autocmd("User", {
-  pattern = "CocNvimInit",
-  callback = function()
-    require("dko.behaviors.escesc").add(function()
-      if
-        require("dko.settings").get("coc.enabled")
-        and vim.fn.exists("*coc#float#close_all")
-      then
-        vim.fn["coc#float#close_all"](1)
-        vim.fn["coc#notify#close_all"]()
-      end
-    end, "Close coc.nvim floats and notifications on <Esc><Esc>")
   end,
   group = augroup("dkolsp"),
 })
@@ -216,23 +174,6 @@ autocmd({ "BufWritePre", "FileWritePre" }, {
       return
     end
     require("dko.utils.format").run_pipeline({ async = false })
-  end,
-  group = augroup("dkolsp"),
-})
-
---- Need to restart coc-eslint for newly created files
---- https://github.com/neoclide/coc-eslint#features
-autocmd({ "BufWritePost", "FileWritePost" }, {
-  desc = "Restart coc-eslint if saved file for first time",
-  callback = function()
-    if not require("dko.settings").get("coc.enabled") then
-      return
-    end
-    -- you must explicitly set to 0 to disable on a buffer when coc is running
-    if vim.b.coc_enabled ~= 0 and vim.b.newfile == 1 then
-      vim.b.newfile = nil
-      vim.cmd.CocCommand("eslint.restart")
-    end
   end,
   group = augroup("dkolsp"),
 })

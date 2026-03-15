@@ -18,8 +18,7 @@ M.features = {
     },
   },
   code_actions = {
-    -- This is always for vim.lsp.buf.code_action, never for coc
-    -- This way I can access regular lsp code actions alongside coc
+    -- This is always for vim.lsp.buf.code_action
     shortcut = "<A-a>",
     providers = {
       -- no snacks one

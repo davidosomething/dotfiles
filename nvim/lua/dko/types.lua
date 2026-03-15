@@ -1,6 +1,6 @@
----@alias FeatureGroup 'coc' | 'lsp'
+---@alias FeatureGroup 'lsp'
 
----@alias FeatureProviderKey 'coc' | 'default' | 'fzf' | 'snacks'
+---@alias FeatureProviderKey 'default' | 'fzf' | 'snacks'
 ---@alias FeatureProvider string | fun()
 
 ---@class FeatureMapping
