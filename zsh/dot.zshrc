@@ -163,6 +163,8 @@ zle -N self-insert url-quote-magic
 
 . "${ZDOTDIR}/prompt.zsh"
 
+. "${ZDOTDIR}/title.zsh"
+
 # ============================================================================
 # Keybindings
 #
