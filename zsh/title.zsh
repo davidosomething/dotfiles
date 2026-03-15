@@ -29,9 +29,9 @@ __dko_zhook::ansi::title() {
 }
 
 __dko_ztitle::ansi() {
-  add-zsh-hook preexec  __dko_zhook::ansi::process
-  add-zsh-hook precmd   __dko_zhook::ansi::title
-  add-zsh-hook chpwd    __dko_zhook::ansi::title
+  add-zsh-hook preexec __dko_zhook::ansi::process
+  add-zsh-hook precmd __dko_zhook::ansi::title
+  add-zsh-hook chpwd __dko_zhook::ansi::title
 }
 
 # ----------------------------------------------------------------------------
@@ -39,18 +39,18 @@ __dko_ztitle::ansi() {
 # ----------------------------------------------------------------------------
 
 __dko_zhook::xterm::process() {
-  print -n "\e]0;${1}\a"
+  print -n "\e]2;${1}\a"
 }
 
 __dko_zhook::xterm::title() {
   local title="%n@%m:%~"
-  print -Pn "\e]0;${title}\a"
+  print -Pn "\e]2;${title}\a"
 }
 
 __dko_ztitle::xterm() {
-  add-zsh-hook preexec  __dko_zhook::xterm::process
-  add-zsh-hook precmd   __dko_zhook::xterm::title
-  add-zsh-hook chpwd    __dko_zhook::xterm::title
+  add-zsh-hook preexec __dko_zhook::xterm::process
+  add-zsh-hook precmd __dko_zhook::xterm::title
+  add-zsh-hook chpwd __dko_zhook::xterm::title
 }
 
 # ============================================================================
@@ -58,8 +58,8 @@ __dko_ztitle::xterm() {
 # ============================================================================
 
 case "${TERM}" in
-  rxvt*|xterm*) __dko_ztitle::xterm ;;
+rxvt* | xterm*) __dko_ztitle::xterm ;;
 
   # echos on tmux :<
-  #*)            __dko_term::ansi ;;
+  #*)            __dko_ztitle::ansi ;;
 esac
