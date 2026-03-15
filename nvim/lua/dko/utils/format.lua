@@ -30,10 +30,7 @@ M.pipelines["html"] = {
   "efm:prettier",
 }
 
-M.pipelines["javascript"] = {
-  require("dko.utils.format.javascript").format,
-  require("dko.settings").get("coc.enabled") and "coc" or nil,
-}
+M.pipelines["javascript"] = { require("dko.utils.format.javascript").format }
 
 M.pipelines["javascriptreact"] = M.pipelines["javascript"]
 M.pipelines["typescript"] = M.pipelines["javascript"]

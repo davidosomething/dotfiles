@@ -1,53 +1,5 @@
 local M = {}
 
----Detect coc-eslint is installed
-M.has_coc_eslint = function()
-  if vim.g.has_coc_eslint == nil then
-    vim.g.has_coc_eslint = vim
-      .iter(vim.g.coc_global_extensions)
-      :find(function(v)
-        return string.find(v, "coc%-eslint")
-      end)
-  end
-  return vim.g.has_coc_eslint
-end
-
----@return boolean
-M.format_with_coc = function()
-  local toast_opts = {
-    group = "format",
-    title = "[coc.nvim]",
-    render = "wrapped-compact",
-  }
-  local toast = require("dko.utils.notify").toast
-
-  local did_format = false
-
-  local has_eslint_plugin_prettier =
-    require("dko.utils.format.eslint").has_eslint_plugin_prettier()
-
-  if
-    not has_eslint_plugin_prettier
-    and require("dko.utils.format.coc").has_coc_prettier()
-  then
-    vim.cmd.CocCommand("prettier.forceFormatDocument")
-    toast("coc-prettier", vim.log.levels.INFO, toast_opts)
-    vim.cmd.sleep("100m") -- m is milliseconds
-    did_format = true
-  end
-
-  if M.has_coc_eslint() then
-    local message = has_eslint_plugin_prettier and " + eslint-plugin-prettier"
-      or ""
-    toast(("coc-eslint%s"):format(message), vim.log.levels.INFO, toast_opts)
-    vim.cmd.CocCommand("eslint.executeAutofix")
-    vim.cmd.sleep("100m")
-    did_format = true
-  end
-
-  return did_format
-end
-
 ---@return boolean, boolean -- success, formatted
 M.format_with_lsp = function()
   local level = vim.log.levels.ERROR
@@ -78,11 +30,6 @@ M.format_with_lsp = function()
 end
 
 M.format = function()
-  -- Run eslint via coc or nvim-lsp eslint-lsp
-  if require("dko.settings").get("coc.enabled") then
-    return M.format_with_coc()
-  end
-
   local _, is_lsp_formatted = M.format_with_lsp()
   if is_lsp_formatted then
     -- eslint-plugin-prettier found

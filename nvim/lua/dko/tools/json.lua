@@ -12,11 +12,9 @@ tools.register({
   efm = require("dko.tools.biome"),
 })
 
-if not require("dko.settings").get("coc.enabled") then
-  -- not used for formatting - prefer prettier since it does one-line arrays
-  -- when they fit
-  tools.register({
-    name = "jsonls",
-    runner = "lspconfig",
-  })
-end
+-- lsp only, not used for formatting - prefer prettier since it does one-line
+-- arrays when they fit
+tools.register({
+  name = "jsonls",
+  runner = "lspconfig",
+})
