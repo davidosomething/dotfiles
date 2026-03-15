@@ -36,15 +36,19 @@ __dko_ztitle::ansi() {
 
 # ----------------------------------------------------------------------------
 # xterm-compatible
+# @see https://www.wiserfirst.com/blog/taking-control-of-terminal-titles/
+# \e0]; is for window and tab title
+# \e1]; is for tab title only
+# \e2]; is for window title only
 # ----------------------------------------------------------------------------
 
 __dko_zhook::xterm::process() {
-  print -n "\e]2;${1}\a"
+  print -n "\e]0;${1}\a"
 }
 
 __dko_zhook::xterm::title() {
   local title="%n@%m:%~"
-  print -Pn "\e]2;${title}\a"
+  print -Pn "\e]0;${title}\a"
 }
 
 __dko_ztitle::xterm() {
