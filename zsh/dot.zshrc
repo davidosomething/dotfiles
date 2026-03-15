@@ -152,6 +152,8 @@ zmodload -i zsh/complist
 # hooks -- used for prompt too
 autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
+. "${ZDOTDIR}/prompt.zsh"
+. "${ZDOTDIR}/title.zsh"
 
 # automatically fix things when pasted, works with url-quote-magic
 autoload -Uz bracketed-paste-magic
@@ -160,10 +162,6 @@ zle -N bracketed-paste bracketed-paste-magic
 # automatically quote URLs as they are typed
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
-
-. "${ZDOTDIR}/prompt.zsh"
-
-. "${ZDOTDIR}/title.zsh"
 
 # ============================================================================
 # Keybindings
