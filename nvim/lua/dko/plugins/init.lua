@@ -308,6 +308,20 @@ return {
   -- Writing
   -- =========================================================================
 
+  --- A yank-ring
+  --- https://github.com/gbprod/yanky.nvim
+  {
+    "gbprod/yanky.nvim",
+    cond = has_ui and not require("dko.utils.vte").is_remote(),
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("yanky").setup({
+        highlight = { timer = 300 },
+      })
+      require("dko.mappings").bind_yanky()
+    end,
+  },
+
   -- Override <A-hjkl> to move lines in any mode
   -- NB: Normally in insert mode, <A-hjkl> will exit insert and move cursor.
   -- You can use arrow keys in insert mode, so it's a little redundant.

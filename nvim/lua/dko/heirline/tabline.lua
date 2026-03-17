@@ -21,7 +21,6 @@ return {
   -- Indicators
   -- ===========================================================================
 
-  require("dko.heirline.clipboard"),
   require("dko.heirline.remote"),
   require("dko.heirline.lazy"),
   require("dko.heirline.doctor"),
