@@ -312,7 +312,7 @@ return {
   --- https://github.com/gbprod/yanky.nvim
   {
     "gbprod/yanky.nvim",
-    cond = has_ui and not require("dko.utils.vte").is_remote(),
+    cond = has_ui,
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("yanky").setup({
