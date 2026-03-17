@@ -19,6 +19,8 @@ config.default_cursor_style = "BlinkingBlock"
 
 config.enable_scroll_bar = true
 
+config.hide_tab_bar_if_only_one_tab = true
+
 config.inactive_pane_hsb = {
   brightness = 0.5,
   saturation = 0.5,
@@ -29,8 +31,6 @@ config.scrollback_lines = 9999
 config.swallow_mouse_click_on_pane_focus = true
 config.swallow_mouse_click_on_window_focus = true
 
--- using the tab bar as my title bar
-config.hide_tab_bar_if_only_one_tab = false
 config.window_decorations = "RESIZE"
 config.window_padding = {
   left = "1.5cell",
