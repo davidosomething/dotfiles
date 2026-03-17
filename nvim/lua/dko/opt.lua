@@ -31,7 +31,9 @@ vim.o.backupcopy = "yes"
 vim.opt.backupskip:append("/private/tmp/*") -- needed to edit crontab files
 vim.opt.backupskip:append("~/.secret/*")
 
-vim.o.clipboard = "unnamedplus"
+if not require("dko.utils.vte").is_remote() then
+  vim.o.clipboard = "unnamedplus"
+end
 
 -- ===========================================================================
 -- Display
