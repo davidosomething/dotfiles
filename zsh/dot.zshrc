@@ -6,9 +6,12 @@
 [[ -n "$TMUX" ]] && DKO_SOURCE="${DKO_SOURCE} -> ____TMUX____ {"
 export DKO_SOURCE="${DKO_SOURCE} -> .zshrc {"
 
+# Add an XDG site-functions dir to store manually generated completions
+# E.g. the completion for ripgrep on mise tool postinstall
+fpath+=("${XDG_DATA_HOME}/zsh/site-functions")
 # export to global and dedupe entries (lowercase are arrays that shadow PATH,
-# FPATH, etc). zsh docs recommends setting the flag for both interfaces (i.e.,
-# add both PATH var and path array)
+# FPATH, etc). You MUST do both upper and lower ones, or else they will be out
+# of sync.
 typeset -gU cdpath PATH path FPATH fpath MANPATH manpath
 
 . "${DOTFILES}/shell/interactive.sh"
