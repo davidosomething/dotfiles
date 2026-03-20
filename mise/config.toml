@@ -54,5 +54,5 @@ node = "latest"
 "pipx:jedi-language-server" = "latest"
 "pipx:yamllint" = "latest"
 python = "latest"
-ripgrep = { version = "latest", postinstall = "mkdir -p ${XDG_DATA_HOME}/zsh/site-functions && rg --generate complete-zsh > ${XDG_DATA_HOME}/zsh/site-functions/_rg" }
+ripgrep = { version = "latest", postinstall = "[ -n \"${XDG_DATA_HOME}\" ] && mkdir -p ${XDG_DATA_HOME}/zsh/site-functions && rg --generate complete-zsh > ${XDG_DATA_HOME}/zsh/site-functions/_rg" }
 rust = "latest"
