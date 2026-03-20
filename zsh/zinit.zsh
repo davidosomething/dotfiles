@@ -97,8 +97,6 @@ function {
   #export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
   zinit lucid wait for \
-    'lukechilds/zsh-better-npm-completion' \
-    \
     atload'_zsh_autosuggest_start && bindkey "^n" autosuggest-accept' \
     'zsh-users/zsh-autosuggestions' \
     \
@@ -118,7 +116,6 @@ function {
   # completion that wants compinit
   zinit ice atload"zpcdreplay" atclone"./zplug.zsh" atpull"%atclone"
   zinit light g-plane/pnpm-shell-completion
-
 }
 
 DKO_SOURCE="${DKO_SOURCE} }"
