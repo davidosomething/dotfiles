@@ -19,7 +19,7 @@ config.default_cursor_style = "BlinkingBlock"
 
 config.enable_scroll_bar = true
 
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false
 
 config.inactive_pane_hsb = {
   brightness = 0.5,
