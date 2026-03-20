@@ -25,7 +25,13 @@ local function disable_winbar_cb(args)
     buftype = WINBAR_DISABLED_BUFTYPES,
     -- diff and snacks_picker_preview are used by the picker for
     -- tiny-code-action
-    filetype = { "diff", "fzf", "snacks_picker_preview" },
+    filetype = {
+      -- these are lua patterns, so make sure to escape specials like "-" -> "%-"
+      "diff",
+      "fzf",
+      "neotest%-output",
+      "snacks_picker_preview",
+    },
   }, args.buf)
 end
 
