@@ -95,14 +95,25 @@ function {
   export ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(forward-word vi-forward-word)
   export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
   #export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-
   zinit lucid wait for \
     atload'_zsh_autosuggest_start && bindkey "^n" autosuggest-accept' \
-    'zsh-users/zsh-autosuggestions' \
-    \
+    'zsh-users/zsh-autosuggestions'
+
+  [[ -n $HOMEBREW_PREFIX ]] && zinit \
+    id-as'homebrew-completions' \
+    wait as'completion' lucid nocompile run-atpull \
+    atclone'print Installing brew provided completions...;
+      mkdir -p $ZPFX/funs;
+      command cp $HOMEBREW_PREFIX/share/zsh/site-functions/^_* $ZPFX/funs;
+      zinit creinstall -q $HOMEBREW_PREFIX/share/zsh/site-functions;' \
+    atload'fpath=( ${(u)fpath[@]:#$ZPFX/share/zsh/*} );
+      fpath+=( $ZPFX/funs );' \
+    atpull'%atclone' \
+    for @zdharma-continuum/null
+
+  zinit lucid wait for \
     blockf atpull'zinit creinstall -q .' \
-    'zsh-users/zsh-completions' \
-    ;
+    'zsh-users/zsh-completions'
 
   # ----------------------------------------------------------------------------
   # Syntax last
