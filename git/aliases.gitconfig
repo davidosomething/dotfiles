@@ -28,6 +28,7 @@
 	ds      = diff --staged
 	dino    = diff --name-only
 	dns     = diff --ignore-all-space
+	dw      = diff --word-diff
 
 	fo      = fetch origin
 
