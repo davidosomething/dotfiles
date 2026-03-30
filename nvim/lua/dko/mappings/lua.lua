@@ -1,5 +1,3 @@
-local Methods = vim.lsp.protocol.Methods
-
 local M = {}
 
 M.bind_gf = function()
@@ -9,7 +7,7 @@ M.bind_gf = function()
       local bufnr = vim.api.nvim_get_current_buf()
       local has_definition_handler = #vim.lsp.get_clients({
         bufnr = bufnr,
-        method = Methods.textDocument_definition,
+        method = "textDocument/definition",
       }) > 0
       if has_definition_handler then
         return "gd"

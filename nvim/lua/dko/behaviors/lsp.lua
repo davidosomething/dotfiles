@@ -1,7 +1,6 @@
 local augroup = require("dko.utils.autocmd").augroup
 
 local autocmd = vim.api.nvim_create_autocmd
-local Methods = vim.lsp.protocol.Methods
 
 ---@class LspAutocmdArgs
 ---@field buf number
@@ -101,12 +100,12 @@ autocmd("LspDetach", {
     -- purposes of keybinding...
     local clients = vim.lsp.get_clients({
       bufnr = bufnr,
-      method = Methods.textDocument_definition,
+      method = "textDocument/definition",
     })
     if #clients == 0 then -- Last LSP attached
       if vim.fn.bufwinnr(bufnr) > -1 then
         vim.notify(
-          ("No %s providers remaining."):format(Methods.textDocument_definition),
+          ("No %s providers remaining."):format("textDocument/definition"),
           vim.log.levels.INFO,
           { title = "[LSP]", render = "wrapped-compact" }
         )

@@ -1,5 +1,3 @@
-local Methods = vim.lsp.protocol.Methods
-
 local M = {}
 
 ---@param opts? table

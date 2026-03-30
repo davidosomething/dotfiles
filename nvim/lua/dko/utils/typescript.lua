@@ -1,7 +1,5 @@
 -- Typescript specific
 
-local Methods = vim.lsp.protocol.Methods
-
 local M = {}
 
 ---Go to source definition using LSP command
@@ -28,7 +26,7 @@ M.go_to_source_definition = function(name, command)
     end
   end
 
-  return client:request(Methods.workspace_executeCommand, {
+  return client:request("workspace/executeCommand", {
     command = command,
     arguments = { position_params.textDocument.uri, position_params.position },
   }, definition_handler, 0)
@@ -62,7 +60,7 @@ M.ts_ls.config = {
   end,
 
   handlers = {
-    [Methods.textDocument_publishDiagnostics] = function(_, result, ctx)
+    ["textDocument/publishDiagnostics"] = function(_, result, ctx)
       if not result.diagnostics then
         return
       end
