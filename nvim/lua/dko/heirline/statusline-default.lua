@@ -11,6 +11,13 @@ return {
     hl = "StatusLineNC",
   },
 
+  -- spacer with inactive color
+  {
+    provider = function()
+      return vim.ui.progress_status()
+    end,
+  },
+
   require("dko.heirline.formatters"),
   require("dko.heirline.ruler"),
 }

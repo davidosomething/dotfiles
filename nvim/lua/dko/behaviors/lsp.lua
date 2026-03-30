@@ -43,18 +43,18 @@ autocmd("LspAttach", {
   group = augroup("dkolsp"),
 })
 
-autocmd("LspAttach", {
-  desc = "Enable inlayHint",
-  callback = function(args)
-    local bufnr = args.buf ---@type number
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if
-      client and client:supports_method(Methods.textDocument_inlayHint, bufnr)
-    then
-      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-    end
-  end,
-})
+-- autocmd("LspAttach", {
+--   desc = "Enable inlayHint",
+--   callback = function(args)
+--     local bufnr = args.buf ---@type number
+--     local client = vim.lsp.get_client_by_id(args.data.client_id)
+--     if
+--       client and client:supports_method(Methods.textDocument_inlayHint, bufnr)
+--     then
+--       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+--     end
+--   end,
+-- })
 
 autocmd("LspAttach", {
   desc = "Add capable LSP as formatter when attaches to buffer",
