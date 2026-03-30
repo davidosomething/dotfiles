@@ -119,11 +119,11 @@ return {
   -- ===========================================================================
 
   -- https://github.com/felpafel/inlay-hint.nvim
-  {
-    "felpafel/inlay-hint.nvim",
-    event = "LspAttach",
-    config = true,
-  },
+  -- {
+  --   "felpafel/inlay-hint.nvim",
+  --   event = "LspAttach",
+  --   config = true,
+  -- },
 
   -- ===========================================================================
   -- Multi LSP
