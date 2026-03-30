@@ -30,6 +30,13 @@ return {
   require("dko.heirline.winbar-filepath"),
   require("dko.heirline.winbar-terminal"),
   { provider = "%=" },
+
+  {
+    provider = function()
+      return vim.bo.busy > 0 and "◐ " or ""
+    end,
+  },
+
   require("dko.heirline.lightbulb"),
   require("dko.heirline.winbar-diagnostics"),
 }
