@@ -3,13 +3,11 @@ local shared = require("dko.mappings.shared")
 
 local picker = dkomappings.picker
 
-local Methods = vim.lsp.protocol.Methods
-
 local M = {}
 
 ---@type { [string]: FeatureMapping }
 M.features = {
-  [Methods.textDocument_codeAction] = {
+  ["textDocument/codeAction"] = {
     finder_key = "code_action_finder",
     -- gra is default in 0.11, can use either
     shortcut = "<Leader><Leader>",
@@ -28,7 +26,7 @@ M.features = {
       end,
     },
   },
-  [Methods.textDocument_documentLink] = {
+  ["textDocument/documentLink"] = {
     shortcut = "grl",
     providers = {
       default = function()
@@ -37,25 +35,25 @@ M.features = {
           lsplinks.gx()
         else
           vim.notify(
-            ("No handler for %s"):format(Methods.textDocument_documentLink),
+            ("No handler for %s"):format("textDocument/documentLink"),
             vim.log.levels.WARN
           )
         end
       end,
     },
   },
-  [Methods.textDocument_hover] = {
+  ["textDocument/hover"] = {
     shortcut = "K",
     providers = {
       default = vim.lsp.buf.hover,
     },
   },
-  [Methods.textDocument_inlayHint] = {
+  ["textDocument/inlayHint"] = {
     shortcut = "<Leader>i",
     providers = {
       default = function()
         vim.notify(
-          ("Toggling %s"):format(Methods.textDocument_inlayHint),
+          ("Toggling %s"):format("textDocument/inlayHint"),
           vim.log.levels.DEBUG
         )
         vim.lsp.inlay_hint.enable(
@@ -65,7 +63,7 @@ M.features = {
       end,
     },
   },
-  [Methods.textDocument_declaration] = {
+  ["textDocument/declaration"] = {
     shortcut = "gD",
     providers = {
       default = vim.lsp.buf.declaration,
@@ -73,7 +71,7 @@ M.features = {
       snacks = picker("snacks", "lsp_declarations"),
     },
   },
-  [Methods.textDocument_definition] = {
+  ["textDocument/definition"] = {
     shortcut = "gd",
     providers = {
       default = vim.lsp.buf.definition,
@@ -89,7 +87,7 @@ M.features = {
       snacks = picker("snacks", "lsp_definitions"),
     },
   },
-  [Methods.textDocument_implementation] = {
+  ["textDocument/implementation"] = {
     shortcut = "gri",
     providers = {
       default = vim.lsp.buf.implementation,
@@ -97,7 +95,7 @@ M.features = {
       snacks = picker("snacks", "lsp_implementations"),
     },
   },
-  [Methods.textDocument_references] = {
+  ["textDocument/references"] = {
     shortcut = "grr",
     providers = {
       default = vim.lsp.buf.references,
@@ -105,13 +103,13 @@ M.features = {
       snacks = picker("snacks", "lsp_references"),
     },
   },
-  [Methods.textDocument_rename] = {
+  ["textDocument/rename"] = {
     shortcut = "grn",
     providers = {
       default = vim.lsp.buf.rename,
     },
   },
-  [Methods.textDocument_typeDefinition] = {
+  ["textDocument/typeDefinition"] = {
     shortcut = "<Leader>D",
     providers = {
       default = vim.lsp.buf.type_definition,

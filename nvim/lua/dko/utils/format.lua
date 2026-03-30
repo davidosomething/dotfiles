@@ -1,7 +1,5 @@
 -- Code formatting pipelines
 
-local Methods = vim.lsp.protocol.Methods
-
 ---@param names string[]
 local function notify(names)
   if #names == 0 then
@@ -75,7 +73,7 @@ M.run_pipeline = function(options)
   options = vim.tbl_deep_extend("force", options or {}, {
     ---@param client vim.lsp.Client
     filter = function(client)
-      if not client:supports_method(Methods.textDocument_formatting) then
+      if not client:supports_method("textDocument/formatting") then
         return false
       end
 

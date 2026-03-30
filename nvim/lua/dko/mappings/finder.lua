@@ -4,8 +4,6 @@ local shared = require("dko.mappings.shared")
 
 local picker = dkomappings.picker
 
-local Methods = vim.lsp.protocol.Methods
-
 local M = {}
 
 ---@type { [string]: FeatureMapping }
@@ -26,7 +24,7 @@ M.features = {
       -- @TODO use
       default = function()
         local dkolspmappings = require("dko.mappings.lsp")
-        local feature = Methods.textDocument_codeAction
+        local feature = "textDocument/codeAction"
         local config = dkolspmappings.features[feature]
         local _, provider = dkolspmappings.get_provider(config, "lsp")
         provider()

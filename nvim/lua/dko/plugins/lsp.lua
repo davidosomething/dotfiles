@@ -106,7 +106,7 @@ return {
   -- Used in dko.utils.links as first-line gx handler
   {
     "icholy/lsplinks.nvim",
-    cond = has_ui,
+    cond = has_ui and vim.fn.has("nvim-0.12.0") == 0,
     event = "LspAttach",
     opts = {
       highlight = true,

@@ -1,7 +1,5 @@
 local command = vim.api.nvim_create_user_command
 
-local Methods = vim.lsp.protocol.Methods
-
 -- ===========================================================================
 -- Command aliases
 -- ===========================================================================
@@ -85,9 +83,9 @@ command("Rename", function(opts)
       }
 
       for _, client in ipairs(clients) do
-        if client:supports_method(Methods.workspace_willRenameFiles) then
+        if client:supports_method("workspace/willRenameFiles") then
           local resp = client:request_sync(
-            Methods.workspace_willRenameFiles,
+            "workspace/willRenameFiles",
             changes,
             1000,
             0
@@ -108,8 +106,8 @@ command("Rename", function(opts)
 
     if changes ~= nil and #clients > 0 and type(prevpath) == "string" then
       for _, client in ipairs(clients) do
-        if client:supports_method(Methods.workspace_didRenameFiles) then
-          client:notify(Methods.workspace_didRenameFiles, changes)
+        if client:supports_method("workspace/didRenameFiles") then
+          client:notify("workspace/didRenameFiles", changes)
         end
       end
     else

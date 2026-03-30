@@ -1,5 +1,4 @@
 local lsp = vim.lsp
-local Methods = lsp.protocol.Methods
 
 local M = {}
 
@@ -67,7 +66,7 @@ M.change_client_settings = function(client, overrides, options)
 
   --- It's an lsp notify because it does not expect a response
   local success =
-    client:notify(Methods.workspace_didChangeConfiguration, { settings = next })
+    client:notify("workspace/didChangeConfiguration", { settings = next })
 
   --- Fails if can't talk to client (detached or crashed?)
   if not success then
@@ -139,7 +138,7 @@ end
 
 ---Show LSP messages via toast (default is vim.notify or nvim_out_write)
 -- https://github.com/neovim/neovim/blob/199d852d9f8584217be38efb56b725aa3db62931/runtime/lua/vim/lsp/handlers.lua#L635-L654
-vim.lsp.handlers[Methods.window_showMessage] = function(_, result, ctx, _)
+vim.lsp.handlers["window/showMessage"] = function(_, result, ctx, _)
   local client = lsp.get_client_by_id(ctx.client_id)
   local client_name = client and client.name or ctx.client_id
   local title = ("[LSP] %s"):format(client_name)
@@ -161,7 +160,7 @@ end
 M.add_formatter = function(bufnr, client)
   local disabled = vim.b[bufnr].disabled_formatters or {}
   if
-    client:supports_method(Methods.textDocument_formatting)
+    client:supports_method("textDocument/formatting")
     and not vim.list_contains(disabled, client.name)
   then
     require("dko.utils.format").add_formatter(bufnr, client.name, {})
@@ -172,7 +171,7 @@ end
 --- than the LspAttach autocmd).
 --- efm is one LSP that dynamically registers formatters
 --- see :h LspAttach
-vim.lsp.handlers[Methods.client_registerCapability] = (function(overridden)
+vim.lsp.handlers["client/registerCapability"] = (function(overridden)
   --- @param res lsp.RegistrationParams
   return function(err, res, ctx)
     local result = overridden(err, res, ctx)
@@ -187,6 +186,6 @@ vim.lsp.handlers[Methods.client_registerCapability] = (function(overridden)
 
     return result
   end
-end)(vim.lsp.handlers[Methods.client_registerCapability])
+end)(vim.lsp.handlers["client/registerCapability"])
 
 return M
