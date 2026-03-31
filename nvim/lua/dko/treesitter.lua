@@ -16,6 +16,7 @@ M.filetype_to_parser = {
 
   sh = "bash",
   sshconfig = "ssh_config",
+  systemd = "ini",
   tiltfile = "starlark",
   typescriptreact = "tsx",
   udevrules = "udev",
