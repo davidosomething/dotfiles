@@ -78,8 +78,7 @@ M.run_pipeline = function(options)
       end
 
       if client.name == "efm" then
-        local configs =
-          require("dko.tools").get_efm_languages()[vim.bo.filetype]
+        local configs = require("dko.tools").efm_config_by_ft[vim.bo.filetype]
         local filtered = vim.tbl_filter(function(config)
           if config.formatCommand ~= nil then
             table.insert(

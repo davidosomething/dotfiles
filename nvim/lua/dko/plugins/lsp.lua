@@ -182,7 +182,7 @@ return {
         end
         resolve_config_and_enable()
       end
-      vim.lsp.enable(dkotools.lspconfig_resolvers)
+      vim.lsp.enable(dkotools.standalone_lsp_names)
     end,
   },
 }
