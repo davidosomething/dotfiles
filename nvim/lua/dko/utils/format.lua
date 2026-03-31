@@ -78,19 +78,20 @@ M.run_pipeline = function(options)
       end
 
       if client.name == "efm" then
-        local configs = require("dko.tools").efm_config_by_ft[vim.bo.filetype]
-        local filtered = vim.tbl_filter(function(config)
-          if config.formatCommand ~= nil then
+        local tool_configs = require("dko.tools").config_with_efm_by_ft[vim.bo.filetype]
+        local filtered = vim.tbl_filter(function(tool)
+          local efm = tool.efm()
+          if efm.formatCommand ~= nil then
             table.insert(
               names,
               ("efm[%s]"):format(
-                vim.fn.fnamemodify(config.formatCommand:match("([^%s]+)"), ":t")
+                vim.fn.fnamemodify(efm.formatCommand:match("([^%s]+)"), ":t")
               )
             )
             return true
           end
           return false
-        end, configs or {})
+        end, tool_configs or {})
         return #filtered ~= 0
       end
 
