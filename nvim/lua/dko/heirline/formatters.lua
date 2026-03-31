@@ -35,13 +35,9 @@ return {
         else
           for _, name in ipairs(vim.b.formatters) do
             if vim.bo.filetype ~= "" and name == "efm" then
-              local efm_keys = vim.tbl_keys(
-                require("dko.tools").efm_filetypes[vim.bo.filetype] or {}
-              )
-              table.insert(
-                items,
-                ("efm[%s]"):format(table.concat(efm_keys, ","))
-              )
+              local efm_configs = require("dko.tools").config_with_efm_by_ft[vim.bo.filetype] or {}
+              local efm_names = vim.iter(efm_configs):map(function (c) return c.name end)
+              table.insert(items, ("efm[%s]"):format(efm_names:join(',')))
             else
               table.insert(items, name)
             end

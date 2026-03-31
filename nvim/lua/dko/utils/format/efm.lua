@@ -93,10 +93,11 @@ M.format_with = function(name, opts)
     return false
   end
 
-  local configs = require("dko.tools").get_efm_languages(function(tool)
-    return tool.name == name and vim.tbl_contains(tool.fts, vim.bo.filetype)
+  local configs = require("dko.tools").config_with_efm_by_ft[vim.bo.filetype]
+  local tool = vim.iter(configs):find(function(c)
+    return c.name == name
   end)
-  if vim.tbl_count(configs) == 0 then
+  if not tool then
     require("dko.utils.notify").toast(
       ('No formatter "%s" for %s'):format(name, vim.bo.filetype),
       vim.log.levels.ERROR,
@@ -105,10 +106,10 @@ M.format_with = function(name, opts)
     return false
   end
 
-  -- Set to only the efm tool we named
+  -- Set efm lsp to only run the specific named tool
   local _, restore = require("dko.lsp").change_client_settings(
     client,
-    { languages = configs },
+    { languages = { [vim.bo.filetype] = tool.efm() } },
     { silent = true }
   )
 

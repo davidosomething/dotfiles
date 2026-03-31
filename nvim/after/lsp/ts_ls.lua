@@ -4,6 +4,7 @@ local dkots = require("dko.utils.typescript")
 return {
   on_attach = dkots.ts_ls.config.on_attach,
   handlers = dkots.ts_ls.config.handlers,
+  ---@type lspconfig.settings.ts_ls
   settings = {
     typescript = {
       inlayHints = {

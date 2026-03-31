@@ -15,6 +15,7 @@ return {
     require("dko.lsp").set_import_module_specifier(client, specifier)
   end,
   handlers = dkots.ts_ls.config.handlers,
+  ---@type lspconfig.settings.vtsls
   settings = {
     javascript = {
       preferences = {

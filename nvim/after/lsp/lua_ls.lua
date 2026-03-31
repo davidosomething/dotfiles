@@ -61,7 +61,7 @@ return {
       end
     end
   end,
-  ---@type vim.lsp.Config
+  ---@type lspconfig.settings.lua_ls
   settings = {
     Lua = {
       format = { enable = false },
