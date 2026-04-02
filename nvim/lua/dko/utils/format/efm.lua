@@ -109,7 +109,7 @@ M.format_with = function(name, opts)
   -- Set efm lsp to only run the specific named tool
   local _, restore = require("dko.lsp").change_client_settings(
     client,
-    { languages = { [vim.bo.filetype] = tool.efm() } },
+    { languages = { [vim.bo.filetype] = { tool.efm() } } },
     { silent = true }
   )
 
