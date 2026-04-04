@@ -4,7 +4,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     enabled = vim.env.DKO_TREESITTER == nil,
-    branch = "main",
     build = function()
       -- Don't try to TSUpdate before plugin has been installed, only on plugin
       -- updates.
@@ -12,6 +11,7 @@ return {
         vim.cmd("TSUpdate")
       end
     end,
+    commit = "4916d6592ede8c07973490d9322f187e07dfefac",
     config = function()
       -- Some other plugins use treesitter features, so need these even if never
       -- opened a buffer with the corresponding ft
