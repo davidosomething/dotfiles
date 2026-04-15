@@ -67,14 +67,14 @@ return {
 
   --- https://github.com/andromediano/pnpm-catalog-info.nvim
   --- Display latest version info as virtual text in pnpm-workspace.yaml / pnpm-workspace.yml
-  {
-    "andromediano/pnpm-catalog-info.nvim",
-    ft = { "yaml" },
-    opts = {
-      hide_up_to_date = true,
-      hide_unstable_versions = true,
-    },
-  },
+  -- {
+  --   "andromediano/pnpm-catalog-info.nvim",
+  --   ft = { "yaml" },
+  --   opts = {
+  --     hide_up_to_date = true,
+  --     hide_unstable_versions = true,
+  --   },
+  -- },
 
   -- https://github.com/vuki656/package-info.nvim
   -- Parses string output of npm outdated
