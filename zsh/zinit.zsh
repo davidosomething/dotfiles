@@ -121,11 +121,17 @@ function {
   # ----------------------------------------------------------------------------
 
   # don't add wait, messes with zsh-autosuggest
-  zinit lucid atload"zicompinit; zicdreplay" for \
-    'zdharma/fast-syntax-highlighting'
+  # zinit lucid atload"zicompinit; zicdreplay" for \
+  #   'zdharma/fast-syntax-highlighting'
+
+  zinit ice as"program" from"gh-r" ver"1.5.0" \
+    pick"zsh-patina-*/zsh-patina" \
+    atload'eval "$(zsh-patina activate)"'
+  zinit light michel-kraemer/zsh-patina
 
   # completion that wants compinit
-  zinit ice atload"zpcdreplay" atclone"./zplug.zsh" atpull"%atclone"
+  zinit ice atload"zicompinit; zicdreplay; zpcdreplay" \
+    atclone"./zplug.zsh" atpull"%atclone"
   zinit light g-plane/pnpm-shell-completion
 }
 
