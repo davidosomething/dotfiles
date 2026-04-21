@@ -61,6 +61,8 @@ __symlink() {
     ".config/wezterm"
   dko-symlink "yamlfmt" \
     ".config/yamlfmt"
+  dko-symlink "zsh-patina" \
+    ".config/zsh-patina"
 
   # (n)vim / intellij ideavim
   dko-symlink "nvim" \
