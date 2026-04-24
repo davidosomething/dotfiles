@@ -138,10 +138,6 @@ autocmd("LspDetach", {
 autocmd("FileType", {
   desc = "Set mappings/format on save for specific filetypes",
   callback = function(opts)
-    local dkomappings = require("dko.mappings")
-    dkomappings.bind_snippy()
-    dkomappings.bind_completion(opts)
-
     if opts.match == "lua" then
       -- In 0.11 it's supposed to jump to module in same repo/rtp/package path, but not
       -- quite the way I want it.
