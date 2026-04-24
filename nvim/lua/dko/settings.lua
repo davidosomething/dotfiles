@@ -8,7 +8,7 @@ settings.pumborder = "single"
 settings.winborder = "bold"
 
 settings.completion = {
-  --- @type "blink" | "built-in" | "cmp"
+  --- @type "blink" | "built-in"
   engine = "blink",
 }
 
