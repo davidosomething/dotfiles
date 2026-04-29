@@ -15,7 +15,7 @@ fzf = "latest"
 # @TODO fix completions for cli
 github-cli = "latest"
 "github:skanehira/version-lsp" = "latest"
-go = "1.26.1"
+go = "1.26.2"
 "go:github.com/mattn/efm-langserver" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 hadolint = "latest"
