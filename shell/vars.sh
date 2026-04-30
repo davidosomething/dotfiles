@@ -114,6 +114,8 @@ export CVSIGNORE="${DOTFILES}/git/.gitignore"
 # ----------------------------------------------------------------------------
 
 export EDITOR='e'
+
+# claude code uses VISUAL as its editor
 export VISUAL="$EDITOR"
 
 # my custom ewez script
