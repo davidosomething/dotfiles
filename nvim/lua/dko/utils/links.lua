@@ -47,6 +47,22 @@ M.open_link = function()
     return
   end
 
+  -- In plugin spec files, open plugin homepage via lazy.nvim
+  local filepath = vim.api.nvim_buf_get_name(0)
+  if filepath:find("dko/plugins") then
+    local line = vim.api.nvim_get_current_line()
+    local pkg = line:match('"([%w%-_.]+/[%w%-_.]+)"')
+      or line:match("'([%w%-_.]+/[%w%-_.]+)'")
+    if pkg then
+      local name = require("lazy.core.plugin").Spec.get_name(pkg)
+      local plugin = require("lazy.core.config").plugins[name]
+      if plugin and plugin.url then
+        vim.ui.open(plugin.url)
+        return
+      end
+    end
+  end
+
   -- Popup menu of all urls in buffer
   if vim.fn.exists(":UrlView") then
     vim.cmd.UrlView("buffer")
