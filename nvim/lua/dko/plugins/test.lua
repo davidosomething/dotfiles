@@ -14,14 +14,17 @@ return {
       "marilari88/neotest-vitest",
     },
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require("neotest").setup({
         adapters = {
           require("neotest-vitest"),
         },
+        ---@diagnostic disable-next-line: missing-fields
         floating = {
           border = "single",
         },
         output = {
+          enabled = true,
           open_on_run = true,
         },
       })

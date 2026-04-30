@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+
+# enofork - Uses nvim, fallback to vim, fallback to vi, no forking
+# E_NOFORK=1 - passed to editor to prevent forking/detaching
+# E_DEBUG=1  - enable verbose logging
+
+log() {
+  echo "[e] ${1}"
+}
+
+main() {
+  if ! command -v nvim >/dev/null 2>&1; then
+    fallback="vi"
+    command -v vim >/dev/null 2>&1 && fallback="vim"
+    [ -n "$E_DEBUG" ] && log "Use fallback editor ${fallback}"
+    E_NOFORK=1 "$fallback" "$@"
+    return
+  fi
+
+  files=""
+  for file in "$@"; do
+    case "$file" in
+    /*) ;;
+    *) file="${PWD}/${file}" ;;
+    esac
+    files="${files} ${file}"
+  done
+
+  # -i means no shada
+  [ -n "$E_DEBUG" ] && log "nvim -i NONE ${files}"
+  # shellcheck disable=SC2086
+  E_NOFORK=1 nvim -i NONE ${files}
+}
+
+main "$@"
