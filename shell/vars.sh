@@ -116,6 +116,9 @@ export CVSIGNORE="${DOTFILES}/git/.gitignore"
 export EDITOR='e'
 export VISUAL="$EDITOR"
 
+# my custom ewez script
+export EWEZ_EDITOR='enofork'
+
 export GIT_EDITOR="enofork"
 
 # create-react-app

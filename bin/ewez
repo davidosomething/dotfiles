@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# ewez - Open EDITOR in a new small WezTerm window
+# Window auto-closes when the editor process exits.
+
+exec wezterm start --always-new-process --width 80 --height 24 -- "${EWEZ_EDITOR:-${EDITOR:-nvim}}" "$@"
