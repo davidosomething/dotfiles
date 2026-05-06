@@ -12,14 +12,15 @@ return {
       --   lazy = true,
       --   dependencies = { "rktjmp/lush.nvim" },
       -- },
-      "ntk148v/komau.vim",
+      -- "ntk148v/komau.vim",
+      "oskarnurm/koda.nvim",
     },
     dev = dev,
     lazy = false,
     priority = 1000,
     init = function()
       require("dko.settings").set("colors.dark", "meh")
-      require("dko.settings").set("colors.light", "komau")
+      require("dko.settings").set("colors.light", "koda-glade")
     end,
     config = function()
       vim.cmd.colorscheme("meh")

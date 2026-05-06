@@ -5,6 +5,11 @@ local BRACKETED_DISABLED = ""
 
 ---@type LazySpec
 return {
+  {
+    "awalland/nvim-file-watch",
+    opts = {},
+  },
+
   -- because https://github.com/neovim/neovim/issues/1496
   -- once https://github.com/neovim/neovim/pull/10842 is merged, there will
   -- probably be a better implementation for this
