@@ -8,7 +8,13 @@ tools.register({
       formatCanRange = false,
       formatCommand = "yamlfmt -",
       formatStdin = true,
-      rootMarkers = { ".yamlfmt" },
+      rootMarkers = {
+        ".yamlfmt",
+        "yamlfmt.yml",
+        "yamlfmt.yaml",
+        ".yamlfmt.yaml",
+        ".yamlfmt.yml",
+      },
     }
   end,
 })
@@ -18,11 +24,15 @@ tools.register({
   name = "yamllint",
   fts = { "yaml" },
   efm = function()
-    return vim.tbl_extend(
-      "force",
-      require("efmls-configs.linters.yamllint"),
-      { lintSource = "efmls", prefix = "yamllint" }
-    )
+    return vim.tbl_extend("force", require("efmls-configs.linters.yamllint"), {
+      lintSource = "efmls",
+      prefix = "yamllint",
+      rootMarkers = {
+        ".yamllint",
+        ".yamllint.yaml",
+        ".yamllint.yml",
+      },
+    })
   end,
 })
 
