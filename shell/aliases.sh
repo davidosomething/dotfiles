@@ -103,14 +103,6 @@ alias gwr='gw run'
 alias pmddir='pmd pmd -dir ./ -format textcolor -rulesets '
 
 # ----------------------------------------------------------------------------
-# jira
-# needs https://github.com/ankitpokhrel/jira-cli -- install and set up
-# manually
-# ----------------------------------------------------------------------------
-
-alias myjira='jira issue list -a$(jira me) -s~Done -s~Deployed -s~"Not Doing"'
-
-# ----------------------------------------------------------------------------
 # kubernetes
 # ----------------------------------------------------------------------------
 
