@@ -319,7 +319,7 @@ map("i", "<Tab>", function()
   -- How many spaces to insert after the current cursor to get to the next sts
   local spaces_from_cursor_to_next_sts = vim.fn.virtcol(".") % sts
   if spaces_from_cursor_to_next_sts == 0 then
-    spaces_from_cursor_to_next_sts = sts
+    spaces_from_cursor_to_next_sts = sts or 0
   end
 
   -- Insert whitespace to next softtabstop

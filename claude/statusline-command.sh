@@ -11,7 +11,7 @@ context_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 
 # Shorten path: replace $HOME with ~
 home="$HOME"
-short_path="${cwd/#$home/\~}"
+short_path="${cwd/#$home/~}"
 
 # Git branch info (skip locks to avoid blocking)
 git_branch=""
