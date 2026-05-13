@@ -1,5 +1,15 @@
 local tools = require("dko.tools")
 
+-- tools.register({
+--   name = "gh_actions_ls",
+--   runner = "lspconfig",
+-- })
+
+tools.register({
+  name = "actionsls",
+  runner = "lspconfig",
+})
+
 tools.register({
   fts = { "yaml", "yaml.docker-compose" },
   name = "yamlfmt",

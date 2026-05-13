@@ -27,6 +27,10 @@ vim.filetype.add({
     ["[%w_.-]*%.gitconfig"] = "gitconfig",
     ["%.env%.[%w_.-]+"] = "dotenv",
     ["tsconfig%."] = "jsonc",
+
+    -- https://github.com/actions/languageservices/tree/main/languageserver#in-neovim
+    [".*/%.github/workflows/.*%.ya?ml"] = "yaml.ghactions",
+
     -- ["env%.(%a+)"] = function(_path, _bufnr, ext)
     --   vim.print(ext)
     --   if vim.list_contains({ "local", "example", "dev", "prod" }, ext) then

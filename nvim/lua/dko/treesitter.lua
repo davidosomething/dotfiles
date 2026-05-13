@@ -3,6 +3,7 @@ local buffer_queue = {}
 local M = {}
 
 M.filetype_to_parser = {
+  ["yaml.ghactions"] = "yaml",
   ["yaml.docker-compose"] = "yaml",
   dosini = "ini",
   dotenv = "bash",
