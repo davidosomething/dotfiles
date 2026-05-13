@@ -3,5 +3,7 @@
 if [[ "$OSTYPE" = *'arwin'* ]]; then
   open "$@"
 else
-  xdg-open "$@" >/dev/null
+  # Detach from the controlling terminal so the spawned app (browser, etc.)
+  # doesn't inherit the shell's tty and isn't killed when the shell exits.
+  setsid -f xdg-open "$@" </dev/null >/dev/null 2>&1
 fi
