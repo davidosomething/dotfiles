@@ -46,7 +46,7 @@ fi
 
 # Assemble output
 # path in yellow, git in magenta, model dimmed
-printf '%b' "${vim_indicator}"
+printf '%b ' "${vim_indicator}"
 printf "\033[33m%s\033[0m" "${short_path}"
 if [ -n "$git_branch" ]; then
   printf "\033[35m%s\033[0m" "${git_branch}"
