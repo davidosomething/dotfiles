@@ -1,0 +1,5 @@
+#/usr/bin/env zsh
+
+jira issue list -a$(jira me)
+
+#vim: ft=zsh

@@ -1,5 +1,13 @@
 local tools = require("dko.tools")
 
+-- ===========================================================================
+-- GitHub Workflows/Actions
+-- this is a wrapper, don't need it any more
+-- tools.register({ name = "gh_actions_ls", runner = "lspconfig" })
+-- this is upstream, custom config in ../../../lsp/actionsls.lua
+tools.register({ name = "actionsls", runner = "lspconfig" })
+-- ===========================================================================
+
 tools.register({
   fts = { "yaml", "yaml.docker-compose" },
   name = "yamlfmt",

@@ -26,8 +26,6 @@ return {
     },
   },
 
-  { "sindrets/diffview.nvim" },
-
   {
     "folke/snacks.nvim",
     opts = {

@@ -6,6 +6,12 @@ local picker = dkomappings.picker
 
 local M = {}
 
+--- @type snacks.picker.files.Config
+local snacks_project_config = {
+  dirs = { dkoproject.root() },
+  hidden = true,
+}
+
 ---@type { [string]: FeatureMapping }
 M.features = {
   buffers = {
@@ -77,9 +83,7 @@ M.features = {
         cwd = dkoproject.root(),
         git_icons = false,
       }),
-      snacks = picker("snacks", "files", {
-        dirs = { dkoproject.root() },
-      }),
+      snacks = picker("snacks", "files", snacks_project_config),
     },
   },
   resume = {

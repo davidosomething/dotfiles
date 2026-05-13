@@ -64,6 +64,11 @@ local function float_format(diagnostic)
   else
     if diagnostic.code == "suggestCanonicalClasses" then
       source = "TAILWIND"
+    elseif
+      vim.startswith(diagnostic.message, "Context access might be invalid")
+      or vim.startswith(diagnostic.message, "Unable to find reusable workflow")
+    then
+      source = "ACTIONSLS"
     else
       source = "NIL.SOURCE"
       vim.print(diagnostic)
