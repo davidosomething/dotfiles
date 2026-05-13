@@ -6,7 +6,6 @@ input=$(cat)
 
 cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // ""')
 model=$(echo "$input" | jq -r '.model.display_name // ""')
-vim_mode=$(echo "$input" | jq -r '.vim.mode // ""')
 context_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 
 # Shorten path: replace $HOME with ~
@@ -28,16 +27,6 @@ if git -C "$cwd" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   fi
 fi
 
-# Vim mode indicator
-vim_indicator=""
-if [ -n "$vim_mode" ]; then
-  case "$vim_mode" in
-    INSERT)      vim_indicator=" \033[44;97m I \033[0m" ;;
-    NORMAL)      vim_indicator=" \033[42;30m N \033[0m" ;;
-    VISUAL*)     vim_indicator=" \033[43;30m V \033[0m" ;;
-  esac
-fi
-
 # Context usage
 context_str=""
 if [ -n "$context_pct" ]; then
@@ -46,7 +35,6 @@ fi
 
 # Assemble output
 # path in yellow, git in magenta, model dimmed
-printf '%b ' "${vim_indicator}"
 printf "\033[33m%s\033[0m" "${short_path}"
 if [ -n "$git_branch" ]; then
   printf "\033[35m%s\033[0m" "${git_branch}"
