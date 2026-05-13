@@ -66,7 +66,7 @@ local function float_format(diagnostic)
       source = "TAILWIND"
     elseif
       vim.startswith(diagnostic.message, "Context access might be invalid")
-      -- or vim.startswith(diagnostic.message, "Unable to find reusable workflow")
+      or vim.startswith(diagnostic.message, "Unable to find reusable workflow")
     then
       source = "ACTIONSLS"
     else
