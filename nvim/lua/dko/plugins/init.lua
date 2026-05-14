@@ -7,7 +7,9 @@ local BRACKETED_DISABLED = ""
 return {
   {
     "awalland/nvim-file-watch",
-    opts = {},
+    opts = {
+      notify = false,
+    },
   },
 
   -- because https://github.com/neovim/neovim/issues/1496
