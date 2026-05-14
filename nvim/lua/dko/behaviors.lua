@@ -78,10 +78,7 @@ if has_ui then
         return
       end
       local dkobuffer = require("dko.utils.buffer")
-      if
-        dkobuffer.is_special(args.buf)
-        or dkobuffer.is_huge({ bufnr = args.buf })
-      then
+      if dkobuffer.is_huge({ bufnr = args.buf }) then
         return
       end
 
