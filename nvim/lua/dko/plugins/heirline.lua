@@ -1,8 +1,5 @@
 local dkobuffer = require("dko.utils.buffer")
 
-local uis = vim.api.nvim_list_uis()
-local has_ui = #uis > 0
-
 ---Special buftypes hash where the winbar should be enabled
 local WINBAR_ENABLED_BUFTYPES = {
   help = true,
@@ -35,28 +32,30 @@ local function disable_winbar_cb(args)
   }, args.buf)
 end
 
----@type LazySpec
-return {
-  {
-    "rebelot/heirline.nvim",
-    cond = has_ui,
-    dependencies = "nvim-mini/mini.icons",
-    init = function()
-      local ALWAYS = 2
-      vim.o.showtabline = ALWAYS
-      local GLOBAL = 3
-      vim.o.laststatus = GLOBAL
-    end,
-    --- Needs to be a config function, the various dko.heirline modules loaded
-    --- all call heirline functions so expect the rtp setup and plugin to have
-    --- loaded already
-    config = function()
-      require("heirline").setup({
-        statusline = require("dko.heirline.statusline-default"),
-        tabline = require("dko.heirline.tabline"),
-        winbar = require("dko.heirline.winbar"),
-        opts = { disable_winbar_cb = disable_winbar_cb },
-      })
-    end,
-  },
-}
+return require("dko.utils.lazyspec")(function(ctx)
+  ---@type LazySpec
+  return {
+    {
+      "rebelot/heirline.nvim",
+      cond = ctx.has_ui,
+      dependencies = "nvim-mini/mini.icons",
+      init = function()
+        local ALWAYS = 2
+        vim.o.showtabline = ALWAYS
+        local GLOBAL = 3
+        vim.o.laststatus = GLOBAL
+      end,
+      --- Needs to be a config function, the various dko.heirline modules loaded
+      --- all call heirline functions so expect the rtp setup and plugin to have
+      --- loaded already
+      config = function()
+        require("heirline").setup({
+          statusline = require("dko.heirline.statusline-default"),
+          tabline = require("dko.heirline.tabline"),
+          winbar = require("dko.heirline.winbar"),
+          opts = { disable_winbar_cb = disable_winbar_cb },
+        })
+      end,
+    },
+  }
+end)

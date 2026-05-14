@@ -1,58 +1,59 @@
----@type LazySpec
-return {
-  -- https://github.com/nvim-treesitter/nvim-treesitter/
-  {
-    "nvim-treesitter/nvim-treesitter",
-    enabled = vim.env.DKO_TREESITTER == nil,
-    build = function()
-      -- Don't try to TSUpdate before plugin has been installed, only on plugin
-      -- updates.
-      if pcall(require, "nvim-treesitter.install") then
-        vim.cmd("TSUpdate")
-      end
-    end,
-    commit = "4916d6592ede8c07973490d9322f187e07dfefac",
-    config = function()
-      -- Some other plugins use treesitter features, so need these even if never
-      -- opened a buffer with the corresponding ft
-      require("nvim-treesitter")
-        .install({
-          "html",
-          "json",
-          "jsx",
-          "lua",
-          "markdown",
-          "tsx",
-          "yaml",
+return require("dko.utils.lazyspec")(function(ctx)
+  ---@type LazySpec
+  return {
+    -- https://github.com/nvim-treesitter/nvim-treesitter/
+    {
+      "nvim-treesitter/nvim-treesitter",
+      build = function()
+        -- Don't try to TSUpdate before plugin has been installed, only on plugin
+        -- updates.
+        if pcall(require, "nvim-treesitter.install") then
+          vim.cmd("TSUpdate")
+        end
+      end,
+      commit = "4916d6592ede8c07973490d9322f187e07dfefac",
+      config = function()
+        -- Some other plugins use treesitter features, so need these even if never
+        -- opened a buffer with the corresponding ft
+        require("nvim-treesitter")
+          .install({
+            "html",
+            "json",
+            "jsx",
+            "lua",
+            "markdown",
+            "tsx",
+            "yaml",
+          })
+          :wait(300000) --- :wait makes it synchronous
+        require("dko.treesitter").flush()
+      end,
+      -- don't use this plugin when headless (lazy.nvim tends to try to install
+      -- markdown support async)
+      lazy = false,
+    },
+
+    -- https://github.com/Wansmer/treesj
+    {
+      "Wansmer/treesj",
+      cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
+      config = function()
+        require("treesj").setup({
+          use_default_keymaps = false,
+          max_join_length = 255,
         })
-        :wait(300000) --- :wait makes it synchronous
-      require("dko.treesitter").flush()
-    end,
-    -- don't use this plugin when headless (lazy.nvim tends to try to install
-    -- markdown support async)
-    lazy = false,
-  },
+        require("dko.mappings").bind_treesj()
+      end,
+      dependencies = "nvim-treesitter/nvim-treesitter",
+      event = { "BufReadPost", "BufNewFile" },
+    },
 
-  -- https://github.com/Wansmer/treesj
-  {
-    "Wansmer/treesj",
-    cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
-    config = function()
-      require("treesj").setup({
-        use_default_keymaps = false,
-        max_join_length = 255,
-      })
-      require("dko.mappings").bind_treesj()
-    end,
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
-  },
-
-  -- https://github.com/aaronik/treewalker.nvim
-  {
-    "aaronik/treewalker.nvim",
-    config = function()
-      require("dko.mappings").bind_treewalker()
-    end,
-  },
-}
+    -- https://github.com/aaronik/treewalker.nvim
+    {
+      "aaronik/treewalker.nvim",
+      config = function()
+        require("dko.mappings").bind_treewalker()
+      end,
+    },
+  }
+end)
