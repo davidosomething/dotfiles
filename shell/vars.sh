@@ -121,7 +121,7 @@ export VISUAL="$EDITOR"
 # my custom ewez script
 export EWEZ_EDITOR='enofork'
 
-export GIT_EDITOR="enofork"
+export GIT_EDITOR="giteditor"
 
 # create-react-app
 export REACT_EDITOR="$VISUAL"
