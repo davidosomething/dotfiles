@@ -7,8 +7,8 @@ tools.register({
 })
 
 tools.register({
-  fts = { "Dockerfile" },
   name = "hadolint",
+  fts = { "Dockerfile" },
   efm = function()
     ---@type EfmLinter
     return require("efmls-configs.linters.hadolint")
