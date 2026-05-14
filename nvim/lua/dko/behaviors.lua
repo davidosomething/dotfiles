@@ -77,8 +77,10 @@ if has_ui then
       if vim.list_contains(dkots.treesitter_ignores, args.match) then
         return
       end
-      local dkobuffer = require("dko.utils.buffer")
-      if dkobuffer.is_huge({ bufnr = args.buf }) then
+      if
+        vim.bo[args.buf].buftype == "nofile"
+        or require("dko.utils.buffer").is_huge({ bufnr = args.buf })
+      then
         return
       end
 
