@@ -25,6 +25,22 @@ M.get_documentLink = function()
 end
 
 M.open_link = function()
+  -- In plugin spec files, open plugin homepage via lazy.nvim
+  local filepath = vim.api.nvim_buf_get_name(0)
+  if filepath:find("dko/plugins") then
+    local line = vim.api.nvim_get_current_line()
+    local pkg = line:match('"([%w%-_.]+/[%w%-_.]+)"')
+      or line:match("'([%w%-_.]+/[%w%-_.]+)'")
+    if pkg then
+      local name = require("lazy.core.plugin").Spec.get_name(pkg)
+      local plugin = require("lazy.core.config").plugins[name]
+      if plugin and plugin.url then
+        vim.ui.open(plugin.url)
+        return
+      end
+    end
+  end
+
   local url = M.get_documentLink()
   if url then
     vim.notify(
@@ -45,22 +61,6 @@ M.open_link = function()
   if url then
     vim.ui.open(url)
     return
-  end
-
-  -- In plugin spec files, open plugin homepage via lazy.nvim
-  local filepath = vim.api.nvim_buf_get_name(0)
-  if filepath:find("dko/plugins") then
-    local line = vim.api.nvim_get_current_line()
-    local pkg = line:match('"([%w%-_.]+/[%w%-_.]+)"')
-      or line:match("'([%w%-_.]+/[%w%-_.]+)'")
-    if pkg then
-      local name = require("lazy.core.plugin").Spec.get_name(pkg)
-      local plugin = require("lazy.core.config").plugins[name]
-      if plugin and plugin.url then
-        vim.ui.open(plugin.url)
-        return
-      end
-    end
   end
 
   -- Popup menu of all urls in buffer
