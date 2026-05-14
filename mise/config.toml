@@ -4,6 +4,8 @@ experimental = false
 
 # tombi: format.rules.table-keys-order = "ascending"
 [tools]
+act = "latest"
+actionlint = "latest"
 "aqua:neovim/neovim" = "latest"
 biome = "latest"
 # @TODO fix completions for bat
