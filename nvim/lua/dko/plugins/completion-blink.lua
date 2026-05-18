@@ -12,6 +12,7 @@ return require("dko.utils.lazyspec")(function(ctx)
         "nvim-mini/mini.icons",
         -- https://cmp.saghen.dev/configuration/snippets#friendly-snippets
         -- "rafamadriz/friendly-snippets",
+        { "not-manu/filemention.nvim", event = "InsertEnter", opts = {} },
       },
 
       -- use a release tag to download pre-built binaries
@@ -63,28 +64,32 @@ return require("dko.utils.lazyspec")(function(ctx)
               },
               components = {
                 kind_icon = {
-                  text = function(ctx)
+                  text = function(kindctx)
                     local kind_icon, _, _ =
-                      require("mini.icons").get("lsp", ctx.kind)
+                      require("mini.icons").get("lsp", kindctx.kind)
                     return kind_icon
                   end,
-                  highlight = function(ctx)
-                    local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  highlight = function(hictx)
+                    local _, hl, _ =
+                      require("mini.icons").get("lsp", hictx.kind)
                     return hl
                   end,
                 },
                 kind = {
-                  text = function(ctx)
-                    return require("dko.utils.string").smallcaps(ctx.kind)
+                  text = function(kindctx)
+                    return require("dko.utils.string").smallcaps(kindctx.kind)
                   end,
-                  highlight = function(ctx)
-                    local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  highlight = function(hictx)
+                    local _, hl, _ =
+                      require("mini.icons").get("lsp", hictx.kind)
                     return hl
                   end,
                 },
                 source_name = {
-                  text = function(ctx)
-                    return require("dko.utils.string").smallcaps(ctx.source_name)
+                  text = function(sourcectx)
+                    return require("dko.utils.string").smallcaps(
+                      sourcectx.source_name
+                    )
                   end,
                 },
               },
@@ -130,8 +135,12 @@ return require("dko.utils.lazyspec")(function(ctx)
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
-          default = { "lsp", "path", "snippets", "buffer" },
+          default = { "filemention", "lsp", "path", "snippets", "buffer" },
           providers = {
+            filemention = {
+              name = "filemention",
+              module = "filemention.sources.blink",
+            },
             lsp = {
               -- https://cmp.saghen.dev/configuration/sources.html#show-buffer-completions-with-lsp
               fallbacks = {},
