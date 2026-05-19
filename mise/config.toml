@@ -10,6 +10,7 @@ actionlint = "latest"
 biome = "latest"
 # @TODO fix completions for bat
 "cargo:selene" = "latest"
+"cargo:shuck-cli" = "latest"
 # @TODO fix completions for fd
 delta = "latest"
 fd = "latest"
