@@ -18,6 +18,11 @@ tools.register({
 })
 
 tools.register({
+  name = "shuck",
+  runner = "lspconfig",
+})
+
+tools.register({
   fts = {
     "sh",
     "zsh", -- zsh as of https://github.com/mvdan/sh/releases/tag/v3.13.0
