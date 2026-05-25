@@ -21,7 +21,7 @@ main() {
   for file in "$@"; do
     case "$file" in
     /*) ;;
-    *) file="${PWD}/${file}" ;;
+    *) file="$(pwd)/${file}" ;;
     esac
     files="${files} ${file}"
   done
