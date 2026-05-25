@@ -5,7 +5,11 @@ local tools = require("dko.tools")
 -- this is a wrapper, don't need it any more
 -- tools.register({ name = "gh_actions_ls", runner = "lspconfig" })
 -- this is upstream, custom config in ../../../lsp/actionsls.lua
-tools.register({ name = "actionsls", runner = "lspconfig" })
+tools.register({
+  name = "actionsls",
+  runner = "lspconfig",
+})
+
 tools.register({
   name = "actionlint",
   fts = { "yaml.ghactions" },
@@ -41,6 +45,8 @@ tools.register({
   fts = { "yaml", "yaml.ghactions", "yaml.docker-compose" },
   efm = function()
     return vim.tbl_extend("force", require("efmls-configs.linters.yamllint"), {
+      lintAfterOpen = true,
+      lintIgnoreExitCode = true,
       lintSource = "efmls",
       prefix = "yamllint",
       rootMarkers = {
