@@ -59,6 +59,21 @@ return {
           },
         })
       end
+      -- Check if we're editing a wezterm config file and add type definitions
+      local bufname = vim.api.nvim_buf_get_name(0)
+      if bufname:match('/wezterm/') or vim.fn.fnamemodify(bufname, ':t') == 'wezterm.lua' then
+        local wezterm_types_path = vim.fn.stdpath('data') .. '/lazy/wezterm-types'
+        if vim.fn.isdirectory(wezterm_types_path) == 1 then
+          local original = client.config.settings.Lua --[[@as table]]
+          client.config.settings.Lua = vim.tbl_deep_extend('force', original, {
+            workspace = {
+              library = {
+                wezterm_types_path,
+              },
+            },
+          })
+        end
+      end
     end
   end,
   ---@type lspconfig.settings.lua_ls
