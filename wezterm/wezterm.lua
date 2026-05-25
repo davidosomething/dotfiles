@@ -1,6 +1,7 @@
-local wezterm = require("wezterm")
+local wezterm = require("wezterm") ---@type Wezterm
 
 -- This table will hold the configuration.
+---@type Config
 local config = {}
 
 -- In newer versions of wezterm, use the config_builder which will
