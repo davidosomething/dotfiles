@@ -49,16 +49,22 @@ M.flush = function()
   for bufnr, _ in pairs(buffer_queue) do
     if vim.api.nvim_buf_is_valid(bufnr) then
       local filetype = vim.bo[bufnr]["filetype"]
-      require("nvim-treesitter").install(filetype):await(M.bind_buffer)
+      require("nvim-treesitter").install(filetype):await(function()
+        M.bind_buffer(bufnr)
+      end)
     end
   end
 end
 
-M.bind_buffer = function()
+M.bind_buffer = function(bufnr)
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+  if vim.list_contains(M.treesitter_ignores, vim.bo[bufnr].filetype) then
+    return
+  end
   vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
   vim.wo[0][0].foldmethod = "expr"
   vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-  vim.treesitter.start()
+  vim.treesitter.start(bufnr)
 end
 
 return M
