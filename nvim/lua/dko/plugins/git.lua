@@ -11,6 +11,8 @@ return require("dko.utils.lazyspec")(function(ctx)
       init = function()
         vim.g.committia_open_only_vim_starting = 0
         vim.g.committia_use_singlecolumn = "always"
+        --- parse diff from commit template when --cached diff is empty (e.g. --amend)
+        vim.g["committia#git#use_verbose"] = 1
       end,
     },
 

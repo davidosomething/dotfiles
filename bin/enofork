@@ -13,7 +13,7 @@ main() {
     fallback="vi"
     command -v vim >/dev/null 2>&1 && fallback="vim"
     [ -n "$E_DEBUG" ] && log "Use fallback editor ${fallback}"
-    E_NOFORK=1 "$fallback" "$@"
+    DKO_EDITOR_CONTEXT="${DKO_EDITOR_CONTEXT:-}" E_NOFORK=1 "$fallback" "$@"
     return
   fi
 
@@ -29,7 +29,7 @@ main() {
   # -i means no shada
   [ -n "$E_DEBUG" ] && log "nvim -i NONE ${files}"
   # shellcheck disable=SC2086
-  E_NOFORK=1 nvim -i NONE ${files}
+  DKO_EDITOR_CONTEXT="${DKO_EDITOR_CONTEXT:-}" E_NOFORK=1 nvim -i NONE ${files}
 }
 
 main "$@"

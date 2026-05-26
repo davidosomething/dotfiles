@@ -50,6 +50,7 @@
 
 [commit]
 	template = "~/.dotfiles/git/commit-template"
+	verbose = true
 
 [core]
 	compression = -1

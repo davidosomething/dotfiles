@@ -80,7 +80,7 @@ main() {
     # don't prepend PWD for absolute paths
     case "$file" in
     /*) ;;
-    *) file="${PWD}/${file}" ;;
+    *) file="$(pwd)/${file}" ;;
     esac
     files+=("$file")
   done
