@@ -1,0 +1,6 @@
+[lint]
+# C002: sourced file path is built at runtime (non-literal)
+# C003: "sourced file is not available to this analysis"
+# Our shell files source each other via runtime vars (${DOTFILES}, ${ZDOTDIR},
+# etc.) that shuck can't resolve statically, so these fire everywhere.
+ignore = ["C002", "C003"]
