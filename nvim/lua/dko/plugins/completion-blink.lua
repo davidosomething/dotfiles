@@ -12,7 +12,21 @@ return require("dko.utils.lazyspec")(function(ctx)
         "nvim-mini/mini.icons",
         -- https://cmp.saghen.dev/configuration/snippets#friendly-snippets
         -- "rafamadriz/friendly-snippets",
-        { "not-manu/filemention.nvim", event = "InsertEnter", opts = {} },
+        {
+          "not-manu/filemention.nvim",
+          event = "InsertEnter",
+          dependencies = {
+            {
+              "dmtrKovalenko/fff.nvim",
+              build = function()
+                -- downloads a prebuilt binary or falls back to cargo build
+                require("fff.download").download_or_build_binary()
+              end,
+              lazy = false, -- the plugin lazy-initialises itself
+            },
+          },
+          opts = { finder = "fff" },
+        },
       },
 
       -- use a release tag to download pre-built binaries
