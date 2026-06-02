@@ -19,9 +19,9 @@ main_wt=$(git worktree list --porcelain | awk '
 ')
 
 if [ -n "$main_wt" ]; then
-	echo "ffm: fast-forwarding main in $main_wt"
-	git -C "$main_wt" pull --ff-only "$remote" main
+  echo "ffm: fast-forwarding main in $main_wt"
+  git -C "$main_wt" pull --ff-only "$remote" main
 else
-	echo "ffm: updating main ref from $remote"
-	git fetch "$remote" main:main
+  echo "ffm: updating main ref from $remote"
+  git fetch "$remote" main:main
 fi
