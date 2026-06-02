@@ -30,6 +30,7 @@
 	dns     = diff --ignore-all-space
 	dw      = diff --word-diff
 
+  ffm     = fetch origin main:main
 	fo      = fetch origin
 
 	# https://caiustheory.com/git-git-git-git-git/
