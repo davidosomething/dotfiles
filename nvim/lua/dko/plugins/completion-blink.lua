@@ -18,6 +18,7 @@ return require("dko.utils.lazyspec")(function(ctx)
           dependencies = {
             {
               "dmtrKovalenko/fff.nvim",
+              tag = "v0.9.0",
               build = function()
                 -- downloads a prebuilt binary or falls back to cargo build
                 require("fff.download").download_or_build_binary()
