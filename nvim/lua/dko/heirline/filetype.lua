@@ -3,7 +3,7 @@ local utils = require("heirline.utils")
 local function hl()
   if require("dko.utils.treesitter").is_highlight_enabled() then
     return {
-      bg = utils.get_highlight("StatusLineNC").bg,
+      bg = utils.get_highlight("dkoStatusKey").bg,
       fg = utils.get_highlight("StatusLine").fg,
     }
   end
@@ -13,6 +13,21 @@ end
 return {
   condition = function()
     return vim.bo.filetype ~= ""
+  end,
+
+  init = function(self)
+    -- for toggleterm this is something like
+    -- term://~/.dotfiles/nvim//96469:/bin/zsh;#toggleterm#88888
+    self.filepath = vim.api.nvim_buf_get_name(0)
+
+    self.icon, self.icon_color = "", ""
+    ---@diagnostic disable-next-line: undefined-field
+    self.icon = _G.MiniIcons and _G.MiniIcons.get("file", self.filepath) or ""
+
+    self.filetype_text = require("dko.utils.string").smallcaps(
+      vim.bo.filetype,
+      { numbers = false }
+    )
   end,
 
   utils.surround({ "█", "█" }, function()

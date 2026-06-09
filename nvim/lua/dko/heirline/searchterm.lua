@@ -20,7 +20,7 @@ return {
           self.search_count.total
         )
       end,
-      hl = "StatusLine",
+      hl = "dkoStatusKey",
     },
   },
 }

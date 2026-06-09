@@ -21,7 +21,7 @@ return {
       return #vim.b.formatters > 0
     end,
     hl = function()
-      return require("dko.heirline.utils").hl("dkoStatusKey")
+      return require("dko.heirline.utils").hl("dkoStatusValue")
     end,
     provider = function()
       local items = {}
@@ -35,9 +35,12 @@ return {
         else
           for _, name in ipairs(vim.b.formatters) do
             if vim.bo.filetype ~= "" and name == "efm" then
-              local efm_configs = require("dko.tools").config_with_efm_by_ft[vim.bo.filetype] or {}
-              local efm_names = vim.iter(efm_configs):map(function (c) return c.name end)
-              table.insert(items, ("efm[%s]"):format(efm_names:join(',')))
+              local efm_configs = require("dko.tools").config_with_efm_by_ft[vim.bo.filetype]
+                or {}
+              local efm_names = vim.iter(efm_configs):map(function(c)
+                return c.name
+              end)
+              table.insert(items, ("efm[%s]"):format(efm_names:join(",")))
             else
               table.insert(items, name)
             end

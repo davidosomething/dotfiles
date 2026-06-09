@@ -1,6 +1,7 @@
 return {
   require("dko.heirline.mode"),
-  require("dko.heirline.searchterm"),
+  require("dko.heirline.filetype"),
+  require("dko.heirline.formatters"),
 
   -- this means that the statusline is cut here when there's not enough space
   { provider = "%<" },
@@ -11,12 +12,13 @@ return {
     hl = "StatusLineNC",
   },
 
+  require("dko.heirline.searchterm"),
+
   {
     provider = function()
       return vim.ui.progress_status()
     end,
   },
 
-  require("dko.heirline.formatters"),
   require("dko.heirline.ruler"),
 }

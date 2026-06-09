@@ -1,24 +1,8 @@
 return {
   provider = function(self)
-    local dkozshnameddirs = require("dko.zsh.nameddirs")
     local dkopath = require("dko.utils.path")
     local full_cwd = vim.uv.cwd() or ""
-    local found = dkozshnameddirs.find(full_cwd)
-    local shortname = found and found.name
-    local prefix = found and found.path
-
-    -- remove prefix and trailing slash
-    local compact = (shortname and prefix and full_cwd:sub(prefix:len() + 2))
-      or vim.fn.fnamemodify(vim.uv.cwd() or "", ":~")
-
-    _G.cwd = {
-      full_cwd = full_cwd,
-      shortname = shortname,
-      prefix = prefix,
-      compact = compact,
-    }
-
-    local _, longest = dkopath.longest_subdir(compact)
+    local replaced = dkopath.replace_named_dir(full_cwd)
     local extrachars = vim
       .iter({
         2 + 5, -- counts
@@ -31,16 +15,7 @@ return {
       :fold(0, function(acc, v)
         return acc + v
       end)
-    local remaining = self.ui.width
-      - extrachars
-      - (shortname and shortname:len() or 0)
-    while longest > 1 and compact:len() > remaining do
-      longest = longest - 1
-      -- note tail dir is not shortened
-      compact = vim.fn.pathshorten(compact, longest)
-    end
-    local result = shortname and ("~%s/%s"):format(shortname, compact)
-      or compact
-    return (" %s"):format(result)
+    local compact = dkopath.compact_dir(replaced, extrachars, self.ui.width)
+    return (" %s"):format(compact)
   end,
 }
