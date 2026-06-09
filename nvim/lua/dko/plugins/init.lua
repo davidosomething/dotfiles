@@ -78,6 +78,22 @@ return require("dko.utils.lazyspec")(function(ctx)
                 end),
             },
           },
+          format = function(item, picker)
+            local fmt = require("snacks.picker.format")
+            local dkopath = require("dko.utils.path")
+            local ret = fmt.file(item, picker)
+            local win_width = vim.api.nvim_win_get_width(0)
+            -- space for filename, line numbers, icon, separators
+            local padding = vim.fn.fnamemodify(item.file, ":t"):len() + 10
+            for _, text in ipairs(ret) do
+              if text[2] == "SnacksPickerDir" and text[1] ~= "" then
+                local dirpath = vim.fn.fnamemodify(item.file, ":~:h")
+                local replaced = dkopath.replace_named_dir(dirpath)
+                text[1] = dkopath.compact_dir(replaced, padding, win_width)
+              end
+            end
+            return ret
+          end,
         },
       },
       config = true,
