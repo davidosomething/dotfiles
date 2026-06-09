@@ -15,18 +15,23 @@ return require("dko.utils.lazyspec")(function(ctx)
         {
           "not-manu/filemention.nvim",
           event = "InsertEnter",
-          dependencies = {
-            {
-              "dmtrKovalenko/fff.nvim",
-              tag = "v0.9.0",
-              build = function()
-                -- downloads a prebuilt binary or falls back to cargo build
-                require("fff.download").download_or_build_binary()
-              end,
-              lazy = false, -- the plugin lazy-initialises itself
-            },
+          -- dependencies = {
+          --   {
+          --     "dmtrKovalenko/fff.nvim",
+          --     tag = "v0.9.0",
+          --     build = function()
+          --       -- downloads a prebuilt binary or falls back to cargo build
+          --       require("fff.download").download_or_build_binary()
+          --     end,
+          --     lazy = false, -- the plugin lazy-initialises itself
+          --     opts = {
+          --       enable_home_dir_scanning = false,
+          --     },
+          --   },
+          -- },
+          opts = {
+            finder = "fff",
           },
-          opts = { finder = "fff" },
         },
       },
 
