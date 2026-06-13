@@ -10,7 +10,7 @@ return require("dko.utils.lazyspec")(function(ctx)
       -- checktime events
       -- https://github.com/neovim/neovim/pull/37971
       "awalland/nvim-file-watch",
-      cond = not ctx.is_giteditor and vim.fn.has("nvim-0.13.0") == 0,
+      cond = not ctx.is_giteditor and vim.fn.has("nvim-0.13") == 0,
       opts = { notify = false },
     },
 

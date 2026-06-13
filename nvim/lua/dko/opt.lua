@@ -5,7 +5,7 @@ vim.go.termguicolors = vim.env.TERM_PROGRAM ~= "Apple_Terminal"
 -- ===========================================================================
 
 -- pre-0.13 is handled by the "awalland/nvim-file-watch" plugin
-vim.go.autoread = vim.fn.has("nvim-0.13.0") == 0
+vim.go.autoread = vim.fn.has("nvim-0.13") == 0
 
 vim.go.modelines = 1
 
