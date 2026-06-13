@@ -43,19 +43,3 @@ insert_final_newline = true
 
 [*.py]
 indent_size = 4
-
-# shfmt
-# https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd#examples
-[*.sh]
-indent_size = 2
-indent_style = space
-shell_variant = posix
-simplify = true
-binary_next_line = true
-# --case-indent
-switch_case_indent = true
-space_redirects = false
-keep_padding = false
-# --func-next-line
-function_next_line = false
-minify = false

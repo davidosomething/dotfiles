@@ -110,6 +110,12 @@ alias kctl='kubectl'
 alias kctx='kubectx'
 alias kns='kubens'
 
+# --------------------------------------------------------------------------
+# mise
+# --------------------------------------------------------------------------
+
+alias m='mise'
+
 # ----------------------------------------------------------------------------
 # node / JS
 # ----------------------------------------------------------------------------
@@ -198,8 +204,8 @@ __alias_ls() {
     #__classify='-F'
     __colorized='-G'
     __groupdirs=''
-  elif [ "$DOTFILES_OS" = 'Linux' ] \
-    && [ "$DOTFILES_DISTRO" != 'busybox' ]; then
+  elif [ "$DOTFILES_OS" = 'Linux' ] &&
+    [ "$DOTFILES_DISTRO" != 'busybox' ]; then
     __literal='-N'
     __timestyle='--time-style="+%Y%m%d"'
   fi

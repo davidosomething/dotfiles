@@ -4,3 +4,14 @@
 # Our shell files source each other via runtime vars (${DOTFILES}, ${ZDOTDIR},
 # etc.) that shuck can't resolve statically, so these fire everywhere.
 ignore = ["C002", "C003"]
+
+[format]
+# keep in sync with .editorconfig shfmt
+indent-style = "space"  # tab | space
+indent-width = 2  # used when indent-style = "space"
+binary-next-line = true  # put binary operators on continuation lines
+switch-case-indent = true  # indent case branch bodies
+space-redirects = false  # add spaces around redirection operators
+keep-padding = false  # preserve safe horizontal padding
+function-next-line = false  # put function opening braces on their own line
+never-split = false  # prefer compact layouts

@@ -22,17 +22,18 @@ tools.register({
   runner = "lspconfig",
 })
 
-tools.register({
-  fts = {
-    "sh",
-    "zsh", -- zsh as of https://github.com/mvdan/sh/releases/tag/v3.13.0
-  },
-  name = "shfmt",
-  efm = function()
-    ---@type EfmFormatter
-    return require("efmls-configs.formatters.shfmt")
-  end,
-})
+-- using shuck now
+-- tools.register({
+--   fts = {
+--     "sh",
+--     "zsh", -- zsh as of https://github.com/mvdan/sh/releases/tag/v3.13.0
+--   },
+--   name = "shfmt",
+--   efm = function()
+--     ---@type EfmFormatter
+--     return require("efmls-configs.formatters.shfmt")
+--   end,
+-- })
 
 -- this lsp just runs shellcheck and shfmt
 -- tools.register({

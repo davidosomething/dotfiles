@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# git ffm — fast-forward local `main` to origin/main.
+#
+# Works in a normal repo and in a bare-repo worktree container. Git refuses to
+# fetch into a branch that is checked out in any worktree, so:
+#   - if `main` is checked out somewhere, fast-forward that checkout (updates its
+#     ref *and* working tree)
+#   - otherwise update the ref directly with a fetch refspec
+
+set -euo pipefail
+
+remote="${1:-origin}"
+
+# Path of the worktree that has refs/heads/main checked out, if any.
+main_wt=$(git worktree list --porcelain | awk '
+  /^worktree / { wt = substr($0, 10) }
+  $0 == "branch refs/heads/main" { print wt; exit }
+')
+
+if [ -n "$main_wt" ]; then
+  echo "ffm: fast-forwarding main in $main_wt"
+  git -C "$main_wt" pull --ff-only "$remote" main
+else
+  echo "ffm: updating main ref from $remote"
+  git fetch "$remote" main:main
+fi
