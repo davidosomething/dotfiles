@@ -4,11 +4,14 @@ return require("dko.utils.lazyspec")(function(ctx)
   ---@type LazySpec
   return {
     {
+      -- Auto-update on filesystem events
+      -- The built-in autoread will support filesystem events as of nvim-0.13
+      -- as opposed to nvim-0.12 only supporting on FocusGained and other
+      -- checktime events
+      -- https://github.com/neovim/neovim/pull/37971
       "awalland/nvim-file-watch",
-      cond = not ctx.is_giteditor,
-      opts = {
-        notify = false,
-      },
+      cond = not ctx.is_giteditor and vim.fn.has("nvim-0.13.0") == 0,
+      opts = { notify = false },
     },
 
     -- because https://github.com/neovim/neovim/issues/1496
