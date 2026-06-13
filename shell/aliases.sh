@@ -59,11 +59,11 @@ alias docker_rm_dead_volumes='docker volume rm $(docker volume ls -qf dangling=t
 # ----------------------------------------------------------------------------
 
 edc() {
-	if [ -f 'compose.yaml' ]; then
-		e compose.yaml
-	elif [ -f 'docker-compose.yml' ]; then
-		e docker-compose.yaml
-	fi
+  if [ -f 'compose.yaml' ]; then
+    e compose.yaml
+  elif [ -f 'docker-compose.yml' ]; then
+    e docker-compose.yaml
+  fi
 }
 
 alias ega='e "${DOTFILES}/git/aliases.gitconfig"'
@@ -190,38 +190,38 @@ alias xit='exit' # dammit
 # ============================================================================
 
 __alias_ls() {
-	__almost_all='-A' # switched from --almost-all for old bash support
-	__classify='-F'   # switched from --classify for old bash support
-	__colorized='--color=auto'
-	__groupdirs='--group-directories-first'
-	__literal=''
-	__long='-l'
-	__single_column='-1'
-	__timestyle=''
+  __almost_all='-A' # switched from --almost-all for old bash support
+  __classify='-F'   # switched from --classify for old bash support
+  __colorized='--color=auto'
+  __groupdirs='--group-directories-first'
+  __literal=''
+  __long='-l'
+  __single_column='-1'
+  __timestyle=''
 
-	if [ "$DOTFILES_OS" = 'Darwin' ]; then
-		#__almost_all='-A'
-		#__classify='-F'
-		__colorized='-G'
-		__groupdirs=''
-	elif [ "$DOTFILES_OS" = 'Linux' ] &&
-		[ "$DOTFILES_DISTRO" != 'busybox' ]; then
-		__literal='-N'
-		__timestyle='--time-style="+%Y%m%d"'
-	fi
+  if [ "$DOTFILES_OS" = 'Darwin' ]; then
+    #__almost_all='-A'
+    #__classify='-F'
+    __colorized='-G'
+    __groupdirs=''
+  elif [ "$DOTFILES_OS" = 'Linux' ] &&
+    [ "$DOTFILES_DISTRO" != 'busybox' ]; then
+    __literal='-N'
+    __timestyle='--time-style="+%Y%m%d"'
+  fi
 
-	# shellcheck disable=SC2139
-	alias ls="ls $__colorized $__literal $__classify $__groupdirs $__timestyle"
-	# shellcheck disable=SC2139
-	alias la="ls $__almost_all"
-	# shellcheck disable=SC2139
-	alias l="ls $__single_column $__almost_all"
-	# shellcheck disable=SC2139
-	alias ll="l $__long"
-	# shit
-	alias kk='ll'
+  # shellcheck disable=SC2139
+  alias ls="ls $__colorized $__literal $__classify $__groupdirs $__timestyle"
+  # shellcheck disable=SC2139
+  alias la="ls $__almost_all"
+  # shellcheck disable=SC2139
+  alias l="ls $__single_column $__almost_all"
+  # shellcheck disable=SC2139
+  alias ll="l $__long"
+  # shit
+  alias kk='ll'
 
-	unset __almost_all __classify __colorized __groupdirs \
-		__literal __long __single_column __timestyle
+  unset __almost_all __classify __colorized __groupdirs \
+    __literal __long __single_column __timestyle
 }
 __alias_ls
