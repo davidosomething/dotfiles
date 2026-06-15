@@ -22,7 +22,10 @@ return {
 
     local final
     if not rd then
-      final = dkopath.compact_dir(path, 0, remaining)
+      final = dkopath.compact_dir(
+        path,
+        { padding = 0, max_width = remaining, max_segment_width = 16 }
+      )
     elseif rd.relative == "" then
       final = "."
     else
@@ -30,7 +33,10 @@ return {
       final = ("%s%s%s"):format(
         rd.up,
         slash,
-        dkopath.compact_dir(rd.relative, 0, remaining)
+        dkopath.compact_dir(
+          rd.relative,
+          { padding = 0, max_width = remaining, max_segment_width = 16 }
+        )
       )
     end
     return ("in %s%s/ "):format("%<", final)

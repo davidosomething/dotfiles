@@ -15,7 +15,11 @@ return {
       :fold(0, function(acc, v)
         return acc + v
       end)
-    local compact = dkopath.compact_dir(replaced, extrachars, self.ui.width)
+    local compact = dkopath.compact_dir(replaced, {
+      padding = extrachars,
+      max_width = self.ui.width,
+      max_segment_width = 16,
+    })
     return (" %s"):format(compact)
   end,
 }
