@@ -8,7 +8,19 @@ return {
     return utils.get_highlight("StatusLineNC").bg
   end, {
     provider = function(self)
-      return self.branch and (" %s"):format(self.branch)
+      if not self.branch then
+        return
+      end
+      local segments = vim.split(self.branch, "/", { plain = true })
+      for i, segment in ipairs(segments) do
+        if segment == vim.env.USER then
+          segments[i] = "👤"
+        elseif #segment > 16 then
+          segments[i] = segment:sub(1, 16) .. "…"
+        end
+      end
+      self.branch = table.concat(segments, "/")
+      return (" %s"):format(self.branch)
     end,
   }),
 }
