@@ -15,8 +15,12 @@ return {
   require("dko.heirline.searchterm"),
 
   {
+    condition = function(self)
+      return vim.ui.progress_status
+    end,
     provider = function()
-      return vim.ui.progress_status()
+      local _, res = pcall(vim.ui.progress_status)
+      return res or ""
     end,
   },
 
