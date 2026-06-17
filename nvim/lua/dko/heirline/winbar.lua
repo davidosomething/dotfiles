@@ -1,4 +1,7 @@
 return {
+  condition = function()
+    return vim.fn.exists("&busy") == 1
+  end,
   init = function(self)
     -- for toggleterm this is something like
     -- term://~/.dotfiles/nvim//96469:/bin/zsh;#toggleterm#88888
