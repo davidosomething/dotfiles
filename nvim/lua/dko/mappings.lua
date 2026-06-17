@@ -40,6 +40,9 @@ local function emap(modes, keys, handler, opts)
   end, opts)
 end
 
+-- disable ctrl-left-click, konsole i use to open links
+map("n", "<C-LeftMouse>", "<Nop>")
+
 map("n", "<Esc><Esc>", function()
   vim.cmd.doautoall("User EscEscStart")
 
