@@ -8,46 +8,46 @@ act = "latest"
 actionlint = "latest"
 "aqua:neovim/neovim" = "latest"
 biome = "latest"
-# @TODO fix completions for bat
-"cargo:selene" = "latest"
-"cargo:shuck-cli" = "latest"
-# @TODO fix completions for fd
+"cargo:selene" = { version = "latest", depends = ["rust"] }
+"cargo:shuck-cli" = { version = "latest", depends = ["rust"] }
 delta = "latest"
 fd = "latest"
 fzf = "latest"
-# @TODO fix completions for cli
 github-cli = "latest"
 "github:skanehira/version-lsp" = "latest"
 go = "1.26.4"
-"go:github.com/mattn/efm-langserver" = "latest"
-"go:golang.org/x/tools/gopls" = "latest"
+"go:github.com/mattn/efm-langserver" = { version = "latest", depends = ["go"] }
+"go:golang.org/x/tools/gopls" = { version = "latest", depends = ["go"] }
 hadolint = "latest"
 "http:git-relevant" = { version = "0.0.0", url = "https://raw.githubusercontent.com/davidosomething/git-relevant/refs/heads/master/git-relevant" }
 "http:git-take" = { version = "0.0.0", url = "https://raw.githubusercontent.com/davidosomething/git-take/refs/heads/master/git-take" }
-# @TODO fix completions for jq
 jq = "latest"
 lua-language-server = "latest"
 marksman = "latest"
 node = "latest"
-"npm:@actions/languageserver" = "latest"
-"npm:@mdx-js/language-server" = "latest"
-"npm:@microsoft/compose-language-service" = "latest"
-"npm:@tailwindcss/language-server" = "latest"
-"npm:@vtsls/language-server" = "latest"
-"npm:dockerfile-language-server-nodejs" = "latest"
-"npm:markdownlint-cli" = "latest"
-"npm:npmrc" = "latest"
-"npm:vscode-langservers-extracted" = "latest"
-"npm:yaml-language-server" = "latest"
-"pipx:basedpyright" = "latest"
-"pipx:isort" = "latest"
-"pipx:jedi-language-server" = "latest"
+"npm:@actions/languageserver" = { version = "latest", depends = ["node"] }
+"npm:@mdx-js/language-server" = { version = "latest", depends = ["node"] }
+"npm:@microsoft/compose-language-service" = { version = "latest", depends = [
+  "node"
+] }
+"npm:@tailwindcss/language-server" = { version = "latest", depends = ["node"] }
+"npm:@vtsls/language-server" = { version = "latest", depends = ["node"] }
+"npm:dockerfile-language-server-nodejs" = { version = "latest", depends = [
+  "node"
+] }
+"npm:markdownlint-cli" = { version = "latest", depends = ["node"] }
+"npm:npmrc" = { version = "latest", depends = ["node"] }
+"npm:vscode-langservers-extracted" = { version = "latest", depends = ["node"] }
+"npm:yaml-language-server" = { version = "latest", depends = ["node"] }
+"pipx:basedpyright" = { version = "latest", depends = ["python"] }
+"pipx:isort" = { version = "latest", depends = ["python"] }
+"pipx:jedi-language-server" = { version = "latest", depends = ["python"] }
 prettier = "latest"
 python = "latest"
 ripgrep = { version = "latest", postinstall = "[ -n \"${XDG_DATA_HOME}\" ] && mkdir -p ${XDG_DATA_HOME}/zsh/site-functions && rg --generate complete-zsh > ${XDG_DATA_HOME}/zsh/site-functions/_rg || true" }
 ruff = "latest"
 rust = "latest"
-rust-analyzer = "latest"
+rust-analyzer = { version = "latest", depends = ["rust"] }
 shellcheck = "latest"
 stylua = "latest"
 terraform-ls = "latest"
