@@ -20,6 +20,28 @@ export DKO_SOURCE="${DKO_SOURCE} -> prompt.zsh {"
 #   zle && zle -R
 # }
 
+# Max length of any single path segment in %~ before it's truncated with a
+# horizontal ellipsis (…). The ellipsis counts toward this total, so overlong
+# segments become (maxlen - 1) chars + '…'.
+DKO_PROMPT_PATH_MAXLEN=40
+
+# Truncate each over-length segment of a path, leaving short segments, the
+# leading '/' (an empty first segment), and '~' substitutions intact.
+# $1 path string (already %~-expanded, e.g. ~/foo/longsegment/bar)
+__dko_prompt::truncate_path() {
+  local maxlen="${DKO_PROMPT_PATH_MAXLEN:-40}"
+  local -a segs
+  # Split on '/'; (j:/:) below rejoins, so empties (leading '/') round-trip.
+  segs=("${(@s:/:)1}")
+  local i seg
+  for (( i = 1; i <= ${#segs}; i++ )); do
+    seg="${segs[i]}"
+    # zsh slices are 1-indexed/inclusive, so [1,N-1] keeps the first N-1 chars.
+    (( ${#seg} > maxlen )) && segs[i]="${seg[1,maxlen-1]}…"
+  done
+  print -r -- "${(j:/:)segs}"
+}
+
 # ============================================================================
 # components
 # ============================================================================
@@ -42,6 +64,8 @@ __dko_prompt_left_colors+=('%F{blue}')
 __dko_prompt_left_parts+=(':')
 __dko_prompt_left_colors+=('%F{yellow}')
 __dko_prompt_left_parts+=('%~')
+# Remember the path slot so precmd can swap in a per-segment truncated version.
+__dko_prompt_pwd_index=${#__dko_prompt_left_parts}
 
 __dko_prompt_right_colors=()
 __dko_prompt_right_parts=()
@@ -51,6 +75,13 @@ __dko_prompt_right_parts=()
 # ============================================================================
 
 __dko_prompt::precmd::state() {
+  # Recompute the path slot from the live %~ each precmd, truncating long
+  # segments. We re-expand %~ fresh here (not the stored element) so the input
+  # is always the real cwd. Re-escape literal '%' as '%%' so the (%) prompt
+  # expansion in the colorize loop (and left_raw below) leaves it intact.
+  local pwd_trunc="$(__dko_prompt::truncate_path "${(%):-%~}")"
+  __dko_prompt_left_parts[$__dko_prompt_pwd_index]="${pwd_trunc//\%/%%}"
+
   local left_raw="${(%j::)__dko_prompt_left_parts} "
   local left_len=${#left_raw}
   local right_raw=" ${(ej::)__dko_prompt_right_parts}"
