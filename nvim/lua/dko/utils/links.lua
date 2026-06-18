@@ -24,6 +24,15 @@ M.get_documentLink = function()
   return lsplinks_ok and lsplinks.current() or nil
 end
 
+M.open_or_copy = function(url)
+  if vim.env.DISPLAY == nil then
+    vim.fn.setreg("+", url)
+    vim.notify(url, vim.log.levels.INFO, { title = "Copied url" })
+    return
+  end
+  vim.ui.open(url)
+end
+
 M.open_link = function()
   -- In plugin spec files, open plugin homepage via lazy.nvim
   local filepath = vim.api.nvim_buf_get_name(0)
@@ -35,7 +44,7 @@ M.open_link = function()
       local name = require("lazy.core.plugin").Spec.get_name(pkg)
       local plugin = require("lazy.core.config").plugins[name]
       if plugin and plugin.url then
-        vim.ui.open(plugin.url)
+        M.open_or_copy(plugin.url)
         return
       end
     end
@@ -59,7 +68,7 @@ M.open_link = function()
     end
   end
   if url then
-    vim.ui.open(url)
+    M.open_or_copy(url)
     return
   end
 
