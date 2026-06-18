@@ -74,7 +74,7 @@ end)
 local ldotdir = os.getenv("LDOTDIR") or os.getenv("XDG_DATA_HOME") .. "/ldotdir"
 wezterm.log_info("Trying lpath: " .. ldotdir)
 -- Define the file name and the path format you want to add
-local file = io.open(ldotdir .. "local-wezterm.lua", "r")
+local file = io.open(ldotdir .. "/local-wezterm.lua", "r")
 if file then
   file:close()
   -- Get the current working directory (or specify a absolute path if needed)
