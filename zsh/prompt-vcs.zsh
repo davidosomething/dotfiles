@@ -43,8 +43,21 @@ zstyle ':vcs_info:git*' actionformats '%F{magenta}(%m %F{red}→%F{magenta} %b%c
   # check would fall through to `git status` and emit "fatal: this operation
   # must be run in a work tree". The redirect also keeps "true"/"false" from
   # leaking into the prompt.
-  if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] &&
-    git status --porcelain | grep -q '??'; then
+  # Detect untracked files with `git ls-files --others` instead of
+  # `git status --porcelain`: ls-files skips the full status machinery, and
+  # `head -1` lets git stop at the first untracked file rather than
+  # enumerating the entire worktree. This keeps the per-prompt cost low in
+  # large repos.
+  #
+  # `--show-toplevel` doubles as the work-tree guard: it prints nothing (and
+  # errors) in a bare repo or outside a work tree, so a non-empty result means
+  # we're safely inside one. Anchoring ls-files there with `-C` restores the
+  # old repo-wide semantics — otherwise ls-files only sees the CWD and below,
+  # so the marker would miss untracked files elsewhere in the repo.
+  local toplevel
+  toplevel="$(git rev-parse --show-toplevel 2>/dev/null)"
+  if [[ -n "$toplevel" ]] &&
+    [[ -n "$(git -C "$toplevel" ls-files --others --exclude-standard | head -1)" ]]; then
     hook_com['staged']+='T'
   fi
   # This will show the marker if there are any untracked files in repo.
