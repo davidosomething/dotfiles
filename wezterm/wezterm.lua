@@ -71,4 +71,21 @@ wezterm.on("gui-startup", function(cmd)
   end
 end)
 
+local ldotdir = os.getenv("LDOTDIR") or os.getenv("XDG_DATA_HOME") .. "/ldotdir"
+wezterm.log_info("Trying lpath: " .. ldotdir)
+-- Define the file name and the path format you want to add
+local file = io.open(ldotdir .. "local-wezterm.lua", "r")
+if file then
+  file:close()
+  -- Get the current working directory (or specify a absolute path if needed)
+  -- This appends the directory to the package search path
+  package.path = package.path .. ";" .. ldotdir .. "/?.lua"
+end
+local has_after, l = pcall(require, "local-wezterm")
+if has_after then
+  wezterm.log_info("local-wezterm FOUND: " .. ldotdir)
+  l.setup(config)
+else
+  wezterm.log_info("local-wezterm NOT FOUND" .. ldotdir)
+end
 return config

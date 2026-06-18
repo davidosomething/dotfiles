@@ -57,9 +57,9 @@ __homebrew() {
   # fix old casks that error during uninstall from undent
   # https://github.com/Homebrew/homebrew-cask/issues/49716
   cask-fix-uninstalled() {
-    find "$(brew --prefix)/Caskroom/"*'/.metadata' -type f -name '*.rb' |\
-      xargs grep 'EOS.undent' --files-with-matches |\
-      xargs sed -i '' 's/EOS.undent/EOS/'
+    find "$(brew --prefix)/Caskroom/"*'/.metadata' -type f -name '*.rb' \
+      | xargs grep 'EOS.undent' --files-with-matches \
+      | xargs sed -i '' 's/EOS.undent/EOS/'
   }
 
   # list installed brew and deps
@@ -71,22 +71,6 @@ __homebrew() {
       echo ""
     done
   }
-
-  # ==========================================================================
-  # Homebrew Aliases
-  # ==========================================================================
-
-  alias b='TERM=xterm-256color \brew'
-  alias brew='b'
-
-  alias bi='b install'
-  alias bs='b search'
-  alias blfn='b ls --full-name'
-
-  alias bsvc='b services'
-  alias bsvr='b services restart'
-
-  alias bwhy='b uses --installed --recursive'
 }
 __homebrew
 
@@ -101,14 +85,13 @@ dockerrestart() {
   sleep 1
 
   open -a Docker && {
-    while ! docker info >/dev/null 2>&1 ; do
+    while ! docker info >/dev/null 2>&1; do
       printf "."
       sleep 1
     done
     echo
   }
 }
-
 
 # short version of what's provided by oh-my-zsh/xcode
 ios() {

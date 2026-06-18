@@ -33,6 +33,22 @@ alias t="tree -a --noreport --dirsfirst -I '.git|node_modules|bower_components|.
 
 alias ap='ansible-playbook -vvv'
 
+# --------------------------------------------------------------------------
+# Homebrew Aliases
+# --------------------------------------------------------------------------
+
+alias b='TERM=xterm-256color \brew'
+alias brew='b'
+
+alias bi='b install'
+alias bs='b search'
+alias blfn='b ls --full-name'
+
+alias bsvc='b services'
+alias bsvr='b services restart'
+
+alias bwhy='b uses --installed --recursive'
+
 # ----------------------------------------------------------------------------
 # cat (prefer bat)
 # ----------------------------------------------------------------------------
