@@ -39,8 +39,10 @@ __dko_dotfiles__usage() {
     deb         -- update apt packages
 
   System: macOS/OS X
-    brew        -- homebrew packages
     mac         -- software updates
+
+  Cross-platform
+    brew        -- homebrew packages (macOS/Linux)
 '
 }
 
@@ -127,7 +129,6 @@ __dko_dotfiles__linux__update() {
 
 __dko_dotfiles__darwin__update() {
   case "$1" in
-  brew) __dko_dotfiles__darwin__update_brew ;;
   mac) __dko_dotfiles__darwin__update_mac ;;
   *) __dko_dotfiles__command_not_found "$1" ;;
   esac
@@ -180,7 +181,7 @@ __dko_dotfiles__darwin__require_latest_xcode() {
   return 1
 }
 
-__dko_dotfiles__darwin__update_brew() {
+__dko_dotfiles__update_brew() {
   __dko_has brew || return 1
 
   __dko_status "Updating homebrew"
@@ -207,7 +208,7 @@ __dko_dotfiles__darwin__update_brew() {
     HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade || exit 1
     __dko_ok "Upgrade complete"
 
-    __dko_dotfiles__darwin__update_brew_postupgrade "$outdated"
+    __dko_dotfiles__update_brew_postupgrade "$outdated"
   ) && {
     __dko_status "brew cleanup - clean up old versions and prune dead symlinks"
     brew cleanup --verbose
@@ -215,7 +216,7 @@ __dko_dotfiles__darwin__update_brew() {
   }
 }
 
-__dko_dotfiles__darwin__update_brew_postupgrade() {
+__dko_dotfiles__update_brew_postupgrade() {
   __dko_status "Running post-upgrade packages"
 
   local outdated="$1"
@@ -265,6 +266,7 @@ __dko_dotfiles() {
   daily) __dko_dotfiles__update_daily ;;
   pip) __dko_dotfiles__py__update_pip ;;
   pipx) __dko_dotfiles__py__update_pipx ;;
+  brew) __dko_dotfiles__update_brew ;;
 
   *)
     case "$OSTYPE" in

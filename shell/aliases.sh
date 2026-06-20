@@ -37,9 +37,7 @@ alias ap='ansible-playbook -vvv'
 # Homebrew Aliases
 # --------------------------------------------------------------------------
 
-alias b='TERM=xterm-256color \brew'
-alias brew='b'
-
+alias b='brew'
 alias bi='b install'
 alias bs='b search'
 alias blfn='b ls --full-name'
