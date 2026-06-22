@@ -8,7 +8,9 @@ hs.loadSpoon("Lunette")
 spoon.Lunette:bindHotkeys({
   cycleWidth = false,
   leftHalf = { { mc, "A" } },
-  rightHalf = { { mc, "D" } },
+  -- skhd forwards cmd-ctrl-d here so it isn't swallowed by the macOS Dictionary
+  -- lookup; `hyper` is cmd-ctrl-shift (see init.lua)
+  rightHalf = { { hyper, "D" } },
   topHalf = { { mc, "K" } },
   bottomHalf = { { mc, "J" } },
   topLeft = { { mc, "Q" } },

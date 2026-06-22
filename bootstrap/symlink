@@ -71,12 +71,14 @@ __symlink() {
     ".config/ideavim/ideavimrc"
 
   case "$OSTYPE" in
-  *arwin*)
-    dko-symlink "mac/hammerspoon" \
-      ".hammerspoon"
-    dko-symlink "mac/dot.hushlogin" \
-      ".hushlogin"
-    ;;
+    *arwin*)
+      dko-symlink "mac/hammerspoon" \
+        ".hammerspoon"
+      dko-symlink "mac/dot.hushlogin" \
+        ".hushlogin"
+      dko-symlink "mac/skhd/skhdrc" \
+        ".config/skhd/skhdrc"
+      ;;
   esac
 
   # Shell

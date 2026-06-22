@@ -1,0 +1,7 @@
+# cmd-ctrl-d natively opens the Dictionary app for the word under the cursor,
+# which is not something you can override in native macOS settings. Consume that
+# combo so the Dictionary popup never fires, and forward it to a spare hotkey
+# (cmd-ctrl-shift-d, the Hammerspoon `hyper` modifier) that Hammerspoon binds
+# and acts on. Using `|` (forward) rather than `->` (passthrough) is what
+# actually suppresses the Dictionary lookup.
+cmd + ctrl - d | cmd + ctrl + shift - d
