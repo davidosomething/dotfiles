@@ -19,7 +19,8 @@ return require("dko.utils.lazyspec")(function(ctx)
     {
       "lewis6991/gitsigns.nvim",
       event = { "BufReadPost", "BufNewFile" },
-      cond = ctx.has_ui,
+      -- not needed to write a commit message; skip it to speed up the editor
+      cond = ctx.has_ui and not ctx.is_giteditor,
       opts = {
         on_attach = require("dko.mappings").bind_gitsigns,
         preview_config = {

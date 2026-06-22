@@ -26,7 +26,10 @@ return require("dko.utils.lazyspec")(function(ctx)
       cond = ctx.has_ui,
       version = false,
       opts = {
-        -- buffer = { suffix = "b" },
+        -- nil -> keep mini's default suffix ("b"), whose ]b [b shadow Neovim's
+        -- built-in ]b [b. In the git commit editor there's nothing to navigate,
+        -- so disable it (and dko.mappings also deletes the built-in defaults).
+        buffer = ctx.is_giteditor and { suffix = BRACKETED_DISABLED } or nil,
         -- comment = { suffix = "c" },
         -- conflict = { suffix = "x" },
         diagnostic = {
@@ -37,7 +40,9 @@ return require("dko.utils.lazyspec")(function(ctx)
           --   float = require("dko.settings").get("diagnostics.goto_float"),
           -- },
         },
-        -- file = { suffix = "f" },
+        -- nil -> keep mini's default suffix ("f"); disabled in the git commit
+        -- editor like `buffer` above.
+        file = ctx.is_giteditor and { suffix = BRACKETED_DISABLED } or nil,
         indent = { suffix = BRACKETED_DISABLED }, -- confusing
         jump = { suffix = BRACKETED_DISABLED }, -- redundant
         -- location = { suffix = "l" },

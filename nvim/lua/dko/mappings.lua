@@ -59,8 +59,22 @@ end, { desc = "Clear UI" })
 -- Window / Buffer manip
 -- ===========================================================================
 
-map("n", "]t", vim.cmd.tabn, { desc = "Next tab" })
-map("n", "[t", vim.cmd.tabp, { desc = "Prev tab" })
+if vim.env.DKO_EDITOR_CONTEXT == "giteditor" then
+  -- Buffer/tab/file bracket nav is noise in the git commit editor. These are
+  -- Neovim's built-in default mappings (:h default-mappings); remove them so
+  -- they don't linger now that mini.bracketed no longer shadows them.
+  for _, lhs in ipairs({
+    "]b", "[b", "]B", "[B", -- buffer
+    "]t", "[t", "]T", "[T", -- tab
+    "]f", "[f", -- file
+  }) do
+    pcall(vim.keymap.del, "n", lhs)
+  end
+else
+  -- no tabs in the git commit editor, so skip the tab nav maps there
+  map("n", "]t", vim.cmd.tabn, { desc = "Next tab" })
+  map("n", "[t", vim.cmd.tabp, { desc = "Prev tab" })
+end
 
 map("n", "<BS>", function()
   -- only in non-floating
