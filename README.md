@@ -27,7 +27,7 @@ My [/uses] post may be of interest to you!
 
 See macOS specific notes in [mac/README.md](./mac/README.md)
 
-1. Install the dotfiles and zsh first so you get mise via zinit.
+1. Install the dotfiles first.
 
     ```sh
     git clone https://github.com/davidosomething/dotfiles ~/.dotfiles
@@ -35,7 +35,14 @@ See macOS specific notes in [mac/README.md](./mac/README.md)
 
     Then, run the [bootstrap/symlink](./bootstrap/symlink) script.
 
-    After symlinking, **restart the shell**.
+1. After symlinking, **start zsh or restart the shell** -- e.g. run `exec zsh`.
+   (If zsh is not available, consider installing it with the system package
+   manager. It is default on mac os.)  
+   This will trigger `zinit` to install.
+   Once `mise` is installed via `zinit` you may see warnings about npm
+   dependencies.
+
+1. `mise install` to install mise-managed tools.
 
 1. Run [bootstrap/cleanup](./bootstrap/cleanup) to clean up stray dotfiles, moving
    into their XDG Base Directory supported directories and deleting unnecessary
