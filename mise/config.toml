@@ -2,6 +2,9 @@
 gpg_verify = false
 experimental = false
 
+[settings.github]
+use_git_credentials = true
+
 # tombi: format.rules.table-keys-order = "ascending"
 [tools]
 act = "latest"
