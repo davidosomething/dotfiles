@@ -27,20 +27,19 @@ My [/uses] post may be of interest to you!
 
 See macOS specific notes in [mac/README.md](./mac/README.md)
 
-Generally:
+1. Install the dotfiles and zsh first so you get mise via zinit.
 
-```sh
-git clone https://github.com/davidosomething/dotfiles ~/.dotfiles
-```
+    ```sh
+    git clone https://github.com/davidosomething/dotfiles ~/.dotfiles
+    ```
 
-Then, run the [bootstrap/symlink](./bootstrap/symlink) script.
+    Then, run the [bootstrap/symlink](./bootstrap/symlink) script.
 
-After symlinking, **restart the shell**. Aliases will be available.
-The `sshkeygen` alias will help in generating a new SSH key.
+    After symlinking, **restart the shell**.
 
-Run [bootstrap/cleanup](./bootstrap/cleanup) to clean up stray dotfiles, moving
-into their XDG Base Directory supported directories and deleting unnecessary
-things (with confirmation).
+1. Run [bootstrap/cleanup](./bootstrap/cleanup) to clean up stray dotfiles, moving
+   into their XDG Base Directory supported directories and deleting unnecessary
+   things (with confirmation).
 
 ## Updating
 

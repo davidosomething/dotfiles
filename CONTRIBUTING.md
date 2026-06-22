@@ -1,6 +1,9 @@
 # Contributing
 
-1. Install the dotfiles and zsh first so you get mise via zinit.
+1. After installing and symlinking dotfiles, aliases will be available.  
+   The `sshkeygen` alias will help in generating a new SSH key.
+1. Add the public key to GitHub, GitLab, Bitbucket, etc.
+1. Change the `~/.dotfiles` origin protocol to SSH
 1. Install binaries and shell tools for this repo via mise
 
     ```sh

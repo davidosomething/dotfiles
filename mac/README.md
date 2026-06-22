@@ -10,24 +10,17 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
 ## Install dotfiles
 
-```sh
-git clone https://github.com/davidosomething/dotfiles.git ~/.dotfiles/
-~/.dotfiles/bootstrap/symlink
-# restart terminal
-```
-
-## Setup ssh keys
-
-1. Use `sshkeygen` alias to generate new Ed25519 keys
-1. Add the public key to GitHub, GitLab, Bitbucket, etc.
-1. Optionally change the `~/.dotfiles` origin protocol to SSH
+Follow step 1 of the repo [README.md](../README.md).
 
 ## Install homebrew and install packages
 
-Install homebrew according to <https://brew.sh/>. Install base `Brewfile` (or `personal.Brewfile`).
+Install homebrew according to <https://brew.sh/>.
+
+Install base `Brewfile` (or `personal.Brewfile`):
 
 ```sh
 brew bundle --file=~/.dotfiles/mac/Brewfile
+# or
 # brew bundle --file=~/.dotfiles/mac/personal.Brewfile
 ```
 
@@ -47,8 +40,7 @@ brew bundle --file=~/.dotfiles/mac/Brewfile
     paste blockers
   - Caffeinate icon in menu bar
   - Window management keys to use sections of a monitor (try hitting the key
-    multiple times) and to throw apps to the next monitor
-    (<kbd>⌃</kbd><kbd>⌘</kbd><kbd>⇧</kbd><kbd>f/h/l/z/[/]</kbd>)
+    multiple times)
 
 ## Manually disable some keyboard shortcuts
 
