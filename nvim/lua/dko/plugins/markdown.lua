@@ -69,6 +69,22 @@ return require("dko.utils.lazyspec")(function(ctx)
           bullets = {},
         },
       },
+      config = function(_, opts)
+        local headlines = require("headlines")
+        -- A filewatch-triggered reload can re-run the FileType/Syntax autocmds
+        -- while treesitter is mid-reparse, yielding an empty heading node
+        -- (level 0) and a nil hl_group. headlines' make_reverse_highlight then
+        -- concatenates nil -> E5108. Guard against the nil name; the next clean
+        -- refresh restores the real highlight.
+        local make_reverse_highlight = headlines.make_reverse_highlight
+        headlines.make_reverse_highlight = function(name)
+          if not name then
+            return "Normal"
+          end
+          return make_reverse_highlight(name)
+        end
+        headlines.setup(opts)
+      end,
     },
   }
 end)
