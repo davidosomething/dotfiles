@@ -22,6 +22,12 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
     ```
 
 1. Start bettertouchtool and hammerspoon
+1. Install and start the skhd service (grants Accessibility on first key event):
+
+    ```sh
+    skhd --install-service
+    skhd --start-service
+    ```
 
 ## Cask notes
 
@@ -41,4 +47,14 @@ login. To remedy this, see [Unlock] (forked to my GitHub for archival).
   - Window management keys to use sections of a monitor (try hitting the key
     multiple times)
 
+## Brew notes
+
+- skhd ([skhd.zig], installed via the `jackielii/tap` tap) is a hotkey daemon.
+  macOS binds <kbd>⌘</kbd><kbd>⌃</kbd><kbd>d</kbd> to the Dictionary lookup for
+  the word under the cursor and won't let you disable it in System Preferences.
+  My `skhd/skhdrc` consumes that combo and forwards it to
+  <kbd>⌘</kbd><kbd>⌃</kbd><kbd>⇧</kbd><kbd>d</kbd>, which hammerspoon binds to
+  the window-management right-half action. Config hot-reloads on save.
+
 [unlock]: https://github.com/davidosomething/Unlock
+[skhd.zig]: https://github.com/jackielii/skhd.zig

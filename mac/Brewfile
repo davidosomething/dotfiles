@@ -1,6 +1,16 @@
 # ==========================================================================
+# taps
+# ==========================================================================
+
+# skhd.zig hotkey daemon (used to free up cmd-ctrl-d from macOS Dictionary)
+tap "jackielii/tap"
+
+# ==========================================================================
 # brew'd apps I use on ALL macs
 # ==========================================================================
+
+# hotkey daemon; my skhd config forwards cmd-ctrl-d to hammerspoon
+brew "jackielii/tap/skhd-zig"
 
 brew "git"
 
