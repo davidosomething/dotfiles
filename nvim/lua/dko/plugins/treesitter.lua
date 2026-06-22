@@ -5,10 +5,14 @@ return require("dko.utils.lazyspec")(function(ctx)
     {
       "nvim-treesitter/nvim-treesitter",
       build = function()
-        -- Don't try to TSUpdate before plugin has been installed, only on plugin
-        -- updates.
-        if pcall(require, "nvim-treesitter.install") then
-          vim.cmd("TSUpdate")
+        -- The :TSUpdate command is registered in the plugin's plugin/ files,
+        -- which lazy.nvim does NOT source before running a build function on a
+        -- fresh clone -- so `vim.cmd("TSUpdate")` errors with "Not an editor
+        -- command". Call the Lua API directly instead (this is all :TSUpdate
+        -- does anyway). On first install nothing is installed yet so this is a
+        -- no-op; it only does work on plugin updates.
+        if pcall(require, "nvim-treesitter") then
+          require("nvim-treesitter").update():wait(300000)
         end
       end,
       commit = "4916d6592ede8c07973490d9322f187e07dfefac",
