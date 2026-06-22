@@ -104,7 +104,8 @@ function {
     wait as'completion' lucid nocompile run-atpull \
     atclone'print Installing brew provided completions...;
       mkdir -p $ZPFX/funs;
-      command cp $HOMEBREW_PREFIX/share/zsh/site-functions/^_* $ZPFX/funs;
+      local -a _brewcomps=( $HOMEBREW_PREFIX/share/zsh/site-functions/^_*(N.) );
+      (( $#_brewcomps )) && command cp $_brewcomps $ZPFX/funs;
       zinit creinstall -q $HOMEBREW_PREFIX/share/zsh/site-functions;' \
     atload'fpath=( ${(u)fpath[@]:#$ZPFX/share/zsh/*} );
       fpath+=( $ZPFX/funs );' \
