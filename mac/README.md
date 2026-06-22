@@ -3,14 +3,14 @@
 User data on encrypted volumes other than the boot volume will not mount until
 login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
-1. OPTIONAL iCloud sign in
-1. OPTIONAL install App Store apps, Xcode
 1. Manually disable some keyboard shortcuts. Remove these using System Preferences:
     - `Keyboard` disable a bunch of things in `Text Replacements`
     - `Mission Control` owns <kbd>⌃</kbd><kbd>←</kbd> and <kbd>⌃</kbd><kbd>→</kbd>
     - `Spotlight` owns <kbd>⌘</kbd><kbd>space</kbd>
       - I remap this to hammerspoon's seal instead.
     - Disable `Trackpad` various Zoom options.
+1. OPTIONAL iCloud sign in and install app store apps.
+1. Install Xcode and CLI tools (trying to `git clone` will prompt you to do this anyway).
 1. Follow step 1 of the repo [README.md](../README.md).
 1. Install homebrew according to <https://brew.sh/>.
 1. Install base `Brewfile` (or `personal.Brewfile`):
