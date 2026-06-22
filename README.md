@@ -42,7 +42,7 @@ See macOS specific notes in [mac/README.md](./mac/README.md)
    Once `mise` is installed via `zinit` you may see warnings about npm
    dependencies.
 
-1. `mise install` to install mise-managed tools.
+1. `mise trust && mise install` to install mise-managed tools.
 
 1. Run [bootstrap/cleanup](./bootstrap/cleanup) to clean up stray dotfiles, moving
    into their XDG Base Directory supported directories and deleting unnecessary
