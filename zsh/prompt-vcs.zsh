@@ -26,46 +26,6 @@ zstyle ':vcs_info:git*' stagedstr '+'
 zstyle ':vcs_info:git*' formats '%F{magenta}(%b%c%u)'
 zstyle ':vcs_info:git*' actionformats '%F{magenta}(%m %F{red}→%F{magenta} %b%c%u)'
 
-# Show untracked files
-#
-# @see <https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples#L155>
-# @see <http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#vcs_005finfo-Quickstart>
-# $1 message variable name
-# $2 formats/actionformats
-+vi-git-untracked() {
-  # Use an `if` (not a bare `&&` chain) so the function returns 0 even when
-  # there are no untracked files. vcs_info runs set-message hooks in sequence
-  # and aborts the rest of the chain if one returns non-zero — a failing
-  # trailing `grep -q` here would silently skip git-branch-truncate below.
-  #
-  # Compare the printed value, not just the exit status: in a bare repo
-  # `--is-inside-work-tree` exits 0 while printing "false", so an exit-code
-  # check would fall through to `git status` and emit "fatal: this operation
-  # must be run in a work tree". The redirect also keeps "true"/"false" from
-  # leaking into the prompt.
-  # Detect untracked files with `git ls-files --others` instead of
-  # `git status --porcelain`: ls-files skips the full status machinery, and
-  # `head -1` lets git stop at the first untracked file rather than
-  # enumerating the entire worktree. This keeps the per-prompt cost low in
-  # large repos.
-  #
-  # `--show-toplevel` doubles as the work-tree guard: it prints nothing (and
-  # errors) in a bare repo or outside a work tree, so a non-empty result means
-  # we're safely inside one. Anchoring ls-files there with `-C` restores the
-  # old repo-wide semantics — otherwise ls-files only sees the CWD and below,
-  # so the marker would miss untracked files elsewhere in the repo.
-  local toplevel
-  toplevel="$(git rev-parse --show-toplevel 2>/dev/null)"
-  if [[ -n "$toplevel" ]] &&
-    [[ -n "$(git -C "$toplevel" ls-files --others --exclude-standard | head -1)" ]]; then
-    hook_com['staged']+='T'
-  fi
-  # This will show the marker if there are any untracked files in repo.
-  # If instead you want to show the marker only if there are untracked
-  # files in $PWD, use:
-  #[[ -n $(git ls-files --others --exclude-standard) ]] ; then
-}
-
 # Use custom hook to parse merge message in actionformat
 #
 # @see <http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#vcs_005finfo-Quickstart>
@@ -105,6 +65,6 @@ zstyle ':vcs_info:git*' actionformats '%F{magenta}(%m %F{red}→%F{magenta} %b%c
 # when the same context+style is set repeatedly, so they must be listed in a
 # single call or earlier hooks get clobbered.
 zstyle ':vcs_info:git*+set-message:*' hooks \
-  git-untracked git-merge-message git-branch-truncate
+  git-merge-message git-branch-truncate
 
 __dko_has "vcs_info" && add-zsh-hook "precmd" "vcs_info"
