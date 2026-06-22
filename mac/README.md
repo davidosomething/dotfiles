@@ -3,28 +3,27 @@
 User data on encrypted volumes other than the boot volume will not mount until
 login. To remedy this, see [Unlock] (forked to my GitHub for archival).
 
-## App Store
+1. OPTIONAL iCloud sign in
+1. OPTIONAL install App Store apps, Xcode
+1. Manually disable some keyboard shortcuts. Remove these using System Preferences:
+    - `Keyboard` disable a bunch of things in `Text Replacements`
+    - `Mission Control` owns <kbd>⌃</kbd><kbd>←</kbd> and <kbd>⌃</kbd><kbd>→</kbd>
+    - `Spotlight` owns <kbd>⌘</kbd><kbd>space</kbd>
+      - I remap this to hammerspoon's seal instead.
+    - Disable `Trackpad` various Zoom options.
+1. Follow step 1 of the repo [README.md](../README.md).
+1. Install homebrew according to <https://brew.sh/>.
+1. Install base `Brewfile` (or `personal.Brewfile`):
 
-1. iCloud sign in
-1. Install App Store apps, Xcode
+    ```sh
+    brew bundle --file=~/.dotfiles/mac/Brewfile
+    # or
+    # brew bundle --file=~/.dotfiles/mac/personal.Brewfile
+    ```
 
-## Install dotfiles
+1. Start bettertouchtool and hammerspoon
 
-Follow step 1 of the repo [README.md](../README.md).
-
-## Install homebrew and install packages
-
-Install homebrew according to <https://brew.sh/>.
-
-Install base `Brewfile` (or `personal.Brewfile`):
-
-```sh
-brew bundle --file=~/.dotfiles/mac/Brewfile
-# or
-# brew bundle --file=~/.dotfiles/mac/personal.Brewfile
-```
-
-### Cask notes
+## Cask notes
 
 - bettertouchtool
   - I keep my license in syncthing/gmail/bitwarden
@@ -41,15 +40,5 @@ brew bundle --file=~/.dotfiles/mac/Brewfile
   - Caffeinate icon in menu bar
   - Window management keys to use sections of a monitor (try hitting the key
     multiple times)
-
-## Manually disable some keyboard shortcuts
-
-Remove these using System Preferences:
-
-- `Keyboard` disable a bunch of things in `Text Replacements`
-- `Mission Control` owns <kbd>⌃</kbd><kbd>←</kbd> and <kbd>⌃</kbd><kbd>→</kbd>
-- `Spotlight` owns <kbd>⌘</kbd><kbd>space</kbd>
-  - I remap this to hammerspoon's seal instead.
-- Disable `Trackpad` various Zoom options.
 
 [unlock]: https://github.com/davidosomething/Unlock
