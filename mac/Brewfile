@@ -2,9 +2,6 @@
 # taps
 # ==========================================================================
 
-# skhd.zig hotkey daemon (used to free up cmd-ctrl-d from macOS Dictionary)
-tap "jackielii/tap"
-
 # ==========================================================================
 # brew'd apps I use on ALL macs
 # ==========================================================================
@@ -27,5 +24,7 @@ cask "bettertouchtool"
 cask "firefox"
 cask "google-chrome"
 cask "hammerspoon"
+cask "handy"
 cask "meetingbar"
+cask "shottr"
 cask "wezterm@nightly"
