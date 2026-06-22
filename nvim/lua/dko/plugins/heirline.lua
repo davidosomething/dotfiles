@@ -40,8 +40,10 @@ return require("dko.utils.lazyspec")(function(ctx)
       cond = ctx.has_ui,
       dependencies = "nvim-mini/mini.icons",
       init = function()
+        -- No tabline in the git commit editor; nothing to switch between
+        local NEVER = 0
         local ALWAYS = 2
-        vim.o.showtabline = ALWAYS
+        vim.o.showtabline = ctx.is_giteditor and NEVER or ALWAYS
         local GLOBAL = 3
         vim.o.laststatus = GLOBAL
       end,
@@ -51,7 +53,9 @@ return require("dko.utils.lazyspec")(function(ctx)
       config = function()
         require("heirline").setup({
           statusline = require("dko.heirline.statusline-default"),
-          tabline = require("dko.heirline.tabline"),
+          -- skip tabline setup entirely in the git commit editor
+          tabline = not ctx.is_giteditor and require("dko.heirline.tabline")
+            or nil,
           winbar = require("dko.heirline.winbar"),
           opts = { disable_winbar_cb = disable_winbar_cb },
         })

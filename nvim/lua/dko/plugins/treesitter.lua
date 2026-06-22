@@ -40,6 +40,8 @@ return require("dko.utils.lazyspec")(function(ctx)
     -- https://github.com/Wansmer/treesj
     {
       "Wansmer/treesj",
+      -- not needed to write a commit message; skip it to speed up the editor
+      cond = not ctx.is_giteditor,
       cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
       config = function()
         require("treesj").setup({
