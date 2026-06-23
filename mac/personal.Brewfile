@@ -6,5 +6,7 @@ cask "bitwarden"
 cask "discord"
 cask "notion-calendar"
 cask "obsidian"
-cask "syncthing"
-cask "tailscale"
+# Real time file synchronisation software
+cask "syncthing-app"
+# Mesh VPN based on WireGuard
+cask "tailscale-app"
