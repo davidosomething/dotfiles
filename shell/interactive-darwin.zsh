@@ -43,34 +43,6 @@ __homebrew() {
 
   [ -d "${HOMEBREW_PREFIX}/share/android-sdk" ] &&
     export ANDROID_SDK_ROOT="${HOMEBREW_PREFIX}/share/android-sdk"
-
-  # ==========================================================================
-  # Homebrew Functions
-  # ==========================================================================
-
-  cask-upgrade() {
-    local outdated
-    outdated=$(brew outdated --cask --greedy --quiet)
-    [ -n $outdated ] && brew upgrade $outdated
-  }
-
-  # fix old casks that error during uninstall from undent
-  # https://github.com/Homebrew/homebrew-cask/issues/49716
-  cask-fix-uninstalled() {
-    find "$(brew --prefix)/Caskroom/"*'/.metadata' -type f -name '*.rb' \
-      | xargs grep 'EOS.undent' --files-with-matches \
-      | xargs sed -i '' 's/EOS.undent/EOS/'
-  }
-
-  # list installed brew and deps
-  # https://zanshin.net/2014/02/03/how-to-list-brew-dependencies/
-  bwhytree() {
-    brew list -1 --formula | while read c; do
-      echo -n "\e[1;34m${c} -> \e[0m"
-      brew deps "$c" | awk '{printf(" %s ", $0)}'
-      echo ""
-    done
-  }
 }
 __homebrew
 
@@ -108,7 +80,7 @@ members() {
 }
 
 vol() {
-  __dko_has "osascript" && osascript -e "set volume ${1}"
+  osascript -e "set volume ${1}"
 }
 
 alias canary='open -a "Google Chrome Canary.app"'
@@ -130,6 +102,4 @@ alias flushdns="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 # xcode
 # ----------------------------------------------------------------------------
 
-alias cuios='XCODE_XCCONFIG_FILE="${PWD}/xcconfigs/swift31.xcconfig" carthage update --platform iOS'
 alias deletederived='rm -rf ~/Library/Developer/Xcode/DerivedData/*'
-alias xcimg='xcrun simctl addmedia booted'

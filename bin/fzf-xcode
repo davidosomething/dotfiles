@@ -8,8 +8,8 @@ __main() {
   local current
   local version
 
-  command -v fzf >/dev/null || return 1
-  command -v xcode-select >/dev/null || return 1
+  (( $+commands[fzf] )) || return 1
+  (( $+commands[xcode-select] )) || return 1
 
   current=$(xcode-select --print-path)
   version=$(find /Applications -maxdepth 1 -iname 'Xcode*.app' | fzf \

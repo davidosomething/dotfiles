@@ -3,6 +3,10 @@
 
 export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive-linux.sh"
 
+# Route tools that respect $BROWSER (gh, git web--browse, npm, etc.) through
+# dko-open so the spawned browser is detached from the shell's tty.
+export BROWSER="dko-open"
+
 # ============================================================================
 # functions
 # ============================================================================
@@ -18,12 +22,6 @@ flushfonts() {
 
 alias open="dko-open"
 
-# Route tools that respect $BROWSER (gh, git web--browse, npm, etc.) through
-# dko-open so the spawned browser is detached from the shell's tty.
-export BROWSER="dko-open"
-
-alias startx='startx > "${DOTFILES}/logs/startx.log" 2>&1'
-
 alias testnotification="notify-send \
   'Hello world!' \
   'This is an example notification.' \
@@ -31,6 +29,3 @@ alias testnotification="notify-send \
 
 # systemd
 alias logboot='sudo journalctl -b0'
-
-alias plasmadebugger='plasma-interactiveconsole --kwin || qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.showInteractiveKWinConsole'
-alias kwinlogs='journalctl -f QT_CATEGORY=js QT_CATEGORY=kwin_scripting'

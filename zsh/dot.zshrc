@@ -18,7 +18,8 @@ typeset -gU cdpath PATH path FPATH fpath MANPATH manpath # shuck: ignore=C001
 . "${DOTFILES}/shell/interactive.sh"
 
 # Doesn't need export for current shell, but do want in subshells
-export HISTFILE="${XDG_STATE_HOME}/zsh_history"
+export HISTFILE="${XDG_STATE_HOME}/zsh/history"
+mkdir -p -- "${HISTFILE:h}"
 
 # ============================================================================
 # nocorrect aliases
@@ -45,7 +46,7 @@ alias eg="\e"
 # ============================================================================
 
 # file is required and missing on busybox
-__dko_has 'git' && {
+(( $+commands[git] )) && {
   declare -A ZINIT
   ZINIT[HOME_DIR]="${XDG_DATA_HOME}/zinit"
   ZINIT[COMPINIT_OPTS]=-C
@@ -64,7 +65,7 @@ __dko_has 'git' && {
   }
 }
 
-if __dko_has 'zinit'; then
+if (( $+functions[zinit] )); then
   . "${ZDOTDIR}/zinit.zsh" 2>/dev/null
   autoload -Uz _zinit && ((${+_comps})) && _comps['zinit']=_zinit
   # the last zinit plugin will run zicompinit which inits compinit
@@ -79,7 +80,7 @@ fi
 compdef g=git
 compdef e=nvim
 
-if __dko_has 'pipx' && ! eval "$(register-python-argcomplete pipx)"; then
+if (( $+commands[pipx] )) && ! eval "$(register-python-argcomplete pipx)"; then
   __dko_warn "Failed to run register-python-argcomplete!"
   __dko_warn_ "Was python upgraded? Maybe do a 'pipx reinstall-all'"
 fi
@@ -166,248 +167,10 @@ zle -N bracketed-paste bracketed-paste-magic
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-# ============================================================================
-# Keybindings
-#
-# Find defaults in
-# https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Zle-Widgets
-# \e is the same as ^[ is the escape code for <Esc>
-# Prefer ^[ since it mixes better with the letter form [A
-#
-# `cat -e` - test what the terminal emulator is reporting for a keypress
-#
-# `bindkey '^w'` - shows what is bound to ^w. If it reports something
-# different than is here, it may be coming from .inputrc
-#
-# Tested on macbook iterm2 and magic keyboard+arch, xterm-256color
-# - Need both normal mode and vicmd mode
-# ============================================================================
-
-# VI mode, and make -M main === -M viins
-bindkey -v
-
-# ----------------------------------------------------------------------------
-# Keybindings - Completion with tab
-# Cancel and reset prompt with ctrl-c
-# ----------------------------------------------------------------------------
-
-# shift-tab to select previous result
-bindkey -M menuselect '^[[Z' reverse-menu-complete
-
-# fix prompt (and side-effect of exiting menuselect) on ^C
-bindkey -M menuselect '^C' reset-prompt
-
-# ----------------------------------------------------------------------------
-# Keybindings - Movement keys
-# The 1;3 variants are for wezterm and kitty
-# ----------------------------------------------------------------------------
-
-# C-Left
-bindkey -M viins '^[[1;5D' vi-backward-word
-bindkey -M vicmd '^[[1;5D' vi-backward-word
-bindkey -M viins '^b' vi-backward-word
-bindkey -M vicmd '^b' vi-backward-word
-
-# C-Right
-bindkey -M viins '^[[1;5C' vi-forward-word
-bindkey -M vicmd '^[[1;5C' vi-forward-word
-# normally it is vi-backward-backward-kill-word
-bindkey -M viins '^w' vi-forward-word
-bindkey -M vicmd '^w' vi-forward-word
-
-bindkey -M viins '^e' vi-forward-word-end
-bindkey -M vicmd '^e' vi-forward-word-end
-
-# Home/Fn-Left
-bindkey -M viins '^[[H' vi-beginning-of-line
-bindkey -M vicmd '^[[H' vi-beginning-of-line
-
-# End/Fn-Right
-bindkey -M viins '^[[F' vi-end-of-line
-bindkey -M vicmd '^[[F' vi-end-of-line
-
-# ----------------------------------------------------------------------------
-# Keybindings: Editing keys
-# ----------------------------------------------------------------------------
-
-# Opt-Left kill left
-bindkey -M viins '^[^[[D' vi-backward-kill-word
-bindkey -M vicmd '^[^[[D' vi-backward-kill-word
-bindkey -M viins '^[[1;3D' vi-backward-kill-word
-# Opt-Right kill right
-bindkey -M viins '^[^[[C' kill-word
-bindkey -M vicmd '^[^[[C' kill-word
-bindkey -M viins '^[[1;3C' kill-word
-
-# fix delete - Fn-delete
-# Don't bind in vicmd mode
-bindkey '^[[3~' delete-char
-
-# Allow using backspace from :normal [A]ppend
-bindkey -M viins '^?' backward-delete-char
-
-# ----------------------------------------------------------------------------
-# Keybindings: History navigation
-# Don't bind in vicmd mode, so I can edit multiline commands properly.
-# ----------------------------------------------------------------------------
-
-# Up/Down search history filtered using already entered contents
-bindkey '^[[A' history-search-backward
-bindkey '^[[B' history-search-forward
-
-# PgUp/Dn navigate through history like regular up/down
-bindkey '^[[5~' up-history
-bindkey '^[[6~' down-history
-
-# ============================================================================
-# FZF keybindings
-# ============================================================================
-
-if __dko_has 'fzf'; then
-  if . "${XDG_CONFIG_HOME}/fzf/fzf.zsh" 2>/dev/null || {
-    # linux package managers throw it here
-    . "/usr/share/fzf/completion.zsh" 2>/dev/null
-    . "/usr/share/fzf/key-bindings.zsh" 2>/dev/null
-  } || {
-    # apt / debian
-    . "/usr/share/doc/fzf/examples/completion.zsh" 2>/dev/null
-    . "/usr/share/doc/fzf/examples/key-bindings.zsh" 2>/dev/null
-  }; then
-    DKO_SOURCE="${DKO_SOURCE} -> fzf"
-  fi
-
-  # <A-b> to open git branch menu and switch to one
-  # changed from <C-b> since that's my tmux bind
-  __dkofzfbranch() {
-    fzf-git-branch
-    zle accept-line
-  }
-  zle -N __dkofzfbranch
-  bindkey '^[b' __dkofzfbranch
-
-  # <A-w> to open git worktree list and cd into one
-  __dkofzfworktree() {
-    local wt
-    wt="$(fzf-git-worktree)"
-    [ -d "$wt" ] && cd "${wt}"
-    zle accept-line
-  }
-  zle -N __dkofzfworktree
-  bindkey '^[w' __dkofzfworktree
-fi
-
-# ============================================================================
-# Completion settings
-# Order by * specificity
-# ============================================================================
-
-# --------------------------------------------------------------------------
-# Completion: Caching
-# --------------------------------------------------------------------------
-
-zstyle ':completion:*' use-cache true
-zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
-
-# --------------------------------------------------------------------------
-# Completion: Display
-# --------------------------------------------------------------------------
-
-# group all by the description above
-zstyle ':completion:*' group-name ''
-
-# colorful completion
-#zstyle ':completion:*' list-colors ''
-
-# Updated to respect LS_COLORS
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-zstyle ':completion:*' list-dirs-first yes
-
-# go into menu mode on second tab (like current vim wildmenu setting)
-# only if there's more than two things to choose from
-zstyle ':completion:*' menu select=2
-
-# show descriptions for options
-zstyle ':completion:*' verbose yes
-
-# in Bold, specify what type the completion is, e.g. a file or an alias or
-# a cmd
-zstyle ':completion:*:descriptions' format '%F{black}%B%d%b%f'
-
-# --------------------------------------------------------------------------
-# Completion: Matching
-# --------------------------------------------------------------------------
-
-# use case-insensitive completion if case-sensitive generated no hits
-zstyle ':completion:*' matcher-list \
-  'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
-
-# don't complete usernames
-zstyle ':completion:*' users ''
-
-# don't autocomplete homedirs
-zstyle ':completion::complete:cd:*' tag-order '! users'
-
-# --------------------------------------------------------------------------
-# Completion: Output transformation
-# --------------------------------------------------------------------------
-
-# expand completions as much as possible on tab
-# e.g. start expanding a path up to wherever it can be until error
-zstyle ':completion:*' expand yes
-
-# process names
-zstyle ':completion:*:processes-names' command \
-  'ps c -u ${USER} -o command | uniq'
-
-# rsync and SSH use hosts from ~/.ssh/config
-[ -r "${HOME}/.ssh/config" ] && {
-  # Vanilla parsing of config file :)
-  # @see {@link https://github.com/Eriner/zim/issues/46#issuecomment-219344931}
-  hosts=(${${${(@M)${(f)"$(<~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
-  #hosts=($(egrep '^Host ' "$HOME/.ssh/config" | grep -v '*' | awk '{print $2}' ))
-  zstyle ':completion:*:ssh:*' hosts $hosts
-  zstyle ':completion:*:rsync:*' hosts $hosts
-}
-
-# colorful kill command completion -- probably overridden by fzf
-zstyle ':completion:*:*:kill:*:processes' list-colors \
-  "=(#b) #([0-9]#)*=36=31"
-
-# complete .log filenames if redirecting stderr
-zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
-
-# ----------------------------------------------------------------------------
-# Functions
-# ----------------------------------------------------------------------------
-
-# terse zsh-specific up
-up() {
-  local limit=1
-  local d=""
-  [[ $1 =~ '^[0-9]+$' ]] && limit=$1
-  while ((limit--)); do d="../${d}"; done
-  cd "$d"
-}
-
-# ============================================================================
-# version managers
-# ============================================================================
-
-# asdf actually added by omz in zinit
-(($+commands[asdf])) && {
-  . "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" 2>/dev/null
-}
-
-# ==========================================================================
-# worktrunk for zsh only
-# ==========================================================================
-
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
-
-# ============================================================================
-# Local
-# ============================================================================
+. "${ZDOTDIR}/bindkey.zsh"
+. "${ZDOTDIR}/functions.zsh"
+. "${ZDOTDIR}/fzf.zsh"
+. "${ZDOTDIR}/zstyle.zsh"
 
 . "${DOTFILES}/shell/after.sh"
 [[ -f "${LDOTDIR}/zshrc" ]] && . "${LDOTDIR}/zshrc"

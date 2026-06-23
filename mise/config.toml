@@ -10,6 +10,7 @@ use_git_credentials = true
 act = "latest"
 actionlint = "latest"
 "aqua:neovim/neovim" = "latest"
+bat = "latest"
 biome = "latest"
 "cargo:selene" = { version = "latest", depends = ["rust"] }
 "cargo:shuck-cli" = { version = "latest", depends = ["rust"] }

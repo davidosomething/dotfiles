@@ -3,7 +3,7 @@
 # Repair brew repo via hard reset
 
 [[ "$OSTYPE" == *'arwin'* ]] &&
-  command -v brew >/dev/null &&
+  (( $+commands[brew] )) &&
   cd -- "$(brew --repo)" &&
   git fetch &&
   git reset --hard origin/master &&
