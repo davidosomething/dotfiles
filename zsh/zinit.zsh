@@ -5,7 +5,6 @@
 # -> multisrc -> atload.
 
 export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
-
 function {
   local man1="${ZINIT[MAN_DIR]}/man1"
 
@@ -39,19 +38,7 @@ function {
   export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
 
   # Customized from instructions at https://github.com/sharkdp/bat#man
-  local bat_manpager="export MANPAGER=\"sh -c 'col -bx | bat --language man --paging always --style=grid'\"; export MANROFFOPT="-c""
-
   zinit lucid from'gh-r' as'program' for \
-    mv'bat* -> bat' \
-    pick'bat/bat' \
-    atclone"
-      cp -vf **/*.1 \"$man1\";
-      cp -vf bat/autocomplete/bat.zsh _bat
-      " \
-    atpull'%atclone' \
-    atload"$bat_manpager" \
-    '@sharkdp/bat' \
-    \
     atload'eval "$(zoxide init --cmd j zsh)"' \
     pick'zoxide/zoxide' \
     'ajeetdsouza/zoxide' \

@@ -9,4 +9,4 @@ __fzf-audio() {
     cut -f1 -d'(' | xargs)"
 }
 
-command -v SwitchAudioSource >/dev/null && __fzf-audio
+(( $+commands[SwitchAudioSource] )) && __fzf-audio

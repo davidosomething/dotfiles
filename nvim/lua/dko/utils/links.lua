@@ -25,7 +25,7 @@ M.get_documentLink = function()
 end
 
 M.open_or_copy = function(url)
-  if vim.env.DISPLAY == nil then
+  if vim.env.COMMAND_MODE == nil and vim.env.DISPLAY == nil then
     vim.fn.setreg("+", url)
     vim.notify(url, vim.log.levels.INFO, { title = "Copied url" })
     return

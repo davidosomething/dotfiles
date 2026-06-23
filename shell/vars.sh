@@ -30,9 +30,9 @@ export XDG_STATE_HOME="${HOME}/.local/state"
 # and should have those vars. I am just using the defaults but want them
 # explicitly defined.
 # shellcheck source=/dev/null
-[ -f "${XDG_CONFIG_HOME}/user-dirs.dirs" ] \
-  && . "${XDG_CONFIG_HOME}/user-dirs.dirs" \
-  && export \
+[ -f "${XDG_CONFIG_HOME}/user-dirs.dirs" ] &&
+  . "${XDG_CONFIG_HOME}/user-dirs.dirs" &&
+  export \
     XDG_DESKTOP_DIR \
     XDG_DOWNLOAD_DIR \
     XDG_TEMPLATES_DIR \
@@ -40,11 +40,11 @@ export XDG_STATE_HOME="${HOME}/.local/state"
     XDG_DOCUMENTS_DIR \
     XDG_MUSIC_DIR \
     XDG_PICTURES_DIR \
-    XDG_VIDEOS_DIR \
-  && DKO_SOURCE="${DKO_SOURCE} -> ${XDG_CONFIG_HOME}/user-dirs.dirs"
+    XDG_VIDEOS_DIR &&
+  DKO_SOURCE="${DKO_SOURCE} -> ${XDG_CONFIG_HOME}/user-dirs.dirs"
 
-[ -z "$XDG_DOWNLOAD_DIR" ] && [ -d "${HOME}/Downloads" ] \
-  && export XDG_DOWNLOAD_DIR="${HOME}/Downloads"
+[ -z "$XDG_DOWNLOAD_DIR" ] && [ -d "${HOME}/Downloads" ] &&
+  export XDG_DOWNLOAD_DIR="${HOME}/Downloads"
 
 # ============================================================================
 # dotfiles
@@ -55,9 +55,15 @@ export XDG_STATE_HOME="${HOME}/.local/state"
 export DOTFILES_OS="${DOTFILES_OS:-$(uname)}"
 
 case "$DOTFILES_OS" in
-  Darwin*) export DOTFILES_DISTRO="${DOTFILES_DISTRO:-$(uname -m)}" ;;
-  FreeBSD*) export DOTFILES_DISTRO="FreeBSD" ;;
-  OpenBSD*) export DOTFILES_DISTRO="OpenBSD" ;;
+  Darwin*)
+    export DOTFILES_DISTRO="${DOTFILES_DISTRO:-$(uname -m)}"
+    ;;
+  FreeBSD*)
+    export DOTFILES_DISTRO="FreeBSD"
+    ;;
+  OpenBSD*)
+    export DOTFILES_DISTRO="OpenBSD"
+    ;;
   *)
     # assume linux
     # for pacdiff
@@ -198,11 +204,13 @@ export MANWIDTH=88
 export MANPAGER="$PAGER"
 
 # mysql
-export MYSQL_HISTFILE="${XDG_CACHE_HOME}/mysql_histfile"
+export MYSQL_HISTFILE="${XDG_STATE_HOME}/mysql/histfile"
+mkdir -p -- "${MYSQL_HISTFILE:h}"
 
 # node and npm
 # https://nodejs.org/api/repl.html#repl_environment_variable_options
-export NODE_REPL_HISTORY="${XDG_STATE_HOME}/node_repl_history"
+export NODE_REPL_HISTORY="${XDG_STATE_HOME}/node/repl_history"
+mkdir -p -- "${NODE_REPL_HISTORY:h}"
 
 # ============================================================================
 # npm config
@@ -230,7 +238,9 @@ export NPMRC="$NPM_CONFIG_USERCONFIG"
 export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
-  *) PATH="$PNPM_HOME:$PATH" ;;
+  *)
+    PATH="${PNPM_HOME}:${PATH}"
+    ;;
 esac
 
 # neovim

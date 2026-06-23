@@ -20,7 +20,21 @@ elif __dko_has "ag"; then
   # --one-device not supported on old ag
 elif __dko_has "fd"; then
   grepper='fd'
-  grepargs='--type f'
+  grepargs='--type file --hidden --exclude .git'
+
+  # IMPORTANT: This needs to happen before sourcing the default fzf bind scripts
+  # Use fd (https://github.com/sharkdp/fd) instead of the default find
+  # command for listing path candidates.
+  # - The first argument to the function ($1) is the base path to start traversal
+  # - See the source code (completion.{bash,zsh}) for the details.
+  _fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+  }
+
+  # Use fd to generate the list for directory completion
+  _fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
 else
   # using git paths only for FZF
   grepper='
@@ -63,6 +77,9 @@ __dko_has 'bat' && {
       "${FZF_CTRL_T_OPTS}" \
       "${FZF_PREVIEW_COMMAND:Q}"
   )"
+
+  export MANPAGER="sh -c 'col -bx | bat --language man --paging always --style=grid'"
+  export MANROFFOPT="-c"
 }
 
 export FZF_CTRL_T_OPTS
@@ -72,23 +89,9 @@ export FZF_ALT_C_OPTS="
   --tiebreak=index
   --preview='tree -axi -L 2 --filelimit 100 --noreport {}'"
 
-# This needs to happen before sourcing the default fzf bind scripts
-if __dko_has "fd"; then
-  # Use fd (https://github.com/sharkdp/fd) instead of the default find
-  # command for listing path candidates.
-  # - The first argument to the function ($1) is the base path to start traversal
-  # - See the source code (completion.{bash,zsh}) for the details.
-  _fzf_compgen_path() {
-    fd --hidden --follow --exclude ".git" . "$1"
-  }
-
-  # Use fd to generate the list for directory completion
-  _fzf_compgen_dir() {
-    fd --type d --hidden --follow --exclude ".git" . "$1"
-  }
-fi
-
-__dko_has "fzf" && source <(fzf --zsh)
+# Load fzf default bindings / `` completion
+[ -n "$ZSH_VERSION" ] && source <(fzf --zsh) 2>/dev/null
+[ -n "$BASH_VERSION" ] && source <(fzf --bash) 2>/dev/null
 
 # ============================================================================
 

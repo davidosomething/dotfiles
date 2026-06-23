@@ -67,4 +67,4 @@ zstyle ':vcs_info:git*' actionformats '%F{magenta}(%m %F{red}→%F{magenta} %b%c
 zstyle ':vcs_info:git*+set-message:*' hooks \
   git-merge-message git-branch-truncate
 
-__dko_has "vcs_info" && add-zsh-hook "precmd" "vcs_info"
+(( $+functions[vcs_info] )) && add-zsh-hook "precmd" "vcs_info"

@@ -22,6 +22,9 @@
     called with the original arguments `__fun $@`
   - Two space indents
   - Prefer `.` over `source`
+- **Command/Function existence**
+  - In zsh, prefer the `(( $+commands[cmdname] ))` test to see if a command exists.
+    - Use `+functions` to check for functions.
 - **Function names**
   - For private functions in a script, use two underscores `__private_func()`
     These function names are safe to reuse after running the script once. When
