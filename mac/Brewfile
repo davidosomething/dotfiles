@@ -6,9 +6,6 @@
 # brew'd apps I use on ALL macs
 # ==========================================================================
 
-# hotkey daemon; my skhd config forwards cmd-ctrl-d to hammerspoon
-brew "jackielii/tap/skhd-zig"
-
 brew "git"
 
 # my hammerspoon config uses this
@@ -19,6 +16,10 @@ brew "tree"
 # ==========================================================================
 # casks
 # ==========================================================================
+
+# hotkey daemon; my skhd config forwards cmd-ctrl-d to hammerspoon
+tap "jackielii/tap"
+cask "jackielii/tap/skhd-zig", trusted: true
 
 cask "bettertouchtool"
 cask "firefox"
