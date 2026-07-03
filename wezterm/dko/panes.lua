@@ -136,6 +136,17 @@ M.split_horz = scaled_split("Left")
 M.split_vert = scaled_split("Up")
 
 M.setup = function()
+  local home = os.getenv("HOME") or ""
+
+  wezterm.on("update-right-status", function(win, pane)
+    local cwd_uri = pane:get_current_working_dir()
+    local cwd = ""
+    if cwd_uri then
+      cwd = (cwd_uri.file_path or tostring(cwd_uri)):gsub("^" .. home, "~")
+    end
+    win:set_right_status(wezterm.format({ { Text = " " .. cwd .. " " } }))
+  end)
+
   wezterm.on("augment-command-palette", function()
     return {
       {
