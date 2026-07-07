@@ -1,0 +1,63 @@
+[tools]
+# bashate not in global mise config; was invoked via `pipx run bashate`
+"pipx:bashate" = { version = "latest", depends = ["python"] }
+
+[tasks.lint]
+description = "Run all linters"
+depends = ["lint:readmes", "lint:shell", "lint:nvim", "lint:yaml"]
+
+[tasks.test]
+description = "Run tests (alias for lint)"
+depends = ["lint"]
+
+[tasks."lint:readmes"]
+description = "Lint markdown files with markdownlint"
+run = '''
+markdownlint --config markdownlint/dot.markdownlintrc \
+  $(find . -type f -name "*.md" \
+    -not -path "./tmux/plugins*" \
+    -not -path "./local/*" \
+    -not -path "*/node_modules/*" \
+    -not -path "*tmp/*" \
+    -not -path "*/vendor/*")
+'''
+
+[tasks."lint:shell"]
+description = "Lint shell files"
+depends = ["lint:shell:bashate", "lint:shell:shellcheck"]
+
+[tasks."lint:shell:bashate"]
+description = "Lint shell files with bashate"
+run = '''
+bashate --ignore=E003,E005,E006,E011,E043 -- \
+  $(find . -type f \( -name "*.bash" -o -name "*.sh" \) \
+    -not -path "*.tox/*" \
+    -not -path "./local/*" \
+    -not -path "*/vendor/*" \
+    -not -path "*tmp/*")
+'''
+
+[tasks."lint:shell:shellcheck"]
+description = "Lint shell files with shellcheck"
+run = '''
+shellcheck -- \
+  $(find . -type f \( -name "*.bash" -o -name "*.sh" \) \
+    -not -path "*.tox/*" \
+    -not -path "./local/*" \
+    -not -path "*/vendor/*" \
+    -not -path "*tmp/*")
+'''
+
+[tasks."lint:nvim"]
+description = "Check neovim config for errors"
+run = '''[ "$(nvim -es --headless +'redir>>/dev/stdout | messages | redir END' +q | grep -c Error)" -eq 0 ]'''
+
+[tasks."lint:yaml"]
+description = "Lint YAML files with yamllint"
+run = '''
+yamllint -- \
+  $(find . -type f -regex ".*\.y\(a\)*ml" \
+    -not -path ".github/*" \
+    -not -path "*.tox/*" \
+    -not -path "./local/*")
+'''

@@ -1,6 +1,8 @@
 ---
 extends: default
 rules:
+  line-length:
+    max: 120
   comments:
     ignore-shebangs: true
     require-starting-space: true
@@ -14,4 +16,3 @@ ignore: |
   node_modules/
   tmux/plugins/
   zsh/.zinit/
-  pnpm-lock.yaml
