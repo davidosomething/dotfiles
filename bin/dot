@@ -122,15 +122,23 @@ __dko_dotfiles__py__update_pipx() {
 
 __dko_dotfiles__linux__update() {
   case "$1" in
-  deb) __dko_dotfiles__linux__deb__update ;;
-  *) __dko_dotfiles__command_not_found "$1" ;;
+    deb)
+      __dko_dotfiles__linux__deb__update
+      ;;
+    *)
+      __dko_dotfiles__command_not_found "$1"
+      ;;
   esac
 }
 
 __dko_dotfiles__darwin__update() {
   case "$1" in
-  mac) __dko_dotfiles__darwin__update_mac ;;
-  *) __dko_dotfiles__command_not_found "$1" ;;
+    mac)
+      __dko_dotfiles__darwin__update_mac
+      ;;
+    *)
+      __dko_dotfiles__command_not_found "$1"
+      ;;
   esac
 }
 
@@ -205,7 +213,7 @@ __dko_dotfiles__update_brew() {
     # Upgrade remaining
     __dko_status "brew upgrade"
     # We'll manually cleanup later
-    HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade || exit 1
+    HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade --greedy || exit 1
     __dko_ok "Upgrade complete"
 
     __dko_dotfiles__update_brew_postupgrade "$outdated"
@@ -261,19 +269,35 @@ __dko_dotfiles() {
   [[ "$argcount" == "0" ]] && __dko_dotfiles__usage && return 1
 
   case $1 in
-  dotfiles) __dko_dotfiles__update ;;
-  secret) __dko_dotfiles__update_secret ;;
-  daily) __dko_dotfiles__update_daily ;;
-  pip) __dko_dotfiles__py__update_pip ;;
-  pipx) __dko_dotfiles__py__update_pipx ;;
-  brew) __dko_dotfiles__update_brew ;;
+    dotfiles)
+      __dko_dotfiles__update
+      ;;
+    secret)
+      __dko_dotfiles__update_secret
+      ;;
+    daily)
+      __dko_dotfiles__update_daily
+      ;;
+    pip)
+      __dko_dotfiles__py__update_pip
+      ;;
+    pipx)
+      __dko_dotfiles__py__update_pipx
+      ;;
+    brew)
+      __dko_dotfiles__update_brew
+      ;;
 
-  *)
-    case "$OSTYPE" in
-    linux*) __dko_dotfiles__linux__update "$@" ;;
-    *arwin*) __dko_dotfiles__darwin__update "$@" ;;
-    esac
-    ;;
+    *)
+      case "$OSTYPE" in
+        linux*)
+          __dko_dotfiles__linux__update "$@"
+          ;;
+        *arwin*)
+          __dko_dotfiles__darwin__update "$@"
+          ;;
+      esac
+      ;;
   esac
 }
 
