@@ -38,9 +38,13 @@ See macOS specific notes in [mac/README.md](./mac/README.md)
 1. After symlinking, **start zsh or restart the shell** -- e.g. run `exec zsh`.
    (If zsh is not available, consider installing it with the system package
    manager. It is default on mac os.)  
-   This will trigger `zinit` to install.
+   This will trigger `zinit` to install.  
    Once `mise` is installed via `zinit` you may see warnings about npm
-   dependencies.
+   dependencies and env vars not defined.  
+   - Define the env vars using a `zshrc` in `$LDOTDIR` or a local mise config or
+     unversioned `~/.config/mise/conf.d/*.toml` file with `[env]` section.
+   - You should also generate SSH keys using `sshkeygen` if you do not already
+     have them.
 
 1. `mise trust && mise install` to install mise-managed tools.
 
