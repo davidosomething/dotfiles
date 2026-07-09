@@ -1,11 +1,12 @@
 [env]
+# API keys (must be set in environment or mise.local.toml)
+# or define all of these in a file of ~/.config/mise/conf.d/*.toml
 EMAIL = { required = true }
 GIT_AUTHOR_NAME = { required = true }
-
-GIT_COMMITTER_NAME = "$GIT_AUTHOR_NAME"
-NPM_CONFIG_INIT_AUTHOR_NAME = "$GIT_AUTHOR_NAME"
-GIT_AUTHOR_EMAIL = "$EMAIL"
-GIT_COMMITTER_EMAIL = "$EMAIL"
+GIT_COMMITTER_NAME = { required = true }
+NPM_CONFIG_INIT_AUTHOR_NAME = { required = true }
+GIT_AUTHOR_EMAIL = { required = true }
+GIT_COMMITTER_EMAIL = { required = true }
 
 [settings]
 gpg_verify = false
