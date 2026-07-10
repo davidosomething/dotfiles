@@ -15,6 +15,13 @@ jobs:
 
     env:
       TERM: xterm
+      # Dummy values for required env vars (only enforced on real systems)
+      EMAIL: ci@localhost
+      GIT_AUTHOR_NAME: CI
+      GIT_COMMITTER_NAME: CI
+      GIT_AUTHOR_EMAIL: ci@localhost
+      GIT_COMMITTER_EMAIL: ci@localhost
+      NPM_CONFIG_INIT_AUTHOR_NAME: CI
 
     steps:
       - name: Check out repository code

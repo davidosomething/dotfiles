@@ -1,3 +1,13 @@
+[env]
+# API keys (must be set in environment or mise.local.toml)
+# or define all of these in a file of ~/.config/mise/conf.d/*.toml
+EMAIL = { required = true }
+GIT_AUTHOR_NAME = { required = true }
+GIT_COMMITTER_NAME = { required = true }
+NPM_CONFIG_INIT_AUTHOR_NAME = { required = true }
+GIT_AUTHOR_EMAIL = { required = true }
+GIT_COMMITTER_EMAIL = { required = true }
+
 [settings]
 gpg_verify = false
 experimental = false
@@ -9,7 +19,6 @@ use_git_credentials = true
 [tools]
 act = "latest"
 actionlint = "latest"
-"aqua:neovim/neovim" = "latest"
 bat = "latest"
 biome = "latest"
 "cargo:selene" = { version = "latest", depends = ["rust"] }
@@ -28,6 +37,7 @@ hadolint = "latest"
 jq = "latest"
 lua-language-server = "latest"
 marksman = "latest"
+neovim = "latest"
 node = "latest"
 "npm:@actions/languageserver" = { version = "latest", depends = ["node"] }
 "npm:@mdx-js/language-server" = { version = "latest", depends = ["node"] }

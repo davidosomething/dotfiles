@@ -7,8 +7,22 @@ description = "Run all linters"
 depends = ["lint:readmes", "lint:shell", "lint:nvim", "lint:yaml"]
 
 [tasks.test]
-description = "Run tests (alias for lint)"
-depends = ["lint"]
+description = "Run tests"
+depends = ["lint", "ci:mise:doctor"]
+
+[tasks."ci:mise:doctor"]
+description = "Check mise doctor for errors and warnings"
+run = '''
+mise doctor --json 2>/dev/null | jq -e '
+  if (.errors | length > 0) then
+    "ERRORS:\n\(.errors | join("\n"))\n" | halt_error(1)
+  elif (.warnings | length > 0) then
+    "WARNINGS:\n\(.warnings | join("\n"))\n" | halt_error(1)
+  else
+    "mise OK"
+  end
+' || { echo "mise doctor check failed" 1>&2; exit 1; }
+'''
 
 [tasks."lint:readmes"]
 description = "Lint markdown files with markdownlint"
