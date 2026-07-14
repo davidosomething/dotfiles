@@ -49,6 +49,19 @@ require("dko.notify") -- override some vim.notify with plugins
 
 require("dko.terminal")
 
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  -- disable osc52 paste
+  paste = {
+    ["+"] = function() end,
+    ["*"] = function() end,
+  },
+}
+
 -- Disallow unsafe local vimrc commands
 -- Leave down here since it trims local settings
 vim.o.secure = true
