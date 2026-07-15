@@ -11,7 +11,6 @@ return require("dko.utils.lazyspec")(function(ctx)
         --    no longer needed https://github.com/neovim/neovim/pull/20198
         --    "antoinemadec/FixCursorHold.nvim",
         --  },
-        "nvim-treesitter/nvim-treesitter",
         -- == adapters ===========================================================
         "marilari88/neotest-vitest",
       },
