@@ -12,14 +12,20 @@ hs.menuIcon(true)
 _G.mc = { "⌘", "⌃" }
 _G.hyper = { "⌘", "⌃", "⇧" }
 
+-- Generate LuaCATS/EmmyLua annotations for the installed hs.* API and Spoons
+-- into Spoons/EmmyLua.spoon/annotations (wired into .luarc.json's
+-- workspace.library). Loaded first, before any mod sets up a pathwatcher, per
+-- the Spoon's own guidance.
+hs.loadSpoon("EmmyLua")
+
 local mods = {}
-table.insert(mods, require("clipboard.type"))
-table.insert(mods, require("menubar.audiosource"))
-table.insert(mods, require("menubar.caffeine"))
-table.insert(mods, require("launcher.apps"))
-table.insert(mods, require("launcher.seal"))
-table.insert(mods, require("window.lunette"))
-table.insert(mods, require("window.throw"))
+mods[#mods + 1] = require("clipboard.type")
+mods[#mods + 1] = require("menubar.audiosource")
+mods[#mods + 1] = require("menubar.caffeine")
+mods[#mods + 1] = require("launcher.apps")
+mods[#mods + 1] = require("launcher.seal")
+mods[#mods + 1] = require("window.lunette")
+mods[#mods + 1] = require("window.throw")
 
 print("== reload")
 hs.hotkey.bind(hyper, "R", function()

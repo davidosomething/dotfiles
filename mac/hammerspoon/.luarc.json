@@ -3,7 +3,12 @@
     "globals": [
       "hs",
       "hyper",
-            "spoon"
+      "spoon"
+    ]
+  },
+  "workspace": {
+    "library": [
+      "Spoons/EmmyLua.spoon/annotations"
     ]
   }
 }
