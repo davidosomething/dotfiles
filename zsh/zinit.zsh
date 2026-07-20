@@ -96,7 +96,7 @@ function {
   # zinit lucid atload"zicompinit; zicdreplay" for \
   #   'zdharma/fast-syntax-highlighting'
 
-  zinit ice as"program" from"gh-r" ver"1.5.0" \
+  zinit ice as"program" from"gh-r" ver"1.9.0" \
     pick"zsh-patina-*/zsh-patina" \
     atload'eval "$(zsh-patina activate)"'
   zinit light michel-kraemer/zsh-patina
