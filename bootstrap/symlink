@@ -43,6 +43,8 @@ __symlink() {
   # XDG-compatible, not linux specific
   dko-symlink "bat/config" \
     ".config/bat/config"
+  dko-symlink "ghostty/config.ghostty" \
+    ".config/ghostty/config.ghostty"
   dko-symlink "git/dot.gitconfig" \
     ".config/git/config"
   dko-symlink "git/dot.gitignore" \
