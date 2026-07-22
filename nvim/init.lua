@@ -49,6 +49,15 @@ require("dko.notify") -- override some vim.notify with plugins
 
 require("dko.terminal")
 
+-- disable osc52 paste
+-- follow https://github.com/davidosomething/dotfiles/issues/580
+-- follow https://github.com/wezterm/wezterm/issues/2050
+-- copied some from https://github.com/oldnaari/kickstart.nvim/commit/f3c3ee9a9e56eff000a9eb55b22acacbb73fbe6e
+-- for when wl-paste is available, bue leave noops since TERM_PROGRAM is not
+-- accepted in all ssh envs
+local wezterm_on_linux = vim.env.TERM_PROGRAM == "WezTerm"
+  and vim.uv.os_uname().sysname == "Linux"
+  and vim.fn.executable("wl-paste") == 1
 vim.g.clipboard = {
   name = "OSC 52",
   copy = {
@@ -56,7 +65,16 @@ vim.g.clipboard = {
     ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
   },
   -- disable osc52 paste
-  paste = {
+  paste = wezterm_on_linux and {
+    ["+"] = { "wl-paste", "--no-newline", "--type", "text/plain" },
+    ["*"] = {
+      "wl-paste",
+      "--no-newline",
+      "--primary",
+      "--type",
+      "text/plain",
+    },
+  } or {
     ["+"] = function() end,
     ["*"] = function() end,
   },
