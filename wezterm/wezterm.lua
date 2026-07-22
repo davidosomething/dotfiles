@@ -46,6 +46,7 @@ require("dko/theme").setup(config)
 require("dko/panes").setup()
 
 wezterm.on("gui-startup", function(cmd)
+  ---@diagnostic disable-next-line: unused-local
   local _tab, _pane, window = wezterm.mux.spawn_window(cmd or {})
   local w = window:gui_window()
 
