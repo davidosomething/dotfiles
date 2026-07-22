@@ -1,0 +1,11 @@
+font-family = Maple Mono Normal NL NF CN
+font-size = 16
+
+minimum-contrast = 1.6
+theme = Hybrid
+
+keybind = ctrl+shift+9=new_split:right
+keybind = ctrl+shift+0=new_split:down
+
+window-show-tab-bar = always
+window-subtitle = working-directory
