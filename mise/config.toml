@@ -40,7 +40,6 @@ marksman = "latest"
 neovim = "latest"
 node = "latest"
 "npm:@actions/languageserver" = { version = "latest" }
-"npm:@mdx-js/language-server" = { version = "latest" }
 "npm:@microsoft/compose-language-service" = { version = "latest" }
 "npm:@tailwindcss/language-server" = { version = "latest" }
 "npm:@vtsls/language-server" = { version = "latest" }
