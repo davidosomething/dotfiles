@@ -39,24 +39,19 @@ lua-language-server = "latest"
 marksman = "latest"
 neovim = "latest"
 node = "latest"
-"npm:@actions/languageserver" = { version = "latest", depends = ["node"] }
-"npm:@mdx-js/language-server" = { version = "latest", depends = ["node"] }
-"npm:@microsoft/compose-language-service" = { version = "latest", depends = [
-  "node"
-] }
-"npm:@tailwindcss/language-server" = { version = "latest", depends = ["node"] }
-"npm:@vtsls/language-server" = { version = "latest", depends = ["node"] }
-"npm:dockerfile-language-server-nodejs" = { version = "latest", depends = [
-  "node"
-] }
-"npm:markdownlint-cli" = { version = "latest", depends = ["node"] }
-"npm:npmrc" = { version = "latest", depends = ["node"] }
-"npm:vscode-langservers-extracted" = { version = "latest", depends = ["node"] }
-"npm:yaml-language-server" = { version = "latest", depends = ["node"] }
+"npm:@actions/languageserver" = { version = "latest" }
+"npm:@microsoft/compose-language-service" = { version = "latest" }
+"npm:@tailwindcss/language-server" = { version = "latest" }
+"npm:@vtsls/language-server" = { version = "latest" }
+"npm:dockerfile-language-server-nodejs" = { version = "latest" }
+"npm:markdownlint-cli" = { version = "latest" }
+"npm:npmrc" = { version = "latest" }
+"npm:vscode-langservers-extracted" = { version = "latest" }
+"npm:yaml-language-server" = { version = "latest" }
 "pipx:basedpyright" = { version = "latest", depends = ["python"] }
 "pipx:isort" = { version = "latest", depends = ["python"] }
 "pipx:jedi-language-server" = { version = "latest", depends = ["python"] }
-prettier = { version = "latest", depends = ["node"] }
+prettier = { version = "latest" }
 python = "latest"
 ripgrep = { version = "latest", postinstall = "[ -n \"${XDG_DATA_HOME}\" ] && mkdir -p ${XDG_DATA_HOME}/zsh/site-functions && rg --generate complete-zsh > ${XDG_DATA_HOME}/zsh/site-functions/_rg || true" }
 ruff = "latest"
