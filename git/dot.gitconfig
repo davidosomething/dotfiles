@@ -44,8 +44,8 @@
 	showEmail = true
 
 [branch]
-	autosetupmerge = always
-	autosetuprebase = always
+	autoSetupMerge = simple
+	autoSetupRebase = always
 	sort = -committerdate
 
 [commit]
