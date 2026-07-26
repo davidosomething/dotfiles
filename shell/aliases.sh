@@ -72,14 +72,6 @@ alias docker_rm_dead_volumes='docker volume rm $(docker volume ls -qf dangling=t
 # editors
 # ----------------------------------------------------------------------------
 
-edc() {
-  if [ -f 'compose.yaml' ]; then
-    e compose.yaml
-  elif [ -f 'docker-compose.yml' ]; then
-    e docker-compose.yaml
-  fi
-}
-
 alias ega='e "${DOTFILES}/git/aliases.gitconfig"'
 alias ehosts='se /etc/hosts'
 alias epj='e package.json'

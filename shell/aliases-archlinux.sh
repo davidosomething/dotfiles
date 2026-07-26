@@ -26,9 +26,5 @@ fixpulse() {
 
 # Get a simple list of installed packages
 pacdump() {
-  if command -v pamac >/dev/null; then
-    pamac list --installed
-  else
-    pacman -Qqe
-  fi
+  pacman -Qqe
 }
