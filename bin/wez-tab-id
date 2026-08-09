@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# wez-tab-id — print the WezTerm tab ID for the current pane.
+# Prints nothing (but exits 0) when not running inside WezTerm, so callers
+# can use a global fallback for non-WezTerm terminals.
+
+wezterm_tab_id() {
+  [ -z "${WEZTERM_PANE:-}" ] && return 1
+  command -v wezterm >/dev/null 2>&1 || return 1
+  command -v jq >/dev/null 2>&1 || return 1
+
+  local tab_id
+  tab_id=$(wezterm cli list --format json 2>/dev/null |
+    jq -r --arg p "$WEZTERM_PANE" \
+      '.[] | select(.pane_id == ($p | tonumber)) | .tab_id')
+
+  [ -n "$tab_id" ] && [ "$tab_id" != "null" ] || return 1
+  echo "$tab_id"
+}
+
+wezterm_tab_id

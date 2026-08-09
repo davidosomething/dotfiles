@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# wez-clean-socks — remove nvim-tab-*.sock files for WezTerm tabs that
+# have been closed. Tab IDs are never reused, so these sockets are
+# permanently dead.
+#
+# Silent no-op when not running inside WezTerm.
+
+[ -z "${WEZTERM_PANE:-}" ] && exit 0
+command -v wezterm >/dev/null 2>&1 || exit 0
+command -v jq >/dev/null 2>&1 || exit 0
+
+dir="${XDG_STATE_HOME}/nvim"
+[ -d "$dir" ] || exit 0
+
+active=$(wezterm cli list --format json 2>/dev/null |
+  jq -r '.[].tab_id' 2>/dev/null)
+[ -n "$active" ] || exit 0
+
+for sock in "$dir"/nvim-tab-*.sock; do
+  [ -e "$sock" ] || continue
+  tab_id="${sock##*nvim-tab-}"
+  tab_id="${tab_id%.sock}"
+  if ! printf '%s\n' "$active" | grep -qxF "$tab_id"; then
+    rm -f "$sock"
+  fi
+done

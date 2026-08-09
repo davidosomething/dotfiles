@@ -6,7 +6,15 @@
 # Supported environment variables:
 # - E_DEBUG=true enable debug logging
 
-__server="${XDG_STATE_HOME}/nvim/nvim.sock"
+# Use a tab-scoped socket inside WezTerm so each tab gets its own nvim
+# instance; panes within the same tab share it. Falls back to a single
+# global socket for non-WezTerm terminals.
+if _t=$(wez-tab-id) && [ -n "$_t" ]; then
+  __server="${XDG_STATE_HOME}/nvim/nvim-tab-${_t}.sock"
+else
+  __server="${XDG_STATE_HOME}/nvim/nvim.sock"
+fi
+unset _t
 
 log() {
   echo "[e] ${1}"
@@ -29,6 +37,8 @@ ctrl_c() {
 }
 
 main() {
+  wez-clean-socks
+
   ! command -v nvim >/dev/null && {
     local fallback
     fallback="vim"
@@ -45,7 +55,7 @@ main() {
   local running
   # pgrep does NOT return all results
   # shellcheck disable=2009
-  running=$(ps ux | grep -v grep | grep "nvim\.sock")
+  running=$(ps ux | grep -v grep | grep -F "$__server")
   if [ -z "$running" ]; then
     [[ "$E_DEBUG" != "" ]] && log "Not running"
 

@@ -53,6 +53,9 @@ wezterm.on("gui-startup", function(cmd)
   -- Maximize on start?
   -- w:maximize()
 
+  -- Prune per-tab nvim sockets left behind by closed tabs
+  os.execute("wez-clean-socks")
+
   -- =========================================================================
   -- DPI-based overrides
   -- =========================================================================
