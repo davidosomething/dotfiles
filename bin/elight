@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-nvim --server "${XDG_STATE_HOME}/nvim/nvim.sock" --remote-expr "execute('DKOLight')"
