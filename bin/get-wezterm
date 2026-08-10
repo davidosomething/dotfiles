@@ -1,5 +1,128 @@
 #!/usr/bin/env bash
 
-curl -L -o ~/.local/bin/wezterm \
-  https://github.com/wez/wezterm/releases/download/nightly/WezTerm-nightly-Ubuntu20.04.AppImage
-chmod ug+x ~/.local/bin/wezterm
+# get-wezterm - download the nightly WezTerm AppImage that matches this system
+#
+# An AppImage is built against one Ubuntu's glibc and runs on anything newer,
+# so the right download is the newest build that is not newer than us.
+#
+# The available set is read from the release rather than hardcoded: this
+# script asked for Ubuntu20.04 long after the 24.04 and 26.04 builds appeared,
+# and there has never been a 22.04 AppImage.
+
+set -euo pipefail
+
+repo="wez/wezterm"
+tag="nightly"
+dest="${HOME}/.local/bin/wezterm"
+
+die() {
+  echo "get-wezterm: $*" >&2
+  exit 1
+}
+
+# $1 <= $2, comparing dotted versions
+vle() {
+  [ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -1)" = "$1" ]
+}
+
+# Which Ubuntu release this system can run builds from
+detect_system() {
+  local glibc pair
+
+  if [ -r /etc/os-release ]; then
+    # shellcheck disable=SC1091
+    . /etc/os-release
+  fi
+
+  # Ubuntu answers directly
+  [ "${ID:-}" = "ubuntu" ] && [ -n "${VERSION_ID:-}" ] && {
+    printf '%s\n' "$VERSION_ID"
+    return
+  }
+
+  # Anywhere else -- Debian, Mint, Arch -- glibc is what actually decides
+  # whether an AppImage will run, so map it onto the Ubuntu that shipped it.
+  # Only releases whose glibc is settled history are listed; anything newer
+  # gets picked up by the exact match above.
+  glibc=$(ldd --version 2>/dev/null | head -1 | grep -oE '[0-9]+\.[0-9]+$') ||
+    die "could not determine glibc version"
+
+  {
+    printf '%s\n' "16.04"
+    for pair in 2.27:18.04 2.31:20.04 2.35:22.04 2.39:24.04; do
+      vle "${pair%%:*}" "$glibc" && printf '%s\n' "${pair##*:}"
+    done
+  } | tail -1
+}
+
+# AppImage base versions carried by the release, oldest first
+list_bases() {
+  jq -r --arg tag "$tag" '
+    .assets[].name
+    | select(test("^WezTerm-\($tag)-Ubuntu[0-9.]+\\.AppImage$"))
+    | capture("Ubuntu(?<v>[0-9.]+)\\.AppImage").v
+  ' | sort -V
+}
+
+# $1 system version, $2.. available bases; newest build we can still run
+select_base() {
+  local system="$1" base pick=""
+  shift
+
+  for base in "$@"; do
+    vle "$base" "$system" && pick="$base"
+  done
+
+  # older than every build available, so take the oldest and hope
+  [ -n "$pick" ] || pick="$1"
+
+  printf '%s\n' "$pick"
+}
+
+main() {
+  [ "$(uname -s)" = "Linux" ] || die "AppImages are for Linux"
+  command -v curl >/dev/null || die "needs curl"
+  command -v jq >/dev/null || die "needs jq"
+  command -v sha256sum >/dev/null || die "needs sha256sum"
+
+  local release system pick name url updated tmp want got base
+  local -a bases=()
+  release=$(curl -fsSL "https://api.github.com/repos/${repo}/releases/tags/${tag}") ||
+    die "could not read the ${tag} release"
+
+  # read loop rather than mapfile, which wants bash 4
+  while IFS= read -r base; do
+    bases+=("$base")
+  done < <(printf '%s' "$release" | list_bases)
+  [ "${#bases[@]}" -gt 0 ] || die "no AppImages in the ${tag} release"
+
+  system=$(detect_system)
+  pick=$(select_base "$system" "${bases[@]}")
+
+  name="WezTerm-${tag}-Ubuntu${pick}.AppImage"
+  url="https://github.com/${repo}/releases/download/${tag}/${name}"
+  updated=$(printf '%s' "$release" |
+    jq -r --arg n "$name" '.assets[] | select(.name == $n) | .updatedAt')
+  echo "get-wezterm: ${name}, built ${updated%%T*} (system is ${system})"
+
+  # download beside the target so a failed transfer cannot truncate a working
+  # wezterm, which is what -o on the destination used to do
+  mkdir -p "$(dirname "$dest")"
+  tmp=$(mktemp "${dest}.XXXXXX")
+  # shellcheck disable=SC2064
+  trap "rm -f '${tmp}'" EXIT
+  curl -fL --progress-bar -o "$tmp" "$url" || die "download failed"
+
+  if want=$(curl -fsSL "${url}.sha256" 2>/dev/null); then
+    got=$(sha256sum "$tmp")
+    [ "${want%% *}" = "${got%% *}" ] || die "checksum mismatch for ${name}"
+  else
+    echo "get-wezterm: no published checksum, skipping verification" >&2
+  fi
+
+  chmod ug+x "$tmp"
+  mv "$tmp" "$dest"
+  echo "get-wezterm: installed ${dest}"
+}
+
+main "$@"
