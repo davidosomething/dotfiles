@@ -9,20 +9,36 @@
 # Use a tab-scoped socket inside WezTerm so each tab gets its own nvim
 # instance; panes within the same tab share it. Falls back to a single
 # global socket for non-WezTerm terminals.
+__nvim_state="${XDG_STATE_HOME:-${HOME}/.local/state}/nvim"
 if _t=$(wez-tab-id) && [ -n "$_t" ]; then
-  __server="${XDG_STATE_HOME}/nvim/nvim-tab-${_t}.sock"
+  __server="${__nvim_state}/nvim-tab-${_t}.sock"
 else
-  __server="${XDG_STATE_HOME}/nvim/nvim.sock"
+  __server="${__nvim_state}/nvim.sock"
 fi
-unset _t
+unset _t __nvim_state
 
 log() {
   echo "[e] ${1}"
 }
 
-ctrl_c() {
-  log "Detected CTRL-C, removing nvim.sock"
-  rm "$__server"
+# Set once this invocation is the one that started the server. Only the owner
+# may remove the socket: closing a single pane HUPs that pane alone, and the
+# nvim sharing this tab's socket may still be running in another one.
+__owns_server=""
+
+# Signals that can leave the socket behind, i.e. kill nvim without letting it
+# run VimLeavePre. HUP is the tab/terminal going away, which is the common
+# one. Note nvim runs the tty in raw mode, so Ctrl-C while it is up is a
+# keystroke rather than a signal -- INT mostly lands on the script itself,
+# e.g. during the headless --remote-expr calls below.
+on_signal() {
+  local signal="$1"
+
+  # -S so a signal can never take out something that isn't our socket
+  [ -n "$__owns_server" ] && [ -S "$__server" ] && {
+    log "Received SIG${signal}, removing ${__server}"
+    rm -f "$__server"
+  }
 
   local orphans
   orphans=$(
@@ -34,6 +50,10 @@ ctrl_c() {
     log "Possible orphan language server processes:"
     log "${orphans}"
   }
+
+  # re-raise so we die from the signal and callers see the usual 128+n status
+  trap - "$signal"
+  kill -s "$signal" $$
 }
 
 main() {
@@ -60,10 +80,13 @@ main() {
     [[ "$E_DEBUG" != "" ]] && log "Not running"
 
     # this happens if my neovim crashes/killed without VimLeavePre
-    [ -e "$__server" ] && {
-      [[ "$E_DEBUG" != "" ]] && log "Removing dead nvim.sock"
-      rm "$__server"
-    }
+    if [ -S "$__server" ]; then
+      [[ "$E_DEBUG" != "" ]] && log "Removing dead ${__server}"
+      rm -f "$__server"
+    elif [ -e "$__server" ]; then
+      # not ours to delete -- nvim --listen will fail and say why
+      log "Not a socket, leaving alone: ${__server}"
+    fi
 
   else
     # remote-expr outputs to /dev/stderr for some reason
@@ -81,6 +104,7 @@ main() {
   # New server, empty
   [ "$existing" != "$__server" ] && [ -z "$first" ] && {
     [[ "$E_DEBUG" != "" ]] && log "New server ${__server} with empty file"
+    __owns_server=1
     nvim --listen "$__server" +enew
     return
   }
@@ -99,6 +123,7 @@ main() {
   [ "$existing" != "$__server" ] && {
     [[ "$E_DEBUG" != "" ]] &&
       log "New server ${__server} (did not match ${existing}) with ${files[*]}"
+    __owns_server=1
     nvim --listen "$__server" "${files[@]}"
     return
   }
@@ -119,9 +144,11 @@ main() {
     return
   fi
 
-  [[ "$E_DEBUG" != "" ]] && log "Use server ${__server} with ${file[*]}"
+  [[ "$E_DEBUG" != "" ]] && log "Use server ${__server} with ${files[*]}"
   nvim --server "$__server" --remote-silent "${files[@]}"
 }
 
-trap ctrl_c INT
+trap 'on_signal INT' INT
+trap 'on_signal HUP' HUP
+trap 'on_signal TERM' TERM
 main "$@"

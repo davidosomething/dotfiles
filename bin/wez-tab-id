@@ -1,21 +1,42 @@
 #!/usr/bin/env bash
 
 # wez-tab-id — print the WezTerm tab ID for the current pane.
-# Prints nothing (but exits 0) when not running inside WezTerm, so callers
-# can use a global fallback for non-WezTerm terminals.
+# Exits 1 without printing anything when the tab can't be resolved, e.g. when
+# not running inside WezTerm, so callers can use a global fallback.
 
-wezterm_tab_id() {
-  [ -z "${WEZTERM_PANE:-}" ] && return 1
-  command -v wezterm >/dev/null 2>&1 || return 1
-  command -v jq >/dev/null 2>&1 || return 1
+[ -z "${WEZTERM_PANE:-}" ] && exit 1
 
-  local tab_id
-  tab_id=$(wezterm cli list --format json 2>/dev/null |
-    jq -r --arg p "$WEZTERM_PANE" \
-      '.[] | select(.pane_id == ($p | tonumber)) | .tab_id')
-
-  [ -n "$tab_id" ] && [ "$tab_id" != "null" ] || return 1
-  echo "$tab_id"
+# Callers interpolate the result straight into a socket path, so never emit
+# anything but digits
+is_tab_id() {
+  case "${1:-}" in
+  "" | *[!0-9]*) return 1 ;;
+  *) return 0 ;;
+  esac
 }
 
-wezterm_tab_id
+xdg_state_home="${XDG_STATE_HOME:-${HOME}/.local/state}"
+
+# Fast path — the pane→tab map published by wezterm/dko/tabstate.lua, no mux
+# round trip
+state_file="${xdg_state_home}/wezterm-tab-state.txt"
+if [ -r "$state_file" ]; then
+  tab_id=$(awk -v pane="$WEZTERM_PANE" '$1 == pane { print $2; exit }' \
+    "$state_file")
+  is_tab_id "$tab_id" && {
+    printf '%s\n' "$tab_id"
+    exit 0
+  }
+fi
+
+# Slow path — the map is missing, or this pane was spawned less than one
+# status_update_interval ago and isn't in it yet
+command -v wezterm >/dev/null 2>&1 || exit 1
+command -v jq >/dev/null 2>&1 || exit 1
+
+tab_id=$(wezterm cli list --format json 2>/dev/null |
+  jq -r --arg p "$WEZTERM_PANE" \
+    '.[] | select(.pane_id == ($p | tonumber)) | .tab_id')
+
+is_tab_id "$tab_id" || exit 1
+printf '%s\n' "$tab_id"
