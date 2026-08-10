@@ -161,6 +161,7 @@ autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
 . "${ZDOTDIR}/prompt.zsh"
 . "${ZDOTDIR}/title.zsh"
+. "${ZDOTDIR}/wezterm.zsh"
 
 # automatically fix things when pasted, works with url-quote-magic
 autoload -Uz bracketed-paste-magic
