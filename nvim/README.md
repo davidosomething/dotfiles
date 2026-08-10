@@ -5,7 +5,7 @@ Only tested against Neovim latest release. Don't use what you don't understand.
 ![nvim screenshot][screenshot]
 
 > pictured: Neovim in [WezTerm] with font [Maple Mono] and [vim-colors-meh].  
-> Tabline: the cwd is a project root; `dev` branch; there is one dirty buffer out of four total; and we are connected to nvim.sock  
+> Tabline: the cwd is a project root; `dev` branch; there is one dirty buffer out of four total; and we are connected to the shared nvim socket  
 > Winbar: Tree-sitter highlighting is enabled, orange filenames are dirty files, and there are no diagnostic issues.  
 > Signs: [gitsigns] is active.  
 > Status: Normal mode; `type` is searched with one occurrence found; ruler
@@ -26,9 +26,12 @@ Only tested against Neovim latest release. Don't use what you don't understand.
   CLI, and by coding agents alike.
 - mappings should be defined in [mappings.lua](./lua/dko/mappings.lua) or the
   mappings subdirectory.
-- the preferred way command to open files is with [e](../bin/e)
-  - it will create a new `nvim.sock` if one does not exist
-  - it will use a single Neovim instance over the socket otherwise
+- the preferred command to open files is with [e](../bin/e)
+  - in WezTerm each tab gets its own instance, listening on
+    `nvim-tab-<wezterm tab id>.sock` and shared by every pane in that tab
+  - everywhere else a single instance listens on `nvim.sock`
+  - either way it creates the socket if one does not exist, and reuses the
+    instance already listening otherwise
 - if using my WezTerm config, `<C-S-d>` will toggle the terminal and Neovim
   theme between light and dark mode.
 - LSP/tool config is done in [dko/tools.lua](./lua/dko/tools.lua)
