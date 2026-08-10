@@ -1,13 +1,32 @@
 #!/usr/bin/env bash
 
-# delete empty subdirs
-__prune() {
-  if [[ -n "$1" ]]; then
-    read -r "reply?Prune empty directories: are you sure? [y] "
-  else
-    local _reply=y
-  fi
+# prune - delete empty subdirectories below the cwd
+#
+# Asks first. Pass -y to skip the prompt.
 
-  [[ "$_reply" = y ]] && find . -type d -empty -delete
-}
-__prune "$@"
+set -euo pipefail
+
+assume_yes=""
+case "${1:-}" in
+-y | --yes) assume_yes=1 ;;
+"") ;;
+*)
+  echo "usage: prune [-y|--yes]" >&2
+  exit 1
+  ;;
+esac
+
+if [ -z "$assume_yes" ]; then
+  # empty or EOF answers no -- this deletes things
+  reply=""
+  read -r -p "Prune empty directories below $(pwd)? [y/N] " reply || true
+  case "$reply" in
+  [yY] | [yY][eE][sS]) ;;
+  *)
+    echo "Nothing pruned."
+    exit 0
+    ;;
+  esac
+fi
+
+find . -type d -empty -delete

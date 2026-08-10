@@ -134,7 +134,8 @@ Switch to a different XCode version
 
 ## get-wezterm
 
-Download the nightly WezTerm AppImage to `~/.local/bin/` (Linux)
+Download the nightly WezTerm AppImage matching this system's Ubuntu/glibc
+version to `~/.local/bin/` (Linux)
 
 ## git-committers
 
@@ -216,7 +217,7 @@ pokemon
 
 ## prune
 
-Delete empty subdirectories below the cwd
+Delete empty subdirectories below the cwd, after confirming (`-y` to skip)
 
 ## rln
 
