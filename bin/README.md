@@ -71,7 +71,8 @@ Shortcuts to update dotfiles, packages, and general system maintenance.
 
 ## e
 
-Open in single nvim socket instance or use $EDITOR
+Open files in a shared nvim instance -- one per WezTerm tab, a single global
+one elsewhere -- or fall back to $EDITOR
 
 ## egr
 
@@ -211,6 +212,15 @@ Display terminal colors
 ## togglemousescaling
 
 Toggle macOS mouse acceleration (e.g. for gaming)
+
+## wez-clean-socks
+
+Remove the per-tab nvim sockets left behind by closed WezTerm tabs
+
+## wez-tab-id
+
+Print the WezTerm tab ID owning the current pane, so [e](./e) can scope its
+nvim socket to the tab
 
 ## wifi-passwords
 
