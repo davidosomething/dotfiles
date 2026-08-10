@@ -44,6 +44,7 @@ require("dko/typography").setup(config)
 require("dko/mappings").setup(config)
 require("dko/theme").setup(config)
 require("dko/panes").setup()
+require("dko/tabstate").setup()
 
 wezterm.on("gui-startup", function(cmd)
   ---@diagnostic disable-next-line: unused-local
@@ -52,9 +53,6 @@ wezterm.on("gui-startup", function(cmd)
 
   -- Maximize on start?
   -- w:maximize()
-
-  -- Prune per-tab nvim sockets left behind by closed tabs
-  os.execute("wez-clean-socks")
 
   -- =========================================================================
   -- DPI-based overrides
