@@ -82,7 +82,8 @@ alias eze='e "${ZDOTDIR}/dot.zshenv"'
 alias ezi='e "${ZDOTDIR}/zinit.zsh"'
 alias ezl='e "${LDOTDIR}/zshrc"'
 alias ezr='e "${ZDOTDIR}/.zshrc"'
-alias ke="pkill -f 'nvim.sock'"
+# kill nvim instances listening on bin/e's global or tab-scoped socket
+alias ke="pkill -f 'nvim(-tab-[0-9]+)?\.sock'"
 
 # ----------------------------------------------------------------------------
 # git
