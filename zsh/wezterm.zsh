@@ -4,9 +4,8 @@
 # forking wez-tab-id.
 #
 # The value comes out of the pane -> tab map published by
-# wezterm/dko/tabstate.lua, re-read on every prompt so that moving this pane
-# to another tab corrects itself. Nothing depends on it: bin/e validates it
-# and falls back to wez-tab-id whenever it is missing or stale.
+# wezterm/dko/tabstate.lua. Nothing depends on it: bin/e validates it and
+# falls back to wez-tab-id whenever it is missing or stale.
 #
 
 export DKO_SOURCE="${DKO_SOURCE} -> wezterm.zsh"
@@ -29,7 +28,11 @@ __dko_zhook::wezterm::tab_id() {
   done
 }
 
-add-zsh-hook precmd __dko_zhook::wezterm::tab_id
+# preexec, not precmd: `wezterm cli move-pane-to-new-tab` retags this pane
+# while it sits at an already-drawn prompt, and precmd would not run again
+# until after the next command had already inherited the stale value. preexec
+# is the last moment before that command is forked.
+add-zsh-hook preexec __dko_zhook::wezterm::tab_id
 
-# first prompt is too late for anything run by a login script
+# and once now, for anything a login script runs before the first command
 __dko_zhook::wezterm::tab_id
