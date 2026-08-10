@@ -1,26 +1,56 @@
 #!/usr/bin/env bash
 
 # wez-clean-socks — remove nvim-tab-*.sock files for WezTerm tabs that
-# have been closed. Tab IDs are never reused, so these sockets are
-# permanently dead.
+# have been closed. Tab IDs are unique within a mux session, and a socket
+# left behind by a previous session is dead too, so either way they are
+# permanently unusable.
 #
 # Silent no-op when not running inside WezTerm.
 
 [ -z "${WEZTERM_PANE:-}" ] && exit 0
-command -v wezterm >/dev/null 2>&1 || exit 0
-command -v jq >/dev/null 2>&1 || exit 0
 
-dir="${XDG_STATE_HOME}/nvim"
+xdg_state_home="${XDG_STATE_HOME:-${HOME}/.local/state}"
+
+dir="${xdg_state_home}/nvim"
 [ -d "$dir" ] || exit 0
 
-active=$(wezterm cli list --format json 2>/dev/null |
-  jq -r '.[].tab_id' 2>/dev/null)
+# Every live tab owns at least one pane, so column 2 of the map published by
+# wezterm/dko/tabstate.lua is the set of tabs that still exist
+state_file="${xdg_state_home}/wezterm-tab-state.txt"
+active=""
+reference=""
+if [ -r "$state_file" ]; then
+  active=$(awk '{ print $2 }' "$state_file")
+  [ -n "$active" ] && reference="$state_file"
+fi
+
+# Fall back to the mux when the map is missing or empty
+if [ -z "$active" ]; then
+  command -v wezterm >/dev/null 2>&1 || exit 0
+  command -v jq >/dev/null 2>&1 || exit 0
+
+  active=$(wezterm cli list --format json 2>/dev/null |
+    jq -r '.[].tab_id' 2>/dev/null)
+fi
 [ -n "$active" ] || exit 0
 
 for sock in "$dir"/nvim-tab-*.sock; do
-  [ -e "$sock" ] || continue
+  # Only ever delete an actual socket. Also skips the literal glob pattern
+  # when nothing matched, and anything else that lands in this directory
+  # wearing the name of one of ours
+  [ -S "$sock" ] || continue
+
+  # A socket newer than the map belongs to a tab the map may not have caught
+  # up with yet — deleting it would orphan a live nvim
+  [ -n "$reference" ] && [ "$sock" -nt "$reference" ] && continue
+
   tab_id="${sock##*nvim-tab-}"
   tab_id="${tab_id%.sock}"
+  # only sockets we could have created ourselves
+  case "$tab_id" in
+  "" | *[!0-9]*) continue ;;
+  esac
+
   if ! printf '%s\n' "$active" | grep -qxF "$tab_id"; then
     rm -f "$sock"
   fi
