@@ -51,7 +51,9 @@ M.setup = function()
   local home = os.getenv("HOME") or ""
   local unicode_block = "⠀"
 
-  wezterm.on("update-right-status", function(win, pane)
+  -- update-right-status is deprecated in favor of update-status, which fires
+  -- on the same interval and still allows set_right_status
+  wezterm.on("update-status", function(win, pane)
     local cwd_uri = pane:get_current_working_dir()
     local cwd = ""
     if cwd_uri then
