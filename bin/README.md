@@ -23,6 +23,10 @@ Add a certificate
 256color test script from
 [base16-shell](https://github.com/chriskempson/base16-shell)
 
+## curlperf
+
+Simple alternative to apachebench to get request time for a URL
+
 ## dko-center
 
 Output centered text
@@ -82,9 +86,18 @@ Edit a file in the git root
 
 Find and edit the nginx.conf file
 
+## enofork
+
+Open files in an nvim that neither forks nor shares a socket, and skips shada
+-- for `$EDITOR` callers that have to block
+
 ## ephp
 
 Find and edit the php.ini file
+
+## ewez
+
+Open `$EDITOR` in a new small WezTerm window, which closes when it exits
 
 ## flatten
 
@@ -119,9 +132,9 @@ Switch to a different worktree using FZF
 
 Switch to a different XCode version
 
-## get-nvim
+## get-wezterm
 
-Download nightly `nvim.appimage` to `~/.local/bin/`
+Download the nightly WezTerm AppImage to `~/.local/bin/` (Linux)
 
 ## git-committers
 
@@ -130,6 +143,14 @@ List git committers and number of commits
 ## git-copy-branch
 
 Copy a git branch
+
+## git-dirsha
+
+Print the SHA of the most recent commit, optionally limited to given paths
+
+## git-ffm
+
+Fast-forward local `main` to its remote, also from a bare-repo worktree
 
 ## git-in
 
@@ -157,6 +178,14 @@ Takes regular `git diff` options.
 
 Show commits since midnight
 
+## giteditor
+
+`$GIT_EDITOR` wrapper -- [enofork](./enofork) with the editor context set
+
+## jira-mine
+
+List Jira issues assigned to me
+
 ## joingroup
 
 Linux. Join a group and reload user's groups
@@ -173,6 +202,10 @@ macOS. lock screen
 
 Echo the git root or pwd if not in git repo
 
+## osc9-notify
+
+Send a desktop notification through the terminal with an OSC 9 escape
+
 ## path
 
 Pretty list path env
@@ -180,6 +213,10 @@ Pretty list path env
 ## pokecolor
 
 pokemon
+
+## prune
+
+Delete empty subdirectories below the cwd
 
 ## rln
 
