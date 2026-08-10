@@ -9,12 +9,20 @@
 # Use a tab-scoped socket inside WezTerm so each tab gets its own nvim
 # instance; panes within the same tab share it. Falls back to a single
 # global socket for non-WezTerm terminals.
+#
+# $WEZ_TAB_ID is a cache zsh/wezterm.zsh keeps warm to save a fork. Validate
+# rather than trust it -- it is inherited, so it can arrive stale (a tmux
+# server started in another tab) or hand-set. wez-tab-id is the authority
+# whenever it is missing or junk.
 __nvim_state="${XDG_STATE_HOME:-${HOME}/.local/state}/nvim"
-if _t=$(wez-tab-id) && [ -n "$_t" ]; then
-  __server="${__nvim_state}/nvim-tab-${_t}.sock"
-else
-  __server="${__nvim_state}/nvim.sock"
-fi
+_t="${WEZ_TAB_ID:-}"
+case "$_t" in
+"" | *[!0-9]*) _t=$(wez-tab-id) ;;
+esac
+case "$_t" in
+"" | *[!0-9]*) __server="${__nvim_state}/nvim.sock" ;;
+*) __server="${__nvim_state}/nvim-tab-${_t}.sock" ;;
+esac
 unset _t __nvim_state
 
 log() {
@@ -44,7 +52,7 @@ on_signal() {
   orphans=$(
     # pgrep does NOT return all results
     # shellcheck disable=2009
-    ps ux | grep -v grep | grep language-server
+    ps -U "${USER:-$(id -un)}" -ww -o args= | grep -v grep | grep language-server
   )
   [[ -n $orphans ]] && {
     log "Possible orphan language server processes:"
@@ -73,9 +81,13 @@ main() {
 
   local existing
   local running
-  # pgrep does NOT return all results
+  # pgrep does NOT return all results. -ww because the socket path sits at the
+  # end of a long command line -- macOS ps never truncated it in testing, even
+  # on a narrow tty, but Linux procps is not so reliably unlimited
   # shellcheck disable=2009
-  running=$(ps ux | grep -v grep | grep -F "$__server")
+  running=$(
+    ps -U "${USER:-$(id -un)}" -ww -o args= | grep -v grep | grep -F "$__server"
+  )
   if [ -z "$running" ]; then
     [[ "$E_DEBUG" != "" ]] && log "Not running"
 
