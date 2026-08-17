@@ -22,6 +22,7 @@ local mods = {}
 mods[#mods + 1] = require("clipboard.type")
 mods[#mods + 1] = require("menubar.audiosource")
 mods[#mods + 1] = require("menubar.caffeine")
+mods[#mods + 1] = require("menubar.utc")
 mods[#mods + 1] = require("launcher.apps")
 mods[#mods + 1] = require("launcher.seal")
 mods[#mods + 1] = require("window.lunette")
