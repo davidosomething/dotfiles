@@ -1,6 +1,6 @@
-print "== window.throw"
+print("== window.throw")
 
-hs.hotkey.bind(hyper, ']', function()
+hs.hotkey.bind(hyper, "]", function()
   -- get the focused window
   local win = hs.window.focusedWindow()
   -- get the screen where the focused window is displayed, a.k.a. current screen
@@ -10,7 +10,7 @@ hs.hotkey.bind(hyper, ']', function()
   win:move(win:frame():toUnitRect(screen:frame()), screen:next(), true, 0)
 end)
 
-hs.hotkey.bind(hyper, '[', function()
+hs.hotkey.bind(hyper, "[", function()
   -- get the focused window
   local win = hs.window.focusedWindow()
   -- get the screen where the focused window is displayed, a.k.a. current screen
