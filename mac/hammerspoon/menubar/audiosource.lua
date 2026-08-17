@@ -3,7 +3,8 @@
 -- setAudiosourceBarTitle(uid, event_name, event_scope, event_element)
 print("== menubar.audiosource")
 
-local audiosourceBar = hs.menubar.new()
+-- autosaveName lets macOS persist this item's position in the menubar
+local audiosourceBar = hs.menubar.new(true, "dko.audiosource")
 
 local function nextAudiosource()
   local _, status = hs.execute("/opt/homebrew/bin/SwitchAudioSource -n")
