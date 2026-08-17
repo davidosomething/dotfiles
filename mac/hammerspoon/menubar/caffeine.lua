@@ -1,6 +1,6 @@
 ---
 -- http://www.hammerspoon.org/Spoons/Caffeine.html
-print "== menubar.caffeine"
+print("== menubar.caffeine")
 
 hs.loadSpoon("Caffeine")
 
