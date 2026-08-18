@@ -1,6 +1,7 @@
 [tools]
 # bashate not in global mise config; was invoked via `pipx run bashate`
 "pipx:bashate" = { version = "latest", depends = ["python"] }
+"zizmor" = "latest"
 
 [tasks.lint]
 description = "Run all linters"

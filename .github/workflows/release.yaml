@@ -2,18 +2,21 @@
 name: release
 
 on:
-  workflow_run:
-    workflows: [test]
-    types:
-      - completed
+  workflow_call:
+    secrets:
+      DISPATCH_TOKEN:
+        required: true
 
 jobs:
   release:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Merge dev -> master
         uses: devmasx/merge-branch@854d3ac71ed1e9deb668e0074781b81fdd6e771f  # 1.4.0
@@ -22,3 +25,10 @@ jobs:
           from_branch: dev
           target_branch: master
           github_token: ${{ github.token }}
+
+  dispatch:
+    needs: [release]
+    permissions: {}
+    uses: ./.github/workflows/dispatch.yaml
+    secrets:
+      DISPATCH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}

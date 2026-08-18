@@ -2,14 +2,14 @@
 name: dispatch
 
 on:
-  workflow_run:
-    workflows: [release]
-    types:
-      - completed
+  workflow_call:
+    secrets:
+      DISPATCH_TOKEN:
+        required: true
 
 jobs:
-  dispatch-on-release-success:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  dispatch:
+    permissions: {}
     runs-on: ubuntu-latest
     strategy:
       matrix:
