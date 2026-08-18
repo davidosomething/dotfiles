@@ -8,6 +8,8 @@ on:
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
 
     strategy:
       matrix:
@@ -28,6 +30,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           ref: dev
+          persist-credentials: false
 
       - name: Provision dotfiles (including mise.toml)
         run: ./bootstrap/symlink
@@ -48,3 +51,11 @@ jobs:
 
       - name: Run tests
         run: mise run test
+
+  release:
+    needs: [test]
+    permissions:
+      contents: write
+    uses: ./.github/workflows/release.yaml
+    secrets:
+      DISPATCH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
