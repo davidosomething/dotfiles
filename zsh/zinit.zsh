@@ -9,14 +9,6 @@ export DKO_SOURCE="${DKO_SOURCE} -> zinit.zsh {"
 function {
   local man1="${ZINIT[MAN_DIR]}/man1"
 
-  zinit lucid as"program" from"gh-r" \
-    atclone'./direnv hook zsh > zhook.zsh' \
-    atpull'%atclone' \
-    mv"direnv* -> direnv" \
-    pick"direnv" \
-    src="zhook.zsh" \
-    for direnv/direnv
-
   # ----------------------------------------------------------------------------
   # Git
   # ----------------------------------------------------------------------------
@@ -36,14 +28,8 @@ function {
   export ZSH_BOOKMARKS="${HOME}/.local/zshbookmarks"
   zinit lucid light-mode for 'davidosomething/cdbk'
 
-  export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
-
   zinit snippet 'OMZP::cp'
   zinit snippet 'OMZP::extract'
-
-  if [[ -d "$ASDF_DATA_DIR" ]]; then
-    __dko_warn "ASDF_DATA_DIR found, please migrate to mise"
-  fi
 
   # ----------------------------------------------------------------------------
   # Completions
@@ -80,18 +66,10 @@ function {
     blockf atpull'zinit creinstall -q .' \
     'zsh-users/zsh-completions'
 
-  # ----------------------------------------------------------------------------
-  # Syntax last
-  # autoload and run compinit
-  # ----------------------------------------------------------------------------
-
-  # don't add wait, messes with zsh-autosuggest
-  # zinit lucid atload"zicompinit; zicdreplay" for \
-  #   'zdharma/fast-syntax-highlighting'
-
+  # https://github.com/michel-kraemer/zsh-patina/
   zinit ice as"program" from"gh-r" ver"1.9.0" \
     pick"zsh-patina-*/zsh-patina" \
-    atload'eval "$(zsh-patina activate)"'
+    atload'eval "$(zsh-patina activate)" && eval "$(zsh-patina completion)"'
   zinit light michel-kraemer/zsh-patina
 
   # ----------------------------------------------------------------------------
