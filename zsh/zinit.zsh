@@ -38,13 +38,6 @@ function {
 
   export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
 
-  # Customized from instructions at https://github.com/sharkdp/bat#man
-  zinit lucid from'gh-r' as'program' for \
-    atload'eval "$(zoxide init --cmd j zsh)"' \
-    pick'zoxide/zoxide' \
-    'ajeetdsouza/zoxide' \
-    ;
-
   zinit snippet 'OMZP::cp'
   zinit snippet 'OMZP::extract'
 
