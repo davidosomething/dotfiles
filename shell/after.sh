@@ -95,6 +95,10 @@ export FZF_ALT_C_OPTS="
 
 # ============================================================================
 
+__dko_has 'zoxide' && eval "$(zoxide init --cmd j zsh)"
+
+# ============================================================================
+
 #__dko_has 'catimg' && echo && catimg "${DOTFILES}/meta/motd.png" && echo
 
 unset grepper
