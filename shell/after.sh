@@ -95,7 +95,14 @@ export FZF_ALT_C_OPTS="
 
 # ============================================================================
 
-__dko_has 'zoxide' && eval "$(zoxide init --cmd j zsh)"
+__dko_has 'zoxide' && {
+  export _ZO_DATA="${XDG_DATA_HOME}/zoxide"
+  eval "$(zoxide init --cmd j zsh)"
+}
+
+# ============================================================================
+
+[[ -d "$ASDF_DATA_DIR" ]] && __dko_warn "ASDF_DATA_DIR found, please migrate to mise"
 
 # ============================================================================
 
