@@ -28,7 +28,7 @@ fd = "latest"
 fzf = "latest"
 github-cli = "latest"
 "github:skanehira/version-lsp" = "latest"
-go = "1.27.0"
+go = "1.27.1"
 "go:github.com/mattn/efm-langserver" = { version = "latest", depends = ["go"] }
 "go:golang.org/x/tools/gopls" = { version = "latest", depends = ["go"] }
 hadolint = "latest"
