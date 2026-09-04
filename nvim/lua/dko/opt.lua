@@ -5,7 +5,7 @@ vim.go.termguicolors = vim.env.TERM_PROGRAM ~= "Apple_Terminal"
 -- ===========================================================================
 
 -- pre-0.13 is handled by the "awalland/nvim-file-watch" plugin
-vim.go.autoread = vim.fn.has("nvim-0.13") == 0
+vim.go.autoread = vim.fn.has("nvim-0.13") == 1
 
 vim.go.modelines = 1
 
@@ -104,10 +104,15 @@ vim.opt.isfname:remove("=")
 
 vim.opt.complete:remove("t") -- don't complete tags
 
+---@diagnostic disable-next-line: undefined-field
 vim.opt.completeopt:remove("longest")
+---@diagnostic disable-next-line: undefined-field
 vim.opt.completeopt:append("menuone") -- show PUM, even for one thing
+---@diagnostic disable-next-line: undefined-field
 vim.opt.completeopt:append("noinsert")
+---@diagnostic disable-next-line: undefined-field
 vim.opt.completeopt:append("noselect")
+---@diagnostic disable-next-line: undefined-field
 vim.opt.completeopt:remove("preview") -- don't open scratch
 
 -- ===========================================================================
