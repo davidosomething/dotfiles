@@ -76,6 +76,17 @@ killport() {
   fi
 }
 
+restart-compose-stacks() {
+  docker ps --filter "label=com.docker.compose.project" --format '{{.Label "com.docker.compose.project.working_dir"}}' | sort -u | while read -r compose_dir; do
+    if [ -d "$compose_dir" ]; then
+      echo "Updating stack in: $compose_dir"
+      cd "$compose_dir" && docker compose up -d
+    else
+      echo "Directory not found: $compose_dir"
+    fi
+  done
+}
+
 # ============================================================================
 # Network tools
 # ============================================================================
