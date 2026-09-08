@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+__main() {
+  # Fetch current day of the week (1=Mon ... 7=Sun) and hour (0-23) in UTC
+  local day_utc=$(date -u +%u)
+  local hour_utc=$(date -u +%-H)
+
+  # Weekends (6=Saturday, 7=Sunday) are always off-peak
+  if [ "$day_utc" -ge 6 ]; then
+    echo "OFF-PEAK"
+    exit 0
+  fi
+
+  # Weekdays: Peak is 01:00-04:00 (hours 1,2,3) and 06:00-10:00 (hours 6,7,8,9) UTC
+  if [[ ("$hour_utc" -ge 1 && "$hour_utc" -lt 4) || ("$hour_utc" -ge 6 && "$hour_utc" -lt 10) ]]; then
+    echo "PEAK"
+  else
+    echo "OFF-PEAK"
+  fi
+}
+
+__main
