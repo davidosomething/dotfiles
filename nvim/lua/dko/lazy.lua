@@ -26,7 +26,7 @@ require("lazy").setup("dko.plugins", {
   },
   checker = {
     -- needed to get the output of require("lazy.status").updates()
-    enabled = true,
+    enabled = not require("dko.utils.vte").is_remote(),
     -- get a notification when new updates are found?
     notify = false,
   },

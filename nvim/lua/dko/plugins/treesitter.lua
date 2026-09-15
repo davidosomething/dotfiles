@@ -19,17 +19,15 @@ return require("dko.utils.lazyspec")(function(ctx)
       config = function()
         -- Some other plugins use treesitter features, so need these even if never
         -- opened a buffer with the corresponding ft
-        require("nvim-treesitter")
-          .install({
-            "html",
-            "json",
-            "jsx",
-            "lua",
-            "markdown",
-            "tsx",
-            "yaml",
-          })
-          :wait(300000) --- :wait makes it synchronous
+        local ts = require("nvim-treesitter")
+        local ensure = { "html", "json", "jsx", "lua", "markdown", "tsx", "yaml" }
+        local installed = ts.get_installed("parser")
+        local missing = vim.tbl_filter(function(p)
+          return not vim.list_contains(installed, p)
+        end, ensure)
+        if #missing > 0 then
+          ts.install(missing):wait(300000)
+        end
         require("dko.treesitter").flush()
       end,
       -- don't use this plugin when headless (lazy.nvim tends to try to install
