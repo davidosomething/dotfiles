@@ -8,6 +8,13 @@ return {
     self.filepath = vim.api.nvim_buf_get_name(0)
   end,
   hl = function()
+    --- dko.utils.format is blocking on LSP startup, so the whole UI is frozen
+    --- -- force the bar orange (same group as a running job) to show why
+    if vim.b.dko_format_waiting then
+      local important =
+        require("heirline.utils").get_highlight("dkoLineImportant")
+      return { bg = important.bg, fg = important.fg, force = true }
+    end
     return require("dko.heirline.utils").hl()
   end,
   require("dko.heirline.winbar-filename"),

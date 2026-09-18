@@ -117,20 +117,25 @@ autocmd("LspDetach", {
 })
 
 autocmd("LspDetach", {
-  desc = "Unset flag to format on save IF last formatter detaches from buffer",
+  desc = "Clear formatter label, unset format on save if last formatter detaches",
   callback = function(args)
+    local detached_client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not detached_client then
+      return
+    end
+
+    --- heirline shows vim.b.formatter by itself when set, don't let it keep
+    --- naming a client that just detached (e.g. oxfmt, see after/lsp/oxfmt.lua)
+    if vim.b[args.buf].formatter == detached_client.name then
+      vim.b[args.buf].formatter = nil
+    end
+
     -- was already disabled manually?
     if not vim.b.enable_format_on_save then
       return
     end
     -- Unregister the client from formatters (and update heirline)
-    local detached_client = vim.lsp.get_client_by_id(args.data.client_id)
-    if detached_client then
-      require("dko.utils.format").remove_formatter(
-        args.buf,
-        detached_client.name
-      )
-    end
+    require("dko.utils.format").remove_formatter(args.buf, detached_client.name)
   end,
   group = augroup("dkolsp"),
 })

@@ -62,8 +62,113 @@ M.pipelines["yaml"] = {
 }
 M.pipelines["yaml.docker-compose"] = M.pipelines["yaml"]
 
+---Timeout for synchronous LSP format requests, more patient over ssh
+---@return number
+M.timeout_ms = function()
+  return vim.env.SSH_CLIENT and 3000 or 1000
+end
+
+-- ===========================================================================
+-- Waiting out LSP startup
+-- ===========================================================================
+
+--- How long to block for a first client to attach to the buffer
+local ATTACH_WAIT_MS = 1000
+--- How long to block for attached clients to finish initializing
+local INIT_WAIT_MS = 5000
+
+---@return vim.lsp.Client[] -- attached to the buffer, initialized or not
+local function all_clients()
+  return vim.lsp.get_clients({ bufnr = 0, _uninitialized = true })
+end
+
+---@return vim.lsp.Client[] -- attached to the buffer, still initializing
+local function starting_clients()
+  return vim.tbl_filter(function(client)
+    return not client.initialized
+  end, all_clients())
+end
+
+---@return boolean -- some enabled LSP config claims this buffer's filetype
+local function expects_clients()
+  return vim.iter(require("dko.tools").standalone_lsp_names):any(function(name)
+    local config = vim.lsp.config[name]
+    return config ~= nil
+      and config.filetypes ~= nil
+      and vim.list_contains(config.filetypes, vim.bo.filetype)
+  end)
+end
+
+---Block until the buffer's LSP clients have attached and initialized, so a
+---pipeline doesn't format with a fallback -- or silently format nothing --
+---while the formatter it wants is still starting. Interruptible with CTRL-C.
+---@return boolean -- false if the wait was interrupted
+M.wait_for_clients = function()
+  --- A config whose root_dir never resolves looks exactly like one that is
+  --- still deciding, so only wait for a first attach when nothing at all is
+  --- attached yet and something was expected to be
+  local wait_for_attach = #all_clients() == 0 and expects_clients()
+  if not wait_for_attach and #starting_clients() == 0 then
+    return true
+  end
+
+  --- fidget cannot render while vim.wait has the loop, so echo it and turn
+  --- the winbar orange (see dko.heirline.winbar), then flush both before
+  --- blocking -- nothing repaints until the wait is over
+  vim.b.dko_format_waiting = true
+  vim.api.nvim_echo(
+    { { "[LSP] waiting for clients to start...", "Comment" } },
+    false,
+    {}
+  )
+  vim.cmd.redrawstatus()
+  vim.cmd.redraw()
+
+  local interrupted = false
+  if wait_for_attach then
+    local _, reason = vim.wait(ATTACH_WAIT_MS, function()
+      return #all_clients() > 0
+    end, 25)
+    --- Timing out here just means nothing attached, which the pipeline
+    --- already reports in its own words
+    interrupted = reason == -2
+  end
+
+  local starting = {}
+  if not interrupted then
+    local _, reason = vim.wait(INIT_WAIT_MS, function()
+      starting = starting_clients()
+      return #starting == 0
+    end, 25)
+    interrupted = reason == -2
+    if reason == -1 then
+      require("dko.utils.notify").toast(
+        ("Formatting without %s, still starting"):format(
+          table.concat(
+            vim.tbl_map(function(client)
+              return client.name
+            end, starting),
+            ", "
+          )
+        ),
+        vim.log.levels.WARN,
+        { group = "format", render = "wrapped-compact", title = "[LSP] format" }
+      )
+    end
+  end
+
+  vim.b.dko_format_waiting = nil
+  vim.api.nvim_echo({}, false, {})
+  vim.cmd.redrawstatus()
+  return not interrupted
+end
+
 --- See options for vim.lsp.buf.format
 M.run_pipeline = function(options)
+  if not M.wait_for_clients() then
+    return
+  end
+
   local pipelinedef = M.pipelines[vim.bo.filetype]
   if pipelinedef then
     return pipelinedef[1]()

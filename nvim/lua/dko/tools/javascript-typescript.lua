@@ -15,6 +15,13 @@ dkotools.register({
   efm = require("dko.tools.biome"),
 })
 
+--- Prettier-compatible formatter run as `oxfmt --lsp`. Takes precedence over
+--- eslint-plugin-prettier/biome/prettier, see dko.utils.format.javascript
+dkotools.register({
+  name = "oxfmt",
+  runner = "lspconfig",
+})
+
 -- jumping into classnames from jsx/tsx
 -- dkotools.register({
 --   name = "cssmodules_ls",

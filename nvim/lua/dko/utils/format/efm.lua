@@ -57,7 +57,7 @@ M.format = function(opts)
   vim.lsp.buf.format({
     async = false,
     name = "efm",
-    timeout_ms = vim.env.SSH_CLIENT and 3000 or 1000,
+    timeout_ms = require("dko.utils.format").timeout_ms(),
   })
   return true
 end

@@ -30,7 +30,15 @@ M.format_with_lsp = function()
 end
 
 M.format = function()
+  --- Run eslint's fixAll first even when oxfmt will format: it also applies
+  --- non-formatting autofixes, and oxfmt reformats whatever eslint rewrote
   local _, is_lsp_formatted = M.format_with_lsp()
+
+  --- oxfmt takes precedence over eslint-plugin-prettier, biome and prettier
+  if require("dko.utils.format.oxfmt").format({ pipeline = "javascript" }) then
+    return true
+  end
+
   if is_lsp_formatted then
     -- eslint-plugin-prettier found
     return true
