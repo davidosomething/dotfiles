@@ -29,6 +29,7 @@ fzf = "latest"
 github-cli = "latest"
 "github:skanehira/version-lsp" = "latest"
 go = "1.27.1"
+"go:github.com/atani/glowm/cmd/glowm" = { version = "0.4.0", depends = ["go"] }
 "go:github.com/mattn/efm-langserver" = { version = "latest", depends = ["go"] }
 "go:golang.org/x/tools/gopls" = { version = "latest", depends = ["go"] }
 hadolint = "latest"
