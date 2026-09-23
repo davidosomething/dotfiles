@@ -40,6 +40,11 @@ dkotools.register({
 })
 
 dkotools.register({
+  name = "oxlint",
+  runner = "lspconfig",
+})
+
+dkotools.register({
   name = "vtsls",
   runner = "lspconfig",
 })
