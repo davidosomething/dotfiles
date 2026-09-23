@@ -9,7 +9,14 @@ M.format_with_lsp = function()
     require("dko.utils.format.eslint").has_eslint_plugin_prettier()
 
   local eslint_lsps = vim.lsp.get_clients({ bufnr = 0, name = "eslint" })
-  if #eslint_lsps == 0 then
+  if
+    #eslint_lsps == 0
+    and not has_eslint_plugin_prettier
+    and require("dko.utils.format.oxlint").get_client()
+  then
+    --- oxlint-only project, eslint is not missing
+    return true, false
+  elseif #eslint_lsps == 0 then
     message = ("eslint-lsp not attached %s"):format(
       has_eslint_plugin_prettier and "and eslint-plugin-prettier present" or ""
     )
@@ -30,9 +37,10 @@ M.format_with_lsp = function()
 end
 
 M.format = function()
-  --- Run eslint's fixAll first even when oxfmt will format: it also applies
-  --- non-formatting autofixes, and oxfmt reformats whatever eslint rewrote
+  --- Run eslint's and oxlint's fixAll first even when oxfmt will format: they
+  --- also apply non-formatting autofixes, and oxfmt reformats what they rewrote
   local _, is_lsp_formatted = M.format_with_lsp()
+  require("dko.utils.format.oxlint").fix_all()
 
   --- oxfmt takes precedence over eslint-plugin-prettier, biome and prettier
   if require("dko.utils.format.oxfmt").format({ pipeline = "javascript" }) then

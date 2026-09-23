@@ -4,7 +4,7 @@ What `<A-=>` actually runs in a `javascript`, `javascriptreact`, `typescript`,
 or `typescriptreact` buffer.
 
 Precedence: **oxfmt > eslint-plugin-prettier > biome > prettier**.
-eslint's fix-all runs first in every case, for its non-formatting autofixes.
+eslint's fix-all, then oxlint's, run first in every case, for their non-formatting autofixes.
 oxfmt runs as its own LSP client (`oxfmt --lsp`, via nvim-lspconfig's `lsp/oxfmt.lua`);
 prettier and biome run through the efm LSP; prettier is the unconditional fallback.
 
@@ -76,14 +76,21 @@ flowchart TD
   js --> lsp["format_with_lsp()<br/>utils/format/javascript.lua:4"]
 
   lsp --> attached{"eslint LSP client<br/>attached to buffer?"}
-  attached -- "no" --> toastNoEslint["toast: eslint-lsp not attached"]
+  attached -- "no" --> oxlintOnly{"oxlint attached, and no<br/>eslint-plugin-prettier?"}
+  oxlintOnly -- "yes - quiet" --> oxlint
+  oxlintOnly -- "no" --> toastNoEslint["toast: eslint-lsp not attached"]
   attached -- "yes" --> fixAll{"LspEslintFixAll<br/>command exists?"}
   fixAll -- "no" --> toastNoCmd["toast: missing :LspEslintFixAll<br/>from nvim-lspconfig"]
   fixAll -- "yes" --> runFixAll["run :LspEslintFixAll<br/>- lint autofixes land even when<br/>oxfmt does the formatting"]
 
-  toastNoEslint --> oxfmt
-  toastNoCmd --> oxfmt
-  runFixAll --> oxfmt
+  toastNoEslint --> oxlint
+  toastNoCmd --> oxlint
+  runFixAll --> oxlint
+
+  oxlint{"oxlint LSP client<br/>attached to buffer?<br/>utils/format/oxlint.lua"}
+  oxlint -- "yes" --> oxlintFixAll["request_sync oxc.fixAll<br/>- not the async :LspOxlintFixAll"]
+  oxlint -- "no" --> oxfmt
+  oxlintFixAll --> oxfmt
 
   oxfmt{"oxfmt LSP client attached,<br/>with textDocument/formatting?<br/>utils/format/oxfmt.lua:8"}
   oxfmt -- "yes" --> oxfmtFormat["vim.lsp.buf.format({ name = 'oxfmt' })<br/>sync, SSH-aware timeout, asked twice on<br/>a buffer's first format if nothing changed<br/>utils/format/oxfmt.lua:27"]
@@ -119,9 +126,11 @@ flowchart TD
 | `lua/dko/utils/format/javascript.lua` | the formatter decision for js/jsx/ts/tsx |
 | `lua/dko/utils/format/oxfmt.lua` | attached-client check, and the oxfmt LSP format call |
 | `after/lsp/oxfmt.lua` | narrows oxfmt to jsts, `workspace_required`, winbar label |
+| `lua/dko/utils/format/oxlint.lua` | oxlint fix-all, synchronous |
+| `after/lsp/oxlint.lua` | `workspace_required` |
 | `lua/dko/utils/format/eslint.lua` | `eslint-plugin-prettier` detection |
 | `lua/dko/utils/format/biome.lua` | `biome` detection |
 | `lua/dko/utils/format/efm.lua` | runs one named efm tool, with settings narrowed and restored |
 | `lua/dko/heirline/winbar.lua` | paints the bar orange while `wait_for_clients()` blocks |
-| `lua/dko/tools/javascript-typescript.lua` | registers `oxfmt` (lspconfig) and `prettier`/`biome` (efm) for the jsts filetypes |
+| `lua/dko/tools/javascript-typescript.lua` | registers `oxfmt`/`oxlint` (lspconfig) and `prettier`/`biome` (efm) for the jsts filetypes |
 | `lua/dko/tools/prettier.lua` | efm config, from `efmls-configs.formatters.prettier` |
