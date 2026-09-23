@@ -26,10 +26,21 @@ fi
 
 # Fall back to the mux when the map is missing or empty
 if [ -z "$active" ]; then
-  command -v wezterm >/dev/null 2>&1 || exit 0
-  command -v jq >/dev/null 2>&1 || exit 0
+  # shellcheck source=../lib/wezterm.sh
+  . "$(cd -- "$(dirname -- "$0")/.." && pwd)/lib/wezterm.sh"
 
-  active=$(wezterm cli list --format json 2>/dev/null |
+  # We are inside WezTerm and the map let us down, so a missing tool is a
+  # broken install, not the documented no-op
+  __dko_wezterm || {
+    echo "wez-clean-socks: no wezterm CLI found" >&2
+    exit 1
+  }
+  command -v jq >/dev/null 2>&1 || {
+    echo "wez-clean-socks: jq not found" >&2
+    exit 1
+  }
+
+  active=$("$DKO_WEZTERM" cli list --format json 2>/dev/null |
     jq -r '.[].tab_id' 2>/dev/null)
 fi
 [ -n "$active" ] || exit 0

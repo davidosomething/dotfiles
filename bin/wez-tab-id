@@ -30,11 +30,21 @@ if [ -r "$state_file" ]; then
 fi
 
 # Slow path — the map is missing, or this pane was spawned less than one
-# status_update_interval ago and isn't in it yet
-command -v wezterm >/dev/null 2>&1 || exit 1
-command -v jq >/dev/null 2>&1 || exit 1
+# status_update_interval ago and isn't in it yet. Sourced here, not at the
+# top: the fast path above forks nothing but awk and should stay that way
+# shellcheck source=../lib/wezterm.sh
+. "$(cd -- "$(dirname -- "$0")/.." && pwd)/lib/wezterm.sh"
 
-tab_id=$(wezterm cli list --format json 2>/dev/null |
+__dko_wezterm || {
+  echo "wez-tab-id: no wezterm CLI found" >&2
+  exit 1
+}
+command -v jq >/dev/null 2>&1 || {
+  echo "wez-tab-id: jq not found" >&2
+  exit 1
+}
+
+tab_id=$("$DKO_WEZTERM" cli list --format json 2>/dev/null |
   jq -r --arg p "$WEZTERM_PANE" \
     '.[] | select(.pane_id == ($p | tonumber)) | .tab_id')
 

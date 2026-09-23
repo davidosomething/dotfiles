@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+
+# wez-tab-title — name the WezTerm tab that owns the current pane.
+#
+# An explicit tab title outranks the pane's OSC title for as long as it is
+# set, so this owns the tab until --clear hands it back to zsh/title.zsh and
+# whatever is running in the pane.
+#
+# Usage:
+#   wez-tab-title [--state start|busy|idle|ask] [--dir DIR]
+#   wez-tab-title --title TITLE
+#   wez-tab-title --clear
+#
+# Silent no-op outside WezTerm, so it is safe in a hook that also fires
+# somewhere else.
+
+[ -z "${WEZTERM_PANE:-}" ] && exit 0
+
+# shellcheck source=../lib/wezterm.sh
+. "$(cd -- "$(dirname -- "$0")/.." && pwd)/lib/wezterm.sh"
+
+# Tab bars are narrow. Past this the name stops being readable anyway.
+max_length=24
+
+state=""
+dir=""
+title=""
+clear=""
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+  --state)
+    state="${2:-}"
+    shift 2
+    ;;
+  --dir)
+    dir="${2:-}"
+    shift 2
+    ;;
+  --title)
+    title="${2:-}"
+    shift 2
+    ;;
+  --clear)
+    clear=1
+    shift
+    ;;
+  *)
+    echo "wez-tab-title: unknown argument: $1" >&2
+    exit 1
+    ;;
+  esac
+done
+
+marker=""
+case "$state" in
+busy) marker="◐" ;;
+idle) marker="✓" ;;
+ask) marker="!" ;;
+start | "") ;;
+*)
+  echo "wez-tab-title: unknown state: ${state}" >&2
+  exit 1
+  ;;
+esac
+
+# The tab is named for the checkout, not the path inside it — a worktree is
+# the unit I switch tabs between
+repo_name() {
+  local name="$1"
+  local toplevel key rest number
+
+  toplevel=$(git -C "$name" rev-parse --show-toplevel 2>/dev/null)
+  [ -n "$toplevel" ] && name="$toplevel"
+  name="${name%/}"
+  name="${name##*/}"
+
+  # Worktrees are named ACTIVE-8395-funding-modal-refactor. Only the key is
+  # worth reading, and the summary never fits
+  key="${name%%-*}"
+  rest="${name#*-}"
+  number="${rest%%-*}"
+  case "$key" in
+  "" | *[!A-Z]*) ;;
+  *)
+    case "$number" in
+    "" | *[!0-9]*) ;;
+    *) name="${key}-${number}" ;;
+    esac
+    ;;
+  esac
+
+  [ "${#name}" -gt "$max_length" ] && name="${name:0:max_length-1}…"
+
+  printf '%s' "$name"
+}
+
+if [ -n "$clear" ]; then
+  # wezterm reads an empty title as "drop the override"
+  new_title=""
+else
+  [ -z "$title" ] && title="$(repo_name "${dir:-$PWD}")"
+  new_title="$title"
+  [ -n "$marker" ] && new_title="${marker} ${title}"
+fi
+
+__dko_wezterm || {
+  echo "wez-tab-title: no wezterm CLI found" >&2
+  exit 1
+}
+
+exec "$DKO_WEZTERM" cli set-tab-title --pane-id "$WEZTERM_PANE" -- "$new_title"
