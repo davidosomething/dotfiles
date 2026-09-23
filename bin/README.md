@@ -260,6 +260,12 @@ Remove the per-tab nvim sockets left behind by closed WezTerm tabs
 Print the WezTerm tab ID owning the current pane, so [e](./e) can scope its
 nvim socket to the tab
 
+## wez-tab-title
+
+Name the WezTerm tab owning the current pane, after the checkout it sits in.
+Wired into Claude Code's hooks in `~/.claude/settings.json`, which mark the tab
+busy, waiting, or done
+
 ## wifi-passwords
 
 Get current wifi password in plaintext

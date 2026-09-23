@@ -60,3 +60,14 @@ PATH="${ASDF_DATA_DIR}/shims:${PATH}"
 # pipx uses this one by default
 PATH="${HOME}/.local/bin:${PATH}"
 PATH="${DOTFILES}/bin:${LDOTDIR}/bin:${PATH}"
+
+# ============================================================================
+# App bundles
+# ============================================================================
+
+# The macOS wezterm is an app bundle, so its CLI never lands on $PATH the way
+# the Linux AppImage does. Appended, not prepended -- the bundle also ships a
+# strip-ansi-escapes.
+if [ -d "/Applications/WezTerm.app/Contents/MacOS" ]; then
+  PATH="${PATH}:/Applications/WezTerm.app/Contents/MacOS"
+fi
