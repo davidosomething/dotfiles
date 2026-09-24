@@ -8,6 +8,17 @@ export DKO_SOURCE="${DKO_SOURCE} -> shell/interactive-linux.sh"
 export BROWSER="dko-open"
 
 # ============================================================================
+# homebrew (linuxbrew)
+# ============================================================================
+
+# /etc/profile.d/brew.sh appends brew's bin after /usr/bin so system binaries
+# win; brew doctor wants it the other way around. shellenv is idempotent --
+# it prints nothing once brew's bin and sbin lead PATH -- so this is also a
+# no-op in non-login shells (tmux) that inherited a fixed PATH.
+[ -x /home/linuxbrew/.linuxbrew/bin/brew ] &&
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# ============================================================================
 # functions
 # ============================================================================
 
