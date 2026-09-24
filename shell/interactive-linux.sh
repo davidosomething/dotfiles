@@ -13,10 +13,17 @@ export BROWSER="dko-open"
 
 # /etc/profile.d/brew.sh appends brew's bin after /usr/bin so system binaries
 # win; brew doctor wants it the other way around. shellenv is idempotent --
-# it prints nothing once brew's bin and sbin lead PATH -- so this is also a
-# no-op in non-login shells (tmux) that inherited a fixed PATH.
-[ -x /home/linuxbrew/.linuxbrew/bin/brew ] &&
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# it prints nothing once brew's bin and sbin lead PATH -- so this is a no-op
+# in non-login shells (tmux) that inherited a fixed PATH.
+#
+# brew is usually on PATH here (profile.d in login shells, inheritance in
+# non-login), but nested login shells have PATH reset by /etc/profile while
+# profile.d skips itself (HOMEBREW_PREFIX already set), so fall back to it.
+if __dko_has 'brew'; then
+  eval "$(command brew shellenv)"
+elif [ -x "${HOMEBREW_PREFIX:-}/bin/brew" ]; then
+  eval "$("${HOMEBREW_PREFIX}/bin/brew" shellenv)"
+fi
 
 # ============================================================================
 # functions
