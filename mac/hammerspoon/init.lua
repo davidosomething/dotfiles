@@ -7,7 +7,11 @@ print("======================================================================")
 hs.autoLaunch(true)
 hs.consoleOnTop(false)
 hs.dockIcon(false)
-hs.menuIcon(true)
+-- hs.menuIcon(true) replaces the icon every call, and on reload the swap loses
+-- it. Only set it when it's off.
+if not hs.menuIcon() then
+  hs.menuIcon(true)
+end
 
 _G.mc = { "⌘", "⌃" }
 _G.hyper = { "⌘", "⌃", "⇧" }
