@@ -1,10 +1,28 @@
+-- gh auth token has been observed to block for 60s+ on this host, so gh must
+-- never run during startup. The fetch below is deferred until the first
+-- yaml.ghactions buffer opens (the only time the server starts) and every gh
+-- call is capped at TIMEOUT_MS.
+local TIMEOUT_MS = 500
+
+--- Run a command synchronously with a hard timeout.
+---@param cmd string[]
+---@param timeout_ms integer
+---@return { code: integer, stdout: string }
+local function run_sync(cmd, timeout_ms)
+  return vim.system(cmd, {
+    timeout = timeout_ms,
+    text = true,
+    stderr = false,
+  }):wait()
+end
+
+---@return string|vim.NIL
 local function get_github_token()
-  local handle = io.popen("gh auth token 2>/dev/null")
-  if not handle then
+  local out = run_sync({ "gh", "auth", "token" }, TIMEOUT_MS)
+  if out.code ~= 0 then
     return vim.NIL
   end
-  local token = handle:read("*a"):gsub("%s+", "")
-  handle:close()
+  local token = (out.stdout or ""):gsub("%s+", "")
   return token ~= "" and token or vim.NIL
 end
 
@@ -31,18 +49,24 @@ end
 --- @davidosomething
 --- > This is a modified version of what's in https://github.com/actions/languageservices/tree/main/languageserver#3-create-the-lsp-configuration
 --- > I added owner.id checking to determine organizationOwned
+---@param owner string
+---@param repo string
+---@return { id: string|integer, organizationOwned: boolean }|nil
 local function get_repo_info(owner, repo)
-  local cmd = string.format(
-    "gh repo view %s/%s --json id,owner --template '{{.id}}\t{{.owner.id}}\t{{.owner.type}}' 2>/dev/null",
-    owner,
-    repo
-  )
-  local handle = io.popen(cmd)
-  if not handle then
+  local out = run_sync({
+    "gh",
+    "repo",
+    "view",
+    string.format("%s/%s", owner, repo),
+    "--json",
+    "id,owner",
+    "--template",
+    "{{.id}}\t{{.owner.id}}\t{{.owner.type}}",
+  }, TIMEOUT_MS)
+  if out.code ~= 0 then
     return nil
   end
-  local result = handle:read("*a"):gsub("%s+$", "")
-  handle:close()
+  local result = (out.stdout or ""):gsub("%s+$", "")
 
   local id, owner_id, owner_type = result:match("^([^\t]+)\t([^\t]+)\t(.+)$")
   if id then
@@ -55,27 +79,18 @@ local function get_repo_info(owner, repo)
   return nil
 end
 
+---@return table|vim.NIL
 local function get_repos_config()
-  local handle = io.popen("git rev-parse --show-toplevel 2>/dev/null")
-  if not handle then
-    return vim.NIL
-  end
-  local git_root = handle:read("*a"):gsub("%s+", "")
-  handle:close()
-
-  if git_root == "" then
+  local out = run_sync({ "git", "rev-parse", "--show-toplevel" }, TIMEOUT_MS)
+  local git_root = (out.stdout or ""):gsub("%s+", "")
+  if out.code ~= 0 or git_root == "" then
     return vim.NIL
   end
 
-  handle = io.popen("git remote get-url origin 2>/dev/null")
-  if not handle then
-    return vim.NIL
-  end
-  local remote_url = handle:read("*a"):gsub("%s+", "")
-  handle:close()
-
+  out = run_sync({ "git", "remote", "get-url", "origin" }, TIMEOUT_MS)
+  local remote_url = (out.stdout or ""):gsub("%s+", "")
   local owner, name = parse_github_remote(remote_url)
-  if not owner or not name then
+  if out.code ~= 0 or not owner or not name then
     return vim.NIL
   end
 
@@ -103,8 +118,10 @@ local upstream_config = {
   init_options = {
     -- Optional: provide a GitHub token and repo context for added functionality
     -- (e.g., repository-specific completions)
-    sessionToken = get_github_token(),
-    repos = get_repos_config(),
+    -- Filled in the first time a yaml.ghactions buffer opens, see
+    -- fetch_github_config()
+    sessionToken = vim.NIL,
+    repos = vim.NIL,
   },
 }
 
@@ -155,5 +172,41 @@ local with_nvim_lspconfig_additions = vim.tbl_extend("force", upstream_config, {
     end,
   },
 })
+
+--- Fetch the GitHub token and repo context the first time a yaml.ghactions
+--- buffer opens and merge them into the registered config. Merging invalidates
+--- the resolved config, and this autocmd is registered before nvim's own
+--- FileType autocmd (nvim.lsp.enable group) since this file is loadfile'd
+--- during vim.lsp.enable(), before that autocmd is created -- so the first
+--- client started for this buffer resolves the config with the token already
+--- merged in.
+---
+--- The gh calls are capped at TIMEOUT_MS each, so opening the first workflow
+--- file blocks for at most ~1s on a host where gh hangs, and only ~ms when gh
+--- responds normally.
+local function fetch_github_config()
+  if vim.g.dko_actionsls_github_fetched then
+    return
+  end
+  vim.g.dko_actionsls_github_fetched = 1
+
+  vim.lsp.config("actionsls", {
+    init_options = {
+      sessionToken = get_github_token(),
+      repos = get_repos_config(),
+    },
+  })
+end
+
+-- This file is loaded by nvim's vim.lsp.config loader via loadfile(), and
+-- re-loaded whenever the config is invalidated and resolved again -- including
+-- by the vim.lsp.config() merge above. Only register the trigger once per
+-- session.
+if not vim.g.dko_actionsls_github_fetched then
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "yaml.ghactions",
+    callback = fetch_github_config,
+  })
+end
 
 return with_nvim_lspconfig_additions
