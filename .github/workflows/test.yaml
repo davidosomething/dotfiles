@@ -42,7 +42,7 @@ jobs:
 
       - name: Install mise and tools including neovim and nodejs
         id: mise-install
-        uses: jdx/mise-action@8418fedb1110381a0d3ba51a7a415d7c1b884550  # v5.2.2
+        uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d  # v5.2.4
         continue-on-error: true
 
       - name: Retry mise install on transient failure
@@ -50,7 +50,11 @@ jobs:
         run: mise install
 
       - name: Run tests
-        run: mise run test
+        # Prepend shims so mise run's child PATH rebuild puts mise-managed paths
+        # first; on macOS the action exports a stale rust-proxies entry (External
+        # rust provider flips to Managed after `mise install`) that otherwise
+        # lands ahead of the tool paths and trips `mise doctor`.
+        run: PATH="$HOME/.local/share/mise/shims:$PATH" mise run test
 
   release:
     needs: [test]
