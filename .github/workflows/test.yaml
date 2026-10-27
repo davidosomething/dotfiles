@@ -50,7 +50,11 @@ jobs:
         run: mise install
 
       - name: Run tests
-        run: mise run test
+        # Prepend shims so mise run's child PATH rebuild puts mise-managed paths
+        # first; on macOS the action exports a stale rust-proxies entry (External
+        # rust provider flips to Managed after `mise install`) that otherwise
+        # lands ahead of the tool paths and trips `mise doctor`.
+        run: PATH="$HOME/.local/share/mise/shims:$PATH" mise run test
 
   release:
     needs: [test]
