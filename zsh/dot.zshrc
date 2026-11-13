@@ -76,6 +76,12 @@ else
   autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME}/zsh/zcompdump"
 fi
 
+# Top level, not a zinit atload: a PATH change made inside zinit's scope is
+# lost while mise's exported __MISE_DIFF survives, so ./node_modules/.bin
+# stays off PATH until the next prompt.
+# After the zinit block so mise wins over other PATH-modifying plugins.
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
+
 # ============================================================================
 # Finish up managed completions
 # ============================================================================
