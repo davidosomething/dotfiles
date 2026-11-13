@@ -73,6 +73,20 @@ wezterm.on("gui-startup", function(cmd)
   end
 end)
 
+-- Claude Code's status line links the session name as `claude-copy:<url-encoded name>`.
+-- Clicking it copies the name and skips the default open.
+wezterm.on("open-uri", function(window, _pane, uri)
+  local encoded = uri:match("^claude%-copy:(.*)$")
+  if not encoded then
+    return
+  end
+  local text = encoded:gsub("%%(%x%x)", function(hex)
+    return string.char(tonumber(hex, 16))
+  end)
+  window:copy_to_clipboard(text, "ClipboardAndPrimarySelection")
+  return false
+end)
+
 local ldotdir = os.getenv("LDOTDIR")
 if not ldotdir and os.getenv("XDG_DATA_HOME") then
   ldotdir = os.getenv("XDG_DATA_HOME") .. "/ldotdir"

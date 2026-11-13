@@ -90,8 +90,7 @@ function {
         cp -vf **/*.1 \"$man1\";
 	./mise/bin/mise completion zsh > _mise;
         " \
-    atpull'%atclone' \
-    atload'eval "$(mise activate zsh)"'
+    atpull'%atclone'
   zinit light 'jdx/mise'
 
   # completion that wants compinit
