@@ -73,8 +73,11 @@ See macOS specific notes in [mac/README.md](./mac/README.md)
 Local dotfiles are read from `$LDOTDIR`.
 
 - Put files `zshrc`, `bashrc`, `npmrc`, and `gitconfig` here
-  and they will be automatically sourced, LAST, by the default scripts.
+  and they will be automatically sourced near the end by the default scripts.
+  (In zsh, `zshrc` is sourced before `mise activate` — the mise hook snapshots
+  the environment when activation runs, so local env vars must already be set.)
   _No dots on the filenames (i.e. not `.zshrc`)._
+  Bash still sources `bashrc` last.
 
 ### rc script source order
 
