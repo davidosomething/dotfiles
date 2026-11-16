@@ -76,6 +76,11 @@ else
   autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME}/zsh/zcompdump"
 fi
 
+# Local env (EMAIL, etc.). Sourced BEFORE mise activation: the mise hook
+# snapshots the environment at activation time and reverts drift it detects
+# on later hook runs, so anything exported after activation gets dropped.
+[[ -f "${LDOTDIR}/zshrc" ]] && . "${LDOTDIR}/zshrc"
+
 # Top level, not a zinit atload: a PATH change made inside zinit's scope is
 # lost while mise's exported __MISE_DIFF survives, so ./node_modules/.bin
 # stays off PATH until the next prompt.
@@ -183,7 +188,6 @@ zle -N self-insert url-quote-magic
 . "${ZDOTDIR}/zstyle.zsh"
 
 . "${DOTFILES}/shell/after.sh"
-[[ -f "${LDOTDIR}/zshrc" ]] && . "${LDOTDIR}/zshrc"
 
 # ============================================================================
 
